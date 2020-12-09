@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+
+@import "./_fonts.css";
+
+body {
+  @apply font-sans bg-white;
+}
+
+@tailwind utilities;
