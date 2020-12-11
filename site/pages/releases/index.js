@@ -1,0 +1,1 @@
+../../res_pages/releases/releases_index.js

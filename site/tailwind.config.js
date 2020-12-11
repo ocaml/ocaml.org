@@ -16,6 +16,9 @@ module.exports = {
   },
   theme: {
     extend: {
+      colors: {
+        'ocamlorange': '#c15540',
+      },
     },
     /* Most of the time we customize the font-sizes,
      so we added the Tailwind default values here for

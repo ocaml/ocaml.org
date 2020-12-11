@@ -17,14 +17,14 @@
     "reason-react": "^0.9.1"
   },
   "scripts": {
-    "dev": "next dev",
-    "debug": "NODE_OPTIONS='--inspect' next dev",
+    "next:dev": "next dev",
+    "next:debug": "NODE_OPTIONS='--inspect' next dev",
     "build": "bsb -clean-world -make-world && next build",
-    "export": "next export",
-    "start": "next start -p $PORT",
-    "res:build": "bsb -make-world",
-    "res:clean": "bsb -clean-world",
-    "res:start": "bsb -make-world -w"
+    "next:export": "next export",
+    "next:start": "next start -p $PORT",
+    "rescript:build": "bsb -make-world",
+    "rescript:clean": "bsb -clean-world",
+    "rescript:start": "bsb -make-world -w"
   },
   "devDependencies": {
     "autoprefixer": "^9.8.6",
