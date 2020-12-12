@@ -36,14 +36,14 @@ Run ReScript in dev mode:
 
 ```
 nvm use
-npx yarn@1.22 rescript:start
+npx yarn rescript:start
 ```
 
 In another tab, run the Next dev server:
 
 ```
 nvm use
-npx yarn@1.22 next:dev
+npx yarn next:dev
 ```
 
 Go to localhost:3000
