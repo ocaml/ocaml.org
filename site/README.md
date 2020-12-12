@@ -4,17 +4,17 @@
 
 Feel free to use any approach that you prefer. The dev team
 suggests the following:
-- create an issue noting your intent to start work and ask
+- Create an issue noting your intent to start work and ask
 any clarifying questions or discuss approach, if needed
-- fork the repo
-- either work in the master branch, or create your own branch with
-a useful name
-- add a small initial commit and create a draft PR from your repo branch to the original repo
-- continue developing, feel free to ask questions in your issue or
+- Fork the repo
+- Add a small initial commit and create a draft PR from your repo to the original repo. If
+you created an issue, note the issue in your PR description
+- Continue developing, feel free to ask questions in your issue or
 the PR, if you run into obstacles or uncertainty as you make changes
-- once you feel your branch is ready, check the PR preview to ensure the changes
+- Once you feel your branch is ready, check the PR preview to ensure the changes
 match your local view and appear correct
-- change PR status to "ready to review"
+- Change PR status to "ready to review"
+- Add a comment to PR linking to PR Preview pages that have changed
 
 ## Setup
 
