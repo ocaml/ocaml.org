@@ -6,24 +6,29 @@
 
 Feel free to use any approach that you prefer. The dev team
 suggests the following:
-- Create an issue noting your intent to start work and ask
-any clarifying questions or discuss approach, if needed
-- Fork the repo
-- Add a small initial commit (e.g. change any file using Github directly) and 
-create a draft PR from your repo to the original repo. If you created an issue, 
-note the issue in your PR description
-- Clone your fork locally
-- Continue developing, feel free to ask questions in your issue or
+* If you are unsure if your change will be accepted or if want to discuss the
+approach before diving in, please create an issue and pose questions.
+* Create a draft PR with a small initial commit in fork of the repo. One way
+to do this quickly is the following:
+  * traverse to a source file of interest in github
+  * click the "pencil" edit icon in the top right, which forks the project and puts the file in edit mode
+  * make a small change to get started in the edit window
+  * update commit message and push "propose changes", which will create a commit and prompt for PR creation
+  * click "Create Pull Request"
+  * change the action to "Create draft pull request" and click
+* Clone your fork locally
+* Continue developing, feel free to ask questions in
 the PR, if you run into obstacles or uncertainty as you make changes
-- Once you feel your branch is ready, check the PR preview to ensure the changes
+* Once you feel your branch is ready, check the PR preview to ensure the changes
 match your local view and appear correct
-- Change PR status to "ready to review"
-- Update the PR description to indicate relative paths that have changed
+* Change PR status to "ready to review"
+* Update the PR description to indicate relative paths that have changed
 
 ### Reviewer
-- Observe the relative paths changed in latest PR Preview
+* Observe the relative paths changed in latest PR Preview
 ...
-- Use "squash and merge", summarizing commit messages
+* Use "squash and merge", summarizing commit messages
+* Close any issues that were addressed by this PR
 
 ## Setup
 
