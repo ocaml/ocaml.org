@@ -11,4 +11,4 @@ ci-install-deps:
 .PHONY: ci-build
 ci-build:
 	# nvm use
-	npx yarn@1.22 build
+	npx yarn build

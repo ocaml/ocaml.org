@@ -21,10 +21,11 @@ module LI = {
   let make = (~children) => 
     <li className="mb-3"> children </li>;
 };
-module A = {
+// TODO: I haven't been able to implement "A" without include "Link" yet. Troubleshoot why
+module LINK = {
   @react.component
-  let make = (~children) => 
-    <a className="text-ocamlorange hover:underline"> children </a>;
+  let make = (~href, ~children) => 
+    <Link href={href}><a className="text-ocamlorange hover:underline"> children </a></Link>;
 };
 module AEXT = {
   @react.component
@@ -36,141 +37,141 @@ let default = () =>
   <>
     <H1>{React.string("Releases")}</H1>
     <P>{React.string("The ")} 
-    <Link href="/releases/latest/"><A>{React.string("latest")}</A></Link>
+    <LINK href="/releases/latest/">{React.string("latest")}</LINK>
     {React.string(" page points to the most recent release of the OCaml compiler 
      distribution. Below is a list of the recent releases.")}
     </P>
     <P>{React.string("See also the ")}
-    <Link href="/docs/install.html"><A>{React.string("install")}</A></Link>
+    <LINK href="/docs/install.html">{React.string("install")}</LINK>
     {React.string(" page for instructions on installing OCaml by other means, such as
     the OPAM package manager and platform specific package managers.")}
     </P>
     <UL>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.11.1.html"><A>{React.string("4.11.1")}</A></Link>
+    <LINK href="/releases/4.11.1.html">{React.string("4.11.1")}</LINK>
     {React.string(", released Aug 31, 2020.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.11.0.html"><A>{React.string("4.11.0")}</A></Link>
+    <LINK href="/releases/4.11.0.html">{React.string("4.11.0")}</LINK>
     {React.string(", released Aug 19, 2020.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.10.1.html"><A>{React.string("4.10.1")}</A></Link>
+    <LINK href="/releases/4.10.1.html">{React.string("4.10.1")}</LINK>
     {React.string(", released Aug 20, 2020.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.10.0.html"><A>{React.string("4.10.0")}</A></Link>
+    <LINK href="/releases/4.10.0.html">{React.string("4.10.0")}</LINK>
     {React.string(", released Feb 21, 2020.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.09.1.html"><A>{React.string("4.09.1")}</A></Link>
+    <LINK href="/releases/4.09.1.html">{React.string("4.09.1")}</LINK>
     {React.string(", released Mar 18, 2020.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.09.0.html"><A>{React.string("4.09.0")}</A></Link>
+    <LINK href="/releases/4.09.0.html">{React.string("4.09.0")}</LINK>
     {React.string(", released Sep 18, 2019.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.08.1.html"><A>{React.string("4.08.1")}</A></Link>
+    <LINK href="/releases/4.08.1.html">{React.string("4.08.1")}</LINK>
     {React.string(", released Aug 5, 2019.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.08.0.html"><A>{React.string("4.08.0")}</A></Link>
+    <LINK href="/releases/4.08.0.html">{React.string("4.08.0")}</LINK>
     {React.string(", released Jun 14, 2019.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.07.1.html"><A>{React.string("4.07.1")}</A></Link>
+    <LINK href="/releases/4.07.1.html">{React.string("4.07.1")}</LINK>
     {React.string(", released Oct 4, 2018.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.07.0.html"><A>{React.string("4.07.0")}</A></Link>
+    <LINK href="/releases/4.07.0.html">{React.string("4.07.0")}</LINK>
     {React.string(", released Jul 10, 2018.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.07.0.html"><A>{React.string("4.07.0")}</A></Link>
+    <LINK href="/releases/4.07.0.html">{React.string("4.07.0")}</LINK>
     {React.string(", released Jul 10, 2018.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.06.1.html"><A>{React.string("4.06.1")}</A></Link>
+    <LINK href="/releases/4.06.1.html">{React.string("4.06.1")}</LINK>
     {React.string(", released Feb 16, 2018.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.06.0.html"><A>{React.string("4.06.0")}</A></Link>
+    <LINK href="/releases/4.06.0.html">{React.string("4.06.0")}</LINK>
     {React.string(", released Nov 3, 2017.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.05.0.html"><A>{React.string("4.05.0")}</A></Link>
+    <LINK href="/releases/4.05.0.html">{React.string("4.05.0")}</LINK>
     {React.string(", released July 13, 2017.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.04.2.html"><A>{React.string("4.04.2")}</A></Link>
+    <LINK href="/releases/4.04.2.html">{React.string("4.04.2")}</LINK>
     {React.string(", released Jun 23, 2017.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.04.1.html"><A>{React.string("4.04.1")}</A></Link>
+    <LINK href="/releases/4.04.1.html">{React.string("4.04.1")}</LINK>
     {React.string(", released Apr 14, 2017.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.04.0.html"><A>{React.string("4.04.0")}</A></Link>
+    <LINK href="/releases/4.04.0.html">{React.string("4.04.0")}</LINK>
     {React.string(", released Nov 4, 2016.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.03.0.html"><A>{React.string("4.03.0")}</A></Link>
+    <LINK href="/releases/4.03.0.html">{React.string("4.03.0")}</LINK>
     {React.string(", released Apr 25, 2016.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.02.3.html"><A>{React.string("4.02.3")}</A></Link>
+    <LINK href="/releases/4.02.3.html">{React.string("4.02.3")}</LINK>
     {React.string(", released Jul 27, 2015.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.02.2.html"><A>{React.string("4.02.2")}</A></Link>
+    <LINK href="/releases/4.02.2.html">{React.string("4.02.2")}</LINK>
     {React.string(", released Jun 17, 2015.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.02.1.html"><A>{React.string("4.02.1")}</A></Link>
+    <LINK href="/releases/4.02.1.html">{React.string("4.02.1")}</LINK>
     {React.string(", released Oct 14, 2014.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.02.0.html"><A>{React.string("4.02.0")}</A></Link>
+    <LINK href="/releases/4.02.0.html">{React.string("4.02.0")}</LINK>
     {React.string(", released Aug 29, 2014.")}<br />
     {React.string("(4.02.0 suffers from one known bug that noticeably increases compilation time,
     you should use 4.02.1 or later versions instead.)")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.01.0.html"><A>{React.string("4.01.0")}</A></Link>
+    <LINK href="/releases/4.01.0.html">{React.string("4.01.0")}</LINK>
     {React.string(", released Sep 12, 2013.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/4.00.1.html"><A>{React.string("4.00.1")}</A></Link>
+    <LINK href="/releases/4.00.1.html">{React.string("4.00.1")}</LINK>
     {React.string(", released Oct 5, 2012.")}
     </LI>
     <LI>
     {React.string("OCaml ")}
-    <Link href="/releases/3.12.1.html"><A>{React.string("3.12.1")}</A></Link>
+    <LINK href="/releases/3.12.1.html">{React.string("3.12.1")}</LINK>
     {React.string(", released July 4, 2011.")}
     </LI>
     <LI>
