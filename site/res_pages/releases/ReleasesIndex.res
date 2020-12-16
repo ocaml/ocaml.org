@@ -2,31 +2,32 @@ module Link = Next.Link;
 
 // TODO: rename this file to index.re once duplicate names issue resolved
 module P = {
-  [@react.component]
+  @react.component
   let make = (~children) => <p className="mb-6"> children </p>;
 };
 module H1 = {
-  [@react.component]
+  // TODO: use mb-1.5 and tailwind 2
+  @react.component
   let make = (~children) => 
-    <h1 className="font-sans text-4xl font-bold leading-snub mb-1.5"> children </h1>;
+    <h1 className="font-sans text-4xl font-bold leading-snug mb-2"> children </h1>;
 };
 module UL = {
-  [@react.component]
+  @react.component
   let make = (~children) => 
     <ul className="mb-6 ml-6 -mt-3 list-disc"> children </ul>;
 };
 module LI = {
-  [@react.component]
+  @react.component
   let make = (~children) => 
     <li className="mb-3"> children </li>;
 };
 module A = {
-  [@react.component]
+  @react.component
   let make = (~children) => 
     <a className="text-ocamlorange hover:underline"> children </a>;
 };
 module AEXT = {
-  [@react.component]
+  @react.component
   let make = (~children, ~href) => 
     <a href={href} className="text-ocamlorange hover:underline" target="_blank" > children </a>;
 };
