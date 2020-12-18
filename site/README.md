@@ -13,10 +13,10 @@ to do this quickly is the following:
   * traverse to a source file of interest in github
   * click the "pencil" edit icon in the top right, which forks the project and puts the file in edit mode
   * make a small change to get started in the edit window
-  * update commit message and push "propose changes", which will create a commit and prompt for PR creation
+  * push "propose changes", which will create a commit and prompt for PR creation
   * click "Create Pull Request"
-  * change the action to "Create draft pull request" and click
-* Clone your fork locally
+  * on the next screen, change the action to "Create draft pull request" and press the button
+* Clone your fork locally (or continue editing directly in github if the change is small)
 * Continue developing, feel free to ask questions in
 the PR, if you run into obstacles or uncertainty as you make changes
 * Once you feel your branch is ready, check the PR preview to ensure the changes
@@ -26,7 +26,8 @@ match your local view and appear correct
 
 ### Reviewer
 * Observe the relative paths changed in latest PR Preview
-...
+* ... manual smoke test: ... ...
+* ... MORE CONTENT HERE ...
 * Use "squash and merge", summarizing commit messages
 * Close any issues that were addressed by this PR
 
@@ -113,3 +114,9 @@ This is a NextJS project using the following:
 
 - [ReScript](https://rescript-lang.org) + React (reason-react)
 - Full Tailwind config & basic css scaffold (+ production setup w/ purge-css & cssnano)
+
+The initially structure was defined by imitating a combination of choices in the following projects, with rescriptlang.org 
+usually taking precedence when there was conflicting advice:
+- https://github.com/ryyppy/rescript-nextjs-template
+- https://github.com/sehyunchung/rescript-nextjs
+- https://github.com/reason-association/rescript-lang.org
