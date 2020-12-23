@@ -16,7 +16,8 @@ to do this quickly is the following:
   * push "propose changes", which will create a commit and prompt for PR creation
   * click "Create Pull Request"
   * on the next screen, change the action to "Create draft pull request" and press the button
-* Clone your fork locally (or continue editing directly in github if the change is small)
+* Clone your fork locally (or continue editing directly in github if the change is small). Checkout
+out the branch that you created.
 * Continue developing, feel free to ask questions in
 the PR, if you run into obstacles or uncertainty as you make changes
 * Once you feel your branch is ready, check the PR preview to ensure the changes
@@ -25,6 +26,7 @@ match your local view and appear correct
 * Update the PR description to indicate relative paths that have changed
 
 ### Reviewer
+
 * Observe the relative paths changed in latest PR Preview
 * ... manual smoke test: ... ...
 * ... MORE CONTENT HERE ...
@@ -72,7 +74,8 @@ page-based routing, which expects the filepath starting from `/pages/` to match
 the route exposed. So, in order to completely avoid any problems from this issue,
 we always create pages in `res_pages/` and rewrap the module in the desired location
 in `pages/`. If your module uses `getStaticPaths` or `getStaticProps`, those will also
-need to be re-exposed. Also, note that we choose to repeat the folder name "releases" in the module name "ReleasesIndex.js".
+need to be re-exposed. Also, note that we choose to repeat the folder name (e.g. "releases") 
+in the module name (e.g. "ReleasesIndex.js").
 
 ### Fast Refresh & ReScript
 
@@ -115,8 +118,9 @@ This is a NextJS project using the following:
 - [ReScript](https://rescript-lang.org) + React (reason-react)
 - Full Tailwind config & basic css scaffold (+ production setup w/ purge-css & cssnano)
 
-The initially structure was defined by imitating a combination of choices in the following projects, with rescriptlang.org 
-usually taking precedence when there was conflicting advice:
+The initial structure was defined by imitating a combination of choices in the following projects, with rescriptlang.org 
+taking precedence when there was conflicting advice:
+
 - https://github.com/ryyppy/rescript-nextjs-template
 - https://github.com/sehyunchung/rescript-nextjs
 - https://github.com/reason-association/rescript-lang.org
