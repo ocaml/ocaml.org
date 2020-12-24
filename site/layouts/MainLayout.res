@@ -1,17 +1,34 @@
 @react.component
 let make = (~children, ~editpath) => {
-  let minWidth = ReactDOMRe.Style.make(~minWidth="20rem", ()); // TODO: replace w/tailwind class
-  <div style=minWidth className="flex lg:justify-center">
+  let navMainStyle = ReactDOMRe.Style.make(
+    ~minWidth="20rem",
+    ~flex="1 0 auto",
+    ());
+  <>
+  <div className="flex flex-col min-h-screen font-base text-gray-900">
 
-    <div className="max-w-5xl w-full lg:w-3/4 text-gray-900 font-base">
+    <div style=navMainStyle className="flex lg:justify-center">
 
-      <HeaderNavigation editpath={editpath} />
+      <div className="max-w-5xl w-full lg:w-3/4">
 
-      <main className="mt-4 mx-4">
-        children 
-      </main>
+        <HeaderNavigation editpath={editpath} />
+
+        <main className="mt-4 mx-4">
+          children 
+        </main>
+
+      </div>
 
     </div>
 
-  </div>;
+    <div className="flex-shrink-0 flex lg:justify-center">
+
+      <div className="max-w-5xl w-full lg:w-3/4">
+        <Footer />
+      </div>
+
+    </div>
+
+  </div>
+  </>;
 };
