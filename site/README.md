@@ -91,12 +91,7 @@ In order to ensure that this site remains a static site, do not make use of next
 Build CSS seperately via `npx postcss` (useful for debugging)
 
 ```
-# Devmode
-nvm exec npx postcss styles/main.css -o test.css
-
-# Production
-nvm use
-NODE_ENV=production npx postcss styles/main.css -o test.css
+nvm exec npx postcss styles/main.css -o /tmp/test.css
 ```
 
 ## Test production setup with Next
@@ -113,11 +108,12 @@ PORT=3001 npx yarn next:start
 This is a NextJS project using the following:
 
 - [ReScript](https://rescript-lang.org) + React (reason-react)
-- Full Tailwind config & basic css scaffold (+ production setup w/ purge-css & cssnano)
+- Full Tailwind config & basic css scaffold (+ purge-css)
+- Mdxjs (via next-mdx-remote)
 
-The initial structure was defined by imitating a combination of choices in the following projects, with rescriptlang.org 
-taking precedence when there was conflicting advice:
+The initial structure was defined by imitating a combination of choices in the following projects, with
+rescriptlang.org taking precedence when there was conflicting advice:
 
-- https://github.com/ryyppy/rescript-nextjs-template
-- https://github.com/sehyunchung/rescript-nextjs
+- https://github.com/ryyppy/rescript-nextjs-template ; https://github.com/sehyunchung/rescript-nextjs
 - https://github.com/reason-association/rescript-lang.org
+- (add more links: with-tailwindcss example, with-mdx-remote example)
