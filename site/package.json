@@ -5,10 +5,9 @@
   "author": "The OCaml.org team",
   "license": "ISC",
   "engines": {
-    "node": ">=12.x"
+    "node": ">=14.15.1"
   },
   "dependencies": {
-    "@zeit/next-css": "^1.0.1",
     "gentype": "^3.39.0",
     "next": "^9.5.5",
     "next-mdx-remote": "^1.0.1",
@@ -30,8 +29,14 @@
   "devDependencies": {
     "autoprefixer": "^9.8.6",
     "bs-platform": "8.3.1",
-    "cssnano": "^4.1.10",
+    "postcss-cli": "7.1.2",
     "tailwindcss": "1.8.10",
     "yarn": "1.22"
+  },
+  "postcss": {
+    "plugins": {
+      "tailwindcss": {},
+      "autoprefixer": {}
+    }
   }
 }

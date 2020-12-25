@@ -4,9 +4,6 @@ import * as React from "react";
 import * as MainLayout from "../layouts/MainLayout.js";
 import * as Router from "next/router";
 
-import '../styles/main.css'
-;
-
 function make(props) {
   var component = props.Component;
   var pageProps = props.pageProps;
@@ -33,4 +30,4 @@ export {
   make ,
   
 }
-/*  Not a pure module */
+/* react Not a pure module */
