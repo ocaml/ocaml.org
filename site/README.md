@@ -35,16 +35,16 @@ match your local view and appear correct
 
 ## Setup
 
+If you don't already have `nvm` installed, install it using the instructions
+provided by `nvm` https://github.com/nvm-sh/nvm#installing-and-updating . Restart
+or reload your terminal to pickup the changes.
+
 ```
-# Ensure you have the correct node version.
-# (Assumes that you have nvm installed already)
+# Ensure you have the correct node version by installing it, if it's not present already
 nvm install
 
-# Set the appropriate node version
-nvm use
-
-# For first time clone / build (install dependencies)
-npx yarn@1.22 install
+# Using installed node version, install yarn and install dependencies
+nvm exec npx yarn@1.22 install
 ```
 
 ## Development
@@ -52,15 +52,13 @@ npx yarn@1.22 install
 Run ReScript in dev mode:
 
 ```
-nvm use
-npx yarn rescript:start
+nvm exec npx yarn rescript:start
 ```
 
 In another tab, run the Next dev server:
 
 ```
-nvm use
-npx yarn next:dev
+nvm exec npx yarn next:dev
 ```
 
 Go to localhost:3000
@@ -94,8 +92,7 @@ Build CSS seperately via `npx postcss` (useful for debugging)
 
 ```
 # Devmode
-nvm use
-npx postcss styles/main.css -o test.css
+nvm exec npx postcss styles/main.css -o test.css
 
 # Production
 nvm use
