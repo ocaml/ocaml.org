@@ -1,8 +1,8 @@
 
 
 import * as React from "react";
-import * as Markdown from "../../components/Markdown.js";
 import Link from "next/link";
+import * as Markdown$Ocamlorg from "../../components/Markdown.js";
 
 function ReleasesIndex$P(Props) {
   var children = Props.children;
@@ -52,7 +52,7 @@ function $$default(param) {
                 }, "See also the ", React.createElement(ReleasesIndex$LINK, {
                       href: "/docs/install.html",
                       children: "install"
-                    }), " page for instructions on installing OCaml by other means, such as\n    the OPAM package manager and platform specific package managers."), React.createElement(Markdown.UL.make, {
+                    }), " page for instructions on installing OCaml by other means, such as\n    the OPAM package manager and platform specific package managers."), React.createElement(Markdown$Ocamlorg.UL.make, {
                   children: null
                 }, React.createElement("li", undefined, "OCaml ", React.createElement(ReleasesIndex$LINK, {
                           href: "/releases/4.11.1.html",

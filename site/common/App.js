@@ -1,8 +1,8 @@
 
 
 import * as React from "react";
-import * as MainLayout from "../layouts/MainLayout.js";
 import * as Router from "next/router";
+import * as MainLayout$Ocamlorg from "../layouts/MainLayout.js";
 
 function make(props) {
   var component = props.Component;
@@ -12,14 +12,14 @@ function make(props) {
   console.log(router.route);
   var match = router.route;
   if (match === "/releases") {
-    return React.createElement(MainLayout.make, {
+    return React.createElement(MainLayout$Ocamlorg.make, {
                 children: null,
                 editpath: "site/index.md"
               }, React.createElement("h1", {
                     className: "font-bold"
                   }, "Releases Section"), React.createElement("div", undefined, content));
   } else {
-    return React.createElement(MainLayout.make, {
+    return React.createElement(MainLayout$Ocamlorg.make, {
                 children: content,
                 editpath: "site/index.md"
               });

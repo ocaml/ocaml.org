@@ -11,13 +11,16 @@
     "node": "change back to >=14.15.1 once vercel build is enhanced"
   },
   "dependencies": {
-    "gentype": "^3.39.0",
+    "bs-platform": "8.3.1",
     "next": "^9.5.5",
     "next-mdx-remote": "^1.0.1",
     "next-transpile-modules": "^4.1.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "reason-react": "^0.9.1"
+  },
+  "dependenciesDescription": {
+    "bs-platform": "This a regular dependency because the included standard libraries are used during runtime"
   },
   "scripts": {
     "next:dev": "next dev",
@@ -31,7 +34,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.8.6",
-    "bs-platform": "8.3.1",
+    "gentype": "^3.39.0",
     "postcss-cli": "7.1.2",
     "tailwindcss": "1.8.10",
     "yarn": "1.22"

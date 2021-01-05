@@ -1,8 +1,8 @@
 
 
 import * as React from "react";
-import * as Footer from "../components/Footer.js";
-import * as HeaderNavigation from "../components/HeaderNavigation.js";
+import * as Footer$Ocamlorg from "../components/Footer.js";
+import * as HeaderNavigation$Ocamlorg from "../components/HeaderNavigation.js";
 
 function MainLayout(Props) {
   var children = Props.children;
@@ -18,7 +18,7 @@ function MainLayout(Props) {
                       style: navMainStyle
                     }, React.createElement("div", {
                           className: "max-w-5xl w-full lg:w-3/4"
-                        }, React.createElement(HeaderNavigation.make, {
+                        }, React.createElement(HeaderNavigation$Ocamlorg.make, {
                               editpath: editpath
                             }), React.createElement("main", {
                               className: "mt-4 mx-4"
@@ -26,7 +26,7 @@ function MainLayout(Props) {
                       className: "flex-shrink-0 flex lg:justify-center"
                     }, React.createElement("div", {
                           className: "max-w-5xl w-full lg:w-3/4"
-                        }, React.createElement(Footer.make, {})))));
+                        }, React.createElement(Footer$Ocamlorg.make, {})))));
 }
 
 var make = MainLayout;

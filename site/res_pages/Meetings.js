@@ -1,8 +1,8 @@
 
 
 import * as React from "react";
-import * as Markdown from "../components/Markdown.js";
 import Link from "next/link";
+import * as Markdown$Ocamlorg from "../components/Markdown.js";
 
 function Meetings$H1(Props) {
   var children = Props.children;
@@ -42,7 +42,7 @@ function Meetings$AEXT(Props) {
 function $$default(param) {
   return React.createElement(React.Fragment, undefined, React.createElement(Meetings$H1, {
                   children: "OCaml Users and Developers Workshop"
-                }), React.createElement(Markdown.UL.make, {
+                }), React.createElement(Markdown$Ocamlorg.UL.make, {
                   children: null
                 }, React.createElement("li", undefined, React.createElement(Meetings$LINK, {
                           href: "/meetings/ocaml/2020/",
@@ -75,7 +75,7 @@ function $$default(param) {
                   children: "OCaml Meetings"
                 }), React.createElement(Meetings$H2, {
                   children: "In Europe"
-                }), React.createElement(Markdown.UL.make, {
+                }), React.createElement(Markdown$Ocamlorg.UL.make, {
                   children: null
                 }, React.createElement("li", undefined, "2014, July 8, 7:00 PM: ", React.createElement(Meetings$AEXT, {
                           children: "Rencontre d\'été",
@@ -115,7 +115,7 @@ function $$default(param) {
                           children: "Paris"
                         }))), React.createElement(Meetings$H2, {
                   children: "In Japan"
-                }), React.createElement(Markdown.UL.make, {
+                }), React.createElement(Markdown$Ocamlorg.UL.make, {
                   children: null
                 }, React.createElement("li", undefined, "2013: ", React.createElement(Meetings$AEXT, {
                           children: "Nagoya",
@@ -125,7 +125,7 @@ function $$default(param) {
                           href: "http://ocaml.jp/um2010"
                         })), React.createElement("li", undefined, "2010: Tokyo")), React.createElement(Meetings$H2, {
                   children: "In the US"
-                }), React.createElement(Markdown.UL.make, {
+                }), React.createElement(Markdown$Ocamlorg.UL.make, {
                   children: null
                 }, React.createElement("li", undefined, "2012-present: ", React.createElement(Meetings$AEXT, {
                           children: "NYC OCaml Meetup",
@@ -135,7 +135,7 @@ function $$default(param) {
                           href: "http://www.meetup.com/sv-ocaml/"
                         }))), React.createElement(Meetings$H2, {
                   children: "In the UK"
-                }), React.createElement(Markdown.UL.make, {
+                }), React.createElement(Markdown$Ocamlorg.UL.make, {
                   children: React.createElement("li", undefined, "2012: ", React.createElement(Meetings$AEXT, {
                             children: "Cambridge NonDysFunctional Programmers",
                             href: "http://www.meetup.com/Cambridge-NonDysFunctional-Programmers/"

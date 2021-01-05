@@ -2,13 +2,13 @@
 
 import * as Fs from "fs";
 import * as React from "react";
-import * as Markdown from "../../components/Markdown.js";
+import * as Markdown$Ocamlorg from "../../components/Markdown.js";
 import Hydrate from "next-mdx-remote/hydrate";
 import RenderToString from "next-mdx-remote/render-to-string";
 
 function $$default(props) {
   var content = Hydrate(props.source, {
-        components: Markdown.$$default
+        components: Markdown$Ocamlorg.$$default
       });
   return React.createElement(React.Fragment, undefined, content);
 }
@@ -16,7 +16,7 @@ function $$default(props) {
 function getStaticProps(_ctx) {
   var source = Fs.readFileSync("_content/community/support.mdx");
   var __x = RenderToString(source, {
-        components: Markdown.$$default
+        components: Markdown$Ocamlorg.$$default
       });
   return __x.then(function (mdxSource) {
               var props = {

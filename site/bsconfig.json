@@ -1,6 +1,7 @@
 {
+  "$schema": "https://raw.githubusercontent.com/rescript-lang/rescript-compiler/master/docs/docson/build-schema.json",
   "name": "ocamlorg",
-  "namespace": false,
+  "namespace": true,
   "reason": { "react-jsx": 3 },
   "refmt": 3,
   "bs-dependencies": [
