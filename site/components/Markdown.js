@@ -47,6 +47,17 @@ var H3 = {
   make: Markdown$H3
 };
 
+function Markdown$UL(Props) {
+  var children = Props.children;
+  return React.createElement("ul", {
+              className: "pl-8 space-y-3 mb-6 list-disc"
+            }, children);
+}
+
+var UL = {
+  make: Markdown$UL
+};
+
 function Markdown$LINK(Props) {
   var href = Props.href;
   var children = Props.children;
@@ -78,6 +89,7 @@ export {
   H1 ,
   H2 ,
   H3 ,
+  UL ,
   LINK ,
   $$default ,
   $$default as default,

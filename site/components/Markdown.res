@@ -21,6 +21,11 @@ module H3 = {
   let make = (~children) => 
     <h3 className="font-sans text-lg font-bold leading-normal mb-3"> children </h3>;
 };
+module UL = {
+  @react.component
+  let make = (~children) =>
+    <ul className="pl-8 space-y-3 mb-6 list-disc"> children </ul>
+}
 // TODO: refactor to only "a" tag, using instructions in next/link docs
 module LINK = {
   @react.component
