@@ -7,7 +7,9 @@ function HeaderNavigation(Props) {
   var editpath = Props.editpath;
   var editUrl = "https://github.com/ocaml/ocaml.org/edit/master/" + editpath;
   return React.createElement("nav", {
-              className: "p-2 h-12 flex border-b border-gray-200 items-center text-sm"
+              "aria-label": "Main",
+              className: "p-2 h-12 flex border-b border-gray-200 items-center text-sm",
+              role: "navigation"
             }, React.createElement(Link, {
                   href: "/",
                   children: React.createElement("a", {
@@ -42,7 +44,8 @@ function HeaderNavigation(Props) {
                             className: "px-3"
                           }, "News")
                     }), React.createElement("span", {
-                      className: "px-3"
+                      className: "px-3",
+                      role: "search"
                     }, "Search"), React.createElement("a", {
                       className: "px-3 font-bold",
                       href: editUrl,

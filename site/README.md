@@ -33,33 +33,27 @@ match your local view and appear correct
 * Use "squash and merge", summarizing commit messages
 * Close any issues that were addressed by this PR
 
-## Setup
+## Setup and Development
 
 If you don't already have `nvm` installed, install it using the instructions
 provided by `nvm` https://github.com/nvm-sh/nvm#installing-and-updating . Restart
 or reload your terminal to pickup the changes.
 
 ```
-# Ensure you have the correct node version by installing it, if it's not present already
-nvm install
-
-# Using installed node version, install yarn and install dependencies
-nvm exec npx yarn@1.22 install
+# 1. Ensure you have the correct node version by installing it, if it's not present already
+# 2. Using installed node version, install yarn and install dependencies
+# 3. Run ReScript in dev mode
+nvm install && nvm use && npx yarn@1.22 install && npx yarn rescript:start
 ```
 
-## Development
-
-Run ReScript in dev mode:
+In another tab, run the Next dev server in the background:
 
 ```
-nvm exec npx yarn rescript:start
+nvm use && npx yarn next:dev &
 ```
 
-In another tab, run the Next dev server:
-
-```
-nvm exec npx yarn next:dev
-```
+The output from the next dev server is rarely interesting, so we run it in the background. 
+This frees up the second terminal for performing `git commands`.
 
 Go to localhost:3000
 
@@ -75,23 +69,22 @@ in `pages/`. If your module uses `getStaticPaths` or `getStaticProps`, those wil
 need to be re-exposed. Also, note that we choose to repeat the folder name (e.g. "releases") 
 in the module name (e.g. "ReleasesIndex.js").
 
-### Fast Refresh & ReScript
-
-Make sure to create interface files (`.resi`) for each `page/*.res` file.
-
-Fast Refresh requires you to **only export React components**, and it's easy to unintenionally export other values than that.
-
 ### Do not use getServerSideProps
 
 In order to ensure that this site remains a static site, do not make use of nextjs's
 `getServerSideProps` functionality.
+
+### Prefer Simplicity over Accomodating Fast Refresh
+
+We choose to not complicate this project to accomodate Fast Refresh.
+
 
 ## Useful commands
 
 Build CSS seperately via `npx postcss` (useful for debugging)
 
 ```
-nvm exec npx postcss styles/main.css -o /tmp/test.css
+nvm use && npx postcss styles/main.css -o /tmp/test.css
 ```
 
 ## Test production setup with Next
@@ -114,6 +107,6 @@ This is a NextJS project using the following:
 The initial structure was defined by imitating a combination of choices in the following projects, with
 rescriptlang.org taking precedence when there was conflicting advice:
 
-- https://github.com/ryyppy/rescript-nextjs-template ; https://github.com/sehyunchung/rescript-nextjs
+- https://github.com/ryyppy/rescript-nextjs-template
 - https://github.com/reason-association/rescript-lang.org
 - (add more links: with-tailwindcss example, with-mdx-remote example)

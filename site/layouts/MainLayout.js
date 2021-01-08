@@ -21,7 +21,8 @@ function MainLayout(Props) {
                         }, React.createElement(HeaderNavigation$Ocamlorg.make, {
                               editpath: editpath
                             }), React.createElement("main", {
-                              className: "mt-4 mx-4"
+                              className: "mt-4 mx-4",
+                              role: "main"
                             }, children))), React.createElement("div", {
                       className: "flex-shrink-0 flex lg:justify-center"
                     }, React.createElement("div", {

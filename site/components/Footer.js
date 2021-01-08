@@ -4,7 +4,8 @@ import * as React from "react";
 
 function Footer(Props) {
   return React.createElement("footer", {
-              className: "flex justify-center py-2 space-x-4 text-xs"
+              className: "flex justify-center py-2 space-x-4 text-xs",
+              role: "contentinfo"
             }, React.createElement("span", undefined, "Privacy"), React.createElement("span", undefined, "Sitemap"));
 }
 

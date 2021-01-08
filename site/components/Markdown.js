@@ -64,7 +64,7 @@ function Markdown$LINK(Props) {
   return React.createElement(Link, {
               href: href,
               children: React.createElement("a", {
-                    className: "text-ocamlorange hover:underline"
+                    className: "text-ocamlorange underline"
                   }, children)
             });
 }

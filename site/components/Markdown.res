@@ -30,7 +30,7 @@ module UL = {
 module LINK = {
   @react.component
   let make = (~href, ~children) => 
-    <Link href={href}><a className="text-ocamlorange hover:underline"> children </a></Link>;
+    <Link href={href}><a className="text-ocamlorange underline"> children </a></Link>;
 };
 /* fold this code into a branch in "LINK"
 module AEXT = {
