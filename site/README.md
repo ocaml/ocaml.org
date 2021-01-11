@@ -53,9 +53,9 @@ nvm use && npx yarn next:dev &
 ```
 
 The output from the next dev server is rarely interesting, so we run it in the background. 
-This frees up the second terminal for performing `git commands`.
+This frees up the second terminal for performing `git` commands.
 
-Go to localhost:3000
+Go to `http://localhost:3000`
 
 ## Tips
 
@@ -109,4 +109,5 @@ rescriptlang.org taking precedence when there was conflicting advice:
 
 - https://github.com/ryyppy/rescript-nextjs-template
 - https://github.com/reason-association/rescript-lang.org
-- (add more links: with-tailwindcss example, with-mdx-remote example)
+- https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss
+- (add more links: with-mdx-remote example)
