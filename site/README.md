@@ -110,4 +110,5 @@ rescriptlang.org taking precedence when there was conflicting advice:
 - https://github.com/ryyppy/rescript-nextjs-template
 - https://github.com/reason-association/rescript-lang.org
 - https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss
-- (add more links: with-mdx-remote example)
+- https://github.com/vercel/next.js/tree/canary/examples/with-mdx-remote
+- (add more links: ...)
