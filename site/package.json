@@ -20,7 +20,8 @@
     "reason-react": "^0.9.1"
   },
   "dependenciesDescription": {
-    "bs-platform": "This a regular dependency because the included standard libraries are used during runtime"
+    "bs-platform": "This a regular dependency because the included standard libraries are used during runtime",
+    "next-mdx-remote": "This allows for directly invoking mdxjs markdown conversion during nextjs data fetching"
   },
   "scripts": {
     "next:dev": "next dev",
