@@ -112,3 +112,9 @@ rescriptlang.org taking precedence when there was conflicting advice:
 - https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss
 - https://github.com/vercel/next.js/tree/canary/examples/with-mdx-remote
 - (add more links: ...)
+
+## Notes
+
+We encountered some unexplained issues when using `nvm exec` on 
+macOS. The instructions only use `nvm install` or `nvm use`, 
+to avoid encountering these issues.
