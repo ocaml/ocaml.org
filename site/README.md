@@ -101,7 +101,7 @@ PORT=3001 npx yarn next:start
 This is a NextJS project using the following:
 
 - [ReScript](https://rescript-lang.org) + React (reason-react)
-- Full Tailwind config & basic css scaffold (+ purge-css)
+- Full Tailwind config & basic css scaffold
 - Mdxjs (via next-mdx-remote)
 
 The initial structure was defined by imitating a combination of choices in the following projects, with
