@@ -91,9 +91,7 @@ nvm install && npx postcss styles/main.css -o /tmp/test.css
 
 TODO: change this to use `export` and `start` with output dir, instead of `start` directly
 ```
-nvm install
-npx yarn build
-PORT=3001 npx yarn next:start
+nvm install && npx yarn@1.22 install && npx yarn build && PORT=3001 npx yarn next:start
 ```
 
 ## Reference
@@ -112,6 +110,11 @@ rescriptlang.org taking precedence when there was conflicting advice:
 - https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss
 - https://github.com/vercel/next.js/tree/canary/examples/with-mdx-remote
 - (add more links: ...)
+
+Some other useful reference articles:
+- [Markdown rendering approaches in nextjs](https://nextjs.org/blog/markdown)
+- [Utility-first CSS advocacy](https://www.swyx.io/why-tailwind/)
+- [2020 State of CSS - framework results](https://2020.stateofcss.com/en-US/technologies/css-frameworks/)
 
 ## Notes
 

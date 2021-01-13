@@ -21,7 +21,7 @@ let default = () =>
         enough to recompile the whole system.`)}
       </p>
       <p>
-        <LINK href="/learn/tutorials/debug.html">{s(`Debugging is possible by tracing function calls`)}</LINK>
+        <LINK href="/learn/tutorials/debug">{s(`Debugging is possible by tracing function calls`)}</LINK>
         {s(` in the same way as in OCaml. In the example therein, one should write `)}
         <code>{s(`trace "fib";;`)}</code>
         {s(` instead of `)}
