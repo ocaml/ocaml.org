@@ -43,13 +43,13 @@ or reload your terminal to pickup the changes.
 # 1. Ensure you have the correct node version by installing it, if it's not present already
 # 2. Using installed node version, install yarn and install dependencies
 # 3. Run ReScript in dev mode
-nvm install && nvm use && npx yarn@1.22 install && npx yarn rescript:start
+nvm install && npx yarn@1.22 install && npx yarn rescript:start
 ```
 
 In another tab, run the Next dev server in the background:
 
 ```
-nvm use && npx yarn next:dev &
+nvm install && npx yarn next:dev &
 ```
 
 The output from the next dev server is rarely interesting, so we run it in the background. 
@@ -84,14 +84,14 @@ We choose to not complicate this project to accomodate Fast Refresh.
 Build CSS seperately via `npx postcss` (useful for debugging)
 
 ```
-nvm use && npx postcss styles/main.css -o /tmp/test.css
+nvm install && npx postcss styles/main.css -o /tmp/test.css
 ```
 
 ## Test production setup with Next
 
 TODO: change this to use `export` and `start` with output dir, instead of `start` directly
 ```
-nvm use
+nvm install
 npx yarn build
 PORT=3001 npx yarn next:start
 ```
