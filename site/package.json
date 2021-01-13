@@ -41,6 +41,9 @@
     "tailwindcss": "1.8.10",
     "yarn": "1.22"
   },
+  "devDependenciesDescription": {
+    "gentype": "Can be used to create converters between JS and rescript types for values used in static props"
+  },
   "postcss": {
     "plugins": {
       "tailwindcss": {},
