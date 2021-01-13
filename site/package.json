@@ -21,7 +21,8 @@
   },
   "dependenciesDescription": {
     "bs-platform": "This a regular dependency because the included standard libraries are used during runtime",
-    "next-mdx-remote": "This allows for directly invoking mdxjs markdown conversion during nextjs data fetching"
+    "next-mdx-remote": "Allows for directly invoking mdxjs markdown conversion during nextjs data fetching",
+    "next-transpile-modules": "Used to convert rescript libraries from commonjs to es6 in nextjs builds"
   },
   "scripts": {
     "next:dev": "next dev",
