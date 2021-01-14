@@ -15,6 +15,7 @@ to do this quickly is the following:
   * make a small change to get started in the edit window
   * push "propose changes", which will create a commit and prompt for PR creation
   * click "Create Pull Request"
+  * select a template by appending the following to the url: `template=webpage_implement.md`, inserting a `?` before, if not already present
   * on the next screen, change the action to "Create draft pull request" and press the button
 * Clone your fork locally (or continue editing directly in github if the change is small). Checkout
 out the branch that you created.
