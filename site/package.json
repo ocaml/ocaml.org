@@ -42,7 +42,9 @@
     "yarn": "1.22"
   },
   "devDependenciesDescription": {
-    "gentype": "Can be used to create converters between JS and rescript types for values used in static props"
+    "gentype": "Can be used to create converters between JS and rescript types for values used in static props",
+    "postcss-cli": "Only used when manually debugging CSS generation. True postcss version is determined by next version",
+    "yarn": "yarn is installed manually initially to perform install, after that, this version is referenced"
   },
   "postcss": {
     "plugins": {
