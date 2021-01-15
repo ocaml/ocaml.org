@@ -1,0 +1,15 @@
+pulls:
+  daysUntilStale: 90
+  daysUntilClose: 30
+  markComment: >
+    This pull request has been automatically marked as stale because it 
+    has not had recent activity. It will be closed in 30 days if no further 
+    activity occurs. Thank you for your contributions.
+
+issues:
+  daysUntilStale: 180
+  daysUntilClose: 30
+  markComment: >
+    This issue has been automatically marked as stale because it 
+    has not had recent activity. It will be closed in 30 days if no further 
+    activity occurs. Thank you for your contributions.

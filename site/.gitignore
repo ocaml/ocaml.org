@@ -1,14 +1,21 @@
-out
+# Logs
+yarn-error.log
 
+# macOS folder view custom attributes
 .DS_Store
+
+# vim swap files
 *.swp
 *.swo
 
+# Dependency directories
 node_modules/
+
+# Next.js build output
 .next/
+out
 
-yarn-error.log
-
+# rescript compilation artifacts
 .bsb.lock
 .merlin
-lib/
+/lib/bs/

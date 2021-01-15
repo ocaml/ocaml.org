@@ -122,3 +122,10 @@ Some other useful reference articles:
 We encountered some unexplained issues when using `nvm exec` on 
 macOS. The instructions only use `nvm install` or `nvm use`, 
 to avoid encountering these issues.
+
+
+## Design and Information Architecture
+
+sitemap and information architecture - https://app.flowmapp.com/share/6e5eeb4573f9e110ac779691fee85422/sitemap/
+
+design - uses Figma, currently managed by designer
