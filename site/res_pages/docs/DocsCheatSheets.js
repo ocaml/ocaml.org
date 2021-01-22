@@ -3,6 +3,10 @@
 import * as React from "react";
 import * as Markdown$Ocamlorg from "../../components/Markdown.js";
 
+function s(prim) {
+  return prim;
+}
+
 function $$default(param) {
   return React.createElement(React.Fragment, undefined, React.createElement("h1", undefined, "Cheat Sheets"), React.createElement("p", undefined, "OCamlPro has published the following cheat sheets (one or two-page summaries) on OCaml. ", React.createElement(Markdown$Ocamlorg.LINK.make, {
                       href: "http://www.ocamlpro.com/",
@@ -22,7 +26,11 @@ function $$default(param) {
                             }), ", updated June 2011", React.createElement("br", undefined), "Overview of the Emacs Tuareg mode keyboard shortcuts."))));
 }
 
+var LINK;
+
 export {
+  LINK ,
+  s ,
   $$default ,
   $$default as default,
   

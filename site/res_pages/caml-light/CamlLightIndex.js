@@ -3,6 +3,10 @@
 import * as React from "react";
 import * as Markdown$Ocamlorg from "../../components/Markdown.js";
 
+function s(prim) {
+  return prim;
+}
+
 function $$default(param) {
   return React.createElement(React.Fragment, undefined, React.createElement("h1", undefined, "Caml Light"), React.createElement("h2", undefined, "Overview"), React.createElement("p", undefined, "Caml Light is a lightweight, portable implementation of the core Caml language that was \n        developed in the early 1990\'s, as a precursor to OCaml. It used to run on most Unix machines, \n        as well as PC under Microsoft Windows. The implementation is obsolete, no longer actively \n        maintained, and will be removed eventually. We recommend switching immediately to its \n        successor, OCaml."), React.createElement("p", undefined, "Caml Light is implemented as a bytecode compiler, and fully bootstrapped. The runtime \n        system and bytecode interpreter is written in standard C, hence Caml Light is easy to port \n        to almost any 32 or 64 bit platform. The whole system is quite small: about 100K for the \n        runtime system, and another 100K of bytecode for the compiler. Two megabytes of memory is \n        enough to recompile the whole system."), React.createElement("p", undefined, React.createElement(Markdown$Ocamlorg.LINK.make, {
                       href: "/learn/tutorials/debug",
@@ -25,7 +29,11 @@ function $$default(param) {
                     }), " for an introduction to functional programming \n        in general and the Caml Light language in particular."));
 }
 
+var LINK;
+
 export {
+  LINK ,
+  s ,
   $$default ,
   $$default as default,
   

@@ -3,6 +3,10 @@
 import * as React from "react";
 import * as Markdown$Ocamlorg from "../../components/Markdown.js";
 
+function s(prim) {
+  return prim;
+}
+
 function $$default(param) {
   return React.createElement(React.Fragment, undefined, React.createElement("h1", undefined, "Libraries"), React.createElement("p", undefined, "There are thousands of OCaml libraries available. Here is a list of the most \n    popular sites where you can find them.", React.createElement("ul", undefined, React.createElement("li", undefined, React.createElement(Markdown$Ocamlorg.LINK.make, {
                               href: "http://opam.ocaml.org/",
@@ -19,7 +23,11 @@ function $$default(param) {
                             }), ". For many years, it was the definitive source to search for OCaml libraries. It is \n        hosted on the old caml.inria.fr, which is being retained because there are many links on \n        the internet pointing to this site, but is no longer maintained. You should not rely on \n        it for up-to-date information."))));
 }
 
+var LINK;
+
 export {
+  LINK ,
+  s ,
   $$default ,
   $$default as default,
   

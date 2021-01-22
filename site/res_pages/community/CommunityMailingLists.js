@@ -10,12 +10,20 @@ function CommunityMailingLists$P(Props) {
             }, children);
 }
 
+var P = {
+  make: CommunityMailingLists$P
+};
+
 function CommunityMailingLists$H1(Props) {
   var children = Props.children;
   return React.createElement("h1", {
               className: "font-sans text-4xl font-bold leading-snug mb-2"
             }, children);
 }
+
+var H1 = {
+  make: CommunityMailingLists$H1
+};
 
 function CommunityMailingLists$H2(Props) {
   var children = Props.children;
@@ -26,6 +34,10 @@ function CommunityMailingLists$H2(Props) {
             }, children);
 }
 
+var H2 = {
+  make: CommunityMailingLists$H2
+};
+
 function CommunityMailingLists$H3(Props) {
   var children = Props.children;
   var id = Props.id;
@@ -34,6 +46,10 @@ function CommunityMailingLists$H3(Props) {
               id: id
             }, children);
 }
+
+var H3 = {
+  make: CommunityMailingLists$H3
+};
 
 function CommunityMailingLists$AEXT(Props) {
   var children = Props.children;
@@ -45,12 +61,20 @@ function CommunityMailingLists$AEXT(Props) {
             }, children);
 }
 
+var AEXT = {
+  make: CommunityMailingLists$AEXT
+};
+
 function CommunityMailingLists$ITAL(Props) {
   var children = Props.children;
   return React.createElement("span", {
               className: "italic"
             }, children);
 }
+
+var ITAL = {
+  make: CommunityMailingLists$ITAL
+};
 
 function CommunityMailingLists$AFRAG(Props) {
   var children = Props.children;
@@ -62,6 +86,10 @@ function CommunityMailingLists$AFRAG(Props) {
                   }, children)
             });
 }
+
+var AFRAG = {
+  make: CommunityMailingLists$AFRAG
+};
 
 function CommunityMailingLists$LeftNav(Props) {
   return React.createElement(React.Fragment, undefined, React.createElement("h3", {
@@ -120,6 +148,10 @@ function CommunityMailingLists$LeftNav(Props) {
                               href: "#bug-tracker"
                             })))));
 }
+
+var LeftNav = {
+  make: CommunityMailingLists$LeftNav
+};
 
 function $$default(param) {
   return React.createElement(React.Fragment, undefined, React.createElement("div", {
@@ -280,7 +312,18 @@ function $$default(param) {
                             }), " to request features or report bugs."))));
 }
 
+var Link$1;
+
 export {
+  Link$1 as Link,
+  P ,
+  H1 ,
+  H2 ,
+  H3 ,
+  AEXT ,
+  ITAL ,
+  AFRAG ,
+  LeftNav ,
   $$default ,
   $$default as default,
   

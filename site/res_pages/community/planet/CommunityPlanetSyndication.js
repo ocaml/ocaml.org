@@ -3,6 +3,10 @@
 import * as React from "react";
 import * as Markdown$Ocamlorg from "../../../components/Markdown.js";
 
+function s(prim) {
+  return prim;
+}
+
 function $$default(param) {
   return React.createElement(React.Fragment, undefined, React.createElement("div", undefined, React.createElement("nav", {
                       "aria-label": "Table of Contents",
@@ -43,7 +47,11 @@ function $$default(param) {
                                 }))), React.createElement("p", undefined, "Copy/paste one of these links into your favorite feed reader to enjoy planet news."))));
 }
 
+var LINK;
+
 export {
+  LINK ,
+  s ,
   $$default ,
   $$default as default,
   

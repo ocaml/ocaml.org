@@ -20,6 +20,17 @@ const config = {
       }
     }
     return config
+  },
+  // Might need to move this to nginx or other config,
+  // if deployment moves from Vercel to Netlify
+  async redirects() {
+    return [
+      {
+        source: '/releases/latest',
+        destination: '/releases/4.11.1',
+        permanent: false,
+      }
+    ]
   }
 };
 

@@ -3,6 +3,10 @@
 import * as React from "react";
 import * as Markdown$Ocamlorg from "../../components/Markdown.js";
 
+function s(prim) {
+  return prim;
+}
+
 function $$default(param) {
   return React.createElement(React.Fragment, undefined, React.createElement("h1", undefined, "OCaml 4.11.1"), React.createElement("p", undefined, "This page describe OCaml ", React.createElement("strong", undefined, "4.11.1"), ", released on Aug 31, 2020. It is a bug-fix ", React.createElement(Markdown$Ocamlorg.LINK.make, {
                       href: "/releases/4.11.0",
@@ -22,7 +26,11 @@ function $$default(param) {
                         }), ". (Florian Angeletti, report by Jerry James, review by Thomas Refis)")));
 }
 
+var LINK;
+
 export {
+  LINK ,
+  s ,
   $$default ,
   $$default as default,
   

@@ -3,6 +3,10 @@
 import * as React from "react";
 import * as Markdown$Ocamlorg from "../../components/Markdown.js";
 
+function s(prim) {
+  return prim;
+}
+
 function LearnIndex$IMG(Props) {
   var src = Props.src;
   return React.createElement("img", {
@@ -10,6 +14,10 @@ function LearnIndex$IMG(Props) {
               src: src
             });
 }
+
+var IMG = {
+  make: LearnIndex$IMG
+};
 
 function LearnIndex$Button(Props) {
   var children = Props.children;
@@ -22,12 +30,20 @@ function LearnIndex$Button(Props) {
             });
 }
 
+var Button = {
+  make: LearnIndex$Button
+};
+
 function LearnIndex$CodeBlock(Props) {
   var children = Props.children;
   return React.createElement("div", {
               className: "border border-gray-400 bg-gray-100 mb-3 text-xs p-3 rounded"
             }, React.createElement("pre", undefined, children));
 }
+
+var CodeBlock = {
+  make: LearnIndex$CodeBlock
+};
 
 function LearnIndex$CardHeader(Props) {
   var children = Props.children;
@@ -38,12 +54,20 @@ function LearnIndex$CardHeader(Props) {
                 }, children));
 }
 
+var CardHeader = {
+  make: LearnIndex$CardHeader
+};
+
 function LearnIndex$CardFooter(Props) {
   var children = Props.children;
   return React.createElement("p", {
               className: "text-sm"
             }, children);
 }
+
+var CardFooter = {
+  make: LearnIndex$CardFooter
+};
 
 function $$default(param) {
   return React.createElement(React.Fragment, undefined, React.createElement(Markdown$Ocamlorg.H1.make, {
@@ -322,7 +346,25 @@ function $$default(param) {
                         }))));
 }
 
+var LINK;
+
+var H1;
+
+var P;
+
+var UL;
+
 export {
+  LINK ,
+  H1 ,
+  P ,
+  UL ,
+  s ,
+  IMG ,
+  Button ,
+  CodeBlock ,
+  CardHeader ,
+  CardFooter ,
   $$default ,
   $$default as default,
   

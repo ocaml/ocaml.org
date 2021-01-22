@@ -9,6 +9,10 @@ function Index$P(Props) {
             }, children);
 }
 
+var P = {
+  make: Index$P
+};
+
 function $$default(param) {
   return React.createElement("div", undefined, React.createElement("h1", {
                   className: "text-3xl font-semibold"
@@ -26,6 +30,7 @@ function $$default(param) {
 }
 
 export {
+  P ,
   $$default ,
   $$default as default,
   

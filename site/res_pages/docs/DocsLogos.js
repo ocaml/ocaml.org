@@ -3,6 +3,10 @@
 import * as React from "react";
 import * as Markdown$Ocamlorg from "../../components/Markdown.js";
 
+function s(prim) {
+  return prim;
+}
+
 function $$default(param) {
   return React.createElement(React.Fragment, undefined, React.createElement("h1", undefined, "OCaml logo"), React.createElement("p", undefined, "Web sites related to the OCaml language or that use it are encouraged to \n      incorporate the OCaml logo somewhere in their page to indicate their support \n      for OCaml development. The logo should be linked to the OCaml website, ocaml.org. \n      The ", React.createElement(Markdown$Ocamlorg.LINK.make, {
                       href: "https://github.com/ocaml/ocaml-logo/tree/master/Colour",
@@ -37,7 +41,11 @@ function $$default(param) {
                     }), ", so that other interested people in your area can get in touch with you!"));
 }
 
+var LINK;
+
 export {
+  LINK ,
+  s ,
   $$default ,
   $$default as default,
   

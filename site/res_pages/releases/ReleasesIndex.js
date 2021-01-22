@@ -11,12 +11,20 @@ function ReleasesIndex$P(Props) {
             }, children);
 }
 
+var P = {
+  make: ReleasesIndex$P
+};
+
 function ReleasesIndex$H1(Props) {
   var children = Props.children;
   return React.createElement("h1", {
               className: "font-sans text-4xl font-bold leading-snug mb-2"
             }, children);
 }
+
+var H1 = {
+  make: ReleasesIndex$H1
+};
 
 function ReleasesIndex$LINK(Props) {
   var href = Props.href;
@@ -29,6 +37,10 @@ function ReleasesIndex$LINK(Props) {
             });
 }
 
+var LINK = {
+  make: ReleasesIndex$LINK
+};
+
 function ReleasesIndex$AEXT(Props) {
   var children = Props.children;
   var href = Props.href;
@@ -38,6 +50,10 @@ function ReleasesIndex$AEXT(Props) {
               target: "_blank"
             }, children);
 }
+
+var AEXT = {
+  make: ReleasesIndex$AEXT
+};
 
 function $$default(param) {
   return React.createElement(React.Fragment, undefined, React.createElement(ReleasesIndex$H1, {
@@ -140,7 +156,17 @@ function $$default(param) {
                     }), " of OCaml."));
 }
 
+var Link$1;
+
+var UL;
+
 export {
+  Link$1 as Link,
+  UL ,
+  P ,
+  H1 ,
+  LINK ,
+  AEXT ,
   $$default ,
   $$default as default,
   

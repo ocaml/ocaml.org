@@ -11,12 +11,20 @@ function Meetings$H1(Props) {
             }, children);
 }
 
+var H1 = {
+  make: Meetings$H1
+};
+
 function Meetings$H2(Props) {
   var children = Props.children;
   return React.createElement("h2", {
               className: "font-sans text-2xl font-bold leading-normal mb-2"
             }, children);
 }
+
+var H2 = {
+  make: Meetings$H2
+};
 
 function Meetings$LINK(Props) {
   var href = Props.href;
@@ -29,6 +37,10 @@ function Meetings$LINK(Props) {
             });
 }
 
+var LINK = {
+  make: Meetings$LINK
+};
+
 function Meetings$AEXT(Props) {
   var children = Props.children;
   var href = Props.href;
@@ -38,6 +50,10 @@ function Meetings$AEXT(Props) {
               target: "_blank"
             }, children);
 }
+
+var AEXT = {
+  make: Meetings$AEXT
+};
 
 function $$default(param) {
   return React.createElement(React.Fragment, undefined, React.createElement(Meetings$H1, {
@@ -143,7 +159,17 @@ function $$default(param) {
                 }));
 }
 
+var Link$1;
+
+var UL;
+
 export {
+  Link$1 as Link,
+  UL ,
+  H1 ,
+  H2 ,
+  LINK ,
+  AEXT ,
   $$default ,
   $$default as default,
   

@@ -3,6 +3,10 @@
 import * as React from "react";
 import * as Markdown$Ocamlorg from "../../components/Markdown.js";
 
+function s(prim) {
+  return prim;
+}
+
 function LearnSuccess$LeftNav(Props) {
   return React.createElement(React.Fragment, undefined, React.createElement("h2", undefined, "Contents"), React.createElement("ul", undefined, React.createElement("li", undefined, React.createElement(Markdown$Ocamlorg.LINK.make, {
                           href: "#jane-street",
@@ -36,6 +40,10 @@ function LearnSuccess$LeftNav(Props) {
                           children: "Haxe"
                         }))));
 }
+
+var LeftNav = {
+  make: LearnSuccess$LeftNav
+};
 
 function $$default(param) {
   return React.createElement(React.Fragment, undefined, React.createElement("div", undefined, React.createElement("nav", {
@@ -155,7 +163,12 @@ function $$default(param) {
                             }), " based on a modern, high level, strictly typed programming language, a cross-compiler, \n          a complete cross-platform standard library and ways to access each platform\'s native capabilities. The Haxe compiler \n          was entirely written in OCaml."))));
 }
 
+var LINK;
+
 export {
+  LINK ,
+  s ,
+  LeftNav ,
   $$default ,
   $$default as default,
   

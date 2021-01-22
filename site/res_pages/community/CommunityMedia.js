@@ -3,6 +3,10 @@
 import * as React from "react";
 import * as Markdown$Ocamlorg from "../../components/Markdown.js";
 
+function s(prim) {
+  return prim;
+}
+
 function $$default(param) {
   return React.createElement(React.Fragment, undefined, React.createElement("h1", undefined, "Videos and Media"), React.createElement("p", undefined, "Many videos about OCaml can be found on vimeo and youtube:", React.createElement("ul", undefined, React.createElement("li", undefined, React.createElement(Markdown$Ocamlorg.LINK.make, {
                               href: "https://vimeo.com/search?q=ocaml",
@@ -40,7 +44,11 @@ function $$default(param) {
                     }), " on Vimeo."));
 }
 
+var LINK;
+
 export {
+  LINK ,
+  s ,
   $$default ,
   $$default as default,
   
