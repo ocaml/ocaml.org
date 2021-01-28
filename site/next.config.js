@@ -25,6 +25,44 @@ const config = {
   // if deployment moves from Vercel to Netlify
   async redirects() {
     return [
+      // Temporary redirects
+      {
+        source: '/play/aroundweb',
+        destination: 'https://play.tailwindcss.com/982oYEIzGZ?layout=preview',
+        permanent: false,
+      },
+      {
+        source: '/play/industry',
+        destination: 'https://play.tailwindcss.com/UIyUDSL5s9?layout=preview',
+        permanent: false,
+      },
+      {
+        source: '/play/home',
+        destination: 'https://play.tailwindcss.com/WKH4f4k0L2?layout=preview',
+        permanent: false,
+      },
+      {
+        source: '/play/homeround',
+        destination: 'https://play.tailwindcss.com/LGDZzOzegQ?layout=preview',
+        permanent: false,
+      },
+      {
+        source: '/play/media',
+        destination: 'https://play.tailwindcss.com/SaRPEIdpPS?layout=preview',
+        permanent: false,
+      },
+      {
+        source: '/play/paperarchive',
+        destination: 'https://play.tailwindcss.com/wngTIsLJL2?layout=preview',
+        permanent: false,
+      },
+      {
+        source: '/play/footer',
+        destination: 'https://play.tailwindcss.com/sDvt5fPLI1?layout=preview',
+        permanent: false,
+      },
+
+      // Permanent redirects
       {
         source: '/releases/latest',
         destination: '/releases/4.11.1',
