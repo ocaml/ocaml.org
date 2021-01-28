@@ -117,12 +117,6 @@ Some other useful reference articles:
 - [Utility-first CSS advocacy](https://www.swyx.io/why-tailwind/)
 - [2020 State of CSS - framework results](https://2020.stateofcss.com/en-US/technologies/css-frameworks/)
 
-## Notes
-
-We encountered some unexplained issues when using `nvm exec` on 
-macOS. The instructions only use `nvm install` or `nvm use`, 
-to avoid encountering these issues.
-
 
 ## Design and Information Architecture
 
