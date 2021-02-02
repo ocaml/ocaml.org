@@ -27,12 +27,12 @@ const config = {
     return [
       // Temporary redirects
       {
-        source: '/play/aroundweb',
+        source: '/play/community/aroundweb',
         destination: 'https://play.tailwindcss.com/982oYEIzGZ?layout=preview',
         permanent: false,
       },
       {
-        source: '/play/industry',
+        source: '/play/industry/users',
         destination: 'https://play.tailwindcss.com/UIyUDSL5s9?layout=preview',
         permanent: false,
       },
@@ -56,11 +56,12 @@ const config = {
         destination: 'https://play.tailwindcss.com/wngTIsLJL2?layout=preview',
         permanent: false,
       },
+      /* awaiting next version
       {
         source: '/play/footer',
         destination: 'https://play.tailwindcss.com/sDvt5fPLI1?layout=preview',
         permanent: false,
-      },
+      }, */
 
       // Permanent redirects
       {
