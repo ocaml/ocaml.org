@@ -2,17 +2,18 @@
 
 import * as React from "react";
 import * as Footer$Ocamlorg from "../components/Footer.js";
-import * as HeaderNavigation$Ocamlorg from "../components/HeaderNavigation.js";
 
 function MainLayout(Props) {
   var children = Props.children;
-  var editpath = Props.editpath;
-  return React.createElement(React.Fragment, undefined, React.createElement(HeaderNavigation$Ocamlorg.make, {
-                  editpath: editpath
-                }), React.createElement("main", {
-                  className: "mt-4 mx-4",
-                  role: "main"
-                }, children), React.createElement(Footer$Ocamlorg.make, {}));
+  return React.createElement("div", {
+              className: "bg-white"
+            }, null, React.createElement("div", {
+                  className: "relative shadow"
+                }, null), React.createElement("main", {
+                  className: "relative bg-graylight"
+                }, children), React.createElement("div", {
+                  className: "relative"
+                }, React.createElement(Footer$Ocamlorg.make, {})));
 }
 
 var make = MainLayout;

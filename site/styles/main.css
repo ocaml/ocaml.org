@@ -1,10 +1,6 @@
 @tailwind base;
 @tailwind components;
 
-@import "./_fonts.css";
-
-body {
-  @apply font-sans bg-white;
-}
+/* @import "./_fonts.css"; */
 
 @tailwind utilities;

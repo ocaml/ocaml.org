@@ -37,11 +37,6 @@ const config = {
         permanent: false,
       },
       {
-        source: '/play/home',
-        destination: 'https://play.tailwindcss.com/WKH4f4k0L2?layout=preview',
-        permanent: false,
-      },
-      {
         source: '/play/homeround',
         destination: 'https://play.tailwindcss.com/LGDZzOzegQ?layout=preview',
         permanent: false,
@@ -58,11 +53,16 @@ const config = {
       },
       /* awaiting next version
       {
+        source: '/play/home',
+        destination: 'https://play.tailwindcss.com/WKH4f4k0L2?layout=preview',
+        permanent: false,
+      }, 
+      {
         source: '/play/footer',
         destination: 'https://play.tailwindcss.com/sDvt5fPLI1?layout=preview',
         permanent: false,
-      }, */
-
+      }, 
+      */
       // Permanent redirects
       {
         source: '/releases/latest',

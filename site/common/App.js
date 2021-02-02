@@ -11,21 +11,12 @@ function make(props) {
   var content = React.createElement(component, pageProps);
   console.log(router.route);
   var match = router.route;
-  switch (match) {
-    case "/design/industry" :
-        return content;
-    case "/releases" :
-        return React.createElement(MainLayout$Ocamlorg.make, {
-                    children: null,
-                    editpath: "site/index.md"
-                  }, React.createElement("h1", {
-                        className: "font-bold"
-                      }, "Releases Section"), React.createElement("div", undefined, content));
-    default:
-      return React.createElement(MainLayout$Ocamlorg.make, {
-                  children: content,
-                  editpath: "site/index.md"
-                });
+  if (match === "/design/industry") {
+    return content;
+  } else {
+    return React.createElement(MainLayout$Ocamlorg.make, {
+                children: content
+              });
   }
 }
 
