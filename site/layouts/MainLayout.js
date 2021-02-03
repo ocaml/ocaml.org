@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import * as Footer$Ocamlorg from "../components/Footer.js";
+import * as HeaderNavigation$Ocamlorg from "../components/HeaderNavigation.js";
 
 function MainLayout(Props) {
   var children = Props.children;
@@ -9,7 +10,7 @@ function MainLayout(Props) {
               className: "bg-white"
             }, null, React.createElement("div", {
                   className: "relative shadow"
-                }, null), React.createElement("main", {
+                }, React.createElement(HeaderNavigation$Ocamlorg.make, {})), React.createElement("main", {
                   className: "relative bg-graylight"
                 }, children), React.createElement("div", {
                   className: "relative"
