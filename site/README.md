@@ -69,7 +69,7 @@ in `pages/`. If your module uses `getStaticPaths` or `getStaticProps`, those wil
 need to be re-exposed. Also, note that we choose to repeat the folder name (e.g. "releases") 
 in the module name (e.g. "ReleasesIndex.js").
 
-### Do not use next server side featurs, such as getServerSideProps
+### Do not use nextjs server side features, such as getServerSideProps
 
 In order to ensure that this site remains a static site, do not make use of nextjs's
 `getServerSideProps` functionality. More [functionality to avoid is enumerated in the nextjs docs](https://nextjs.org/docs/advanced-features/static-html-export#caveats).
@@ -105,10 +105,10 @@ This is a NextJS project using the following:
 The initial structure was defined by imitating a combination of choices in the following projects, with
 rescriptlang.org taking precedence when there was conflicting advice:
 
-- https://github.com/ryyppy/rescript-nextjs-template
-- https://github.com/reason-association/rescript-lang.org
-- https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss
-- https://github.com/vercel/next.js/tree/canary/examples/with-mdx-remote
+- [rescript-nextjs starter](https://github.com/ryyppy/rescript-nextjs-template)
+- [rescript-lang.org website](https://github.com/reason-association/rescript-lang.org)
+- [nextjs tailwind example](https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss)
+- [nextjs mdxjs example using mdx-remote](https://github.com/vercel/next.js/tree/canary/examples/with-mdx-remote)
 - (add more links: ...)
 
 Some other useful reference articles:
