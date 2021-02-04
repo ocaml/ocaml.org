@@ -38,7 +38,7 @@
     "next:start": "prefer using express or another server with the output of next:export instead of next:start"
   },
   "devDependencies": {
-    "autoprefixer": "^10.2.3",
+    "autoprefixer": "^10.2.4",
     "postcss": "^8.2.4",
     "postcss-cli": "^8.3.1",
     "tailwindcss": "^2.0.2",
