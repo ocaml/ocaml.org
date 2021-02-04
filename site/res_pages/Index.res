@@ -3,10 +3,9 @@ let s = React.string
 let contentEn = {
   "heroHeader": `Welcome to a World of OCaml`,
   "heroBody": `OCaml is a general purpose industrial-strength programming language with an emphasis on expressiveness and 
-    safety. Its reputation for combining security with speed makes it popular with many industrial users, as well as the 
-    growing group of developers that make up its community.`,
+    safety.`,
   "installOcaml": `Install OCaml`,
-  "learnMore": `Learn More`,
+  "aboutOcaml": `About OCaml`,
   "statsTitle": `OCaml in Numbers`,
   "activeMembers": `Active Members`,
   "industrySatisfaction": `Industry Satisfaction`,
@@ -35,7 +34,7 @@ let make = (~content=contentEn) =>
             <a href="#" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-orangedark hover:bg-orangedarker md:py-4 md:text-lg md:px-10"> {s(content["installOcaml"])} </a>
           </div>
           <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-            <a href="#" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-orangedark bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"> {s(content["learnMore"])} </a>
+            <a href="#" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-orangedark bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"> {s(content["aboutOcaml"])} </a>
           </div>
         </div>
       </div>
