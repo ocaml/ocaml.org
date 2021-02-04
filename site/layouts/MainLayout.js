@@ -4,22 +4,173 @@ import * as React from "react";
 import * as Footer$Ocamlorg from "../components/Footer.js";
 import * as HeaderNavigation$Ocamlorg from "../components/HeaderNavigation.js";
 
+var headerContentEn_industry = {
+  label: "Industry",
+  url: "/play/industry"
+};
+
+var headerContentEn_resources = {
+  label: "Resources",
+  url: "/play/resources"
+};
+
+var headerContentEn_community = {
+  label: "Community",
+  url: "/play/community"
+};
+
+var headerContentEn_search = "Search";
+
+var headerContentEn_openMenu = "Open menu";
+
+var headerContentEn = {
+  industry: headerContentEn_industry,
+  resources: headerContentEn_resources,
+  community: headerContentEn_community,
+  search: headerContentEn_search,
+  openMenu: headerContentEn_openMenu
+};
+
+var footerContentEn_footer = "Footer";
+
+var footerContentEn_ocamlSummary = "Innovation. Community. Security.";
+
+var footerContentEn_industry = {
+  label: "Industry",
+  url: "/play/industry"
+};
+
+var footerContentEn_industrySections = {
+  whatIsOcaml: {
+    label: "What is OCaml",
+    url: "/play/industry/description"
+  },
+  industrialUsers: {
+    label: "Industrial Users",
+    url: "/play/industry/users"
+  },
+  successStories: {
+    label: "Success Stories",
+    url: "/play/industry/success"
+  }
+};
+
+var footerContentEn_resources = {
+  label: "Resources",
+  url: "/play/resources"
+};
+
+var footerContentEn_resourcesSections = {
+  releases: {
+    label: "Releases",
+    url: "/play/resource/releases"
+  },
+  applications: {
+    label: "Applications",
+    url: "/play/resource/applications"
+  },
+  language: {
+    label: "Language",
+    url: "/play/resource/language"
+  },
+  archive: {
+    label: "Archive",
+    url: "/play/resource/archive"
+  }
+};
+
+var footerContentEn_community = {
+  label: "Community",
+  url: "/play/community"
+};
+
+var footerContentEn_communitySections = {
+  opportunities: {
+    label: "Opportunities",
+    url: "/play/community/opportunities"
+  },
+  news: {
+    label: "News",
+    url: "/play/community/news"
+  },
+  aroundTheWeb: {
+    label: "Around the Web",
+    url: "/play/community/aroundweb"
+  }
+};
+
+var footerContentEn_legal = "Legal";
+
+var footerContentEn_legalSections = {
+  privacy: {
+    label: "Privacy",
+    url: "/play/privacypolicy"
+  },
+  terms: {
+    label: "Terms",
+    url: "/play/terms"
+  },
+  claims: {
+    label: "Claims",
+    url: "/play/legal"
+  },
+  cookies: {
+    label: "Cookies",
+    url: "/play/cookiepolicy"
+  }
+};
+
+var footerContentEn = {
+  footer: footerContentEn_footer,
+  ocamlSummary: footerContentEn_ocamlSummary,
+  industry: footerContentEn_industry,
+  industrySections: footerContentEn_industrySections,
+  resources: footerContentEn_resources,
+  resourcesSections: footerContentEn_resourcesSections,
+  community: footerContentEn_community,
+  communitySections: footerContentEn_communitySections,
+  legal: footerContentEn_legal,
+  legalSections: footerContentEn_legalSections
+};
+
 function MainLayout(Props) {
   var children = Props.children;
   return React.createElement("div", {
               className: "bg-white"
             }, null, React.createElement("div", {
                   className: "relative shadow"
-                }, React.createElement(HeaderNavigation$Ocamlorg.make, {})), React.createElement("main", {
+                }, React.createElement(HeaderNavigation$Ocamlorg.make, {
+                      content: headerContentEn
+                    })), React.createElement("main", {
                   className: "relative bg-graylight"
                 }, children), React.createElement("div", {
                   className: "relative"
-                }, React.createElement(Footer$Ocamlorg.make, {})));
+                }, React.createElement(Footer$Ocamlorg.make, {
+                      content: footerContentEn
+                    })));
 }
+
+var navContentEn = {
+  industry: {
+    label: "Industry",
+    url: "/play/industry"
+  },
+  resources: {
+    label: "Resources",
+    url: "/play/resources"
+  },
+  community: {
+    label: "Community",
+    url: "/play/community"
+  }
+};
 
 var make = MainLayout;
 
 export {
+  navContentEn ,
+  headerContentEn ,
+  footerContentEn ,
   make ,
   
 }

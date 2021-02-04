@@ -9,9 +9,9 @@ function s(prim) {
 
 var contentEn = {
   heroHeader: "Welcome to a World of OCaml",
-  heroBody: "OCaml is a general purpose industrial-strength programming language with an emphasis on expressiveness and \n    safety. Its reputation for combining security with speed makes it popular with many industrial users, as well as the \n    growing group of developers that make up its community.",
+  heroBody: "OCaml is a general purpose industrial-strength programming language with an emphasis on expressiveness and \n    safety.",
   installOcaml: "Install OCaml",
-  learnMore: "Learn More",
+  aboutOcaml: "About OCaml",
   statsTitle: "OCaml in Numbers",
   activeMembers: "Active Members",
   industrySatisfaction: "Industry Satisfaction",
@@ -50,7 +50,7 @@ function Index(Props) {
                                 }, React.createElement("a", {
                                       className: "w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-orangedark bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10",
                                       href: "#"
-                                    }, content.learnMore))))), React.createElement("div", {
+                                    }, content.aboutOcaml))))), React.createElement("div", {
                       className: "relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full"
                     }, React.createElement("img", {
                           className: "absolute inset-0 w-full h-full object-cover",
