@@ -40,21 +40,20 @@ If you don't already have `nvm` installed, install it using the instructions
 provided by `nvm` https://github.com/nvm-sh/nvm#installing-and-updating . Restart
 or reload your terminal to pickup the changes.
 
-```
-# 1. Ensure you have the correct node version by installing it, if it's not present already
-# 2. Using installed node version, install yarn and install dependencies
-# 3. Run ReScript in dev mode
-nvm install && npx yarn@1.22 install && npx yarn rescript:start
-```
-
-In another tab, run the Next dev server in the background:
+Run ReScript compiler in watch mode:
 
 ```
-nvm install && npx yarn next:dev &
+make rescript-watch
 ```
 
-The output from the next dev server is rarely interesting, so we run it in the background. 
-This frees up the second terminal for performing `git` commands.
+In another tab, run the Next dev server:
+
+```
+make next-dev
+```
+
+The output from the next dev server is rarely interesting, so you might save some
+real estate by running the command in the background. This frees up the second terminal for performing `git` commands.
 
 Go to `http://localhost:3000`
 
@@ -70,10 +69,10 @@ in `pages/`. If your module uses `getStaticPaths` or `getStaticProps`, those wil
 need to be re-exposed. Also, note that we choose to repeat the folder name (e.g. "releases") 
 in the module name (e.g. "ReleasesIndex.js").
 
-### Do not use getServerSideProps
+### Do not use next server side featurs, such as getServerSideProps
 
 In order to ensure that this site remains a static site, do not make use of nextjs's
-`getServerSideProps` functionality.
+`getServerSideProps` functionality. More [functionality to avoid is enumerated in the nextjs docs](https://nextjs.org/docs/advanced-features/static-html-export#caveats).
 
 ### Prefer Simplicity over Accomodating Fast Refresh
 

@@ -1,3 +1,20 @@
+SHELL=/bin/bash
+
+.PHONY: install-deps
+install-deps:
+	# install node version, if not already present
+	source $$NVM_DIR/nvm.sh && nvm install
+	# install js library dependencies and build tools
+	source $$NVM_DIR/nvm.sh && nvm use && npx yarn@1.22 install
+
+.PHONY: rescript-watch
+rescript-watch:
+	source $$NVM_DIR/nvm.sh && nvm use && npx yarn rescript:start
+
+.PHONY: next-dev
+next-dev:
+	source $$NVM_DIR/nvm.sh && nvm use && npx yarn next:dev
+
 .PHONY: ci-install-deps
 ci-install-deps:
 	# curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
@@ -12,3 +29,6 @@ ci-install-deps:
 ci-build:
 	# nvm use
 	npx yarn build
+	# perform export once to ensure no server side functionality has been used
+	npx yarn next:export
+
