@@ -7,6 +7,6 @@ https://ocamlorg2-git-BRANCH_NAME.solvuu.vercel.app/PATH/TO/PAGE
 
 ## Contributor Pre-flight Checklist
 
-- [ ] Accessibility check - check WAVE add-in "structure tab" to check content hierarchy, link text, and image alt text
+- [ ] Accessibility check - checked pa11y report for modified pages, observing new errors
 - [ ] Responsive check - visually inspected vercel preview, using responsive tool to toggle between desktop and mobile view
-- [ ] HTML review - use browser DOM/Page inspector to inspect HTML within `<div id="__next>"` element
+- [ ] HTML review - use browser DOM/Page inspector to inspect generated HTML within `<div id="__next>"` element
