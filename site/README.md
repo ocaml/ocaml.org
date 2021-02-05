@@ -91,7 +91,7 @@ We choose to not complicate this project to accomodate Fast Refresh.
 Build CSS seperately via `npx postcss` (useful for debugging)
 
 ```
-nvm install && npx postcss styles/main.css -o /tmp/test.css
+nvm install && npx postcss@8.3.1 styles/main.css -o /tmp/test.css
 ```
 
 ## Test production setup with Next
