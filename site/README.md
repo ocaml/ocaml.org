@@ -40,6 +40,12 @@ If you don't already have `nvm` installed, install it using the instructions
 provided by `nvm` https://github.com/nvm-sh/nvm#installing-and-updating . Restart
 or reload your terminal to pickup the changes.
 
+Install node and javascript libraries and tools:
+
+```
+make install-deps
+```
+
 Run ReScript compiler in watch mode:
 
 ```
