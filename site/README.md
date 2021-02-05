@@ -23,6 +23,7 @@ out the branch that you created.
 the PR, if you run into obstacles or uncertainty as you make changes
 * Once you feel your branch is ready, check the PR preview to ensure the changes
 match your local view and appear correct
+* Review your implementation according to the checks notes in the PR template
 * Change PR status to "ready to review"
 * Update the PR description to indicate relative paths that have changed
 
@@ -121,10 +122,13 @@ Some other useful reference articles:
 - [Markdown rendering approaches in nextjs](https://nextjs.org/blog/markdown)
 - [Utility-first CSS advocacy](https://www.swyx.io/why-tailwind/)
 - [2020 State of CSS - framework results](https://2020.stateofcss.com/en-US/technologies/css-frameworks/)
-
+- (add more links: ... React-static and 11ty's assessment of static site tools, 
+nextjs vs gatsby starter discussion, other static site comparisons, markdown vs jsx, 
+Yaml/front matter/git based headless cms, accessibility intros, Vercel vs Netlify notes, 
+Mdxjs vs markdown, rehype vs mdxjs)
 
 ## Design and Information Architecture
 
-sitemap and information architecture - https://app.flowmapp.com/share/6e5eeb4573f9e110ac779691fee85422/sitemap/
+[Sitemap and information architecture on flowmap](https://app.flowmapp.com/share/6e5eeb4573f9e110ac779691fee85422/sitemap/)
 
-design - uses Figma, currently managed by designer
+Design - Uses Figma, currently managed by designer. Discussion of both design and content is managed with Figma commenting system.
