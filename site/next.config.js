@@ -33,7 +33,7 @@ const config = {
       },
       {
         source: '/play/industry/users',
-        destination: 'https://play.tailwindcss.com/UIyUDSL5s9?layout=preview',
+        destination: 'https://play.tailwindcss.com/THm4jFAMbz?layout=preview',
         permanent: false,
       },
       {
