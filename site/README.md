@@ -98,7 +98,7 @@ nvm install && npx postcss@8.3.1 styles/main.css -o /tmp/test.css
 
 TODO: change this to use `export` and `start` with output dir, instead of `start` directly
 ```
-nvm install && npx yarn@1.22 install && npx yarn build && PORT=3001 npx yarn next:start
+nvm install && npx yarn@1.22 install && npx yarn@1.22 build && PORT=3001 npx yarn@1.22 next:start
 ```
 
 ## Reference

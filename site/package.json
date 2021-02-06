@@ -40,12 +40,9 @@
   "devDependencies": {
     "autoprefixer": "^10.2.4",
     "postcss": "^8.2.4",
-    "tailwindcss": "^2.0.2",
-    "yarn": "1.22"
+    "tailwindcss": "^2.0.2"
   },
   "devDependenciesDescription": {
-    "postcss-cli": "Only used when manually debugging CSS generation. True postcss version is determined by next version",
-    "yarn": "yarn is installed manually initially to perform install, after that, this version is referenced"
   },
   "postcss": {
     "plugins": {

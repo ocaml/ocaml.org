@@ -9,11 +9,11 @@ install-deps:
 
 .PHONY: rescript-watch
 rescript-watch:
-	source $$NVM_DIR/nvm.sh && nvm use && npx yarn rescript:start
+	source $$NVM_DIR/nvm.sh && nvm use && npx yarn@1.22 rescript:start
 
 .PHONY: next-dev
 next-dev:
-	source $$NVM_DIR/nvm.sh && nvm use && npx yarn next:dev
+	source $$NVM_DIR/nvm.sh && nvm use && npx yarn@1.22 next:dev
 
 .PHONY: ci-install-deps
 ci-install-deps:
@@ -28,7 +28,7 @@ ci-install-deps:
 .PHONY: ci-build
 ci-build:
 	# nvm use
-	npx yarn build
+	npx yarn@1.22 build
 	# perform export once to ensure no server side functionality has been used
-	npx yarn next:export
+	npx yarn@1.22 next:export
 
