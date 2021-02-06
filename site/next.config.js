@@ -28,7 +28,7 @@ const config = {
       // Temporary redirects
       {
         source: '/play/community/aroundweb',
-        destination: 'https://play.tailwindcss.com/982oYEIzGZ?layout=preview',
+        destination: 'https://play.tailwindcss.com/hgQIMfsWNW?layout=preview',
         permanent: false,
       },
       {
