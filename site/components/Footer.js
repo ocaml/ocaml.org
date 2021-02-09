@@ -116,11 +116,11 @@ function Footer(Props) {
                                               className: "text-base text-gray-500 hover:text-gray-900"
                                             })), React.createElement("li", undefined, React.createElement(Footer$A, {
                                               children: content.resourcesSections.language.label,
-                                              href: content.resourcesSections.language.label,
+                                              href: content.resourcesSections.language.url,
                                               className: "text-base text-gray-500 hover:text-gray-900"
                                             })), React.createElement("li", undefined, React.createElement(Footer$A, {
                                               children: content.resourcesSections.archive.label,
-                                              href: content.resourcesSections.archive.label,
+                                              href: content.resourcesSections.archive.url,
                                               className: "text-base text-gray-500 hover:text-gray-900"
                                             }))))), React.createElement("div", {
                               className: "md:grid md:grid-cols-2 md:gap-8"

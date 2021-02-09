@@ -23,15 +23,12 @@ function HeaderNavigation(Props) {
                               src: "/static/logo1.jpeg"
                             }))), React.createElement("nav", {
                       className: "hidden md:flex space-x-10 "
-                    }, React.createElement("a", {
-                          className: "text-base font-medium text-gray-500 hover:text-gray-900",
-                          href: content.industry.url
-                        }, content.industry.label), React.createElement("a", {
-                          className: "text-base font-medium text-gray-500 hover:text-gray-900",
-                          href: content.resources.url
-                        }, content.resources.label), React.createElement("a", {
-                          className: "text-base font-medium text-gray-500 hover:text-gray-900",
-                          href: content.community.url
+                    }, React.createElement("span", {
+                          className: "text-base font-medium text-gray-500"
+                        }, content.industry.label), React.createElement("span", {
+                          className: "text-base font-medium text-gray-500"
+                        }, content.resources.label), React.createElement("span", {
+                          className: "text-base font-medium text-gray-500"
                         }, content.community.label)), React.createElement("div", {
                       className: "flex-1 flex items-center justify-center px-2 md:justify-end "
                     }, React.createElement("div", {

@@ -6,17 +6,17 @@ import * as HeaderNavigation$Ocamlorg from "../components/HeaderNavigation.js";
 
 var headerContentEn_industry = {
   label: "Industry",
-  url: "/play/industry"
+  url: "#"
 };
 
 var headerContentEn_resources = {
   label: "Resources",
-  url: "/play/resources"
+  url: "#"
 };
 
 var headerContentEn_community = {
   label: "Community",
-  url: "/play/community"
+  url: "#"
 };
 
 var headerContentEn_search = "Search";
@@ -37,13 +37,13 @@ var footerContentEn_ocamlSummary = "Innovation. Community. Security.";
 
 var footerContentEn_industry = {
   label: "Industry",
-  url: "/play/industry"
+  url: "#"
 };
 
 var footerContentEn_industrySections = {
   whatIsOcaml: {
     label: "What is OCaml",
-    url: "/play/industry/description"
+    url: "/play/industry/whatisocaml"
   },
   industrialUsers: {
     label: "Industrial Users",
@@ -51,13 +51,13 @@ var footerContentEn_industrySections = {
   },
   successStories: {
     label: "Success Stories",
-    url: "/play/industry/success"
+    url: "/play/industry/successstories"
   }
 };
 
 var footerContentEn_resources = {
   label: "Resources",
-  url: "/play/resources"
+  url: "#"
 };
 
 var footerContentEn_resourcesSections = {
@@ -71,7 +71,7 @@ var footerContentEn_resourcesSections = {
   },
   language: {
     label: "Language",
-    url: "/play/resource/language"
+    url: "#"
   },
   archive: {
     label: "Archive",
@@ -81,7 +81,7 @@ var footerContentEn_resourcesSections = {
 
 var footerContentEn_community = {
   label: "Community",
-  url: "/play/community"
+  url: "#"
 };
 
 var footerContentEn_communitySections = {
@@ -108,15 +108,15 @@ var footerContentEn_legalSections = {
   },
   terms: {
     label: "Terms",
-    url: "/play/terms"
+    url: "#"
   },
   claims: {
     label: "Claims",
-    url: "/play/legal"
+    url: "#"
   },
   cookies: {
     label: "Cookies",
-    url: "/play/cookiepolicy"
+    url: "#"
   }
 };
 
@@ -153,15 +153,15 @@ function MainLayout(Props) {
 var navContentEn = {
   industry: {
     label: "Industry",
-    url: "/play/industry"
+    url: "#"
   },
   resources: {
     label: "Resources",
-    url: "/play/resources"
+    url: "#"
   },
   community: {
     label: "Community",
-    url: "/play/community"
+    url: "#"
   }
 };
 

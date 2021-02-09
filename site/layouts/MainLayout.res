@@ -5,9 +5,9 @@ type navContent = {
 }
 
 let navContentEn = {
-  industry: {label: `Industry`, url: `/play/industry`},
-  resources: {label: `Resources`, url: `/play/resources`},
-  community: {label: `Community`, url: `/play/community`}
+  industry: {label: `Industry`, url: `#`},
+  resources: {label: `Resources`, url: `#`},
+  community: {label: `Community`, url: `#`}
 }
 
 let headerContentEn: HeaderNavigation.content = {
@@ -23,15 +23,15 @@ let footerContentEn: Footer.content = {
     ocamlSummary: `Innovation. Community. Security.`,
     industry: navContentEn.industry,
     industrySections: {
-      whatIsOcaml: {label: `What is OCaml`, url: `/play/industry/description`},
+      whatIsOcaml: {label: `What is OCaml`, url: `/play/industry/whatisocaml`},
       industrialUsers: {label: `Industrial Users`, url: `/play/industry/users`},
-      successStories: {label: `Success Stories`, url: `/play/industry/success`}
+      successStories: {label: `Success Stories`, url: `/play/industry/successstories`}
     },
     resources: navContentEn.resources,
     resourcesSections: {
       releases: {label: `Releases`, url: `/play/resource/releases`},
       applications: {label: `Applications`, url: `/play/resource/applications`},
-      language: {label: `Language`, url: `/play/resource/language`},
+      language: {label: `Language`, url: `#`},
       archive: {label: `Archive`, url: `/play/resource/archive`}
     },
     community: navContentEn.community,
@@ -43,9 +43,9 @@ let footerContentEn: Footer.content = {
     legal: `Legal`,
     legalSections: {
       privacy: {label: `Privacy`, url: `/play/privacypolicy`},
-      terms: {label: `Terms`, url: `/play/terms`},
-      claims: {label: `Claims`, url: `/play/legal`},
-      cookies: {label: `Cookies`, url: `/play/cookiepolicy`}
+      terms: {label: `Terms`, url: `#`},
+      claims: {label: `Claims`, url: `#`},
+      cookies: {label: `Cookies`, url: `#`}
     }
 }
 

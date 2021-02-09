@@ -92,8 +92,8 @@ let make = (~content) =>
                             <ul className="mt-4 space-y-4">
                                 <li><A href=content.resourcesSections.releases.url className="text-base text-gray-500 hover:text-gray-900">{s(content.resourcesSections.releases.label)}</A></li>
                                 <li><A href=content.resourcesSections.applications.url className="text-base text-gray-500 hover:text-gray-900">{s(content.resourcesSections.applications.label)}</A></li>
-                                <li><A href=content.resourcesSections.language.label className="text-base text-gray-500 hover:text-gray-900">{s(content.resourcesSections.language.label)}</A></li>
-                                <li><A href=content.resourcesSections.archive.label className="text-base text-gray-500 hover:text-gray-900">{s(content.resourcesSections.archive.label)}</A></li>
+                                <li><A href=content.resourcesSections.language.url className="text-base text-gray-500 hover:text-gray-900">{s(content.resourcesSections.language.label)}</A></li>
+                                <li><A href=content.resourcesSections.archive.url className="text-base text-gray-500 hover:text-gray-900">{s(content.resourcesSections.archive.label)}</A></li>
                             </ul>
                         </div>
                     </div>

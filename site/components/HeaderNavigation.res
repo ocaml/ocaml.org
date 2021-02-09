@@ -20,15 +20,15 @@ let make = (~content) =>
         </a>
       </div>
       <nav className="hidden md:flex space-x-10 ">
-        <a href=content.industry.url className="text-base font-medium text-gray-500 hover:text-gray-900">
+        <span className="text-base font-medium text-gray-500">
           {s(content.industry.label)}
-        </a>
-        <a href=content.resources.url className="text-base font-medium text-gray-500 hover:text-gray-900">
+        </span>
+        <span className="text-base font-medium text-gray-500">
           {s(content.resources.label)}
-        </a>
-        <a href=content.community.url className="text-base font-medium text-gray-500 hover:text-gray-900">
+        </span>
+        <span className="text-base font-medium text-gray-500">
           {s(content.community.label)}
-        </a>
+        </span>
       </nav>
       <div className="flex-1 flex items-center justify-center px-2 md:justify-end ">
         <div className="max-w-lg w-full md:max-w-xs">

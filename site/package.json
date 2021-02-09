@@ -32,10 +32,12 @@
     "next:start": "next start -p $PORT",
     "rescript:build": "bsb -make-world",
     "rescript:clean": "bsb -clean-world",
-    "rescript:start": "bsb -make-world -w"
+    "rescript:start": "bsb -make-world -w",
+    "postinstall": "bsb -clean-world -make-world"
   },
   "scriptsDescription": {
-    "next:start": "prefer using express or another server with the output of next:export instead of next:start"
+    "next:start": "prefer using express or another server with the output of next:export instead of next:start",
+    "postinstall": "when bs-platform version changes, running bsb will ensure latest generated js is committed by dependabot"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.4",
