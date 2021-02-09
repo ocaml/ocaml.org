@@ -120,7 +120,7 @@ const config = {
       },
       {
         source: '/play/resource/cheatsheets',
-        destination: 'https://play.tailwindcss.com/siVq8NWGwA?layout=preview',
+        destination: 'https://play.tailwindcss.com/CjMUTbKXO7?layout=preview',
         permanent: false,
       },
       {
