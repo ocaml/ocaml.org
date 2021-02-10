@@ -51,7 +51,7 @@ const config = {
       },
       {
         source: '/play/community/meetings',
-        destination: 'https://play.tailwindcss.com/tnv1ntpGMe?layout=preview',
+        destination: 'https://play.tailwindcss.com/ERceV8Ryxv?layout=preview',
         permanent: false,
       },
       {
