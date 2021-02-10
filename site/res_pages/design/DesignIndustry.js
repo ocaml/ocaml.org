@@ -25,7 +25,7 @@ var taridesBody = "We are building and maintaining open-source infrastructure to
 
 var solvuuHeader = "Solvuu, United States";
 
-var solvuuBody = "Solvuu\'s software allows users to store big and small data sets, share the data with \n  collaborators, execute computationally intensive algorithms and workflows, and visualize \n  results. Its initial focus is on genomics data, which has important implications for healthcare, \n  agriculture, and fundamental research. Virtually all of Solvuu\'s software stack is \n  implemented in OCaml.";
+var solvuuBody = "Solvuu's software allows users to store big and small data sets, share the data with \n  collaborators, execute computationally intensive algorithms and workflows, and visualize \n  results. Its initial focus is on genomics data, which has important implications for healthcare, \n  agriculture, and fundamental research. Virtually all of Solvuu's software stack is \n  implemented in OCaml.";
 
 function $$default(param) {
   return React.createElement(React.Fragment, undefined, React.createElement("article", undefined, React.createElement("h1", undefined, pageHeader), React.createElement("p", undefined, pageOverview), React.createElement("ul", undefined, React.createElement("li", undefined, React.createElement("img", {

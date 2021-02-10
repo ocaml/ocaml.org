@@ -20,7 +20,7 @@ function $$default(param) {
                             }), ", updated June 2011", React.createElement("br", undefined), "Overview of OCaml compilers and their options, tools for lexing \n        and parsing, Makefile rules, etc."), React.createElement("li", undefined, React.createElement(Markdown$Ocamlorg.LINK.make, {
                               href: "http://www.ocamlpro.com/wp-content/uploads/2019/09/ocaml-stdlib.pdf",
                               children: "OCaml Standard Library Cheat Sheet (PDF)"
-                            }), ", updated September 2019", React.createElement("br", undefined), "Overview of the standard library\'s most common modules."), React.createElement("li", undefined, React.createElement(Markdown$Ocamlorg.LINK.make, {
+                            }), ", updated September 2019", React.createElement("br", undefined), "Overview of the standard library's most common modules."), React.createElement("li", undefined, React.createElement(Markdown$Ocamlorg.LINK.make, {
                               href: "http://www.ocamlpro.com/files/tuareg-mode.pdf",
                               children: "OCaml Emacs Mode (Tuareg) Cheat Sheet (PDF)"
                             }), ", updated June 2011", React.createElement("br", undefined), "Overview of the Emacs Tuareg mode keyboard shortcuts."))));

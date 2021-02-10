@@ -94,7 +94,7 @@ function $$default(param) {
                 }), React.createElement(Markdown$Ocamlorg.UL.make, {
                   children: null
                 }, React.createElement("li", undefined, "2014, July 8, 7:00 PM: ", React.createElement(Meetings$AEXT, {
-                          children: "Rencontre d\'été",
+                          children: "Rencontre d'été",
                           href: "http://www.meetup.com/ocaml-paris/events/188634632/"
                         }), ", Mozilla Paris, 16 boulevard Montmartre 75009 Paris. Organized by ", React.createElement(Meetings$AEXT, {
                           children: "OCaml Users in PariS (OUPS)",
@@ -102,19 +102,19 @@ function $$default(param) {
                         }), "."), React.createElement("li", undefined, "2014, May 22, 7:00 PM: ", React.createElement(Meetings$AEXT, {
                           children: "Rencontre de Printemps",
                           href: "http://www.meetup.com/ocaml-paris/events/181647232/"
-                        }), ", IRILL 23, avenue d\'Italie 75013 Paris. Organized by ", React.createElement(Meetings$AEXT, {
+                        }), ", IRILL 23, avenue d'Italie 75013 Paris. Organized by ", React.createElement(Meetings$AEXT, {
                           children: "OCaml Users in PariS (OUPS)",
                           href: "http://www.meetup.com/ocaml-paris/"
                         }), "."), React.createElement("li", undefined, "2013, May 21, 7:30 PM: ", React.createElement(Meetings$AEXT, {
                           children: "Rencontre de Mai",
                           href: "http://www.meetup.com/ocaml-paris/events/116100692/"
-                        }), ", IRILL 23, avenue d\'Italie 75013 Paris. Organized by ", React.createElement(Meetings$AEXT, {
+                        }), ", IRILL 23, avenue d'Italie 75013 Paris. Organized by ", React.createElement(Meetings$AEXT, {
                           children: "OCaml Users in PariS (OUPS)",
                           href: "http://www.meetup.com/ocaml-paris/"
                         }), "."), React.createElement("li", undefined, "2013, January 29, 8:00 PM: ", React.createElement(Meetings$AEXT, {
                           children: "First \"OPAM Party\"",
                           href: "http://www.meetup.com/ocaml-paris/events/99222322/"
-                        }), ", IRILL 23, avenue d\'Italie 75013 Paris. Organized by ", React.createElement(Meetings$AEXT, {
+                        }), ", IRILL 23, avenue d'Italie 75013 Paris. Organized by ", React.createElement(Meetings$AEXT, {
                           children: "OCaml Users in PariS (OUPS)",
                           href: "http://www.meetup.com/ocaml-paris/"
                         }), "."), React.createElement("li", undefined, "2011: ", React.createElement(Meetings$LINK, {

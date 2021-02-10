@@ -89,7 +89,7 @@ function $$default(param) {
                         }), " that has developed a ", React.createElement(Markdown$Ocamlorg.LINK.make, {
                           href: "https://opam.ocaml.org/packages/",
                           children: "rich set of libraries"
-                        }), ". It\'s also a widely used ", React.createElement(Markdown$Ocamlorg.LINK.make, {
+                        }), ". It's also a widely used ", React.createElement(Markdown$Ocamlorg.LINK.make, {
                           href: "/learn/teaching-ocaml",
                           children: "teaching language"
                         }), ". ", React.createElement("em", {
@@ -282,7 +282,7 @@ function $$default(param) {
                         }, "To handle their huge PHP codebase, Facebook developed ", React.createElement(Markdown$Ocamlorg.LINK.make, {
                               href: "https://github.com/facebook/pfff/wiki/Main",
                               children: "pfff"
-                            }), ", a set of tools and APIs to perform static analysis, dynamic analysis, code \n            visualizations, code navigations, and style-preserving source-to-source transformations \n            such as refactorings on source code. They also designed ", React.createElement("em", undefined, "Hack"), ", a new statically typed programming language for HHVM, a fast PHP runtime. \n            See Julien Verlaguet\'s ", React.createElement(Markdown$Ocamlorg.LINK.make, {
+                            }), ", a set of tools and APIs to perform static analysis, dynamic analysis, code \n            visualizations, code navigations, and style-preserving source-to-source transformations \n            such as refactorings on source code. They also designed ", React.createElement("em", undefined, "Hack"), ", a new statically typed programming language for HHVM, a fast PHP runtime. \n            See Julien Verlaguet's ", React.createElement(Markdown$Ocamlorg.LINK.make, {
                               href: "http://www.youtube.com/watch?v=gKWNjFagR9k",
                               children: "CUFP talk"
                             }), " and ", React.createElement(Markdown$Ocamlorg.LINK.make, {

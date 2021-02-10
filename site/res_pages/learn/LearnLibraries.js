@@ -14,7 +14,7 @@ function $$default(param) {
                             }), " is the first place to check. The most high quality and most widely used libraries \n        are provided as OPAM packages."), React.createElement("li", undefined, "GitHub is an extremely popular code hosting site. ", React.createElement(Markdown$Ocamlorg.LINK.make, {
                               href: "https://github.com/trending/ocaml",
                               children: "Github is very widely used amongst OCaml programmers"
-                            }), ". Click the link to find OCaml projects. Remember that many of these libraries are \n        provided as OPAM packages, so you\'ll have already found them in OPAM. However, there are \n        some libraries here that people haven\'t pushed to OPAM for one reason or another."), React.createElement("li", undefined, React.createElement(Markdown$Ocamlorg.LINK.make, {
+                            }), ". Click the link to find OCaml projects. Remember that many of these libraries are \n        provided as OPAM packages, so you'll have already found them in OPAM. However, there are \n        some libraries here that people haven't pushed to OPAM for one reason or another."), React.createElement("li", undefined, React.createElement(Markdown$Ocamlorg.LINK.make, {
                               href: "https://bitbucket.org/repo/all/relevance?name=ocaml&language=ocaml",
                               children: "Bitbucket is a far less used code hosting site"
                             }), " amongst OCaml programmers. Click the link to find OCaml libraries."), React.createElement("li", undefined, React.createElement(Markdown$Ocamlorg.LINK.make, {
