@@ -110,7 +110,7 @@ const config = {
       },
       {
         source: '/play/resource/books',
-        destination: 'https://play.tailwindcss.com/Hc4zbzifKK?layout=preview',
+        destination: 'https://play.tailwindcss.com/tSiJwFvjEn?layout=preview',
         permanent: false,
       },
       {
