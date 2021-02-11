@@ -150,7 +150,7 @@ const config = {
       },
       {
         source: '/play/resource/installocaml',
-        destination: 'https://play.tailwindcss.com/biyW1UfhQT?layout=preview',
+        destination: 'https://play.tailwindcss.com/Lh6y69JyIN?layout=preview',
         permanent: false,
       },
 
