@@ -4,20 +4,11 @@ import * as React from "react";
 import * as Footer$Ocamlorg from "../components/Footer.js";
 import * as HeaderNavigation$Ocamlorg from "../components/HeaderNavigation.js";
 
-var headerContentEn_industry = {
-  label: "Industry",
-  url: "#"
-};
+var headerContentEn_industry = "Industry";
 
-var headerContentEn_resources = {
-  label: "Resources",
-  url: "#"
-};
+var headerContentEn_resources = "Resources";
 
-var headerContentEn_community = {
-  label: "Community",
-  url: "#"
-};
+var headerContentEn_community = "Community";
 
 var headerContentEn_search = "Search";
 
@@ -35,12 +26,8 @@ var footerContentEn_footer = "Footer";
 
 var footerContentEn_ocamlSummary = "Innovation. Community. Security.";
 
-var footerContentEn_industry = {
-  label: "Industry",
-  url: "#"
-};
-
-var footerContentEn_industrySections = {
+var footerContentEn_industrySection = {
+  header: "Industry",
   whatIsOcaml: {
     label: "What is OCaml",
     url: "/play/industry/whatisocaml"
@@ -55,12 +42,8 @@ var footerContentEn_industrySections = {
   }
 };
 
-var footerContentEn_resources = {
-  label: "Resources",
-  url: "#"
-};
-
-var footerContentEn_resourcesSections = {
+var footerContentEn_resourcesSection = {
+  header: "Resources",
   releases: {
     label: "Releases",
     url: "/play/resource/releases"
@@ -79,12 +62,8 @@ var footerContentEn_resourcesSections = {
   }
 };
 
-var footerContentEn_community = {
-  label: "Community",
-  url: "#"
-};
-
-var footerContentEn_communitySections = {
+var footerContentEn_communitySection = {
+  header: "Community",
   opportunities: {
     label: "Opportunities",
     url: "/play/community/opportunities"
@@ -99,9 +78,8 @@ var footerContentEn_communitySections = {
   }
 };
 
-var footerContentEn_legal = "Legal";
-
-var footerContentEn_legalSections = {
+var footerContentEn_legalSection = {
+  header: "Legal",
   privacy: {
     label: "Privacy",
     url: "/play/privacypolicy"
@@ -110,27 +88,22 @@ var footerContentEn_legalSections = {
     label: "Terms",
     url: "#"
   },
-  claims: {
-    label: "Claims",
-    url: "#"
-  },
-  cookies: {
-    label: "Cookies",
+  carbonFootprint: {
+    label: "Carbon Footprint",
     url: "#"
   }
 };
 
+var footerContentEn_thankSponsor = "Thank you to our sponsors:";
+
 var footerContentEn = {
   footer: footerContentEn_footer,
   ocamlSummary: footerContentEn_ocamlSummary,
-  industry: footerContentEn_industry,
-  industrySections: footerContentEn_industrySections,
-  resources: footerContentEn_resources,
-  resourcesSections: footerContentEn_resourcesSections,
-  community: footerContentEn_community,
-  communitySections: footerContentEn_communitySections,
-  legal: footerContentEn_legal,
-  legalSections: footerContentEn_legalSections
+  industrySection: footerContentEn_industrySection,
+  resourcesSection: footerContentEn_resourcesSection,
+  communitySection: footerContentEn_communitySection,
+  legalSection: footerContentEn_legalSection,
+  thankSponsor: footerContentEn_thankSponsor
 };
 
 function MainLayout(Props) {
@@ -151,18 +124,9 @@ function MainLayout(Props) {
 }
 
 var navContentEn = {
-  industry: {
-    label: "Industry",
-    url: "#"
-  },
-  resources: {
-    label: "Resources",
-    url: "#"
-  },
-  community: {
-    label: "Community",
-    url: "#"
-  }
+  industry: "Industry",
+  resources: "Resources",
+  community: "Community"
 };
 
 var make = MainLayout;

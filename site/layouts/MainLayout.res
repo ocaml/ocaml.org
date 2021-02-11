@@ -1,13 +1,13 @@
 type navContent = {
-  industry: NavEntry.t,
-  resources: NavEntry.t,
-  community: NavEntry.t
+  industry: string,
+  resources: string,
+  community: string
 }
 
 let navContentEn = {
-  industry: {label: `Industry`, url: `#`},
-  resources: {label: `Resources`, url: `#`},
-  community: {label: `Community`, url: `#`}
+  industry: `Industry`,
+  resources: `Resources`,
+  community: `Community`
 }
 
 let headerContentEn: HeaderNavigation.content = {
@@ -21,32 +21,32 @@ let headerContentEn: HeaderNavigation.content = {
 let footerContentEn: Footer.content = {
     footer: `Footer`,
     ocamlSummary: `Innovation. Community. Security.`,
-    industry: navContentEn.industry,
-    industrySections: {
+    industrySection: {
+      header: navContentEn.industry,
       whatIsOcaml: {label: `What is OCaml`, url: `/play/industry/whatisocaml`},
       industrialUsers: {label: `Industrial Users`, url: `/play/industry/users`},
       successStories: {label: `Success Stories`, url: `/play/industry/successstories`}
     },
-    resources: navContentEn.resources,
-    resourcesSections: {
+    resourcesSection: {
+      header: navContentEn.resources,
       releases: {label: `Releases`, url: `/play/resource/releases`},
       applications: {label: `Applications`, url: `/play/resource/applications`},
       language: {label: `Language`, url: `#`},
       archive: {label: `Archive`, url: `/play/resource/archive`}
     },
-    community: navContentEn.community,
-    communitySections: {
+    communitySection: {
+      header: navContentEn.community,
       opportunities: {label: `Opportunities`, url: `/play/community/opportunities`},
       news: {label: `News`, url: `/play/community/news`},
       aroundTheWeb: {label: `Around the Web`, url: `/play/community/aroundweb`}
     },
-    legal: `Legal`,
-    legalSections: {
+    legalSection: {
+      header: `Legal`,
       privacy: {label: `Privacy`, url: `/play/privacypolicy`},
       terms: {label: `Terms`, url: `#`},
-      claims: {label: `Claims`, url: `#`},
-      cookies: {label: `Cookies`, url: `#`}
-    }
+      carbonFootprint: {label: `Carbon Footprint`, url: `#`},
+    },
+    thankSponsor: `Thank you to our sponsors:`
 }
 
 @react.component

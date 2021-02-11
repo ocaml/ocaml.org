@@ -25,11 +25,11 @@ function HeaderNavigation(Props) {
                       className: "hidden md:flex space-x-10 "
                     }, React.createElement("span", {
                           className: "text-base font-medium text-gray-500"
-                        }, content.industry.label), React.createElement("span", {
+                        }, content.industry), React.createElement("span", {
                           className: "text-base font-medium text-gray-500"
-                        }, content.resources.label), React.createElement("span", {
+                        }, content.resources), React.createElement("span", {
                           className: "text-base font-medium text-gray-500"
-                        }, content.community.label)), React.createElement("div", {
+                        }, content.community)), React.createElement("div", {
                       className: "flex-1 flex items-center justify-center px-2 md:justify-end "
                     }, React.createElement("div", {
                           className: "max-w-lg w-full md:max-w-xs"

@@ -86,83 +86,83 @@ function Footer(Props) {
                               className: "md:grid md:grid-cols-2 md:gap-8"
                             }, React.createElement("div", undefined, React.createElement("h3", {
                                       className: "text-sm font-semibold text-gray-400 tracking-wider uppercase"
-                                    }, content.industry.label), React.createElement("ul", {
+                                    }, content.industrySection.header), React.createElement("ul", {
                                       className: "mt-4 space-y-4"
                                     }, React.createElement("li", undefined, React.createElement(Footer$A, {
-                                              children: content.industrySections.whatIsOcaml.label,
-                                              href: content.industrySections.whatIsOcaml.url,
+                                              children: content.industrySection.whatIsOcaml.label,
+                                              href: content.industrySection.whatIsOcaml.url,
                                               className: "text-base text-gray-500 hover:text-gray-900"
                                             })), React.createElement("li", undefined, React.createElement(Footer$A, {
-                                              children: content.industrySections.industrialUsers.label,
-                                              href: content.industrySections.industrialUsers.url,
+                                              children: content.industrySection.industrialUsers.label,
+                                              href: content.industrySection.industrialUsers.url,
                                               className: "text-base text-gray-500 hover:text-gray-900"
                                             })), React.createElement("li", undefined, React.createElement(Footer$A, {
-                                              children: content.industrySections.successStories.label,
-                                              href: content.industrySections.successStories.url,
+                                              children: content.industrySection.successStories.label,
+                                              href: content.industrySection.successStories.url,
                                               className: "text-base text-gray-500 hover:text-gray-900"
                                             })))), React.createElement("div", {
                                   className: "mt-12 md:mt-0"
                                 }, React.createElement("h3", {
                                       className: "text-sm font-semibold text-gray-400 tracking-wider uppercase"
-                                    }, content.resources.label), React.createElement("ul", {
+                                    }, content.resourcesSection.header), React.createElement("ul", {
                                       className: "mt-4 space-y-4"
                                     }, React.createElement("li", undefined, React.createElement(Footer$A, {
-                                              children: content.resourcesSections.releases.label,
-                                              href: content.resourcesSections.releases.url,
+                                              children: content.resourcesSection.releases.label,
+                                              href: content.resourcesSection.releases.url,
                                               className: "text-base text-gray-500 hover:text-gray-900"
                                             })), React.createElement("li", undefined, React.createElement(Footer$A, {
-                                              children: content.resourcesSections.applications.label,
-                                              href: content.resourcesSections.applications.url,
+                                              children: content.resourcesSection.applications.label,
+                                              href: content.resourcesSection.applications.url,
                                               className: "text-base text-gray-500 hover:text-gray-900"
                                             })), React.createElement("li", undefined, React.createElement(Footer$A, {
-                                              children: content.resourcesSections.language.label,
-                                              href: content.resourcesSections.language.url,
+                                              children: content.resourcesSection.language.label,
+                                              href: content.resourcesSection.language.url,
                                               className: "text-base text-gray-500 hover:text-gray-900"
                                             })), React.createElement("li", undefined, React.createElement(Footer$A, {
-                                              children: content.resourcesSections.archive.label,
-                                              href: content.resourcesSections.archive.url,
+                                              children: content.resourcesSection.archive.label,
+                                              href: content.resourcesSection.archive.url,
                                               className: "text-base text-gray-500 hover:text-gray-900"
                                             }))))), React.createElement("div", {
                               className: "md:grid md:grid-cols-2 md:gap-8"
                             }, React.createElement("div", undefined, React.createElement("h3", {
                                       className: "text-sm font-semibold text-gray-400 tracking-wider uppercase"
-                                    }, content.community.label), React.createElement("ul", {
+                                    }, content.communitySection.header), React.createElement("ul", {
                                       className: "mt-4 space-y-4"
                                     }, React.createElement("li", undefined, React.createElement(Footer$A, {
-                                              children: content.communitySections.opportunities.label,
-                                              href: content.communitySections.opportunities.url,
+                                              children: content.communitySection.opportunities.label,
+                                              href: content.communitySection.opportunities.url,
                                               className: "text-base text-gray-500 hover:text-gray-900"
                                             })), React.createElement("li", undefined, React.createElement(Footer$A, {
-                                              children: content.communitySections.news.label,
-                                              href: content.communitySections.news.url,
+                                              children: content.communitySection.news.label,
+                                              href: content.communitySection.news.url,
                                               className: "text-base text-gray-500 hover:text-gray-900"
                                             })), React.createElement("li", undefined, React.createElement(Footer$A, {
-                                              children: content.communitySections.aroundTheWeb.label,
-                                              href: content.communitySections.aroundTheWeb.url,
+                                              children: content.communitySection.aroundTheWeb.label,
+                                              href: content.communitySection.aroundTheWeb.url,
                                               className: "text-base text-gray-500 hover:text-gray-900"
                                             })))), React.createElement("div", {
                                   className: "mt-12 md:mt-0"
                                 }, React.createElement("h3", {
                                       className: "text-sm font-semibold text-gray-400 tracking-wider uppercase"
-                                    }, content.legal), React.createElement("ul", {
+                                    }, content.legalSection.header), React.createElement("ul", {
                                       className: "mt-4 space-y-4"
                                     }, React.createElement("li", undefined, React.createElement(Footer$A, {
-                                              children: content.legalSections.privacy.label,
-                                              href: content.legalSections.privacy.url,
+                                              children: content.legalSection.privacy.label,
+                                              href: content.legalSection.privacy.url,
                                               className: "text-base text-gray-500 hover:text-gray-900"
                                             })), React.createElement("li", undefined, React.createElement(Footer$A, {
-                                              children: content.legalSections.terms.label,
-                                              href: content.legalSections.terms.url,
+                                              children: content.legalSection.terms.label,
+                                              href: content.legalSection.terms.url,
                                               className: "text-base text-gray-500 hover:text-gray-900"
                                             })), React.createElement("li", undefined, React.createElement(Footer$A, {
-                                              children: content.legalSections.claims.label,
-                                              href: content.legalSections.claims.url,
+                                              children: content.legalSection.carbonFootprint.label,
+                                              href: content.legalSection.carbonFootprint.url,
                                               className: "text-base text-gray-500 hover:text-gray-900"
-                                            })), React.createElement("li", undefined, React.createElement(Footer$A, {
-                                              children: content.legalSections.cookies.label,
-                                              href: content.legalSections.cookies.url,
-                                              className: "text-base text-gray-500 hover:text-gray-900"
-                                            })))))))));
+                                            })))))), React.createElement("div", {
+                          className: "mt-10 space-y-8 xl:col-span-1"
+                        }, React.createElement("p", {
+                              className: "text-gray-500 text-base"
+                            }, content.thankSponsor)))));
 }
 
 var Link$1;

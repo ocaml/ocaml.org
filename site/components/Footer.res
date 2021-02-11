@@ -2,43 +2,43 @@ module Link = Next.Link;
 
 let s = React.string
 
-type industrySections = {
+type industrySection = {
+    header: string,
     whatIsOcaml: NavEntry.t,
     industrialUsers: NavEntry.t,
     successStories: NavEntry.t
 }
 
-type resourcesSections = {
+type resourcesSection = {
+    header: string,
     releases: NavEntry.t,
     applications: NavEntry.t,
     language: NavEntry.t,
     archive: NavEntry.t
 }
 
-type communitySections = {
+type communitySection = {
+    header: string,
     opportunities: NavEntry.t,
     news: NavEntry.t,
     aroundTheWeb: NavEntry.t
 }
 
-type legalSections = {
+type legalSection = {
+    header: string,
     privacy: NavEntry.t,
     terms: NavEntry.t,
-    claims: NavEntry.t,
-    cookies: NavEntry.t
+    carbonFootprint: NavEntry.t
 }
 
 type content = {
     footer: string,
     ocamlSummary: string,
-    industry: NavEntry.t,
-    industrySections: industrySections,
-    resources: NavEntry.t,
-    resourcesSections: resourcesSections,
-    community: NavEntry.t,
-    communitySections: communitySections,
-    legal: string,
-    legalSections: legalSections,
+    industrySection: industrySection,
+    resourcesSection: resourcesSection,
+    communitySection: communitySection,
+    legalSection: legalSection,
+    thankSponsor: string
 }
 
 module A = {
@@ -80,42 +80,44 @@ let make = (~content) =>
                 <div className="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
                     <div className="md:grid md:grid-cols-2 md:gap-8">
                         <div>
-                            <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">{s(content.industry.label)}</h3>
+                            <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">{s(content.industrySection.header)}</h3>
                             <ul className="mt-4 space-y-4">
-                                <li><A href=content.industrySections.whatIsOcaml.url className="text-base text-gray-500 hover:text-gray-900">{s(content.industrySections.whatIsOcaml.label)}</A></li>
-                                <li><A href=content.industrySections.industrialUsers.url className="text-base text-gray-500 hover:text-gray-900">{s(content.industrySections.industrialUsers.label)}</A></li>
-                                <li><A href=content.industrySections.successStories.url className="text-base text-gray-500 hover:text-gray-900">{s(content.industrySections.successStories.label)}</A></li>
+                                <li><A href=content.industrySection.whatIsOcaml.url className="text-base text-gray-500 hover:text-gray-900">{s(content.industrySection.whatIsOcaml.label)}</A></li>
+                                <li><A href=content.industrySection.industrialUsers.url className="text-base text-gray-500 hover:text-gray-900">{s(content.industrySection.industrialUsers.label)}</A></li>
+                                <li><A href=content.industrySection.successStories.url className="text-base text-gray-500 hover:text-gray-900">{s(content.industrySection.successStories.label)}</A></li>
                             </ul>
                         </div>
                         <div className="mt-12 md:mt-0">
-                            <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">{s(content.resources.label)}</h3>
+                            <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">{s(content.resourcesSection.header)}</h3>
                             <ul className="mt-4 space-y-4">
-                                <li><A href=content.resourcesSections.releases.url className="text-base text-gray-500 hover:text-gray-900">{s(content.resourcesSections.releases.label)}</A></li>
-                                <li><A href=content.resourcesSections.applications.url className="text-base text-gray-500 hover:text-gray-900">{s(content.resourcesSections.applications.label)}</A></li>
-                                <li><A href=content.resourcesSections.language.url className="text-base text-gray-500 hover:text-gray-900">{s(content.resourcesSections.language.label)}</A></li>
-                                <li><A href=content.resourcesSections.archive.url className="text-base text-gray-500 hover:text-gray-900">{s(content.resourcesSections.archive.label)}</A></li>
+                                <li><A href=content.resourcesSection.releases.url className="text-base text-gray-500 hover:text-gray-900">{s(content.resourcesSection.releases.label)}</A></li>
+                                <li><A href=content.resourcesSection.applications.url className="text-base text-gray-500 hover:text-gray-900">{s(content.resourcesSection.applications.label)}</A></li>
+                                <li><A href=content.resourcesSection.language.url className="text-base text-gray-500 hover:text-gray-900">{s(content.resourcesSection.language.label)}</A></li>
+                                <li><A href=content.resourcesSection.archive.url className="text-base text-gray-500 hover:text-gray-900">{s(content.resourcesSection.archive.label)}</A></li>
                             </ul>
                         </div>
                     </div>
                     <div className="md:grid md:grid-cols-2 md:gap-8">
                         <div>
-                            <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">{s(content.community.label)}</h3>
+                            <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">{s(content.communitySection.header)}</h3>
                             <ul className="mt-4 space-y-4">
-                                <li><A href=content.communitySections.opportunities.url className="text-base text-gray-500 hover:text-gray-900">{s(content.communitySections.opportunities.label)}</A></li>
-                                <li><A href=content.communitySections.news.url className="text-base text-gray-500 hover:text-gray-900">{s(content.communitySections.news.label)}</A></li>
-                                <li><A href=content.communitySections.aroundTheWeb.url className="text-base text-gray-500 hover:text-gray-900">{s(content.communitySections.aroundTheWeb.label)}</A></li>
+                                <li><A href=content.communitySection.opportunities.url className="text-base text-gray-500 hover:text-gray-900">{s(content.communitySection.opportunities.label)}</A></li>
+                                <li><A href=content.communitySection.news.url className="text-base text-gray-500 hover:text-gray-900">{s(content.communitySection.news.label)}</A></li>
+                                <li><A href=content.communitySection.aroundTheWeb.url className="text-base text-gray-500 hover:text-gray-900">{s(content.communitySection.aroundTheWeb.label)}</A></li>
                             </ul>
                         </div>
                         <div className="mt-12 md:mt-0">
-                            <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">{s(content.legal)}</h3>
+                            <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">{s(content.legalSection.header)}</h3>
                             <ul className="mt-4 space-y-4">
-                                <li><A href=content.legalSections.privacy.url className="text-base text-gray-500 hover:text-gray-900">{s(content.legalSections.privacy.label)}</A></li>
-                                <li><A href=content.legalSections.terms.url className="text-base text-gray-500 hover:text-gray-900">{s(content.legalSections.terms.label)}</A></li>
-                                <li><A href=content.legalSections.claims.url className="text-base text-gray-500 hover:text-gray-900">{s(content.legalSections.claims.label)}</A></li>
-                                <li><A href=content.legalSections.cookies.url className="text-base text-gray-500 hover:text-gray-900">{s(content.legalSections.cookies.label)}</A></li>
+                                <li><A href=content.legalSection.privacy.url className="text-base text-gray-500 hover:text-gray-900">{s(content.legalSection.privacy.label)}</A></li>
+                                <li><A href=content.legalSection.terms.url className="text-base text-gray-500 hover:text-gray-900">{s(content.legalSection.terms.label)}</A></li>
+                                <li><A href=content.legalSection.carbonFootprint.url className="text-base text-gray-500 hover:text-gray-900">{s(content.legalSection.carbonFootprint.label)}</A></li>
                             </ul>
                         </div>
                     </div>
+                </div>
+                <div className="mt-10 space-y-8 xl:col-span-1">
+                    <p className="text-gray-500 text-base"> {s(content.thankSponsor)} </p>
                 </div>
             </div>
         </div>

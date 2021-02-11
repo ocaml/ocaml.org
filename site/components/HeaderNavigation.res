@@ -3,9 +3,9 @@ module Link = Next.Link;
 let s = React.string
 
 type content = {
-  industry: NavEntry.t,
-  resources: NavEntry.t,
-  community: NavEntry.t,
+  industry: string,
+  resources: string,
+  community: string,
   search: string,
   openMenu: string,
 }
@@ -21,13 +21,13 @@ let make = (~content) =>
       </div>
       <nav className="hidden md:flex space-x-10 ">
         <span className="text-base font-medium text-gray-500">
-          {s(content.industry.label)}
+          {s(content.industry)}
         </span>
         <span className="text-base font-medium text-gray-500">
-          {s(content.resources.label)}
+          {s(content.resources)}
         </span>
         <span className="text-base font-medium text-gray-500">
-          {s(content.community.label)}
+          {s(content.community)}
         </span>
       </nav>
       <div className="flex-1 flex items-center justify-center px-2 md:justify-end ">
