@@ -36,27 +36,35 @@ function HeaderNavigation(Props) {
                         }, React.createElement("label", {
                               className: "sr-only",
                               htmlFor: "search"
-                            }, content.search), React.createElement("div", {
-                              className: "relative"
-                            }, React.createElement("div", {
-                                  className: "absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-                                }, React.createElement("svg", {
-                                      "aria-hidden": true,
-                                      className: "h-5 w-5 text-gray-400",
-                                      fill: "currentColor",
-                                      viewBox: "0 0 20 20",
-                                      xmlns: "http://www.w3.org/2000/svg"
-                                    }, React.createElement("path", {
-                                          clipRule: "evenodd",
-                                          d: "M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z",
-                                          fillRule: "evenodd"
-                                        }))), React.createElement("input", {
-                                  className: "block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-orangedark focus:border-orangedarker sm:text-sm",
-                                  id: "search",
-                                  name: "search",
-                                  placeholder: content.search,
-                                  type: "search"
-                                })))), React.createElement("div", {
+                            }, content.search), React.createElement("form", {
+                              id: "searchform",
+                              action: "https://duckduckgo.com/",
+                              method: "get"
+                            }, React.createElement("input", {
+                                  name: "sites",
+                                  type: "hidden",
+                                  value: "ocaml.org"
+                                }), React.createElement("div", {
+                                  className: "relative"
+                                }, React.createElement("div", {
+                                      className: "absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                                    }, React.createElement("svg", {
+                                          "aria-hidden": true,
+                                          className: "h-5 w-5 text-gray-400",
+                                          fill: "currentColor",
+                                          viewBox: "0 0 20 20",
+                                          xmlns: "http://www.w3.org/2000/svg"
+                                        }, React.createElement("path", {
+                                              clipRule: "evenodd",
+                                              d: "M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z",
+                                              fillRule: "evenodd"
+                                            }))), React.createElement("input", {
+                                      className: "block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-orangedark focus:border-orangedarker sm:text-sm",
+                                      id: "search",
+                                      name: "q",
+                                      placeholder: content.search,
+                                      type: "search"
+                                    }))))), React.createElement("div", {
                       className: "-mr-2 -my-2 md:hidden "
                     }, React.createElement("button", {
                           className: "bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500",
