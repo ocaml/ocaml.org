@@ -116,8 +116,28 @@ let make = (~content) =>
                         </div>
                     </div>
                 </div>
-                <div className="mt-10 space-y-8 xl:col-span-1">
-                    <p className="text-gray-500 text-base"> {s(content.thankSponsor)} </p>
+            </div>
+            <div className="mt-10 space-y-8 xl:col-span-1">
+                <p className="text-gray-500 text-base"> {s(content.thankSponsor)} </p>
+                <div className="grid grid-cols-2 gap-8 justify-items-center lg:grid-cols-3">
+                    <div>
+                        <img className="h-8 lg:h-12" src="/static/equinoxmetal.png" alt="Equinix Metal" />
+                    </div>
+                    <div>
+                        <img className="h-8 lg:h-12" src="/static/ibmlogo.jpeg" alt="IBM" />
+                    </div>
+                    <div>
+                        <img className="h-8 lg:h-12" src="/static/rackspacelogo.jpeg" alt="Rackspace" />
+                    </div>
+                    <div>
+                        <img className="h-8 lg:h-12" src="/static/ucambridgelogo.png" alt="University of Cambridge: Computer Laboratory" />
+                    </div>
+                    <div>
+                        <img className="h-8 lg:h-12" src="/static/awslogo.png" alt="AWS" />
+                    </div>
+                    <div>
+                        <img className="h-8 lg:h-12" src="/static/scalewaylogo.png" alt="Scaleway" />
+                    </div>
                 </div>
             </div>
         </div>
