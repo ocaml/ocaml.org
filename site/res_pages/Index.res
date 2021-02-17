@@ -7,12 +7,16 @@ let contentEn = {
   "installOcaml": `Install OCaml`,
   "aboutOcaml": `About OCaml`,
   "statsTitle": `OCaml in Numbers`,
-  "activeMembers": `Active Members`,
+  "activeMembers": `Active Members`, 
   "industrySatisfaction": `Industry Satisfaction`,
   "averagePRsPerWeek": `Average PRs per Week`,
   "activeMembersValue": `2000+`,
   "industrySatisfactionPercent": `97%`,
   "averagePRsPerWeekValue": `450`,
+  "opamHeader": `Opam: the OCaml Package Manager`,
+  "opamBody": `Opam is a source-based package manager for OCaml. It supports multiple simultaneous compiler 
+    installations, flexible package constraints, and a Git-friendly development workflow.`,
+  "opamLinkText": `Go to opam.ocaml.org`,
   "quote": `OCaml helps us to quickly adopt to changing market conditions, and go from prototypes to production 
     systems with less effort ... Billions of dollars of transactions flow through our systems every day, so getting 
     it right matters.`,
@@ -71,6 +75,18 @@ let make = (~content=contentEn) =>
       </div>
     </div>
   </div>
+
+  <div className="pt-12 sm:pt-16 pb-14 sm:flex sm:max-w-5xl sm:mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
+      <img className="h-36" src="/static/opam.png" ariaHidden=true />
+    </div>
+    <div>
+      <h4 className="text-2xl font-bold">{s(content["opamHeader"])}</h4>
+      <p className="mt-1">{s(content["opamBody"])}</p>
+      <p className="text-right pr-5"><a className=" text-yellow-600" href="https://opam.ocaml.org" target="_blank">{s(content["opamLinkText"] ++ ` >`)}</a></p>
+    </div>
+  </div>
+
 
   <section className="pt-5 pb-20 overflow-hidden md:pt-6 mb:pb-24 lg:pt-10 lg:pb-40">
     <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

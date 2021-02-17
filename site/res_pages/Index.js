@@ -19,6 +19,9 @@ var contentEn = {
   activeMembersValue: "2000+",
   industrySatisfactionPercent: "97%",
   averagePRsPerWeekValue: "450",
+  opamHeader: "Opam: the OCaml Package Manager",
+  opamBody: "Opam is a source-based package manager for OCaml. It supports multiple simultaneous compiler \n    installations, flexible package constraints, and a Git-friendly development workflow.",
+  opamLinkText: "Go to opam.ocaml.org",
   quote: "OCaml helps us to quickly adopt to changing market conditions, and go from prototypes to production \n    systems with less effort ... Billions of dollars of transactions flow through our systems every day, so getting \n    it right matters.",
   organizationName: "Jane Street",
   speaker: "Yaron Minsky",
@@ -90,7 +93,25 @@ function Index(Props) {
                                           className: "order-2 mt-2 text-lg leading-6 font-bold text-black text-opacity-70"
                                         }, content.averagePRsPerWeek), React.createElement("dd", {
                                           className: "order-1 text-5xl font-extrabold text-orangedark"
-                                        }, content.averagePRsPerWeekValue))))))), React.createElement("section", {
+                                        }, content.averagePRsPerWeekValue))))))), React.createElement("div", {
+                  className: "pt-12 sm:pt-16 pb-14 sm:flex sm:max-w-5xl sm:mx-auto px-4 sm:px-6 lg:px-8"
+                }, React.createElement("div", {
+                      className: "mb-4 flex-shrink-0 sm:mb-0 sm:mr-4"
+                    }, React.createElement("img", {
+                          "aria-hidden": true,
+                          className: "h-36",
+                          src: "/static/opam.png"
+                        })), React.createElement("div", undefined, React.createElement("h4", {
+                          className: "text-2xl font-bold"
+                        }, content.opamHeader), React.createElement("p", {
+                          className: "mt-1"
+                        }, content.opamBody), React.createElement("p", {
+                          className: "text-right pr-5"
+                        }, React.createElement("a", {
+                              className: " text-yellow-600",
+                              href: "https://opam.ocaml.org",
+                              target: "_blank"
+                            }, content.opamLinkText + " >")))), React.createElement("section", {
                   className: "pt-5 pb-20 overflow-hidden md:pt-6 mb:pb-24 lg:pt-10 lg:pb-40"
                 }, React.createElement("div", {
                       className: "relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
