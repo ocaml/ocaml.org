@@ -145,7 +145,7 @@ const config = {
       },
       {
         source: '/play/resource/applications',
-        destination: 'https://play.tailwindcss.com/b4yHGsAz3s?layout=preview',
+        destination: 'https://play.tailwindcss.com/rAqRBabN5g?layout=preview',
         permanent: false,
       },
       {
