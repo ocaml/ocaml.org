@@ -38,7 +38,7 @@ let footerContentEn: Footer.content = {
       header: navContentEn.community,
       opportunities: {label: `Opportunities`, url: `/play/community/opportunities`},
       news: {label: `News`, url: `/play/community/news`},
-      aroundTheWeb: {label: `Around the Web`, url: `/play/community/aroundweb`}
+      aroundTheWeb: {label: `Around the Web`, url: `/community/aroundweb`}
     },
     legalSection: {
       header: `Legal`,

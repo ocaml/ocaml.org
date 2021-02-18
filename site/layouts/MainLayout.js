@@ -74,7 +74,7 @@ var footerContentEn_communitySection = {
   },
   aroundTheWeb: {
     label: "Around the Web",
-    url: "/play/community/aroundweb"
+    url: "/community/aroundweb"
   }
 };
 
