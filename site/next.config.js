@@ -36,7 +36,7 @@ const config = {
 
       {
         source: '/play/community/aroundweb',
-        destination: 'https://play.tailwindcss.com/jUYpyl33nV?layout=preview',
+        destination: 'https://play.tailwindcss.com/acoEG2wmOA?layout=preview',
         permanent: false,
       },
       {
