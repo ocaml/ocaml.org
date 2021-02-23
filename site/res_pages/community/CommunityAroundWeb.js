@@ -157,6 +157,16 @@ function CommunityAroundWeb(Props) {
                                             }, Caml_array.get(content.blogEntries, 0).excerpt))), React.createElement("div", {
                                       className: "mt-6 flex items-center"
                                     }, React.createElement("div", {
+                                          className: "flex-shrink-0"
+                                        }, React.createElement("a", {
+                                              href: "#"
+                                            }, React.createElement("span", {
+                                                  className: "sr-only"
+                                                }, Caml_array.get(content.blogEntries, 0).author), React.createElement("img", {
+                                                  className: "h-10 w-10 rounded-full",
+                                                  alt: "",
+                                                  src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=aimuGJ4P9C&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                }))), React.createElement("div", {
                                           className: "ml-3"
                                         }, React.createElement("p", {
                                               className: "text-sm font-medium text-gray-900"
@@ -196,6 +206,16 @@ function CommunityAroundWeb(Props) {
                                             }, Caml_array.get(content.blogEntries, 1).excerpt))), React.createElement("div", {
                                       className: "mt-6 flex items-center"
                                     }, React.createElement("div", {
+                                          className: "flex-shrink-0"
+                                        }, React.createElement("a", {
+                                              href: "#"
+                                            }, React.createElement("span", {
+                                                  className: "sr-only"
+                                                }, Caml_array.get(content.blogEntries, 1).author), React.createElement("img", {
+                                                  className: "h-10 w-10 rounded-full",
+                                                  alt: "",
+                                                  src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=aimuGJ4P9C&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                }))), React.createElement("div", {
                                           className: "ml-3"
                                         }, React.createElement("p", {
                                               className: "text-sm font-medium text-gray-900"
@@ -235,6 +255,16 @@ function CommunityAroundWeb(Props) {
                                             }, Caml_array.get(content.blogEntries, 2).excerpt))), React.createElement("div", {
                                       className: "mt-6 flex items-center"
                                     }, React.createElement("div", {
+                                          className: "flex-shrink-0"
+                                        }, React.createElement("a", {
+                                              href: "#"
+                                            }, React.createElement("span", {
+                                                  className: "sr-only"
+                                                }, Caml_array.get(content.blogEntries, 2).author), React.createElement("img", {
+                                                  className: "h-10 w-10 rounded-full",
+                                                  alt: "",
+                                                  src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=aimuGJ4P9C&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                }))), React.createElement("div", {
                                           className: "ml-3"
                                         }, React.createElement("p", {
                                               className: "text-sm font-medium text-gray-900"
