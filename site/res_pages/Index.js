@@ -13,12 +13,12 @@ var contentEn = {
   installOcaml: "Install OCaml",
   aboutOcaml: "About OCaml",
   statsTitle: "OCaml in Numbers",
-  activeMembers: "Active Members",
-  industrySatisfaction: "Industry Satisfaction",
-  averagePRsPerWeek: "Average PRs per Week",
-  activeMembersValue: "2000+",
-  industrySatisfactionPercent: "97%",
-  averagePRsPerWeekValue: "450",
+  userSatisfaction: "Of users report feeling satisfied with the state of OCaml",
+  workplaceUse: "Report that the use of OCaml is increasing or remaining stable in their workplace",
+  easyMaintain: "Of users report feeling that OCaml software is easy to maintain",
+  userSatisfactionPercent: "85%",
+  workplaceUsePercent: "95%",
+  easyMaintainPercent: "75%",
   opamHeader: "Opam: the OCaml Package Manager",
   opamBody: "Opam is a source-based package manager for OCaml. It supports multiple simultaneous compiler \n    installations, flexible package constraints, and a Git-friendly development workflow.",
   opamLinkText: "Go to opam.ocaml.org",
@@ -76,24 +76,24 @@ function Index(Props) {
                             }, React.createElement("dl", {
                                   className: "rounded-lg bg-white shadow-lg sm:grid sm:grid-cols-3"
                                 }, React.createElement("div", {
-                                      className: "flex flex-col border-b border-gray-100 py-16 text-center sm:border-0 sm:border-r"
+                                      className: "flex flex-col border-b border-gray-100 py-16 px-4 text-center sm:border-0 sm:border-r"
                                     }, React.createElement("dt", {
                                           className: "order-2 mt-2 text-lg leading-6 font-bold text-black text-opacity-70"
-                                        }, content.activeMembers), React.createElement("dd", {
+                                        }, content.userSatisfaction), React.createElement("dd", {
                                           className: "order-1 text-5xl font-extrabold text-orangedark"
-                                        }, content.activeMembersValue)), React.createElement("div", {
-                                      className: "flex flex-col border-t border-b border-gray-100 py-16 text-center sm:border-0 sm:border-l sm:border-r"
+                                        }, content.userSatisfactionPercent)), React.createElement("div", {
+                                      className: "flex flex-col border-t border-b border-gray-100 py-16 px-4 text-center sm:border-0 sm:border-l sm:border-r"
                                     }, React.createElement("dt", {
                                           className: "order-2 mt-2 text-lg leading-6 font-bold text-black text-opacity-70"
-                                        }, content.industrySatisfaction), React.createElement("dd", {
+                                        }, content.workplaceUse), React.createElement("dd", {
                                           className: "order-1 text-5xl font-extrabold text-orangedark"
-                                        }, content.industrySatisfactionPercent)), React.createElement("div", {
-                                      className: "flex flex-col border-t border-gray-100 py-16 text-center sm:border-0 sm:border-l"
+                                        }, content.workplaceUsePercent)), React.createElement("div", {
+                                      className: "flex flex-col border-t border-gray-100 py-16 px-4 text-center sm:border-0 sm:border-l"
                                     }, React.createElement("dt", {
                                           className: "order-2 mt-2 text-lg leading-6 font-bold text-black text-opacity-70"
-                                        }, content.averagePRsPerWeek), React.createElement("dd", {
+                                        }, content.easyMaintain), React.createElement("dd", {
                                           className: "order-1 text-5xl font-extrabold text-orangedark"
-                                        }, content.averagePRsPerWeekValue))))))), React.createElement("div", {
+                                        }, content.easyMaintainPercent))))))), React.createElement("div", {
                   className: "pt-12 sm:pt-16 pb-14 sm:flex sm:max-w-5xl sm:mx-auto px-4 sm:px-6 lg:px-8"
                 }, React.createElement("div", {
                       className: "mb-4 flex-shrink-0 sm:mb-0 sm:mr-4"

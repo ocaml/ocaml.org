@@ -7,12 +7,12 @@ let contentEn = {
   "installOcaml": `Install OCaml`,
   "aboutOcaml": `About OCaml`,
   "statsTitle": `OCaml in Numbers`,
-  "activeMembers": `Active Members`, 
-  "industrySatisfaction": `Industry Satisfaction`,
-  "averagePRsPerWeek": `Average PRs per Week`,
-  "activeMembersValue": `2000+`,
-  "industrySatisfactionPercent": `97%`,
-  "averagePRsPerWeekValue": `450`,
+  "userSatisfaction": `Of users report feeling satisfied with the state of OCaml`, 
+  "workplaceUse": `Report that the use of OCaml is increasing or remaining stable in their workplace`,
+  "easyMaintain": `Of users report feeling that OCaml software is easy to maintain`,
+  "userSatisfactionPercent": `85%`,
+  "workplaceUsePercent": `95%`,
+  "easyMaintainPercent": `75%`,
   "opamHeader": `Opam: the OCaml Package Manager`,
   "opamBody": `Opam is a source-based package manager for OCaml. It supports multiple simultaneous compiler 
     installations, flexible package constraints, and a Git-friendly development workflow.`,
@@ -58,17 +58,17 @@ let make = (~content=contentEn) =>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <dl className="rounded-lg bg-white shadow-lg sm:grid sm:grid-cols-3">
-            <div className="flex flex-col border-b border-gray-100 py-16 text-center sm:border-0 sm:border-r">
-              <dt className="order-2 mt-2 text-lg leading-6 font-bold text-black text-opacity-70">{s(content["activeMembers"])}</dt>
-              <dd className="order-1 text-5xl font-extrabold text-orangedark">{s(content["activeMembersValue"])}</dd>
+            <div className="flex flex-col border-b border-gray-100 py-16 px-4 text-center sm:border-0 sm:border-r">
+              <dt className="order-2 mt-2 text-lg leading-6 font-bold text-black text-opacity-70">{s(content["userSatisfaction"])}</dt>
+              <dd className="order-1 text-5xl font-extrabold text-orangedark">{s(content["userSatisfactionPercent"])}</dd>
             </div>
-            <div className="flex flex-col border-t border-b border-gray-100 py-16 text-center sm:border-0 sm:border-l sm:border-r">
-              <dt className="order-2 mt-2 text-lg leading-6 font-bold text-black text-opacity-70">{s(content["industrySatisfaction"])}</dt>
-              <dd className="order-1 text-5xl font-extrabold text-orangedark">{s(content["industrySatisfactionPercent"])}</dd>
+            <div className="flex flex-col border-t border-b border-gray-100 py-16 px-4 text-center sm:border-0 sm:border-l sm:border-r">
+              <dt className="order-2 mt-2 text-lg leading-6 font-bold text-black text-opacity-70">{s(content["workplaceUse"])}</dt>
+              <dd className="order-1 text-5xl font-extrabold text-orangedark">{s(content["workplaceUsePercent"])}</dd>
             </div>
-            <div className="flex flex-col border-t border-gray-100 py-16 text-center sm:border-0 sm:border-l">
-              <dt className="order-2 mt-2 text-lg leading-6 font-bold text-black text-opacity-70">{s(content["averagePRsPerWeek"])}</dt>
-              <dd className="order-1 text-5xl font-extrabold text-orangedark">{s(content["averagePRsPerWeekValue"])}</dd>
+            <div className="flex flex-col border-t border-gray-100 py-16 px-4 text-center sm:border-0 sm:border-l">
+              <dt className="order-2 mt-2 text-lg leading-6 font-bold text-black text-opacity-70">{s(content["easyMaintain"])}</dt>
+              <dd className="order-1 text-5xl font-extrabold text-orangedark">{s(content["easyMaintainPercent"])}</dd>
             </div>
           </dl>
         </div>
