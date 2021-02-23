@@ -46,7 +46,8 @@ let footerContentEn: Footer.content = {
       terms: {label: `Terms`, url: `#`},
       carbonFootprint: {label: `Carbon Footprint`, url: `#`},
     },
-    thankSponsor: `Thank you to our sponsors:`
+    thankSponsorPrefix: `Thank you to our`,
+    hostingProviders: `Hosting Providers`
 }
 
 @react.component

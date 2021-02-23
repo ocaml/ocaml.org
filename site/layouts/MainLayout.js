@@ -94,7 +94,9 @@ var footerContentEn_legalSection = {
   }
 };
 
-var footerContentEn_thankSponsor = "Thank you to our sponsors:";
+var footerContentEn_thankSponsorPrefix = "Thank you to our";
+
+var footerContentEn_hostingProviders = "Hosting Providers";
 
 var footerContentEn = {
   footer: footerContentEn_footer,
@@ -103,7 +105,8 @@ var footerContentEn = {
   resourcesSection: footerContentEn_resourcesSection,
   communitySection: footerContentEn_communitySection,
   legalSection: footerContentEn_legalSection,
-  thankSponsor: footerContentEn_thankSponsor
+  thankSponsorPrefix: footerContentEn_thankSponsorPrefix,
+  hostingProviders: footerContentEn_hostingProviders
 };
 
 function MainLayout(Props) {

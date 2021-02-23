@@ -159,36 +159,13 @@ function Footer(Props) {
                                               href: content.legalSection.carbonFootprint.url,
                                               className: "text-base text-gray-500 hover:text-gray-900"
                                             }))))))), React.createElement("div", {
-                      className: "mt-10 space-y-8 xl:col-span-1"
+                      className: "mt-10 xl:col-span-1"
                     }, React.createElement("p", {
                           className: "text-gray-500 text-base"
-                        }, content.thankSponsor), React.createElement("div", {
-                          className: "grid grid-cols-2 gap-8 justify-items-center lg:grid-cols-3"
-                        }, React.createElement("div", undefined, React.createElement("img", {
-                                  className: "h-8 lg:h-12",
-                                  alt: "Equinix Metal",
-                                  src: "/static/equinoxmetal.png"
-                                })), React.createElement("div", undefined, React.createElement("img", {
-                                  className: "h-8 lg:h-12",
-                                  alt: "IBM",
-                                  src: "/static/ibmlogo.jpeg"
-                                })), React.createElement("div", undefined, React.createElement("img", {
-                                  className: "h-8 lg:h-12",
-                                  alt: "Rackspace",
-                                  src: "/static/rackspacelogo.jpeg"
-                                })), React.createElement("div", undefined, React.createElement("img", {
-                                  className: "h-8 lg:h-12",
-                                  alt: "University of Cambridge: Computer Laboratory",
-                                  src: "/static/ucambridgelogo.png"
-                                })), React.createElement("div", undefined, React.createElement("img", {
-                                  className: "h-8 lg:h-12",
-                                  alt: "AWS",
-                                  src: "/static/awslogo.png"
-                                })), React.createElement("div", undefined, React.createElement("img", {
-                                  className: "h-8 lg:h-12",
-                                  alt: "Scaleway",
-                                  src: "/static/scalewaylogo.png"
-                                }))))));
+                        }, content.thankSponsorPrefix + " ", React.createElement("a", {
+                              className: "text-orangedark underline",
+                              href: "#"
+                            }, content.hostingProviders)))));
 }
 
 var Link$1;
