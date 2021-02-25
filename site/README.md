@@ -8,37 +8,40 @@ Feel free to use any approach that you prefer. The dev team
 suggests the following:
 * If you are unsure if your change will be accepted or if want to discuss the
 approach before diving in, please create an issue and pose questions.
-* Create a draft PR with a small initial commit in fork of the repo. One way
-to do this quickly is the following:
-  * traverse to a source file of interest in github
-  * click the "pencil" edit icon in the top right, which forks the project and puts the file in edit mode
-  * make a small change to get started in the edit window
-  * push "propose changes", which will create a commit and prompt for PR creation
-  * click "Create Pull Request"
-  * select a template by appending the following to the url: `template=webpage_implement.md`, inserting a `?` before, if not already present
-  * on the next screen, change the action to "Create draft pull request" and press the button
-* Clone your fork locally (or continue editing directly in github if the change is small). Checkout
+* Create a draft pull request with a small initial commit. One way to do this quickly is the following:
+  * Click the "branch" drop down menu and type the name of your new branch, using the convention INITIALS/TOPIC, such as "kw1/update-homeage", and click "Create branch: ..."
+  * In order to be able to create a pull request, make a small commit:
+      * Traverse to a source file of interest
+      * Click the "pencil" edit icon in the top right, which puts the file in edit mode
+      * Make a small change in the edit window
+      * Select "Commit directly ..." and click "Commit changes"
+  * Create a pull request using one of the following links, using the template which matches the type of change you are making. In the URL, replace "BRANCH" with your branch name.
+       * Create or update the implementation of a webpage: https://github.com/solvuu-inc/ocamlorg2/compare/BRANCH?expand=1&template=webpage_implement.md 
+       * Create a mockup page for a new design pull request template: https://github.com/solvuu-inc/ocamlorg2/compare/BRANCH?expand=1&template=mockup_webpage.md
+       * Perform an ecosystem upgrade pull request template: https://github.com/solvuu-inc/ocamlorg2/compare/BRANCH?expand=1&template=ecosystem_upgrade.md
+  * Change the action to "Create draft pull request" and press the button
+* Clone the repo locally (or continue editing directly in github if the change is small). Checkout
 out the branch that you created.
 * Continue developing, feel free to ask questions in
 the PR, if you run into obstacles or uncertainty as you make changes
 * Once you feel your branch is ready, check the PR preview to ensure the changes
 match your local view and appear correct
 * Review your implementation according to the checks notes in the PR template
+* Perform the following manual smoke test: 
 * Change PR status to "ready to review"
 * Update the PR description to indicate relative paths that have changed
 
 ### Reviewer
 
 * Observe the relative paths changed in latest PR Preview
-* ... manual smoke test: ... ...
 * ... MORE CONTENT HERE ...
 * Use "squash and merge", summarizing commit messages
 * Close any issues that were addressed by this PR
 
 ## Setup and Development
 
-If you don't already have `nvm` installed, install it using the instructions
-provided by `nvm` https://github.com/nvm-sh/nvm#installing-and-updating . Restart
+If you don't already have `nvm` installed, [install it using the instructions
+provided by `nvm`](https://github.com/nvm-sh/nvm#installing-and-updating). Restart
 or reload your terminal to pickup the changes.
 
 Install node and javascript libraries and tools:
