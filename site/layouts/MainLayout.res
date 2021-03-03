@@ -58,11 +58,11 @@ let footerContentEn: Footer.t = {
 
 @react.component
 let make = (~children) =>
-  <div className="bg-white"> { /* TODO: change element to body, move to document.res */  React.null }
+  <div className="bg-white"> // TODO: change element to body, move to document.res 
     <div className="relative shadow">
       <HeaderNavigation content=headerContentEn />
     </div>
-    <main className="relative bg-graylight">
+    <main className="relative bg-graylight pb-1"> // pb-1 is used to prevent margin-bottom from collapsing on last child
       children
     </main>
     <div className="relative">

@@ -114,12 +114,12 @@ function MainLayout(Props) {
   var children = Props.children;
   return React.createElement("div", {
               className: "bg-white"
-            }, null, React.createElement("div", {
+            }, React.createElement("div", {
                   className: "relative shadow"
                 }, React.createElement(HeaderNavigation$Ocamlorg.make, {
                       content: headerContentEn
                     })), React.createElement("main", {
-                  className: "relative bg-graylight"
+                  className: "relative bg-graylight pb-1"
                 }, children), React.createElement("div", {
                   className: "relative"
                 }, React.createElement(Footer$Ocamlorg.make, {
