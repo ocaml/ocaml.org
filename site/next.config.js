@@ -144,6 +144,11 @@ const config = {
         permanent: false,
       },
       {
+        source: '/play/resource/language',
+        destination: 'https://play.tailwindcss.com/3nuPDOZsGN?layout=preview',
+        permanent: false,
+      },
+      {
         source: '/play/resource/applications',
         destination: 'https://play.tailwindcss.com/rAqRBabN5g?layout=preview',
         permanent: false,
