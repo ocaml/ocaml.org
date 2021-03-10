@@ -71,7 +71,7 @@ const config = {
       },
       {
         source: '/play/community/news',
-        destination: 'https://play.tailwindcss.com/RtreLdyAwq?layout=preview',
+        destination: 'https://play.tailwindcss.com/wu15fDmzPY?layout=preview',
         permanent: false,
       },
       {
