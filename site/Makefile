@@ -18,7 +18,7 @@ next-dev:
 .PHONY: ci-install-deps
 ci-install-deps:
 	# curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
-	# need to setup NVM_DIR and source nvm.sh here 
+	# need to setup NVM_DIR and source nvm.sh here
 	# nvm install
 	# nvm use
 	# installing (or using) esy encounters permission error
@@ -32,3 +32,6 @@ ci-build:
 	# perform export once to ensure no server side functionality has been used
 	npx yarn@1.22 next:export
 
+.PHONY: clean
+clean:
+	source $$NVM_DIR/nvm.sh && nvm use && npx bsb -clean

@@ -1,2 +1,0 @@
-# suppress generate js files from appear in local git diffs
-*.js binary
