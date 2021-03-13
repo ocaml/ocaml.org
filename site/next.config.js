@@ -27,11 +27,19 @@ const config = {
     return [
       // Temporary redirects
 
+      
       {
         source: '/play/homeround',
         destination: 'https://play.tailwindcss.com/LGDZzOzegQ?layout=preview',
         permanent: false,
       },
+      /* sub-components */
+      {
+        source: '/play/header',
+        destination: 'https://play.tailwindcss.com/n8u5qc7Ax7?layout=preview',
+        permanent: false,
+      },
+
 
 
       {
@@ -40,43 +48,8 @@ const config = {
         permanent: false,
       },
       {
-        source: '/play/community/blogarchive',
-        destination: 'https://play.tailwindcss.com/NIX2Uw9VXX?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/community/mailinglists',
-        destination: 'https://play.tailwindcss.com/LUUSP3fDwB?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/community/meetings',
-        destination: 'https://play.tailwindcss.com/ERceV8Ryxv?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/community/ocamlworkshop',
-        destination: 'https://play.tailwindcss.com/QWDWzrqLCw?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/community/ocamlworkshoparchive',
-        destination: 'https://play.tailwindcss.com/OdONb93XWX?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/community/opportunities',
-        destination: 'https://play.tailwindcss.com/66ITkwvaJN?layout=preview',
-        permanent: false,
-      },
-      {
         source: '/play/community/news',
         destination: 'https://play.tailwindcss.com/wu15fDmzPY?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/community/newsarchive',
-        destination: 'https://play.tailwindcss.com/DAVx1bUei3?layout=preview',
         permanent: false,
       },
 
@@ -86,130 +59,42 @@ const config = {
         destination: 'https://play.tailwindcss.com/fnsSlFX517?layout=preview',
         permanent: false,
       },
-      {
-        source: '/play/industry/whatisocaml',
-        destination: 'https://play.tailwindcss.com/X?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/industry/successstories',
-        destination: 'https://play.tailwindcss.com/X?layout=preview',
-        permanent: false,
-      },
-
 
       {
-        source: '/play/resource/mediaarchive',
+        source: '/play/resources/mediaarchive',
         destination: 'https://play.tailwindcss.com/SaRPEIdpPS?layout=preview',
         permanent: false,
       },
       {
-        source: '/play/resource/tutorials',
-        destination: 'https://play.tailwindcss.com/TZiQsbetpO?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/resource/books',
-        destination: 'https://play.tailwindcss.com/tSiJwFvjEn?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/resource/archive',
-        destination: 'https://play.tailwindcss.com/Y1ABhSzyna?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/resource/cheatsheets',
-        destination: 'https://play.tailwindcss.com/CjMUTbKXO7?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/resource/paperarchive',
+        source: '/play/resources/paperarchive',
         destination: 'https://play.tailwindcss.com/wngTIsLJL2?layout=preview',
         permanent: false,
       },
       {
-        source: '/play/resource/releases',
-        destination: 'https://play.tailwindcss.com/8wOb8r1ICV?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/resource/releases/4.11.1',
-        destination: 'https://play.tailwindcss.com/X?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/resource/releases/4.11.0',
-        destination: 'https://play.tailwindcss.com/X?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/resource/language',
+        source: '/play/resources/language',
         destination: 'https://play.tailwindcss.com/3nuPDOZsGN?layout=preview',
         permanent: false,
       },
       {
-        source: '/play/resource/applications',
+        source: '/play/resources/applications',
         destination: 'https://play.tailwindcss.com/FJtzT7lSkW?layout=preview',
         permanent: false,
       },
       {
-        source: '/play/resource/installocaml',
+        source: '/play/resources/installocaml',
         destination: 'https://play.tailwindcss.com/m88PnynAmq?layout=preview',
         permanent: false,
       },
 
 
-      {
-        source: '/play/privacypolicy',
-        destination: 'https://play.tailwindcss.com/QJdesMclar?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/about',
-        destination: 'https://play.tailwindcss.com/FIney8bfu3?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/governance',
-        destination: 'https://play.tailwindcss.com/3zJkikgEgR?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/compiler/license',
-        destination: 'https://play.tailwindcss.com/eFSxVyoq4r?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/consortium',
-        destination: 'https://play.tailwindcss.com/oiGQaNMMKP?layout=preview',
-        permanent: false,
-      },
-
-
-      /* page sub-components */
-      {
-        source: '/play/header',
-        destination: 'https://play.tailwindcss.com/n8u5qc7Ax7?layout=preview',
-        permanent: false,
-      },
-
-      /* awaiting next version
-      {
-        source: '/play/footer',
-        destination: 'https://play.tailwindcss.com/sDvt5fPLI1?layout=preview',
-        permanent: false,
-      }, 
-      */
-
-
-
       // Permanent redirects
+      /*
       {
         source: '/releases/latest',
         destination: '/releases/4.11.1',
         permanent: false,
       }
+      */
     ]
   }
 };

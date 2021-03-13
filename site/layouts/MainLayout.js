@@ -33,45 +33,45 @@ var footerContentEn_mainLinksContent = {
     header: "Industry",
     whatIsOcaml: {
       label: "What is OCaml",
-      url: "/play/industry/whatisocaml"
+      url: "/industry/whatisocaml"
     },
     industrialUsers: {
       label: "Industrial Users",
-      url: "/play/industry/users"
+      url: "/industry/users"
     },
     successStories: {
       label: "Success Stories",
-      url: "/play/industry/successstories"
+      url: "/industry/successstories"
     }
   },
   resourcesSection: {
     header: "Resources",
     releases: {
       label: "Releases",
-      url: "/play/resource/releases"
+      url: "/resources/releases"
     },
     applications: {
       label: "Applications",
-      url: "/play/resource/applications"
+      url: "/resources/applications"
     },
     language: {
       label: "Language",
-      url: "#"
+      url: "/resources/language"
     },
     archive: {
       label: "Archive",
-      url: "/play/resource/archive"
+      url: "/resources/archive"
     }
   },
   communitySection: {
     header: "Community",
     opportunities: {
       label: "Opportunities",
-      url: "/play/community/opportunities"
+      url: "/community/opportunities"
     },
     news: {
       label: "News",
-      url: "/play/community/news"
+      url: "/community/news"
     },
     aroundTheWeb: {
       label: "Around the Web",
@@ -82,15 +82,15 @@ var footerContentEn_mainLinksContent = {
     header: "Legal",
     privacy: {
       label: "Privacy",
-      url: "/play/privacypolicy"
+      url: "/legal/privacy"
     },
     terms: {
       label: "Terms",
-      url: "#"
+      url: "/legal/terms"
     },
     carbonFootprint: {
       label: "Carbon Footprint",
-      url: "#"
+      url: "/legal/carbonfootprint"
     }
   }
 };
@@ -99,7 +99,7 @@ var footerContentEn_sponsorContent = {
   thankSponsorPrefix: "Thank you to our",
   hostingProviders: {
     label: "Hosting Providers",
-    url: "#"
+    url: "/legal/carbonfootprint#hostingproviders"
   }
 };
 

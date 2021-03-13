@@ -52,8 +52,8 @@ module HeroSection = {
           <H1> {s(content.heroHeader)} </H1>
           <P margins="mt-3 md:mt-5"> {s(content.heroBody)} </P>
           <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
-            <Button colors=`text-white bg-orangedark hover:bg-orangedarker` href=`/play/resource/installocaml` text=content.installOcaml margins=``/>
-            <Button colors=`text-orangedark bg-white hover:bg-gray-50` href=`#` text=content.aboutOcaml margins=`mt-3 sm:mt-0 sm:ml-3`/>
+            <Button colors=`text-white bg-orangedark hover:bg-orangedarker` href=`/resources/installocaml` text=content.installOcaml margins=``/>
+            <Button colors=`text-orangedark bg-white hover:bg-gray-50` href=`/industry/whatisocaml` text=content.aboutOcaml margins=`mt-3 sm:mt-0 sm:ml-3`/>
           </div>
         </div>
       </HeroTextContainer>

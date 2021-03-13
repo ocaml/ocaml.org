@@ -26,33 +26,33 @@ let footerContentEn: Footer.t = {
     mainLinksContent : {
       industrySection: {
         header: navContentEn.industry,
-        whatIsOcaml: {label: `What is OCaml`, url: `/play/industry/whatisocaml`},
-        industrialUsers: {label: `Industrial Users`, url: `/play/industry/users`},
-        successStories: {label: `Success Stories`, url: `/play/industry/successstories`}
+        whatIsOcaml: {label: `What is OCaml`, url: `/industry/whatisocaml`},
+        industrialUsers: {label: `Industrial Users`, url: `/industry/users`},
+        successStories: {label: `Success Stories`, url: `/industry/successstories`}
       },
       resourcesSection: {
         header: navContentEn.resources,
-        releases: {label: `Releases`, url: `/play/resource/releases`},
-        applications: {label: `Applications`, url: `/play/resource/applications`},
-        language: {label: `Language`, url: `/play/resource/language`},
-        archive: {label: `Archive`, url: `/play/resource/archive`}
+        releases: {label: `Releases`, url: `/resources/releases`},
+        applications: {label: `Applications`, url: `/resources/applications`},
+        language: {label: `Language`, url: `/resources/language`},
+        archive: {label: `Archive`, url: `/resources/archive`}
       },
       communitySection: {
         header: navContentEn.community,
-        opportunities: {label: `Opportunities`, url: `/play/community/opportunities`},
-        news: {label: `News`, url: `/play/community/news`},
+        opportunities: {label: `Opportunities`, url: `/community/opportunities`},
+        news: {label: `News`, url: `/community/news`},
         aroundTheWeb: {label: `Around the Web`, url: `/community/aroundweb`}
       },
       legalSection: {
         header: `Legal`,
-        privacy: {label: `Privacy`, url: `/play/privacypolicy`},
-        terms: {label: `Terms`, url: `#`},
-        carbonFootprint: {label: `Carbon Footprint`, url: `#`},
+        privacy: {label: `Privacy`, url: `/legal/privacy`},
+        terms: {label: `Terms`, url: `/legal/terms`},
+        carbonFootprint: {label: `Carbon Footprint`, url: `/legal/carbonfootprint`},
       }
     },
     sponsorContent: {
       thankSponsorPrefix: `Thank you to our`,
-      hostingProviders: {label: `Hosting Providers`, url: `#`}
+      hostingProviders: {label: `Hosting Providers`, url: `/legal/carbonfootprint#hostingproviders`}
     }
 }
 

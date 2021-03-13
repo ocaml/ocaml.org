@@ -77,12 +77,12 @@ function Index$HeroSection(Props) {
                           }), React.createElement("div", {
                             className: "mt-10 sm:flex sm:justify-center lg:justify-start"
                           }, React.createElement(Index$Button, {
-                                href: "/play/resource/installocaml",
+                                href: "/resources/installocaml",
                                 text: content.installOcaml,
                                 colors: "text-white bg-orangedark hover:bg-orangedarker",
                                 margins: ""
                               }), React.createElement(Index$Button, {
-                                href: "#",
+                                href: "/industry/whatisocaml",
                                 text: content.aboutOcaml,
                                 colors: "text-orangedark bg-white hover:bg-gray-50",
                                 margins: "mt-3 sm:mt-0 sm:ml-3"

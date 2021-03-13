@@ -96,7 +96,10 @@ function CommunityAroundWeb(Props) {
                                 }, React.createElement("a", {
                                       className: "text-white font-bold underline",
                                       href: "/play/community/aroundweb"
-                                    }, "View Playground >>")))))), React.createElement("div", {
+                                    }, "View Playground >>"), " ", React.createElement("a", {
+                                      className: "text-white font-bold underline",
+                                      href: "https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=1040%3A104"
+                                    }, "View in Figma >>")))))), React.createElement("div", {
                   className: "max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8"
                 }, React.createElement("div", {
                       className: "text-center"

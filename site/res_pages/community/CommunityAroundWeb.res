@@ -79,6 +79,8 @@ let make = (~content=contentEn) =>
           </span>
           <span className="block sm:ml-2 sm:inline-block">
             <a href="/play/community/aroundweb" className="text-white font-bold underline"> {s(`View Playground >>`)} </a>
+            {s(` `)}
+            <a href="https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=1040%3A104" className="text-white font-bold underline"> {s(`View in Figma >>`)} </a>
           </span>
         </p>
       </div>
