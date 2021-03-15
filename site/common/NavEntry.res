@@ -1,4 +1,4 @@
 type t = {
-    label: string,
-    url: string
+  label: string,
+  url: string,
 }

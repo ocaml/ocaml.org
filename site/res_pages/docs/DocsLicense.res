@@ -2,15 +2,16 @@ module LINK = Markdown.LINK
 
 let s = React.string
 
-let default = () =>
-  <>
-  <h1>{s(`OCaml's License`)}</h1>
+let default = () => <>
+  <h1> {s(`OCaml's License`)} </h1>
   <p>
     {s(`In the following, “the OCaml Core System” refers to all files marked “Copyright INRIA” in this distribution.`)}
   </p>
   <p>
     {s(`The OCaml Core System is distributed under the terms of the `)}
-    <LINK href="#the-gnu-lesser-general">{s(`GNU Lesser General Public License version 2.1`)}</LINK>
+    <LINK href="#the-gnu-lesser-general">
+      {s(`GNU Lesser General Public License version 2.1`)}
+    </LINK>
     {s(` (included below). `)}
   </p>
   <p>
@@ -24,11 +25,10 @@ let default = () =>
     in clause 2 of the GNU Lesser General Public License. This exception does not however invalidate any 
     other reasons why the executable file might be covered by the GNU Lesser General Public License. `)}
   </p>
-  <h2 id="the-gnu-lesser-general">{s(`The GNU Lesser General Public License, version 2.1`)}</h2>
+  <h2 id="the-gnu-lesser-general"> {s(`The GNU Lesser General Public License, version 2.1`)} </h2>
   <div>
     <p>
-      {s(
-`Copyright (C) 1991, 1999 Free Software Foundation, Inc.
+      {s(`Copyright (C) 1991, 1999 Free Software Foundation, Inc.
 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 Everyone is permitted to copy and distribute verbatim copies
 of this license document, but changing it is not allowed.`)}
@@ -37,7 +37,7 @@ of this license document, but changing it is not allowed.`)}
       {s(`[This is the first released version of the Lesser GPL.  It also counts as the successor of 
       the GNU Library Public License, version 2, hence the version number 2.1.]`)}
     </p>
-    <h3>{s(`Preamble`)}</h3>
+    <h3> {s(`Preamble`)} </h3>
     <p>
       {s(`The licenses for most software are designed to take away your freedom to share and change it. 
       By contrast, the GNU General Public Licenses are intended to guarantee your freedom to share and 
@@ -129,8 +129,7 @@ of this license document, but changing it is not allowed.`)}
       The former contains code derived from the library, whereas the latter must be combined with the 
       library in order to run.`)}
     </p>
-
-    <h3>{s(`TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION`)}</h3>
+    <h3> {s(`TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION`)} </h3>
     <p>
       {s(`0. This License Agreement applies to any software library or other program which contains a 
       notice placed by the copyright holder or other authorized party saying it may be distributed under 
@@ -177,11 +176,15 @@ of this license document, but changing it is not allowed.`)}
       work based on the Library, and copy and distribute such modifications or work under the terms of 
       Section 1 above, provided that you also meet all of these conditions:`)}
       <ul>
-        <li>{s(`a) The modified work must itself be a software library.`)}</li>
-        <li>{s(`b) You must cause the files modified to carry prominent notices stating that 
-        you changed the files and the date of any change.`)}</li>
-        <li>{s(`c) You must cause the whole of the work to be licensed at no charge to all 
-        third parties under the terms of this License.`)}</li>
+        <li> {s(`a) The modified work must itself be a software library.`)} </li>
+        <li>
+          {s(`b) You must cause the files modified to carry prominent notices stating that 
+        you changed the files and the date of any change.`)}
+        </li>
+        <li>
+          {s(`c) You must cause the whole of the work to be licensed at no charge to all 
+        third parties under the terms of this License.`)}
+        </li>
         <li>
           {s(`d) If a facility in the modified Library refers to a function or a table of data 
           to be supplied by an application program that uses the facility, other than as an argument 
@@ -433,9 +436,7 @@ of this license document, but changing it is not allowed.`)}
       be guided by the two goals of preserving the free status of all derivatives of our 
       free software and of promoting the sharing and reuse of software generally.`)}
     </p>
-    <p>
-      {s(`NO WARRANTY`)}
-    </p>
+    <p> {s(`NO WARRANTY`)} </p>
     <p>
       {s(`15. BECAUSE THE LIBRARY IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY FOR THE 
       LIBRARY, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN 
@@ -455,8 +456,8 @@ of this license document, but changing it is not allowed.`)}
       OR THIRD PARTIES OR A FAILURE OF THE LIBRARY TO OPERATE WITH ANY OTHER SOFTWARE), EVEN IF SUCH 
       HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.`)}
     </p>
-    <h3>{s(`END OF TERMS AND CONDITIONS`)}</h3>
-    <h3>{s(`How to Apply These Terms to Your New Libraries`)}</h3>
+    <h3> {s(`END OF TERMS AND CONDITIONS`)} </h3>
+    <h3> {s(`How to Apply These Terms to Your New Libraries`)} </h3>
     <p>
       {s(`If you develop a new library, and you want it to be of the greatest possible use to the 
       public, we recommend making it free software that everyone can redistribute and change. You 
@@ -470,8 +471,12 @@ of this license document, but changing it is not allowed.`)}
       is found.`)}
     </p>
     <p>
-      <var>{s(`one line to give the library's name and an idea of what it does.`)}</var><br />
-      {s(`Copyright (C) `)}<var>{s(`year`)}</var>{s(` `)}<var>{s(`name of author`)}</var>
+      <var> {s(`one line to give the library's name and an idea of what it does.`)} </var>
+      <br />
+      {s(`Copyright (C) `)}
+      <var> {s(`year`)} </var>
+      {s(` `)}
+      <var> {s(`name of author`)} </var>
     </p>
     <p>
       {s(`This library is free software; you can redistribute it and/or modify it under the terms of 
@@ -488,9 +493,7 @@ of this license document, but changing it is not allowed.`)}
       library; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, 
       Boston, MA  02110-1301  USA`)}
     </p>
-    <p>
-      {s(`Also add information on how to contact you by electronic and paper mail.`)}
-    </p>
+    <p> {s(`Also add information on how to contact you by electronic and paper mail.`)} </p>
     <p>
       {s(`You should also get your employer (if you work as a programmer) or your school, if any, to 
       sign a "copyright disclaimer" for the library, if necessary. Here is a sample; alter the names:`)}
@@ -499,14 +502,8 @@ of this license document, but changing it is not allowed.`)}
       {s(`Yoyodyne, Inc., hereby disclaims all copyright interest in the library 'Frob' (a library 
       for tweaking knobs) written by James Random Hacker.`)}
     </p>
-    <p>
-      <var>{s(`signature of Ty Coon`)}</var>{s(`, 1 April 1990`)}
-    </p>
-    <p>
-      {s(`Ty Coon, President of Vice`)}
-    </p>
-    <p>
-      {s(`That's all there is to it!`)}
-    </p>
+    <p> <var> {s(`signature of Ty Coon`)} </var> {s(`, 1 April 1990`)} </p>
+    <p> {s(`Ty Coon, President of Vice`)} </p>
+    <p> {s(`That's all there is to it!`)} </p>
   </div>
-  </>
+</>

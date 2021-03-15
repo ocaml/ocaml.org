@@ -1,12 +1,9 @@
 let s = React.string
 
-let default = () =>
-  <>
-  <h1>{s(`The OCaml License for Consortium Members`)}</h1>
+let default = () => <>
+  <h1> {s(`The OCaml License for Consortium Members`)} </h1>
   <div>
-    <p>
-      {s(`Copyright (c) 1996, 1997, 1998, 1999, 2000, 2001, 2002, INRIA`)}
-    </p>
+    <p> {s(`Copyright (c) 1996, 1997, 1998, 1999, 2000, 2001, 2002, INRIA`)} </p>
     <p>
       {s(`Permission is hereby granted, free of charge, to the Licensee 
       obtaining a copy of this software and associated documentation files 
@@ -39,7 +36,7 @@ let default = () =>
         </li>
       </ol>
     </p>
-    <h2>{s(`Disclaimer`)}</h2>
+    <h2> {s(`Disclaimer`)} </h2>
     <p>
       {s(`THIS SOFTWARE IS PROVIDED BY INRIA AND CONTRIBUTORS "AS IS" AND ANY 
       EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
@@ -54,4 +51,4 @@ let default = () =>
       IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.`)}
     </p>
   </div>
-  </>
+</>

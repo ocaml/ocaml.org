@@ -1,1 +1,1 @@
-@bs.module("fs") external readFileSync: (string) => 'buffer = "readFileSync"
+@module("fs") external readFileSync: string => 'buffer = "readFileSync"

@@ -2,15 +2,14 @@ module LINK = Markdown.LINK
 
 let s = React.string
 
-let default = () =>
-  <>
-  <h1>{s(`Libraries`)}</h1>
+let default = () => <>
+  <h1> {s(`Libraries`)} </h1>
   <p>
     {s(`There are thousands of OCaml libraries available. Here is a list of the most 
     popular sites where you can find them.`)}
     <ul>
       <li>
-        <LINK href="http://opam.ocaml.org/">{s(`Official OPAM repository`)}</LINK>
+        <LINK href="http://opam.ocaml.org/"> {s(`Official OPAM repository`)} </LINK>
         {s(` is the first place to check. The most high quality and most widely used libraries 
         are provided as OPAM packages.`)}
       </li>
@@ -18,7 +17,7 @@ let default = () =>
         {s(`GitHub is an extremely popular code hosting site. `)}
         <LINK href="https://github.com/trending/ocaml">
           {s(`Github is very widely used amongst OCaml programmers`)}
-        </LINK> 
+        </LINK>
         {s(`. Click the link to find OCaml projects. Remember that many of these libraries are 
         provided as OPAM packages, so you'll have already found them in OPAM. However, there are 
         some libraries here that people haven't pushed to OPAM for one reason or another.`)}
@@ -40,4 +39,4 @@ let default = () =>
       </li>
     </ul>
   </p>
-  </>
+</>
