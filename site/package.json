@@ -33,10 +33,12 @@
     "rescript:build": "bsb -make-world",
     "rescript:clean": "bsb -clean-world",
     "rescript:start": "bsb -make-world -w",
+    "rescript:format": "find . -type f \\( -name '*.res' -o -name '*.resi' \\) -exec sh -c 'bsc -format {} | sponge {}'  \\;",
     "postinstall": "bsb -clean-world -make-world"
   },
   "scriptsDescription": {
     "next:start": "prefer using express or another server with the output of next:export instead of next:start",
+    "rescript:format": "bsc -format doesn't support in place updates, so we need to use sponge",
     "postinstall": "when bs-platform version changes, running bsb will ensure latest generated js is committed by dependabot"
   },
   "devDependencies": {

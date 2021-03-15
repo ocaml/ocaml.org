@@ -32,6 +32,11 @@ ci-build:
 	# perform export once to ensure no server side functionality has been used
 	npx yarn@1.22 next:export
 
+.PHONY: rescript-format
+rescript-format:
+	# this command requires that you install `moreutils` which provides `sponge`
+	source $$NVM_DIR/nvm.sh && nvm use && npx yarn@1.22 rescript:format
+
 .PHONY: clean
 clean:
 	source $$NVM_DIR/nvm.sh && nvm use && npx bsb -clean

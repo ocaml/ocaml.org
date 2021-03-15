@@ -24,3 +24,7 @@ out
 /components/*.js
 /layouts/*.js
 /res_pages/**/*.js
+
+# VSCode
+.vscode/*
+~.vscode/extensions.json
