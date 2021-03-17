@@ -1,19 +1,73 @@
+type industrySection = {
+  header: string,
+  whatIsOcaml: NavEntry.t,
+  industrialUsers: NavEntry.t,
+  successStories: NavEntry.t,
+}
+
+type resourcesSection = {
+  header: string,
+  releases: NavEntry.t,
+  applications: NavEntry.t,
+  language: NavEntry.t,
+  archive: NavEntry.t,
+}
+
+type communitySection = {
+  header: string,
+  opportunities: NavEntry.t,
+  news: NavEntry.t,
+  aroundTheWeb: NavEntry.t,
+}
+
 type navContent = {
-  industry: string,
-  resources: string,
-  community: string,
+  industrySection: industrySection,
+  resourcesSection: resourcesSection,
+  communitySection: communitySection,
 }
 
 let navContentEn = {
-  industry: `Industry`,
-  resources: `Resources`,
-  community: `Community`,
+  industrySection: {
+    header: `Industry`,
+    whatIsOcaml: {label: `What is OCaml`, url: `/industry/whatisocaml`},
+    industrialUsers: {label: `Industrial Users`, url: `/industry/users`},
+    successStories: {label: `Success Stories`, url: `/industry/successstories`},
+  },
+  resourcesSection: {
+    header: `Resources`,
+    releases: {label: `Releases`, url: `/resources/releases`},
+    applications: {label: `Applications`, url: `/resources/applications`},
+    language: {label: `Language`, url: `/resources/language`},
+    archive: {label: `Archive`, url: `/resources/archive`},
+  },
+  communitySection: {
+    header: `Community`,
+    opportunities: {label: `Opportunities`, url: `/community/opportunities`},
+    news: {label: `News`, url: `/community/news`},
+    aroundTheWeb: {label: `Around the Web`, url: `/community/aroundweb`},
+  },
 }
 
 let headerContentEn: HeaderNavigation.content = {
-  industry: navContentEn.industry,
-  resources: navContentEn.resources,
-  community: navContentEn.community,
+  industrySection: {
+    header: navContentEn.industrySection.header,
+    whatIsOcaml: navContentEn.industrySection.whatIsOcaml,
+    industrialUsers: navContentEn.industrySection.industrialUsers,
+    successStories: navContentEn.industrySection.successStories,
+  },
+  resourcesSection: {
+    header: navContentEn.resourcesSection.header,
+    releases: navContentEn.resourcesSection.releases,
+    applications: navContentEn.resourcesSection.applications,
+    language: navContentEn.resourcesSection.language,
+    archive: navContentEn.resourcesSection.archive,
+  },
+  communitySection: {
+    header: navContentEn.communitySection.header,
+    opportunities: navContentEn.communitySection.opportunities,
+    news: navContentEn.communitySection.news,
+    aroundTheWeb: navContentEn.communitySection.aroundTheWeb,
+  },
   search: `Search`,
   openMenu: `Open menu`,
 }
@@ -25,23 +79,23 @@ let footerContentEn: Footer.t = {
   },
   mainLinksContent: {
     industrySection: {
-      header: navContentEn.industry,
-      whatIsOcaml: {label: `What is OCaml`, url: `/industry/whatisocaml`},
-      industrialUsers: {label: `Industrial Users`, url: `/industry/users`},
-      successStories: {label: `Success Stories`, url: `/industry/successstories`},
+      header: navContentEn.industrySection.header,
+      whatIsOcaml: navContentEn.industrySection.whatIsOcaml,
+      industrialUsers: navContentEn.industrySection.industrialUsers,
+      successStories: navContentEn.industrySection.successStories,
     },
     resourcesSection: {
-      header: navContentEn.resources,
-      releases: {label: `Releases`, url: `/resources/releases`},
-      applications: {label: `Applications`, url: `/resources/applications`},
-      language: {label: `Language`, url: `/resources/language`},
-      archive: {label: `Archive`, url: `/resources/archive`},
+      header: navContentEn.resourcesSection.header,
+      releases: navContentEn.resourcesSection.releases,
+      applications: navContentEn.resourcesSection.applications,
+      language: navContentEn.resourcesSection.language,
+      archive: navContentEn.resourcesSection.archive,
     },
     communitySection: {
-      header: navContentEn.community,
-      opportunities: {label: `Opportunities`, url: `/community/opportunities`},
-      news: {label: `News`, url: `/community/news`},
-      aroundTheWeb: {label: `Around the Web`, url: `/community/aroundweb`},
+      header: navContentEn.communitySection.header,
+      opportunities: navContentEn.communitySection.opportunities,
+      news: navContentEn.communitySection.news,
+      aroundTheWeb: navContentEn.communitySection.aroundTheWeb,
     },
     legalSection: {
       header: `Legal`,

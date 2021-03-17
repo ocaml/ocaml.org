@@ -2,16 +2,56 @@ module Link = Next.Link
 
 let s = React.string
 
+type industrySection = {
+  header: string,
+  whatIsOcaml: NavEntry.t,
+  industrialUsers: NavEntry.t,
+  successStories: NavEntry.t,
+}
+
+type resourcesSection = {
+  header: string,
+  releases: NavEntry.t,
+  applications: NavEntry.t,
+  language: NavEntry.t,
+  archive: NavEntry.t,
+}
+
+type communitySection = {
+  header: string,
+  opportunities: NavEntry.t,
+  news: NavEntry.t,
+  aroundTheWeb: NavEntry.t,
+}
+
 type content = {
-  industry: string,
-  resources: string,
-  community: string,
+  industrySection: industrySection,
+  resourcesSection: resourcesSection,
+  communitySection: communitySection,
   search: string,
   openMenu: string,
 }
 
+type activatedEntry =
+  | Industry
+  | Resources
+  | Community
+
 @react.component
-let make = (~content) =>
+let make = (~content) => {
+  let (activeMenu, setActiveMenu) = React.useState(_ => None)
+
+  let hideMenu = (_evt) => { setActiveMenu(_ => None) }
+
+  let toggleMenu = (entry, _evt) => {
+    setActiveMenu(prev => 
+      switch prev {
+        | Some(activated) when activated == entry => None
+        | Some(_) => Some(entry)
+        | None => Some(entry) 
+      })
+  }
+  
   <div className="max-w-7xl mx-auto px-4 sm:px-6">
     <div className="flex justify-between items-center md:justify-start py-6 md:space-x-10 ">
       <div className="flex justify-start  ">
@@ -20,9 +60,133 @@ let make = (~content) =>
         </a>
       </div>
       <nav className="hidden md:flex space-x-10 ">
-        <span className="text-base font-medium text-gray-500"> {s(content.industry)} </span>
-        <span className="text-base font-medium text-gray-500"> {s(content.resources)} </span>
-        <span className="text-base font-medium text-gray-500"> {s(content.community)} </span>
+        <div className="relative">
+          <button onClick={toggleMenu(Industry)} type_="button" className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedark" ariaExpanded=false>
+            <span>{s(content.industrySection.header)}</span>
+            <svg className="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" ariaHidden=true>
+              <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+            </svg>
+          </button>
+          <div className={"absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-xs sm:px-0 " ++
+            switch activeMenu {
+              | Some(Industry) => " opacity-100 translate-y-0 "
+              | _ => " opacity-0 translate-y-1 "
+              }
+            }>
+            <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+              <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
+                <Link href=content.industrySection.whatIsOcaml.url>
+                  <a onClick=hideMenu className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                    <p className="text-base font-medium text-gray-900">
+                      {s(content.industrySection.whatIsOcaml.label)}
+                    </p>
+                  </a>
+                </Link>
+                <Link href=content.industrySection.industrialUsers.url>
+                  <a onClick=hideMenu className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                    <p className="text-base font-medium text-gray-900">
+                      {s(content.industrySection.industrialUsers.label)}
+                    </p>
+                  </a>
+                </Link>
+                <Link href=content.industrySection.successStories.url>
+                  <a onClick=hideMenu className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                    <p className="text-base font-medium text-gray-900">
+                      {s(content.industrySection.successStories.label)}
+                    </p>
+                  </a>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="relative">
+          <button onClick={toggleMenu(Resources)} type_="button" className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedark" ariaExpanded=false>
+            <span>{s(content.resourcesSection.header)}</span>
+            <svg className="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" ariaHidden=true>
+              <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+            </svg>
+          </button>
+          <div className={"absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-xs sm:px-0 " ++
+            switch activeMenu {
+              | Some(Resources) => " opacity-100 translate-y-0 "
+              | _ => " opacity-0 translate-y-1 "
+              }
+            }>
+            <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+              <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
+                <Link href=content.resourcesSection.releases.url>
+                  <a onClick=hideMenu className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                    <p className="text-base font-medium text-gray-900">
+                      {s(content.resourcesSection.releases.label)}
+                    </p>
+                  </a>
+                </Link>
+                <Link href=content.resourcesSection.applications.url>
+                  <a onClick=hideMenu className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                    <p className="text-base font-medium text-gray-900">
+                      {s(content.resourcesSection.applications.label)}
+                    </p>
+                  </a>
+                </Link>
+                <Link href=content.resourcesSection.language.url>
+                  <a onClick=hideMenu className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                    <p className="text-base font-medium text-gray-900">
+                      {s(content.resourcesSection.language.label)}
+                    </p>
+                  </a>
+                </Link>
+                <Link href=content.resourcesSection.archive.url>
+                  <a onClick=hideMenu className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                    <p className="text-base font-medium text-gray-900">
+                      {s(content.resourcesSection.archive.label)}
+                    </p>
+                  </a>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="relative">
+          <button onClick={toggleMenu(Community)} type_="button" className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedark" ariaExpanded=false>
+            <span>{s(content.communitySection.header)}</span>
+            <svg className="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" ariaHidden=true>
+              <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+            </svg>
+          </button>
+          <div className={"absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-xs sm:px-0 " ++
+            switch activeMenu {
+              | Some(Community) => " opacity-100 translate-y-0 "
+              | _ => " opacity-0 translate-y-1 "
+              }
+            }>
+            <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+              <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
+                <Link href=content.communitySection.opportunities.url>
+                  <a onClick=hideMenu className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                    <p className="text-base font-medium text-gray-900">
+                      {s(content.communitySection.opportunities.label)}
+                    </p>
+                  </a>
+                </Link>
+                <Link href=content.communitySection.news.url>
+                  <a onClick=hideMenu className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                    <p className="text-base font-medium text-gray-900">
+                      {s(content.communitySection.news.label)}
+                    </p>
+                  </a>
+                </Link>
+                <Link href=content.communitySection.aroundTheWeb.url>
+                  <a onClick=hideMenu className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                    <p className="text-base font-medium text-gray-900">
+                      {s(content.communitySection.aroundTheWeb.label)}
+                    </p>
+                  </a>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
       </nav>
       <div className="flex-1 flex items-center justify-center px-2 md:justify-end ">
         <div className="max-w-lg w-full md:max-w-xs">
@@ -78,3 +242,4 @@ let make = (~content) =>
       </div>
     </div>
   </div>
+}
