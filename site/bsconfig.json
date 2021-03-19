@@ -2,18 +2,33 @@
   "$schema": "https://raw.githubusercontent.com/rescript-lang/rescript-compiler/master/docs/docson/build-schema.json",
   "name": "ocamlorg",
   "namespace": true,
-  "reason": { "react-jsx": 3 },
+  "reason": {
+    "react-jsx": 3
+  },
   "refmt": 3,
   "bs-dependencies": [
     "reason-react"
   ],
   "ppx-flags": [],
   "sources": [
-    { "dir": "common" },
-    { "dir": "bindings" },
-    { "dir": "pages", "subdirs": true },
-    { "dir": "res_pages", "subdirs": true },
-    { "dir": "components", "subdirs": true },
+    {
+      "dir": "common"
+    },
+    {
+      "dir": "bindings"
+    },
+    {
+      "dir": "pages",
+      "subdirs": true
+    },
+    {
+      "dir": "res_pages",
+      "subdirs": true
+    },
+    {
+      "dir": "components",
+      "subdirs": true
+    },
     "layouts"
   ],
   "package-specs": {
@@ -25,7 +40,7 @@
     "error": "+101+8"
   },
   "bsc-flags": [
-    "-bs-super-errors", 
+    "-bs-super-errors",
     "-bs-g"
   ]
 }

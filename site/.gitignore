@@ -1,3 +1,4 @@
+# This file aims to stay close to its upstream version: https://github.com/github/gitignore/blob/master/Node.gitignore
 # Yarn
 yarn-error.log
 
@@ -26,5 +27,6 @@ out
 /res_pages/**/*.js
 
 # VSCode
-.vscode/*
+.vscode/
 ~.vscode/extensions.json
+~.vscode/settings.json

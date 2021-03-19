@@ -27,7 +27,7 @@ const config = {
     return [
       // Temporary redirects
 
-      
+
       {
         source: '/play/homeround',
         destination: 'https://play.tailwindcss.com/LGDZzOzegQ?layout=preview',
