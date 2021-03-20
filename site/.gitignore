@@ -26,7 +26,3 @@ out
 /layouts/*.js
 /res_pages/**/*.js
 
-# VSCode
-.vscode/
-~.vscode/extensions.json
-~.vscode/settings.json
