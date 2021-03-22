@@ -6,13 +6,15 @@ type t = {
 }
 
 let contentEn = {
-  title: `Privacy Policy`,
+  title: `Timeline`,
   pageDescription: ``,
 }
 
 @react.component
 let make = (~content=contentEn) => <>
-  <ConstructionBanner />
+  <ConstructionBanner
+    figmaLink=`https://www.figma.com/file/Vha4bcBvNVrjyLmAEDgZ1x/History-Timeline?node-id=14%3A5`
+  />
   <TitleHeading title=content.title pageDescription=content.pageDescription />
 </>
 

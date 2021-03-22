@@ -6,13 +6,13 @@ type t = {
 }
 
 let contentEn = {
-  title: `Privacy Policy`,
-  pageDescription: ``,
+  title: `Papers Archive`,
+  pageDescription: `A selection of OCaml papers through the ages. Filter by the tags or do a search over all of the text.`,
 }
 
 @react.component
 let make = (~content=contentEn) => <>
-  <ConstructionBanner />
+  <ConstructionBanner playgroundLink=`/play/resources/paperarchive` />
   <TitleHeading title=content.title pageDescription=content.pageDescription />
 </>
 

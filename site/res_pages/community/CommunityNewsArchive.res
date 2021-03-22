@@ -6,8 +6,8 @@ type t = {
 }
 
 let contentEn = {
-  title: `Privacy Policy`,
-  pageDescription: ``,
+  title: `News Archive`,
+  pageDescription: `Arhive of news presented in the News page.`,
 }
 
 @react.component

@@ -6,8 +6,8 @@ type t = {
 }
 
 let contentEn = {
-  title: `Privacy Policy`,
-  pageDescription: ``,
+  title: `Best Practices`,
+  pageDescription: `Some guides to commonly used tools in OCaml development workflows.`,
 }
 
 @react.component
