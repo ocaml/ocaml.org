@@ -7,7 +7,7 @@ type t = {
 
 let contentEn = {
   title: `Carbon Footprint`,
-  pageDescription: ``,
+  pageDescription: `Over the years, the OCaml community has become more and more proactive when it comes to reducing its environmental impact. As part of this journey we have documented our efforts towards becoming Carbon Zero.`,
 }
 
 @react.component

@@ -7,7 +7,7 @@ type t = {
 
 let contentEn = {
   title: `Opportunities`,
-  pageDescription: ``,
+  pageDescription: `This is a space where groups, companies, and organisations can advertise their projects directly to the OCaml community.`,
 }
 
 @react.component
