@@ -48,6 +48,7 @@ let make = (~source, ~title, ~pageDescription) => {
     />
     <div className="grid grid-cols-9">
       <div className="hidden lg:flex lg:col-span-2 " />
+      // TODO: remove redundant bg-graylight
       <div className="col-span-9 lg:col-span-7 relative py-16 bg-graylight overflow-hidden">
         <div className="relative px-4 sm:px-6 lg:px-8">
           <MarkdownPageTitleHeading title pageDescription />
