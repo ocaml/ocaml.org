@@ -1,5 +1,7 @@
 module Link = Next.Link
 
+// TODO: delete this module or update it to reflect current styling
+/*
 module P = {
   @react.component
   let make = (~children) => <p className="mb-6"> children </p>
@@ -31,6 +33,7 @@ module LINK = {
   let make = (~href, ~children) =>
     <Link href={href}> <a className="text-ocamlorange underline"> children </a> </Link>
 }
+*/
 /* fold this code into a branch in "LINK"
 module AEXT = {
   @react.component
@@ -39,4 +42,4 @@ module AEXT = {
 };
 */
 
-let default = Mdx.Components.t(~p=P.make, ~h1=H1.make, ~h2=H2.make, ~h3=H3.make, ~a=LINK.make, ())
+// let default = Mdx.Components.t(~p=P.make, ~h1=H1.make, ~h2=H2.make, ~h3=H3.make, ~a=LINK.make, ())
