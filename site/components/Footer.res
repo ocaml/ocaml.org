@@ -86,7 +86,11 @@ module SectionLinks = {
       <H3> {s(name)} </H3>
       <ul className="mt-4 space-y-4">
         {keyPages
-        |> Js.Array.map(p => <li> <MutedLink href=p.NavEntry.url text=p.NavEntry.label /> </li>)
+        |> Js.Array.mapi((p, idx) =>
+          <li key={Js.Int.toString(idx)}>
+            <MutedLink href=p.NavEntry.url text=p.NavEntry.label />
+          </li>
+        )
         |> React.array}
       </ul>
     </div>
