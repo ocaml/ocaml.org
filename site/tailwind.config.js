@@ -23,6 +23,9 @@ module.exports = {
         orangedark: '#ed7109',
         orangedarker: '#dd6705'
       },
+      backgroundImage: (theme) => ({
+        'news-bg': "url('/static/news-bg.jpeg')",
+      }),
     },
     /* We override the default font-families with our own default prefs 
     fontFamily: {
