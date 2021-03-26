@@ -221,7 +221,7 @@ let make = (~content) => {
               className={"absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-xs sm:px-0 " ++
               switch activeMenu {
               | Some(Community) => " opacity-100 translate-y-0 "
-              | _ => " hidden translate-y-1 "
+              | _ => " hidden "
               }}>
               <div
                 className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
