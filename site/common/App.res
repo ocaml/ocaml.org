@@ -21,7 +21,6 @@ let make = (props: props): React.element => {
   let content = React.createElement(component, pageProps)
   Js.log(router.route)
   switch router.route {
-  | "/design/industry" => content
   | _ => <MainLayout> content </MainLayout>
   }
 }
