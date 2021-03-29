@@ -2,14 +2,69 @@ module Link = Next.Link
 
 let s = React.string
 
+type company = {
+  logo: string,
+  name: string,
+  customWidth: option<string>,
+  needsRounding: bool,
+  website: string,
+}
+
+let companies = [
+  {
+    logo: `oclabs.png`,
+    name: `OCaml Labs`,
+    customWidth: None,
+    needsRounding: false,
+    website: `https://ocamllabs.io`,
+  },
+  {
+    logo: `trd.png`,
+    name: `Tarides`,
+    customWidth: Some(`w-40`),
+    needsRounding: false,
+    website: `https://tarides.com`,
+  },
+  {
+    logo: `slv2.png`,
+    name: `Solvuu`,
+    customWidth: None,
+    needsRounding: true,
+    website: `https://solvuu.com`,
+  },
+  {
+    logo: `js2.jpeg`,
+    name: `Jane Street`,
+    customWidth: None,
+    needsRounding: true,
+    website: `https://janestreet.com`,
+  },
+  {
+    logo: `lxf.png`,
+    name: `LexiFi`,
+    customWidth: None,
+    needsRounding: false,
+    website: `https://lexifi.com`,
+  },
+  {
+    logo: `tz.png`,
+    name: `Tezos`,
+    customWidth: Some(`w-24`),
+    needsRounding: false,
+    website: `https://tezos.com`,
+  },
+]
+
 type t = {
   title: string,
   pageDescription: string,
+  companies: array<company>,
 }
 
 let contentEn = {
   title: `Industrial Users of OCaml`,
   pageDescription: `OCaml is a popular choice for companies who make use of its features in key aspects of their technologies. Some companies that use OCaml code are listed below:`,
+  companies: companies,
 }
 
 type callToAction = {
@@ -50,67 +105,16 @@ module MarkdownPageTitleHeading2 = {
     </div>
 }
 
-type company = {
-  logo: string,
-  name: string,
-  customWidth: option<string>,
-  needsRounding: bool,
-  companyWebsite: string,
-}
-
-let companies = [
-  {
-    logo: `/static/oclabs.png`,
-    name: `OCaml Labs`,
-    customWidth: None,
-    needsRounding: false,
-    companyWebsite: `https://ocamllabs.io`,
-  },
-  {
-    logo: `/static/trd.png`,
-    name: `Tarides`,
-    customWidth: Some(`w-40`),
-    needsRounding: false,
-    companyWebsite: `https://tarides.com`,
-  },
-  {
-    logo: `/static/slv2.png`,
-    name: `Solvuu`,
-    customWidth: None,
-    needsRounding: true,
-    companyWebsite: `https://solvuu.com/`,
-  },
-  {
-    logo: `/static/js2.jpeg`,
-    name: `Jane Street`,
-    customWidth: None,
-    needsRounding: true,
-    companyWebsite: `https://janestreet.com`,
-  },
-  {
-    logo: `/static/lxf.png`,
-    name: `LexiFi`,
-    customWidth: None,
-    needsRounding: false,
-    companyWebsite: `https://lexifi.com`,
-  },
-  {
-    logo: `/static/tz.png`,
-    name: `Tezos`,
-    customWidth: Some(`w-24`),
-    needsRounding: false,
-    companyWebsite: `https://tezos.com`,
-  },
-]
-
 module LogoSection = {
   @react.component
   let make = (~margins, ~companies) =>
     <div className={margins ++ " mx-auto sm:max-w-screen-sm lg:max-w-screen-lg"}>
+      // TODO: try switching to a grid
       <div className="flex flex-wrap justify-center lg:justify-between ">
         {companies
         |> Js.Array.mapi((c, idx) =>
           <div key={Js.Int.toString(idx)} className="p-12 flex flex-col items-center">
+            // TODO: considering accessibility, how many elements should the link span?
             <img
               className={switch c.customWidth {
               | Some(width) => width
@@ -119,13 +123,13 @@ module LogoSection = {
               switch c.needsRounding {
               | true => ` rounded-full `
               | false => ``
-              } ++ " mb-9"}
-              src=c.logo
+              } ++ " mb-9 "}
+              src={`/static/` ++ c.logo}
               alt=""
             />
             <p className="text-4xl underline font-bold">
               // TODO: accessibility - warn opening a new tab
-              <a href=c.companyWebsite target="_blank"> {s(c.name)} </a>
+              <a href=c.website target="_blank"> {s(c.name)} </a>
             </p>
           </div>
         )
@@ -152,7 +156,7 @@ let make = (~content=contentEn) => <>
           url: "/industry/successstories",
         }
       />
-      <LogoSection margins=`mt-6` companies />
+      <LogoSection margins=`mt-6` companies=content.companies />
     </div>
   </div>
 </>
