@@ -7,7 +7,7 @@ type t = {
 
 let contentEn = {
   title: `News Archive`,
-  pageDescription: `Arhive of news presented in the News page.`,
+  pageDescription: `Archive of news presented in the News page.`,
 }
 
 @react.component
