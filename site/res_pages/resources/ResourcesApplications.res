@@ -164,11 +164,12 @@ let make = (~content=contentEn) => <>
     figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=745%3A1`
     playgroundLink=`/play/resources/applications`
   />
-  <TitleHeading.LandingTitleHeading
+  <TitleHeading.Large
     title=content.title
     pageDescription=content.pageDescription
     marginTop=`mt-1`
     marginBottom=`mb-24`
+    addBottomBar=true
   />
   <ApiDocumentation margins=`mb-24` />
   <DeveloperGuides margins=`mb-2` />

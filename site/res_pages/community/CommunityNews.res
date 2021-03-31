@@ -427,14 +427,7 @@ let make = (~content=contentEn) => <>
     figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=952%3A422`
     playgroundLink=`/play/community/news`
   />
-  <div className="relative pt-16 pb-6 lg:pb-9 overflow-hidden">
-    <div className="relative px-4 sm:px-6 lg:px-8">
-      // TODO: use this component from shared area, as noted in generalize header issue
-      <IndustryUsers.MarkdownPageTitleHeading2
-        title=content.title pageDescription=content.pageDescription descriptionCentered=true
-      />
-    </div>
-  </div>
+  <TitleHeading.Large title=content.title pageDescription=content.pageDescription />
   <HighlightedStory margins=`mb-6` content=content.highlightedContent />
   <CategorizedNews margins=`mb-10 lg:mb-32` content=content.categorizedNews />
   <WeeklyNews margins=`mb-4` content=content.weeklyNews />

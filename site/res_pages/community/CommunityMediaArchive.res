@@ -62,7 +62,7 @@ let make = (~content=contentEn) => <>
     playgroundLink=`/play/resources/mediaarchive`
   />
   <div className="max-w-3xl mx-auto">
-    <TitleHeading title=content.title pageDescription=content.pageDescription />
+    <TitleHeading.Large title=content.title pageDescription=content.pageDescription />
     <MediaSection
       content={
         MediaSection.title: `Videos`,

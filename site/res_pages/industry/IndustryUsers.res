@@ -67,44 +67,6 @@ let contentEn = {
   companies: companies,
 }
 
-type callToAction = {
-  label: string,
-  url: string,
-}
-
-// TODO: as part of generalizing, consolidate this with installocaml version
-module MarkdownPageTitleHeading2 = {
-  @react.component
-  let make = (~title, ~pageDescription, ~margins=``, ~descriptionCentered=false, ~callToAction=?) =>
-    // TODO: remove default value for margins, fix compiler error
-    <div className="text-lg max-w-prose mx-auto">
-      <h1
-        className={margins ++ " block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl"}>
-        {s(title)}
-      </h1>
-      <p
-        className={"mt-8 text-xl text-gray-500 leading-8 " ++
-        switch descriptionCentered {
-        | true => " text-center "
-        | false => ""
-        }}>
-        {s(pageDescription)}
-      </p>
-      {switch callToAction {
-      | Some(callToAction) =>
-        <div className="text-center mt-7">
-          <Link href=callToAction.url>
-            <a
-              className="justify-center inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-orangedark hover:bg-orangedarker focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedarker">
-              {s(callToAction.label)}
-            </a>
-          </Link>
-        </div>
-      | None => <> </>
-      }}
-    </div>
-}
-
 module LogoSection = {
   @react.component
   let make = (~margins, ~companies) =>
@@ -144,21 +106,16 @@ let make = (~content=contentEn) => <>
     figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=430%3A36400`
     playgroundLink=`/play/industry/users`
   />
-  <div className="relative py-16 overflow-hidden">
-    <div className="relative px-4 sm:px-6 lg:px-8">
-      <MarkdownPageTitleHeading2
-        title=content.title
-        pageDescription=content.pageDescription
-        margins=`mt-2`
-        descriptionCentered=true
-        callToAction={
-          label: "Success Stories",
-          url: "/industry/successstories",
-        }
-      />
-      <LogoSection margins=`mt-6` companies=content.companies />
-    </div>
-  </div>
+  <TitleHeading.Large
+    title=content.title
+    pageDescription=content.pageDescription
+    marginTop=`mt-2`
+    callToAction={
+      TitleHeading.Large.label: "Success Stories",
+      url: "/industry/successstories",
+    }
+  />
+  <LogoSection margins=`mt-6` companies=content.companies />
 </>
 
 let default = make
