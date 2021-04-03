@@ -1,137 +1,69 @@
-# ocaml.org
+# next.ocaml.org
 
-## Issue workflow
+**Status:** Private repository, still a work in progress.
 
-### Contributor
+This is the working repository for v3 of the ocaml.org site, and the first
+major upgrade to the infrastructure since the v2 launch in 2012.  It will
+feature the major following improvements when completed:
 
-Feel free to use any approach that you prefer. The dev team
-suggests the following:
-* If you are unsure if your change will be accepted or if want to discuss the
-approach before diving in, please create an issue and pose questions.
-* Create a draft pull request with a small initial commit. One way to do this quickly is the following:
-  * Click the "branch" drop down menu and type the name of your new branch, using the convention INITIALS/TOPIC, such as "kw1/update-homeage", and click "Create branch: ..."
-  * In order to be able to create a pull request, make a small commit:
-      * Traverse to a source file of interest
-      * Click the "pencil" edit icon in the top right, which puts the file in edit mode
-      * Make a small change in the edit window
-      * Select "Commit directly ..." and click "Commit changes"
-  * Create a pull request using one of the following links, using the template which matches the type of change you are making. In the URL, replace "BRANCH" with your branch name.
-       * Create or update the implementation of a webpage: https://github.com/solvuu-inc/ocamlorg2/compare/BRANCH?expand=1&template=webpage_implement.md 
-       * Create a mockup page for a new design pull request template: https://github.com/solvuu-inc/ocamlorg2/compare/BRANCH?expand=1&template=mockup_webpage.md
-       * Perform an ecosystem upgrade pull request template: https://github.com/solvuu-inc/ocamlorg2/compare/BRANCH?expand=1&template=ecosystem_upgrade.md
-  * Change the action to "Create draft pull request" and press the button
-* Clone the repo locally (or continue editing directly in github if the change is small). Checkout
-out the branch that you created.
-* Continue developing, feel free to ask questions in
-the PR, if you run into obstacles or uncertainty as you make changes
-* Once you feel your branch is ready, check the PR preview to ensure the changes
-match your local view and appear correct
-* Review your implementation according to the checks notes in the PR template
-* Perform the following manual smoke test: 
-* Change PR status to "ready to review"
-* Update the PR description to indicate relative paths that have changed
+- Responsive-first design with improved accessibility on mobile devices.  This
+  is powered by a switch from an old version of Bootstrap to Tailwind 2.
 
-### Reviewer
+- Streamlined site design that takes all of the content added over the course
+  of the last decade into account and presents it more logically.
 
-* Observe the relative paths changed in latest PR Preview
-* ... MORE CONTENT HERE ...
-* Use "squash and merge", summarizing commit messages
-* Close any issues that were addressed by this PR
+- Separation of data editing from HTML/CSS generation.  The v2 site combined
+  (e.g.) fetching external newsfeeds with the HTML generation, whereas this v3
+  site keeps a structured store of data, which is then parsed to generate the
+  website.  We use ReScript/OCaml to generate the site content, and Ocurrent to
+  automate the data pipelines.  This separation enables us to deploy NetlifyCMS
+  to provide a web-based mechanism to submit content updates without requiring
+  a GitHub workflow (thus simplifying the life of language translators).
 
-## Setup and Development
+- Integrated documentation and package management. The v3 site will combine the
+  package management (currently opam.ocaml.org) with a new central
+  documentation source (codenamed 'docs.ocaml.org') within the ocaml.org site.
 
-If you don't already have `nvm` installed, [install it using the instructions
-provided by `nvm`](https://github.com/nvm-sh/nvm#installing-and-updating). Restart
-or reload your terminal to pickup the changes.
+- Original content on the ocaml.org site, such as all of the media from the
+  last few decades of conference talks. The v2 site only syndicated from
+  external sources, but now we can publish editorial content from around the
+  community directly on ocaml.org.
 
-Install node and javascript libraries and tools:
+  
 
-```
-make install-deps
-```
+Since this site is a work-in-progress, not all of the above features are yet
+materialised in this repository. As the team shows the site to more
+stakeholders in the ocaml.org ecosystem, we will expand the supported
+featureset.
 
-Run ReScript compiler in watch mode:
+## Team
 
-```
-make rescript-watch
-```
+The immediate team working on the v3 site consists of:
+- Ashish Agarwal (Solvuu)
+- Kanishka Azimi (Solvuu)
+- Patrick Ferris (OCaml Labs)
+- Gemma Gordon (OCaml Labs)
+- Isabella Leandersson (OCaml Labs)
+- Anil Madhavapeddy (University of Cambridge)
 
-In another tab, run the Next dev server:
+The documentation generation portion is courtesy of the odoc
+development team, with the site generation done by:
+- Jon Ludlam (OCaml Labs)
+- Jules Aguillon (Tarides)
+- Lucas Pluvinage (Tarides)
 
-```
-make next-dev
-```
+Major decisions will be taken by an ocaml.org steering committee:
+(TBD, but a set to propose is below along with role positions)
+- Ashish Agarwal
+- Florian Angeletti
+- Gemma Gordon 
+- Xavier Leroy
+- Jonathan Ludlam (odoc maintainer)
+- Anil Madhavapeddy
+- Gabriel Scherer
+- Christophe Troestler
 
-The output from the next dev server is rarely interesting, so you might save some
-real estate by running the command in the background. This frees up the second terminal for performing `git` commands.
+## Contributing
 
-Go to `http://localhost:3000`
-
-## Tips
-
-### res_pages vs pages
-
-ReScript can only handle one module of a given name, e.g. "Index". This clashes with nextjs
-page-based routing, which expects the filepath starting from `/pages/` to match
-the route exposed. So, in order to completely avoid any problems from this issue,
-we always create pages in `res_pages/` and rewrap the module in the desired location
-in `pages/`. If your module uses `getStaticPaths` or `getStaticProps`, those will also
-need to be re-exposed. Also, note that we choose to repeat the folder name (e.g. "releases") 
-in the module name (e.g. "ReleasesIndex.js").
-
-### Do not use nextjs server side features, such as getServerSideProps
-
-In order to ensure that this site remains a static site, do not make use of nextjs's
-`getServerSideProps` functionality. More [functionality to avoid is enumerated in the nextjs docs](https://nextjs.org/docs/advanced-features/static-html-export#caveats).
-
-### Prefer Simplicity over Accomodating Fast Refresh
-
-We choose to not complicate this project to accomodate Fast Refresh.
-
-
-## Useful commands
-
-Build CSS seperately via `npx postcss` (useful for debugging)
-
-```
-nvm install && npx postcss@8.3.1 styles/main.css -o /tmp/test.css
-```
-
-## Test production setup with Next
-
-TODO: change this to use `export` and `start` with output dir, instead of `start` directly
-```
-nvm install && npx yarn@1.22 install && npx yarn@1.22 build && PORT=3001 npx yarn@1.22 next:start
-```
-
-## Reference
-
-This is a NextJS project using the following:
-
-- [ReScript](https://rescript-lang.org) + React (reason-react)
-- Full Tailwind config & basic css scaffold
-- Mdxjs (via next-mdx-remote)
-
-The initial structure was defined by imitating a combination of choices in the following projects, with
-rescriptlang.org taking precedence when there was conflicting advice:
-
-- [rescript-nextjs starter](https://github.com/ryyppy/rescript-nextjs-template)
-- [rescript-lang.org website](https://github.com/reason-association/rescript-lang.org)
-- [nextjs tailwind example](https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss)
-- [nextjs mdxjs example using mdx-remote](https://github.com/vercel/next.js/tree/canary/examples/with-mdx-remote)
-- (add more links: ...)
-
-Some other useful reference articles:
-- [Markdown rendering approaches in nextjs](https://nextjs.org/blog/markdown)
-- [Utility-first CSS advocacy](https://www.swyx.io/why-tailwind/)
-- [2020 State of CSS - framework results](https://2020.stateofcss.com/en-US/technologies/css-frameworks/)
-- (add more links: ... React-static and 11ty's assessment of static site tools, 
-nextjs vs gatsby starter discussion, other static site comparisons, markdown vs jsx, 
-Yaml/front matter/git based headless cms, accessibility intros, Vercel vs Netlify notes, 
-Mdxjs vs markdown, rehype vs mdxjs)
-
-## Design and Information Architecture
-
-[Sitemap and information architecture on flowmap](https://app.flowmapp.com/share/6e5eeb4573f9e110ac779691fee85422/sitemap/)
-
-Design - Uses Figma, currently managed by designer. Discussion of both design and content is managed with Figma commenting system.
+Please see the [contribution guide](CONTRIBUTING.md) for information on how to
+build and contribute content.
