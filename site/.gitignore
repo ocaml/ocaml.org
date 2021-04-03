@@ -26,3 +26,6 @@ out
 /layouts/*.js
 /res_pages/**/*.js
 
+# OCaml
+/_build
+/_esy

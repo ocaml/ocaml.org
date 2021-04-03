@@ -1,19 +1,20 @@
 SHELL=/bin/bash
+NVM=source $$NVM_DIR/nvm.sh && nvm
 
 .PHONY: install-deps
 install-deps:
 	# install node version, if not already present
-	source $$NVM_DIR/nvm.sh && nvm install
-	# install js library dependencies and build tools
-	source $$NVM_DIR/nvm.sh && nvm use && npx yarn@1.22 install
+	$(NVM) install
+	# install js library dependencies and build tools for ocaml
+	$(NVM) use && npx yarn@1.22 install && npx esy
 
 .PHONY: rescript-watch
 rescript-watch:
-	source $$NVM_DIR/nvm.sh && nvm use && npx yarn@1.22 rescript:start
+	$(NVM) use && npx yarn@1.22 rescript:start
 
 .PHONY: next-dev
 next-dev:
-	source $$NVM_DIR/nvm.sh && nvm use && npx yarn@1.22 next:dev
+	$(NVM) use && npx yarn@1.22 next:dev
 
 .PHONY: ci-install-deps
 ci-install-deps:
@@ -35,8 +36,8 @@ ci-build:
 .PHONY: rescript-format
 rescript-format:
 	# this command requires that you install `moreutils` which provides `sponge`
-	source $$NVM_DIR/nvm.sh && nvm use && npx yarn@1.22 rescript:format
+	$(NVM) use && npx yarn@1.22 rescript:format
 
 .PHONY: clean
 clean:
-	source $$NVM_DIR/nvm.sh && nvm use && npx bsb -clean
+	$(NVM) use && npx bsb -clean
