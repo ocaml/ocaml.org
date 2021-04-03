@@ -1,3 +1,27 @@
+---
+title: Get Started with OCaml
+pageDescription: This page will help you install OCaml, the Dune build system, and support for your favourite text editor or IDE. These instructions work on Windows, Unix systems like Linux, and macOS.
+tableOfContents:
+  - name: "Installing OCaml"
+    headingId: "installing-ocaml"
+    subHeadings:
+      - subName: "For Linux and macOS"
+        subHeadingId: "for-linux-and-macos"
+      - subName: "For Windows"
+        subHeadingId: "for-windows"
+  - name: "The OCaml top level"
+    headingId: "the-ocaml-top-level"
+    subHeadings: []
+  - name: "Installing the Dune build system"
+    headingId: "installing-the-dune-build-system"
+    subHeadings: []
+  - name: "A first project"
+    headingId: "a-first-project"
+    subHeadings: []
+  - name: "Editor support for OCaml"
+    headingId: "editor-support-for-ocaml"
+    subHeadings: []
+---
 ## Installing OCaml
 
 There are two procedures: one for Unix-like systems, and one for Windows.
