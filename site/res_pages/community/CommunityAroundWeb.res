@@ -146,58 +146,10 @@ type t = {
   spaces: array<string>,
 }
 
-let contentEn = {
-  title: `OCaml Around the Web`,
-  pageDescription: `Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!`,
-  engageHeader: `Want to engage with the OCaml Community?`,
-  engageBody: `Participate in discussions on everything OCaml over at discuss.ocaml.org, where members of the community post`,
-  engageButtonText: `Take me to Discuss`,
-  blogSectionHeader: `Recent Blog Posts`,
-  blogSectionDescription: `Be inspired by the work of OCaml programmers all over the world and stay up-to-date on the latest developments.`,
-  blog: `Blog`,
-  blogEntries: [
-    {
-      title: `What I learned Coding from Home`,
-      excerpt: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto accusantium praesentium eius, 
-          ut atque fuga culpa, similique sequi cum eos quis dolorum.`,
-      author: `Roel Aufderehar`,
-      dateValue: `2020-03-16`,
-      date: `Mar 16, 2020`,
-      readingTime: `6`,
-    },
-    {
-      title: `Programming for a Better World`,
-      excerpt: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto accusantium praesentium eius, 
-          ut atque fuga culpa, similique sequi cum eos quis dolorum.`,
-      author: `Roel Aufderehar`,
-      dateValue: `2020-03-16`,
-      date: `Mar 16, 2020`,
-      readingTime: `6`,
-    },
-    {
-      title: `Methods for Irmin V2`,
-      excerpt: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto accusantium praesentium eius, 
-          ut atque fuga culpa, similique sequi cum eos quis dolorum.`,
-      author: `Daniela Metz`,
-      dateValue: `2020-02-12`,
-      date: `Feb 12, 2020`,
-      readingTime: `11`,
-    },
-  ],
-  blogArchiveText: `Go to the blog archive`,
-  spacesSectionHeader: `Looking for More? Try these spaces:`,
-  spaces: [
-    `Github.com`,
-    `Reddit.com`,
-    `Twitter.com`,
-    `Discuss.ocaml.org`,
-    `Github.com`,
-    `Github.com`,
-  ],
-}
+type props = {content: t}
 
 @react.component
-let make = (~content=contentEn) => <>
+let make = (~content) => <>
   <ConstructionBanner
     figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=1040%3A104`
     playgroundLink=`/play/community/aroundweb`
@@ -410,5 +362,63 @@ let make = (~content=contentEn) => <>
     </div>
   </div>
 </>
+
+let getStaticProps = _ctx => {
+  let contentPath = "res_pages/community/aroundweb.yaml"
+  let fileContents = Fs.readFileSync(contentPath)
+  let jsonRes = JsYaml.load(fileContents, ())
+  let dict = Js.Option.getExn(Js.Json.decodeObject(jsonRes))
+  let jsonArr = Js.Option.getExn(Js.Json.decodeArray(Js.Dict.unsafeGet(dict, "spaces")))
+  let spaces = Js.Array.map(o => {
+    Js.Option.getExn(Js.Json.decodeString(o))
+  }, jsonArr)
+
+  let contentEn = {
+    title: `OCaml Around the Web`,
+    pageDescription: `Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!`,
+    engageHeader: `Want to engage with the OCaml Community?`,
+    engageBody: `Participate in discussions on everything OCaml over at discuss.ocaml.org, where members of the community post`,
+    engageButtonText: `Take me to Discuss`,
+    blogSectionHeader: `Recent Blog Posts`,
+    blogSectionDescription: `Be inspired by the work of OCaml programmers all over the world and stay up-to-date on the latest developments.`,
+    blog: `Blog`,
+    blogEntries: [
+      {
+        title: `What I learned Coding from Home`,
+        excerpt: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto accusantium praesentium eius, 
+          ut atque fuga culpa, similique sequi cum eos quis dolorum.`,
+        author: `Roel Aufderehar`,
+        dateValue: `2020-03-16`,
+        date: `Mar 16, 2020`,
+        readingTime: `6`,
+      },
+      {
+        title: `Programming for a Better World`,
+        excerpt: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto accusantium praesentium eius, 
+          ut atque fuga culpa, similique sequi cum eos quis dolorum.`,
+        author: `Roel Aufderehar`,
+        dateValue: `2020-03-16`,
+        date: `Mar 16, 2020`,
+        readingTime: `6`,
+      },
+      {
+        title: `Methods for Irmin V2`,
+        excerpt: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto accusantium praesentium eius, 
+          ut atque fuga culpa, similique sequi cum eos quis dolorum.`,
+        author: `Daniela Metz`,
+        dateValue: `2020-02-12`,
+        date: `Feb 12, 2020`,
+        readingTime: `11`,
+      },
+    ],
+    blogArchiveText: `Go to the blog archive`,
+    spacesSectionHeader: `Looking for More? Try these spaces:`,
+    spaces: spaces,
+  }
+
+  {
+    "props": {content: contentEn},
+  }
+}
 
 let default = make
