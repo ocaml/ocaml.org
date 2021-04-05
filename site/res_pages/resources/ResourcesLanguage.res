@@ -28,7 +28,7 @@ module Books = {
     <div
       className={"bg-white overflow-hidden shadow rounded-lg mx-10 mx-auto max-w-5xl " ++ margins}>
       <div className="px-4 py-5 sm:px-6 sm:py-9">
-        <h2 className="text-center text-orangedark text-7xl font-bold mb-8">
+        <h2 className="text-center text-orangedark text-7xl font-bold mb-8 uppercase">
           {s(content.booksLabel)}
         </h2>
         <div className="grid grid-cols-5 items-center mb-8 px-6">

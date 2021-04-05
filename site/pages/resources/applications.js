@@ -1,5 +1,4 @@
-import ApplicationsRes from "res_pages/resources/ResourcesApplications";
-
-export default function Applications(props) {
-    return <ApplicationsRes {...props} />
-}
+export {
+    default,
+    getStaticProps,
+} from "res_pages/resources/ResourcesApplications.js"

@@ -25,50 +25,52 @@ module ApiDocumentation = {
 }
 
 module DeveloperGuides = {
+  type t = {
+    developerGuidesLabel: string,
+    topDeveloperGuide: DeveloperGuide.t,
+    bottomDeveloperGuide: DeveloperGuide.t,
+  }
+
   @react.component
-  let make = (~margins) =>
+  let make = (~margins, ~content) =>
     <div className={"bg-white overflow-hidden shadow rounded-lg mx-auto max-w-3xl " ++ margins}>
       <div className="px-4 py-5 sm:p-6">
         // TODO: factor out and define content type
         <h2 className="text-center text-orangedark text-4xl font-bold mb-8">
-          {s(`Developer Guides`)}
+          {s(content.developerGuidesLabel)}
         </h2>
         <div className="flex mb-11">
           <div>
             <h4 className="text-base font-bold mb-3">
               // TODO: visual indicator that link is opening new tab
-              <a
-                className="hover:underline"
-                href="https://docs.mirage.io/mirage/index.html"
-                target="_blank">
-                {s(`Mirage OS`)}
+              <a className="hover:underline" href=content.topDeveloperGuide.link target="_blank">
+                {s(content.topDeveloperGuide.name)}
               </a>
             </h4>
-            <p className="mt-1">
-              {s(`Mirage OS Unikernels lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at tristique odio. Etiam sodales porta lectus ac malesuada. Proin in odio ultricies, faucibus ligula ut`)}
-            </p>
+            <p className="mt-1"> {s(content.topDeveloperGuide.description)} </p>
           </div>
-          <div className="ml-7 flex-shrink-0">
-            <img className="h-32" src="/static/app-image.png" />
+          <div className="ml-10 flex-shrink-0">
+            <img
+              className=content.topDeveloperGuide.imageHeight
+              src={"/static/" ++ content.topDeveloperGuide.image}
+            />
           </div>
         </div>
         <div className="flex mb-11">
           <div className="mr-10 flex-shrink-0">
-            <img className="h-24" src="/static/jvs.png" />
+            <img
+              className=content.bottomDeveloperGuide.imageHeight
+              src={"/static/" ++ content.bottomDeveloperGuide.image}
+            />
           </div>
           <div>
             <h4 className="text-base font-bold mb-3">
               // TODO: visual indicator that link is opening new tab
-              <a
-                className="hover:underline"
-                href="https://b0-system.github.io/odig/doc/js_of_ocaml/Js_of_ocaml/index.html"
-                target="_blank">
-                {s(`JS_of_OCaml`)}
+              <a className="hover:underline" href=content.bottomDeveloperGuide.link target="_blank">
+                {s(content.bottomDeveloperGuide.name)}
               </a>
             </h4>
-            <p className="mt-1">
-              {s(`Browser programming dolor sit amet, consectetur adipiscing elit. Integer at tristique odio. Etiam sodales porta lectus ac maleuada. Proin in odio ultricies, faucibus ligula ut`)}
-            </p>
+            <p className="mt-1"> {s(content.bottomDeveloperGuide.description)} </p>
           </div>
         </div>
       </div>
@@ -148,33 +150,56 @@ module UsingOcaml = {
     </div>
 }
 
-type t = {
+type prop = {
   title: string,
   pageDescription: string,
+  developerGuidesContent: DeveloperGuides.t,
 }
 
+/*
 let contentEn = {
   title: `Applications`,
   pageDescription: `This is where you can find resources for working with the language itself. Whether you're building applications or maintaining libraries, this page has useful information for you.`,
+  developerGuidesContent: {
+    developerGuidesLabel: "Developer Guides",
+    topDeveloperGuide: {id: 1},
+    bottomDeveloperGuide: {id: 2},
+  },
 }
+*/
 
 @react.component
-let make = (~content=contentEn) => <>
+let make = (~title, ~pageDescription, ~developerGuidesContent) => <>
   <ConstructionBanner
     figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=745%3A1`
     playgroundLink=`/play/resources/applications`
   />
   <TitleHeading.Large
-    title=content.title
-    pageDescription=content.pageDescription
-    marginTop=`mt-1`
-    marginBottom=`mb-24`
-    addBottomBar=true
+    title pageDescription marginTop=`mt-1` marginBottom=`mb-24` addBottomBar=true
   />
   <ApiDocumentation margins=`mb-24` />
-  <DeveloperGuides margins=`mb-2` />
+  <DeveloperGuides margins=`mb-2` content=developerGuidesContent />
   <PlatformTools />
   <UsingOcaml margins=`mb-16` />
 </>
+
+let getStaticProps = _ctx => {
+  let developerGuides = DeveloperGuide.readAll()
+  // TODO: store ids of highlighted developer guides explicitly
+  let title = `Applications`
+  let pageDescription = `This is where you can find resources for working with the language itself. Whether you're building applications or maintaining libraries, this page has useful information for you.`
+  let developerGuidesContent = {
+    DeveloperGuides.developerGuidesLabel: "Developer Guides",
+    topDeveloperGuide: developerGuides[0],
+    bottomDeveloperGuide: developerGuides[1],
+  }
+  {
+    "props": {
+      title: title,
+      pageDescription: pageDescription,
+      developerGuidesContent: developerGuidesContent,
+    },
+  }
+}
 
 let default = make
