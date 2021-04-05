@@ -6,7 +6,7 @@ install-deps:
 	# install node version, if not already present
 	$(NVM) install
 	# install js library dependencies and build tools for ocaml
-	$(NVM) use && npx yarn@1.22 install && npx esy
+	$(NVM) use && npx yarn@1.22 install && npx esy@0.6.8
 
 .PHONY: rescript-watch
 rescript-watch:
