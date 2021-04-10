@@ -19,7 +19,7 @@ let make = (props: props): React.element => {
   let router = Next.Router.useRouter()
 
   let content = React.createElement(component, pageProps)
-  Js.log(router.route)
+  // debug with: Js.log(router.route)
   switch router.route {
   | _ => <MainLayout> content </MainLayout>
   }
