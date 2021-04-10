@@ -1,5 +1,3 @@
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](code_of_conduct.md)
-
 # ocaml.org
 
 ## Purpose
@@ -26,6 +24,8 @@ Please see the [contribution guide](CONTRIBUTING.md) for information on how to
 build and contribute content.
 
 ## Deployment Status
+
+![Vercel](https://therealsujitk-vercel-badge.vercel.app/?app=nextocamlorg)
 
 You can review the most [recent production deployment logs here]().
 
