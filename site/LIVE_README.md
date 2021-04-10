@@ -25,7 +25,9 @@ build and contribute content.
 
 ## Deployment Status
 
-![Vercel](https://therealsujitk-vercel-badge.vercel.app/?app=nextocamlorg)
+
+![Vercel](https://vercelbadge.vercel.app/api/solvuu-inc/next.ocaml.org)
+
 
 You can review the most [recent production deployment logs here]().
 
