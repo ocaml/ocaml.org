@@ -4,22 +4,16 @@ type t = {
   title: string,
 }
 
+@module("js-yaml") external load: (string, ~options: 'a=?, unit) => array<t> = "load"
+
+let forceInvalidException: JsYaml.forceInvalidException<t> = n => {
+  let _ = (Js.Int.toString(n.id), Js.String.length(n.link), Js.String.length(n.title))
+}
+
 let readAll = () => {
   let databasePath = "data/news.yaml"
   let fileContents = Fs.readFileSync(databasePath)
-  let jsonRes = JsYaml.load(fileContents, ())
-  let jsonArr = Js.Option.getExn(Js.Json.decodeArray(jsonRes))
-  Js.Array.map(o => {
-    let dict = Js.Option.getExn(Js.Json.decodeObject(o))
-    let id = Belt.Int.fromFloat(
-      Js.Option.getExn(Js.Json.decodeNumber(Js.Dict.unsafeGet(dict, "id"))),
-    )
-    let link = Js.Option.getExn(Js.Json.decodeString(Js.Dict.unsafeGet(dict, "link")))
-    let title = Js.Option.getExn(Js.Json.decodeString(Js.Dict.unsafeGet(dict, "title")))
-    {
-      id: id,
-      link: link,
-      title: title,
-    }
-  }, jsonArr)
+  let newsItems = load(fileContents, ())
+  Js.Array.forEach(forceInvalidException, newsItems)
+  newsItems
 }

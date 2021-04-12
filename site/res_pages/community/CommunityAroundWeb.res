@@ -311,17 +311,21 @@ let make = (~content) => <>
   </div>
 </>
 
+type pageContent = {spaces: array<string>}
+
+@module("js-yaml") external load: (string, ~options: 'a=?, unit) => pageContent = "load"
+
+let forceInvalidException: JsYaml.forceInvalidException<pageContent> = c => {
+  let _ = Js.Array.map(Js.String.length, c.spaces)
+}
+
 let getStaticProps = _ctx => {
   let news = NewsItem.readAll()
 
   let contentPath = "res_pages/community/aroundweb.yaml"
   let fileContents = Fs.readFileSync(contentPath)
-  let jsonRes = JsYaml.load(fileContents, ())
-  let dict = Js.Option.getExn(Js.Json.decodeObject(jsonRes))
-  let jsonArr = Js.Option.getExn(Js.Json.decodeArray(Js.Dict.unsafeGet(dict, "spaces")))
-  let spaces = Js.Array.map(o => {
-    Js.Option.getExn(Js.Json.decodeString(o))
-  }, jsonArr)
+  let pageContent = load(fileContents, ())
+  forceInvalidException(pageContent)
 
   let contentEn = {
     title: `OCaml Around the Web`,
@@ -366,7 +370,7 @@ let getStaticProps = _ctx => {
     ],
     blogArchiveText: `Go to the blog archive`,
     spacesSectionHeader: `Looking for More? Try these spaces:`,
-    spaces: spaces,
+    spaces: pageContent.spaces,
   }
 
   {

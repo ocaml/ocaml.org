@@ -6,22 +6,22 @@ type t = {
   link: string,
 }
 
+@module("js-yaml") external load: (string, ~options: 'a=?, unit) => array<t> = "load"
+
+let forceInvalidException: JsYaml.forceInvalidException<t> = t => {
+  let _ = (
+    Js.Int.toString(t.id),
+    Js.String.length(t.name),
+    Js.String.length(t.author),
+    Js.String.length(t.creationDate),
+    Js.String.length(t.link),
+  )
+}
+
 let readAll = () => {
   let databasePath = "data/talks.yaml"
   let fileContents = Fs.readFileSync(databasePath)
-  let jsonRes = JsYaml.load(fileContents, ())
-  let jsonArr = Js.Option.getExn(Js.Json.decodeArray(jsonRes))
-  Js.Array.map(o => {
-    let dict = Js.Option.getExn(Js.Json.decodeObject(o))
-    let id = Belt.Int.fromFloat(
-      Js.Option.getExn(Js.Json.decodeNumber(Js.Dict.unsafeGet(dict, "id"))),
-    )
-    let name = Js.Option.getExn(Js.Json.decodeString(Js.Dict.unsafeGet(dict, "name")))
-    let author = Js.Option.getExn(Js.Json.decodeString(Js.Dict.unsafeGet(dict, "author")))
-    let creationDate = Js.Option.getExn(
-      Js.Json.decodeString(Js.Dict.unsafeGet(dict, "creationDate")),
-    )
-    let link = Js.Option.getExn(Js.Json.decodeString(Js.Dict.unsafeGet(dict, "link")))
-    {id: id, name: name, author: author, creationDate: creationDate, link: link}
-  }, jsonArr)
+  let talks = load(fileContents, ())
+  Js.Array.forEach(forceInvalidException, talks)
+  talks
 }

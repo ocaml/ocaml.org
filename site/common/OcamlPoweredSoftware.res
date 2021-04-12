@@ -8,33 +8,24 @@ type t = {
   description: string,
 }
 
+@module("js-yaml") external load: (string, ~options: 'a=?, unit) => array<t> = "load"
+
+let forceInvalidException: JsYaml.forceInvalidException<t> = s => {
+  let _ = (
+    Js.Int.toString(s.id),
+    Js.String.length(s.name),
+    Js.String.length(s.link),
+    Js.String.length(s.linkDescription),
+    Js.String.length(s.image),
+    Js.String.length(s.imageHeight),
+    Js.String.length(s.description),
+  )
+}
+
 let readAll = () => {
   let databasePath = "data/ocaml_powered_software.yaml"
   let fileContents = Fs.readFileSync(databasePath)
-  let jsonRes = JsYaml.load(fileContents, ())
-  let jsonArr = Js.Option.getExn(Js.Json.decodeArray(jsonRes))
-  Js.Array.map(o => {
-    let dict = Js.Option.getExn(Js.Json.decodeObject(o))
-    let id = Belt.Int.fromFloat(
-      Js.Option.getExn(Js.Json.decodeNumber(Js.Dict.unsafeGet(dict, "id"))),
-    )
-    let name = Js.Option.getExn(Js.Json.decodeString(Js.Dict.unsafeGet(dict, "name")))
-    let link = Js.Option.getExn(Js.Json.decodeString(Js.Dict.unsafeGet(dict, "link")))
-    let linkDescription = Js.Option.getExn(
-      Js.Json.decodeString(Js.Dict.unsafeGet(dict, "linkDescription")),
-    )
-
-    let image = Js.Option.getExn(Js.Json.decodeString(Js.Dict.unsafeGet(dict, "image")))
-    let imageHeight = Js.Option.getExn(Js.Json.decodeString(Js.Dict.unsafeGet(dict, "imageHeight")))
-    let description = Js.Option.getExn(Js.Json.decodeString(Js.Dict.unsafeGet(dict, "description")))
-    {
-      id: id,
-      name: name,
-      link: link,
-      linkDescription: linkDescription,
-      image: image,
-      imageHeight: imageHeight,
-      description: description,
-    }
-  }, jsonArr)
+  let software = load(fileContents, ())
+  Js.Array.forEach(forceInvalidException, software)
+  software
 }

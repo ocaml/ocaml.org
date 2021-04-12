@@ -51,17 +51,17 @@ let contentEn = {
   },
 }
 
+type pageContent = {title: string, pageDescription: string}
+
+@module("js-yaml") external load: (string, ~options: 'a=?, unit) => pageContent = "load"
+
 let getStaticProps = ctx => {
   let params = ctx.Next.GetStaticProps.params
   let contentFilePath = "res_pages/resources/" ++ params.Params.tutorial ++ ".md"
   let fileContents = Fs.readFileSync(contentFilePath)
   let parsed = GrayMatter.matter(fileContents)
-  let dataDict = Js.Option.getExn(Js.Json.decodeObject(parsed.data))
-  let titleJson = Js.Dict.unsafeGet(dataDict, "title")
-  let title = Js.Option.getExn(Js.Json.decodeString(titleJson))
-  let pageDescriptionJson = Js.Dict.unsafeGet(dataDict, "pageDescription")
-  let pageDescription = Js.Option.getExn(Js.Json.decodeString(pageDescriptionJson))
-
+  // TODO: move this into GrayMatter or another module
+  GrayMatter.forceInvalidException(parsed.data)
   let source = parsed.content
 
   // TODO: parse table of contents from front matter
@@ -69,8 +69,8 @@ let getStaticProps = ctx => {
   mdSourcePromise->Js.Promise.then_(mdSource => {
     let props = {
       source: mdSource,
-      title: title,
-      pageDescription: pageDescription,
+      title: parsed.data.title,
+      pageDescription: parsed.data.pageDescription,
       tableOfContents: contentEn.tableOfContents,
     }
     Js.Promise.resolve({"props": props})
