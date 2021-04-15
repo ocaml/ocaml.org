@@ -11,6 +11,7 @@ let make = (~figmaLink=?, ~playgroundLink=?) =>
           | _ => <>
               <span className=""> {s(`Under construction`)} </span>
               <span className="block sm:ml-2 sm:inline-block">
+                {/* Delete this soon, hiding for now
                 {switch playgroundLink {
                 | Some(playgroundLink) =>
                   <a href=playgroundLink className="text-white font-bold underline">
@@ -19,7 +20,8 @@ let make = (~figmaLink=?, ~playgroundLink=?) =>
                 | _ => React.null
                 }}
                 {s(` `)}
-                {switch figmaLink {
+ */
+                switch figmaLink {
                 | Some(figmaLink) =>
                   <a href=figmaLink className="text-white font-bold underline">
                     {s(`View in Figma >>`)}

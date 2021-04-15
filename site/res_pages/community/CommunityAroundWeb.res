@@ -102,24 +102,25 @@ let make = (~content) => <>
     figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=1040%3A104`
     playgroundLink=`/play/community/aroundweb`
   />
-  <TitleHeading.Large title=content.title pageDescription=content.pageDescription />
-  <div className="bg-orangedark mb-16">
-    <div className="max-w-2xl mx-auto text-center py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
-      <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
-        <span className="block"> {s(content.engageHeader)} </span>
-      </h2>
-      <p className="mt-4 text-lg leading-6 text-white"> {s(content.engageBody)} </p>
-      <a
-        className="mt-8 w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md bg-white hover:bg-orangelight sm:w-auto"
-        href="https://discuss.ocaml.org"
-        target="_blank">
-        {s(content.engageButtonText)}
-      </a>
-    </div>
-  </div>
-  <LatestNews content=content.latestNewsContent />
-  <div className="pt-16 pb-3 px-4 sm:px-6 lg:pt-24 lg:pb-8 lg:px-8">
-    <div className="max-w-7xl mx-auto">
+  <MainContainer.None>
+    <TitleHeading.Large title=content.title pageDescription=content.pageDescription />
+    <SectionContainer.NoneFilled margins="mb-16">
+      <div className="max-w-2xl mx-auto text-center py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
+          <span className="block"> {s(content.engageHeader)} </span>
+        </h2>
+        <p className="mt-4 text-lg leading-6 text-white"> {s(content.engageBody)} </p>
+        <a
+          className="mt-8 w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md bg-white hover:bg-orangelight sm:w-auto"
+          href="https://discuss.ocaml.org"
+          target="_blank">
+          {s(content.engageButtonText)}
+        </a>
+      </div>
+    </SectionContainer.NoneFilled>
+    <LatestNews content=content.latestNewsContent />
+    <SectionContainer.LargeCentered
+      paddingY="pt-16 pb-3 lg:pt-24 lg:pb-8" paddingX="px-4 sm:px-6 lg:px-8">
       <div className="text-center">
         <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl">
           {s(content.blogSectionHeader)}
@@ -279,36 +280,36 @@ let make = (~content) => <>
           {s(content.blogArchiveText ++ ` >`)}
         </a>
       </p>
-    </div>
-  </div>
-  <div className="max-w-7xl mx-auto pb-14">
-    <h2
-      className="text-center text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl py-6 px-4 sm:py-12 sm:px-6 lg:px-8">
-      {s(content.spacesSectionHeader)}
-    </h2>
-    <div className="mx-auto max-w-4xl px-12">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-        <a className="block text-center bg-white shadow overflow-hidden rounded-md px-36 py-4">
-          {s(content.spaces[0])}
-        </a>
-        <a className="block text-center bg-white shadow overflow-hidden rounded-md px-36 py-4">
-          {s(content.spaces[1])}
-        </a>
-        <a className="block text-center bg-white shadow overflow-hidden rounded-md px-36 py-4">
-          {s(content.spaces[2])}
-        </a>
-        <a className="block text-center bg-white shadow overflow-hidden rounded-md px-36 py-4">
-          {s(content.spaces[3])}
-        </a>
-        <a className="block text-center bg-white shadow overflow-hidden rounded-md px-36 py-4">
-          {s(content.spaces[4])}
-        </a>
-        <a className="block text-center bg-white shadow overflow-hidden rounded-md px-36 py-4">
-          {s(content.spaces[5])}
-        </a>
+    </SectionContainer.LargeCentered>
+    <SectionContainer.LargeCentered paddingY="pb-14">
+      <h2
+        className="text-center text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl py-6 px-4 sm:py-12 sm:px-6 lg:px-8">
+        {s(content.spacesSectionHeader)}
+      </h2>
+      <div className="mx-auto max-w-4xl px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+          <a className="block text-center bg-white shadow overflow-hidden rounded-md px-36 py-4">
+            {s(content.spaces[0])}
+          </a>
+          <a className="block text-center bg-white shadow overflow-hidden rounded-md px-36 py-4">
+            {s(content.spaces[1])}
+          </a>
+          <a className="block text-center bg-white shadow overflow-hidden rounded-md px-36 py-4">
+            {s(content.spaces[2])}
+          </a>
+          <a className="block text-center bg-white shadow overflow-hidden rounded-md px-36 py-4">
+            {s(content.spaces[3])}
+          </a>
+          <a className="block text-center bg-white shadow overflow-hidden rounded-md px-36 py-4">
+            {s(content.spaces[4])}
+          </a>
+          <a className="block text-center bg-white shadow overflow-hidden rounded-md px-36 py-4">
+            {s(content.spaces[5])}
+          </a>
+        </div>
       </div>
-    </div>
-  </div>
+    </SectionContainer.LargeCentered>
+  </MainContainer.None>
 </>
 
 type pageContent = {spaces: array<string>}

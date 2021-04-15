@@ -6,7 +6,7 @@ module ApiDocumentation = {
   @react.component
   let make = (~margins) =>
     // TODO: factor out and define content type
-    <div className={"sm:flex px-32 items-center mx-auto max-w-5xl " ++ margins}>
+    <SectionContainer.MediumCentered margins paddingX="px-32" otherLayout="sm:flex items-center">
       <div className="mb-4 sm:mb-0 sm:mr-4">
         <h4 className="text-4xl font-bold mb-8"> {s(`API Documentation`)} </h4>
         <p className="mt-1 mb-8">
@@ -21,7 +21,7 @@ module ApiDocumentation = {
         </a>
       </div>
       <div className="flex-shrink-0"> <img className="h-56" src="/static/api-img.jpeg" /> </div>
-    </div>
+    </SectionContainer.MediumCentered>
 }
 
 module DeveloperGuides = {
@@ -80,7 +80,7 @@ module DeveloperGuides = {
 module PlatformTools = {
   @react.component
   let make = () =>
-    <div className="max-w-3xl mx-auto py-16 px-4 sm:py-20 sm:px-6 lg:px-2">
+    <SectionContainer.VerySmallCentered paddingY="py-16 sm:py-20" paddingX="px-4 sm:px-6 lg:px-2">
       // TODO: factor out and define content type
       <h2 className="text-3xl font-bold sm:text-3xl text-center"> {s(`Platform Tools`)} </h2>
       <p className="mt-4 text-lg leading-6">
@@ -94,7 +94,7 @@ module PlatformTools = {
           </a>
         </Link>
       </div>
-    </div>
+    </SectionContainer.VerySmallCentered>
 }
 
 module UsingOcaml = {
@@ -181,13 +181,15 @@ let make = (~title, ~pageDescription, ~developerGuidesContent, ~usingOcamlConten
     figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=745%3A1`
     playgroundLink=`/play/resources/applications`
   />
-  <TitleHeading.Large
-    title pageDescription marginTop=`mt-1` marginBottom=`mb-24` addBottomBar=true
-  />
-  <ApiDocumentation margins=`mb-24` />
-  <DeveloperGuides margins=`mb-2` content=developerGuidesContent />
-  <PlatformTools />
-  <UsingOcaml margins=`mb-16` content=usingOcamlContent />
+  <MainContainer.None>
+    <TitleHeading.Large
+      title pageDescription marginTop=`mt-1` marginBottom=`mb-24` addBottomBar=true
+    />
+    <ApiDocumentation margins=`mb-24` />
+    <DeveloperGuides margins=`mb-2` content=developerGuidesContent />
+    <PlatformTools />
+    <UsingOcaml margins=`mb-16` content=usingOcamlContent />
+  </MainContainer.None>
 </>
 
 let getStaticProps = _ctx => {

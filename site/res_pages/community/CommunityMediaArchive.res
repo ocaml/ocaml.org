@@ -19,7 +19,7 @@ module MediaSection = {
 
   @react.component
   let make = (~content) =>
-    <div className="container mx-auto pt-6 px-4">
+    <SectionContainer.FullyResponsiveCentered paddingY="pt-6" paddingX="px-4">
       <div className="rounded-lg shadow overflow-y-auto relative"> <img src=content.image /> </div>
       <h2 className="font-semibold text-2xl py-9 sm:text-3xl"> {s(content.title)} </h2>
       // Generic Highlight Component
@@ -45,7 +45,7 @@ module MediaSection = {
       <p className="text-right py-6 cursor-pointer hover:underline font-semibold text-yellow-600">
         {s(`Browse More ` ++ content.title)}
       </p>
-    </div>
+    </SectionContainer.FullyResponsiveCentered>
 }
 
 type prop = {
@@ -62,12 +62,12 @@ let make = (~title, ~pageDescription, ~videosContent, ~talksContent, ~papersCont
     figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=430%3A25378`
     playgroundLink=`/play/resources/mediaarchive`
   />
-  <div className="max-w-3xl mx-auto">
+  <MainContainer.NarrowCentered>
     <TitleHeading.Large title pageDescription />
     <MediaSection content=videosContent />
     <MediaSection content=talksContent />
     <MediaSection content=papersContent />
-  </div>
+  </MainContainer.NarrowCentered>
 </>
 
 let getStaticProps = _ctx => {

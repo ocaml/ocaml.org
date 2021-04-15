@@ -10,6 +10,7 @@ module Large: {
     ~pageDescription: string,
     ~marginTop: string=?,
     ~marginBottom: string=?,
+    ~addMaxWidth: bool=?,
     ~addBottomBar: bool=?,
     ~callToAction: callToAction=?,
     unit,

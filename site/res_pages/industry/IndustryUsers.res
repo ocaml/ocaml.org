@@ -70,7 +70,7 @@ let contentEn = {
 module LogoSection = {
   @react.component
   let make = (~margins, ~companies) =>
-    <div className={margins ++ " mx-auto sm:max-w-screen-sm lg:max-w-screen-lg"}>
+    <SectionContainer.ResponsiveCentered margins>
       // TODO: try switching to a grid
       <div className="flex flex-wrap justify-center lg:justify-between ">
         {companies
@@ -97,7 +97,7 @@ module LogoSection = {
         )
         |> React.array}
       </div>
-    </div>
+    </SectionContainer.ResponsiveCentered>
 }
 
 @react.component
@@ -106,16 +106,18 @@ let make = (~content=contentEn) => <>
     figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=430%3A36400`
     playgroundLink=`/play/industry/users`
   />
-  <TitleHeading.Large
-    title=content.title
-    pageDescription=content.pageDescription
-    marginTop=`mt-2`
-    callToAction={
-      TitleHeading.Large.label: "Success Stories",
-      url: "/industry/successstories",
-    }
-  />
-  <LogoSection margins=`mt-6` companies=content.companies />
+  <MainContainer.Centered>
+    <TitleHeading.Large
+      title=content.title
+      pageDescription=content.pageDescription
+      marginTop=`mt-2`
+      callToAction={
+        TitleHeading.Large.label: "Success Stories",
+        url: "/industry/successstories",
+      }
+    />
+    <LogoSection margins=`mt-6` companies=content.companies />
+  </MainContainer.Centered>
 </>
 
 let default = make

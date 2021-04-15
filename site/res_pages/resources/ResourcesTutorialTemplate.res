@@ -21,15 +21,18 @@ let make = (~source, ~title, ~pageDescription, ~tableOfContents) => {
       figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=430%3A21054`
       playgroundLink=`/play/resources/installocaml`
     />
-    <div className="grid grid-cols-9 bg-white">
-      <MarkdownPage.TableOfContents content=tableOfContents />
-      <div className="col-span-9 lg:col-span-7 bg-graylight relative py-16 overflow-hidden">
-        <div className="relative px-4 sm:px-6 lg:px-8">
-          <TitleHeading.MarkdownMedium title pageDescription />
-          <MarkdownPage.MarkdownPageBody margins=`mt-6`> body </MarkdownPage.MarkdownPageBody>
+    // TODO: should this have a constrained width? what does tailwind do?
+    <MainContainer.None>
+      <div className="grid grid-cols-9 bg-white">
+        <MarkdownPage.TableOfContents content=tableOfContents />
+        <div className="col-span-9 lg:col-span-7 bg-graylight relative py-16 overflow-hidden">
+          <div className="relative px-4 sm:px-6 lg:px-8">
+            <TitleHeading.MarkdownMedium title pageDescription />
+            <MarkdownPage.MarkdownPageBody margins=`mt-6`> body </MarkdownPage.MarkdownPageBody>
+          </div>
         </div>
       </div>
-    </div>
+    </MainContainer.None>
   </>
 }
 

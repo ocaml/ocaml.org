@@ -59,7 +59,7 @@ module CategorizedNews = {
 
   @react.component
   let make = (~margins, ~content) =>
-    <div className={margins ++ " max-w-5xl mx-auto px-12"}>
+    <SectionContainer.MediumCentered margins paddingX="px-12">
       <h2 className="text-orangedark text-3xl mb-5 lg:text-4xl font-bold text-center">
         {s(content.otherNewsStories)}
       </h2>
@@ -259,7 +259,7 @@ module CategorizedNews = {
           {s(content.goToNewsArchive)}
         </a>
       </div>
-    </div>
+    </SectionContainer.MediumCentered>
 }
 
 module WeeklyNews = {
@@ -270,7 +270,7 @@ module WeeklyNews = {
 
   @react.component
   let make = (~content, ~margins) =>
-    <div className={margins ++ " max-w-5xl mx-auto"}>
+    <SectionContainer.MediumCentered margins>
       <div className="lg:grid lg:grid-cols-2 items-center">
         <div className="lg:order-2">
           <h2 className="text-orangedark text-2xl font-bold text-center lg:text-4xl mb-9">
@@ -357,7 +357,7 @@ module WeeklyNews = {
           </div>
         </div>
       </div>
-    </div>
+    </SectionContainer.MediumCentered>
 }
 
 type t = {
@@ -427,10 +427,12 @@ let make = (~content=contentEn) => <>
     figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=952%3A422`
     playgroundLink=`/play/community/news`
   />
-  <TitleHeading.Large title=content.title pageDescription=content.pageDescription />
-  <HighlightedStory margins=`mb-6` content=content.highlightedContent />
-  <CategorizedNews margins=`mb-10 lg:mb-32` content=content.categorizedNews />
-  <WeeklyNews margins=`mb-4` content=content.weeklyNews />
+  <MainContainer.None>
+    <TitleHeading.Large title=content.title pageDescription=content.pageDescription />
+    <HighlightedStory margins=`mb-6` content=content.highlightedContent />
+    <CategorizedNews margins=`mb-10 lg:mb-32` content=content.categorizedNews />
+    <WeeklyNews margins=`mb-4` content=content.weeklyNews />
+  </MainContainer.None>
 </>
 
 let default = make

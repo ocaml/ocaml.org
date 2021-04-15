@@ -13,7 +13,9 @@ let contentEn = {
 @react.component
 let make = (~content=contentEn) => <>
   <ConstructionBanner />
-  <TitleHeading.Large title=content.title pageDescription=content.pageDescription />
+  <MainContainer.None>
+    <TitleHeading.Large title=content.title pageDescription=content.pageDescription />
+  </MainContainer.None>
 </>
 
 let default = make

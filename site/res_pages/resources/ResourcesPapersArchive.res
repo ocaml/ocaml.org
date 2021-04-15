@@ -13,7 +13,9 @@ let contentEn = {
 @react.component
 let make = (~content=contentEn) => <>
   <ConstructionBanner playgroundLink=`/play/resources/paperarchive` />
-  <TitleHeading.Large title=content.title pageDescription=content.pageDescription />
+  <MainContainer.Centered>
+    <TitleHeading.Large title=content.title pageDescription=content.pageDescription />
+  </MainContainer.Centered>
 </>
 
 let default = make

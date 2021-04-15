@@ -14,12 +14,18 @@ module Large = {
     ~pageDescription,
     ~marginTop="",
     ~marginBottom="",
+    ~addMaxWidth=false,
     ~addBottomBar=false,
     ~callToAction=?,
     (),
   ) => <>
     // TODO: make addBottomBar and callToAction mutually exclusive
-    <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+    // TODO: consider whether to use a container component
+    <div
+      className={switch addMaxWidth {
+      | true => "max-w-7xl"
+      | false => ""
+      } ++ " mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8"}>
       <div className="text-center">
         <h1
           className={marginTop ++ " text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl"}>
@@ -50,7 +56,7 @@ module Large = {
 module MarkdownMedium = {
   @react.component
   let make = (~title, ~pageDescription) =>
-    <div className="text-lg max-w-prose mx-auto">
+    <SectionContainer.MediumCentered2>
       <h1>
         <span
           className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
@@ -58,5 +64,5 @@ module MarkdownMedium = {
         </span>
       </h1>
       <p className="mt-8 text-xl text-gray-500 leading-8"> {s(pageDescription)} </p>
-    </div>
+    </SectionContainer.MediumCentered2>
 }

@@ -322,11 +322,12 @@ let contentEn = {
 }
 
 @react.component
-let make = (~content=contentEn) => <>
-  <HeroSection content=content.heroContent />
-  <StatsSection content=content.statsContent />
-  <OpamSection content=content.opamContent margins=`mt-12 sm:mt-16` />
-  <TestimonialSection content=content.testimonialContent margins=`mb-6 md:mb-4 lg:mb-6` />
-</>
+let make = (~content=contentEn) =>
+  <MainContainer.None>
+    <HeroSection content=content.heroContent />
+    <StatsSection content=content.statsContent />
+    <OpamSection content=content.opamContent margins=`mt-12 sm:mt-16` />
+    <TestimonialSection content=content.testimonialContent margins=`mb-6 md:mb-4 lg:mb-6` />
+  </MainContainer.None>
 
 let default = make
