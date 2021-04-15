@@ -1,4 +1,4 @@
-module Link = Next.Link
+// module Link = Next.Link
 
 // TODO: delete this module or update it to reflect current styling
 /*
@@ -43,3 +43,4 @@ module AEXT = {
 */
 
 // let default = Mdx.Components.t(~p=P.make, ~h1=H1.make, ~h2=H2.make, ~h3=H3.make, ~a=LINK.make, ())
+
