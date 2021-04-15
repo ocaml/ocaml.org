@@ -9,8 +9,11 @@ feature the major following improvements when completed:
 - Responsive-first design with improved accessibility on mobile devices.  This
   is powered by a switch from an old version of Bootstrap to Tailwind 2.
 
-- Streamlined site design that takes all of the content added over the course
-  of the last decade into account and presents it more logically.
+- Site design that takes into account modern web-design principles,
+  re-structuring the old content in accordance with methods that will present it
+  more compellingly. A total re-design that aims to modernise the look and feel
+  of the webpage, as well as make it easier to navigate, and more accessible to
+  use.
 
 - Separation of data editing from HTML/CSS generation.  The v2 site combined
   (e.g.) fetching external newsfeeds with the HTML generation, whereas this v3
@@ -24,12 +27,11 @@ feature the major following improvements when completed:
   package management (currently opam.ocaml.org) with a new central
   documentation source (codenamed 'docs.ocaml.org') within the ocaml.org site.
 
-- Original content on the ocaml.org site, such as all of the media from the
-  last few decades of conference talks. The v2 site only syndicated from
-  external sources, but now we can publish editorial content from around the
-  community directly on ocaml.org.
-
-  
+- There will be scope for publishing original content on the ocaml.org site.
+  The v2 site only syndicated from external sources, but now we can publish
+  editorial content from around the community directly on ocaml.org. Original
+  content could include interviews, featured news stories, talks and other media
+  from past conferences, along with many other types of content.
 
 Since this site is a work-in-progress, not all of the above features are yet
 materialised in this repository. As the team shows the site to more
