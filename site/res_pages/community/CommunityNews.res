@@ -375,7 +375,7 @@ let contentEn = {
     highlightedStory: `Highlighted Story`,
     clickToRead: `Click to Read`,
     highlightedStorySummary: {
-      preview: `Isabelle Leandersson interviewed speakers at the 2020 OCaml workshop at ICFP. Click through to read about what they had to say.`,
+      preview: `Isabella Leandersson interviewed speakers at the 2020 OCaml workshop at ICFP. Click through to read about what they had to say.`,
       url: `/community/isabelle-leandersson-interviewed-speakers`,
     },
   },
