@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "author": "The OCaml.org team",
   "license": "ISC",
-  "description": "Solvuu root",
   "esy": {
     "build": "dune build --root #{self.root} --profile=release @install",
     "buildDev": "dune build --root #{self.root} --profile=dev @all",
