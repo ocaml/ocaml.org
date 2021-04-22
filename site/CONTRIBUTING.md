@@ -92,26 +92,54 @@ nvm install && npx yarn@1.22 install && npx yarn@1.22 build && PORT=3001 npx yar
 
 ## Setup and Development
 
-If you don't already have `nvm` installed, [install it using the instructions
-provided by `nvm`](https://github.com/nvm-sh/nvm#installing-and-updating). Restart
-or reload your terminal to pickup the changes.
+### Prerequisities
 
-Install node and javascript libraries and tools:
+If you choose to use `nvm`, you must activate `nvm` before installing `yarn` and `esy`.
+
+#### node
+
+The site makes use of `node`. We recommmend using `nvm` to install node. If you don't already have `nvm` installed, you can [install it using the instructions provided by `nvm`](https://github.com/nvm-sh/nvm#installing-and-updating). Restart or reload your terminal to pickup the changes.
+
+If you are using `nvm`, then you can install the necessary `node` version with the following command:
 
 ```
-make install-deps
+nvm install
+```
+
+Once you have the proper version of `node` installed, if you are using `nvm`, you can activate the proper version of `node` in **each terminal** with the following command:
+
+```
+nvm use
+```
+
+#### yarn 
+
+The site makes use of `yarn`. We currently use version 1.22. Please consult the `yarn` documentation for installation instructions. We recommend installing `yarn` globally to provide a smoother command line experience.
+
+#### esy
+
+The site makes use of `esy`. We currently use version 0.6.8. Please consult the `esy` documentation for installation instructions. We recommend installing `esy` globally to provide a smooother command line experience.
+
+### Dependencies
+
+Note: Remember that **each terminal** needs to have `nvm use` invoked to activate the proper node version, if you are using `nvm`.
+
+Install javascript libraries and build and install ocaml helper executables:
+
+```
+yarn install && esy
 ```
 
 Run ReScript compiler in watch mode:
 
 ```
-make rescript-watch
+npx bsb -make-world -w
 ```
 
 In another tab, run the Next dev server:
 
 ```
-make next-dev
+npx next dev
 ```
 
 The output from the next dev server is rarely interesting, so you might save some
@@ -121,5 +149,5 @@ Go to `http://localhost:3000`
 
 ## Architecture
 
-We have prepared some diagrams and explanations to orient new developers. The site expands upon the default build process in NextJS to accommodate more sophisticated markdown transformations.
+We have prepared some diagrams and explanations to [orient new developers](../wikis/Architecture-Overview). The site expands upon the default build process in NextJS to accommodate more sophisticated markdown transformations.
 

@@ -5,7 +5,8 @@
   "author": "The OCaml.org team",
   "license": "ISC",
   "engines": {
-    "node": "14.x"
+    "node": "14.x",
+    "yarn": ">= 1.22"
   },
   "enginesDescription": {
     "node": "vercel uses this value to select which node version to use. string must match vercel options exactly to silence warnings."
@@ -21,13 +22,11 @@
     "bs-platform": "This a regular dependency because the included standard libraries are used during runtime"
   },
   "scripts": {
-    "next:dev": "next dev",
     "next:debug": "NODE_OPTIONS='--inspect' next dev",
     "build": "bsb -clean-world -make-world && next build && next export",
     "next:start": "next start -p $PORT",
     "rescript:build": "bsb -make-world",
     "rescript:clean": "bsb -clean-world",
-    "rescript:start": "bsb -make-world -w",
     "rescript:format": "find . -type f \\( -name '*.res' -o -name '*.resi' \\) -exec sh -c 'bsc -format {} | sponge {}'  \\;"
   },
   "scriptsDescription": {
