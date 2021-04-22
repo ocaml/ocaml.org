@@ -63,7 +63,7 @@ Major decisions will be taken by an ocaml.org steering committee:
 - Gabriel Scherer
 - Christophe Troestler
 
-## Contributing
+## Contributing
 
 Please see the [contribution guide](CONTRIBUTING.md) for information on how to
 build and contribute content.
