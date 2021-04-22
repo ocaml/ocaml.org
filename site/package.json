@@ -13,14 +13,12 @@
   "dependencies": {
     "bs-platform": "9.0.0",
     "next": "^10.0.6",
-    "next-mdx-remote": "^2.1.3",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "reason-react": "^0.9.1"
   },
   "dependenciesDescription": {
-    "bs-platform": "This a regular dependency because the included standard libraries are used during runtime",
-    "next-mdx-remote": "Allows for directly invoking mdxjs markdown conversion during nextjs data fetching"
+    "bs-platform": "This a regular dependency because the included standard libraries are used during runtime"
   },
   "scripts": {
     "next:dev": "next dev",
@@ -43,15 +41,27 @@
     "autoprefixer": "^10.2.4",
     "gray-matter": "^4.0.2",
     "js-yaml": "^4.0.0",
+    "mdast-util-to-string": "^2.0.0",
     "next-transpile-modules": "4.1.0",
     "postcss": "^8.2.5",
-    "tailwindcss": "^2.0.3"
+    "rehype-stringify": "^8.0.0",
+    "remark-parse": "^9.0.0",
+    "remark-rehype": "^8.1.0",
+    "remark-slug": "^6.0.0",
+    "tailwindcss": "^2.0.3",
+    "unified": "^9.2.1"
   },
   "devDependenciesDescription": {
     "js-yaml": "only used during site build, not in the browser",
     "gray-matter": "only used during site build, not in the browser",
+    "mdast-util-to-string": "only used during site build, not in the browser",
+    "rehype-stringify": "only used during site build, not in the browser",
+    "remark-parse": "only used during site build, not in the browser",
+    "remark-rehype": "only used during site build, not in the browser",
+    "remark-slug": "only used during site build, not in the browser",
     "next-transpile-modules": "only used during site build, not in the browser",
-    "postcss": "explicity set to > 8.0 temporarily until all transitive dependencies do not obstruct using >= 8.0, remove this soon"
+    "postcss": "explicity set to > 8.0 temporarily until all transitive dependencies do not obstruct using >= 8.0, remove this soon",
+    "unifed": "only used during site build, not in the browser"
   },
   "postcss": {
     "plugins": {

@@ -1,26 +1,6 @@
 ---
 title: Get Started with OCaml
 pageDescription: This page will help you install OCaml, the Dune build system, and support for your favourite text editor or IDE. These instructions work on Windows, Unix systems like Linux, and macOS.
-tableOfContents:
-  - name: "Installing OCaml"
-    headingId: "installing-ocaml"
-    subHeadings:
-      - subName: "For Linux and macOS"
-        subHeadingId: "for-linux-and-macos"
-      - subName: "For Windows"
-        subHeadingId: "for-windows"
-  - name: "The OCaml top level"
-    headingId: "the-ocaml-top-level"
-    subHeadings: []
-  - name: "Installing the Dune build system"
-    headingId: "installing-the-dune-build-system"
-    subHeadings: []
-  - name: "A first project"
-    headingId: "a-first-project"
-    subHeadings: []
-  - name: "Editor support for OCaml"
-    headingId: "editor-support-for-ocaml"
-    subHeadings: []
 ---
 ## Installing OCaml
 
@@ -74,7 +54,7 @@ sh <(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.
 
 We use the OCaml for Windows installer which comes in 32bit and 64bit versions. This installer gives you opam and OCaml installations all in one go. It is used from within a Cygwin environment, but the executables produced have no dependency on Cygwin at all.
 
-### The OCaml top level
+## The OCaml top level
 
 OCaml comes with two compilers: for native code, and for byte code. We shall use one of those in a moment. But first, let's use OCaml's top level (sometimes know as a REPL in other languages):
 
@@ -95,7 +75,7 @@ $ opam install utop
 
 We run it by typing `utop` instead of `ocaml`. You can read more about utop.
 
-### Installing the Dune build system
+## Installing the Dune build system
 
 Dune is a build system for OCaml. It takes care of all the low level details of OCaml compilation. We install it with opam:
 
@@ -113,7 +93,7 @@ downloaded
 Done.
 ```
 
-### A first project
+## A first project
 
 Let's begin the simplest project with Dune and OCaml. We create a new directory and ask `dune` to initialise a new project:
 
@@ -156,7 +136,7 @@ Here is the contents of the automatically-generated `dune` file. When we want to
   (name helloworld))
 ```
 
-### Editor support for OCaml
+## Editor support for OCaml
 
 For Visual Studio Code, and other editors support the Language Server Protocol, the OCaml language server can be installed with opam:
 

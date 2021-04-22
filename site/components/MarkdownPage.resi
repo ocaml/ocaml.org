@@ -1,23 +1,12 @@
 module MarkdownPageBody: {
   @react.component
-  let make: (~margins: string, ~children: React.element) => React.element
+  let make: (~margins: string, ~renderedMarkdown: string) => React.element
 }
 
 module TableOfContents: {
-  type subHeading = {
-    subName: string,
-    subHeadingId: string,
-  }
-
-  type heading = {
-    name: string,
-    headingId: string,
-    subHeadings: array<subHeading>,
-  }
-
   type t = {
     contents: string,
-    headings: array<heading>,
+    toc: Unified.MarkdownTableOfContents.t,
   }
 
   @react.component

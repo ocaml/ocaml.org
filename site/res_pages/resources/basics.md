@@ -1,38 +1,6 @@
 ---
 title: Basics
 pageDescription: ''
-tableOfContnts:
-  - name: "Running OCaml code"
-    headingId: "running-ocaml-code"
-    subHeadings: []
-  - name: "Comments"
-    headingId: "comments"
-    subHeadings: []
-  - name: "Calling functions"
-    headingId: "calling-functions"
-    subHeadings: []
-  - name: "Defining a function"
-    headingId: "defining-a-function"
-    subHeadings: []
-  - name: "Basic types"
-    headingId: "basic-types"
-    subHeadings: []
-  - name: "Implicit vs. explicit casts"
-    headingId: "implicit-vs-explicit-casts"
-    subHeadings:
-      - subName: "Is implicit or explicit casting better?"
-        subHeadingId: "is-implicit-or-explicit-casting-better"
-  - name: "Ordinary functions and recursive functions"
-    headingId: "ordinary-functions-and-recursive-functions"
-    subHeadings: []
-  - name: "Types of functions"
-    headingId: "types-of-functions"
-    subHeadings:
-      - subName: "Polymorphic functions"
-        subHeadingId: "polymorphic-functions"
-  - name: "Type inference"
-    headingId: "type-inference"
-    subHeadings: []
 ---
 ## Running OCaml code
 

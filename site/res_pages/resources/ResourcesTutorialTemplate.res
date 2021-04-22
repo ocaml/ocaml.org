@@ -4,10 +4,10 @@ module Params = {
   type t = {tutorial: string}
 }
 
-type t = {tableOfContents: MarkdownPage.TableOfContents.t}
+type t = {contents: string}
 
 type props = {
-  source: NextMdxRemote.renderToStringResult,
+  source: string,
   title: string,
   pageDescription: string,
   tableOfContents: MarkdownPage.TableOfContents.t,
@@ -15,7 +15,6 @@ type props = {
 
 @react.component
 let make = (~source, ~title, ~pageDescription, ~tableOfContents) => {
-  let body = NextMdxRemote.hydrate(source, NextMdxRemote.hydrateParams())
   <>
     <ConstructionBanner
       figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=430%3A21054`
@@ -28,7 +27,7 @@ let make = (~source, ~title, ~pageDescription, ~tableOfContents) => {
         <div className="col-span-9 lg:col-span-7 bg-graylight relative py-16 overflow-hidden">
           <div className="relative px-4 sm:px-6 lg:px-8">
             <TitleHeading.MarkdownMedium title pageDescription />
-            <MarkdownPage.MarkdownPageBody margins=`mt-6`> body </MarkdownPage.MarkdownPageBody>
+            <MarkdownPage.MarkdownPageBody margins=`mt-6` renderedMarkdown=source />
           </div>
         </div>
       </div>
@@ -37,21 +36,7 @@ let make = (~source, ~title, ~pageDescription, ~tableOfContents) => {
 }
 
 let contentEn = {
-  tableOfContents: {
-    contents: `Contents`, // take this from a generic markdown generic content yaml file, hardcode for now
-    headings: [
-      {
-        name: "Implicit vs. explicit casts",
-        headingId: "implicit-vs-explicit-casts",
-        subHeadings: [
-          {
-            subName: "Is implicit or explicit casting better?",
-            subHeadingId: "is-implicit-or-explicit-casting-better",
-          },
-        ],
-      },
-    ],
-  },
+  contents: `Contents`,
 }
 
 type pageContent = {title: string, pageDescription: string}
@@ -67,20 +52,37 @@ let getStaticProps = ctx => {
   GrayMatter.forceInvalidException(parsed.data)
   let source = parsed.content
 
-  // TODO: parse table of contents from front matter
-  let mdSourcePromise = NextMdxRemote.renderToString(source, NextMdxRemote.renderToStringParams())
-  mdSourcePromise->Js.Promise.then_(mdSource => {
+  let resPromise = Unified.process(
+    Unified.use(
+      Unified.use(
+        Unified.use(
+          Unified.use(Unified.use(Unified.unified(), Unified.remarkParse), Unified.remarkSlug),
+          MdastToc.plugin,
+        ),
+        Unified.remark2rehype,
+      ),
+      Unified.rehypeStringify,
+    ),
+    source,
+  )
+
+  Js.Promise.then_((res: Unified.vfile) => {
     let props = {
-      source: mdSource,
+      source: res.contents,
       title: parsed.data.title,
       pageDescription: parsed.data.pageDescription,
-      tableOfContents: contentEn.tableOfContents,
+      tableOfContents: {
+        contents: "Contents",
+        toc: res.toc,
+      },
     }
     Js.Promise.resolve({"props": props})
-  }, _)
+  }, resPromise)
 }
 
 let getStaticPaths: Next.GetStaticPaths.t<Params.t> = () => {
+  // TODO: change this to read all subdirectories of "resources" and
+  //  then read "<subdir>/tutorial.md" in getStaticProps
   let markdownFiles = Js.Array.filter(// todo: case insensitive
   s => Js.String.endsWith("md", s), Fs.readdirSync("res_pages/resources/"))
 
