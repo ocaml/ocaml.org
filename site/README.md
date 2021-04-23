@@ -1,4 +1,4 @@
-# next.ocaml.org
+# v3.ocaml.org
 
 **Status:** Private repository, still a work in progress.
 
