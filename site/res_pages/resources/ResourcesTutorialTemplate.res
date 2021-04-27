@@ -44,8 +44,10 @@ type pageContent = {title: string, pageDescription: string}
 @module("js-yaml") external load: (string, ~options: 'a=?, unit) => pageContent = "load"
 
 let getStaticProps = ctx => {
-  let params = ctx.Next.GetStaticProps.params
-  let contentFilePath = "res_pages/resources/" ++ params.Params.tutorial ++ ".md"
+  let {Params.tutorial: tutorial} = ctx.Next.GetStaticProps.params
+  let baseDirectory = "data/tutorials/"
+  // TODO: find the location of the tutorial
+  let contentFilePath = baseDirectory ++ tutorial ++ "/" ++ tutorial ++ ".md"
   let fileContents = Fs.readFileSync(contentFilePath)
   let parsed = GrayMatter.matter(fileContents)
   // TODO: move this into GrayMatter or another module
@@ -81,17 +83,20 @@ let getStaticProps = ctx => {
 }
 
 let getStaticPaths: Next.GetStaticPaths.t<Params.t> = () => {
-  // TODO: change this to read all subdirectories of "resources" and
-  //  then read "<subdir>/tutorial.md" in getStaticProps
-  let markdownFiles = Js.Array.filter(// todo: case insensitive
-  s => Js.String.endsWith("md", s), Fs.readdirSync("res_pages/resources/"))
+  // TODO: move this logic into a module dedicated to fetching tutorials
+  // TODO: throw exception if any tutorials have the same filename or add a more parts to the tutorials path
+  // TODO: throw exception if any entry is not a directory
+  let markdownFiles = Fs.readdirSyncEntries("data/tutorials/")
 
   let ret = {
-    Next.GetStaticPaths.paths: Array.map(
-      f => {Next.GetStaticPaths.params: {Params.tutorial: Js.String.split(".", f)[0]}}, // TODO: better error
-      markdownFiles,
-    ),
-    fallback: false, //TODO: is this value correct?
+    Next.GetStaticPaths.paths: Array.map((f: Fs.dirent) => {
+      Next.GetStaticPaths.params: {
+        // TODO: better error
+        Params.tutorial: Js.String.split(".", f.name)[0],
+      },
+    }, markdownFiles),
+    // TODO: update bindings to always use "false"
+    fallback: false,
   }
   Js.Promise.resolve(ret)
 }

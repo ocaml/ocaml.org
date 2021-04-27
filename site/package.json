@@ -24,21 +24,23 @@
   "scripts": {
     "next:debug": "NODE_OPTIONS='--inspect' next dev",
     "build": "bsb -clean-world -make-world && next build && next export",
-    "next:start": "next start -p $PORT",
+    "start-test-server": "http-server out",
     "rescript:build": "bsb -make-world",
     "rescript:clean": "bsb -clean-world",
     "rescript:format": "find . -type f \\( -name '*.res' -o -name '*.resi' \\) -exec sh -c 'bsc -format {} | sponge {}'  \\;"
   },
   "scriptsDescription": {
     "build": "at present, next export is only used to ensure that we strictly use static site functionality",
-    "next:start": "TODO: use http-server or similar with the output of next:export instead of next:start",
+    "start-test-server": "Vercel deployments use next start, but this command tests running a pure static site. TODO: use npx from Makefile instead.",
     "next-transpile-modules": "used to convert rescript libraries from commonjs to es6 in nextjs builds",
     "rescript:format": "bsc -format doesn't support in place updates, so we need to use sponge"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.4.0",
     "autoprefixer": "^10.2.4",
+    "concurrently": "^6.0.2",
     "gray-matter": "^4.0.2",
+    "http-server": "^0.12.3",
     "js-yaml": "^4.0.0",
     "mdast-util-to-string": "^2.0.0",
     "next-transpile-modules": "4.1.0",

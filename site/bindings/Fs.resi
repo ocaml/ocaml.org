@@ -1,3 +1,9 @@
+type dirent = {name: string}
+
+let isDirectory: dirent => bool
+
+type readdirSyncOptions = {withFileTypes: bool}
+
 let readFileSync: string => 'buffer
 
-let readdirSync: string => array<string>
+let readdirSyncEntries: string => array<dirent>

@@ -80,15 +80,16 @@ We choose to not complicate this project to accomodate Fast Refresh.
 Build CSS seperately via `npx postcss` (useful for debugging)
 
 ```
-nvm install && npx postcss@8.3.1 styles/main.css -o /tmp/test.css
+npx postcss@8.3.1 styles/main.css -o /tmp/test.css
 ```
 
 ## Test production setup with Next
 
-TODO: change this to use `export` and `start` with output dir, instead of `start` directly
 ```
-nvm install && npx yarn@1.22 install && npx yarn@1.22 build && PORT=3001 npx yarn@1.22 next:start
+yarn install && yarn build && yarn start-test-server
 ```
+
+Note: Some deployment systems use `next start` to start a hybrid static site instead of using `next export` with an external http server.
 
 ## Setup and Development
 
@@ -149,5 +150,5 @@ Go to `http://localhost:3000`
 
 ## Architecture
 
-We have prepared some diagrams and explanations to [orient new developers](../wikis/Architecture-Overview). The site expands upon the default build process in NextJS to accommodate more sophisticated markdown transformations.
+We have prepared some diagrams and explanations to orient new developers in the wiki area. The site expands upon the default build process in NextJS to accommodate more sophisticated markdown transformations.
 
