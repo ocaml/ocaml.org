@@ -10,7 +10,8 @@ homepage: "https://github.com/patricoferris/ood"
 bug-reports: "https://github.com/patricoferris/ood/issues"
 depends: [
   "dune" {>= "2.8"}
-  "bos" {with-test}
+  "cohttp-lwt-unix" {>= "4.0.0"}
+  "bos"
   "alcotest" {with-test}
   "ppx_deriving_yaml"
   "ppx_deriving"

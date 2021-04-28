@@ -18,6 +18,7 @@ depends: [
   "fmt"
   "cmdliner"
   "bos"
+  "alcotest"
   "odoc" {with-doc}
 ]
 build: [

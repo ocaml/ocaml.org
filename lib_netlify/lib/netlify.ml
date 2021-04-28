@@ -1,5 +1,6 @@
 (* Netlify CMS configurations *)
 module Widget = Widget
+module Server = Server
 open Widget
 
 module Collection = struct
@@ -136,8 +137,10 @@ end
 
 type t = {
   backend : Backend.t;
+  local_backend : bool option;
+  media_folder : string;
+  media_library : Media.t option;
   publish_mode : string option;
-  media_folder : string option;
   public_folder : string option;
   site_url : string option;
   display_url : string option;
@@ -228,7 +231,10 @@ module Pp = struct
     | Error (`Msg m) ->
         Format.pp_print_string ppf (Printf.sprintf "(error (%s))" m)
 
-  let pp ppf v =
+  let pp ?(comment = true) () ppf v =
     let pp = no_nulls in
-    pp ppf (to_yaml v)
+    if comment then
+      Fmt.pf ppf "# Generated with the OCaml Netlify CMS library\n%a" pp
+        (to_yaml v)
+    else pp ppf (to_yaml v)
 end

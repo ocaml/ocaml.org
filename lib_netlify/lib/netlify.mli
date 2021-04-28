@@ -1,5 +1,6 @@
 (* Netlify CMS configurations *)
 module Widget = Widget
+module Server = Server
 open Widget
 
 module Collection : sig
@@ -91,8 +92,10 @@ end
 
 type t = {
   backend : Backend.t;
+  local_backend : bool option;
+  media_folder : string;
+  media_library : Media.t option;
   publish_mode : string option;
-  media_folder : string option;
   public_folder : string option;
   site_url : string option;
   display_url : string option;
@@ -105,5 +108,5 @@ type t = {
 [@@deriving make, yaml]
 
 module Pp : sig
-  val pp : t Fmt.t
+  val pp : ?comment:bool -> unit -> t Fmt.t
 end

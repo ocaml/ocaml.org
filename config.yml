@@ -1,11 +1,19 @@
+# Generated with the OCaml Netlify CMS library
 backend:
   name: "github"
+local_backend: true
+media_folder: "data/media"
 collections:
 - label: "Datasets"
   name: "dataset"
   files:
   - label: "OCaml Papers"
     name: "papers"
-    file: "data/papers/papers.yml"
+    file: "data/papers.yml"
     fields:
-    - {label: "Paper Title", name: "title", widget: "string"}
+    - {label: "Papers", name: "papers", widget: "list", fields: [{label: "Paper Title",
+          name: "title", widget: "string"}, {label: "Publication", name: "publication",
+          widget: "string"}, {label: "Authors", name: "authors", widget: "list"},
+        {label: "Absract or Description", name: "abstract", widget: "text"}, {label: "Tags",
+          name: "tags", widget: "list"}, {label: "Year", name: "year", widget: "number"},
+        {label: "Links", name: "links", widget: "list"}]}
