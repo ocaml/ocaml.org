@@ -23,16 +23,17 @@ module.exports = {
         'ocamlorange': '#c15540',
         graylight: '#f5f5f5',
         orangedark: '#ed7109',
-        orangedarker: '#dd6705'
+        orangedarker: '#dd6705',
+        yellowdark: '#ffb800'
       },
       backgroundImage: (theme) => ({
         'news-bg': "url('/static/news-bg.jpeg')",
       }),
     },
-    /* We override the default font-families with our own default prefs 
+    /* We override the default font-families with our own default prefs
     fontFamily: {
       'sans':['-apple-system', 'BlinkMacSystemFont', 'Helvetica Neue', 'Arial', 'sans-serif'],
-      'serif': ['Georgia', '-apple-system', 'BlinkMacSystemFont', 'Helvetica Neue', 'Arial', 'sans-serif'], 
+      'serif': ['Georgia', '-apple-system', 'BlinkMacSystemFont', 'Helvetica Neue', 'Arial', 'sans-serif'],
       'mono': [ 'Menlo', 'Monaco', 'Consolas', 'Roboto Mono', 'SFMono-Regular', 'Segoe UI', 'Courier', 'monospace']
     }, */
   },

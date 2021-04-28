@@ -32,7 +32,12 @@ module NoneFilled: {
 
 module LargeCentered: {
   @react.component
-  let make: (~children: React.element, ~paddingY: string=?, ~paddingX: string=?) => React.element
+  let make: (
+    ~children: React.element,
+    ~paddingY: string=?,
+    ~paddingX: string=?,
+    ~bgColor: string=?,
+  ) => React.element
 }
 
 module SmallCentered: {

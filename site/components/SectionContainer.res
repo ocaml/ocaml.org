@@ -42,8 +42,8 @@ module NoneFilled = {
 
 module LargeCentered = {
   @react.component
-  let make = (~children, ~paddingY="", ~paddingX="") =>
-    <div className={paddingY ++ " " ++ paddingX}>
+  let make = (~children, ~paddingY="", ~paddingX="", ~bgColor="") =>
+    <div className={paddingY ++ " " ++ paddingX ++ " " ++ bgColor}>
       <div className="max-w-7xl mx-auto"> children </div>
     </div>
 }
