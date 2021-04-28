@@ -108,5 +108,5 @@ type t = {
 [@@deriving make, yaml]
 
 module Pp : sig
-  val pp : t Fmt.t
+  val pp : ?comment:bool -> unit -> t Fmt.t
 end

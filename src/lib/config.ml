@@ -15,7 +15,7 @@ let config =
     ~collections ()
 
 let print () =
-  Netlify.Pp.pp Fmt.stdout config;
+  Netlify.Pp.pp () Fmt.stdout config;
   0
 
 open Cmdliner

@@ -49,7 +49,7 @@
  (depends
   (cohttp-lwt-unix
    (>= 4.0.0))
-  (bos :with-test)
+  bos
   (alcotest :with-test)
   ppx_deriving_yaml
   ppx_deriving

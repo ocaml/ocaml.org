@@ -1,3 +1,4 @@
+# Generated with the OCaml Netlify CMS library
 backend:
   name: "github"
 local_backend: true
