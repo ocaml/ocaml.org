@@ -40,8 +40,8 @@
   "The netlify-cms library provides types and tools for generating Netlify CMS configurations programmatically")
  (depends
   (bos :with-test)
+  (alcotest :with-test)
   ppx_deriving_yaml
   ppx_deriving
   fmt
-  yaml
-  netlify))
+  yaml))

@@ -11,11 +11,11 @@ bug-reports: "https://github.com/patricoferris/ood/issues"
 depends: [
   "dune" {>= "2.8"}
   "bos" {with-test}
+  "alcotest" {with-test}
   "ppx_deriving_yaml"
   "ppx_deriving"
   "fmt"
   "yaml"
-  "netlify"
   "odoc" {with-doc}
 ]
 build: [
