@@ -24,7 +24,15 @@
  (synopsis "OCaml.Org Data CLI tool libraries")
  (description
   "Lib-ood is used by the ood-cli tool, but if you don't mind taking on the dependencies it may also be useful for you as it exposes the \n   same data as the base ood package but with extra utilities like yaml parsing.")
- (depends yaml ppx_import ppx_deriving_yaml netlify-cms fmt cmdliner bos))
+ (depends
+  yaml
+  ppx_import
+  ppx_deriving_yaml
+  netlify-cms
+  fmt
+  cmdliner
+  bos
+  alcotest))
 
 (package
  (name ood-cli)
@@ -39,6 +47,8 @@
  (description
   "The netlify-cms library provides types and tools for generating Netlify CMS configurations programmatically")
  (depends
+  (cohttp-lwt-unix
+   (>= 4.0.0))
   (bos :with-test)
   (alcotest :with-test)
   ppx_deriving_yaml

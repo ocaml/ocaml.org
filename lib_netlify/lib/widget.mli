@@ -227,7 +227,7 @@ and Object : sig
     (* hmmm... *)
     collapsed : bool option;
     summary : string option;
-    fields : Yaml.value list;
+    fields : Widget.t list;
   }
   [@@deriving make, yaml]
 end

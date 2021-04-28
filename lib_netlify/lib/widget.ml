@@ -428,7 +428,7 @@ and Object : sig
     (* hmmm... *)
     collapsed : bool option;
     summary : string option;
-    fields : Yaml.value list;
+    fields : Widget.t list;
   }
   [@@deriving make, yaml]
 
@@ -447,7 +447,7 @@ end = struct
     (* hmmm... *)
     collapsed : bool option;
     summary : string option;
-    fields : Yaml.value list;
+    fields : Widget.t list;
   }
   [@@deriving make, yaml]
 end
@@ -714,3 +714,14 @@ end = struct
         | _ -> Error (`Msg "Failed to parse widget") )
     | yaml -> Error (`Msg (Fmt.str "Failed to parse widget: %a" Yaml.pp yaml))
 end
+
+(* let rec widget_of_yaml key = function
+  | `Float _ -> `Number (Number.make ~label:key ~name:key ())
+  | `String _ -> `String (String.make ~label:key ~name:key ())
+  | `Bool _ -> `Boolean (Boolean.make ~label:key ~name:key ())
+  | `A lst ->
+      `List
+        (Lst.make ~label:key ~name:key ~fields:(List.map widget_of_map lst) ())
+  | `O obj -> `Object (Object.make ~label:key ~name:key ~fields)
+
+and widget_of_map = functo *)

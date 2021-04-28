@@ -1,6 +1,6 @@
 (library
  (name netlify)
  (public_name netlify-cms)
- (libraries yaml fmt)
+ (libraries yaml fmt cohttp-lwt-unix)
  (preprocess
   (pps ppx_deriving.make ppx_deriving_yaml)))

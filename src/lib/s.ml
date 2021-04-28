@@ -10,6 +10,8 @@ module type FileData = sig
   include Data with type t := t
 
   val file : Netlify.Collection.Files.File.t
+
+  val path : string
 end
 
 module type FolderData = sig
@@ -18,4 +20,6 @@ module type FolderData = sig
   include Data with type t := t
 
   val folder : Netlify.Collection.Folder.t
+
+  val path : string
 end

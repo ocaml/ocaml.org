@@ -10,7 +10,9 @@ let collections =
          ~files:[ Data.Papers.file ] ());
   ]
 
-let config = Netlify.make ~backend ~collections ()
+let config =
+  Netlify.make ~backend ~media_folder:"data/media" ~local_backend:true
+    ~collections ()
 
 let print () =
   Netlify.Pp.pp Fmt.stdout config;

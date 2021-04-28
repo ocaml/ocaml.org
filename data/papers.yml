@@ -1,263 +1,461 @@
-papers: 
-  - title: 'A Syntactic Approach to Type Soundness'
-    published: 'Information & Computation, 115(1):38−94'
-    description: > 
-      This paper describes the semantics and the type system of Core ML, 
-      and uses a simple syntactic technique to prove that well-typed programs cannot go wrong.
-    authors: [ 'Andrew K. Wright', 'Matthias Felleisen' ]
-    tags: [ 'core', 'language' ]
+papers:
+  - title: A Syntactic Approach to Type Soundness
+    publication: Information & Computation, 115(1):38−94
+    abstract: >
+      This paper describes the semantics and the type system of Core ML,  and
+      uses a simple syntactic technique to prove that well-typed programs cannot
+      go wrong.
+    authors:
+      - Andrew K. Wright
+      - Matthias Felleisen
+    tags:
+      - core
+      - language
     year: 1994
-    links: [ 'http://www.cs.rice.edu/CS/PLT/Publications/Scheme/ic94-wf.ps.gz' ]
-  - title: 'The Essence of ML Type Inference'
-    published: 'Benjamin C. Pierce, editor, Advanced Topics in Types and Programming Languages, MIT Press'
-    description: > 
-      This book chapter gives an in-depth description of the Core ML type system, with an emphasis on type inference. 
-      The type inference algorithm is described as the composition of a constraint generator, which produces a system 
-      of type equations, and a constraint solver, which is presented as a set of rewrite rules.
-    authors: [ 'François Pottier', 'Didier Rémy' ]
-    tags: [ 'core', 'language' ]
+    links:
+      - http://www.cs.rice.edu/CS/PLT/Publications/Scheme/ic94-wf.ps.gz
+  - title: The Essence of ML Type Inference
+    publication: Benjamin C. Pierce, editor, Advanced Topics in Types and
+      Programming Languages, MIT Press
+    abstract: >
+      This book chapter gives an in-depth abstract of the Core ML type system,
+      with an emphasis on type inference.  The type inference algorithm is
+      described as the composition of a constraint generator, which produces a
+      system  of type equations, and a constraint solver, which is presented as
+      a set of rewrite rules.
+    authors:
+      - François Pottier
+      - Didier Rémy
+    tags:
+      - core
+      - language
     year: 2005
-    links: [ 'http://cristal.inria.fr/attapl/preversion.ps.gz' ]
-  - title: 'Relaxing the value restriction'
-    published: 'International Symposium on Functional and Logic Programming'
-    description: >
-      This paper explains why it is sound to generalize certain type variables at a `let` binding, even when the expression
-      that is being `let`-bound is not a value. This relaxed version of Wright's classic “value restriction” was introduced in OCaml 3.07.
-    authors: [ 'Jacques Garrigue' ]
-    tags: [ 'core', 'language' ]
+    links:
+      - http://cristal.inria.fr/attapl/preversion.ps.gz
+  - title: Relaxing the value restriction
+    publication: International Symposium on Functional and Logic Programming
+    abstract: >
+      This paper explains why it is sound to generalize certain type variables
+      at a `let` binding, even when the expression that is being `let`-bound is
+      not a value. This relaxed version of Wright's classic “value restriction”
+      was introduced in OCaml 3.07.
+    authors:
+      - Jacques Garrigue
+    tags:
+      - core
+      - language
     year: 2004
-    links: [ 'http://caml.inria.fr/pub/papers/garrigue-value_restriction-fiwflp04.pdf', 'http://caml.inria.fr/pub/papers/garrigue-value_restriction-fiwflp04.ps.gz' ]
-  - title: 'Manifest Types, Modules, and Separate Compilation'
-    published: 'Principles of Programming Languages'
-    description: > 
-      This paper presents a variant of the Standard ML module system that introduces a strict distinction between abstract 
-      and manifest types. The latter are types whose definitions explicitly appear as part of a module interface. This proposal 
-      is meant to retain most of the expressive power of the Standard ML module system, while providing much better support for 
-      separate compilation. This work sets the formal bases for OCaml's module system.
-    authors: [ 'Xavier Leroy' ]
-    tags: [ 'core', 'language', 'modules' ]
+    links:
+      - http://caml.inria.fr/pub/papers/garrigue-value_restriction-fiwflp04.pdf
+      - http://caml.inria.fr/pub/papers/garrigue-value_restriction-fiwflp04.ps.gz
+  - title: Manifest Types, Modules, and Separate Compilation
+    publication: Principles of Programming Languages
+    abstract: >
+      This paper presents a variant of the Standard ML module system that
+      introduces a strict distinction between abstract  and manifest types. The
+      latter are types whose definitions explicitly appear as part of a module
+      interface. This proposal  is meant to retain most of the expressive power
+      of the Standard ML module system, while providing much better support
+      for  separate compilation. This work sets the formal bases for OCaml's
+      module system.
+    authors:
+      - Xavier Leroy
+    tags:
+      - core
+      - language
+      - modules
     year: 1994
-    links: [ 'http://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.pdf', 'http://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.ps.gz', 'http://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.dvi.gz' ]
-  - title: 'Applicative Functors and Fully Transparent Higher-order Modules'
-    published: 'Principles of Programming Languages'
-    description: > 
-      This work extends the above paper by introducing so-called applicative functors, that is, functors that produce compatible 
-      abstract types when applied to provably equal arguments. Applicative functors are also a feature of OCaml.
-    authors: [ 'Xavier Leroy' ]
-    tags: [ 'core', 'language', 'modules' ]
+    links:
+      - http://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.pdf
+      - http://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.ps.gz
+      - http://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.dvi.gz
+  - title: Applicative Functors and Fully Transparent Higher-order Modules
+    publication: Principles of Programming Languages
+    abstract: >
+      This work extends the above paper by introducing so-called applicative
+      functors, that is, functors that produce compatible  abstract types when
+      applied to provably equal arguments. Applicative functors are also a
+      feature of OCaml.
+    authors:
+      - Xavier Leroy
+    tags:
+      - core
+      - language
+      - modules
     year: 1995
-    links: [ 'http://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.pdf', 'http://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.ps.gz', 'http://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.dvi.gz' ]
-  - title: 'A Modular Module System'
-    published: 'Journal of Functional Programming, 10(3):269-303'
-    description: > 
-      This accessible paper describes a simplified implementation of the OCaml module system, emphasizing the fact that the module system 
-      is largely independent of the underlying core language. This is a good tutorial to learn both how modules can be used and how 
-      they are typechecked.
-    authors: [ 'Xavier Leroy' ]
-    tags: [ 'core', 'language', 'modules' ]
+    links:
+      - http://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.pdf
+      - http://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.ps.gz
+      - http://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.dvi.gz
+  - title: A Modular Module System
+    publication: Journal of Functional Programming, 10(3):269-303
+    abstract: >
+      This accessible paper describes a simplified implementation of the OCaml
+      module system, emphasizing the fact that the module system  is largely
+      independent of the underlying core language. This is a good tutorial to
+      learn both how modules can be used and how  they are typechecked.
+    authors:
+      - Xavier Leroy
+    tags:
+      - core
+      - language
+      - modules
     year: 2000
-    links: [ 'http://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.pdf', 'http://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.ps.gz', 'http://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.dvi.gz' ]
-  - title: 'A Proposal for Recursive Modules in Objective Caml'
-    published: 'Unpublished'
-    description: > 
-      This note describes the experimental recursive modules introduced in OCaml 3.07.
-    authors: [ 'Xavier Leroy' ]
-    tags: [ 'core', 'language', 'modules' ]
+    links:
+      - http://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.pdf
+      - http://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.ps.gz
+      - http://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.dvi.gz
+  - title: A Proposal for Recursive Modules in Objective Caml
+    publication: Unpublication
+    abstract: >
+      This note describes the experimental recursive modules introduced in OCaml
+      3.07.
+    authors:
+      - Xavier Leroy
+    tags:
+      - core
+      - language
+      - modules
     year: 2003
-    links: [ 'http://caml.inria.fr/pub/papers/xleroy-recursive_modules-03.pdf', 'http://caml.inria.fr/pub/papers/xleroy-recursive_modules-03.ps.gz' ]
-  - title: 'Objective ML: An effective object-oriented extension to ML'
-    published: 'Theory And Practice of Objects Systems, 4(1):27−50'
-    description: > 
-      This paper provides theoretical foundations for OCaml's object-oriented layer, including dynamic and static semantics.
-    authors: [ 'Didier Rémy', 'Jérôme Vouillon' ]
-    tags: [ 'core', 'language', 'objects' ]
+    links:
+      - http://caml.inria.fr/pub/papers/xleroy-recursive_modules-03.pdf
+      - http://caml.inria.fr/pub/papers/xleroy-recursive_modules-03.ps.gz
+  - title: "Objective ML: An effective object-oriented extension to ML"
+    publication: Theory And Practice of Objects Systems, 4(1):27−50
+    abstract: >
+      This paper provides theoretical foundations for OCaml's object-oriented
+      layer, including dynamic and static semantics.
+    authors:
+      - Didier Rémy
+      - Jérôme Vouillon
+    tags:
+      - core
+      - language
+      - objects
     year: 1998
-    links: [ 'http://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.pdf', 'http://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.ps.gz', 'http://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.dvi.gz' ]
-  - title: 'Extending ML with Semi-Explicit Higher-Order Polymorphism'
-    published: 'Information & Computation, 155(1/2):134−169'
-    description: > 
-      This paper proposes a device for re-introducing first-class polymorphic values into ML while preserving its type inference 
-      mechanism. This technology underlies OCaml's polymorphic methods.
-    authors: [ 'Jacques Garrigue', 'Didier Rémy' ]
-    tags: [ 'core', 'language', 'objects' ]
+    links:
+      - http://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.pdf
+      - http://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.ps.gz
+      - http://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.dvi.gz
+  - title: Extending ML with Semi-Explicit Higher-Order Polymorphism
+    publication: Information & Computation, 155(1/2):134−169
+    abstract: >
+      This paper proposes a device for re-introducing first-class polymorphic
+      values into ML while preserving its type inference  mechanism. This
+      technology underlies OCaml's polymorphic methods.
+    authors:
+      - Jacques Garrigue
+      - Didier Rémy
+    tags:
+      - core
+      - language
+      - objects
     year: 1999
-    links: [ 'http://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.pdf', 'http://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.ps.gz', 'http://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.dvi.gz' ]
-  - title: 'Programming with Polymorphic Variants'
-    published: 'ML Workshop'
-    description: > 
-      This paper briefly explains what polymorphic variants are about and how they are compiled.
-    authors: [ 'Jacques Garrigue' ]
-    tags: [ 'core', 'language', 'polymorphic variants' ]
+    links:
+      - http://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.pdf
+      - http://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.ps.gz
+      - http://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.dvi.gz
+  - title: Programming with Polymorphic Variants
+    publication: ML Workshop
+    abstract: >
+      This paper briefly explains what polymorphic variants are about and how
+      they are compiled.
+    authors:
+      - Jacques Garrigue
+    tags:
+      - core
+      - language
+      - polymorphic variants
     year: 1998
-    links: [ 'http://caml.inria.fr/pub/papers/garrigue-polymorphic_variants-ml98.pdf', 'http://caml.inria.fr/pub/papers/garrigue-polymorphic_variants-ml98.ps.gz' ]
-  - title: 'Code Reuse through Polymorphic Variants'
-    published: 'Workshop on Foundations of Software Engineering'
-    description: > 
-      This short paper explains how to design a modular, extensible interpreter using polymorphic variants.
-    authors: [ 'Jacques Garrigue' ]
-    tags: [ 'core', 'language', 'polymorphic variants' ]
+    links:
+      - http://caml.inria.fr/pub/papers/garrigue-polymorphic_variants-ml98.pdf
+      - http://caml.inria.fr/pub/papers/garrigue-polymorphic_variants-ml98.ps.gz
+  - title: Code Reuse through Polymorphic Variants
+    publication: Workshop on Foundations of Software Engineering
+    abstract: >
+      This short paper explains how to design a modular, extensible interpreter
+      using polymorphic variants.
+    authors:
+      - Jacques Garrigue
+    tags:
+      - core
+      - language
+      - polymorphic variants
     year: 2000
-    links: [ 'http://caml.inria.fr/pub/papers/garrigue-variant-reuse-2000.ps.gz' ]
-  - title: 'Simple Type Inference for Structural Polymorphism'
-    published: 'Workshop on Foundations of Object-Oriented Languages'
-    description: > 
-      This paper explains most of the typechecking machinery behind polymorphic variants. 
-      At its heart is an extension of Core ML's type discipline with so-called local constraints.
-    authors: [ 'Jacques Garrigue' ]
-    tags: [ 'core', 'language', 'polymorphic variants' ]
+    links:
+      - http://caml.inria.fr/pub/papers/garrigue-variant-reuse-2000.ps.gz
+  - title: Simple Type Inference for Structural Polymorphism
+    publication: Workshop on Foundations of Object-Oriented Languages
+    abstract: >
+      This paper explains most of the typechecking machinery behind polymorphic
+      variants.  At its heart is an extension of Core ML's type discipline with
+      so-called local constraints.
+    authors:
+      - Jacques Garrigue
+    tags:
+      - core
+      - language
+      - polymorphic variants
     year: 2002
-    links: [ 'http://caml.inria.fr/pub/papers/garrigue-structural_poly-fool02.pdf', 'http://caml.inria.fr/pub/papers/garrigue-structural_poly-fool02.ps.gz' ]
-  - title: 'Typing Deep Pattern-matching in Presence of Polymorphic Variants'
-    published: 'JSSST Workshop on Programming and Programming Languages'
-    description: > 
-      This paper provides more details about the technical machinery behind polymorphic variants, focusing 
-      on the rules for typechecking deep pattern matching constructs.
-    authors: [ 'Jacques Garrigue' ]
-    tags: [ 'core', 'language', 'polymorphic variants' ]
+    links:
+      - http://caml.inria.fr/pub/papers/garrigue-structural_poly-fool02.pdf
+      - http://caml.inria.fr/pub/papers/garrigue-structural_poly-fool02.ps.gz
+  - title: Typing Deep Pattern-matching in Presence of Polymorphic Variants
+    publication: JSSST Workshop on Programming and Programming Languages
+    abstract: >
+      This paper provides more details about the technical machinery behind
+      polymorphic variants, focusing  on the rules for typechecking deep pattern
+      matching constructs.
+    authors:
+      - Jacques Garrigue
+    tags:
+      - core
+      - language
+      - polymorphic variants
     year: 2004
-    links: [ 'http://caml.inria.fr/pub/papers/garrigue-deep-variants-2004.pdf', 'http://caml.inria.fr/pub/papers/garrigue-deep-variants-2004.ps.gz' ]
-  - title: 'Labeled and Optional Arguments for Objective Caml'
-    published: 'JSSST Workshop on Programming and Programming Languages'
-    description: > 
-      This paper offers a dynamic semantics, a static semantics, and a compilation scheme for OCaml's labeled 
-      and optional function parameters.
-    authors: [ 'Jacques Garrigue' ]
-    tags: [ 'core', 'language' ]
+    links:
+      - http://caml.inria.fr/pub/papers/garrigue-deep-variants-2004.pdf
+      - http://caml.inria.fr/pub/papers/garrigue-deep-variants-2004.ps.gz
+  - title: Labeled and Optional Arguments for Objective Caml
+    publication: JSSST Workshop on Programming and Programming Languages
+    abstract: >
+      This paper offers a dynamic semantics, a static semantics, and a
+      compilation scheme for OCaml's labeled  and optional function parameters.
+    authors:
+      - Jacques Garrigue
+    tags:
+      - core
+      - language
     year: 2001
-    links: [ 'http://caml.inria.fr/pub/papers/garrigue-labels-ppl01.pdf', 'http://caml.inria.fr/pub/papers/garrigue-labels-ppl01.ps.gz', 'http://caml.inria.fr/pub/papers/garrigue-labels-ppl01.dvi.gz' ]
-  - title: 'Meta-programming Tutorial with CamlP4'
-    published: 'Commercial Users of Functional Programming'
-    description: ''
-    authors: [ 'Jake Donham' ]
-    tags: [ 'core', 'language' ]
+    links:
+      - http://caml.inria.fr/pub/papers/garrigue-labels-ppl01.pdf
+      - http://caml.inria.fr/pub/papers/garrigue-labels-ppl01.ps.gz
+      - http://caml.inria.fr/pub/papers/garrigue-labels-ppl01.dvi.gz
+  - title: Meta-programming Tutorial with CamlP4
+    publication: Commercial Users of Functional Programming
+    abstract: Meta-programming tutorial with Camlp4
+    authors:
+      - Jake Donham
+    tags:
+      - core
+      - language
     year: 2010
-    links: [ 'https://github.com/jaked/cufp-metaprogramming-tutorial' ]
-  - title: 'The ZINC experiment, an Economical Implementation of the ML language'
-    published: 'Technical report 117, INRIA'
-    description: > 
-      This report contains a description of the ZINC compiler, which later evolved into Caml Light, then into OCaml. Large parts 
-      of this report are out of date, but it is still valuable as a description of the abstract machine used in Caml Light and 
-      (with some further simplifications and speed improvements) in OCaml.
-    authors: [ 'Xavier Leroy' ]
-    tags: [ 'compiler', 'runtime' ]
+    links:
+      - https://github.com/jaked/cufp-metaprogramming-tutorial
+  - title: The ZINC experiment, an Economical Implementation of the ML language
+    publication: Technical report 117, INRIA
+    abstract: >
+      This report contains a abstract of the ZINC compiler, which later evolved
+      into Caml Light, then into OCaml. Large parts  of this report are out of
+      date, but it is still valuable as a abstract of the abstract machine used
+      in Caml Light and  (with some further simplifications and speed
+      improvements) in OCaml.
+    authors:
+      - Xavier Leroy
+    tags:
+      - compiler
+      - runtime
     year: 1990
-    links: [ 'http://caml.inria.fr/pub/papers/xleroy-zinc.pdf', 'http://caml.inria.fr/pub/papers/xleroy-zinc.ps.gz' ]
-  - title: 'The ZINC experiment, an Economical Implementation of the ML language'
-    published: 'Technical report 117, INRIA'
-    description: > 
-      This report contains a description of the ZINC compiler, which later evolved into Caml Light, then into OCaml. Large parts 
-      of this report are out of date, but it is still valuable as a description of the abstract machine used in Caml Light and 
-      (with some further simplifications and speed improvements) in OCaml.
-    authors: [ 'Xavier Leroy' ]
-    tags: [ 'compiler', 'runtime' ]
+    links:
+      - http://caml.inria.fr/pub/papers/xleroy-zinc.pdf
+      - http://caml.inria.fr/pub/papers/xleroy-zinc.ps.gz
+  - title: The ZINC experiment, an Economical Implementation of the ML language
+    publication: Technical report 117, INRIA
+    abstract: >
+      This report contains a abstract of the ZINC compiler, which later evolved
+      into Caml Light, then into OCaml. Large parts  of this report are out of
+      date, but it is still valuable as a abstract of the abstract machine used
+      in Caml Light and  (with some further simplifications and speed
+      improvements) in OCaml.
+    authors:
+      - Xavier Leroy
+    tags:
+      - compiler
+      - runtime
     year: 1990
-    links: [ 'http://caml.inria.fr/pub/papers/xleroy-zinc.pdf', 'http://caml.inria.fr/pub/papers/xleroy-zinc.ps.gz' ]
-  - title: 'The Effectiveness of Type-based Unboxing'
-    published: 'Workshop on Types in Compilation'
-    description: > 
-      This paper surveys and compares several data representation strategies, including the one used in the OCaml native-code compiler.
-    authors: [ 'Xavier Leroy' ]
-    tags: [ 'compiler', 'runtime' ]
+    links:
+      - http://caml.inria.fr/pub/papers/xleroy-zinc.pdf
+      - http://caml.inria.fr/pub/papers/xleroy-zinc.ps.gz
+  - title: The Effectiveness of Type-based Unboxing
+    publication: Workshop on Types in Compilation
+    abstract: >
+      This paper surveys and compares several data representation strategies,
+      including the one used in the OCaml native-code compiler.
+    authors:
+      - Xavier Leroy
+    tags:
+      - compiler
+      - runtime
     year: 1997
-    links: [ 'http://caml.inria.fr/pub/papers/xleroy-unboxing-tic97.pdf', 'http://caml.inria.fr/pub/papers/xleroy-unboxing-tic97.ps.gz' ]
-  - title: 'A Concurrent, Generational Garbage Collector for a Multithreaded Implementation of ML'
-    published: 'Principles of Programming Languages'
-    description: > 
-      Superseded by "Portable, Unobtrusive Garbage Collection for Multiprocessor Systems"
-    authors: [ 'Damien Doligez', 'Xavier Leroy' ]
-    tags: [ 'garbage collection', 'runtime' ]
+    links:
+      - http://caml.inria.fr/pub/papers/xleroy-unboxing-tic97.pdf
+      - http://caml.inria.fr/pub/papers/xleroy-unboxing-tic97.ps.gz
+  - title: A Concurrent, Generational Garbage Collector for a Multithreaded
+      Implementation of ML
+    publication: Principles of Programming Languages
+    abstract: >
+      Superseded by "Portable, Unobtrusive Garbage Collection for Multiprocessor
+      Systems"
+    authors:
+      - Damien Doligez
+      - Xavier Leroy
+    tags:
+      - garbage collection
+      - runtime
     year: 1993
-    links: [ 'http://caml.inria.fr/pub/papers/doligez_xleroy-concurrent_gc-popl93.pdf', 'http://caml.inria.fr/pub/papers/doligez_xleroy-concurrent_gc-popl93.ps.gz' ]
-  - title: 'Portable, Unobtrusive Garbage Collection for Multiprocessor Systems'
-    published: 'Principles of Programming Languages'
-    description: > 
-      This paper describes a concurrent version of the garbage collector found in Caml Light and OCaml's runtime system.
-    authors: [ 'Damien Doligez', 'Georges Gonthier' ]
-    tags: [ 'garbage collection', 'runtime' ]
+    links:
+      - http://caml.inria.fr/pub/papers/doligez_xleroy-concurrent_gc-popl93.pdf
+      - http://caml.inria.fr/pub/papers/doligez_xleroy-concurrent_gc-popl93.ps.gz
+  - title: Portable, Unobtrusive Garbage Collection for Multiprocessor Systems
+    publication: Principles of Programming Languages
+    abstract: >
+      This paper describes a concurrent version of the garbage collector found
+      in Caml Light and OCaml's runtime system.
+    authors:
+      - Damien Doligez
+      - Georges Gonthier
+    tags:
+      - garbage collection
+      - runtime
     year: 1994
-    links: [ 'http://caml.inria.fr/pub/papers/doligez_gonthier-gc-popl94.pdf', 'http://caml.inria.fr/pub/papers/doligez_gonthier-gc-popl94.ps.gz' ]
-  - title: "Conception, réalisation et certification d'un glaneur de cellules concurrent"
-    published: 'Ph.D. thesis, Université Paris 7'
-    description: > 
-      All you ever wanted to know about the garbage collector found in Caml Light and OCaml's runtime system.
-    authors: [ 'Damien Doligez', 'Georges Gonthier' ]
-    tags: [ 'garbage collection', 'runtime' ]
+    links:
+      - http://caml.inria.fr/pub/papers/doligez_gonthier-gc-popl94.pdf
+      - http://caml.inria.fr/pub/papers/doligez_gonthier-gc-popl94.ps.gz
+  - title: Conception, réalisation et certification d'un glaneur de cellules
+      concurrent
+    publication: Ph.D. thesis, Université Paris 7
+    abstract: >
+      All you ever wanted to know about the garbage collector found in Caml
+      Light and OCaml's runtime system.
+    authors:
+      - Damien Doligez
+      - Georges Gonthier
+    tags:
+      - garbage collection
+      - runtime
     year: 1995
-    links: [ 'http://caml.inria.fr/pub/papers/doligez-these.pdf', 'http://caml.inria.fr/pub/papers/doligez-these.ps.gz' ]
-  - title: "Optimizing Pattern Matching"
-    published: 'Proceedings of the sixth ACM SIGPLAN International Conference on Functional Programming (ICFP)'
-    description: > 
-      All you ever wanted to know about the garbage collector found in Caml Light and OCaml's runtime system.
-    authors: [ 'Fabrice Le Fessant', 'Luc Maranget' ]
-    tags: [ 'pattern-matching', 'runtime' ]
+    links:
+      - http://caml.inria.fr/pub/papers/doligez-these.pdf
+      - http://caml.inria.fr/pub/papers/doligez-these.ps.gz
+  - title: Optimizing Pattern Matching
+    publication: Proceedings of the sixth ACM SIGPLAN International Conference on
+      Functional Programming (ICFP)
+    abstract: >
+      All you ever wanted to know about the garbage collector found in Caml
+      Light and OCaml's runtime system.
+    authors:
+      - Fabrice Le Fessant
+      - Luc Maranget
+    tags:
+      - pattern-matching
+      - runtime
     year: 2001
-    links: [ 'http://dl.acm.org/citation.cfm?id=507641' ]
-  - title: "OCaml for the Masses"
-    published: 'ACM Queue'
-    description: > 
+    links:
+      - http://dl.acm.org/citation.cfm?id=507641
+  - title: OCaml for the Masses
+    publication: ACM Queue
+    abstract: |
       Why the next language you learn should be functional.
-    authors: [ 'Yaron Minsky' ]
-    tags: [ 'industrial' ]
+    authors:
+      - Yaron Minsky
+    tags:
+      - industrial
     year: 2011
-    links: [ 'https://queue.acm.org/detail.cfm?id=2038036' ]
-  - title: 'Xen and the Art of OCaml'
-    published: 'Commercial Users of Functional Programming (CUFP)'
-    description: > 
-      In this talk, we will firstly describe the architecture of XenServer and the XenAPI and discuss the challenges faced with implementing 
-      an Objective Caml based solution. These challenges range from the low-level concerns of interfacing with Xen and the 
-      Linux kernel, to the high-level algorithmic problems such as distributed failure planning. In addition, we will 
-      discuss the challenges imposed by using OCaml in a commercial environment, such as supporting product upgrades, 
-      enhancing supportability and scaling the development team.
-    authors: [ 'Anil Madhavapeddy' ]
-    tags: [ 'industrial', 'application' ]
+    links:
+      - https://queue.acm.org/detail.cfm?id=2038036
+  - title: Xen and the Art of OCaml
+    publication: Commercial Users of Functional Programming (CUFP)
+    abstract: >
+      In this talk, we will firstly describe the architecture of XenServer and
+      the XenAPI and discuss the challenges faced with implementing  an
+      Objective Caml based solution. These challenges range from the low-level
+      concerns of interfacing with Xen and the  Linux kernel, to the high-level
+      algorithmic problems such as distributed failure planning. In addition, we
+      will  discuss the challenges imposed by using OCaml in a commercial
+      environment, such as supporting product upgrades,  enhancing
+      supportability and scaling the development team.
+    authors:
+      - Anil Madhavapeddy
+    tags:
+      - industrial
+      - application
     year: 2008
-    links: [ 'http://cufp.org/archive/2008/slides/MadhavapeddyAnil.pdf' ]
-  - title: 'Chemoinformatics and Structural Bioinformatics in OCaml'
-    published: 'Journal of Cheminformatics'
-    description: > 
-      In this article, we share our experience in prototyping chemoinformatics and structural bioinformatics software in OCaml
-    authors: [ 'François Berenger', 'Kam Y. J. Zhang', 'Yoshihiro Yamanishi' ]
-    tags: [ 'industrial', 'application', 'bioinformatics' ]
+    links:
+      - http://cufp.org/archive/2008/slides/MadhavapeddyAnil.pdf
+  - title: Chemoinformatics and Structural Bioinformatics in OCaml
+    publication: Journal of Cheminformatics
+    abstract: >
+      In this article, we share our experience in prototyping chemoinformatics
+      and structural bioinformatics software in OCaml
+    authors:
+      - François Berenger
+      - Kam Y. J. Zhang
+      - Yoshihiro Yamanishi
+    tags:
+      - industrial
+      - application
+      - bioinformatics
     year: 2019
-    links: [ 'https://jcheminf.biomedcentral.com/articles/10.1186/s13321-019-0332-0' ]
-  - title: 'A Declarative Syntax Definition for OCaml'
-    published: 'International Conference on Functional Programming (ICFP)'
-    description: > 
-      In this talk we present our work on a syntax definition for the OCaml language in the syntax definition formalism SDF3. 
-      SDF3 supports high-level definition of concrete and abstract syntax through declarative disambiguation and definition of 
-      constructors, enabling a direct mapping to abstract syntax. Based on the SDF3 syntax definition, the Spoofax language 
-      workbench produces a complete syntax aware editor with a parser, syntax checking, parse error recovery, syntax highlighting, 
-      formatting with correct parenthesis insertion, and syntactic completion. The syntax definition should provide a good 
-      basis for experiments with the design of OCaml and the development of further tooling. In the talk we will highlight 
-      interesting aspects the syntax definition, discuss issues we encountered in the syntax of OCaml, and demonstrate the editor.
-    authors: [ 'Luis Eduardo de Souza Amorim', 'Eelco Visser' ]
-    tags: [ 'ocaml-workshop' ]
+    links:
+      - https://jcheminf.biomedcentral.com/articles/10.1186/s13321-019-0332-0
+  - title: A Declarative Syntax Definition for OCaml
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      In this talk we present our work on a syntax definition for the OCaml
+      language in the syntax definition formalism SDF3.  SDF3 supports
+      high-level definition of concrete and abstract syntax through declarative
+      disambiguation and definition of  constructors, enabling a direct mapping
+      to abstract syntax. Based on the SDF3 syntax definition, the Spoofax
+      language  workbench produces a complete syntax aware editor with a parser,
+      syntax checking, parse error recovery, syntax highlighting,  formatting
+      with correct parenthesis insertion, and syntactic completion. The syntax
+      definition should provide a good  basis for experiments with the design of
+      OCaml and the development of further tooling. In the talk we will
+      highlight  interesting aspects the syntax definition, discuss issues we
+      encountered in the syntax of OCaml, and demonstrate the editor.
+    authors:
+      - Luis Eduardo de Souza Amorim
+      - Eelco Visser
+    tags:
+      - ocaml-workshop
     year: 2020
-    # Paper is not available from this site or ICFP?
-    links: [ 'https://eelcovisser.org/talks/2020/08/28/ocaml/' ]
-  - title: 'A Simple State-Machine Framework for Property-Based Testing in OCaml'
-    published: 'International Conference on Functional Programming (ICFP)'
-    description: > 
-      Since their inception state-machine frameworks have proven their worth by finding defects in everything 
-      from the underlying AUTOSAR components of Volvo cars to digital invoicing sys- tems. These case studies were carried 
-      out with Erlang’s commercial QuickCheck state-machine framework from Quviq, but such frameworks are now also available 
-      for Haskell, F#, Scala, Elixir, Java, etc. We present a typed state-machine framework for OCaml based on the QCheck 
-      library and illustrate a number concepts common to all such frameworks: state modeling, commands, interpreting commands,
+    links:
+      - https://eelcovisser.org/talks/2020/08/28/ocaml/
+  - title: A Simple State-Machine Framework for Property-Based Testing in OCaml
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      Since their inception state-machine frameworks have proven their worth by
+      finding defects in everything  from the underlying AUTOSAR components of
+      Volvo cars to digital invoicing sys- tems. These case studies were
+      carried  out with Erlang’s commercial QuickCheck state-machine framework
+      from Quviq, but such frameworks are now also available  for Haskell, F#,
+      Scala, Elixir, Java, etc. We present a typed state-machine framework for
+      OCaml based on the QCheck  library and illustrate a number concepts common
+      to all such frameworks: state modeling, commands, interpreting commands,
       preconditions, and agreement checking.
-    authors: [ 'Jan Midtgaard' ]
-    tags: [ 'ocaml-workshop' ]
+    authors:
+      - Jan Midtgaard
+    tags:
+      - ocaml-workshop
     year: 2020
-    links: [ 'https://janmidtgaard.dk/papers/Midtgaard%3AOCaml20.pdf' ]
-  - title: 'A Simple State-Machine Framework for Property-Based Testing in OCaml'
-    published: 'International Conference on Functional Programming (ICFP)'
-    description: > 
-      Since their inception state-machine frameworks have proven their worth by finding defects in everything 
-      from the underlying AUTOSAR components of Volvo cars to digital invoicing sys- tems. These case studies were carried 
-      out with Erlang’s commercial QuickCheck state-machine framework from Quviq, but such frameworks are now also available 
-      for Haskell, F#, Scala, Elixir, Java, etc. We present a typed state-machine framework for OCaml based on the QCheck 
-      library and illustrate a number concepts common to all such frameworks: state modeling, commands, interpreting commands,
+    links:
+      - https://janmidtgaard.dk/papers/Midtgaard%3AOCaml20.pdf
+  - title: A Simple State-Machine Framework for Property-Based Testing in OCaml
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      Since their inception state-machine frameworks have proven their worth by
+      finding defects in everything  from the underlying AUTOSAR components of
+      Volvo cars to digital invoicing sys- tems. These case studies were
+      carried  out with Erlang’s commercial QuickCheck state-machine framework
+      from Quviq, but such frameworks are now also available  for Haskell, F#,
+      Scala, Elixir, Java, etc. We present a typed state-machine framework for
+      OCaml based on the QCheck  library and illustrate a number concepts common
+      to all such frameworks: state modeling, commands, interpreting commands,
       preconditions, and agreement checking.
-    authors: [ 'Jan Midtgaard' ]
-    tags: [ 'ocaml-workshop' ]
+    authors:
+      - Jan Midtgaard
+    tags:
+      - ocaml-workshop
     year: 2020
-    links: [ 'https://janmidtgaard.dk/papers/Midtgaard%3AOCaml20.pdf' ]
+    links:
+      - https://janmidtgaard.dk/papers/Midtgaard%3AOCaml20.pdf
