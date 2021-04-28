@@ -1,0 +1,5 @@
+(test
+ (name test)
+ (deps netlify-cms.yaml)
+ (package netlify-cms)
+ (libraries bos alcotest netlify))

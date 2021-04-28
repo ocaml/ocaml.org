@@ -1,0 +1,23 @@
+name: Tests for ood, ood-cli and netlify-cms
+on: [push, pull_request]
+jobs:
+  test:
+    strategy:
+      matrix:
+        operating-system: [ ubuntu-latest ]
+        ocaml-version: [ 4.11.1 ]
+    runs-on: ${{ matrix.operating-system }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: avsm/setup-ocaml@v1
+      with:
+        ocaml-version: ${{ matrix.ocaml-version }}
+    - name: Pinning Package
+      run: opam pin add -yn ood.dev './' && opam
+        pin add -yn netlify-cms.dev './' && opam pin add -yn ood-cli.dev './'
+    - name: Packages
+      run: opam depext -yt ood.dev ood-cli.dev netlify-cms.dev
+    - name: Dependencies
+      run: opam install -t -y . --deps-only
+    - name: Building, Installing and Testing (include Netlify CMS and Linting)
+      run: opam exec -- dune build @install @runtest

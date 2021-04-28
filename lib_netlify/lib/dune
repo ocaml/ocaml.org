@@ -1,0 +1,6 @@
+(library
+ (name netlify)
+ (public_name netlify-cms)
+ (libraries yaml fmt)
+ (preprocess
+  (pps ppx_deriving.make ppx_deriving_yaml)))

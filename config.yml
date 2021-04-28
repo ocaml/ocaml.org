@@ -1,0 +1,11 @@
+backend:
+  name: "github"
+collections:
+- label: "Datasets"
+  name: "dataset"
+  files:
+  - label: "OCaml Papers"
+    name: "papers"
+    file: "data/papers/papers.yml"
+    fields:
+    - {label: "Paper Title", name: "title", widget: "string"}
