@@ -17,3 +17,24 @@ collections:
         {label: "Absract or Description", name: "abstract", widget: "text"}, {label: "Tags",
           name: "tags", widget: "list"}, {label: "Year", name: "year", widget: "number"},
         {label: "Links", name: "links", widget: "list"}]}
+  - label: "OCaml Meetings"
+    name: "meetings"
+    file: "data/meetings.yml"
+    fields:
+    - {label: "Meetings", name: "meetings", widget: "list", collapsed: false, fields: [
+        {label: "Meeting Name", name: "title", widget: "string"}, {label: "URL", name: "url",
+          widget: "string"}, {label: "Date", name: "date", widget: "datetime", picker_utc: true},
+        {label: "Virtual only", name: "online", widget: "boolean"}, {label: "Location",
+          name: "location", widget: "map", hint: "Just add a sensible location even
+            if the event was virtual only"}]}
+- name: "tutorials"
+  label: "OCaml Tutorials"
+  folder: "data/tutorials"
+  format: "yaml-frontmatter"
+  fields:
+  - {label: "Tutorial Title", name: "title", widget: "string"}
+  - {label: "Description", name: "description", widget: "text"}
+  - {label: "Target Audience", name: "users", widget: "select", options: ["advanced",
+      "beginner", "intermediate"], multiple: true}
+  - {label: "Date", name: "date", widget: "datetime", picker_utc: true}
+  - {label: "Body", name: "body", widget: "markdown"}
