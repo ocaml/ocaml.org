@@ -1,7 +1,13 @@
 open Rresult
 open Netlify
+open Ood
+module Jf = Jekyll_format
 
 let parse_yaml p yml = Yaml.of_string yml >>= p
+
+let parse_jekyll yaml_p txt =
+  Jf.of_string txt >>= fun jekyll ->
+  Jf.fields jekyll |> Jf.fields_to_yaml |> yaml_p
 
 module Paper = struct
   type t = [%import: Ood.Papers.Paper.t] [@@deriving yaml]
@@ -38,4 +44,82 @@ module Papers = struct
     in
     Netlify.Collection.Files.File.make ~name:"papers" ~label:"OCaml Papers"
       ~file:path ~fields ()
+end
+
+module Meeting = struct
+  type t = [%import: Ood.Meetings.Meeting.t] [@@deriving yaml]
+
+  let lint = parse_yaml of_yaml
+
+  let widget_of_t =
+    Widget.
+      [
+        `String (String.make ~label:"Meeting Name" ~name:"title" ());
+        `String (String.make ~label:"URL" ~name:"url" ());
+        `DateTime DateTime.(make ~label:"Date" ~name:"date" ~picker_utc:true ());
+        `Boolean (Boolean.make ~label:"Virtual only" ~name:"online" ());
+        `Map
+          (Map.make ~label:"Location" ~name:"location"
+             ~hint:
+               "Just add a sensible location even if the event was virtual only"
+             ());
+      ]
+end
+
+module Meetings = struct
+  type t = [%import: Ood.Meetings.t] [@@deriving yaml]
+
+  let lint = parse_yaml of_yaml
+
+  let path = "data/meetings.yml"
+
+  let file =
+    let fields =
+      [
+        `List
+          (* XXX(patricoferris): Collapsed set to false because of https://github.com/netlify/netlify-cms/issues/4385#issuecomment-748495080
+             should contribute a fix to upstream if this is still the case in latest versions *)
+          (Widget.Lst.make ~label:"Meetings" ~name:"meetings" ~collapsed:false
+             ~fields:Meeting.widget_of_t ());
+      ]
+    in
+    Netlify.Collection.Files.File.make ~name:"meetings" ~label:"OCaml Meetings"
+      ~file:path ~fields ()
+end
+
+module Tutorial = struct
+  type user = [%import: Ood.Meta.Proficiency.t] [@@deriving enumerate]
+
+  let user_to_yaml user = `String (Meta.Proficiency.to_string user)
+
+  let user_of_yaml = function
+    | `String s -> Meta.Proficiency.of_string s
+    | _ -> Error (`Msg "Expected yaml string")
+
+  type t = [%import: (Ood.Tutorial.t[@with Ood.Meta.Proficiency.t := user])]
+  [@@deriving yaml]
+
+  let path = "data/tutorials"
+
+  let widget_of_t =
+    Widget.
+      [
+        `String (String.make ~label:"Tutorial Title" ~name:"title" ());
+        `Text (Text.make ~label:"Description" ~name:"description" ());
+        `Select
+          Select.(
+            make ~label:"Target Audience" ~name:"users" ~multiple:true
+              ~options:
+                (Strings (List.map Meta.Proficiency.to_string all_of_user))
+              ());
+        `DateTime DateTime.(make ~label:"Date" ~name:"date" ~picker_utc:true ());
+        `Markdown Markdown.(make ~label:"Body" ~name:"body" ());
+      ]
+
+  let lint t = parse_jekyll of_yaml t
+
+  let folder =
+    let fields = widget_of_t in
+    Netlify.Collection.Folder.make ~name:"tutorials" ~format:Yaml_frontmatter
+      ~label:"OCaml Tutorials" ~folder:path ~fields ()
 end

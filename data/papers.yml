@@ -259,23 +259,6 @@ papers:
     links:
       - http://caml.inria.fr/pub/papers/xleroy-zinc.pdf
       - http://caml.inria.fr/pub/papers/xleroy-zinc.ps.gz
-  - title: The ZINC experiment, an Economical Implementation of the ML language
-    publication: Technical report 117, INRIA
-    abstract: >
-      This report contains a abstract of the ZINC compiler, which later evolved
-      into Caml Light, then into OCaml. Large parts  of this report are out of
-      date, but it is still valuable as a abstract of the abstract machine used
-      in Caml Light and  (with some further simplifications and speed
-      improvements) in OCaml.
-    authors:
-      - Xavier Leroy
-    tags:
-      - compiler
-      - runtime
-    year: 1990
-    links:
-      - http://caml.inria.fr/pub/papers/xleroy-zinc.pdf
-      - http://caml.inria.fr/pub/papers/xleroy-zinc.ps.gz
   - title: The Effectiveness of Type-based Unboxing
     publication: Workshop on Types in Compilation
     abstract: >

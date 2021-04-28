@@ -36,7 +36,7 @@ let routes config meth path =
       | [ ""; "admin" ] ->
           Server.respond_string
             ~headers:(Cohttp.Header.of_list [ ("Content-type", "text/html") ])
-            ~status:`OK ~body:(html "2.10.40") ()
+            ~status:`OK ~body:(html "2.10.109") ()
       | [ ""; "config.yml" ] ->
           Server.respond_string
             ~headers:(Cohttp.Header.of_list [ ("Content-type", "text/yaml") ])

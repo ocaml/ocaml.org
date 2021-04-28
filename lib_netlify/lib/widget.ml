@@ -512,7 +512,7 @@ and Select : sig
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
-    options : opt list;
+    options : opt;
     multiple : bool option;
     min : int option;
     max : int option;
@@ -554,7 +554,7 @@ end = struct
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
-    options : opt list;
+    options : opt;
     multiple : bool option;
     min : int option;
     max : int option;

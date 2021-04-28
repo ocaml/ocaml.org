@@ -1,6 +1,15 @@
 (library
  (name lib_ood)
  (public_name lib-ood)
- (libraries cmdliner bos alcotest fmt fmt.tty yaml netlify-cms ood)
+ (libraries
+  cmdliner
+  bos
+  alcotest
+  fmt
+  fmt.tty
+  yaml
+  jekyll-format
+  netlify-cms
+  ood)
  (preprocess
-  (staged_pps ppx_import ppx_deriving_yaml)))
+  (staged_pps ppx_import ppx_enumerate ppx_deriving_yaml)))

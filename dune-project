@@ -25,6 +25,10 @@
  (description
   "Lib-ood is used by the ood-cli tool, but if you don't mind taking on the dependencies it may also be useful for you as it exposes the \n   same data as the base ood package but with extra utilities like yaml parsing.")
  (depends
+  (ppx_enumerate
+   (>= v0.14.0))
+  (jekyll-format
+   (>= 0.2.0))
   yaml
   ppx_import
   ppx_deriving_yaml
