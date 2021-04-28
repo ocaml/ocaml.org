@@ -9,17 +9,13 @@ type t = {contents: string}
 type props = {
   source: string,
   title: string,
-  pageDescription: string,
+  pageDescription: Js.Nullable.t<string>,
   tableOfContents: MarkdownPage.TableOfContents.t,
 }
 
 @react.component
 let make = (~source, ~title, ~pageDescription, ~tableOfContents) => {
   <>
-    <ConstructionBanner
-      figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=430%3A21054`
-      playgroundLink=`/play/resources/installocaml`
-    />
     // TODO: should this have a constrained width? what does tailwind do?
     <MainContainer.None>
       <div className="grid grid-cols-9 bg-white">
@@ -39,7 +35,7 @@ let contentEn = {
   contents: `Contents`,
 }
 
-type pageContent = {title: string, pageDescription: string}
+type pageContent = {title: string, pageDescription: option<string>}
 
 @module("js-yaml") external load: (string, ~options: 'a=?, unit) => pageContent = "load"
 
@@ -72,7 +68,10 @@ let getStaticProps = ctx => {
     let props = {
       source: res.contents,
       title: parsed.data.title,
-      pageDescription: parsed.data.pageDescription,
+      pageDescription: switch parsed.data.pageDescription {
+      | None => Js.Nullable.null
+      | Some(v) => Js.Nullable.return(v)
+      },
       tableOfContents: {
         contents: "Contents",
         toc: res.toc,

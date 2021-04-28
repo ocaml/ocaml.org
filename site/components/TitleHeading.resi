@@ -7,7 +7,7 @@ module Large: {
   @react.component
   let make: (
     ~title: string,
-    ~pageDescription: string,
+    ~pageDescription: string=?,
     ~marginTop: string=?,
     ~marginBottom: string=?,
     ~addMaxWidth: bool=?,
@@ -19,5 +19,5 @@ module Large: {
 
 module MarkdownMedium: {
   @react.component
-  let make: (~title: string, ~pageDescription: string) => React.element
+  let make: (~title: string, ~pageDescription: string=?) => React.element
 }

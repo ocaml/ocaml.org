@@ -1,6 +1,6 @@
 type pageContent = {
   title: string,
-  pageDescription: string,
+  pageDescription: option<string>,
 }
 
 type output = {data: pageContent, content: string}
