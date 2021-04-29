@@ -97,40 +97,18 @@ module SectionLinks = {
 }
 
 module MainLinksSection = {
-  type industrySection = {
-    header: string,
-    whatIsOcaml: NavEntry.t,
-    industrialUsers: NavEntry.t,
-    successStories: NavEntry.t,
-  }
-
-  type resourcesSection = {
-    header: string,
-    releases: NavEntry.t,
-    applications: NavEntry.t,
-    language: NavEntry.t,
-    archive: NavEntry.t,
-  }
-
-  type communitySection = {
-    header: string,
-    opportunities: NavEntry.t,
-    news: NavEntry.t,
-    aroundTheWeb: NavEntry.t,
-  }
-
-  type legalSection = {
-    header: string,
-    privacy: NavEntry.t,
-    terms: NavEntry.t,
-    carbonFootprint: NavEntry.t,
+  module Section = {
+    type t = {
+      header: string,
+      entries: array<NavEntry.t>,
+    }
   }
 
   type t = {
-    industrySection: industrySection,
-    resourcesSection: resourcesSection,
-    communitySection: communitySection,
-    legalSection: legalSection,
+    industrySection: Section.t,
+    resourcesSection: Section.t,
+    communitySection: Section.t,
+    legalSection: Section.t,
   }
 
   @react.component
@@ -139,37 +117,21 @@ module MainLinksSection = {
       <div className="md:grid md:grid-cols-2 md:gap-8">
         {
           let section = content.industrySection
-          <SectionLinks
-            name=section.header
-            keyPages=[section.whatIsOcaml, section.industrialUsers, section.successStories]
-            margins=``
-          />
+          <SectionLinks name=section.header keyPages=section.entries margins=`` />
         }
         {
           let section = content.resourcesSection
-          <SectionLinks
-            name=section.header
-            keyPages=[section.releases, section.applications, section.language, section.archive]
-            margins=`mt-12 md:mt-0`
-          />
+          <SectionLinks name=section.header keyPages=section.entries margins=`mt-12 md:mt-0` />
         }
       </div>
       <div className="md:grid md:grid-cols-2 md:gap-8">
         {
           let section = content.communitySection
-          <SectionLinks
-            name=section.header
-            keyPages=[section.opportunities, section.news, section.aroundTheWeb]
-            margins=``
-          />
+          <SectionLinks name=section.header keyPages=section.entries margins=`` />
         }
         {
           let section = content.legalSection
-          <SectionLinks
-            name=section.header
-            keyPages=[section.privacy, section.terms, section.carbonFootprint]
-            margins=`mt-12 md:mt-0`
-          />
+          <SectionLinks name=section.header keyPages=section.entries margins=`mt-12 md:mt-0` />
         }
       </div>
     </div>

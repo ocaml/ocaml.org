@@ -3,40 +3,18 @@ module LogoSection: {
 }
 
 module MainLinksSection: {
-  type industrySection = {
-    header: string,
-    whatIsOcaml: NavEntry.t,
-    industrialUsers: NavEntry.t,
-    successStories: NavEntry.t,
-  }
-
-  type resourcesSection = {
-    header: string,
-    releases: NavEntry.t,
-    applications: NavEntry.t,
-    language: NavEntry.t,
-    archive: NavEntry.t,
-  }
-
-  type communitySection = {
-    header: string,
-    opportunities: NavEntry.t,
-    news: NavEntry.t,
-    aroundTheWeb: NavEntry.t,
-  }
-
-  type legalSection = {
-    header: string,
-    privacy: NavEntry.t,
-    terms: NavEntry.t,
-    carbonFootprint: NavEntry.t,
+  module Section: {
+    type t = {
+      header: string,
+      entries: array<NavEntry.t>,
+    }
   }
 
   type t = {
-    industrySection: industrySection,
-    resourcesSection: resourcesSection,
-    communitySection: communitySection,
-    legalSection: legalSection,
+    industrySection: Section.t,
+    resourcesSection: Section.t,
+    communitySection: Section.t,
+    legalSection: Section.t,
   }
 }
 
