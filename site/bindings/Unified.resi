@@ -43,6 +43,11 @@ let remark2rehype: attacher
 
 let rehypeStringify: attacher
 
+// TODO: parameterize options and make it an optional parameter
+// type highlightAttacher = (unit, highlightOptions)
+
+let rehypeHighlight: attacher
+
 module MdastUtilToString: {
   let toString: headingnode => string
 }

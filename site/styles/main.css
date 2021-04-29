@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 
+@import "./_hljs.css";
 /* @import "./_fonts.css"; */
 
 @tailwind utilities;

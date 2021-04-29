@@ -54,10 +54,13 @@ let getStaticProps = ctx => {
     Unified.use(
       Unified.use(
         Unified.use(
-          Unified.use(Unified.use(Unified.unified(), Unified.remarkParse), Unified.remarkSlug),
-          MdastToc.plugin,
+          Unified.use(
+            Unified.use(Unified.use(Unified.unified(), Unified.remarkParse), Unified.remarkSlug),
+            MdastToc.plugin,
+          ),
+          Unified.remark2rehype,
         ),
-        Unified.remark2rehype,
+        Unified.rehypeHighlight,
       ),
       Unified.rehypeStringify,
     ),

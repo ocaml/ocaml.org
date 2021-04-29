@@ -45,6 +45,7 @@
     "mdast-util-to-string": "^2.0.0",
     "next-transpile-modules": "4.1.0",
     "postcss": "^8.2.5",
+    "rehype-highlight": "^4.1.0",
     "rehype-stringify": "^8.0.0",
     "remark-parse": "^9.0.0",
     "remark-rehype": "^8.1.0",

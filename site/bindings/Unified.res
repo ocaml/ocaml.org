@@ -43,6 +43,8 @@ type attacher = unit => transformer
 
 @module("rehype-stringify") external rehypeStringify: attacher = "default"
 
+@module("rehype-highlight") external rehypeHighlight: attacher = "default"
+
 module MdastUtilToString = {
   @module("mdast-util-to-string") external toString: headingnode => string = "default"
 }
