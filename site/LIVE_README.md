@@ -18,7 +18,7 @@ If you come across a bug or a mistake in content, please create an issue. If you
 
 ...
 
-## Contributing
+## Contributing
 
 Please see the [contribution guide](CONTRIBUTING.md) for information on how to
 build and contribute content.
@@ -26,7 +26,7 @@ build and contribute content.
 ## Deployment Status
 
 
-![Vercel](https://vercelbadge.vercel.app/api/solvuu-inc/next.ocaml.org)
+![Vercel](https://vercelbadge.vercel.app/api/ocaml/v3.ocaml.org)
 
 
 You can review the most [recent production deployment logs here]().
