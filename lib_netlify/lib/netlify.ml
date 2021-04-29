@@ -3,6 +3,44 @@ module Widget = Widget
 module Server = Server
 open Widget
 
+module I18n = struct
+  module Toplevel = struct
+    type structure = [ `Multiple_folders | `Multiple_files | `Single_file ]
+
+    let structure_of_yaml = function
+      | `String "multiple_folders" -> Ok `Multiple_folders
+      | `String "multiple_files" -> Ok `Multiple_files
+      | `String "single_file" -> Ok `Single_file
+      | _ -> Error (`Msg "i18n structure value incorrect")
+
+    let structure_to_yaml = function
+      | `Multiple_folders -> `String "multiple_folders"
+      | `Multiple_files -> `String "multiple_files"
+      | `Single_file -> `String "single_file"
+
+    type t = {
+      structure : structure;
+      locales : string list;
+      default_locale : string option;
+    }
+    [@@deriving make, yaml]
+  end
+
+  module Collection_level = struct
+    open Rresult
+
+    type t = [ `Toplevel of Toplevel.t | `Boolean of bool ]
+
+    let of_yaml = function
+      | `Bool b -> Ok (`Boolean b)
+      | yaml -> Toplevel.of_yaml yaml >>| fun t -> `Toplevel t
+
+    let to_yaml = function
+      | `Boolean b -> `Bool b
+      | `Toplevel t -> Toplevel.to_yaml t
+  end
+end
+
 module Collection = struct
   type format =
     | Yaml
@@ -40,6 +78,7 @@ module Collection = struct
       label_singular : string option;
       description : string option;
       folder : string;
+      i18n : I18n.Collection_level.t option;
       summary : string option;
       filter : string option;
       publish : bool option;
@@ -67,11 +106,17 @@ module Collection = struct
         name : string;
         file : string;
         fields : Widget.t list;
+        i18n : bool option;
       }
       [@@deriving make, yaml]
     end
 
-    type t = { label : string; name : string; files : File.t list }
+    type t = {
+      label : string;
+      name : string;
+      files : File.t list;
+      i18n : I18n.Collection_level.t option;
+    }
     [@@deriving make, yaml]
   end
 
@@ -138,6 +183,7 @@ end
 type t = {
   backend : Backend.t;
   local_backend : bool option;
+  i18n : I18n.Toplevel.t option;
   media_folder : string;
   media_library : Media.t option;
   publish_mode : string option;

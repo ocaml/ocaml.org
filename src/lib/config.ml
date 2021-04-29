@@ -3,6 +3,10 @@ open Netlify
 
 let backend = Backend.(make ~name:Github ())
 
+let i18n =
+  I18n.Toplevel.make ~structure:`Multiple_files ~locales:[ "en"; "fr" ]
+    ~default_locale:"en" ()
+
 let collections =
   [
     Collection.Files
@@ -13,7 +17,7 @@ let collections =
   ]
 
 let config =
-  Netlify.make ~backend ~media_folder:"data/media" ~local_backend:true
+  Netlify.make ~backend ~i18n ~media_folder:"data/media" ~local_backend:true
     ~collections ()
 
 let print () =

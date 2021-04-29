@@ -3,6 +3,25 @@ module Widget = Widget
 module Server = Server
 open Widget
 
+(* Beta Feature for Internationalisation *)
+module I18n : sig
+  module Toplevel : sig
+    type structure = [ `Multiple_folders | `Multiple_files | `Single_file ]
+    [@@deriving yaml]
+
+    type t = {
+      structure : structure;
+      locales : string list;
+      default_locale : string option;
+    }
+    [@@deriving make, yaml]
+  end
+
+  module Collection_level : sig
+    type t = [ `Toplevel of Toplevel.t | `Boolean of bool ] [@@deriving yaml]
+  end
+end
+
 module Collection : sig
   type format =
     | Yaml
@@ -22,6 +41,7 @@ module Collection : sig
       label_singular : string option;
       description : string option;
       folder : string;
+      i18n : I18n.Collection_level.t option;
       summary : string option;
       filter : string option;
       publish : bool option;
@@ -49,11 +69,17 @@ module Collection : sig
         name : string;
         file : string;
         fields : Widget.t list;
+        i18n : bool option;
       }
       [@@deriving make, yaml]
     end
 
-    type t = { label : string; name : string; files : File.t list }
+    type t = {
+      label : string;
+      name : string;
+      files : File.t list;
+      i18n : I18n.Collection_level.t option;
+    }
     [@@deriving make, yaml]
   end
 
@@ -93,6 +119,7 @@ end
 type t = {
   backend : Backend.t;
   local_backend : bool option;
+  i18n : I18n.Toplevel.t option;
   media_folder : string;
   media_library : Media.t option;
   publish_mode : string option;

@@ -2,6 +2,10 @@
 backend:
   name: "github"
 local_backend: true
+i18n:
+  structure: "multiple_files"
+  locales: ["en", "fr"]
+  default_locale: "en"
 media_folder: "data/media"
 collections:
 - label: "Datasets"
@@ -30,11 +34,13 @@ collections:
 - name: "tutorials"
   label: "OCaml Tutorials"
   folder: "data/tutorials"
+  i18n: true
+  create: true
   format: "yaml-frontmatter"
   fields:
-  - {label: "Tutorial Title", name: "title", widget: "string"}
-  - {label: "Description", name: "description", widget: "text"}
-  - {label: "Target Audience", name: "users", widget: "select", options: ["advanced",
-      "beginner", "intermediate"], multiple: true}
-  - {label: "Date", name: "date", widget: "datetime", picker_utc: true}
-  - {label: "Body", name: "body", widget: "markdown"}
+  - {label: "Tutorial Title", name: "title", widget: "string", i18n: true}
+  - {label: "Description", name: "description", widget: "text", i18n: true}
+  - {label: "Target Audience", name: "users", widget: "select", i18n: "duplicate",
+    options: ["advanced", "beginner", "intermediate"], multiple: true}
+  - {label: "Date", name: "date", widget: "datetime", i18n: true, picker_utc: true}
+  - {label: "Body", name: "body", widget: "markdown", i18n: true}
