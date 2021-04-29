@@ -323,7 +323,7 @@ let forceInvalidException: JsYaml.forceInvalidException<pageContent> = c => {
 let getStaticProps = _ctx => {
   let news = NewsItem.readAll()
 
-  let contentPath = "res_pages/community/aroundweb.yaml"
+  let contentPath = "pages/community/aroundweb.yaml"
   let fileContents = Fs.readFileSync(contentPath)
   let pageContent = load(fileContents, ())
   forceInvalidException(pageContent)

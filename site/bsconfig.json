@@ -22,10 +22,6 @@
       "subdirs": true
     },
     {
-      "dir": "res_pages",
-      "subdirs": true
-    },
-    {
       "dir": "components",
       "subdirs": true
     },

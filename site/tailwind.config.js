@@ -9,7 +9,6 @@ module.exports = {
       './components/**/*.res',
       './pages/**/*.res',
       './layouts/**/*.res',
-      './res_pages/**/*.res',
       // need to include data files since they reference tailwind classes
       './data/*.yaml',
     ],

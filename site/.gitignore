@@ -24,7 +24,8 @@ out
 /common/*.js
 /components/*.js
 /layouts/*.js
-/res_pages/**/*.js
+/pages/**/*.js
+!/pages/_app.js
 
 # OCaml
 /_build
