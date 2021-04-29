@@ -1,4 +1,19 @@
-module rec Boolean : sig
+module rec I18n : sig
+  type t = [ `Boolean of bool | `Duplicate ] [@@deriving yaml]
+end = struct
+  type t = [ `Boolean of bool | `Duplicate ]
+
+  let of_yaml = function
+    | `Bool b -> Ok (`Boolean b)
+    | `String "duplicate" -> Ok `Duplicate
+    | _ -> Error (`Msg "Unknown i18n value for widget")
+
+  let to_yaml = function
+    | `Boolean b -> `Bool b
+    | `Duplicate -> `String "duplicate"
+end
+
+and Boolean : sig
   type t = {
     label : string;
     name : string;
@@ -6,6 +21,7 @@ module rec Boolean : sig
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : bool option;
   }
   [@@deriving make, yaml]
@@ -21,6 +37,7 @@ end = struct
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : bool option;
   }
   [@@deriving make, yaml]
@@ -34,6 +51,7 @@ and Code : sig
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default_language : string option;
     allow_language_selection : bool option;
     keys : Yaml.value option;  (** Hmmm... *)
@@ -52,6 +70,7 @@ end = struct
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default_language : string option;
     allow_language_selection : bool option;
     keys : Yaml.value option;  (** Hmmm... *)
@@ -68,6 +87,7 @@ and Color : sig
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : string option;
     allow_input : bool option; [@key "allowInput"]
     enable_alpha : bool option; [@key "enableAlpha"]
@@ -85,6 +105,7 @@ end = struct
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : string option;
     allow_input : bool option; [@key "allowInput"]
     enable_alpha : bool option; [@key "enableAlpha"]
@@ -100,6 +121,7 @@ and DateTime : sig
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : string option;
     format : string option;
     date_format : bool option;
@@ -120,6 +142,7 @@ end = struct
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : string option;
     format : string option;
     date_format : bool option;
@@ -138,6 +161,7 @@ and File : sig
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : string option;
     media_library : string option;
     allow_multiple : bool option;
@@ -156,6 +180,7 @@ end = struct
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : string option;
     media_library : string option;
     allow_multiple : bool option;
@@ -172,6 +197,7 @@ and Hidden : sig
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : string option; (* Hmmm... *)
   }
   [@@deriving make, yaml]
@@ -187,6 +213,7 @@ end = struct
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : string option; (* Hmmm... *)
   }
   [@@deriving make, yaml]
@@ -200,6 +227,7 @@ and Image : sig
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : string option;
     media_library : Yaml.value option;
     allow_multiple : bool option;
@@ -218,6 +246,7 @@ end = struct
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : string option;
     media_library : Yaml.value option;
     allow_multiple : bool option;
@@ -234,6 +263,7 @@ and Lst : sig
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : Yaml.value option;
     allow_add : bool option;
     collapsed : bool option;
@@ -259,6 +289,7 @@ end = struct
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : Yaml.value option;
     allow_add : bool option;
     collapsed : bool option;
@@ -288,6 +319,7 @@ and Map : sig
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     decimals : int option;
     default : string option;
     typ : typ option; [@key "type"]
@@ -318,6 +350,7 @@ end = struct
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     decimals : int option;
     default : string option;
     typ : typ option; [@key "type"]
@@ -333,6 +366,7 @@ and Markdown : sig
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : string option;
     minimal : bool option;
     buttons : string list option;
@@ -354,6 +388,7 @@ end = struct
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : string option;
     minimal : bool option;
     buttons : string list option;
@@ -379,6 +414,7 @@ and Number : sig
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : float option;
     value_type : typ option;
     min : float option;
@@ -407,6 +443,7 @@ end = struct
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : float option;
     value_type : typ option;
     min : float option;
@@ -424,6 +461,7 @@ and Object : sig
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : Yaml.value option;
     (* hmmm... *)
     collapsed : bool option;
@@ -443,6 +481,7 @@ end = struct
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : Yaml.value option;
     (* hmmm... *)
     collapsed : bool option;
@@ -460,6 +499,7 @@ and Relation : sig
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     collection : string;
     value_field : string;
     search_fields : string list;
@@ -484,6 +524,7 @@ end = struct
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     collection : string;
     value_field : string;
     search_fields : string list;
@@ -512,6 +553,7 @@ and Select : sig
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     options : opt;
     multiple : bool option;
     min : int option;
@@ -554,6 +596,7 @@ end = struct
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     options : opt;
     multiple : bool option;
     min : int option;
@@ -570,6 +613,7 @@ and String : sig
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : string option;
   }
   [@@deriving make, yaml]
@@ -585,6 +629,7 @@ end = struct
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : string option;
   }
   [@@deriving make, yaml]
@@ -598,6 +643,7 @@ and Text : sig
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : string option;
   }
   [@@deriving make, yaml]
@@ -613,6 +659,7 @@ end = struct
     required : bool option;
     hint : string option;
     pattern : (string * string) option;
+    i18n : I18n.t option;
     default : string option;
   }
   [@@deriving make, yaml]

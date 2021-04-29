@@ -104,22 +104,32 @@ module Tutorial = struct
   let widget_of_t =
     Widget.
       [
-        `String (String.make ~label:"Tutorial Title" ~name:"title" ());
-        `Text (Text.make ~label:"Description" ~name:"description" ());
+        `String
+          (String.make ~label:"Tutorial Title" ~name:"title"
+             ~i18n:(`Boolean true) ());
+        `Text
+          (Text.make ~label:"Description" ~name:"description"
+             ~i18n:(`Boolean true) ());
         `Select
           Select.(
             make ~label:"Target Audience" ~name:"users" ~multiple:true
+              ~i18n:`Duplicate
               ~options:
                 (Strings (List.map Meta.Proficiency.to_string all_of_user))
               ());
-        `DateTime DateTime.(make ~label:"Date" ~name:"date" ~picker_utc:true ());
-        `Markdown Markdown.(make ~label:"Body" ~name:"body" ());
+        `DateTime
+          DateTime.(
+            make ~label:"Date" ~name:"date" ~picker_utc:true
+              ~i18n:(`Boolean true) ());
+        `Markdown
+          Markdown.(make ~label:"Body" ~name:"body" ~i18n:(`Boolean true) ());
       ]
 
   let lint t = parse_jekyll of_yaml t
 
   let folder =
     let fields = widget_of_t in
-    Netlify.Collection.Folder.make ~name:"tutorials" ~format:Yaml_frontmatter
-      ~label:"OCaml Tutorials" ~folder:path ~fields ()
+    Netlify.Collection.Folder.make ~name:"tutorials" ~create:true
+      ~i18n:(`Boolean true) ~format:Yaml_frontmatter ~label:"OCaml Tutorials"
+      ~folder:path ~fields ()
 end
