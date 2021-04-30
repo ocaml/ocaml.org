@@ -17,7 +17,9 @@
  (name ood)
  (synopsis "OCaml.Org Data")
  (description
-  "The ood library defines types for the different data types we store in this repository. It aims to be as platform agnostic as possible, that means just types no dependencies that could prevent someone from using the library."))
+  "The ood library defines types for the different data types we store in this repository. It aims to be as platform agnostic as possible, that means just types no dependencies that could prevent someone from using the library.")
+ (depends
+  (mdx :with-test)))
 
 (package
  (name lib-ood)
@@ -59,3 +61,5 @@
   ppx_deriving
   fmt
   yaml))
+
+(using mdx 0.1)
