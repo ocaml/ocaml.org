@@ -10,6 +10,7 @@ homepage: "https://github.com/patricoferris/ood"
 bug-reports: "https://github.com/patricoferris/ood/issues"
 depends: [
   "dune" {>= "2.8"}
+  "mdx" {with-test}
   "odoc" {with-doc}
 ]
 build: [
