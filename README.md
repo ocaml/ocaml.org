@@ -1,6 +1,8 @@
 Typed and Versioned Data for OCaml.org v3
 -----------------------------------------
 
+Status: Not yet open for contributions. Contact @avsm.
+
 This repository contains data for the OCaml.org website along with a suite of
 tools for managing that data. In particular:
 
