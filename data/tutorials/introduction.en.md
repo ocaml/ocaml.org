@@ -2,9 +2,7 @@
 title: A First Hour with OCaml
 description: >
   Discover the OCaml programming language in this longer tutorial that takes you
-  from absolute beginner to 
-
-  someone who is able to write programs in OCaml.
+  from absolute beginner to someone who is able to write programs in OCaml.
 users:
   - beginner
 date: 2021-04-28T21:50:24.228Z
