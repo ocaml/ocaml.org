@@ -2,32 +2,16 @@ module Link = Next.Link
 
 let s = React.string
 
-type industrySection = {
+// TODO: change NavEntry.t to HeaderNavEntry.t, which has additional info like icon
+type section = {
   header: string,
-  whatIsOcaml: NavEntry.t,
-  industrialUsers: NavEntry.t,
-  successStories: NavEntry.t,
-}
-
-type resourcesSection = {
-  header: string,
-  releases: NavEntry.t,
-  applications: NavEntry.t,
-  language: NavEntry.t,
-  archive: NavEntry.t,
-}
-
-type communitySection = {
-  header: string,
-  opportunities: NavEntry.t,
-  news: NavEntry.t,
-  aroundTheWeb: NavEntry.t,
+  entries: array<NavEntry.t>,
 }
 
 type content = {
-  industrySection: industrySection,
-  resourcesSection: resourcesSection,
-  communitySection: communitySection,
+  industrySection: section,
+  resourcesSection: section,
+  communitySection: section,
   search: string,
   openMenu: string,
 }
@@ -97,33 +81,17 @@ let make = (~content) => {
               <div
                 className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                 <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                  <Link href=content.industrySection.whatIsOcaml.url>
-                    <a
-                      onClick=hideMenu
-                      className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
-                      <p className="text-base font-medium text-gray-900">
-                        {s(content.industrySection.whatIsOcaml.label)}
-                      </p>
-                    </a>
-                  </Link>
-                  <Link href=content.industrySection.industrialUsers.url>
-                    <a
-                      onClick=hideMenu
-                      className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
-                      <p className="text-base font-medium text-gray-900">
-                        {s(content.industrySection.industrialUsers.label)}
-                      </p>
-                    </a>
-                  </Link>
-                  <Link href=content.industrySection.successStories.url>
-                    <a
-                      onClick=hideMenu
-                      className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
-                      <p className="text-base font-medium text-gray-900">
-                        {s(content.industrySection.successStories.label)}
-                      </p>
-                    </a>
-                  </Link>
+                  {content.industrySection.entries
+                  |> Js.Array.mapi((e: NavEntry.t, idx) =>
+                    <Link href=e.url key={Js.Int.toString(idx)}>
+                      <a
+                        onClick=hideMenu
+                        className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                        <p className="text-base font-medium text-gray-900"> {s(e.label)} </p>
+                      </a>
+                    </Link>
+                  )
+                  |> React.array}
                 </div>
               </div>
             </div>
@@ -157,42 +125,17 @@ let make = (~content) => {
               <div
                 className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                 <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                  <Link href=content.resourcesSection.releases.url>
-                    <a
-                      onClick=hideMenu
-                      className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
-                      <p className="text-base font-medium text-gray-900">
-                        {s(content.resourcesSection.releases.label)}
-                      </p>
-                    </a>
-                  </Link>
-                  <Link href=content.resourcesSection.applications.url>
-                    <a
-                      onClick=hideMenu
-                      className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
-                      <p className="text-base font-medium text-gray-900">
-                        {s(content.resourcesSection.applications.label)}
-                      </p>
-                    </a>
-                  </Link>
-                  <Link href=content.resourcesSection.language.url>
-                    <a
-                      onClick=hideMenu
-                      className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
-                      <p className="text-base font-medium text-gray-900">
-                        {s(content.resourcesSection.language.label)}
-                      </p>
-                    </a>
-                  </Link>
-                  <Link href=content.resourcesSection.archive.url>
-                    <a
-                      onClick=hideMenu
-                      className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
-                      <p className="text-base font-medium text-gray-900">
-                        {s(content.resourcesSection.archive.label)}
-                      </p>
-                    </a>
-                  </Link>
+                  {content.resourcesSection.entries
+                  |> Js.Array.mapi((e: NavEntry.t, idx) =>
+                    <Link href=e.url key={Js.Int.toString(idx)}>
+                      <a
+                        onClick=hideMenu
+                        className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                        <p className="text-base font-medium text-gray-900"> {s(e.label)} </p>
+                      </a>
+                    </Link>
+                  )
+                  |> React.array}
                 </div>
               </div>
             </div>
@@ -226,33 +169,17 @@ let make = (~content) => {
               <div
                 className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                 <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                  <Link href=content.communitySection.opportunities.url>
-                    <a
-                      onClick=hideMenu
-                      className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
-                      <p className="text-base font-medium text-gray-900">
-                        {s(content.communitySection.opportunities.label)}
-                      </p>
-                    </a>
-                  </Link>
-                  <Link href=content.communitySection.news.url>
-                    <a
-                      onClick=hideMenu
-                      className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
-                      <p className="text-base font-medium text-gray-900">
-                        {s(content.communitySection.news.label)}
-                      </p>
-                    </a>
-                  </Link>
-                  <Link href=content.communitySection.aroundTheWeb.url>
-                    <a
-                      onClick=hideMenu
-                      className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
-                      <p className="text-base font-medium text-gray-900">
-                        {s(content.communitySection.aroundTheWeb.label)}
-                      </p>
-                    </a>
-                  </Link>
+                  {content.communitySection.entries
+                  |> Js.Array.mapi((e: NavEntry.t, idx) =>
+                    <Link href=e.url key={Js.Int.toString(idx)}>
+                      <a
+                        onClick=hideMenu
+                        className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                        <p className="text-base font-medium text-gray-900"> {s(e.label)} </p>
+                      </a>
+                    </Link>
+                  )
+                  |> React.array}
                 </div>
               </div>
             </div>
@@ -350,96 +277,20 @@ let make = (~content) => {
           </div>
           <div className="mt-6">
             <nav className="grid gap-y-8">
-              <Link href=content.industrySection.whatIsOcaml.url>
-                <a
-                  onClick=hideMobileMenu
-                  className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
-                  <span className="ml-3 text-base font-medium text-gray-900">
-                    {s(content.industrySection.whatIsOcaml.label)}
-                  </span>
-                </a>
-              </Link>
-              <Link href=content.industrySection.industrialUsers.url>
-                <a
-                  onClick=hideMobileMenu
-                  className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
-                  <span className="ml-3 text-base font-medium text-gray-900">
-                    {s(content.industrySection.industrialUsers.label)}
-                  </span>
-                </a>
-              </Link>
-              <Link href=content.industrySection.successStories.url>
-                <a
-                  onClick=hideMobileMenu
-                  className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
-                  <span className="ml-3 text-base font-medium text-gray-900">
-                    {s(content.industrySection.successStories.label)}
-                  </span>
-                </a>
-              </Link>
-              <Link href=content.resourcesSection.releases.url>
-                <a
-                  onClick=hideMobileMenu
-                  className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
-                  <span className="ml-3 text-base font-medium text-gray-900">
-                    {s(content.resourcesSection.releases.label)}
-                  </span>
-                </a>
-              </Link>
-              <Link href=content.resourcesSection.applications.url>
-                <a
-                  onClick=hideMobileMenu
-                  className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
-                  <span className="ml-3 text-base font-medium text-gray-900">
-                    {s(content.resourcesSection.applications.label)}
-                  </span>
-                </a>
-              </Link>
-              <Link href=content.resourcesSection.language.url>
-                <a
-                  onClick=hideMobileMenu
-                  className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
-                  <span className="ml-3 text-base font-medium text-gray-900">
-                    {s(content.resourcesSection.language.label)}
-                  </span>
-                </a>
-              </Link>
-              <Link href=content.resourcesSection.archive.url>
-                <a
-                  onClick=hideMobileMenu
-                  className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
-                  <span className="ml-3 text-base font-medium text-gray-900">
-                    {s(content.resourcesSection.archive.label)}
-                  </span>
-                </a>
-              </Link>
-              <Link href=content.communitySection.opportunities.url>
-                <a
-                  onClick=hideMobileMenu
-                  className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
-                  <span className="ml-3 text-base font-medium text-gray-900">
-                    {s(content.communitySection.opportunities.label)}
-                  </span>
-                </a>
-              </Link>
-              <Link href=content.communitySection.news.url>
-                <a
-                  onClick=hideMobileMenu
-                  className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
-                  <span className="ml-3 text-base font-medium text-gray-900">
-                    {s(content.communitySection.news.label)}
-                  </span>
-                </a>
-              </Link>
-              <Link href=content.communitySection.aroundTheWeb.url>
-                <a
-                  onClick=hideMobileMenu
-                  className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
-                  <span className="ml-3 text-base font-medium text-gray-900">
-                    {s(content.communitySection.aroundTheWeb.label)}
-                  </span>
-                </a>
-              </Link>
+              {Js.Array.concatMany(
+                [content.resourcesSection.entries, content.communitySection.entries],
+                content.industrySection.entries,
+              )
+              |> Js.Array.mapi((e: NavEntry.t, idx) =>
+                <Link href=e.url key={Js.Int.toString(idx)}>
+                  <a
+                    onClick=hideMobileMenu
+                    className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
+                    <span className="ml-3 text-base font-medium text-gray-900"> {s(e.label)} </span>
+                  </a>
+                </Link>
+              )
+              |> React.array}
             </nav>
           </div>
         </div>

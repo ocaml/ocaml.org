@@ -51,22 +51,28 @@ let navContentEn = {
 let headerContentEn: HeaderNavigation.content = {
   industrySection: {
     header: navContentEn.industrySection.header,
-    whatIsOcaml: navContentEn.industrySection.whatIsOcaml,
-    industrialUsers: navContentEn.industrySection.industrialUsers,
-    successStories: navContentEn.industrySection.successStories,
+    entries: [
+      navContentEn.industrySection.whatIsOcaml,
+      navContentEn.industrySection.industrialUsers,
+      navContentEn.industrySection.successStories,
+    ],
   },
   resourcesSection: {
     header: navContentEn.resourcesSection.header,
-    releases: navContentEn.resourcesSection.releases,
-    applications: navContentEn.resourcesSection.applications,
-    language: navContentEn.resourcesSection.language,
-    archive: navContentEn.resourcesSection.archive,
+    entries: [
+      navContentEn.resourcesSection.releases,
+      navContentEn.resourcesSection.applications,
+      navContentEn.resourcesSection.language,
+      navContentEn.resourcesSection.archive,
+    ],
   },
   communitySection: {
     header: navContentEn.communitySection.header,
-    opportunities: navContentEn.communitySection.opportunities,
-    news: navContentEn.communitySection.news,
-    aroundTheWeb: navContentEn.communitySection.aroundTheWeb,
+    entries: [
+      navContentEn.communitySection.opportunities,
+      navContentEn.communitySection.news,
+      navContentEn.communitySection.aroundTheWeb,
+    ],
   },
   search: `Search`,
   openMenu: `Open menu`,
