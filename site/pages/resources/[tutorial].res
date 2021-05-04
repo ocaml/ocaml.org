@@ -17,7 +17,7 @@ type props = {
 let make = (~source, ~title, ~pageDescription, ~tableOfContents) => {
   <>
     // TODO: should this have a constrained width? what does tailwind do?
-    <MainContainer.None>
+    <Page.Unstructured>
       <div className="grid grid-cols-9 bg-white">
         <MarkdownPage.TableOfContents content=tableOfContents />
         <div className="col-span-9 lg:col-span-7 bg-graylight relative py-16 overflow-hidden">
@@ -27,7 +27,7 @@ let make = (~source, ~title, ~pageDescription, ~tableOfContents) => {
           </div>
         </div>
       </div>
-    </MainContainer.None>
+    </Page.Unstructured>
   </>
 }
 

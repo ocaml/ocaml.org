@@ -2,6 +2,7 @@ module Link = Next.Link
 
 let s = React.string
 
+// TODO: move this module inside of Page once Markdown layout has finalized
 module Large = {
   type callToAction = {
     label: string,

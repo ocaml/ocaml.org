@@ -1,25 +1,42 @@
-// Page:
-
 //  TODO: combine the components below into one variant type
-
-//     Hero (left/right?)
-
-//     TopImage (imitate "with large screenshot"; overlay text?)
-//     HighlightedItem
-
-//     Markdown (optional TOC)
 
 // TODO: implement module interface
 
-// need to implement render for the variant
+let s = React.string
+
+module MainContainer = {
+  module None = {
+    @react.component
+    let make = (~children) => children
+  }
+
+  module Centered = {
+    @react.component
+    let make = (~children) => <div className="max-w-7xl mx-auto"> children </div>
+  }
+
+  module NarrowCentered = {
+    @react.component
+    let make = (~children) => <div className="max-w-3xl mx-auto"> children </div>
+  }
+}
+
+module Unstructured = {
+  @react.component
+  let make = (~children) => {
+    <MainContainer.None> children </MainContainer.None>
+  }
+}
 
 module Basic = {
+  type container = NoContainer | Regular | Narrow
+
   @react.component
   let make = (
     ~children,
     ~title,
     ~pageDescription,
-    ~addContainer=true,
+    ~addContainer=Regular,
     ~marginTop=?,
     ~headingMarginBottom=?,
     ~callToAction=?,
@@ -42,14 +59,66 @@ module Basic = {
       }
     }
     switch addContainer {
-    | true => <MainContainer.Centered> heading children </MainContainer.Centered>
-    | false => <MainContainer.None> heading children </MainContainer.None>
+    | Regular => <MainContainer.Centered> heading children </MainContainer.Centered>
+    | Narrow => <MainContainer.NarrowCentered> heading children </MainContainer.NarrowCentered>
+    | NoContainer => <MainContainer.None> heading children </MainContainer.None>
     }
   }
 }
 
-// Section:
+// TODO: imitate "with large screenshot" tailwind ui component
+module TopImage = {
+  @react.component
+  let make = (~children, ~title, ~pageDescription) => {
+    <MainContainer.Centered>
+      <TitleHeading.Large title pageDescription /> children
+    </MainContainer.Centered>
+  }
+}
 
-//  an interface
+type highlightItemSummary = {
+  preview: string,
+  url: string,
+}
 
-//     All the sections used currently
+type highlightContent = {
+  highlightItem: string,
+  clickToRead: string,
+  highlightItemSummary: highlightItemSummary,
+  bgImageClass: string,
+}
+
+module HighlightSection = {
+  @react.component
+  let make = (~margins, ~content) =>
+    <div
+      className={content.bgImageClass ++
+      " bg-auto bg-center bg-no-repeat flex align-bottom place-content-center " ++
+      margins}>
+      <div className="bg-white overflow-hidden shadow rounded-lg mb-2 lg:mb-7 mt-56 mx-5 max-w-4xl">
+        <div className="px-4 py-5 sm:p-6">
+          <h2 className="font-bold text-orangedark text-3xl lg:text-4xl text-center mb-2">
+            {s(content.highlightItem)}
+          </h2>
+          <p className="text-xl"> {s(content.highlightItemSummary.preview)} </p>
+          <p className="text-xl text-center lg:text-right">
+            // TODO: more descriptive link text (or use aria attribute) for accessibility
+            <a href=content.highlightItemSummary.url className="underline text-orangedark">
+              {s(content.clickToRead ++ ` >`)}
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+}
+
+module HighlightItem = {
+  @react.component
+  let make = (~children, ~title, ~pageDescription, ~highlightContent) => {
+    <MainContainer.None>
+      <TitleHeading.Large title pageDescription />
+      <HighlightSection margins=`mb-6` content=highlightContent />
+      children
+    </MainContainer.None>
+  }
+}

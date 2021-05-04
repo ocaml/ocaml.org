@@ -323,11 +323,11 @@ let contentEn = {
 
 @react.component
 let make = (~content=contentEn) =>
-  <MainContainer.None>
+  <Page.Unstructured>
     <HeroSection content=content.heroContent />
     <StatsSection content=content.statsContent />
     <OpamSection content=content.opamContent margins=`mt-12 sm:mt-16` />
     <TestimonialSection content=content.testimonialContent margins=`mb-6 md:mb-4 lg:mb-6` />
-  </MainContainer.None>
+  </Page.Unstructured>
 
 let default = make

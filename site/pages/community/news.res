@@ -1,5 +1,6 @@
 let s = React.string
 
+/*
 type highlightedStorySummary = {
   preview: string,
   url: string,
@@ -33,6 +34,7 @@ module HighlightedStory = {
       </div>
     </div>
 }
+*/
 
 module Story = {
   type t = string
@@ -363,7 +365,7 @@ module WeeklyNews = {
 type t = {
   title: string,
   pageDescription: string,
-  highlightedContent: highlightedContent,
+  highlightContent: Page.highlightContent,
   categorizedNews: CategorizedNews.t,
   weeklyNews: WeeklyNews.t,
 }
@@ -371,13 +373,14 @@ type t = {
 let contentEn = {
   title: `OCaml News`,
   pageDescription: `This is where you'll find the latest stories from the OCaml Community! Periodically, we will also highlight individual stories that `,
-  highlightedContent: {
-    highlightedStory: `Highlighted Story`,
+  highlightContent: {
+    highlightItem: `Highlighted Story`,
     clickToRead: `Click to Read`,
-    highlightedStorySummary: {
+    highlightItemSummary: {
       preview: `Isabella Leandersson interviewed speakers at the 2020 OCaml workshop at ICFP. Click through to read about what they had to say.`,
       url: `/community/isabelle-leandersson-interviewed-speakers`,
     },
+    bgImageClass: `bg-news-bg`,
   },
   categorizedNews: {
     otherNewsStories: `Other News Stories`,
@@ -427,12 +430,13 @@ let make = (~content=contentEn) => <>
     figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=952%3A422`
     playgroundLink=`/play/community/news`
   />
-  <MainContainer.None>
-    <TitleHeading.Large title=content.title pageDescription=content.pageDescription />
-    <HighlightedStory margins=`mb-6` content=content.highlightedContent />
+  <Page.HighlightItem
+    title=content.title
+    pageDescription=content.pageDescription
+    highlightContent=content.highlightContent>
     <CategorizedNews margins=`mb-10 lg:mb-32` content=content.categorizedNews />
     <WeeklyNews margins=`mb-4` content=content.weeklyNews />
-  </MainContainer.None>
+  </Page.HighlightItem>
 </>
 
 let default = make

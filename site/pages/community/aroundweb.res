@@ -102,7 +102,8 @@ let make = (~content) => <>
     figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=1040%3A104`
     playgroundLink=`/play/community/aroundweb`
   />
-  <Page.Basic title=content.title pageDescription=content.pageDescription addContainer=false>
+  <Page.Basic
+    title=content.title pageDescription=content.pageDescription addContainer=Page.Basic.NoContainer>
     <SectionContainer.NoneFilled margins="mb-16">
       <div className="max-w-2xl mx-auto text-center py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-extrabold text-white sm:text-4xl">

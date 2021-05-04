@@ -62,12 +62,11 @@ let make = (~title, ~pageDescription, ~videosContent, ~talksContent, ~papersCont
     figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=430%3A25378`
     playgroundLink=`/play/resources/mediaarchive`
   />
-  <MainContainer.NarrowCentered>
-    <TitleHeading.Large title pageDescription />
+  <Page.Basic title pageDescription addContainer=Page.Basic.Narrow>
     <MediaSection content=videosContent />
     <MediaSection content=talksContent />
     <MediaSection content=papersContent />
-  </MainContainer.NarrowCentered>
+  </Page.Basic>
 </>
 
 let getStaticProps = _ctx => {

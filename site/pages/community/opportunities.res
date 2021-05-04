@@ -15,9 +15,9 @@ let make = (~content=contentEn) => <>
   <ConstructionBanner
     figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=927%3A5`
   />
-  <MainContainer.Centered>
-    <TitleHeading.Large title=content.title pageDescription=content.pageDescription />
-  </MainContainer.Centered>
+  <Page.TopImage title=content.title pageDescription=content.pageDescription>
+    {<> </>}
+  </Page.TopImage>
 </>
 
 let default = make
