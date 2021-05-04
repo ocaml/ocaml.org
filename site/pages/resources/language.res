@@ -224,14 +224,14 @@ let make = (~content) => <>
     figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=1085%3A121`
     playgroundLink=`/play/resources/language`
   />
-  <MainContainer.None>
-    <TitleHeading.Large
-      title=content.title
-      pageDescription=content.pageDescription
-      marginTop=`mt-1`
-      marginBottom=`mb-24`
-      addBottomBar=true
-    />
+  // TODO: define a more narrow page type with preset params
+  <Page.Basic
+    marginTop=`mt-1`
+    headingMarginBottom=`mb-24`
+    addBottomBar=true
+    addContainer=false
+    title=content.title
+    pageDescription=content.pageDescription>
     <UserLevelIntroduction content=content.beginning margins=`mb-20` />
     <UserLevelIntroduction content=content.growing margins=`mb-20` />
     <Books margins=`mb-16` content=content.booksContent />
@@ -241,7 +241,7 @@ let make = (~content) => <>
     <Applications margins=`mb-36` />
     <UserLevelIntroduction content=content.researching margins=`mb-20` />
     <Papers margins=`mb-16` />
-  </MainContainer.None>
+  </Page.Basic>
 </>
 
 let getStaticProps = _ctx => {

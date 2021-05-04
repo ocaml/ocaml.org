@@ -25,9 +25,7 @@ build and contribute content.
 
 ## Deployment Status
 
-
 ![Vercel](https://vercelbadge.vercel.app/api/ocaml/v3.ocaml.org)
-
 
 You can review the most [recent production deployment logs here]().
 

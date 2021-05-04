@@ -181,15 +181,18 @@ let make = (~title, ~pageDescription, ~developerGuidesContent, ~usingOcamlConten
     figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=745%3A1`
     playgroundLink=`/play/resources/applications`
   />
-  <MainContainer.None>
-    <TitleHeading.Large
-      title pageDescription marginTop=`mt-1` marginBottom=`mb-24` addBottomBar=true
-    />
+  <Page.Basic
+    marginTop=`mt-1`
+    headingMarginBottom=`mb-24`
+    addBottomBar=true
+    addContainer=false
+    title
+    pageDescription>
     <ApiDocumentation margins=`mb-24` />
     <DeveloperGuides margins=`mb-2` content=developerGuidesContent />
     <PlatformTools />
     <UsingOcaml margins=`mb-16` content=usingOcamlContent />
-  </MainContainer.None>
+  </Page.Basic>
 </>
 
 let getStaticProps = _ctx => {

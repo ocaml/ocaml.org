@@ -106,18 +106,17 @@ let make = (~content=contentEn) => <>
     figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=430%3A36400`
     playgroundLink=`/play/industry/users`
   />
-  <MainContainer.Centered>
-    <TitleHeading.Large
-      title=content.title
-      pageDescription=content.pageDescription
-      marginTop=`mt-2`
-      callToAction={
-        TitleHeading.Large.label: "Success Stories",
-        url: "/industry/successstories",
-      }
-    />
-    <LogoSection margins=`mt-6` companies=content.companies />
-  </MainContainer.Centered>
+  <Page.Basic
+    marginTop=`mt-2`
+    headingMarginBottom=`mb-6`
+    title=content.title
+    pageDescription=content.pageDescription
+    callToAction={
+      TitleHeading.Large.label: "Success Stories",
+      url: "/industry/successstories",
+    }>
+    <LogoSection margins=`` companies=content.companies />
+  </Page.Basic>
 </>
 
 let default = make

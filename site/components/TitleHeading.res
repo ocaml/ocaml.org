@@ -11,12 +11,12 @@ module Large = {
   @react.component
   let make = (
     ~title,
+    ~callToAction=?,
     ~pageDescription: option<string>=?,
     ~marginTop="",
     ~marginBottom="",
-    ~addMaxWidth=false,
+    // ~addMaxWidth=false,
     ~addBottomBar=false,
-    ~callToAction=?,
     (),
   ) => {
     let descr = switch pageDescription {
@@ -27,10 +27,10 @@ module Large = {
       // TODO: make addBottomBar and callToAction mutually exclusive
       // TODO: consider whether to use a container component
       <div
-        className={switch addMaxWidth {
+        className={"" /* switch addMaxWidth {  WHICH PAGE USED THIS?
         | true => "max-w-7xl"
-        | false => ""
-        } ++ " mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8"}>
+        | false => "" 
+        } */ ++ " mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8"}>
         <div className="text-center">
           <h1
             className={marginTop ++ " text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl"}>

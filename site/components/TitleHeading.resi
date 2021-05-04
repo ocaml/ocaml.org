@@ -7,12 +7,12 @@ module Large: {
   @react.component
   let make: (
     ~title: string,
+    ~callToAction: callToAction=?,
     ~pageDescription: string=?,
     ~marginTop: string=?,
     ~marginBottom: string=?,
-    ~addMaxWidth: bool=?,
+    // ~addMaxWidth: bool=?,
     ~addBottomBar: bool=?,
-    ~callToAction: callToAction=?,
     unit,
   ) => React.element
 }

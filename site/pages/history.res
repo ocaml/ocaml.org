@@ -85,10 +85,9 @@ let make = (~content) => <>
   <ConstructionBanner
     figmaLink=`https://www.figma.com/file/Vha4bcBvNVrjyLmAEDgZ1x/History-Timeline?node-id=14%3A5`
   />
-  <MainContainer.None>
-    <TitleHeading.Large title=content.title pageDescription=content.pageDescription />
+  <Page.Basic title=content.title pageDescription=content.pageDescription addContainer=false>
     <Timeline content=content.timeline />
-  </MainContainer.None>
+  </Page.Basic>
 </>
 
 let default = make
