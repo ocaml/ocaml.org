@@ -7,7 +7,6 @@ users:
   - beginner
 date: 2021-04-28T21:50:24.228Z
 ---
-
 You may follow along with this tutorial with just a basic OCaml installation,
 as described in [Up and Running](up_and_running.html).
 
@@ -32,6 +31,7 @@ manager. It has the same basic interface but is much more convenient to use
 (history navigation, auto-completion, etc.).
 
 Use `;;` to indicate that you've finished entering each expression and prompt OCaml to evaluate it. Here is what running `ocaml` looks like:
+
 ```console
 $ ocaml
         OCaml version OCaml version 4.12.0
@@ -55,6 +55,7 @@ utop # 1 + 1;;
 ```
 
 ## Comments
+
 OCaml comments are delimited by `(*` and `*)`, like this:
 
 ```ocaml
@@ -65,6 +66,7 @@ OCaml comments are delimited by `(*` and `*)`, like this:
    comment.
 *)
 ```
+
 In other words, the commenting convention is very similar to original C
 (`/* ... */`). There is no single-line comment syntax (like
 `# ...` in Python or `// ...` in C99/C++/Java).
@@ -83,6 +85,7 @@ let is_prime n =
 ```
 
 ## Calling functions
+
 Let's say you've written a function — we'll call it `repeated` — which
 takes a string `s` and a number `n`, and returns a new string which
 contains original `s` repeated `n` times.
@@ -92,6 +95,7 @@ In most C-derived languages a call to this function will look like this:
 ```C
 repeated ("hello", 3)  /* this is C code */
 ```
+
 This means "call the function `repeated` with two arguments, first
 argument the string hello and second argument the number 3".
 
@@ -103,6 +107,7 @@ is the same function call in OCaml:
 let repeated a b = a ^ (Int.to_string b);;
 repeated "hello" 3  (* this is OCaml code *)
 ```
+
 Note — **no** brackets, and **no** comma between the arguments.
 
 The syntax `repeated ("hello", 3)` **is** meaningful in OCaml. It means
@@ -128,6 +133,7 @@ let prompt_string p = "";;
 (* OCaml code: *)
 repeated (prompt_string "Name please: ") 3
 ```
+
 Take a careful look at the bracketing and the missing comma. In the
 OCaml version, the brackets enclose the first argument of repeated
 because that argument is the result of another function call. In general
@@ -152,6 +158,7 @@ Error: This expression has type 'a * 'b
 ```
 
 ## Defining a function
+
 We all know how to define a function (or static method, in Java)
 in our existing languages. How do we do it in OCaml?
 
@@ -162,6 +169,7 @@ two floating point numbers and calculates the average:
 let average a b =
   (a +. b) /. 2.0
 ```
+
 Type this into the OCaml interactive toplevel (on Unix, type the command `ocaml`
 from the shell) and you'll see this:
 
@@ -170,6 +178,7 @@ from the shell) and you'll see this:
     (a +. b) /. 2.0;;
 val average : float -> float -> float = <fun>
 ```
+
 If you look at the function definition closely, and also at what OCaml
 prints back at you, you'll have a number of questions:
 
@@ -187,39 +196,41 @@ double average (double a, double b)
   return (a + b) / 2;
 }
 ```
+
 Now look at our much shorter OCaml definition above. Hopefully you'll be
 asking:
 
 * Why don't we have to define the types of `a` and `b` in the OCaml
- version? How does OCaml know what the types are (indeed, *does*
- OCaml know what the types are, or is OCaml completely dynamically
- typed?).
+  version? How does OCaml know what the types are (indeed, *does*
+  OCaml know what the types are, or is OCaml completely dynamically
+  typed?).
 * In C, the `2` is implicitly converted into a `double`, can't OCaml
- do the same thing?
+  do the same thing?
 * What is the OCaml way to write `return`?
 
 OK, let's get some answers.
 
 * OCaml is a strongly *statically typed* language (in other words,
- there's nothing dynamic going on between int, float and string).
+  there's nothing dynamic going on between int, float and string).
 * OCaml uses *type inference* to work out the types, so you don't have
- to.  If you use the OCaml interactive toplevel as above, then OCaml
- will tell you
- its inferred type for your function.
+  to.  If you use the OCaml interactive toplevel as above, then OCaml
+  will tell you
+  its inferred type for your function.
 * OCaml doesn't do any implicit casting. If you want a float, you have
- to write `2.0` because `2` is an integer. OCaml does **no automatic
- conversion** between int, float, string or any other type.
+  to write `2.0` because `2` is an integer. OCaml does **no automatic
+  conversion** between int, float, string or any other type.
 * As a side-effect of type inference in OCaml, functions (including
- operators) can't have overloaded definitions. OCaml defines `+` as
- the *integer* addition function. To add floats, use `+.` (note the
- trailing period). Similarly, use `-.`, `*.`, `/.` for other float
- operations.
+  operators) can't have overloaded definitions. OCaml defines `+` as
+  the *integer* addition function. To add floats, use `+.` (note the
+  trailing period). Similarly, use `-.`, `*.`, `/.` for other float
+  operations.
 * OCaml doesn't have a `return` keyword — the last expression in a
- function becomes the result of the function automatically.
+  function becomes the result of the function automatically.
 
 We will present more details in the following sections and chapters.
 
 ## Basic types
+
 The basic types in OCaml are:
 
 ```text
@@ -260,6 +271,7 @@ The `unit` type is sort of like `void` in C, but we'll talk about it
 more below.
 
 ## Implicit vs. explicit casts
+
 In C-derived languages ints get promoted to floats in certain
 circumstances. For example if you write `1 + 2.5` then the first
 argument (which is an integer) is promoted to a floating point number,
@@ -276,6 +288,7 @@ Line 1, characters 5-8:
 Error: This expression has type float but an expression was expected of type
          int
 ```
+
 To add two floats together you need to use a different operator, `+.`
 (note the trailing period).
 
@@ -289,6 +302,7 @@ Error: This expression has type int but an expression was expected of type
          float
   Hint: Did you mean `1.'?
 ```
+
 Here OCaml is now complaining about the first argument.
 
 What if you actually want to add an integer and a floating point number
@@ -300,6 +314,7 @@ let i = 1;;
 let f = 2.0;;
 float_of_int i +. f
 ```
+
 `float_of_int` is a function which takes an `int` and returns a `float`.
 There are a whole load of these functions, called such things as
 `int_of_float`, `char_of_int`, `int_of_char`, `string_of_int` and so on,
@@ -312,10 +327,12 @@ example could simply have been written
 ```ocaml
 float i +. f
 ```
+
 (Note that it is perfectly valid in OCaml for a type and a
 function to have the same name.)
 
-###  Is implicit or explicit casting better?
+### Is implicit or explicit casting better?
+
 You might think that these explicit casts are ugly, time-consuming even,
 and you have a point, but there are at least two arguments in their
 favour. Firstly, OCaml needs this explicit casting to be able to do type
@@ -330,6 +347,7 @@ actually very expensive operations. You do yourself no favours by hiding
 them.
 
 ## Ordinary functions and recursive functions
+
 Unlike in C-derived languages, a function isn't recursive unless you
 explicitly say so by using `let rec` instead of just `let`. Here's an
 example of a recursive function:
@@ -340,6 +358,7 @@ example of a recursive function:
     else a :: range (a + 1) b
 val range : int -> int -> int list = <fun>
 ```
+
 Notice that `range` calls itself.
 
 The only difference between `let` and `let rec` is in the scoping of the
@@ -356,6 +375,7 @@ to re-define a value in terms of the previous definition. For example:
     a + b
 val positive_sum : int -> int -> int = <fun>
 ```
+
 This redefinition hides the previous "bindings" of `a` and `b` from the
 function definition. In some situations coders prefer this pattern to
 using a new variable name (`let a_pos = max a 0`) as it makes the old
@@ -367,6 +387,7 @@ and functions defined using `let rec`, so if you prefer you could always
 use the `let rec` form and get the same semantics as C-like languages.
 
 ## Types of functions
+
 Because of type inference you will rarely if ever need to explicitly
 write down the type of your functions. However, OCaml often prints out
 what it thinks are the types of your functions, so you need to know the
@@ -376,6 +397,7 @@ syntax for this. For a function `f` which takes arguments `arg1`,
 ```
 f : arg1 -> arg2 -> ... -> argn -> rettype
 ```
+
 The arrow syntax looks strange now, but when we come to so-called
 "currying" later you'll see why it was chosen. For now I'll just give
 you some examples.
@@ -387,6 +409,7 @@ a string has type:
 # repeated
 - : string -> int -> string = <fun>
 ```
+
 Our function `average` which takes two floats and returns a float has
 type:
 
@@ -394,22 +417,25 @@ type:
 # average
 - : float -> float -> float = <fun>
 ```
+
 The OCaml standard `int_of_char` casting function:
 
 ```ocaml
 # int_of_char
 - : char -> int = <fun>
 ```
+
 If a function returns nothing (`void` for C and Java programmers), then
 we write that it returns the `unit` type. Here, for instance, is the
-OCaml equivalent of C's _[fputc(3)](https://pubs.opengroup.org/onlinepubs/009695399/functions/fputc.html)_:
+OCaml equivalent of C's *[fputc(3)](https://pubs.opengroup.org/onlinepubs/009695399/functions/fputc.html)*:
 
 ```ocaml
 # output_char
 - : out_channel -> char -> unit = <fun>
 ```
 
-###  Polymorphic functions
+### Polymorphic functions
+
 Now for something a bit stranger. What about a function which takes
 *anything* as an argument? Here's an odd function which takes an
 argument, but just ignores it and always returns 3:
@@ -417,6 +443,7 @@ argument, but just ignores it and always returns 3:
 ```ocaml
 let give_me_a_three x = 3
 ```
+
 What is the type of this function? In OCaml we use a special placeholder
 to mean "any type you fancy". It's a single quote character followed by
 a letter. The type of the above function would normally be written:
@@ -425,6 +452,7 @@ a letter. The type of the above function would normally be written:
 # give_me_a_three
 - : 'a -> int = <fun>
 ```
+
 where `'a` (pronounced alpha) really does mean any type. You can, for example, call this
 function as `give_me_a_three "foo"` or `give_me_a_three 2.0` and both
 are quite valid expressions in OCaml.
@@ -434,6 +462,7 @@ very useful and very common, and so we'll discuss them later on. (Hint:
 polymorphism is kind of like templates in C++ or generics in Java).
 
 ## Type inference
+
 So the theme of this tutorial is that functional languages have many
 really cool features, and OCaml is a language which has all of these
 really cool features stuffed into it at once, thus making it a very
@@ -463,6 +492,7 @@ interactive toplevel:
     (a +. b) /. 2.0
 val average : float -> float -> float = <fun>
 ```
+
 OCaml worked out all on its own that the function takes
 two `float` arguments and returns a `float`!
 
@@ -479,11 +509,9 @@ the return value of the `average` function, so `average` must return a
 # average
 - : float -> float -> float = <fun>
 ```
+
 Type inference is obviously easy for such a short program, but it works
 even for large programs, and it's a major time-saving feature because it
 removes a whole class of errors which cause segfaults,
 `NullPointerException`s and `ClassCastException`s in other languages (or
 important but often ignored runtime warnings).
-
-
-[utop]: https://github.com/diml/utop
