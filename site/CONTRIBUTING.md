@@ -151,4 +151,3 @@ Go to `http://localhost:3000`
 ## Architecture
 
 We have prepared some diagrams and explanations to orient new developers in the wiki area. The site expands upon the default build process in NextJS to accommodate more sophisticated markdown transformations.
-

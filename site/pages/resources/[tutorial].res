@@ -44,28 +44,19 @@ let getStaticProps = ctx => {
   let baseDirectory = "data/tutorials/"
   // TODO: find the location of the tutorial
   let contentFilePath = baseDirectory ++ tutorial ++ "/" ++ tutorial ++ ".md"
-  let fileContents = Fs.readFileSync(contentFilePath)
-  let parsed = GrayMatter.matter(fileContents)
-  // TODO: move this into GrayMatter or another module
-  GrayMatter.forceInvalidException(parsed.data)
-  let source = parsed.content
+  let parsed = Fs.readFileSync(contentFilePath)->GrayMatter.ofMarkdown
 
-  let resPromise = Unified.process(
-    Unified.use(
-      Unified.use(
-        Unified.use(
-          Unified.use(
-            Unified.use(Unified.use(Unified.unified(), Unified.remarkParse), Unified.remarkSlug),
-            MdastToc.plugin,
-          ),
-          Unified.remark2rehype,
-        ),
-        Unified.rehypeHighlight,
-      ),
-      Unified.rehypeStringify,
-    ),
-    source,
-  )
+  let resPromise =
+    parsed.content->Unified.process(
+      Unified.unified()
+      ->Unified.use(Unified.remarkParse)
+      ->Unified.use(Unified.remarkSlug)
+      ->Unified.use(MdastToc.plugin)
+      ->Unified.use(Unified.remark2rehype)
+      ->Unified.use(Unified.rehypeHighlight)
+      ->Unified.use(Unified.rehypeStringify),
+      _,
+    )
 
   Js.Promise.then_((res: Unified.vfile) => {
     let props = {
@@ -86,7 +77,7 @@ let getStaticProps = ctx => {
 
 let getStaticPaths: Next.GetStaticPaths.t<Params.t> = () => {
   // TODO: move this logic into a module dedicated to fetching tutorials
-  // TODO: throw exception if any tutorials have the same filename or add a more parts to the tutorials path
+  // TODO: throw exception if any tutorials have the same filename or add more parts to the tutorials path
   // TODO: throw exception if any entry is not a directory
   let markdownFiles = Fs.readdirSyncEntries("data/tutorials/")
 

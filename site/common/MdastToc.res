@@ -8,10 +8,9 @@ let transformer = (rootnode: Unified.rootnode, file: Unified.vfile) => {
   let rec collect = (nodes, inProgress) => {
     switch nodes {
     | list{} =>
-      switch inProgress {
-      | None => list{}
-      | Some(_, entry) => list{entry}
-      }
+      inProgress
+      ->Belt.Option.map(((_, entry)) => entry)
+      ->Belt.Option.mapWithDefault(list{}, e => list{e})
     | list{h: Unified.headingnode, ...tail} =>
       let d = h.depth
       if d >= 2 || d <= 3 {
@@ -22,13 +21,14 @@ let transformer = (rootnode: Unified.rootnode, file: Unified.vfile) => {
         }
         switch inProgress {
         | None => collect(tail, Some(d, entry))
-        | Some(lastRootDepth, inProgress) if d <= lastRootDepth => list{
-            inProgress,
+        | Some(lastRootDepth, completed) if d <= lastRootDepth => list{
+            completed,
             ...collect(tail, Some(d, entry)),
           }
         | Some(lastRootDepth, inProgress) =>
           let inProgress = {
             ...inProgress,
+            // TODO: use add and perform reverse when inProgress is complete
             children: Belt.List.concat(inProgress.children, list{entry}),
           }
           collect(tail, Some(lastRootDepth, inProgress))
@@ -42,17 +42,16 @@ let transformer = (rootnode: Unified.rootnode, file: Unified.vfile) => {
       }
     }
   }
-  let headings = collect(
-    Array.to_list(
-      Belt.Array.keepMap(rootnode.children, ch =>
-        switch ch {
-        | {\"type": "heading", depth: Some(_)} => Some(Unified.asHeadingNode(ch))
-        | _ => None
-        }
-      ),
-    ),
-    None,
-  )
+  let headings =
+    rootnode.children
+    ->Belt.Array.keepMap(ch =>
+      switch ch {
+      | {\"type": "heading", depth: Some(_)} => Some(Unified.asHeadingNode(ch))
+      | _ => None
+      }
+    )
+    ->Array.to_list
+    ->collect(None)
 
   file.toc = headings
 }
