@@ -5,18 +5,18 @@ module LatestNews = {
   type t = {news: array<NewsItem.t>}
 
   @react.component
-  let make = (~content) => <>
-    <h2
-      className="mb-8 text-3xl text-center tracking-tight font-extrabold text-gray-900 sm:text-4xl">
-      {s(`What's the Latest?`)}
-    </h2>
-    <div className="bg-graylight flex flex-col items-center lg:flex-row lg:justify-evenly">
-      <img
-        className="inline-block h-28 w-28 lg:h-64 lg:w-64 rounded-full mb-8 lg:mb-0"
-        src="/static/typewriter.jpeg"
-        alt=""
-      />
-      <div>
+  let make = (~content) =>
+    <SectionContainer.LargeCentered>
+      <h2
+        className="mb-8 text-3xl text-center tracking-tight font-extrabold text-gray-900 sm:text-4xl">
+        {s(`What's the Latest?`)}
+      </h2>
+      <MediaObject
+        imageHeight="h-28 sm:h-64"
+        imageWidth="w-28 sm:w-64"
+        isRounded=true
+        image="typewriter.jpeg"
+        imageSide=MediaObject.Left>
         <div className="bg-white border border-gray-300 overflow-hidden rounded-md mb-2">
           <ul className="divide-y divide-gray-300">
             {content.news
@@ -64,9 +64,8 @@ module LatestNews = {
             {s(`Go to the news archive >`)}
           </a>
         </p>
-      </div>
-    </div>
-  </>
+      </MediaObject>
+    </SectionContainer.LargeCentered>
 }
 
 type blogEntry = {

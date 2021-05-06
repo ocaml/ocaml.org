@@ -6,8 +6,8 @@ module ApiDocumentation = {
   @react.component
   let make = (~margins) =>
     // TODO: factor out and define content type
-    <SectionContainer.MediumCentered margins paddingX="px-32" otherLayout="sm:flex items-center">
-      <div className="mb-4 sm:mb-0 sm:mr-4">
+    <SectionContainer.MediumCentered margins paddingX="px-4 sm:px-32">
+      <MediaObject imageHeight="h-56" image="api-img.jpeg" imageSide=MediaObject.Right>
         <h4 className="text-4xl font-bold mb-8"> {s(`API Documentation`)} </h4>
         <p className="mt-1 mb-8">
           {s(`Visit our page for API Documentation in OCaml for a concise reference manual with all the information you need to work with the OCaml API.`)}
@@ -19,8 +19,7 @@ module ApiDocumentation = {
           className="inline-flex items-center px-14 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-orangedark hover:bg-orangedarker">
           {s(`Visit Docs.ocaml.org`)}
         </a>
-      </div>
-      <div className="flex-shrink-0"> <img className="h-56" src="/static/api-img.jpeg" /> </div>
+      </MediaObject>
     </SectionContainer.MediumCentered>
 }
 
@@ -39,7 +38,12 @@ module DeveloperGuides = {
         <h2 className="text-center text-orangedark text-4xl font-bold mb-8">
           {s(content.developerGuidesLabel)}
         </h2>
-        <div className="flex mb-11">
+        <MediaObject
+          marginBottom="mb-11"
+          imageHeight=content.topDeveloperGuide.imageHeight
+          image=content.topDeveloperGuide.image
+          imageSide=MediaObject.Right>
+          // <div className="flex mb-11">
           <div>
             <h4 className="text-base font-bold mb-3">
               // TODO: visual indicator that link is opening new tab
@@ -49,20 +53,12 @@ module DeveloperGuides = {
             </h4>
             <p className="mt-1"> {s(content.topDeveloperGuide.description)} </p>
           </div>
-          <div className="ml-10 flex-shrink-0">
-            <img
-              className=content.topDeveloperGuide.imageHeight
-              src={"/static/" ++ content.topDeveloperGuide.image}
-            />
-          </div>
-        </div>
-        <div className="flex mb-11">
-          <div className="mr-10 flex-shrink-0">
-            <img
-              className=content.bottomDeveloperGuide.imageHeight
-              src={"/static/" ++ content.bottomDeveloperGuide.image}
-            />
-          </div>
+        </MediaObject>
+        <MediaObject
+          marginBottom="mb-11"
+          imageHeight=content.bottomDeveloperGuide.imageHeight
+          image=content.bottomDeveloperGuide.image
+          imageSide=MediaObject.Left>
           <div>
             <h4 className="text-base font-bold mb-3">
               // TODO: visual indicator that link is opening new tab
@@ -72,7 +68,7 @@ module DeveloperGuides = {
             </h4>
             <p className="mt-1"> {s(content.bottomDeveloperGuide.description)} </p>
           </div>
-        </div>
+        </MediaObject>
       </div>
     </div>
 }
