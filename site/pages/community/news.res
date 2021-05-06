@@ -1,41 +1,5 @@
 let s = React.string
 
-/*
-type highlightedStorySummary = {
-  preview: string,
-  url: string,
-}
-
-type highlightedContent = {
-  highlightedStory: string,
-  clickToRead: string,
-  highlightedStorySummary: highlightedStorySummary,
-}
-
-module HighlightedStory = {
-  @react.component
-  let make = (~margins, ~content) =>
-    <div
-      className={"bg-news-bg bg-auto bg-center bg-no-repeat flex align-bottom place-content-center " ++
-      margins}>
-      <div className="bg-white overflow-hidden shadow rounded-lg mb-2 lg:mb-7 mt-56 mx-5 max-w-4xl">
-        <div className="px-4 py-5 sm:p-6">
-          <h2 className="font-bold text-orangedark text-3xl lg:text-4xl text-center mb-2">
-            {s(content.highlightedStory)}
-          </h2>
-          <p className="text-xl"> {s(content.highlightedStorySummary.preview)} </p>
-          <p className="text-xl text-center lg:text-right">
-            // TODO: more descriptive link text (or use aria attribute) for accessibility
-            <a href=content.highlightedStorySummary.url className="underline text-orangedark">
-              {s(content.clickToRead ++ ` >`)}
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
-}
-*/
-
 module Story = {
   type t = string
 }

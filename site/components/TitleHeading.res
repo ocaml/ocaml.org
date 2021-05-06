@@ -62,7 +62,7 @@ module Large = {
 
 module MarkdownMedium = {
   @react.component
-  let make = (~title, ~pageDescription=?) => {
+  let make = (~title, ~pageDescription) => {
     let descr = switch pageDescription {
     | Some(d) => <p className="mt-8 text-xl text-gray-500 leading-8"> {s(d)} </p>
     | None => React.null

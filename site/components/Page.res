@@ -1,7 +1,5 @@
 //  TODO: combine the components below into one variant type
 
-// TODO: implement module interface
-
 let s = React.string
 
 module MainContainer = {

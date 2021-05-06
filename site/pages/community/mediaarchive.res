@@ -119,7 +119,7 @@ let getStaticProps = _ctx => {
 
   let title = `Media Archive`
   let pageDescription = `This is where you can find archived videos, slides from talks, and other media produced by people in the OCaml Community.`
-  {
+  Js.Promise.resolve({
     "props": {
       title: title,
       pageDescription: pageDescription,
@@ -127,7 +127,7 @@ let getStaticProps = _ctx => {
       talksContent: talksContent,
       papersContent: papersContent,
     },
-  }
+  })
 }
 
 let default = make

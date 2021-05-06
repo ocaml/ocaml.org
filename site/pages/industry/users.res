@@ -1,5 +1,3 @@
-module Link = Next.Link
-
 let s = React.string
 
 type company = {

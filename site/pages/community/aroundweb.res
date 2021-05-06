@@ -373,9 +373,9 @@ let getStaticProps = _ctx => {
     spaces: pageContent.spaces,
   }
 
-  {
+  Js.Promise.resolve({
     "props": {content: contentEn},
-  }
+  })
 }
 
 let default = make

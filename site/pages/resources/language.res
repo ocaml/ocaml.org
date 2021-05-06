@@ -277,7 +277,7 @@ let getStaticProps = _ctx => {
       },
     },
   }
-  {"props": props}
+  Js.Promise.resolve({"props": props})
 }
 
 let default = make

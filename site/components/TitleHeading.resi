@@ -19,5 +19,5 @@ module Large: {
 
 module MarkdownMedium: {
   @react.component
-  let make: (~title: string, ~pageDescription: string=?) => React.element
+  let make: (~title: string, ~pageDescription: option<string>) => React.element
 }

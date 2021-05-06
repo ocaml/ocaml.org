@@ -202,7 +202,7 @@ let getStaticProps = _ctx => {
     topDeveloperGuide: developerGuides[0],
     bottomDeveloperGuide: developerGuides[1],
   }
-  {
+  Js.Promise.resolve({
     "props": {
       title: title,
       pageDescription: pageDescription,
@@ -217,7 +217,7 @@ let getStaticProps = _ctx => {
         softwareRight: ocamlPoweredSoftare[2],
       },
     },
-  }
+  })
 }
 
 let default = make

@@ -4,6 +4,8 @@
 // See https://nextjs.org/docs/advanced-features/custom-app
 type pageProps = {.}
 
+// TODO: should pageProps be a variant that represents
+//  all possible definitions of pageProps?
 module PageComponent = {
   type t = React.component<pageProps>
 }

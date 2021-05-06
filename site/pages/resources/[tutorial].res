@@ -1,5 +1,3 @@
-let s = React.string
-
 module Params = {
   type t = {tutorial: string}
 }
@@ -22,7 +20,9 @@ let make = (~source, ~title, ~pageDescription, ~tableOfContents) => {
         <MarkdownPage.TableOfContents content=tableOfContents />
         <div className="col-span-9 lg:col-span-7 bg-graylight relative py-16 overflow-hidden">
           <div className="relative px-4 sm:px-6 lg:px-8">
-            <TitleHeading.MarkdownMedium title pageDescription />
+            <TitleHeading.MarkdownMedium
+              title pageDescription={Js.Nullable.toOption(pageDescription)}
+            />
             <MarkdownPage.MarkdownPageBody margins=`mt-6` renderedMarkdown=source />
           </div>
         </div>
@@ -34,10 +34,6 @@ let make = (~source, ~title, ~pageDescription, ~tableOfContents) => {
 let contentEn = {
   contents: `Contents`,
 }
-
-type pageContent = {title: string, pageDescription: option<string>}
-
-@module("js-yaml") external load: (string, ~options: 'a=?, unit) => pageContent = "load"
 
 let getStaticProps = ctx => {
   let {Params.tutorial: tutorial} = ctx.Next.GetStaticProps.params
@@ -67,7 +63,7 @@ let getStaticProps = ctx => {
       | Some(v) => Js.Nullable.return(v)
       },
       tableOfContents: {
-        contents: "Contents",
+        contents: contentEn.contents,
         toc: res.toc,
       },
     }
