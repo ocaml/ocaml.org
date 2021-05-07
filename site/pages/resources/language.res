@@ -145,7 +145,7 @@ module Applications = {
             {s(`Looking to learn more about the ways in which OCaml is used in real-world applications? Visit our Applications page to find out about different ways of using OCaml.`)}
           </p>
           <p className="text-right">
-            <a href="/resources/applications" className="text-orangedark underline">
+            <a href=InternalUrls.resourcesApplications className="text-orangedark underline">
               {s(`Go to Applications >`)}
             </a>
           </p>
@@ -196,7 +196,7 @@ module Papers = {
         </div>
         <div className="flex justify-center">
           <a
-            href="/resources/papers"
+            href=InternalUrls.resourcesPapers
             className="font-bold inline-flex items-center px-10 py-3 border border-transparent text-base leading-4 font-medium rounded-md shadow-sm text-white bg-orangedark hover:bg-orangedarker">
             {s(`Go to Papers`)}
           </a>

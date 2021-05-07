@@ -29,22 +29,22 @@ type navContent = {
 let navContentEn = {
   industrySection: {
     header: `Industry`,
-    whatIsOcaml: {label: `What is OCaml`, url: `/industry/whatisocaml`},
-    industrialUsers: {label: `Industrial Users`, url: `/industry/users`},
-    successStories: {label: `Success Stories`, url: `/industry/successstories`},
+    whatIsOcaml: {label: `What is OCaml`, url: InternalUrls.industryWhatisocaml},
+    industrialUsers: {label: `Industrial Users`, url: InternalUrls.industryUsers},
+    successStories: {label: `Success Stories`, url: InternalUrls.industrySuccessstories},
   },
   resourcesSection: {
     header: `Resources`,
-    releases: {label: `Releases`, url: `/resources/releases`},
-    applications: {label: `Applications`, url: `/resources/applications`},
-    language: {label: `Language`, url: `/resources/language`},
-    archive: {label: `Archive`, url: `/resources/archive`},
+    releases: {label: `Releases`, url: InternalUrls.resourcesReleases},
+    applications: {label: `Applications`, url: InternalUrls.resourcesApplications},
+    language: {label: `Language`, url: InternalUrls.resourcesLanguage},
+    archive: {label: `Archive`, url: InternalUrls.resourcesArchive},
   },
   communitySection: {
     header: `Community`,
-    opportunities: {label: `Opportunities`, url: `/community/opportunities`},
-    news: {label: `News`, url: `/community/news`},
-    aroundTheWeb: {label: `Around the Web`, url: `/community/aroundweb`},
+    opportunities: {label: `Opportunities`, url: InternalUrls.communityOpportunities},
+    news: {label: `News`, url: InternalUrls.communityNews},
+    aroundTheWeb: {label: `Around the Web`, url: InternalUrls.communityAroundweb},
   },
 }
 
@@ -112,15 +112,18 @@ let footerContentEn: Footer.t = {
     legalSection: {
       header: `Legal`,
       entries: [
-        {label: `Privacy`, url: `/legal/privacy`},
-        {label: `Terms`, url: `/legal/terms`},
-        {label: `Carbon Footprint`, url: `/legal/carbonfootprint`},
+        {label: `Privacy`, url: InternalUrls.legalPrivacy},
+        {label: `Terms`, url: InternalUrls.legalTerms},
+        {label: `Carbon Footprint`, url: InternalUrls.legalCarbonfootprint},
       ],
     },
   },
   sponsorContent: {
     thankSponsorPrefix: `Thank you to our`,
-    hostingProviders: {label: `Hosting Providers`, url: `/legal/carbonfootprint#hostingproviders`},
+    hostingProviders: {
+      label: `Hosting Providers`,
+      url: `${InternalUrls.legalCarbonfootprint}#hostingproviders`,
+    },
   },
 }
 

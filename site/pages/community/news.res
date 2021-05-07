@@ -221,7 +221,9 @@ module CategorizedNews = {
         </div>
       </div>
       <div className="text-center">
-        <a href="/community/newsarchive" className="bg-orangedark text-white px-10 py-3 rounded">
+        <a
+          href=InternalUrls.communityNewsarchive
+          className="bg-orangedark text-white px-10 py-3 rounded">
           {s(content.goToNewsArchive)}
         </a>
       </div>

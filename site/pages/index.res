@@ -56,13 +56,13 @@ module HeroSection = {
           <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
             <Button
               colors=`text-white bg-orangedark hover:bg-orangedarker`
-              href=`/resources/installocaml`
+              href=InternalUrls.resourcesInstallocaml
               text=content.installOcaml
               margins=``
             />
             <Button
               colors=`text-orangedark bg-white hover:bg-gray-50`
-              href=`/industry/whatisocaml`
+              href=InternalUrls.industryWhatisocaml
               text=content.aboutOcaml
               margins=`mt-3 sm:mt-0 sm:ml-3`
             />

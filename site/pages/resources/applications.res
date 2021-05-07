@@ -83,7 +83,7 @@ module PlatformTools = {
         {s(`The OCaml Platform is a collection of tools that allow programmers to be productive in the OCaml language. It has been an iterative process of refinement as new tools are added and older tools are updated. Different tools accomplish different workflows and are used at different points of a project's life.`)}
       </p>
       <div className="flex justify-center">
-        <Link href="/resources/platform">
+        <Link href=InternalUrls.resourcesPlatform>
           <a
             className="mt-8 w-full inline-flex items-center justify-center px-8 py-1 border border-transparent text-white text-base font-medium rounded-md bg-orangedark hover:bg-orangedarker sm:w-auto">
             {s(`Visit Platform Tools`)}
@@ -155,7 +155,7 @@ module UsingOcaml = {
           </div>
         </div>
         <p className="text-right font-bold">
-          <Link href="/resources/usingocaml">
+          <Link href=InternalUrls.resourcesUsingocaml>
             // TODO: descriptive link text
             <a className="text-orangedark underline"> {s(content.seeMore ++ ` >`)} </a>
           </Link>
