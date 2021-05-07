@@ -8,4 +8,6 @@ type t = {
   description: string,
 }
 
+let decode: Js.Json.t => t
+
 let readAll: unit => array<t>

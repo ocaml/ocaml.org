@@ -6,22 +6,17 @@ type t = {
   link: string,
 }
 
-@module("js-yaml") external load: (string, ~options: 'a=?, unit) => array<t> = "load"
-
-let forceInvalidException: JsYaml.forceInvalidException<t> = t => {
-  let _ = (
-    Js.Int.toString(t.id),
-    Js.String.length(t.name),
-    Js.String.length(t.author),
-    Js.String.length(t.creationDate),
-    Js.String.length(t.link),
-  )
+let decode = json => {
+  open Json.Decode
+  {
+    id: json |> field("id", int),
+    name: json |> field("name", string),
+    author: json |> field("author", string),
+    creationDate: json |> field("creationDate", string),
+    link: json |> field("link", string),
+  }
 }
 
 let readAll = () => {
-  let databasePath = "data/talks.yaml"
-  let fileContents = Fs.readFileSync(databasePath)
-  let talks = load(fileContents, ())
-  Js.Array.forEach(forceInvalidException, talks)
-  talks
+  "data/talks.yaml"->Fs.readFileSync->JsYaml.load()->Json.Decode.array(decode)(_)
 }

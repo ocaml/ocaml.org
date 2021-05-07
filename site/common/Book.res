@@ -5,21 +5,16 @@ type t = {
   image: string,
 }
 
-@module("js-yaml") external load: (string, ~options: 'a=?, unit) => array<t> = "load"
-
-let forceInvalidException: JsYaml.forceInvalidException<t> = b => {
-  let _ = (
-    Js.Int.toString(b.id),
-    Js.String.length(b.name),
-    Js.String.length(b.link),
-    Js.String.length(b.image),
-  )
+let decode = json => {
+  open Json.Decode
+  {
+    id: json |> field("id", int),
+    name: json |> field("name", string),
+    link: json |> field("link", string),
+    image: json |> field("image", string),
+  }
 }
 
 let readAll = () => {
-  let booksDatabasePath = "data/books.yaml"
-  let fileContents = Fs.readFileSync(booksDatabasePath)
-  let books = load(fileContents, ())
-  Js.Array.forEach(forceInvalidException, books)
-  books
+  "data/books.yaml"->Fs.readFileSync->JsYaml.load()->Json.Decode.array(decode)(_)
 }

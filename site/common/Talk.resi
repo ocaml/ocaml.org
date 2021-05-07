@@ -6,4 +6,6 @@ type t = {
   link: string,
 }
 
+let decode: Js.Json.t => t
+
 let readAll: unit => array<t>

@@ -28,6 +28,14 @@ module Timeline = {
 
     type t = {date: string, description: string}
 
+    let decode = json => {
+      open Json.Decode
+      {
+        date: json |> field("date", string),
+        description: json |> field("description", string),
+      }
+    }
+
     @react.component
     let make = (~item) => {
       let bgColor = "bg-yellowdark"
@@ -68,14 +76,13 @@ type pageContent = {
   timeline: array<Timeline.Item.t>,
 }
 
-@module("js-yaml") external load: (string, ~options: 'a=?, unit) => pageContent = "load"
-
-let forceInvalidException: JsYaml.forceInvalidException<pageContent> = c => {
-  let _ = Js.String.length(c.title)
-  let _ = Js.String.length(c.pageDescription)
-  let _ = Js.Array.map((tl: Timeline.Item.t) => {
-    (Js.String.length(tl.date), Js.String.length(tl.description))
-  }, c.timeline)
+let decode = json => {
+  open Json.Decode
+  {
+    title: json |> field("title", string),
+    pageDescription: json |> field("pageDescription", string),
+    timeline: json |> field("timeline", array(Timeline.Item.decode)),
+  }
 }
 
 type props = {content: pageContent}
@@ -94,9 +101,6 @@ let make = (~content) => <>
 let default = make
 
 let getStaticProps = _ctxt => {
-  let contentPath = "data/history.yaml"
-  let fileContents = Fs.readFileSync(contentPath)
-  let pageContent = load(fileContents, ())
-  forceInvalidException(pageContent)
+  let pageContent = "data/history.yaml"->Fs.readFileSync->JsYaml.load()->decode
   Js.Promise.resolve({"props": {content: pageContent}})
 }

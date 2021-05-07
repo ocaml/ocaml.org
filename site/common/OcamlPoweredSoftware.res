@@ -8,24 +8,19 @@ type t = {
   description: string,
 }
 
-@module("js-yaml") external load: (string, ~options: 'a=?, unit) => array<t> = "load"
-
-let forceInvalidException: JsYaml.forceInvalidException<t> = s => {
-  let _ = (
-    Js.Int.toString(s.id),
-    Js.String.length(s.name),
-    Js.String.length(s.link),
-    Js.String.length(s.linkDescription),
-    Js.String.length(s.image),
-    Js.String.length(s.imageHeight),
-    Js.String.length(s.description),
-  )
+let decode = json => {
+  open Json.Decode
+  {
+    id: json |> field("id", int),
+    name: json |> field("name", string),
+    link: json |> field("link", string),
+    linkDescription: json |> field("linkDescription", string),
+    image: json |> field("image", string),
+    imageHeight: json |> field("imageHeight", string),
+    description: json |> field("description", string),
+  }
 }
 
 let readAll = () => {
-  let databasePath = "data/ocaml_powered_software.yaml"
-  let fileContents = Fs.readFileSync(databasePath)
-  let software = load(fileContents, ())
-  Js.Array.forEach(forceInvalidException, software)
-  software
+  "data/ocaml_powered_software.yaml"->Fs.readFileSync->JsYaml.load()->Json.Decode.array(decode)(_)
 }

@@ -1,3 +1,7 @@
+type extracted = {data: Js.Json.t, content: string}
+
+@module("gray-matter") external matter: string => extracted = "default"
+
 type pageContent = {
   title: string,
   pageDescription: option<string>,
@@ -5,15 +9,19 @@ type pageContent = {
 
 type output = {data: pageContent, content: string}
 
-@module("gray-matter") external matter: string => output = "default"
-
-let forceInvalidException: JsYaml.forceInvalidException<pageContent> = c => {
-  let length = Js.Option.getWithDefault("", c.pageDescription)->Js.String.length
-  let _ = (Js.String.length(c.title), length)
+let decode = json => {
+  open Json.Decode
+  {
+    title: json |> field("title", string),
+    pageDescription: json |> optional(field("pageDescription", string)),
+  }
 }
 
 let ofMarkdown = fileContents => {
   let parsed = matter(fileContents)
-  forceInvalidException(parsed.data)
-  parsed
+  let pageContent = parsed.data->decode
+  {
+    data: pageContent,
+    content: parsed.content,
+  }
 }

@@ -12,6 +12,7 @@
     "node": "vercel uses this value to select which node version to use. string must match vercel options exactly to silence warnings."
   },
   "dependencies": {
+    "@glennsl/bs-json": "^5.0.2",
     "bs-platform": "9.0.0",
     "next": "^10.0.6",
     "react": "^16.8.1",

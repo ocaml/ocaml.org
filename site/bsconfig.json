@@ -7,7 +7,8 @@
   },
   "refmt": 3,
   "bs-dependencies": [
-    "reason-react"
+    "reason-react",
+    "@glennsl/bs-json"
   ],
   "ppx-flags": [],
   "sources": [

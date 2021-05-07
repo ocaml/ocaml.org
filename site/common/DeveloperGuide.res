@@ -7,23 +7,18 @@ type t = {
   imageHeight: string,
 }
 
-@module("js-yaml") external load: (string, ~options: 'a=?, unit) => array<t> = "load"
-
-let forceInvalidException: JsYaml.forceInvalidException<t> = d => {
-  let _ = (
-    Js.Int.toString(d.id),
-    Js.String.length(d.link),
-    Js.String.length(d.name),
-    Js.String.length(d.description),
-    Js.String.length(d.image),
-    Js.String.length(d.imageHeight),
-  )
+let decode = json => {
+  open Json.Decode
+  {
+    id: json |> field("id", int),
+    link: json |> field("link", string),
+    name: json |> field("name", string),
+    description: json |> field("description", string),
+    image: json |> field("image", string),
+    imageHeight: json |> field("imageHeight", string),
+  }
 }
 
 let readAll = () => {
-  let databasePath = "data/developer_guides.yaml"
-  let fileContents = Fs.readFileSync(databasePath)
-  let developerGuides = load(fileContents, ())
-  Js.Array.forEach(forceInvalidException, developerGuides)
-  developerGuides
+  "data/developer_guides.yaml"->Fs.readFileSync->JsYaml.load()->Json.Decode.array(decode)(_)
 }
