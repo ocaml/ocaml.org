@@ -13,20 +13,12 @@
   "ppx-flags": [],
   "sources": [
     {
-      "dir": "common"
-    },
-    {
-      "dir": "bindings"
+      "dir": "src"
     },
     {
       "dir": "pages",
       "subdirs": true
-    },
-    {
-      "dir": "components",
-      "subdirs": true
-    },
-    "layouts"
+    }
   ],
   "package-specs": {
     "module": "es6",

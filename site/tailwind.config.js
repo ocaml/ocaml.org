@@ -6,9 +6,8 @@ module.exports = {
   purge: {
     // Specify the paths to all of the template files in your project
     content: [
-      './components/**/*.res',
       './pages/**/*.res',
-      './layouts/**/*.res',
+      './src/*.res',
       // need to include data files since they reference tailwind classes
       './data/*.yaml',
     ],
