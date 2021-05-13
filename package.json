@@ -1,0 +1,17 @@
+{
+  "name": "ood",
+  "private": true,
+  "version": "0.0.0",
+  "author": "The OCaml.org team",
+  "license": "ISC",
+  "engines": {
+    "node": "14.x",
+    "yarn": ">= 1.22"
+  },
+  "scripts": {
+    "build": "bsb -clean-world -make-world"
+  },
+  "dependencies": {
+    "bs-platform": "9.0.0"
+  }
+}
