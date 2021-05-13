@@ -1,9 +1,14 @@
 type t = {
   title: string,
   pageDescription: string,
+  papers: array<Paper.t>,
 }
 
 @react.component
-let make: (~content: t=?) => React.element
+let make: (~content: t) => React.element
 
-let default: {"content": option<t>} => React.element
+type props = {content: t}
+
+let getStaticProps: Next.GetStaticProps.t<props, unit, unit>
+
+let default: {"content": t} => React.element

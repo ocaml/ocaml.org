@@ -6,13 +6,13 @@ Coming soon...
 
 ## Ways to get involved
 
-* fix or suggest content - start by filing an issue
+* fix or suggest content - start by filing an issue in `ocaml/ood` repository
 * implement pages - search through existing issues to find out what pages are planned for upcoming implementation
 * contribute to site build process - search through existing issues or file an issue suggesting improvements
 
 ## Content workflow
 
-...
+See `ocaml/ood` README.
 
 ### Design and Information Architecture
 
@@ -123,11 +123,21 @@ The site makes use of `esy`. We currently use version 0.6.8. Please consult the 
 
 ### Dependencies
 
-Note: Remember that **each terminal** needs to have `nvm use` invoked to activate the proper node version, if you are using `nvm`.
-
-Install javascript libraries and build and install ocaml helper executables:
+The site relies on an external repository named `ood` which houses content and a parsing library. Please clone that repository into the expected location `vendor/ood`.
 
 ```
+cd $(git rev-parse --show-toplevel)
+mkdir vendor
+cd vendor
+git clone git@github.com:ocaml/ood.git # TODO: specific branch and trim depth
+```
+
+Note: Remember that **each terminal** needs to have `nvm use` invoked to activate the proper node version, if you are using `nvm`.
+
+Install ReScript libraries, javascript libraries, and build and install ocaml helper executables:
+
+```
+make isntall-vendored-deps
 yarn install && esy
 ```
 
