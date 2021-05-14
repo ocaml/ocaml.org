@@ -9,7 +9,7 @@
     "ppx-flags": [],
     "sources": [
         {
-            "dir": "."
+            "dir": "lib"
         }
     ],
     "package-specs": {

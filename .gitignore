@@ -1,3 +1,5 @@
 _build
 _opam
 .merlin
+/lib/bs
+/lib/**/*.js
