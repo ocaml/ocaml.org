@@ -18,22 +18,21 @@
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "reason-react": "^0.9.1",
-    "ood": "*"
+    "ood": "git://github.com/ocaml/ood.git#main"
   },
   "dependenciesDescription": {
     "bs-platform": "This a regular dependency because the included standard libraries are used during runtime"
   },
   "scripts": {
     "next:debug": "NODE_OPTIONS='--inspect' next dev",
+    "watch": "concurrently --raw \"bsb -make-world -w\" \"next dev\" ",
+    "watch-and-serve": "concurrently --raw \"bsb -make-world -w\" \"next dev\" \"http-server out\"",
     "build": "bsb -clean-world -make-world && next build && next export",
-    "start-test-server": "http-server out",
-    "rescript:build": "bsb -make-world",
-    "rescript:clean": "bsb -clean-world"
+    "start-test-server": "http-server out"
   },
   "scriptsDescription": {
     "build": "at present, next export is only used to ensure that we strictly use static site functionality",
-    "start-test-server": "Vercel deployments use next start, but this command tests running a pure static site. TODO: use npx from Makefile instead.",
-    "next-transpile-modules": "used to convert rescript libraries from commonjs to es6 in nextjs builds"
+    "start-test-server": "Vercel deployments use next start, but this command tests running a pure static site. TODO: use npx from Makefile instead."
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.4.0",
@@ -61,7 +60,7 @@
     "remark-parse": "only used during site build, not in the browser",
     "remark-rehype": "only used during site build, not in the browser",
     "remark-slug": "only used during site build, not in the browser",
-    "next-transpile-modules": "only used during site build, not in the browser",
+    "next-transpile-modules": "only used during site build, not in the browser. used to convert rescript libraries from commonjs to es6 in nextjs builds",
     "postcss": "explicity set to > 8.0 temporarily until all transitive dependencies do not obstruct using >= 8.0, remove this soon",
     "unifed": "only used during site build, not in the browser"
   },
