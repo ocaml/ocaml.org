@@ -7,7 +7,7 @@
   },
   "refmt": 3,
   "bs-dependencies": [
-    "reason-react",
+    "@rescript/react",
     "@glennsl/bs-json",
     "ood"
   ],
