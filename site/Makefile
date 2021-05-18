@@ -1,7 +1,9 @@
 SHELL=/bin/bash
 NVM=source $$NVM_DIR/nvm.sh && nvm
+# Yarn version specified here because it can't
+# bootstrap itself as a devDependency.
 YARN=$(NVM) use && npx yarn@1.22
-ESY=$(NVM) use && npx esy@0.6.8
+ESY=$(NVM) use && npx esy
 BSB=$(NVM) use && npx bsb
 
 .PHONY: dev
