@@ -5,7 +5,7 @@ let lint ~path parse =
   Bos.OS.File.read path >>= fun s ->
   parse s >>= fun _ -> Ok ()
 
-let lint_folder ?(filter = fun s -> Fpath.get_ext s = ".md") ~path parse =
+let lint_folder ?(filter = fun s -> Fpath.get_ext s = ".en.md") ~path parse =
   Bos.OS.Dir.contents path >>= fun fpaths ->
   let lints =
     List.map (fun path -> lint ~path parse) (List.filter filter fpaths)
@@ -34,8 +34,8 @@ let run () =
           [
             test_case Papers.path `Quick
               (linter "lint papers" Papers.path Papers.lint);
-            test_case Meetings.path `Quick
-              (linter "lint meetings" Meetings.path Meetings.lint);
+            test_case Events.path `Quick
+              (linter "lint events" Events.path Events.lint);
           ] );
         ("folders", [ test_case Tutorial.path `Quick lint_tutorials ]);
       ];

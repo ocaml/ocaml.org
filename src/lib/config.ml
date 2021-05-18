@@ -11,7 +11,7 @@ let collections =
   [
     Collection.Files
       (Collection.Files.make ~label:"Datasets" ~name:"dataset"
-         ~files:[ Data.Papers.file; Data.Meetings.file ]
+         ~files:[ Data.Papers.file; Data.Events.file ]
          ());
     Collection.Folder Data.Tutorial.folder;
   ]

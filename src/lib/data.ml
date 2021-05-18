@@ -46,32 +46,37 @@ module Papers = struct
       ~file:path ~fields ()
 end
 
-module Meeting = struct
-  type t = [%import: Ood.Meetings.Meeting.t] [@@deriving yaml]
+module Event = struct
+  type t = [%import: Ood.Events.Event.t] [@@deriving yaml]
 
   let lint = parse_yaml of_yaml
 
   let widget_of_t =
     Widget.
       [
-        `String (String.make ~label:"Meeting Name" ~name:"title" ());
+        `String (String.make ~label:"Event Name" ~name:"title" ());
+        `String (String.make ~label:"Short Description" ~name:"description" ());
         `String (String.make ~label:"URL" ~name:"url" ());
         `DateTime DateTime.(make ~label:"Date" ~name:"date" ~picker_utc:true ());
         `Boolean (Boolean.make ~label:"Virtual only" ~name:"online" ());
+        `String
+          (String.make ~label:"Textual Location" ~required:false
+             ~name:"textual_location" ());
         `Map
-          (Map.make ~label:"Location" ~name:"location"
+          (Map.make ~label:"Approximate Location" ~required:false
+             ~name:"location"
              ~hint:
                "Just add a sensible location even if the event was virtual only"
              ());
       ]
 end
 
-module Meetings = struct
-  type t = [%import: Ood.Meetings.t] [@@deriving yaml]
+module Events = struct
+  type t = [%import: Ood.Events.t] [@@deriving yaml]
 
   let lint = parse_yaml of_yaml
 
-  let path = "data/meetings.yml"
+  let path = "data/events.yml"
 
   let file =
     let fields =
@@ -79,11 +84,11 @@ module Meetings = struct
         `List
           (* XXX(patricoferris): Collapsed set to false because of https://github.com/netlify/netlify-cms/issues/4385#issuecomment-748495080
              should contribute a fix to upstream if this is still the case in latest versions *)
-          (Widget.Lst.make ~label:"Meetings" ~name:"meetings" ~collapsed:false
-             ~fields:Meeting.widget_of_t ());
+          (Widget.Lst.make ~label:"Events" ~name:"events" ~collapsed:false
+             ~add_to_top:true ~fields:Event.widget_of_t ());
       ]
     in
-    Netlify.Collection.Files.File.make ~name:"meetings" ~label:"OCaml Meetings"
+    Netlify.Collection.Files.File.make ~name:"events" ~label:"OCaml Events"
       ~file:path ~fields ()
 end
 

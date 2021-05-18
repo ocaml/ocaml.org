@@ -21,16 +21,18 @@ collections:
         {label: "Absract or Description", name: "abstract", widget: "text"}, {label: "Tags",
           name: "tags", widget: "list"}, {label: "Year", name: "year", widget: "number"},
         {label: "Links", name: "links", widget: "list"}]}
-  - label: "OCaml Meetings"
-    name: "meetings"
-    file: "data/meetings.yml"
+  - label: "OCaml Events"
+    name: "events"
+    file: "data/events.yml"
     fields:
-    - {label: "Meetings", name: "meetings", widget: "list", collapsed: false, fields: [
-        {label: "Meeting Name", name: "title", widget: "string"}, {label: "URL", name: "url",
-          widget: "string"}, {label: "Date", name: "date", widget: "datetime", picker_utc: true},
-        {label: "Virtual only", name: "online", widget: "boolean"}, {label: "Location",
-          name: "location", widget: "map", hint: "Just add a sensible location even
-            if the event was virtual only"}]}
+    - {label: "Events", name: "events", widget: "list", collapsed: false, fields: [
+        {label: "Event Name", name: "title", widget: "string"}, {label: "Short Description",
+          name: "description", widget: "string"}, {label: "URL", name: "url", widget: "string"},
+        {label: "Date", name: "date", widget: "datetime", picker_utc: true}, {label: "Virtual
+            only", name: "online", widget: "boolean"}, {label: "Textual Location",
+          name: "textual_location", widget: "string", required: false}, {label: "Approximate
+            Location", name: "location", widget: "map", required: false, hint: "Just
+            add a sensible location even if the event was virtual only"}], add_to_top: true}
 - name: "tutorials"
   label: "OCaml Tutorials"
   folder: "data/tutorials"
