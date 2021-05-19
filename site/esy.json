@@ -10,8 +10,12 @@
     "buildEnv": {},
     "buildsInSource": "_build"
   },
-  "scripts": { "runtest-unit": "esy dune runtest" },
-  "dependencies": { "@opam/mdx": "1.8.1", "ocaml": "4.12.0" },
+  "scripts": {
+    "runtest-unit": "esy dune runtest"
+  },
+  "dependencies": {
+    "ocaml": "4.12.0"
+  },
   "devDependencies": {
     "@opam/dune": "^2.8.5",
     "@opam/merlin": "4.1-412",
