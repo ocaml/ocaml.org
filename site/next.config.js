@@ -1,6 +1,6 @@
 const bsconfig = require('./bsconfig.json');
 
-const transpileModules = ["bs-platform"].concat(bsconfig["bs-dependencies"]);
+const transpileModules = ["bs-platform", "mdast-util-to-string"].concat(bsconfig["bs-dependencies"]);
 const withTM = require("next-transpile-modules")(transpileModules);
 
 const config = {
@@ -12,6 +12,9 @@ const config = {
       config.resolve.fallback = {
         fs: false
       }
+    }
+    config.experiments = {
+      topLevelAwait: true,
     }
     return config
   },

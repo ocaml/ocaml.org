@@ -1,3 +1,7 @@
+%%raw(`
+const MdastUtilToStringInternal = (await import('mdast-util-to-string')).toString
+`)
+
 module MarkdownTableOfContents = {
   type rec toc = {
     label: string,
@@ -46,5 +50,5 @@ type attacher = unit => transformer
 @module("rehype-highlight") external rehypeHighlight: attacher = "default"
 
 module MdastUtilToString = {
-  @module("mdast-util-to-string") external toString: headingnode => string = "default"
+  @val external toString: headingnode => string = "MdastUtilToStringInternal"
 }
