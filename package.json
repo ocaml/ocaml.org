@@ -12,6 +12,6 @@
     "build": "bsb -clean-world -make-world"
   },
   "dependencies": {
-    "bs-platform": "9.0.0"
+    "bs-platform": "9.0.2"
   }
 }
