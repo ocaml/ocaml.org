@@ -1,32 +1,37 @@
 SHELL=/bin/bash
-NVM=source $$NVM_DIR/nvm.sh && nvm
-# Yarn version specified here because it can't
-# bootstrap itself as a devDependency.
-YARN=$(NVM) use && npx yarn@1.22
-ESY=$(NVM) use && npx esy
-BSB=$(NVM) use && npx bsb
+ifeq ($(VERCEL), 1)
+  # The yarn version is picked from .engines in package.json
+  YARN=yarn
+  # Put .esy in node_modules for caching in Vercel
+  ESY=export ESY__PREFIX=$$PWD/node_modules/.esy && npx esy
+  BSB=npx bsb
+else
+  NVM=source $$NVM_DIR/nvm.sh && nvm
+  # Yarn version specified here because it can't bootstrap itself as a devDependency with npx.
+  YARN=$(NVM) use && npx yarn@1.22
+  ESY=$(NVM) use && npx esy
+  BSB=$(NVM) use && npx bsb
+endif
 
 .PHONY: dev
 dev: install-deps watch-and-serve
 
 .PHONY: install-deps
 install-deps:
+ifeq ($(VERCEL), 1)
+	npm config set user root
+	yum install perl-Digest-SHA
+else
 	$(NVM) install
+endif
 	$(YARN) install
 	make vendor/ood && $(YARN) link ood
-	$(ESY)
+	$(ESY) install
 
 vendor/ood:
 	mkdir -p vendor && cd vendor && \
 	git clone https://github.com/ocaml/ood.git && cd ood && \
 	$(YARN) link
-
-.PHONY: ci
-ci:
-	# NOTE: No NVM in CI
-	# NOTE: No vendor/ood in CI, use dependency as specified in package.json
-	npx yarn@1.22 install
-	npx yarn@1.22 run build
 
 .PHONY: watch
 watch:
@@ -38,6 +43,7 @@ watch-and-serve:
 
 .PHONY: build
 build:
+	$(ESY) build
 	$(YARN) build
 
 .PHONY: serve
