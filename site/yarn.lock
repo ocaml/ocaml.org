@@ -2147,7 +2147,10 @@ once@^1.3.0:
 
 "ood@git://github.com/ocaml/ood.git#main":
   version "0.0.0"
-  resolved "git://github.com/ocaml/ood.git#738e61a36495f0313fd669d673bf0ed5dc036faf"
+  uid b37db9c51a252a7152be99c53346fd565ea7df65
+  resolved "git://github.com/ocaml/ood.git#b37db9c51a252a7152be99c53346fd565ea7df65"
+  dependencies:
+    bs-platform "9.0.2"
 
 opener@^1.5.1:
   version "1.5.2"
