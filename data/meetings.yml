@@ -1,6 +1,0 @@
-meetings:
-  - date: 2019-08-23T00:00:00.000Z
-    title: OCaml User and Developer Workshop 2019
-    url: https://icfp19.sigplan.org/home/ocaml-2019#Call-for-Presentations
-    online: false
-    location: '{"type":"Point","coordinates":[13.4163451,52.4861467]}'

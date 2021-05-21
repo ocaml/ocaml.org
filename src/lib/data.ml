@@ -23,7 +23,7 @@ module Paper = struct
         `Text (Text.make ~label:"Absract or Description" ~name:"abstract" ());
         `List (Lst.make ~label:"Tags" ~name:"tags" ());
         `Number (Number.make ~label:"Year" ~name:"year" ());
-        `List (Lst.make ~label:"Links" ~name:"links" ());
+        `List (Lst.make ~min:1 ~label:"Links" ~name:"links" ());
       ]
 end
 
@@ -46,32 +46,98 @@ module Papers = struct
       ~file:path ~fields ()
 end
 
-module Meeting = struct
-  type t = [%import: Ood.Meetings.Meeting.t] [@@deriving yaml]
+module Video = struct
+  type kind = [%import: Ood.Videos.Video.kind] [@@deriving enumerate]
+
+  let kind_to_yaml user = `String (Ood.Videos.Video.kind_to_string user)
+
+  let kind_of_yaml = function
+    | `String s -> Ood.Videos.Video.kind_of_string s
+    | _ -> Error (`Msg "Expected yaml string")
+
+  type t = [%import: Ood.Videos.Video.t] [@@deriving yaml]
 
   let lint = parse_yaml of_yaml
 
   let widget_of_t =
     Widget.
       [
-        `String (String.make ~label:"Meeting Name" ~name:"title" ());
+        `String
+          (String.make ~required:true ~label:"Video Title" ~name:"title" ());
+        `Text
+          (Text.make ~required:true ~label:"Description" ~name:"description" ());
+        `List (Lst.make ~default:(`A []) ~label:"People" ~name:"people" ());
+        `Select
+          Select.(
+            make ~required:true ~label:"Video Kind" ~name:"kind"
+              ~options:
+                (Strings (List.map Ood.Videos.Video.kind_to_string all_of_kind))
+              ());
+        `List (Lst.make ~label:"Tags" ~name:"tags" ());
+        `Relation
+          (Relation.make ~required:false ~collection:"dataset" ~file:"papers"
+             ~label:"Optional Link to a Paper" ~name:"paper"
+             ~value_field:"papers.*.title" ~search_fields:[ "papers.*.title" ]
+             ~display_fields:[ "papers.*.title" ] ());
+        `Number (Number.make ~label:"Year" ~name:"year" ());
+        `String (String.make ~required:true ~label:"Link" ~name:"link" ());
+        `String
+          (String.make ~required:false ~label:"Embeddable Link" ~name:"embed"
+             ());
+      ]
+end
+
+module Videos = struct
+  type t = [%import: Ood.Videos.t] [@@deriving yaml]
+
+  let lint = parse_yaml of_yaml
+
+  let path = "data/videos.yml"
+
+  let file =
+    let fields =
+      [
+        `List
+          (Widget.Lst.make ~label:"Videos" ~name:"videos"
+             ~fields:Video.widget_of_t ());
+      ]
+    in
+    Netlify.Collection.Files.File.make ~name:"videos" ~label:"OCaml Videos"
+      ~file:path ~fields ()
+end
+
+module Event = struct
+  type t = [%import: Ood.Events.Event.t] [@@deriving yaml]
+
+  let lint = parse_yaml of_yaml
+
+  let widget_of_t =
+    Widget.
+      [
+        `String (String.make ~label:"Event Name" ~name:"title" ());
+        `String (String.make ~label:"Short Description" ~name:"description" ());
         `String (String.make ~label:"URL" ~name:"url" ());
         `DateTime DateTime.(make ~label:"Date" ~name:"date" ~picker_utc:true ());
+        `List (Lst.make ~label:"Tags" ~name:"tags" ());
         `Boolean (Boolean.make ~label:"Virtual only" ~name:"online" ());
+        `String
+          (String.make ~label:"Textual Location" ~required:false
+             ~name:"textual_location" ());
         `Map
-          (Map.make ~label:"Location" ~name:"location"
+          (Map.make ~label:"Approximate Location" ~required:false
+             ~name:"location"
              ~hint:
                "Just add a sensible location even if the event was virtual only"
              ());
       ]
 end
 
-module Meetings = struct
-  type t = [%import: Ood.Meetings.t] [@@deriving yaml]
+module Events = struct
+  type t = [%import: Ood.Events.t] [@@deriving yaml]
 
   let lint = parse_yaml of_yaml
 
-  let path = "data/meetings.yml"
+  let path = "data/events.yml"
 
   let file =
     let fields =
@@ -79,11 +145,11 @@ module Meetings = struct
         `List
           (* XXX(patricoferris): Collapsed set to false because of https://github.com/netlify/netlify-cms/issues/4385#issuecomment-748495080
              should contribute a fix to upstream if this is still the case in latest versions *)
-          (Widget.Lst.make ~label:"Meetings" ~name:"meetings" ~collapsed:false
-             ~fields:Meeting.widget_of_t ());
+          (Widget.Lst.make ~label:"Events" ~name:"events" ~collapsed:false
+             ~add_to_top:true ~fields:Event.widget_of_t ());
       ]
     in
-    Netlify.Collection.Files.File.make ~name:"meetings" ~label:"OCaml Meetings"
+    Netlify.Collection.Files.File.make ~name:"events" ~label:"OCaml Events"
       ~file:path ~fields ()
 end
 
