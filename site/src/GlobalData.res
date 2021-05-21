@@ -62,7 +62,7 @@ let navContentEn = {
       label: `Language`,
       url: InternalUrls.resourcesLanguage,
       icon: Icons.language,
-      text: "Discover the OCaml tutorial, books and papers on OCaml, as well as the OCaml Manual",
+      text: "Discover the OCaml tutorial, books and papers on OCaml, as well as the OCaml Manual.",
     },
     packages: {
       label: `Packages`,
