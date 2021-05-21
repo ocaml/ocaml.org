@@ -4,6 +4,7 @@ module Event = struct
     description : string;
     url : string;
     date : string;
+    tags : string list;
     online : bool;
     textual_location : string option;
     location : string option;

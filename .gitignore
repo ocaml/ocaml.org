@@ -3,3 +3,4 @@ _opam
 .merlin
 /lib/bs
 /lib/**/*.js
+.vscode

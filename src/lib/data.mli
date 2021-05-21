@@ -10,6 +10,20 @@ module Papers : sig
   include S.FileData with type t := t
 end
 
+module Video : sig
+  type kind = [%import: Ood.Videos.Video.kind] [@@deriving yaml]
+
+  type t = [%import: Ood.Videos.Video.t] [@@deriving yaml]
+
+  include S.Data with type t := t
+end
+
+module Videos : sig
+  type t = [%import: Ood.Videos.t] [@@deriving yaml]
+
+  include S.FileData with type t := t
+end
+
 module Event : sig
   type t = [%import: Ood.Events.Event.t] [@@deriving yaml]
 
