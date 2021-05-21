@@ -43,7 +43,7 @@ let make = (~content) => {
 
   let showMobileMenu = _evt => {setMobileDropdownVisible(_ => true)}
 
-  <div className="relative">
+  <div className="relative font-serif">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 ">
       <div className="flex justify-between items-center md:justify-start py-6 md:space-x-10 ">
         <div className="flex justify-start ">
@@ -73,7 +73,7 @@ let make = (~content) => {
               </svg>
             </button>
             <div
-              className={"absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-xs sm:px-0 " ++
+              className={"absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-md sm:px-0 " ++
               switch activeMenu {
               | Some(Industry) => " opacity-100 translate-y-0 "
               | _ => " hidden "
@@ -87,7 +87,16 @@ let make = (~content) => {
                       <a
                         onClick=hideMenu
                         className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
-                        <p className="text-base font-medium text-gray-900"> {s(e.label)} </p>
+                        <dt>
+                          <div
+                            className="absolute flex items-center justify-center h-8 w-8 fill-current stroke-current text-orangedark">
+                            {e.icon}
+                          </div>
+                          <p className="ml-12 text-lg leading-6 font-semibold text-gray-900">
+                            {s(e.label)}
+                          </p>
+                        </dt>
+                        <dd className="mt-2 ml-12 text-base text-gray-500"> {s(e.text)} </dd>
                       </a>
                     </Link>
                   )
@@ -117,7 +126,7 @@ let make = (~content) => {
               </svg>
             </button>
             <div
-              className={"absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-xs sm:px-0 " ++
+              className={"absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-md sm:px-0 " ++
               switch activeMenu {
               | Some(Resources) => " opacity-100 translate-y-0 "
               | _ => " hidden "
@@ -131,7 +140,16 @@ let make = (~content) => {
                       <a
                         onClick=hideMenu
                         className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
-                        <p className="text-base font-medium text-gray-900"> {s(e.label)} </p>
+                        <dt>
+                          <div
+                            className="absolute flex items-center justify-center h-8 w-8 fill-current stroke-current text-orangedark">
+                            {e.icon}
+                          </div>
+                          <p className="ml-12 text-lg leading-6 font-semibold text-gray-900">
+                            {s(e.label)}
+                          </p>
+                        </dt>
+                        <dd className="mt-2 ml-12 text-base text-gray-500"> {s(e.text)} </dd>
                       </a>
                     </Link>
                   )
@@ -161,7 +179,7 @@ let make = (~content) => {
               </svg>
             </button>
             <div
-              className={"absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-xs sm:px-0 " ++
+              className={"absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-md sm:px-0 " ++
               switch activeMenu {
               | Some(Community) => " opacity-100 translate-y-0 "
               | _ => " hidden "
@@ -175,7 +193,16 @@ let make = (~content) => {
                       <a
                         onClick=hideMenu
                         className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
-                        <p className="text-base font-medium text-gray-900"> {s(e.label)} </p>
+                        <dt>
+                          <div
+                            className="absolute flex items-center justify-center h-8 w-8 fill-current stroke-current text-orangedark">
+                            {e.icon}
+                          </div>
+                          <p className="ml-12 text-lg leading-6 font-semibold text-gray-900">
+                            {s(e.label)}
+                          </p>
+                        </dt>
+                        <dd className="mt-2 ml-12 text-base text-gray-500"> {s(e.text)} </dd>
                       </a>
                     </Link>
                   )
@@ -276,21 +303,36 @@ let make = (~content) => {
             </div>
           </div>
           <div className="mt-6">
-            <nav className="grid gap-y-8">
+            <nav className="grid gap-y-2">
               {Js.Array.concatMany(
-                [content.resourcesSection.entries, content.communitySection.entries],
-                content.industrySection.entries,
-              )
-              |> Js.Array.mapi((e: NavEntry.t, idx) =>
-                <Link href=e.url key={Js.Int.toString(idx)}>
-                  <a
-                    onClick=hideMobileMenu
-                    className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
-                    <span className="ml-3 text-base font-medium text-gray-900"> {s(e.label)} </span>
-                  </a>
-                </Link>
-              )
-              |> React.array}
+                Js.Array.map(
+                  (section: section) =>
+                    Js.Array.concat(
+                      Js.Array.mapi(
+                        (e: NavEntry.t, idx) =>
+                          <Link href=e.url key={Js.Int.toString(idx)}>
+                            <a
+                              onClick=hideMobileMenu
+                              className="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                              <span
+                                className="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-5 w-5 stroke-current fill-current stroke-2">
+                                {e.icon}
+                              </span>
+                              <span className="font-bold"> {s(e.label)} </span>
+                            </a>
+                          </Link>,
+                        section.entries,
+                      ),
+                      [
+                        <h3 className="ml-6 mt-2 px-3 font-semibold text-gray-400 uppercase">
+                          {s(section.header)}
+                        </h3>,
+                      ],
+                    ),
+                  [content.industrySection, content.resourcesSection, content.communitySection],
+                ),
+                [],
+              ) |> React.array}
             </nav>
           </div>
         </div>

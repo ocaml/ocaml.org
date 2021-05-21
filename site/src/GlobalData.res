@@ -2,15 +2,16 @@ type industrySection = {
   header: string,
   whatIsOcaml: NavEntry.t,
   industrialUsers: NavEntry.t,
+  academicExcellence: NavEntry.t,
   successStories: NavEntry.t,
 }
 
 type resourcesSection = {
   header: string,
-  releases: NavEntry.t,
-  applications: NavEntry.t,
   language: NavEntry.t,
-  archive: NavEntry.t,
+  packages: NavEntry.t,
+  applications: NavEntry.t,
+  bestPractices: NavEntry.t,
 }
 
 type communitySection = {
@@ -18,6 +19,7 @@ type communitySection = {
   opportunities: NavEntry.t,
   news: NavEntry.t,
   aroundTheWeb: NavEntry.t,
+  archive: NavEntry.t,
 }
 
 type navContent = {
@@ -29,22 +31,84 @@ type navContent = {
 let navContentEn = {
   industrySection: {
     header: `Industry`,
-    whatIsOcaml: {label: `What is OCaml`, url: InternalUrls.industryWhatisocaml},
-    industrialUsers: {label: `Industrial Users`, url: InternalUrls.industryUsers},
-    successStories: {label: `Success Stories`, url: InternalUrls.industrySuccessstories},
+    whatIsOcaml: {
+      label: `Why OCaml`,
+      url: InternalUrls.industryWhatisocaml,
+      icon: Icons.camel,
+      text: "Find out about OCaml and how it became what it is today.",
+    },
+    industrialUsers: {
+      label: `Industrial Users`,
+      url: InternalUrls.industryUsers,
+      icon: Icons.industry,
+      text: "Discover the organisations and companies that use OCaml to accomplish their goals.",
+    },
+    academicExcellence: {
+      label: `Academic Excellence`,
+      url: InternalUrls.industrySuccessstories /* TODO - point to correct page once it's created */,
+      icon: Icons.academic,
+      text: "Learn about the universities and academics that use OCaml.",
+    },
+    successStories: {
+      label: `Success Stories`,
+      url: InternalUrls.industrySuccessstories,
+      icon: Icons.success,
+      text: "Read about the great things that have been achieved using OCaml.",
+    },
   },
   resourcesSection: {
     header: `Resources`,
-    releases: {label: `Releases`, url: InternalUrls.resourcesReleases},
-    applications: {label: `Applications`, url: InternalUrls.resourcesApplications},
-    language: {label: `Language`, url: InternalUrls.resourcesLanguage},
-    archive: {label: `Archive`, url: InternalUrls.resourcesArchive},
+    language: {
+      label: `Language`,
+      url: InternalUrls.resourcesLanguage,
+      icon: Icons.language,
+      text: "Discover the OCaml tutorial, books and papers on OCaml, as well as the OCaml Manual",
+    },
+    packages: {
+      label: `Packages`,
+      url: "http://ci5.ocamllabs.io:8082/" /* TODO - point to correct page once it's created */,
+      icon: Icons.packages,
+      text: "Browse the many packages available in OCaml.",
+    },
+    applications: {
+      label: `Applications`,
+      url: InternalUrls.resourcesApplications,
+      icon: Icons.applications,
+      text: "Using or building tools and applicatins in OCaml? This page is full of useful information.",
+    },
+    bestPractices: {
+      label: `Best Practices`,
+      url: InternalUrls.resourcesBestpractices,
+      icon: Icons.bestPractices,
+      text: "Some of the best known methods in OCaml are shared here, as well as the Platform Tools.",
+    },
   },
   communitySection: {
     header: `Community`,
-    opportunities: {label: `Opportunities`, url: InternalUrls.communityOpportunities},
-    news: {label: `News`, url: InternalUrls.communityNews},
-    aroundTheWeb: {label: `Around the Web`, url: InternalUrls.communityAroundweb},
+    opportunities: {
+      label: `Opportunities`,
+      url: InternalUrls.communityOpportunities,
+      icon: Icons.opportunities,
+      text: "Explore vacancies in projects and companies and see where you could fit in.",
+    },
+    news: {
+      label: `News`,
+      url: InternalUrls.communityNews,
+      icon: Icons.news,
+      text: "Catch up on the latest news from the OCaml sphere!",
+    },
+    aroundTheWeb: {
+      label: `Around the Web`,
+      url: InternalUrls.communityAroundweb,
+      icon: Icons.web,
+      text: "A bit of everything, this page encapsulates OCaml's presence online, blogposts, videos, and mailing lists all live here.",
+    },
+    archive: {
+      label: `Archive`,
+      url: InternalUrls.resourcesArchive,
+      icon: Icons.archive,
+      text: "Can't find what you're looking for? Try searching the Archive.",
+    },
   },
 }
 
@@ -54,16 +118,17 @@ let headerContentEn: HeaderNavigation.content = {
     entries: [
       navContentEn.industrySection.whatIsOcaml,
       navContentEn.industrySection.industrialUsers,
+      navContentEn.industrySection.academicExcellence,
       navContentEn.industrySection.successStories,
     ],
   },
   resourcesSection: {
     header: navContentEn.resourcesSection.header,
     entries: [
-      navContentEn.resourcesSection.releases,
-      navContentEn.resourcesSection.applications,
       navContentEn.resourcesSection.language,
-      navContentEn.resourcesSection.archive,
+      navContentEn.resourcesSection.packages,
+      navContentEn.resourcesSection.applications,
+      navContentEn.resourcesSection.bestPractices,
     ],
   },
   communitySection: {
@@ -72,6 +137,7 @@ let headerContentEn: HeaderNavigation.content = {
       navContentEn.communitySection.opportunities,
       navContentEn.communitySection.news,
       navContentEn.communitySection.aroundTheWeb,
+      navContentEn.communitySection.archive,
     ],
   },
   search: `Search`,
@@ -95,10 +161,10 @@ let footerContentEn: Footer.t = {
     resourcesSection: {
       header: navContentEn.resourcesSection.header,
       entries: [
-        navContentEn.resourcesSection.releases,
-        navContentEn.resourcesSection.applications,
         navContentEn.resourcesSection.language,
-        navContentEn.resourcesSection.archive,
+        navContentEn.resourcesSection.packages,
+        navContentEn.resourcesSection.applications,
+        navContentEn.resourcesSection.bestPractices,
       ],
     },
     communitySection: {
@@ -107,14 +173,20 @@ let footerContentEn: Footer.t = {
         navContentEn.communitySection.opportunities,
         navContentEn.communitySection.news,
         navContentEn.communitySection.aroundTheWeb,
+        navContentEn.communitySection.archive,
       ],
     },
     legalSection: {
       header: `Legal`,
       entries: [
-        {label: `Privacy`, url: InternalUrls.legalPrivacy},
-        {label: `Terms`, url: InternalUrls.legalTerms},
-        {label: `Carbon Footprint`, url: InternalUrls.legalCarbonfootprint},
+        {label: `Privacy`, url: InternalUrls.legalPrivacy, icon: Icons.industry, text: ""},
+        {label: `Terms`, url: InternalUrls.legalTerms, icon: Icons.industry, text: ""},
+        {
+          label: `Carbon Footprint`,
+          url: InternalUrls.legalCarbonfootprint,
+          icon: Icons.industry,
+          text: "",
+        },
       ],
     },
   },
@@ -123,6 +195,8 @@ let footerContentEn: Footer.t = {
     hostingProviders: {
       label: `Hosting Providers`,
       url: `${InternalUrls.legalCarbonfootprint}#hostingproviders`,
+      icon: Icons.industry,
+      text: "",
     },
   },
 }
