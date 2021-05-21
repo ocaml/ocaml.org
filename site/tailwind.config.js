@@ -38,6 +38,9 @@ module.exports = {
       backgroundImage: (theme) => ({
         'news-bg': "url('/static/news-bg.jpeg')",
       }),
+      fontFamily: {
+        'roboto': ['"Roboto Slab"', 'serif']
+      }
     },
     /* We override the default font-families with our own default prefs
     fontFamily: {

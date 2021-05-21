@@ -43,7 +43,7 @@ let make = (~content) => {
 
   let showMobileMenu = _evt => {setMobileDropdownVisible(_ => true)}
 
-  <div className="relative font-serif">
+  <div className="relative font-roboto">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 ">
       <div className="flex justify-between items-center md:justify-start py-6 md:space-x-10 ">
         <div className="flex justify-start ">
@@ -56,7 +56,7 @@ let make = (~content) => {
             <button
               onClick={toggleMenu(Industry)}
               type_="button"
-              className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedark"
+              className="text-gray-500  pl-2 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedark"
               ariaExpanded=false>
               <span> {s(content.industrySection.header)} </span>
               <svg
@@ -73,30 +73,30 @@ let make = (~content) => {
               </svg>
             </button>
             <div
-              className={"absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-md sm:px-0 " ++
+              className={"absolute z-10 left-1/2 transform -translate-x-1/4 mt-3 px-2 w-screen max-w-sm sm:px-0 " ++
               switch activeMenu {
               | Some(Industry) => " opacity-100 translate-y-0 "
               | _ => " hidden "
               }}>
               <div
                 className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
-                <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
+                <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-6 sm:p-8">
                   {content.industrySection.entries
                   |> Js.Array.mapi((e: NavEntry.t, idx) =>
                     <Link href=e.url key={Js.Int.toString(idx)}>
                       <a
                         onClick=hideMenu
                         className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                        <div
+                          className="h-7 w-7 float-left fill-current stroke-current text-orangedark">
+                          {e.icon}
+                        </div>
                         <dt>
-                          <div
-                            className="absolute flex items-center justify-center h-8 w-8 fill-current stroke-current text-orangedark">
-                            {e.icon}
-                          </div>
-                          <p className="ml-12 text-lg leading-6 font-semibold text-gray-900">
+                          <p className="ml-10 text-sm font-semibold text-gray-900">
                             {s(e.label)}
                           </p>
                         </dt>
-                        <dd className="mt-2 ml-12 text-base text-gray-500"> {s(e.text)} </dd>
+                        <dd className="ml-10 text-sm text-gray-500"> {s(e.text)} </dd>
                       </a>
                     </Link>
                   )
@@ -109,7 +109,7 @@ let make = (~content) => {
             <button
               onClick={toggleMenu(Resources)}
               type_="button"
-              className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedark"
+              className="text-gray-500 pl-2 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedark"
               ariaExpanded=false>
               <span> {s(content.resourcesSection.header)} </span>
               <svg
@@ -126,30 +126,30 @@ let make = (~content) => {
               </svg>
             </button>
             <div
-              className={"absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-md sm:px-0 " ++
+              className={"absolute z-10 left-1/2 transform -translate-x-1/3 mt-3 px-2 w-screen max-w-sm sm:px-0 " ++
               switch activeMenu {
               | Some(Resources) => " opacity-100 translate-y-0 "
               | _ => " hidden "
               }}>
               <div
                 className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
-                <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
+                <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-6 sm:p-8">
                   {content.resourcesSection.entries
                   |> Js.Array.mapi((e: NavEntry.t, idx) =>
                     <Link href=e.url key={Js.Int.toString(idx)}>
                       <a
                         onClick=hideMenu
                         className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                        <div
+                          className="h-7 w-7 float-left fill-current stroke-current text-orangedark">
+                          {e.icon}
+                        </div>
                         <dt>
-                          <div
-                            className="absolute flex items-center justify-center h-8 w-8 fill-current stroke-current text-orangedark">
-                            {e.icon}
-                          </div>
-                          <p className="ml-12 text-lg leading-6 font-semibold text-gray-900">
+                          <p className="ml-10 text-sm font-semibold text-gray-900">
                             {s(e.label)}
                           </p>
                         </dt>
-                        <dd className="mt-2 ml-12 text-base text-gray-500"> {s(e.text)} </dd>
+                        <dd className="ml-10 text-sm text-gray-500"> {s(e.text)} </dd>
                       </a>
                     </Link>
                   )
@@ -162,7 +162,7 @@ let make = (~content) => {
             <button
               onClick={toggleMenu(Community)}
               type_="button"
-              className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedark"
+              className="text-gray-500  pl-2 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedark"
               ariaExpanded=false>
               <span> {s(content.communitySection.header)} </span>
               <svg
@@ -179,30 +179,30 @@ let make = (~content) => {
               </svg>
             </button>
             <div
-              className={"absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-md sm:px-0 " ++
+              className={"absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-sm sm:px-0 " ++
               switch activeMenu {
               | Some(Community) => " opacity-100 translate-y-0 "
               | _ => " hidden "
               }}>
               <div
                 className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
-                <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
+                <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-6 sm:p-8">
                   {content.communitySection.entries
                   |> Js.Array.mapi((e: NavEntry.t, idx) =>
                     <Link href=e.url key={Js.Int.toString(idx)}>
                       <a
                         onClick=hideMenu
                         className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                        <div
+                          className="h-7 w-7 float-left fill-current stroke-current text-orangedark">
+                          {e.icon}
+                        </div>
                         <dt>
-                          <div
-                            className="absolute flex items-center justify-center h-8 w-8 fill-current stroke-current text-orangedark">
-                            {e.icon}
-                          </div>
-                          <p className="ml-12 text-lg leading-6 font-semibold text-gray-900">
+                          <p className="ml-10 text-sm font-semibold text-gray-900">
                             {s(e.label)}
                           </p>
                         </dt>
-                        <dd className="mt-2 ml-12 text-base text-gray-500"> {s(e.text)} </dd>
+                        <dd className="ml-10 text-sm text-gray-500"> {s(e.text)} </dd>
                       </a>
                     </Link>
                   )
