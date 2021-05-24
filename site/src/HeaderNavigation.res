@@ -9,7 +9,7 @@ type section = {
 }
 
 type content = {
-  industrySection: section,
+  principlesSection: section,
   resourcesSection: section,
   communitySection: section,
   search: string,
@@ -17,7 +17,7 @@ type content = {
 }
 
 type activatedEntry =
-  | Industry
+  | Principles
   | Resources
   | Community
 
@@ -54,11 +54,11 @@ let make = (~content) => {
         <nav className="hidden md:flex space-x-10 ">
           <div className="relative">
             <button
-              onClick={toggleMenu(Industry)}
+              onClick={toggleMenu(Principles)}
               type_="button"
               className="text-gray-500  pl-2 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedark"
               ariaExpanded=false>
-              <span> {s(content.industrySection.header)} </span>
+              <span> {s(content.principlesSection.header)} </span>
               <svg
                 className="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500"
                 xmlns="http://www.w3.org/2000/svg"
@@ -75,13 +75,13 @@ let make = (~content) => {
             <div
               className={"absolute z-10 left-1/2 transform -translate-x-1/4 mt-3 px-2 w-screen max-w-sm sm:px-0 " ++
               switch activeMenu {
-              | Some(Industry) => " opacity-100 translate-y-0 "
+              | Some(Principles) => " opacity-100 translate-y-0 "
               | _ => " hidden "
               }}>
               <div
                 className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                 <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-6 sm:p-8">
-                  {content.industrySection.entries
+                  {content.principlesSection.entries
                   |> Js.Array.mapi((e: NavEntry.t, idx) =>
                     <Link href=e.url key={Js.Int.toString(idx)}>
                       <a
@@ -324,12 +324,12 @@ let make = (~content) => {
                         section.entries,
                       ),
                       [
-                        <h3 className="ml-6 mt-2 px-3 font-semibold text-gray-400 uppercase">
+                        <h3 key="0" className="ml-6 mt-2 px-3 font-semibold text-gray-400 uppercase">
                           {s(section.header)}
                         </h3>,
                       ],
                     ),
-                  [content.industrySection, content.resourcesSection, content.communitySection],
+                  [content.principlesSection, content.resourcesSection, content.communitySection],
                 ),
                 [],
               ) |> React.array}

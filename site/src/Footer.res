@@ -105,7 +105,7 @@ module MainLinksSection = {
   }
 
   type t = {
-    industrySection: Section.t,
+    principlesSection: Section.t,
     resourcesSection: Section.t,
     communitySection: Section.t,
     legalSection: Section.t,
@@ -116,7 +116,7 @@ module MainLinksSection = {
     <div className={"grid grid-cols-2 gap-8 " ++ margins ++ ` ` ++ colspan}>
       <div className="md:grid md:grid-cols-2 md:gap-8">
         {
-          let section = content.industrySection
+          let section = content.principlesSection
           <SectionLinks name=section.header keyPages=section.entries margins=`` />
         }
         {

@@ -1,4 +1,4 @@
-type industrySection = {
+type principlesSection = {
   header: string,
   whatIsOcaml: NavEntry.t,
   industrialUsers: NavEntry.t,
@@ -23,37 +23,37 @@ type communitySection = {
 }
 
 type navContent = {
-  industrySection: industrySection,
+  principlesSection: principlesSection,
   resourcesSection: resourcesSection,
   communitySection: communitySection,
 }
 
 let navContentEn = {
-  industrySection: {
-    header: `Industry`,
+  principlesSection: {
+    header: `Principles`,
     whatIsOcaml: {
       label: `Why OCaml`,
-      url: InternalUrls.industryWhatisocaml,
+      url: InternalUrls.principlesWhatisocaml,
       icon: Icons.camel,
-      text: "Find out about OCaml and how it became what it is today.",
+      text: "Find out about OCaml's history and how it became what it is today.",
     },
     industrialUsers: {
       label: `Industrial Users`,
-      url: InternalUrls.industryUsers,
+      url: InternalUrls.principlesIndustrialUsers,
       icon: Icons.industry,
-      text: "Discover the organisations and companies that use OCaml to accomplish their goals.",
+      text: "Discover the organisations that use OCaml to accomplish their goals.",
     },
     academicExcellence: {
       label: `Academic Excellence`,
-      url: InternalUrls.industrySuccessstories /* TODO - point to correct page once it's created */,
+      url: InternalUrls.principlesSuccesses /* TODO - point to correct page once it's created */,
       icon: Icons.academic,
-      text: "Learn about the universities and academics that use OCaml.",
+      text: "Learn about the academics that research programming language technology.",
     },
     successStories: {
       label: `Success Stories`,
-      url: InternalUrls.industrySuccessstories,
+      url: InternalUrls.principlesSuccesses,
       icon: Icons.success,
-      text: "Read about the great things that have been achieved using OCaml.",
+      text: "Read about the things that have been achieved using OCaml.",
     },
   },
   resourcesSection: {
@@ -62,25 +62,25 @@ let navContentEn = {
       label: `Language`,
       url: InternalUrls.resourcesLanguage,
       icon: Icons.language,
-      text: "Discover the OCaml tutorial, books and papers on OCaml, as well as the OCaml Manual.",
+      text: "Read through the OCaml tutorial, official manual and books.",
     },
     packages: {
       label: `Packages`,
       url: "http://ci5.ocamllabs.io:8082/" /* TODO - point to correct page once it's created */,
       icon: Icons.packages,
-      text: "Browse the many packages available in OCaml.",
+      text: "Browse the third-party packages published in the OCaml ecosystem.",
     },
     applications: {
       label: `Applications`,
       url: InternalUrls.resourcesApplications,
       icon: Icons.applications,
-      text: "Using or building tools and applicatins in OCaml? This page is full of useful information.",
+      text: "Learn techniques for building tools and applications in OCaml.",
     },
     bestPractices: {
       label: `Best Practices`,
       url: InternalUrls.resourcesBestpractices,
       icon: Icons.bestPractices,
-      text: "Some of the best known methods in OCaml are shared here, as well as the Platform Tools.",
+      text: "Adopt the best known methods for development from the OCaml community.",
     },
   },
   communitySection: {
@@ -113,13 +113,13 @@ let navContentEn = {
 }
 
 let headerContentEn: HeaderNavigation.content = {
-  industrySection: {
-    header: navContentEn.industrySection.header,
+  principlesSection: {
+    header: navContentEn.principlesSection.header,
     entries: [
-      navContentEn.industrySection.whatIsOcaml,
-      navContentEn.industrySection.industrialUsers,
-      navContentEn.industrySection.academicExcellence,
-      navContentEn.industrySection.successStories,
+      navContentEn.principlesSection.whatIsOcaml,
+      navContentEn.principlesSection.industrialUsers,
+      navContentEn.principlesSection.academicExcellence,
+      navContentEn.principlesSection.successStories,
     ],
   },
   resourcesSection: {
@@ -150,12 +150,12 @@ let footerContentEn: Footer.t = {
     ocamlSummary: `Innovation. Community. Security.`,
   },
   mainLinksContent: {
-    industrySection: {
-      header: navContentEn.industrySection.header,
+    principlesSection: {
+      header: navContentEn.principlesSection.header,
       entries: [
-        navContentEn.industrySection.whatIsOcaml,
-        navContentEn.industrySection.industrialUsers,
-        navContentEn.industrySection.successStories,
+        navContentEn.principlesSection.whatIsOcaml,
+        navContentEn.principlesSection.industrialUsers,
+        navContentEn.principlesSection.successStories,
       ],
     },
     resourcesSection: {

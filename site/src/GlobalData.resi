@@ -1,4 +1,4 @@
-type industrySection = {
+type principlesSection = {
   header: string,
   whatIsOcaml: NavEntry.t,
   industrialUsers: NavEntry.t,
@@ -23,7 +23,7 @@ type communitySection = {
 }
 
 type navContent = {
-  industrySection: industrySection,
+  principlesSection: principlesSection,
   resourcesSection: resourcesSection,
   communitySection: communitySection,
 }

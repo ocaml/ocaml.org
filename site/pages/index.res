@@ -62,7 +62,7 @@ module HeroSection = {
             />
             <Button
               colors=`text-orangedark bg-white hover:bg-gray-50`
-              href=InternalUrls.industryWhatisocaml
+              href=InternalUrls.principlesWhatisocaml
               text=content.aboutOcaml
               margins=`mt-3 sm:mt-0 sm:ml-3`
             />

@@ -11,7 +11,7 @@ module MainLinksSection: {
   }
 
   type t = {
-    industrySection: Section.t,
+    principlesSection: Section.t,
     resourcesSection: Section.t,
     communitySection: Section.t,
     legalSection: Section.t,

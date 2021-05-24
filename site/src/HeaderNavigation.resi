@@ -4,7 +4,7 @@ type section = {
 }
 
 type content = {
-  industrySection: section,
+  principlesSection: section,
   resourcesSection: section,
   communitySection: section,
   search: string,
