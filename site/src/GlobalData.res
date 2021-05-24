@@ -140,7 +140,7 @@ let headerContentEn: HeaderNavigation.content = {
       navContentEn.communitySection.archive,
     ],
   },
-  search: `Search`,
+  search: `Search ocaml.org`,
   openMenu: `Open menu`,
 }
 
