@@ -324,7 +324,7 @@ let make = (~content) => {
                         section.entries,
                       ),
                       [
-                        <h3 key="0" className="ml-6 mt-2 px-3 font-semibold text-gray-400 uppercase">
+                        <h3 className="ml-6 mt-2 px-3 font-semibold text-gray-400 uppercase">
                           {s(section.header)}
                         </h3>,
                       ],
