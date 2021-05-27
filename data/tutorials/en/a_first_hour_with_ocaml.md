@@ -5,8 +5,10 @@ description: >
   from absolute beginner to someone who is able to write programs in OCaml.
 users:
   - beginner
-date: 2021-04-28T21:50:24.228Z
+tags: [ "getting-started" ]
+date: 2021-05-27T21:07:30-00:00
 ---
+
 You may follow along with this tutorial with just a basic OCaml installation,
 as described in [Up and Running](up_and_running.html).
 
