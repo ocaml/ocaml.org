@@ -5,17 +5,12 @@ let lint ~path parse =
   Bos.OS.File.read path >>= fun s ->
   parse s >>= fun _ -> Ok ()
 
-let en_filter s =
-  match Fpath.split_ext s with
-  | p, ".md" -> ( match Fpath.split_ext p with _, ".en" -> true | _ -> false )
-  | _ -> false
-
 (* For now only lint `en` ones *)
-let lint_folder ?(filter = en_filter) ~path parse =
+let lint_folder ?(filter = fun p -> Fpath.get_ext p = ".md") ~path parse =
   Bos.OS.Dir.contents path >>= fun fpaths ->
-  let lints =
-    List.map (fun path -> lint ~path parse) (List.filter filter fpaths)
-  in
+  let paths = List.filter filter fpaths in
+  assert (List.length paths <> 0);
+  let lints = List.map (fun path -> lint ~path parse) paths in
   if List.for_all Rresult.R.is_ok lints then Ok ()
   else List.find Rresult.R.is_error lints
 

@@ -51,7 +51,7 @@ collections:
             Link", name: "embed", widget: "string", required: false}]}
 - name: "tutorials"
   label: "OCaml Tutorials"
-  folder: "data/tutorials"
+  folder: "data/tutorials/en"
   i18n: true
   create: true
   format: "yaml-frontmatter"

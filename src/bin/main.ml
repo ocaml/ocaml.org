@@ -1,9 +1,9 @@
 open Cmdliner
 open Lib_ood
 
-let cmds = [ Lint.cmd; Config.cmd; Server.cmd ]
+let cmds = [ Lint.cmd; Config.cmd; Server.cmd; Lib_ood.Time.cmd ]
 
-let doc = "Explore OCaml CLI tool"
+let doc = "OCaml.org Data CLI Tool"
 
 let main = (Term.ret @@ Term.pure (`Help (`Pager, None)), Term.info "ood" ~doc)
 

@@ -165,7 +165,7 @@ module Tutorial = struct
   type t = [%import: (Ood.Tutorial.t[@with Ood.Meta.Proficiency.t := user])]
   [@@deriving yaml]
 
-  let path = "data/tutorials"
+  let path = "data/tutorials/en"
 
   let widget_of_t =
     Widget.
