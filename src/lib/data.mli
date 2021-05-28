@@ -41,3 +41,9 @@ module Tutorial : sig
 
   include S.FolderData with type t := t
 end
+
+module Success_story : sig
+  type t = [%import: Ood.Success_story.t] [@@deriving yaml]
+
+  include S.FolderData with type t := t
+end
