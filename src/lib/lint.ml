@@ -26,10 +26,6 @@ let lint_tutorials () =
   Alcotest.check lint_check "lint tutorials" (Ok ())
     (lint_folder ~path:(Fpath.v Tutorial.path) Tutorial.lint)
 
-let lint_success_stories () =
-  Alcotest.check lint_check "lint success stories" (Ok ())
-    (lint_folder ~path:(Fpath.v Success_story.path) Success_story.lint)
-
 let run () =
   let open Alcotest in
   try
@@ -44,11 +40,7 @@ let run () =
             test_case Videos.path `Quick
               (linter "lint videos" Videos.path Videos.lint);
           ] );
-        ( "folders",
-          [
-            test_case Tutorial.path `Quick lint_tutorials;
-            test_case Success_story.path `Quick lint_success_stories;
-          ] );
+        ("folders", [ test_case Tutorial.path `Quick lint_tutorials ]);
       ];
     0
   with Test_error -> 1
