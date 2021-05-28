@@ -24,7 +24,6 @@ start: all ## Start the project
 .PHONY: install
 install: all ## Install the packages on the system
 	opam exec -- dune install --root .
-	bash -c "cp $$(opam exec -- which spin) /usr/local/bin/spin"
 
 .PHONY: test
 test: ## Run the unit tests
