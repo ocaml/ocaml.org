@@ -213,6 +213,9 @@ module Success_story = struct
         `Image
           (Image.make ~label:"Image" ~name:"image" ~required:false
              ~i18n:(`Boolean false) ());
+        `String
+          (String.make ~label:"URL" ~name:"url" ~required:false
+             ~i18n:(`Boolean false) ());
         `Markdown
           Markdown.(make ~label:"Body" ~name:"body" ~i18n:(`Boolean true) ());
       ]
