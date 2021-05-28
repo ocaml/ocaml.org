@@ -47,3 +47,9 @@ module Success_story : sig
 
   include S.FolderData with type t := t
 end
+
+module Book : sig
+  type t = [%import: Ood.Book.t] [@@deriving yaml]
+
+  include S.FolderData with type t := t
+end
