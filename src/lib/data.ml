@@ -199,3 +199,32 @@ module Tutorial = struct
       ~i18n:(`Boolean true) ~format:Yaml_frontmatter ~label:"OCaml Tutorials"
       ~folder:path ~fields ()
 end
+
+module Success_story = struct
+  type t = [%import: Ood.Success_story.t] [@@deriving yaml]
+
+  let path = "data/success_stories/en"
+
+  let widget_of_t =
+    Widget.
+      [
+        `String
+          (String.make ~label:"Title" ~name:"title" ~i18n:(`Boolean true) ());
+        `Image
+          (Image.make ~label:"Image" ~name:"image" ~required:false
+             ~i18n:(`Boolean false) ());
+        `String
+          (String.make ~label:"URL" ~name:"url" ~required:false
+             ~i18n:(`Boolean false) ());
+        `Markdown
+          Markdown.(make ~label:"Body" ~name:"body" ~i18n:(`Boolean true) ());
+      ]
+
+  let lint t = parse_jekyll of_yaml t
+
+  let folder =
+    let fields = widget_of_t in
+    Netlify.Collection.Folder.make ~name:"success_stories" ~create:true
+      ~i18n:(`Boolean true) ~format:Yaml_frontmatter ~label:"Success Stories"
+      ~folder:path ~fields ()
+end
