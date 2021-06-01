@@ -10,9 +10,18 @@ let lint_folder ?(filter = fun p -> Fpath.get_ext p = ".md") ~path parse =
   Bos.OS.Dir.contents path >>= fun fpaths ->
   let paths = List.filter filter fpaths in
   assert (List.length paths <> 0);
-  let lints = List.map (fun path -> lint ~path parse) paths in
-  if List.for_all Rresult.R.is_ok lints then Ok ()
-  else List.find Rresult.R.is_error lints
+  let lints = List.map (fun path -> (path, lint ~path parse)) paths in
+  if List.for_all (fun (_, l) -> Rresult.R.is_ok l) lints then Ok ()
+  else
+    let path, `Msg m =
+      List.find
+        (fun (p, l) ->
+          print_endline (Fpath.to_string p);
+          Rresult.R.is_error l)
+        lints
+      |> fun (p, err) -> (p, Rresult.R.get_error err)
+    in
+    Error (`Msg (Fpath.to_string path ^ " - " ^ m))
 
 let lint_check =
   Alcotest.of_pp (fun ppf -> function
@@ -29,6 +38,10 @@ let lint_tutorials () =
 let lint_success_stories () =
   Alcotest.check lint_check "lint success stories" (Ok ())
     (lint_folder ~path:(Fpath.v Success_story.path) Success_story.lint)
+
+let lint_books () =
+  Alcotest.check lint_check "lint books" (Ok ())
+    (lint_folder ~path:(Fpath.v Book.path) Book.lint)
 
 let run () =
   let open Alcotest in
@@ -48,6 +61,7 @@ let run () =
           [
             test_case Tutorial.path `Quick lint_tutorials;
             test_case Success_story.path `Quick lint_success_stories;
+            test_case Book.path `Quick lint_books;
           ] );
       ];
     0

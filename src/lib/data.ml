@@ -228,3 +228,36 @@ module Success_story = struct
       ~i18n:(`Boolean true) ~format:Yaml_frontmatter ~label:"Success Stories"
       ~folder:path ~fields ()
 end
+
+module Book = struct
+  type t = [%import: Ood.Book.t] [@@deriving yaml]
+
+  let path = "data/books"
+
+  let widget_of_t =
+    Widget.
+      [
+        `String
+          (String.make ~required:true ~label:"Tutorial Title" ~name:"title" ());
+        `Text
+          (Text.make ~required:true ~label:"Description" ~name:"description" ());
+        `List (Lst.make ~required:true ~label:"Authors" ~name:"authors" ());
+        `String
+          (String.make ~required:true ~label:"Language" ~name:"language" ());
+        `DateTime
+          DateTime.(
+            make ~required:true ~label:"Published" ~name:"published"
+              ~picker_utc:true ());
+        `String
+          (String.make ~required:false ~label:"Cover image" ~name:"cover" ());
+        `String (String.make ~required:false ~label:"ISBN" ~name:"isbn" ());
+        `Markdown Markdown.(make ~label:"Body" ~name:"body" ());
+      ]
+
+  let lint t = parse_jekyll of_yaml t
+
+  let folder =
+    let fields = widget_of_t in
+    Netlify.Collection.Folder.make ~name:"books" ~create:true
+      ~format:Yaml_frontmatter ~label:"OCaml Books" ~folder:path ~fields ()
+end
