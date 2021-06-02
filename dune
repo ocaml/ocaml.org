@@ -1,12 +1,16 @@
 (rule
- (with-stdout-to
-  config.output
-  (run ./src/bin/main.exe config)))
+ (deps ./src/bin/main.exe)
+ (targets config.output)
+ (action
+  (with-stdout-to
+   %{targets}
+   (run ./src/bin/main.exe config))))
 
 (rule
  (alias runtest)
  (deps
   ./src/bin/main.exe
+  config.output
   (source_tree data))
  (action
   (progn
