@@ -1,18 +1,8 @@
 (rule
- (deps ./src/bin/main.exe)
- (targets config.output)
+ (targets config.yml)
+ (package ood-cli)
+ (mode promote)
  (action
   (with-stdout-to
    %{targets}
-   (run ./src/bin/main.exe config))))
-
-(rule
- (alias runtest)
- (deps
-  ./src/bin/main.exe
-  config.output
-  (source_tree data))
- (action
-  (progn
-   (run ./src/bin/main.exe lint)
-   (diff config.yml config.output))))
+   (run %{bin:ood-cli} config))))

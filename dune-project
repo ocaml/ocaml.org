@@ -13,6 +13,8 @@
 
 (maintainers "pf341@patricoferris.com")
 
+(using mdx 0.1)
+
 (package
  (name ood)
  (synopsis "OCaml.Org Data")
@@ -22,10 +24,10 @@
   (mdx :with-test)))
 
 (package
- (name lib-ood)
- (synopsis "OCaml.Org Data CLI tool libraries")
+ (name ood-cli)
+ (synopsis "OCaml.Org Data CLI tool")
  (description
-  "Lib-ood is used by the ood-cli tool, but if you don't mind taking on the dependencies it may also be useful for you as it exposes the \n   same data as the base ood package but with extra utilities like yaml parsing.")
+  "The ood binary performs data linting, Netlify CMS configuration generation from types etc.")
  (depends
   (ppx_enumerate
    (>= v0.14.0))
@@ -41,13 +43,6 @@
   alcotest))
 
 (package
- (name ood-cli)
- (synopsis "OCaml.Org Data CLI tool")
- (description
-  "The ood binary performs data linting, Netlify CMS configuration generation from types etc.")
- (depends lib-ood))
-
-(package
  (name netlify-cms)
  (synopsis "OCaml encoding of Netlify CMS Configuration Files")
  (description
@@ -61,5 +56,3 @@
   ppx_deriving
   fmt
   yaml))
-
-(using mdx 0.1)

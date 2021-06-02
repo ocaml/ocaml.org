@@ -1,7 +1,6 @@
 open Cmdliner
-open Lib_ood
 
-let cmds = [ Lint.cmd; Config.cmd; Server.cmd; Lib_ood.Time.cmd ]
+let cmds = [ Lint.cmd; Config.cmd; Server.cmd; Time.cmd ]
 
 let doc = "OCaml.org Data CLI Tool"
 

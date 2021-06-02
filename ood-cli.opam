@@ -10,7 +10,16 @@ homepage: "https://github.com/patricoferris/ood"
 bug-reports: "https://github.com/patricoferris/ood/issues"
 depends: [
   "dune" {>= "2.8"}
-  "lib-ood"
+  "ppx_enumerate" {>= "v0.14.0"}
+  "jekyll-format" {>= "0.2.0"}
+  "yaml"
+  "ppx_import"
+  "ppx_deriving_yaml"
+  "netlify-cms"
+  "fmt"
+  "cmdliner"
+  "bos"
+  "alcotest"
   "odoc" {with-doc}
 ]
 build: [

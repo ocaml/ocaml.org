@@ -38,7 +38,7 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' }}
 
       - name: Install opam packages
-        run: opam install . --with-test
+        run: opam install . --deps-only --with-test
 
       - name: Check formatting
         run: make fmt
