@@ -1,5 +1,0 @@
-(executable
- (name main)
- (public_name ood-cli)
- (package ood-cli)
- (libraries lib-ood))

@@ -1,0 +1,27 @@
+(executable
+ (name main)
+ (public_name ood-cli)
+ (package ood-cli)
+ (libraries
+  cmdliner
+  bos
+  alcotest
+  fmt
+  fmt.tty
+  yaml
+  jekyll-format
+  netlify-cms
+  ood)
+ (preprocess
+  (staged_pps ppx_import ppx_enumerate ppx_deriving_yaml)))
+
+(rule
+ (alias runtest)
+ (package ood-cli)
+ (deps
+  main.exe
+  (source_tree ../../data))
+ (action
+  (chdir
+   %{workspace_root}
+   (run %{bin:ood-cli} lint))))

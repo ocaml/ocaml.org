@@ -1,23 +1,52 @@
-name: Tests for ood, ood-cli and netlify-cms
-on: [push, pull_request]
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
 jobs:
-  test:
+  build-and-test:
     strategy:
+      fail-fast: false
+
       matrix:
-        operating-system: [ ubuntu-latest ]
-        ocaml-version: [ 4.10.2 ]
-    runs-on: ${{ matrix.operating-system }}
+        os:
+          - macos-latest
+          - ubuntu-latest
+          # - windows-latest
+
+        ocaml-compiler:
+          - 4.10.2
+
+    runs-on: ${{ matrix.os }}
+
     steps:
-    - uses: actions/checkout@v2
-    - uses: avsm/setup-ocaml@v1
-      with:
-        ocaml-version: ${{ matrix.ocaml-version }}
-    - name: Pinning Package
-      run: opam pin add -yn ood.dev './' && opam pin add -yn lib-ood.dev './' &&
-        opam pin add -yn netlify-cms.dev './' && opam pin add -yn ood-cli.dev './'
-    - name: Packages
-      run: opam depext -yt ood.dev lib-ood.dev ood-cli.dev netlify-cms.dev
-    - name: Dependencies
-      run: opam install -t -y . --deps-only
-    - name: Building, Installing and Testing (include Netlify CMS and Linting)
-      run: opam exec -- dune build @install @runtest
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use OCaml ${{ matrix.ocaml-compiler }}
+        uses: ocaml/setup-ocaml@v2
+        with:
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+          dune-cache: ${{ matrix.os != 'macos-latest' }}
+
+      - name: Install ocamlformat
+        run: opam install ocamlformat.0.15.0
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+
+      - name: Install opam packages
+        run: opam install . --deps-only --with-test
+
+      - name: Check formatting
+        run: make fmt
+        if: ${{ matrix.os == 'ubuntu-latest' && always() }}
+
+      - name: Run build
+        run: make build
+
+      - name: Run the unit tests
+        run: make test
+        timeout-minutes: 1
