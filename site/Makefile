@@ -2,8 +2,7 @@ SHELL=/bin/bash
 ifeq ($(VERCEL), 1)
   # The yarn version is picked from .engines in package.json
   YARN=yarn
-  # Put .esy in node_modules for caching in Vercel
-  ESY=export ESY__PREFIX=$$PWD/node_modules/.esy && npx esy
+  ESY=npx esy
   BSB=npx bsb
 else
   NVM=source $$NVM_DIR/nvm.sh && nvm
@@ -21,6 +20,8 @@ install-deps:
 ifeq ($(VERCEL), 1)
 	npm config set user root
 	yum install perl-Digest-SHA
+	# Vercel doesn't correctly handle caching of esy
+	rm -rf _esy node_modules/esy node_modules/.bin/esy ~/.esy
 else
 	$(NVM) install
 endif
