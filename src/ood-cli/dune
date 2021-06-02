@@ -18,7 +18,10 @@
 (rule
  (alias runtest)
  (package ood-cli)
+ (deps
+  main.exe
+  (source_tree ../../data))
  (action
   (chdir
    %{workspace_root}
-   (run %{exe:main.exe} lint))))
+   (run %{bin:ood-cli} lint))))
