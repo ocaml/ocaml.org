@@ -94,3 +94,9 @@ module Dynamic: {
 
   let \"import": string => Js.Promise.t<'a>
 }
+
+// Unforunately, NextJS cannot serialise `undefined` which is what `None` is converted too.
+// This really only leaves one solution because our types are defined in ood, we have to do
+// some manual stripping of the undefined types when passing it to getStaticProps. This approach
+// is detailed here https://dev.to/ryyppy/rescript-records-nextjs-undefined-and-getstaticprops-4890
+let stripUndefined: Js.Json.t => Js.Json.t

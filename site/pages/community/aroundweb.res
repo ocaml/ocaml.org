@@ -6,7 +6,7 @@ module LatestNews = {
 
   @react.component
   let make = (~content) =>
-    <SectionContainer.LargeCentered>
+    <SectionContainer.LargeCentered paddingY="py-16">
       <h2
         className="mb-8 text-3xl text-center tracking-tight font-extrabold text-gray-900 sm:text-4xl">
         {s(`What's the Latest?`)}
@@ -77,6 +77,77 @@ type blogEntry = {
   readingTime: string,
 }
 
+module Events = {
+  type t = {
+    title: string,
+    description: string,
+    callToAction: string,
+    latestEvents: array<Event.t>,
+  }
+
+  @react.component
+  let make = (~content) =>
+    <SectionContainer.LargeCentered>
+      <div className="relative bg-white">
+        <div className="pt-12 h-56 sm:h-72 md:absolute md:left-0 md:h-full md:w-1/2">
+          <div className="mx-auto px-4 py-4 sm:px-6 lg:px-8 lg:py-16 h-full">
+            // TODO: Implement the calendar approach
+            <div className="flex flex-col justify-center h-full">
+              {content.latestEvents
+              |> Array.mapi((idx, event: Event.t) =>
+                <div key={event.title}>
+                  <div className="relative pb-8">
+                    {idx !== Array.length(content.latestEvents) - 1
+                      ? <span
+                          className="absolute top-3 left-3 -ml-px h-full w-0.5 bg-gray-200"
+                          ariaHidden=true
+                        />
+                      : <> </>}
+                    <div className="relative flex space-x-3">
+                      <div>
+                        <span
+                          className="h-6 w-6 rounded-full flex items-center justify-center bg-orangedark"
+                        />
+                      </div>
+                      <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                        <div> <p className="text-sm text-gray-500"> {s(event.title)} </p> </div>
+                        <div className="text-right text-sm whitespace-nowrap text-gray-500">
+                          <time dateTime={event.date}>
+                            {s(event.date |> Js.Date.fromString |> Js.Date.toDateString)}
+                          </time>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+              |> React.array}
+            </div>
+          </div>
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+          <div className="md:ml-auto md:w-1/2 md:pl-10">
+            <p
+              className="mt-2 text-orangedark text-center text-3xl font-extrabold tracking-tight sm:text-4xl">
+              {s(content.title)}
+            </p>
+            <p className="mt-3 text-center text-lg text-gray-900"> {s(content.description)} </p>
+            <div className="mt-8 text-center">
+              <div className="inline-flex rounded-md shadow">
+                <Next.Link href=InternalUrls.communityEvents>
+                  <a
+                    className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-orangedark">
+                    {s(content.callToAction)}
+                  </a>
+                </Next.Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </SectionContainer.LargeCentered>
+}
+
 type t = {
   title: string,
   pageDescription: string,
@@ -84,6 +155,7 @@ type t = {
   engageBody: string,
   engageButtonText: string,
   latestNewsContent: LatestNews.t,
+  events: Events.t,
   blogSectionHeader: string,
   blogSectionDescription: string,
   blog: string,
@@ -118,6 +190,7 @@ let make = (~content) => <>
       </div>
     </SectionContainer.NoneFilled>
     <LatestNews content=content.latestNewsContent />
+    <Events content=content.events />
     <SectionContainer.LargeCentered
       paddingY="pt-16 pb-3 lg:pt-24 lg:pb-8" paddingX="px-4 sm:px-6 lg:px-8">
       <div className="text-center">
@@ -325,6 +398,11 @@ let getStaticProps = _ctx => {
 
   let pageContent = "pages/community/aroundweb.yaml"->Fs.readFileSync->JsYaml.load()->decode
 
+  let events = EventsData.readAll().events->Array.of_list
+  let _ = Array.sort((a, b) => Event.compare_by_date(b, a), events)
+  let events = Belt.Array.sliceToEnd(events, -3)
+  let events = Array.map(event => Event.toJson(event)->Next.stripUndefined->Event.fromJson, events)
+
   let contentEn = {
     title: `OCaml Around the Web`,
     pageDescription: `Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!`,
@@ -333,6 +411,12 @@ let getStaticProps = _ctx => {
     engageButtonText: `Take me to Discuss`,
     latestNewsContent: {
       news: news,
+    },
+    events: {
+      Events.title: "Events",
+      description: "Several events take place in the OCaml community over the course of each year, in countries all over the world. This calendar will help you stay up to date on what is coming up in the OCaml sphere. ",
+      callToAction: "Show me Events",
+      latestEvents: events,
     },
     blogSectionHeader: `Recent Blog Posts`,
     blogSectionDescription: `Be inspired by the work of OCaml programmers all over the world and stay up-to-date on the latest developments.`,

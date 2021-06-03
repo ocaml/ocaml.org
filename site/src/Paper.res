@@ -17,3 +17,11 @@ let decode = json => {
     links: json |> field("links", list(string)),
   }
 }
+
+let get_pdf = (paper: t) => {
+  let is_pdf = link => {
+    List.exists(String.equal("pdf"), String.split_on_char('.', link))
+  }
+
+  List.find_opt(is_pdf, paper.links)
+}

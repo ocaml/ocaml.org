@@ -52,7 +52,9 @@ let make = (~content) => <>
               </tr>
             </thead>
             <tbody> {Array.map((paper: Paper.t) =>
-                <tr className="border-double border-t-4 border-gray-200 hover:bg-yellow-50">
+                <tr
+                  key={paper.title}
+                  className="border-double border-t-4 border-gray-200 hover:bg-yellow-50">
                   <td className="py-4 px-3">
                     {
                       let link =

@@ -103,3 +103,8 @@ module Dynamic = {
 
   @val external \"import": string => Js.Promise.t<'a> = "import"
 }
+
+let stripUndefined = (json: Js.Json.t): Js.Json.t => {
+  open Json
+  stringify(json)->parseOrRaise
+}

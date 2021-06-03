@@ -2,6 +2,15 @@ module LatestNews: {
   type t = {news: array<NewsItem.t>}
 }
 
+module Events: {
+  type t = {
+    title: string,
+    description: string,
+    callToAction: string,
+    latestEvents: array<Event.t>,
+  }
+}
+
 type blogEntry = {
   title: string,
   excerpt: string,
@@ -18,6 +27,7 @@ type t = {
   engageBody: string,
   engageButtonText: string,
   latestNewsContent: LatestNews.t,
+  events: Events.t,
   blogSectionHeader: string,
   blogSectionDescription: string,
   blog: string,
