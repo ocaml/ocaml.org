@@ -1,0 +1,68 @@
+[@@@ocaml.warning "-27"]
+
+let render_paper_col (paper : Ood_preview.Paper.t) =
+  let open Ood_preview.Paper in
+  <tr>
+    <td class="px-6 py-4 whitespace-wrap">
+      <div class="text-sm font-medium text-gray-900">
+        <%s paper.title %>
+      </div>
+    </td>
+    <td class="px-6 py-4 whitespace-wrap">
+      <div class="text-sm text-gray-900">???</div>
+    </td>
+    <td class="px-6 py-4 whitespace-wrap">
+      <%i paper.year %>
+    </td>
+    <td class="px-6 py-4 whitespace-wrap text-sm text-gray-500">
+      <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+        ???
+      </span>
+    </td>
+    <td class="px-6 py-4 whitespace-wrap text-left text-sm">
+      <%s paper.abstract %>
+    </td>
+  </tr>
+
+let render papers =
+  <%s! Header_section_template.render ~subtitle:"A selection of OCaml papers through the ages. Filter by the tags or do a search over all of the text." "Papers Archive" %>
+  <div class="relative bg-white py-16 sm:py-24 lg:py-32">
+    <div class="mx-auto max-w-md px-4 text-center sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
+      <div class="flex flex-col">
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th scope="col"
+                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Title
+                    </th>
+                    <th scope="col"
+                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Authors
+                    </th>
+                    <th scope="col"
+                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Year
+                    </th>
+                    <th scope="col"
+                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Tags
+                    </th>
+                    <th scope="col"
+                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Description
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                  <%s! List.map render_paper_col papers |> String.concat "" %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

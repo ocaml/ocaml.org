@@ -6,3 +6,5 @@
   (with-stdout-to
    %{targets}
    (run %{bin:ood-cli} config))))
+
+(data_only_dirs node_modules)

@@ -1,6 +1,24 @@
-_build
-_opam
+# Dune generated files
+_build/
+*.install
+
+# Local OPAM switch
+_opam/
+
+# Merlin configuration files
 .merlin
+
+# Normal npm stuff
+npm-debug.log
+yarn-error.log
+node_modules/
+.cache/
+dist/
+build/
+
+# ReScript
 /lib/bs
 /lib/**/*.js
-.vscode
+
+# IDE related
+.vscode*

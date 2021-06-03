@@ -7,23 +7,34 @@ $(eval $(ARGS):;@:)
 all:
 	opam exec -- dune build --root . @install
 
-.PHONY: dev
-dev: ## Install development dependencies
-	opam switch create . --no-install -y
+.PHONY: deps
+deps: ## Install development dependencies
 	opam install -y dune-release ocamlformat utop ocaml-lsp-server
+	npm install
 	opam install --deps-only --with-test --with-doc -y .
+
+.PHONY: create_switch
+create_switch:
+	opam switch create . 4.10.2 --no-install
+
+.PHONY: switch
+switch: create_switch deps ## Create an opam switch and install development dependencies
+
+.PHONY: lock
+lock: ## Generate a lock file
+	opam lock -y .
 
 .PHONY: build
 build: ## Build the project, including non installable libraries and executables
 	opam exec -- dune build --root .
 
-.PHONY: start
-start: all ## Start the project
-	opam exec -- dune exec --root . src/bin/main.exe $(ARGS)
-
 .PHONY: install
 install: all ## Install the packages on the system
 	opam exec -- dune install --root .
+
+.PHONY: preview
+preview: all ## Run the produced executable
+	cd src/ood-preview/ && opam exec -- script/watch.sh
 
 .PHONY: test
 test: ## Run the unit tests
@@ -43,7 +54,7 @@ servedoc: doc ## Open odoc documentation with default web browser
 
 .PHONY: fmt
 fmt: ## Format the codebase with ocamlformat
-	opam exec -- dune build --root . @fmt --auto-promote
+	opam exec -- dune build --root . --auto-promote @fmt
 
 .PHONY: watch
 watch: ## Watch for the filesystem and rebuild on every change

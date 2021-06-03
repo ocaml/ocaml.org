@@ -1,6 +1,6 @@
 ---
 title: Coq
-image: coq-thumb.jpg
+image: success-stories/coq-thumb.jpg
 url: http://coq.inria.fr/
 ---
 

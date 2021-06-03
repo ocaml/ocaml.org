@@ -15,11 +15,12 @@ depends: [
   "yaml"
   "ppx_import"
   "ppx_deriving_yaml"
-  "netlify-cms"
   "fmt"
   "cmdliner"
   "bos"
   "alcotest"
+  "netlify-cms" {= version}
+  "ood" {= version}
   "odoc" {with-doc}
 ]
 build: [

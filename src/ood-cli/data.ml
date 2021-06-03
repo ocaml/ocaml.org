@@ -232,7 +232,7 @@ end
 module Book = struct
   type t = [%import: Ood.Book.t] [@@deriving yaml]
 
-  let path = "data/books"
+  let path = "data/books/en"
 
   let widget_of_t =
     Widget.

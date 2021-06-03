@@ -36,11 +36,33 @@
   yaml
   ppx_import
   ppx_deriving_yaml
-  netlify-cms
   fmt
   cmdliner
   bos
-  alcotest))
+  alcotest
+  (netlify-cms
+   (= :version))
+  (ood
+   (= :version))))
+
+(package
+ (name ood-preview)
+ (synopsis "Preview ood content")
+ (description "Preview ood content")
+ (depends
+  (ocaml
+   (>= 4.08.0))
+  dune
+  crunch
+  dream
+  dream-cli
+  dream-livereload
+  yaml
+  omd
+  (ood
+   (= :version))
+  (alcotest :with-test)
+  (odoc :with-doc)))
 
 (package
  (name netlify-cms)

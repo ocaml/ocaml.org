@@ -1,0 +1,19 @@
+build: [
+  ["dune" "subst"] {dev}
+  [
+    "dune"
+    "build"
+    "-p"
+    name
+    "-j"
+    jobs
+    "--ignore-promoted-rules"
+    "@install"
+    "@runtest" {with-test}
+    "@doc" {with-doc}
+  ]
+]
+pin-depends: [
+  ["dream-cli.~dev" "git+https://github.com/tmattio/dream-cli.git"]
+  ["dream-livereload.~dev" "git+https://github.com/tmattio/dream-livereload.git"]
+]

@@ -20,7 +20,7 @@
  (package ood-cli)
  (deps
   main.exe
-  (source_tree ../../data))
+  (source_tree %{workspace_root}/data))
  (action
   (chdir
    %{workspace_root}

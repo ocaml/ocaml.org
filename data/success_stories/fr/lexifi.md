@@ -1,6 +1,6 @@
 ---
 title: Le Langage de Modélisation Financière de LexiFi
-image: lexifi-thumb.jpg
+image: success-stories/lexifi-thumb.jpg
 url: http://www.lexifi.com/
 ---
 

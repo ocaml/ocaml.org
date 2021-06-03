@@ -37,7 +37,7 @@ jobs:
         run: opam install ocamlformat.0.15.0
         if: ${{ matrix.os == 'ubuntu-latest' }}
 
-      - name: Install opam packages
+      - name: Install Opam packages
         run: opam install . --deps-only --with-test
 
       - name: Check formatting
@@ -45,8 +45,8 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' && always() }}
 
       - name: Run build
-        run: make build
+        run: opam exec -- dune build --root . --ignore-promoted-rules
 
       - name: Run the unit tests
-        run: make test
+        run: opam exec -- dune runtest --root . --ignore-promoted-rules
         timeout-minutes: 1

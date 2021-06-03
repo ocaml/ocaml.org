@@ -1,6 +1,6 @@
 ---
 title: The ASTRÉE Static Analyzer
-image: astree-thumb.gif
+image: success-stories/astree-thumb.gif
 url: http://www.astree.ens.fr/
 ---
 
