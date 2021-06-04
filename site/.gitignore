@@ -11,6 +11,7 @@ yarn-error.log
 
 # Node
 node_modules/
+/.nvmrc
 
 # Next.js
 .next/

@@ -58,11 +58,28 @@ suggests the following:
 
 ### Prerequisities
 
-The site build process makes use of `nvm`. Please consult the appropriate documentation for [installing `nvm`](https://github.com/nvm-sh/nvm#installing-and-updating) for your operating system. Restart or reload your terminal to pickup the changes.
+The site build process assume you have `npx` available. Run `npx --version` to test your installation. If you don't have `npx`, you will need to install `node`, the package that `npx` is part of. Please consult `node`'s documentation for instructions on installing it.
 
-#### esy
+Our recommendation is to use a node version manager such as [fnm](https://github.com/Schniz/fnm) or [nvm](https://github.com/nvm-sh/nvm). Thus, install one of these tools instead. Then you can run the following in the root of the repo:
 
-The site makes use of `esy`. We currently use version 0.6.8. Please consult the `esy` documentation for installation instructions. We recommend installing `esy` globally to provide a smoother command line experience.
+```bash
+echo 14 > .nvmrc
+fnm install # run this
+nvm install # or this
+```
+
+Now check that `npx --version` works. Note that we have added `.nvmrc` to `.gitignore`, so you can leave that file in your directory.
+
+
+### Quickstart
+
+Once you have the node toolchain installed, the easiest way to get the project installed, built, and get the development servers started is to run:
+
+```bash
+make
+```
+
+Yes, it's that simple. However, if you'd like a little more fine-grained control over installing, building, and running the development servers, please see the sections below.
 
 ### Dependencies
 
@@ -72,14 +89,14 @@ Run the following command to install various dependencies:
 make install-deps
 ```
 
-The command installs the appropriate versions of node and yarn. It also installs
+The command installs all dependencies, including compilers such as ReScript and OCaml, and package managers like esy. It also vendors in the `ood` library, to support its co-development. All depdencies are installed in a project local way, so there will be no affect on your system or other projects.
 
 ### Development
 
 Use the following command to run the ReScript compiler in watch mode as well as the NextJS dev server:
 
 ```
-make watch
+make watch-and-serve
 ```
 
 Go to `http://localhost:3000`
