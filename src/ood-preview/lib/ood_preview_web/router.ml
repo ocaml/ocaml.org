@@ -16,6 +16,7 @@ let routes =
   [ Dream.get "/" Page_handler.index
   ; Dream.get "/papers" Page_handler.papers
   ; Dream.get "/success-stories" Page_handler.success_stories
+  ; Dream.get "/industrial-users" Page_handler.industrial_users
   ; Dream.get "/books" Page_handler.books
   ; Dream.get "/events" Page_handler.events
   ; Dream.get "/videos" Page_handler.videos

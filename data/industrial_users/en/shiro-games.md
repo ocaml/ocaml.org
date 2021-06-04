@@ -3,7 +3,7 @@ name: Shiro Games
 description: > 
   Shiro Games is developing games using Haxe, a language built with a compiler written in OCaml.
 site: "http://www.shirogames.com"
-image: ./users/shirogames.png
+image: users/shirogames.png
 locations: 
   - France
 ---

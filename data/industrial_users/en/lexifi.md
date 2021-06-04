@@ -3,7 +3,7 @@ name: LexiFi
 description: > 
   LexiFi is an innovative provider of software applications and infrastructure technology for the capital markets industry.
 site: "http://www.janestreet.com"
-image: ./img/lexifi.png
+image: users/lexifi.png
 locations: 
   - France
 ---

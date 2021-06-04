@@ -3,7 +3,7 @@ name: Studio Associato 4Sigma
 description: > 
   4Sigma is a small firm making websites and some interesting web applications.
 site: "http://www.4sigma.it"
-image: ./users/4sigma.png
+image: users/4sigma.png
 locations: 
   - Italy
 ---

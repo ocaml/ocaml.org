@@ -3,7 +3,7 @@ name: Arena
 description: > 
   Arena helps organizations hire the right people.
 site: "http://www.arena.io"
-image: ./img/users/arena.jpg
+image: users/arena.jpg
 locations: 
   - United States
 ---

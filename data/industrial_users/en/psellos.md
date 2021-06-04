@@ -3,7 +3,7 @@ name: Psellos
 description: > 
   Psellos is a small group of computer scientists who became intrigued by the idea of coding iOS apps in OCaml.
 site: "http://www.psellos.com"
-image: ./img/users/psellos.png
+image: users/psellos.png
 locations: 
   - United States
 ---

@@ -3,7 +3,7 @@ name: Mr. Number
 description: > 
   Mr. Number started as a Silicon Valley startup and developed the Mr. Number app for call blocking, later acquired by WhitePages.
 site: "http://mrnumber.com/"
-image: ./img/users/mrnumber.jpg
+image: users/mrnumber.jpg
 locations: 
   - United States
 ---

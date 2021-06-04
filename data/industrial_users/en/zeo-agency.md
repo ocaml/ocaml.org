@@ -3,7 +3,6 @@ name: Zeo Agency
 description: > 
   Zeo is a digital marketing company focused on helping companies to do better in SEO.
 site: "http://www.zeo.org"
-image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Zeo_Agency_Logo.svg/1280px-Zeo_Agency_Logo.svg.png"
 locations: 
   - "London, United Kingdom"
 ---

@@ -21,6 +21,11 @@ let t =
           ; icon = ""
           ; text = ""
           }
+        ; { label = "Industrial Users"
+          ; url = "/industrial-users"
+          ; icon = ""
+          ; text = ""
+          }
         ; { label = "Books"; url = "/books"; icon = ""; text = "" }
         ; { label = "Events"; url = "/events"; icon = ""; text = "" }
         ; { label = "Videos"; url = "/videos"; icon = ""; text = "" }

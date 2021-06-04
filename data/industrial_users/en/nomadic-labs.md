@@ -5,7 +5,7 @@ description: >
   core competencies are in programming language theory and practice,
   distributed systems, and formal verification.
 site: "http://www.nomadic-labs.com"
-image: ./img/users/nomadic-labs.png
+image: users/nomadic-labs.png
 locations: 
   - "Paris, France"
 ---

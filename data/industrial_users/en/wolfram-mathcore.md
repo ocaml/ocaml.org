@@ -3,7 +3,7 @@ name: Wolfram MathCore
 description: > 
   Wolfram MathCore uses OCaml to implement its SystemModeler kernel.
 site: "http://www.wolframmathcore.com"
-image: ./img/wolfram-mathcore.gif
+image: users/wolfram-mathcore.gif
 locations: 
   - Sweden
 ---
