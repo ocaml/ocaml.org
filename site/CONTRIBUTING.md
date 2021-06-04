@@ -58,7 +58,7 @@ suggests the following:
 
 ### Prerequisities
 
-The site build process assume you have `npx` available. Run `npx --version` to test your installation. If you don't have `npx`, you will need to install `node`, the package that `npx` is part of. Please consult `node`'s documentation for instructions on installing it.
+The site build process assume you have `npx` available. Run `npx --version` to test your installation. If you don't have `npx`, you will need to install `node`, the package that `npx` is part of. Currently we are using node LTS Version 14.x. Please consult the [Node.js website](https://nodejs.org) for instructions on installing it.
 
 Our recommendation is to use a node version manager such as [fnm](https://github.com/Schniz/fnm) or [nvm](https://github.com/nvm-sh/nvm). Thus, install one of these tools instead. Then you can run the following in the root of the repo:
 
@@ -68,7 +68,7 @@ fnm install # run this
 nvm install # or this
 ```
 
-Now check that `npx --version` works. Note that we have added `.nvmrc` to `.gitignore`, so you can leave that file in your directory.
+Now check that `npx --version` works, and that `node --version` returns v14.x. Note that we have added `.nvmrc` to `.gitignore`, so you can leave that file in your directory.
 
 
 ### Quickstart
