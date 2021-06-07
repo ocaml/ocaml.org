@@ -14,6 +14,13 @@ let success_stories _req =
     (Success_stories_template.render success_stories)
   |> Dream.html
 
+let industrial_users _req =
+  let industrial_users = Ood_preview.Industrial_user.all () in
+  Layout_template.render
+    ~title:"Industrial Users"
+    (Industrial_users_template.render industrial_users)
+  |> Dream.html
+
 let books _req =
   let books = Ood_preview.Book.all () in
   Layout_template.render ~title:"Books" (Books_template.render books)

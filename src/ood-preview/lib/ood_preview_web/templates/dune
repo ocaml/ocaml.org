@@ -41,6 +41,12 @@
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
 
 (rule
+ (targets industrial_users_template.ml)
+ (deps industrial_users_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
  (targets events_template.ml)
  (deps events_template.eml)
  (action

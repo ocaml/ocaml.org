@@ -261,3 +261,28 @@ module Book = struct
     Netlify.Collection.Folder.make ~name:"books" ~create:true
       ~format:Yaml_frontmatter ~label:"OCaml Books" ~folder:path ~fields ()
 end
+
+module Industrial_user = struct
+  type t = [%import: Ood.Industrial_user.t] [@@deriving yaml]
+
+  let path = "data/industrial_users/en"
+
+  let widget_of_t =
+    Widget.
+      [
+        `String (String.make ~required:true ~label:"Name" ~name:"name" ());
+        `Text
+          (Text.make ~required:true ~label:"Description" ~name:"description" ());
+        `String (String.make ~required:true ~label:"Website" ~name:"site" ());
+        `String (String.make ~required:false ~label:"Image" ~name:"image" ());
+        `List (Lst.make ~required:true ~label:"Locations" ~name:"locations" ());
+        `Markdown Markdown.(make ~label:"Body" ~name:"body" ());
+      ]
+
+  let lint t = parse_jekyll of_yaml t
+
+  let folder =
+    let fields = widget_of_t in
+    Netlify.Collection.Folder.make ~name:"industrial_users" ~create:true
+      ~format:Yaml_frontmatter ~label:"Industrial Users" ~folder:path ~fields ()
+end

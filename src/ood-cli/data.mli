@@ -53,3 +53,9 @@ module Book : sig
 
   include S.FolderData with type t := t
 end
+
+module Industrial_user : sig
+  type t = [%import: Ood.Industrial_user.t] [@@deriving yaml]
+
+  include S.FolderData with type t := t
+end
