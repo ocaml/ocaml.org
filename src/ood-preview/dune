@@ -1,8 +1,0 @@
-(env
- (dev
-  (flags
-   (:standard -w +A-48-42-44 -warn-error +A-3))))
-
-; Do not include node_modules in the build
-
-(data_only_dirs node_modules)

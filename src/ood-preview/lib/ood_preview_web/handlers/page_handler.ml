@@ -59,3 +59,8 @@ let tutorials req =
   let first = Ood_preview.Tutorial.all () |> List.hd in
   let slug = Ood_preview.Tutorial.slug first in
   Dream.redirect req ("/tutorials/" ^ slug)
+
+let tools _req =
+  let tools = Ood_preview.Tool.all () in
+  Layout_template.render ~title:"Tools" (Platform_template.render tools)
+  |> Dream.html

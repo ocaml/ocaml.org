@@ -1273,6 +1273,12 @@ select {
       .top-0 {
 	top: 0px;
 }
+      .top-7 {
+	top: 1.75rem;
+}
+      .left-7 {
+	left: 1.75rem;
+}
       .z-10 {
 	z-index: 10;
 }
@@ -1320,6 +1326,18 @@ select {
       .ml-4 {
 	margin-left: 1rem;
 }
+      .-mb-8 {
+	margin-bottom: -2rem;
+}
+      .-ml-px {
+	margin-left: -1px;
+}
+      .mt-0\.5 {
+	margin-top: 0.125rem;
+}
+      .mt-0 {
+	margin-top: 0px;
+}
       .mt-8 {
 	margin-top: 2rem;
 }
@@ -1337,6 +1355,9 @@ select {
 }
       .table {
 	display: table;
+}
+      .flow-root {
+	display: flow-root;
 }
       .grid {
 	display: grid;
@@ -1356,6 +1377,12 @@ select {
       .h-10 {
 	height: 2.5rem;
 }
+      .h-full {
+	height: 100%;
+}
+      .h-14 {
+	height: 3.5rem;
+}
       .w-5 {
 	width: 1.25rem;
 }
@@ -1371,8 +1398,20 @@ select {
       .w-10 {
 	width: 2.5rem;
 }
+      .w-0\.5 {
+	width: 0.125rem;
+}
+      .w-0 {
+	width: 0px;
+}
+      .w-14 {
+	width: 3.5rem;
+}
       .min-w-full {
 	min-width: 100%;
+}
+      .min-w-0 {
+	min-width: 0px;
 }
       .max-w-prose {
 	max-width: 65ch;
@@ -1395,11 +1434,17 @@ select {
       .max-w-none {
 	max-width: none;
 }
+      .max-w-6xl {
+	max-width: 72rem;
+}
       .max-w-2xl {
 	max-width: 42rem;
 }
       .max-w-full {
 	max-width: 100%;
+}
+      .flex-1 {
+	flex: 1 1 0%;
 }
       .flex-shrink-0 {
 	flex-shrink: 0;
@@ -1453,6 +1498,9 @@ select {
       .items-center {
 	align-items: center;
 }
+      .items-start {
+	align-items: flex-start;
+}
       .justify-between {
 	justify-content: space-between;
 }
@@ -1483,6 +1531,11 @@ select {
 	--tw-space-x-reverse: 0;
 	margin-right: calc(2.5rem * var(--tw-space-x-reverse));
 	margin-left: calc(2.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
+      .space-x-3 > :not([hidden]) ~ :not([hidden]) {
+	--tw-space-x-reverse: 0;
+	margin-right: calc(0.75rem * var(--tw-space-x-reverse));
+	margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
 }
       .space-y-1 > :not([hidden]) ~ :not([hidden]) {
 	--tw-space-y-reverse: 0;
@@ -1570,6 +1623,22 @@ select {
       .bg-gray-50 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(249, 250, 251, var(--tw-bg-opacity));
+}
+      .bg-blue-400 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(96, 165, 250, var(--tw-bg-opacity));
+}
+      .bg-green-400 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(52, 211, 153, var(--tw-bg-opacity));
+}
+      .bg-pink-400 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(244, 114, 182, var(--tw-bg-opacity));
+}
+      .bg-red-400 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(248, 113, 113, var(--tw-bg-opacity));
 }
       .bg-opacity-50 {
 	--tw-bg-opacity: 0.5;
@@ -1743,6 +1812,14 @@ select {
 	--tw-text-opacity: 1;
 	color: rgba(6, 95, 70, var(--tw-text-opacity));
 }
+      .text-orangedark {
+	--tw-text-opacity: 1;
+	color: rgba(237, 113, 9, var(--tw-text-opacity));
+}
+      .text-gray-700 {
+	--tw-text-opacity: 1;
+	color: rgba(55, 65, 81, var(--tw-text-opacity));
+}
       .antialiased {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -1766,9 +1843,18 @@ select {
 	--tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
 	box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
+      .ring-8 {
+	--tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+	--tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(8px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+	box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
       .ring-black {
 	--tw-ring-opacity: 1;
 	--tw-ring-color: rgba(0, 0, 0, var(--tw-ring-opacity));
+}
+      .ring-white {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgba(255, 255, 255, var(--tw-ring-opacity));
 }
       .ring-opacity-5 {
 	--tw-ring-opacity: 0.05;
@@ -1974,6 +2060,10 @@ select {
 		border-radius: 0.5rem;
 	}
 
+	.sm\:rounded-md {
+		border-radius: 0.375rem;
+	}
+
 	.sm\:p-8 {
 		padding: 2rem;
 	}
@@ -2018,6 +2108,10 @@ select {
 		display: flex;
 	}
 
+	.md\:grid {
+		display: grid;
+	}
+
 	.md\:hidden {
 		display: none;
 	}
@@ -2030,6 +2124,10 @@ select {
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 	}
 
+	.md\:grid-cols-2 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
 	.md\:items-center {
 		align-items: center;
 	}
@@ -2040,6 +2138,10 @@ select {
 
 	.md\:justify-between {
 		justify-content: space-between;
+	}
+
+	.md\:gap-4 {
+		gap: 1rem;
 	}
 
 	.md\:space-x-10 > :not([hidden]) ~ :not([hidden]) {

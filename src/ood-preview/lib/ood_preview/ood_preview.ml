@@ -7,3 +7,4 @@ module Video = Video
 module Success_story = Success_story
 module Industrial_user = Industrial_user
 module Tutorial = Tutorial
+module Tool = Tool
