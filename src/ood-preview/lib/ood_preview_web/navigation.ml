@@ -26,6 +26,7 @@ let t =
           ; icon = ""
           ; text = ""
           }
+        ; { label = "Consortium"; url = "/consortium"; icon = ""; text = "" }
         ; { label = "Books"; url = "/books"; icon = ""; text = "" }
         ; { label = "Events"; url = "/events"; icon = ""; text = "" }
         ; { label = "Videos"; url = "/videos"; icon = ""; text = "" }

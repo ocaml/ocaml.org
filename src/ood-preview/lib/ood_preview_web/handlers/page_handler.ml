@@ -21,6 +21,13 @@ let industrial_users _req =
     (Industrial_users_template.render industrial_users)
   |> Dream.html
 
+let consortium _req =
+  let consortium = Ood_preview.Industrial_user.get_consortium () in
+  Layout_template.render
+    ~title:"Consortium"
+    (Industrial_users_template.render consortium)
+  |> Dream.html
+
 let books _req =
   let books = Ood_preview.Book.all () in
   Layout_template.render ~title:"Books" (Books_template.render books)

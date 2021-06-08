@@ -6,6 +6,7 @@ site: "http://www.sleekersoft.com"
 image: users/sleekersoft.png
 locations: 
   - Australia
+consortium: false
 ---
 
 Shiro Games is developing games using [Haxe](http://haxe.org/), a language built with a compiler written in OCaml.

@@ -4,4 +4,5 @@ type t = {
   image : string option;
   site : string;
   locations : string list;
+  consortium : bool;
 }

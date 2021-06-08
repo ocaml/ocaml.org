@@ -8,6 +8,7 @@ site: "http://www.nomadic-labs.com"
 image: users/nomadic-labs.png
 locations: 
   - "Paris, France"
+consortium: false
 ---
 
 Nomadic Labs houses a team focused on Research and Development. Our

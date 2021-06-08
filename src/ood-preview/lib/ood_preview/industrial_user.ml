@@ -4,6 +4,7 @@ type metadata = Ood.Industrial_user.t =
   ; image : string option
   ; site : string
   ; locations : string list
+  ; consortium : bool
   }
 [@@deriving yaml]
 
@@ -13,6 +14,7 @@ type t =
   ; image : string option
   ; site : string
   ; locations : string list
+  ; consortium : bool
   ; body : string
   }
 
@@ -26,10 +28,13 @@ let all () =
       ; description = metadata.description
       ; image = metadata.image
       ; site = metadata.site
+      ; consortium = metadata.consortium
       ; locations = metadata.locations
       ; body
       })
     "industrial_users/en"
+
+let get_consortium () = List.filter (fun (x : t) -> x.consortium) (all ())
 
 let slug (t : t) = Utils.slugify t.name
 

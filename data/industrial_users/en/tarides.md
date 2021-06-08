@@ -6,6 +6,7 @@ site: "http://www.tarides.com"
 image: users/tarides.png
 locations: 
   - France
+consortium: false
 ---
 
 We are building and maintaining open-source infrastructure tools in OCaml:

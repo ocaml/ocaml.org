@@ -6,6 +6,7 @@ site: "http://www.shirogames.com"
 image: users/shirogames.png
 locations: 
   - France
+consortium: false
 ---
 
 Shiro Games is developing games using [Haxe](http://haxe.org/), a language built with a compiler written in OCaml.
