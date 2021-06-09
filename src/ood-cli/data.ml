@@ -298,7 +298,7 @@ module Academic_institution = struct
       [@with Ood.Academic_institution.location := location])]
   [@@deriving yaml]
 
-  let path = "data/academic_institution"
+  let path = "data/academic_institutions/en"
 
   let widget_of_t =
     Widget.

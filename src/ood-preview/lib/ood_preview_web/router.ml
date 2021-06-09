@@ -17,6 +17,7 @@ let routes =
   ; Dream.get "/papers" Page_handler.papers
   ; Dream.get "/success-stories" Page_handler.success_stories
   ; Dream.get "/industrial-users" Page_handler.industrial_users
+  ; Dream.get "/academic-excellence" Page_handler.academic_institutions
   ; Dream.get "/consortium" Page_handler.consortium
   ; Dream.get "/books" Page_handler.books
   ; Dream.get "/events" Page_handler.events
