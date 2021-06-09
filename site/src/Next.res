@@ -92,18 +92,6 @@ module Error = {
   external make: (~statusCode: int, ~children: React.element) => React.element = "default"
 }
 
-module Dynamic = {
-  type options = {
-    ssr: bool,
-    loading: unit => React.element,
-  }
-
-  @module("next/dynamic")
-  external dynamic: (unit => Js.Promise.t<'a>, options) => 'a = "default"
-
-  @val external \"import": string => Js.Promise.t<'a> = "import"
-}
-
 let stripUndefined = (json: Js.Json.t): Js.Json.t => {
   open Json
   stringify(json)->parseOrRaise

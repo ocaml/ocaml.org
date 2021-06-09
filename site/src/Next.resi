@@ -84,17 +84,6 @@ module Error: {
   let make: (~statusCode: int, ~children: React.element) => React.element
 }
 
-module Dynamic: {
-  type options = {
-    ssr: bool,
-    loading: unit => React.element,
-  }
-
-  let dynamic: (unit => Js.Promise.t<'a>, options) => 'a
-
-  let \"import": string => Js.Promise.t<'a>
-}
-
 // Unforunately, NextJS cannot serialise `undefined` which is what `None` is converted too.
 // This really only leaves one solution because our types are defined in ood, we have to do
 // some manual stripping of the undefined types when passing it to getStaticProps. This approach
