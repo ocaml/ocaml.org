@@ -21,6 +21,13 @@ let industrial_users _req =
     (Industrial_users_template.render industrial_users)
   |> Dream.html
 
+let academic_institutions _req =
+  let institutions = Ood_preview.Academic_institution.all () in
+  Layout_template.render
+    ~title:"Academic Excellence"
+    (Academic_excellence_template.render institutions)
+  |> Dream.html
+
 let consortium _req =
   let consortium = Ood_preview.Industrial_user.get_consortium () in
   Layout_template.render

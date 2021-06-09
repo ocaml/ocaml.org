@@ -26,6 +26,11 @@ let t =
           ; icon = ""
           ; text = ""
           }
+        ; { label = "Academic Excellence"
+          ; url = "/academic-excellence"
+          ; icon = ""
+          ; text = ""
+          }
         ; { label = "Consortium"; url = "/consortium"; icon = ""; text = "" }
         ; { label = "Books"; url = "/books"; icon = ""; text = "" }
         ; { label = "Events"; url = "/events"; icon = ""; text = "" }

@@ -2,7 +2,7 @@ type location = { lat : float; long : float }
 
 type course = {
   name : string;
-  accronym : string option;
+  acronym : string option;
   online_resource : string option;
 }
 
@@ -12,6 +12,6 @@ type t = {
   url : string;
   logo : string option;
   continent : string;
-  course : course list;
+  courses : course list;
   location : location option;
 }
