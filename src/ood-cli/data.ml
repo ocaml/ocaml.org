@@ -286,3 +286,40 @@ module Industrial_user = struct
     Netlify.Collection.Folder.make ~name:"industrial_users" ~create:true
       ~format:Yaml_frontmatter ~label:"Industrial Users" ~folder:path ~fields ()
 end
+
+module Academic_institution = struct
+  type location = [%import: Ood.Academic_institution.location] [@@deriving yaml]
+
+  type course = [%import: Ood.Academic_institution.course] [@@deriving yaml]
+
+  type t =
+    [%import:
+      (Ood.Academic_institution.t
+      [@with Ood.Academic_institution.location := location])]
+  [@@deriving yaml]
+
+  let path = "data/academic_institution"
+
+  let widget_of_t =
+    Widget.
+      [
+        `String (String.make ~required:true ~label:"Name" ~name:"name" ());
+        `Text
+          (Text.make ~required:true ~label:"Description" ~name:"description" ());
+        `String (String.make ~required:true ~label:"Website" ~name:"url" ());
+        `String (String.make ~required:false ~label:"Logo" ~name:"logo" ());
+        `String
+          (String.make ~required:true ~label:"Continent" ~name:"continent" ());
+        `List (Lst.make ~required:true ~label:"Course" ~name:"course" ());
+        `List (Lst.make ~required:false ~label:"Location" ~name:"location" ());
+        `Markdown Markdown.(make ~label:"Body" ~name:"body" ());
+      ]
+
+  let lint t = parse_jekyll of_yaml t
+
+  let folder =
+    let fields = widget_of_t in
+    Netlify.Collection.Folder.make ~name:"academic_institution" ~create:true
+      ~format:Yaml_frontmatter ~label:"Academic Institution" ~folder:path
+      ~fields ()
+end

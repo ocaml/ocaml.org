@@ -47,6 +47,12 @@ let lint_industrial_users () =
   Alcotest.check lint_check "lint industrial users" (Ok ())
     (lint_folder ~path:(Fpath.v Industrial_user.path) Industrial_user.lint)
 
+let lint_academic_institution () =
+  Alcotest.check lint_check "lint academic institution" (Ok ())
+    (lint_folder
+       ~path:(Fpath.v Academic_institution.path)
+       Academic_institution.lint)
+
 let run () =
   let open Alcotest in
   try
@@ -67,6 +73,7 @@ let run () =
             test_case Success_story.path `Quick lint_success_stories;
             test_case Book.path `Quick lint_books;
             test_case Industrial_user.path `Quick lint_industrial_users;
+            test_case Academic_institution.path `Quick lint_academic_institution;
           ] );
       ];
     0

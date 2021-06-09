@@ -59,3 +59,13 @@ module Industrial_user : sig
 
   include S.FolderData with type t := t
 end
+
+module Academic_institution : sig
+  type course = [%import: Ood.Academic_institution.course] [@@deriving yaml]
+
+  type location = [%import: Ood.Academic_institution.location] [@@deriving yaml]
+
+  type t = [%import: Ood.Academic_institution.t] [@@deriving yaml]
+
+  include S.FolderData with type t := t
+end
