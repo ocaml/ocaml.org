@@ -45,7 +45,7 @@ let navContentEn = {
     },
     academicExcellence: {
       label: `Academic Excellence`,
-      url: InternalUrls.principlesSuccesses /* TODO - point to correct page once it's created */,
+      url: InternalUrls.principlesAcademic,
       icon: Icons.academic,
       text: "Learn about the academics that research programming language technology.",
     },
@@ -155,6 +155,7 @@ let footerContentEn: Footer.t = {
       entries: [
         navContentEn.principlesSection.whatIsOcaml,
         navContentEn.principlesSection.industrialUsers,
+        navContentEn.principlesSection.academicExcellence,
         navContentEn.principlesSection.successStories,
       ],
     },
