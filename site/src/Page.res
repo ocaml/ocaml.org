@@ -36,23 +36,30 @@ module Basic = {
     ~pageDescription,
     ~addContainer=Regular,
     ~marginTop=?,
-    ~headingMarginBottom=?,
     ~callToAction=?,
     ~addBottomBar=?,
     (),
   ) => {
     let heading = {
       let marginTop = Js.Option.getWithDefault(``, marginTop)
-      let headingMarginBottom = Js.Option.getWithDefault(``, headingMarginBottom)
       let addBottomBar = Js.Option.getWithDefault(false, addBottomBar)
       switch callToAction {
       | Some(callToAction) =>
         <TitleHeading.Large
-          marginTop marginBottom=headingMarginBottom addBottomBar title pageDescription callToAction
+          marginTop
+          marginBottom={Tailwind.ByBreakpoint.make(#mb6, ())}
+          addBottomBar
+          title
+          pageDescription
+          callToAction
         />
       | None =>
+        let headingMarginBottom = switch addBottomBar {
+        | true => Some(Tailwind.ByBreakpoint.make(#mb24, ()))
+        | false => None
+        }
         <TitleHeading.Large
-          marginTop marginBottom=headingMarginBottom addBottomBar title pageDescription
+          marginTop marginBottom=?headingMarginBottom addBottomBar title pageDescription
         />
       }
     }
@@ -88,11 +95,11 @@ type highlightContent = {
 
 module HighlightSection = {
   @react.component
-  let make = (~margins, ~content) =>
+  let make = (~marginBottom=?, ~content) =>
     <div
       className={content.bgImageClass ++
       " bg-auto bg-center bg-no-repeat flex align-bottom place-content-center " ++
-      margins}>
+      marginBottom->Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty}>
       <div className="bg-white overflow-hidden shadow rounded-lg mb-2 lg:mb-7 mt-56 mx-5 max-w-4xl">
         <div className="px-4 py-5 sm:p-6">
           <h2 className="font-bold text-orangedark text-3xl lg:text-4xl text-center mb-2">
@@ -115,7 +122,9 @@ module HighlightItem = {
   let make = (~children, ~title, ~pageDescription, ~highlightContent) => {
     <MainContainer.None>
       <TitleHeading.Large title pageDescription />
-      <HighlightSection margins=`mb-6` content=highlightContent />
+      <HighlightSection
+        marginBottom={Tailwind.ByBreakpoint.make(#mb6, ())} content=highlightContent
+      />
       children
     </MainContainer.None>
   }

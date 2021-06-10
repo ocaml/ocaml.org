@@ -15,7 +15,7 @@ module Large = {
     ~callToAction=?,
     ~pageDescription: option<string>=?,
     ~marginTop="",
-    ~marginBottom="",
+    ~marginBottom=?,
     // ~addMaxWidth=false,
     ~addBottomBar=false,
     (),
@@ -52,10 +52,16 @@ module Large = {
           }}
         </div>
       </div>
-      {switch addBottomBar {
-      | true => <hr className={"bg-orangedark h-3 " ++ marginBottom} />
-      | false => React.null
-      }}
+      // TODO: should either add margin bottom when bottombar isn't specified
+      //  or only allow marginBottom to be specified with addBottomBar
+
+      {
+        let marginBottom = marginBottom->Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty
+        switch addBottomBar {
+        | true => <hr className={"bg-orangedark h-3 " ++ marginBottom} />
+        | false => React.null
+        }
+      }
     </>
   }
 }

@@ -24,8 +24,8 @@ module CategorizedNews = {
   }
 
   @react.component
-  let make = (~margins, ~content) =>
-    <SectionContainer.MediumCentered margins paddingX="px-12">
+  let make = (~marginBottom=?, ~content) =>
+    <SectionContainer.MediumCentered ?marginBottom paddingX="px-12">
       <h2 className="text-orangedark text-3xl mb-5 lg:text-4xl font-bold text-center">
         {s(content.otherNewsStories)}
       </h2>
@@ -237,8 +237,8 @@ module WeeklyNews = {
   }
 
   @react.component
-  let make = (~content, ~margins) =>
-    <SectionContainer.MediumCentered margins>
+  let make = (~content, ~marginBottom=?) =>
+    <SectionContainer.MediumCentered ?marginBottom>
       <div className="lg:grid lg:grid-cols-2 items-center">
         <div className="lg:order-2">
           <h2 className="text-orangedark text-2xl font-bold text-center lg:text-4xl mb-9">
@@ -400,8 +400,11 @@ let make = (~content=contentEn) => <>
     title=content.title
     pageDescription=content.pageDescription
     highlightContent=content.highlightContent>
-    <CategorizedNews margins=`mb-10 lg:mb-32` content=content.categorizedNews />
-    <WeeklyNews margins=`mb-4` content=content.weeklyNews />
+    <CategorizedNews
+      marginBottom={Tailwind.ByBreakpoint.make(#mb10, ~lg=#mb32, ())}
+      content=content.categorizedNews
+    />
+    <WeeklyNews marginBottom={Tailwind.ByBreakpoint.make(#mb4, ())} content=content.weeklyNews />
   </Page.HighlightItem>
 </>
 

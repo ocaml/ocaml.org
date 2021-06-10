@@ -244,10 +244,12 @@ module Quote = {
     </blockquote>
 }
 
+// TODO: move this into general contaienrs?
 module TestimonialContainer = {
   @react.component
-  let make = (~margins, ~children) =>
-    <section className={margins ++ ` py-12 overflow-hidden md:py-20 lg:py-24 `}>
+  let make = (~marginBottom=?, ~children) =>
+    <section
+      className={marginBottom->Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty ++ ` py-12 overflow-hidden md:py-20 lg:py-24 `}>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> children </div>
     </section>
 }
@@ -261,8 +263,8 @@ module TestimonialSection = {
   }
 
   @react.component
-  let make = (~content, ~margins) =>
-    <TestimonialContainer margins>
+  let make = (~content, ~marginBottom=?) =>
+    <TestimonialContainer ?marginBottom>
       <FillPattern
         organizationName=content.organizationName
         position=`absolute`
@@ -327,7 +329,10 @@ let make = (~content=contentEn) =>
     <HeroSection content=content.heroContent />
     <StatsSection content=content.statsContent />
     <OpamSection content=content.opamContent margins=`mt-12 sm:mt-16` />
-    <TestimonialSection content=content.testimonialContent margins=`mb-6 md:mb-4 lg:mb-6` />
+    <TestimonialSection
+      content=content.testimonialContent
+      marginBottom={Tailwind.ByBreakpoint.make(#mb6, ~md=#mb4, ~lg=#mb6, ())}
+    />
   </Page.Unstructured>
 
 let default = make

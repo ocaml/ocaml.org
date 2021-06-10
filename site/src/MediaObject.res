@@ -2,7 +2,7 @@ type imageSide = Left | Right
 
 @react.component
 let make = (
-  ~marginBottom="",
+  ~marginBottom=?,
   ~imageHeight,
   ~imageWidth="",
   ~isRounded=false,
@@ -11,6 +11,7 @@ let make = (
   ~children,
   (),
 ) => {
+  let marginBottom = marginBottom->Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty
   <div className={`flex flex-col items-center sm:flex-row sm:justify-evenly ${marginBottom}`}>
     {
       let rounded = switch isRounded {

@@ -5,14 +5,6 @@ const withTM = require("next-transpile-modules")(transpileModules);
 
 const config = {
   webpack: (config, options) => {
-    const { isServer } = options;
-    if (!isServer) {
-      // We shim fs for things like the blog slugs component
-      // where we need fs access in the server-side part
-      config.resolve.fallback = {
-        fs: false
-      }
-    }
     config.experiments = {
       topLevelAwait: true,
     }

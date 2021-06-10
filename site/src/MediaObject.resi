@@ -2,7 +2,7 @@ type imageSide = Left | Right
 
 @react.component
 let make: (
-  ~marginBottom: string=?,
+  ~marginBottom: Tailwind.ByBreakpoint.t<Tailwind.MarginBottom.t>=?,
   ~imageHeight: string,
   ~imageWidth: string=?,
   ~isRounded: bool=?,

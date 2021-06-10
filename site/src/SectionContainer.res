@@ -6,15 +6,25 @@ module MediumCentered2 = {
 
 module ResponsiveCentered = {
   @react.component
-  let make = (~children, ~margins) =>
-    <div className={margins ++ " mx-auto sm:max-w-screen-sm lg:max-w-screen-lg"}> children </div>
+  let make = (~children, ~marginBottom=?) =>
+    <div
+      className={marginBottom->Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty ++ " mx-auto sm:max-w-screen-sm lg:max-w-screen-lg"}>
+      children
+    </div>
 }
 
 module MediumCentered = {
   @react.component
-  let make = (~children, ~margins, ~paddingX="", ~paddingY="", ~otherLayout="", ~filled=false) =>
+  let make = (
+    ~children,
+    ~marginBottom=?,
+    ~paddingX="",
+    ~paddingY="",
+    ~otherLayout="",
+    ~filled=false,
+  ) =>
     <div
-      className={margins ++
+      className={marginBottom->Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty ++
       " max-w-5xl mx-auto " ++
       paddingX ++
       " " ++
@@ -37,7 +47,12 @@ module FullyResponsiveCentered = {
 
 module NoneFilled = {
   @react.component
-  let make = (~children, ~margins) => <div className={"bg-orangedark " ++ margins}> children </div>
+  let make = (~children, ~marginBottom=?) =>
+    <div
+      className={"bg-orangedark " ++
+      marginBottom->Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty}>
+      children
+    </div>
 }
 
 module LargeCentered = {
@@ -50,14 +65,26 @@ module LargeCentered = {
 
 module SmallCentered = {
   @react.component
-  let make = (~children, ~margins, ~otherLayout="") =>
-    <div className={"mx-auto max-w-4xl " ++ otherLayout ++ " " ++ margins}> children </div>
+  let make = (~children, ~marginBottom=?, ~otherLayout="") =>
+    <div
+      className={"mx-auto max-w-4xl " ++
+      otherLayout ++
+      " " ++
+      marginBottom->Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty}>
+      children
+    </div>
 }
 
 module VerySmallCentered = {
   @react.component
-  let make = (~children, ~margins="", ~paddingY="", ~paddingX="") =>
-    <div className={"mx-auto max-w-3xl " ++ margins ++ " " ++ paddingY ++ " " ++ paddingX}>
+  let make = (~children, ~marginBottom=?, ~paddingY="", ~paddingX="") =>
+    <div
+      className={"mx-auto max-w-3xl " ++
+      marginBottom->Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty ++
+      " " ++
+      paddingY ++
+      " " ++
+      paddingX}>
       children
     </div>
 }

@@ -7,8 +7,8 @@ module UserLevelIntroduction = {
   }
 
   @react.component
-  let make = (~content, ~margins) =>
-    <SectionContainer.SmallCentered margins otherLayout="flex items-center space-x-20">
+  let make = (~content, ~marginBottom=?, ()) =>
+    <SectionContainer.SmallCentered ?marginBottom otherLayout="flex items-center space-x-20">
       <div className="text-5xl font-bold text-orangedark flex-shrink-0">
         {s(content.level ++ ` -`)}
       </div>
@@ -23,11 +23,12 @@ module Books = {
   }
 
   @react.component
-  let make = (~margins, ~content) =>
+  let make = (~marginBottom=?, ~content) =>
     // TODO: define content type; extract content
     // TODO: use generic container
     <div
-      className={"bg-white overflow-hidden shadow rounded-lg mx-10 mx-auto max-w-5xl " ++ margins}>
+      className={"bg-white overflow-hidden shadow rounded-lg mx-10 mx-auto max-w-5xl " ++
+      Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty(marginBottom)}>
       <div className="px-4 py-5 sm:px-6 sm:py-9">
         <h2 className="text-center text-orangedark text-7xl font-bold mb-8 uppercase">
           {s(content.booksLabel)}
@@ -77,9 +78,9 @@ module Books = {
 
 module Manual = {
   @react.component
-  let make = (~margins) =>
+  let make = (~marginBottom=?) =>
     // TODO: define content type; factor out content
-    <SectionContainer.MediumCentered margins paddingY="pt-8 pb-14" filled=true>
+    <SectionContainer.MediumCentered ?marginBottom paddingY="pt-8 pb-14" filled=true>
       <h2 className="text-center text-white text-7xl font-bold mb-8"> {s(`The OCaml Manual`)} </h2>
       <div className="mx-24 grid grid-cols-3 px-28 mx-auto max-w-4xl">
         <div className="border-r-4 border-b-4">
@@ -136,8 +137,8 @@ module Manual = {
 
 module Applications = {
   @react.component
-  let make = (~margins) =>
-    <SectionContainer.VerySmallCentered margins>
+  let make = (~marginBottom=?) =>
+    <SectionContainer.VerySmallCentered ?marginBottom>
       <h2 className="text-center text-orangedark text-7xl font-bold mb-8"> {s(`Applications`)} </h2>
       <div className="sm:flex items-center space-x-32 mb-20">
         <div className="mb-4 sm:mb-0 sm:mr-4">
@@ -157,11 +158,12 @@ module Applications = {
 
 module Papers = {
   @react.component
-  let make = (~margins) =>
+  let make = (~marginBottom=?, ()) =>
     // TODO: define content type and factor out content
     // TODO: use generic container
     <div
-      className={"bg-white overflow-hidden shadow rounded-lg py-3 mx-auto max-w-5xl " ++ margins}>
+      className={"bg-white overflow-hidden shadow rounded-lg py-3 mx-auto max-w-5xl " ++
+      marginBottom->Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty}>
       <div className="px-4 py-5 sm:p-6">
         <h2 className="text-center text-orangedark text-7xl font-bold mb-8"> {s(`PAPERS`)} </h2>
         <div className="grid grid-cols-3 mb-14 px-9 space-x-6 px-14">
@@ -225,23 +227,26 @@ let make = (~content) => <>
     playgroundLink=`/play/resources/language`
   />
   // TODO: define a more narrow page type with preset params
-  <Page.Basic
-    marginTop=`mt-1`
-    headingMarginBottom=`mb-24`
-    addBottomBar=true
-    addContainer=Page.Basic.NoContainer
-    title=content.title
-    pageDescription=content.pageDescription>
-    <UserLevelIntroduction content=content.beginning margins=`mb-20` />
-    <UserLevelIntroduction content=content.growing margins=`mb-20` />
-    <Books margins=`mb-16` content=content.booksContent />
-    <UserLevelIntroduction content=content.expanding margins=`mb-20` />
-    <Manual margins=`mb-20` />
-    <UserLevelIntroduction content=content.diversifying margins=`mb-20` />
-    <Applications margins=`mb-36` />
-    <UserLevelIntroduction content=content.researching margins=`mb-20` />
-    <Papers margins=`mb-16` />
-  </Page.Basic>
+
+  {
+    let introMarginBottom = Tailwind.ByBreakpoint.make(#mb20, ())
+    <Page.Basic
+      marginTop=`mt-1`
+      addBottomBar=true
+      addContainer=Page.Basic.NoContainer
+      title=content.title
+      pageDescription=content.pageDescription>
+      <UserLevelIntroduction content=content.beginning marginBottom=introMarginBottom />
+      <UserLevelIntroduction content=content.growing marginBottom=introMarginBottom />
+      <Books marginBottom={Tailwind.ByBreakpoint.make(#mb16, ())} content=content.booksContent />
+      <UserLevelIntroduction content=content.expanding marginBottom=introMarginBottom />
+      <Manual marginBottom={Tailwind.ByBreakpoint.make(#mb20, ())} />
+      <UserLevelIntroduction content=content.diversifying marginBottom=introMarginBottom />
+      <Applications marginBottom={Tailwind.ByBreakpoint.make(#mb36, ())} />
+      <UserLevelIntroduction content=content.researching marginBottom=introMarginBottom />
+      <Papers marginBottom={Tailwind.ByBreakpoint.make(#mb16, ())} />
+    </Page.Basic>
+  }
 </>
 
 let getStaticProps = _ctx => {

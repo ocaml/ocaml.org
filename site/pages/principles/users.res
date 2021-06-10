@@ -67,8 +67,8 @@ let contentEn = {
 
 module LogoSection = {
   @react.component
-  let make = (~margins, ~companies) =>
-    <SectionContainer.ResponsiveCentered margins>
+  let make = (~companies, ~marginBottom=?, ()) =>
+    <SectionContainer.ResponsiveCentered ?marginBottom>
       // TODO: try switching to a grid
       <div className="flex flex-wrap justify-center lg:justify-between ">
         {companies
@@ -106,14 +106,13 @@ let make = (~content=contentEn) => <>
   />
   <Page.Basic
     marginTop=`mt-2`
-    headingMarginBottom=`mb-6`
     title=content.title
     pageDescription=content.pageDescription
     callToAction={
       TitleHeading.Large.label: "Success Stories",
       url: InternalUrls.principlesSuccesses,
     }>
-    <LogoSection margins=`` companies=content.companies />
+    <LogoSection companies=content.companies />
   </Page.Basic>
 </>
 

@@ -4,9 +4,9 @@ let s = React.string
 
 module ApiDocumentation = {
   @react.component
-  let make = (~margins) =>
+  let make = (~marginBottom=?) =>
     // TODO: factor out and define content type
-    <SectionContainer.MediumCentered margins paddingX="px-4 sm:px-32">
+    <SectionContainer.MediumCentered ?marginBottom paddingX="px-4 sm:px-32">
       <MediaObject imageHeight="h-56" image="api-img.jpeg" imageSide=MediaObject.Right>
         <h4 className="text-4xl font-bold mb-8"> {s(`API Documentation`)} </h4>
         <p className="mt-1 mb-8">
@@ -31,15 +31,17 @@ module DeveloperGuides = {
   }
 
   @react.component
-  let make = (~margins, ~content) =>
-    <div className={"bg-white overflow-hidden shadow rounded-lg mx-auto max-w-3xl " ++ margins}>
+  let make = (~marginBottom=?, ~content) =>
+    <div
+      className={"bg-white overflow-hidden shadow rounded-lg mx-auto max-w-3xl " ++
+      marginBottom->Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty}>
       <div className="px-4 py-5 sm:p-6">
         // TODO: factor out and define content type
         <h2 className="text-center text-orangedark text-4xl font-bold mb-8">
           {s(content.developerGuidesLabel)}
         </h2>
         <MediaObject
-          marginBottom="mb-11"
+          marginBottom={Tailwind.ByBreakpoint.make(#mb11, ())}
           imageHeight=content.topDeveloperGuide.imageHeight
           image=content.topDeveloperGuide.image
           imageSide=MediaObject.Right>
@@ -55,7 +57,7 @@ module DeveloperGuides = {
           </div>
         </MediaObject>
         <MediaObject
-          marginBottom="mb-11"
+          marginBottom={Tailwind.ByBreakpoint.make(#mb11, ())}
           imageHeight=content.bottomDeveloperGuide.imageHeight
           image=content.bottomDeveloperGuide.image
           imageSide=MediaObject.Left>
@@ -104,9 +106,11 @@ module UsingOcaml = {
   }
 
   @react.component
-  let make = (~margins, ~content) =>
+  let make = (~marginBottom=?, ~content) =>
     // TODO: factor out and define content type
-    <div className={"bg-white overflow-hidden shadow rounded-lg mx-auto max-w-3xl " ++ margins}>
+    <div
+      className={"bg-white overflow-hidden shadow rounded-lg mx-auto max-w-3xl " ++
+      marginBottom->Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty}>
       <div className="px-4 py-5 sm:py-8 sm:px-24">
         <h2 className="text-center text-orangedark text-4xl font-bold mb-8">
           {s(content.usingOcamlLabel)}
@@ -178,16 +182,13 @@ let make = (~title, ~pageDescription, ~developerGuidesContent, ~usingOcamlConten
     playgroundLink=`/play/resources/applications`
   />
   <Page.Basic
-    marginTop=`mt-1`
-    headingMarginBottom=`mb-24`
-    addBottomBar=true
-    addContainer=Page.Basic.NoContainer
-    title
-    pageDescription>
-    <ApiDocumentation margins=`mb-24` />
-    <DeveloperGuides margins=`mb-2` content=developerGuidesContent />
+    marginTop=`mt-1` addBottomBar=true addContainer=Page.Basic.NoContainer title pageDescription>
+    <ApiDocumentation marginBottom={Tailwind.ByBreakpoint.make(#mb24, ())} />
+    <DeveloperGuides
+      marginBottom={Tailwind.ByBreakpoint.make(#mb2, ())} content=developerGuidesContent
+    />
     <PlatformTools />
-    <UsingOcaml margins=`mb-16` content=usingOcamlContent />
+    <UsingOcaml marginBottom={Tailwind.ByBreakpoint.make(#mb16, ())} content=usingOcamlContent />
   </Page.Basic>
 </>
 

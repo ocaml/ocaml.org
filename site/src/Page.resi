@@ -30,7 +30,6 @@ module Basic: {
     ~pageDescription: string,
     ~addContainer: container=?,
     ~marginTop: string=?,
-    ~headingMarginBottom: string=?,
     ~callToAction: TitleHeading.Large.callToAction=?,
     ~addBottomBar: bool=?,
     unit,
@@ -53,11 +52,6 @@ type highlightContent = {
   clickToRead: string,
   highlightItemSummary: highlightItemSummary,
   bgImageClass: string,
-}
-
-module HighlightSection: {
-  @react.component
-  let make: (~margins: string, ~content: highlightContent) => React.element
 }
 
 module HighlightItem: {
