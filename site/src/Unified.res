@@ -1,3 +1,16 @@
+// The following code causes a warning. My limited understanding is that the warning
+// occurs because there is a mismatch between ReScript's assumptions about the version
+// of Javascript being used and the actual version of Javascript used in NextJS. Currently,
+// we have ReScript configured to target the ES6 version of Javascript. This is the emerging standard. At the same time,
+// there are open issues in NextJS requesting ES6 support, but NextJS does not
+// currently evaluate Javascript in an ES6 context. NextJS uses CommonJS when
+// evaluating Javascript. The warning occurs because ReScript uses an external validator
+// on the generated Javascript and the external validator notes that using "import" in
+// the syntax below is not valid in ES6. The syntax is valid in CommonJS, which means
+// the code will successfully run in NextJS.
+// This warning will hopefully be resolved by September of 2021, if
+// NextJS proceeds to lift its restriction on using ES6. The status of this issue
+// can be tracked in Github issue #298.
 %%raw(`
 const MdastUtilToStringInternal = (await import('mdast-util-to-string')).toString
 `)
