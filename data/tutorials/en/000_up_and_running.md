@@ -202,7 +202,7 @@ Upon first loading an OCaml source file, you may be prompted to select the
 toolchain in use: pick OCaml the version of OCaml you are using, e.g. 4.11.1
 from the list. Now, help is available by hovering over symbols in your program:
 
-![Visual Studio Code](/img/vscode.png "")
+![Visual Studio Code](/tutorials/vscode.png "")
 
 **On Windows**, we must launch Visual Studio Code from within the Cygwin window,
 rather than by clicking on its icon (otherwise, the language server will not be
