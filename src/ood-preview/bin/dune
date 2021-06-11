@@ -1,4 +1,4 @@
 (executable
  (name server)
  (modules server)
- (libraries ood_preview_web))
+ (libraries ood_preview))

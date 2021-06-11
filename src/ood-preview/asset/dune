@@ -4,7 +4,7 @@
  (deps
   (:data ../config/tailwind.config.js)
   (source_tree ../node_modules)
-  (source_tree ../lib/ood_preview_web/templates))
+  (source_tree ../lib/templates))
  (mode
   (promote (until-clean)))
  (action

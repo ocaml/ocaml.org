@@ -1,0 +1,174 @@
+module Meta : sig
+  module Proficiency : sig
+    type t = [ `Advanced | `Beginner | `Intermediate ]
+
+    val to_string : t -> string
+
+    val of_string : string -> (t, [> `Msg of string ]) result
+  end
+
+  module Archetype : sig
+    type t =
+      [ `Application_developer
+      | `Beginner
+      | `Distribution_manager
+      | `End_user
+      | `Library_author
+      | `Teacher ]
+
+    val to_string : t -> string
+
+    val of_string : string -> (t, [> `Msg of string ]) result
+  end
+end
+
+module Academic_institution : sig
+  type location = { lat : float; long : float }
+
+  type course = {
+    name : string;
+    acronym : string option;
+    online_resource : string option;
+  }
+
+  type t = {
+    name : string;
+    description : string;
+    url : string;
+    logo : string option;
+    continent : string;
+    courses : course list;
+    location : location option;
+    body_md : string;
+    body_html : string;
+  }
+
+  val all : t list
+end
+
+module Book : sig
+  type t = {
+    title : string;
+    description : string;
+    authors : string list;
+    language : string;
+    published : string option;
+    cover : string option;
+    isbn : string option;
+    body_md : string;
+    body_html : string;
+  }
+
+  val all : t list
+end
+
+module Event : sig
+  type t = {
+    title : string;
+    description : string;
+    url : string;
+    date : string;
+    tags : string list;
+    online : bool;
+    textual_location : string option;
+    location : string option;
+  }
+
+  val all : t list
+end
+
+module Industrial_user : sig
+  type t = {
+    name : string;
+    description : string;
+    image : string option;
+    site : string;
+    locations : string list;
+    consortium : bool;
+    body_md : string;
+    body_html : string;
+  }
+
+  val all : t list
+end
+
+module Media : sig
+  val read : string -> string option
+end
+
+module Paper : sig
+  type t = {
+    title : string;
+    publication : string;
+    authors : string list;
+    abstract : string;
+    tags : string list;
+    year : int;
+    links : string list;
+  }
+
+  val all : t list
+end
+
+module Success_story : sig
+  type t = {
+    title : string;
+    image : string option;
+    url : string option;
+    body_md : string;
+    body_html : string;
+  }
+
+  val all : t list
+end
+
+module Tool : sig
+  type lifecycle = [ `Incubate | `Active | `Sustain | `Deprecate ]
+
+  type t = {
+    name : string;
+    source : string;
+    license : string;
+    synopsis : string;
+    description : string;
+    lifecycle : lifecycle;
+  }
+
+  val all : t list
+end
+
+module Tutorial : sig
+  type t = {
+    title : string;
+    description : string;
+    date : string;
+    tags : string list;
+    users : Meta.Proficiency.t list;
+    body_md : string;
+    body_html : string;
+  }
+
+  val all : t list
+end
+
+module Video : sig
+  type kind = [ `Conference | `Mooc | `Lecture ]
+
+  val kind_of_string : string -> (kind, [> `Msg of string ]) result
+
+  val kind_to_string : kind -> string
+
+  type t = {
+    title : string;
+    description : string;
+    people : string list;
+    kind : kind;
+    tags : string list;
+    paper : string option;
+    link : string;
+    embed : string option;
+    year : int;
+  }
+
+  val all : t list
+end

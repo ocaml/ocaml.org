@@ -1,0 +1,23 @@
+let render_event (event : Ood.Event.t) =
+  let open Ood.Event in
+  <div class="relative px-4 py-8 sm:px-6 lg:px-8">
+    <div class="text-lg max-w-prose mx-auto">
+      <h1>
+        <span
+          class="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+          <%s event.title %>
+        </span>
+      </h1>
+    </div>
+    <div class="mt-6 prose prose-indigo prose-lg text-gray-500 mx-auto">
+      <%s! event.description %>
+    </div>
+  </div>
+
+let render events =
+  <%s! Header_section_template.render "Events" %>
+  <div class="relative bg-white py-16 sm:py-24 lg:py-32">
+    <div class="mx-auto max-w-md px-4 text-center sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
+      <%s! List.map render_event events |> String.concat "" %>
+    </div>
+  </div>

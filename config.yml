@@ -42,7 +42,7 @@ collections:
           name: "title", widget: "string", required: true}, {label: "Description",
           name: "description", widget: "text", required: true}, {label: "People",
           name: "people", widget: "list", default: []}, {label: "Video Kind", name: "kind",
-          widget: "select", required: true, options: ["lecture", "mooc", "conference"]},
+          widget: "select", required: true, options: ["conference", "mooc", "lecture"]},
         {label: "Tags", name: "tags", widget: "list"}, {label: "Optional Link to a
             Paper", name: "paper", widget: "relation", required: false, collection: "dataset",
           value_field: "papers.*.title", search_fields: ["papers.*.title"], file: "papers",

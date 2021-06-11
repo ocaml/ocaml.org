@@ -117,8 +117,7 @@ let () =
     (* emergency closing *)
     raise e
 
-(* exit with error: files are closed but
-   channels are not flushed *)
+(* exit with error: files are closed but channels are not flushed *)
 
 (* normal exit: all channels are flushed and closed *)
 ```

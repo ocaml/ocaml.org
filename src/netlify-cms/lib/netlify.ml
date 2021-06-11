@@ -199,8 +199,9 @@ type t = {
 [@@deriving make, yaml]
 
 module Pp = struct
-  (* Code within to_string taken from https://github.com/avsm/ocaml-yaml/blob/master/lib/yaml.ml#L65 and modified
-      the main modifications are to prevent `Null from being printed *)
+  (* Code within to_string taken from
+     https://github.com/avsm/ocaml-yaml/blob/master/lib/yaml.ml#L65 and modified
+     the main modifications are to prevent `Null from being printed *)
   let to_string ?len ?(encoding = `Utf8) ?scalar_style ?layout_style
       (v : Yaml.value) =
     let open Yaml in

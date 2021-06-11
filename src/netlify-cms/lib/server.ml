@@ -1,11 +1,9 @@
-(* ~~~Netlify CMS Server~~~ 
-   This hosts the Netlify CMS JavaScript in order for this repo 
-   to be able to handle the local_backend beta features in Netlify
+(* ~~~Netlify CMS Server~~~ This hosts the Netlify CMS JavaScript in order for
+   this repo to be able to handle the local_backend beta features in Netlify
    CMS. See the README.md for more details.
 
-   This implementation is inspired by the countless other clients 
-   and in particular the https://github.com/igk1972/netlify-cms-oauth-provider-go one.
-*)
+   This implementation is inspired by the countless other clients and in
+   particular the https://github.com/igk1972/netlify-cms-oauth-provider-go one. *)
 open Cohttp_lwt_unix
 
 let src = Logs.Src.create "netlify-local" ~doc:"Serving NetlifyCMS"

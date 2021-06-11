@@ -1,3 +1,104 @@
 (library
  (name ood)
  (public_name ood))
+
+(rule
+ (targets media.ml)
+ (deps
+  (source_tree ../../data/media))
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{null}
+   (run %{bin:ocaml-crunch} -m plain ../../data/media -o %{targets}))))
+
+(rule
+ (deps ../ood-gen/bin/main.exe)
+ (targets academic_institution.ml)
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} academic_institution))))
+
+(rule
+ (deps ../ood-gen/bin/main.exe)
+ (targets book.ml)
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} book))))
+
+(rule
+ (deps ../ood-gen/bin/main.exe)
+ (targets event.ml)
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} event))))
+
+(rule
+ (deps ../ood-gen/bin/main.exe)
+ (targets industrial_user.ml)
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} industrial_user))))
+
+(rule
+ (deps ../ood-gen/bin/main.exe)
+ (targets paper.ml)
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} paper))))
+
+(rule
+ (deps ../ood-gen/bin/main.exe)
+ (targets success_story.ml)
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} success_story))))
+
+(rule
+ (deps ../ood-gen/bin/main.exe)
+ (targets tool.ml)
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} tool))))
+
+(rule
+ (deps ../ood-gen/bin/main.exe)
+ (targets tutorial.ml)
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} tutorial))))
+
+(rule
+ (deps ../ood-gen/bin/main.exe)
+ (targets video.ml)
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} video))))

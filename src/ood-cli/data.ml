@@ -1,6 +1,5 @@
 open Rresult
 open Netlify
-open Ood
 module Jf = Jekyll_format
 
 let parse_yaml p yml = Yaml.of_string yml >>= p
@@ -10,7 +9,16 @@ let parse_jekyll yaml_p txt =
   Jf.fields jekyll |> Jf.fields_to_yaml |> yaml_p
 
 module Paper = struct
-  type t = [%import: Ood.Papers.Paper.t] [@@deriving yaml]
+  type t = {
+    title : string;
+    publication : string;
+    authors : string list;
+    abstract : string;
+    tags : string list;
+    year : int;
+    links : string list;
+  }
+  [@@deriving yaml]
 
   let lint = parse_yaml of_yaml
 
@@ -28,7 +36,7 @@ module Paper = struct
 end
 
 module Papers = struct
-  type t = [%import: Ood.Papers.t] [@@deriving yaml]
+  type t = { papers : Paper.t list } [@@deriving yaml]
 
   let lint = parse_yaml of_yaml
 
@@ -47,15 +55,39 @@ module Papers = struct
 end
 
 module Video = struct
-  type kind = [%import: Ood.Videos.Video.kind] [@@deriving enumerate]
+  type kind = [ `Conference | `Mooc | `Lecture ] [@@deriving yaml]
 
-  let kind_to_yaml user = `String (Ood.Videos.Video.kind_to_string user)
+  let all_kinds = [ `Conference; `Mooc; `Lecture ]
+
+  let kind_of_string = function
+    | "conference" -> Ok `Conference
+    | "mooc" -> Ok `Mooc
+    | "lecture" -> Ok `Lecture
+    | _ -> Error (`Msg "Unknown video kind")
+
+  let kind_to_string = function
+    | `Conference -> "conference"
+    | `Mooc -> "mooc"
+    | `Lecture -> "lecture"
+
+  let kind_to_yaml user = `String (kind_to_string user)
 
   let kind_of_yaml = function
-    | `String s -> Ood.Videos.Video.kind_of_string s
+    | `String s -> kind_of_string s
     | _ -> Error (`Msg "Expected yaml string")
 
-  type t = [%import: Ood.Videos.Video.t] [@@deriving yaml]
+  type t = {
+    title : string;
+    description : string;
+    people : string list;
+    kind : kind;
+    tags : string list;
+    paper : string option;
+    link : string;
+    embed : string option;
+    year : int;
+  }
+  [@@deriving yaml]
 
   let lint = parse_yaml of_yaml
 
@@ -70,8 +102,7 @@ module Video = struct
         `Select
           Select.(
             make ~required:true ~label:"Video Kind" ~name:"kind"
-              ~options:
-                (Strings (List.map Ood.Videos.Video.kind_to_string all_of_kind))
+              ~options:(Strings (List.map kind_to_string all_kinds))
               ());
         `List (Lst.make ~label:"Tags" ~name:"tags" ());
         `Relation
@@ -88,7 +119,7 @@ module Video = struct
 end
 
 module Videos = struct
-  type t = [%import: Ood.Videos.t] [@@deriving yaml]
+  type t = { videos : Video.t list } [@@deriving yaml]
 
   let lint = parse_yaml of_yaml
 
@@ -107,7 +138,17 @@ module Videos = struct
 end
 
 module Event = struct
-  type t = [%import: Ood.Events.Event.t] [@@deriving yaml]
+  type t = {
+    title : string;
+    description : string;
+    url : string;
+    date : string;
+    tags : string list;
+    online : bool;
+    textual_location : string option;
+    location : string option;
+  }
+  [@@deriving yaml]
 
   let lint = parse_yaml of_yaml
 
@@ -133,7 +174,7 @@ module Event = struct
 end
 
 module Events = struct
-  type t = [%import: Ood.Events.t] [@@deriving yaml]
+  type t = { events : Event.t list } [@@deriving yaml]
 
   let lint = parse_yaml of_yaml
 
@@ -143,8 +184,10 @@ module Events = struct
     let fields =
       [
         `List
-          (* XXX(patricoferris): Collapsed set to false because of https://github.com/netlify/netlify-cms/issues/4385#issuecomment-748495080
-             should contribute a fix to upstream if this is still the case in latest versions *)
+          (* XXX(patricoferris): Collapsed set to false because of
+             https://github.com/netlify/netlify-cms/issues/4385#issuecomment-748495080
+             should contribute a fix to upstream if this is still the case in
+             latest versions *)
           (Widget.Lst.make ~label:"Events" ~name:"events" ~collapsed:false
              ~add_to_top:true ~fields:Event.widget_of_t ());
       ]
@@ -154,15 +197,34 @@ module Events = struct
 end
 
 module Tutorial = struct
-  type user = [%import: Ood.Meta.Proficiency.t] [@@deriving enumerate]
+  type user = [ `Advanced | `Beginner | `Intermediate ]
 
-  let user_to_yaml user = `String (Meta.Proficiency.to_string user)
+  let all_users = [ `Advanced; `Beginner; `Intermediate ]
+
+  let user_to_string = function
+    | `Beginner -> "beginner"
+    | `Intermediate -> "intermediate"
+    | `Advanced -> "advanced"
+
+  let user_of_string = function
+    | "beginner" -> Ok `Beginner
+    | "intermediate" -> Ok `Intermediate
+    | "advanced" -> Ok `Advanced
+    | s -> Error (`Msg ("Unknown proficiency type: " ^ s))
+
+  let user_to_yaml user = `String (user_to_string user)
 
   let user_of_yaml = function
-    | `String s -> Meta.Proficiency.of_string s
+    | `String s -> user_of_string s
     | _ -> Error (`Msg "Expected yaml string")
 
-  type t = [%import: (Ood.Tutorial.t[@with Ood.Meta.Proficiency.t := user])]
+  type t = {
+    title : string;
+    description : string;
+    date : string;
+    tags : string list;
+    users : user list;
+  }
   [@@deriving yaml]
 
   let path = "data/tutorials/en"
@@ -180,8 +242,7 @@ module Tutorial = struct
           Select.(
             make ~label:"Target Audience" ~name:"users" ~multiple:true
               ~i18n:`Duplicate
-              ~options:
-                (Strings (List.map Meta.Proficiency.to_string all_of_user))
+              ~options:(Strings (List.map user_to_string all_users))
               ());
         `DateTime
           DateTime.(
@@ -201,7 +262,8 @@ module Tutorial = struct
 end
 
 module Success_story = struct
-  type t = [%import: Ood.Success_story.t] [@@deriving yaml]
+  type t = { title : string; image : string option; url : string option }
+  [@@deriving yaml]
 
   let path = "data/success_stories/en"
 
@@ -230,7 +292,16 @@ module Success_story = struct
 end
 
 module Book = struct
-  type t = [%import: Ood.Book.t] [@@deriving yaml]
+  type t = {
+    title : string;
+    description : string;
+    authors : string list;
+    language : string;
+    published : string option;
+    cover : string option;
+    isbn : string option;
+  }
+  [@@deriving yaml]
 
   let path = "data/books/en"
 
@@ -263,7 +334,15 @@ module Book = struct
 end
 
 module Industrial_user = struct
-  type t = [%import: Ood.Industrial_user.t] [@@deriving yaml]
+  type t = {
+    name : string;
+    description : string;
+    image : string option;
+    site : string;
+    locations : string list;
+    consortium : bool;
+  }
+  [@@deriving yaml]
 
   let path = "data/industrial_users/en"
 
@@ -288,14 +367,24 @@ module Industrial_user = struct
 end
 
 module Academic_institution = struct
-  type location = [%import: Ood.Academic_institution.location] [@@deriving yaml]
+  type location = { lat : float; long : float } [@@deriving yaml]
 
-  type course = [%import: Ood.Academic_institution.course] [@@deriving yaml]
+  type course = {
+    name : string;
+    acronym : string option;
+    online_resource : string option;
+  }
+  [@@deriving yaml]
 
-  type t =
-    [%import:
-      (Ood.Academic_institution.t
-      [@with Ood.Academic_institution.location := location])]
+  type t = {
+    name : string;
+    description : string;
+    url : string;
+    logo : string option;
+    continent : string;
+    courses : course list;
+    location : location option;
+  }
   [@@deriving yaml]
 
   let path = "data/academic_institutions/en"
