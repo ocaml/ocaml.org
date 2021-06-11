@@ -1,11 +1,11 @@
 ---
 title: Coq
 image: success-stories/coq-thumb.jpg
-url: http://coq.inria.fr/
+url: https://coq.inria.fr/
 ---
 
 *[Jean-Christophe Filliâtre](https://www.lri.fr/~filliatr/) (CNRS), a
-Coq developer, says:* “The [Coq](http://coq.inria.fr/) tool is a system
+Coq developer, says:* “The [Coq](https://coq.inria.fr/) tool is a system
 for manipulating formal mathematical proofs; a proof carried out in Coq
 is mechanically verified by the machine. In addition to its applications
 in mathematics, Coq also allows certifying the correctness of computer

@@ -1,13 +1,13 @@
 ---
 title: L'analyseur statique ASTRÉE
 image: success-stories/astree-thumb.gif
-url: http://www.astree.ens.fr/
+url: https://www.astree.ens.fr/
 ---
 
-*[David Monniaux](http://www-verimag.imag.fr/~monniaux/) (CNRS), membre
-du projet ASTRÉE :* « [ASTRÉE](http://www.astree.ens.fr/) est un
+*[David Monniaux](https://www-verimag.imag.fr/~monniaux/) (CNRS), membre
+du projet ASTRÉE :* « [ASTRÉE](https://www.astree.ens.fr/) est un
 *analyseur statique* basé sur [l&#39;interprétation
-abstraite](http://www.di.ens.fr/%7Ecousot/aiintro.shtml) et qui vise à
+abstraite](https://www.di.ens.fr/%7Ecousot/aiintro.shtml) et qui vise à
 établir l'absence d'erreurs d'exécution dans des logiciels critiques
 écrits dans un sous-ensemble du langage C. »
 
@@ -22,13 +22,13 @@ propriété souhaitée pour une large gamme de logiciels. »
 
 « À ce jour, ASTRÉE a prouvé l'absence d'erreurs d'exécution dans le
 logiciel de contrôle primaire de la [famille Airbus
-A340](http://www.airbus.com/product/a330_a340_backgrounder.asp). Cela
+A340](https://www.airbus.com/product/a330_a340_backgrounder.asp). Cela
 serait impossible par de simples *tests*, car le test ne considère qu'un
 *sous-ensemble* limité des cas, tandis que l'interprétation abstraite
 considère un *sur-ensemble* de tous les comportements possibles du
 système. »
 
-« [ASTRÉE](http://www.astree.ens.fr/) est écrit en OCaml et mesure
+« [ASTRÉE](https://www.astree.ens.fr/) est écrit en OCaml et mesure
 environ 44000 lignes (plus des librairies externes). Nous avions besoin
 d'un langage doté d'une bonne performance (en termes de vitesse et
 d'occupation mémoire) sur un matériel raisonnable, favorisant l'emploi

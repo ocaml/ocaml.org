@@ -29,7 +29,7 @@ the automated build system `dune`. Now we shall look under the hood.
 In this section, we will first see how to compile a simple program using
 only `ocamlc` or `ocamlopt`. Then we will see how to use libraries and how
 to take advantage of the
-[findlib](http://projects.camlcity.org/projects/findlib.html)
+[findlib](https://projects.camlcity.org/projects/findlib.html)
 system, which provides the `ocamlfind` command.
 
 ### The ocamlc and ocamlopt compilers

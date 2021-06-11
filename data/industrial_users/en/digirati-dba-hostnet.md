@@ -2,7 +2,7 @@
 name: Digirati dba Hostnet
 description: > 
   Digirati dba Hostnet is a web hosting company.
-site: "http://www.hostnet.com.br/"
+site: "https://www.hostnet.com.br/"
 image: users/hostnet.gif
 locations: 
   - Brazil

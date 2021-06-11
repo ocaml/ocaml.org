@@ -2,7 +2,7 @@
 name: Framtidsforum
 description: > 
   Framtidsforum I&M sells ExcelEverywhere, which creates web pages that look and function the same as your MS Excel spreadsheet
-site: "http://www.exceleverywhere.com"
+site: "https://www.exceleverywhere.com"
 locations: 
   - Sweden
 consortium: false

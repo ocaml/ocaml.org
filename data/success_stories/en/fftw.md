@@ -1,10 +1,10 @@
 ---
 title: FFTW
 image: success-stories/fftw-thumb.png
-url: http://www.fftw.org/
+url: https://www.fftw.org/
 ---
 
-[FFTW](http://www.fftw.org/) is a [very fast](http://www.fftw.org/benchfft/) C
+[FFTW](https://www.fftw.org/) is a [very fast](https://www.fftw.org/benchfft/) C
 library for computing Discrete Fourier Transforms (DFT). It uses a powerful
 symbolic optimizer written in OCaml which, given an integer N, generates highly
 optimized C code to compute DFTs of size N. FFTW was awarded the 1999

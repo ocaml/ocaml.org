@@ -1,3 +1,5 @@
+type link = { description : string; uri : string } [@@deriving yaml]
+
 type metadata = {
   title : string;
   description : string;
@@ -6,6 +8,7 @@ type metadata = {
   published : string option;
   cover : string option;
   isbn : string option;
+  links : link list option;
 }
 [@@deriving yaml]
 
@@ -26,11 +29,20 @@ let all () =
             published = metadata.published;
             cover = metadata.cover;
             isbn = metadata.isbn;
+            links = metadata.links;
           };
         body_md = String.trim body;
         body_html = Omd.of_string body |> Omd.to_html;
       })
     "books/en"
+
+let pp_link ppf (v : link) =
+  Fmt.pf ppf
+    {|
+      { description = %S
+      ; uri = %S
+      }|}
+    v.description v.uri
 
 let pp ppf v =
   Fmt.pf ppf
@@ -42,6 +54,7 @@ let pp ppf v =
   ; published = %a
   ; cover = %a
   ; isbn = %a
+  ; links = %a
   ; body_md = %S
   ; body_html = %S
   }|}
@@ -52,13 +65,17 @@ let pp ppf v =
     (Pp.option Pp.quoted_string)
     v.meta.cover
     (Pp.option Pp.quoted_string)
-    v.meta.isbn v.body_md v.body_html
+    v.meta.isbn (Pp.list pp_link)
+    (Option.value v.meta.links ~default:[])
+    v.body_md v.body_html
 
 let pp_list = Pp.list pp
 
 let template =
   Format.asprintf
     {|
+type link = { description : string; uri : string }
+
 type t = 
   { title : string
   ; description : string
@@ -67,6 +84,7 @@ type t =
   ; published : string option
   ; cover : string option
   ; isbn : string option
+  ; links : link list
   ; body_md : string
   ; body_html : string
   }

@@ -1,7 +1,7 @@
 ---
 title: Jane Street
 image: success-stories/jane-street-thumb.jpg
-url: http://janestreet.com/technology/
+url: https://janestreet.com/technology/
 ---
 
 Jane Street is a proprietary trading firm that uses OCaml as its primary
@@ -23,5 +23,5 @@ Jane Street has been contributing open-source libraries back to the wider
 community for many years, including Core, our alternative standard
 library, Async, a cooperative concurrency library,
 and several syntax extensions like binprot and sexplib.  All of these can
-be found at [http://janestreet.github.io](http://janestreet.github.io).  All in, we've open-sourced
+be found at [https://janestreet.github.io](https://janestreet.github.io).  All in, we've open-sourced
 more than 200k lines of code.

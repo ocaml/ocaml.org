@@ -2,7 +2,7 @@
 name: Sakhalin
 description: > 
   Sakhalin develops marine charting apps for Apple iPads and iPhones.
-site: "http://www.seaiq.com"
+site: "https://www.seaiq.com"
 locations: 
   - United States
 consortium: false

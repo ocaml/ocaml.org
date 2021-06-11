@@ -200,7 +200,7 @@ lambda calculus. Since I'm trying to avoid entering into the mathematics
 behind OCaml because that makes for a very boring and irrelevant
 tutorial, I won't go any further on the subject. You can find much more
 information about currying if it interests you by [doing a search on
-Google](http://www.google.com/search?q=currying "http://www.google.com/search?q=currying").
+Google](https://www.google.com/search?q=currying "https://www.google.com/search?q=currying").
 
 Remember our `double` and `multiply` functions from earlier on?
 `multiply` was defined as this:

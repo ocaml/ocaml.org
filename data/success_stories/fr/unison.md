@@ -1,10 +1,10 @@
 ---
 title: Le synchroniseur de fichiers Unison
 image: success-stories/unison-thumb.jpg
-url: http://www.cis.upenn.edu/%7Ebcpierce/unison/
+url: https://www.cis.upenn.edu/%7Ebcpierce/unison/
 ---
 
-[Unison](http://www.cis.upenn.edu/%7Ebcpierce/unison/) est un outil de
+[Unison](https://www.cis.upenn.edu/%7Ebcpierce/unison/) est un outil de
 synchronisation de fichiers populaire, qui fonctionne sous Windows et
 sous la plupart des variantes d'Unix. Il permet de stocker deux
 répliques d'une collection de fichiers et de répertoires sur deux
@@ -20,7 +20,7 @@ deux répliques, ainsi que ses propres structures privées, dans un état
 cohérent à tout instant, même en cas d'arrêt abrupt ou de panne de
 communication.
 
-*[Benjamin C. Pierce](http://www.cis.upenn.edu/%7Ebcpierce/) (University
+*[Benjamin C. Pierce](https://www.cis.upenn.edu/%7Ebcpierce/) (University
 of Pennsylvania), chef du projet Unison :* « Je pense qu'Unison est un
 succès très clair pour OCaml – en particulier, grâce à l'extrême
 portabilité et l'excellente conception générale du compilateur et de

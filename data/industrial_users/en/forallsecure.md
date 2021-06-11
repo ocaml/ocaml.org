@@ -2,7 +2,7 @@
 name: ForAllSecure
 description: > 
   ForAllSecure's mission is to test the world's software and provide actionable information to our customers.
-site: "http://forallsecure.com"
+site: "https://forallsecure.com"
 image: users/forallsecure.svg
 locations: 
   - United States

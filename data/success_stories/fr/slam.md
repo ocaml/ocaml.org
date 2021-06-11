@@ -1,9 +1,9 @@
 ---
 title: SLAM
-url: http://research.microsoft.com/en-us/projects/slam/
+url: https://research.microsoft.com/en-us/projects/slam/
 ---
 
-Le projet [SLAM](http://research.microsoft.com/en-us/projects/slam/) a
+Le projet [SLAM](https://research.microsoft.com/en-us/projects/slam/) a
 débuté à Microsoft Research début 2000. Son but était de vérifier
 automatiquement qu'un programme C utilise correctement l'interface d'une
 bibliothèque extérieure. Pour répondre à cette question, SLAM utilise de
@@ -17,7 +17,7 @@ caractérisent les interactions correctes entre un driver et le noyau du
 système d'exploitation Windows.
 
 *Dans le rapport technique
-[MSR-TR-2004-08](http://research.microsoft.com/apps/pubs/default.aspx?id=70038),
+[MSR-TR-2004-08](https://research.microsoft.com/apps/pubs/default.aspx?id=70038),
 T.Ball, B.Cook, V.Levin and S.K.Rajamani, les auteurs de SLAM,
 écrivent:* “The Right Tools for the Job: We developed SLAM using Inria's
 OCaml functional programming language. The expressiveness of this

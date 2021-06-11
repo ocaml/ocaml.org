@@ -4,7 +4,7 @@ description: >
   Nomadic Labs houses a team focused on Research and Development. Our
   core competencies are in programming language theory and practice,
   distributed systems, and formal verification.
-site: "http://www.nomadic-labs.com"
+site: "https://www.nomadic-labs.com"
 image: users/nomadic-labs.png
 locations: 
   - "Paris, France"

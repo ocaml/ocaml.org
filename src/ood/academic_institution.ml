@@ -126,7 +126,7 @@ let all =
     name = "Computer Science I";
     acronym = Some "CS1101";
     online_resource  = Some 
-  "http://www.cs.bc.edu/~muller/teaching/cs1101/s16/";
+  "https://www.cs.bc.edu/~muller/teaching/cs1101/s16/";
   }];
     location = Some 
   {
@@ -273,7 +273,7 @@ let all =
     name = "Fundamentals of Computer Programming";
     acronym = None;
     online_resource  = Some 
-  "http://users.cms.caltech.edu/~mvanier/";
+  "https://users.cms.caltech.edu/~mvanier/";
   }];
     location = Some 
   {
@@ -298,7 +298,7 @@ let all =
     name = "Programming Languages and Translators";
     acronym = None;
     online_resource  = Some 
-  "http://www1.cs.columbia.edu/~sedwards/classes/2014/w4115-fall/index.html";
+  "https://www1.cs.columbia.edu/~sedwards/classes/2014/w4115-fall/index.html";
   }];
     location = Some 
   {
@@ -323,7 +323,7 @@ let all =
     name = "Data Structures and Functional Programming";
     acronym = Some 
   "CS 3110";
-    online_resource  = Some "http://www.cs.cornell.edu/courses/cs3110/2016fa/";
+    online_resource  = Some "https://www.cs.cornell.edu/courses/cs3110/2016fa/";
   }];
     location = Some 
   {
@@ -355,7 +355,7 @@ let all =
     name = "Models of programming and languages interoperability";
     acronym = Some 
   "LI332";
-    online_resource  = Some "http://www-licence.ufr-info-p6.jussieu.fr/lmd/licence/2014/ue/LI332-2014oct/";
+    online_resource  = Some "https://www-licence.ufr-info-p6.jussieu.fr/lmd/licence/2014/ue/LI332-2014oct/";
   }];
     location = Some 
   {
@@ -485,7 +485,7 @@ let all =
     name = "Programming in OCAML";
     acronym = Some "SS 06";
     online_resource  = Some 
-  "http://cl-informatik.uibk.ac.at/teaching/ss06/ocaml/schedule.php";
+  "https://cl-informatik.uibk.ac.at/teaching/ss06/ocaml/schedule.php";
   }];
     location = Some 
   {
@@ -753,7 +753,7 @@ let all =
     name = "Programming Languages Principles and Paradigms (along with Python and Prolog)";
     acronym = Some 
   "CSE130-a";
-    online_resource  = Some "http://cseweb.ucsd.edu/classes/wi14/cse130-a/";
+    online_resource  = Some "https://cseweb.ucsd.edu/classes/wi14/cse130-a/";
   }];
     location = Some 
   {

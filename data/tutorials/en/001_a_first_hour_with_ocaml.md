@@ -13,12 +13,12 @@ You may follow along with this tutorial with just a basic OCaml installation,
 as described in [Up and Running](up_and_running.html).
 
 Alternatively, you may follow almost all of it by running OCaml in your browser
-using [TryOCaml](http://try.ocamlpro.com), with no installation required!!!
+using [TryOCaml](https://try.ocamlpro.com), with no installation required!!!
 
 ## Running OCaml code
 
 The easiest way to get started is to run an interactive session in
-your browser thanks to [TryOCaml](http://try.ocamlpro.com).
+your browser thanks to [TryOCaml](https://try.ocamlpro.com).
 
 To install OCaml on your computer, see the [Install](/docs/install.html) documentation.
 

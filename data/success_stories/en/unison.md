@@ -1,10 +1,10 @@
 ---
 title: The Unison File Synchronizer
 image: success-stories/unison-thumb.jpg
-url: http://www.cis.upenn.edu/%7Ebcpierce/unison/
+url: https://www.cis.upenn.edu/%7Ebcpierce/unison/
 ---
 
-[Unison](http://www.cis.upenn.edu/%7Ebcpierce/unison/) is a popular
+[Unison](https://www.cis.upenn.edu/%7Ebcpierce/unison/) is a popular
 file-synchronization tool for Windows and most flavors of Unix. It
 allows two replicas of a collection of files and directories to be
 stored on different hosts (or different disks on the same host),
@@ -17,7 +17,7 @@ careful to leave the replicas and its own private structures in a
 sensible state at all times, even in case of abnormal termination or
 communication failures.
 
-*[Benjamin C. Pierce](http://www.cis.upenn.edu/%7Ebcpierce/) (University
+*[Benjamin C. Pierce](https://www.cis.upenn.edu/%7Ebcpierce/) (University
 of Pennsylvania), Unison project leader, says:* “I think Unison is a
 very clear success for OCaml – in particular, for the extreme
 portability and overall excellent engineering of the compiler and

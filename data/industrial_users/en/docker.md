@@ -3,7 +3,7 @@ name: Docker, Inc.
 description: > 
   Docker provides an integrated technology suite that enables development and IT operations teams to build, ship, and run distributed applications anywhere
 image: users/docker.png
-site: "http://www.docker.com"
+site: "https://www.docker.com"
 locations: 
   - United States
 consortium: true

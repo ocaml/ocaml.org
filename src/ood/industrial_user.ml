@@ -16,7 +16,7 @@ let all =
   ; description = "Aesthetic Integration (AI) is a financial technology startup based in the City of London\n"
   ; image = Some 
  "users/aesthetic-integration.png"
-  ; site = "http://www.aestheticintegration.com"
+  ; site = "https://www.aestheticintegration.com"
   ; locations = 
  ["United Kingdom"]
   ; consortium = true
@@ -28,7 +28,7 @@ let all =
   ; description = "Ahrefs develops custom distributed petabyte-scale storage and runs an internet-wide crawler to collect the index of the whole Web\n"
   ; image = Some 
  "users/ahrefs.png"
-  ; site = "http://www.ahrefs.com"
+  ; site = "https://www.ahrefs.com"
   ; locations = 
  ["Singapore"; "United States"]
   ; consortium = true
@@ -64,8 +64,9 @@ let all =
   ; description = "Arena helps organizations hire the right people.\n"
   ; image = Some 
  "users/arena.jpg"
-  ; site = "http://www.arena.io"
-  ; locations = ["United States"]
+  ; site = "https://www.arena.io"
+  ; locations = 
+ ["United States"]
   ; consortium = false
   ; body_md = "\nArena helps organizations hire the right people. We do that by applying big data and predictive analytics to the hiring process. This results in less turnover for our clients and less discrimination for individuals. We use OCaml for all of our backend development."
   ; body_html = "<p>Arena helps organizations hire the right people. We do that by applying big data and predictive analytics to the hiring process. This results in less turnover for our clients and less discrimination for individuals. We use OCaml for all of our backend development.</p>\n"
@@ -87,7 +88,7 @@ let all =
   ; description = "Bloomberg, the global business and financial information and news leader, gives influential decision makers a critical edge by connecting them to a dynamic network of information, people and ideas\n"
   ; image = Some 
  "users/bloomberg.jpg"
-  ; site = "http://www.bloomberg.com"
+  ; site = "https://www.bloomberg.com"
   ; locations = 
  ["United States"]
   ; consortium = true
@@ -99,7 +100,7 @@ let all =
   ; description = "Cacaoweb is developing an application platform of a new kind. It runs on top of our peer-to-peer network, which happens to be one of the largest in the world\n"
   ; image = Some 
  "users/cacaoweb.png"
-  ; site = "http://cacaoweb.org/"
+  ; site = "https://cacaoweb.org/"
   ; locations = 
  ["United Kingdom"; "Hong Kong"]
   ; consortium = false
@@ -111,18 +112,18 @@ let all =
   ; description = "CEA is a French state company, member of the OCaml Consortium.\n"
   ; image = Some 
  "users/cea.png"
-  ; site = "http://cea.fr/"
+  ; site = "https://cea.fr/"
   ; locations = ["France"]
   ; consortium = true
-  ; body_md = "\nCEA is a French state company, member of the OCaml Consortium. It uses OCaml mainly to develop a platform dedicated to source-code analysis of C software, called [Frama-C](http://frama-c.com).\n"
-  ; body_html = "<p>CEA is a French state company, member of the OCaml Consortium. It uses OCaml mainly to develop a platform dedicated to source-code analysis of C software, called <a href=\"http://frama-c.com\">Frama-C</a>.</p>\n"
+  ; body_md = "\nCEA is a French state company, member of the OCaml Consortium. It uses OCaml mainly to develop a platform dedicated to source-code analysis of C software, called [Frama-C](https://frama-c.com).\n"
+  ; body_html = "<p>CEA is a French state company, member of the OCaml Consortium. It uses OCaml mainly to develop a platform dedicated to source-code analysis of C software, called <a href=\"https://frama-c.com\">Frama-C</a>.</p>\n"
   };
  
   { name = "Citrix"
   ; description = "Citrix uses OCaml in XenServer, a world-class server virtualization system.\n"
   ; image = Some 
  "users/citrix.png"
-  ; site = "http://www.citrix.com"
+  ; site = "https://www.citrix.com"
   ; locations = 
  ["United Kingdom"]
   ; consortium = true
@@ -134,7 +135,7 @@ let all =
   ; description = "Coherent Graphics is a developer of both server tools and desktop software for the processing of PDF documents\n"
   ; image = Some 
  "users/coherent.png"
-  ; site = "http://www.coherentpdf.com/"
+  ; site = "https://www.coherentpdf.com/"
   ; locations = 
  ["United Kingdom"]
   ; consortium = false
@@ -146,7 +147,7 @@ let all =
   ; description = "Cryptosense creates security analysis software with a particular focus on cryptographic systems\n"
   ; image = Some 
  "users/cryptosense.png"
-  ; site = "http://www.cryptosense.com/"
+  ; site = "https://www.cryptosense.com/"
   ; locations = 
  ["France"]
   ; consortium = false
@@ -158,7 +159,7 @@ let all =
   ; description = "Dassault Syst\195\168mes, the 3DEXPERIENCE Company, provides businesses and people with virtual universes to imagine sustainable innovations.\n"
   ; image = Some 
  "users/dassault.png"
-  ; site = "http://www.3ds.com/fr/"
+  ; site = "https://www.3ds.com/fr/"
   ; locations = 
  ["France"]
   ; consortium = false
@@ -182,7 +183,7 @@ let all =
   ; description = "Digirati dba Hostnet is a web hosting company.\n"
   ; image = Some 
  "users/hostnet.gif"
-  ; site = "http://www.hostnet.com.br/"
+  ; site = "https://www.hostnet.com.br/"
   ; locations = 
  ["Brazil"]
   ; consortium = false
@@ -194,7 +195,7 @@ let all =
   ; description = "Docker provides an integrated technology suite that enables development and IT operations teams to build, ship, and run distributed applications anywhere\n"
   ; image = Some 
  "users/docker.png"
-  ; site = "http://www.docker.com"
+  ; site = "https://www.docker.com"
   ; locations = 
  ["United States"]
   ; consortium = true
@@ -206,7 +207,7 @@ let all =
   ; description = "Esterel Technologies is a leading provider of critical systems and software development solutions for the aerospace, defense, rail transportation, nuclear, and industrial and automotive domains\n"
   ; image = Some 
  "users/esterel.jpg"
-  ; site = "http://www.esterel-technologies.com/"
+  ; site = "https://www.esterel-technologies.com/"
   ; locations = 
  ["France"]
   ; consortium = true
@@ -222,15 +223,15 @@ let all =
   ; locations = 
  ["United States"]
   ; consortium = true
-  ; body_md = "\nFacebook has built a number of major development tools using OCaml. [Hack](http://hacklang.org) is a compiler for a variant of PHP that aims to reconcile the fast development cycle of PHP with the discipline provided by static typing. [Flow](http://flowtype.org) is a similar project that provides static type checking for Javascript.  Both systems are highly responsive, parallel programs that can incorporate source code changes in real time. [Pfff](https://github.com/facebook/pfff/wiki/Main) is a set of tools for code analysis, visualizations, and style-preserving source transformations, written in OCaml, but supporting many languages."
-  ; body_html = "<p>Facebook has built a number of major development tools using OCaml. <a href=\"http://hacklang.org\">Hack</a> is a compiler for a variant of PHP that aims to reconcile the fast development cycle of PHP with the discipline provided by static typing. <a href=\"http://flowtype.org\">Flow</a> is a similar project that provides static type checking for Javascript.  Both systems are highly responsive, parallel programs that can incorporate source code changes in real time. <a href=\"https://github.com/facebook/pfff/wiki/Main\">Pfff</a> is a set of tools for code analysis, visualizations, and style-preserving source transformations, written in OCaml, but supporting many languages.</p>\n"
+  ; body_md = "\nFacebook has built a number of major development tools using OCaml. [Hack](https://hacklang.org) is a compiler for a variant of PHP that aims to reconcile the fast development cycle of PHP with the discipline provided by static typing. [Flow](https://flowtype.org) is a similar project that provides static type checking for Javascript.  Both systems are highly responsive, parallel programs that can incorporate source code changes in real time. [Pfff](https://github.com/facebook/pfff/wiki/Main) is a set of tools for code analysis, visualizations, and style-preserving source transformations, written in OCaml, but supporting many languages."
+  ; body_html = "<p>Facebook has built a number of major development tools using OCaml. <a href=\"https://hacklang.org\">Hack</a> is a compiler for a variant of PHP that aims to reconcile the fast development cycle of PHP with the discipline provided by static typing. <a href=\"https://flowtype.org\">Flow</a> is a similar project that provides static type checking for Javascript.  Both systems are highly responsive, parallel programs that can incorporate source code changes in real time. <a href=\"https://github.com/facebook/pfff/wiki/Main\">Pfff</a> is a set of tools for code analysis, visualizations, and style-preserving source transformations, written in OCaml, but supporting many languages.</p>\n"
   };
  
   { name = "Fasoo"
   ; description = "Fasoo uses OCaml to develop a static analysis tool.\n"
   ; image = Some 
  "users/fasoo.png"
-  ; site = "http://www.fasoo.com"
+  ; site = "https://www.fasoo.com"
   ; locations = 
  ["Korea"]
   ; consortium = false
@@ -242,7 +243,7 @@ let all =
   ; description = "Flying Frog Consultancy Ltd. consult and write books and software on the use of OCaml in the context of scientific computing.\n"
   ; image = Some 
  "users/flying-frog.png"
-  ; site = "http://www.ffconsultancy.com"
+  ; site = "https://www.ffconsultancy.com"
   ; locations = 
  ["United Kingdom"]
   ; consortium = false
@@ -254,7 +255,7 @@ let all =
   ; description = "ForAllSecure's mission is to test the world's software and provide actionable information to our customers.\n"
   ; image = Some 
  "users/forallsecure.svg"
-  ; site = "http://forallsecure.com"
+  ; site = "https://forallsecure.com"
   ; locations = 
  ["United States"]
   ; consortium = false
@@ -265,7 +266,7 @@ let all =
   { name = "Framtidsforum"
   ; description = "Framtidsforum I&M sells ExcelEverywhere, which creates web pages that look and function the same as your MS Excel spreadsheet\n"
   ; image = None
-  ; site = "http://www.exceleverywhere.com"
+  ; site = "https://www.exceleverywhere.com"
   ; locations = 
  ["Sweden"]
   ; consortium = false
@@ -277,7 +278,7 @@ let all =
   ; description = "Galois has developed a domain specific declarative language for cryptographic algorithms.\n"
   ; image = Some 
  "users/galois.png"
-  ; site = "http://www.galois.com"
+  ; site = "https://www.galois.com"
   ; locations = 
  ["United States"]
   ; consortium = false
@@ -289,7 +290,7 @@ let all =
   ; description = "Incubaid has developed Arakoon, a distributed key-value store that guarantees consistency above anything else.\n"
   ; image = Some 
  "users/Incubaid.png"
-  ; site = "http://incubaid.com"
+  ; site = "https://incubaid.com"
   ; locations = 
  ["Belgium"]
   ; consortium = false
@@ -301,7 +302,7 @@ let all =
   ; description = "Issuu is a digital publishing platform delivering exceptional reading experiences of magazines, catalogues, and newspapers\n"
   ; image = Some 
  "users/issuu.gif"
-  ; site = "http://issuu.com"
+  ; site = "https://issuu.com"
   ; locations = ["Denmark"]
   ; consortium = false
   ; body_md = "\nIssuu is a digital publishing platform delivering exceptional reading experiences of magazines, catalogues, and newspapers. Each month Issuu serves over 6 billion page views and 60 million users through their worldwide network. OCaml is used as part of the server-side systems, platforms, and web applications. The backend team is relatively small and the simplicity and scalability of both systems and processes are of vital importance.\n"
@@ -312,12 +313,12 @@ let all =
   ; description = "Jane Street is a quantitative trading firm that operates around the clock and around the globe\n"
   ; image = Some 
  "users/jane-street.jpg"
-  ; site = "http://janestreet.com"
+  ; site = "https://janestreet.com"
   ; locations = 
  ["United States"; "United Kingdom"; "Hong Kong"]
   ; consortium = true
-  ; body_md = "\nJane Street is a quantitative trading firm that operates around the clock and around the globe. They bring a deep understanding of markets, a scientific approach, and innovative technology to bear on the problem of trading profitably in the world's highly competitive financial markets. They're the largest commercial user of OCaml, using it for everything from research tools to trading systems to systems infrastructure to accounting systems. Jane Street has over 400 OCaml programmers and over 15 million lines of OCaml, powering a technology platform that trades billions of dollars every day. Half a million lines of their code are released [open source](http://opensource.janestreet.com), and they've created key parts of the open-source OCaml ecosystem, like [Dune](http://dune.build). You can learn more by checking out their [tech blog](http://blog.janestreet.com).\n"
-  ; body_html = "<p>Jane Street is a quantitative trading firm that operates around the clock and around the globe. They bring a deep understanding of markets, a scientific approach, and innovative technology to bear on the problem of trading profitably in the world's highly competitive financial markets. They're the largest commercial user of OCaml, using it for everything from research tools to trading systems to systems infrastructure to accounting systems. Jane Street has over 400 OCaml programmers and over 15 million lines of OCaml, powering a technology platform that trades billions of dollars every day. Half a million lines of their code are released <a href=\"http://opensource.janestreet.com\">open source</a>, and they've created key parts of the open-source OCaml ecosystem, like <a href=\"http://dune.build\">Dune</a>. You can learn more by checking out their <a href=\"http://blog.janestreet.com\">tech blog</a>.</p>\n"
+  ; body_md = "\nJane Street is a quantitative trading firm that operates around the clock and around the globe. They bring a deep understanding of markets, a scientific approach, and innovative technology to bear on the problem of trading profitably in the world's highly competitive financial markets. They're the largest commercial user of OCaml, using it for everything from research tools to trading systems to systems infrastructure to accounting systems. Jane Street has over 400 OCaml programmers and over 15 million lines of OCaml, powering a technology platform that trades billions of dollars every day. Half a million lines of their code are released [open source](https://opensource.janestreet.com), and they've created key parts of the open-source OCaml ecosystem, like [Dune](https://dune.build). You can learn more by checking out their [tech blog](https://blog.janestreet.com).\n"
+  ; body_html = "<p>Jane Street is a quantitative trading firm that operates around the clock and around the globe. They bring a deep understanding of markets, a scientific approach, and innovative technology to bear on the problem of trading profitably in the world's highly competitive financial markets. They're the largest commercial user of OCaml, using it for everything from research tools to trading systems to systems infrastructure to accounting systems. Jane Street has over 400 OCaml programmers and over 15 million lines of OCaml, powering a technology platform that trades billions of dollars every day. Half a million lines of their code are released <a href=\"https://opensource.janestreet.com\">open source</a>, and they've created key parts of the open-source OCaml ecosystem, like <a href=\"https://dune.build\">Dune</a>. You can learn more by checking out their <a href=\"https://blog.janestreet.com\">tech blog</a>.</p>\n"
   };
  
   { name = "Kernelize"
@@ -336,19 +337,19 @@ let all =
   ; description = "Kong makes it easy to distribute, monetize, manage and consume cloud APIs.\n"
   ; image = Some 
  "users/mashape.png"
-  ; site = "http://www.konghq.com"
+  ; site = "https://www.konghq.com"
   ; locations = 
  ["United States"]
   ; consortium = false
-  ; body_md = "\nKong makes it easy to distribute, monetize, manage and consume cloud APIs. Mashape is building a world-class marketplace for cloud APIs driven by a passionate community of developers from all over the world as well as enterprise API management and analytics products. We use OCaml in our [APIAnalytics](http://apianalytics.com) product \226\128\148 as part of a mission-critical, lightweight HTTP proxy.\n"
-  ; body_html = "<p>Kong makes it easy to distribute, monetize, manage and consume cloud APIs. Mashape is building a world-class marketplace for cloud APIs driven by a passionate community of developers from all over the world as well as enterprise API management and analytics products. We use OCaml in our <a href=\"http://apianalytics.com\">APIAnalytics</a> product \226\128\148 as part of a mission-critical, lightweight HTTP proxy.</p>\n"
+  ; body_md = "\nKong makes it easy to distribute, monetize, manage and consume cloud APIs. Mashape is building a world-class marketplace for cloud APIs driven by a passionate community of developers from all over the world as well as enterprise API management and analytics products. We use OCaml in our [APIAnalytics](https://apianalytics.com) product \226\128\148 as part of a mission-critical, lightweight HTTP proxy.\n"
+  ; body_html = "<p>Kong makes it easy to distribute, monetize, manage and consume cloud APIs. Mashape is building a world-class marketplace for cloud APIs driven by a passionate community of developers from all over the world as well as enterprise API management and analytics products. We use OCaml in our <a href=\"https://apianalytics.com\">APIAnalytics</a> product \226\128\148 as part of a mission-critical, lightweight HTTP proxy.</p>\n"
   };
  
   { name = "LexiFi"
   ; description = "LexiFi is an innovative provider of software applications and infrastructure technology for the capital markets industry.\n"
   ; image = Some 
  "users/lexifi.png"
-  ; site = "http://www.janestreet.com"
+  ; site = "https://www.janestreet.com"
   ; locations = 
  ["France"]
   ; consortium = true
@@ -360,7 +361,7 @@ let all =
   ; description = "Matrix Lead provides professionals and companies with leading technologies and solutions for spreadsheets. \n"
   ; image = Some 
  "users/matrixlead.png"
-  ; site = "http://www.matrixlead.com"
+  ; site = "https://www.matrixlead.com"
   ; locations = 
  ["France"; "China"]
   ; consortium = false
@@ -372,19 +373,19 @@ let all =
   ; description = "MEDIT develops SuMo, an advanced bioinformatic system, for the analysis of protein 3D structures and the identification of drug-design targets. \n"
   ; image = Some 
  "users/medit.jpg"
-  ; site = "http://www.medit-pharma.com/"
+  ; site = "https://www.medit-pharma.com/"
   ; locations = 
  ["France"]
   ; consortium = false
-  ; body_md = "\nMEDIT develops [SuMo, an advanced bioinformatic system](\"http://mjambon.com/\") for the analysis of protein 3D structures and the identification of drug-design targets. SuMo is written entirely in OCaml and provides interfaces to several commercial molecular-modeling packages.\n"
-  ; body_html = "<p>MEDIT develops <a href=\"%22http://mjambon.com/%22\">SuMo, an advanced bioinformatic system</a> for the analysis of protein 3D structures and the identification of drug-design targets. SuMo is written entirely in OCaml and provides interfaces to several commercial molecular-modeling packages.</p>\n"
+  ; body_md = "\nMEDIT develops [SuMo, an advanced bioinformatic system](\"https://mjambon.com/\") for the analysis of protein 3D structures and the identification of drug-design targets. SuMo is written entirely in OCaml and provides interfaces to several commercial molecular-modeling packages.\n"
+  ; body_html = "<p>MEDIT develops <a href=\"%22https://mjambon.com/%22\">SuMo, an advanced bioinformatic system</a> for the analysis of protein 3D structures and the identification of drug-design targets. SuMo is written entirely in OCaml and provides interfaces to several commercial molecular-modeling packages.</p>\n"
   };
  
   { name = "Microsoft"
   ; description = "Facebook has built a number of major development tools using OCaml\n"
   ; image = Some 
  "users/microsoft.png"
-  ; site = "http://www.microsoft.com"
+  ; site = "https://www.microsoft.com"
   ; locations = 
  ["United States"]
   ; consortium = true
@@ -396,31 +397,31 @@ let all =
   ; description = "The Hammer Lab at Mount Sinai develops and uses Ketrew for managing complex bioinformatics workflows.\n"
   ; image = Some 
  "users/mount-sinai.png"
-  ; site = "http://www.mountsinai.org"
+  ; site = "https://www.mountsinai.org"
   ; locations = 
  ["United States"]
   ; consortium = false
-  ; body_md = "\nThe [Hammer Lab](\"http://www.hammerlab.org\") at Mount Sinai develops and uses [Ketrew](\"https://github.com/hammerlab/ketrew\") for managing complex bioinformatics workflows. Ketrew includes an embedded domain-specific language to simplify the specification of workflows and an engine for the execution of workflows. Ketrew can be run as a command-line application or as a service.\n"
-  ; body_html = "<p>The <a href=\"%22http://www.hammerlab.org%22\">Hammer Lab</a> at Mount Sinai develops and uses <a href=\"%22https://github.com/hammerlab/ketrew%22\">Ketrew</a> for managing complex bioinformatics workflows. Ketrew includes an embedded domain-specific language to simplify the specification of workflows and an engine for the execution of workflows. Ketrew can be run as a command-line application or as a service.</p>\n"
+  ; body_md = "\nThe [Hammer Lab](\"https://www.hammerlab.org\") at Mount Sinai develops and uses [Ketrew](\"https://github.com/hammerlab/ketrew\") for managing complex bioinformatics workflows. Ketrew includes an embedded domain-specific language to simplify the specification of workflows and an engine for the execution of workflows. Ketrew can be run as a command-line application or as a service.\n"
+  ; body_html = "<p>The <a href=\"%22https://www.hammerlab.org%22\">Hammer Lab</a> at Mount Sinai develops and uses <a href=\"%22https://github.com/hammerlab/ketrew%22\">Ketrew</a> for managing complex bioinformatics workflows. Ketrew includes an embedded domain-specific language to simplify the specification of workflows and an engine for the execution of workflows. Ketrew can be run as a command-line application or as a service.</p>\n"
   };
  
   { name = "Mr. Number"
   ; description = "Mr. Number started as a Silicon Valley startup and developed the Mr. Number app for call blocking, later acquired by WhitePages.\n"
   ; image = Some 
  "users/mrnumber.jpg"
-  ; site = "http://mrnumber.com/"
+  ; site = "https://mrnumber.com/"
   ; locations = 
  ["United States"]
   ; consortium = false
-  ; body_md = "\nMr. Number started as a Silicon Valley startup and developed the Mr. Number app for call blocking, later [acquired by WhitePages](http://allthingsd.com/20130601/whitepages-scoops-up-mr-number-an-android-app-for-blocking-unwanted-calls/). OCaml is used on the server-side as the glue between the various third-party components and services.</p>\n"
-  ; body_html = "<p>Mr. Number started as a Silicon Valley startup and developed the Mr. Number app for call blocking, later <a href=\"http://allthingsd.com/20130601/whitepages-scoops-up-mr-number-an-android-app-for-blocking-unwanted-calls/\">acquired by WhitePages</a>. OCaml is used on the server-side as the glue between the various third-party components and services.</p></p>\n"
+  ; body_md = "\nMr. Number started as a Silicon Valley startup and developed the Mr. Number app for call blocking, later [acquired by WhitePages](https://allthingsd.com/20130601/whitepages-scoops-up-mr-number-an-android-app-for-blocking-unwanted-calls/). OCaml is used on the server-side as the glue between the various third-party components and services.</p>\n"
+  ; body_html = "<p>Mr. Number started as a Silicon Valley startup and developed the Mr. Number app for call blocking, later <a href=\"https://allthingsd.com/20130601/whitepages-scoops-up-mr-number-an-android-app-for-blocking-unwanted-calls/\">acquired by WhitePages</a>. OCaml is used on the server-side as the glue between the various third-party components and services.</p></p>\n"
   };
  
   { name = "MyLife"
   ; description = "MyLife has developed a powerful people search tool that will empower those in need to find anyone, regardless of years past and the life that was built in between.\n"
   ; image = Some 
  "users/mylife.jpg"
-  ; site = "http://www.mylife.com/"
+  ; site = "https://www.mylife.com/"
   ; locations = 
  ["United States"]
   ; consortium = false
@@ -432,7 +433,7 @@ let all =
   ; description = "Narrow Gate Logic is a company using the OCaml language in business and non-business applications.\n"
   ; image = Some 
  "users/nglogic.png"
-  ; site = "http://nglogic.com"
+  ; site = "https://nglogic.com"
   ; locations = 
  ["Poland"]
   ; consortium = false
@@ -444,7 +445,7 @@ let all =
   ; description = "Nomadic Labs houses a team focused on Research and Development. Our core competencies are in programming language theory and practice, distributed systems, and formal verification.\n"
   ; image = Some 
  "users/nomadic-labs.png"
-  ; site = "http://www.nomadic-labs.com"
+  ; site = "https://www.nomadic-labs.com"
   ; locations = 
  ["Paris, France"]
   ; consortium = false
@@ -456,7 +457,7 @@ let all =
   ; description = "OCamlPro develops and maintains a development environment for the OCaml language.\n"
   ; image = Some 
  "users/ocamlpro.png"
-  ; site = "http://www.ocamlpro.com"
+  ; site = "https://www.ocamlpro.com"
   ; locations = 
  ["France"]
   ; consortium = true
@@ -468,7 +469,7 @@ let all =
   ; description = "Prudent Consulting offers IT solutions to large and mid-sized organizations by combining industry experience and technology expertise to help our customers achieve business goals with speed, agility, and great impact.\n"
   ; image = Some 
  "users/prudent.jpg"
-  ; site = "http://www.prudentconsulting.com"
+  ; site = "https://www.prudentconsulting.com"
   ; locations = 
  ["United States"]
   ; consortium = false
@@ -480,7 +481,7 @@ let all =
   ; description = "Psellos is a small group of computer scientists who became intrigued by the idea of coding iOS apps in OCaml.\n"
   ; image = Some 
  "users/psellos.png"
-  ; site = "http://www.psellos.com"
+  ; site = "https://www.psellos.com"
   ; locations = 
  ["United States"]
   ; consortium = false
@@ -491,7 +492,7 @@ let all =
   { name = "Sakhalin"
   ; description = "Sakhalin develops marine charting apps for Apple iPads and iPhones.\n"
   ; image = None
-  ; site = "http://www.seaiq.com"
+  ; site = "https://www.seaiq.com"
   ; locations = 
  ["United States"]
   ; consortium = false
@@ -503,19 +504,19 @@ let all =
   ; description = "Shiro Games is developing games using Haxe, a language built with a compiler written in OCaml.\n"
   ; image = Some 
  "users/shirogames.png"
-  ; site = "http://www.shirogames.com"
+  ; site = "https://www.shirogames.com"
   ; locations = 
  ["France"]
   ; consortium = false
-  ; body_md = "\nShiro Games is developing games using [Haxe](http://haxe.org/), a language built with a compiler written in OCaml."
-  ; body_html = "<p>Shiro Games is developing games using <a href=\"http://haxe.org/\">Haxe</a>, a language built with a compiler written in OCaml.</p>\n"
+  ; body_md = "\nShiro Games is developing games using [Haxe](https://haxe.org/), a language built with a compiler written in OCaml."
+  ; body_html = "<p>Shiro Games is developing games using <a href=\"https://haxe.org/\">Haxe</a>, a language built with a compiler written in OCaml.</p>\n"
   };
  
   { name = "SimCorp"
   ; description = "Multi-asset platform to support investment decision-making and innovation.\n"
   ; image = Some 
  "users/simcorp.png"
-  ; site = "http://www.simcorp.com/"
+  ; site = "https://www.simcorp.com/"
   ; locations = 
  ["United States"]
   ; consortium = true
@@ -527,19 +528,19 @@ let all =
   ; description = "Specialises in functional programming software development, consultation, and training.\n"
   ; image = Some 
  "users/sleekersoft.png"
-  ; site = "http://www.sleekersoft.com"
+  ; site = "https://www.sleekersoft.com"
   ; locations = 
  ["Australia"]
   ; consortium = false
-  ; body_md = "\nShiro Games is developing games using [Haxe](http://haxe.org/), a language built with a compiler written in OCaml."
-  ; body_html = "<p>Shiro Games is developing games using <a href=\"http://haxe.org/\">Haxe</a>, a language built with a compiler written in OCaml.</p>\n"
+  ; body_md = "\nShiro Games is developing games using [Haxe](https://haxe.org/), a language built with a compiler written in OCaml."
+  ; body_html = "<p>Shiro Games is developing games using <a href=\"https://haxe.org/\">Haxe</a>, a language built with a compiler written in OCaml.</p>\n"
   };
  
   { name = "Solvuu"
   ; description = "Solvuu's software allows users to store big and small data sets, share the data with collaborators, execute computationally intensive algorithms and workflows, and visualize results.\n"
   ; image = Some 
  "users/solvuu.jpg"
-  ; site = "http://www.solvuu.com"
+  ; site = "https://www.solvuu.com"
   ; locations = 
  ["United States"]
   ; consortium = false
@@ -551,7 +552,7 @@ let all =
   ; description = "4Sigma is a small firm making websites and some interesting web applications.\n"
   ; image = Some 
  "users/4sigma.png"
-  ; site = "http://www.4sigma.it"
+  ; site = "https://www.4sigma.it"
   ; locations = 
  ["Italy"]
   ; consortium = false
@@ -563,7 +564,7 @@ let all =
   ; description = "Tarides builds and maintains open-source infrastructure tools in OCaml like MirageOS, Irmin and OCaml developer tools.\n"
   ; image = Some 
  "users/tarides.png"
-  ; site = "http://www.tarides.com"
+  ; site = "https://www.tarides.com"
   ; locations = 
  ["France"]
   ; consortium = false
@@ -575,19 +576,19 @@ let all =
   ; description = "TrustInSoft is a company that changes the rules in cybersecurity. TrustInSoft is the software publisher of the software analysis Frama-C platform. \n"
   ; image = Some 
  "users/trustinsoft.png"
-  ; site = "http://trust-in-soft.com"
+  ; site = "https://trust-in-soft.com"
   ; locations = 
  ["France"]
   ; consortium = false
-  ; body_md = "\nTrustInSoft is a company that changes the rules in cybersecurity. TrustInSoft is the software publisher of the software analysis [Frama-C](http://frama-c.com) platform. Our motto is simple: make the formal methods accessible to the majority of software developers."
-  ; body_html = "<p>TrustInSoft is a company that changes the rules in cybersecurity. TrustInSoft is the software publisher of the software analysis <a href=\"http://frama-c.com\">Frama-C</a> platform. Our motto is simple: make the formal methods accessible to the majority of software developers.</p>\n"
+  ; body_md = "\nTrustInSoft is a company that changes the rules in cybersecurity. TrustInSoft is the software publisher of the software analysis [Frama-C](https://frama-c.com) platform. Our motto is simple: make the formal methods accessible to the majority of software developers."
+  ; body_html = "<p>TrustInSoft is a company that changes the rules in cybersecurity. TrustInSoft is the software publisher of the software analysis <a href=\"https://frama-c.com\">Frama-C</a> platform. Our motto is simple: make the formal methods accessible to the majority of software developers.</p>\n"
   };
  
   { name = "Wolfram MathCore"
   ; description = "Wolfram MathCore uses OCaml to implement its SystemModeler kernel.\n"
   ; image = Some 
  "users/wolfram-mathcore.gif"
-  ; site = "http://www.wolframmathcore.com"
+  ; site = "https://www.wolframmathcore.com"
   ; locations = 
  ["Sweden"]
   ; consortium = false
@@ -598,7 +599,7 @@ let all =
   { name = "Zeo Agency"
   ; description = "Zeo is a digital marketing company focused on helping companies to do better in SEO.\n"
   ; image = None
-  ; site = "http://www.zeo.org"
+  ; site = "https://www.zeo.org"
   ; locations = 
  ["London, United Kingdom"]
   ; consortium = false

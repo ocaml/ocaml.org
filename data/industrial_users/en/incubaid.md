@@ -2,7 +2,7 @@
 name: Incubaid
 description: > 
   Incubaid has developed Arakoon, a distributed key-value store that guarantees consistency above anything else.
-site: "http://incubaid.com"
+site: "https://incubaid.com"
 image: users/Incubaid.png
 locations: 
   - Belgium

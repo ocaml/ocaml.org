@@ -1,10 +1,10 @@
 ---
 title: Le Langage de Modélisation Financière de LexiFi
 image: success-stories/lexifi-thumb.jpg
-url: http://www.lexifi.com/
+url: https://www.lexifi.com/
 ---
 
-Développé par la société [LexiFi](http://www.lexifi.com/), le Langage de
+Développé par la société [LexiFi](https://www.lexifi.com/), le Langage de
 Modélisation Financière (MLFi) est le premier langage formel capable de
 décrire les produits d'investissement, de crédit et de marché de
 capitaux les plus sophistiqués. MLFi est implanté comme une extension

@@ -2,7 +2,7 @@
 name: Galois
 description: > 
   Galois has developed a domain specific declarative language for cryptographic algorithms.
-site: "http://www.galois.com"
+site: "https://www.galois.com"
 image: users/galois.png
 locations: 
   - United States

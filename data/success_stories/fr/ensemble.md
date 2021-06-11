@@ -1,10 +1,10 @@
 ---
 title: Le système de communication distribuée Ensemble
-url: http://dsl.cs.technion.ac.il/projects/Ensemble/
+url: https://dsl.cs.technion.ac.il/projects/Ensemble/
 ---
 
 *Ohad Rodeh (IBM Haifa), un des développeurs d'Ensemble :*
-« [Ensemble](http://dsl.cs.technion.ac.il/projects/Ensemble/) est un
+« [Ensemble](https://dsl.cs.technion.ac.il/projects/Ensemble/) est un
 système de communication de groupe écrit en OCaml, développé à Cornell
 et à Hebrew University. À l'auteur d'applications, Ensemble fournit une
 librairie de protocoles que l'on peut utiliser pour construire

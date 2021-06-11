@@ -1,10 +1,10 @@
 ---
 title: Le client pair-à-pair MLdonkey
 image: success-stories/mldonkey-thumb.jpg
-url: http://mldonkey.sourceforge.net/Main_Page
+url: https://mldonkey.sourceforge.net/Main_Page
 ---
 
-[MLdonkey](http://mldonkey.sourceforge.net/Main_Page) est un client
+[MLdonkey](https://mldonkey.sourceforge.net/Main_Page) est un client
 pair-à-pair multi-plateformes et multi-réseaux. Il a été le premier
 client « open source » à permettre l'accès au réseau eDonkey.
 Aujourd'hui, MLdonkey autorise également l'accès à plusieurs autres
@@ -18,7 +18,7 @@ d'utiliser OCaml pour programmer une application réseau dans le monde
 émergent des systèmes pair-à-pair. Le résultat de notre travail,
 MLdonkey, a surpassé nos espérances : MLdonkey est aujourd'hui le client
 de partage de fichiers pair-à-pair le plus populaire, d'après
-[freshmeat.net](http://freshmeat.net/), avec environ dix mille
+[freshmeat.net](https://freshmeat.net/), avec environ dix mille
 utilisateurs quotidiens. De plus, MLdonkey est le seul client capable de
 se connecter à plusieurs réseaux pair-à-pair pour télécharger et
 échanger des fichiers. Il fonctionne en tant que démon, c'est-à-dire en

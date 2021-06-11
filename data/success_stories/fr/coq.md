@@ -1,11 +1,11 @@
 ---
 title: Coq
 image: success-stories/coq-thumb.jpg
-url: http://coq.inria.fr/
+url: https://coq.inria.fr/
 ---
 
-*[Jean-Christophe Filliâtre](http://www.lri.fr/%7Efilliatr/) (CNRS), un
-des développeurs de Coq :* « L'outil [Coq](http://coq.inria.fr/) est un
+*[Jean-Christophe Filliâtre](https://www.lri.fr/%7Efilliatr/) (CNRS), un
+des développeurs de Coq :* « L'outil [Coq](https://coq.inria.fr/) est un
 système de manipulation de preuves mathématiques formelles ; une preuve
 réalisée avec Coq est mécaniquement vérifiée par la machine. Outre ses
 applications en mathématiques, l'outil Coq permet également de certifier

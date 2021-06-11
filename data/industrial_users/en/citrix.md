@@ -3,7 +3,7 @@ name: Citrix
 description: > 
   Citrix uses OCaml in XenServer, a world-class server virtualization system.
 image: users/citrix.png
-site: "http://www.citrix.com"
+site: "https://www.citrix.com"
 locations: 
   - United Kingdom
 consortium: true

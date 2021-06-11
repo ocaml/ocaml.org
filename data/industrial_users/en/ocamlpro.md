@@ -2,7 +2,7 @@
 name: OCamlPro
 description: > 
   OCamlPro develops and maintains a development environment for the OCaml language.
-site: "http://www.ocamlpro.com"
+site: "https://www.ocamlpro.com"
 image: users/ocamlpro.png
 locations: 
   - France

@@ -1,10 +1,10 @@
 ---
 title: LexiFi's Modeling Language for Finance
 image: success-stories/lexifi-thumb.jpg
-url: http://www.lexifi.com/
+url: https://www.lexifi.com/
 ---
 
-Developed by the company [LexiFi](http://www.lexifi.com/), the Modeling
+Developed by the company [LexiFi](https://www.lexifi.com/), the Modeling
 Language for Finance (MLFi) is the first formal language that accurately
 describes the most sophisticated capital market, credit, and investment
 products. MLFi is implemented as an extension of OCaml.

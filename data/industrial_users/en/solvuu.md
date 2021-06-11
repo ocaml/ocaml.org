@@ -2,7 +2,7 @@
 name: Solvuu
 description: > 
   Solvuu's software allows users to store big and small data sets, share the data with collaborators, execute computationally intensive algorithms and workflows, and visualize results.
-site: "http://www.solvuu.com"
+site: "https://www.solvuu.com"
 image: users/solvuu.jpg
 locations: 
   - United States

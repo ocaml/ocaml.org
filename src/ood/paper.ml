@@ -19,7 +19,7 @@ let all =
   ; tags = 
  ["core"; "language"]
   ; year = 1994
-  ; links = ["http://www.cs.rice.edu/CS/PLT/Publications/Scheme/ic94-wf.ps.gz"]
+  ; links = ["https://www.cs.rice.edu/CS/PLT/Publications/Scheme/ic94-wf.ps.gz"]
   };
  
   { title = "The Essence of ML Type Inference"
@@ -30,7 +30,7 @@ let all =
   ; tags = 
  ["core"; "language"]
   ; year = 2005
-  ; links = ["http://cristal.inria.fr/attapl/preversion.ps.gz"]
+  ; links = ["https://cristal.inria.fr/attapl/preversion.ps.gz"]
   };
  
   { title = "Relaxing the value restriction"
@@ -41,8 +41,8 @@ let all =
   ; tags = 
  ["core"; "language"]
   ; year = 2004
-  ; links = ["http://caml.inria.fr/pub/papers/garrigue-value_restriction-fiwflp04.pdf";
-                                                   "http://caml.inria.fr/pub/papers/garrigue-value_restriction-fiwflp04.ps.gz"]
+  ; links = ["https://caml.inria.fr/pub/papers/garrigue-value_restriction-fiwflp04.pdf";
+                                                   "https://caml.inria.fr/pub/papers/garrigue-value_restriction-fiwflp04.ps.gz"]
   };
  
   { title = "Manifest Types, Modules, and Separate Compilation"
@@ -53,9 +53,9 @@ let all =
   ; tags = 
  ["core"; "language"; "modules"]
   ; year = 1994
-  ; links = ["http://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.pdf";
-                                                              "http://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.ps.gz";
-                                                              "http://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.dvi.gz"]
+  ; links = ["https://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.pdf";
+                                                              "https://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.ps.gz";
+                                                              "https://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.dvi.gz"]
   };
  
   { title = "Applicative Functors and Fully Transparent Higher-order Modules"
@@ -66,9 +66,9 @@ let all =
   ; tags = 
  ["core"; "language"; "modules"]
   ; year = 1995
-  ; links = ["http://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.pdf";
-                                                              "http://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.ps.gz";
-                                                              "http://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.dvi.gz"]
+  ; links = ["https://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.pdf";
+                                                              "https://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.ps.gz";
+                                                              "https://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.dvi.gz"]
   };
  
   { title = "A Modular Module System"
@@ -79,9 +79,9 @@ let all =
   ; tags = 
  ["core"; "language"; "modules"]
   ; year = 2000
-  ; links = ["http://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.pdf";
-                                                              "http://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.ps.gz";
-                                                              "http://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.dvi.gz"]
+  ; links = ["https://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.pdf";
+                                                              "https://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.ps.gz";
+                                                              "https://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.dvi.gz"]
   };
  
   { title = "A Proposal for Recursive Modules in Objective Caml"
@@ -92,8 +92,8 @@ let all =
   ; tags = 
  ["core"; "language"; "modules"]
   ; year = 2003
-  ; links = ["http://caml.inria.fr/pub/papers/xleroy-recursive_modules-03.pdf";
-                                                              "http://caml.inria.fr/pub/papers/xleroy-recursive_modules-03.ps.gz"]
+  ; links = ["https://caml.inria.fr/pub/papers/xleroy-recursive_modules-03.pdf";
+                                                              "https://caml.inria.fr/pub/papers/xleroy-recursive_modules-03.ps.gz"]
   };
  
   { title = "Objective ML: An effective object-oriented extension to ML"
@@ -104,9 +104,9 @@ let all =
   ; tags = 
  ["core"; "language"; "objects"]
   ; year = 1998
-  ; links = ["http://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.pdf";
-                                                              "http://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.ps.gz";
-                                                              "http://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.dvi.gz"]
+  ; links = ["https://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.pdf";
+                                                              "https://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.ps.gz";
+                                                              "https://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.dvi.gz"]
   };
  
   { title = "Extending ML with Semi-Explicit Higher-Order Polymorphism"
@@ -117,9 +117,9 @@ let all =
   ; tags = 
  ["core"; "language"; "objects"]
   ; year = 1999
-  ; links = ["http://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.pdf";
-                                                              "http://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.ps.gz";
-                                                              "http://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.dvi.gz"]
+  ; links = ["https://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.pdf";
+                                                              "https://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.ps.gz";
+                                                              "https://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.dvi.gz"]
   };
  
   { title = "Programming with Polymorphic Variants"
@@ -131,8 +131,8 @@ let all =
  ["core"; "language"; "polymorphic variants"]
   ; year = 1998
   ; links = 
- ["http://caml.inria.fr/pub/papers/garrigue-polymorphic_variants-ml98.pdf";
-  "http://caml.inria.fr/pub/papers/garrigue-polymorphic_variants-ml98.ps.gz"]
+ ["https://caml.inria.fr/pub/papers/garrigue-polymorphic_variants-ml98.pdf";
+  "https://caml.inria.fr/pub/papers/garrigue-polymorphic_variants-ml98.ps.gz"]
   };
  
   { title = "Code Reuse through Polymorphic Variants"
@@ -144,7 +144,7 @@ let all =
  ["core"; "language"; "polymorphic variants"]
   ; year = 2000
   ; links = 
- ["http://caml.inria.fr/pub/papers/garrigue-variant-reuse-2000.ps.gz"]
+ ["https://caml.inria.fr/pub/papers/garrigue-variant-reuse-2000.ps.gz"]
   };
  
   { title = "Simple Type Inference for Structural Polymorphism"
@@ -156,8 +156,8 @@ let all =
  ["core"; "language"; "polymorphic variants"]
   ; year = 2002
   ; links = 
- ["http://caml.inria.fr/pub/papers/garrigue-structural_poly-fool02.pdf";
-  "http://caml.inria.fr/pub/papers/garrigue-structural_poly-fool02.ps.gz"]
+ ["https://caml.inria.fr/pub/papers/garrigue-structural_poly-fool02.pdf";
+  "https://caml.inria.fr/pub/papers/garrigue-structural_poly-fool02.ps.gz"]
   };
  
   { title = "Typing Deep Pattern-matching in Presence of Polymorphic Variants"
@@ -169,8 +169,8 @@ let all =
  ["core"; "language"; "polymorphic variants"]
   ; year = 2004
   ; links = 
- ["http://caml.inria.fr/pub/papers/garrigue-deep-variants-2004.pdf";
-  "http://caml.inria.fr/pub/papers/garrigue-deep-variants-2004.ps.gz"]
+ ["https://caml.inria.fr/pub/papers/garrigue-deep-variants-2004.pdf";
+  "https://caml.inria.fr/pub/papers/garrigue-deep-variants-2004.ps.gz"]
   };
  
   { title = "Labeled and Optional Arguments for Objective Caml"
@@ -181,9 +181,9 @@ let all =
   ; tags = 
  ["core"; "language"]
   ; year = 2001
-  ; links = ["http://caml.inria.fr/pub/papers/garrigue-labels-ppl01.pdf";
-                                                   "http://caml.inria.fr/pub/papers/garrigue-labels-ppl01.ps.gz";
-                                                   "http://caml.inria.fr/pub/papers/garrigue-labels-ppl01.dvi.gz"]
+  ; links = ["https://caml.inria.fr/pub/papers/garrigue-labels-ppl01.pdf";
+                                                   "https://caml.inria.fr/pub/papers/garrigue-labels-ppl01.ps.gz";
+                                                   "https://caml.inria.fr/pub/papers/garrigue-labels-ppl01.dvi.gz"]
   };
  
   { title = "Meta-programming Tutorial with CamlP4"
@@ -205,8 +205,8 @@ let all =
   ; tags = 
  ["compiler"; "runtime"]
   ; year = 1990
-  ; links = ["http://caml.inria.fr/pub/papers/xleroy-zinc.pdf";
-                                                      "http://caml.inria.fr/pub/papers/xleroy-zinc.ps.gz"]
+  ; links = ["https://caml.inria.fr/pub/papers/xleroy-zinc.pdf";
+                                                      "https://caml.inria.fr/pub/papers/xleroy-zinc.ps.gz"]
   };
  
   { title = "The Effectiveness of Type-based Unboxing"
@@ -217,8 +217,8 @@ let all =
   ; tags = 
  ["compiler"; "runtime"]
   ; year = 1997
-  ; links = ["http://caml.inria.fr/pub/papers/xleroy-unboxing-tic97.pdf";
-                                                      "http://caml.inria.fr/pub/papers/xleroy-unboxing-tic97.ps.gz"]
+  ; links = ["https://caml.inria.fr/pub/papers/xleroy-unboxing-tic97.pdf";
+                                                      "https://caml.inria.fr/pub/papers/xleroy-unboxing-tic97.ps.gz"]
   };
  
   { title = "A Concurrent, Generational Garbage Collector for a Multithreaded Implementation of ML"
@@ -229,8 +229,8 @@ let all =
   ; tags = 
  ["garbage collection"; "runtime"]
   ; year = 1993
-  ; links = ["http://caml.inria.fr/pub/papers/doligez_xleroy-concurrent_gc-popl93.pdf";
-                                                                "http://caml.inria.fr/pub/papers/doligez_xleroy-concurrent_gc-popl93.ps.gz"]
+  ; links = ["https://caml.inria.fr/pub/papers/doligez_xleroy-concurrent_gc-popl93.pdf";
+                                                                "https://caml.inria.fr/pub/papers/doligez_xleroy-concurrent_gc-popl93.ps.gz"]
   };
  
   { title = "Portable, Unobtrusive Garbage Collection for Multiprocessor Systems"
@@ -241,8 +241,8 @@ let all =
   ; tags = 
  ["garbage collection"; "runtime"]
   ; year = 1994
-  ; links = ["http://caml.inria.fr/pub/papers/doligez_gonthier-gc-popl94.pdf";
-                                                                "http://caml.inria.fr/pub/papers/doligez_gonthier-gc-popl94.ps.gz"]
+  ; links = ["https://caml.inria.fr/pub/papers/doligez_gonthier-gc-popl94.pdf";
+                                                                "https://caml.inria.fr/pub/papers/doligez_gonthier-gc-popl94.ps.gz"]
   };
  
   { title = "Conception, r\195\169alisation et certification d'un glaneur de cellules concurrent"
@@ -253,8 +253,8 @@ let all =
   ; tags = 
  ["garbage collection"; "runtime"]
   ; year = 1995
-  ; links = ["http://caml.inria.fr/pub/papers/doligez-these.pdf";
-                                                                "http://caml.inria.fr/pub/papers/doligez-these.ps.gz"]
+  ; links = ["https://caml.inria.fr/pub/papers/doligez-these.pdf";
+                                                                "https://caml.inria.fr/pub/papers/doligez-these.ps.gz"]
   };
  
   { title = "Optimizing Pattern Matching"
@@ -265,7 +265,7 @@ let all =
   ; tags = 
  ["pattern-matching"; "runtime"]
   ; year = 2001
-  ; links = ["http://dl.acm.org/citation.cfm?id=507641"]
+  ; links = ["https://dl.acm.org/citation.cfm?id=507641"]
   };
  
   { title = "OCaml for the Masses"
@@ -287,7 +287,7 @@ let all =
   ; tags = 
  ["industrial"; "application"]
   ; year = 2008
-  ; links = ["http://cufp.org/archive/2008/slides/MadhavapeddyAnil.pdf"]
+  ; links = ["https://cufp.org/archive/2008/slides/MadhavapeddyAnil.pdf"]
   };
  
   { title = "Chemoinformatics and Structural Bioinformatics in OCaml"

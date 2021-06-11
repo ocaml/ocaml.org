@@ -2,7 +2,7 @@
 name: Microsoft
 description: > 
   Facebook has built a number of major development tools using OCaml
-site: "http://www.microsoft.com"
+site: "https://www.microsoft.com"
 image: users/microsoft.png
 locations: 
   - United States

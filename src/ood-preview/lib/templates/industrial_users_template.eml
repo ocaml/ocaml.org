@@ -22,7 +22,7 @@ let modal (user : Ood.Industrial_user.t) =
         <div class="flex items-center justify-between">
             <h2 class="prose text-black text-lg md:text-xl max-w-none"><%s! user.name %></h2>
             <button type="button" class="z-50 cursor-pointer" @click="showModal = false">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <svg xmlns="https://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>

@@ -1734,11 +1734,11 @@ OCaml and can be freely down-loaded
 ###  How to compile
 The `make` utility is indispensable for managing the compilation and
 re-compilation of programs. Sample `make` files can be found on [The
-Hump](http://caml.inria.fr//cgi-bin/hump.en.cgi). You can also consult
+Hump](https://caml.inria.fr//cgi-bin/hump.en.cgi). You can also consult
 the `Makefiles` for the OCaml compilers.
 
 ###  How to develop as a team: version control
-Users of the [Git](http://git-scm.com/) software version control system
+Users of the [Git](https://git-scm.com/) software version control system
 never run out of good things to say about the productivity gains it
 brings. This system supports managing development by a team of
 programmers while imposing consistency among them, and also maintains a

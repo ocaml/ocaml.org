@@ -194,4 +194,4 @@ built-in `Arg` module:
   rejecting malformed command lines which others might sliently accept.
 
 * [Getopt](https://opam.ocaml.org/packages/getopt/) for OCaml is similar to
-  [GNU getopt](http://www.gnu.org/software/libc/manual/html_node/Getopt.html).
+  [GNU getopt](https://www.gnu.org/software/libc/manual/html_node/Getopt.html).
