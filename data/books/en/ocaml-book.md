@@ -6,10 +6,11 @@ authors:
   - Hongbo Zhang
 published: "2011"
 language: english
+links:
+  - description: GitHub
+    uri: https://github.com/bobzhang/ocaml-book
 ---
 
 This book is a work in progress. It currently includes sections on the
 core OCaml language, Camlp4, parsing, various libraries, the OCaml
 runtime, interoperating with C, and pearls.
-
-[GitHub](https://github.com/bobzhang/ocaml-book)

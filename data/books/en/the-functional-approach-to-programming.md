@@ -8,6 +8,11 @@ published: "1998"
 cover: books/cousineau-mauny-en.gif
 language: english
 isbn: "0-521-57681-4"
+links:
+  - description: Book Website
+    uri: https://pauillac.inria.fr/cousineau-mauny/main.html
+  - description: Order at Amazon.com
+    uri: https://www.amazon.com/exec/obidos/ASIN/0521571839/qid%3D911812711/sr%3D1-22/102-8668961-8838559
 ---
 
 This book uses OCaml as a tool to introduce several important
@@ -20,6 +25,3 @@ interest various types of readers or students. Finally, the third part
 is dedicated to implementation. It describes interpretation and
 compilation, with brief descriptions of memory management and type
 synthesis.
-
-[Book Website](http://pauillac.inria.fr/cousineau-mauny/main.html) |
-[Order at Amazon.com](http://www.amazon.com/exec/obidos/ASIN/0521571839/qid%3D911812711/sr%3D1-22/102-8668961-8838559)

@@ -26,4 +26,3 @@ functional programming style. The programming features introduced in
 this book are available in all dialects of the ML language, notably
 Caml-Light, OCaml and Standard ML. The concepts presented therein and
 illustrated in OCaml easily transpose to other programming languages.
-

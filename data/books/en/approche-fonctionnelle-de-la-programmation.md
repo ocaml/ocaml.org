@@ -8,6 +8,9 @@ published: "1995"
 cover: books/cousineau-mauny-fr.gif
 language: french
 isbn: "2-84074-114-8"
+links:
+  - description: Book Website
+    uri: https://pauillac.inria.fr/cousineau-mauny/main-fr.html
 ---
 
 This book uses OCaml as a tool to introduce several important
@@ -20,5 +23,3 @@ interest various types of readers or students. Finally, the third part
 is dedicated to implementation. It describes interpretation then
 compilation, with brief descriptions of memory management and type
 synthesis.
-
-[Book Website](http://pauillac.inria.fr/cousineau-mauny/main-fr.html)

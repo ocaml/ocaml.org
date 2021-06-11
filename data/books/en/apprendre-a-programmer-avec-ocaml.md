@@ -15,6 +15,11 @@ published: "2014"
 cover: books/apprendre_ocaml_cover.png
 language: french
 isbn: "2-21213-678-1"
+links:
+  - description: Online
+    uri: https://programmer-avec-ocaml.lri.fr/
+  - description: Order at Amazon.fr
+    uri: https://www.amazon.fr/Apprendre-programmer-avec-Ocaml-Algorithmes/dp/2212136781/
 ---
 
 Computer programming is hard to learn. Being a skillful programmer
@@ -38,6 +43,3 @@ should allow the reader to write programs in a structured and
 efficient way. Algorithmic concepts are directly presented in the
 syntax of OCaml and any code snippet from the book is available
 online.
-
-[Online](http://programmer-avec-ocaml.lri.fr/) |
-[Order at Amazon.fr](http://www.amazon.fr/Apprendre-programmer-avec-Ocaml-Algorithmes/dp/2212136781/)

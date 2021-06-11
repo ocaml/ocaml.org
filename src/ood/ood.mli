@@ -47,6 +47,8 @@ module Academic_institution : sig
 end
 
 module Book : sig
+  type link = { description : string; uri : string }
+
   type t = {
     title : string;
     description : string;
@@ -55,6 +57,7 @@ module Book : sig
     published : string option;
     cover : string option;
     isbn : string option;
+    links : link list;
     body_md : string;
     body_html : string;
   }

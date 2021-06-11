@@ -9,6 +9,9 @@ published: "2015"
 cover: books/Initiation_a_la_programmation_fonctionnelle_en_OCaml.jpg
 language: french
 isbn: "9782332978400"
+links:
+  - description: Website
+    uri: https://www.edilivre.com/initiation-a-la-programmation-fonctionnelle-en-ocaml-mohammed-said-habet.html
 ---
 
 La programmation fonctionnelle est un style de programmation qui
@@ -26,5 +29,3 @@ Le lecteur trouvera une présentation progressive des concepts de
 programmation fonctionnelle dans le langage OCaml, illustrée par des
 exemples, de nombreux exercices corrigés et d’autres laissés à
 l’initiative du lecteur.
-
-[Website](http://www.edilivre.com/initiation-a-la-programmation-fonctionnelle-en-ocaml-mohammed-said-habet.html)

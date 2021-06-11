@@ -9,6 +9,11 @@ authors:
 published: 2014-08-26
 cover: books/more-ocaml-300-376.png
 language: english
+links:
+  - description: Book Website
+    uri: https://ocaml-book.com/more-ocaml-algorithms-methods-diversions/
+  - description: Amazon
+    uri: https://www.amazon.com/gp/product/0957671113
 ---
 
 In "More OCaml" John Whitington takes a meandering tour of functional
@@ -23,6 +28,3 @@ languages such as OCaml. It is hoped that each reader will find something new,
 or see an old thing in a new light. For the more casual reader, or those who are
 used to a different functional language, a summary of basic OCaml is provided at
 the front of the book.
-
-[Book Website](http://ocaml-book.com/more-ocaml-algorithms-methods-diversions/) |
-[Amazon](http://www.amazon.com/gp/product/0957671113)

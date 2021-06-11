@@ -9,6 +9,11 @@ authors:
 published: "2015"
 cover: books/opfp.png
 language: portugese
+links:
+  - description: Book site
+    uri: https://andreiformiga.com/livro/ocaml/
+  - description: Order online from Casa do Código
+    uri: https://www.casadocodigo.com.br/products/livro-ocaml
 ---
 
 This book is an introduction to functional programming through OCaml, with a pragmatic
@@ -18,6 +23,3 @@ illustrating the topics and a few larger projects written in OCaml that showcase
 integration of many language features. These larger
 programs include a set of interpreter, compiler and stack machine for a simple
 language, and a decision tree learning program for data analysis.
-
-[Book site](http://andreiformiga.com/livro/ocaml/)
-[Order online from Casa do Código](http://www.casadocodigo.com.br/products/livro-ocaml)

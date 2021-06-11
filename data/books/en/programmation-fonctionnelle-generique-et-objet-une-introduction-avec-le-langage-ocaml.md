@@ -9,4 +9,3 @@ cover: books/narbel.jpg
 language: french
 isbn: "2-7117-4843-X"
 ---
-

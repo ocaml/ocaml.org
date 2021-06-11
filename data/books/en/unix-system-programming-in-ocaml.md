@@ -7,6 +7,9 @@ authors:
   - Didier Rémy
 published: 2010-05-01
 language: english
+links:
+  - description: Online
+    uri: https://ocaml.github.io/ocamlunix
 ---
 
 This is an excellent book on Unix system programming, with an emphasis
@@ -15,5 +18,3 @@ the use of OCaml, instead of the C language that is customary in systems
 programming. This gives an unusual perspective on systems programming
 and on OCaml. It is assumed that the reader is familiar with OCaml and
 Unix shell commands.
-
-[Online](http://ocaml.github.io/ocamlunix)

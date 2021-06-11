@@ -15,6 +15,9 @@ published: "1993"
 cover: books/le-language-caml-cover.jpg
 language: french
 isbn: "2-10-004383-8"
+links:
+  - description: PDF
+    uri: https://caml.inria.fr/pub/distrib/books/llc.pdf
 ---
 
 This book is a comprehensive introduction to programming in OCaml.
@@ -24,5 +27,3 @@ In addition to many introductory code samples, this book details the
 design and implementation of six complete, realistic programs in
 reputedly difficult application areas: compilation, type inference,
 automata, etc.
-
-[PDF](http://caml.inria.fr/pub/distrib/books/llc.pdf)

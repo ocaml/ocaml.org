@@ -6,7 +6,11 @@ authors:
   - Massimo Maria Ghisalberti
 published: "2015"
 language: italian
+links:
+  - description: Emacs Org source
+    uri: https://minimalprocedure.pragmas.org/writings/programmazione_funzionale/programmazione_funzionale.org
+  - description: HTML
+    uri: https://minimalprocedure.pragmas.org/writings/programmazione_funzionale/programmazione_funzionale.html
+  - description: PDF
+    uri: https://minimalprocedure.pragmas.org/writings/programmazione_funzionale/programmazione_funzionale.pdf
 ---
-
-[Emacs Org source](http://minimalprocedure.pragmas.org/writings/programmazione_funzionale/programmazione_funzionale.org) | [HTML](http://minimalprocedure.pragmas.org/writings/programmazione_funzionale/programmazione_funzionale.html) | [PDF](http://minimalprocedure.pragmas.org/writings/programmazione_funzionale/programmazione_funzionale.pdf)
-

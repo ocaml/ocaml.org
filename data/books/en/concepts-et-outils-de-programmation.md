@@ -9,6 +9,9 @@ published: "1992"
 cover: books/hardin-donzeau-gouge.gif
 language: french
 isbn: "2-7296-0419-7"
+links:
+  - description: Order at Amazon.fr
+    uri: https://www.amazon.fr/exec/obidos/ASIN/2729604197
 ---
 
 This book presents a new approach to teaching programming concepts to
@@ -21,6 +24,3 @@ students can actually use it to compute. The book begins with a
 functional approach, based on OCaml, and continues with a presentation
 of an imperative language, namely Ada. It also provides numerous
 exercises with solutions.
-
-[Order at Amazon.fr](http://www.amazon.fr/exec/obidos/ASIN/2729604197)
-
