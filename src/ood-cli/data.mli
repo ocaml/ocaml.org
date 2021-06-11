@@ -89,6 +89,8 @@ module Success_story : sig
 end
 
 module Book : sig
+  type link = { description : string; uri : string } [@@deriving yaml]
+
   type t = {
     title : string;
     description : string;
@@ -97,6 +99,7 @@ module Book : sig
     published : string option;
     cover : string option;
     isbn : string option;
+    links : link list option;
   }
   [@@deriving yaml]
 

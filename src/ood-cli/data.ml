@@ -292,6 +292,8 @@ module Success_story = struct
 end
 
 module Book = struct
+  type link = { description : string; uri : string } [@@deriving yaml]
+
   type t = {
     title : string;
     description : string;
@@ -300,6 +302,7 @@ module Book = struct
     published : string option;
     cover : string option;
     isbn : string option;
+    links : link list option;
   }
   [@@deriving yaml]
 
@@ -322,6 +325,7 @@ module Book = struct
         `String
           (String.make ~required:false ~label:"Cover image" ~name:"cover" ());
         `String (String.make ~required:false ~label:"ISBN" ~name:"isbn" ());
+        `List (Lst.make ~required:false ~label:"Links" ~name:"links" ());
         `Markdown Markdown.(make ~label:"Body" ~name:"body" ());
       ]
 
