@@ -26,14 +26,11 @@
   "scripts": {
     "next:debug": "NODE_OPTIONS='--inspect' next dev",
     "watch": "concurrently --raw \"bsb -make-world -w\" \"next dev\" ",
-    "watch-and-serve": "concurrently --raw \"bsb -make-world -w\" \"next dev\" \"http-server out\"",
-    "build": "bsb -clean-world -make-world && next build && next export && yarn total-dependencies-check",
-    "start-test-server": "http-server out",
+    "build": "bsb -clean-world -make-world && next build && yarn total-dependencies-check",
+    "start-test-server": "next start",
     "total-dependencies-check": "(test $(grep '^[a-zA-Z@].*:$' yarn.lock | wc -l) -lt 500 && echo ok) || (echo too many deps && exit 1) "
   },
   "scriptsDescription": {
-    "build": "At present, next export is only used to ensure that we strictly use static site functionality.",
-    "start-test-server": "Vercel deployments use next start, but this command tests running a pure static site. TODO: use npx from Makefile instead.",
     "total-dependencies-check": "Test, approximately, whether the current transitiive dependencies has grown significantly."
   },
   "devDependencies": {

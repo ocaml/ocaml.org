@@ -469,7 +469,7 @@ browserslist@^4.16.3:
     escalade "^3.1.1"
     node-releases "^1.1.71"
 
-bs-platform@9.0.2:
+bs-platform@9.0.2, bs-platform@^9.0.2:
   version "9.0.2"
   resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-9.0.2.tgz#a6eac70eb8924a322556dacaccbfbc9b2a0d3a37"
   integrity sha512-Ye9JqJ4Oa7mcjjoOVRYI8Uc2Cf8N7jQLWDcdUplY7996d/YErSR7WitmV7XnSwr4EvdrbwjEsg1NxNjUQv3ChA==
@@ -2142,7 +2142,6 @@ once@^1.3.0:
 
 "ood@git://github.com/ocaml/ood.git#main":
   version "0.0.0"
-  uid b37db9c51a252a7152be99c53346fd565ea7df65
   resolved "git://github.com/ocaml/ood.git#b37db9c51a252a7152be99c53346fd565ea7df65"
   dependencies:
     bs-platform "9.0.2"

@@ -13,7 +13,7 @@ else
 endif
 
 .PHONY: dev
-dev: install-deps watch-and-serve
+dev: install-deps watch
 
 .PHONY: install-deps
 install-deps:
@@ -35,10 +35,6 @@ vendor/ood:
 .PHONY: watch
 watch:
 	$(YARN) watch
-
-.PHONY: watch-and-serve
-watch-and-serve:
-	$(YARN) watch-and-serve
 
 .PHONY: build
 build:
