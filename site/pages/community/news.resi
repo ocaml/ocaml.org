@@ -1,12 +1,8 @@
-module Story: {
-  type t = string
-}
-
 module NewsCategory: {
   type t = {
     header: string,
     seeAllNewsInCategory: string,
-    stories: array<Story.t>,
+    stories: array<HighlightsInQuadrants.Story.t>,
   }
 }
 
