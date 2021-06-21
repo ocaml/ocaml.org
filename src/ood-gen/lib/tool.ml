@@ -93,7 +93,7 @@ let pp ppf v =
 
 let pp_list = Pp.list pp
 
-let template =
+let template () =
   Format.asprintf
     {|
 type lifecycle =

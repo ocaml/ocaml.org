@@ -23,6 +23,7 @@ let routes =
   ; Dream.get "/events" Page_handler.events
   ; Dream.get "/videos" Page_handler.videos
   ; Dream.get "/tools" Page_handler.tools
+  ; Dream.get "/news" Page_handler.news
   ; Dream.get "/tutorials" Page_handler.tutorials
   ; Dream.get "/tutorials/:id" Page_handler.tutorial
   ; Dream.get "/assets/**" (Dream.static ~loader "")

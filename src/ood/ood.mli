@@ -175,3 +175,16 @@ module Video : sig
 
   val all : t list
 end
+
+module News : sig
+  type t = {
+    title : string;
+    description : string option;
+    url : string;
+    date : string;
+    preview_image : string option;
+    body_html : string;
+  }
+
+  val all : t list
+end

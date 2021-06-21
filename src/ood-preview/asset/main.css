@@ -1326,6 +1326,9 @@ select {
       .ml-4 {
 	margin-left: 1rem;
 }
+      .mt-12 {
+	margin-top: 3rem;
+}
       .-mb-8 {
 	margin-bottom: -2rem;
 }
@@ -1377,6 +1380,9 @@ select {
       .h-10 {
 	height: 2.5rem;
 }
+      .h-48 {
+	height: 12rem;
+}
       .h-full {
 	height: 100%;
 }
@@ -1397,6 +1403,9 @@ select {
 }
       .w-10 {
 	width: 2.5rem;
+}
+      .w-full {
+	width: 100%;
 }
       .w-0\.5 {
 	width: 0.125rem;
@@ -1433,6 +1442,9 @@ select {
 }
       .max-w-none {
 	max-width: none;
+}
+      .max-w-lg {
+	max-width: 32rem;
 }
       .max-w-6xl {
 	max-width: 72rem;
@@ -1515,6 +1527,9 @@ select {
 }
       .gap-0 {
 	gap: 0px;
+}
+      .gap-5 {
+	gap: 1.25rem;
 }
       .gap-x-4 {
 	column-gap: 1rem;
@@ -1665,6 +1680,9 @@ select {
 }
       .p-2 {
 	padding: 0.5rem;
+}
+      .p-6 {
+	padding: 1.5rem;
 }
       .px-4 {
 	padding-left: 1rem;
@@ -1932,6 +1950,9 @@ select {
 	--tw-text-opacity: 1;
 	color: rgba(107, 114, 128, var(--tw-text-opacity));
 }
+      .hover\:underline:hover {
+	text-decoration: underline;
+}
       .hover\:filter-none:hover {
 	filter: none;
 }
@@ -2196,16 +2217,20 @@ select {
 		max-width: 80rem;
 	}
 
+	.lg\:max-w-none {
+		max-width: none;
+	}
+
 	.lg\:grid-flow-col-dense {
 		grid-auto-flow: column dense;
 	}
 
-	.lg\:grid-cols-4 {
-		grid-template-columns: repeat(4, minmax(0, 1fr));
-	}
-
 	.lg\:grid-cols-3 {
 		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.lg\:grid-cols-4 {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
 	}
 
 	.lg\:px-8 {

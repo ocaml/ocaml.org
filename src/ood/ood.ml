@@ -77,6 +77,7 @@ module Paper = Paper
 module Success_story = Success_story
 module Tool = Tool
 module Tutorial = Tutorial
+module News = News
 module Video = struct
   include Video
 

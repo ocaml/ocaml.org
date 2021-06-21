@@ -87,3 +87,7 @@ let tools _req =
   let tools = Ood.Tool.all in
   Layout_template.render ~title:"Tools" (Platform_template.render tools)
   |> Dream.html
+
+let news _req =
+  let news = Ood.News.all in
+  Layout_template.render ~title:"News" (News_template.render news) |> Dream.html

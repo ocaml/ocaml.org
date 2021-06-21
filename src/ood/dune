@@ -14,7 +14,7 @@
    (run %{bin:ocaml-crunch} -m plain ../../data/media -o %{targets}))))
 
 (rule
- (deps ../ood-gen/bin/main.exe)
+ (deps ../ood-gen/bin/gen.exe)
  (targets academic_institution.ml)
  (mode
   (promote (until-clean)))
@@ -24,7 +24,7 @@
    (run %{deps} academic_institution))))
 
 (rule
- (deps ../ood-gen/bin/main.exe)
+ (deps ../ood-gen/bin/gen.exe)
  (targets book.ml)
  (mode
   (promote (until-clean)))
@@ -34,7 +34,7 @@
    (run %{deps} book))))
 
 (rule
- (deps ../ood-gen/bin/main.exe)
+ (deps ../ood-gen/bin/gen.exe)
  (targets event.ml)
  (mode
   (promote (until-clean)))
@@ -44,7 +44,7 @@
    (run %{deps} event))))
 
 (rule
- (deps ../ood-gen/bin/main.exe)
+ (deps ../ood-gen/bin/gen.exe)
  (targets industrial_user.ml)
  (mode
   (promote (until-clean)))
@@ -54,7 +54,7 @@
    (run %{deps} industrial_user))))
 
 (rule
- (deps ../ood-gen/bin/main.exe)
+ (deps ../ood-gen/bin/gen.exe)
  (targets paper.ml)
  (mode
   (promote (until-clean)))
@@ -64,7 +64,7 @@
    (run %{deps} paper))))
 
 (rule
- (deps ../ood-gen/bin/main.exe)
+ (deps ../ood-gen/bin/gen.exe)
  (targets success_story.ml)
  (mode
   (promote (until-clean)))
@@ -74,7 +74,7 @@
    (run %{deps} success_story))))
 
 (rule
- (deps ../ood-gen/bin/main.exe)
+ (deps ../ood-gen/bin/gen.exe)
  (targets tool.ml)
  (mode
   (promote (until-clean)))
@@ -84,7 +84,7 @@
    (run %{deps} tool))))
 
 (rule
- (deps ../ood-gen/bin/main.exe)
+ (deps ../ood-gen/bin/gen.exe)
  (targets tutorial.ml)
  (mode
   (promote (until-clean)))
@@ -94,7 +94,7 @@
    (run %{deps} tutorial))))
 
 (rule
- (deps ../ood-gen/bin/main.exe)
+ (deps ../ood-gen/bin/gen.exe)
  (targets video.ml)
  (mode
   (promote (until-clean)))
@@ -102,3 +102,13 @@
   (with-stdout-to
    %{targets}
    (run %{deps} video))))
+
+(rule
+ (deps ../ood-gen/bin/gen.exe)
+ (targets news.ml)
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} news))))

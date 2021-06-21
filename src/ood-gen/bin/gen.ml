@@ -11,12 +11,13 @@ let term_templates =
     ("tool", Ood_gen.Tool.template);
     ("tutorial", Ood_gen.Tutorial.template);
     ("video", Ood_gen.Video.template);
+    ("news", Ood_gen.News.template);
   ]
 
 let cmds =
   List.map
     (fun (term, template) ->
-      ( Term.(const (fun () -> print_endline template) $ const ()),
+      ( Term.(const (fun () -> print_endline (template ())) $ const ()),
         Term.info term ))
     term_templates
 
