@@ -3,6 +3,7 @@ type metadata = { title : string; image : string option; url : string option }
 
 type t = {
   title : string;
+  slug : string;
   image : string option;
   url : string option;
   body_md : string;
@@ -16,6 +17,7 @@ let all () =
       let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
       {
         title = metadata.title;
+        slug = Utils.slugify metadata.title;
         image = metadata.image;
         url = metadata.url;
         body_md = body;
@@ -27,12 +29,13 @@ let pp ppf v =
   Fmt.pf ppf
     {|
   { title = %S
+  ; slug = %S
   ; image = %a
   ; url = %a
   ; body_md = %S
   ; body_html = %S
   }|}
-    v.title
+    v.title v.slug
     (Pp.option Pp.quoted_string)
     v.image
     (Pp.option Pp.quoted_string)
@@ -45,6 +48,7 @@ let template () =
     {|
 type t =
   { title : string
+  ; slug : string
   ; image : string option
   ; url : string option
   ; body_md : string

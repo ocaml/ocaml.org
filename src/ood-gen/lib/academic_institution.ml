@@ -49,12 +49,10 @@ let all () =
     "academic_institutions/en"
 
 let pp_course ppf (v : course) =
-  Fmt.pf ppf
-    {|
-  {
-    name = %S;
-    acronym = %a;
-    online_resource  = %a;
+  Fmt.pf ppf {|
+  { name = %S
+  ; acronym = %a
+  ; online_resource  = %a
   }|}
     v.name
     (Pp.option Pp.quoted_string)
@@ -64,27 +62,26 @@ let pp_course ppf (v : course) =
 
 let pp_location ppf v =
   Fmt.pf ppf {|
-  {
-    long = %f;
-    lat = %f;
+  { long = %f
+  ; lat = %f
   }
   |} v.long v.lat
 
 let pp ppf v =
   Fmt.pf ppf
     {|
-  { 
-    name = %S;
-    description = %S;
-    url = %S;
-    logo = %a;
-    continent = %S;
-    courses = %a;
-    location = %a;
-    body_md = %S;
-    body_html = %S;
+  { name = %S
+  ; slug = %S
+  ; description = %S
+  ; url = %S
+  ; logo = %a
+  ; continent = %S
+  ; courses = %a
+  ; location = %a
+  ; body_md = %S
+  ; body_html = %S
   }|}
-    v.name v.description v.url
+    v.name (Utils.slugify v.name) v.description v.url
     (Pp.option Pp.quoted_string)
     v.logo v.continent (Pp.list pp_course) v.courses (Pp.option pp_location)
     v.location v.body_md v.body_html
@@ -96,23 +93,24 @@ let template () =
     {|
 type location = { lat : float; long : float }
 
-type course = {
-  name : string;
-  acronym : string option;
-  online_resource : string option;
-}
+type course =
+  { name : string
+  ; acronym : string option
+  ; online_resource : string option
+  }
 
-type t = {
-  name : string;
-  description : string;
-  url : string;
-  logo : string option;
-  continent : string;
-  courses : course list;
-  location : location option;
-  body_md : string;
-  body_html : string;
-}
+type t =
+  { name : string
+  ; slug : string
+  ; description : string
+  ; url : string
+  ; logo : string option
+  ; continent : string
+  ; courses : course list
+  ; location : location option
+  ; body_md : string
+  ; body_html : string
+  }
 
 let all = %a
 |}

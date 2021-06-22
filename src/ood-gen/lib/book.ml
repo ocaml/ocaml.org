@@ -48,6 +48,7 @@ let pp ppf v =
   Fmt.pf ppf
     {|
   { title = %S
+  ; slug = %S
   ; description = %S
   ; authors = %a
   ; language = %S
@@ -58,7 +59,7 @@ let pp ppf v =
   ; body_md = %S
   ; body_html = %S
   }|}
-    v.meta.title v.meta.description (Pp.list Pp.quoted_string) v.meta.authors
+    v.meta.title (Utils.slugify v.meta.title) v.meta.description (Pp.list Pp.quoted_string) v.meta.authors
     v.meta.language
     (Pp.option Pp.quoted_string)
     v.meta.published
@@ -78,6 +79,7 @@ type link = { description : string; uri : string }
 
 type t = 
   { title : string
+  ; slug : string
   ; description : string
   ; authors : string list
   ; language : string

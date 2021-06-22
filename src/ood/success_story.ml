@@ -1,6 +1,7 @@
 
 type t =
   { title : string
+  ; slug : string
   ; image : string option
   ; url : string option
   ; body_md : string
@@ -10,14 +11,16 @@ type t =
 let all = 
 [
   { title = "The ASTR\195\137E Static Analyzer"
-  ; image = Some "success-stories/astree-thumb.gif"
-  ; url = Some 
- "https://www.astree.ens.fr/"
+  ; slug = "the-astre-static-analyzer"
+  ; image = Some 
+ "success-stories/astree-thumb.gif"
+  ; url = Some "https://www.astree.ens.fr/"
   ; body_md = "\n*[David Monniaux](https://www-verimag.imag.fr/~monniaux/) (CNRS), member\nof the ASTR\195\137E project, says:* \226\128\156[ASTR\195\137E](https://www.astree.ens.fr/) is a\n*static analyzer* based on *[abstract\ninterpretation](https://www.di.ens.fr/%7Ecousot/aiintro.shtml)* that aims\nat proving the absence of runtime errors in safety-critical software\nwritten in a subset of the C programming language.\226\128\157\n\n\226\128\156Automatically analyzing programs for exactly checking properties such\nas the absence of runtime errors is impossible in general, for\nmathematical reasons. Static analysis by abstract interpretation works\naround this impossibility and proves program properties by\nover-approximating the possible behaviors of the program: it is possible\nto design pessimistic approximations that, in practice, allow proving\nthe desired property on a wide range of software.\226\128\157\n\n\226\128\156So far, ASTR\195\137E has proved the absence of runtime errors in the primary\ncontrol software of the [Airbus A340\nfamily](https://www.airbus.com/aircraft/previous-generation-aircraft/a340-family.html). This\nwould be impossible by *software testing*, for testing only considers a\nlimited *subset* of the test cases, while abstract interpretation\nconsiders a *superset* of all possible outcomes of the system.\226\128\157\n\n\226\128\156[ASTR\195\137E](https://www.astree.ens.fr/) is written in OCaml and is about\n44000 lines long (plus external libraries). We needed a language with\ngood performance (speed and memory usage) on reasonable equipment, easy\nsupport for advanced data structures, and type and memory safety. OCaml\nalso allows for modular, clear and compact source code and makes it easy\nto work with recursive structures such as syntax trees.\226\128\157\n"
   ; body_html = "<p><em><a href=\"https://www-verimag.imag.fr/~monniaux/\">David Monniaux</a> (CNRS), member\nof the ASTR\195\137E project, says:</em> \226\128\156<a href=\"https://www.astree.ens.fr/\">ASTR\195\137E</a> is a\n<em>static analyzer</em> based on <em><a href=\"https://www.di.ens.fr/%7Ecousot/aiintro.shtml\">abstract\ninterpretation</a></em> that aims\nat proving the absence of runtime errors in safety-critical software\nwritten in a subset of the C programming language.\226\128\157</p>\n<p>\226\128\156Automatically analyzing programs for exactly checking properties such\nas the absence of runtime errors is impossible in general, for\nmathematical reasons. Static analysis by abstract interpretation works\naround this impossibility and proves program properties by\nover-approximating the possible behaviors of the program: it is possible\nto design pessimistic approximations that, in practice, allow proving\nthe desired property on a wide range of software.\226\128\157</p>\n<p>\226\128\156So far, ASTR\195\137E has proved the absence of runtime errors in the primary\ncontrol software of the <a href=\"https://www.airbus.com/aircraft/previous-generation-aircraft/a340-family.html\">Airbus A340\nfamily</a>. This\nwould be impossible by <em>software testing</em>, for testing only considers a\nlimited <em>subset</em> of the test cases, while abstract interpretation\nconsiders a <em>superset</em> of all possible outcomes of the system.\226\128\157</p>\n<p>\226\128\156<a href=\"https://www.astree.ens.fr/\">ASTR\195\137E</a> is written in OCaml and is about\n44000 lines long (plus external libraries). We needed a language with\ngood performance (speed and memory usage) on reasonable equipment, easy\nsupport for advanced data structures, and type and memory safety. OCaml\nalso allows for modular, clear and compact source code and makes it easy\nto work with recursive structures such as syntax trees.\226\128\157</p>\n"
   };
  
   { title = "Coq"
+  ; slug = "coq"
   ; image = Some "success-stories/coq-thumb.jpg"
   ; url = Some 
  "https://coq.inria.fr/"
@@ -26,6 +29,7 @@ let all =
   };
  
   { title = "FFTW"
+  ; slug = "fftw"
   ; image = Some "success-stories/fftw-thumb.png"
   ; url = Some 
  "https://www.fftw.org/"
@@ -34,21 +38,25 @@ let all =
   };
  
   { title = "Haxe"
+  ; slug = "haxe"
   ; image = None
-  ; url = Some "https://haxe.org/"
+  ; url = Some 
+ "https://haxe.org/"
   ; body_md = "\n[Haxe](https://haxe.org/) is an open source toolkit based on a modern,\nhigh level, strictly typed programming language, a cross-compiler,\na complete cross-platform standard library and ways to access each\nplatform's native capabilities. The Haxe compiler was entirely written in OCaml.\n"
   ; body_html = "<p><a href=\"https://haxe.org/\">Haxe</a> is an open source toolkit based on a modern,\nhigh level, strictly typed programming language, a cross-compiler,\na complete cross-platform standard library and ways to access each\nplatform's native capabilities. The Haxe compiler was entirely written in OCaml.</p>\n"
   };
  
   { title = "Jane Street"
-  ; image = Some "success-stories/jane-street-thumb.jpg"
-  ; url = Some 
- "https://janestreet.com/technology/"
+  ; slug = "jane-street"
+  ; image = Some 
+ "success-stories/jane-street-thumb.jpg"
+  ; url = Some "https://janestreet.com/technology/"
   ; body_md = "\nJane Street is a proprietary trading firm that uses OCaml as its primary\ndevelopment platform.  Our operation runs at a large scale,\ngenerating billions of dollars of transactions every day from our offices\nin Hong Kong, London and New York, with strategies that span many asset classes,\ntime-zones and regulatory regimes.\n\nAlmost all of our software is written in OCaml, from statistical\nresearch code to systems-administration tools to our real-time trading\ninfrastructure.  OCaml\226\128\153s type system acts as a rich and\nwell-integrated set of static analysis tools that help improve the\nquality of our code, catching bugs at the earliest possible stage.\nBillions of dollars of transactions flow through our systems every day,\nso getting it right matters.  At the same time, OCaml is highly productive,\nhelping us quickly adapt to changing market conditions.\n\nJane Street has been contributing open-source libraries back to the wider\ncommunity for many years, including Core, our alternative standard\nlibrary, Async, a cooperative concurrency library,\nand several syntax extensions like binprot and sexplib.  All of these can\nbe found at [https://janestreet.github.io](https://janestreet.github.io).  All in, we've open-sourced\nmore than 200k lines of code.\n"
   ; body_html = "<p>Jane Street is a proprietary trading firm that uses OCaml as its primary\ndevelopment platform.  Our operation runs at a large scale,\ngenerating billions of dollars of transactions every day from our offices\nin Hong Kong, London and New York, with strategies that span many asset classes,\ntime-zones and regulatory regimes.</p>\n<p>Almost all of our software is written in OCaml, from statistical\nresearch code to systems-administration tools to our real-time trading\ninfrastructure.  OCaml\226\128\153s type system acts as a rich and\nwell-integrated set of static analysis tools that help improve the\nquality of our code, catching bugs at the earliest possible stage.\nBillions of dollars of transactions flow through our systems every day,\nso getting it right matters.  At the same time, OCaml is highly productive,\nhelping us quickly adapt to changing market conditions.</p>\n<p>Jane Street has been contributing open-source libraries back to the wider\ncommunity for many years, including Core, our alternative standard\nlibrary, Async, a cooperative concurrency library,\nand several syntax extensions like binprot and sexplib.  All of these can\nbe found at <a href=\"https://janestreet.github.io\">https://janestreet.github.io</a>.  All in, we've open-sourced\nmore than 200k lines of code.</p>\n"
   };
  
   { title = "LexiFi's Modeling Language for Finance"
+  ; slug = "lexifis-modeling-language-for-finance"
   ; image = Some 
  "success-stories/lexifi-thumb.jpg"
   ; url = Some "https://www.lexifi.com/"
@@ -57,6 +65,7 @@ let all =
   };
  
   { title = "Liquidsoap"
+  ; slug = "liquidsoap"
   ; image = None
   ; url = None
   ; body_md = "\n[Liquidsoap](https://www.liquidsoap.info/) is clearly well established in the\n(internet) radio industry. Liquidsoap is well known as a tool with\nunique abilities, and has lots of users including big commercial ones.\nIt is not developed as a business, but companies develop services or\nsoftware on top of it. For example, Sourcefabric develops and sells\nAirtime on top of Liquidsoap.\n"
@@ -64,24 +73,28 @@ let all =
   };
  
   { title = "The MLdonkey peer-to-peer client"
-  ; image = Some "success-stories/mldonkey-thumb.jpg"
-  ; url = Some 
- "https://mldonkey.sourceforge.net/Main_Page"
+  ; slug = "the-mldonkey-peer-to-peer-client"
+  ; image = Some 
+ "success-stories/mldonkey-thumb.jpg"
+  ; url = Some "https://mldonkey.sourceforge.net/Main_Page"
   ; body_md = "\n[MLdonkey](https://mldonkey.sourceforge.net/Main_Page) is a\nmulti-platform multi-networks peer-to-peer client. It was the first\nopen-source client to access the eDonkey network. Today, MLdonkey\nsupports several other large networks, among which Overnet, Bittorrent,\nGnutella, Gnutella2, Fasttrack, Soulseek, Direct-Connect, and Opennap.\nSearches can be conducted over several networks concurrently; files are\ndownloaded from and uploaded to multiple peers concurrently.\n\n*An MLdonkey developer says:* \226\128\156Early in 2002, we decided to use OCaml to\nprogram a network application in the emerging world of peer-to-peer\nsystems. The result of our work, MLdonkey, has surpassed our hopes:\nMLdonkey is currently the most popular peer-to-peer file-sharing client\naccording to [free(code)](https://freecode.com/) (formerly \226\128\156freshmeat.net\226\128\157),\nwith about 10,000\ndaily users. Moreover, MLdonkey is the only client able to connect to\nseveral peer-to-peer networks, to download and share files. It works as\na daemon, running unattended on the computer, and can be controlled\nremotely using a choice of three different kinds of interfaces: GTK, web\nand telnet.\226\128\157\n"
   ; body_html = "<p><a href=\"https://mldonkey.sourceforge.net/Main_Page\">MLdonkey</a> is a\nmulti-platform multi-networks peer-to-peer client. It was the first\nopen-source client to access the eDonkey network. Today, MLdonkey\nsupports several other large networks, among which Overnet, Bittorrent,\nGnutella, Gnutella2, Fasttrack, Soulseek, Direct-Connect, and Opennap.\nSearches can be conducted over several networks concurrently; files are\ndownloaded from and uploaded to multiple peers concurrently.</p>\n<p><em>An MLdonkey developer says:</em> \226\128\156Early in 2002, we decided to use OCaml to\nprogram a network application in the emerging world of peer-to-peer\nsystems. The result of our work, MLdonkey, has surpassed our hopes:\nMLdonkey is currently the most popular peer-to-peer file-sharing client\naccording to <a href=\"https://freecode.com/\">free(code)</a> (formerly \226\128\156freshmeat.net\226\128\157),\nwith about 10,000\ndaily users. Moreover, MLdonkey is the only client able to connect to\nseveral peer-to-peer networks, to download and share files. It works as\na daemon, running unattended on the computer, and can be controlled\nremotely using a choice of three different kinds of interfaces: GTK, web\nand telnet.\226\128\157</p>\n"
   };
  
   { title = "SLAM"
+  ; slug = "slam"
   ; image = None
-  ; url = Some "https://research.microsoft.com/en-us/projects/slam/"
+  ; url = Some 
+ "https://research.microsoft.com/en-us/projects/slam/"
   ; body_md = "\nThe [SLAM](https://research.microsoft.com/en-us/projects/slam/) project\noriginated in Microsoft Research in early 2000. Its goal was to\nautomatically check that a C program correctly uses the interface to an\nexternal library. The project used and extended ideas from symbolic\nmodel checking, program analysis and theorem proving in novel ways to\naddress this problem. The SLAM analysis engine forms the core of a new\ntool called Static Driver Verifier (SDV) that systematically analyzes\nthe source code of Windows device drivers against a set of rules that\ndefine what it means for a device driver to properly interact with the\nWindows operating system kernel.\n\n*In technical report\n[MSR-TR-2004-08](https://research.microsoft.com/apps/pubs/default.aspx?id=70038),\nT.Ball, B.Cook, V.Levin and S.K.Rajamani, the SLAM developers, write:*\n\226\128\156The Right Tools for the Job: We developed SLAM using Inria's OCaml\nfunctional programming language. The expressiveness of this language and\nrobustness of its implementation provided a great productivity boost.\226\128\157\n"
   ; body_html = "<p>The <a href=\"https://research.microsoft.com/en-us/projects/slam/\">SLAM</a> project\noriginated in Microsoft Research in early 2000. Its goal was to\nautomatically check that a C program correctly uses the interface to an\nexternal library. The project used and extended ideas from symbolic\nmodel checking, program analysis and theorem proving in novel ways to\naddress this problem. The SLAM analysis engine forms the core of a new\ntool called Static Driver Verifier (SDV) that systematically analyzes\nthe source code of Windows device drivers against a set of rules that\ndefine what it means for a device driver to properly interact with the\nWindows operating system kernel.</p>\n<p><em>In technical report\n<a href=\"https://research.microsoft.com/apps/pubs/default.aspx?id=70038\">MSR-TR-2004-08</a>,\nT.Ball, B.Cook, V.Levin and S.K.Rajamani, the SLAM developers, write:</em>\n\226\128\156The Right Tools for the Job: We developed SLAM using Inria's OCaml\nfunctional programming language. The expressiveness of this language and\nrobustness of its implementation provided a great productivity boost.\226\128\157</p>\n"
   };
  
   { title = "The Unison File Synchronizer"
-  ; image = Some "success-stories/unison-thumb.jpg"
-  ; url = Some 
- "https://www.cis.upenn.edu/%7Ebcpierce/unison/"
+  ; slug = "the-unison-file-synchronizer"
+  ; image = Some 
+ "success-stories/unison-thumb.jpg"
+  ; url = Some "https://www.cis.upenn.edu/%7Ebcpierce/unison/"
   ; body_md = "\n[Unison](https://www.cis.upenn.edu/%7Ebcpierce/unison/) is a popular\nfile-synchronization tool for Windows and most flavors of Unix. It\nallows two replicas of a collection of files and directories to be\nstored on different hosts (or different disks on the same host),\nmodified separately, and then brought up to date by propagating the\nchanges in each replica to the other. Unlike simple mirroring or backup\nutilities, Unison can deal with updates to both replicas: updates that\ndo not conflict are propagated automatically and conflicting updates are\ndetected and displayed. Unison is also resilient to failure: it is\ncareful to leave the replicas and its own private structures in a\nsensible state at all times, even in case of abnormal termination or\ncommunication failures.\n\n*[Benjamin C. Pierce](https://www.cis.upenn.edu/%7Ebcpierce/) (University\nof Pennsylvania), Unison project leader, says:* \226\128\156I think Unison is a\nvery clear success for OCaml \226\128\147 in particular, for the extreme\nportability and overall excellent engineering of the compiler and\nruntime system. OCaml's strong static typing, in combination with its\npowerful module system, helped us organize a large and intricate\ncodebase with a high degree of encapsulation. This has allowed us to\nmaintain a high level of robustness through years of work by many\ndifferent programmers. In fact, Unison may be unique among large OCaml\nprojects in having been *translated* from Java to OCaml midway through\nits development. Moving to OCaml was like a breath of fresh air.\226\128\157\n"
   ; body_html = "<p><a href=\"https://www.cis.upenn.edu/%7Ebcpierce/unison/\">Unison</a> is a popular\nfile-synchronization tool for Windows and most flavors of Unix. It\nallows two replicas of a collection of files and directories to be\nstored on different hosts (or different disks on the same host),\nmodified separately, and then brought up to date by propagating the\nchanges in each replica to the other. Unlike simple mirroring or backup\nutilities, Unison can deal with updates to both replicas: updates that\ndo not conflict are propagated automatically and conflicting updates are\ndetected and displayed. Unison is also resilient to failure: it is\ncareful to leave the replicas and its own private structures in a\nsensible state at all times, even in case of abnormal termination or\ncommunication failures.</p>\n<p><em><a href=\"https://www.cis.upenn.edu/%7Ebcpierce/\">Benjamin C. Pierce</a> (University\nof Pennsylvania), Unison project leader, says:</em> \226\128\156I think Unison is a\nvery clear success for OCaml \226\128\147 in particular, for the extreme\nportability and overall excellent engineering of the compiler and\nruntime system. OCaml's strong static typing, in combination with its\npowerful module system, helped us organize a large and intricate\ncodebase with a high degree of encapsulation. This has allowed us to\nmaintain a high level of robustness through years of work by many\ndifferent programmers. In fact, Unison may be unique among large OCaml\nprojects in having been <em>translated</em> from Java to OCaml midway through\nits development. Moving to OCaml was like a breath of fresh air.\226\128\157</p>\n"
   }]

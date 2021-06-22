@@ -1,6 +1,7 @@
 
 type t =
   { name : string
+  ; slug : string
   ; description : string
   ; image : string option
   ; site : string
@@ -13,6 +14,7 @@ type t =
 let all = 
 [
   { name = "Aesthetic Integration"
+  ; slug = "aesthetic-integration"
   ; description = "Aesthetic Integration (AI) is a financial technology startup based in the City of London\n"
   ; image = Some 
  "users/aesthetic-integration.png"
@@ -25,6 +27,7 @@ let all =
   };
  
   { name = "Ahrefs"
+  ; slug = "ahrefs"
   ; description = "Ahrefs develops custom distributed petabyte-scale storage and runs an internet-wide crawler to collect the index of the whole Web\n"
   ; image = Some 
  "users/ahrefs.png"
@@ -37,6 +40,7 @@ let all =
   };
  
   { name = "American Museum of Natural History"
+  ; slug = "american-museum-of-natural-history"
   ; description = "The Computational Sciences Department at the AMNH has been using OCaml for almost a decade in their software package POY for phylogenetic inference\n"
   ; image = Some 
  "users/amnh.png"
@@ -49,6 +53,7 @@ let all =
   };
  
   { name = "ANSSI"
+  ; slug = "anssi"
   ; description = "The ANSSI core missions are: to detect and react to cyber attacks, to prevent threats, to provide advice and support to governmental entities and operators of critical infrastructure, and to keep companies and the general public informed about information security threats\n"
   ; image = Some 
  "users/anssi.png"
@@ -61,6 +66,7 @@ let all =
   };
  
   { name = "Arena"
+  ; slug = "arena"
   ; description = "Arena helps organizations hire the right people.\n"
   ; image = Some 
  "users/arena.jpg"
@@ -73,6 +79,7 @@ let all =
   };
  
   { name = "Be Sport"
+  ; slug = "be-sport"
   ; description = "Be Sport's mission is to enhance the value that sport brings to our lives with appropriate use of digital and social media innovations\n"
   ; image = Some 
  "users/besport.png"
@@ -85,6 +92,7 @@ let all =
   };
  
   { name = "Bloomberg L.P."
+  ; slug = "bloomberg-lp"
   ; description = "Bloomberg, the global business and financial information and news leader, gives influential decision makers a critical edge by connecting them to a dynamic network of information, people and ideas\n"
   ; image = Some 
  "users/bloomberg.jpg"
@@ -97,6 +105,7 @@ let all =
   };
  
   { name = "CACAOWEB"
+  ; slug = "cacaoweb"
   ; description = "Cacaoweb is developing an application platform of a new kind. It runs on top of our peer-to-peer network, which happens to be one of the largest in the world\n"
   ; image = Some 
  "users/cacaoweb.png"
@@ -109,6 +118,7 @@ let all =
   };
  
   { name = "CEA"
+  ; slug = "cea"
   ; description = "CEA is a French state company, member of the OCaml Consortium.\n"
   ; image = Some 
  "users/cea.png"
@@ -120,6 +130,7 @@ let all =
   };
  
   { name = "Citrix"
+  ; slug = "citrix"
   ; description = "Citrix uses OCaml in XenServer, a world-class server virtualization system.\n"
   ; image = Some 
  "users/citrix.png"
@@ -132,6 +143,7 @@ let all =
   };
  
   { name = "Coherent Graphics Ltd"
+  ; slug = "coherent-graphics-ltd"
   ; description = "Coherent Graphics is a developer of both server tools and desktop software for the processing of PDF documents\n"
   ; image = Some 
  "users/coherent.png"
@@ -144,6 +156,7 @@ let all =
   };
  
   { name = "Cryptosense"
+  ; slug = "cryptosense"
   ; description = "Cryptosense creates security analysis software with a particular focus on cryptographic systems\n"
   ; image = Some 
  "users/cryptosense.png"
@@ -156,6 +169,7 @@ let all =
   };
  
   { name = "Dassault Syst\195\168mes"
+  ; slug = "dassault-systmes"
   ; description = "Dassault Syst\195\168mes, the 3DEXPERIENCE Company, provides businesses and people with virtual universes to imagine sustainable innovations.\n"
   ; image = Some 
  "users/dassault.png"
@@ -168,6 +182,7 @@ let all =
   };
  
   { name = "Dernier Cri"
+  ; slug = "dernier-cri"
   ; description = "Dernier Cri is a French company based in Lille and Paris using functional programming to develop web and mobile applications.\n"
   ; image = Some 
  "users/derniercri.png"
@@ -180,6 +195,7 @@ let all =
   };
  
   { name = "Digirati dba Hostnet"
+  ; slug = "digirati-dba-hostnet"
   ; description = "Digirati dba Hostnet is a web hosting company.\n"
   ; image = Some 
  "users/hostnet.gif"
@@ -192,6 +208,7 @@ let all =
   };
  
   { name = "Docker, Inc."
+  ; slug = "docker-inc"
   ; description = "Docker provides an integrated technology suite that enables development and IT operations teams to build, ship, and run distributed applications anywhere\n"
   ; image = Some 
  "users/docker.png"
@@ -204,6 +221,7 @@ let all =
   };
  
   { name = "Esterel Technologies"
+  ; slug = "esterel-technologies"
   ; description = "Esterel Technologies is a leading provider of critical systems and software development solutions for the aerospace, defense, rail transportation, nuclear, and industrial and automotive domains\n"
   ; image = Some 
  "users/esterel.jpg"
@@ -216,6 +234,7 @@ let all =
   };
  
   { name = "Facebook"
+  ; slug = "facebook"
   ; description = "Facebook has built a number of major development tools using OCaml"
   ; image = Some 
  "users/facebook.png"
@@ -228,6 +247,7 @@ let all =
   };
  
   { name = "Fasoo"
+  ; slug = "fasoo"
   ; description = "Fasoo uses OCaml to develop a static analysis tool.\n"
   ; image = Some 
  "users/fasoo.png"
@@ -240,6 +260,7 @@ let all =
   };
  
   { name = "Flying Frog Consultancy"
+  ; slug = "flying-frog-consultancy"
   ; description = "Flying Frog Consultancy Ltd. consult and write books and software on the use of OCaml in the context of scientific computing.\n"
   ; image = Some 
  "users/flying-frog.png"
@@ -252,6 +273,7 @@ let all =
   };
  
   { name = "ForAllSecure"
+  ; slug = "forallsecure"
   ; description = "ForAllSecure's mission is to test the world's software and provide actionable information to our customers.\n"
   ; image = Some 
  "users/forallsecure.svg"
@@ -264,6 +286,7 @@ let all =
   };
  
   { name = "Framtidsforum"
+  ; slug = "framtidsforum"
   ; description = "Framtidsforum I&M sells ExcelEverywhere, which creates web pages that look and function the same as your MS Excel spreadsheet\n"
   ; image = None
   ; site = "https://www.exceleverywhere.com"
@@ -275,6 +298,7 @@ let all =
   };
  
   { name = "Galois"
+  ; slug = "galois"
   ; description = "Galois has developed a domain specific declarative language for cryptographic algorithms.\n"
   ; image = Some 
  "users/galois.png"
@@ -287,6 +311,7 @@ let all =
   };
  
   { name = "Incubaid"
+  ; slug = "incubaid"
   ; description = "Incubaid has developed Arakoon, a distributed key-value store that guarantees consistency above anything else.\n"
   ; image = Some 
  "users/Incubaid.png"
@@ -299,6 +324,7 @@ let all =
   };
  
   { name = "Issuu"
+  ; slug = "issuu"
   ; description = "Issuu is a digital publishing platform delivering exceptional reading experiences of magazines, catalogues, and newspapers\n"
   ; image = Some 
  "users/issuu.gif"
@@ -310,6 +336,7 @@ let all =
   };
  
   { name = "Jane Street"
+  ; slug = "jane-street"
   ; description = "Jane Street is a quantitative trading firm that operates around the clock and around the globe\n"
   ; image = Some 
  "users/jane-street.jpg"
@@ -322,6 +349,7 @@ let all =
   };
  
   { name = "Kernelize"
+  ; slug = "kernelize"
   ; description = "Kernelyze has developed a novel approximation of two-variable functions that achieves the smallest possible worst-case error among all rank-n approximations.\n"
   ; image = Some 
  "users/kernelyze-llc-logo.png"
@@ -334,6 +362,7 @@ let all =
   };
  
   { name = "Kong"
+  ; slug = "kong"
   ; description = "Kong makes it easy to distribute, monetize, manage and consume cloud APIs.\n"
   ; image = Some 
  "users/mashape.png"
@@ -346,6 +375,7 @@ let all =
   };
  
   { name = "LexiFi"
+  ; slug = "lexifi"
   ; description = "LexiFi is an innovative provider of software applications and infrastructure technology for the capital markets industry.\n"
   ; image = Some 
  "users/lexifi.png"
@@ -358,6 +388,7 @@ let all =
   };
  
   { name = "Matrix Lead"
+  ; slug = "matrix-lead"
   ; description = "Matrix Lead provides professionals and companies with leading technologies and solutions for spreadsheets. \n"
   ; image = Some 
  "users/matrixlead.png"
@@ -370,6 +401,7 @@ let all =
   };
  
   { name = "MEDIT"
+  ; slug = "medit"
   ; description = "MEDIT develops SuMo, an advanced bioinformatic system, for the analysis of protein 3D structures and the identification of drug-design targets. \n"
   ; image = Some 
  "users/medit.jpg"
@@ -382,6 +414,7 @@ let all =
   };
  
   { name = "Microsoft"
+  ; slug = "microsoft"
   ; description = "Facebook has built a number of major development tools using OCaml\n"
   ; image = Some 
  "users/microsoft.png"
@@ -394,6 +427,7 @@ let all =
   };
  
   { name = "Mount Sinai"
+  ; slug = "mount-sinai"
   ; description = "The Hammer Lab at Mount Sinai develops and uses Ketrew for managing complex bioinformatics workflows.\n"
   ; image = Some 
  "users/mount-sinai.png"
@@ -406,6 +440,7 @@ let all =
   };
  
   { name = "Mr. Number"
+  ; slug = "mr-number"
   ; description = "Mr. Number started as a Silicon Valley startup and developed the Mr. Number app for call blocking, later acquired by WhitePages.\n"
   ; image = Some 
  "users/mrnumber.jpg"
@@ -418,6 +453,7 @@ let all =
   };
  
   { name = "MyLife"
+  ; slug = "mylife"
   ; description = "MyLife has developed a powerful people search tool that will empower those in need to find anyone, regardless of years past and the life that was built in between.\n"
   ; image = Some 
  "users/mylife.jpg"
@@ -430,6 +466,7 @@ let all =
   };
  
   { name = "Narrow Gate Logic"
+  ; slug = "narrow-gate-logic"
   ; description = "Narrow Gate Logic is a company using the OCaml language in business and non-business applications.\n"
   ; image = Some 
  "users/nglogic.png"
@@ -442,6 +479,7 @@ let all =
   };
  
   { name = "Nomadic Labs"
+  ; slug = "nomadic-labs"
   ; description = "Nomadic Labs houses a team focused on Research and Development. Our core competencies are in programming language theory and practice, distributed systems, and formal verification.\n"
   ; image = Some 
  "users/nomadic-labs.png"
@@ -454,6 +492,7 @@ let all =
   };
  
   { name = "OCamlPro"
+  ; slug = "ocamlpro"
   ; description = "OCamlPro develops and maintains a development environment for the OCaml language.\n"
   ; image = Some 
  "users/ocamlpro.png"
@@ -466,6 +505,7 @@ let all =
   };
  
   { name = "PRUDENT Technologies and Consulting, Inc."
+  ; slug = "prudent-technologies-and-consulting-inc"
   ; description = "Prudent Consulting offers IT solutions to large and mid-sized organizations by combining industry experience and technology expertise to help our customers achieve business goals with speed, agility, and great impact.\n"
   ; image = Some 
  "users/prudent.jpg"
@@ -478,6 +518,7 @@ let all =
   };
  
   { name = "Psellos"
+  ; slug = "psellos"
   ; description = "Psellos is a small group of computer scientists who became intrigued by the idea of coding iOS apps in OCaml.\n"
   ; image = Some 
  "users/psellos.png"
@@ -490,6 +531,7 @@ let all =
   };
  
   { name = "Sakhalin"
+  ; slug = "sakhalin"
   ; description = "Sakhalin develops marine charting apps for Apple iPads and iPhones.\n"
   ; image = None
   ; site = "https://www.seaiq.com"
@@ -501,6 +543,7 @@ let all =
   };
  
   { name = "Shiro Games"
+  ; slug = "shiro-games"
   ; description = "Shiro Games is developing games using Haxe, a language built with a compiler written in OCaml.\n"
   ; image = Some 
  "users/shirogames.png"
@@ -513,6 +556,7 @@ let all =
   };
  
   { name = "SimCorp"
+  ; slug = "simcorp"
   ; description = "Multi-asset platform to support investment decision-making and innovation.\n"
   ; image = Some 
  "users/simcorp.png"
@@ -525,6 +569,7 @@ let all =
   };
  
   { name = "Sleekersoft"
+  ; slug = "sleekersoft"
   ; description = "Specialises in functional programming software development, consultation, and training.\n"
   ; image = Some 
  "users/sleekersoft.png"
@@ -537,6 +582,7 @@ let all =
   };
  
   { name = "Solvuu"
+  ; slug = "solvuu"
   ; description = "Solvuu's software allows users to store big and small data sets, share the data with collaborators, execute computationally intensive algorithms and workflows, and visualize results.\n"
   ; image = Some 
  "users/solvuu.jpg"
@@ -549,6 +595,7 @@ let all =
   };
  
   { name = "Studio Associato 4Sigma"
+  ; slug = "studio-associato-4sigma"
   ; description = "4Sigma is a small firm making websites and some interesting web applications.\n"
   ; image = Some 
  "users/4sigma.png"
@@ -561,6 +608,7 @@ let all =
   };
  
   { name = "Tarides"
+  ; slug = "tarides"
   ; description = "Tarides builds and maintains open-source infrastructure tools in OCaml like MirageOS, Irmin and OCaml developer tools.\n"
   ; image = Some 
  "users/tarides.png"
@@ -573,6 +621,7 @@ let all =
   };
  
   { name = "TrustInSoft"
+  ; slug = "trustinsoft"
   ; description = "TrustInSoft is a company that changes the rules in cybersecurity. TrustInSoft is the software publisher of the software analysis Frama-C platform. \n"
   ; image = Some 
  "users/trustinsoft.png"
@@ -585,6 +634,7 @@ let all =
   };
  
   { name = "Wolfram MathCore"
+  ; slug = "wolfram-mathcore"
   ; description = "Wolfram MathCore uses OCaml to implement its SystemModeler kernel.\n"
   ; image = Some 
  "users/wolfram-mathcore.gif"
@@ -597,6 +647,7 @@ let all =
   };
  
   { name = "Zeo Agency"
+  ; slug = "zeo-agency"
   ; description = "Zeo is a digital marketing company focused on helping companies to do better in SEO.\n"
   ; image = None
   ; site = "https://www.zeo.org"

@@ -33,6 +33,7 @@ module Academic_institution : sig
 
   type t = {
     name : string;
+    slug : string;
     description : string;
     url : string;
     logo : string option;
@@ -44,6 +45,8 @@ module Academic_institution : sig
   }
 
   val all : t list
+
+  val get_by_slug : string -> t option
 end
 
 module Book : sig
@@ -51,6 +54,7 @@ module Book : sig
 
   type t = {
     title : string;
+    slug : string;
     description : string;
     authors : string list;
     language : string;
@@ -63,11 +67,14 @@ module Book : sig
   }
 
   val all : t list
+
+  val get_by_slug : string -> t option
 end
 
 module Event : sig
   type t = {
     title : string;
+    slug : string;
     description : string;
     url : string;
     date : string;
@@ -78,11 +85,14 @@ module Event : sig
   }
 
   val all : t list
+
+  val get_by_slug : string -> t option
 end
 
 module Industrial_user : sig
   type t = {
     name : string;
+    slug : string;
     description : string;
     image : string option;
     site : string;
@@ -93,15 +103,14 @@ module Industrial_user : sig
   }
 
   val all : t list
-end
 
-module Media : sig
-  val read : string -> string option
+  val get_by_slug : string -> t option
 end
 
 module Paper : sig
   type t = {
     title : string;
+    slug : string;
     publication : string;
     authors : string list;
     abstract : string;
@@ -111,11 +120,14 @@ module Paper : sig
   }
 
   val all : t list
+
+  val get_by_slug : string -> t option
 end
 
 module Success_story : sig
   type t = {
     title : string;
+    slug : string;
     image : string option;
     url : string option;
     body_md : string;
@@ -123,6 +135,8 @@ module Success_story : sig
   }
 
   val all : t list
+
+  val get_by_slug : string -> t option
 end
 
 module Tool : sig
@@ -130,6 +144,7 @@ module Tool : sig
 
   type t = {
     name : string;
+    slug : string;
     source : string;
     license : string;
     synopsis : string;
@@ -138,11 +153,14 @@ module Tool : sig
   }
 
   val all : t list
+
+  val get_by_slug : string -> t option
 end
 
 module Tutorial : sig
   type t = {
     title : string;
+    slug : string;
     description : string;
     date : string;
     tags : string list;
@@ -152,6 +170,8 @@ module Tutorial : sig
   }
 
   val all : t list
+
+  val get_by_slug : string -> t option
 end
 
 module Video : sig
@@ -163,6 +183,7 @@ module Video : sig
 
   type t = {
     title : string;
+    slug : string;
     description : string;
     people : string list;
     kind : kind;
@@ -174,11 +195,14 @@ module Video : sig
   }
 
   val all : t list
+
+  val get_by_slug : string -> t option
 end
 
 module News : sig
   type t = {
     title : string;
+    slug : string;
     description : string option;
     url : string;
     date : string;
@@ -187,4 +211,6 @@ module News : sig
   }
 
   val all : t list
+
+  val get_by_slug : string -> t option
 end

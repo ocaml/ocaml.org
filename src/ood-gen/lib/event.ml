@@ -24,6 +24,7 @@ let pp ppf v =
   Fmt.pf ppf
     {|
   { title = %S
+  ; slug = %S
   ; description = %S
   ; url = %S
   ; date = %S
@@ -32,8 +33,8 @@ let pp ppf v =
   ; textual_location = %a
   ; location = %a
   }|}
-    v.title v.description v.url v.date (Pp.list Pp.quoted_string) v.tags
-    v.online
+    v.title (Utils.slugify v.title) v.description v.url v.date
+    (Pp.list Pp.quoted_string) v.tags v.online
     (Pp.option Pp.quoted_string)
     v.textual_location
     (Pp.option Pp.quoted_string_escape)
@@ -46,6 +47,7 @@ let template () =
     {|
 type t =
   { title : string
+  ; slug : string
   ; description : string
   ; url : string
   ; date : string

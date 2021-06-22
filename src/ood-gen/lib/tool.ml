@@ -27,6 +27,7 @@ end
 
 type t = {
   name : string;
+  slug : string;
   source : string;
   license : string;
   synopsis : string;
@@ -54,6 +55,7 @@ let decode s =
             in
             ( {
                 name = metadata.name;
+                slug = Utils.slugify metadata.name;
                 source = metadata.source;
                 license = metadata.license;
                 synopsis = metadata.synopsis;
@@ -83,13 +85,15 @@ let pp ppf v =
   Fmt.pf ppf
     {|
   { name = %S
+  ; slug = %S
   ; source = %S
   ; license = %S
   ; synopsis = %S
   ; description = %S
   ; lifecycle = %a
   }|}
-    v.name v.source v.license v.synopsis v.description pp_lifecycle v.lifecycle
+    v.name v.slug v.source v.license v.synopsis v.description pp_lifecycle
+    v.lifecycle
 
 let pp_list = Pp.list pp
 
@@ -105,6 +109,7 @@ type lifecycle =
 
 type t =
   { name : string
+  ; slug : string
   ; source : string
   ; license : string
   ; synopsis : string

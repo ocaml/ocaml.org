@@ -3,6 +3,7 @@ type link = { description : string; uri : string }
 
 type t = 
   { title : string
+  ; slug : string
   ; description : string
   ; authors : string list
   ; language : string
@@ -17,6 +18,7 @@ type t =
 let all = 
 [
   { title = "Algorithmen, Datenstrukturen, Funktionale Programmierung: Eine praktische Einf\195\188hrung mit Caml Light"
+  ; slug = "algorithmen-datenstrukturen-funktionale-programmierung-eine-praktische-einfhrung-mit-caml-light"
   ; description = "In the first part of this book, algorithms are described in a concise and precise manner using Caml Light. The second part provides a tutorial introduction into the language Caml Light and in its last chapter a comprehensive description of the language kernel.\n"
   ; authors = 
  ["Juergen Wolff von Gudenberg"]
@@ -32,6 +34,7 @@ let all =
   };
  
   { title = "Apprendre \195\160 programmer avec OCaml"
+  ; slug = "apprendre--programmer-avec-ocaml"
   ; description = "This book is organized into three parts. The first one introduces OCaml and targets beginners, being they programming beginners or simply new to OCaml. Through small programs, the reader is introduced to fundamental concepts of programming and of OCaml. The second and third parts are dedicated to fundamental concepts of algorithmics and should allow the reader to write programs in a structured and efficient way.\n"
   ; authors = 
  ["Jean-Christophe Filliâtre"; "Sylvain Conchon"]
@@ -54,6 +57,7 @@ let all =
   };
  
   { title = "Apprentissage de la programmation avec OCaml"
+  ; slug = "apprentissage-de-la-programmation-avec-ocaml"
   ; description = "This book is targeted towards beginner programmers and provides teaching material for all programmers wishing to learn the functional programming style. The programming features introduced in this book are available in all dialects of the ML language, notably Caml-Light, OCaml and Standard ML.\n"
   ; authors = 
  ["Catherine Dubois"; "Valérie Ménissier Morain"]
@@ -69,6 +73,7 @@ let all =
   };
  
   { title = "Approche Fonctionnelle de la Programmation"
+  ; slug = "approche-fonctionnelle-de-la-programmation"
   ; description = "This book uses OCaml as a tool to introduce several important programming concepts."
   ; authors = 
  ["Guy Cousineau"; "Michel Mauny"]
@@ -87,6 +92,7 @@ let all =
   };
  
   { title = "Concepts et outils de programmation"
+  ; slug = "concepts-et-outils-de-programmation"
   ; description = "The book begins with a functional approach, based on OCaml, and continues with a presentation of an imperative language, namely Ada. It also provides numerous exercises with solutions.\n"
   ; authors = 
  ["Thérèse Accart Hardin"; "Véronique Donzeau-Gouge Viguié"]
@@ -105,6 +111,7 @@ let all =
   };
  
   { title = "Cours et exercices d'informatique"
+  ; slug = "cours-et-exercices-dinformatique"
   ; description = "This book was written by teachers at university and in \226\128\156classes pr\195\169paratoires\226\128\157. It is intended for \226\128\156classes pr\195\169paratoires\226\128\157 students who study computer science and for students engaged in a computer science cursus up to the masters level. It includes a tutorial of the OCaml language, a course on algorithms, data structures, automata theory, and formal logic, as well as 135 exercises with solutions.\n"
   ; authors = 
  ["Luc Albert"]
@@ -119,6 +126,7 @@ let all =
   };
  
   { title = "Developing Applications with OCaml"
+  ; slug = "developing-applications-with-ocaml"
   ; description = "A comprehensive (742 page) guide to developing application in the OCaml programming language\n"
   ; authors = 
  ["Emmanuel Chailloux"; "Pascal Manoury"; "Bruno Pagano"]
@@ -145,6 +153,7 @@ let all =
   };
  
   { title = "D\195\169veloppement d'applications avec Objective Caml"
+  ; slug = "dveloppement-dapplications-avec-objective-caml"
   ; description = "\"Objective CAML est un langage de programmation : un de plus dira-t-on ! Ils sont en effet d\195\169j\195\160 nombreux et pourtant il en appara\195\174t constamment de nouveaux. Au del\195\160 de leurs disparit\195\169s, la conception et la gen\195\168se de chacun d'eux proc\195\168dent d'une motivation partag\195\169e : la volont\195\169 d'abstraire\"\n"
   ; authors = 
  ["Emmanuel Chailloux"; "Pascal Manoury"; "Bruno Pagano"]
@@ -167,6 +176,7 @@ let all =
   };
  
   { title = "Initiation \195\160 la programmation fonctionnelle en OCaml"
+  ; slug = "initiation--la-programmation-fonctionnelle-en-ocaml"
   ; description = "Le but de ce livre est d\226\128\153initier le lecteur au style fonctionnel de programmation en utilisant le langage OCaml.\n"
   ; authors = 
  ["Mohammed-Said Habet"]
@@ -185,6 +195,7 @@ let all =
   };
  
   { title = "Introduction to OCaml"
+  ; slug = "introduction-to-ocaml"
   ; description = "This book is an introduction to ML programming, specifically for the OCaml programming language from INRIA. OCaml is a dialect of the ML family of languages, which derive from the Classic ML language designed by Robin Milner in 1975 for the LCF (Logic of Computable Functions) theorem prover.\n"
   ; authors = 
  ["Jason Hickey"]
@@ -202,6 +213,7 @@ let all =
   };
  
   { title = "Introduzione alla programmazione funzionale"
+  ; slug = "introduzione-alla-programmazione-funzionale"
   ; description = "Functional programming introduction with OCaml\n"
   ; authors = 
  ["Carla Limongelli"; "Marta Cialdea"]
@@ -217,6 +229,7 @@ let all =
   };
  
   { title = "Le Langage Caml"
+  ; slug = "le-langage-caml"
   ; description = "This book is a comprehensive introduction to programming in OCaml. Usable as a programming course, it introduces progressively the language features and shows them at work on the fundamental programming problems. In addition to many introductory code samples, this book details the design and implementation of six complete, realistic programs in reputedly difficult application areas: compilation, type inference, automata, etc.\n"
   ; authors = 
  ["Xavier Leroy"; "Pierre Weis"]
@@ -235,6 +248,7 @@ let all =
   };
  
   { title = "Manuel de r\195\169f\195\169rence du langage Caml"
+  ; slug = "manuel-de-rfrence-du-langage-caml"
   ; description = "\"Cet ouvrage contient le manuel de r\195\169f\195\169rence du langage Caml et la documentation compl\195\168te du syst\195\168me Caml Light, un environnement de programmation en Caml distribu\195\169e gratuitement. Il s\226\128\153adresse \195\161 des programmeurs Caml exp\195\169riment\195\169s, et non pas aux d'\195\169butants. Il vient en compl\195\169ment du livre Le langage Caml, des m\195\170mes auteurs chez le m\195\170me \195\169diteur, qui fournit une introduction progressive au langage Caml et \195\161 l\226\128\153\195\169criture de programmes dans ce langage.\"\n"
   ; authors = 
  ["Xavier Leroy"; "Pierre Weis"]
@@ -253,6 +267,7 @@ let all =
   };
  
   { title = "More OCaml: Algorithms, Methods & Diversions"
+  ; slug = "more-ocaml-algorithms-methods--diversions"
   ; description = "In \"More OCaml\" John Whitington takes a meandering tour of functional programming with OCaml, introducing various language features and describing some classic algorithms.\n"
   ; authors = 
  ["John Whitington"]
@@ -274,6 +289,7 @@ let all =
   };
  
   { title = "Nouveaux exercices d'algorithmique"
+  ; slug = "nouveaux-exercices-dalgorithmique"
   ; description = "This book presents 103 exercises and 5 problems about algorithms, for masters students. It attempts to address both practical and theoretical questions. Programs are written in OCaml and expressed in a purely functional style.\n"
   ; authors = 
  ["Michel Quercia"]
@@ -291,6 +307,7 @@ let all =
   };
  
   { title = "OCaml Book"
+  ; slug = "ocaml-book"
   ; description = "Introductory programming textbook based on the OCaml language\n"
   ; authors = 
  ["Hongbo Zhang"]
@@ -308,6 +325,7 @@ let all =
   };
  
   { title = "OCaml for Scientists"
+  ; slug = "ocaml-for-scientists"
   ; description = "This book teaches OCaml programming with special emphasis on scientific applications.\n"
   ; authors = 
  ["Jon D. Harrop"]
@@ -329,6 +347,7 @@ let all =
   };
  
   { title = "OCaml from the very Beginning"
+  ; slug = "ocaml-from-the-very-beginning"
   ; description = "In \"OCaml from the Very Beginning\" John Whitington takes a no-prerequisites approach to teaching a modern general-purpose programming language.\n"
   ; authors = 
  ["John Whitington"]
@@ -350,6 +369,7 @@ let all =
   };
  
   { title = "OCaml: Programa\195\167\195\163o Funcional na Pr\195\161tica"
+  ; slug = "ocaml-programao-funcional-na-prtica"
   ; description = "This book is an introduction to functional programming through OCaml, with a pragmatic focus. The goal is to enable the reader to write real programs in OCaml and understand most of the open source code written in the language.\n"
   ; authors = 
  ["Andrei de Araújo Formiga"]
@@ -372,6 +392,7 @@ let all =
   };
  
   { title = "The OCaml System: Documentation and User's Manual"
+  ; slug = "the-ocaml-system-documentation-and-users-manual"
   ; description = "The official User's Manual for OCaml serving as a complete reference guide"
   ; authors = 
  ["Damien Doligez"; "Alain Frisch"; "Jacques Garrigue"; "Didier Rémy";
@@ -390,6 +411,7 @@ let all =
   };
  
   { title = "Option Informatique MP/MP"
+  ; slug = "option-informatique-mpmp"
   ; description = "This books is a follow-up to the previous one and is intended for second year students in \226\128\156classes pr\195\169paratoires\226\128\157. It deals with trees, algebraic expressions, automata and languages, and OCaml streams. The book contains more than 200 OCaml programs.\n"
   ; authors = 
  ["Denis Monasse"]
@@ -407,6 +429,7 @@ let all =
   };
  
   { title = "Option Informatique MPSI"
+  ; slug = "option-informatique-mpsi"
   ; description = "This is a computer science course for the first year of \226\128\156classes pr\195\169paratoires\226\128\157. The course begins with an introductory lesson on algorithms and a description of the OCaml language.\n"
   ; authors = 
  ["Denis Monasse"]
@@ -421,6 +444,7 @@ let all =
   };
  
   { title = "Programmation de droite \195\160 gauche et vice-versa"
+  ; slug = "programmation-de-droite--gauche-et-vice-versa"
   ; description = "Programming with OCaml\n"
   ; authors = 
  ["Pascal Manoury"]
@@ -439,6 +463,7 @@ let all =
   };
  
   { title = "Programmation en Caml"
+  ; slug = "programmation-en-caml"
   ; description = "This book is intended for beginners, who will learn basic programming notions. The first part of the book is a programming course that initiates the reader to the OCaml language.\n"
   ; authors = 
  ["Jacques Rouablé"]
@@ -456,6 +481,7 @@ let all =
   };
  
   { title = "Programmation fonctionnelle, g\195\169n\195\169rique et objet: une introduction avec le langage OCaml"
+  ; slug = "programmation-fonctionnelle-gnrique-et-objet-une-introduction-avec-le-langage-ocaml"
   ; description = "Programming with OCaml\n"
   ; authors = 
  ["Philippe Narbel"]
@@ -470,6 +496,7 @@ let all =
   };
  
   { title = "Programmazione funzionale, una semplice introduzione"
+  ; slug = "programmazione-funzionale-una-semplice-introduzione"
   ; description = "Functional programming introduction with OCaml\n"
   ; authors = 
  ["Massimo Maria Ghisalberti"]
@@ -495,6 +522,7 @@ let all =
   };
  
   { title = "Real World OCaml"
+  ; slug = "real-world-ocaml"
   ; description = "Learn how to solve day-to-day problems in data processing, numerical computation, system scripting, and database-driven web applications with the OCaml multi-paradigm programming language.\n"
   ; authors = 
  ["Jason Hickey"; "Anil Madhavapeddy"; "Yaron Minsky"]
@@ -521,6 +549,7 @@ let all =
   };
  
   { title = "Seize probl\195\168mes d'informatique"
+  ; slug = "seize-problmes-dinformatique"
   ; description = "This book offers sixteen problems in computer science, with detailed answers to all questions and complete solutions to algorithmic problems given as OCaml programs.\n"
   ; authors = 
  ["Bruno Petazzoni"]
@@ -538,6 +567,7 @@ let all =
   };
  
   { title = "The Functional Approach to OCaml"
+  ; slug = "the-functional-approach-to-ocaml"
   ; description = "Learning about functional programming using OCaml\n"
   ; authors = 
  ["Guy Cousineau"]
@@ -560,6 +590,7 @@ let all =
   };
  
   { title = "Think OCaml: How to think like a Functional Programmer"
+  ; slug = "think-ocaml-how-to-think-like-a-functional-programmer"
   ; description = "Introductory programming textbook based on the OCaml language\n"
   ; authors = 
  ["Nicholas Monje"; "Allen Downey"]
@@ -582,6 +613,7 @@ let all =
   };
  
   { title = "Unix System Programming in OCaml"
+  ; slug = "unix-system-programming-in-ocaml"
   ; description = "Learn Unix system programming in OCaml\n"
   ; authors = 
  ["Xavier Leroy"; "Didier Rémy"]
@@ -599,6 +631,7 @@ let all =
   };
  
   { title = "Using, Understanding and Unraveling OCaml"
+  ; slug = "using-understanding-and-unraveling-ocaml"
   ; description = "This book describes both the OCaml language and the theoretical grounds behind its powerful type system.\n"
   ; authors = 
  ["Didier Rémy"]

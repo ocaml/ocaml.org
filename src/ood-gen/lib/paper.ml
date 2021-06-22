@@ -26,6 +26,7 @@ let pp ppf v =
   Fmt.pf ppf
     {|
   { title = %S
+  ; slug = %S
   ; publication = %S
   ; authors = %a
   ; abstract = %S
@@ -33,8 +34,9 @@ let pp ppf v =
   ; year = %i
   ; links = %a
   }|}
-    v.title v.publication (Pp.list Pp.quoted_string) v.authors v.abstract
-    (Pp.list Pp.quoted_string) v.tags v.year (Pp.list Pp.quoted_string) v.links
+    v.title (Utils.slugify v.title) v.publication (Pp.list Pp.quoted_string)
+    v.authors v.abstract (Pp.list Pp.quoted_string) v.tags v.year
+    (Pp.list Pp.quoted_string) v.links
 
 let pp_list = Pp.list pp
 
@@ -43,6 +45,7 @@ let template () =
     {|
 type t =
   { title : string
+  ; slug : string
   ; publication : string
   ; authors : string list
   ; abstract : string

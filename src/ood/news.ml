@@ -1,6 +1,7 @@
 
 type t =
   { title : string
+  ; slug : string
   ; description : string option
   ; url : string
   ; date : string
@@ -11,6 +12,7 @@ type t =
 let all = 
 [
   { title = "Building Ahrefs codebase with Melange"
+  ; slug = "building-ahrefs-codebase-with-melange"
   ; description = Some 
  "What we learnt after experimenting with Melange, a fork of ReScript with a strong focus on keeping compatibility with OCaml."
   ; url = "https://tech.ahrefs.com/building-ahrefs-codebase-with-melange-9f881f6d022b?source=rss----303662d88bae--ocaml"
@@ -21,6 +23,7 @@ let all =
   };
  
   { title = "Getting started with atdgen and bucklescript"
+  ; slug = "getting-started-with-atdgen-and-bucklescript"
   ; description = Some 
  "atdgen is a project to create types and data structures that can be serialized to JSON. It is very convenient when communicating between…"
   ; url = "https://tech.ahrefs.com/getting-started-with-atdgen-and-bucklescript-1f3a14004081?source=rss----303662d88bae--ocaml"
@@ -30,6 +33,7 @@ let all =
   };
  
   { title = "How to write a library for BuckleScript and Native"
+  ; slug = "how-to-write-a-library-for-bucklescript-and-native"
   ; description = Some 
  "This blog post is an introduction on how to setup a library available for both BuckleScript and OCaml, sharing as much code as possible."
   ; url = "https://tech.ahrefs.com/how-to-write-a-library-for-bucklescript-and-native-22f45e5e946d?source=rss----303662d88bae--ocaml"
@@ -39,6 +43,7 @@ let all =
   };
  
   { title = "One and a half years of ReasonML in production"
+  ; slug = "one-and-a-half-years-of-reasonml-in-production"
   ; description = Some 
  "The first Reason application at Ahrefs went online on January 31, 2019. Since then, many more applications have been either rewritten in…"
   ; url = "https://tech.ahrefs.com/one-and-a-half-years-of-reasonml-in-production-2250cf5ba63b?source=rss----303662d88bae--ocaml"
@@ -49,6 +54,7 @@ let all =
   };
  
   { title = "Skylake bug: a detective story"
+  ; slug = "skylake-bug-a-detective-story"
   ; description = Some 
  "It was a dark and stormy night; the skylake CPU buzzed with excitement, and then, suddenly, the hyperthreads started to lock up.."
   ; url = "https://tech.ahrefs.com/skylake-bug-a-detective-story-ab1ad2beddcd?source=rss----303662d88bae--ocaml"
@@ -58,7 +64,9 @@ let all =
   };
  
   { title = "13 Virtues"
-  ; description = Some "Very early on in his life, while on lengthy voyage from London to Philadelphia,Ben Franklin created a system of thirteen virtues to live his life by. He spen..."
+  ; slug = "13-virtues"
+  ; description = Some 
+ "Very early on in his life, while on lengthy voyage from London to Philadelphia,Ben Franklin created a system of thirteen virtues to live his life by. He spen..."
   ; url = "https://blog.janestreet.com/13-virtues/"
   ; date = "2015-01-02T00:00:00-00:00"
   ; preview_image = Some 
@@ -67,6 +75,7 @@ let all =
   };
  
   { title = "A better inliner for OCaml, and why it matters"
+  ; slug = "a-better-inliner-for-ocaml-and-why-it-matters"
   ; description = Some 
  "OCaml 4.03 is branched and a first release candidate is imminent, so it seemslike a good time to take stock of what’s coming."
   ; url = "https://blog.janestreet.com/flambda/"
@@ -77,6 +86,7 @@ let all =
   };
  
   { title = "A brief trip through Spacetime"
+  ; slug = "a-brief-trip-through-spacetime"
   ; description = Some 
  "Spacetime is a new memory profiling facility for OCaml to help find space leaksand unwanted allocations. Whilst still a little rough around the edges, we’vef..."
   ; url = "https://blog.janestreet.com/a-brief-trip-through-spacetime/"
@@ -87,7 +97,9 @@ let all =
   };
  
   { title = "A lighter Core"
-  ; description = Some "We recently released a version of our open source libraries with a muchanticipatedchange– Async_kernel, the heart of the Async concurrent programming library..."
+  ; slug = "a-lighter-core"
+  ; description = Some 
+ "We recently released a version of our open source libraries with a muchanticipatedchange– Async_kernel, the heart of the Async concurrent programming library..."
   ; url = "https://blog.janestreet.com/a-lighter-core/"
   ; date = "2015-03-21T00:00:00-00:00"
   ; preview_image = Some 
@@ -96,7 +108,9 @@ let all =
   };
  
   { title = "A look at OCaml 4.08"
-  ; description = Some "Now that OCaml 4.08 has been released, let’s have a look at what wasaccomplished, with a particular focus on how our plans for4.08 fared. I’ll mostly focus o..."
+  ; slug = "a-look-at-ocaml-408"
+  ; description = Some 
+ "Now that OCaml 4.08 has been released, let’s have a look at what wasaccomplished, with a particular focus on how our plans for4.08 fared. I’ll mostly focus o..."
   ; url = "https://blog.janestreet.com/a-look-at-ocaml-4.08/"
   ; date = "2019-07-12T00:00:00-00:00"
   ; preview_image = Some 
@@ -105,6 +119,7 @@ let all =
   };
  
   { title = "A solution to the ppx versioning problem"
+  ; slug = "a-solution-to-the-ppx-versioning-problem"
   ; description = Some 
  "Ppx is a preprocessing system for OCaml where one maps over the OCaml abstractsyntax tree (AST) to interpret some special syntax fragments to generate code."
   ; url = "https://blog.janestreet.com/an-solution-to-the-ppx-versioning-problem/"
@@ -115,6 +130,7 @@ let all =
   };
  
   { title = "A tutorial for building web applications with Incr_dom"
+  ; slug = "a-tutorial-for-building-web-applications-with-incrdom"
   ; description = Some 
  "At Jane Street, our web UIs are built on top of an in-house frameworkcalled Incr_dom, modeled inpart on React’s virtualDOM. Rendering differentviews efficien..."
   ; url = "https://blog.janestreet.com/a-tutorial-for-building-web-applications-with-incrdom/"
@@ -125,6 +141,7 @@ let all =
   };
  
   { title = "Accelerating Self-Play Learning in Go"
+  ; slug = "accelerating-self-play-learning-in-go"
   ; description = Some 
  "At Jane Street, over the last few years, we’ve been increasingly exploring machine learning to improve our models. Many of us are fascinated by the rapid imp..."
   ; url = "https://blog.janestreet.com/accelerating-self-play-learning-in-go/"
@@ -135,6 +152,7 @@ let all =
   };
  
   { title = "Announcing Our Market Prediction Kaggle Competition"
+  ; slug = "announcing-our-market-prediction-kaggle-competition"
   ; description = Some 
  "Jane Street is running a Kaggle contest based on a real problem withreal financial data. If you like ML projects, or think you might,head over and check itou..."
   ; url = "https://blog.janestreet.com/announcing-our-market-prediction-kaggle-competition-index/"
@@ -145,6 +163,7 @@ let all =
   };
  
   { title = "Announcing Signals and Threads, a new podcast from Jane Street"
+  ; slug = "announcing-signals-and-threads-a-new-podcast-from-jane-street"
   ; description = Some 
  "I’m excited (and slightly terrified) to announce that Jane Street isreleasing a new podcast, called Signals andThreads, and I’m going to be thehost."
   ; url = "https://blog.janestreet.com/announcing-signals-and-threads-index/"
@@ -155,7 +174,9 @@ let all =
   };
  
   { title = "Building a lower-latency GC"
-  ; description = Some "We’ve been doing a bunch of work recently on improving the responsiveness ofOCaml’s garbage collector. I thought it would be worth discussing thesedevelopmen..."
+  ; slug = "building-a-lower-latency-gc"
+  ; description = Some 
+ "We’ve been doing a bunch of work recently on improving the responsiveness ofOCaml’s garbage collector. I thought it would be worth discussing thesedevelopmen..."
   ; url = "https://blog.janestreet.com/building-a-lower-latency-gc/"
   ; date = "2015-04-10T00:00:00-00:00"
   ; preview_image = Some 
@@ -164,6 +185,7 @@ let all =
   };
  
   { title = "Centralizing distributed version control, revisited"
+  ; slug = "centralizing-distributed-version-control-revisited"
   ; description = Some 
  "7 years ago, I wrote a blogpostabout how we at Jane Street were using our distributed version control system(hg, though the story would be the same for git) ..."
   ; url = "https://blog.janestreet.com/centralizing-distributed-version-control-revisited/"
@@ -174,6 +196,7 @@ let all =
   };
  
   { title = "Chrome extensions: Finding the missing proof"
+  ; slug = "chrome-extensions-finding-the-missing-proof"
   ; description = Some 
  "Web browsers have supported customplug-ins andextensions sincethe 1990s, giving users the ability to add their own features andtools for improving workflow o..."
   ; url = "https://blog.janestreet.com/chrome-extensions-finding-the-missing-proof/"
@@ -184,7 +207,9 @@ let all =
   };
  
   { title = "Clearly Failing"
-  ; description = Some "The Parable Of The Perfect Connection"
+  ; slug = "clearly-failing"
+  ; description = Some 
+ "The Parable Of The Perfect Connection"
   ; url = "https://blog.janestreet.com/clearly-failing/"
   ; date = "2014-08-23T00:00:00-00:00"
   ; preview_image = Some 
@@ -193,6 +218,7 @@ let all =
   };
  
   { title = "Code review that isn't boring"
+  ; slug = "code-review-that-isnt-boring"
   ; description = Some 
  "At Jane Street, we care a lot about code review. We think that high qualitycode, and in particular, readable code, helps us maintain the safety of oursystems..."
   ; url = "https://blog.janestreet.com/code-review-that-isnt-boring/"
@@ -203,6 +229,7 @@ let all =
   };
  
   { title = "Commas in big numbers everywhere: An OpenType adventure"
+  ; slug = "commas-in-big-numbers-everywhere-an-opentype-adventure"
   ; description = Some 
  "My job involves a lot of staring at large numbers, mostly latencies innanoseconds, and picking out magnitudes like microseconds. I noticedmyself constantly c..."
   ; url = "https://blog.janestreet.com/commas-in-big-numbers-everywhere/"
@@ -213,6 +240,7 @@ let all =
   };
  
   { title = "Converting a code base from camlp4 to ppx"
+  ; slug = "converting-a-code-base-from-camlp4-to-ppx"
   ; description = Some 
  "As with many projects in the OCaml world, at Jane Street we have been working onmigrating from camlp4 to ppx. After having developed equivalent ppx rewriters..."
   ; url = "https://blog.janestreet.com/converting-a-code-base-from-camlp4-to-ppx/"
@@ -223,7 +251,9 @@ let all =
   };
  
   { title = "CPU Registers and OCaml"
-  ; description = Some "Even though registers are a low-level CPU concept, having some knowledge aboutthem can help write faster code. Simply put, a CPU register is a storage for as..."
+  ; slug = "cpu-registers-and-ocaml"
+  ; description = Some 
+ "Even though registers are a low-level CPU concept, having some knowledge aboutthem can help write faster code. Simply put, a CPU register is a storage for as..."
   ; url = "https://blog.janestreet.com/cpu-registers-and-ocaml-2/"
   ; date = "2015-05-05T00:00:00-00:00"
   ; preview_image = Some 
@@ -232,6 +262,7 @@ let all =
   };
  
   { title = "Deep learning experiments in OCaml"
+  ; slug = "deep-learning-experiments-in-ocaml"
   ; description = Some 
  "Last year we held a machine learning seminar in our London office,which was an opportunity to reproduce some classical deep learningresults with a nice twist..."
   ; url = "https://blog.janestreet.com/deep-learning-experiments-in-ocaml/"
@@ -242,6 +273,7 @@ let all =
   };
  
   { title = "Deep-Learning the Hardest Go Problem in the World"
+  ; slug = "deep-learning-the-hardest-go-problem-in-the-world"
   ; description = Some 
  "Updates and a New Run"
   ; url = "https://blog.janestreet.com/deep-learning-the-hardest-go-problem-in-the-world/"
@@ -252,6 +284,7 @@ let all =
   };
  
   { title = "Do applied programming languages research at Jane Street!"
+  ; slug = "do-applied-programming-languages-research-at-jane-street"
   ; description = Some 
  "As our Tools & Compilers team has grown, the kinds of projects we workon has become more ambitious. Here are some of the major things we’recurrently work..."
   ; url = "https://blog.janestreet.com/applied-PL-research/"
@@ -262,6 +295,7 @@ let all =
   };
  
   { title = "Do you love dev tools? Come work at Jane Street."
+  ; slug = "do-you-love-dev-tools-come-work-at-jane-street"
   ; description = Some 
  "In the last few years, we’ve spent more and more effort working on developertools, to the point where we now have a tools-and-compilers group devoted to thea..."
   ; url = "https://blog.janestreet.com/do-you-love-dev-tools-come-work-at-jane-street/"
@@ -272,7 +306,9 @@ let all =
   };
  
   { title = "Does batch size matter?"
-  ; description = Some "This post is aimed at readers who are already familiar withstochastic gradient descent(SGD) and terms like “batch size”.  For an introduction to theseideas, ..."
+  ; slug = "does-batch-size-matter"
+  ; description = Some 
+ "This post is aimed at readers who are already familiar withstochastic gradient descent(SGD) and terms like “batch size”.  For an introduction to theseideas, ..."
   ; url = "https://blog.janestreet.com/does-batch-size-matter/"
   ; date = "2017-10-31T00:00:00-00:00"
   ; preview_image = Some 
@@ -281,7 +317,9 @@ let all =
   };
  
   { title = "Faster OCaml to C calls"
-  ; description = Some "The official OCaml documentation “Interfacing C withOCaml” doesn’tdocument some interesting performance features."
+  ; slug = "faster-ocaml-to-c-calls"
+  ; description = Some 
+ "The official OCaml documentation “Interfacing C withOCaml” doesn’tdocument some interesting performance features."
   ; url = "https://blog.janestreet.com/faster-ocaml-to-c-calls/"
   ; date = "2015-04-09T00:00:00-00:00"
   ; preview_image = Some 
@@ -290,6 +328,7 @@ let all =
   };
  
   { title = "Finding memory leaks with Memtrace"
+  ; slug = "finding-memory-leaks-with-memtrace"
   ; description = Some 
  "Memory issues can be hard to track down. A function that onlyallocates a few small objects can cause a space leak if it’s calledoften enough and those object..."
   ; url = "https://blog.janestreet.com/finding-memory-leaks-with-memtrace/"
@@ -300,7 +339,9 @@ let all =
   };
  
   { title = "Growing the Hardcaml toolset"
-  ; description = Some "I am pleased to announce that we have recently released a slew of newHardcaml libraries!"
+  ; slug = "growing-the-hardcaml-toolset"
+  ; description = Some 
+ "I am pleased to announce that we have recently released a slew of newHardcaml libraries!"
   ; url = "https://blog.janestreet.com/growing-the-hardcaml-toolset-index/"
   ; date = "2020-12-01T00:00:00-00:00"
   ; preview_image = Some 
@@ -309,7 +350,9 @@ let all =
   };
  
   { title = "Hiring an FPGA engineer"
-  ; description = Some "Jane Street is looking to hire an engineer with experience in bothsoftware and hardware design to work on FPGA-based applications, andon tools for creating s..."
+  ; slug = "hiring-an-fpga-engineer"
+  ; description = Some 
+ "Jane Street is looking to hire an engineer with experience in bothsoftware and hardware design to work on FPGA-based applications, andon tools for creating s..."
   ; url = "https://blog.janestreet.com/hiring-an-fpga-engineer/"
   ; date = "2017-08-16T00:00:00-00:00"
   ; preview_image = Some 
@@ -318,6 +361,7 @@ let all =
   };
  
   { title = "How Jane Street Does Code Review (Jane Street Tech Talk)"
+  ; slug = "how-jane-street-does-code-review-jane-street-tech-talk"
   ; description = Some 
  "It’s time for our nextJane Street Tech Talk. Whenwe’ve solicited suggestions for topics, one common request has been totalk about our internal development pr..."
   ; url = "https://blog.janestreet.com/jane-street-tech-talk-how-jane-street-does-code-review/"
@@ -328,7 +372,9 @@ let all =
   };
  
   { title = "How to Build an Exchange"
-  ; description = Some "UPDATE: We are full up. Tons of people signed up for the talk, and we’renow at the limit of what we feel like we can support in the space. Thanks forall the ..."
+  ; slug = "how-to-build-an-exchange"
+  ; description = Some 
+ "UPDATE: We are full up. Tons of people signed up for the talk, and we’renow at the limit of what we feel like we can support in the space. Thanks forall the ..."
   ; url = "https://blog.janestreet.com/how-to-build-an-exchange/"
   ; date = "2017-01-11T00:00:00-00:00"
   ; preview_image = Some 
@@ -337,6 +383,7 @@ let all =
   };
  
   { title = "How to choose a teaching language"
+  ; slug = "how-to-choose-a-teaching-language"
   ; description = Some 
  "If you were teaching a programming course, what language would you teach it in?"
   ; url = "https://blog.janestreet.com/how-to-choose-a-teaching-language/"
@@ -347,6 +394,7 @@ let all =
   };
  
   { title = "How to design a tree diffing algorithm"
+  ; slug = "how-to-design-a-tree-diffing-algorithm"
   ; description = Some 
  "For those of you interested in whatwhatinternsdo at Jane Street, here’s apost from former internTristan Hume, on his work developing tree-diffing algorithms ..."
   ; url = "https://blog.janestreet.com/how-to-design-a-tree-diffing-algorithm/"
@@ -357,7 +405,9 @@ let all =
   };
  
   { title = "How to shuffle a big dataset"
-  ; description = Some "At Jane Street, we often work with data that has a very lowsignal-to-noise ratio, but fortunately we also have a lot of data.Where practitioners in many fiel..."
+  ; slug = "how-to-shuffle-a-big-dataset"
+  ; description = Some 
+ "At Jane Street, we often work with data that has a very lowsignal-to-noise ratio, but fortunately we also have a lot of data.Where practitioners in many fiel..."
   ; url = "https://blog.janestreet.com/how-to-shuffle-a-big-dataset/"
   ; date = "2018-09-26T00:00:00-00:00"
   ; preview_image = Some 
@@ -366,6 +416,7 @@ let all =
   };
  
   { title = "Incremental computation and the web"
+  ; slug = "incremental-computation-and-the-web"
   ; description = Some 
  "I’ve recently been thinking about the world of JavaScript and web applications.That’s odd for me, since I know almost nothing about the web. Indeed, JaneStre..."
   ; url = "https://blog.janestreet.com/incrementality-and-the-web/"
@@ -376,6 +427,7 @@ let all =
   };
  
   { title = "Inspecting Internal TCP State on Linux"
+  ; slug = "inspecting-internal-tcp-state-on-linux"
   ; description = Some 
  "Sometimes it can be useful to inspect the state of a TCP endpoint. Things suchas the current congestion window, the retransmission timeout (RTO), duplicateac..."
   ; url = "https://blog.janestreet.com/inspecting-internal-tcp-state-on-linux/"
@@ -386,6 +438,7 @@ let all =
   };
  
   { title = "Inspecting the Environment of a Running Process"
+  ; slug = "inspecting-the-environment-of-a-running-process"
   ; description = Some 
  "Sometimes its useful to be able see the values of environment variables inrunning processes. We can use the following test program to see how well we canacco..."
   ; url = "https://blog.janestreet.com/inspecting-the-environment-of-a-running-process/"
@@ -396,7 +449,9 @@ let all =
   };
  
   { title = "Interviewing At Jane Street"
-  ; description = Some "Software Engineering Interviews at Jane Street"
+  ; slug = "interviewing-at-jane-street"
+  ; description = Some 
+ "Software Engineering Interviews at Jane Street"
   ; url = "https://blog.janestreet.com/interviewing-at-jane-street/"
   ; date = "2014-10-24T00:00:00-00:00"
   ; preview_image = Some 
@@ -405,7 +460,9 @@ let all =
   };
  
   { title = "Introducing Incremental"
-  ; description = Some "I’m pleased to announce the release ofIncremental (wellcommented mlihere),a powerful library for building self-adjusting computations, i.e.,computations that..."
+  ; slug = "introducing-incremental"
+  ; description = Some 
+ "I’m pleased to announce the release ofIncremental (wellcommented mlihere),a powerful library for building self-adjusting computations, i.e.,computations that..."
   ; url = "https://blog.janestreet.com/introducing-incremental/"
   ; date = "2015-07-18T00:00:00-00:00"
   ; preview_image = Some 
@@ -414,6 +471,7 @@ let all =
   };
  
   { title = "Iron out your release process"
+  ; slug = "iron-out-your-release-process"
   ; description = Some 
  "This is the third in a series of posts about the design of Iron, our new codereview and release management tool. The other two postsare hereand here."
   ; url = "https://blog.janestreet.com/ironing-out-your-release-process/"
@@ -424,6 +482,7 @@ let all =
   };
  
   { title = "Ironing out your development style"
+  ; slug = "ironing-out-your-development-style"
   ; description = Some 
  "People seem to enjoy talking about programming methodologies. Theygive them cute names, likeeXtreme programming,Agile, andScrum; runconferences and buildcomm..."
   ; url = "https://blog.janestreet.com/ironing-out-your-development-style/"
@@ -434,6 +493,7 @@ let all =
   };
  
   { title = "Jane Street Tech Talk, Verifying Network Data Planes"
+  ; slug = "jane-street-tech-talk-verifying-network-data-planes"
   ; description = Some 
  "After a summer hiatus, the Jane Street Tech Talks series is back onfor the fall! Last we left it, our very own Dominick LoBraicopresented on the evolution of..."
   ; url = "https://blog.janestreet.com/jane-street-tech-talk-verifying-network-data-planes/"
@@ -444,6 +504,7 @@ let all =
   };
  
   { title = "Jane Street Tech Talks: Verifying Puppet Configs"
+  ; slug = "jane-street-tech-talks-verifying-puppet-configs"
   ; description = Some 
  "Our first Jane Street Tech Talk went really well!Thanks to everyone who came and made it a fun event."
   ; url = "https://blog.janestreet.com/jane-street-tech-talks-verifying-puppet-configs/"
@@ -454,6 +515,7 @@ let all =
   };
  
   { title = "L2 Regularization and Batch Norm"
+  ; slug = "l2-regularization-and-batch-norm"
   ; description = Some 
  "This blog post is about an interesting detail about machine learningthat I came across as a researcher at Jane Street - that of the interaction between L2 re..."
   ; url = "https://blog.janestreet.com/l2-regularization-and-batch-norm/"
@@ -464,7 +526,9 @@ let all =
   };
  
   { title = "Learn OCaml in NYC"
-  ; description = Some "Interested in learning OCaml? In the NYC area? Then this mightbe for you!"
+  ; slug = "learn-ocaml-in-nyc"
+  ; description = Some 
+ "Interested in learning OCaml? In the NYC area? Then this mightbe for you!"
   ; url = "https://blog.janestreet.com/learn-ocaml-nyc/"
   ; date = "2018-02-16T00:00:00-00:00"
   ; preview_image = Some 
@@ -473,7 +537,9 @@ let all =
   };
  
   { title = "Learning ML Depth-First"
-  ; description = Some "If you haven’t heard of it, Depth FirstLearning is awonderful resource for learning about machine learning."
+  ; slug = "learning-ml-depth-first"
+  ; description = Some 
+ "If you haven’t heard of it, Depth FirstLearning is awonderful resource for learning about machine learning."
   ; url = "https://blog.janestreet.com/learning-ml-depth-first/"
   ; date = "2019-04-17T00:00:00-00:00"
   ; preview_image = Some 
@@ -482,6 +548,7 @@ let all =
   };
  
   { title = "Let syntax, and why you should use it"
+  ; slug = "let-syntax-and-why-you-should-use-it"
   ; description = Some 
  "Earlier this year, we createda ppx_let, a PPX rewriter thatintroduces a syntax for working with monadic and applicative libraries likeCommand, Async, Result ..."
   ; url = "https://blog.janestreet.com/let-syntax-and-why-you-should-use-it/"
@@ -492,6 +559,7 @@ let all =
   };
  
   { title = "Looking for a technical writer"
+  ; slug = "looking-for-a-technical-writer"
   ; description = Some 
  "Update: I’m excited to say that we’ve now hired a (great!) technicalwriter, so the position is closed."
   ; url = "https://blog.janestreet.com/looking-for-a-technical-writer/"
@@ -502,6 +570,7 @@ let all =
   };
  
   { title = "Machining the ultimate hackathon prize"
+  ; slug = "machining-the-ultimate-hackathon-prize"
   ; description = Some 
  "Jane Street is sponsoring this year’s MakeMIThackathon, and we wanted to create a prize forthe winners that would do justice to the maker spirit of thecompet..."
   ; url = "https://blog.janestreet.com/hackathon-keyboards/"
@@ -512,7 +581,9 @@ let all =
   };
  
   { title = "Making making better"
-  ; description = Some "We spend a lot of time and effort on training new people, and it never stops forlong. Right now our winter-intern class is ending; in five months we’ll have ..."
+  ; slug = "making-making-better"
+  ; description = Some 
+ "We spend a lot of time and effort on training new people, and it never stops forlong. Right now our winter-intern class is ending; in five months we’ll have ..."
   ; url = "https://blog.janestreet.com/making-making-better/"
   ; date = "2015-01-31T00:00:00-00:00"
   ; preview_image = Some 
@@ -521,6 +592,7 @@ let all =
   };
  
   { title = "Making \226\128\156never break the build\226\128\157 scale"
+  ; slug = "making-never-break-the-build-scale"
   ; description = Some 
  "I just stumbled across a post fromearlier this year by Graydon Hoare, of Rust fame.The post is about what he calls the “Not Rocket Science Rule”, which says ..."
   ; url = "https://blog.janestreet.com/making-never-break-the-build-scale/"
@@ -531,7 +603,9 @@ let all =
   };
  
   { title = "Memory allocator showdown"
-  ; description = Some "Since version 4.10, OCaml offers a new best-fit memory allocatoralongside its existing default, the next-fit allocator. At JaneStreet, we’ve seen a big impro..."
+  ; slug = "memory-allocator-showdown"
+  ; description = Some 
+ "Since version 4.10, OCaml offers a new best-fit memory allocatoralongside its existing default, the next-fit allocator. At JaneStreet, we’ve seen a big impro..."
   ; url = "https://blog.janestreet.com/memory-allocator-showdown/"
   ; date = "2020-09-15T00:00:00-00:00"
   ; preview_image = Some 
@@ -540,6 +614,7 @@ let all =
   };
  
   { title = "No (functional) experience required"
+  ; slug = "no-functional-experience-required"
   ; description = Some 
  "Jane Street is a serious functional programming shop. We use OCaml, a staticallytyped functional language for almost everything and have what is probably the..."
   ; url = "https://blog.janestreet.com/no-functional-experience-required/"
@@ -550,7 +625,9 @@ let all =
   };
  
   { title = "Notes on Naming"
-  ; description = Some "I’ve been thinking about naming recently, specifically the naming of newsystems. It’s tempting to think of naming as trivial, but it really does matter.In a ..."
+  ; slug = "notes-on-naming"
+  ; description = Some 
+ "I’ve been thinking about naming recently, specifically the naming of newsystems. It’s tempting to think of naming as trivial, but it really does matter.In a ..."
   ; url = "https://blog.janestreet.com/notes-on-naming/"
   ; date = "2014-06-29T00:00:00-00:00"
   ; preview_image = Some 
@@ -559,6 +636,7 @@ let all =
   };
  
   { title = "Observations of a functional programmer"
+  ; slug = "observations-of-a-functional-programmer"
   ; description = Some 
  "I was recently invited to do the keynote at the Commercial Users of FunctionalProgramming workshop, a 15-year-old gathering which isattached to ICFP, the pri..."
   ; url = "https://blog.janestreet.com/observations-of-a-functional-programmer/"
@@ -569,7 +647,9 @@ let all =
   };
  
   { title = "OCaml 4.03: Everything else"
-  ; description = Some "In my previous post I wrote about Flambda, which is the singlebiggest feature coming to OCaml in this release. In this post, I’ll review theother features of..."
+  ; slug = "ocaml-403-everything-else"
+  ; description = Some 
+ "In my previous post I wrote about Flambda, which is the singlebiggest feature coming to OCaml in this release. In this post, I’ll review theother features of..."
   ; url = "https://blog.janestreet.com/ocaml-4-03-everything-else/"
   ; date = "2016-03-01T00:00:00-00:00"
   ; preview_image = Some 
@@ -578,7 +658,9 @@ let all =
   };
  
   { title = "OCaml all the way down"
-  ; description = Some "One of the joys of working at Jane Street for the last 15 or so yearshas been seeing how our software stack has grown in scope. When Istarted, I was building..."
+  ; slug = "ocaml-all-the-way-down"
+  ; description = Some 
+ "One of the joys of working at Jane Street for the last 15 or so yearshas been seeing how our software stack has grown in scope. When Istarted, I was building..."
   ; url = "https://blog.janestreet.com/ocaml-all-the-way-down/"
   ; date = "2018-04-04T00:00:00-00:00"
   ; preview_image = Some 
@@ -587,7 +669,9 @@ let all =
   };
  
   { title = "Of Pythons and Camels"
-  ; description = Some "Welcome to another post in our series of how to use OCaml for machine learning.In previous posts we’ve discussed artistic style-transfer andreinforcement lea..."
+  ; slug = "of-pythons-and-camels"
+  ; description = Some 
+ "Welcome to another post in our series of how to use OCaml for machine learning.In previous posts we’ve discussed artistic style-transfer andreinforcement lea..."
   ; url = "https://blog.janestreet.com/of-pythons-and-camels/"
   ; date = "2019-07-09T00:00:00-00:00"
   ; preview_image = Some 
@@ -596,6 +680,7 @@ let all =
   };
  
   { title = "One more talk, two more videos"
+  ; slug = "one-more-talk-two-more-videos"
   ; description = Some 
  "I’m happy to announce our next public techtalk, called SevenImplementations of Incremental, on Wednesday, April 5th, presented by yourstruly. You can registe..."
   ; url = "https://blog.janestreet.com/one-more-talk-two-more-videos/"
@@ -606,7 +691,9 @@ let all =
   };
  
   { title = "Plans for OCaml 4.08"
-  ; description = Some "With the external release of OCaml 4.07.0 imminent, we in Jane Street’sTools & Compilers group have been planning what we want to work on forinclusion in..."
+  ; slug = "plans-for-ocaml-408"
+  ; description = Some 
+ "With the external release of OCaml 4.07.0 imminent, we in Jane Street’sTools & Compilers group have been planning what we want to work on forinclusion in..."
   ; url = "https://blog.janestreet.com/plans-for-ocaml-408/"
   ; date = "2018-06-29T00:00:00-00:00"
   ; preview_image = Some 
@@ -615,6 +702,7 @@ let all =
   };
  
   { title = "Playing Atari Games with OCaml and Deep Reinforcement Learning"
+  ; slug = "playing-atari-games-with-ocaml-and-deep-reinforcement-learning"
   ; description = Some 
  "In a previous blog postwe detailed how we used OCaml to reproduce some classical deep-learning resultsthat would usually be implemented in Python. Here we wi..."
   ; url = "https://blog.janestreet.com/playing-atari-games-with-ocaml-and-deep-rl/"
@@ -625,6 +713,7 @@ let all =
   };
  
   { title = "Proofs (and Refutations) using Z3"
+  ; slug = "proofs-and-refutations-using-z3"
   ; description = Some 
  "People often think of formal methods and theorem provers as forbiddingtools, cool in theory but with a steep learning curve that makes themhard to use in rea..."
   ; url = "https://blog.janestreet.com/proofs-and-refutations-using-z3/"
@@ -635,6 +724,7 @@ let all =
   };
  
   { title = "Putting the I back in IDE: Towards a Github Explorer"
+  ; slug = "putting-the-i-back-in-ide-towards-a-github-explorer"
   ; description = Some 
  "Imagine a system for editing and reviewing code where:"
   ; url = "https://blog.janestreet.com/putting-the-i-back-in-ide-towards-a-github-explorer/"
@@ -645,7 +735,9 @@ let all =
   };
  
   { title = "Quickcheck for Core"
-  ; description = Some "Automated testing is a powerful tool for finding bugs and specifying correctnessproperties of code. Haskell’s Quickcheck library is the most well-knownautoma..."
+  ; slug = "quickcheck-for-core"
+  ; description = Some 
+ "Automated testing is a powerful tool for finding bugs and specifying correctnessproperties of code. Haskell’s Quickcheck library is the most well-knownautoma..."
   ; url = "https://blog.janestreet.com/quickcheck-for-core/"
   ; date = "2015-10-26T00:00:00-00:00"
   ; preview_image = Some 
@@ -654,7 +746,9 @@ let all =
   };
  
   { title = "Reading Lamport, again"
-  ; description = Some "We’ve just kicked off an internal distributed-systems seminar. Our inaugralpaper was Lamport’s classic “Time, Clocks and the Ordering of Events in aDistribut..."
+  ; slug = "reading-lamport-again"
+  ; description = Some 
+ "We’ve just kicked off an internal distributed-systems seminar. Our inaugralpaper was Lamport’s classic “Time, Clocks and the Ordering of Events in aDistribut..."
   ; url = "https://blog.janestreet.com/reading-lamport-again/"
   ; date = "2014-06-26T00:00:00-00:00"
   ; preview_image = Some 
@@ -663,6 +757,7 @@ let all =
   };
  
   { title = "Real world machine learning (part 1)"
+  ; slug = "real-world-machine-learning-part-1"
   ; description = Some 
  "Trading is a competitive business. You need great people and greattechnology, of course, but also trading strategies that make money.Where do those strategie..."
   ; url = "https://blog.janestreet.com/real-world-machine-learning-part-1/"
@@ -673,6 +768,7 @@ let all =
   };
  
   { title = "Really low latency multipliers and cryptographic puzzles"
+  ; slug = "really-low-latency-multipliers-and-cryptographic-puzzles"
   ; description = Some 
  "At Jane Street, we have some experience using FPGAs for low-latencysystems–FPGAs are programmable hardware where you get the speed of anapplication-specific ..."
   ; url = "https://blog.janestreet.com/really-low-latency-multipliers-and-cryptographic-puzzles/"
@@ -683,6 +779,7 @@ let all =
   };
  
   { title = "Repeatable exploratory programming"
+  ; slug = "repeatable-exploratory-programming"
   ; description = Some 
  "Expect tests are a technique I’ve written aboutbefore, but until recently, it’s been alittle on the theoretical side. That’s because it’s been hard to taketh..."
   ; url = "https://blog.janestreet.com/repeatable-exploratory-programming/"
@@ -693,6 +790,7 @@ let all =
   };
  
   { title = "Reverse web proxy in ~50 lines of BASH"
+  ; slug = "reverse-web-proxy-in-50-lines-of-bash"
   ; description = Some 
  "In the spirit of reinventing the wheel for fun, I hacked this together as aquick challenge to myself last week. It’s a little rough around the edges, but Ith..."
   ; url = "https://blog.janestreet.com/reverse-web-proxy-in-50-lines-of-bash/"
@@ -703,6 +801,7 @@ let all =
   };
  
   { title = "rsync rounds timestamps to the nearest second"
+  ; slug = "rsync-rounds-timestamps-to-the-nearest-second"
   ; description = Some 
  "I’m not sure how I’ve managed to use rsync for so many years without evernoticing this, but hey, you learn something new every day!"
   ; url = "https://blog.janestreet.com/rsync-rounds-timestamps-to-the-nearest-second/"
@@ -713,6 +812,7 @@ let all =
   };
  
   { title = "Scrutinize your code in style"
+  ; slug = "scrutinize-your-code-in-style"
   ; description = Some 
  "This is the second in a series of posts about the design of Iron, our new codereview tool. You can read the first post here.Also, I should give credit where ..."
   ; url = "https://blog.janestreet.com/scrutinizing-your-code-in-style/"
@@ -723,6 +823,7 @@ let all =
   };
  
   { title = "Self Adjusting DOM and Diffable Data"
+  ; slug = "self-adjusting-dom-and-diffable-data"
   ; description = Some 
  "In my last post, I gave some simple examples showing howyou could useself adjusting computations,or SAC, as embodied by our Incremental library, toincrementa..."
   ; url = "https://blog.janestreet.com/self-adjusting-dom-and-diffable-data/"
@@ -733,7 +834,9 @@ let all =
   };
  
   { title = "Self Adjusting DOM"
-  ; description = Some "I’ve been thinking recently about how tostructure dynamic web applications, and in particular about the role thatincremental computation should play."
+  ; slug = "self-adjusting-dom"
+  ; description = Some 
+ "I’ve been thinking recently about how tostructure dynamic web applications, and in particular about the role thatincremental computation should play."
   ; url = "https://blog.janestreet.com/self-adjusting-dom/"
   ; date = "2016-02-06T00:00:00-00:00"
   ; preview_image = Some 
@@ -742,6 +845,7 @@ let all =
   };
  
   { title = "Seven Implementations of Incremental"
+  ; slug = "seven-implementations-of-incremental"
   ; description = Some 
  "We finally got a decent recording of one of my favorite talks. This one is aboutour Incremental library (which Iwrote about here), and in particular about th..."
   ; url = "https://blog.janestreet.com/seven-implementations-of-incremental/"
@@ -752,6 +856,7 @@ let all =
   };
  
   { title = "Simple top-down development in OCaml"
+  ; slug = "simple-top-down-development-in-ocaml"
   ; description = Some 
  "Often when writing a new module, I want to write the interface first and savethe implementation for later. This lets me use the module as a black box,extendi..."
   ; url = "https://blog.janestreet.com/simple-top-down-development-in-ocaml/"
@@ -762,7 +867,9 @@ let all =
   };
  
   { title = "Testing with expectations"
-  ; description = Some "Testing is important, and it’s hard to get people to do as much of it as theyshould. Testing tools matter because the smoother the process is, the more tests..."
+  ; slug = "testing-with-expectations"
+  ; description = Some 
+ "Testing is important, and it’s hard to get people to do as much of it as theyshould. Testing tools matter because the smoother the process is, the more tests..."
   ; url = "https://blog.janestreet.com/testing-with-expectations/"
   ; date = "2015-12-02T00:00:00-00:00"
   ; preview_image = Some 
@@ -771,6 +878,7 @@ let all =
   };
  
   { title = "The Jane Street Interview Process &mdash; 2020 Edition"
+  ; slug = "the-jane-street-interview-process-mdash-2020-edition"
   ; description = Some 
  "We’re busy preparing for our software engineering fall hiringseason. Over the years we’vedone our best to make our interview process more transparent tocandi..."
   ; url = "https://blog.janestreet.com/jane-street-interview-process-2020/"
@@ -781,6 +889,7 @@ let all =
   };
  
   { title = "The ML Workshop looks fantastic"
+  ; slug = "the-ml-workshop-looks-fantastic"
   ; description = Some 
  "I’m a little biased, by being on the steering committee, but this year’s MLworkshop looks really interesting. Here’s a link to the program:"
   ; url = "https://blog.janestreet.com/the-ml-workshop-looks-fantastic/"
@@ -791,7 +900,9 @@ let all =
   };
  
   { title = "Thoughts from AAAI 2019"
-  ; description = Some "At Jane Street, for the last several years, we have been increasingly interestedin machine learning and its many use cases. This is why it was exciting whene..."
+  ; slug = "thoughts-from-aaai-2019"
+  ; description = Some 
+ "At Jane Street, for the last several years, we have been increasingly interestedin machine learning and its many use cases. This is why it was exciting whene..."
   ; url = "https://blog.janestreet.com/thoughts-from-aaai-19/"
   ; date = "2019-05-13T00:00:00-00:00"
   ; preview_image = Some 
@@ -800,6 +911,7 @@ let all =
   };
  
   { title = "Trivial meta-programming with cinaps"
+  ; slug = "trivial-meta-programming-with-cinaps"
   ; description = Some 
  "From now and then, I found myself having to write some mechanical and repetitivecode. The usual solution for this is to write a code generator; for instance ..."
   ; url = "https://blog.janestreet.com/trivial-meta-programming-with-cinaps/"
@@ -810,6 +922,7 @@ let all =
   };
  
   { title = "Troubleshooting systemd with SystemTap"
+  ; slug = "troubleshooting-systemd-with-systemtap"
   ; description = Some 
  "When we set up a schedule on a computer, such as a list of commands torun every day at particular times via Linux cronjobs, weexpect that schedule to execute..."
   ; url = "https://blog.janestreet.com/troubleshooting-systemd-with-systemtap/"
@@ -820,6 +933,7 @@ let all =
   };
  
   { title = "Unraveling of the tech hiring market"
+  ; slug = "unraveling-of-the-tech-hiring-market"
   ; description = Some 
  "Recruiting talented people has always been challenging."
   ; url = "https://blog.janestreet.com/unraveling/"
@@ -830,6 +944,7 @@ let all =
   };
  
   { title = "Using ASCII waveforms to test hardware designs"
+  ; slug = "using-ascii-waveforms-to-test-hardware-designs"
   ; description = Some 
  "At Jane Street, an “expecttest” is atest where you don’t manually write the output you’d like to checkyour code against – instead, this output is captured au..."
   ; url = "https://blog.janestreet.com/using-ascii-waveforms-to-test-hardware-designs/"
@@ -840,6 +955,7 @@ let all =
   };
  
   { title = "Using OCaml to drive a Raspberry Pi robot car"
+  ; slug = "using-ocaml-to-drive-a-raspberry-pi-robot-car"
   ; description = Some 
  "Back when the Raspberry Pi was first released in 2012 Michael Bacarella wrotea blog poston using OCaml and Async on this little device.Since then installing ..."
   ; url = "https://blog.janestreet.com/using-ocaml-to-drive-a-raspberry-pi-robot-car/"
@@ -850,6 +966,7 @@ let all =
   };
  
   { title = "Using Python and OCaml in the same Jupyter notebook"
+  ; slug = "using-python-and-ocaml-in-the-same-jupyter-notebook"
   ; description = Some 
  "The cover image is based on Jupiter family by NASA/JPL."
   ; url = "https://blog.janestreet.com/using-python-and-ocaml-in-the-same-jupyter-notebook/"
@@ -860,6 +977,7 @@ let all =
   };
  
   { title = "Watch all of Jane Street's tech talks"
+  ; slug = "watch-all-of-jane-streets-tech-talks"
   ; description = Some 
  "Jane Street has been posting tech talks from internal speakers andinvited guests for years—and they’re all available on our YouTubechannel:"
   ; url = "https://blog.janestreet.com/watch-all-of-jane-streets-tech-talks/"
@@ -870,6 +988,7 @@ let all =
   };
  
   { title = "What a Jane Street software engineering interview is like"
+  ; slug = "what-a-jane-street-software-engineering-interview-is-like"
   ; description = Some 
  "Are you thinking aboutapplying to Jane Streetfor a software engineering role? Or already have a phone interview scheduled but unsurewhat to expect? Read on a..."
   ; url = "https://blog.janestreet.com/what-a-jane-street-dev-interview-is-like/"
@@ -880,6 +999,7 @@ let all =
   };
  
   { title = "What is gained and lost with 63-bit integers?"
+  ; slug = "what-is-gained-and-lost-with-63-bit-integers"
   ; description = Some 
  "Almost every programming language uses 64-bit integers on typical modern Intelmachines. OCaml uses a special 63-bit representation. How does it affect OCaml?"
   ; url = "https://blog.janestreet.com/what-is-gained-and-lost-with-63-bit-integers/"
@@ -890,6 +1010,7 @@ let all =
   };
  
   { title = "What the interns have wrought, 2016"
+  ; slug = "what-the-interns-have-wrought-2016"
   ; description = Some 
  "Now that the interns have mostly gone back to school, it’s a good time to lookback at what they did while they were here. We had a bumper crop – more than 30..."
   ; url = "https://blog.janestreet.com/what-the-interns-have-wrought-2016/"
@@ -900,6 +1021,7 @@ let all =
   };
  
   { title = "What the interns have wrought, 2017 edition"
+  ; slug = "what-the-interns-have-wrought-2017-edition"
   ; description = Some 
  "Intern season is coming to a close, and it’s a nice time to look back(as I’ve done inpreviousyears) and review some of whatthe interns did while they were he..."
   ; url = "https://blog.janestreet.com/what-the-interns-have-wrought-2017/"
@@ -910,6 +1032,7 @@ let all =
   };
  
   { title = "What the interns have wrought, 2018 edition"
+  ; slug = "what-the-interns-have-wrought-2018-edition"
   ; description = Some 
  "Yet again, intern season is coming to a close, and so it’s time tolook back at what the interns have achieved in their short time withus.  I’m always impress..."
   ; url = "https://blog.janestreet.com/what-the-interns-have-wrought-2018/"
@@ -920,6 +1043,7 @@ let all =
   };
  
   { title = "What the interns have wrought, 2019 edition"
+  ; slug = "what-the-interns-have-wrought-2019-edition"
   ; description = Some 
  "Jane Street’s intern program yet again is coming to an end, which is anice opportunity to look back over the summer and see what they’veaccomplished."
   ; url = "https://blog.janestreet.com/what-the-interns-have-wrought-2019/"
@@ -930,6 +1054,7 @@ let all =
   };
  
   { title = "What the interns have wrought, 2020 edition"
+  ; slug = "what-the-interns-have-wrought-2020-edition"
   ; description = Some 
  "It’s been an unusual internship season."
   ; url = "https://blog.janestreet.com/what-the-interns-have-wrought-2020/"
@@ -940,6 +1065,7 @@ let all =
   };
  
   { title = "What the interns have wrought: RPC_parallel and Core_profiler"
+  ; slug = "what-the-interns-have-wrought-rpcparallel-and-coreprofiler"
   ; description = Some 
  "We’re in the midst of intern hiring season, and so we get a lot of questionsabout what it’s like to be an intern at Jane Street. One of the things peoplemost..."
   ; url = "https://blog.janestreet.com/what-the-interns-have-wrought-rpc_parallel-and-core_profiler/"
@@ -950,7 +1076,9 @@ let all =
   };
  
   { title = "What's in a name?"
-  ; description = Some "In the once upon a time days of the First Age of Magic, the prudent sorcererregarded his own true name as his most valued possession but also the greatestt..."
+  ; slug = "whats-in-a-name"
+  ; description = Some 
+ "In the once upon a time days of the First Age of Magic, the prudent sorcererregarded his own true name as his most valued possession but also the greatestt..."
   ; url = "https://blog.janestreet.com/whats-in-a-name/"
   ; date = "2014-07-10T00:00:00-00:00"
   ; preview_image = Some 
@@ -959,7 +1087,9 @@ let all =
   };
  
   { title = "When Bash Scripts Bite"
-  ; description = Some "There are abundant resources online trying to scare programmers away from usingshell scripts. Most of them, if anything, succeed in convincing the reader tob..."
+  ; slug = "when-bash-scripts-bite"
+  ; description = Some 
+ "There are abundant resources online trying to scare programmers away from usingshell scripts. Most of them, if anything, succeed in convincing the reader tob..."
   ; url = "https://blog.janestreet.com/when-bash-scripts-bite/"
   ; date = "2017-05-11T00:00:00-00:00"
   ; preview_image = Some 
@@ -968,6 +1098,7 @@ let all =
   };
  
   { title = "Why GADTs matter for performance"
+  ; slug = "why-gadts-matter-for-performance"
   ; description = Some 
  "When GADTs (Generalized Algebraic DataTypes) landed inOCaml, I wasn’t particularly happy about it. I assumed that it was the kind ofnonsense you get when you..."
   ; url = "https://blog.janestreet.com/why-gadts-matter-for-performance/"
@@ -978,6 +1109,7 @@ let all =
   };
  
   { title = "Why OCaml?"
+  ; slug = "why-ocaml"
   ; description = None
   ; url = "https://blog.janestreet.com/why-ocaml/"
   ; date = "2016-01-25T00:00:00-00:00"
@@ -987,6 +1119,7 @@ let all =
   };
  
   { title = "Work on the OCaml compiler at Jane Street!"
+  ; slug = "work-on-the-ocaml-compiler-at-jane-street"
   ; description = Some 
  "As Jane Street grows, the quality of the development tools we usematters more and more.  We increasingly work on the OCaml compileritself: adding useful lang..."
   ; url = "https://blog.janestreet.com/work-on-the-ocaml-compiler-at-jane-street/"
@@ -997,6 +1130,7 @@ let all =
   };
  
   { title = "An Architecture for Interspatial Communication"
+  ; slug = "an-architecture-for-interspatial-communication"
   ; description = None
   ; url = "http://kcsrk.info/papers/osmose_feb_18.pdf"
   ; date = "2018-02-14T00:00:00-00:00"
@@ -1005,6 +1139,7 @@ let all =
   };
  
   { title = "An introduction to fuzzing OCaml with AFL, Crowbar and Bun"
+  ; slug = "an-introduction-to-fuzzing-ocaml-with-afl-crowbar-and-bun"
   ; description = Some 
  "American Fuzzy Lop or AFL is a fuzzer: a program that tries to find bugs in
 other programs by sending them various auto-generated inputs…"
@@ -1016,6 +1151,7 @@ other programs by sending them various auto-generated inputs…"
   };
  
   { title = "An introduction to OCaml PPX ecosystem"
+  ; slug = "an-introduction-to-ocaml-ppx-ecosystem"
   ; description = Some 
  "These last few months, I spent some time writing new OCaml PPX rewriters or contributing to existing
 ones. It's a really fun experience…"
@@ -1027,6 +1163,7 @@ ones. It's a really fun experience…"
   };
  
   { title = "Building portable user interfaces with Nottui and Lwd"
+  ; slug = "building-portable-user-interfaces-with-nottui-and-lwd"
   ; description = Some 
  "At Tarides, we build many tools and writing UI is usually a tedious task. In this post we will see how to write functional UIs in OCaml…"
   ; url = "https://tarides.com/blog/2020-09-24-building-portable-user-interfaces-with-nottui-and-lwd"
@@ -1037,6 +1174,7 @@ ones. It's a really fun experience…"
   };
  
   { title = "Decompress: Experiences with OCaml optimization"
+  ; slug = "decompress-experiences-with-ocaml-optimization"
   ; description = Some 
  "In our first article we mostly discussed
 the API design of decompress and did not talk too much about the issue of
@@ -1049,6 +1187,7 @@ optimizing performance…"
   };
  
   { title = "Decompress: The New Decompress API"
+  ; slug = "decompress-the-new-decompress-api"
   ; description = Some 
  "RFC 1951 is one of the most used standards. Indeed,
 when you launch your Linux kernel, it inflates itself according zlib
@@ -1061,7 +1200,9 @@ standard, a…"
   };
  
   { title = "Dune 1.2.0"
-  ; description = Some "After a tiny but important patch release as 1.1.1, the dune team is thrilled to
+  ; slug = "dune-120"
+  ; description = Some 
+ "After a tiny but important patch release as 1.1.1, the dune team is thrilled to
 announce the release of dune 1.2.0! Here are some highlights…"
   ; url = "https://tarides.com/blog/2018-09-06-dune-1-2-0"
   ; date = "2018-09-06T00:00:00-00:00"
@@ -1071,7 +1212,9 @@ announce the release of dune 1.2.0! Here are some highlights…"
   };
  
   { title = "Dune 1.9.0"
-  ; description = Some "Tarides is pleased to have contributed to the dune 1.9.0 release which
+  ; slug = "dune-190"
+  ; description = Some 
+ "Tarides is pleased to have contributed to the dune 1.9.0 release which
 introduces the concept of library variants. Thanks to this update…"
   ; url = "https://tarides.com/blog/2019-04-10-dune-1-9-0"
   ; date = "2019-04-10T00:00:00-00:00"
@@ -1081,6 +1224,7 @@ introduces the concept of library variants. Thanks to this update…"
   };
  
   { title = "Florence and beyond: the future of Tezos storage"
+  ; slug = "florence-and-beyond-the-future-of-tezos-storage"
   ; description = Some 
  "In collaboration with Nomadic Labs, Marigold and DaiLambda, we're happy to
 announce the completion of the next Tezos protocol proposal…"
@@ -1092,6 +1236,7 @@ announce the completion of the next Tezos protocol proposal…"
   };
  
   { title = "Fuzzing OCamlFormat with AFL and Crowbar"
+  ; slug = "fuzzing-ocamlformat-with-afl-and-crowbar"
   ; description = Some 
  "AFL (and fuzzing in general) is often used
 to find bugs in low-level code like parsers, but it also works very well to find
@@ -1104,6 +1249,7 @@ bugs in high…"
   };
  
   { title = "How configurator reads C constants"
+  ; slug = "how-configurator-reads-c-constants"
   ; description = None
   ; url = "https://dune.build/blog/configurator-constants/"
   ; date = "2019-01-03T00:00:00-00:00"
@@ -1112,7 +1258,9 @@ bugs in high…"
   };
  
   { title = "Introducing irmin-pack"
-  ; description = Some "irmin-pack is an Irmin storage backend
+  ; slug = "introducing-irmin-pack"
+  ; description = Some 
+ "irmin-pack is an Irmin storage backend
 that we developed over the last year specifically to meet the
 Tezos use-case. Tezos nodes were…"
   ; url = "https://tarides.com/blog/2020-09-01-introducing-irmin-pack"
@@ -1123,6 +1271,7 @@ Tezos use-case. Tezos nodes were…"
   };
  
   { title = "Introducing the GraphQL API for Irmin 2.0"
+  ; slug = "introducing-the-graphql-api-for-irmin-20"
   ; description = Some 
  "With the release of Irmin 2.0.0, we are happy to announce a new package - irmin-graphql, which can be used to serve data from Irmin over…"
   ; url = "https://tarides.com/blog/2019-11-27-introducing-the-graphql-api-for-irmin-2-0"
@@ -1133,7 +1282,9 @@ Tezos use-case. Tezos nodes were…"
   };
  
   { title = "Irmin: September 2020 update"
-  ; description = Some "This post will survey the latest design decisions and performance improvements
+  ; slug = "irmin-september-2020-update"
+  ; description = Some 
+ "This post will survey the latest design decisions and performance improvements
 made to irmin-pack, the Irmin storage backend used by
 Tezos…"
   ; url = "https://tarides.com/blog/2020-09-08-irmin-september-2020-update"
@@ -1144,7 +1295,9 @@ Tezos…"
   };
  
   { title = "Irmin usability enhancements"
-  ; description = Some "For the next few months I will be working on Irmin, focusing on improving general usability. The goal of this effort is to make Irmin more accessible to potential users and clean up the rough edges for existing users.  One of the biggest problems I see right now is that the documentation is out of sync with the current implementation. I’ve just been getting starting refreshing the documentation and tutorials, however here are a few more projects that @samoht and I have discussed:   Better RPC AP..."
+  ; slug = "irmin-usability-enhancements"
+  ; description = Some 
+ "For the next few months I will be working on Irmin, focusing on improving general usability. The goal of this effort is to make Irmin more accessible to potential users and clean up the rough edges for existing users.  One of the biggest problems I see right now is that the documentation is out of sync with the current implementation. I’ve just been getting starting refreshing the documentation and tutorials, however here are a few more projects that @samoht and I have discussed:   Better RPC AP..."
   ; url = "https://discuss.ocaml.org/t/irmin-usability-enhancements/2017"
   ; date = "2018-05-18T00:00:00-00:00"
   ; preview_image = Some 
@@ -1153,7 +1306,9 @@ Tezos…"
   };
  
   { title = "Irmin v2"
-  ; description = Some "We are pleased to announce Irmin
+  ; slug = "irmin-v2"
+  ; description = Some 
+ "We are pleased to announce Irmin
 2.0.0, a major release of the
 Git-like distributed branching and storage substrate that underpins
 MirageOS…"
@@ -1165,6 +1320,7 @@ MirageOS…"
   };
  
   { title = "MirageOS, towards a smaller and safer OS"
+  ; slug = "mirageos-towards-a-smaller-and-safer-os"
   ; description = Some 
  "This presentation by Romain Calascibetta took place at Lambda World Cádiz on October 26th, 2018 at the Palacio de Congresos in Cádiz, Spain.MirageOS, towards..."
   ; url = "https://www.youtube.com/watch?v=urG5BjvjW18"
@@ -1175,6 +1331,7 @@ MirageOS…"
   };
  
   { title = "Mr. MIME - Parse and generate emails"
+  ; slug = "mr-mime---parse-and-generate-emails"
   ; description = Some 
  "We're glad to announce the first release of mrmime, a parser and a
 generator of emails. This library provides an OCaml way to analyze and…"
@@ -1186,7 +1343,9 @@ generator of emails. This library provides an OCaml way to analyze and…"
   };
  
   { title = "ocaml-git 2.0"
-  ; description = Some "I'm very happy to announce a new major release of ocaml-git (2.0).
+  ; slug = "ocaml-git-20"
+  ; description = Some 
+ "I'm very happy to announce a new major release of ocaml-git (2.0).
 This release is a 2-year effort to get a revamped
 streaming API offering…"
   ; url = "https://tarides.com/blog/2018-10-19-ocaml-git-2-0"
@@ -1197,7 +1356,9 @@ streaming API offering…"
   };
  
   { title = "OCamlFormat 0.8"
-  ; description = Some "We are proud to announce the release of OCamlFormat 0.8 (available on opam). To ease the transition from the previous 0.7 release here are…"
+  ; slug = "ocamlformat-08"
+  ; description = Some 
+ "We are proud to announce the release of OCamlFormat 0.8 (available on opam). To ease the transition from the previous 0.7 release here are…"
   ; url = "https://tarides.com/blog/2018-10-17-ocamlformat-0-8"
   ; date = "2018-10-17T00:00:00-00:00"
   ; preview_image = Some 
@@ -1206,7 +1367,9 @@ streaming API offering…"
   };
  
   { title = "On the road to Irmin v2"
-  ; description = Some "Over the past few months, we have been heavily engaged in release
+  ; slug = "on-the-road-to-irmin-v2"
+  ; description = Some 
+ "Over the past few months, we have been heavily engaged in release
 engineering the Irmin 2.0 release,
 which covers multiple years of work on…"
   ; url = "https://tarides.com/blog/2019-05-13-on-the-road-to-irmin-v2"
@@ -1217,6 +1380,7 @@ which covers multiple years of work on…"
   };
  
   { title = "Recent and upcoming changes to Merlin"
+  ; slug = "recent-and-upcoming-changes-to-merlin"
   ; description = Some 
  "Merlin is a language server for the OCaml programming language; that is, a daemon
 that connects to your favourite text editor and provides…"
@@ -1228,7 +1392,9 @@ that connects to your favourite text editor and provides…"
   };
  
   { title = "Release of Base64"
-  ; description = Some "MirageOS is a library operating system written from the ground up in OCaml.
+  ; slug = "release-of-base64"
+  ; description = Some 
+ "MirageOS is a library operating system written from the ground up in OCaml.
 It has an impossible and incredibly huge goal to re-implement…"
   ; url = "https://tarides.com/blog/2019-02-08-release-of-base64"
   ; date = "2019-02-08T00:00:00-00:00"
@@ -1238,7 +1404,9 @@ It has an impossible and incredibly huge goal to re-implement…"
   };
  
   { title = "Release of OCamlFormat 0.10"
-  ; description = Some "We are pleased to announce the release of OCamlFormat 0.10 (available on opam). There have been numerous changes since the last release, so…"
+  ; slug = "release-of-ocamlformat-010"
+  ; description = Some 
+ "We are pleased to announce the release of OCamlFormat 0.10 (available on opam). There have been numerous changes since the last release, so…"
   ; url = "https://tarides.com/blog/2019-06-27-release-of-ocamlformat-0-10"
   ; date = "2019-06-27T00:00:00-00:00"
   ; preview_image = Some 
@@ -1247,7 +1415,9 @@ It has an impossible and incredibly huge goal to re-implement…"
   };
  
   { title = "Release of OCamlFormat 0.9"
-  ; description = Some "We are pleased to announce the release of OCamlFormat (available on opam).
+  ; slug = "release-of-ocamlformat-09"
+  ; description = Some 
+ "We are pleased to announce the release of OCamlFormat (available on opam).
 There have been numerous changes since the last release,
 so here…"
   ; url = "https://tarides.com/blog/2019-03-29-release-of-ocamlformat-0-9"
@@ -1258,6 +1428,7 @@ so here…"
   };
  
   { title = "Tarides is now a sponsor of the OCaml Software Foundation"
+  ; slug = "tarides-is-now-a-sponsor-of-the-ocaml-software-foundation"
   ; description = Some 
  "Tarides is pleased to provide support for the OCaml Software
 Foundation, a non-profit foundation hosted by
@@ -1270,6 +1441,7 @@ the Inria Foundation. The OCaml…"
   };
  
   { title = "The future of Tezos on MirageOS"
+  ; slug = "the-future-of-tezos-on-mirageos"
   ; description = Some 
  "We are very glad to announce that Tarides has been awarded two new grants from
 the Tezos Foundation. Thanks to these new grants, Tarides…"

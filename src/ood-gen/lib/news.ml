@@ -105,6 +105,7 @@ let scrape () =
 
 type t = {
   title : string;
+  slug : string;
   url : string;
   description : string option;
   date : string;
@@ -120,6 +121,7 @@ let all () =
       let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
       {
         title = metadata.title;
+        slug = Utils.slugify metadata.title;
         description = metadata.description;
         url = metadata.url;
         date = metadata.date;
@@ -132,13 +134,14 @@ let pp ppf v =
   Fmt.pf ppf
     {|
   { title = %S
+  ; slug = %S
   ; description = %a
   ; url = %S
   ; date = %S
   ; preview_image = %a
   ; body_html = %S
   }|}
-    v.title
+    v.title v.slug
     (Pp.option Pp.quoted_string)
     v.description v.url v.date
     (Pp.option Pp.quoted_string)
@@ -151,6 +154,7 @@ let template () =
     {|
 type t =
   { title : string
+  ; slug : string
   ; description : string option
   ; url : string
   ; date : string

@@ -1,6 +1,7 @@
 
 type t =
   { title : string
+  ; slug : string
   ; publication : string
   ; authors : string list
   ; abstract : string
@@ -12,6 +13,7 @@ type t =
 let all = 
 [
   { title = "A Syntactic Approach to Type Soundness"
+  ; slug = "a-syntactic-approach-to-type-soundness"
   ; publication = "Information & Computation, 115(1):38\226\136\14694"
   ; authors = 
  ["Andrew K. Wright"; "Matthias Felleisen"]
@@ -23,6 +25,7 @@ let all =
   };
  
   { title = "The Essence of ML Type Inference"
+  ; slug = "the-essence-of-ml-type-inference"
   ; publication = "Benjamin C. Pierce, editor, Advanced Topics in Types and Programming Languages, MIT Press"
   ; authors = 
  ["François Pottier"; "Didier Rémy"]
@@ -34,6 +37,7 @@ let all =
   };
  
   { title = "Relaxing the value restriction"
+  ; slug = "relaxing-the-value-restriction"
   ; publication = "International Symposium on Functional and Logic Programming"
   ; authors = 
  ["Jacques Garrigue"]
@@ -46,6 +50,7 @@ let all =
   };
  
   { title = "Manifest Types, Modules, and Separate Compilation"
+  ; slug = "manifest-types-modules-and-separate-compilation"
   ; publication = "Principles of Programming Languages"
   ; authors = 
  ["Xavier Leroy"]
@@ -59,6 +64,7 @@ let all =
   };
  
   { title = "Applicative Functors and Fully Transparent Higher-order Modules"
+  ; slug = "applicative-functors-and-fully-transparent-higher-order-modules"
   ; publication = "Principles of Programming Languages"
   ; authors = 
  ["Xavier Leroy"]
@@ -72,6 +78,7 @@ let all =
   };
  
   { title = "A Modular Module System"
+  ; slug = "a-modular-module-system"
   ; publication = "Journal of Functional Programming, 10(3):269-303"
   ; authors = 
  ["Xavier Leroy"]
@@ -85,6 +92,7 @@ let all =
   };
  
   { title = "A Proposal for Recursive Modules in Objective Caml"
+  ; slug = "a-proposal-for-recursive-modules-in-objective-caml"
   ; publication = "Unpublication"
   ; authors = 
  ["Xavier Leroy"]
@@ -97,6 +105,7 @@ let all =
   };
  
   { title = "Objective ML: An effective object-oriented extension to ML"
+  ; slug = "objective-ml-an-effective-object-oriented-extension-to-ml"
   ; publication = "Theory And Practice of Objects Systems, 4(1):27\226\136\14650"
   ; authors = 
  ["Didier Rémy"; "Jérôme Vouillon"]
@@ -110,6 +119,7 @@ let all =
   };
  
   { title = "Extending ML with Semi-Explicit Higher-Order Polymorphism"
+  ; slug = "extending-ml-with-semi-explicit-higher-order-polymorphism"
   ; publication = "Information & Computation, 155(1/2):134\226\136\146169"
   ; authors = 
  ["Jacques Garrigue"; "Didier Rémy"]
@@ -123,6 +133,7 @@ let all =
   };
  
   { title = "Programming with Polymorphic Variants"
+  ; slug = "programming-with-polymorphic-variants"
   ; publication = "ML Workshop"
   ; authors = 
  ["Jacques Garrigue"]
@@ -136,6 +147,7 @@ let all =
   };
  
   { title = "Code Reuse through Polymorphic Variants"
+  ; slug = "code-reuse-through-polymorphic-variants"
   ; publication = "Workshop on Foundations of Software Engineering"
   ; authors = 
  ["Jacques Garrigue"]
@@ -148,6 +160,7 @@ let all =
   };
  
   { title = "Simple Type Inference for Structural Polymorphism"
+  ; slug = "simple-type-inference-for-structural-polymorphism"
   ; publication = "Workshop on Foundations of Object-Oriented Languages"
   ; authors = 
  ["Jacques Garrigue"]
@@ -161,6 +174,7 @@ let all =
   };
  
   { title = "Typing Deep Pattern-matching in Presence of Polymorphic Variants"
+  ; slug = "typing-deep-pattern-matching-in-presence-of-polymorphic-variants"
   ; publication = "JSSST Workshop on Programming and Programming Languages"
   ; authors = 
  ["Jacques Garrigue"]
@@ -174,6 +188,7 @@ let all =
   };
  
   { title = "Labeled and Optional Arguments for Objective Caml"
+  ; slug = "labeled-and-optional-arguments-for-objective-caml"
   ; publication = "JSSST Workshop on Programming and Programming Languages"
   ; authors = 
  ["Jacques Garrigue"]
@@ -187,6 +202,7 @@ let all =
   };
  
   { title = "Meta-programming Tutorial with CamlP4"
+  ; slug = "meta-programming-tutorial-with-camlp4"
   ; publication = "Commercial Users of Functional Programming"
   ; authors = 
  ["Jake Donham"]
@@ -198,6 +214,7 @@ let all =
   };
  
   { title = "The ZINC experiment, an Economical Implementation of the ML language"
+  ; slug = "the-zinc-experiment-an-economical-implementation-of-the-ml-language"
   ; publication = "Technical report 117, INRIA"
   ; authors = 
  ["Xavier Leroy"]
@@ -210,6 +227,7 @@ let all =
   };
  
   { title = "The Effectiveness of Type-based Unboxing"
+  ; slug = "the-effectiveness-of-type-based-unboxing"
   ; publication = "Workshop on Types in Compilation"
   ; authors = 
  ["Xavier Leroy"]
@@ -222,6 +240,7 @@ let all =
   };
  
   { title = "A Concurrent, Generational Garbage Collector for a Multithreaded Implementation of ML"
+  ; slug = "a-concurrent-generational-garbage-collector-for-a-multithreaded-implementation-of-ml"
   ; publication = "Principles of Programming Languages"
   ; authors = 
  ["Damien Doligez"; "Xavier Leroy"]
@@ -234,6 +253,7 @@ let all =
   };
  
   { title = "Portable, Unobtrusive Garbage Collection for Multiprocessor Systems"
+  ; slug = "portable-unobtrusive-garbage-collection-for-multiprocessor-systems"
   ; publication = "Principles of Programming Languages"
   ; authors = 
  ["Damien Doligez"; "Georges Gonthier"]
@@ -246,6 +266,7 @@ let all =
   };
  
   { title = "Conception, r\195\169alisation et certification d'un glaneur de cellules concurrent"
+  ; slug = "conception-ralisation-et-certification-dun-glaneur-de-cellules-concurrent"
   ; publication = "Ph.D. thesis, Universit\195\169 Paris 7"
   ; authors = 
  ["Damien Doligez"; "Georges Gonthier"]
@@ -258,6 +279,7 @@ let all =
   };
  
   { title = "Optimizing Pattern Matching"
+  ; slug = "optimizing-pattern-matching"
   ; publication = "Proceedings of the sixth ACM SIGPLAN International Conference on Functional Programming (ICFP)"
   ; authors = 
  ["Fabrice Le Fessant"; "Luc Maranget"]
@@ -269,6 +291,7 @@ let all =
   };
  
   { title = "OCaml for the Masses"
+  ; slug = "ocaml-for-the-masses"
   ; publication = "ACM Queue"
   ; authors = 
  ["Yaron Minsky"]
@@ -280,6 +303,7 @@ let all =
   };
  
   { title = "Xen and the Art of OCaml"
+  ; slug = "xen-and-the-art-of-ocaml"
   ; publication = "Commercial Users of Functional Programming (CUFP)"
   ; authors = 
  ["Anil Madhavapeddy"]
@@ -291,6 +315,7 @@ let all =
   };
  
   { title = "Chemoinformatics and Structural Bioinformatics in OCaml"
+  ; slug = "chemoinformatics-and-structural-bioinformatics-in-ocaml"
   ; publication = "Journal of Cheminformatics"
   ; authors = 
  ["François Berenger"; "Kam Y. J. Zhang"; "Yoshihiro Yamanishi"]
@@ -303,6 +328,7 @@ let all =
   };
  
   { title = "A Declarative Syntax Definition for OCaml"
+  ; slug = "a-declarative-syntax-definition-for-ocaml"
   ; publication = "International Conference on Functional Programming (ICFP)"
   ; authors = 
  ["Luis Eduardo de Souza Amorim"; "Eelco Visser"]
@@ -314,6 +340,7 @@ let all =
   };
  
   { title = "A Simple State-Machine Framework for Property-Based Testing in OCaml"
+  ; slug = "a-simple-state-machine-framework-for-property-based-testing-in-ocaml"
   ; publication = "International Conference on Functional Programming (ICFP)"
   ; authors = 
  ["Jan Midtgaard"]
@@ -325,6 +352,7 @@ let all =
   };
  
   { title = "AD-OCaml: Algorithmic Differentiation for OCaml"
+  ; slug = "ad-ocaml-algorithmic-differentiation-for-ocaml"
   ; publication = "International Conference on Functional Programming (ICFP)"
   ; authors = 
  ["Markus Mottl"]
@@ -336,6 +364,7 @@ let all =
   };
  
   { title = "API migration: compare transformed"
+  ; slug = "api-migration-compare-transformed"
   ; publication = "International Conference on Functional Programming (ICFP)"
   ; authors = 
  ["Joseph Harrison"; "Steven Varoumas"; "Simon Thompson"; "Reuben Rowe"]
@@ -348,6 +377,7 @@ let all =
   };
  
   { title = "Irmin v2"
+  ; slug = "irmin-v2"
   ; publication = "International Conference on Functional Programming (ICFP)"
   ; authors = 
  ["Clément Pascutto"; "Ioana Cristescu"; "Craig Ferguson";
@@ -361,6 +391,7 @@ let all =
   };
  
   { title = "LexiFi Runtime Types"
+  ; slug = "lexifi-runtime-types"
   ; publication = "International Conference on Functional Programming (ICFP)"
   ; authors = 
  ["Patrik Keller"; "Marc Lasson"]
@@ -374,6 +405,7 @@ let all =
   };
  
   { title = "OCaml Under the Hood: SmartPy"
+  ; slug = "ocaml-under-the-hood-smartpy"
   ; publication = "International Conference on Functional Programming (ICFP)"
   ; authors = 
  ["Sebastien Mondet"]
@@ -386,6 +418,7 @@ let all =
   };
  
   { title = "OCaml-CI: A Zero-Configuration CI"
+  ; slug = "ocaml-ci-a-zero-configuration-ci"
   ; publication = "International Conference on Functional Programming (ICFP)"
   ; authors = 
  ["Thomas Leonard"; "Craig Ferguson"; "Kate Deplaix"; "Magnus Skjegstad";
@@ -398,6 +431,7 @@ let all =
   };
  
   { title = "Parallelising your OCaml Code with Multicore OCaml"
+  ; slug = "parallelising-your-ocaml-code-with-multicore-ocaml"
   ; publication = "International Conference on Functional Programming (ICFP)"
   ; authors = 
  ["Sadiq Jaffer"; "Sudha Parimala"; "KC Sivaramarkrishnan"; "Tom Kelly";
@@ -411,6 +445,7 @@ let all =
   };
  
   { title = "The ImpFS Filesystem"
+  ; slug = "the-impfs-filesystem"
   ; publication = "International Conference on Functional Programming (ICFP)"
   ; authors = 
  ["Tom Ridge"]
@@ -422,6 +457,7 @@ let all =
   };
  
   { title = "The final pieces of the OCaml documentation puzzle"
+  ; slug = "the-final-pieces-of-the-ocaml-documentation-puzzle"
   ; publication = "International Conference on Functional Programming (ICFP)"
   ; authors = 
  ["Jonathan Ludlam"; "Gabriel Radanne"; "Leo White"]
@@ -433,6 +469,7 @@ let all =
   };
  
   { title = "Types in Amber"
+  ; slug = "types-in-amber"
   ; publication = "International Conference on Functional Programming (ICFP)"
   ; authors = 
  ["Paul Steckler"; "Matthew Ryan"]

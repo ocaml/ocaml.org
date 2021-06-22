@@ -30,6 +30,7 @@ end
 
 type t = {
   title : string;
+  slug : string;
   description : string;
   people : string list;
   kind : Kind.t;
@@ -56,6 +57,7 @@ let decode s =
           in
           ( {
               title = metadata.title;
+              slug = Utils.slugify metadata.title;
               description = metadata.description;
               people = metadata.people;
               kind;
@@ -84,6 +86,7 @@ let pp ppf v =
   Fmt.pf ppf
     {|
   { title = %S
+  ; slug = %S
   ; description = %S
   ; people = %a
   ; kind = %a
@@ -93,8 +96,8 @@ let pp ppf v =
   ; embed = %a
   ; year = %i
   }|}
-    v.title v.description Pp.string_list v.people pp_kind v.kind Pp.string_list
-    v.tags
+    v.title v.slug v.description Pp.string_list v.people pp_kind v.kind
+    Pp.string_list v.tags
     (Pp.option Pp.quoted_string)
     v.paper v.link
     (Pp.option Pp.quoted_string)
@@ -113,6 +116,7 @@ type kind =
 
 type t =
   { title : string
+  ; slug : string
   ; description : string
   ; people : string list
   ; kind : kind

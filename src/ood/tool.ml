@@ -8,6 +8,7 @@ type lifecycle =
 
 type t =
   { name : string
+  ; slug : string
   ; source : string
   ; license : string
   ; synopsis : string
@@ -18,6 +19,7 @@ type t =
 let all = 
 [
   { name = "Bun"
+  ; slug = "bun"
   ; source = "https://github.com/yomimono/ocaml-bun"
   ; license = "MIT"
   ; synopsis = "Simple management of afl-fuzz processes"
@@ -26,6 +28,7 @@ let all =
   };
  
   { name = "Mdx"
+  ; slug = "mdx"
   ; source = "https://github.com/realworldocaml/mdx"
   ; license = "ISC"
   ; synopsis = "Executable code blocks inside markdown files"
@@ -34,6 +37,7 @@ let all =
   };
  
   { name = "OCamlFormat"
+  ; slug = "ocamlformat"
   ; source = "https://github.com/ocaml-ppx/ocamlformat"
   ; license = "MIT"
   ; synopsis = "Auto-formatter for OCaml code"
@@ -42,6 +46,7 @@ let all =
   };
  
   { name = "Dune-release"
+  ; slug = "dune-release"
   ; source = "https://github.com/ocamllabs/dune-release"
   ; license = "ISC"
   ; synopsis = "Release dune packages in opam"
@@ -50,6 +55,7 @@ let all =
   };
  
   { name = "OCaml LSP"
+  ; slug = "ocaml-lsp"
   ; source = "https://github.com/ocaml/ocaml-lsp"
   ; license = "ISC"
   ; synopsis = "LSP Server for OCaml"
@@ -58,6 +64,7 @@ let all =
   };
  
   { name = "Merlin"
+  ; slug = "merlin"
   ; source = "https://github.com/ocaml/merlin"
   ; license = "MIT"
   ; synopsis = "Editor helper, provides completion, typing and source browsing in Vim and Emacs"
@@ -66,6 +73,7 @@ let all =
   };
  
   { name = "ppxlib"
+  ; slug = "ppxlib"
   ; source = "https://github.com/ocaml-ppx/ppxlib"
   ; license = "MIT"
   ; synopsis = "Standard library for ppx rewriters"
@@ -74,6 +82,7 @@ let all =
   };
  
   { name = "opam-publish"
+  ; slug = "opam-publish"
   ; source = "https://github.com/ocaml-opam/opam-publish"
   ; license = "LGPLv2"
   ; synopsis = "A tool to ease contributions to opam repositories"
@@ -82,6 +91,7 @@ let all =
   };
  
   { name = "utop"
+  ; slug = "utop"
   ; source = "https://github.com/ocaml-community/utop"
   ; license = "3 Clause BSD"
   ; synopsis = "Universal toplevel for OCaml"
@@ -90,6 +100,7 @@ let all =
   };
  
   { name = "Dune"
+  ; slug = "dune"
   ; source = "https://github.com/ocaml/dune"
   ; license = "MIT"
   ; synopsis = "Fast, portable, and opinionated build system"
@@ -98,6 +109,7 @@ let all =
   };
  
   { name = "omp"
+  ; slug = "omp"
   ; source = "https://github.com/ocaml-ppx/ocaml-migrate-parsetree"
   ; license = "LGPLv2"
   ; synopsis = "Convert OCaml parsetrees between different versions"
@@ -106,6 +118,7 @@ let all =
   };
  
   { name = "ocamlbuild"
+  ; slug = "ocamlbuild"
   ; source = "https://github.com/ocaml/ocamlbuild"
   ; license = "LGPLv2"
   ; synopsis = "OCamlbuild is a build system with builtin rules to easily build most OCaml projects"
@@ -114,6 +127,7 @@ let all =
   };
  
   { name = "ocamlfind"
+  ; slug = "ocamlfind"
   ; source = "https://github.com/ocaml/ocamlfind"
   ; license = "MIT"
   ; synopsis = "A library manager for OCaml"
@@ -122,6 +136,7 @@ let all =
   };
  
   { name = "ocp-indent"
+  ; slug = "ocp-indent"
   ; source = "https://github.com/OCamlPro/ocp-indent"
   ; license = "LGPLv2"
   ; synopsis = "A simple tool to indent OCaml programs"
@@ -130,6 +145,7 @@ let all =
   };
  
   { name = "oasis"
+  ; slug = "oasis"
   ; source = "https://github.com/ocaml/oasis"
   ; license = "LGPLv2"
   ; synopsis = "Tooling for building OCaml libraries and applications"
@@ -138,6 +154,7 @@ let all =
   };
  
   { name = "camlp4"
+  ; slug = "camlp4"
   ; source = "https://github.com/camlp4/camlp4"
   ; license = "LGPLv2"
   ; synopsis = "Camlp4 is a system for writing extensible parsers for programming languages"

@@ -11,6 +11,7 @@ type metadata = {
 
 type t = {
   title : string;
+  slug : string;
   description : string;
   date : string;
   tags : string list;
@@ -32,6 +33,7 @@ let all () =
       let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
       {
         title = metadata.title;
+        slug = Utils.slugify metadata.title;
         description = metadata.description;
         date = metadata.date;
         tags = metadata.tags;
@@ -52,6 +54,7 @@ let pp ppf v =
   Fmt.pf ppf
     {|
   { title = %S
+  ; slug = %S
   ; description = %S
   ; date = %S
   ; tags = %a
@@ -59,8 +62,8 @@ let pp ppf v =
   ; body_md = %S
   ; body_html = %S
   }|}
-    v.title v.description v.date Pp.string_list v.tags (Pp.list pp_proficiency)
-    v.users v.body_md v.body_html
+    v.title v.slug v.description v.date Pp.string_list v.tags
+    (Pp.list pp_proficiency) v.users v.body_md v.body_html
 
 let pp_list = Pp.list pp
 
@@ -75,6 +78,7 @@ type difficulty =
 
 type t =
   { title : string
+  ; slug : string
   ; description : string
   ; date : string
   ; tags : string list

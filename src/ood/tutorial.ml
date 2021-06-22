@@ -7,6 +7,7 @@ type difficulty =
 
 type t =
   { title : string
+  ; slug : string
   ; description : string
   ; date : string
   ; tags : string list
@@ -18,6 +19,7 @@ type t =
 let all = 
 [
   { title = "Up and Running with OCaml"
+  ; slug = "up-and-running-with-ocaml"
   ; description = "Help you install OCaml, the Dune build system, and support for your favourite text editor or IDE.\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -28,6 +30,7 @@ let all =
   };
  
   { title = "A First Hour with OCaml"
+  ; slug = "a-first-hour-with-ocaml"
   ; description = "Discover the OCaml programming language in this longer tutorial that takes you from absolute beginner to someone who is able to write programs in OCaml.\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -38,6 +41,7 @@ let all =
   };
  
   { title = "OCaml Programming Guidelines"
+  ; slug = "ocaml-programming-guidelines"
   ; description = "Opinionated guidelines for writing OCaml code\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -48,6 +52,7 @@ let all =
   };
  
   { title = "Compiling OCaml Projects"
+  ; slug = "compiling-ocaml-projects"
   ; description = "An introduction to the OCaml compiler tools for building OCaml projects as well as the most common build tools\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -58,6 +63,7 @@ let all =
   };
  
   { title = "Data Types and Matching"
+  ; slug = "data-types-and-matching"
   ; description = "Learn to build custom types and write function to process this data\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -68,6 +74,7 @@ let all =
   };
  
   { title = "Functional Programming"
+  ; slug = "functional-programming"
   ; description = "A guide to functional programming in OCaml\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -78,6 +85,7 @@ let all =
   };
  
   { title = "If Statements, Loops and Recursions"
+  ; slug = "if-statements-loops-and-recursions"
   ; description = "Learn basic control-flow and recusion in OCaml\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -88,6 +96,7 @@ let all =
   };
  
   { title = "Modules"
+  ; slug = "modules"
   ; description = "Learn about OCaml modules and how they can be used to cleanly separate distinct parts of your program\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -98,6 +107,7 @@ let all =
   };
  
   { title = "Labels"
+  ; slug = "labels"
   ; description = "Provide labels to your functions arguments\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -108,6 +118,7 @@ let all =
   };
  
   { title = "Pointers in OCaml"
+  ; slug = "pointers-in-ocaml"
   ; description = "Use OCaml's explicit pointers with references\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -118,6 +129,7 @@ let all =
   };
  
   { title = "Null Pointers, Asserts and Warnings"
+  ; slug = "null-pointers-asserts-and-warnings"
   ; description = "Handling warnings and asserting invariants for your code\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -128,6 +140,7 @@ let all =
   };
  
   { title = "Functors"
+  ; slug = "functors"
   ; description = "Learn about functors, modules parameterised by other modules\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -138,6 +151,7 @@ let all =
   };
  
   { title = "Objects"
+  ; slug = "objects"
   ; description = "OCaml is an object-oriented, imperative, functional programming language\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -148,6 +162,7 @@ let all =
   };
  
   { title = "Error Handling"
+  ; slug = "error-handling"
   ; description = "Discover the different ways you can manage errors in your OCaml programs\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -158,6 +173,7 @@ let all =
   };
  
   { title = "Common Error Messages"
+  ; slug = "common-error-messages"
   ; description = "Understand the most common error messages the OCaml compiler can throw at you\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -168,6 +184,7 @@ let all =
   };
  
   { title = "Debug"
+  ; slug = "debug"
   ; description = "Learn to build custom types and write function to process this data\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -178,6 +195,7 @@ let all =
   };
  
   { title = "Map"
+  ; slug = "map"
   ; description = "Create a mapping using the standard library's Map module\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -188,6 +206,7 @@ let all =
   };
  
   { title = "Sets"
+  ; slug = "sets"
   ; description = "The standard library's Set module\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -198,6 +217,7 @@ let all =
   };
  
   { title = "Hashtables"
+  ; slug = "hashtables"
   ; description = "Discover efficient and mutable lookup tables with OCaml's Hashtbl module\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -208,6 +228,7 @@ let all =
   };
  
   { title = "Streams"
+  ; slug = "streams"
   ; description = "Streams offer an abstraction over consuming items from sequences\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -218,6 +239,7 @@ let all =
   };
  
   { title = "Format"
+  ; slug = "format"
   ; description = "The Format module of Caml Light and OCaml's standard libraries provides pretty-printing facilities to get a fancy display for printing routines\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -228,6 +250,7 @@ let all =
   };
  
   { title = "Calling C Libraries"
+  ; slug = "calling-c-libraries"
   ; description = "Cross the divide and call C code from your OCaml program\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -238,6 +261,7 @@ let all =
   };
  
   { title = "Calling Fortran Libraries"
+  ; slug = "calling-fortran-libraries"
   ; description = "Cross the divide and call Fortran code from your OCaml program\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -248,6 +272,7 @@ let all =
   };
  
   { title = "Command-line Arguments"
+  ; slug = "command-line-arguments"
   ; description = "The Arg module that comes with the compiler can help you write command line interfaces\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -258,6 +283,7 @@ let all =
   };
  
   { title = "File Manipulation"
+  ; slug = "file-manipulation"
   ; description = "A guide to basic file manipulation in OCaml with the standard library\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -268,6 +294,7 @@ let all =
   };
  
   { title = "Garbage Collection"
+  ; slug = "garbage-collection"
   ; description = "OCaml is a garbage collected language meaning you don't have to worry about allocating and freeing memory\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -278,6 +305,7 @@ let all =
   };
  
   { title = "Performance and Profiling"
+  ; slug = "performance-and-profiling"
   ; description = "Understand how to profile your OCaml code to analyse its performance and produce faster programs\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
@@ -288,6 +316,7 @@ let all =
   };
  
   { title = "Comparison of Standard Containers"
+  ; slug = "comparison-of-standard-containers"
   ; description = "A comparison of some core data-structures including lists, queues and arrays\n"
   ; date = "2021-05-27T21:07:30-00:00"
   ; tags = 
