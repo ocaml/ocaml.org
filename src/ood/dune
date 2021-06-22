@@ -3,17 +3,6 @@
  (public_name ood))
 
 (rule
- (targets media.ml)
- (deps
-  (source_tree ../../data/media))
- (mode
-  (promote (until-clean)))
- (action
-  (with-stdout-to
-   %{null}
-   (run %{bin:ocaml-crunch} -m plain ../../data/media -o %{targets}))))
-
-(rule
  (deps ../ood-gen/bin/gen.exe)
  (targets academic_institution.ml)
  (mode

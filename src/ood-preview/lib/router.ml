@@ -6,7 +6,7 @@ let loader _root path _request =
     Dream.respond asset
 
 let media_loader _root path _request =
-  match Ood.Media.read path with
+  match Ood_media.read path with
   | None ->
     Dream.empty `Not_Found
   | Some asset ->

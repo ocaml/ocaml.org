@@ -1,6 +1,6 @@
 (library
  (name ood_preview)
- (libraries ood dream dream-cli dream-livereload))
+ (libraries ood ood.media dream dream-cli dream-livereload))
 
 (rule
  (targets asset.ml)
