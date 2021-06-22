@@ -97,23 +97,18 @@ module Events = {
             </div>
           </div>
         </div>
+        // TODO: understand how the maxWidth works together with relative
         <div className="relative max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+          // TODO: understand how md:w-1/2 works together with relative
           <div className="md:ml-auto md:w-1/2 md:pl-10">
-            <p
-              className="mt-2 text-orangedark text-center text-3xl font-extrabold tracking-tight sm:text-4xl">
-              {s(content.title)}
-            </p>
-            <p className="mt-3 text-center text-lg text-gray-900"> {s(content.description)} </p>
-            <div className="mt-8 text-center">
-              <div className="inline-flex rounded-md shadow">
-                <Next.Link href=InternalUrls.communityEvents>
-                  <a
-                    className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-orangedark">
-                    {s(content.callToAction)}
-                  </a>
-                </Next.Link>
-              </div>
-            </div>
+            <CallToAction.Embedded
+              t={
+                CallToAction.title: content.title,
+                body: content.description,
+                buttonLink: Route(InternalUrls.communityEvents),
+                buttonText: content.callToAction,
+              }
+            />
           </div>
         </div>
       </div>
@@ -147,20 +142,16 @@ let make = (~content) => <>
   />
   <Page.Basic
     title=content.title pageDescription=content.pageDescription addContainer=Page.Basic.NoContainer>
-    <SectionContainer.NoneFilled marginBottom={Tailwind.ByBreakpoint.make(#mb16, ())}>
-      <div className="max-w-2xl mx-auto text-center py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
-          <span className="block"> {s(content.engageHeader)} </span>
-        </h2>
-        <p className="mt-4 text-lg leading-6 text-white"> {s(content.engageBody)} </p>
-        <a
-          className="mt-8 w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md bg-white hover:bg-orangelight sm:w-auto"
-          href="https://discuss.ocaml.org"
-          target="_blank">
-          {s(content.engageButtonText)}
-        </a>
-      </div>
-    </SectionContainer.NoneFilled>
+    <CallToAction.General
+      t={
+        CallToAction.title: content.engageHeader,
+        body: content.engageBody,
+        buttonLink: External("https://discuss.ocaml.org"),
+        buttonText: content.engageButtonText,
+      }
+      colorStyle=CallToAction.General.BackgroundFilled
+      marginBottom={Tailwind.ByBreakpoint.make(#mb16, ())}
+    />
     <LatestNews content=content.latestNewsContent />
     <Events content=content.events />
     <SectionContainer.LargeCentered

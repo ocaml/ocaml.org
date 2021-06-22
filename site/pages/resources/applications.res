@@ -75,26 +75,6 @@ module DeveloperGuides = {
     </div>
 }
 
-module PlatformTools = {
-  @react.component
-  let make = () =>
-    <SectionContainer.VerySmallCentered paddingY="py-16 sm:py-20" paddingX="px-4 sm:px-6 lg:px-2">
-      // TODO: factor out and define content type
-      <h2 className="text-3xl font-bold sm:text-3xl text-center"> {s(`Platform Tools`)} </h2>
-      <p className="mt-4 text-lg leading-6">
-        {s(`The OCaml Platform is a collection of tools that allow programmers to be productive in the OCaml language. It has been an iterative process of refinement as new tools are added and older tools are updated. Different tools accomplish different workflows and are used at different points of a project's life.`)}
-      </p>
-      <div className="flex justify-center">
-        <Link href=InternalUrls.resourcesPlatform>
-          <a
-            className="mt-8 w-full inline-flex items-center justify-center px-8 py-1 border border-transparent text-white text-base font-medium rounded-md bg-orangedark hover:bg-orangedarker sm:w-auto">
-            {s(`Visit Platform Tools`)}
-          </a>
-        </Link>
-      </div>
-    </SectionContainer.VerySmallCentered>
-}
-
 module UsingOcaml = {
   type t = {
     usingOcamlLabel: string,
@@ -187,7 +167,15 @@ let make = (~title, ~pageDescription, ~developerGuidesContent, ~usingOcamlConten
     <DeveloperGuides
       marginBottom={Tailwind.ByBreakpoint.make(#mb2, ())} content=developerGuidesContent
     />
-    <PlatformTools />
+    // TODO: factor out and define content type
+    <CallToAction.TransparentWide
+      t={
+        CallToAction.title: "Platform Tools",
+        body: `The OCaml Platform is a collection of tools that allow programmers to be productive in the OCaml language. It has been an iterative process of refinement as new tools are added and older tools are updated. Different tools accomplish different workflows and are used at different points of a project's life.`,
+        buttonLink: Route(InternalUrls.resourcesPlatform),
+        buttonText: `Visit Platform Tools`,
+      }
+    />
     <UsingOcaml marginBottom={Tailwind.ByBreakpoint.make(#mb16, ())} content=usingOcamlContent />
   </Page.Basic>
 </>
