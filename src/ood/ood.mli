@@ -166,6 +166,7 @@ module Tutorial : sig
     tags : string list;
     users : Meta.Proficiency.t list;
     body_md : string;
+    toc_html : string;
     body_html : string;
   }
 

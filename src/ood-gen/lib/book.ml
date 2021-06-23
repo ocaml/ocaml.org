@@ -59,8 +59,9 @@ let pp ppf v =
   ; body_md = %S
   ; body_html = %S
   }|}
-    v.meta.title (Utils.slugify v.meta.title) v.meta.description (Pp.list Pp.quoted_string) v.meta.authors
-    v.meta.language
+    v.meta.title
+    (Utils.slugify v.meta.title)
+    v.meta.description (Pp.list Pp.quoted_string) v.meta.authors v.meta.language
     (Pp.option Pp.quoted_string)
     v.meta.published
     (Pp.option Pp.quoted_string)
