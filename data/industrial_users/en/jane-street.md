@@ -3,7 +3,7 @@ name: Jane Street
 description: > 
   Jane Street is a quantitative trading firm that operates around the clock and around the globe
 site: "https://janestreet.com"
-image: users/jane-street.jpg
+image: /users/jane-street.jpg
 locations: 
   - United States
   - United Kingdom

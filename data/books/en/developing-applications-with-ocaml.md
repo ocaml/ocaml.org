@@ -7,7 +7,7 @@ authors:
   - Pascal Manoury
   - Bruno Pagano
 published: "2002"
-cover: books/logocaml-oreilly.gif
+cover: /books/logocaml-oreilly.gif
 language: english
 links:
   - description: Book Website

@@ -1,6 +1,6 @@
 ---
 title: LexiFi's Modeling Language for Finance
-image: success-stories/lexifi-thumb.jpg
+image: /success-stories/lexifi-thumb.jpg
 url: https://www.lexifi.com/
 ---
 

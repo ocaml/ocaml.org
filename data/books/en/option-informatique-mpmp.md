@@ -8,7 +8,7 @@ description: >
 authors:
   - Denis Monasse
 published: "1997"
-cover: books/monasse-2.jpg
+cover: /books/monasse-2.jpg
 language: french
 isbn: "2-7117-8839-3"
 links:

@@ -3,7 +3,7 @@ name: Harvard University
 description: >
  Harvard University is a private Ivy League research university in Cambridge, Massachusetts. higher education academy. 
 url: "https://www.harvard.edu/"
-logo: academic_institution/harvard.png
+logo: /academic_institution/harvard.png
 continent: North America
 courses:
     - name: Principles of Programming Language Compilation 

@@ -6,7 +6,7 @@ description: >
 authors:
   - "Jon D. Harrop"
 published: "2005"
-cover: books/harrop-book.gif
+cover: /books/harrop-book.gif
 language: english
 links:
   - description: Book Website

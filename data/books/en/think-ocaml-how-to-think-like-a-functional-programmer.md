@@ -6,7 +6,7 @@ authors:
   - Nicholas Monje
   - Allen Downey
 published: "2008"
-cover: books/thinkocaml_cover_web.png
+cover: /books/thinkocaml_cover_web.png
 language: english
 links:
   - description: Book Website

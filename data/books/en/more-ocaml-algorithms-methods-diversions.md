@@ -7,7 +7,7 @@ description: >
 authors:
   - John Whitington
 published: 2014-08-26
-cover: books/more-ocaml-300-376.png
+cover: /books/more-ocaml-300-376.png
 language: english
 links:
   - description: Book Website

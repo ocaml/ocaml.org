@@ -3,7 +3,7 @@ name: Ahrefs
 description: > 
   Ahrefs develops custom distributed petabyte-scale storage and runs an internet-wide crawler to collect the index of the whole Web
 site: "https://www.ahrefs.com"
-image: users/ahrefs.png
+image: /users/ahrefs.png
 locations: 
   - Singapore
   - United States

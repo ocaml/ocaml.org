@@ -7,7 +7,7 @@ description: >
 authors:
   - Jacques Rouablé
 published: "1997"
-cover: books/rouable.jpg
+cover: /books/rouable.jpg
 language: french
 isbn: "2-212-08944-9"
 links:

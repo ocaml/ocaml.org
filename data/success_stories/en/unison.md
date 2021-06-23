@@ -1,6 +1,6 @@
 ---
 title: The Unison File Synchronizer
-image: success-stories/unison-thumb.jpg
+image: /success-stories/unison-thumb.jpg
 url: https://www.cis.upenn.edu/%7Ebcpierce/unison/
 ---
 

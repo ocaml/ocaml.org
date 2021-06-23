@@ -3,7 +3,7 @@ name: University Pierre & Marie Curie
 description: >
  Pierre and Marie Curie University, titled as UPMC from 2007 to 2017 and also known as Paris 6, was a public research university in Paris, France, from 1971 to 2017. The university was located on the Jussieu Campus in the Latin Quarter of the 5th arrondissement of Paris, France. 
 url: "https://www.sorbonne-universite.fr/"
-logo: academic_institution/curie.jpg
+logo: /academic_institution/curie.jpg
 continent: Europe
 courses:
     - name: Types and static analysis 

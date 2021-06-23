@@ -12,7 +12,7 @@ let all =
 [
   { title = {js|The ASTRÉE Static Analyzer|js}
   ; slug = {js|the-astre-static-analyzer|js}
-  ; image = Some {js|success-stories/astree-thumb.gif|js}
+  ; image = Some {js|/success-stories/astree-thumb.gif|js}
   ; url = Some {js|https://www.astree.ens.fr/|js}
   ; body_md = {js|
 *[David Monniaux](https://www-verimag.imag.fr/~monniaux/) (CNRS), member
@@ -74,7 +74,7 @@ to work with recursive structures such as syntax trees.”</p>
  
   { title = {js|Coq|js}
   ; slug = {js|coq|js}
-  ; image = Some {js|success-stories/coq-thumb.jpg|js}
+  ; image = Some {js|/success-stories/coq-thumb.jpg|js}
   ; url = Some {js|https://coq.inria.fr/|js}
   ; body_md = {js|
 *[Jean-Christophe Filliâtre](https://www.lri.fr/~filliatr/) (CNRS), a
@@ -116,7 +116,7 @@ precisely rigor.”</p>
  
   { title = {js|FFTW|js}
   ; slug = {js|fftw|js}
-  ; image = Some {js|success-stories/fftw-thumb.png|js}
+  ; image = Some {js|/success-stories/fftw-thumb.png|js}
   ; url = Some {js|https://www.fftw.org/|js}
   ; body_md = {js|
 [FFTW](https://www.fftw.org/) is a [very fast](https://www.fftw.org/benchfft/) C
@@ -169,7 +169,7 @@ platform's native capabilities. The Haxe compiler was entirely written in OCaml.
  
   { title = {js|Jane Street|js}
   ; slug = {js|jane-street|js}
-  ; image = Some {js|success-stories/jane-street-thumb.jpg|js}
+  ; image = Some {js|/success-stories/jane-street-thumb.jpg|js}
   ; url = Some {js|https://janestreet.com/technology/|js}
   ; body_md = {js|
 Jane Street is a proprietary trading firm that uses OCaml as its primary
@@ -218,7 +218,7 @@ more than 200k lines of code.</p>
  
   { title = {js|LexiFi's Modeling Language for Finance|js}
   ; slug = {js|lexifis-modeling-language-for-finance|js}
-  ; image = Some {js|success-stories/lexifi-thumb.jpg|js}
+  ; image = Some {js|/success-stories/lexifi-thumb.jpg|js}
   ; url = Some {js|https://www.lexifi.com/|js}
   ; body_md = {js|
 Developed by the company [LexiFi](https://www.lexifi.com/), the Modeling
@@ -302,7 +302,7 @@ Airtime on top of Liquidsoap.</p>
  
   { title = {js|The MLdonkey peer-to-peer client|js}
   ; slug = {js|the-mldonkey-peer-to-peer-client|js}
-  ; image = Some {js|success-stories/mldonkey-thumb.jpg|js}
+  ; image = Some {js|/success-stories/mldonkey-thumb.jpg|js}
   ; url = Some {js|https://mldonkey.sourceforge.net/Main_Page|js}
   ; body_md = {js|
 [MLdonkey](https://mldonkey.sourceforge.net/Main_Page) is a
@@ -390,7 +390,7 @@ robustness of its implementation provided a great productivity boost.”</p>
  
   { title = {js|The Unison File Synchronizer|js}
   ; slug = {js|the-unison-file-synchronizer|js}
-  ; image = Some {js|success-stories/unison-thumb.jpg|js}
+  ; image = Some {js|/success-stories/unison-thumb.jpg|js}
   ; url = Some {js|https://www.cis.upenn.edu/%7Ebcpierce/unison/|js}
   ; body_md = {js|
 [Unison](https://www.cis.upenn.edu/%7Ebcpierce/unison/) is a popular

@@ -5,7 +5,7 @@ description: >
 authors:
   - Philippe Narbel
 published: "2005"
-cover: books/narbel.jpg
+cover: /books/narbel.jpg
 language: french
 isbn: "2-7117-4843-X"
 ---

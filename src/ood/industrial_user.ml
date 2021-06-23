@@ -17,7 +17,7 @@ let all =
   ; slug = {js|aesthetic-integration|js}
   ; description = {js|Aesthetic Integration (AI) is a financial technology startup based in the City of London
 |js}
-  ; image = Some {js|users/aesthetic-integration.png|js}
+  ; image = Some {js|/users/aesthetic-integration.png|js}
   ; site = {js|https://www.aestheticintegration.com|js}
   ; locations = 
  [{js|United Kingdom|js}]
@@ -33,7 +33,7 @@ Aesthetic Integration (AI) is a financial technology startup based in the City o
   ; slug = {js|ahrefs|js}
   ; description = {js|Ahrefs develops custom distributed petabyte-scale storage and runs an internet-wide crawler to collect the index of the whole Web
 |js}
-  ; image = Some {js|users/ahrefs.png|js}
+  ; image = Some {js|/users/ahrefs.png|js}
   ; site = {js|https://www.ahrefs.com|js}
   ; locations = 
  [{js|Singapore|js}; {js|United States|js}]
@@ -49,7 +49,7 @@ Ahrefs develops custom distributed petabyte-scale storage and runs an internet-w
   ; slug = {js|american-museum-of-natural-history|js}
   ; description = {js|The Computational Sciences Department at the AMNH has been using OCaml for almost a decade in their software package POY for phylogenetic inference
 |js}
-  ; image = Some {js|users/amnh.png|js}
+  ; image = Some {js|/users/amnh.png|js}
   ; site = {js|https://www.amnh.org/our-research/computational-sciences|js}
   ; locations = 
  [{js|United States|js}]
@@ -65,7 +65,7 @@ The Computational Sciences Department at the AMNH has been using OCaml for almos
   ; slug = {js|anssi|js}
   ; description = {js|The ANSSI core missions are: to detect and react to cyber attacks, to prevent threats, to provide advice and support to governmental entities and operators of critical infrastructure, and to keep companies and the general public informed about information security threats
 |js}
-  ; image = Some {js|users/anssi.png|js}
+  ; image = Some {js|/users/anssi.png|js}
   ; site = {js|https://www.ssi.gouv.fr/|js}
   ; locations = 
  [{js|France|js}]
@@ -81,7 +81,7 @@ The ANSSI core missions are: to detect and react to cyber attacks, to prevent th
   ; slug = {js|arena|js}
   ; description = {js|Arena helps organizations hire the right people.
 |js}
-  ; image = Some {js|users/arena.jpg|js}
+  ; image = Some {js|/users/arena.jpg|js}
   ; site = {js|https://www.arena.io|js}
   ; locations = 
  [{js|United States|js}]
@@ -96,7 +96,7 @@ Arena helps organizations hire the right people. We do that by applying big data
   ; slug = {js|be-sport|js}
   ; description = {js|Be Sport's mission is to enhance the value that sport brings to our lives with appropriate use of digital and social media innovations
 |js}
-  ; image = Some {js|users/besport.png|js}
+  ; image = Some {js|/users/besport.png|js}
   ; site = {js|https://besport.com/|js}
   ; locations = 
  [{js|France|js}]
@@ -115,7 +115,7 @@ Be Sport is a 100% [OCaml](//ocaml.org/) and [OCsigen](https://ocsigen.org) proj
   ; slug = {js|bloomberg-lp|js}
   ; description = {js|Bloomberg, the global business and financial information and news leader, gives influential decision makers a critical edge by connecting them to a dynamic network of information, people and ideas
 |js}
-  ; image = Some {js|users/bloomberg.jpg|js}
+  ; image = Some {js|/users/bloomberg.jpg|js}
   ; site = {js|https://www.bloomberg.com|js}
   ; locations = 
  [{js|United States|js}]
@@ -130,7 +130,7 @@ Bloomberg, the global business and financial information and news leader, gives 
   ; slug = {js|cacaoweb|js}
   ; description = {js|Cacaoweb is developing an application platform of a new kind. It runs on top of our peer-to-peer network, which happens to be one of the largest in the world
 |js}
-  ; image = Some {js|users/cacaoweb.png|js}
+  ; image = Some {js|/users/cacaoweb.png|js}
   ; site = {js|https://cacaoweb.org/|js}
   ; locations = 
  [{js|United Kingdom|js}; {js|Hong Kong|js}]
@@ -146,7 +146,7 @@ Cacaoweb is developing an application platform of a new kind. It runs on top of 
   ; slug = {js|cea|js}
   ; description = {js|CEA is a French state company, member of the OCaml Consortium.
 |js}
-  ; image = Some {js|users/cea.png|js}
+  ; image = Some {js|/users/cea.png|js}
   ; site = {js|https://cea.fr/|js}
   ; locations = 
  [{js|France|js}]
@@ -162,7 +162,7 @@ CEA is a French state company, member of the OCaml Consortium. It uses OCaml mai
   ; slug = {js|citrix|js}
   ; description = {js|Citrix uses OCaml in XenServer, a world-class server virtualization system.
 |js}
-  ; image = Some {js|users/citrix.png|js}
+  ; image = Some {js|/users/citrix.png|js}
   ; site = {js|https://www.citrix.com|js}
   ; locations = 
  [{js|United Kingdom|js}]
@@ -178,7 +178,7 @@ Citrix uses OCaml in XenServer, a world-class server virtualization system. Most
   ; slug = {js|coherent-graphics-ltd|js}
   ; description = {js|Coherent Graphics is a developer of both server tools and desktop software for the processing of PDF documents
 |js}
-  ; image = Some {js|users/coherent.png|js}
+  ; image = Some {js|/users/coherent.png|js}
   ; site = {js|https://www.coherentpdf.com/|js}
   ; locations = 
  [{js|United Kingdom|js}]
@@ -194,7 +194,7 @@ Coherent Graphics is a developer of both server tools and desktop software for t
   ; slug = {js|cryptosense|js}
   ; description = {js|Cryptosense creates security analysis software with a particular focus on cryptographic systems
 |js}
-  ; image = Some {js|users/cryptosense.png|js}
+  ; image = Some {js|/users/cryptosense.png|js}
   ; site = {js|https://www.cryptosense.com/|js}
   ; locations = 
  [{js|France|js}]
@@ -210,7 +210,7 @@ Based in Paris, France, Cryptosense creates security analysis software with a pa
   ; slug = {js|dassault-systmes|js}
   ; description = {js|Dassault Systèmes, the 3DEXPERIENCE Company, provides businesses and people with virtual universes to imagine sustainable innovations.
 |js}
-  ; image = Some {js|users/dassault.png|js}
+  ; image = Some {js|/users/dassault.png|js}
   ; site = {js|https://www.3ds.com/fr/|js}
   ; locations = 
  [{js|France|js}]
@@ -226,7 +226,7 @@ Dassault Systèmes, the 3DEXPERIENCE Company, provides businesses and people wit
   ; slug = {js|dernier-cri|js}
   ; description = {js|Dernier Cri is a French company based in Lille and Paris using functional programming to develop web and mobile applications.
 |js}
-  ; image = Some {js|users/derniercri.png|js}
+  ; image = Some {js|/users/derniercri.png|js}
   ; site = {js|https://derniercri.io|js}
   ; locations = 
  [{js|France|js}]
@@ -242,7 +242,7 @@ Dernier Cri is a French company based in Lille and Paris using functional progra
   ; slug = {js|digirati-dba-hostnet|js}
   ; description = {js|Digirati dba Hostnet is a web hosting company.
 |js}
-  ; image = Some {js|users/hostnet.gif|js}
+  ; image = Some {js|/users/hostnet.gif|js}
   ; site = {js|https://www.hostnet.com.br/|js}
   ; locations = 
  [{js|Brazil|js}]
@@ -258,7 +258,7 @@ Digirati dba Hostnet is a web hosting company. We use OCaml mostly for internal 
   ; slug = {js|docker-inc|js}
   ; description = {js|Docker provides an integrated technology suite that enables development and IT operations teams to build, ship, and run distributed applications anywhere
 |js}
-  ; image = Some {js|users/docker.png|js}
+  ; image = Some {js|/users/docker.png|js}
   ; site = {js|https://www.docker.com|js}
   ; locations = 
  [{js|United States|js}]
@@ -273,7 +273,7 @@ Docker provides an integrated technology suite that enables development and IT o
   ; slug = {js|esterel-technologies|js}
   ; description = {js|Esterel Technologies is a leading provider of critical systems and software development solutions for the aerospace, defense, rail transportation, nuclear, and industrial and automotive domains
 |js}
-  ; image = Some {js|users/esterel.jpg|js}
+  ; image = Some {js|/users/esterel.jpg|js}
   ; site = {js|https://www.esterel-technologies.com/|js}
   ; locations = 
  [{js|France|js}]
@@ -288,7 +288,7 @@ Esterel Technologies is a leading provider of critical systems and software deve
   { name = {js|Facebook|js}
   ; slug = {js|facebook|js}
   ; description = {js|Facebook has built a number of major development tools using OCaml|js}
-  ; image = Some {js|users/facebook.png|js}
+  ; image = Some {js|/users/facebook.png|js}
   ; site = {js|https://www.facebook.com/|js}
   ; locations = 
  [{js|United States|js}]
@@ -303,7 +303,7 @@ Facebook has built a number of major development tools using OCaml. [Hack](https
   ; slug = {js|fasoo|js}
   ; description = {js|Fasoo uses OCaml to develop a static analysis tool.
 |js}
-  ; image = Some {js|users/fasoo.png|js}
+  ; image = Some {js|/users/fasoo.png|js}
   ; site = {js|https://www.fasoo.com|js}
   ; locations = 
  [{js|Korea|js}]
@@ -319,7 +319,7 @@ Fasoo uses OCaml to develop a static analysis tool.
   ; slug = {js|flying-frog-consultancy|js}
   ; description = {js|Flying Frog Consultancy Ltd. consult and write books and software on the use of OCaml in the context of scientific computing.
 |js}
-  ; image = Some {js|users/flying-frog.png|js}
+  ; image = Some {js|/users/flying-frog.png|js}
   ; site = {js|https://www.ffconsultancy.com|js}
   ; locations = 
  [{js|United Kingdom|js}]
@@ -335,7 +335,7 @@ Flying Frog Consultancy Ltd. consult and write books and software on the use of 
   ; slug = {js|forallsecure|js}
   ; description = {js|ForAllSecure's mission is to test the world's software and provide actionable information to our customers.
 |js}
-  ; image = Some {js|users/forallsecure.svg|js}
+  ; image = Some {js|/users/forallsecure.svg|js}
   ; site = {js|https://forallsecure.com|js}
   ; locations = 
  [{js|United States|js}]
@@ -367,7 +367,7 @@ Framtidsforum I&M sells ExcelEverywhere, which creates web pages that look and f
   ; slug = {js|galois|js}
   ; description = {js|Galois has developed a domain specific declarative language for cryptographic algorithms.
 |js}
-  ; image = Some {js|users/galois.png|js}
+  ; image = Some {js|/users/galois.png|js}
   ; site = {js|https://www.galois.com|js}
   ; locations = 
  [{js|United States|js}]
@@ -383,7 +383,7 @@ Galois has developed a domain specific declarative language for cryptographic al
   ; slug = {js|incubaid|js}
   ; description = {js|Incubaid has developed Arakoon, a distributed key-value store that guarantees consistency above anything else.
 |js}
-  ; image = Some {js|users/Incubaid.png|js}
+  ; image = Some {js|/users/Incubaid.png|js}
   ; site = {js|https://incubaid.com|js}
   ; locations = 
  [{js|Belgium|js}]
@@ -400,7 +400,7 @@ Incubaid has developed <a href="https://github.com/Incubaid/arakoon">Arakoon</a>
   ; slug = {js|issuu|js}
   ; description = {js|Issuu is a digital publishing platform delivering exceptional reading experiences of magazines, catalogues, and newspapers
 |js}
-  ; image = Some {js|users/issuu.gif|js}
+  ; image = Some {js|/users/issuu.gif|js}
   ; site = {js|https://issuu.com|js}
   ; locations = 
  [{js|Denmark|js}]
@@ -416,7 +416,7 @@ Issuu is a digital publishing platform delivering exceptional reading experience
   ; slug = {js|jane-street|js}
   ; description = {js|Jane Street is a quantitative trading firm that operates around the clock and around the globe
 |js}
-  ; image = Some {js|users/jane-street.jpg|js}
+  ; image = Some {js|/users/jane-street.jpg|js}
   ; site = {js|https://janestreet.com|js}
   ; locations = 
  [{js|United States|js}; {js|United Kingdom|js}; {js|Hong Kong|js}]
@@ -432,7 +432,7 @@ Jane Street is a quantitative trading firm that operates around the clock and ar
   ; slug = {js|kernelize|js}
   ; description = {js|Kernelyze has developed a novel approximation of two-variable functions that achieves the smallest possible worst-case error among all rank-n approximations.
 |js}
-  ; image = Some {js|users/kernelyze-llc-logo.png|js}
+  ; image = Some {js|/users/kernelyze-llc-logo.png|js}
   ; site = {js|https://kernelyze.com/|js}
   ; locations = 
  [{js|United States|js}]
@@ -452,7 +452,7 @@ approximations.</p>
   ; slug = {js|kong|js}
   ; description = {js|Kong makes it easy to distribute, monetize, manage and consume cloud APIs.
 |js}
-  ; image = Some {js|users/mashape.png|js}
+  ; image = Some {js|/users/mashape.png|js}
   ; site = {js|https://www.konghq.com|js}
   ; locations = 
  [{js|United States|js}]
@@ -468,7 +468,7 @@ Kong makes it easy to distribute, monetize, manage and consume cloud APIs. Masha
   ; slug = {js|lexifi|js}
   ; description = {js|LexiFi is an innovative provider of software applications and infrastructure technology for the capital markets industry.
 |js}
-  ; image = Some {js|users/lexifi.png|js}
+  ; image = Some {js|/users/lexifi.png|js}
   ; site = {js|https://www.janestreet.com|js}
   ; locations = 
  [{js|France|js}]
@@ -483,7 +483,7 @@ LexiFi is an innovative provider of software applications and infrastructure tec
   ; slug = {js|matrix-lead|js}
   ; description = {js|Matrix Lead provides professionals and companies with leading technologies and solutions for spreadsheets. 
 |js}
-  ; image = Some {js|users/matrixlead.png|js}
+  ; image = Some {js|/users/matrixlead.png|js}
   ; site = {js|https://www.matrixlead.com|js}
   ; locations = 
  [{js|France|js}; {js|China|js}]
@@ -499,7 +499,7 @@ Matrix Lead provides professionals and companies with leading technologies and s
   ; slug = {js|medit|js}
   ; description = {js|MEDIT develops SuMo, an advanced bioinformatic system, for the analysis of protein 3D structures and the identification of drug-design targets. 
 |js}
-  ; image = Some {js|users/medit.jpg|js}
+  ; image = Some {js|/users/medit.jpg|js}
   ; site = {js|https://www.medit-pharma.com/|js}
   ; locations = 
  [{js|France|js}]
@@ -515,7 +515,7 @@ MEDIT develops [SuMo, an advanced bioinformatic system]("https://mjambon.com/") 
   ; slug = {js|microsoft|js}
   ; description = {js|Facebook has built a number of major development tools using OCaml
 |js}
-  ; image = Some {js|users/microsoft.png|js}
+  ; image = Some {js|/users/microsoft.png|js}
   ; site = {js|https://www.microsoft.com|js}
   ; locations = 
  [{js|United States|js}]
@@ -529,7 +529,7 @@ MEDIT develops [SuMo, an advanced bioinformatic system]("https://mjambon.com/") 
   ; slug = {js|mount-sinai|js}
   ; description = {js|The Hammer Lab at Mount Sinai develops and uses Ketrew for managing complex bioinformatics workflows.
 |js}
-  ; image = Some {js|users/mount-sinai.png|js}
+  ; image = Some {js|/users/mount-sinai.png|js}
   ; site = {js|https://www.mountsinai.org|js}
   ; locations = 
  [{js|United States|js}]
@@ -545,7 +545,7 @@ The [Hammer Lab]("https://www.hammerlab.org") at Mount Sinai develops and uses [
   ; slug = {js|mr-number|js}
   ; description = {js|Mr. Number started as a Silicon Valley startup and developed the Mr. Number app for call blocking, later acquired by WhitePages.
 |js}
-  ; image = Some {js|users/mrnumber.jpg|js}
+  ; image = Some {js|/users/mrnumber.jpg|js}
   ; site = {js|https://mrnumber.com/|js}
   ; locations = 
  [{js|United States|js}]
@@ -561,7 +561,7 @@ Mr. Number started as a Silicon Valley startup and developed the Mr. Number app 
   ; slug = {js|mylife|js}
   ; description = {js|MyLife has developed a powerful people search tool that will empower those in need to find anyone, regardless of years past and the life that was built in between.
 |js}
-  ; image = Some {js|users/mylife.jpg|js}
+  ; image = Some {js|/users/mylife.jpg|js}
   ; site = {js|https://www.mylife.com/|js}
   ; locations = 
  [{js|United States|js}]
@@ -576,7 +576,7 @@ MyLife has developed a powerful people search tool that will empower those in ne
   ; slug = {js|narrow-gate-logic|js}
   ; description = {js|Narrow Gate Logic is a company using the OCaml language in business and non-business applications.
 |js}
-  ; image = Some {js|users/nglogic.png|js}
+  ; image = Some {js|/users/nglogic.png|js}
   ; site = {js|https://nglogic.com|js}
   ; locations = 
  [{js|Poland|js}]
@@ -592,7 +592,7 @@ Narrow Gate Logic is a company using the OCaml language in business and non-busi
   ; slug = {js|nomadic-labs|js}
   ; description = {js|Nomadic Labs houses a team focused on Research and Development. Our core competencies are in programming language theory and practice, distributed systems, and formal verification.
 |js}
-  ; image = Some {js|users/nomadic-labs.png|js}
+  ; image = Some {js|/users/nomadic-labs.png|js}
   ; site = {js|https://www.nomadic-labs.com|js}
   ; locations = 
  [{js|Paris, France|js}]
@@ -629,7 +629,7 @@ form of a lightweight formal method that can be used on a daily basis.</p>
   ; slug = {js|ocamlpro|js}
   ; description = {js|OCamlPro develops and maintains a development environment for the OCaml language.
 |js}
-  ; image = Some {js|users/ocamlpro.png|js}
+  ; image = Some {js|/users/ocamlpro.png|js}
   ; site = {js|https://www.ocamlpro.com|js}
   ; locations = 
  [{js|France|js}]
@@ -644,7 +644,7 @@ OCamlPro develops and maintains a development environment for the OCaml language
   ; slug = {js|prudent-technologies-and-consulting-inc|js}
   ; description = {js|Prudent Consulting offers IT solutions to large and mid-sized organizations by combining industry experience and technology expertise to help our customers achieve business goals with speed, agility, and great impact.
 |js}
-  ; image = Some {js|users/prudent.jpg|js}
+  ; image = Some {js|/users/prudent.jpg|js}
   ; site = {js|https://www.prudentconsulting.com|js}
   ; locations = 
  [{js|United States|js}]
@@ -660,7 +660,7 @@ Prudent Consulting offers IT solutions to large and mid-sized organizations by c
   ; slug = {js|psellos|js}
   ; description = {js|Psellos is a small group of computer scientists who became intrigued by the idea of coding iOS apps in OCaml.
 |js}
-  ; image = Some {js|users/psellos.png|js}
+  ; image = Some {js|/users/psellos.png|js}
   ; site = {js|https://www.psellos.com|js}
   ; locations = 
  [{js|United States|js}]
@@ -705,7 +705,7 @@ It was made possible by the great work done by Psellos in porting OCaml to the A
   ; slug = {js|shiro-games|js}
   ; description = {js|Shiro Games is developing games using Haxe, a language built with a compiler written in OCaml.
 |js}
-  ; image = Some {js|users/shirogames.png|js}
+  ; image = Some {js|/users/shirogames.png|js}
   ; site = {js|https://www.shirogames.com|js}
   ; locations = 
  [{js|France|js}]
@@ -720,7 +720,7 @@ Shiro Games is developing games using [Haxe](https://haxe.org/), a language buil
   ; slug = {js|simcorp|js}
   ; description = {js|Multi-asset platform to support investment decision-making and innovation.
 |js}
-  ; image = Some {js|users/simcorp.png|js}
+  ; image = Some {js|/users/simcorp.png|js}
   ; site = {js|https://www.simcorp.com/|js}
   ; locations = 
  [{js|United States|js}]
@@ -736,7 +736,7 @@ Multi-asset platform to support investment decision-making and innovation.
   ; slug = {js|sleekersoft|js}
   ; description = {js|Specialises in functional programming software development, consultation, and training.
 |js}
-  ; image = Some {js|users/sleekersoft.png|js}
+  ; image = Some {js|/users/sleekersoft.png|js}
   ; site = {js|https://www.sleekersoft.com|js}
   ; locations = 
  [{js|Australia|js}]
@@ -751,7 +751,7 @@ Shiro Games is developing games using [Haxe](https://haxe.org/), a language buil
   ; slug = {js|solvuu|js}
   ; description = {js|Solvuu's software allows users to store big and small data sets, share the data with collaborators, execute computationally intensive algorithms and workflows, and visualize results.
 |js}
-  ; image = Some {js|users/solvuu.jpg|js}
+  ; image = Some {js|/users/solvuu.jpg|js}
   ; site = {js|https://www.solvuu.com|js}
   ; locations = 
  [{js|United States|js}]
@@ -767,7 +767,7 @@ Solvuu's software allows users to store big and small data sets, share the data 
   ; slug = {js|studio-associato-4sigma|js}
   ; description = {js|4Sigma is a small firm making websites and some interesting web applications.
 |js}
-  ; image = Some {js|users/4sigma.png|js}
+  ; image = Some {js|/users/4sigma.png|js}
   ; site = {js|https://www.4sigma.it|js}
   ; locations = 
  [{js|Italy|js}]
@@ -782,7 +782,7 @@ Solvuu's software allows users to store big and small data sets, share the data 
   ; slug = {js|tarides|js}
   ; description = {js|Tarides builds and maintains open-source infrastructure tools in OCaml like MirageOS, Irmin and OCaml developer tools.
 |js}
-  ; image = Some {js|users/tarides.png|js}
+  ; image = Some {js|/users/tarides.png|js}
   ; site = {js|https://www.tarides.com|js}
   ; locations = 
  [{js|France|js}]
@@ -814,7 +814,7 @@ Tarides was founded in early 2018 and is mainly based in Paris, France (remote w
   ; slug = {js|trustinsoft|js}
   ; description = {js|TrustInSoft is a company that changes the rules in cybersecurity. TrustInSoft is the software publisher of the software analysis Frama-C platform. 
 |js}
-  ; image = Some {js|users/trustinsoft.png|js}
+  ; image = Some {js|/users/trustinsoft.png|js}
   ; site = {js|https://trust-in-soft.com|js}
   ; locations = 
  [{js|France|js}]
@@ -829,7 +829,7 @@ TrustInSoft is a company that changes the rules in cybersecurity. TrustInSoft is
   ; slug = {js|wolfram-mathcore|js}
   ; description = {js|Wolfram MathCore uses OCaml to implement its SystemModeler kernel.
 |js}
-  ; image = Some {js|users/wolfram-mathcore.gif|js}
+  ; image = Some {js|/users/wolfram-mathcore.gif|js}
   ; site = {js|https://www.wolframmathcore.com|js}
   ; locations = 
  [{js|Sweden|js}]

@@ -5,7 +5,7 @@ description: >
   that achieves the smallest possible worst-case error among all rank-n
   approximations.
 site: "https://kernelyze.com/"
-image: users/kernelyze-llc-logo.png
+image: /users/kernelyze-llc-logo.png
 locations: 
   - United States
 consortium: true

@@ -25,7 +25,7 @@ let all =
  [{js|Juergen Wolff von Gudenberg|js}]
   ; language = {js|german|js}
   ; published = Some {js|1996|js}
-  ; cover = Some {js|books/wolff.gif|js}
+  ; cover = Some {js|/books/wolff.gif|js}
   ; isbn = None
   ; links = 
  []
@@ -54,7 +54,7 @@ last chapter a comprehensive description of the language kernel.</p>
  [{js|Jean-Christophe Filliâtre|js}; {js|Sylvain Conchon|js}]
   ; language = {js|french|js}
   ; published = Some {js|2014|js}
-  ; cover = Some {js|books/apprendre_ocaml_cover.png|js}
+  ; cover = Some {js|/books/apprendre_ocaml_cover.png|js}
   ; isbn = Some {js|2-21213-678-1|js}
   ; links = 
  [
@@ -116,7 +116,7 @@ online.</p>
  [{js|Catherine Dubois|js}; {js|Valérie Ménissier Morain|js}]
   ; language = {js|french|js}
   ; published = Some {js|2004|js}
-  ; cover = Some {js|books/dubois-menissier.gif|js}
+  ; cover = Some {js|/books/dubois-menissier.gif|js}
   ; isbn = Some {js|2-7462-0819-9|js}
   ; links = 
  []
@@ -152,7 +152,7 @@ illustrated in OCaml easily transpose to other programming languages.</p>
  [{js|Guy Cousineau|js}; {js|Michel Mauny|js}]
   ; language = {js|french|js}
   ; published = Some {js|1995|js}
-  ; cover = Some {js|books/cousineau-mauny-fr.gif|js}
+  ; cover = Some {js|/books/cousineau-mauny-fr.gif|js}
   ; isbn = Some {js|2-84074-114-8|js}
   ; links = 
  [
@@ -190,7 +190,7 @@ synthesis.</p>
  [{js|Thérèse Accart Hardin|js}; {js|Véronique Donzeau-Gouge Viguié|js}]
   ; language = {js|french|js}
   ; published = Some {js|1992|js}
-  ; cover = Some {js|books/hardin-donzeau-gouge.gif|js}
+  ; cover = Some {js|/books/hardin-donzeau-gouge.gif|js}
   ; isbn = Some {js|2-7296-0419-7|js}
   ; links = 
  [
@@ -228,7 +228,7 @@ exercises with solutions.</p>
  [{js|Luc Albert|js}]
   ; language = {js|french|js}
   ; published = Some {js|1997|js}
-  ; cover = Some {js|books/albert.gif|js}
+  ; cover = Some {js|/books/albert.gif|js}
   ; isbn = Some {js|2-84180-106-3|js}
   ; links = 
  []
@@ -255,7 +255,7 @@ formal logic, as well as 135 exercises with solutions.</p>
  [{js|Emmanuel Chailloux|js}; {js|Pascal Manoury|js}; {js|Bruno Pagano|js}]
   ; language = {js|english|js}
   ; published = Some {js|2002|js}
-  ; cover = Some {js|books/logocaml-oreilly.gif|js}
+  ; cover = Some {js|/books/logocaml-oreilly.gif|js}
   ; isbn = None
   ; links = 
  [
@@ -289,7 +289,7 @@ translation of a French book published by OReilly.</p>
  [{js|Emmanuel Chailloux|js}; {js|Pascal Manoury|js}; {js|Bruno Pagano|js}]
   ; language = {js|french|js}
   ; published = Some {js|2000|js}
-  ; cover = Some {js|books/chailloux-manoury-pagano.jpg|js}
+  ; cover = Some {js|/books/chailloux-manoury-pagano.jpg|js}
   ; isbn = Some {js|2-84177-121-0|js}
   ; links = 
  [
@@ -320,7 +320,7 @@ programming, and interoperability with C.</p>
  [{js|Mohammed-Said Habet|js}]
   ; language = {js|french|js}
   ; published = Some {js|2015|js}
-  ; cover = Some {js|books/Initiation_a_la_programmation_fonctionnelle_en_OCaml.jpg|js}
+  ; cover = Some {js|/books/Initiation_a_la_programmation_fonctionnelle_en_OCaml.jpg|js}
   ; isbn = Some {js|9782332978400|js}
   ; links = 
  [
@@ -394,7 +394,7 @@ it describes most of the language, and is accessible.</p>
  [{js|Carla Limongelli|js}; {js|Marta Cialdea|js}]
   ; language = {js|italian|js}
   ; published = Some {js|2002|js}
-  ; cover = Some {js|books/limongelli-cialdea.gif|js}
+  ; cover = Some {js|/books/limongelli-cialdea.gif|js}
   ; isbn = Some {js|88-7488-031-6|js}
   ; links = 
  []
@@ -410,7 +410,7 @@ it describes most of the language, and is accessible.</p>
  [{js|Xavier Leroy|js}; {js|Pierre Weis|js}]
   ; language = {js|french|js}
   ; published = Some {js|1993|js}
-  ; cover = Some {js|books/le-language-caml-cover.jpg|js}
+  ; cover = Some {js|/books/le-language-caml-cover.jpg|js}
   ; isbn = Some {js|2-10-004383-8|js}
   ; links = 
  [
@@ -442,7 +442,7 @@ automata, etc.</p>
  [{js|Xavier Leroy|js}; {js|Pierre Weis|js}]
   ; language = {js|french|js}
   ; published = Some {js|1993|js}
-  ; cover = Some {js|books/manuel-de-reference-du-langage-caml-cover.jpg|js}
+  ; cover = Some {js|/books/manuel-de-reference-du-langage-caml-cover.jpg|js}
   ; isbn = Some {js|2-7296-0492-8|js}
   ; links = 
  [
@@ -469,7 +469,7 @@ and provides a complete documentation for the Caml Light system.</p>
  [{js|John Whitington|js}]
   ; language = {js|english|js}
   ; published = Some {js|2014-08-26|js}
-  ; cover = Some {js|books/more-ocaml-300-376.png|js}
+  ; cover = Some {js|/books/more-ocaml-300-376.png|js}
   ; isbn = None
   ; links = 
  [
@@ -514,7 +514,7 @@ the front of the book.</p>
  [{js|Michel Quercia|js}]
   ; language = {js|french|js}
   ; published = Some {js|2000|js}
-  ; cover = Some {js|books/quercia.gif|js}
+  ; cover = Some {js|/books/quercia.gif|js}
   ; isbn = Some {js|2-7117-8990|js}
   ; links = 
  [
@@ -568,7 +568,7 @@ runtime, interoperating with C, and pearls.</p>
  [{js|Jon D. Harrop|js}]
   ; language = {js|english|js}
   ; published = Some {js|2005|js}
-  ; cover = Some {js|books/harrop-book.gif|js}
+  ; cover = Some {js|/books/harrop-book.gif|js}
   ; isbn = None
   ; links = 
  [
@@ -604,7 +604,7 @@ programs can be constructed in the OCaml programming language.</p>
  [{js|John Whitington|js}]
   ; language = {js|english|js}
   ; published = Some {js|2013-06-07|js}
-  ; cover = Some {js|books/OCaml_from_beginning.png|js}
+  ; cover = Some {js|/books/OCaml_from_beginning.png|js}
   ; isbn = None
   ; links = 
  [
@@ -641,7 +641,7 @@ and hints.</p>
  [{js|Andrei de Araújo Formiga|js}]
   ; language = {js|portugese|js}
   ; published = Some {js|2015|js}
-  ; cover = Some {js|books/opfp.png|js}
+  ; cover = Some {js|/books/opfp.png|js}
   ; isbn = None
   ; links = 
  [
@@ -677,7 +677,7 @@ language, and a decision tree learning program for data analysis.</p>
   {js|Didier Rémy|js}; {js|Jérôme Vouillon|js}]
   ; language = {js|english|js}
   ; published = None
-  ; cover = Some {js|books/colour-icon-170x148.png|js}
+  ; cover = Some {js|/books/colour-icon-170x148.png|js}
   ; isbn = None
   ; links = 
  [
@@ -703,7 +703,7 @@ and libraries included in the official distribution.</p>
  [{js|Denis Monasse|js}]
   ; language = {js|french|js}
   ; published = Some {js|1997|js}
-  ; cover = Some {js|books/monasse-2.jpg|js}
+  ; cover = Some {js|/books/monasse-2.jpg|js}
   ; isbn = Some {js|2-7117-8839-3|js}
   ; links = 
  [
@@ -729,7 +729,7 @@ contains more than 200 OCaml programs.</p>
  [{js|Denis Monasse|js}]
   ; language = {js|french|js}
   ; published = Some {js|1996|js}
-  ; cover = Some {js|books/monasse-1.gif|js}
+  ; cover = Some {js|/books/monasse-1.gif|js}
   ; isbn = Some {js|2-7117-8831-8|js}
   ; links = 
  []
@@ -762,7 +762,7 @@ science.</p>
  [{js|Pascal Manoury|js}]
   ; language = {js|french|js}
   ; published = Some {js|2005|js}
-  ; cover = Some {js|books/manoury.png|js}
+  ; cover = Some {js|/books/manoury.png|js}
   ; isbn = Some {js|978-2-916466-05-7|js}
   ; links = 
  [
@@ -781,7 +781,7 @@ science.</p>
  [{js|Jacques Rouablé|js}]
   ; language = {js|french|js}
   ; published = Some {js|1997|js}
-  ; cover = Some {js|books/rouable.jpg|js}
+  ; cover = Some {js|/books/rouable.jpg|js}
   ; isbn = Some {js|2-212-08944-9|js}
   ; links = 
  [
@@ -813,7 +813,7 @@ connected to computer science, logic, automata and grammars.</p>
  [{js|Philippe Narbel|js}]
   ; language = {js|french|js}
   ; published = Some {js|2005|js}
-  ; cover = Some {js|books/narbel.jpg|js}
+  ; cover = Some {js|/books/narbel.jpg|js}
   ; isbn = Some {js|2-7117-4843-X|js}
   ; links = 
  []
@@ -856,7 +856,7 @@ connected to computer science, logic, automata and grammars.</p>
  [{js|Jason Hickey|js}; {js|Anil Madhavapeddy|js}; {js|Yaron Minsky|js}]
   ; language = {js|english|js}
   ; published = Some {js|2013-11-25|js}
-  ; cover = Some {js|books/real-world-ocaml.jpg|js}
+  ; cover = Some {js|/books/real-world-ocaml.jpg|js}
   ; isbn = None
   ; links = 
  [
@@ -905,7 +905,7 @@ readable code.</p>
  [{js|Bruno Petazzoni|js}]
   ; language = {js|french|js}
   ; published = Some {js|2001|js}
-  ; cover = Some {js|books/petazzoni.jpg|js}
+  ; cover = Some {js|/books/petazzoni.jpg|js}
   ; isbn = Some {js|3-540-67387-3|js}
   ; links = 
  [
@@ -939,7 +939,7 @@ to a masters degree.</p>
  [{js|Guy Cousineau|js}]
   ; language = {js|english|js}
   ; published = Some {js|1998|js}
-  ; cover = Some {js|books/cousineau-mauny-en.gif|js}
+  ; cover = Some {js|/books/cousineau-mauny-en.gif|js}
   ; isbn = Some {js|0-521-57681-4|js}
   ; links = 
  [
@@ -981,7 +981,7 @@ synthesis.</p>
  [{js|Nicholas Monje|js}; {js|Allen Downey|js}]
   ; language = {js|english|js}
   ; published = Some {js|2008|js}
-  ; cover = Some {js|books/thinkocaml_cover_web.png|js}
+  ; cover = Some {js|/books/thinkocaml_cover_web.png|js}
   ; isbn = None
   ; links = 
  [

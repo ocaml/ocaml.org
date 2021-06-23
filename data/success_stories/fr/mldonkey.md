@@ -1,6 +1,6 @@
 ---
 title: Le client pair-à-pair MLdonkey
-image: success-stories/mldonkey-thumb.jpg
+image: /success-stories/mldonkey-thumb.jpg
 url: https://mldonkey.sourceforge.net/Main_Page
 ---
 

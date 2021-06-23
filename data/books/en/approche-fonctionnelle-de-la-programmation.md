@@ -5,7 +5,7 @@ authors:
   - Guy Cousineau
   - Michel Mauny
 published: "1995"
-cover: books/cousineau-mauny-fr.gif
+cover: /books/cousineau-mauny-fr.gif
 language: french
 isbn: "2-84074-114-8"
 links:

@@ -7,7 +7,7 @@ description: >
 authors:
   - Bruno Petazzoni
 published: "2001"
-cover: books/petazzoni.jpg
+cover: /books/petazzoni.jpg
 language: french
 isbn: "3-540-67387-3"
 links:

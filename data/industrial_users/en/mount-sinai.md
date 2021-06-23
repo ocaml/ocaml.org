@@ -3,7 +3,7 @@ name: Mount Sinai
 description: > 
   The Hammer Lab at Mount Sinai develops and uses Ketrew for managing complex bioinformatics workflows.
 site: "https://www.mountsinai.org"
-image: users/mount-sinai.png
+image: /users/mount-sinai.png
 locations: 
   - United States
 consortium: false

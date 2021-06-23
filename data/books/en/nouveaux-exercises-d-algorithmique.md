@@ -8,7 +8,7 @@ description: >
 authors:
   - Michel Quercia
 published: "2000"
-cover: books/quercia.gif
+cover: /books/quercia.gif
 language: french
 isbn: "2-7117-8990"
 links:

@@ -10,7 +10,7 @@ authors:
   - Catherine Dubois
   - Valérie Ménissier Morain
 published: "2004"
-cover: books/dubois-menissier.gif
+cover: /books/dubois-menissier.gif
 language: french
 isbn: "2-7462-0819-9"
 ---

@@ -1,6 +1,6 @@
 ---
 title: Jane Street
-image: success-stories/jane-street-thumb.jpg
+image: /success-stories/jane-street-thumb.jpg
 url: https://janestreet.com/technology/
 ---
 

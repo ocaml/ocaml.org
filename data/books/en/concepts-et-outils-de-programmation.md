@@ -6,7 +6,7 @@ authors:
   - Thérèse Accart Hardin
   - Véronique Donzeau-Gouge Viguié
 published: "1992"
-cover: books/hardin-donzeau-gouge.gif
+cover: /books/hardin-donzeau-gouge.gif
 language: french
 isbn: "2-7296-0419-7"
 links:

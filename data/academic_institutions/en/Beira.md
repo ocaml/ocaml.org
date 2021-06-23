@@ -3,7 +3,7 @@ name: Universidade da Beira Interior
 description: >
   The University of Beira Interior is a public university located in the city of Covilhã, Portugal.
 url: "https://www.ubi.pt/en/"
-logo: academic_institution/beira.jpg
+logo: /academic_institution/beira.jpg
 continent: Europe
 courses:
     - name: Certified Programming

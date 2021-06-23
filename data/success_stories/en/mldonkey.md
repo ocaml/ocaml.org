@@ -1,6 +1,6 @@
 ---
 title: The MLdonkey peer-to-peer client
-image: success-stories/mldonkey-thumb.jpg
+image: /success-stories/mldonkey-thumb.jpg
 url: https://mldonkey.sourceforge.net/Main_Page
 ---
 

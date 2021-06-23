@@ -10,7 +10,7 @@ description: >
 authors:
   - Luc Albert
 published: "1997"
-cover: books/albert.gif
+cover: /books/albert.gif
 language: french
 isbn: "2-84180-106-3"
 ---

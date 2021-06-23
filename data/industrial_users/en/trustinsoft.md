@@ -3,7 +3,7 @@ name: TrustInSoft
 description: > 
   TrustInSoft is a company that changes the rules in cybersecurity. TrustInSoft is the software publisher of the software analysis Frama-C platform. 
 site: "https://trust-in-soft.com"
-image: users/trustinsoft.png
+image: /users/trustinsoft.png
 locations: 
   - France
 consortium: false

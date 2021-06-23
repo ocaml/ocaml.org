@@ -3,7 +3,7 @@ name: CACAOWEB
 description: > 
   Cacaoweb is developing an application platform of a new kind. It runs on top of our peer-to-peer network, which happens to be one of the largest in the world
 site: "https://cacaoweb.org/"
-image: users/cacaoweb.png
+image: /users/cacaoweb.png
 locations: 
   - United Kingdom
   - Hong Kong

@@ -1,6 +1,6 @@
 ---
 title: FFTW
-image: success-stories/fftw-thumb.png
+image: /success-stories/fftw-thumb.png
 url: https://www.fftw.org/
 ---
 

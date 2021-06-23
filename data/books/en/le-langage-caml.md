@@ -12,7 +12,7 @@ authors:
   - Xavier Leroy
   - Pierre Weis
 published: "1993"
-cover: books/le-language-caml-cover.jpg
+cover: /books/le-language-caml-cover.jpg
 language: french
 isbn: "2-10-004383-8"
 links:

@@ -3,7 +3,7 @@ name: University of California, San Diego
 description: >
  The University of California, San Diego(UC San Diego or, colloquially, UCSD) is a public land-grant research university in San Diego, California.
 url: "https://ucsd.edu/"
-logo: academic_institution/ucsd_logo.png
+logo: /academic_institution/ucsd_logo.png
 continent: North America
 courses:
     - name:  Programming Languages Principles and Paradigms (along with Python and Prolog)

@@ -3,7 +3,7 @@ name: Cryptosense
 description: > 
   Cryptosense creates security analysis software with a particular focus on cryptographic systems
 site: "https://www.cryptosense.com/"
-image: users/cryptosense.png
+image: /users/cryptosense.png
 locations: 
   - France
 consortium: false

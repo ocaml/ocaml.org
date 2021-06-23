@@ -7,7 +7,7 @@ authors:
   - Jacques Garrigue
   - Didier Rémy
   - Jérôme Vouillon
-cover: books/colour-icon-170x148.png
+cover: /books/colour-icon-170x148.png
 language: english
 links:
   - description: Online

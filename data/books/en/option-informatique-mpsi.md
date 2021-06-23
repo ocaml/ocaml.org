@@ -7,7 +7,7 @@ description: >
 authors:
   - Denis Monasse
 published: "1996"
-cover: books/monasse-1.gif
+cover: /books/monasse-1.gif
 language: french
 isbn: "2-7117-8831-8"
 ---

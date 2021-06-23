@@ -5,7 +5,7 @@ description: >
 authors:
   - Guy Cousineau
 published: "1998"
-cover: books/cousineau-mauny-en.gif
+cover: /books/cousineau-mauny-en.gif
 language: english
 isbn: "0-521-57681-4"
 links:

@@ -27,7 +27,7 @@ let all =
   ; description = {js|The University of Beira Interior is a public university located in the city of Covilhã, Portugal.
 |js}
   ; url = {js|https://www.ubi.pt/en/|js}
-  ; logo = Some {js|academic_institution/beira.jpg|js}
+  ; logo = Some {js|/academic_institution/beira.jpg|js}
   ; continent = {js|Europe|js}
   ; courses = 
  [
@@ -79,7 +79,7 @@ let all =
   ; description = {js|The University of Birmingham is a public research university located in Edgbaston, Birmingham, United Kingdom. It received its royal charter in 1900 as a successor to Queen's College, Birmingham, and Mason Science College, making it the first English civic or 'red brick' university to receive its own royal charter.
 |js}
   ; url = {js|https://www.birmingham.ac.uk/index.aspx|js}
-  ; logo = Some {js|academic_institution/Birmingham.jpg|js}
+  ; logo = Some {js|/academic_institution/Birmingham.jpg|js}
   ; continent = {js|Europe|js}
   ; courses = 
  [
@@ -102,7 +102,7 @@ let all =
   ; description = {js|Boston College is a private, Jesuit research university in Chestnut Hill, Massachusetts. Founded in 1863, the university has more than 9,300 full-time undergraduates and nearly 5,000 graduate students. 
 |js}
   ; url = {js|https://www.bc.edu/|js}
-  ; logo = Some {js|academic_institution/boston.png|js}
+  ; logo = Some {js|/academic_institution/boston.png|js}
   ; continent = {js|North America|js}
   ; courses = 
  [
@@ -125,7 +125,7 @@ let all =
   ; description = {js|The University of Cambridge is a collegiate research university in Cambridge, United Kingdom. 
 |js}
   ; url = {js|https://www.cam.ac.uk/|js}
-  ; logo = Some {js|academic_institution/cambridge.jpg|js}
+  ; logo = Some {js|/academic_institution/cambridge.jpg|js}
   ; continent = {js|Europe|js}
   ; courses = 
  [
@@ -169,7 +169,7 @@ let all =
   ; description = {js|Aix-Marseille University is a public research university located in the region of Provence, southern France. 
 |js}
   ; url = {js|https://www.univ-amu.fr/en|js}
-  ; logo = Some {js|academic_institution/aix.jpg|js}
+  ; logo = Some {js|/academic_institution/aix.jpg|js}
   ; continent = {js|Europe|js}
   ; courses = 
  [
@@ -191,7 +191,7 @@ let all =
   ; description = {js|Aarhus University (Danish: Aarhus Universitet, abbreviated AU) is the largest and second oldest research university in Denmark.The university belongs to the Coimbra Group, the Guild, and Utrecht Network of European universities and is a member of the European University Association.
 |js}
   ; url = {js|https://international.au.dk/|js}
-  ; logo = Some {js|academic_institution/arhus.png|js}
+  ; logo = Some {js|/academic_institution/arhus.png|js}
   ; continent = {js|Europe|js}
   ; courses = 
  [
@@ -214,7 +214,7 @@ let all =
   ; description = {js|Brown University is a private Ivy League research university in Providence, Rhode Island. 
 |js}
   ; url = {js|https://www.brown.edu/|js}
-  ; logo = Some {js|academic_institution/brown.png|js}
+  ; logo = Some {js|/academic_institution/brown.png|js}
   ; continent = {js|North America|js}
   ; courses = 
  [
@@ -236,7 +236,7 @@ let all =
   ; description = {js|The California Institute of Technology is a private research university in Pasadena, California. 
 |js}
   ; url = {js|https://www.caltech.edu/|js}
-  ; logo = Some {js|academic_institution/caltech.png|js}
+  ; logo = Some {js|/academic_institution/caltech.png|js}
   ; continent = {js|North America|js}
   ; courses = 
  [
@@ -258,7 +258,7 @@ let all =
   ; description = {js|Columbia University is a private Ivy League research university in New York City. 
 |js}
   ; url = {js|https://www.columbia.edu/|js}
-  ; logo = Some {js|academic_institution/columbia.png|js}
+  ; logo = Some {js|/academic_institution/columbia.png|js}
   ; continent = {js|North America|js}
   ; courses = 
  [
@@ -281,7 +281,7 @@ let all =
   ; description = {js|Cornell University is a private, statutory, Ivy League and land-grant research university in Ithaca, New York. 
 |js}
   ; url = {js|https://www.cornell.edu/|js}
-  ; logo = Some {js|academic_institution/cornell.png|js}
+  ; logo = Some {js|/academic_institution/cornell.png|js}
   ; continent = {js|North America|js}
   ; courses = 
  [
@@ -303,7 +303,7 @@ let all =
   ; description = {js|Pierre and Marie Curie University, titled as UPMC from 2007 to 2017 and also known as Paris 6, was a public research university in Paris, France, from 1971 to 2017. The university was located on the Jussieu Campus in the Latin Quarter of the 5th arrondissement of Paris, France. 
 |js}
   ; url = {js|https://www.sorbonne-universite.fr/|js}
-  ; logo = Some {js|academic_institution/curie.jpg|js}
+  ; logo = Some {js|/academic_institution/curie.jpg|js}
   ; continent = {js|Europe|js}
   ; courses = 
  [
@@ -353,7 +353,7 @@ let all =
   ; description = {js|Harvard University is a private Ivy League research university in Cambridge, Massachusetts. higher education academy. 
 |js}
   ; url = {js|https://www.harvard.edu/|js}
-  ; logo = Some {js|academic_institution/harvard.png|js}
+  ; logo = Some {js|/academic_institution/harvard.png|js}
   ; continent = {js|North America|js}
   ; courses = 
  [
@@ -381,7 +381,7 @@ let all =
   ; description = {js|Indian Institute of Technology Delhi is a public technical and research university located in Hauz Khas in South Delhi, Delhi, India. 
 |js}
   ; url = {js|https://home.iitd.ac.in/|js}
-  ; logo = Some {js|academic_institution/iitd.png|js}
+  ; logo = Some {js|/academic_institution/iitd.png|js}
   ; continent = {js|Asia|js}
   ; courses = 
  [
@@ -403,7 +403,7 @@ let all =
   ; description = {js|The University of Illinois Urbana-Champaign is a public land-grant research university in Illinois in the twin cities of Champaign and Urbana.
 |js}
   ; url = {js|https://illinois.edu/|js}
-  ; logo = Some {js|academic_institution/illinois.jpeg|js}
+  ; logo = Some {js|/academic_institution/illinois.jpeg|js}
   ; continent = {js|North America|js}
   ; courses = 
  [
@@ -426,7 +426,7 @@ let all =
   ; description = {js|The University of Innsbruck is a public university in Innsbruck, the capital of the Austrian federal state of Tyrol, founded in 1669. 
 |js}
   ; url = {js|https://www.uibk.ac.at/index.html.en|js}
-  ; logo = Some {js|academic_institution/university-of-innsbruck-logo.jpg|js}
+  ; logo = Some {js|/academic_institution/university-of-innsbruck-logo.jpg|js}
   ; continent = {js|Europe|js}
   ; courses = 
  [
@@ -448,7 +448,7 @@ let all =
   ; description = {js|The University of California, Los Angeles is a public land-grant research university in Los Angeles, California.
 |js}
   ; url = {js|https://www.ucla.edu/|js}
-  ; logo = Some {js|academic_institution/ucla.jpg|js}
+  ; logo = Some {js|/academic_institution/ucla.jpg|js}
   ; continent = {js|North America|js}
   ; courses = 
  [
@@ -470,7 +470,7 @@ let all =
   ; description = {js|The University of Maryland, College Park is a public land-grant research university in College Park, Maryland.
 |js}
   ; url = {js|https://www.umd.edu/|js}
-  ; logo = Some {js|academic_institution/maryland.gif|js}
+  ; logo = Some {js|/academic_institution/maryland.gif|js}
   ; continent = {js|North America|js}
   ; courses = 
  [
@@ -510,7 +510,7 @@ let all =
   ; description = {js|McGill University is a public research university located in Montreal, Quebec, Canada.
 |js}
   ; url = {js|https://www.mcgill.ca/|js}
-  ; logo = Some {js|academic_institution/mcgill_logo.png|js}
+  ; logo = Some {js|/academic_institution/mcgill_logo.png|js}
   ; continent = {js|North America|js}
   ; courses = 
  [
@@ -562,7 +562,7 @@ let all =
   ; description = {js|The University of Pennsylvania is a private Ivy League research university in Philadelphia, Pennsylvania.
 |js}
   ; url = {js|https://www.upenn.edu/|js}
-  ; logo = Some {js|academic_institution/penn.png|js}
+  ; logo = Some {js|/academic_institution/penn.png|js}
   ; continent = {js|North America|js}
   ; courses = 
  [
@@ -589,7 +589,7 @@ let all =
   ; description = {js|Princeton University is a private Ivy League research university in Princeton, New Jersey. 
 |js}
   ; url = {js|https://www.princeton.edu/|js}
-  ; logo = Some {js|academic_institution/princeton.png|js}
+  ; logo = Some {js|/academic_institution/princeton.png|js}
   ; continent = {js|North America|js}
   ; courses = 
  [
@@ -611,7 +611,7 @@ let all =
   ; description = {js|The University of Rennes 1 is a public university located in the city of Rennes, France. It is under the Academy of Rennes. 
 |js}
   ; url = {js|https://international.univ-rennes1.fr/en/welcome-universite-de-rennes-1|js}
-  ; logo = Some {js|academic_institution/reness.png|js}
+  ; logo = Some {js|/academic_institution/reness.png|js}
   ; continent = {js|Europe|js}
   ; courses = 
  [
@@ -643,7 +643,7 @@ let all =
   ; description = {js|William Marsh Rice University, commonly known as Rice University, is a private research university in Houston, Texas. 
 |js}
   ; url = {js|https://www.rice.edu/|js}
-  ; logo = Some {js|academic_institution/rice.jpg|js}
+  ; logo = Some {js|/academic_institution/rice.jpg|js}
   ; continent = {js|North America|js}
   ; courses = 
  [
@@ -665,7 +665,7 @@ let all =
   ; description = {js|The University of California, San Diego(UC San Diego or, colloquially, UCSD) is a public land-grant research university in San Diego, California.
 |js}
   ; url = {js|https://ucsd.edu/|js}
-  ; logo = Some {js|academic_institution/ucsd_logo.png|js}
+  ; logo = Some {js|/academic_institution/ucsd_logo.png|js}
   ; continent = {js|North America|js}
   ; courses = 
  [
@@ -709,7 +709,7 @@ let all =
   ; description = {js|The University of Massachusetts Amherst is a public land-grant research university in Amherst, Massachusetts. 
 |js}
   ; url = {js|https://www.umass.edu/|js}
-  ; logo = Some {js|academic_institution/umas.jpeg|js}
+  ; logo = Some {js|/academic_institution/umas.jpeg|js}
   ; continent = {js|North America|js}
   ; courses = 
  [
@@ -731,7 +731,7 @@ let all =
   ; description = {js|The University of Virginia is a public research university in Charlottesville, Virginia. 
 |js}
   ; url = {js|https://www.virginia.edu/|js}
-  ; logo = Some {js|academic_institution/virginia.png|js}
+  ; logo = Some {js|/academic_institution/virginia.png|js}
   ; continent = {js|North America|js}
   ; courses = 
  [
@@ -753,7 +753,7 @@ let all =
   ; description = {js|The University of Wrocław is a public research university located in Wrocław, Poland. 
 |js}
   ; url = {js|https://uni.wroc.pl/en/|js}
-  ; logo = Some {js|academic_institution/wroclaw.jpg|js}
+  ; logo = Some {js|/academic_institution/wroclaw.jpg|js}
   ; continent = {js|Europe|js}
   ; courses = 
  [

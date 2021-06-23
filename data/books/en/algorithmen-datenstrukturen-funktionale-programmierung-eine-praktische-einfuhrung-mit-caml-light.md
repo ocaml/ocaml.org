@@ -8,7 +8,7 @@ description: >
 authors:
   - Juergen Wolff von Gudenberg
 published: "1996"
-cover: books/wolff.gif
+cover: /books/wolff.gif
 language: german
 ---
 

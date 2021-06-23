@@ -6,7 +6,7 @@ authors:
   - Xavier Leroy
   - Pierre Weis
 published: "1993"
-cover: books/manuel-de-reference-du-langage-caml-cover.jpg
+cover: /books/manuel-de-reference-du-langage-caml-cover.jpg
 language: french
 isbn: "2-7296-0492-8"
 links:
