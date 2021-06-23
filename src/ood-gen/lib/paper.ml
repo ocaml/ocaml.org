@@ -25,18 +25,18 @@ let all () =
 let pp ppf v =
   Fmt.pf ppf
     {|
-  { title = %S
-  ; slug = %S
-  ; publication = %S
+  { title = %a
+  ; slug = %a
+  ; publication = %a
   ; authors = %a
-  ; abstract = %S
+  ; abstract = %a
   ; tags = %a
   ; year = %i
   ; links = %a
   }|}
-    v.title (Utils.slugify v.title) v.publication (Pp.list Pp.quoted_string)
-    v.authors v.abstract (Pp.list Pp.quoted_string) v.tags v.year
-    (Pp.list Pp.quoted_string) v.links
+    Pp.string v.title Pp.string (Utils.slugify v.title) Pp.string v.publication
+    (Pp.list Pp.string) v.authors Pp.string v.abstract (Pp.list Pp.string)
+    v.tags v.year (Pp.list Pp.string) v.links
 
 let pp_list = Pp.list pp
 

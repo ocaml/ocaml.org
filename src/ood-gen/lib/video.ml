@@ -85,23 +85,20 @@ let pp_kind ppf v =
 let pp ppf v =
   Fmt.pf ppf
     {|
-  { title = %S
-  ; slug = %S
-  ; description = %S
+  { title = %a
+  ; slug = %a
+  ; description = %a
   ; people = %a
   ; kind = %a
   ; tags = %a
   ; paper = %a
-  ; link = %S
+  ; link = %a
   ; embed = %a
   ; year = %i
   }|}
-    v.title v.slug v.description Pp.string_list v.people pp_kind v.kind
-    Pp.string_list v.tags
-    (Pp.option Pp.quoted_string)
-    v.paper v.link
-    (Pp.option Pp.quoted_string)
-    v.embed v.year
+    Pp.string v.title Pp.string v.slug Pp.string v.description Pp.string_list
+    v.people pp_kind v.kind Pp.string_list v.tags (Pp.option Pp.string) v.paper
+    Pp.string v.link (Pp.option Pp.string) v.embed v.year
 
 let pp_list = Pp.list pp
 

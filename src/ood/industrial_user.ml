@@ -13,648 +13,847 @@ type t =
 
 let all = 
 [
-  { name = "Aesthetic Integration"
-  ; slug = "aesthetic-integration"
-  ; description = "Aesthetic Integration (AI) is a financial technology startup based in the City of London\n"
-  ; image = Some 
- "users/aesthetic-integration.png"
-  ; site = "https://www.aestheticintegration.com"
+  { name = {js|Aesthetic Integration|js}
+  ; slug = {js|aesthetic-integration|js}
+  ; description = {js|Aesthetic Integration (AI) is a financial technology startup based in the City of London
+|js}
+  ; image = Some {js|users/aesthetic-integration.png|js}
+  ; site = {js|https://www.aestheticintegration.com|js}
   ; locations = 
- ["United Kingdom"]
+ [{js|United Kingdom|js}]
   ; consortium = true
-  ; body_md = "\nAesthetic Integration (AI) is a financial technology startup based in the City of London. AI's patent-pending formal verification technology is revolutionising the safety, stability and transparency of global financial markets.\n"
-  ; body_html = "<p>Aesthetic Integration (AI) is a financial technology startup based in the City of London. AI's patent-pending formal verification technology is revolutionising the safety, stability and transparency of global financial markets.</p>\n"
+  ; body_md = {js|
+Aesthetic Integration (AI) is a financial technology startup based in the City of London. AI's patent-pending formal verification technology is revolutionising the safety, stability and transparency of global financial markets.
+|js}
+  ; body_html = {js|<p>Aesthetic Integration (AI) is a financial technology startup based in the City of London. AI's patent-pending formal verification technology is revolutionising the safety, stability and transparency of global financial markets.</p>
+|js}
   };
  
-  { name = "Ahrefs"
-  ; slug = "ahrefs"
-  ; description = "Ahrefs develops custom distributed petabyte-scale storage and runs an internet-wide crawler to collect the index of the whole Web\n"
-  ; image = Some 
- "users/ahrefs.png"
-  ; site = "https://www.ahrefs.com"
+  { name = {js|Ahrefs|js}
+  ; slug = {js|ahrefs|js}
+  ; description = {js|Ahrefs develops custom distributed petabyte-scale storage and runs an internet-wide crawler to collect the index of the whole Web
+|js}
+  ; image = Some {js|users/ahrefs.png|js}
+  ; site = {js|https://www.ahrefs.com|js}
   ; locations = 
- ["Singapore"; "United States"]
+ [{js|Singapore|js}; {js|United States|js}]
   ; consortium = true
-  ; body_md = "\nAhrefs develops custom distributed petabyte-scale storage and runs an internet-wide crawler to collect the index of the whole Web. On top of that the company is building various analytical services for end-users. OCaml is the main language of the Ahrefs backend, which is currently processing up to 6 billion pages a day. Ahrefs is a multinational team with roots from Ukraine and offices in Singapore and San Francisco.\n"
-  ; body_html = "<p>Ahrefs develops custom distributed petabyte-scale storage and runs an internet-wide crawler to collect the index of the whole Web. On top of that the company is building various analytical services for end-users. OCaml is the main language of the Ahrefs backend, which is currently processing up to 6 billion pages a day. Ahrefs is a multinational team with roots from Ukraine and offices in Singapore and San Francisco.</p>\n"
+  ; body_md = {js|
+Ahrefs develops custom distributed petabyte-scale storage and runs an internet-wide crawler to collect the index of the whole Web. On top of that the company is building various analytical services for end-users. OCaml is the main language of the Ahrefs backend, which is currently processing up to 6 billion pages a day. Ahrefs is a multinational team with roots from Ukraine and offices in Singapore and San Francisco.
+|js}
+  ; body_html = {js|<p>Ahrefs develops custom distributed petabyte-scale storage and runs an internet-wide crawler to collect the index of the whole Web. On top of that the company is building various analytical services for end-users. OCaml is the main language of the Ahrefs backend, which is currently processing up to 6 billion pages a day. Ahrefs is a multinational team with roots from Ukraine and offices in Singapore and San Francisco.</p>
+|js}
   };
  
-  { name = "American Museum of Natural History"
-  ; slug = "american-museum-of-natural-history"
-  ; description = "The Computational Sciences Department at the AMNH has been using OCaml for almost a decade in their software package POY for phylogenetic inference\n"
-  ; image = Some 
- "users/amnh.png"
-  ; site = "https://www.amnh.org/our-research/computational-sciences"
+  { name = {js|American Museum of Natural History|js}
+  ; slug = {js|american-museum-of-natural-history|js}
+  ; description = {js|The Computational Sciences Department at the AMNH has been using OCaml for almost a decade in their software package POY for phylogenetic inference
+|js}
+  ; image = Some {js|users/amnh.png|js}
+  ; site = {js|https://www.amnh.org/our-research/computational-sciences|js}
   ; locations = 
- ["United States"]
+ [{js|United States|js}]
   ; consortium = false
-  ; body_md = "\nThe Computational Sciences Department at the AMNH has been using OCaml for almost a decade in their software package [POY](https://github.com/amnh/poy5) for phylogenetic inference. See [AMNH's GitHub page](https://github.com/AMNH) for more projects.\n"
-  ; body_html = "<p>The Computational Sciences Department at the AMNH has been using OCaml for almost a decade in their software package <a href=\"https://github.com/amnh/poy5\">POY</a> for phylogenetic inference. See <a href=\"https://github.com/AMNH\">AMNH's GitHub page</a> for more projects.</p>\n"
+  ; body_md = {js|
+The Computational Sciences Department at the AMNH has been using OCaml for almost a decade in their software package [POY](https://github.com/amnh/poy5) for phylogenetic inference. See [AMNH's GitHub page](https://github.com/AMNH) for more projects.
+|js}
+  ; body_html = {js|<p>The Computational Sciences Department at the AMNH has been using OCaml for almost a decade in their software package <a href="https://github.com/amnh/poy5">POY</a> for phylogenetic inference. See <a href="https://github.com/AMNH">AMNH's GitHub page</a> for more projects.</p>
+|js}
   };
  
-  { name = "ANSSI"
-  ; slug = "anssi"
-  ; description = "The ANSSI core missions are: to detect and react to cyber attacks, to prevent threats, to provide advice and support to governmental entities and operators of critical infrastructure, and to keep companies and the general public informed about information security threats\n"
-  ; image = Some 
- "users/anssi.png"
-  ; site = "https://www.ssi.gouv.fr/"
+  { name = {js|ANSSI|js}
+  ; slug = {js|anssi|js}
+  ; description = {js|The ANSSI core missions are: to detect and react to cyber attacks, to prevent threats, to provide advice and support to governmental entities and operators of critical infrastructure, and to keep companies and the general public informed about information security threats
+|js}
+  ; image = Some {js|users/anssi.png|js}
+  ; site = {js|https://www.ssi.gouv.fr/|js}
   ; locations = 
- ["France"]
+ [{js|France|js}]
   ; consortium = false
-  ; body_md = "\nThe ANSSI core missions are: to detect and react to cyber attacks, to prevent threats, to provide advice and support to governmental entities and operators of critical infrastructure, and to keep companies and the general public informed about information security threats. See [ANSII's GitHub page](https://github.com/anssi-fr) for some of its OCaml software.\n"
-  ; body_html = "<p>The ANSSI core missions are: to detect and react to cyber attacks, to prevent threats, to provide advice and support to governmental entities and operators of critical infrastructure, and to keep companies and the general public informed about information security threats. See <a href=\"https://github.com/anssi-fr\">ANSII's GitHub page</a> for some of its OCaml software.</p>\n"
+  ; body_md = {js|
+The ANSSI core missions are: to detect and react to cyber attacks, to prevent threats, to provide advice and support to governmental entities and operators of critical infrastructure, and to keep companies and the general public informed about information security threats. See [ANSII's GitHub page](https://github.com/anssi-fr) for some of its OCaml software.
+|js}
+  ; body_html = {js|<p>The ANSSI core missions are: to detect and react to cyber attacks, to prevent threats, to provide advice and support to governmental entities and operators of critical infrastructure, and to keep companies and the general public informed about information security threats. See <a href="https://github.com/anssi-fr">ANSII's GitHub page</a> for some of its OCaml software.</p>
+|js}
   };
  
-  { name = "Arena"
-  ; slug = "arena"
-  ; description = "Arena helps organizations hire the right people.\n"
-  ; image = Some 
- "users/arena.jpg"
-  ; site = "https://www.arena.io"
+  { name = {js|Arena|js}
+  ; slug = {js|arena|js}
+  ; description = {js|Arena helps organizations hire the right people.
+|js}
+  ; image = Some {js|users/arena.jpg|js}
+  ; site = {js|https://www.arena.io|js}
   ; locations = 
- ["United States"]
+ [{js|United States|js}]
   ; consortium = false
-  ; body_md = "\nArena helps organizations hire the right people. We do that by applying big data and predictive analytics to the hiring process. This results in less turnover for our clients and less discrimination for individuals. We use OCaml for all of our backend development."
-  ; body_html = "<p>Arena helps organizations hire the right people. We do that by applying big data and predictive analytics to the hiring process. This results in less turnover for our clients and less discrimination for individuals. We use OCaml for all of our backend development.</p>\n"
+  ; body_md = {js|
+Arena helps organizations hire the right people. We do that by applying big data and predictive analytics to the hiring process. This results in less turnover for our clients and less discrimination for individuals. We use OCaml for all of our backend development.|js}
+  ; body_html = {js|<p>Arena helps organizations hire the right people. We do that by applying big data and predictive analytics to the hiring process. This results in less turnover for our clients and less discrimination for individuals. We use OCaml for all of our backend development.</p>
+|js}
   };
  
-  { name = "Be Sport"
-  ; slug = "be-sport"
-  ; description = "Be Sport's mission is to enhance the value that sport brings to our lives with appropriate use of digital and social media innovations\n"
-  ; image = Some 
- "users/besport.png"
-  ; site = "https://besport.com/"
+  { name = {js|Be Sport|js}
+  ; slug = {js|be-sport|js}
+  ; description = {js|Be Sport's mission is to enhance the value that sport brings to our lives with appropriate use of digital and social media innovations
+|js}
+  ; image = Some {js|users/besport.png|js}
+  ; site = {js|https://besport.com/|js}
   ; locations = 
- ["France"]
+ [{js|France|js}]
   ; consortium = true
-  ; body_md = "\nBe Sport's mission is to enhance the value that sport brings to our lives with appropriate use of digital and social media innovations.\n           \nBe Sport is a 100% [OCaml](//ocaml.org/) and [OCsigen](https://ocsigen.org) project, leveraged as the only building blocks to develop the platform. \n"
-  ; body_html = "<p>Be Sport's mission is to enhance the value that sport brings to our lives with appropriate use of digital and social media innovations.</p>\n<p>Be Sport is a 100% <a href=\"//ocaml.org/\">OCaml</a> and <a href=\"https://ocsigen.org\">OCsigen</a> project, leveraged as the only building blocks to develop the platform.</p>\n"
+  ; body_md = {js|
+Be Sport's mission is to enhance the value that sport brings to our lives with appropriate use of digital and social media innovations.
+           
+Be Sport is a 100% [OCaml](//ocaml.org/) and [OCsigen](https://ocsigen.org) project, leveraged as the only building blocks to develop the platform. 
+|js}
+  ; body_html = {js|<p>Be Sport's mission is to enhance the value that sport brings to our lives with appropriate use of digital and social media innovations.</p>
+<p>Be Sport is a 100% <a href="//ocaml.org/">OCaml</a> and <a href="https://ocsigen.org">OCsigen</a> project, leveraged as the only building blocks to develop the platform.</p>
+|js}
   };
  
-  { name = "Bloomberg L.P."
-  ; slug = "bloomberg-lp"
-  ; description = "Bloomberg, the global business and financial information and news leader, gives influential decision makers a critical edge by connecting them to a dynamic network of information, people and ideas\n"
-  ; image = Some 
- "users/bloomberg.jpg"
-  ; site = "https://www.bloomberg.com"
+  { name = {js|Bloomberg L.P.|js}
+  ; slug = {js|bloomberg-lp|js}
+  ; description = {js|Bloomberg, the global business and financial information and news leader, gives influential decision makers a critical edge by connecting them to a dynamic network of information, people and ideas
+|js}
+  ; image = Some {js|users/bloomberg.jpg|js}
+  ; site = {js|https://www.bloomberg.com|js}
   ; locations = 
- ["United States"]
+ [{js|United States|js}]
   ; consortium = true
-  ; body_md = "\nBloomberg, the global business and financial information and news leader, gives influential decision makers a critical edge by connecting them to a dynamic network of information, people and ideas. Bloomberg employs OCaml in an advanced financial derivatives risk management application delivered through its Bloomberg Professional service."
-  ; body_html = "<p>Bloomberg, the global business and financial information and news leader, gives influential decision makers a critical edge by connecting them to a dynamic network of information, people and ideas. Bloomberg employs OCaml in an advanced financial derivatives risk management application delivered through its Bloomberg Professional service.</p>\n"
+  ; body_md = {js|
+Bloomberg, the global business and financial information and news leader, gives influential decision makers a critical edge by connecting them to a dynamic network of information, people and ideas. Bloomberg employs OCaml in an advanced financial derivatives risk management application delivered through its Bloomberg Professional service.|js}
+  ; body_html = {js|<p>Bloomberg, the global business and financial information and news leader, gives influential decision makers a critical edge by connecting them to a dynamic network of information, people and ideas. Bloomberg employs OCaml in an advanced financial derivatives risk management application delivered through its Bloomberg Professional service.</p>
+|js}
   };
  
-  { name = "CACAOWEB"
-  ; slug = "cacaoweb"
-  ; description = "Cacaoweb is developing an application platform of a new kind. It runs on top of our peer-to-peer network, which happens to be one of the largest in the world\n"
-  ; image = Some 
- "users/cacaoweb.png"
-  ; site = "https://cacaoweb.org/"
+  { name = {js|CACAOWEB|js}
+  ; slug = {js|cacaoweb|js}
+  ; description = {js|Cacaoweb is developing an application platform of a new kind. It runs on top of our peer-to-peer network, which happens to be one of the largest in the world
+|js}
+  ; image = Some {js|users/cacaoweb.png|js}
+  ; site = {js|https://cacaoweb.org/|js}
   ; locations = 
- ["United Kingdom"; "Hong Kong"]
+ [{js|United Kingdom|js}; {js|Hong Kong|js}]
   ; consortium = false
-  ; body_md = "\nCacaoweb is developing an application platform of a new kind. It runs on top of our peer-to-peer network, which happens to be one of the largest in the world. The capabilities of the platform are diverse and range from multimedia streaming to social communication, offline storage or data synchronisation. We design and implement massively distributed data stores, programming languages, runtime systems and parallel computation frameworks.\n"
-  ; body_html = "<p>Cacaoweb is developing an application platform of a new kind. It runs on top of our peer-to-peer network, which happens to be one of the largest in the world. The capabilities of the platform are diverse and range from multimedia streaming to social communication, offline storage or data synchronisation. We design and implement massively distributed data stores, programming languages, runtime systems and parallel computation frameworks.</p>\n"
+  ; body_md = {js|
+Cacaoweb is developing an application platform of a new kind. It runs on top of our peer-to-peer network, which happens to be one of the largest in the world. The capabilities of the platform are diverse and range from multimedia streaming to social communication, offline storage or data synchronisation. We design and implement massively distributed data stores, programming languages, runtime systems and parallel computation frameworks.
+|js}
+  ; body_html = {js|<p>Cacaoweb is developing an application platform of a new kind. It runs on top of our peer-to-peer network, which happens to be one of the largest in the world. The capabilities of the platform are diverse and range from multimedia streaming to social communication, offline storage or data synchronisation. We design and implement massively distributed data stores, programming languages, runtime systems and parallel computation frameworks.</p>
+|js}
   };
  
-  { name = "CEA"
-  ; slug = "cea"
-  ; description = "CEA is a French state company, member of the OCaml Consortium.\n"
-  ; image = Some 
- "users/cea.png"
-  ; site = "https://cea.fr/"
-  ; locations = ["France"]
+  { name = {js|CEA|js}
+  ; slug = {js|cea|js}
+  ; description = {js|CEA is a French state company, member of the OCaml Consortium.
+|js}
+  ; image = Some {js|users/cea.png|js}
+  ; site = {js|https://cea.fr/|js}
+  ; locations = 
+ [{js|France|js}]
   ; consortium = true
-  ; body_md = "\nCEA is a French state company, member of the OCaml Consortium. It uses OCaml mainly to develop a platform dedicated to source-code analysis of C software, called [Frama-C](https://frama-c.com).\n"
-  ; body_html = "<p>CEA is a French state company, member of the OCaml Consortium. It uses OCaml mainly to develop a platform dedicated to source-code analysis of C software, called <a href=\"https://frama-c.com\">Frama-C</a>.</p>\n"
+  ; body_md = {js|
+CEA is a French state company, member of the OCaml Consortium. It uses OCaml mainly to develop a platform dedicated to source-code analysis of C software, called [Frama-C](https://frama-c.com).
+|js}
+  ; body_html = {js|<p>CEA is a French state company, member of the OCaml Consortium. It uses OCaml mainly to develop a platform dedicated to source-code analysis of C software, called <a href="https://frama-c.com">Frama-C</a>.</p>
+|js}
   };
  
-  { name = "Citrix"
-  ; slug = "citrix"
-  ; description = "Citrix uses OCaml in XenServer, a world-class server virtualization system.\n"
-  ; image = Some 
- "users/citrix.png"
-  ; site = "https://www.citrix.com"
+  { name = {js|Citrix|js}
+  ; slug = {js|citrix|js}
+  ; description = {js|Citrix uses OCaml in XenServer, a world-class server virtualization system.
+|js}
+  ; image = Some {js|users/citrix.png|js}
+  ; site = {js|https://www.citrix.com|js}
   ; locations = 
- ["United Kingdom"]
+ [{js|United Kingdom|js}]
   ; consortium = true
-  ; body_md = "\nCitrix uses OCaml in XenServer, a world-class server virtualization system. Most components of XenServer are released as open source. The open-source XenServer toolstack components implemented in OCaml are bundled in the [XS-opam](https://github.com/xapi-project/xs-opam) repository on GitHub.\n"
-  ; body_html = "<p>Citrix uses OCaml in XenServer, a world-class server virtualization system. Most components of XenServer are released as open source. The open-source XenServer toolstack components implemented in OCaml are bundled in the <a href=\"https://github.com/xapi-project/xs-opam\">XS-opam</a> repository on GitHub.</p>\n"
+  ; body_md = {js|
+Citrix uses OCaml in XenServer, a world-class server virtualization system. Most components of XenServer are released as open source. The open-source XenServer toolstack components implemented in OCaml are bundled in the [XS-opam](https://github.com/xapi-project/xs-opam) repository on GitHub.
+|js}
+  ; body_html = {js|<p>Citrix uses OCaml in XenServer, a world-class server virtualization system. Most components of XenServer are released as open source. The open-source XenServer toolstack components implemented in OCaml are bundled in the <a href="https://github.com/xapi-project/xs-opam">XS-opam</a> repository on GitHub.</p>
+|js}
   };
  
-  { name = "Coherent Graphics Ltd"
-  ; slug = "coherent-graphics-ltd"
-  ; description = "Coherent Graphics is a developer of both server tools and desktop software for the processing of PDF documents\n"
-  ; image = Some 
- "users/coherent.png"
-  ; site = "https://www.coherentpdf.com/"
+  { name = {js|Coherent Graphics Ltd|js}
+  ; slug = {js|coherent-graphics-ltd|js}
+  ; description = {js|Coherent Graphics is a developer of both server tools and desktop software for the processing of PDF documents
+|js}
+  ; image = Some {js|users/coherent.png|js}
+  ; site = {js|https://www.coherentpdf.com/|js}
   ; locations = 
- ["United Kingdom"]
+ [{js|United Kingdom|js}]
   ; consortium = false
-  ; body_md = "\nCoherent Graphics is a developer of both server tools and desktop software for the processing of PDF documents. We use OCaml as a general-purpose high level language, chosen for its expressiveness and speed.\n"
-  ; body_html = "<p>Coherent Graphics is a developer of both server tools and desktop software for the processing of PDF documents. We use OCaml as a general-purpose high level language, chosen for its expressiveness and speed.</p>\n"
+  ; body_md = {js|
+Coherent Graphics is a developer of both server tools and desktop software for the processing of PDF documents. We use OCaml as a general-purpose high level language, chosen for its expressiveness and speed.
+|js}
+  ; body_html = {js|<p>Coherent Graphics is a developer of both server tools and desktop software for the processing of PDF documents. We use OCaml as a general-purpose high level language, chosen for its expressiveness and speed.</p>
+|js}
   };
  
-  { name = "Cryptosense"
-  ; slug = "cryptosense"
-  ; description = "Cryptosense creates security analysis software with a particular focus on cryptographic systems\n"
-  ; image = Some 
- "users/cryptosense.png"
-  ; site = "https://www.cryptosense.com/"
+  { name = {js|Cryptosense|js}
+  ; slug = {js|cryptosense|js}
+  ; description = {js|Cryptosense creates security analysis software with a particular focus on cryptographic systems
+|js}
+  ; image = Some {js|users/cryptosense.png|js}
+  ; site = {js|https://www.cryptosense.com/|js}
   ; locations = 
- ["France"]
+ [{js|France|js}]
   ; consortium = false
-  ; body_md = "\nBased in Paris, France, Cryptosense creates security analysis software with a particular focus on cryptographic systems. A spin-off of the institute for computer science research (Inria), Cryptosense\226\128\153s founders combine more than 40 years experience in research and industry. Cryptosense provides its solutions to an international client\195\168le in particular in the financial, industrial and government sectors.\n"
-  ; body_html = "<p>Based in Paris, France, Cryptosense creates security analysis software with a particular focus on cryptographic systems. A spin-off of the institute for computer science research (Inria), Cryptosense\226\128\153s founders combine more than 40 years experience in research and industry. Cryptosense provides its solutions to an international client\195\168le in particular in the financial, industrial and government sectors.</p>\n"
+  ; body_md = {js|
+Based in Paris, France, Cryptosense creates security analysis software with a particular focus on cryptographic systems. A spin-off of the institute for computer science research (Inria), Cryptosense’s founders combine more than 40 years experience in research and industry. Cryptosense provides its solutions to an international clientèle in particular in the financial, industrial and government sectors.
+|js}
+  ; body_html = {js|<p>Based in Paris, France, Cryptosense creates security analysis software with a particular focus on cryptographic systems. A spin-off of the institute for computer science research (Inria), Cryptosense’s founders combine more than 40 years experience in research and industry. Cryptosense provides its solutions to an international clientèle in particular in the financial, industrial and government sectors.</p>
+|js}
   };
  
-  { name = "Dassault Syst\195\168mes"
-  ; slug = "dassault-systmes"
-  ; description = "Dassault Syst\195\168mes, the 3DEXPERIENCE Company, provides businesses and people with virtual universes to imagine sustainable innovations.\n"
-  ; image = Some 
- "users/dassault.png"
-  ; site = "https://www.3ds.com/fr/"
+  { name = {js|Dassault Systèmes|js}
+  ; slug = {js|dassault-systmes|js}
+  ; description = {js|Dassault Systèmes, the 3DEXPERIENCE Company, provides businesses and people with virtual universes to imagine sustainable innovations.
+|js}
+  ; image = Some {js|users/dassault.png|js}
+  ; site = {js|https://www.3ds.com/fr/|js}
   ; locations = 
- ["France"]
+ [{js|France|js}]
   ; consortium = false
-  ; body_md = "\nDassault Syst\195\168mes, the 3DEXPERIENCE Company, provides businesses and people with virtual universes to imagine sustainable innovations.\n"
-  ; body_html = "<p>Dassault Syst\195\168mes, the 3DEXPERIENCE Company, provides businesses and people with virtual universes to imagine sustainable innovations.</p>\n"
+  ; body_md = {js|
+Dassault Systèmes, the 3DEXPERIENCE Company, provides businesses and people with virtual universes to imagine sustainable innovations.
+|js}
+  ; body_html = {js|<p>Dassault Systèmes, the 3DEXPERIENCE Company, provides businesses and people with virtual universes to imagine sustainable innovations.</p>
+|js}
   };
  
-  { name = "Dernier Cri"
-  ; slug = "dernier-cri"
-  ; description = "Dernier Cri is a French company based in Lille and Paris using functional programming to develop web and mobile applications.\n"
-  ; image = Some 
- "users/derniercri.png"
-  ; site = "https://derniercri.io"
+  { name = {js|Dernier Cri|js}
+  ; slug = {js|dernier-cri|js}
+  ; description = {js|Dernier Cri is a French company based in Lille and Paris using functional programming to develop web and mobile applications.
+|js}
+  ; image = Some {js|users/derniercri.png|js}
+  ; site = {js|https://derniercri.io|js}
   ; locations = 
- ["France"]
+ [{js|France|js}]
   ; consortium = false
-  ; body_md = "\nDernier Cri is a French company based in Lille and Paris using functional programming to develop web and mobile applications. OCaml is principally used to develop internal tools.\n"
-  ; body_html = "<p>Dernier Cri is a French company based in Lille and Paris using functional programming to develop web and mobile applications. OCaml is principally used to develop internal tools.</p>\n"
+  ; body_md = {js|
+Dernier Cri is a French company based in Lille and Paris using functional programming to develop web and mobile applications. OCaml is principally used to develop internal tools.
+|js}
+  ; body_html = {js|<p>Dernier Cri is a French company based in Lille and Paris using functional programming to develop web and mobile applications. OCaml is principally used to develop internal tools.</p>
+|js}
   };
  
-  { name = "Digirati dba Hostnet"
-  ; slug = "digirati-dba-hostnet"
-  ; description = "Digirati dba Hostnet is a web hosting company.\n"
-  ; image = Some 
- "users/hostnet.gif"
-  ; site = "https://www.hostnet.com.br/"
+  { name = {js|Digirati dba Hostnet|js}
+  ; slug = {js|digirati-dba-hostnet|js}
+  ; description = {js|Digirati dba Hostnet is a web hosting company.
+|js}
+  ; image = Some {js|users/hostnet.gif|js}
+  ; site = {js|https://www.hostnet.com.br/|js}
   ; locations = 
- ["Brazil"]
+ [{js|Brazil|js}]
   ; consortium = false
-  ; body_md = "\nDigirati dba Hostnet is a web hosting company. We use OCaml mostly for internal systems programming and infrastructure services. We have also contributed to the community by releasing a few open source [OCaml libraries](https://github.com/andrenth).\n"
-  ; body_html = "<p>Digirati dba Hostnet is a web hosting company. We use OCaml mostly for internal systems programming and infrastructure services. We have also contributed to the community by releasing a few open source <a href=\"https://github.com/andrenth\">OCaml libraries</a>.</p>\n"
+  ; body_md = {js|
+Digirati dba Hostnet is a web hosting company. We use OCaml mostly for internal systems programming and infrastructure services. We have also contributed to the community by releasing a few open source [OCaml libraries](https://github.com/andrenth).
+|js}
+  ; body_html = {js|<p>Digirati dba Hostnet is a web hosting company. We use OCaml mostly for internal systems programming and infrastructure services. We have also contributed to the community by releasing a few open source <a href="https://github.com/andrenth">OCaml libraries</a>.</p>
+|js}
   };
  
-  { name = "Docker, Inc."
-  ; slug = "docker-inc"
-  ; description = "Docker provides an integrated technology suite that enables development and IT operations teams to build, ship, and run distributed applications anywhere\n"
-  ; image = Some 
- "users/docker.png"
-  ; site = "https://www.docker.com"
+  { name = {js|Docker, Inc.|js}
+  ; slug = {js|docker-inc|js}
+  ; description = {js|Docker provides an integrated technology suite that enables development and IT operations teams to build, ship, and run distributed applications anywhere
+|js}
+  ; image = Some {js|users/docker.png|js}
+  ; site = {js|https://www.docker.com|js}
   ; locations = 
- ["United States"]
+ [{js|United States|js}]
   ; consortium = true
-  ; body_md = "\nDocker provides an integrated technology suite that enables development and IT operations teams to build, ship, and run distributed applications anywhere. Their native [applications for Mac and Windows](https://blog.docker.com/2016/03/docker-for-mac-windows-beta/), use OCaml code taken from the [MirageOS](https://mirage.io) library operating system project. "
-  ; body_html = "<p>Docker provides an integrated technology suite that enables development and IT operations teams to build, ship, and run distributed applications anywhere. Their native <a href=\"https://blog.docker.com/2016/03/docker-for-mac-windows-beta/\">applications for Mac and Windows</a>, use OCaml code taken from the <a href=\"https://mirage.io\">MirageOS</a> library operating system project.</p>\n"
+  ; body_md = {js|
+Docker provides an integrated technology suite that enables development and IT operations teams to build, ship, and run distributed applications anywhere. Their native [applications for Mac and Windows](https://blog.docker.com/2016/03/docker-for-mac-windows-beta/), use OCaml code taken from the [MirageOS](https://mirage.io) library operating system project. |js}
+  ; body_html = {js|<p>Docker provides an integrated technology suite that enables development and IT operations teams to build, ship, and run distributed applications anywhere. Their native <a href="https://blog.docker.com/2016/03/docker-for-mac-windows-beta/">applications for Mac and Windows</a>, use OCaml code taken from the <a href="https://mirage.io">MirageOS</a> library operating system project.</p>
+|js}
   };
  
-  { name = "Esterel Technologies"
-  ; slug = "esterel-technologies"
-  ; description = "Esterel Technologies is a leading provider of critical systems and software development solutions for the aerospace, defense, rail transportation, nuclear, and industrial and automotive domains\n"
-  ; image = Some 
- "users/esterel.jpg"
-  ; site = "https://www.esterel-technologies.com/"
+  { name = {js|Esterel Technologies|js}
+  ; slug = {js|esterel-technologies|js}
+  ; description = {js|Esterel Technologies is a leading provider of critical systems and software development solutions for the aerospace, defense, rail transportation, nuclear, and industrial and automotive domains
+|js}
+  ; image = Some {js|users/esterel.jpg|js}
+  ; site = {js|https://www.esterel-technologies.com/|js}
   ; locations = 
- ["France"]
+ [{js|France|js}]
   ; consortium = true
-  ; body_md = "\nEsterel Technologies is a leading provider of critical systems and software development solutions for the aerospace, defense, rail transportation, nuclear, and industrial and automotive domains.\n"
-  ; body_html = "<p>Esterel Technologies is a leading provider of critical systems and software development solutions for the aerospace, defense, rail transportation, nuclear, and industrial and automotive domains.</p>\n"
+  ; body_md = {js|
+Esterel Technologies is a leading provider of critical systems and software development solutions for the aerospace, defense, rail transportation, nuclear, and industrial and automotive domains.
+|js}
+  ; body_html = {js|<p>Esterel Technologies is a leading provider of critical systems and software development solutions for the aerospace, defense, rail transportation, nuclear, and industrial and automotive domains.</p>
+|js}
   };
  
-  { name = "Facebook"
-  ; slug = "facebook"
-  ; description = "Facebook has built a number of major development tools using OCaml"
-  ; image = Some 
- "users/facebook.png"
-  ; site = "https://www.facebook.com/"
+  { name = {js|Facebook|js}
+  ; slug = {js|facebook|js}
+  ; description = {js|Facebook has built a number of major development tools using OCaml|js}
+  ; image = Some {js|users/facebook.png|js}
+  ; site = {js|https://www.facebook.com/|js}
   ; locations = 
- ["United States"]
+ [{js|United States|js}]
   ; consortium = true
-  ; body_md = "\nFacebook has built a number of major development tools using OCaml. [Hack](https://hacklang.org) is a compiler for a variant of PHP that aims to reconcile the fast development cycle of PHP with the discipline provided by static typing. [Flow](https://flowtype.org) is a similar project that provides static type checking for Javascript.  Both systems are highly responsive, parallel programs that can incorporate source code changes in real time. [Pfff](https://github.com/facebook/pfff/wiki/Main) is a set of tools for code analysis, visualizations, and style-preserving source transformations, written in OCaml, but supporting many languages."
-  ; body_html = "<p>Facebook has built a number of major development tools using OCaml. <a href=\"https://hacklang.org\">Hack</a> is a compiler for a variant of PHP that aims to reconcile the fast development cycle of PHP with the discipline provided by static typing. <a href=\"https://flowtype.org\">Flow</a> is a similar project that provides static type checking for Javascript.  Both systems are highly responsive, parallel programs that can incorporate source code changes in real time. <a href=\"https://github.com/facebook/pfff/wiki/Main\">Pfff</a> is a set of tools for code analysis, visualizations, and style-preserving source transformations, written in OCaml, but supporting many languages.</p>\n"
+  ; body_md = {js|
+Facebook has built a number of major development tools using OCaml. [Hack](https://hacklang.org) is a compiler for a variant of PHP that aims to reconcile the fast development cycle of PHP with the discipline provided by static typing. [Flow](https://flowtype.org) is a similar project that provides static type checking for Javascript.  Both systems are highly responsive, parallel programs that can incorporate source code changes in real time. [Pfff](https://github.com/facebook/pfff/wiki/Main) is a set of tools for code analysis, visualizations, and style-preserving source transformations, written in OCaml, but supporting many languages.|js}
+  ; body_html = {js|<p>Facebook has built a number of major development tools using OCaml. <a href="https://hacklang.org">Hack</a> is a compiler for a variant of PHP that aims to reconcile the fast development cycle of PHP with the discipline provided by static typing. <a href="https://flowtype.org">Flow</a> is a similar project that provides static type checking for Javascript.  Both systems are highly responsive, parallel programs that can incorporate source code changes in real time. <a href="https://github.com/facebook/pfff/wiki/Main">Pfff</a> is a set of tools for code analysis, visualizations, and style-preserving source transformations, written in OCaml, but supporting many languages.</p>
+|js}
   };
  
-  { name = "Fasoo"
-  ; slug = "fasoo"
-  ; description = "Fasoo uses OCaml to develop a static analysis tool.\n"
-  ; image = Some 
- "users/fasoo.png"
-  ; site = "https://www.fasoo.com"
+  { name = {js|Fasoo|js}
+  ; slug = {js|fasoo|js}
+  ; description = {js|Fasoo uses OCaml to develop a static analysis tool.
+|js}
+  ; image = Some {js|users/fasoo.png|js}
+  ; site = {js|https://www.fasoo.com|js}
   ; locations = 
- ["Korea"]
+ [{js|Korea|js}]
   ; consortium = false
-  ; body_md = "\nFasoo uses OCaml to develop a static analysis tool.\n"
-  ; body_html = "<p>Fasoo uses OCaml to develop a static analysis tool.</p>\n"
+  ; body_md = {js|
+Fasoo uses OCaml to develop a static analysis tool.
+|js}
+  ; body_html = {js|<p>Fasoo uses OCaml to develop a static analysis tool.</p>
+|js}
   };
  
-  { name = "Flying Frog Consultancy"
-  ; slug = "flying-frog-consultancy"
-  ; description = "Flying Frog Consultancy Ltd. consult and write books and software on the use of OCaml in the context of scientific computing.\n"
-  ; image = Some 
- "users/flying-frog.png"
-  ; site = "https://www.ffconsultancy.com"
+  { name = {js|Flying Frog Consultancy|js}
+  ; slug = {js|flying-frog-consultancy|js}
+  ; description = {js|Flying Frog Consultancy Ltd. consult and write books and software on the use of OCaml in the context of scientific computing.
+|js}
+  ; image = Some {js|users/flying-frog.png|js}
+  ; site = {js|https://www.ffconsultancy.com|js}
   ; locations = 
- ["United Kingdom"]
+ [{js|United Kingdom|js}]
   ; consortium = false
-  ; body_md = "\nFlying Frog Consultancy Ltd. consult and write books and software on the use of OCaml in the context of scientific computing. OCaml excels in the niche of intrinsically complicated programs between large-scale, array-based programs written in languages such as HPF and small-scale, graphical programs written in languages such as Mathematica.\n"
-  ; body_html = "<p>Flying Frog Consultancy Ltd. consult and write books and software on the use of OCaml in the context of scientific computing. OCaml excels in the niche of intrinsically complicated programs between large-scale, array-based programs written in languages such as HPF and small-scale, graphical programs written in languages such as Mathematica.</p>\n"
+  ; body_md = {js|
+Flying Frog Consultancy Ltd. consult and write books and software on the use of OCaml in the context of scientific computing. OCaml excels in the niche of intrinsically complicated programs between large-scale, array-based programs written in languages such as HPF and small-scale, graphical programs written in languages such as Mathematica.
+|js}
+  ; body_html = {js|<p>Flying Frog Consultancy Ltd. consult and write books and software on the use of OCaml in the context of scientific computing. OCaml excels in the niche of intrinsically complicated programs between large-scale, array-based programs written in languages such as HPF and small-scale, graphical programs written in languages such as Mathematica.</p>
+|js}
   };
  
-  { name = "ForAllSecure"
-  ; slug = "forallsecure"
-  ; description = "ForAllSecure's mission is to test the world's software and provide actionable information to our customers.\n"
-  ; image = Some 
- "users/forallsecure.svg"
-  ; site = "https://forallsecure.com"
+  { name = {js|ForAllSecure|js}
+  ; slug = {js|forallsecure|js}
+  ; description = {js|ForAllSecure's mission is to test the world's software and provide actionable information to our customers.
+|js}
+  ; image = Some {js|users/forallsecure.svg|js}
+  ; site = {js|https://forallsecure.com|js}
   ; locations = 
- ["United States"]
+ [{js|United States|js}]
   ; consortium = false
-  ; body_md = "\nForAllSecure's mission is to test the world's software and provide actionable information to our customers. We have started with Linux. Our mission with Linux is to test all programs in current distributions, such as Debian, Ubuntu, and Red Hat. With time, we will cover other platforms, such as Mac, Windows, and mobile. In the meantime, we promise to do one thing well.\n"
-  ; body_html = "<p>ForAllSecure's mission is to test the world's software and provide actionable information to our customers. We have started with Linux. Our mission with Linux is to test all programs in current distributions, such as Debian, Ubuntu, and Red Hat. With time, we will cover other platforms, such as Mac, Windows, and mobile. In the meantime, we promise to do one thing well.</p>\n"
+  ; body_md = {js|
+ForAllSecure's mission is to test the world's software and provide actionable information to our customers. We have started with Linux. Our mission with Linux is to test all programs in current distributions, such as Debian, Ubuntu, and Red Hat. With time, we will cover other platforms, such as Mac, Windows, and mobile. In the meantime, we promise to do one thing well.
+|js}
+  ; body_html = {js|<p>ForAllSecure's mission is to test the world's software and provide actionable information to our customers. We have started with Linux. Our mission with Linux is to test all programs in current distributions, such as Debian, Ubuntu, and Red Hat. With time, we will cover other platforms, such as Mac, Windows, and mobile. In the meantime, we promise to do one thing well.</p>
+|js}
   };
  
-  { name = "Framtidsforum"
-  ; slug = "framtidsforum"
-  ; description = "Framtidsforum I&M sells ExcelEverywhere, which creates web pages that look and function the same as your MS Excel spreadsheet\n"
+  { name = {js|Framtidsforum|js}
+  ; slug = {js|framtidsforum|js}
+  ; description = {js|Framtidsforum I&M sells ExcelEverywhere, which creates web pages that look and function the same as your MS Excel spreadsheet
+|js}
   ; image = None
-  ; site = "https://www.exceleverywhere.com"
+  ; site = {js|https://www.exceleverywhere.com|js}
   ; locations = 
- ["Sweden"]
+ [{js|Sweden|js}]
   ; consortium = false
-  ; body_md = "\nFramtidsforum I&M sells ExcelEverywhere, which creates web pages that look and function the same as your MS Excel spreadsheet. JavaScript is used for calculation. Supports 140 Excel-functions. Typically used for expense report, survey, order forms, reservation forms, employment application, financial advisor, ROI. There are also versions that generate ASP, ASP.NET and JSP/Java code. The compiler is written using OCaml.\n"
-  ; body_html = "<p>Framtidsforum I&amp;M sells ExcelEverywhere, which creates web pages that look and function the same as your MS Excel spreadsheet. JavaScript is used for calculation. Supports 140 Excel-functions. Typically used for expense report, survey, order forms, reservation forms, employment application, financial advisor, ROI. There are also versions that generate ASP, ASP.NET and JSP/Java code. The compiler is written using OCaml.</p>\n"
+  ; body_md = {js|
+Framtidsforum I&M sells ExcelEverywhere, which creates web pages that look and function the same as your MS Excel spreadsheet. JavaScript is used for calculation. Supports 140 Excel-functions. Typically used for expense report, survey, order forms, reservation forms, employment application, financial advisor, ROI. There are also versions that generate ASP, ASP.NET and JSP/Java code. The compiler is written using OCaml.
+|js}
+  ; body_html = {js|<p>Framtidsforum I&amp;M sells ExcelEverywhere, which creates web pages that look and function the same as your MS Excel spreadsheet. JavaScript is used for calculation. Supports 140 Excel-functions. Typically used for expense report, survey, order forms, reservation forms, employment application, financial advisor, ROI. There are also versions that generate ASP, ASP.NET and JSP/Java code. The compiler is written using OCaml.</p>
+|js}
   };
  
-  { name = "Galois"
-  ; slug = "galois"
-  ; description = "Galois has developed a domain specific declarative language for cryptographic algorithms.\n"
-  ; image = Some 
- "users/galois.png"
-  ; site = "https://www.galois.com"
+  { name = {js|Galois|js}
+  ; slug = {js|galois|js}
+  ; description = {js|Galois has developed a domain specific declarative language for cryptographic algorithms.
+|js}
+  ; image = Some {js|users/galois.png|js}
+  ; site = {js|https://www.galois.com|js}
   ; locations = 
- ["United States"]
+ [{js|United States|js}]
   ; consortium = false
-  ; body_md = "\nGalois has developed a domain specific declarative language for cryptographic algorithms. One of our research compilers is written in OCaml and makes very extensive use of camlp4.\n"
-  ; body_html = "<p>Galois has developed a domain specific declarative language for cryptographic algorithms. One of our research compilers is written in OCaml and makes very extensive use of camlp4.</p>\n"
+  ; body_md = {js|
+Galois has developed a domain specific declarative language for cryptographic algorithms. One of our research compilers is written in OCaml and makes very extensive use of camlp4.
+|js}
+  ; body_html = {js|<p>Galois has developed a domain specific declarative language for cryptographic algorithms. One of our research compilers is written in OCaml and makes very extensive use of camlp4.</p>
+|js}
   };
  
-  { name = "Incubaid"
-  ; slug = "incubaid"
-  ; description = "Incubaid has developed Arakoon, a distributed key-value store that guarantees consistency above anything else.\n"
-  ; image = Some 
- "users/Incubaid.png"
-  ; site = "https://incubaid.com"
+  { name = {js|Incubaid|js}
+  ; slug = {js|incubaid|js}
+  ; description = {js|Incubaid has developed Arakoon, a distributed key-value store that guarantees consistency above anything else.
+|js}
+  ; image = Some {js|users/Incubaid.png|js}
+  ; site = {js|https://incubaid.com|js}
   ; locations = 
- ["Belgium"]
+ [{js|Belgium|js}]
   ; consortium = false
-  ; body_md = "\nIncubaid has developed <a href=\"https://github.com/Incubaid/arakoon\">Arakoon</a>, a distributed key-value store that guarantees consistency above anything else. We created Arakoon due to a lack of existing solutions fitting our requirements, and is available as Open Source software.\n\n"
-  ; body_html = "<p>Incubaid has developed <a href=\"https://github.com/Incubaid/arakoon\">Arakoon</a>, a distributed key-value store that guarantees consistency above anything else. We created Arakoon due to a lack of existing solutions fitting our requirements, and is available as Open Source software.</p>\n"
+  ; body_md = {js|
+Incubaid has developed <a href="https://github.com/Incubaid/arakoon">Arakoon</a>, a distributed key-value store that guarantees consistency above anything else. We created Arakoon due to a lack of existing solutions fitting our requirements, and is available as Open Source software.
+
+|js}
+  ; body_html = {js|<p>Incubaid has developed <a href="https://github.com/Incubaid/arakoon">Arakoon</a>, a distributed key-value store that guarantees consistency above anything else. We created Arakoon due to a lack of existing solutions fitting our requirements, and is available as Open Source software.</p>
+|js}
   };
  
-  { name = "Issuu"
-  ; slug = "issuu"
-  ; description = "Issuu is a digital publishing platform delivering exceptional reading experiences of magazines, catalogues, and newspapers\n"
-  ; image = Some 
- "users/issuu.gif"
-  ; site = "https://issuu.com"
-  ; locations = ["Denmark"]
+  { name = {js|Issuu|js}
+  ; slug = {js|issuu|js}
+  ; description = {js|Issuu is a digital publishing platform delivering exceptional reading experiences of magazines, catalogues, and newspapers
+|js}
+  ; image = Some {js|users/issuu.gif|js}
+  ; site = {js|https://issuu.com|js}
+  ; locations = 
+ [{js|Denmark|js}]
   ; consortium = false
-  ; body_md = "\nIssuu is a digital publishing platform delivering exceptional reading experiences of magazines, catalogues, and newspapers. Each month Issuu serves over 6 billion page views and 60 million users through their worldwide network. OCaml is used as part of the server-side systems, platforms, and web applications. The backend team is relatively small and the simplicity and scalability of both systems and processes are of vital importance.\n"
-  ; body_html = "<p>Issuu is a digital publishing platform delivering exceptional reading experiences of magazines, catalogues, and newspapers. Each month Issuu serves over 6 billion page views and 60 million users through their worldwide network. OCaml is used as part of the server-side systems, platforms, and web applications. The backend team is relatively small and the simplicity and scalability of both systems and processes are of vital importance.</p>\n"
+  ; body_md = {js|
+Issuu is a digital publishing platform delivering exceptional reading experiences of magazines, catalogues, and newspapers. Each month Issuu serves over 6 billion page views and 60 million users through their worldwide network. OCaml is used as part of the server-side systems, platforms, and web applications. The backend team is relatively small and the simplicity and scalability of both systems and processes are of vital importance.
+|js}
+  ; body_html = {js|<p>Issuu is a digital publishing platform delivering exceptional reading experiences of magazines, catalogues, and newspapers. Each month Issuu serves over 6 billion page views and 60 million users through their worldwide network. OCaml is used as part of the server-side systems, platforms, and web applications. The backend team is relatively small and the simplicity and scalability of both systems and processes are of vital importance.</p>
+|js}
   };
  
-  { name = "Jane Street"
-  ; slug = "jane-street"
-  ; description = "Jane Street is a quantitative trading firm that operates around the clock and around the globe\n"
-  ; image = Some 
- "users/jane-street.jpg"
-  ; site = "https://janestreet.com"
+  { name = {js|Jane Street|js}
+  ; slug = {js|jane-street|js}
+  ; description = {js|Jane Street is a quantitative trading firm that operates around the clock and around the globe
+|js}
+  ; image = Some {js|users/jane-street.jpg|js}
+  ; site = {js|https://janestreet.com|js}
   ; locations = 
- ["United States"; "United Kingdom"; "Hong Kong"]
+ [{js|United States|js}; {js|United Kingdom|js}; {js|Hong Kong|js}]
   ; consortium = true
-  ; body_md = "\nJane Street is a quantitative trading firm that operates around the clock and around the globe. They bring a deep understanding of markets, a scientific approach, and innovative technology to bear on the problem of trading profitably in the world's highly competitive financial markets. They're the largest commercial user of OCaml, using it for everything from research tools to trading systems to systems infrastructure to accounting systems. Jane Street has over 400 OCaml programmers and over 15 million lines of OCaml, powering a technology platform that trades billions of dollars every day. Half a million lines of their code are released [open source](https://opensource.janestreet.com), and they've created key parts of the open-source OCaml ecosystem, like [Dune](https://dune.build). You can learn more by checking out their [tech blog](https://blog.janestreet.com).\n"
-  ; body_html = "<p>Jane Street is a quantitative trading firm that operates around the clock and around the globe. They bring a deep understanding of markets, a scientific approach, and innovative technology to bear on the problem of trading profitably in the world's highly competitive financial markets. They're the largest commercial user of OCaml, using it for everything from research tools to trading systems to systems infrastructure to accounting systems. Jane Street has over 400 OCaml programmers and over 15 million lines of OCaml, powering a technology platform that trades billions of dollars every day. Half a million lines of their code are released <a href=\"https://opensource.janestreet.com\">open source</a>, and they've created key parts of the open-source OCaml ecosystem, like <a href=\"https://dune.build\">Dune</a>. You can learn more by checking out their <a href=\"https://blog.janestreet.com\">tech blog</a>.</p>\n"
+  ; body_md = {js|
+Jane Street is a quantitative trading firm that operates around the clock and around the globe. They bring a deep understanding of markets, a scientific approach, and innovative technology to bear on the problem of trading profitably in the world's highly competitive financial markets. They're the largest commercial user of OCaml, using it for everything from research tools to trading systems to systems infrastructure to accounting systems. Jane Street has over 400 OCaml programmers and over 15 million lines of OCaml, powering a technology platform that trades billions of dollars every day. Half a million lines of their code are released [open source](https://opensource.janestreet.com), and they've created key parts of the open-source OCaml ecosystem, like [Dune](https://dune.build). You can learn more by checking out their [tech blog](https://blog.janestreet.com).
+|js}
+  ; body_html = {js|<p>Jane Street is a quantitative trading firm that operates around the clock and around the globe. They bring a deep understanding of markets, a scientific approach, and innovative technology to bear on the problem of trading profitably in the world's highly competitive financial markets. They're the largest commercial user of OCaml, using it for everything from research tools to trading systems to systems infrastructure to accounting systems. Jane Street has over 400 OCaml programmers and over 15 million lines of OCaml, powering a technology platform that trades billions of dollars every day. Half a million lines of their code are released <a href="https://opensource.janestreet.com">open source</a>, and they've created key parts of the open-source OCaml ecosystem, like <a href="https://dune.build">Dune</a>. You can learn more by checking out their <a href="https://blog.janestreet.com">tech blog</a>.</p>
+|js}
   };
  
-  { name = "Kernelize"
-  ; slug = "kernelize"
-  ; description = "Kernelyze has developed a novel approximation of two-variable functions that achieves the smallest possible worst-case error among all rank-n approximations.\n"
-  ; image = Some 
- "users/kernelyze-llc-logo.png"
-  ; site = "https://kernelyze.com/"
+  { name = {js|Kernelize|js}
+  ; slug = {js|kernelize|js}
+  ; description = {js|Kernelyze has developed a novel approximation of two-variable functions that achieves the smallest possible worst-case error among all rank-n approximations.
+|js}
+  ; image = Some {js|users/kernelyze-llc-logo.png|js}
+  ; site = {js|https://kernelyze.com/|js}
   ; locations = 
- ["United States"]
+ [{js|United States|js}]
   ; consortium = true
-  ; body_md = "\n\nKernelyze has developed a novel approximation of two-variable functions\nthat achieves the smallest possible worst-case error among all rank-n\napproximations."
-  ; body_html = "<p>Kernelyze has developed a novel approximation of two-variable functions\nthat achieves the smallest possible worst-case error among all rank-n\napproximations.</p>\n"
+  ; body_md = {js|
+
+Kernelyze has developed a novel approximation of two-variable functions
+that achieves the smallest possible worst-case error among all rank-n
+approximations.|js}
+  ; body_html = {js|<p>Kernelyze has developed a novel approximation of two-variable functions
+that achieves the smallest possible worst-case error among all rank-n
+approximations.</p>
+|js}
   };
  
-  { name = "Kong"
-  ; slug = "kong"
-  ; description = "Kong makes it easy to distribute, monetize, manage and consume cloud APIs.\n"
-  ; image = Some 
- "users/mashape.png"
-  ; site = "https://www.konghq.com"
+  { name = {js|Kong|js}
+  ; slug = {js|kong|js}
+  ; description = {js|Kong makes it easy to distribute, monetize, manage and consume cloud APIs.
+|js}
+  ; image = Some {js|users/mashape.png|js}
+  ; site = {js|https://www.konghq.com|js}
   ; locations = 
- ["United States"]
+ [{js|United States|js}]
   ; consortium = false
-  ; body_md = "\nKong makes it easy to distribute, monetize, manage and consume cloud APIs. Mashape is building a world-class marketplace for cloud APIs driven by a passionate community of developers from all over the world as well as enterprise API management and analytics products. We use OCaml in our [APIAnalytics](https://apianalytics.com) product \226\128\148 as part of a mission-critical, lightweight HTTP proxy.\n"
-  ; body_html = "<p>Kong makes it easy to distribute, monetize, manage and consume cloud APIs. Mashape is building a world-class marketplace for cloud APIs driven by a passionate community of developers from all over the world as well as enterprise API management and analytics products. We use OCaml in our <a href=\"https://apianalytics.com\">APIAnalytics</a> product \226\128\148 as part of a mission-critical, lightweight HTTP proxy.</p>\n"
+  ; body_md = {js|
+Kong makes it easy to distribute, monetize, manage and consume cloud APIs. Mashape is building a world-class marketplace for cloud APIs driven by a passionate community of developers from all over the world as well as enterprise API management and analytics products. We use OCaml in our [APIAnalytics](https://apianalytics.com) product — as part of a mission-critical, lightweight HTTP proxy.
+|js}
+  ; body_html = {js|<p>Kong makes it easy to distribute, monetize, manage and consume cloud APIs. Mashape is building a world-class marketplace for cloud APIs driven by a passionate community of developers from all over the world as well as enterprise API management and analytics products. We use OCaml in our <a href="https://apianalytics.com">APIAnalytics</a> product — as part of a mission-critical, lightweight HTTP proxy.</p>
+|js}
   };
  
-  { name = "LexiFi"
-  ; slug = "lexifi"
-  ; description = "LexiFi is an innovative provider of software applications and infrastructure technology for the capital markets industry.\n"
-  ; image = Some 
- "users/lexifi.png"
-  ; site = "https://www.janestreet.com"
+  { name = {js|LexiFi|js}
+  ; slug = {js|lexifi|js}
+  ; description = {js|LexiFi is an innovative provider of software applications and infrastructure technology for the capital markets industry.
+|js}
+  ; image = Some {js|users/lexifi.png|js}
+  ; site = {js|https://www.janestreet.com|js}
   ; locations = 
- ["France"]
+ [{js|France|js}]
   ; consortium = true
-  ; body_md = "\nLexiFi is an innovative provider of software applications and infrastructure technology for the capital markets industry. LexiFi Apropos is powered by an original formalism for describing financial contracts, the result of a long-term research and development effort."
-  ; body_html = "<p>LexiFi is an innovative provider of software applications and infrastructure technology for the capital markets industry. LexiFi Apropos is powered by an original formalism for describing financial contracts, the result of a long-term research and development effort.</p>\n"
+  ; body_md = {js|
+LexiFi is an innovative provider of software applications and infrastructure technology for the capital markets industry. LexiFi Apropos is powered by an original formalism for describing financial contracts, the result of a long-term research and development effort.|js}
+  ; body_html = {js|<p>LexiFi is an innovative provider of software applications and infrastructure technology for the capital markets industry. LexiFi Apropos is powered by an original formalism for describing financial contracts, the result of a long-term research and development effort.</p>
+|js}
   };
  
-  { name = "Matrix Lead"
-  ; slug = "matrix-lead"
-  ; description = "Matrix Lead provides professionals and companies with leading technologies and solutions for spreadsheets. \n"
-  ; image = Some 
- "users/matrixlead.png"
-  ; site = "https://www.matrixlead.com"
+  { name = {js|Matrix Lead|js}
+  ; slug = {js|matrix-lead|js}
+  ; description = {js|Matrix Lead provides professionals and companies with leading technologies and solutions for spreadsheets. 
+|js}
+  ; image = Some {js|users/matrixlead.png|js}
+  ; site = {js|https://www.matrixlead.com|js}
   ; locations = 
- ["France"; "China"]
+ [{js|France|js}; {js|China|js}]
   ; consortium = false
-  ; body_md = "\nMatrix Lead provides professionals and companies with leading technologies and solutions for spreadsheets. We create a range of software to help users better build, verify, optimize and manage their spreadsheets. Our flagship product [10 Studio](https://www.10studio.tech) is a Microsoft Excel add-in that combines our several advanced tools, such as formula editor and spreadsheet verificator. The kernel of our tools is an analyzer that analyzes different properties of spreadsheets (including formulas and VBA macros) especially by abstract interpretation-based static analysis. It was initially developed in the Antiques team of Inria and written in OCaml. Then, we wrap web or .NET languages around the analyzer to make ready-to-use tools.\n"
-  ; body_html = "<p>Matrix Lead provides professionals and companies with leading technologies and solutions for spreadsheets. We create a range of software to help users better build, verify, optimize and manage their spreadsheets. Our flagship product <a href=\"https://www.10studio.tech\">10 Studio</a> is a Microsoft Excel add-in that combines our several advanced tools, such as formula editor and spreadsheet verificator. The kernel of our tools is an analyzer that analyzes different properties of spreadsheets (including formulas and VBA macros) especially by abstract interpretation-based static analysis. It was initially developed in the Antiques team of Inria and written in OCaml. Then, we wrap web or .NET languages around the analyzer to make ready-to-use tools.</p>\n"
+  ; body_md = {js|
+Matrix Lead provides professionals and companies with leading technologies and solutions for spreadsheets. We create a range of software to help users better build, verify, optimize and manage their spreadsheets. Our flagship product [10 Studio](https://www.10studio.tech) is a Microsoft Excel add-in that combines our several advanced tools, such as formula editor and spreadsheet verificator. The kernel of our tools is an analyzer that analyzes different properties of spreadsheets (including formulas and VBA macros) especially by abstract interpretation-based static analysis. It was initially developed in the Antiques team of Inria and written in OCaml. Then, we wrap web or .NET languages around the analyzer to make ready-to-use tools.
+|js}
+  ; body_html = {js|<p>Matrix Lead provides professionals and companies with leading technologies and solutions for spreadsheets. We create a range of software to help users better build, verify, optimize and manage their spreadsheets. Our flagship product <a href="https://www.10studio.tech">10 Studio</a> is a Microsoft Excel add-in that combines our several advanced tools, such as formula editor and spreadsheet verificator. The kernel of our tools is an analyzer that analyzes different properties of spreadsheets (including formulas and VBA macros) especially by abstract interpretation-based static analysis. It was initially developed in the Antiques team of Inria and written in OCaml. Then, we wrap web or .NET languages around the analyzer to make ready-to-use tools.</p>
+|js}
   };
  
-  { name = "MEDIT"
-  ; slug = "medit"
-  ; description = "MEDIT develops SuMo, an advanced bioinformatic system, for the analysis of protein 3D structures and the identification of drug-design targets. \n"
-  ; image = Some 
- "users/medit.jpg"
-  ; site = "https://www.medit-pharma.com/"
+  { name = {js|MEDIT|js}
+  ; slug = {js|medit|js}
+  ; description = {js|MEDIT develops SuMo, an advanced bioinformatic system, for the analysis of protein 3D structures and the identification of drug-design targets. 
+|js}
+  ; image = Some {js|users/medit.jpg|js}
+  ; site = {js|https://www.medit-pharma.com/|js}
   ; locations = 
- ["France"]
+ [{js|France|js}]
   ; consortium = false
-  ; body_md = "\nMEDIT develops [SuMo, an advanced bioinformatic system](\"https://mjambon.com/\") for the analysis of protein 3D structures and the identification of drug-design targets. SuMo is written entirely in OCaml and provides interfaces to several commercial molecular-modeling packages.\n"
-  ; body_html = "<p>MEDIT develops <a href=\"%22https://mjambon.com/%22\">SuMo, an advanced bioinformatic system</a> for the analysis of protein 3D structures and the identification of drug-design targets. SuMo is written entirely in OCaml and provides interfaces to several commercial molecular-modeling packages.</p>\n"
+  ; body_md = {js|
+MEDIT develops [SuMo, an advanced bioinformatic system]("https://mjambon.com/") for the analysis of protein 3D structures and the identification of drug-design targets. SuMo is written entirely in OCaml and provides interfaces to several commercial molecular-modeling packages.
+|js}
+  ; body_html = {js|<p>MEDIT develops <a href="%22https://mjambon.com/%22">SuMo, an advanced bioinformatic system</a> for the analysis of protein 3D structures and the identification of drug-design targets. SuMo is written entirely in OCaml and provides interfaces to several commercial molecular-modeling packages.</p>
+|js}
   };
  
-  { name = "Microsoft"
-  ; slug = "microsoft"
-  ; description = "Facebook has built a number of major development tools using OCaml\n"
-  ; image = Some 
- "users/microsoft.png"
-  ; site = "https://www.microsoft.com"
+  { name = {js|Microsoft|js}
+  ; slug = {js|microsoft|js}
+  ; description = {js|Facebook has built a number of major development tools using OCaml
+|js}
+  ; image = Some {js|users/microsoft.png|js}
+  ; site = {js|https://www.microsoft.com|js}
   ; locations = 
- ["United States"]
+ [{js|United States|js}]
   ; consortium = true
-  ; body_md = "\n"
-  ; body_html = ""
+  ; body_md = {js|
+|js}
+  ; body_html = {js||js}
   };
  
-  { name = "Mount Sinai"
-  ; slug = "mount-sinai"
-  ; description = "The Hammer Lab at Mount Sinai develops and uses Ketrew for managing complex bioinformatics workflows.\n"
-  ; image = Some 
- "users/mount-sinai.png"
-  ; site = "https://www.mountsinai.org"
+  { name = {js|Mount Sinai|js}
+  ; slug = {js|mount-sinai|js}
+  ; description = {js|The Hammer Lab at Mount Sinai develops and uses Ketrew for managing complex bioinformatics workflows.
+|js}
+  ; image = Some {js|users/mount-sinai.png|js}
+  ; site = {js|https://www.mountsinai.org|js}
   ; locations = 
- ["United States"]
+ [{js|United States|js}]
   ; consortium = false
-  ; body_md = "\nThe [Hammer Lab](\"https://www.hammerlab.org\") at Mount Sinai develops and uses [Ketrew](\"https://github.com/hammerlab/ketrew\") for managing complex bioinformatics workflows. Ketrew includes an embedded domain-specific language to simplify the specification of workflows and an engine for the execution of workflows. Ketrew can be run as a command-line application or as a service.\n"
-  ; body_html = "<p>The <a href=\"%22https://www.hammerlab.org%22\">Hammer Lab</a> at Mount Sinai develops and uses <a href=\"%22https://github.com/hammerlab/ketrew%22\">Ketrew</a> for managing complex bioinformatics workflows. Ketrew includes an embedded domain-specific language to simplify the specification of workflows and an engine for the execution of workflows. Ketrew can be run as a command-line application or as a service.</p>\n"
+  ; body_md = {js|
+The [Hammer Lab]("https://www.hammerlab.org") at Mount Sinai develops and uses [Ketrew]("https://github.com/hammerlab/ketrew") for managing complex bioinformatics workflows. Ketrew includes an embedded domain-specific language to simplify the specification of workflows and an engine for the execution of workflows. Ketrew can be run as a command-line application or as a service.
+|js}
+  ; body_html = {js|<p>The <a href="%22https://www.hammerlab.org%22">Hammer Lab</a> at Mount Sinai develops and uses <a href="%22https://github.com/hammerlab/ketrew%22">Ketrew</a> for managing complex bioinformatics workflows. Ketrew includes an embedded domain-specific language to simplify the specification of workflows and an engine for the execution of workflows. Ketrew can be run as a command-line application or as a service.</p>
+|js}
   };
  
-  { name = "Mr. Number"
-  ; slug = "mr-number"
-  ; description = "Mr. Number started as a Silicon Valley startup and developed the Mr. Number app for call blocking, later acquired by WhitePages.\n"
-  ; image = Some 
- "users/mrnumber.jpg"
-  ; site = "https://mrnumber.com/"
+  { name = {js|Mr. Number|js}
+  ; slug = {js|mr-number|js}
+  ; description = {js|Mr. Number started as a Silicon Valley startup and developed the Mr. Number app for call blocking, later acquired by WhitePages.
+|js}
+  ; image = Some {js|users/mrnumber.jpg|js}
+  ; site = {js|https://mrnumber.com/|js}
   ; locations = 
- ["United States"]
+ [{js|United States|js}]
   ; consortium = false
-  ; body_md = "\nMr. Number started as a Silicon Valley startup and developed the Mr. Number app for call blocking, later [acquired by WhitePages](https://allthingsd.com/20130601/whitepages-scoops-up-mr-number-an-android-app-for-blocking-unwanted-calls/). OCaml is used on the server-side as the glue between the various third-party components and services.</p>\n"
-  ; body_html = "<p>Mr. Number started as a Silicon Valley startup and developed the Mr. Number app for call blocking, later <a href=\"https://allthingsd.com/20130601/whitepages-scoops-up-mr-number-an-android-app-for-blocking-unwanted-calls/\">acquired by WhitePages</a>. OCaml is used on the server-side as the glue between the various third-party components and services.</p></p>\n"
+  ; body_md = {js|
+Mr. Number started as a Silicon Valley startup and developed the Mr. Number app for call blocking, later [acquired by WhitePages](https://allthingsd.com/20130601/whitepages-scoops-up-mr-number-an-android-app-for-blocking-unwanted-calls/). OCaml is used on the server-side as the glue between the various third-party components and services.</p>
+|js}
+  ; body_html = {js|<p>Mr. Number started as a Silicon Valley startup and developed the Mr. Number app for call blocking, later <a href="https://allthingsd.com/20130601/whitepages-scoops-up-mr-number-an-android-app-for-blocking-unwanted-calls/">acquired by WhitePages</a>. OCaml is used on the server-side as the glue between the various third-party components and services.</p></p>
+|js}
   };
  
-  { name = "MyLife"
-  ; slug = "mylife"
-  ; description = "MyLife has developed a powerful people search tool that will empower those in need to find anyone, regardless of years past and the life that was built in between.\n"
-  ; image = Some 
- "users/mylife.jpg"
-  ; site = "https://www.mylife.com/"
+  { name = {js|MyLife|js}
+  ; slug = {js|mylife|js}
+  ; description = {js|MyLife has developed a powerful people search tool that will empower those in need to find anyone, regardless of years past and the life that was built in between.
+|js}
+  ; image = Some {js|users/mylife.jpg|js}
+  ; site = {js|https://www.mylife.com/|js}
   ; locations = 
- ["United States"]
+ [{js|United States|js}]
   ; consortium = false
-  ; body_md = "\nMyLife has developed a powerful people search tool that will empower those in need to find anyone, regardless of years past and the life that was built in between."
-  ; body_html = "<p>MyLife has developed a powerful people search tool that will empower those in need to find anyone, regardless of years past and the life that was built in between.</p>\n"
+  ; body_md = {js|
+MyLife has developed a powerful people search tool that will empower those in need to find anyone, regardless of years past and the life that was built in between.|js}
+  ; body_html = {js|<p>MyLife has developed a powerful people search tool that will empower those in need to find anyone, regardless of years past and the life that was built in between.</p>
+|js}
   };
  
-  { name = "Narrow Gate Logic"
-  ; slug = "narrow-gate-logic"
-  ; description = "Narrow Gate Logic is a company using the OCaml language in business and non-business applications.\n"
-  ; image = Some 
- "users/nglogic.png"
-  ; site = "https://nglogic.com"
+  { name = {js|Narrow Gate Logic|js}
+  ; slug = {js|narrow-gate-logic|js}
+  ; description = {js|Narrow Gate Logic is a company using the OCaml language in business and non-business applications.
+|js}
+  ; image = Some {js|users/nglogic.png|js}
+  ; site = {js|https://nglogic.com|js}
   ; locations = 
- ["Poland"]
+ [{js|Poland|js}]
   ; consortium = false
-  ; body_md = "\nNarrow Gate Logic is a company using the OCaml language in business and non-business applications.\n"
-  ; body_html = "<p>Narrow Gate Logic is a company using the OCaml language in business and non-business applications.</p>\n"
+  ; body_md = {js|
+Narrow Gate Logic is a company using the OCaml language in business and non-business applications.
+|js}
+  ; body_html = {js|<p>Narrow Gate Logic is a company using the OCaml language in business and non-business applications.</p>
+|js}
   };
  
-  { name = "Nomadic Labs"
-  ; slug = "nomadic-labs"
-  ; description = "Nomadic Labs houses a team focused on Research and Development. Our core competencies are in programming language theory and practice, distributed systems, and formal verification.\n"
-  ; image = Some 
- "users/nomadic-labs.png"
-  ; site = "https://www.nomadic-labs.com"
+  { name = {js|Nomadic Labs|js}
+  ; slug = {js|nomadic-labs|js}
+  ; description = {js|Nomadic Labs houses a team focused on Research and Development. Our core competencies are in programming language theory and practice, distributed systems, and formal verification.
+|js}
+  ; image = Some {js|users/nomadic-labs.png|js}
+  ; site = {js|https://www.nomadic-labs.com|js}
   ; locations = 
- ["Paris, France"]
+ [{js|Paris, France|js}]
   ; consortium = false
-  ; body_md = "\nNomadic Labs houses a team focused on Research and Development. Our\ncore competencies are in programming language theory and practice,\ndistributed systems, and formal verification. Nomadic Labs focuses on\ncontributing to the development of the Tezos core software, including\nthe smart-contract language, Michelson.\n\nTezos infrastructure is entirely implemented in OCaml. It strongly\nrelies on OCaml efficiency and expressivity. For instance, Michelson\nsmart contracts are represented using OCaml GADTs to prevent many\nruntime errors from happening. Safety and correctness are critical for a\nblockchain and we are glad that the OCaml type system allows for a\nform of a lightweight formal method that can be used on a daily basis.\n"
-  ; body_html = "<p>Nomadic Labs houses a team focused on Research and Development. Our\ncore competencies are in programming language theory and practice,\ndistributed systems, and formal verification. Nomadic Labs focuses on\ncontributing to the development of the Tezos core software, including\nthe smart-contract language, Michelson.</p>\n<p>Tezos infrastructure is entirely implemented in OCaml. It strongly\nrelies on OCaml efficiency and expressivity. For instance, Michelson\nsmart contracts are represented using OCaml GADTs to prevent many\nruntime errors from happening. Safety and correctness are critical for a\nblockchain and we are glad that the OCaml type system allows for a\nform of a lightweight formal method that can be used on a daily basis.</p>\n"
+  ; body_md = {js|
+Nomadic Labs houses a team focused on Research and Development. Our
+core competencies are in programming language theory and practice,
+distributed systems, and formal verification. Nomadic Labs focuses on
+contributing to the development of the Tezos core software, including
+the smart-contract language, Michelson.
+
+Tezos infrastructure is entirely implemented in OCaml. It strongly
+relies on OCaml efficiency and expressivity. For instance, Michelson
+smart contracts are represented using OCaml GADTs to prevent many
+runtime errors from happening. Safety and correctness are critical for a
+blockchain and we are glad that the OCaml type system allows for a
+form of a lightweight formal method that can be used on a daily basis.
+|js}
+  ; body_html = {js|<p>Nomadic Labs houses a team focused on Research and Development. Our
+core competencies are in programming language theory and practice,
+distributed systems, and formal verification. Nomadic Labs focuses on
+contributing to the development of the Tezos core software, including
+the smart-contract language, Michelson.</p>
+<p>Tezos infrastructure is entirely implemented in OCaml. It strongly
+relies on OCaml efficiency and expressivity. For instance, Michelson
+smart contracts are represented using OCaml GADTs to prevent many
+runtime errors from happening. Safety and correctness are critical for a
+blockchain and we are glad that the OCaml type system allows for a
+form of a lightweight formal method that can be used on a daily basis.</p>
+|js}
   };
  
-  { name = "OCamlPro"
-  ; slug = "ocamlpro"
-  ; description = "OCamlPro develops and maintains a development environment for the OCaml language.\n"
-  ; image = Some 
- "users/ocamlpro.png"
-  ; site = "https://www.ocamlpro.com"
+  { name = {js|OCamlPro|js}
+  ; slug = {js|ocamlpro|js}
+  ; description = {js|OCamlPro develops and maintains a development environment for the OCaml language.
+|js}
+  ; image = Some {js|users/ocamlpro.png|js}
+  ; site = {js|https://www.ocamlpro.com|js}
   ; locations = 
- ["France"]
+ [{js|France|js}]
   ; consortium = true
-  ; body_md = "\nOCamlPro develops and maintains a development environment for the OCaml language. They provide services for companies deciding to use OCaml. Among these services: trainings, necessary expertise, tools and libraries long-term support, and specific developments to their applicative domains."
-  ; body_html = "<p>OCamlPro develops and maintains a development environment for the OCaml language. They provide services for companies deciding to use OCaml. Among these services: trainings, necessary expertise, tools and libraries long-term support, and specific developments to their applicative domains.</p>\n"
+  ; body_md = {js|
+OCamlPro develops and maintains a development environment for the OCaml language. They provide services for companies deciding to use OCaml. Among these services: trainings, necessary expertise, tools and libraries long-term support, and specific developments to their applicative domains.|js}
+  ; body_html = {js|<p>OCamlPro develops and maintains a development environment for the OCaml language. They provide services for companies deciding to use OCaml. Among these services: trainings, necessary expertise, tools and libraries long-term support, and specific developments to their applicative domains.</p>
+|js}
   };
  
-  { name = "PRUDENT Technologies and Consulting, Inc."
-  ; slug = "prudent-technologies-and-consulting-inc"
-  ; description = "Prudent Consulting offers IT solutions to large and mid-sized organizations by combining industry experience and technology expertise to help our customers achieve business goals with speed, agility, and great impact.\n"
-  ; image = Some 
- "users/prudent.jpg"
-  ; site = "https://www.prudentconsulting.com"
+  { name = {js|PRUDENT Technologies and Consulting, Inc.|js}
+  ; slug = {js|prudent-technologies-and-consulting-inc|js}
+  ; description = {js|Prudent Consulting offers IT solutions to large and mid-sized organizations by combining industry experience and technology expertise to help our customers achieve business goals with speed, agility, and great impact.
+|js}
+  ; image = Some {js|users/prudent.jpg|js}
+  ; site = {js|https://www.prudentconsulting.com|js}
   ; locations = 
- ["United States"]
+ [{js|United States|js}]
   ; consortium = false
-  ; body_md = "\nPrudent Consulting offers IT solutions to large and mid-sized organizations by combining industry experience and technology expertise to help our customers achieve business goals with speed, agility, and great impact.\n"
-  ; body_html = "<p>Prudent Consulting offers IT solutions to large and mid-sized organizations by combining industry experience and technology expertise to help our customers achieve business goals with speed, agility, and great impact.</p>\n"
+  ; body_md = {js|
+Prudent Consulting offers IT solutions to large and mid-sized organizations by combining industry experience and technology expertise to help our customers achieve business goals with speed, agility, and great impact.
+|js}
+  ; body_html = {js|<p>Prudent Consulting offers IT solutions to large and mid-sized organizations by combining industry experience and technology expertise to help our customers achieve business goals with speed, agility, and great impact.</p>
+|js}
   };
  
-  { name = "Psellos"
-  ; slug = "psellos"
-  ; description = "Psellos is a small group of computer scientists who became intrigued by the idea of coding iOS apps in OCaml.\n"
-  ; image = Some 
- "users/psellos.png"
-  ; site = "https://www.psellos.com"
+  { name = {js|Psellos|js}
+  ; slug = {js|psellos|js}
+  ; description = {js|Psellos is a small group of computer scientists who became intrigued by the idea of coding iOS apps in OCaml.
+|js}
+  ; image = Some {js|users/psellos.png|js}
+  ; site = {js|https://www.psellos.com|js}
   ; locations = 
- ["United States"]
+ [{js|United States|js}]
   ; consortium = false
-  ; body_md = "\nPsellos is a small group of computer scientists who became intrigued by the idea of coding iOS apps in OCaml. It has worked out better than we expected (you can buy our apps in the iTunes App Store), and at least one other company sells apps built with our tools. Our most recent iOS cross compiler is derived from OCaml 4.00.0."
-  ; body_html = "<p>Psellos is a small group of computer scientists who became intrigued by the idea of coding iOS apps in OCaml. It has worked out better than we expected (you can buy our apps in the iTunes App Store), and at least one other company sells apps built with our tools. Our most recent iOS cross compiler is derived from OCaml 4.00.0.</p>\n"
+  ; body_md = {js|
+Psellos is a small group of computer scientists who became intrigued by the idea of coding iOS apps in OCaml. It has worked out better than we expected (you can buy our apps in the iTunes App Store), and at least one other company sells apps built with our tools. Our most recent iOS cross compiler is derived from OCaml 4.00.0.|js}
+  ; body_html = {js|<p>Psellos is a small group of computer scientists who became intrigued by the idea of coding iOS apps in OCaml. It has worked out better than we expected (you can buy our apps in the iTunes App Store), and at least one other company sells apps built with our tools. Our most recent iOS cross compiler is derived from OCaml 4.00.0.</p>
+|js}
   };
  
-  { name = "Sakhalin"
-  ; slug = "sakhalin"
-  ; description = "Sakhalin develops marine charting apps for Apple iPads and iPhones.\n"
+  { name = {js|Sakhalin|js}
+  ; slug = {js|sakhalin|js}
+  ; description = {js|Sakhalin develops marine charting apps for Apple iPads and iPhones.
+|js}
   ; image = None
-  ; site = "https://www.seaiq.com"
+  ; site = {js|https://www.seaiq.com|js}
   ; locations = 
- ["United States"]
+ [{js|United States|js}]
   ; consortium = false
-  ; body_md = "\nSakhalin develops marine charting apps for Apple iPads and iPhones. The full-featured apps display marine charts, GPS and onboard sensor data, Automatic Identification System, weather data, anchor monitoring, etc. The apps have a wide range of users, from occasional recreational boaters to professional river/harbor pilots that board large freighters. They are free to download and try (with a paid upgrade to enable all features). They are written almost entirely in Ocaml with a minor amount of glue to interface with IOS APIs. Ocaml was chosen because it\n\n 1. enables the rapid development of extremely reliable and high-performance software,\n 2. is a mature stable platform\n 3. has a wide range of libraries. \n \nIt was made possible by the great work done by Psellos in porting OCaml to the Apple iOS platform. Feel free to contact Sakhalin if you have any questions about using OCaml on iOS."
-  ; body_html = "<p>Sakhalin develops marine charting apps for Apple iPads and iPhones. The full-featured apps display marine charts, GPS and onboard sensor data, Automatic Identification System, weather data, anchor monitoring, etc. The apps have a wide range of users, from occasional recreational boaters to professional river/harbor pilots that board large freighters. They are free to download and try (with a paid upgrade to enable all features). They are written almost entirely in Ocaml with a minor amount of glue to interface with IOS APIs. Ocaml was chosen because it</p>\n<ol>\n<li>enables the rapid development of extremely reliable and high-performance software,\n</li>\n<li>is a mature stable platform\n</li>\n<li>has a wide range of libraries.\n</li>\n</ol>\n<p>It was made possible by the great work done by Psellos in porting OCaml to the Apple iOS platform. Feel free to contact Sakhalin if you have any questions about using OCaml on iOS.</p>\n"
+  ; body_md = {js|
+Sakhalin develops marine charting apps for Apple iPads and iPhones. The full-featured apps display marine charts, GPS and onboard sensor data, Automatic Identification System, weather data, anchor monitoring, etc. The apps have a wide range of users, from occasional recreational boaters to professional river/harbor pilots that board large freighters. They are free to download and try (with a paid upgrade to enable all features). They are written almost entirely in Ocaml with a minor amount of glue to interface with IOS APIs. Ocaml was chosen because it
+
+ 1. enables the rapid development of extremely reliable and high-performance software,
+ 2. is a mature stable platform
+ 3. has a wide range of libraries. 
+ 
+It was made possible by the great work done by Psellos in porting OCaml to the Apple iOS platform. Feel free to contact Sakhalin if you have any questions about using OCaml on iOS.|js}
+  ; body_html = {js|<p>Sakhalin develops marine charting apps for Apple iPads and iPhones. The full-featured apps display marine charts, GPS and onboard sensor data, Automatic Identification System, weather data, anchor monitoring, etc. The apps have a wide range of users, from occasional recreational boaters to professional river/harbor pilots that board large freighters. They are free to download and try (with a paid upgrade to enable all features). They are written almost entirely in Ocaml with a minor amount of glue to interface with IOS APIs. Ocaml was chosen because it</p>
+<ol>
+<li>enables the rapid development of extremely reliable and high-performance software,
+</li>
+<li>is a mature stable platform
+</li>
+<li>has a wide range of libraries.
+</li>
+</ol>
+<p>It was made possible by the great work done by Psellos in porting OCaml to the Apple iOS platform. Feel free to contact Sakhalin if you have any questions about using OCaml on iOS.</p>
+|js}
   };
  
-  { name = "Shiro Games"
-  ; slug = "shiro-games"
-  ; description = "Shiro Games is developing games using Haxe, a language built with a compiler written in OCaml.\n"
-  ; image = Some 
- "users/shirogames.png"
-  ; site = "https://www.shirogames.com"
+  { name = {js|Shiro Games|js}
+  ; slug = {js|shiro-games|js}
+  ; description = {js|Shiro Games is developing games using Haxe, a language built with a compiler written in OCaml.
+|js}
+  ; image = Some {js|users/shirogames.png|js}
+  ; site = {js|https://www.shirogames.com|js}
   ; locations = 
- ["France"]
+ [{js|France|js}]
   ; consortium = false
-  ; body_md = "\nShiro Games is developing games using [Haxe](https://haxe.org/), a language built with a compiler written in OCaml."
-  ; body_html = "<p>Shiro Games is developing games using <a href=\"https://haxe.org/\">Haxe</a>, a language built with a compiler written in OCaml.</p>\n"
+  ; body_md = {js|
+Shiro Games is developing games using [Haxe](https://haxe.org/), a language built with a compiler written in OCaml.|js}
+  ; body_html = {js|<p>Shiro Games is developing games using <a href="https://haxe.org/">Haxe</a>, a language built with a compiler written in OCaml.</p>
+|js}
   };
  
-  { name = "SimCorp"
-  ; slug = "simcorp"
-  ; description = "Multi-asset platform to support investment decision-making and innovation.\n"
-  ; image = Some 
- "users/simcorp.png"
-  ; site = "https://www.simcorp.com/"
+  { name = {js|SimCorp|js}
+  ; slug = {js|simcorp|js}
+  ; description = {js|Multi-asset platform to support investment decision-making and innovation.
+|js}
+  ; image = Some {js|users/simcorp.png|js}
+  ; site = {js|https://www.simcorp.com/|js}
   ; locations = 
- ["United States"]
+ [{js|United States|js}]
   ; consortium = true
-  ; body_md = "\nMulti-asset platform to support investment decision-making and innovation.\n"
-  ; body_html = "<p>Multi-asset platform to support investment decision-making and innovation.</p>\n"
+  ; body_md = {js|
+Multi-asset platform to support investment decision-making and innovation.
+|js}
+  ; body_html = {js|<p>Multi-asset platform to support investment decision-making and innovation.</p>
+|js}
   };
  
-  { name = "Sleekersoft"
-  ; slug = "sleekersoft"
-  ; description = "Specialises in functional programming software development, consultation, and training.\n"
-  ; image = Some 
- "users/sleekersoft.png"
-  ; site = "https://www.sleekersoft.com"
+  { name = {js|Sleekersoft|js}
+  ; slug = {js|sleekersoft|js}
+  ; description = {js|Specialises in functional programming software development, consultation, and training.
+|js}
+  ; image = Some {js|users/sleekersoft.png|js}
+  ; site = {js|https://www.sleekersoft.com|js}
   ; locations = 
- ["Australia"]
+ [{js|Australia|js}]
   ; consortium = false
-  ; body_md = "\nShiro Games is developing games using [Haxe](https://haxe.org/), a language built with a compiler written in OCaml."
-  ; body_html = "<p>Shiro Games is developing games using <a href=\"https://haxe.org/\">Haxe</a>, a language built with a compiler written in OCaml.</p>\n"
+  ; body_md = {js|
+Shiro Games is developing games using [Haxe](https://haxe.org/), a language built with a compiler written in OCaml.|js}
+  ; body_html = {js|<p>Shiro Games is developing games using <a href="https://haxe.org/">Haxe</a>, a language built with a compiler written in OCaml.</p>
+|js}
   };
  
-  { name = "Solvuu"
-  ; slug = "solvuu"
-  ; description = "Solvuu's software allows users to store big and small data sets, share the data with collaborators, execute computationally intensive algorithms and workflows, and visualize results.\n"
-  ; image = Some 
- "users/solvuu.jpg"
-  ; site = "https://www.solvuu.com"
+  { name = {js|Solvuu|js}
+  ; slug = {js|solvuu|js}
+  ; description = {js|Solvuu's software allows users to store big and small data sets, share the data with collaborators, execute computationally intensive algorithms and workflows, and visualize results.
+|js}
+  ; image = Some {js|users/solvuu.jpg|js}
+  ; site = {js|https://www.solvuu.com|js}
   ; locations = 
- ["United States"]
+ [{js|United States|js}]
   ; consortium = false
-  ; body_md = "\nSolvuu's software allows users to store big and small data sets, share the data with collaborators, execute computationally intensive algorithms and workflows, and visualize results. Its initial focus is on genomics data, which has important implications for healthcare, agriculture, and fundamental research. Virtually all of Solvuu's software stack is implemented in OCaml.\n"
-  ; body_html = "<p>Solvuu's software allows users to store big and small data sets, share the data with collaborators, execute computationally intensive algorithms and workflows, and visualize results. Its initial focus is on genomics data, which has important implications for healthcare, agriculture, and fundamental research. Virtually all of Solvuu's software stack is implemented in OCaml.</p>\n"
+  ; body_md = {js|
+Solvuu's software allows users to store big and small data sets, share the data with collaborators, execute computationally intensive algorithms and workflows, and visualize results. Its initial focus is on genomics data, which has important implications for healthcare, agriculture, and fundamental research. Virtually all of Solvuu's software stack is implemented in OCaml.
+|js}
+  ; body_html = {js|<p>Solvuu's software allows users to store big and small data sets, share the data with collaborators, execute computationally intensive algorithms and workflows, and visualize results. Its initial focus is on genomics data, which has important implications for healthcare, agriculture, and fundamental research. Virtually all of Solvuu's software stack is implemented in OCaml.</p>
+|js}
   };
  
-  { name = "Studio Associato 4Sigma"
-  ; slug = "studio-associato-4sigma"
-  ; description = "4Sigma is a small firm making websites and some interesting web applications.\n"
-  ; image = Some 
- "users/4sigma.png"
-  ; site = "https://www.4sigma.it"
+  { name = {js|Studio Associato 4Sigma|js}
+  ; slug = {js|studio-associato-4sigma|js}
+  ; description = {js|4Sigma is a small firm making websites and some interesting web applications.
+|js}
+  ; image = Some {js|users/4sigma.png|js}
+  ; site = {js|https://www.4sigma.it|js}
   ; locations = 
- ["Italy"]
+ [{js|Italy|js}]
   ; consortium = false
-  ; body_md = "\n4Sigma is a small firm making websites and some interesting web applications. OCaml is not the main language used but it is used here and there, particularly in a small server that is a key component of a service we offer our customers."
-  ; body_html = "<p>4Sigma is a small firm making websites and some interesting web applications. OCaml is not the main language used but it is used here and there, particularly in a small server that is a key component of a service we offer our customers.</p>\n"
+  ; body_md = {js|
+4Sigma is a small firm making websites and some interesting web applications. OCaml is not the main language used but it is used here and there, particularly in a small server that is a key component of a service we offer our customers.|js}
+  ; body_html = {js|<p>4Sigma is a small firm making websites and some interesting web applications. OCaml is not the main language used but it is used here and there, particularly in a small server that is a key component of a service we offer our customers.</p>
+|js}
   };
  
-  { name = "Tarides"
-  ; slug = "tarides"
-  ; description = "Tarides builds and maintains open-source infrastructure tools in OCaml like MirageOS, Irmin and OCaml developer tools.\n"
-  ; image = Some 
- "users/tarides.png"
-  ; site = "https://www.tarides.com"
+  { name = {js|Tarides|js}
+  ; slug = {js|tarides|js}
+  ; description = {js|Tarides builds and maintains open-source infrastructure tools in OCaml like MirageOS, Irmin and OCaml developer tools.
+|js}
+  ; image = Some {js|users/tarides.png|js}
+  ; site = {js|https://www.tarides.com|js}
   ; locations = 
- ["France"]
+ [{js|France|js}]
   ; consortium = false
-  ; body_md = "\nWe are building and maintaining open-source infrastructure tools in OCaml:\n\n - [MirageOS](https://mirage.io), the most advanced unikernel project, where we build sandboxes, network and storage protocol implementations as libraries, so we can link them to our applications to run them without the need of an underlying operating system.\n - [Irmin](\"https://irmin.org\"), a Git-like datastore, which allows us to create fully auditable distributed systems which can work offline and be synced when needed.\n - OCaml development tools (build system, code linters, documentation generators, etc), to make us more efficient. \n  \nTarides was founded in early 2018 and is mainly based in Paris, France (remote work is possible).\n\n"
-  ; body_html = "<p>We are building and maintaining open-source infrastructure tools in OCaml:</p>\n<ul>\n<li><a href=\"https://mirage.io\">MirageOS</a>, the most advanced unikernel project, where we build sandboxes, network and storage protocol implementations as libraries, so we can link them to our applications to run them without the need of an underlying operating system.\n</li>\n<li><a href=\"%22https://irmin.org%22\">Irmin</a>, a Git-like datastore, which allows us to create fully auditable distributed systems which can work offline and be synced when needed.\n</li>\n<li>OCaml development tools (build system, code linters, documentation generators, etc), to make us more efficient.\n</li>\n</ul>\n<p>Tarides was founded in early 2018 and is mainly based in Paris, France (remote work is possible).</p>\n"
+  ; body_md = {js|
+We are building and maintaining open-source infrastructure tools in OCaml:
+
+ - [MirageOS](https://mirage.io), the most advanced unikernel project, where we build sandboxes, network and storage protocol implementations as libraries, so we can link them to our applications to run them without the need of an underlying operating system.
+ - [Irmin]("https://irmin.org"), a Git-like datastore, which allows us to create fully auditable distributed systems which can work offline and be synced when needed.
+ - OCaml development tools (build system, code linters, documentation generators, etc), to make us more efficient. 
+  
+Tarides was founded in early 2018 and is mainly based in Paris, France (remote work is possible).
+
+|js}
+  ; body_html = {js|<p>We are building and maintaining open-source infrastructure tools in OCaml:</p>
+<ul>
+<li><a href="https://mirage.io">MirageOS</a>, the most advanced unikernel project, where we build sandboxes, network and storage protocol implementations as libraries, so we can link them to our applications to run them without the need of an underlying operating system.
+</li>
+<li><a href="%22https://irmin.org%22">Irmin</a>, a Git-like datastore, which allows us to create fully auditable distributed systems which can work offline and be synced when needed.
+</li>
+<li>OCaml development tools (build system, code linters, documentation generators, etc), to make us more efficient.
+</li>
+</ul>
+<p>Tarides was founded in early 2018 and is mainly based in Paris, France (remote work is possible).</p>
+|js}
   };
  
-  { name = "TrustInSoft"
-  ; slug = "trustinsoft"
-  ; description = "TrustInSoft is a company that changes the rules in cybersecurity. TrustInSoft is the software publisher of the software analysis Frama-C platform. \n"
-  ; image = Some 
- "users/trustinsoft.png"
-  ; site = "https://trust-in-soft.com"
+  { name = {js|TrustInSoft|js}
+  ; slug = {js|trustinsoft|js}
+  ; description = {js|TrustInSoft is a company that changes the rules in cybersecurity. TrustInSoft is the software publisher of the software analysis Frama-C platform. 
+|js}
+  ; image = Some {js|users/trustinsoft.png|js}
+  ; site = {js|https://trust-in-soft.com|js}
   ; locations = 
- ["France"]
+ [{js|France|js}]
   ; consortium = false
-  ; body_md = "\nTrustInSoft is a company that changes the rules in cybersecurity. TrustInSoft is the software publisher of the software analysis [Frama-C](https://frama-c.com) platform. Our motto is simple: make the formal methods accessible to the majority of software developers."
-  ; body_html = "<p>TrustInSoft is a company that changes the rules in cybersecurity. TrustInSoft is the software publisher of the software analysis <a href=\"https://frama-c.com\">Frama-C</a> platform. Our motto is simple: make the formal methods accessible to the majority of software developers.</p>\n"
+  ; body_md = {js|
+TrustInSoft is a company that changes the rules in cybersecurity. TrustInSoft is the software publisher of the software analysis [Frama-C](https://frama-c.com) platform. Our motto is simple: make the formal methods accessible to the majority of software developers.|js}
+  ; body_html = {js|<p>TrustInSoft is a company that changes the rules in cybersecurity. TrustInSoft is the software publisher of the software analysis <a href="https://frama-c.com">Frama-C</a> platform. Our motto is simple: make the formal methods accessible to the majority of software developers.</p>
+|js}
   };
  
-  { name = "Wolfram MathCore"
-  ; slug = "wolfram-mathcore"
-  ; description = "Wolfram MathCore uses OCaml to implement its SystemModeler kernel.\n"
-  ; image = Some 
- "users/wolfram-mathcore.gif"
-  ; site = "https://www.wolframmathcore.com"
+  { name = {js|Wolfram MathCore|js}
+  ; slug = {js|wolfram-mathcore|js}
+  ; description = {js|Wolfram MathCore uses OCaml to implement its SystemModeler kernel.
+|js}
+  ; image = Some {js|users/wolfram-mathcore.gif|js}
+  ; site = {js|https://www.wolframmathcore.com|js}
   ; locations = 
- ["Sweden"]
+ [{js|Sweden|js}]
   ; consortium = false
-  ; body_md = "\nWolfram MathCore uses OCaml to implement its SystemModeler kernel. The kernel's main function is to translate models defined in the Modelica language into executable simulation code. This involves parsing and transforming Modelica code, mathematical processing of equations, code generation of C/C++ simulation code, and numerical runtime computations.\n"
-  ; body_html = "<p>Wolfram MathCore uses OCaml to implement its SystemModeler kernel. The kernel's main function is to translate models defined in the Modelica language into executable simulation code. This involves parsing and transforming Modelica code, mathematical processing of equations, code generation of C/C++ simulation code, and numerical runtime computations.</p>\n"
+  ; body_md = {js|
+Wolfram MathCore uses OCaml to implement its SystemModeler kernel. The kernel's main function is to translate models defined in the Modelica language into executable simulation code. This involves parsing and transforming Modelica code, mathematical processing of equations, code generation of C/C++ simulation code, and numerical runtime computations.
+|js}
+  ; body_html = {js|<p>Wolfram MathCore uses OCaml to implement its SystemModeler kernel. The kernel's main function is to translate models defined in the Modelica language into executable simulation code. This involves parsing and transforming Modelica code, mathematical processing of equations, code generation of C/C++ simulation code, and numerical runtime computations.</p>
+|js}
   };
  
-  { name = "Zeo Agency"
-  ; slug = "zeo-agency"
-  ; description = "Zeo is a digital marketing company focused on helping companies to do better in SEO.\n"
+  { name = {js|Zeo Agency|js}
+  ; slug = {js|zeo-agency|js}
+  ; description = {js|Zeo is a digital marketing company focused on helping companies to do better in SEO.
+|js}
   ; image = None
-  ; site = "https://www.zeo.org"
+  ; site = {js|https://www.zeo.org|js}
   ; locations = 
- ["London, United Kingdom"]
+ [{js|London, United Kingdom|js}]
   ; consortium = false
-  ; body_md = "\nZeo is a digital marketing company focused on helping companies to do better in SEO. Due to the nature of our business, we manage billions of lines in our database & create insights by using this data. To utilize our needs effectively, we use OCaml in our data crawling & processing part.\n"
-  ; body_html = "<p>Zeo is a digital marketing company focused on helping companies to do better in SEO. Due to the nature of our business, we manage billions of lines in our database &amp; create insights by using this data. To utilize our needs effectively, we use OCaml in our data crawling &amp; processing part.</p>\n"
+  ; body_md = {js|
+Zeo is a digital marketing company focused on helping companies to do better in SEO. Due to the nature of our business, we manage billions of lines in our database & create insights by using this data. To utilize our needs effectively, we use OCaml in our data crawling & processing part.
+|js}
+  ; body_html = {js|<p>Zeo is a digital marketing company focused on helping companies to do better in SEO. Due to the nature of our business, we manage billions of lines in our database &amp; create insights by using this data. To utilize our needs effectively, we use OCaml in our data crawling &amp; processing part.</p>
+|js}
   }]
 

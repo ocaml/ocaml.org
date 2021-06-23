@@ -43,20 +43,19 @@ let get_consortium () = List.filter (fun (x : t) -> x.consortium) (all ())
 let pp ppf v =
   Fmt.pf ppf
     {|
-  { name = %S
-  ; slug = %S
-  ; description = %S
+  { name = %a
+  ; slug = %a
+  ; description = %a
   ; image = %a
-  ; site = %S
+  ; site = %a
   ; locations = %a
   ; consortium = %b
-  ; body_md = %S
-  ; body_html = %S
+  ; body_md = %a
+  ; body_html = %a
   }|}
-    v.name v.slug v.description
-    (Pp.option Pp.quoted_string)
-    v.image v.site (Pp.list Pp.quoted_string) v.locations v.consortium v.body_md
-    v.body_html
+    Pp.string v.name Pp.string v.slug Pp.string v.description
+    (Pp.option Pp.string) v.image Pp.string v.site (Pp.list Pp.string)
+    v.locations v.consortium Pp.string v.body_md Pp.string v.body_html
 
 let pp_list = Pp.list pp
 

@@ -50,14 +50,11 @@ let all () =
 
 let pp_course ppf (v : course) =
   Fmt.pf ppf {|
-  { name = %S
+  { name = %a
   ; acronym = %a
   ; online_resource  = %a
   }|}
-    v.name
-    (Pp.option Pp.quoted_string)
-    v.acronym
-    (Pp.option Pp.quoted_string)
+    Pp.string v.name (Pp.option Pp.string) v.acronym (Pp.option Pp.string)
     v.online_resource
 
 let pp_location ppf v =
@@ -70,21 +67,21 @@ let pp_location ppf v =
 let pp ppf v =
   Fmt.pf ppf
     {|
-  { name = %S
-  ; slug = %S
-  ; description = %S
-  ; url = %S
+  { name = %a
+  ; slug = %a
+  ; description = %a
+  ; url = %a
   ; logo = %a
-  ; continent = %S
+  ; continent = %a
   ; courses = %a
   ; location = %a
-  ; body_md = %S
-  ; body_html = %S
+  ; body_md = %a
+  ; body_html = %a
   }|}
-    v.name (Utils.slugify v.name) v.description v.url
-    (Pp.option Pp.quoted_string)
-    v.logo v.continent (Pp.list pp_course) v.courses (Pp.option pp_location)
-    v.location v.body_md v.body_html
+    Pp.string v.name Pp.string (Utils.slugify v.name) Pp.string v.description
+    Pp.string v.url (Pp.option Pp.string) v.logo Pp.string v.continent
+    (Pp.list pp_course) v.courses (Pp.option pp_location) v.location Pp.string
+    v.body_md Pp.string v.body_html
 
 let pp_list = Pp.list pp
 

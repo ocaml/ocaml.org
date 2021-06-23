@@ -23,22 +23,19 @@ let all () =
 let pp ppf v =
   Fmt.pf ppf
     {|
-  { title = %S
-  ; slug = %S
-  ; description = %S
-  ; url = %S
-  ; date = %S
+  { title = %a
+  ; slug = %a
+  ; description = %a
+  ; url = %a
+  ; date = %a
   ; tags = %a
   ; online = %b
   ; textual_location = %a
   ; location = %a
   }|}
-    v.title (Utils.slugify v.title) v.description v.url v.date
-    (Pp.list Pp.quoted_string) v.tags v.online
-    (Pp.option Pp.quoted_string)
-    v.textual_location
-    (Pp.option Pp.quoted_string_escape)
-    v.location
+    Pp.string v.title Pp.string (Utils.slugify v.title) Pp.string v.description
+    Pp.string v.url Pp.string v.date (Pp.list Pp.string) v.tags v.online
+    (Pp.option Pp.string) v.textual_location (Pp.option Pp.string) v.location
 
 let pp_list = Pp.list pp
 

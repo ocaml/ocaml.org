@@ -39,37 +39,33 @@ let all () =
 let pp_link ppf (v : link) =
   Fmt.pf ppf
     {|
-      { description = %S
-      ; uri = %S
+      { description = %a
+      ; uri = %a
       }|}
-    v.description v.uri
+    Pp.string v.description Pp.string v.uri
 
 let pp ppf v =
   Fmt.pf ppf
     {|
-  { title = %S
-  ; slug = %S
-  ; description = %S
+  { title = %a
+  ; slug = %a
+  ; description = %a
   ; authors = %a
-  ; language = %S
+  ; language = %a
   ; published = %a
   ; cover = %a
   ; isbn = %a
   ; links = %a
-  ; body_md = %S
-  ; body_html = %S
+  ; body_md = %a
+  ; body_html = %a
   }|}
-    v.meta.title
+    Pp.string v.meta.title Pp.string
     (Utils.slugify v.meta.title)
-    v.meta.description (Pp.list Pp.quoted_string) v.meta.authors v.meta.language
-    (Pp.option Pp.quoted_string)
-    v.meta.published
-    (Pp.option Pp.quoted_string)
-    v.meta.cover
-    (Pp.option Pp.quoted_string)
-    v.meta.isbn (Pp.list pp_link)
+    Pp.string v.meta.description (Pp.list Pp.string) v.meta.authors Pp.string
+    v.meta.language (Pp.option Pp.string) v.meta.published (Pp.option Pp.string)
+    v.meta.cover (Pp.option Pp.string) v.meta.isbn (Pp.list pp_link)
     (Option.value v.meta.links ~default:[])
-    v.body_md v.body_html
+    Pp.string v.body_md Pp.string v.body_html
 
 let pp_list = Pp.list pp
 

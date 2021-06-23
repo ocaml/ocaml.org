@@ -28,18 +28,15 @@ let all () =
 let pp ppf v =
   Fmt.pf ppf
     {|
-  { title = %S
-  ; slug = %S
+  { title = %a
+  ; slug = %a
   ; image = %a
   ; url = %a
-  ; body_md = %S
-  ; body_html = %S
+  ; body_md = %a
+  ; body_html = %a
   }|}
-    v.title v.slug
-    (Pp.option Pp.quoted_string)
-    v.image
-    (Pp.option Pp.quoted_string)
-    v.url v.body_md v.body_html
+    Pp.string v.title Pp.string v.slug (Pp.option Pp.string) v.image
+    (Pp.option Pp.string) v.url Pp.string v.body_md Pp.string v.body_html
 
 let pp_list = Pp.list pp
 

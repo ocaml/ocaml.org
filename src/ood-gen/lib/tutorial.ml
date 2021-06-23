@@ -86,18 +86,19 @@ let pp_proficiency ppf v =
 let pp ppf v =
   Fmt.pf ppf
     {|
-  { title = %S
-  ; slug = %S
-  ; description = %S
-  ; date = %S
+  { title = %a
+  ; slug = %a
+  ; description = %a
+  ; date = %a
   ; tags = %a
   ; users = %a
-  ; body_md = %S
-  ; toc_html = %S
-  ; body_html = %S
+  ; body_md = %a
+  ; toc_html = %a
+  ; body_html = %a
   }|}
-    v.title v.slug v.description v.date Pp.string_list v.tags
-    (Pp.list pp_proficiency) v.users v.body_md v.toc_html v.body_html
+    Pp.string v.title Pp.string v.slug Pp.string v.description Pp.string v.date
+    Pp.string_list v.tags (Pp.list pp_proficiency) v.users Pp.string v.body_md
+    Pp.string v.toc_html Pp.string v.body_html
 
 let pp_list = Pp.list pp
 

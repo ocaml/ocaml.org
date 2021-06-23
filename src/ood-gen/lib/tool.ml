@@ -84,16 +84,16 @@ let pp_lifecycle ppf v =
 let pp ppf v =
   Fmt.pf ppf
     {|
-  { name = %S
-  ; slug = %S
-  ; source = %S
-  ; license = %S
-  ; synopsis = %S
-  ; description = %S
+  { name = %a
+  ; slug = %a
+  ; source = %a
+  ; license = %a
+  ; synopsis = %a
+  ; description = %a
   ; lifecycle = %a
   }|}
-    v.name v.slug v.source v.license v.synopsis v.description pp_lifecycle
-    v.lifecycle
+    Pp.string v.name Pp.string v.slug Pp.string v.source Pp.string v.license
+    Pp.string v.synopsis Pp.string v.description pp_lifecycle v.lifecycle
 
 let pp_list = Pp.list pp
 
