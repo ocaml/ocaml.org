@@ -17,6 +17,26 @@ module Large: {
   ) => React.element
 }
 
+module OverBackgroundImage: {
+  module ImageHeight: {
+    type t = Tall
+  }
+  module BackgroundImage: {
+    type t = {
+      height: ImageHeight.t,
+      tailwindImageName: string,
+    }
+  }
+
+  @react.component
+  let make: (
+    ~title: string,
+    ~backgroundImage: BackgroundImage.t,
+    ~pageDescription: string=?,
+    unit,
+  ) => React.element
+}
+
 module MarkdownMedium: {
   @react.component
   let make: (~title: string, ~pageDescription: option<string>) => React.element

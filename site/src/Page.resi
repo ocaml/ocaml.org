@@ -63,3 +63,14 @@ module HighlightItem: {
     ~highlightContent: highlightContent,
   ) => React.element
 }
+
+module TitleOverBackgroundImage: {
+  @react.component
+  let make: (
+    ~children: React.element,
+    ~title: string,
+    ~backgroundImage: TitleHeading.OverBackgroundImage.BackgroundImage.t,
+    ~pageDescription: string=?,
+    unit,
+  ) => React.element
+}

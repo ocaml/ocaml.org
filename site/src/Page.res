@@ -129,3 +129,18 @@ module HighlightItem = {
     </MainContainer.None>
   }
 }
+
+module TitleOverBackgroundImage = {
+  @react.component
+  let make = (
+    ~children,
+    ~title,
+    ~backgroundImage: TitleHeading.OverBackgroundImage.BackgroundImage.t,
+    ~pageDescription=?,
+    (),
+  ) => {
+    <MainContainer.Centered>
+      <TitleHeading.OverBackgroundImage title backgroundImage ?pageDescription /> children
+    </MainContainer.Centered>
+  }
+}
