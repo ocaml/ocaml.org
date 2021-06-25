@@ -78,3 +78,20 @@
   ppx_deriving
   fmt
   yaml))
+
+(package
+ (name ood-gen)
+ (synopsis "CLI to generate ood content")
+ (description "CLI to generate ood content")
+ (depends
+  (ocaml
+   (>= 4.08.0))
+  yaml
+  ptime
+  fmt
+  piaf
+  lambdasoup
+  crunch
+  ; Required by ocamlrss
+  xmlm
+  uri))
