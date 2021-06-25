@@ -9,7 +9,7 @@ module GetStaticProps = {
   }
 
   type t<'props, 'params, 'previewData> = context<'props, 'params, 'previewData> => Js.Promise.t<{
-    "props": 'props,
+    "props": Js.Json.t,
   }>
 }
 
