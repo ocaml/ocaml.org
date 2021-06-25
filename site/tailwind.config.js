@@ -1,15 +1,10 @@
 module.exports = {
-  future: {
-    removeDeprecatedGapUtilities: true,
-    purgeLayersByDefault: true,
-  },
+  mode: "jit",
   purge: {
     // Specify the paths to all of the template files in your project
     content: [
       './pages/**/*.res',
-      './src/*.res',
-      // need to include data files since they reference tailwind classes
-      './data/*.yaml',
+      './src/*.res'
     ],
     options: {
       whitelist: ["html", "body"],

@@ -12,16 +12,23 @@
     "node": "vercel uses this value to select which node version to use. string must match vercel options exactly to silence warnings."
   },
   "dependencies": {
-    "@glennsl/bs-json": "^5.0.2",
-    "@rescript/react": "^0.10.3",
-    "bs-platform": "^9.0.2",
-    "next": "^10.2.0",
-    "ood": "git://github.com/ocaml/ood.git#main",
+    "bs-platform": "9.0.2",
+    "next": "^11.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "dependenciesDescription": {
     "bs-platform": "This a regular dependency because the included standard libraries are used during runtime"
+  },
+  "devDependencies": {
+    "@rescript/react": "^0.10.3",
+    "@tailwindcss/typography": "^0.4.1",
+    "autoprefixer": "^10.2.6",
+    "concurrently": "^6.2.0",
+    "http-server": "^0.12.3",
+    "next-transpile-modules": "^8.0.0",
+    "postcss": "^8.3.5",
+    "tailwindcss": "^2.2.2"
   },
   "scripts": {
     "next:debug": "NODE_OPTIONS='--inspect' next dev",
@@ -32,36 +39,6 @@
   },
   "scriptsDescription": {
     "total-dependencies-check": "Test, approximately, whether the current transitiive dependencies has grown significantly."
-  },
-  "devDependencies": {
-    "@tailwindcss/typography": "^0.4.0",
-    "autoprefixer": "^10.2.5",
-    "concurrently": "^6.2.0",
-    "esy": "^0.6.8",
-    "gray-matter": "^4.0.3",
-    "http-server": "^0.12.3",
-    "js-yaml": "^4.1.0",
-    "mdast-util-to-string": "^3.1.0",
-    "next-transpile-modules": "^7.1.0",
-    "rehype-highlight": "^4.1.0",
-    "rehype-stringify": "^8.0.0",
-    "remark-parse": "^9.0.0",
-    "remark-rehype": "^8.1.0",
-    "remark-slug": "^6.0.0",
-    "tailwindcss": "^2.1.2",
-    "unified": "^9.2.1"
-  },
-  "devDependenciesDescription": {
-    "js-yaml": "only used during site build, not in the browser",
-    "gray-matter": "only used during site build, not in the browser",
-    "mdast-util-to-string": "only used during site build, not in the browser",
-    "rehype-stringify": "only used during site build, not in the browser",
-    "remark-parse": "only used during site build, not in the browser",
-    "remark-rehype": "only used during site build, not in the browser",
-    "remark-slug": "only used during site build, not in the browser",
-    "next-transpile-modules": "only used during site build, not in the browser. used to convert rescript libraries from commonjs to es6 in nextjs builds",
-    "postcss": "explicity set to > 8.0 temporarily until all transitive dependencies do not obstruct using >= 8.0, remove this soon",
-    "unifed": "only used during site build, not in the browser"
   },
   "postcss": {
     "plugins": {

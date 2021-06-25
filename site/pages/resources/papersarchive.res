@@ -3,7 +3,7 @@ let s = React.string
 type t = {
   title: string,
   pageDescription: string,
-  papers: array<Paper.t>,
+  papers: array<Ood.Paper.t>,
 }
 
 @react.component
@@ -51,7 +51,7 @@ let make = (~content) => <>
                 </th>
               </tr>
             </thead>
-            <tbody> {Array.map((paper: Paper.t) =>
+            <tbody> {Array.map((paper: Ood.Paper.t) =>
                 <tr
                   key={paper.title}
                   className="border-double border-t-4 border-gray-200 hover:bg-yellow-50">
@@ -113,7 +113,7 @@ let getStaticProps = _ctx => {
     title: `Papers Archive`,
     pageDescription: `A selection of OCaml papers through the ages. Filter by the tags or do a search over all of the text.`,
   }
-  let papers = PapersData.readAll().papers->Array.of_list
+  let papers = Array.of_list(Ood.Paper.all->Next.stripUndefined)
   Js.Promise.resolve({
     "props": {
       content: {

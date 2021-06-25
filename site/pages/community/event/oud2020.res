@@ -10,13 +10,13 @@ type t = {
   pageDescription: string,
   introduction: string,
   dates: array<date>,
-  presentations: array<Video.t>,
-  papers: array<Paper.t>,
+  presentations: array<Ood.Video.t>,
+  papers: array<Ood.Paper.t>,
   // Committee too ?
 }
 
 let pdf_or_head = paper => {
-  switch Paper.get_pdf(paper) {
+  switch List.find_opt(Js.String.endsWith(".pdf"), paper.Ood.Paper.links) {
   | Some(link) => Some(link)
   | None => Belt.List.head(paper.links)
   }
@@ -73,7 +73,7 @@ let make = (~content) => <>
         <Table.Simple
           content={{
             headers: ["", "Presentation"],
-            data: Array.map((video: Video.t) => {
+            data: Array.map((video: Ood.Video.t) => {
               [
                 // TODO: Improve the embedding of videos from watch.ocaml.org
                 // which requires things like support for lazily loading iframes
@@ -99,7 +99,7 @@ let make = (~content) => <>
         <Table.Simple
           content={{
             headers: ["Title", "Author(s)", "Link"],
-            data: Array.map((paper: Paper.t) => {
+            data: Array.map((paper: Ood.Paper.t) => {
               [
                 <p className="font-bold"> {s(paper.title)} </p>,
                 <p> {s(String.concat(", ", paper.authors))} </p>,
@@ -129,21 +129,17 @@ let make = (~content) => <>
 type props = {content: t}
 
 let getStaticProps = _ctx => {
-  let video_filter = List.filter((video: Video.t) => {
+  let video_filter = List.filter((video: Ood.Video.t) => {
     List.exists(String.equal("ocaml-workshop"), video.tags) && video.year === 2020
   })
 
-  let oud_filter = List.filter((paper: Paper.t) => {
+  let oud_filter = List.filter((paper: Ood.Paper.t) => {
     List.exists(String.equal("ocaml-workshop"), paper.tags) && paper.year === 2020
   })
 
   // TODO: Extract from media archive or watch.ocaml.org API
-  let presentations = VideosData.readAll().videos->video_filter->Array.of_list
-  let presentations = Array.map(
-    presentation => Video.toJson(presentation)->Next.stripUndefined->Video.fromJson,
-    presentations,
-  )
-  let papers = PapersData.readAll().papers->oud_filter->Array.of_list
+  let presentations = Ood.Video.all->Next.stripUndefined->video_filter->Array.of_list
+  let papers = Ood.Paper.all->Next.stripUndefined->oud_filter->Array.of_list
 
   let contentEn = {
     title: `OCaml Workshop 2020`,

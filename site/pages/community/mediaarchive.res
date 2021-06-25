@@ -62,12 +62,7 @@ let make = (~title, ~pageDescription, ~videosContent, ~talksContent, ~papersCont
 
 let getStaticProps = _ctx => {
   // TODO: define and read highlight items for each list
-  let talks = Array.map(t => {
-    MediaSection.Item.name: t.Talk.name,
-    author: t.author,
-    creationDate: t.creationDate,
-    link: t.link,
-  }, Talk.readAll())
+  let talks = []
   let fillerContent = [
     {
       MediaSection.Item.name: `How to Code a Camel 1`,

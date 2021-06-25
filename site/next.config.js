@@ -1,6 +1,6 @@
 const bsconfig = require('./bsconfig.json');
 
-const transpileModules = ["bs-platform", "mdast-util-to-string"].concat(bsconfig["bs-dependencies"]);
+const transpileModules = ["bs-platform"].concat(bsconfig["bs-dependencies"]);
 const withTM = require("next-transpile-modules")(transpileModules);
 
 const config = {
@@ -44,14 +44,13 @@ const config = {
       },
 
 
-
       {
         source: '/play/community/aroundweb',
         destination: 'https://play.tailwindcss.com/acoEG2wmOA?layout=preview',
         permanent: false,
       },
       {
-        source: '/play/community/news',
+        source: '/play/community/blog',
         destination: 'https://play.tailwindcss.com/wu15fDmzPY?layout=preview',
         permanent: false,
       },
@@ -99,11 +98,7 @@ const config = {
       }
       */
     ]
-  },
-  future: {
-    webpack5: true
   }
 };
 
 module.exports = withTM(config);
-

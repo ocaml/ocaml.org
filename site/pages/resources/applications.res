@@ -23,6 +23,60 @@ module ApiDocumentation = {
     </SectionContainer.MediumCentered>
 }
 
+module DeveloperGuide = {
+  type t = {
+    name: string,
+    description: string,
+    link: string,
+    image: string,
+  }
+
+  let all = [
+    {
+      link: "https=//docs.mirage.io/mirage/index.html",
+      name: "Mirage OS",
+      description: "Mirage OS Unikernels lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at tristique odio. Etiam sodales porta lectus ac malesuada. Proin in odio ultricies, faucibus ligula ut",
+      image: "app-image.png",
+    },
+    {
+      link: "https=//b0-system.github.io/odig/doc/js_of_ocaml/Js_of_ocaml/index.html",
+      name: "JS_of_OCaml",
+      description: "Browser programming dolor sit amet, consectetur adipiscing elit. Integer at tristique odio. Etiam sodales porta lectus ac maleuada. Proin in odio ultricies, faucibus ligula ut",
+      image: "jvs.png",
+    },
+  ]
+}
+
+module OcamlPoweredSoftware = {
+  type t = {
+    name: string,
+    link: string,
+    image: string,
+    description: string,
+  }
+
+  let all = [
+    {
+      name: "Unison",
+      link: "https://github.com/bcpierce00/unison/wiki/Downloading-Unison",
+      image: "unison2.png",
+      description: "Dolor sit amet, consectetur adipiscing elit. Integer at tristique odio.",
+    },
+    {
+      name: "Coq",
+      link: "https://coq.inria.fr/download",
+      image: "coq.png",
+      description: "Dolor sit amet, consectetur adipiscing elit. Integer at tristique odio.",
+    },
+    {
+      name: "Liquid Soap",
+      link: "https://www.liquidsoap.info/doc-1.4.4/install.html",
+      image: "liq.png",
+      description: "Dolor sit amet, consectetur adipiscing elit. Integer at tristique odio.",
+    },
+  ]
+}
+
 module DeveloperGuides = {
   type t = {
     developerGuidesLabel: string,
@@ -42,7 +96,7 @@ module DeveloperGuides = {
         </h2>
         <MediaObject
           marginBottom={Tailwind.ByBreakpoint.make(#mb11, ())}
-          imageHeight=content.topDeveloperGuide.imageHeight
+          imageHeight="h-32"
           image=content.topDeveloperGuide.image
           imageSide=MediaObject.Right>
           // <div className="flex mb-11">
@@ -58,7 +112,7 @@ module DeveloperGuides = {
         </MediaObject>
         <MediaObject
           marginBottom={Tailwind.ByBreakpoint.make(#mb11, ())}
-          imageHeight=content.bottomDeveloperGuide.imageHeight
+          imageHeight="h-32"
           image=content.bottomDeveloperGuide.image
           imageSide=MediaObject.Left>
           <div>
@@ -101,27 +155,27 @@ module UsingOcaml = {
             // TODO: visual indicator that link opens new tab
             <a href=content.softwareLeft.link target="_blank">
               <img
-                className={"border-1 " ++ content.softwareLeft.imageHeight}
+                className={"border-1 h-32"}
                 src={"/static/" ++ content.softwareLeft.image}
-                alt=content.softwareLeft.linkDescription
+                alt=content.softwareLeft.name
               />
             </a>
           </div>
           <div className="flex justify-center items-center mb-6">
             <a href=content.softwareMiddle.link target="_blank">
               <img
-                className={"border-1 " ++ content.softwareMiddle.imageHeight}
+                className={"border-1 h-32"}
                 src={"/static/" ++ content.softwareMiddle.image}
-                alt=content.softwareMiddle.linkDescription
+                alt=content.softwareMiddle.name
               />
             </a>
           </div>
           <div className="flex justify-center items-center mb-6">
             <a href=content.softwareRight.link target="_blank">
               <img
-                className={"border-1 " ++ content.softwareRight.imageHeight}
+                className={"border-1 h-32"}
                 src={"/static/" ++ content.softwareRight.image}
-                alt=content.softwareRight.linkDescription
+                alt=content.softwareRight.name
               />
             </a>
           </div>
@@ -181,8 +235,8 @@ let make = (~title, ~pageDescription, ~developerGuidesContent, ~usingOcamlConten
 </>
 
 let getStaticProps = _ctx => {
-  let developerGuides = DeveloperGuide.readAll()
-  let ocamlPoweredSoftare = OcamlPoweredSoftware.readAll()
+  let developerGuides = DeveloperGuide.all->Next.stripUndefined
+  let ocamlPoweredSoftare = OcamlPoweredSoftware.all->Next.stripUndefined
   // TODO: store ids of highlighted developer guides explicitly
   let title = `Applications`
   let pageDescription = `This is where you can find resources for working with the language itself. Whether you're building applications or maintaining libraries, this page has useful information for you.`

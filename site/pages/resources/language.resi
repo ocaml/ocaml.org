@@ -8,7 +8,7 @@ module UserLevelIntroduction: {
 module Books: {
   type t = {
     booksLabel: string,
-    books: array<Book.t>,
+    books: array<Ood.Book.t>,
   }
 }
 

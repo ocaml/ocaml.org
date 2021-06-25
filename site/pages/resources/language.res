@@ -19,7 +19,7 @@ module UserLevelIntroduction = {
 module Books = {
   type t = {
     booksLabel: string,
-    books: array<Book.t>,
+    books: array<Ood.Book.t>,
   }
 
   @react.component
@@ -51,14 +51,20 @@ module Books = {
             </svg>
           </div>
           {content.books
-          |> Js.Array.mapi((b: Book.t, idx) =>
+          |> Js.Array.mapi((book: Ood.Book.t, idx) => {
+            let cover = Belt.Option.getWithDefault(book.cover, "")
+
             <div className="flex justify-center" key={Js.Int.toString(idx)}>
-              // TODO: visual indicator that link opens new tab
-              <a href=b.link target="_blank">
-                <img className="h-36 w-28" src={"/static/" ++ b.image} alt={b.name ++ " book"} />
-              </a>
+              <img className="h-36 w-28" src={cover} alt={book.title} />
+              {book.links
+              |> List.mapi((_idx, link: Ood.Book.link) =>
+                // TODO: visual indicator that link opens new tab
+                <a href=link.uri target="_blank"> <span> {s(link.description)} </span> </a>
+              )
+              |> Array.of_list
+              |> React.array}
             </div>
-          )
+          })
           |> React.array}
           <div className="flex justify-center">
             <svg
@@ -250,7 +256,7 @@ let make = (~content) => <>
 </>
 
 let getStaticProps = _ctx => {
-  let books = Book.readAll()
+  let books = Ood.Book.all->Next.stripUndefined->Array.of_list
   // TODO: read book sorting and filtering information and adjust array
   let props = {
     content: {

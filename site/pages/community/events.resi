@@ -1,7 +1,7 @@
 type t = {
   title: string,
   pageDescription: string,
-  events: array<Event.t>,
+  events: array<Ood.Event.t>,
 }
 
 @react.component

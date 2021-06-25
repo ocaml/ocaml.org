@@ -5,3 +5,28 @@
 @import "./_fonts.css";
 
 @tailwind utilities;
+
+nav.toc {
+  @apply hidden lg:sticky lg:self-start lg:top-2 lg:flex lg:flex-col lg:col-span-2 border-r border-gray-200 pt-5 pb-4 overflow-y-auto
+}
+
+nav.toc ul {
+  @apply space-y-1
+}
+
+nav.toc li {
+  @apply text-gray-600 hover:text-gray-900 pr-2 py-2 text-sm font-medium
+}
+
+/* First level */
+nav.toc > ul > li {
+  @apply pl-2
+}
+
+nav.toc > ul > li > ul > li {
+  @apply pl-6
+}
+
+nav.toc > ul > li > ul > li > ul > li {
+  @apply pl-8
+}

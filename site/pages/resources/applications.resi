@@ -1,3 +1,23 @@
+// TODO(tmattio): Remove fixtures with Ood content
+module DeveloperGuide: {
+  type t = {
+    name: string,
+    description: string,
+    link: string,
+    image: string,
+  }
+}
+
+// TODO(tmattio): Remove fixtures with Ood content
+module OcamlPoweredSoftware: {
+  type t = {
+    name: string,
+    link: string,
+    image: string,
+    description: string,
+  }
+}
+
 module DeveloperGuides: {
   type t = {
     developerGuidesLabel: string,

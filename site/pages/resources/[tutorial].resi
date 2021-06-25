@@ -3,14 +3,14 @@ let make: (
   ~source: string,
   ~title: string,
   ~pageDescription: Js.Nullable.t<string>,
-  ~tableOfContents: MarkdownPage.TableOfContents.t,
+  ~tableOfContents: string,
 ) => React.element
 
 type props = {
   source: string,
   title: string,
-  pageDescription: Js.Nullable.t<string>,
-  tableOfContents: MarkdownPage.TableOfContents.t,
+  pageDescription: string,
+  tableOfContents: string,
 }
 
 module Params: {
@@ -25,5 +25,5 @@ let default: {
   "source": string,
   "title": string,
   "pageDescription": Js.Nullable.t<string>,
-  "tableOfContents": MarkdownPage.TableOfContents.t,
+  "tableOfContents": string,
 } => React.element

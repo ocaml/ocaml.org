@@ -1,12 +1,12 @@
 type t = {
   title: string,
   pageDescription: string,
-  events: array<Event.t>,
+  events: array<Ood.Event.t>,
 }
 
 let s = React.string
 
-let dedicated_page = (event: Event.t) => {
+let dedicated_page = (event: Ood.Event.t) => {
   // OCaml workshop pages
   switch List.find_opt(String.equal("ocaml-workshop"), event.tags) {
   | Some(_) =>
@@ -28,7 +28,7 @@ let make = (~content) => <>
       <Table.Simple
         content={{
           headers: ["Date", "Event Name", "Location", "Description"],
-          data: Array.map((event: Event.t) => [
+          data: Array.map((event: Ood.Event.t) => [
             <p> {s(event.date |> Js.Date.fromString |> Js.Date.toDateString)} </p>,
             switch dedicated_page(event) {
             | Some(page) =>
@@ -71,13 +71,11 @@ type pageContent = {
 }
 
 let getStaticProps = _ctx => {
-  open Event
   let pageContentEn = {
     title: `Events`,
     pageDescription: `Several events take place in the OCaml community over the course of each year, in countries all over the world. This calendar will help you stay up to date on what is coming up in the OCaml sphere.`,
   }
-  let events = EventsData.readAll().events->Array.of_list
-  let events = Array.map(event => toJson(event)->Next.stripUndefined->fromJson, events)
+  let events = Array.of_list(Ood.Event.all->Next.stripUndefined)
   Js.Promise.resolve({
     "props": {
       content: {

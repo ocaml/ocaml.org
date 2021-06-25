@@ -46,7 +46,7 @@ module Router = {
   module Events = {
     type t
 
-    @bs.send
+    @send
     external on: (
       t,
       @string
@@ -57,7 +57,7 @@ module Router = {
       ],
     ) => unit = "on"
 
-    @bs.send
+    @send
     external off: (
       t,
       @string
@@ -76,10 +76,10 @@ module Router = {
     query: Js.Dict.t<string>,
   }
 
-  @bs.send external push: (router, string) => unit = "push"
+  @send external push: (router, string) => unit = "push"
 
   @module("next/router") external useRouter: unit => router = "useRouter"
-  @bs.send external replace: (router, string) => unit = "replace"
+  @send external replace: (router, string) => unit = "replace"
 }
 
 module Head = {
@@ -92,7 +92,8 @@ module Error = {
   external make: (~statusCode: int, ~children: React.element) => React.element = "default"
 }
 
-let stripUndefined = (json: Js.Json.t): Js.Json.t => {
-  open Json
-  stringify(json)->parseOrRaise
-}
+let stripUndefined = %raw(`
+  function(x) {
+    return JSON.parse(JSON.stringify(x))
+  }
+`)

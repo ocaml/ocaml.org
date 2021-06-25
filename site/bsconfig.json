@@ -7,9 +7,7 @@
   },
   "refmt": 3,
   "bs-dependencies": [
-    "@rescript/react",
-    "@glennsl/bs-json",
-    "ood"
+    "@rescript/react"
   ],
   "ppx-flags": [],
   "sources": [
@@ -19,6 +17,9 @@
     {
       "dir": "pages",
       "subdirs": true
+    },
+    {
+      "dir": "vendor/ood/src/"
     }
   ],
   "package-specs": {

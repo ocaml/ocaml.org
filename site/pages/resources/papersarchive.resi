@@ -1,7 +1,7 @@
 type t = {
   title: string,
   pageDescription: string,
-  papers: array<Paper.t>,
+  papers: array<Ood.Paper.t>,
 }
 
 @react.component
