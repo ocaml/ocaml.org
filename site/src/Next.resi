@@ -83,9 +83,3 @@ module Error: {
   @react.component
   let make: (~statusCode: int, ~children: React.element) => React.element
 }
-
-// Unforunately, NextJS cannot serialise `undefined` which is what `None` is converted too.
-// This really only leaves one solution because our types are defined in ood, we have to do
-// some manual stripping of the undefined types when passing it to getStaticProps. This approach
-// is detailed here https://dev.to/ryyppy/rescript-records-nextjs-undefined-and-getstaticprops-4890
-let stripUndefined: 'a => 'a

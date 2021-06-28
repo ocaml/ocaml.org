@@ -70,7 +70,7 @@ module T = {
   module Params = Pages.Params.Lang
 
   let contentEn = {
-    let events = Array.of_list(Ood.Event.all->Next.stripUndefined)
+    let events = Ood.Event.all->Belt.List.toArray
     {
       title: `Events`,
       pageDescription: `Several events take place in the OCaml community over the course of each year, in countries all over the world. This calendar will help you stay up to date on what is coming up in the OCaml sphere.`,

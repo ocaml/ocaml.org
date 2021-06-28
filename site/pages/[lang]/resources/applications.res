@@ -248,8 +248,8 @@ module T = {
   </>
 
   let contentEn = {
-    let developerGuides = DeveloperGuide.all->Next.stripUndefined
-    let ocamlPoweredSoftare = OcamlPoweredSoftware.all->Next.stripUndefined
+    let developerGuides = DeveloperGuide.all
+    let ocamlPoweredSoftare = OcamlPoweredSoftware.all
     // TODO: store ids of highlighted developer guides explicitly
     let title = `Applications`
     let pageDescription = `This is where you can find resources for working with the language itself. Whether you're building applications or maintaining libraries, this page has useful information for you.`

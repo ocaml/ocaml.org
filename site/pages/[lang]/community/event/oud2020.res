@@ -133,17 +133,19 @@ module T = {
   module Params = Pages.Params.Lang
 
   let contentEn = {
-    let video_filter = List.filter((video: Ood.Video.t) => {
-      List.exists(String.equal("ocaml-workshop"), video.tags) && video.year === 2020
-    })
+    let videoFilter = arr =>
+      arr->Belt.Array.keep((video: Ood.Video.t) => {
+        video.tags->Belt.List.has("ocaml-workshop", String.equal) && video.year === 2020
+      })
 
-    let oud_filter = List.filter((paper: Ood.Paper.t) => {
-      List.exists(String.equal("ocaml-workshop"), paper.tags) && paper.year === 2020
-    })
+    let oudFilter = arr =>
+      arr->Belt.Array.keep((paper: Ood.Paper.t) => {
+        paper.tags->Belt.List.has("ocaml-workshop", String.equal) && paper.year === 2020
+      })
 
     // TODO: Extract from media archive or watch.ocaml.org API
-    let presentations = Ood.Video.all->Next.stripUndefined->video_filter->Array.of_list
-    let papers = Ood.Paper.all->Next.stripUndefined->oud_filter->Array.of_list
+    let presentations = Ood.Video.all->Belt.List.toArray->videoFilter
+    let papers = Ood.Paper.all->Belt.List.toArray->oudFilter
 
     {
       title: `OCaml Workshop 2020`,

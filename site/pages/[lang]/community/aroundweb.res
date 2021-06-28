@@ -352,9 +352,9 @@ module T = {
   module Params = Pages.Params.Lang
 
   let contentEn = {
-    let news = Array.of_list(Ood.News.all->Next.stripUndefined)
+    let news = Belt.List.toArray(Ood.News.all)
 
-    let events = Array.of_list(Ood.Event.all->Next.stripUndefined)
+    let events = Belt.List.toArray(Ood.Event.all)
 
     {
       title: `OCaml Around the Web`,
