@@ -271,7 +271,7 @@ module T = {
   module Params = Pages.Params.Lang
 
   let contentEn = {
-    let books = Ood.Book.all->Next.stripUndefined->Array.of_list
+    let books = Ood.Book.all->Belt.List.toArray
     // TODO: read book sorting and filtering information and adjust array
     {
       title: `Language`,

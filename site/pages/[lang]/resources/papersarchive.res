@@ -106,7 +106,7 @@ module T = {
   </>
 
   let contentEn = {
-    let papers = Array.of_list(Ood.Paper.all->Next.stripUndefined)
+    let papers = Ood.Paper.all->Belt.List.toArray
     {
       title: `Papers Archive`,
       pageDescription: `A selection of OCaml papers through the ages. Filter by the tags or do a search over all of the text.`,

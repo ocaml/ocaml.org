@@ -91,9 +91,3 @@ module Error = {
   @module("next/error") @react.component
   external make: (~statusCode: int, ~children: React.element) => React.element = "default"
 }
-
-let stripUndefined = %raw(`
-  function(x) {
-    return JSON.parse(JSON.stringify(x))
-  }
-`)
