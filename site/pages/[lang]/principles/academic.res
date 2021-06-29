@@ -145,14 +145,15 @@ module T = {
     </>
   }
 
+  module Params = Pages.Params.Lang
+
   @react.component
-  let make = (~content) => <>
+  let make = (~content, ~params as {Params.lang: _}) => <>
     <PageBasic />
     <University marginBottom={Tailwind.ByBreakpoint.make(#mb10, ~lg=#mb32, ())} content />
     <Map marginBottom={Tailwind.ByBreakpoint.make(#mb10, ~lg=#mb32, ())} />
   </>
 
-  module Params = Pages.Params.Lang
   let contentEn = {
     let acads = Ood.Academic_institution.all->Belt.List.toArray
     {
