@@ -22,6 +22,14 @@ module BlogEntry: {
   }
 }
 
+module Space: {
+  type t = {
+    logoSrc: string,
+    name: string,
+    url: string,
+  }
+}
+
 type t = {
   title: string,
   pageDescription: string,
@@ -36,7 +44,7 @@ type t = {
   blogEntries: array<BlogEntry.t>,
   blogArchiveText: string,
   spacesSectionHeader: string,
-  spaces: array<string>,
+  spaces: array<Space.t>,
 }
 
 include Pages.S with type t := t
