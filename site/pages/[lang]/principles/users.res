@@ -98,8 +98,10 @@ module T = {
       </SectionContainer.ResponsiveCentered>
   }
 
+  module Params = Pages.Params.Lang
+
   @react.component
-  let make = (~content) => <>
+  let make = (~content, ~params as {Params.lang: _}) => <>
     <ConstructionBanner
       figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=430%3A36400`
       playgroundLink=`/play/industry/users`
@@ -115,8 +117,6 @@ module T = {
       <LogoSection companies=content.companies />
     </Page.Basic>
   </>
-
-  module Params = Pages.Params.Lang
 
   let contentEn = {
     title: `Industrial Users of OCaml`,

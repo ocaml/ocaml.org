@@ -16,25 +16,25 @@ module Params: {
 
 module type S = {
   type t
-  type props<'a>
+  type props<'content, 'params>
   type params
 
   @react.component
-  let make: (~content: t) => React.element
+  let make: (~content: t, ~params: params) => React.element
 
-  let getStaticProps: Next.GetStaticProps.t<props<t>, params, void>
+  let getStaticProps: Next.GetStaticProps.t<props<t, params>, params, void>
   let getStaticPaths: Next.GetStaticPaths.t<params>
-  let default: props<Js.Json.t> => React.element
+  let default: props<Js.Json.t, Js.Json.t> => React.element
 }
 
 module type ArgBase = {
   type t
   include Jsonable.S with type t := t
 
-  @react.component
-  let make: (~content: t) => React.element
-
   module Params: Params.S
+
+  @react.component
+  let make: (~content: t, ~params: Params.t) => React.element
 }
 
 module type Arg = {

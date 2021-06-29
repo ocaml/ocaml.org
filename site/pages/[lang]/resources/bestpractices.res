@@ -7,8 +7,10 @@ module T = {
   }
   include Jsonable.Unsafe
 
+  module Params = Pages.Params.Lang
+
   @react.component
-  let make = (~content) => <>
+  let make = (~content, ~params as {Params.lang: _}) => <>
     <ConstructionBanner />
     <Page.Basic
       marginTop=`mt-1`
@@ -24,8 +26,6 @@ module T = {
     title: `Best Practices`,
     pageDescription: `Some guides to commonly used tools in OCaml development workflows.`,
   }
-
-  module Params = Pages.Params.Lang
 
   let content = [({Params.lang: #en}, contentEn)]
 }

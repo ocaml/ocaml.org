@@ -75,8 +75,10 @@ module T = {
   }
   include Jsonable.Unsafe
 
+  module Params = Pages.Params.Lang
+
   @react.component
-  let make = (~content) => <>
+  let make = (~content, ~params as {Params.lang: _}) => <>
     <ConstructionBanner
       figmaLink=`https://www.figma.com/file/Vha4bcBvNVrjyLmAEDgZ1x/History-Timeline?node-id=14%3A5`
     />
@@ -126,8 +128,6 @@ module T = {
       },
     ],
   }
-
-  module Params = Pages.Params.Lang
 
   let content = [({Params.lang: #en}, contentEn)]
 }

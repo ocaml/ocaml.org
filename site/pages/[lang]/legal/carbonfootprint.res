@@ -7,8 +7,10 @@ module T = {
   }
   include Jsonable.Unsafe
 
+  module Params = Pages.Params.Lang
+
   @react.component
-  let make = (~content: t) => <>
+  let make = (~content: t, ~params as {Params.lang: _}) => <>
     <ConstructionBanner
       figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=931%3A6483`
     />
@@ -16,8 +18,6 @@ module T = {
       {<> </>}
     </Page.TopImage>
   </>
-
-  module Params = Pages.Params.Lang
 
   let contentEn = {
     title: `Carbon Footprint`,

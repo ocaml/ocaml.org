@@ -22,8 +22,10 @@ module T = {
     }
   }
 
+  module Params = Pages.Params.Lang
+
   @react.component
-  let make = (~content) => <>
+  let make = (~content, ~params as {Params.lang: _}) => <>
     <ConstructionBanner
       figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=1176%3A0`
     />
@@ -66,8 +68,6 @@ module T = {
       </SectionContainer.MediumCentered>
     </Page.TopImage>
   </>
-
-  module Params = Pages.Params.Lang
 
   let contentEn = {
     let events = Ood.Event.all->Belt.List.toArray

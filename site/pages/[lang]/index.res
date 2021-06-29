@@ -296,8 +296,10 @@ module T = {
   }
   include Jsonable.Unsafe
 
+  module Params = Pages.Params.Lang
+
   @react.component
-  let make = (~content) =>
+  let make = (~content, ~params as {Params.lang: _}) =>
     <Page.Unstructured>
       <HeroSection content=content.heroContent />
       <StatsSection content=content.statsContent />
@@ -341,7 +343,6 @@ module T = {
     },
   }
 
-  module Params = Pages.Params.Lang
   let content = [({Params.lang: #en}, contentEn)]
 }
 

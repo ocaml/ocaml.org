@@ -10,8 +10,10 @@ module T = {
   }
   include Jsonable.Unsafe
 
+  module Params = Pages.Params.Lang
+
   @react.component
-  let make = (~content) => <>
+  let make = (~content, ~params as {Params.lang: _}) => <>
     <ConstructionBanner playgroundLink=`/play/resources/paperarchive` />
     <Page.Basic title=content.title pageDescription=content.pageDescription>
       <div>
@@ -113,8 +115,6 @@ module T = {
       papers: papers,
     }
   }
-
-  module Params = Pages.Params.Lang
 
   let content = [({Params.lang: #en}, contentEn)]
 }

@@ -63,24 +63,24 @@ module Params = {
 
 module type S = {
   type t
-  type props<'a>
+  type props<'content, 'params>
   type params
 
   @react.component
-  let make: (~content: t) => React.element
-  let getStaticProps: Next.GetStaticProps.t<props<t>, params, void>
+  let make: (~content: t, ~params: params) => React.element
+  let getStaticProps: Next.GetStaticProps.t<props<t, params>, params, void>
   let getStaticPaths: Next.GetStaticPaths.t<params>
-  let default: props<Js.Json.t> => React.element
+  let default: props<Js.Json.t, Js.Json.t> => React.element
 }
 
 module type ArgBase = {
   type t
   include Jsonable.S with type t := t
 
-  @react.component
-  let make: (~content: t) => React.element
-
   module Params: Params.S
+
+  @react.component
+  let make: (~content: t, ~params: Params.t) => React.element
 }
 
 module type Arg = {
@@ -96,15 +96,21 @@ module type ArgSimple = {
 
 module Make = (Arg: Arg): (S with type t := Arg.t and type params = Arg.Params.t) => {
   module Props = {
-    type t<'content> = {content: 'content}
-    let toJson = (t: t<'content>, contentToJson: 'content => Js.Json.t): Js.Json.t =>
-      [("content", contentToJson(t.content))]->Js.Dict.fromArray->Js.Json.object_
+    type t<'content, 'params> = {content: 'content, params: 'params}
+    let toJson = (
+      t: t<'content, 'params>,
+      contentToJson: 'content => Js.Json.t,
+      paramsToJson: 'params => Js.Json.t,
+    ): Js.Json.t =>
+      [("content", contentToJson(t.content)), ("params", paramsToJson(t.params))]
+      ->Js.Dict.fromArray
+      ->Js.Json.object_
   }
 
-  type props<'a> = Props.t<'a>
+  type props<'a, 'b> = Props.t<'a, 'b>
   type params = Arg.Params.t
 
-  let getStaticProps: Next.GetStaticProps.t<props<Arg.t>, params, void> = ctx => {
+  let getStaticProps: Next.GetStaticProps.t<props<Arg.t, params>, params, void> = ctx => {
     Arg.getContent(ctx.params) |> Js.Promise.then_(content => {
       switch content {
       | None =>
@@ -112,18 +118,22 @@ module Make = (Arg: Arg): (S with type t := Arg.t and type params = Arg.Params.t
           "BUG: No content found for params: " ++ ctx.params->Arg.Params.toJson->Js.Json.stringify,
         )
       | Some(content) =>
-        let props = {Props.content: content}
+        let props = {Props.content: content, params: ctx.params}
         Js.Promise.resolve({
-          "props": props->Props.toJson(Arg.toJson),
+          "props": props->Props.toJson(Arg.toJson, Arg.Params.toJson),
         })
       }
     })
   }
 
-  let default = (props: props<Js.Json.t>) => {
+  let default = (props: props<Js.Json.t, Js.Json.t>) => {
     switch Arg.ofJson(props.content) {
     | None => failwith("BUG: Unable to parse content")
-    | Some(content: Arg.t) => Arg.make(Arg.makeProps(~content, ()))
+    | Some(content: Arg.t) =>
+      switch Arg.Params.ofJson(props.params) {
+      | None => failwith("BUG: Unable to parse params")
+      | Some(params: Arg.Params.t) => Arg.make(Arg.makeProps(~content, ~params, ()))
+      }
     }
   }
 

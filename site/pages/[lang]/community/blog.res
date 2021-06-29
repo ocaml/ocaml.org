@@ -263,8 +263,10 @@ module T = {
     },
   }
 
+  module Params = Pages.Params.Lang
+
   @react.component
-  let make = (~content) => <>
+  let make = (~content, ~params as {Params.lang: _}) => <>
     <ConstructionBanner
       figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=952%3A422`
       playgroundLink=`/play/community/blog`
@@ -281,7 +283,6 @@ module T = {
     </Page.HighlightItem>
   </>
 
-  module Params = Pages.Params.Lang
   let content = [({Params.lang: #en}, contentEn)]
 }
 

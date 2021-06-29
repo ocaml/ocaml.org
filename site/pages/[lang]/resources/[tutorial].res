@@ -9,8 +9,13 @@ module T = {
   }
   include Jsonable.Unsafe
 
+  module Params = Pages.Params.Lang.Tutorial
+
   @react.component
-  let make = (~content as {source, title, pageDescription, tableOfContents}) => {
+  let make = (
+    ~content as {source, title, pageDescription, tableOfContents},
+    ~params as {Params.lang: _, tutorial: _},
+  ) => {
     <>
       // TODO: should this have a constrained width? what does tailwind do?
       <Page.Unstructured>
@@ -26,8 +31,6 @@ module T = {
       </Page.Unstructured>
     </>
   }
-
-  module Params = Pages.Params.Lang.Tutorial
 
   let content =
     Ood.Tutorial.all

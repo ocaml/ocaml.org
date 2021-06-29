@@ -216,8 +216,10 @@ module T = {
   }
   include Jsonable.Unsafe
 
+  module Params = Pages.Params.Lang
+
   @react.component
-  let make = (~content) => <>
+  let make = (~content, ~params as {Params.lang: _}) => <>
     <ConstructionBanner
       figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=745%3A1`
       playgroundLink=`/play/resources/applications`
@@ -273,8 +275,6 @@ module T = {
       },
     }
   }
-
-  module Params = Pages.Params.Lang
 
   let content = [({Params.lang: #en}, contentEn)]
 }

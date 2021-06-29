@@ -7,15 +7,15 @@ module T = {
   }
   include Jsonable.Unsafe
 
+  module Params = Pages.Params.Lang
+
   @react.component
-  let make = (~content: t) => <>
+  let make = (~content: t, ~params as {Params.lang: _}) => <>
     <ConstructionBanner />
     <Page.TopImage title=content.title pageDescription=content.pageDescription>
       {<> </>}
     </Page.TopImage>
   </>
-
-  module Params = Pages.Params.Lang
 
   let contentEn = {
     title: `What is OCaml`,
