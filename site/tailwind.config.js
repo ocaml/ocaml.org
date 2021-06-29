@@ -1,3 +1,5 @@
+const { height } = require('tailwindcss/defaultTheme');
+
 module.exports = {
   mode: "jit",
   purge: {
@@ -29,9 +31,11 @@ module.exports = {
         orange: '#DD8C1B',
         berryforty: '#A766D0',
         waterdark: '#637CC1',
+        white: '#ffffff',
       },
       backgroundImage: (theme) => ({
         'news-bg': "url('/static/news-bg.jpeg')",
+        'acad-bg': "url('/static/acad.png')",
       }),
       fontFamily: {
         // TODO: define more fallback fonts and possibly rename to "serif"
@@ -53,6 +57,7 @@ module.exports = {
     // width: ['responsive']
   },
   plugins: [
+    require('@tailwindcss/forms'),
     require('@tailwindcss/typography')
   ]
 }

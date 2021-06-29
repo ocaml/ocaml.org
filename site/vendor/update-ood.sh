@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version=master
+version=main
 
 set -e -o pipefail
 

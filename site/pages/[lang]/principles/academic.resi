@@ -1,9 +1,3 @@
-type t = {
-  title: string,
-  pageDescription: string,
-}
+type t = {acads: array<Ood.Academic_institution.t>}
 
-@react.component
-let make: (~content: t=?) => React.element
-
-let default: {"content": option<t>} => React.element
+include Pages.S with type t := t
