@@ -12,6 +12,17 @@ let make = () => <>
       />
     </SectionContainer.VerySmallCentered>
   </div>
+  <div className="bg-white py-4">
+    <SectionContainer.SmallCentered>
+      <StoryCard.CornerTitleLogo
+        title="2012-2016"
+        graphicUrl="/static/rackspacelogo.jpeg"
+        body="Rackspace is a hosting provider that Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pellentesque placerat arcu, non tempor nisi ultrices at. Aenean facilisis eleifend velit quis consequat. Sed turpis elit, ultrices et tincidunt nec, gravida et massa. Maecenas hendrerit, ante et imperdiet semper, lorem purus condimentum neque, etcetera."
+        colored=true
+        bordered=false
+      />
+    </SectionContainer.SmallCentered>
+  </div>
   <div className="bg-green-100 py-4">
     <SectionContainer.SmallCentered>
       <StoryCard.CornerLogoCenterTitle
