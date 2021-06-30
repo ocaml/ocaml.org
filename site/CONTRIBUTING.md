@@ -1,4 +1,4 @@
-# Contributing to next.ocaml.org
+# Contributing to v3.ocaml.org
 
 ## Code of Conduct
 
@@ -38,8 +38,7 @@ suggests the following:
     - Select "Commit directly ..." and click "Commit changes"
   - Create a pull request using one of the following links, using the template which matches the type of change you are making. In the URL, replace "BRANCH" with your branch name.
     - Create or update the implementation of a webpage: https://github.com/ocaml/v3.ocaml.org/compare/BRANCH?expand=1&template=webpage_implement.md
-    - Create a mockup page for a new design pull: https://github.com/ocaml/v3.ocaml.org/compare/BRANCH?expand=1&template=mockup_webpage.md
-    - Perform an ecosystem upgrade: https://github.com/ocaml/v3.ocaml.org/compare/BRANCH?expand=1&template=ecosystem_upgrade.md
+    - Create a mockup page for a new design pull: https://github.com/ocaml/v3.ocaml.org/compare/BRANCH?expand=1&template=mocku
   - Change the action to "Create draft pull request" and press the button
 - Clone the repo locally (or continue editing directly in github if the change is small). Checkout
   out the branch that you created.
@@ -96,22 +95,12 @@ The command installs all dependencies, including compilers such as ReScript and 
 Use the following command to run the ReScript compiler in watch mode as well as the NextJS dev server:
 
 ```
-make watch-and-serve
+make watch
 ```
 
 Go to `http://localhost:3000`
 
 ## Tips
-
-### res_pages vs pages
-
-ReScript can only handle one module of a given name, e.g. "Index". This clashes with nextjs
-page-based routing, which expects the filepath starting from `/pages/` to match
-the route exposed. So, in order to completely avoid any problems from this issue,
-we always create pages in `res_pages/` and rewrap the module in the desired location
-in `pages/`. If your module uses `getStaticPaths` or `getStaticProps`, those will also
-need to be re-exposed. Also, note that we choose to repeat the folder name (e.g. "releases")
-in the module name (e.g. "ReleasesIndex.js").
 
 ### Do not use nextjs server side features, such as getServerSideProps
 
@@ -132,8 +121,7 @@ npx postcss@8.3.1 styles/main.css -o /tmp/test.css
 make build && make serve
 ```
 
-Note: Some deployment systems use `next start` to start a hybrid static site instead of using `next export` with an external http server.
-
 ## Architecture
 
-We have prepared some diagrams and explanations to orient new developers in the wiki area. The site expands upon the default build process in NextJS to accommodate more sophisticated markdown transformations.
+...
+
