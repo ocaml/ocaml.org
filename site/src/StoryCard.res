@@ -26,7 +26,7 @@ module CornerLogoCenterTitle = {
           <img className="max-h-24" src=graphicUrl alt="" />
         </div>
         // TODO: this is essentially an embedded call to action, so reuse the call to action module
-        <div className="sm:col-span-9 flex flex-col items-center space-y-8">
+        <div className="sm:col-span-8 flex flex-col items-center space-y-8">
           <div className="text-center font-roboto font-extrabold text-4xl font-serif">
             {s(title)}
           </div>
