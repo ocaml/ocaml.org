@@ -43,51 +43,11 @@ const config = {
         permanent: false,
       },
 
-
-      {
-        source: '/play/community/aroundweb',
-        destination: 'https://play.tailwindcss.com/acoEG2wmOA?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/community/blog',
-        destination: 'https://play.tailwindcss.com/wu15fDmzPY?layout=preview',
-        permanent: false,
-      },
-
-
       {
         source: '/play/industry/users',
         destination: 'https://play.tailwindcss.com/fnsSlFX517?layout=preview',
         permanent: false,
       },
-
-      {
-        source: '/play/resources/mediaarchive',
-        destination: 'https://play.tailwindcss.com/SaRPEIdpPS?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/resources/paperarchive',
-        destination: 'https://play.tailwindcss.com/wngTIsLJL2?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/resources/language',
-        destination: 'https://play.tailwindcss.com/3nuPDOZsGN?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/resources/applications',
-        destination: 'https://play.tailwindcss.com/FJtzT7lSkW?layout=preview',
-        permanent: false,
-      },
-      {
-        source: '/play/resources/installocaml',
-        destination: 'https://play.tailwindcss.com/m88PnynAmq?layout=preview',
-        permanent: false,
-      },
-
 
       // Permanent redirects
       /*
