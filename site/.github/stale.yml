@@ -1,5 +1,5 @@
 pulls:
-  daysUntilStale: 90
+  daysUntilStale: 30
   daysUntilClose: 30
   markComment: >
     This pull request has been automatically marked as stale because it 
