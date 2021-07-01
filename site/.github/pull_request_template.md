@@ -3,7 +3,7 @@
 ## Modified relative paths:
 
 <!-- replace "BRANCH_NAME" with your branch; replace PATH/TO/PAGE -->
-https://ocamlorg2-git-BRANCH_NAME.solvuu.vercel.app/PATH/TO/PAGE
+https://v3-ocaml-org-git-BRANCH_NAME-ocaml.vercel.app/PATH/TO/PAGE
 
 ## Contributor Pre-flight Checklist
 

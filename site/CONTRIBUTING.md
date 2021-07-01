@@ -36,9 +36,7 @@ suggests the following:
     - Click the "pencil" edit icon in the top right, which puts the file in edit mode
     - Make a small change in the edit window
     - Select "Commit directly ..." and click "Commit changes"
-  - Create a pull request using one of the following links, using the template which matches the type of change you are making. In the URL, replace "BRANCH" with your branch name.
-    - Create or update the implementation of a webpage: https://github.com/ocaml/v3.ocaml.org/compare/BRANCH?expand=1&template=webpage_implement.md
-    - Create a mockup page for a new design pull: https://github.com/ocaml/v3.ocaml.org/compare/BRANCH?expand=1&template=mocku
+  - Create a pull request
   - Change the action to "Create draft pull request" and press the button
 - Clone the repo locally (or continue editing directly in github if the change is small). Checkout
   out the branch that you created.
