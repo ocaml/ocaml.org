@@ -33,6 +33,33 @@ let make = () => <>
       />
     </SectionContainer.SmallCentered>
   </div>
+  {
+    let testCompaniesOptional =
+      Belt.Array.range(1, 6)
+      ->Belt.Array.map(i => {
+        LogoCloud.CompanyOptionalLogo.logoSrc: if i == 2 {
+          None
+        } else {
+          Some("/static/oclabs.png")
+        },
+        name: "OCaml Labs",
+        website: "https://ocamllabs.io",
+      })
+      ->LogoCloud.LogoWithText
+    let testCompanies =
+      Belt.Array.range(1, 6)
+      ->Belt.Array.map(_ => {
+        LogoCloud.Company.logoSrc: "/static/oclabs.png",
+        name: "OCaml Labs",
+        website: "https://ocamllabs.io",
+      })
+      ->LogoCloud.LogoOnly
+
+    <>
+      <div className="bg-green-100 py-4"> <LogoCloud companies=testCompanies /> </div>
+      <div className="bg-green-100 py-4"> <LogoCloud companies=testCompaniesOptional /> </div>
+    </>
+  }
 </>
 
 let default = make
