@@ -40,46 +40,14 @@ module Link = {
 }
 
 module Router = {
-  /*
-      Make sure to only register events via a useEffect hook!
- */
-  module Events = {
-    type t
-
-    @send
-    external on: (
-      t,
-      @string
-      [
-        | #routeChangeStart(string => unit)
-        | #routeChangeComplete(string => unit)
-        | #hashChangeComplete(string => unit)
-      ],
-    ) => unit = "on"
-
-    @send
-    external off: (
-      t,
-      @string
-      [
-        | #routeChangeStart(string => unit)
-        | #routeChangeComplete(string => unit)
-        | #hashChangeComplete(string => unit)
-      ],
-    ) => unit = "off"
-  }
 
   type router = {
     route: string,
-    asPath: string,
-    events: Events.t,
     query: Js.Dict.t<string>,
   }
 
-  @send external push: (router, string) => unit = "push"
-
   @module("next/router") external useRouter: unit => router = "useRouter"
-  @send external replace: (router, string) => unit = "replace"
+ 
 }
 
 module Head = {
@@ -87,7 +55,3 @@ module Head = {
   external make: (~children: React.element) => React.element = "default"
 }
 
-module Error = {
-  @module("next/error") @react.component
-  external make: (~statusCode: int, ~children: React.element) => React.element = "default"
-}

@@ -37,49 +37,16 @@ module Link: {
 }
 
 module Router: {
-  module Events: {
-    type t
-
-    let on: (
-      t,
-      @string
-      [
-        | #routeChangeStart(string => unit)
-        | #routeChangeComplete(string => unit)
-        | #hashChangeComplete(string => unit)
-      ],
-    ) => unit
-
-    let off: (
-      t,
-      @string
-      [
-        | #routeChangeStart(string => unit)
-        | #routeChangeComplete(string => unit)
-        | #hashChangeComplete(string => unit)
-      ],
-    ) => unit
-  }
 
   type router = {
     route: string,
-    asPath: string,
-    events: Events.t,
     query: Js.Dict.t<string>,
   }
 
-  let push: (router, string) => unit
-
   let useRouter: unit => router
-  let replace: (router, string) => unit
 }
 
 module Head: {
   @react.component
   let make: (~children: React.element) => React.element
-}
-
-module Error: {
-  @react.component
-  let make: (~statusCode: int, ~children: React.element) => React.element
 }
