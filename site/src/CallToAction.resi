@@ -1,5 +1,5 @@
 module LinkUrl: {
-  type t = Route(string) | External(string)
+  type t = Route(Route.t, Lang.t) | External(string)
 }
 
 type t = {

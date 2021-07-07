@@ -1,14 +1,12 @@
-module Link = Next.Link
-
 let s = React.string
 
 // TODO: move this into a future Link component once the Url and Link types have been thought out
 module LinkUrl = {
-  type t = Route(string) | External(string)
+  type t = Route(Route.t, Lang.t) | External(string)
 
   let render = (~t, ~buttonText, ~styling) =>
     switch t {
-    | Route(url) => <Link href=url> <a className=styling> {s(buttonText)} </a> </Link>
+    | Route(_to, lang) => <Route _to lang> <a className=styling> {s(buttonText)} </a> </Route>
     | External(url) => <a href=url target="_blank" className=styling> {s(buttonText)} </a>
     }
 }

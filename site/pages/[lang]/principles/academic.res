@@ -9,7 +9,7 @@ module T = {
   //PageBasicDetail Module
   module PageBasic = {
     @react.component
-    let make = () => <>
+    let make = (~lang) => <>
       <div
         className={"bg-acad-bg bg-center bg-no-repeat flex flex-wrap align-bottom sm:h-160 bg-cover "}>
         <div
@@ -36,7 +36,7 @@ module T = {
             </p>
             //CallToAction Button
             <div className="text-center mt-7">
-              <Link href=InternalUrls.principlesSuccesses>
+              <Link href={#principlesSuccesses->Route.toString(lang)}>
                 <a
                   className="justify-center inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-orangedark hover:bg-orangedarker focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedarker">
                   {s("Success Stories")}
@@ -148,8 +148,8 @@ module T = {
   module Params = Pages.Params.Lang
 
   @react.component
-  let make = (~content, ~params as {Params.lang: _}) => <>
-    <PageBasic />
+  let make = (~content, ~params as {Params.lang: lang}) => <>
+    <PageBasic lang />
     <University marginBottom={Tailwind.ByBreakpoint.make(#mb10, ~lg=#mb32, ())} content />
     <Map marginBottom={Tailwind.ByBreakpoint.make(#mb10, ~lg=#mb32, ())} />
   </>

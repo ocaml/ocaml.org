@@ -52,7 +52,7 @@ module T = {
     }
 
     @react.component
-    let make = (~content) =>
+    let make = (~content, ~lang) =>
       <div className="lg:relative">
         <HeroTextContainer textAlign=`text-center lg:text-left`>
           <div className="px-4 lg:w-1/2 sm:px-8 xl:pr-16">
@@ -61,13 +61,13 @@ module T = {
             <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
               <Button
                 colors=`text-white bg-orangedark hover:bg-orangedarker`
-                href=InternalUrls.resourcesInstallocaml
+                href={#resourcesInstallocaml->Route.toString(lang)}
                 text=content.installOcaml
                 margins=``
               />
               <Button
                 colors=`text-orangedark bg-white hover:bg-gray-50`
-                href=InternalUrls.principlesWhatisocaml
+                href={#principlesWhatisocaml->Route.toString(lang)}
                 text=content.aboutOcaml
                 margins=`mt-3 sm:mt-0 sm:ml-3`
               />
@@ -299,13 +299,16 @@ module T = {
   module Params = Pages.Params.Lang
 
   @react.component
-  let make = (~content, ~params as {Params.lang: _}) =>
+  let make = (
+    ~content as {heroContent, statsContent, opamContent, testimonialContent},
+    ~params as {Params.lang: lang},
+  ) =>
     <Page.Unstructured>
-      <HeroSection content=content.heroContent />
-      <StatsSection content=content.statsContent />
-      <OpamSection content=content.opamContent margins=`mt-12 sm:mt-16` />
+      <HeroSection content=heroContent lang />
+      <StatsSection content=statsContent />
+      <OpamSection content=opamContent margins=`mt-12 sm:mt-16` />
       <TestimonialSection
-        content=content.testimonialContent
+        content=testimonialContent
         marginBottom={Tailwind.ByBreakpoint.make(#mb6, ~md=#mb4, ~lg=#mb6, ())}
       />
     </Page.Unstructured>

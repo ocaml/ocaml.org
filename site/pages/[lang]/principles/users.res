@@ -101,7 +101,7 @@ module T = {
   module Params = Pages.Params.Lang
 
   @react.component
-  let make = (~content, ~params as {Params.lang: _}) => <>
+  let make = (~content, ~params as {Params.lang: lang}) => <>
     <ConstructionBanner
       figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=430%3A36400`
       playgroundLink=`/play/industry/users`
@@ -112,7 +112,7 @@ module T = {
       pageDescription=content.pageDescription
       callToAction={
         TitleHeading.Large.label: "Success Stories",
-        url: InternalUrls.principlesSuccesses,
+        url: #principlesSuccesses->Route.toString(lang),
       }>
       <LogoSection companies=content.companies />
     </Page.Basic>

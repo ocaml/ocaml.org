@@ -63,7 +63,7 @@ module T = {
     }
 
     @react.component
-    let make = (~content) =>
+    let make = (~content, ~lang) =>
       <SectionContainer.LargeCentered>
         <div className="relative bg-white">
           <div className="pt-12 h-56 sm:h-72 md:absolute md:left-0 md:h-full md:w-1/2">
@@ -110,7 +110,7 @@ module T = {
                 t={
                   CallToAction.title: content.title,
                   body: content.description,
-                  buttonLink: Route(InternalUrls.communityEvents),
+                  buttonLink: Route(#communityEvents, lang),
                   buttonText: content.callToAction,
                 }
               />
@@ -149,7 +149,7 @@ module T = {
   module Params = Pages.Params.Lang
 
   @react.component
-  let make = (~content, ~params as {Params.lang: _}) => <>
+  let make = (~content, ~params as {Params.lang: lang}) => <>
     <ConstructionBanner
       figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=1040%3A104`
       playgroundLink=`/play/community/aroundweb`
@@ -169,7 +169,7 @@ module T = {
         marginBottom={Tailwind.ByBreakpoint.make(#mb16, ())}
       />
       <LatestNews content=content.latestNewsContent />
-      <Events content=content.events />
+      <Events content=content.events lang />
       <SectionContainer.LargeCentered
         paddingY="pt-16 pb-3 lg:pt-24 lg:pb-8" paddingX="px-4 sm:px-6 lg:px-8">
         <div className="text-center">

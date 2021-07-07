@@ -10,12 +10,12 @@ module T = {
   }
   include Jsonable.Unsafe
 
-  let dedicated_page = (event: Ood.Event.t) => {
+  let dedicatedPage = (event: Ood.Event.t) => {
     // OCaml workshop pages
     switch List.find_opt(String.equal("ocaml-workshop"), event.tags) {
     | Some(_) =>
       switch Js.Date.fromString(event.date)->Js.Date.getFullYear {
-      | 2020. => Some(InternalUrls.communityEventOud2020)
+      | 2020. => Some(#communityEventOud2020)
       | _ => None
       }
     | None => None
@@ -25,7 +25,7 @@ module T = {
   module Params = Pages.Params.Lang
 
   @react.component
-  let make = (~content, ~params as {Params.lang: _}) => <>
+  let make = (~content, ~params as {Params.lang: lang}) => <>
     <ConstructionBanner
       figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=1176%3A0`
     />
@@ -36,9 +36,9 @@ module T = {
             headers: ["Date", "Event Name", "Location", "Description"],
             data: Array.map((event: Ood.Event.t) => [
               <p> {s(event.date |> Js.Date.fromString |> Js.Date.toDateString)} </p>,
-              switch dedicated_page(event) {
+              switch dedicatedPage(event) {
               | Some(page) =>
-                <Next.Link href={page}>
+                <Next.Link href={page->Route.toString(lang)}>
                   <a className="text-orangedark underline"> {s(event.title)} </a>
                 </Next.Link>
               | None => <p> {s(event.title)} </p>

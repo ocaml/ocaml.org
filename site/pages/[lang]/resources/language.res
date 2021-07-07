@@ -153,7 +153,7 @@ module T = {
 
   module Applications = {
     @react.component
-    let make = (~marginBottom=?) =>
+    let make = (~marginBottom=?, ~lang) =>
       <SectionContainer.VerySmallCentered ?marginBottom>
         <h2 className="text-center text-orangedark text-7xl font-bold mb-8">
           {s(`Applications`)}
@@ -164,9 +164,9 @@ module T = {
               {s(`Looking to learn more about the ways in which OCaml is used in real-world applications? Visit our Applications page to find out about different ways of using OCaml.`)}
             </p>
             <p className="text-right">
-              <a href=InternalUrls.resourcesApplications className="text-orangedark underline">
-                {s(`Go to Applications >`)}
-              </a>
+              <Route _to={#resourcesApplications} lang>
+                <a className="text-orangedark underline"> {s(`Go to Applications >`)} </a>
+              </Route>
             </p>
           </div>
           <div className="flex-shrink-0">
@@ -178,7 +178,7 @@ module T = {
 
   module Papers = {
     @react.component
-    let make = (~marginBottom=?, ()) =>
+    let make = (~marginBottom=?, ~lang, ()) =>
       // TODO: define content type and factor out content
       // TODO: use generic container
       <div
@@ -217,11 +217,12 @@ module T = {
             </div>
           </div>
           <div className="flex justify-center">
-            <a
-              href=InternalUrls.resourcesPapers
-              className="font-bold inline-flex items-center px-10 py-3 border border-transparent text-base leading-4 font-medium rounded-md shadow-sm text-white bg-orangedark hover:bg-orangedarker">
-              {s(`Go to Papers`)}
-            </a>
+            <Route _to={#resourcesPapers} lang>
+              <a
+                className="font-bold inline-flex items-center px-10 py-3 border border-transparent text-base leading-4 font-medium rounded-md shadow-sm text-white bg-orangedark hover:bg-orangedarker">
+                {s(`Go to Papers`)}
+              </a>
+            </Route>
           </div>
         </div>
       </div>
@@ -242,7 +243,7 @@ module T = {
   module Params = Pages.Params.Lang
 
   @react.component
-  let make = (~content, ~params as {Params.lang: _}) => <>
+  let make = (~content, ~params as {Params.lang: lang}) => <>
     <ConstructionBanner
       figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=1085%3A121`
       playgroundLink=`/play/resources/language`
@@ -263,9 +264,9 @@ module T = {
         <UserLevelIntroduction content=content.expanding marginBottom=introMarginBottom />
         <Manual marginBottom={Tailwind.ByBreakpoint.make(#mb20, ())} />
         <UserLevelIntroduction content=content.diversifying marginBottom=introMarginBottom />
-        <Applications marginBottom={Tailwind.ByBreakpoint.make(#mb36, ())} />
+        <Applications marginBottom={Tailwind.ByBreakpoint.make(#mb36, ())} lang />
         <UserLevelIntroduction content=content.researching marginBottom=introMarginBottom />
-        <Papers marginBottom={Tailwind.ByBreakpoint.make(#mb16, ())} />
+        <Papers marginBottom={Tailwind.ByBreakpoint.make(#mb16, ())} lang />
       </Page.Basic>
     }
   </>

@@ -33,31 +33,41 @@ module T = {
       goToNewsArchive: string,
     }
 
-    let toHighlightsInQuadrantsContent = t => {
-      HighlightsInQuadrants.title: t.otherNewsStories,
+    let toHighlightsInQuadrantsContent = (
+      {
+        otherNewsStories,
+        communityCategory,
+        releasesCategory,
+        industryCategory,
+        eventsCategory,
+        goToNewsArchive,
+      }: t,
+      lang,
+    ) => {
+      HighlightsInQuadrants.title: otherNewsStories,
       topLeftCategory: NewsCategory.toHighlightsCategory(
-        t.communityCategory,
-        InternalUrls.communityNewsarchive, // TODO: should we use a query parameter for the category?
+        communityCategory,
+        #communityNewsarchive->Route.toString(lang), // TODO: should we use a query parameter for the category?
         HighlightsInQuadrants.CategoryHeaderIcon.Meet,
       ),
       topRightCategory: NewsCategory.toHighlightsCategory(
-        t.releasesCategory,
-        InternalUrls.communityNewsarchive,
+        releasesCategory,
+        #communityNewsarchive->Route.toString(lang),
         HighlightsInQuadrants.CategoryHeaderIcon.Package,
       ),
       bottomLeftCategory: NewsCategory.toHighlightsCategory(
-        t.industryCategory,
-        InternalUrls.communityNewsarchive,
+        industryCategory,
+        #communityNewsarchive->Route.toString(lang),
         HighlightsInQuadrants.CategoryHeaderIcon.Profit,
       ),
       bottomRightCategory: NewsCategory.toHighlightsCategory(
-        t.eventsCategory,
-        InternalUrls.communityNewsarchive,
+        eventsCategory,
+        #communityNewsarchive->Route.toString(lang),
         HighlightsInQuadrants.CategoryHeaderIcon.Calendar,
       ),
       goToArchive: {
-        label: t.goToNewsArchive,
-        link: InternalUrls.communityNewsarchive,
+        label: goToNewsArchive,
+        link: #communityNewsarchive->Route.toString(lang),
       },
     }
   }
@@ -266,7 +276,7 @@ module T = {
   module Params = Pages.Params.Lang
 
   @react.component
-  let make = (~content, ~params as {Params.lang: _}) => <>
+  let make = (~content, ~params as {Params.lang: lang}) => <>
     <ConstructionBanner
       figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=952%3A422`
       playgroundLink=`/play/community/blog`
@@ -276,7 +286,7 @@ module T = {
       pageDescription=content.pageDescription
       highlightContent=content.highlightContent>
       <HighlightsInQuadrants
-        t={CategorizedNews.toHighlightsInQuadrantsContent(content.categorizedNews)}
+        t={CategorizedNews.toHighlightsInQuadrantsContent(content.categorizedNews, lang)}
         marginBottom={Tailwind.ByBreakpoint.make(#mb10, ~lg=#mb32, ())}
       />
       <WeeklyNews marginBottom={Tailwind.ByBreakpoint.make(#mb4, ())} content=content.weeklyNews />

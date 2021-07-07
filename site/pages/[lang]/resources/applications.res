@@ -1,7 +1,5 @@
 open! Import
 
-module Link = Next.Link
-
 let s = React.string
 
 module T = {
@@ -146,7 +144,7 @@ module T = {
     }
 
     @react.component
-    let make = (~marginBottom=?, ~content) =>
+    let make = (~marginBottom=?, ~content, ~lang) =>
       // TODO: factor out and define content type
       <div
         className={"bg-white overflow-hidden shadow rounded-lg mx-auto max-w-3xl " ++
@@ -199,10 +197,10 @@ module T = {
             </div>
           </div>
           <p className="text-right font-bold">
-            <Link href=InternalUrls.resourcesUsingocaml>
+            <Route _to={#resourcesUsingocaml} lang>
               // TODO: descriptive link text
               <a className="text-orangedark underline"> {s(content.seeMore ++ ` >`)} </a>
-            </Link>
+            </Route>
           </p>
         </div>
       </div>
@@ -219,7 +217,7 @@ module T = {
   module Params = Pages.Params.Lang
 
   @react.component
-  let make = (~content, ~params as {Params.lang: _}) => <>
+  let make = (~content, ~params as {Params.lang: lang}) => <>
     <ConstructionBanner
       figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=745%3A1`
       playgroundLink=`/play/resources/applications`
@@ -239,12 +237,12 @@ module T = {
         t={
           CallToAction.title: "Platform Tools",
           body: `The OCaml Platform is a collection of tools that allow programmers to be productive in the OCaml language. It has been an iterative process of refinement as new tools are added and older tools are updated. Different tools accomplish different workflows and are used at different points of a project's life.`,
-          buttonLink: Route(InternalUrls.resourcesPlatform),
+          buttonLink: Route(#resourcesPlatform, lang),
           buttonText: `Visit Platform Tools`,
         }
       />
       <UsingOcaml
-        marginBottom={Tailwind.ByBreakpoint.make(#mb16, ())} content=content.usingOcamlContent
+        marginBottom={Tailwind.ByBreakpoint.make(#mb16, ())} content=content.usingOcamlContent lang
       />
     </Page.Basic>
   </>
