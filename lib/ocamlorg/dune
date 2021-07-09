@@ -1,0 +1,6 @@
+(library
+ (name ocamlorg)
+ (libraries cmdliner git-unix opam-format tyxml lambdasoup yojson
+   cohttp-lwt-unix dream)
+ (preprocess
+  (pps graphql_ppx -- -schema schema.json)))

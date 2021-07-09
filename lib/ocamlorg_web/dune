@@ -1,0 +1,18 @@
+(library
+ (name ocamlorg_web)
+ (libraries dream dream-cli dream-livereload omd ocamlorg)
+ (preprocess
+  (pps tyxml-jsx)))
+
+(rule
+ (targets asset.ml)
+ (deps
+  ../../asset/main.css
+  (source_tree ../../asset))
+ (action
+  (with-stdout-to
+   %{null}
+   (run %{bin:ocaml-crunch} -e ico -e js -e svg -e txt -e css -e jpeg -e png
+     -m plain ../../asset -o %{targets}))))
+
+(include_subdirs unqualified)

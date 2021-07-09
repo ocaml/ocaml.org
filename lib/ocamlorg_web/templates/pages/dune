@@ -1,0 +1,5 @@
+(rule
+ (targets packages_template.ml)
+ (deps packages_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))

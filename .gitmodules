@@ -1,0 +1,3 @@
+[submodule "vendor/graphql-ppx"]
+	path = vendor/graphql-ppx
+	url = https://github.com/reasonml-community/graphql-ppx.git

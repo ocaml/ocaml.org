@@ -1,0 +1,4 @@
+(executable
+ (name main)
+ (modules main)
+ (libraries ocamlorg_web))

@@ -1,0 +1,93 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+  schedule:
+    # Prime the caches every Monday
+    - cron: 0 1 * * MON
+
+jobs:
+  build:
+    name: Build and test
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+        ocaml-compiler:
+          - ocaml-base-compiler.4.12.0
+        include:
+          - os: windows-latest
+            ocaml-compiler: ocaml-variants.4.12.0+mingw64c
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use OCaml ${{ matrix.ocaml-compiler }}
+        uses: avsm/setup-ocaml@v2
+        with:
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+          dune-cache: ${{ matrix.os != 'macos-latest' }}
+          opam-depext-flags: --with-test
+
+      - run: opam install . --deps-only --with-test
+
+      - run: make build
+
+      - run: make test
+
+  lint-opam:
+    strategy:
+      matrix:
+        ocaml-compiler:
+          - ocaml-base-compiler.4.12.0
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use OCaml ${{ matrix.ocaml-compiler }}
+        uses: avsm/setup-ocaml@v2
+        with:
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+          dune-cache: true
+
+      - run: opam depext opam-dune-lint --install
+
+      - run: opam install . --deps-only
+
+      - run: make build
+
+      - run: opam exec -- opam-dune-lint
+
+  lint-fmt:
+    strategy:
+      matrix:
+        ocaml-compiler:
+          - ocaml-base-compiler.4.12.0
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use OCaml ${{ matrix.ocaml-compiler }}
+        uses: avsm/setup-ocaml@v2
+        with:
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+          dune-cache: true
+
+      - run: opam depext ocamlformat --install
+
+      - run: opam install . --deps-only
+
+      - run: make fmt

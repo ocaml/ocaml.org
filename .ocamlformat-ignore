@@ -1,0 +1,6 @@
+lib/ocamlorg_web/templates/*.eml
+
+node_modules/*
+node_modules/*/*
+node_modules/*/*/*
+node_modules/*/*/*/*
