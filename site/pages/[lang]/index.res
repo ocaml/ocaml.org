@@ -1,48 +1,8 @@
 open! Import
 
-module Link = Next.Link
-
 let s = React.string
 
 module T = {
-  module Button = {
-    @react.component
-    let make = (~href, ~text, ~colors, ~margins) =>
-      <div className={margins ++ " rounded-md shadow "}>
-        <Link href>
-          <a
-            className={colors ++ " w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md md:py-4 md:text-lg md:px-10"}>
-            {s(text)}
-          </a>
-        </Link>
-      </div>
-  }
-
-  module HeroTextContainer = {
-    @react.component
-    let make = (~textAlign, ~children) =>
-      <div className={"mx-auto max-w-7xl w-full pt-16 pb-20 lg:py-48 " ++ textAlign}>
-        children
-      </div>
-  }
-
-  module H1 = {
-    @react.component
-    let make = (~children) =>
-      <h1
-        className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
-        children
-      </h1>
-  }
-
-  module P = {
-    @react.component
-    let make = (~margins, ~children) =>
-      <p className={margins ++ " max-w-md mx-auto text-lg text-gray-500 sm:text-xl md:max-w-3xl"}>
-        children
-      </p>
-  }
-
   module HeroSection = {
     type t = {
       heroHeader: string,
@@ -50,37 +10,6 @@ module T = {
       installOcaml: string,
       aboutOcaml: string,
     }
-
-    @react.component
-    let make = (~content, ~lang) =>
-      <div className="lg:relative">
-        <HeroTextContainer textAlign=`text-center lg:text-left`>
-          <div className="px-4 lg:w-1/2 sm:px-8 xl:pr-16">
-            <H1> {s(content.heroHeader)} </H1>
-            <P margins="mt-3 md:mt-5"> {s(content.heroBody)} </P>
-            <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
-              <Button
-                colors=`text-white bg-orangedark hover:bg-orangedarker`
-                href={#resourcesInstallocaml->Route.toString(lang)}
-                text=content.installOcaml
-                margins=``
-              />
-              <Button
-                colors=`text-orangedark bg-white hover:bg-gray-50`
-                href={#principlesWhatisocaml->Route.toString(lang)}
-                text=content.aboutOcaml
-                margins=`mt-3 sm:mt-0 sm:ml-3`
-              />
-            </div>
-          </div>
-        </HeroTextContainer>
-        <div
-          className="relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full">
-          <img
-            className="absolute inset-0 w-full h-full object-cover" src="/static/oc-sq.jpeg" alt=""
-          />
-        </div>
-      </div>
   }
 
   module H2 = {
@@ -304,7 +233,21 @@ module T = {
     ~params as {Params.lang: lang},
   ) =>
     <Page.Unstructured>
-      <HeroSection content=heroContent lang />
+      <Hero
+        imageSrc="/static/oc-sq.jpeg"
+        header=heroContent.heroHeader
+        body=heroContent.heroBody
+        buttonLinks={
+          Hero.primaryButton: {
+            label: heroContent.installOcaml,
+            url: #resourcesInstallocaml->Route.toString(lang),
+          },
+          secondaryButton: {
+            label: heroContent.aboutOcaml,
+            url: #principlesWhatisocaml->Route.toString(lang),
+          },
+        }
+      />
       <StatsSection content=statsContent />
       <OpamSection content=opamContent margins=`mt-12 sm:mt-16` />
       <TestimonialSection

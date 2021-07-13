@@ -1,7 +1,10 @@
 const { height } = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  mode: "jit",
+  // NOTE: We temporarily disabled JIT starting in July 2021, because we were still
+  //  encountering bugs such as classes not being added when editing pages while running
+  //  "next dev".
+  // mode: "jit",
   purge: {
     // Specify the paths to all of the template files in your project
     content: [

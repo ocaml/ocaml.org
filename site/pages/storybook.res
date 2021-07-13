@@ -60,6 +60,29 @@ let make = () => <>
       <div className="bg-green-100 py-4"> <LogoCloud companies=testCompaniesOptional /> </div>
     </>
   }
+  {
+    let imageSrc = "/static/oc-sq.jpeg"
+    let header = "A Header"
+    let body = "Some body text here that should be in latin. Some more body text here and here. Text text text text text text text text text text text text text."
+    let buttonLinks = {
+      Hero.primaryButton: {
+        label: "Main Action",
+        url: "/en",
+      },
+      secondaryButton: {
+        label: "Other Action",
+        url: "/en",
+      },
+    }
+    <>
+      <hr className="bg-green-100 h-4" />
+      <Hero imageSrc header body buttonLinks />
+      <hr className="bg-green-100 h-4" />
+      <hr className="bg-green-100 h-4" />
+      <Hero imageSrc header body buttonLinks imageOnRight=false />
+      <hr className="bg-green-100 h-4" />
+    </>
+  }
 </>
 
 let default = make

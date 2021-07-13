@@ -61,11 +61,11 @@ let make = (~companies) =>
       {switch companies {
       | LogoOnly(companies) =>
         companies->Js.Array2.map((c: Company.t) =>
-          <CompanyCard company={CompanyCard.Required(c)} />
+          <CompanyCard key=c.name company={CompanyCard.Required(c)} />
         )
       | LogoWithText(companies) =>
         companies->Js.Array2.map((c: CompanyOptionalLogo.t) =>
-          <CompanyCard company={CompanyCard.Optional(c)} />
+          <CompanyCard key=c.name company={CompanyCard.Optional(c)} />
         )
       }->React.array}
     </div>
