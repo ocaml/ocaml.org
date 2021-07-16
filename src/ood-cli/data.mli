@@ -143,3 +143,40 @@ module Academic_institution : sig
 
   include S.FolderData with type t := t
 end
+
+module Workshop : sig
+  type role = [ `Chair | `Co_chair ]
+
+  type important_date = { date : string; info : string } [@@deriving yaml]
+
+  type committee_member = {
+    name : string;
+    role : role option;
+    affiliation : string option;
+  }
+  [@@deriving yaml]
+
+  type presentation = {
+    title : string;
+    authors : string list;
+    link : string option;
+    video : string option;
+    slides : string option;
+    additional_links : string list option;
+  }
+  [@@deriving yaml]
+
+  type t = {
+    title : string;
+    location : string option;
+    date : string;
+    online : bool;
+    important_dates : important_date list;
+    presentations : presentation list;
+    program_committee : committee_member list;
+    organising_committee : committee_member list;
+  }
+  [@@deriving yaml]
+
+  include S.FolderData with type t := t
+end

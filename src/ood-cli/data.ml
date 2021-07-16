@@ -416,3 +416,76 @@ module Academic_institution = struct
       ~format:Yaml_frontmatter ~label:"Academic Institution" ~folder:path
       ~fields ()
 end
+
+module Workshop = struct
+  type role = [ `Chair | `Co_chair ]
+
+  let role_to_string = function `Chair -> "chair" | `Co_chair -> "co-chair"
+
+  let role_of_string = function
+    | "chair" -> Ok `Chair
+    | "co-chair" -> Ok `Co_chair
+    | _ -> Error (`Msg "Unknown role type")
+
+  let role_of_yaml = function
+    | `String s -> Result.bind (role_of_string s) (fun t -> Ok t)
+    | _ -> Error (`Msg "Expected a string for a role type")
+
+  let role_to_yaml t = `String (role_to_string t)
+
+  type important_date = { date : string; info : string } [@@deriving yaml]
+
+  type committee_member = {
+    name : string;
+    role : role option;
+    affiliation : string option;
+  }
+  [@@deriving yaml]
+
+  type presentation = {
+    title : string;
+    authors : string list;
+    link : string option;
+    video : string option;
+    slides : string option;
+    additional_links : string list option;
+  }
+  [@@deriving yaml]
+
+  type t = {
+    title : string;
+    location : string option;
+    date : string;
+    online : bool;
+    important_dates : important_date list;
+    presentations : presentation list;
+    program_committee : committee_member list;
+    organising_committee : committee_member list;
+  }
+  [@@deriving yaml]
+
+  let path = "data/workshops"
+
+  let widget_of_t =
+    Widget.
+      [
+        `String (String.make ~required:true ~label:"Name" ~name:"name" ());
+        `Text
+          (Text.make ~required:true ~label:"Description" ~name:"description" ());
+        `String (String.make ~required:true ~label:"Website" ~name:"url" ());
+        `String (String.make ~required:false ~label:"Logo" ~name:"logo" ());
+        `String
+          (String.make ~required:true ~label:"Continent" ~name:"continent" ());
+        `List (Lst.make ~required:true ~label:"Course" ~name:"course" ());
+        `List (Lst.make ~required:false ~label:"Location" ~name:"location" ());
+        `Markdown Markdown.(make ~label:"Body" ~name:"body" ());
+      ]
+
+  let lint t = parse_jekyll of_yaml t
+
+  let folder =
+    let fields = widget_of_t in
+    Netlify.Collection.Folder.make ~name:"academic_institution" ~create:true
+      ~format:Yaml_frontmatter ~label:"Academic Institution" ~folder:path
+      ~fields ()
+end

@@ -35,6 +35,10 @@ let lint_tutorials () =
   Alcotest.check lint_check "lint tutorials" (Ok ())
     (lint_folder ~path:(Fpath.v Tutorial.path) Tutorial.lint)
 
+let lint_workshops () =
+  Alcotest.check lint_check "lint workshops" (Ok ())
+    (lint_folder ~path:(Fpath.v Workshop.path) Workshop.lint)
+
 let lint_success_stories () =
   Alcotest.check lint_check "lint success stories" (Ok ())
     (lint_folder ~path:(Fpath.v Success_story.path) Success_story.lint)
@@ -74,6 +78,7 @@ let run () =
             test_case Book.path `Quick lint_books;
             test_case Industrial_user.path `Quick lint_industrial_users;
             test_case Academic_institution.path `Quick lint_academic_institution;
+            test_case Workshop.path `Quick lint_workshops;
           ] );
       ];
     0

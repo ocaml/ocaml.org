@@ -81,3 +81,9 @@
  (deps news_template.eml)
  (action
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets workshop_template.ml)
+ (deps workshop_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))

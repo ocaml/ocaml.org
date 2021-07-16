@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 source_dirs="lib bin asset config lib/ data/"
-args=${*:-"bin/server.exe run"}
+args=${*:-"bin/server.exe"}
 cmd="dune exec ${args}"
 
 which fswatch || (echo "you need fswatch to run in watch mode"; exit 1)

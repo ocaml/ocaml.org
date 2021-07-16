@@ -215,3 +215,47 @@ module News : sig
 
   val get_by_slug : string -> t option
 end
+
+module Workshop : sig
+  type role = [ `Co_chair | `Chair ]
+
+  val role_to_string : role -> string
+
+  val role_of_string : string -> (role, [> `Msg of string ]) result
+
+  type important_date = { date : string; info : string } [@@deriving yaml]
+
+  type committee_member = {
+    name : string;
+    role : role option;
+    affiliation : string option;
+  }
+
+  type presentation = {
+    title : string;
+    authors : string list;
+    link : string option;
+    video : string option;
+    slides : string option;
+    additional_links : string list option;
+  }
+
+  type t = {
+    title : string;
+    slug : string;
+    location : string option;
+    date : string;
+    online : bool;
+    important_dates : important_date list;
+    presentations : presentation list;
+    program_committee : committee_member list;
+    organising_committee : committee_member list;
+    toc_html : string;
+    body_md : string;
+    body_html : string;
+  }
+
+  val all : t list
+
+  val get_by_slug : string -> t option
+end

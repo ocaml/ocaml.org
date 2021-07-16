@@ -101,3 +101,13 @@
   (with-stdout-to
    %{targets}
    (run %{deps} news))))
+
+(rule
+ (deps ../ood-gen/bin/gen.exe)
+ (targets workshop.ml)
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} workshops))))

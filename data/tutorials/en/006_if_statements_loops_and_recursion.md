@@ -1,7 +1,7 @@
 ---
 title: If Statements, Loops and Recursions
 description: >
-  Learn basic control-flow and recusion in OCaml
+  Learn basic control-flow and recursion in OCaml
 users:
   - beginner
   - intermediate
@@ -12,14 +12,11 @@ date: 2021-05-27T21:07:30-00:00
 ## If statements (actually, these are if expressions)
 OCaml has an `if` statement with two variations, and the obvious meaning:
 
+<!-- $MDX skip -->
 ```ocaml
 if boolean-condition then expression
   
 if boolean-condition then expression else other-expression
-```
-```mdx-error
-Line 3, characters 3-5:
-Error: Syntax error
 ```
 
 Unlike in the conventional languages you'll be used to, `if` statements
@@ -124,8 +121,9 @@ val abs : int -> int = <fun>
 Also in `Stdlib`, the `string_of_float` function contains a complex
 pair of nested `if` expressions:
 
+<!-- $MDX skip -->
 ```ocaml
-# let string_of_float f =
+let string_of_float f =
   let s = format_float "%.12g" f in
   let l = string_length s in
   let rec loop i =
@@ -134,8 +132,6 @@ pair of nested `if` expressions:
     else loop (i + 1)
   in
     loop 0
-Line 2, characters 11-23:
-Error: Unbound value format_float
 ```
 
 Let's examine this function. Suppose the function is called with `f` =
@@ -166,14 +162,13 @@ in a way which prevents them from being used in `string_of_float`. Here,
 however, is a more straightforward, but approximately twice as slow, way
 of writing `string_of_float`:
 
+<!-- $MDX skip -->
 ```ocaml
-# let string_of_float f =
+let string_of_float f =
   let s = format_float "%.12g" f in
     if String.contains s '.' || String.contains s 'e'
       then s
       else s ^ "."
-Line 2, characters 11-23:
-Error: Unbound value format_float
 ```
 
 ## Using begin ... end
@@ -226,16 +221,16 @@ simple examples:
     print_endline "ELSE";
     failwith "else clause"
   end
-Exception: Failure "else clause".
 ELSE
+Exception: Failure "else clause".
 # if 1 = 0 then
     print_endline "THEN"
   else (
     print_endline "ELSE";
     failwith "else clause"
   )
-Exception: Failure "else clause".
 ELSE
+Exception: Failure "else clause".
 ```
 
 ## For loops and while loops

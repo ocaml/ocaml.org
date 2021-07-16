@@ -83,6 +83,26 @@ let tutorials req =
   let slug = slugify first.Ood.Tutorial.title in
   Dream.redirect req ("/tutorials/" ^ slug)
 
+let workshop req =
+  let slug = Dream.param "id" req in
+  match
+    List.find_opt
+      (fun x -> slugify x.Ood.Workshop.title = slug)
+      Ood.Workshop.all
+  with
+  | Some workshop ->
+    Layout_template.render
+      ~title:workshop.Ood.Workshop.title
+      (Workshop_template.render Ood.Workshop.all workshop)
+    |> Dream.html
+  | None ->
+    Dream.not_found req
+
+let workshops req =
+  let (first : Ood.Workshop.t) = Ood.Workshop.all |> List.hd in
+  let slug = slugify first.title in
+  Dream.redirect req ("/workshops/" ^ slug)
+
 let tools _req =
   let tools = Ood.Tool.all in
   Layout_template.render ~title:"Tools" (Platform_template.render tools)
