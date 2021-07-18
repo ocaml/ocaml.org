@@ -19,10 +19,16 @@ let name = (~lang=?, t) => {
 
 let ofString = t =>
   switch t {
-  | "en" => #en
-  | "fr" => #fr
-  | "es" => #es
-  | _ => failwith(`BUG: Unsupported lang: ${t}`)
+  | "en" => Some(#en)
+  | "fr" => Some(#fr)
+  | "es" => Some(#es)
+  | _ => None
+  }
+
+let ofStringExn = t =>
+  switch ofString(t) {
+  | Some(t) => t
+  | None => failwith(`BUG: Unsupported lang: ${t}`)
   }
 
 let toString = t =>
@@ -33,4 +39,4 @@ let toString = t =>
   }
 
 let toJson = t => t->toString->Js.Json.string
-let ofJson = json => json->Js.Json.decodeString->Belt.Option.map(ofString)
+let ofJson = json => json->Js.Json.decodeString->Belt.Option.flatMap(ofString)
