@@ -41,6 +41,5 @@ clean:
 
 .PHONY: distclean
 distclean: clean
-	-rm -rf vendor/ood
 	-rm -rf node_modules
 	-rm -f yarn-error.log

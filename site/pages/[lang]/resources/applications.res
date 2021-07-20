@@ -97,7 +97,7 @@ module T = {
           </h2>
           <MediaObject
             marginBottom={Tailwind.ByBreakpoint.make(#mb11, ())}
-            imageHeight="h-32"
+            imageHeight="h-24"
             image=content.topDeveloperGuide.image
             imageSide=MediaObject.Right>
             // <div className="flex mb-11">
@@ -113,7 +113,7 @@ module T = {
           </MediaObject>
           <MediaObject
             marginBottom={Tailwind.ByBreakpoint.make(#mb11, ())}
-            imageHeight="h-32"
+            imageHeight="h-24"
             image=content.bottomDeveloperGuide.image
             imageSide=MediaObject.Left>
             <div>
@@ -159,7 +159,7 @@ module T = {
               // TODO: visual indicator that link opens new tab
               <a href=content.softwareLeft.link target="_blank">
                 <img
-                  className={"border-1 h-32"}
+                  className={"border-1 max-h-24"}
                   src={"/static/" ++ content.softwareLeft.image}
                   alt=content.softwareLeft.name
                 />
@@ -168,7 +168,7 @@ module T = {
             <div className="flex justify-center items-center mb-6">
               <a href=content.softwareMiddle.link target="_blank">
                 <img
-                  className={"border-1 h-32"}
+                  className={"border-1 max-h-24"}
                   src={"/static/" ++ content.softwareMiddle.image}
                   alt=content.softwareMiddle.name
                 />
@@ -177,7 +177,7 @@ module T = {
             <div className="flex justify-center items-center mb-6">
               <a href=content.softwareRight.link target="_blank">
                 <img
-                  className={"border-1 h-32"}
+                  className={"border-1 max-h-24"}
                   src={"/static/" ++ content.softwareRight.image}
                   alt=content.softwareRight.name
                 />

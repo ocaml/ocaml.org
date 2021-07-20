@@ -6,7 +6,6 @@ module Params = {
     type t<'a>
 
     let return: 'a => t<'a>
-    let map: (t<'a>, 'a => 'b) => t<'b>
     let ap: (t<'a => 'b>, t<'a>) => t<'b>
     let field: (string, Js.Json.t => option<'a>) => t<'a>
     let parse: (t<'a>, Js.Json.t) => option<'a>
@@ -14,8 +13,6 @@ module Params = {
     type t<'a> = Js.Dict.t<Js.Json.t> => option<'a>
 
     let return = (x: 'a): t<'a> => _ => Some(x)
-
-    let map = (ta: t<'a>, f: 'a => 'b): t<'b> => dict => ta(dict)->Belt.Option.map(f)
 
     let ap = (tf: t<'a => 'b>, ta: t<'a>): t<'b> =>
       dict => {

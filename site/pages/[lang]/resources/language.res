@@ -30,18 +30,18 @@ module T = {
       // TODO: define content type; extract content
       // TODO: use generic container
       <div
-        className={"bg-white overflow-hidden shadow rounded-lg mx-10 mx-auto max-w-5xl " ++
+        className={"bg-white overflow-hidden shadow rounded-lg mx-auto max-w-5xl " ++
         Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty(marginBottom)}>
         <div className="px-4 py-5 sm:px-6 sm:py-9">
           <h2 className="text-center text-orangedark text-7xl font-bold mb-8 uppercase">
             {s(content.booksLabel)}
           </h2>
-          <div className="grid grid-cols-5 items-center mb-8 px-6">
+          <div className="grid grid-cols-8 items-center mb-8 px-6">
             // TODO: define state to track location within books list, activate navigation
-            <div className="flex justify-center">
+            <div className="flex justify-start">
               // TODO: make navigation arrows accesssible
               <svg
-                className="h-24 center"
+                className="h-20"
                 viewBox="0 0 90 159"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg">
@@ -53,25 +53,43 @@ module T = {
                 />
               </svg>
             </div>
-            {content.books
-            |> Js.Array.mapi((book: Ood.Book.t, idx) => {
-              let cover = Belt.Option.getWithDefault(book.cover, "")
+            <div className="col-span-6 flex justify-center">
+              <ul
+                role="list"
+                className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-6">
+                {content.books
+                |> Js.Array.mapi((book: Ood.Book.t, idx) => {
+                  let cover = Belt.Option.getWithDefault(book.cover, "")
 
-              <div className="flex justify-center" key={Js.Int.toString(idx)}>
-                <img className="h-36 w-28" src={cover} alt={book.title} />
-                {book.links
-                |> List.mapi((_idx, link: Ood.Book.link) =>
-                  // TODO: visual indicator that link opens new tab
-                  <a href=link.uri target="_blank"> <span> {s(link.description)} </span> </a>
-                )
-                |> Array.of_list
+                  <li title={book.title} key={Js.Int.toString(idx)} className="relative">
+                    <div
+                      className="block w-full aspect-w7 aspect-h-10 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+                      <img src=cover alt="" className="object-cover" />
+                    </div>
+                    <p className="mt-2 block text-sm font-medium text-gray-900 truncate">
+                      {s(book.title)}
+                    </p>
+                    <p className="block text-sm font-medium text-gray-500">
+                      {book.links
+                      |> List.mapi((
+                        _idx,
+                        link: Ood.Book.link,
+                      ) => // TODO: visual indicator that link opens new tab
+                      <>
+                        <a href=link.uri target="_blank"> <span> {s(link.description)} </span> </a>
+                        <span className="inline-block px-2"> {s("|")} </span>
+                      </>)
+                      |> Array.of_list
+                      |> React.array}
+                    </p>
+                  </li>
+                })
                 |> React.array}
-              </div>
-            })
-            |> React.array}
-            <div className="flex justify-center">
+              </ul>
+            </div>
+            <div className="flex justify-end">
               <svg
-                className="h-24"
+                className="h-20"
                 viewBox="0 0 90 159"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg">
