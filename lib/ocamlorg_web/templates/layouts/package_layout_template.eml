@@ -1,0 +1,63 @@
+type tab = 
+  | Overview
+  | Documentation
+
+let render ~title ~tab ~package inner =
+  let active_tab = "border-orange-500 text-orange-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" in
+  let default_tab = "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" in
+  let overview_tab_class = if tab = Overview then active_tab else default_tab in
+  let documentation_tab_class = if tab = Documentation then active_tab else default_tab in
+  let package_name = Ocamlorg.Package.(Name.to_string (name package)) in
+  let package_version = Ocamlorg.Package.(Version.to_string (version package)) in
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <link rel="icon" type="image/png" href="/assets/favicon.ico" />
+      <link rel="stylesheet" href="/assets/main.css" />
+      <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+      <script src="https://tailwindui.com/js/components-v2.js"></script>
+      <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+      <title><%s title %></title>
+    </head>
+
+    <body class="antialiased">
+      <%s! Header_template.render %>
+      <main class="bg-graylight py-10">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl lg:px-8">
+          <div class="flex items-center space-x-5">
+            <div>
+              <h1 class="text-2xl font-bold text-gray-900">dream</h1>
+              <p class="text-sm font-medium text-gray-500">Tidy, feature-complete Web framework</p>
+            </div>
+          </div>
+          <div class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
+            <div>
+              <label for="version" class="block text-sm font-medium text-gray-700">Version</label>
+              <select id="version" name="version" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm rounded-md">
+                <option selected>1.0.0~alpha2</option>
+                <option>1.0.0~alpha1</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          <div class="mt-3 sm:mt-2">
+            <div class="flex items-center border-b border-gray-200">
+              <nav class="flex-1 -mb-px flex space-x-6 xl:space-x-8" aria-label="Tabs">
+                <a href="/p/<%s package_name %>/<%s package_version %>" class="<%s overview_tab_class %>"> Overview </a>
+                <a href="/p/<%s package_name %>/<%s package_version %>/doc/" class="<%s documentation_tab_class %>"> Documentation </a>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 max-w-3xl mx-auto sm:px-6 lg:max-w-7xl">
+          <%s! inner %>
+        </div>
+      </main>
+      <%s! Footer_template.render %>
+    </body>
+    <script>hljs.highlightAll();</script>
+  </html>

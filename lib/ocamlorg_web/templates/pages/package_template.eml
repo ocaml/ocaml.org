@@ -1,0 +1,98 @@
+type kind =
+| Blessed
+| Universe of string
+
+let render ~kind:_ _package =
+  <div class="grid grid-cols-1 gap-6 lg:grid-flow-col-dense lg:grid-cols-3">
+    <div class="space-y-6 lg:col-start-1 lg:col-span-2">
+      <section aria-labelledby="applicant-information-title">
+        <div class="bg-white shadow sm:rounded-lg">
+          <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
+            <h2 id="applicant-information-title" class="text-lg leading-6 font-medium text-gray-900">Read me</h2>
+          </div>
+          <div class="px-4 py-5 sm:px-6 prose prose-orange prose">
+            <p>Dream is a feature-complete Web framework with a simple programming model and no boilerplate. It provides
+              only two data types, request and response.</p>
+            <p>Almost everything else is either a built-in OCaml type, or an abbreviation for a bare function. For
+              example, a Web app, known in Dream as a handler, is just an ordinary function from requests to responses.
+              And a middleware is then just a function from handlers to handlers.</p>
+            <p>Within this model, Dream adds:</p>
+            <ul>
+              <li>Session management with pluggable back ends.</li>
+              <li>A fully composable router.</li>
+              <li>Support for HTTP/1.1, HTTP/2, and HTTPS.</li>
+              <li>WebSockets.</li>
+              <li>GraphQL, including subscriptions and a built-in GraphiQL editor.</li>
+              <li>SQL connection pool helpers.</li>
+              <li>Server-side HTML templates.</li>
+              <li>Automatic secure handling of cookies and forms.</li>
+              <li>Unified, internationalization-friendly error handling.</li>
+              <li>A neat log, and OCaml runtime configuration.</li>
+              <li>Helpers for Web formats, such as Base64url, and a modern cipher.</li>
+            </ul>
+            <p>Because of the simple programming model, everything is optional and composable. It is trivailly possible to
+              strip Dream down to just a bare driver of the various HTTP protocols.</p>
+            <p>Dream is presented as a single module, whose API is documented on one page. In addition, Dream comes with a
+              large number of examples. Security topics are introduced throughout, wherever they are applicable.</p>
+            <p></p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="lg:col-start-3 lg:col-span-1 space-y-6">
+      <section aria-labelledby="timeline-title" class="">
+        <div class="bg-white shadow sm:rounded-lg">
+          <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
+            <h2 id="applicant-information-title" class="text-lg leading-6 font-medium text-gray-900">Information</h2>
+          </div>
+
+          <div class="px-4 py-5 sm:px-6">
+            <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+              <div class="sm:col-span-2">
+                <dt class="text-sm font-medium text-gray-500">Author</dt>
+                <dd class="mt-1 text-sm text-gray-900">Anton Bachin antonbachin@yahoo.com</dd>
+              </div>
+              <div class="sm:col-span-2">
+                <dt class="text-sm font-medium text-gray-500">Maintainer</dt>
+                <dd class="mt-1 text-sm text-gray-900">Anton Bachin antonbachin@yahoo.com</dd>
+              </div>
+              <div class="sm:col-span-2">
+                <dt class="text-sm font-medium text-gray-500">License</dt>
+                <dd class="mt-1 text-sm text-gray-900">MIT</dd>
+              </div>
+              <div class="sm:col-span-2">
+                <dt class="text-sm font-medium text-gray-500">Homepage</dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                  <a href="#" class="font-medium text-orange-600 hover:text-orange-500"> https://github.com/aantron/dream
+                  </a>
+                </dd>
+              </div>
+              <div class="sm:col-span-2">
+                <dt class="text-sm font-medium text-gray-500">Dependencies</dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                  <ul class="divide-y divide-gray-100">
+                    <li class="py-2">
+                      <a href="#" class="mt-1 text-sm text-orange-600 hover:text-orange-500">ocaml</a>
+                    </li>
+                    <li class="py-2">
+                      <a href="#" class="mt-1 text-sm text-orange-600 hover:text-orange-500">base-unic</a>
+                    </li>
+                    <li class="py-2">
+                      <a href="#" class="mt-1 text-sm text-orange-600 hover:text-orange-500">base-bigarray</a>
+                    </li>
+                    <li class="py-2">
+                      <a href="#" class="mt-1 text-sm text-orange-600 hover:text-orange-500">base-threads</a>
+                    </li>
+                    <li class="py-2">
+                      <a href="#" class="mt-1 text-sm text-orange-600 hover:text-orange-500">ocaml-options-vanilla</a>
+                    </li>
+                  </ul>
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>

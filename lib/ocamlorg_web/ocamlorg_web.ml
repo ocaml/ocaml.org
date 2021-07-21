@@ -5,10 +5,25 @@ module Handlers = struct
   module Package = Package_handler
 end
 
+module Middlewares = struct
+  let redirect_index_html handler req =
+    let index_length = String.length "/index.html" in
+    match Dream.target req with
+    | s when String.length s < index_length ->
+      handler req
+    | s
+      when String.sub s (String.length s - index_length) index_length
+           = "/index.html" ->
+      Dream.redirect req (String.sub s 0 (String.length s - index_length + 1))
+    | _ ->
+      handler req
+end
+
 let run () =
   Dream_cli.run ~debug:Config.debug
   @@ Dream.logger
   @@ Dream_livereload.inject_script ()
+  @@ Middlewares.redirect_index_html
   @@ Router.router
   @@ Dream_livereload.router
   @@ Dream.not_found

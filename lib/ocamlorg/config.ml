@@ -1,8 +1,14 @@
 let env_with_default k v = Sys.getenv_opt k |> Option.value ~default:v
 
-let graphql_api =
-  env_with_default "OCAMLORG_GRAPHQL_API" "http://localhost:8081/"
-  |> Uri.of_string
-
 let opam_polling =
-  env_with_default "OCAMLORG_OPAM_POLLING" "30" |> int_of_string
+  env_with_default "OCAMLORG_OPAM_POLLING" "60" |> int_of_string
+
+let documentation_path =
+  Sys.getenv_opt "OCAMLORG_DOC_PATH"
+  |> Option.map (fun x -> Result.get_ok (Fpath.of_string x))
+  |> Option.value ~default:Fpath.(v "var" / "occurent-output")
+
+let opam_repository_path =
+  Sys.getenv_opt "OCAMLORG_REPO_PATH"
+  |> Option.map (fun x -> Result.get_ok (Fpath.of_string x))
+  |> Option.value ~default:Fpath.(v "var" / "opam-repository")

@@ -35,9 +35,5 @@
   reason
   tyxml-jsx
   omd
-  ; Vendored graphql-ppx
   reason
-  yojson
-  (ppxlib
-   (>= 0.21.0))
   (alcotest :with-test)))

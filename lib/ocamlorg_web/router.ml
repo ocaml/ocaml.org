@@ -17,10 +17,12 @@ let routes =
   ; Dream.get
       "/u/:hash/:name/:version"
       (Package_handler.package_versioned Package_handler.Universe)
-  ; Dream.get "/p/:name/:version/docs" Package_handler.package_docs_index
-  ; Dream.get "/u/:hash/:name/:version/docs" Package_handler.package_docs_index
-  ; Dream.get "/p/:name/:version/docs/**" Package_handler.package_docs
-  ; Dream.get "/u/:hash/:name/:version/docs/**" Package_handler.package_docs
+  ; Dream.get
+      "/p/:name/:version/doc/**"
+      (Package_handler.package_doc Package_handler.Package)
+  ; Dream.get
+      "/u/:hash/:name/:version/doc/**"
+      (Package_handler.package_doc Package_handler.Universe)
   ; Dream.get "/assets/**" (Dream.static ~loader "")
   ]
 

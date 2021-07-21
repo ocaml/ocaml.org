@@ -1,0 +1,5 @@
+(library
+ (name odoc_thtml)
+ (instrumentation
+  (backend bisect_ppx))
+ (libraries odoc.model odoc.document tyxml))

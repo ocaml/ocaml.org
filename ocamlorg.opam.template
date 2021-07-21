@@ -1,0 +1,4 @@
+pin-depends: [
+  ["ood.0.1.0" "git+https://github.com/ocaml/ood#main"]
+  ["odoc.2.0.0-beta4" "git+https://github.com/ocaml/odoc#master"]
+]

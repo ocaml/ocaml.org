@@ -1,4 +1,16 @@
 (rule
+ (targets package_search_template.ml)
+ (deps package_search_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets package_template.ml)
+ (deps package_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
  (targets packages_template.ml)
  (deps packages_template.eml)
  (action

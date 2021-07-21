@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source_dirs="bin lib asset"
+source_dirs="bin lib asset tailwind.config.js"
 args=${*:-"bin/main.exe"}
 cmd="dune exec ${args}"
 
