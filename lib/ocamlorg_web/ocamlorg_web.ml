@@ -22,6 +22,7 @@ end
 let run () =
   Dream_cli.run ~debug:Config.debug
   @@ Dream.logger
+  @@ Dream.origin_referer_check
   @@ Dream_livereload.inject_script ()
   @@ Middlewares.redirect_index_html
   @@ Router.router

@@ -78,6 +78,9 @@ val all_packages_latest : unit -> t list
     The name and versions of the packages are read from the file system, the
     metadata are loaded lazily to improve performance. *)
 
+val get_packages_with_name : Name.t -> t list option
+(** Get the list of packages with the given name. *)
+
 val get_package_versions : Name.t -> Version.t list option
 (** Get the list of versions for a package name. *)
 

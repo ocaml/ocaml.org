@@ -23,6 +23,10 @@ let routes =
   ; Dream.get
       "/u/:hash/:name/:version/doc/**"
       (Package_handler.package_doc Package_handler.Universe)
+  ; Dream.any "/graphql" (Dream.graphql Lwt.return Schema.schema)
+  ; Dream.get
+      "/graphiql"
+      (Dream.graphiql ~default_query:Schema.default_query "/graphql")
   ; Dream.get "/assets/**" (Dream.static ~loader "")
   ]
 
