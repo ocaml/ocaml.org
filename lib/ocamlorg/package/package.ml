@@ -172,6 +172,12 @@ let all_packages_latest () =
   |> OpamPackage.Name.Map.bindings
   |> List.map (fun (name, (version, info)) -> { name; version; info })
 
+let get_packages_with_name name =
+  t.packages
+  |> OpamPackage.Name.Map.find_opt name
+  |> Option.map OpamPackage.Version.Map.bindings
+  |> Option.map (List.map (fun (version, info) -> { name; version; info }))
+
 let get_package_versions name =
   t.packages
   |> OpamPackage.Name.Map.find_opt name
