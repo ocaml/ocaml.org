@@ -5,6 +5,14 @@ module UserLevelIntroduction: {
   }
 }
 
+module Tutorials: {
+  type t = {
+    title: string,
+    description: string,
+    tutorials: array<Ood.Tutorial.t>,
+  }
+}
+
 module Books: {
   type t = {
     booksLabel: string,
@@ -15,6 +23,7 @@ module Books: {
 type t = {
   title: string,
   pageDescription: string,
+  tutorials: Tutorials.t,
   beginning: UserLevelIntroduction.t,
   growing: UserLevelIntroduction.t,
   booksContent: Books.t,

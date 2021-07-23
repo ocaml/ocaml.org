@@ -3,6 +3,47 @@ open! Import
 let s = React.string
 
 module T = {
+  module Tutorials = {
+    type t = {
+      title: string,
+      description: string,
+      tutorials: array<Ood.Tutorial.t>,
+    }
+
+    @react.component
+    let make = (~content, ~lang) => {
+      let left =
+        <div className="flex h-full flex-col items-center justify-center">
+          <div className="py-8 sm:pl-12">
+            <CallToAction.Embedded
+              t={
+                CallToAction.title: content.title,
+                body: content.description,
+                buttonLink: Route(#resourcesTutorials, lang),
+                buttonText: "See All Tutorials",
+              }
+            />
+          </div>
+        </div>
+
+      let right =
+        <div className="flex h-full items-center justify-center">
+          <ul className="list-disc pb-8 sm:pb-0 leading-10">
+            {Array.map(
+              (t: Ood.Tutorial.t) =>
+                <li>
+                  <Route _to={#resourcesTutorial(t.slug)} lang>
+                    <a className="text-orangedark text-xl underline"> {s(t.title)} </a>
+                  </Route>
+                </li>,
+              content.tutorials,
+            ) |> React.array}
+          </ul>
+        </div>
+      <SplitCard.MediumCentered left right />
+    }
+  }
+
   module UserLevelIntroduction = {
     type t = {
       level: string,
@@ -29,81 +70,85 @@ module T = {
     let make = (~marginBottom=?, ~content) =>
       // TODO: define content type; extract content
       // TODO: use generic container
-      <div
-        className={"bg-white overflow-hidden shadow rounded-lg mx-auto max-w-5xl " ++
-        Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty(marginBottom)}>
-        <div className="px-4 py-5 sm:px-6 sm:py-9">
-          <h2 className="text-center text-orangedark text-7xl font-bold mb-8 uppercase">
-            {s(content.booksLabel)}
-          </h2>
-          <div className="grid grid-cols-8 items-center mb-8 px-6">
-            // TODO: define state to track location within books list, activate navigation
-            <div className="flex justify-start">
-              // TODO: make navigation arrows accesssible
-              <svg
-                className="h-20"
-                viewBox="0 0 90 159"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M2.84806 86.0991L72.1515 155.595C76.1863 159.39 82.3571 159.39 86.1546 155.595C89.952 151.8 89.952 145.396 86.1546 141.601L23.734 79.2206L86.1546 16.8403C89.952 12.8081 89.952 6.64125 86.1546 2.84625C82.3571 -0.94875 76.1863 -0.94875 72.1515 2.84625L2.84806 72.105C-0.949387 76.1372 -0.949387 82.3041 2.84806 86.0991Z"
-                  fill="#ED7109"
-                />
-              </svg>
-            </div>
-            <div className="col-span-6 flex justify-center">
-              <ul
-                role="list"
-                className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-6">
-                {content.books
-                |> Js.Array.mapi((book: Ood.Book.t, idx) => {
-                  let cover = Belt.Option.getWithDefault(book.cover, "")
+      <SectionContainer.LargeCentered paddingY="pt-16 pb-3 lg:pt-24 lg:pb-8">
+        <div
+          className={"bg-white overflow-hidden shadow rounded-lg mx-auto max-w-5xl " ++
+          Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty(marginBottom)}>
+          <div className="px-4 py-5 sm:px-6 sm:py-9">
+            <h2 className="text-center text-orangedark text-7xl font-bold mb-8 uppercase">
+              {s(content.booksLabel)}
+            </h2>
+            <div className="grid grid-cols-8 items-center mb-8 px-6">
+              // TODO: define state to track location within books list, activate navigation
+              <div className="flex justify-start">
+                // TODO: make navigation arrows accesssible
+                <svg
+                  className="h-20"
+                  viewBox="0 0 90 159"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M2.84806 86.0991L72.1515 155.595C76.1863 159.39 82.3571 159.39 86.1546 155.595C89.952 151.8 89.952 145.396 86.1546 141.601L23.734 79.2206L86.1546 16.8403C89.952 12.8081 89.952 6.64125 86.1546 2.84625C82.3571 -0.94875 76.1863 -0.94875 72.1515 2.84625L2.84806 72.105C-0.949387 76.1372 -0.949387 82.3041 2.84806 86.0991Z"
+                    fill="#ED7109"
+                  />
+                </svg>
+              </div>
+              <div className="col-span-6 flex justify-center">
+                <ul
+                  role="list"
+                  className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-6">
+                  {content.books
+                  |> Js.Array.mapi((book: Ood.Book.t, idx) => {
+                    let cover = Belt.Option.getWithDefault(book.cover, "")
 
-                  <li title={book.title} key={Js.Int.toString(idx)} className="relative">
-                    <div
-                      className="block w-full aspect-w7 aspect-h-10 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                      <img src=cover alt="" className="object-cover" />
-                    </div>
-                    <p className="mt-2 block text-sm font-medium text-gray-900 truncate">
-                      {s(book.title)}
-                    </p>
-                    <p className="block text-sm font-medium text-gray-500">
-                      {book.links
-                      |> List.mapi((
-                        _idx,
-                        link: Ood.Book.link,
-                      ) => // TODO: visual indicator that link opens new tab
-                      <>
-                        <a href=link.uri target="_blank"> <span> {s(link.description)} </span> </a>
-                        <span className="inline-block px-2"> {s("|")} </span>
-                      </>)
-                      |> Array.of_list
-                      |> React.array}
-                    </p>
-                  </li>
-                })
-                |> React.array}
-              </ul>
-            </div>
-            <div className="flex justify-end">
-              <svg
-                className="h-20"
-                viewBox="0 0 90 159"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M86.1546 72.3423L16.8512 2.84625C12.8164 -0.948746 6.64553 -0.948746 2.84809 2.84625C-0.949362 6.64127 -0.949362 13.0453 2.84809 16.8403L65.2686 79.2207L2.84809 141.601C-0.949362 145.633 -0.949362 151.8 2.84809 155.595C6.64553 159.39 12.8164 159.39 16.8512 155.595L86.1546 86.3363C89.952 82.3041 89.952 76.1373 86.1546 72.3423Z"
-                  fill="#ED7109"
-                />
-              </svg>
+                    <li title={book.title} key={Js.Int.toString(idx)} className="relative">
+                      <div
+                        className="block w-full aspect-w7 aspect-h-10 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+                        <img src=cover alt="" className="object-cover" />
+                      </div>
+                      <p className="mt-2 block text-sm font-medium text-gray-900 truncate">
+                        {s(book.title)}
+                      </p>
+                      <p className="block text-sm font-medium text-gray-500">
+                        {book.links
+                        |> List.mapi((
+                          _idx,
+                          link: Ood.Book.link,
+                        ) => // TODO: visual indicator that link opens new tab
+                        <>
+                          <a href=link.uri target="_blank">
+                            <span> {s(link.description)} </span>
+                          </a>
+                          <span className="inline-block px-2"> {s("|")} </span>
+                        </>)
+                        |> Array.of_list
+                        |> React.array}
+                      </p>
+                    </li>
+                  })
+                  |> React.array}
+                </ul>
+              </div>
+              <div className="flex justify-end">
+                <svg
+                  className="h-20"
+                  viewBox="0 0 90 159"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M86.1546 72.3423L16.8512 2.84625C12.8164 -0.948746 6.64553 -0.948746 2.84809 2.84625C-0.949362 6.64127 -0.949362 13.0453 2.84809 16.8403L65.2686 79.2207L2.84809 141.601C-0.949362 145.633 -0.949362 151.8 2.84809 155.595C6.64553 159.39 12.8164 159.39 16.8512 155.595L86.1546 86.3363C89.952 82.3041 89.952 76.1373 86.1546 72.3423Z"
+                    fill="#ED7109"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </SectionContainer.LargeCentered>
   }
 
   module Manual = {
@@ -249,6 +294,7 @@ module T = {
   type t = {
     title: string,
     pageDescription: string,
+    tutorials: Tutorials.t,
     beginning: UserLevelIntroduction.t,
     growing: UserLevelIntroduction.t,
     booksContent: Books.t,
@@ -276,8 +322,7 @@ module T = {
         addContainer=Page.Basic.NoContainer
         title=content.title
         pageDescription=content.pageDescription>
-        <UserLevelIntroduction content=content.beginning marginBottom=introMarginBottom />
-        <UserLevelIntroduction content=content.growing marginBottom=introMarginBottom />
+        <Tutorials content=content.tutorials lang />
         <Books marginBottom={Tailwind.ByBreakpoint.make(#mb16, ())} content=content.booksContent />
         <UserLevelIntroduction content=content.expanding marginBottom=introMarginBottom />
         <Manual marginBottom={Tailwind.ByBreakpoint.make(#mb20, ())} />
@@ -291,10 +336,16 @@ module T = {
 
   let contentEn = {
     let books = Ood.Book.all->Belt.List.toArray
+    let tutorials = Belt.List.keepWithIndex(Ood.Tutorial.all, (_, i) => i < 4)->Belt.List.toArray
     // TODO: read book sorting and filtering information and adjust array
     {
       title: `Language`,
       pageDescription: `This is the home of learning and tutorials. Whether you're a beginner, a teacher, or a seasoned researcher, this is where you can find the resources you need to accomplish your goals in OCaml.`,
+      tutorials: {
+        title: `OCaml Tutorials`,
+        description: `There are plenty of tutorials available for you to get started with OCaml, written by dedicated members of the community. Take a look and see what you can discover.`,
+        tutorials: tutorials,
+      },
       beginning: {
         level: `Beginning`,
         introduction: `Are you a beginner? Or just someone who wants to brush up on the fundamentals? In either case, the OFronds tutorial system has you covered!`,

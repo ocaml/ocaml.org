@@ -29,6 +29,8 @@ type t = [
   | #resourcesPlatform
   | #resourcesReleases
   | #resourcesUsingocaml
+  | #resourcesTutorials
+  | #resourcesTutorial(string)
 ]
 
 let toString: (t, Lang.t) => string

@@ -29,6 +29,8 @@ type t = [
   | #resourcesPlatform
   | #resourcesReleases
   | #resourcesUsingocaml
+  | #resourcesTutorials
+  | #resourcesTutorial(string)
 ]
 
 let toString = (t: t, lang) => {
@@ -62,6 +64,8 @@ let toString = (t: t, lang) => {
   | #resourcesPlatform => "resources/platform"
   | #resourcesReleases => "resources/releases"
   | #resourcesUsingocaml => "resources/usingocaml"
+  | #resourcesTutorials => "resources/tutorials"
+  | #resourcesTutorial(s) => "resources/" ++ s
   }
   "/" ++ lang ++ "/" ++ path
 }

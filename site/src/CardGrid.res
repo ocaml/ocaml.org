@@ -10,7 +10,7 @@ let make = (~cardData, ~renderCard, ~title=?, ()) => <>
     </h2>
   | None => <> </>
   }}
-  <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-40 gap-y-4 px-8">
+  <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-28 gap-y-4 px-8">
     {cardData->Belt.Array.map(renderCard)->React.array}
   </div>
 </>

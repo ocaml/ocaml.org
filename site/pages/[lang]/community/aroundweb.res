@@ -63,61 +63,56 @@ module T = {
     }
 
     @react.component
-    let make = (~content, ~lang) =>
-      <SectionContainer.LargeCentered>
-        <div className="relative bg-white">
-          <div className="pt-12 h-56 sm:h-72 md:absolute md:left-0 md:h-full md:w-1/2">
-            <div className="mx-auto px-4 py-4 sm:px-6 lg:px-8 lg:py-16 h-full">
-              // TODO: Implement the calendar approach
-              <div className="flex flex-col justify-center h-full">
-                {content.latestEvents
-                |> Array.mapi((idx, event: Ood.Event.t) =>
-                  <div key={event.title}>
-                    <div className="relative pb-8">
-                      {idx !== Array.length(content.latestEvents) - 1
-                        ? <span
-                            className="absolute top-3 left-3 -ml-px h-full w-0.5 bg-gray-200"
-                            ariaHidden=true
-                          />
-                        : <> </>}
-                      <div className="relative flex space-x-3">
-                        <div>
-                          <span
-                            className="h-6 w-6 rounded-full flex items-center justify-center bg-orangedark"
-                          />
-                        </div>
-                        <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
-                          <div> <p className="text-sm text-gray-500"> {s(event.title)} </p> </div>
-                          <div className="text-right text-sm whitespace-nowrap text-gray-500">
-                            <time dateTime={event.date}>
-                              {s(event.date |> Js.Date.fromString |> Js.Date.toDateString)}
-                            </time>
-                          </div>
-                        </div>
+    let make = (~content, ~lang) => {
+      let right =
+        <div className="flex h-full pb-8 sm:pb-0 items-center justify-center">
+          <div>
+            {content.latestEvents
+            |> Array.mapi((idx, event: Ood.Event.t) =>
+              <div key={event.title}>
+                <div className="relative pb-3">
+                  {idx !== Array.length(content.latestEvents) - 1
+                    ? <span
+                        className="absolute top-3 left-3 -ml-px h-full w-0.5 bg-gray-200"
+                        ariaHidden=true
+                      />
+                    : <> </>}
+                  <div className="relative flex space-x-3">
+                    <div>
+                      <span
+                        className="h-6 w-6 rounded-full flex items-center justify-center bg-orangedark"
+                      />
+                    </div>
+                    <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                      <div> <p className="text-sm text-gray-500"> {s(event.title)} </p> </div>
+                      <div className="text-right text-sm whitespace-nowrap text-gray-500">
+                        <time dateTime={event.date}>
+                          {s(event.date |> Js.Date.fromString |> Js.Date.toDateString)}
+                        </time>
                       </div>
                     </div>
                   </div>
-                )
-                |> React.array}
+                </div>
               </div>
-            </div>
-          </div>
-          // TODO: understand how the maxWidth works together with relative
-          <div className="relative max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-            // TODO: understand how md:w-1/2 works together with relative
-            <div className="md:ml-auto md:w-1/2 md:pl-10">
-              <CallToAction.Embedded
-                t={
-                  CallToAction.title: content.title,
-                  body: content.description,
-                  buttonLink: Route(#communityEvents, lang),
-                  buttonText: content.callToAction,
-                }
-              />
-            </div>
+            )
+            |> React.array}
           </div>
         </div>
-      </SectionContainer.LargeCentered>
+      let left =
+        <div className="flex h-full flex-col items-center justify-center">
+          <div className="py-8 sm:pl-12">
+            <CallToAction.Embedded
+              t={
+                CallToAction.title: content.title,
+                body: content.description,
+                buttonLink: Route(#communityEvents, lang),
+                buttonText: content.callToAction,
+              }
+            />
+          </div>
+        </div>
+      <SplitCard.LargeCentered left right />
+    }
   }
 
   module Space = {
