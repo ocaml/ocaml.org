@@ -29,18 +29,23 @@ end
 (** The information of a package. Typically, this is read from the opam file in
     the opam-repository. *)
 module Info : sig
+  type url =
+    { uri : string
+    ; checksum : string list
+    }
+
   type t =
     { synopsis : string
     ; description : string
     ; authors : string list
     ; license : string
-    ; publication_date : string
     ; homepage : string list
     ; tags : string list
     ; maintainers : string list
     ; dependencies : (Name.t * string option) list
     ; depopts : (Name.t * string option) list
     ; conflicts : (Name.t * string option) list
+    ; url : url option
     }
 end
 

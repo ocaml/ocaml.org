@@ -44,13 +44,6 @@ let versionned_package =
               let info = Package.info package in
               info.Package.Info.license)
         ; field
-            "publication_date"
-            ~typ:(non_null string)
-            ~args:Arg.[]
-            ~resolve:(fun _info package ->
-              let info = Package.info package in
-              info.Package.Info.publication_date)
-        ; field
             "homepage"
             ~typ:(non_null (list (non_null string)))
             ~args:Arg.[]

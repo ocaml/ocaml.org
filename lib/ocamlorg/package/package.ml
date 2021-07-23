@@ -5,18 +5,23 @@ module Version_map = Map.Make (Version)
 module Opam_repository = Package_opam_repository
 
 module Info = struct
+  type url =
+    { uri : string
+    ; checksum : string list
+    }
+
   type t =
     { synopsis : string
     ; description : string
     ; authors : string list
     ; license : string
-    ; publication_date : string
     ; homepage : string list
     ; tags : string list
     ; maintainers : string list
     ; dependencies : (OpamPackage.Name.t * string option) list
     ; depopts : (OpamPackage.Name.t * string option) list
     ; conflicts : (OpamPackage.Name.t * string option) list
+    ; url : url option
     }
 
   let relop_to_string = OpamPrinter.FullPos.relop_kind
@@ -55,7 +60,7 @@ module Info = struct
 
   let of_opamfile (opam : OpamFile.OPAM.t) =
     let open OpamFile.OPAM in
-    { synopsis = synopsis opam |> Option.value ~default:"no synopsis"
+    { synopsis = synopsis opam |> Option.value ~default:"No synopsis"
     ; authors = author opam
     ; maintainers = maintainer opam
     ; license = license opam |> String.concat "; "
@@ -63,10 +68,16 @@ module Info = struct
         descr opam |> Option.map OpamFile.Descr.body |> Option.value ~default:""
     ; homepage = homepage opam
     ; tags = tags opam
-    ; publication_date = "today"
     ; conflicts = get_conflicts opam
     ; dependencies = get_dependencies opam
     ; depopts = get_depopts opam
+    ; url =
+        url opam
+        |> Option.map (fun url ->
+               { uri = OpamUrl.to_string (OpamFile.URL.url url)
+               ; checksum =
+                   OpamFile.URL.checksum url |> List.map OpamHash.to_string
+               })
     }
 end
 

@@ -109,7 +109,7 @@ let render (packages : Ocamlorg.Package.t list) =
             let package_name = Ocamlorg.Package.(Name.to_string (name item)) in
             let package_version = Ocamlorg.Package.(Version.to_string (version item)) in
             let package_info = Ocamlorg.Package.info item in
-            let package_description = package_info.Ocamlorg.Package.Info.description in
+            let package_synopsis = package_info.Ocamlorg.Package.Info.synopsis in
             let package_license = 
               match package_info.Ocamlorg.Package.Info.license with
               | "" -> "No License"
@@ -141,7 +141,7 @@ let render (packages : Ocamlorg.Package.t list) =
                         </p>
                       </div>
                       <div class="mt-1 text-sm text-gray-600 line-clamp-2 truncate">
-                        <%s package_description %>
+                        <%s package_synopsis %>
                       </div>
                     </div>
                   </div>
