@@ -67,5 +67,4 @@ let render ~title ~tab ~package ~versions inner =
       </main>
       <%s! Footer_template.render %>
     </body>
-    <script>hljs.highlightAll();</script>
   </html>
