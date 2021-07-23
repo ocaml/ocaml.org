@@ -29,9 +29,9 @@ module T = {
       let right =
         <div className="flex h-full items-center justify-center">
           <ul className="list-disc pb-8 sm:pb-0 leading-10">
-            {Array.map(
-              (t: Ood.Tutorial.t) =>
-                <li>
+            {Array.mapi(
+              (i, t: Ood.Tutorial.t) =>
+                <li key={string_of_int(i)}>
                   <Route _to={#resourcesTutorial(t.slug)} lang>
                     <a className="text-orangedark text-xl underline"> {s(t.title)} </a>
                   </Route>
@@ -60,14 +60,50 @@ module T = {
       </SectionContainer.SmallCentered>
   }
 
+  // TODO: Better bindings for this
+  type options = {inline: string, behaviour: string, block: string}
+  @send external scrollIntoView: (Dom.element, options) => unit = "scrollIntoView"
+
   module Books = {
     type t = {
       booksLabel: string,
       books: array<Ood.Book.t>,
     }
 
+    type direction = Left | Right
+
     @react.component
-    let make = (~marginBottom=?, ~content) =>
+    let make = (~marginBottom=?, ~content) => {
+      let (idx, setIdx) = React.useState(() => 0)
+      let booksRef = React.useRef(Array.init(Array.length(content.books), _ => Js.Nullable.null))
+      let setBookRef = (idx, element) => {
+        booksRef.current[idx] = element
+      }
+
+      let handle_book_change = index => {
+        Js.Nullable.iter(booksRef.current[index], (. el) =>
+          scrollIntoView(el, {inline: "center", behaviour: "smooth", block: "center"})
+        )
+      }
+
+      let handle_click = (dir, current) => {
+        let new_idx = switch dir {
+        | Left => current - 1
+        | Right => current + 1
+        }
+
+        let length = Array.length(content.books)
+        let new_idx = if new_idx < 0 {
+          length + new_idx
+        } else if new_idx >= length {
+          new_idx - length
+        } else {
+          new_idx
+        }
+        handle_book_change(new_idx)
+        new_idx
+      }
+
       // TODO: define content type; extract content
       // TODO: use generic container
       <SectionContainer.LargeCentered paddingY="pt-16 pb-3 lg:pt-24 lg:pb-8">
@@ -75,12 +111,21 @@ module T = {
           className={"bg-white overflow-hidden shadow rounded-lg mx-auto max-w-5xl " ++
           Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty(marginBottom)}>
           <div className="px-4 py-5 sm:px-6 sm:py-9">
-            <h2 className="text-center text-orangedark text-7xl font-bold mb-8 uppercase">
+            <h2 className="text-center text-orangedark text-5xl font-bold mb-8">
               {s(content.booksLabel)}
             </h2>
             <div className="grid grid-cols-8 items-center mb-8 px-6">
               // TODO: define state to track location within books list, activate navigation
-              <div className="flex justify-start">
+              <div
+                tabIndex={0}
+                className="flex justify-start cursor-pointer"
+                // TODO: Improve the navigation using a keyboard
+                onKeyDown={e => {
+                  if ReactEvent.Keyboard.keyCode(e) === 13 {
+                    setIdx(prev => handle_click(Left, prev))
+                  }
+                }}
+                onClick={_ => setIdx(prev => handle_click(Left, prev))}>
                 // TODO: make navigation arrows accesssible
                 <svg
                   className="h-20"
@@ -95,43 +140,37 @@ module T = {
                   />
                 </svg>
               </div>
-              <div className="col-span-6 flex justify-center">
-                <ul
-                  role="list"
-                  className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-6">
-                  {content.books
-                  |> Js.Array.mapi((book: Ood.Book.t, idx) => {
-                    let cover = Belt.Option.getWithDefault(book.cover, "")
-
-                    <li title={book.title} key={Js.Int.toString(idx)} className="relative">
-                      <div
-                        className="block w-full aspect-w7 aspect-h-10 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                        <img src=cover alt="" className="object-cover" />
-                      </div>
-                      <p className="mt-2 block text-sm font-medium text-gray-900 truncate">
-                        {s(book.title)}
-                      </p>
-                      <p className="block text-sm font-medium text-gray-500">
-                        {book.links
-                        |> List.mapi((
-                          _idx,
-                          link: Ood.Book.link,
-                        ) => // TODO: visual indicator that link opens new tab
-                        <>
-                          <a href=link.uri target="_blank">
-                            <span> {s(link.description)} </span>
-                          </a>
-                          <span className="inline-block px-2"> {s("|")} </span>
-                        </>)
-                        |> Array.of_list
-                        |> React.array}
-                      </p>
-                    </li>
-                  })
-                  |> React.array}
-                </ul>
+              <div className="col-span-6 py-2 flex m-w-full overflow-x-hidden">
+                {Array.mapi((id, book: Ood.Book.t) => {
+                  // TODO: Better default image
+                  let cover = Belt.Option.getWithDefault(book.cover, "/static/logo1.jpeg")
+                  <div
+                    className="px-4 flex items-center justify-center"
+                    key={string_of_int(id)}
+                    ref={ReactDOM.Ref.callbackDomRef(dom => setBookRef(id, dom))}>
+                    <div className="w-40 aspect-w-3 aspect-h-2 sm:aspect-w-3 sm:aspect-h-4">
+                      <img
+                        src=cover
+                        alt=book.title
+                        className={"object-fit w-full shadow-lg rounded-lg " ++ if id == idx {
+                          "ring-4 ring-orangedarker"
+                        } else {
+                          ""
+                        }}
+                      />
+                    </div>
+                  </div>
+                }, content.books) |> React.array}
               </div>
-              <div className="flex justify-end">
+              <div
+                tabIndex={0}
+                className="flex justify-end cursor-pointer"
+                onKeyDown={e => {
+                  if ReactEvent.Keyboard.keyCode(e) === 13 {
+                    setIdx(prev => handle_click(Right, prev))
+                  }
+                }}
+                onClick={_ => setIdx(prev => handle_click(Right, prev))}>
                 <svg
                   className="h-20"
                   viewBox="0 0 90 159"
@@ -146,9 +185,34 @@ module T = {
                 </svg>
               </div>
             </div>
+            <div className="w-full px-10">
+              {switch Belt.Array.get(content.books, idx) {
+              | Some(book) => <>
+                  <p className="mt-2 text-lg font-medium text-gray-900"> {s(book.title)} </p>
+                  <p className="mt-2 text-md text-gray-900"> {s(book.description)} </p>
+                  <p className=" text-sm font-medium text-gray-500">
+                    {book.links
+                    |> List.mapi((
+                      _idx,
+                      link: Ood.Book.link,
+                    ) => // TODO: visual indicator that link opens new tab
+                    <>
+                      <a href=link.uri className="text-orangedarker" target="_blank">
+                        <span> {s(link.description)} </span>
+                      </a>
+                      <span className="inline-block px-2"> {s("|")} </span>
+                    </>)
+                    |> Array.of_list
+                    |> React.array}
+                  </p>
+                </>
+              | None => <p> {s("Somethings gone wrong")} </p>
+              }}
+            </div>
           </div>
         </div>
       </SectionContainer.LargeCentered>
+    }
   }
 
   module Manual = {
