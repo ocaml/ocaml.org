@@ -1,101 +1,27 @@
 open! Import
-
+module Link = Next.Link
 let s = React.string
 
 module T = {
-  module Company = {
-    type t = {
-      logo: string,
-      name: string,
-      customWidth: option<string>,
-      needsRounding: bool,
-      website: string,
-    }
-  }
-
-  let companies = [
-    {
-      Company.logo: `oclabs.png`,
-      name: `OCaml Labs`,
-      customWidth: None,
-      needsRounding: false,
-      website: `https://ocamllabs.io`,
-    },
-    {
-      logo: `trd.png`,
-      name: `Tarides`,
-      customWidth: Some(`w-40`),
-      needsRounding: false,
-      website: `https://tarides.com`,
-    },
-    {
-      logo: `slv2.png`,
-      name: `Solvuu`,
-      customWidth: None,
-      needsRounding: true,
-      website: `https://solvuu.com`,
-    },
-    {
-      logo: `js2.jpeg`,
-      name: `Jane Street`,
-      customWidth: None,
-      needsRounding: true,
-      website: `https://janestreet.com`,
-    },
-    {
-      logo: `lxf.png`,
-      name: `LexiFi`,
-      customWidth: None,
-      needsRounding: false,
-      website: `https://lexifi.com`,
-    },
-    {
-      logo: `tz.png`,
-      name: `Tezos`,
-      customWidth: Some(`w-24`),
-      needsRounding: false,
-      website: `https://tezos.com`,
-    },
-  ]
-
   type t = {
+    companies: LogoCloud.t,
     title: string,
     pageDescription: string,
-    companies: array<Company.t>,
+    backgroundImage: TitleHeading.OverBackgroundImage.BackgroundImage.t,
   }
   include Jsonable.Unsafe
-
-  module LogoSection = {
+  module CallToAction = {
     @react.component
-    let make = (~companies, ~marginBottom=?, ()) =>
-      <SectionContainer.ResponsiveCentered ?marginBottom>
-        // TODO: try switching to a grid
-        <div className="flex flex-wrap justify-center lg:justify-between ">
-          {companies
-          |> Js.Array.mapi((c, idx) =>
-            <div key={Js.Int.toString(idx)} className="p-12 flex flex-col items-center">
-              // TODO: considering accessibility, how many elements should the link span?
-              <img
-                className={switch c.Company.customWidth {
-                | Some(width) => width
-                | None => ` w-32 `
-                } ++
-                switch c.needsRounding {
-                | true => ` rounded-full `
-                | false => ``
-                } ++ " mb-9 "}
-                src={`/static/` ++ c.logo}
-                alt=""
-              />
-              <p className="text-4xl underline font-bold">
-                // TODO: accessibility - warn opening a new tab
-                <a href=c.website target="_blank"> {s(c.name)} </a>
-              </p>
-            </div>
-          )
-          |> React.array}
-        </div>
-      </SectionContainer.ResponsiveCentered>
+    let make = (~lang) => <>
+      <div className="text-center">
+        <Link href={#principlesSuccesses->Route.toString(lang)}>
+          <a
+            className="justify-center inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-orangedark hover:bg-orangedarker focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedarker">
+            {s("Success Stories")}
+          </a>
+        </Link>
+      </div>
+    </>
   }
 
   module Params = Pages.Params.Lang
@@ -106,22 +32,32 @@ module T = {
       figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=430%3A36400`
       playgroundLink=`/play/industry/users`
     />
-    <Page.Basic
-      marginTop=`mt-2`
+    <Page.TitleOverBackgroundImage
       title=content.title
-      pageDescription=content.pageDescription
-      callToAction={
-        TitleHeading.Large.label: "Success Stories",
-        url: #principlesSuccesses->Route.toString(lang),
-      }>
-      <LogoSection companies=content.companies />
-    </Page.Basic>
+      backgroundImage=content.backgroundImage
+      pageDescription=content.pageDescription>
+      <CallToAction lang /> <LogoCloud companies=content.companies />
+    </Page.TitleOverBackgroundImage>
   </>
 
   let contentEn = {
-    title: `Industrial Users of OCaml`,
-    pageDescription: `OCaml is a popular choice for companies who make use of its features in key aspects of their technologies. Some companies that use OCaml code are listed below:`,
-    companies: companies,
+    let companyArray = Ood.Industrial_user.all->Belt.List.toArray
+
+    let companies = companyArray->Belt.Array.map((c: Ood.Industrial_user.t) => {
+      LogoCloud.CompanyOptionalLogo.logoSrc: c.Ood.Industrial_user.image,
+      name: c.name,
+      website: c.site,
+    })
+
+    {
+      companies: LogoWithText(companies),
+      title: `Industrial Users of OCaml`,
+      pageDescription: `With its strong security features and high performance, several companies rely on OCaml to keep their data operating both safely and efficiently. On this page, you can get an overview of the companies in the community and learn more about how they use OCaml.`,
+      backgroundImage: {
+        height: Tall,
+        tailwindImageName: `bg-user-bg`,
+      },
+    }
   }
 
   let content = [({Params.lang: #en}, contentEn)]

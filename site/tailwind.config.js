@@ -39,6 +39,7 @@ module.exports = {
       backgroundImage: (theme) => ({
         'news-bg': "url('/static/news-bg.jpeg')",
         'acad-bg': "url('/static/acad.png')",
+        'user-bg': "url('/static/user.jpg')",
       }),
       fontFamily: {
         // TODO: define more fallback fonts and possibly rename to "serif"
@@ -47,6 +48,7 @@ module.exports = {
       spacing: {
         // Note: this was introduced to accommodate a large image height
         '160': '40rem',
+
       }
     },
     /* We override the default font-families with our own default prefs

@@ -5,7 +5,7 @@ let s = React.string
 module MainContainer = {
   module None = {
     @react.component
-    let make = (~children) => children
+    let make = (~children) => <div className="mx-auto"> children </div>
   }
 
   module Centered = {
@@ -139,8 +139,8 @@ module TitleOverBackgroundImage = {
     ~pageDescription=?,
     (),
   ) => {
-    <MainContainer.Centered>
+    <MainContainer.None>
       <TitleHeading.OverBackgroundImage title backgroundImage ?pageDescription /> children
-    </MainContainer.Centered>
+    </MainContainer.None>
   }
 }
