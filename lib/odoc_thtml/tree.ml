@@ -130,7 +130,7 @@ let page_creator
                         [ div
                             ~a:
                               [ a_class
-                                  [ "prose prose-sm prose-orange \
+                                  [ "prose prose-orange \
                                      max-w-[37.5rem] mx-auto"
                                   ]
                               ]

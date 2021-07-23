@@ -1,4 +1,4 @@
-let doc_path = Fpath.(v "var" / "occurent-output")
+let doc_path = Config.documentation_path
 
 type files =
   { opam : Fpath.t option
