@@ -4,6 +4,7 @@ type kind =
 
 let render ~kind:_ package =
   let package_name = Ocamlorg.Package.(Name.to_string (name package)) in
+  let package_version = Ocamlorg.Package.(Version.to_string (version package)) in
   let package_info = Ocamlorg.Package.info package in
   let package_description = package_info.Ocamlorg.Package.Info.description |> Omd.of_string |> Omd.to_html in
   let package_homepages = package_info.Ocamlorg.Package.Info.homepage in
@@ -43,7 +44,7 @@ let render ~kind:_ package =
           Install
         </h1>
 
-        <input value="opam install <%s package_name %>" type="text" name="install" id="install" class="bg-gray-800 text-gray-100 text-sm font-mono subpixel-antialiased shadow-sm focus:ring-orange-500 focus:border-orange-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md" />
+        <input value="opam install <%s package_name %>.<%s package_version %>" type="text" name="install" id="install" class="bg-gray-800 text-gray-100 text-sm font-mono subpixel-antialiased shadow-sm focus:ring-orange-500 focus:border-orange-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md" />
       </section>
 
       <section aria-labelledby="timeline-title" class="">

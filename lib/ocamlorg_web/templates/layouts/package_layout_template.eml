@@ -8,6 +8,8 @@ let render ~title ~tab ~package ~versions inner =
   let overview_tab_class = if tab = Overview then active_tab else default_tab in
   let documentation_tab_class = if tab = Documentation then active_tab else default_tab in
   let package_name = Ocamlorg.Package.(Name.to_string (name package)) in
+  let package_info = Ocamlorg.Package.info package in
+  let package_synopsis = package_info.Ocamlorg.Package.Info.synopsis in
   let package_version = Ocamlorg.Package.(Version.to_string (version package)) in
   let versions = 
     List.sort Ocamlorg.Package.Version.compare versions 
@@ -29,22 +31,22 @@ let render ~title ~tab ~package ~versions inner =
 
     <body class="antialiased">
       <%s! Header_template.render %>
-      <main class="bg-graylight py-10">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl lg:px-8">
-          <div class="flex items-center space-x-5">
-            <div>
-              <h1 class="text-2xl font-bold text-gray-900">dream</h1>
-              <p class="text-sm font-medium text-gray-500">Tidy, feature-complete Web framework</p>
-            </div>
+      <main class="bg-graylight py-8 sm:py-12">
+        <div class="max-w-7xl mx-auto pb-5 px-4 sm:px-6 lg:px-8 lg:flex lg:justify-between">
+          <div class="max-w-xl">
+            <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl sm:tracking-tight lg:text-5xl"><%s package_name %></h2>
+            <p class="mt-3 text-lg text-gray-500"><%s package_synopsis %></p>
           </div>
-          <div class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
-            <div>
-              <label for="version" class="block text-sm font-medium text-gray-700">Version</label>
-              <select id="version" name="version" onchange="location = this.value;" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm rounded-md">
-                <% versions |> List.iter begin fun item -> %>
-                <option value="/p/<%s package_name %>/<%s item %>"<%s if item = package_version then "selected" else "" %>><%s item %></option>
-                <% end; %>
-              </select>
+          <div class="mt-5 lg:mt-2 w-full max-w-xs">
+            <label for="version" class="block text-base font-medium text-gray-500">Version</label>
+            <div class="mt-1.5 relative">
+              <div>
+                <select id="version" name="version" onchange="location = this.value;" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm rounded-md">
+                  <% versions |> List.iter begin fun item -> %>
+                  <option value="/p/<%s package_name %>/<%s item %>"<%s if item = package_version then "selected" else "" %>><%s item %></option>
+                  <% end; %>
+                </select>
+              </div>
             </div>
           </div>
         </div>
