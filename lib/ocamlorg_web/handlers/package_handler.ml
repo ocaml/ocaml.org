@@ -52,9 +52,13 @@ let package_versioned kind req =
     Dream.not_found req
   | Some package ->
     let content = Package_template.render ~kind package in
+    let versions =
+      Ocamlorg.Package.get_package_versions name |> Option.value ~default:[]
+    in
     Package_layout_template.render
       ~title:"Packages"
       ~package
+      ~versions
       ~tab:Overview
       content
     |> Dream.html
@@ -80,6 +84,7 @@ let package_doc kind req =
     let content = Hashtbl.find_opt docs (Dream.path req |> String.concat "/") in
     (match content with
     | None ->
+      (* TODO: Replace with NOT FOUND *)
       let content =
         Hashtbl.to_seq docs
         |> List.of_seq
@@ -92,17 +97,25 @@ let package_doc kind req =
           (Dream.path req |> String.concat "/")
           content
       in
+      let versions =
+        Ocamlorg.Package.get_package_versions name |> Option.value ~default:[]
+      in
       (* Dream.not_found req *)
       Package_layout_template.render
         ~title:"Packages"
         ~package
+        ~versions
         ~tab:Documentation
         content
       |> Dream.html
     | Some content ->
+      let versions =
+        Ocamlorg.Package.get_package_versions name |> Option.value ~default:[]
+      in
       Package_layout_template.render
         ~title:"Packages"
         ~package
+        ~versions
         ~tab:Documentation
         content
       |> Dream.html)

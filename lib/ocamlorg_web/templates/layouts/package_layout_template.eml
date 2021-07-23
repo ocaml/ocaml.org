@@ -2,13 +2,18 @@ type tab =
   | Overview
   | Documentation
 
-let render ~title ~tab ~package inner =
+let render ~title ~tab ~package ~versions inner =
   let active_tab = "border-orange-500 text-orange-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" in
   let default_tab = "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" in
   let overview_tab_class = if tab = Overview then active_tab else default_tab in
   let documentation_tab_class = if tab = Documentation then active_tab else default_tab in
   let package_name = Ocamlorg.Package.(Name.to_string (name package)) in
   let package_version = Ocamlorg.Package.(Version.to_string (version package)) in
+  let versions = 
+    List.sort Ocamlorg.Package.Version.compare versions 
+    |> List.map Ocamlorg.Package.Version.to_string
+    |> List.rev
+  in
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -35,9 +40,10 @@ let render ~title ~tab ~package inner =
           <div class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
             <div>
               <label for="version" class="block text-sm font-medium text-gray-700">Version</label>
-              <select id="version" name="version" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm rounded-md">
-                <option selected>1.0.0~alpha2</option>
-                <option>1.0.0~alpha1</option>
+              <select id="version" name="version" onchange="location = this.value;" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm rounded-md">
+                <% versions |> List.iter begin fun item -> %>
+                <option value="/p/<%s package_name %>/<%s item %>"<%s if item = package_version then "selected" else "" %>><%s item %></option>
+                <% end; %>
               </select>
             </div>
           </div>
