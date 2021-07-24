@@ -5,6 +5,8 @@ let to_bool s =
 
 let debug = to_bool @@ env_with_default "OCAMLORG_DEBUG" "true"
 
+let port = env_with_default "PORT" "8080" |> int_of_string
+
 let secret_key =
   env_with_default
     "OCAMLORG_SECRET_KEY"

@@ -4,7 +4,7 @@ synopsis: "OCaml.org website"
 description: "OCaml.org website"
 maintainer: ["Thibaut Mattio"]
 authors: ["Thibaut Mattio"]
-license: "MIT"
+license: "ISC"
 homepage: "https://github.com/tmattio/ocamlorg"
 doc: "https://tmattio.github.io/ocamlorg/"
 bug-reports: "https://github.com/tmattio/ocamlorg/issues"
@@ -18,12 +18,9 @@ depends: [
   "odoc"
   "opam-format"
   "logs"
-  "cohttp-lwt-unix"
-  "git-unix"
-  "reason"
-  "tyxml-jsx"
   "omd"
-  "reason"
+  "bos"
+  "tyxml"
   "alcotest" {with-test}
 ]
 build: [

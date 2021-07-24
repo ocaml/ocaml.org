@@ -20,7 +20,7 @@ module Middlewares = struct
 end
 
 let run () =
-  Dream_cli.run ~debug:Config.debug
+  Dream_cli.run ~debug:Config.debug ~interface:"0.0.0.0" ~port:Config.port
   @@ Dream.logger
   @@ Dream.origin_referer_check
   @@ Dream_livereload.inject_script ()

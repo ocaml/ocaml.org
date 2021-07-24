@@ -28,6 +28,11 @@ module Process = struct
   let exec cmd =
     let proc = Lwt_process.open_process_none cmd in
     proc#status >|= check_status cmd
+
+  let pread cmd =
+    let proc = Lwt_process.open_process_in cmd in
+    Lwt_io.read proc#stdout >>= fun output ->
+    proc#status >|= check_status cmd >|= fun () -> output
 end
 
 let clone_path = Config.opam_repository_path
@@ -51,25 +56,17 @@ let pull () =
   Process.exec
     ("", [| "git"; "-C"; Fpath.to_string clone_path; "pull"; "origin" |])
 
-module Store = Git_unix.Store
-
 let clone_path = Config.opam_repository_path
-
-let open_store () =
-  let open Lwt.Syntax in
-  let dotgit = Fpath.(clone_path / ".git") in
-  let+ store = Git_unix.Store.v ~dotgit clone_path in
-  match store with
-  | Ok x ->
-    x
-  | Error e ->
-    Fmt.failwith "Failed to open opam-repository: %a" Store.pp_error e
 
 let last_commit () =
   let open Lwt.Syntax in
-  let* store = open_store () in
-  let+ commit = Store.Ref.resolve store Git.Reference.master in
-  Store.Hash.to_raw_string @@ Result.get_ok commit
+  let+ output =
+    Process.pread
+      ("", [| "git"; "-C"; Fpath.to_string clone_path; "rev-parse"; "HEAD" |])
+    |> Lwt.map String.trim
+  in
+  Logs.info (fun m -> m "Opam repository is currently at %s" output);
+  output
 
 let ls_dir directory =
   Sys.readdir directory

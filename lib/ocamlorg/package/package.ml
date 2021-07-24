@@ -98,9 +98,6 @@ type state =
       Info.t lazy_t OpamPackage.Version.Map.t OpamPackage.Name.Map.t
   }
 
-module Store = Git_unix.Store
-module Search = Git.Search.Make (Digestif.SHA1) (Store)
-
 let read_versions package_name =
   let versions = Opam_repository.list_package_versions package_name in
   List.fold_left

@@ -1,7 +1,6 @@
 (library
  (name ocamlorg)
  (libraries
-  git-unix
   opam-format
   lwt
   lwt.unix

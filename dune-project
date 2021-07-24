@@ -7,7 +7,7 @@
 (source
  (github tmattio/ocamlorg))
 
-(license MIT)
+(license ISC)
 
 (authors "Thibaut Mattio")
 
@@ -30,10 +30,7 @@
   odoc
   opam-format
   logs
-  cohttp-lwt-unix
-  git-unix
-  reason
-  tyxml-jsx
   omd
-  reason
+  bos
+  tyxml
   (alcotest :with-test)))
