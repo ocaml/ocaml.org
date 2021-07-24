@@ -5,9 +5,9 @@ let loader _root path _request =
   | Some asset ->
     Dream.respond asset
 
-let routes =
-  [ Dream.get "/" Page_handler.index
-  ; Dream.get "/packages" Package_handler.index
+let package_routes =
+  [ Dream.get "/packages" Package_handler.index
+  ; Dream.get "/packages/" Package_handler.index
   ; Dream.get "/packages/search" Package_handler.search
   ; Dream.get "/p/:name" Package_handler.package
   ; Dream.get "/u/:hash/:name" Package_handler.package
@@ -30,4 +30,9 @@ let routes =
   ; Dream.get "/assets/**" (Dream.static ~loader "")
   ]
 
-let router = Dream.router routes
+let site_routes site_dir = [ Dream.get "/**" (Dream.static site_dir) ]
+
+let package_router = Dream.router package_routes
+
+let site_router site_dir = 
+  Dream.router (site_routes site_dir)

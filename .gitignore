@@ -24,3 +24,8 @@ build/
 
 # IDE related
 .vscode*
+
+# OCurrent
+var/job
+var/db
+var/v3-ocaml-org
