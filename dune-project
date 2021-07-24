@@ -32,5 +32,5 @@
   logs
   omd
   bos
-  tyxml
+  yojson
   (alcotest :with-test)))

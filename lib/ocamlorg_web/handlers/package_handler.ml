@@ -51,16 +51,15 @@ let package_versioned kind req =
   | None ->
     Dream.not_found req
   | Some package ->
-    let docs = Ocamlorg.Package.documentation package in
     let readme =
-      Ocamlorg.Package.readme package
+      Ocamlorg.Package.readme_file package
       |> Option.value
            ~default:
              ((Ocamlorg.Package.info package).Ocamlorg.Package.Info.description
              |> Omd.of_string
              |> Omd.to_html)
     in
-    let license = Hashtbl.find_opt docs "LICENSE.md" in
+    let license = Ocamlorg.Package.license_file package in
     let content = Package_template.render ~kind ~readme ~license package in
     let versions =
       Ocamlorg.Package.get_package_versions name |> Option.value ~default:[]
@@ -90,35 +89,12 @@ let package_doc kind req =
   | None ->
     Dream.not_found req
   | Some package ->
-    let docs = Ocamlorg.Package.documentation package in
-    let content = Hashtbl.find_opt docs (Dream.path req |> String.concat "/") in
-    (match content with
+    let path = Dream.path req |> String.concat "/" in
+    let docs = Ocamlorg.Package.documentation_page package path in
+    (match docs with
     | None ->
-      (* TODO: Replace with NOT FOUND *)
-      let content =
-        Hashtbl.to_seq docs
-        |> List.of_seq
-        |> List.map (fun (url, _) -> url)
-        |> String.concat "<br />"
-      in
-      let content =
-        Printf.sprintf
-          "Path: %s<br />%s"
-          (Dream.path req |> String.concat "/")
-          content
-      in
-      let versions =
-        Ocamlorg.Package.get_package_versions name |> Option.value ~default:[]
-      in
-      (* Dream.not_found req *)
-      Package_layout_template.render
-        ~title:"Packages"
-        ~package
-        ~versions
-        ~tab:Documentation
-        content
-      |> Dream.html
-    | Some content ->
+      Dream.not_found req
+    | Some doc ->
       let versions =
         Ocamlorg.Package.get_package_versions name |> Option.value ~default:[]
       in
@@ -127,5 +103,5 @@ let package_doc kind req =
         ~package
         ~versions
         ~tab:Documentation
-        content
+        (Package_doc_template.render doc)
       |> Dream.html)
