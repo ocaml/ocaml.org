@@ -24,6 +24,8 @@
    (>= 4.08.0))
   dune
   crunch
+  current_docker
+  current_web
   dream
   dream-cli
   dream-livereload
