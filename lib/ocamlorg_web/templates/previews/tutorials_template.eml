@@ -1,0 +1,87 @@
+let render_tutorial name id image = 
+  <a href="/preview/tutorials/<%s id %>" class="group relative bg-white rounded-lg shadow-sm overflow-hidden ring-1 ring-black ring-opacity-5">
+    <figure>
+      <div class="relative bg-gray-100 pt-[50%] overflow-hidden">
+        <div class="absolute inset-0 w-full h-full rounded-t-lg overflow-hidden">
+          <img src="/assets/tutorials/<%s image %>" alt="" class="absolute inset-0 w-full h-full" />
+        </div>
+      </div>
+      <figcaption class="py-3 px-4">
+        <p class="text-sm font-medium text-gray-900 mb-1 truncate"><%s name %></p>
+        <p class="text-xs font-medium text-gray-500">20 minutes</p>
+      </figcaption>
+    </figure>
+  </a>
+
+let render = 
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24 space-y-8">
+  <section id="product-marketing" class="divide-y divide-gray-200" style="scroll-margin-top:6.25rem">
+    <header class="pb-6">
+      <h2 class="text-2xl font-extrabold text-gray-900">Tutorials</h2>
+      <p class="text-sm text-gray-500 mt-2">Learn OCaml by topic.</p>
+    </header>
+    <div id="product-marketing-sections" class="grid grid-cols-3 xl:grid-cols-4 py-8 gap-x-8 gap-y-6">
+      <h3 class="text-gray-900 font-semibold col-span-3 xl:col-span-1">Getting Started</h3>
+      <div class="col-span-3 grid sm:grid-cols-3 md:grid-cols-4 gap-6 sm:gap-y-8 lg:gap-x-8">
+        <%s! render_tutorial "Up and Running" "up-and-running-with-ocaml" "undraw_Outer_space_drqu.svg" %>
+        <%s! render_tutorial "A First Hour with OCaml" "" "undraw_in_no_time_6igu.svg" %>
+        <%s! render_tutorial "OCaml Programming Guidelines" "" "undraw_Personal_notebook_re_d7dc.svg" %>
+        <%s! render_tutorial "Compiling OCaml Projects" "" "undraw_building_blocks_n0nc.svg" %>
+      </div>
+    </div>
+    <div id="product-marketing-elements" class="grid grid-cols-3 xl:grid-cols-4 py-8 gap-x-8 gap-y-6">
+      <h3 class="text-gray-900 font-semibold col-span-3 xl:col-span-1">Language Features</h3>
+      <div class="col-span-3 grid sm:grid-cols-3 md:grid-cols-4 gap-6 sm:gap-y-8 lg:gap-x-8">
+        <%s! render_tutorial "Data Types and Matching" "" "undraw_art_museum_8or4.svg" %>
+        <%s! render_tutorial "Functional Programming" "" "undraw_solution_mindset_34bi.svg" %>
+        <%s! render_tutorial "If Statements, Loops, and Recursion" "" "undraw_moving_forward_lhhd.svg" %>
+        <%s! render_tutorial "Modules" "" "undraw_collecting_fjjl.svg" %>
+        <%s! render_tutorial "Labels" "" "undraw_Notes_re_pxhw.svg" %>
+        <%s! render_tutorial "Pointers in OCaml" "" "undraw_Memory_storage_reh0.svg" %>
+        <%s! render_tutorial "Null Pointers, Asserts, and Warnings" "" "undraw_Notify_re_65on.svg" %>
+        <%s! render_tutorial "Functors" "" "undraw_Designer_mindset_re_2w1k.svg" %>
+        <%s! render_tutorial "Objects" "" "undraw_fitting_pieces_cli3.svg" %>
+      </div>
+    </div>
+    <div id="product-marketing-elements" class="grid grid-cols-3 xl:grid-cols-4 py-8 gap-x-8 gap-y-6">
+      <h3 class="text-gray-900 font-semibold col-span-3 xl:col-span-1">Errors and Debugging</h3>
+      <div class="col-span-3 grid sm:grid-cols-3 md:grid-cols-4 gap-6 sm:gap-y-8 lg:gap-x-8">
+        <%s! render_tutorial "Error Handling" "" "undraw_bug_fixing_oc7a.svg" %>
+        <%s! render_tutorial "Common Error Messages" "" "undraw_Opened_re_i38e.svg" %>
+        <%s! render_tutorial "Debugging" "" "undraw_online_test_gba7.svg" %>
+      </div>
+    </div>
+    <div id="product-marketing-elements" class="grid grid-cols-3 xl:grid-cols-4 py-8 gap-x-8 gap-y-6">
+      <h3 class="text-gray-900 font-semibold col-span-3 xl:col-span-1">Data Structures</h3>
+      <div class="col-span-3 grid sm:grid-cols-3 md:grid-cols-4 gap-6 sm:gap-y-8 lg:gap-x-8">
+        <%s! render_tutorial "Maps" "" "undraw_art_museum_8or4.svg" %>
+        <%s! render_tutorial "Sets" "" "undraw_art_museum_8or4.svg" %>
+        <%s! render_tutorial "Hash Tables" "" "undraw_art_museum_8or4.svg" %>
+        <%s! render_tutorial "Comparison of Standard Containers" "" "undraw_art_museum_8or4.svg" %>
+      </div>
+    </div>
+    <div id="product-marketing-elements" class="grid grid-cols-3 xl:grid-cols-4 py-8 gap-x-8 gap-y-6">
+      <h3 class="text-gray-900 font-semibold col-span-3 xl:col-span-1">Common Tasks</h3>
+      <div class="col-span-3 grid sm:grid-cols-3 md:grid-cols-4 gap-6 sm:gap-y-8 lg:gap-x-8">
+        <%s! render_tutorial "Formatting and Wrapping Text" "" "undraw_art_museum_8or4.svg" %>
+        <%s! render_tutorial "99 Problems" "" "undraw_art_museum_8or4.svg" %>
+        <%s! render_tutorial "Command Line Arguments" "" "undraw_art_museum_8or4.svg" %>
+        <%s! render_tutorial "File Manipulation" "" "undraw_art_museum_8or4.svg" %>
+      </div>
+    </div>
+    <div id="product-marketing-elements" class="grid grid-cols-3 xl:grid-cols-4 py-8 gap-x-8 gap-y-6">
+      <h3 class="text-gray-900 font-semibold col-span-3 xl:col-span-1">Interoperability</h3>
+      <div class="col-span-3 grid sm:grid-cols-3 md:grid-cols-4 gap-6 sm:gap-y-8 lg:gap-x-8">
+        <%s! render_tutorial "Calling C libraries" "" "undraw_art_museum_8or4.svg" %>
+        <%s! render_tutorial "Calling Fortran libraries" "" "undraw_art_museum_8or4.svg" %>
+      </div>
+    </div>
+    <div id="product-marketing-elements" class="grid grid-cols-3 xl:grid-cols-4 py-8 gap-x-8 gap-y-6">
+      <h3 class="text-gray-900 font-semibold col-span-3 xl:col-span-1">Advanced Topics</h3>
+      <div class="col-span-3 grid sm:grid-cols-3 md:grid-cols-4 gap-6 sm:gap-y-8 lg:gap-x-8">
+        <%s! render_tutorial "Garbage Collection" "" "undraw_art_museum_8or4.svg" %>
+        <%s! render_tutorial "Performance and Profiling" "" "undraw_art_museum_8or4.svg" %>
+      </div>
+    </div>
+  </section>
+</div>

@@ -78,10 +78,9 @@ let tutorial req =
   | None ->
     Dream.not_found req
 
-let tutorials req =
-  let first = Ood.Tutorial.all |> List.hd in
-  let slug = slugify first.Ood.Tutorial.title in
-  Dream.redirect req ("/preview/tutorials/" ^ slug)
+let tutorials _req =
+  Page_layout_template.render ~title:"Tutorials" Tutorials_template.render
+  |> Dream.html
 
 let workshop req =
   let slug = Dream.param "id" req in
