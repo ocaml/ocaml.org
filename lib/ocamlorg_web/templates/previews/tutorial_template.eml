@@ -1,7 +1,7 @@
 let render_tutorial_link (slug_of_tutorial : Ood.Tutorial.t -> string) (tutorial : Ood.Tutorial.t) =
   let open Ood.Tutorial in
   let slug = slug_of_tutorial tutorial in
-  let href = "/tutorials/" ^ slug in
+  let href = "/preview/tutorials/" ^ slug in
   <a href=<%s href %>
     class="group flex items-center px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50">
     <span class="truncate">
@@ -14,7 +14,7 @@ let filter_by_tag ~tag tutorials =
   List.filter (fun (x : t) -> List.mem tag x.tags) tutorials
 
 let render_nav (slug_of_tutorial : Ood.Tutorial.t -> string) tutorials =
-  <section class="lg:col-span-1">
+  <section class="bg-gray-50 lg:bg-transparent -mx-4 sm:-mx-6 lg:mx-0 py-8 sm:py-12 px-4 sm:px-6 lg:pl-0 lg:pr-8 lg:col-span-1">
     <nav aria-label="Sidebar">
         <h3 class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
           Getting Started
@@ -70,16 +70,10 @@ let render (slug_of_tutorial : Ood.Tutorial.t -> string) tutorials (tutorial : O
 
     <section class="lg:col-start-2 lg:col-span-3">
       <div class="bg-white shadow sm:rounded-lg">
-        <div class="px-4 py-5 sm:px-6">
-          <h2 id="applicant-information-title" class="text-lg leading-6 font-medium text-gray-900">
-            <%s tutorial.title %>
-          </h2>
-          <p class="mt-1 max-w-2xl text-sm text-gray-500">
-            <%s tutorial.description %>
-          </p>
-        </div>
         <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
-          <div class="prose prose-indigo prose-md text-gray-500 max-w-full">
+          <div class="prose prose-orange max-w-3xl mx-auto relative py-8 lg:px-8">
+            <h2><%s tutorial.title %></h2>
+            <p><%s tutorial.description %></p>
             <%s! tutorial.body_html %>
           </div>
         </div>

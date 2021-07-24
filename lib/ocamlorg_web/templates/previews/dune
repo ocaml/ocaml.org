@@ -9,3 +9,9 @@
  (deps tutorial_template.eml)
  (action
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets tutorials_template.ml)
+ (deps tutorials_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
