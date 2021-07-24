@@ -2,11 +2,10 @@ type kind =
 | Blessed
 | Universe of string
 
-let render ~kind:_ package =
+let render ~kind:_ ~readme ~license:_ package =
   let package_name = Ocamlorg.Package.(Name.to_string (name package)) in
   let package_version = Ocamlorg.Package.(Version.to_string (version package)) in
   let package_info = Ocamlorg.Package.info package in
-  let package_description = package_info.Ocamlorg.Package.Info.description |> Omd.of_string |> Omd.to_html in
   let package_homepages = package_info.Ocamlorg.Package.Info.homepage in
   let package_authors = package_info.Ocamlorg.Package.Info.authors in
   let package_maintainers = package_info.Ocamlorg.Package.Info.maintainers in
@@ -21,15 +20,15 @@ let render ~kind:_ package =
       (Ocamlorg.Package.Name.to_string name, x)
     )
   in
-  <div class="grid grid-cols-1 gap-6 lg:grid-flow-col-dense lg:grid-cols-3">
+  <div class="grid grid-cols-1 gap-8 lg:grid-flow-col-dense lg:grid-cols-3">
     <div class="space-y-6 lg:col-start-1 lg:col-span-2">
       <section>
         <div class="bg-white shadow sm:rounded-lg">
-          <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
-            <h2 class="text-lg leading-6 font-medium text-gray-900">Read me</h2>
+          <div class="px-4 py-4 sm:px-6 border-b border-gray-200">
+            <h2 class="text-lg leading-6 font-medium text-gray-900"><pre>README.md</pre></h2>
           </div>
-          <div class="px-4 py-5 sm:px-6 prose prose-orange prose">
-            <%s! package_description %>
+          <div class="px-4 py-5 sm:px-6 prose prose-orange max-w-3xl mx-auto">
+            <%s! readme %>
           </div>
         </div>
       </section>
@@ -64,97 +63,88 @@ let render ~kind:_ package =
           </div>
         </div>
       </section>
-
-      <section aria-labelledby="timeline-title" class="">
-        <div class="bg-white shadow sm:rounded-lg">
-          <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
-            <h2 class="text-lg leading-6 font-medium text-gray-900">Information</h2>
+      <section>
+        <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+          <div class="sm:col-span-2">
+            <dt class="text-sm font-medium text-gray-500">Authors</dt>
+            <dd class="mt-1 text-sm text-gray-900">
+              <% package_authors |> List.iter begin fun author -> %>
+              <%s author %>
+              <br />
+              <% end; %>
+            </dd>
           </div>
-
-          <div class="px-4 py-5 sm:px-6">
-            <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-              <div class="sm:col-span-2">
-                <dt class="text-sm font-medium text-gray-500">Authors</dt>
-                <dd class="mt-1 text-sm text-gray-900">
-                  <% package_authors |> List.iter begin fun author -> %>
-                  <%s author %>
-                  <br />
-                  <% end; %>
-                </dd>
-              </div>
-              <div class="sm:col-span-2">
-                <dt class="text-sm font-medium text-gray-500">Maintainers</dt>
-                <dd class="mt-1 text-sm text-gray-900">
-                  <% package_maintainers |> List.iter begin fun maintainer -> %>
-                  <%s maintainer %>
-                  <br />
-                  <% end; %>
-                </dd>
-              </div>
-              <div class="sm:col-span-2">
-                <dt class="text-sm font-medium text-gray-500">License</dt>
-                <dd class="mt-1 text-sm text-gray-900"><%s package_license %></dd>
-              </div>
-              <div class="sm:col-span-2">
-                <dt class="text-sm font-medium text-gray-500">Homepage</dt>
-                <dd class="mt-1 text-sm text-gray-900">
-                  <% package_homepages |> List.iter begin fun homepage -> %>
-                  <a href="<%s homepage %>" class="font-medium text-orange-600 hover:text-orange-500"> <%s homepage %>
-                  <br />
-                  <% end; %>
-                  </a>
-                </dd>
-              </div>
-              <% match package_source with
-                 | None -> ()
-                 | Some source -> %>
-              <div class="sm:col-span-2">
-                <dt class="text-sm font-medium text-gray-500">Sources</dt>
-                <dd class="mt-1 text-sm text-gray-900">
-                  <ul class="border border-gray-200 rounded-md divide-y divide-gray-200">
-                    <li class="pl-3 pr-4 flex items-center justify-between text-sm">
-                      <div class="w-0 flex-1 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-                        </svg>
-                        <span class="ml-2 py-3 flex-1 w-0 overflow-x-auto">
-                          <%s Filename.basename source.uri %>
-                          <br />
-                          <% source.checksum |> List.iter begin fun checksum -> %>
-                          <pre><%s String.trim checksum %></pre>
-                          <% end; %>
-                        </span>
-                      </div>
-                      <div class="ml-4 flex-shrink-0">
-                        <a href="<%s source.uri %>" class="font-medium text-orange-600 hover:text-orange-500">
-                          Download
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </dd>
-              </div>
-              <% ; %>
-              <div class="sm:col-span-2">
-                <dt class="text-sm font-medium text-gray-500">Dependencies</dt>
-                <dd class="mt-1 text-sm text-gray-900 max-h-80 overflow-y-auto">
-                  <ul class="divide-y divide-gray-100">
-                    <% package_deps |> List.iter begin fun (name, cstr) -> %>
-                    <li class="py-2">
-                      <a href="/p/<%s name %>" class="mt-1 text-sm text-orange-600 hover:text-orange-500"><%s name %></a>
-                      <% match cstr with None -> () | Some cstr -> %>
-                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                        <pre><%s cstr %></pre>
-                      </span>
-                      <% ; %>
-                    </li>
-                    <% end; %>
-                  </ul>
-                </dd>
-              </div>
-            </dl>
+          <div class="sm:col-span-2">
+            <dt class="text-sm font-medium text-gray-500">Maintainers</dt>
+            <dd class="mt-1 text-sm text-gray-900">
+              <% package_maintainers |> List.iter begin fun maintainer -> %>
+              <%s maintainer %>
+              <br />
+              <% end; %>
+            </dd>
           </div>
-        </div>
+          <div class="sm:col-span-2">
+            <dt class="text-sm font-medium text-gray-500">License</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%s package_license %></dd>
+          </div>
+          <div class="sm:col-span-2">
+            <dt class="text-sm font-medium text-gray-500">Homepage</dt>
+            <dd class="mt-1 text-sm text-gray-900">
+              <% package_homepages |> List.iter begin fun homepage -> %>
+              <a href="<%s homepage %>" class="font-medium text-orange-600 hover:text-orange-500"> <%s homepage %>
+              <br />
+              <% end; %>
+              </a>
+            </dd>
+          </div>
+          <% match package_source with
+              | None -> ()
+              | Some source -> %>
+          <div class="sm:col-span-2">
+            <dt class="text-sm font-medium text-gray-500">Sources</dt>
+            <dd class="mt-1 text-sm text-gray-900">
+              <ul class="border border-gray-200 bg-white rounded-md divide-y divide-gray-200">
+                <li class="pl-3 pr-4 flex items-center justify-between text-sm">
+                  <div class="w-0 flex-1 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                    </svg>
+                    <span class="ml-2 py-3 flex-1 w-0 overflow-x-auto">
+                      <%s Filename.basename source.uri %>
+                      <br />
+                      <% source.checksum |> List.iter begin fun checksum -> %>
+                      <pre><%s String.trim checksum %></pre>
+                      <% end; %>
+                    </span>
+                  </div>
+                  <div class="ml-4 flex-shrink-0">
+                    <a href="<%s source.uri %>" class="font-medium text-orange-600 hover:text-orange-500">
+                      Download
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </dd>
+          </div>
+          <% ; %>
+          <div class="sm:col-span-2">
+            <dt class="text-sm font-medium text-gray-500">Dependencies</dt>
+            <dd class="mt-1 text-sm text-gray-900 max-h-80 overflow-y-auto">
+              <ul class="divide-y divide-gray-100">
+                <% package_deps |> List.iter begin fun (name, cstr) -> %>
+                <li class="py-2">
+                  <a href="/p/<%s name %>" class="mt-1 text-sm text-orange-600 hover:text-orange-500"><%s name %></a>
+                  <% match cstr with None -> () | Some cstr -> %>
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white text-gray-800">
+                    <pre><%s cstr %></pre>
+                  </span>
+                  <% ; %>
+                </li>
+                <% end; %>
+              </ul>
+            </dd>
+          </div>
+        </dl>
       </section>
     </div>
   </div>

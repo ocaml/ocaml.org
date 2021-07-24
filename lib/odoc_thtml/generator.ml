@@ -644,10 +644,12 @@ module Page = struct
       | `Inline ->
         Some 0)
 
-  let rec include_ indent { Subpage.content; _ } = [ page indent content ]
+  let rec include_ ~with_toc indent { Subpage.content; _ } =
+    [ page ~with_toc indent content ]
 
-  and subpages indent i =
-    Utils.list_concat_map ~f:(include_ indent) @@ Doctree.Subpages.compute i
+  and subpages ~with_toc indent i =
+    Utils.list_concat_map ~f:(include_ ~with_toc indent)
+    @@ Doctree.Subpages.compute i
 
   and mktitle page_type path =
     let sep = Html.code ~a:[ a_class "font-mono" ] [ Html.txt "." ] in
@@ -732,11 +734,11 @@ module Page = struct
         , String.capitalize_ascii
             (Format.asprintf "%a" Odoc_document.Url.Path.pp_kind url.kind) )
 
-  and page indent ({ Page.title; header; items = i; url } as p) =
+  and page ~with_toc indent ({ Page.title; header; items = i; url } as p) =
     let resolve = Link.Current url in
     let i = Doctree.Shift.compute ~on_sub i in
     let toc = (Toc.from_items ~resolve ~path:url i :> any Html.elt list) in
-    let subpages = subpages indent p in
+    let subpages = subpages ~with_toc indent p in
     let t = title_of_url url in
     let header =
       match t with
@@ -749,11 +751,13 @@ module Page = struct
           :> Html_types.flow5_without_header_footer Html.elt list)
     in
     let content = (items ~resolve i :> any Html.elt list) in
-    let page = Tree.make ~indent ~header ~toc ~url title content subpages in
+    let page =
+      Tree.make ~with_toc ~indent ~header ~toc ~url title content subpages
+    in
     page
 end
 
-let render ~indent page = Page.page indent page
+let render ~indent ~with_toc page = Page.page ~with_toc indent page
 
 let doc ~xref_base_uri b =
   let resolve = Link.Base xref_base_uri in

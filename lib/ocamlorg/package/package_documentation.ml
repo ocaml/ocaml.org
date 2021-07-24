@@ -64,3 +64,12 @@ let load_package package_name package_version =
         ())
     files.otherdocs;
   hashtbl
+
+let load_readme package_name package_version =
+  let parent = package_parent_path package_name package_version in
+  let f = Fpath.(package_path package_name package_version / "README.md") in
+  let package_path = package_path_in_root package_name package_version in
+  let hashtbl =
+    Odoc_thtml.render_other ~with_toc:false ~package_path ~parent f
+  in
+  Hashtbl.find_opt hashtbl "README.md"

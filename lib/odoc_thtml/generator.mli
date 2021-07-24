@@ -1,6 +1,6 @@
 open Odoc_document
 
-val render : indent:bool -> Types.Page.t -> Renderer.page
+val render : indent:bool -> with_toc:bool -> Types.Page.t -> Renderer.page
 
 val doc
   :  xref_base_uri:string

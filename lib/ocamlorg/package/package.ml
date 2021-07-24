@@ -208,9 +208,22 @@ let get_package name version =
   |> Option.map (fun info -> { version; info; name })
 
 let documentation t =
-  Package_documentation.load_package
-    (Name.to_string t.name)
-    (Version.to_string t.version)
+  try
+    Package_documentation.load_package
+      (Name.to_string t.name)
+      (Version.to_string t.version)
+  with
+  | Sys_error _ | Invalid_argument _ ->
+    Hashtbl.create 0
+
+let readme t =
+  try
+    Package_documentation.load_readme
+      (Name.to_string t.name)
+      (Version.to_string t.version)
+  with
+  | Sys_error _ | Invalid_argument _ ->
+    None
 
 let documentation_page _t = failwith "TODO"
 

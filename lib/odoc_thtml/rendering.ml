@@ -54,8 +54,8 @@ let otherversions parent vs =
   | _ ->
     Error (`Msg "Parent is not a page!")
 
-let render_document ~package_path odoctree =
-  let pages = Generator.render ~indent:false odoctree in
+let render_document ~package_path ~with_toc odoctree =
+  let pages = Generator.render ~indent:false ~with_toc odoctree in
   let hashtbl = Hashtbl.create 24 in
   Odoc_document.Renderer.traverse pages ~f:(fun filename content ->
       let index_length = String.length "/index" in
@@ -90,35 +90,35 @@ let ok_or_log = function
             "An error occured while rendering the documentation: %s"
             e))
 
-let render ~package_path file =
+let render ?(with_toc = true) ~package_path file =
   let open Odoc_odoc in
   let f = Fs.File.of_string (Fpath.to_string file) in
   Logs.info (fun m -> m "Rendering file %s" (Fpath.to_string file));
   let document =
     document_of_odocl ~syntax:Odoc_document.Renderer.OCaml f |> ok_or_log
   in
-  render_document ~package_path document
+  render_document ~package_path ~with_toc document
 
-let render_text ~id ~package_path doc =
+let render_text ~id ~package_path ~with_toc doc =
   let url = Odoc_document.Url.Path.from_identifier id in
   let document = Markdown.read_plain doc url |> ok_or_log in
-  render_document ~package_path document
+  render_document ~package_path ~with_toc document
 
-let render_markdown ~id ~package_path doc =
+let render_markdown ~id ~package_path ~with_toc doc =
   let url = Odoc_document.Url.Path.from_identifier id in
   match Markdown.read_md doc url with
   | Ok page ->
-    render_document ~package_path page
+    render_document ~package_path ~with_toc page
   | Error _ ->
-    render_text ~id ~package_path doc
+    render_text ~id ~package_path ~with_toc doc
 
-let render_other ~package_path ~parent doc =
+let render_other ?(with_toc = true) ~package_path ~parent doc =
   let doc_id = docs_ids parent [ doc ] |> ok_or_log in
   match doc_id with
   | [ (id, doc) ] ->
     if Fpath.get_ext doc = ".md" then
-      render_markdown ~package_path ~id doc
+      render_markdown ~package_path ~id ~with_toc doc
     else
-      render_text ~package_path ~id doc
+      render_text ~package_path ~id ~with_toc doc
   | _ ->
     raise (Failure "docs_ids returned more than one id for a single document")

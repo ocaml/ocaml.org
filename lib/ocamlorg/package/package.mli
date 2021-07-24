@@ -67,6 +67,9 @@ val documentation : t -> (string, string) Hashtbl.t
     the documentation, and they key is the content of the documentation,
     rendered in HTML. *)
 
+val readme : t -> string option
+(** Get the readme of a package *)
+
 val documentation_page : t -> string -> string
 (** Get the rendered content of an HTML page for a package given its URL
     relative to the root page of the documentation.

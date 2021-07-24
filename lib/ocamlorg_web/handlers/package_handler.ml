@@ -51,7 +51,17 @@ let package_versioned kind req =
   | None ->
     Dream.not_found req
   | Some package ->
-    let content = Package_template.render ~kind package in
+    let docs = Ocamlorg.Package.documentation package in
+    let readme =
+      Ocamlorg.Package.readme package
+      |> Option.value
+           ~default:
+             ((Ocamlorg.Package.info package).Ocamlorg.Package.Info.description
+             |> Omd.of_string
+             |> Omd.to_html)
+    in
+    let license = Hashtbl.find_opt docs "LICENSE.md" in
+    let content = Package_template.render ~kind ~readme ~license package in
     let versions =
       Ocamlorg.Package.get_package_versions name |> Option.value ~default:[]
     in

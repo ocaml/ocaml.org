@@ -23,6 +23,7 @@ type uri =
 let page_creator
     ?(theme_uri = Relative None)
     ?(support_uri = Relative None)
+    ~with_toc
     ~url
     _title
     _header
@@ -78,76 +79,89 @@ let page_creator
       []
   in
   let open Tyxml.Html in
-  div
-    ~a:[ a_class [ "flex-auto flex" ] ]
-    [ div
-        ~a:[ a_class [ "relative flex w-full" ] ]
-        [ div
-            ~a:
-              [ a_class
-                  [ "hidden lg:block absolute top-0 bottom-0 right-0 left-1/2 \
-                     bg-white"
-                  ]
-              ]
-            []
-        ; div
-            ~a:
-              [ a_class
-                  [ "relative flex w-full max-w-container mx-auto px-4 sm:px-6 \
-                     lg:px-8"
-                  ]
-              ]
-            [ div
-                ~a:
-                  [ a_class
-                      [ "w-full flex-none lg:grid lg:grid-cols-3 lg:gap-8" ]
-                  ]
-                [ div
-                    ~a:
-                      [ a_class
-                          [ "bg-gray-50 lg:bg-transparent -mx-4 sm:-mx-6 \
-                             lg:mx-0 py-8 sm:py-12 px-4 sm:px-6 lg:pl-0 \
-                             lg:pr-8"
-                          ]
-                      ]
-                    toc
-                ; div
-                    ~a:
-                      [ a_class
-                          [ "relative col-span-2 lg:-ml-8 bg-white lg:shadow-md"
-                          ]
-                      ]
-                    [ div
-                        ~a:
-                          [ a_class
-                              [ "hidden lg:block absolute top-0 bottom-0 \
-                                 -right-4 w-8 bg-white"
-                              ]
-                          ]
-                        []
-                    ; div
-                        ~a:[ a_class [ "relative py-16 lg:px-16" ] ]
-                        [ div
-                            ~a:
-                              [ a_class
-                                  [ "prose prose-orange \
-                                     max-w-[37.5rem] mx-auto"
-                                  ]
-                              ]
-                            content
-                        ]
+  if not with_toc then
+    div content
+  else
+    div
+      ~a:[ a_class [ "flex-auto flex" ] ]
+      [ div
+          ~a:[ a_class [ "relative flex w-full" ] ]
+          [ div
+              ~a:
+                [ a_class
+                    [ "hidden lg:block absolute top-0 bottom-0 right-0 \
+                       left-1/2 bg-white"
                     ]
                 ]
-            ]
-        ]
-    ]
+              []
+          ; div
+              ~a:
+                [ a_class
+                    [ "relative flex w-full max-w-container mx-auto px-4 \
+                       sm:px-6 lg:px-8"
+                    ]
+                ]
+              [ div
+                  ~a:
+                    [ a_class
+                        [ "w-full flex-none lg:grid lg:grid-cols-3 lg:gap-8" ]
+                    ]
+                  [ div
+                      ~a:
+                        [ a_class
+                            [ "bg-gray-50 lg:bg-transparent -mx-4 sm:-mx-6 \
+                               lg:mx-0 py-8 sm:py-12 px-4 sm:px-6 lg:pl-0 \
+                               lg:pr-8"
+                            ]
+                        ]
+                      toc
+                  ; div
+                      ~a:
+                        [ a_class
+                            [ "relative col-span-2 lg:-ml-8 bg-white \
+                               lg:shadow-md"
+                            ]
+                        ]
+                      [ div
+                          ~a:
+                            [ a_class
+                                [ "hidden lg:block absolute top-0 bottom-0 \
+                                   -right-4 w-8 bg-white"
+                                ]
+                            ]
+                          []
+                      ; div
+                          ~a:[ a_class [ "relative py-16 lg:px-16" ] ]
+                          [ div
+                              ~a:
+                                [ a_class
+                                    [ "prose prose-orange max-w-[37.5rem] \
+                                       mx-auto"
+                                    ]
+                                ]
+                              content
+                          ]
+                      ]
+                  ]
+              ]
+          ]
+      ]
 
 let make
-    ?theme_uri ?support_uri ~indent ~url ~header ~toc title content children
+    ?theme_uri
+    ?support_uri
+    ~with_toc
+    ~indent
+    ~url
+    ~header
+    ~toc
+    title
+    content
+    children
   =
   let filename = Link.Path.as_filename url in
   let html =
-    page_creator ?theme_uri ?support_uri ~url title header toc content
+    page_creator ?theme_uri ?support_uri ~with_toc ~url title header toc content
   in
   let content ppf = (Html.pp_elt ~indent ()) ppf html in
   { Odoc_document.Renderer.filename; content; children }
