@@ -1,7 +1,7 @@
 module Github = Current_github
 module Git = Current_git
 
-let v3_ocaml_org = "tmattio/ocaml.org"
+let v3_ocaml_org = "patricoferris/ocamlorg"
 
 let site_directory = Current.state_dir "v3-ocaml-org"
 
