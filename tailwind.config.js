@@ -1,4 +1,4 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
+const defaultTheme = require("tailwindcss/defaultTheme")
 const colors = require('tailwindcss/colors')
 
 module.exports = {
@@ -11,11 +11,8 @@ module.exports = {
         sans: ["Inter var", ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        ocamlorange: '#c15540',
-        graylight: '#f5f5f5',
         orangedark: '#ed7109',
         orangedarker: '#dd6705',
-        yellowdark: '#ffb800',
         orange: colors.orange,
       }
     },

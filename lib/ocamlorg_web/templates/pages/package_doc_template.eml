@@ -20,7 +20,7 @@ let toc = toc_of_toc doc.toc in
         <div class="relative col-span-2 lg:-ml-8 bg-white lg:shadow-md">
           <div class="hidden lg:block absolute top-0 bottom-0 -right-4 w-8 bg-white"></div>
           <div class="relative py-16 lg:px-16">
-            <div class="prose prose-orange max-w-[37.5rem] mx-auto">
+            <div class="odoc prose prose-orange">
               <%s! doc.content %>
             </div>
           </div>

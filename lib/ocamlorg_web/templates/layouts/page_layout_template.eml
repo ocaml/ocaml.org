@@ -14,7 +14,7 @@ let render ~title inner =
 
     <body class="antialiased">
       <%s! Header_template.render %>
-      <main class="bg-graylight">
+      <main class="bg-gray-50">
         <%s! inner %>
       </main>
       <%s! Footer_template.render %>

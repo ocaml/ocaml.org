@@ -27,7 +27,8 @@
   dream
   dream-cli
   dream-livereload
-  odoc
+  fpath
+  fmt
   opam-format
   logs
   omd
