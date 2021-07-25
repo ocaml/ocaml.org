@@ -1,13 +1,9 @@
-open Current.Syntax
 module Docker = Current_docker
 
 module Copy = struct
   open Docker.Raw
-  open Lwt.Infix
 
   type t = No_context
-
-  let ( >>!= ) = Lwt_result.bind
 
   module Key = struct
     type t =
@@ -49,21 +45,9 @@ module Copy = struct
   let id = "docker-copy"
 
   let build No_context job key =
-    Current.Job.start job ~level:Current.Level.Mostly_harmless >>= fun () ->
-    let { Key.docker_context = _; image; src; dst } = key in
-    Key.cmd ~job key >>= function
-    | Error _ as e ->
-      Lwt.return e
-    | Ok () ->
-      Current.Job.log
-        job
-        "Copied %s:%a to %a"
-        (Docker.Default.Image.hash image)
-        Fpath.pp
-        src
-        Fpath.pp
-        dst;
-      Lwt_result.return ()
+    let open Lwt.Syntax in
+    let* () = Current.Job.start job ~level:Current.Level.Mostly_harmless in
+    Key.cmd ~job key
 
   let pp f (key : Key.t) =
     Fmt.pf f "copy %a:%a" Docker.Default.Image.pp key.image Fpath.pp key.src
@@ -74,6 +58,7 @@ end
 module CopyC = Current_cache.Make (Copy)
 
 let copy ?docker_context ~src ~dst image =
+  let open Current.Syntax in
   Current.component "copy %a" Fpath.pp src
   |> let> image = image in
      CopyC.get Copy.No_context { Copy.Key.docker_context; image; src; dst }

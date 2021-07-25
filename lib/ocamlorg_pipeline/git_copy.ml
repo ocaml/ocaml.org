@@ -1,12 +1,9 @@
-open Current.Syntax
 module Git = Current_git
 
 module Copy = struct
   open Lwt.Infix
 
   type t = unit -> unit
-
-  let ( >>!= ) = Lwt_result.bind
 
   module Key = struct
     type t =
@@ -28,6 +25,7 @@ module Copy = struct
   let id = "git-copy"
 
   let build callback job (key : Key.t) =
+    let open Lwt_result.Syntax in
     Current.Job.start job ~level:Current.Level.Mostly_harmless >>= fun () ->
     let cp dir =
       ( ""
@@ -48,12 +46,13 @@ module Copy = struct
          ; Git.Commit.hash key.commit
         |] )
     in
-    Git.with_checkout ~job key.commit (fun repo ->
-        Current.Process.exec ~cancellable:true ~job (cp repo) >>!= fun () ->
-        Current.Process.exec ~cancellable:true ~job reset)
-    >>= fun res ->
+    let+ res =
+      Git.with_checkout ~job key.commit (fun repo ->
+          let* () = Current.Process.exec ~cancellable:true ~job (cp repo) in
+          Current.Process.exec ~cancellable:true ~job reset)
+    in
     callback ();
-    Lwt.return res
+    res
 
   let pp f (key : Key.t) =
     Fmt.pf f "copying %a to %a" Git.Commit.pp key.commit Fpath.pp key.dst
@@ -64,6 +63,7 @@ end
 module CopyC = Current_cache.Make (Copy)
 
 let copy ~callback ~commit dst =
+  let open Current.Syntax in
   Current.component "copying"
   |> let> commit = commit in
      CopyC.get callback { Copy.Key.commit; dst }
