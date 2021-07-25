@@ -1,0 +1,20 @@
+(library
+ (name ood_media)
+ (public_name ood.media))
+
+(rule
+ (targets ood_media.ml)
+ (deps
+  (source_tree %{workspace_root}/data/media))
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{null}
+   (run
+    %{bin:ocaml-crunch}
+    -m
+    plain
+    %{workspace_root}/data/media
+    -o
+    %{targets}))))

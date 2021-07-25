@@ -1,0 +1,11 @@
+(executable
+ (name gen)
+ (modules gen)
+ (libraries cmdliner ood_gen)
+ (flags :standard -safe-string))
+
+(executable
+ (name scrape)
+ (modules scrape)
+ (libraries cmdliner ood_gen)
+ (flags :standard -safe-string))

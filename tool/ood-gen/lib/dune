@@ -1,0 +1,15 @@
+(library
+ (name ood_gen)
+ (libraries omd yaml unix ptime fmt piaf ocamlrss lambdasoup)
+ (flags :standard -safe-string)
+ (preprocess
+  (pps ppx_deriving_yaml)))
+
+(rule
+ (targets data.ml)
+ (deps
+  (source_tree %{workspace_root}/data/))
+ (action
+  (with-stdout-to
+   %{null}
+   (run %{bin:ocaml-crunch} -m plain %{workspace_root}/data -o %{targets}))))
