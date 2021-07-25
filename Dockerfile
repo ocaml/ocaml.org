@@ -50,4 +50,4 @@ RUN chmod -R 755 /var
 
 EXPOSE 8080
 
-ENTRYPOINT ["dumb-init", "/bin/server"]
+ENTRYPOINT /bin/server
