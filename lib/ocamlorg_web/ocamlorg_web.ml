@@ -1,5 +1,4 @@
 (** Entrypoint to OCaml.org' web library. *)
-
 module Handlers = struct
   module Page = Page_handler
   module Package = Package_handler

@@ -1,0 +1,3 @@
+(library
+ (name ocamlorg_pipeline)
+ (libraries current_docker current_github current_web))

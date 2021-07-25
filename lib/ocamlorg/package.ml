@@ -135,33 +135,7 @@ let update t =
   Logs.info (fun m ->
       m "Loaded %d packages" (OpamPackage.Name.Map.cardinal packages))
 
-let poll_for_opam_packages ~polling v =
-  let open Lwt.Syntax in
-  let* () = Opam_repository.clone () in
-  let last_commit = ref None in
-  let rec updater () =
-    let* () =
-      Lwt.catch
-        (fun () ->
-          let* () = Opam_repository.pull () in
-          let+ commit = Opam_repository.last_commit () in
-          if Some commit <> !last_commit then (
-            Logs.info (fun m -> m "Updating opam package list");
-            let () = update v in
-            last_commit := Some commit))
-        (fun exn ->
-          Logs.err (fun m ->
-              m
-                "Failed to update the opam package list: %s"
-                (Printexc.to_string exn));
-          Lwt.return ())
-    in
-    let* () = Lwt_unix.sleep (float_of_int polling) in
-    updater ()
-  in
-  updater ()
-
-let t =
+let state_and_cb =
   let v =
     (* Update at startup time if the directory exists so that the first page we
        query does not contain *)
@@ -170,8 +144,11 @@ let t =
     else
       { packages = OpamPackage.Name.Map.empty }
   in
-  Lwt.async (fun () -> poll_for_opam_packages ~polling:Config.opam_polling v);
-  v
+  v, fun () -> update v
+
+let callback = snd state_and_cb
+
+let t = fst state_and_cb
 
 let all_packages_latest () =
   t.packages

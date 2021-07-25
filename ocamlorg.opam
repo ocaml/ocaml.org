@@ -12,6 +12,9 @@ depends: [
   "ocaml" {>= "4.08.0"}
   "dune" {>= "2.7"}
   "crunch"
+  "current_docker"
+  "current_github"
+  "current_web"
   "dream"
   "dream-cli"
   "dream-livereload"

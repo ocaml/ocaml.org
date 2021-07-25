@@ -1,1 +1,1 @@
-let index req = Dream.redirect req "/packages"
+let index site_dir = Dream.static site_dir

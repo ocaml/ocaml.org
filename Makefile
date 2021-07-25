@@ -44,6 +44,14 @@ test: ## Run the unit tests
 clean: ## Clean build artifacts and other generated files
 	opam exec -- dune clean --root .
 
+.PHONY: clean-ocurrent
+clean-ocurrent: ## Clean build artifacts and other generated files
+	rm -rf var/v3-ocaml-org
+	rm -rf var/db
+	rm -rf var/job
+	rm -rf var/git
+	rm -rf var/opam-repository
+
 .PHONY: doc
 doc: ## Generate odoc documentation
 	opam exec -- dune build --root . @doc
