@@ -21,11 +21,28 @@ let loader root path request =
   | Some asset ->
     Dream.respond ~headers:(Dream.mime_lookup path) asset
 
+let media_loader _root path _request =
+  match Ood_media.read path with
+  | None ->
+    Dream.empty `Not_Found
+  | Some asset ->
+    Dream.respond asset
+
 let site_route =
   Dream.scope
     ""
     [ Middleware.i18n ]
     [ Dream.get "/**" (Dream.static ~loader:v3_loader "site/") ]
+
+let preview_routes =
+  Dream.scope
+    "/preview"
+    []
+    [ Dream.get "/" Preview_handler.index
+    ; Dream.get "/tutorials" Preview_handler.tutorials
+    ; Dream.get "/tutorials/:id" Preview_handler.tutorial
+    ; Dream.get "/media/**" (Dream.static ~loader:media_loader "")
+    ]
 
 let package_route =
   Dream.scope
@@ -64,7 +81,10 @@ let router =
   Dream.router
     [ package_route
     ; graphql_route
+    ; preview_routes
     ; Dream.get "/assets/**" (Dream.static ~loader "")
+      (* Used for the previews *)
+    ; Dream.get "/media/**" (Dream.static ~loader:media_loader "")
       (* Last one so that we don't apply the index html middleware on every
          route. *)
     ; site_route
