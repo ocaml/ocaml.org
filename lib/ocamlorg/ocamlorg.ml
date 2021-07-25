@@ -7,10 +7,7 @@ type t = Oop.t
 
 let init () =
   let pipeline =
-    Oop.init
-      ~token:Config.github_oauth_token
-      ~opam_dir:Config.opam_repository_path
-      ~callback:Package.callback
+    Oop.init ~opam_dir:Config.opam_repository_path ~callback:Package.callback
   in
   pipeline
 

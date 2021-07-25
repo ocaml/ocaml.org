@@ -1,8 +1,7 @@
 type t
 
-val init : token:string -> opam_dir:Fpath.t -> callback:(unit -> unit) -> t
-(** [init ~token ~opam_dir ~callback] initialises the pipeline's configuration,
-    [token] is the Github OAuth token for monitoring repositories with,
+val init : opam_dir:Fpath.t -> callback:(unit -> unit) -> t
+(** [init ~opam_dir ~callback] initialises the pipeline's configuration,
     [opam_dir] is the directory to update with the opam-repository and
     [callback] is a function called after the opam-repository has been updated. *)
 

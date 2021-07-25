@@ -27,13 +27,14 @@ module Copy = struct
   let build callback job (key : Key.t) =
     let open Lwt_result.Syntax in
     Current.Job.start job ~level:Current.Level.Mostly_harmless >>= fun () ->
+    let _ = Bos.OS.Dir.create key.dst in
     let cp dir =
       ( ""
       , [| "cp"
          ; "-a"
          ; "--"
          ; Fpath.to_string dir ^ "/.git"
-         ; Fpath.to_string key.dst
+         ; Fpath.to_string key.dst ^ "/.git"
         |] )
     in
     let reset =

@@ -3,5 +3,3 @@
 val documentation_path : Fpath.t
 
 val opam_repository_path : Fpath.t
-
-val github_oauth_token : string

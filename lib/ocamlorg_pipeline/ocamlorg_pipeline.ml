@@ -1,6 +1,8 @@
 module Github = Current_github
 module Git = Current_git
 
+let () = Log.init ()
+
 let v3_ocaml_org = "patricoferris/ocamlorg"
 
 let site_directory = Current.state_dir "v3-ocaml-org"
@@ -11,23 +13,16 @@ type t =
   { opam_dir : Fpath.t
   ; callback : unit -> unit
   ; site_dir : Fpath.t
-  ; github : Github.Api.t
   }
 
 let site_dir t = t.site_dir
 
-let init ~token ~opam_dir ~callback =
-  ignore @@ Bos.OS.Dir.create opam_dir;
-  { opam_dir
-  ; callback
-  ; site_dir = site_directory
-  ; github = Github.Api.of_oauth token
-  }
+let init ~opam_dir ~callback = { opam_dir; callback; site_dir = site_directory }
 
 let opam_repository ~callback t =
-  let opam = Github.Repo_id.{ owner = "ocaml"; name = "opam-repository" } in
-  let head = Github.Api.head_commit t.github opam in
-  let commit = Git.fetch (Current.map Github.Api.Commit.id head) in
+  let schedule = Current_cache.Schedule.v ~valid_for:(Duration.of_min 5) () in
+  let opam_repo = "https://github.com/ocaml/opam-repository.git" in
+  let commit = Git.clone ~schedule opam_repo in
   Git_copy.copy ~callback ~commit t.opam_dir
 
 let v t =
