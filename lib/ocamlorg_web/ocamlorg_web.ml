@@ -23,31 +23,16 @@ module Middlewares = struct
         (Fmt.str "/%s" (String.concat "/" (path @ [ "index.html" ])))
     else
       next_handler request
-
-  let redirect_index_html handler req =
-    let index_length = String.length "/index.html" in
-    match Dream.target req with
-    | s when String.length s < index_length ->
-      handler req
-    | s
-      when String.sub s (String.length s - index_length) index_length
-           = "/index.html" ->
-      Dream.redirect req (String.sub s 0 (String.length s - index_length + 1))
-    | _ ->
-      handler req
 end
 
 let run () =
-  let config = Ocamlorg.init () in
-  let server =
-    Dream.serve ~debug:Config.debug ~interface:"0.0.0.0" ~port:Config.port
-    @@ Dream.logger
-    @@ Dream.origin_referer_check
-    @@ Dream_livereload.inject_script ()
-    @@ Router.package_router
-    @@ Middlewares.index_html
-    @@ Router.site_router (Fpath.to_string @@ Ocamlorg.site_dir config)
-    @@ Dream_livereload.router
-    @@ Dream.not_found
-  in
-  Lwt_main.run @@ Lwt.choose [ server; Ocamlorg.pipeline config ]
+  Dream_cli.run ~debug:Config.debug ~interface:"0.0.0.0" ~port:Config.port
+  @@ Dream.logger
+  @@ Dream.origin_referer_check
+  @@ Dream_livereload.inject_script
+       ~script:(Dream_livereload.default_script ~max_retry_ms:10000 ())
+       ()
+  @@ Middlewares.index_html
+  @@ Router.router
+  @@ Dream_livereload.router
+  @@ Dream.not_found

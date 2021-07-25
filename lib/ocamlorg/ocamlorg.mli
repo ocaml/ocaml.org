@@ -2,10 +2,5 @@
 
 module Package = Package
 
-type t
-
-val init : unit -> t
-
-val pipeline : t -> unit Lwt.t
-
-val site_dir : t -> Fpath.t
+val site_dir : string
+(** The path of the site directory. *)
