@@ -27,10 +27,11 @@
   dream
   dream-cli
   dream-livereload
-  odoc
+  fpath
+  fmt
   opam-format
   logs
   omd
   bos
-  tyxml
+  yojson
   (alcotest :with-test)))

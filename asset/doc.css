@@ -1,0 +1,62 @@
+div.odoc {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 37.5rem /* 600px */;
+  position: relative;
+}
+
+div.odoc div.spec {
+  border-left-width: 4px;
+  border-color: rgba(251, 146, 60, 1);
+  border-radius: 0.25rem /* 4px */;
+  background-color: rgba(243, 244, 246, 1);
+  padding-left: 1rem /* 16px */;
+  padding-right: 1rem /* 16px */;
+  padding-top: 0.5rem /* 16px */;
+  padding-bottom: 0.5rem /* 16px */;
+  margin-top: 1rem /* 16px */;
+}
+
+div.odoc div.spec code::before,
+div.odoc div.spec code::after {
+  content: "";
+}
+
+div.odoc a.anchor {
+  position: absolute;
+  left: 0px;
+  opacity: 0;
+  text-decoration: none;
+  margin-left: -1em;
+  padding-right: 0.5em;
+  box-shadow: none;
+  color: rgb(161, 161, 170);
+}
+
+div.odoc *:hover > a.anchor {
+  opacity: 1;
+}
+
+div.odoc a.anchor::after {
+  content: "#";
+}
+
+div.odoc div.spec table {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 1em;
+  line-height: 1.75;
+}
+
+div.odoc div.spec tbody td {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+div.odoc div.spec tbody td.def {
+  padding-left: 1.25rem /* 20px */;
+}
+
+div.odoc div.spec tbody tr {
+  border-width: 0px;
+}

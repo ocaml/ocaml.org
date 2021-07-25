@@ -23,6 +23,7 @@ let render ~title ~tab ~package ~versions inner =
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
       <link rel="icon" type="image/png" href="/assets/favicon.ico" />
       <link rel="stylesheet" href="/assets/main.css" />
+      <link rel="stylesheet" href="/assets/doc.css" />
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       <script src="https://tailwindui.com/js/components-v2.js"></script>
       <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
@@ -31,7 +32,7 @@ let render ~title ~tab ~package ~versions inner =
 
     <body class="antialiased">
       <%s! Header_template.render %>
-      <main class="bg-graylight py-8 sm:py-12">
+      <main class="bg-gray-50 py-8 sm:py-12">
         <div class="max-w-7xl mx-auto pb-5 px-4 sm:px-6 lg:px-8 lg:flex lg:justify-between">
           <div class="max-w-xl">
             <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl sm:tracking-tight lg:text-5xl"><%s package_name %></h2>
@@ -55,7 +56,7 @@ let render ~title ~tab ~package ~versions inner =
             <div class="flex items-center border-b border-gray-200">
               <nav class="flex-1 -mb-px flex space-x-6 xl:space-x-8" aria-label="Tabs">
                 <a href="/p/<%s package_name %>/<%s package_version %>" class="<%s overview_tab_class %>"> Overview </a>
-                <a href="/p/<%s package_name %>/<%s package_version %>/doc/" class="<%s documentation_tab_class %>"> Documentation </a>
+                <a href="/p/<%s package_name %>/<%s package_version %>/doc/index.html" class="<%s documentation_tab_class %>"> Documentation </a>
               </nav>
             </div>
           </div>

@@ -15,13 +15,15 @@ depends: [
   "dream"
   "dream-cli"
   "dream-livereload"
-  "odoc"
+  "fpath"
+  "fmt"
   "opam-format"
   "logs"
   "omd"
   "bos"
-  "tyxml"
+  "yojson"
   "alcotest" {with-test}
+  "odoc" {with-doc}
 ]
 build: [
   ["dune" "subst"] {dev}
