@@ -1,6 +1,4 @@
 (** Entrypoint to OCaml.org' web library. *)
-module Oop = Ocamlorg_pipeline
-
 module Handlers = struct
   module Page = Page_handler
   module Package = Package_handler
@@ -40,7 +38,7 @@ module Middlewares = struct
 end
 
 let run () =
-  let pipeline = Oop.init Config.github_oauth_token in
+  let config = Ocamlorg.init () in
   let server =
     Dream.serve ~debug:Config.debug ~interface:"0.0.0.0" ~port:Config.port
     @@ Dream.logger
@@ -48,9 +46,8 @@ let run () =
     @@ Dream_livereload.inject_script ()
     @@ Router.package_router
     @@ Middlewares.index_html
-    @@ Router.site_router (Fpath.to_string @@ Oop.site_dir pipeline)
+    @@ Router.site_router (Fpath.to_string @@ Ocamlorg.site_dir config)
     @@ Dream_livereload.router
     @@ Dream.not_found
   in
-  Lwt_main.run
-  @@ Lwt.choose [ Lwt_result.ok server; Ocamlorg_pipeline.v pipeline ]
+  Lwt_main.run @@ Lwt.choose [ server; Ocamlorg.pipeline config ]

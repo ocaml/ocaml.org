@@ -38,10 +38,18 @@ module Copy = struct
          ; Fpath.to_string key.dst
         |] )
     in
-    let reset = ("", [| "git"; "-C"; Fpath.to_string key.dst; "reset"; "--hard"; Git.Commit.hash key.commit |])
+    let reset =
+      ( ""
+      , [| "git"
+         ; "-C"
+         ; Fpath.to_string key.dst
+         ; "reset"
+         ; "--hard"
+         ; Git.Commit.hash key.commit
+        |] )
     in
     Git.with_checkout ~job key.commit (fun repo ->
-        Current.Process.exec ~cancellable:true ~job (cp repo) >>!= fun () -> 
+        Current.Process.exec ~cancellable:true ~job (cp repo) >>!= fun () ->
         Current.Process.exec ~cancellable:true ~job reset)
     >>= fun res ->
     callback ();

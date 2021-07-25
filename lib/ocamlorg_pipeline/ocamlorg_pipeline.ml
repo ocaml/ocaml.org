@@ -8,18 +8,21 @@ let site_directory = Current.state_dir "v3-ocaml-org"
 let schedule = Current_cache.Schedule.v ()
 
 type t =
-  { (* The location of the opam repository *)
-    opam_dir : Fpath.t
-  ; (* The location of the site directory *)
-    site_dir : Fpath.t;
-    github : Github.Api.t;
+  { opam_dir : Fpath.t
+  ; callback : unit -> unit
+  ; site_dir : Fpath.t
+  ; github : Github.Api.t
   }
 
 let site_dir t = t.site_dir
 
-let init token =
-  ignore @@ Bos.OS.Dir.create Ocamlorg.Config.opam_repository_path;
-  { opam_dir = Ocamlorg.Config.opam_repository_path; site_dir = site_directory; github = Github.Api.of_oauth token }
+let init ~token ~opam_dir ~callback =
+  ignore @@ Bos.OS.Dir.create opam_dir;
+  { opam_dir
+  ; callback
+  ; site_dir = site_directory
+  ; github = Github.Api.of_oauth token
+  }
 
 let opam_repository ~callback t =
   let opam = Github.Repo_id.{ owner = "ocaml"; name = "opam-repository" } in
@@ -28,15 +31,11 @@ let opam_repository ~callback t =
   Git_copy.copy ~callback ~commit t.opam_dir
 
 let v t =
+  let { site_dir; callback; _ } = t in
   let image = Current_docker.Default.pull ~schedule v3_ocaml_org in
   let main () =
-    let v3_site =
-      Docker_copy.copy ~src:(Fpath.v "/data") ~dst:t.site_dir image
-    in
-    let opam_repo =
-      Current.map (fun _ -> ())
-      @@ opam_repository ~callback:Ocamlorg.Package.callback t
-    in
+    let v3_site = Docker_copy.copy ~src:(Fpath.v "/data") ~dst:site_dir image in
+    let opam_repo = Current.map (fun _ -> ()) @@ opam_repository ~callback t in
     Current.all [ v3_site; opam_repo ]
   in
   let engine = Current.Engine.create main in
@@ -54,4 +53,3 @@ let v t =
     [ Current.Engine.thread engine
     ; Current_web.run ~mode:(`TCP (`Port 8081)) site
     ]
-

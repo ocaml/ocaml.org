@@ -1,7 +1,7 @@
 (library
  (name ocamlorg_web)
- (libraries current_docker current_web current-sesame.dream dream dream-cli
-   dream-livereload omd ocamlorg ocamlorg_pipeline))
+ (libraries current_docker current_web dream dream-cli dream-livereload omd
+   ocamlorg))
 
 (rule
  (targets asset.ml)
