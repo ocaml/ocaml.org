@@ -24,5 +24,3 @@ cp -vr $SRC/src/ood lib/ood/
 
 rm -rf tool/ood-gen/
 cp -vr $SRC/src/ood-gen tool/ood-gen/
-mkdir tool/ood-gen/vendor/
-cp -vr $SRC/vendor/ocamlrss tool/ood-gen/vendor/ocamlrss

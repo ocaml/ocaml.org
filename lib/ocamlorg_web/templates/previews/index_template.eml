@@ -1,0 +1,48 @@
+let render_link name url = 
+  <li class="py-4">
+    <div class="flex items-center space-x-4">
+      <div class="flex-1 min-w-0">
+        <p class="text-sm font-medium text-gray-900 truncate">
+          <%s name %>
+        </p>
+      </div>
+      <div>
+        <a href="/preview/<%s url %>"
+          class="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50">
+          View
+        </a>
+      </div>
+    </div>
+  </li>
+
+let render =
+<div class="bg-white">
+  <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+    <div class="text-center">
+      <p class="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">You've found our content preview index 🕵️‍♂️</p>
+      <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500">Choose a content to preview below.</p>
+    </div>
+  </div>
+</div>
+<main class="bg-gray-50 py-8 sm:py-12">
+  <div class="max-w-xl mx-auto pb-5 px-4 sm:px-6 lg:px-8 lg:flex lg:justify-between">
+    <div class="relative">
+      <div class="flow-root mt-6">
+        <ul class="-my-5 divide-y divide-gray-200">
+          <%s! render_link "Papers Archive" "papers" %>
+          <%s! render_link "Success Stories" "success-stories"  %>
+          <%s! render_link "Industrial Users" "industrial-users"  %>
+          <%s! render_link "Academic Excellence" "academic-excellence"  %>
+          <%s! render_link "Consortium" "consortium"  %>
+          <%s! render_link "Books" "books"  %>
+          <%s! render_link "Events" "events"  %>
+          <%s! render_link "Videos" "videos"  %>
+          <%s! render_link "Tutorials" "tutorials"  %>
+          <%s! render_link "Workshops" "workshops"  %>
+          <%s! render_link "Platform" "tools"  %>
+          <%s! render_link "News" "news" %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>

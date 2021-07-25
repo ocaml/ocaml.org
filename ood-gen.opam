@@ -18,6 +18,7 @@ depends: [
   "lambdasoup"
   "crunch"
   "ppx_deriving_yaml"
+  "omd" {>= "2.0.0"}
   "xmlm"
   "uri"
   "odoc" {with-doc}

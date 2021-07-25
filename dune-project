@@ -63,6 +63,8 @@
   lambdasoup
   crunch
   ppx_deriving_yaml
+  (omd
+   (>= 2.0.0))
   ; Required by ocamlrss
   xmlm
   uri))
