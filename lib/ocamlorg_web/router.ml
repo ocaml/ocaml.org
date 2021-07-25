@@ -30,9 +30,13 @@ let package_routes =
   ; Dream.get "/assets/**" (Dream.static ~loader "")
   ]
 
-let site_routes site_dir = [ Dream.get "/**" (Dream.static site_dir) ]
+(* Temporary solution for locales *)
+let site_routes site_dir =
+  [ Dream.get "/" (fun req -> Dream.redirect req "/en/")
+  ; Dream.get "/index.html" (fun req -> Dream.redirect req "/en/")
+  ; Dream.get "/**" (Dream.static site_dir)
+  ]
 
 let package_router = Dream.router package_routes
 
-let site_router site_dir = 
-  Dream.router (site_routes site_dir)
+let site_router site_dir = Dream.router (site_routes site_dir)

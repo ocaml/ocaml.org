@@ -1,5 +1,4 @@
 pin-depends: [
-  ["current-sesame" "git+https://github.com/patricoferris/sesame#main"]
   ["ood.0.1.0" "git+https://github.com/ocaml/ood#main"]
   ["odoc.2.0.0-beta4" "git+https://github.com/ocaml/odoc#244b5317d05eaa2815f8f5bd0fbc23e9caafd129"]
 ]

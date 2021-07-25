@@ -49,6 +49,8 @@ clean-ocurrent: ## Clean build artifacts and other generated files
 	rm -rf var/v3-ocaml-org
 	rm -rf var/db
 	rm -rf var/job
+	rm -rf var/git
+	rm -rf var/opam-repository
 
 .PHONY: doc
 doc: ## Generate odoc documentation
