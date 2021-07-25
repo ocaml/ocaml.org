@@ -25,6 +25,7 @@
   dune
   crunch
   current_docker
+  current_github
   current_web
   dream
   dream-cli
