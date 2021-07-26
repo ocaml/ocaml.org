@@ -94,18 +94,3 @@ The following snippet describes OCaml.org's repository structure.
     opam package definition.
     To know more about creating and publishing opam packages, see https://opam.ocaml.org/doc/Packaging.html.
 ```
-
-## Deploying
-
-To deploy on Heroku, run the following commands:
-
-```
-heroku container:push -a ocamlorg web
-heroku container:release -a ocamlorg web
-```
-
-And to open the logs:
-
-```
-heroku logs -a ocamlorg --tail
-```
