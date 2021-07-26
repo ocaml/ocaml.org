@@ -1,9 +1,15 @@
 (* Used to improve the routing for the v3 site directory. *)
-let index_html next_handler request =
+
+(* Only `en` for now *)
+let supported_locales = [ "en" ]
+
+let index_html_and_i18n next_handler request =
   let rec is_directory path =
     match path with
     | [ "" ] ->
       true
+    | [ x ] ->
+      not (Fpath.v x |> Fpath.exists_ext)
     | _ :: suffix ->
       is_directory suffix
     | _ ->
@@ -12,9 +18,18 @@ let index_html next_handler request =
   let path = Dream.path request in
   if is_directory path then
     let path = List.filter (fun seg -> String.length seg <> 0) path in
-    Dream.redirect
-      request
-      (Fmt.str "/%s" (String.concat "/" (path @ [ "index.html" ])))
+    (* TODO: If someone tries to get to /de/... they will go to /en/de/... *)
+    let locale = try List.hd path with _ -> "" in
+    match List.mem locale supported_locales with
+    | true ->
+      Dream.redirect
+        request
+        (Fmt.str "/%s" (String.concat "/" (path @ [ "index.html" ])))
+    | false ->
+      (* TODO: In the future we could inspect the accepted languages here also *)
+      Dream.redirect
+        request
+        (Fmt.str "/%s/%s" "en" (String.concat "/" (path @ [ "index.html" ])))
   else
     next_handler request
 

@@ -8,15 +8,8 @@ let loader root path _request =
 let site_route =
   Dream.scope
     ""
-    [ Middleware.index_html; Middleware.catch_404 ]
-    [ Dream.get "/" (fun req ->
-          (* Temporary solution for locales *)
-          Dream.redirect req "/en/")
-    ; Dream.get "/index.html" (fun req ->
-          (* Temporary solution for locales *)
-          Dream.redirect req "/en/")
-    ; Dream.get "/**" (Dream.static ~loader "site/")
-    ]
+    [ Middleware.index_html_and_i18n; Middleware.catch_404 ]
+    [ Dream.get "/**" (Dream.static ~loader "site/") ]
 
 let package_route =
   Dream.scope
