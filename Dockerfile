@@ -13,6 +13,9 @@ RUN opam install . --deps-only
 ADD package.json package.json
 RUN npm install
 
+# Download site static files
+COPY --from=patricoferris/ocamlorg:latest /data asset/site/
+
 # Build project
 COPY --chown=opam:opam . .
 RUN opam exec -- dune build
