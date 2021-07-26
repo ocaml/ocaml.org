@@ -1,5 +1,5 @@
-let loader _root path _request =
-  match Asset.read path with
+let loader root path _request =
+  match Asset.read (root ^ path) with
   | None ->
     Dream.empty `Not_Found
   | Some asset ->
@@ -15,7 +15,7 @@ let site_route =
     ; Dream.get "/index.html" (fun req ->
           (* Temporary solution for locales *)
           Dream.redirect req "/en/")
-    ; Dream.get "/**" (Dream.static Ocamlorg.site_dir)
+    ; Dream.get "/**" (Dream.static ~loader "site/")
     ]
 
 let package_route =
