@@ -64,9 +64,6 @@ end
 
 type t
 
-val callback : unit -> unit
-(** Updates the internal opam state *)
-
 val name : t -> Name.t
 (** Get the name of a package. *)
 

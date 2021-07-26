@@ -1,3 +1,12 @@
+val clone : unit -> unit Lwt.t
+(** [clone ()] ensures that "./opam-repository" exists. If not, it clones it. *)
+
+val pull : unit -> unit Lwt.t
+(** Does a "git pull origin" to update the store. *)
+
+val last_commit : unit -> string Lwt.t
+(** Get the latest commit of the opam repository. *)
+
 val list_packages : unit -> string list
 (** List the packages in the [packages/] directory of the opam repository. *)
 
