@@ -13,4 +13,4 @@ let run () =
        ()
   @@ Router.router
   @@ Dream_livereload.router
-  @@ Dream.not_found
+  @@ Page_handler.not_found
