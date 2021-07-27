@@ -38,7 +38,7 @@ let preview_routes =
   Dream.scope
     "/preview"
     []
-    [ Dream.get "/" Preview_handler.index
+    [ Dream.get "" Preview_handler.index
     ; Dream.get "/tutorials" Preview_handler.tutorials
     ; Dream.get "/tutorials/:id" Preview_handler.tutorial
     ; Dream.get "/media/**" (Dream.static ~loader:media_loader "")
