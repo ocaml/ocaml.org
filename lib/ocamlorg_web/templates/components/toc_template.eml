@@ -72,12 +72,12 @@ let render (t : t) =
       <% t |> List.iter begin fun item -> %>
       <li class="space-y-3">
         <a href="<%s item.href %>" class="block font-medium text-gray-900 transition-colors duration-300"
-          :class="{ 'transition-colors duration-300': initialized, 'text-orange-600': activeSlug === '<%s item.href %>', 'text-gray-900': activeSlug !== '#<%s item.href %>' }"><%s item.title %></a>
+          :class="{ 'transition-colors duration-300': initialized, 'text-orange-600': activeSlug === '<%s item.href %>', 'text-gray-900': activeSlug !== '#<%s item.href %>' }"><%s! item.title %></a>
         <% match item.children with [] -> () | items -> %>
         <ul class="space-y-3">
         <% items |> List.iter begin fun item -> %>
           <li class="ml-4"><a href="<%s item.href %>" class="block transition-colors duration-300"
-              :class="{ 'transition-colors duration-300': initialized, 'text-orange-600': activeSlug === '<%s item.href %>' }"><%s item.title %></a>
+              :class="{ 'transition-colors duration-300': initialized, 'text-orange-600': activeSlug === '<%s item.href %>' }"><%s! item.title %></a>
           </li>
         <% end; %>
         </ul>
