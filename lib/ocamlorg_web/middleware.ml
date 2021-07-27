@@ -3,7 +3,7 @@
 (* Only `en` for now *)
 let supported_locales = [ "en" ]
 
-let index_html_and_i18n next_handler request =
+let i18n next_handler request =
   let rec is_directory path =
     match path with
     | [ "" ] ->
@@ -22,14 +22,18 @@ let index_html_and_i18n next_handler request =
     let locale = try List.hd path with _ -> "" in
     match List.mem locale supported_locales with
     | true ->
-      Dream.redirect
-        request
-        (Fmt.str "/%s" (String.concat "/" (path @ [ "index.html" ])))
+      next_handler request
     | false ->
-      (* TODO: In the future we could inspect the accepted languages here also *)
-      Dream.redirect
-        request
-        (Fmt.str "/%s/%s" "en" (String.concat "/" (path @ [ "index.html" ])))
+      (* TODO: In the future we could inspect the accepted languages here also
+         -- the length check is to ensure there are no trailing slashes which
+         silently 404s Dream.static *)
+      let redirection =
+        if List.length path = 0 then
+          "/en"
+        else
+          Fmt.str "/%s/%s" "en" (String.concat "/" path)
+      in
+      Dream.redirect request redirection
   else
     next_handler request
 
