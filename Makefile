@@ -5,7 +5,7 @@ $(eval $(ARGS):;@:)
 
 .PHONY: all
 all:
-	opam exec -- dune build --root . @install
+	opam exec -- dune build --root .
 
 .PHONY: deps
 deps: ## Install development dependencies
