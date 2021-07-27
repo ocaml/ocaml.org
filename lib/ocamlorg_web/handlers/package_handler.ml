@@ -32,7 +32,7 @@ let package req =
     in
     Dream.redirect req target
   | None ->
-    Dream.not_found req
+    Page_handler.not_found req
 
 let package_versioned kind req =
   let name = Ocamlorg.Package.Name.of_string @@ Dream.param "name" req in
@@ -49,7 +49,7 @@ let package_versioned kind req =
   let package = Ocamlorg.Package.get_package name version in
   match package with
   | None ->
-    Dream.not_found req
+    Page_handler.not_found req
   | Some package ->
     let open Lwt.Syntax in
     let* readme =
@@ -89,14 +89,14 @@ let package_doc kind req =
   let package = Ocamlorg.Package.get_package name version in
   match package with
   | None ->
-    Dream.not_found req
+    Page_handler.not_found req
   | Some package ->
     let open Lwt.Syntax in
     let path = Dream.path req |> String.concat "/" in
     let* docs = Ocamlorg.Package.documentation_page package path in
     (match docs with
     | None ->
-      Dream.not_found req
+      Page_handler.not_found req
     | Some doc ->
       let versions =
         Ocamlorg.Package.get_package_versions name |> Option.value ~default:[]
