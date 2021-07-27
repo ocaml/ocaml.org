@@ -36,3 +36,12 @@ let i18n next_handler request =
       Dream.redirect request redirection
   else
     next_handler request
+
+let no_trailing_slash next_handler request =
+  let target = Dream.target request in
+  if target = "/" then
+    next_handler request
+  else if String.get target (String.length target - 1) = '/' then
+    Dream.redirect request (String.sub target 0 (String.length target - 1))
+  else
+    next_handler request

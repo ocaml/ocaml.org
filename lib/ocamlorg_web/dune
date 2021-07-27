@@ -1,6 +1,6 @@
 (library
  (name ocamlorg_web)
- (libraries dream dream-cli omd ocamlorg))
+ (libraries dream dream-cli omd ocamlorg ood ood.media))
 
 (rule
  (targets asset.ml)
