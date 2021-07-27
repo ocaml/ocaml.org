@@ -1,5 +1,5 @@
 let index _req =
-  Page_layout_template.render ~title:"Welcome to Dream!" Index_template.render
+  Page_layout_template.render ~title:"Preview" Preview_index_template.render
   |> Dream.html
 
 let slugify value =
@@ -18,7 +18,7 @@ let tutorial req =
   | Some tutorial ->
     Page_layout_template.render
       ~title:tutorial.Ood.Tutorial.title
-      (Tutorial_template.render
+      (Preview_tutorial_template.render
          (fun x -> slugify x.Ood.Tutorial.title)
          Ood.Tutorial.all
          tutorial)
@@ -27,5 +27,5 @@ let tutorial req =
     Dream.not_found req
 
 let tutorials _req =
-  Page_layout_template.render ~title:"Tutorials" Tutorials_template.render
+  Page_layout_template.render ~title:"Tutorials" Preview_tutorials_template.render
   |> Dream.html

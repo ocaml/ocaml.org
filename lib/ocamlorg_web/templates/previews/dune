@@ -1,17 +1,17 @@
 (rule
- (targets index_template.ml)
- (deps index_template.eml)
+ (targets preview_index_template.ml)
+ (deps preview_index_template.eml)
  (action
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
 
 (rule
- (targets tutorial_template.ml)
- (deps tutorial_template.eml)
+ (targets preview_tutorial_template.ml)
+ (deps preview_tutorial_template.eml)
  (action
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
 
 (rule
- (targets tutorials_template.ml)
- (deps tutorials_template.eml)
+ (targets preview_tutorials_template.ml)
+ (deps preview_tutorials_template.eml)
  (action
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))

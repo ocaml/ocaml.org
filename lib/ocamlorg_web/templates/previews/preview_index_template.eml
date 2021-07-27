@@ -36,7 +36,7 @@ let render =
       <div class="text-center">
         <p class="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">You've found our
           content preview index 🕵️‍♂️</p>
-        <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500">Choose a content to preview below.</p>
+        <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500">The pages there may or may not end up in the public facing site, this is our playground to experiment with the content.</p>
       </div>
     </div>
   </div>
