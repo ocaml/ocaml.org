@@ -27,3 +27,6 @@ build/
 
 # Site dir
 asset/site/
+
+# Var dir
+_var/

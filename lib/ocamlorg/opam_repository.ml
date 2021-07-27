@@ -54,7 +54,14 @@ let clone () =
 
 let pull () =
   Process.exec
-    ("", [| "git"; "-C"; Fpath.to_string clone_path; "pull"; "origin" |])
+    ( ""
+    , [| "git"
+       ; "-C"
+       ; Fpath.to_string clone_path
+       ; "pull"
+       ; "--ff-only"
+       ; "origin"
+      |] )
 
 let clone_path = Config.opam_repository_path
 

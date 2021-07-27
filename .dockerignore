@@ -8,5 +8,3 @@ asset/site/
 !ocamlorg.opam
 !package.json
 !tailwind.config.js
-!var/occurent-output/
-!var/dune
