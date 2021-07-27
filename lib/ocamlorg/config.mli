@@ -2,6 +2,6 @@
 
 val opam_polling : int
 
-val documentation_path : Fpath.t
+val documentation_url : string
 
 val opam_repository_path : Fpath.t

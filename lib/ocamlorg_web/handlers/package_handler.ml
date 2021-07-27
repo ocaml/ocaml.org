@@ -51,13 +51,15 @@ let package_versioned kind req =
   | None ->
     Dream.not_found req
   | Some package ->
-    let readme =
-      Ocamlorg.Package.readme_file package
-      |> Option.value
-           ~default:
-             ((Ocamlorg.Package.info package).Ocamlorg.Package.Info.description
-             |> Omd.of_string
-             |> Omd.to_html)
+    let open Lwt.Syntax in
+    let* readme =
+      let+ readme_opt = Ocamlorg.Package.readme_file package in
+      Option.value
+        readme_opt
+        ~default:
+          ((Ocamlorg.Package.info package).Ocamlorg.Package.Info.description
+          |> Omd.of_string
+          |> Omd.to_html)
     in
     let license = Ocamlorg.Package.license_file package in
     let content = Package_template.render ~kind ~readme ~license package in
@@ -89,8 +91,9 @@ let package_doc kind req =
   | None ->
     Dream.not_found req
   | Some package ->
+    let open Lwt.Syntax in
     let path = Dream.path req |> String.concat "/" in
-    let docs = Ocamlorg.Package.documentation_page package path in
+    let* docs = Ocamlorg.Package.documentation_page package path in
     (match docs with
     | None ->
       Dream.not_found req

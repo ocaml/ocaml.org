@@ -33,6 +33,8 @@ ENV OCAMLORG_DEBUG false
 
 RUN chmod -R 755 /var
 
+RUN git clone https://github.com/ocaml/opam-repository /var/opam-repository
+
 EXPOSE 8080
 
 ENTRYPOINT /bin/server

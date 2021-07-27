@@ -225,8 +225,8 @@ module Documentation = struct
     | _ ->
       raise (Invalid_argument "malformed toc file")
 
-  let toc_from_file path =
-    match Yojson.Safe.from_file path with
+  let toc_from_string s =
+    match Yojson.Safe.from_string s with
     | `List xs ->
       List.map toc_of_json xs
     | _ ->
@@ -234,42 +234,61 @@ module Documentation = struct
 end
 
 let package_path name version =
-  Fpath.(Config.documentation_path / "packages" / name / version)
+  Config.documentation_url ^ "packages/" ^ name ^ "/" ^ version
+
+let http_get url =
+  let open Lwt.Syntax in
+  Logs.info (fun m -> m "GET %s" url);
+  let headers =
+    Cohttp.Header.of_list
+      [ ( "Accept"
+        , "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" )
+      ]
+  in
+  let* response, body =
+    Cohttp_lwt_unix.Client.get ~headers (Uri.of_string url)
+  in
+  match Cohttp.Code.(code_of_status response.status |> is_success) with
+  | true ->
+    let+ body = Cohttp_lwt.Body.to_string body in
+    Ok body
+  | false ->
+    Lwt.return (Error (`Msg "Failed to fetch the documentation page"))
 
 let documentation_page t path =
+  let open Lwt.Syntax in
   let root =
     package_path (Name.to_string t.name) (Version.to_string t.version)
-    |> Fpath.to_string
   in
-  let fpath = Fpath.(v (root ^ "/" ^ path)) in
-  let path = Fpath.to_string fpath in
-  if Sys.file_exists path then
-    let content =
-      let ic = open_in path in
-      let s = really_input_string ic (in_channel_length ic) in
-      close_in ic;
-      s
-    in
-    let toc_path = Fpath.(rem_ext fpath |> add_ext ".toc.json" |> to_string) in
-    let toc =
-      if Sys.file_exists toc_path then (
-        try Documentation.toc_from_file toc_path with
+  let path = root ^ "/" ^ path in
+  let* content = http_get path in
+  match content with
+  | Ok content ->
+    let+ toc =
+      let toc_path = Filename.remove_extension path ^ ".toc.json" in
+      let+ toc_content = http_get toc_path in
+      match toc_content with
+      | Ok toc_content ->
+        (try Documentation.toc_from_string toc_content with
         | Invalid_argument err ->
           Logs.err (fun m -> m "Invalid toc: %s" err);
           [])
-      else
+      | Error _ ->
         []
     in
+    Logs.info (fun m -> m "Found documentation page for %s" path);
     Some Documentation.{ content; toc }
-  else
-    None
+  | Error _ ->
+    Lwt.return None
 
 let readme_file t =
-  let doc = documentation_page t "README.md.html" in
+  let open Lwt.Syntax in
+  let+ doc = documentation_page t "README.md.html" in
   match doc with None -> None | Some { content; _ } -> Some content
 
 let license_file t =
-  let doc = documentation_page t "LICENSE.md.html" in
+  let open Lwt.Syntax in
+  let+ doc = documentation_page t "LICENSE.md.html" in
   match doc with None -> None | Some { content; _ } -> Some content
 
 let search_package pattern =
