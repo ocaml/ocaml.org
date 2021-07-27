@@ -105,4 +105,4 @@ let schema : Dream.request Graphql_lwt.Schema.schema =
                 packages)
       ])
 
-let default_query = "{\\n  packages {\\n    name\\n    version\\n  }\\n}\\n"
+let default_query = "{\\n  packages {\\n    versions {\\n      name\\n      version\\n    }\\n  }\\n}"
