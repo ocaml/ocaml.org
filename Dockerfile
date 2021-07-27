@@ -1,7 +1,7 @@
 FROM ocaml/opam:alpine as build
 
 # Install system dependencies
-RUN sudo apk add --update libev-dev openssl-dev nodejs npm
+RUN sudo apk update && sudo apk add --update libev-dev openssl-dev gmp-dev nodejs npm
 
 WORKDIR /home/opam
 
@@ -22,7 +22,7 @@ RUN opam exec -- dune build
 
 FROM alpine:3.12 as run
 
-RUN apk add --update libev git
+RUN apk update && apk add --update libev gmp git
 
 COPY --from=build /home/opam/_build/default/bin/main.exe /bin/server
 
