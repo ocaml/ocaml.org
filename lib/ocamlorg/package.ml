@@ -12,11 +12,11 @@ module Info = struct
   type t =
     { synopsis : string
     ; description : string
-    ; authors : string list
+    ; authors : Opam_user.t list
+    ; maintainers : Opam_user.t list
     ; license : string
     ; homepage : string list
     ; tags : string list
-    ; maintainers : string list
     ; dependencies : (OpamPackage.Name.t * string option) list
     ; depopts : (OpamPackage.Name.t * string option) list
     ; conflicts : (OpamPackage.Name.t * string option) list
@@ -60,8 +60,18 @@ module Info = struct
   let of_opamfile (opam : OpamFile.OPAM.t) =
     let open OpamFile.OPAM in
     { synopsis = synopsis opam |> Option.value ~default:"No synopsis"
-    ; authors = author opam
-    ; maintainers = maintainer opam
+    ; authors =
+        author opam
+        |> List.map (fun name ->
+               Option.value
+                 (Opam_user.find_by_name name)
+                 ~default:(Opam_user.make ~name ()))
+    ; maintainers =
+        maintainer opam
+        |> List.map (fun name ->
+               Option.value
+                 (Opam_user.find_by_name name)
+                 ~default:(Opam_user.make ~name ()))
     ; license = license opam |> String.concat "; "
     ; description =
         descr opam |> Option.map OpamFile.Descr.body |> Option.value ~default:""

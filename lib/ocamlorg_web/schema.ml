@@ -1,5 +1,25 @@
 open Ocamlorg
 
+let opam_user =
+  Graphql_lwt.Schema.(
+    obj "opam_user" ~fields:(fun _info ->
+        [ field
+            "name"
+            ~typ:(non_null string)
+            ~args:Arg.[]
+            ~resolve:(fun _info user -> user.Opam_user.name)
+        ; field
+            "github_username"
+            ~typ:string
+            ~args:Arg.[]
+            ~resolve:(fun _info user -> user.Opam_user.handle)
+        ; field
+            "avatar"
+            ~typ:string
+            ~args:Arg.[]
+            ~resolve:(fun _info user -> user.Opam_user.image)
+        ]))
+
 let versionned_package =
   Graphql_lwt.Schema.(
     obj "versionned_package" ~fields:(fun _info ->
@@ -31,11 +51,18 @@ let versionned_package =
               info.Package.Info.description)
         ; field
             "authors"
-            ~typ:(non_null (list (non_null string)))
+            ~typ:(non_null (list (non_null opam_user)))
             ~args:Arg.[]
             ~resolve:(fun _info package ->
               let info = Package.info package in
               info.Package.Info.authors)
+        ; field
+            "maintainers"
+            ~typ:(non_null (list (non_null opam_user)))
+            ~args:Arg.[]
+            ~resolve:(fun _info package ->
+              let info = Package.info package in
+              info.Package.Info.maintainers)
         ; field
             "license"
             ~typ:(non_null string)
@@ -57,13 +84,6 @@ let versionned_package =
             ~resolve:(fun _info package ->
               let info = Package.info package in
               info.Package.Info.tags)
-        ; field
-            "maintainers"
-            ~typ:(non_null (list (non_null string)))
-            ~args:Arg.[]
-            ~resolve:(fun _info package ->
-              let info = Package.info package in
-              info.Package.Info.maintainers)
         ]))
 
 let package =
@@ -105,4 +125,6 @@ let schema : Dream.request Graphql_lwt.Schema.schema =
                 packages)
       ])
 
-let default_query = "{\\n  packages {\\n    versions {\\n      name\\n      version\\n    }\\n  }\\n}"
+let default_query =
+  "{\\n  packages {\\n    versions {\\n      name\\n      version\\n    }\\n  \
+   }\\n}"
