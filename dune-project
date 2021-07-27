@@ -35,4 +35,5 @@
   yojson
   cohttp
   cohttp-lwt-unix
+  ood
   (alcotest :with-test)))
