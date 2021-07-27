@@ -1,5 +1,15 @@
 (library
  (name ocamlorg)
- (libraries opam-format bos fpath logs fmt lwt lwt.unix yojson))
+ (libraries
+  opam-format
+  bos
+  fpath
+  logs
+  fmt
+  lwt
+  lwt.unix
+  yojson
+  cohttp
+  cohttp-lwt-unix))
 
 (include_subdirs unqualified)

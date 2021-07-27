@@ -26,7 +26,6 @@
   crunch
   dream
   dream-cli
-  dream-livereload
   fpath
   fmt
   opam-format
@@ -34,4 +33,6 @@
   omd
   bos
   yojson
+  cohttp
+  cohttp-lwt-unix
   (alcotest :with-test)))

@@ -13,16 +13,11 @@
     ; We use node_modules/tailwindcss/lib/cli.js instead of `npx tailwindcss`
     ; because dune won't include node_modules/.bin in the build, no matter
     ; what I do.
-    (run
-     node
-     node_modules/tailwindcss/lib/cli.js
-     build
-     -c
-     tailwind.config.js
-     -o
-     %{target})))))
+    (run node node_modules/tailwindcss/lib/cli.js build -c tailwind.config.js
+      -o %{target})))))
 
 ; Force dune to include _next.
+
 (subdir
  asset/site/
  (dirs *))

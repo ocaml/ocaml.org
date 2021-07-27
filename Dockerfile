@@ -25,13 +25,13 @@ FROM alpine:3.12 as run
 RUN apk add --update libev git
 
 COPY --from=build /home/opam/_build/default/bin/main.exe /bin/server
-COPY var/occurent-output/ /var/occurent-output/
 
-ENV OCAMLORG_DOC_PATH /var/occurent-output/
 ENV OCAMLORG_REPO_PATH /var/opam-repository/
 ENV OCAMLORG_DEBUG false
 
 RUN chmod -R 755 /var
+
+RUN git clone https://github.com/ocaml/opam-repository /var/opam-repository
 
 EXPOSE 8080
 
