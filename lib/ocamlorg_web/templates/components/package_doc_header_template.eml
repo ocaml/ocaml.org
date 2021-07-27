@@ -1,0 +1,33 @@
+
+let module_name = function
+  | Ocamlorg.Package.Documentation.Module name
+  | ModuleType name
+  | FunctorArgument (_, name) -> name
+
+let render_item _n_items index item =
+  let dot =
+    if index > 0 then "." else ""
+  in dot ^ module_name item
+
+let render module_path =
+  let n_items = List.length module_path in
+  let item_class index =
+    if index == n_items - 1 then
+      "text-orange-600 border-orange-600 border-b-2"
+    else
+      "hover:text-gray-900 hover:border-gray-400 hover:border-b-2"
+  in
+  let  item_href index =
+    let rec href_url index =
+      if index == n_items - 1 then "" else
+      "../" ^ href_url (index + 1)
+    in
+    if index == n_items - 1 then "" else
+    "href='"^(href_url index)^"'"
+  in
+  <div class='flex-1'></div>
+  <div class="flex font-mono text-gray-600">
+    <% module_path |> List.iteri begin fun index item -> %>
+      <a <%s! item_href index %> class='whitespace-nowrap py-4 font-medium text-sm <%s item_class index %>'><%s render_item n_items index item %></a>
+    <% end; %>
+  </div>

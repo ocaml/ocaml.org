@@ -8,17 +8,33 @@ let toc_of_toc (xs : Documentation.toc list) : Toc_template.t =
   in
   aux [] xs
 
+let module_kind = function
+  | Ocamlorg.Package.Documentation.Module _ -> "Module"
+  | ModuleType _ -> "Module type"
+  | FunctorArgument (number, _) -> "Parameter #" ^ (Int.to_string number)
+
+let module_name = function
+  | Ocamlorg.Package.Documentation.Module name
+  | ModuleType name
+  | FunctorArgument (_, name) -> name
+
+let header module_path =
+  let (item, parent) = List.fold_left (fun (cur_item, _) item -> (Some item, cur_item)) (None, None) module_path in
+  match (item, parent) with
+  | Some item, Some parent -> "<span class='font-light'>" ^ module_kind item ^ "</span> " ^ module_name parent ^ "." ^ module_name item
+  | Some item, None -> "<span class='font-light'>" ^ module_kind item ^ "</span> " ^ module_name item
+  | None, None -> ""
+  | _ -> assert false
 
 let render (doc : Documentation.t) =
 let toc = toc_of_toc doc.toc in
 <div class="flex-auto flex">
-  <div class="relative flex w-full">
-    <div class="hidden lg:block absolute top-0 bottom-0 right-0 left-1/2 bg-white"></div>
+  <div class="relative flex flex-col w-full">
+    <h3 class="text-2xl text-gray-900 font-bold p-4"><%s! header doc.module_path %> </h3>
     <div class="relative flex w-full max-w-container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="w-full flex-none lg:grid lg:grid-cols-3 lg:gap-8">
         <%s! Toc_template.render toc %>
         <div class="relative col-span-2 lg:-ml-8 bg-white lg:shadow-md">
-          <div class="hidden lg:block absolute top-0 bottom-0 -right-4 w-8 bg-white"></div>
           <div class="relative py-16 lg:px-16">
             <div class="odoc prose prose-orange">
               <%s! doc.content %>
