@@ -1,16 +1,12 @@
-let loader ?(load_index = false) root path _request =
+let v3_loader root path _request =
   let headers, path =
-    match load_index with
-    | false ->
+    let fpath = Fpath.v path in
+    if Fpath.is_dir_path fpath || not (Fpath.exists_ext fpath) then
+      (* charset is used internally in dream when setting this *)
+      ( [ "Content-Type", "text/html; charset=utf-8" ]
+      , Filename.concat path "index.html" )
+    else
       Dream.mime_lookup path, path
-    | true ->
-      let fpath = Fpath.v path in
-      if Fpath.is_dir_path fpath || not (Fpath.exists_ext fpath) then
-        (* charset is used internally in dream when setting this *)
-        ( [ "Content-Type", "text/html; charset=utf-8" ]
-        , Filename.concat path "index.html" )
-      else
-        Dream.mime_lookup path, path
   in
   match Asset.read (root ^ path) with
   | None ->
@@ -18,11 +14,18 @@ let loader ?(load_index = false) root path _request =
   | Some asset ->
     Dream.respond ~headers asset
 
+let loader root path _request =
+  match Asset.read (root ^ path) with
+  | None ->
+    Dream.empty `Not_Found
+  | Some asset ->
+    Dream.respond ~headers:(Dream.mime_lookup path) asset
+
 let site_route =
   Dream.scope
     ""
     [ Middleware.i18n; Middleware.catch_404 ]
-    [ Dream.get "/**" (Dream.static ~loader:(loader ~load_index:true) "site/") ]
+    [ Dream.get "/**" (Dream.static ~loader:v3_loader "site/") ]
 
 let package_route =
   Dream.scope
