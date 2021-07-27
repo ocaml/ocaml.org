@@ -291,6 +291,21 @@ let license_file t =
   let+ doc = documentation_page t "LICENSE.md.html" in
   match doc with None -> None | Some { content; _ } -> Some content
 
+let status t =
+  let open Lwt.Syntax in
+  let root =
+    package_path (Name.to_string t.name) (Version.to_string t.version)
+  in
+  let path = root ^ "/status.json" in
+  let+ content = http_get path in
+  match content with
+  | Ok "\"Built\"" ->
+    `Success
+  | Ok "\"Failed\"" ->
+    `Failure
+  | _ ->
+    `Unknown
+
 let search_package pattern =
   let pattern = String.lowercase_ascii pattern in
   let contains s1 s2 =

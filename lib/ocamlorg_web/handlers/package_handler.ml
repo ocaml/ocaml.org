@@ -62,6 +62,7 @@ let package_versioned kind req =
           |> Omd.to_html)
     in
     let license = Ocamlorg.Package.license_file package in
+    let* status = Ocamlorg.Package.status package in
     let content = Package_template.render ~kind ~readme ~license package in
     let versions =
       Ocamlorg.Package.get_package_versions name |> Option.value ~default:[]
@@ -71,6 +72,7 @@ let package_versioned kind req =
       ~package
       ~versions
       ~tab:Overview
+      ~status
       content
     |> Dream.html
 
@@ -94,6 +96,7 @@ let package_doc kind req =
     let open Lwt.Syntax in
     let path = Dream.path req |> String.concat "/" in
     let* docs = Ocamlorg.Package.documentation_page package path in
+    let* status = Ocamlorg.Package.status package in
     (match docs with
     | None ->
       Page_handler.not_found req
@@ -106,5 +109,6 @@ let package_doc kind req =
         ~package
         ~versions
         ~tab:Documentation
+        ~status
         (Package_doc_template.render doc)
       |> Dream.html)
