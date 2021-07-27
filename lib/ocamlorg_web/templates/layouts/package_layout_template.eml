@@ -3,9 +3,21 @@ type tab =
   | Documentation
 
 let render_documentation_tab ~package_name ~package_version ~documentation_tab_class = function
-  | `Failure | `Success  ->
-    <a href="/p/<%s package_name %>/<%s package_version %>/doc/index.html" class="<%s documentation_tab_class %>"> Documentation </a>
-  | `Unknown -> ""
+  | `Failure ->
+    <a href="/p/<%s package_name %>/<%s package_version %>/doc/index.html" class="<%s documentation_tab_class %> relative pr-6"> 
+      Documentation
+      <span class="bg-red-500 ml-3 absolute top-2 py-1.5 px-1.5 rounded-full inline-block" />
+    </a>
+  | `Success  ->
+    <a href="/p/<%s package_name %>/<%s package_version %>/doc/index.html" class="<%s documentation_tab_class %> relative pr-6"> 
+      Documentation
+      <span class="bg-green-500 ml-3 absolute top-2 py-1.5 px-1.5 rounded-full inline-block" />
+    </a>
+  | `Unknown -> 
+    <span title="The documentation for this version is not available" class="<%s documentation_tab_class %> cursor-not-allowed relative pr-6">
+      Documentation
+      <span class="bg-orange-300 ml-3 absolute top-2 py-1.5 px-1.5 rounded-full inline-block" />
+    </span>
 
 let render ~title ~tab ~package ~status ~versions inner =
   let active_tab = "border-orange-500 text-orange-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" in
