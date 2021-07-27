@@ -2,6 +2,22 @@ type kind =
 | Blessed
 | Universe of string
 
+let render_user_list users = 
+  <ul class="space-y-3">
+    <% users |> List.iter begin fun author -> %>
+    <li class="flex justify-start">
+      <a href="<%s match author.Ocamlorg.Opam_user.handle with | None -> "" | Some handle -> "https://github.com/" ^ handle %>" class="flex items-center space-x-3">
+        <% (match author.Ocamlorg.Opam_user.image with | None -> () | Some avatar -> %>
+        <div class="flex-shrink-0">
+          <img class="h-10 w-10 rounded-full" src="<%s avatar %>" alt="">
+        </div>
+        <% ); %>
+        <div class="text-sm font-medium text-gray-900"><%s author.Ocamlorg.Opam_user.name %></div>
+      </a>
+    </li>
+    <% end; %>
+  </ul>
+
 let render ~kind:_ ~readme ~license:_ package =
   let package_name = Ocamlorg.Package.(Name.to_string (name package)) in
   let package_version = Ocamlorg.Package.(Version.to_string (version package)) in
@@ -67,29 +83,23 @@ let render ~kind:_ ~readme ~license:_ package =
         <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
           <div class="sm:col-span-2">
             <dt class="text-sm font-medium text-gray-500">Authors</dt>
-            <dd class="mt-1 text-sm text-gray-900">
-              <% package_authors |> List.iter begin fun author -> %>
-              <%s author %>
-              <br />
-              <% end; %>
+            <dd class="mt-2 text-sm text-gray-900">
+              <%s! render_user_list package_authors %>
             </dd>
           </div>
           <div class="sm:col-span-2">
             <dt class="text-sm font-medium text-gray-500">Maintainers</dt>
-            <dd class="mt-1 text-sm text-gray-900">
-              <% package_maintainers |> List.iter begin fun maintainer -> %>
-              <%s maintainer %>
-              <br />
-              <% end; %>
+            <dd class="mt-2 text-sm text-gray-900">
+              <%s! render_user_list package_maintainers %>
             </dd>
           </div>
           <div class="sm:col-span-2">
             <dt class="text-sm font-medium text-gray-500">License</dt>
-            <dd class="mt-1 text-sm text-gray-900"><%s package_license %></dd>
+            <dd class="mt-2 text-sm text-gray-900"><%s package_license %></dd>
           </div>
           <div class="sm:col-span-2">
             <dt class="text-sm font-medium text-gray-500">Homepage</dt>
-            <dd class="mt-1 text-sm text-gray-900">
+            <dd class="mt-2 text-sm text-gray-900">
               <% package_homepages |> List.iter begin fun homepage -> %>
               <a href="<%s homepage %>" class="font-medium text-orange-600 hover:text-orange-500"> <%s homepage %>
               <br />
@@ -102,7 +112,7 @@ let render ~kind:_ ~readme ~license:_ package =
               | Some source -> %>
           <div class="sm:col-span-2">
             <dt class="text-sm font-medium text-gray-500">Sources</dt>
-            <dd class="mt-1 text-sm text-gray-900">
+            <dd class="mt-2 text-sm text-gray-900">
               <ul class="border border-gray-200 bg-white rounded-md divide-y divide-gray-200">
                 <li class="pl-3 pr-4 flex items-center justify-between text-sm">
                   <div class="w-0 flex-1 flex items-center">
@@ -129,7 +139,7 @@ let render ~kind:_ ~readme ~license:_ package =
           <% ; %>
           <div class="sm:col-span-2">
             <dt class="text-sm font-medium text-gray-500">Dependencies</dt>
-            <dd class="mt-1 text-sm text-gray-900 max-h-80 overflow-y-auto">
+            <dd class="mt-2 text-sm text-gray-900 max-h-80 overflow-y-auto">
               <ul class="divide-y divide-gray-100">
                 <% package_deps |> List.iter begin fun (name, cstr) -> %>
                 <li class="py-2">

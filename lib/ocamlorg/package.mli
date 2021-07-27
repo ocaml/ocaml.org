@@ -37,11 +37,11 @@ module Info : sig
   type t =
     { synopsis : string
     ; description : string
-    ; authors : string list
+    ; authors : Opam_user.t list
+    ; maintainers : Opam_user.t list
     ; license : string
     ; homepage : string list
     ; tags : string list
-    ; maintainers : string list
     ; dependencies : (Name.t * string option) list
     ; depopts : (Name.t * string option) list
     ; conflicts : (Name.t * string option) list

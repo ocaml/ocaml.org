@@ -27,5 +27,7 @@ let tutorial req =
     Dream.not_found req
 
 let tutorials _req =
-  Page_layout_template.render ~title:"Tutorials" Preview_tutorials_template.render
+  Page_layout_template.render
+    ~title:"Tutorials"
+    Preview_tutorials_template.render
   |> Dream.html
