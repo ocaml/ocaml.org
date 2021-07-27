@@ -20,6 +20,15 @@ Or globally, with:
 make deps
 ```
 
+The server will download its runtime dependencies itself (e.g. the opam-repository),
+but you will need to download the `v3.ocaml.org` static files, which are crunched in the executable at compile time:
+
+```
+make update-site
+```
+
+This will pull the v3.ocaml.org docker image and copy the static files from it into the `asset/site/` directory.
+
 Then, build the project with:
 
 ```bash
@@ -40,7 +49,7 @@ To start the server in watch mode, you can run:
 make watch
 ```
 
-This will restart the server on filesystem changes and reload the pages automatically.
+This will restart the server on filesystem changes and reload the pages automatically. The watch script depends on `fswatch`, so make sure to install it before running the script.
 
 ### Running tests
 
@@ -50,21 +59,7 @@ You can run the unit test suite with:
 make test
 ```
 
-### Building documentation
-
-Documentation for the libraries in the project can be generated with:
-
-```bash
-make doc
-```
-
-To serve the documentation:
-
-```bash
-make servedoc
-```
-
-### Repository structure
+## Repository structure
 
 The following snippet describes OCaml.org's repository structure.
 
@@ -93,4 +88,19 @@ The following snippet describes OCaml.org's repository structure.
 └── ocamlorg.opam
     opam package definition.
     To know more about creating and publishing opam packages, see https://opam.ocaml.org/doc/Packaging.html.
+```
+
+## Deploying
+
+To deploy on Heroku, run the following commands:
+
+```
+heroku container:push -a ocamlorg web
+heroku container:release -a ocamlorg web
+```
+
+Once the website is deployed, you can display the logs with:
+
+```
+heroku logs -a ocamlorg --tail
 ```
