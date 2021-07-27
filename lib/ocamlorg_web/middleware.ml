@@ -36,13 +36,3 @@ let i18n next_handler request =
       Dream.redirect request redirection
   else
     next_handler request
-
-(* Only used to catch the 404 status coming from serving the site directory
-   without a namespace. *)
-let catch_404 next_handler request =
-  let open Lwt.Syntax in
-  let* response = next_handler request in
-  if Dream.status response = `Not_Found then
-    Page_handler.not_found request
-  else
-    Lwt.return response
