@@ -220,8 +220,14 @@ module Documentation = struct
     ; children : toc list
     }
 
+  type item =
+    | Module of string
+    | ModuleType of string
+    | FunctorArgument of int * string
+
   type t =
     { toc : toc list
+    ; module_path : item list
     ; content : string
     }
 
@@ -241,6 +247,24 @@ module Documentation = struct
       List.map toc_of_json xs
     | _ ->
       raise (Invalid_argument "the toplevel json is not a list")
+
+  let module_path_from_path s =
+    let parse_item i =
+      match String.split_on_char '-' i with
+      | [ "index.html" ] | [ "" ] ->
+        None
+      | [ module_name ] ->
+        Some (Module module_name)
+      | [ "module"; "type"; module_name ] ->
+        Some (ModuleType module_name)
+      | [ "argument"; arg_number; arg_name ] ->
+        (try Some (FunctorArgument (int_of_string arg_number, arg_name)) with
+        | Failure _ ->
+          None)
+      | _ ->
+        None
+    in
+    String.split_on_char '/' s |> List.filter_map parse_item
 end
 
 let package_path name version =
@@ -270,6 +294,7 @@ let documentation_page t path =
   let root =
     package_path (Name.to_string t.name) (Version.to_string t.version)
   in
+  let module_path = Documentation.module_path_from_path path in
   let path = root ^ "/" ^ path in
   let* content = http_get path in
   match content with
@@ -287,7 +312,7 @@ let documentation_page t path =
         []
     in
     Logs.info (fun m -> m "Found documentation page for %s" path);
-    Some Documentation.{ content; toc }
+    Some Documentation.{ content; toc; module_path }
   | Error _ ->
     Lwt.return None
 

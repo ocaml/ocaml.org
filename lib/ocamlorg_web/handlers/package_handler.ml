@@ -104,11 +104,13 @@ let package_doc kind req =
       let versions =
         Ocamlorg.Package.get_package_versions name |> Option.value ~default:[]
       in
+      let extra_nav = Package_doc_header_template.render doc.module_path in
       Package_layout_template.render
         ~title:"Packages"
         ~package
         ~versions
         ~tab:Documentation
         ~status
+        ~extra_nav
         (Package_doc_template.render doc)
       |> Dream.html)

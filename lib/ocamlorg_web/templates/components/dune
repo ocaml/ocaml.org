@@ -33,3 +33,9 @@
  (deps toc_template.eml)
  (action
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets package_doc_header_template.ml)
+ (deps package_doc_header_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
