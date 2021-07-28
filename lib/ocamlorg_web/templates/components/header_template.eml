@@ -48,19 +48,23 @@ let render =
           <%s! List.map Flyout_menu_template.render Navigation.t |> String.concat "" %>
         </nav>
         <div class="flex-1 flex items-center justify-center px-2 md:justify-end ">
-          <div class="max-w-lg w-full md:max-w-xs"><label class="sr-only" for="search">Search ocaml.org</label>
-            <form id="searchform" action="https://duckduckgo.com/" method="get"><input type="hidden" name="sites"
-                value="ocaml.org">
+          <div class="max-w-lg w-full md:max-w-xs">
+            <label class="sr-only" for="q">Search packages</label>
+            <form action="/packages/search" method="GET">
               <div class="relative" data-children-count="1">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><svg aria-hidden="true"
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg aria-hidden="true"
                     class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg" data-children-count="0">
                     <path clip-rule="evenodd"
                       d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                       fill-rule="evenodd"></path>
-                  </svg></div><input type="search"
+                  </svg>
+                </div>
+                <input
+                  type="search"
                   class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-orangedark focus:border-orangedarker sm:text-sm"
-                  id="search" name="q" placeholder="Search ocaml.org">
+                  id="q" name="q" placeholder="Search packages">
               </div>
             </form>
           </div>
