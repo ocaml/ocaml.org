@@ -11,3 +11,7 @@ let secret_key =
   env_with_default
     "OCAMLORG_SECRET_KEY"
     "6qWiqeLJqZC/UrpcTLIcWOS/35SrCPzWskO/bDkIXBGH9fCXrDphsBj4afqigTKe"
+
+let meta_description =
+  "OCaml is a general purpose industrial-strength programming language with an \
+   emphasis on expressiveness and safety."
