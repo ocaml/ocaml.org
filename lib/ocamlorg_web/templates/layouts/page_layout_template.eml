@@ -1,10 +1,21 @@
-let render ~title inner =
+let render ~title ~description inner =
   <!DOCTYPE html>
   <html lang="en">
     <head>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <meta name="description" content="<%s description %>">
+      <meta name="twitter:title" content="<%s title %>">
+      <meta name="twitter:description" content="<%s description %>">
+      <meta property="og:site_name" content="OCaml">
+      <meta property="og:type" content="object">
+      <meta property="og:title" content="<%s title %>">
+      <meta property="og:description" content="<%s description %>">
+      <meta name="theme-color" content="#fff">
+      <meta name="color-scheme" content="white">
+      <meta name=”robots” content="noindex, nofollow">
       <link rel="icon" type="image/png" href="/assets/favicon.ico" />
+      <link rel="manifest" href="/assets/manifest.json">
       <link rel="stylesheet" href="/assets/main.css" />
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       <script src="https://tailwindui.com/js/components-v2.js"></script>

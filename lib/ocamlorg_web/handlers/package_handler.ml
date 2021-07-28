@@ -3,7 +3,12 @@ type kind =
   | Universe
 
 let index _req =
-  Page_layout_template.render ~title:"Packages" Packages_template.render
+  Page_layout_template.render
+    ~title:"OCaml Packages · Browse community packages"
+    ~description:
+      "Discover thousands of community packages and their browse their \
+       documentation."
+    Packages_template.render
   |> Dream.html
 
 let search req =
@@ -11,7 +16,10 @@ let search req =
   | Some search ->
     let packages = Ocamlorg.Package.search_package search in
     Page_layout_template.render
-      ~title:"Packages"
+      ~title:"OCaml Packages · Search community packages"
+      ~description:
+        "Find the package you need to build your application in the thousands \
+         of available opam packages."
       (Package_search_template.render packages)
     |> Dream.html
   | None ->
@@ -52,14 +60,14 @@ let package_versioned kind req =
       | Universe ->
         `Universe (Dream.param "hash" req)
     in
+    let description =
+      (Ocamlorg.Package.info package).Ocamlorg.Package.Info.description
+    in
     let* readme =
       let+ readme_opt = Ocamlorg.Package.readme_file ~kind package in
       Option.value
         readme_opt
-        ~default:
-          ((Ocamlorg.Package.info package).Ocamlorg.Package.Info.description
-          |> Omd.of_string
-          |> Omd.to_html)
+        ~default:(description |> Omd.of_string |> Omd.to_html)
     in
     let license = Ocamlorg.Package.license_file ~kind package in
     let* status = Ocamlorg.Package.status ~kind package in
@@ -68,7 +76,17 @@ let package_versioned kind req =
       Ocamlorg.Package.get_package_versions name |> Option.value ~default:[]
     in
     Package_layout_template.render
-      ~title:"Packages"
+      ~title:
+        (Printf.sprintf
+           "%s %s · OCaml Packages"
+           (Ocamlorg.Package.Name.to_string name)
+           (Ocamlorg.Package.Version.to_string version))
+      ~description:
+        (Printf.sprintf
+           "%s %s: %s"
+           (Ocamlorg.Package.Name.to_string name)
+           (Ocamlorg.Package.Version.to_string version)
+           description)
       ~package
       ~versions
       ~tab:Overview
@@ -108,16 +126,50 @@ let package_doc kind req =
     | None ->
       Page_handler.not_found req
     | Some doc ->
+      let description =
+        (Ocamlorg.Package.info package).Ocamlorg.Package.Info.description
+      in
       let versions =
         Ocamlorg.Package.get_package_versions name |> Option.value ~default:[]
       in
       let extra_nav = Package_doc_header_template.render doc.module_path in
+      let canonical_module =
+        doc.module_path
+        |> List.map (function
+               | Ocamlorg.Package.Documentation.Module s ->
+                 s
+               | Ocamlorg.Package.Documentation.ModuleType s ->
+                 s
+               | Ocamlorg.Package.Documentation.FunctorArgument (_, s) ->
+                 s)
+        |> String.concat "."
+      in
+      let title =
+        match path with
+        | "index.html" ->
+          Printf.sprintf
+            "Documentation · %s %s · OCaml Packages"
+            (Ocamlorg.Package.Name.to_string name)
+            (Ocamlorg.Package.Version.to_string version)
+        | _ ->
+          Printf.sprintf
+            "%s · %s %s · OCaml Packages"
+            canonical_module
+            (Ocamlorg.Package.Name.to_string name)
+            (Ocamlorg.Package.Version.to_string version)
+      in
       Package_layout_template.render
-        ~title:"Packages"
-        ~package
+        ~title
+        ~description:
+          (Printf.sprintf
+             "%s %s: %s"
+             (Ocamlorg.Package.Name.to_string name)
+             (Ocamlorg.Package.Version.to_string version)
+             description)
         ~versions
         ~tab:Documentation
         ~status
+        ~package
         ~extra_nav
         (Package_doc_template.render doc)
       |> Dream.html)
