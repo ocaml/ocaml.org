@@ -18,7 +18,7 @@ let render_user_list users =
     <% end; %>
   </ul>
 
-let render ~kind:_ ~readme ~license:_ package =
+let render ~readme ~license:_ package =
   let package_name = Ocamlorg.Package.(Name.to_string (name package)) in
   let package_version = Ocamlorg.Package.(Version.to_string (version package)) in
   let package_info = Ocamlorg.Package.info package in

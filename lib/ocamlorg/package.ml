@@ -267,11 +267,27 @@ module Documentation = struct
     String.split_on_char '/' s |> List.filter_map parse_item
 end
 
-let package_path name version =
-  Config.documentation_url ^ "p/" ^ name ^ "/" ^ version ^ "/"
+let package_path ~kind name version =
+  match kind with
+  | `Package ->
+    Config.documentation_url ^ "p/" ^ name ^ "/" ^ version ^ "/"
+  | `Universe s ->
+    Config.documentation_url ^ "u/" ^ s ^ "/" ^ name ^ "/" ^ version ^ "/"
 
-let documentation_path name version =
-  Config.documentation_url ^ "p/" ^ name ^ "/" ^ version ^ "/doc" ^ "/"
+let documentation_path ~kind name version =
+  match kind with
+  | `Package ->
+    Config.documentation_url ^ "p/" ^ name ^ "/" ^ version ^ "/doc" ^ "/"
+  | `Universe s ->
+    Config.documentation_url
+    ^ "u/"
+    ^ s
+    ^ "/"
+    ^ name
+    ^ "/"
+    ^ version
+    ^ "/doc"
+    ^ "/"
 
 let http_get url =
   let open Lwt.Syntax in
@@ -292,10 +308,13 @@ let http_get url =
   | false ->
     Lwt.return (Error (`Msg "Failed to fetch the documentation page"))
 
-let documentation_page t path =
+let documentation_page ~kind t path =
   let open Lwt.Syntax in
   let root =
-    documentation_path (Name.to_string t.name) (Version.to_string t.version)
+    documentation_path
+      ~kind
+      (Name.to_string t.name)
+      (Version.to_string t.version)
   in
   let module_path = Documentation.module_path_from_path path in
   let path = root ^ path in
@@ -319,20 +338,20 @@ let documentation_page t path =
   | Error _ ->
     Lwt.return None
 
-let readme_file t =
+let readme_file ~kind t =
   let open Lwt.Syntax in
-  let+ doc = documentation_page t "README.md.html" in
+  let+ doc = documentation_page ~kind t "README.md.html" in
   match doc with None -> None | Some { content; _ } -> Some content
 
-let license_file t =
+let license_file ~kind t =
   let open Lwt.Syntax in
-  let+ doc = documentation_page t "LICENSE.md.html" in
+  let+ doc = documentation_page ~kind t "LICENSE.md.html" in
   match doc with None -> None | Some { content; _ } -> Some content
 
-let status t =
+let status ~kind t =
   let open Lwt.Syntax in
   let root =
-    package_path (Name.to_string t.name) (Version.to_string t.version)
+    package_path ~kind (Name.to_string t.name) (Version.to_string t.version)
   in
   let path = root ^ "status.json" in
   let+ content = http_get path in

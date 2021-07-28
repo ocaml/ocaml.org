@@ -39,21 +39,21 @@ let package_versioned kind req =
   let version =
     Ocamlorg.Package.Version.of_string @@ Dream.param "version" req
   in
-  let kind =
-    match kind with
-    | Package ->
-      Package_template.Blessed
-    | Universe ->
-      Package_template.Universe (Dream.param "hash" req)
-  in
   let package = Ocamlorg.Package.get_package name version in
   match package with
   | None ->
     Page_handler.not_found req
   | Some package ->
     let open Lwt.Syntax in
+    let kind =
+      match kind with
+      | Package ->
+        `Package
+      | Universe ->
+        `Universe (Dream.param "hash" req)
+    in
     let* readme =
-      let+ readme_opt = Ocamlorg.Package.readme_file package in
+      let+ readme_opt = Ocamlorg.Package.readme_file ~kind package in
       Option.value
         readme_opt
         ~default:
@@ -61,9 +61,9 @@ let package_versioned kind req =
           |> Omd.of_string
           |> Omd.to_html)
     in
-    let license = Ocamlorg.Package.license_file package in
-    let* status = Ocamlorg.Package.status package in
-    let content = Package_template.render ~kind ~readme ~license package in
+    let license = Ocamlorg.Package.license_file ~kind package in
+    let* status = Ocamlorg.Package.status ~kind package in
+    let content = Package_template.render ~readme ~license package in
     let versions =
       Ocamlorg.Package.get_package_versions name |> Option.value ~default:[]
     in
@@ -94,9 +94,16 @@ let package_doc kind req =
     Page_handler.not_found req
   | Some package ->
     let open Lwt.Syntax in
+    let kind =
+      match kind with
+      | Package ->
+        `Package
+      | Universe ->
+        `Universe (Dream.param "hash" req)
+    in
     let path = Dream.path req |> String.concat "/" in
-    let* docs = Ocamlorg.Package.documentation_page package path in
-    let* status = Ocamlorg.Package.status package in
+    let* docs = Ocamlorg.Package.documentation_page ~kind package path in
+    let* status = Ocamlorg.Package.status ~kind package in
     (match docs with
     | None ->
       Page_handler.not_found req
