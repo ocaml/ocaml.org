@@ -27,3 +27,9 @@
  (deps packages_template.eml)
  (action
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets package_toplevel_template.ml)
+ (deps package_toplevel_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))

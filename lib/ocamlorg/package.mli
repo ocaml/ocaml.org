@@ -105,6 +105,9 @@ val documentation_page
 (** Get the rendered content of an HTML page for a package given its URL
     relative to the root page of the documentation. *)
 
+val toplevel : t -> string option
+(** Get the URL of the toplevel script for the given package. *)
+
 val all_packages_latest : unit -> t list
 (** Get the list of the latest version of every opam packages.
 

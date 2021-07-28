@@ -95,12 +95,13 @@ The following snippet describes OCaml.org's repository structure.
 To deploy on Heroku, run the following commands:
 
 ```
-heroku container:push -a ocamlorg web
-heroku container:release -a ocamlorg web
+docker build -t ocamlorg-toplevel .
+heroku container:push -a ocamlorg-toplevel web
+heroku container:release -a ocamlorg-toplevel web
 ```
 
 Once the website is deployed, you can display the logs with:
 
 ```
-heroku logs -a ocamlorg --tail
+heroku logs -a ocamlorg-toplevel --tail
 ```

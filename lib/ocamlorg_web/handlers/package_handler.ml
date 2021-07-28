@@ -67,12 +67,14 @@ let package_versioned kind req =
     let versions =
       Ocamlorg.Package.get_package_versions name |> Option.value ~default:[]
     in
+    let toplevel = Ocamlorg.Package.toplevel package in
     Package_layout_template.render
       ~title:"Packages"
       ~package
       ~versions
       ~tab:Overview
       ~status
+      ?toplevel
       content
     |> Dream.html
 
@@ -80,13 +82,6 @@ let package_doc kind req =
   let name = Ocamlorg.Package.Name.of_string @@ Dream.param "name" req in
   let version =
     Ocamlorg.Package.Version.of_string @@ Dream.param "version" req
-  in
-  let _kind =
-    match kind with
-    | Package ->
-      Package_template.Blessed
-    | Universe ->
-      Package_template.Universe (Dream.param "hash" req)
   in
   let package = Ocamlorg.Package.get_package name version in
   match package with
@@ -112,6 +107,7 @@ let package_doc kind req =
         Ocamlorg.Package.get_package_versions name |> Option.value ~default:[]
       in
       let extra_nav = Package_doc_header_template.render doc.module_path in
+      let toplevel = Ocamlorg.Package.toplevel package in
       Package_layout_template.render
         ~title:"Packages"
         ~package
@@ -119,5 +115,44 @@ let package_doc kind req =
         ~tab:Documentation
         ~status
         ~extra_nav
+        ?toplevel
         (Package_doc_template.render doc)
+      |> Dream.html)
+
+let toplevel kind req =
+  let name = Ocamlorg.Package.Name.of_string @@ Dream.param "name" req in
+  let version =
+    Ocamlorg.Package.Version.of_string @@ Dream.param "version" req
+  in
+  let package = Ocamlorg.Package.get_package name version in
+  match package with
+  | None ->
+    Page_handler.not_found req
+  | Some package ->
+    let toplevel = Ocamlorg.Package.toplevel package in
+    (match toplevel with
+    | None ->
+      Page_handler.not_found req
+    | Some toplevel ->
+      let kind =
+        match kind with
+        | Package ->
+          `Package
+        | Universe ->
+          `Universe (Dream.param "hash" req)
+      in
+      let open Lwt.Syntax in
+      let* status = Ocamlorg.Package.status ~kind package in
+      let versions =
+        Ocamlorg.Package.get_package_versions name |> Option.value ~default:[]
+      in
+      let content = Package_toplevel_template.render toplevel in
+      Package_layout_template.render
+        ~title:"Toplevel"
+        ~package
+        ~versions
+        ~tab:Toplevel
+        ~status
+        ~toplevel
+        content
       |> Dream.html)

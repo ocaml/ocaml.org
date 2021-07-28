@@ -65,6 +65,12 @@ let package_route =
     ; Dream.get
         "/u/:hash/:name/:version/doc/**"
         (Package_handler.package_doc Package_handler.Universe)
+    ; Dream.get
+        "/p/:name/:version/top"
+        (Package_handler.toplevel Package_handler.Package)
+    ; Dream.get
+        "/u/:hash/:name/:version/top"
+        (Package_handler.toplevel Package_handler.Package)
     ]
 
 let graphql_route =
@@ -83,6 +89,9 @@ let router =
     ; graphql_route
     ; preview_routes
     ; Dream.get "/assets/**" (Dream.static ~loader "")
+    ; Dream.get
+        "/toplevels/**"
+        (Dream.static (Fpath.to_string Ocamlorg.topelevels_path))
       (* Used for the previews *)
     ; Dream.get "/media/**" (Dream.static ~loader:media_loader "")
       (* Last one so that we don't apply the index html middleware on every
