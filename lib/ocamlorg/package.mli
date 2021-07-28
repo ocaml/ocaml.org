@@ -79,16 +79,29 @@ val version : t -> Version.t
 val info : t -> Info.t
 (** Get the info of a package. *)
 
-val readme_file : t -> string option Lwt.t
+val readme_file
+  :  kind:[< `Package | `Universe of string ]
+  -> t
+  -> string option Lwt.t
 (** Get the readme of a package *)
 
-val license_file : t -> string option Lwt.t
+val license_file
+  :  kind:[< `Package | `Universe of string ]
+  -> t
+  -> string option Lwt.t
 (** Get the license of a package *)
 
-val status : t -> [ `Success | `Failure | `Unknown ] Lwt.t
+val status
+  :  kind:[< `Package | `Universe of string ]
+  -> t
+  -> [ `Success | `Failure | `Unknown ] Lwt.t
 (** Get the build status of a package *)
 
-val documentation_page : t -> string -> Documentation.t option Lwt.t
+val documentation_page
+  :  kind:[< `Package | `Universe of string ]
+  -> t
+  -> string
+  -> Documentation.t option Lwt.t
 (** Get the rendered content of an HTML page for a package given its URL
     relative to the root page of the documentation. *)
 
