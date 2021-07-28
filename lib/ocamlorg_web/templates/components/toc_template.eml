@@ -7,7 +7,7 @@ children : toc list
 type t = toc list
 
 let render (t : t) = 
-<div class="bg-gray-50 lg:bg-transparent -mx-4 sm:-mx-6 lg:mx-0 py-8 sm:py-12 px-4 sm:px-6 lg:pl-0 lg:pr-8">
+<div class="bg-gray-50 lg:bg-transparent">
   <script>
     function TableOfContents() {
       return {
@@ -68,7 +68,7 @@ let render (t : t) =
   </script>
   <div class="text-sm max-w-[37.5rem] mx-auto lg:max-w-none lg:mx-0 relative lg:sticky lg:top-10"
     x-data="TableOfContents()" x-init="init()">
-    <ul class="space-y-8 border-l border-gray-200 pl-6">
+    <ul class="space-y-3 border-l border-gray-200 pl-6">
       <% t |> List.iter begin fun item -> %>
       <li class="space-y-3">
         <a href="<%s item.href %>" class="block font-medium text-gray-900 transition-colors duration-300"

@@ -11,15 +11,22 @@ let toc_of_toc (xs : Documentation.toc list) : Toc_template.t =
 let render (doc : Documentation.t) =
 let toc = toc_of_toc doc.toc in
 <div class="flex-auto flex">
-  <div class="relative flex flex-col w-full">
-    <div class="relative flex w-full max-w-container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="w-full flex-none lg:grid lg:grid-cols-3 lg:gap-8">
-        <%s! Toc_template.render toc %>
-        <div class="relative col-span-2 lg:-ml-8 bg-white lg:shadow-md">
-          <div class="relative py-16 lg:px-16">
-            <div class="odoc prose prose-orange">
-              <%s! doc.content %>
-            </div>
+  <div class="relative flex flex-col w-full" x-data="{toc: false}">
+    <div class="relative flex w-full max-w-container mx-auto px-4 items-start sm:px-6 lg:px-8">
+      <div class="relative w-0 transition-width duration-500 ease-in-out sticky top-8 max-h-screen overflow-y-visible overflow-x-hidden" :class="{ 'lg:w-64': toc}">
+        <div class="w-64">
+          <%s! Toc_template.render toc %>
+        </div>
+      </div>
+      <div class="relative flex-1 bg-white lg:shadow-md">
+        <div class="sticky w-0 h-0 z-10 top-0">
+          <button class="absolute top-4 left-4 w-6 h-6 text-gray-600 fill-current" @click="toc = !toc">
+            <%s! Icon_template.menu %>
+          </button>
+        </div>
+        <div class="relative py-4 lg:px-4">
+          <div class="odoc prose prose-orange">
+            <%s! doc.content %>
           </div>
         </div>
       </div>
