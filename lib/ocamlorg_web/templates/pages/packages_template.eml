@@ -63,7 +63,7 @@ let render =
     <div class="relative bg-white py-8 sm:py-12 lg:py-16">
       <div class="mx-auto max-w-md px-4 text-center sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
         <h2 class="text-base font-semibold tracking-wider text-orange-600 uppercase">Stable Ecosystem</h2>
-        <p class="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Focus on your code, and opam takes care of the distributing it</p>
+        <p class="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Focus on your code, and opam takes care of distributing it</p>
         <p class="mt-5 max-w-prose mx-auto text-xl text-gray-500">Our users have the highest standards for the OCaml ecosystem to run mission-critical applications across a variety of operating systems, and they expect that a package that compiles today will still work a decade from now.</p>
         <div class="mt-12">
           <div class="grid grid-cols-1 gap-8 sm:grid-cols-1 lg:grid-cols-3">
@@ -113,7 +113,7 @@ let render =
                     </span>
                   </div>
                   <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Stability</h3>
-                  <p class="mt-5 text-base text-gray-500">The opam project and package repository is maintained by a team of developers who ensure that everything is not only running smoothly, but curated to maintain a high degree of metadata quality. This makes one of the most stable package repositories available today.</p>
+                  <p class="mt-5 text-base text-gray-500">The opam project and package repository is maintained by a team of developers who ensure that everything is not only running smoothly, but curated to maintain a high degree of metadata quality. This makes it one of the most stable package repositories available today.</p>
                 </div>
               </div>
             </div>
