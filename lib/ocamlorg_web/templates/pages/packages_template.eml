@@ -10,9 +10,9 @@ let render =
       <div class="relative">
         <div class="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 sm:text-center">
           <h1 class="mt-4 text-4xl tracking-tight font-extrabold text-white sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl">
-            <span class="pb-3 sm:pb-5 block">Opam Packages</span>
+            <span class="pb-3 sm:pb-5 block">OCaml Packages</span>
           </h1>
-          <p class="text-base text-gray-50 sm:text-xl lg:text-lg xl:text-xl">Explore thousands of OCaml packages and their documentation.</p>
+          <p class="text-base text-gray-50 sm:text-xl lg:text-lg xl:text-xl">Explore thousands of open-source OCaml packages with their documentation.</p>
           <div class="mt-10 sm:mt-12">
             <form action="/packages/search" class="sm:max-w-xl sm:mx-auto lg:mx-0" method="GET">
               <div class="sm:flex">
@@ -32,8 +32,8 @@ let render =
     <div class="bg-gray-50 pt-12 sm:pt-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center">
-          <h2 class="text-3xl font-extrabold text-gray-900 sm:text-3xl">An established package manager with over 37K user/month</h2>
-          <p class="mt-3 text-xl text-gray-500 sm:mt-4">Opam and its infrastructure have been powering the OCaml ecosystem for the past 10 years.<br /> Trust us, it's realiable.</p>
+          <h2 class="text-3xl font-extrabold text-gray-900 sm:text-3xl">opam is the package manager for the OCaml ecosystem</h2>
+          <p class="mt-3 text-xl text-gray-500 sm:mt-4">opam is a source-based package manager for OCaml that supports multiple simultaneous compiler installations, flexible package constraints, and a Git-friendly development workflow.<br />It's been in use with the OCaml ecosystem since 2013 and is well maintained.</p>
         </div>
       </div>
       <div class="mt-10 pb-12 bg-white sm:pb-16">
@@ -63,8 +63,8 @@ let render =
     <div class="relative bg-white py-8 sm:py-12 lg:py-16">
       <div class="mx-auto max-w-md px-4 text-center sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
         <h2 class="text-base font-semibold tracking-wider text-orange-600 uppercase">Stable Ecosystem</h2>
-        <p class="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Focus on your work, we take care of the rest</p>
-        <p class="mt-5 max-w-prose mx-auto text-xl text-gray-500">Our users have the highest standards for the OCaml ecosystem to run mission-critical applications and expect that something that works today will still work in 10 years. We have their back.</p>
+        <p class="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Focus on your code, and opam takes care of distributing it</p>
+        <p class="mt-5 max-w-prose mx-auto text-xl text-gray-500">Our users have the highest standards for the OCaml ecosystem to run mission-critical applications across a variety of operating systems, and they expect that a package that compiles today will still work a decade from now.</p>
         <div class="mt-12">
           <div class="grid grid-cols-1 gap-8 sm:grid-cols-1 lg:grid-cols-3">
             <div class="pt-6">
@@ -79,7 +79,7 @@ let render =
                     </span>
                   </div>
                   <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Continuous Integration</h3>
-                  <p class="mt-5 text-base text-gray-500">Before each package update, we run matrix builds with for boundaries of the dependencies and for each of the dependent packages. A package publication will never break the rest of the ecosystem.</p>
+                  <p class="mt-5 text-base text-gray-500">Before any package update, we run sandboxed matrix builds for boundaries of the dependencies and for each of the dependent packages. A package publication will never break the rest of the ecosystem.</p>
                 </div>
               </div>
             </div>
@@ -96,7 +96,7 @@ let render =
                     </span>
                   </div>
                   <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">State of the art</h3>
-                  <p class="mt-5 text-base text-gray-500">Opam is baked by years of Research & Development. It comes with a performant solver, a flexible CLI, a timed-proof metadata format, and much more.</p>
+                  <p class="mt-5 text-base text-gray-500">opam supports publishing multiple versions of packages simultaneously, and to specify the version constraints to ensure that only compatible revisions are chosen for a build. It comes with a performant constraint solver, a flexible CLI, a well-specified metadata format, and easy access to the package manager logic via OCaml libraries.</p>
                 </div>
               </div>
             </div>
@@ -113,7 +113,7 @@ let render =
                     </span>
                   </div>
                   <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Stability</h3>
-                  <p class="mt-5 text-base text-gray-500">The Opam project and infrastructure is maintained by a team of more than 10 people who make sure that everything is always running smoothly. This makes it one of the most stable and reliable package manager.</p>
+                  <p class="mt-5 text-base text-gray-500">The opam project and package repository is maintained by a team of developers who ensure that everything is not only running smoothly, but curated to maintain a high degree of metadata quality. This makes it one of the most stable package repositories available today.</p>
                 </div>
               </div>
             </div>
