@@ -1,0 +1,82 @@
+[@@@ocaml.warning "-66"]
+
+type metadata = {
+  name : string;
+  embedPath : string;
+  thumbnailPath : string;
+  description : string;
+  year : int;
+  language : string;
+  category : string;
+}
+[@@deriving yaml]
+
+type t = {
+  name : string;
+  embedPath : string;
+  thumbnailPath : string;
+  description : string;
+  year : int;
+  language : string;
+  category : string;
+}
+
+let decode s =
+  let yaml = Utils.decode_or_raise Yaml.of_string s in
+  match yaml with
+  | `O [ ("watch", `A xs) ] ->
+      List.map
+        (fun x ->
+          let (metadata : metadata) =
+            Utils.decode_or_raise metadata_of_yaml x
+          in
+          ( {
+              name = metadata.name;
+              description = metadata.description;
+              embedPath = metadata.embedPath;
+              thumbnailPath = metadata.thumbnailPath;
+              year = metadata.year;
+              language = metadata.language;
+              category = metadata.category;
+            }
+            : t ))
+        xs
+  | _ -> raise (Exn.Decode_error "expected a list of videos")
+
+let all () =
+  let content = Data.read "watch.yml" |> Option.get in
+  decode content
+
+let pp ppf v =
+  Fmt.pf ppf
+    {|
+  { name = %a
+  ; embedPath = %a
+  ; thumbnailPath = %a
+  ; description = %a
+  ; year = %i
+  ; language = %a
+  ; category = %a
+  }|}
+    Pp.string v.name Pp.string v.embedPath Pp.string v.thumbnailPath Pp.string
+    v.description v.year Pp.string v.language Pp.string v.category
+
+let pp_list = Pp.list pp
+
+let template () =
+  Format.asprintf
+    {|
+
+  type t =
+  { name: string;
+    embedPath : string;
+    thumbnailPath : string;
+    description : string;
+    year : int;
+    language : string;
+    category : string;
+  }
+  
+let all = %a
+|}
+    pp_list (all ())

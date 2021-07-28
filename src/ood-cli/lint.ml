@@ -35,6 +35,10 @@ let lint_tutorials () =
   Alcotest.check lint_check "lint tutorials" (Ok ())
     (lint_folder ~path:(Fpath.v Tutorial.path) Tutorial.lint)
 
+let lint_watch () =
+  Alcotest.check lint_check "lint watch" (Ok ())
+    (lint_folder ~path:(Fpath.v Watch.path) Watch.lint)
+
 let lint_workshops () =
   Alcotest.check lint_check "lint workshops" (Ok ())
     (lint_folder ~path:(Fpath.v Workshop.path) Workshop.lint)

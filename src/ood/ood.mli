@@ -200,6 +200,20 @@ module Video : sig
   val get_by_slug : string -> t option
 end
 
+module Watch : sig
+  type t = {
+    name : string;
+    embedPath : string;
+    thumbnailPath : string;
+    description : string;
+    year : int;
+    language : string;
+    category : string;
+  }
+
+  val all : t list
+end
+
 module News : sig
   type t = {
     title : string;

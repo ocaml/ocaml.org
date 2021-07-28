@@ -12,6 +12,7 @@ let term_templates =
     ("tutorial", Ood_gen.Tutorial.template);
     ("workshops", Ood_gen.Workshop.template);
     ("video", Ood_gen.Video.template);
+    ("watch", Ood_gen.Watch.template);
     ("news", Ood_gen.News.template);
   ]
 

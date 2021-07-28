@@ -54,6 +54,11 @@ let videos _req =
   Layout_template.render ~title:"Videos" (Videos_template.render videos)
   |> Dream.html
 
+let watch _req =
+  let watch = Ood.Watch.all in
+  Layout_template.render ~title:"Watch" (Watch_template.render watch)
+  |> Dream.html
+
 let slugify value =
   value
   |> Str.global_replace (Str.regexp " ") "-"

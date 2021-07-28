@@ -94,6 +94,16 @@
 
 (rule
  (deps ../ood-gen/bin/gen.exe)
+ (targets watch.ml)
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} watch))))
+
+(rule
+ (deps ../ood-gen/bin/gen.exe)
  (targets news.ml)
  (mode
   (promote (until-clean)))

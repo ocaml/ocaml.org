@@ -1,0 +1,17 @@
+let render_watch (watch : Ood.Watch.t) = 
+  let open Ood.Watch in
+  <li class="relative">
+    <iframe class="bg-black mx-auto" x-ref="player" src="<%s "https://watch.ocaml.org" ^ watch.embedPath %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    <p class="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none"><%s watch.name %></p>
+    <p class="block text-sm font-medium text-gray-500 pointer-events-none truncate"><%s watch.description %></p>
+  </li>
+
+let render watch = 
+  <%s! Header_section_template.render "Watch" %>
+  <div class="relative bg-white py-16 sm:py-24 lg:py-32">
+    <div class="mx-auto max-w-md px-4 text-center sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
+      <ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-8">
+        <%s! List.map render_watch watch |> String.concat "" %>
+      </ul>
+    </div>
+  </div>

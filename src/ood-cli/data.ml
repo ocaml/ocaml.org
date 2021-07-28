@@ -137,6 +137,48 @@ module Videos = struct
       ~file:path ~fields ()
 end
 
+module Watch = struct
+  type t = {
+    name : string;
+    embedPath : string;
+    thumbnailPath : string;
+    description : string;
+    year : string;
+    language : string;
+    category : string;
+  }
+  [@@deriving yaml]
+
+  let lint = parse_yaml of_yaml
+
+  let path = "data/watch.yml"
+
+  let widget_of_t =
+    Widget.
+      [
+        `String
+          (String.make ~required:true ~label:"Watch Title" ~name:"title" ());
+        `String
+          (String.make ~required:true ~label:"Description" ~name:"description"
+             ());
+        `Number (Number.make ~label:"Year" ~name:"year" ());
+        `String (String.make ~required:true ~label:"Link" ~name:"link" ());
+        `String
+          (String.make ~required:false ~label:"Embeddable Link" ~name:"embed"
+             ());
+      ]
+
+  let file =
+    let fields =
+      [
+        `List
+          (Widget.Lst.make ~label:"Watch" ~name:"watch" ~fields:widget_of_t ());
+      ]
+    in
+    Netlify.Collection.Files.File.make ~name:"watch" ~label:"OCaml Watch Videos"
+      ~file:path ~fields ()
+end
+
 module Event = struct
   type t = {
     title : string;

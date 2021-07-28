@@ -44,6 +44,21 @@ module Videos : sig
   include S.FileData with type t := t
 end
 
+module Watch : sig
+  type t = {
+    name : string;
+    embedPath : string;
+    thumbnailPath : string;
+    description : string;
+    year : string;
+    language : string;
+    category : string;
+  }
+  [@@deriving yaml]
+
+  include S.FileData with type t := t
+end
+
 module Event : sig
   type t = {
     title : string;

@@ -22,6 +22,7 @@ let routes =
   ; Dream.get "/books" Page_handler.books
   ; Dream.get "/events" Page_handler.events
   ; Dream.get "/videos" Page_handler.videos
+  ; Dream.get "/watch" Page_handler.watch
   ; Dream.get "/tools" Page_handler.tools
   ; Dream.get "/news" Page_handler.news
   ; Dream.get "/tutorials" Page_handler.tutorials
