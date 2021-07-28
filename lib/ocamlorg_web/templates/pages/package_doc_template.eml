@@ -19,11 +19,13 @@ let toc = toc_of_toc doc.toc in
         </div>
       </div>
       <div class="relative flex-1 bg-white lg:shadow-md">
+        <% if toc <> [] then begin %>
         <div class="sticky w-0 h-0 z-10 top-0">
           <button class="absolute top-4 left-4 w-6 h-6 text-gray-600 fill-current" @click="toc = !toc">
             <%s! Icon_template.menu %>
           </button>
         </div>
+        <% end; %>
         <div class="relative py-4 lg:px-4">
           <div class="odoc prose prose-orange">
             <%s! doc.content %>
