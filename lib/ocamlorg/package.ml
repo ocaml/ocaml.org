@@ -268,7 +268,10 @@ module Documentation = struct
 end
 
 let package_path name version =
-  Config.documentation_url ^ "packages/" ^ name ^ "/" ^ version
+  Config.documentation_url ^ "p/" ^ name ^ "/" ^ version ^ "/"
+
+let documentation_path name version =
+  Config.documentation_url ^ "p/" ^ name ^ "/" ^ version ^ "/doc" ^ "/"
 
 let http_get url =
   let open Lwt.Syntax in
@@ -292,10 +295,10 @@ let http_get url =
 let documentation_page t path =
   let open Lwt.Syntax in
   let root =
-    package_path (Name.to_string t.name) (Version.to_string t.version)
+    documentation_path (Name.to_string t.name) (Version.to_string t.version)
   in
   let module_path = Documentation.module_path_from_path path in
-  let path = root ^ "/" ^ path in
+  let path = root ^ path in
   let* content = http_get path in
   match content with
   | Ok content ->
@@ -331,7 +334,7 @@ let status t =
   let root =
     package_path (Name.to_string t.name) (Version.to_string t.version)
   in
-  let path = root ^ "/status.json" in
+  let path = root ^ "status.json" in
   let+ content = http_get path in
   match content with
   | Ok "\"Built\"" ->
