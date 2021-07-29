@@ -63,7 +63,7 @@ let render_nav (slug_of_tutorial : Ood.Tutorial.t -> string) tutorials =
 
 let render (slug_of_tutorial : Ood.Tutorial.t -> string) tutorials (tutorial : Ood.Tutorial.t) =
   let open Ood.Tutorial in
-  <%s! Header_section_template.render "Tutorials" %>
+  <%s! Component_header_section.render "Tutorials" %>
   <div
     class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-4 pb-8">
     <%s! render_nav slug_of_tutorial tutorials %>

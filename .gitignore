@@ -26,7 +26,7 @@ build/
 .vscode*
 
 # Site dir
-asset/site/
+src/ocamlorg_web/asset_site/
 
 # Var dir
 _var/

@@ -8,16 +8,16 @@ let v3_loader root path request =
     else
       Dream.mime_lookup path, path
   in
-  match Asset.read (root ^ path) with
+  match Asset_site.read (root ^ path) with
   | None ->
-    Page_handler.not_found request
+    Handler.not_found request
   | Some asset ->
     Dream.respond ~headers asset
 
 let loader root path request =
   match Asset.read (root ^ path) with
   | None ->
-    Page_handler.not_found request
+    Handler.not_found request
   | Some asset ->
     Dream.respond ~headers:(Dream.mime_lookup path) asset
 
@@ -32,15 +32,15 @@ let site_route =
   Dream.scope
     ""
     [ Middleware.i18n ]
-    [ Dream.get "/**" (Dream.static ~loader:v3_loader "site/") ]
+    [ Dream.get "/**" (Dream.static ~loader:v3_loader "") ]
 
 let preview_routes =
   Dream.scope
     "/preview"
     []
-    [ Dream.get "" Preview_handler.index
-    ; Dream.get "/tutorials" Preview_handler.tutorials
-    ; Dream.get "/tutorials/:id" Preview_handler.tutorial
+    [ Dream.get "" Handler.preview
+    ; Dream.get "/tutorials" Handler.preview_tutorials
+    ; Dream.get "/tutorials/:id" Handler.preview_tutorial
     ; Dream.get "/media/**" (Dream.static ~loader:media_loader "")
     ]
 
@@ -48,23 +48,19 @@ let package_route =
   Dream.scope
     ""
     []
-    [ Dream.get "/packages" Package_handler.index
-    ; Dream.get "/packages/" Package_handler.index
-    ; Dream.get "/packages/search" Package_handler.search
-    ; Dream.get "/p/:name" Package_handler.package
-    ; Dream.get "/u/:hash/:name" Package_handler.package
-    ; Dream.get
-        "/p/:name/:version"
-        (Package_handler.package_versioned Package_handler.Package)
+    [ Dream.get "/packages" Handler.packages
+    ; Dream.get "/packages/" Handler.packages
+    ; Dream.get "/packages/search" Handler.package_search
+    ; Dream.get "/p/:name" Handler.package
+    ; Dream.get "/u/:hash/:name" Handler.package
+    ; Dream.get "/p/:name/:version" (Handler.package_versioned Handler.Package)
     ; Dream.get
         "/u/:hash/:name/:version"
-        (Package_handler.package_versioned Package_handler.Universe)
-    ; Dream.get
-        "/p/:name/:version/doc/**"
-        (Package_handler.package_doc Package_handler.Package)
+        (Handler.package_versioned Handler.Universe)
+    ; Dream.get "/p/:name/:version/doc/**" (Handler.package_doc Handler.Package)
     ; Dream.get
         "/u/:hash/:name/:version/doc/**"
-        (Package_handler.package_doc Package_handler.Universe)
+        (Handler.package_doc Handler.Universe)
     ]
 
 let router =

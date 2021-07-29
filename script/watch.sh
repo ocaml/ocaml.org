@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 source_dirs="bin lib asset tailwind.config.js"
-args=${*:-"bin/main.exe"}
+args=${*:-"server"}
 cmd="dune exec ${args}"
 
 which fswatch || (echo "you need fswatch to run in watch mode"; exit 1)

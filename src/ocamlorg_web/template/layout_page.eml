@@ -24,10 +24,10 @@ let render ~title ~description inner =
     </head>
 
     <body class="antialiased">
-      <%s! Header_template.render %>
+      <%s! Component_header.render %>
       <main class="bg-gray-50">
         <%s! inner %>
       </main>
-      <%s! Footer_template.render %>
+      <%s! Component_footer.render %>
     </body>
   </html>

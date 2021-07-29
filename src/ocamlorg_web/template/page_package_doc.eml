@@ -1,10 +1,10 @@
 open Ocamlorg.Package
 
-let toc_of_toc (xs : Documentation.toc list) : Toc_template.t =
+let toc_of_toc (xs : Documentation.toc list) : Component_toc.t =
   let rec aux acc = function
     | [] -> List.rev acc
     | Documentation.{ title; href; children } :: rest ->
-    Toc_template.{ title; href; children = aux [] children } :: aux acc rest
+    Component_toc.{ title; href; children = aux [] children } :: aux acc rest
   in
   aux [] xs
 
@@ -15,7 +15,7 @@ let toc = toc_of_toc doc.toc in
     <div class="relative flex w-full mx-auto">
       <div class="w-full flex-none sm:grid sm:grid-cols-5 lg:grid-cols-3 sm:gap-6 lg:gap-8">
         <div class="relative px-4 sm:px-0 sm:col-span-2 lg:col-span-1 ">
-          <%s! Toc_template.render toc %>
+          <%s! Component_toc.render toc %>
         </div>
         <div class="px-0 lg:pl-8 relative sm:col-span-3 lg:col-span-2 lg:-ml-8 bg-white sm:shadow-md sm:rounded-lg">
           <div class="relative py-8 px-8 lg:px-16">

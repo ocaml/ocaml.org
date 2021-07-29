@@ -1,26 +1,37 @@
-type kind =
+open Ocamlorg_web_template
+
+let index site_dir = Dream.static site_dir
+
+let not_found _req =
+  Layout_page.render
+    ~title:"Page not found · OCaml"
+    ~description:Config.meta_description
+    Page_not_found.render
+  |> Dream.html ~status:`Not_Found
+
+type package_kind =
   | Package
   | Universe
 
-let index _req =
-  Page_layout_template.render
+let packages _req =
+  Layout_page.render
     ~title:"OCaml Packages · Browse community packages"
     ~description:
       "Discover thousands of community packages and their browse their \
        documentation."
-    Packages_template.render
+    Page_packages.render
   |> Dream.html
 
-let search req =
+let package_search req =
   match Dream.query "q" req with
   | Some search ->
     let packages = Ocamlorg.Package.search_package search in
-    Page_layout_template.render
+    Layout_page.render
       ~title:"OCaml Packages · Search community packages"
       ~description:
         "Find the package you need to build your application in the thousands \
          of available opam packages."
-      (Package_search_template.render packages)
+      (Page_package_search.render packages)
     |> Dream.html
   | None ->
     Dream.redirect req "/packages"
@@ -40,7 +51,7 @@ let package req =
     in
     Dream.redirect req target
   | None ->
-    Page_handler.not_found req
+    not_found req
 
 let package_versioned kind req =
   let name = Ocamlorg.Package.Name.of_string @@ Dream.param "name" req in
@@ -50,7 +61,7 @@ let package_versioned kind req =
   let package = Ocamlorg.Package.get_package name version in
   match package with
   | None ->
-    Page_handler.not_found req
+    not_found req
   | Some package ->
     let open Lwt.Syntax in
     let kind =
@@ -71,11 +82,11 @@ let package_versioned kind req =
     in
     let license = Ocamlorg.Package.license_file ~kind package in
     let* status = Ocamlorg.Package.status ~kind package in
-    let content = Package_template.render ~readme ~license package in
+    let content = Page_package.render ~readme ~license package in
     let versions =
       Ocamlorg.Package.get_package_versions name |> Option.value ~default:[]
     in
-    Package_layout_template.render
+    Layout_package.render
       ~title:
         (Printf.sprintf
            "%s %s · OCaml Packages"
@@ -102,14 +113,14 @@ let package_doc kind req =
   let _kind =
     match kind with
     | Package ->
-      Package_template.Blessed
+      Page_package.Blessed
     | Universe ->
-      Package_template.Universe (Dream.param "hash" req)
+      Page_package.Universe (Dream.param "hash" req)
   in
   let package = Ocamlorg.Package.get_package name version in
   match package with
   | None ->
-    Page_handler.not_found req
+    not_found req
   | Some package ->
     let open Lwt.Syntax in
     let kind =
@@ -124,7 +135,7 @@ let package_doc kind req =
     let* status = Ocamlorg.Package.status ~kind package in
     (match docs with
     | None ->
-      Page_handler.not_found req
+      not_found req
     | Some doc ->
       let description =
         (Ocamlorg.Package.info package).Ocamlorg.Package.Info.description
@@ -132,7 +143,7 @@ let package_doc kind req =
       let versions =
         Ocamlorg.Package.get_package_versions name |> Option.value ~default:[]
       in
-      let extra_nav = Package_doc_header_template.render doc.module_path in
+      let extra_nav = Component_package_doc_header.render doc.module_path in
       let canonical_module =
         doc.module_path
         |> List.map (function
@@ -158,7 +169,7 @@ let package_doc kind req =
             (Ocamlorg.Package.Name.to_string name)
             (Ocamlorg.Package.Version.to_string version)
       in
-      Package_layout_template.render
+      Layout_package.render
         ~title
         ~description:
           (Printf.sprintf
@@ -171,5 +182,45 @@ let package_doc kind req =
         ~status
         ~package
         ~extra_nav
-        (Package_doc_template.render doc)
+        (Page_package_doc.render doc)
       |> Dream.html)
+
+let preview _req =
+  Layout_page.render
+    ~title:"Preview"
+    ~description:Config.meta_description
+    Preview_index.render
+  |> Dream.html
+
+let slugify value =
+  value
+  |> Str.global_replace (Str.regexp " ") "-"
+  |> String.lowercase_ascii
+  |> Str.global_replace (Str.regexp "[^a-z0-9\\-]") ""
+
+let preview_tutorials _req =
+  Layout_page.render
+    ~title:"OCaml Tutorials · Learn OCaml by topic"
+    ~description:
+      "Start learning the OCaml language by topic with out official tutorial."
+    Preview_tutorials.render
+  |> Dream.html
+
+let preview_tutorial req =
+  let slug = Dream.param "id" req in
+  match
+    List.find_opt
+      (fun x -> slugify x.Ood.Tutorial.title = slug)
+      Ood.Tutorial.all
+  with
+  | Some tutorial ->
+    Layout_page.render
+      ~title:(Printf.sprintf "%s · OCaml Tutorials" tutorial.Ood.Tutorial.title)
+      ~description:tutorial.Ood.Tutorial.description
+      (Preview_tutorial.render
+         (fun x -> slugify x.Ood.Tutorial.title)
+         Ood.Tutorial.all
+         tutorial)
+    |> Dream.html
+  | None ->
+    Dream.not_found req

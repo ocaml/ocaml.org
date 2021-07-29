@@ -1,0 +1,107 @@
+(library
+ (name ocamlorg_web_template)
+ (libraries dream ocamlorg ood))
+
+(include_subdirs unqualified)
+
+(rule
+ (targets component_flyout_menu.ml)
+ (deps component_flyout_menu.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets component_footer.ml)
+ (deps component_footer.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets component_header.ml)
+ (deps component_header.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets component_header_section.ml)
+ (deps component_header_section.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets component_icon.ml)
+ (deps component_icon.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets component_package_doc_header.ml)
+ (deps component_package_doc_header.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets component_toc.ml)
+ (deps component_toc.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets layout_package.ml)
+ (deps layout_package.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets layout_page.ml)
+ (deps layout_page.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets page_not_found.ml)
+ (deps page_not_found.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets page_package.ml)
+ (deps page_package.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets page_package_doc.ml)
+ (deps page_package_doc.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets page_package_search.ml)
+ (deps page_package_search.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets page_packages.ml)
+ (deps page_packages.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets preview_index.ml)
+ (deps preview_index.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets preview_tutorial.ml)
+ (deps preview_tutorial.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets preview_tutorials.ml)
+ (deps preview_tutorials.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))

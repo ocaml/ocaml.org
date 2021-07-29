@@ -3,8 +3,8 @@
  (rule
   (target main.css)
   (deps
-   (:data ../tailwind.config.js)
-   (source_tree ../node_modules)
+   (:data %{workspace_root}/tailwind.config.js)
+   (source_tree %{workspace_root}/node_modules)
    (source_tree ../lib/ocamlorg_web/templates)
    (source_tree ../lib/odoc_thtml))
   (action
@@ -13,11 +13,15 @@
     ; We use node_modules/tailwindcss/lib/cli.js instead of `npx tailwindcss`
     ; because dune won't include node_modules/.bin in the build, no matter
     ; what I do.
-    (run node node_modules/tailwindcss/lib/cli.js build -c tailwind.config.js
-      -o %{target})))))
-
-; Force dune to include _next.
+    (run
+     node
+     node_modules/tailwindcss/lib/cli.js
+     build
+     -c
+     tailwind.config.js
+     -o
+     %{target})))))
 
 (subdir
- asset/site/
+ asset_site/
  (dirs *))

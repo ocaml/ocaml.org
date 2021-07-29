@@ -1,0 +1,22 @@
+(library
+ (name ocamlorg_web)
+ (libraries dream dream-cli omd ocamlorg ocamlorg_web_template ood ood.media))
+
+(rule
+ (targets asset.ml)
+ (deps
+  ../asset/main.css
+  (source_tree ../asset))
+ (action
+  (with-stdout-to
+   %{null}
+   (run %{bin:ocaml-crunch} -m plain ../asset -o %{targets}))))
+
+(rule
+ (targets asset_site.ml)
+ (deps
+  (source_tree ../asset_site))
+ (action
+  (with-stdout-to
+   %{null}
+   (run %{bin:ocaml-crunch} -m plain ../asset_site -o %{targets}))))

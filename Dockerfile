@@ -14,7 +14,7 @@ ADD package.json package.json
 RUN npm install
 
 # Download site static files
-COPY --from=patricoferris/ocamlorg:latest /data asset/site/
+COPY --from=patricoferris/ocamlorg:latest /data src/ocamlorg_web/asset_site/
 
 # Build project
 COPY --chown=opam:opam . .
@@ -24,7 +24,7 @@ FROM alpine:3.12 as run
 
 RUN apk update && apk add --update libev gmp git
 
-COPY --from=build /home/opam/_build/default/bin/main.exe /bin/server
+COPY --from=build /home/opam/_build/default/src/ocamlorg_web/bin/main.exe /bin/server
 
 ENV OCAMLORG_REPO_PATH /var/opam-repository/
 ENV OCAMLORG_DEBUG false
