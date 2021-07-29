@@ -14,7 +14,7 @@ ADD package.json package.json
 RUN npm install
 
 # Download site static files
-COPY --from=patricoferris/ocamlorg:latest /data asset/site/
+COPY --from=ocurrent/v3.ocaml.org:live /data asset/site/
 
 # Build project
 COPY --chown=opam:opam . .

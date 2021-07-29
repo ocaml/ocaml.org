@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-docker pull patricoferris/ocamlorg:latest
-docker cp $(docker create --rm patricoferris/ocamlorg:latest):/data asset/site
+docker pull ocurrent/v3.ocaml.org:live
+docker cp $(docker create --rm ocurrent/v3.ocaml.org:live):/data asset/site
