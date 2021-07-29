@@ -266,8 +266,8 @@ let milestonesContentEn: Milestones.t = {
       version: Some("v3.5"),
       description: "Integrate docs.ocaml.org",
       period: "Jul 2021",
-      completion: "0%",
-      results: "Pending completion of the separate docs.ocaml.org project.",
+      completion: "80%",
+      results: "Integrated with packages pages, more styling / metadata to come",
     },
     {
       version: None,
