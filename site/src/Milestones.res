@@ -1,4 +1,4 @@
-let percent_complete = "30%"
+let percent_complete = "60%"
 
 module Progress = {
   @react.component
