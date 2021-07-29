@@ -2,8 +2,11 @@
 
 ## Modified relative paths:
 
-<!-- replace "BRANCH_NAME" with your branch; replace PATH/TO/PAGE -->
+<!-- For local branches, replace "BRANCH_NAME" with your branch; replace PATH/TO/PAGE -->
 https://v3-ocaml-org-git-BRANCH_NAME-ocaml.vercel.app/PATH/TO/PAGE
+
+<!-- For branches in forks, replace "FORK_NAME" and "BRANCH_NAME" with appropriate values, replace PATH/TO/PAGE -->
+https://v3-ocaml-org-git-fork-FORK_NAME-BRANCH_NAME-ocaml.vercel.app/PATH/TO/PAGE
 
 ## Contributor Pre-flight Checklist
 
