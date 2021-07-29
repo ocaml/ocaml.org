@@ -68,7 +68,7 @@ let navContentEn = {
       },
       packages: {
         label: `Packages`,
-        url: "http://ci5.ocamllabs.io:8082/" /* TODO - point to correct page once it's created */,
+        url: "/packages",
         icon: Icons.packages,
         text: "Browse the third-party packages published in the OCaml ecosystem.",
       },

@@ -29,10 +29,6 @@ watch:
 build:
 	$(YARN) build
 
-.PHONY: serve
-serve: build
-	$(YARN) start-test-server
-
 .PHONY: clean
 clean:
 	-$(BSB) -clean
