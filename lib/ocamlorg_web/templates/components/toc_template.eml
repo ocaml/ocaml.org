@@ -13,6 +13,7 @@ let render (t : t) =
     <span class="block py-2 text-gray-900">No table of content</span>
     <% | _ -> %>
     <script>
+      // Javascript snippet borrowed from https://tailwindui.com/documentation
       function TableOfContents() {
         return {
           top: 0,
