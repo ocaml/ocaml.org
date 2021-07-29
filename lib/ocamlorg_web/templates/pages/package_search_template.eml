@@ -9,7 +9,7 @@ let render (packages : Ocamlorg.Package.t list) =
         d="M-217.088 544.086L1544.761 72l134.327 501.316-1761.849 472.086z"></path>
     </svg>
   </div>
-  <div class="relative max-w-7xl mx-auto divide-y divide-black divide-opacity-10">
+  <div class="relative px-4 sm:px-16 max-w-7xl mx-auto divide-y divide-black divide-opacity-10">
     <div class="sm:pt-4 pb-10 sm:pb-14 flex flex-wrap items-center">
       <div class="w-full flex-none text-center xl:w-auto xl:flex-auto xl:text-left mt-10">
         <h1 class="font-display text-white text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10">
@@ -95,14 +95,14 @@ let render (packages : Ocamlorg.Package.t list) =
   </div>
 </div>
 <main>
-  <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-    <div class="pb-5 border-b border-gray-200">
+  <div class="max-w-7xl mx-auto">
+    <div class="py-6 px-4 sm:px-6 lg:px-8 border-b border-gray-200">
       <h3 class="text-lg leading-6 font-medium text-gray-900">
         Search Results
       </h3>
       <p class="mt-2 max-w-4xl text-sm text-gray-500">Found <span class="font-bold"><%i List.length packages %></span> packages.</p>
     </div>
-    <div class="px-4 py-6 sm:px-0">
+    <div class="py-6 sm:px-6 lg:px-8">
       <div class="bg-white shadow overflow-hidden sm:rounded-md">
         <ul class="divide-y divide-gray-200">
           <% packages |> List.iter begin fun item -> (

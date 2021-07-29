@@ -36,21 +36,8 @@ let render ~readme ~license:_ package =
       (Ocamlorg.Package.Name.to_string name, x)
     )
   in
-  <div class="grid grid-cols-1 gap-8 lg:grid-flow-col-dense lg:grid-cols-3">
-    <div class="space-y-6 lg:col-start-1 lg:col-span-2">
-      <section>
-        <div class="bg-white shadow sm:rounded-lg">
-          <div class="px-4 py-4 sm:px-6 border-b border-gray-200">
-            <h2 class="text-lg leading-6 font-medium text-gray-900"><pre>README.md</pre></h2>
-          </div>
-          <div class="px-4 py-5 sm:px-6 prose prose-orange max-w-3xl mx-auto">
-            <%s! readme %>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <div class="lg:col-start-3 lg:col-span-1 space-y-6">
+  <div class="grid grid-cols-1 gap-8 sm:grid-flow-col-dense sm:grid-cols-5 lg:grid-cols-3 sm:px-6 lg:px-8">
+    <div class="px-4 sm:px-0 lg:px-0 sm:col-span-2 sm:col-start-4 lg:col-start-3 lg:col-span-1 space-y-6">
       <section>
         <script src="https://cdn.jsdelivr.net/npm/@ryangjchandler/alpine-clipboard@1.x.x/dist/alpine-clipboard.js"></script>
 
@@ -61,7 +48,7 @@ let render ~readme ~license:_ package =
           Install
         </h1>
 
-        <div x-data="{ copied: false }">
+        <div class="max-w-md" x-data="{ copied: false }">
           <div class="mt-1 flex rounded-md shadow-sm">
             <div class="relative flex items-stretch flex-grow focus-within:z-10">
               <input type="text" name="email" id="email" class="focus:ring-orange-500 focus:border-orange-500 block w-full rounded-none rounded-l-md bg-gray-800 text-gray-100 text-sm font-mono subpixel-antialiased border-gray-700" value="opam install <%s package_name %>.<%s package_version %>" />
@@ -112,7 +99,7 @@ let render ~readme ~license:_ package =
               | Some source -> %>
           <div class="sm:col-span-2">
             <dt class="text-sm font-medium text-gray-500">Sources</dt>
-            <dd class="mt-2 text-sm text-gray-900">
+            <dd class="mt-2 text-sm text-gray-900 max-w-md">
               <ul class="border border-gray-200 bg-white rounded-md divide-y divide-gray-200">
                 <li class="pl-3 pr-4 flex items-center justify-between text-sm">
                   <div class="w-0 flex-1 flex items-center">
@@ -155,6 +142,19 @@ let render ~readme ~license:_ package =
             </dd>
           </div>
         </dl>
+      </section>
+    </div>
+
+    <div class="px-0 space-y-6 sm:col-span-3 sm:col-start-1 lg:col-span-2">
+      <section>
+        <div class="bg-white shadow sm:rounded-lg">
+          <div class="px-4 py-4 sm:px-6 border-b border-gray-200">
+            <h2 class="text-lg leading-6 font-medium text-gray-900"><pre>README.md</pre></h2>
+          </div>
+          <div class="px-4 py-5 sm:px-6 prose prose-orange max-w-3xl mx-auto">
+            <%s! readme %>
+          </div>
+        </div>
       </section>
     </div>
   </div>
