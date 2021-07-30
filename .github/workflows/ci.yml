@@ -38,7 +38,7 @@ jobs:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
           dune-cache: ${{ matrix.os != 'macos-latest' }}
 
-      - run: opam install . --deps-only --with-test -y
+      - run: opam install --deps-only --with-test -y .
 
       - run: npm ci
 
@@ -64,8 +64,8 @@ jobs:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
           dune-cache: true
 
-      - run: opam install ocamlformat.0.19.0 -y
+      - run: opam install -y ocamlformat.0.19.0
 
-      - run: opam install . --deps-only -y
+      - run: opam install --deps-only -y .
 
       - run: make fmt
