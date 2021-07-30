@@ -490,6 +490,7 @@ module Workshop = struct
     link : string option;
     video : string option;
     slides : string option;
+    poster : bool option;
     additional_links : string list option;
   }
   [@@deriving yaml]

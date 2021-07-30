@@ -28,6 +28,7 @@ type presentation = {
   link : string option;
   video : string option;
   slides : string option;
+  poster : bool option;
   additional_links : string list option;
 }
 [@@deriving yaml]
@@ -114,6 +115,7 @@ let pp_presentation ppf (v : presentation) =
     link = %a;
     video = %a;
     slides = %a;
+    poster = %a;
     additional_links = %a;
   }|}
     Pp.string v.title Pp.string_list v.authors
@@ -123,6 +125,8 @@ let pp_presentation ppf (v : presentation) =
     v.video
     Pp.(option string)
     v.slides
+    Pp.(option Fmt.bool)
+    v.poster
     Pp.(option string_list)
     v.additional_links
 
@@ -179,6 +183,7 @@ type role =
     link : string option;
     video : string option;
     slides : string option;
+    poster : bool option;
     additional_links : string list option;
   }
   
