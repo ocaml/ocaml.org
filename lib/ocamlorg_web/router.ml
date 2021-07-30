@@ -1,21 +1,12 @@
-let v3_loader root path request =
-  let headers, path =
+let v3_loader root path =
+  let path =
     let fpath = Fpath.v path in
     if Fpath.is_dir_path fpath || not (Fpath.exists_ext fpath) then
-      (* charset is used internally in dream when setting this *)
-      ( [ "Content-Type", "text/html; charset=utf-8" ]
-      , Filename.concat path "index.html" )
+      Filename.concat path "index.html"
     else
-      Dream.mime_lookup path, path
+      path
   in
-  let file = Filename.concat root path in
-  Lwt.catch
-    (fun () ->
-      Lwt_io.(with_file ~mode:Input file) (fun channel ->
-          let open Lwt.Syntax in
-          let* content = Lwt_io.read channel in
-          Dream.respond ~headers content))
-    (fun _exn -> Page_handler.not_found request)
+  Dream.from_filesystem root path
 
 let loader root path request =
   match Asset.read (root ^ path) with
