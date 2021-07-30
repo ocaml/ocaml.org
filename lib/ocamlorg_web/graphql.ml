@@ -5,20 +5,9 @@ type package_dep =
   ; constraints : string option
   }
 
-type package_owner =
-  { full_name : string
-  ; handle : string option
-  ; image : string option
-  }
-
-type package_url =
-  { uri : string option
-  ; checksum : string list option
-  }
-
-type response =
+type packages_result =
   { total_packages : int
-  ; nodes : Package.t list
+  ; packages : Package.t list
   }
 
 let starts_with s1 s2 =
@@ -32,29 +21,29 @@ let starts_with s1 s2 =
 
 let is_package s1 s2 =
   let len1 = String.length s1 in
-  if len1 > String.length s2 then
+  if len1 <> String.length s2 then
     false
   else
     let s1 = String.lowercase_ascii s1 in
     let s2 = String.lowercase_ascii s2 in
     String.(equal s2 s1)
 
-let get_response total_packages offset limit filter packages =
+let get_packages_result total_packages offset limit filter packages =
   if filter = "sortByName" then
-    let nodes =
+    let packages =
       List.filteri (fun i _ -> offset <= i && i <= offset + limit) packages
     in
-    let response = { total_packages; nodes } in
-    response
+    let packages_result = { total_packages; packages } in
+    packages_result
   else
-    let nodes =
+    let packages =
       List.filter
         (fun package ->
           starts_with filter (Package.Name.to_string (Package.name package)))
         packages
     in
-    let response = { total_packages; nodes } in
-    response
+    let packages_result = { total_packages; packages } in
+    packages_result
 
 let get_deps deps =
   let pkg =
@@ -64,18 +53,6 @@ let get_deps deps =
       deps
   in
   pkg
-
-let get_owners owners =
-  let owner =
-    List.map
-      (fun t ->
-        { full_name = t.Opam_user.name
-        ; handle = t.Opam_user.handle
-        ; image = t.Opam_user.image
-        })
-      owners
-  in
-  owner
 
 let deps =
   Graphql_lwt.Schema.(
@@ -98,23 +75,23 @@ let owners =
   Graphql_lwt.Schema.(
     obj "owners" ~fields:(fun _ ->
         [ field
-            "full_name"
+            "name"
             ~doc:"Owner's name"
             ~args:Arg.[]
             ~typ:(non_null string)
-            ~resolve:(fun _ p -> p.full_name)
+            ~resolve:(fun _ user -> user.Opam_user.name)
         ; field
             "handle"
             ~doc:"Owner's handle"
             ~args:Arg.[]
             ~typ:string
-            ~resolve:(fun _ p -> p.handle)
+            ~resolve:(fun _ user -> user.Opam_user.handle)
         ; field
             "image"
             ~doc:"Owner's image"
             ~args:Arg.[]
             ~typ:string
-            ~resolve:(fun _ p -> p.image)
+            ~resolve:(fun _ user -> user.Opam_user.image)
         ]))
 
 let url =
@@ -196,7 +173,7 @@ let package =
             ~typ:(non_null (list (non_null owners)))
             ~resolve:(fun _ p ->
               let info = Package.info p in
-              get_owners info.Package.Info.authors)
+              info.Package.Info.authors)
         ; field
             "maintainers"
             ~doc:"The maintainers of the package"
@@ -204,7 +181,7 @@ let package =
             ~typ:(non_null (list (non_null owners)))
             ~resolve:(fun _ p ->
               let info = Package.info p in
-              get_owners info.Package.Info.maintainers)
+              info.Package.Info.maintainers)
         ; field
             "dependencies"
             ~doc:"The dependencies of the package"
@@ -239,9 +216,9 @@ let package =
               info.Package.Info.url)
         ]))
 
-let response =
+let packages_result =
   Graphql_lwt.Schema.(
-    obj "response" ~fields:(fun _ ->
+    obj "allPackages" ~fields:(fun _ ->
         [ field
             "totalPackages"
             ~doc:"total number of packages"
@@ -249,19 +226,19 @@ let response =
             ~typ:(non_null int)
             ~resolve:(fun _ p -> p.total_packages)
         ; field
-            "nodes"
-            ~doc:"packages"
+            "packages"
+            ~doc:"list of all packages"
             ~args:Arg.[]
             ~typ:(non_null (list (non_null package)))
-            ~resolve:(fun _ p -> p.nodes)
+            ~resolve:(fun _ p -> p.packages)
         ]))
 
 let schema : Dream.request Graphql_lwt.Schema.schema =
   Graphql_lwt.Schema.(
     schema
       [ field
-          "packages"
-          ~typ:(non_null response)
+          "allPackages"
+          ~typ:(non_null packages_result)
           ~doc:
             "Filter packages in ascending order by name or based on search \
              query. Packages can also be paginated by setting the offset and \
@@ -297,16 +274,16 @@ let schema : Dream.request Graphql_lwt.Schema.schema =
             let totalPackages = List.length packages in
             if limit = 0 then
               let limit = totalPackages in
-              let response =
-                get_response totalPackages offset limit filter packages
+              let packages_result =
+                get_packages_result totalPackages offset limit filter packages
               in
-              response
+              packages_result
             else
               let limit = limit in
-              let response =
-                get_response totalPackages offset limit filter packages
+              let packages_result =
+                get_packages_result totalPackages offset limit filter packages
               in
-              response)
+              packages_result)
       ; field
           "package"
           ~typ:package
