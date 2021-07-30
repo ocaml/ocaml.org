@@ -38,7 +38,13 @@ jobs:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
           dune-cache: ${{ matrix.os != 'macos-latest' }}
 
-      - run: opam install --deps-only --with-test -y .
+      - run: sudo apt-get install libev-dev
+        if: runner.os == 'Linux'
+
+      - run: brew install libev
+        if: runner.os == 'macOS'
+
+      - run: opam install --deps-only --with-test .
 
       - run: npm ci
 
@@ -64,8 +70,14 @@ jobs:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
           dune-cache: true
 
-      - run: opam install -y ocamlformat.0.19.0
+      - run: sudo apt-get install libev-dev
+        if: runner.os == 'Linux'
 
-      - run: opam install --deps-only -y .
+      - run: brew install libev
+        if: runner.os == 'macOS'
+
+      - run: opam install ocamlformat.0.19.0
+
+      - run: opam install --deps-only .
 
       - run: make fmt
