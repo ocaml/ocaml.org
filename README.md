@@ -1,8 +1,10 @@
 # OCaml.org
 
-[![Actions Status](https://github.com/tmattio/ocamlorg/workflows/CI/badge.svg)](https://github.com/tmattio/ocamlorg/actions)
+[![Actions Status](https://github.com/ocaml/v3.ocaml.org-server/workflows/CI/badge.svg)](https://github.com/ocaml/v3.ocaml.org-server/actions)
 
-OCaml.org website
+ocamlorg is a Dream-based server for the next version of the ocaml.org website.
+
+It serves the OCaml packages pages and their documentation by using the data available at https://docs-data.ocaml.org/ and serves the static files generated from the NextJS application at https://github.com/ocaml/v3.ocaml.org.
 
 ## Set up your development environment
 
