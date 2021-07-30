@@ -2,23 +2,24 @@
 
 (name ocamlorg)
 
-(documentation "https://tmattio.github.io/ocamlorg/")
+(documentation "https://ocaml.github.io/v3.ocaml.org-server/")
 
 (source
- (github tmattio/ocamlorg))
+ (github ocaml/v3.ocaml.org-server))
 
 (license ISC)
 
-(authors "Thibaut Mattio")
+(authors "Thibaut Mattio" "Lucas Pluvinage" "Patrick Ferris")
 
-(maintainers "Thibaut Mattio")
+(maintainers "Thibaut Mattio" "Lucas Pluvinage" "Patrick Ferris")
 
 (generate_opam_files true)
 
 (package
  (name ocamlorg)
- (synopsis "OCaml.org website")
- (description "OCaml.org website")
+ (synopsis "Server-side of the next version of the ocaml.org website")
+ (description
+  "ocamlorg is a Dream-based server for the next version of the ocaml.org website.\nIt serves the OCaml packages pages and their documentation by using the data avaible in https://docs-data.ocaml.org/ and serves the static files generated from https://github.com/ocaml/v3.ocaml.org.")
  (depends
   (ocaml
    (>= 4.08.0))

@@ -1,6 +1,6 @@
 # OCaml.org
 
-[![Actions Status](https://github.com/tmattio/ocamlorg/workflows/CI/badge.svg)](https://github.com/tmattio/ocamlorg/actions)
+[![Actions Status](https://github.com/ocaml/v3.ocaml.org-server/workflows/CI/badge.svg)](https://github.com/ocaml/v3.ocaml.org-server/actions)
 
 OCaml.org website
 
