@@ -41,6 +41,7 @@ featureset.
 The immediate team working on the v3 site consists of:
 - Ashish Agarwal (Solvuu)
 - Kanishka Azimi (Solvuu)
+- Richard Davison (Solvuu)
 - Patrick Ferris (OCaml Labs)
 - Gemma Gordon (OCaml Labs)
 - Isabella Leandersson (OCaml Labs)
@@ -72,7 +73,7 @@ There are four repositories involved in the construction of v3.ocaml.org:
 
 - [ocaml/ood](https://github.com/ocaml/ood) is the OCaml.org data repository.
 - [ocaml/v3.ocaml.org](https://github.com/ocaml/v3.ocaml.org) is the ReScript-based frontend site generator
-- [ocurrent/ocaml-docs-ci](https://github.com/ocaml/ocaml-docs-ci) is the OCurrent pipeline that
+- [ocurrent/ocaml-docs-ci](https://github.com/ocurrent/ocaml-docs-ci) is the OCurrent pipeline that
   builds the 14000 packages and prepares them for publishing online with [odoc](https://github.com/ocaml/odoc)
   and [voodoo](https://github.com/ocaml-doc/voodoo).
 - [ocaml/v3.ocaml.org-server](https://github.com/ocaml/v3.ocaml.org-server) is the Dream-based server that
