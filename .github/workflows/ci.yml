@@ -67,11 +67,9 @@ jobs:
 
       - run: opam depext opam-dune-lint --install
 
-      - run: opam install . --deps-only
+      - run: opam install dune
 
-      - run: npm ci
-
-      - run: make build
+      - run: opam exec -- dune build ocamlorg.opam
 
       - run: opam exec -- opam-dune-lint
 
