@@ -67,16 +67,18 @@ let package_route =
         (Package_handler.package_doc Package_handler.Universe)
     ]
 
-let graphql_route = 
-  Dream.scope "" [] [
-    Dream.any "/api" (Dream.graphql Lwt.return (Graphql.schema));
-    Dream.get "/graphiql" (Dream.graphiql "/api")
-  ]
+let graphql_route =
+  Dream.scope
+    ""
+    []
+    [ Dream.any "/api" (Dream.graphql Lwt.return Graphql.schema)
+    ; Dream.get "/graphiql" (Dream.graphiql "/api")
+    ]
 
 let router =
   Dream.router
     [ package_route
-    ;graphql_route
+    ; graphql_route
     ; preview_routes
     ; Dream.get "/assets/**" (Dream.static ~loader "")
       (* Used for the previews *)
