@@ -19,7 +19,7 @@
  (name ocamlorg)
  (synopsis "Server-side of the next version of the ocaml.org website")
  (description
-  "ocamlorg is a Dream-based server for the next version of the ocaml.org website.\nIt serves the OCaml packages pages and their documentation by using the data avaible in https://docs-data.ocaml.org/ and serves the static files generated from https://github.com/ocaml/v3.ocaml.org.")
+  "ocamlorg is a Dream-based server for the next version of the ocaml.org website.\nIt serves the OCaml packages pages and their documentation by using the data available at https://docs-data.ocaml.org/ and serves the static files generated from the NextJS application at https://github.com/ocaml/v3.ocaml.org.")
  (depends
   (ocaml
    (>= 4.08.0))
