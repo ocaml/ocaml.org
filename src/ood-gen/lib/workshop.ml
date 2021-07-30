@@ -35,7 +35,7 @@ type presentation = {
 
 type metadata = {
   title : string;
-  location : string option; 
+  location : string option;
   date : string;
   online : bool;
   important_dates : important_date list;
