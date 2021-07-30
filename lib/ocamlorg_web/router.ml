@@ -8,11 +8,14 @@ let v3_loader root path request =
     else
       Dream.mime_lookup path, path
   in
-  match Asset.read (root ^ path) with
-  | None ->
-    Page_handler.not_found request
-  | Some asset ->
-    Dream.respond ~headers asset
+  let file = Filename.concat root path in
+  Lwt.catch
+    (fun () ->
+      Lwt_io.(with_file ~mode:Input file) (fun channel ->
+          let open Lwt.Syntax in
+          let* content = Lwt_io.read channel in
+          Dream.respond ~headers content))
+    (fun _exn -> Page_handler.not_found request)
 
 let loader root path request =
   match Asset.read (root ^ path) with
@@ -21,10 +24,10 @@ let loader root path request =
   | Some asset ->
     Dream.respond ~headers:(Dream.mime_lookup path) asset
 
-let media_loader _root path _request =
+let media_loader _root path request =
   match Ood_media.read path with
   | None ->
-    Dream.empty `Not_Found
+    Page_handler.not_found request
   | Some asset ->
     Dream.respond asset
 
@@ -32,7 +35,7 @@ let site_route =
   Dream.scope
     ""
     [ Middleware.i18n ]
-    [ Dream.get "/**" (Dream.static ~loader:v3_loader "site/") ]
+    [ Dream.get "/**" (Dream.static ~loader:v3_loader Config.site_dir) ]
 
 let preview_routes =
   Dream.scope

@@ -19,5 +19,5 @@
 ; Force dune to include _next.
 
 (subdir
- asset/site/
+ asset_site/
  (dirs *))

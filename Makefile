@@ -62,4 +62,4 @@ utop: ## Run a REPL and link with the project's libraries
 
 .PHONY: update-site
 update-site: ## Update the site directory
-	rm -rf asset/site; ./script/update-site.sh
+	rm -rf asset_site; ./script/update-site.sh
