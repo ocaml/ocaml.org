@@ -29,9 +29,9 @@ let is_package s1 s2 =
     String.(equal s2 s1)
 
 let get_packages_result total_packages offset limit filter packages =
-  if filter = "sortByName" then
+  if filter = "" then
     let packages =
-      List.filteri (fun i _ -> offset <= i && i <= offset + limit) packages
+      List.filteri (fun i _ -> offset <= i && i < offset + limit) packages
     in
     let packages_result = { total_packages; packages } in
     packages_result
@@ -41,6 +41,9 @@ let get_packages_result total_packages offset limit filter packages =
         (fun package ->
           starts_with filter (Package.Name.to_string (Package.name package)))
         packages
+    in
+    let packages =
+      List.filteri (fun i _ -> offset <= i && i < offset + limit) packages
     in
     let packages_result = { total_packages; packages } in
     packages_result
@@ -240,18 +243,15 @@ let schema : Dream.request Graphql_lwt.Schema.schema =
           "allPackages"
           ~typ:(non_null packages_result)
           ~doc:
-            "Filter packages in ascending order by name or based on search \
-             query. Packages can also be paginated by setting the offset and \
-             limit as desired"
+            "Filter packages by name passing search query. Packages can also \
+             be paginated by setting the offset and limit as desired"
           ~args:
             Arg.
               [ arg'
-                  ~doc:
-                    "Filter packages in ascending order by name by passing \
-                     sortByName or based on search query"
+                  ~doc:"Filter packages by passing a search query"
                   "filter"
                   ~typ:string
-                  ~default:"sortByName"
+                  ~default:""
               ; arg'
                   ~doc:
                     "Specifies at what index packages can start, set to 0 by \
