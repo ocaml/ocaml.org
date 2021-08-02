@@ -60,3 +60,11 @@ div.odoc div.spec tbody td.def {
 div.odoc div.spec tbody tr {
   border-width: 0px;
 }
+
+div.odoc code::before {
+  content: '';
+}
+
+div.odoc code::after {
+  content: '';
+}

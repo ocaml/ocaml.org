@@ -1,8 +1,10 @@
 name: CI
 
 on:
-  pull_request:
   push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
   schedule:
     # Prime the caches every Monday
     - cron: 0 1 * * MON
@@ -20,59 +22,44 @@ jobs:
           - macos-latest
           - ubuntu-latest
         ocaml-compiler:
-          - ocaml-base-compiler.4.12.0
-        include:
-          - os: windows-latest
-            ocaml-compiler: ocaml-variants.4.12.0+mingw64c
+          - ocaml-base-compiler.4.11.2
+        # Add windows once Dream does not depend on `conf-libev`
+        # include:
+        #   - os: windows-latest
+        #     ocaml-compiler: ocaml-variants.4.11.2+mingw64c
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Use OCaml ${{ matrix.ocaml-compiler }}
-        uses: avsm/setup-ocaml@v2
+        # Replace with official action when opam.2.1.0 is supported
+        # See https://github.com/ocaml/setup-ocaml/pull/184
+        # uses: ocaml/setup-ocaml@v2
+        uses: tmattio/setup-ocaml@skip-opam-depext
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
           dune-cache: ${{ matrix.os != 'macos-latest' }}
-          opam-depext-flags: --with-test
 
-      - run: opam install . --deps-only --with-test
+      - run: sudo apt-get install libev-dev
+        if: runner.os == 'Linux'
+
+      - run: brew install libev
+        if: runner.os == 'macOS'
+
+      - run: opam install --deps-only --with-test .
+
+      - run: npm ci
 
       - run: make build
 
       - run: make test
 
-  lint-opam:
-    strategy:
-      matrix:
-        ocaml-compiler:
-          - ocaml-base-compiler.4.12.0
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Use OCaml ${{ matrix.ocaml-compiler }}
-        uses: avsm/setup-ocaml@v2
-        with:
-          ocaml-compiler: ${{ matrix.ocaml-compiler }}
-          dune-cache: true
-
-      - run: opam depext opam-dune-lint --install
-
-      - run: opam install . --deps-only
-
-      - run: make build
-
-      - run: opam exec -- opam-dune-lint
-
   lint-fmt:
     strategy:
       matrix:
         ocaml-compiler:
-          - ocaml-base-compiler.4.12.0
+          - ocaml-base-compiler.4.11.2
 
     runs-on: ubuntu-latest
 
@@ -81,13 +68,22 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Use OCaml ${{ matrix.ocaml-compiler }}
-        uses: avsm/setup-ocaml@v2
+        # Replace with official action when opam.2.1.0 is supported
+        # See https://github.com/ocaml/setup-ocaml/pull/184
+        # uses: ocaml/setup-ocaml@v2
+        uses: tmattio/setup-ocaml@skip-opam-depext
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
           dune-cache: true
 
-      - run: opam depext ocamlformat --install
+      - run: sudo apt-get install libev-dev
+        if: runner.os == 'Linux'
 
-      - run: opam install . --deps-only
+      - run: brew install libev
+        if: runner.os == 'macOS'
+
+      - run: opam install ocamlformat.0.19.0
+
+      - run: opam install --deps-only .
 
       - run: make fmt
