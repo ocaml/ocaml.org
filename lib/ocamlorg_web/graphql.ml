@@ -29,13 +29,14 @@ let is_package s1 s2 =
     String.(equal s2 s1)
 
 let get_packages_result total_packages offset limit filter packages =
-  if filter = "" then
+  match filter with
+  | None -> 
     let packages =
       List.filteri (fun i _ -> offset <= i && i < offset + limit) packages
     in
     let packages_result = { total_packages; packages } in
     packages_result
-  else
+   | Some filter -> 
     let packages =
       List.filter
         (fun package ->
@@ -247,11 +248,10 @@ let schema : Dream.request Graphql_lwt.Schema.schema =
              be paginated by setting the offset and limit as desired"
           ~args:
             Arg.
-              [ arg'
+              [ arg
                   ~doc:"Filter packages by passing a search query"
                   "filter"
                   ~typ:string
-                  ~default:""
               ; arg'
                   ~doc:
                     "Specifies at what index packages can start, set to 0 by \
@@ -259,7 +259,7 @@ let schema : Dream.request Graphql_lwt.Schema.schema =
                   "offset"
                   ~typ:int
                   ~default:0
-              ; arg'
+              ; arg
                   ~doc:
                     "Specifies the limit which means the number of packages \
                      you want to return if you do not want all packages \
@@ -267,18 +267,18 @@ let schema : Dream.request Graphql_lwt.Schema.schema =
                      returned"
                   "limit"
                   ~typ:int
-                  ~default:0
               ]
           ~resolve:(fun _ () filter offset limit ->
             let packages = Package.all_packages_latest () in
             let totalPackages = List.length packages in
-            if limit = 0 then
+            match limit with
+            | None -> 
               let limit = totalPackages in
               let packages_result =
                 get_packages_result totalPackages offset limit filter packages
               in
               packages_result
-            else
+            | Some limit -> 
               let limit = limit in
               let packages_result =
                 get_packages_result totalPackages offset limit filter packages
