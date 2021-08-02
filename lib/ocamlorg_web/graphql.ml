@@ -30,13 +30,13 @@ let is_package s1 s2 =
 
 let get_packages_result total_packages offset limit filter packages =
   match filter with
-  | None -> 
+  | None ->
     let packages =
       List.filteri (fun i _ -> offset <= i && i < offset + limit) packages
     in
     let packages_result = { total_packages; packages } in
     packages_result
-   | Some filter -> 
+  | Some filter ->
     let packages =
       List.filter
         (fun package ->
@@ -272,13 +272,13 @@ let schema : Dream.request Graphql_lwt.Schema.schema =
             let packages = Package.all_packages_latest () in
             let totalPackages = List.length packages in
             match limit with
-            | None -> 
+            | None ->
               let limit = totalPackages in
               let packages_result =
                 get_packages_result totalPackages offset limit filter packages
               in
               packages_result
-            | Some limit -> 
+            | Some limit ->
               let limit = limit in
               let packages_result =
                 get_packages_result totalPackages offset limit filter packages
