@@ -50,3 +50,22 @@ jobs:
       - name: Run the unit tests
         run: opam exec -- dune runtest --root . --ignore-promoted-rules
         timeout-minutes: 1
+  v3-ocaml-org:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout v3.ocaml.org
+        uses: actions/checkout@v2
+        with:
+          repository: 'ocaml/v3.ocaml.org'
+      - name: Vendor this ood
+        run: |
+          cd vendor
+          sed -i 's/git checkout \$version/git fetch origin $GITHUB_REF:test-ood \&\& git checkout test-ood/g' update-ood.sh
+          ./update-ood.sh
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Install and build
+        run: |
+          make install-deps
+          make build
