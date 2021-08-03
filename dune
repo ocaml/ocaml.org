@@ -1,8 +1,0 @@
-(rule
- (targets config.yml)
- (package ood-cli)
- (mode promote)
- (action
-  (with-stdout-to
-   %{targets}
-   (run %{bin:ood-cli} config))))
