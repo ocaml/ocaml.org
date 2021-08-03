@@ -237,7 +237,7 @@ module Workshop : sig
 
   val role_of_string : string -> (role, [> `Msg of string ]) result
 
-  type important_date = { date : string; info : string } [@@deriving yaml]
+  type important_date = { date : string; info : string }
 
   type committee_member = {
     name : string;
