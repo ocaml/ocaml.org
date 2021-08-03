@@ -19,7 +19,6 @@ depends: [
   "cmdliner"
   "bos"
   "alcotest"
-  "netlify-cms" {= version}
   "ood" {= version}
   "odoc" {with-doc}
 ]

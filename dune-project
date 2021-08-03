@@ -40,8 +40,6 @@
   cmdliner
   bos
   alcotest
-  (netlify-cms
-   (= :version))
   (ood
    (= :version))))
 
