@@ -57,9 +57,7 @@ let lint_industrial_users () =
 
 let lint_academic_institution () =
   Alcotest.check lint_check "lint academic institution" (Ok ())
-    (lint_folder
-       ~path:Academic_institution.path
-       Academic_institution.parse)
+    (lint_folder ~path:Academic_institution.path Academic_institution.parse)
 
 let run () =
   let open Alcotest in
@@ -68,24 +66,40 @@ let run () =
       [
         ( "files",
           [
-            test_case (Fpath.to_string Paper.path) `Quick
+            test_case
+              (Fpath.to_string Paper.path)
+              `Quick
               (linter "lint papers" Paper.path Paper.parse);
-            test_case (Fpath.to_string Event.path) `Quick
+            test_case
+              (Fpath.to_string Event.path)
+              `Quick
               (linter "lint events" Event.path Event.parse);
-            test_case (Fpath.to_string Video.path) `Quick
+            test_case
+              (Fpath.to_string Video.path)
+              `Quick
               (linter "lint videos" Video.path Video.parse);
-            test_case (Fpath.to_string Watch.path) `Quick 
+            test_case
+              (Fpath.to_string Watch.path)
+              `Quick
               (linter "lint watch videos" Watch.path Watch.parse);
-            test_case (Fpath.to_string Tool.path) `Quick
+            test_case
+              (Fpath.to_string Tool.path)
+              `Quick
               (linter "lint tools" Tool.path Tool.parse);
           ] );
         ( "folders",
           [
             test_case (Fpath.to_string Tutorial.path) `Quick lint_tutorials;
-            test_case (Fpath.to_string Success_story.path) `Quick lint_success_stories;
+            test_case
+              (Fpath.to_string Success_story.path)
+              `Quick lint_success_stories;
             test_case (Fpath.to_string Book.path) `Quick lint_books;
-            test_case (Fpath.to_string Industrial_user.path) `Quick lint_industrial_users;
-            test_case (Fpath.to_string Academic_institution.path) `Quick lint_academic_institution;
+            test_case
+              (Fpath.to_string Industrial_user.path)
+              `Quick lint_industrial_users;
+            test_case
+              (Fpath.to_string Academic_institution.path)
+              `Quick lint_academic_institution;
             test_case (Fpath.to_string Workshop.path) `Quick lint_workshops;
           ] );
       ];
@@ -104,5 +118,5 @@ let cmds =
 let default_cmd =
   ( Term.(ret (const (fun _ -> `Help (`Pager, None)) $ const ())),
     Term.info "ood_lint" )
-  
-  let () = Term.(exit @@ eval_choice default_cmd cmds)
+
+let () = Term.(exit @@ eval_choice default_cmd cmds)

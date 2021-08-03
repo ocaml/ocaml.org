@@ -11,9 +11,9 @@ type metadata = {
 
 let path = Fpath.v "data/tutorials/en"
 
-let parse content = 
+let parse content =
   let metadata, _ = Utils.extract_metadata_body content in
-    metadata_of_yaml metadata
+  metadata_of_yaml metadata
 
 type t = {
   title : string;
