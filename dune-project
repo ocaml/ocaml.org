@@ -76,6 +76,7 @@
   fmt
   piaf
   lambdasoup
+  cmdliner
   crunch
   ; Required by ocamlrss
   xmlm
