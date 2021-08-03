@@ -50,6 +50,8 @@
   (ocaml
    (>= 4.08.0))
   yaml
+  ppx_deriving_yaml
+  ezjsonm
   ptime
   fmt
   piaf
