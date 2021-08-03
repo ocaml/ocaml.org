@@ -24,26 +24,6 @@
   (mdx (and (>= 1.10.0) :with-test))))
 
 (package
- (name ood-cli)
- (synopsis "OCaml.Org Data CLI tool")
- (description
-  "The ood binary performs data linting, Netlify CMS configuration generation from types etc.")
- (depends
-  (ppx_enumerate
-   (>= v0.14.0))
-  (jekyll-format
-   (>= 0.2.0))
-  yaml
-  ppx_import
-  ppx_deriving_yaml
-  fmt
-  cmdliner
-  bos
-  alcotest
-  (ood
-   (= :version))))
-
-(package
  (name ood-preview)
  (synopsis "Preview ood content")
  (description "Preview ood content")
@@ -64,8 +44,8 @@
 
 (package
  (name ood-gen)
- (synopsis "CLI to generate ood content")
- (description "CLI to generate ood content")
+ (synopsis "CLI to work with ood content")
+ (description "CLI to generate, parse and compile ood content to OCaml")
  (depends
   (ocaml
    (>= 4.08.0))

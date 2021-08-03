@@ -11,6 +11,21 @@
  (flags :standard -safe-string))
 
 (executable
+ (name lint)
+ (modules lint)
+ (libraries cmdliner bos alcotest ood_gen))
+
+(rule
+ (alias runtest)
+ (deps
+  lint.exe
+  (source_tree %{workspace_root}/data))
+ (action
+  (chdir
+   %{workspace_root}
+   (run ./src/ood-gen/bin/lint.exe lint))))
+
+(executable
  (name watch_scrape)
  (modules watch_scrape)
  (libraries yaml ezjsonm piaf))

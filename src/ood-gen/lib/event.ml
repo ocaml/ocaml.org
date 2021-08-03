@@ -10,15 +10,21 @@ type t = {
 }
 [@@deriving yaml]
 
+type metadata = t
+
+let path = Fpath.v "data/events.yml"
+
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
   match yaml with
-  | `O [ ("events", `A xs) ] -> List.map (Utils.decode_or_raise of_yaml) xs
-  | _ -> raise (Exn.Decode_error "expected a list of events")
+  | `O [ ("events", `A xs) ] -> Ok (List.map (Utils.decode_or_raise of_yaml) xs)
+  | _ -> Error (`Msg "expected a list of events")
+
+let parse = decode
 
 let all () =
   let content = Data.read "events.yml" |> Option.get in
-  decode content
+  Utils.decode_or_raise decode content
 
 let pp ppf v =
   Fmt.pf ppf
