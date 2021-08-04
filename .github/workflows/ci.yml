@@ -33,12 +33,12 @@ jobs:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
           dune-cache: ${{ matrix.os != 'macos-latest' }}
 
+      - name: Install Opam packages
+        run: opam install . --deps-only --with-test
+
       - name: Install ocamlformat
         run: opam install ocamlformat.0.15.0
         if: ${{ matrix.os == 'ubuntu-latest' }}
-
-      - name: Install Opam packages
-        run: opam install . --deps-only --with-test
 
       - name: Check formatting
         run: make fmt

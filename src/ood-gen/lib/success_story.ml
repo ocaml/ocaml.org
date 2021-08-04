@@ -1,6 +1,12 @@
 type metadata = { title : string; image : string option; url : string option }
 [@@deriving yaml]
 
+let path = Fpath.v "data/success_stories/en"
+
+let parse content =
+  let metadata, _ = Utils.extract_metadata_body content in
+  metadata_of_yaml metadata
+
 type t = {
   title : string;
   slug : string;

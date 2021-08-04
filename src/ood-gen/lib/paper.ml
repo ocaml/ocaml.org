@@ -9,18 +9,21 @@ type t = {
 }
 [@@deriving yaml]
 
-let decode_or_raise f x =
-  match f x with Ok x -> x | Error (`Msg err) -> raise (Exn.Decode_error err)
+type metadata = t
+
+let path = Fpath.v "data/papers.yml"
 
 let decode s =
-  let yaml = decode_or_raise Yaml.of_string s in
+  let yaml = Utils.decode_or_raise Yaml.of_string s in
   match yaml with
-  | `O [ ("papers", `A xs) ] -> List.map (decode_or_raise of_yaml) xs
-  | _ -> raise (Exn.Decode_error "expected a list of papers")
+  | `O [ ("papers", `A xs) ] -> Ok (List.map (Utils.decode_or_raise of_yaml) xs)
+  | _ -> Error (`Msg "expected a list of papers")
+
+let parse = decode
 
 let all () =
   let content = Data.read "papers.yml" |> Option.get in
-  decode content
+  Utils.decode_or_raise decode content
 
 let pp ppf v =
   Fmt.pf ppf
