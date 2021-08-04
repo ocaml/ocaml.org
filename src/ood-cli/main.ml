@@ -1,6 +1,6 @@
 open Cmdliner
 
-let cmds = [ Lint.cmd; Config.cmd; Server.cmd; Time.cmd ]
+let cmds = [ Lint.cmd; Time.cmd ]
 
 let doc = "OCaml.org Data CLI Tool"
 

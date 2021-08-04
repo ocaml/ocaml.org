@@ -40,8 +40,6 @@
   cmdliner
   bos
   alcotest
-  (netlify-cms
-   (= :version))
   (ood
    (= :version))))
 
@@ -65,21 +63,6 @@
   (odoc :with-doc)))
 
 (package
- (name netlify-cms)
- (synopsis "OCaml encoding of Netlify CMS Configuration Files")
- (description
-  "The netlify-cms library provides types and tools for generating Netlify CMS configurations programmatically")
- (depends
-  (cohttp-lwt-unix
-   (>= 4.0.0))
-  bos
-  (alcotest :with-test)
-  ppx_deriving_yaml
-  ppx_deriving
-  fmt
-  yaml))
-
-(package
  (name ood-gen)
  (synopsis "CLI to generate ood content")
  (description "CLI to generate ood content")
@@ -91,6 +74,7 @@
   fmt
   piaf
   lambdasoup
+  cmdliner
   crunch
   ; Required by ocamlrss
   xmlm
