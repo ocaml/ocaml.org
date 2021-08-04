@@ -46,8 +46,14 @@ git push -u origin my-bug-fix
 From here you can then open a PR from Github. Before committing your code it is very useful to:
 
  - Format the code: this should be as simple as `make fmt`
- - Make sure it builds: running `make build`
+ - Make sure it builds: running `make build`, this is also very important if you add data to the repository as it will "crunch" the data into the static OCaml modules (more information below)
  - Run the tests: this will check ood-preview and that all the data is correctly formatted and can be invoked with `make test`
+
+### Static OCaml Modules with Data
+
+As explained on the README, `src/ood` contains the information in the `data` directory, packed inside OCaml modules. This makes the data very easy to consume from multiple different projects like from ReScript in the [front-end of the website](https://github.com/ocaml/v3.ocaml.org). It means most consumers of the ocaml.org data do not have to worry about re-implementing parsers for the data.
+
+If you are simply adding information to the `data` directory that's fine, before merging one of the maintainers can do the build locally and push the changes. If you can do a `make build` to also generate the OCaml as part of your PR that would be fantastic.
 
 ## Ood Preview
 
