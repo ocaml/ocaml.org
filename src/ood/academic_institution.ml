@@ -398,6 +398,28 @@ let all =
   ; body_html = {js||js}
   };
  
+  { name = {js|Indian Institute of Technology, Madras|js}
+  ; slug = {js|indian-institute-of-technology-madras|js}
+  ; description = {js|Indian Institute of Technology Delhi is a public technical and research university located in Chennai, India.
+|js}
+  ; url = {js|https://www.iitm.ac.in/|js}
+  ; logo = Some {js|/academic_institution/iitm.png|js}
+  ; continent = {js|Asia|js}
+  ; courses = 
+ [
+  { name = {js|Paradigms of Programming|js}
+  ; acronym = Some {js|CS 3100|js}
+  ; online_resource  = Some {js|https://kcsrk.info/cs3100_m20/|js}
+  }]
+  ; location = Some 
+  { long = 80.233620
+  ; lat = 12.991510
+  }
+  
+  ; body_md = {js||js}
+  ; body_html = {js||js}
+  };
+ 
   { name = {js|University of Illinois at Urbana-Champaign|js}
   ; slug = {js|university-of-illinois-at-urbana-champaign|js}
   ; description = {js|The University of Illinois Urbana-Champaign is a public land-grant research university in Illinois in the twin cities of Champaign and Urbana.
