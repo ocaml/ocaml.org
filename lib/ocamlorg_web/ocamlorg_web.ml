@@ -4,6 +4,8 @@ module Handlers = struct
   module Package = Package_handler
 end
 
+module Graphql = Graphql
+
 let run () =
   Dream_cli.run ~debug:Config.debug ~interface:"0.0.0.0" ~port:Config.port
   @@ Dream.logger
