@@ -38,25 +38,21 @@ let get_packages_result total_packages offset limit filter packages =
     packages_result
   | Some filter ->
     let packages =
-      List.filter
-        (fun package ->
-          starts_with filter (Package.Name.to_string (Package.name package)))
-        packages
-    in
-    let packages =
-      List.filteri (fun i _ -> offset <= i && i < offset + limit) packages
+      List.filteri
+        (fun i _ -> offset <= i && i < offset + limit)
+        (List.filter
+           (fun package ->
+             starts_with filter (Package.Name.to_string (Package.name package)))
+           packages)
     in
     let packages_result = { total_packages; packages } in
     packages_result
 
 let get_deps deps =
-  let pkg =
-    List.map
-      (fun (name, constraints) ->
-        { name = Package.Name.to_string name; constraints })
-      deps
-  in
-  pkg
+  List.map
+    (fun (name, constraints) ->
+      { name = Package.Name.to_string name; constraints })
+    deps
 
 let deps =
   Graphql_lwt.Schema.(
@@ -249,7 +245,9 @@ let schema : Dream.request Graphql_lwt.Schema.schema =
           ~args:
             Arg.
               [ arg
-                  ~doc:"Filter packages by passing a search query"
+                  ~doc:
+                    "Filter packages by passing a search query which lists out \
+                     all packages that starts with the search query if any"
                   "filter"
                   ~typ:string
               ; arg'
@@ -270,20 +268,11 @@ let schema : Dream.request Graphql_lwt.Schema.schema =
               ]
           ~resolve:(fun _ () filter offset limit ->
             let packages = Package.all_packages_latest () in
-            let totalPackages = List.length packages in
-            match limit with
-            | None ->
-              let limit = totalPackages in
-              let packages_result =
-                get_packages_result totalPackages offset limit filter packages
-              in
-              packages_result
-            | Some limit ->
-              let limit = limit in
-              let packages_result =
-                get_packages_result totalPackages offset limit filter packages
-              in
-              packages_result)
+            let total_packages = List.length packages in
+            let limit =
+              match limit with None -> total_packages | Some limit -> limit
+            in
+            get_packages_result total_packages offset limit filter packages)
       ; field
           "package"
           ~typ:package
