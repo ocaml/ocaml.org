@@ -171,44 +171,43 @@ let poll_for_opam_packages ~polling v =
   in
   updater ()
 
-let t =
-  let v =
-    (* Update at startup time if the directory exists so that the first page we
-       query does not contain *)
-    if Sys.file_exists (Fpath.to_string Config.opam_repository_path) then
-      { packages = read_packages () }
-    else
-      { packages = OpamPackage.Name.Map.empty }
-  in
-  Lwt.async (fun () -> poll_for_opam_packages ~polling:Config.opam_polling v);
-  v
+let s = { packages = OpamPackage.Name.Map.empty }
 
-let all_packages_latest () =
+let init ?(disable_polling = false) () =
+  if Sys.file_exists (Fpath.to_string Config.opam_repository_path) then
+    s.packages <- read_packages ();
+  if disable_polling then
+    ()
+  else
+    Lwt.async (fun () -> poll_for_opam_packages ~polling:Config.opam_polling s);
+  s
+
+let all_packages_latest t =
   t.packages
   |> OpamPackage.Name.Map.map OpamPackage.Version.Map.max_binding
   |> OpamPackage.Name.Map.bindings
   |> List.map (fun (name, (version, info)) -> { name; version; info })
 
-let get_packages_with_name name =
+let get_packages_with_name t name =
   t.packages
   |> OpamPackage.Name.Map.find_opt name
   |> Option.map OpamPackage.Version.Map.bindings
   |> Option.map (List.map (fun (version, info) -> { name; version; info }))
 
-let get_package_versions name =
+let get_package_versions t name =
   t.packages
   |> OpamPackage.Name.Map.find_opt name
   |> Option.map OpamPackage.Version.Map.bindings
   |> Option.map (List.map fst)
 
-let get_package_latest name =
+let get_package_latest t name =
   t.packages
   |> OpamPackage.Name.Map.find_opt name
   |> Option.map (fun versions ->
          let version, info = OpamPackage.Version.Map.max_binding versions in
          { version; info; name })
 
-let get_package name version =
+let get_package t name version =
   t.packages |> OpamPackage.Name.Map.find_opt name |> fun x ->
   Option.bind x (OpamPackage.Version.Map.find_opt version)
   |> Option.map (fun info -> { version; info; name })
@@ -363,7 +362,7 @@ let status ~kind t =
   | _ ->
     `Unknown
 
-let search_package pattern =
+let search_package t pattern =
   let pattern = String.lowercase_ascii pattern in
   let contains s1 s2 =
     try
@@ -376,7 +375,7 @@ let search_package pattern =
     | Exit ->
       true
   in
-  all_packages_latest ()
+  all_packages_latest t
   |> List.filter (fun { name; _ } ->
          if contains (String.lowercase_ascii @@ Name.to_string name) pattern
          then
