@@ -13,7 +13,10 @@ You may follow along with this tutorial with just a basic OCaml installation,
 as described in [Up and Running](up_and_running.html).
 
 Alternatively, you may follow almost all of it by running OCaml in your browser
-using [TryOCaml](https://try.ocamlpro.com), with no installation required!!!
+using [TryOCaml](https://try.ocamlpro.com), with no installation required.
+
+On macOS/iOS/iPadOS, you can download this [all-in-one package on the App Store](https://apps.apple.com/app/ocaml-learn-code/id1547506826). 
+It contains an editor side-by-side with an interactive top level, and is free and [open source](https://github.com/GroupeMINASTE/OCaml-iOS).
 
 ## Running OCaml code
 
