@@ -152,11 +152,16 @@ let () =
   run
     "Graphql"
     [ ( "test that starts_with function compares two similar strings"
-      , [ test_case "and returns true" `Quick (start_with_test "OC" "oc" true) ] )
+      , [ test_case "and returns true" `Quick (start_with_test "OC" "oc" true) ]
+      )
     ; ( "test that starts_with function compares two different strings"
-      , [ test_case "and returns false" `Quick (start_with_test "gv" "Bt" false) ] )
+      , [ test_case "and returns false" `Quick (start_with_test "gv" "Bt" false)
+        ] )
     ; ( "test that is_package function compares the same names"
-      , [ test_case "and returns true" `Quick (is_package_test "ocaml" "ocaml" true)
+      , [ test_case
+            "and returns true"
+            `Quick
+            (is_package_test "ocaml" "ocaml" true)
         ] )
     ; ( "test that is_package function compares two different names"
       , [ test_case
@@ -170,7 +175,9 @@ let () =
     ; ( "test that get_deps function works"
       , [ test_case "and returns all 6 dependencies" `Quick get_deps_test ] )
     ; ( "test to get a single package by name that exist"
-      , [ test_case "returns true" `Quick (get_single_package_test "ocaml" true) ] )
+      , [ test_case "returns true" `Quick (get_single_package_test "ocaml" true)
+        ] )
     ; ( "test to get a single package by name that does not exist"
-      , [ test_case "returns false" `Quick (get_single_package_test "ban" false) ] )
+      , [ test_case "returns false" `Quick (get_single_package_test "ban" false)
+        ] )
     ]

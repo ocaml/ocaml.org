@@ -27,7 +27,9 @@ val get_packages_result
   -> packages_result
 
 val get_deps : (Package.Name.t * string option) list -> package_dep list
-(** This function returns the list part Package.Info such as Package.Info.dependencies *)
+(** This function returns the list part Package.Info such as
+    Package.Info.dependencies *)
 
 val schema : Dream.request Graphql_lwt.Schema.schema
-(** This schema allows to query for opam packages from the opam-repository as graphql api data *)
+(** This schema allows to query for opam packages from the opam-repository as
+    graphql api data *)
