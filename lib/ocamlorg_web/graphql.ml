@@ -1,6 +1,7 @@
 open Ocamlorg
+module Package = Ocamlorg.Package
 
-type package_dep =
+type package_info =
   { name : string
   ; constraints : string option
   }
@@ -48,27 +49,27 @@ let get_packages_result total_packages offset limit filter packages =
     let packages_result = { total_packages; packages } in
     packages_result
 
-let get_deps deps =
+let get_info info =
   List.map
     (fun (name, constraints) ->
       { name = Package.Name.to_string name; constraints })
-    deps
+    info
 
-let deps =
+let info =
   Graphql_lwt.Schema.(
-    obj "deps" ~fields:(fun _ ->
+    obj "info" ~fields:(fun _ ->
         [ field
             "name"
             ~doc:"Unique dependency name"
             ~args:Arg.[]
             ~typ:(non_null string)
-            ~resolve:(fun _ p -> p.name)
+            ~resolve:(fun _ i -> i.name)
         ; field
             "constraints"
             ~doc:"Dependency constraints"
             ~args:Arg.[]
             ~typ:string
-            ~resolve:(fun _ p -> p.constraints)
+            ~resolve:(fun _ i -> i.constraints)
         ]))
 
 let owners =
@@ -186,26 +187,26 @@ let package =
             "dependencies"
             ~doc:"The dependencies of the package"
             ~args:Arg.[]
-            ~typ:(non_null (list (non_null deps)))
+            ~typ:(non_null (list (non_null info)))
             ~resolve:(fun _ p ->
               let info = Package.info p in
-              get_deps info.Package.Info.dependencies)
+              get_info info.Package.Info.dependencies)
         ; field
             "depopts"
             ~doc:"The depopts of the package"
             ~args:Arg.[]
-            ~typ:(non_null (list (non_null deps)))
+            ~typ:(non_null (list (non_null info)))
             ~resolve:(fun _ p ->
               let info = Package.info p in
-              get_deps info.Package.Info.depopts)
+              get_info info.Package.Info.depopts)
         ; field
             "conflicts"
             ~doc:"The conflicts of the package"
             ~args:Arg.[]
-            ~typ:(non_null (list (non_null deps)))
+            ~typ:(non_null (list (non_null info)))
             ~resolve:(fun _ p ->
               let info = Package.info p in
-              get_deps info.Package.Info.conflicts)
+              get_info info.Package.Info.conflicts)
         ; field
             "url"
             ~doc:"The url of the package"
