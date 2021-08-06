@@ -11,10 +11,10 @@ let index _req =
     Packages_template.render
   |> Dream.html
 
-let search req =
+let search t req =
   match Dream.query "q" req with
   | Some search ->
-    let packages = Ocamlorg.Package.search_package search in
+    let packages = Ocamlorg.Package.search_package t search in
     Page_layout_template.render
       ~title:"OCaml Packages · Search community packages"
       ~description:
@@ -25,10 +25,10 @@ let search req =
   | None ->
     Dream.redirect req "/packages"
 
-let package req =
+let package t req =
   let package = Dream.param "name" req in
   let find_default_version name =
-    Ocamlorg.Package.get_package_latest name
+    Ocamlorg.Package.get_package_latest t name
     |> Option.map (fun pkg -> Ocamlorg.Package.version pkg)
   in
   let name = Ocamlorg.Package.Name.of_string package in
@@ -42,12 +42,12 @@ let package req =
   | None ->
     Page_handler.not_found req
 
-let package_versioned kind req =
+let package_versioned t kind req =
   let name = Ocamlorg.Package.Name.of_string @@ Dream.param "name" req in
   let version =
     Ocamlorg.Package.Version.of_string @@ Dream.param "version" req
   in
-  let package = Ocamlorg.Package.get_package name version in
+  let package = Ocamlorg.Package.get_package t name version in
   match package with
   | None ->
     Page_handler.not_found req
@@ -73,7 +73,7 @@ let package_versioned kind req =
     let* status = Ocamlorg.Package.status ~kind package in
     let content = Package_template.render ~readme ~license package in
     let versions =
-      Ocamlorg.Package.get_package_versions name |> Option.value ~default:[]
+      Ocamlorg.Package.get_package_versions t name |> Option.value ~default:[]
     in
     Package_layout_template.render
       ~title:
@@ -94,7 +94,7 @@ let package_versioned kind req =
       content
     |> Dream.html
 
-let package_doc kind req =
+let package_doc t kind req =
   let name = Ocamlorg.Package.Name.of_string @@ Dream.param "name" req in
   let version =
     Ocamlorg.Package.Version.of_string @@ Dream.param "version" req
@@ -106,7 +106,7 @@ let package_doc kind req =
     | Universe ->
       Package_template.Universe (Dream.param "hash" req)
   in
-  let package = Ocamlorg.Package.get_package name version in
+  let package = Ocamlorg.Package.get_package t name version in
   match package with
   | None ->
     Page_handler.not_found req
@@ -130,7 +130,7 @@ let package_doc kind req =
         (Ocamlorg.Package.info package).Ocamlorg.Package.Info.description
       in
       let versions =
-        Ocamlorg.Package.get_package_versions name |> Option.value ~default:[]
+        Ocamlorg.Package.get_package_versions t name |> Option.value ~default:[]
       in
       let extra_nav = Package_doc_header_template.render doc.module_path in
       let canonical_module =

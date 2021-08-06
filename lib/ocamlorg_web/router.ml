@@ -44,32 +44,32 @@ let preview_routes =
     ; Dream.get "/media/**" (Dream.static ~loader:media_loader "")
     ]
 
-let package_route =
+let package_route t =
   Dream.scope
     ""
     []
     [ Dream.get "/packages" Package_handler.index
     ; Dream.get "/packages/" Package_handler.index
-    ; Dream.get "/packages/search" Package_handler.search
-    ; Dream.get "/p/:name" Package_handler.package
-    ; Dream.get "/u/:hash/:name" Package_handler.package
+    ; Dream.get "/packages/search" (Package_handler.search t)
+    ; Dream.get "/p/:name" (Package_handler.package t)
+    ; Dream.get "/u/:hash/:name" (Package_handler.package t)
     ; Dream.get
         "/p/:name/:version"
-        (Package_handler.package_versioned Package_handler.Package)
+        ((Package_handler.package_versioned t) Package_handler.Package)
     ; Dream.get
         "/u/:hash/:name/:version"
-        (Package_handler.package_versioned Package_handler.Universe)
+        ((Package_handler.package_versioned t) Package_handler.Universe)
     ; Dream.get
         "/p/:name/:version/doc/**"
-        (Package_handler.package_doc Package_handler.Package)
+        ((Package_handler.package_doc t) Package_handler.Package)
     ; Dream.get
         "/u/:hash/:name/:version/doc/**"
-        (Package_handler.package_doc Package_handler.Universe)
+        ((Package_handler.package_doc t) Package_handler.Universe)
     ]
 
-let router =
+let router t =
   Dream.router
-    [ package_route
+    [ package_route t
     ; preview_routes
     ; Dream.get "/assets/**" (Dream.static ~loader "")
       (* Used for the previews *)
