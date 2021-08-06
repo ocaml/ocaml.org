@@ -1,6 +1,6 @@
 module Package = Ocamlorg.Package
 
-type package_dep =
+type package_info =
   { name : string
   ; constraints : string option
   }
@@ -26,7 +26,7 @@ val get_packages_result
   -> Package.t list
   -> packages_result
 
-val get_deps : (Package.Name.t * string option) list -> package_dep list
+val get_info : (Package.Name.t * string option) list -> package_info list
 (** This function returns the list part Package.Info such as
     Package.Info.dependencies *)
 

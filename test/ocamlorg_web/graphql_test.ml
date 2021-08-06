@@ -1,10 +1,10 @@
 module Package = Ocamlorg.Package
 
-type dep = OpamPackage.Name.t * string option
+type info = OpamPackage.Name.t * string option
 
-type package_dependeny = dep list
+type package_info = info list
 
-type dep_result =
+type info_result =
   { name : string
   ; constraints : string option
   }
@@ -131,7 +131,7 @@ let get_packages_result_test () =
   Alcotest.(check int) "returns 3 packages" 3 num_of_pakgs
 
 let get_deps_test () =
-  let deps = Ocamlorg_web.Graphql.get_deps dependencies in
+  let deps = Ocamlorg_web.Graphql.get_info dependencies in
   let num_of_deps = List.length deps in
   Alcotest.(check int) "returns 6 dependencies" 6 num_of_deps
 
