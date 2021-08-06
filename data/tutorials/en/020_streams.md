@@ -68,7 +68,7 @@ With this simple function, we can now easily construct line streams from
 any input channel:
 
 ```ocaml
-# let in_channel = open_in "019_streams.md"
+# let in_channel = open_in "020_streams.md"
 val in_channel : in_channel = <abstr>
 # let lines = line_stream_of_channel in_channel
 val lines : string Stream.t = <abstr>
@@ -128,7 +128,7 @@ operation for each item. With it, we can rewrite the original example as
 follows:
 
 ```ocaml
-let in_channel = open_in "019_streams.md" in
+let in_channel = open_in "020_streams.md" in
 try
   Stream.iter
     (fun line ->
