@@ -6852,6 +6852,905 @@ confusion if the library also defines other types.</p>
 |js}
   };
  
+  { title = {js|Lists|js}
+  ; slug = {js|lists|js}
+  ; description = {js|Learn about one of OCaml's must used, built-in data types
+|js}
+  ; date = {js|2021-08-06T17:28:30-00:00|js}
+  ; tags = 
+ ["language"]
+  ; users = [`Beginner; `Intermediate]
+  ; body_md = {js|
+A list is an ordered sequence of elements. All elements of a list in OCaml must
+be the same type. Lists are built into the language and have a special syntax.
+Here is a list of three integers:
+
+```ocaml
+# [1; 2; 3]
+- : int list = [1; 2; 3]
+```
+
+Note semicolons separate the elements, not commas. The empty list is written
+`[]`. The type of this list of integers is `int list`.
+
+A list, if it is not empty, has a *head* (the first element) and a *tail* (the
+list consisting of the rest of the elements). In our example, the head is the
+integer `1` while the tail is the list `[2; 3]`. An empty list has neither a
+head nor a tail. Here are some more lists:
+
+```ocaml
+# []
+- : 'a list = []
+# [1; 2; 3]
+- : int list = [1; 2; 3]
+# [false; true; false]
+- : bool list = [false; true; false]
+# [[1; 2]; [3; 4]; [5; 6]]
+- : int list list = [[1; 2]; [3; 4]; [5; 6]]
+```
+
+Notice the type of the empty list is `'a list` (its element type is not known).
+Notice also the type of the last list - `int list list` or a list of lists of
+integers.
+
+There are two built-in operators on lists. The `::` or cons operator, adds one
+element to the front of a list. The `@` or append operator combines two lists:
+
+```ocaml
+# 1 :: [2; 3]
+- : int list = [1; 2; 3]
+# [1] @ [2; 3]
+- : int list = [1; 2; 3]
+```
+
+##Functions on lists
+
+We can write functions which operate over lists by pattern matching:
+
+```ocaml
+# let rec total l =
+    match l with
+    | [] -> 0
+    | h :: t -> h + total t
+val total : int list -> int = <fun>
+# total [1; 3; 5; 3; 1]
+- : int = 13
+```
+
+Consider a function to find the length of a list:
+
+```ocaml
+# let rec length l =
+    match l with
+    | [] -> 0
+    | _ :: t -> 1 + length t
+val length : 'a list -> int = <fun>
+```
+
+This function operates not just on lists of integers, but on any kind of list.
+
+```ocaml
+# length [1; 2; 3]
+- : int = 3
+# length ["cow"; "sheep"; "cat"]
+- : int = 3
+# length [[]]
+- : int = 1
+```
+
+Why is this? Because in the pattern `_ :: t` the head of the list is not
+inspected, so its type cannot be relevant. Such a function is called
+polymorphic. Here is another polymorphic function, our own version of the `@`
+operator for appending:
+
+```ocaml
+# let rec append a b =
+  match a with
+  | [] -> b
+  | h :: t -> h :: append t b
+val append : 'a list -> 'a list -> 'a list = <fun>
+```
+
+Notice that the memory for the second list is shared, but the first list is
+effectively copied.
+
+
+##Higher order functions on lists
+
+We might wish to apply a function to each element in a list, yielding a new
+one. We shall write a function `map` which is given another function as its
+argument - such a function is called "higher-order":
+
+```ocaml
+# let rec map f l =
+    match l with
+    | [] -> []
+    | h :: t -> f h :: map f t
+val map : ('a -> 'b) -> 'a list -> 'b list = <fun>
+```
+
+Notice the type of the function `f` in parentheses as part of the whole type.
+This `map` function, given a function of type `'a -> 'b` and a list of `'a`s,
+will build a list of `'b'`s. Sometimes `'a` and `'b` might be the same type, of
+course. Here are two examples showing the `map` function in use:
+
+```ocaml
+# map (fun x -> x * 2) [1; 2; 3]
+- : int list = [2; 4; 6]
+# map total [[1; 2]; [3; 4]; [5; 6]]
+- : int list = [3; 7; 11]
+```
+
+## The standard library List module
+
+The standard library [List](https://ocaml.org/api/List.html) module contains a
+wide range of useful utility functions, including pre-written versions of many
+of the functions we have written in this tutorial. A version of the module with
+labeled functions is available as part of
+[StdLabels](https://ocaml.org/api/StdLabels.html).
+
+In the [List](https://ocaml.org/api/List.html) module documentation, functions
+which can raise an exception are marked. Such exceptions are usually the result
+of lists which are empty (and therefore have neither a head nor a tail) or
+lists of mismatched length.
+
+### Maps and iterators
+
+We have already written a `map` function from scratch, and it is no surprise
+that one is included in the [List](https://ocaml.org/api/List.html) module.
+There is also a variant for two lists:
+
+```ocaml
+# List.map2 ( + ) [1; 2; 3] [4; 5; 6]
+- : int list = [5; 7; 9]
+```
+
+In addition, we have an imperative analog to
+[`map`](https://ocaml.org/api/List.html#VALmap), called
+[`iter`](https://ocaml.org/api/List.html#VALiter). It takes an imperative
+function of type `'a -> unit` and an `'a list` and applies the function to each
+element in turn. A suitable function might be `print_endline`:
+
+```ocaml
+# List.iter print_endline ["frank"; "james"; "mary"]
+frank
+james
+mary
+- : unit = ()
+```
+
+There is a variant [`iter2`](https://ocaml.org/api/List.html#VALiter2) for two
+lists too:
+
+```ocaml
+# List.iter2
+    (fun a b -> print_endline (a ^ " " ^ b))
+    ["frank"; "james"; "mary"]
+    ["carter"; "lee"; "jones"]
+frank carter
+james lee
+mary jones
+- : unit = ()
+```
+
+Notice that [`map2`](https://ocaml.org/api/List.html#VALmap2) and
+[`iter2`](https://ocaml.org/api/List.html#VALiter2) will fail if the lists are
+of unequal length:
+
+```ocaml
+# List.map2 ( + ) [1; 2; 3] [4; 5]
+Exception: Invalid_argument "List.map2".
+```
+
+### List scanning
+
+The useful function [`mem`](https://ocaml.org/api/List.html#VALmem) checks
+whether a given element is a member of a list by scanning its contents:
+
+```ocaml
+# List.mem "frank" ["james"; "frank"; "mary"]
+- : bool = true
+# List.mem [] [[1; 2]; [3]; []; [5]]
+- : bool = true
+```
+
+There are more elaborate scanning functions: imagine we wish to check to see if
+all elements of a list are even, or if any element is even. We could either
+write functions to go over each element of the list, keeping a boolean check,
+or use `mem` and other functions already known to us:
+
+```ocaml
+# let all =
+    not (List.mem false (List.map (fun x -> x mod 2 = 0) [2; 4; 6; 8]))
+val all : bool = true
+# let any =
+    List.mem true (List.map (fun x -> x mod 2 = 0) [1; 2; 3])
+val any : bool = true
+```
+
+This is rather clumsy, though. The standard library provides two useful
+functions [`for_all`](https://ocaml.org/api/List.html#VALfor_all) and
+[`exists`](https://ocaml.org/api/List.html#VALexists) for this common problem:
+
+```ocaml
+# List.for_all (fun x -> x mod 2 = 0) [2; 4; 6; 8]
+- : bool = true
+# List.exists (fun x -> x mod 2 = 0) [1; 2; 3]
+- : bool = true
+```
+
+So you can see how the standard library has evolved into its present state:
+pieces of frequently-used code are turned into useful general functions.
+
+### List searching
+
+The function [`find`](https://ocaml.org/api/List.html#VALfind) returns the
+first element of a list matching a given predicate (a predicate is a testing
+function which returns either true or false when given an element). It raises
+an exception if such an element is not found:
+
+
+```ocaml
+# List.find (fun x -> x mod 2 = 0) [1; 2; 3; 4; 5]
+- : int = 2
+# List.find (fun x -> x mod 2 = 0) [1; 3; 5]
+Exception: Not_found.
+```
+
+The [`filter`](https://ocaml.org/api/List.html#VALfilter) function again takes
+a predicate and tests it against each element in the list, but this time
+returns the list of all elements which test true:
+
+```ocaml
+# List.filter (fun x -> x mod 2 = 0) [1; 2; 3; 4; 5]
+- : int list = [2; 4]
+```
+
+If we wish to know also which elements did not test true, we can use
+[`partition`](https://ocaml.org/api/List.html#VALpartition) which returns a
+pair of lists: the first being the list of elements for which the predicate is
+true, the second those for which it is false.
+
+```ocaml
+# List.partition (fun x -> x mod 2 = 0) [1; 2; 3; 4; 5]
+- : int list * int list = ([2; 4], [1; 3; 5])
+```
+
+Note that the documentation for
+[`filter`](https://ocaml.org/api/List.html#VALfilter)  and
+[`partition`](https://ocaml.org/api/List.html#VALpartition) tells us that the
+order of the input is preserved in the output. Where this is not stated it the
+documentation, it cannot be assumed.
+
+### Association lists
+
+Association lists are a simple (and simplistic) way of implementing the
+dictionary data structure: that is to say, a group of keys each with an
+associated value. For large dictionaries, for efficiency, we would use the
+standard library's [Map](https://ocaml.org/api/Map.html) or
+[Hashtbl](https://ocaml.org/api/Hashtbl.html) modules. But these functions from
+the List module are useful for lists which are generally small, and have other
+advantages: since they are just lists of pairs, they can be built and modified
+easily. They are also easily printed in the toplevel.
+
+```ocaml
+# List.assoc 4 [(3, "three"); (1, "one"); (4, "four")]
+- : string = "four"
+# List.mem_assoc 4 [(3, "three"); (1, "one"); (4, "four")]
+- : bool = true
+```
+
+When using association lists, and for other purposes, it is sometimes useful to
+be able to make a list of pairs from a pair of lists and vice versa. The
+[`List`](https://ocaml.org/api/List.html) module provides the functions
+[`split`](https://ocaml.org/api/List.html#VALsplit) and
+[`combine`](https://ocaml.org/api/List.html#VALcombine) for this purpose: 
+
+```ocaml
+# List.split [(3, "three"); (1, "one"); (4, "four")]
+- : int list * string list = ([3; 1; 4], ["three"; "one"; "four"])
+# List.combine [3; 1; 4] ["three"; "one"; "four"]
+- : (int * string) list = [(3, "three"); (1, "one"); (4, "four")]
+```
+
+### Sorting lists
+
+The function [`List.sort`](https://ocaml.org/api/List.html#VALsort), given a
+comparison function of type `'a -> 'a -> int` (zero if equal, negative if first
+smaller, positive if second smaller) and an input list of type `'a list`,
+returns the list sorted according to the comparison function. Typically, we use
+the built-in comparison function
+[`compare`](https://ocaml.org/api/Stdlib.html#VALcompare) which can compare any
+two values of like type (with the exception of functions which are incomparable).
+
+```ocaml
+# List.sort compare [1; 4; 6; 4; 1]
+- : int list = [1; 1; 4; 4; 6]
+# List.sort compare ["Reynolds"; "Smith"; "Barnes"]
+- : string list = ["Barnes"; "Reynolds"; "Smith"]
+# List.sort (Fun.flip compare) [1; 4; 6; 4; 1]
+- : int list = [6; 4; 4; 1; 1]
+# List.sort compare [(1, 3); (1, 2); (2, 3); (2, 2)]
+- : (int * int) list = [(1, 2); (1, 3); (2, 2); (2, 3)]
+# List.sort
+    (fun a b -> compare (fst a) (fst b))
+    [(1, 3); (1, 2); (2, 3); (2, 2)]
+- : (int * int) list = [(1, 3); (1, 2); (2, 3); (2, 2)]
+```
+
+(The function [`Fun.flip`](https://ocaml.org/api/Fun.html#VALflip) reverses the
+argument order of a binary function.)
+
+### Folds
+
+There are two interestingly-named functions in the List module,
+[`fold_left`](https://ocaml.org/api/List.html#VALfold_left) and
+[`fold_right`](https://ocaml.org/api/List.html#VALfold_right). Their job is
+to combine the elements of a list together, using a given function,
+accumulating an answer which is then returned. The answer returned depends upon
+the function given, the elements of the list, and the initial value of the
+accumulator supplied. So you can imagine these are very general functions.
+Let's explore [`fold_left`](https://ocaml.org/api/List.html#VALfold_left)
+first.
+
+In this example, we supply the addition function and an initial
+accumulator value of 0:
+
+```ocaml
+# List.fold_left ( + ) 0 [1; 2; 3]
+- : int = 6
+```
+
+The result is the sum of the elements in the list. Now let's use OCaml's
+built-in `max` function which returns the larger of two given integers in place
+of our addition function. We use `min_int`, the smallest possible integer, as
+our initial accumulator
+
+```ocaml
+# List.fold_left max min_int [2; 4; 6; 0; 1]
+- : int = 6
+```
+
+The largest number in the list is found. Let's look at the type of the
+[`fold_left`](https://ocaml.org/api/List.html#VALfold_left) function:
+
+```ocaml
+# List.fold_left
+- : ('a -> 'b -> 'a) -> 'a -> 'b list -> 'a = <fun>
+```
+
+The function is of type `'a -> 'b -> 'a` where `'a` is the accumulator and `'b`
+is the type of each element of the list. The next argument is the initial
+accumulator, which must be of type `'a`, and then finally the input list of
+type `'b list`. The result is the final value of the accumulator, so it must
+have type `'a`. Of course, in both of our examples, `'a` and `'b` are the same
+as one another. But this is not always so. 
+
+Consider the following definition of `append` which uses
+[`fold_right`](https://ocaml.org/api/List.html#VALfold_right)
+([`fold_left`](https://ocaml.org/api/List.html#VALfold_left) considers the
+elements from the left,
+[`fold_right`](https://ocaml.org/api/List.html#VALfold_right) from the right):
+
+```ocaml
+# let append x y =
+    List.fold_right (fun e a -> e :: a) x y
+val append : 'a list -> 'a list -> 'a list = <fun>
+```
+
+In this example, the initial accumulator is the second list, and each element
+of the first is consed to it in turn. You can see the order of arguments to
+fold right is a little different:
+
+```ocaml
+# List.fold_right
+- : ('a -> 'b -> 'b) -> 'a list -> 'b -> 'b = <fun>
+```
+
+The function comes first, then the list of elements, then the initial
+accumulator value. We can use
+[`fold_right`](https://ocaml.org/api/List.html#VALfold_right) to define our
+usual `map` function:
+
+```ocaml
+# let map f l =
+    List.fold_right (fun e a -> f e :: a) l []
+val map : ('a -> 'b) -> 'a list -> 'b list = <fun>
+```
+
+But care is needed. If we try that with
+[`List.concat`](https://ocaml.org/api/List.html#VALconcat), which turns a
+list of lists into a list by concatenating the lists together, we produce this:
+
+```ocaml
+# let concat l = List.fold_left ( @ ) [] l
+val concat : 'a list list -> 'a list = <fun>
+```
+
+Unfortunately, the order of evaluation here is such that larger and larger
+items are passed to the `@` operator as its first argument, and so the function
+has a worse running time than
+[`List.concat`](https://ocaml.org/api/List.html#VALconcat). You can read more
+about the time and space efficiency of lists and other common OCaml data
+structures in the [comparison of standard
+containers](comparison_of_standard_containers.html).
+
+Here are some more redefinitions of familiar functions in terms of
+[`fold_left`](https://ocaml.org/api/List.html#VALfold_left) or
+[`fold_right`](https://ocaml.org/api/List.html#VALfold_right). Can you work
+out how they operate?
+
+```ocaml
+# let length l =
+    List.fold_left (fun a _ -> a + 1) 0 l
+val length : 'a list -> int = <fun>
+# let rev l =
+    List.fold_left (fun a e -> e :: a) [] l
+val rev : 'a list -> 'a list = <fun>
+# let split l =
+    List.fold_right
+      (fun (x, y) (xs, ys) -> (x :: xs, y :: ys))
+      l
+      ([], [])
+val split : ('a * 'b) list -> 'a list * 'b list = <fun>
+```
+
+## Lists and tail recursion
+
+Our `length` function builds up an intermediate expression of a size
+proportional to its input list:
+
+```
+   length [1; 2; 3]
+=> 1 + length [2; 3]
+=> 1 + (1 + length [3])
+=> 1 + (1 + (1 + length []))
+=> 1 + (1 + (1 + 0))
+=> 1 + (1 + 1)
+=> 1 + 2
+=> 3
+```
+
+For long lists, this may overflow the stack (be too large for the computer to
+handle). The solution is to write our function with an accumulating argument,
+like this:
+
+```ocaml
+# let rec length acc l =
+    match l with
+    | [] -> acc
+    | _ :: t -> length (acc + 1) t
+val length : int -> 'a list -> int = <fun>
+# let l = length 0 [1; 2; 3]
+val l : int = 3
+```
+
+This function now uses a constant amount of space on the stack:
+
+```
+   length 0 [1; 2; 3]
+=> length 1 [2; 3]
+=> length 2 [3]
+=> length 3 []
+=> 3
+```
+
+We call such a function *tail-recursive*. We may write a wrapper function so
+that the initial accumulator value is supplied automatically:
+
+```ocaml
+# let rec length_inner acc l =
+    match l with
+    | [] -> acc
+    | _ :: t -> length_inner (acc + 1) t
+val length_inner : int -> 'a list -> int = <fun>
+# let length l = length_inner 0 l
+val length : 'a list -> int = <fun>
+```
+
+Or, we can do it all in one function:
+
+```ocaml
+# let length l =
+    let rec length_inner acc l =
+      match l with
+      | [] -> acc
+      | _ :: t -> length_inner (acc + 1) t
+    in
+      length_inner 0 l
+val length : 'a list -> int = <fun>
+```
+
+In the standard library documentation, functions which are not tail-recursive
+are marked.
+|js}
+  ; toc_html = {js|<ul>
+<li><ul>
+<li><a href="#the-standard-library-list-module">The standard library List module</a>
+</li>
+<li><a href="#lists-and-tail-recursion">Lists and tail recursion</a>
+</li>
+</ul>
+</li>
+</ul>
+|js}
+  ; body_html = {js|<p>A list is an ordered sequence of elements. All elements of a list in OCaml must
+be the same type. Lists are built into the language and have a special syntax.
+Here is a list of three integers:</p>
+<pre><code class="language-ocaml"># [1; 2; 3]
+- : int list = [1; 2; 3]
+</code></pre>
+<p>Note semicolons separate the elements, not commas. The empty list is written
+<code>[]</code>. The type of this list of integers is <code>int list</code>.</p>
+<p>A list, if it is not empty, has a <em>head</em> (the first element) and a <em>tail</em> (the
+list consisting of the rest of the elements). In our example, the head is the
+integer <code>1</code> while the tail is the list <code>[2; 3]</code>. An empty list has neither a
+head nor a tail. Here are some more lists:</p>
+<pre><code class="language-ocaml"># []
+- : 'a list = []
+# [1; 2; 3]
+- : int list = [1; 2; 3]
+# [false; true; false]
+- : bool list = [false; true; false]
+# [[1; 2]; [3; 4]; [5; 6]]
+- : int list list = [[1; 2]; [3; 4]; [5; 6]]
+</code></pre>
+<p>Notice the type of the empty list is <code>'a list</code> (its element type is not known).
+Notice also the type of the last list - <code>int list list</code> or a list of lists of
+integers.</p>
+<p>There are two built-in operators on lists. The <code>::</code> or cons operator, adds one
+element to the front of a list. The <code>@</code> or append operator combines two lists:</p>
+<pre><code class="language-ocaml"># 1 :: [2; 3]
+- : int list = [1; 2; 3]
+# [1] @ [2; 3]
+- : int list = [1; 2; 3]
+</code></pre>
+<p>##Functions on lists</p>
+<p>We can write functions which operate over lists by pattern matching:</p>
+<pre><code class="language-ocaml"># let rec total l =
+    match l with
+    | [] -&gt; 0
+    | h :: t -&gt; h + total t
+val total : int list -&gt; int = &lt;fun&gt;
+# total [1; 3; 5; 3; 1]
+- : int = 13
+</code></pre>
+<p>Consider a function to find the length of a list:</p>
+<pre><code class="language-ocaml"># let rec length l =
+    match l with
+    | [] -&gt; 0
+    | _ :: t -&gt; 1 + length t
+val length : 'a list -&gt; int = &lt;fun&gt;
+</code></pre>
+<p>This function operates not just on lists of integers, but on any kind of list.</p>
+<pre><code class="language-ocaml"># length [1; 2; 3]
+- : int = 3
+# length [&quot;cow&quot;; &quot;sheep&quot;; &quot;cat&quot;]
+- : int = 3
+# length [[]]
+- : int = 1
+</code></pre>
+<p>Why is this? Because in the pattern <code>_ :: t</code> the head of the list is not
+inspected, so its type cannot be relevant. Such a function is called
+polymorphic. Here is another polymorphic function, our own version of the <code>@</code>
+operator for appending:</p>
+<pre><code class="language-ocaml"># let rec append a b =
+  match a with
+  | [] -&gt; b
+  | h :: t -&gt; h :: append t b
+val append : 'a list -&gt; 'a list -&gt; 'a list = &lt;fun&gt;
+</code></pre>
+<p>Notice that the memory for the second list is shared, but the first list is
+effectively copied.</p>
+<p>##Higher order functions on lists</p>
+<p>We might wish to apply a function to each element in a list, yielding a new
+one. We shall write a function <code>map</code> which is given another function as its
+argument - such a function is called &quot;higher-order&quot;:</p>
+<pre><code class="language-ocaml"># let rec map f l =
+    match l with
+    | [] -&gt; []
+    | h :: t -&gt; f h :: map f t
+val map : ('a -&gt; 'b) -&gt; 'a list -&gt; 'b list = &lt;fun&gt;
+</code></pre>
+<p>Notice the type of the function <code>f</code> in parentheses as part of the whole type.
+This <code>map</code> function, given a function of type <code>'a -&gt; 'b</code> and a list of <code>'a</code>s,
+will build a list of <code>'b'</code>s. Sometimes <code>'a</code> and <code>'b</code> might be the same type, of
+course. Here are two examples showing the <code>map</code> function in use:</p>
+<pre><code class="language-ocaml"># map (fun x -&gt; x * 2) [1; 2; 3]
+- : int list = [2; 4; 6]
+# map total [[1; 2]; [3; 4]; [5; 6]]
+- : int list = [3; 7; 11]
+</code></pre>
+<h2 id="the-standard-library-list-module">The standard library List module</h2>
+<p>The standard library <a href="https://ocaml.org/api/List.html">List</a> module contains a
+wide range of useful utility functions, including pre-written versions of many
+of the functions we have written in this tutorial. A version of the module with
+labeled functions is available as part of
+<a href="https://ocaml.org/api/StdLabels.html">StdLabels</a>.</p>
+<p>In the <a href="https://ocaml.org/api/List.html">List</a> module documentation, functions
+which can raise an exception are marked. Such exceptions are usually the result
+of lists which are empty (and therefore have neither a head nor a tail) or
+lists of mismatched length.</p>
+<h3 id="maps-and-iterators">Maps and iterators</h3>
+<p>We have already written a <code>map</code> function from scratch, and it is no surprise
+that one is included in the <a href="https://ocaml.org/api/List.html">List</a> module.
+There is also a variant for two lists:</p>
+<pre><code class="language-ocaml"># List.map2 ( + ) [1; 2; 3] [4; 5; 6]
+- : int list = [5; 7; 9]
+</code></pre>
+<p>In addition, we have an imperative analog to
+<a href="https://ocaml.org/api/List.html#VALmap"><code>map</code></a>, called
+<a href="https://ocaml.org/api/List.html#VALiter"><code>iter</code></a>. It takes an imperative
+function of type <code>'a -&gt; unit</code> and an <code>'a list</code> and applies the function to each
+element in turn. A suitable function might be <code>print_endline</code>:</p>
+<pre><code class="language-ocaml"># List.iter print_endline [&quot;frank&quot;; &quot;james&quot;; &quot;mary&quot;]
+frank
+james
+mary
+- : unit = ()
+</code></pre>
+<p>There is a variant <a href="https://ocaml.org/api/List.html#VALiter2"><code>iter2</code></a> for two
+lists too:</p>
+<pre><code class="language-ocaml"># List.iter2
+    (fun a b -&gt; print_endline (a ^ &quot; &quot; ^ b))
+    [&quot;frank&quot;; &quot;james&quot;; &quot;mary&quot;]
+    [&quot;carter&quot;; &quot;lee&quot;; &quot;jones&quot;]
+frank carter
+james lee
+mary jones
+- : unit = ()
+</code></pre>
+<p>Notice that <a href="https://ocaml.org/api/List.html#VALmap2"><code>map2</code></a> and
+<a href="https://ocaml.org/api/List.html#VALiter2"><code>iter2</code></a> will fail if the lists are
+of unequal length:</p>
+<pre><code class="language-ocaml"># List.map2 ( + ) [1; 2; 3] [4; 5]
+Exception: Invalid_argument &quot;List.map2&quot;.
+</code></pre>
+<h3 id="list-scanning">List scanning</h3>
+<p>The useful function <a href="https://ocaml.org/api/List.html#VALmem"><code>mem</code></a> checks
+whether a given element is a member of a list by scanning its contents:</p>
+<pre><code class="language-ocaml"># List.mem &quot;frank&quot; [&quot;james&quot;; &quot;frank&quot;; &quot;mary&quot;]
+- : bool = true
+# List.mem [] [[1; 2]; [3]; []; [5]]
+- : bool = true
+</code></pre>
+<p>There are more elaborate scanning functions: imagine we wish to check to see if
+all elements of a list are even, or if any element is even. We could either
+write functions to go over each element of the list, keeping a boolean check,
+or use <code>mem</code> and other functions already known to us:</p>
+<pre><code class="language-ocaml"># let all =
+    not (List.mem false (List.map (fun x -&gt; x mod 2 = 0) [2; 4; 6; 8]))
+val all : bool = true
+# let any =
+    List.mem true (List.map (fun x -&gt; x mod 2 = 0) [1; 2; 3])
+val any : bool = true
+</code></pre>
+<p>This is rather clumsy, though. The standard library provides two useful
+functions <a href="https://ocaml.org/api/List.html#VALfor_all"><code>for_all</code></a> and
+<a href="https://ocaml.org/api/List.html#VALexists"><code>exists</code></a> for this common problem:</p>
+<pre><code class="language-ocaml"># List.for_all (fun x -&gt; x mod 2 = 0) [2; 4; 6; 8]
+- : bool = true
+# List.exists (fun x -&gt; x mod 2 = 0) [1; 2; 3]
+- : bool = true
+</code></pre>
+<p>So you can see how the standard library has evolved into its present state:
+pieces of frequently-used code are turned into useful general functions.</p>
+<h3 id="list-searching">List searching</h3>
+<p>The function <a href="https://ocaml.org/api/List.html#VALfind"><code>find</code></a> returns the
+first element of a list matching a given predicate (a predicate is a testing
+function which returns either true or false when given an element). It raises
+an exception if such an element is not found:</p>
+<pre><code class="language-ocaml"># List.find (fun x -&gt; x mod 2 = 0) [1; 2; 3; 4; 5]
+- : int = 2
+# List.find (fun x -&gt; x mod 2 = 0) [1; 3; 5]
+Exception: Not_found.
+</code></pre>
+<p>The <a href="https://ocaml.org/api/List.html#VALfilter"><code>filter</code></a> function again takes
+a predicate and tests it against each element in the list, but this time
+returns the list of all elements which test true:</p>
+<pre><code class="language-ocaml"># List.filter (fun x -&gt; x mod 2 = 0) [1; 2; 3; 4; 5]
+- : int list = [2; 4]
+</code></pre>
+<p>If we wish to know also which elements did not test true, we can use
+<a href="https://ocaml.org/api/List.html#VALpartition"><code>partition</code></a> which returns a
+pair of lists: the first being the list of elements for which the predicate is
+true, the second those for which it is false.</p>
+<pre><code class="language-ocaml"># List.partition (fun x -&gt; x mod 2 = 0) [1; 2; 3; 4; 5]
+- : int list * int list = ([2; 4], [1; 3; 5])
+</code></pre>
+<p>Note that the documentation for
+<a href="https://ocaml.org/api/List.html#VALfilter"><code>filter</code></a>  and
+<a href="https://ocaml.org/api/List.html#VALpartition"><code>partition</code></a> tells us that the
+order of the input is preserved in the output. Where this is not stated it the
+documentation, it cannot be assumed.</p>
+<h3 id="association-lists">Association lists</h3>
+<p>Association lists are a simple (and simplistic) way of implementing the
+dictionary data structure: that is to say, a group of keys each with an
+associated value. For large dictionaries, for efficiency, we would use the
+standard library's <a href="https://ocaml.org/api/Map.html">Map</a> or
+<a href="https://ocaml.org/api/Hashtbl.html">Hashtbl</a> modules. But these functions from
+the List module are useful for lists which are generally small, and have other
+advantages: since they are just lists of pairs, they can be built and modified
+easily. They are also easily printed in the toplevel.</p>
+<pre><code class="language-ocaml"># List.assoc 4 [(3, &quot;three&quot;); (1, &quot;one&quot;); (4, &quot;four&quot;)]
+- : string = &quot;four&quot;
+# List.mem_assoc 4 [(3, &quot;three&quot;); (1, &quot;one&quot;); (4, &quot;four&quot;)]
+- : bool = true
+</code></pre>
+<p>When using association lists, and for other purposes, it is sometimes useful to
+be able to make a list of pairs from a pair of lists and vice versa. The
+<a href="https://ocaml.org/api/List.html"><code>List</code></a> module provides the functions
+<a href="https://ocaml.org/api/List.html#VALsplit"><code>split</code></a> and
+<a href="https://ocaml.org/api/List.html#VALcombine"><code>combine</code></a> for this purpose:</p>
+<pre><code class="language-ocaml"># List.split [(3, &quot;three&quot;); (1, &quot;one&quot;); (4, &quot;four&quot;)]
+- : int list * string list = ([3; 1; 4], [&quot;three&quot;; &quot;one&quot;; &quot;four&quot;])
+# List.combine [3; 1; 4] [&quot;three&quot;; &quot;one&quot;; &quot;four&quot;]
+- : (int * string) list = [(3, &quot;three&quot;); (1, &quot;one&quot;); (4, &quot;four&quot;)]
+</code></pre>
+<h3 id="sorting-lists">Sorting lists</h3>
+<p>The function <a href="https://ocaml.org/api/List.html#VALsort"><code>List.sort</code></a>, given a
+comparison function of type <code>'a -&gt; 'a -&gt; int</code> (zero if equal, negative if first
+smaller, positive if second smaller) and an input list of type <code>'a list</code>,
+returns the list sorted according to the comparison function. Typically, we use
+the built-in comparison function
+<a href="https://ocaml.org/api/Stdlib.html#VALcompare"><code>compare</code></a> which can compare any
+two values of like type (with the exception of functions which are incomparable).</p>
+<pre><code class="language-ocaml"># List.sort compare [1; 4; 6; 4; 1]
+- : int list = [1; 1; 4; 4; 6]
+# List.sort compare [&quot;Reynolds&quot;; &quot;Smith&quot;; &quot;Barnes&quot;]
+- : string list = [&quot;Barnes&quot;; &quot;Reynolds&quot;; &quot;Smith&quot;]
+# List.sort (Fun.flip compare) [1; 4; 6; 4; 1]
+- : int list = [6; 4; 4; 1; 1]
+# List.sort compare [(1, 3); (1, 2); (2, 3); (2, 2)]
+- : (int * int) list = [(1, 2); (1, 3); (2, 2); (2, 3)]
+# List.sort
+    (fun a b -&gt; compare (fst a) (fst b))
+    [(1, 3); (1, 2); (2, 3); (2, 2)]
+- : (int * int) list = [(1, 3); (1, 2); (2, 3); (2, 2)]
+</code></pre>
+<p>(The function <a href="https://ocaml.org/api/Fun.html#VALflip"><code>Fun.flip</code></a> reverses the
+argument order of a binary function.)</p>
+<h3 id="folds">Folds</h3>
+<p>There are two interestingly-named functions in the List module,
+<a href="https://ocaml.org/api/List.html#VALfold_left"><code>fold_left</code></a> and
+<a href="https://ocaml.org/api/List.html#VALfold_right"><code>fold_right</code></a>. Their job is
+to combine the elements of a list together, using a given function,
+accumulating an answer which is then returned. The answer returned depends upon
+the function given, the elements of the list, and the initial value of the
+accumulator supplied. So you can imagine these are very general functions.
+Let's explore <a href="https://ocaml.org/api/List.html#VALfold_left"><code>fold_left</code></a>
+first.</p>
+<p>In this example, we supply the addition function and an initial
+accumulator value of 0:</p>
+<pre><code class="language-ocaml"># List.fold_left ( + ) 0 [1; 2; 3]
+- : int = 6
+</code></pre>
+<p>The result is the sum of the elements in the list. Now let's use OCaml's
+built-in <code>max</code> function which returns the larger of two given integers in place
+of our addition function. We use <code>min_int</code>, the smallest possible integer, as
+our initial accumulator</p>
+<pre><code class="language-ocaml"># List.fold_left max min_int [2; 4; 6; 0; 1]
+- : int = 6
+</code></pre>
+<p>The largest number in the list is found. Let's look at the type of the
+<a href="https://ocaml.org/api/List.html#VALfold_left"><code>fold_left</code></a> function:</p>
+<pre><code class="language-ocaml"># List.fold_left
+- : ('a -&gt; 'b -&gt; 'a) -&gt; 'a -&gt; 'b list -&gt; 'a = &lt;fun&gt;
+</code></pre>
+<p>The function is of type <code>'a -&gt; 'b -&gt; 'a</code> where <code>'a</code> is the accumulator and <code>'b</code>
+is the type of each element of the list. The next argument is the initial
+accumulator, which must be of type <code>'a</code>, and then finally the input list of
+type <code>'b list</code>. The result is the final value of the accumulator, so it must
+have type <code>'a</code>. Of course, in both of our examples, <code>'a</code> and <code>'b</code> are the same
+as one another. But this is not always so.</p>
+<p>Consider the following definition of <code>append</code> which uses
+<a href="https://ocaml.org/api/List.html#VALfold_right"><code>fold_right</code></a>
+(<a href="https://ocaml.org/api/List.html#VALfold_left"><code>fold_left</code></a> considers the
+elements from the left,
+<a href="https://ocaml.org/api/List.html#VALfold_right"><code>fold_right</code></a> from the right):</p>
+<pre><code class="language-ocaml"># let append x y =
+    List.fold_right (fun e a -&gt; e :: a) x y
+val append : 'a list -&gt; 'a list -&gt; 'a list = &lt;fun&gt;
+</code></pre>
+<p>In this example, the initial accumulator is the second list, and each element
+of the first is consed to it in turn. You can see the order of arguments to
+fold right is a little different:</p>
+<pre><code class="language-ocaml"># List.fold_right
+- : ('a -&gt; 'b -&gt; 'b) -&gt; 'a list -&gt; 'b -&gt; 'b = &lt;fun&gt;
+</code></pre>
+<p>The function comes first, then the list of elements, then the initial
+accumulator value. We can use
+<a href="https://ocaml.org/api/List.html#VALfold_right"><code>fold_right</code></a> to define our
+usual <code>map</code> function:</p>
+<pre><code class="language-ocaml"># let map f l =
+    List.fold_right (fun e a -&gt; f e :: a) l []
+val map : ('a -&gt; 'b) -&gt; 'a list -&gt; 'b list = &lt;fun&gt;
+</code></pre>
+<p>But care is needed. If we try that with
+<a href="https://ocaml.org/api/List.html#VALconcat"><code>List.concat</code></a>, which turns a
+list of lists into a list by concatenating the lists together, we produce this:</p>
+<pre><code class="language-ocaml"># let concat l = List.fold_left ( @ ) [] l
+val concat : 'a list list -&gt; 'a list = &lt;fun&gt;
+</code></pre>
+<p>Unfortunately, the order of evaluation here is such that larger and larger
+items are passed to the <code>@</code> operator as its first argument, and so the function
+has a worse running time than
+<a href="https://ocaml.org/api/List.html#VALconcat"><code>List.concat</code></a>. You can read more
+about the time and space efficiency of lists and other common OCaml data
+structures in the <a href="comparison_of_standard_containers.html">comparison of standard
+containers</a>.</p>
+<p>Here are some more redefinitions of familiar functions in terms of
+<a href="https://ocaml.org/api/List.html#VALfold_left"><code>fold_left</code></a> or
+<a href="https://ocaml.org/api/List.html#VALfold_right"><code>fold_right</code></a>. Can you work
+out how they operate?</p>
+<pre><code class="language-ocaml"># let length l =
+    List.fold_left (fun a _ -&gt; a + 1) 0 l
+val length : 'a list -&gt; int = &lt;fun&gt;
+# let rev l =
+    List.fold_left (fun a e -&gt; e :: a) [] l
+val rev : 'a list -&gt; 'a list = &lt;fun&gt;
+# let split l =
+    List.fold_right
+      (fun (x, y) (xs, ys) -&gt; (x :: xs, y :: ys))
+      l
+      ([], [])
+val split : ('a * 'b) list -&gt; 'a list * 'b list = &lt;fun&gt;
+</code></pre>
+<h2 id="lists-and-tail-recursion">Lists and tail recursion</h2>
+<p>Our <code>length</code> function builds up an intermediate expression of a size
+proportional to its input list:</p>
+<pre><code>   length [1; 2; 3]
+=&gt; 1 + length [2; 3]
+=&gt; 1 + (1 + length [3])
+=&gt; 1 + (1 + (1 + length []))
+=&gt; 1 + (1 + (1 + 0))
+=&gt; 1 + (1 + 1)
+=&gt; 1 + 2
+=&gt; 3
+</code></pre>
+<p>For long lists, this may overflow the stack (be too large for the computer to
+handle). The solution is to write our function with an accumulating argument,
+like this:</p>
+<pre><code class="language-ocaml"># let rec length acc l =
+    match l with
+    | [] -&gt; acc
+    | _ :: t -&gt; length (acc + 1) t
+val length : int -&gt; 'a list -&gt; int = &lt;fun&gt;
+# let l = length 0 [1; 2; 3]
+val l : int = 3
+</code></pre>
+<p>This function now uses a constant amount of space on the stack:</p>
+<pre><code>   length 0 [1; 2; 3]
+=&gt; length 1 [2; 3]
+=&gt; length 2 [3]
+=&gt; length 3 []
+=&gt; 3
+</code></pre>
+<p>We call such a function <em>tail-recursive</em>. We may write a wrapper function so
+that the initial accumulator value is supplied automatically:</p>
+<pre><code class="language-ocaml"># let rec length_inner acc l =
+    match l with
+    | [] -&gt; acc
+    | _ :: t -&gt; length_inner (acc + 1) t
+val length_inner : int -&gt; 'a list -&gt; int = &lt;fun&gt;
+# let length l = length_inner 0 l
+val length : 'a list -&gt; int = &lt;fun&gt;
+</code></pre>
+<p>Or, we can do it all in one function:</p>
+<pre><code class="language-ocaml"># let length l =
+    let rec length_inner acc l =
+      match l with
+      | [] -&gt; acc
+      | _ :: t -&gt; length_inner (acc + 1) t
+    in
+      length_inner 0 l
+val length : 'a list -&gt; int = &lt;fun&gt;
+</code></pre>
+<p>In the standard library documentation, functions which are not tail-recursive
+are marked.</p>
+|js}
+  };
+ 
   { title = {js|Functional Programming|js}
   ; slug = {js|functional-programming|js}
   ; description = {js|A guide to functional programming in OCaml
@@ -16623,7 +17522,7 @@ With this simple function, we can now easily construct line streams from
 any input channel:
 
 ```ocaml
-# let in_channel = open_in "019_streams.md"
+# let in_channel = open_in "020_streams.md"
 val in_channel : in_channel = <abstr>
 # let lines = line_stream_of_channel in_channel
 val lines : string Stream.t = <abstr>
@@ -16683,7 +17582,7 @@ operation for each item. With it, we can rewrite the original example as
 follows:
 
 ```ocaml
-let in_channel = open_in "019_streams.md" in
+let in_channel = open_in "020_streams.md" in
 try
   Stream.iter
     (fun line ->
@@ -17360,7 +18259,7 @@ further reads will be attempted. Since the option is polymorphic,
 type of <code>'a Stream.t</code>.</p>
 <p>With this simple function, we can now easily construct line streams from
 any input channel:</p>
-<pre><code class="language-ocaml"># let in_channel = open_in &quot;019_streams.md&quot;
+<pre><code class="language-ocaml"># let in_channel = open_in &quot;020_streams.md&quot;
 val in_channel : in_channel = &lt;abstr&gt;
 # let lines = line_stream_of_channel in_channel
 val lines : string Stream.t = &lt;abstr&gt;
@@ -17408,7 +18307,7 @@ receive data from multiple sources.</p>
 <p>The <code>Stream.iter</code> function automates the common task of performing an
 operation for each item. With it, we can rewrite the original example as
 follows:</p>
-<pre><code class="language-ocaml">let in_channel = open_in &quot;019_streams.md&quot; in
+<pre><code class="language-ocaml">let in_channel = open_in &quot;020_streams.md&quot; in
 try
   Stream.iter
     (fun line -&gt;
