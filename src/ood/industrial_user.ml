@@ -671,6 +671,24 @@ Psellos is a small group of computer scientists who became intrigued by the idea
 |js}
   };
  
+  { name = {js|r2c|js}
+  ; slug = {js|r2c|js}
+  ; description = {js|r2c is a VC-funded security company headquartered in San Francisco and distributed worldwide
+|js}
+  ; image = Some {js|/users/r2c.png|js}
+  ; site = {js|https://r2c.dev|js}
+  ; locations = 
+ [{js|California, United States|js}]
+  ; consortium = false
+  ; body_md = {js|
+r2c is a VC-funded security company headquartered in San Francisco and distributed worldwide. The main product as of 2021 is [Semgrep](https://semgrep.dev/), an open-source,syntax-aware grep that supports many languages. OCaml is used extensively for parsing and analyzing source code.
+
+Semgrep was originally open-sourced at Facebook and its roots lie in the Linux refactoring tool, [Coccinelle](https://coccinelle.gitlabpages.inria.fr/website/). r2c continues Semgrep’s development and is [hiring software engineers](https://jobs.lever.co/returntocorp) who specialize in program analysis.|js}
+  ; body_html = {js|<p>r2c is a VC-funded security company headquartered in San Francisco and distributed worldwide. The main product as of 2021 is <a href="https://semgrep.dev/">Semgrep</a>, an open-source,syntax-aware grep that supports many languages. OCaml is used extensively for parsing and analyzing source code.</p>
+<p>Semgrep was originally open-sourced at Facebook and its roots lie in the Linux refactoring tool, <a href="https://coccinelle.gitlabpages.inria.fr/website/">Coccinelle</a>. r2c continues Semgrep’s development and is <a href="https://jobs.lever.co/returntocorp">hiring software engineers</a> who specialize in program analysis.</p>
+|js}
+  };
+ 
   { name = {js|Sakhalin|js}
   ; slug = {js|sakhalin|js}
   ; description = {js|Sakhalin develops marine charting apps for Apple iPads and iPhones.
