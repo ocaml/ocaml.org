@@ -428,7 +428,7 @@ Vim:</p>
   ; slug = {js|a-first-hour-with-ocaml|js}
   ; description = {js|Discover the OCaml programming language in this longer tutorial that takes you from absolute beginner to someone who is able to write programs in OCaml.
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
+  ; date = {js|2021-08-06T17:11:00-00:00|js}
   ; tags = 
  ["getting-started"]
   ; users = [`Beginner]
@@ -6856,7 +6856,7 @@ confusion if the library also defines other types.</p>
   ; slug = {js|functional-programming|js}
   ; description = {js|A guide to functional programming in OCaml
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
+  ; date = {js|2021-08-06T17:16:00-00:00|js}
   ; tags = 
  ["language"]
   ; users = [`Beginner; `Intermediate]
@@ -6968,7 +6968,7 @@ that it's trying to save.
 Now look at the definition of `receiver_fn`. This function is a closure
 alright because it keeps a reference to `chan` from its environment.
 
-## Partial function applications and currying
+## Partial function applications
 Let's define a plus function which just adds two integers:
 
 ```ocaml
@@ -7045,14 +7045,8 @@ rationale for the strange `->` arrow notation used for function types:
 # plus 2 3
 - : int = 5
 ```
-This process is called **currying** (or perhaps it's called
-**uncurrying**, I never was really sure which was which). It is called
-this after Haskell Curry who did some important stuff related to the
-lambda calculus. Since I'm trying to avoid entering into the mathematics
-behind OCaml because that makes for a very boring and irrelevant
-tutorial, I won't go any further on the subject. You can find much more
-information about currying if it interests you by [doing a search on
-Google](https://www.google.com/search?q=currying "https://www.google.com/search?q=currying").
+
+This process is called **partial application** of a function.
 
 Remember our `double` and `multiply` functions from earlier on?
 `multiply` was defined as this:
@@ -7110,7 +7104,7 @@ val plus : int -> int -> int = <fun>
 # plus 2 3
 - : int = 5
 ```
-Here's some more currying fun:
+Here's some more examples of partial application:
 
 ```ocaml
 # List.map (plus 2) [1; 2; 3]
@@ -7343,7 +7337,7 @@ a function, expecting one string argument.
 <li><ul>
 <li><a href="#what-is-functional-programming">What is functional programming?</a>
 </li>
-<li><a href="#partial-function-applications-and-currying">Partial function applications and currying</a>
+<li><a href="#partial-function-applications">Partial function applications</a>
 </li>
 <li><a href="#what-is-functional-programming-good-for">What is functional programming good for?</a>
 </li>
@@ -7445,7 +7439,7 @@ It repeatedly calls <code>receiver_fn</code> with snippets of text from the widg
 that it's trying to save.</p>
 <p>Now look at the definition of <code>receiver_fn</code>. This function is a closure
 alright because it keeps a reference to <code>chan</code> from its environment.</p>
-<h2 id="partial-function-applications-and-currying">Partial function applications and currying</h2>
+<h2 id="partial-function-applications">Partial function applications</h2>
 <p>Let's define a plus function which just adds two integers:</p>
 <pre><code class="language-ocaml"># let plus a b =
     a + b
@@ -7509,14 +7503,7 @@ rationale for the strange <code>-&gt;</code> arrow notation used for function ty
 # plus 2 3
 - : int = 5
 </code></pre>
-<p>This process is called <strong>currying</strong> (or perhaps it's called
-<strong>uncurrying</strong>, I never was really sure which was which). It is called
-this after Haskell Curry who did some important stuff related to the
-lambda calculus. Since I'm trying to avoid entering into the mathematics
-behind OCaml because that makes for a very boring and irrelevant
-tutorial, I won't go any further on the subject. You can find much more
-information about currying if it interests you by <a href="https://www.google.com/search?q=currying" title="https://www.google.com/search?q=currying">doing a search on
-Google</a>.</p>
+<p>This process is called <strong>partial application</strong> of a function.</p>
 <p>Remember our <code>double</code> and <code>multiply</code> functions from earlier on?
 <code>multiply</code> was defined as this:</p>
 <pre><code class="language-ocaml"># let multiply n list =
@@ -7560,7 +7547,7 @@ val plus : int -&gt; int -&gt; int = &lt;fun&gt;
 # plus 2 3
 - : int = 5
 </code></pre>
-<p>Here's some more currying fun:</p>
+<p>Here's some more examples of partial application:</p>
 <pre><code class="language-ocaml"># List.map (plus 2) [1; 2; 3]
 - : int list = [3; 4; 5]
 # let list_of_functions = List.map plus [1; 2; 3]
