@@ -16,7 +16,7 @@ module General: {
   let make: (
     ~t: t,
     ~colorStyle: colorStyle,
-    ~marginBottom: Tailwind.ByBreakpoint.t<Tailwind.MarginBottom.t>=?,
+    ~marginBottom: Tailwind.Breakpoint.t<Tailwind.Margin.Bottom.t>=?,
     unit,
   ) => React.element
 }
@@ -25,7 +25,7 @@ module TransparentWide: {
   @react.component
   let make: (
     ~t: t,
-    ~marginBottom: Tailwind.ByBreakpoint.t<Tailwind.MarginBottom.t>=?,
+    ~marginBottom: Tailwind.Breakpoint.t<Tailwind.Margin.Bottom.t>=?,
     unit,
   ) => React.element
 }

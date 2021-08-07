@@ -30,7 +30,7 @@ module T = {
       figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=1176%3A0`
     />
     <Page.TopImage title=content.title pageDescription=content.pageDescription>
-      <SectionContainer.MediumCentered marginBottom={Tailwind.ByBreakpoint.make(#mb16, ())}>
+      <SectionContainer.MediumCentered marginBottom={Tailwind.Breakpoint.make(#mb16, ())}>
         <Table.Simple
           content={{
             headers: ["Date", "Event Name", "Location", "Description"],

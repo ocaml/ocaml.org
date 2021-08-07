@@ -16,6 +16,6 @@ let make: (
   ~header: string,
   ~body: string,
   ~buttonLinks: buttonLinks=?,
-  ~imageOnRight: bool=?,
+  ~imagePos: [#right | #left],
   unit,
 ) => React.element

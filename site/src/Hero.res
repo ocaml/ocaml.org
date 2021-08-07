@@ -23,14 +23,14 @@ module HeroTextContainer = {
     </div>
 }
 
-let image = (~imageSrc, ~imageOnRight) => {
-  let horizontalPlace = switch imageOnRight {
-  | true => "lg:right-0"
-  | false => "lg:left-0"
+let image = (~src, ~pos) => {
+  let horizontalPlace = switch pos {
+  | #right => "lg:right-0"
+  | #left => "lg:left-0"
   }
   <div
     className={`relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 ${horizontalPlace} lg:w-1/2 lg:h-full`}>
-    <img className="absolute inset-0 w-full h-full object-cover" src=imageSrc alt="" />
+    <img className="absolute inset-0 w-full h-full object-cover" src alt="" />
   </div>
 }
 
@@ -55,15 +55,15 @@ let button = (~href, ~text, ~colors, ~margins) =>
     </Link>
   </div>
 
-let callToActionArea = (~header, ~body, ~buttonLinks, ~imageOnRight) => {
-  let (lgTextAlign, lgContainerDisplay, lgJustifyButtons) = switch imageOnRight {
-  | true => ("lg:text-left", "", "lg:justify-start")
-  | false => ("lg:text-center", "lg:flex", "lg:justify-center")
+let callToActionArea = (~header, ~body, ~buttonLinks, ~imagePos) => {
+  let (lgTextAlign, lgContainerDisplay, lgJustifyButtons) = switch imagePos {
+  | #right => ("lg:text-left", "", "lg:justify-start")
+  | #left => ("lg:text-center", "lg:flex", "lg:justify-center")
   }
   <HeroTextContainer textAlign={`text-center ${lgTextAlign}`} display=lgContainerDisplay>
-    {switch imageOnRight {
-    | true => <> </>
-    | false => <div className="lg:w-1/2" />
+    {switch imagePos {
+    | #right => <> </>
+    | #left => <div className="lg:w-1/2" />
     }}
     <div className="lg:w-1/2 px-4 sm:px-8 xl:pr-16">
       {heading(header)}
@@ -91,10 +91,10 @@ let callToActionArea = (~header, ~body, ~buttonLinks, ~imageOnRight) => {
 }
 
 @react.component
-let make = (~imageSrc, ~header, ~body, ~buttonLinks=?, ~imageOnRight=true, ()) =>
+let make = (~imageSrc, ~header, ~body, ~buttonLinks=?, ~imagePos, ()) =>
   <SectionContainer.LargeCentered>
     <div className="lg:relative">
-      {callToActionArea(~header, ~body, ~buttonLinks, ~imageOnRight)}
-      {image(~imageSrc, ~imageOnRight)}
+      {callToActionArea(~header, ~body, ~buttonLinks, ~imagePos)}
+      {image(~src=imageSrc, ~pos=imagePos)}
     </div>
   </SectionContainer.LargeCentered>

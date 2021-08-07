@@ -150,8 +150,8 @@ module T = {
   @react.component
   let make = (~content, ~params as {Params.lang: lang}) => <>
     <PageBasic lang />
-    <University marginBottom={Tailwind.ByBreakpoint.make(#mb10, ~lg=#mb32, ())} content />
-    <Map marginBottom={Tailwind.ByBreakpoint.make(#mb10, ~lg=#mb32, ())} />
+    <University marginBottom={Tailwind.Breakpoint.make(#mb10, ~lg=#mb32, ())} content />
+    <Map marginBottom={Tailwind.Breakpoint.make(#mb10, ~lg=#mb32, ())} />
   </>
 
   let contentEn = {

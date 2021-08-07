@@ -1,7 +1,7 @@
 let s = React.string
 
 @react.component
-let make = (~cardData, ~renderCard, ~title=?, ()) => <>
+let make = (~cardData, ~renderCard, ~title=?) => <>
   {switch title {
   | Some(title) =>
     <h2

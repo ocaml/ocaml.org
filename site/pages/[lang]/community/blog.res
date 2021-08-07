@@ -287,9 +287,9 @@ module T = {
       highlightContent=content.highlightContent>
       <HighlightsInQuadrants
         t={CategorizedNews.toHighlightsInQuadrantsContent(content.categorizedNews, lang)}
-        marginBottom={Tailwind.ByBreakpoint.make(#mb10, ~lg=#mb32, ())}
+        marginBottom={Tailwind.Breakpoint.make(#mb10, ~lg=#mb32, ())}
       />
-      <WeeklyNews marginBottom={Tailwind.ByBreakpoint.make(#mb4, ())} content=content.weeklyNews />
+      <WeeklyNews marginBottom={Tailwind.Breakpoint.make(#mb4, ())} content=content.weeklyNews />
     </Page.HighlightItem>
   </>
 

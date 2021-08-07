@@ -8,7 +8,7 @@ module ResponsiveCentered = {
   @react.component
   let make = (~children, ~marginBottom=?) =>
     <div
-      className={marginBottom->Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty ++ " mx-auto sm:max-w-screen-sm lg:max-w-screen-lg"}>
+      className={marginBottom->Tailwind.Option.toClassName ++ " mx-auto sm:max-w-screen-sm lg:max-w-screen-lg"}>
       children
     </div>
 }
@@ -24,7 +24,7 @@ module MediumCentered = {
     ~filled=false,
   ) =>
     <div
-      className={marginBottom->Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty ++
+      className={marginBottom->Tailwind.Option.toClassName ++
       " max-w-5xl mx-auto " ++
       paddingX ++
       " " ++
@@ -48,11 +48,7 @@ module FullyResponsiveCentered = {
 module NoneFilled = {
   @react.component
   let make = (~children, ~marginBottom=?) =>
-    <div
-      className={"bg-orangedark " ++
-      marginBottom->Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty}>
-      children
-    </div>
+    <div className={"bg-orangedark " ++ marginBottom->Tailwind.Option.toClassName}> children </div>
 }
 
 module LargeCentered = {
@@ -70,7 +66,7 @@ module SmallCentered = {
       className={"mx-auto max-w-4xl " ++
       otherLayout ++
       " " ++
-      marginBottom->Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty}>
+      marginBottom->Tailwind.Option.toClassName}>
       children
     </div>
 }
@@ -80,7 +76,7 @@ module VerySmallCentered = {
   let make = (~children, ~marginBottom=?, ~paddingY="", ~paddingX="") => {
     <div
       className={"mx-auto max-w-3xl " ++
-      marginBottom->Tailwind.MarginBottomByBreakpoint.toClassNamesOrEmpty ++
+      marginBottom->Tailwind.Option.toClassName ++
       " " ++
       paddingY ++
       " " ++

@@ -36,11 +36,11 @@ module T = {
     <Page.Basic title=content.title pageDescription=content.pageDescription>
       {<>
         <SectionContainer.SmallCentered
-          otherLayout="px-6" marginBottom={Tailwind.ByBreakpoint.make(#mb16, ())}>
+          otherLayout="px-6" marginBottom={Tailwind.Breakpoint.make(#mb16, ())}>
           <h2> {s(content.introduction)} </h2>
         </SectionContainer.SmallCentered>
         <SectionContainer.SmallCentered
-          otherLayout="px-6" marginBottom={Tailwind.ByBreakpoint.make(#mb16, ())}>
+          otherLayout="px-6" marginBottom={Tailwind.Breakpoint.make(#mb16, ())}>
           <h2 className="text-4xl font-bold mb-8"> {s("Important Dates")} </h2>
           <div className="flow-root rounded bg-white p-6">
             <ul className="-mb-8">
@@ -74,7 +74,7 @@ module T = {
             </ul>
           </div>
         </SectionContainer.SmallCentered>
-        <SectionContainer.SmallCentered marginBottom={Tailwind.ByBreakpoint.make(#mb16, ())}>
+        <SectionContainer.SmallCentered marginBottom={Tailwind.Breakpoint.make(#mb16, ())}>
           <h2 className="text-4xl font-bold mb-8"> {s("Presentations")} </h2>
           <Table.Simple
             content={{
@@ -100,7 +100,7 @@ module T = {
             }}
           />
         </SectionContainer.SmallCentered>
-        <SectionContainer.SmallCentered marginBottom={Tailwind.ByBreakpoint.make(#mb16, ())}>
+        <SectionContainer.SmallCentered marginBottom={Tailwind.Breakpoint.make(#mb16, ())}>
           <h2 className="text-4xl font-bold mb-8 px-6"> {s("Papers")} </h2>
           <Table.Simple
             content={{

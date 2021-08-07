@@ -21,9 +21,9 @@ module StatsSection: {
 
 module OpamSection: {
   type t = {
-    opamHeader: string,
-    opamBody: string,
-    opamLinkText: string,
+    header: string,
+    body: string,
+    linkText: string,
   }
 }
 
