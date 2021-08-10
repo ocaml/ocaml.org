@@ -29,8 +29,8 @@ let is_package s1 s2 =
     let s2 = String.lowercase_ascii s2 in
     String.(equal s2 s1)
 
-let get_packages_result total_packages offset limit filter packages =
-  match filter with
+let get_packages_result total_packages offset limit startsWith packages =
+  match startsWith with
   | None ->
     let packages =
       List.filteri (fun i _ -> offset <= i && i < offset + limit) packages
@@ -267,13 +267,13 @@ let schema : Dream.request Graphql_lwt.Schema.schema =
                   "limit"
                   ~typ:int
               ]
-          ~resolve:(fun _ () filter offset limit ->
+          ~resolve:(fun _ () startsWith offset limit ->
             let packages = Package.all_packages_latest () in
             let total_packages = List.length packages in
             let limit =
               match limit with None -> total_packages | Some limit -> limit
             in
-            get_packages_result total_packages offset limit filter packages)
+            get_packages_result total_packages offset limit startsWith packages)
       ; field
           "package"
           ~typ:package
