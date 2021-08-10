@@ -277,8 +277,7 @@ let schema : Dream.request Graphql_lwt.Schema.schema =
       ; field
           "package"
           ~typ:package
-          ~doc:
-            "Returns details of the latest version of the specified package"
+          ~doc:"Returns details of the latest version of the specified package"
           ~args:
             Arg.
               [ arg
