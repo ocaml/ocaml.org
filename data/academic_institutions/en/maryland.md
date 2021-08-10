@@ -11,5 +11,5 @@ courses:
       online_resource: "https://www.cs.umd.edu/class/fall2014/cmsc330/"
 location:
      lat: 38.9869
-     long: 76.9426
+     long: -76.9426
 ---

@@ -11,5 +11,5 @@ courses:
       online_resource: "https://people.cs.umass.edu/~arjun/main/teaching/631/"
 location:
      lat: 42.3868
-     long: 72.5301
+     long: -72.5301
 ---

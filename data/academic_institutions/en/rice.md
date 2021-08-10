@@ -11,5 +11,5 @@ courses:
       online_resource: "https://www.cs.rice.edu/~javaplt/311/info.html"
 location:
      lat: 29.7174
-     long: 95.4018
+     long: -95.4018
 ---

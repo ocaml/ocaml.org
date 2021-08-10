@@ -11,6 +11,6 @@ courses:
       online_resource: "https://www.cs.bc.edu/~muller/teaching/cs1101/s16/"
 location:
      lat: 42.3355
-     long: 71.1685
+     long: -71.1685
 ---
 

@@ -66,7 +66,7 @@ let all =
   ; online_resource  = Some {js|https://www.di.ubi.pt/~desousa/CF/confia.html|js}
   }]
   ; location = Some 
-  { long = 7.509000
+  { long = -7.509000
   ; lat = 40.277900
   }
   
@@ -88,7 +88,7 @@ let all =
   ; online_resource  = Some {js|https://sites.google.com/site/focs1112/|js}
   }]
   ; location = Some 
-  { long = 1.930500
+  { long = -1.930500
   ; lat = 52.450800
   }
   
@@ -111,7 +111,7 @@ let all =
   ; online_resource  = Some {js|https://www.cs.bc.edu/~muller/teaching/cs1101/s16/|js}
   }]
   ; location = Some 
-  { long = 71.168500
+  { long = -71.168500
   ; lat = 42.335500
   }
   
@@ -223,7 +223,7 @@ let all =
   ; online_resource  = Some {js|https://cs17-spring2021.github.io/|js}
   }]
   ; location = Some 
-  { long = 71.402500
+  { long = -71.402500
   ; lat = 41.826800
   }
   
@@ -245,7 +245,7 @@ let all =
   ; online_resource  = Some {js|https://users.cms.caltech.edu/~mvanier/|js}
   }]
   ; location = Some 
-  { long = 118.125300
+  { long = -118.125300
   ; lat = 34.137700
   }
   
@@ -267,7 +267,7 @@ let all =
   ; online_resource  = Some {js|https://www1.cs.columbia.edu/~sedwards/classes/2014/w4115-fall/index.html|js}
   }]
   ; location = Some 
-  { long = 73.962600
+  { long = -73.962600
   ; lat = 40.807500
   }
   
@@ -290,7 +290,7 @@ let all =
   ; online_resource  = Some {js|https://www.cs.cornell.edu/courses/cs3110/2016fa/|js}
   }]
   ; location = Some 
-  { long = 76.473500
+  { long = -76.473500
   ; lat = 42.453400
   }
   
@@ -367,7 +367,7 @@ let all =
   ; online_resource  = None
   }]
   ; location = Some 
-  { long = 71.116700
+  { long = -71.116700
   ; lat = 42.377000
   }
   
@@ -400,7 +400,7 @@ let all =
  
   { name = {js|Indian Institute of Technology, Madras|js}
   ; slug = {js|indian-institute-of-technology-madras|js}
-  ; description = {js|Indian Institute of Technology Delhi is a public technical and research university located in Chennai, India.
+  ; description = {js|Indian Institute of Technology Madras is a public technical and research university located in Chennai, India.
 |js}
   ; url = {js|https://www.iitm.ac.in/|js}
   ; logo = Some {js|/academic_institution/iitm.png|js}
@@ -434,7 +434,7 @@ let all =
   ; online_resource  = Some {js|https://courses.engr.illinois.edu/cs421/fa2014/|js}
   }]
   ; location = Some 
-  { long = 88.227200
+  { long = -88.227200
   ; lat = 40.102000
   }
   
@@ -479,7 +479,7 @@ let all =
   ; online_resource  = Some {js|https://web.cs.ucla.edu/classes/winter18/cs131/|js}
   }]
   ; location = Some 
-  { long = 118.445200
+  { long = -118.445200
   ; lat = 34.068900
   }
   
@@ -501,7 +501,7 @@ let all =
   ; online_resource  = Some {js|https://www.cs.umd.edu/class/fall2014/cmsc330/|js}
   }]
   ; location = Some 
-  { long = 76.942600
+  { long = -76.942600
   ; lat = 38.986900
   }
   
@@ -541,7 +541,7 @@ let all =
   ; online_resource  = Some {js|https://www.cs.mcgill.ca/~bpientka/cs302/|js}
   }]
   ; location = Some 
-  { long = 73.577200
+  { long = -73.577200
   ; lat = 45.504800
   }
   
@@ -598,7 +598,7 @@ let all =
   ; online_resource  = Some {js|https://www.seas.upenn.edu/~cis120/current/|js}
   }]
   ; location = Some 
-  { long = 75.193200
+  { long = -75.193200
   ; lat = 39.952200
   }
   
@@ -620,7 +620,7 @@ let all =
   ; online_resource  = Some {js|https://www.cs.princeton.edu/courses/archive/fall14/cos326//|js}
   }]
   ; location = Some 
-  { long = 74.655100
+  { long = -74.655100
   ; lat = 40.343100
   }
   
@@ -652,7 +652,7 @@ let all =
   ; online_resource  = None
   }]
   ; location = Some 
-  { long = 1.673000
+  { long = -1.673000
   ; lat = 48.115900
   }
   
@@ -674,7 +674,7 @@ let all =
   ; online_resource  = Some {js|https://www.cs.rice.edu/~javaplt/311/info.html|js}
   }]
   ; location = Some 
-  { long = 95.401800
+  { long = -95.401800
   ; lat = 29.717400
   }
   
@@ -696,7 +696,7 @@ let all =
   ; online_resource  = Some {js|https://cseweb.ucsd.edu/classes/wi14/cse130-a/|js}
   }]
   ; location = Some 
-  { long = 117.234000
+  { long = -117.234000
   ; lat = 32.880100
   }
   
@@ -718,7 +718,7 @@ let all =
   ; online_resource  = Some {js|https://www-users.cs.umn.edu/~kauffman/2041/syllabus.html|js}
   }]
   ; location = Some 
-  { long = 93.227700
+  { long = -93.227700
   ; lat = 44.974000
   }
   
@@ -740,7 +740,7 @@ let all =
   ; online_resource  = Some {js|https://people.cs.umass.edu/~arjun/main/teaching/631/|js}
   }]
   ; location = Some 
-  { long = 72.530100
+  { long = -72.530100
   ; lat = 42.386800
   }
   
@@ -762,7 +762,7 @@ let all =
   ; online_resource  = None
   }]
   ; location = Some 
-  { long = 78.508000
+  { long = -78.508000
   ; lat = 38.033600
   }
   

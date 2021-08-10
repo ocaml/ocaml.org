@@ -10,6 +10,6 @@ courses:
       online_resource: "https://users.cms.caltech.edu/~mvanier/"
 location:
      lat: 34.1377
-     long: 118.1253
+     long: -118.1253
    
 ---

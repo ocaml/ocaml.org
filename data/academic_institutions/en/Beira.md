@@ -22,5 +22,5 @@ courses:
       online_resource: "https://www.di.ubi.pt/~desousa/CF/confia.html"
 location:
      lat: 40.2779
-     long: 7.5090
+     long: -7.5090
 ---

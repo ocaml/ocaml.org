@@ -11,7 +11,7 @@ courses:
       online_resource: "https://www.cs.mcgill.ca/~bpientka/cs302/"
 location:
      lat: 45.5048
-     long: 73.5772
+     long: -73.5772
 ---
 
 

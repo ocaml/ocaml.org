@@ -12,6 +12,6 @@ courses:
       acronym: CS51
 location:
      lat: 42.3770
-     long: 71.1167
+     long: -71.1167
 ---
 

@@ -14,5 +14,5 @@ courses:
       acronym: PRG2
 location:
      lat: 48.1159
-     long: 1.6730
+     long: -1.6730
 ---
