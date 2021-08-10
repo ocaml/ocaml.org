@@ -151,10 +151,16 @@ let () =
   Alcotest.run
     "ocamlorg"
     [ ( "test that starts_with function compares two similar strings"
-      , [ Alcotest.test_case "and returns true" `Quick (start_with_test "OC" "oc" true) ]
-      )
+      , [ Alcotest.test_case
+            "and returns true"
+            `Quick
+            (start_with_test "OC" "oc" true)
+        ] )
     ; ( "test that starts_with function compares two different strings"
-      , [ Alcotest.test_case "and returns false" `Quick (start_with_test "gv" "Bt" false)
+      , [ Alcotest.test_case
+            "and returns false"
+            `Quick
+            (start_with_test "gv" "Bt" false)
         ] )
     ; ( "test that is_package function compares the same names"
       , [ Alcotest.test_case
@@ -169,14 +175,27 @@ let () =
             (is_package_test "ocaml" "merlin" false)
         ] )
     ; ( "test get_packages_result function with limit to 3 option"
-      , [ Alcotest.test_case "and it returns 3 packages" `Quick get_packages_result_test
+      , [ Alcotest.test_case
+            "and it returns 3 packages"
+            `Quick
+            get_packages_result_test
         ] )
     ; ( "test that get_deps function works"
-      , [ Alcotest.test_case "and returns all 6 dependencies" `Quick get_deps_test ] )
+      , [ Alcotest.test_case
+            "and returns all 6 dependencies"
+            `Quick
+            get_deps_test
+        ] )
     ; ( "test to get a single package by name that exist"
-      , [ Alcotest.test_case "returns true" `Quick (get_single_package_test "ocaml" true)
+      , [ Alcotest.test_case
+            "returns true"
+            `Quick
+            (get_single_package_test "ocaml" true)
         ] )
     ; ( "test to get a single package by name that does not exist"
-      , [ Alcotest.test_case "returns false" `Quick (get_single_package_test "ban" false)
+      , [ Alcotest.test_case
+            "returns false"
+            `Quick
+            (get_single_package_test "ban" false)
         ] )
     ]

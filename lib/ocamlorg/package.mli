@@ -1,8 +1,7 @@
 (* This module manages the synchronisation of a local clone of
-   opam-monorepository to access the opam packages and their metadata.
-
-   It also uses the output of the occurent documentation pipeline to render
-   packages documentation. *)
+   opam-monorepository to access the opam packages and their metadata. It also
+   uses the output of the occurent documentation pipeline to render packages
+   documentation. *)
 
 (** The name of an opam package. *)
 module Name : sig
@@ -68,6 +67,8 @@ module Documentation : sig
     }
 end
 
+type state
+
 type t
 
 val name : t -> Name.t
@@ -108,23 +109,26 @@ val documentation_page
 (** Get the rendered content of an HTML page for a package given its URL
     relative to the root page of the documentation. *)
 
-val all_packages_latest : unit -> t list
-(** Get the list of the latest version of every opam packages.
+val init : ?disable_polling:bool -> unit -> state
+(** [init ()] initialises the opam-repository state. By default
+    [disable_polling] is set to [false], but can be disabled for tests. *)
 
-    The name and versions of the packages are read from the file system, the
-    metadata are loaded lazily to improve performance. *)
+val all_packages_latest : state -> t list
+(** Get the list of the latest version of every opam packages. The name and
+    versions of the packages are read from the file system, the metadata are
+    loaded lazily to improve performance. *)
 
-val get_packages_with_name : Name.t -> t list option
+val get_packages_with_name : state -> Name.t -> t list option
 (** Get the list of packages with the given name. *)
 
-val get_package_versions : Name.t -> Version.t list option
+val get_package_versions : state -> Name.t -> Version.t list option
 (** Get the list of versions for a package name. *)
 
-val get_package_latest : Name.t -> t option
+val get_package_latest : state -> Name.t -> t option
 (** Get the latest version of a package given a package name. *)
 
-val get_package : Name.t -> Version.t -> t option
+val get_package : state -> Name.t -> Version.t -> t option
 (** Get a package given its name and version. *)
 
-val search_package : string -> t list
+val search_package : state -> string -> t list
 (** Search package names that match the given string. *)
