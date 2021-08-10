@@ -249,7 +249,7 @@ let schema ~t : Dream.request Graphql_lwt.Schema.schema =
                   ~doc:
                     "Filter packages by passing a search query which lists out \
                      all packages that starts with the search query if any"
-                  "filter"
+                  "startsWith"
                   ~typ:string
               ; arg'
                   ~doc:
@@ -277,10 +277,7 @@ let schema ~t : Dream.request Graphql_lwt.Schema.schema =
       ; field
           "package"
           ~typ:package
-          ~doc:
-            "Returns details of a specified package. It returns the latest \
-             version if no version is specifed or returns a particular version \
-             of the package if a specified"
+          ~doc:"Returns details of the latest version of the specified package"
           ~args:
             Arg.
               [ arg
