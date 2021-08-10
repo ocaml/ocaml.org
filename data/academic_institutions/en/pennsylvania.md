@@ -14,5 +14,5 @@ courses:
       online_resource: "https://www.seas.upenn.edu/~cis120/current/"
 location:
      lat: 39.9522
-     long: 75.1932
+     long: -75.1932
 ---

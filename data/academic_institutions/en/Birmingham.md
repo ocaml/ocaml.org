@@ -12,6 +12,6 @@ courses:
       online_resource: "https://sites.google.com/site/focs1112/"
 location:
      lat: 52.4508
-     long: 1.9305
+     long: -1.9305
 ---
 

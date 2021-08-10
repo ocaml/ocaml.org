@@ -11,6 +11,6 @@ courses:
       online_resource: "https://courses.engr.illinois.edu/cs421/fa2014/"
 location:
      lat: 40.1020
-     long: 88.2272
+     long: -88.2272
 ---
 

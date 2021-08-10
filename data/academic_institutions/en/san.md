@@ -11,5 +11,5 @@ courses:
       online_resource: "https://cseweb.ucsd.edu/classes/wi14/cse130-a/"
 location:
      lat: 32.8801
-     long: 117.2340
+     long: -117.2340
 ---

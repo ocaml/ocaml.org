@@ -10,5 +10,5 @@ courses:
       acronym: CS 4610
 location:
      lat: 38.0336
-     long: 78.5080
+     long: -78.5080
 ---

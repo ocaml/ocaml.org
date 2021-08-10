@@ -11,5 +11,5 @@ courses:
       online_resource: "https://www.cs.princeton.edu/courses/archive/fall14/cos326//"
 location:
      lat: 40.3431
-     long: 74.6551
+     long: -74.6551
 ---

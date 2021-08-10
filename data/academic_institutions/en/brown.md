@@ -11,6 +11,6 @@ courses:
       online_resource: "https://cs17-spring2021.github.io/"
 location:
      lat: 41.8268
-     long: 71.4025
+     long: -71.4025
    
 ---

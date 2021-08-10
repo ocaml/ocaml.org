@@ -10,5 +10,5 @@ courses:
       online_resource: "https://www-users.cs.umn.edu/~kauffman/2041/syllabus.html"
 location:
      lat: 44.9740
-     long: 93.2277
+     long: -93.2277
 ---

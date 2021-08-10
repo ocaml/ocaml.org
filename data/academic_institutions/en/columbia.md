@@ -10,6 +10,6 @@ courses:
       online_resource: "https://www1.cs.columbia.edu/~sedwards/classes/2014/w4115-fall/index.html"
 location:
      lat: 40.8075
-     long: 73.9626
+     long: -73.9626
 ---
 

@@ -11,5 +11,5 @@ courses:
       online_resource: "https://www.cs.cornell.edu/courses/cs3110/2016fa/"
 location:
      lat: 42.4534
-     long: 76.4735
+     long: -76.4735
 ---
