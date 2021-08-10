@@ -11,44 +11,6 @@ type packages_result =
   ; packages : Package.t list
   }
 
-let starts_with s1 s2 =
-  let len1 = String.length s1 in
-  if len1 > String.length s2 then
-    false
-  else
-    let s1 = String.lowercase_ascii s1 in
-    let s2 = String.lowercase_ascii s2 in
-    String.(equal (sub s2 0 (length s1)) s1)
-
-let is_package s1 s2 =
-  let len1 = String.length s1 in
-  if len1 <> String.length s2 then
-    false
-  else
-    let s1 = String.lowercase_ascii s1 in
-    let s2 = String.lowercase_ascii s2 in
-    String.(equal s2 s1)
-
-let get_packages_result total_packages offset limit filter packages =
-  match filter with
-  | None ->
-    let packages =
-      List.filteri (fun i _ -> offset <= i && i < offset + limit) packages
-    in
-    let packages_result = { total_packages; packages } in
-    packages_result
-  | Some filter ->
-    let packages =
-      List.filteri
-        (fun i _ -> offset <= i && i < offset + limit)
-        (List.filter
-           (fun package ->
-             starts_with filter (Package.Name.to_string (Package.name package)))
-           packages)
-    in
-    let packages_result = { total_packages; packages } in
-    packages_result
-
 let get_info info =
   List.map
     (fun (name, constraints) ->
@@ -248,8 +210,8 @@ let schema ~t : Dream.request Graphql_lwt.Schema.schema =
               [ arg
                   ~doc:
                     "Filter packages by passing a search query which lists out \
-                     all packages that starts with the search query if any"
-                  "startsWith"
+                     all packages that contains the search query if any"
+                  "contains"
                   ~typ:string
               ; arg'
                   ~doc:
@@ -267,14 +229,30 @@ let schema ~t : Dream.request Graphql_lwt.Schema.schema =
                   "limit"
                   ~typ:int
               ]
-          ~resolve:(fun _ () filter offset limit ->
+          ~resolve:(fun _ () contains offset limit ->
             let packages = Package.all_packages_latest t in
             let total_packages = List.length packages in
             let limit =
               match limit with None -> total_packages | Some limit -> limit
             in
-            get_packages_result total_packages offset limit filter packages)
-        ; field
+            match contains with
+            | None ->
+              let packages =
+                List.filteri
+                  (fun i _ -> offset <= i && i < offset + limit)
+                  packages
+              in
+              let packages_result = { total_packages; packages } in
+              packages_result
+            | Some letters ->
+              let packages =
+                List.filteri
+                  (fun i _ -> offset <= i && i < offset + limit)
+                  (Package.search_package t letters)
+              in
+              let packages_result = { total_packages; packages } in
+              packages_result)
+      ; field
           "package"
           ~typ:package
           ~doc:
@@ -287,40 +265,36 @@ let schema ~t : Dream.request Graphql_lwt.Schema.schema =
                   ~doc:"Get a single package by name"
                   "name"
                   ~typ:(non_null string)
-                (* ; arg
-                ~doc:"Get a single package by name"
-                "name"
-                ~typ:(string) *)
+              ; arg ~doc:"Get a single package by version" "version" ~typ:string
               ]
-          ~resolve:(fun _ () name ->
-            let all_packages = Package.all_packages_latest t in
-            List.find_opt
-              (fun package ->
-                is_package name (Package.Name.to_string (Package.name package)))
-              all_packages)
-        ; field
-          "packagesByVersion"
+          ~resolve:(fun _ () name version ->
+            match version with
+            | None ->
+              Package.get_package_latest t (Package.Name.of_string name)
+            | Some version ->
+              Package.get_package
+                t
+                (Package.Name.of_string name)
+                (Package.Version.of_string version))
+      ; field
+          "allVersionsOfPackage"
           ~typ:(non_null packages_result)
-          ~doc:
-            "Returns details of a specified package. It returns the latest \
-             version if no version is specifed or returns a particular version \
-             of the package if a specified"
+          ~doc:"Returns the details of all versions of a specified package"
           ~args:
             Arg.
               [ arg
-                  ~doc:"Get a single package by name"
+                  ~doc:"Get all versions of a single package by name"
                   "name"
                   ~typ:(non_null string)
-                (* ; arg
-                ~doc:"Get a single package by name"
-                "name"
-                ~typ:(string) *)
               ]
           ~resolve:(fun _ () name ->
-            let packages = Package.get_packages_with_name t (Package.Name.of_string name) in
+            let packages =
+              Package.get_packages_with_name t (Package.Name.of_string name)
+            in
             match packages with
-            | None -> { total_packages = 0; packages = [] }
-            | Some packages -> 
-            let total_packages = List.length packages in
-            { total_packages; packages })
+            | None ->
+              { total_packages = 0; packages = [] }
+            | Some packages ->
+              let total_packages = List.length packages in
+              { total_packages; packages })
       ])
