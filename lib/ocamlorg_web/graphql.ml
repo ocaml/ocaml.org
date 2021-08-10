@@ -249,7 +249,7 @@ let schema ~t : Dream.request Graphql_lwt.Schema.schema =
                   ~doc:
                     "Filter packages by passing a search query which lists out \
                      all packages that starts with the search query if any"
-                  "filter"
+                  "startsWith"
                   ~typ:string
               ; arg'
                   ~doc:
@@ -274,7 +274,7 @@ let schema ~t : Dream.request Graphql_lwt.Schema.schema =
               match limit with None -> total_packages | Some limit -> limit
             in
             get_packages_result total_packages offset limit filter packages)
-      ; field
+        ; field
           "package"
           ~typ:package
           ~doc:
@@ -287,6 +287,10 @@ let schema ~t : Dream.request Graphql_lwt.Schema.schema =
                   ~doc:"Get a single package by name"
                   "name"
                   ~typ:(non_null string)
+                (* ; arg
+                ~doc:"Get a single package by name"
+                "name"
+                ~typ:(string) *)
               ]
           ~resolve:(fun _ () name ->
             let all_packages = Package.all_packages_latest t in
@@ -294,4 +298,29 @@ let schema ~t : Dream.request Graphql_lwt.Schema.schema =
               (fun package ->
                 is_package name (Package.Name.to_string (Package.name package)))
               all_packages)
+        ; field
+          "packagesByVersion"
+          ~typ:(non_null packages_result)
+          ~doc:
+            "Returns details of a specified package. It returns the latest \
+             version if no version is specifed or returns a particular version \
+             of the package if a specified"
+          ~args:
+            Arg.
+              [ arg
+                  ~doc:"Get a single package by name"
+                  "name"
+                  ~typ:(non_null string)
+                (* ; arg
+                ~doc:"Get a single package by name"
+                "name"
+                ~typ:(string) *)
+              ]
+          ~resolve:(fun _ () name ->
+            let packages = Package.get_packages_with_name t (Package.Name.of_string name) in
+            match packages with
+            | None -> { total_packages = 0; packages = [] }
+            | Some packages -> 
+            let total_packages = List.length packages in
+            { total_packages; packages })
       ])
