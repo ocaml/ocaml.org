@@ -8,5 +8,7 @@ courses:
     - name: Programming Languages 
       acronym: CS691F
       online_resource: "https://people.cs.umass.edu/~arjun/courses/cs691f/"
-
+location:
+     lat: 42.3142
+     long: -71.0365
 ---

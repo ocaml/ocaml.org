@@ -522,7 +522,11 @@ let all =
   ; acronym = Some {js|CS691F|js}
   ; online_resource  = Some {js|https://people.cs.umass.edu/~arjun/courses/cs691f/|js}
   }]
-  ; location = None
+  ; location = Some 
+  { long = -71.036500
+  ; lat = 42.314200
+  }
+  
   ; body_md = {js||js}
   ; body_html = {js||js}
   };
