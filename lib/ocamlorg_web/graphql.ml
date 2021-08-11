@@ -29,25 +29,23 @@ let is_package s1 s2 =
     let s2 = String.lowercase_ascii s2 in
     String.(equal s2 s1)
 
-let get_packages_result total_packages offset limit startsWith packages =
-  match startsWith with
+let get_packages_result total_packages offset limit startswith packages =
+  match startswith with
   | None ->
     let packages =
       List.filteri (fun i _ -> offset <= i && i < offset + limit) packages
     in
-    let packages_result = { total_packages; packages } in
-    packages_result
+    { total_packages; packages }
   | Some filter ->
     let packages =
       List.filteri
-        (fun i _ -> offset <= i && i < offset + limit)
-        (List.filter
-           (fun package ->
-             starts_with filter (Package.Name.to_string (Package.name package)))
-           packages)
+        (fun i package ->
+          offset <= i
+          && i < offset + limit
+          && starts_with filter (Package.Name.to_string (Package.name package)))
+        packages
     in
-    let packages_result = { total_packages; packages } in
-    packages_result
+    { total_packages; packages }
 
 let get_info info =
   List.map
@@ -249,7 +247,7 @@ let schema ~t : Dream.request Graphql_lwt.Schema.schema =
                   ~doc:
                     "Filter packages by passing a search query which lists out \
                      all packages that starts with the search query if any"
-                  "startsWith"
+                  "startswith"
                   ~typ:string
               ; arg'
                   ~doc:
@@ -267,13 +265,13 @@ let schema ~t : Dream.request Graphql_lwt.Schema.schema =
                   "limit"
                   ~typ:int
               ]
-          ~resolve:(fun _ () startsWith offset limit ->
+          ~resolve:(fun _ () startswith offset limit ->
             let packages = Package.all_packages_latest t in
             let total_packages = List.length packages in
             let limit =
               match limit with None -> total_packages | Some limit -> limit
             in
-            get_packages_result total_packages offset limit startsWith packages)
+            get_packages_result total_packages offset limit startswith packages)
       ; field
           "package"
           ~typ:package

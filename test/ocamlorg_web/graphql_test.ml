@@ -118,13 +118,13 @@ let get_packages_result_test () =
   let total_packages = List.length packages in
   let offset = 0 in
   let limit = 3 in
-  let filter = None in
+  let startswith = None in
   let all_packages =
     Ocamlorg_web.Graphql.get_packages_result
       total_packages
       offset
       limit
-      filter
+      startswith
       packages
   in
   let num_of_pakgs = List.length all_packages.packages in
