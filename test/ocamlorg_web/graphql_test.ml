@@ -1,19 +1,5 @@
 module Package = Ocamlorg.Package
 
-type info = OpamPackage.Name.t * string option
-
-type package_info = info list
-
-type info_result =
-  { name : string
-  ; constraints : string option
-  }
-
-type packages_result =
-  { total_packages : int
-  ; packages : Package.t list
-  }
-
 let dependencies =
   [ Package.Name.of_string "0install", Some "3.2"
   ; Package.Name.of_string "ocaml", None
@@ -128,22 +114,15 @@ let get_packages_result_test () =
       packages
   in
   let num_of_pakgs = List.length all_packages.packages in
-  Alcotest.(check int) "returns 3 packages" 3 num_of_pakgs
+  Alcotest.(check int) "returns 3 packages" limit num_of_pakgs
 
-let get_deps_test () =
+let get_info_test () =
   let deps = Ocamlorg_web.Graphql.get_info dependencies in
   let num_of_deps = List.length deps in
   Alcotest.(check int) "returns 6 dependencies" 6 num_of_deps
 
 let get_single_package_test name cond () =
-  let pkg =
-    List.find_opt
-      (fun package ->
-        Ocamlorg_web.Graphql.is_package
-          name
-          (Package.Name.to_string (Package.name package)))
-      packages
-  in
+  let pkg = Ocamlorg_web.Graphql.get_single_package packages name in
   let res = match pkg with None -> false | Some _ -> true in
   Alcotest.(check bool) "ocaml exist in package list" cond res
 
@@ -180,11 +159,11 @@ let () =
             `Quick
             get_packages_result_test
         ] )
-    ; ( "test that get_deps function works"
+    ; ( "test that get_info function works"
       , [ Alcotest.test_case
             "and returns all 6 dependencies"
             `Quick
-            get_deps_test
+            get_info_test
         ] )
     ; ( "test to get a single package by name that exist"
       , [ Alcotest.test_case

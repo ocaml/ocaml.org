@@ -25,6 +25,10 @@ val get_packages_result
   -> string option
   -> Package.t list
   -> packages_result
+(** This function returns a list of the latest version of all packages *)
+
+val get_single_package : Package.t list -> string -> Package.t option
+(** This function returns the latest version of the pakage name specified *)
 
 val get_info : (Package.Name.t * string option) list -> package_info list
 (** This function returns the list part of Package.Info such as
