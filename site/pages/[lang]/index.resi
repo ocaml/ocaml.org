@@ -1,3 +1,5 @@
+open! Import
+
 module HeroSection: {
   type t = {
     heroHeader: string,

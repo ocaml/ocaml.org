@@ -1,3 +1,5 @@
+open! Import
+
 module ButtonLink: {
   type t = {
     label: string,
@@ -16,6 +18,5 @@ let make: (
   ~header: string,
   ~body: string,
   ~buttonLinks: buttonLinks=?,
-  ~imagePos: [#right | #left],
-  unit,
+  ~imagePos: [#Right | #Left],
 ) => React.element

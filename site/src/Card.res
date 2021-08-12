@@ -3,8 +3,8 @@ open! Import
 @react.component
 let make = (~title=?, ~kind, ~titleTextColor="", ~children) => {
   let borderStyle = switch kind {
-  | #transparent => ""
-  | #opaque => "bg-white shadow-md rounded-md"
+  | #Transparent => ""
+  | #Opaque => "bg-white shadow-md rounded-md"
   }
   let title = switch title {
   | None => React.null

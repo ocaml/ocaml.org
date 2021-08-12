@@ -1,6 +1,4 @@
-module Link = Next.Link
-
-let s = React.string
+open! Import
 
 // TODO: change NavEntry.t to HeaderNavEntry.t, which has additional info like icon
 type section = {
@@ -15,11 +13,6 @@ type content = {
   search: string,
   openMenu: string,
 }
-
-type activatedEntry =
-  | Principles
-  | Resources
-  | Community
 
 @react.component
 let make = (~content) => {
@@ -54,11 +47,11 @@ let make = (~content) => {
         <nav className="hidden md:flex space-x-10 ">
           <div className="relative">
             <button
-              onClick={toggleMenu(Principles)}
+              onClick={toggleMenu(#Principles)}
               type_="button"
               className="text-gray-500  pl-2 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedark"
               ariaExpanded=false>
-              <span> {s(content.principlesSection.header)} </span>
+              <span> {React.string(content.principlesSection.header)} </span>
               <svg
                 className="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500"
                 xmlns="http://www.w3.org/2000/svg"
@@ -75,7 +68,7 @@ let make = (~content) => {
             <div
               className={"absolute z-10 left-1/2 transform -translate-x-1/4 mt-3 px-2 w-screen max-w-sm sm:px-0 " ++
               switch activeMenu {
-              | Some(Principles) => " opacity-100 translate-y-0 "
+              | Some(#Principles) => " opacity-100 translate-y-0 "
               | _ => " hidden "
               }}>
               <div
@@ -83,7 +76,7 @@ let make = (~content) => {
                 <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-6 sm:p-8">
                   {content.principlesSection.entries
                   |> Js.Array.mapi((e: NavEntry.t, idx) =>
-                    <Link href=e.url key={Js.Int.toString(idx)}>
+                    <Next.Link href=e.url key={Js.Int.toString(idx)}>
                       <a
                         onClick=hideMenu
                         className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
@@ -93,12 +86,12 @@ let make = (~content) => {
                         </div>
                         <dt>
                           <p className="ml-10 text-sm font-semibold text-gray-900">
-                            {s(e.label)}
+                            {React.string(e.label)}
                           </p>
                         </dt>
-                        <dd className="ml-10 text-sm text-gray-500"> {s(e.text)} </dd>
+                        <dd className="ml-10 text-sm text-gray-500"> {React.string(e.text)} </dd>
                       </a>
-                    </Link>
+                    </Next.Link>
                   )
                   |> React.array}
                 </div>
@@ -107,11 +100,11 @@ let make = (~content) => {
           </div>
           <div className="relative">
             <button
-              onClick={toggleMenu(Resources)}
+              onClick={toggleMenu(#Resources)}
               type_="button"
               className="text-gray-500 pl-2 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedark"
               ariaExpanded=false>
-              <span> {s(content.resourcesSection.header)} </span>
+              <span> {React.string(content.resourcesSection.header)} </span>
               <svg
                 className="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500"
                 xmlns="http://www.w3.org/2000/svg"
@@ -128,7 +121,7 @@ let make = (~content) => {
             <div
               className={"absolute z-10 left-1/2 transform -translate-x-1/3 mt-3 px-2 w-screen max-w-sm sm:px-0 " ++
               switch activeMenu {
-              | Some(Resources) => " opacity-100 translate-y-0 "
+              | Some(#Resources) => " opacity-100 translate-y-0 "
               | _ => " hidden "
               }}>
               <div
@@ -136,7 +129,7 @@ let make = (~content) => {
                 <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-6 sm:p-8">
                   {content.resourcesSection.entries
                   |> Js.Array.mapi((e: NavEntry.t, idx) =>
-                    <Link href=e.url key={Js.Int.toString(idx)}>
+                    <Next.Link href=e.url key={Js.Int.toString(idx)}>
                       <a
                         onClick=hideMenu
                         className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
@@ -146,12 +139,12 @@ let make = (~content) => {
                         </div>
                         <dt>
                           <p className="ml-10 text-sm font-semibold text-gray-900">
-                            {s(e.label)}
+                            {React.string(e.label)}
                           </p>
                         </dt>
-                        <dd className="ml-10 text-sm text-gray-500"> {s(e.text)} </dd>
+                        <dd className="ml-10 text-sm text-gray-500"> {React.string(e.text)} </dd>
                       </a>
-                    </Link>
+                    </Next.Link>
                   )
                   |> React.array}
                 </div>
@@ -160,11 +153,11 @@ let make = (~content) => {
           </div>
           <div className="relative">
             <button
-              onClick={toggleMenu(Community)}
+              onClick={toggleMenu(#Community)}
               type_="button"
               className="text-gray-500  pl-2 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedark"
               ariaExpanded=false>
-              <span> {s(content.communitySection.header)} </span>
+              <span> {React.string(content.communitySection.header)} </span>
               <svg
                 className="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500"
                 xmlns="http://www.w3.org/2000/svg"
@@ -181,7 +174,7 @@ let make = (~content) => {
             <div
               className={"absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-sm sm:px-0 " ++
               switch activeMenu {
-              | Some(Community) => " opacity-100 translate-y-0 "
+              | Some(#Community) => " opacity-100 translate-y-0 "
               | _ => " hidden "
               }}>
               <div
@@ -189,7 +182,7 @@ let make = (~content) => {
                 <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-6 sm:p-8">
                   {content.communitySection.entries
                   |> Js.Array.mapi((e: NavEntry.t, idx) =>
-                    <Link href=e.url key={Js.Int.toString(idx)}>
+                    <Next.Link href=e.url key={Js.Int.toString(idx)}>
                       <a
                         onClick=hideMenu
                         className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
@@ -199,12 +192,12 @@ let make = (~content) => {
                         </div>
                         <dt>
                           <p className="ml-10 text-sm font-semibold text-gray-900">
-                            {s(e.label)}
+                            {React.string(e.label)}
                           </p>
                         </dt>
-                        <dd className="ml-10 text-sm text-gray-500"> {s(e.text)} </dd>
+                        <dd className="ml-10 text-sm text-gray-500"> {React.string(e.text)} </dd>
                       </a>
-                    </Link>
+                    </Next.Link>
                   )
                   |> React.array}
                 </div>
@@ -214,7 +207,7 @@ let make = (~content) => {
         </nav>
         <div className="flex-1 flex items-center justify-center px-2 md:justify-end ">
           <div className="max-w-lg w-full md:max-w-xs">
-            <label htmlFor="search" className="sr-only"> {s(content.search)} </label>
+            <label htmlFor="search" className="sr-only"> {React.string(content.search)} </label>
             <form id="searchform" method="get" action="https://duckduckgo.com/">
               <input type_="hidden" name="sites" value="ocaml.org" />
               <div className="relative">
@@ -249,7 +242,7 @@ let make = (~content) => {
             type_="button"
             onClick=showMobileMenu
             className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-            <span className="sr-only"> {s(content.openMenu)} </span>
+            <span className="sr-only"> {React.string(content.openMenu)} </span>
             <svg
               className="h-6 w-6"
               xmlns="http://www.w3.org/2000/svg"
@@ -284,7 +277,7 @@ let make = (~content) => {
                 type_="button"
                 onClick=hideMobileMenu
                 className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                <span className="sr-only"> {s(` Close menu `)} </span>
+                <span className="sr-only"> {React.string(` Close menu `)} </span>
                 <svg
                   className="h-6 w-6"
                   xmlns="http://www.w3.org/2000/svg"
@@ -310,7 +303,7 @@ let make = (~content) => {
                     Js.Array.concat(
                       Js.Array.mapi(
                         (e: NavEntry.t, idx) =>
-                          <Link href=e.url key={Js.Int.toString(idx)}>
+                          <Next.Link href=e.url key={Js.Int.toString(idx)}>
                             <a
                               onClick=hideMobileMenu
                               className="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
@@ -318,14 +311,14 @@ let make = (~content) => {
                                 className="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-5 w-5 stroke-current fill-current stroke-2">
                                 {e.icon}
                               </span>
-                              <span className="font-bold"> {s(e.label)} </span>
+                              <span className="font-bold"> {React.string(e.label)} </span>
                             </a>
-                          </Link>,
+                          </Next.Link>,
                         section.entries,
                       ),
                       [
                         <h3 className="ml-6 mt-2 px-3 font-semibold text-gray-400 uppercase">
-                          {s(section.header)}
+                          {React.string(section.header)}
                         </h3>,
                       ],
                     ),

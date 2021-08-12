@@ -1,3 +1,5 @@
+open! Import
+
 module CornerTitleLogo: {
   @react.component
   let make: (
@@ -7,7 +9,6 @@ module CornerTitleLogo: {
     ~colored: bool=?,
     ~bordered: bool=?,
     ~largerText: bool=?,
-    unit,
   ) => React.element
 }
 
@@ -18,6 +19,5 @@ module CornerLogoCenterTitle: {
     ~graphicUrl: string,
     ~body: string,
     ~buttonText: string=?,
-    unit,
   ) => React.element
 }

@@ -1,3 +1,5 @@
+open! Import
+
 // A split card has a left and right component of equal sizes
 
 module LargeCentered: {

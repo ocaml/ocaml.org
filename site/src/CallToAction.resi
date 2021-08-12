@@ -1,23 +1,28 @@
-module LinkUrl: {
-  type t = Route(Route.t, Lang.t) | External(string)
-}
+open! Import
 
 type t = {
   title: string,
   body: string,
-  buttonLink: LinkUrl.t,
+  buttonLink: [#Route(Route.t, Lang.t) | #External(string)],
   buttonText: string,
 }
 
-module General: {
-  type colorStyle = BackgroundFilled | Transparent
+module Simple: {
+  type t = {
+    label: string,
+    url: string,
+  }
 
+  @react.component
+  let make: (~t: t) => React.element
+}
+
+module General: {
   @react.component
   let make: (
     ~t: t,
-    ~colorStyle: colorStyle,
+    ~colorStyle: [#BackgroundFilled | #Transparent],
     ~marginBottom: Tailwind.Breakpoint.t<Tailwind.Margin.Bottom.t>=?,
-    unit,
   ) => React.element
 }
 
@@ -26,7 +31,6 @@ module TransparentWide: {
   let make: (
     ~t: t,
     ~marginBottom: Tailwind.Breakpoint.t<Tailwind.Margin.Bottom.t>=?,
-    unit,
   ) => React.element
 }
 

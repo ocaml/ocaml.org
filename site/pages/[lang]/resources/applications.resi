@@ -1,3 +1,5 @@
+open! Import
+
 // TODO(tmattio): Remove fixtures with Ood content
 module DeveloperGuide: {
   type t = {

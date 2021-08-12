@@ -1,3 +1,5 @@
+open! Import
+
 let percent_complete = "60%"
 
 module Progress = {

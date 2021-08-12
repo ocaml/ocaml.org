@@ -1,10 +1,8 @@
 open! Import
 
-module Link = Next.Link
 module T = {
   type t = {acads: array<Ood.Academic_institution.t>}
 
-  let s = React.string
   include Jsonable.Unsafe
   //PageBasicDetail Module
   module PageBasic = {
@@ -21,7 +19,7 @@ module T = {
         <div className="text-center py-8 px-4 sm:py-8 sm:px-6 lg:px-8">
           <h1
             className={" text-4xl font-extrabold text-orangedark sm:text-5xl sm:tracking-tight lg:text-6xl"}>
-            {s("Academic Excellence")}
+            {React.string("Academic Excellence")}
           </h1>
         </div>
       </div>
@@ -30,18 +28,18 @@ module T = {
         <div className={"mx-auto pb-20 px-4 sm:pb-20 sm:px-6 lg:px-8"}>
           <div className={"text-center"}>
             <p className={"max-w-7xl mt-5 mx-auto text-xl text-gray-500"}>
-              {s(
+              {React.string(
                 "With its strong mathematical roots, OCaml has always had strong ties to academia. Currently, it is being taught in universities around the world, and has accrued an ever growing body of research. This page will provide you with an overview of the academic excellence that defines the culture of OCaml.",
               )}
             </p>
             //CallToAction Button
             <div className="text-center mt-7">
-              <Link href={#principlesSuccesses->Route.toString(lang)}>
+              <Next.Link href={#PrinciplesSuccesses->Route.toString(lang)}>
                 <a
                   className="justify-center inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-orangedark hover:bg-orangedarker focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedarker">
-                  {s("Success Stories")}
+                  {React.string("Success Stories")}
                 </a>
-              </Link>
+              </Next.Link>
             </div>
           </div>
         </div>
@@ -76,17 +74,17 @@ module T = {
         //University and Courses
         <SectionContainer.MediumCentered ?marginBottom paddingX="px-12">
           <h2 className="text-grey-900 text-3xl mb-5 lg:text-4xl font-bold text-center">
-            {s("Universities & Courses")}
+            {React.string("Universities & Courses")}
           </h2>
         </SectionContainer.MediumCentered>
         //Select Button
         <SectionContainer.ResponsiveCentered ?marginBottom>
           <label className="block pr-8  sm:pr-8 lg:pr-20 ">
             <select className="form-select block mt-1 ml-auto " onChange>
-              <option> {s("All")} </option>
-              <option> {s("North America")} </option>
-              <option> {s(" Europe")} </option>
-              <option> {s("Asia")} </option>
+              <option> {React.string("All")} </option>
+              <option> {React.string("North America")} </option>
+              <option> {React.string(" Europe")} </option>
+              <option> {React.string("Asia")} </option>
             </select>
           </label>
         </SectionContainer.ResponsiveCentered>
@@ -110,7 +108,7 @@ module T = {
                 />
                 <div className="my-9 underline font-bold pl-4">
                   // TODO: accessibility - warn opening a new tab:(Can be solved using Modal)
-                  <a href=c.url target="_blank"> {s(c.name)} </a>
+                  <a href=c.url target="_blank"> {React.string(c.name)} </a>
                 </div>
               </div>
             )
@@ -121,7 +119,7 @@ module T = {
         <div className="text-center mt-7 mb-20">
           <a
             className="w-44 justify-center inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-orangedark hover:bg-orangedarker focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedarker w-56">
-            {s("Expand")}
+            {React.string("Expand")}
           </a>
         </div>
       </>
@@ -133,7 +131,7 @@ module T = {
     let make = (~marginBottom=?) => <>
       <SectionContainer.MediumCentered ?marginBottom paddingX="px-12">
         <h2 className="mb-16 text-grey-900 text-3xl mb-5 lg:text-4xl font-bold text-center">
-          {s("Ocaml Courses around the World")}
+          {React.string("Ocaml Courses around the World")}
         </h2>
       </SectionContainer.MediumCentered>
       <SectionContainer.ResponsiveCentered ?marginBottom>

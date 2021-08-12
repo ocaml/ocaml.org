@@ -1,3 +1,5 @@
+open! Import
+
 module MediumCentered2: {
   @react.component
   let make: (~children: React.element) => React.element

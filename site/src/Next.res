@@ -1,3 +1,5 @@
+open! Import
+
 module GetStaticProps = {
   // See: https://github.com/zeit/next.js/blob/canary/packages/next/types/index.d.ts
   type context<'props, 'params, 'previewData> = {

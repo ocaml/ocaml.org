@@ -1,4 +1,4 @@
-let s = React.string
+open! Import
 
 @react.component
 let make = (~figmaLink=?, ~playgroundLink=?) =>
@@ -7,24 +7,24 @@ let make = (~figmaLink=?, ~playgroundLink=?) =>
       <div className="pr-16 sm:text-center sm:px-16">
         <p className="font-medium text-white">
           {switch (figmaLink, playgroundLink) {
-          | (None, None) => <span className=""> {s(`Future page`)} </span>
+          | (None, None) => <span className=""> {React.string(`Future page`)} </span>
           | _ => <>
-              <span className=""> {s(`Under construction`)} </span>
+              <span className=""> {React.string(`Under construction`)} </span>
               <span className="block sm:ml-2 sm:inline-block">
                 {/* Delete this soon, hiding for now
                 {switch playgroundLink {
                 | Some(playgroundLink) =>
                   <a href=playgroundLink className="text-white font-bold underline">
-                    {s(`View Playground >>`)}
+                    {React.string(`View Playground >>`)}
                   </a>
                 | _ => React.null
                 }}
-                {s(` `)}
+                {React.string(` `)}
  */
                 switch figmaLink {
                 | Some(figmaLink) =>
                   <a href=figmaLink className="text-white font-bold underline">
-                    {s(`View in Figma >>`)}
+                    {React.string(`View in Figma >>`)}
                   </a>
                 | _ => React.null
                 }}

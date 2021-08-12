@@ -1,3 +1,5 @@
+open! Import
+
 type t = {
   label: string,
   url: string,

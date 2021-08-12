@@ -1,6 +1,4 @@
-module Link = Next.Link
-
-let s = React.string
+open! Import
 
 // TODO: move into a general Link module
 module ButtonLink = {
@@ -25,8 +23,8 @@ module HeroTextContainer = {
 
 let image = (~src, ~pos) => {
   let horizontalPlace = switch pos {
-  | #right => "lg:right-0"
-  | #left => "lg:left-0"
+  | #Right => "lg:right-0"
+  | #Left => "lg:left-0"
   }
   <div
     className={`relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 ${horizontalPlace} lg:w-1/2 lg:h-full`}>
@@ -37,33 +35,33 @@ let image = (~src, ~pos) => {
 let heading = text =>
   <h1
     className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
-    {s(text)}
+    {React.string(text)}
   </h1>
 
 let bodyText = (~margins, ~text) =>
   <p className={`${margins} max-w-md mx-auto text-lg text-gray-500 sm:text-xl md:max-w-3xl`}>
-    {s(text)}
+    {React.string(text)}
   </p>
 
 let button = (~href, ~text, ~colors, ~margins) =>
   <div className={`${margins} rounded-md shadow `}>
-    <Link href>
+    <Next.Link href>
       <a
         className={`${colors} w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md md:py-4 md:text-lg md:px-10`}>
-        {s(text)}
+        {React.string(text)}
       </a>
-    </Link>
+    </Next.Link>
   </div>
 
 let callToActionArea = (~header, ~body, ~buttonLinks, ~imagePos) => {
   let (lgTextAlign, lgContainerDisplay, lgJustifyButtons) = switch imagePos {
-  | #right => ("lg:text-left", "", "lg:justify-start")
-  | #left => ("lg:text-center", "lg:flex", "lg:justify-center")
+  | #Right => ("lg:text-left", "", "lg:justify-start")
+  | #Left => ("lg:text-center", "lg:flex", "lg:justify-center")
   }
   <HeroTextContainer textAlign={`text-center ${lgTextAlign}`} display=lgContainerDisplay>
     {switch imagePos {
-    | #right => <> </>
-    | #left => <div className="lg:w-1/2" />
+    | #Right => <> </>
+    | #Left => <div className="lg:w-1/2" />
     }}
     <div className="lg:w-1/2 px-4 sm:px-8 xl:pr-16">
       {heading(header)}

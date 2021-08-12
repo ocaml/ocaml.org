@@ -1,6 +1,4 @@
-module Link = Next.Link
-
-let s = React.string
+open! Import
 
 module SocialIconLink = {
   @react.component
@@ -45,7 +43,7 @@ module LogoSection = {
   let make = (~content, ~colspan) =>
     <div className={"space-y-8 " ++ colspan}>
       <img className="h-10" src="/static/ocaml-logo.jpeg" alt="OCaml" />
-      <P margins=""> {s(content.ocamlSummary)} </P>
+      <P margins=""> {React.string(content.ocamlSummary)} </P>
       {
         let sizing = `h-6 w-6`
         let fill = `currentColor`
@@ -70,7 +68,9 @@ module LogoSection = {
 module MutedLink = {
   @react.component
   let make = (~href, ~text) =>
-    <Link href> <a className="text-base text-gray-500 hover:text-gray-900"> {s(text)} </a> </Link>
+    <Next.Link href>
+      <a className="text-base text-gray-500 hover:text-gray-900"> {React.string(text)} </a>
+    </Next.Link>
 }
 
 module H3 = {
@@ -83,7 +83,7 @@ module SectionLinks = {
   @react.component
   let make = (~name, ~keyPages: Js.Array.t<NavEntry.t>, ~margins) =>
     <div className=margins>
-      <H3> {s(name)} </H3>
+      <H3> {React.string(name)} </H3>
       <ul className="mt-4 space-y-4">
         {keyPages
         |> Js.Array.mapi((p, idx) =>
@@ -140,7 +140,9 @@ module MainLinksSection = {
 module BasicLink = {
   @react.component
   let make = (~href, ~text) =>
-    <Link href> <a className="text-orangedark underline"> {s(text)} </a> </Link>
+    <Next.Link href>
+      <a className="text-orangedark underline"> {React.string(text)} </a>
+    </Next.Link>
 }
 
 module SponsorsSection = {
@@ -152,7 +154,7 @@ module SponsorsSection = {
   @react.component
   let make = (~content, ~margins) =>
     <P margins>
-      {s(content.thankSponsorPrefix ++ ` `)}
+      {React.string(content.thankSponsorPrefix ++ ` `)}
       <BasicLink href=content.hostingProviders.url text=content.hostingProviders.label />
     </P>
 }
@@ -163,7 +165,7 @@ module FooterContainer = {
     <footer
       className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8"
       ariaLabelledby="footerHeading">
-      <h2 id="footerHeading" className="sr-only"> {s(footerLabel)} </h2> children
+      <h2 id="footerHeading" className="sr-only"> {React.string(footerLabel)} </h2> children
     </footer>
 }
 

@@ -2,17 +2,16 @@ open! Import
 
 // TODO: A design for this page, this is just a placeholder
 
-let s = React.string
-
 module Tutorial = {
   @react.component
   let make = (~tutorial, ~lang) =>
     <div className="py-4 px-4 bg-white rounded-lg">
       <div className="prose">
-        <h2> {s(tutorial.Ood.Tutorial.title)} </h2> <p> {s(tutorial.description)} </p>
+        <h2> {React.string(tutorial.Ood.Tutorial.title)} </h2>
+        <p> {React.string(tutorial.description)} </p>
       </div>
-      <Route _to={#resourcesTutorial(tutorial.slug)} lang>
-        <a className="text-orangedark"> {s("Read more...")} </a>
+      <Route _to={#ResourcesTutorial(tutorial.slug)} lang>
+        <a className="text-orangedark"> {React.string("Read more...")} </a>
       </Route>
     </div>
 }

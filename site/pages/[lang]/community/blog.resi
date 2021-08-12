@@ -1,3 +1,5 @@
+open! Import
+
 module NewsCategory: {
   type t = {
     header: string,

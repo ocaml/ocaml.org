@@ -1,71 +1,71 @@
 open! Import
 
 type t = [
-  | #index
-  | #history
-  | #communityAroundweb
-  | #communityEvents
-  | #communityEventOud2020
-  | #communityMediaarchive
-  | #communityNews
-  | #communityNewsarchive
-  | #communityOpportunities
-  | #principlesSuccesses
-  | #principlesIndustrialUsers
-  | #principlesAcademic
-  | #principlesWhatisocaml
-  | #legalCarbonfootprint
-  | #legalPrivacy
-  | #legalTerms
-  | #resourcesBasics
-  | #resourcesInstallocaml
-  | #resourcesApplications
-  | #resourcesArchive
-  | #resourcesBestpractices
-  | #resourcesDevelopinginocaml
-  | #resourcesLanguage
-  | #resourcesPapers
-  | #resourcesPapersarchive
-  | #resourcesPlatform
-  | #resourcesReleases
-  | #resourcesUsingocaml
-  | #resourcesTutorials
-  | #resourcesTutorial(string)
+  | #Index
+  | #History
+  | #CommunityAroundweb
+  | #CommunityEvents
+  | #CommunityEventOud2020
+  | #CommunityMediaarchive
+  | #CommunityNews
+  | #CommunityNewsarchive
+  | #CommunityOpportunities
+  | #PrinciplesSuccesses
+  | #PrinciplesIndustrialUsers
+  | #PrinciplesAcademic
+  | #PrinciplesWhatisocaml
+  | #LegalCarbonfootprint
+  | #LegalPrivacy
+  | #LegalTerms
+  | #ResourcesBasics
+  | #ResourcesInstallocaml
+  | #ResourcesApplications
+  | #ResourcesArchive
+  | #ResourcesBestpractices
+  | #ResourcesDevelopinginocaml
+  | #ResourcesLanguage
+  | #ResourcesPapers
+  | #ResourcesPapersarchive
+  | #ResourcesPlatform
+  | #ResourcesReleases
+  | #ResourcesUsingocaml
+  | #ResourcesTutorials
+  | #ResourcesTutorial(string)
 ]
 
 let toString = (t: t, lang) => {
   let lang = Lang.toString(lang)
   let path = switch t {
-  | #index => ""
-  | #history => "history"
-  | #communityAroundweb => "community/aroundweb"
-  | #communityEvents => "community/events"
-  | #communityEventOud2020 => "community/event/oud2020"
-  | #communityMediaarchive => "community/mediaarchive"
-  | #communityNews => "community/blog"
-  | #communityNewsarchive => "community/newsarchive"
-  | #communityOpportunities => "community/opportunities"
-  | #principlesSuccesses => "principles/successes"
-  | #principlesIndustrialUsers => "principles/users"
-  | #principlesAcademic => "principles/academic"
-  | #principlesWhatisocaml => "principles/whatisocaml"
-  | #legalCarbonfootprint => "legal/carbonfootprint"
-  | #legalPrivacy => "legal/privacy"
-  | #legalTerms => "legal/terms"
-  | #resourcesBasics => "resources/basics"
-  | #resourcesInstallocaml => "resources/installocaml"
-  | #resourcesApplications => "resources/applications"
-  | #resourcesArchive => "resources/archive"
-  | #resourcesBestpractices => "resources/bestpractices"
-  | #resourcesDevelopinginocaml => "resources/developinginocaml"
-  | #resourcesLanguage => "resources/language"
-  | #resourcesPapers => "resources/papers"
-  | #resourcesPapersarchive => "resources/papersarchive"
-  | #resourcesPlatform => "resources/platform"
-  | #resourcesReleases => "resources/releases"
-  | #resourcesUsingocaml => "resources/usingocaml"
-  | #resourcesTutorials => "resources/tutorials"
-  | #resourcesTutorial(s) => "resources/" ++ s
+  | #Index => ""
+  | #History => "history"
+  | #CommunityAroundweb => "community/aroundweb"
+  | #CommunityEvents => "community/events"
+  | #CommunityEventOud2020 => "community/event/oud2020"
+  | #CommunityMediaarchive => "community/mediaarchive"
+  | #CommunityNews => "community/blog"
+  | #CommunityNewsarchive => "community/newsarchive"
+  | #CommunityOpportunities => "community/opportunities"
+  | #PrinciplesSuccesses => "principles/successes"
+  | #PrinciplesIndustrialUsers => "principles/users"
+  | #PrinciplesAcademic => "principles/academic"
+  | #PrinciplesWhatisocaml => "principles/whatisocaml"
+  | #LegalCarbonfootprint => "legal/carbonfootprint"
+  | #LegalPrivacy => "legal/privacy"
+  | #LegalTerms => "legal/terms"
+  | #ResourcesBasics => "resources/basics"
+  | #ResourcesInstallocaml => "resources/installocaml"
+  | #ResourcesApplications => "resources/applications"
+  | #ResourcesArchive => "resources/archive"
+  | #ResourcesBestpractices => "resources/bestpractices"
+  | #ResourcesDevelopinginocaml => "resources/developinginocaml"
+  | #ResourcesLanguage => "resources/language"
+  | #ResourcesPapers => "resources/papers"
+  | #ResourcesPapersarchive => "resources/papersarchive"
+  | #ResourcesPlatform => "resources/platform"
+  | #ResourcesReleases => "resources/releases"
+  | #ResourcesUsingocaml => "resources/usingocaml"
+  | #ResourcesTutorials => "resources/tutorials"
+  | #ResourcesTutorial(s) => "resources/" ++ s
   }
   "/" ++ lang ++ "/" ++ path
 }

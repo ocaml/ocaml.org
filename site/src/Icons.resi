@@ -1,3 +1,5 @@
+open! Import
+
 let camel: React.element
 
 let industry: React.element

@@ -7,6 +7,37 @@ module ClassName = {
 }
 
 module Margin = {
+  module Top = {
+    type t = [
+      | #mt1
+      | #mt2
+      | #mt4
+      | #mt6
+      | #mt10
+      | #mt11
+      | #mt16
+      | #mt20
+      | #mt24
+      | #mt32
+      | #mt36
+    ]
+
+    let toClassName = mb =>
+      switch mb {
+      | #mt1 => "mt-1"
+      | #mt2 => "mt-2"
+      | #mt4 => "mt-4"
+      | #mt6 => "mt-6"
+      | #mt10 => "mt-10"
+      | #mt11 => "mt-11"
+      | #mt16 => "mt-16"
+      | #mt20 => "mt-20"
+      | #mt24 => "mt-24"
+      | #mt32 => "mt-32"
+      | #mt36 => "mt-36"
+      }
+  }
+
   module Bottom = {
     type t = [
       | #mb2
@@ -38,11 +69,13 @@ module Margin = {
 
   type t = [
     | Bottom.t
+    | Top.t
   ]
 
   let toClassName = x =>
     switch x {
     | #...Bottom.t as x => Bottom.toClassName(x)
+    | #...Top.t as x => Top.toClassName(x)
     }
 }
 
@@ -58,14 +91,14 @@ module Breakpointable = {
 }
 
 module Breakpoint = {
-  type item<'a> = {
+  type item<+'a> = {
     base: 'a,
     sm: option<'a>,
     md: option<'a>,
     lg: option<'a>,
-  }
+  } constraint 'a = [< Breakpointable.t]
 
-  type t<'a> = [#breakpoint(item<'a>)] constraint 'a = [< Breakpointable.t]
+  type t<'a> = [#breakpoint(item<'a>)]
 
   let make = (base, ~sm=?, ~md=?, ~lg=?, ()) =>
     #breakpoint({
@@ -95,7 +128,7 @@ type t = [
 
 let toClassName = t =>
   switch t {
-  | #...Margin.t as x => Margin.toClassName(x)
+  | #...Margin.t as x => Margin.toClassName((x :> Margin.t))
   | #...Breakpoint.t as x => Breakpoint.toClassNames(x)
   }
 

@@ -1,3 +1,5 @@
+open! Import
+
 @react.component
 let make = (~children) =>
   // TODO: change element to body, move to document.res

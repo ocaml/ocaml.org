@@ -1,3 +1,5 @@
+open! Import
+
 /* Icons for the menu */
 
 let camel =

@@ -1,7 +1,5 @@
 open! Import
 
-let s = React.string
-
 module T = {
   module HeroSection = {
     type t = {
@@ -15,7 +13,7 @@ module T = {
   module H2 = {
     @react.component
     let make = (~text) =>
-      <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl"> {s(text)} </h2>
+      <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl"> {React.string(text)} </h2>
   }
 
   module StatBox = {
@@ -23,9 +21,11 @@ module T = {
     let make = (~label, ~statValue, ~borderSizes) =>
       <div className={`flex flex-col border-gray-100 py-16 px-4 text-center ` ++ borderSizes}>
         <dt className="order-2 mt-2 text-lg leading-6 font-bold text-black text-opacity-70">
-          {s(label)}
+          {React.string(label)}
         </dt>
-        <dd className="order-1 text-5xl font-extrabold text-orangedark"> {s(statValue)} </dd>
+        <dd className="order-1 text-5xl font-extrabold text-orangedark">
+          {React.string(statValue)}
+        </dd>
       </div>
   }
 
@@ -116,7 +116,7 @@ module T = {
         viewBox="0 0 404 404"
         role="img"
         ariaLabelledby="svg-testimonial-org">
-        <title id="svg-testimonial-org"> {s(organizationName)} </title>
+        <title id="svg-testimonial-org"> {React.string(organizationName)} </title>
         <defs> <FillIcon id=`ad119f34-7694-4c31-947f-5c9d249b21f3` /> </defs>
         <rect width="404" height="404" fill="url(#ad119f34-7694-4c31-947f-5c9d249b21f3)" />
       </svg>
@@ -139,17 +139,19 @@ module T = {
       <blockquote className=margins>
         <div className="max-w-3xl mx-auto text-center text-2xl leading-9 font-medium text-gray-900">
           <p>
-            <span className="text-orangedark"> {s(`”`)} </span>
-            {s(quote)}
-            <span className="text-orangedark"> {s(`”`)} </span>
+            <span className="text-orangedark"> {React.string(`”`)} </span>
+            {React.string(quote)}
+            <span className="text-orangedark"> {React.string(`”`)} </span>
           </p>
         </div>
         <footer className="mt-0">
           <div className="md:flex md:items-center md:justify-center">
             <div className="mt-3 text-center md:mt-0 md:ml-4 md:flex md:items-center">
-              <div className="text-base font-medium text-gray-900"> {s(speaker)} </div>
+              <div className="text-base font-medium text-gray-900"> {React.string(speaker)} </div>
               <SlashIcon margins=`mx-1` />
-              <div className="text-base font-medium text-gray-500"> {s(organizationName)} </div>
+              <div className="text-base font-medium text-gray-500">
+                {React.string(organizationName)}
+              </div>
             </div>
           </div>
         </footer>
@@ -213,17 +215,17 @@ module T = {
     <Page.Unstructured>
       <Hero
         imageSrc="/static/oc-sq.jpeg"
-        imagePos={#right}
+        imagePos={#Right}
         header=heroContent.heroHeader
         body=heroContent.heroBody
         buttonLinks={
           Hero.primaryButton: {
             label: heroContent.installOcaml,
-            url: #resourcesInstallocaml->Route.toString(lang),
+            url: #ResourcesInstallocaml->Route.toString(lang),
           },
           secondaryButton: {
             label: heroContent.aboutOcaml,
-            url: #principlesWhatisocaml->Route.toString(lang),
+            url: #PrinciplesWhatisocaml->Route.toString(lang),
           },
         }
       />

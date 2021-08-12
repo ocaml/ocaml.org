@@ -1,3 +1,5 @@
+open! Import
+
 module LargeCentered = {
   @react.component
   let make = (~left: React.element, ~right: React.element) =>

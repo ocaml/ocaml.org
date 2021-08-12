@@ -28,7 +28,7 @@ let make = (~path, ~content as {title, linkTextLeft, linkText, linkTextRight}) =
     router->Next.Router.push(path)
     None
   })
-  <Card title kind={#opaque}>
+  <Card title kind={#Opaque}>
     <p className={`text-lg font-roboto`}>
       {React.string(linkTextLeft->Belt.Option.getWithDefault(""))}
       <span className="underline font-bold">

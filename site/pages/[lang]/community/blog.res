@@ -1,7 +1,5 @@
 open! Import
 
-let s = React.string
-
 module T = {
   module NewsCategory = {
     type t = {
@@ -47,27 +45,27 @@ module T = {
       HighlightsInQuadrants.title: otherNewsStories,
       topLeftCategory: NewsCategory.toHighlightsCategory(
         communityCategory,
-        #communityNewsarchive->Route.toString(lang), // TODO: should we use a query parameter for the category?
-        HighlightsInQuadrants.CategoryHeaderIcon.Meet,
+        #CommunityNewsarchive->Route.toString(lang), // TODO: should we use a query parameter for the category?
+        #Meet,
       ),
       topRightCategory: NewsCategory.toHighlightsCategory(
         releasesCategory,
-        #communityNewsarchive->Route.toString(lang),
-        HighlightsInQuadrants.CategoryHeaderIcon.Package,
+        #CommunityNewsarchive->Route.toString(lang),
+        #Package,
       ),
       bottomLeftCategory: NewsCategory.toHighlightsCategory(
         industryCategory,
-        #communityNewsarchive->Route.toString(lang),
-        HighlightsInQuadrants.CategoryHeaderIcon.Profit,
+        #CommunityNewsarchive->Route.toString(lang),
+        #Profit,
       ),
       bottomRightCategory: NewsCategory.toHighlightsCategory(
         eventsCategory,
-        #communityNewsarchive->Route.toString(lang),
-        HighlightsInQuadrants.CategoryHeaderIcon.Calendar,
+        #CommunityNewsarchive->Route.toString(lang),
+        #Calendar,
       ),
       goToArchive: {
         label: goToNewsArchive,
-        link: #communityNewsarchive->Route.toString(lang),
+        link: #CommunityNewsarchive->Route.toString(lang),
       },
     }
   }
@@ -84,16 +82,16 @@ module T = {
         <div className="lg:grid lg:grid-cols-2 items-center">
           <div className="lg:order-2">
             <h2 className="text-orangedark text-2xl font-bold text-center lg:text-4xl mb-9">
-              {s(content.ocamlWeeklyNews)}
+              {React.string(content.ocamlWeeklyNews)}
             </h2>
             <p className="text-center">
-              {s(content.overview ++ ` `)}
+              {React.string(content.overview ++ ` `)}
               // TODO: visual indicator for link opening new tab
               <a
                 className="text-orangedark underline"
                 href="http://alan.petitepomme.net/cwn/"
                 target="_blank">
-                {s(`alan.petitepomme.net`)}
+                {React.string(`alan.petitepomme.net`)}
               </a>
             </p>
           </div>
@@ -115,7 +113,7 @@ module T = {
                 />
               </svg>
  */
-                s(`2021`)}
+                React.string(`2021`)}
                 /*
               <svg
                 className="h-4 inline ml-2"
@@ -132,36 +130,38 @@ module T = {
  */
               </div>
               <div className="mx-auto bg-white shadow-sm text-2xl w-80 py-5">
-                <div className="font-bold text-orangedark text-center mb-4"> {s(`February`)} </div>
+                <div className="font-bold text-orangedark text-center mb-4">
+                  {React.string(`February`)}
+                </div>
                 <div className="grid grid-cols-7 gap-3 px-6 justify-items-center">
-                  <div> {s(`1`)} </div>
-                  <div> {s(`2`)} </div>
-                  <div> {s(`3`)} </div>
-                  <div> {s(`4`)} </div>
-                  <div> {s(`5`)} </div>
-                  <div> {s(`6`)} </div>
-                  <div> {s(`7`)} </div>
-                  <div> {s(`8`)} </div>
-                  <div> {s(`9`)} </div>
-                  <div> {s(`10`)} </div>
-                  <div> {s(`11`)} </div>
-                  <div> {s(`12`)} </div>
-                  <div> {s(`13`)} </div>
-                  <div> {s(`14`)} </div>
-                  <div> {s(`15`)} </div>
-                  <div> {s(`16`)} </div>
-                  <div> {s(`17`)} </div>
-                  <div> {s(`18`)} </div>
-                  <div> {s(`19`)} </div>
-                  <div> {s(`20`)} </div>
-                  <div> {s(`21`)} </div>
-                  <div> {s(`22`)} </div>
-                  <div> {s(`23`)} </div>
-                  <div> {s(`24`)} </div>
-                  <div> {s(`25`)} </div>
-                  <div> {s(`26`)} </div>
-                  <div> {s(`27`)} </div>
-                  <div> {s(`28`)} </div>
+                  <div> {React.string(`1`)} </div>
+                  <div> {React.string(`2`)} </div>
+                  <div> {React.string(`3`)} </div>
+                  <div> {React.string(`4`)} </div>
+                  <div> {React.string(`5`)} </div>
+                  <div> {React.string(`6`)} </div>
+                  <div> {React.string(`7`)} </div>
+                  <div> {React.string(`8`)} </div>
+                  <div> {React.string(`9`)} </div>
+                  <div> {React.string(`10`)} </div>
+                  <div> {React.string(`11`)} </div>
+                  <div> {React.string(`12`)} </div>
+                  <div> {React.string(`13`)} </div>
+                  <div> {React.string(`14`)} </div>
+                  <div> {React.string(`15`)} </div>
+                  <div> {React.string(`16`)} </div>
+                  <div> {React.string(`17`)} </div>
+                  <div> {React.string(`18`)} </div>
+                  <div> {React.string(`19`)} </div>
+                  <div> {React.string(`20`)} </div>
+                  <div> {React.string(`21`)} </div>
+                  <div> {React.string(`22`)} </div>
+                  <div> {React.string(`23`)} </div>
+                  <div> {React.string(`24`)} </div>
+                  <div> {React.string(`25`)} </div>
+                  <div> {React.string(`26`)} </div>
+                  <div> {React.string(`27`)} </div>
+                  <div> {React.string(`28`)} </div>
                 </div>
               </div>
             </div>

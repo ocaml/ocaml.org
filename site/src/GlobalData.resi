@@ -1,3 +1,5 @@
+open! Import
+
 type principlesSection = {
   header: string,
   whatIsOcaml: NavEntry.t,

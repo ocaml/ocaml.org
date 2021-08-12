@@ -1,7 +1,5 @@
 open! Import
 
-let s = React.string
-
 module T = {
   type t = {
     title: string,
@@ -28,7 +26,7 @@ module T = {
             <button
               className="rounded-r bg-yellow-200 text-xs sm:text-base p-3 w-1/5 md:w-1/6"
               type_="submit">
-              {s("Search")}
+              {React.string("Search")}
             </button>
           </div>
         </div>
@@ -40,20 +38,20 @@ module T = {
                 <tr className="text-left">
                   <th
                     className="py-2 px-3 rounded-tl sticky top-0 border-b border-gray-200 bg-yellow-300">
-                    {s("Title")}
+                    {React.string("Title")}
                   </th>
                   <th className="py-2 px-3 sticky top-0 border-b border-gray-200 bg-yellow-300">
-                    {s("Authors")}
+                    {React.string("Authors")}
                   </th>
                   <th className="py-2 px-3 sticky top-0 border-b border-gray-200 bg-yellow-300">
-                    {s("Year")}
+                    {React.string("Year")}
                   </th>
                   <th className="py-2 px-3 sticky top-0 border-b border-gray-200 bg-yellow-300">
-                    {s("Tags")}
+                    {React.string("Tags")}
                   </th>
                   <th
                     className="py-2 px-3 rounded-tr sticky top-0 border-b border-gray-200 bg-yellow-300">
-                    {s("Description")}
+                    {React.string("Description")}
                   </th>
                 </tr>
               </thead>
@@ -67,7 +65,9 @@ module T = {
                           Array.of_list(paper.links)
                           ->Belt.Array.get(0)
                           ->Js.Option.getWithDefault("", _)
-                        <a className="border-b-2 border-yellow-300" href=link> {s(paper.title)} </a>
+                        <a className="border-b-2 border-yellow-300" href=link>
+                          {React.string(paper.title)}
+                        </a>
                       }
                     </td>
                     <td className="py-3 px-3">
@@ -75,7 +75,7 @@ module T = {
                         {List.map(
                           author =>
                             <div className="bg-red-200 whitespace-nowrap p-1 m-1 rounded">
-                              {s(author)}
+                              {React.string(author)}
                             </div>,
                           paper.authors,
                         )
@@ -83,13 +83,13 @@ module T = {
                         |> React.array}
                       </div>
                     </td>
-                    <td className="py-3 px-3"> {s(string_of_int(paper.year))} </td>
+                    <td className="py-3 px-3"> {React.string(string_of_int(paper.year))} </td>
                     <td className="py-3 px-3">
                       <div className="flex flex-wrap">
                         {List.map(
                           tag =>
                             <div className="bg-green-200 whitespace-nowrap p-1 m-1 rounded">
-                              {s(tag)}
+                              {React.string(tag)}
                             </div>,
                           paper.tags,
                         )
@@ -97,7 +97,7 @@ module T = {
                         |> React.array}
                       </div>
                     </td>
-                    <td className="py-3 px-3"> {s(paper.abstract)} </td>
+                    <td className="py-3 px-3"> {React.string(paper.abstract)} </td>
                   </tr>
                 , content.papers) |> React.array} </tbody>
             </table>

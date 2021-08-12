@@ -1,3 +1,5 @@
+open! Import
+
 module LogoSection: {
   type t = {ocamlSummary: string}
 }

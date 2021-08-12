@@ -1,3 +1,5 @@
+open! Import
+
 module LatestNews: {
   type t = {news: array<Ood.News.t>}
 }

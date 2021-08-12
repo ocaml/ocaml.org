@@ -1,7 +1,5 @@
 open! Import
 
-let s = React.string
-
 module T = {
   type date = {
     date: string,
@@ -37,11 +35,11 @@ module T = {
       {<>
         <SectionContainer.SmallCentered
           otherLayout="px-6" marginBottom={Tailwind.Breakpoint.make(#mb16, ())}>
-          <h2> {s(content.introduction)} </h2>
+          <h2> {React.string(content.introduction)} </h2>
         </SectionContainer.SmallCentered>
         <SectionContainer.SmallCentered
           otherLayout="px-6" marginBottom={Tailwind.Breakpoint.make(#mb16, ())}>
-          <h2 className="text-4xl font-bold mb-8"> {s("Important Dates")} </h2>
+          <h2 className="text-4xl font-bold mb-8"> {React.string("Important Dates")} </h2>
           <div className="flow-root rounded bg-white p-6">
             <ul className="-mb-8">
               {content.dates
@@ -61,9 +59,11 @@ module T = {
                         />
                       </div>
                       <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
-                        <div> <p className="text-sm text-gray-500"> {s(date.text)} </p> </div>
+                        <div>
+                          <p className="text-sm text-gray-500"> {React.string(date.text)} </p>
+                        </div>
                         <div className="text-right text-sm whitespace-nowrap text-gray-500">
-                          <time dateTime={date.date}> {s(date.date)} </time>
+                          <time dateTime={date.date}> {React.string(date.date)} </time>
                         </div>
                       </div>
                     </div>
@@ -75,7 +75,7 @@ module T = {
           </div>
         </SectionContainer.SmallCentered>
         <SectionContainer.SmallCentered marginBottom={Tailwind.Breakpoint.make(#mb16, ())}>
-          <h2 className="text-4xl font-bold mb-8"> {s("Presentations")} </h2>
+          <h2 className="text-4xl font-bold mb-8"> {React.string("Presentations")} </h2>
           <Table.Simple
             content={{
               headers: ["", "Presentation"],
@@ -94,21 +94,21 @@ module T = {
                     src={Belt_Option.getExn(video.embed)}
                     allowFullScreen=true
                   />,
-                  <p className="font-bold"> {s(video.title)} </p>,
+                  <p className="font-bold"> {React.string(video.title)} </p>,
                 ]
               }, content.presentations),
             }}
           />
         </SectionContainer.SmallCentered>
         <SectionContainer.SmallCentered marginBottom={Tailwind.Breakpoint.make(#mb16, ())}>
-          <h2 className="text-4xl font-bold mb-8 px-6"> {s("Papers")} </h2>
+          <h2 className="text-4xl font-bold mb-8 px-6"> {React.string("Papers")} </h2>
           <Table.Simple
             content={{
               headers: ["Title", "Author(s)", "Link"],
               data: Array.map((paper: Ood.Paper.t) => {
                 [
-                  <p className="font-bold"> {s(paper.title)} </p>,
-                  <p> {s(String.concat(", ", paper.authors))} </p>,
+                  <p className="font-bold"> {React.string(paper.title)} </p>,
+                  <p> {React.string(String.concat(", ", paper.authors))} </p>,
                   switch pdf_or_head(paper) {
                   | Some(link) =>
                     <p>
@@ -117,10 +117,10 @@ module T = {
                         rel="noopener noreferrer"
                         className="text-orangedark underline"
                         href={link}>
-                        {s("link")} //TODO: Download link icon
+                        {React.string("link")} //TODO: Download link icon
                       </a>
                     </p>
-                  | None => <> {s("No link")} </>
+                  | None => <> {React.string("No link")} </>
                   },
                 ]
               }, content.papers),

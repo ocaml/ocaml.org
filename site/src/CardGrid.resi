@@ -1,3 +1,5 @@
+open! Import
+
 @react.component
 let make: (
   ~cardData: array<'a>,

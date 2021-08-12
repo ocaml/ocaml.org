@@ -1,3 +1,5 @@
+open! Import
+
 module Body: {
   @react.component
   let make: (~margins: string, ~renderedMarkdown: string) => React.element

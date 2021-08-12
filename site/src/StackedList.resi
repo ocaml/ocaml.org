@@ -1,3 +1,5 @@
+open! Import
+
 module BasicWithIcon: {
   module Item: {
     type t = {

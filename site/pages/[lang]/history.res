@@ -83,9 +83,7 @@ module T = {
       figmaLink=`https://www.figma.com/file/Vha4bcBvNVrjyLmAEDgZ1x/History-Timeline?node-id=14%3A5`
     />
     <Page.Basic
-      title=content.title
-      pageDescription=content.pageDescription
-      addContainer=Page.Basic.NoContainer>
+      title=content.title pageDescription=content.pageDescription addContainer=#NoContainer>
       <Timeline content=content.timeline />
     </Page.Basic>
   </>

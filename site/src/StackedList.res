@@ -1,4 +1,4 @@
-let s = React.string
+open! Import
 
 module BasicWithIcon = {
   // generalize this type to: { link: string, attributes: 'a } and move it to top level module
@@ -46,7 +46,7 @@ module BasicWithIcon = {
     <li className="px-6 py-4" key=item.title>
       <a href=item.link target="_blank">
         <div className="flex justify-between items-center space-x-6">
-          <div> itemIcon {s(item.title)} </div> rightArrow
+          <div> itemIcon {React.string(item.title)} </div> rightArrow
         </div>
       </a>
     </li>
@@ -75,7 +75,7 @@ module BasicWithAuxiliaryAttribute = {
     }
   }
 
-  let rightArrow = {s(` -> `)}
+  let rightArrow = {React.string(` -> `)}
 
   let itemRow = (item: Item.t) =>
     // TODO: ensure link is accessible; indicator that link opens tab
@@ -86,10 +86,10 @@ module BasicWithAuxiliaryAttribute = {
       // TODO: change from grid to flexbox
       <a className="grid grid-cols-9 w-full " href=item.link target="_blank" key=item.title>
         <div className="text-yellow-600 col-span-6 sm:col-span-5 font-semibold">
-          {s(item.title)}
+          {React.string(item.title)}
         </div>
         <div className="text-gray-400 text-sm col-span-2 sm:col-span-3 ml-4">
-          {s(item.auxiliaryAttribute)}
+          {React.string(item.auxiliaryAttribute)}
         </div>
         <div className="text-right"> rightArrow </div>
       </a>

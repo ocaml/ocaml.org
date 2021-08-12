@@ -1,3 +1,5 @@
+open! Import
+
 module GetStaticProps: {
   type context<'props, 'params, 'previewData> = {
     params: 'params,

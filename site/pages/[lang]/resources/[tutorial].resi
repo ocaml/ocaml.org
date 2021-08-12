@@ -1,3 +1,5 @@
+open! Import
+
 type t = {
   source: string,
   title: string,

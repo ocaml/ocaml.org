@@ -38,7 +38,7 @@ module Category = {
   @react.component
   let make = (~name, ~children) => {
     <SectionContainer.FullyResponsiveCentered>
-      <div className="bg-white"> <Card title=name kind={#transparent}> {children} </Card> </div>
+      <div className="bg-white"> <Card title=name kind={#Transparent}> {children} </Card> </div>
       <hr />
     </SectionContainer.FullyResponsiveCentered>
   }
@@ -143,10 +143,24 @@ module Categories = {
                 let t = {
                   CallToAction.title: "Title",
                   body: "Body",
-                  buttonLink: CallToAction.LinkUrl.External("example.com"),
+                  buttonLink: #External("example.com"),
                   buttonText: "Go to example.com",
                 }
                 <CallToAction.Embedded t />
+              },
+            ),
+          ]}
+        </Item>
+        <Item name="CallToAction.Simple" docs="Contains a label and a url.">
+          {[
+            (
+              defaultDoc,
+              {
+                let t = {
+                  CallToAction.Simple.label: "Label",
+                  url: "example.com",
+                }
+                <CallToAction.Simple t />
               },
             ),
           ]}
@@ -316,7 +330,7 @@ module Categories = {
                     name: "OCaml Labs",
                     website: "https://ocamllabs.io",
                   })
-                  ->LogoCloud.LogoOnly
+                  ->#LogoOnly
                 <LogoCloud companies=testCompanies />
               },
             ),
@@ -334,7 +348,7 @@ module Categories = {
                     name: "OCaml Labs",
                     website: "https://ocamllabs.io",
                   })
-                  ->LogoCloud.LogoWithText
+                  ->#LogoWithText
                 <LogoCloud companies=testCompaniesOptional />
               },
             ),
@@ -363,8 +377,8 @@ module Categories = {
           name="Hero"
           docs="A large component that can be used an the main introductory element of a page. It contains an image, a title, some text, and some buttons.">
           {[
-            ("imagePos=#right", <Hero imageSrc imagePos={#right} header body buttonLinks />),
-            ("imagePos=#left", <Hero imageSrc imagePos={#left} header body buttonLinks />),
+            ("imagePos=#Right", <Hero imageSrc imagePos={#Right} header body buttonLinks />),
+            ("imagePos=#Left", <Hero imageSrc imagePos={#Left} header body buttonLinks />),
           ]}
         </Item>
       }
@@ -390,10 +404,10 @@ module Categories = {
 
         let t = {
           HighlightsInQuadrants.title: "Example",
-          topLeftCategory: category(HighlightsInQuadrants.CategoryHeaderIcon.Profit),
-          topRightCategory: category(HighlightsInQuadrants.CategoryHeaderIcon.Calendar),
-          bottomLeftCategory: category(HighlightsInQuadrants.CategoryHeaderIcon.Meet),
-          bottomRightCategory: category(HighlightsInQuadrants.CategoryHeaderIcon.Package),
+          topLeftCategory: category(#Profit),
+          topRightCategory: category(#Calendar),
+          bottomLeftCategory: category(#Meet),
+          bottomRightCategory: category(#Package),
           goToArchive: {
             HighlightsInQuadrants.LabelledLink.label: "Example Link",
             link: "link",
@@ -417,26 +431,26 @@ module Categories = {
               let t = {
                 CallToAction.title: "Title",
                 body: "Body",
-                buttonLink: CallToAction.LinkUrl.External("example.com"),
+                buttonLink: #External("example.com"),
                 buttonText: "Go to example.com",
               }
               [
                 (
                   "Transparent color style.",
                   {
-                    <CallToAction.General t colorStyle={CallToAction.General.Transparent} />
+                    <CallToAction.General t colorStyle={#Transparent} />
                   },
                 ),
                 (
                   "BackgroundFilled color style.",
                   {
-                    <CallToAction.General t colorStyle={CallToAction.General.BackgroundFilled} />
+                    <CallToAction.General t colorStyle={#BackgroundFilled} />
                   },
                 ),
                 (
                   "BackgroundFilled color style.",
                   {
-                    <CallToAction.General t colorStyle={CallToAction.General.BackgroundFilled} />
+                    <CallToAction.General t colorStyle={#BackgroundFilled} />
                   },
                 ),
                 (
@@ -444,7 +458,7 @@ module Categories = {
                   {
                     <CallToAction.General
                       t
-                      colorStyle={CallToAction.General.BackgroundFilled}
+                      colorStyle={#BackgroundFilled}
                       marginBottom={Tailwind.Breakpoint.make(#mb10, ())}
                     />
                   },
@@ -465,7 +479,7 @@ module Categories = {
               let t = {
                 CallToAction.title: "Title",
                 body: "Body",
-                buttonLink: CallToAction.LinkUrl.External("example.com"),
+                buttonLink: #External("example.com"),
                 buttonText: "Go to example.com",
               }
               [
@@ -784,7 +798,7 @@ module Categories = {
                 "CardGrid rendered with Cards for each element",
                 {
                   let renderCard = s =>
-                    <Card title="<Card>" kind={#opaque}> {React.string(s)} </Card>
+                    <Card title="<Card>" kind={#Opaque}> {React.string(s)} </Card>
                   let title = "Example"
                   <CardGrid cardData renderCard title />
                 },

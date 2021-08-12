@@ -1,3 +1,5 @@
+open! Import
+
 module Simple: {
   type t = {
     headers: array<string>,

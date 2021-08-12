@@ -1,3 +1,5 @@
+open! Import
+
 type t = {
   companies: LogoCloud.t,
   title: string,

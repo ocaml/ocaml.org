@@ -1,3 +1,5 @@
+open! Import
+
 type section = {
   header: string,
   entries: array<NavEntry.t>,

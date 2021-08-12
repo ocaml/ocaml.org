@@ -1,19 +1,15 @@
-module Large: {
-  type callToAction = {
-    label: string,
-    url: string,
-  }
+open! Import
 
+module Large: {
   @react.component
   let make: (
     ~title: string,
-    ~callToAction: callToAction=?,
+    ~callToAction: CallToAction.Simple.t=?,
     ~pageDescription: string=?,
-    ~marginTop: string=?,
+    ~marginTop: Tailwind.Breakpoint.t<Tailwind.Margin.Top.t>=?,
     ~marginBottom: Tailwind.Breakpoint.t<Tailwind.Margin.Bottom.t>=?,
     // ~addMaxWidth: bool=?,
     ~addBottomBar: bool=?,
-    unit,
   ) => React.element
 }
 
@@ -33,7 +29,6 @@ module OverBackgroundImage: {
     ~title: string,
     ~backgroundImage: BackgroundImage.t,
     ~pageDescription: string=?,
-    unit,
   ) => React.element
 }
 

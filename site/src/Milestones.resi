@@ -1,3 +1,5 @@
+open! Import
+
 module Table: {
   module Item: {
     type t = {

@@ -1,36 +1,36 @@
 open! Import
 
 type t = [
-  | #index
-  | #history
-  | #communityAroundweb
-  | #communityEvents
-  | #communityEventOud2020
-  | #communityMediaarchive
-  | #communityNews
-  | #communityNewsarchive
-  | #communityOpportunities
-  | #principlesSuccesses
-  | #principlesIndustrialUsers
-  | #principlesAcademic
-  | #principlesWhatisocaml
-  | #legalCarbonfootprint
-  | #legalPrivacy
-  | #legalTerms
-  | #resourcesBasics
-  | #resourcesInstallocaml
-  | #resourcesApplications
-  | #resourcesArchive
-  | #resourcesBestpractices
-  | #resourcesDevelopinginocaml
-  | #resourcesLanguage
-  | #resourcesPapers
-  | #resourcesPapersarchive
-  | #resourcesPlatform
-  | #resourcesReleases
-  | #resourcesUsingocaml
-  | #resourcesTutorials
-  | #resourcesTutorial(string)
+  | #Index
+  | #History
+  | #CommunityAroundweb
+  | #CommunityEvents
+  | #CommunityEventOud2020
+  | #CommunityMediaarchive
+  | #CommunityNews
+  | #CommunityNewsarchive
+  | #CommunityOpportunities
+  | #PrinciplesSuccesses
+  | #PrinciplesIndustrialUsers
+  | #PrinciplesAcademic
+  | #PrinciplesWhatisocaml
+  | #LegalCarbonfootprint
+  | #LegalPrivacy
+  | #LegalTerms
+  | #ResourcesBasics
+  | #ResourcesInstallocaml
+  | #ResourcesApplications
+  | #ResourcesArchive
+  | #ResourcesBestpractices
+  | #ResourcesDevelopinginocaml
+  | #ResourcesLanguage
+  | #ResourcesPapers
+  | #ResourcesPapersarchive
+  | #ResourcesPlatform
+  | #ResourcesReleases
+  | #ResourcesUsingocaml
+  | #ResourcesTutorials
+  | #ResourcesTutorial(string)
 ]
 
 let toString: (t, Lang.t) => string

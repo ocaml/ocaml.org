@@ -1,3 +1,5 @@
+open! Import
+
 type t = {
   title: string,
   pageDescription: string,

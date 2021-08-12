@@ -1,7 +1,5 @@
 open! Import
 
-let s = React.string
-
 module T = {
   module MediaSection = {
     module Item = {
@@ -26,7 +24,7 @@ module T = {
         <div className="rounded-lg shadow overflow-y-auto relative">
           <img src=content.image />
         </div>
-        <h2 className="font-semibold text-2xl py-9 sm:text-3xl"> {s(content.title)} </h2>
+        <h2 className="font-semibold text-2xl py-9 sm:text-3xl"> {React.string(content.title)} </h2>
         // Generic Highlight Component
 
         {
@@ -39,7 +37,7 @@ module T = {
         }
         // TODO: enable link and create video archive page
         <p className="text-right py-6 cursor-pointer hover:underline font-semibold text-yellow-600">
-          {s(`Browse More ` ++ content.title)}
+          {React.string(`Browse More ` ++ content.title)}
         </p>
       </SectionContainer.FullyResponsiveCentered>
   }
@@ -64,7 +62,7 @@ module T = {
       figmaLink=`https://www.figma.com/file/36JnfpPe1Qoc8PaJq8mGMd/V1-Pages-Next-Step?node-id=430%3A25378`
       playgroundLink=`/play/resources/mediaarchive`
     />
-    <Page.Basic title pageDescription addContainer=Page.Basic.Narrow>
+    <Page.Basic title pageDescription addContainer=#Narrow>
       <MediaSection content=videosContent />
       <MediaSection content=talksContent />
       <MediaSection content=papersContent />

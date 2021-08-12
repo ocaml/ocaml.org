@@ -1,4 +1,4 @@
-let s = React.string
+open! Import
 
 @react.component
 let make = (~name: string, ~url: string, ~logoSrc: string) => {
@@ -9,6 +9,6 @@ let make = (~name: string, ~url: string, ~logoSrc: string) => {
     href=url
     target="_blank">
     <img className="w-12 h-12 lg:w-20 lg:h-20" src=logoSrc />
-    <span className="text-2xl"> {s(name)} </span>
+    <span className="text-2xl"> {React.string(name)} </span>
   </a>
 }

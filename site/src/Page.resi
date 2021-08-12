@@ -1,3 +1,5 @@
+open! Import
+
 module MainContainer: {
   module None: {
     @react.component
@@ -21,18 +23,15 @@ module Unstructured: {
 }
 
 module Basic: {
-  type container = NoContainer | Regular | Narrow
-
   @react.component
   let make: (
     ~children: React.element,
     ~title: string,
     ~pageDescription: string,
-    ~addContainer: container=?,
-    ~marginTop: string=?,
-    ~callToAction: TitleHeading.Large.callToAction=?,
+    ~addContainer: [#NoContainer | #Regular | #Narrow]=?,
+    ~marginTop: Tailwind.Breakpoint.t<Tailwind.Margin.Top.t>=?,
+    ~callToAction: CallToAction.Simple.t=?,
     ~addBottomBar: bool=?,
-    unit,
   ) => React.element
 }
 
@@ -71,6 +70,5 @@ module TitleOverBackgroundImage: {
     ~title: string,
     ~backgroundImage: TitleHeading.OverBackgroundImage.BackgroundImage.t,
     ~pageDescription: string=?,
-    unit,
   ) => React.element
 }

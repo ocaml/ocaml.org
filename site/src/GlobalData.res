@@ -1,3 +1,5 @@
+open! Import
+
 type principlesSection = {
   header: string,
   whatIsOcaml: NavEntry.t,
@@ -35,25 +37,25 @@ let navContentEn = {
       header: `Principles`,
       whatIsOcaml: {
         label: `Why OCaml`,
-        url: url(#principlesWhatisocaml),
+        url: url(#PrinciplesWhatisocaml),
         icon: Icons.camel,
         text: "Find out about OCaml's history and how it became what it is today.",
       },
       industrialUsers: {
         label: `Industrial Users`,
-        url: url(#principlesIndustrialUsers),
+        url: url(#PrinciplesIndustrialUsers),
         icon: Icons.industry,
         text: "Discover the organisations that use OCaml to accomplish their goals.",
       },
       academicExcellence: {
         label: `Academic Excellence`,
-        url: url(#principlesAcademic),
+        url: url(#PrinciplesAcademic),
         icon: Icons.academic,
         text: "Learn about the academics that research programming language technology.",
       },
       successStories: {
         label: `Success Stories`,
-        url: url(#principlesSuccesses),
+        url: url(#PrinciplesSuccesses),
         icon: Icons.success,
         text: "Read about the things that have been achieved using OCaml.",
       },
@@ -62,7 +64,7 @@ let navContentEn = {
       header: `Resources`,
       language: {
         label: `Language`,
-        url: url(#resourcesLanguage),
+        url: url(#ResourcesLanguage),
         icon: Icons.language,
         text: "Read through the OCaml tutorial, official manual and books.",
       },
@@ -74,13 +76,13 @@ let navContentEn = {
       },
       applications: {
         label: `Applications`,
-        url: url(#resourcesApplications),
+        url: url(#ResourcesApplications),
         icon: Icons.applications,
         text: "Learn techniques for building tools and applications in OCaml.",
       },
       bestPractices: {
         label: `Best Practices`,
-        url: url(#resourcesBestpractices),
+        url: url(#ResourcesBestpractices),
         icon: Icons.bestPractices,
         text: "Adopt the best known methods for development from the OCaml community.",
       },
@@ -89,25 +91,25 @@ let navContentEn = {
       header: `Community`,
       opportunities: {
         label: `Opportunities`,
-        url: url(#communityOpportunities),
+        url: url(#CommunityOpportunities),
         icon: Icons.opportunities,
         text: "Explore vacancies in projects and companies and see where you could fit in.",
       },
       news: {
         label: `News`,
-        url: url(#communityNews),
+        url: url(#CommunityNews),
         icon: Icons.news,
         text: "Catch up on the latest news from the OCaml sphere!",
       },
       aroundTheWeb: {
         label: `Around the Web`,
-        url: url(#communityAroundweb),
+        url: url(#CommunityAroundweb),
         icon: Icons.web,
         text: "A bit of everything, this page encapsulates OCaml's presence online, blogposts, videos, and mailing lists all live here.",
       },
       archive: {
         label: `Archive`,
-        url: url(#resourcesArchive),
+        url: url(#ResourcesArchive),
         icon: Icons.archive,
         text: "Can't find what you're looking for? Try searching the Archive.",
       },
@@ -187,19 +189,19 @@ let footerContentEn: Footer.t = {
         entries: [
           {
             label: `Privacy`,
-            url: url(#legalPrivacy),
+            url: url(#LegalPrivacy),
             icon: Icons.industry,
             text: "",
           },
           {
             label: `Terms`,
-            url: url(#legalTerms),
+            url: url(#LegalTerms),
             icon: Icons.industry,
             text: "",
           },
           {
             label: `Carbon Footprint`,
-            url: url(#legalCarbonfootprint),
+            url: url(#LegalCarbonfootprint),
             icon: Icons.industry,
             text: "",
           },
@@ -210,7 +212,7 @@ let footerContentEn: Footer.t = {
       thankSponsorPrefix: `Thank you to our`,
       hostingProviders: {
         label: `Hosting Providers`,
-        url: url(#legalCarbonfootprint) ++ `#hostingproviders`,
+        url: url(#LegalCarbonfootprint) ++ `#hostingproviders`,
         icon: Icons.industry,
         text: "",
       },
@@ -281,7 +283,7 @@ let milestonesContentEn: Milestones.t = {
       description: "Community feedback and consensus",
       period: "Aug - Oct 2021",
       completion: "0%",
-      results: "Post on OCaml discussion forums and gather feedback / action changes."
+      results: "Post on OCaml discussion forums and gather feedback / action changes.",
     },
     {
       version: None,

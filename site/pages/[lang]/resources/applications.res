@@ -1,7 +1,5 @@
 open! Import
 
-let s = React.string
-
 module T = {
   module ApiDocumentation = {
     @react.component
@@ -9,16 +7,16 @@ module T = {
       // TODO: factor out and define content type
       <SectionContainer.MediumCentered ?marginBottom paddingX="px-4 sm:px-32">
         <MediaObject imageHeight="h-56" image="api-img.jpeg" imageSide=#Right>
-          <h4 className="text-4xl font-bold mb-8"> {s(`API Documentation`)} </h4>
+          <h4 className="text-4xl font-bold mb-8"> {React.string(`API Documentation`)} </h4>
           <p className="mt-1 mb-8">
-            {s(`Visit our page for API Documentation in OCaml for a concise reference manual with all the information you need to work with the OCaml API.`)}
+            {React.string(`Visit our page for API Documentation in OCaml for a concise reference manual with all the information you need to work with the OCaml API.`)}
           </p>
           //TODO: add visual indicator that link is opening new tab
           <a
             href="https://docs.mirage.io/"
             target="_blank"
             className="inline-flex items-center px-14 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-orangedark hover:bg-orangedarker">
-            {s(`Visit Docs.ocaml.org`)}
+            {React.string(`Visit Docs.ocaml.org`)}
           </a>
         </MediaObject>
       </SectionContainer.MediumCentered>
@@ -93,7 +91,7 @@ module T = {
         <div className="px-4 py-5 sm:p-6">
           // TODO: factor out and define content type
           <h2 className="text-center text-orangedark text-4xl font-bold mb-8">
-            {s(content.developerGuidesLabel)}
+            {React.string(content.developerGuidesLabel)}
           </h2>
           <MediaObject
             marginBottom={Tailwind.Breakpoint.make(#mb11, ())}
@@ -105,10 +103,10 @@ module T = {
               <h4 className="text-base font-bold mb-3">
                 // TODO: visual indicator that link is opening new tab
                 <a className="hover:underline" href=content.topDeveloperGuide.link target="_blank">
-                  {s(content.topDeveloperGuide.name)}
+                  {React.string(content.topDeveloperGuide.name)}
                 </a>
               </h4>
-              <p className="mt-1"> {s(content.topDeveloperGuide.description)} </p>
+              <p className="mt-1"> {React.string(content.topDeveloperGuide.description)} </p>
             </div>
           </MediaObject>
           <MediaObject
@@ -123,10 +121,10 @@ module T = {
                   className="hover:underline"
                   href=content.bottomDeveloperGuide.link
                   target="_blank">
-                  {s(content.bottomDeveloperGuide.name)}
+                  {React.string(content.bottomDeveloperGuide.name)}
                 </a>
               </h4>
-              <p className="mt-1"> {s(content.bottomDeveloperGuide.description)} </p>
+              <p className="mt-1"> {React.string(content.bottomDeveloperGuide.description)} </p>
             </div>
           </MediaObject>
         </div>
@@ -151,9 +149,9 @@ module T = {
         marginBottom->Tailwind.Option.toClassName}>
         <div className="px-4 py-5 sm:py-8 sm:px-24">
           <h2 className="text-center text-orangedark text-4xl font-bold mb-8">
-            {s(content.usingOcamlLabel)}
+            {React.string(content.usingOcamlLabel)}
           </h2>
-          <p className="text-center mb-6"> {s(content.introduction)} </p>
+          <p className="text-center mb-6"> {React.string(content.introduction)} </p>
           <div className="grid grid-cols-3 gap-x-16 mb-6">
             <div className="flex justify-center items-center mb-6">
               // TODO: visual indicator that link opens new tab
@@ -184,22 +182,28 @@ module T = {
               </a>
             </div>
             <div>
-              <p className="font-bold text-center mb-2"> {s(content.softwareLeft.name)} </p>
-              <p> {s(content.softwareLeft.description)} </p>
+              <p className="font-bold text-center mb-2">
+                {React.string(content.softwareLeft.name)}
+              </p>
+              <p> {React.string(content.softwareLeft.description)} </p>
             </div>
             <div>
-              <p className="font-bold text-center mb-2"> {s(content.softwareMiddle.name)} </p>
-              <p> {s(content.softwareMiddle.description)} </p>
+              <p className="font-bold text-center mb-2">
+                {React.string(content.softwareMiddle.name)}
+              </p>
+              <p> {React.string(content.softwareMiddle.description)} </p>
             </div>
             <div>
-              <p className="font-bold text-center mb-2"> {s(content.softwareRight.name)} </p>
-              <p> {s(content.softwareRight.description)} </p>
+              <p className="font-bold text-center mb-2">
+                {React.string(content.softwareRight.name)}
+              </p>
+              <p> {React.string(content.softwareRight.description)} </p>
             </div>
           </div>
           <p className="text-right font-bold">
-            <Route _to={#resourcesUsingocaml} lang>
+            <Route _to={#ResourcesUsingocaml} lang>
               // TODO: descriptive link text
-              <a className="text-orangedark underline"> {s(content.seeMore ++ ` >`)} </a>
+              <a className="text-orangedark underline"> {React.string(content.seeMore ++ ` >`)} </a>
             </Route>
           </p>
         </div>
@@ -223,9 +227,9 @@ module T = {
       playgroundLink=`/play/resources/applications`
     />
     <Page.Basic
-      marginTop=`mt-1`
+      marginTop={Tailwind.Breakpoint.make(#mt1, ())}
       addBottomBar=true
-      addContainer=Page.Basic.NoContainer
+      addContainer=#NoContainer
       title=content.title
       pageDescription=content.pageDescription>
       <ApiDocumentation marginBottom={Tailwind.Breakpoint.make(#mb24, ())} />
@@ -237,7 +241,7 @@ module T = {
         t={
           CallToAction.title: "Platform Tools",
           body: `The OCaml Platform is a collection of tools that allow programmers to be productive in the OCaml language. It has been an iterative process of refinement as new tools are added and older tools are updated. Different tools accomplish different workflows and are used at different points of a project's life.`,
-          buttonLink: Route(#resourcesPlatform, lang),
+          buttonLink: #Route(#ResourcesPlatform, lang),
           buttonText: `Visit Platform Tools`,
         }
       />

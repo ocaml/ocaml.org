@@ -22,7 +22,7 @@ module Small = {
 
 @react.component
 let make = (
-  ~marginBottom=?,
+  ~marginBottom: option<Tailwind.Breakpoint.t<Tailwind.Margin.Bottom.t>>=?,
   ~imageHeight,
   ~imageWidth="",
   ~isRounded=false,
@@ -30,6 +30,7 @@ let make = (
   ~imageSide,
   ~children,
 ) => {
+  let marginBottom = (marginBottom :> option<Tailwind.t>)
   let marginBottom = marginBottom->Tailwind.Option.toClassName
   <div className={`flex flex-col items-center sm:flex-row sm:justify-evenly ${marginBottom}`}>
     {

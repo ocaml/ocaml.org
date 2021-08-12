@@ -1,7 +1,5 @@
 open! Import
 
-let s = React.string
-
 module T = {
   module LatestNews = {
     // TODO: finish out extracting strings into content
@@ -12,7 +10,7 @@ module T = {
       <SectionContainer.LargeCentered paddingY="py-16">
         <h2
           className="mb-8 text-3xl text-center tracking-tight font-extrabold text-gray-900 sm:text-4xl">
-          {s(`What's the Latest?`)}
+          {React.string(`What's the Latest?`)}
         </h2>
         <MediaObject
           imageHeight="h-28 sm:h-64"
@@ -36,7 +34,7 @@ module T = {
           </div>
           <p className="text-xs text-right">
             <a className="text-orangedark hover:text-orangedark" href="/community/newsarchive">
-              {s(`Go to the news archive >`)}
+              {React.string(`Go to the news archive >`)}
             </a>
           </p>
         </MediaObject>
@@ -84,10 +82,12 @@ module T = {
                       />
                     </div>
                     <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
-                      <div> <p className="text-sm text-gray-500"> {s(event.title)} </p> </div>
+                      <div>
+                        <p className="text-sm text-gray-500"> {React.string(event.title)} </p>
+                      </div>
                       <div className="text-right text-sm whitespace-nowrap text-gray-500">
                         <time dateTime={event.date}>
-                          {s(event.date |> Js.Date.fromString |> Js.Date.toDateString)}
+                          {React.string(event.date |> Js.Date.fromString |> Js.Date.toDateString)}
                         </time>
                       </div>
                     </div>
@@ -105,7 +105,7 @@ module T = {
               t={
                 CallToAction.title: content.title,
                 body: content.description,
-                buttonLink: Route(#communityEvents, lang),
+                buttonLink: #Route(#CommunityEvents, lang),
                 buttonText: content.callToAction,
               }
             />
@@ -150,17 +150,15 @@ module T = {
       playgroundLink=`/play/community/aroundweb`
     />
     <Page.Basic
-      title=content.title
-      pageDescription=content.pageDescription
-      addContainer=Page.Basic.NoContainer>
+      title=content.title pageDescription=content.pageDescription addContainer=#NoContainer>
       <CallToAction.General
         t={
           CallToAction.title: content.engageHeader,
           body: content.engageBody,
-          buttonLink: External("https://discuss.ocaml.org"),
+          buttonLink: #External("https://discuss.ocaml.org"),
           buttonText: content.engageButtonText,
         }
-        colorStyle=CallToAction.General.BackgroundFilled
+        colorStyle=#BackgroundFilled
         marginBottom={Tailwind.Breakpoint.make(#mb16, ())}
       />
       <LatestNews content=content.latestNewsContent />
@@ -169,10 +167,10 @@ module T = {
         paddingY="pt-16 pb-3 lg:pt-24 lg:pb-8" paddingX="px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl">
-            {s(content.blogSectionHeader)}
+            {React.string(content.blogSectionHeader)}
           </h2>
           <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500 sm:mt-4">
-            {s(content.blogSectionDescription)}
+            {React.string(content.blogSectionDescription)}
           </p>
         </div>
         <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">
@@ -187,21 +185,21 @@ module T = {
             <div className="flex-1 bg-white p-6 flex flex-col justify-between">
               <div className="flex-1">
                 <p className="text-sm font-medium text-orangedark">
-                  <a href="#" className="hover:underline"> {s(content.blog)} </a>
+                  <a href="#" className="hover:underline"> {React.string(content.blog)} </a>
                 </p>
                 <a href="#" className="block mt-2">
                   <h3 className="text-xl font-semibold text-gray-900">
-                    {s(content.blogEntries[0].title)}
+                    {React.string(content.blogEntries[0].title)}
                   </h3>
                   <p className="mt-3 text-base text-gray-500">
-                    {s(content.blogEntries[0].excerpt)}
+                    {React.string(content.blogEntries[0].excerpt)}
                   </p>
                 </a>
               </div>
               <div className="mt-6 flex items-center">
                 <div className="flex-shrink-0">
                   <a href="#">
-                    <span className="sr-only"> {s(content.blogEntries[0].author)} </span>
+                    <span className="sr-only"> {React.string(content.blogEntries[0].author)} </span>
                     <img
                       className="h-10 w-10 rounded-full"
                       src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=aimuGJ4P9C&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -211,14 +209,16 @@ module T = {
                 </div>
                 <div className="ml-3">
                   <p className="text-sm font-medium text-gray-900">
-                    <a href="#" className="hover:underline"> {s(content.blogEntries[0].author)} </a>
+                    <a href="#" className="hover:underline">
+                      {React.string(content.blogEntries[0].author)}
+                    </a>
                   </p>
                   <div className="flex space-x-1 text-sm text-gray-500">
                     <time dateTime=content.blogEntries[0].dateValue>
-                      {s(content.blogEntries[0].date)}
+                      {React.string(content.blogEntries[0].date)}
                     </time>
-                    <span ariaHidden=true> {s(`·`)} </span>
-                    <span> {s(content.blogEntries[0].readingTime ++ ` min read`)} </span>
+                    <span ariaHidden=true> {React.string(`·`)} </span>
+                    <span> {React.string(content.blogEntries[0].readingTime ++ ` min read`)} </span>
                   </div>
                 </div>
               </div>
@@ -235,21 +235,21 @@ module T = {
             <div className="flex-1 bg-white p-6 flex flex-col justify-between">
               <div className="flex-1">
                 <p className="text-sm font-medium text-orangedark">
-                  <a href="#" className="hover:underline"> {s(content.blog)} </a>
+                  <a href="#" className="hover:underline"> {React.string(content.blog)} </a>
                 </p>
                 <a href="#" className="block mt-2">
                   <h3 className="text-xl font-semibold text-gray-900">
-                    {s(content.blogEntries[1].title)}
+                    {React.string(content.blogEntries[1].title)}
                   </h3>
                   <p className="mt-3 text-base text-gray-500">
-                    {s(content.blogEntries[1].excerpt)}
+                    {React.string(content.blogEntries[1].excerpt)}
                   </p>
                 </a>
               </div>
               <div className="mt-6 flex items-center">
                 <div className="flex-shrink-0">
                   <a href="#">
-                    <span className="sr-only"> {s(content.blogEntries[1].author)} </span>
+                    <span className="sr-only"> {React.string(content.blogEntries[1].author)} </span>
                     <img
                       className="h-10 w-10 rounded-full"
                       src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=aimuGJ4P9C&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -259,14 +259,16 @@ module T = {
                 </div>
                 <div className="ml-3">
                   <p className="text-sm font-medium text-gray-900">
-                    <a href="#" className="hover:underline"> {s(content.blogEntries[1].author)} </a>
+                    <a href="#" className="hover:underline">
+                      {React.string(content.blogEntries[1].author)}
+                    </a>
                   </p>
                   <div className="flex space-x-1 text-sm text-gray-500">
                     <time dateTime=content.blogEntries[1].dateValue>
-                      {s(content.blogEntries[1].date)}
+                      {React.string(content.blogEntries[1].date)}
                     </time>
-                    <span ariaHidden=true> {s(`·`)} </span>
-                    <span> {s(content.blogEntries[1].readingTime ++ ` min read`)} </span>
+                    <span ariaHidden=true> {React.string(`·`)} </span>
+                    <span> {React.string(content.blogEntries[1].readingTime ++ ` min read`)} </span>
                   </div>
                 </div>
               </div>
@@ -283,21 +285,21 @@ module T = {
             <div className="flex-1 bg-white p-6 flex flex-col justify-between">
               <div className="flex-1">
                 <p className="text-sm font-medium text-orangedark">
-                  <a href="#" className="hover:underline"> {s(content.blog)} </a>
+                  <a href="#" className="hover:underline"> {React.string(content.blog)} </a>
                 </p>
                 <a href="#" className="block mt-2">
                   <h3 className="text-xl font-semibold text-gray-900">
-                    {s(content.blogEntries[2].title)}
+                    {React.string(content.blogEntries[2].title)}
                   </h3>
                   <p className="mt-3 text-base text-gray-500">
-                    {s(content.blogEntries[2].excerpt)}
+                    {React.string(content.blogEntries[2].excerpt)}
                   </p>
                 </a>
               </div>
               <div className="mt-6 flex items-center">
                 <div className="flex-shrink-0">
                   <a href="#">
-                    <span className="sr-only"> {s(content.blogEntries[2].author)} </span>
+                    <span className="sr-only"> {React.string(content.blogEntries[2].author)} </span>
                     <img
                       className="h-10 w-10 rounded-full"
                       src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=aimuGJ4P9C&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -307,14 +309,16 @@ module T = {
                 </div>
                 <div className="ml-3">
                   <p className="text-sm font-medium text-gray-900">
-                    <a href="#" className="hover:underline"> {s(content.blogEntries[2].author)} </a>
+                    <a href="#" className="hover:underline">
+                      {React.string(content.blogEntries[2].author)}
+                    </a>
                   </p>
                   <div className="flex space-x-1 text-sm text-gray-500">
                     <time dateTime=content.blogEntries[2].date>
-                      {s(content.blogEntries[2].date)}
+                      {React.string(content.blogEntries[2].date)}
                     </time>
-                    <span ariaHidden=true> {s(`·`)} </span>
-                    <span> {s(content.blogEntries[2].readingTime ++ ` min read`)} </span>
+                    <span ariaHidden=true> {React.string(`·`)} </span>
+                    <span> {React.string(content.blogEntries[2].readingTime ++ ` min read`)} </span>
                   </div>
                 </div>
               </div>
@@ -323,7 +327,7 @@ module T = {
         </div>
         <p className="mt-5 text-right">
           <a className="font-semibold text-orangedark" href="#">
-            {s(content.blogArchiveText ++ ` >`)}
+            {React.string(content.blogArchiveText ++ ` >`)}
           </a>
         </p>
       </SectionContainer.LargeCentered>

@@ -1,3 +1,5 @@
+open! Import
+
 module UserLevelIntroduction: {
   type t = {
     level: string,
