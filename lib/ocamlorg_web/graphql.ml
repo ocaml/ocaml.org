@@ -238,7 +238,7 @@ let packages_result =
             ~resolve:(fun _ p -> p.packages)
         ]))
 
-let schema ~t : Dream.request Graphql_lwt.Schema.schema =
+let schema t : Dream.request Graphql_lwt.Schema.schema =
   Graphql_lwt.Schema.(
     schema
       [ field
