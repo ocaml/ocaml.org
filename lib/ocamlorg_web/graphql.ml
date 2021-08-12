@@ -234,7 +234,7 @@ let packages_result =
             ~resolve:(fun _ p -> p.packages)
         ]))
 
-let schema : Dream.request Graphql_lwt.Schema.schema =
+let schema t : Dream.request Graphql_lwt.Schema.schema =
   Graphql_lwt.Schema.(
     schema
       [ field
@@ -268,7 +268,7 @@ let schema : Dream.request Graphql_lwt.Schema.schema =
                   ~typ:int
               ]
           ~resolve:(fun _ () startswith offset limit ->
-            let packages = Package.all_packages_latest () in
+            let packages = Package.all_packages_latest t in
             let total_packages = List.length packages in
             let limit =
               match limit with None -> total_packages | Some limit -> limit
@@ -286,7 +286,7 @@ let schema : Dream.request Graphql_lwt.Schema.schema =
                   ~typ:(non_null string)
               ]
           ~resolve:(fun _ () name ->
-            let all_packages = Package.all_packages_latest () in
+            let all_packages = Package.all_packages_latest t in
             List.find_opt
               (fun package ->
                 is_package name (Package.Name.to_string (Package.name package)))

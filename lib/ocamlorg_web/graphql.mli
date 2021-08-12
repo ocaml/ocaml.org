@@ -30,6 +30,6 @@ val get_info : (Package.Name.t * string option) list -> package_info list
 (** This function returns the list part Package.Info such as
     Package.Info.dependencies *)
 
-val schema : Dream.request Graphql_lwt.Schema.schema
+val schema : Package.state -> Dream.request Graphql_lwt.Schema.schema
 (** This schema allows to query for opam packages from the opam-repository as
     graphql api data *)
