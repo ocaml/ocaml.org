@@ -121,10 +121,16 @@ let get_info_test () =
   let num_of_deps = List.length deps in
   Alcotest.(check int) "returns 6 dependencies" 6 num_of_deps
 
-let get_single_package_test name cond () =
+let get_single_package_test name () =
   let pkg = Ocamlorg_web.Graphql.get_single_package packages name in
-  let res = match pkg with None -> false | Some _ -> true in
-  Alcotest.(check bool) "ocaml exist in package list" cond res
+  match pkg with
+  | None ->
+    Alcotest.fail "Expected a package"
+  | Some package ->
+    Alcotest.(check string)
+      "Same name"
+      name
+      (Package.Name.to_string (Package.name package))
 
 let () =
   Alcotest.run
@@ -169,12 +175,6 @@ let () =
       , [ Alcotest.test_case
             "returns true"
             `Quick
-            (get_single_package_test "ocaml" true)
-        ] )
-    ; ( "test to get a single package by name that does not exist"
-      , [ Alcotest.test_case
-            "returns false"
-            `Quick
-            (get_single_package_test "ban" false)
+            (get_single_package_test "ocaml")
         ] )
     ]

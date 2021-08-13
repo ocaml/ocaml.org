@@ -11,12 +11,12 @@ type packages_result =
   }
 
 val starts_with : string -> string -> bool
-(** This function compares two strings and returns true if the first string is
-    equal to the beginning of the second string up to capitalization *)
+(** [starts_with] function compares two strings and returns true if the first
+    string is equal to the beginning of the second string up to capitalization *)
 
 val is_package : string -> string -> bool
-(** This function compares two strings and returns true if they are equal up to
-    capitalization *)
+(** [is_package] function compares two strings and returns true if they are
+    equal up to capitalization *)
 
 val get_packages_result
   :  int
@@ -25,14 +25,21 @@ val get_packages_result
   -> string option
   -> Package.t list
   -> packages_result
-(** This function returns a list of the latest version of all packages *)
+(** [get_packages_result total_packages offset limit startswith packages]
+    returns a list of the latest version of all packages with [limit] and
+    [offset] options which is used to cut out some parts of the
+    [packages_result] list. It also takes a [startswith] option which will
+    search the list of packages looking for the package with a name that begins
+    with [startswith] *)
 
 val get_single_package : Package.t list -> string -> Package.t option
-(** This function returns the latest version of the pakage name specified *)
+(** [get_single_package packages name] will search the list of packages looking
+    for the package with a name that matches [name], [None] is returned if no
+    package can be found. *)
 
 val get_info : (Package.Name.t * string option) list -> package_info list
-(** This function returns the list part of Package.Info such as
-    Package.Info.dependencies *)
+(** [get_info] function loops through the list part of Package.Info such as
+    Package.Info.dependencies and returns a list of name and constraints record *)
 
 val schema : Package.state -> Dream.request Graphql_lwt.Schema.schema
 (** This schema allows to query for opam packages from the opam-repository as
