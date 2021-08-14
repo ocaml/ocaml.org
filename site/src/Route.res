@@ -65,7 +65,7 @@ let toString = (t: t, lang) => {
   | #ResourcesReleases => "resources/releases"
   | #ResourcesUsingocaml => "resources/usingocaml"
   | #ResourcesTutorials => "resources/tutorials"
-  | #ResourcesTutorial(s) => "resources/" ++ s
+  | #ResourcesTutorial(s) => "resources/tutorials/" ++ s
   }
   "/" ++ lang ++ "/" ++ path
 }
