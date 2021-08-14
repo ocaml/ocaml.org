@@ -6899,7 +6899,7 @@ a function, expecting one string argument.</p>
  
   { title = {js|If Statements, Loops and Recursions|js}
   ; slug = {js|if-statements-loops-and-recursions|js}
-  ; description = {js|Learn basic control-flow and recusion in OCaml
+  ; description = {js|Learn basic control-flow and recursion in OCaml
 |js}
   ; date = {js|2021-05-27T21:07:30-00:00|js}
   ; tags = 
@@ -6909,14 +6909,11 @@ a function, expecting one string argument.</p>
 ## If statements (actually, these are if expressions)
 OCaml has an `if` statement with two variations, and the obvious meaning:
 
+<!-- $MDX skip -->
 ```ocaml
 if boolean-condition then expression
   
 if boolean-condition then expression else other-expression
-```
-```mdx-error
-Line 3, characters 3-5:
-Error: Syntax error
 ```
 
 Unlike in the conventional languages you'll be used to, `if` statements
@@ -7021,8 +7018,9 @@ val abs : int -> int = <fun>
 Also in `Stdlib`, the `string_of_float` function contains a complex
 pair of nested `if` expressions:
 
+<!-- $MDX skip -->
 ```ocaml
-# let string_of_float f =
+let string_of_float f =
   let s = format_float "%.12g" f in
   let l = string_length s in
   let rec loop i =
@@ -7031,8 +7029,6 @@ pair of nested `if` expressions:
     else loop (i + 1)
   in
     loop 0
-Line 2, characters 11-23:
-Error: Unbound value format_float
 ```
 
 Let's examine this function. Suppose the function is called with `f` =
@@ -7063,14 +7059,13 @@ in a way which prevents them from being used in `string_of_float`. Here,
 however, is a more straightforward, but approximately twice as slow, way
 of writing `string_of_float`:
 
+<!-- $MDX skip -->
 ```ocaml
-# let string_of_float f =
+let string_of_float f =
   let s = format_float "%.12g" f in
     if String.contains s '.' || String.contains s 'e'
       then s
       else s ^ "."
-Line 2, characters 11-23:
-Error: Unbound value format_float
 ```
 
 ## Using begin ... end
@@ -7123,16 +7118,16 @@ simple examples:
     print_endline "ELSE";
     failwith "else clause"
   end
-Exception: Failure "else clause".
 ELSE
+Exception: Failure "else clause".
 # if 1 = 0 then
     print_endline "THEN"
   else (
     print_endline "ELSE";
     failwith "else clause"
   )
-Exception: Failure "else clause".
 ELSE
+Exception: Failure "else clause".
 ```
 
 ## For loops and while loops
@@ -8186,12 +8181,10 @@ modules.
 |js}
   ; body_html = {js|<h2 id="if-statements-actually-these-are-if-expressions">If statements (actually, these are if expressions)</h2>
 <p>OCaml has an <code>if</code> statement with two variations, and the obvious meaning:</p>
+<!-- $MDX skip -->
 <pre><code class="language-ocaml">if boolean-condition then expression
   
 if boolean-condition then expression else other-expression
-</code></pre>
-<pre><code class="language-mdx-error">Line 3, characters 3-5:
-Error: Syntax error
 </code></pre>
 <p>Unlike in the conventional languages you'll be used to, <code>if</code> statements
 are really expressions. In other words, they're much more like
@@ -8265,7 +8258,8 @@ val abs : int -&gt; int = &lt;fun&gt;
 </code></pre>
 <p>Also in <code>Stdlib</code>, the <code>string_of_float</code> function contains a complex
 pair of nested <code>if</code> expressions:</p>
-<pre><code class="language-ocaml"># let string_of_float f =
+<!-- $MDX skip -->
+<pre><code class="language-ocaml">let string_of_float f =
   let s = format_float &quot;%.12g&quot; f in
   let l = string_length s in
   let rec loop i =
@@ -8274,8 +8268,6 @@ pair of nested <code>if</code> expressions:</p>
     else loop (i + 1)
   in
     loop 0
-Line 2, characters 11-23:
-Error: Unbound value format_float
 </code></pre>
 <p>Let's examine this function. Suppose the function is called with <code>f</code> =
 12.34. Then <code>s</code> = &quot;12.34&quot;, and <code>l</code> = 5. We call <code>loop</code> the first time
@@ -8299,13 +8291,12 @@ loops? We'll see in the next section that OCaml's for loops are limited
 in a way which prevents them from being used in <code>string_of_float</code>. Here,
 however, is a more straightforward, but approximately twice as slow, way
 of writing <code>string_of_float</code>:</p>
-<pre><code class="language-ocaml"># let string_of_float f =
+<!-- $MDX skip -->
+<pre><code class="language-ocaml">let string_of_float f =
   let s = format_float &quot;%.12g&quot; f in
     if String.contains s '.' || String.contains s 'e'
       then s
       else s ^ &quot;.&quot;
-Line 2, characters 11-23:
-Error: Unbound value format_float
 </code></pre>
 <h2 id="using-begin--end">Using begin ... end</h2>
 <p>Here is some code from lablgtk:</p>
@@ -8348,16 +8339,16 @@ simple examples:</p>
     print_endline &quot;ELSE&quot;;
     failwith &quot;else clause&quot;
   end
-Exception: Failure &quot;else clause&quot;.
 ELSE
+Exception: Failure &quot;else clause&quot;.
 # if 1 = 0 then
     print_endline &quot;THEN&quot;
   else (
     print_endline &quot;ELSE&quot;;
     failwith &quot;else clause&quot;
   )
-Exception: Failure &quot;else clause&quot;.
 ELSE
+Exception: Failure &quot;else clause&quot;.
 </code></pre>
 <h2 id="for-loops-and-while-loops">For loops and while loops</h2>
 <p>OCaml supports a rather limited form of the familiar <code>for</code> loop:</p>

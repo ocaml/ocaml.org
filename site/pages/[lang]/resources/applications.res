@@ -11,12 +11,10 @@ module T = {
           <p className="mt-1 mb-8">
             {React.string(`Visit our page for API Documentation in OCaml for a concise reference manual with all the information you need to work with the OCaml API.`)}
           </p>
-          //TODO: add visual indicator that link is opening new tab
           <a
-            href="https://docs.mirage.io/"
-            target="_blank"
+            href="/packages"
             className="inline-flex items-center px-14 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-orangedark hover:bg-orangedarker">
-            {React.string(`Visit Docs.ocaml.org`)}
+            {React.string(`Explore the Docs`)}
           </a>
         </MediaObject>
       </SectionContainer.MediumCentered>

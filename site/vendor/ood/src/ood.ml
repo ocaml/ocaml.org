@@ -96,6 +96,11 @@ module News = struct
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
+module Watch = struct
+  include Watch
+
+end
+
 module Video = struct
   include Video
 
@@ -112,3 +117,16 @@ module Video = struct
 
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
+
+module Workshop = struct 
+  include Workshop
+
+  let role_to_string = function `Chair -> "chair" | `Co_chair -> "co-chair"
+
+  let role_of_string = function
+    | "chair" -> Ok `Chair
+    | "co-chair" -> Ok `Co_chair
+    | _ -> Error (`Msg "Unknown role type")
+
+  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
+end 

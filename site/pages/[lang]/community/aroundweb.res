@@ -375,7 +375,7 @@ module T = {
   ]
 
   let contentEn = {
-    let news = Belt.List.toArray(Ood.News.all)
+    let news = Belt.List.toArray(Ood.News.all)->Belt.Array.keepWithIndex((_, i) => i <= 3)
 
     let events = Belt.List.toArray(Ood.Event.all)
 
