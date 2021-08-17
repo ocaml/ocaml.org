@@ -35,8 +35,7 @@ let get_packages_result total_packages offset limit startswith packages =
     let packages =
       List.filteri (fun i _ -> offset <= i && i < offset + limit) packages
     in
-    let packages_result = { total_packages; packages } in
-    packages_result
+    { total_packages; packages }
   | Some filter ->
     let packages =
       List.filteri
@@ -46,8 +45,13 @@ let get_packages_result total_packages offset limit startswith packages =
           && starts_with filter (Package.Name.to_string (Package.name package)))
         packages
     in
-    let packages_result = { total_packages; packages } in
-    packages_result
+    { total_packages; packages }
+
+let get_single_package all_packages name =
+  List.find_opt
+    (fun package ->
+      is_package name (Package.Name.to_string (Package.name package)))
+    all_packages
 
 let get_info info =
   List.map
@@ -287,8 +291,5 @@ let schema t : Dream.request Graphql_lwt.Schema.schema =
               ]
           ~resolve:(fun _ () name ->
             let all_packages = Package.all_packages_latest t in
-            List.find_opt
-              (fun package ->
-                is_package name (Package.Name.to_string (Package.name package)))
-              all_packages)
+            get_single_package all_packages name)
       ])

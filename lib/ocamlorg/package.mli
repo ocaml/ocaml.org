@@ -80,6 +80,9 @@ val version : t -> Version.t
 val info : t -> Info.t
 (** Get the info of a package. *)
 
+val create : name:Name.t -> version:Version.t -> Info.t -> t
+(** This is added to enable demo test package to use Package.t with abstraction *)
+
 val readme_file
   :  kind:[< `Package | `Universe of string ]
   -> t

@@ -102,6 +102,8 @@ let version t = t.version
 
 let info t = Lazy.force t.info
 
+let create ~name ~version info = { name; version; info = Lazy.from_val info }
+
 type state =
   { mutable packages :
       Info.t lazy_t OpamPackage.Version.Map.t OpamPackage.Name.Map.t
