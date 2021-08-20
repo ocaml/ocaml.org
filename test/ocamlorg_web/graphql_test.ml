@@ -1,13 +1,6 @@
 module Ocamlorg_web = Ocamlorg_web
 module Package = Ocamlorg.Package
 
-type packages_success =
-  { total_packages : int
-  ; packages : Package.t list
-  }
-
-type packages_result = (packages_success, [ `Msg of string ]) result
-
 let dependencies =
   [ Package.Name.of_string "0install", Some "3.2"
   ; Package.Name.of_string "ocaml", None
@@ -133,6 +126,16 @@ let packages_list_test contains offset limit () =
    Alcotest.(check int) "returns all the packages" (List.length packages)
    num_of_packages_returned *)
 
+let state_test () =
+  let state = Package.state_of_package_list packages in
+  let pkg =
+    Package.search_package state "abt"
+    |> List.map Package.name
+    |> List.map Package.Name.to_string
+  in
+  let expect = [ "abt" ] in
+  Alcotest.(check (list string)) "same package" expect pkg
+
 let () =
   Alcotest.run
     "ocamlorg"
@@ -190,4 +193,6 @@ let () =
       (* ; ( "test that all_packages_result function returns all packages" , [
          Alcotest.test_case "and returns false" `Quick (all_packages_result_test
          "ocaml" "merlin" false) ] ) *)
+    ; ( "state test"
+      , [ Alcotest.test_case "same package from state" `Quick state_test ] )
     ]
