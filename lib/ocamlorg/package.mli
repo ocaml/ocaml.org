@@ -71,6 +71,10 @@ type state
 
 type t
 
+val state_of_package_list : t list -> state
+(** [state_of_package_list ts] produces the opam-repository state from a list of
+    packages *)
+
 val name : t -> Name.t
 (** Get the name of a package. *)
 

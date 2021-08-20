@@ -109,6 +109,20 @@ type state =
       Info.t lazy_t OpamPackage.Version.Map.t OpamPackage.Name.Map.t
   }
 
+let state_of_package_list (pkgs : t list) =
+  let map = OpamPackage.Name.Map.empty in
+  let add_version (pkg : t) map =
+    let new_map =
+      match OpamPackage.Name.Map.find_opt pkg.name map with
+      | None ->
+        OpamPackage.Version.Map.(add pkg.version pkg.info empty)
+      | Some version_map ->
+        OpamPackage.Version.Map.add pkg.version pkg.info version_map
+    in
+    OpamPackage.Name.Map.add pkg.name new_map map
+  in
+  { packages = List.fold_left (fun map v -> add_version v map) map pkgs }
+
 let read_versions package_name =
   let versions = Opam_repository.list_package_versions package_name in
   List.fold_left

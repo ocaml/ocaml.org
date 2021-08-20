@@ -5,41 +5,56 @@ type package_info =
   ; constraints : string option
   }
 
-type packages_result =
+type packages_success =
   { total_packages : int
   ; packages : Package.t list
   }
 
-val starts_with : string -> string -> bool
-(** [starts_with] function compares two strings and returns true if the first
-    string is equal to the beginning of the second string up to capitalization *)
+type packages_result = (packages_success, [ `Msg of string ]) result
 
-val is_package : string -> string -> bool
-(** [is_package] function compares two strings and returns true if they are
-    equal up to capitalization *)
+type package_success = { package : Package.t }
 
-val get_packages_result
-  :  int
-  -> int
-  -> int
-  -> string option
-  -> Package.t list
-  -> packages_result
-(** [get_packages_result total_packages offset limit startswith packages]
-    returns a list of the latest version of all packages with [limit] and
-    [offset] options which is used to cut out some parts of the
-    [packages_result] list. It also takes a [startswith] option which will
-    search the list of packages looking for the package with a name that begins
-    with [startswith] *)
-
-val get_single_package : Package.t list -> string -> Package.t option
-(** [get_single_package packages name] will search the list of packages looking
-    for the package with a name that matches [name], [None] is returned if no
-    package can be found. *)
+type package_result = (package_success, [ `Msg of string ]) result
 
 val get_info : (Package.Name.t * string option) list -> package_info list
 (** [get_info] function loops through the list part of Package.Info such as
     Package.Info.dependencies and returns a list of name and constraints record *)
+
+val is_in_range : 'a -> 'a -> 'a -> bool
+(** [is_in_range] function takes [current_version] [from_version] [upto_version]
+    and compares the from_version upto_version with current_version and returns
+    a boolean *)
+
+val is_valid_params : int -> int -> int -> string
+
+val packages_list
+  :  string option
+  -> int
+  -> int
+  -> Package.t list
+  -> Package.state
+  -> Package.t list
+
+val all_packages_result
+  :  string option
+  -> int
+  -> int option
+  -> Package.t list
+  -> Package.state
+  -> (packages_success, string) result
+
+val package_result
+  :  string
+  -> string option
+  -> Package.state
+  -> (Package.t, string) result
+
+val package_versions_result
+  :  string
+  -> string option
+  -> string option
+  -> Package.state
+  -> (packages_success, string) result
 
 val schema : Package.state -> Dream.request Graphql_lwt.Schema.schema
 (** This schema allows to query for opam packages from the opam-repository as

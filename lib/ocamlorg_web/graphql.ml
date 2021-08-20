@@ -6,58 +6,124 @@ type package_info =
   ; constraints : string option
   }
 
-type packages_result =
+type packages_success =
   { total_packages : int
   ; packages : Package.t list
   }
 
-let starts_with s1 s2 =
-  let len1 = String.length s1 in
-  if len1 > String.length s2 then
-    false
-  else
-    let s1 = String.lowercase_ascii s1 in
-    let s2 = String.lowercase_ascii s2 in
-    String.(equal (sub s2 0 (length s1)) s1)
+type packages_result = (packages_success, [ `Msg of string ]) result
 
-let is_package s1 s2 =
-  let len1 = String.length s1 in
-  if len1 <> String.length s2 then
-    false
-  else
-    let s1 = String.lowercase_ascii s1 in
-    let s2 = String.lowercase_ascii s2 in
-    String.(equal s2 s1)
+type package_success = { package : Package.t }
 
-let get_packages_result total_packages offset limit startswith packages =
-  match startswith with
-  | None ->
-    let packages =
-      List.filteri (fun i _ -> offset <= i && i < offset + limit) packages
-    in
-    { total_packages; packages }
-  | Some filter ->
-    let packages =
-      List.filteri
-        (fun i package ->
-          offset <= i
-          && i < offset + limit
-          && starts_with filter (Package.Name.to_string (Package.name package)))
-        packages
-    in
-    { total_packages; packages }
-
-let get_single_package all_packages name =
-  List.find_opt
-    (fun package ->
-      is_package name (Package.Name.to_string (Package.name package)))
-    all_packages
+type package_result = (package_success, [ `Msg of string ]) result
 
 let get_info info =
   List.map
     (fun (name, constraints) ->
       { name = Package.Name.to_string name; constraints })
     info
+
+let is_in_range current_version from_version upto_version =
+  current_version >= from_version && current_version <= upto_version
+
+let is_valid_params limit offset total_packages =
+  let is_valid_limit = limit >= 0 && limit <= total_packages in
+  let is_valid_offset = offset >= 0 && offset <= total_packages in
+  let res = is_valid_limit in
+  match res with
+  | false ->
+    "wrong_limit"
+  | _ ->
+    let res = is_valid_offset in
+    (match res with false -> "wrong_offset" | _ -> "true")
+
+let packages_list contains offset limit all_packages t =
+  match contains with
+  | None ->
+    List.filteri (fun i _ -> offset <= i && i < offset + limit) all_packages
+  | Some letters ->
+    List.filteri
+      (fun i _ -> offset <= i && i < offset + limit)
+      (Package.search_package t letters)
+
+let all_packages_result contains offset limit all_packages t =
+  let total_packages = List.length all_packages in
+  let limit = match limit with None -> total_packages | Some limit -> limit in
+  let result = is_valid_params limit offset total_packages in
+  match result with
+  | "wrong_offset" ->
+    Error
+      ("offset must be greater than or equal to 0 AND less than or equal to "
+      ^ string_of_int total_packages)
+  | "wrong_limit" ->
+    Error
+      ("limit must be greater than or equal to 0 AND less than or equal to "
+      ^ string_of_int total_packages)
+  | _ ->
+    let packages = packages_list contains offset limit all_packages t in
+    Ok { total_packages; packages }
+
+let package_result name version t =
+  match version with
+  | None ->
+    let package = Package.get_package_latest t (Package.Name.of_string name) in
+    (match package with
+    | None ->
+      Error ("No package matching " ^ name ^ " was found")
+    | Some package ->
+      Ok package)
+  | Some version ->
+    let package =
+      Package.get_package
+        t
+        (Package.Name.of_string name)
+        (Package.Version.of_string version)
+    in
+    (match package with
+    | None ->
+      Error ("No package matching " ^ name ^ ": " ^ version ^ " was found")
+    | Some package ->
+      Ok package)
+
+let package_versions_result name from upto t =
+  let all_packages = Package.all_packages_latest t in
+  let total_packages = List.length all_packages in
+  let packages =
+    Package.get_packages_with_name t (Package.Name.of_string name)
+  in
+  match packages with
+  | None ->
+    Error ("No package matching " ^ name ^ " was found")
+  | Some packages ->
+    let total_package_versions = List.length packages in
+    if from = None && upto = None then
+      Ok { total_packages; packages }
+    else
+      let from =
+        match from with
+        | None ->
+          Package.Version.to_string (Package.version (List.hd packages))
+        | Some from ->
+          from
+      in
+      let upto =
+        match upto with
+        | None ->
+          Package.Version.to_string
+            (Package.version (List.nth packages (total_package_versions - 1)))
+        | Some upto ->
+          upto
+      in
+      let package_list =
+        List.filter
+          (fun package ->
+            is_in_range
+              (Package.version package)
+              (Package.Version.of_string from)
+              (Package.Version.of_string upto))
+          packages
+      in
+      Ok { total_packages; packages = package_list }
 
 let info =
   Graphql_lwt.Schema.(
@@ -241,7 +307,7 @@ let packages_result =
 let schema t : Dream.request Graphql_lwt.Schema.schema =
   Graphql_lwt.Schema.(
     schema
-      [ field
+      [ io_field
           "allPackages"
           ~typ:(non_null packages_result)
           ~doc:
@@ -252,8 +318,8 @@ let schema t : Dream.request Graphql_lwt.Schema.schema =
               [ arg
                   ~doc:
                     "Filter packages by passing a search query which lists out \
-                     all packages that starts with the search query if any"
-                  "startswith"
+                     all packages that contains the search query if any"
+                  "contains"
                   ~typ:string
               ; arg'
                   ~doc:
@@ -271,25 +337,49 @@ let schema t : Dream.request Graphql_lwt.Schema.schema =
                   "limit"
                   ~typ:int
               ]
-          ~resolve:(fun _ () startswith offset limit ->
-            let packages = Package.all_packages_latest t in
-            let total_packages = List.length packages in
-            let limit =
-              match limit with None -> total_packages | Some limit -> limit
-            in
-            get_packages_result total_packages offset limit startswith packages)
-      ; field
+          ~resolve:(fun _ () contains offset limit ->
+            let all_packages = Package.all_packages_latest t in
+            Lwt.return
+              (all_packages_result contains offset limit all_packages t))
+      ; io_field
           "package"
-          ~typ:package
-          ~doc:"Returns details of the latest version of the specified package"
+          ~typ:(non_null package)
+          ~doc:
+            "Returns details of a specified package. It returns the latest \
+             version if no version is specifed or returns a particular version \
+             of the package if a specified"
           ~args:
             Arg.
               [ arg
                   ~doc:"Get a single package by name"
                   "name"
                   ~typ:(non_null string)
+              ; arg ~doc:"Get a single package by version" "version" ~typ:string
               ]
-          ~resolve:(fun _ () name ->
-            let all_packages = Package.all_packages_latest t in
-            get_single_package all_packages name)
+          ~resolve:(fun _ () name version ->
+            Lwt.return (package_result name version t))
+      ; io_field
+          "packgeByVersions"
+          ~typ:(non_null packages_result)
+          ~doc:
+            "Returns the list of package versions that falls within two \
+             specified version ranges or all versions of the package name if \
+             range(s) is not specified"
+          ~args:
+            Arg.
+              [ arg
+                  ~doc:"Returns the details of specified package name"
+                  "name"
+                  ~typ:(non_null string)
+              ; arg
+                  ~doc:"Specifies from which version of the package needed"
+                  "from"
+                  ~typ:string
+              ; arg
+                  ~doc:"Specifies the last version of the package needed"
+                  "upto"
+                  ~typ:string
+              ]
+          ~resolve:(fun _ () name from upto ->
+            Lwt.return (package_versions_result name from upto t))
       ])
