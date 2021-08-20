@@ -132,6 +132,16 @@ let get_single_package_test name () =
       name
       (Package.Name.to_string (Package.name package))
 
+let state_test () =
+  let state = Package.state_of_package_list packages in
+  let pkg =
+    Package.search_package state "abt"
+    |> List.map Package.name
+    |> List.map Package.Name.to_string
+  in
+  let expect = [ "abt" ] in
+  Alcotest.(check (list string)) "same package" expect pkg
+
 let () =
   Alcotest.run
     "ocamlorg"
@@ -177,4 +187,6 @@ let () =
             `Quick
             (get_single_package_test "ocaml")
         ] )
+    ; ( "state test"
+      , [ Alcotest.test_case "same package from state" `Quick state_test ] )
     ]
