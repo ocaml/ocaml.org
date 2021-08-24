@@ -27,9 +27,9 @@ let is_in_range current_version from_version upto_version =
   current_version >= from_version && current_version <= upto_version
 
 let is_valid_params limit offset total_packages =
-  if limit < 0 || limit > total_packages then
+  if limit < 1 || limit > total_packages then
     "wrong_limit"
-  else if offset < 0 || offset > total_packages then
+  else if offset < 0 || offset > total_packages - 1 then
     "wrong_offset"
   else
     "true"
@@ -51,10 +51,10 @@ let all_packages_result contains offset limit all_packages t =
   | "wrong_offset" ->
     Error
       ("offset must be greater than or equal to 0 AND less than or equal to "
-      ^ string_of_int total_packages)
+      ^ string_of_int (total_packages - 1))
   | "wrong_limit" ->
     Error
-      ("limit must be greater than or equal to 0 AND less than or equal to "
+      ("limit must be greater than or equal to 1 AND less than or equal to "
       ^ string_of_int total_packages)
   | _ ->
     let packages = packages_list contains offset limit all_packages t in
