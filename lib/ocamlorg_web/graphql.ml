@@ -17,6 +17,11 @@ type package_success = { package : Package.t }
 
 type package_result = (package_success, [ `Msg of string ]) result
 
+type params_validity =
+  | Valid_params
+  | Wrong_limit
+  | Wrong_offset
+
 let get_info info =
   List.map
     (fun (name, constraints) ->
@@ -27,12 +32,12 @@ let is_in_range current_version from_version upto_version =
   current_version >= from_version && current_version <= upto_version
 
 let is_valid_params limit offset total_packages =
-  if limit < 1 || limit > total_packages then
-    "wrong_limit"
+  if limit < 1 then
+    Wrong_limit
   else if offset < 0 || offset > total_packages - 1 then
-    "wrong_offset"
+    Wrong_offset
   else
-    "true"
+    Valid_params
 
 let packages_list contains offset limit all_packages t =
   match contains with
@@ -48,14 +53,12 @@ let all_packages_result contains offset limit all_packages t =
   let limit = match limit with None -> total_packages | Some limit -> limit in
   let result = is_valid_params limit offset total_packages in
   match result with
-  | "wrong_offset" ->
+  | Wrong_offset ->
     Error
       ("offset must be greater than or equal to 0 AND less than or equal to "
       ^ string_of_int (total_packages - 1))
-  | "wrong_limit" ->
-    Error
-      ("limit must be greater than or equal to 1 AND less than or equal to "
-      ^ string_of_int total_packages)
+  | Wrong_limit ->
+    Error "limit must be greater than or equal to 1 "
   | _ ->
     let packages = packages_list contains offset limit all_packages t in
     Ok { total_packages; packages }

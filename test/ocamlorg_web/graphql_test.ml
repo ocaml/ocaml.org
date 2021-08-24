@@ -144,6 +144,15 @@ let is_valid_params_test limit offset cond () =
   let is_valid_params =
     Ocamlorg_web.Graphql.is_valid_params limit offset total_packages
   in
+  let is_valid_params =
+    match is_valid_params with
+    | Wrong_limit ->
+      "wrong_limit"
+    | Wrong_offset ->
+      "wrong_offset"
+    | _ ->
+      "true"
+  in
   Alcotest.(check string) ("returns " ^ cond) cond is_valid_params
 
 let packages_list_test contains offset limit total_length () =
@@ -263,7 +272,7 @@ let () =
       , [ Alcotest.test_case
             "and returns wrong_limit"
             `Quick
-            (is_valid_params_test 100 0 "wrong_limit")
+            (is_valid_params_test 0 0 "wrong_limit")
         ] )
     ; ( "test that is_valid_params function takes a limit, offset and \
          total_packages and confirms that offset is wrong because it is \

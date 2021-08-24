@@ -16,6 +16,11 @@ type package_success = { package : Package.t }
 
 type package_result = (package_success, [ `Msg of string ]) result
 
+type params_validity =
+  | Valid_params
+  | Wrong_limit
+  | Wrong_offset
+
 val get_info : (Package.Name.t * string option) list -> package_info list
 (** [get_info] function loops through the list part of Package.Info such as
     Package.Info.dependencies and returns a list of name and constraints record
@@ -26,7 +31,7 @@ val is_in_range : 'a -> 'a -> 'a -> bool
     and checks that current_version is between the range of from_version and
     upto_version *)
 
-val is_valid_params : int -> int -> int -> string
+val is_valid_params : int -> int -> int -> params_validity
 (** [is_valid_params] function is a sub function of [all_packages_result] that
     takes [offset] [limit] [all_packages] and retruns an error message if limit
     or ossfest is less than 0 or gretaer than [all_packages]*)
