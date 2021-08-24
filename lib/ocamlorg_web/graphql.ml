@@ -27,15 +27,12 @@ let is_in_range current_version from_version upto_version =
   current_version >= from_version && current_version <= upto_version
 
 let is_valid_params limit offset total_packages =
-  let is_valid_limit = limit >= 0 && limit <= total_packages in
-  let is_valid_offset = offset >= 0 && offset <= total_packages in
-  let res = is_valid_limit in
-  match res with
-  | false ->
+  if limit < 0 || limit > total_packages then
     "wrong_limit"
-  | _ ->
-    let res = is_valid_offset in
-    (match res with false -> "wrong_offset" | _ -> "true")
+  else if offset < 0 || offset > total_packages then
+    "wrong_offset"
+  else
+    "true"
 
 let packages_list contains offset limit all_packages t =
   match contains with
@@ -318,7 +315,7 @@ let schema t : Dream.request Graphql_lwt.Schema.schema =
               [ arg
                   ~doc:
                     "Filter packages by passing a search query which lists out \
-                     all packages that contains the search query if any"
+                     all packages that contain the search query if any"
                   "contains"
                   ~typ:string
               ; arg'
@@ -347,7 +344,7 @@ let schema t : Dream.request Graphql_lwt.Schema.schema =
           ~doc:
             "Returns details of a specified package. It returns the latest \
              version if no version is specifed or returns a particular version \
-             of the package if a specified"
+             of the package if it is specified"
           ~args:
             Arg.
               [ arg
