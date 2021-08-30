@@ -17,7 +17,6 @@ type t = [
   | #LegalCarbonfootprint
   | #LegalPrivacy
   | #LegalTerms
-  | #ResourcesBasics
   | #ResourcesInstallocaml
   | #ResourcesApplications
   | #ResourcesArchive
@@ -52,8 +51,7 @@ let toString = (t: t, lang) => {
   | #LegalCarbonfootprint => "legal/carbonfootprint"
   | #LegalPrivacy => "legal/privacy"
   | #LegalTerms => "legal/terms"
-  | #ResourcesBasics => "resources/basics"
-  | #ResourcesInstallocaml => "resources/installocaml"
+  | #ResourcesInstallocaml => "resources/tutorials/up-and-running-with-ocaml/#installing-ocaml"
   | #ResourcesApplications => "resources/applications"
   | #ResourcesArchive => "resources/archive"
   | #ResourcesBestpractices => "resources/bestpractices"

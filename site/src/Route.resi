@@ -17,7 +17,6 @@ type t = [
   | #LegalCarbonfootprint
   | #LegalPrivacy
   | #LegalTerms
-  | #ResourcesBasics
   | #ResourcesInstallocaml
   | #ResourcesApplications
   | #ResourcesArchive
