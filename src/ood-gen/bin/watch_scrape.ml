@@ -51,14 +51,14 @@ let to_yaml t =
 let get_sync url =
   let open Lwt_result.Syntax in
   Lwt_main.run
-    ( print_endline "Sending request...";
+    (print_endline "Sending request...";
 
-      let* response = Client.Oneshot.get (Uri.of_string url) in
+     let* response = Client.Oneshot.get (Uri.of_string url) in
 
-      if Status.is_successful response.status then Body.to_string response.body
-      else
-        let message = Status.to_string response.status in
-        Lwt.return (Error (`Msg message)) )
+     if Status.is_successful response.status then Body.to_string response.body
+     else
+       let message = Status.to_string response.status in
+       Lwt.return (Error (`Msg message)))
 
 let () =
   let data () =

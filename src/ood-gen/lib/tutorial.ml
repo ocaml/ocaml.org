@@ -84,10 +84,10 @@ let all () =
 
 let pp_proficiency ppf v =
   Fmt.pf ppf "%s"
-    ( match v with
+    (match v with
     | `Beginner -> "`Beginner"
     | `Intermediate -> "`Intermediate"
-    | `Advanced -> "`Advanced" )
+    | `Advanced -> "`Advanced")
 
 let pp ppf v =
   Fmt.pf ppf

@@ -13,7 +13,3 @@ build: [
     "@doc" {with-doc}
   ]
 ]
-pin-depends: [
-  ["dream-cli.~dev" "git+https://github.com/tmattio/dream-cli.git"]
-  ["dream-livereload.~dev" "git+https://github.com/tmattio/dream-livereload.git"]
-]

@@ -105,7 +105,7 @@ let rec loop () =
   let line = read_line () in
   if line.[0] = 's' then (
     sync_records ();
-    loop () )
+    loop ())
   else if line.[0] <> 'q' then (
     let n = int_of_string line in
     let record = get_record n in
@@ -119,7 +119,7 @@ let rec loop () =
       print_string "Address: ";
       let address = read_line () in
       record.name <- fix_string name name_size;
-      record.address <- fix_string address addr_size );
-    loop () )
+      record.address <- fix_string address addr_size);
+    loop ())
 
 let () = loop ()

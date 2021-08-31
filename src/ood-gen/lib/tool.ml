@@ -62,16 +62,16 @@ let decode s =
             let description =
               Omd.of_string metadata.description |> Omd.to_html
             in
-            ( {
-                name = metadata.name;
-                slug = Utils.slugify metadata.name;
-                source = metadata.source;
-                license = metadata.license;
-                synopsis = metadata.synopsis;
-                description;
-                lifecycle;
-              }
-              : t )
+            ({
+               name = metadata.name;
+               slug = Utils.slugify metadata.name;
+               source = metadata.source;
+               license = metadata.license;
+               synopsis = metadata.synopsis;
+               description;
+               lifecycle;
+             }
+              : t)
           with e ->
             print_endline (Yaml.to_string x |> Result.get_ok);
             raise e)
@@ -84,11 +84,11 @@ let all () =
 
 let pp_lifecycle ppf v =
   Fmt.pf ppf "%s"
-    ( match v with
+    (match v with
     | `Incubate -> "`Incubate"
     | `Active -> "`Active"
     | `Sustain -> "`Sustain"
-    | `Deprecate -> "`Deprecate" )
+    | `Deprecate -> "`Deprecate")
 
 let pp ppf v =
   Fmt.pf ppf

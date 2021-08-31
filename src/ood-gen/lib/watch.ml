@@ -34,16 +34,16 @@ let decode s =
           let (metadata : metadata) =
             Utils.decode_or_raise metadata_of_yaml x
           in
-          ( {
-              name = metadata.name;
-              description = metadata.description;
-              embedPath = metadata.embedPath;
-              thumbnailPath = metadata.thumbnailPath;
-              year = metadata.year;
-              language = metadata.language;
-              category = metadata.category;
-            }
-            : t ))
+          ({
+             name = metadata.name;
+             description = metadata.description;
+             embedPath = metadata.embedPath;
+             thumbnailPath = metadata.thumbnailPath;
+             year = metadata.year;
+             language = metadata.language;
+             category = metadata.category;
+           }
+            : t))
         xs
   | _ -> raise (Exn.Decode_error "expected a list of videos")
 

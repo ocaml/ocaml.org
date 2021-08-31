@@ -14,7 +14,7 @@ let extract_metadata_body s =
         | Some (yaml, body), _ | _, Some (yaml, body) -> (
             match Yaml.of_string yaml with
             | Ok yaml -> (yaml, body)
-            | Error (`Msg err) -> raise (Exn.Decode_error err) )
+            | Error (`Msg err) -> raise (Exn.Decode_error err))
       else raise (Exn.Decode_error "expected metadata at the top of the file")
 
 let decode_or_raise f x =

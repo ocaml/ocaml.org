@@ -1,14 +1,16 @@
 (executable
  (name gen)
+ (public_name ood-gen)
+ (package ood-gen)
  (modules gen)
- (libraries cmdliner ood_gen)
- (flags :standard -safe-string))
+ (libraries cmdliner ood_gen))
 
 (executable
  (name scrape)
+ (public_name ood-scrape)
+ (package ood-gen)
  (modules scrape)
- (libraries cmdliner ood_gen)
- (flags :standard -safe-string))
+ (libraries cmdliner ood_gen))
 
 (executable
  (name lint)

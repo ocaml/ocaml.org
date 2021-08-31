@@ -4,7 +4,7 @@ module Result = struct
   let both a b =
     match a with
     | Error e -> Error e
-    | Ok a -> ( match b with Error e -> Error e | Ok b -> Ok (a, b) )
+    | Ok a -> ( match b with Error e -> Error e | Ok b -> Ok (a, b))
 
   module Syntax = struct
     let ( >>= ) t f = bind t f
@@ -109,7 +109,7 @@ module String = struct
               do
                 incr k
               done;
-              if !k <= sep_max then (* no match *) incr i else raise Exit )
+              if !k <= sep_max then (* no match *) incr i else raise Exit)
           done;
           None (* no match in the whole string. *)
         with Exit ->

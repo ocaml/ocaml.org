@@ -1,3 +1,0 @@
-(library
- (name ood_omd)
- (flags :standard -w -30))

@@ -3,7 +3,7 @@
  (public_name ood))
 
 (rule
- (deps ../ood-gen/bin/gen.exe)
+ (deps %{bin:ood-gen})
  (targets academic_institution.ml)
  (mode
   (promote (until-clean)))
@@ -13,7 +13,7 @@
    (run %{deps} academic_institution))))
 
 (rule
- (deps ../ood-gen/bin/gen.exe)
+ (deps %{bin:ood-gen})
  (targets book.ml)
  (mode
   (promote (until-clean)))
@@ -23,7 +23,7 @@
    (run %{deps} book))))
 
 (rule
- (deps ../ood-gen/bin/gen.exe)
+ (deps %{bin:ood-gen})
  (targets event.ml)
  (mode
   (promote (until-clean)))
@@ -33,7 +33,7 @@
    (run %{deps} event))))
 
 (rule
- (deps ../ood-gen/bin/gen.exe)
+ (deps %{bin:ood-gen})
  (targets industrial_user.ml)
  (mode
   (promote (until-clean)))
@@ -43,7 +43,7 @@
    (run %{deps} industrial_user))))
 
 (rule
- (deps ../ood-gen/bin/gen.exe)
+ (deps %{bin:ood-gen})
  (targets paper.ml)
  (mode
   (promote (until-clean)))
@@ -53,7 +53,7 @@
    (run %{deps} paper))))
 
 (rule
- (deps ../ood-gen/bin/gen.exe)
+ (deps %{bin:ood-gen})
  (targets success_story.ml)
  (mode
   (promote (until-clean)))
@@ -63,7 +63,7 @@
    (run %{deps} success_story))))
 
 (rule
- (deps ../ood-gen/bin/gen.exe)
+ (deps %{bin:ood-gen})
  (targets tool.ml)
  (mode
   (promote (until-clean)))
@@ -73,7 +73,7 @@
    (run %{deps} tool))))
 
 (rule
- (deps ../ood-gen/bin/gen.exe)
+ (deps %{bin:ood-gen})
  (targets tutorial.ml)
  (mode
   (promote (until-clean)))
@@ -83,7 +83,7 @@
    (run %{deps} tutorial))))
 
 (rule
- (deps ../ood-gen/bin/gen.exe)
+ (deps %{bin:ood-gen})
  (targets video.ml)
  (mode
   (promote (until-clean)))
@@ -93,7 +93,7 @@
    (run %{deps} video))))
 
 (rule
- (deps ../ood-gen/bin/gen.exe)
+ (deps %{bin:ood-gen})
  (targets watch.ml)
  (mode
   (promote (until-clean)))
@@ -103,7 +103,7 @@
    (run %{deps} watch))))
 
 (rule
- (deps ../ood-gen/bin/gen.exe)
+ (deps %{bin:ood-gen})
  (targets news.ml)
  (mode
   (promote (until-clean)))
@@ -113,7 +113,7 @@
    (run %{deps} news))))
 
 (rule
- (deps ../ood-gen/bin/gen.exe)
+ (deps %{bin:ood-gen})
  (targets workshop.ml)
  (mode
   (promote (until-clean)))

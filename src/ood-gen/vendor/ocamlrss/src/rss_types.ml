@@ -122,7 +122,7 @@ let compare_list ~f =
     | [], [] -> 0
     | [], _ -> -1
     | _, [] -> 1
-    | h1 :: q1, h2 :: q2 -> ( match f h1 h2 with 0 -> iter (q1, q2) | n -> n )
+    | h1 :: q1, h2 :: q2 -> ( match f h1 h2 with 0 -> iter (q1, q2) | n -> n)
   in
   fun l1 l2 -> iter (l1, l2)
 
@@ -165,7 +165,7 @@ let item_comp_funs =
 let rec apply_comp item1 item2 = function
   | [] -> 0
   | f :: q -> (
-      match f item1 item2 with 0 -> apply_comp item1 item2 q | n -> n )
+      match f item1 item2 with 0 -> apply_comp item1 item2 q | n -> n)
 
 let compare_item ?comp_data =
   let comp_funs =

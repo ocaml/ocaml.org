@@ -121,9 +121,9 @@ let find_ele name e =
       true
   | E (((n, e), _), _)
     when String.equal n
-           ( "http://purl.org/rss/1.0/modules/"
+           ("http://purl.org/rss/1.0/modules/"
            ^ String.lowercase_ascii namespace
-           ^ "/" )
+           ^ "/")
          && name = String.lowercase_ascii e ->
       true
   | _ -> false
@@ -146,7 +146,7 @@ let get_att ?ctx ?(required = true) atts name =
             Printf.sprintf "Attribute %S not found in tag %S" name tag
           in
           add_error opts msg;
-          raise Not_found )
+          raise Not_found)
     else ""
 
 let get_opt_att atts name =
@@ -202,7 +202,7 @@ let get_categories opts xmls =
           :: acc
         with Error msg ->
           add_error opts msg;
-          acc )
+          acc)
     | _ -> acc
   in
   List.rev (List.fold_left f [] xmls)
@@ -329,7 +329,7 @@ let item_of_xmls opts xmls =
         try Some (Rfc822.parse_exn s)
         with _ ->
           add_error opts (Printf.sprintf "Invalid date %S" s);
-          None )
+          None)
   in
   let data =
     try read_ns_data opts.read_item_data xmls
@@ -368,7 +368,7 @@ let items_of_xmls opts xmls =
          | E ((("", s), _), subs) when String.lowercase_ascii s = "item" -> (
              match item_of_xmls opts subs with
              | None -> acc
-             | Some item -> item :: acc )
+             | Some item -> item :: acc)
          | E _ -> acc)
        [] xmls)
 
@@ -386,7 +386,7 @@ let get_skip_hours opts xmls =
               None
           with
           | None -> acc
-          | Some h -> h :: acc )
+          | Some h -> h :: acc)
       | _ -> acc
     in
     match List.find (find_ele "skiphours") xmls with
@@ -425,7 +425,7 @@ let get_skip_days opts xmls =
         try int_of_day day :: acc
         with Failure msg ->
           add_error opts msg;
-          acc )
+          acc)
     | _ -> acc
   in
   try
@@ -451,7 +451,7 @@ let channel_of_xmls opts xmls =
         try Some (Rfc822.parse_exn s)
         with _ ->
           add_error opts (Printf.sprintf "Invalid date %S" s);
-          None )
+          None)
   in
   let builddate =
     match f_opt "lastbuilddate" with
@@ -460,7 +460,7 @@ let channel_of_xmls opts xmls =
         try Some (Rfc822.parse_exn s)
         with _ ->
           add_error opts (Printf.sprintf "Invalid date %S" s);
-          None )
+          None)
   in
   let ttl =
     match f_opt "ttl" with
@@ -469,7 +469,7 @@ let channel_of_xmls opts xmls =
         try Some (int_of_string s)
         with _ ->
           add_error opts (Printf.sprintf "Invalid ttl %S" s);
-          None )
+          None)
   in
   let link = try Uri.of_string (f "link") with Error msg -> failwith msg in
   let docs =
@@ -524,7 +524,7 @@ let channel_of_source opts source =
               | E ((("", _), _atts), subs) ->
                   (channel_of_xmls opts subs, opts.errors)
               | _ -> assert false
-            with Not_found -> failwith "Parse error: no channel" )
+            with Not_found -> failwith "Parse error: no channel")
         | "rdf" -> (
             try
               let elt = List.find (find_ele "channel") subs in
@@ -532,7 +532,7 @@ let channel_of_source opts source =
               | E ((_, _atts), subs_ch) ->
                   (channel_of_xmls opts (subs_ch @ subs), opts.errors)
               | _ -> assert false
-            with Not_found -> failwith "Parse error: not channel" )
+            with Not_found -> failwith "Parse error: not channel")
         | _ -> failwith "Parse error: not rss"
       in
       let namespaces =
@@ -681,9 +681,9 @@ let xml_of_item ?item_data_printer i =
           opt_element (apply_opt Uri.to_string i.item_link) "link";
           opt_element i.item_desc "description";
           opt_element
-            ( match i.item_pubdate with
+            (match i.item_pubdate with
             | None -> None
-            | Some d -> Some (Format.asprintf "%a" Ptime.pp d) )
+            | Some d -> Some (Format.asprintf "%a" Ptime.pp d))
             "pubDate";
           opt_element i.item_author "author";
           xmls_of_categories i.item_categories;
@@ -716,14 +716,14 @@ let xml_of_channel ?channel_data_printer ?item_data_printer ch =
               opt_element ch.ch_managing_editor "managingEditor";
               opt_element ch.ch_webmaster "webMaster";
               opt_element
-                ( match ch.ch_pubdate with
+                (match ch.ch_pubdate with
                 | None -> None
-                | Some d -> Some (Format.asprintf "%a" Ptime.pp d) )
+                | Some d -> Some (Format.asprintf "%a" Ptime.pp d))
                 "pubDate";
               opt_element
-                ( match ch.ch_last_build_date with
+                (match ch.ch_last_build_date with
                 | None -> None
-                | Some d -> Some (Format.asprintf "%a" Ptime.pp d) )
+                | Some d -> Some (Format.asprintf "%a" Ptime.pp d))
                 "lastBuildDate";
               xmls_of_categories ch.ch_categories;
               opt_element ch.ch_generator "generator";

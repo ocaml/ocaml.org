@@ -15,7 +15,7 @@ depends: [
   "dream-cli"
   "dream-livereload"
   "yaml"
-  "omd"
+  "omd" {>= "2.0.0~alpha2"}
   "ood" {= version}
   "alcotest" {with-test}
   "odoc" {with-doc}
@@ -35,8 +35,4 @@ build: [
     "@runtest" {with-test}
     "@doc" {with-doc}
   ]
-]
-pin-depends: [
-  ["dream-cli.~dev" "git+https://github.com/tmattio/dream-cli.git"]
-  ["dream-livereload.~dev" "git+https://github.com/tmattio/dream-livereload.git"]
 ]

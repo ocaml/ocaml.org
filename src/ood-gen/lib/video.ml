@@ -65,19 +65,19 @@ let decode s =
                | Ok x -> x
                | Error (`Msg err) -> raise (Exn.Decode_error err)
              in
-             ( {
-                 title = metadata.title;
-                 slug = Utils.slugify metadata.title;
-                 description = metadata.description;
-                 people = metadata.people;
-                 kind;
-                 tags = metadata.tags;
-                 paper = metadata.paper;
-                 link = metadata.link;
-                 embed = metadata.embed;
-                 year = metadata.year;
-               }
-               : t ))
+             ({
+                title = metadata.title;
+                slug = Utils.slugify metadata.title;
+                description = metadata.description;
+                people = metadata.people;
+                kind;
+                tags = metadata.tags;
+                paper = metadata.paper;
+                link = metadata.link;
+                embed = metadata.embed;
+                year = metadata.year;
+              }
+               : t))
            xs)
   | _ -> Error (`Msg "expected a list of videos")
 
@@ -87,10 +87,10 @@ let all () =
 
 let pp_kind ppf v =
   Fmt.pf ppf "%s"
-    ( match v with
+    (match v with
     | `Conference -> "`Conference"
     | `Mooc -> "`Mooc"
-    | `Lecture -> "`Lecture" )
+    | `Lecture -> "`Lecture")
 
 let pp ppf v =
   Fmt.pf ppf

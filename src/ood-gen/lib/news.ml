@@ -93,7 +93,7 @@ let scrape () =
                 in
                 let s = Format.asprintf "%a\n%s\n" pp_meta metadata content in
                 Printf.fprintf oc "%s" s;
-                close_out oc )
+                close_out oc)
             with Invalid_argument _ ->
               Printf.printf "Skipping article %s\n"
                 (Option.value guid ~default:"<no guid>");

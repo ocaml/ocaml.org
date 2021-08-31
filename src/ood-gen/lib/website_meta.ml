@@ -56,7 +56,7 @@ let preview_image html =
     | None -> (
         match image_src html with
         | None -> twitter_image html
-        | Some x -> Some x )
+        | Some x -> Some x)
     | Some x -> Some x
   in
   match Option.map String.trim preview_image with
