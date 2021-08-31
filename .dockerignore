@@ -1,6 +1,5 @@
 *
 !asset/
-asset/site/
 !bin/
 !lib/
 !dune

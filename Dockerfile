@@ -13,9 +13,6 @@ RUN opam install . --deps-only
 ADD package.json package.json
 RUN npm install
 
-# Download site static files
-COPY --from=ocurrent/v3.ocaml.org:live /data asset/site/
-
 # Build project
 COPY --chown=opam:opam . .
 RUN opam exec -- dune build
@@ -32,6 +29,9 @@ ENV OCAMLORG_DEBUG false
 RUN chmod -R 755 /var
 
 RUN git clone https://github.com/ocaml/opam-repository /var/opam-repository
+
+# Download site static files
+COPY --from=ocurrent/v3.ocaml.org:live /data asset_site/
 
 EXPOSE 8080
 

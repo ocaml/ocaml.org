@@ -29,7 +29,7 @@ but you will need to download the `v3.ocaml.org` static files, which are crunche
 make update-site
 ```
 
-This will pull the v3.ocaml.org docker image and copy the static files from it into the `asset/site/` directory.
+This will pull the v3.ocaml.org docker image and copy the static files from it into the `asset_site/` directory.
 
 Then, build the project with:
 
