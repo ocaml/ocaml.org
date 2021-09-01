@@ -67,6 +67,8 @@ module Documentation : sig
     }
 end
 
+module Module_map = Module_map
+
 type state
 
 type t
@@ -104,6 +106,11 @@ val status
   -> t
   -> [ `Success | `Failure | `Unknown ] Lwt.t
 (** Get the build status of a package *)
+
+val module_map
+  :  kind:[< `Package | `Universe of string ]
+  -> t
+  -> Module_map.t Lwt.t
 
 val documentation_page
   :  kind:[< `Package | `Universe of string ]
