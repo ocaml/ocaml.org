@@ -1,15 +1,7 @@
 (library
  (name ocamlorg_web)
- (libraries
-  dream
-  dream-cli
-  dream-accept
-  omd
-  ocamlorg
-  ood
-  ood.media
-  gettext
-  gettext-camomile))
+ (libraries dream dream-cli dream-accept omd ocamlorg ood ood.media gettext
+   gettext-camomile))
 
 (rule
  (targets asset.ml)
