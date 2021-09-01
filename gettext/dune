@@ -1,0 +1,15 @@
+(subdir
+ en/LC_MESSAGES/
+ (rule
+  (targets default.mo)
+  (deps default.po)
+  (action
+   (run %{bin:ocaml-gettext} --action compile %{deps}))))
+
+(subdir
+ fr/LC_MESSAGES/
+ (rule
+  (targets default.mo)
+  (deps default.po)
+  (action
+   (run %{bin:ocaml-gettext} --action compile %{deps}))))

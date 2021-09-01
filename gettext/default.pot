@@ -1,0 +1,123 @@
+## This is a PO Template file.
+##
+## Run `ocaml-gettext --action extract` to bring this file up to
+## date.
+## effect: edit them in PO (`.po`) files instead.
+
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-04-05 23:31+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: navigation.ml:104
+msgid "A bit of everything, this page encapsulates OCaml's presence online, blogposts, videos, and mailing lists all live here."
+msgstr ""
+
+#: navigation.ml:36
+msgid "Academic Excellence"
+msgstr ""
+
+#: navigation.ml:79
+msgid "Adopt the best known methods for development from the OCaml community."
+msgstr ""
+
+#: navigation.ml:68
+msgid "Applications"
+msgstr ""
+
+#: navigation.ml:108
+msgid "Archive"
+msgstr ""
+
+#: navigation.ml:100
+msgid "Around the Web"
+msgstr ""
+
+#: navigation.ml:64
+msgid "Browse the third-party packages published in the OCaml ecosystem."
+msgstr ""
+
+#: navigation.ml:112
+msgid "Can't find what you're looking for? Try searching the Archive."
+msgstr ""
+
+#: navigation.ml:98
+msgid "Catch up on the latest news from the OCaml sphere!"
+msgstr ""
+
+#: navigation.ml:85
+msgid "Community"
+msgstr ""
+
+#: navigation.ml:32
+msgid "Discover the organisations that use OCaml to accomplish their goals."
+msgstr ""
+
+#: navigation.ml:91
+msgid "Explore vacancies in projects and companies and see where you could fit in."
+msgstr ""
+
+#: navigation.ml:24
+msgid "Find out about OCaml's history and how it became what it is today."
+msgstr ""
+
+#: navigation.ml:28
+msgid "Industrial Users"
+msgstr ""
+
+#: navigation.ml:54
+msgid "Language"
+msgstr ""
+
+#: navigation.ml:40
+msgid "Learn about the academics that research programming language technology."
+msgstr ""
+
+#: navigation.ml:72
+msgid "Learn techniques for building tools and applications in OCaml."
+msgstr ""
+
+#: navigation.ml:95
+msgid "News"
+msgstr ""
+
+#: navigation.ml:87
+msgid "Opportunities"
+msgstr ""
+
+#: navigation.ml:60
+msgid "Packages"
+msgstr ""
+
+#: navigation.ml:18
+msgid "Principles"
+msgstr ""
+
+#: navigation.ml:48
+msgid "Read about the things that have been achieved using OCaml."
+msgstr ""
+
+#: navigation.ml:58
+msgid "Read through the OCaml tutorial, official manual and books."
+msgstr ""
+
+#: navigation.ml:52
+msgid "Resources"
+msgstr ""
+
+#: navigation.ml:44
+msgid "Success Stories"
+msgstr ""
+
+#: navigation.ml:20
+msgid "Why OCaml"
+msgstr ""
+

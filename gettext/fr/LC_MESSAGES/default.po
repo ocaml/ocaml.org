@@ -1,0 +1,120 @@
+## Use `ocaml-gettext --action merge --merge-pot gettext/default.pot gettext/fr/LC_MESSAGES/default.po`
+## to merge POT files into PO files.
+
+msgid ""
+msgstr ""
+"Project-Id-Version: ocaml-gettext 0.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-04-05 23:20+0000\n"
+"PO-Revision-Date: 2005-04-06 01:29+0200\n"
+"Last-Translator: Sylvain Le Gall <sylvain@le-gall.net>\n"
+"Language-Team: French <gnomefr@traduc.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n>1;"
+
+#: navigation.ml:104
+msgid "A bit of everything, this page encapsulates OCaml's presence online, blogposts, videos, and mailing lists all live here."
+msgstr "Un peu de tout, cette page résume la présence d'OCaml en ligne, les articles de blog, les vidéos et les listes de diffusion en direct ici."
+
+#: navigation.ml:36
+msgid "Academic Excellence"
+msgstr "Excellence académique"
+
+#: navigation.ml:79
+msgid "Adopt the best known methods for development from the OCaml community."
+msgstr "Adoptez les meilleures méthodes de développement connues de la communauté OCaml."
+
+#: navigation.ml:68
+msgid "Applications"
+msgstr "Applications"
+
+#: navigation.ml:108
+msgid "Archive"
+msgstr "Archive"
+
+#: navigation.ml:100
+msgid "Around the Web"
+msgstr "Sur Internet"
+
+#: navigation.ml:64
+msgid "Browse the third-party packages published in the OCaml ecosystem."
+msgstr "Parcourez les packages tiers publiés dans l'écosystème OCaml."
+
+#: navigation.ml:112
+msgid "Can't find what you're looking for? Try searching the Archive."
+msgstr "Vous ne trouvez pas ce que vous cherchez ? Essayez de rechercher dans les Archives."
+
+#: navigation.ml:98
+msgid "Catch up on the latest news from the OCaml sphere!"
+msgstr "Suivez les dernières actualités de la sphère OCaml !"
+
+#: navigation.ml:85
+msgid "Community"
+msgstr "Communauté"
+
+#: navigation.ml:32
+msgid "Discover the organisations that use OCaml to accomplish their goals."
+msgstr "Découvrez les organisations qui utilisent OCaml pour atteindre leurs objectifs."
+
+#: navigation.ml:91
+msgid "Explore vacancies in projects and companies and see where you could fit in."
+msgstr "Explorez les postes vacants dans les projets et les entreprises et voyez où vous pourriez vous intégrer."
+
+#: navigation.ml:24
+msgid "Find out about OCaml's history and how it became what it is today."
+msgstr "Découvrez l'histoire d'OCaml et comment il est devenu ce qu'il est aujourd'hui."
+
+#: navigation.ml:28
+msgid "Industrial Users"
+msgstr "Utilisateurs industriels"
+
+#: navigation.ml:54
+msgid "Language"
+msgstr "Langage"
+
+#: navigation.ml:40
+msgid "Learn about the academics that research programming language technology."
+msgstr "Renseignez-vous sur les universitaires qui recherchent la technologie des langages de programmation."
+
+#: navigation.ml:72
+msgid "Learn techniques for building tools and applications in OCaml."
+msgstr "Apprenez les techniques de création d'outils et d'applications en OCaml."
+
+#: navigation.ml:95
+msgid "News"
+msgstr "Nouvelles"
+
+#: navigation.ml:87
+msgid "Opportunities"
+msgstr "Opportunités"
+
+#: navigation.ml:60
+msgid "Packages"
+msgstr "Packets"
+
+#: navigation.ml:18
+msgid "Principles"
+msgstr "Principes"
+
+#: navigation.ml:48
+msgid "Read about the things that have been achieved using OCaml."
+msgstr "Lisez à propos des choses qui ont été réalisées en utilisant OCaml."
+
+#: navigation.ml:58
+msgid "Read through the OCaml tutorial, official manual and books."
+msgstr "Lisez le didacticiel OCaml, le manuel officiel et les livres."
+
+#: navigation.ml:52
+msgid "Resources"
+msgstr "Ressources"
+
+#: navigation.ml:44
+msgid "Success Stories"
+msgstr "Réussites"
+
+#: navigation.ml:20
+msgid "Why OCaml"
+msgstr "Pourquoi OCaml"
+

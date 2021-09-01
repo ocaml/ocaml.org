@@ -33,7 +33,7 @@ let render_mobile_menu menu =
   </ul>
 
 
-let render =
+let render () =
   <div class="relative bg-white" x-data="Components.popover({ open: false, focus: false })" x-init="init()"
     @keydown.escape="onEscape" @close-popover-group.window="onClosePopoverGroup">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
@@ -45,7 +45,7 @@ let render =
           </a>
         </div>
         <nav class="hidden md:flex space-x-10" x-data="Components.popoverGroup()" x-init="init()">
-          <%s! List.map Flyout_menu_template.render Navigation.t |> String.concat "" %>
+          <%s! List.map Flyout_menu_template.render (Navigation.t ()) |> String.concat "" %>
         </nav>
         <div class="flex-1 flex items-center justify-center px-2 md:justify-end ">
           <div class="max-w-lg w-full md:max-w-xs">
@@ -111,7 +111,7 @@ let render =
           </div>
           <div class="mt-6">
             <nav class="grid gap-y-8">
-              <%s! List.map render_mobile_menu Navigation.t |> String.concat "" %>
+              <%s! List.map render_mobile_menu (Navigation.t ()) |> String.concat "" %>
             </nav>
           </div>
         </div>

@@ -37,4 +37,8 @@
   cohttp
   cohttp-lwt-unix
   ood
+  (gettext
+   (>= 0.5.0))
+  (gettext-camomile
+   (>= 0.5.0))
   (alcotest :with-test)))
