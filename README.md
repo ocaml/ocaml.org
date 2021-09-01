@@ -94,15 +94,6 @@ The following snippet describes OCaml.org's repository structure.
 
 ## Deploying
 
-To deploy on Heroku, run the following commands:
+Commits added on `main` are automatically deployed on https://v3.ocaml.org/
 
-```
-heroku container:push -a ocamlorg web
-heroku container:release -a ocamlorg web
-```
-
-Once the website is deployed, you can display the logs with:
-
-```
-heroku logs -a ocamlorg --tail
-```
+The deployment pipeline is managed in https://github.com/ocurrent/ocurrent-deployer.
