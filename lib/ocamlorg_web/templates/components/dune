@@ -39,3 +39,9 @@
  (deps package_doc_header_template.eml)
  (action
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets navmap_template.ml)
+ (deps navmap_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))

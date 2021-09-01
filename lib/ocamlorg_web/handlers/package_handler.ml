@@ -120,7 +120,20 @@ let package_doc t kind req =
         `Universe (Dream.param "hash" req)
     in
     let path = Dream.path req |> String.concat "/" in
+    let root =
+      let make =
+        match kind with
+        | `Package ->
+          Fmt.str "/p/%s/%s/doc/"
+        | `Universe u ->
+          Fmt.str "/u/%s/%s/%s/doc/" u
+      in
+      make
+        (Ocamlorg.Package.Name.to_string name)
+        (Ocamlorg.Package.Version.to_string version)
+    in
     let* docs = Ocamlorg.Package.documentation_page ~kind package path in
+    let* map = Ocamlorg.Package.module_map ~kind package in
     let* status = Ocamlorg.Package.status ~kind package in
     (match docs with
     | None ->
@@ -171,5 +184,5 @@ let package_doc t kind req =
         ~status
         ~package
         ~extra_nav
-        (Package_doc_template.render doc)
+        (Package_doc_template.render ~root map doc)
       |> Dream.html)
