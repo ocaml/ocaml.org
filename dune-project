@@ -27,6 +27,7 @@
   crunch
   dream
   dream-cli
+  dream-accept
   fpath
   fmt
   opam-format
