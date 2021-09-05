@@ -29,20 +29,11 @@ module OpamSection: {
   }
 }
 
-module TestimonialSection: {
-  type t = {
-    quote: string,
-    organizationName: string,
-    speaker: string,
-    organizationLogo: string,
-  }
-}
-
 type t = {
   heroContent: HeroSection.t,
   statsContent: StatsSection.t,
   opamContent: OpamSection.t,
-  testimonialContent: TestimonialSection.t,
+  testimonialContent: Testimonials.t,
 }
 
 include Pages.S with type t := t

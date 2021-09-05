@@ -13,17 +13,6 @@ module Events: {
   }
 }
 
-module BlogEntry: {
-  type t = {
-    title: string,
-    excerpt: string,
-    author: string,
-    dateValue: string,
-    date: string,
-    readingTime: string,
-  }
-}
-
 module Space: {
   type t = {
     logoSrc: string,
@@ -43,7 +32,7 @@ type t = {
   blogSectionHeader: string,
   blogSectionDescription: string,
   blog: string,
-  blogEntries: array<BlogEntry.t>,
+  blogEntries: array<Blog2.Entry.t>,
   blogArchiveText: string,
   spacesSectionHeader: string,
   spaces: array<Space.t>,

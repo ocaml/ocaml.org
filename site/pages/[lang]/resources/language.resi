@@ -1,12 +1,5 @@
 open! Import
 
-module UserLevelIntroduction: {
-  type t = {
-    level: string,
-    introduction: string,
-  }
-}
-
 module Tutorials: {
   type t = {
     title: string,
@@ -22,6 +15,29 @@ module Books: {
   }
 }
 
+module Manual: {
+  type item = {
+    link: string,
+    text: string,
+  }
+
+  type t = {
+    title: string,
+    items: array<item>,
+  }
+}
+
+module Papers: {
+  type t = {
+    title: string,
+    item1: VerticalHighlightCard.item,
+    item2: VerticalHighlightCard.item,
+    item3: VerticalHighlightCard.item,
+    buttonText: string,
+    route: Route.t,
+  }
+}
+
 type t = {
   title: string,
   pageDescription: string,
@@ -32,6 +48,8 @@ type t = {
   expanding: UserLevelIntroduction.t,
   diversifying: UserLevelIntroduction.t,
   researching: UserLevelIntroduction.t,
+  manual: Manual.t,
+  papers: Papers.t,
 }
 
 include Pages.S with type t := t

@@ -42,25 +42,29 @@ module T = {
     }
   }
 
-  module UserLevelIntroduction = {
+  module Manual = {
+    type item = {
+      link: string,
+      text: string,
+    }
+
     type t = {
-      level: string,
-      introduction: string,
+      title: string,
+      items: array<item>,
     }
 
     @react.component
-    let make = (~content, ~marginBottom=?, ()) =>
-      <SectionContainer.SmallCentered ?marginBottom otherLayout="flex items-center space-x-20">
-        <div className="text-5xl font-bold text-orangedark flex-shrink-0">
-          {React.string(content.level ++ ` -`)}
-        </div>
-        <div className="font-bold text-xl"> {React.string(content.introduction)} </div>
-      </SectionContainer.SmallCentered>
+    let make = (~content: t, ~cols, ~marginBottom=?) => {
+      <SectionContainer.MediumCentered ?marginBottom paddingY="pt-8 pb-14" filled=true>
+        <ContentGrid
+          title=content.title
+          cols
+          renderChild={(item: item) => <a href={item.link}> {React.string(item.text)} </a>}>
+          {content.items}
+        </ContentGrid>
+      </SectionContainer.MediumCentered>
+    }
   }
-
-  // TODO: Better bindings for this
-  type options = {inline: string, behaviour: string, block: string}
-  @send external scrollIntoView: (Dom.element, options) => unit = "scrollIntoView"
 
   module Books = {
     type t = {
@@ -70,210 +74,49 @@ module T = {
 
     @react.component
     let make = (~marginBottom=?, ~content) => {
-      let (idx, setIdx) = React.useState(() => 0)
-      let booksRef = React.useRef(Array.init(Array.length(content.books), _ => Js.Nullable.null))
-      let setBookRef = (idx, element) => {
-        booksRef.current[idx] = element
-      }
-
-      let handle_book_change = index => {
-        Js.Nullable.iter(booksRef.current[index], (. el) =>
-          scrollIntoView(el, {inline: "center", behaviour: "smooth", block: "center"})
-        )
-      }
-
-      let handle_click = (dir, current) => {
-        let new_idx = switch dir {
-        | #Left => current - 1
-        | #Right => current + 1
-        }
-
-        let length = Array.length(content.books)
-        let new_idx = if new_idx < 0 {
-          length + new_idx
-        } else if new_idx >= length {
-          new_idx - length
-        } else {
-          new_idx
-        }
-        handle_book_change(new_idx)
-        new_idx
-      }
-
-      // TODO: define content type; extract content
-      // TODO: use generic container
-      <SectionContainer.LargeCentered paddingY="pt-16 pb-3 lg:pt-24 lg:pb-8">
-        <div
-          className={"bg-white overflow-hidden shadow rounded-lg mx-auto max-w-5xl " ++
-          Tailwind.Option.toClassName(marginBottom)}>
-          <div className="px-4 py-5 sm:px-6 sm:py-9">
-            <h2 className="text-center text-orangedark text-5xl font-bold mb-8">
-              {React.string(content.booksLabel)}
-            </h2>
-            <div className="grid grid-cols-8 items-center mb-8 px-6">
-              // TODO: define state to track location within books list, activate navigation
-              <div
-                tabIndex={0}
-                className="flex justify-start cursor-pointer"
-                // TODO: Improve the navigation using a keyboard
-                onKeyDown={e => {
-                  if ReactEvent.Keyboard.keyCode(e) === 13 {
-                    setIdx(prev => handle_click(#Left, prev))
-                  }
-                }}
-                onClick={_ => setIdx(prev => handle_click(#Left, prev))}>
-                // TODO: make navigation arrows accesssible
-                <svg
-                  className="h-20"
-                  viewBox="0 0 90 159"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M2.84806 86.0991L72.1515 155.595C76.1863 159.39 82.3571 159.39 86.1546 155.595C89.952 151.8 89.952 145.396 86.1546 141.601L23.734 79.2206L86.1546 16.8403C89.952 12.8081 89.952 6.64125 86.1546 2.84625C82.3571 -0.94875 76.1863 -0.94875 72.1515 2.84625L2.84806 72.105C-0.949387 76.1372 -0.949387 82.3041 2.84806 86.0991Z"
-                    fill="#ED7109"
-                  />
-                </svg>
-              </div>
-              <div className="col-span-6 py-2 flex m-w-full overflow-x-hidden">
-                {Array.mapi((id, book: Ood.Book.t) => {
-                  // TODO: Better default image
-                  let cover = Belt.Option.getWithDefault(book.cover, "/static/logo1.jpeg")
-                  <div
-                    className="px-4 flex items-center justify-center"
-                    key={string_of_int(id)}
-                    ref={ReactDOM.Ref.callbackDomRef(dom => setBookRef(id, dom))}>
-                    <div className="w-40 aspect-w-3 aspect-h-2 sm:aspect-w-3 sm:aspect-h-4">
-                      <img
-                        src=cover
-                        alt=book.title
-                        className={"object-fit w-full shadow-lg rounded-lg " ++ if id == idx {
-                          "ring-4 ring-orangedarker"
-                        } else {
-                          ""
-                        }}
-                      />
-                    </div>
-                  </div>
-                }, content.books) |> React.array}
-              </div>
-              <div
-                tabIndex={0}
-                className="flex justify-end cursor-pointer"
-                onKeyDown={e => {
-                  if ReactEvent.Keyboard.keyCode(e) === 13 {
-                    setIdx(prev => handle_click(#Right, prev))
-                  }
-                }}
-                onClick={_ => setIdx(prev => handle_click(#Right, prev))}>
-                <svg
-                  className="h-20"
-                  viewBox="0 0 90 159"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M86.1546 72.3423L16.8512 2.84625C12.8164 -0.948746 6.64553 -0.948746 2.84809 2.84625C-0.949362 6.64127 -0.949362 13.0453 2.84809 16.8403L65.2686 79.2207L2.84809 141.601C-0.949362 145.633 -0.949362 151.8 2.84809 155.595C6.64553 159.39 12.8164 159.39 16.8512 155.595L86.1546 86.3363C89.952 82.3041 89.952 76.1373 86.1546 72.3423Z"
-                    fill="#ED7109"
-                  />
-                </svg>
-              </div>
-            </div>
-            <div className="w-full px-10">
-              {switch Belt.Array.get(content.books, idx) {
-              | Some(book) => <>
-                  <p className="mt-2 text-lg font-medium text-gray-900">
-                    {React.string(book.title)}
-                  </p>
-                  <p className="mt-2 text-md text-gray-900"> {React.string(book.description)} </p>
-                  <p className=" text-sm font-medium text-gray-500">
-                    {book.links
-                    |> List.mapi((
-                      _idx,
-                      link: Ood.Book.link,
-                    ) => // TODO: visual indicator that link opens new tab
-                    <>
-                      <a href=link.uri className="text-orangedarker" target="_blank">
-                        <span> {React.string(link.description)} </span>
-                      </a>
-                      <span className="inline-block px-2"> {React.string("|")} </span>
-                    </>)
-                    |> Array.of_list
-                    |> React.array}
-                  </p>
-                </>
-              | None => <p> {React.string("Somethings gone wrong")} </p>
-              }}
-            </div>
-          </div>
+      let iconComponent = (id: int, idx: int, item: {"item": Ood.Book.t}) => {
+        let book = item["item"]
+        // TODO: Better default image
+        let cover = Belt.Option.getWithDefault(book.cover, "/static/logo1.jpeg")
+        <div className="w-40 aspect-w-3 aspect-h-2 sm:aspect-w-3 sm:aspect-h-4">
+          <img
+            src=cover
+            alt=book.title
+            className={"object-fit w-full shadow-lg rounded-lg " ++ if id == idx {
+              "ring-4 ring-orangedarker"
+            } else {
+              ""
+            }}
+          />
         </div>
-      </SectionContainer.LargeCentered>
+      }
+
+      let detailsComponent = (item: {"item": Ood.Book.t}) => {
+        let book = item["item"]
+        <>
+          <p className="mt-2 text-lg font-medium text-gray-900"> {React.string(book.title)} </p>
+          <p className="mt-2 text-md text-gray-900"> {React.string(book.description)} </p>
+          <p className=" text-sm font-medium text-gray-500">
+            {book.links
+            |> List.mapi((
+              _idx,
+              link: Ood.Book.link,
+            ) => // TODO: visual indicator that link opens new tab
+            <>
+              <a href=link.uri className="text-orangedarker" target="_blank">
+                <span> {React.string(link.description)} </span>
+              </a>
+              <span className="inline-block px-2"> {React.string("|")} </span>
+            </>)
+            |> Array.of_list
+            |> React.array}
+          </p>
+        </>
+      }
+      <MediaCarousel
+        ?marginBottom label=content.booksLabel items=content.books iconComponent detailsComponent
+      />
     }
-  }
-
-  module Manual = {
-    @react.component
-    let make = (~marginBottom=?) =>
-      // TODO: define content type; factor out content
-      <SectionContainer.MediumCentered ?marginBottom paddingY="pt-8 pb-14" filled=true>
-        <h2 className="text-center text-white text-7xl font-bold mb-8">
-          {React.string(`The OCaml Manual`)}
-        </h2>
-        <div className="mx-24 grid grid-cols-3 px-28 mx-auto max-w-4xl">
-          <div className="border-r-4 border-b-4">
-            <div
-              className="h-24 flex items-center justify-center px-4 font-bold bg-white mx-8 my-3 rounded">
-              <p className="text-center">
-                <a href="https://ocaml.org/manual/index.html#sec6">
-                  {React.string(`Introduction Tutorials`)}
-                </a>
-              </p>
-            </div>
-          </div>
-          <div className="border-r-4 border-b-4">
-            <div
-              className="h-24 flex items-center justify-center px-4 font-bold bg-white mx-8 my-3 rounded">
-              <p className="text-center">
-                <a href="https://ocaml.org/manual/stdlib.html"> {React.string(`StdLib`)} </a>
-              </p>
-            </div>
-          </div>
-          <div className="border-b-4">
-            <div
-              className="h-24 flex items-center justify-center px-4 font-bold bg-white mx-8 my-3 rounded">
-              <p className="text-center">
-                <a href="https://ocaml.org/api/index.html"> {React.string(`API Docs`)} </a>
-              </p>
-            </div>
-          </div>
-          <div className="border-r-4">
-            <div
-              className="h-24 flex items-center justify-center px-4 font-bold bg-white mx-8 my-3 rounded">
-              <p className="text-center">
-                <a href="https://ocaml.org/manual/index.html#sec72"> {React.string(`Lang`)} </a>
-              </p>
-            </div>
-          </div>
-          <div className="border-r-4">
-            <div
-              className="h-24 flex items-center justify-center px-4 font-bold bg-white mx-8 my-3 rounded">
-              <p className="text-center">
-                <a href="https://ocaml.org/manual/extn.html#sec238"> {React.string(`Ext`)} </a>
-              </p>
-            </div>
-          </div>
-          <div>
-            <div
-              className="h-24 flex items-center justify-center px-4 font-bold bg-white mx-8 my-3 rounded">
-              <p className="text-center">
-                <a href="https://ocaml.org/manual"> {React.string(`Something Else`)} </a>
-              </p>
-            </div>
-          </div>
-        </div>
-      </SectionContainer.MediumCentered>
   }
 
   module Applications = {
@@ -304,56 +147,22 @@ module T = {
   }
 
   module Papers = {
+    type t = {
+      title: string,
+      item1: VerticalHighlightCard.item,
+      item2: VerticalHighlightCard.item,
+      item3: VerticalHighlightCard.item,
+      buttonText: string,
+      route: Route.t,
+    }
+
     @react.component
-    let make = (~marginBottom=?, ~lang, ()) =>
-      // TODO: define content type and factor out content
-      // TODO: use generic container
-      <div
-        className={"bg-white overflow-hidden shadow rounded-lg py-3 mx-auto max-w-5xl " ++
-        marginBottom->Tailwind.Option.toClassName}>
-        <div className="px-4 py-5 sm:p-6">
-          <h2 className="text-center text-orangedark text-7xl font-bold mb-8">
-            {React.string(`PAPERS`)}
-          </h2>
-          <div className="grid grid-cols-3 mb-14 px-9 space-x-6 px-14">
-            <div className="">
-              <p className="text-orangedark text-7xl font-bold"> {React.string(`1.`)} </p>
-              // TODO: visual indicator that link will open new tab
-              <p className="font-bold">
-                <a href="https://arxiv.org/abs/1905.06543" target="_blank">
-                  {React.string(`Extending OCaml's Open`)}
-                </a>
-              </p>
-              <p> {React.string(`by Runhang Li, Jeremey Yallop`)} </p>
-            </div>
-            <div className="">
-              <p className="text-orangedark text-7xl font-bold"> {React.string(`2.`)} </p>
-              <p className="font-bold">
-                <a href="https://kcsrk.info/papers/memory_model_ocaml17.pdf" target="_blank">
-                  {React.string(`A Memory Model for Multicore OCaml`)}
-                </a>
-              </p>
-              <p> {React.string(`by Stephen Dolan, KC Sivaramakrishnan`)} </p>
-            </div>
-            <div className="">
-              <p className="text-orangedark text-7xl font-bold"> {React.string(`3.`)} </p>
-              <p className="font-bold">
-                <a href="https://arxiv.org/abs/1812.11664" target="_blank">
-                  {React.string(`Eff Directly in OCaml`)}
-                </a>
-              </p>
-              <p> {React.string(`by Oleg Kiselyov, KC Sivaramakrishnan`)} </p>
-            </div>
-          </div>
-          <div className="flex justify-center">
-            <Route _to={#ResourcesPapers} lang>
-              <a
-                className="font-bold inline-flex items-center px-10 py-3 border border-transparent text-base leading-4 font-medium rounded-md shadow-sm text-white bg-orangedark hover:bg-orangedarker">
-                {React.string(`Go to Papers`)}
-              </a>
-            </Route>
-          </div>
-        </div>
+    let make = (~content: t, ~marginBottom=?, ~lang) =>
+      <div className={marginBottom->Tailwind.Option.toClassName}>
+        <VerticalHighlightCard
+          title=content.title buttonText=content.buttonText buttonRoute=content.route lang>
+          {(content.item1, content.item2, content.item3)}
+        </VerticalHighlightCard>
       </div>
   }
 
@@ -367,6 +176,8 @@ module T = {
     expanding: UserLevelIntroduction.t,
     diversifying: UserLevelIntroduction.t,
     researching: UserLevelIntroduction.t,
+    manual: Manual.t,
+    papers: Papers.t,
   }
   include Jsonable.Unsafe
 
@@ -391,11 +202,13 @@ module T = {
         <Tutorials content=content.tutorials lang />
         <Books marginBottom={Tailwind.Breakpoint.make(#mb16, ())} content=content.booksContent />
         <UserLevelIntroduction content=content.expanding marginBottom=introMarginBottom />
-        <Manual marginBottom={Tailwind.Breakpoint.make(#mb20, ())} />
+        <Manual
+          content=content.manual cols=#_3 marginBottom={Tailwind.Breakpoint.make(#mb20, ())}
+        />
         <UserLevelIntroduction content=content.diversifying marginBottom=introMarginBottom />
         <Applications marginBottom={Tailwind.Breakpoint.make(#mb36, ())} lang />
         <UserLevelIntroduction content=content.researching marginBottom=introMarginBottom />
-        <Papers marginBottom={Tailwind.Breakpoint.make(#mb16, ())} lang />
+        <Papers content=content.papers marginBottom={Tailwind.Breakpoint.make(#mb16, ())} lang />
       </Page.Basic>
     }
   </>
@@ -435,6 +248,55 @@ module T = {
       researching: {
         level: `Researching`,
         introduction: `Aspiring towards greater understanding of the language? Want to push the limits and discover brand new things? Check out papers written by leading OCaml researchers:`,
+      },
+      manual: {
+        title: `The OCaml Manual`,
+        items: [
+          {
+            link: "https://ocaml.org/manual/index.html#sec6",
+            text: `Introduction Tutorials`,
+          },
+          {
+            link: "https://ocaml.org/manual/stdlib.html",
+            text: `Stdlib`,
+          },
+          {
+            link: "https://ocaml.org/api/index.html",
+            text: `API Docs`,
+          },
+          {
+            link: "https://ocaml.org/manual/index.html#sec72",
+            text: `Lang`,
+          },
+          {
+            link: "https://ocaml.org/manual/extn.html#sec238",
+            text: `Ext`,
+          },
+          {
+            link: "https://ocaml.org/manual",
+            text: `Something Else`,
+          },
+        ],
+      },
+      papers: {
+        title: `PAPERS`,
+        item1: {
+          title: `Extending OCaml's Open`,
+          description: `by Runhang Li, Jeremey Yallop`,
+          url: `https://arxiv.org/abs/1905.06543`,
+        },
+        item2: {
+          title: `A Memory Model for Multicore OCaml`,
+          description: `by Stephen Dolan, KC Sivaramakrishnan`,
+          url: `https://kcsrk.info/papers/memory_model_ocaml17.pdf`,
+        },
+        item3: {
+          title: `Eff Directly in OCaml`,
+          description: `by Oleg Kiselyov, KC Sivaramakrishnan`,
+          url: `https://arxiv.org/abs/1812.11664`,
+        },
+        buttonText: `Go to Papers`,
+        route: #ResourcesPapers,
       },
     }
   }

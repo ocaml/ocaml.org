@@ -52,3 +52,64 @@ module Simple = {
       </div>
     </div>
 }
+
+module Regular = {
+  type columnSpec<'map> = {
+    title: string,
+    component: 'map => React.element,
+    className: string,
+  }
+
+  @react.component
+  let make = (~rows: array<'map>, ~children as columns: array<columnSpec<'map>>) => {
+    <div className="container py-6 px-4 max-w-7xl mx-auto">
+      <div className="overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative">
+        <table
+          className="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
+          <thead>
+            {
+              let len = Belt.Array.length(columns)
+              React.array(
+                columns->Belt.Array.mapWithIndexU((. i, column) => {
+                  let rounding = {
+                    [
+                      if i == 0 {
+                        "rounded-tl"
+                      } else {
+                        ""
+                      },
+                      if i == len - 1 {
+                        "rounded-tr"
+                      } else {
+                        ""
+                      },
+                    ]->Js.String.concatMany(" ")
+                  }
+                  <th
+                    className={`py-2 px-3 ${rounding} sticky top-0 border-b border-gray-200 bg-yellow-300`}>
+                    {React.string(column.title)}
+                  </th>
+                }),
+              )
+            }
+          </thead>
+          <tbody>
+            {React.array(
+              rows->Belt.Array.mapWithIndex((i, map) =>
+                <tr
+                  key={"r" ++ string_of_int(i)}
+                  className="border-double border-t-4 border-gray-200 hover:bg-yellow-50">
+                  {React.array(
+                    columns->Belt.Array.map(({title, component, className}) =>
+                      <td className> {React.createElement(component, map)} </td>
+                    ),
+                  )}
+                </tr>
+              ),
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+}
