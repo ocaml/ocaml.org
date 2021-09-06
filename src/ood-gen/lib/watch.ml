@@ -4,8 +4,8 @@ type metadata = {
   name : string;
   embedPath : string;
   thumbnailPath : string;
-  description : string;
-  year : int;
+  description : string option;
+  date : string;
   language : string;
   category : string;
 }
@@ -19,8 +19,8 @@ type t = {
   name : string;
   embedPath : string;
   thumbnailPath : string;
-  description : string;
-  year : int;
+  description : string option;
+  date : string;
   language : string;
   category : string;
 }
@@ -39,7 +39,7 @@ let decode s =
              description = metadata.description;
              embedPath = metadata.embedPath;
              thumbnailPath = metadata.thumbnailPath;
-             year = metadata.year;
+             date = metadata.date;
              language = metadata.language;
              category = metadata.category;
            }
@@ -58,12 +58,13 @@ let pp ppf v =
   ; embedPath = %a
   ; thumbnailPath = %a
   ; description = %a
-  ; year = %i
+  ; date = %a
   ; language = %a
   ; category = %a
   }|}
-    Pp.string v.name Pp.string v.embedPath Pp.string v.thumbnailPath Pp.string
-    v.description v.year Pp.string v.language Pp.string v.category
+    Pp.string v.name Pp.string v.embedPath Pp.string v.thumbnailPath
+    Pp.(option string)
+    v.description Pp.string v.date Pp.string v.language Pp.string v.category
 
 let pp_list = Pp.list pp
 
@@ -75,8 +76,8 @@ let template () =
   { name: string;
     embedPath : string;
     thumbnailPath : string;
-    description : string;
-    year : int;
+    description : string option;
+    date : string;
     language : string;
     category : string;
   }

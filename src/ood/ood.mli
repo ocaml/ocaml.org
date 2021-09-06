@@ -205,8 +205,8 @@ module Watch : sig
     name : string;
     embedPath : string;
     thumbnailPath : string;
-    description : string;
-    year : int;
+    description : string option;
+    date : string;
     language : string;
     category : string;
   }

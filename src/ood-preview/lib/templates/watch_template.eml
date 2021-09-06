@@ -3,7 +3,7 @@ let render_watch (watch : Ood.Watch.t) =
   <li class="relative">
     <iframe class="bg-black mx-auto" x-ref="player" src="<%s "https://watch.ocaml.org" ^ watch.embedPath %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
     <p class="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none"><%s watch.name %></p>
-    <p class="block text-sm font-medium text-gray-500 pointer-events-none truncate"><%s watch.description %></p>
+    <p class="block text-sm font-medium text-gray-500 pointer-events-none truncate"><%s Option.value ~default:"" watch.description %></p>
   </li>
 
 let render watch = 
