@@ -57,5 +57,5 @@ let set_locale handler req =
     | Dream_accept.Any ->
       "en"
   in
-  Gettext.put_locale language;
+  I18n.put_locale language;
   handler req

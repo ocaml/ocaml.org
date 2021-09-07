@@ -1,7 +1,6 @@
 (library
  (name ocamlorg_web)
- (libraries dream dream-cli dream-accept omd ocamlorg ood ood.media gettext
-   gettext-camomile))
+ (libraries dream dream-cli dream-accept omd ocamlorg ood ood.media gettext))
 
 (rule
  (targets asset.ml)
@@ -16,12 +15,10 @@
 (rule
  (targets gettext_asset.ml)
  (deps
-  ../../gettext/en/LC_MESSAGES/default.mo
-  ../../gettext/fr/LC_MESSAGES/default.mo
   (source_tree ../../gettext/))
  (action
   (with-stdout-to
    %{null}
-   (run %{bin:ocaml-crunch} -m plain ../../gettext -e mo -o %{targets}))))
+   (run %{bin:ocaml-crunch} -m plain ../../gettext -e po -o %{targets}))))
 
 (include_subdirs unqualified)
