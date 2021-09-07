@@ -9,46 +9,46 @@ such Third Party IP, are set forth below.
 Overview
 --------------------------------------------------------------------------
 
-asset/font-files/Inter-Black.woff,
-asset/font-files/Inter-Black.woff2,
-asset/font-files/Inter-BlackItalic.woff,
-asset/font-files/Inter-BlackItalic.woff2,
-asset/font-files/Inter-Bold.woff,
-asset/font-files/Inter-Bold.woff2,
-asset/font-files/Inter-BoldItalic.woff,
-asset/font-files/Inter-BoldItalic.woff2,
-asset/font-files/Inter-ExtraBold.woff,
-asset/font-files/Inter-ExtraBold.woff2,
-asset/font-files/Inter-ExtraBoldItalic.woff,
-asset/font-files/Inter-ExtraBoldItalic.woff2,
-asset/font-files/Inter-ExtraLight.woff,
-asset/font-files/Inter-ExtraLight.woff2,
-asset/font-files/Inter-ExtraLightItalic.woff,
-asset/font-files/Inter-ExtraLightItalic.woff2,
-asset/font-files/Inter-Italic.woff,
-asset/font-files/Inter-Italic.woff2,
-asset/font-files/Inter-Light.woff,
-asset/font-files/Inter-Light.woff2,
-asset/font-files/Inter-LightItalic.woff,
-asset/font-files/Inter-LightItalic.woff2,
-asset/font-files/Inter-Medium.woff,
-asset/font-files/Inter-Medium.woff2,
-asset/font-files/Inter-MediumItalic.woff,
-asset/font-files/Inter-MediumItalic.woff2,
-asset/font-files/Inter-Regular.woff,
-asset/font-files/Inter-Regular.woff2,
-asset/font-files/Inter-SemiBold.woff,
-asset/font-files/Inter-SemiBold.woff2,
-asset/font-files/Inter-SemiBoldItalic.woff,
-asset/font-files/Inter-SemiBoldItalic.woff2,
-asset/font-files/Inter-Thin.woff,
-asset/font-files/Inter-Thin.woff2,
-asset/font-files/Inter-ThinItalic.woff,
-asset/font-files/Inter-ThinItalic.woff2,
-asset/font-files/Inter-italic.var.woff2,
-asset/font-files/Inter-roman.var.woff2,
-asset/font-files/Inter.var.woff2,
-asset/font-files/inter.css:
+asset/vendors/font-files/Inter-Black.woff,
+asset/vendors/font-files/Inter-Black.woff2,
+asset/vendors/font-files/Inter-BlackItalic.woff,
+asset/vendors/font-files/Inter-BlackItalic.woff2,
+asset/vendors/font-files/Inter-Bold.woff,
+asset/vendors/font-files/Inter-Bold.woff2,
+asset/vendors/font-files/Inter-BoldItalic.woff,
+asset/vendors/font-files/Inter-BoldItalic.woff2,
+asset/vendors/font-files/Inter-ExtraBold.woff,
+asset/vendors/font-files/Inter-ExtraBold.woff2,
+asset/vendors/font-files/Inter-ExtraBoldItalic.woff,
+asset/vendors/font-files/Inter-ExtraBoldItalic.woff2,
+asset/vendors/font-files/Inter-ExtraLight.woff,
+asset/vendors/font-files/Inter-ExtraLight.woff2,
+asset/vendors/font-files/Inter-ExtraLightItalic.woff,
+asset/vendors/font-files/Inter-ExtraLightItalic.woff2,
+asset/vendors/font-files/Inter-Italic.woff,
+asset/vendors/font-files/Inter-Italic.woff2,
+asset/vendors/font-files/Inter-Light.woff,
+asset/vendors/font-files/Inter-Light.woff2,
+asset/vendors/font-files/Inter-LightItalic.woff,
+asset/vendors/font-files/Inter-LightItalic.woff2,
+asset/vendors/font-files/Inter-Medium.woff,
+asset/vendors/font-files/Inter-Medium.woff2,
+asset/vendors/font-files/Inter-MediumItalic.woff,
+asset/vendors/font-files/Inter-MediumItalic.woff2,
+asset/vendors/font-files/Inter-Regular.woff,
+asset/vendors/font-files/Inter-Regular.woff2,
+asset/vendors/font-files/Inter-SemiBold.woff,
+asset/vendors/font-files/Inter-SemiBold.woff2,
+asset/vendors/font-files/Inter-SemiBoldItalic.woff,
+asset/vendors/font-files/Inter-SemiBoldItalic.woff2,
+asset/vendors/font-files/Inter-Thin.woff,
+asset/vendors/font-files/Inter-Thin.woff2,
+asset/vendors/font-files/Inter-ThinItalic.woff,
+asset/vendors/font-files/Inter-ThinItalic.woff2,
+asset/vendors/font-files/Inter-italic.var.woff2,
+asset/vendors/font-files/Inter-roman.var.woff2,
+asset/vendors/font-files/Inter.var.woff2,
+asset/vendors/font-files/inter.css:
 
 Name:      Inter
 Version:   3.19
@@ -56,7 +56,7 @@ URL:       https://rsms.me/inter/
 License:   MIT License
 Copyright: Copyright (c) 2016-2020 The Inter Project Authors.
 
-asset/alpine.min.js:
+asset/vendors/alpine.min.js:
 
 Name:      Alpine
 Version:   2.8.2
@@ -64,7 +64,7 @@ URL:       https://alpinejs.dev/
 License:   MIT License
 Copyright: Copyright © 2019-2021 Caleb Porzio and contributors
 
-asset/alpine-clipboard.js:
+asset/vendors/alpine-clipboard.js:
 
 Name:      Alpine Clipboard
 Version:   2.0.0
