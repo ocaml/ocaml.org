@@ -39,7 +39,7 @@ let render ~readme ~license:_ package =
   <div class="grid grid-cols-1 gap-8 sm:grid-flow-col-dense sm:grid-cols-5 lg:grid-cols-3 sm:px-6 lg:px-8">
     <div class="px-4 sm:px-0 lg:px-0 sm:col-span-2 sm:col-start-4 lg:col-start-3 lg:col-span-1 space-y-6">
       <section>
-        <script src="https://cdn.jsdelivr.net/npm/@ryangjchandler/alpine-clipboard@1.x.x/dist/alpine-clipboard.js"></script>
+        <script src="/assets/vendors/alpine-clipboard.js"></script>
 
         <h1 class="inline-flex items-center text-lg font-medium text-gray-900">
           <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 h-6 w-6 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
