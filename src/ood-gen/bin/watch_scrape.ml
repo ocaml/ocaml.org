@@ -3,18 +3,21 @@ open Lwt_result.Syntax
 
 type watch = {
   name : string;
-  embedPath : string;
-  thumbnailPath : string;
+  embed_path : string;
+  thumbnail_path : string;
   description : string option;
-  date : string;
+  published_at : string;
+  updated_at : string;
   language : string;
   category : string;
 }
 
 type t = { watch : watch list }
 
-(* extract year from originally published date string *)
-let get_year json =
+(* Extract published_at date, I believe `originallyPublishedAt` applies to videos
+   imported from other platforms and `publishedAt` to this videos directly uploaded.
+   Either way one should exist. *)
+let get_publish_date json =
   match Ezjsonm.find json [ "originallyPublishedAt" ] with
   | `Null -> (
       match Ezjsonm.find json [ "publishedAt" ] with
@@ -22,6 +25,11 @@ let get_year json =
       | _ -> failwith "Couldn't calculate the videos published date")
   | `String s -> s
   | _ -> failwith "Couldn't calculate the videos original publish date"
+
+let get_update_date json =
+  match Ezjsonm.find_opt json [ "updatedAt" ] with
+  | Some (`String s) -> s
+  | _ -> failwith "Couldn't find the video's updatedAt date"
 
 (* extract value of language and category *)
 let get_language_category json =
@@ -34,9 +42,10 @@ let of_json json =
   {
     name = Ezjsonm.find json [ "name" ] |> Ezjsonm.get_string;
     description = Ezjsonm.find json [ "description" ] |> get_string_or_none;
-    embedPath = Ezjsonm.find json [ "embedPath" ] |> Ezjsonm.get_string;
-    thumbnailPath = Ezjsonm.find json [ "thumbnailPath" ] |> Ezjsonm.get_string;
-    date = get_year json;
+    embed_path = Ezjsonm.find json [ "embedPath" ] |> Ezjsonm.get_string;
+    thumbnail_path = Ezjsonm.find json [ "thumbnailPath" ] |> Ezjsonm.get_string;
+    published_at = get_publish_date json;
+    updated_at = get_update_date json;
     language = Ezjsonm.find json [ "language" ] |> get_language_category;
     category = Ezjsonm.find json [ "category" ] |> get_language_category;
   }
@@ -48,9 +57,10 @@ let watch_to_yaml t =
       | Some s -> [ ("description", `String s) ]
       | None -> [])
     @ [
-        ("embedPath", `String t.embedPath);
-        ("thumbnailPath", `String t.thumbnailPath);
-        ("date", `String t.date);
+        ("embed_path", `String t.embed_path);
+        ("thumbnail_path", `String t.thumbnail_path);
+        ("published_at", `String t.published_at);
+        ("updated_at", `String t.updated_at);
         ("language", `String t.language);
         ("category", `String t.category);
       ])
