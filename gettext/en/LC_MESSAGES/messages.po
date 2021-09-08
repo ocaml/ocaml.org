@@ -1,6 +1,4 @@
-## Use `ocaml-gettext --action merge --merge-pot gettext/default.pot gettext/fr/LC_MESSAGES/default.po`
-## to merge POT files into PO files.
-
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ocaml.org\n"
@@ -14,107 +12,353 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;"
 
-#: navigation.ml:104
+#: lib/ocamlorg_web/templates/pages/package_search_template.eml:31
+msgid "%i Packages"
+msgid_plural "%i Package"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/ocamlorg_web/templates/pages/package_search_template.eml:55
+msgid "%i Universes"
+msgid_plural "%i Universe"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/ocamlorg_web/templates/pages/package_search_template.eml:43
+msgid "%i Versions"
+msgid_plural "%i Version"
+msgstr[0] ""
+msgstr[1] ""
+
+#: navigation.ml:106 navigation.ml:106
 msgid "A bit of everything, this page encapsulates OCaml's presence online, blogposts, videos, and mailing lists all live here."
 msgstr ""
 
-#: navigation.ml:36
+#: lib/ocamlorg_web/templates/components/footer_template.eml:35 navigation.ml:36
+#. navigation.ml:36
 msgid "Academic Excellence"
 msgstr ""
 
-#: navigation.ml:79
+#: navigation.ml:81 navigation.ml:81
 msgid "Adopt the best known methods for development from the OCaml community."
 msgstr ""
 
-#: navigation.ml:68
+#: lib/ocamlorg_web/templates/components/footer_template.eml:45 navigation.ml:70
+#. navigation.ml:70
 msgid "Applications"
 msgstr ""
 
-#: navigation.ml:108
+#: lib/ocamlorg_web/templates/components/footer_template.eml:60 navigation.ml:110
+#. navigation.ml:110
 msgid "Archive"
 msgstr ""
 
-#: navigation.ml:100
+#: lib/ocamlorg_web/templates/components/footer_template.eml:59 navigation.ml:102
+#. navigation.ml:102
 msgid "Around the Web"
 msgstr ""
 
-#: navigation.ml:64
+#: lib/ocamlorg_web/templates/pages/package_template.eml:62
+msgid "Authors"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:86
+msgid "Before any package update, we run sandboxed matrix builds for boundaries of the dependencies and for each of the dependent packages. A package publication will never break the rest of the ecosystem."
+msgstr ""
+
+#: lib/ocamlorg_web/templates/components/footer_template.eml:48
+msgid "Best Practices"
+msgstr ""
+
+#: navigation.ml:66 navigation.ml:66
 msgid "Browse the third-party packages published in the OCaml ecosystem."
 msgstr ""
 
-#: navigation.ml:112
+#: navigation.ml:114 navigation.ml:114
 msgid "Can't find what you're looking for? Try searching the Archive."
 msgstr ""
 
-#: navigation.ml:98
+#: lib/ocamlorg_web/templates/components/footer_template.eml:69
+msgid "Carbon Footprint"
+msgstr ""
+
+#: navigation.ml:100 navigation.ml:100
 msgid "Catch up on the latest news from the OCaml sphere!"
 msgstr ""
 
-#: navigation.ml:85
+#: lib/ocamlorg_web/templates/components/header_template.eml:82
+msgid "Close menu"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/components/footer_template.eml:49 navigation.ml:87
+#. navigation.ml:87
 msgid "Community"
 msgstr ""
 
-#: navigation.ml:32
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:72
+msgid "Continuous Integration"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/package_template.eml:130
+msgid "Dependencies"
+msgstr ""
+
+#: navigation.ml:32 navigation.ml:32
 msgid "Discover the organisations that use OCaml to accomplish their goals."
 msgstr ""
 
-#: navigation.ml:91
+#: lib/ocamlorg_web/templates/pages/package_template.eml:123
+msgid "Download"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:18
+msgid "Explore thousands of open-source OCaml packages with their documentation."
+msgstr ""
+
+#: navigation.ml:93 navigation.ml:93
 msgid "Explore vacancies in projects and companies and see where you could fit in."
 msgstr ""
 
-#: navigation.ml:24
+#: navigation.ml:24 navigation.ml:24
 msgid "Find out about OCaml's history and how it became what it is today."
 msgstr ""
 
-#: navigation.ml:28
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:70
+msgid "Focus on your code, and opam takes care of distributing it"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/components/footer_template.eml:6
+msgid "Footer"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/package_search_template.eml:109
+msgid "Found %i package."
+msgid_plural "Found %i packages."
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/ocamlorg_web/templates/pages/not_found_template.eml:14
+msgid "Go back home"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/package_template.eml:90
+msgid "Homepage"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/components/footer_template.eml:76
+msgid "Hosting Providers"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/components/footer_template.eml:33 navigation.ml:28
+#. navigation.ml:28
 msgid "Industrial Users"
 msgstr ""
 
-#: navigation.ml:54
+#: lib/ocamlorg_web/templates/components/footer_template.eml:8
+msgid "Innovation. Community. Security."
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/package_template.eml:43
+msgid "Install"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:51
+msgid "Installation / day"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/components/footer_template.eml:42 navigation.ml:55
+#. navigation.ml:55
 msgid "Language"
 msgstr ""
 
-#: navigation.ml:40
+#: navigation.ml:40 navigation.ml:40
 msgid "Learn about the academics that research programming language technology."
 msgstr ""
 
-#: navigation.ml:72
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:134
+msgid "Learn how to contribute"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:132
+msgid "Learn how to publish your first opam package today and make it available to the rest of the community."
+msgstr ""
+
+#: navigation.ml:74 navigation.ml:74
 msgid "Learn techniques for building tools and applications in OCaml."
 msgstr ""
 
-#: navigation.ml:95
+#: lib/ocamlorg_web/templates/components/footer_template.eml:62
+msgid "Legal"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/package_template.eml:85
+msgid "License"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/package_template.eml:79
+msgid "Maintainers"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/components/footer_template.eml:58 navigation.ml:97
+#. navigation.ml:97
 msgid "News"
 msgstr ""
 
-#: navigation.ml:87
+#: lib/ocamlorg_web/templates/pages/package_template.eml:33
+#. lib/ocamlorg_web/templates/pages/package_search_template.eml:121
+msgid "No License"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/components/toc_template.eml:16
+msgid "No table of content"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:6
+msgid "OCaml Packages"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/components/header_template.eml:41
+msgid "OCaml.org"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/components/toc_template.eml:14
+msgid "On this page"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/package_search_template.eml:6
+msgid "Opam Package Registry"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/not_found_template.eml:18
+msgid "Open an issue"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/components/header_template.eml:57
+msgid "Open menu"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/components/footer_template.eml:55 navigation.ml:89
+#. navigation.ml:89
 msgid "Opportunities"
 msgstr ""
 
-#: navigation.ml:60
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:71
+msgid "Our users have the highest standards for the OCaml ecosystem to run mission-critical applications across a variety of operating systems, and they expect that a package that compiles today will still work a decade from now."
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:41
+#. lib/ocamlorg_web/templates/components/footer_template.eml:44
+#. navigation.ml:62
+#. navigation.ml:62
 msgid "Packages"
 msgstr ""
 
-#: navigation.ml:18
+#: lib/ocamlorg_web/templates/pages/not_found_template.eml:6
+msgid "Page not found"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/not_found_template.eml:13
+msgid "Please check the URL in the address bar and try again."
+msgstr ""
+
+#: lib/ocamlorg_web/templates/components/footer_template.eml:11 navigation.ml:18
+#. navigation.ml:18
 msgid "Principles"
 msgstr ""
 
-#: navigation.ml:48
+#: lib/ocamlorg_web/templates/components/footer_template.eml:66
+msgid "Privacy"
+msgstr ""
+
+#: navigation.ml:48 navigation.ml:48
 msgid "Read about the things that have been achieved using OCaml."
 msgstr ""
 
-#: navigation.ml:58
+#: navigation.ml:59 navigation.ml:59
 msgid "Read through the OCaml tutorial, official manual and books."
 msgstr ""
 
-#: navigation.ml:52
+#: lib/ocamlorg_web/templates/components/footer_template.eml:38 navigation.ml:53
+#. navigation.ml:53
 msgid "Resources"
 msgstr ""
 
-#: navigation.ml:44
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:25
+msgid "Search"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/package_search_template.eml:86
+msgid "Search Results"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/package_search_template.eml:72
+#. lib/ocamlorg_web/templates/components/header_template.eml:53
+msgid "Search packages"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/package_template.eml:103
+msgid "Sources"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:104
+msgid "Stability"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:59
+msgid "Stable Ecosystem"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:121
+msgid "Start contributing."
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:87
+msgid "State of the art"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/components/footer_template.eml:37 navigation.ml:44
+#. navigation.ml:44
 msgid "Success Stories"
 msgstr ""
 
-#: navigation.ml:20
+#: lib/ocamlorg_web/templates/components/footer_template.eml:68
+msgid "Terms"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/components/footer_template.eml:70
+msgid "Thank you to our"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:120
+msgid "The opam project and package repository is maintained by a team of developers who ensure that everything is not only running smoothly, but curated to maintain a high degree of metadata quality. This makes it one of the most stable package repositories available today."
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:55
+msgid "Update / week"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/package_search_template.eml:58
+msgid "Visit Repository"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/components/footer_template.eml:31 navigation.ml:20
+#. navigation.ml:20
 msgid "Why OCaml"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:40
+msgid "opam is a source-based package manager for OCaml that supports multiple simultaneous compiler installations, flexible package constraints, and a Git-friendly development workflow.<br />It's been in use with the OCaml ecosystem since 2013 and is well maintained."
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:29
+msgid "opam is the package manager for the OCaml ecosystem"
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:103
+msgid "opam supports publishing multiple versions of packages simultaneously, and to specify the version constraints to ensure that only compatible revisions are chosen for a build. It comes with a performant constraint solver, a flexible CLI, a well-specified metadata format, and easy access to the package manager logic via OCaml libraries."
+msgstr ""
+
+#: lib/ocamlorg_web/templates/pages/packages_template.eml:20
+msgid "package"
 msgstr ""
 

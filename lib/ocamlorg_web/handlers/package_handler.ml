@@ -8,7 +8,7 @@ let index _req =
     ~description:
       "Discover thousands of community packages and their browse their \
        documentation."
-    Packages_template.render
+    (Packages_template.render ())
   |> Dream.html
 
 let search t req =

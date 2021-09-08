@@ -4,5 +4,5 @@ let not_found _req =
   Page_layout_template.render
     ~title:"Page not found · OCaml"
     ~description:Config.meta_description
-    Not_found_template.render
+    (Not_found_template.render ())
   |> Dream.html ~status:`Not_Found
