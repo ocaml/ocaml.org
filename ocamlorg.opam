@@ -27,8 +27,6 @@ depends: [
   "cohttp"
   "cohttp-lwt-unix"
   "ood"
-  "gettext" {>= "0.5.0"}
-  "gettext-camomile" {>= "0.5.0"}
   "alcotest" {with-test}
   "odoc" {with-doc}
 ]
@@ -49,6 +47,5 @@ build: [
 dev-repo: "git+https://github.com/ocaml/v3.ocaml.org-server.git"
 pin-depends: [
   ["dream-accept.0.1.0" "git+https://github.com/tmattio/dream-accept#main"]
-  ["gettext.0.1.0" "git+https://github.com/tmattio/gettext#main"]
   ["ood.0.1.0" "git+https://github.com/ocaml/ood#main"]
 ]

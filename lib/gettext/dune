@@ -1,0 +1,4 @@
+(library
+ (name gettext)
+ (public_name ocamlorg.gettext)
+ (libraries gettext_po gettext_locale))
