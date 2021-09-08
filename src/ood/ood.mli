@@ -203,10 +203,11 @@ end
 module Watch : sig
   type t = {
     name : string;
-    embedPath : string;
-    thumbnailPath : string;
-    description : string;
-    year : int;
+    embed_path : string;
+    thumbnail_path : string;
+    description : string option;
+    published_at : string;
+    updated_at : string;
     language : string;
     category : string;
   }

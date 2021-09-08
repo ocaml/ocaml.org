@@ -10,7 +10,7 @@ bug-reports: "https://github.com/patricoferris/ood/issues"
 depends: [
   "dune" {>= "2.8"}
   "ocaml" {>= "4.08.0"}
-  "yaml"
+  "yaml" {>= "3.0"}
   "ppx_deriving_yaml"
   "ezjsonm"
   "ptime"

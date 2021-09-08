@@ -38,7 +38,7 @@
   dream
   dream-cli
   dream-livereload
-  yaml
+  (yaml (>= 3.0))
   (omd
    (>= 2.0.0~alpha2))
   (ood
@@ -53,7 +53,7 @@
  (depends
   (ocaml
    (>= 4.08.0))
-  yaml
+  (yaml (>= 3.0))
   ppx_deriving_yaml
   ezjsonm
   ptime

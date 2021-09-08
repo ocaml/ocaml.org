@@ -29,5 +29,7 @@
 
 (executable
  (name watch_scrape)
+ (public_name ood-watch)
+ (package ood-gen)
  (modules watch_scrape)
  (libraries yaml ezjsonm piaf))
