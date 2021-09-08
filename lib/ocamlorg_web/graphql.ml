@@ -28,9 +28,6 @@ let get_info info =
       { name = Package.Name.to_string name; constraints })
     info
 
-let is_in_range current_version from_version upto_version =
-  current_version >= from_version && current_version <= upto_version
-
 let is_valid_params limit offset total_packages =
   if limit < 1 then
     Wrong_limit
@@ -47,6 +44,17 @@ let packages_list contains offset limit all_packages t =
     List.filteri
       (fun i _ -> offset <= i && i < offset + limit)
       (Package.search_package t letters)
+
+let is_in_range current_version from_version upto_version =
+  match from_version, upto_version with
+  | None, None ->
+    true
+  | Some from_version, None ->
+    current_version >= from_version
+  | None, Some upto_version ->
+    current_version <= upto_version
+  | Some from_version, Some upto_version ->
+    current_version >= from_version && current_version <= upto_version
 
 let all_packages_result contains offset limit all_packages t =
   let total_packages = List.length all_packages in
@@ -95,32 +103,16 @@ let package_versions_result name from upto t =
   | None ->
     Error ("No package matching " ^ name ^ " was found")
   | Some packages ->
-    let total_package_versions = List.length packages in
     if from = None && upto = None then
       Ok { total_packages; packages }
     else
-      let from =
-        match from with
-        | None ->
-          Package.Version.to_string (Package.version (List.hd packages))
-        | Some from ->
-          from
-      in
-      let upto =
-        match upto with
-        | None ->
-          Package.Version.to_string
-            (Package.version (List.nth packages (total_package_versions - 1)))
-        | Some upto ->
-          upto
-      in
       let package_list =
         List.filter
           (fun package ->
             is_in_range
               (Package.version package)
-              (Package.Version.of_string from)
-              (Package.Version.of_string upto))
+              (Option.map Package.Version.of_string from)
+              (Option.map Package.Version.of_string upto))
           packages
       in
       Ok { total_packages; packages = package_list }

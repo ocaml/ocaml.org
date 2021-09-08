@@ -243,8 +243,8 @@ let () =
             `Quick
             (is_in_range_test
                (Package.Version.of_string "3.12.0")
-               (Package.Version.of_string "2.0.0")
-               (Package.Version.of_string "5.9.2")
+               (Some (Package.Version.of_string "2.0.0"))
+               (Some (Package.Version.of_string "5.9.2"))
                true)
         ] )
     ; ( "test that is_in_range function checks if a current version is outside \
@@ -254,8 +254,8 @@ let () =
             `Quick
             (is_in_range_test
                (Package.Version.of_string "3.12.0")
-               (Package.Version.of_string "10.0.0")
-               (Package.Version.of_string "2.97.2")
+               (Some (Package.Version.of_string "10.0.0"))
+               (Some (Package.Version.of_string "2.97.2"))
                false)
         ] )
     ; ( "test that is_valid_params function takes a limit, offset and \

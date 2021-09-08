@@ -26,10 +26,11 @@ val get_info : (Package.Name.t * string option) list -> package_info list
     Package.Info.dependencies and returns a list of name and constraints record
     Package.Info record *)
 
-val is_in_range : 'a -> 'a -> 'a -> bool
-(** [is_in_range] function takes [current_version] [from_version] [upto_version]
-    and checks that current_version is between the range of from_version and
-    upto_version *)
+(* val is_in_range : 'a -> 'a -> 'a -> bool *)
+val is_in_range : 'a -> 'a option -> 'a option -> bool
+(** [is_in_range] function takes a [current_version] and an optional
+    [from_version] and [upto_version] and checks that current_version is between
+    the range of from_version and upto_version *)
 
 val is_valid_params : int -> int -> int -> params_validity
 (** [is_valid_params] function is a sub function of [all_packages_result] that
