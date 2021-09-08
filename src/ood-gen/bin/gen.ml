@@ -14,6 +14,7 @@ let term_templates =
     ("video", Ood_gen.Video.template);
     ("watch", Ood_gen.Watch.template);
     ("news", Ood_gen.News.template);
+    ("opam_user", Ood_gen.Opam_user.template);
   ]
 
 let cmds =

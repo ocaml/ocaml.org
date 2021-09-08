@@ -231,6 +231,17 @@ module News : sig
   val get_by_slug : string -> t option
 end
 
+module Opam_user : sig
+  type t = {
+    name : string;
+    email : string option;
+    github_username : string;
+    avatar : string;
+  }
+
+  val all : t list
+end
+
 module Workshop : sig
   type role = [ `Co_chair | `Chair ]
 

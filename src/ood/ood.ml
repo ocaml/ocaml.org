@@ -96,6 +96,10 @@ module News = struct
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
+module Opam_user = struct
+  include Opam_user
+end
+
 module Watch = struct
   include Watch
 

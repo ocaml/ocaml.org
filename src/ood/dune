@@ -114,6 +114,16 @@
 
 (rule
  (deps %{bin:ood-gen})
+ (targets opam_user.ml)
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} opam_user))))
+
+(rule
+ (deps %{bin:ood-gen})
  (targets workshop.ml)
  (mode
   (promote (until-clean)))
