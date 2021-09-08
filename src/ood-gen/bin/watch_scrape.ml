@@ -118,7 +118,9 @@ let run () =
       exit 1
 
 let () =
-  let watch = run () in
+  let watch =
+    run () |> List.stable_sort (fun w1 w2 -> String.compare w1.name w2.name)
+  in
   let videos = { watch } in
   let yaml = to_yaml videos in
   Yaml.pp Format.std_formatter yaml
