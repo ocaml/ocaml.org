@@ -39,4 +39,4 @@ type t = {
 }
 
 @react.component
-let make: (~t: t, ~marginBottom: Tailwind.Breakpoint.t<Tailwind.Margin.Bottom.t>=?) => React.element
+let make: (~t: t) => React.element

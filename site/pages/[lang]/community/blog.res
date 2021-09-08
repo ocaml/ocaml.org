@@ -77,8 +77,8 @@ module T = {
     }
 
     @react.component
-    let make = (~content, ~marginBottom=?) =>
-      <SectionContainer.MediumCentered ?marginBottom>
+    let make = (~content) =>
+      <SectionContainer.MediumCentered>
         <div className="lg:grid lg:grid-cols-2 items-center">
           <div className="lg:order-2">
             <h2 className="text-orangedark text-2xl font-bold text-center lg:text-4xl mb-9">
@@ -285,11 +285,12 @@ module T = {
       title=content.title
       pageDescription=content.pageDescription
       highlightContent=content.highlightContent>
-      <HighlightsInQuadrants
-        t={CategorizedNews.toHighlightsInQuadrantsContent(content.categorizedNews, lang)}
-        marginBottom={Tailwind.Breakpoint.make(#mb10, ~lg=#mb32, ())}
-      />
-      <WeeklyNews marginBottom={Tailwind.Breakpoint.make(#mb4, ())} content=content.weeklyNews />
+      <div className="mb-10 lg:mb-32">
+        <HighlightsInQuadrants
+          t={CategorizedNews.toHighlightsInQuadrantsContent(content.categorizedNews, lang)}
+        />
+      </div>
+      <div className="mb-4"> <WeeklyNews content=content.weeklyNews /> </div>
     </Page.HighlightItem>
   </>
 

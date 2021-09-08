@@ -64,10 +64,8 @@ module Quote = {
 // TODO: move this into general contaienrs?
 module TestimonialContainer = {
   @react.component
-  let make = (~marginBottom=?, ~children) => {
-    let marginBottom = (marginBottom :> option<Tailwind.t>)
-    <section
-      className={marginBottom->Tailwind.Option.toClassName ++ ` py-12 overflow-hidden md:py-20 lg:py-24 `}>
+  let make = (~children) => {
+    <section className=`py-12 overflow-hidden md:py-20 lg:py-24`>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> children </div>
     </section>
   }
@@ -81,8 +79,8 @@ type t = {
 }
 
 @react.component
-let make = (~content, ~marginBottom=?) =>
-  <TestimonialContainer ?marginBottom>
+let make = (~content) =>
+  <TestimonialContainer>
     <FillPattern
       organizationName=content.organizationName
       position=`absolute`

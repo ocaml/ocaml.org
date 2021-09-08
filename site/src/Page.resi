@@ -29,7 +29,7 @@ module Basic: {
     ~title: string,
     ~pageDescription: string,
     ~addContainer: [#NoContainer | #Regular | #Narrow]=?,
-    ~marginTop: Tailwind.Breakpoint.t<Tailwind.Margin.Top.t>=?,
+    ~titleHeadingHeaderClassName: string=?,
     ~callToAction: CallToAction.Simple.t=?,
     ~addBottomBar: bool=?,
   ) => React.element

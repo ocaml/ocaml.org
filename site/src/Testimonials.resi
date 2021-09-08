@@ -8,7 +8,4 @@ type t = {
 }
 
 @react.component
-let make: (
-  ~content: t,
-  ~marginBottom: Tailwind.Breakpoint.t<Tailwind.Margin.Bottom.t>=?,
-) => React.element
+let make: (~content: t) => React.element

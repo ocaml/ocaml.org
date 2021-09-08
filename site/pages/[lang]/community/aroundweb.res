@@ -140,16 +140,17 @@ module T = {
     />
     <Page.Basic
       title=content.title pageDescription=content.pageDescription addContainer=#NoContainer>
-      <CallToAction.General
-        t={
-          CallToAction.title: content.engageHeader,
-          body: content.engageBody,
-          buttonLink: #External("https://discuss.ocaml.org"),
-          buttonText: content.engageButtonText,
-        }
-        colorStyle=#BackgroundFilled
-        marginBottom={Tailwind.Breakpoint.make(#mb16, ())}
-      />
+      <div className="mb-16">
+        <CallToAction.General
+          t={
+            CallToAction.title: content.engageHeader,
+            body: content.engageBody,
+            buttonLink: #External("https://discuss.ocaml.org"),
+            buttonText: content.engageButtonText,
+          }
+          colorStyle=#BackgroundFilled
+        />
+      </div>
       <LatestNews content=content.latestNewsContent />
       <Events content=content.events lang />
       <Blog2

@@ -51,7 +51,7 @@ module T = {
 
   module University = {
     @react.component
-    let make = (~marginBottom=?, ~content, ()) => {
+    let make = (~content, ~sectionMargin) => {
       //filter University based on Continents
       let (filteredData, setFilteredData) = React.useState(_ => content.acads)
       let onChange = evt => {
@@ -69,53 +69,58 @@ module T = {
         }
         setFilteredData(_prev => result)
       }
-
       <>
         //University and Courses
-        <SectionContainer.MediumCentered ?marginBottom paddingX="px-12">
-          <h2 className="text-grey-900 text-3xl mb-5 lg:text-4xl font-bold text-center">
-            {React.string("Universities & Courses")}
-          </h2>
-        </SectionContainer.MediumCentered>
+        <div className=sectionMargin>
+          <SectionContainer.MediumCentered paddingX="px-12">
+            <h2 className="text-grey-900 text-3xl mb-5 lg:text-4xl font-bold text-center">
+              {React.string("Universities & Courses")}
+            </h2>
+          </SectionContainer.MediumCentered>
+        </div>
         //Select Button
-        <SectionContainer.ResponsiveCentered ?marginBottom>
-          <label className="block pr-8  sm:pr-8 lg:pr-20 ">
-            <select className="form-select block mt-1 ml-auto " onChange>
-              <option> {React.string("All")} </option>
-              <option> {React.string("North America")} </option>
-              <option> {React.string(" Europe")} </option>
-              <option> {React.string("Asia")} </option>
-            </select>
-          </label>
-        </SectionContainer.ResponsiveCentered>
+        <div className=sectionMargin>
+          <SectionContainer.ResponsiveCentered>
+            <label className="block pr-8  sm:pr-8 lg:pr-20 ">
+              <select className="form-select block mt-1 ml-auto " onChange>
+                <option> {React.string("All")} </option>
+                <option> {React.string("North America")} </option>
+                <option> {React.string(" Europe")} </option>
+                <option> {React.string("Asia")} </option>
+              </select>
+            </label>
+          </SectionContainer.ResponsiveCentered>
+        </div>
         //Display Images
-        <SectionContainer.ResponsiveCentered ?marginBottom>
-          //TODO: Modal implementation
-          <div className=" flex flex-wrap justify-center items-center flex-row ">
-            {filteredData
-            |> Array.mapi((idx, c) =>
-              <div
-                key={string_of_int(idx)}
-                className="bg-white flex  items-center pl-2.5 pt-2.5 pb-0 pr-4 h-32 w-72 m-0.5">
-                <img
-                  className="w-24 my-9 flex-grow-0 flex-shrink-0"
-                  src={`` ++
-                  switch c.Ood.Academic_institution.logo {
-                  | None => ``
-                  | Some(logo) => logo
-                  }}
-                  alt=""
-                />
-                <div className="my-9 underline font-bold pl-4">
-                  // TODO: accessibility - warn opening a new tab:(Can be solved using Modal)
-                  <a href=c.url target="_blank"> {React.string(c.name)} </a>
+        <div className=sectionMargin>
+          <SectionContainer.ResponsiveCentered>
+            //TODO: Modal implementation
+            <div className=" flex flex-wrap justify-center items-center flex-row ">
+              {filteredData
+              |> Array.mapi((idx, c) =>
+                <div
+                  key={string_of_int(idx)}
+                  className="bg-white flex  items-center pl-2.5 pt-2.5 pb-0 pr-4 h-32 w-72 m-0.5">
+                  <img
+                    className="w-24 my-9 flex-grow-0 flex-shrink-0"
+                    src={`` ++
+                    switch c.Ood.Academic_institution.logo {
+                    | None => ``
+                    | Some(logo) => logo
+                    }}
+                    alt=""
+                  />
+                  <div className="my-9 underline font-bold pl-4">
+                    // TODO: accessibility - warn opening a new tab:(Can be solved using Modal)
+                    <a href=c.url target="_blank"> {React.string(c.name)} </a>
+                  </div>
                 </div>
-              </div>
-            )
-            |> React.array}
-          </div>
-          //TODO: implement expand button
-        </SectionContainer.ResponsiveCentered>
+              )
+              |> React.array}
+            </div>
+            //TODO: implement expand button
+          </SectionContainer.ResponsiveCentered>
+        </div>
         <div className="text-center mt-7 mb-20">
           <a
             className="w-44 justify-center inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-orangedark hover:bg-orangedarker focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedarker w-56">
@@ -128,29 +133,34 @@ module T = {
   //TODO: Implement Map
   module Map = {
     @react.component
-    let make = (~marginBottom=?) => <>
-      <SectionContainer.MediumCentered ?marginBottom paddingX="px-12">
-        <h2 className="mb-16 text-grey-900 text-3xl mb-5 lg:text-4xl font-bold text-center">
-          {React.string("OCaml Courses around the World")}
-        </h2>
-      </SectionContainer.MediumCentered>
-      <SectionContainer.ResponsiveCentered ?marginBottom>
-        // TODO: try switching to a grid
-        <div className="bg-white flex flex-wrap justify-center lg:justify-between ">
-          <img src={`/static/worldmap.jpg`} alt="" />
+    let make = (~sectionMargin) => {
+      <>
+        <div className=sectionMargin>
+          <SectionContainer.MediumCentered paddingX="px-12">
+            <h2 className="mb-16 text-grey-900 text-3xl mb-5 lg:text-4xl font-bold text-center">
+              {React.string("OCaml Courses around the World")}
+            </h2>
+          </SectionContainer.MediumCentered>
         </div>
-      </SectionContainer.ResponsiveCentered>
-    </>
+        <div className=sectionMargin>
+          <SectionContainer.ResponsiveCentered>
+            // TODO: try switching to a grid
+            <div className="bg-white flex flex-wrap justify-center lg:justify-between ">
+              <img src={`/static/worldmap.jpg`} alt="" />
+            </div>
+          </SectionContainer.ResponsiveCentered>
+        </div>
+      </>
+    }
   }
 
   module Params = Pages.Params.Lang
 
   @react.component
-  let make = (~content, ~params as {Params.lang: lang}) => <>
-    <PageBasic lang />
-    <University marginBottom={Tailwind.Breakpoint.make(#mb10, ~lg=#mb32, ())} content />
-    <Map marginBottom={Tailwind.Breakpoint.make(#mb10, ~lg=#mb32, ())} />
-  </>
+  let make = (~content, ~params as {Params.lang: lang}) => {
+    let sectionMargin = "mb-10 lg:mb-32"
+    <> <PageBasic lang /> <University content sectionMargin /> <Map sectionMargin /> </>
+  }
 
   let contentEn = {
     let acads = Ood.Academic_institution.all->Belt.List.toArray

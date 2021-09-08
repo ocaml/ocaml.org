@@ -33,100 +33,106 @@ module T = {
     />
     <Page.Basic title=content.title pageDescription=content.pageDescription>
       {<>
-        <SectionContainer.SmallCentered
-          otherLayout="px-6" marginBottom={Tailwind.Breakpoint.make(#mb16, ())}>
-          <h2> {React.string(content.introduction)} </h2>
-        </SectionContainer.SmallCentered>
-        <SectionContainer.SmallCentered
-          otherLayout="px-6" marginBottom={Tailwind.Breakpoint.make(#mb16, ())}>
-          <h2 className="text-4xl font-bold mb-8"> {React.string("Important Dates")} </h2>
-          <div className="flow-root rounded bg-white p-6">
-            <ul className="-mb-8">
-              {content.dates
-              |> Array.mapi((idx, date) =>
-                <li key={date.text}>
-                  <div className="relative pb-8">
-                    {idx !== Array.length(content.dates) - 1
-                      ? <span
-                          className="absolute top-3 left-3 -ml-px h-full w-0.5 bg-gray-200"
-                          ariaHidden=true
-                        />
-                      : <> </>}
-                    <div className="relative flex space-x-3">
-                      <div>
-                        <span
-                          className="h-6 w-6 rounded-full flex items-center justify-center bg-orangedark"
-                        />
-                      </div>
-                      <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+        <div className="mb-16">
+          <SectionContainer.SmallCentered otherLayout="px-6">
+            <h2> {React.string(content.introduction)} </h2>
+          </SectionContainer.SmallCentered>
+        </div>
+        <div className="mb-16">
+          <SectionContainer.SmallCentered otherLayout="px-6">
+            <h2 className="text-4xl font-bold mb-8"> {React.string("Important Dates")} </h2>
+            <div className="flow-root rounded bg-white p-6">
+              <ul className="-mb-8">
+                {content.dates
+                |> Array.mapi((idx, date) =>
+                  <li key={date.text}>
+                    <div className="relative pb-8">
+                      {idx !== Array.length(content.dates) - 1
+                        ? <span
+                            className="absolute top-3 left-3 -ml-px h-full w-0.5 bg-gray-200"
+                            ariaHidden=true
+                          />
+                        : <> </>}
+                      <div className="relative flex space-x-3">
                         <div>
-                          <p className="text-sm text-gray-500"> {React.string(date.text)} </p>
+                          <span
+                            className="h-6 w-6 rounded-full flex items-center justify-center bg-orangedark"
+                          />
                         </div>
-                        <div className="text-right text-sm whitespace-nowrap text-gray-500">
-                          <time dateTime={date.date}> {React.string(date.date)} </time>
+                        <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                          <div>
+                            <p className="text-sm text-gray-500"> {React.string(date.text)} </p>
+                          </div>
+                          <div className="text-right text-sm whitespace-nowrap text-gray-500">
+                            <time dateTime={date.date}> {React.string(date.date)} </time>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </li>
-              )
-              |> React.array}
-            </ul>
-          </div>
-        </SectionContainer.SmallCentered>
-        <SectionContainer.SmallCentered marginBottom={Tailwind.Breakpoint.make(#mb16, ())}>
-          <h2 className="text-4xl font-bold mb-8"> {React.string("Presentations")} </h2>
-          <Table.Simple
-            content={{
-              headers: ["", "Presentation"],
-              data: Array.map((video: Ood.Video.t) => {
-                [
-                  // TODO: Improve the embedding of videos from watch.ocaml.org
-                  // which requires things like support for lazily loading iframes
-                  // in Rescrip-react and potentially a different design for mobile
-                  // screens
-                  <iframe
-                    height="200"
-                    width="275"
-                    title={video.title}
-                    className="rounded-lg"
-                    sandbox="allow-same-origin allow-scripts allow-popups"
-                    src={Belt_Option.getExn(video.embed)}
-                    allowFullScreen=true
-                  />,
-                  <p className="font-bold"> {React.string(video.title)} </p>,
-                ]
-              }, content.presentations),
-            }}
-          />
-        </SectionContainer.SmallCentered>
-        <SectionContainer.SmallCentered marginBottom={Tailwind.Breakpoint.make(#mb16, ())}>
-          <h2 className="text-4xl font-bold mb-8 px-6"> {React.string("Papers")} </h2>
-          <Table.Simple
-            content={{
-              headers: ["Title", "Author(s)", "Link"],
-              data: Array.map((paper: Ood.Paper.t) => {
-                [
-                  <p className="font-bold"> {React.string(paper.title)} </p>,
-                  <p> {React.string(String.concat(", ", paper.authors))} </p>,
-                  switch pdf_or_head(paper) {
-                  | Some(link) =>
-                    <p>
-                      <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-orangedark underline"
-                        href={link}>
-                        {React.string("link")} //TODO: Download link icon
-                      </a>
-                    </p>
-                  | None => <> {React.string("No link")} </>
-                  },
-                ]
-              }, content.papers),
-            }}
-          />
-        </SectionContainer.SmallCentered>
+                  </li>
+                )
+                |> React.array}
+              </ul>
+            </div>
+          </SectionContainer.SmallCentered>
+        </div>
+        <div className="mb-16">
+          <SectionContainer.SmallCentered>
+            <h2 className="text-4xl font-bold mb-8"> {React.string("Presentations")} </h2>
+            <Table.Simple
+              content={{
+                headers: ["", "Presentation"],
+                data: Array.map((video: Ood.Video.t) => {
+                  [
+                    // TODO: Improve the embedding of videos from watch.ocaml.org
+                    // which requires things like support for lazily loading iframes
+                    // in Rescrip-react and potentially a different design for mobile
+                    // screens
+                    <iframe
+                      height="200"
+                      width="275"
+                      title={video.title}
+                      className="rounded-lg"
+                      sandbox="allow-same-origin allow-scripts allow-popups"
+                      src={Belt_Option.getExn(video.embed)}
+                      allowFullScreen=true
+                    />,
+                    <p className="font-bold"> {React.string(video.title)} </p>,
+                  ]
+                }, content.presentations),
+              }}
+            />
+          </SectionContainer.SmallCentered>
+        </div>
+        <div className="mb-16">
+          <SectionContainer.SmallCentered>
+            <h2 className="text-4xl font-bold mb-8 px-6"> {React.string("Papers")} </h2>
+            <Table.Simple
+              content={{
+                headers: ["Title", "Author(s)", "Link"],
+                data: Array.map((paper: Ood.Paper.t) => {
+                  [
+                    <p className="font-bold"> {React.string(paper.title)} </p>,
+                    <p> {React.string(String.concat(", ", paper.authors))} </p>,
+                    switch pdf_or_head(paper) {
+                    | Some(link) =>
+                      <p>
+                        <a
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-orangedark underline"
+                          href={link}>
+                          {React.string("link")} //TODO: Download link icon
+                        </a>
+                      </p>
+                    | None => <> {React.string("No link")} </>
+                    },
+                  ]
+                }, content.papers),
+              }}
+            />
+          </SectionContainer.SmallCentered>
+        </div>
         // TODO: Add program and organising committee ?
       </>}
     </Page.Basic>

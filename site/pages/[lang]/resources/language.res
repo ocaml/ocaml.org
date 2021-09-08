@@ -54,8 +54,8 @@ module T = {
     }
 
     @react.component
-    let make = (~content: t, ~cols, ~marginBottom=?) => {
-      <SectionContainer.MediumCentered ?marginBottom paddingY="pt-8 pb-14" filled=true>
+    let make = (~content: t, ~cols) => {
+      <SectionContainer.MediumCentered paddingY="pt-8 pb-14" filled=true>
         <ContentGrid
           title=content.title
           cols
@@ -73,7 +73,7 @@ module T = {
     }
 
     @react.component
-    let make = (~marginBottom=?, ~content) => {
+    let make = (~content) => {
       let iconComponent = (id: int, idx: int, item: {"item": Ood.Book.t}) => {
         let book = item["item"]
         // TODO: Better default image
@@ -113,16 +113,14 @@ module T = {
           </p>
         </>
       }
-      <MediaCarousel
-        ?marginBottom label=content.booksLabel items=content.books iconComponent detailsComponent
-      />
+      <MediaCarousel label=content.booksLabel items=content.books iconComponent detailsComponent />
     }
   }
 
   module Applications = {
     @react.component
-    let make = (~marginBottom=?, ~lang) =>
-      <SectionContainer.VerySmallCentered ?marginBottom>
+    let make = (~lang) =>
+      <SectionContainer.VerySmallCentered>
         <h2 className="text-center text-orangedark text-7xl font-bold mb-8">
           {React.string(`Applications`)}
         </h2>
@@ -157,13 +155,11 @@ module T = {
     }
 
     @react.component
-    let make = (~content: t, ~marginBottom=?, ~lang) =>
-      <div className={marginBottom->Tailwind.Option.toClassName}>
-        <VerticalHighlightCard
-          title=content.title buttonText=content.buttonText buttonRoute=content.route lang>
-          {(content.item1, content.item2, content.item3)}
-        </VerticalHighlightCard>
-      </div>
+    let make = (~content: t, ~lang) =>
+      <VerticalHighlightCard
+        title=content.title buttonText=content.buttonText buttonRoute=content.route lang>
+        {(content.item1, content.item2, content.item3)}
+      </VerticalHighlightCard>
   }
 
   type t = {
@@ -192,23 +188,24 @@ module T = {
     // TODO: define a more narrow page type with preset params
 
     {
-      let introMarginBottom = Tailwind.Breakpoint.make(#mb20, ())
+      module Intro = {
+        @react.component
+        let make = (~content) => <div className="mb-20"> <UserLevelIntroduction content /> </div>
+      }
       <Page.Basic
-        marginTop={Tailwind.Breakpoint.make(#mt1, ())}
+        titleHeadingHeaderClassName="mt-1"
         addBottomBar=true
         addContainer=#NoContainer
         title=content.title
         pageDescription=content.pageDescription>
         <Tutorials content=content.tutorials lang />
-        <Books marginBottom={Tailwind.Breakpoint.make(#mb16, ())} content=content.booksContent />
-        <UserLevelIntroduction content=content.expanding marginBottom=introMarginBottom />
-        <Manual
-          content=content.manual cols=#_3 marginBottom={Tailwind.Breakpoint.make(#mb20, ())}
-        />
-        <UserLevelIntroduction content=content.diversifying marginBottom=introMarginBottom />
-        <Applications marginBottom={Tailwind.Breakpoint.make(#mb36, ())} lang />
-        <UserLevelIntroduction content=content.researching marginBottom=introMarginBottom />
-        <Papers content=content.papers marginBottom={Tailwind.Breakpoint.make(#mb16, ())} lang />
+        <div className="mb-16"> <Books content=content.booksContent /> </div>
+        <Intro content=content.expanding />
+        <div className="mb-20"> <Manual content=content.manual cols=#_3 /> </div>
+        <Intro content=content.diversifying />
+        <div className="mb-36"> <Applications lang /> </div>
+        <Intro content=content.researching />
+        <div className="mb-16"> <Papers content=content.papers lang /> </div>
       </Page.Basic>
     }
   </>

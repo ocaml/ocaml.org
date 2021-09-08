@@ -15,7 +15,6 @@ module Small: {
 
 @react.component
 let make: (
-  ~marginBottom: Tailwind.Breakpoint.t<Tailwind.Margin.Bottom.t>=?,
   ~imageHeight: string,
   ~imageWidth: string=?,
   ~isRounded: bool=?,

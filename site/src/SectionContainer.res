@@ -8,32 +8,16 @@ module MediumCentered2 = {
 
 module ResponsiveCentered = {
   @react.component
-  let make = (
-    ~children,
-    ~marginBottom: option<Tailwind.Breakpoint.t<Tailwind.Margin.Bottom.t>>=?,
-  ) => {
-    let marginBottom = (marginBottom :> option<Tailwind.t>)
-    <div
-      className={marginBottom->Tailwind.Option.toClassName ++ " mx-auto sm:max-w-screen-sm lg:max-w-screen-lg"}>
-      children
-    </div>
+  let make = (~children) => {
+    <div className="mx-auto sm:max-w-screen-sm lg:max-w-screen-lg"> children </div>
   }
 }
 
 module MediumCentered = {
   @react.component
-  let make = (
-    ~children,
-    ~marginBottom=?,
-    ~paddingX="",
-    ~paddingY="",
-    ~otherLayout="",
-    ~filled=false,
-  ) => {
-    let marginBottom = (marginBottom :> option<Tailwind.t>)
+  let make = (~children, ~paddingX="", ~paddingY="", ~otherLayout="", ~filled=false) => {
     <div
-      className={marginBottom->Tailwind.Option.toClassName ++
-      " max-w-5xl mx-auto " ++
+      className={" max-w-5xl mx-auto " ++
       paddingX ++
       " " ++
       paddingY ++
@@ -56,9 +40,8 @@ module FullyResponsiveCentered = {
 
 module NoneFilled = {
   @react.component
-  let make = (~children, ~marginBottom=?) => {
-    let marginBottom = (marginBottom :> option<Tailwind.t>)
-    <div className={"bg-orangedark " ++ marginBottom->Tailwind.Option.toClassName}> children </div>
+  let make = (~children) => {
+    <div className="bg-orangedark"> children </div>
   }
 }
 
@@ -72,30 +55,14 @@ module LargeCentered = {
 
 module SmallCentered = {
   @react.component
-  let make = (~children, ~marginBottom=?, ~otherLayout="") => {
-    let marginBottom = (marginBottom :> option<Tailwind.t>)
-    <div
-      className={"mx-auto max-w-4xl " ++
-      otherLayout ++
-      " " ++
-      marginBottom->Tailwind.Option.toClassName}>
-      children
-    </div>
+  let make = (~children, ~otherLayout="") => {
+    <div className={"mx-auto max-w-4xl " ++ otherLayout}> children </div>
   }
 }
 
 module VerySmallCentered = {
   @react.component
-  let make = (~children, ~marginBottom=?, ~paddingY="", ~paddingX="") => {
-    let marginBottom = (marginBottom :> option<Tailwind.t>)
-    <div
-      className={"mx-auto max-w-3xl " ++
-      marginBottom->Tailwind.Option.toClassName ++
-      " " ++
-      paddingY ++
-      " " ++
-      paddingX}>
-      children
-    </div>
+  let make = (~children, ~paddingY="", ~paddingX="") => {
+    <div className={"mx-auto max-w-3xl " ++ paddingY ++ " " ++ paddingX}> children </div>
   }
 }

@@ -33,7 +33,7 @@ module Basic = {
     ~title,
     ~pageDescription,
     ~addContainer=#Regular,
-    ~marginTop=?,
+    ~titleHeadingHeaderClassName=?,
     ~callToAction=?,
     ~addBottomBar=?,
     (),
@@ -42,22 +42,24 @@ module Basic = {
       let addBottomBar = Js.Option.getWithDefault(false, addBottomBar)
       switch callToAction {
       | Some(callToAction) =>
-        <TitleHeading.Large
-          ?marginTop
-          marginBottom={Tailwind.Breakpoint.make(#mb6, ())}
-          addBottomBar
-          title
-          pageDescription
-          callToAction
-        />
+        <div className="mb-6">
+          <TitleHeading.Large
+            headerClassName=?titleHeadingHeaderClassName
+            addBottomBar
+            title
+            pageDescription
+            callToAction
+          />
+        </div>
       | None =>
-        let headingMarginBottom = switch addBottomBar {
-        | true => Some(Tailwind.Breakpoint.make(#mb24, ()))
-        | false => None
+        let titleHeading =
+          <TitleHeading.Large
+            headerClassName=?titleHeadingHeaderClassName addBottomBar title pageDescription
+          />
+        switch addBottomBar {
+        | true => <div className="mb-24"> titleHeading </div>
+        | false => titleHeading
         }
-        <TitleHeading.Large
-          ?marginTop marginBottom=?headingMarginBottom addBottomBar title pageDescription
-        />
       }
     }
     switch addContainer {
@@ -92,11 +94,9 @@ type highlightContent = {
 
 module HighlightSection = {
   @react.component
-  let make = (~marginBottom=?, ~content) =>
+  let make = (~content) =>
     <div
-      className={content.bgImageClass ++
-      " bg-auto bg-center bg-no-repeat flex align-bottom place-content-center " ++
-      marginBottom->Tailwind.Option.toClassName}>
+      className={content.bgImageClass ++ " bg-auto bg-center bg-no-repeat flex align-bottom place-content-center"}>
       <div className="bg-white overflow-hidden shadow rounded-lg mb-2 lg:mb-7 mt-56 mx-5 max-w-4xl">
         <div className="px-4 py-5 sm:p-6">
           <h2 className="font-bold text-orangedark text-3xl lg:text-4xl text-center mb-2">
@@ -119,9 +119,7 @@ module HighlightItem = {
   let make = (~children, ~title, ~pageDescription, ~highlightContent) => {
     <MainContainer.None>
       <TitleHeading.Large title pageDescription />
-      <HighlightSection
-        marginBottom={Tailwind.Breakpoint.make(#mb6, ())} content=highlightContent
-      />
+      <div className="mb-6"> <HighlightSection content=highlightContent /> </div>
       children
     </MainContainer.None>
   }

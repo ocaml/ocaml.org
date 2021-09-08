@@ -94,10 +94,7 @@ module T = {
       />
       <StatsSection content=statsContent />
       <OpamSection content=opamContent />
-      <Testimonials
-        content=testimonialContent
-        marginBottom={Tailwind.Breakpoint.make(#mb6, ~md=#mb4, ~lg=#mb6, ())}
-      />
+      <div className="mb-6 md:mb-4 lg:mb-6"> <Testimonials content=testimonialContent /> </div>
     </Page.Unstructured>
 
   let contentEn = {

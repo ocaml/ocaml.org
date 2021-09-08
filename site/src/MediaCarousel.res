@@ -6,13 +6,11 @@ type options = {inline: string, behaviour: string, block: string}
 
 @react.component
 let make = (
-  ~marginBottom=?,
   ~label,
   ~items: array<'a>,
   ~iconComponent: (int, int, {"item": 'a}) => React.element,
   ~detailsComponent: {"item": 'a} => React.element,
 ) => {
-  let marginBottom = (marginBottom :> option<Tailwind.t>)
   let (idx, setIdx) = React.useState(() => 0)
   let itemsRef = React.useRef(Array.init(Array.length(items), _ => Js.Nullable.null))
   let setItemsRef = (idx, element) => {
@@ -43,12 +41,9 @@ let make = (
     newIdx
   }
 
-  // TODO: define content type; extract content
   // TODO: use generic container
   <SectionContainer.LargeCentered paddingY="pt-16 pb-3 lg:pt-24 lg:pb-8">
-    <div
-      className={"bg-white overflow-hidden shadow rounded-lg mx-auto max-w-5xl " ++
-      Tailwind.Option.toClassName(marginBottom)}>
+    <div className="bg-white overflow-hidden shadow rounded-lg mx-auto max-w-5xl">
       <div className="px-4 py-5 sm:px-6 sm:py-9">
         <h2 className="text-center text-orangedark text-5xl font-bold mb-8">
           {React.string(label)}

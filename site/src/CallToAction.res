@@ -53,7 +53,7 @@ let body = (~text, ~textColor, ~centered, ~marginTop="mt-4", ()) => {
 
 module General = {
   @react.component
-  let make = (~t, ~colorStyle, ~marginBottom=?, ()) => {
+  let make = (~t, ~colorStyle) => {
     let mainFrame = {
       let (
         headingTextColor,
@@ -80,18 +80,15 @@ module General = {
       </div>
     }
     switch colorStyle {
-    | #BackgroundFilled =>
-      <SectionContainer.NoneFilled ?marginBottom> mainFrame </SectionContainer.NoneFilled>
-    | #Transparent =>
-      let marginBottom = (marginBottom :> option<Tailwind.t>)
-      <div className={marginBottom->Tailwind.Option.toClassName}> mainFrame </div>
+    | #BackgroundFilled => <SectionContainer.NoneFilled> mainFrame </SectionContainer.NoneFilled>
+    | #Transparent => mainFrame
     }
   }
 }
 
 module TransparentWide = {
   @react.component
-  let make = (~t, ~marginBottom=?, ()) => {
+  let make = (~t) => {
     let button =
       <LinkUrl
         _to=t.buttonLink
@@ -99,13 +96,11 @@ module TransparentWide = {
         styling=`mt-8 w-full inline-flex items-center justify-center px-8 py-1 border border-transparent text-base font-medium rounded-md text-white bg-orangedark hover:bg-orangedarker sm:w-auto`
       />
 
-    <div className={(marginBottom :> option<Tailwind.t>)->Tailwind.Option.toClassName}>
-      <SectionContainer.VerySmallCentered paddingY="py-16 sm:py-20" paddingX="px-4 sm:px-6 lg:px-2">
-        {title(~text=t.title, ~textColor="")}
-        {body(~text=t.body, ~textColor="", ~centered=false, ())}
-        <div className="flex justify-center"> button </div>
-      </SectionContainer.VerySmallCentered>
-    </div>
+    <SectionContainer.VerySmallCentered paddingY="py-16 sm:py-20" paddingX="px-4 sm:px-6 lg:px-2">
+      {title(~text=t.title, ~textColor="")}
+      {body(~text=t.body, ~textColor="", ~centered=false, ())}
+      <div className="flex justify-center"> button </div>
+    </SectionContainer.VerySmallCentered>
   }
 }
 

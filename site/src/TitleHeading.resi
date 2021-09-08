@@ -6,8 +6,7 @@ module Large: {
     ~title: string,
     ~callToAction: CallToAction.Simple.t=?,
     ~pageDescription: string=?,
-    ~marginTop: Tailwind.Breakpoint.t<Tailwind.Margin.Top.t>=?,
-    ~marginBottom: Tailwind.Breakpoint.t<Tailwind.Margin.Bottom.t>=?,
+    ~headerClassName: string=?,
     // ~addMaxWidth: bool=?,
     ~addBottomBar: bool=?,
   ) => React.element

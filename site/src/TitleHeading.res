@@ -7,13 +7,11 @@ module Large = {
     ~title,
     ~callToAction=?,
     ~pageDescription: option<string>=?,
-    ~marginTop=?,
-    ~marginBottom=?,
+    ~headerClassName="",
     // ~addMaxWidth=false,
     ~addBottomBar=false,
     (),
   ) => {
-    let marginTop = (marginTop :> option<Tailwind.t>)
     let descr = switch pageDescription {
     | Some(d) => <p className="max-w-xl mt-5 mx-auto text-xl text-gray-500"> {React.string(d)} </p>
     | None => React.null
@@ -28,7 +26,7 @@ module Large = {
         } */ ++ " mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8"}>
         <div className="text-center">
           <h1
-            className={marginTop->Tailwind.Option.toClassName ++ " text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl"}>
+            className={`text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl ${headerClassName}`}>
             {React.string(title)}
           </h1>
           descr
@@ -38,16 +36,10 @@ module Large = {
           }}
         </div>
       </div>
-      // TODO: should either add margin bottom when bottombar isn't specified
-      //  or only allow marginBottom to be specified with addBottomBar
-
-      {
-        let marginBottom = (marginBottom :> option<Tailwind.t>)->Tailwind.Option.toClassName
-        switch addBottomBar {
-        | true => <hr className={"bg-orangedark h-3 " ++ marginBottom} />
-        | false => React.null
-        }
-      }
+      {switch addBottomBar {
+      | true => <hr className="bg-orangedark h-3" />
+      | false => React.null
+      }}
     </>
   }
 }
