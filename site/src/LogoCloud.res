@@ -40,8 +40,7 @@ module CompanyCard = {
     // TODO: accessibility - should the link include the div or only the contents?
     // TODO: accessibility - warn opening a new tab
     <a href=website target="_blank" className="py-1 px-1">
-      <div
-        className="col-span-1 flex justify-center items-center space-x-8 py-8 px-4 bg-gray-50 h-40">
+      <div className="flex justify-center items-center space-x-8 py-8 px-4 bg-gray-50 h-40">
         {switch company {
         | #Optional({logoSrc: Some(logoSrc)}) => logo(~src=logoSrc, ~name)
         | #Optional(_) => logoFiller
@@ -66,7 +65,7 @@ let make = (~companies) =>
       {switch companies {
       | #LogoOnly(companies) =>
         companies->Js.Array2.map((c: Company.t) =>
-          <CompanyCard key=c.name company={#Required(c)} />
+          <div className="col-span-1"> <CompanyCard key=c.name company={#Required(c)} /> </div>
         )
       | #LogoWithText(companies) =>
         companies->Js.Array2.map((c: CompanyOptionalLogo.t) =>

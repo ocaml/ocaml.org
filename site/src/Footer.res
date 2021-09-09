@@ -39,8 +39,8 @@ module LogoSection = {
   type t = {ocamlSummary: string}
 
   @react.component
-  let make = (~content, ~colspan) =>
-    <div className={"space-y-8 " ++ colspan}>
+  let make = (~content) =>
+    <div className="space-y-8">
       <img className="h-10" src="/static/ocaml-logo.jpeg" alt="OCaml" />
       <P> {React.string(content.ocamlSummary)} </P>
       {
@@ -111,8 +111,8 @@ module MainLinksSection = {
   }
 
   @react.component
-  let make = (~content, ~colspan) =>
-    <div className={"grid grid-cols-2 gap-8 " ++ colspan}>
+  let make = (~content) =>
+    <div className={"grid grid-cols-2 gap-8"}>
       <div className="md:grid md:grid-cols-2 md:gap-8">
         {
           let section = content.principlesSection
@@ -183,9 +183,9 @@ type t = {
 let make = (~content) =>
   <FooterContainer footerLabel=content.footer>
     <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-      <LogoSection content=content.logoContent colspan="xl:col-span-1" />
-      <div className="mt-12 xl:mt-0">
-        <MainLinksSection content=content.mainLinksContent colspan="xl:col-span-2" />
+      <div className="xl:col-span-1"> <LogoSection content=content.logoContent /> </div>
+      <div className="mt-12 xl:mt-0 xl:col-span-2">
+        <MainLinksSection content=content.mainLinksContent />
       </div>
     </div>
     <div className=`mt-10`> <SponsorsSection content=content.sponsorContent /> </div>
