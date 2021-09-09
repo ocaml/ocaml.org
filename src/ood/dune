@@ -54,6 +54,16 @@
 
 (rule
  (deps %{bin:ood-gen})
+ (targets release.ml)
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} release))))
+
+(rule
+ (deps %{bin:ood-gen})
  (targets success_story.ml)
  (mode
   (promote (until-clean)))

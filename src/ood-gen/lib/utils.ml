@@ -14,11 +14,18 @@ let extract_metadata_body s =
         | Some (yaml, body), _ | _, Some (yaml, body) -> (
             match Yaml.of_string yaml with
             | Ok yaml -> (yaml, body)
-            | Error (`Msg err) -> raise (Exn.Decode_error err))
+            | Error (`Msg err) ->
+                raise
+                  (Exn.Decode_error
+                     (Printf.sprintf "an error occured while reading yaml: %s"
+                        err)))
       else raise (Exn.Decode_error "expected metadata at the top of the file")
 
 let decode_or_raise f x =
-  match f x with Ok x -> x | Error (`Msg err) -> raise (Exn.Decode_error err)
+  match f x with
+  | Ok x -> x
+  | Error (`Msg err) ->
+      raise (Exn.Decode_error (Printf.sprintf "could not decode: %s" err))
 
 let read_from_dir dir =
   let len = String.length dir in
