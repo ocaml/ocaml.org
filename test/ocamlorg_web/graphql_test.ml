@@ -151,10 +151,10 @@ let is_valid_params_test limit offset cond () =
   in
   Alcotest.(check string) ("returns " ^ cond) cond is_valid_params
 
-let packages_list_test contains offset limit total_length () =
+let packages_list_test ?contains offset limit total_length () =
   let state = Package.state_of_package_list packages in
   let all_packages =
-    Ocamlorg_web.Graphql.packages_list contains offset limit packages state
+    Ocamlorg_web.Graphql.packages_list ?contains offset limit packages state
   in
   let num_of_packages_returned = List.length all_packages in
   Alcotest.(check int)
@@ -162,10 +162,10 @@ let packages_list_test contains offset limit total_length () =
     total_length
     num_of_packages_returned
 
-let all_packages_result_test contains offset limit () =
+let all_packages_result_test ?contains offset limit () =
   let state = Package.state_of_package_list packages in
   let all_packages =
-    Ocamlorg_web.Graphql.all_packages_result contains offset limit state
+    Ocamlorg_web.Graphql.all_packages_result ?contains offset limit state
   in
   let num_of_packages_returned =
     match all_packages with
@@ -266,23 +266,19 @@ let () =
       , [ Alcotest.test_case
             "returns all packages"
             `Quick
-            (packages_list_test
-               None
-               0
-               (List.length packages)
-               (List.length packages))
+            (packages_list_test 0 (List.length packages) (List.length packages))
         ] )
     ; ( "packages_list_test_with_contains"
       , [ Alcotest.test_case
             "returns the number of packages that has 'abt' in its name"
             `Quick
-            (packages_list_test (Some "abt") 0 (List.length packages) 1)
+            (packages_list_test ~contains:"abt" 0 (List.length packages) 1)
         ] )
     ; ( "all_packages_result_test"
       , [ Alcotest.test_case
             "returns the number of packages found"
             `Quick
-            (all_packages_result_test None 0 None)
+            (all_packages_result_test 0 None)
         ] )
     ; ( "package_result_test_with_valid_name"
       , [ Alcotest.test_case
