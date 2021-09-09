@@ -1,13 +1,6 @@
 module Ocamlorg_web = Ocamlorg_web
 module Package = Ocamlorg.Package
 
-type packages_success =
-  { total_packages : int
-  ; packages : Package.t list
-  }
-
-type packages_result = (packages_success, [ `Msg of string ]) result
-
 let dependencies =
   [ Package.Name.of_string "0install", Some "3.2"
   ; Package.Name.of_string "ocaml", None
@@ -131,7 +124,10 @@ let packages : Package.t list =
 let get_info_test () =
   let deps = Ocamlorg_web.Graphql.get_info dependencies in
   let num_of_deps_returned = List.length deps in
-  Alcotest.(check int) "returns 6 dependencies" 6 num_of_deps_returned
+  Alcotest.(check int)
+    "returns 6 dependencies"
+    (List.length dependencies)
+    num_of_deps_returned
 
 let is_in_range_test current_version from_version upto_version cond () =
   let is_in_range =
@@ -151,30 +147,25 @@ let is_valid_params_test limit offset cond () =
     | Wrong_offset ->
       "wrong_offset"
     | _ ->
-      "true"
+      "valid_params"
   in
   Alcotest.(check string) ("returns " ^ cond) cond is_valid_params
 
 let packages_list_test contains offset limit total_length () =
   let state = Package.state_of_package_list packages in
   let all_packages =
-    Ocamlorg_web.Graphql.packages_list contains offset limit packages state
+    Ocamlorg_web.Graphql.packages_list ~contains offset limit packages state
   in
   let num_of_packages_returned = List.length all_packages in
   Alcotest.(check int)
-    "returns all the packages"
+    "returns all matched packages"
     total_length
     num_of_packages_returned
 
-let all_packages_result_test contains offset limit total_packages () =
+let all_packages_result_test contains offset limit () =
   let state = Package.state_of_package_list packages in
   let all_packages =
-    Ocamlorg_web.Graphql.all_packages_result
-      contains
-      offset
-      limit
-      packages
-      state
+    Ocamlorg_web.Graphql.all_packages_result contains offset limit state
   in
   let num_of_packages_returned =
     match all_packages with
@@ -183,10 +174,7 @@ let all_packages_result_test contains offset limit total_packages () =
     | Ok all_packages ->
       List.length all_packages.packages
   in
-  Alcotest.(check int)
-    "returns all the packages"
-    total_packages
-    num_of_packages_returned
+  Alcotest.(check int) "returns all the packages" 5 num_of_packages_returned
 
 let package_result_test name version expect () =
   let state = Package.state_of_package_list packages in
@@ -230,16 +218,15 @@ let state_test () =
 let () =
   Alcotest.run
     "ocamlorg"
-    [ ( "test that get_info function returns all the dependencies"
+    [ ( "get_info_test"
       , [ Alcotest.test_case
-            "and returns all 6 dependencies"
+            "returns the number of dependencies found"
             `Quick
             get_info_test
         ] )
-    ; ( "test that is_in_range function checks if a current version is within \
-         the start and last version range specified"
+    ; ( "is_in_range_test_within_range"
       , [ Alcotest.test_case
-            "and returns true"
+            "returns true"
             `Quick
             (is_in_range_test
                (Package.Version.of_string "3.12.0")
@@ -247,45 +234,37 @@ let () =
                (Some (Package.Version.of_string "5.9.2"))
                true)
         ] )
-    ; ( "test that is_in_range function checks if a current version is outside \
-         the start and last version range specified"
+    ; ( "is_in_range_test_outside_range"
       , [ Alcotest.test_case
-            "and returns false"
+            "returns false"
             `Quick
             (is_in_range_test
                (Package.Version.of_string "3.12.0")
-               (Some (Package.Version.of_string "10.0.0"))
+               None
                (Some (Package.Version.of_string "2.97.2"))
                false)
         ] )
-    ; ( "test that is_valid_params function takes a limit, offset and \
-         total_packages and checks that limit or offset are both greater than \
-         or equal to 0 and less than or equal to total_packages"
+    ; ( "is_valid_params_test_valid_params"
       , [ Alcotest.test_case
-            "and returns true"
+            "returns valid_params"
             `Quick
-            (is_valid_params_test (List.length packages) 0 "true")
+            (is_valid_params_test (List.length packages) 0 "valid_params")
         ] )
-    ; ( "test that is_valid_params function takes a limit, offset and \
-         total_packages and confirms that limit is wrong because it is greater \
-         than the total_packages"
+    ; ( "is_valid_params_test_wrong_limit"
       , [ Alcotest.test_case
-            "and returns wrong_limit"
+            "returns wrong_limit"
             `Quick
             (is_valid_params_test 0 0 "wrong_limit")
         ] )
-    ; ( "test that is_valid_params function takes a limit, offset and \
-         total_packages and confirms that offset is wrong because it is \
-         greater than the total_packages"
+    ; ( "is_valid_params_test_wrong_offset"
       , [ Alcotest.test_case
-            "and returns wrong_offset"
+            "returns wrong_offset"
             `Quick
             (is_valid_params_test (List.length packages) 200 "wrong_offset")
         ] )
-    ; ( "test that packages_list function returns all packages if contains \
-         parameter is not specified and offset set to 0"
+    ; ( "packages_list_test_no_contains"
       , [ Alcotest.test_case
-            "and returns true"
+            "returns all packages"
             `Quick
             (packages_list_test
                None
@@ -293,44 +272,39 @@ let () =
                (List.length packages)
                (List.length packages))
         ] )
-    ; ( "test that packages_list function returns all packages that has 'abt'\n\
-        \         as part of its name"
+    ; ( "packages_list_test_with_contains"
       , [ Alcotest.test_case
-            "and returns true"
+            "returns the number of packages that has 'abt' in its name"
             `Quick
             (packages_list_test (Some "abt") 0 (List.length packages) 1)
         ] )
-    ; ( "test that all_packages_result function returns all packages"
+    ; ( "all_packages_result_test"
       , [ Alcotest.test_case
-            "and returns length of packages"
+            "returns the number of packages found"
             `Quick
-            (all_packages_result_test None 0 None (List.length packages))
+            (all_packages_result_test None 0 None)
         ] )
-    ; ( "test that package_result function returns the latest version of \
-         package with name ocaml"
+    ; ( "package_result_test_with_valid_name"
       , [ Alcotest.test_case
-            "and returns length of packages"
+            "returns package name"
             `Quick
             (package_result_test "ocaml" None "ocaml")
         ] )
-    ; ( "test that package_result function returns an error for an invalid \
-         package name"
+    ; ( "package_result_test_with_invalid_name"
       , [ Alcotest.test_case
-            "and returns length of packages"
+            "returns error message"
             `Quick
             (package_result_test "ocdfggaml" None "Not Found")
         ] )
-    ; ( "test that package_result function returns the package with name \
-         0install-gtk and version 2.1.0"
+    ; ( "package_result_test_with_valid_name_and_version"
       , [ Alcotest.test_case
-            "and returns length of packages"
+            "returns the package name"
             `Quick
             (package_result_test "0install-gtk" (Some "2.1.0") "0install-gtk")
         ] )
-    ; ( "test that package_versions_result function returns all versions of \
-         package with name merlin"
+    ; ( "package_versions_result_test"
       , [ Alcotest.test_case
-            "and returns length of packages"
+            "returns number of package versions found"
             `Quick
             (package_versions_result_test
                "merlin"
@@ -338,6 +312,7 @@ let () =
                (Some "4.1.0")
                3)
         ] )
-    ; ( "state test"
-      , [ Alcotest.test_case "same package from state" `Quick state_test ] )
+    ; ( "state_test"
+      , [ Alcotest.test_case "returns same package from state" `Quick state_test
+        ] )
     ]

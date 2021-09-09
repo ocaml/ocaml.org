@@ -28,6 +28,18 @@ let get_info info =
       { name = Package.Name.to_string name; constraints })
     info
 
+let is_in_range current_version from_version upto_version =
+  match from_version, upto_version with
+  | None, None ->
+    true
+  | Some from_version, None ->
+    Package.Version.compare current_version from_version >= 0
+  | None, Some upto_version ->
+    Package.Version.compare upto_version current_version >= 0
+  | Some from_version, Some upto_version ->
+    Package.Version.compare current_version from_version >= 0
+    && Package.Version.compare upto_version current_version >= 0
+
 let is_valid_params limit offset total_packages =
   if limit < 1 then
     Wrong_limit
@@ -36,7 +48,7 @@ let is_valid_params limit offset total_packages =
   else
     Valid_params
 
-let packages_list contains offset limit all_packages t =
+let packages_list ?(contains = None) offset limit all_packages t =
   match contains with
   | None ->
     List.filteri (fun i _ -> offset <= i && i < offset + limit) all_packages
@@ -45,18 +57,8 @@ let packages_list contains offset limit all_packages t =
       (fun i _ -> offset <= i && i < offset + limit)
       (Package.search_package t letters)
 
-let is_in_range current_version from_version upto_version =
-  match from_version, upto_version with
-  | None, None ->
-    true
-  | Some from_version, None ->
-    current_version >= from_version
-  | None, Some upto_version ->
-    current_version <= upto_version
-  | Some from_version, Some upto_version ->
-    current_version >= from_version && current_version <= upto_version
-
-let all_packages_result contains offset limit all_packages t =
+let all_packages_result contains offset limit t =
+  let all_packages = Package.all_packages_latest t in
   let total_packages = List.length all_packages in
   let limit = match limit with None -> total_packages | Some limit -> limit in
   let result = is_valid_params limit offset total_packages in
@@ -66,9 +68,9 @@ let all_packages_result contains offset limit all_packages t =
       ("offset must be greater than or equal to 0 AND less than or equal to "
       ^ string_of_int (total_packages - 1))
   | Wrong_limit ->
-    Error "limit must be greater than or equal to 1 "
+    Error "limit must be greater than or equal to 1"
   | _ ->
-    let packages = packages_list contains offset limit all_packages t in
+    let packages = packages_list ~contains offset limit all_packages t in
     Ok { total_packages; packages }
 
 let package_result name version t =
@@ -330,9 +332,7 @@ let schema t : Dream.request Graphql_lwt.Schema.schema =
                   ~typ:int
               ]
           ~resolve:(fun _ () contains offset limit ->
-            let all_packages = Package.all_packages_latest t in
-            Lwt.return
-              (all_packages_result contains offset limit all_packages t))
+            Lwt.return (all_packages_result contains offset limit t))
       ; io_field
           "package"
           ~typ:(non_null package)

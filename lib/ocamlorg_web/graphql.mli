@@ -23,36 +23,42 @@ type params_validity =
 
 val get_info : (Package.Name.t * string option) list -> package_info list
 (** [get_info] function loops through the list part of Package.Info such as
-    Package.Info.dependencies and returns a list of name and constraints record
-    Package.Info record *)
+    Package.Info.dependencies and returns a list of name and constraints from
+    the Package.Info record *)
 
-(* val is_in_range : 'a -> 'a -> 'a -> bool *)
-val is_in_range : 'a -> 'a option -> 'a option -> bool
+val is_in_range
+  :  Package.Version.t
+  -> Package.Version.t option
+  -> Package.Version.t option
+  -> bool
 (** [is_in_range] function takes a [current_version] and an optional
-    [from_version] and [upto_version] and checks that current_version is between
-    the range of from_version and upto_version *)
+    [from_version] and [upto_version], then checks that current_version is
+    between the range of from_version and upto_version *)
 
 val is_valid_params : int -> int -> int -> params_validity
 (** [is_valid_params] function is a sub function of [all_packages_result] that
-    takes [offset] [limit] [all_packages] and retruns an error message if limit
-    or ossfest is less than 0 or gretaer than [all_packages]*)
+    takes [offset] [limit] [all_packages] and retruns an error message of type
+    [params_validity]if limit or ossfest is less than 0 or gretaer than
+    [all_packages] *)
 
 val packages_list
-  :  string option
+  :  ?contains:string option
   -> int
   -> int
   -> Package.t list
   -> Package.state
   -> Package.t list
 (** [packages_list] function is a sub function of [all_packages_result] that
-    takes [contains] [offset] [limit] [all_packages] [state] and returns a list
-    of all packages within the [limit] and [offset] options *)
+    takes an optional [contains] together with [offset], [limit], [all_packages]
+    and [state] parameters. It applies the [offset] and [limit] specified on
+    [all_packages] if no value is specified for [contains] else it calls
+    [Package.search_package] passing the [contains] value to get a list of
+    packages that has [contains] in its name *)
 
 val all_packages_result
   :  string option
   -> int
   -> int option
-  -> Package.t list
   -> Package.state
   -> (packages_success, string) result
 (** [packages_list] function takes [contains] [offset] [limit] [all_packages]
