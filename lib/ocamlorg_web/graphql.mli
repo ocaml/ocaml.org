@@ -42,7 +42,7 @@ val is_valid_params : int -> int -> int -> params_validity
     [all_packages] *)
 
 val packages_list
-  :  ?contains:string option
+  :  string option
   -> int
   -> int
   -> Package.t list

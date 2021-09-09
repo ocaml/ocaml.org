@@ -154,7 +154,7 @@ let is_valid_params_test limit offset cond () =
 let packages_list_test contains offset limit total_length () =
   let state = Package.state_of_package_list packages in
   let all_packages =
-    Ocamlorg_web.Graphql.packages_list ~contains offset limit packages state
+    Ocamlorg_web.Graphql.packages_list contains offset limit packages state
   in
   let num_of_packages_returned = List.length all_packages in
   Alcotest.(check int)

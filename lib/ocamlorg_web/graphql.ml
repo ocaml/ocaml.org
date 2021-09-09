@@ -48,7 +48,7 @@ let is_valid_params limit offset total_packages =
   else
     Valid_params
 
-let packages_list ?(contains = None) offset limit all_packages t =
+let packages_list contains offset limit all_packages t =
   match contains with
   | None ->
     List.filteri (fun i _ -> offset <= i && i < offset + limit) all_packages
@@ -70,7 +70,7 @@ let all_packages_result contains offset limit t =
   | Wrong_limit ->
     Error "limit must be greater than or equal to 1"
   | _ ->
-    let packages = packages_list ~contains offset limit all_packages t in
+    let packages = packages_list contains offset limit all_packages t in
     Ok { total_packages; packages }
 
 let package_result name version t =
