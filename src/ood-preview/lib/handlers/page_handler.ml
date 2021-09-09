@@ -8,7 +8,7 @@ let papers _req =
   |> Dream.html
 
 let success_stories _req =
-  let success_stories = Ood.Success_story.all in
+  let success_stories = Ood.Success_story.all_en in
   Layout_template.render
     ~title:"Success Stories"
     (Success_stories_template.render success_stories)
