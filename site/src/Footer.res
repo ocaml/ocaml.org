@@ -32,8 +32,7 @@ module TwitterIcon = {
 
 module P = {
   @react.component
-  let make = (~margins, ~children) =>
-    <p className={"text-gray-500 text-base " ++ margins}> children </p>
+  let make = (~children) => <p className={"text-gray-500 text-base"}> children </p>
 }
 
 module LogoSection = {
@@ -43,7 +42,7 @@ module LogoSection = {
   let make = (~content, ~colspan) =>
     <div className={"space-y-8 " ++ colspan}>
       <img className="h-10" src="/static/ocaml-logo.jpeg" alt="OCaml" />
-      <P margins=""> {React.string(content.ocamlSummary)} </P>
+      <P> {React.string(content.ocamlSummary)} </P>
       {
         let sizing = `h-6 w-6`
         let fill = `currentColor`
@@ -81,8 +80,8 @@ module H3 = {
 
 module SectionLinks = {
   @react.component
-  let make = (~name, ~keyPages: Js.Array.t<NavEntry.t>, ~margins) =>
-    <div className=margins>
+  let make = (~name, ~keyPages: Js.Array.t<NavEntry.t>) =>
+    <div>
       <H3> {React.string(name)} </H3>
       <ul className="mt-4 space-y-4">
         {keyPages
@@ -112,26 +111,30 @@ module MainLinksSection = {
   }
 
   @react.component
-  let make = (~content, ~margins, ~colspan) =>
-    <div className={"grid grid-cols-2 gap-8 " ++ margins ++ ` ` ++ colspan}>
+  let make = (~content, ~colspan) =>
+    <div className={"grid grid-cols-2 gap-8 " ++ colspan}>
       <div className="md:grid md:grid-cols-2 md:gap-8">
         {
           let section = content.principlesSection
-          <SectionLinks name=section.header keyPages=section.entries margins=`` />
+          <SectionLinks name=section.header keyPages=section.entries />
         }
         {
           let section = content.resourcesSection
-          <SectionLinks name=section.header keyPages=section.entries margins=`mt-12 md:mt-0` />
+          <div className=`mt-12 md:mt-0`>
+            <SectionLinks name=section.header keyPages=section.entries />
+          </div>
         }
       </div>
       <div className="md:grid md:grid-cols-2 md:gap-8">
         {
           let section = content.communitySection
-          <SectionLinks name=section.header keyPages=section.entries margins=`` />
+          <SectionLinks name=section.header keyPages=section.entries />
         }
         {
           let section = content.legalSection
-          <SectionLinks name=section.header keyPages=section.entries margins=`mt-12 md:mt-0` />
+          <div className=`mt-12 md:mt-0`>
+            <SectionLinks name=section.header keyPages=section.entries />
+          </div>
         }
       </div>
     </div>
@@ -152,8 +155,8 @@ module SponsorsSection = {
   }
 
   @react.component
-  let make = (~content, ~margins) =>
-    <P margins>
+  let make = (~content) =>
+    <P>
       {React.string(content.thankSponsorPrefix ++ ` `)}
       <BasicLink href=content.hostingProviders.url text=content.hostingProviders.label />
     </P>
@@ -181,9 +184,9 @@ let make = (~content) =>
   <FooterContainer footerLabel=content.footer>
     <div className="xl:grid xl:grid-cols-3 xl:gap-8">
       <LogoSection content=content.logoContent colspan="xl:col-span-1" />
-      <MainLinksSection
-        content=content.mainLinksContent margins="mt-12 xl:mt-0" colspan="xl:col-span-2"
-      />
+      <div className="mt-12 xl:mt-0">
+        <MainLinksSection content=content.mainLinksContent colspan="xl:col-span-2" />
+      </div>
     </div>
-    <SponsorsSection content=content.sponsorContent margins=`mt-10` />
+    <div className=`mt-10`> <SponsorsSection content=content.sponsorContent /> </div>
   </FooterContainer>

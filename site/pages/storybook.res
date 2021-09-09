@@ -499,7 +499,7 @@ module Categories = {
         let make = () => {
           <Item
             name="CallToAction.General"
-            docs="Same as CallToAction.Embedded.  This variation allows you to set a colorStyle and and optional margin.">
+            docs="Same as CallToAction.Embedded.  This variation allows you to set a colorStyle.">
             {
               let t = {
                 CallToAction.title: "Title",
@@ -841,7 +841,7 @@ module Categories = {
                   <p> <b> HTML </b> </p>
 
                   *Markdown*`
-                  <MarkdownPage.Body margins=`mt-6` renderedMarkdown=source />
+                  <div className=`mt-6`> <MarkdownPage.Body renderedMarkdown=source /> </div>
                 },
               ),
             ]}

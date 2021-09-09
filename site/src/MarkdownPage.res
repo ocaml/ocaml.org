@@ -2,9 +2,9 @@ open! Import
 
 module Body = {
   @react.component
-  let make = (~margins, ~renderedMarkdown) =>
+  let make = (~renderedMarkdown) =>
     <div
-      className={margins ++ ` prose prose-yellow prose-lg text-gray-500 mx-auto`}
+      className=`prose prose-yellow prose-lg text-gray-500 mx-auto`
       dangerouslySetInnerHTML={{"__html": renderedMarkdown}}
     />
 }

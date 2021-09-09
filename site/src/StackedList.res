@@ -12,9 +12,9 @@ module BasicWithIcon = {
   module RowPrefixIcon = {
     type t = PaperScroll
 
-    let paperScrollIcon = (~display, ~marginRight) =>
+    let paperScrollIcon = (~display) =>
       <svg
-        className={`${display} ${marginRight}`}
+        className={display}
         width="52"
         height="52"
         viewBox="0 0 52 52"
@@ -59,7 +59,10 @@ module BasicWithIcon = {
     <ul className="divide-y divide-gray-300">
       {items
       |> Array.map((item: Item.t) => {
-        itemRow(item, rowPrefixIcon(~display="hidden lg:inline-block", ~marginRight="mr-3"))
+        itemRow(
+          item,
+          <div className="mr-3"> {rowPrefixIcon(~display="hidden lg:inline-block")} </div>,
+        )
       })
       |> React.array}
     </ul>

@@ -19,9 +19,9 @@ module Story = {
 module CategoryHeaderIcon = {
   module MeetIcon = {
     @react.component
-    let make = (~display, ~marginLeft, ~marginRight) =>
+    let make = (~display) =>
       <svg
-        className={`${display} h-14 w-14 ${marginLeft} ${marginRight}`}
+        className={`${display} h-14 w-14`}
         viewBox="0 0 72 72"
         fill="none"
         xmlns="http://www.w3.org/2000/svg">
@@ -34,9 +34,9 @@ module CategoryHeaderIcon = {
 
   module PackageIcon = {
     @react.component
-    let make = (~display, ~marginLeft, ~marginRight) =>
+    let make = (~display) =>
       <svg
-        className={`${display} h-14 w-14 ${marginLeft} ${marginRight}`}
+        className={`${display} h-14 w-14`}
         viewBox="0 0 72 72"
         fill="none"
         xmlns="http://www.w3.org/2000/svg">
@@ -49,9 +49,9 @@ module CategoryHeaderIcon = {
 
   module ProfitIcon = {
     @react.component
-    let make = (~display, ~marginLeft, ~marginRight) =>
+    let make = (~display) =>
       <svg
-        className={`${display} h-14 w-14 ${marginLeft} ${marginRight}`}
+        className={`${display} h-14 w-14`}
         viewBox="0 0 72 72"
         fill="none"
         xmlns="http://www.w3.org/2000/svg">
@@ -64,9 +64,9 @@ module CategoryHeaderIcon = {
 
   module CalendarIcon = {
     @react.component
-    let make = (~display, ~marginLeft, ~marginRight) =>
+    let make = (~display) =>
       <svg
-        className={`${display} h-14 w-14 ${marginLeft} ${marginRight}`}
+        className={`${display} h-14 w-14`}
         viewBox="0 0 72 72"
         fill="none"
         xmlns="http://www.w3.org/2000/svg">
@@ -118,12 +118,12 @@ module CategoryHeaderIcon = {
   }
 
   @react.component
-  let make = (~icon, ~display, ~marginLeft, ~marginRight) => {
+  let make = (~icon, ~display) => {
     switch icon {
-    | #Meet => <MeetIcon display marginLeft marginRight />
-    | #Package => <PackageIcon display marginLeft marginRight />
-    | #Profit => <ProfitIcon display marginLeft marginRight />
-    | #Calendar => <CalendarIcon display marginLeft marginRight />
+    | #Meet => <MeetIcon display />
+    | #Package => <PackageIcon display />
+    | #Profit => <ProfitIcon display />
+    | #Calendar => <CalendarIcon display />
     }
   }
 }
@@ -152,9 +152,9 @@ type t = {
   goToArchive: LabelledLink.t,
 }
 
-let seeAllArrowIcon = (~display, ~marginRight) =>
+let seeAllArrowIcon = (~display) =>
   <svg
-    className={`${display} h-6 w-6 ${marginRight}`}
+    className={`${display} h-6 w-6`}
     viewBox="0 0 26 25"
     fill="none"
     xmlns="http://www.w3.org/2000/svg">
@@ -181,11 +181,11 @@ let make = (~t) => {
     </div>
 
   let categoryHighlights = (category: Category.t) => {
-    let heading = (~marginBottom: string) =>
-      <h3 className={`text-2xl font-bold text-orangedark ${marginBottom}`}>
-        <CategoryHeaderIcon
-          icon=category.header.icon display="inline" marginLeft="ml-2" marginRight="mr-4"
-        />
+    let heading =
+      <h3 className=`text-2xl font-bold text-orangedark`>
+        <div className="ml-2 mr-4">
+          <CategoryHeaderIcon icon=category.header.icon display="inline" />
+        </div>
         {React.string(category.header.title)}
       </h3>
 
@@ -199,14 +199,14 @@ let make = (~t) => {
       <p>
         <Next.Link href=category.seeAllInCategory.link>
           <a className="flex justify-center items-baseline">
-            {seeAllArrowIcon(~display="inline", ~marginRight="mr-1")}
+            <div className="mr-1"> {seeAllArrowIcon(~display="inline")} </div>
             {React.string(category.seeAllInCategory.label)}
           </a>
         </Next.Link>
       </p>
 
     <div>
-      {heading(~marginBottom="mb-2")}
+      <div className=`mb-2`> {heading} </div>
       <div className="rounded pt-4 pb-2 px-8 bg-white">
         <ul className="space-y-3 mb-2">
           {category.stories |> Js.Array.map(story => newsItemRow(story)) |> React.array}

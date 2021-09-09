@@ -73,16 +73,13 @@ module OverBackgroundImage = {
       </div>
     }
 
-    let description = (~marginTop) =>
-      switch pageDescription {
-      | Some(d) =>
-        <p className={`max-w-4xl ${marginTop} py-4 sm:py-8 mx-auto text-2xl text-center`}>
-          {React.string(d)}
-        </p>
-      | None => React.null
-      }
+    let description = switch pageDescription {
+    | Some(d) =>
+      <p className=`max-w-4xl py-4 sm:py-8 mx-auto text-2xl text-center`> {React.string(d)} </p>
+    | None => React.null
+    }
 
-    <> title {description(~marginTop="mt-5")} </>
+    <> title <div className="mt-5"> {description} </div> </>
   }
 }
 

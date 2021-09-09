@@ -27,19 +27,17 @@ module FillPattern = {
 
 module SlashIcon = {
   @react.component
-  let make = (~margins) =>
+  let make = () =>
     <svg
-      className={"hidden md:block h-5 w-5 text-orangedark " ++ margins}
-      fill="currentColor"
-      viewBox="0 0 20 20">
+      className="hidden md:block h-5 w-5 text-orangedark" fill="currentColor" viewBox="0 0 20 20">
       <path d="M11 0h3L9 20H6l5-20z" />
     </svg>
 }
 
 module Quote = {
   @react.component
-  let make = (~margins, ~quote, ~speaker, ~organizationName) =>
-    <blockquote className=margins>
+  let make = (~quote, ~speaker, ~organizationName) =>
+    <blockquote>
       <div className="max-w-3xl mx-auto text-center text-2xl leading-9 font-medium text-gray-900">
         <p>
           <span className="text-orangedark"> {React.string(`”`)} </span>
@@ -51,7 +49,7 @@ module Quote = {
         <div className="md:flex md:items-center md:justify-center">
           <div className="mt-3 text-center md:mt-0 md:ml-4 md:flex md:items-center">
             <div className="text-base font-medium text-gray-900"> {React.string(speaker)} </div>
-            <SlashIcon margins=`mx-1` />
+            <div className=`mx-1`> <SlashIcon /> </div>
             <div className="text-base font-medium text-gray-500">
               {React.string(organizationName)}
             </div>
@@ -89,11 +87,10 @@ let make = (~content) =>
     />
     <div className="relative">
       <img className="mx-auto h-24" src=content.organizationLogo alt=content.organizationName />
-      <Quote
-        margins=`mt-10`
-        quote=content.quote
-        speaker=content.speaker
-        organizationName=content.organizationName
-      />
+      <div className=`mt-10`>
+        <Quote
+          quote=content.quote speaker=content.speaker organizationName=content.organizationName
+        />
+      </div>
     </div>
   </TestimonialContainer>

@@ -24,7 +24,7 @@ module T = {
           <div className="col-span-9 lg:col-span-7 bg-graylight relative py-16 overflow-hidden">
             <div className="relative px-4 sm:px-6 lg:px-8">
               <TitleHeading.MarkdownMedium title pageDescription={Some(pageDescription)} />
-              <MarkdownPage.Body margins=`mt-6` renderedMarkdown=source />
+              <div className=`mt-6`> <MarkdownPage.Body renderedMarkdown=source /> </div>
             </div>
           </div>
         </div>

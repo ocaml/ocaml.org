@@ -38,13 +38,13 @@ let heading = text =>
     {React.string(text)}
   </h1>
 
-let bodyText = (~margins, ~text) =>
-  <p className={`${margins} max-w-md mx-auto text-lg text-gray-500 sm:text-xl md:max-w-3xl`}>
+let bodyText = (~text) =>
+  <p className={`max-w-md mx-auto text-lg text-gray-500 sm:text-xl md:max-w-3xl`}>
     {React.string(text)}
   </p>
 
-let button = (~href, ~text, ~colors, ~margins) =>
-  <div className={`${margins} rounded-md shadow `}>
+let button = (~href, ~text, ~colors) =>
+  <div className={`rounded-md shadow `}>
     <Next.Link href>
       <a
         className={`${colors} w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md md:py-4 md:text-lg md:px-10`}>
@@ -65,7 +65,7 @@ let callToActionArea = (~header, ~body, ~buttonLinks, ~imagePos) => {
     }}
     <div className="lg:w-1/2 px-4 sm:px-8 xl:pr-16">
       {heading(header)}
-      {bodyText(~margins="mt-3 md:mt-5", ~text=body)}
+      <div className="mt-3 md:mt-5"> {bodyText(~text=body)} </div>
       {switch buttonLinks {
       | Some(buttonLinks) =>
         <div className={`mt-10 sm:flex sm:justify-center ${lgJustifyButtons}`}>
@@ -73,14 +73,14 @@ let callToActionArea = (~header, ~body, ~buttonLinks, ~imagePos) => {
             ~colors=`text-white bg-orangedark hover:bg-orangedarker`,
             ~href=buttonLinks.primaryButton.url,
             ~text=buttonLinks.primaryButton.label,
-            ~margins=``,
           )}
-          {button(
-            ~colors=`text-orangedark bg-white hover:bg-gray-50`,
-            ~href=buttonLinks.secondaryButton.url,
-            ~text=buttonLinks.secondaryButton.label,
-            ~margins=`mt-3 sm:mt-0 sm:ml-3`,
-          )}
+          <div className=`mt-3 sm:mt-0 sm:ml-3`>
+            {button(
+              ~colors=`text-orangedark bg-white hover:bg-gray-50`,
+              ~href=buttonLinks.secondaryButton.url,
+              ~text=buttonLinks.secondaryButton.label,
+            )}
+          </div>
         </div>
       | None => <> </>
       }}
