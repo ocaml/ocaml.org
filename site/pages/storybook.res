@@ -993,11 +993,11 @@ module Categories = {
       }
     }
 
-    module Blog2 = {
+    module BlogCard = {
       @react.component
       let make = () => {
         let entry = n => {
-          Blog2.Entry.title: "Title" ++ n,
+          BlogCard.Entry.title: "Title" ++ n,
           excerpt: "Excerpt" ++ n,
           author: "Author" ++ n,
           dateValue: "DateValue" ++ n,
@@ -1006,12 +1006,12 @@ module Categories = {
         }
         let entries = n => Belt.Array.makeBy(n, i => entry(string_of_int(i)))
         <Item
-          name="Blog2"
-          docs="Blog2 element. NOTE: Blog2 must have 3 elements. Any more will be ignored, any less will result in an exception.">
+          name="BlogCard"
+          docs="BlogCard element. NOTE: BlogCard must have 3 elements. Any more will be ignored, any less will result in an exception.">
           {[
             // (
-            //   "Blog2 with no entries.",
-            //   <Blog2
+            //   "BlogCard with no entries.",
+            //   <BlogCard
             //     header="Header"
             //     description="Description"
             //     blog="Blog"
@@ -1020,8 +1020,8 @@ module Categories = {
             //   />,
             // ),
             // (
-            //   "Blog2 with 1 entry.",
-            //   <Blog2
+            //   "BlogCard with 1 entry.",
+            //   <BlogCard
             //     header="Header"
             //     description="Description"
             //     blog="Blog"
@@ -1030,8 +1030,8 @@ module Categories = {
             //   />,
             // ),
             // (
-            //   "Blog2 with 2 entries.",
-            //   <Blog2
+            //   "BlogCard with 2 entries.",
+            //   <BlogCard
             //     header="Header"
             //     description="Description"
             //     blog="Blog"
@@ -1040,8 +1040,8 @@ module Categories = {
             //   />,
             // ),
             (
-              "Blog2 with 3 entries.",
-              <Blog2
+              "BlogCard with 3 entries.",
+              <BlogCard
                 header="Header"
                 description="Description"
                 blog="Blog"
@@ -1050,8 +1050,8 @@ module Categories = {
               />,
             ),
             (
-              "Blog2 with 10 entries.",
-              <Blog2
+              "BlogCard with 10 entries.",
+              <BlogCard
                 header="Header"
                 description="Description"
                 blog="Blog"
@@ -1153,7 +1153,7 @@ module Categories = {
         <Hero />
         <HighlightsInQuadrants />
         <MediaCarousel />
-        <Blog2 />
+        <BlogCard />
         <Stats />
         <Testimonials />
         <Timeline />

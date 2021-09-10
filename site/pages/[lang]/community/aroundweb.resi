@@ -32,7 +32,7 @@ type t = {
   blogSectionHeader: string,
   blogSectionDescription: string,
   blog: string,
-  blogEntries: array<Blog2.Entry.t>,
+  blogEntries: array<BlogCard.Entry.t>,
   blogArchiveText: string,
   spacesSectionHeader: string,
   spaces: array<Space.t>,

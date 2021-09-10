@@ -123,7 +123,7 @@ module T = {
     blogSectionHeader: string,
     blogSectionDescription: string,
     blog: string,
-    blogEntries: array<Blog2.Entry.t>,
+    blogEntries: array<BlogCard.Entry.t>,
     blogArchiveText: string,
     spacesSectionHeader: string,
     spaces: array<Space.t>,
@@ -153,7 +153,7 @@ module T = {
       </div>
       <LatestNews content=content.latestNewsContent />
       <Events content=content.events lang />
-      <Blog2
+      <BlogCard
         header=content.blogSectionHeader
         description=content.blogSectionDescription
         blog=content.blog
