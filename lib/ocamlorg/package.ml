@@ -282,6 +282,8 @@ module Documentation = struct
     String.split_on_char '/' s |> List.filter_map parse_item
 end
 
+module Module_map = Module_map
+
 let package_path ~kind name version =
   match kind with
   | `Package ->
@@ -377,6 +379,20 @@ let status ~kind t =
     `Failure
   | _ ->
     `Unknown
+
+let module_map ~kind t =
+  let open Lwt.Syntax in
+  let root =
+    package_path ~kind (Name.to_string t.name) (Version.to_string t.version)
+  in
+  let path = root ^ "package.json" in
+  let+ content = http_get path in
+  match content with
+  | Ok v ->
+    let json = Yojson.Safe.from_string v in
+    Module_map.of_yojson json
+  | Error _ ->
+    { Module_map.libraries = Module_map.String_map.empty }
 
 let search_package t pattern =
   let pattern = String.lowercase_ascii pattern in

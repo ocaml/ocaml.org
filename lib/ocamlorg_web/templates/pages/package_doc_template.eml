@@ -8,13 +8,50 @@ let toc_of_toc (xs : Documentation.toc list) : Toc_template.t =
   in
   aux [] xs
 
-let render (doc : Documentation.t) =
+let rec toc_of_module ~root (module' : Module_map.Module.t) : Navmap_template.toc =
+  let module SM = Module_map.String_map in
+  let title = Module_map.Module.name module' in 
+  let kind = Module_map.Module.kind module' in 
+  let href = Some (root ^ (Module_map.Module.path module')) in 
+  let children = 
+    module' 
+    |> Module_map.Module.submodules
+    |> SM.bindings
+    |> List.map (fun (_, module') -> toc_of_module ~root module') 
+  in
+  Navmap_template.{title; href; kind; children}
+
+let toc_of_map ~root (map : Module_map.t) : Navmap_template.t =
+  let module SM = Module_map.String_map in
+  let libraries = map.libraries in
+  SM.bindings libraries
+  |> List.map (fun (_, library) ->
+    let title = library.Module_map.name in 
+    let href = None in 
+    let children =
+      SM.bindings library.modules
+      |> List.map (fun (_, module') -> toc_of_module ~root module') 
+    in
+    Navmap_template.{title; href; kind=Page; children})
+
+let render ~root (map : Module_map.t) (doc : Documentation.t) =
+let path = doc.module_path
+|> List.map (function
+  | Ocamlorg.Package.Documentation.Module s ->
+    s
+  | Ocamlorg.Package.Documentation.ModuleType s ->
+    s
+  | Ocamlorg.Package.Documentation.FunctorArgument (_, s) ->
+    s)
+in
 let toc = toc_of_toc doc.toc in
+let maptoc = toc_of_map ~root map in
 <div class="flex-auto flex sm:px-6 lg:px-8">
   <div class="relative flex flex-col w-full">
     <div class="relative flex w-full mx-auto">
       <div class="w-full flex-none sm:grid sm:grid-cols-5 lg:grid-cols-3 sm:gap-6 lg:gap-8">
         <div class="relative px-4 sm:px-0 sm:col-span-2 lg:col-span-1 ">
+          <%s! Navmap_template.render ~path maptoc %>
           <%s! Toc_template.render toc %>
         </div>
         <div class="px-0 lg:pl-8 relative sm:col-span-3 lg:col-span-2 lg:-ml-8 bg-white sm:shadow-md sm:rounded-lg">
