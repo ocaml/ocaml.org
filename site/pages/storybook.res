@@ -22,11 +22,12 @@ module Item = {
       <h2 className="font-black text-4xl"> {React.string(`<${name} />`)} </h2>
       <div className="mb-4 mt-8"> {docsElement} </div>
       {React.array(
-        children->Belt.Array.map(((color, (doc, child))) => {
+        children->Belt.Array.mapWithIndex((idx, (color, (doc, child))) => {
           <div
             className={`shadow overflow-hidden border-b border-gray-200 sm:rounded-lg ${colorClass(
                 color,
-              )} p-8 mb-8`}>
+              )} p-8 mb-8`}
+            key={string_of_int(idx)}>
             <div className="mb-2"> {React.string(doc)} </div> <hr /> {child}
           </div>
         }),
@@ -959,9 +960,7 @@ module Categories = {
             <div className="text-ocamlorange font-black">
               {React.string(Printf.sprintf("Foo-%d-%d", n, m))}
             </div>
-          | #Bar =>
-            Js.log(a)
-            React.string(Printf.sprintf("Bar-%d-%d", n, m))
+          | #Bar => React.string(Printf.sprintf("Bar-%d-%d", n, m))
           }
         }
         let detailsComponent = foobar => {
@@ -1275,7 +1274,8 @@ module Categories = {
               (
                 "CardGrid rendered with strings for each element",
                 {
-                  let renderCard = React.string
+                  let renderCard = (idx, x) =>
+                    <div key={string_of_int(idx)}> {React.string(x)} </div>
                   let title = "Example"
                   <CardGrid cardData renderCard title />
                 },
@@ -1283,8 +1283,10 @@ module Categories = {
               (
                 "CardGrid rendered with Cards for each element",
                 {
-                  let renderCard = s =>
-                    <Card title="<Card>" kind={#Opaque}> {React.string(s)} </Card>
+                  let renderCard = (idx, s) =>
+                    <div key={string_of_int(idx)}>
+                      <Card title="<Card>" kind={#Opaque}> {React.string(s)} </Card>
+                    </div>
                   let title = "Example"
                   <CardGrid cardData renderCard title />
                 },

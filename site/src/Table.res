@@ -70,15 +70,15 @@ module Regular = {
             {
               let len = Belt.Array.length(columns)
               React.array(
-                columns->Belt.Array.mapWithIndexU((. i, column) => {
+                columns->Belt.Array.mapWithIndexU((. idx, column) => {
                   let rounding = {
                     [
-                      if i == 0 {
+                      if idx == 0 {
                         "rounded-tl"
                       } else {
                         ""
                       },
-                      if i == len - 1 {
+                      if idx == len - 1 {
                         "rounded-tr"
                       } else {
                         ""
@@ -86,7 +86,8 @@ module Regular = {
                     ]->Js.String.concatMany(" ")
                   }
                   <th
-                    className={`py-2 px-3 ${rounding} sticky top-0 border-b border-gray-200 bg-yellow-300`}>
+                    className={`py-2 px-3 ${rounding} sticky top-0 border-b border-gray-200 bg-yellow-300`}
+                    key={string_of_int(idx)}>
                     {React.string(column.title)}
                   </th>
                 }),
@@ -100,9 +101,12 @@ module Regular = {
                   key={"r" ++ string_of_int(i)}
                   className="border-double border-t-4 border-gray-200 hover:bg-yellow-50">
                   {React.array(
-                    columns->Belt.Array.map(({title, component, className}) =>
-                      <td className> {React.createElement(component, map)} </td>
-                    ),
+                    columns->Belt.Array.mapWithIndex((idx, {title, component, className}) => {
+                      let _title = title
+                      <td className key={string_of_int(idx)}>
+                        {React.createElement(component, map)}
+                      </td>
+                    }),
                   )}
                 </tr>
               ),

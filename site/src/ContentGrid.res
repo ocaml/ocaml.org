@@ -37,7 +37,7 @@ let make = (~title, ~renderChild, ~cols, ~children) => {
               },
             ])
           }
-          <div className=border>
+          <div className=border key={string_of_int(i)}>
             <div
               className="h-24 flex items-center justify-center px-4 font-bold bg-white mx-8 my-3 rounded">
               <p className="text-center"> {renderChild(child)} </p>

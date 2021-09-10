@@ -11,6 +11,6 @@ let make = (~cardData, ~renderCard, ~title=?) => <>
   | None => <> </>
   }}
   <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-28 gap-y-4 px-8">
-    {cardData->Belt.Array.map(renderCard)->React.array}
+    {cardData->Belt.Array.mapWithIndex(renderCard)->React.array}
   </div>
 </>

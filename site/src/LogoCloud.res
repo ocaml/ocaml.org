@@ -64,12 +64,14 @@ let make = (~companies) =>
     <div className="mt-6 grid grid-cols-1 gap-0.5 md:grid-cols-3 lg:mt-8">
       {switch companies {
       | #LogoOnly(companies) =>
-        companies->Js.Array2.map((c: Company.t) =>
-          <div className="col-span-1"> <CompanyCard key=c.name company={#Required(c)} /> </div>
+        companies->Js.Array2.mapi((c: Company.t, idx) =>
+          <div className="col-span-1" key={string_of_int(idx)}>
+            <CompanyCard key=c.name company={#Required(c)} />
+          </div>
         )
       | #LogoWithText(companies) =>
-        companies->Js.Array2.map((c: CompanyOptionalLogo.t) =>
-          <CompanyCard key=c.name company={#Optional(c)} />
+        companies->Js.Array2.mapi((c: CompanyOptionalLogo.t, idx) =>
+          <div key={string_of_int(idx)}> <CompanyCard key=c.name company={#Optional(c)} /> </div>
         )
       }->React.array}
     </div>

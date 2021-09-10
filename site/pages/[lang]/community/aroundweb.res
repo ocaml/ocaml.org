@@ -163,7 +163,10 @@ module T = {
       <SectionContainer.LargeCentered paddingY="pb-14">
         <CardGrid
           cardData=content.spaces
-          renderCard={s => <ShortWideCard name=s.name logoSrc=s.logoSrc url=s.url />}
+          renderCard={(idx, s) =>
+            <div key={string_of_int(idx)}>
+              <ShortWideCard name=s.name logoSrc=s.logoSrc url=s.url />
+            </div>}
           title=content.spacesSectionHeader
         />
       </SectionContainer.LargeCentered>

@@ -296,37 +296,37 @@ let make = (~content) => {
             </div>
           </div>
           <div className="mt-6">
-            <nav className="grid gap-y-2">
-              {Js.Array.concatMany(
-                Js.Array.map(
-                  (section: section) =>
-                    Js.Array.concat(
-                      Js.Array.mapi(
-                        (e: NavEntry.t, idx) =>
-                          <Next.Link href=e.url key={Js.Int.toString(idx)}>
-                            <a
-                              onClick=hideMobileMenu
-                              className="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
-                              <span
-                                className="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-5 w-5 stroke-current fill-current stroke-2">
-                                {e.icon}
-                              </span>
-                              <span className="font-bold"> {React.string(e.label)} </span>
-                            </a>
-                          </Next.Link>,
-                        section.entries,
-                      ),
-                      [
-                        <h3 className="ml-6 mt-2 px-3 font-semibold text-gray-400 uppercase">
-                          {React.string(section.header)}
-                        </h3>,
-                      ],
+            <nav className="grid gap-y-2"> {Js.Array.concatMany(Js.Array.map((section: section) => {
+                  let len = Belt.Array.length(section.entries)
+                  Js.Array.concat(
+                    Js.Array.mapi(
+                      (e: NavEntry.t, idx) =>
+                        <Next.Link href=e.url key={Js.Int.toString(idx)}>
+                          <a
+                            onClick=hideMobileMenu
+                            className="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                            <span
+                              className="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-5 w-5 stroke-current fill-current stroke-2">
+                              {e.icon}
+                            </span>
+                            <span className="font-bold"> {React.string(e.label)} </span>
+                          </a>
+                        </Next.Link>,
+                      section.entries,
                     ),
-                  [content.principlesSection, content.resourcesSection, content.communitySection],
-                ),
-                [],
-              ) |> React.array}
-            </nav>
+                    [
+                      <h3
+                        className="ml-6 mt-2 px-3 font-semibold text-gray-400 uppercase"
+                        key={string_of_int(len)}>
+                        {React.string(section.header)}
+                      </h3>,
+                    ],
+                  )
+                }, [
+                  content.principlesSection,
+                  content.resourcesSection,
+                  content.communitySection,
+                ]), []) |> React.array} </nav>
           </div>
         </div>
       </div>

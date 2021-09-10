@@ -74,7 +74,6 @@ let make = (
           <div className="col-span-6 py-2 flex m-w-full overflow-x-hidden">
             {items
             ->Belt.Array.mapWithIndex((id, item) => {
-              Js.log(item)
               <div
                 className="px-4 flex items-center justify-center"
                 key={string_of_int(id)}

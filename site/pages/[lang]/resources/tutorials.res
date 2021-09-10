@@ -33,7 +33,8 @@ module T = {
         <div className="pb-8">
           <CardGrid
             cardData=content.tutorials
-            renderCard={(t: Ood.Tutorial.t) => <Tutorial tutorial=t lang />}
+            renderCard={(idx, t: Ood.Tutorial.t) =>
+              <div key={string_of_int(idx)}> <Tutorial tutorial=t lang /> </div>}
           />
         </div>
       </Page.Basic>

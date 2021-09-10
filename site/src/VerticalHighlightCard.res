@@ -10,7 +10,7 @@ type item = {
 let make = (~title, ~buttonText, ~buttonRoute, ~lang, ~children) => {
   let (item1, item2, item3) = children
   let renderItem = (i, item) => {
-    <div>
+    <div key={string_of_int(i)}>
       <p className="text-orangedark text-7xl font-bold"> {React.string(`${string_of_int(i)}.`)} </p>
       // TODO: visual indicator that link will open new tab
       <p className="font-bold">

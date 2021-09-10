@@ -44,21 +44,23 @@ let make = (~title: string, ~children as items: array<Item.t>) =>
           {
             let len = Belt.Array.length(items)
             React.array(
-              items->Belt.Array.mapWithIndex((i, item) => {
+              items->Belt.Array.mapWithIndex((idx, item) => {
                 let borderSizes = [
                   "sm:border-0",
-                  if i != len - 1 {
+                  if idx != len - 1 {
                     "border-b sm:border-r"
                   } else {
                     ""
                   },
-                  if i != 0 {
+                  if idx != 0 {
                     "border-t sm:border-l"
                   } else {
                     ""
                   },
                 ]->Js.String.concatMany(" ")
-                <Box label=item.label statValue=item.value borderSizes />
+                <div key={string_of_int(idx)}>
+                  <Box label=item.label statValue=item.value borderSizes />
+                </div>
               }),
             )
           }
