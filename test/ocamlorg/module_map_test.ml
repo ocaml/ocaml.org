@@ -55,9 +55,9 @@ let () =
               let t = Module_map.of_yojson json in
               Alcotest.(check int)
                 "single library"
-                (Module_map.StringMap.cardinal t.libraries)
+                (Module_map.String_map.cardinal t.libraries)
                 1;
-              let name, library = Module_map.StringMap.choose t.libraries in
+              let name, library = Module_map.String_map.choose t.libraries in
               Alcotest.(check string) "name is correct" "logs" name;
               Alcotest.(check string)
                 "library name matches too"
@@ -65,9 +65,11 @@ let () =
                 library.name;
               Alcotest.(check int)
                 "single module in library"
-                (Module_map.StringMap.cardinal library.modules)
+                (Module_map.String_map.cardinal library.modules)
                 1;
-              let name, module' = Module_map.StringMap.choose library.modules in
+              let name, module' =
+                Module_map.String_map.choose library.modules
+              in
               Alcotest.(check string) "name is correct" "Logs" name;
               Alcotest.(check string)
                 "module' name matches too"
@@ -76,7 +78,7 @@ let () =
               Alcotest.(check int)
                 "4 submodules"
                 4
-                (Module_map.StringMap.cardinal
+                (Module_map.String_map.cardinal
                    (Module_map.Module.submodules module'));
               Alcotest.(check (list string))
                 "module paths are correct"
@@ -86,7 +88,7 @@ let () =
                 ; "Logs/class-type-generator/index.html"
                 ]
                 (Module_map.Module.submodules module'
-                |> Module_map.StringMap.bindings
+                |> Module_map.String_map.bindings
                 |> List.map (fun (_, v) -> Module_map.Module.path v)))
         ] )
     ]

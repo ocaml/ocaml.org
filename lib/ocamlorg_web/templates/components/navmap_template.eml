@@ -25,7 +25,7 @@ let rec nested_render ~path (item : toc) =
     let kstr = match item.kind with 
       | Page -> "library"
       | Module -> "module"
-      | ModuleType -> "module type"
+      | Module_type -> "module type"
       | Argument -> "argument"
       | _ -> ""
     in

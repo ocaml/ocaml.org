@@ -392,7 +392,7 @@ let module_map ~kind t =
     let json = Yojson.Safe.from_string v in
     Module_map.of_yojson json
   | Error _ ->
-    { Module_map.libraries = Module_map.StringMap.empty }
+    { Module_map.libraries = Module_map.String_map.empty }
 
 let search_package t pattern =
   let pattern = String.lowercase_ascii pattern in
