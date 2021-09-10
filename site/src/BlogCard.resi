@@ -16,6 +16,6 @@ let make: (
   ~header: string,
   ~description: string,
   ~blog: string,
-  ~entries: array<Entry.t>,
   ~archiveText: string,
+  ~children: (Entry.t, Entry.t, Entry.t),
 ) => React.element

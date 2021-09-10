@@ -997,67 +997,25 @@ module Categories = {
       @react.component
       let make = () => {
         let entry = n => {
-          BlogCard.Entry.title: "Title" ++ n,
-          excerpt: "Excerpt" ++ n,
-          author: "Author" ++ n,
-          dateValue: "DateValue" ++ n,
-          date: "Date" ++ n,
-          readingTime: "ReadingTime" ++ n,
+          let n = string_of_int(n)
+          {
+            BlogCard.Entry.title: "Title" ++ n,
+            excerpt: "Excerpt" ++ n,
+            author: "Author" ++ n,
+            dateValue: "DateValue" ++ n,
+            date: "Date" ++ n,
+            readingTime: "ReadingTime" ++ n,
+          }
         }
-        let entries = n => Belt.Array.makeBy(n, i => entry(string_of_int(i)))
-        <Item
-          name="BlogCard"
-          docs="BlogCard element. NOTE: BlogCard must have 3 elements. Any more will be ignored, any less will result in an exception.">
+        let entries = (entry(0), entry(1), entry(2))
+        <Item name="BlogCard" docs="BlogCard element.">
           {[
-            // (
-            //   "BlogCard with no entries.",
-            //   <BlogCard
-            //     header="Header"
-            //     description="Description"
-            //     blog="Blog"
-            //     archiveText="ArchiveText"
-            //     entries={entries(0)}
-            //   />,
-            // ),
-            // (
-            //   "BlogCard with 1 entry.",
-            //   <BlogCard
-            //     header="Header"
-            //     description="Description"
-            //     blog="Blog"
-            //     archiveText="ArchiveText"
-            //     entries={entries(1)}
-            //   />,
-            // ),
-            // (
-            //   "BlogCard with 2 entries.",
-            //   <BlogCard
-            //     header="Header"
-            //     description="Description"
-            //     blog="Blog"
-            //     archiveText="ArchiveText"
-            //     entries={entries(2)}
-            //   />,
-            // ),
             (
-              "BlogCard with 3 entries.",
+              defaultDoc,
               <BlogCard
-                header="Header"
-                description="Description"
-                blog="Blog"
-                archiveText="ArchiveText"
-                entries={entries(3)}
-              />,
-            ),
-            (
-              "BlogCard with 10 entries.",
-              <BlogCard
-                header="Header"
-                description="Description"
-                blog="Blog"
-                archiveText="ArchiveText"
-                entries={entries(10)}
-              />,
+                header="Header" description="Description" blog="Blog" archiveText="ArchiveText">
+                {entries}
+              </BlogCard>,
             ),
           ]}
         </Item>

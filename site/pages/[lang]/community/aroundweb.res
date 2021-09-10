@@ -123,7 +123,7 @@ module T = {
     blogSectionHeader: string,
     blogSectionDescription: string,
     blog: string,
-    blogEntries: array<BlogCard.Entry.t>,
+    blogEntries: (BlogCard.Entry.t, BlogCard.Entry.t, BlogCard.Entry.t),
     blogArchiveText: string,
     spacesSectionHeader: string,
     spaces: array<Space.t>,
@@ -157,9 +157,9 @@ module T = {
         header=content.blogSectionHeader
         description=content.blogSectionDescription
         blog=content.blog
-        entries=content.blogEntries
-        archiveText=content.blogArchiveText
-      />
+        archiveText=content.blogArchiveText>
+        {content.blogEntries}
+      </BlogCard>
       <SectionContainer.LargeCentered paddingY="pb-14">
         <CardGrid
           cardData=content.spaces
@@ -226,7 +226,7 @@ module T = {
       blogSectionHeader: `Recent Blog Posts`,
       blogSectionDescription: `Be inspired by the work of OCaml programmers all over the world and stay up-to-date on the latest developments.`,
       blog: `Blog`,
-      blogEntries: [
+      blogEntries: (
         {
           title: `What I learned Coding from Home`,
           excerpt: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto accusantium praesentium eius, 
@@ -254,7 +254,7 @@ module T = {
           date: `Feb 12, 2020`,
           readingTime: `11`,
         },
-      ],
+      ),
       blogArchiveText: `Go to the blog archive`,
       spacesSectionHeader: `Looking for More? Try these spaces:`,
       spaces: spaces,

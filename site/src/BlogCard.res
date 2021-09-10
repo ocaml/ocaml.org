@@ -12,7 +12,8 @@ module Entry = {
 }
 
 @react.component
-let make = (~header, ~description, ~blog, ~entries: array<Entry.t>, ~archiveText) =>
+let make = (~header, ~description, ~blog, ~archiveText, ~children: (Entry.t, Entry.t, Entry.t)) => {
+  let (e1, e2, e3) = children
   <SectionContainer.LargeCentered
     paddingY="pt-16 pb-3 lg:pt-24 lg:pb-8" paddingX="px-4 sm:px-6 lg:px-8">
     <div className="text-center">
@@ -38,16 +39,14 @@ let make = (~header, ~description, ~blog, ~entries: array<Entry.t>, ~archiveText
               <a href="#" className="hover:underline"> {React.string(blog)} </a>
             </p>
             <a href="#" className="block mt-2">
-              <h3 className="text-xl font-semibold text-gray-900">
-                {React.string(entries[0].title)}
-              </h3>
-              <p className="mt-3 text-base text-gray-500"> {React.string(entries[0].excerpt)} </p>
+              <h3 className="text-xl font-semibold text-gray-900"> {React.string(e1.title)} </h3>
+              <p className="mt-3 text-base text-gray-500"> {React.string(e1.excerpt)} </p>
             </a>
           </div>
           <div className="mt-6 flex items-center">
             <div className="flex-shrink-0">
               <a href="#">
-                <span className="sr-only"> {React.string(entries[0].author)} </span>
+                <span className="sr-only"> {React.string(e1.author)} </span>
                 <img
                   className="h-10 w-10 rounded-full"
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=aimuGJ4P9C&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -57,12 +56,12 @@ let make = (~header, ~description, ~blog, ~entries: array<Entry.t>, ~archiveText
             </div>
             <div className="ml-3">
               <p className="text-sm font-medium text-gray-900">
-                <a href="#" className="hover:underline"> {React.string(entries[0].author)} </a>
+                <a href="#" className="hover:underline"> {React.string(e1.author)} </a>
               </p>
               <div className="flex space-x-1 text-sm text-gray-500">
-                <time dateTime=entries[0].dateValue> {React.string(entries[0].date)} </time>
+                <time dateTime=e1.dateValue> {React.string(e1.date)} </time>
                 <span ariaHidden=true> {React.string(`·`)} </span>
-                <span> {React.string(entries[0].readingTime ++ ` min read`)} </span>
+                <span> {React.string(e1.readingTime ++ ` min read`)} </span>
               </div>
             </div>
           </div>
@@ -82,16 +81,14 @@ let make = (~header, ~description, ~blog, ~entries: array<Entry.t>, ~archiveText
               <a href="#" className="hover:underline"> {React.string(blog)} </a>
             </p>
             <a href="#" className="block mt-2">
-              <h3 className="text-xl font-semibold text-gray-900">
-                {React.string(entries[1].title)}
-              </h3>
-              <p className="mt-3 text-base text-gray-500"> {React.string(entries[1].excerpt)} </p>
+              <h3 className="text-xl font-semibold text-gray-900"> {React.string(e2.title)} </h3>
+              <p className="mt-3 text-base text-gray-500"> {React.string(e2.excerpt)} </p>
             </a>
           </div>
           <div className="mt-6 flex items-center">
             <div className="flex-shrink-0">
               <a href="#">
-                <span className="sr-only"> {React.string(entries[1].author)} </span>
+                <span className="sr-only"> {React.string(e2.author)} </span>
                 <img
                   className="h-10 w-10 rounded-full"
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=aimuGJ4P9C&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -101,12 +98,12 @@ let make = (~header, ~description, ~blog, ~entries: array<Entry.t>, ~archiveText
             </div>
             <div className="ml-3">
               <p className="text-sm font-medium text-gray-900">
-                <a href="#" className="hover:underline"> {React.string(entries[1].author)} </a>
+                <a href="#" className="hover:underline"> {React.string(e2.author)} </a>
               </p>
               <div className="flex space-x-1 text-sm text-gray-500">
-                <time dateTime=entries[1].dateValue> {React.string(entries[1].date)} </time>
+                <time dateTime=e2.dateValue> {React.string(e2.date)} </time>
                 <span ariaHidden=true> {React.string(`·`)} </span>
-                <span> {React.string(entries[1].readingTime ++ ` min read`)} </span>
+                <span> {React.string(e2.readingTime ++ ` min read`)} </span>
               </div>
             </div>
           </div>
@@ -126,16 +123,14 @@ let make = (~header, ~description, ~blog, ~entries: array<Entry.t>, ~archiveText
               <a href="#" className="hover:underline"> {React.string(blog)} </a>
             </p>
             <a href="#" className="block mt-2">
-              <h3 className="text-xl font-semibold text-gray-900">
-                {React.string(entries[2].title)}
-              </h3>
-              <p className="mt-3 text-base text-gray-500"> {React.string(entries[2].excerpt)} </p>
+              <h3 className="text-xl font-semibold text-gray-900"> {React.string(e3.title)} </h3>
+              <p className="mt-3 text-base text-gray-500"> {React.string(e3.excerpt)} </p>
             </a>
           </div>
           <div className="mt-6 flex items-center">
             <div className="flex-shrink-0">
               <a href="#">
-                <span className="sr-only"> {React.string(entries[2].author)} </span>
+                <span className="sr-only"> {React.string(e3.author)} </span>
                 <img
                   className="h-10 w-10 rounded-full"
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=aimuGJ4P9C&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -145,12 +140,12 @@ let make = (~header, ~description, ~blog, ~entries: array<Entry.t>, ~archiveText
             </div>
             <div className="ml-3">
               <p className="text-sm font-medium text-gray-900">
-                <a href="#" className="hover:underline"> {React.string(entries[2].author)} </a>
+                <a href="#" className="hover:underline"> {React.string(e3.author)} </a>
               </p>
               <div className="flex space-x-1 text-sm text-gray-500">
-                <time dateTime=entries[2].date> {React.string(entries[2].date)} </time>
+                <time dateTime=e3.date> {React.string(e3.date)} </time>
                 <span ariaHidden=true> {React.string(`·`)} </span>
-                <span> {React.string(entries[2].readingTime ++ ` min read`)} </span>
+                <span> {React.string(e3.readingTime ++ ` min read`)} </span>
               </div>
             </div>
           </div>
@@ -163,3 +158,4 @@ let make = (~header, ~description, ~blog, ~entries: array<Entry.t>, ~archiveText
       </a>
     </p>
   </SectionContainer.LargeCentered>
+}
