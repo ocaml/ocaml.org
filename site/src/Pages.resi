@@ -7,8 +7,11 @@ module Params: {
     type t = {lang: Lang.t}
     include S with type t := t
 
-    module Tutorial: {
-      type t = {lang: Lang.t, tutorial: string}
+    module Slug: {
+      let name: string
+    } =>
+    {
+      type t = {lang: Lang.t, slug: string}
       include S with type t := t
     }
   }
@@ -18,12 +21,13 @@ module type S = {
   type t
   type props<'content, 'params>
   type params
+  type json1<'a> = Js.Json.t
 
   @react.component
   let make: (~content: t, ~params: params) => React.element
 
-  let getStaticProps: Next.GetStaticProps.t<props<t, params>, params, void>
-  let getStaticPaths: Next.GetStaticPaths.t<params>
+  let getStaticProps: Next.GetStaticProps.t<props<t, params>, json1<params>, void>
+  let getStaticPaths: Next.GetStaticPaths.t<json1<params>>
   let default: props<Js.Json.t, Js.Json.t> => React.element
 }
 

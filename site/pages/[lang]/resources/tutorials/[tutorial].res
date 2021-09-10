@@ -9,12 +9,14 @@ module T = {
   }
   include Jsonable.Unsafe
 
-  module Params = Pages.Params.Lang.Tutorial
+  module Params = Pages.Params.Lang.Slug({
+    let name = "tutorial"
+  })
 
   @react.component
   let make = (
     ~content as {source, title, pageDescription, tableOfContents},
-    ~params as {Params.lang: _, tutorial: _},
+    ~params as {Params.lang: _, slug: _},
   ) => {
     <>
       // TODO: should this have a constrained width? what does tailwind do?
@@ -39,7 +41,7 @@ module T = {
       {Ood.Tutorial.slug: slug, body_html, title, description, toc_html}: Ood.Tutorial.t,
     ) => {
       (
-        {Params.lang: #en, tutorial: slug},
+        {Params.lang: #en, slug: slug},
         {
           source: body_html,
           title: title,

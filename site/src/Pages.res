@@ -34,7 +34,6 @@ module Params = {
   }
 
   let lang = P.field("lang", Lang.ofJson)
-  let tutorial = P.field("tutorial", Js.Json.decodeString)
 
   module Lang = {
     type t = {lang: Lang.t}
@@ -44,15 +43,20 @@ module Params = {
     let toJson = ({lang}: t): Js.Json.t =>
       Js.Json.object_(Js.Dict.fromArray([("lang", lang->Lang.toJson)]))
 
-    module Tutorial = {
-      type t = {lang: Lang.t, tutorial: string}
-      let make = (lang, tutorial) => {lang: lang, tutorial: tutorial}
+    module Slug = (
+      Arg: {
+        let name: string
+      },
+    ) => {
+      type t = {lang: Lang.t, slug: string}
+      let slug = P.field(Arg.name, Js.Json.decodeString)
+      let make = (lang, slug) => {lang: lang, slug: slug}
 
       let ofJson = (json: Js.Json.t): option<t> =>
-        P.return(make)->P.ap(lang)->P.ap(tutorial)->P.parse(json)
-      let toJson = ({lang, tutorial}: t): Js.Json.t =>
+        P.return(make)->P.ap(lang)->P.ap(slug)->P.parse(json)
+      let toJson = ({lang, slug}: t): Js.Json.t =>
         Js.Json.object_(
-          Js.Dict.fromArray([("lang", lang->Lang.toJson), ("tutorial", tutorial->Js.Json.string)]),
+          Js.Dict.fromArray([("lang", lang->Lang.toJson), (Arg.name, slug->Js.Json.string)]),
         )
     }
   }
@@ -62,11 +66,12 @@ module type S = {
   type t
   type props<'content, 'params>
   type params
+  type json1<'a> = Js.Json.t
 
   @react.component
   let make: (~content: t, ~params: params) => React.element
-  let getStaticProps: Next.GetStaticProps.t<props<t, params>, params, void>
-  let getStaticPaths: Next.GetStaticPaths.t<params>
+  let getStaticProps: Next.GetStaticProps.t<props<t, params>, json1<params>, void>
+  let getStaticPaths: Next.GetStaticPaths.t<json1<params>>
   let default: props<Js.Json.t, Js.Json.t> => React.element
 }
 
@@ -106,21 +111,26 @@ module Make = (Arg: Arg): (S with type t := Arg.t and type params = Arg.Params.t
 
   type props<'a, 'b> = Props.t<'a, 'b>
   type params = Arg.Params.t
+  type json1<'a> = Js.Json.t
 
-  let getStaticProps: Next.GetStaticProps.t<props<Arg.t, params>, params, void> = ctx => {
-    Arg.getContent(ctx.params) |> Js.Promise.then_(content => {
-      switch content {
-      | None =>
-        failwith(
-          "BUG: No content found for params: " ++ ctx.params->Arg.Params.toJson->Js.Json.stringify,
-        )
-      | Some(content) =>
-        let props = {Props.content: content, params: ctx.params}
-        Js.Promise.resolve({
-          "props": props->Props.toJson(Arg.toJson, Arg.Params.toJson),
-        })
-      }
-    })
+  let getStaticProps: Next.GetStaticProps.t<props<Arg.t, params>, json1<params>, void> = ctx => {
+    switch Arg.Params.ofJson(ctx.params) {
+    | None => failwith("BUG: Unable to parse params")
+    | Some(params: Arg.Params.t) =>
+      Arg.getContent(params) |> Js.Promise.then_(content => {
+        switch content {
+        | None =>
+          failwith(
+            "BUG: No content found for params: " ++ params->Arg.Params.toJson->Js.Json.stringify,
+          )
+        | Some(content) =>
+          let props = {Props.content: content, params: params}
+          Js.Promise.resolve({
+            "props": props->Props.toJson(Arg.toJson, Arg.Params.toJson),
+          })
+        }
+      })
+    }
   }
 
   let default = (props: props<Js.Json.t, Js.Json.t>) => {
@@ -134,12 +144,12 @@ module Make = (Arg: Arg): (S with type t := Arg.t and type params = Arg.Params.t
     }
   }
 
-  let getStaticPaths: Next.GetStaticPaths.t<Arg.Params.t> = () => {
+  let getStaticPaths: Next.GetStaticPaths.t<json1<Arg.Params.t>> = () => {
     let params = Arg.getParams()
     params |> Js.Promise.then_(params =>
       Js.Promise.resolve({
         Next.GetStaticPaths.paths: params->Belt.Array.map(params => {
-          Next.GetStaticPaths.params: params,
+          Next.GetStaticPaths.params: Arg.Params.toJson(params),
         }),
         fallback: false,
       })
