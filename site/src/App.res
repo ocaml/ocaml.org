@@ -17,6 +17,8 @@ type props = {"Component": PageComponent.t, "pageProps": pageProps}
 // We are not using `[@react.component]` since we will never
 // use <App/> within our Reason code. It's only used within `pages/_app.js`
 let make = (props: props): React.element => {
+  // TODO: Figure out how to get a lang value as a prop, or from the HTTP request
+  let lang = #en
   let component = props["Component"]
   let pageProps = props["pageProps"]
 
@@ -25,6 +27,6 @@ let make = (props: props): React.element => {
   let content = React.createElement(component, pageProps)
   // debug with: Js.log(router.route)
   switch router.route {
-  | _ => <MainLayout> content </MainLayout>
+  | _ => <MainLayout lang> content </MainLayout>
   }
 }

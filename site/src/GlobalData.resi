@@ -30,10 +30,10 @@ type navContent = {
   communitySection: communitySection,
 }
 
-let navContentEn: navContent
+let navContent: Lang.t => navContent
 
-let headerContentEn: HeaderNavigation.content
+let headerContent: Lang.t => HeaderNavigation.content
 
-let footerContentEn: Footer.t
+let footerContent: Lang.t => Footer.t
 
-let milestonesContentEn: Milestones.t
+let milestonesContent: Lang.t => Milestones.t

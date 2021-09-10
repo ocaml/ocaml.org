@@ -1,4 +1,4 @@
 open! Import
 
 @react.component
-let make: (~children: React.element) => React.element
+let make: (~lang: Lang.t, ~children: React.element) => React.element

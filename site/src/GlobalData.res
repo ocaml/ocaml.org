@@ -117,36 +117,53 @@ let navContentEn = {
   }
 }
 
-let headerContentEn: HeaderNavigation.content = {
-  principlesSection: {
-    header: navContentEn.principlesSection.header,
-    entries: [
-      navContentEn.principlesSection.whatIsOcaml,
-      navContentEn.principlesSection.industrialUsers,
-      navContentEn.principlesSection.academicExcellence,
-      navContentEn.principlesSection.successStories,
-    ],
-  },
-  resourcesSection: {
-    header: navContentEn.resourcesSection.header,
-    entries: [
-      navContentEn.resourcesSection.language,
-      navContentEn.resourcesSection.packages,
-      navContentEn.resourcesSection.applications,
-      navContentEn.resourcesSection.bestPractices,
-    ],
-  },
-  communitySection: {
-    header: navContentEn.communitySection.header,
-    entries: [
-      navContentEn.communitySection.opportunities,
-      navContentEn.communitySection.news,
-      navContentEn.communitySection.aroundTheWeb,
-      navContentEn.communitySection.archive,
-    ],
-  },
-  search: `Search ocaml.org`,
-  openMenu: `Open menu`,
+let navContent: Lang.t => navContent = lang => {
+  switch lang {
+  | #en => navContentEn
+  | (_: Lang.t) => navContentEn
+  }
+}
+
+let headerContent: Lang.t => HeaderNavigation.content = lang => {
+  let searchEn = `Search ocaml.org`
+  let openMenuEn = `Open menu`
+  {
+    principlesSection: {
+      header: navContentEn.principlesSection.header,
+      entries: [
+        navContent(lang).principlesSection.whatIsOcaml,
+        navContent(lang).principlesSection.industrialUsers,
+        navContent(lang).principlesSection.academicExcellence,
+        navContent(lang).principlesSection.successStories,
+      ],
+    },
+    resourcesSection: {
+      header: navContent(lang).resourcesSection.header,
+      entries: [
+        navContent(lang).resourcesSection.language,
+        navContent(lang).resourcesSection.packages,
+        navContent(lang).resourcesSection.applications,
+        navContent(lang).resourcesSection.bestPractices,
+      ],
+    },
+    communitySection: {
+      header: navContent(lang).communitySection.header,
+      entries: [
+        navContent(lang).communitySection.opportunities,
+        navContent(lang).communitySection.news,
+        navContent(lang).communitySection.aroundTheWeb,
+        navContent(lang).communitySection.archive,
+      ],
+    },
+    search: switch lang {
+    | #en => searchEn
+    | (_: Lang.t) => searchEn
+    },
+    openMenu: switch lang {
+    | #en => openMenuEn
+    | (_: Lang.t) => openMenuEn
+    },
+  }
 }
 
 let footerContentEn: Footer.t = {
@@ -300,4 +317,18 @@ let milestonesContentEn: Milestones.t = {
       results: "Exact time depends on the public feedback.",
     },
   ],
+}
+
+let footerContent: Lang.t => Footer.t = lang => {
+  switch lang {
+  | #en => footerContentEn
+  | (_: Lang.t) => footerContentEn
+  }
+}
+
+let milestonesContent: Lang.t => Milestones.t = lang => {
+  switch lang {
+  | #en => milestonesContentEn
+  | (_: Lang.t) => milestonesContentEn
+  }
 }
