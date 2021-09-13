@@ -2,6 +2,7 @@
 name: American Museum of Natural History
 description: >
   Le Département des Sciences Computationnelles du AMNH utilise OCaml depuis presque une décennie pour leur suite de logiciels POY pour site d'interférence phylogénétique: "https://www.amnh.org/our-research/computational-sciences"
+site: "https://www.amnh.org/our-research/computational-sciences"
 image: /users/amnh.png
 locations:
   - États-Unis

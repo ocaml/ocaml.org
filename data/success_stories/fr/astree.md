@@ -6,7 +6,7 @@ url: https://www.astree.ens.fr/
 
 *[David Monniaux](https://www-verimag.imag.fr/~monniaux/) (CNRS), membre
 du projet ASTRÉE :* « [ASTRÉE](https://www.astree.ens.fr/) est un
-*analyseur statique* basé sur [l&#39;interprétation
+*analyseur statique* basé sur [l'interprétation
 abstraite](https://www.di.ens.fr/%7Ecousot/aiintro.shtml) et qui vise à
 établir l'absence d'erreurs d'exécution dans des logiciels critiques
 écrits dans un sous-ensemble du langage C. »

@@ -26,9 +26,8 @@ type t = {
   body_html : string;
 }
 
-let all () =
-  Utils.map_files
-    (fun content ->
+let all =
+  Utils.map_files (fun content ->
       let metadata, body = Utils.extract_metadata_body content in
       let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
       {
@@ -42,9 +41,10 @@ let all () =
         body_md = body;
         body_html = Omd.of_string body |> Omd.to_html;
       })
-    "industrial_users/en"
 
-let get_consortium () = List.filter (fun (x : t) -> x.consortium) (all ())
+let all_en () = all "industrial_users/en"
+
+let all_fr () = all "industrial_users/fr"
 
 let pp ppf v =
   Fmt.pf ppf
@@ -79,7 +79,9 @@ type t =
   ; body_md : string
   ; body_html : string
   }
+  
+let all_en = %a
 
-let all = %a
+let all_fr = %a
 |}
-    pp_list (all ())
+    pp_list (all_en ()) pp_list (all_fr ())

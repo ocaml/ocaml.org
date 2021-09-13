@@ -15,7 +15,7 @@ let success_stories _req =
   |> Dream.html
 
 let industrial_users _req =
-  let industrial_users = Ood.Industrial_user.all in
+  let industrial_users = Ood.Industrial_user.all_en in
   Layout_template.render
     ~title:"Industrial Users"
     (Industrial_users_template.render industrial_users)
@@ -32,7 +32,7 @@ let consortium _req =
   let consortium =
     List.filter
       (fun x -> x.Ood.Industrial_user.consortium)
-      Ood.Industrial_user.all
+      Ood.Industrial_user.all_en
   in
   Layout_template.render
     ~title:"Consortium"
