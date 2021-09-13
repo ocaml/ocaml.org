@@ -1,7 +1,8 @@
 ---
 name: Microsoft
 description: > 
-  Facebook has built a number of major development tools using OCaml
+  Microsoft is a big tech company working on several open-source projects such as
+  Visual Studio Code
 site: "https://www.microsoft.com"
 image: /users/microsoft.png
 locations: 

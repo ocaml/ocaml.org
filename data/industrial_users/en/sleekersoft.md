@@ -9,4 +9,4 @@ locations:
 consortium: false
 ---
 
-Shiro Games is developing games using [Haxe](https://haxe.org/), a language built with a compiler written in OCaml.
+Specialises in functional programming software development, consultation, and training.
