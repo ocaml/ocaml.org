@@ -1,8 +1,7 @@
 ---
 name: Microsoft
 description: > 
-  Microsoft is a big tech company working on several open-source projects such as
-  Visual Studio Code
+  Microsoft Corporation is an American multinational technology corporation which produces computer software, consumer electronics, personal computers, and related services.
 site: "https://www.microsoft.com"
 image: /users/microsoft.png
 locations: 
@@ -10,3 +9,4 @@ locations:
 consortium: true
 ---
 
+Microsoft Corporation is an American multinational technology corporation which produces computer software, consumer electronics, personal computers, and related services.
