@@ -71,7 +71,7 @@ fmt: ## Format the codebase with ocamlformat
 
 .PHONY: watch
 watch: ## Watch for the filesystem and rebuild on every change
-	opam exec -- script/watch.sh
+	opam exec -- dune build @run -w --force --no-buffer
 
 .PHONY: utop
 utop: ## Run a REPL and link with the project's libraries

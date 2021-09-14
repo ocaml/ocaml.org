@@ -8,6 +8,8 @@
   (source_tree %{workspace_root}/data/media))
  (mode
   (promote (until-clean)))
+ (enabled_if
+  (<> %{profile} release))
  (action
   (with-stdout-to
    %{null}

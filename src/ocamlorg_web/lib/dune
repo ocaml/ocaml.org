@@ -1,0 +1,43 @@
+(library
+ (name ocamlorg_web)
+ (libraries dream dream-cli dream-accept omd ocamlorg gettext ood ood_media))
+
+(rule
+ (targets asset.ml)
+ (deps
+  %{workspace_root}/asset/main.css
+  (source_tree %{workspace_root}/asset))
+ (enabled_if
+  (= %{profile} release))
+ (action
+  (with-stdout-to
+   %{null}
+   (run %{bin:ocaml-crunch} -m plain %{workspace_root}/asset -o %{targets}))))
+
+(rule
+ (targets asset.ml)
+ (enabled_if
+  (<> %{profile} release))
+ (action
+  (write-file
+   asset.ml
+   "let read filename = try let ch = open_in (\"_build/default/asset/\" ^ filename) in let s = really_input_string ch (in_channel_length ch) in close_in ch; Some s with | Sys_error _ -> None")))
+
+(rule
+ (targets gettext_asset.ml)
+ (deps
+  (source_tree %{workspace_root}/gettext/))
+ (action
+  (with-stdout-to
+   %{null}
+   (run
+    %{bin:ocaml-crunch}
+    -m
+    plain
+    %{workspace_root}/gettext
+    -e
+    po
+    -o
+    %{targets}))))
+
+(include_subdirs unqualified)

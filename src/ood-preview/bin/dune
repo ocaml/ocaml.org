@@ -1,4 +1,0 @@
-(executable
- (name server)
- (modules server)
- (libraries ood_preview))

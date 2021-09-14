@@ -1,4 +1,0 @@
-(test
- (name page_handler_test)
- (modules page_handler_test)
- (libraries alcotest ood_preview))

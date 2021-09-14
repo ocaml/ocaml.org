@@ -1,0 +1,33 @@
+let render ~title ~description inner =
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <meta name="description" content="<%s description %>">
+      <meta name="twitter:title" content="<%s title %>">
+      <meta name="twitter:description" content="<%s description %>">
+      <meta property="og:site_name" content="OCaml">
+      <meta property="og:type" content="object">
+      <meta property="og:title" content="<%s title %>">
+      <meta property="og:description" content="<%s description %>">
+      <meta name="theme-color" content="#fff">
+      <meta name="color-scheme" content="white">
+      <meta name=”robots” content="noindex, nofollow">
+      <link rel="icon" type="image/png" href="/assets/favicon.ico" />
+      <link rel="manifest" href="/assets/manifest.json">
+      <link rel="stylesheet" href="/assets/main.css" />
+      <link rel="stylesheet" href="/assets/vendors/font-files/inter.css" />
+      <script src="/assets/vendors/components-v2.js"></script>
+      <script src="/assets/vendors/alpine.min.js" defer></script>
+      <title><%s title %></title>
+    </head>
+
+    <body class="antialiased">
+      <%s! Header_template.render () %>
+      <main class="bg-gray-50">
+        <%s! inner %>
+      </main>
+      <%s! Footer_template.render () %>
+    </body>
+  </html>

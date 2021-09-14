@@ -1,4 +1,0 @@
-(library
- (name ocamlrss)
- (modules rfc822 rss_types rss rss_io)
- (libraries uri ptime xmlm))

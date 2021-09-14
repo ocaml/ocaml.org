@@ -42,6 +42,7 @@
   crunch
   dream
   dream-cli
+  dream-accept
   fpath
   fmt
   opam-format
@@ -51,5 +52,4 @@
   yojson
   cohttp
   cohttp-lwt-unix
-  timedesc
   (alcotest :with-test)))

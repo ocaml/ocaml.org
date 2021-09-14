@@ -25,5 +25,8 @@ build/
 # IDE related
 .vscode*
 
+# Site dir
+asset_site/
+
 # Var dir
 _var/
