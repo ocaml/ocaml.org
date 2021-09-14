@@ -26,4 +26,4 @@
  (action
   (chdir
    %{workspace_root}
-   (run ./src/ood-gen/bin/lint.exe lint))))
+   (run tool/ood-gen/bin/lint.exe lint))))

@@ -818,7 +818,7 @@ its head and tail. If we omit a case, OCaml will notice and warn us:
     match l with
     | h :: t -> h + total_wrong t
 Lines 2-3, characters 5-34:
-Warning 8: this pattern-matching is not exhaustive.
+Warning 8 [partial-match]: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 []
 val total_wrong : int list -> int = <fun>
@@ -1744,7 +1744,7 @@ its head and tail. If we omit a case, OCaml will notice and warn us:</p>
     match l with
     | h :: t -&gt; h + total_wrong t
 Lines 2-3, characters 5-34:
-Warning 8: this pattern-matching is not exhaustive.
+Warning 8 [partial-match]: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 []
 val total_wrong : int list -&gt; int = &lt;fun&gt;
@@ -8909,7 +8909,7 @@ returns `unit`:
 ```ocaml
 # for i = 1 to 10 do i done
 Line 1, characters 20-21:
-Warning 10: this expression should have type unit.
+Warning 10 [non-unit-statement]: this expression should have type unit.
 - : unit = ()
 ```
 Functional programmers tend to use recursion instead of explicit loops,
@@ -9759,7 +9759,7 @@ The basics of arrays are simple:
 # let a = Array.create 10 0
 Line 1, characters 9-21:
 Alert deprecated: Stdlib.Array.create
-Use Array.make instead.
+Use Array.make/ArrayLabels.make instead.
 val a : int array = [|0; 0; 0; 0; 0; 0; 0; 0; 0; 0|]
 # for i = 0 to Array.length a - 1 do
   a.(i) <- i
@@ -10119,7 +10119,7 @@ often looks clumsy.)</p>
 returns <code>unit</code>:</p>
 <pre><code class="language-ocaml"># for i = 1 to 10 do i done
 Line 1, characters 20-21:
-Warning 10: this expression should have type unit.
+Warning 10 [non-unit-statement]: this expression should have type unit.
 - : unit = ()
 </code></pre>
 <p>Functional programmers tend to use recursion instead of explicit loops,
@@ -10815,7 +10815,7 @@ you can randomly change elements too.</p>
 <pre><code class="language-ocaml"># let a = Array.create 10 0
 Line 1, characters 9-21:
 Alert deprecated: Stdlib.Array.create
-Use Array.make instead.
+Use Array.make/ArrayLabels.make instead.
 val a : int array = [|0; 0; 0; 0; 0; 0; 0; 0; 0; 0|]
 # for i = 0 to Array.length a - 1 do
   a.(i) &lt;- i
@@ -11245,6 +11245,8 @@ module List :
     val rev_append : 'a t -> 'a t -> 'a t
     val concat : 'a t t -> 'a t
     val flatten : 'a t t -> 'a t
+    val equal : ('a -> 'a -> bool) -> 'a t -> 'a t -> bool
+    val compare : ('a -> 'a -> int) -> 'a t -> 'a t -> int
     val iter : ('a -> unit) -> 'a t -> unit
     val iteri : (int -> 'a -> unit) -> 'a t -> unit
     val map : ('a -> 'b) -> 'a t -> 'b t
@@ -11252,6 +11254,7 @@ module List :
     val rev_map : ('a -> 'b) -> 'a t -> 'b t
     val filter_map : ('a -> 'b option) -> 'a t -> 'b t
     val concat_map : ('a -> 'b t) -> 'a t -> 'b t
+    val fold_left_map : ('a -> 'b -> 'a * 'c) -> 'a -> 'b t -> 'a * 'c t
     val fold_left : ('a -> 'b -> 'a) -> 'a -> 'b t -> 'a
     val fold_right : ('a -> 'b -> 'b) -> 'a t -> 'b -> 'b
     val iter2 : ('a -> 'b -> unit) -> 'a t -> 'b t -> unit
@@ -11270,7 +11273,9 @@ module List :
     val find_map : ('a -> 'b option) -> 'a t -> 'b option
     val filter : ('a -> bool) -> 'a t -> 'a t
     val find_all : ('a -> bool) -> 'a t -> 'a t
+    val filteri : (int -> 'a -> bool) -> 'a t -> 'a t
     val partition : ('a -> bool) -> 'a t -> 'a t * 'a t
+    val partition_map : ('a -> ('b, 'c) Either.t) -> 'a t -> 'b t * 'c t
     val assoc : 'a -> ('a * 'b) t -> 'b
     val assoc_opt : 'a -> ('a * 'b) t -> 'b option
     val assq : 'a -> ('a * 'b) t -> 'b
@@ -11326,6 +11331,8 @@ module List :
     val rev_append : 'a t -> 'a t -> 'a t
     val concat : 'a t t -> 'a t
     val flatten : 'a t t -> 'a t
+    val equal : ('a -> 'a -> bool) -> 'a t -> 'a t -> bool
+    val compare : ('a -> 'a -> int) -> 'a t -> 'a t -> int
     val iter : ('a -> unit) -> 'a t -> unit
     val iteri : (int -> 'a -> unit) -> 'a t -> unit
     val map : ('a -> 'b) -> 'a t -> 'b t
@@ -11333,6 +11340,7 @@ module List :
     val rev_map : ('a -> 'b) -> 'a t -> 'b t
     val filter_map : ('a -> 'b option) -> 'a t -> 'b t
     val concat_map : ('a -> 'b t) -> 'a t -> 'b t
+    val fold_left_map : ('a -> 'b -> 'a * 'c) -> 'a -> 'b t -> 'a * 'c t
     val fold_left : ('a -> 'b -> 'a) -> 'a -> 'b t -> 'a
     val fold_right : ('a -> 'b -> 'b) -> 'a t -> 'b -> 'b
     val iter2 : ('a -> 'b -> unit) -> 'a t -> 'b t -> unit
@@ -11351,7 +11359,9 @@ module List :
     val find_map : ('a -> 'b option) -> 'a t -> 'b option
     val filter : ('a -> bool) -> 'a t -> 'a t
     val find_all : ('a -> bool) -> 'a t -> 'a t
+    val filteri : (int -> 'a -> bool) -> 'a t -> 'a t
     val partition : ('a -> bool) -> 'a t -> 'a t * 'a t
+    val partition_map : ('a -> ('b, 'c) Either.t) -> 'a t -> 'b t * 'c t
     val assoc : 'a -> ('a * 'b) t -> 'b
     val assoc_opt : 'a -> ('a * 'b) t -> 'b option
     val assq : 'a -> ('a * 'b) t -> 'b
@@ -11634,6 +11644,8 @@ module List :
     val rev_append : 'a t -&gt; 'a t -&gt; 'a t
     val concat : 'a t t -&gt; 'a t
     val flatten : 'a t t -&gt; 'a t
+    val equal : ('a -&gt; 'a -&gt; bool) -&gt; 'a t -&gt; 'a t -&gt; bool
+    val compare : ('a -&gt; 'a -&gt; int) -&gt; 'a t -&gt; 'a t -&gt; int
     val iter : ('a -&gt; unit) -&gt; 'a t -&gt; unit
     val iteri : (int -&gt; 'a -&gt; unit) -&gt; 'a t -&gt; unit
     val map : ('a -&gt; 'b) -&gt; 'a t -&gt; 'b t
@@ -11641,6 +11653,7 @@ module List :
     val rev_map : ('a -&gt; 'b) -&gt; 'a t -&gt; 'b t
     val filter_map : ('a -&gt; 'b option) -&gt; 'a t -&gt; 'b t
     val concat_map : ('a -&gt; 'b t) -&gt; 'a t -&gt; 'b t
+    val fold_left_map : ('a -&gt; 'b -&gt; 'a * 'c) -&gt; 'a -&gt; 'b t -&gt; 'a * 'c t
     val fold_left : ('a -&gt; 'b -&gt; 'a) -&gt; 'a -&gt; 'b t -&gt; 'a
     val fold_right : ('a -&gt; 'b -&gt; 'b) -&gt; 'a t -&gt; 'b -&gt; 'b
     val iter2 : ('a -&gt; 'b -&gt; unit) -&gt; 'a t -&gt; 'b t -&gt; unit
@@ -11659,7 +11672,9 @@ module List :
     val find_map : ('a -&gt; 'b option) -&gt; 'a t -&gt; 'b option
     val filter : ('a -&gt; bool) -&gt; 'a t -&gt; 'a t
     val find_all : ('a -&gt; bool) -&gt; 'a t -&gt; 'a t
+    val filteri : (int -&gt; 'a -&gt; bool) -&gt; 'a t -&gt; 'a t
     val partition : ('a -&gt; bool) -&gt; 'a t -&gt; 'a t * 'a t
+    val partition_map : ('a -&gt; ('b, 'c) Either.t) -&gt; 'a t -&gt; 'b t * 'c t
     val assoc : 'a -&gt; ('a * 'b) t -&gt; 'b
     val assoc_opt : 'a -&gt; ('a * 'b) t -&gt; 'b option
     val assq : 'a -&gt; ('a * 'b) t -&gt; 'b
@@ -11710,6 +11725,8 @@ module List :
     val rev_append : 'a t -&gt; 'a t -&gt; 'a t
     val concat : 'a t t -&gt; 'a t
     val flatten : 'a t t -&gt; 'a t
+    val equal : ('a -&gt; 'a -&gt; bool) -&gt; 'a t -&gt; 'a t -&gt; bool
+    val compare : ('a -&gt; 'a -&gt; int) -&gt; 'a t -&gt; 'a t -&gt; int
     val iter : ('a -&gt; unit) -&gt; 'a t -&gt; unit
     val iteri : (int -&gt; 'a -&gt; unit) -&gt; 'a t -&gt; unit
     val map : ('a -&gt; 'b) -&gt; 'a t -&gt; 'b t
@@ -11717,6 +11734,7 @@ module List :
     val rev_map : ('a -&gt; 'b) -&gt; 'a t -&gt; 'b t
     val filter_map : ('a -&gt; 'b option) -&gt; 'a t -&gt; 'b t
     val concat_map : ('a -&gt; 'b t) -&gt; 'a t -&gt; 'b t
+    val fold_left_map : ('a -&gt; 'b -&gt; 'a * 'c) -&gt; 'a -&gt; 'b t -&gt; 'a * 'c t
     val fold_left : ('a -&gt; 'b -&gt; 'a) -&gt; 'a -&gt; 'b t -&gt; 'a
     val fold_right : ('a -&gt; 'b -&gt; 'b) -&gt; 'a t -&gt; 'b -&gt; 'b
     val iter2 : ('a -&gt; 'b -&gt; unit) -&gt; 'a t -&gt; 'b t -&gt; unit
@@ -11735,7 +11753,9 @@ module List :
     val find_map : ('a -&gt; 'b option) -&gt; 'a t -&gt; 'b option
     val filter : ('a -&gt; bool) -&gt; 'a t -&gt; 'a t
     val find_all : ('a -&gt; bool) -&gt; 'a t -&gt; 'a t
+    val filteri : (int -&gt; 'a -&gt; bool) -&gt; 'a t -&gt; 'a t
     val partition : ('a -&gt; bool) -&gt; 'a t -&gt; 'a t * 'a t
+    val partition_map : ('a -&gt; ('b, 'c) Either.t) -&gt; 'a t -&gt; 'b t * 'c t
     val assoc : 'a -&gt; ('a * 'b) t -&gt; 'b
     val assoc_opt : 'a -&gt; ('a * 'b) t -&gt; 'b option
     val assq : 'a -&gt; ('a * 'b) t -&gt; 'b
@@ -12038,7 +12058,11 @@ function without the extra `unit`:
   may ~f:(set_height window) height;
   window
 Line 1, characters 32-38:
-Warning 16: this optional argument cannot be erased.
+Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
+Line 1, characters 25-30:
+Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
+Line 1, characters 18-23:
+Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
 val open_window : ?title:string -> ?width:int -> ?height:int -> window =
   <fun>
 ```
@@ -12602,7 +12626,11 @@ function without the extra <code>unit</code>:</p>
   may ~f:(set_height window) height;
   window
 Line 1, characters 32-38:
-Warning 16: this optional argument cannot be erased.
+Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
+Line 1, characters 25-30:
+Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
+Line 1, characters 18-23:
+Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
 val open_window : ?title:string -&gt; ?width:int -&gt; ?height:int -&gt; window =
   &lt;fun&gt;
 </code></pre>
@@ -13786,44 +13814,46 @@ module Int_set :
     type t
     val empty : t
     val is_empty : t -> bool
-    val mem : int -> t -> bool
-    val add : int -> t -> t
-    val singleton : int -> t
-    val remove : int -> t -> t
+    val mem : elt -> t -> bool
+    val add : elt -> t -> t
+    val singleton : elt -> t
+    val remove : elt -> t -> t
     val union : t -> t -> t
     val inter : t -> t -> t
     val disjoint : t -> t -> bool
     val diff : t -> t -> t
-    val compare : t -> t -> int
+    val compare : t -> t -> elt
     val equal : t -> t -> bool
     val subset : t -> t -> bool
-    val iter : (int -> unit) -> t -> unit
-    val map : (int -> int) -> t -> t
-    val fold : (int -> 'a -> 'a) -> t -> 'a -> 'a
-    val for_all : (int -> bool) -> t -> bool
-    val exists : (int -> bool) -> t -> bool
-    val filter : (int -> bool) -> t -> t
-    val partition : (int -> bool) -> t -> t * t
-    val cardinal : t -> int
-    val elements : t -> int list
-    val min_elt : t -> int
-    val min_elt_opt : t -> int option
-    val max_elt : t -> int
-    val max_elt_opt : t -> int option
-    val choose : t -> int
-    val choose_opt : t -> int option
-    val split : int -> t -> t * bool * t
-    val find : int -> t -> int
-    val find_opt : int -> t -> int option
-    val find_first : (int -> bool) -> t -> int
-    val find_first_opt : (int -> bool) -> t -> int option
-    val find_last : (int -> bool) -> t -> int
-    val find_last_opt : (int -> bool) -> t -> int option
-    val of_list : int list -> t
-    val to_seq_from : int -> t -> int Seq.t
-    val to_seq : t -> int Seq.t
-    val add_seq : int Seq.t -> t -> t
-    val of_seq : int Seq.t -> t
+    val iter : (elt -> unit) -> t -> unit
+    val map : (elt -> elt) -> t -> t
+    val fold : (elt -> 'a -> 'a) -> t -> 'a -> 'a
+    val for_all : (elt -> bool) -> t -> bool
+    val exists : (elt -> bool) -> t -> bool
+    val filter : (elt -> bool) -> t -> t
+    val filter_map : (elt -> elt option) -> t -> t
+    val partition : (elt -> bool) -> t -> t * t
+    val cardinal : t -> elt
+    val elements : t -> elt list
+    val min_elt : t -> elt
+    val min_elt_opt : t -> elt option
+    val max_elt : t -> elt
+    val max_elt_opt : t -> elt option
+    val choose : t -> elt
+    val choose_opt : t -> elt option
+    val split : elt -> t -> t * bool * t
+    val find : elt -> t -> elt
+    val find_opt : elt -> t -> elt option
+    val find_first : (elt -> bool) -> t -> elt
+    val find_first_opt : (elt -> bool) -> t -> elt option
+    val find_last : (elt -> bool) -> t -> elt
+    val find_last_opt : (elt -> bool) -> t -> elt option
+    val of_list : elt list -> t
+    val to_seq_from : elt -> t -> elt Seq.t
+    val to_seq : t -> elt Seq.t
+    val to_rev_seq : t -> elt Seq.t
+    val add_seq : elt Seq.t -> t -> t
+    val of_seq : elt Seq.t -> t
   end
 ```
 
@@ -13857,6 +13887,7 @@ module String_set :
     val for_all : (elt -> bool) -> t -> bool
     val exists : (elt -> bool) -> t -> bool
     val filter : (elt -> bool) -> t -> t
+    val filter_map : (elt -> elt option) -> t -> t
     val partition : (elt -> bool) -> t -> t * t
     val cardinal : t -> int
     val elements : t -> elt list
@@ -13876,6 +13907,7 @@ module String_set :
     val of_list : elt list -> t
     val to_seq_from : elt -> t -> elt Seq.t
     val to_seq : t -> elt Seq.t
+    val to_rev_seq : t -> elt Seq.t
     val add_seq : elt Seq.t -> t -> t
     val of_seq : elt Seq.t -> t
   end
@@ -13967,44 +13999,46 @@ module Int_set :
     type t
     val empty : t
     val is_empty : t -&gt; bool
-    val mem : int -&gt; t -&gt; bool
-    val add : int -&gt; t -&gt; t
-    val singleton : int -&gt; t
-    val remove : int -&gt; t -&gt; t
+    val mem : elt -&gt; t -&gt; bool
+    val add : elt -&gt; t -&gt; t
+    val singleton : elt -&gt; t
+    val remove : elt -&gt; t -&gt; t
     val union : t -&gt; t -&gt; t
     val inter : t -&gt; t -&gt; t
     val disjoint : t -&gt; t -&gt; bool
     val diff : t -&gt; t -&gt; t
-    val compare : t -&gt; t -&gt; int
+    val compare : t -&gt; t -&gt; elt
     val equal : t -&gt; t -&gt; bool
     val subset : t -&gt; t -&gt; bool
-    val iter : (int -&gt; unit) -&gt; t -&gt; unit
-    val map : (int -&gt; int) -&gt; t -&gt; t
-    val fold : (int -&gt; 'a -&gt; 'a) -&gt; t -&gt; 'a -&gt; 'a
-    val for_all : (int -&gt; bool) -&gt; t -&gt; bool
-    val exists : (int -&gt; bool) -&gt; t -&gt; bool
-    val filter : (int -&gt; bool) -&gt; t -&gt; t
-    val partition : (int -&gt; bool) -&gt; t -&gt; t * t
-    val cardinal : t -&gt; int
-    val elements : t -&gt; int list
-    val min_elt : t -&gt; int
-    val min_elt_opt : t -&gt; int option
-    val max_elt : t -&gt; int
-    val max_elt_opt : t -&gt; int option
-    val choose : t -&gt; int
-    val choose_opt : t -&gt; int option
-    val split : int -&gt; t -&gt; t * bool * t
-    val find : int -&gt; t -&gt; int
-    val find_opt : int -&gt; t -&gt; int option
-    val find_first : (int -&gt; bool) -&gt; t -&gt; int
-    val find_first_opt : (int -&gt; bool) -&gt; t -&gt; int option
-    val find_last : (int -&gt; bool) -&gt; t -&gt; int
-    val find_last_opt : (int -&gt; bool) -&gt; t -&gt; int option
-    val of_list : int list -&gt; t
-    val to_seq_from : int -&gt; t -&gt; int Seq.t
-    val to_seq : t -&gt; int Seq.t
-    val add_seq : int Seq.t -&gt; t -&gt; t
-    val of_seq : int Seq.t -&gt; t
+    val iter : (elt -&gt; unit) -&gt; t -&gt; unit
+    val map : (elt -&gt; elt) -&gt; t -&gt; t
+    val fold : (elt -&gt; 'a -&gt; 'a) -&gt; t -&gt; 'a -&gt; 'a
+    val for_all : (elt -&gt; bool) -&gt; t -&gt; bool
+    val exists : (elt -&gt; bool) -&gt; t -&gt; bool
+    val filter : (elt -&gt; bool) -&gt; t -&gt; t
+    val filter_map : (elt -&gt; elt option) -&gt; t -&gt; t
+    val partition : (elt -&gt; bool) -&gt; t -&gt; t * t
+    val cardinal : t -&gt; elt
+    val elements : t -&gt; elt list
+    val min_elt : t -&gt; elt
+    val min_elt_opt : t -&gt; elt option
+    val max_elt : t -&gt; elt
+    val max_elt_opt : t -&gt; elt option
+    val choose : t -&gt; elt
+    val choose_opt : t -&gt; elt option
+    val split : elt -&gt; t -&gt; t * bool * t
+    val find : elt -&gt; t -&gt; elt
+    val find_opt : elt -&gt; t -&gt; elt option
+    val find_first : (elt -&gt; bool) -&gt; t -&gt; elt
+    val find_first_opt : (elt -&gt; bool) -&gt; t -&gt; elt option
+    val find_last : (elt -&gt; bool) -&gt; t -&gt; elt
+    val find_last_opt : (elt -&gt; bool) -&gt; t -&gt; elt option
+    val of_list : elt list -&gt; t
+    val to_seq_from : elt -&gt; t -&gt; elt Seq.t
+    val to_seq : t -&gt; elt Seq.t
+    val to_rev_seq : t -&gt; elt Seq.t
+    val add_seq : elt Seq.t -&gt; t -&gt; t
+    val of_seq : elt Seq.t -&gt; t
   end
 </code></pre>
 <p>For sets of strings, it is even easier because the standard library provides a
@@ -14035,6 +14069,7 @@ module String_set :
     val for_all : (elt -&gt; bool) -&gt; t -&gt; bool
     val exists : (elt -&gt; bool) -&gt; t -&gt; bool
     val filter : (elt -&gt; bool) -&gt; t -&gt; t
+    val filter_map : (elt -&gt; elt option) -&gt; t -&gt; t
     val partition : (elt -&gt; bool) -&gt; t -&gt; t * t
     val cardinal : t -&gt; int
     val elements : t -&gt; elt list
@@ -14054,6 +14089,7 @@ module String_set :
     val of_list : elt list -&gt; t
     val to_seq_from : elt -&gt; t -&gt; elt Seq.t
     val to_seq : t -&gt; elt Seq.t
+    val to_rev_seq : t -&gt; elt Seq.t
     val add_seq : elt Seq.t -&gt; t -&gt; t
     val of_seq : elt Seq.t -&gt; t
   end
@@ -15776,7 +15812,9 @@ argument. For instance, this is not OK:
 ```ocaml
 # let f ?(x = 0) ?(y = 0) = print_int (x + y)
 Line 1, characters 18-23:
-Warning 16: this optional argument cannot be erased.
+Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
+Line 1, characters 9-14:
+Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
 val f : ?x:int -> ?y:int -> unit = <fun>
 ```
 The solution is simply to add one argument of type unit, like this:
@@ -15854,9 +15892,9 @@ situation:
   | (y, _) | (_, y) when y = x -> true
   | _ -> false
 Line 3, characters 14-20:
-Warning 12: this sub-pattern is unused.
+Warning 12 [redundant-subpat]: this sub-pattern is unused.
 Line 3, characters 5-20:
-Warning 57: Ambiguous or-pattern variables under guard;
+Warning 57 [ambiguous-var-in-pattern-guard]: Ambiguous or-pattern variables under guard;
 variable y may match different arguments. (See manual section 9.5)
 val test_member : 'a -> 'a * 'a -> bool = <fun>
 ```
@@ -15934,7 +15972,7 @@ option.
 ```ocaml
 # "\\e\\n" (* bad practice *)
 File "_none_", line 1, characters 1-3:
-Warning 14: illegal backslash escape in string.
+Warning 14 [illegal-backslash]: illegal backslash escape in string.
 - : string = "\\\\e\\n"
 # "\\\\e\\n" (* good practice *)
 - : string = "\\\\e\\n"
@@ -16005,7 +16043,9 @@ discouraged.</p>
 argument. For instance, this is not OK:</p>
 <pre><code class="language-ocaml"># let f ?(x = 0) ?(y = 0) = print_int (x + y)
 Line 1, characters 18-23:
-Warning 16: this optional argument cannot be erased.
+Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
+Line 1, characters 9-14:
+Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
 val f : ?x:int -&gt; ?y:int -&gt; unit = &lt;fun&gt;
 </code></pre>
 <p>The solution is simply to add one argument of type unit, like this:</p>
@@ -16060,9 +16100,9 @@ situation:</p>
   | (y, _) | (_, y) when y = x -&gt; true
   | _ -&gt; false
 Line 3, characters 14-20:
-Warning 12: this sub-pattern is unused.
+Warning 12 [redundant-subpat]: this sub-pattern is unused.
 Line 3, characters 5-20:
-Warning 57: Ambiguous or-pattern variables under guard;
+Warning 57 [ambiguous-var-in-pattern-guard]: Ambiguous or-pattern variables under guard;
 variable y may match different arguments. (See manual section 9.5)
 val test_member : 'a -&gt; 'a * 'a -&gt; bool = &lt;fun&gt;
 </code></pre>
@@ -16128,7 +16168,7 @@ when compiling an older program, and can be turned off with the <code>-w x</code
 option.</p>
 <pre><code class="language-ocaml"># &quot;\\e\\n&quot; (* bad practice *)
 File &quot;_none_&quot;, line 1, characters 1-3:
-Warning 14: illegal backslash escape in string.
+Warning 14 [illegal-backslash]: illegal backslash escape in string.
 - : string = &quot;\\\\e\\n&quot;
 # &quot;\\\\e\\n&quot; (* good practice *)
 - : string = &quot;\\\\e\\n&quot;
@@ -16784,6 +16824,7 @@ module MyUsers :
     val for_all : (key -> 'a -> bool) -> 'a t -> bool
     val exists : (key -> 'a -> bool) -> 'a t -> bool
     val filter : (key -> 'a -> bool) -> 'a t -> 'a t
+    val filter_map : (key -> 'a -> 'b option) -> 'a t -> 'b t
     val partition : (key -> 'a -> bool) -> 'a t -> 'a t * 'a t
     val cardinal : 'a t -> int
     val bindings : 'a t -> (key * 'a) list
@@ -16803,6 +16844,7 @@ module MyUsers :
     val map : ('a -> 'b) -> 'a t -> 'b t
     val mapi : (key -> 'a -> 'b) -> 'a t -> 'b t
     val to_seq : 'a t -> (key * 'a) Seq.t
+    val to_rev_seq : 'a t -> (key * 'a) Seq.t
     val to_seq_from : key -> 'a t -> (key * 'a) Seq.t
     val add_seq : (key * 'a) Seq.t -> 'a t -> 'a t
     val of_seq : (key * 'a) Seq.t -> 'a t
@@ -16918,6 +16960,7 @@ module MyUsers :
     val for_all : (key -&gt; 'a -&gt; bool) -&gt; 'a t -&gt; bool
     val exists : (key -&gt; 'a -&gt; bool) -&gt; 'a t -&gt; bool
     val filter : (key -&gt; 'a -&gt; bool) -&gt; 'a t -&gt; 'a t
+    val filter_map : (key -&gt; 'a -&gt; 'b option) -&gt; 'a t -&gt; 'b t
     val partition : (key -&gt; 'a -&gt; bool) -&gt; 'a t -&gt; 'a t * 'a t
     val cardinal : 'a t -&gt; int
     val bindings : 'a t -&gt; (key * 'a) list
@@ -16937,6 +16980,7 @@ module MyUsers :
     val map : ('a -&gt; 'b) -&gt; 'a t -&gt; 'b t
     val mapi : (key -&gt; 'a -&gt; 'b) -&gt; 'a t -&gt; 'b t
     val to_seq : 'a t -&gt; (key * 'a) Seq.t
+    val to_rev_seq : 'a t -&gt; (key * 'a) Seq.t
     val to_seq_from : key -&gt; 'a t -&gt; (key * 'a) Seq.t
     val add_seq : (key * 'a) Seq.t -&gt; 'a t -&gt; 'a t
     val of_seq : (key * 'a) Seq.t -&gt; 'a t
@@ -17032,6 +17076,7 @@ module SS :
     val for_all : (elt -> bool) -> t -> bool
     val exists : (elt -> bool) -> t -> bool
     val filter : (elt -> bool) -> t -> t
+    val filter_map : (elt -> elt option) -> t -> t
     val partition : (elt -> bool) -> t -> t * t
     val cardinal : t -> int
     val elements : t -> elt list
@@ -17051,6 +17096,7 @@ module SS :
     val of_list : elt list -> t
     val to_seq_from : elt -> t -> elt Seq.t
     val to_seq : t -> elt Seq.t
+    val to_rev_seq : t -> elt Seq.t
     val add_seq : elt Seq.t -> t -> t
     val of_seq : elt Seq.t -> t
   end
@@ -17172,6 +17218,7 @@ module SS :
     val for_all : (elt -&gt; bool) -&gt; t -&gt; bool
     val exists : (elt -&gt; bool) -&gt; t -&gt; bool
     val filter : (elt -&gt; bool) -&gt; t -&gt; t
+    val filter_map : (elt -&gt; elt option) -&gt; t -&gt; t
     val partition : (elt -&gt; bool) -&gt; t -&gt; t * t
     val cardinal : t -&gt; int
     val elements : t -&gt; elt list
@@ -17191,6 +17238,7 @@ module SS :
     val of_list : elt list -&gt; t
     val to_seq_from : elt -&gt; t -&gt; elt Seq.t
     val to_seq : t -&gt; elt Seq.t
+    val to_rev_seq : t -&gt; elt Seq.t
     val add_seq : elt Seq.t -&gt; t -&gt; t
     val of_seq : elt Seq.t -&gt; t
   end
@@ -18099,6 +18147,7 @@ module StringSet :
     val for_all : (elt -> bool) -> t -> bool
     val exists : (elt -> bool) -> t -> bool
     val filter : (elt -> bool) -> t -> t
+    val filter_map : (elt -> elt option) -> t -> t
     val partition : (elt -> bool) -> t -> t * t
     val cardinal : t -> int
     val elements : t -> elt list
@@ -18118,6 +18167,7 @@ module StringSet :
     val of_list : elt list -> t
     val to_seq_from : elt -> t -> elt Seq.t
     val to_seq : t -> elt Seq.t
+    val to_rev_seq : t -> elt Seq.t
     val add_seq : elt Seq.t -> t -> t
     val of_seq : elt Seq.t -> t
   end
@@ -18761,6 +18811,7 @@ module StringSet :
     val for_all : (elt -&gt; bool) -&gt; t -&gt; bool
     val exists : (elt -&gt; bool) -&gt; t -&gt; bool
     val filter : (elt -&gt; bool) -&gt; t -&gt; t
+    val filter_map : (elt -&gt; elt option) -&gt; t -&gt; t
     val partition : (elt -&gt; bool) -&gt; t -&gt; t * t
     val cardinal : t -&gt; int
     val elements : t -&gt; elt list
@@ -18780,6 +18831,7 @@ module StringSet :
     val of_list : elt list -&gt; t
     val to_seq_from : elt -&gt; t -&gt; elt Seq.t
     val to_seq : t -&gt; elt Seq.t
+    val to_rev_seq : t -&gt; elt Seq.t
     val add_seq : elt Seq.t -&gt; t -&gt; t
     val of_seq : elt Seq.t -&gt; t
   end
@@ -20848,9 +20900,8 @@ string.
 <!-- $MDX file=examples/append.ml,part=3 -->
 ```ocaml
 let speclist =
-  [
-    ("-verbose", Arg.Set verbose, "Output debug information");
-    ("-o", Arg.Set_string output_file, "Set output file name");
+  [ "-verbose", Arg.Set verbose, "Output debug information"
+  ; "-o", Arg.Set_string output_file, "Set output file name"
   ]
 ```
 
@@ -21021,9 +21072,8 @@ of the flag name, the action to be taken when it is encountered, and the help
 string.</p>
 <!-- $MDX file=examples/append.ml,part=3 -->
 <pre><code class="language-ocaml">let speclist =
-  [
-    (&quot;-verbose&quot;, Arg.Set verbose, &quot;Output debug information&quot;);
-    (&quot;-o&quot;, Arg.Set_string output_file, &quot;Set output file name&quot;);
+  [ &quot;-verbose&quot;, Arg.Set verbose, &quot;Output debug information&quot;
+  ; &quot;-o&quot;, Arg.Set_string output_file, &quot;Set output file name&quot;
   ]
 </code></pre>
 <p>We have two kinds of action here: the <code>Arg.Set</code> action which sets a boolean
@@ -21202,7 +21252,6 @@ let () =
   Printf.fprintf oc "%s\\n" message;
   (* write something *)
   close_out oc;
-
   (* flush and close the channel *)
 
   (* Read file and display the first line *)
@@ -21216,7 +21265,8 @@ let () =
     (* write on the underlying device now *)
     close_in ic
     (* close the input channel *)
-  with e ->
+  with
+  | e ->
     (* some unexpected exception occurs *)
     close_in_noerr ic;
     (* emergency closing *)
@@ -21337,7 +21387,6 @@ let () =
   Printf.fprintf oc &quot;%s\\n&quot; message;
   (* write something *)
   close_out oc;
-
   (* flush and close the channel *)
 
   (* Read file and display the first line *)
@@ -21351,7 +21400,8 @@ let () =
     (* write on the underlying device now *)
     close_in ic
     (* close the input channel *)
-  with e -&gt;
+  with
+  | e -&gt;
     (* some unexpected exception occurs *)
     close_in_noerr ic;
     (* emergency closing *)
@@ -21473,7 +21523,8 @@ before quitting:
 <!-- $MDX file=examples/gc.ml -->
 ```ocaml
 let rec iterate r x_init i =
-  if i = 1 then x_init
+  if i = 1 then
+    x_init
   else
     let x = iterate r x_init (i - 1) in
     r *. x *. (1.0 -. x)
@@ -21609,7 +21660,10 @@ some low-level functions to read, write, lock and unlock records:
 <!-- $MDX file=examples/objcache.ml,part=0 -->
 ```ocaml
 (* In-memory format. *)
-type record = { mutable name : string; mutable address : string }
+type record =
+  { mutable name : string
+  ; mutable address : string
+  }
 
 (* On-disk format. *)
 let record_size = 256
@@ -21695,16 +21749,16 @@ let finaliser n record =
 let get_record n =
   match Weak.get cache n with
   | Some record ->
-      printf "*** objcache: fetching record %d from memory cache\\n%!" n;
-      record
+    printf "*** objcache: fetching record %d from memory cache\\n%!" n;
+    record
   | None ->
-      printf "*** objcache: loading record %d from disk\\n%!" n;
-      let record = new_record () in
-      Gc.finalise (finaliser n) record;
-      lock_record n diskfile;
-      read_record record n diskfile;
-      Weak.set cache n (Some record);
-      record
+    printf "*** objcache: loading record %d from disk\\n%!" n;
+    let record = new_record () in
+    Gc.finalise (finaliser n) record;
+    lock_record n diskfile;
+    read_record record n diskfile;
+    Weak.set cache n (Some record);
+    record
 ```
 
 The `sync_records` function is even easier. First of all it empties the
@@ -21838,7 +21892,8 @@ before quitting:</p>
 <!-- TODO: Probably write a GC example without dependencies -->
 <!-- $MDX file=examples/gc.ml -->
 <pre><code class="language-ocaml">let rec iterate r x_init i =
-  if i = 1 then x_init
+  if i = 1 then
+    x_init
   else
     let x = iterate r x_init (i - 1) in
     r *. x *. (1.0 -. x)
@@ -21950,7 +22005,10 @@ release the lock. Here is some code to define the on-disk format and
 some low-level functions to read, write, lock and unlock records:</p>
 <!-- $MDX file=examples/objcache.ml,part=0 -->
 <pre><code class="language-ocaml">(* In-memory format. *)
-type record = { mutable name : string; mutable address : string }
+type record =
+  { mutable name : string
+  ; mutable address : string
+  }
 
 (* On-disk format. *)
 let record_size = 256
@@ -22021,16 +22079,16 @@ let finaliser n record =
 let get_record n =
   match Weak.get cache n with
   | Some record -&gt;
-      printf &quot;*** objcache: fetching record %d from memory cache\\n%!&quot; n;
-      record
+    printf &quot;*** objcache: fetching record %d from memory cache\\n%!&quot; n;
+    record
   | None -&gt;
-      printf &quot;*** objcache: loading record %d from disk\\n%!&quot; n;
-      let record = new_record () in
-      Gc.finalise (finaliser n) record;
-      lock_record n diskfile;
-      read_record record n diskfile;
-      Weak.set cache n (Some record);
-      record
+    printf &quot;*** objcache: loading record %d from disk\\n%!&quot; n;
+    let record = new_record () in
+    Gc.finalise (finaliser n) record;
+    lock_record n diskfile;
+    read_record record n diskfile;
+    Weak.set cache n (Some record);
+    record
 </code></pre>
 <p>The <code>sync_records</code> function is even easier. First of all it empties the
 cache by replacing all the weak pointers with <code>None</code>. This now means
@@ -22870,7 +22928,8 @@ Here is an example:
 <!-- $MDX file=examples/gc.ml -->
 ```ocaml
 let rec iterate r x_init i =
-  if i = 1 then x_init
+  if i = 1 then
+    x_init
   else
     let x = iterate r x_init (i - 1) in
     r *. x *. (1.0 -. x)
@@ -23669,7 +23728,8 @@ expensive <em>programmer</em> time versus writing the imperative loop.</p>
 Here is an example:</p>
 <!-- $MDX file=examples/gc.ml -->
 <pre><code class="language-ocaml">let rec iterate r x_init i =
-  if i = 1 then x_init
+  if i = 1 then
+    x_init
   else
     let x = iterate r x_init (i - 1) in
     r *. x *. (1.0 -. x)

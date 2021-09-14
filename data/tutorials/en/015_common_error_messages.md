@@ -72,7 +72,9 @@ argument. For instance, this is not OK:
 ```ocaml
 # let f ?(x = 0) ?(y = 0) = print_int (x + y)
 Line 1, characters 18-23:
-Warning 16: this optional argument cannot be erased.
+Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
+Line 1, characters 9-14:
+Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
 val f : ?x:int -> ?y:int -> unit = <fun>
 ```
 The solution is simply to add one argument of type unit, like this:
@@ -150,9 +152,9 @@ situation:
   | (y, _) | (_, y) when y = x -> true
   | _ -> false
 Line 3, characters 14-20:
-Warning 12: this sub-pattern is unused.
+Warning 12 [redundant-subpat]: this sub-pattern is unused.
 Line 3, characters 5-20:
-Warning 57: Ambiguous or-pattern variables under guard;
+Warning 57 [ambiguous-var-in-pattern-guard]: Ambiguous or-pattern variables under guard;
 variable y may match different arguments. (See manual section 9.5)
 val test_member : 'a -> 'a * 'a -> bool = <fun>
 ```
@@ -230,7 +232,7 @@ option.
 ```ocaml
 # "\e\n" (* bad practice *)
 File "_none_", line 1, characters 1-3:
-Warning 14: illegal backslash escape in string.
+Warning 14 [illegal-backslash]: illegal backslash escape in string.
 - : string = "\\e\n"
 # "\\e\n" (* good practice *)
 - : string = "\\e\n"

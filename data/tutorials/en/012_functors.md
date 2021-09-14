@@ -51,44 +51,46 @@ module Int_set :
     type t
     val empty : t
     val is_empty : t -> bool
-    val mem : int -> t -> bool
-    val add : int -> t -> t
-    val singleton : int -> t
-    val remove : int -> t -> t
+    val mem : elt -> t -> bool
+    val add : elt -> t -> t
+    val singleton : elt -> t
+    val remove : elt -> t -> t
     val union : t -> t -> t
     val inter : t -> t -> t
     val disjoint : t -> t -> bool
     val diff : t -> t -> t
-    val compare : t -> t -> int
+    val compare : t -> t -> elt
     val equal : t -> t -> bool
     val subset : t -> t -> bool
-    val iter : (int -> unit) -> t -> unit
-    val map : (int -> int) -> t -> t
-    val fold : (int -> 'a -> 'a) -> t -> 'a -> 'a
-    val for_all : (int -> bool) -> t -> bool
-    val exists : (int -> bool) -> t -> bool
-    val filter : (int -> bool) -> t -> t
-    val partition : (int -> bool) -> t -> t * t
-    val cardinal : t -> int
-    val elements : t -> int list
-    val min_elt : t -> int
-    val min_elt_opt : t -> int option
-    val max_elt : t -> int
-    val max_elt_opt : t -> int option
-    val choose : t -> int
-    val choose_opt : t -> int option
-    val split : int -> t -> t * bool * t
-    val find : int -> t -> int
-    val find_opt : int -> t -> int option
-    val find_first : (int -> bool) -> t -> int
-    val find_first_opt : (int -> bool) -> t -> int option
-    val find_last : (int -> bool) -> t -> int
-    val find_last_opt : (int -> bool) -> t -> int option
-    val of_list : int list -> t
-    val to_seq_from : int -> t -> int Seq.t
-    val to_seq : t -> int Seq.t
-    val add_seq : int Seq.t -> t -> t
-    val of_seq : int Seq.t -> t
+    val iter : (elt -> unit) -> t -> unit
+    val map : (elt -> elt) -> t -> t
+    val fold : (elt -> 'a -> 'a) -> t -> 'a -> 'a
+    val for_all : (elt -> bool) -> t -> bool
+    val exists : (elt -> bool) -> t -> bool
+    val filter : (elt -> bool) -> t -> t
+    val filter_map : (elt -> elt option) -> t -> t
+    val partition : (elt -> bool) -> t -> t * t
+    val cardinal : t -> elt
+    val elements : t -> elt list
+    val min_elt : t -> elt
+    val min_elt_opt : t -> elt option
+    val max_elt : t -> elt
+    val max_elt_opt : t -> elt option
+    val choose : t -> elt
+    val choose_opt : t -> elt option
+    val split : elt -> t -> t * bool * t
+    val find : elt -> t -> elt
+    val find_opt : elt -> t -> elt option
+    val find_first : (elt -> bool) -> t -> elt
+    val find_first_opt : (elt -> bool) -> t -> elt option
+    val find_last : (elt -> bool) -> t -> elt
+    val find_last_opt : (elt -> bool) -> t -> elt option
+    val of_list : elt list -> t
+    val to_seq_from : elt -> t -> elt Seq.t
+    val to_seq : t -> elt Seq.t
+    val to_rev_seq : t -> elt Seq.t
+    val add_seq : elt Seq.t -> t -> t
+    val of_seq : elt Seq.t -> t
   end
 ```
 
@@ -122,6 +124,7 @@ module String_set :
     val for_all : (elt -> bool) -> t -> bool
     val exists : (elt -> bool) -> t -> bool
     val filter : (elt -> bool) -> t -> t
+    val filter_map : (elt -> elt option) -> t -> t
     val partition : (elt -> bool) -> t -> t * t
     val cardinal : t -> int
     val elements : t -> elt list
@@ -141,6 +144,7 @@ module String_set :
     val of_list : elt list -> t
     val to_seq_from : elt -> t -> elt Seq.t
     val to_seq : t -> elt Seq.t
+    val to_rev_seq : t -> elt Seq.t
     val add_seq : elt Seq.t -> t -> t
     val of_seq : elt Seq.t -> t
   end

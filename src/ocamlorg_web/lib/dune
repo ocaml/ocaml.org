@@ -1,6 +1,6 @@
 (library
  (name ocamlorg_web)
- (libraries dream dream-cli dream-accept omd ocamlorg gettext ood ood_media))
+ (libraries dream dream-cli dream-accept omd ocamlorg gettext ood))
 
 (rule
  (targets asset.ml)
@@ -22,6 +22,21 @@
   (write-file
    asset.ml
    "let read filename = try let ch = open_in (\"_build/default/asset/\" ^ filename) in let s = really_input_string ch (in_channel_length ch) in close_in ch; Some s with | Sys_error _ -> None")))
+
+(rule
+ (targets media.ml)
+ (deps
+  (source_tree %{workspace_root}/data/media))
+ (action
+  (with-stdout-to
+   %{null}
+   (run
+    %{bin:ocaml-crunch}
+    -m
+    plain
+    %{workspace_root}/data/media
+    -o
+    %{targets}))))
 
 (rule
  (targets gettext_asset.ml)

@@ -268,7 +268,11 @@ function without the extra `unit`:
   may ~f:(set_height window) height;
   window
 Line 1, characters 32-38:
-Warning 16: this optional argument cannot be erased.
+Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
+Line 1, characters 25-30:
+Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
+Line 1, characters 18-23:
+Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
 val open_window : ?title:string -> ?width:int -> ?height:int -> window =
   <fun>
 ```

@@ -313,6 +313,8 @@ module List :
     val rev_append : 'a t -> 'a t -> 'a t
     val concat : 'a t t -> 'a t
     val flatten : 'a t t -> 'a t
+    val equal : ('a -> 'a -> bool) -> 'a t -> 'a t -> bool
+    val compare : ('a -> 'a -> int) -> 'a t -> 'a t -> int
     val iter : ('a -> unit) -> 'a t -> unit
     val iteri : (int -> 'a -> unit) -> 'a t -> unit
     val map : ('a -> 'b) -> 'a t -> 'b t
@@ -320,6 +322,7 @@ module List :
     val rev_map : ('a -> 'b) -> 'a t -> 'b t
     val filter_map : ('a -> 'b option) -> 'a t -> 'b t
     val concat_map : ('a -> 'b t) -> 'a t -> 'b t
+    val fold_left_map : ('a -> 'b -> 'a * 'c) -> 'a -> 'b t -> 'a * 'c t
     val fold_left : ('a -> 'b -> 'a) -> 'a -> 'b t -> 'a
     val fold_right : ('a -> 'b -> 'b) -> 'a t -> 'b -> 'b
     val iter2 : ('a -> 'b -> unit) -> 'a t -> 'b t -> unit
@@ -338,7 +341,9 @@ module List :
     val find_map : ('a -> 'b option) -> 'a t -> 'b option
     val filter : ('a -> bool) -> 'a t -> 'a t
     val find_all : ('a -> bool) -> 'a t -> 'a t
+    val filteri : (int -> 'a -> bool) -> 'a t -> 'a t
     val partition : ('a -> bool) -> 'a t -> 'a t * 'a t
+    val partition_map : ('a -> ('b, 'c) Either.t) -> 'a t -> 'b t * 'c t
     val assoc : 'a -> ('a * 'b) t -> 'b
     val assoc_opt : 'a -> ('a * 'b) t -> 'b option
     val assq : 'a -> ('a * 'b) t -> 'b
@@ -394,6 +399,8 @@ module List :
     val rev_append : 'a t -> 'a t -> 'a t
     val concat : 'a t t -> 'a t
     val flatten : 'a t t -> 'a t
+    val equal : ('a -> 'a -> bool) -> 'a t -> 'a t -> bool
+    val compare : ('a -> 'a -> int) -> 'a t -> 'a t -> int
     val iter : ('a -> unit) -> 'a t -> unit
     val iteri : (int -> 'a -> unit) -> 'a t -> unit
     val map : ('a -> 'b) -> 'a t -> 'b t
@@ -401,6 +408,7 @@ module List :
     val rev_map : ('a -> 'b) -> 'a t -> 'b t
     val filter_map : ('a -> 'b option) -> 'a t -> 'b t
     val concat_map : ('a -> 'b t) -> 'a t -> 'b t
+    val fold_left_map : ('a -> 'b -> 'a * 'c) -> 'a -> 'b t -> 'a * 'c t
     val fold_left : ('a -> 'b -> 'a) -> 'a -> 'b t -> 'a
     val fold_right : ('a -> 'b -> 'b) -> 'a t -> 'b -> 'b
     val iter2 : ('a -> 'b -> unit) -> 'a t -> 'b t -> unit
@@ -419,7 +427,9 @@ module List :
     val find_map : ('a -> 'b option) -> 'a t -> 'b option
     val filter : ('a -> bool) -> 'a t -> 'a t
     val find_all : ('a -> bool) -> 'a t -> 'a t
+    val filteri : (int -> 'a -> bool) -> 'a t -> 'a t
     val partition : ('a -> bool) -> 'a t -> 'a t * 'a t
+    val partition_map : ('a -> ('b, 'c) Either.t) -> 'a t -> 'b t * 'c t
     val assoc : 'a -> ('a * 'b) t -> 'b
     val assoc_opt : 'a -> ('a * 'b) t -> 'b option
     val assq : 'a -> ('a * 'b) t -> 'b

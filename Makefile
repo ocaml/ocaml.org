@@ -55,7 +55,7 @@ start: all ## Run the produced executable
 
 .PHONY: test
 test: ## Run the unit tests
-	opam exec -- dune build --root . @runtest
+	opam exec -- dune build --root . @src/runtest
 
 .PHONY: clean
 clean: ## Clean build artifacts and other generated files
@@ -76,3 +76,21 @@ watch: ## Watch for the filesystem and rebuild on every change
 .PHONY: utop
 utop: ## Run a REPL and link with the project's libraries
 	opam exec -- dune utop --root . . -- -implicit-bindings
+
+.PHONY: gen-data
+gen-data: ## Generate the data files
+	opam exec -- dune exec --root . tool/ood-gen/bin/gen.exe -- academic_institution > src/ocamlorg_data/academic_institution.ml
+	opam exec -- dune exec --root . tool/ood-gen/bin/gen.exe -- book > src/ocamlorg_data/book.ml
+	opam exec -- dune exec --root . tool/ood-gen/bin/gen.exe -- event > src/ocamlorg_data/event.ml
+	opam exec -- dune exec --root . tool/ood-gen/bin/gen.exe -- industrial_user > src/ocamlorg_data/industrial_user.ml
+	opam exec -- dune exec --root . tool/ood-gen/bin/gen.exe -- paper > src/ocamlorg_data/paper.ml
+	opam exec -- dune exec --root . tool/ood-gen/bin/gen.exe -- release > src/ocamlorg_data/release.ml
+	opam exec -- dune exec --root . tool/ood-gen/bin/gen.exe -- success_story > src/ocamlorg_data/success_story.ml
+	opam exec -- dune exec --root . tool/ood-gen/bin/gen.exe -- tool > src/ocamlorg_data/tool.ml
+	opam exec -- dune exec --root . tool/ood-gen/bin/gen.exe -- tutorial > src/ocamlorg_data/tutorial.ml
+	opam exec -- dune exec --root . tool/ood-gen/bin/gen.exe -- video > src/ocamlorg_data/video.ml
+	opam exec -- dune exec --root . tool/ood-gen/bin/gen.exe -- watch > src/ocamlorg_data/watch.ml
+	opam exec -- dune exec --root . tool/ood-gen/bin/gen.exe -- news > src/ocamlorg_data/news.ml
+	opam exec -- dune exec --root . tool/ood-gen/bin/gen.exe -- opam_user > src/ocamlorg_data/opam_user.ml
+	opam exec -- dune exec --root . tool/ood-gen/bin/gen.exe -- workshop > src/ocamlorg_data/workshop.ml
+	opam exec -- dune build --root . --auto-promote @fmt

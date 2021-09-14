@@ -1,5 +1,7 @@
 (executable
  (name main)
+ (public_name server)
+ (package ocamlorg)
  (modules main)
  (libraries ocamlorg_web))
 

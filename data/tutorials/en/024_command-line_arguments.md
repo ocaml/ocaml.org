@@ -106,9 +106,8 @@ string.
 <!-- $MDX file=examples/append.ml,part=3 -->
 ```ocaml
 let speclist =
-  [
-    ("-verbose", Arg.Set verbose, "Output debug information");
-    ("-o", Arg.Set_string output_file, "Set output file name");
+  [ "-verbose", Arg.Set verbose, "Output debug information"
+  ; "-o", Arg.Set_string output_file, "Set output file name"
   ]
 ```
 

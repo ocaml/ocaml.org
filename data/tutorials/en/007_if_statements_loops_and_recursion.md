@@ -282,7 +282,7 @@ returns `unit`:
 ```ocaml
 # for i = 1 to 10 do i done
 Line 1, characters 20-21:
-Warning 10: this expression should have type unit.
+Warning 10 [non-unit-statement]: this expression should have type unit.
 - : unit = ()
 ```
 Functional programmers tend to use recursion instead of explicit loops,
@@ -1132,7 +1132,7 @@ The basics of arrays are simple:
 # let a = Array.create 10 0
 Line 1, characters 9-21:
 Alert deprecated: Stdlib.Array.create
-Use Array.make instead.
+Use Array.make/ArrayLabels.make instead.
 val a : int array = [|0; 0; 0; 0; 0; 0; 0; 0; 0; 0|]
 # for i = 0 to Array.length a - 1 do
   a.(i) <- i

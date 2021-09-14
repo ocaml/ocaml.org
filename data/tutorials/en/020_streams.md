@@ -645,6 +645,7 @@ module StringSet :
     val for_all : (elt -> bool) -> t -> bool
     val exists : (elt -> bool) -> t -> bool
     val filter : (elt -> bool) -> t -> t
+    val filter_map : (elt -> elt option) -> t -> t
     val partition : (elt -> bool) -> t -> t * t
     val cardinal : t -> int
     val elements : t -> elt list
@@ -664,6 +665,7 @@ module StringSet :
     val of_list : elt list -> t
     val to_seq_from : elt -> t -> elt Seq.t
     val to_seq : t -> elt Seq.t
+    val to_rev_seq : t -> elt Seq.t
     val add_seq : elt Seq.t -> t -> t
     val of_seq : elt Seq.t -> t
   end

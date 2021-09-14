@@ -797,7 +797,8 @@ Here is an example:
 <!-- $MDX file=examples/gc.ml -->
 ```ocaml
 let rec iterate r x_init i =
-  if i = 1 then x_init
+  if i = 1 then
+    x_init
   else
     let x = iterate r x_init (i - 1) in
     r *. x *. (1.0 -. x)

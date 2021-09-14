@@ -394,7 +394,7 @@ its head and tail. If we omit a case, OCaml will notice and warn us:
     match l with
     | h :: t -> h + total_wrong t
 Lines 2-3, characters 5-34:
-Warning 8: this pattern-matching is not exhaustive.
+Warning 8 [partial-match]: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 []
 val total_wrong : int list -> int = <fun>

@@ -16,7 +16,7 @@ let loader root path request =
     Dream.respond ~headers:(Dream.mime_lookup path) asset
 
 let media_loader _root path request =
-  match Ood_media.read path with
+  match Media.read path with
   | None ->
     Page_handler.not_found request
   | Some asset ->

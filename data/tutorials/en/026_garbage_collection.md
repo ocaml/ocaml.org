@@ -103,7 +103,8 @@ before quitting:
 <!-- $MDX file=examples/gc.ml -->
 ```ocaml
 let rec iterate r x_init i =
-  if i = 1 then x_init
+  if i = 1 then
+    x_init
   else
     let x = iterate r x_init (i - 1) in
     r *. x *. (1.0 -. x)
@@ -239,7 +240,10 @@ some low-level functions to read, write, lock and unlock records:
 <!-- $MDX file=examples/objcache.ml,part=0 -->
 ```ocaml
 (* In-memory format. *)
-type record = { mutable name : string; mutable address : string }
+type record =
+  { mutable name : string
+  ; mutable address : string
+  }
 
 (* On-disk format. *)
 let record_size = 256
@@ -325,16 +329,16 @@ let finaliser n record =
 let get_record n =
   match Weak.get cache n with
   | Some record ->
-      printf "*** objcache: fetching record %d from memory cache\n%!" n;
-      record
+    printf "*** objcache: fetching record %d from memory cache\n%!" n;
+    record
   | None ->
-      printf "*** objcache: loading record %d from disk\n%!" n;
-      let record = new_record () in
-      Gc.finalise (finaliser n) record;
-      lock_record n diskfile;
-      read_record record n diskfile;
-      Weak.set cache n (Some record);
-      record
+    printf "*** objcache: loading record %d from disk\n%!" n;
+    let record = new_record () in
+    Gc.finalise (finaliser n) record;
+    lock_record n diskfile;
+    read_record record n diskfile;
+    Weak.set cache n (Some record);
+    record
 ```
 
 The `sync_records` function is even easier. First of all it empties the

@@ -19,9 +19,9 @@
 
 (package
  (name ocamlorg-data)
- (synopsis "OCaml.Org Data")
+ (synopsis "OCaml.org data library")
  (description
-  "The ood library defines types for the different data types we store in this repository. It aims to be as platform agnostic as possible, that means just types no dependencies that could prevent someone from using the library.")
+  "The ocamlorg-data library defines types for the different data types we store in this repository. It aims to be as platform agnostic as possible, that means just types no dependencies that could prevent someone from using the library.")
  (depends
   (mdx
    (and
@@ -37,7 +37,7 @@
   (ocaml
    (>= 4.08.0))
   dune
-  (ood
+  (ocamlorg-data
    (= :version))
   crunch
   dream
