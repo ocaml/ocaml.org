@@ -47,4 +47,5 @@ build: [
 dev-repo: "git+https://github.com/ocaml/v3.ocaml.org-server.git"
 pin-depends: [
   ["dream-accept.0.1.0" "git+https://github.com/tmattio/dream-accept#main"]
+  ["ood.0.1.0" "git+https://github.com/ocaml/ood#main"]
 ]
