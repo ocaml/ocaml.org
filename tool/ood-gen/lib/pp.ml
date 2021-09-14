@@ -1,6 +1,8 @@
 let option fmt ppf = function
-  | Some v -> Fmt.pf ppf "Some %a" fmt v
-  | None -> Fmt.pf ppf "None"
+  | Some v ->
+    Fmt.pf ppf "Some %a" fmt v
+  | None ->
+    Fmt.pf ppf "None"
 
 let list fmt = Fmt.brackets (Fmt.list fmt ~sep:Fmt.semi)
 

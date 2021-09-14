@@ -1,20 +1,20 @@
-type source = {
-  name : string;
-  url : string;
-  tag : string;
-  articles : string list;
-}
+type source =
+  { name : string
+  ; url : string
+  ; tag : string
+  ; articles : string list
+  }
 [@@deriving yaml]
 
 type sources = { sources : source list } [@@deriving yaml]
 
-type metadata = {
-  title : string;
-  description : string option;
-  url : string;
-  date : string;
-  preview_image : string option;
-}
+type metadata =
+  { title : string
+  ; description : string option
+  ; url : string
+  ; date : string
+  ; preview_image : string option
+  }
 [@@deriving yaml]
 
 let decode_sources s =
@@ -30,14 +30,16 @@ let get_sync url =
   let open Lwt_result.Syntax in
   Lwt_main.run
     (let* response = Client.Oneshot.get (Uri.of_string url) in
-
-     if Status.is_successful response.status then Body.to_string response.body
+     if Status.is_successful response.status then
+       Body.to_string response.body
      else
        let message = Status.to_string response.status in
        Lwt.return (Error (`Msg message)))
 
 let pp_meta ppf v =
-  Fmt.pf ppf {|---
+  Fmt.pf
+    ppf
+    {|---
 %s---
 |}
     (metadata_to_yaml v |> Yaml.to_string |> Result.get_ok)
@@ -54,11 +56,13 @@ let scrape () =
           (fun (item : unit Ocamlrss.Rss.item_t) ->
             let guid =
               match item.Ocamlrss.Rss.item_guid with
-              | Some (Guid_permalink uri) -> Some (Uri.to_string uri)
-              | Some (Guid_name s) -> Some s
+              | Some (Guid_permalink uri) ->
+                Some (Uri.to_string uri)
+              | Some (Guid_name s) ->
+                Some s
               | None ->
-                  print_endline "No guid";
-                  None
+                print_endline "No guid";
+                None
             in
             try
               let guid = Option.get guid in
@@ -67,13 +71,16 @@ let scrape () =
               let desc = item.Ocamlrss.Rss.item_desc in
               let data = item.Ocamlrss.Rss.item_content in
               let content =
-                match (desc, data) with
-                | Some _, Some data -> data
-                | Some desc, None -> desc
-                | None, Some data -> data
+                match desc, data with
+                | Some _, Some data ->
+                  data
+                | Some desc, None ->
+                  desc
+                | None, Some data ->
+                  data
                 | None, None ->
-                    print_endline "No description or content:encoded";
-                    raise (Invalid_argument "")
+                  print_endline "No description or content:encoded";
+                  raise (Invalid_argument "")
               in
               let url =
                 item.Ocamlrss.Rss.item_link |> Option.get |> Uri.to_string
@@ -94,8 +101,10 @@ let scrape () =
                 let s = Format.asprintf "%a\n%s\n" pp_meta metadata content in
                 Printf.fprintf oc "%s" s;
                 close_out oc)
-            with Invalid_argument _ ->
-              Printf.printf "Skipping article %s\n"
+            with
+            | Invalid_argument _ ->
+              Printf.printf
+                "Skipping article %s\n"
                 (Option.value guid ~default:"<no guid>");
               ())
           items
@@ -103,15 +112,15 @@ let scrape () =
       ())
     sources.sources
 
-type t = {
-  title : string;
-  slug : string;
-  url : string;
-  description : string option;
-  date : string;
-  preview_image : string option;
-  body_html : string;
-}
+type t =
+  { title : string
+  ; slug : string
+  ; url : string
+  ; description : string option
+  ; date : string
+  ; preview_image : string option
+  ; body_html : string
+  }
 [@@deriving yaml]
 
 let all () =
@@ -119,19 +128,19 @@ let all () =
     (fun content ->
       let metadata, body = Utils.extract_metadata_body content in
       let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
-      {
-        title = metadata.title;
-        slug = Utils.slugify metadata.title;
-        description = metadata.description;
-        url = metadata.url;
-        date = metadata.date;
-        preview_image = metadata.preview_image;
-        body_html = String.trim body;
+      { title = metadata.title
+      ; slug = Utils.slugify metadata.title
+      ; description = metadata.description
+      ; url = metadata.url
+      ; date = metadata.date
+      ; preview_image = metadata.preview_image
+      ; body_html = String.trim body
       })
     "news/*/*.md"
 
 let pp ppf v =
-  Fmt.pf ppf
+  Fmt.pf
+    ppf
     {|
   { title = %a
   ; slug = %a
@@ -141,9 +150,20 @@ let pp ppf v =
   ; preview_image = %a
   ; body_html = %a
   }|}
-    Pp.string v.title Pp.string v.slug (Pp.option Pp.string) v.description
-    Pp.string v.url Pp.string v.date (Pp.option Pp.string) v.preview_image
-    Pp.string v.body_html
+    Pp.string
+    v.title
+    Pp.string
+    v.slug
+    (Pp.option Pp.string)
+    v.description
+    Pp.string
+    v.url
+    Pp.string
+    v.date
+    (Pp.option Pp.string)
+    v.preview_image
+    Pp.string
+    v.body_html
 
 let pp_list = Pp.list pp
 
@@ -162,4 +182,5 @@ type t =
   
 let all = %a
 |}
-    pp_list (all ())
+    pp_list
+    (all ())

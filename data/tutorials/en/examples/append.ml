@@ -17,9 +17,8 @@ let anon_fun filename = input_files := filename :: !input_files
 [@@@part "3"]
 
 let speclist =
-  [
-    ("-verbose", Arg.Set verbose, "Output debug information");
-    ("-o", Arg.Set_string output_file, "Set output file name");
+  [ "-verbose", Arg.Set verbose, "Output debug information"
+  ; "-o", Arg.Set_string output_file, "Set output file name"
   ]
 
 [@@@part "4"]

@@ -9,7 +9,6 @@ let () =
   Printf.fprintf oc "%s\n" message;
   (* write something *)
   close_out oc;
-
   (* flush and close the channel *)
 
   (* Read file and display the first line *)
@@ -23,7 +22,8 @@ let () =
     (* write on the underlying device now *)
     close_in ic
     (* close the input channel *)
-  with e ->
+  with
+  | e ->
     (* some unexpected exception occurs *)
     close_in_noerr ic;
     (* emergency closing *)
