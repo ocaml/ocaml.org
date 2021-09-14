@@ -1,0 +1,39 @@
+# This file aims to stay close to its upstream version: https://github.com/github/gitignore/blob/master/Node.gitignore
+# Yarn
+yarn-error.log
+
+# macOS
+.DS_Store
+
+# Vim
+*.swp
+*.swo
+
+# Node
+node_modules/
+/.nvmrc
+
+# Next.js
+.next/
+out
+
+# ReScript
+.bsb.lock
+.merlin
+/lib/
+/src/*.js
+/vendor/ood/src/*.js
+/pages/**/*.js
+!/pages/_app.js
+
+# Editor
+.github/
+.vscode/
+README.md
+Makefile
+LIVE_README.md
+CONTRIBUTING.md
+
+# Docker
+.dockerignore
+Dockerfile
