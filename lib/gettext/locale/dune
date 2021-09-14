@@ -1,0 +1,10 @@
+(ocamllex
+ (modules lexer))
+
+(ocamlyacc
+ (modules parser))
+
+(library
+ (name gettext_locale)
+ (public_name ocamlorg.gettext-locale)
+ (libraries))

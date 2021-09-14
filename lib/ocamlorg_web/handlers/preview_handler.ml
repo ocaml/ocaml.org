@@ -2,7 +2,7 @@ let index _req =
   Page_layout_template.render
     ~title:"Preview"
     ~description:Config.meta_description
-    Preview_index_template.render
+    (Preview_index_template.render ())
   |> Dream.html
 
 let slugify value =
@@ -35,5 +35,5 @@ let tutorials _req =
     ~title:"OCaml Tutorials · Learn OCaml by topic"
     ~description:
       "Start learning the OCaml language by topic with out official tutorial."
-    Preview_tutorials_template.render
+    (Preview_tutorials_template.render ())
   |> Dream.html

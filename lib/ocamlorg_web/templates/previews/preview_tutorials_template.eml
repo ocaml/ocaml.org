@@ -13,7 +13,7 @@ let render_tutorial name id image =
     </figure>
   </a>
 
-let render = 
+let render () = 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24 space-y-8">
   <section id="product-marketing" class="divide-y divide-gray-200" style="scroll-margin-top:6.25rem">
     <header class="pb-6">

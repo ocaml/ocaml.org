@@ -1,3 +1,5 @@
+open I18n
+
 let render (packages : Ocamlorg.Package.t list) =
 <header class="relative bg-orange-600 overflow-hidden">
   <div aria-hidden="true" class="absolute inset-0 -mt-12 md:mt-0">
@@ -13,7 +15,7 @@ let render (packages : Ocamlorg.Package.t list) =
     <div class="sm:pt-4 pb-10 sm:pb-14 flex flex-wrap items-center">
       <div class="w-full flex-none text-center xl:w-auto xl:flex-auto xl:text-left mt-10">
         <h1 class="font-display text-white text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10">
-          Opam Package Registry
+          <%s gettext "Opam Package Registry" %>
         </h1>
         <div
           class="flex flex-wrap justify-center xl:justify-start whitespace-no-wrap text-orange-100 font-medium mt-3 leading-5">
@@ -26,7 +28,7 @@ let render (packages : Ocamlorg.Package.t list) =
               </svg>
             </div>
             <div>
-              3434 Packages
+              <%s (fngettext "%i Package" "%i Packages" 3434) 3434 %>
             </div>
           </div>
           <div class="flex items-center mx-3 sm:mx-4 xl:ml-0 xl:mr-8 mt-3">
@@ -37,7 +39,9 @@ let render (packages : Ocamlorg.Package.t list) =
                   d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
               </svg>
             </div>
-            <div>19476 Versions</div>
+            <div>
+              <%s (fngettext "%i Version" "%i Versions" 19476) 19476 %>
+            </div>
           </div>
           <div class="flex items-center mx-3 sm:mx-4 xl:mx-0 mt-3">
             <div class="mr-2">
@@ -47,7 +51,9 @@ let render (packages : Ocamlorg.Package.t list) =
                   d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <div>36960 Universes</div>
+            <div>
+              <%s (fngettext "%i Universe" "%i Universes" 36960) 36960 %>
+            </div>
           </div>
         </div>
       </div>
@@ -60,7 +66,7 @@ let render (packages : Ocamlorg.Package.t list) =
                 <path fill-rule="evenodd" clip-rule="evenodd"
                   d="M12 2C6.477 2 2 6.463 2 11.97c0 4.404 2.865 8.14 6.839 9.458.5.092.682-.216.682-.48 0-.236-.008-.864-.013-1.695-2.782.602-3.369-1.337-3.369-1.337-.454-1.151-1.11-1.458-1.11-1.458-.908-.618.069-.606.069-.606 1.003.07 1.531 1.027 1.531 1.027.892 1.524 2.341 1.084 2.91.828.092-.643.35-1.083.636-1.332-2.22-.251-4.555-1.107-4.555-4.927 0-1.088.39-1.979 1.029-2.675-.103-.252-.446-1.266.098-2.638 0 0 .84-.268 2.75 1.022A9.606 9.606 0 0112 6.82c.85.004 1.705.114 2.504.336 1.909-1.29 2.747-1.022 2.747-1.022.546 1.372.202 2.386.1 2.638.64.696 1.028 1.587 1.028 2.675 0 3.83-2.339 4.673-4.566 4.92.359.307.678.915.678 1.846 0 1.332-.012 2.407-.012 2.734 0 .267.18.577.688.48C19.137 20.107 22 16.373 22 11.969 22 6.463 17.522 2 12 2z">
                 </path>
-              </svg><span>Visit Repository</span>
+              </svg><span><%s gettext "Visit Repository" %></span>
             </div>
           </a></div><a href="https://github.com/ocaml/opam-repository" class="group flex">
         </a>
@@ -74,7 +80,7 @@ let render (packages : Ocamlorg.Package.t list) =
       <div class="flex-1 flex justify-between px-4 sm:px-6">
         <div class="flex-1 flex">
           <form class="w-full flex md:ml-0" action="/packages/search" method="GET">
-            <label for="q" class="sr-only">Search packages</label>
+            <label for="q" class="sr-only"><%s gettext "Search packages" %></label>
             <div class="relative w-full text-gray-400 focus-within:text-gray-600">
               <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center">
                 <svg class="flex-shrink-0 h-5 w-5" x-description="Heroicon name: solid/search"
@@ -98,9 +104,9 @@ let render (packages : Ocamlorg.Package.t list) =
   <div class="max-w-7xl mx-auto">
     <div class="py-6 px-4 sm:px-6 lg:px-8 border-b border-gray-200">
       <h3 class="text-lg leading-6 font-medium text-gray-900">
-        Search Results
+        <%s gettext "Search Results" %>
       </h3>
-      <p class="mt-2 max-w-4xl text-sm text-gray-500">Found <span class="font-bold"><%i List.length packages %></span> packages.</p>
+      <p class="mt-2 max-w-4xl text-sm text-gray-500"><%s (fngettext "Found %i package." "Found %i packages." (List.length packages)) (List.length packages) %></p>
     </div>
     <div class="py-6 sm:px-6 lg:px-8">
       <div class="bg-white shadow overflow-hidden sm:rounded-md">
@@ -112,7 +118,7 @@ let render (packages : Ocamlorg.Package.t list) =
             let package_synopsis = package_info.Ocamlorg.Package.Info.synopsis in
             let package_license = 
               match package_info.Ocamlorg.Package.Info.license with
-              | "" -> "No License"
+              | "" -> gettext "No License"
               | l -> l
             in
             %>

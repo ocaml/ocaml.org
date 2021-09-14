@@ -59,7 +59,7 @@ let render ?(extra_nav="") ~title ~description ~tab ~package ~status ~versions i
     </head>
 
     <body class="antialiased">
-      <%s! Header_template.render %>
+      <%s! Header_template.render () %>
       <main class="bg-gray-50 pt-4 pb-8 sm:pt-6 sm:pb-12">
         <div class="max-w-7xl mx-auto pb-5 px-4 sm:px-6 lg:px-8 lg:flex lg:justify-between">
           <div class="max-w-xl">
@@ -95,6 +95,6 @@ let render ?(extra_nav="") ~title ~description ~tab ~package ~status ~versions i
           <%s! inner %>
         </div>
       </main>
-      <%s! Footer_template.render %>
+      <%s! Footer_template.render () %>
     </body>
   </html>

@@ -28,6 +28,14 @@ let site_route =
     [ Middleware.i18n ]
     [ Dream.get "/**" (Dream.static ~loader:v3_loader Config.site_dir) ]
 
+let pages_routes =
+  Dream.scope
+    ""
+    []
+    [ Dream.get Url.principles_successes Page_handler.success_stories
+    ; Dream.get (Url.principles_successes ^ "/:id") Page_handler.success_story
+    ]
+
 let preview_routes =
   Dream.scope
     "/preview"
@@ -71,7 +79,8 @@ let graphql_route t =
 
 let router t =
   Dream.router
-    [ package_route t
+    [ pages_routes
+    ; package_route t
     ; graphql_route t
     ; preview_routes
     ; Dream.get "/assets/**" (Dream.static ~loader "")

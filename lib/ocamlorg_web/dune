@@ -1,6 +1,6 @@
 (library
  (name ocamlorg_web)
- (libraries dream dream-cli omd ocamlorg ood ood.media))
+ (libraries dream dream-cli dream-accept omd ocamlorg ood ood.media gettext))
 
 (rule
  (targets asset.ml)
@@ -11,5 +11,14 @@
   (with-stdout-to
    %{null}
    (run %{bin:ocaml-crunch} -m plain ../../asset -o %{targets}))))
+
+(rule
+ (targets gettext_asset.ml)
+ (deps
+  (source_tree ../../gettext/))
+ (action
+  (with-stdout-to
+   %{null}
+   (run %{bin:ocaml-crunch} -m plain ../../gettext -e po -o %{targets}))))
 
 (include_subdirs unqualified)

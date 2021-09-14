@@ -1,0 +1,4 @@
+(tests
+ (names gettext_test)
+ (package ocamlorg)
+ (libraries alcotest gettext gettext_po))

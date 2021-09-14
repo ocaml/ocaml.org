@@ -1,0 +1,16 @@
+let render (story : Ood.Success_story.t) =
+  let open Ood.Success_story in
+  <%s! Header_section_template.render "Success Stories" %>
+  <div
+    class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-4 pb-8">
+    <section class="lg:col-start-2 lg:col-span-3">
+      <div class="bg-white shadow sm:rounded-lg">
+        <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+          <div class="prose prose-orange max-w-3xl mx-auto relative py-8 lg:px-8">
+            <h2><%s story.title %></h2>
+            <%s! story.body_html %>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>

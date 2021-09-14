@@ -27,3 +27,15 @@
  (deps packages_template.eml)
  (action
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets success_story_template.ml)
+ (deps success_story_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets success_stories_template.ml)
+ (deps success_stories_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
