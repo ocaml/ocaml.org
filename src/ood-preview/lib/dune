@@ -1,0 +1,35 @@
+(library
+ (name ood_preview)
+ (libraries ood ood.media dream dream-cli dream-livereload))
+
+(rule
+ (targets asset.ml)
+ (deps
+  ../asset/main.css
+  (source_tree ../asset))
+ (action
+  (with-stdout-to
+   %{null}
+   (run
+    %{bin:ocaml-crunch}
+    -e
+    ico
+    -e
+    jpeg
+    -e
+    png
+    -e
+    js
+    -e
+    svg
+    -e
+    txt
+    -e
+    css
+    -m
+    plain
+    ../asset
+    -o
+    %{targets}))))
+
+(include_subdirs unqualified)

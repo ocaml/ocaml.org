@@ -1,0 +1,17 @@
+let render_video (video : Ood.Video.t) = 
+  let open Ood.Video in
+  <li class="relative">
+    <iframe class="bg-black mx-auto" x-ref="player" src="<%s video.embed |> Option.get %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    <p class="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none"><%s video.title %></p>
+    <p class="block text-sm font-medium text-gray-500 pointer-events-none truncate"><%s video.description %></p>
+  </li>
+
+let render videos = 
+  <%s! Header_section_template.render "Videos" %>
+  <div class="relative bg-white py-16 sm:py-24 lg:py-32">
+    <div class="mx-auto max-w-md px-4 text-center sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
+      <ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-8">
+        <%s! List.map render_video videos |> String.concat "" %>
+      </ul>
+    </div>
+  </div>

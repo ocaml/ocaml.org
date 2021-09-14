@@ -1,0 +1,23 @@
+(rule
+ (target main.css)
+ (package ood-preview)
+ (deps
+  (:data ../config/tailwind.config.js)
+  (source_tree ../node_modules)
+  (source_tree ../lib/templates))
+ (mode
+  (promote (until-clean)))
+ (action
+  (chdir
+   %{workspace_root}
+   ; We use node_modules/tailwindcss/lib/cli.js instead of `npx tailwindcss`
+   ; because dune won't include node_modules/.bin in the build, no matter
+   ; what I do.
+   (run
+    node
+    node_modules/tailwindcss/lib/cli.js
+    build
+    -c
+    src/ood-preview/config/tailwind.config.js
+    -o
+    %{target}))))

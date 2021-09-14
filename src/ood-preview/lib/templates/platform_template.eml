@@ -1,0 +1,133 @@
+[@@@ocaml.warning "-40"]
+
+let render_tool (tool : Ood.Tool.t) =
+  let open Ood.Tool in
+  <li>
+    <div class="flex items-center px-4 py-4 sm:px-6 hover:bg-gray-50">
+      <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+        <div>
+          <p class="text- font-medium text-orangedark truncate"><%s tool.name %></p>
+          <p class="mt-2 flex items-center text-sm text-gray-500">
+            <span class="truncate"><%s tool.synopsis %></span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </li>
+
+let render tools = 
+  let incubate = List.filter (fun (x : Ood.Tool.t) -> x.lifecycle = `Incubate) tools in
+  let active = List.filter (fun (x : Ood.Tool.t) -> x.lifecycle = `Active) tools in
+  let sustain = List.filter (fun (x : Ood.Tool.t) -> x.lifecycle = `Sustain) tools in
+  let deprecate = List.filter (fun (x : Ood.Tool.t) -> x.lifecycle = `Deprecate) tools in
+  <%s! Header_section_template.render ~subtitle:"The OCaml Platform represents the best way for developers, both new and old, to write software in OCaml. It combines the core OCaml compiler with a coherent set of tools, documentation, libraries and testing resources." "OCaml Platform" %>
+  <div class="relative bg-white py-16 sm:py-24 lg:py-32">
+    <div class="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
+      <div class="flow-root">
+        <ul class="-mb-8">
+          <li>
+            <div class="relative pb-8">
+              <span class="absolute top-7 left-7 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+              <div class="relative flex items-start space-x-3">
+                <div class="relative">
+                  <div class="h-14 w-14 bg-blue-400 rounded-full ring-8 ring-white flex items-center justify-center"></div>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <div>
+                    <div class="text-lg">
+                      <span href="#" class="font-medium text-gray-900">Incubate</span>
+                      <p class="mt-0.5 text-sm text-gray-500">New tools that fill a gap in the ecosystem but are not quite ready for wide-scale release and adoption.</p>
+                    </div>
+                  </div>
+                  <div class="mt-8 text-gray-700">
+                    <div class="bg-white shadow overflow-hidden sm:rounded-md max-w-6xl">
+                      <ul class="divide-y divide-gray-200">
+                        <%s! List.map render_tool incubate |> String.concat "" %>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="relative pb-8">
+              <span class="absolute top-7 left-7 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+              <div class="relative flex items-start space-x-3">
+                <div class="relative">
+                  <div class="h-14 w-14 bg-green-400 rounded-full ring-8 ring-white flex items-center justify-center"></div>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <div>
+                    <div class="text-lg">
+                      <span href="#" class="font-medium text-gray-900">Active</span>
+                      <p class="mt-0.5 text-sm text-gray-500">The work-horse tools that are used daily with strong backwards compatibility guarentees from the community.</p>
+                    </div>
+                  </div>
+                  <div class="mt-8 text-gray-700">
+                    <div class="bg-white shadow overflow-hidden sm:rounded-md max-w-6xl">
+                      <ul class="divide-y divide-gray-200">
+                        <%s! List.map render_tool active |> String.concat "" %>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="relative pb-8">
+              <span class="absolute top-7 left-7 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+              <div class="relative flex items-start space-x-3">
+                <div class="relative">
+                  <div class="h-14 w-14 bg-pink-400 rounded-full ring-8 ring-white flex items-center justify-center"></div>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <div>
+                    <div class="text-lg">
+                      <span href="#" class="font-medium text-gray-900">Sustain</span>
+                      <p class="mt-0.5 text-sm text-gray-500">Tools that will not likely see any major feature added but can be used reliably even if not being actively developed.</p>
+                    </div>
+                  </div>
+                  <div class="mt-8 text-gray-700">
+                    <div class="bg-white shadow overflow-hidden sm:rounded-md max-w-6xl">
+                      <ul class="divide-y divide-gray-200">
+                        <%s! List.map render_tool sustain |> String.concat "" %>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="relative pb-8">
+              <div class="relative flex items-start space-x-3">
+                <div class="relative">
+                  <div class="h-14 w-14 bg-red-400 rounded-full ring-8 ring-white flex items-center justify-center"></div>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <div>
+                    <div class="text-lg">
+                      <span href="#" class="font-medium text-gray-900">Deprecate</span>
+                      <p class="mt-0.5 text-sm text-gray-500">Tools that are gradually being phased out of use.</p>
+                    </div>
+                  </div>
+                  <div class="mt-8 text-gray-700">
+                    <div class="bg-white shadow overflow-hidden sm:rounded-md max-w-6xl">
+                      <ul class="divide-y divide-gray-200">
+                        <%s! List.map render_tool deprecate |> String.concat "" %>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>

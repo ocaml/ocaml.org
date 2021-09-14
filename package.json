@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "OCaml.org website",
   "author": "Thibaut Mattio",
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
     "@tailwindcss/aspect-ratio": "^0.2.1",
     "@tailwindcss/forms": "^0.3.3",
