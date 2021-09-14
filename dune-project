@@ -18,7 +18,7 @@
 (using mdx 0.1)
 
 (package
- (name ood)
+ (name ocamlorg-data)
  (synopsis "OCaml.Org Data")
  (description
   "The ood library defines types for the different data types we store in this repository. It aims to be as platform agnostic as possible, that means just types no dependencies that could prevent someone from using the library.")

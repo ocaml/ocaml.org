@@ -1,6 +1,6 @@
 (library
  (name ood_media)
- (public_name ood.media))
+ (public_name ocamlorg-data.media))
 
 (rule
  (targets ood_media.ml)

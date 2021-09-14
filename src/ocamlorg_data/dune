@@ -1,6 +1,6 @@
 (library
  (name ood)
- (public_name ood))
+ (public_name ocamlorg-data))
 
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
