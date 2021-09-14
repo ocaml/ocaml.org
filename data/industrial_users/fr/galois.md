@@ -1,0 +1,12 @@
+---
+name: Galois
+description: >
+  Galois a développé un langage déclaratif dédié pour les algorithmes cryptographiques
+site: "https://www.galois.com"
+image: /users/galois.png
+locations:
+  - États-Unis
+consortium: false
+---
+
+Galois a développé un langage déclaratif dédié pour les algorithmes cryptographiques. L'un de nos compilateurs de recherche est écrit en OCaml et fait un usage très intensif de camlp4.

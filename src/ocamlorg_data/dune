@@ -1,0 +1,3 @@
+(library
+ (name ood)
+ (public_name ocamlorg-data))

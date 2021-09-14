@@ -1,0 +1,29 @@
+(executable
+ (name gen)
+ (modules gen)
+ (libraries cmdliner ood_gen))
+
+(executable
+ (name scrape)
+ (modules scrape)
+ (libraries cmdliner ood_gen))
+
+(executable
+ (name watch_scrape)
+ (modules watch_scrape)
+ (libraries yaml ezjsonm piaf))
+
+(executable
+ (name lint)
+ (modules lint)
+ (libraries cmdliner bos alcotest ood_gen))
+
+(rule
+ (alias runtest)
+ (deps
+  lint.exe
+  (source_tree %{workspace_root}/data))
+ (action
+  (chdir
+   %{workspace_root}
+   (run tool/ood-gen/bin/lint.exe lint))))

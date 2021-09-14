@@ -1,0 +1,50 @@
+opam-users:
+
+  - name: "Xavier Leroy"
+    github_username: "xavierleroy"
+    avatar: "https://avatars.githubusercontent.com/u/3845810?v=4"
+
+  - name: "Damien Doligez"
+    github_username: "damiendoligez"
+    avatar: "https://avatars.githubusercontent.com/u/19104?v=4"
+
+  - name: "David Allsopp"
+    github_username: "dra27"
+    avatar: "https://avatars.githubusercontent.com/u/5250680?v=4"
+
+  - name: "Alain Frisch"
+    github_username: "alainfrisch"
+    avatar: "https://avatars.githubusercontent.com/u/3305274?v=4"
+
+  - name: "Gabriel Scherer"
+    github_username: "gasche"
+    avatar: "https://avatars.githubusercontent.com/u/426238?v=4"
+
+  - name: "Jacques Garrigue"
+    github_username: "garrigue"
+    avatar: "https://avatars.githubusercontent.com/u/870242?v=4"
+
+  - name: "Thibaut Mattio"
+    email: thibaut.mattio@gmail.com
+    github_username: "tmattio"
+    avatar: "https://avatars.githubusercontent.com/u/6162008?v=4"
+
+  - name: "Anton Bachin"
+    github_username: "aantron"
+    avatar: "https://avatars.githubusercontent.com/u/12073668?v=4"
+
+  - name: "Patrick Ferris"
+    github_username: "patricoferris"
+    avatar: "https://avatars.githubusercontent.com/u/20166594?v=4"
+
+  - name: "Didier Rémy"
+    github_username: "diremy"
+    avatar: "https://avatars.githubusercontent.com/u/1357930?v=4"
+
+  - name: "Gabriel Radanne"
+    github_username: "Drup"
+    avatar: "https://avatars.githubusercontent.com/u/801124?v=4"
+
+  - name: "Daniel Bünzli"
+    github_username: "dbuenzli"
+    avatar: "https://avatars.githubusercontent.com/u/485596?v=4"

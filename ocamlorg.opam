@@ -12,7 +12,8 @@ doc: "https://ocaml.github.io/v3.ocaml.org-server/"
 bug-reports: "https://github.com/ocaml/v3.ocaml.org-server/issues"
 depends: [
   "ocaml" {>= "4.08.0"}
-  "dune" {>= "2.7"}
+  "dune" {>= "2.8"}
+  "ocamlorg-data" {= version}
   "crunch"
   "dream"
   "dream-cli"
@@ -26,7 +27,6 @@ depends: [
   "yojson"
   "cohttp"
   "cohttp-lwt-unix"
-  "ood"
   "alcotest" {with-test}
   "odoc" {with-doc}
 ]
@@ -47,5 +47,4 @@ build: [
 dev-repo: "git+https://github.com/ocaml/v3.ocaml.org-server.git"
 pin-depends: [
   ["dream-accept.0.1.0" "git+https://github.com/tmattio/dream-accept#main"]
-  ["ood.0.1.0" "git+https://github.com/ocaml/ood#main"]
 ]
