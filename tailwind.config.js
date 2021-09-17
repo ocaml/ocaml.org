@@ -3,7 +3,7 @@ const colors = require('tailwindcss/colors')
 
 module.exports = {
   mode: "jit",
-  purge: ["**/*.eml", "lib/odoc_thtml/*.ml"],
+  purge: ["**/*.eml"],
   darkMode: false,
   theme: {
     extend: {

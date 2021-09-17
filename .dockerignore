@@ -1,9 +1,9 @@
 *
 !asset/
-!bin/
-!lib/
+!src/
 !dune
 !dune-project
 !ocamlorg.opam
+!ocamlorg-data.opam
 !package.json
 !tailwind.config.js

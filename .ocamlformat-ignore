@@ -1,5 +1,3 @@
-src/ocamlorg_web/templates/*.eml
-
 src/ocamlorg_data/*.ml
 src/ocamlorg_data/*/*.ml
 

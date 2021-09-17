@@ -6,8 +6,6 @@ let community_around_web = "/community/aroundweb"
 
 let community_events = "/community/events"
 
-let community_event_oud2020 = "/community/event/oud2020"
-
 let community_media_archive = "/community/mediaarchive"
 
 let community_news = "/community/blog"
@@ -30,9 +28,10 @@ let legal_privacy = "/legal/privacy"
 
 let legal_terms = "/legal/terms"
 
-let resources_basics = "/resources/basics"
+let resources_tutorials = "/resources/tutorials"
 
-let resources_install_ocaml = "/resources/installocaml"
+let resources_install_ocaml =
+  "/resources/tutorials/up-and-running-with-ocaml/#installing-ocaml"
 
 let resources_applications = "/resources/applications"
 

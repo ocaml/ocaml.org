@@ -11,14 +11,6 @@ let slugify value =
   |> String.lowercase_ascii
   |> Str.global_replace (Str.regexp "[^a-z0-9\\-]") ""
 
-let papers _req =
-  let papers = Ood.Paper.all in
-  Page_layout_template.render
-    ~title:"Papers"
-    ~description:"???"
-    (Preview_papers_template.render papers)
-  |> Dream.html
-
 let industrial_users _req =
   let industrial_users = Ood.Industrial_user.all_en in
   Page_layout_template.render
@@ -114,31 +106,4 @@ let news _req =
     ~title:"News"
     ~description:"???"
     (Preview_news_template.render news)
-  |> Dream.html
-
-let tutorial req =
-  let slug = Dream.param "id" req in
-  match
-    List.find_opt
-      (fun x -> slugify x.Ood.Tutorial.title = slug)
-      Ood.Tutorial.all
-  with
-  | Some tutorial ->
-    Page_layout_template.render
-      ~title:(Printf.sprintf "%s · OCaml Tutorials" tutorial.Ood.Tutorial.title)
-      ~description:tutorial.Ood.Tutorial.description
-      (Preview_tutorial_template.render
-         (fun x -> slugify x.Ood.Tutorial.title)
-         Ood.Tutorial.all
-         tutorial)
-    |> Dream.html
-  | None ->
-    Dream.not_found req
-
-let tutorials _req =
-  Page_layout_template.render
-    ~title:"OCaml Tutorials · Learn OCaml by topic"
-    ~description:
-      "Start learning the OCaml language by topic with out official tutorial."
-    (Preview_tutorials_template.render ())
   |> Dream.html

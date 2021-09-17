@@ -39,17 +39,18 @@
   dune
   (ocamlorg-data
    (= :version))
+  cohttp
+  cohttp-lwt-unix
+  bos
   crunch
   dream
   dream-cli
   dream-accept
   fpath
   fmt
-  opam-format
   logs
   omd
-  bos
+  opam-format
+  timedesc
   yojson
-  cohttp
-  cohttp-lwt-unix
   (alcotest :with-test)))

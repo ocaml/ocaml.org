@@ -44,8 +44,6 @@ let render () =
     <div class="max-w-7xl mx-auto pb-5 px-4 sm:px-6 lg:px-8">
       <div class="relative">
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <%s! render_link "Tutorials" "The OCaml tutorials" "tutorials" tutorials_icon %>
-          <%s! render_link "Papers" "The OCaml tutorials" "papers" tutorials_icon %>
           <%s! render_link "Industrial_users" "Compagnies using OCaml" "industrial-users" tutorials_icon %>
           <%s! render_link "Academic institutions" "OCaml in the academy" "academic-institutions" tutorials_icon %>
           <%s! render_link "Consortium" "The OCaml consortium" "consortium" tutorials_icon %>
