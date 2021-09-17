@@ -1,5 +1,6 @@
 # Unreleased
 
+- Add turbo drive to accelerate SSR pages navigation (#???, by @tmattio)
 - Merge frontend (#92, by @tmattio)
 - Merge ood (#91, by @tmattio)
 - Add initial i18n support (#84, by @tmattio)
