@@ -1,13 +1,3 @@
-let v3_loader root path =
-  let path =
-    let fpath = Fpath.v path in
-    if Fpath.is_dir_path fpath || not (Fpath.exists_ext fpath) then
-      Filename.concat path "index.html"
-    else
-      path
-  in
-  Dream.from_filesystem root path
-
 let loader root path request =
   match Asset.read (root ^ path) with
   | None ->
@@ -22,28 +12,68 @@ let media_loader _root path request =
   | Some asset ->
     Dream.respond asset
 
-let site_route =
-  Dream.scope
-    ""
-    [ Middleware.i18n ]
-    [ Dream.get "/**" (Dream.static ~loader:v3_loader Config.site_dir) ]
-
-let pages_routes =
-  Dream.scope
-    ""
-    []
-    [ Dream.get Url.principles_successes Page_handler.success_stories
-    ; Dream.get (Url.principles_successes ^ "/:id") Page_handler.success_story
-    ]
-
 let preview_routes =
   Dream.scope
     "/preview"
     []
     [ Dream.get "" Preview_handler.index
-    ; Dream.get "/tutorials" Preview_handler.tutorials
-    ; Dream.get "/tutorials/:id" Preview_handler.tutorial
+    ; Dream.get "/industrial-users" Preview_handler.industrial_users
+    ; Dream.get "/academic-excellence" Preview_handler.academic_institutions
+    ; Dream.get "/consortium" Preview_handler.consortium
+    ; Dream.get "/books" Preview_handler.books
+    ; Dream.get "/events" Preview_handler.events
+    ; Dream.get "/videos" Preview_handler.videos
+    ; Dream.get "/watch" Preview_handler.watch
+    ; Dream.get "/tools" Preview_handler.tools
+    ; Dream.get "/news" Preview_handler.news
+    ; Dream.get "/workshops" Preview_handler.workshops
+    ; Dream.get "/workshops/:id" Preview_handler.workshop
     ; Dream.get "/media/**" (Dream.static ~loader:media_loader "")
+    ]
+
+let page_routes =
+  Dream.scope
+    ""
+    []
+    [ Dream.get Url.index Page_handler.index
+    ; Dream.get Url.history Page_handler.history
+    ; Dream.get Url.community_around_web Page_handler.community_around_web
+    ; Dream.get Url.community_events Page_handler.community_events
+    ; Dream.get Url.community_media_archive Page_handler.community_media_archive
+    ; Dream.get Url.community_news Page_handler.community_news
+    ; Dream.get Url.community_news_archive Page_handler.community_news_archive
+    ; Dream.get Url.community_opportunities Page_handler.community_opportunities
+    ; Dream.get Url.principles_successes Page_handler.principles_successes
+    ; Dream.get
+        Url.principles_industrial_users
+        Page_handler.principles_industrial_users
+    ; Dream.get Url.principles_academic Page_handler.principles_academic
+    ; Dream.get
+        Url.principles_what_is_ocaml
+        Page_handler.principles_what_is_ocaml
+    ; Dream.get Url.legal_carbon_footprint Page_handler.legal_carbon_footprint
+    ; Dream.get Url.legal_privacy Page_handler.legal_privacy
+    ; Dream.get Url.legal_terms Page_handler.legal_terms
+    ; Dream.get Url.resources_applications Page_handler.resources_applications
+    ; Dream.get Url.resources_archive Page_handler.resources_archive
+    ; Dream.get
+        Url.resources_best_practices
+        Page_handler.resources_best_practices
+    ; Dream.get
+        Url.resources_developing_in_ocaml
+        Page_handler.resources_developing_in_ocaml
+    ; Dream.get Url.resources_language Page_handler.resources_language
+    ; Dream.get Url.resources_papers Page_handler.resources_papers
+    ; Dream.get
+        Url.resources_papers_archive
+        Page_handler.resources_papers_archive
+    ; Dream.get Url.resources_platform Page_handler.resources_platform
+    ; Dream.get Url.resources_releases Page_handler.resources_releases
+    ; Dream.get Url.resources_tutorials Page_handler.resources_tutorials
+    ; Dream.get
+        (Url.resources_tutorials ^ "/:id")
+        Page_handler.resources_tutorial
+    ; Dream.get Url.resources_using_ocaml Page_handler.resources_using_ocaml
     ]
 
 let package_route t =
@@ -79,7 +109,7 @@ let graphql_route t =
 
 let router t =
   Dream.router
-    [ pages_routes
+    [ page_routes
     ; package_route t
     ; graphql_route t
     ; preview_routes
@@ -88,5 +118,4 @@ let router t =
     ; Dream.get "/media/**" (Dream.static ~loader:media_loader "")
       (* Last one so that we don't apply the index html middleware on every
          route. *)
-    ; site_route
     ]

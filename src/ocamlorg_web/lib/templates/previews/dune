@@ -11,12 +11,6 @@
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
 
 (rule
- (targets preview_papers_template.ml)
- (deps preview_papers_template.eml)
- (action
-  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
-
-(rule
  (targets preview_industrial_users_template.ml)
  (deps preview_industrial_users_template.eml)
  (action
@@ -55,18 +49,6 @@
 (rule
  (targets preview_news_template.ml)
  (deps preview_news_template.eml)
- (action
-  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
-
-(rule
- (targets preview_tutorial_template.ml)
- (deps preview_tutorial_template.eml)
- (action
-  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
-
-(rule
- (targets preview_tutorials_template.ml)
- (deps preview_tutorials_template.eml)
  (action
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
 

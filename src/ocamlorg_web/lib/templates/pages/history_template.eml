@@ -1,0 +1,144 @@
+let render () =
+<main class="relative bg-graylight">
+  <div class="mx-auto">
+    <div class=" mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h1 class=" text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">History</h1>
+        <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500">A history of ocaml.org.</p>
+      </div>
+    </div>
+    <div class="py-12 px-4 ">
+      <div class="max-w-7xl mx-auto">
+        <div class="flow-root">
+          <ul class="-mb-8">
+            <li>
+              <div class="relative pb-8"><span aria-hidden="true"
+                  class="absolute top-5 left-5 ml-0.5 h-full w-0.5 bg-yellowdark"></span>
+                <div class="relative flex items-start space-x-3">
+                  <div class="h-11 w-11 bg-yellowdark rounded-full flex"></div>
+                  <div class="min-w-0 flex-1">
+                    <div class="text-3xl font-bold text-gray-900 mb-4">Nov 2020</div>
+                    <div class="mt-2 text-base text-gray-700">
+                      <p>A team of programmers, designers, and content writers begins working full-time on a new
+                        implementation.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="relative pb-8"><span aria-hidden="true"
+                  class="absolute top-5 left-5 ml-0.5 h-full w-0.5 bg-yellowdark"></span>
+                <div class="relative flex items-start space-x-3">
+                  <div class="h-11 w-11 bg-yellowdark rounded-full flex"></div>
+                  <div class="min-w-0 flex-1">
+                    <div class="text-3xl font-bold text-gray-900 mb-4">2014 - 2020</div>
+                    <div class="mt-2 text-base text-gray-700">
+                      <p>Christophe Troestler and Anil Madhavapeddy continue to maintain the site with contributions
+                        from 250 more volunteers.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="relative pb-8"><span aria-hidden="true"
+                  class="absolute top-5 left-5 ml-0.5 h-full w-0.5 bg-yellowdark"></span>
+                <div class="relative flex items-start space-x-3">
+                  <div class="h-11 w-11 bg-yellowdark rounded-full flex"></div>
+                  <div class="min-w-0 flex-1">
+                    <div class="text-3xl font-bold text-gray-900 mb-4">2013</div>
+                    <div class="mt-2 text-base text-gray-700">
+                      <p>Philippe Wang adds significant support for content editing with new templating and markdown
+                        libraries. Amir Chaudry manages a new design with OneSpace Media. Along with Christophe
+                        Troestler, Ashish Agarwal, and Anil Madhavapeddy, there are now a total of 50 contributors.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="relative pb-8"><span aria-hidden="true"
+                  class="absolute top-5 left-5 ml-0.5 h-full w-0.5 bg-yellowdark"></span>
+                <div class="relative flex items-start space-x-3">
+                  <div class="h-11 w-11 bg-yellowdark rounded-full flex"></div>
+                  <div class="min-w-0 flex-1">
+                    <div class="text-3xl font-bold text-gray-900 mb-4">Dec 18, 2012</div>
+                    <div class="mt-2 text-base text-gray-700">
+                      <p>The new website is live and [announced](link to caml-list email) to the OCaml community. The
+                        old site caml.inria.fr is deprecated.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="relative pb-8"><span aria-hidden="true"
+                  class="absolute top-5 left-5 ml-0.5 h-full w-0.5 bg-yellowdark"></span>
+                <div class="relative flex items-start space-x-3">
+                  <div class="h-11 w-11 bg-yellowdark rounded-full flex"></div>
+                  <div class="min-w-0 flex-1">
+                    <div class="text-3xl font-bold text-gray-900 mb-4">Sep 27, 2012</div>
+                    <div class="mt-2 text-base text-gray-700">
+                      <p>Xavier Leroy approves use of the ocaml.org domain for the new site.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="relative pb-8"><span aria-hidden="true"
+                  class="absolute top-5 left-5 ml-0.5 h-full w-0.5 bg-yellowdark"></span>
+                <div class="relative flex items-start space-x-3">
+                  <div class="h-11 w-11 bg-yellowdark rounded-full flex"></div>
+                  <div class="min-w-0 flex-1">
+                    <div class="text-3xl font-bold text-gray-900 mb-4">2012</div>
+                    <div class="mt-2 text-base text-gray-700">
+                      <p>The website is actively developed by Christophe Troestler, Ashish Agarwal, Esther Baruk, and 10
+                        other volunteers. Anil Madhavapeddy sets up hosting infrastructure. Virtually all pages on
+                        caml.inria.fr are ported. Also, over 30 tutorials in 7 languages from two other sites,
+                        ocaml-tutorial.org and cocan.org, are ported. Many thanks to Richard Jones for building that
+                        valuable content over many years and approving their move to ocaml.org. Also thanks to Sylvain
+                        Le Gall for providing archived copies of this content.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="relative pb-8"><span aria-hidden="true"
+                  class="absolute top-5 left-5 ml-0.5 h-full w-0.5 bg-yellowdark"></span>
+                <div class="relative flex items-start space-x-3">
+                  <div class="h-11 w-11 bg-yellowdark rounded-full flex"></div>
+                  <div class="min-w-0 flex-1">
+                    <div class="text-3xl font-bold text-gray-900 mb-4">Apr 15, 2011</div>
+                    <div class="mt-2 text-base text-gray-700">
+                      <p>Ashish Agarwal proposes a new website for the OCaml community at a presentation in Paris. The
+                        next day, Christophe Troestler begins the implementation. Ashish also asks that we unify on the
+                        name of the language. Everyone unanimously agrees that the name should be âOCamlâ with a
+                        capital O and capital C.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="relative pb-8"><span aria-hidden="true"
+                  class="absolute top-5 left-5 ml-0.5 h-full w-0.5 bg-yellowdark"></span>
+                <div class="relative flex items-start space-x-3">
+                  <div class="h-11 w-11 bg-yellowdark rounded-full flex"></div>
+                  <div class="min-w-0 flex-1">
+                    <div class="text-3xl font-bold text-gray-900 mb-4">2000 - Dec 2012</div>
+                    <div class="mt-2 text-base text-gray-700">
+                      <p>The domain ocaml.org redirects to caml.inria.fr.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

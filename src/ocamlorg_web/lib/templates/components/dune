@@ -23,6 +23,12 @@
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
 
 (rule
+ (targets hero_with_background_template.ml)
+ (deps hero_with_background_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
  (targets icon_template.ml)
  (deps icon_template.eml)
  (action

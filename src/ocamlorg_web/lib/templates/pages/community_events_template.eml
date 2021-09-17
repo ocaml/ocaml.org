@@ -1,0 +1,63 @@
+let human_date s =
+  let date_time = Timedesc.of_iso8601_exn s in
+  Format.asprintf
+    "%a."
+    (Timedesc.pp ~format:"{wday:Xxx} {mon:Xxx} {mon:0X} {year}" ())
+    date_time
+
+let render () =
+let events = Ood.Event.all in
+<main class="relative bg-graylight">
+  <div class="max-w-7xl mx-auto">
+    <div class=" mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h1 class=" text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">Events</h1>
+        <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500">Several events take place in the OCaml community over the
+          course of each year, in countries all over the world. This calendar will help you stay up to date on what is
+          coming up in the OCaml sphere.</p>
+      </div>
+    </div>
+    <div class="mb-16 max-w-5xl mx-auto   ">
+      <div class="flex flex-col">
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-orangedark">
+                  <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider" scope="col">
+                      Date</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider" scope="col">
+                      Event Name</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider" scope="col">
+                      Location</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider" scope="col">
+                      Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% events |> List.iter (fun (event : Ood.Event.t) -> %>
+                  <tr class="odd:bg-white even:bg-gray-50">
+                    <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                      <p><%s human_date event.date %></p>
+                    </td>
+                    <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                      <p><%s event.title %></p>
+                    </td>
+                    <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                      <p><%s match event.textual_location with | Some x -> x | None -> "Virtual" %></p>
+                    </td>
+                    <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                      <p><%s event.description %></p>
+                    </td>
+                  </tr>
+                  <% ); %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

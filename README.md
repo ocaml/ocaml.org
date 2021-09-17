@@ -22,15 +22,6 @@ Or globally, with:
 make deps
 ```
 
-The server will download its runtime dependencies itself (e.g. the opam-repository),
-but you will need to download the `v3.ocaml.org` static files, which are crunched in the executable at compile time:
-
-```
-make update-site
-```
-
-This will pull the v3.ocaml.org docker image and copy the static files from it into the `asset_site/` directory.
-
 Then, build the project with:
 
 ```bash

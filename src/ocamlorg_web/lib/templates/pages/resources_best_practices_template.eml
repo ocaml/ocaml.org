@@ -1,0 +1,14 @@
+let render () =
+<main class="relative bg-graylight">
+  <div class="mx-auto">
+    <div class=" mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h1 class="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">Best Practices
+        </h1>
+        <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500">Some guides to commonly used tools in OCaml development
+          workflows.</p>
+      </div>
+    </div>
+    <hr class="bg-orangedark h-3 mb-24">
+  </div>
+</main>

@@ -1,0 +1,57 @@
+let render (items : Ood.Academic_institution.t list) =
+<main class="relative bg-graylight">
+  <%s! Hero_with_background_template.render ~img:"/assets/img/acad.png" ~title:"Academic Excellence" ~subtitle:"" %>
+  <div class="max-w-7xl mx-auto">
+    <div class="mx-auto pb-20 px-4 sm:pb-20 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <p class="max-w-7xl mt-5 mx-auto text-xl text-gray-500">
+          With its strong mathematical roots, OCaml has always had strong ties to academia. Currently, it is being
+          taught in universities around the world, and has accrued an ever growing body of research. This page will
+          provide you with an overview of the academic excellence that defines the culture of OCaml.
+        </p>
+        <div class="text-center mt-7">
+          <a class="justify-center inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-orangedark hover:bg-orangedarker focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedarker"
+            href="/principles/successes/">Success Stories</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mb-10 lg:mb-32 max-w-5xl mx-auto px-12  ">
+    <h2 class="text-grey-900 text-3xl mb-5 lg:text-4xl font-bold text-center">Universities &amp; Courses</h2>
+  </div>
+  <div class="mb-10 lg:mb-32 mx-auto sm:max-w-screen-sm lg:max-w-screen-lg" x-data="{ continent: 'All' }">
+    <div class="mb-8">
+      <label class="block pr-8 sm:pr-8 lg:pr-20">
+        <select class="form-select block mt-1 ml-auto" x-model="continent">
+          <option>All</option>
+          <option>North America</option>
+          <option>Europe</option>
+          <option>Asia</option>
+        </select>
+      </label>
+    </div>
+    <div class=" flex flex-wrap justify-center items-center flex-row ">
+      <% items |> List.iter (fun (item : Ood.Academic_institution.t) ->
+        let logo = match item.logo with | Some x -> "/media/" ^ x | None -> "" in %>
+        <div class="bg-white flex items-center pl-2.5 pt-2.5 pb-0 pr-4 h-32 w-72 m-0.5"
+          :class="{ 'hidden': continent != 'All' && continent != '<%s item.continent %>'  }">
+          <img class="w-24 my-9 flex-grow-0 flex-shrink-0" alt="" src="<%s logo %>">
+          <div class="my-9 underline font-bold pl-4">
+            <a href="https://www.ubi.pt/en/" target="_blank">
+              <%s item.name %>
+            </a>
+          </div>
+        </div>
+        <% ); %>
+    </div>
+  </div>
+  <div class="mb-10 lg:mb-32 max-w-5xl mx-auto px-12  ">
+    <h2 class="mb-16 text-grey-900 text-3xl mb-5 lg:text-4xl font-bold text-center">OCaml Courses around the World
+    </h2>
+  </div>
+  <div class="mb-10 lg:mb-32 mx-auto sm:max-w-screen-sm lg:max-w-screen-lg">
+    <div class="bg-white flex flex-wrap justify-center lg:justify-between ">
+      <img alt="" src="/assets/img/worldmap.jpg">
+    </div>
+  </div>
+</main>

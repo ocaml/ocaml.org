@@ -1,12 +1,78 @@
 (rule
- (targets package_doc_template.ml)
- (deps package_doc_template.eml)
+ (targets community_around_web_template.ml)
+ (deps community_around_web_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets community_blog_template.ml)
+ (deps community_blog_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets community_events_template.ml)
+ (deps community_events_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets community_media_archive_template.ml)
+ (deps community_media_archive_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets community_news_archive_template.ml)
+ (deps community_news_archive_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets community_opportunities_template.ml)
+ (deps community_opportunities_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets history_template.ml)
+ (deps history_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets index_template.ml)
+ (deps index_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets legal_carbon_footprint_template.ml)
+ (deps legal_carbon_footprint_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets legal_privacy_template.ml)
+ (deps legal_privacy_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets legal_terms_template.ml)
+ (deps legal_terms_template.eml)
  (action
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
 
 (rule
  (targets not_found_template.ml)
  (deps not_found_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets package_doc_template.ml)
+ (deps package_doc_template.eml)
  (action
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
 
@@ -29,13 +95,103 @@
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
 
 (rule
- (targets success_story_template.ml)
- (deps success_story_template.eml)
+ (targets principles_academic_template.ml)
+ (deps principles_academic_template.eml)
  (action
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
 
 (rule
- (targets success_stories_template.ml)
- (deps success_stories_template.eml)
+ (targets principles_successes_template.ml)
+ (deps principles_successes_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets principles_success_template.ml)
+ (deps principles_success_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets principles_industrial_users_template.ml)
+ (deps principles_industrial_users_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets principles_what_is_ocaml_template.ml)
+ (deps principles_what_is_ocaml_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets resources_applications_template.ml)
+ (deps resources_applications_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets resources_archive_template.ml)
+ (deps resources_archive_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets resources_best_practices_template.ml)
+ (deps resources_best_practices_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets resources_developing_in_ocaml_template.ml)
+ (deps resources_developing_in_ocaml_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets resources_language_template.ml)
+ (deps resources_language_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets resources_papers_archive_template.ml)
+ (deps resources_papers_archive_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets resources_papers_template.ml)
+ (deps resources_papers_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets resources_platform_template.ml)
+ (deps resources_platform_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets resources_releases_template.ml)
+ (deps resources_releases_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets resources_tutorials_template.ml)
+ (deps resources_tutorials_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets resources_tutorial_template.ml)
+ (deps resources_tutorial_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets resources_using_ocaml_template.ml)
+ (deps resources_using_ocaml_template.eml)
  (action
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
