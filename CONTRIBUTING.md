@@ -1,4 +1,4 @@
-# Contributing to Ood
+# Contributing to OCaml.org
 
 The **O**Caml.**o**rg **D**ata repository contains the data for ocaml.org in a structured format. Contributions are very welcome whether that be:
 
@@ -32,6 +32,30 @@ make deps
 
 Note we use [tailwind-css](https://tailwindcss.com/) in `ood-preview` so we also install that using npm.
 
+### Running the server
+
+After building the project, you can run the server with:
+
+```bash
+make start
+```
+
+To start the server in watch mode, you can run:
+
+```bash
+make watch
+```
+
+This will restart the server on filesystem changes.
+
+### Running tests
+
+You can run the unit test suite with:
+
+```bash
+make test
+```
+
 ## Submitting a PR
 
 To submit a PR make sure you create a new branch, add the code and commit it. 
@@ -47,22 +71,82 @@ From here you can then open a PR from Github. Before committing your code it is 
 
  - Format the code: this should be as simple as `make fmt`
  - Make sure it builds: running `make build`, this is also very important if you add data to the repository as it will "crunch" the data into the static OCaml modules (more information below)
- - Run the tests: this will check ood-preview and that all the data is correctly formatted and can be invoked with `make test`
+ - Run the tests: this will check that all the data is correctly formatted and can be invoked with `make test`
 
-### Static OCaml Modules with Data
+## Adding or updating datas
 
-As explained on the README, `src/ood` contains the information in the `data` directory, packed inside OCaml modules. This makes the data very easy to consume from multiple different projects like from ReScript in the [front-end of the website](https://github.com/ocaml/v3.ocaml.org). It means most consumers of the ocaml.org data do not have to worry about re-implementing parsers for the data.
+As explained on the README, `src/ocaml` contains the information in the `data` directory, packed inside OCaml modules. This makes the data very easy to consume from multiple different projects like from ReScript in the [front-end of the website](https://github.com/ocaml/v3.ocaml.org). It means most consumers of the ocaml.org data do not have to worry about re-implementing parsers for the data.
 
 If you are simply adding information to the `data` directory that's fine, before merging one of the maintainers can do the build locally and push the changes. If you can do a `make build` to also generate the OCaml as part of your PR that would be fantastic.
 
-## Ood Preview
+## Repository structure
 
-`ood-preview` is a simple dream server rendering the data as HTML. This is useful for testing designs, ensuring links to videos are correct etc. There is no obligation to touch any of this code, but you might find it fun to play around with designs and learn a little bit about dream.
+The following snippet describes OCaml.org's repository structure.
 
-To run the server just execute `make preview` from the terminal. This sets up a live-reload script so when you change a template file the project should recompile and the browser window will refresh.
+```text
+.
+├── asset/
+|   The static assets served by the site.
+│
+├── data/
+|   Data used by ocaml.org in Yaml and Markdown format.
+│
+├── gettext/
+|   `.PO` files for static content translation.
+│
+├── src/
+|   The source code of ocaml.org.
+│
+├── tool/
+|   Sources for development tools such as the `ocamlorg_data` code generator.
+│
+├── dune
+├── dune-project
+|   Dune file used to mark the root of the project and define project-wide parameters.
+|   For the documentation of the syntax, see https://dune.readthedocs.io/en/stable/dune-files.html#dune-project.
+│
+├── ocamlorg-data.opam
+├── ocamlorg.opam
+├── ocamlorg.opam.template
+│   opam package definitions.
+│   To know more about creating and publishing opam packages, see https://opam.ocaml.org/doc/Packaging.html.
+│
+├── package-lock.json
+├── package.json
+|   Package file for NPM packages. This is used to defined the JavaScript dependencies of the project.
+│
+├── CHANGES.md
+│
+├── CONTRIBUTING.md
+│
+├── Dockerfile
+|   Dockerfile used to build and deploy the site in production.
+│
+├── LICENSE
+├── LICENSE-3RD-PARTY
+|   Licenses of the source code, data and vendored third-party projects.
+│
+├── Makefile
+|   `Makefile` containing common development commands.
+│
+├── README.md
+│
+└── tailwind.config.js
+    Configuration used by TailwindCSS to generate the CSS file for the site.
+```
 
-## Testing my changes against v3.ocaml.org
+## Deploying
 
-[v3.ocaml.org](https://github.com/ocaml/v3.ocaml.org) vendors ood in order to reuse the data. Our CI checks that a PR doesn't break any assumptions that v3 makes about types or functions that are exposed from the `src/ood` package.
+Commits added on `main` are automatically deployed on https://v3.ocaml.org/.
 
-If you want to test it before hand, have a look at the change we make to the `update-ood.sh` script in the `v3-ocaml-org` Github Action job in `.github/workflows/ci.yml`. Instead of checking out `main` we check out the PR reference.
+The deployment pipeline is managed in https://github.com/ocurrent/ocurrent-deployer which listens to the `main` branch and build the site using the `Dockerfile` at the root of the project.
+
+To test the deployment locally, you can run the following commands:
+
+```
+docker build -t v3.ocaml.org .
+docker run -p 8080:8080  v3.ocaml.org
+```
+
+This will build the docker image and run a docker container with the port `8080` mapped to the HTTP server.
+With the docker container running, you can visit the site at http://localhost:8080/.

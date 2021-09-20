@@ -1,4 +1,6 @@
 *
+!data/
+!gettext/
 !asset/
 !src/
 !dune

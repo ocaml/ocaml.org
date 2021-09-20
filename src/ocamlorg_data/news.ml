@@ -1,4 +1,3 @@
-
 type t =
   { title : string
   ; slug : string
@@ -8,136 +7,181 @@ type t =
   ; preview_image : string option
   ; body_html : string
   }
-  
-let all = 
-[
-  { title = {js|Building Ahrefs codebase with Melange|js}
-  ; slug = {js|building-ahrefs-codebase-with-melange|js}
-  ; description = Some {js|What we learnt after experimenting with Melange, a fork of ReScript with a strong focus on keeping compatibility with OCaml.|js}
-  ; url = {js|https://tech.ahrefs.com/building-ahrefs-codebase-with-melange-9f881f6d022b?source=rss----303662d88bae--ocaml|js}
-  ; date = {js|2021-05-18T15:24:20-00:00|js}
-  ; preview_image = Some {js|https://miro.medium.com/max/1200/1*tYLUO4FDmJ6bzlsPp14LdQ.jpeg|js}
-  ; body_html = {js|<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*tYLUO4FDmJ6bzlsPp14LdQ.jpeg" /><figcaption>Photo by <a href="https://unsplash.com/@madebyjens?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Jens Lelie</a> on <a href="https://unsplash.com/s/photos/fork-road?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></figcaption></figure><p>At Ahrefs, we have been using BuckleScript and ReasonML in production <a href="https://tech.ahrefs.com/one-and-a-half-years-of-reasonml-in-production-2250cf5ba63b">for more than two years</a>. We already have a codebase of tens of thousands of lines of code, with several web applications that are data intensive and communicate with backend services written in <a href="http://ocaml.org/">OCaml</a>, using tools like <a href="https://github.com/ahrefs/atd">atd</a>.</p><p>Given our investment in these technologies, we have been following closely the recent changes in <a href="https://rescript-lang.org/">ReScript</a>, with its rebrand and renaming, and the split with the ReasonML project, explained in the project <a href="https://rescript-lang.org/blog/bucklescript-is-rebranding">blog post</a>.</p><h3>ReScript: becoming its own language</h3><p>We are excited about the way ReScript is unifying the experience and making it easier for developers who are getting started to find documentation in a single place, as well as continuing its strong focus on performance and readable JavaScript output.</p><p>On the other hand, we are trying to figure out the implications of this change in the mid- and long-term, especially regarding the integration with the OCaml ecosystem. And more importantly, what this evolution will mean for production users like us who rely on this integration.</p><p>ReScript integration with OCaml has historically been seamless, as BuckleScript started originally as a <a href="https://www.reddit.com/r/ocaml/comments/4enok3/bloombergbucklescript_a_back_end_for_the_ocaml/">new backend for the OCaml compiler</a>. However, in recent months, there have been several hints that ReScript wants to evolve towards becoming its own language:</p><ul><li>It has now <a href="https://github.com/rescript-lang/syntax">its own parser</a>, incompatible with OCaml native applications</li><li>Official repository guidelines for technical writing mentions explicitly that <a href="https://github.com/rescript-association/rescript-lang.org/blob/master/CONTRIBUTING.md#technical-writing-documentation">no reference to OCaml</a> should appear in docs</li><li>Upgrades to the latest version of OCaml compiler, which <a href="https://web.archive.org/web/20210208054855if_/https://github.com/rescript-lang/rescript-compiler/wiki">used to be part of the roadmap</a>, have been <a href="https://forum.rescript-lang.org/t/some-thoughts-on-community-building/1474">deprioritized</a> recently.</li></ul><p>So, even if officially ReScript has not announced that they will break backwards compatibility with OCaml, just the fact that it is sticking with an old version of the OCaml compiler poses some challenges for us in terms of tooling. The uncertainty about the future and the pace of changes add some risk to the high-level goals we have for our teams and codebase: we would like to share <em>more</em> code between frontend and backend, not less.</p><h3>Melange: a fork of ReScript, focused on OCaml compatibility</h3><p>When António Monteiro <a href="https://anmonteiro.com/2021/03/on-ocaml-and-the-js-platform/">announced Melange</a>, a fork of ReScript but with a strong focus on keeping compatibility with OCaml, we decided to try it out and see how it could work for us.</p><p>Ultimately, the experiment was successful. We managed to build all our frontend applications with Melange, while keeping the existing bundling setup, which currently uses Webpack.</p><p>Throughout this process, we had to modify some parts of the code. We will now go through the most relevant parts of the process:</p><ul><li>Upgrade to OCaml 4.12: the most relevant part was the deprecation of Pervasives module to use Stdlib.</li><li>Use ppxlib in our ppxs: we had to upgrade the two ppxs that we use in the frontend codebase to the latest compiler version, <a href="https://github.com/ahrefs/bs-emotion/compare/master...jchavarri:ocaml4.12-ppxlib">bs-emotion-ppx</a> and an in-house <a href="https://github.com/ahrefs/bs-react-intl-ppx">ppx for internationalization</a>.</li><li>Configure esy: we were already using esy to bring the editor tooling into scope of the developer environment, so we just had to make sure melange would also be included in the json configuration.</li><li>Upgrade to Reason 3.7.0: a quite simple change too, as the whole process is automated by using refmt. As a side note, we ran into <a href="https://github.com/reasonml/reason/issues/2636">a small bug</a> with some type annotations, that we were able to work around.</li><li>“Lift” dune workspace to the root of our monorepo: this is probably the most intrusive change. Because we have shared code between backend and frontend, and Dune needs to have access to all sources under its workspace, we had to “lift” the Dune workspace from the backend directory to the root of monorepo.</li></ul><h3>The good</h3><p>This experiment allowed us to experience what a project like Melange could offer for our use case. Here are some of the things we might be able to leverage in a codebase built with Melange:</p><ul><li>Recent version of the OCaml compiler: at some point, we could pin compiler version between backend and frontend teams, making upgrades more straightforward as they would happen atomically.</li><li>Shared editor tooling: the official OCaml <a href="https://github.com/ocamllabs/vscode-ocaml-platform">vscode extension</a> works great with Melange, as well as any other OCaml editor integration. Having backend and frontend teams use similar editor setup removes a lot of maintenance work for us.</li><li>Consuming ppxs from source: Melange allows to consume ppxs from source, which also removes issues with pre-compiled ppxs (like this issue with the recent <a href="https://github.com/ahrefs/bs-emotion/issues/53">M1 Macs</a>).</li><li>Melange allows to run all ppxs <a href="https://github.com/melange-re/melange/pull/171">from a single executable file</a>, which has some nice performance benefits.</li><li>Use Dune for atd files generators: ReScript “generators” are unfortunately <a href="https://web.archive.org/web/20200710044513if_/https://reasonml.org/docs/reason-compiler/latest/build-advanced">not documented anymore</a>, but we use them extensively for atd file generation. Being able to share Dune rules in backend and frontend would make our build setup easier.</li><li>Access to OCaml documentation tooling: Melange allows to leverage existing tooling for generating documentation, like <a href="https://github.com/ocaml/odoc/">odoc</a>.</li><li>Async syntax: the latest Reason version <a href="https://github.com/reasonml/reason/pull/2487">supports “let op” syntax</a>, which is handy for client-side code.</li></ul><h3>The bad</h3><p>While there are many things that are exciting about Melange, there are some other parts that can be improved.</p><ul><li>Build performance: We already knew that performance would be far worse than ReScript, as Melange uses Dune in a way that it was not designed for. In our tests, builds with Melange are roughly 1 order of magnitude slower than ReScript ones.</li><li>First-class Dune support: if there was a deeper integration between Dune and Melange, we could explore features like shared libraries or shared rules between backend and frontend. As of today, Dune has no knowledge about Melange environment, so it can perform basic rules execution, but there is no access to high level stanzas like library in Melange.</li><li>Two-headed goal: finally, we see a more strategic risk in Melange proposition. Right now it has two goals: keep compatibility with both ReScript and OCaml. But we don’t know how long these goals will be feasible. If at some point ReScript decides to move away from the OCaml compiler fully, then Melange users would not be able to consume any updates to the ReScript ecosystem anymore.</li></ul><h3>Alright, but are you migrating to Melange or ReScript?</h3><p>With all the information available, the answer is: we don’t know yet. 😄 We want to keep exploring all the available options and have as much information as possible before committing further. So for now, we are upgrading the codebase to recent versions of ReScript, but we are holding up on features that only work one way. For example, we have not migrated our codebase to the ReScript syntax yet, as <a href="https://github.com/rescript-lang/syntax/issues/405">there is no way to translate back to Reason syntax</a>.</p><p>In the meantime, we will keep exploring how far the limitations of Melange can be mitigated. To be continued! 🚀</p><p><em>Thanks to Igor and Feihong for reviewing and improving earlier versions of this post.</em></p><img src="https://medium.com/_/stat?event=post.clientViewed&referrerSource=full_rss&postId=9f881f6d022b" width="1" height="1" alt=""><hr><p><a href="https://tech.ahrefs.com/building-ahrefs-codebase-with-melange-9f881f6d022b">Building Ahrefs codebase with Melange</a> was originally published in <a href="https://tech.ahrefs.com">ahrefs</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p>|js}
-  };
- 
-  { title = {js|Getting started with atdgen and bucklescript|js}
-  ; slug = {js|getting-started-with-atdgen-and-bucklescript|js}
-  ; description = Some {js|atdgen is a project to create types and data structures that can be serialized to JSON. It is very convenient when communicating between…|js}
-  ; url = {js|https://tech.ahrefs.com/getting-started-with-atdgen-and-bucklescript-1f3a14004081?source=rss----303662d88bae--ocaml|js}
-  ; date = {js|2018-09-12T02:53:58-00:00|js}
-  ; preview_image = None
-  ; body_html = {js|<p><a href="https://github.com/mjambon/atd">atdgen</a> is a project to create types and data structures that can be serialized to JSON. It is very convenient when communicating between multiple processes, creating a REST API or consuming JSON objects from other tools. It can be compared to <a href="https://json-schema.org/">JSON schema</a> or <a href="https://developers.google.com/protocol-buffers/">Protocol Buffers</a>, but with richer types and more features.</p><p>The idea is to write a list of types in a specification file, an .atd file. Then running atdgen, it is possible to generate OCaml or Java code to serialize/deserialize values of those types to/from corresponding json.</p><p>Until very recently, atdgen could generate code only for native OCaml. But <a href="https://github.com/mjambon/atd/pull/44">the support of bucklescript has been merged</a>! atdgen the cli tool is still a native OCaml binary. But it can output some OCaml code that can be compiled using <a href="https://bucklescript.github.io/">bucklescript</a>.</p><p>The work to implement this new feature of atdgen has been funded by <a href="https://ahrefs.com/">Ahrefs</a>. We highly appreciate open source tools. And as much as possible, we prefer to contribute to existing open source projects rather than to re-invent the wheel internally.</p><h3>Installation</h3><p>To install atdgen we first need to install <a href="https://opam.ocaml.org">opam</a> (OCaml package manager), as atdgen doesn’t provide ready to use binaries and is only distributed as source package via opam. The procedure is simple and documented here: <a href="https://opam.ocaml.org/doc/2.0/Install.html">https://opam.ocaml.org/doc/2.0/Install.html</a></p><p>Then we need to initialize opam and create a switch. Any version of ocaml greater or equal to 4.03.0 should be fine.</p><pre>opam init -a<br>opam switch create . 4.07.1 -y</pre><p>Once it is done, we have to install the development version of atdgen. The support of bucklescript is not officially released.</p><pre>opam pin add atd --dev-repo   <br>opam pin add atdgen --dev-repo</pre><p>Make sure that atdgen is available.</p><pre>$ which atdgen                 <br>(current $PWD)/_opam/bin/atdgen</pre><p>Of course, we need bucklescript.</p><pre>yarn init                 <br>yarn add bs-platform --dev</pre><p>We also need the bucklescript runtime for atdgen, as it is not currently provided by atdgen itself. So we have written and open-sourced our version of the runtime : <a href="https://github.com/ahrefs/bs-atdgen-codec-runtime">https://github.com/ahrefs/bs-atdgen-codec-runtime</a>.</p><p>This runtime is responsible for the conversion between JSON values and OCaml values. The JSON values are based on the standard <a href="https://bucklescript.github.io/bucklescript/api/Js.Json.html#TYPEt">Js.Json.t type</a> provided by bucklescript to be sure that it is easy to interoperate with the rest of the ecosystem.</p><p>It is published on npm for easy integration in bucklescript projects.</p><pre>yarn add @ahrefs/bs-atdgen-codec-runtime</pre><h3>Project configuration</h3><p>After the previous section, package.json should be almost ready. We can add a few scripts to make it more convenient to compile the project. Here is how it should look once completed.</p><pre>{<br>  &quot;name&quot;: &quot;demo-bs-atdgen&quot;,<br>  &quot;version&quot;: &quot;0.0.1&quot;,<br>  &quot;description&quot;: &quot;demo of atdgen with bucklescript&quot;,<br>  &quot;scripts&quot;: {<br>    &quot;clean&quot;: &quot;bsb -clean-world&quot;,<br>    &quot;build&quot;: &quot;bsb -make-world&quot;,<br>    &quot;watch&quot;: &quot;bsb -make-world -w&quot;,<br>    &quot;atdgen&quot;: &quot;atdgen -t meetup.atd &amp;&amp; atdgen -bs meetup.atd&quot;<br>  },<br>  &quot;devDependencies&quot;: {<br>    &quot;bs-platform&quot;: &quot;^4.0.5&quot;<br>  },<br>  &quot;peerDependencies&quot;: {<br>    &quot;bs-platform&quot;: &quot;^4.0.5&quot;<br>  },<br>  &quot;dependencies&quot;: {<br>    &quot;<a href="http://twitter.com/ahrefs/bs-atdgen-codec-runtime">@ahrefs/bs-atdgen-codec-runtime</a>&quot;: &quot;^1.0.4&quot;<br>  }<br>}</pre><p>The bucklescript configuration is very simple. We use the basic configuration that can be found in any bucklescript project. Except that we need to add one dependency to bsconfig.json:</p><pre>{<br>  &quot;name&quot;: &quot;demo-bs-atdgen&quot;,<br>  &quot;version&quot;: &quot;0.0.1&quot;,<br>  &quot;sources&quot;: {<br>    &quot;dir&quot;: &quot;src&quot;,<br>    &quot;subdirs&quot;: true<br>  },<br>  &quot;package-specs&quot;: {<br>    &quot;module&quot;: &quot;commonjs&quot;,<br>    &quot;in-source&quot;: true<br>  },<br>  &quot;suffix&quot;: &quot;.bs.js&quot;,<br>  &quot;bs-dependencies&quot;: [<br>    &quot;<a href="http://twitter.com/ahrefs/bs-atdgen-codec-runtime">@ahrefs/bs-atdgen-codec-runtime</a>&quot;<br>  ],<br>  &quot;warnings&quot;: {<br>    &quot;error&quot;: &quot;+101&quot;<br>  },<br>  &quot;generate-merlin&quot;: true,<br>  &quot;namespace&quot;: true,<br>  &quot;refmt&quot;: 3<br>}</pre><h3>First ATD definitions</h3><p>It is time to create a first .atd file, containing our types. This part is also documented on <a href="https://atd.readthedocs.io/en/latest/tutorial.html#getting-started">https://atd.readthedocs.io/en/latest/tutorial.html#getting-started</a></p><p>For this example, I decided to go with a meetup event. Put the type definitions in src/meetup.atd.</p><pre>(* This is a comment. Same syntax as in ocaml. *)</pre><pre>type access = [ Private | Public ]</pre><pre>(* the date will be a float in the json and a Js.Date.t in ocaml *)<br>type date = float wrap &lt;ocaml module=&quot;Js.Date&quot; wrap=&quot;Js.Date.fromFloat&quot; unwrap=&quot;Js.Date.valueOf&quot;&gt;</pre><pre>(* Some people don&#39;t want to provide a phone number, make it optional *)<br>type person = {<br>  name: string;<br>  email: string;<br>  ?phone: string nullable;<br>}</pre><pre>type event = {<br>  access: access;<br>  name: string;<br>  host: person;<br>  date: date;<br>  guests: person list;<br>}</pre><pre>type events = event list</pre><p>We use the atdgen binary (compiled previously) to generate the ocaml types and the code to serialize/deserialize those types.</p><pre>atdgen -t meetup.atd # generates an ocaml file containing the types<br>atdgen -bs meetup.atd # generates the code to (de)serialize</pre><p>The generated files are:</p><ul><li>meetup_t.ml(i) which contain the ocaml types corresponding to our ATD definitions.</li><li>meetup_bs.ml(i) which contain the ocaml code to transform from and to json values.</li></ul><p>At this point we can compile our project.</p><pre>yarn build</pre><p>If everything worked properly, we now have two .bs.js files in the src directory.</p><pre>$ tree src<br>src<br>├── meetup.atd<br>├── meetup_bs.bs.js<br>├── meetup_bs.ml<br>├── meetup_bs.mli<br>├── meetup_t.bs.js<br>├── meetup_t.ml<br>└── meetup_t.mli</pre><pre>0 directories, 7 files</pre><p>At this point, we can create new OCaml/Reason files in the src directory and use all the code atdgen generated for us. Two examples to illustrate that.</p><h3>Query a REST API</h3><p>A common usage of atdgen is to decode the JSON returned by a REST API. Here is a short example, using the reason syntax and bs-fetch.</p><pre>let get = (url, decode) =&gt;<br>  Js.Promise.(<br>    Fetch.fetchWithInit(<br>      url,<br>      Fetch.RequestInit.make(~method_=Get, ()),<br>    )<br>    |&gt; then_(Fetch.Response.json)<br>    |&gt; then_(json =&gt; json |&gt; decode |&gt; resolve)<br>  );</pre><pre>let v: Meetup_t.events =<br>  get(<br>    &quot;<a href="http://localhost:8000/events">http://localhost:8000/events</a>&quot;,<br>    Atdgen_codec_runtime.Decode.decode(Meetup_bs.read_events),<br>  );</pre><h3>Read and write a JSON file</h3><p>Atdgen for bucklescript doesn’t take care of converting a string to a JSON object. Which allows us to use the performant json parser included in nodejs or the browser.</p><pre>let read_events filename =<br>  (* Read and parse the json file from disk, this doesn&#39;t involve atdgen. *)<br>  let json =<br>    Node_fs.readFileAsUtf8Sync filename<br>    |&gt; Js.Json.parseExn<br>  in<br>  (* Turn it into a proper record. The annotation is of course optional. *)<br>  let events: Meetup_t.events =<br>    Atdgen_codec_runtime.Decode.decode Meetup_bs.read_events json<br>  in<br>  events</pre><p>The reverse operation, converting a record to a JSON object and writing it in a file is also straightforward.</p><pre>let write_events filename events =<br>  Atdgen_codec_runtime.Encode.encode Meetup_bs.write_events events (* turn a list of records into json *)<br>  |. Js.Json.stringifyWithSpace 2   (* convert the json to a pretty string *)<br>  |&gt; Node_fs.writeFileAsUtf8Sync filename  (* write the json in our file *)</pre><h3>Full example</h3><p>Now that we have our functions to read and write events, we can build a small cli to pretty print the list of events and add new events.</p><p>The source code of the full example is available <a href="https://github.com/ahrefs/bs-atdgen-codec-runtime/tree/master/example">on github</a>.</p><p>You can run it like this:</p><pre>$ echo &quot;[]&quot; &gt; events.json<br>$ nodejs src/cli.bs.js add louis <a href="mailto:louis@nospam.com">louis@nospam.com</a><br>$ nodejs src/cli.bs.js add bob <a href="mailto:bob@nospam.com">bob@nospam.com</a><br>$ nodejs src/cli.bs.js print<br>=== OCaml/Reason Meetup! summary ===<br>date: Tue, 11 Sep 2018 15:04:16 GMT<br>access: public<br>host: bob &lt;<a href="mailto:bob@nospam.com">bob@nospam.com</a>&gt;<br>guests: 1<br>=== OCaml/Reason Meetup! summary ===<br>date: Tue, 11 Sep 2018 15:04:13 GMT<br>access: public<br>host: louis &lt;<a href="mailto:louis@nospam.com">louis@nospam.com</a>&gt;<br>guests: 1<br>$ cat events.json<br>[<br>  {<br>    &quot;guests&quot;: [<br>      {<br>        &quot;email&quot;: &quot;<a href="mailto:bob@nospam.com">bob@nospam.com</a>&quot;,<br>        &quot;name&quot;: &quot;bob&quot;<br>      }<br>    ],<br>    &quot;date&quot;: 1536678256177,<br>    &quot;host&quot;: {<br>      &quot;email&quot;: &quot;<a href="mailto:bob@nospam.com">bob@nospam.com</a>&quot;,<br>      &quot;name&quot;: &quot;bob&quot;<br>    },<br>    &quot;name&quot;: &quot;OCaml/Reason Meetup!&quot;,<br>    &quot;access&quot;: &quot;Public&quot;<br>  },<br>  {<br>    &quot;guests&quot;: [<br>      {<br>        &quot;email&quot;: &quot;<a href="mailto:louis@nospam.com">louis@nospam.com</a>&quot;,<br>        &quot;name&quot;: &quot;louis&quot;<br>      }<br>    ],<br>    &quot;date&quot;: 1536678253790,<br>    &quot;host&quot;: {<br>      &quot;email&quot;: &quot;<a href="mailto:louis@nospam.com">louis@nospam.com</a>&quot;,<br>      &quot;name&quot;: &quot;louis&quot;<br>    },<br>    &quot;name&quot;: &quot;OCaml/Reason Meetup!&quot;,<br>    &quot;access&quot;: &quot;Public&quot;<br>  }<br>]</pre><img src="https://medium.com/_/stat?event=post.clientViewed&referrerSource=full_rss&postId=1f3a14004081" width="1" height="1" alt=""><hr><p><a href="https://tech.ahrefs.com/getting-started-with-atdgen-and-bucklescript-1f3a14004081">Getting started with atdgen and bucklescript</a> was originally published in <a href="https://tech.ahrefs.com">ahrefs</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p>|js}
-  };
- 
-  { title = {js|How to write a library for BuckleScript and Native|js}
-  ; slug = {js|how-to-write-a-library-for-bucklescript-and-native|js}
-  ; description = Some {js|This blog post is an introduction on how to setup a library available for both BuckleScript and OCaml, sharing as much code as possible.|js}
-  ; url = {js|https://tech.ahrefs.com/how-to-write-a-library-for-bucklescript-and-native-22f45e5e946d?source=rss----303662d88bae--ocaml|js}
-  ; date = {js|2019-10-22T10:09:09-00:00|js}
-  ; preview_image = None
-  ; body_html = {js|<p><em>Written with </em><a href="https://twitter.com/javierwchavarri"><em>Javier Chávarri</em></a><em> and </em><a href="https://github.com/feihong/"><em>Feihong Hsu</em></a><em>.</em></p><p>The first <a href="https://www.reason-conf.us/">Reason Conf US</a> just ended. Many talks mentioned native compilation. Sharing code between BuckleScript and native artifacts is a use case which is more and more common. This blog post is an introduction on how to set up a library available for both worlds, sharing as much code as possible.</p><h3>The goal</h3><p>What we try to produce is a library with an identical interface for BuckleScript and native. But without duplicating code. It should also be possible to have some parts of the library that are a different implementation depending on the target, as we want to be able to leverage existing libraries that are working only in one of the worlds.</p><h3>The build systems</h3><p>For BuckleScript, there is only one build system: bsb. It is driven by a bsconfig.json file. And is installed as part of the bs-platform.</p><p>On the native side, there are a lot of different build systems that are available. But recently one of them became a de facto standard: dune. It works with a very minimal amount of configuration. And it supports the reason syntax by default.</p><p>These two tools are working in a way which is pretty similar. They share a lot of concepts. And it is easy to set them up so that both are working in the same codebase.</p><p>The main similarities that interest us are:</p><ul><li>The ability to work on specific source directories</li><li>Namespacing in bsb and wrapping in dune are both putting all the<br>files of the library under a single module name</li></ul><h3>The source code file tree</h3><p>The code of the library is split into 3 directories.</p><pre>├── js/<br>├── native/<br>└── shared/</pre><ul><li>shared is meant to host most of the code and all the code in this directory will be compiled in both modes.</li><li>js contains the parts that are specific to BuckleScript.</li><li>native contains the parts that are specific to native OCaml.</li></ul><h3>Set up the build systems</h3><p>Once we have our basic skeleton for the library, it is time to set up the build systems. We want to have two configurations as similar as possible to make them easier to understand. Once we are done, the tree will look like this:</p><pre>├── bsconfig.json<br>├── dune<br>├── dune-project<br>├── js/<br>├── native/<br>└── shared/</pre><h4>BuckleScript</h4><p>At the root of the library we need a bsconfig.json file to drive<br>bsb. The documentation is available at <a href="https://bucklescript.github.io/docs/en/build-configuration](https://bucklescript.github.io/docs/en/build-configuration).">https://bucklescript.github.io/docs/en/build-configuration</a>.</p><p>The main part for us is sources. We will use it to tell bsb to look at the js and shared folders. We also want to set namespace to true, which will wrap all your project’s files under a common module name.</p><pre>  &quot;namespace&quot;: true,<br>  &quot;sources&quot;: [<br>    {<br>      &quot;dir&quot;: &quot;js&quot;,<br>      &quot;subdirs&quot;: true<br>    }, {<br>      &quot;dir&quot;: &quot;shared&quot;,<br>      &quot;subdirs&quot;: true<br>    }<br>  ],</pre><p>The rest of the file is as usual.</p><pre>{<br>  &quot;name&quot;: &quot;sharedlib&quot;,<br>  &quot;namespace&quot;: true,<br>  &quot;sources&quot;: [<br>    {<br>      &quot;dir&quot;: &quot;js&quot;,<br>      &quot;subdirs&quot;: true<br>    }, {<br>      &quot;dir&quot;: &quot;shared&quot;,<br>      &quot;subdirs&quot;: true<br>    }<br>  ],<br>  &quot;package-specs&quot;: {<br>    &quot;module&quot;: &quot;es6&quot;,<br>    &quot;in-source&quot;: true<br>  },<br>  &quot;refmt&quot;: 3,<br>  &quot;suffix&quot;: &quot;.bs.js&quot;,<br>  &quot;generate-merlin&quot;: true,<br>}</pre><h4>Dune</h4><p>We must also add a dune file to the root of the library. For dune, we have different options — it is possible to ignore the js directory but read everything else. Or to check only shared and native. To make the configuration similar to BuckleScript, we will go with the second solution.</p><p>The dune directive to do that is dirs. By defaults it tells dune to explore every directory except the ones hidden (starting with a dot) or starting with an underscore. <a href="https://dune.readthedocs.io/en/stable/dune-files.html#dirs-since-1-6">More details in dune’s documentation</a>. To make it do what we want, the configuration should be:</p><pre>(dirs shared native)</pre><p>We also use another option of dune to tell it to include the content of those two directories as if it was at the root of the project. Without this stanza, dune would only use the source files at the root of the project and ignore everything in the sub directories.</p><pre>(include_subdirs unqualified)</pre><p>Then we need the usual library stanza to give a name to our library, state the dependencies, compilation flags, etc. In our simple case, the only information needed is the name. We can explicitly set wrapped to true, but this is already the default behavior. The <a href="https://dune.readthedocs.io/en/stable/dune-files.html#library">documentation for the whole library stanza</a> describes how to specify more details.</p><p>The final dune file looks like this:</p><pre>(dirs shared native)<br> (include_subdirs unqualified)<br> (library<br>  (name sharedlib))</pre><p>We also want a basic dune-project. If we don’t write it by hand, dune will generate it for us. I am using version 1.10 as an example. But it can be changed to whatever version suits your project.</p><pre>(lang dune 1.10)</pre><h3>Compilation</h3><p>With the setup described above, the compilation for BuckleScript and native is the same as in a setup with only one or the other.</p><ul><li>bsb -make-world for BuckleScript</li><li>dune build @all for dune</li></ul><p>The call to bsb is usally put in package.json in the scripts part, so that the usual yarn build can be used. For native, it depends if you rely on esy or opam.</p><h3>How to consume the library</h3><p>This is exactly the same setup that would be used in a pure BuckleScript or pure native library.</p><p>To use your library in BuckleScript:</p><ul><li>Add the name and version to package.json</li><li>Add the name to bsbconfig.json of consuming library/app</li></ul><p>To use your library in native OCaml, add the name of your library to the libraries part an executable or library stanza, e.g.</p><pre>(executable<br> (name main)<br> (libraries sharedlib))</pre><h3>Module naming</h3><p>If you want your module name to contain capital letters in the middle (e.g. TeenageMutantNinjaTurtles), then be aware that <a href="https://bucklescript.github.io/docs/en/build-configuration.html#name-namespace">name munging</a> works differently between bsbconfig.json and dune. For example, if you want to refer to your module as CoolSharedLib in your code, then the name in bsbconfig.json must be cool-shared-lib, and in dune it must be coolSharedLib.</p><h3>Platform specific code</h3><p>The whole library does not have to be exactly the same in the two platform. It is possible to add modules that are available only in one mode. Or to have modules with a different interface.</p><p>For example, by adding a file Foo.re in js but not in native, the library now has a module Foo available when compiled to javascript. But only when compiled to javascript.</p><h3>Downsides</h3><ul><li>Both bsb and dune generate .merlin files when they compile our library. They override each other. It might be troublesome if the version of ocaml used for native code is not 4.02.3. Simply recompile the library for your platform to solve the problem.</li><li>Out of the box, this approach doesn’t really allow us to share interface files between both platforms: native and BuckleScript. One workaround for that, if we wanted to share some module Foo, is to:<br>1. add Foo.mli or Foo.rei file in shared<br>2. add include FooImplementation in Foo.ml<br>3. add FooImplementation in both native and js folder</li><li>It’s not possible to be platform specific for just a few lines of code (e.g. if IS_NATIVE foo else bar), the minimal per-platform unit is a file/module.</li></ul><h3>Example project</h3><p>We have set up a simple library to showcase what a repository looks like once the whole configuration is in place. It is <a href="https://github.com/ahrefs/hello-native-bucklescript">available on github</a>.</p><p>For now the repository contains only a library. But with this setup, it is actually possible to build an executable too. It is also possible to enrich it, for example by adding <a href="https://tech.ahrefs.com/getting-started-with-atdgen-and-bucklescript-1f3a14004081">atdgen to communicate between both sides of the library</a>.</p><img src="https://medium.com/_/stat?event=post.clientViewed&referrerSource=full_rss&postId=22f45e5e946d" width="1" height="1" alt=""><hr><p><a href="https://tech.ahrefs.com/how-to-write-a-library-for-bucklescript-and-native-22f45e5e946d">How to write a library for BuckleScript and Native</a> was originally published in <a href="https://tech.ahrefs.com">ahrefs</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p>|js}
-  };
- 
-  { title = {js|One and a half years of ReasonML in production|js}
-  ; slug = {js|one-and-a-half-years-of-reasonml-in-production|js}
-  ; description = Some {js|The first Reason application at Ahrefs went online on January 31, 2019. Since then, many more applications have been either rewritten in…|js}
-  ; url = {js|https://tech.ahrefs.com/one-and-a-half-years-of-reasonml-in-production-2250cf5ba63b?source=rss----303662d88bae--ocaml|js}
-  ; date = {js|2020-07-26T15:19:31-00:00|js}
-  ; preview_image = Some {js|https://miro.medium.com/max/1200/1*Nl5vYk_k-mC4j32XEjryHQ.jpeg|js}
-  ; body_html = {js|<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*Nl5vYk_k-mC4j32XEjryHQ.jpeg" /><figcaption>Photo by <a href="https://unsplash.com/@willianjusten">https://unsplash.com/@willianjusten</a></figcaption></figure><p>The first <a href="https://reasonml.org/">Reason</a> application at <a href="https://ahrefs.com">Ahrefs</a> went online on January 31, 2019. Since then, many more applications have been either rewritten in Reason, are being slowly migrated from React to ReasonReact, or are conceived from the start as Reason projects. It is safe to say that the bet placed on Reason paid off big time. We will never go back to doing pure JavaScript again, with the possible exception of simple backend scripts.</p><p>In the past few years, it’s come to light that there are a number of other <a href="https://www.messenger.com/">large</a> <a href="https://www.onegraph.com/">Reason</a>/<a href="https://darklang.com/">BuckleScript</a> <a href="https://onivim.io/">codebases</a> in the wild, but there still isn’t a ton of information out there about what it’s really like to work with Reason in production. To help remedy that, we thought it would be instructive to ask each of our frontend team members what their Reason journey has been like so far.</p><p>We gave them the following questions as starting points (but they were free to talk about anything they wanted):</p><ul><li>How does Reason compare to other languages you’ve used in the past?</li><li>What’s your favorite thing about Reason?</li><li>What’s your least favorite thing about Reason?</li><li>How does ReasonReact compare to other frameworks you’ve used?</li><li>Was it easy to pick up Reason? Why or why not?</li></ul><h4>Javi</h4><ul><li>How does Reason compare to other languages you’ve used in the past?</li></ul><p>In the past I worked with languages like Java, C, or less known like Pascal or Prolog. But the languages I’ve spent more time with are Objective-C and JavaScript. The main difference between all those languages and Reason is the exhaustiveness that you get from OCaml type checker. This is maybe awkward, but it feels like you stop coding alone and suddenly you have a sidekick always sitting next to you, that is helping you notice the things you forgot about, or found new code that is not consistent with code you or someone else wrote before.</p><p>In a world that is moving towards remote work, where many of us spend hours every day coding physically far from our colleagues, it makes the experience much more delightful. Plus, it allows for teams working on different time zones to keep a healthier work-life balance, because there is less need to have synchronous communication than with more dynamic languages, as more assumptions and design decisions are “embedded” into the code.</p><ul><li>What’s your favorite thing about Reason?</li></ul><p>Can I pick two things? It’s hard to choose only one.</p><p>The first one is the exhaustiveness and quality of the type checker, as mentioned above. Sometimes it takes a bit longer to build a feature than what it would in other languages, until the types are figured out. But this is largely compensated by the confidence one has when shipping code to production, or diving into large refactors.</p><p>The second one is the speed of the BuckleScript build system, which is built on top of <a href="https://ninja-build.org/">ninja</a>. I had never worked with such fast build system. As an example, we have recently started to use remote machines to develop at Ahrefs. In one of these machines that has 72 cores, BuckleScript takes roughly 3 seconds to clean build <em>all</em> our Reason code: application, libs, decoders… everything. Many tens of thousand lines of code! We thought there were something wrong, but we realized the compiler is just So Blazing Fast™️.</p><ul><li>What’s your least favorite thing about Reason?</li></ul><p>I guess we’re going through a necessary stage until things stabilize in the future, but there is a lot of fragmentation at the moment between “Reason native”, which tries to stay closer to OCaml, and “Reason web”, which has a goal to become friendlier for JavaScript developers.</p><p>I am excited to see what <a href="https://reasonml.org/blog/bucklescript-8-1-new-syntax">BuckleScript new syntax</a> will lead to, but I would also love to see a “universal” solution that works for the main use cases out of the box, becoming sort of Rails for Ocaml or Reason. <a href="https://github.com/oxidizing/sihl/">sihl</a> is a project that seems to go in that direction and looks very promising.</p><ul><li>How does ReasonReact compare to other frameworks you’ve used?</li></ul><p>I consider ReasonReact mostly like React + types on top, because the bindings layer is very thin. The thing that I like most about React is that it follows the Unix philosophy: it does one thing and it does it really well. Maybe we have forgotten already today, but having to maintain and mutate UI based on data updates was one of the main sources of bugs in the past. The other nice thing is that there is so much good content about it: blog posts, documentation, etc.</p><ul><li>Was it easy to pick up Reason? Why or why not?</li></ul><p>It took some time, as with any other language. We have things like syntax or semantics much more ingrained into our brains than we think, so there is always some “rewiring” time that is needed to learn a new language, even if Reason makes an effort to stay close to JavaScript syntax. The most challenging part was probably the bindings one, because coming from JavaScript, there are no previous knowledge that one can use as foundation to build upon, it’s all “new knowledge”. glennsl <a href="https://github.com/glennsl/bucklescript-ffi-cheatsheet">BuckleScript ffi cheatsheet</a> was a huge help for me.</p><h4>Ze</h4><p>I really like working with Reason, and have wanted to do so for a while. I was quite happy to see that working with it matched my expectations.</p><p>You get so much support from the type system, and still have a lot of flexibility to represent your domain model. Coming from other languages or paradigms, you don’t feel limited at all in what you can achieve.</p><p>The language has such a strong type system that you feel much more comfortable with your coding.</p><p>The OCaml type system is there to make sure you code with assurance. This is especially true when refactoring code. You can be sure that everything will work fine after it compiles. If it compiles, it works :)</p><p>It’s also very helpful when working on a monorepo. You don’t have to keep reading the source code of everything you use to make sure you don’t have types mistakes. Changes in code in one lib reflect immediately in all the others. This makes the feedback loop much shorter and safer.</p><p>The editors integrations with the type system are quite good and help a lot to write code better and faster.</p><p>Also, compilation times are super fast.</p><p>Last, but not least, ReasonReact is, for me, the hidden gem of ReasonML. The newcomers that have some difficulty with the language should start with it. IMHO, ReasonReact is simpler and has a better developer experience than React itself. It should be the gateway drug frontend developers need to get started with Reason/OCaml 😄</p><h4>Liubomyr</h4><p>To me, all those language features boil down to one essential thing, and it’s the easiness of refactoring. New business requirements popups all the time, and often your initial code assumptions are no longer correct. It was such a pain to modify code in a large JS codebase, as you never know how many things you potentially break in the process. With Reason, it has never been easier. If you need to change your data shape or some component API, you just do it, and from there, the compiler will guide you through all the places you broke, and help to fix those.</p><p>Coming from the JS world, it feels like the initial development is slower, because of the learning curve, missing bindings, less StackOverflow answers, but in the end, you are getting a stable software which is way easier to maintain and add features to.</p><h4>Egor</h4><p>I switched to Reason when I joined Ahrefs team about a year ago, before that I worked mostly with Ruby language.</p><p>The first thing that impressed me in ReasonML was code refactoring. Refactoring in language with a strong type system, like ReasonML and OCaml, is much easier than what I am used to. If your program compiles after your refactoring — most likely you did everything right, if it doesn’t compile — you can immediately see what you forgot to change. This can be achieved in languages with a dynamic type system only with a huge amount of code tests (supporting big test suite is a time consuming process as well as code support).</p><p>The other thing that I really like about ReasonML codebase — how readable it is. When you just enter into ReasonML world — some things can be unfriendly from the first sight, for example, immutable let bindings, but in the end, you realize that these language decisions help you to write cleaner and simpler code.</p><h4>Seif</h4><p>The programming language I used the most in the past is JavaScript. I switched to Reason when I joined Ahrefs a few months ago. From the start, I worked mainly on the code shared by the majority of the tools and I don’t think I would have had the same confidence making changes if I was doing it with JavaScript. I love JavaScript’s developer experience and accessibility. Reason provided me predictability without hurting these very same things I like about JavaScript.</p><h4>Bryan</h4><p>Reason (and OCaml) is, by far, one of the easiest languages to work with. Easy in the sense that the compiler helps eliminate an entire class of errors so you don’t have to worry about them. Additionally, in most other web-centric languages, it’s a pain to add features to existing code that you’ve not touched for a long time. With strong static typing, I can usually add the feature I want in either the backend or frontend, and then let the compiler tell me what needs to be updated.</p><p>Pattern-matching is one of my favourite features in Reason. To me, it makes more sense to be able to explicitly specify conditions that I’m interested in a clear and concise manner, and let the compiler tell me if I missed out a particular condition. Records go hand-in-hand with this. As software programs are made up of data and instructions, records are the perfect data containers. They are quick to define and query, focusing on data rather than behaviour (think classes and instance methods).</p><p>It definitely took a while to pick up Reason mainly because it takes time to become familiar with idiomatic OCaml. But once I crested that learning curve, everything just made sense and all the features of the language that made Reason seemingly difficult to learn — strong typing, the functional paradigm, etc, became assistants that helped me to write better code.</p><h4>Feihong</h4><p><a href="https://reasonml.github.io/reason-react/en/">ReasonReact</a> is a great library for making complex UIs in a large codebase because you get the familiarity of React coupled with the type safety of OCaml. Having two well-established technologies in its foundation is a big advantage that ReasonReact has over other functional UI libraries/frameworks in the transpile-to-JS universe. I didn’t have any professional OCaml experience before joining, yet the ramp up was made much easier by my existing knowledge of React and the (somewhat superficial) similarity of the Reason syntax to JS. Oftentimes it was possible to correctly guess the intent of existing Reason code without knowing all the syntax, because most React concepts carry over pretty directly. And even though the documentation is incomplete and not perfect, it’s quite usable already and among conceptually-similar frameworks is second only to the Elm documentation.</p><p>The compiler errors were difficult to get used to at first. The compiler is fairly good at pointing out the location of the error, but not necessarily as good at explaining the nature or cause of the error. As such, having a REPL would be extremely useful. Actually, OCaml does have its own REPL, but BuckleScript (the compiler used by Reason to translate OCaml to JS) does not at the moment. Nonetheless, the <a href="https://reasonml.github.io/en/try">Try Reason</a> page is a really good tool to try out small snippets of code and is extremely useful while learning the language (we will still occasionally post Try Reason links in our slack channel).</p><h3>Summary</h3><p>The reality is that Ahrefs has always been an OCaml shop, but in the past OCaml was only used to build the backend. Now that we are also using it on the frontend, we get the benefits that our backend colleagues have enjoyed for many years: the expressiveness afforded by pattern matching, the ease of refactoring in large codebases, the stability of a mature programming language, and the confidence of “if it compiles, it works”. To make a shoddy nautical analogy, it is as if we had built a wooden ship powered by a turbo engine. But now the wooden parts are being replaced with steel and plastic, bringing the exterior of the ship up to modern standards as well. As a result, the ship runs faster and more reliably, making the passengers (our users) more satisfied. Also, pirates (bugs) have a harder time hijacking the ship because it’s sturdier and defended by well-disciplined camels. Because the ship keeps getting more and more passengers who want to experience a delightful ride and take pictures with enigmatic camels, we require a constant influx of willing and able boat engineers (who aren’t allergic to camels) to extend and maintain the ship. (Yes, that means that <a href="https://ahrefs.com/jobs">we are hiring</a>️.)</p><p><em>Thanks to Raman and Louis for fact checking this post.</em></p><img src="https://medium.com/_/stat?event=post.clientViewed&referrerSource=full_rss&postId=2250cf5ba63b" width="1" height="1" alt=""><hr><p><a href="https://tech.ahrefs.com/one-and-a-half-years-of-reasonml-in-production-2250cf5ba63b">One and a half years of ReasonML in production</a> was originally published in <a href="https://tech.ahrefs.com">ahrefs</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p>|js}
-  };
- 
-  { title = {js|Skylake bug: a detective story|js}
-  ; slug = {js|skylake-bug-a-detective-story|js}
-  ; description = Some {js|It was a dark and stormy night; the skylake CPU buzzed with excitement, and then, suddenly, the hyperthreads started to lock up..|js}
-  ; url = {js|https://tech.ahrefs.com/skylake-bug-a-detective-story-ab1ad2beddcd?source=rss----303662d88bae--ocaml|js}
-  ; date = {js|2017-06-28T18:34:51-00:00|js}
-  ; preview_image = None
-  ; body_html = {js|<blockquote>It was a dark and stormy night; the skylake CPU buzzed with excitement, and then, suddenly, the hyperthreads started to lock up..</blockquote><p>Or something like that.</p><p>This week a new erratum for the Intel Skylake and Kabylake processors families was brought to public attention on <a href="https://lists.debian.org/debian-devel/2017/06/msg00308.html">the Debian mailing list</a>, and then on <a href="https://news.ycombinator.com/item?id=14630183">various</a> <a href="https://www.reddit.com/r/programming/comments/6jfgfp/warning_intel_skylakekaby_lake_processors_broken/">social media</a> and <a href="http://www.theregister.co.uk/2017/06/25/intel_skylake_kaby_lake_hyperthreading/">news outlets</a>.</p><p>We have been investigating this issue since January with the core <a href="http://ocaml.org">OCaml</a> team, as we were struggling with a mysterious bug affecting our developers machines, and ultimately our production system, resulting in a corruption of important data in our databases.</p><p>At <a href="https://ahrefs.com">Ahrefs</a>, we operate a fleet of thousands of servers, running a wide variety of services (huge web crawler among others). At this scale, dealing with unexpected application behaviors is common. While we try to reduce the probability of the software not functioning as expected, bugs are sadly a real part of our everyday life. Even though we can assume the underlying hardware running any infrastructure can be thought of as more reliable and less prone to bugs than software components, issues can still arise in unexpected ways. When the number of servers increases, it is not unusual to observe faults in the hardware preventing the system from functioning as specified.</p><p>It is certainly not frequent to encounter such problems in CPUs but reading through <a href="https://www3.intel.com/content/dam/www/public/us/en/documents/specification-updates/desktop-6th-gen-core-family-spec-update.pdf">the list of errata published by any manufacturer,</a> each CPU model contains a fair amount of bugs. This story is about the bug in the microcode of Skylake processor leading to incorrect code execution under certain conditions. This is certainly scary at first sight: how can we trust our system if we cannot trust its main component ? Yet, like software bugs, processor defects can be identified, contained, and we can take actions to prevent them from impacting the operation of the infrastructure.</p><p>We do not know the full implications of this particular bug, especially security implications in case of untrusted code execution. But we’d like to tell the story of this erratum from our point of view, to provide some context, and show that dealing with it was not much different than dealing with any usual software flaw. While this post aims to cover our own perspective on this adventure, we would like to thank Mark Shinwell, Xavier Leroy, Frédéric Bour, everyone involved in the <a href="https://caml.inria.fr/mantis/view.php?id=7452">Mantis issue</a> and the OCaml IRC channel for their help and time spent investigating with us. Update: Xavier Leroy told his own side of the story in another <a href="http://gallium.inria.fr/blog/intel-skylake-bug/">blog post.</a></p><h3>Setting the scene</h3><p>Our story starts in late 2016 after some of our backend developers received new laptops to work on. After a few days Enguerrand Decorne noticed unusual crashes during compilation of our OCaml codebase.</p><p>This issue, considered mildly annoying at first, seemed to affect only Enguerrand’s machine. For a few days no other machine would exhibit the same behavior, so we figured this was a fault specific to his system configuration.</p><p>However, concerns were subsequently raised after witnessing the generation of invalid machine code and later on, after the deployment of a service on one of our new clusters composed of Skylake Xeon processors, leading to the insertion of corrupted data into our storage system. The priority raised from the annoying level, to potentially critical. Other developers started working together to obtain more information and assess the impact on our infrastructure. Soon after we were able to reproduce the issue on several machines.</p><p>The remainder of this post is a technical description of the steps taken to ensure that our systems were operating safely. It is intended to show that such low level CPU issues is not necessarily fatal — in less than two weeks, with the great help of core OCaml developers, we identified the conditions of the crash and set up a workaround.</p><h3>Tracking down crashes in OCaml</h3><p>Most of our backend code is written in <a href="https://ocaml.org">OCaml</a>, a high level and expressive language supporting functional programming style (among others), which allows us to develop robust systems with ease, thanks to its strong type system and mature legacy.</p><p>The compiler segfaults were definitely a surprise, since this shouldn’t happen for any program written in OCaml, as type system and other features (such as automatic bounds-checking) usually guard us from such errors. However, stack overflows can be possible sources of segfault (when a non-optimal recursion is running too deep), so our first intuition was to increase the stack size when running the compiler. This didn’t change anything, and the reported fault address wasn’t anywhere near the stack address bound.</p><p>Before witnessing the crash on other machines, we suspected a failure in the virtualization software used by our two developers that were able to reproduce the crash, who use VMware as a part of their development workflow. We tried early on to switch to Virtualbox, but the migration proved itself fruitless as the crashes kept appearing. After a short while we began encountering the same issue on physical machines, so we ruled out a possible virtualization software bug.</p><p>The usual debugging process for crashing OCaml code didn’t prove effective — we needed to narrow down our approach.</p><p>OCaml ships with <a href="https://realworldocaml.org/v1/en/html/the-compiler-backend-byte-code-and-native-code.html">two backend implementations</a>: a bytecode interpreter and a native compiler. We were able to reproduce the issue using both a native compiler and a compiler running on the bytecode interpreter. Consequently, this ruled out a miscompilation coming from the code <em>emitted</em> by the compiler, the OCaml runtime <em>itself</em> was misbehaving.</p><p>The runtime code is written in C, and implements low level functionalities, including the garbage collector used by both backends. After rebuilding the runtime with debug symbols, we were able to retrieve a proper stack trace and core dump. The stack trace pointed to the garbage collector’s mark phase. OCaml’s GC is a classic generational mark and sweep collector. The mark phase walks the heap starting from pointers on the stack and other registered root values, and marks every reachable block of memory.</p><p>Further inspection with <strong><em>gdb</em></strong> of the frame and address of crash revealed that the marking code encountered a corrupted block header with invalid size information, causing what looked like a buffer overrun error. Each memory block allocated in OCaml heap begins with a header word, storing metadata used by the GC, including a tag describing the kind of value present in this memory block. The header contains the size of the block, and the crash happened when the mark code was attempting to scan an array which was supposed to be more than 1TB large.</p><p>This was obviously not the cause of the problem but rather the consequence: something corrupted the header word after this block had been properly allocated, postponing the crash until the next GC cycle. It was the right time to escalate <a href="https://caml.inria.fr/mantis/view.php?id=7452">the issue to the OCaml bugtracker</a>, after isolating a proper test case to reproduce the issue.</p><h3>A set of strange leads</h3><p>Escalating the issue to Mantis made us to take a step back and gather our findings, and we quickly got great feedback from the OCaml core team.</p><p>At this point, what does the problem look like?</p><p>We only had sparse information, but <strong><em>dmesg</em></strong> gave us interesting data point. When a page fault occurs and the kernel detects an incorrect memory access, it logs a line in kernel log buffer containing the fault address, the instruction pointer and stack pointer.</p><p>[22985.879907] ocamlopt.opt[48221]: segfault at af8 ip 00005564455169bd sp 00007ffc9f36b130 error 4 in ocamlopt.opt[556445006000+613000]</p><p>Next to the 3 addresses, already available in the coredumps, an error code is reported. This number in decimal form is actually a bitset, and the flags are documented in the Linux kernel sources in <a href="https://github.com/torvalds/linux/blob/v4.11/arch/x86/mm/fault.c#L41">arch/x86/mm/fault.c</a>. Error 4 can thus be read as a read access page fault from user mode, trying to read memory which had not been previously mmap’ed.</p><p>Error codes reported following our crashes involved protection faults or access to unmapped addresses, which corroborated our earlier buffer overrun hypothesis. More interestingly we witnessed a crash with the PF_RSVD flag enabled. This left us puzzled, none of us had ever seen such fault before. Apparently it indicates that the the page table was somehow corrupted, with some entries having non-zero bits reserved by the x86 architecture specification.</p><p>It was scary that the corruption would escape the process address space, and to our limited knowledge, it could only have been caused by kernel issue or potentially hardware issues, like memory errors. Yet we were able to reproduce this on several machines with different kernel version, and different hardware. We blamed virtual machines earlier but this theory was debunked already. We still have no explanation at this time, and pursuit on this front would require intimate knowledge of virtual memory implementations that we didn’t have.</p><p>One developer wasn’t able to reproduce the problem at all on his machine after hours of testing, but something was fishy: it didn’t sound right that an OCaml runtime bug would be able to modify the page table. Maybe it was some corner case with reserved addresses, but this something was beyond our reach here. Out of ideas, it was time to get some assistance from tools intended to track memory corruptions, like <a href="https://github.com/google/sanitizers/wiki/AddressSanitizer">asan and ubsan</a>.</p><p>Running <strong><em>Asan</em></strong> didn’t yield any meaningful results. <strong><em>Valgrind</em></strong> was later tried, following advises from the OCaml team, but every tools were preventing the crash. Quickly reproducing the bug for testing required running code in a loop, keeping the CPU and memory fully busy.</p><p>This was harder to do on developers machines, due to limited resources and other processes running, and Address Sanitizer would only increase the resources usage. Dedicating a powerful server would make further investigations more comfortable, and increase the likeliness of reproducing with instrumented code.</p><p>But with great surprise, it was not possible to reproduce the problem on a server machine, with and without instrumented code. This is when we realised that all the machines exhibiting the crashes were running a processor of the Intel Skylake processors family, while the server and other developer machines had CPUs from the Broadwell family.</p><h3>The hardware, an unusual suspect</h3><p>In the meantime several core OCaml developers had been closely investigating the issue and started auditing recent changes in the runtime, and identified a few suspicious changes and known bugs.</p><p>Certainly they were more qualified for this task, but it acted as an incentive to examine the history of this bug from our angle. At first, we had assumed that the bug was specific to the new laptop with virtual machines. This could not explain why the crash never manifested on older workstations equipped with Skylake processors. Several other developers had been using them for a few months, and only noticed the crash after awareness of the issue had been raised by Enguerrand.</p><p>What had changed, besides Skylake? Only a few week before, an internal migration from OCaml version 4.02.3 to 4.03.0 was rolled out in our codebase. Intrigued, we went ahead and tested OCaml 4.02.3 again, which showed no memory corruptions after several tests. It was time to browse the <a href="https://raw.githubusercontent.com/ocaml/ocaml/trunk/Changes">OCaml changelog</a> for runtime related entries. The search stopped quickly on a promising item in the list: the OCaml C runtime build optimisation level had been increased to -O2 from -O1.</p><p>Could the optimizations dig out an undefined behavior in C code, leading to bad assumptions in the GC code corrupting the heap ? Rebuilding the runtime with -O1did not corrupt memory, so the source of the corruption was in the runtime <em>and</em> was triggered by some gcc specific optimization pass. This sounded like undefined behavior, although the information we had led us to some hardware bug.</p><p>The next day, Xavier Leroy commented on the bugreport reporting that the crash had been observed in the past. Another industrial OCaml user was affected, and they had discovered HyperThreading was part of the necessary conditions. After running the test case for several hours on several machines with HT disabled in the UEFI setup, it was clear we were facing a similar situation. This led to the hypothesis of a hardware bug:</p><blockquote><em>Is it crazy to imagine that gcc -O2 on the OCaml 4.03 runtime produces a specific instruction sequence that causes hardware issues in (some steppings of) Skylake processors with hyperthreading? Perhaps it is crazy.</em></blockquote><p>This possibility had struck us too, motivated by the HyperThreading, the page table corruption and the Skylake specific set of conditions.</p><p>This issue had certainly a strange profile. But nobody was ready to fully embrace the cpu bug hypothesis yet. We convinced ourselves that disabling HT could affect cache pressure and unfold some undefined behaviours.</p><p>HT could also explain the non-determinism, since cache pressure would depend on timings and scheduling. None of us had sufficient experience in this area to assess the strength of such hypothesis, and we did not quite buy it on a single threaded OCaml program. Our debugging motto claims that “assumptions are not facts”.</p><p>It was time to browse Intel errata list and attempt to update the CPU microcode. Although, the errata descriptions are formulated in vague terms, none of the issues disclosed at this time were looking similar to the situation under investigation. Unfortunately, CPUs microcode had no fix waiting for us either. OCaml developers investigated the errata list from their side but the lack of detailed information turned this into a fruitless and complex task.</p><p>In the absence of better alternative, we focused our work on pinpointing the exact source of the crash as if it was a software bug, in the hope of either finding a code issue or ruling out this hypothesis while getting more detailed data. We needed a way to identify the problematic code and find a workaround. From our side, it was not only a matter of finding whether or not there was a bug in OCaml code, but more crucially we needed a guarantee on the quality of our generated code running critical services in production.</p><h3>Identifying the offending code</h3><p>The other OCaml user affected by this issue reported that they had solved the problem by switching to another C compiler. Building the runtime with clang instead of GCC would prevent the GC from crashing. They also suggested to obtain a diff of the generated assembly. Indeed, once built with clang, the runtime would not crash. But clang generates widely different assembly from GCC and we did not have the resources to analyse several hundred thousand lines of changes.</p><p>If we could isolate the problematic C code, comparing the generated code would be easier. The problem had the form of a well known nail:</p><ul><li>Around 50 C files composing the OCaml runtime,</li><li>There is a good state (when built with gcc -O1)</li><li>And a bad state (when built with gcc -O2)</li></ul><p>This nail comes with a precious hammer: bisection.</p><p>The bisection approach had a downside in this occasion. Any state can be labeled bad with certainty as soon as the test crashes, but we would need to wait several hours to be confident enough to trust a non crashing test as good data-point. The reproducibility was not always consistent and a non-crashing state could be a false negative still waiting to trigger the conditions leading to the crash. A reduction of search space was necessary.</p><p>All the coredumps we had showed that the fault was caused by a corrupted heap block header, and our testcase involved the compiler. The OCaml compiler is not 100% deterministic, and IO/s primitives and unix environment in the runtime can affect timings and allocation patterns. But it sounded sensible to assume that the code corrupting a heap header block was also the code reading and writing those blocks: the major GC.</p><p>This hypothesis made bisecting fast: the first file we tried, <strong><em>major_gc.c</em></strong>, turned out to be the one. To make sure it was not a subtle issue in linker, reordering symbols or code blocks, we tried a few others files and confirmed changing the optimization level of some other files alone made no difference.</p><p>But the generated code difference was still way too large. Bringing this topic up on the <a href="http://webchat.freenode.net/?channels=#ocaml">OCaml IRC</a> discussion channel led to some useful inputs. We were taught that gcc supports an attribute to enable specific optimizations at the function level, using __attribute__((optimize(&quot;options,...&quot;))). Following the same strategy, it was easy to trace the source of the malfunctioning code to the <strong><em>sweep_slice</em></strong> function, which implements the sweeping phase of the classic mark and sweep garbage collector for the old generation.</p><p>Ignoring the subtle details of incremental GC, the <strong><em>sweep_slice</em></strong> function is the last pass of a normal major collection cycle. It is responsible for scanning all blocks in the major heap, and reclaiming unreachable blocks to the list of unallocated space.</p><p>The bulk of this function is a switch taking action for each block depending on its status :</p><iframe src="" width="0" height="0" frameborder="0" scrolling="no"><a href="https://medium.com/media/cfbc19fddccc5f2c1a76fcc802fae049/href">https://medium.com/media/cfbc19fddccc5f2c1a76fcc802fae049/href</a></iframe><p>This finding felt consistent with the information at hand. When the block is reachable, the color (describing the reachability status of the block) is reset. If the block became unreachable (<em>while color</em>) - it is reclaimed. In both cases, the block header is modified.</p><p>Getting back to the assembly diff.</p><p>Nobody in the team knows a great deal about assembly and we only have a really basic understanding of most of the instructions used in both versions. It quickly became obvious that the noise level in this diff, with thousands of lines of changed, was still too high for us to spot anything related to the problem. This problem was getting far beyond the common knowledge of everyone in the team.</p><p>But this was still sounding like your day to day bug tracking process. The less you know, the more careful you need to be, tackling the problem step by step. We stuck to what approach had served us well until now: bisecting.</p><p>We went through the list of optimisation passes enabled by GCC at -O2. This is a fair amount of optimisation passes and it would have been too time consuming to try them one by one, given the time needed to trigger the crash. Yet we had a hint: a memory corruption was happening semi randomly in the garbage collector. We were also keeping the undefined behaviour bug as a potential explanation. It was likely a pass which would change the structure of the code, reordering blocks and changing conditions.</p><p>After reading the description of all switches in the detailed gcc manual, the -ftree-* pass family looked promising. This set of transformations works on the <a href="https://en.wikipedia.org/wiki/Static_single_assignment_form">SSA form</a> internal representation, a widespread intermediate language representation which has the benefit of being easy to read. They seem to make a huge impact on the generated assembly code, moving code blocks around and making assumptions on code invariants in order to move around, simplify or eliminate conditional checks altogether.</p><p>By looking at output of those passes on the related source code, we narrowed down the list of transformations to a couple of interesting passes, one of them being -ftree-vrp, which stands for Value Range Propagation. This pass computes bounds for each name binding and propagates proofs that a value must lie in a given range.</p><p>It turned out most of the other passes depended on it for further optimisations. Even though the issue ended up not being a bad assumptions in the range values, checking this pass proved to be worthwhile: enabling -ftree-vrp on <strong><em>sweep_slice</em></strong> function while every thing else was built with -O1 was enough to trigger a crash.</p><p>GCC provides very good diagnostics output, and after reading the manual we found the -fdump-tree-* switch to dump the SSA form before and after specific pass. The output is designed to be read by a human and provides meaningful naming, with source code locations, alongside the ranges propagated by the VRP pass. We spent some time studying the output and matched the difference in SSA tree between the crashing and not crashing code.</p><p>Examining the bounds and invariants derived by gcc, it was clear that no wrong hypothesis was stated.</p><iframe src="" width="0" height="0" frameborder="0" scrolling="no"><a href="https://medium.com/media/a5a311d0b5a4f890f9541f0aed91e73e/href">https://medium.com/media/a5a311d0b5a4f890f9541f0aed91e73e/href</a></iframe><p>The only meaningful observable change involves the suppression of rechecking the loop condition in the else branch of the <strong><em>sweep_slice</em></strong> function, after Value Range Propagation proved that the condition was invariant in this branch.</p><p>Often, reading the code carefully is the fastest way to find a bug. But after spending hours staring at the major GC code, it was clear enough that this check removal should not cause any semantic changes.</p><p>In this process, we identified a suspicious bit of code, where a signed long variable was promoted to unsigned according to C standard rules, which was changing the bounds derived by gcc, assuming it was always positive. But after some thinking we realised it made no difference at assembly level and although wrong, this assumption was not used anywhere.</p><p>We were now ready to rule out the possibility of a bug in OCaml runtime. It was still possible that GCC backend had a bug and was miscompiling this particular shape of code. And we were back at the assembly level again. After writing some awk formatting script to cleanup assembly and minimise noise in the diff (by renaming labels, detecting spurious code move, etc), and preventing inlining, we found a minimal assembly patch causing the crash.</p><p>There were only cosmetic differences. The test removal was propagated down to assembly and caused gcc to reorganise the layout of each switch case block.</p><iframe src="" width="0" height="0" frameborder="0" scrolling="no"><a href="https://medium.com/media/532ab4896b11177a96203fd0c81eaa58/href">https://medium.com/media/532ab4896b11177a96203fd0c81eaa58/href</a></iframe><p>Among those minor differences and changes of layout, we noticed a particular change which impacted exactly the reachable block header updated which could have caused header corruption. In the unoptimised version, the updating code looked like this:</p><iframe src="" width="0" height="0" frameborder="0" scrolling="no"><a href="https://medium.com/media/38ca30a1decf86233084721c3803b1c4/href">https://medium.com/media/38ca30a1decf86233084721c3803b1c4/href</a></iframe><p>For some reason, the block pointer was spilled to the stack.</p><p>Perhaps naively, and because we had earlier emitted the hypothesis of HT impacting cache pressure, we spent a few hours staring at this code and check if we were missing something subtle which could affect the control flow of the whole function and the stack location from which it was reloaded could be corrupted.</p><p>Despite our lack of assembly knowledge, after spending several hours reading this tiny change, we got convinced that it made strictly no semantic difference. Reading the x86 manual carefully didn’t give any hint on any subtle behavior which would trigger. Executing any of those two sequence of instruction should give the exact same output.</p><h3>Mitigating the issue</h3><p>We were now quite certain it was a CPU bug.</p><p>The OCaml developers had reached the same conclusion, and were working on escalating the issue to Intel. After internal discussions we decided to keep this bug as low profile as possible since we were unsure about potential security implications, especially for JIT implementations.</p><p>Even if we had no confirmation at this point nor any explanations of the cause of this bug, which was beyond our reach, we could take actions.</p><p>The first step was to decide against getting any new Skylake based servers until further announcement. We were left with several Skylake machines but we refrained from deploying any OCaml code on them. OCaml comes with a great package manager, <a href="https://opam.ocaml.org/">opam</a>, which supports compiler switches. Switches allow to set up a clean and distinct environment with specific packages and compiler configuration.</p><p>We patched our internal opam repository to distribute unoptimised runtime to all developers and moved forward, waiting for further announcements.</p><p>This situation made us realise that microcode requires constant updates, just like any other software in the stack. We raised awareness on this topic in our devops team, and they took measure to ensure we could roll out updates to prod easily.</p><h3>Happy end</h3><p>In late May, devops team noticed a <a href="http://metadata.ftp-master.debian.org/changelogs/non-free/i/intel-microcode/intel-microcode_3.20170511.1_changelog">debian package update for intel-microcode</a> containing the following change:</p><pre>Likely fix nightmare-level Skylake erratum SKL150. Fortunately,<br>either this erratum is very-low-hitting, or gcc/clang/icc/msvc<br>won’t usually issue the affected opcode pattern and it ends up<br>being rare.<br>SKL150 — Short loops using both the AH/BH/CH/DH registers and<br>the corresponding wide register *may* result in unpredictable<br>system behavior. Requires both logical processors of the same<br>core (i.e. sibling hyperthreads) to be active to trigger, as<br>well as a “complex set of micro-architectural conditions”</pre><p>The erratum description immediately rang a bell as it matched the diff in the assembly we had observed. We tested the microcode update and confirmed it fixed the corruption.</p><p>Finally, our Skylake CPUs were feeling safe and OCaml compiler was happy.</p><p><a href="https://ahrefs.com"><em>Ahrefs</em></a><em> runs an internet-scale bot that crawls the whole Web 24/7. Our backend system is powered by a custom petabyte-scale distributed key-value storage implemented in OCaml (and some C++ and Rust). We are a small team and strongly believe in better technology leading to better solutions for real-world problems. We worship functional languages and static typing, extensively employ code generation and meta-programming, value code clarity and predictability, and are constantly seeking to automate repetitive tasks and eliminate boilerplate. And we are </em><a href="https://ahrefs.com/jobs"><em>hiring</em></a><em>!</em></p><img src="https://medium.com/_/stat?event=post.clientViewed&referrerSource=full_rss&postId=ab1ad2beddcd" width="1" height="1" alt=""><hr><p><a href="https://tech.ahrefs.com/skylake-bug-a-detective-story-ab1ad2beddcd">Skylake bug: a detective story</a> was originally published in <a href="https://tech.ahrefs.com">ahrefs</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p>|js}
-  };
- 
-  { title = {js|13 Virtues|js}
-  ; slug = {js|13-virtues|js}
-  ; description = Some {js|Very early on in his life, while on lengthy voyage from London to Philadelphia,Ben Franklin created a system of thirteen virtues to live his life by. He spen...|js}
-  ; url = {js|https://blog.janestreet.com/13-virtues/|js}
-  ; date = {js|2015-01-02T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>Very early on in his life, while on lengthy voyage from London to Philadelphia,
+
+let all =
+  [ { title = {js|Building Ahrefs codebase with Melange|js}
+    ; slug = {js|building-ahrefs-codebase-with-melange|js}
+    ; description =
+        Some
+          {js|What we learnt after experimenting with Melange, a fork of ReScript with a strong focus on keeping compatibility with OCaml.|js}
+    ; url =
+        {js|https://tech.ahrefs.com/building-ahrefs-codebase-with-melange-9f881f6d022b?source=rss----303662d88bae--ocaml|js}
+    ; date = {js|2021-05-18T15:24:20-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://miro.medium.com/max/1200/1*tYLUO4FDmJ6bzlsPp14LdQ.jpeg|js}
+    ; body_html =
+        {js|<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*tYLUO4FDmJ6bzlsPp14LdQ.jpeg" /><figcaption>Photo by <a href="https://unsplash.com/@madebyjens?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Jens Lelie</a> on <a href="https://unsplash.com/s/photos/fork-road?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></figcaption></figure><p>At Ahrefs, we have been using BuckleScript and ReasonML in production <a href="https://tech.ahrefs.com/one-and-a-half-years-of-reasonml-in-production-2250cf5ba63b">for more than two years</a>. We already have a codebase of tens of thousands of lines of code, with several web applications that are data intensive and communicate with backend services written in <a href="http://ocaml.org/">OCaml</a>, using tools like <a href="https://github.com/ahrefs/atd">atd</a>.</p><p>Given our investment in these technologies, we have been following closely the recent changes in <a href="https://rescript-lang.org/">ReScript</a>, with its rebrand and renaming, and the split with the ReasonML project, explained in the project <a href="https://rescript-lang.org/blog/bucklescript-is-rebranding">blog post</a>.</p><h3>ReScript: becoming its own language</h3><p>We are excited about the way ReScript is unifying the experience and making it easier for developers who are getting started to find documentation in a single place, as well as continuing its strong focus on performance and readable JavaScript output.</p><p>On the other hand, we are trying to figure out the implications of this change in the mid- and long-term, especially regarding the integration with the OCaml ecosystem. And more importantly, what this evolution will mean for production users like us who rely on this integration.</p><p>ReScript integration with OCaml has historically been seamless, as BuckleScript started originally as a <a href="https://www.reddit.com/r/ocaml/comments/4enok3/bloombergbucklescript_a_back_end_for_the_ocaml/">new backend for the OCaml compiler</a>. However, in recent months, there have been several hints that ReScript wants to evolve towards becoming its own language:</p><ul><li>It has now <a href="https://github.com/rescript-lang/syntax">its own parser</a>, incompatible with OCaml native applications</li><li>Official repository guidelines for technical writing mentions explicitly that <a href="https://github.com/rescript-association/rescript-lang.org/blob/master/CONTRIBUTING.md#technical-writing-documentation">no reference to OCaml</a> should appear in docs</li><li>Upgrades to the latest version of OCaml compiler, which <a href="https://web.archive.org/web/20210208054855if_/https://github.com/rescript-lang/rescript-compiler/wiki">used to be part of the roadmap</a>, have been <a href="https://forum.rescript-lang.org/t/some-thoughts-on-community-building/1474">deprioritized</a> recently.</li></ul><p>So, even if officially ReScript has not announced that they will break backwards compatibility with OCaml, just the fact that it is sticking with an old version of the OCaml compiler poses some challenges for us in terms of tooling. The uncertainty about the future and the pace of changes add some risk to the high-level goals we have for our teams and codebase: we would like to share <em>more</em> code between frontend and backend, not less.</p><h3>Melange: a fork of ReScript, focused on OCaml compatibility</h3><p>When António Monteiro <a href="https://anmonteiro.com/2021/03/on-ocaml-and-the-js-platform/">announced Melange</a>, a fork of ReScript but with a strong focus on keeping compatibility with OCaml, we decided to try it out and see how it could work for us.</p><p>Ultimately, the experiment was successful. We managed to build all our frontend applications with Melange, while keeping the existing bundling setup, which currently uses Webpack.</p><p>Throughout this process, we had to modify some parts of the code. We will now go through the most relevant parts of the process:</p><ul><li>Upgrade to OCaml 4.12: the most relevant part was the deprecation of Pervasives module to use Stdlib.</li><li>Use ppxlib in our ppxs: we had to upgrade the two ppxs that we use in the frontend codebase to the latest compiler version, <a href="https://github.com/ahrefs/bs-emotion/compare/master...jchavarri:ocaml4.12-ppxlib">bs-emotion-ppx</a> and an in-house <a href="https://github.com/ahrefs/bs-react-intl-ppx">ppx for internationalization</a>.</li><li>Configure esy: we were already using esy to bring the editor tooling into scope of the developer environment, so we just had to make sure melange would also be included in the json configuration.</li><li>Upgrade to Reason 3.7.0: a quite simple change too, as the whole process is automated by using refmt. As a side note, we ran into <a href="https://github.com/reasonml/reason/issues/2636">a small bug</a> with some type annotations, that we were able to work around.</li><li>“Lift” dune workspace to the root of our monorepo: this is probably the most intrusive change. Because we have shared code between backend and frontend, and Dune needs to have access to all sources under its workspace, we had to “lift” the Dune workspace from the backend directory to the root of monorepo.</li></ul><h3>The good</h3><p>This experiment allowed us to experience what a project like Melange could offer for our use case. Here are some of the things we might be able to leverage in a codebase built with Melange:</p><ul><li>Recent version of the OCaml compiler: at some point, we could pin compiler version between backend and frontend teams, making upgrades more straightforward as they would happen atomically.</li><li>Shared editor tooling: the official OCaml <a href="https://github.com/ocamllabs/vscode-ocaml-platform">vscode extension</a> works great with Melange, as well as any other OCaml editor integration. Having backend and frontend teams use similar editor setup removes a lot of maintenance work for us.</li><li>Consuming ppxs from source: Melange allows to consume ppxs from source, which also removes issues with pre-compiled ppxs (like this issue with the recent <a href="https://github.com/ahrefs/bs-emotion/issues/53">M1 Macs</a>).</li><li>Melange allows to run all ppxs <a href="https://github.com/melange-re/melange/pull/171">from a single executable file</a>, which has some nice performance benefits.</li><li>Use Dune for atd files generators: ReScript “generators” are unfortunately <a href="https://web.archive.org/web/20200710044513if_/https://reasonml.org/docs/reason-compiler/latest/build-advanced">not documented anymore</a>, but we use them extensively for atd file generation. Being able to share Dune rules in backend and frontend would make our build setup easier.</li><li>Access to OCaml documentation tooling: Melange allows to leverage existing tooling for generating documentation, like <a href="https://github.com/ocaml/odoc/">odoc</a>.</li><li>Async syntax: the latest Reason version <a href="https://github.com/reasonml/reason/pull/2487">supports “let op” syntax</a>, which is handy for client-side code.</li></ul><h3>The bad</h3><p>While there are many things that are exciting about Melange, there are some other parts that can be improved.</p><ul><li>Build performance: We already knew that performance would be far worse than ReScript, as Melange uses Dune in a way that it was not designed for. In our tests, builds with Melange are roughly 1 order of magnitude slower than ReScript ones.</li><li>First-class Dune support: if there was a deeper integration between Dune and Melange, we could explore features like shared libraries or shared rules between backend and frontend. As of today, Dune has no knowledge about Melange environment, so it can perform basic rules execution, but there is no access to high level stanzas like library in Melange.</li><li>Two-headed goal: finally, we see a more strategic risk in Melange proposition. Right now it has two goals: keep compatibility with both ReScript and OCaml. But we don’t know how long these goals will be feasible. If at some point ReScript decides to move away from the OCaml compiler fully, then Melange users would not be able to consume any updates to the ReScript ecosystem anymore.</li></ul><h3>Alright, but are you migrating to Melange or ReScript?</h3><p>With all the information available, the answer is: we don’t know yet. 😄 We want to keep exploring all the available options and have as much information as possible before committing further. So for now, we are upgrading the codebase to recent versions of ReScript, but we are holding up on features that only work one way. For example, we have not migrated our codebase to the ReScript syntax yet, as <a href="https://github.com/rescript-lang/syntax/issues/405">there is no way to translate back to Reason syntax</a>.</p><p>In the meantime, we will keep exploring how far the limitations of Melange can be mitigated. To be continued! 🚀</p><p><em>Thanks to Igor and Feihong for reviewing and improving earlier versions of this post.</em></p><img src="https://medium.com/_/stat?event=post.clientViewed&referrerSource=full_rss&postId=9f881f6d022b" width="1" height="1" alt=""><hr><p><a href="https://tech.ahrefs.com/building-ahrefs-codebase-with-melange-9f881f6d022b">Building Ahrefs codebase with Melange</a> was originally published in <a href="https://tech.ahrefs.com">ahrefs</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p>|js}
+    }
+  ; { title = {js|Getting started with atdgen and bucklescript|js}
+    ; slug = {js|getting-started-with-atdgen-and-bucklescript|js}
+    ; description =
+        Some
+          {js|atdgen is a project to create types and data structures that can be serialized to JSON. It is very convenient when communicating between…|js}
+    ; url =
+        {js|https://tech.ahrefs.com/getting-started-with-atdgen-and-bucklescript-1f3a14004081?source=rss----303662d88bae--ocaml|js}
+    ; date = {js|2018-09-12T02:53:58-00:00|js}
+    ; preview_image = None
+    ; body_html =
+        {js|<p><a href="https://github.com/mjambon/atd">atdgen</a> is a project to create types and data structures that can be serialized to JSON. It is very convenient when communicating between multiple processes, creating a REST API or consuming JSON objects from other tools. It can be compared to <a href="https://json-schema.org/">JSON schema</a> or <a href="https://developers.google.com/protocol-buffers/">Protocol Buffers</a>, but with richer types and more features.</p><p>The idea is to write a list of types in a specification file, an .atd file. Then running atdgen, it is possible to generate OCaml or Java code to serialize/deserialize values of those types to/from corresponding json.</p><p>Until very recently, atdgen could generate code only for native OCaml. But <a href="https://github.com/mjambon/atd/pull/44">the support of bucklescript has been merged</a>! atdgen the cli tool is still a native OCaml binary. But it can output some OCaml code that can be compiled using <a href="https://bucklescript.github.io/">bucklescript</a>.</p><p>The work to implement this new feature of atdgen has been funded by <a href="https://ahrefs.com/">Ahrefs</a>. We highly appreciate open source tools. And as much as possible, we prefer to contribute to existing open source projects rather than to re-invent the wheel internally.</p><h3>Installation</h3><p>To install atdgen we first need to install <a href="https://opam.ocaml.org">opam</a> (OCaml package manager), as atdgen doesn’t provide ready to use binaries and is only distributed as source package via opam. The procedure is simple and documented here: <a href="https://opam.ocaml.org/doc/2.0/Install.html">https://opam.ocaml.org/doc/2.0/Install.html</a></p><p>Then we need to initialize opam and create a switch. Any version of ocaml greater or equal to 4.03.0 should be fine.</p><pre>opam init -a<br>opam switch create . 4.07.1 -y</pre><p>Once it is done, we have to install the development version of atdgen. The support of bucklescript is not officially released.</p><pre>opam pin add atd --dev-repo   <br>opam pin add atdgen --dev-repo</pre><p>Make sure that atdgen is available.</p><pre>$ which atdgen                 <br>(current $PWD)/_opam/bin/atdgen</pre><p>Of course, we need bucklescript.</p><pre>yarn init                 <br>yarn add bs-platform --dev</pre><p>We also need the bucklescript runtime for atdgen, as it is not currently provided by atdgen itself. So we have written and open-sourced our version of the runtime : <a href="https://github.com/ahrefs/bs-atdgen-codec-runtime">https://github.com/ahrefs/bs-atdgen-codec-runtime</a>.</p><p>This runtime is responsible for the conversion between JSON values and OCaml values. The JSON values are based on the standard <a href="https://bucklescript.github.io/bucklescript/api/Js.Json.html#TYPEt">Js.Json.t type</a> provided by bucklescript to be sure that it is easy to interoperate with the rest of the ecosystem.</p><p>It is published on npm for easy integration in bucklescript projects.</p><pre>yarn add @ahrefs/bs-atdgen-codec-runtime</pre><h3>Project configuration</h3><p>After the previous section, package.json should be almost ready. We can add a few scripts to make it more convenient to compile the project. Here is how it should look once completed.</p><pre>{<br>  &quot;name&quot;: &quot;demo-bs-atdgen&quot;,<br>  &quot;version&quot;: &quot;0.0.1&quot;,<br>  &quot;description&quot;: &quot;demo of atdgen with bucklescript&quot;,<br>  &quot;scripts&quot;: {<br>    &quot;clean&quot;: &quot;bsb -clean-world&quot;,<br>    &quot;build&quot;: &quot;bsb -make-world&quot;,<br>    &quot;watch&quot;: &quot;bsb -make-world -w&quot;,<br>    &quot;atdgen&quot;: &quot;atdgen -t meetup.atd &amp;&amp; atdgen -bs meetup.atd&quot;<br>  },<br>  &quot;devDependencies&quot;: {<br>    &quot;bs-platform&quot;: &quot;^4.0.5&quot;<br>  },<br>  &quot;peerDependencies&quot;: {<br>    &quot;bs-platform&quot;: &quot;^4.0.5&quot;<br>  },<br>  &quot;dependencies&quot;: {<br>    &quot;<a href="http://twitter.com/ahrefs/bs-atdgen-codec-runtime">@ahrefs/bs-atdgen-codec-runtime</a>&quot;: &quot;^1.0.4&quot;<br>  }<br>}</pre><p>The bucklescript configuration is very simple. We use the basic configuration that can be found in any bucklescript project. Except that we need to add one dependency to bsconfig.json:</p><pre>{<br>  &quot;name&quot;: &quot;demo-bs-atdgen&quot;,<br>  &quot;version&quot;: &quot;0.0.1&quot;,<br>  &quot;sources&quot;: {<br>    &quot;dir&quot;: &quot;src&quot;,<br>    &quot;subdirs&quot;: true<br>  },<br>  &quot;package-specs&quot;: {<br>    &quot;module&quot;: &quot;commonjs&quot;,<br>    &quot;in-source&quot;: true<br>  },<br>  &quot;suffix&quot;: &quot;.bs.js&quot;,<br>  &quot;bs-dependencies&quot;: [<br>    &quot;<a href="http://twitter.com/ahrefs/bs-atdgen-codec-runtime">@ahrefs/bs-atdgen-codec-runtime</a>&quot;<br>  ],<br>  &quot;warnings&quot;: {<br>    &quot;error&quot;: &quot;+101&quot;<br>  },<br>  &quot;generate-merlin&quot;: true,<br>  &quot;namespace&quot;: true,<br>  &quot;refmt&quot;: 3<br>}</pre><h3>First ATD definitions</h3><p>It is time to create a first .atd file, containing our types. This part is also documented on <a href="https://atd.readthedocs.io/en/latest/tutorial.html#getting-started">https://atd.readthedocs.io/en/latest/tutorial.html#getting-started</a></p><p>For this example, I decided to go with a meetup event. Put the type definitions in src/meetup.atd.</p><pre>(* This is a comment. Same syntax as in ocaml. *)</pre><pre>type access = [ Private | Public ]</pre><pre>(* the date will be a float in the json and a Js.Date.t in ocaml *)<br>type date = float wrap &lt;ocaml module=&quot;Js.Date&quot; wrap=&quot;Js.Date.fromFloat&quot; unwrap=&quot;Js.Date.valueOf&quot;&gt;</pre><pre>(* Some people don&#39;t want to provide a phone number, make it optional *)<br>type person = {<br>  name: string;<br>  email: string;<br>  ?phone: string nullable;<br>}</pre><pre>type event = {<br>  access: access;<br>  name: string;<br>  host: person;<br>  date: date;<br>  guests: person list;<br>}</pre><pre>type events = event list</pre><p>We use the atdgen binary (compiled previously) to generate the ocaml types and the code to serialize/deserialize those types.</p><pre>atdgen -t meetup.atd # generates an ocaml file containing the types<br>atdgen -bs meetup.atd # generates the code to (de)serialize</pre><p>The generated files are:</p><ul><li>meetup_t.ml(i) which contain the ocaml types corresponding to our ATD definitions.</li><li>meetup_bs.ml(i) which contain the ocaml code to transform from and to json values.</li></ul><p>At this point we can compile our project.</p><pre>yarn build</pre><p>If everything worked properly, we now have two .bs.js files in the src directory.</p><pre>$ tree src<br>src<br>├── meetup.atd<br>├── meetup_bs.bs.js<br>├── meetup_bs.ml<br>├── meetup_bs.mli<br>├── meetup_t.bs.js<br>├── meetup_t.ml<br>└── meetup_t.mli</pre><pre>0 directories, 7 files</pre><p>At this point, we can create new OCaml/Reason files in the src directory and use all the code atdgen generated for us. Two examples to illustrate that.</p><h3>Query a REST API</h3><p>A common usage of atdgen is to decode the JSON returned by a REST API. Here is a short example, using the reason syntax and bs-fetch.</p><pre>let get = (url, decode) =&gt;<br>  Js.Promise.(<br>    Fetch.fetchWithInit(<br>      url,<br>      Fetch.RequestInit.make(~method_=Get, ()),<br>    )<br>    |&gt; then_(Fetch.Response.json)<br>    |&gt; then_(json =&gt; json |&gt; decode |&gt; resolve)<br>  );</pre><pre>let v: Meetup_t.events =<br>  get(<br>    &quot;<a href="http://localhost:8000/events">http://localhost:8000/events</a>&quot;,<br>    Atdgen_codec_runtime.Decode.decode(Meetup_bs.read_events),<br>  );</pre><h3>Read and write a JSON file</h3><p>Atdgen for bucklescript doesn’t take care of converting a string to a JSON object. Which allows us to use the performant json parser included in nodejs or the browser.</p><pre>let read_events filename =<br>  (* Read and parse the json file from disk, this doesn&#39;t involve atdgen. *)<br>  let json =<br>    Node_fs.readFileAsUtf8Sync filename<br>    |&gt; Js.Json.parseExn<br>  in<br>  (* Turn it into a proper record. The annotation is of course optional. *)<br>  let events: Meetup_t.events =<br>    Atdgen_codec_runtime.Decode.decode Meetup_bs.read_events json<br>  in<br>  events</pre><p>The reverse operation, converting a record to a JSON object and writing it in a file is also straightforward.</p><pre>let write_events filename events =<br>  Atdgen_codec_runtime.Encode.encode Meetup_bs.write_events events (* turn a list of records into json *)<br>  |. Js.Json.stringifyWithSpace 2   (* convert the json to a pretty string *)<br>  |&gt; Node_fs.writeFileAsUtf8Sync filename  (* write the json in our file *)</pre><h3>Full example</h3><p>Now that we have our functions to read and write events, we can build a small cli to pretty print the list of events and add new events.</p><p>The source code of the full example is available <a href="https://github.com/ahrefs/bs-atdgen-codec-runtime/tree/master/example">on github</a>.</p><p>You can run it like this:</p><pre>$ echo &quot;[]&quot; &gt; events.json<br>$ nodejs src/cli.bs.js add louis <a href="mailto:louis@nospam.com">louis@nospam.com</a><br>$ nodejs src/cli.bs.js add bob <a href="mailto:bob@nospam.com">bob@nospam.com</a><br>$ nodejs src/cli.bs.js print<br>=== OCaml/Reason Meetup! summary ===<br>date: Tue, 11 Sep 2018 15:04:16 GMT<br>access: public<br>host: bob &lt;<a href="mailto:bob@nospam.com">bob@nospam.com</a>&gt;<br>guests: 1<br>=== OCaml/Reason Meetup! summary ===<br>date: Tue, 11 Sep 2018 15:04:13 GMT<br>access: public<br>host: louis &lt;<a href="mailto:louis@nospam.com">louis@nospam.com</a>&gt;<br>guests: 1<br>$ cat events.json<br>[<br>  {<br>    &quot;guests&quot;: [<br>      {<br>        &quot;email&quot;: &quot;<a href="mailto:bob@nospam.com">bob@nospam.com</a>&quot;,<br>        &quot;name&quot;: &quot;bob&quot;<br>      }<br>    ],<br>    &quot;date&quot;: 1536678256177,<br>    &quot;host&quot;: {<br>      &quot;email&quot;: &quot;<a href="mailto:bob@nospam.com">bob@nospam.com</a>&quot;,<br>      &quot;name&quot;: &quot;bob&quot;<br>    },<br>    &quot;name&quot;: &quot;OCaml/Reason Meetup!&quot;,<br>    &quot;access&quot;: &quot;Public&quot;<br>  },<br>  {<br>    &quot;guests&quot;: [<br>      {<br>        &quot;email&quot;: &quot;<a href="mailto:louis@nospam.com">louis@nospam.com</a>&quot;,<br>        &quot;name&quot;: &quot;louis&quot;<br>      }<br>    ],<br>    &quot;date&quot;: 1536678253790,<br>    &quot;host&quot;: {<br>      &quot;email&quot;: &quot;<a href="mailto:louis@nospam.com">louis@nospam.com</a>&quot;,<br>      &quot;name&quot;: &quot;louis&quot;<br>    },<br>    &quot;name&quot;: &quot;OCaml/Reason Meetup!&quot;,<br>    &quot;access&quot;: &quot;Public&quot;<br>  }<br>]</pre><img src="https://medium.com/_/stat?event=post.clientViewed&referrerSource=full_rss&postId=1f3a14004081" width="1" height="1" alt=""><hr><p><a href="https://tech.ahrefs.com/getting-started-with-atdgen-and-bucklescript-1f3a14004081">Getting started with atdgen and bucklescript</a> was originally published in <a href="https://tech.ahrefs.com">ahrefs</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p>|js}
+    }
+  ; { title = {js|How to write a library for BuckleScript and Native|js}
+    ; slug = {js|how-to-write-a-library-for-bucklescript-and-native|js}
+    ; description =
+        Some
+          {js|This blog post is an introduction on how to setup a library available for both BuckleScript and OCaml, sharing as much code as possible.|js}
+    ; url =
+        {js|https://tech.ahrefs.com/how-to-write-a-library-for-bucklescript-and-native-22f45e5e946d?source=rss----303662d88bae--ocaml|js}
+    ; date = {js|2019-10-22T10:09:09-00:00|js}
+    ; preview_image = None
+    ; body_html =
+        {js|<p><em>Written with </em><a href="https://twitter.com/javierwchavarri"><em>Javier Chávarri</em></a><em> and </em><a href="https://github.com/feihong/"><em>Feihong Hsu</em></a><em>.</em></p><p>The first <a href="https://www.reason-conf.us/">Reason Conf US</a> just ended. Many talks mentioned native compilation. Sharing code between BuckleScript and native artifacts is a use case which is more and more common. This blog post is an introduction on how to set up a library available for both worlds, sharing as much code as possible.</p><h3>The goal</h3><p>What we try to produce is a library with an identical interface for BuckleScript and native. But without duplicating code. It should also be possible to have some parts of the library that are a different implementation depending on the target, as we want to be able to leverage existing libraries that are working only in one of the worlds.</p><h3>The build systems</h3><p>For BuckleScript, there is only one build system: bsb. It is driven by a bsconfig.json file. And is installed as part of the bs-platform.</p><p>On the native side, there are a lot of different build systems that are available. But recently one of them became a de facto standard: dune. It works with a very minimal amount of configuration. And it supports the reason syntax by default.</p><p>These two tools are working in a way which is pretty similar. They share a lot of concepts. And it is easy to set them up so that both are working in the same codebase.</p><p>The main similarities that interest us are:</p><ul><li>The ability to work on specific source directories</li><li>Namespacing in bsb and wrapping in dune are both putting all the<br>files of the library under a single module name</li></ul><h3>The source code file tree</h3><p>The code of the library is split into 3 directories.</p><pre>├── js/<br>├── native/<br>└── shared/</pre><ul><li>shared is meant to host most of the code and all the code in this directory will be compiled in both modes.</li><li>js contains the parts that are specific to BuckleScript.</li><li>native contains the parts that are specific to native OCaml.</li></ul><h3>Set up the build systems</h3><p>Once we have our basic skeleton for the library, it is time to set up the build systems. We want to have two configurations as similar as possible to make them easier to understand. Once we are done, the tree will look like this:</p><pre>├── bsconfig.json<br>├── dune<br>├── dune-project<br>├── js/<br>├── native/<br>└── shared/</pre><h4>BuckleScript</h4><p>At the root of the library we need a bsconfig.json file to drive<br>bsb. The documentation is available at <a href="https://bucklescript.github.io/docs/en/build-configuration](https://bucklescript.github.io/docs/en/build-configuration).">https://bucklescript.github.io/docs/en/build-configuration</a>.</p><p>The main part for us is sources. We will use it to tell bsb to look at the js and shared folders. We also want to set namespace to true, which will wrap all your project’s files under a common module name.</p><pre>  &quot;namespace&quot;: true,<br>  &quot;sources&quot;: [<br>    {<br>      &quot;dir&quot;: &quot;js&quot;,<br>      &quot;subdirs&quot;: true<br>    }, {<br>      &quot;dir&quot;: &quot;shared&quot;,<br>      &quot;subdirs&quot;: true<br>    }<br>  ],</pre><p>The rest of the file is as usual.</p><pre>{<br>  &quot;name&quot;: &quot;sharedlib&quot;,<br>  &quot;namespace&quot;: true,<br>  &quot;sources&quot;: [<br>    {<br>      &quot;dir&quot;: &quot;js&quot;,<br>      &quot;subdirs&quot;: true<br>    }, {<br>      &quot;dir&quot;: &quot;shared&quot;,<br>      &quot;subdirs&quot;: true<br>    }<br>  ],<br>  &quot;package-specs&quot;: {<br>    &quot;module&quot;: &quot;es6&quot;,<br>    &quot;in-source&quot;: true<br>  },<br>  &quot;refmt&quot;: 3,<br>  &quot;suffix&quot;: &quot;.bs.js&quot;,<br>  &quot;generate-merlin&quot;: true,<br>}</pre><h4>Dune</h4><p>We must also add a dune file to the root of the library. For dune, we have different options — it is possible to ignore the js directory but read everything else. Or to check only shared and native. To make the configuration similar to BuckleScript, we will go with the second solution.</p><p>The dune directive to do that is dirs. By defaults it tells dune to explore every directory except the ones hidden (starting with a dot) or starting with an underscore. <a href="https://dune.readthedocs.io/en/stable/dune-files.html#dirs-since-1-6">More details in dune’s documentation</a>. To make it do what we want, the configuration should be:</p><pre>(dirs shared native)</pre><p>We also use another option of dune to tell it to include the content of those two directories as if it was at the root of the project. Without this stanza, dune would only use the source files at the root of the project and ignore everything in the sub directories.</p><pre>(include_subdirs unqualified)</pre><p>Then we need the usual library stanza to give a name to our library, state the dependencies, compilation flags, etc. In our simple case, the only information needed is the name. We can explicitly set wrapped to true, but this is already the default behavior. The <a href="https://dune.readthedocs.io/en/stable/dune-files.html#library">documentation for the whole library stanza</a> describes how to specify more details.</p><p>The final dune file looks like this:</p><pre>(dirs shared native)<br> (include_subdirs unqualified)<br> (library<br>  (name sharedlib))</pre><p>We also want a basic dune-project. If we don’t write it by hand, dune will generate it for us. I am using version 1.10 as an example. But it can be changed to whatever version suits your project.</p><pre>(lang dune 1.10)</pre><h3>Compilation</h3><p>With the setup described above, the compilation for BuckleScript and native is the same as in a setup with only one or the other.</p><ul><li>bsb -make-world for BuckleScript</li><li>dune build @all for dune</li></ul><p>The call to bsb is usally put in package.json in the scripts part, so that the usual yarn build can be used. For native, it depends if you rely on esy or opam.</p><h3>How to consume the library</h3><p>This is exactly the same setup that would be used in a pure BuckleScript or pure native library.</p><p>To use your library in BuckleScript:</p><ul><li>Add the name and version to package.json</li><li>Add the name to bsbconfig.json of consuming library/app</li></ul><p>To use your library in native OCaml, add the name of your library to the libraries part an executable or library stanza, e.g.</p><pre>(executable<br> (name main)<br> (libraries sharedlib))</pre><h3>Module naming</h3><p>If you want your module name to contain capital letters in the middle (e.g. TeenageMutantNinjaTurtles), then be aware that <a href="https://bucklescript.github.io/docs/en/build-configuration.html#name-namespace">name munging</a> works differently between bsbconfig.json and dune. For example, if you want to refer to your module as CoolSharedLib in your code, then the name in bsbconfig.json must be cool-shared-lib, and in dune it must be coolSharedLib.</p><h3>Platform specific code</h3><p>The whole library does not have to be exactly the same in the two platform. It is possible to add modules that are available only in one mode. Or to have modules with a different interface.</p><p>For example, by adding a file Foo.re in js but not in native, the library now has a module Foo available when compiled to javascript. But only when compiled to javascript.</p><h3>Downsides</h3><ul><li>Both bsb and dune generate .merlin files when they compile our library. They override each other. It might be troublesome if the version of ocaml used for native code is not 4.02.3. Simply recompile the library for your platform to solve the problem.</li><li>Out of the box, this approach doesn’t really allow us to share interface files between both platforms: native and BuckleScript. One workaround for that, if we wanted to share some module Foo, is to:<br>1. add Foo.mli or Foo.rei file in shared<br>2. add include FooImplementation in Foo.ml<br>3. add FooImplementation in both native and js folder</li><li>It’s not possible to be platform specific for just a few lines of code (e.g. if IS_NATIVE foo else bar), the minimal per-platform unit is a file/module.</li></ul><h3>Example project</h3><p>We have set up a simple library to showcase what a repository looks like once the whole configuration is in place. It is <a href="https://github.com/ahrefs/hello-native-bucklescript">available on github</a>.</p><p>For now the repository contains only a library. But with this setup, it is actually possible to build an executable too. It is also possible to enrich it, for example by adding <a href="https://tech.ahrefs.com/getting-started-with-atdgen-and-bucklescript-1f3a14004081">atdgen to communicate between both sides of the library</a>.</p><img src="https://medium.com/_/stat?event=post.clientViewed&referrerSource=full_rss&postId=22f45e5e946d" width="1" height="1" alt=""><hr><p><a href="https://tech.ahrefs.com/how-to-write-a-library-for-bucklescript-and-native-22f45e5e946d">How to write a library for BuckleScript and Native</a> was originally published in <a href="https://tech.ahrefs.com">ahrefs</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p>|js}
+    }
+  ; { title = {js|One and a half years of ReasonML in production|js}
+    ; slug = {js|one-and-a-half-years-of-reasonml-in-production|js}
+    ; description =
+        Some
+          {js|The first Reason application at Ahrefs went online on January 31, 2019. Since then, many more applications have been either rewritten in…|js}
+    ; url =
+        {js|https://tech.ahrefs.com/one-and-a-half-years-of-reasonml-in-production-2250cf5ba63b?source=rss----303662d88bae--ocaml|js}
+    ; date = {js|2020-07-26T15:19:31-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://miro.medium.com/max/1200/1*Nl5vYk_k-mC4j32XEjryHQ.jpeg|js}
+    ; body_html =
+        {js|<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*Nl5vYk_k-mC4j32XEjryHQ.jpeg" /><figcaption>Photo by <a href="https://unsplash.com/@willianjusten">https://unsplash.com/@willianjusten</a></figcaption></figure><p>The first <a href="https://reasonml.org/">Reason</a> application at <a href="https://ahrefs.com">Ahrefs</a> went online on January 31, 2019. Since then, many more applications have been either rewritten in Reason, are being slowly migrated from React to ReasonReact, or are conceived from the start as Reason projects. It is safe to say that the bet placed on Reason paid off big time. We will never go back to doing pure JavaScript again, with the possible exception of simple backend scripts.</p><p>In the past few years, it’s come to light that there are a number of other <a href="https://www.messenger.com/">large</a> <a href="https://www.onegraph.com/">Reason</a>/<a href="https://darklang.com/">BuckleScript</a> <a href="https://onivim.io/">codebases</a> in the wild, but there still isn’t a ton of information out there about what it’s really like to work with Reason in production. To help remedy that, we thought it would be instructive to ask each of our frontend team members what their Reason journey has been like so far.</p><p>We gave them the following questions as starting points (but they were free to talk about anything they wanted):</p><ul><li>How does Reason compare to other languages you’ve used in the past?</li><li>What’s your favorite thing about Reason?</li><li>What’s your least favorite thing about Reason?</li><li>How does ReasonReact compare to other frameworks you’ve used?</li><li>Was it easy to pick up Reason? Why or why not?</li></ul><h4>Javi</h4><ul><li>How does Reason compare to other languages you’ve used in the past?</li></ul><p>In the past I worked with languages like Java, C, or less known like Pascal or Prolog. But the languages I’ve spent more time with are Objective-C and JavaScript. The main difference between all those languages and Reason is the exhaustiveness that you get from OCaml type checker. This is maybe awkward, but it feels like you stop coding alone and suddenly you have a sidekick always sitting next to you, that is helping you notice the things you forgot about, or found new code that is not consistent with code you or someone else wrote before.</p><p>In a world that is moving towards remote work, where many of us spend hours every day coding physically far from our colleagues, it makes the experience much more delightful. Plus, it allows for teams working on different time zones to keep a healthier work-life balance, because there is less need to have synchronous communication than with more dynamic languages, as more assumptions and design decisions are “embedded” into the code.</p><ul><li>What’s your favorite thing about Reason?</li></ul><p>Can I pick two things? It’s hard to choose only one.</p><p>The first one is the exhaustiveness and quality of the type checker, as mentioned above. Sometimes it takes a bit longer to build a feature than what it would in other languages, until the types are figured out. But this is largely compensated by the confidence one has when shipping code to production, or diving into large refactors.</p><p>The second one is the speed of the BuckleScript build system, which is built on top of <a href="https://ninja-build.org/">ninja</a>. I had never worked with such fast build system. As an example, we have recently started to use remote machines to develop at Ahrefs. In one of these machines that has 72 cores, BuckleScript takes roughly 3 seconds to clean build <em>all</em> our Reason code: application, libs, decoders… everything. Many tens of thousand lines of code! We thought there were something wrong, but we realized the compiler is just So Blazing Fast™️.</p><ul><li>What’s your least favorite thing about Reason?</li></ul><p>I guess we’re going through a necessary stage until things stabilize in the future, but there is a lot of fragmentation at the moment between “Reason native”, which tries to stay closer to OCaml, and “Reason web”, which has a goal to become friendlier for JavaScript developers.</p><p>I am excited to see what <a href="https://reasonml.org/blog/bucklescript-8-1-new-syntax">BuckleScript new syntax</a> will lead to, but I would also love to see a “universal” solution that works for the main use cases out of the box, becoming sort of Rails for Ocaml or Reason. <a href="https://github.com/oxidizing/sihl/">sihl</a> is a project that seems to go in that direction and looks very promising.</p><ul><li>How does ReasonReact compare to other frameworks you’ve used?</li></ul><p>I consider ReasonReact mostly like React + types on top, because the bindings layer is very thin. The thing that I like most about React is that it follows the Unix philosophy: it does one thing and it does it really well. Maybe we have forgotten already today, but having to maintain and mutate UI based on data updates was one of the main sources of bugs in the past. The other nice thing is that there is so much good content about it: blog posts, documentation, etc.</p><ul><li>Was it easy to pick up Reason? Why or why not?</li></ul><p>It took some time, as with any other language. We have things like syntax or semantics much more ingrained into our brains than we think, so there is always some “rewiring” time that is needed to learn a new language, even if Reason makes an effort to stay close to JavaScript syntax. The most challenging part was probably the bindings one, because coming from JavaScript, there are no previous knowledge that one can use as foundation to build upon, it’s all “new knowledge”. glennsl <a href="https://github.com/glennsl/bucklescript-ffi-cheatsheet">BuckleScript ffi cheatsheet</a> was a huge help for me.</p><h4>Ze</h4><p>I really like working with Reason, and have wanted to do so for a while. I was quite happy to see that working with it matched my expectations.</p><p>You get so much support from the type system, and still have a lot of flexibility to represent your domain model. Coming from other languages or paradigms, you don’t feel limited at all in what you can achieve.</p><p>The language has such a strong type system that you feel much more comfortable with your coding.</p><p>The OCaml type system is there to make sure you code with assurance. This is especially true when refactoring code. You can be sure that everything will work fine after it compiles. If it compiles, it works :)</p><p>It’s also very helpful when working on a monorepo. You don’t have to keep reading the source code of everything you use to make sure you don’t have types mistakes. Changes in code in one lib reflect immediately in all the others. This makes the feedback loop much shorter and safer.</p><p>The editors integrations with the type system are quite good and help a lot to write code better and faster.</p><p>Also, compilation times are super fast.</p><p>Last, but not least, ReasonReact is, for me, the hidden gem of ReasonML. The newcomers that have some difficulty with the language should start with it. IMHO, ReasonReact is simpler and has a better developer experience than React itself. It should be the gateway drug frontend developers need to get started with Reason/OCaml 😄</p><h4>Liubomyr</h4><p>To me, all those language features boil down to one essential thing, and it’s the easiness of refactoring. New business requirements popups all the time, and often your initial code assumptions are no longer correct. It was such a pain to modify code in a large JS codebase, as you never know how many things you potentially break in the process. With Reason, it has never been easier. If you need to change your data shape or some component API, you just do it, and from there, the compiler will guide you through all the places you broke, and help to fix those.</p><p>Coming from the JS world, it feels like the initial development is slower, because of the learning curve, missing bindings, less StackOverflow answers, but in the end, you are getting a stable software which is way easier to maintain and add features to.</p><h4>Egor</h4><p>I switched to Reason when I joined Ahrefs team about a year ago, before that I worked mostly with Ruby language.</p><p>The first thing that impressed me in ReasonML was code refactoring. Refactoring in language with a strong type system, like ReasonML and OCaml, is much easier than what I am used to. If your program compiles after your refactoring — most likely you did everything right, if it doesn’t compile — you can immediately see what you forgot to change. This can be achieved in languages with a dynamic type system only with a huge amount of code tests (supporting big test suite is a time consuming process as well as code support).</p><p>The other thing that I really like about ReasonML codebase — how readable it is. When you just enter into ReasonML world — some things can be unfriendly from the first sight, for example, immutable let bindings, but in the end, you realize that these language decisions help you to write cleaner and simpler code.</p><h4>Seif</h4><p>The programming language I used the most in the past is JavaScript. I switched to Reason when I joined Ahrefs a few months ago. From the start, I worked mainly on the code shared by the majority of the tools and I don’t think I would have had the same confidence making changes if I was doing it with JavaScript. I love JavaScript’s developer experience and accessibility. Reason provided me predictability without hurting these very same things I like about JavaScript.</p><h4>Bryan</h4><p>Reason (and OCaml) is, by far, one of the easiest languages to work with. Easy in the sense that the compiler helps eliminate an entire class of errors so you don’t have to worry about them. Additionally, in most other web-centric languages, it’s a pain to add features to existing code that you’ve not touched for a long time. With strong static typing, I can usually add the feature I want in either the backend or frontend, and then let the compiler tell me what needs to be updated.</p><p>Pattern-matching is one of my favourite features in Reason. To me, it makes more sense to be able to explicitly specify conditions that I’m interested in a clear and concise manner, and let the compiler tell me if I missed out a particular condition. Records go hand-in-hand with this. As software programs are made up of data and instructions, records are the perfect data containers. They are quick to define and query, focusing on data rather than behaviour (think classes and instance methods).</p><p>It definitely took a while to pick up Reason mainly because it takes time to become familiar with idiomatic OCaml. But once I crested that learning curve, everything just made sense and all the features of the language that made Reason seemingly difficult to learn — strong typing, the functional paradigm, etc, became assistants that helped me to write better code.</p><h4>Feihong</h4><p><a href="https://reasonml.github.io/reason-react/en/">ReasonReact</a> is a great library for making complex UIs in a large codebase because you get the familiarity of React coupled with the type safety of OCaml. Having two well-established technologies in its foundation is a big advantage that ReasonReact has over other functional UI libraries/frameworks in the transpile-to-JS universe. I didn’t have any professional OCaml experience before joining, yet the ramp up was made much easier by my existing knowledge of React and the (somewhat superficial) similarity of the Reason syntax to JS. Oftentimes it was possible to correctly guess the intent of existing Reason code without knowing all the syntax, because most React concepts carry over pretty directly. And even though the documentation is incomplete and not perfect, it’s quite usable already and among conceptually-similar frameworks is second only to the Elm documentation.</p><p>The compiler errors were difficult to get used to at first. The compiler is fairly good at pointing out the location of the error, but not necessarily as good at explaining the nature or cause of the error. As such, having a REPL would be extremely useful. Actually, OCaml does have its own REPL, but BuckleScript (the compiler used by Reason to translate OCaml to JS) does not at the moment. Nonetheless, the <a href="https://reasonml.github.io/en/try">Try Reason</a> page is a really good tool to try out small snippets of code and is extremely useful while learning the language (we will still occasionally post Try Reason links in our slack channel).</p><h3>Summary</h3><p>The reality is that Ahrefs has always been an OCaml shop, but in the past OCaml was only used to build the backend. Now that we are also using it on the frontend, we get the benefits that our backend colleagues have enjoyed for many years: the expressiveness afforded by pattern matching, the ease of refactoring in large codebases, the stability of a mature programming language, and the confidence of “if it compiles, it works”. To make a shoddy nautical analogy, it is as if we had built a wooden ship powered by a turbo engine. But now the wooden parts are being replaced with steel and plastic, bringing the exterior of the ship up to modern standards as well. As a result, the ship runs faster and more reliably, making the passengers (our users) more satisfied. Also, pirates (bugs) have a harder time hijacking the ship because it’s sturdier and defended by well-disciplined camels. Because the ship keeps getting more and more passengers who want to experience a delightful ride and take pictures with enigmatic camels, we require a constant influx of willing and able boat engineers (who aren’t allergic to camels) to extend and maintain the ship. (Yes, that means that <a href="https://ahrefs.com/jobs">we are hiring</a>️.)</p><p><em>Thanks to Raman and Louis for fact checking this post.</em></p><img src="https://medium.com/_/stat?event=post.clientViewed&referrerSource=full_rss&postId=2250cf5ba63b" width="1" height="1" alt=""><hr><p><a href="https://tech.ahrefs.com/one-and-a-half-years-of-reasonml-in-production-2250cf5ba63b">One and a half years of ReasonML in production</a> was originally published in <a href="https://tech.ahrefs.com">ahrefs</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p>|js}
+    }
+  ; { title = {js|Skylake bug: a detective story|js}
+    ; slug = {js|skylake-bug-a-detective-story|js}
+    ; description =
+        Some
+          {js|It was a dark and stormy night; the skylake CPU buzzed with excitement, and then, suddenly, the hyperthreads started to lock up..|js}
+    ; url =
+        {js|https://tech.ahrefs.com/skylake-bug-a-detective-story-ab1ad2beddcd?source=rss----303662d88bae--ocaml|js}
+    ; date = {js|2017-06-28T18:34:51-00:00|js}
+    ; preview_image = None
+    ; body_html =
+        {js|<blockquote>It was a dark and stormy night; the skylake CPU buzzed with excitement, and then, suddenly, the hyperthreads started to lock up..</blockquote><p>Or something like that.</p><p>This week a new erratum for the Intel Skylake and Kabylake processors families was brought to public attention on <a href="https://lists.debian.org/debian-devel/2017/06/msg00308.html">the Debian mailing list</a>, and then on <a href="https://news.ycombinator.com/item?id=14630183">various</a> <a href="https://www.reddit.com/r/programming/comments/6jfgfp/warning_intel_skylakekaby_lake_processors_broken/">social media</a> and <a href="http://www.theregister.co.uk/2017/06/25/intel_skylake_kaby_lake_hyperthreading/">news outlets</a>.</p><p>We have been investigating this issue since January with the core <a href="http://ocaml.org">OCaml</a> team, as we were struggling with a mysterious bug affecting our developers machines, and ultimately our production system, resulting in a corruption of important data in our databases.</p><p>At <a href="https://ahrefs.com">Ahrefs</a>, we operate a fleet of thousands of servers, running a wide variety of services (huge web crawler among others). At this scale, dealing with unexpected application behaviors is common. While we try to reduce the probability of the software not functioning as expected, bugs are sadly a real part of our everyday life. Even though we can assume the underlying hardware running any infrastructure can be thought of as more reliable and less prone to bugs than software components, issues can still arise in unexpected ways. When the number of servers increases, it is not unusual to observe faults in the hardware preventing the system from functioning as specified.</p><p>It is certainly not frequent to encounter such problems in CPUs but reading through <a href="https://www3.intel.com/content/dam/www/public/us/en/documents/specification-updates/desktop-6th-gen-core-family-spec-update.pdf">the list of errata published by any manufacturer,</a> each CPU model contains a fair amount of bugs. This story is about the bug in the microcode of Skylake processor leading to incorrect code execution under certain conditions. This is certainly scary at first sight: how can we trust our system if we cannot trust its main component ? Yet, like software bugs, processor defects can be identified, contained, and we can take actions to prevent them from impacting the operation of the infrastructure.</p><p>We do not know the full implications of this particular bug, especially security implications in case of untrusted code execution. But we’d like to tell the story of this erratum from our point of view, to provide some context, and show that dealing with it was not much different than dealing with any usual software flaw. While this post aims to cover our own perspective on this adventure, we would like to thank Mark Shinwell, Xavier Leroy, Frédéric Bour, everyone involved in the <a href="https://caml.inria.fr/mantis/view.php?id=7452">Mantis issue</a> and the OCaml IRC channel for their help and time spent investigating with us. Update: Xavier Leroy told his own side of the story in another <a href="http://gallium.inria.fr/blog/intel-skylake-bug/">blog post.</a></p><h3>Setting the scene</h3><p>Our story starts in late 2016 after some of our backend developers received new laptops to work on. After a few days Enguerrand Decorne noticed unusual crashes during compilation of our OCaml codebase.</p><p>This issue, considered mildly annoying at first, seemed to affect only Enguerrand’s machine. For a few days no other machine would exhibit the same behavior, so we figured this was a fault specific to his system configuration.</p><p>However, concerns were subsequently raised after witnessing the generation of invalid machine code and later on, after the deployment of a service on one of our new clusters composed of Skylake Xeon processors, leading to the insertion of corrupted data into our storage system. The priority raised from the annoying level, to potentially critical. Other developers started working together to obtain more information and assess the impact on our infrastructure. Soon after we were able to reproduce the issue on several machines.</p><p>The remainder of this post is a technical description of the steps taken to ensure that our systems were operating safely. It is intended to show that such low level CPU issues is not necessarily fatal — in less than two weeks, with the great help of core OCaml developers, we identified the conditions of the crash and set up a workaround.</p><h3>Tracking down crashes in OCaml</h3><p>Most of our backend code is written in <a href="https://ocaml.org">OCaml</a>, a high level and expressive language supporting functional programming style (among others), which allows us to develop robust systems with ease, thanks to its strong type system and mature legacy.</p><p>The compiler segfaults were definitely a surprise, since this shouldn’t happen for any program written in OCaml, as type system and other features (such as automatic bounds-checking) usually guard us from such errors. However, stack overflows can be possible sources of segfault (when a non-optimal recursion is running too deep), so our first intuition was to increase the stack size when running the compiler. This didn’t change anything, and the reported fault address wasn’t anywhere near the stack address bound.</p><p>Before witnessing the crash on other machines, we suspected a failure in the virtualization software used by our two developers that were able to reproduce the crash, who use VMware as a part of their development workflow. We tried early on to switch to Virtualbox, but the migration proved itself fruitless as the crashes kept appearing. After a short while we began encountering the same issue on physical machines, so we ruled out a possible virtualization software bug.</p><p>The usual debugging process for crashing OCaml code didn’t prove effective — we needed to narrow down our approach.</p><p>OCaml ships with <a href="https://realworldocaml.org/v1/en/html/the-compiler-backend-byte-code-and-native-code.html">two backend implementations</a>: a bytecode interpreter and a native compiler. We were able to reproduce the issue using both a native compiler and a compiler running on the bytecode interpreter. Consequently, this ruled out a miscompilation coming from the code <em>emitted</em> by the compiler, the OCaml runtime <em>itself</em> was misbehaving.</p><p>The runtime code is written in C, and implements low level functionalities, including the garbage collector used by both backends. After rebuilding the runtime with debug symbols, we were able to retrieve a proper stack trace and core dump. The stack trace pointed to the garbage collector’s mark phase. OCaml’s GC is a classic generational mark and sweep collector. The mark phase walks the heap starting from pointers on the stack and other registered root values, and marks every reachable block of memory.</p><p>Further inspection with <strong><em>gdb</em></strong> of the frame and address of crash revealed that the marking code encountered a corrupted block header with invalid size information, causing what looked like a buffer overrun error. Each memory block allocated in OCaml heap begins with a header word, storing metadata used by the GC, including a tag describing the kind of value present in this memory block. The header contains the size of the block, and the crash happened when the mark code was attempting to scan an array which was supposed to be more than 1TB large.</p><p>This was obviously not the cause of the problem but rather the consequence: something corrupted the header word after this block had been properly allocated, postponing the crash until the next GC cycle. It was the right time to escalate <a href="https://caml.inria.fr/mantis/view.php?id=7452">the issue to the OCaml bugtracker</a>, after isolating a proper test case to reproduce the issue.</p><h3>A set of strange leads</h3><p>Escalating the issue to Mantis made us to take a step back and gather our findings, and we quickly got great feedback from the OCaml core team.</p><p>At this point, what does the problem look like?</p><p>We only had sparse information, but <strong><em>dmesg</em></strong> gave us interesting data point. When a page fault occurs and the kernel detects an incorrect memory access, it logs a line in kernel log buffer containing the fault address, the instruction pointer and stack pointer.</p><p>[22985.879907] ocamlopt.opt[48221]: segfault at af8 ip 00005564455169bd sp 00007ffc9f36b130 error 4 in ocamlopt.opt[556445006000+613000]</p><p>Next to the 3 addresses, already available in the coredumps, an error code is reported. This number in decimal form is actually a bitset, and the flags are documented in the Linux kernel sources in <a href="https://github.com/torvalds/linux/blob/v4.11/arch/x86/mm/fault.c#L41">arch/x86/mm/fault.c</a>. Error 4 can thus be read as a read access page fault from user mode, trying to read memory which had not been previously mmap’ed.</p><p>Error codes reported following our crashes involved protection faults or access to unmapped addresses, which corroborated our earlier buffer overrun hypothesis. More interestingly we witnessed a crash with the PF_RSVD flag enabled. This left us puzzled, none of us had ever seen such fault before. Apparently it indicates that the the page table was somehow corrupted, with some entries having non-zero bits reserved by the x86 architecture specification.</p><p>It was scary that the corruption would escape the process address space, and to our limited knowledge, it could only have been caused by kernel issue or potentially hardware issues, like memory errors. Yet we were able to reproduce this on several machines with different kernel version, and different hardware. We blamed virtual machines earlier but this theory was debunked already. We still have no explanation at this time, and pursuit on this front would require intimate knowledge of virtual memory implementations that we didn’t have.</p><p>One developer wasn’t able to reproduce the problem at all on his machine after hours of testing, but something was fishy: it didn’t sound right that an OCaml runtime bug would be able to modify the page table. Maybe it was some corner case with reserved addresses, but this something was beyond our reach here. Out of ideas, it was time to get some assistance from tools intended to track memory corruptions, like <a href="https://github.com/google/sanitizers/wiki/AddressSanitizer">asan and ubsan</a>.</p><p>Running <strong><em>Asan</em></strong> didn’t yield any meaningful results. <strong><em>Valgrind</em></strong> was later tried, following advises from the OCaml team, but every tools were preventing the crash. Quickly reproducing the bug for testing required running code in a loop, keeping the CPU and memory fully busy.</p><p>This was harder to do on developers machines, due to limited resources and other processes running, and Address Sanitizer would only increase the resources usage. Dedicating a powerful server would make further investigations more comfortable, and increase the likeliness of reproducing with instrumented code.</p><p>But with great surprise, it was not possible to reproduce the problem on a server machine, with and without instrumented code. This is when we realised that all the machines exhibiting the crashes were running a processor of the Intel Skylake processors family, while the server and other developer machines had CPUs from the Broadwell family.</p><h3>The hardware, an unusual suspect</h3><p>In the meantime several core OCaml developers had been closely investigating the issue and started auditing recent changes in the runtime, and identified a few suspicious changes and known bugs.</p><p>Certainly they were more qualified for this task, but it acted as an incentive to examine the history of this bug from our angle. At first, we had assumed that the bug was specific to the new laptop with virtual machines. This could not explain why the crash never manifested on older workstations equipped with Skylake processors. Several other developers had been using them for a few months, and only noticed the crash after awareness of the issue had been raised by Enguerrand.</p><p>What had changed, besides Skylake? Only a few week before, an internal migration from OCaml version 4.02.3 to 4.03.0 was rolled out in our codebase. Intrigued, we went ahead and tested OCaml 4.02.3 again, which showed no memory corruptions after several tests. It was time to browse the <a href="https://raw.githubusercontent.com/ocaml/ocaml/trunk/Changes">OCaml changelog</a> for runtime related entries. The search stopped quickly on a promising item in the list: the OCaml C runtime build optimisation level had been increased to -O2 from -O1.</p><p>Could the optimizations dig out an undefined behavior in C code, leading to bad assumptions in the GC code corrupting the heap ? Rebuilding the runtime with -O1did not corrupt memory, so the source of the corruption was in the runtime <em>and</em> was triggered by some gcc specific optimization pass. This sounded like undefined behavior, although the information we had led us to some hardware bug.</p><p>The next day, Xavier Leroy commented on the bugreport reporting that the crash had been observed in the past. Another industrial OCaml user was affected, and they had discovered HyperThreading was part of the necessary conditions. After running the test case for several hours on several machines with HT disabled in the UEFI setup, it was clear we were facing a similar situation. This led to the hypothesis of a hardware bug:</p><blockquote><em>Is it crazy to imagine that gcc -O2 on the OCaml 4.03 runtime produces a specific instruction sequence that causes hardware issues in (some steppings of) Skylake processors with hyperthreading? Perhaps it is crazy.</em></blockquote><p>This possibility had struck us too, motivated by the HyperThreading, the page table corruption and the Skylake specific set of conditions.</p><p>This issue had certainly a strange profile. But nobody was ready to fully embrace the cpu bug hypothesis yet. We convinced ourselves that disabling HT could affect cache pressure and unfold some undefined behaviours.</p><p>HT could also explain the non-determinism, since cache pressure would depend on timings and scheduling. None of us had sufficient experience in this area to assess the strength of such hypothesis, and we did not quite buy it on a single threaded OCaml program. Our debugging motto claims that “assumptions are not facts”.</p><p>It was time to browse Intel errata list and attempt to update the CPU microcode. Although, the errata descriptions are formulated in vague terms, none of the issues disclosed at this time were looking similar to the situation under investigation. Unfortunately, CPUs microcode had no fix waiting for us either. OCaml developers investigated the errata list from their side but the lack of detailed information turned this into a fruitless and complex task.</p><p>In the absence of better alternative, we focused our work on pinpointing the exact source of the crash as if it was a software bug, in the hope of either finding a code issue or ruling out this hypothesis while getting more detailed data. We needed a way to identify the problematic code and find a workaround. From our side, it was not only a matter of finding whether or not there was a bug in OCaml code, but more crucially we needed a guarantee on the quality of our generated code running critical services in production.</p><h3>Identifying the offending code</h3><p>The other OCaml user affected by this issue reported that they had solved the problem by switching to another C compiler. Building the runtime with clang instead of GCC would prevent the GC from crashing. They also suggested to obtain a diff of the generated assembly. Indeed, once built with clang, the runtime would not crash. But clang generates widely different assembly from GCC and we did not have the resources to analyse several hundred thousand lines of changes.</p><p>If we could isolate the problematic C code, comparing the generated code would be easier. The problem had the form of a well known nail:</p><ul><li>Around 50 C files composing the OCaml runtime,</li><li>There is a good state (when built with gcc -O1)</li><li>And a bad state (when built with gcc -O2)</li></ul><p>This nail comes with a precious hammer: bisection.</p><p>The bisection approach had a downside in this occasion. Any state can be labeled bad with certainty as soon as the test crashes, but we would need to wait several hours to be confident enough to trust a non crashing test as good data-point. The reproducibility was not always consistent and a non-crashing state could be a false negative still waiting to trigger the conditions leading to the crash. A reduction of search space was necessary.</p><p>All the coredumps we had showed that the fault was caused by a corrupted heap block header, and our testcase involved the compiler. The OCaml compiler is not 100% deterministic, and IO/s primitives and unix environment in the runtime can affect timings and allocation patterns. But it sounded sensible to assume that the code corrupting a heap header block was also the code reading and writing those blocks: the major GC.</p><p>This hypothesis made bisecting fast: the first file we tried, <strong><em>major_gc.c</em></strong>, turned out to be the one. To make sure it was not a subtle issue in linker, reordering symbols or code blocks, we tried a few others files and confirmed changing the optimization level of some other files alone made no difference.</p><p>But the generated code difference was still way too large. Bringing this topic up on the <a href="http://webchat.freenode.net/?channels=#ocaml">OCaml IRC</a> discussion channel led to some useful inputs. We were taught that gcc supports an attribute to enable specific optimizations at the function level, using __attribute__((optimize(&quot;options,...&quot;))). Following the same strategy, it was easy to trace the source of the malfunctioning code to the <strong><em>sweep_slice</em></strong> function, which implements the sweeping phase of the classic mark and sweep garbage collector for the old generation.</p><p>Ignoring the subtle details of incremental GC, the <strong><em>sweep_slice</em></strong> function is the last pass of a normal major collection cycle. It is responsible for scanning all blocks in the major heap, and reclaiming unreachable blocks to the list of unallocated space.</p><p>The bulk of this function is a switch taking action for each block depending on its status :</p><iframe src="" width="0" height="0" frameborder="0" scrolling="no"><a href="https://medium.com/media/cfbc19fddccc5f2c1a76fcc802fae049/href">https://medium.com/media/cfbc19fddccc5f2c1a76fcc802fae049/href</a></iframe><p>This finding felt consistent with the information at hand. When the block is reachable, the color (describing the reachability status of the block) is reset. If the block became unreachable (<em>while color</em>) - it is reclaimed. In both cases, the block header is modified.</p><p>Getting back to the assembly diff.</p><p>Nobody in the team knows a great deal about assembly and we only have a really basic understanding of most of the instructions used in both versions. It quickly became obvious that the noise level in this diff, with thousands of lines of changed, was still too high for us to spot anything related to the problem. This problem was getting far beyond the common knowledge of everyone in the team.</p><p>But this was still sounding like your day to day bug tracking process. The less you know, the more careful you need to be, tackling the problem step by step. We stuck to what approach had served us well until now: bisecting.</p><p>We went through the list of optimisation passes enabled by GCC at -O2. This is a fair amount of optimisation passes and it would have been too time consuming to try them one by one, given the time needed to trigger the crash. Yet we had a hint: a memory corruption was happening semi randomly in the garbage collector. We were also keeping the undefined behaviour bug as a potential explanation. It was likely a pass which would change the structure of the code, reordering blocks and changing conditions.</p><p>After reading the description of all switches in the detailed gcc manual, the -ftree-* pass family looked promising. This set of transformations works on the <a href="https://en.wikipedia.org/wiki/Static_single_assignment_form">SSA form</a> internal representation, a widespread intermediate language representation which has the benefit of being easy to read. They seem to make a huge impact on the generated assembly code, moving code blocks around and making assumptions on code invariants in order to move around, simplify or eliminate conditional checks altogether.</p><p>By looking at output of those passes on the related source code, we narrowed down the list of transformations to a couple of interesting passes, one of them being -ftree-vrp, which stands for Value Range Propagation. This pass computes bounds for each name binding and propagates proofs that a value must lie in a given range.</p><p>It turned out most of the other passes depended on it for further optimisations. Even though the issue ended up not being a bad assumptions in the range values, checking this pass proved to be worthwhile: enabling -ftree-vrp on <strong><em>sweep_slice</em></strong> function while every thing else was built with -O1 was enough to trigger a crash.</p><p>GCC provides very good diagnostics output, and after reading the manual we found the -fdump-tree-* switch to dump the SSA form before and after specific pass. The output is designed to be read by a human and provides meaningful naming, with source code locations, alongside the ranges propagated by the VRP pass. We spent some time studying the output and matched the difference in SSA tree between the crashing and not crashing code.</p><p>Examining the bounds and invariants derived by gcc, it was clear that no wrong hypothesis was stated.</p><iframe src="" width="0" height="0" frameborder="0" scrolling="no"><a href="https://medium.com/media/a5a311d0b5a4f890f9541f0aed91e73e/href">https://medium.com/media/a5a311d0b5a4f890f9541f0aed91e73e/href</a></iframe><p>The only meaningful observable change involves the suppression of rechecking the loop condition in the else branch of the <strong><em>sweep_slice</em></strong> function, after Value Range Propagation proved that the condition was invariant in this branch.</p><p>Often, reading the code carefully is the fastest way to find a bug. But after spending hours staring at the major GC code, it was clear enough that this check removal should not cause any semantic changes.</p><p>In this process, we identified a suspicious bit of code, where a signed long variable was promoted to unsigned according to C standard rules, which was changing the bounds derived by gcc, assuming it was always positive. But after some thinking we realised it made no difference at assembly level and although wrong, this assumption was not used anywhere.</p><p>We were now ready to rule out the possibility of a bug in OCaml runtime. It was still possible that GCC backend had a bug and was miscompiling this particular shape of code. And we were back at the assembly level again. After writing some awk formatting script to cleanup assembly and minimise noise in the diff (by renaming labels, detecting spurious code move, etc), and preventing inlining, we found a minimal assembly patch causing the crash.</p><p>There were only cosmetic differences. The test removal was propagated down to assembly and caused gcc to reorganise the layout of each switch case block.</p><iframe src="" width="0" height="0" frameborder="0" scrolling="no"><a href="https://medium.com/media/532ab4896b11177a96203fd0c81eaa58/href">https://medium.com/media/532ab4896b11177a96203fd0c81eaa58/href</a></iframe><p>Among those minor differences and changes of layout, we noticed a particular change which impacted exactly the reachable block header updated which could have caused header corruption. In the unoptimised version, the updating code looked like this:</p><iframe src="" width="0" height="0" frameborder="0" scrolling="no"><a href="https://medium.com/media/38ca30a1decf86233084721c3803b1c4/href">https://medium.com/media/38ca30a1decf86233084721c3803b1c4/href</a></iframe><p>For some reason, the block pointer was spilled to the stack.</p><p>Perhaps naively, and because we had earlier emitted the hypothesis of HT impacting cache pressure, we spent a few hours staring at this code and check if we were missing something subtle which could affect the control flow of the whole function and the stack location from which it was reloaded could be corrupted.</p><p>Despite our lack of assembly knowledge, after spending several hours reading this tiny change, we got convinced that it made strictly no semantic difference. Reading the x86 manual carefully didn’t give any hint on any subtle behavior which would trigger. Executing any of those two sequence of instruction should give the exact same output.</p><h3>Mitigating the issue</h3><p>We were now quite certain it was a CPU bug.</p><p>The OCaml developers had reached the same conclusion, and were working on escalating the issue to Intel. After internal discussions we decided to keep this bug as low profile as possible since we were unsure about potential security implications, especially for JIT implementations.</p><p>Even if we had no confirmation at this point nor any explanations of the cause of this bug, which was beyond our reach, we could take actions.</p><p>The first step was to decide against getting any new Skylake based servers until further announcement. We were left with several Skylake machines but we refrained from deploying any OCaml code on them. OCaml comes with a great package manager, <a href="https://opam.ocaml.org/">opam</a>, which supports compiler switches. Switches allow to set up a clean and distinct environment with specific packages and compiler configuration.</p><p>We patched our internal opam repository to distribute unoptimised runtime to all developers and moved forward, waiting for further announcements.</p><p>This situation made us realise that microcode requires constant updates, just like any other software in the stack. We raised awareness on this topic in our devops team, and they took measure to ensure we could roll out updates to prod easily.</p><h3>Happy end</h3><p>In late May, devops team noticed a <a href="http://metadata.ftp-master.debian.org/changelogs/non-free/i/intel-microcode/intel-microcode_3.20170511.1_changelog">debian package update for intel-microcode</a> containing the following change:</p><pre>Likely fix nightmare-level Skylake erratum SKL150. Fortunately,<br>either this erratum is very-low-hitting, or gcc/clang/icc/msvc<br>won’t usually issue the affected opcode pattern and it ends up<br>being rare.<br>SKL150 — Short loops using both the AH/BH/CH/DH registers and<br>the corresponding wide register *may* result in unpredictable<br>system behavior. Requires both logical processors of the same<br>core (i.e. sibling hyperthreads) to be active to trigger, as<br>well as a “complex set of micro-architectural conditions”</pre><p>The erratum description immediately rang a bell as it matched the diff in the assembly we had observed. We tested the microcode update and confirmed it fixed the corruption.</p><p>Finally, our Skylake CPUs were feeling safe and OCaml compiler was happy.</p><p><a href="https://ahrefs.com"><em>Ahrefs</em></a><em> runs an internet-scale bot that crawls the whole Web 24/7. Our backend system is powered by a custom petabyte-scale distributed key-value storage implemented in OCaml (and some C++ and Rust). We are a small team and strongly believe in better technology leading to better solutions for real-world problems. We worship functional languages and static typing, extensively employ code generation and meta-programming, value code clarity and predictability, and are constantly seeking to automate repetitive tasks and eliminate boilerplate. And we are </em><a href="https://ahrefs.com/jobs"><em>hiring</em></a><em>!</em></p><img src="https://medium.com/_/stat?event=post.clientViewed&referrerSource=full_rss&postId=ab1ad2beddcd" width="1" height="1" alt=""><hr><p><a href="https://tech.ahrefs.com/skylake-bug-a-detective-story-ab1ad2beddcd">Skylake bug: a detective story</a> was originally published in <a href="https://tech.ahrefs.com">ahrefs</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p>|js}
+    }
+  ; { title = {js|13 Virtues|js}
+    ; slug = {js|13-virtues|js}
+    ; description =
+        Some
+          {js|Very early on in his life, while on lengthy voyage from London to Philadelphia,Ben Franklin created a system of thirteen virtues to live his life by. He spen...|js}
+    ; url = {js|https://blog.janestreet.com/13-virtues/|js}
+    ; date = {js|2015-01-02T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>Very early on in his life, while on lengthy voyage from London to Philadelphia,
 Ben Franklin created a system of thirteen virtues to live his life by. He spent
 the remainder of his days giving special focus to one virtue per week in a 13
 week cycle, as well as noting the virtues he failed to live up to at the end of
 each day.</p>|js}
-  };
- 
-  { title = {js|A better inliner for OCaml, and why it matters|js}
-  ; slug = {js|a-better-inliner-for-ocaml-and-why-it-matters|js}
-  ; description = Some {js|OCaml 4.03 is branched and a first release candidate is imminent, so it seemslike a good time to take stock of what’s coming.|js}
-  ; url = {js|https://blog.janestreet.com/flambda/|js}
-  ; date = {js|2016-02-24T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>OCaml 4.03 is branched and a first release candidate is imminent, so it seems
+    }
+  ; { title = {js|A better inliner for OCaml, and why it matters|js}
+    ; slug = {js|a-better-inliner-for-ocaml-and-why-it-matters|js}
+    ; description =
+        Some
+          {js|OCaml 4.03 is branched and a first release candidate is imminent, so it seemslike a good time to take stock of what’s coming.|js}
+    ; url = {js|https://blog.janestreet.com/flambda/|js}
+    ; date = {js|2016-02-24T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>OCaml 4.03 is branched and a first release candidate is imminent, so it seems
 like a good time to take stock of what’s coming.</p>|js}
-  };
- 
-  { title = {js|A brief trip through Spacetime|js}
-  ; slug = {js|a-brief-trip-through-spacetime|js}
-  ; description = Some {js|Spacetime is a new memory profiling facility for OCaml to help find space leaksand unwanted allocations. Whilst still a little rough around the edges, we’vef...|js}
-  ; url = {js|https://blog.janestreet.com/a-brief-trip-through-spacetime/|js}
-  ; date = {js|2017-01-09T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/a-brief-trip-through-spacetime/spacetime.jpg|js}
-  ; body_html = {js|<p>Spacetime is a new memory profiling facility for OCaml to help find space leaks
+    }
+  ; { title = {js|A brief trip through Spacetime|js}
+    ; slug = {js|a-brief-trip-through-spacetime|js}
+    ; description =
+        Some
+          {js|Spacetime is a new memory profiling facility for OCaml to help find space leaksand unwanted allocations. Whilst still a little rough around the edges, we’vef...|js}
+    ; url = {js|https://blog.janestreet.com/a-brief-trip-through-spacetime/|js}
+    ; date = {js|2017-01-09T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/a-brief-trip-through-spacetime/spacetime.jpg|js}
+    ; body_html =
+        {js|<p>Spacetime is a new memory profiling facility for OCaml to help find space leaks
 and unwanted allocations. Whilst still a little rough around the edges, we’ve
 found it to be a very useful tool. Since there’s not much documentation for
 using spacetime beyond <a href="https://github.com/lpw25/prof_spacetime/blob/master/Readme.md">this
 readme</a>, I’ve
 written a little intro to give people an idea of how to use it.</p>|js}
-  };
- 
-  { title = {js|A lighter Core|js}
-  ; slug = {js|a-lighter-core|js}
-  ; description = Some {js|We recently released a version of our open source libraries with a muchanticipatedchange– Async_kernel, the heart of the Async concurrent programming library...|js}
-  ; url = {js|https://blog.janestreet.com/a-lighter-core/|js}
-  ; date = {js|2015-03-21T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>We recently released a version of our open source libraries with a much
+    }
+  ; { title = {js|A lighter Core|js}
+    ; slug = {js|a-lighter-core|js}
+    ; description =
+        Some
+          {js|We recently released a version of our open source libraries with a muchanticipatedchange– Async_kernel, the heart of the Async concurrent programming library...|js}
+    ; url = {js|https://blog.janestreet.com/a-lighter-core/|js}
+    ; date = {js|2015-03-21T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>We recently released a version of our open source libraries with a much
 anticipated
 <a href="https://github.com/janestreet/async_kernel/commit/bf11c4211595b2589b6517aefafceb2ad3bdc0fd">change</a>
 – Async_kernel, the heart of the Async concurrent programming library, now
 depends only on Core_kernel rather than on Core.</p>|js}
-  };
- 
-  { title = {js|A look at OCaml 4.08|js}
-  ; slug = {js|a-look-at-ocaml-408|js}
-  ; description = Some {js|Now that OCaml 4.08 has been released, let’s have a look at what wasaccomplished, with a particular focus on how our plans for4.08 fared. I’ll mostly focus o...|js}
-  ; url = {js|https://blog.janestreet.com/a-look-at-ocaml-4.08/|js}
-  ; date = {js|2019-07-12T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/a-look-at-ocaml-4.08/ocaml_release-2019.jpg|js}
-  ; body_html = {js|<p>Now that OCaml 4.08 has been released, let’s have a look at what was
+    }
+  ; { title = {js|A look at OCaml 4.08|js}
+    ; slug = {js|a-look-at-ocaml-408|js}
+    ; description =
+        Some
+          {js|Now that OCaml 4.08 has been released, let’s have a look at what wasaccomplished, with a particular focus on how our plans for4.08 fared. I’ll mostly focus o...|js}
+    ; url = {js|https://blog.janestreet.com/a-look-at-ocaml-4.08/|js}
+    ; date = {js|2019-07-12T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/a-look-at-ocaml-4.08/ocaml_release-2019.jpg|js}
+    ; body_html =
+        {js|<p>Now that OCaml 4.08 has been released, let’s have a look at what was
 accomplished, with a particular focus on how <a href="../plans-for-ocaml-408/">our plans for
 4.08</a> fared. I’ll mostly focus on work that we
 in the Jane Street Tools &amp; Compilers team were involved with, but we are
 just some of the contributors to the OCaml compiler, and I’ll have a
 quick look at the end of the post at some of the other work that went
 into 4.08.</p>|js}
-  };
- 
-  { title = {js|A solution to the ppx versioning problem|js}
-  ; slug = {js|a-solution-to-the-ppx-versioning-problem|js}
-  ; description = Some {js|Ppx is a preprocessing system for OCaml where one maps over the OCaml abstractsyntax tree (AST) to interpret some special syntax fragments to generate code.|js}
-  ; url = {js|https://blog.janestreet.com/an-solution-to-the-ppx-versioning-problem/|js}
-  ; date = {js|2016-11-08T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>Ppx is a preprocessing system for OCaml where one maps over the OCaml abstract
+    }
+  ; { title = {js|A solution to the ppx versioning problem|js}
+    ; slug = {js|a-solution-to-the-ppx-versioning-problem|js}
+    ; description =
+        Some
+          {js|Ppx is a preprocessing system for OCaml where one maps over the OCaml abstractsyntax tree (AST) to interpret some special syntax fragments to generate code.|js}
+    ; url =
+        {js|https://blog.janestreet.com/an-solution-to-the-ppx-versioning-problem/|js}
+    ; date = {js|2016-11-08T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>Ppx is a preprocessing system for OCaml where one maps over the OCaml abstract
 syntax tree (AST) to interpret some special syntax fragments to generate code.</p>|js}
-  };
- 
-  { title = {js|A tutorial for building web applications with Incr_dom|js}
-  ; slug = {js|a-tutorial-for-building-web-applications-with-incrdom|js}
-  ; description = Some {js|At Jane Street, our web UIs are built on top of an in-house frameworkcalled Incr_dom, modeled inpart on React’s virtualDOM. Rendering differentviews efficien...|js}
-  ; url = {js|https://blog.janestreet.com/a-tutorial-for-building-web-applications-with-incrdom/|js}
-  ; date = {js|2019-01-15T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/a-tutorial-for-building-web-applications-with-incrdom/incr_dom.png|js}
-  ; body_html = {js|<p>At Jane Street, our web UIs are built on top of an in-house framework
+    }
+  ; { title = {js|A tutorial for building web applications with Incr_dom|js}
+    ; slug = {js|a-tutorial-for-building-web-applications-with-incrdom|js}
+    ; description =
+        Some
+          {js|At Jane Street, our web UIs are built on top of an in-house frameworkcalled Incr_dom, modeled inpart on React’s virtualDOM. Rendering differentviews efficien...|js}
+    ; url =
+        {js|https://blog.janestreet.com/a-tutorial-for-building-web-applications-with-incrdom/|js}
+    ; date = {js|2019-01-15T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/a-tutorial-for-building-web-applications-with-incrdom/incr_dom.png|js}
+    ; body_html =
+        {js|<p>At Jane Street, our web UIs are built on top of an in-house framework
 called <a href="https://github.com/janestreet/incr_dom">Incr_dom</a>, modeled in
 part on <a href="https://reactjs.org/docs/faq-internals.html">React’s virtual
 DOM</a>. Rendering different
@@ -145,62 +189,86 @@ views efficiently in response to changes made to a shared model is a
 quintessentially incremental computation—so it should be no surprise
 that Incr_dom is built on top of
 <a href="https://blog.janestreet.com/introducing-incremental/">Incremental</a>.</p>|js}
-  };
- 
-  { title = {js|Accelerating Self-Play Learning in Go|js}
-  ; slug = {js|accelerating-self-play-learning-in-go|js}
-  ; description = Some {js|At Jane Street, over the last few years, we’ve been increasingly exploring machine learning to improve our models. Many of us are fascinated by the rapid imp...|js}
-  ; url = {js|https://blog.janestreet.com/accelerating-self-play-learning-in-go/|js}
-  ; date = {js|2019-02-28T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/accelerating-self-play-learning-in-go/go.jpg|js}
-  ; body_html = {js|<p>At Jane Street, over the last few years, we’ve been increasingly exploring machine learning to improve our models. Many of us are fascinated by the rapid improvement we see in a wide variety of applications due to developments in deep learning and reinforcement learning, both for its exciting potential for our own problems, and also on a personal level of pure interest and curiosity outside of work.</p>|js}
-  };
- 
-  { title = {js|Announcing Our Market Prediction Kaggle Competition|js}
-  ; slug = {js|announcing-our-market-prediction-kaggle-competition|js}
-  ; description = Some {js|Jane Street is running a Kaggle contest based on a real problem withreal financial data. If you like ML projects, or think you might,head over and check itou...|js}
-  ; url = {js|https://blog.janestreet.com/announcing-our-market-prediction-kaggle-competition-index/|js}
-  ; date = {js|2020-11-24T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/announcing-our-market-prediction-kaggle-competition-index/kaggle_blogpost.jpg|js}
-  ; body_html = {js|<p>Jane Street is running a Kaggle contest based on a real problem with
+    }
+  ; { title = {js|Accelerating Self-Play Learning in Go|js}
+    ; slug = {js|accelerating-self-play-learning-in-go|js}
+    ; description =
+        Some
+          {js|At Jane Street, over the last few years, we’ve been increasingly exploring machine learning to improve our models. Many of us are fascinated by the rapid imp...|js}
+    ; url =
+        {js|https://blog.janestreet.com/accelerating-self-play-learning-in-go/|js}
+    ; date = {js|2019-02-28T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/accelerating-self-play-learning-in-go/go.jpg|js}
+    ; body_html =
+        {js|<p>At Jane Street, over the last few years, we’ve been increasingly exploring machine learning to improve our models. Many of us are fascinated by the rapid improvement we see in a wide variety of applications due to developments in deep learning and reinforcement learning, both for its exciting potential for our own problems, and also on a personal level of pure interest and curiosity outside of work.</p>|js}
+    }
+  ; { title = {js|Announcing Our Market Prediction Kaggle Competition|js}
+    ; slug = {js|announcing-our-market-prediction-kaggle-competition|js}
+    ; description =
+        Some
+          {js|Jane Street is running a Kaggle contest based on a real problem withreal financial data. If you like ML projects, or think you might,head over and check itou...|js}
+    ; url =
+        {js|https://blog.janestreet.com/announcing-our-market-prediction-kaggle-competition-index/|js}
+    ; date = {js|2020-11-24T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/announcing-our-market-prediction-kaggle-competition-index/kaggle_blogpost.jpg|js}
+    ; body_html =
+        {js|<p>Jane Street is running a Kaggle contest based on a real problem with
 real financial data. If you like ML projects, or think you might,
 <a href="https://www.kaggle.com/c/jane-street-market-prediction" target="_blank">head over and check it
 out</a>.
 We think it’s a pretty fun one. The prizes are pretty good too, with a
 total $100K being paid out.</p>|js}
-  };
- 
-  { title = {js|Announcing Signals and Threads, a new podcast from Jane Street|js}
-  ; slug = {js|announcing-signals-and-threads-a-new-podcast-from-jane-street|js}
-  ; description = Some {js|I’m excited (and slightly terrified) to announce that Jane Street isreleasing a new podcast, called Signals andThreads, and I’m going to be thehost.|js}
-  ; url = {js|https://blog.janestreet.com/announcing-signals-and-threads-index/|js}
-  ; date = {js|2020-08-31T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/announcing-signals-and-threads-index/./signals-and-threads.png|js}
-  ; body_html = {js|<p>I’m excited (and slightly terrified) to announce that Jane Street is
+    }
+  ; { title =
+        {js|Announcing Signals and Threads, a new podcast from Jane Street|js}
+    ; slug =
+        {js|announcing-signals-and-threads-a-new-podcast-from-jane-street|js}
+    ; description =
+        Some
+          {js|I’m excited (and slightly terrified) to announce that Jane Street isreleasing a new podcast, called Signals andThreads, and I’m going to be thehost.|js}
+    ; url =
+        {js|https://blog.janestreet.com/announcing-signals-and-threads-index/|js}
+    ; date = {js|2020-08-31T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/announcing-signals-and-threads-index/./signals-and-threads.png|js}
+    ; body_html =
+        {js|<p>I’m excited (and slightly terrified) to announce that Jane Street is
 releasing a new podcast, called <a href="https://signalsandthreads.com/">Signals and
 Threads</a>, and I’m going to be the
 host.</p>|js}
-  };
- 
-  { title = {js|Building a lower-latency GC|js}
-  ; slug = {js|building-a-lower-latency-gc|js}
-  ; description = Some {js|We’ve been doing a bunch of work recently on improving the responsiveness ofOCaml’s garbage collector. I thought it would be worth discussing thesedevelopmen...|js}
-  ; url = {js|https://blog.janestreet.com/building-a-lower-latency-gc/|js}
-  ; date = {js|2015-04-10T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>We’ve been doing a bunch of work recently on improving the responsiveness of
+    }
+  ; { title = {js|Building a lower-latency GC|js}
+    ; slug = {js|building-a-lower-latency-gc|js}
+    ; description =
+        Some
+          {js|We’ve been doing a bunch of work recently on improving the responsiveness ofOCaml’s garbage collector. I thought it would be worth discussing thesedevelopmen...|js}
+    ; url = {js|https://blog.janestreet.com/building-a-lower-latency-gc/|js}
+    ; date = {js|2015-04-10T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>We’ve been doing a bunch of work recently on improving the responsiveness of
 OCaml’s garbage collector. I thought it would be worth discussing these
 developments publicly to see if there was any useful feedback to be had on the
 ideas that we’re investigating.</p>|js}
-  };
- 
-  { title = {js|Centralizing distributed version control, revisited|js}
-  ; slug = {js|centralizing-distributed-version-control-revisited|js}
-  ; description = Some {js|7 years ago, I wrote a blogpostabout how we at Jane Street were using our distributed version control system(hg, though the story would be the same for git) ...|js}
-  ; url = {js|https://blog.janestreet.com/centralizing-distributed-version-control-revisited/|js}
-  ; date = {js|2015-03-04T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>7 years ago, I wrote a <a href="/centralizing-distributed-version-control/" title="Centralizing Distributed Version Control">blog
+    }
+  ; { title = {js|Centralizing distributed version control, revisited|js}
+    ; slug = {js|centralizing-distributed-version-control-revisited|js}
+    ; description =
+        Some
+          {js|7 years ago, I wrote a blogpostabout how we at Jane Street were using our distributed version control system(hg, though the story would be the same for git) ...|js}
+    ; url =
+        {js|https://blog.janestreet.com/centralizing-distributed-version-control-revisited/|js}
+    ; date = {js|2015-03-04T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>7 years ago, I wrote a <a href="/centralizing-distributed-version-control/" title="Centralizing Distributed Version Control">blog
 post</a>
 about how we at Jane Street were using our distributed version control system
 (<code class="highlighter-rouge">hg</code>, though the story would be the same for <code class="highlighter-rouge">git</code>) in a partially centralized
@@ -209,132 +277,173 @@ system whose job was to merge in new changesets. The key responsibility of this
 system was to make sure that a change was rejected unless it merged, compiled
 and <a href="http://graydon2.dreamwidth.org/1597.html" title="The Not Rocket Science Rule">tested
 cleanly</a>.</p>|js}
-  };
- 
-  { title = {js|Chrome extensions: Finding the missing proof|js}
-  ; slug = {js|chrome-extensions-finding-the-missing-proof|js}
-  ; description = Some {js|Web browsers have supported customplug-ins andextensions sincethe 1990s, giving users the ability to add their own features andtools for improving workflow o...|js}
-  ; url = {js|https://blog.janestreet.com/chrome-extensions-finding-the-missing-proof/|js}
-  ; date = {js|2020-04-17T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/chrome-extensions-finding-the-missing-proof/magnifying-glass.png|js}
-  ; body_html = {js|<p>Web browsers have supported custom
+    }
+  ; { title = {js|Chrome extensions: Finding the missing proof|js}
+    ; slug = {js|chrome-extensions-finding-the-missing-proof|js}
+    ; description =
+        Some
+          {js|Web browsers have supported customplug-ins andextensions sincethe 1990s, giving users the ability to add their own features andtools for improving workflow o...|js}
+    ; url =
+        {js|https://blog.janestreet.com/chrome-extensions-finding-the-missing-proof/|js}
+    ; date = {js|2020-04-17T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/chrome-extensions-finding-the-missing-proof/magnifying-glass.png|js}
+    ; body_html =
+        {js|<p>Web browsers have supported custom
 <a href="https://en.wikipedia.org/wiki/NPAPI">plug-ins</a> and
 <a href="https://en.wikipedia.org/wiki/Browser_extension">extensions</a> since
 the 1990s, giving users the ability to add their own features and
 tools for improving workflow or building closer integration with
 applications or databases running on back-end servers.</p>|js}
-  };
- 
-  { title = {js|Clearly Failing|js}
-  ; slug = {js|clearly-failing|js}
-  ; description = Some {js|The Parable Of The Perfect Connection|js}
-  ; url = {js|https://blog.janestreet.com/clearly-failing/|js}
-  ; date = {js|2014-08-23T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<h1 id="the-parable-of-the-perfect-connection">The Parable Of The Perfect Connection</h1>|js}
-  };
- 
-  { title = {js|Code review that isn't boring|js}
-  ; slug = {js|code-review-that-isnt-boring|js}
-  ; description = Some {js|At Jane Street, we care a lot about code review. We think that high qualitycode, and in particular, readable code, helps us maintain the safety of oursystems...|js}
-  ; url = {js|https://blog.janestreet.com/code-review-that-isnt-boring/|js}
-  ; date = {js|2014-06-12T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>At Jane Street, we care a lot about code review. We think that high quality
+    }
+  ; { title = {js|Clearly Failing|js}
+    ; slug = {js|clearly-failing|js}
+    ; description = Some {js|The Parable Of The Perfect Connection|js}
+    ; url = {js|https://blog.janestreet.com/clearly-failing/|js}
+    ; date = {js|2014-08-23T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<h1 id="the-parable-of-the-perfect-connection">The Parable Of The Perfect Connection</h1>|js}
+    }
+  ; { title = {js|Code review that isn't boring|js}
+    ; slug = {js|code-review-that-isnt-boring|js}
+    ; description =
+        Some
+          {js|At Jane Street, we care a lot about code review. We think that high qualitycode, and in particular, readable code, helps us maintain the safety of oursystems...|js}
+    ; url = {js|https://blog.janestreet.com/code-review-that-isnt-boring/|js}
+    ; date = {js|2014-06-12T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>At Jane Street, we care a lot about code review. We think that high quality
 code, and in particular, readable code, helps us maintain the safety of our
 systems and keeps things simple and clean enough for us to stay nimble.</p>|js}
-  };
- 
-  { title = {js|Commas in big numbers everywhere: An OpenType adventure|js}
-  ; slug = {js|commas-in-big-numbers-everywhere-an-opentype-adventure|js}
-  ; description = Some {js|My job involves a lot of staring at large numbers, mostly latencies innanoseconds, and picking out magnitudes like microseconds. I noticedmyself constantly c...|js}
-  ; url = {js|https://blog.janestreet.com/commas-in-big-numbers-everywhere/|js}
-  ; date = {js|2019-10-14T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/commas-in-big-numbers-everywhere/numderline_header2.png|js}
-  ; body_html = {js|<p>My job involves a lot of staring at large numbers, mostly latencies in
+    }
+  ; { title = {js|Commas in big numbers everywhere: An OpenType adventure|js}
+    ; slug = {js|commas-in-big-numbers-everywhere-an-opentype-adventure|js}
+    ; description =
+        Some
+          {js|My job involves a lot of staring at large numbers, mostly latencies innanoseconds, and picking out magnitudes like microseconds. I noticedmyself constantly c...|js}
+    ; url =
+        {js|https://blog.janestreet.com/commas-in-big-numbers-everywhere/|js}
+    ; date = {js|2019-10-14T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/commas-in-big-numbers-everywhere/numderline_header2.png|js}
+    ; body_html =
+        {js|<p>My job involves a lot of staring at large numbers, mostly latencies in
 nanoseconds, and picking out magnitudes like microseconds. I noticed
 myself constantly counting digits in my text editor, in my terminal,
 and in <a href="https://jupyter.org/">Jupyter</a> notebooks in my browser.</p>|js}
-  };
- 
-  { title = {js|Converting a code base from camlp4 to ppx|js}
-  ; slug = {js|converting-a-code-base-from-camlp4-to-ppx|js}
-  ; description = Some {js|As with many projects in the OCaml world, at Jane Street we have been working onmigrating from camlp4 to ppx. After having developed equivalent ppx rewriters...|js}
-  ; url = {js|https://blog.janestreet.com/converting-a-code-base-from-camlp4-to-ppx/|js}
-  ; date = {js|2015-07-08T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>As with many projects in the OCaml world, at Jane Street we have been working on
+    }
+  ; { title = {js|Converting a code base from camlp4 to ppx|js}
+    ; slug = {js|converting-a-code-base-from-camlp4-to-ppx|js}
+    ; description =
+        Some
+          {js|As with many projects in the OCaml world, at Jane Street we have been working onmigrating from camlp4 to ppx. After having developed equivalent ppx rewriters...|js}
+    ; url =
+        {js|https://blog.janestreet.com/converting-a-code-base-from-camlp4-to-ppx/|js}
+    ; date = {js|2015-07-08T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>As with many projects in the OCaml world, at Jane Street we have been working on
 migrating from camlp4 to ppx. After having developed equivalent ppx rewriters
 for our camlp4 syntax extensions, the last step is to actually translate the
 code source of all our libraries and applications from the camlp4 syntax to the
 standard OCaml syntax with extension points and attributes.</p>|js}
-  };
- 
-  { title = {js|CPU Registers and OCaml|js}
-  ; slug = {js|cpu-registers-and-ocaml|js}
-  ; description = Some {js|Even though registers are a low-level CPU concept, having some knowledge aboutthem can help write faster code. Simply put, a CPU register is a storage for as...|js}
-  ; url = {js|https://blog.janestreet.com/cpu-registers-and-ocaml-2/|js}
-  ; date = {js|2015-05-05T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>Even though registers are a low-level CPU concept, having some knowledge about
+    }
+  ; { title = {js|CPU Registers and OCaml|js}
+    ; slug = {js|cpu-registers-and-ocaml|js}
+    ; description =
+        Some
+          {js|Even though registers are a low-level CPU concept, having some knowledge aboutthem can help write faster code. Simply put, a CPU register is a storage for as...|js}
+    ; url = {js|https://blog.janestreet.com/cpu-registers-and-ocaml-2/|js}
+    ; date = {js|2015-05-05T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>Even though registers are a low-level CPU concept, having some knowledge about
 them can help write faster code. Simply put, a CPU register is a storage for a
 single variable. CPU can keep data in memory or cache or in registers and
 registers are often much faster. Furthermore, some operations are possible only
 when the data is in registers. Hence, the OCaml compiler tries to keep as many
 variables as it can in the registers.</p>|js}
-  };
- 
-  { title = {js|Deep learning experiments in OCaml|js}
-  ; slug = {js|deep-learning-experiments-in-ocaml|js}
-  ; description = Some {js|Last year we held a machine learning seminar in our London office,which was an opportunity to reproduce some classical deep learningresults with a nice twist...|js}
-  ; url = {js|https://blog.janestreet.com/deep-learning-experiments-in-ocaml/|js}
-  ; date = {js|2018-09-20T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/deep-learning-experiments-in-ocaml/camel.jpg|js}
-  ; body_html = {js|<p>Last year we held a machine learning seminar in our London office,
+    }
+  ; { title = {js|Deep learning experiments in OCaml|js}
+    ; slug = {js|deep-learning-experiments-in-ocaml|js}
+    ; description =
+        Some
+          {js|Last year we held a machine learning seminar in our London office,which was an opportunity to reproduce some classical deep learningresults with a nice twist...|js}
+    ; url =
+        {js|https://blog.janestreet.com/deep-learning-experiments-in-ocaml/|js}
+    ; date = {js|2018-09-20T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/deep-learning-experiments-in-ocaml/camel.jpg|js}
+    ; body_html =
+        {js|<p>Last year we held a machine learning seminar in our London office,
 which was an opportunity to reproduce some classical deep learning
 results with a nice twist: we used OCaml as a programming language
 rather than Python. This allowed us to train models defined in a
 functional way in OCaml on a GPU using TensorFlow.</p>|js}
-  };
- 
-  { title = {js|Deep-Learning the Hardest Go Problem in the World|js}
-  ; slug = {js|deep-learning-the-hardest-go-problem-in-the-world|js}
-  ; description = Some {js|Updates and a New Run|js}
-  ; url = {js|https://blog.janestreet.com/deep-learning-the-hardest-go-problem-in-the-world/|js}
-  ; date = {js|2019-12-06T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/deep-learning-the-hardest-go-problem-in-the-world/goproblem.png|js}
-  ; body_html = {js|<h2 id="updates-and-a-new-run">Updates and a New Run</h2>|js}
-  };
- 
-  { title = {js|Do applied programming languages research at Jane Street!|js}
-  ; slug = {js|do-applied-programming-languages-research-at-jane-street|js}
-  ; description = Some {js|As our Tools & Compilers team has grown, the kinds of projects we workon has become more ambitious. Here are some of the major things we’recurrently work...|js}
-  ; url = {js|https://blog.janestreet.com/applied-PL-research/|js}
-  ; date = {js|2019-08-16T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/applied-PL-research/compiler3d.jpg|js}
-  ; body_html = {js|<p>As our Tools &amp; Compilers team has grown, the kinds of projects we work
+    }
+  ; { title = {js|Deep-Learning the Hardest Go Problem in the World|js}
+    ; slug = {js|deep-learning-the-hardest-go-problem-in-the-world|js}
+    ; description = Some {js|Updates and a New Run|js}
+    ; url =
+        {js|https://blog.janestreet.com/deep-learning-the-hardest-go-problem-in-the-world/|js}
+    ; date = {js|2019-12-06T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/deep-learning-the-hardest-go-problem-in-the-world/goproblem.png|js}
+    ; body_html =
+        {js|<h2 id="updates-and-a-new-run">Updates and a New Run</h2>|js}
+    }
+  ; { title = {js|Do applied programming languages research at Jane Street!|js}
+    ; slug = {js|do-applied-programming-languages-research-at-jane-street|js}
+    ; description =
+        Some
+          {js|As our Tools & Compilers team has grown, the kinds of projects we workon has become more ambitious. Here are some of the major things we’recurrently work...|js}
+    ; url = {js|https://blog.janestreet.com/applied-PL-research/|js}
+    ; date = {js|2019-08-16T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/applied-PL-research/compiler3d.jpg|js}
+    ; body_html =
+        {js|<p>As our Tools &amp; Compilers team has grown, the kinds of projects we work
 on has become more ambitious. Here are some of the major things we’re
 currently working on:</p>|js}
-  };
- 
-  { title = {js|Do you love dev tools? Come work at Jane Street.|js}
-  ; slug = {js|do-you-love-dev-tools-come-work-at-jane-street|js}
-  ; description = Some {js|In the last few years, we’ve spent more and more effort working on developertools, to the point where we now have a tools-and-compilers group devoted to thea...|js}
-  ; url = {js|https://blog.janestreet.com/do-you-love-dev-tools-come-work-at-jane-street/|js}
-  ; date = {js|2016-08-30T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>In the last few years, we’ve spent more and more effort working on developer
+    }
+  ; { title = {js|Do you love dev tools? Come work at Jane Street.|js}
+    ; slug = {js|do-you-love-dev-tools-come-work-at-jane-street|js}
+    ; description =
+        Some
+          {js|In the last few years, we’ve spent more and more effort working on developertools, to the point where we now have a tools-and-compilers group devoted to thea...|js}
+    ; url =
+        {js|https://blog.janestreet.com/do-you-love-dev-tools-come-work-at-jane-street/|js}
+    ; date = {js|2016-08-30T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>In the last few years, we’ve spent more and more effort working on developer
 tools, to the point where we now have a tools-and-compilers group devoted to the
 area, for which we’re actively hiring.</p>|js}
-  };
- 
-  { title = {js|Does batch size matter?|js}
-  ; slug = {js|does-batch-size-matter|js}
-  ; description = Some {js|This post is aimed at readers who are already familiar withstochastic gradient descent(SGD) and terms like “batch size”.  For an introduction to theseideas, ...|js}
-  ; url = {js|https://blog.janestreet.com/does-batch-size-matter/|js}
-  ; date = {js|2017-10-31T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/does-batch-size-matter/batch-01.png|js}
-  ; body_html = {js|<p><i>This post is aimed at readers who are already familiar with
+    }
+  ; { title = {js|Does batch size matter?|js}
+    ; slug = {js|does-batch-size-matter|js}
+    ; description =
+        Some
+          {js|This post is aimed at readers who are already familiar withstochastic gradient descent(SGD) and terms like “batch size”.  For an introduction to theseideas, ...|js}
+    ; url = {js|https://blog.janestreet.com/does-batch-size-matter/|js}
+    ; date = {js|2017-10-31T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/does-batch-size-matter/batch-01.png|js}
+    ; body_html =
+        {js|<p><i>This post is aimed at readers who are already familiar with
 <a href="https://en.wikipedia.org/wiki/Stochastic_gradient_descent">stochastic gradient descent</a>
 (SGD) and terms like “batch size”.  For an introduction to these
 ideas, I recommend Goodfellow et al.’s
@@ -342,61 +451,83 @@ ideas, I recommend Goodfellow et al.’s
 introduction and, for more about SGD, Chapter 8.  The relevance of SGD
 is that it has made it feasible to work with much more complex models
 than was formerly possible.</i></p>|js}
-  };
- 
-  { title = {js|Faster OCaml to C calls|js}
-  ; slug = {js|faster-ocaml-to-c-calls|js}
-  ; description = Some {js|The official OCaml documentation “Interfacing C withOCaml” doesn’tdocument some interesting performance features.|js}
-  ; url = {js|https://blog.janestreet.com/faster-ocaml-to-c-calls/|js}
-  ; date = {js|2015-04-09T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>The official OCaml documentation <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.01/intfc.html">“Interfacing C with
+    }
+  ; { title = {js|Faster OCaml to C calls|js}
+    ; slug = {js|faster-ocaml-to-c-calls|js}
+    ; description =
+        Some
+          {js|The official OCaml documentation “Interfacing C withOCaml” doesn’tdocument some interesting performance features.|js}
+    ; url = {js|https://blog.janestreet.com/faster-ocaml-to-c-calls/|js}
+    ; date = {js|2015-04-09T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>The official OCaml documentation <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.01/intfc.html">“Interfacing C with
 OCaml”</a> doesn’t
 document some interesting performance features.</p>|js}
-  };
- 
-  { title = {js|Finding memory leaks with Memtrace|js}
-  ; slug = {js|finding-memory-leaks-with-memtrace|js}
-  ; description = Some {js|Memory issues can be hard to track down. A function that onlyallocates a few small objects can cause a space leak if it’s calledoften enough and those object...|js}
-  ; url = {js|https://blog.janestreet.com/finding-memory-leaks-with-memtrace/|js}
-  ; date = {js|2020-10-06T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/finding-memory-leaks-with-memtrace/memory-leak.jpg|js}
-  ; body_html = {js|<p>Memory issues can be hard to track down. A function that only
+    }
+  ; { title = {js|Finding memory leaks with Memtrace|js}
+    ; slug = {js|finding-memory-leaks-with-memtrace|js}
+    ; description =
+        Some
+          {js|Memory issues can be hard to track down. A function that onlyallocates a few small objects can cause a space leak if it’s calledoften enough and those object...|js}
+    ; url =
+        {js|https://blog.janestreet.com/finding-memory-leaks-with-memtrace/|js}
+    ; date = {js|2020-10-06T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/finding-memory-leaks-with-memtrace/memory-leak.jpg|js}
+    ; body_html =
+        {js|<p>Memory issues can be hard to track down. A function that only
 allocates a few small objects can cause a space leak if it’s called
 often enough and those objects are never collected. Even then, many
 objects are <em>supposed</em> to be long-lived. How can a tool, armed with data
 on allocations and their lifetimes,
 help sort out the expected from the suspicious?</p>|js}
-  };
- 
-  { title = {js|Growing the Hardcaml toolset|js}
-  ; slug = {js|growing-the-hardcaml-toolset|js}
-  ; description = Some {js|I am pleased to announce that we have recently released a slew of newHardcaml libraries!|js}
-  ; url = {js|https://blog.janestreet.com/growing-the-hardcaml-toolset-index/|js}
-  ; date = {js|2020-12-01T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/growing-the-hardcaml-toolset-index/Hardcaml_blog_image_scaled.png|js}
-  ; body_html = {js|<p>I am pleased to announce that we have recently released a slew of new
+    }
+  ; { title = {js|Growing the Hardcaml toolset|js}
+    ; slug = {js|growing-the-hardcaml-toolset|js}
+    ; description =
+        Some
+          {js|I am pleased to announce that we have recently released a slew of newHardcaml libraries!|js}
+    ; url =
+        {js|https://blog.janestreet.com/growing-the-hardcaml-toolset-index/|js}
+    ; date = {js|2020-12-01T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/growing-the-hardcaml-toolset-index/Hardcaml_blog_image_scaled.png|js}
+    ; body_html =
+        {js|<p>I am pleased to announce that we have recently released a slew of new
 Hardcaml libraries!</p>|js}
-  };
- 
-  { title = {js|Hiring an FPGA engineer|js}
-  ; slug = {js|hiring-an-fpga-engineer|js}
-  ; description = Some {js|Jane Street is looking to hire an engineer with experience in bothsoftware and hardware design to work on FPGA-based applications, andon tools for creating s...|js}
-  ; url = {js|https://blog.janestreet.com/hiring-an-fpga-engineer/|js}
-  ; date = {js|2017-08-16T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/hiring-an-fpga-engineer/fpga_hiring.jpg|js}
-  ; body_html = {js|<p>Jane Street is looking to hire an engineer with experience in both
+    }
+  ; { title = {js|Hiring an FPGA engineer|js}
+    ; slug = {js|hiring-an-fpga-engineer|js}
+    ; description =
+        Some
+          {js|Jane Street is looking to hire an engineer with experience in bothsoftware and hardware design to work on FPGA-based applications, andon tools for creating s...|js}
+    ; url = {js|https://blog.janestreet.com/hiring-an-fpga-engineer/|js}
+    ; date = {js|2017-08-16T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/hiring-an-fpga-engineer/fpga_hiring.jpg|js}
+    ; body_html =
+        {js|<p>Jane Street is looking to hire an engineer with experience in both
 software and hardware design to work on FPGA-based applications, and
 on tools for creating such applications.</p>|js}
-  };
- 
-  { title = {js|How Jane Street Does Code Review (Jane Street Tech Talk)|js}
-  ; slug = {js|how-jane-street-does-code-review-jane-street-tech-talk|js}
-  ; description = Some {js|It’s time for our nextJane Street Tech Talk. Whenwe’ve solicited suggestions for topics, one common request has been totalk about our internal development pr...|js}
-  ; url = {js|https://blog.janestreet.com/jane-street-tech-talk-how-jane-street-does-code-review/|js}
-  ; date = {js|2017-10-29T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/jane-street-tech-talk-how-jane-street-does-code-review/image.png|js}
-  ; body_html = {js|<p>It’s time for our next
+    }
+  ; { title = {js|How Jane Street Does Code Review (Jane Street Tech Talk)|js}
+    ; slug = {js|how-jane-street-does-code-review-jane-street-tech-talk|js}
+    ; description =
+        Some
+          {js|It’s time for our nextJane Street Tech Talk. Whenwe’ve solicited suggestions for topics, one common request has been totalk about our internal development pr...|js}
+    ; url =
+        {js|https://blog.janestreet.com/jane-street-tech-talk-how-jane-street-does-code-review/|js}
+    ; date = {js|2017-10-29T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/jane-street-tech-talk-how-jane-street-does-code-review/image.png|js}
+    ; body_html =
+        {js|<p>It’s time for our next
 <a href="https://www.janestreet.com/tech-talks/">Jane Street Tech Talk</a>. When
 we’ve solicited suggestions for topics, one common request has been to
 talk about our internal development process. Our next talk,
@@ -405,51 +536,67 @@ should fit the bill. The talk is being given by our own Ian Henry, and
 discusses how we approach code review, and in particular how Iron, the
 code review system we’ve been using and improving for some years now,
 fits in to that process.</p>|js}
-  };
- 
-  { title = {js|How to Build an Exchange|js}
-  ; slug = {js|how-to-build-an-exchange|js}
-  ; description = Some {js|UPDATE: We are full up. Tons of people signed up for the talk, and we’renow at the limit of what we feel like we can support in the space. Thanks forall the ...|js}
-  ; url = {js|https://blog.janestreet.com/how-to-build-an-exchange/|js}
-  ; date = {js|2017-01-11T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/how-to-build-an-exchange/build_exchange.jpg|js}
-  ; body_html = {js|<p><strong>UPDATE</strong>: <em>We are full up. Tons of people signed up for the talk, and we’re
+    }
+  ; { title = {js|How to Build an Exchange|js}
+    ; slug = {js|how-to-build-an-exchange|js}
+    ; description =
+        Some
+          {js|UPDATE: We are full up. Tons of people signed up for the talk, and we’renow at the limit of what we feel like we can support in the space. Thanks forall the ...|js}
+    ; url = {js|https://blog.janestreet.com/how-to-build-an-exchange/|js}
+    ; date = {js|2017-01-11T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/how-to-build-an-exchange/build_exchange.jpg|js}
+    ; body_html =
+        {js|<p><strong>UPDATE</strong>: <em>We are full up. Tons of people signed up for the talk, and we’re
 now at the limit of what we feel like we can support in the space. Thanks for
 all the interest, and if you didn’t get into this one, don’t worry, we have more
 talks coming!</em></p>|js}
-  };
- 
-  { title = {js|How to choose a teaching language|js}
-  ; slug = {js|how-to-choose-a-teaching-language|js}
-  ; description = Some {js|If you were teaching a programming course, what language would you teach it in?|js}
-  ; url = {js|https://blog.janestreet.com/how-to-choose-a-teaching-language/|js}
-  ; date = {js|2014-11-17T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>If you were teaching a programming course, what language would you teach it in?</p>|js}
-  };
- 
-  { title = {js|How to design a tree diffing algorithm|js}
-  ; slug = {js|how-to-design-a-tree-diffing-algorithm|js}
-  ; description = Some {js|For those of you interested in whatwhatinternsdo at Jane Street, here’s apost from former internTristan Hume, on his work developing tree-diffing algorithms ...|js}
-  ; url = {js|https://blog.janestreet.com/how-to-design-a-tree-diffing-algorithm/|js}
-  ; date = {js|2017-08-25T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>For those of you interested in what
+    }
+  ; { title = {js|How to choose a teaching language|js}
+    ; slug = {js|how-to-choose-a-teaching-language|js}
+    ; description =
+        Some
+          {js|If you were teaching a programming course, what language would you teach it in?|js}
+    ; url =
+        {js|https://blog.janestreet.com/how-to-choose-a-teaching-language/|js}
+    ; date = {js|2014-11-17T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>If you were teaching a programming course, what language would you teach it in?</p>|js}
+    }
+  ; { title = {js|How to design a tree diffing algorithm|js}
+    ; slug = {js|how-to-design-a-tree-diffing-algorithm|js}
+    ; description =
+        Some
+          {js|For those of you interested in whatwhatinternsdo at Jane Street, here’s apost from former internTristan Hume, on his work developing tree-diffing algorithms ...|js}
+    ; url =
+        {js|https://blog.janestreet.com/how-to-design-a-tree-diffing-algorithm/|js}
+    ; date = {js|2017-08-25T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>For those of you interested in what
 <a href="/what-the-interns-have-wrought-rpc_parallel-and-core_profiler">what</a>
 <a href="/what-the-interns-have-wrought-2016">interns</a>
 <a href="/what-the-interns-have-wrought-2017">do</a> at Jane Street, here’s a
 <a href="http://thume.ca/2017/06/17/tree-diffing/">post</a> from former intern
 Tristan Hume, on his work developing tree-diffing algorithms last
 summer at Jane Street. It’s a fun (and very detailed!) read.</p>|js}
-  };
- 
-  { title = {js|How to shuffle a big dataset|js}
-  ; slug = {js|how-to-shuffle-a-big-dataset|js}
-  ; description = Some {js|At Jane Street, we often work with data that has a very lowsignal-to-noise ratio, but fortunately we also have a lot of data.Where practitioners in many fiel...|js}
-  ; url = {js|https://blog.janestreet.com/how-to-shuffle-a-big-dataset/|js}
-  ; date = {js|2018-09-26T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/how-to-shuffle-a-big-dataset/shuffle_zoom.png|js}
-  ; body_html = {js|<p>At Jane Street, we often work with data that has a very low
+    }
+  ; { title = {js|How to shuffle a big dataset|js}
+    ; slug = {js|how-to-shuffle-a-big-dataset|js}
+    ; description =
+        Some
+          {js|At Jane Street, we often work with data that has a very lowsignal-to-noise ratio, but fortunately we also have a lot of data.Where practitioners in many fiel...|js}
+    ; url = {js|https://blog.janestreet.com/how-to-shuffle-a-big-dataset/|js}
+    ; date = {js|2018-09-26T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/how-to-shuffle-a-big-dataset/shuffle_zoom.png|js}
+    ; body_html =
+        {js|<p>At Jane Street, we often work with data that has a very low
 signal-to-noise ratio, but fortunately we also have a <em>lot</em> of data.
 Where practitioners in many fields might be accustomed to
 having tens or hundreds of thousands of correctly labeled
@@ -459,86 +606,111 @@ These large datasets present a number of interesting engineering
 challenges.  The one we address here: <em>How do you shuffle a really
 large dataset?</em>  (If you’re not familiar with why one might need this,
 jump to the section <a href="#whyshuffle">Why shuffle</a> below.)</p>|js}
-  };
- 
-  { title = {js|Incremental computation and the web|js}
-  ; slug = {js|incremental-computation-and-the-web|js}
-  ; description = Some {js|I’ve recently been thinking about the world of JavaScript and web applications.That’s odd for me, since I know almost nothing about the web. Indeed, JaneStre...|js}
-  ; url = {js|https://blog.janestreet.com/incrementality-and-the-web/|js}
-  ; date = {js|2016-01-30T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>I’ve recently been thinking about the world of JavaScript and web applications.
+    }
+  ; { title = {js|Incremental computation and the web|js}
+    ; slug = {js|incremental-computation-and-the-web|js}
+    ; description =
+        Some
+          {js|I’ve recently been thinking about the world of JavaScript and web applications.That’s odd for me, since I know almost nothing about the web. Indeed, JaneStre...|js}
+    ; url = {js|https://blog.janestreet.com/incrementality-and-the-web/|js}
+    ; date = {js|2016-01-30T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>I’ve recently been thinking about the world of JavaScript and web applications.
 That’s odd for me, since I know almost nothing about the web. Indeed, Jane
 Street’s use of web technologies is quite minimal – nearly all of our user
 interfaces are text based, and all told we’ve been pretty happy with that.</p>|js}
-  };
- 
-  { title = {js|Inspecting Internal TCP State on Linux|js}
-  ; slug = {js|inspecting-internal-tcp-state-on-linux|js}
-  ; description = Some {js|Sometimes it can be useful to inspect the state of a TCP endpoint. Things suchas the current congestion window, the retransmission timeout (RTO), duplicateac...|js}
-  ; url = {js|https://blog.janestreet.com/inspecting-internal-tcp-state-on-linux/|js}
-  ; date = {js|2014-07-09T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>Sometimes it can be useful to inspect the state of a TCP endpoint. Things such
+    }
+  ; { title = {js|Inspecting Internal TCP State on Linux|js}
+    ; slug = {js|inspecting-internal-tcp-state-on-linux|js}
+    ; description =
+        Some
+          {js|Sometimes it can be useful to inspect the state of a TCP endpoint. Things suchas the current congestion window, the retransmission timeout (RTO), duplicateac...|js}
+    ; url =
+        {js|https://blog.janestreet.com/inspecting-internal-tcp-state-on-linux/|js}
+    ; date = {js|2014-07-09T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>Sometimes it can be useful to inspect the state of a TCP endpoint. Things such
 as the current congestion window, the retransmission timeout (RTO), duplicate
 ack threshold, etc. are not reflected in the segments that flow over the wire.
 Therefore, just looking at packet captures can leave you scratching your head as
 to why a TCP connection is behaving a certain way.</p>|js}
-  };
- 
-  { title = {js|Inspecting the Environment of a Running Process|js}
-  ; slug = {js|inspecting-the-environment-of-a-running-process|js}
-  ; description = Some {js|Sometimes its useful to be able see the values of environment variables inrunning processes. We can use the following test program to see how well we canacco...|js}
-  ; url = {js|https://blog.janestreet.com/inspecting-the-environment-of-a-running-process/|js}
-  ; date = {js|2014-12-01T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>Sometimes its useful to be able see the values of environment variables in
+    }
+  ; { title = {js|Inspecting the Environment of a Running Process|js}
+    ; slug = {js|inspecting-the-environment-of-a-running-process|js}
+    ; description =
+        Some
+          {js|Sometimes its useful to be able see the values of environment variables inrunning processes. We can use the following test program to see how well we canacco...|js}
+    ; url =
+        {js|https://blog.janestreet.com/inspecting-the-environment-of-a-running-process/|js}
+    ; date = {js|2014-12-01T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>Sometimes its useful to be able see the values of environment variables in
 running processes. We can use the following test program to see how well we can
 accomplish this:</p>|js}
-  };
- 
-  { title = {js|Interviewing At Jane Street|js}
-  ; slug = {js|interviewing-at-jane-street|js}
-  ; description = Some {js|Software Engineering Interviews at Jane Street|js}
-  ; url = {js|https://blog.janestreet.com/interviewing-at-jane-street/|js}
-  ; date = {js|2014-10-24T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<h1 id="software-engineering-interviews-at-jane-street">Software Engineering Interviews at Jane Street</h1>|js}
-  };
- 
-  { title = {js|Introducing Incremental|js}
-  ; slug = {js|introducing-incremental|js}
-  ; description = Some {js|I’m pleased to announce the release ofIncremental (wellcommented mlihere),a powerful library for building self-adjusting computations, i.e.,computations that...|js}
-  ; url = {js|https://blog.janestreet.com/introducing-incremental/|js}
-  ; date = {js|2015-07-18T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/introducing-incremental/introducing_incremental.png|js}
-  ; body_html = {js|<p>I’m pleased to announce the release of
+    }
+  ; { title = {js|Interviewing At Jane Street|js}
+    ; slug = {js|interviewing-at-jane-street|js}
+    ; description = Some {js|Software Engineering Interviews at Jane Street|js}
+    ; url = {js|https://blog.janestreet.com/interviewing-at-jane-street/|js}
+    ; date = {js|2014-10-24T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<h1 id="software-engineering-interviews-at-jane-street">Software Engineering Interviews at Jane Street</h1>|js}
+    }
+  ; { title = {js|Introducing Incremental|js}
+    ; slug = {js|introducing-incremental|js}
+    ; description =
+        Some
+          {js|I’m pleased to announce the release ofIncremental (wellcommented mlihere),a powerful library for building self-adjusting computations, i.e.,computations that...|js}
+    ; url = {js|https://blog.janestreet.com/introducing-incremental/|js}
+    ; date = {js|2015-07-18T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/introducing-incremental/introducing_incremental.png|js}
+    ; body_html =
+        {js|<p>I’m pleased to announce the release of
 <a href="https://github.com/janestreet/incremental">Incremental</a> (well
 commented mli
 <a href="https://github.com/janestreet/incremental/blob/master/src/incremental_intf.ml">here</a>),
 a powerful library for building <em>self-adjusting computations</em>, <em>i.e.</em>,
 computations that can be updated efficiently when their inputs change.</p>|js}
-  };
- 
-  { title = {js|Iron out your release process|js}
-  ; slug = {js|iron-out-your-release-process|js}
-  ; description = Some {js|This is the third in a series of posts about the design of Iron, our new codereview and release management tool. The other two postsare hereand here.|js}
-  ; url = {js|https://blog.janestreet.com/ironing-out-your-release-process/|js}
-  ; date = {js|2014-06-24T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p><em>This is the third in a series of posts about the design of Iron, our new code
+    }
+  ; { title = {js|Iron out your release process|js}
+    ; slug = {js|iron-out-your-release-process|js}
+    ; description =
+        Some
+          {js|This is the third in a series of posts about the design of Iron, our new codereview and release management tool. The other two postsare hereand here.|js}
+    ; url =
+        {js|https://blog.janestreet.com/ironing-out-your-release-process/|js}
+    ; date = {js|2014-06-24T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p><em>This is the third in a series of posts about the design of Iron, our new code
 review and release management tool. The other two posts
 are <a href="/code-review-that-isnt-boring/">here</a>
 and <a href="/scrutinizing-your-code-in-style/">here</a>.</em></p>|js}
-  };
- 
-  { title = {js|Ironing out your development style|js}
-  ; slug = {js|ironing-out-your-development-style|js}
-  ; description = Some {js|People seem to enjoy talking about programming methodologies. Theygive them cute names, likeeXtreme programming,Agile, andScrum; runconferences and buildcomm...|js}
-  ; url = {js|https://blog.janestreet.com/ironing-out-your-development-style/|js}
-  ; date = {js|2017-08-24T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/ironing-out-your-development-style/story.jpg|js}
-  ; body_html = {js|<p>People seem to enjoy talking about programming methodologies. They
+    }
+  ; { title = {js|Ironing out your development style|js}
+    ; slug = {js|ironing-out-your-development-style|js}
+    ; description =
+        Some
+          {js|People seem to enjoy talking about programming methodologies. Theygive them cute names, likeeXtreme programming,Agile, andScrum; runconferences and buildcomm...|js}
+    ; url =
+        {js|https://blog.janestreet.com/ironing-out-your-development-style/|js}
+    ; date = {js|2017-08-24T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/ironing-out-your-development-style/story.jpg|js}
+    ; body_html =
+        {js|<p>People seem to enjoy talking about programming methodologies. They
 give them cute names, like
 <a href="http://www.extremeprogramming.org/">eXtreme programming</a>,
 <a href="https://www.agilealliance.org/">Agile</a>, and
@@ -550,136 +722,181 @@ write
 that describe how to use them in excruciating detail; and
 <a href="http://agilemanifesto.org/">manifestos</a> that lay out their
 philosophy.</p>|js}
-  };
- 
-  { title = {js|Jane Street Tech Talk, Verifying Network Data Planes|js}
-  ; slug = {js|jane-street-tech-talk-verifying-network-data-planes|js}
-  ; description = Some {js|After a summer hiatus, the Jane Street Tech Talks series is back onfor the fall! Last we left it, our very own Dominick LoBraicopresented on the evolution of...|js}
-  ; url = {js|https://blog.janestreet.com/jane-street-tech-talk-verifying-network-data-planes/|js}
-  ; date = {js|2017-09-26T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/jane-street-tech-talk-verifying-network-data-planes/tech-talk-nate-foster.png|js}
-  ; body_html = {js|<p>After a summer hiatus, the Jane Street Tech Talks series is back on
+    }
+  ; { title = {js|Jane Street Tech Talk, Verifying Network Data Planes|js}
+    ; slug = {js|jane-street-tech-talk-verifying-network-data-planes|js}
+    ; description =
+        Some
+          {js|After a summer hiatus, the Jane Street Tech Talks series is back onfor the fall! Last we left it, our very own Dominick LoBraicopresented on the evolution of...|js}
+    ; url =
+        {js|https://blog.janestreet.com/jane-street-tech-talk-verifying-network-data-planes/|js}
+    ; date = {js|2017-09-26T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/jane-street-tech-talk-verifying-network-data-planes/tech-talk-nate-foster.png|js}
+    ; body_html =
+        {js|<p>After a summer hiatus, the Jane Street Tech Talks series is back on
 for the fall! Last we left it, our very own Dominick LoBraico
 presented on the evolution of our internal configuration methodology
 and the systems that support it. For anybody that missed it, you can
 check out a recording of the talk <a href="https://www.youtube.com/watch?v=0pX7-AG52BU">on YouTube</a>.</p>|js}
-  };
- 
-  { title = {js|Jane Street Tech Talks: Verifying Puppet Configs|js}
-  ; slug = {js|jane-street-tech-talks-verifying-puppet-configs|js}
-  ; description = Some {js|Our first Jane Street Tech Talk went really well!Thanks to everyone who came and made it a fun event.|js}
-  ; url = {js|https://blog.janestreet.com/jane-street-tech-talks-verifying-puppet-configs/|js}
-  ; date = {js|2017-02-16T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/jane-street-tech-talks-verifying-puppet-configs/untangling_puppet.jpg|js}
-  ; body_html = {js|<p>Our first <a href="/how-to-build-an-exchange/">Jane Street Tech Talk</a> went really well!
+    }
+  ; { title = {js|Jane Street Tech Talks: Verifying Puppet Configs|js}
+    ; slug = {js|jane-street-tech-talks-verifying-puppet-configs|js}
+    ; description =
+        Some
+          {js|Our first Jane Street Tech Talk went really well!Thanks to everyone who came and made it a fun event.|js}
+    ; url =
+        {js|https://blog.janestreet.com/jane-street-tech-talks-verifying-puppet-configs/|js}
+    ; date = {js|2017-02-16T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/jane-street-tech-talks-verifying-puppet-configs/untangling_puppet.jpg|js}
+    ; body_html =
+        {js|<p>Our first <a href="/how-to-build-an-exchange/">Jane Street Tech Talk</a> went really well!
 Thanks to everyone who came and made it a fun event.</p>|js}
-  };
- 
-  { title = {js|L2 Regularization and Batch Norm|js}
-  ; slug = {js|l2-regularization-and-batch-norm|js}
-  ; description = Some {js|This blog post is about an interesting detail about machine learningthat I came across as a researcher at Jane Street - that of the interaction between L2 re...|js}
-  ; url = {js|https://blog.janestreet.com/l2-regularization-and-batch-norm/|js}
-  ; date = {js|2019-01-29T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/l2-regularization-and-batch-norm/l2-batch-norm_19b.png|js}
-  ; body_html = {js|<p>This blog post is about an interesting detail about machine learning
+    }
+  ; { title = {js|L2 Regularization and Batch Norm|js}
+    ; slug = {js|l2-regularization-and-batch-norm|js}
+    ; description =
+        Some
+          {js|This blog post is about an interesting detail about machine learningthat I came across as a researcher at Jane Street - that of the interaction between L2 re...|js}
+    ; url =
+        {js|https://blog.janestreet.com/l2-regularization-and-batch-norm/|js}
+    ; date = {js|2019-01-29T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/l2-regularization-and-batch-norm/l2-batch-norm_19b.png|js}
+    ; body_html =
+        {js|<p>This blog post is about an interesting detail about machine learning
 that I came across as a researcher at Jane Street - that of the 
 interaction between L2 regularization, also known as
 weight decay, and batch normalization.</p>|js}
-  };
- 
-  { title = {js|Learn OCaml in NYC|js}
-  ; slug = {js|learn-ocaml-in-nyc|js}
-  ; description = Some {js|Interested in learning OCaml? In the NYC area? Then this mightbe for you!|js}
-  ; url = {js|https://blog.janestreet.com/learn-ocaml-nyc/|js}
-  ; date = {js|2018-02-16T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/learn-ocaml-nyc/ocaml_workshop.jpg|js}
-  ; body_html = {js|<p>Interested in learning OCaml? In the NYC area? Then this might
+    }
+  ; { title = {js|Learn OCaml in NYC|js}
+    ; slug = {js|learn-ocaml-in-nyc|js}
+    ; description =
+        Some
+          {js|Interested in learning OCaml? In the NYC area? Then this mightbe for you!|js}
+    ; url = {js|https://blog.janestreet.com/learn-ocaml-nyc/|js}
+    ; date = {js|2018-02-16T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/learn-ocaml-nyc/ocaml_workshop.jpg|js}
+    ; body_html =
+        {js|<p>Interested in learning OCaml? In the NYC area? Then this might
 be for you!</p>|js}
-  };
- 
-  { title = {js|Learning ML Depth-First|js}
-  ; slug = {js|learning-ml-depth-first|js}
-  ; description = Some {js|If you haven’t heard of it, Depth FirstLearning is awonderful resource for learning about machine learning.|js}
-  ; url = {js|https://blog.janestreet.com/learning-ml-depth-first/|js}
-  ; date = {js|2019-04-17T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/learning-ml-depth-first/Depth_First_Realigned.svg|js}
-  ; body_html = {js|<p>If you haven’t heard of it, <a href="https://www.depthfirstlearning.com/2018/DFL-Fellowship">Depth First
+    }
+  ; { title = {js|Learning ML Depth-First|js}
+    ; slug = {js|learning-ml-depth-first|js}
+    ; description =
+        Some
+          {js|If you haven’t heard of it, Depth FirstLearning is awonderful resource for learning about machine learning.|js}
+    ; url = {js|https://blog.janestreet.com/learning-ml-depth-first/|js}
+    ; date = {js|2019-04-17T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/learning-ml-depth-first/Depth_First_Realigned.svg|js}
+    ; body_html =
+        {js|<p>If you haven’t heard of it, <a href="https://www.depthfirstlearning.com/2018/DFL-Fellowship">Depth First
 Learning</a> is a
 wonderful resource for learning about machine learning.</p>|js}
-  };
- 
-  { title = {js|Let syntax, and why you should use it|js}
-  ; slug = {js|let-syntax-and-why-you-should-use-it|js}
-  ; description = Some {js|Earlier this year, we createda ppx_let, a PPX rewriter thatintroduces a syntax for working with monadic and applicative libraries likeCommand, Async, Result ...|js}
-  ; url = {js|https://blog.janestreet.com/let-syntax-and-why-you-should-use-it/|js}
-  ; date = {js|2016-06-21T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>Earlier this year, we created
+    }
+  ; { title = {js|Let syntax, and why you should use it|js}
+    ; slug = {js|let-syntax-and-why-you-should-use-it|js}
+    ; description =
+        Some
+          {js|Earlier this year, we createda ppx_let, a PPX rewriter thatintroduces a syntax for working with monadic and applicative libraries likeCommand, Async, Result ...|js}
+    ; url =
+        {js|https://blog.janestreet.com/let-syntax-and-why-you-should-use-it/|js}
+    ; date = {js|2016-06-21T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>Earlier this year, we created
 a <a href="http://github.com/janestreet/ppx_let">ppx_let</a>, a PPX rewriter that
 introduces a syntax for working with monadic and applicative libraries like
 Command, Async, Result and Incremental. We’ve now amassed about six months of
 experience with it, and we’ve now seen enough to recommend it to a wider
 audience.</p>|js}
-  };
- 
-  { title = {js|Looking for a technical writer|js}
-  ; slug = {js|looking-for-a-technical-writer|js}
-  ; description = Some {js|Update: I’m excited to say that we’ve now hired a (great!) technicalwriter, so the position is closed.|js}
-  ; url = {js|https://blog.janestreet.com/looking-for-a-technical-writer/|js}
-  ; date = {js|2017-05-01T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p><em>Update: I’m excited to say that we’ve now hired a (great!) technical
+    }
+  ; { title = {js|Looking for a technical writer|js}
+    ; slug = {js|looking-for-a-technical-writer|js}
+    ; description =
+        Some
+          {js|Update: I’m excited to say that we’ve now hired a (great!) technicalwriter, so the position is closed.|js}
+    ; url = {js|https://blog.janestreet.com/looking-for-a-technical-writer/|js}
+    ; date = {js|2017-05-01T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p><em>Update: I’m excited to say that we’ve now hired a (great!) technical
 writer, so the position is closed.</em></p>|js}
-  };
- 
-  { title = {js|Machining the ultimate hackathon prize|js}
-  ; slug = {js|machining-the-ultimate-hackathon-prize|js}
-  ; description = Some {js|Jane Street is sponsoring this year’s MakeMIThackathon, and we wanted to create a prize forthe winners that would do justice to the maker spirit of thecompet...|js}
-  ; url = {js|https://blog.janestreet.com/hackathon-keyboards/|js}
-  ; date = {js|2019-02-28T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/hackathon-keyboards/keyboard.jpg|js}
-  ; body_html = {js|<p>Jane Street is sponsoring this year’s <a href="https://makemit.org">MakeMIT
+    }
+  ; { title = {js|Machining the ultimate hackathon prize|js}
+    ; slug = {js|machining-the-ultimate-hackathon-prize|js}
+    ; description =
+        Some
+          {js|Jane Street is sponsoring this year’s MakeMIThackathon, and we wanted to create a prize forthe winners that would do justice to the maker spirit of thecompet...|js}
+    ; url = {js|https://blog.janestreet.com/hackathon-keyboards/|js}
+    ; date = {js|2019-02-28T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/hackathon-keyboards/keyboard.jpg|js}
+    ; body_html =
+        {js|<p>Jane Street is sponsoring this year’s <a href="https://makemit.org">MakeMIT
 hackathon</a>, and we wanted to create a prize for
 the winners that would do justice to the maker spirit of the
 competition. As makers ourselves – it’s not unusual to find a
 “software” engineer here who hacks on FPGAs or who has a CNC machine
 at home – it felt natural to get our hands dirty.</p>|js}
-  };
- 
-  { title = {js|Making making better|js}
-  ; slug = {js|making-making-better|js}
-  ; description = Some {js|We spend a lot of time and effort on training new people, and it never stops forlong. Right now our winter-intern class is ending; in five months we’ll have ...|js}
-  ; url = {js|https://blog.janestreet.com/making-making-better/|js}
-  ; date = {js|2015-01-31T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>We spend a lot of time and effort on training new people, and it never stops for
+    }
+  ; { title = {js|Making making better|js}
+    ; slug = {js|making-making-better|js}
+    ; description =
+        Some
+          {js|We spend a lot of time and effort on training new people, and it never stops forlong. Right now our winter-intern class is ending; in five months we’ll have ...|js}
+    ; url = {js|https://blog.janestreet.com/making-making-better/|js}
+    ; date = {js|2015-01-31T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>We spend a lot of time and effort on training new people, and it never stops for
 long. Right now our winter-intern class is ending; in five months we’ll have a
 slew of new interns to get up to speed, and a few months after that we’ll have
 an incoming class of new hires.</p>|js}
-  };
- 
-  { title = {js|Making “never break the build” scale|js}
-  ; slug = {js|making-never-break-the-build-scale|js}
-  ; description = Some {js|I just stumbled across a post fromearlier this year by Graydon Hoare, of Rust fame.The post is about what he calls the “Not Rocket Science Rule”, which says ...|js}
-  ; url = {js|https://blog.janestreet.com/making-never-break-the-build-scale/|js}
-  ; date = {js|2014-07-06T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>I just stumbled across a <a href="http://graydon2.dreamwidth.org/1597.html">post</a> from
+    }
+  ; { title = {js|Making “never break the build” scale|js}
+    ; slug = {js|making-never-break-the-build-scale|js}
+    ; description =
+        Some
+          {js|I just stumbled across a post fromearlier this year by Graydon Hoare, of Rust fame.The post is about what he calls the “Not Rocket Science Rule”, which says ...|js}
+    ; url =
+        {js|https://blog.janestreet.com/making-never-break-the-build-scale/|js}
+    ; date = {js|2014-07-06T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>I just stumbled across a <a href="http://graydon2.dreamwidth.org/1597.html">post</a> from
 earlier this year by Graydon Hoare, of <a href="http://www.rust-lang.org/">Rust</a> fame.
 The post is about what he calls the “Not Rocket Science Rule”, which says that
 you should automatically maintain a repository that never fails its tests. The
 advantages of the NRS rule are pretty clear. By ensuring that you never break
 the build, you shield people from having to deal with bugs that could easily
 have been caught automatically.</p>|js}
-  };
- 
-  { title = {js|Memory allocator showdown|js}
-  ; slug = {js|memory-allocator-showdown|js}
-  ; description = Some {js|Since version 4.10, OCaml offers a new best-fit memory allocatoralongside its existing default, the next-fit allocator. At JaneStreet, we’ve seen a big impro...|js}
-  ; url = {js|https://blog.janestreet.com/memory-allocator-showdown/|js}
-  ; date = {js|2020-09-15T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/memory-allocator-showdown/MemoryAllocator.jpg|js}
-  ; body_html = {js|Since version 4.10, OCaml offers a new best-fit memory allocator
+    }
+  ; { title = {js|Memory allocator showdown|js}
+    ; slug = {js|memory-allocator-showdown|js}
+    ; description =
+        Some
+          {js|Since version 4.10, OCaml offers a new best-fit memory allocatoralongside its existing default, the next-fit allocator. At JaneStreet, we’ve seen a big impro...|js}
+    ; url = {js|https://blog.janestreet.com/memory-allocator-showdown/|js}
+    ; date = {js|2020-09-15T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/memory-allocator-showdown/MemoryAllocator.jpg|js}
+    ; body_html =
+        {js|Since version 4.10, OCaml offers a new best-fit memory allocator
 alongside its existing default, the next-fit allocator. At Jane
 Street, we've seen a big improvement after switching over to the new
 allocator.
@@ -689,127 +906,166 @@ source is these notes from a talk by its
 author.  Instead, this post is about just how tricky it is to compare two
 allocators in a reasonable way, especially for a garbage-collected
 system.|js}
-  };
- 
-  { title = {js|No (functional) experience required|js}
-  ; slug = {js|no-functional-experience-required|js}
-  ; description = Some {js|Jane Street is a serious functional programming shop. We use OCaml, a staticallytyped functional language for almost everything and have what is probably the...|js}
-  ; url = {js|https://blog.janestreet.com/no-functional-experience-required/|js}
-  ; date = {js|2015-08-19T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>Jane Street is a serious functional programming shop. We use OCaml, a statically
+    }
+  ; { title = {js|No (functional) experience required|js}
+    ; slug = {js|no-functional-experience-required|js}
+    ; description =
+        Some
+          {js|Jane Street is a serious functional programming shop. We use OCaml, a staticallytyped functional language for almost everything and have what is probably the...|js}
+    ; url =
+        {js|https://blog.janestreet.com/no-functional-experience-required/|js}
+    ; date = {js|2015-08-19T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>Jane Street is a serious functional programming shop. We use OCaml, a statically
 typed functional language for almost everything and have what is probably the
 largest OCaml codebase anywhere.</p>|js}
-  };
- 
-  { title = {js|Notes on Naming|js}
-  ; slug = {js|notes-on-naming|js}
-  ; description = Some {js|I’ve been thinking about naming recently, specifically the naming of newsystems. It’s tempting to think of naming as trivial, but it really does matter.In a ...|js}
-  ; url = {js|https://blog.janestreet.com/notes-on-naming/|js}
-  ; date = {js|2014-06-29T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>I’ve been thinking about naming recently, specifically the naming of new
+    }
+  ; { title = {js|Notes on Naming|js}
+    ; slug = {js|notes-on-naming|js}
+    ; description =
+        Some
+          {js|I’ve been thinking about naming recently, specifically the naming of newsystems. It’s tempting to think of naming as trivial, but it really does matter.In a ...|js}
+    ; url = {js|https://blog.janestreet.com/notes-on-naming/|js}
+    ; date = {js|2014-06-29T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>I’ve been thinking about naming recently, specifically the naming of new
 systems. It’s tempting to think of naming as trivial, but it really does matter.
 In a technology driven organization, names are part of how you communicate about
 the purpose and nature of your systems. And that communication matters more as
 the number of people and systems grows.</p>|js}
-  };
- 
-  { title = {js|Observations of a functional programmer|js}
-  ; slug = {js|observations-of-a-functional-programmer|js}
-  ; description = Some {js|I was recently invited to do the keynote at the Commercial Users of FunctionalProgramming workshop, a 15-year-old gathering which isattached to ICFP, the pri...|js}
-  ; url = {js|https://blog.janestreet.com/observations-of-a-functional-programmer/|js}
-  ; date = {js|2016-10-27T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>I was recently invited to do the keynote at the <a href="http://cufp.org/2016/">Commercial Users of Functional
+    }
+  ; { title = {js|Observations of a functional programmer|js}
+    ; slug = {js|observations-of-a-functional-programmer|js}
+    ; description =
+        Some
+          {js|I was recently invited to do the keynote at the Commercial Users of FunctionalProgramming workshop, a 15-year-old gathering which isattached to ICFP, the pri...|js}
+    ; url =
+        {js|https://blog.janestreet.com/observations-of-a-functional-programmer/|js}
+    ; date = {js|2016-10-27T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>I was recently invited to do the keynote at the <a href="http://cufp.org/2016/">Commercial Users of Functional
 Programming</a> workshop, a 15-year-old gathering which is
 attached to ICFP, the primary academic functional programming conference.</p>|js}
-  };
- 
-  { title = {js|OCaml 4.03: Everything else|js}
-  ; slug = {js|ocaml-403-everything-else|js}
-  ; description = Some {js|In my previous post I wrote about Flambda, which is the singlebiggest feature coming to OCaml in this release. In this post, I’ll review theother features of...|js}
-  ; url = {js|https://blog.janestreet.com/ocaml-4-03-everything-else/|js}
-  ; date = {js|2016-03-01T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>In my <a href="/flambda">previous post</a> I wrote about Flambda, which is the single
+    }
+  ; { title = {js|OCaml 4.03: Everything else|js}
+    ; slug = {js|ocaml-403-everything-else|js}
+    ; description =
+        Some
+          {js|In my previous post I wrote about Flambda, which is the singlebiggest feature coming to OCaml in this release. In this post, I’ll review theother features of...|js}
+    ; url = {js|https://blog.janestreet.com/ocaml-4-03-everything-else/|js}
+    ; date = {js|2016-03-01T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>In my <a href="/flambda">previous post</a> I wrote about Flambda, which is the single
 biggest feature coming to OCaml in this release. In this post, I’ll review the
 other features of 4.03 that caught my eye.</p>|js}
-  };
- 
-  { title = {js|OCaml all the way down|js}
-  ; slug = {js|ocaml-all-the-way-down|js}
-  ; description = Some {js|One of the joys of working at Jane Street for the last 15 or so yearshas been seeing how our software stack has grown in scope. When Istarted, I was building...|js}
-  ; url = {js|https://blog.janestreet.com/ocaml-all-the-way-down/|js}
-  ; date = {js|2018-04-04T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/ocaml-all-the-way-down/fpga.jpg|js}
-  ; body_html = {js|<p>One of the joys of working at Jane Street for the last 15 or so years
+    }
+  ; { title = {js|OCaml all the way down|js}
+    ; slug = {js|ocaml-all-the-way-down|js}
+    ; description =
+        Some
+          {js|One of the joys of working at Jane Street for the last 15 or so yearshas been seeing how our software stack has grown in scope. When Istarted, I was building...|js}
+    ; url = {js|https://blog.janestreet.com/ocaml-all-the-way-down/|js}
+    ; date = {js|2018-04-04T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/ocaml-all-the-way-down/fpga.jpg|js}
+    ; body_html =
+        {js|<p>One of the joys of working at Jane Street for the last 15 or so years
 has been seeing how our software stack has grown in scope. When I
 started, I was building pretty narrowly focused systems for doing
 statistical research on trading strategies, and then building systems
 for executing those same strategies.</p>|js}
-  };
- 
-  { title = {js|Of Pythons and Camels|js}
-  ; slug = {js|of-pythons-and-camels|js}
-  ; description = Some {js|Welcome to another post in our series of how to use OCaml for machine learning.In previous posts we’ve discussed artistic style-transfer andreinforcement lea...|js}
-  ; url = {js|https://blog.janestreet.com/of-pythons-and-camels/|js}
-  ; date = {js|2019-07-09T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/of-pythons-and-camels/camel-identify.jpg|js}
-  ; body_html = {js|<p>Welcome to another post in our series of how to use OCaml for machine learning.
+    }
+  ; { title = {js|Of Pythons and Camels|js}
+    ; slug = {js|of-pythons-and-camels|js}
+    ; description =
+        Some
+          {js|Welcome to another post in our series of how to use OCaml for machine learning.In previous posts we’ve discussed artistic style-transfer andreinforcement lea...|js}
+    ; url = {js|https://blog.janestreet.com/of-pythons-and-camels/|js}
+    ; date = {js|2019-07-09T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/of-pythons-and-camels/camel-identify.jpg|js}
+    ; body_html =
+        {js|<p>Welcome to another post in our series of how to use OCaml for machine learning.
 In previous posts we’ve discussed <a href="https://blog.janestreet.com/deep-learning-experiments-in-ocaml/">artistic style-transfer</a> and
 <a href="https://blog.janestreet.com/playing-atari-games-with-ocaml-and-deep-rl/">reinforcement learning</a>. If you haven’t read these feel
 free to do so now, we’ll wait right here until you’re done. Ready? Ok, let’s
 continue …</p>|js}
-  };
- 
-  { title = {js|One more talk, two more videos|js}
-  ; slug = {js|one-more-talk-two-more-videos|js}
-  ; description = Some {js|I’m happy to announce our next public techtalk, called SevenImplementations of Incremental, on Wednesday, April 5th, presented by yourstruly. You can registe...|js}
-  ; url = {js|https://blog.janestreet.com/one-more-talk-two-more-videos/|js}
-  ; date = {js|2017-03-15T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>I’m happy to announce our next <a href="https://events.janestreet.com/home/tech-talks/">public tech
+    }
+  ; { title = {js|One more talk, two more videos|js}
+    ; slug = {js|one-more-talk-two-more-videos|js}
+    ; description =
+        Some
+          {js|I’m happy to announce our next public techtalk, called SevenImplementations of Incremental, on Wednesday, April 5th, presented by yourstruly. You can registe...|js}
+    ; url = {js|https://blog.janestreet.com/one-more-talk-two-more-videos/|js}
+    ; date = {js|2017-03-15T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>I’m happy to announce our next <a href="https://events.janestreet.com/home/tech-talks/">public tech
 talk</a>, called <strong>Seven
 Implementations of Incremental</strong>, on Wednesday, April 5th, presented by yours
 truly. You can register
 <a href="https://docs.google.com/forms/d/e/1FAIpQLSdtly4y-jYcLUVH8BJS-uKoiaKrQlRXSIWZeczw3tgwTx_6HA/viewform?c=0&amp;w=1">here</a>.</p>|js}
-  };
- 
-  { title = {js|Plans for OCaml 4.08|js}
-  ; slug = {js|plans-for-ocaml-408|js}
-  ; description = Some {js|With the external release of OCaml 4.07.0 imminent, we in Jane Street’sTools & Compilers group have been planning what we want to work on forinclusion in...|js}
-  ; url = {js|https://blog.janestreet.com/plans-for-ocaml-408/|js}
-  ; date = {js|2018-06-29T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/plans-for-ocaml-408/ocaml_release.jpg|js}
-  ; body_html = {js|<p>With the external release of OCaml 4.07.0 imminent, we in Jane Street’s
+    }
+  ; { title = {js|Plans for OCaml 4.08|js}
+    ; slug = {js|plans-for-ocaml-408|js}
+    ; description =
+        Some
+          {js|With the external release of OCaml 4.07.0 imminent, we in Jane Street’sTools & Compilers group have been planning what we want to work on forinclusion in...|js}
+    ; url = {js|https://blog.janestreet.com/plans-for-ocaml-408/|js}
+    ; date = {js|2018-06-29T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/plans-for-ocaml-408/ocaml_release.jpg|js}
+    ; body_html =
+        {js|<p>With the external release of OCaml 4.07.0 imminent, we in Jane Street’s
 Tools &amp; Compilers group have been planning what we want to work on for
 inclusion in OCaml 4.08. These days OCaml uses (or at least attempts) a
 time-based release process with releases scheduled every 6 months. We’re
 trying to avoid rushing in changes at the last minute – as we’ve been
 prone to do in the past – so this list is restricted to things we could
 conceivably finish in the next 4-5 months.</p>|js}
-  };
- 
-  { title = {js|Playing Atari Games with OCaml and Deep Reinforcement Learning|js}
-  ; slug = {js|playing-atari-games-with-ocaml-and-deep-reinforcement-learning|js}
-  ; description = Some {js|In a previous blog postwe detailed how we used OCaml to reproduce some classical deep-learning resultsthat would usually be implemented in Python. Here we wi...|js}
-  ; url = {js|https://blog.janestreet.com/playing-atari-games-with-ocaml-and-deep-rl/|js}
-  ; date = {js|2019-02-02T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/playing-atari-games-with-ocaml-and-deep-rl/atari.jpg|js}
-  ; body_html = {js|<p>In a <a href="https://blog.janestreet.com/deep-learning-experiments-in-ocaml/">previous blog post</a>
+    }
+  ; { title =
+        {js|Playing Atari Games with OCaml and Deep Reinforcement Learning|js}
+    ; slug =
+        {js|playing-atari-games-with-ocaml-and-deep-reinforcement-learning|js}
+    ; description =
+        Some
+          {js|In a previous blog postwe detailed how we used OCaml to reproduce some classical deep-learning resultsthat would usually be implemented in Python. Here we wi...|js}
+    ; url =
+        {js|https://blog.janestreet.com/playing-atari-games-with-ocaml-and-deep-rl/|js}
+    ; date = {js|2019-02-02T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/playing-atari-games-with-ocaml-and-deep-rl/atari.jpg|js}
+    ; body_html =
+        {js|<p>In a <a href="https://blog.janestreet.com/deep-learning-experiments-in-ocaml/">previous blog post</a>
 we detailed how we used OCaml to reproduce some classical deep-learning results
 that would usually be implemented in Python. Here we will do the same with
 some Reinforcement Learning (RL) experiments.</p>|js}
-  };
- 
-  { title = {js|Proofs (and Refutations) using Z3|js}
-  ; slug = {js|proofs-and-refutations-using-z3|js}
-  ; description = Some {js|People often think of formal methods and theorem provers as forbiddingtools, cool in theory but with a steep learning curve that makes themhard to use in rea...|js}
-  ; url = {js|https://blog.janestreet.com/proofs-and-refutations-using-z3/|js}
-  ; date = {js|2018-02-15T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/proofs-and-refutations-using-z3/proof.jpg|js}
-  ; body_html = {js|<p>People often think of formal methods and theorem provers as forbidding
+    }
+  ; { title = {js|Proofs (and Refutations) using Z3|js}
+    ; slug = {js|proofs-and-refutations-using-z3|js}
+    ; description =
+        Some
+          {js|People often think of formal methods and theorem provers as forbiddingtools, cool in theory but with a steep learning curve that makes themhard to use in rea...|js}
+    ; url = {js|https://blog.janestreet.com/proofs-and-refutations-using-z3/|js}
+    ; date = {js|2018-02-15T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/proofs-and-refutations-using-z3/proof.jpg|js}
+    ; body_html =
+        {js|<p>People often think of formal methods and theorem provers as forbidding
 tools, cool in theory but with a steep learning curve that makes them
 hard to use in real life. In this post, we’re going to describe a case
 we ran into recently where we were able to leverage theorem proving
@@ -817,24 +1073,31 @@ technology, Z3 in particular, to validate some real world engineering
 we were doing on the OCaml compiler. This post is aimed at readers
 interested in compilers, but assumes no familiarity with actual
 compiler development.</p>|js}
-  };
- 
-  { title = {js|Putting the I back in IDE: Towards a Github Explorer|js}
-  ; slug = {js|putting-the-i-back-in-ide-towards-a-github-explorer|js}
-  ; description = Some {js|Imagine a system for editing and reviewing code where:|js}
-  ; url = {js|https://blog.janestreet.com/putting-the-i-back-in-ide-towards-a-github-explorer/|js}
-  ; date = {js|2018-03-27T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/putting-the-i-back-in-ide-towards-a-github-explorer/postimage.jpg|js}
-  ; body_html = {js|<p>Imagine a system for editing and reviewing code where:</p>|js}
-  };
- 
-  { title = {js|Quickcheck for Core|js}
-  ; slug = {js|quickcheck-for-core|js}
-  ; description = Some {js|Automated testing is a powerful tool for finding bugs and specifying correctnessproperties of code. Haskell’s Quickcheck library is the most well-knownautoma...|js}
-  ; url = {js|https://blog.janestreet.com/quickcheck-for-core/|js}
-  ; date = {js|2015-10-26T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>Automated testing is a powerful tool for finding bugs and specifying correctness
+    }
+  ; { title = {js|Putting the I back in IDE: Towards a Github Explorer|js}
+    ; slug = {js|putting-the-i-back-in-ide-towards-a-github-explorer|js}
+    ; description =
+        Some {js|Imagine a system for editing and reviewing code where:|js}
+    ; url =
+        {js|https://blog.janestreet.com/putting-the-i-back-in-ide-towards-a-github-explorer/|js}
+    ; date = {js|2018-03-27T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/putting-the-i-back-in-ide-towards-a-github-explorer/postimage.jpg|js}
+    ; body_html =
+        {js|<p>Imagine a system for editing and reviewing code where:</p>|js}
+    }
+  ; { title = {js|Quickcheck for Core|js}
+    ; slug = {js|quickcheck-for-core|js}
+    ; description =
+        Some
+          {js|Automated testing is a powerful tool for finding bugs and specifying correctnessproperties of code. Haskell’s Quickcheck library is the most well-knownautoma...|js}
+    ; url = {js|https://blog.janestreet.com/quickcheck-for-core/|js}
+    ; date = {js|2015-10-26T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>Automated testing is a powerful tool for finding bugs and specifying correctness
 properties of code. Haskell’s Quickcheck library is the most well-known
 automated testing library, based on over 15 years of research into how to write
 property-base tests, generate useful sources of inputs, and report manageable
@@ -843,142 +1106,187 @@ until now; version 113.00 of Core finally has a version of Quickcheck,
 integrating automated testing with our other facilities like s-expression
 reporting for counterexample values, and support for asynchronous tests using
 Async.</p>|js}
-  };
- 
-  { title = {js|Reading Lamport, again|js}
-  ; slug = {js|reading-lamport-again|js}
-  ; description = Some {js|We’ve just kicked off an internal distributed-systems seminar. Our inaugralpaper was Lamport’s classic “Time, Clocks and the Ordering of Events in aDistribut...|js}
-  ; url = {js|https://blog.janestreet.com/reading-lamport-again/|js}
-  ; date = {js|2014-06-26T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>We’ve just kicked off an internal distributed-systems seminar. Our inaugral
+    }
+  ; { title = {js|Reading Lamport, again|js}
+    ; slug = {js|reading-lamport-again|js}
+    ; description =
+        Some
+          {js|We’ve just kicked off an internal distributed-systems seminar. Our inaugralpaper was Lamport’s classic “Time, Clocks and the Ordering of Events in aDistribut...|js}
+    ; url = {js|https://blog.janestreet.com/reading-lamport-again/|js}
+    ; date = {js|2014-06-26T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>We’ve just kicked off an internal distributed-systems seminar. Our inaugral
 paper was Lamport’s classic <a href="http://web.stanford.edu/class/cs240/readings/lamport.pdf">“Time, Clocks and the Ordering of Events in a
 Distributed System”</a>.
 I remembered the paper fondly, but hadn’t looked back it it for more than a
 decade.</p>|js}
-  };
- 
-  { title = {js|Real world machine learning (part 1)|js}
-  ; slug = {js|real-world-machine-learning-part-1|js}
-  ; description = Some {js|Trading is a competitive business. You need great people and greattechnology, of course, but also trading strategies that make money.Where do those strategie...|js}
-  ; url = {js|https://blog.janestreet.com/real-world-machine-learning-part-1/|js}
-  ; date = {js|2017-08-28T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/real-world-machine-learning-part-1/inverse_colors.gif|js}
-  ; body_html = {js|<p>Trading is a competitive business. You need great people and great
+    }
+  ; { title = {js|Real world machine learning (part 1)|js}
+    ; slug = {js|real-world-machine-learning-part-1|js}
+    ; description =
+        Some
+          {js|Trading is a competitive business. You need great people and greattechnology, of course, but also trading strategies that make money.Where do those strategie...|js}
+    ; url =
+        {js|https://blog.janestreet.com/real-world-machine-learning-part-1/|js}
+    ; date = {js|2017-08-28T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/real-world-machine-learning-part-1/inverse_colors.gif|js}
+    ; body_html =
+        {js|<p>Trading is a competitive business. You need great people and great
 technology, of course, but also trading strategies that make money.
 Where do those strategies come from? In this post we’ll discuss how
 the interplay of data, math and technology informs how we develop and
 run strategies.</p>|js}
-  };
- 
-  { title = {js|Really low latency multipliers and cryptographic puzzles|js}
-  ; slug = {js|really-low-latency-multipliers-and-cryptographic-puzzles|js}
-  ; description = Some {js|At Jane Street, we have some experience using FPGAs for low-latencysystems–FPGAs are programmable hardware where you get the speed of anapplication-specific ...|js}
-  ; url = {js|https://blog.janestreet.com/really-low-latency-multipliers-and-cryptographic-puzzles/|js}
-  ; date = {js|2020-06-22T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/really-low-latency-multipliers-and-cryptographic-puzzles/lock.png|js}
-  ; body_html = {js|<p>At Jane Street, we have some experience using FPGAs for low-latency
+    }
+  ; { title = {js|Really low latency multipliers and cryptographic puzzles|js}
+    ; slug = {js|really-low-latency-multipliers-and-cryptographic-puzzles|js}
+    ; description =
+        Some
+          {js|At Jane Street, we have some experience using FPGAs for low-latencysystems–FPGAs are programmable hardware where you get the speed of anapplication-specific ...|js}
+    ; url =
+        {js|https://blog.janestreet.com/really-low-latency-multipliers-and-cryptographic-puzzles/|js}
+    ; date = {js|2020-06-22T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/really-low-latency-multipliers-and-cryptographic-puzzles/lock.png|js}
+    ; body_html =
+        {js|<p>At Jane Street, we have some experience using FPGAs for low-latency
 systems–FPGAs are programmable hardware where you get the speed of an
 application-specific integrated circuit (ASIC) but without being
 committed to a design that’s burned into the chip. It wasn’t so long
 ago that FPGAs were expensive and rare, but these days, you can rent a
 $5,000 card on the Amazon AWS cloud for less than $3 an hour.</p>|js}
-  };
- 
-  { title = {js|Repeatable exploratory programming|js}
-  ; slug = {js|repeatable-exploratory-programming|js}
-  ; description = Some {js|Expect tests are a technique I’ve written aboutbefore, but until recently, it’s been alittle on the theoretical side. That’s because it’s been hard to taketh...|js}
-  ; url = {js|https://blog.janestreet.com/repeatable-exploratory-programming/|js}
-  ; date = {js|2018-04-22T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/repeatable-exploratory-programming/lambdasoup.jpg|js}
-  ; body_html = {js|<p>Expect tests are a technique I’ve written about
+    }
+  ; { title = {js|Repeatable exploratory programming|js}
+    ; slug = {js|repeatable-exploratory-programming|js}
+    ; description =
+        Some
+          {js|Expect tests are a technique I’ve written aboutbefore, but until recently, it’s been alittle on the theoretical side. That’s because it’s been hard to taketh...|js}
+    ; url =
+        {js|https://blog.janestreet.com/repeatable-exploratory-programming/|js}
+    ; date = {js|2018-04-22T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/repeatable-exploratory-programming/lambdasoup.jpg|js}
+    ; body_html =
+        {js|<p>Expect tests are a technique I’ve written about
 <a href="/testing-with-expectations">before</a>, but until recently, it’s been a
 little on the theoretical side. That’s because it’s been hard to take
 these ideas out for a spin due to lack of tooling outside of Jane
 Street’s walls.</p>|js}
-  };
- 
-  { title = {js|Reverse web proxy in ~50 lines of BASH|js}
-  ; slug = {js|reverse-web-proxy-in-50-lines-of-bash|js}
-  ; description = Some {js|In the spirit of reinventing the wheel for fun, I hacked this together as aquick challenge to myself last week. It’s a little rough around the edges, but Ith...|js}
-  ; url = {js|https://blog.janestreet.com/reverse-web-proxy-in-50-lines-of-bash/|js}
-  ; date = {js|2015-05-01T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>In the spirit of reinventing the wheel for fun, I hacked this together as a
+    }
+  ; { title = {js|Reverse web proxy in ~50 lines of BASH|js}
+    ; slug = {js|reverse-web-proxy-in-50-lines-of-bash|js}
+    ; description =
+        Some
+          {js|In the spirit of reinventing the wheel for fun, I hacked this together as aquick challenge to myself last week. It’s a little rough around the edges, but Ith...|js}
+    ; url =
+        {js|https://blog.janestreet.com/reverse-web-proxy-in-50-lines-of-bash/|js}
+    ; date = {js|2015-05-01T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>In the spirit of reinventing the wheel for fun, I hacked this together as a
 quick challenge to myself last week. It’s a little rough around the edges, but I
 thought it was too cute not to share. If you have any bug fixes, please post
 them in the comments.</p>|js}
-  };
- 
-  { title = {js|rsync rounds timestamps to the nearest second|js}
-  ; slug = {js|rsync-rounds-timestamps-to-the-nearest-second|js}
-  ; description = Some {js|I’m not sure how I’ve managed to use rsync for so many years without evernoticing this, but hey, you learn something new every day!|js}
-  ; url = {js|https://blog.janestreet.com/rsync-rounds-timestamps-to-the-nearest-second/|js}
-  ; date = {js|2015-10-07T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>I’m not sure how I’ve managed to use rsync for so many years without ever
+    }
+  ; { title = {js|rsync rounds timestamps to the nearest second|js}
+    ; slug = {js|rsync-rounds-timestamps-to-the-nearest-second|js}
+    ; description =
+        Some
+          {js|I’m not sure how I’ve managed to use rsync for so many years without evernoticing this, but hey, you learn something new every day!|js}
+    ; url =
+        {js|https://blog.janestreet.com/rsync-rounds-timestamps-to-the-nearest-second/|js}
+    ; date = {js|2015-10-07T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>I’m not sure how I’ve managed to use rsync for so many years without ever
 noticing this, but hey, you learn something new every day!</p>|js}
-  };
- 
-  { title = {js|Scrutinize your code in style|js}
-  ; slug = {js|scrutinize-your-code-in-style|js}
-  ; description = Some {js|This is the second in a series of posts about the design of Iron, our new codereview tool. You can read the first post here.Also, I should give credit where ...|js}
-  ; url = {js|https://blog.janestreet.com/scrutinizing-your-code-in-style/|js}
-  ; date = {js|2014-06-13T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p><em>This is the second in a series of posts about the design of Iron, our new code
+    }
+  ; { title = {js|Scrutinize your code in style|js}
+    ; slug = {js|scrutinize-your-code-in-style|js}
+    ; description =
+        Some
+          {js|This is the second in a series of posts about the design of Iron, our new codereview tool. You can read the first post here.Also, I should give credit where ...|js}
+    ; url = {js|https://blog.janestreet.com/scrutinizing-your-code-in-style/|js}
+    ; date = {js|2014-06-13T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p><em>This is the second in a series of posts about the design of Iron, our new code
 review tool. You can read the first post <a href="/code-review-that-isnt-boring/">here</a>.
 Also, I should give credit where credit is due. While I’ve been involved in some
 of the design discussions, the real work has been done by Stephen Weeks,
 Valentin Gatien Baron, Olin Shivers (yes, that Olin Shivers. He’s joining us for
 part of his sabbatical) and Mathieu Barbin.</em></p>|js}
-  };
- 
-  { title = {js|Self Adjusting DOM and Diffable Data|js}
-  ; slug = {js|self-adjusting-dom-and-diffable-data|js}
-  ; description = Some {js|In my last post, I gave some simple examples showing howyou could useself adjusting computations,or SAC, as embodied by our Incremental library, toincrementa...|js}
-  ; url = {js|https://blog.janestreet.com/self-adjusting-dom-and-diffable-data/|js}
-  ; date = {js|2016-02-10T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>In my last <a href="/self-adjusting-dom/">post</a>, I gave some simple examples showing how
+    }
+  ; { title = {js|Self Adjusting DOM and Diffable Data|js}
+    ; slug = {js|self-adjusting-dom-and-diffable-data|js}
+    ; description =
+        Some
+          {js|In my last post, I gave some simple examples showing howyou could useself adjusting computations,or SAC, as embodied by our Incremental library, toincrementa...|js}
+    ; url =
+        {js|https://blog.janestreet.com/self-adjusting-dom-and-diffable-data/|js}
+    ; date = {js|2016-02-10T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>In my last <a href="/self-adjusting-dom/">post</a>, I gave some simple examples showing how
 you could use
 <a href="http://www.umut-acar.org/self-adjusting-computation">self adjusting computations</a>,
 or SAC, as embodied by our <a href="/introducing-incremental/">Incremental</a> library, to
 incrementalize the computation of virtual dom nodes. In this post, I’d like to
 discuss how we can extend this approach to more realistic scales, and some of
 the extensions to Incremental itself that are required to get there.</p>|js}
-  };
- 
-  { title = {js|Self Adjusting DOM|js}
-  ; slug = {js|self-adjusting-dom|js}
-  ; description = Some {js|I’ve been thinking recently about how tostructure dynamic web applications, and in particular about the role thatincremental computation should play.|js}
-  ; url = {js|https://blog.janestreet.com/self-adjusting-dom/|js}
-  ; date = {js|2016-02-06T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>I’ve been <a href="/incrementality-and-the-web/">thinking recently</a> about how to
+    }
+  ; { title = {js|Self Adjusting DOM|js}
+    ; slug = {js|self-adjusting-dom|js}
+    ; description =
+        Some
+          {js|I’ve been thinking recently about how tostructure dynamic web applications, and in particular about the role thatincremental computation should play.|js}
+    ; url = {js|https://blog.janestreet.com/self-adjusting-dom/|js}
+    ; date = {js|2016-02-06T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>I’ve been <a href="/incrementality-and-the-web/">thinking recently</a> about how to
 structure dynamic web applications, and in particular about the role that
 incremental computation should play.</p>|js}
-  };
- 
-  { title = {js|Seven Implementations of Incremental|js}
-  ; slug = {js|seven-implementations-of-incremental|js}
-  ; description = Some {js|We finally got a decent recording of one of my favorite talks. This one is aboutour Incremental library (which Iwrote about here), and in particular about th...|js}
-  ; url = {js|https://blog.janestreet.com/seven-implementations-of-incremental/|js}
-  ; date = {js|2016-03-09T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/seven-implementations-of-incremental/ron-photo.jpg|js}
-  ; body_html = {js|<p>We finally got a decent recording of one of my favorite talks. This one is about
+    }
+  ; { title = {js|Seven Implementations of Incremental|js}
+    ; slug = {js|seven-implementations-of-incremental|js}
+    ; description =
+        Some
+          {js|We finally got a decent recording of one of my favorite talks. This one is aboutour Incremental library (which Iwrote about here), and in particular about th...|js}
+    ; url =
+        {js|https://blog.janestreet.com/seven-implementations-of-incremental/|js}
+    ; date = {js|2016-03-09T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/seven-implementations-of-incremental/ron-photo.jpg|js}
+    ; body_html =
+        {js|<p>We finally got a decent recording of one of my favorite talks. This one is about
 our <a href="https://github.com/janestreet/incremental">Incremental</a> library (which I
 wrote about <a href="/introducing-incremental/">here</a>), and in particular about the
 story of how we got to the present, quite performant, implementation.</p>|js}
-  };
- 
-  { title = {js|Simple top-down development in OCaml|js}
-  ; slug = {js|simple-top-down-development-in-ocaml|js}
-  ; description = Some {js|Often when writing a new module, I want to write the interface first and savethe implementation for later. This lets me use the module as a black box,extendi...|js}
-  ; url = {js|https://blog.janestreet.com/simple-top-down-development-in-ocaml/|js}
-  ; date = {js|2014-07-18T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>Often when writing a new module, I want to write the interface first and save
+    }
+  ; { title = {js|Simple top-down development in OCaml|js}
+    ; slug = {js|simple-top-down-development-in-ocaml|js}
+    ; description =
+        Some
+          {js|Often when writing a new module, I want to write the interface first and savethe implementation for later. This lets me use the module as a black box,extendi...|js}
+    ; url =
+        {js|https://blog.janestreet.com/simple-top-down-development-in-ocaml/|js}
+    ; date = {js|2014-07-18T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>Often when writing a new module, I want to write the interface first and save
 the implementation for later. This lets me use the module as a black box,
 extending the interface as needed to support the rest of the program. When
 everything else is finished, I can fill in the implementation, knowing the full
@@ -986,26 +1294,34 @@ interface I need to support. Of course sometimes the implementation needs to
 push back on the interface – this pattern isn’t an absolute – but it’s certainly
 a useful starting point. The trick is getting the program to compile at
 intermediate stages when the implementation hasn’t been filled in.</p>|js}
-  };
- 
-  { title = {js|Testing with expectations|js}
-  ; slug = {js|testing-with-expectations|js}
-  ; description = Some {js|Testing is important, and it’s hard to get people to do as much of it as theyshould. Testing tools matter because the smoother the process is, the more tests...|js}
-  ; url = {js|https://blog.janestreet.com/testing-with-expectations/|js}
-  ; date = {js|2015-12-02T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>Testing is important, and it’s hard to get people to do as much of it as they
+    }
+  ; { title = {js|Testing with expectations|js}
+    ; slug = {js|testing-with-expectations|js}
+    ; description =
+        Some
+          {js|Testing is important, and it’s hard to get people to do as much of it as theyshould. Testing tools matter because the smoother the process is, the more tests...|js}
+    ; url = {js|https://blog.janestreet.com/testing-with-expectations/|js}
+    ; date = {js|2015-12-02T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>Testing is important, and it’s hard to get people to do as much of it as they
 should. Testing tools matter because the smoother the process is, the more tests
 people will write.</p>|js}
-  };
- 
-  { title = {js|The Jane Street Interview Process &mdash; 2020 Edition|js}
-  ; slug = {js|the-jane-street-interview-process-mdash-2020-edition|js}
-  ; description = Some {js|We’re busy preparing for our software engineering fall hiringseason. Over the years we’vedone our best to make our interview process more transparent tocandi...|js}
-  ; url = {js|https://blog.janestreet.com/jane-street-interview-process-2020/|js}
-  ; date = {js|2020-07-24T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/jane-street-interview-process-2020/ocaml_code.png|js}
-  ; body_html = {js|<p>We’re busy preparing for our software engineering <a href="https://blog.janestreet.com/unraveling/">fall hiring
+    }
+  ; { title = {js|The Jane Street Interview Process &mdash; 2020 Edition|js}
+    ; slug = {js|the-jane-street-interview-process-mdash-2020-edition|js}
+    ; description =
+        Some
+          {js|We’re busy preparing for our software engineering fall hiringseason. Over the years we’vedone our best to make our interview process more transparent tocandi...|js}
+    ; url =
+        {js|https://blog.janestreet.com/jane-street-interview-process-2020/|js}
+    ; date = {js|2020-07-24T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/jane-street-interview-process-2020/ocaml_code.png|js}
+    ; body_html =
+        {js|<p>We’re busy preparing for our software engineering <a href="https://blog.janestreet.com/unraveling/">fall hiring
 season</a>. Over the years we’ve
 done our best to make our interview process more transparent to
 candidates. While many candidates show up knowing something about what
@@ -1013,38 +1329,48 @@ our interviews look like, much of the information floating around on
 the internet is outdated or wrong. These past few months have also
 changed a lot about the process as we’ve adapted to working from home
 and other effects of COVID-19.</p>|js}
-  };
- 
-  { title = {js|The ML Workshop looks fantastic|js}
-  ; slug = {js|the-ml-workshop-looks-fantastic|js}
-  ; description = Some {js|I’m a little biased, by being on the steering committee, but this year’s MLworkshop looks really interesting. Here’s a link to the program:|js}
-  ; url = {js|https://blog.janestreet.com/the-ml-workshop-looks-fantastic/|js}
-  ; date = {js|2014-07-31T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>I’m a little biased, by being on the steering committee, but this year’s ML
+    }
+  ; { title = {js|The ML Workshop looks fantastic|js}
+    ; slug = {js|the-ml-workshop-looks-fantastic|js}
+    ; description =
+        Some
+          {js|I’m a little biased, by being on the steering committee, but this year’s MLworkshop looks really interesting. Here’s a link to the program:|js}
+    ; url = {js|https://blog.janestreet.com/the-ml-workshop-looks-fantastic/|js}
+    ; date = {js|2014-07-31T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>I’m a little biased, by being on the steering committee, but this year’s ML
 workshop looks really interesting. Here’s a link to the program:</p>|js}
-  };
- 
-  { title = {js|Thoughts from AAAI 2019|js}
-  ; slug = {js|thoughts-from-aaai-2019|js}
-  ; description = Some {js|At Jane Street, for the last several years, we have been increasingly interestedin machine learning and its many use cases. This is why it was exciting whene...|js}
-  ; url = {js|https://blog.janestreet.com/thoughts-from-aaai-19/|js}
-  ; date = {js|2019-05-13T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/thoughts-from-aaai-19/AAAI.jpg|js}
-  ; body_html = {js|<p>At Jane Street, for the last several years, we have been increasingly interested
+    }
+  ; { title = {js|Thoughts from AAAI 2019|js}
+    ; slug = {js|thoughts-from-aaai-2019|js}
+    ; description =
+        Some
+          {js|At Jane Street, for the last several years, we have been increasingly interestedin machine learning and its many use cases. This is why it was exciting whene...|js}
+    ; url = {js|https://blog.janestreet.com/thoughts-from-aaai-19/|js}
+    ; date = {js|2019-05-13T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/thoughts-from-aaai-19/AAAI.jpg|js}
+    ; body_html =
+        {js|<p>At Jane Street, for the last several years, we have been increasingly interested
 in machine learning and its many use cases. This is why it was exciting when
 earlier this year myself and a few of my colleagues had the opportunity to
 attend the AAAI 2019 conference. We’d like to take this space to share with you
 some of the interesting projects and themes we saw at the conference.</p>|js}
-  };
- 
-  { title = {js|Trivial meta-programming with cinaps|js}
-  ; slug = {js|trivial-meta-programming-with-cinaps|js}
-  ; description = Some {js|From now and then, I found myself having to write some mechanical and repetitivecode. The usual solution for this is to write a code generator; for instance ...|js}
-  ; url = {js|https://blog.janestreet.com/trivial-meta-programming-with-cinaps/|js}
-  ; date = {js|2017-03-20T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>From now and then, I found myself having to write some mechanical and repetitive
+    }
+  ; { title = {js|Trivial meta-programming with cinaps|js}
+    ; slug = {js|trivial-meta-programming-with-cinaps|js}
+    ; description =
+        Some
+          {js|From now and then, I found myself having to write some mechanical and repetitivecode. The usual solution for this is to write a code generator; for instance ...|js}
+    ; url =
+        {js|https://blog.janestreet.com/trivial-meta-programming-with-cinaps/|js}
+    ; date = {js|2017-03-20T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>From now and then, I found myself having to write some mechanical and repetitive
 code. The usual solution for this is to write a code generator; for instance in
 the form of a ppx rewriter in the case of OCaml code. This however comes with a
 cost: code generators are harder to review than plain code and it is a new
@@ -1052,15 +1378,20 @@ syntax to learn for other developers. So when the repetitive pattern is local to
 a specific library or not widely used, it is often not worth the effort.
 Especially if the code in question is meant to be reviewed and maintained by
 several people.</p>|js}
-  };
- 
-  { title = {js|Troubleshooting systemd with SystemTap|js}
-  ; slug = {js|troubleshooting-systemd-with-systemtap|js}
-  ; description = Some {js|When we set up a schedule on a computer, such as a list of commands torun every day at particular times via Linux cronjobs, weexpect that schedule to execute...|js}
-  ; url = {js|https://blog.janestreet.com/troubleshooting-systemd-with-systemtap/|js}
-  ; date = {js|2020-02-03T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/troubleshooting-systemd-with-systemtap/data-taps.jpg|js}
-  ; body_html = {js|<p>When we set up a schedule on a computer, such as a list of commands to
+    }
+  ; { title = {js|Troubleshooting systemd with SystemTap|js}
+    ; slug = {js|troubleshooting-systemd-with-systemtap|js}
+    ; description =
+        Some
+          {js|When we set up a schedule on a computer, such as a list of commands torun every day at particular times via Linux cronjobs, weexpect that schedule to execute...|js}
+    ; url =
+        {js|https://blog.janestreet.com/troubleshooting-systemd-with-systemtap/|js}
+    ; date = {js|2020-02-03T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/troubleshooting-systemd-with-systemtap/data-taps.jpg|js}
+    ; body_html =
+        {js|<p>When we set up a schedule on a computer, such as a list of commands to
 run every day at particular times via Linux <a href="https://www.ostechnix.com/a-beginners-guide-to-cron-jobs">cron
 jobs</a>, we
 expect that schedule to execute reliably.  Of course we’ll check the
@@ -1068,167 +1399,225 @@ logs to see whether the job has failed, but we never question whether
 the cron daemon itself will function.  We always assume that it will,
 as it always has done; we are not expecting mutiny in the ranks of the
 operating system.</p>|js}
-  };
- 
-  { title = {js|Unraveling of the tech hiring market|js}
-  ; slug = {js|unraveling-of-the-tech-hiring-market|js}
-  ; description = Some {js|Recruiting talented people has always been challenging.|js}
-  ; url = {js|https://blog.janestreet.com/unraveling/|js}
-  ; date = {js|2016-08-31T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>Recruiting talented people has always been challenging.</p>|js}
-  };
- 
-  { title = {js|Using ASCII waveforms to test hardware designs|js}
-  ; slug = {js|using-ascii-waveforms-to-test-hardware-designs|js}
-  ; description = Some {js|At Jane Street, an “expecttest” is atest where you don’t manually write the output you’d like to checkyour code against – instead, this output is captured au...|js}
-  ; url = {js|https://blog.janestreet.com/using-ascii-waveforms-to-test-hardware-designs/|js}
-  ; date = {js|2020-06-01T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/using-ascii-waveforms-to-test-hardware-designs/scientist_testing.jpg|js}
-  ; body_html = {js|<p>At Jane Street, an <a href="https://blog.janestreet.com/testing-with-expectations">“expect
+    }
+  ; { title = {js|Unraveling of the tech hiring market|js}
+    ; slug = {js|unraveling-of-the-tech-hiring-market|js}
+    ; description =
+        Some {js|Recruiting talented people has always been challenging.|js}
+    ; url = {js|https://blog.janestreet.com/unraveling/|js}
+    ; date = {js|2016-08-31T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>Recruiting talented people has always been challenging.</p>|js}
+    }
+  ; { title = {js|Using ASCII waveforms to test hardware designs|js}
+    ; slug = {js|using-ascii-waveforms-to-test-hardware-designs|js}
+    ; description =
+        Some
+          {js|At Jane Street, an “expecttest” is atest where you don’t manually write the output you’d like to checkyour code against – instead, this output is captured au...|js}
+    ; url =
+        {js|https://blog.janestreet.com/using-ascii-waveforms-to-test-hardware-designs/|js}
+    ; date = {js|2020-06-01T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/using-ascii-waveforms-to-test-hardware-designs/scientist_testing.jpg|js}
+    ; body_html =
+        {js|<p>At Jane Street, an <a href="https://blog.janestreet.com/testing-with-expectations">“expect
 test”</a> is a
 test where you don’t manually write the output you’d like to check
 your code against – instead, this output is captured automatically
 and inserted by a tool into the testing code itself. If further runs
 produce different output, the test fails, and you’re presented with
 the diff.</p>|js}
-  };
- 
-  { title = {js|Using OCaml to drive a Raspberry Pi robot car|js}
-  ; slug = {js|using-ocaml-to-drive-a-raspberry-pi-robot-car|js}
-  ; description = Some {js|Back when the Raspberry Pi was first released in 2012 Michael Bacarella wrotea blog poston using OCaml and Async on this little device.Since then installing ...|js}
-  ; url = {js|https://blog.janestreet.com/using-ocaml-to-drive-a-raspberry-pi-robot-car/|js}
-  ; date = {js|2019-08-19T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/using-ocaml-to-drive-a-raspberry-pi-robot-car/robot-pi.jpg|js}
-  ; body_html = {js|<p>Back when the Raspberry Pi was first released in 2012 Michael Bacarella wrote
+    }
+  ; { title = {js|Using OCaml to drive a Raspberry Pi robot car|js}
+    ; slug = {js|using-ocaml-to-drive-a-raspberry-pi-robot-car|js}
+    ; description =
+        Some
+          {js|Back when the Raspberry Pi was first released in 2012 Michael Bacarella wrotea blog poston using OCaml and Async on this little device.Since then installing ...|js}
+    ; url =
+        {js|https://blog.janestreet.com/using-ocaml-to-drive-a-raspberry-pi-robot-car/|js}
+    ; date = {js|2019-08-19T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/using-ocaml-to-drive-a-raspberry-pi-robot-car/robot-pi.jpg|js}
+    ; body_html =
+        {js|<p>Back when the Raspberry Pi was first released in 2012 Michael Bacarella wrote
 a <a href="https://blog.janestreet.com/bootstrapping-ocamlasync-on-the-raspberry-pi/">blog post</a>
 on using OCaml and Async on this little device.
 Since then installing OCaml via opam has become a pretty smooth experience
 and everything works out of the box when using Raspbian – the default Raspberry Pi
 distribution.</p>|js}
-  };
- 
-  { title = {js|Using Python and OCaml in the same Jupyter notebook|js}
-  ; slug = {js|using-python-and-ocaml-in-the-same-jupyter-notebook|js}
-  ; description = Some {js|The cover image is based on Jupiter family by NASA/JPL.|js}
-  ; url = {js|https://blog.janestreet.com/using-python-and-ocaml-in-the-same-jupyter-notebook/|js}
-  ; date = {js|2019-12-16T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/using-python-and-ocaml-in-the-same-jupyter-notebook/python-ocaml.jpg|js}
-  ; body_html = {js|<div style="width: 75%; margin: auto; text-align: center; font-style: italic; font-size: 75%">
+    }
+  ; { title = {js|Using Python and OCaml in the same Jupyter notebook|js}
+    ; slug = {js|using-python-and-ocaml-in-the-same-jupyter-notebook|js}
+    ; description =
+        Some {js|The cover image is based on Jupiter family by NASA/JPL.|js}
+    ; url =
+        {js|https://blog.janestreet.com/using-python-and-ocaml-in-the-same-jupyter-notebook/|js}
+    ; date = {js|2019-12-16T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/using-python-and-ocaml-in-the-same-jupyter-notebook/python-ocaml.jpg|js}
+    ; body_html =
+        {js|<div style="width: 75%; margin: auto; text-align: center; font-style: italic; font-size: 75%">
 The cover image is based on <a href="https://commons.wikimedia.org/wiki/File:Jupiter_family.jpg">Jupiter family</a> by NASA/JPL.
 </div>|js}
-  };
- 
-  { title = {js|Watch all of Jane Street's tech talks|js}
-  ; slug = {js|watch-all-of-jane-streets-tech-talks|js}
-  ; description = Some {js|Jane Street has been posting tech talks from internal speakers andinvited guests for years—and they’re all available on our YouTubechannel:|js}
-  ; url = {js|https://blog.janestreet.com/watch-all-of-jane-streets-tech-talks/|js}
-  ; date = {js|2020-02-20T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/watch-all-of-jane-streets-tech-talks/youtube-techtalks.jpg|js}
-  ; body_html = {js|<p>Jane Street has been posting tech talks from internal speakers and
+    }
+  ; { title = {js|Watch all of Jane Street's tech talks|js}
+    ; slug = {js|watch-all-of-jane-streets-tech-talks|js}
+    ; description =
+        Some
+          {js|Jane Street has been posting tech talks from internal speakers andinvited guests for years—and they’re all available on our YouTubechannel:|js}
+    ; url =
+        {js|https://blog.janestreet.com/watch-all-of-jane-streets-tech-talks/|js}
+    ; date = {js|2020-02-20T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/watch-all-of-jane-streets-tech-talks/youtube-techtalks.jpg|js}
+    ; body_html =
+        {js|<p>Jane Street has been posting tech talks from internal speakers and
 invited guests for years—and they’re all available on our YouTube
 channel:</p>|js}
-  };
- 
-  { title = {js|What a Jane Street software engineering interview is like|js}
-  ; slug = {js|what-a-jane-street-software-engineering-interview-is-like|js}
-  ; description = Some {js|Are you thinking aboutapplying to Jane Streetfor a software engineering role? Or already have a phone interview scheduled but unsurewhat to expect? Read on a...|js}
-  ; url = {js|https://blog.janestreet.com/what-a-jane-street-dev-interview-is-like/|js}
-  ; date = {js|2017-02-28T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>Are you thinking about
+    }
+  ; { title = {js|What a Jane Street software engineering interview is like|js}
+    ; slug = {js|what-a-jane-street-software-engineering-interview-is-like|js}
+    ; description =
+        Some
+          {js|Are you thinking aboutapplying to Jane Streetfor a software engineering role? Or already have a phone interview scheduled but unsurewhat to expect? Read on a...|js}
+    ; url =
+        {js|https://blog.janestreet.com/what-a-jane-street-dev-interview-is-like/|js}
+    ; date = {js|2017-02-28T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>Are you thinking about
 <a href="https://www.janestreet.com/join-jane-street/apply/">applying</a> to Jane Street
 for a software engineering role? Or already have a phone interview scheduled but unsure
 what to expect? Read on as we walk through an example phone interview with you.</p>|js}
-  };
- 
-  { title = {js|What is gained and lost with 63-bit integers?|js}
-  ; slug = {js|what-is-gained-and-lost-with-63-bit-integers|js}
-  ; description = Some {js|Almost every programming language uses 64-bit integers on typical modern Intelmachines. OCaml uses a special 63-bit representation. How does it affect OCaml?|js}
-  ; url = {js|https://blog.janestreet.com/what-is-gained-and-lost-with-63-bit-integers/|js}
-  ; date = {js|2014-09-29T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>Almost every programming language uses 64-bit integers on typical modern Intel
+    }
+  ; { title = {js|What is gained and lost with 63-bit integers?|js}
+    ; slug = {js|what-is-gained-and-lost-with-63-bit-integers|js}
+    ; description =
+        Some
+          {js|Almost every programming language uses 64-bit integers on typical modern Intelmachines. OCaml uses a special 63-bit representation. How does it affect OCaml?|js}
+    ; url =
+        {js|https://blog.janestreet.com/what-is-gained-and-lost-with-63-bit-integers/|js}
+    ; date = {js|2014-09-29T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>Almost every programming language uses 64-bit integers on typical modern Intel
 machines. OCaml uses a special 63-bit representation. How does it affect OCaml?</p>|js}
-  };
- 
-  { title = {js|What the interns have wrought, 2016|js}
-  ; slug = {js|what-the-interns-have-wrought-2016|js}
-  ; description = Some {js|Now that the interns have mostly gone back to school, it’s a good time to lookback at what they did while they were here. We had a bumper crop – more than 30...|js}
-  ; url = {js|https://blog.janestreet.com/what-the-interns-have-wrought-2016/|js}
-  ; date = {js|2016-09-13T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>Now that the interns have mostly gone back to school, it’s a good time to look
+    }
+  ; { title = {js|What the interns have wrought, 2016|js}
+    ; slug = {js|what-the-interns-have-wrought-2016|js}
+    ; description =
+        Some
+          {js|Now that the interns have mostly gone back to school, it’s a good time to lookback at what they did while they were here. We had a bumper crop – more than 30...|js}
+    ; url =
+        {js|https://blog.janestreet.com/what-the-interns-have-wrought-2016/|js}
+    ; date = {js|2016-09-13T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>Now that the interns have mostly gone back to school, it’s a good time to look
 back at what they did while they were here. We had a bumper crop – more than 30
 dev interns between our London, New York and Hong Kong offices – and they
 worked on just about every corner of our code-base.</p>|js}
-  };
- 
-  { title = {js|What the interns have wrought, 2017 edition|js}
-  ; slug = {js|what-the-interns-have-wrought-2017-edition|js}
-  ; description = Some {js|Intern season is coming to a close, and it’s a nice time to look back(as I’ve done inpreviousyears) and review some of whatthe interns did while they were he...|js}
-  ; url = {js|https://blog.janestreet.com/what-the-interns-have-wrought-2017/|js}
-  ; date = {js|2017-08-14T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/what-the-interns-have-wrought-2017/what_interns_wrought.png|js}
-  ; body_html = {js|<p>Intern season is coming to a close, and it’s a nice time to look back
+    }
+  ; { title = {js|What the interns have wrought, 2017 edition|js}
+    ; slug = {js|what-the-interns-have-wrought-2017-edition|js}
+    ; description =
+        Some
+          {js|Intern season is coming to a close, and it’s a nice time to look back(as I’ve done inpreviousyears) and review some of whatthe interns did while they were he...|js}
+    ; url =
+        {js|https://blog.janestreet.com/what-the-interns-have-wrought-2017/|js}
+    ; date = {js|2017-08-14T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/what-the-interns-have-wrought-2017/what_interns_wrought.png|js}
+    ; body_html =
+        {js|<p>Intern season is coming to a close, and it’s a nice time to look back
 (as I’ve done in
 <a href="/what-the-interns-have-wrought-rpc_parallel-and-core_profiler">previous</a>
 <a href="/what-the-interns-have-wrought-2016">years</a>) and review some of what
 the interns did while they were here. The dev intern program has grown
 considerably, with almost 40 dev interns between our NY, London, and
 Hong Kong offices.</p>|js}
-  };
- 
-  { title = {js|What the interns have wrought, 2018 edition|js}
-  ; slug = {js|what-the-interns-have-wrought-2018-edition|js}
-  ; description = Some {js|Yet again, intern season is coming to a close, and so it’s time tolook back at what the interns have achieved in their short time withus.  I’m always impress...|js}
-  ; url = {js|https://blog.janestreet.com/what-the-interns-have-wrought-2018/|js}
-  ; date = {js|2018-08-06T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/what-the-interns-have-wrought-2018/smelting.jpg|js}
-  ; body_html = {js|<p>Yet again, intern season is coming to a close, and so it’s time to
+    }
+  ; { title = {js|What the interns have wrought, 2018 edition|js}
+    ; slug = {js|what-the-interns-have-wrought-2018-edition|js}
+    ; description =
+        Some
+          {js|Yet again, intern season is coming to a close, and so it’s time tolook back at what the interns have achieved in their short time withus.  I’m always impress...|js}
+    ; url =
+        {js|https://blog.janestreet.com/what-the-interns-have-wrought-2018/|js}
+    ; date = {js|2018-08-06T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/what-the-interns-have-wrought-2018/smelting.jpg|js}
+    ; body_html =
+        {js|<p>Yet again, intern season is coming to a close, and so it’s time to
 look back at what the interns have achieved in their short time with
 us.  I’m always impressed by what our interns manage to squeeze into
 the summer, and this year is no different.</p>|js}
-  };
- 
-  { title = {js|What the interns have wrought, 2019 edition|js}
-  ; slug = {js|what-the-interns-have-wrought-2019-edition|js}
-  ; description = Some {js|Jane Street’s intern program yet again is coming to an end, which is anice opportunity to look back over the summer and see what they’veaccomplished.|js}
-  ; url = {js|https://blog.janestreet.com/what-the-interns-have-wrought-2019/|js}
-  ; date = {js|2019-08-30T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/what-the-interns-have-wrought-2019/what_interns_wrought2019.jpg|js}
-  ; body_html = {js|<p>Jane Street’s intern program yet again is coming to an end, which is a
+    }
+  ; { title = {js|What the interns have wrought, 2019 edition|js}
+    ; slug = {js|what-the-interns-have-wrought-2019-edition|js}
+    ; description =
+        Some
+          {js|Jane Street’s intern program yet again is coming to an end, which is anice opportunity to look back over the summer and see what they’veaccomplished.|js}
+    ; url =
+        {js|https://blog.janestreet.com/what-the-interns-have-wrought-2019/|js}
+    ; date = {js|2019-08-30T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/what-the-interns-have-wrought-2019/what_interns_wrought2019.jpg|js}
+    ; body_html =
+        {js|<p>Jane Street’s intern program yet again is coming to an end, which is a
 nice opportunity to look back over the summer and see what they’ve
 accomplished.</p>|js}
-  };
- 
-  { title = {js|What the interns have wrought, 2020 edition|js}
-  ; slug = {js|what-the-interns-have-wrought-2020-edition|js}
-  ; description = Some {js|It’s been an unusual internship season.|js}
-  ; url = {js|https://blog.janestreet.com/what-the-interns-have-wrought-2020/|js}
-  ; date = {js|2020-08-17T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/what-the-interns-have-wrought-2020/./distributed-wrought.jpg|js}
-  ; body_html = {js|<p>It’s been an unusual internship season.</p>|js}
-  };
- 
-  { title = {js|What the interns have wrought: RPC_parallel and Core_profiler|js}
-  ; slug = {js|what-the-interns-have-wrought-rpcparallel-and-coreprofiler|js}
-  ; description = Some {js|We’re in the midst of intern hiring season, and so we get a lot of questionsabout what it’s like to be an intern at Jane Street. One of the things peoplemost...|js}
-  ; url = {js|https://blog.janestreet.com/what-the-interns-have-wrought-rpc_parallel-and-core_profiler/|js}
-  ; date = {js|2014-10-16T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>We’re in the midst of intern hiring season, and so we get a lot of questions
+    }
+  ; { title = {js|What the interns have wrought, 2020 edition|js}
+    ; slug = {js|what-the-interns-have-wrought-2020-edition|js}
+    ; description = Some {js|It’s been an unusual internship season.|js}
+    ; url =
+        {js|https://blog.janestreet.com/what-the-interns-have-wrought-2020/|js}
+    ; date = {js|2020-08-17T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/what-the-interns-have-wrought-2020/./distributed-wrought.jpg|js}
+    ; body_html = {js|<p>It’s been an unusual internship season.</p>|js}
+    }
+  ; { title =
+        {js|What the interns have wrought: RPC_parallel and Core_profiler|js}
+    ; slug = {js|what-the-interns-have-wrought-rpcparallel-and-coreprofiler|js}
+    ; description =
+        Some
+          {js|We’re in the midst of intern hiring season, and so we get a lot of questionsabout what it’s like to be an intern at Jane Street. One of the things peoplemost...|js}
+    ; url =
+        {js|https://blog.janestreet.com/what-the-interns-have-wrought-rpc_parallel-and-core_profiler/|js}
+    ; date = {js|2014-10-16T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>We’re in the midst of intern hiring season, and so we get a lot of questions
 about what it’s like to be an intern at Jane Street. One of the things people
 most want to know is what kind of projects they might work on as an intern.</p>|js}
-  };
- 
-  { title = {js|What's in a name?|js}
-  ; slug = {js|whats-in-a-name|js}
-  ; description = Some {js|In the once upon a time days of the First Age of Magic, the prudent sorcererregarded his own true name as his most valued possession but also the greatestt...|js}
-  ; url = {js|https://blog.janestreet.com/whats-in-a-name/|js}
-  ; date = {js|2014-07-10T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<blockquote>
+    }
+  ; { title = {js|What's in a name?|js}
+    ; slug = {js|whats-in-a-name|js}
+    ; description =
+        Some
+          {js|In the once upon a time days of the First Age of Magic, the prudent sorcererregarded his own true name as his most valued possession but also the greatestt...|js}
+    ; url = {js|https://blog.janestreet.com/whats-in-a-name/|js}
+    ; date = {js|2014-07-10T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<blockquote>
   <p>In the once upon a time days of the First Age of Magic, the prudent sorcerer
 regarded his own true name as his most valued possession but also the greatest
 threat to his continued good health, for—the stories go—once an enemy, even a
@@ -1241,75 +1630,93 @@ Age) and we are back to worrying about true names again.</p>
 
   <p>– <em>True Names</em>, V. Vinge</p>
 </blockquote>|js}
-  };
- 
-  { title = {js|When Bash Scripts Bite|js}
-  ; slug = {js|when-bash-scripts-bite|js}
-  ; description = Some {js|There are abundant resources online trying to scare programmers away from usingshell scripts. Most of them, if anything, succeed in convincing the reader tob...|js}
-  ; url = {js|https://blog.janestreet.com/when-bash-scripts-bite/|js}
-  ; date = {js|2017-05-11T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>There are abundant resources online trying to scare programmers away from using
+    }
+  ; { title = {js|When Bash Scripts Bite|js}
+    ; slug = {js|when-bash-scripts-bite|js}
+    ; description =
+        Some
+          {js|There are abundant resources online trying to scare programmers away from usingshell scripts. Most of them, if anything, succeed in convincing the reader tob...|js}
+    ; url = {js|https://blog.janestreet.com/when-bash-scripts-bite/|js}
+    ; date = {js|2017-05-11T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>There are abundant resources online trying to scare programmers away from using
 shell scripts. Most of them, if anything, succeed in convincing the reader to
 blindly put something that resembles</p>|js}
-  };
- 
-  { title = {js|Why GADTs matter for performance|js}
-  ; slug = {js|why-gadts-matter-for-performance|js}
-  ; description = Some {js|When GADTs (Generalized Algebraic DataTypes) landed inOCaml, I wasn’t particularly happy about it. I assumed that it was the kind ofnonsense you get when you...|js}
-  ; url = {js|https://blog.janestreet.com/why-gadts-matter-for-performance/|js}
-  ; date = {js|2015-03-30T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<p>When GADTs (<a href="http://en.wikipedia.org/wiki/Generalized_algebraic_data_type">Generalized Algebraic Data
+    }
+  ; { title = {js|Why GADTs matter for performance|js}
+    ; slug = {js|why-gadts-matter-for-performance|js}
+    ; description =
+        Some
+          {js|When GADTs (Generalized Algebraic DataTypes) landed inOCaml, I wasn’t particularly happy about it. I assumed that it was the kind ofnonsense you get when you...|js}
+    ; url =
+        {js|https://blog.janestreet.com/why-gadts-matter-for-performance/|js}
+    ; date = {js|2015-03-30T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<p>When GADTs (<a href="http://en.wikipedia.org/wiki/Generalized_algebraic_data_type">Generalized Algebraic Data
 Types</a>) landed in
 OCaml, I wasn’t particularly happy about it. I assumed that it was the kind of
 nonsense you get when you let compiler writers design your programming language.</p>|js}
-  };
- 
-  { title = {js|Why OCaml?|js}
-  ; slug = {js|why-ocaml|js}
-  ; description = None
-  ; url = {js|https://blog.janestreet.com/why-ocaml/|js}
-  ; date = {js|2016-01-25T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/static/img/header.png|js}
-  ; body_html = {js|<div class="video-container">
+    }
+  ; { title = {js|Why OCaml?|js}
+    ; slug = {js|why-ocaml|js}
+    ; description = None
+    ; url = {js|https://blog.janestreet.com/why-ocaml/|js}
+    ; date = {js|2016-01-25T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://blog.janestreet.com/static/img/header.png|js}
+    ; body_html =
+        {js|<div class="video-container">
   <iframe src="https://youtube.com/embed/v1CmGbOGb2I?rel=0" width="560" height="315" frameborder="0" allowfullscreen=""></iframe>
 </div>|js}
-  };
- 
-  { title = {js|Work on the OCaml compiler at Jane Street!|js}
-  ; slug = {js|work-on-the-ocaml-compiler-at-jane-street|js}
-  ; description = Some {js|As Jane Street grows, the quality of the development tools we usematters more and more.  We increasingly work on the OCaml compileritself: adding useful lang...|js}
-  ; url = {js|https://blog.janestreet.com/work-on-the-ocaml-compiler-at-jane-street/|js}
-  ; date = {js|2017-12-20T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://blog.janestreet.com/work-on-the-ocaml-compiler-at-jane-street/compiler3d.jpg|js}
-  ; body_html = {js|<p>As Jane Street grows, the quality of the development tools we use
+    }
+  ; { title = {js|Work on the OCaml compiler at Jane Street!|js}
+    ; slug = {js|work-on-the-ocaml-compiler-at-jane-street|js}
+    ; description =
+        Some
+          {js|As Jane Street grows, the quality of the development tools we usematters more and more.  We increasingly work on the OCaml compileritself: adding useful lang...|js}
+    ; url =
+        {js|https://blog.janestreet.com/work-on-the-ocaml-compiler-at-jane-street/|js}
+    ; date = {js|2017-12-20T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://blog.janestreet.com/work-on-the-ocaml-compiler-at-jane-street/compiler3d.jpg|js}
+    ; body_html =
+        {js|<p>As Jane Street grows, the quality of the development tools we use
 matters more and more.  We increasingly work on the OCaml compiler
 itself: adding useful language features, fine-tuning the type system
 and improving the performance of the generated code. Alongside this,
 we also work on the surrounding toolchain, developing new tools for
 profiling, debugging, documentation and build automation.</p>|js}
-  };
- 
-  { title = {js|An Architecture for Interspatial Communication|js}
-  ; slug = {js|an-architecture-for-interspatial-communication|js}
-  ; description = None
-  ; url = {js|http://kcsrk.info/papers/osmose_feb_18.pdf|js}
-  ; date = {js|2018-02-14T00:00:00-00:00|js}
-  ; preview_image = None
-  ; body_html = {js|<p>Position paper on
+    }
+  ; { title = {js|An Architecture for Interspatial Communication|js}
+    ; slug = {js|an-architecture-for-interspatial-communication|js}
+    ; description = None
+    ; url = {js|http://kcsrk.info/papers/osmose_feb_18.pdf|js}
+    ; date = {js|2018-02-14T00:00:00-00:00|js}
+    ; preview_image = None
+    ; body_html =
+        {js|<p>Position paper on
 <a href="http://kcsrk.info/papers/osmose_feb_18.pdf">“An Architecture for Interspatial Communication”</a>
 accepted to <a href="http://hotpost18.weebly.com/">HotPOST’18</a>.</p>|js}
-  };
- 
-  { title = {js|An introduction to fuzzing OCaml with AFL, Crowbar and Bun|js}
-  ; slug = {js|an-introduction-to-fuzzing-ocaml-with-afl-crowbar-and-bun|js}
-  ; description = Some {js|American Fuzzy Lop or AFL is a fuzzer: a program that tries to find bugs in
+    }
+  ; { title = {js|An introduction to fuzzing OCaml with AFL, Crowbar and Bun|js}
+    ; slug = {js|an-introduction-to-fuzzing-ocaml-with-afl-crowbar-and-bun|js}
+    ; description =
+        Some
+          {js|American Fuzzy Lop or AFL is a fuzzer: a program that tries to find bugs in
 other programs by sending them various auto-generated inputs…|js}
-  ; url = {js|https://tarides.com/blog/2019-09-04-an-introduction-to-fuzzing-ocaml-with-afl-crowbar-and-bun|js}
-  ; date = {js|2019-09-04T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/4eed05522f6733d728f6dc01bbe33e09/2244e/feather.jpg|js}
-  ; body_html = {js|<p><a href="http://lcamtuf.coredump.cx/afl/">American Fuzzy Lop</a> or AFL is a <em>fuzzer</em>: a program that tries to find bugs in
+    ; url =
+        {js|https://tarides.com/blog/2019-09-04-an-introduction-to-fuzzing-ocaml-with-afl-crowbar-and-bun|js}
+    ; date = {js|2019-09-04T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/4eed05522f6733d728f6dc01bbe33e09/2244e/feather.jpg|js}
+    ; body_html =
+        {js|<p><a href="http://lcamtuf.coredump.cx/afl/">American Fuzzy Lop</a> or AFL is a <em>fuzzer</em>: a program that tries to find bugs in
 other programs by sending them various auto-generated inputs. This article covers the
 basics of AFL and shows an example of fuzzing a parser written in OCaml. It also introduces two
 extensions: the <a href="https://github.com/stedolan/crowbar/">Crowbar</a> library which can be used to fuzz any kind of OCaml program or
@@ -1580,16 +1987,21 @@ approach.</p>
 contribute those extra features and help the community build more robust software.</p>
 <p>Finally if you wish to learn more about how to efficienly use fuzzing for testing I recommend the
 excellent <a href="https://blog.regehr.org/archives/1687">Write Fuzzable Code</a> article by John Regehr.</p>|js}
-  };
- 
-  { title = {js|An introduction to OCaml PPX ecosystem|js}
-  ; slug = {js|an-introduction-to-ocaml-ppx-ecosystem|js}
-  ; description = Some {js|These last few months, I spent some time writing new OCaml PPX rewriters or contributing to existing
+    }
+  ; { title = {js|An introduction to OCaml PPX ecosystem|js}
+    ; slug = {js|an-introduction-to-ocaml-ppx-ecosystem|js}
+    ; description =
+        Some
+          {js|These last few months, I spent some time writing new OCaml PPX rewriters or contributing to existing
 ones. It's a really fun experience…|js}
-  ; url = {js|https://tarides.com/blog/2019-05-09-an-introduction-to-ocaml-ppx-ecosystem|js}
-  ; date = {js|2019-05-09T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/0e8e776eb4ab9f596324bfe7e318b854/2244e/circuit_boards.jpg|js}
-  ; body_html = {js|<p>These last few months, I spent some time writing new OCaml PPX rewriters or contributing to existing
+    ; url =
+        {js|https://tarides.com/blog/2019-05-09-an-introduction-to-ocaml-ppx-ecosystem|js}
+    ; date = {js|2019-05-09T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/0e8e776eb4ab9f596324bfe7e318b854/2244e/circuit_boards.jpg|js}
+    ; body_html =
+        {js|<p>These last few months, I spent some time writing new OCaml PPX rewriters or contributing to existing
 ones. It's a really fun experience. Toying around with the AST taught me a lot about a language I
 thought I knew really well. Turns out I actually had no idea what I was doing all these years.</p>
 <p>All jokes aside, I was surprised that the most helpful tricks I learned while writing PPX rewriters
@@ -2418,15 +2830,20 @@ quite a bit of boilerplate that I have to copy into all my PPX rewriters reposit
 Hopefully <a href="https://github.com/ocaml/dune/issues/1855">dune plugins</a> should help with that and I
 can't wait for a first version to be released so that I can write a plugin to make this test
 pattern more accessible and easier to set up.</p>|js}
-  };
- 
-  { title = {js|Building portable user interfaces with Nottui and Lwd|js}
-  ; slug = {js|building-portable-user-interfaces-with-nottui-and-lwd|js}
-  ; description = Some {js|At Tarides, we build many tools and writing UI is usually a tedious task. In this post we will see how to write functional UIs in OCaml…|js}
-  ; url = {js|https://tarides.com/blog/2020-09-24-building-portable-user-interfaces-with-nottui-and-lwd|js}
-  ; date = {js|2020-09-24T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/06fbdcdb40efa879b814b744c5ea3fbf/497c6/nottui-rain.png|js}
-  ; body_html = {js|<p>At Tarides, we build many tools and writing UI is usually a tedious task. In this post we will see how to write functional UIs in OCaml using the <code>Nottui</code> &#x26; <code>Lwd</code> libraries.</p>
+    }
+  ; { title = {js|Building portable user interfaces with Nottui and Lwd|js}
+    ; slug = {js|building-portable-user-interfaces-with-nottui-and-lwd|js}
+    ; description =
+        Some
+          {js|At Tarides, we build many tools and writing UI is usually a tedious task. In this post we will see how to write functional UIs in OCaml…|js}
+    ; url =
+        {js|https://tarides.com/blog/2020-09-24-building-portable-user-interfaces-with-nottui-and-lwd|js}
+    ; date = {js|2020-09-24T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/06fbdcdb40efa879b814b744c5ea3fbf/497c6/nottui-rain.png|js}
+    ; body_html =
+        {js|<p>At Tarides, we build many tools and writing UI is usually a tedious task. In this post we will see how to write functional UIs in OCaml using the <code>Nottui</code> &#x26; <code>Lwd</code> libraries.</p>
 <p>These libraries were developed for <a href="https://github.com/ocurrent/citty">Citty</a>, a frontend to the <a href="https://github.com/ocurrent/ocaml-ci">Continuous Integration service</a> of OCaml Labs.</p>
 <div>
   <video controls width="100%">
@@ -2514,17 +2931,22 @@ They are used in tandem: <code>Nottui</code> for rendering the UI and <code>Lwd<
     allowfullscreen>
   </iframe>
 </div>|js}
-  };
- 
-  { title = {js|Decompress: Experiences with OCaml optimization|js}
-  ; slug = {js|decompress-experiences-with-ocaml-optimization|js}
-  ; description = Some {js|In our first article we mostly discussed
+    }
+  ; { title = {js|Decompress: Experiences with OCaml optimization|js}
+    ; slug = {js|decompress-experiences-with-ocaml-optimization|js}
+    ; description =
+        Some
+          {js|In our first article we mostly discussed
 the API design of decompress and did not talk too much about the issue of
 optimizing performance…|js}
-  ; url = {js|https://tarides.com/blog/2019-09-13-decompress-experiences-with-ocaml-optimization|js}
-  ; date = {js|2019-09-13T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/fff1a2a9a2dbdd9ac7efd7c97ac5aa2a/2244e/camel_sunset.jpg|js}
-  ; body_html = {js|<p>In our <a href="https://tarides.com/blog/2019-08-26-decompress-the-new-decompress-api.html">first article</a> we mostly discussed
+    ; url =
+        {js|https://tarides.com/blog/2019-09-13-decompress-experiences-with-ocaml-optimization|js}
+    ; date = {js|2019-09-13T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/fff1a2a9a2dbdd9ac7efd7c97ac5aa2a/2244e/camel_sunset.jpg|js}
+    ; body_html =
+        {js|<p>In our <a href="https://tarides.com/blog/2019-08-26-decompress-the-new-decompress-api.html">first article</a> we mostly discussed
 the API design of <code>decompress</code> and did not talk too much about the issue of
 optimizing performance. In this second article, we will relate our experiences
 of optimizing <code>decompress</code>.</p>
@@ -3027,17 +3449,22 @@ between compiling <code>decompress</code> with or without <code>flambda</code> i
 optimized <code>decompress</code> by hand mostly to keep compatibility with OCaml (since
 <code>flambda</code> needs another switch) and, in this way, to gain an understanding of
 <code>flambda</code> optimizations so that we can use it effectively!</p>|js}
-  };
- 
-  { title = {js|Decompress: The New Decompress API|js}
-  ; slug = {js|decompress-the-new-decompress-api|js}
-  ; description = Some {js|RFC 1951 is one of the most used standards. Indeed,
+    }
+  ; { title = {js|Decompress: The New Decompress API|js}
+    ; slug = {js|decompress-the-new-decompress-api|js}
+    ; description =
+        Some
+          {js|RFC 1951 is one of the most used standards. Indeed,
 when you launch your Linux kernel, it inflates itself according zlib
 standard, a…|js}
-  ; url = {js|https://tarides.com/blog/2019-08-26-decompress-the-new-decompress-api|js}
-  ; date = {js|2019-08-26T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/eeb13afbb9190097a8d04be9e1361642/2244e/hammock.jpg|js}
-  ; body_html = {js|<p><a href="https://tools.ietf.org/html/rfc1951">RFC 1951</a> is one of the most used standards. Indeed,
+    ; url =
+        {js|https://tarides.com/blog/2019-08-26-decompress-the-new-decompress-api|js}
+    ; date = {js|2019-08-26T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/eeb13afbb9190097a8d04be9e1361642/2244e/hammock.jpg|js}
+    ; body_html =
+        {js|<p><a href="https://tools.ietf.org/html/rfc1951">RFC 1951</a> is one of the most used standards. Indeed,
 when you launch your Linux kernel, it inflates itself according <a href="https://zlib.net/">zlib</a>
 standard, a superset of RFC 1951. Being a widely-used standard, we decided to
 produce an OCaml implementation. In the process, we learned many lessons about
@@ -3386,16 +3813,20 @@ can highlight bad design, corner-cases and details.</p>
 projects to give you interesting questions about your design. The last version
 of <code>decompress</code> was not used in <a href="https://github.com/mirage/ocaml-git/">ocaml-git</a> mostly because the flush
 mode was unclear.</p>|js}
-  };
- 
-  { title = {js|Dune 1.2.0|js}
-  ; slug = {js|dune-120|js}
-  ; description = Some {js|After a tiny but important patch release as 1.1.1, the dune team is thrilled to
+    }
+  ; { title = {js|Dune 1.2.0|js}
+    ; slug = {js|dune-120|js}
+    ; description =
+        Some
+          {js|After a tiny but important patch release as 1.1.1, the dune team is thrilled to
 announce the release of dune 1.2.0! Here are some highlights…|js}
-  ; url = {js|https://tarides.com/blog/2018-09-06-dune-1-2-0|js}
-  ; date = {js|2018-09-06T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/98e7b693b372846010bfcd8d54746146/2244e/sand_dune1.jpg|js}
-  ; body_html = {js|<p>After a tiny but important patch release as 1.1.1, the dune team is thrilled to
+    ; url = {js|https://tarides.com/blog/2018-09-06-dune-1-2-0|js}
+    ; date = {js|2018-09-06T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/98e7b693b372846010bfcd8d54746146/2244e/sand_dune1.jpg|js}
+    ; body_html =
+        {js|<p>After a tiny but important patch release as 1.1.1, the dune team is thrilled to
 announce the release of dune 1.2.0! Here are some highlights of the new
 features in that version. The full list of changes can be found <a href="https://github.com/ocaml/dune/blob/e3af33b43a87d7fa2d15f7b41d8bd942302742ec/CHANGES.md#120-14092018">in the dune
 repository</a>.</p>
@@ -3470,16 +3901,20 @@ modules with a deprecation message to help coordinate the change.</p>
 <p>Special thanks to our contributors for this release: @aantron, @anuragsoni,
 @bobot, @ddickstein, @dra27, @drjdn, @hongchangwu, @khady, @kodek16,
 @prometheansacrifice and @ryyppy.</p>|js}
-  };
- 
-  { title = {js|Dune 1.9.0|js}
-  ; slug = {js|dune-190|js}
-  ; description = Some {js|Tarides is pleased to have contributed to the dune 1.9.0 release which
+    }
+  ; { title = {js|Dune 1.9.0|js}
+    ; slug = {js|dune-190|js}
+    ; description =
+        Some
+          {js|Tarides is pleased to have contributed to the dune 1.9.0 release which
 introduces the concept of library variants. Thanks to this update…|js}
-  ; url = {js|https://tarides.com/blog/2019-04-10-dune-1-9-0|js}
-  ; date = {js|2019-04-10T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/a7294df7159db3785da6121fc6ecadf8/2244e/sand_dune2.jpg|js}
-  ; body_html = {js|<p>Tarides is pleased to have contributed to the dune 1.9.0 release which
+    ; url = {js|https://tarides.com/blog/2019-04-10-dune-1-9-0|js}
+    ; date = {js|2019-04-10T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/a7294df7159db3785da6121fc6ecadf8/2244e/sand_dune2.jpg|js}
+    ; body_html =
+        {js|<p>Tarides is pleased to have contributed to the dune 1.9.0 release which
 introduces the concept of library variants. Thanks to this update,
 unikernels builds are becoming easier and faster in the MirageOS
 universe! This also opens the door for a better cross-compilation
@@ -3600,16 +4035,21 @@ announce</a>.</p>
 <a href="https://github.com/emillon">@emillon</a>,
 <a href="https://github.com/shonfeder">@shonfeder</a>
 and <a href="https://github.com/ejgallego">@ejgallego</a>!</p>|js}
-  };
- 
-  { title = {js|Florence and beyond: the future of Tezos storage|js}
-  ; slug = {js|florence-and-beyond-the-future-of-tezos-storage|js}
-  ; description = Some {js|In collaboration with Nomadic Labs, Marigold and DaiLambda, we're happy to
+    }
+  ; { title = {js|Florence and beyond: the future of Tezos storage|js}
+    ; slug = {js|florence-and-beyond-the-future-of-tezos-storage|js}
+    ; description =
+        Some
+          {js|In collaboration with Nomadic Labs, Marigold and DaiLambda, we're happy to
 announce the completion of the next Tezos protocol proposal…|js}
-  ; url = {js|https://tarides.com/blog/2021-03-04-florence-and-beyond-the-future-of-tezos-storage|js}
-  ; date = {js|2021-03-04T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/d81c504dbb5172d29c2aa38512f1dfe3/2244e/florence.jpg|js}
-  ; body_html = {js|<p>In collaboration with Nomadic Labs, Marigold and DaiLambda, we're happy to
+    ; url =
+        {js|https://tarides.com/blog/2021-03-04-florence-and-beyond-the-future-of-tezos-storage|js}
+    ; date = {js|2021-03-04T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/d81c504dbb5172d29c2aa38512f1dfe3/2244e/florence.jpg|js}
+    ; body_html =
+        {js|<p>In collaboration with Nomadic Labs, Marigold and DaiLambda, we're happy to
 announce the completion of the next Tezos protocol proposal:
 <a href="http://doc.tzalpha.net/protocols/009_florence.html"><strong>Florence</strong></a>.</p>
 <p><a href="https://tezos.com/">Tezos</a> is an open-source decentralised blockchain network providing a
@@ -3701,17 +4141,22 @@ projects and help them grow together.</p>
 <p>If all of this sounds interesting, you can play with it yourself using the
 recently-released <a href="https://github.com/mirage/irmin">Irmin 2.5.0</a>. Thanks for reading, and stay tuned for
 future Tezos development updates!</p>|js}
-  };
- 
-  { title = {js|Fuzzing OCamlFormat with AFL and Crowbar|js}
-  ; slug = {js|fuzzing-ocamlformat-with-afl-and-crowbar|js}
-  ; description = Some {js|AFL (and fuzzing in general) is often used
+    }
+  ; { title = {js|Fuzzing OCamlFormat with AFL and Crowbar|js}
+    ; slug = {js|fuzzing-ocamlformat-with-afl-and-crowbar|js}
+    ; description =
+        Some
+          {js|AFL (and fuzzing in general) is often used
 to find bugs in low-level code like parsers, but it also works very well to find
 bugs in high…|js}
-  ; url = {js|https://tarides.com/blog/2020-08-03-fuzzing-ocamlformat-with-afl-and-crowbar|js}
-  ; date = {js|2020-08-03T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/e6219992a464284115d27348b49c3910/2244e/feather2.jpg|js}
-  ; body_html = {js|<p><a href="https://lcamtuf.coredump.cx/afl/">AFL</a> (and fuzzing in general) is often used
+    ; url =
+        {js|https://tarides.com/blog/2020-08-03-fuzzing-ocamlformat-with-afl-and-crowbar|js}
+    ; date = {js|2020-08-03T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/e6219992a464284115d27348b49c3910/2244e/feather2.jpg|js}
+    ; body_html =
+        {js|<p><a href="https://lcamtuf.coredump.cx/afl/">AFL</a> (and fuzzing in general) is often used
 to find bugs in low-level code like parsers, but it also works very well to find
 bugs in high level code, provided the right ingredients. We applied this
 technique to feed random programs to OCamlFormat and found many formatting bugs.</p>
@@ -3798,29 +4243,33 @@ are longer than allowed. It is also possible to extend the random program
 generator so that it tries to generate comments, and let OCamlFormat check that
 they are all laid out correctly in the output. We look forward to employing
 fuzzing more extensively for OCamlFormat development in future.</p>|js}
-  };
- 
-  { title = {js|How configurator reads C constants|js}
-  ; slug = {js|how-configurator-reads-c-constants|js}
-  ; description = None
-  ; url = {js|https://dune.build/blog/configurator-constants/|js}
-  ; date = {js|2019-01-03T00:00:00-00:00|js}
-  ; preview_image = None
-  ; body_html = {js|<p>Dune comes with a library to query OS-specific information, called configurator.
+    }
+  ; { title = {js|How configurator reads C constants|js}
+    ; slug = {js|how-configurator-reads-c-constants|js}
+    ; description = None
+    ; url = {js|https://dune.build/blog/configurator-constants/|js}
+    ; date = {js|2019-01-03T00:00:00-00:00|js}
+    ; preview_image = None
+    ; body_html =
+        {js|<p>Dune comes with a library to query OS-specific information, called configurator.
 It is able to evaluate C expressions and turn them into OCaml value.
 Surprisingly, it even works when compiling for a different architecture. How can
 it do that?</p>|js}
-  };
- 
-  { title = {js|Introducing irmin-pack|js}
-  ; slug = {js|introducing-irmin-pack|js}
-  ; description = Some {js|irmin-pack is an Irmin storage backend
+    }
+  ; { title = {js|Introducing irmin-pack|js}
+    ; slug = {js|introducing-irmin-pack|js}
+    ; description =
+        Some
+          {js|irmin-pack is an Irmin storage backend
 that we developed over the last year specifically to meet the
 Tezos use-case. Tezos nodes were…|js}
-  ; url = {js|https://tarides.com/blog/2020-09-01-introducing-irmin-pack|js}
-  ; date = {js|2020-09-01T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/5dbd4ce5058bf6225c3a8ac98e4dda54/2244e/drawers.jpg|js}
-  ; body_html = {js|<p><code>irmin-pack</code> is an Irmin <a href="https://irmin.org/tutorial/backend">storage backend</a>
+    ; url = {js|https://tarides.com/blog/2020-09-01-introducing-irmin-pack|js}
+    ; date = {js|2020-09-01T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/5dbd4ce5058bf6225c3a8ac98e4dda54/2244e/drawers.jpg|js}
+    ; body_html =
+        {js|<p><code>irmin-pack</code> is an Irmin <a href="https://irmin.org/tutorial/backend">storage backend</a>
 that we developed over the last year specifically to meet the
 <a href="https://tezos.gitlab.io/">Tezos</a> use-case. Tezos nodes were initially using an
 LMDB-based backend for their storage, which after only a year of activity led to
@@ -4106,15 +4555,20 @@ generally customizable, the largest source of memory usage being the <code>log</
 of the <code>index</code>. While it can be reduced to fit in <code>1 Gb</code> of memory and run on
 small VPS or Raspberry Pi, one can easily set a higher memory limit on a more
 powerful machine, and achieve even better time performance.</p>|js}
-  };
- 
-  { title = {js|Introducing the GraphQL API for Irmin 2.0|js}
-  ; slug = {js|introducing-the-graphql-api-for-irmin-20|js}
-  ; description = Some {js|With the release of Irmin 2.0.0, we are happy to announce a new package - irmin-graphql, which can be used to serve data from Irmin over…|js}
-  ; url = {js|https://tarides.com/blog/2019-11-27-introducing-the-graphql-api-for-irmin-2-0|js}
-  ; date = {js|2019-11-27T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/774a33033c774c2c0c5b638f61694621/497c6/irmin-graphql.png|js}
-  ; body_html = {js|<p>With the release of Irmin 2.0.0, we are happy to announce a new package - <code>irmin-graphql</code>, which can be used to serve data from Irmin over HTTP. This blog post will give you some examples to help you get started, there is also <a href="https://irmin.org/tutorial/graphql">a section in the <code>irmin-tutorial</code></a> with similar information. To avoid writing the same thing twice, this post will cover the basics of getting started, plus a few interesting ideas for queries.</p>
+    }
+  ; { title = {js|Introducing the GraphQL API for Irmin 2.0|js}
+    ; slug = {js|introducing-the-graphql-api-for-irmin-20|js}
+    ; description =
+        Some
+          {js|With the release of Irmin 2.0.0, we are happy to announce a new package - irmin-graphql, which can be used to serve data from Irmin over…|js}
+    ; url =
+        {js|https://tarides.com/blog/2019-11-27-introducing-the-graphql-api-for-irmin-2-0|js}
+    ; date = {js|2019-11-27T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/774a33033c774c2c0c5b638f61694621/497c6/irmin-graphql.png|js}
+    ; body_html =
+        {js|<p>With the release of Irmin 2.0.0, we are happy to announce a new package - <code>irmin-graphql</code>, which can be used to serve data from Irmin over HTTP. This blog post will give you some examples to help you get started, there is also <a href="https://irmin.org/tutorial/graphql">a section in the <code>irmin-tutorial</code></a> with similar information. To avoid writing the same thing twice, this post will cover the basics of getting started, plus a few interesting ideas for queries.</p>
 <p>Getting the <code>irmin-graphql</code> server running from the command-line is easy:</p>
 <div class="gatsby-highlight" data-language="shell"><pre class="language-shell"><code class="language-shell">$ irmin graphql --root<span class="token operator">=</span>/tmp/irmin</code></pre></div>
 <p>where <code>/tmp/irmin</code> is the actual path to your repository. This will start the server on <code>localhost:8080</code>, but it's possible to customize this using the <code>--address</code> and <code>--port</code> flags.</p>
@@ -4378,17 +4832,22 @@ The existing low-level Irmin HTTP API is a perfect example of this. Fetching the
 <h1 id="wrap-up" style="position:relative;"><a href="#wrap-up" aria-label="wrap up permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Wrap-up</h1>
 <p>Irmin 2.0 ships with a powerful new GraphQL API, that makes it much easier to interact with Irmin over the network. This makes Irmin available for many more languages and contexts, not just applications using OCaml (or Javascript). The new API operates at a much high level than the old API, and offers advanced features such as "bring your own GraphQL types", and watching for changes via GraphQL subscriptions.</p>
 <p>We're looking forward to seeing what you'll build with it!</p>|js}
-  };
- 
-  { title = {js|Irmin: September 2020 update|js}
-  ; slug = {js|irmin-september-2020-update|js}
-  ; description = Some {js|This post will survey the latest design decisions and performance improvements
+    }
+  ; { title = {js|Irmin: September 2020 update|js}
+    ; slug = {js|irmin-september-2020-update|js}
+    ; description =
+        Some
+          {js|This post will survey the latest design decisions and performance improvements
 made to irmin-pack, the Irmin storage backend used by
 Tezos…|js}
-  ; url = {js|https://tarides.com/blog/2020-09-08-irmin-september-2020-update|js}
-  ; date = {js|2020-09-08T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/eb48bbf490e4011a9fa8806a56d4098b/2244e/tree_autumn.jpg|js}
-  ; body_html = {js|<p>This post will survey the latest design decisions and performance improvements
+    ; url =
+        {js|https://tarides.com/blog/2020-09-08-irmin-september-2020-update|js}
+    ; date = {js|2020-09-08T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/eb48bbf490e4011a9fa8806a56d4098b/2244e/tree_autumn.jpg|js}
+    ; body_html =
+        {js|<p>This post will survey the latest design decisions and performance improvements
 made to <code>irmin-pack</code>, the <a href="https://irmin.org/">Irmin</a> storage backend used by
 <a href="https://tezos.gitlab.io/">Tezos</a>. Tezos is an open-source blockchain technology,
 written in OCaml, which uses many libraries from the MirageOS ecosystem. For
@@ -4575,29 +5034,38 @@ this migration function as follows:</p>
 tuned</a> for our next Tezos / MirageOS development update! Thanks
 to our commercial customers, users and open-source contributors for making this
 work possible.</p>|js}
-  };
- 
-  { title = {js|Irmin usability enhancements|js}
-  ; slug = {js|irmin-usability-enhancements|js}
-  ; description = Some {js|For the next few months I will be working on Irmin, focusing on improving general usability. The goal of this effort is to make Irmin more accessible to potential users and clean up the rough edges for existing users.  One of the biggest problems I see right now is that the documentation is out of sync with the current implementation. I’ve just been getting starting refreshing the documentation and tutorials, however here are a few more projects that @samoht and I have discussed:   Better RPC AP...|js}
-  ; url = {js|https://discuss.ocaml.org/t/irmin-usability-enhancements/2017|js}
-  ; date = {js|2018-05-18T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://aws1.discourse-cdn.com/standard11/uploads/ocaml/original/2X/d/d4dc9fe40b17e2bcced034f9fe103917b7999275.svg|js}
-  ; body_html = {js|<p>Zach Shipko is working on improving the UI/UX for Irmin.
+    }
+  ; { title = {js|Irmin usability enhancements|js}
+    ; slug = {js|irmin-usability-enhancements|js}
+    ; description =
+        Some
+          {js|For the next few months I will be working on Irmin, focusing on improving general usability. The goal of this effort is to make Irmin more accessible to potential users and clean up the rough edges for existing users.  One of the biggest problems I see right now is that the documentation is out of sync with the current implementation. I’ve just been getting starting refreshing the documentation and tutorials, however here are a few more projects that @samoht and I have discussed:   Better RPC AP...|js}
+    ; url =
+        {js|https://discuss.ocaml.org/t/irmin-usability-enhancements/2017|js}
+    ; date = {js|2018-05-18T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://aws1.discourse-cdn.com/standard11/uploads/ocaml/original/2X/d/d4dc9fe40b17e2bcced034f9fe103917b7999275.svg|js}
+    ; body_html =
+        {js|<p>Zach Shipko is working on improving the UI/UX for Irmin.
 He is looking for <a href="https://discuss.ocaml.org/t/irmin-usability-enhancements/2017">feedback</a>
 to make Irmin more accessible to potential users and clean up the rough edges for existing users.</p>|js}
-  };
- 
-  { title = {js|Irmin v2|js}
-  ; slug = {js|irmin-v2|js}
-  ; description = Some {js|We are pleased to announce Irmin
+    }
+  ; { title = {js|Irmin v2|js}
+    ; slug = {js|irmin-v2|js}
+    ; description =
+        Some
+          {js|We are pleased to announce Irmin
 2.0.0, a major release of the
 Git-like distributed branching and storage substrate that underpins
 MirageOS…|js}
-  ; url = {js|https://tarides.com/blog/2019-11-21-irmin-v2|js}
-  ; date = {js|2019-11-21T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/d702f060cc02fbcb7329077e2d71741d/497c6/irmin2.png|js}
-  ; body_html = {js|<p>We are pleased to announce <a href="https://github.com/mirage/irmin/releases">Irmin
+    ; url = {js|https://tarides.com/blog/2019-11-21-irmin-v2|js}
+    ; date = {js|2019-11-21T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/d702f060cc02fbcb7329077e2d71741d/497c6/irmin2.png|js}
+    ; body_html =
+        {js|<p>We are pleased to announce <a href="https://github.com/mirage/irmin/releases">Irmin
 2.0.0</a>, a major release of the
 Git-like distributed branching and storage substrate that underpins
 <a href="https://mirage.io">MirageOS</a>.  We began the release process for all the
@@ -4698,25 +5166,33 @@ storage stack in the spirit of Git.  Our next steps for Irmin are to
 continue to increase the performance and optimise the storage,
 and to build more end-to-end applications using the application core
 on top of MirageOS.</p>|js}
-  };
- 
-  { title = {js|MirageOS, towards a smaller and safer OS|js}
-  ; slug = {js|mirageos-towards-a-smaller-and-safer-os|js}
-  ; description = Some {js|This presentation by Romain Calascibetta took place at Lambda World Cádiz on October 26th, 2018 at the Palacio de Congresos in Cádiz, Spain.MirageOS, towards...|js}
-  ; url = {js|https://www.youtube.com/watch?v=urG5BjvjW18|js}
-  ; date = {js|2018-12-06T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://i.ytimg.com/vi/urG5BjvjW18/maxresdefault.jpg|js}
-  ; body_html = {js|<p>Presentation about MirageOS in Lambda World Cadìz on October 26th</p>|js}
-  };
- 
-  { title = {js|Mr. MIME - Parse and generate emails|js}
-  ; slug = {js|mr-mime---parse-and-generate-emails|js}
-  ; description = Some {js|We're glad to announce the first release of mrmime, a parser and a
+    }
+  ; { title = {js|MirageOS, towards a smaller and safer OS|js}
+    ; slug = {js|mirageos-towards-a-smaller-and-safer-os|js}
+    ; description =
+        Some
+          {js|This presentation by Romain Calascibetta took place at Lambda World Cádiz on October 26th, 2018 at the Palacio de Congresos in Cádiz, Spain.MirageOS, towards...|js}
+    ; url = {js|https://www.youtube.com/watch?v=urG5BjvjW18|js}
+    ; date = {js|2018-12-06T00:00:00-00:00|js}
+    ; preview_image =
+        Some {js|https://i.ytimg.com/vi/urG5BjvjW18/maxresdefault.jpg|js}
+    ; body_html =
+        {js|<p>Presentation about MirageOS in Lambda World Cadìz on October 26th</p>|js}
+    }
+  ; { title = {js|Mr. MIME - Parse and generate emails|js}
+    ; slug = {js|mr-mime---parse-and-generate-emails|js}
+    ; description =
+        Some
+          {js|We're glad to announce the first release of mrmime, a parser and a
 generator of emails. This library provides an OCaml way to analyze and…|js}
-  ; url = {js|https://tarides.com/blog/2019-09-25-mr-mime-parse-and-generate-emails|js}
-  ; date = {js|2019-09-25T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/14bcc335478eae1bbad1c2f4cdd244af/2244e/mailboxes2.jpg|js}
-  ; body_html = {js|<p>We're glad to announce the first release of <a href="https://github.com/mirage/mrmime.git"><code>mrmime</code></a>, a parser and a
+    ; url =
+        {js|https://tarides.com/blog/2019-09-25-mr-mime-parse-and-generate-emails|js}
+    ; date = {js|2019-09-25T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/14bcc335478eae1bbad1c2f4cdd244af/2244e/mailboxes2.jpg|js}
+    ; body_html =
+        {js|<p>We're glad to announce the first release of <a href="https://github.com/mirage/mrmime.git"><code>mrmime</code></a>, a parser and a
 generator of emails. This library provides an <em>OCaml way</em> to analyze and craft
 an email. The eventual goal is to build an entire <em>unikernel-compatible</em> stack
 for email (such as SMTP or IMAP).</p>
@@ -4885,17 +5361,21 @@ we have the feeling it was the time to release it and let people to use
 it.</p>
 <p>The best feedback about <code>mrmime</code> and the best improvement is yours. So don't be
 afraid to use it and start to hack your emails with it.</p>|js}
-  };
- 
-  { title = {js|ocaml-git 2.0|js}
-  ; slug = {js|ocaml-git-20|js}
-  ; description = Some {js|I'm very happy to announce a new major release of ocaml-git (2.0).
+    }
+  ; { title = {js|ocaml-git 2.0|js}
+    ; slug = {js|ocaml-git-20|js}
+    ; description =
+        Some
+          {js|I'm very happy to announce a new major release of ocaml-git (2.0).
 This release is a 2-year effort to get a revamped
 streaming API offering…|js}
-  ; url = {js|https://tarides.com/blog/2018-10-19-ocaml-git-2-0|js}
-  ; date = {js|2018-10-19T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/1d805022c72839f1abe63b28f225fd32/2244e/mesh.jpg|js}
-  ; body_html = {js|<p>I'm very happy to announce a new major release of <code>ocaml-git</code> (2.0).
+    ; url = {js|https://tarides.com/blog/2018-10-19-ocaml-git-2-0|js}
+    ; date = {js|2018-10-19T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/1d805022c72839f1abe63b28f225fd32/2244e/mesh.jpg|js}
+    ; body_html =
+        {js|<p>I'm very happy to announce a new major release of <code>ocaml-git</code> (2.0).
 This release is a 2-year effort to get a revamped
 streaming API offering a full control over memory
 allocation. This new version also adds production-ready implementations of
@@ -5080,15 +5560,19 @@ We think that Git offers a very nice model to persist data for distributed
 applications and we hope that more people will use ocaml-git to experiment
 and manipulate application data in Git. Please
 <a href="https://github.com/mirage/ocaml-git/issues">send us</a> your feedback!</p>|js}
-  };
- 
-  { title = {js|OCamlFormat 0.8|js}
-  ; slug = {js|ocamlformat-08|js}
-  ; description = Some {js|We are proud to announce the release of OCamlFormat 0.8 (available on opam). To ease the transition from the previous 0.7 release here are…|js}
-  ; url = {js|https://tarides.com/blog/2018-10-17-ocamlformat-0-8|js}
-  ; date = {js|2018-10-17T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/9b70dfbba6abba837b47f644a75b33dc/2244e/code_black1.jpg|js}
-  ; body_html = {js|<p>We are proud to announce the release of OCamlFormat 0.8 (available on opam). To ease the transition from the previous 0.7 release here are some highlights of the new features of this release. The <a href="https://github.com/ocaml-ppx/ocamlformat/blob/v0.8/CHANGES.md#08-2018-10-09">full changelog</a> is available on the project repository.</p>
+    }
+  ; { title = {js|OCamlFormat 0.8|js}
+    ; slug = {js|ocamlformat-08|js}
+    ; description =
+        Some
+          {js|We are proud to announce the release of OCamlFormat 0.8 (available on opam). To ease the transition from the previous 0.7 release here are…|js}
+    ; url = {js|https://tarides.com/blog/2018-10-17-ocamlformat-0-8|js}
+    ; date = {js|2018-10-17T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/9b70dfbba6abba837b47f644a75b33dc/2244e/code_black1.jpg|js}
+    ; body_html =
+        {js|<p>We are proud to announce the release of OCamlFormat 0.8 (available on opam). To ease the transition from the previous 0.7 release here are some highlights of the new features of this release. The <a href="https://github.com/ocaml-ppx/ocamlformat/blob/v0.8/CHANGES.md#08-2018-10-09">full changelog</a> is available on the project repository.</p>
 <h1 id="precedence-of-options" style="position:relative;"><a href="#precedence-of-options" aria-label="precedence of options permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Precedence of options</h1>
 <p>In the previous version you could override command line options with <code>.ocamlformat</code> files configuration. 0.8 fixed this so that the OCamlFormat configuration is first established by reading <code>.ocamlformat</code> and <code>.ocp-indent</code> files:</p>
 <div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">margin = 77
@@ -5138,17 +5622,21 @@ If the new option <code>--disable-outside-detected-project</code> is set, <code>
 <h1 id="credits" style="position:relative;"><a href="#credits" aria-label="credits permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Credits</h1>
 <p>This release also contains many other changes and bug fixes that we cannot detail here. Check out the <a href="https://github.com/ocaml-ppx/ocamlformat/blob/v0.8/CHANGES.md#08-2018-10-09">full changelog</a>.</p>
 <p>Special thanks to our maintainers and contributors for this release: David Allsopp, Josh Berdine, Hugo Heuzard, Brandon Kase, Anil Madhavapeddy and Guillaume Petiot.</p>|js}
-  };
- 
-  { title = {js|On the road to Irmin v2|js}
-  ; slug = {js|on-the-road-to-irmin-v2|js}
-  ; description = Some {js|Over the past few months, we have been heavily engaged in release
+    }
+  ; { title = {js|On the road to Irmin v2|js}
+    ; slug = {js|on-the-road-to-irmin-v2|js}
+    ; description =
+        Some
+          {js|Over the past few months, we have been heavily engaged in release
 engineering the Irmin 2.0 release,
 which covers multiple years of work on…|js}
-  ; url = {js|https://tarides.com/blog/2019-05-13-on-the-road-to-irmin-v2|js}
-  ; date = {js|2019-05-13T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/76876b69b77bdec1f25009b2ef2a6d33/2244e/tree_canopy2.jpg|js}
-  ; body_html = {js|<p>Over the past few months, we have been heavily engaged in release
+    ; url = {js|https://tarides.com/blog/2019-05-13-on-the-road-to-irmin-v2|js}
+    ; date = {js|2019-05-13T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/76876b69b77bdec1f25009b2ef2a6d33/2244e/tree_canopy2.jpg|js}
+    ; body_html =
+        {js|<p>Over the past few months, we have been heavily engaged in release
 engineering the <a href="https://github.com/mirage/irmin/issues/658">Irmin 2.0 release</a>,
 which covers multiple years of work on all of its constituent
 elements. We first began Irmin in late 2013 to act as a
@@ -5252,16 +5740,21 @@ source developers who have contributed their time, expertise and
 financial support to help us achieve our goal of delivering a modern
 storage stack in the spirit of Git. We look forward to getting Irmin
 2.0 into your hands very soon!</p>|js}
-  };
- 
-  { title = {js|Recent and upcoming changes to Merlin|js}
-  ; slug = {js|recent-and-upcoming-changes-to-merlin|js}
-  ; description = Some {js|Merlin is a language server for the OCaml programming language; that is, a daemon
+    }
+  ; { title = {js|Recent and upcoming changes to Merlin|js}
+    ; slug = {js|recent-and-upcoming-changes-to-merlin|js}
+    ; description =
+        Some
+          {js|Merlin is a language server for the OCaml programming language; that is, a daemon
 that connects to your favourite text editor and provides…|js}
-  ; url = {js|https://tarides.com/blog/2021-01-26-recent-and-upcoming-changes-to-merlin|js}
-  ; date = {js|2021-01-26T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/1d86af9747be51519d2c89b476b5b306/2244e/camelgicien.jpg|js}
-  ; body_html = {js|<p>Merlin is a language server for the OCaml programming language; that is, a daemon
+    ; url =
+        {js|https://tarides.com/blog/2021-01-26-recent-and-upcoming-changes-to-merlin|js}
+    ; date = {js|2021-01-26T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/1d86af9747be51519d2c89b476b5b306/2244e/camelgicien.jpg|js}
+    ; body_html =
+        {js|<p>Merlin is a language server for the OCaml programming language; that is, a daemon
 that connects to your favourite text editor and provides the usual services of
 an IDE: instant feedback on warnings and errors, autocompletion, "type of the
 code under the cursor", "go to definition", etc. As we (Frédéric Bour, Ulysse
@@ -5389,16 +5882,20 @@ LSP project, as well as Ulysse Gérard, who joined our team a year ago now. They
 are in particular the main authors of the work to improve the handling of
 projects' configuration.</p>
 <p>We hope you'll be as excited as us by all these changes!</p>|js}
-  };
- 
-  { title = {js|Release of Base64|js}
-  ; slug = {js|release-of-base64|js}
-  ; description = Some {js|MirageOS is a library operating system written from the ground up in OCaml.
+    }
+  ; { title = {js|Release of Base64|js}
+    ; slug = {js|release-of-base64|js}
+    ; description =
+        Some
+          {js|MirageOS is a library operating system written from the ground up in OCaml.
 It has an impossible and incredibly huge goal to re-implement…|js}
-  ; url = {js|https://tarides.com/blog/2019-02-08-release-of-base64|js}
-  ; date = {js|2019-02-08T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/50a0344945c9df2a67b60ef32ee43a0f/2244e/mailboxes.jpg|js}
-  ; body_html = {js|<p>MirageOS is a library operating system written from the ground up in OCaml.
+    ; url = {js|https://tarides.com/blog/2019-02-08-release-of-base64|js}
+    ; date = {js|2019-02-08T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/50a0344945c9df2a67b60ef32ee43a0f/2244e/mailboxes.jpg|js}
+    ; body_html =
+        {js|<p>MirageOS is a library operating system written from the ground up in OCaml.
 It has an impossible and incredibly huge goal to re-implement all of the
 world! Looking back at the work accomplished by the MirageOS team, it appears that's
 what happened for several years. Re-implementing the entire stack, in particular
@@ -5655,15 +6152,20 @@ implementation).</p>
 <p>Indeed, this is a hard question which nobody can answer perfectly in isolation.
 So, the story of this update to <code>ocaml-base64</code> is an invitation for you to enter
 the arcanas of the computer world through MirageOS :) ! Don't be afraid!</p>|js}
-  };
- 
-  { title = {js|Release of OCamlFormat 0.10|js}
-  ; slug = {js|release-of-ocamlformat-010|js}
-  ; description = Some {js|We are pleased to announce the release of OCamlFormat 0.10 (available on opam). There have been numerous changes since the last release, so…|js}
-  ; url = {js|https://tarides.com/blog/2019-06-27-release-of-ocamlformat-0-10|js}
-  ; date = {js|2019-06-27T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/dd98e4198ca9305bbbd638c382587e5b/2244e/keyboard.jpg|js}
-  ; body_html = {js|<p>We are pleased to announce the release of OCamlFormat 0.10 (available on opam).</p>
+    }
+  ; { title = {js|Release of OCamlFormat 0.10|js}
+    ; slug = {js|release-of-ocamlformat-010|js}
+    ; description =
+        Some
+          {js|We are pleased to announce the release of OCamlFormat 0.10 (available on opam). There have been numerous changes since the last release, so…|js}
+    ; url =
+        {js|https://tarides.com/blog/2019-06-27-release-of-ocamlformat-0-10|js}
+    ; date = {js|2019-06-27T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/dd98e4198ca9305bbbd638c382587e5b/2244e/keyboard.jpg|js}
+    ; body_html =
+        {js|<p>We are pleased to announce the release of OCamlFormat 0.10 (available on opam).</p>
 <p>There have been numerous changes since the last release, so here is a comprehensive list of the new features and breaking changes to help the transition from OCamlFormat 0.9.</p>
 <p><code>ocamlformat-0.10</code> now works on the 4.08 AST, although the formatting should not differ greatly from the one of <code>ocamlformat-0.9</code> in this regard.
 Please note that it is necessary to build <code>ocamlformat</code> with 4.08 to be able to parse new features like <code>let*</code>.</p>
@@ -5851,17 +6353,22 @@ For example if this set of or-patterns does not fit on a single line, we get the
 <p>We would like to thank our maintainers and contributors for this release: Jules Aguillon, Josh Berdine, Hugo Heuzard, Guillaume Petiot and Thomas Refis, and especially our industrial users Jane Street, Ahrefs and Nomadic Labs that made this work possible by funding this project and providing helpful contributions and feedback.</p>
 <p>We would be happy to provide support for more customers, please contact us at contact@tarides.com</p>
 <p>If you wish to get involved with OCamlFormat development or file an issue, please read the <a href="https://github.com/ocaml-ppx/ocamlformat/blob/master/CONTRIBUTING.md">contributing guide</a>, any contribution is welcomed.</p>|js}
-  };
- 
-  { title = {js|Release of OCamlFormat 0.9|js}
-  ; slug = {js|release-of-ocamlformat-09|js}
-  ; description = Some {js|We are pleased to announce the release of OCamlFormat (available on opam).
+    }
+  ; { title = {js|Release of OCamlFormat 0.9|js}
+    ; slug = {js|release-of-ocamlformat-09|js}
+    ; description =
+        Some
+          {js|We are pleased to announce the release of OCamlFormat (available on opam).
 There have been numerous changes since the last release,
 so here…|js}
-  ; url = {js|https://tarides.com/blog/2019-03-29-release-of-ocamlformat-0-9|js}
-  ; date = {js|2019-03-29T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/b0a6eda566f64c66aa1761737cf3ea4a/2244e/ceiling-arches.jpg|js}
-  ; body_html = {js|<p>We are pleased to announce the release of OCamlFormat (available on opam).
+    ; url =
+        {js|https://tarides.com/blog/2019-03-29-release-of-ocamlformat-0-9|js}
+    ; date = {js|2019-03-29T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/b0a6eda566f64c66aa1761737cf3ea4a/2244e/ceiling-arches.jpg|js}
+    ; body_html =
+        {js|<p>We are pleased to announce the release of OCamlFormat (available on opam).
 There have been numerous changes since the last release,
 so here is a comprehensive list of the new features and breaking changes to help the transition from OCamlFormat 0.8.</p>
 <h1 id="additional-dependencies" style="position:relative;"><a href="#additional-dependencies" aria-label="additional dependencies permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Additional dependencies</h1>
@@ -6222,17 +6729,22 @@ that will not leave open lines between one-liners of similar sorts unless there 
 <p>If you wish to get involved with OCamlFormat development or file an issue,
 please read the <a href="https://github.com/ocaml-ppx/ocamlformat/blob/master/CONTRIBUTING.md">contributing guide</a>,
 any contribution is welcomed.</p>|js}
-  };
- 
-  { title = {js|Tarides is now a sponsor of the OCaml Software Foundation|js}
-  ; slug = {js|tarides-is-now-a-sponsor-of-the-ocaml-software-foundation|js}
-  ; description = Some {js|Tarides is pleased to provide support for the OCaml Software
+    }
+  ; { title = {js|Tarides is now a sponsor of the OCaml Software Foundation|js}
+    ; slug = {js|tarides-is-now-a-sponsor-of-the-ocaml-software-foundation|js}
+    ; description =
+        Some
+          {js|Tarides is pleased to provide support for the OCaml Software
 Foundation, a non-profit foundation hosted by
 the Inria Foundation. The OCaml…|js}
-  ; url = {js|https://tarides.com/blog/2020-09-17-tarides-is-now-a-sponsor-of-the-ocaml-software-foundation|js}
-  ; date = {js|2020-09-17T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/305bd3e2ab2e164e61b7781d183976fd/497c6/ocaml-software-foundation.png|js}
-  ; body_html = {js|<p>Tarides is pleased to provide support for the <a href="https://ocaml-sf.org">OCaml Software
+    ; url =
+        {js|https://tarides.com/blog/2020-09-17-tarides-is-now-a-sponsor-of-the-ocaml-software-foundation|js}
+    ; date = {js|2020-09-17T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/305bd3e2ab2e164e61b7781d183976fd/497c6/ocaml-software-foundation.png|js}
+    ; body_html =
+        {js|<p>Tarides is pleased to provide support for the <a href="https://ocaml-sf.org">OCaml Software
 Foundation</a>, a non-profit foundation hosted by
 the Inria Foundation. The OCaml Software Foundation's mission is to
 promote the OCaml programming language and its ecosystem by
@@ -6250,16 +6762,21 @@ snapshotting and support for a wide variety of storage backends.</p>
 OCaml developer tooling ecosystem: as active maintainers of the <a href="https://www.youtube.com/watch?v=E8T_4zqWmq8&#x26;list=PLKO_ZowsIOu5fHjRj0ua7_QWE_L789K_f&#x26;ab_channel=ocaml2020">OCaml
 platform</a>, Tarides is involved with most of the major
 OCaml developer tools, including <a href="https://github.com/ocaml/ocaml">opam</a>, <a href="https://github.com/ocaml/dune">dune</a> and <a href="https://github.com/ocaml/merlin">merlin</a>.</p>|js}
-  };
- 
-  { title = {js|The future of Tezos on MirageOS|js}
-  ; slug = {js|the-future-of-tezos-on-mirageos|js}
-  ; description = Some {js|We are very glad to announce that Tarides has been awarded two new grants from
+    }
+  ; { title = {js|The future of Tezos on MirageOS|js}
+    ; slug = {js|the-future-of-tezos-on-mirageos|js}
+    ; description =
+        Some
+          {js|We are very glad to announce that Tarides has been awarded two new grants from
 the Tezos Foundation. Thanks to these new grants, Tarides…|js}
-  ; url = {js|https://tarides.com/blog/2020-04-20-the-future-of-tezos-on-mirageos|js}
-  ; date = {js|2020-04-20T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com/static/bb44e4615f4730d8692d1214f5b238a3/497c6/tezosgrants.png|js}
-  ; body_html = {js|<p>We are very glad to announce that Tarides has been awarded two new grants from
+    ; url =
+        {js|https://tarides.com/blog/2020-04-20-the-future-of-tezos-on-mirageos|js}
+    ; date = {js|2020-04-20T00:00:00-00:00|js}
+    ; preview_image =
+        Some
+          {js|https://tarides.com/static/bb44e4615f4730d8692d1214f5b238a3/497c6/tezosgrants.png|js}
+    ; body_html =
+        {js|<p>We are very glad to announce that Tarides has been awarded two new grants from
 the Tezos Foundation.</p>
 <p>Thanks to these new grants, Tarides will continue to work on the integration
 between Tezos and MirageOS. We believe that the secure deployment of blockchains
@@ -6272,5 +6789,5 @@ However, it still heavily depends on non-compatible Unix libraries. Making the
 Tezos codebase fully compatible with MirageOS will help Tezos with: distribution
 and packaging, portability, secure deployment and operational safety.</p>
 <p>We’ll regularly publish development progress updates, so stay tuned!</p>|js}
-  }]
-
+    }
+  ]
