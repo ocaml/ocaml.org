@@ -5,7 +5,7 @@ let opam_polling =
 
 let documentation_url =
   Sys.getenv_opt "OCAMLORG_DOC_URL"
-  |> Option.value ~default:"https://docs-data.ocaml.org/current/"
+  |> Option.value ~default:"https://docs-data.ocaml.org/live/"
 
 let opam_repository_path =
   Sys.getenv_opt "OCAMLORG_REPO_PATH"

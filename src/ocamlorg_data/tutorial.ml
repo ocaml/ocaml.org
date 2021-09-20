@@ -1,4 +1,3 @@
-
 type difficulty =
   [ `Beginner
   | `Intermediate
@@ -16,18 +15,18 @@ type t =
   ; toc_html : string
   ; body_html : string
   }
-  
-let all = 
-[
-  { title = {js|Up and Running with OCaml|js}
-  ; slug = {js|up-and-running-with-ocaml|js}
-  ; description = {js|Help you install OCaml, the Dune build system, and support for your favourite text editor or IDE.
+
+let all =
+  [ { title = {js|Up and Running with OCaml|js}
+    ; slug = {js|up-and-running-with-ocaml|js}
+    ; description =
+        {js|Help you install OCaml, the Dune build system, and support for your favourite text editor or IDE.
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["getting-started"]
-  ; users = [`Beginner]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "getting-started" ]
+    ; users = [ `Beginner ]
+    ; body_md =
+        {js|
 This page will help you install OCaml, the Dune build system, and support for
 your favourite text editor or IDE. These instructions work on Windows, Unix
 systems like Linux, and macOS.
@@ -251,7 +250,8 @@ Vim:
 let $PATH .= ";".substitute(system('opam config var bin'),'\\n$','','''')
 ```
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#installing-ocaml">Installing OCaml</a>
 </li>
@@ -267,7 +267,8 @@ let $PATH .= ";".substitute(system('opam config var bin'),'\\n$','','''')
 </li>
 </ul>
 |js}
-  ; body_html = {js|<p>This page will help you install OCaml, the Dune build system, and support for
+    ; body_html =
+        {js|<p>This page will help you install OCaml, the Dune build system, and support for
 your favourite text editor or IDE. These instructions work on Windows, Unix
 systems like Linux, and macOS.</p>
 <h2 id="installing-ocaml">Installing OCaml</h2>
@@ -422,17 +423,17 @@ Vim:</p>
 <pre><code>let $PATH .= &quot;;&quot;.substitute(system('opam config var bin'),'\\n$','','''')
 </code></pre>
 |js}
-  };
- 
-  { title = {js|A First Hour with OCaml|js}
-  ; slug = {js|a-first-hour-with-ocaml|js}
-  ; description = {js|Discover the OCaml programming language in this longer tutorial that takes you from absolute beginner to someone who is able to write programs in OCaml.
+    }
+  ; { title = {js|A First Hour with OCaml|js}
+    ; slug = {js|a-first-hour-with-ocaml|js}
+    ; description =
+        {js|Discover the OCaml programming language in this longer tutorial that takes you from absolute beginner to someone who is able to write programs in OCaml.
 |js}
-  ; date = {js|2021-08-06T17:11:00-00:00|js}
-  ; tags = 
- ["getting-started"]
-  ; users = [`Beginner]
-  ; body_md = {js|
+    ; date = {js|2021-08-06T17:11:00-00:00|js}
+    ; tags = [ "getting-started" ]
+    ; users = [ `Beginner ]
+    ; body_md =
+        {js|
 You may follow along with this tutorial with just a basic OCaml installation,
 as described in [Up and Running](up_and_running.html).
 
@@ -1425,7 +1426,8 @@ like to explore it further. Elsewhere on [ocaml.org](/index.html) there are
 pointers to [books on OCaml](/learn/books.html) and
 [other tutorials](/learn/tutorials/index.html).
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#running-ocaml-programs">Running OCaml programs</a>
 </li>
@@ -1459,7 +1461,8 @@ pointers to [books on OCaml](/learn/books.html) and
 </li>
 </ul>
 |js}
-  ; body_html = {js|<p>You may follow along with this tutorial with just a basic OCaml installation,
+    ; body_html =
+        {js|<p>You may follow along with this tutorial with just a basic OCaml installation,
 as described in <a href="up_and_running.html">Up and Running</a>.</p>
 <p>Alternatively, you may follow almost all of it by running OCaml in your browser
 using <a href="http://try.ocamlpro.com">TryOCaml</a>, with no installation required.</p>
@@ -2197,17 +2200,16 @@ like to explore it further. Elsewhere on <a href="/index.html">ocaml.org</a> the
 pointers to <a href="/learn/books.html">books on OCaml</a> and
 <a href="/learn/tutorials/index.html">other tutorials</a>.</p>
 |js}
-  };
- 
-  { title = {js|OCaml Programming Guidelines|js}
-  ; slug = {js|ocaml-programming-guidelines|js}
-  ; description = {js|Opinionated guidelines for writing OCaml code
+    }
+  ; { title = {js|OCaml Programming Guidelines|js}
+    ; slug = {js|ocaml-programming-guidelines|js}
+    ; description = {js|Opinionated guidelines for writing OCaml code
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["getting-started"]
-  ; users = [`Beginner; `Intermediate; `Advanced]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "getting-started" ]
+    ; users = [ `Beginner; `Intermediate; `Advanced ]
+    ; body_md =
+        {js|
 This is a set of reasonable guidelines for formatting OCaml
 programs—guidelines which reflect the consensus among veteran OCaml
 programmers. Nevertheless, all detailed notifications of possible errors
@@ -3974,7 +3976,8 @@ look of an algorithm that performs pattern matching and recursive
 calls to handle an argument that belongs to a recursive sum data type.
 
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#general-guidelines-to-write-programs">General guidelines to write programs</a>
 </li>
@@ -3992,7 +3995,8 @@ calls to handle an argument that belongs to a recursive sum data type.
 </li>
 </ul>
 |js}
-  ; body_html = {js|<p>This is a set of reasonable guidelines for formatting OCaml
+    ; body_html =
+        {js|<p>This is a set of reasonable guidelines for formatting OCaml
 programs—guidelines which reflect the consensus among veteran OCaml
 programmers. Nevertheless, all detailed notifications of possible errors
 or omissions will be noted with pleasure. To send your comments using
@@ -5516,17 +5520,17 @@ as the imperative program with the additional clarity and natural
 look of an algorithm that performs pattern matching and recursive
 calls to handle an argument that belongs to a recursive sum data type.</p>
 |js}
-  };
- 
-  { title = {js|Compiling OCaml Projects|js}
-  ; slug = {js|compiling-ocaml-projects|js}
-  ; description = {js|An introduction to the OCaml compiler tools for building OCaml projects as well as the most common build tools
+    }
+  ; { title = {js|Compiling OCaml Projects|js}
+    ; slug = {js|compiling-ocaml-projects|js}
+    ; description =
+        {js|An introduction to the OCaml compiler tools for building OCaml projects as well as the most common build tools
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["getting-started"]
-  ; users = [`Intermediate]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "getting-started" ]
+    ; users = [ `Intermediate ]
+    ; body_md =
+        {js|
 This tutorial explains how to compile your OCaml programs into executable form.
 It addresses, in turn:
 
@@ -5698,7 +5702,8 @@ structure, build, and run dune projects.
 - [GNU make](https://www.gnu.org/software/make/) GNU make can build anything, including OCaml. May be used in conjunction with [OCamlmakefile](https://github.com/mmottl/ocaml-makefile)
 - [Oasis](https://github.com/ocaml/oasis) Generates a configure, build, and install system from a specification.
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#compilation-basics">Compilation basics</a>
 </li>
@@ -5712,7 +5717,8 @@ structure, build, and run dune projects.
 </li>
 </ul>
 |js}
-  ; body_html = {js|<p>This tutorial explains how to compile your OCaml programs into executable form.
+    ; body_html =
+        {js|<p>This tutorial explains how to compile your OCaml programs into executable form.
 It addresses, in turn:</p>
 <ol>
 <li>
@@ -5854,17 +5860,17 @@ structure, build, and run dune projects.</p>
 </li>
 </ul>
 |js}
-  };
- 
-  { title = {js|Data Types and Matching|js}
-  ; slug = {js|data-types-and-matching|js}
-  ; description = {js|Learn to build custom types and write function to process this data
+    }
+  ; { title = {js|Data Types and Matching|js}
+    ; slug = {js|data-types-and-matching|js}
+    ; description =
+        {js|Learn to build custom types and write function to process this data
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["language"]
-  ; users = [`Beginner; `Intermediate]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "language" ]
+    ; users = [ `Beginner; `Intermediate ]
+    ; body_md =
+        {js|
 In this tutorial we learn how to build our own types in OCaml, and how to write
 functions which process this new data.
 
@@ -6405,7 +6411,8 @@ Traditionally, we name the type `t`. In the program using this library, it
 would then be `Png.t` which is shorter, reads better than `Png.png`, and avoids
 confusion if the library also defines other types.
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#built-in-compound-types">Built-in compound types</a>
 </li>
@@ -6427,7 +6434,8 @@ confusion if the library also defines other types.
 </li>
 </ul>
 |js}
-  ; body_html = {js|<p>In this tutorial we learn how to build our own types in OCaml, and how to write
+    ; body_html =
+        {js|<p>In this tutorial we learn how to build our own types in OCaml, and how to write
 functions which process this new data.</p>
 <h2 id="built-in-compound-types">Built-in compound types</h2>
 <p>We have already seen simple data types such as <code>int</code>, <code>float</code>, <code>string</code>, and
@@ -6850,17 +6858,17 @@ val rotate : float -&gt; t -&gt; t
 would then be <code>Png.t</code> which is shorter, reads better than <code>Png.png</code>, and avoids
 confusion if the library also defines other types.</p>
 |js}
-  };
- 
-  { title = {js|Lists|js}
-  ; slug = {js|lists|js}
-  ; description = {js|Learn about one of OCaml's must used, built-in data types
+    }
+  ; { title = {js|Lists|js}
+    ; slug = {js|lists|js}
+    ; description =
+        {js|Learn about one of OCaml's must used, built-in data types
 |js}
-  ; date = {js|2021-08-06T17:28:30-00:00|js}
-  ; tags = 
- ["language"]
-  ; users = [`Beginner; `Intermediate]
-  ; body_md = {js|
+    ; date = {js|2021-08-06T17:28:30-00:00|js}
+    ; tags = [ "language" ]
+    ; users = [ `Beginner; `Intermediate ]
+    ; body_md =
+        {js|
 A list is an ordered sequence of elements. All elements of a list in OCaml must
 be the same type. Lists are built into the language and have a special syntax.
 Here is a list of three integers:
@@ -7364,7 +7372,8 @@ val length : 'a list -> int = <fun>
 In the standard library documentation, functions which are not tail-recursive
 are marked.
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#the-standard-library-list-module">The standard library List module</a>
 </li>
@@ -7374,7 +7383,8 @@ are marked.
 </li>
 </ul>
 |js}
-  ; body_html = {js|<p>A list is an ordered sequence of elements. All elements of a list in OCaml must
+    ; body_html =
+        {js|<p>A list is an ordered sequence of elements. All elements of a list in OCaml must
 be the same type. Lists are built into the language and have a special syntax.
 Here is a list of three integers:</p>
 <pre><code class="language-ocaml"># [1; 2; 3]
@@ -7749,17 +7759,16 @@ val length : 'a list -&gt; int = &lt;fun&gt;
 <p>In the standard library documentation, functions which are not tail-recursive
 are marked.</p>
 |js}
-  };
- 
-  { title = {js|Functional Programming|js}
-  ; slug = {js|functional-programming|js}
-  ; description = {js|A guide to functional programming in OCaml
+    }
+  ; { title = {js|Functional Programming|js}
+    ; slug = {js|functional-programming|js}
+    ; description = {js|A guide to functional programming in OCaml
 |js}
-  ; date = {js|2021-08-06T17:16:00-00:00|js}
-  ; tags = 
- ["language"]
-  ; users = [`Beginner; `Intermediate]
-  ; body_md = {js|
+    ; date = {js|2021-08-06T17:16:00-00:00|js}
+    ; tags = [ "language" ]
+    ; users = [ `Beginner; `Intermediate ]
+    ; body_md =
+        {js|
 ## What is functional programming?
 We've got quite far into the tutorial, yet we haven't really considered
 **functional programming**. All of the features given so far - rich data
@@ -8232,7 +8241,8 @@ let print_string = output_string stdout
 we have only supplied one, it is partially applied. So `print_string` is
 a function, expecting one string argument.
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#what-is-functional-programming">What is functional programming?</a>
 </li>
@@ -8252,7 +8262,8 @@ a function, expecting one string argument.
 </li>
 </ul>
 |js}
-  ; body_html = {js|<h2 id="what-is-functional-programming">What is functional programming?</h2>
+    ; body_html =
+        {js|<h2 id="what-is-functional-programming">What is functional programming?</h2>
 <p>We've got quite far into the tutorial, yet we haven't really considered
 <strong>functional programming</strong>. All of the features given so far - rich data
 types, pattern matching, type inference, nested functions - you could
@@ -8625,17 +8636,16 @@ can be thought of as a kind of alias for a function name plus arguments:</p>
 we have only supplied one, it is partially applied. So <code>print_string</code> is
 a function, expecting one string argument.</p>
 |js}
-  };
- 
-  { title = {js|If Statements, Loops and Recursions|js}
-  ; slug = {js|if-statements-loops-and-recursions|js}
-  ; description = {js|Learn basic control-flow and recursion in OCaml
+    }
+  ; { title = {js|If Statements, Loops and Recursions|js}
+    ; slug = {js|if-statements-loops-and-recursions|js}
+    ; description = {js|Learn basic control-flow and recursion in OCaml
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["language"]
-  ; users = [`Beginner; `Intermediate]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "language" ]
+    ; users = [ `Beginner; `Intermediate ]
+    ; body_md =
+        {js|
 ## If statements (actually, these are if expressions)
 OCaml has an `if` statement with two variations, and the obvious meaning:
 
@@ -9887,7 +9897,8 @@ You can also
 use similar syntax for writing mutually recursive class definitions and
 modules.
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#if-statements-actually-these-are-if-expressions">If statements (actually, these are if expressions)</a>
 </li>
@@ -9909,7 +9920,8 @@ modules.
 </li>
 </ul>
 |js}
-  ; body_html = {js|<h2 id="if-statements-actually-these-are-if-expressions">If statements (actually, these are if expressions)</h2>
+    ; body_html =
+        {js|<h2 id="if-statements-actually-these-are-if-expressions">If statements (actually, these are if expressions)</h2>
 <p>OCaml has an <code>if</code> statement with two variations, and the obvious meaning:</p>
 <!-- $MDX skip -->
 <pre><code class="language-ocaml">if boolean-condition then expression
@@ -10930,17 +10942,17 @@ Error: Unbound value odd
 use similar syntax for writing mutually recursive class definitions and
 modules.</p>
 |js}
-  };
- 
-  { title = {js|Modules|js}
-  ; slug = {js|modules|js}
-  ; description = {js|Learn about OCaml modules and how they can be used to cleanly separate distinct parts of your program
+    }
+  ; { title = {js|Modules|js}
+    ; slug = {js|modules|js}
+    ; description =
+        {js|Learn about OCaml modules and how they can be used to cleanly separate distinct parts of your program
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["language"]
-  ; users = [`Beginner; `Intermediate]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "language" ]
+    ; users = [ `Beginner; `Intermediate ]
+    ; body_md =
+        {js|
 ## Basic usage
 
 In OCaml, every piece of code is wrapped into a module. Optionally, a module
@@ -11397,7 +11409,8 @@ open Extensions
 List.optmap ...
 ```
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#basic-usage">Basic usage</a>
 </li>
@@ -11413,7 +11426,8 @@ List.optmap ...
 </li>
 </ul>
 |js}
-  ; body_html = {js|<h2 id="basic-usage">Basic usage</h2>
+    ; body_html =
+        {js|<h2 id="basic-usage">Basic usage</h2>
 <p>In OCaml, every piece of code is wrapped into a module. Optionally, a module
 itself can be a submodule of another module, pretty much like directories in a
 file system - but we don't do this very often.</p>
@@ -11788,17 +11802,16 @@ the .ml file:</p>
 List.optmap ...
 </code></pre>
 |js}
-  };
- 
-  { title = {js|Labels|js}
-  ; slug = {js|labels|js}
-  ; description = {js|Provide labels to your functions arguments
+    }
+  ; { title = {js|Labels|js}
+    ; slug = {js|labels|js}
+    ; description = {js|Provide labels to your functions arguments
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["language"]
-  ; users = [`Intermediate; `Advanced]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "language" ]
+    ; users = [ `Intermediate; `Advanced ]
+    ; body_md =
+        {js|
 ## Labelled and optional arguments to functions
 
 Python has a nice syntax for writing arguments to functions. Here's
@@ -12423,7 +12436,8 @@ your code. You will, however, see them in advanced OCaml code quite a
 lot precisely because advanced programmers will sometimes want to weaken
 the type system to write advanced idioms.
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#labelled-and-optional-arguments-to-functions">Labelled and optional arguments to functions</a>
 </li>
@@ -12433,7 +12447,8 @@ the type system to write advanced idioms.
 </li>
 </ul>
 |js}
-  ; body_html = {js|<h2 id="labelled-and-optional-arguments-to-functions">Labelled and optional arguments to functions</h2>
+    ; body_html =
+        {js|<h2 id="labelled-and-optional-arguments-to-functions">Labelled and optional arguments to functions</h2>
 <p>Python has a nice syntax for writing arguments to functions. Here's
 an example (from the Python tutorial, since I'm not a Python
 programmer):</p>
@@ -12909,17 +12924,16 @@ your code. You will, however, see them in advanced OCaml code quite a
 lot precisely because advanced programmers will sometimes want to weaken
 the type system to write advanced idioms.</p>
 |js}
-  };
- 
-  { title = {js|Pointers in OCaml|js}
-  ; slug = {js|pointers-in-ocaml|js}
-  ; description = {js|Use OCaml's explicit pointers with references
+    }
+  ; { title = {js|Pointers in OCaml|js}
+    ; slug = {js|pointers-in-ocaml|js}
+    ; description = {js|Use OCaml's explicit pointers with references
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["language"]
-  ; users = [`Intermediate; `Advanced]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "language" ]
+    ; users = [ `Intermediate; `Advanced ]
+    ; body_md =
+        {js|
 ## Status of pointers in OCaml
 Pointers exist in OCaml, and in fact they spread all over the place.
 They are used either implicitly (in the most cases), or explicitly (in
@@ -13223,7 +13237,8 @@ val tl : 'a lists -> 'a lists = <fun>
 val append : 'a lists -> 'a lists -> unit = <fun>
 ```
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#status-of-pointers-in-ocaml">Status of pointers in OCaml</a>
 </li>
@@ -13237,7 +13252,8 @@ val append : 'a lists -> 'a lists -> unit = <fun>
 </li>
 </ul>
 |js}
-  ; body_html = {js|<h2 id="status-of-pointers-in-ocaml">Status of pointers in OCaml</h2>
+    ; body_html =
+        {js|<h2 id="status-of-pointers-in-ocaml">Status of pointers in OCaml</h2>
 <p>Pointers exist in OCaml, and in fact they spread all over the place.
 They are used either implicitly (in the most cases), or explicitly (in
 the rare occasions where implicit pointers are not more handy). The vast
@@ -13488,17 +13504,17 @@ val tl : 'a lists -&gt; 'a lists = &lt;fun&gt;
 val append : 'a lists -&gt; 'a lists -&gt; unit = &lt;fun&gt;
 </code></pre>
 |js}
-  };
- 
-  { title = {js|Null Pointers, Asserts and Warnings|js}
-  ; slug = {js|null-pointers-asserts-and-warnings|js}
-  ; description = {js|Handling warnings and asserting invariants for your code
+    }
+  ; { title = {js|Null Pointers, Asserts and Warnings|js}
+    ; slug = {js|null-pointers-asserts-and-warnings|js}
+    ; description =
+        {js|Handling warnings and asserting invariants for your code
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["language"]
-  ; users = [`Intermediate; `Advanced]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "language" ]
+    ; users = [ `Intermediate; `Advanced ]
+    ; body_md =
+        {js|
 ## Null pointers
 So you've got a survey on your website which asks your readers for their
 names and ages. Only problem is that for some reason a few of your
@@ -13641,7 +13657,8 @@ let () =
   ignore(read_line ())
 ```
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#null-pointers">Null pointers</a>
 </li>
@@ -13651,7 +13668,8 @@ let () =
 </li>
 </ul>
 |js}
-  ; body_html = {js|<h2 id="null-pointers">Null pointers</h2>
+    ; body_html =
+        {js|<h2 id="null-pointers">Null pointers</h2>
 <p>So you've got a survey on your website which asks your readers for their
 names and ages. Only problem is that for some reason a few of your
 readers don't want to give you their age - they stubbornly refuse to
@@ -13761,17 +13779,17 @@ let () =
   ignore(read_line ())
 </code></pre>
 |js}
-  };
- 
-  { title = {js|Functors|js}
-  ; slug = {js|functors|js}
-  ; description = {js|Learn about functors, modules parameterised by other modules
+    }
+  ; { title = {js|Functors|js}
+    ; slug = {js|functors|js}
+    ; description =
+        {js|Learn about functors, modules parameterised by other modules
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["language"]
-  ; users = [`Beginner; `Intermediate]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "language" ]
+    ; users = [ `Beginner; `Intermediate ]
+    ; body_md =
+        {js|
 Functors are probably one of the most complex features of OCaml, but you don't
 have to use them extensively to be a successful OCaml programmer.  Actually,
 you may never have to define a functor yourself, but you will surely encounter
@@ -13953,7 +13971,8 @@ the source files
 [`map.ml`](https://github.com/ocaml/ocaml/blob/trunk/stdlib/map.ml) of the
 standard library.
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#what-are-functors-and-why-do-we-need-them">What are functors and why do we need them?</a>
 </li>
@@ -13965,7 +13984,8 @@ standard library.
 </li>
 </ul>
 |js}
-  ; body_html = {js|<p>Functors are probably one of the most complex features of OCaml, but you don't
+    ; body_html =
+        {js|<p>Functors are probably one of the most complex features of OCaml, but you don't
 have to use them extensively to be a successful OCaml programmer.  Actually,
 you may never have to define a functor yourself, but you will surely encounter
 them in the standard library. They are the only way of using the Set and Map
@@ -14122,17 +14142,17 @@ the source files
 <a href="https://github.com/ocaml/ocaml/blob/trunk/stdlib/map.ml"><code>map.ml</code></a> of the
 standard library.</p>
 |js}
-  };
- 
-  { title = {js|Objects|js}
-  ; slug = {js|objects|js}
-  ; description = {js|OCaml is an object-oriented, imperative, functional programming language
+    }
+  ; { title = {js|Objects|js}
+    ; slug = {js|objects|js}
+    ; description =
+        {js|OCaml is an object-oriented, imperative, functional programming language
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["language"]
-  ; users = [`Intermediate; `Advanced]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "language" ]
+    ; users = [ `Intermediate; `Advanced ]
+    ; body_md =
+        {js|
 ## Objects and classes
 OCaml is an object-oriented, imperative, functional programming language
 :-) It mixes all these paradigms and lets you use the most appropriate
@@ -14832,7 +14852,8 @@ Error: This expression has type < get : int; special : string >
 val l : t list = [<obj>; <obj>]
 ```
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#objects-and-classes">Objects and classes</a>
 </li>
@@ -14842,7 +14863,8 @@ val l : t list = [<obj>; <obj>]
 </li>
 </ul>
 |js}
-  ; body_html = {js|<h2 id="objects-and-classes">Objects and classes</h2>
+    ; body_html =
+        {js|<h2 id="objects-and-classes">Objects and classes</h2>
 <p>OCaml is an object-oriented, imperative, functional programming language
 :-) It mixes all these paradigms and lets you use the most appropriate
 (or most familiar) programming paradigm for the task at hand. In this
@@ -15444,17 +15466,17 @@ Error: This expression has type &lt; get : int; special : string &gt;
 val l : t list = [&lt;obj&gt;; &lt;obj&gt;]
 </code></pre>
 |js}
-  };
- 
-  { title = {js|Error Handling|js}
-  ; slug = {js|error-handling|js}
-  ; description = {js|Discover the different ways you can manage errors in your OCaml programs
+    }
+  ; { title = {js|Error Handling|js}
+    ; slug = {js|error-handling|js}
+    ; description =
+        {js|Discover the different ways you can manage errors in your OCaml programs
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["errors"]
-  ; users = [`Beginner; `Intermediate]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "errors" ]
+    ; users = [ `Beginner; `Intermediate ]
+    ; body_md =
+        {js|
 ## Exceptions
 
 One way of handling errors in OCaml is exceptions. The
@@ -15607,7 +15629,8 @@ are:
 For easy combination of functions that can fail, many alternative standard
 libraries provide useful combinators on the `result` type: `map`, `>>=`, etc.
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#exceptions">Exceptions</a>
 </li>
@@ -15617,7 +15640,8 @@ libraries provide useful combinators on the `result` type: `map`, `>>=`, etc.
 </li>
 </ul>
 |js}
-  ; body_html = {js|<h2 id="exceptions">Exceptions</h2>
+    ; body_html =
+        {js|<h2 id="exceptions">Exceptions</h2>
 <p>One way of handling errors in OCaml is exceptions. The
 standard library relies heavily upon them.</p>
 <p>Exceptions belong to the type <code>exn</code> (an extensible sum type):</p>
@@ -15737,17 +15761,17 @@ sometimes make error messages hard to read.
 <p>For easy combination of functions that can fail, many alternative standard
 libraries provide useful combinators on the <code>result</code> type: <code>map</code>, <code>&gt;&gt;=</code>, etc.</p>
 |js}
-  };
- 
-  { title = {js|Common Error Messages|js}
-  ; slug = {js|common-error-messages|js}
-  ; description = {js|Understand the most common error messages the OCaml compiler can throw at you
+    }
+  ; { title = {js|Common Error Messages|js}
+    ; slug = {js|common-error-messages|js}
+    ; description =
+        {js|Understand the most common error messages the OCaml compiler can throw at you
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["errors"; "debugging"]
-  ; users = [`Beginner]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "errors"; "debugging" ]
+    ; users = [ `Beginner ]
+    ; body_md =
+        {js|
 This page gives a list of quick explanations for some error or warning
 messages that are emitted by the OCaml compilers. Longer explanations
 are usually given in dedicated sections of this tutorial.
@@ -15978,7 +16002,8 @@ Warning 14 [illegal-backslash]: illegal backslash escape in string.
 - : string = "\\\\e\\n"
 ```
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#type-errors">Type errors</a>
 </li>
@@ -15990,7 +16015,8 @@ Warning 14 [illegal-backslash]: illegal backslash escape in string.
 </li>
 </ul>
 |js}
-  ; body_html = {js|<p>This page gives a list of quick explanations for some error or warning
+    ; body_html =
+        {js|<p>This page gives a list of quick explanations for some error or warning
 messages that are emitted by the OCaml compilers. Longer explanations
 are usually given in dedicated sections of this tutorial.</p>
 <h2 id="type-errors">Type errors</h2>
@@ -16174,17 +16200,17 @@ Warning 14 [illegal-backslash]: illegal backslash escape in string.
 - : string = &quot;\\\\e\\n&quot;
 </code></pre>
 |js}
-  };
- 
-  { title = {js|Debug|js}
-  ; slug = {js|debug|js}
-  ; description = {js|Learn to build custom types and write function to process this data
+    }
+  ; { title = {js|Debug|js}
+    ; slug = {js|debug|js}
+    ; description =
+        {js|Learn to build custom types and write function to process this data
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["debugging"]
-  ; users = [`Beginner; `Intermediate]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "debugging" ]
+    ; users = [ `Beginner; `Intermediate ]
+    ; body_md =
+        {js|
 This tutorial presents two techniques for debugging OCaml programs:
 
 * [Tracing functions calls](#Tracingfunctionscallsinthetoplevel),
@@ -16509,7 +16535,8 @@ will send you directly to the file and character reported by the debugger, and
 you can step back and forth using `ESC-b` and `ESC-s`, you can set up break
 points using `CTRL-X space`, and so on...
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#tracing-functions-calls-in-the-toplevel">Tracing functions calls in the toplevel</a>
 </li>
@@ -16519,7 +16546,8 @@ points using `CTRL-X space`, and so on...
 </li>
 </ul>
 |js}
-  ; body_html = {js|<p>This tutorial presents two techniques for debugging OCaml programs:</p>
+    ; body_html =
+        {js|<p>This tutorial presents two techniques for debugging OCaml programs:</p>
 <ul>
 <li><a href="#Tracingfunctionscallsinthetoplevel">Tracing functions calls</a>,
 which works in the interactive toplevel.
@@ -16778,17 +16806,17 @@ will send you directly to the file and character reported by the debugger, and
 you can step back and forth using <code>ESC-b</code> and <code>ESC-s</code>, you can set up break
 points using <code>CTRL-X space</code>, and so on...</p>
 |js}
-  };
- 
-  { title = {js|Map|js}
-  ; slug = {js|map|js}
-  ; description = {js|Create a mapping using the standard library's Map module
+    }
+  ; { title = {js|Map|js}
+    ; slug = {js|map|js}
+    ; description =
+        {js|Create a mapping using the standard library's Map module
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["stdlib"]
-  ; users = [`Beginner; `Intermediate]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "stdlib" ]
+    ; users = [ `Beginner; `Intermediate ]
+    ; body_md =
+        {js|
 ## Module Map
 
 Map creates a "mapping". For instance, let's say I have some data that is
@@ -16921,7 +16949,8 @@ quickly find the data. Let's actually show how to do a find.
 This should quickly and efficiently return Fred's password: "sugarplums".
 
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#module-map">Module Map</a>
 </li>
@@ -16929,7 +16958,8 @@ This should quickly and efficiently return Fred's password: "sugarplums".
 </li>
 </ul>
 |js}
-  ; body_html = {js|<h2 id="module-map">Module Map</h2>
+    ; body_html =
+        {js|<h2 id="module-map">Module Map</h2>
 <p>Map creates a &quot;mapping&quot;. For instance, let's say I have some data that is
 users and their associated passwords. I could with the Map module create
 a mapping from user names to their passwords. The mapping module not
@@ -17037,17 +17067,16 @@ quickly find the data. Let's actually show how to do a find.</p>
 </code></pre>
 <p>This should quickly and efficiently return Fred's password: &quot;sugarplums&quot;.</p>
 |js}
-  };
- 
-  { title = {js|Sets|js}
-  ; slug = {js|sets|js}
-  ; description = {js|The standard library's Set module
+    }
+  ; { title = {js|Sets|js}
+    ; slug = {js|sets|js}
+    ; description = {js|The standard library's Set module
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["stdlib"]
-  ; users = [`Beginner; `Intermediate]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "stdlib" ]
+    ; users = [ `Beginner; `Intermediate ]
+    ; body_md =
+        {js|
 ## Module Set
 To make a set of strings:
 
@@ -17184,7 +17213,8 @@ returns a new set that is very similar to (and shares much of its
 internals with) the original set.
 
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#module-set">Module Set</a>
 </li>
@@ -17192,7 +17222,8 @@ internals with) the original set.
 </li>
 </ul>
 |js}
-  ; body_html = {js|<h2 id="module-set">Module Set</h2>
+    ; body_html =
+        {js|<h2 id="module-set">Module Set</h2>
 <p>To make a set of strings:</p>
 <pre><code class="language-ocaml"># module SS = Set.Make(String)
 module SS :
@@ -17299,17 +17330,17 @@ removing an element from a set does not alter that set but, rather,
 returns a new set that is very similar to (and shares much of its
 internals with) the original set.</p>
 |js}
-  };
- 
-  { title = {js|Hashtables|js}
-  ; slug = {js|hashtables|js}
-  ; description = {js|Discover efficient and mutable lookup tables with OCaml's Hashtbl module
+    }
+  ; { title = {js|Hashtables|js}
+    ; slug = {js|hashtables|js}
+    ; description =
+        {js|Discover efficient and mutable lookup tables with OCaml's Hashtbl module
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["stdlib"]
-  ; users = [`Intermediate; `Advanced]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "stdlib" ]
+    ; users = [ `Intermediate; `Advanced ]
+    ; body_md =
+        {js|
 ## Module Hashtbl
 
 The Hashtbl module implements an efficient, mutable lookup table. To
@@ -17415,7 +17446,8 @@ entry in `my_hash` for a letter we would do:
 - : bool = true
 ```
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#module-hashtbl">Module Hashtbl</a>
 </li>
@@ -17423,7 +17455,8 @@ entry in `my_hash` for a letter we would do:
 </li>
 </ul>
 |js}
-  ; body_html = {js|<h2 id="module-hashtbl">Module Hashtbl</h2>
+    ; body_html =
+        {js|<h2 id="module-hashtbl">Module Hashtbl</h2>
 <p>The Hashtbl module implements an efficient, mutable lookup table. To
 create a hash table we could write:</p>
 <pre><code class="language-ocaml"># let my_hash = Hashtbl.create 123456
@@ -17500,17 +17533,17 @@ entry in <code>my_hash</code> for a letter we would do:</p>
 - : bool = true
 </code></pre>
 |js}
-  };
- 
-  { title = {js|Streams|js}
-  ; slug = {js|streams|js}
-  ; description = {js|Streams offer an abstraction over consuming items from sequences
+    }
+  ; { title = {js|Streams|js}
+    ; slug = {js|streams|js}
+    ; description =
+        {js|Streams offer an abstraction over consuming items from sequences
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["stdlib"]
-  ; users = [`Beginner; `Intermediate]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "stdlib" ]
+    ; users = [ `Beginner; `Intermediate ]
+    ; body_md =
+        {js|
 Suppose you need to process each line of a text file. One way to do this
 is to read the file in as a single large string and use something like
 `Str.split` to turn it into a list. This works when the file is small,
@@ -18237,7 +18270,8 @@ In addition, there are a few undocumented functions: `iapp`, `icons`,
 are visible in the interface with the caveat: "For system use only, not
 for the casual user".
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#constructing-streams">Constructing streams</a>
 </li>
@@ -18261,7 +18295,8 @@ for the casual user".
 </li>
 </ul>
 |js}
-  ; body_html = {js|<p>Suppose you need to process each line of a text file. One way to do this
+    ; body_html =
+        {js|<p>Suppose you need to process each line of a text file. One way to do this
 is to read the file in as a single large string and use something like
 <code>Str.split</code> to turn it into a list. This works when the file is small,
 but because the entire file is loaded into memory, it does not scale
@@ -18895,17 +18930,17 @@ elements)
 are visible in the interface with the caveat: &quot;For system use only, not
 for the casual user&quot;.</p>
 |js}
-  };
- 
-  { title = {js|Format|js}
-  ; slug = {js|format|js}
-  ; description = {js|The Format module of Caml Light and OCaml's standard libraries provides pretty-printing facilities to get a fancy display for printing routines
+    }
+  ; { title = {js|Format|js}
+    ; slug = {js|format|js}
+    ; description =
+        {js|The Format module of Caml Light and OCaml's standard libraries provides pretty-printing facilities to get a fancy display for printing routines
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["stdlib"; "common"]
-  ; users = [`Intermediate]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "stdlib"; "common" ]
+    ; users = [ `Intermediate ]
+    ; body_md =
+        {js|
 The `Format` module of Caml Light and OCaml's standard libraries
 provides pretty-printing facilities to get a fancy display for printing
 routines. This module implements a “pretty-printing engine” that is
@@ -19326,7 +19361,8 @@ let print_lambda = pr_lambda std_formatter
 let eprint_lambda = pr_lambda err_formatter
 ```
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#principles">Principles</a>
 </li>
@@ -19348,7 +19384,8 @@ let eprint_lambda = pr_lambda err_formatter
 </li>
 </ul>
 |js}
-  ; body_html = {js|<p>The <code>Format</code> module of Caml Light and OCaml's standard libraries
+    ; body_html =
+        {js|<p>The <code>Format</code> module of Caml Light and OCaml's standard libraries
 provides pretty-printing facilities to get a fancy display for printing
 routines. This module implements a “pretty-printing engine” that is
 intended to break lines in a nice way (let's say “automatically when it
@@ -19741,17 +19778,17 @@ or <code>stderr</code> is just a matter of partial application:</p>
 let eprint_lambda = pr_lambda err_formatter
 </code></pre>
 |js}
-  };
- 
-  { title = {js|Calling C Libraries|js}
-  ; slug = {js|calling-c-libraries|js}
-  ; description = {js|Cross the divide and call C code from your OCaml program
+    }
+  ; { title = {js|Calling C Libraries|js}
+    ; slug = {js|calling-c-libraries|js}
+    ; description =
+        {js|Cross the divide and call C code from your OCaml program
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["interoperability"]
-  ; users = [`Advanced]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "interoperability" ]
+    ; users = [ `Advanced ]
+    ; body_md =
+        {js|
 ## MiniGtk
 While the structure of lablgtk outlined in [Introduction to
 Gtk](introduction_to_gtk.html "Introduction to Gtk") seems perhaps
@@ -20164,7 +20201,8 @@ convert it to a `value`. Luckily we can quite easily use the C API to
 create `value` blocks which the OCaml garbage collector *won't* examine
 too closely ......
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#minigtk">MiniGtk</a>
 </li>
@@ -20172,7 +20210,8 @@ too closely ......
 </li>
 </ul>
 |js}
-  ; body_html = {js|<h2 id="minigtk">MiniGtk</h2>
+    ; body_html =
+        {js|<h2 id="minigtk">MiniGtk</h2>
 <p>While the structure of lablgtk outlined in <a href="introduction_to_gtk.html" title="Introduction to Gtk">Introduction to
 Gtk</a> seems perhaps
 over-complex, it's worth considering exactly why the author chose two
@@ -20522,17 +20561,17 @@ convert it to a <code>value</code>. Luckily we can quite easily use the C API to
 create <code>value</code> blocks which the OCaml garbage collector <em>won't</em> examine
 too closely ......</p>
 |js}
-  };
- 
-  { title = {js|Calling Fortran Libraries|js}
-  ; slug = {js|calling-fortran-libraries|js}
-  ; description = {js|Cross the divide and call Fortran code from your OCaml program
+    }
+  ; { title = {js|Calling Fortran Libraries|js}
+    ; slug = {js|calling-fortran-libraries|js}
+    ; description =
+        {js|Cross the divide and call Fortran code from your OCaml program
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["interoperability"]
-  ; users = [`Advanced]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "interoperability" ]
+    ; users = [ `Advanced ]
+    ; body_md =
+        {js|
 Fortran isn't a language the many people write new code in but it still
 is in extensive use in the scientific communities. Many, many libraries
 exist for doing numerical calculation that will never be written in C or
@@ -20674,8 +20713,9 @@ prompt> ocamlc -c gtd6.ml prompt> ocamlc -o test gtd6.cmo wrapper.so
 ```
 And voila, we've called the fortran function from OCaml.
 |js}
-  ; toc_html = {js||js}
-  ; body_html = {js|<p>Fortran isn't a language the many people write new code in but it still
+    ; toc_html = {js||js}
+    ; body_html =
+        {js|<p>Fortran isn't a language the many people write new code in but it still
 is in extensive use in the scientific communities. Many, many libraries
 exist for doing numerical calculation that will never be written in C or
 C++. It is quite possible though to call Fortran routines from OCaml as
@@ -20791,17 +20831,17 @@ let some else help out (or wait until I learn how to do it).</p>
 </code></pre>
 <p>And voila, we've called the fortran function from OCaml.</p>
 |js}
-  };
- 
-  { title = {js|Command-line Arguments|js}
-  ; slug = {js|command-line-arguments|js}
-  ; description = {js|The Arg module that comes with the compiler can help you write command line interfaces
+    }
+  ; { title = {js|Command-line Arguments|js}
+    ; slug = {js|command-line-arguments|js}
+    ; description =
+        {js|The Arg module that comes with the compiler can help you write command line interfaces
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["common"]
-  ; users = [`Intermediate]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "common" ]
+    ; users = [ `Intermediate ]
+    ; body_md =
+        {js|
 In this tutorial we learn how to read command line arguments directly, using
 OCaml's `Sys.argv` array, and then how to do so more easily using the standard
 library's `Arg` module.
@@ -20989,7 +21029,8 @@ built-in `Arg` module:
 * [Getopt](https://opam.ocaml.org/packages/getopt/) for OCaml is similar to
   [GNU getopt](https://www.gnu.org/software/libc/manual/html_node/Getopt.html).
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#sysargv">Sys.argv</a>
 </li>
@@ -21001,7 +21042,8 @@ built-in `Arg` module:
 </li>
 </ul>
 |js}
-  ; body_html = {js|<p>In this tutorial we learn how to read command line arguments directly, using
+    ; body_html =
+        {js|<p>In this tutorial we learn how to read command line arguments directly, using
 OCaml's <code>Sys.argv</code> array, and then how to do so more easily using the standard
 library's <code>Arg</code> module.</p>
 <h2 id="sysargv">Sys.argv</h2>
@@ -21153,17 +21195,17 @@ rejecting malformed command lines which others might sliently accept.</p>
 </li>
 </ul>
 |js}
-  };
- 
-  { title = {js|File Manipulation|js}
-  ; slug = {js|file-manipulation|js}
-  ; description = {js|A guide to basic file manipulation in OCaml with the standard library
+    }
+  ; { title = {js|File Manipulation|js}
+    ; slug = {js|file-manipulation|js}
+    ; description =
+        {js|A guide to basic file manipulation in OCaml with the standard library
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["common"]
-  ; users = [`Beginner; `Intermediate]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "common" ]
+    ; users = [ `Beginner; `Intermediate ]
+    ; body_md =
+        {js|
 This is a guide to basic file manipulation in OCaml using only the
 standard library.
 
@@ -21286,7 +21328,8 @@ $ ./file_manip
 Hello!
 ```
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#buffered-channels">Buffered channels</a>
 </li>
@@ -21294,7 +21337,8 @@ Hello!
 </li>
 </ul>
 |js}
-  ; body_html = {js|<p>This is a guide to basic file manipulation in OCaml using only the
+    ; body_html =
+        {js|<p>This is a guide to basic file manipulation in OCaml using only the
 standard library.</p>
 <!-- TODO: links to new API locations -->
 <p>Official documentation for the modules of interest:
@@ -21418,17 +21462,17 @@ $ ./file_manip
 Hello!
 </code></pre>
 |js}
-  };
- 
-  { title = {js|Garbage Collection|js}
-  ; slug = {js|garbage-collection|js}
-  ; description = {js|OCaml is a garbage collected language meaning you don't have to worry about allocating and freeing memory
+    }
+  ; { title = {js|Garbage Collection|js}
+    ; slug = {js|garbage-collection|js}
+    ; description =
+        {js|OCaml is a garbage collected language meaning you don't have to worry about allocating and freeing memory
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["advanced"]
-  ; users = [`Intermediate; `Advanced]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "advanced" ]
+    ; users = [ `Intermediate; `Advanced ]
+    ; body_md =
+        {js|
 ## Garbage collection, reference counting, explicit allocation
 
 As with all modern languages, OCaml provides a garbage collector so that
@@ -21798,7 +21842,8 @@ increasing order of difficulty:
 1. Provide a general-purpose cache fronting a "users" table in your
  choice of **relational database** (with locking).
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#garbage-collection-reference-counting-explicit-allocation">Garbage collection, reference counting, explicit allocation</a>
 </li>
@@ -21812,7 +21857,8 @@ increasing order of difficulty:
 </li>
 </ul>
 |js}
-  ; body_html = {js|<h2 id="garbage-collection-reference-counting-explicit-allocation">Garbage collection, reference counting, explicit allocation</h2>
+    ; body_html =
+        {js|<h2 id="garbage-collection-reference-counting-explicit-allocation">Garbage collection, reference counting, explicit allocation</h2>
 <p>As with all modern languages, OCaml provides a garbage collector so that
 you don't need to explicitly allocate and free memory as in C/C++.</p>
 <p>The OCaml garbage collector is a modern hybrid generational/incremental
@@ -22129,17 +22175,17 @@ choice of <strong>relational database</strong> (with locking).
 </li>
 </ol>
 |js}
-  };
- 
-  { title = {js|Performance and Profiling|js}
-  ; slug = {js|performance-and-profiling|js}
-  ; description = {js|Understand how to profile your OCaml code to analyse its performance and produce faster programs
+    }
+  ; { title = {js|Performance and Profiling|js}
+    ; slug = {js|performance-and-profiling|js}
+    ; description =
+        {js|Understand how to profile your OCaml code to analyse its performance and produce faster programs
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["advanced"]
-  ; users = [`Intermediate; `Advanced]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "advanced" ]
+    ; users = [ `Intermediate; `Advanced ]
+    ; body_md =
+        {js|
 ## Speed
 Why is OCaml fast? Indeed, step back and ask *is OCaml fast?* How can we
 make programs faster? In this chapter we'll look at what actually
@@ -23059,7 +23105,8 @@ looking at the `mlvalues.h` header file.
 * In Java is a dynamic type check (aka cast) much more expensive than
  a dynamic method dispatch. -->
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#speed">Speed</a>
 </li>
@@ -23071,7 +23118,8 @@ looking at the `mlvalues.h` header file.
 </li>
 </ul>
 |js}
-  ; body_html = {js|<h2 id="speed">Speed</h2>
+    ; body_html =
+        {js|<h2 id="speed">Speed</h2>
 <p>Why is OCaml fast? Indeed, step back and ask <em>is OCaml fast?</em> How can we
 make programs faster? In this chapter we'll look at what actually
 happens when you compile your OCaml programs down to machine code. This
@@ -23848,17 +23896,17 @@ looking at the <code>mlvalues.h</code> header file.</p>
 * In Java is a dynamic type check (aka cast) much more expensive than
  a dynamic method dispatch. -->
 |js}
-  };
- 
-  { title = {js|Comparison of Standard Containers|js}
-  ; slug = {js|comparison-of-standard-containers|js}
-  ; description = {js|A comparison of some core data-structures including lists, queues and arrays
+    }
+  ; { title = {js|Comparison of Standard Containers|js}
+    ; slug = {js|comparison-of-standard-containers|js}
+    ; description =
+        {js|A comparison of some core data-structures including lists, queues and arrays
 |js}
-  ; date = {js|2021-05-27T21:07:30-00:00|js}
-  ; tags = 
- ["language"]
-  ; users = [`Intermediate]
-  ; body_md = {js|
+    ; date = {js|2021-05-27T21:07:30-00:00|js}
+    ; tags = [ "language" ]
+    ; users = [ `Intermediate ]
+    ; body_md =
+        {js|
 This is a rough comparison of the different container types that are
 provided by the OCaml language or by the OCaml standard library. In each
 case, n is the number of valid elements in the container.
@@ -23953,7 +24001,8 @@ element doesn't create a new stack but simply adds it to the stack.
 * taking an element: O(1)
 * length: O(1)
 |js}
-  ; toc_html = {js|<ul>
+    ; toc_html =
+        {js|<ul>
 <li><ul>
 <li><a href="#lists-immutable-singly-linked-lists">Lists: immutable singly-linked lists</a>
 </li>
@@ -23975,7 +24024,8 @@ element doesn't create a new stack but simply adds it to the stack.
 </li>
 </ul>
 |js}
-  ; body_html = {js|<p>This is a rough comparison of the different container types that are
+    ; body_html =
+        {js|<p>This is a rough comparison of the different container types that are
 provided by the OCaml language or by the OCaml standard library. In each
 case, n is the number of valid elements in the container.</p>
 <p>Note that the big-O cost given for some operations reflects the current
@@ -24092,5 +24142,5 @@ element doesn't create a new stack but simply adds it to the stack.</p>
 </li>
 </ul>
 |js}
-  }]
-
+    }
+  ]
