@@ -2,89 +2,38 @@
 
 [![Actions Status](https://github.com/ocaml/v3.ocaml.org-server/workflows/CI/badge.svg)](https://github.com/ocaml/v3.ocaml.org-server/actions)
 
-ocamlorg is a Dream-based server for the next version of the ocaml.org website.
+ocamlorg is a Dream-based server for the next version of the ocaml.org website. It is currently served at https://v3.ocaml.org/.
 
-It serves the OCaml packages pages and their documentation by using the data available at https://docs-data.ocaml.org/ and serves the static files generated from the NextJS application at https://github.com/ocaml/v3.ocaml.org.
+It serves the OCaml packages pages and their documentation by using the data available at https://docs-data.ocaml.org/ and serves pages that use the content generated from `data/`.
 
-## Set up your development environment
+## Getting started
 
-You need opam. You can install it by following [opam's documentation](https://opam.ocaml.org/doc/Install.html).
+You can setup the project with:
 
-With opam installed, you can install the dependencies in a new local switch with:
-
-```bash
+```
 make switch
 ```
 
-Or globally, with:
+And run it with:
 
-```bash
-make deps
 ```
-
-Then, build the project with:
-
-```bash
-make build
-```
-
-### Running the server
-
-After building the project, you can run the server with:
-
-```bash
 make start
 ```
 
-To start the server in watch mode, you can run:
+See our [`contributing guide`](./CONTRIBUTING.md) for more detailed instructions.
 
-```bash
-make watch
-```
+## Contributing
 
-This will restart the server on filesystem changes and reload the pages automatically. The watch script depends on `fswatch`, so make sure to install it before running the script.
+We'd love your help improving ocaml.org!
 
-### Running tests
+See our contributing guide in [`CONTRIBUTING.md`](./CONTRIBUTING.md)
 
-You can run the unit test suite with:
+## License
 
-```bash
-make test
-```
+**TL;DR:** 
 
-## Repository structure
+- The code is released under ISC
+- The data is released under CC BY-SA 4.0
+- The vendored files are listed with their licenses in [`LICENSE-3RD-PARTY`](./LICENSE-3RD-PARTY)
 
-The following snippet describes OCaml.org's repository structure.
-
-```text
-.
-├── bin/
-|   Source for {{ project_slug }}'s binary. This links to the library defined in `lib/`.
-│
-├── lib/
-|   Source for OCaml.org's library. Contains OCaml.org's core functionalities.
-│
-├── test/
-|   Unit tests and integration tests for OCaml.org.
-│
-├── dune-project
-|   Dune file used to mark the root of the project and define project-wide parameters.
-|   For the documentation of the syntax, see https://dune.readthedocs.io/en/stable/dune-files.html#dune-project.
-│
-├── LICENSE
-│
-├── Makefile
-|   `Makefile` containing common development commands.
-│
-├── README.md
-│
-└── ocamlorg.opam
-    opam package definition.
-    To know more about creating and publishing opam packages, see https://opam.ocaml.org/doc/Packaging.html.
-```
-
-## Deploying
-
-Commits added on `main` are automatically deployed on https://v3.ocaml.org/
-
-The deployment pipeline is managed in https://github.com/ocurrent/ocurrent-deployer.
+See our [`LICENSE`](./LICENSE) for the complete licenses.
