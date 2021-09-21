@@ -20,7 +20,7 @@ And run it with:
 make start
 ```
 
-See our [`contributing guide`](./CONTRIBUTING.md) for more detailed instructions.
+See our [contributing guide](./CONTRIBUTING.md) for more detailed instructions.
 
 ## Contributing
 
@@ -30,10 +30,10 @@ See our contributing guide in [`CONTRIBUTING.md`](./CONTRIBUTING.md)
 
 ## License
 
-**TL;DR:** 
-
-- The code is released under ISC
+- The source code is released under ISC
 - The data is released under CC BY-SA 4.0
+- Code examples within the content are released under UNLICENSE.
+- The OCaml logo is released under UNLICENSE.
 - The vendored files are listed with their licenses in [`LICENSE-3RD-PARTY`](./LICENSE-3RD-PARTY)
 
 See our [`LICENSE`](./LICENSE) for the complete licenses.

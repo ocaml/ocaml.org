@@ -1,12 +1,13 @@
 # Contributing to OCaml.org
 
-The **O**Caml.**o**rg **D**ata repository contains the data for ocaml.org in a structured format. Contributions are very welcome whether that be:
+This repository contains the data and source code for the ocaml.org site in a structured format.
 
- - Importing missing data from the ["v2" site](https://github.com/ocaml/ocaml.org)
- - Adding new data to existing collections (e.g. a new university course to our Academic Institutions section)
- - A completely new collection of data, this can be done but it is a little trickier to integrate
- - Fixes for typos
- - Translations
+Contributions are very welcome whether that be:
+
+ - Adding some content
+ - Translating content or pages
+ - Fixing bugs or typos
+ - Improving the UI
 
 ## Setting up the Project
 
