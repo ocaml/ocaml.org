@@ -31,6 +31,7 @@ depends: [
   "alcotest" {with-test}
   "odoc" {with-doc}
 ]
+dev-repo: "git+https://github.com/ocaml/v3.ocaml.org-server.git"
 build: [
   ["dune" "subst"] {dev}
   [
@@ -40,12 +41,12 @@ build: [
     name
     "-j"
     jobs
+    "--ignore-promoted-rules"
     "@install"
     "@runtest" {with-test}
     "@doc" {with-doc}
   ]
 ]
-dev-repo: "git+https://github.com/ocaml/v3.ocaml.org-server.git"
 pin-depends: [
   ["dream-accept.0.1.0" "git+https://github.com/tmattio/dream-accept#main"]
 ]

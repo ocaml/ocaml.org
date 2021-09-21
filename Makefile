@@ -55,7 +55,7 @@ start: all ## Run the produced executable
 
 .PHONY: test
 test: ## Run the unit tests
-	opam exec -- dune build --root . @src/runtest
+	opam exec -- dune build --root . @runtest
 
 .PHONY: clean
 clean: ## Clean build artifacts and other generated files
