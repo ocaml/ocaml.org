@@ -83,7 +83,7 @@ let render ?(extra_nav="") ~title ~description ~tab ~package ~status ~versions i
         </div>
         <div class="mx-auto lg:max-w-8xl lg:px-8">
           <div class="mt-2">
-            <div class="px-4 sm:px-6 lg:px-0 flex items-center border-b border-gray-200 overflow-auto">
+            <div class="px-4 sm:px-6 lg:px-0 flex items-center border-b border-gray-200 overflow-x-auto">
               <nav class="flex-1 -mb-px flex space-x-6 xl:space-x-8 items-stretch" aria-label="Tabs">
                 <a href="/p/<%s package_name %>/<%s package_version %>" class="<%s overview_tab_class %>"> Overview </a>
                 <%s! render_documentation_tab ~package_name ~package_version ~documentation_tab_class status %>
