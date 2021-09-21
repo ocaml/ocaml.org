@@ -1,3 +1,6 @@
+src/ocamlorg_data/*.ml
+src/ocamlorg_data/*/*.ml
+
 node_modules/*
 node_modules/*/*
 node_modules/*/*/*

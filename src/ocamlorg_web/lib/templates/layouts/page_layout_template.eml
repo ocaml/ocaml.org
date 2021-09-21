@@ -19,9 +19,9 @@ let render ~title ~description inner =
       <link rel="stylesheet" href="/assets/main.css" />
       <link rel="stylesheet" href="/assets/vendors/font-files/inter.css" />
       <script src="/assets/vendors/components-v2.js"></script>
-      <script src="/assets/vendors/alpine-turbo-drive-adapter.min.js" defer></script>
-      <script src="/assets/vendors/alpine.min.js" defer></script>
-      <script src="/assets/vendors/turbo.es2017-umd.js" defer></script>
+      <script src="/assets/vendors/alpine-turbo-drive-adapter.min.js"></script>
+      <script src="/assets/vendors/alpine.min.js"></script>
+      <script src="/assets/vendors/turbo.es2017-umd.js"></script>
       <title><%s title %></title>
     </head>
 

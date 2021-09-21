@@ -24,7 +24,7 @@ let books = Ood.Book.all in
               <div class="mt-8 text-center">
                 <div class="inline-flex rounded-md shadow"><a
                     class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-orangedark hover:bg-orangedarker"
-                    href="/resources/tutorials/">See All Tutorials</a></div>
+                    href="/resources/tutorials">See All Tutorials</a></div>
               </div>
             </div>
           </div>
@@ -32,14 +32,14 @@ let books = Ood.Book.all in
         <div>
           <div class="flex h-full items-center justify-center">
             <ul class="list-disc pb-8 sm:pb-0 leading-10">
-              <li><a class="text-orangedark text-xl underline" href="/resources/tutorials/up-and-running-with-ocaml/">Up
+              <li><a class="text-orangedark text-xl underline" href="/resources/tutorials/up-and-running-with-ocaml">Up
                   and Running with OCaml</a></li>
-              <li><a class="text-orangedark text-xl underline" href="/resources/tutorials/a-first-hour-with-ocaml/">A
+              <li><a class="text-orangedark text-xl underline" href="/resources/tutorials/a-first-hour-with-ocaml">A
                   First Hour with OCaml</a></li>
               <li><a class="text-orangedark text-xl underline"
-                  href="/resources/tutorials/ocaml-programming-guidelines/">OCaml Programming Guidelines</a></li>
+                  href="/resources/tutorials/ocaml-programming-guidelines">OCaml Programming Guidelines</a></li>
               <li><a class="text-orangedark text-xl underline"
-                  href="/resources/tutorials/compiling-ocaml-projects/">Compiling OCaml Projects</a></li>
+                  href="/resources/tutorials/compiling-ocaml-projects">Compiling OCaml Projects</a></li>
             </ul>
           </div>
         </div>
@@ -143,7 +143,7 @@ let books = Ood.Book.all in
         <div class="mb-4 sm:mb-0 sm:mr-4">
           <p class="mt-1 mb-4 text-lg">Looking to learn more about the ways in which OCaml is used in real-world
             applications? Visit our Applications page to find out about different ways of using OCaml.</p>
-          <p class="text-right"><a class="text-orangedark underline" href="/resources/applications/">Go to
+          <p class="text-right"><a class="text-orangedark underline" href="/resources/applications">Go to
               Applications &gt;</a></p>
         </div>
         <div class="flex-shrink-0"><img class="h-48" src="/assets/img/app-image2.png"></div>
@@ -180,7 +180,7 @@ let books = Ood.Book.all in
           </div>
           <div class="flex justify-center"><a
               class="font-bold inline-flex items-center px-10 py-3 border border-transparent text-base leading-4 font-medium rounded-md shadow-sm text-white bg-orangedark hover:bg-orangedarker"
-              href="/resources/papers/">Go to Papers</a></div>
+              href="/resources/papers">Go to Papers</a></div>
         </div>
       </div>
     </div>
