@@ -106,7 +106,7 @@ let render success_stories =
         <div class="mt-6 pt-10 grid gap-16 lg:grid-cols-2 lg:gap-x-5 lg:gap-y-12">
           <% success_stories |> List.iter begin fun (item : Ood.Success_story.t) -> %>
           <div>
-            <a href="/principles/successes/<%s item.slug %>" class="mt-2 block">
+            <a href="/successes/<%s item.slug %>" class="mt-2 block">
               <p class="text-xl font-semibold text-gray-900">
                 <%s item.title %>
               </p>
@@ -118,7 +118,7 @@ let render success_stories =
               </p>
             </a>
             <div class="mt-3">
-              <a href="/principles/successes/<%s item.slug %>" class="text-base font-semibold text-orange-600 hover:text-orange-500">
+              <a href="/successes/<%s item.slug %>" class="text-base font-semibold text-orange-600 hover:text-orange-500">
                 Read full case study
               </a>
             </div>

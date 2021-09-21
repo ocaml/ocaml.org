@@ -73,7 +73,7 @@ let events = Ood.Event.all in
               </ul>
             </div>
             <p class="text-xs text-right"><a class="text-orangedark hover:text-orangedark"
-                href="/community/newsarchive">Go to the news archive &gt;</a></p>
+                href="/newsarchive">Go to the news archive &gt;</a></p>
           </div>
         </div>
       </div>
@@ -92,7 +92,7 @@ let events = Ood.Event.all in
                 <div class="mt-8 text-center">
                   <div class="inline-flex rounded-md shadow"><a
                       class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-orangedark hover:bg-orangedarker"
-                      href="/community/events">Show me Events</a></div>
+                      href="/events">Show me Events</a></div>
                 </div>
               </div>
             </div>

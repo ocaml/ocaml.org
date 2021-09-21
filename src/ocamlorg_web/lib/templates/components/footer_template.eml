@@ -27,23 +27,23 @@ let render () =
           <div class="">
             <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase"><%s gettext "Principles" %></h3>
             <ul class="mt-4 space-y-4">
-              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/principles/whatisocaml"><%s gettext "Why OCaml" %></a>
+              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/whatisocaml"><%s gettext "Why OCaml" %></a>
               </li>
-              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/principles/users"><%s gettext "Industrial Users" %></a>
+              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/users"><%s gettext "Industrial Users" %></a>
               </li>
-              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/principles/academic"><%s gettext "Academic Excellence" %></a></li>
-              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/principles/successes"><%s gettext "Success Stories" %></a></li>
+              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/academic"><%s gettext "Academic Excellence" %></a></li>
+              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/successes"><%s gettext "Success Stories" %></a></li>
             </ul>
           </div>
           <div class="mt-12 md:mt-0">
             <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase"><%s gettext "Resources" %></h3>
             <ul class="mt-4 space-y-4">
-              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/resources/language"><%s gettext "Language" %></a></li>
+              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/language"><%s gettext "Language" %></a></li>
               <li><a class="text-base text-gray-500 hover:text-gray-900" href="/packages"><%s gettext "Packages" %></a>
               </li>
               <li><a class="text-base text-gray-500 hover:text-gray-900"
-                  href="/resources/applications"><%s gettext "Applications" %></a></li>
-              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/resources/bestpractices"><%s gettext "Best Practices" %></a></li>
+                  href="/applications"><%s gettext "Applications" %></a></li>
+              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/bestpractices"><%s gettext "Best Practices" %></a></li>
             </ul>
           </div>
         </div>
@@ -52,24 +52,24 @@ let render () =
             <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase"><%s gettext "Community" %></h3>
             <ul class="mt-4 space-y-4">
               <li><a class="text-base text-gray-500 hover:text-gray-900"
-                  href="/community/opportunities"><%s gettext "Opportunities" %></a></li>
-              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/community/blog"><%s gettext "News" %></a></li>
-              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/community/aroundweb"><%s gettext "Around the Web" %></a>
+                  href="/opportunities"><%s gettext "Opportunities" %></a></li>
+              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/blog"><%s gettext "News" %></a></li>
+              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/aroundweb"><%s gettext "Around the Web" %></a>
               </li>
-              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/resources/archive"><%s gettext "Archive" %></a></li>
+              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/archive"><%s gettext "Archive" %></a></li>
             </ul>
           </div>
           <div class="mt-12 md:mt-0">
             <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase"><%s gettext "Legal" %></h3>
             <ul class="mt-4 space-y-4">
-              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/legal/privacy"><%s gettext "Privacy" %></a></li>
-              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/legal/terms"><%s gettext "Terms" %></a></li>
-              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/legal/carbonfootprint"><%s gettext "Carbon Footprint" %></a></li>
+              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/privacy"><%s gettext "Privacy" %></a></li>
+              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/terms"><%s gettext "Terms" %></a></li>
+              <li><a class="text-base text-gray-500 hover:text-gray-900" href="/carbonfootprint"><%s gettext "Carbon Footprint" %></a></li>
             </ul>
           </div>
         </div>
       </div>
     </div>
     <p class="text-gray-500 text-base mt-10"><%s gettext "Thank you to our" %> <a class="text-orangedark underline"
-        href="/legal/carbonfootprint#hostingproviders"><%s gettext "Hosting Providers" %></a></p>
+        href="/carbonfootprint#hostingproviders"><%s gettext "Hosting Providers" %></a></p>
   </footer>

@@ -62,7 +62,7 @@ let render () =
           project's life.</p>
         <div class="flex justify-center"><a
             class="mt-8 w-full inline-flex items-center justify-center px-8 py-1 border border-transparent text-base font-medium rounded-md text-white bg-orangedark hover:bg-orangedarker sm:w-auto"
-            href="/resources/platform">Visit Platform Tools</a></div>
+            href="/platform">Visit Platform Tools</a></div>
       </div>
     </div>
     <div class="bg-white overflow-hidden shadow rounded-lg mx-auto max-w-3xl mb-16">
@@ -92,7 +92,7 @@ let render () =
             <p>Dolor sit amet, consectetur adipiscing elit. Integer at tristique odio.</p>
           </div>
         </div>
-        <p class="text-right font-bold"><a class="text-orangedark underline" href="/resources/usingocaml">See more
+        <p class="text-right font-bold"><a class="text-orangedark underline" href="/usingocaml">See more
             &gt;</a></p>
       </div>
     </div>
