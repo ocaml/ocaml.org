@@ -51,7 +51,7 @@ install: all ## Install the packages on the system
 
 .PHONY: start
 start: all ## Run the produced executable
-	opam exec -- dune exec --root . src/ocamlorg_web/bin/main.exe -- -vv $(ARGS)
+	opam exec -- dune build @run --force --no-buffer
 
 .PHONY: test
 test: ## Run the unit tests

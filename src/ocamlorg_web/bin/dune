@@ -9,4 +9,6 @@
  (alias run)
  (deps main.exe)
  (action
-  (run ./main.exe)))
+  (chdir
+   %{workspace_root}
+   (run %{bin:server} -vv))))
