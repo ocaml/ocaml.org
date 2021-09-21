@@ -44,21 +44,14 @@ let t =
   ; "/learn/index.html", Url.resources_language
   ; "/learn/index.fr.html", Url.resources_language
   ; "/learn/teaching-ocaml.html", Url.principles_academic
-  ; "/learn/tutorials/", Url.resources_tutorial Url.resources_tutorials
-  ; ( "/learn/tutorials/index.ja.html"
-    , Url.resources_tutorial Url.resources_tutorials )
-  ; ( "/learn/tutorials/index.ko.html"
-    , Url.resources_tutorial Url.resources_tutorials )
-  ; ( "/learn/tutorials/index.it.html"
-    , Url.resources_tutorial Url.resources_tutorials )
-  ; ( "/learn/tutorials/index.html"
-    , Url.resources_tutorial Url.resources_tutorials )
-  ; ( "/learn/tutorials/index.zh.html"
-    , Url.resources_tutorial Url.resources_tutorials )
-  ; ( "/learn/tutorials/index.fr.html"
-    , Url.resources_tutorial Url.resources_tutorials )
-  ; ( "/learn/tutorials/index.de.html"
-    , Url.resources_tutorial Url.resources_tutorials )
+  ; "/learn/tutorials/", Url.resources_tutorials
+  ; "/learn/tutorials/index.ja.html", Url.resources_tutorials
+  ; "/learn/tutorials/index.ko.html", Url.resources_tutorials
+  ; "/learn/tutorials/index.it.html", Url.resources_tutorials
+  ; "/learn/tutorials/index.html", Url.resources_tutorials
+  ; "/learn/tutorials/index.zh.html", Url.resources_tutorials
+  ; "/learn/tutorials/index.fr.html", Url.resources_tutorials
+  ; "/learn/tutorials/index.de.html", Url.resources_tutorials
   ; ( "/learn/tutorials/up_and_running.html"
     , Url.resources_tutorial "up-and-running-with-ocaml" )
   ; ( "/learn/tutorials/a_first_hour_with_ocaml.html"

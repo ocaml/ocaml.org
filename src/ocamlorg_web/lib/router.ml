@@ -20,13 +20,14 @@ let redirection_routes =
     []
     (List.map
        (fun (origin, new_) ->
-         Dream.get origin (fun req -> Dream.redirect req new_))
+         Dream.get origin (fun req ->
+             Dream.redirect ~status:`Moved_Permanently req new_))
        Redirection.t)
 
 let preview_routes =
   Dream.scope
     "/preview"
-    []
+    [ Middleware.set_locale; Middleware.no_trailing_slash ]
     [ Dream.get "" Preview_handler.index
     ; Dream.get "/industrial-users" Preview_handler.industrial_users
     ; Dream.get "/academic-excellence" Preview_handler.academic_institutions
@@ -45,7 +46,7 @@ let preview_routes =
 let page_routes =
   Dream.scope
     ""
-    []
+    [ Middleware.set_locale; Middleware.no_trailing_slash ]
     [ Dream.get Url.index Page_handler.index
     ; Dream.get Url.history Page_handler.history
     ; Dream.get Url.community_around_web Page_handler.community_around_web
@@ -90,7 +91,7 @@ let page_routes =
 let package_route t =
   Dream.scope
     ""
-    []
+    [ Middleware.set_locale; Middleware.no_trailing_slash ]
     [ Dream.get "/packages" Package_handler.index
     ; Dream.get "/packages/" Package_handler.index
     ; Dream.get "/packages/search" (Package_handler.search t)
@@ -113,7 +114,7 @@ let package_route t =
 let graphql_route t =
   Dream.scope
     ""
-    []
+    [ Middleware.no_trailing_slash ]
     [ Dream.any "/api" (Dream.graphql Lwt.return (Graphql.schema t))
     ; Dream.get "/graphiql" (Dream.graphiql "/api")
     ]
