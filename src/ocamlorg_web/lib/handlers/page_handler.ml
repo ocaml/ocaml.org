@@ -11,6 +11,13 @@ let with_lang req (f : ?lang:[> `English | `French ] -> 'a -> 'b) (x : 'a) =
   in
   match language with "fr" -> f ~lang:`French x | _ -> f ~lang:`English x
 
+let not_found _req =
+  Page_layout_template.render
+    ~title:"Page not found · OCaml"
+    ~description:Config.meta_description
+    (Not_found_template.render ())
+  |> Dream.html ~code:404
+
 let index _req =
   Page_layout_template.render
     ~title:"Welcome to a World of OCaml"
@@ -103,7 +110,7 @@ let principles_success req =
       (Principles_success_template.render story)
     |> Dream.html
   | None ->
-    Dream.not_found req
+    not_found req
 
 let principles_industrial_users req =
   let users = with_lang req Ood.Industrial_user.all () in
@@ -259,7 +266,7 @@ let resources_tutorial req =
          tutorial)
     |> Dream.html
   | None ->
-    Dream.not_found req
+    not_found req
 
 let resources_using_ocaml _req =
   Page_layout_template.render
@@ -268,11 +275,4 @@ let resources_using_ocaml _req =
       "Besides developing in the language and making your own applications, \
        there are many useful tools that already exist in OCaml for you to use."
     (Resources_using_ocaml_template.render ())
-  |> Dream.html
-
-let not_found _req =
-  Page_layout_template.render
-    ~title:"Page not found · OCaml"
-    ~description:Config.meta_description
-    (Not_found_template.render ())
   |> Dream.html
