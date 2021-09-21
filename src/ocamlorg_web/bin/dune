@@ -11,4 +11,4 @@
  (action
   (chdir
    %{workspace_root}
-   (run %{bin:server} -vv))))
+   (run %{bin:server} -v))))
