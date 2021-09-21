@@ -15,15 +15,4 @@ _build/
 _opam/
 
 # Normal npm stuff
-npm-debug.log
-yarn-error.log
 node_modules/
-.cache/
-dist/
-build/
-
-# IDE related
-.vscode*
-
-# Var dir
-_var/
