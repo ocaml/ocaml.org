@@ -22,7 +22,7 @@ let render tools =
   let deprecate = List.filter (fun (x : Ood.Tool.t) -> x.lifecycle = `Deprecate) tools in
   <%s! Header_section_template.render ~subtitle:"The OCaml Platform represents the best way for developers, both new and old, to write software in OCaml. It combines the core OCaml compiler with a coherent set of tools, documentation, libraries and testing resources." "OCaml Platform" %>
   <div class="relative bg-white py-16 sm:py-24 lg:py-32">
-    <div class="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
+    <div class="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-8xl">
       <div class="flow-root">
         <ul class="-mb-8">
           <li>

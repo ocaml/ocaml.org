@@ -32,7 +32,7 @@ let tutorials_icon =
 
 let render () =
   <div class="bg-white">
-    <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+    <div class="max-w-8xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
       <div class="text-center">
         <p class="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">You've found our
           content preview index 🕵️‍♂️</p>
@@ -41,7 +41,7 @@ let render () =
     </div>
   </div>
   <main class="bg-gray-50 py-8 sm:py-12">
-    <div class="max-w-7xl mx-auto pb-5 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-8xl mx-auto pb-5 px-4 sm:px-6 lg:px-8">
       <div class="relative">
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <%s! render_link "Industrial_users" "Compagnies using OCaml" "industrial-users" tutorials_icon %>

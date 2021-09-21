@@ -58,7 +58,7 @@ let events = Ood.Event.all in
       </div>
     </div>
     <div class="py-16  ">
-      <div class="max-w-7xl mx-auto">
+      <div class="max-w-8xl mx-auto">
         <h2 class="mb-8 text-3xl text-center tracking-tight font-extrabold text-gray-900 sm:text-4xl">What's the Latest?
         </h2>
         <div class="flex flex-col items-center sm:flex-row sm:justify-evenly ">
@@ -79,7 +79,7 @@ let events = Ood.Event.all in
       </div>
     </div>
     <div>
-      <div class="max-w-7xl mx-auto">
+      <div class="max-w-8xl mx-auto">
         <div class="grid gird-cols-1 sm:grid-cols-2 gap-4 bg-white ">
           <div>
             <div class="flex h-full flex-col items-center justify-center">
@@ -132,7 +132,7 @@ let events = Ood.Event.all in
       </div>
     </div>
     <div class="pt-16 pb-3 lg:pt-24 lg:pb-8 px-4 sm:px-6 lg:px-8 ">
-      <div class="max-w-7xl mx-auto">
+      <div class="max-w-8xl mx-auto">
         <div class="text-center">
           <h2 class="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl">Recent Blog Posts</h2>
           <p class="mt-3 max-w-2xl mx-auto text-xl text-gray-500 sm:mt-4">Be inspired by the work of OCaml programmers
@@ -227,7 +227,7 @@ let events = Ood.Event.all in
       </div>
     </div>
     <div class="pb-14  ">
-      <div class="max-w-7xl mx-auto">
+      <div class="max-w-8xl mx-auto">
         <h2
           class="font-roboto text-center text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl py-6 px-4 sm:py-12 sm:px-6 lg:px-8">
           Looking for More? Try these spaces:</h2>

@@ -1,7 +1,7 @@
 open I18n
 
 let render () =
-  <footer aria-labelledby="footerHeading" class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+  <footer aria-labelledby="footerHeading" class="max-w-8xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
     <h2 class="sr-only" id="footerHeading"><%s gettext "Footer" %></h2>
     <div class="xl:grid xl:grid-cols-3 xl:gap-8">
       <div class="space-y-8 xl:col-span-1"><img class="h-10" alt="OCaml" src="/assets/logo.jpeg">

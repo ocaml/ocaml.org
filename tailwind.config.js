@@ -7,6 +7,9 @@ module.exports = {
   darkMode: false,
   theme: {
     extend: {
+      maxWidth: {
+        '8xl': '90rem',
+      },
       fontFamily: {
         sans: ["Inter var", ...defaultTheme.fontFamily.sans],
       },
