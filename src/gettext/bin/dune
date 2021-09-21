@@ -1,0 +1,14 @@
+(executable
+ (name main)
+ (public_name ocaml-gettext)
+ (package ocamlorg)
+ (libraries
+  compiler-libs.common
+  gettext
+  cmdliner
+  fmt
+  fmt.tty
+  logs.fmt
+  logs.cli))
+
+(include_subdirs unqualified)

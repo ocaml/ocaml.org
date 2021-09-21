@@ -94,3 +94,16 @@ gen-data: ## Generate the data files
 	opam exec -- dune exec --root . tool/ood-gen/bin/gen.exe -- opam_user > src/ocamlorg_data/opam_user.ml
 	opam exec -- dune exec --root . tool/ood-gen/bin/gen.exe -- workshop > src/ocamlorg_data/workshop.ml
 	opam exec -- dune build --root . --auto-promote @fmt
+
+
+.PHONY: gen-po
+gen-po: ## Generate the po files
+	cd _build/default; opam exec -- dune exec ocaml-gettext -- extract src/ocamlorg_web/lib/templates/**/*.ml src/ocamlorg_web/lib/*.ml > ../../gettext/messages.pot
+	# en
+	cp gettext/en/LC_MESSAGES/messages.po gettext/en/LC_MESSAGES/messages.po.bak
+	opam exec -- dune exec ocaml-gettext -- merge gettext/messages.pot gettext/en/LC_MESSAGES/messages.po.bak > gettext/en/LC_MESSAGES/messages.po
+	rm gettext/en/LC_MESSAGES/messages.po.bak
+	# fr 
+	cp gettext/fr/LC_MESSAGES/messages.po gettext/fr/LC_MESSAGES/messages.po.bak
+	opam exec -- dune exec ocaml-gettext -- merge gettext/messages.pot gettext/fr/LC_MESSAGES/messages.po.bak > gettext/fr/LC_MESSAGES/messages.po
+	rm gettext/fr/LC_MESSAGES/messages.po.bak
