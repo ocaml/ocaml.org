@@ -12,6 +12,17 @@ let media_loader _root path request =
   | Some asset ->
     Dream.respond asset
 
+let redirect s req = Dream.redirect req s
+
+let redirection_routes =
+  Dream.scope
+    ""
+    []
+    (List.map
+       (fun (origin, new_) ->
+         Dream.get origin (fun req -> Dream.redirect req new_))
+       Redirection.t)
+
 let preview_routes =
   Dream.scope
     "/preview"
@@ -113,6 +124,7 @@ let router t =
     ; package_route t
     ; graphql_route t
     ; preview_routes
+    ; redirection_routes
     ; Dream.get "/assets/**" (Dream.static ~loader "")
       (* Used for the previews *)
     ; Dream.get "/media/**" (Dream.static ~loader:media_loader "")
