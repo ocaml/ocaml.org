@@ -9,9 +9,15 @@
 
 (license ISC)
 
-(authors "Thibaut Mattio" "Lucas Pluvinage" "Patrick Ferris")
+(authors
+ "Thibaut Mattio"
+ "Lucas Pluvinage"
+ "Patrick Ferris"
+ "Ashish Agarwal"
+ "Kanishka Azimi"
+ "Richard Davison")
 
-(maintainers "Thibaut Mattio" "Lucas Pluvinage" "Patrick Ferris")
+(maintainers "Thibaut Mattio" "Patrick Ferris")
 
 (generate_opam_files true)
 
