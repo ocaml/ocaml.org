@@ -41,19 +41,25 @@ jobs:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
           dune-cache: ${{ matrix.os != 'macos-latest' }}
 
-      - run: sudo apt-get install libev-dev
+      - name: Install system dependencies (Linux)
+        run: sudo apt-get install libev-dev
         if: runner.os == 'Linux'
 
-      - run: brew install libev
+      - name: Install system dependencies (macOS)
+        run: brew install libev
         if: runner.os == 'macOS'
 
-      - run: opam install --deps-only --with-test .
+      - name: Install opam dependencies
+        run: opam install --deps-only --with-test .
 
-      - run: npm ci
+      - name: Install NPM dependencies
+        run: npm ci
 
-      - run: opam exec -- dune build @install
+      - name: Build project
+        run: opam exec -- dune build @install --ignore-promoted-rules
 
-      - run: make test
+      - name: Run tests
+        run: opam exec -- dune build @src/runtest --ignore-promoted-rules
 
   lint-fmt:
     strategy:
@@ -76,14 +82,19 @@ jobs:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
           dune-cache: true
 
-      - run: sudo apt-get install libev-dev
+      - name: Install system dependencies (Linux)
+        run: sudo apt-get install libev-dev
         if: runner.os == 'Linux'
 
-      - run: brew install libev
+      - name: Install system dependencies (macOS)
+        run: brew install libev
         if: runner.os == 'macOS'
 
-      - run: opam install ocamlformat.0.19.0
+      - name: Install ocamlformat
+        run: opam install ocamlformat.0.19.0
 
-      - run: opam install --deps-only .
+      - name: Install opam dependencies
+        run: opam install --deps-only .
 
-      - run: make fmt
+      - name: Format code
+        run: opam exec -- dune build --auto-promote --ignore-promoted-rules @fmt

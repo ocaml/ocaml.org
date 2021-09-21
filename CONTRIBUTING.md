@@ -1,12 +1,13 @@
 # Contributing to OCaml.org
 
-The **O**Caml.**o**rg **D**ata repository contains the data for ocaml.org in a structured format. Contributions are very welcome whether that be:
+This repository contains the data and source code for the ocaml.org site in a structured format.
 
- - Importing missing data from the ["v2" site](https://github.com/ocaml/ocaml.org)
- - Adding new data to existing collections (e.g. a new university course to our Academic Institutions section)
- - A completely new collection of data, this can be done but it is a little trickier to integrate
- - Fixes for typos
- - Translations
+Contributions are very welcome whether that be:
+
+ - Adding some content
+ - Translating content or pages
+ - Fixing bugs or typos
+ - Improving the UI
 
 ## Setting up the Project
 
@@ -150,3 +151,28 @@ docker run -p 8080:8080  v3.ocaml.org
 
 This will build the docker image and run a docker container with the port `8080` mapped to the HTTP server.
 With the docker container running, you can visit the site at http://localhost:8080/.
+
+## Translating
+
+The translation of the the static pages is done with the PO files found in `gettext/<locale>/LC_MESSAGES/*.po`.
+
+If you would like add translations for a new language, for instance `ru`, you can copy the template files to get started:
+
+```
+mkdir -p gettext/ru/LC_MESSAGES/
+cp gettext/messages.pot gettext/ru/LC_MESSAGES/messages.po
+```
+
+When adding new translatable string, you will need to add them to the `POT` and `PO` files. You can do so with the following commands:
+
+```
+dune exec ocaml-gettext -- extract _build/default/src/ocamlorg_web/lib/templates/**/*.ml > gettext/messages.pot
+```
+
+To extract the strings into the template.
+
+```
+dune exec ocaml-gettext -- merge gettext/messages.pot gettext/en/LC_MESSAGES/messages.po > gettext/en/LC_MESSAGES/messages.po
+```
+
+To merge the template file into the existing `PO` file.

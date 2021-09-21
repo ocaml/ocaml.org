@@ -31,7 +31,7 @@ let render module_path =
   in
   <div class='flex-1'></div>
   <div class="flex items-baseline text-gray-600">
-    <span class='font-light p-4'><%s module_path_kind module_path %></span>
+    <span class='inline-block w-32 text-right font-light p-4'><%s module_path_kind module_path %></span>
     <% module_path |> List.iteri (fun index item -> 
       if index > 0 then ( %><span class='py-4 font-mono font-medium'>.</span> <% );
     %>

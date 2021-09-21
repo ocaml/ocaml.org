@@ -27,7 +27,7 @@ let render_book (book : Ood.Book.t) =
 let render books =
   <%s! Header_section_template.render "Books" %>
   <div class="relative bg-white py-16 sm:py-24 lg:py-32">
-    <div class="mx-auto max-w-md px-4 text-center sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
+    <div class="mx-auto max-w-md px-4 text-center sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-8xl">
       <%s! List.map render_book books |> String.concat "" %>
     </div>
   </div>

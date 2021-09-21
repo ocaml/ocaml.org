@@ -4,8 +4,15 @@ synopsis: "Server-side of the next version of the ocaml.org website"
 description: """
 ocamlorg is a Dream-based server for the next version of the ocaml.org website.
 It serves the OCaml packages pages and their documentation by using the data available at https://docs-data.ocaml.org/ and serves the static files generated from the NextJS application at https://github.com/ocaml/v3.ocaml.org."""
-maintainer: ["Thibaut Mattio" "Lucas Pluvinage" "Patrick Ferris"]
-authors: ["Thibaut Mattio" "Lucas Pluvinage" "Patrick Ferris"]
+maintainer: ["Thibaut Mattio" "Patrick Ferris"]
+authors: [
+  "Thibaut Mattio"
+  "Lucas Pluvinage"
+  "Patrick Ferris"
+  "Ashish Agarwal"
+  "Kanishka Azimi"
+  "Richard Davison"
+]
 license: "ISC"
 homepage: "https://github.com/ocaml/v3.ocaml.org-server"
 doc: "https://ocaml.github.io/v3.ocaml.org-server/"
@@ -31,6 +38,7 @@ depends: [
   "alcotest" {with-test}
   "odoc" {with-doc}
 ]
+dev-repo: "git+https://github.com/ocaml/v3.ocaml.org-server.git"
 build: [
   ["dune" "subst"] {dev}
   [
@@ -40,12 +48,12 @@ build: [
     name
     "-j"
     jobs
+    "--ignore-promoted-rules"
     "@install"
     "@runtest" {with-test}
     "@doc" {with-doc}
   ]
 ]
-dev-repo: "git+https://github.com/ocaml/v3.ocaml.org-server.git"
 pin-depends: [
   ["dream-accept.0.1.0" "git+https://github.com/tmattio/dream-accept#main"]
 ]

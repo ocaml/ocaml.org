@@ -8,4 +8,5 @@
 !ocamlorg.opam
 !ocamlorg-data.opam
 !package.json
+!package-lock.json
 !tailwind.config.js

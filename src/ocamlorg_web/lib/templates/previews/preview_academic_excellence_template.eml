@@ -39,7 +39,7 @@ let render_institution (inst : Ood.Academic_institution.t) =
 let render institutions =
   <%s! Header_section_template.render "Academic Excellence" %>
   <div class="relative bg-white py-16 sm:py-24 lg:py-32">
-    <div class="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
+    <div class="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-8xl">
       <%s! List.map render_institution institutions |> String.concat "" %>
     </div>
   </div>

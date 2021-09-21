@@ -33,7 +33,7 @@ let render workshops (workshop : Ood.Workshop.t) =
   let open Ood.Workshop in
   <%s! Header_section_template.render "OCaml Workshops" %>
   <div
-    class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-4 pb-8">
+    class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-8xl lg:grid-flow-col-dense lg:grid-cols-4 pb-8">
     <%s! render_nav workshops %>
     <section class="lg:col-start-2 lg:col-span-3">
       <div class="bg-white shadow sm:rounded-lg">

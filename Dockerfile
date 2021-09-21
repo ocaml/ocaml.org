@@ -12,11 +12,12 @@ RUN opam install . --deps-only
 
 # Install NPM dependencies
 ADD package.json package.json
-RUN npm install
+ADD package-lock.json package-lock.json
+RUN npm ci
 
 # Build project
 COPY --chown=opam:opam . .
-RUN opam exec -- dune build @install --profile=release
+RUN opam exec -- dune build @install --profile=release --ignore-promoted-rules
 
 FROM alpine:3.12 as run
 

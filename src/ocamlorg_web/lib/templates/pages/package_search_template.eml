@@ -11,7 +11,7 @@ let render (packages : Ocamlorg.Package.t list) =
         d="M-217.088 544.086L1544.761 72l134.327 501.316-1761.849 472.086z"></path>
     </svg>
   </div>
-  <div class="relative px-4 sm:px-16 max-w-7xl mx-auto divide-y divide-black divide-opacity-10">
+  <div class="relative px-4 sm:px-16 max-w-8xl mx-auto divide-y divide-black divide-opacity-10">
     <div class="sm:pt-4 pb-10 sm:pb-14 flex flex-wrap items-center">
       <div class="w-full flex-none text-center xl:w-auto xl:flex-auto xl:text-left mt-10">
         <h1 class="font-display text-white text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10">
@@ -75,7 +75,7 @@ let render (packages : Ocamlorg.Package.t list) =
   </div>
 </header>
 <div class="relative w-full bg-white border-b border-gray-200 shadow-sm">
-  <div class="max-w-7xl mx-auto ">
+  <div class="max-w-8xl mx-auto ">
     <div class="relative flex-shrink-0 h-16 flex">
       <div class="flex-1 flex justify-between px-4 sm:px-6">
         <div class="flex-1 flex">
@@ -101,7 +101,7 @@ let render (packages : Ocamlorg.Package.t list) =
   </div>
 </div>
 <main>
-  <div class="max-w-7xl mx-auto">
+  <div class="max-w-8xl mx-auto">
     <div class="py-6 px-4 sm:px-6 lg:px-8 border-b border-gray-200">
       <h3 class="text-lg leading-6 font-medium text-gray-900">
         <%s gettext "Search Results" %>

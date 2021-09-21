@@ -7,7 +7,7 @@ let render (items : Ood.Industrial_user.t list) =
       page, you can get an overview of the companies in the community and learn more about how they use OCaml.</p>
     <div class="text-center"><a
         class="justify-center inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-orangedark hover:bg-orangedarker focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedarker"
-        href="/principles/successes/">Success Stories</a></div>
+        href="/successes">Success Stories</a></div>
     <div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
       <div class="mt-6 grid grid-cols-1 gap-0.5 md:grid-cols-3 lg:mt-8">
         <% items |> List.iter (fun (item : Ood.Industrial_user.t) ->

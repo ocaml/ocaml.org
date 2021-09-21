@@ -9,7 +9,7 @@ let render_video (video : Ood.Video.t) =
 let render videos = 
   <%s! Header_section_template.render "Videos" %>
   <div class="relative bg-white py-16 sm:py-24 lg:py-32">
-    <div class="mx-auto max-w-md px-4 text-center sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
+    <div class="mx-auto max-w-md px-4 text-center sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-8xl">
       <ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-8">
         <%s! List.map render_video videos |> String.concat "" %>
       </ul>

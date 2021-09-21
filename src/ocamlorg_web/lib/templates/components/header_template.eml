@@ -38,7 +38,7 @@ let render_mobile_menu menu =
 let render () =
   <div class="relative bg-white" x-data="Components.popover({ open: false, focus: false })" x-init="init()"
     @keydown.escape="onEscape" @close-popover-group.window="onClosePopoverGroup">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="max-w-8xl mx-auto px-4 sm:px-6">
       <div class="flex justify-between items-center md:justify-start py-6 md:space-x-10 ">
         <div class="flex justify-start">
           <a href="/">

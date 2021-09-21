@@ -1,3 +1,4 @@
+
 type kind = [ `Compiler ]
 
 type t =
@@ -7,13 +8,13 @@ type t =
   ; body_md : string
   ; body_html : string
   }
-
-let all =
-  [ { kind = `Compiler
-    ; version = {js|3.12.1|js}
-    ; date = {js|2011-07-04|js}
-    ; body_md =
-        {js|
+  
+let all = 
+[
+  { kind = `Compiler
+  ; version = {js|3.12.1|js}
+  ; date = {js|2011-07-04|js}
+  ; body_md = {js|
 # OCaml 3.12.1
 **License**<br />
  The OCaml system is open source software: the compiler is distributed
@@ -130,8 +131,7 @@ The user's manual for OCaml can be:
  [tarball](3.12/ocaml-3.12-refman.info.tar.gz)
  of Emacs `info` files.
 |js}
-    ; body_html =
-        {js|<h1>OCaml 3.12.1</h1>
+  ; body_html = {js|<h1>OCaml 3.12.1</h1>
 <p><strong>License</strong><br />
 The OCaml system is open source software: the compiler is distributed
 under the terms of the Q Public License, and its library is under LGPL;
@@ -265,12 +265,12 @@ of Emacs <code>info</code> files.
 </li>
 </ul>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.00.1|js}
-    ; date = {js|2012-10-05|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.00.1|js}
+  ; date = {js|2012-10-05|js}
+  ; body_md = {js|
 # OCaml 4.00.1
 **License**<br />
  The OCaml system is open source software: the compiler is distributed
@@ -394,8 +394,7 @@ The user's manual for OCaml can be:
  of Emacs `info` files.
 
 |js}
-    ; body_html =
-        {js|<h1>OCaml 4.00.1</h1>
+  ; body_html = {js|<h1>OCaml 4.00.1</h1>
 <p><strong>License</strong><br />
 The OCaml system is open source software: the compiler is distributed
 under the terms of the Q Public License, and its library is under LGPL;
@@ -537,12 +536,12 @@ of Emacs <code>info</code> files.
 </li>
 </ul>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.00.1|js}
-    ; date = {js|2013-09-12|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.00.1|js}
+  ; date = {js|2013-09-12|js}
+  ; body_md = {js|
 # OCaml 4.01.0
 **License**<br />
  The OCaml system is open source software: the compiler is distributed
@@ -681,8 +680,7 @@ The user's manual for OCaml can be:
 
 
 |js}
-    ; body_html =
-        {js|<h1>OCaml 4.01.0</h1>
+  ; body_html = {js|<h1>OCaml 4.01.0</h1>
 <p><strong>License</strong><br />
 The OCaml system is open source software: the compiler is distributed
 under the terms of the Q Public License, and its library is under LGPL;
@@ -834,12 +832,12 @@ of Emacs <code>info</code> files,
 </li>
 </ul>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.02.0|js}
-    ; date = {js|2015-07-27|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.02.0|js}
+  ; date = {js|2015-07-27|js}
+  ; body_md = {js|
 # OCaml 4.02.3
 This page describes OCaml version **4.02.3**,
 released on 2015-07-27. Go [here](./) for a list of all releases.
@@ -1027,8 +1025,7 @@ linking). See the full [license](/docs/license.html). Members of the
 [OCaml Consortium](/consortium/) benefit from a
 more liberal license (BSD-like).
 |js}
-    ; body_html =
-        {js|<h1>OCaml 4.02.3</h1>
+  ; body_html = {js|<h1>OCaml 4.02.3</h1>
 <p>This page describes OCaml version <strong>4.02.3</strong>,
 released on 2015-07-27. Go <a href="./">here</a> for a list of all releases.</p>
 <p>Three previous minor versions were released: 4.02.0 on 2014-08-29,
@@ -1225,12 +1222,12 @@ linking). See the full <a href="/docs/license.html">license</a>. Members of the
 <a href="/consortium/">OCaml Consortium</a> benefit from a
 more liberal license (BSD-like).</p>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.03.0|js}
-    ; date = {js|2016-04-25|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.03.0|js}
+  ; date = {js|2016-04-25|js}
+  ; body_md = {js|
 # OCaml 4.03.0
 This page describes OCaml version **4.03.0**, released on
 2016-04-25. Go [here](./) for a list of all releases.
@@ -1386,8 +1383,7 @@ The user's manual for OCaml can be:
   [browsed online](http://www.askra.de/software/ocaml-doc/4.03/).
 
 |js}
-    ; body_html =
-        {js|<h1>OCaml 4.03.0</h1>
+  ; body_html = {js|<h1>OCaml 4.03.0</h1>
 <p>This page describes OCaml version <strong>4.03.0</strong>, released on
 2016-04-25. Go <a href="./">here</a> for a list of all releases.</p>
 <p>This release is available as multiple OPAM switches:</p>
@@ -1557,12 +1553,12 @@ of Emacs info files,</p>
 </li>
 </ul>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.04.0|js}
-    ; date = {js|2017-06-23|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.04.0|js}
+  ; date = {js|2017-06-23|js}
+  ; body_md = {js|
 # OCaml 4.04.2
 This page describes OCaml version **4.04.2**, released on
 2017-06-23. Go [here](./) for a list of all releases.
@@ -1752,8 +1748,7 @@ The user's manual for OCaml can be:
 
 
 |js}
-    ; body_html =
-        {js|<h1>OCaml 4.04.2</h1>
+  ; body_html = {js|<h1>OCaml 4.04.2</h1>
 <p>This page describes OCaml version <strong>4.04.2</strong>, released on
 2017-06-23. Go <a href="./">here</a> for a list of all releases.</p>
 <p>This release is available as multiple OPAM switches:</p>
@@ -1947,12 +1942,12 @@ of Emacs info files,</p>
 </li>
 </ul>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.05.0|js}
-    ; date = {js|2017-07-13|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.05.0|js}
+  ; date = {js|2017-07-13|js}
+  ; body_md = {js|
 # OCaml 4.05.0
 This page describes OCaml version **4.05.0**, released on
 2017-07-13. Go [here](./) for a list of all releases.
@@ -2041,8 +2036,7 @@ The user's manual for OCaml can be:
 
 
 |js}
-    ; body_html =
-        {js|<h1>OCaml 4.05.0</h1>
+  ; body_html = {js|<h1>OCaml 4.05.0</h1>
 <p>This page describes OCaml version <strong>4.05.0</strong>, released on
 2017-07-13. Go <a href="./">here</a> for a list of all releases.</p>
 <p>This release is available as multiple <a href="https://opam.ocaml.org/doc/Usage.html">OPAM</a> switches:</p>
@@ -2143,12 +2137,12 @@ of Emacs info files,</p>
 </li>
 </ul>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.06.0|js}
-    ; date = {js|2017-11-03|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.06.0|js}
+  ; date = {js|2017-11-03|js}
+  ; body_md = {js|
 # OCaml 4.06.0
 This page describes OCaml version **4.06.0**, released on
 2017-11-03.  Go [here](./) for a list of all releases.
@@ -3136,8 +3130,7 @@ This is the
 - [GPR#1407](https://github.com/ocaml/ocaml/pull/1407): Fix `raw_spacetime_lib`.  
   (Leo White, review by Gabriel Scherer and Damien Doligez)
 |js}
-    ; body_html =
-        {js|<h1>OCaml 4.06.0</h1>
+  ; body_html = {js|<h1>OCaml 4.06.0</h1>
 <p>This page describes OCaml version <strong>4.06.0</strong>, released on
 2017-11-03.  Go <a href="./">here</a> for a list of all releases.</p>
 <p>This release is available as multiple
@@ -4345,12 +4338,12 @@ types.<br />
 </li>
 </ul>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.06.1|js}
-    ; date = {js|2016-02-16|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.06.1|js}
+  ; date = {js|2016-02-16|js}
+  ; body_md = {js|
 # OCaml 4.06.1
 
 This page describe OCaml **4.06.1**, released on Feb 16, 2018.  It is
@@ -4398,8 +4391,7 @@ Changes (Bug fixes)
   Make pattern matching compilation more robust to ill-typed columns
   (Gabriel Scherer and Thomas Refis, review by Luc Maranget)
 |js}
-    ; body_html =
-        {js|<h1>OCaml 4.06.1</h1>
+  ; body_html = {js|<h1>OCaml 4.06.1</h1>
 <p>This page describe OCaml <strong>4.06.1</strong>, released on Feb 16, 2018.  It is
 a bug-fix release of <a href="4.06.html">OCaml 4.06.0</a>.</p>
 <p>It is available as an OPAM switch and as a source download from:
@@ -4451,12 +4443,12 @@ Make pattern matching compilation more robust to ill-typed columns
 </li>
 </ul>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.07.0|js}
-    ; date = {js|2018-07-10|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.07.0|js}
+  ; date = {js|2018-07-10|js}
+  ; body_md = {js|
 # OCaml 4.07.0
 This page describes OCaml version **4.07.0**, released on
 2018-07-10.  Go [here](./) for a list of all releases.
@@ -5347,8 +5339,7 @@ This is the
   that could lead to crashes when `Gc.finalise_last` is used
   (report and fix by Yuriy Vostrikov, review by François Bobot)
 |js}
-    ; body_html =
-        {js|<h1>OCaml 4.07.0</h1>
+  ; body_html = {js|<h1>OCaml 4.07.0</h1>
 <p>This page describes OCaml version <strong>4.07.0</strong>, released on
 2018-07-10.  Go <a href="./">here</a> for a list of all releases.</p>
 <p>This release is available as multiple
@@ -6421,12 +6412,12 @@ that could lead to crashes when <code>Gc.finalise_last</code> is used
 </li>
 </ul>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.07.1|js}
-    ; date = {js|2018-10-04|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.07.1|js}
+  ; date = {js|2018-10-04|js}
+  ; body_md = {js|
 # OCaml 4.07.1
 This page describes OCaml version **4.07.1**, released on
 2018-10-04.  Go [here](./) for a list of all releases.
@@ -6570,8 +6561,7 @@ This is the
   -principal causes assertion failure in type checker
   (Jacques Garrigue, report by Markus Mottl, review by Thomas Refis)
 |js}
-    ; body_html =
-        {js|<h1>OCaml 4.07.1</h1>
+  ; body_html = {js|<h1>OCaml 4.07.1</h1>
 <p>This page describes OCaml version <strong>4.07.1</strong>, released on
 2018-10-04.  Go <a href="./">here</a> for a list of all releases.</p>
 <p>This release is available as multiple
@@ -6730,12 +6720,12 @@ Angeletti, review by Jacques Garrigue)</p>
 </li>
 </ul>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.08.0|js}
-    ; date = {js|2019-06-14|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.08.0|js}
+  ; date = {js|2019-06-14|js}
+  ; body_md = {js|
 # OCaml 4.08.0
 This page describes OCaml version **4.08.0**, released on
 2019-06-14.  Go [here](./) for a list of all releases.
@@ -8120,8 +8110,7 @@ This is the
   (Jacques Garrigue, review by Leo White and Thomas Refis,
   report by Jeremy Yallop)
 |js}
-    ; body_html =
-        {js|<h1>OCaml 4.08.0</h1>
+  ; body_html = {js|<h1>OCaml 4.08.0</h1>
 <p>This page describes OCaml version <strong>4.08.0</strong>, released on
 2019-06-14.  Go <a href="./">here</a> for a list of all releases.</p>
 <p>This release is available as multiple
@@ -9795,12 +9784,12 @@ report by Jeremy Yallop)</p>
 </li>
 </ul>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.08.1|js}
-    ; date = {js|2019-08-05|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.08.1|js}
+  ; date = {js|2019-08-05|js}
+  ; body_md = {js|
 # OCaml 4.08.1
 
 This page describe OCaml **4.08.1**, released on Aug 5, 2019.  It is
@@ -9840,8 +9829,7 @@ a bug-fix release of [OCaml 4.08.0](4.08.0.html).
   fix use of off_t on 32-bit systems.
   (Stephen Dolan, report by Richard Jones, review by Xavier Leroy)
 |js}
-    ; body_html =
-        {js|<h1>OCaml 4.08.1</h1>
+  ; body_html = {js|<h1>OCaml 4.08.1</h1>
 <p>This page describe OCaml <strong>4.08.1</strong>, released on Aug 5, 2019.  It is
 a bug-fix release of <a href="4.08.0.html">OCaml 4.08.0</a>.</p>
 <h3>Bug fixes:</h3>
@@ -9886,12 +9874,12 @@ fix use of off_t on 32-bit systems.
 </li>
 </ul>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.09.0|js}
-    ; date = {js|2019-09-18|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.09.0|js}
+  ; date = {js|2019-09-18|js}
+  ; body_md = {js|
 # OCaml 4.09.0
 This page describes OCaml version **4.09.0**, released on
 2019-09-18.  Go [here](./) for a list of all releases.
@@ -10290,8 +10278,7 @@ This is the
 - [#8944](https://github.com/ocaml/ocaml/issues/8944): Fix "open struct .. end" on clambda backend
   (Thomas Refis, review by Leo White, report by Damon Wang and Mark Shinwell)
 |js}
-    ; body_html =
-        {js|<h1>OCaml 4.09.0</h1>
+  ; body_html = {js|<h1>OCaml 4.09.0</h1>
 <p>This page describes OCaml version <strong>4.09.0</strong>, released on
 2019-09-18.  Go <a href="./">here</a> for a list of all releases.</p>
 <p>This release is available as multiple
@@ -10794,12 +10781,12 @@ report by Aleksandr Kuzmenko)</p>
 </li>
 </ul>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.09.1|js}
-    ; date = {js|2020-03-16|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.09.1|js}
+  ; date = {js|2020-03-16|js}
+  ; body_md = {js|
 # OCaml 4.09.1
 
 This page describe OCaml **4.09.1**, released on Mar 16, 2020.  It is
@@ -10849,8 +10836,7 @@ a bug-fix release of [OCaml 4.09.0](4.09.0.html).
   (Jacques-Henri Jourdan, review by Stephen Dolan, Xavier Leroy and
    Gabriel Scherer)
 |js}
-    ; body_html =
-        {js|<h1>OCaml 4.09.1</h1>
+  ; body_html = {js|<h1>OCaml 4.09.1</h1>
 <p>This page describe OCaml <strong>4.09.1</strong>, released on Mar 16, 2020.  It is
 a bug-fix release of <a href="4.09.0.html">OCaml 4.09.0</a>.</p>
 <h3>Bug fixes:</h3>
@@ -10909,12 +10895,12 @@ Gabriel Scherer)</p>
 </li>
 </ul>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.10.0|js}
-    ; date = {js|2020-02-21|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.10.0|js}
+  ; date = {js|2020-02-21|js}
+  ; body_md = {js|
 # OCaml 4.10.0
 This page describes OCaml version **4.10.0**, released on
 2020-02-21.  Go [here](./) for a list of all releases.
@@ -11533,8 +11519,7 @@ This is the
   (Kate Deplaix and David Allsopp, review by Sébastien Hinderer
    and Gabriel Scherer )
 |js}
-    ; body_html =
-        {js|<h1>OCaml 4.10.0</h1>
+  ; body_html = {js|<h1>OCaml 4.10.0</h1>
 <p>This page describes OCaml version <strong>4.10.0</strong>, released on
 2020-02-21.  Go <a href="./">here</a> for a list of all releases.</p>
 <p>This release is available as multiple
@@ -12312,12 +12297,12 @@ and Gabriel Scherer )</p>
 </li>
 </ul>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.10.1|js}
-    ; date = {js|2020-08-20|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.10.1|js}
+  ; date = {js|2020-08-20|js}
+  ; body_md = {js|
 # OCaml 4.10.1
 
 This page describe OCaml **4.10.1**, released on Aug 20, 2020.  It is
@@ -12362,8 +12347,7 @@ a bug-fix release of [OCaml 4.10.0](4.10.0.html).
 - [#9552](https://github.com/ocaml/ocaml/issues/9552): restore ocamloptp build and installation
   (Florian Angeletti, review by David Allsopp and Xavier Leroy)
 |js}
-    ; body_html =
-        {js|<h1>OCaml 4.10.1</h1>
+  ; body_html = {js|<h1>OCaml 4.10.1</h1>
 <p>This page describe OCaml <strong>4.10.1</strong>, released on Aug 20, 2020.  It is
 a bug-fix release of <a href="4.10.0.html">OCaml 4.10.0</a>.</p>
 <h3>Runtime system:</h3>
@@ -12415,12 +12399,12 @@ blue, which was not the case with the best-fit allocator.
 </li>
 </ul>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.10.2|js}
-    ; date = {js|2020-12-08|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.10.2|js}
+  ; date = {js|2020-12-08|js}
+  ; body_md = {js|
 # OCaml 4.10.2
 
 This page describes OCaml **4.10.2**, released on Dec 8, 2020.  It is
@@ -12468,8 +12452,7 @@ Backported from OCaml 4.12.0
 - [#9699](https://github.com/ocaml/ocaml/issues/9699), [#9981](https://github.com/ocaml/ocaml/issues/9981): Added mergeable flag tqo ELF sections containing mergeable constants. Fixes compatibility with the integrated assembler in clang 11.0.0.
 Backported from OCaml 4.12.0
 (Jacob Young, review by Nicolás Ojeda Bär)|js}
-    ; body_html =
-        {js|<h1>OCaml 4.10.2</h1>
+  ; body_html = {js|<h1>OCaml 4.10.2</h1>
 <p>This page describes OCaml <strong>4.10.2</strong>, released on Dec 8, 2020.  It is
 an exceptional release making OCaml <strong>4.10</strong> available on macOS/arm64 and
 fixes some compatibility issues for the mingw64 and FreeBSD/amd64 platform.</p>
@@ -12523,12 +12506,12 @@ Backported from OCaml 4.12.0
 </li>
 </ul>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.11.0|js}
-    ; date = {js|2020-08-19|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.11.0|js}
+  ; date = {js|2020-08-19|js}
+  ; body_md = {js|
 # OCaml 4.11.0
 This page describes OCaml version **4.11.0**, released on
 2020-08-19.  Go [here](./) for a list of all releases.
@@ -13202,8 +13185,7 @@ Called from Foo.bar in file "foo.ml", line 16, characters 42-53
   to better ensure that members are correctly spaced.
   (Antonin Décimo, review by David Allsopp and Xavier Leroy)
 |js}
-    ; body_html =
-        {js|<h1>OCaml 4.11.0</h1>
+  ; body_html = {js|<h1>OCaml 4.11.0</h1>
 <p>This page describes OCaml version <strong>4.11.0</strong>, released on
 2020-08-19.  Go <a href="./">here</a> for a list of all releases.</p>
 <p>This release is available as multiple
@@ -14048,12 +14030,12 @@ to better ensure that members are correctly spaced.
 </li>
 </ul>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.11.1|js}
-    ; date = {js|2020-08-31|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.11.1|js}
+  ; date = {js|2020-08-31|js}
+  ; body_md = {js|
 # OCaml 4.11.1
 
 This page describe OCaml **4.11.1**, released on Aug 31, 2020.  It is
@@ -14069,8 +14051,7 @@ a bug-fix release of [OCaml 4.11.0](4.11.0.html).
   appear in the right hand side of an explicit :> coercion
   (Florian Angeletti, report by Jerry James, review by Thomas Refis)
 |js}
-    ; body_html =
-        {js|<h1>OCaml 4.11.1</h1>
+  ; body_html = {js|<h1>OCaml 4.11.1</h1>
 <p>This page describe OCaml <strong>4.11.1</strong>, released on Aug 31, 2020.  It is
 a bug-fix release of <a href="4.11.0.html">OCaml 4.11.0</a>.</p>
 <h3>Bug fixes:</h3>
@@ -14087,12 +14068,12 @@ appear in the right hand side of an explicit :&gt; coercion
 </li>
 </ul>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.11.2|js}
-    ; date = {js|2021-02-24|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.11.2|js}
+  ; date = {js|2021-02-24|js}
+  ; body_md = {js|
 # OCaml 4.11.2
 
 This page describes OCaml **4.11.2**, released on Feb 24, 2021.
@@ -14194,8 +14175,7 @@ Changes
   (report by Emilio Jesús Gallego Arias, analysis and fix by Stephen Dolan,
    code by Xavier Leroy, review by Hugo Heuzard and Gabriel Scherer)
 |js}
-    ; body_html =
-        {js|<h1>OCaml 4.11.2</h1>
+  ; body_html = {js|<h1>OCaml 4.11.2</h1>
 <p>This page describes OCaml <strong>4.11.2</strong>, released on Feb 24, 2021.
 This is a bug-fix release of <a href="4.11.0.html">OCaml 4.11.0</a>.</p>
 <h2>Opam switches</h2>
@@ -14321,12 +14301,12 @@ code by Xavier Leroy, review by Hugo Heuzard and Gabriel Scherer)</p>
 </li>
 </ul>
 |js}
-    }
-  ; { kind = `Compiler
-    ; version = {js|4.12.0|js}
-    ; date = {js|2021-02-24|js}
-    ; body_md =
-        {js|
+  };
+ 
+  { kind = `Compiler
+  ; version = {js|4.12.0|js}
+  ; date = {js|2021-02-24|js}
+  ; body_md = {js|
 # OCaml 4.12.0
 This page describes OCaml version **4.12.0**, released on
 2021-02-24.  Go [here](./) for a list of all releases.
@@ -15158,8 +15138,7 @@ This is the
   (Gabriel Scherer, review by Thomas Refis and Florian Angeletti,
    report by Daniil Baturin)
 |js}
-    ; body_html =
-        {js|<h1>OCaml 4.12.0</h1>
+  ; body_html = {js|<h1>OCaml 4.12.0</h1>
 <p>This page describes OCaml version <strong>4.12.0</strong>, released on
 2021-02-24.  Go <a href="./">here</a> for a list of all releases.</p>
 <p>This release is available as an
@@ -16199,5 +16178,5 @@ report by Daniil Baturin)</p>
 </li>
 </ul>
 |js}
-    }
-  ]
+  }]
+

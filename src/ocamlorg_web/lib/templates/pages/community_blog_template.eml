@@ -22,7 +22,7 @@ let render () =
               <p class="text-xl">Isabella Leandersson interviewed speakers at the 2020 OCaml workshop at ICFP. Click through
                 to read about what they had to say.</p>
               <p class="text-xl text-center lg:text-right"><a class="underline text-orangedark"
-                  href="/community/isabelle-leandersson-interviewed-speakers">Click to Read &gt;</a></p>
+                  href="/isabelle-leandersson-interviewed-speakers">Click to Read &gt;</a></p>
             </div>
           </div>
         </div>
@@ -47,7 +47,7 @@ let render () =
               <li class="font-bold lg:truncate"><a href="https://seb.mondet.org/b/0009-dune-universe-hack.html"
                   target="_blank">"Universal" Dune Tip: Rebuild Stuff, Sometimes</a></li>
             </ul>
-            <p><a class="flex justify-center items-baseline" href="/community/newsarchive/"><svg
+            <p><a class="flex justify-center items-baseline" href="/newsarchive"><svg
                   class="inline h-6 w-6 mr-1" fill="none" viewBox="0 0 26 25" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M24.7009 18.2874L16.7407 24.5136C16.069 25.039 14.9924 25.0414 14.3184 24.5189C13.6443 23.9964 13.6425 23.158 14.3143 22.6326L19.386 18.6919L7.37509 18.7179C3.3378 18.7266 0.0351176 16.1663 0.0283118 13.0226L0.00313026 1.39059C0.00154224 0.657037 0.774053 0.052805 1.71609 0.0507657C2.65812 0.0487263 3.43324 0.649608 3.43483 1.38316L3.46001 13.0151C3.4637 14.718 5.24978 16.0765 7.403 16.0718L19.3803 16.0459L14.2914 12.0747C13.6174 11.5522 13.6156 10.7139 14.2873 10.1885C14.6232 9.92577 15.0603 9.79383 15.4977 9.79288C15.935 9.79193 16.3727 9.92198 16.7097 10.1832L24.6968 16.3749C25.3709 16.9236 25.3727 17.762 24.7009 18.2874Z"
@@ -71,7 +71,7 @@ let render () =
               <li class="font-bold lg:truncate"><a href="https://coq.inria.fr/news/coq-8-12-2-is-out.html"
                   target="_blank">Coq 8.12.2 is out</a></li>
             </ul>
-            <p><a class="flex justify-center items-baseline" href="/community/newsarchive/"><svg
+            <p><a class="flex justify-center items-baseline" href="/newsarchive"><svg
                   class="inline h-6 w-6 mr-1" fill="none" viewBox="0 0 26 25" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M24.7009 18.2874L16.7407 24.5136C16.069 25.039 14.9924 25.0414 14.3184 24.5189C13.6443 23.9964 13.6425 23.158 14.3143 22.6326L19.386 18.6919L7.37509 18.7179C3.3378 18.7266 0.0351176 16.1663 0.0283118 13.0226L0.00313026 1.39059C0.00154224 0.657037 0.774053 0.052805 1.71609 0.0507657C2.65812 0.0487263 3.43324 0.649608 3.43483 1.38316L3.46001 13.0151C3.4637 14.718 5.24978 16.0765 7.403 16.0718L19.3803 16.0459L14.2914 12.0747C13.6174 11.5522 13.6156 10.7139 14.2873 10.1885C14.6232 9.92577 15.0603 9.79383 15.4977 9.79288C15.935 9.79193 16.3727 9.92198 16.7097 10.1832L24.6968 16.3749C25.3709 16.9236 25.3727 17.762 24.7009 18.2874Z"
@@ -98,7 +98,7 @@ let render () =
                   href="https://blog.janestreet.com/growing-the-hardcaml-toolset-index/" target="_blank">Growing the
                   Hardcaml Toolset</a></li>
             </ul>
-            <p><a class="flex justify-center items-baseline" href="/community/newsarchive/"><svg
+            <p><a class="flex justify-center items-baseline" href="/newsarchive"><svg
                   class="inline h-6 w-6 mr-1" fill="none" viewBox="0 0 26 25" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M24.7009 18.2874L16.7407 24.5136C16.069 25.039 14.9924 25.0414 14.3184 24.5189C13.6443 23.9964 13.6425 23.158 14.3143 22.6326L19.386 18.6919L7.37509 18.7179C3.3378 18.7266 0.0351176 16.1663 0.0283118 13.0226L0.00313026 1.39059C0.00154224 0.657037 0.774053 0.052805 1.71609 0.0507657C2.65812 0.0487263 3.43324 0.649608 3.43483 1.38316L3.46001 13.0151C3.4637 14.718 5.24978 16.0765 7.403 16.0718L19.3803 16.0459L14.2914 12.0747C13.6174 11.5522 13.6156 10.7139 14.2873 10.1885C14.6232 9.92577 15.0603 9.79383 15.4977 9.79288C15.935 9.79193 16.3727 9.92198 16.7097 10.1832L24.6968 16.3749C25.3709 16.9236 25.3727 17.762 24.7009 18.2874Z"
@@ -153,7 +153,7 @@ let render () =
               <li class="font-bold lg:truncate"><a href="http://math.andrej.com/2020/11/24/homotopy-io/"
                   target="_blank">Every Proof Assistant: Introducing homotopy.io</a></li>
             </ul>
-            <p><a class="flex justify-center items-baseline" href="/community/newsarchive/"><svg
+            <p><a class="flex justify-center items-baseline" href="/newsarchive"><svg
                   class="inline h-6 w-6 mr-1" fill="none" viewBox="0 0 26 25" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M24.7009 18.2874L16.7407 24.5136C16.069 25.039 14.9924 25.0414 14.3184 24.5189C13.6443 23.9964 13.6425 23.158 14.3143 22.6326L19.386 18.6919L7.37509 18.7179C3.3378 18.7266 0.0351176 16.1663 0.0283118 13.0226L0.00313026 1.39059C0.00154224 0.657037 0.774053 0.052805 1.71609 0.0507657C2.65812 0.0487263 3.43324 0.649608 3.43483 1.38316L3.46001 13.0151C3.4637 14.718 5.24978 16.0765 7.403 16.0718L19.3803 16.0459L14.2914 12.0747C13.6174 11.5522 13.6156 10.7139 14.2873 10.1885C14.6232 9.92577 15.0603 9.79383 15.4977 9.79288C15.935 9.79193 16.3727 9.92198 16.7097 10.1832L24.6968 16.3749C25.3709 16.9236 25.3727 17.762 24.7009 18.2874Z"
@@ -163,7 +163,7 @@ let render () =
         </div>
       </div>
       <div class="text-center"><a class="rounded px-10 py-3 bg-orangedark hover:bg-orangedarker text-white"
-          href="/community/newsarchive/">Go to News Archive</a></div>
+          href="/newsarchive">Go to News Archive</a></div>
     </div>
     <div class="mb-4 max-w-5xl mx-auto   ">
       <div class="lg:grid lg:grid-cols-2 items-center">

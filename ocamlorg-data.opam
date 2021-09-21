@@ -3,8 +3,15 @@ opam-version: "2.0"
 synopsis: "OCaml.org data library"
 description:
   "The ocamlorg-data library defines types for the different data types we store in this repository. It aims to be as platform agnostic as possible, that means just types no dependencies that could prevent someone from using the library."
-maintainer: ["Thibaut Mattio" "Lucas Pluvinage" "Patrick Ferris"]
-authors: ["Thibaut Mattio" "Lucas Pluvinage" "Patrick Ferris"]
+maintainer: ["Thibaut Mattio" "Patrick Ferris"]
+authors: [
+  "Thibaut Mattio"
+  "Lucas Pluvinage"
+  "Patrick Ferris"
+  "Ashish Agarwal"
+  "Kanishka Azimi"
+  "Richard Davison"
+]
 license: "ISC"
 homepage: "https://github.com/ocaml/v3.ocaml.org-server"
 doc: "https://ocaml.github.io/v3.ocaml.org-server/"

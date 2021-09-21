@@ -1,7 +1,7 @@
 let render_tutorial_link (slug_of_tutorial : Ood.Tutorial.t -> string) (tutorial : Ood.Tutorial.t) =
   let open Ood.Tutorial in
   let slug = slug_of_tutorial tutorial in
-  let href = "/resources/tutorials/" ^ slug in
+  let href = "/tutorials/" ^ slug in
   <a href=<%s href %>
     class="group flex items-center px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50">
     <span class="truncate">
@@ -65,7 +65,7 @@ let render (slug_of_tutorial : Ood.Tutorial.t -> string) tutorials (tutorial : O
   let open Ood.Tutorial in
   <%s! Header_section_template.render "Tutorials" %>
   <div
-    class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-4 pb-8">
+    class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-8xl lg:grid-flow-col-dense lg:grid-cols-4 pb-8">
     <%s! render_nav slug_of_tutorial tutorials %>
 
     <section class="lg:col-start-2 lg:col-span-3">

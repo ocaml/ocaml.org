@@ -1,17 +1,17 @@
 let render (items : Ood.Academic_institution.t list) =
 <main class="relative bg-graylight">
   <%s! Hero_with_background_template.render ~img:"/assets/img/acad.png" ~title:"Academic Excellence" ~subtitle:"" %>
-  <div class="max-w-7xl mx-auto">
+  <div class="max-w-8xl mx-auto">
     <div class="mx-auto pb-20 px-4 sm:pb-20 sm:px-6 lg:px-8">
       <div class="text-center">
-        <p class="max-w-7xl mt-5 mx-auto text-xl text-gray-500">
+        <p class="max-w-8xl mt-5 mx-auto text-xl text-gray-500">
           With its strong mathematical roots, OCaml has always had strong ties to academia. Currently, it is being
           taught in universities around the world, and has accrued an ever growing body of research. This page will
           provide you with an overview of the academic excellence that defines the culture of OCaml.
         </p>
         <div class="text-center mt-7">
           <a class="justify-center inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-orangedark hover:bg-orangedarker focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orangedarker"
-            href="/principles/successes/">Success Stories</a>
+            href="/successes">Success Stories</a>
         </div>
       </div>
     </div>

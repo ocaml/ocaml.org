@@ -1,7 +1,7 @@
 let render () =
 let papers = Ood.Paper.all in
 <main class="relative bg-graylight">
-  <div class="max-w-7xl mx-auto">
+  <div class="max-w-8xl mx-auto">
     <div class=" mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
       <div class="text-center">
         <h1 class=" text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">Papers Archive</h1>
@@ -10,7 +10,7 @@ let papers = Ood.Paper.all in
       </div>
     </div>
     <div>
-      <div class="container pt-6 px-4 max-w-7xl mx-auto">
+      <div class="container pt-6 px-4 max-w-8xl mx-auto">
         <div class="p-0" data-dashlane-rid="a2749c2542672e12" data-form-type=""><input type="search"
             class="w-3/5 md:w-2/5 text-xs sm:text-base shadow rounded border-0 p-3" id="search"
             placeholder="Search papers..." data-dashlane-rid="5f47348f695493fa" data-form-type=""><button
@@ -18,7 +18,7 @@ let papers = Ood.Paper.all in
             data-dashlane-label="true" data-dashlane-rid="169e06454430361f" data-form-type="">Search</button></div>
       </div>
     </div>
-    <div class="container py-6 px-4 max-w-7xl mx-auto">
+    <div class="container py-6 px-4 max-w-8xl mx-auto">
       <div class="overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative">
         <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
           <thead>

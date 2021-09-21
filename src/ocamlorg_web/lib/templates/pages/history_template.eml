@@ -8,7 +8,7 @@ let render () =
       </div>
     </div>
     <div class="py-12 px-4 ">
-      <div class="max-w-7xl mx-auto">
+      <div class="max-w-8xl mx-auto">
         <div class="flow-root">
           <ul class="-mb-8">
             <li>
