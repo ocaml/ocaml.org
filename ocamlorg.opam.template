@@ -15,4 +15,5 @@ build: [
 ]
 pin-depends: [
   ["dream-accept.0.1.0" "git+https://github.com/tmattio/dream-accept#main"]
+  ["dream-encoding.0.1.0" "git+https://github.com/tmattio/dream-encoding#main"]
 ]

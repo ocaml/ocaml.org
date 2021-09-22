@@ -12,7 +12,7 @@
  (targets export_base.txt)
  (deps toplevel_base.bc)
  (action
-  (run jsoo_listunits -o %{targets} stdlib js_of_ocaml base)))
+  (run jsoo_listunits -o %{targets} stdlib base)))
 
 (rule
  (targets toplevel_base.js)
@@ -44,7 +44,7 @@
  (targets export_stdlib.txt)
  (deps toplevel_stdlib.bc)
  (action
-  (run jsoo_listunits -o %{targets} stdlib js_of_ocaml)))
+  (run jsoo_listunits -o %{targets} stdlib)))
 
 (rule
  (targets toplevel_stdlib.js)

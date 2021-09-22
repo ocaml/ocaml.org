@@ -125,6 +125,13 @@ let graphql_route t =
     ; Dream.get "/graphiql" (Dream.graphiql "/api")
     ]
 
+let toplevels_route =
+  Dream.scope
+    "/toplevels"
+    [ Dream_encoding.compress ]
+    [ Dream.get "/**" (Dream.static (Fpath.to_string Ocamlorg.topelevels_path))
+    ]
+
 let router t =
   Dream.router
     [ page_routes
@@ -132,9 +139,7 @@ let router t =
     ; graphql_route t
     ; preview_routes
     ; redirection_routes
-    ; Dream.get
-        "/toplevels/**"
-        (Dream.static (Fpath.to_string Ocamlorg.topelevels_path))
+    ; toplevels_route
     ; Dream.get "/assets/**" (Dream.static ~loader "")
       (* Used for the previews *)
     ; Dream.get "/media/**" (Dream.static ~loader:media_loader "")
