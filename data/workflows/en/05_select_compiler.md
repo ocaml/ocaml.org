@@ -35,7 +35,7 @@ to configure the current environment with this switch.
 
 If it is a new switch, you will need to reinstall your dependencies (see "Installing dependencies") with `opam install . --deps-only`.
 
-Alternatively, you may want to run automatically commands in a given set of compilation environment. To do this, you can create a file `dune-workspace` at the root of your project and list the Opam switches you'd like to use there:
+Alternatively, you may want to automatically run commands in a given set of compilation environments. To do this, you can create a file `dune-workspace` at the root of your project and list the opam switches you'd like to use there:
 
 
 ```
