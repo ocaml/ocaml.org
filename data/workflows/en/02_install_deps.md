@@ -18,7 +18,7 @@ opam depext -i <packages>
 opam install . --deps-only --with-test --with-doc
 ```
 
-If you use Opam `2.1.X`, it will install the system dependencies automatically, so you can run:
+If you use opam `2.1.X`, it will install the system dependencies automatically, so you can run:
 
 ```
 opam install . --deps-only --with-test --with-doc
