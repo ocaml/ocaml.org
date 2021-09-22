@@ -6,7 +6,7 @@ title: "Publishing packages"
 > 
 > Create a `CHANGES.md` file and run `dune-release bistro`.
 
-The opam package manager may differ from the package manager you're used. In order to ensure the highest stability of the ecosystem, each package publication goes through two processes:
+The opam package manager may differ from the package manager you're used to. In order to ensure the highest stability of the ecosystem, each package publication goes through two processes:
 
 - An automated CI pipeline with different combinasion of version constraint to ensure that the package really works with the dependencies constraints it defines. (e.g. if the package defines a dependency on `base>=0.13.0`, does it really work with all version of base from `0.13.0` up to the latest version?)
 - A manual review of the package metadata by the opam-repository maintainer.
