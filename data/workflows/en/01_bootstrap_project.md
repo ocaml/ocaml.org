@@ -45,7 +45,7 @@ Or you may be looking for the best way to get started with a specific kind of pr
 
 If that's the case, we recommend using `spin`, the OCaml project generator. Spin comes with official templates for common project types. The official templates will get you up and running with everything you need to get a productive development environment, including the IDE setup, the CI/CD, the code formatter, the unit tests, etc.
 
-You can install `spin` with Opam: `opam install spin`.
+You can install `spin` with opam: `opam install spin`.
 
 Once its installed, you can list the available templates with `spin ls`. For the purpose of this workflow, we'll use `bin` that bootstraps a project with an executable:
 
