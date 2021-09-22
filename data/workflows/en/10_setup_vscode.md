@@ -4,7 +4,7 @@ title: "Setting up VSCode"
 
 > **TL;DR**
 > 
-> Install the VSCode extension `ocamllabs.ocaml-platform` and the pacakges `ocaml-lsp-server ocamlformat` in your opam switch.
+> Install the VSCode extension `ocamllabs.ocaml-platform` and the packages `ocaml-lsp-server ocamlformat` in your opam switch.
 
 The official OCaml extension for VSCode is https://marketplace.visualstudio.com/items?itemName=ocamllabs.ocaml-platform.
 
