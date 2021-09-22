@@ -25,7 +25,7 @@ Where proj is the kind of project to initialize. Here we want to generate an ent
 echo "(lang dune 2.0)" > dune-project
 ```
 
-At this point, you can build the project and run the binary is generated:
+At this point, you can build the project and run the binary:
 
 ```
 dune build
