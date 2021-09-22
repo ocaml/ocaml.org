@@ -8,7 +8,7 @@ title: "Publishing packages"
 
 The opam package manager may differ from the package manager you're used to. In order to ensure the highest stability of the ecosystem, each package publication goes through two processes:
 
-- An automated CI pipeline with different combinasion of version constraint to ensure that the package really works with the dependencies constraints it defines. (e.g. if the package defines a dependency on `base>=0.13.0`, does it really work with all version of base from `0.13.0` up to the latest version?)
+- An automated CI pipeline which tests if your package installs using multiple distributions and multiple OCaml compiler versions. It will also check that your new release does not break your reverse dependencies (those packages that require your package). A lower-bound check also ensures that your package installs with the lowest version of your package's dependencies.
 - A manual review of the package metadata by the opam-repository maintainer.
 
 This process starts with a PR to the opam-repository, with the addition of a file for the version of the package to publsh. The file contains information such as the package name, description, VCS repository, and most importantly, the URL the sources can be downloaded from.
