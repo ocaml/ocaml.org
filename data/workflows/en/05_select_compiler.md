@@ -1,0 +1,54 @@
+---
+title: "Selecting a compiler"
+---
+
+> **TL;DR**
+> 
+> Use `opam switch set` to manually select the switch to use and use `dune-workspace` to automatically run commands in different environment.
+
+Compilation environment are managed with Opam switches. The typical workflow is to have an local Opam switch for the project, but you may need to select a different compilation environment (i.e. a different compiler version) sometimes. For instance, to run unit tests on an older/newer version of OCaml.
+
+To do this, you'll need to create global Opam switches. To create an Opam switch with a given version of the compiler, you can use:
+
+```
+opam switch create 4.12.0 ocaml-base-compiler.4.12.0
+```
+
+This will create a new switch called `4.12.0` with the compiler version `4.12.0`.
+
+The list of available compiler version can be retrieved with:
+
+```
+opam switch list-available
+```
+
+This will list the available compiler version for all of the configured Opam repositories.
+
+Once you've created a switch (or you already have a switch you'd like to use), you can run:
+
+```
+opam switch set <switch_name>
+eval $(opam env)
+```
+
+to configure the current environment with this switch.
+
+If it is a new switch, you will need to reinstall your dependencies (see "Installing dependencies") with `opam install . --deps-only`.
+
+Alternatively, you may want to run automatically commands in a given set of compilation environment. To do this, you can create a file `dune-workspace` at the root of your project and list the Opam switches you'd like to use there:
+
+
+```
+(lang dune 2.0)
+(context (opam (switch 4.10.0)))
+(context (opam (switch 4.11.0)))
+(context (opam (switch 4.12.0)))
+```
+
+All the Dune commands you will run will be run on all of the switches listed, so for instance with the definition above:
+
+```
+dune runtest --workspace dune-workspace
+```
+
+Dune will run the tests for OCaml `4.10.0`, `4.11.0` and `4.12.0`.

@@ -141,3 +141,13 @@
   (with-stdout-to
    %{targets}
    (run %{deps} workshops))))
+
+(rule
+ (deps ../../tool/ood-gen/bin/gen.exe)
+ (targets workflow.ml)
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} workflows))))

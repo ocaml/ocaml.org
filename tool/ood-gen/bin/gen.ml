@@ -15,6 +15,7 @@ let term_templates =
   ; "watch", Ood_gen.Watch.template
   ; "news", Ood_gen.News.template
   ; "opam_user", Ood_gen.Opam_user.template
+  ; "workflows", Ood_gen.Workflow.template
   ]
 
 let cmds =
