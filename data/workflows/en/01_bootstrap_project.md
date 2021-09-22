@@ -55,7 +55,7 @@ spin new bin my_project/
 
 This will take some time, because Spin will install all of the dependencies in a new opam local switch (a.k.a local sandbox), which needs to compile an OCaml compiler.
 
-Once the project is generated, you can run the executable with `make start`
+Once the project is generated, you can run the executable with `make start`.
 
 You can also open the project in VSCode, which should detect your installation of the LSP server, code formatter and other Platform tools to offer the full range of its capabilities.
 
