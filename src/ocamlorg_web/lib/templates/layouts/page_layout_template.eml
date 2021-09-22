@@ -18,6 +18,7 @@ let render ~title ~description inner =
       <link rel="manifest" href="/assets/manifest.json">
       <link rel="stylesheet" href="/assets/main.css" />
       <link rel="stylesheet" href="/assets/vendors/font-files/inter.css" />
+      <link rel="stylesheet" href="/assets/toplevel.css" />
       <script src="/assets/vendors/components-v2.js"></script>
       <script src="/assets/vendors/alpine-turbo-drive-adapter.min.js"></script>
       <script src="/assets/vendors/alpine.min.js"></script>

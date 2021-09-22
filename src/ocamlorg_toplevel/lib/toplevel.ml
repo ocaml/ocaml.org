@@ -84,14 +84,6 @@ let setup_toplevel () =
   JsooTop.initialize ();
   Sys.interactive := false;
   if Version.compare Version.current [ 4; 07 ] >= 0 then exec' "open Stdlib";
-  exec'
-    "module Lwt_main = struct\n\
-    \             let run t = match Lwt.state t with\n\
-    \               | Lwt.Return x -> x\n\
-    \               | Lwt.Fail e -> raise e\n\
-    \               | Lwt.Sleep -> failwith \"Lwt_main.run: thread didn't \
-     return\"\n\
-    \            end";
   let header1 = Printf.sprintf "        %s version %%s" compiler_name in
   let header2 =
     Printf.sprintf
