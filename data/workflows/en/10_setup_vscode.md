@@ -1,5 +1,5 @@
 ---
-title: "Setuping VSCode"
+title: "Setting up VSCode"
 ---
 
 > **TL;DR**
