@@ -12,6 +12,8 @@ module Name : sig
   val to_string : t -> string
 
   val of_string : string -> t
+
+  module Map : OpamStd.MAP with type key := t
 end
 
 (** The version of an opam package. *)
@@ -23,6 +25,8 @@ module Version : sig
   val to_string : t -> string
 
   val of_string : string -> t
+
+  module Map : OpamStd.MAP with type key := t
 end
 
 (** The information of a package. Typically, this is read from the opam file in
@@ -42,6 +46,7 @@ module Info : sig
     ; homepage : string list
     ; tags : string list
     ; dependencies : (Name.t * string option) list
+    ; rev_deps : (Name.t * string option) list
     ; depopts : (Name.t * string option) list
     ; conflicts : (Name.t * string option) list
     ; url : url option
@@ -70,6 +75,8 @@ end
 module Module_map = Module_map
 
 type state
+
+val get_state : state -> Info.t OpamPackage.Version.Map.t OpamPackage.Name.Map.t
 
 type t
 
