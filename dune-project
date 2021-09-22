@@ -52,6 +52,7 @@
   dream
   dream-cli
   dream-accept
+  dream-encoding
   fpath
   fmt
   logs
