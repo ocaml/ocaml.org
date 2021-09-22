@@ -9,7 +9,7 @@ title: "Installing dependencies"
 > ```
 It is recommended to install the dependencies of a project in a local opam switch to sandbox your development environment.
 
-If you're using Opam `2.0.X`, you can do this with:
+If you're using opam `2.0.X`, you can do this with:
 
 ```
 # if you need external dependencies
