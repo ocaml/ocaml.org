@@ -47,7 +47,7 @@ If that's the case, we recommend using `spin`, the OCaml project generator. Spin
 
 You can install `spin` with opam: `opam install spin`.
 
-Once its installed, you can list the available templates with `spin ls`. For the purpose of this workflow, we'll use `bin` that bootstraps a project with an executable:
+Once it's installed, you can list the available templates with `spin ls`. For the purpose of this workflow, we'll use `bin` that bootstraps a project with an executable:
 
 ```
 spin new bin my_project/
