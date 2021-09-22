@@ -19,6 +19,7 @@ module Info = struct
     ; homepage : string list
     ; tags : string list
     ; dependencies : (OpamPackage.Name.t * string option) list
+    ; rev_deps : (OpamPackage.Name.t * string option) list
     ; depopts : (OpamPackage.Name.t * string option) list
     ; conflicts : (OpamPackage.Name.t * string option) list
     ; url : url option
@@ -46,6 +47,46 @@ module Info = struct
       (fun lst (name, cstr) -> (name, string_of_formula cstr) :: lst)
       []
 
+  let depends packages opams f =
+    let open OpamTypes in
+    OpamPackage.Name.Map.fold
+      (fun name vmap acc ->
+        let v =
+          OpamPackage.Version.Map.fold
+            (fun version opam acc ->
+              let env v =
+                match OpamVariable.Full.to_string v with
+                | "name" ->
+                  Some (S (OpamPackage.Name.to_string name))
+                | "version" ->
+                  Some (S (OpamPackage.Version.to_string version))
+                | _ ->
+                  None
+              in
+              let deps =
+                OpamFormula.packages packages
+                @@ OpamFilter.filter_formula ~default:true env (f opam)
+              in
+              OpamPackage.Map.add (OpamPackage.create name version) deps acc)
+            vmap
+            OpamPackage.Map.empty
+        in
+        OpamPackage.Map.union (fun a _ -> a) acc v)
+      opams
+      OpamPackage.Map.empty
+
+  let _get_conflict_set pkgs map =
+    let f opam = OpamFile.OPAM.conflicts opam in
+    depends pkgs map f
+
+  let get_dependency_set pkgs map =
+    let f opam = OpamFile.OPAM.depends opam in
+    depends pkgs map f
+
+  let _get_depopts_set pkgs map =
+    let f opam = OpamFile.OPAM.depopts opam in
+    depends pkgs map f
+
   let get_conflicts (opam : OpamFile.OPAM.t) =
     let data = OpamFile.OPAM.conflicts opam in
     parse_formula data
@@ -58,57 +99,148 @@ module Info = struct
     let data = OpamFile.OPAM.depopts opam in
     parse_formula data
 
-  let of_opamfile (opam : OpamFile.OPAM.t) =
+  let rev_depends deps =
+    OpamPackage.Map.fold
+      (fun pkg ->
+        OpamPackage.Set.fold (fun pkg1 ->
+            OpamPackage.Map.update
+              pkg1
+              (OpamPackage.Set.add pkg)
+              OpamPackage.Set.empty))
+      deps
+      OpamPackage.Map.empty
+
+  let mk_revdeps pkg pkgs rdepends =
+    let open OpamTypes in
+    OpamPackage.Name.Map.fold
+      (fun name versions acc ->
+        let vf =
+          OpamFormula.formula_of_version_set
+            (OpamPackage.versions_of_name pkgs name)
+            versions
+        in
+        let _latest =
+          OpamPackage.create name (OpamPackage.Version.Set.max_elt versions)
+        in
+        let flags = OpamStd.String.Set.empty in
+        let formula =
+          OpamFormula.ands
+          @@ List.rev_append
+               (List.rev_map
+                  (fun flag ->
+                    Atom
+                      (Filter (FIdent ([], OpamVariable.of_string flag, None))))
+                  (OpamStd.String.Set.elements flags))
+               [ OpamFormula.map
+                   (fun (op, v) ->
+                     Atom
+                       (Constraint
+                          (op, FString (OpamPackage.Version.to_string v))))
+                   vf
+               ]
+        in
+        (name, string_of_formula formula) :: acc)
+      (OpamPackage.to_map
+      @@ OpamStd.Option.default OpamPackage.Set.empty
+      @@ OpamPackage.Map.find_opt pkg rdepends)
+      []
+    |> List.rev
+
+  let of_opamfiles
+      (opams : OpamFile.OPAM.t OpamPackage.Version.Map.t OpamPackage.Name.Map.t)
+    =
     let open OpamFile.OPAM in
-    { synopsis = synopsis opam |> Option.value ~default:"No synopsis"
-    ; authors =
-        author opam
-        |> List.map (fun name ->
-               Option.value
-                 (Opam_user.find_by_name name)
-                 ~default:(Opam_user.make ~name ()))
-    ; maintainers =
-        maintainer opam
-        |> List.map (fun name ->
-               Option.value
-                 (Opam_user.find_by_name name)
-                 ~default:(Opam_user.make ~name ()))
-    ; license = license opam |> String.concat "; "
-    ; description =
-        descr opam |> Option.map OpamFile.Descr.body |> Option.value ~default:""
-    ; homepage = homepage opam
-    ; tags = tags opam
-    ; conflicts = get_conflicts opam
-    ; dependencies = get_dependencies opam
-    ; depopts = get_depopts opam
-    ; url =
-        url opam
-        |> Option.map (fun url ->
-               { uri = OpamUrl.to_string (OpamFile.URL.url url)
-               ; checksum =
-                   OpamFile.URL.checksum url |> List.map OpamHash.to_string
-               })
-    }
+    let packages =
+      let names = OpamPackage.Name.Map.keys opams in
+      let f acc name =
+        let versions =
+          OpamPackage.Version.Map.keys (OpamPackage.Name.Map.find name opams)
+        in
+        let pkgs =
+          List.fold_left
+            (fun acc v -> OpamPackage.Set.add (OpamPackage.create name v) acc)
+            OpamPackage.Set.empty
+            versions
+        in
+        OpamPackage.Set.union pkgs acc
+      in
+      List.fold_left f OpamPackage.Set.empty names
+    in
+    let dependencies = get_dependency_set packages opams in
+    let rev_deps = rev_depends dependencies in
+    OpamPackage.Name.Map.fold
+      (fun name vmap acc ->
+        let vs =
+          OpamPackage.Version.Map.fold
+            (fun version opam acc ->
+              let package = OpamPackage.create name version in
+              let opam_file =
+                OpamPackage.Name.Map.find name opams
+                |> OpamPackage.Version.Map.find version
+              in
+              let t =
+                { synopsis =
+                    synopsis opam |> Option.value ~default:"No synopsis"
+                ; authors =
+                    author opam
+                    |> List.map (fun name ->
+                           Option.value
+                             (Opam_user.find_by_name name)
+                             ~default:(Opam_user.make ~name ()))
+                ; maintainers =
+                    maintainer opam
+                    |> List.map (fun name ->
+                           Option.value
+                             (Opam_user.find_by_name name)
+                             ~default:(Opam_user.make ~name ()))
+                ; license = license opam |> String.concat "; "
+                ; description =
+                    descr opam
+                    |> Option.map OpamFile.Descr.body
+                    |> Option.value ~default:""
+                ; homepage = homepage opam
+                ; tags = tags opam
+                ; rev_deps = mk_revdeps package packages rev_deps
+                ; conflicts = get_conflicts opam_file
+                ; dependencies = get_dependencies opam_file
+                ; depopts = get_depopts opam_file
+                ; url =
+                    url opam
+                    |> Option.map (fun url ->
+                           { uri = OpamUrl.to_string (OpamFile.URL.url url)
+                           ; checksum =
+                               OpamFile.URL.checksum url
+                               |> List.map OpamHash.to_string
+                           })
+                }
+              in
+              OpamPackage.Version.Map.add version t acc)
+            vmap
+            OpamPackage.Version.Map.empty
+        in
+        OpamPackage.Name.Map.add name vs acc)
+      opams
+      OpamPackage.Name.Map.empty
 end
 
 type t =
   { name : Name.t
   ; version : Version.t
-  ; info : Info.t lazy_t
+  ; info : Info.t
   }
 
 let name t = t.name
 
 let version t = t.version
 
-let info t = Lazy.force t.info
+let info t = t.info
 
-let create ~name ~version info = { name; version; info = Lazy.from_val info }
+let create ~name ~version info = { name; version; info }
 
 type state =
-  { mutable packages :
-      Info.t lazy_t OpamPackage.Version.Map.t OpamPackage.Name.Map.t
-  }
+  { mutable packages : Info.t OpamPackage.Version.Map.t OpamPackage.Name.Map.t }
+
+let get_state { packages } = packages
 
 let state_of_package_list (pkgs : t list) =
   let map = OpamPackage.Name.Map.empty in
@@ -130,12 +262,8 @@ let read_versions package_name =
     (fun acc package_version ->
       match OpamPackage.of_string_opt package_version with
       | Some pkg ->
-        let info =
-          Lazy.from_fun (fun () ->
-              Info.of_opamfile
-              @@ Opam_repository.opam_file package_name package_version)
-        in
-        OpamPackage.Version.Map.add pkg.version info acc
+        let opam = Opam_repository.opam_file package_name package_version in
+        OpamPackage.Version.Map.add pkg.version opam acc
       | None ->
         Logs.err (fun m -> m "Invalid pacakge version %S" package_name);
         acc)
@@ -157,7 +285,9 @@ let read_packages () =
     (Opam_repository.list_packages ())
 
 let update t =
+  Logs.info (fun f -> f "Calculating packages...");
   let packages = read_packages () in
+  let packages = Info.of_opamfiles packages in
   t.packages <- packages;
   Logs.info (fun m ->
       m "Loaded %d packages" (OpamPackage.Name.Map.cardinal packages))
@@ -192,7 +322,7 @@ let s = { packages = OpamPackage.Name.Map.empty }
 
 let init ?(disable_polling = false) () =
   if Sys.file_exists (Fpath.to_string Config.opam_repository_path) then
-    s.packages <- read_packages ();
+    update s;
   if disable_polling then
     ()
   else
