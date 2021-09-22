@@ -6,7 +6,7 @@ title: "Selecting a compiler"
 > 
 > Use `opam switch set` to manually select the switch to use and use `dune-workspace` to automatically run commands in different environment.
 
-Compilation environment are managed with Opam switches. The typical workflow is to have an local Opam switch for the project, but you may need to select a different compilation environment (i.e. a different compiler version) sometimes. For instance, to run unit tests on an older/newer version of OCaml.
+Compilation environments are managed with opam switches. The typical workflow is to have a local opam switch for the project, but you may need to select a different compilation environment (i.e. a different compiler version) sometimes. For instance, to run unit tests on an older/newer version of OCaml.
 
 To do this, you'll need to create global Opam switches. To create an Opam switch with a given version of the compiler, you can use:
 
