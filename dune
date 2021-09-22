@@ -20,11 +20,3 @@
      tailwind.config.js
      -o
      %{target})))))
-
-(subdir
- asset/
- (rule
-  (target toplevel.js)
-  (deps ../src/ocamlorg_toplevel/bin/toplevel_stdlib.js)
-  (action
-   (copy %{deps} %{target}))))

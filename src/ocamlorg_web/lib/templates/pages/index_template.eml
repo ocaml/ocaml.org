@@ -41,7 +41,7 @@ let render () =
             <textarea id="userinput">Loading ...</textarea>
           </div>
         </div>
-        <script type="text/javascript" src="/assets/toplevel.js" defer></script>
+        <script type="text/javascript" src="/toplevels/stdlib-4.12.0.js" defer></script>
       </div>
     </div>
     <div class="pt-12 sm:pt-16">

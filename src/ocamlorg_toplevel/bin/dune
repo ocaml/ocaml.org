@@ -30,14 +30,6 @@
    -o
    %{targets})))
 
-(subdir
- js/
- (rule
-  (target base-v0.14.1.js)
-  (deps ../toplevel_base.js)
-  (action
-   (copy %{deps} %{target}))))
-
 ; Stdlib
 
 (executable
@@ -68,3 +60,14 @@
    %{dep:toplevel_stdlib.bc}
    -o
    %{targets})))
+
+(subdir
+ js/
+ (rule
+  (alias toplevel)
+  (targets stdlib-4.12.0.js base-0.14.1.js)
+  (deps ../toplevel_stdlib.js ../toplevel_base.js)
+  (action
+   (progn
+    (copy ../toplevel_stdlib.js stdlib-4.12.0.js)
+    (copy ../toplevel_base.js base-0.14.1.js)))))
