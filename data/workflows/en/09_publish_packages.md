@@ -11,7 +11,7 @@ The opam package manager may differ from the package manager you're used to. In 
 - An automated CI pipeline which tests if your package installs using multiple distributions and multiple OCaml compiler versions. It will also check that your new release does not break your reverse dependencies (those packages that require your package). A lower-bound check also ensures that your package installs with the lowest version of your package's dependencies.
 - A manual review of the package metadata by the opam-repository maintainer.
 
-This process starts with a PR to the opam-repository, with the addition of a file for the version of the package to publsh. The file contains information such as the package name, description, VCS repository, and most importantly, the URL the sources can be downloaded from.
+This process starts with a PR to the opam-repository, with the addition of a file for the version of the package to publish. The file contains information such as the package name, description, VCS repository, and most importantly, the URL the sources can be downloaded from.
 
 If everything looks good and the CI build passes, the PR is merged and the package becomes available in opam after an `opam update` to update the opam-repository.
 
