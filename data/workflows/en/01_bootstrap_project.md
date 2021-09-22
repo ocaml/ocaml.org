@@ -19,7 +19,7 @@ dune init proj hello my_project/
 
 Where proj is the kind of project to initialize. Here we want to generate an entire project, so we use `proj`. `hello` is the name of the project and `my_project/` is the path where the project will be generated.
 
-`dune init proj` does not generate a `dune-project` you, so you need to go in the generated project and create one:
+`dune init proj` does not generate a `dune-project` for you, so you need to go in the generated project and create one:
 
 ```
 echo "(lang dune 2.0)" > dune-project
