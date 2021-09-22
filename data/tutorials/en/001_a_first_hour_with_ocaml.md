@@ -33,7 +33,7 @@ Use `;;` to indicate that you've finished entering each expression and prompt
 OCaml to evaluate it. We run OCaml and evaluate a simple expression:
 
 ```console
-        OCaml version {{! get LATEST_OCAML_VERSION !}}
+        OCaml version 4.12.0
 
 # 50 * 50;;
 - : int = 2500
@@ -43,7 +43,7 @@ This is how it looks using `utop`:
 
 ```console
 ───────┬─────────────────────────────────────────────────────────────┬────
-       │ Welcome to utop version 2.7.0 (using OCaml version {{! get LATEST_OCAML_VERSION !}})! │     
+       │ Welcome to utop version 2.7.0 (using OCaml version 4.12.0)! │     
        └─────────────────────────────────────────────────────────────┘     
 
 Type #utop_help for help about using utop.
@@ -61,7 +61,7 @@ and load its contents directly with the `#use` directive:
 
 ```console
 $ ocaml
-        OCaml version {{! get LATEST_OCAML_VERSION !}}
+        OCaml version 4.12.0
 
 # #use "program.ml"
 ```

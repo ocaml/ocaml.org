@@ -33,6 +33,7 @@ let render () =
       <h3 class="text-gray-900 font-semibold col-span-3 xl:col-span-1">Language Features</h3>
       <div class="col-span-3 grid sm:grid-cols-3 md:grid-cols-4 gap-6 sm:gap-y-8 lg:gap-x-8">
         <%s! render_tutorial "Data Types and Matching" "data-types-and-matching" "undraw_art_museum_8or4.svg" %>
+        <%s! render_tutorial "Lists" "lists" "undraw_Queue_j6ij.svg" %>
         <%s! render_tutorial "Functional Programming" "functional-programming" "undraw_solution_mindset_34bi.svg" %>
         <%s! render_tutorial "If Statements, Loops, and Recursion" "if-statements-loops-and-recursions" "undraw_moving_forward_lhhd.svg" %>
         <%s! render_tutorial "Modules" "modules" "undraw_collecting_fjjl.svg" %>
