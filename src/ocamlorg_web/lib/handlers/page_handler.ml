@@ -183,7 +183,7 @@ let resources_best_practices _req =
     ~title:"Best Practices"
     ~description:
       "Some guides to commonly used tools in OCaml development workflows."
-    (Resources_best_practices_template.render ())
+    (Resources_best_practices_template.render Ood.Workflow.all)
   |> Dream.html
 
 let resources_developing_in_ocaml _req =

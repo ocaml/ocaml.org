@@ -320,3 +320,13 @@ module Workshop : sig
 
   val get_by_slug : string -> t option
 end
+
+module Workflow : sig
+  type t =
+    { title : string
+    ; body_md : string
+    ; body_html : string
+    }
+
+  val all : t list
+end

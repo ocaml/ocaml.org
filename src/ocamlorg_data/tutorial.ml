@@ -457,7 +457,7 @@ Use `;;` to indicate that you've finished entering each expression and prompt
 OCaml to evaluate it. We run OCaml and evaluate a simple expression:
 
 ```console
-        OCaml version {{! get LATEST_OCAML_VERSION !}}
+        OCaml version 4.12.0
 
 # 50 * 50;;
 - : int = 2500
@@ -467,7 +467,7 @@ This is how it looks using `utop`:
 
 ```console
 ───────┬─────────────────────────────────────────────────────────────┬────
-       │ Welcome to utop version 2.7.0 (using OCaml version {{! get LATEST_OCAML_VERSION !}})! │     
+       │ Welcome to utop version 2.7.0 (using OCaml version 4.12.0)! │     
        └─────────────────────────────────────────────────────────────┘     
 
 Type #utop_help for help about using utop.
@@ -485,7 +485,7 @@ and load its contents directly with the `#use` directive:
 
 ```console
 $ ocaml
-        OCaml version {{! get LATEST_OCAML_VERSION !}}
+        OCaml version 4.12.0
 
 # #use "program.ml"
 ```
@@ -1474,14 +1474,14 @@ the same basic interface but is much more convenient to use (history
 navigation, auto-completion, etc).</p>
 <p>Use <code>;;</code> to indicate that you've finished entering each expression and prompt
 OCaml to evaluate it. We run OCaml and evaluate a simple expression:</p>
-<pre><code class="language-console">        OCaml version {{! get LATEST_OCAML_VERSION !}}
+<pre><code class="language-console">        OCaml version 4.12.0
 
 # 50 * 50;;
 - : int = 2500
 </code></pre>
 <p>This is how it looks using <code>utop</code>:</p>
 <pre><code class="language-console">───────┬─────────────────────────────────────────────────────────────┬────
-       │ Welcome to utop version 2.7.0 (using OCaml version {{! get LATEST_OCAML_VERSION !}})! │     
+       │ Welcome to utop version 2.7.0 (using OCaml version 4.12.0)! │     
        └─────────────────────────────────────────────────────────────┘     
 
 Type #utop_help for help about using utop.
@@ -1495,7 +1495,7 @@ utop # 50 * 50;;
 <code>utop</code> or TryOCaml with copy and paste. Alternatively, we may type into a file,
 and load its contents directly with the <code>#use</code> directive:</p>
 <pre><code class="language-console">$ ocaml
-        OCaml version {{! get LATEST_OCAML_VERSION !}}
+        OCaml version 4.12.0
 
 # #use &quot;program.ml&quot;
 </code></pre>
@@ -11072,7 +11072,7 @@ val hello : unit -> unit
 
 (note the double asterisk at the beginning of the comment - it is a good habit
 to document .mli files using the format supported by
-[ocamldoc](/releases/{{! get LATEST_OCAML_VERSION_MAIN !}}/htmlman/ocamldoc.html))
+[ocamldoc](/releases/4.12.0/htmlman/ocamldoc.html))
 
 Such .mli files must be compiled just before the matching .ml files. They are
 compiled using `ocamlc`, even if .ml files are compiled to native code using
@@ -11506,7 +11506,7 @@ is our <code>amodule2.mli</code> file:</p>
 </code></pre>
 <p>(note the double asterisk at the beginning of the comment - it is a good habit
 to document .mli files using the format supported by
-[ocamldoc](/releases/{{! get LATEST_OCAML_VERSION_MAIN !}}/htmlman/ocamldoc.html))</p>
+<a href="/releases/4.12.0/htmlman/ocamldoc.html">ocamldoc</a>)</p>
 <p>Such .mli files must be compiled just before the matching .ml files. They are
 compiled using <code>ocamlc</code>, even if .ml files are compiled to native code using
 <code>ocamlopt</code>:</p>
