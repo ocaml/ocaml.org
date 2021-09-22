@@ -53,7 +53,7 @@ Once its installed, you can list the available templates with `spin ls`. For the
 spin new bin my_project/
 ```
 
-This will take some time, because Spin will install all of the dependency in a new Opam local switch (aka local sandbox), which needs to compile OCaml's compiler.
+This will take some time, because Spin will install all of the dependencies in a new opam local switch (a.k.a local sandbox), which needs to compile an OCaml compiler.
 
 Once the project is generated, you can run the executable with `make start`
 
