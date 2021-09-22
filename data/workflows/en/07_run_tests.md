@@ -6,7 +6,7 @@ title: "Running tests"
 > 
 > Add a `test` stanza in your dune file and run the tests with `dune build @runtest`.
 
-Tests are created using Dune's `test` stanza. The `test` stanza is a simple convenience wrapper that will create an executable and add it to the list of of tests of the `@runtest` target.
+Tests are created using Dune's `test` stanza. The `test` stanza is a simple convenience wrapper that will create an executable and add it to the list of tests of the `@runtest` target.
 
 For instance, if you add a test in your dune file:
 
