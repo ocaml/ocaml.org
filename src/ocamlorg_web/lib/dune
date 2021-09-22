@@ -1,6 +1,15 @@
 (library
  (name ocamlorg_web)
- (libraries dream dream-cli dream-accept omd ocamlorg gettext ood timedesc))
+ (libraries
+  dream
+  dream-cli
+  dream-accept
+  dream-encoding
+  omd
+  ocamlorg
+  gettext
+  ood
+  timedesc))
 
 (rule
  (targets asset.ml)

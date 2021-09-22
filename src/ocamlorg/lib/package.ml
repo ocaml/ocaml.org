@@ -228,6 +228,19 @@ let get_package t name version =
   Option.bind x (OpamPackage.Version.Map.find_opt version)
   |> Option.map (fun info -> { version; info; name })
 
+let topelevel_url name version = "/toplevels/" ^ name ^ "-" ^ version ^ ".js"
+
+let toplevel t =
+  let name = Name.to_string t.name in
+  let version = Version.to_string t.version in
+  let path =
+    Fpath.(to_string (Config.topelevels_path / (name ^ "-" ^ version ^ ".js")))
+  in
+  if Sys.file_exists path then
+    Some (topelevel_url name version)
+  else
+    None
+
 module Documentation = struct
   type toc =
     { title : string

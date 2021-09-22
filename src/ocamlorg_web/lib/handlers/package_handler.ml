@@ -75,6 +75,7 @@ let package_versioned t kind req =
     let versions =
       Ocamlorg.Package.get_package_versions t name |> Option.value ~default:[]
     in
+    let toplevel = Ocamlorg.Package.toplevel package in
     Package_layout_template.render
       ~title:
         (Printf.sprintf
@@ -91,6 +92,7 @@ let package_versioned t kind req =
       ~versions
       ~tab:Overview
       ~status
+      ?toplevel
       content
     |> Dream.html
 
@@ -171,6 +173,7 @@ let package_doc t kind req =
             (Ocamlorg.Package.Name.to_string name)
             (Ocamlorg.Package.Version.to_string version)
       in
+      let toplevel = Ocamlorg.Package.toplevel package in
       Package_layout_template.render
         ~title
         ~description:
@@ -184,5 +187,58 @@ let package_doc t kind req =
         ~status
         ~package
         ~extra_nav
+        ?toplevel
         (Package_doc_template.render ~root map doc)
+      |> Dream.html)
+
+let package_toplevel t kind req =
+  let name = Ocamlorg.Package.Name.of_string @@ Dream.param "name" req in
+  let version =
+    Ocamlorg.Package.Version.of_string @@ Dream.param "version" req
+  in
+  let package = Ocamlorg.Package.get_package t name version in
+  match package with
+  | None ->
+    Page_handler.not_found req
+  | Some package ->
+    let toplevel = Ocamlorg.Package.toplevel package in
+    (match toplevel with
+    | None ->
+      Page_handler.not_found req
+    | Some toplevel ->
+      let kind =
+        match kind with
+        | Package ->
+          `Package
+        | Universe ->
+          `Universe (Dream.param "hash" req)
+      in
+      let open Lwt.Syntax in
+      let* status = Ocamlorg.Package.status ~kind package in
+      let versions =
+        Ocamlorg.Package.get_package_versions t name |> Option.value ~default:[]
+      in
+      let content = Package_toplevel_template.render toplevel in
+      let title =
+        Printf.sprintf
+          "Toplevel · %s %s · OCaml Packages"
+          (Ocamlorg.Package.Name.to_string name)
+          (Ocamlorg.Package.Version.to_string version)
+      in
+      let description =
+        Printf.sprintf
+          "%s %s: %s"
+          (Ocamlorg.Package.Name.to_string name)
+          (Ocamlorg.Package.Version.to_string version)
+          (Ocamlorg.Package.info package).Ocamlorg.Package.Info.description
+      in
+      Package_layout_template.render
+        ~title
+        ~description
+        ~package
+        ~versions
+        ~tab:Toplevel
+        ~status
+        ~toplevel
+        content
       |> Dream.html)

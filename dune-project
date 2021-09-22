@@ -52,6 +52,7 @@
   dream
   dream-cli
   dream-accept
+  dream-encoding
   fpath
   fmt
   logs
@@ -59,4 +60,15 @@
   opam-format
   timedesc
   yojson
+  lwt
+  (js_of_ocaml
+   (< 3.10))
+  (js_of_ocaml-ppx
+   (< 3.10))
+  (js_of_ocaml-compiler
+   (< 3.10))
+  (js_of_ocaml-tyxml
+   (< 3.10))
+  (js_of_ocaml-toplevel
+   (< 3.10))
   (alcotest :with-test)))

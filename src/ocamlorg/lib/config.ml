@@ -18,3 +18,8 @@ let opam_repository_path =
   Sys.getenv_opt "OCAMLORG_REPO_PATH"
   |> Option.map (fun x -> Result.get_ok (Fpath.of_string x))
   |> Option.value ~default:Fpath.(default_cache_dir / "opam-repository")
+
+let topelevels_path =
+  Sys.getenv_opt "OCAMLORG_TOPLEVELS_PATH"
+  |> Option.map (fun x -> Result.get_ok (Fpath.of_string x))
+  |> Option.value ~default:Fpath.(v "src" / "ocamlorg_toplevel" / "bin" / "js")

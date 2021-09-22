@@ -17,15 +17,17 @@ RUN npm ci
 
 # Build project
 COPY --chown=opam:opam . .
-RUN opam exec -- dune build @install --profile=release --ignore-promoted-rules
+RUN opam exec -- dune build @install @toplevel --profile=release --ignore-promoted-rules
 
 FROM alpine:3.12 as run
 
 RUN apk update && apk add --update libev gmp git
 
 COPY --from=build /home/opam/_build/default/src/ocamlorg_web/bin/main.exe /bin/server
+COPY --from=build /home/opam/_build/default/src/ocamlorg_toplevel/bin/js/ /var/toplevels/
 
 ENV OCAMLORG_REPO_PATH /var/opam-repository/
+ENV OCAMLORG_TOPLEVELS_PATH /var/toplevels/
 ENV OCAMLORG_DEBUG false
 
 RUN chmod -R 755 /var

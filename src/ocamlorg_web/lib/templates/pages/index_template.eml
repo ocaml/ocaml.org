@@ -32,6 +32,20 @@ let render () =
     </div>
     <div class="pt-12 sm:pt-16">
       <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div id="toplevel-container" class="my-6 px-6 py-6 rounded-xl overflow-auto bg-gray-800">
+          <pre>
+            <code id="output"></code>
+          </pre>
+          <div>
+            <div id="sharp" class="sharp"></div>
+            <textarea id="userinput">Loading ...</textarea>
+          </div>
+        </div>
+        <script type="text/javascript" src="/toplevels/stdlib-4.12.0.js" defer></script>
+      </div>
+    </div>
+    <div class="pt-12 sm:pt-16">
+      <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center">
           <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">OCaml in Numbers</h2>
         </div>
