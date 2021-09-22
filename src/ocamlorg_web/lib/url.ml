@@ -42,6 +42,8 @@ let papers = "/papers"
 
 let platform = "/platform"
 
+let problems = "/problems"
+
 let releases = "/releases"
 
 let release = "/release"

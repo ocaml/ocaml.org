@@ -51,6 +51,7 @@ let page_routes =
     ; Dream.get Url.language Page_handler.language
     ; Dream.get Url.papers Page_handler.papers
     ; Dream.get Url.platform Page_handler.platform
+    ; Dream.get Url.problems Page_handler.problems
     ; Dream.get Url.releases Page_handler.releases
     ; Dream.get Url.release Page_handler.release
     ; Dream.get Url.books Page_handler.books

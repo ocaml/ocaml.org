@@ -1,0 +1,117 @@
+let render_problem problem =
+  let open Ood.Problem in
+  <section class="mb-8" x-data="{ activeTab: 'statement' }"  id=<%s problem.number %>>
+    <div class="bg-white shadow sm:rounded-lg">
+      <header class="px-4 py-5 sm:px-6 flex items-center whitespace-nowrap">
+        <h2 id="applicant-information-title" class="text-lg leading-6 font-medium text-gray-900">
+          <%s problem.title %>
+        </h2>
+        <div class="flex-none flex items-center ml-auto pl-4 sm:pl-6">
+          <div class="group p-0.5 rounded-lg flex bg-gray-100 hover:bg-gray-200">
+            <button x-ref="statement" class="flex focus-visible:ring-2 focus-visible:ring-orangedark focus-visible:ring-offset-2 rounded-md focus:outline-none focus-visible:ring-offset-gray-100" @click="activeTab = 'statement'" :tabindex="activeTab === 'statement' ? '0' : '-1'" @keydown.arrow-left="activeTab = 'solution'" @keydown.arrow-right="activeTab = 'solution'">
+              <span x-show="false" class="p-1.5 lg:pl-2.5 lg:pr-3.5 rounded-md flex items-center text-sm font-medium bg-white shadow-sm ring-1 ring-black ring-opacity-5">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="lg:mr-2 text-orangedark">
+                  <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                  <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                </svg>
+                <span class="text-gray-900 sr-only lg:not-sr-only">Statement</span>
+              </span>
+              <span x-show="true" style="display:none" class="p-1.5 lg:pl-2.5 lg:pr-3.5 rounded-md flex items-center text-sm font-medium" :class="activeTab === 'statement' ? 'bg-white shadow-sm ring-1 ring-black ring-opacity-5' : ''">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="lg:mr-2" :class="activeTab === 'statement' ? 'text-orangedark' : 'text-gray-500 group-hover:text-gray-900'">
+                  <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                  <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                </svg>
+                <span class="sr-only lg:not-sr-only" :class="activeTab === 'statement' ? 'text-gray-900' : 'text-gray-600 group-hover:text-gray-900'">Statement</span>
+              </span>
+            </button>
+            <button x-ref="solution" class="ml-0.5 p-1.5 lg:pl-2.5 lg:pr-3.5 rounded-md flex items-center text-sm text-gray-600 font-medium focus-visible:ring-2 focus-visible:ring-orangedark focus-visible:ring-offset-2 focus:outline-none focus-visible:ring-offset-gray-100" :class="activeTab === 'solution' ? 'bg-white shadow-sm ring-1 ring-black ring-opacity-5' : ''" @click="activeTab = 'solution'" tabindex="-1" :tabindex="activeTab === 'solution' ? '0' : '-1'" @keydown.arrow-left="activeTab = 'statement'" @keydown.arrow-right="activeTab = 'statement'">
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="lg:mr-2" :class="activeTab === 'solution' ? 'text-orangedark' : 'text-gray-500 group-hover:text-gray-900'">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+              </svg>
+              <span class="sr-only lg:not-sr-only" :class="activeTab === 'solution' ? 'text-gray-900' : 'text-gray-600 group-hover:text-gray-900'">Solution</span>
+            </button>
+          </div>    
+        </div>
+      </header>
+
+      <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+        <div :class="{ 'block': activeTab === 'statement', 'hidden': activeTab !== 'statement' }" class="block">
+          <div class="prose prose-indigo prose-md text-gray-500 max-w-full">
+            <%s! problem.statement %>
+          </div>
+        </div>
+        <div :class="{ 'block': activeTab === 'solution', 'hidden': activeTab !== 'solution' }" class="hidden">
+          <div class="prose prose-indigo prose-md text-gray-500 max-w-full">
+            <%s! problem.solution %>
+          </div>
+        </div>
+      </div>
+  </section>
+
+let render_problem_link (problem : Ood.Problem.t) =
+  let open Ood.Problem in
+  let href = "#" ^ (problem.number) in
+  <a href=<%s href %>
+    class="group flex items-center px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50">
+    <span class="truncate">
+      <%s problem.title %>
+    </span>
+  </a>
+
+let render_nav problems =
+  let open Ood.Problem in
+  <section class="lg:col-span-1">
+    <nav aria-label="Sidebar">
+        <h3 class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+          Working with lists
+        </h3>
+        <div class="mt-1 space-y-1">
+          <%s! List.map render_problem_link (filter_by_tag ~tag:"list" problems) |> String.concat "" %>
+        </div>
+        <h3 class="mt-8 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+          Arithmetic
+        </h3>
+        <div class="mt-1 space-y-1">
+          <%s! List.map render_problem_link (filter_by_tag ~tag:"arithmetic" problems) |> String.concat "" %>
+        </div>
+        <h3 class="mt-8 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+          Logic and Codes
+        </h3>
+        <div class="mt-1 space-y-1">
+          <%s! List.map render_problem_link (filter_by_tag ~tag:"logic" problems) |> String.concat "" %>
+        </div>
+        <h3 class="mt-8 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+          Binary Trees
+        </h3>
+        <div class="mt-1 space-y-1">
+          <%s! List.map render_problem_link (filter_by_tag ~tag:"binary-tree" problems) |> String.concat "" %>
+        </div>
+        <h3 class="mt-8 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+          Multiway Trees
+        </h3>
+        <div class="mt-1 space-y-1">
+          <%s! List.map render_problem_link (filter_by_tag ~tag:"multiway-tree" problems) |> String.concat "" %>
+        </div>
+        <h3 class="mt-8 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+          Graphs
+        </h3>
+        <div class="mt-1 space-y-1">
+          <%s! List.map render_problem_link (filter_by_tag ~tag:"graph" problems) |> String.concat "" %>
+        </div>
+        <h3 class="mt-8 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+          Miscellaneous Problems
+        </h3>
+        <div class="mt-1 space-y-1">
+          <%s! List.map render_problem_link (filter_no_tag problems) |> String.concat "" %>
+        </div>
+    </nav>
+  </section>
+
+let render problems =
+  <%s! Header_section_template.render "99 Problems" %>
+  <div class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-4 pb-8">
+    <%s! render_nav problems %>
+    <div class="lg:col-start-2 lg:col-span-3">
+      <%s! List.map render_problem problems |> String.concat "" %>
+    </div>
+  </div>

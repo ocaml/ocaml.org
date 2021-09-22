@@ -185,6 +185,12 @@
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
 
 (rule
+ (targets problems_template.ml)
+ (deps problems_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
  (targets releases_template.ml)
  (deps releases_template.eml)
  (action

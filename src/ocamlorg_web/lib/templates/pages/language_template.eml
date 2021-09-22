@@ -1,5 +1,5 @@
 let render () =
-let books = Ood.Book.all in 
+let books = Ood.Book.all in
 <main class="relative bg-graylight">
   <div class="mx-auto">
     <div class=" mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
@@ -22,9 +22,13 @@ let books = Ood.Book.all in
                 you to get started with OCaml, written by dedicated members of the community. Take a look and see what
                 you can discover.</p>
               <div class="mt-8 text-center">
-                <div class="inline-flex rounded-md shadow"><a
-                    class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-orangedark hover:bg-orangedarker"
-                    href="/tutorials">See All Tutorials</a></div>
+                <div class="inline-flex rounded-md shadow">
+                  <a class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-orangedark hover:bg-orangedarker"
+                    href="/tutorials">See All Tutorials</a>
+
+                  <a class="ml-6 inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-orangedark hover:bg-orangedarker"
+                  href="/problems">See 99 Problems</a>
+                </div>
               </div>
             </div>
           </div>
@@ -36,10 +40,10 @@ let books = Ood.Book.all in
                   and Running with OCaml</a></li>
               <li><a class="text-orangedark text-xl underline" href="/tutorials/a-first-hour-with-ocaml">A
                   First Hour with OCaml</a></li>
-              <li><a class="text-orangedark text-xl underline"
-                  href="/tutorials/ocaml-programming-guidelines">OCaml Programming Guidelines</a></li>
-              <li><a class="text-orangedark text-xl underline"
-                  href="/tutorials/compiling-ocaml-projects">Compiling OCaml Projects</a></li>
+              <li><a class="text-orangedark text-xl underline" href="/tutorials/ocaml-programming-guidelines">OCaml
+                  Programming Guidelines</a></li>
+              <li><a class="text-orangedark text-xl underline" href="/tutorials/compiling-ocaml-projects">Compiling
+                  OCaml Projects</a></li>
             </ul>
           </div>
         </div>
@@ -59,16 +63,14 @@ let books = Ood.Book.all in
                 </svg></div>
               <div class="col-span-6 py-2 flex m-w-full overflow-x-hidden">
                 <% books |> List.iter (fun (item : Ood.Book.t) ->
-                let cover = match item.cover with | Some x -> "/media/" ^ x | None -> "" in %>
-                <div class="px-4 flex items-center justify-center">
-                  <div class="w-40 aspect-w-3 aspect-h-2 sm:aspect-w-3 sm:aspect-h-4">
-                      <img
-                        class="object-fit w-full shadow-lg rounded-lg ring-4 ring-orangedarker"
-                        alt="<%s item.title %>"
-                        src="<%s cover %>">
+                  let cover = match item.cover with | Some x -> "/media/" ^ x | None -> "" in %>
+                  <div class="px-4 flex items-center justify-center">
+                    <div class="w-40 aspect-w-3 aspect-h-2 sm:aspect-w-3 sm:aspect-h-4">
+                      <img class="object-fit w-full shadow-lg rounded-lg ring-4 ring-orangedarker"
+                        alt="<%s item.title %>" src="<%s cover %>">
                     </div>
-                </div>
-                <% ); %>
+                  </div>
+                  <% ); %>
               </div>
               <div class="flex justify-end cursor-pointer" tabindex="0"><svg class="h-20" fill="none"
                   viewBox="0 0 90 159" xmlns="http://www.w3.org/2000/svg">

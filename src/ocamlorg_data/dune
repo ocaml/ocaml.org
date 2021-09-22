@@ -74,6 +74,16 @@
 
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
+ (targets problem.ml)
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} problems))))
+
+(rule
+ (deps ../../tool/ood-gen/bin/gen.exe)
  (targets release.ml)
  (mode
   (promote (until-clean)))
