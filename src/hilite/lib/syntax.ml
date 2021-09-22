@@ -45,18 +45,18 @@ let highlight_string t grammar stack str =
 let lang_to_plist s =
   match String.lowercase_ascii s with
   | "ocaml" ->
-    Jsons.ocaml |> Ezjsonm.from_string
+    Jsons.ocaml |> Yojson.Basic.from_string
   | "dune" ->
-    Jsons.dune |> Ezjsonm.from_string
+    Jsons.dune |> Yojson.Basic.from_string
   | "opam" ->
-    Jsons.opam |> Ezjsonm.from_string
+    Jsons.opam |> Yojson.Basic.from_string
   | l ->
     failwith ("Language not supported: " ^ l)
 
 let src_code_to_tyxml_html ~lang ~src =
   let t = TmLanguage.create () in
   let plist = lang_to_plist lang in
-  let grammar = TmLanguage.of_ezjsonm_exn plist in
+  let grammar = TmLanguage.of_yojson_exn plist in
   TmLanguage.add_grammar t grammar;
   match TmLanguage.find_by_name t lang with
   | None ->
