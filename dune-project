@@ -59,4 +59,11 @@
   opam-format
   timedesc
   yojson
+  lwt
+  js_of_ocaml
+  js_of_ocaml-ppx
+  js_of_ocaml-compiler
+  js_of_ocaml-tyxml
+  js_of_ocaml-toplevel
+  js_of_ocaml-lwt
   (alcotest :with-test)))

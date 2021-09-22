@@ -26,6 +26,7 @@ RUN apk update && apk add --update libev gmp git
 COPY --from=build /home/opam/_build/default/src/ocamlorg_web/bin/main.exe /bin/server
 
 ENV OCAMLORG_REPO_PATH /var/opam-repository/
+ENV OCAMLORG_TOPLEVELS_PATH /var/toplevels/
 ENV OCAMLORG_DEBUG false
 
 RUN chmod -R 755 /var

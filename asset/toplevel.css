@@ -1,0 +1,138 @@
+#toplevel-container {
+  color: #ccc;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+#toplevel-container textarea {
+  width: 90%;
+  line-height: 18px;
+  font-size: 12px;
+  background-color: transparent;
+  color: #fff;
+  border: 0;
+  resize: none;
+  outline: none;
+  font-family: Menlo, Monaco, Consolas, monospace;
+  font-weight: bold;
+  float: left;
+  margin: 0px;
+  padding: 0px;
+}
+
+#toplevel-container #output {
+  background-color: transparent;
+  color: #ccc;
+  border: none;
+  line-height: 18px;
+  font-size: 12px;
+  margin-bottom: 0px;
+}
+
+#toplevel-container #sharp {
+  float: left;
+  line-height: 18px;
+  font-size: 12px;
+  font-family: Menlo, Monaco, Consolas, monospace;
+  white-space: pre;
+}
+
+#toplevel-container .sharp:before {
+  content: "# ";
+  line-height: 18px;
+  font-size: 12px;
+  font-family: Menlo, Monaco, Consolas, monospace;
+}
+
+#toplevel-container .clear {
+  clear: both;
+}
+
+#toplevel-container .sharp .id {
+  color: #59B65C;
+  font-style: italic
+}
+
+#toplevel-container .sharp .kw0 {
+  color: rgb(64, 75, 190);
+  font-weight: bold;
+}
+
+#toplevel-container .sharp .kw1 {
+  color: rgb(150, 0, 108);
+  font-weight: bold;
+}
+
+#toplevel-container .sharp .kw2 {
+  color: rgb(23, 100, 42);
+  font-weight: bold;
+}
+
+#toplevel-container .sharp .kw3 {
+  color: #59B65C;
+  font-weight: bold;
+}
+
+#toplevel-container .sharp .kw4 {
+  color: #59B65C;
+  font-weight: bold;
+}
+
+#toplevel-container .sharp .comment {
+  color: green;
+  font-style: italic;
+}
+
+#toplevel-container .sharp .string {
+  color: #6B6B6B;
+  font-weight: bold;
+}
+
+#toplevel-container .sharp .numeric {
+  color: #729AAF;
+}
+
+#toplevel-container .sharp .directive {
+  font-style: italic;
+  color: #EB00FF;
+}
+
+#toplevel-container .sharp .escape {
+  color: #409290;
+}
+
+#toplevel-container .sharp .symbol0 {
+  color: orange;
+  font-weight: bold;
+}
+
+#toplevel-container .sharp .symbol1 {
+  color: #993300;
+  font-weight: bold;
+}
+
+#toplevel-container .sharp .constant {
+  color: rgb(0, 152, 255);
+}
+
+#toplevel-container #output canvas {
+  background-color: #464646;
+  float: none;
+  display: block;
+  border: 1px dashed while;
+  margin: 7px;
+}
+
+#toplevel-container #output img {
+  display: block;
+}
+
+#toplevel-container .stderr {
+  color: #d9534f;
+}
+
+#toplevel-container .errorloc {
+  border-bottom-width: 3px;
+  border-bottom-style: solid;
+  border-bottom-color: red;
+}

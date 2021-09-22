@@ -124,6 +124,9 @@ val init : ?disable_polling:bool -> unit -> state
 (** [init ()] initialises the opam-repository state. By default
     [disable_polling] is set to [false], but can be disabled for tests. *)
 
+val toplevel : t -> string option
+(** Get the URL of the toplevel script for the given package. *)
+
 val all_packages_latest : state -> t list
 (** Get the list of the latest version of every opam packages. The name and
     versions of the packages are read from the file system, the metadata are

@@ -1,0 +1,37 @@
+(executable
+ (name toplevel_base)
+ (libraries ocamlorg_toplevel base)
+ (modules toplevel_base)
+ (flags
+  (:standard -rectypes -linkall))
+ (modes byte))
+
+(rule
+ (targets export_base.txt)
+ (deps toplevel_base.bc)
+ (action
+  (run jsoo_listunits -o %{targets} stdlib js_of_ocaml lwt base)))
+
+(rule
+ (targets toplevel_base.js)
+ (action
+  (run
+   %{bin:js_of_ocaml}
+   --export
+   %{dep:export_base.txt}
+   --toplevel
+   --pretty
+   +toplevel.js
+   +dynlink.js
+   +base/runtime.js
+   %{dep:toplevel_base.bc}
+   -o
+   %{targets})))
+
+(subdir
+ js/
+ (rule
+  (target base-v0.14.1.js)
+  (deps ../toplevel_base.js)
+  (action
+   (copy %{deps} %{target}))))

@@ -104,6 +104,12 @@ let package_route t =
         "/u/:hash/:name/:version"
         ((Package_handler.package_versioned t) Package_handler.Universe)
     ; Dream.get
+        "/p/:name/:version/top"
+        ((Package_handler.package_toplevel t) Package_handler.Package)
+    ; Dream.get
+        "/u/:hash/:name/:version/top"
+        ((Package_handler.package_toplevel t) Package_handler.Universe)
+    ; Dream.get
         "/p/:name/:version/doc/**"
         ((Package_handler.package_doc t) Package_handler.Package)
     ; Dream.get
@@ -126,6 +132,9 @@ let router t =
     ; graphql_route t
     ; preview_routes
     ; redirection_routes
+    ; Dream.get
+        "/toplevels/**"
+        (Dream.static (Fpath.to_string Ocamlorg.topelevels_path))
     ; Dream.get "/assets/**" (Dream.static ~loader "")
       (* Used for the previews *)
     ; Dream.get "/media/**" (Dream.static ~loader:media_loader "")
