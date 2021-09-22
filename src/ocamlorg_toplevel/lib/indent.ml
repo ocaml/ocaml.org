@@ -28,14 +28,7 @@ let textarea (textbox : Dom_html.textAreaElement Js.t) : unit =
     else
       None
   in
-  let f =
-    match pos with
-    | None ->
-      fun _ -> true
-    | Some ((_c1, line1, _lo1, _up1), (_c2, line2, _lo2, _up2)) ->
-      fun l -> l >= line1 + 1 && l <= line2 + 1
-  in
-  let v = Ocp_indent.indent (Js.to_string v) f in
+  let v = Js.to_string v in
   textbox##.value := Js.string v;
   match pos with
   | Some ((c1, line1, _lo1, up1), (c2, line2, _lo2, up2)) ->

@@ -19,7 +19,6 @@
  *)
 
 open Js_of_ocaml
-open Js_of_ocaml_lwt
 open Js_of_ocaml_tyxml
 open Js_of_ocaml_toplevel
 open Lwt
@@ -32,36 +31,6 @@ let by_id_coerce s f =
   Js.Opt.get (f (Dom_html.getElementById s)) (fun () -> raise Not_found)
 
 let do_by_id s f = try f (Dom_html.getElementById s) with Not_found -> ()
-
-(* load file using a synchronous XMLHttpRequest *)
-let load_resource_aux filename url =
-  Js_of_ocaml_lwt.XmlHttpRequest.perform_raw
-    ~response_type:XmlHttpRequest.ArrayBuffer
-    url
-  >|= fun frame ->
-  if frame.Js_of_ocaml_lwt.XmlHttpRequest.code = 200 then
-    Js.Opt.case
-      frame.Js_of_ocaml_lwt.XmlHttpRequest.content
-      (fun () -> Printf.eprintf "Could not load %s\n" filename)
-      (fun b ->
-        Sys_js.update_file
-          ~name:filename
-          ~content:(Typed_array.String.of_arrayBuffer b))
-  else
-    ()
-
-let load_resource scheme ~prefix ~path:suffix =
-  let url = scheme ^ suffix in
-  let filename = Filename.concat prefix suffix in
-  Lwt.async (fun () -> load_resource_aux filename url);
-  Some ""
-
-let setup_pseudo_fs () =
-  Sys_js.mount ~path:"/dev/" (fun ~prefix:_ ~path:_ -> None);
-  Sys_js.mount ~path:"/http/" (load_resource "http://");
-  Sys_js.mount ~path:"/https/" (load_resource "https://");
-  Sys_js.mount ~path:"/ftp/" (load_resource "ftp://");
-  Sys_js.mount ~path:"/home/" (load_resource "filesys/")
 
 let exec' s =
   let res : bool = JsooTop.use Format.std_formatter s in
@@ -133,7 +102,6 @@ let setup_toplevel () =
   exec' (Printf.sprintf "Format.printf \"%s@.\";;" header2);
   exec' "#enable \"pretty\";;";
   exec' "#disable \"shortvar\";;";
-  Ppx_support.init ();
   let[@alert "-deprecated"] new_directive n k =
     Hashtbl.add Toploop.directive_table n k
   in
@@ -378,7 +346,6 @@ let run _ =
       (fun s -> Js.to_string s ^ "\n")
   in
   Sys_js.set_channel_filler stdin readline;
-  setup_pseudo_fs ();
   setup_toplevel ();
   setup_printers ();
   History.setup ();

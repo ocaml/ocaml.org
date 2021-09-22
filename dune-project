@@ -60,10 +60,14 @@
   timedesc
   yojson
   lwt
-  js_of_ocaml
-  js_of_ocaml-ppx
-  js_of_ocaml-compiler
-  js_of_ocaml-tyxml
-  js_of_ocaml-toplevel
-  js_of_ocaml-lwt
+  (js_of_ocaml
+   (< 3.10))
+  (js_of_ocaml-ppx
+   (< 3.10))
+  (js_of_ocaml-compiler
+   (< 3.10))
+  (js_of_ocaml-tyxml
+   (< 3.10))
+  (js_of_ocaml-toplevel
+   (< 3.10))
   (alcotest :with-test)))
