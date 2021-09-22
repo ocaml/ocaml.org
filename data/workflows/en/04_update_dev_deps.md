@@ -32,3 +32,5 @@ The available flags for each dependencies are:
 - Build: `build`
 - Test: `with-test`
 - Documentation: `with-doc`
+
+See [opam documentation](https://opam.ocaml.org/doc/Manual.html#Package-variables) for more details on the opam syntax.
