@@ -8,7 +8,7 @@ title: "Selecting a compiler"
 
 Compilation environments are managed with opam switches. The typical workflow is to have a local opam switch for the project, but you may need to select a different compilation environment (i.e. a different compiler version) sometimes. For instance, to run unit tests on an older/newer version of OCaml.
 
-To do this, you'll need to create global Opam switches. To create an Opam switch with a given version of the compiler, you can use:
+To do this, you'll need to create global opam switches. To create an opam switch with a given version of the compiler, you can use:
 
 ```
 opam switch create 4.12.0 ocaml-base-compiler.4.12.0
