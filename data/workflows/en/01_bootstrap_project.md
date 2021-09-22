@@ -7,7 +7,7 @@ title: "Bootstrap a project"
 > if you need a minimal project to start hacking quickly, use `dune init`. If you need a complete development environment that follows best practices, use `spin`.
 As the recommended build system for OCaml, Dune offers a command `dune init` to bootstrap new projects.
 
-Once you have successfully installed Opam, you can install Dune with `opam install dune`.
+Once you have successfully installed opam, you can install Dune with `opam install dune`.
 
 This will install Dune's binary in your current Opam switch, so `dune` should now be in your `PATH`. If it not, you probably need to run `eval $(opam env)` to configure your current terminal with Opam environment.
 
