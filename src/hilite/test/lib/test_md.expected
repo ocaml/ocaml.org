@@ -1,0 +1,3 @@
+((paragraph "OCaml is a great language, e.g.")
+ (html
+  "<pre><code><span class='ocaml-keyword'>let </span><span class='ocaml-entity-name-function-binding'>add</span><span class='ocaml-source'> </span><span class='ocaml-source'>a</span><span class='ocaml-source'> </span><span class='ocaml-source'>b</span><span class='ocaml-source'> </span><span class='ocaml-keyword-operator'>=</span><span class='ocaml-source'> </span><span class='ocaml-source'>a</span><span class='ocaml-source'> </span><span class='ocaml-keyword-operator'>+</span><span class='ocaml-source'> </span><span class='ocaml-source'>b</span><span class='ocaml-source'> \n</span></code></pre>"))
