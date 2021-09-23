@@ -3,7 +3,6 @@
 - Add code-highlighting to tutorials (#108, by @patricoferris)
 - Add initial set of Best Known Methods (#107, by @tmattio)
 - Add initial toplevel to homepage (#106, by @tmattio)
-- Serve HTML pages from server (#101, by @tmattio)
 - Add turbo drive to accelerate SSR pages navigation (#100, by @tmattio)
 - Merge frontend (#92, by @tmattio)
 - Merge ood (#91, by @tmattio)
