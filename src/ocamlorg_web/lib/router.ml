@@ -51,6 +51,9 @@ let page_routes =
     ; Dream.get Url.history Page_handler.history
     ; Dream.get Url.community_around_web Page_handler.community_around_web
     ; Dream.get Url.community_events Page_handler.community_events
+    ; Dream.get
+        (Url.community_events ^ "/:id")
+        Page_handler.community_events_workshop
     ; Dream.get Url.community_media_archive Page_handler.community_media_archive
     ; Dream.get Url.community_news Page_handler.community_news
     ; Dream.get Url.community_news_archive Page_handler.community_news_archive

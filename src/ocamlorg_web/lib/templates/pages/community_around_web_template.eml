@@ -4,14 +4,6 @@ let rec take k xs = match k with
   | [] -> failwith "take"
   | y::ys -> y :: (take (k - 1) ys)
 
-let human_date s =
-  let date_time = Timedesc.of_iso8601_exn s in
-  Format.asprintf
-    "%a."
-    (Timedesc.pp ~format:"{wday:Xxx} {mon:Xxx} {mon:0X} {year}" ())
-    date_time
-
-
 let render_news (news : Ood.News.t) =
   <li class="px-6 py-4"><a
       href="https://tech.ahrefs.com/building-ahrefs-codebase-with-melange-9f881f6d022b?source=rss----303662d88bae--ocaml"
@@ -84,49 +76,20 @@ let events = Ood.Event.all in
           <div>
             <div class="flex h-full flex-col items-center justify-center">
               <div class="py-8 sm:pl-12">
-                <p class="mt-2 text-orangedark text-center text-3xl font-extrabold tracking-tight sm:text-4xl">Events
-                </p>
-                <p class="mt-4 text-lg leading-6 text-gray-900 text-center">Several events take place in the OCaml
+                <p class="mt-2 text-orangedark text-center text-3xl font-extrabold tracking-tight sm:text-4xl">Events</p>
+                <p class="mt-4 text-lg leading-6 text-gray-900 text-center">
+                  Several events take place in the OCaml
                   community over the course of each year, in countries all over the world. This calendar will help you
-                  stay up to date on what is coming up in the OCaml sphere. </p>
+                  stay up to date on what is coming up in the OCaml sphere.
+                </p>
                 <div class="mt-8 text-center">
-                  <div class="inline-flex rounded-md shadow"><a
-                      class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-orangedark hover:bg-orangedarker"
-                      href="/events">Show me Events</a></div>
+                  <%s! Common.orange_link_button ~href:"/events" "Show me Events" %>
                 </div>
               </div>
             </div>
           </div>
-
           <div class="flow-root px-8 py-16">
-            <ul role="list" class="-mb-8">
-              <% (take 3 events) |> List.iteri (fun i (event : Ood.Event.t) -> 
-              let is_last = i = 2 in
-              %>
-              <li>
-                <div class="relative pb-8">
-                  <% if not is_last then ( %><span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span><% ); %>
-                  <div class="relative flex space-x-3">
-                    <div>
-                      <span class="h-8 w-8 rounded-full bg-orange-500 flex items-center justify-center ring-8 ring-white">
-                        <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"></svg>
-                      </span>
-                    </div>
-                    <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
-                      <div>
-                        <p class="text-sm text-gray-500"><%s event.title %></p>
-                      </div>
-                      <div class="text-right text-sm whitespace-nowrap text-gray-500">
-                        <time datetime="<%s event.date %>">
-                          <%s human_date event.date %>
-                        </time>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <% ); %>
-            </ul>
+              <%s! Common.timeline ~last:2 (take 3 events |> List.map (fun e -> (e.Ood.Event.date, e.Ood.Event.title))) %>
           </div>
         </div>
       </div>

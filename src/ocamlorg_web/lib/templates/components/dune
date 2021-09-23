@@ -51,3 +51,15 @@
  (deps navmap_template.eml)
  (action
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets common.ml)
+ (deps common.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
+ (targets table.ml)
+ (deps table.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
