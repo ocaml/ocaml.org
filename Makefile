@@ -15,6 +15,7 @@ piaf \
 lambdasoup \
 cmdliner \
 crunch \
+"textmate-language>=0.3.1" \
 ppx_deriving_yaml \
 "omd>=2.0.0~alpha2" \
 xmlm \

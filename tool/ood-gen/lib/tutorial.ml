@@ -90,7 +90,7 @@ let all () =
       ; users = proficiency_list_of_string_list metadata.users
       ; toc_html = Omd.to_html (Omd.toc omd)
       ; body_md = body
-      ; body_html = Omd.to_html omd
+      ; body_html = Omd.to_html (Hilite.Md.transform omd)
       })
     "tutorials/en/*.md"
 

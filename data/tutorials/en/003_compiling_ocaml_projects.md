@@ -161,7 +161,7 @@ The most popular modern system for building OCaml projects is
 description of their elements. For example, the dune file for our project might
 look like this:
 
-```scheme
+```dune
 ;; our example project
 (executable
   (name program)

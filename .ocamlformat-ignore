@@ -1,5 +1,6 @@
 src/ocamlorg_data/*.ml
 src/ocamlorg_data/*/*.ml
+src/hilite/lib/jsons.ml
 
 node_modules/*
 node_modules/*/*
