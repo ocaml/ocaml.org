@@ -17,6 +17,12 @@
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
 
 (rule
+ (targets community_events_workshop_template.ml)
+ (deps community_events_workshop_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
  (targets community_media_archive_template.ml)
  (deps community_media_archive_template.eml)
  (action

@@ -55,6 +55,54 @@ let community_events _req =
     (Community_events_template.render ())
   |> Dream.html
 
+let watch_ocamlorg_embed =
+  let presentations =
+    List.concat_map
+      (fun (w : Ood.Workshop.t) -> w.presentations)
+      Ood.Workshop.all
+  in
+  let rec get_last = function
+    | [] ->
+      ""
+    | [ x ] ->
+      x
+    | _ :: xs ->
+      get_last xs
+  in
+  let watch =
+    List.map
+      (fun (w : Ood.Watch.t) ->
+        String.split_on_char '/' w.embed_path |> get_last |> fun v -> v, w)
+      Ood.Watch.all
+  in
+  let tbl = Hashtbl.create 100 in
+  let add_video (p : Ood.Workshop.presentation) =
+    match p.video with
+    | Some video ->
+      let uuid = String.split_on_char '/' video |> get_last in
+      let find (v, w) = if String.equal uuid v then Some w else None in
+      let w = List.find_map find watch in
+      Option.iter (fun w -> Hashtbl.add tbl p.title w) w
+    | None ->
+      ()
+  in
+  List.iter add_video presentations;
+  tbl
+
+let community_events_workshop req =
+  let slug = Dream.param "id" req in
+  match
+    List.find_opt (fun x -> x.Ood.Workshop.slug = slug) Ood.Workshop.all
+  with
+  | Some workshop ->
+    Page_layout_template.render
+      ~title:(Printf.sprintf "%s · OCaml Tutorials" workshop.Ood.Workshop.title)
+      ~description:workshop.Ood.Workshop.title
+      (Community_events_workshop_template.render watch_ocamlorg_embed workshop)
+    |> Dream.html
+  | None ->
+    not_found req
+
 let community_media_archive _req =
   Page_layout_template.render
     ~title:"Media Archive"
