@@ -1,0 +1,9 @@
+# Supresses the lock folder from the diffs
+package-lock.json linguist-generated=true
+
+# Supresses generated modules from the diffs
+src/ocamlorg_data/*.ml linguist-generated=true
+
+# Tell github that .ml and .mli files are OCaml
+*.ml linguist-language=OCaml
+*.mli linguist-language=OCaml
