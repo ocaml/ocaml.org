@@ -7,3 +7,6 @@ src/ocamlorg_data/*.ml linguist-generated=true
 # Tell github that .ml and .mli files are OCaml
 *.ml linguist-language=OCaml
 *.mli linguist-language=OCaml
+
+# Tell github that .eml files are HTML
+*.eml linguist-language=HTML
