@@ -2,7 +2,7 @@ let render_job (item : Ood.Job.t) =
   <section class="text-black">
     <a class="flex overflow-visible justify-between items-center my-4 h-32 border border-gray-300 border-solid cursor-pointer box-border hover:border-orange-600 hover:border-2" href="/opportunities/<%i item.id %>" style="border-radius: 12px; background-image: linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255));">
       <picture aria-hidden="true" class="flex overflow-visible z-10 flex-shrink-0 justify-center items-center mx-8 w-16 h-16">
-        <img alt="gonoodle inc logo" class="block object-contain max-w-full h-auto align-middle" height="96" loading="lazy" src="<%s item.company_logo %>" width="96" />
+        <img alt="<%s item.company %>" class="block object-contain max-w-full h-auto align-middle" height="96" loading="lazy" src="<%s item.company_logo %>" width="96" />
       </picture>
       <div class="flex-1 pr-8 truncate">
         <div class="text-lg leading-none truncate"><%s item.company %></div>
