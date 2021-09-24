@@ -1,4 +1,25 @@
-let render () =
+let render_job (item : Ood.Job.t) =
+  <section class="text-black">
+    <a class="flex overflow-visible justify-between items-center my-4 h-32 border border-gray-300 border-solid cursor-pointer box-border hover:border-orange-600 hover:border-2" href="/opportunities/<%i item.id %>" style="border-radius: 12px; background-image: linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255));">
+      <picture aria-hidden="true" class="flex overflow-visible z-10 flex-shrink-0 justify-center items-center mx-8 w-16 h-16">
+        <img alt="gonoodle inc logo" class="block object-contain max-w-full h-auto align-middle" height="96" loading="lazy" src="<%s item.company_logo %>" width="96" />
+      </picture>
+      <div class="flex-1 pr-8 truncate">
+        <div class="text-lg leading-none truncate"><%s item.company %></div>
+        <h3 class="py-2 m-0 text-xl font-bold leading-none truncate"><%s item.title %></h3>
+        <div class="flex items-center text-sm leading-none text-gray-600 truncate">
+          <div class="flex items-center leading-3 whitespace-no-wrap">
+            <svg aria-hidden="true" class="block mr-1 w-5 h-5 align-middle" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" fill-rule="evenodd" class=""></path>
+            </svg>
+            <%s item.location %>
+          </div>
+        </div>
+      </div>
+    </a>
+  </section>
+
+let render (items : Ood.Job.t list) =
 <main class="relative bg-graylight">
   <div class="max-w-8xl mx-auto">
     <div class=" mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
@@ -8,5 +29,8 @@ let render () =
           organisations can advertise their projects directly to the OCaml community.</p>
       </div>
     </div>
+    <article class="leading-6 text-black">
+      <%s! List.map render_job items |> String.concat "" %>
+    </article>
   </div>
 </main>

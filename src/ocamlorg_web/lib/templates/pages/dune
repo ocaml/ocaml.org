@@ -41,6 +41,12 @@
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
 
 (rule
+ (targets community_opportunity_template.ml)
+ (deps community_opportunity_template.eml)
+ (action
+  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+(rule
  (targets history_template.ml)
  (deps history_template.eml)
  (action

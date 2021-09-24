@@ -1,0 +1,51 @@
+let render (item : Ood.Job.t) =
+<main class="relative">
+  <div class="max-w-2xl lg:max-w-6xl mx-auto px-6">
+    <div class="pt-12">
+      <a class="text-orange-600 hover:text-orange-700" href="/opportunities">← Back to the opportunities</a>
+    </div>
+    <article class="pt-12 pb-20">
+      <div class="col-span-2 space-y-12">
+        <div class="space-y-8">
+          <div class="space-y-2">
+            <h1 class="text-3xl leading-9 font-bold text-gray-900 sm:text-4xl sm:leading-10"><%s item.title %></h1>
+            <p class="text-lg leading-7 text-gray-500"><%s item.company %></p>
+          </div>
+          <div class="py-4">
+            <dt class="sr-only">Location</dt>
+            <dl class="flex items-start space-x-2 text-sm leading-5">
+              <svg viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5 text-gray-400">
+                <path fill-rule="evenodd"
+                  d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                  clip-rule="evenodd">
+                </path>
+              </svg>
+              <div>
+                <div class="text-gray-800"><%s item.location %></div>
+              </div>
+            </dl>
+          </div>
+        </div>
+        <% if item.fullfilled then ( %>
+        <p class="text-gray-900">
+          <strong>This job posting is now closed, but we've left it online for anyone who'd like to reference it. Thanks to all who applied!</strong>
+        </p>
+        <% ); %>
+        <div class="prose prose-orange max-w-2xl lg:max-w-6xl">
+          <%s! item.description_html %>
+        </div>
+        <div>
+          <% if item.fullfilled then ( %>
+          <span class="opacity-50 cursor-not-allowed inline-block rounded-md bg-gray-900 px-4 py-2.5 text-base leading-6 font-semibold text-white">
+            Apply for this job
+          </span>
+          <% ) else ( %>
+          <a class="inline-block rounded-md bg-gray-900 px-4 py-2.5 text-base leading-6 font-semibold text-white" href="<%s item.link %>">
+            Apply for this job
+          </a>
+          <% ); %>
+        </div>
+      </div>
+    </article>
+  </div>
+</main>

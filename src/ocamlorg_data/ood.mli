@@ -100,6 +100,25 @@ module Event : sig
   val get_by_slug : string -> t option
 end
 
+module Job : sig
+  type t =
+    { id : int
+    ; title : string
+    ; link : string
+    ; description_html : string
+    ; location : string
+    ; company : string
+    ; company_logo : string
+    ; fullfilled : bool
+    }
+
+  val all : t list
+
+  val all_not_fullfilled : t list
+
+  val get_by_id : int -> t option
+end
+
 module Industrial_user : sig
   type t =
     { name : string

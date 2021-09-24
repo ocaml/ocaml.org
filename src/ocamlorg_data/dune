@@ -34,6 +34,16 @@
 
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
+ (targets job.ml)
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} job))))
+
+(rule
+ (deps ../../tool/ood-gen/bin/gen.exe)
  (targets industrial_user.ml)
  (mode
   (promote (until-clean)))

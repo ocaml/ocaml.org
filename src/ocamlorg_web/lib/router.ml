@@ -58,6 +58,9 @@ let page_routes =
     ; Dream.get Url.community_news Page_handler.community_news
     ; Dream.get Url.community_news_archive Page_handler.community_news_archive
     ; Dream.get Url.community_opportunities Page_handler.community_opportunities
+    ; Dream.get
+        (Url.community_opportunities ^ "/:id")
+        Page_handler.community_opportunity
     ; Dream.get Url.principles_successes Page_handler.principles_successes
     ; Dream.get
         Url.principles_industrial_users
