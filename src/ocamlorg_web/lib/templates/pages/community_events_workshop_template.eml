@@ -8,6 +8,7 @@ let render_some_videos tbl (ps : Workshop.presentation list) =
   in
   if List.length videos = 0 then "" else
   <div>
+    <h2 class="text-4xl font-bold mb-8">Some Videos</h2>
     <ul role="list" class="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0">
       <% videos |> List.iter begin fun w -> %>
         <li>
@@ -53,6 +54,22 @@ let render_presentations (ps : Workshop.presentation list) =
 let pp_member ppf (v : Workshop.committee_member) =
   Fmt.(pf ppf "%s%a" v.name (option (fun ppf s -> pf ppf " (%s)" s))) v.affiliation
 
+let render_committee ~title committee = 
+  <div class="mx-auto max-w-4xl mb-16">
+    <h2 class="text-xl font-bold mb-8"><%s title %></h2>
+    <p>
+      <%s Fmt.(str "%a" (list ~sep:comma pp_member)) committee %>
+    <p>
+  </div>
+
+let render_dates (workshop : Workshop.t) =
+  let len = List.length workshop.important_dates in
+  if len = 0 then "" else
+  <h2 class="text-4xl font-bold mb-8">Important Dates</h2>
+  <div class="flow-root rounded bg-white p-6">
+    <%s! Common.timeline ~iso8601:false ~last:(len - 1) (List.map (fun ({ date; info } : Workshop.important_date) -> (date, info)) workshop.important_dates) %>
+  </div>
+
 let render (tbl : (string, Watch.t) Hashtbl.t) (workshop : Workshop.t) =
   let open Ood.Workshop in
   <%s! Header_section_template.render ?subtitle:workshop.location workshop.title %>
@@ -64,30 +81,16 @@ let render (tbl : (string, Watch.t) Hashtbl.t) (workshop : Workshop.t) =
         </div>
       </div>
       <div class="mx-auto max-w-4xl px-6 mb-16">
-        <h2 class="text-4xl font-bold mb-8">Important Dates</h2>
-        <div class="flow-root rounded bg-white p-6">
-          <%s! Common.timeline ~iso8601:false ~last:(List.length workshop.important_dates - 1) (List.map (fun ({ date; info } : important_date) -> (date, info)) workshop.important_dates) %>
-        </div>
+        <%s! render_dates workshop %>
       </div>
       <div class="mx-auto max-w-4xl mb-16">
-        <h2 class="text-4xl font-bold mb-8">Some Videos</h2>
         <%s! render_some_videos tbl workshop.presentations %>
       </div>
       <div class="mx-auto max-w-4xl mb-16">
         <h2 class="text-4xl font-bold mb-8">All Presentations</h2>
         <%s! render_presentations workshop.presentations %>
       </div>
-      <div class="mx-auto max-w-4xl mb-16">
-        <h2 class="text-xl font-bold mb-8">Organising Committee</h2>
-        <p>
-          <%s Fmt.(str "%a" (list ~sep:comma pp_member)) workshop.organising_committee %>
-        <p>
-      </div>
-      <div class="mx-auto max-w-4xl mb-16">
-        <h2 class="text-xl font-bold mb-8">Program Committee</h2>
-        <p>
-          <%s Fmt.(str "%a" (list ~sep:comma pp_member)) workshop.program_committee %>
-        <p>
-      </div>
+      <%s! if List.length workshop.organising_committee = 0 then "" else render_committee ~title:"Organising Committee" workshop.organising_committee %>
+      <%s! if List.length workshop.program_committee = 0 then "" else render_committee ~title:"Program Committee" workshop.program_committee %>
     </div>
   </main>

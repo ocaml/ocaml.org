@@ -884,36 +884,32 @@ There is also an ASCII version of this information available, suitable for disse
 |js}
   };
  
-  { title = {js|OCaml Users and Developers Workshop 2016|js}
-  ; slug = {js|ocaml-users-and-developers-workshop-2016|js}
-  ; location = Some {js|Boston (MA,USA)|js}
-  ; date = {js|2013-09-23|js}
+  { title = {js|OCaml Users and Developers Workshop 2013|js}
+  ; slug = {js|ocaml-users-and-developers-workshop-2013|js}
+  ; location = Some {js|Boston, Massachusetts, USA|js}
+  ; date = {js|2013-09-24|js}
   ; online = false
   ; important_dates = 
  [
-  { date = {js|2013-10-07|js};
-    info = {js|The final program, with links to papers and slides is available.|js};
+  { date = {js|2013-06-18|js};
+    info = {js|Extended deadline for submissions|js};
   };
   
-  { date = {js|2013-07-11|js};
-    info = {js|The preliminary program is available.|js};
+  { date = {js|2013-07-07|js};
+    info = {js|Notification to speakers|js};
   };
   
-  { date = {js|2016-05-07|js};
-    info = {js|The submission site is now open! Please submit a presentation before June 18|js};
-  };
-  
-  { date = {js|2016-04-16|js};
-    info = {js|workshop announcement. The submission site should open in the next days.|js};
+  { date = {js|2013-09-24|js};
+    info = {js|Workshop|js};
   }]
   ; presentations = 
  [
   { title = {js|Accessing and using weather-related data in OCaml|js};
     authors = 
   ["Hezekiah Carty"];
-    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/weather-related-data.pdf https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/guha.pdf|js};
+    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/weather-related-data.pdf|js};
     video = None;
-    slides = None;
+    slides = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/guha.pdf|js};
     poster = None;
     additional_links = None;
   };
@@ -921,9 +917,9 @@ There is also an ASCII version of this information available, suitable for disse
   { title = {js|The Frenetic Network Controller|js};
     authors = 
   ["Nate Foster"; "Arjun Guha"; "Frenetic Contributors"];
-    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/frenetic.pdf https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/guha.pdf|js};
+    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/frenetic.pdf|js};
     video = None;
-    slides = None;
+    slides = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/guha.pdf|js};
     poster = None;
     additional_links = None;
   };
@@ -931,17 +927,17 @@ There is also an ASCII version of this information available, suitable for disse
   { title = {js|Pfff: PHP Program analysis at Facebook|js};
     authors = 
   ["Yoann Padioleau"];
-    link = Some {js|https://github.com/facebook/pfff/wiki/Main https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/padioleau.pdf|js};
+    link = Some {js|https://github.com/facebook/pfff/wiki/Main|js};
     video = None;
-    slides = None;
+    slides = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/padioleau.pdf|js};
     poster = None;
     additional_links = None;
   };
   
   { title = {js|The design of the wxOCaml library|js};
     authors = 
-  ["jjjjj"];
-    link = Some {js|xxxxx|js};
+  ["Fabrice Le Fessant"];
+    link = None;
     video = None;
     slides = None;
     poster = None;
@@ -951,9 +947,9 @@ There is also an ASCII version of this information available, suitable for disse
   { title = {js|Goji: an Automated Tool for Building High Level OCaml-JavaScript Interfaces|js};
     authors = 
   ["Benjamin Canou"];
-    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/wxocaml.pdf https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/lefessant.pdf|js};
+    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/wxocaml.pdf|js};
     video = None;
-    slides = None;
+    slides = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/lefessant.pdf|js};
     poster = None;
     additional_links = None;
   };
@@ -970,9 +966,9 @@ There is also an ASCII version of this information available, suitable for disse
   
   { title = {js|The State of OCaml|js};
     authors = ["Xavier Leroy"];
-    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/leroy.pdf|js};
+    link = None;
     video = None;
-    slides = None;
+    slides = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/leroy.pdf|js};
     poster = None;
     additional_links = None;
   };
@@ -985,18 +981,18 @@ There is also an ASCII version of this information available, suitable for disse
                                                                "Philippe Wang";
                                                                "Leo White";
                                                                "Jeremy Yallop"];
-    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/platform.pdf https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/madhavapeddy.pdf|js};
+    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/platform.pdf|js};
     video = None;
-    slides = None;
+    slides = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/madhavapeddy.pdf|js};
     poster = None;
     additional_links = None;
   };
   
   { title = {js|Extensions points for OCaml|js};
     authors = ["Leo White"];
-    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/white.pdf|js};
+    link = None;
     video = None;
-    slides = None;
+    slides = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/white.pdf|js};
     poster = None;
     additional_links = None;
   };
@@ -1004,9 +1000,9 @@ There is also an ASCII version of this information available, suitable for disse
   { title = {js|High-Performance GPGPU Programming with OCaml|js};
     authors = 
   ["Mathias Bourgoin"; "Emmmanuel Chailloux"; "Jean-Luc Lamotte"];
-    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/gpgpu.pdf https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/bourgoin.pdf|js};
+    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/gpgpu.pdf|js};
     video = None;
-    slides = None;
+    slides = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/bourgoin.pdf|js};
     poster = None;
     additional_links = None;
   };
@@ -1014,9 +1010,9 @@ There is also an ASCII version of this information available, suitable for disse
   { title = {js|Improving OCaml high level optimisations|js};
     authors = 
   ["Pierre Chambart"];
-    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/optimizations.pdf https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/chambart.pdf|js};
+    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/optimizations.pdf|js};
     video = None;
-    slides = None;
+    slides = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/chambart.pdf|js};
     poster = None;
     additional_links = None;
   };
@@ -1034,9 +1030,9 @@ There is also an ASCII version of this information available, suitable for disse
   { title = {js|Runtime types in OCaml|js};
     authors = ["Grégoire Henry";
                                                               "Jacques Garrigue"];
-    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/runtime-types.pdf https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/henry.pdf|js};
+    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/runtime-types.pdf|js};
     video = None;
-    slides = None;
+    slides = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/henry.pdf|js};
     poster = None;
     additional_links = None;
   };
@@ -1044,9 +1040,9 @@ There is also an ASCII version of this information available, suitable for disse
   { title = {js|On variance, injectivity, and abstraction|js};
     authors = 
   ["Jacques Garrigue"];
-    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/injectivity.pdf https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/garrigue.pdf|js};
+    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/injectivity.pdf|js};
     video = None;
-    slides = None;
+    slides = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/garrigue.pdf|js};
     poster = None;
     additional_links = None;
   };
@@ -1056,9 +1052,9 @@ There is also an ASCII version of this information available, suitable for disse
                                                                     "Anil Madhavapeddy";
                                                                     "Amir Chaudhry";
                                                                     "Thomas Gazagnaire"];
-    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/ocamlot.pdf https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/sheets.pdf|js};
+    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/ocamlot.pdf|js};
     video = None;
-    slides = None;
+    slides = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/sheets.pdf|js};
     poster = None;
     additional_links = None;
   };
@@ -1077,9 +1073,9 @@ There is also an ASCII version of this information available, suitable for disse
     authors = 
   ["Çagdas Bozman"; "Michel Mauny"; "Fabrice Le Fessant";
    "Thomas Gazagnaire"];
-    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/profiling-memory.pdf https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/bozman.pdf|js};
+    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/profiling-memory.pdf|js};
     video = None;
-    slides = None;
+    slides = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/bozman.pdf|js};
     poster = None;
     additional_links = None;
   };
@@ -1087,9 +1083,9 @@ There is also an ASCII version of this information available, suitable for disse
   { title = {js|Core bench: micro-benchmarking for OCaml|js};
     authors = 
   ["Christopher Hardin"; "James Roshan"];
-    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/core-bench.pdf https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/james.pdf|js};
+    link = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/core-bench.pdf|js};
     video = None;
-    slides = None;
+    slides = Some {js|https://github.com/ocaml/ocaml.org/blob/master/site/meetings/ocaml/2013/slides/james.pdf|js};
     poster = None;
     additional_links = None;
   }]
