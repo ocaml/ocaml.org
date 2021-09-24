@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: git diff
         if: ${{ !contains(github.event.pull_request.labels.*.name, 'no changelog needed') }}
