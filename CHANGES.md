@@ -1,5 +1,7 @@
 # Unreleased
 
+- Add a job board in opportunities (#115, by @tmattio)
+
 - Split js_of_ocaml toplevel execution into web-worker (#135, by @patricoferris)
 
   The execution of OCaml expressions in the toplevel now takes place in a web 
