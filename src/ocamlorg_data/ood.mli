@@ -86,12 +86,12 @@ module Event : sig
   type t =
     { title : string
     ; slug : string
-    ; description : string
+    ; description : string option
+    ; organiser : string option
     ; url : string
     ; date : string
     ; tags : string list
     ; online : bool
-    ; textual_location : string option
     ; location : string option
     }
 
@@ -117,6 +117,25 @@ module Job : sig
   val all_not_fullfilled : t list
 
   val get_by_id : int -> t option
+end
+
+module Meetup : sig
+  type location =
+    { lat : float
+    ; long : float
+    }
+
+  type t =
+    { title : string
+    ; slug : string
+    ; url : string
+    ; textual_location : string
+    ; location : location
+    }
+
+  val all : t list
+
+  val get_by_slug : string -> t option
 end
 
 module Industrial_user : sig

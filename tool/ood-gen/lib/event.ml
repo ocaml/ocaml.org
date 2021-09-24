@@ -1,11 +1,11 @@
 type t =
   { title : string
-  ; description : string
+  ; description : string option
+  ; organiser : string option
   ; url : string
   ; date : string
   ; tags : string list
   ; online : bool
-  ; textual_location : string option
   ; location : string option
   }
 [@@deriving yaml]
@@ -35,19 +35,21 @@ let pp ppf v =
   { title = %a
   ; slug = %a
   ; description = %a
+  ; organiser = %a
   ; url = %a
   ; date = %a
   ; tags = %a
   ; online = %b
-  ; textual_location = %a
   ; location = %a
   }|}
     Pp.string
     v.title
     Pp.string
     (Utils.slugify v.title)
-    Pp.string
+    Pp.(option string)
     v.description
+    Pp.(option string)
+    v.organiser
     Pp.string
     v.url
     Pp.string
@@ -55,8 +57,6 @@ let pp ppf v =
     (Pp.list Pp.string)
     v.tags
     v.online
-    (Pp.option Pp.string)
-    v.textual_location
     (Pp.option Pp.string)
     v.location
 
@@ -68,12 +68,12 @@ let template () =
 type t =
   { title : string
   ; slug : string
-  ; description : string
+  ; description : string option
+  ; organiser : string option
   ; url : string
   ; date : string
   ; tags : string list
   ; online : bool
-  ; textual_location : string option
   ; location : string option
   }
 
