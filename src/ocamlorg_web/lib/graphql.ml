@@ -146,17 +146,23 @@ let owners =
             ~typ:(non_null string)
             ~resolve:(fun _ user -> user.Opam_user.name)
         ; field
-            "handle"
-            ~doc:"Owner's handle"
+            "email"
+            ~doc:"Owner's email"
             ~args:Arg.[]
             ~typ:string
-            ~resolve:(fun _ user -> user.Opam_user.handle)
+            ~resolve:(fun _ user -> user.Opam_user.email)
         ; field
-            "image"
-            ~doc:"Owner's image"
+            "githubUsername"
+            ~doc:"Owner's GitHub username"
             ~args:Arg.[]
             ~typ:string
-            ~resolve:(fun _ user -> user.Opam_user.image)
+            ~resolve:(fun _ user -> user.Opam_user.github_username)
+        ; field
+            "avatar"
+            ~doc:"Owner's avatar image URL"
+            ~args:Arg.[]
+            ~typ:string
+            ~resolve:(fun _ user -> user.Opam_user.avatar)
         ]))
 
 let url =
