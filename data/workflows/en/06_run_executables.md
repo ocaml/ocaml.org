@@ -8,7 +8,7 @@ title: "Running executables"
 
 To tell dune to produce an executable, you can use the executable stanza:
 
-```
+```dune
 (executable
  (name <executable_name>)
  (public_name <public_name>)
@@ -23,7 +23,7 @@ Once dune has produced the executable with `dune build`, you can execute it with
 
 For instance, if you've put your dune file in `bin/dune` with the following content:
 
-```
+```dune
 (executable
  (name main)
  (public_name my-app)

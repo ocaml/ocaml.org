@@ -8,7 +8,7 @@ title: "Creating libraries"
 
 Creating a library with dune is as simple as adding a `library` stanza in your dune file:
 
-```
+```dune
 (library
  (name <name>)
  (public_name <public_name>)
