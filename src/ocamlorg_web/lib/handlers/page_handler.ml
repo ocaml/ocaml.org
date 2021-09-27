@@ -20,6 +20,9 @@ let not_found _req =
 
 let index _req =
   Page_layout_template.render
+  (* In order for the toplevel to work when revisiting a page, for now we force
+     a full reload when navigating back to the index page *)
+    ~turbo_full_reload:true
     ~title:"Welcome to a World of OCaml"
     ~description:
       "OCaml is a general purpose industrial-strength programming language \
