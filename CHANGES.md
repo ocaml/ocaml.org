@@ -1,5 +1,10 @@
 # Unreleased
 
+- Highlight code blocks in BKMs (#122, by @patricoferris)
+
+  As with the tutorials, the code blocks in the BKMs are primarily dune files, opam 
+  files or OCaml code which can be preprocessed for highlighting.
+
 - Use ocamlorg_data for opam users (#117, by @tmattio)
 
   This removes the hardcoded opam users in and uses the ones generated from the data in

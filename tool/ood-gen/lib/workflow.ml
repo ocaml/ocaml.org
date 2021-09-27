@@ -13,7 +13,7 @@ let all () =
       let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
       { title = metadata.title
       ; body_md = body
-      ; body_html = Omd.of_string body |> Omd.to_html
+      ; body_html = Omd.of_string body |> Hilite.Md.transform |> Omd.to_html
       })
     "workflows/en/*.md"
 

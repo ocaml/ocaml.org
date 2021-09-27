@@ -10,7 +10,7 @@ Tests are created using Dune's `test` stanza. The `test` stanza is a simple conv
 
 For instance, if you add a test in your dune file:
 
-```
+```dune
 (test
  (name dummy_test)
  (modules dummy_test))
@@ -34,7 +34,7 @@ The output is not very descriptive. If we want to create suites of unit tests, w
 
 Let's modify our dummy test to link to Alcotest:
 
-```
+```dune
 (test
  (name dummy_test)
  (modules dummy_test)
@@ -43,7 +43,7 @@ Let's modify our dummy test to link to Alcotest:
 
 With the following module:
 
-```
+```ocaml
 open Alcotest
 
 let test_hello_with_name name () =

@@ -16,13 +16,13 @@ When adding a new dependency, as seen in the "Update dependencies" workflow, you
 
 For `dune-project`, it looks like this:
 
-```
+```dune
 (alcotest :with-test)
 ```
 
 And for the `*.opam` file, it looks like:
 
-```
+```opam
 "alcotest" {with-test}
 ```
 
