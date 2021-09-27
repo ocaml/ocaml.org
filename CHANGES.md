@@ -18,7 +18,7 @@
 
 - Add initial toplevel to homepage (#106, by @tmattio)
 
-  Add a toplevel in the homage that provides function from the Standard Library.
+  Add a toplevel in the homepage that provides function from the Standard Library.
 
 - Add redirections from V2 URLs (#103, by @tmattio)
 
@@ -125,12 +125,12 @@
 - Remove french tutorials (ocaml/ood#79, by @tmattio)
 
   For the most part the French translations of the tutorials in ocaml.org are either incomplete or outdated.
-  In their current state, we won't import the translations, and we will work on improving them instead instead.
+  In their current state, we won't import the translations, and we will work on improving them instead.
 
 - Import releases (ocaml/ood#78, by @tmattio)
 
   Import the releases data from the current ocaml.org website.
-  The data is imported as-is, which lots of broken links and images.
+  The data is imported as-is, with lots of broken links and images.
   A follow up PR will be needed to fix the releases contents and add the
   pages in the frontend to display them.
 
