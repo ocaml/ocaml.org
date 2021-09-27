@@ -8,8 +8,8 @@ let render_user_list users =
   <ul class="space-y-3">
     <% users |> List.iter begin fun author -> %>
     <li class="flex justify-start">
-      <a href="<%s match author.Ocamlorg.Opam_user.handle with | None -> "" | Some handle -> "https://github.com/" ^ handle %>" class="flex items-center space-x-3">
-        <% (match author.Ocamlorg.Opam_user.image with | None -> () | Some avatar -> %>
+      <a href="<%s match author.Ocamlorg.Opam_user.github_username with | None -> "" | Some handle -> "https://github.com/" ^ handle %>" class="flex items-center space-x-3">
+        <% (match author.Ocamlorg.Opam_user.avatar with | None -> () | Some avatar -> %>
         <div class="flex-shrink-0">
           <img class="h-10 w-10 rounded-full" src="<%s avatar %>" alt="">
         </div>

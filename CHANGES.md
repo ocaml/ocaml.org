@@ -1,5 +1,13 @@
 # Unreleased
 
+- Use ocamlorg_data for opam users (#117, by @tmattio)
+
+  This removes the hardcoded opam users in and uses the ones generated from the data in
+  `data/opam-users.yml`.
+
+  When users want to have their avatar and a redirection to their GitHub profile from the
+  package overview, they can open a PR to add themselves in `data/opam-users.yml`.
+
 - Compile with OCaml `4.13.0` (#120, by @tmattio)
   
   The dependencies have been updated in order to be compabile with the OCaml `4.13.0`.

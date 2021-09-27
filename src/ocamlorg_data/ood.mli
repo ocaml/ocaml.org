@@ -263,8 +263,8 @@ module Opam_user : sig
   type t =
     { name : string
     ; email : string option
-    ; github_username : string
-    ; avatar : string
+    ; github_username : string option
+    ; avatar : string option
     }
 
   val all : t list

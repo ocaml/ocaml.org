@@ -10,6 +10,7 @@
   lwt.unix
   yojson
   cohttp
-  cohttp-lwt-unix))
+  cohttp-lwt-unix
+  ood))
 
 (include_subdirs unqualified)

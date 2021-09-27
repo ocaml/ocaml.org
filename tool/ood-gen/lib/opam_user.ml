@@ -1,8 +1,8 @@
 type metadata =
   { name : string
   ; email : string option
-  ; github_username : string
-  ; avatar : string
+  ; github_username : string option
+  ; avatar : string option
   }
 [@@deriving yaml]
 
@@ -11,8 +11,8 @@ let path = Fpath.v "data/opam-users.yml"
 type t =
   { name : string
   ; email : string option
-  ; github_username : string
-  ; avatar : string
+  ; github_username : string option
+  ; avatar : string option
   }
 
 let parse s =
@@ -64,9 +64,9 @@ let pp ppf v =
     v.name
     (Pp.option Pp.string)
     v.email
-    Pp.string
+    (Pp.option Pp.string)
     v.github_username
-    Pp.string
+    (Pp.option Pp.string)
     v.avatar
 
 let pp_list = Pp.list pp
@@ -77,8 +77,8 @@ let template () =
 type t =
   { name : string
   ; email : string option
-  ; github_username : string
-  ; avatar : string
+  ; github_username : string option
+  ; avatar : string option
   }
   
 let all = %a
