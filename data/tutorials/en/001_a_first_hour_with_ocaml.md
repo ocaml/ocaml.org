@@ -33,7 +33,7 @@ Use `;;` to indicate that you've finished entering each expression and prompt
 OCaml to evaluate it. We run OCaml and evaluate a simple expression:
 
 ```console
-        OCaml version 4.12.0
+        OCaml version 4.13.0
 
 # 50 * 50;;
 - : int = 2500
@@ -43,7 +43,7 @@ This is how it looks using `utop`:
 
 ```console
 ───────┬─────────────────────────────────────────────────────────────┬────
-       │ Welcome to utop version 2.7.0 (using OCaml version 4.12.0)! │     
+       │ Welcome to utop version 2.7.0 (using OCaml version 4.13.0)! │     
        └─────────────────────────────────────────────────────────────┘     
 
 Type #utop_help for help about using utop.
@@ -61,7 +61,7 @@ and load its contents directly with the `#use` directive:
 
 ```console
 $ ocaml
-        OCaml version 4.12.0
+        OCaml version 4.13.0
 
 # #use "program.ml"
 ```
@@ -878,8 +878,8 @@ Findlib has been successfully loaded. Additional directives:
 
 - : unit = ()
 # #require "graphics";;
-/Users/me/.opam/4.12.0/lib/graphics: added to search path
-/Users/me/.opam/4.12.0/lib/graphics/graphics.cma: loaded
+/Users/me/.opam/4.13.0/lib/graphics: added to search path
+/Users/me/.opam/4.13.0/lib/graphics/graphics.cma: loaded
 ```
 
 A couple of examples should make this clear. (The two examples draw different

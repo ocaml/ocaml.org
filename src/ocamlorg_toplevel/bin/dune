@@ -65,9 +65,9 @@
  js/
  (rule
   (alias toplevel)
-  (targets stdlib-4.12.0.js base-v0.14.1.js)
+  (targets stdlib-4.13.0.js base-v0.14.1.js)
   (deps ../toplevel_stdlib.js ../toplevel_base.js)
   (action
    (progn
-    (run jsoo_minify ../toplevel_stdlib.js -o stdlib-4.12.0.js)
+    (run jsoo_minify ../toplevel_stdlib.js -o stdlib-4.13.0.js)
     (run jsoo_minify ../toplevel_base.js -o base-v0.14.1.js)))))

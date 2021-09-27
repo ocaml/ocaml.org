@@ -11,10 +11,10 @@ Compilation environments are managed with opam switches. The typical workflow is
 To do this, you'll need to create global opam switches. To create an opam switch with a given version of the compiler, you can use:
 
 ```
-opam switch create 4.12.0 ocaml-base-compiler.4.12.0
+opam switch create 4.13.0 ocaml-base-compiler.4.13.0
 ```
 
-This will create a new switch called `4.12.0` with the compiler version `4.12.0`.
+This will create a new switch called `4.13.0` with the compiler version `4.13.0`.
 
 The list of available compiler version can be retrieved with:
 
@@ -40,9 +40,9 @@ Alternatively, you may want to automatically run commands in a given set of comp
 
 ```
 (lang dune 2.0)
-(context (opam (switch 4.10.0)))
 (context (opam (switch 4.11.0)))
 (context (opam (switch 4.12.0)))
+(context (opam (switch 4.13.0)))
 ```
 
 All the Dune commands you will run will be run on all of the switches listed, so for instance with the definition above:
@@ -51,4 +51,4 @@ All the Dune commands you will run will be run on all of the switches listed, so
 dune runtest --workspace dune-workspace
 ```
 
-Dune will run the tests for OCaml `4.10.0`, `4.11.0` and `4.12.0`.
+Dune will run the tests for OCaml `4.11.0`, `4.12.0` and `4.13.0`.

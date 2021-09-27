@@ -457,7 +457,7 @@ Use `;;` to indicate that you've finished entering each expression and prompt
 OCaml to evaluate it. We run OCaml and evaluate a simple expression:
 
 ```console
-        OCaml version 4.12.0
+        OCaml version 4.13.0
 
 # 50 * 50;;
 - : int = 2500
@@ -467,7 +467,7 @@ This is how it looks using `utop`:
 
 ```console
 ───────┬─────────────────────────────────────────────────────────────┬────
-       │ Welcome to utop version 2.7.0 (using OCaml version 4.12.0)! │     
+       │ Welcome to utop version 2.7.0 (using OCaml version 4.13.0)! │     
        └─────────────────────────────────────────────────────────────┘     
 
 Type #utop_help for help about using utop.
@@ -485,7 +485,7 @@ and load its contents directly with the `#use` directive:
 
 ```console
 $ ocaml
-        OCaml version 4.12.0
+        OCaml version 4.13.0
 
 # #use "program.ml"
 ```
@@ -1302,8 +1302,8 @@ Findlib has been successfully loaded. Additional directives:
 
 - : unit = ()
 # #require "graphics";;
-/Users/me/.opam/4.12.0/lib/graphics: added to search path
-/Users/me/.opam/4.12.0/lib/graphics/graphics.cma: loaded
+/Users/me/.opam/4.13.0/lib/graphics: added to search path
+/Users/me/.opam/4.13.0/lib/graphics/graphics.cma: loaded
 ```
 
 A couple of examples should make this clear. (The two examples draw different
@@ -1474,14 +1474,14 @@ the same basic interface but is much more convenient to use (history
 navigation, auto-completion, etc).</p>
 <p>Use <code>;;</code> to indicate that you've finished entering each expression and prompt
 OCaml to evaluate it. We run OCaml and evaluate a simple expression:</p>
-<pre><code class="language-console">        OCaml version 4.12.0
+<pre><code class="language-console">        OCaml version 4.13.0
 
 # 50 * 50;;
 - : int = 2500
 </code></pre>
 <p>This is how it looks using <code>utop</code>:</p>
 <pre><code class="language-console">───────┬─────────────────────────────────────────────────────────────┬────
-       │ Welcome to utop version 2.7.0 (using OCaml version 4.12.0)! │     
+       │ Welcome to utop version 2.7.0 (using OCaml version 4.13.0)! │     
        └─────────────────────────────────────────────────────────────┘     
 
 Type #utop_help for help about using utop.
@@ -1495,7 +1495,7 @@ utop # 50 * 50;;
 <code>utop</code> or TryOCaml with copy and paste. Alternatively, we may type into a file,
 and load its contents directly with the <code>#use</code> directive:</p>
 <pre><code class="language-console">$ ocaml
-        OCaml version 4.12.0
+        OCaml version 4.13.0
 
 # #use &quot;program.ml&quot;
 </code></pre>
@@ -2045,8 +2045,8 @@ declaration. Or we prefix all calls to the functions like this:
 </span><span class='ocaml-source'>
 </span><span class='ocaml-keyword-operator'>-</span><span class='ocaml-source'> </span><span class='ocaml-keyword-other-ocaml punctuation-other-colon punctuation'>:</span><span class='ocaml-source'> </span><span class='ocaml-support-type'>unit</span><span class='ocaml-source'> </span><span class='ocaml-keyword-operator'>=</span><span class='ocaml-source'> </span><span class='ocaml-constant-language'>()</span><span class='ocaml-source'>
 </span><span class='ocaml-keyword-other'>#</span><span class='ocaml-source'> </span><span class='ocaml-keyword-other'>#</span><span class='ocaml-source'>require</span><span class='ocaml-source'> </span><span class='ocaml-string-quoted-double'>"</span><span class='ocaml-string-quoted-double'>graphics</span><span class='ocaml-string-quoted-double'>"</span><span class='ocaml-keyword-other-ocaml punctuation-separator-terminator punctuation-separator'>;</span><span class='ocaml-keyword-other-ocaml punctuation-separator-terminator punctuation-separator'>;</span><span class='ocaml-source'>
-</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-constant-language-capital-identifier'>Users</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-source'>me</span><span class='ocaml-keyword-operator'>/.</span><span class='ocaml-source'>opam</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-constant-numeric-decimal-float'>4.12</span><span class='ocaml-keyword-other-ocaml punctuation-other-period punctuation-separator'>.</span><span class='ocaml-constant-numeric-decimal-integer'>0</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-source'>lib</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-source'>graphics</span><span class='ocaml-keyword-other-ocaml punctuation-other-colon punctuation'>:</span><span class='ocaml-source'> </span><span class='ocaml-source'>added</span><span class='ocaml-source'> </span><span class='ocaml-keyword-other'>to</span><span class='ocaml-source'> </span><span class='ocaml-source'>search</span><span class='ocaml-source'> </span><span class='ocaml-source'>path</span><span class='ocaml-source'>
-</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-constant-language-capital-identifier'>Users</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-source'>me</span><span class='ocaml-keyword-operator'>/.</span><span class='ocaml-source'>opam</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-constant-numeric-decimal-float'>4.12</span><span class='ocaml-keyword-other-ocaml punctuation-other-period punctuation-separator'>.</span><span class='ocaml-constant-numeric-decimal-integer'>0</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-source'>lib</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-source'>graphics</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-source'>graphics</span><span class='ocaml-keyword-other-ocaml punctuation-other-period punctuation-separator'>.</span><span class='ocaml-source'>cma</span><span class='ocaml-keyword-other-ocaml punctuation-other-colon punctuation'>:</span><span class='ocaml-source'> </span><span class='ocaml-source'>loaded</span><span class='ocaml-source'>
+</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-constant-language-capital-identifier'>Users</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-source'>me</span><span class='ocaml-keyword-operator'>/.</span><span class='ocaml-source'>opam</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-constant-numeric-decimal-float'>4.13</span><span class='ocaml-keyword-other-ocaml punctuation-other-period punctuation-separator'>.</span><span class='ocaml-constant-numeric-decimal-integer'>0</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-source'>lib</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-source'>graphics</span><span class='ocaml-keyword-other-ocaml punctuation-other-colon punctuation'>:</span><span class='ocaml-source'> </span><span class='ocaml-source'>added</span><span class='ocaml-source'> </span><span class='ocaml-keyword-other'>to</span><span class='ocaml-source'> </span><span class='ocaml-source'>search</span><span class='ocaml-source'> </span><span class='ocaml-source'>path</span><span class='ocaml-source'>
+</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-constant-language-capital-identifier'>Users</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-source'>me</span><span class='ocaml-keyword-operator'>/.</span><span class='ocaml-source'>opam</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-constant-numeric-decimal-float'>4.13</span><span class='ocaml-keyword-other-ocaml punctuation-other-period punctuation-separator'>.</span><span class='ocaml-constant-numeric-decimal-integer'>0</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-source'>lib</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-source'>graphics</span><span class='ocaml-keyword-operator'>/</span><span class='ocaml-source'>graphics</span><span class='ocaml-keyword-other-ocaml punctuation-other-period punctuation-separator'>.</span><span class='ocaml-source'>cma</span><span class='ocaml-keyword-other-ocaml punctuation-other-colon punctuation'>:</span><span class='ocaml-source'> </span><span class='ocaml-source'>loaded</span><span class='ocaml-source'>
 </span></code></pre><p>A couple of examples should make this clear. (The two examples draw different
 things - try them out). Note the first example uses <code>open</code> to open the Graphics
 module then calls <code>open_graph</code> and the second one uses <code>Graphics.open_graph</code>
@@ -10783,7 +10783,7 @@ val hello : unit -> unit
 
 (note the double asterisk at the beginning of the comment - it is a good habit
 to document .mli files using the format supported by
-[ocamldoc](/releases/4.12.0/htmlman/ocamldoc.html))
+[ocamldoc](/releases/4.13.0/htmlman/ocamldoc.html))
 
 Such .mli files must be compiled just before the matching .ml files. They are
 compiled using `ocamlc`, even if .ml files are compiled to native code using
@@ -11209,7 +11209,7 @@ is our <code>amodule2.mli</code> file:</p>
 </span><span class='ocaml-comment-doc'>(**</span><span class='ocaml-comment-doc'> Displays a greeting message. </span><span class='ocaml-comment-doc'>*)</span><span class='ocaml-source'>
 </span></code></pre><p>(note the double asterisk at the beginning of the comment - it is a good habit
 to document .mli files using the format supported by
-<a href="/releases/4.12.0/htmlman/ocamldoc.html">ocamldoc</a>)</p>
+<a href="/releases/4.13.0/htmlman/ocamldoc.html">ocamldoc</a>)</p>
 <p>Such .mli files must be compiled just before the matching .ml files. They are
 compiled using <code>ocamlc</code>, even if .ml files are compiled to native code using
 <code>ocamlopt</code>:</p>
@@ -15952,7 +15952,7 @@ ocamldebug a.out
 Then the debugger answers with a banner and a prompt:
 
 ```
-OCaml Debugger version 4.12.0
+OCaml Debugger version 4.13.0
 
 (ocd)
 ```
@@ -16251,7 +16251,7 @@ follows. First, we compile the program in debug mode:</p>
 <pre><code>ocamldebug a.out
 </code></pre>
 <p>Then the debugger answers with a banner and a prompt:</p>
-<pre><code>OCaml Debugger version 4.12.0
+<pre><code>OCaml Debugger version 4.13.0
 
 (ocd)
 </code></pre>
