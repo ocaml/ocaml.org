@@ -1,5 +1,7 @@
 let t =
   [ "/releases/4.05.html", "/???"
+  ; "/releases/4.13.0.html", "/???"
+  ; "/releases/4.12.1.html", "/???"
   ; "/releases/4.12.0.html", "/???"
   ; "/releases/4.09.1.html", "/???"
   ; "/releases/4.10.2.html", "/???"

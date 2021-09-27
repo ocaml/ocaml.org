@@ -22,11 +22,11 @@ jobs:
           - macos-latest
           - ubuntu-latest
         ocaml-compiler:
-          - ocaml-base-compiler.4.12.0
+          - ocaml-base-compiler.4.13.0
         # Add windows once Dream does not depend on `conf-libev`
         # include:
         #   - os: windows-latest
-        #     ocaml-compiler: ocaml-variants.4.12.0+mingw64c
+        #     ocaml-compiler: ocaml-variants.4.13.0+mingw64c
 
     steps:
       - name: Checkout code
@@ -68,7 +68,7 @@ jobs:
     strategy:
       matrix:
         ocaml-compiler:
-          - ocaml-base-compiler.4.12.0
+          - ocaml-base-compiler.4.13.0
 
     runs-on: ubuntu-latest
 

@@ -33,7 +33,7 @@ deps: ## Install development dependencies
 
 .PHONY: create_switch
 create_switch:
-	opam switch create . 4.12.0 --no-install
+	opam switch create . 4.13.0 --no-install
 
 .PHONY: switch
 switch: create_switch deps ## Create an opam switch and install development dependencies

@@ -1,5 +1,10 @@
 # Unreleased
 
+- Compile with OCaml `4.13.0` (#120, by @tmattio)
+  
+  The dependencies have been updated in order to be compabile with the OCaml `4.13.0`.
+  The tutorials and documentation have also been updated to use `4.13.0` instead of `4.12.0`.
+
 - Add code-highlighting to tutorials (#108, by @patricoferris)
 - Add initial set of Best Known Methods (#107, by @tmattio)
 - Add initial toplevel to homepage (#106, by @tmattio)

@@ -204,7 +204,7 @@ ocamldebug a.out
 Then the debugger answers with a banner and a prompt:
 
 ```
-OCaml Debugger version 4.12.0
+OCaml Debugger version 4.13.0
 
 (ocd)
 ```

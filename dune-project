@@ -62,13 +62,13 @@
   yojson
   lwt
   (js_of_ocaml
-   (< 3.10))
+   (>= 3.11.0))
   (js_of_ocaml-ppx
-   (< 3.10))
+   (>= 3.11.0))
   (js_of_ocaml-compiler
-   (< 3.10))
+   (>= 3.11.0))
   (js_of_ocaml-tyxml
-   (< 3.10))
+   (>= 3.11.0))
   (js_of_ocaml-toplevel
-   (< 3.10))
+   (>= 3.11.0))
   (alcotest :with-test)))

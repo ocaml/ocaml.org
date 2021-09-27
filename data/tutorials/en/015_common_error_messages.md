@@ -155,7 +155,7 @@ Line 3, characters 14-20:
 Warning 12 [redundant-subpat]: this sub-pattern is unused.
 Line 3, characters 5-20:
 Warning 57 [ambiguous-var-in-pattern-guard]: Ambiguous or-pattern variables under guard;
-variable y may match different arguments. (See manual section 9.5)
+variable y may match different arguments. (See manual section 11.5)
 val test_member : 'a -> 'a * 'a -> bool = <fun>
 ```
 Obviously, the programmer had a misconception of what OCaml's pattern
