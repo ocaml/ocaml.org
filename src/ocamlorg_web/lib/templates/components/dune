@@ -1,10 +1,4 @@
 (rule
- (targets flyout_menu_template.ml)
- (deps flyout_menu_template.eml)
- (action
-  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
-
-(rule
  (targets footer_template.ml)
  (deps footer_template.eml)
  (action
