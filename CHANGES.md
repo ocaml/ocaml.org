@@ -1,5 +1,11 @@
 # Unreleased
 
+- Smarter and sorted package search (#131, by @panglesd)
+
+  Improve the search algorithm to sort packages by relevance.
+
+  The algorithm now uses the synopsis, descriptions and tags of the package.
+
 - Better formatting of odoc def tables, hiding comment-delim (#130, by @panglesd)
 
   Added css rules to hide comment delimiters and improve overall sizing
