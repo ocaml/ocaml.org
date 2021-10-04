@@ -145,4 +145,15 @@ val get_package : state -> Name.t -> Version.t -> t option
 (** Get a package given its name and version. *)
 
 val search_package : state -> string -> t list
-(** Search package names that match the given string. *)
+(** Search package that match the given string.
+
+    Packages returned contain the string either in the name, tags, synopsis or
+    description. They are ordered in the following way:
+
+    - Packages whose name is exactly the given string
+    - packages whose name contain the given string
+    - packages having the given string as a tag
+    - packages whose synopsis contain the given string
+    - packages whose description contain the given string.
+
+    A call to this function call Lazy.force on every package info. *)

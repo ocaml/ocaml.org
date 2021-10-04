@@ -1,3 +1,4 @@
+open Std
 module Name = OpamPackage.Name
 module Name_map = Map.Make (Name)
 module Version = OpamPackage.Version
@@ -409,21 +410,45 @@ let module_map ~kind t =
 
 let search_package t pattern =
   let pattern = String.lowercase_ascii pattern in
-  let contains s1 s2 =
-    try
-      let len = String.length s2 in
-      for i = 0 to String.length s1 - len do
-        if String.sub s1 i len = s2 then raise Exit
-      done;
-      false
-    with
-    | Exit ->
-      true
+  let name_is_s { name; _ } =
+    String.lowercase_ascii @@ Name.to_string name = pattern
+  in
+  let name_contains_s { name; _ } =
+    String.contains_s (String.lowercase_ascii @@ Name.to_string name) pattern
+  in
+  let synopsis_contains_s { info; _ } =
+    let info = Lazy.force info in
+    String.contains_s (String.lowercase_ascii info.synopsis) pattern
+  in
+  let description_contains_s { info; _ } =
+    let info = Lazy.force info in
+    String.contains_s (String.lowercase_ascii info.description) pattern
+  in
+  let has_tag_s { info; _ } =
+    let info = Lazy.force info in
+    List.exists
+      (fun tag -> String.contains_s (String.lowercase_ascii tag) pattern)
+      info.tags
+  in
+  let score package =
+    if name_is_s package then
+      -1
+    else if name_contains_s package then
+      0
+    else if has_tag_s package then
+      1
+    else if synopsis_contains_s package then
+      2
+    else if description_contains_s package then
+      3
+    else
+      failwith "impossible package score"
   in
   all_packages_latest t
-  |> List.filter (fun { name; _ } ->
-         if contains (String.lowercase_ascii @@ Name.to_string name) pattern
-         then
-           true
-         else
-           false)
+  |> List.filter (fun p ->
+         name_contains_s p
+         || synopsis_contains_s p
+         || description_contains_s p
+         || has_tag_s p)
+  |> List.sort (fun package1 package2 ->
+         compare (score package1) (score package2))
