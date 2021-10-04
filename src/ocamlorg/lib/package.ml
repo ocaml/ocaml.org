@@ -428,11 +428,11 @@ let search_package t pattern =
     else if contains (String.lowercase_ascii @@ Name.to_string name) pattern then
       0
     else if List.exists (fun tag -> contains (String.lowercase_ascii tag) pattern) info.tags then
-      0
+      1
     else if contains (String.lowercase_ascii info.synopsis) pattern then
-      0
+      2
     else if contains (String.lowercase_ascii info.description) pattern then
-      0
+      3
     else
       failwith "impossible package score" in
   all_packages_latest t
