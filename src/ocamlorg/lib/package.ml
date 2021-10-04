@@ -420,10 +420,30 @@ let search_package t pattern =
     | Exit ->
       true
   in
+  let score package =
+    let info = Lazy.force package.info
+    and name = package.name in
+    if (String.lowercase_ascii @@ Name.to_string name) = pattern then
+      -1
+    else if contains (String.lowercase_ascii @@ Name.to_string name) pattern then
+      0
+    else if List.exists (fun tag -> contains (String.lowercase_ascii tag) pattern) info.tags then
+      0
+    else if contains (String.lowercase_ascii info.synopsis) pattern then
+      0
+    else if contains (String.lowercase_ascii info.description) pattern then
+      0
+    else
+      failwith "impossible package score" in
   all_packages_latest t
-  |> List.filter (fun { name; _ } ->
+  |> List.filter (fun { name; info; _ } ->
+         let info = Lazy.force info in
          if contains (String.lowercase_ascii @@ Name.to_string name) pattern
+            || contains (String.lowercase_ascii info.synopsis) pattern
+            || List.exists (fun tag -> contains (String.lowercase_ascii tag) pattern) info.tags
+            || contains (String.lowercase_ascii info.description) pattern
          then
            true
          else
            false)
+  |> List.sort (fun package1 package2 -> compare (score package1) (score package2))
