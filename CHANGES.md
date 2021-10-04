@@ -1,5 +1,11 @@
 # Unreleased
 
+- Better formatting of odoc def tables, hiding comment-delim (#130, by @panglesd)
+
+  Added css rules to hide comment delimiters and improve overall sizing
+
+  Copy pasting still include comments delimiters to output valid code.
+
 - Highlight code blocks in BKMs (#122, by @patricoferris)
 
   As with the tutorials, the code blocks in the BKMs are primarily dune files, opam 
