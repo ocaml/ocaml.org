@@ -68,3 +68,19 @@ div.odoc code::before {
 div.odoc code::after {
   content: '';
 }
+
+div.odoc td.def-doc .comment-delim {
+    height:0;
+    display: block;
+    opacity: 0;
+}
+
+div.odoc .def-doc p {
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
+}
+
+div.odoc div.spec tbody td.def {
+    padding-top: 0.75em;
+    white-space: nowrap;
+}
