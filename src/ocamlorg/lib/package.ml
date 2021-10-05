@@ -216,7 +216,7 @@ module Info = struct
     in
     Logs.info (fun f -> f "Dependencies...");
     let dependencies = get_dependency_set packages opams in
-    Logs.info (fun f -> f "Reverse dependencies..."); 
+    Logs.info (fun f -> f "Reverse dependencies...");
     let* rev_deps = rev_depends dependencies in
     Logs.info (fun f -> f "Generate package info");
     Lwt_fold.package_name_map
