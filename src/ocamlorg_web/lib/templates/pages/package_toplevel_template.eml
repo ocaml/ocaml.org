@@ -80,7 +80,7 @@ let render toplevel_url =
 <noscript>
   You need to enable JavaScript to run this app.
 </noscript>
-<div id="toplevel-container" class="my-6 px-6 py-6 rounded-xl overflow-auto bg-gray-800">
+<div id="toplevel-container" class="my-6 px-6 py-6 rounded-xl overflow-auto bg-white">
   <pre>
     <code id="output"></code>
   </pre>

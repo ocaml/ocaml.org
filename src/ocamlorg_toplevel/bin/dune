@@ -4,9 +4,7 @@
  (name toplevel_base)
  (libraries ocamlorg_toplevel base)
  (modules toplevel_base)
- (flags
-  (:standard -rectypes -linkall))
- (modes byte))
+ (modes js))
 
 (rule
  (targets export_base.txt)
@@ -15,7 +13,7 @@
   (run jsoo_listunits -o %{targets} stdlib base)))
 
 (rule
- (targets toplevel_base.js)
+ (targets worker_base.js)
  (action
   (run
    %{bin:js_of_ocaml}
@@ -26,7 +24,7 @@
    +toplevel.js
    +dynlink.js
    +base/runtime.js
-   %{dep:toplevel_base.bc}
+   %{dep:worker.bc}
    -o
    %{targets})))
 
@@ -36,9 +34,9 @@
  (name toplevel_stdlib)
  (libraries ocamlorg_toplevel stdlib)
  (modules toplevel_stdlib)
- (flags
-  (:standard -rectypes -linkall))
- (modes byte))
+ (modes js))
+
+; Stdlib worker
 
 (rule
  (targets export_stdlib.txt)
@@ -46,8 +44,23 @@
  (action
   (run jsoo_listunits -o %{targets} stdlib)))
 
+(executable
+ (name worker)
+ (libraries
+  brr
+  ocamlorg_toplevel
+  js_of_ocaml-toplevel
+  js_of_ocaml-compiler
+  stdlib)
+ (modules worker)
+ (flags
+  (:standard -rectypes -linkall))
+ (preprocess
+  (pps js_of_ocaml-ppx))
+ (modes byte))
+
 (rule
- (targets toplevel_stdlib.js)
+ (targets worker.js)
  (action
   (run
    %{bin:js_of_ocaml}
@@ -57,7 +70,7 @@
    --pretty
    +toplevel.js
    +dynlink.js
-   %{dep:toplevel_stdlib.bc}
+   %{dep:worker.bc}
    -o
    %{targets})))
 
@@ -65,9 +78,15 @@
  js/
  (rule
   (alias toplevel)
-  (targets stdlib-4.13.0.js base-v0.14.1.js)
-  (deps ../toplevel_stdlib.js ../toplevel_base.js)
+  (targets stdlib-4.13.0.js worker.js worker_base.js base-v0.14.1.js)
+  (deps
+   ../toplevel_stdlib.bc.js
+   ../worker.js
+   ../worker_base.js
+   ../worker_base.js)
   (action
    (progn
-    (run jsoo_minify ../toplevel_stdlib.js -o stdlib-4.13.0.js)
-    (run jsoo_minify ../toplevel_base.js -o base-v0.14.1.js)))))
+    (run jsoo_minify ../toplevel_stdlib.bc.js -o stdlib-4.13.0.js)
+    (run jsoo_minify ../worker.js -o worker.js)
+    (run jsoo_minify ../toplevel_base.bc.js -o base-v0.14.1.js)
+    (run jsoo_minify ../worker_base.js -o worker_base.js)))))

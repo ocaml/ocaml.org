@@ -1,9 +1,6 @@
 (library
  (name ocamlorg_toplevel)
  (public_name ocamlorg.toplevel)
- (libraries lwt js_of_ocaml-compiler js_of_ocaml-tyxml js_of_ocaml-toplevel)
- (flags
-  (:standard -rectypes -linkall))
- (modes byte)
+ (libraries lwt brr js_of_ocaml-tyxml)
  (preprocess
   (pps js_of_ocaml-ppx)))

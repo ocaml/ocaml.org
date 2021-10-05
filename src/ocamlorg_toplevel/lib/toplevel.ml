@@ -20,10 +20,9 @@
 
 open Js_of_ocaml
 open Js_of_ocaml_tyxml
-open Js_of_ocaml_toplevel
+open Brr_io
 open Lwt
-
-let compiler_name = "OCaml"
+module Worker = Brr_webworkers.Worker
 
 let by_id s = Dom_html.getElementById s
 
@@ -32,77 +31,6 @@ let by_id_coerce s f =
 
 let do_by_id s f = try f (Dom_html.getElementById s) with Not_found -> ()
 
-let exec' s =
-  let res : bool = JsooTop.use Format.std_formatter s in
-  if not res then Format.eprintf "error while evaluating %s@." s
-
-module Version = struct
-  type t = int list
-
-  let split_char ~sep p =
-    let len = String.length p in
-    let rec split beg cur =
-      if cur >= len then
-        if cur - beg > 0 then [ String.sub p beg (cur - beg) ] else []
-      else if sep p.[cur] then
-        String.sub p beg (cur - beg) :: split (cur + 1) (cur + 1)
-      else
-        split beg (cur + 1)
-    in
-    split 0 0
-
-  let split v =
-    match
-      split_char ~sep:(function '+' | '-' | '~' -> true | _ -> false) v
-    with
-    | [] ->
-      assert false
-    | x :: _ ->
-      List.map
-        int_of_string
-        (split_char ~sep:(function '.' -> true | _ -> false) x)
-
-  let current = split Sys.ocaml_version
-
-  let compint (a : int) b = compare a b
-
-  let rec compare v v' =
-    match v, v' with
-    | [ x ], [ y ] ->
-      compint x y
-    | [], [] ->
-      0
-    | [], y :: _ ->
-      compint 0 y
-    | x :: _, [] ->
-      compint x 0
-    | x :: xs, y :: ys ->
-      (match compint x y with 0 -> compare xs ys | n -> n)
-end
-
-let setup_toplevel () =
-  JsooTop.initialize ();
-  Sys.interactive := false;
-  if Version.compare Version.current [ 4; 07 ] >= 0 then exec' "open Stdlib";
-  let header1 = Printf.sprintf "        %s version %%s" compiler_name in
-  let header2 =
-    Printf.sprintf
-      "     Compiled with Js_of_ocaml version %s"
-      Sys_js.js_of_ocaml_version
-  in
-  exec' (Printf.sprintf "Format.printf \"%s@.\" Sys.ocaml_version;;" header1);
-  exec' (Printf.sprintf "Format.printf \"%s@.\";;" header2);
-  exec' "#enable \"pretty\";;";
-  exec' "#disable \"shortvar\";;";
-  let[@alert "-deprecated"] new_directive n k =
-    Hashtbl.add Toploop.directive_table n k
-  in
-  new_directive
-    "load_js"
-    (Toploop.Directive_string (fun name -> Js.Unsafe.global##load_script_ name));
-  Sys.interactive := true;
-  ()
-
 let resize ~container ~textbox () =
   Lwt.pause () >>= fun () ->
   textbox##.style##.height := Js.string "auto";
@@ -110,12 +38,6 @@ let resize ~container ~textbox () =
   := Js.string (Printf.sprintf "%dpx" (max 18 textbox##.scrollHeight));
   container##.scrollTop := container##.scrollHeight;
   Lwt.return ()
-
-let setup_printers () =
-  exec' "let _print_unit fmt (_ : 'a) : 'a = Format.pp_print_string fmt \"()\"";
-  Topdirs.dir_install_printer
-    Format.std_formatter
-    Longident.(Lident "_print_unit")
 
 (* we need to compute the hash form href to avoid different encoding behavior
    across browser. see Url.get_fragment *)
@@ -134,7 +56,7 @@ let rec iter_on_sharp ~f x =
 
 let current_position = ref 0
 
-let highlight_location loc =
+let highlight_location ((line1, col1), (line2, col2)) =
   let x = ref 0 in
   let output = by_id "output" in
   let first =
@@ -144,14 +66,13 @@ let highlight_location loc =
   in
   iter_on_sharp first ~f:(fun e ->
       incr x;
-      let _file1, line1, col1 = Location.get_pos_info loc.Location.loc_start in
-      let _file2, line2, col2 = Location.get_pos_info loc.Location.loc_end in
       if !x >= line1 && !x <= line2 then
         let from_ = if !x = line1 then `Pos col1 else `Pos 0 in
         let to_ = if !x = line2 then `Pos col2 else `Last in
         Colorize.highlight from_ to_ e)
 
 let append colorize output cl s =
+  Brr.Console.log [ "APPPEND"; cl; s ];
   Dom.appendChild output (Tyxml_js.To_dom.of_element (colorize ~a_class:cl s))
 
 module History = struct
@@ -210,14 +131,111 @@ module History = struct
       textbox##.value := Js.string !data.(!idx))
 end
 
-let run _ =
+module Worker_rpc = struct
+  type t = Jv.t
+
+  let stdout t = Jv.Jstr.find t "stdout"
+
+  let set_stdout t = Jv.Jstr.set t "stdout"
+
+  let stderr t = Jv.Jstr.find t "stderr"
+
+  let set_stderr t = Jv.Jstr.set t "stderr"
+
+  let sharp_ppf t = Jv.Jstr.find t "sharp_ppf"
+
+  let set_sharp_ppf t = Jv.Jstr.set t "sharp_ppf"
+
+  let caml_ppf t = Jv.Jstr.find t "caml_ppf"
+
+  let set_caml_ppf t = Jv.Jstr.set t "caml_ppf"
+
+  (* Encoded highlight position as only line and column positions *)
+  let highlight t =
+    let jv = Jv.find t "highlight" in
+    Option.map
+      (fun jv ->
+        ( (Jv.Int.get jv "line1", Jv.Int.get jv "col1")
+        , (Jv.Int.get jv "line2", Jv.Int.get jv "col2") ))
+      jv
+
+  let make_highlight ((l1, c1), (l2, c2)) =
+    let o = Jv.obj [||] in
+    Jv.Int.set o "line1" l1;
+    Jv.Int.set o "col1" c1;
+    Jv.Int.set o "line2" l2;
+    Jv.Int.set o "col2" c2;
+    o
+
+  let set_highlight t h = Jv.set t "highlight" (make_highlight h)
+
+  let create ?stdout ?stderr ?sharp_ppf ?caml_ppf ?highlight () =
+    let o = Jv.obj [||] in
+    Option.iter (set_stdout o) stdout;
+    Option.iter (set_stderr o) stderr;
+    Option.iter (set_sharp_ppf o) sharp_ppf;
+    Option.iter (set_caml_ppf o) caml_ppf;
+    Option.iter (set_highlight o) highlight;
+    o
+
+  let of_json v = Brr.Json.decode v |> Result.get_ok
+
+  let to_json v = Brr.Json.encode v
+end
+
+let timeout_container () =
+  let open Brr in
+  match Document.find_el_by_id G.document @@ Jstr.v "toplevel-container" with
+  | Some el ->
+    El.(
+      set_children
+        el
+        [ El.p
+            [ El.txt' "Toplevel terminated after timeout on previous execution"
+            ]
+        ])
+  | None ->
+    ()
+
+let outstanding_execution : Brr.G.timer_id option ref = ref None
+
+let run s =
+  let worker =
+    try Worker.create (Jstr.v s) with
+    | Jv.Error _ ->
+      failwith "Failed to created worker"
+  in
   let container = by_id "toplevel-container" in
   let output = by_id "output" in
   let textbox : 'a Js.t = by_id_coerce "userinput" Dom_html.CoerceTo.textarea in
-  let sharp_chan = open_out "/dev/null0" in
-  let sharp_ppf = Format.formatter_of_out_channel sharp_chan in
-  let caml_chan = open_out "/dev/null1" in
-  let caml_ppf = Format.formatter_of_out_channel caml_chan in
+  textbox##.disabled := Js._false;
+  let recv_from_worker msg =
+    Option.iter Brr.G.stop_timer !outstanding_execution;
+    outstanding_execution := None;
+    let msg : Jstr.t = Message.Ev.data (Brr.Ev.as_type msg) in
+    let worker_data = Worker_rpc.of_json msg in
+    let get_jstr f = Option.map Jstr.to_string @@ f worker_data in
+    Option.iter
+      (append Colorize.ocaml output "sharp")
+      (get_jstr Worker_rpc.sharp_ppf);
+    Option.iter
+      (append Colorize.text output "stdout")
+      (get_jstr Worker_rpc.stdout);
+    Option.iter
+      (append Colorize.text output "stderr")
+      (get_jstr Worker_rpc.stderr);
+    Option.iter
+      (append Colorize.ocaml output "caml")
+      (get_jstr Worker_rpc.caml_ppf);
+    Option.iter highlight_location (Worker_rpc.highlight worker_data);
+    Lwt.async @@ resize ~container ~textbox;
+    container##.scrollTop := container##.scrollHeight;
+    ignore textbox##focus;
+    ()
+  in
+  let () =
+    Brr.Ev.listen Message.Ev.message recv_from_worker (Worker.as_target worker)
+  in
   let execute () =
     let content = Js.to_string textbox##.value##trim in
     let content' =
@@ -236,15 +254,14 @@ let run _ =
     current_position := output##.childNodes##.length;
     textbox##.value := Js.string "";
     History.push content;
-    JsooTop.execute
-      true
-      ~pp_code:sharp_ppf
-      ~highlight_location
-      caml_ppf
-      content';
-    resize ~container ~textbox () >>= fun () ->
-    container##.scrollTop := container##.scrollHeight;
-    textbox##focus;
+    (* Either execute and set outstanding execution or do nothing *)
+    if Option.is_none !outstanding_execution then (
+      Worker.post worker (Jstr.v content');
+      outstanding_execution :=
+        Some
+          (Brr.G.set_timeout ~ms:10000 (fun () ->
+               Worker.terminate worker;
+               timeout_container ())));
     Lwt.return_unit
   in
   let history_down _e =
@@ -303,7 +320,7 @@ let run _ =
           output##.innerHTML := Js.string "";
           Js._true
         | 75 when meta e ->
-          setup_toplevel ();
+          Worker.post worker (Jstr.v "setup_toplevel");
           Js._false
         | 38 ->
           history_up e
@@ -313,16 +330,13 @@ let run _ =
           Js._true);
   (Lwt.async_exception_hook :=
      fun exc ->
-       Format.eprintf "exc during Lwt.async: %s@." (Printexc.to_string exc);
+       Brr.Console.error
+         [ Jstr.v @@ "exc during Lwt.async: " ^ Printexc.to_string exc ];
        match exc with Js.Error e -> Firebug.console##log e##.stack | _ -> ());
   Lwt.async (fun () ->
       resize ~container ~textbox () >>= fun () ->
       textbox##focus;
       Lwt.return_unit);
-  Sys_js.set_channel_flusher caml_chan (append Colorize.ocaml output "caml");
-  Sys_js.set_channel_flusher sharp_chan (append Colorize.ocaml output "sharp");
-  Sys_js.set_channel_flusher stdout (append Colorize.text output "stdout");
-  Sys_js.set_channel_flusher stderr (append Colorize.text output "stderr");
   let readline () =
     Js.Opt.case
       (Dom_html.window##prompt
@@ -332,8 +346,7 @@ let run _ =
       (fun s -> Js.to_string s ^ "\n")
   in
   Sys_js.set_channel_filler stdin readline;
-  setup_toplevel ();
-  setup_printers ();
+  Worker.post worker (Jstr.v "setup");
   History.setup ();
   textbox##.value := Js.string "";
   (* Run initial code if any *)
@@ -349,9 +362,3 @@ let run _ =
       (Js.string "exception")
       (Js.string (Printexc.to_string exc))
       exc
-
-let _ =
-  Dom_html.window##.onload :=
-    Dom_html.handler (fun _ ->
-        run ();
-        Js._false)

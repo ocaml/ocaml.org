@@ -1,5 +1,4 @@
 #toplevel-container {
-  color: #ccc;
   overflow: auto;
   overflow-x: hidden;
 }
@@ -7,9 +6,8 @@
 #toplevel-container textarea {
   width: 90%;
   line-height: 18px;
-  font-size: 12px;
+  font-size: 14px;
   background-color: transparent;
-  color: #fff;
   border: 0;
   resize: none;
   outline: none;
@@ -22,17 +20,16 @@
 
 #toplevel-container #output {
   background-color: transparent;
-  color: #ccc;
   border: none;
   line-height: 18px;
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 0px;
 }
 
 #toplevel-container #sharp {
   float: left;
   line-height: 18px;
-  font-size: 12px;
+  font-size: 14px;
   font-family: Menlo, Monaco, Consolas, monospace;
   white-space: pre;
 }
@@ -40,7 +37,7 @@
 #toplevel-container .sharp:before {
   content: "# ";
   line-height: 18px;
-  font-size: 12px;
+  font-size: 14px;
   font-family: Menlo, Monaco, Consolas, monospace;
 }
 
