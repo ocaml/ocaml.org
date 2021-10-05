@@ -272,8 +272,6 @@ type state =
   ; mutable packages : Info.t OpamPackage.Version.Map.t OpamPackage.Name.Map.t
   }
 
-let get_state { packages; _ } = packages
-
 let state_of_package_list (pkgs : t list) =
   let map = OpamPackage.Name.Map.empty in
   let add_version (pkg : t) map =

@@ -76,8 +76,6 @@ module Module_map = Module_map
 
 type state
 
-val get_state : state -> Info.t OpamPackage.Version.Map.t OpamPackage.Name.Map.t
-
 type t
 
 val state_of_package_list : t list -> state
