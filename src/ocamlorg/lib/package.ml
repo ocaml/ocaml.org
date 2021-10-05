@@ -79,16 +79,8 @@ module Info = struct
       opams
       OpamPackage.Map.empty
 
-  let _get_conflict_set pkgs map =
-    let f opam = OpamFile.OPAM.conflicts opam in
-    depends pkgs map f
-
   let get_dependency_set pkgs map =
     let f opam = OpamFile.OPAM.depends opam in
-    depends pkgs map f
-
-  let _get_depopts_set pkgs map =
-    let f opam = OpamFile.OPAM.depopts opam in
     depends pkgs map f
 
   let get_conflicts (opam : OpamFile.OPAM.t) =
