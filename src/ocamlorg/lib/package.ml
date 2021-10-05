@@ -547,15 +547,12 @@ let search_package t pattern =
     String.contains_s (String.lowercase_ascii @@ Name.to_string name) pattern
   in
   let synopsis_contains_s { info; _ } =
-    let info = Lazy.force info in
     String.contains_s (String.lowercase_ascii info.synopsis) pattern
   in
   let description_contains_s { info; _ } =
-    let info = Lazy.force info in
     String.contains_s (String.lowercase_ascii info.description) pattern
   in
   let has_tag_s { info; _ } =
-    let info = Lazy.force info in
     List.exists
       (fun tag -> String.contains_s (String.lowercase_ascii tag) pattern)
       info.tags
