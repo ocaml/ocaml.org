@@ -1,5 +1,10 @@
 # Unreleased
 
+-  Remove vertical scrollbar for the documentation navigation bar (#132, by @TheLortex)
+
+  Removed a negative margin in the documentation navigation bar that caused
+  a vertical overflow.
+
 - Smarter and sorted package search (#131, by @panglesd)
 
   Improve the search algorithm to sort packages by relevance.
