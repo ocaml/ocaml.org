@@ -33,6 +33,10 @@ let render ~readme ~license:_ package =
     | "" -> gettext "No License"
     | l -> l
   in
+  let rev_deps = package_info.Ocamlorg.Package.Info.rev_deps |> List.map (fun (name, x) ->
+      (Ocamlorg.Package.Name.to_string name, x)
+    )
+  in
   let package_deps = 
     package_info.Ocamlorg.Package.Info.dependencies |> List.map (fun (name, x) ->
       (Ocamlorg.Package.Name.to_string name, x)
@@ -131,6 +135,23 @@ let render ~readme ~license:_ package =
             <dd class="mt-2 text-sm text-gray-900 max-h-80 overflow-y-auto">
               <ul class="divide-y divide-gray-100">
                 <% package_deps |> List.iter begin fun (name, cstr) -> %>
+                <li class="py-2">
+                  <a href="/p/<%s name %>" class="mt-1 text-sm text-orange-600 hover:text-orange-500"><%s name %></a>
+                  <% match cstr with None -> () | Some cstr -> %>
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white text-gray-800">
+                    <pre><%s cstr %></pre>
+                  </span>
+                  <% ; %>
+                </li>
+                <% end; %>
+              </ul>
+            </dd>
+          </div>
+          <div class="sm:col-span-2">
+            <dt class="text-sm font-medium text-gray-500"><%s "Reverse dependencies" %></dt>
+            <dd class="mt-2 text-sm text-gray-900 max-h-80 overflow-y-auto">
+              <ul class="divide-y divide-gray-100">
+                <% rev_deps |> List.iter begin fun (name, cstr) -> %>
                 <li class="py-2">
                   <a href="/p/<%s name %>" class="mt-1 text-sm text-orange-600 hover:text-orange-500"><%s name %></a>
                   <% match cstr with None -> () | Some cstr -> %>

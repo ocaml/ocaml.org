@@ -27,6 +27,7 @@ COPY --from=build /home/opam/_build/default/src/ocamlorg_web/bin/main.exe /bin/s
 COPY --from=build /home/opam/_build/default/src/ocamlorg_toplevel/bin/js/ /var/toplevels/
 
 ENV OCAMLORG_REPO_PATH /var/opam-repository/
+ENV OCAMLORG_PKG_STATE_PATH /var/package.state
 ENV OCAMLORG_TOPLEVELS_PATH /var/toplevels/
 ENV OCAMLORG_DEBUG false
 

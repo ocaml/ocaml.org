@@ -1,6 +1,15 @@
 # Unreleased
 
--  Remove vertical scrollbar for the documentation navigation bar (#132, by @TheLortex)
+- Compute and display reverse dependencies (#134, by @patricoferris and @TheLortex)
+
+  Extend package information structure to add reverse dependencies. Display that
+  information in the package page.
+
+  Marshal package state to avoid recomputing the reverse dependencies on each restart.
+
+  Convert heavy computations to Lwt to improve server responsiveness.
+
+- Remove vertical scrollbar for the documentation navigation bar (#132, by @TheLortex)
 
   Removed a negative margin in the documentation navigation bar that caused
   a vertical overflow.

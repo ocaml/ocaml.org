@@ -10,6 +10,10 @@ module Info = struct
     ; checksum : string list
     }
 
+  (* This is used to invalidate the package state cache if the type [Info.t]
+     changes. *)
+  let version = "1"
+
   type t =
     { synopsis : string
     ; description : string
@@ -19,6 +23,7 @@ module Info = struct
     ; homepage : string list
     ; tags : string list
     ; dependencies : (OpamPackage.Name.t * string option) list
+    ; rev_deps : (OpamPackage.Name.t * string option) list
     ; depopts : (OpamPackage.Name.t * string option) list
     ; conflicts : (OpamPackage.Name.t * string option) list
     ; url : url option
@@ -46,6 +51,38 @@ module Info = struct
       (fun lst (name, cstr) -> (name, string_of_formula cstr) :: lst)
       []
 
+  let depends packages opams f =
+    let open OpamTypes in
+    OpamPackage.Name.Map.fold
+      (fun name vmap acc ->
+        let v =
+          OpamPackage.Version.Map.fold
+            (fun version opam acc ->
+              let env v =
+                match OpamVariable.Full.to_string v with
+                | "name" ->
+                  Some (S (OpamPackage.Name.to_string name))
+                | "version" ->
+                  Some (S (OpamPackage.Version.to_string version))
+                | _ ->
+                  None
+              in
+              let deps =
+                OpamFormula.packages packages
+                @@ OpamFilter.filter_formula ~default:true env (f opam)
+              in
+              OpamPackage.Map.add (OpamPackage.create name version) deps acc)
+            vmap
+            OpamPackage.Map.empty
+        in
+        OpamPackage.Map.union (fun a _ -> a) acc v)
+      opams
+      OpamPackage.Map.empty
+
+  let get_dependency_set pkgs map =
+    let f opam = OpamFile.OPAM.depends opam in
+    depends pkgs map f
+
   let get_conflicts (opam : OpamFile.OPAM.t) =
     let data = OpamFile.OPAM.conflicts opam in
     parse_formula data
@@ -58,7 +95,73 @@ module Info = struct
     let data = OpamFile.OPAM.depopts opam in
     parse_formula data
 
-  let of_opamfile (opam : OpamFile.OPAM.t) =
+  module Lwt_fold = struct
+    let fold fn =
+      let open Lwt.Syntax in
+      Lwt_list.fold_left_s (fun acc (key, value) ->
+          let* () = Lwt.pause () in
+          fn key value acc)
+
+    let package_map fn map init = OpamPackage.Map.bindings map |> fold fn init
+
+    let package_name_map fn map init =
+      OpamPackage.Name.Map.bindings map |> fold fn init
+
+    let package_version_map fn map init =
+      OpamPackage.Version.Map.bindings map |> fold fn init
+  end
+
+  let rev_depends deps =
+    Lwt_fold.package_map
+      (fun pkg version acc ->
+        Lwt.return
+        @@ OpamPackage.Set.fold
+             (fun pkg1 ->
+               OpamPackage.Map.update
+                 pkg1
+                 (OpamPackage.Set.add pkg)
+                 OpamPackage.Set.empty)
+             version
+             acc)
+      deps
+      OpamPackage.Map.empty
+
+  let mk_revdeps pkg pkgs rdepends =
+    let open OpamTypes in
+    Lwt_fold.package_name_map
+      (fun name versions acc ->
+        let vf =
+          OpamFormula.formula_of_version_set
+            (OpamPackage.versions_of_name pkgs name)
+            versions
+        in
+        let flags = OpamStd.String.Set.empty in
+        let formula =
+          OpamFormula.ands
+          @@ List.rev_append
+               (List.rev_map
+                  (fun flag ->
+                    Atom
+                      (Filter (FIdent ([], OpamVariable.of_string flag, None))))
+                  (OpamStd.String.Set.elements flags))
+               [ OpamFormula.map
+                   (fun (op, v) ->
+                     Atom
+                       (Constraint
+                          (op, FString (OpamPackage.Version.to_string v))))
+                   vf
+               ]
+        in
+        Lwt.return @@ ((name, string_of_formula formula) :: acc))
+      (OpamPackage.to_map
+      @@ OpamStd.Option.default OpamPackage.Set.empty
+      @@ OpamPackage.Map.find_opt pkg rdepends)
+      []
+    |> Lwt.map List.rev
+
+  let make ~package ~packages ~rev_deps opam =
+    let open Lwt.Syntax in
+    let+ rev_deps = mk_revdeps package packages rev_deps in
     let open OpamFile.OPAM in
     { synopsis = synopsis opam |> Option.value ~default:"No synopsis"
     ; authors =
@@ -78,6 +181,7 @@ module Info = struct
         descr opam |> Option.map OpamFile.Descr.body |> Option.value ~default:""
     ; homepage = homepage opam
     ; tags = tags opam
+    ; rev_deps
     ; conflicts = get_conflicts opam
     ; dependencies = get_dependencies opam
     ; depopts = get_depopts opam
@@ -89,25 +193,66 @@ module Info = struct
                    OpamFile.URL.checksum url |> List.map OpamHash.to_string
                })
     }
+
+  let of_opamfiles
+      (opams : OpamFile.OPAM.t OpamPackage.Version.Map.t OpamPackage.Name.Map.t)
+    =
+    let open Lwt.Syntax in
+    let packages =
+      let names = OpamPackage.Name.Map.keys opams in
+      let f acc name =
+        let versions =
+          OpamPackage.Version.Map.keys (OpamPackage.Name.Map.find name opams)
+        in
+        let pkgs =
+          List.fold_left
+            (fun acc v -> OpamPackage.Set.add (OpamPackage.create name v) acc)
+            OpamPackage.Set.empty
+            versions
+        in
+        OpamPackage.Set.union pkgs acc
+      in
+      List.fold_left f OpamPackage.Set.empty names
+    in
+    Logs.info (fun f -> f "Dependencies...");
+    let dependencies = get_dependency_set packages opams in
+    Logs.info (fun f -> f "Reverse dependencies...");
+    let* rev_deps = rev_depends dependencies in
+    Logs.info (fun f -> f "Generate package info");
+    Lwt_fold.package_name_map
+      (fun name vmap acc ->
+        let+ vs =
+          Lwt_fold.package_version_map
+            (fun version opam acc ->
+              let package = OpamPackage.create name version in
+              let+ t = make ~rev_deps ~packages ~package opam in
+              OpamPackage.Version.Map.add version t acc)
+            vmap
+            OpamPackage.Version.Map.empty
+        in
+        OpamPackage.Name.Map.add name vs acc)
+      opams
+      OpamPackage.Name.Map.empty
 end
 
 type t =
   { name : Name.t
   ; version : Version.t
-  ; info : Info.t lazy_t
+  ; info : Info.t
   }
 
 let name t = t.name
 
 let version t = t.version
 
-let info t = Lazy.force t.info
+let info t = t.info
 
-let create ~name ~version info = { name; version; info = Lazy.from_val info }
+let create ~name ~version info = { name; version; info }
 
 type state =
-  { mutable packages :
-      Info.t lazy_t OpamPackage.Version.Map.t OpamPackage.Name.Map.t
+  { version : string
+  ; mutable opam_repository_commit : string option
+  ; mutable packages : Info.t OpamPackage.Version.Map.t OpamPackage.Name.Map.t
   }
 
 let state_of_package_list (pkgs : t list) =
@@ -122,60 +267,105 @@ let state_of_package_list (pkgs : t list) =
     in
     OpamPackage.Name.Map.add pkg.name new_map map
   in
-  { packages = List.fold_left (fun map v -> add_version v map) map pkgs }
+  { version = Info.version
+  ; packages = List.fold_left (fun map v -> add_version v map) map pkgs
+  ; opam_repository_commit = None
+  }
 
 let read_versions package_name =
+  let open Lwt.Syntax in
   let versions = Opam_repository.list_package_versions package_name in
-  List.fold_left
+  Lwt_list.fold_left_s
     (fun acc package_version ->
       match OpamPackage.of_string_opt package_version with
       | Some pkg ->
-        let info =
-          Lazy.from_fun (fun () ->
-              Info.of_opamfile
-              @@ Opam_repository.opam_file package_name package_version)
-        in
-        OpamPackage.Version.Map.add pkg.version info acc
+        let+ opam = Opam_repository.opam_file package_name package_version in
+        OpamPackage.Version.Map.add pkg.version opam acc
       | None ->
         Logs.err (fun m -> m "Invalid pacakge version %S" package_name);
-        acc)
+        Lwt.return acc)
     OpamPackage.Version.Map.empty
     versions
 
 let read_packages () =
-  List.fold_left
+  let open Lwt.Syntax in
+  Lwt_list.fold_left_s
     (fun acc package_name ->
       match OpamPackage.Name.of_string package_name with
       | exception ex ->
         Logs.err (fun m ->
             m "Invalid package name %S: %s" package_name (Printexc.to_string ex));
-        acc
+        Lwt.return acc
       | _name ->
-        let versions = read_versions package_name in
+        let+ versions = read_versions package_name in
         OpamPackage.Name.Map.add (Name.of_string package_name) versions acc)
     OpamPackage.Name.Map.empty
     (Opam_repository.list_packages ())
 
-let update t =
-  let packages = read_packages () in
+let try_load_state () =
+  let exception Invalid_version in
+  let state_path = Config.package_state_path in
+  try
+    let channel = open_in (Fpath.to_string state_path) in
+    Fun.protect
+      (fun () ->
+        let v = Marshal.from_channel channel in
+        if Info.version <> v.version then raise Invalid_version;
+        Logs.info (fun f ->
+            f
+              "Package state loaded (%d packages, opam commit %s)"
+              (OpamPackage.Name.Map.cardinal v.packages)
+              (Option.value ~default:"" v.opam_repository_commit));
+        v)
+      ~finally:(fun () -> close_in channel)
+  with
+  | Failure _ | Sys_error _ | Invalid_version ->
+    Logs.info (fun f -> f "Package state starting from scratch");
+    { opam_repository_commit = None
+    ; version = Info.version
+    ; packages = OpamPackage.Name.Map.empty
+    }
+
+let save_state t =
+  Logs.info (fun f -> f "Package state saved");
+  let state_path = Config.package_state_path in
+  let channel = open_out_bin (Fpath.to_string state_path) in
+  Fun.protect
+    (fun () -> Marshal.to_channel channel t [])
+    ~finally:(fun () -> close_out channel)
+
+let update ~commit t =
+  let open Lwt.Syntax in
+  Logs.info (fun m -> m "Opam repository is currently at %s" commit);
+  t.opam_repository_commit <- Some commit;
+  Logs.info (fun m -> m "Updating opam package list");
+  Logs.info (fun f -> f "Calculating packages.. .");
+  let* packages = read_packages () in
+  Logs.info (fun f -> f "Computing additional informations...");
+  let+ packages = Info.of_opamfiles packages in
   t.packages <- packages;
   Logs.info (fun m ->
       m "Loaded %d packages" (OpamPackage.Name.Map.cardinal packages))
 
+let maybe_update t =
+  let open Lwt.Syntax in
+  let* commit = Opam_repository.last_commit () in
+  match t.opam_repository_commit with
+  | Some v when v = commit ->
+    Lwt.return ()
+  | _ ->
+    let+ () = update ~commit t in
+    save_state t
+
 let poll_for_opam_packages ~polling v =
   let open Lwt.Syntax in
   let* () = Opam_repository.clone () in
-  let last_commit = ref None in
   let rec updater () =
     let* () =
       Lwt.catch
         (fun () ->
           let* () = Opam_repository.pull () in
-          let+ commit = Opam_repository.last_commit () in
-          if Some commit <> !last_commit then (
-            Logs.info (fun m -> m "Updating opam package list");
-            let () = update v in
-            last_commit := Some commit))
+          maybe_update v)
         (fun exn ->
           Logs.err (fun m ->
               m
@@ -188,16 +378,16 @@ let poll_for_opam_packages ~polling v =
   in
   updater ()
 
-let s = { packages = OpamPackage.Name.Map.empty }
-
 let init ?(disable_polling = false) () =
+  let state = try_load_state () in
   if Sys.file_exists (Fpath.to_string Config.opam_repository_path) then
-    s.packages <- read_packages ();
+    Lwt.async (fun () -> maybe_update state);
   if disable_polling then
     ()
   else
-    Lwt.async (fun () -> poll_for_opam_packages ~polling:Config.opam_polling s);
-  s
+    Lwt.async (fun () ->
+        poll_for_opam_packages ~polling:Config.opam_polling state);
+  state
 
 let all_packages_latest t =
   t.packages
@@ -417,15 +607,12 @@ let search_package t pattern =
     String.contains_s (String.lowercase_ascii @@ Name.to_string name) pattern
   in
   let synopsis_contains_s { info; _ } =
-    let info = Lazy.force info in
     String.contains_s (String.lowercase_ascii info.synopsis) pattern
   in
   let description_contains_s { info; _ } =
-    let info = Lazy.force info in
     String.contains_s (String.lowercase_ascii info.description) pattern
   in
   let has_tag_s { info; _ } =
-    let info = Lazy.force info in
     List.exists
       (fun tag -> String.contains_s (String.lowercase_ascii tag) pattern)
       info.tags
