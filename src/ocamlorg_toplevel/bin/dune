@@ -1,3 +1,12 @@
+; Worker library
+
+(library
+ (name worker)
+ (modules worker)
+ (libraries brr ocamlorg_toplevel js_of_ocaml-toplevel js_of_ocaml-compiler)
+ (preprocess
+  (pps js_of_ocaml-ppx)))
+
 ; Base
 
 (executable
@@ -12,6 +21,14 @@
  (action
   (run jsoo_listunits -o %{targets} stdlib base)))
 
+(executable
+ (name worker_base)
+ (modules worker_base)
+ (libraries worker stdlib base)
+ (flags
+  (:standard -rectypes -linkall))
+ (modes byte))
+
 (rule
  (targets worker_base.js)
  (action
@@ -24,7 +41,7 @@
    +toplevel.js
    +dynlink.js
    +base/runtime.js
-   %{dep:worker.bc}
+   %{dep:worker_base.bc}
    -o
    %{targets})))
 
@@ -45,14 +62,9 @@
   (run jsoo_listunits -o %{targets} stdlib)))
 
 (executable
- (name worker)
- (libraries
-  brr
-  ocamlorg_toplevel
-  js_of_ocaml-toplevel
-  js_of_ocaml-compiler
-  stdlib)
- (modules worker)
+ (name worker_stdlib)
+ (modules worker_stdlib)
+ (libraries worker stdlib)
  (flags
   (:standard -rectypes -linkall))
  (preprocess
@@ -70,7 +82,7 @@
    --pretty
    +toplevel.js
    +dynlink.js
-   %{dep:worker.bc}
+   %{dep:worker_stdlib.bc}
    -o
    %{targets})))
 

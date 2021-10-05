@@ -149,4 +149,4 @@ let recv_from_page e =
   | phrase ->
     Worker.G.post (execute phrase)
 
-let () = Jv.(set global "onmessage" @@ Jv.repr recv_from_page)
+let run () = Jv.(set global "onmessage" @@ Jv.repr recv_from_page)
