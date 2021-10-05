@@ -72,7 +72,6 @@ let last_commit () =
       ("", [| "git"; "-C"; Fpath.to_string clone_path; "rev-parse"; "HEAD" |])
     |> Lwt.map String.trim
   in
-  Logs.info (fun m -> m "Opam repository is currently at %s" output);
   output
 
 let ls_dir directory =
@@ -86,10 +85,10 @@ let list_package_versions package =
   ls_dir Fpath.(to_string (clone_path / "packages" / package))
 
 let process_opam_file f =
-  let ic = open_in (Fpath.to_string f) in
-  let result = OpamFile.OPAM.read_from_channel ic in
-  close_in ic;
-  result
+  let open Lwt.Syntax in
+  Lwt_io.with_file ~mode:Input (Fpath.to_string f) (fun channel ->
+      let+ content = Lwt_io.read channel in
+      OpamFile.OPAM.read_from_string content)
 
 let opam_file package_name package_version =
   let opam_file =
