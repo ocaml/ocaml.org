@@ -10,6 +10,10 @@ module Info = struct
     ; checksum : string list
     }
 
+  (* This is used to invalidate the package state cache if the type [Info.t]
+     changes. *)
+  let version = "1"
+
   type t =
     { synopsis : string
     ; description : string
@@ -263,7 +267,8 @@ let info t = t.info
 let create ~name ~version info = { name; version; info }
 
 type state =
-  { mutable opam_repository_commit : string option
+  { version : string
+  ; mutable opam_repository_commit : string option
   ; mutable packages : Info.t OpamPackage.Version.Map.t OpamPackage.Name.Map.t
   }
 
@@ -281,7 +286,8 @@ let state_of_package_list (pkgs : t list) =
     in
     OpamPackage.Name.Map.add pkg.name new_map map
   in
-  { packages = List.fold_left (fun map v -> add_version v map) map pkgs
+  { version = Info.version
+  ; packages = List.fold_left (fun map v -> add_version v map) map pkgs
   ; opam_repository_commit = None
   }
 
@@ -316,12 +322,14 @@ let read_packages () =
     (Opam_repository.list_packages ())
 
 let try_load_state () =
+  let exception Invalid_version in
   let state_path = Config.package_state_path in
   try
     let channel = open_in (Fpath.to_string state_path) in
     Fun.protect
       (fun () ->
         let v = Marshal.from_channel channel in
+        if Info.version <> v.version then raise Invalid_version;
         Logs.info (fun f ->
             f
               "Package state loaded (%d packages, opam commit %s)"
@@ -330,9 +338,12 @@ let try_load_state () =
         v)
       ~finally:(fun () -> close_in channel)
   with
-  | Failure _ | Sys_error _ ->
+  | Failure _ | Sys_error _ | Invalid_version ->
     Logs.info (fun f -> f "Package state starting from scratch");
-    { opam_repository_commit = None; packages = OpamPackage.Name.Map.empty }
+    { opam_repository_commit = None
+    ; version = Info.version
+    ; packages = OpamPackage.Name.Map.empty
+    }
 
 let save_state t =
   Logs.info (fun f -> f "Package state saved");
