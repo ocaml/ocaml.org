@@ -1,5 +1,11 @@
 # Unreleased
 
+- Split js_of_ocaml toplevel execution into web-worker (#135, by @patricoferris)
+
+  The execution of OCaml expressions in the toplevel now takes place in a web 
+  worker which prevents the main UI thread from blocking and makes it easier to
+  terminate executions that have been running too long.
+
 - Compute and display reverse dependencies (#134, by @patricoferris and @TheLortex)
 
   Extend package information structure to add reverse dependencies. Display that

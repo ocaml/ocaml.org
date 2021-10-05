@@ -16,7 +16,7 @@ let render () =
                 safety.
               </p>
               <div class="mt-10 sm:flex sm:justify-center lg:justify-start">
-                <div class=" rounded-md shadow "><a
+                <div class="rounded-md shadow"><a
                     class="text-white bg-orangedark hover:bg-orangedarker w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md md:py-4 md:text-lg md:px-10"
                     href="/tutorials/up-and-running-with-ocaml#installing-ocaml">Install OCaml</a></div>
                 <div class="mt-3 sm:mt-0 sm:ml-3 rounded-md shadow "><a
@@ -30,18 +30,27 @@ let render () =
         </div>
       </div>
     </div>
-    <div class="pt-12 sm:pt-16">
-      <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div id="toplevel-container" class="my-6 px-6 py-6 rounded-xl overflow-auto bg-gray-800">
-          <pre>
-            <code id="output"></code>
-          </pre>
-          <div>
-            <div id="sharp" class="sharp"></div>
-            <textarea id="userinput">Loading ...</textarea>
-          </div>
+    <div class="relative my-6 py-12 bg-orange-600 overflow-hidden">
+      <div class="sm:grid sm:grid-cols-2 sm:gap-px">
+        <div class="max-w-2xl mx-auto text-center">
+          <h2 class="text-3xl my-6 font-extrabold text-white sm:text-4xl">Try OCaml</h2>
+          <p class="text-lg my-6 font-bold text-white">Start coding OCaml in your browser, you could try <code style="background: rgba(244,244,2444,0.3);padding: 2px 6px; border-radius: 3px;">"Hello " ^ "World"</code> or <code style="background: rgba(244,244,2444,0.3);padding: 2px 6px; border-radius: 3px;">List.map ((+) 10) [1; 2; 3]</code></p>
+          <p class="flex justify-center align-center">
+            <button class="text-orangedark bg-white hover:bg-gray-50 flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md md:py-4 md:text-lg md:px-10" id="toplevel-load">Click to load toplevel</button>
+          </p>
         </div>
-        <script type="text/javascript" src="/toplevels/stdlib-4.13.0.js" defer></script>
+        <div class="w-full h-full text-gray-900 mx-auto px-4 sm:px-6 lg:px-8">
+          <div id="toplevel-container" class="my-6 px-6 py-6 rounded-xl overflow-auto bg-white">
+            <pre>
+              <code id="output"></code>
+            </pre>
+            <div>
+              <div id="sharp" class="sharp"></div>
+              <textarea disabled id="userinput">Toplevel not loaded, click the button to load toplevel</textarea>
+            </div>
+          </div>
+          <script type="text/javascript" src="/toplevels/stdlib-4.13.0.js" defer></script>
+        </div>
       </div>
     </div>
     <div class="pt-12 sm:pt-16">

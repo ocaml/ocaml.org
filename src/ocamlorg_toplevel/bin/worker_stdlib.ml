@@ -1,0 +1,1 @@
+let () = Worker.run ()

@@ -425,7 +425,7 @@ let toplevel t =
   let name = Name.to_string t.name in
   let version = Version.to_string t.version in
   let path =
-    Fpath.(to_string (Config.topelevels_path / (name ^ "-" ^ version ^ ".js")))
+    Fpath.(to_string (Config.toplevels_path / (name ^ "-" ^ version ^ ".js")))
   in
   if Sys.file_exists path then
     Some (topelevel_url name version)
