@@ -35,7 +35,7 @@ let render ?(turbo_full_reload=false) ~title ~description inner =
 
     <body class="antialiased">
       <%s! Header_template.render () %>
-      <main class="bg-gray-50">
+      <main>
         <%s! inner %>
       </main>
       <%s! Footer_template.render () %>

@@ -136,8 +136,20 @@ let community_opportunities _req =
     ~description:
       "This is a space where groups, companies, and organisations can \
        advertise their projects directly to the OCaml community."
-    (Community_opportunities_template.render ())
+    (Community_opportunities_template.render Ood.Job.all_not_fullfilled)
   |> Dream.html
+
+let community_opportunity req =
+  let id = Dream.param "id" req in
+  match Option.bind (int_of_string_opt id) Ood.Job.get_by_id with
+  | Some job ->
+    Page_layout_template.render
+      ~title:(Printf.sprintf "%s · OCaml Opportunity" job.Ood.Job.title)
+      ~description:"???"
+      (Community_opportunity_template.render job)
+    |> Dream.html
+  | None ->
+    not_found req
 
 let principles_successes req =
   let stories = with_lang req Ood.Success_story.all () in

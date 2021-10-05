@@ -1,0 +1,105 @@
+jobs:
+  - title: Multicore Application Engineer
+    link: https://tarides.com/jobs/multicore-application-engineer
+    location: Remote
+    company: Tarides
+    company_logo: https://tarides.com/static/logo_tarides-9616f2c71e224598e23ace051d0fab52.png
+    fullfilled: false
+    description: >
+      ## Work
+
+      The Multicore OCaml project aims to add native support for scalable concurrency and shared memory parallelism to the OCaml programming language. At its core, Multicore OCaml extends OCaml with effect handlers for expressing scalable concurrency, and a high-performance concurrent garbage collector aimed at responsive networked applications. Multicore OCaml is also the first industrial-strength language to be equipped with an efficient yet modular memory model, allowing high-level local program reasoning while retaining performance.
+
+
+      Multicore OCaml is actively being developed and core features are being upstreamed to OCaml. The multicore project at Tarides is a close collaboration with our industrial partners OCaml Labs and Segfault Systems.
+
+
+      As OCaml 5.0 with shared-memory parallelism support is on the horizon, we are ready to build full-fledged OCaml applications that take advantage of the parallelism opportunities. Specifically, the focus is on the Tezos blockchain to improve the transaction throughput, utilising the parallelism support. We believe that adding parallelism support to a complex project such as the Tezos shell would set a precedent for how other projects should utilise parallelism support and help identify pain points that the Multicore OCaml team and the wider community can address.
+
+
+      We are looking for an experienced engineer (3y+) to build parallel applications using the Multicore OCaml compiler.
+
+      ## Responsibilities
+
+      - Ecosystem Engineering
+        - Build and maintain Tezos node using the Multicore OCaml compiler.
+        - Add Tezos-related packages to the OCaml CI.
+        - Investigate CI failures and report issues to appropriate teams.
+      - Parallelising
+        - Work with the Tezos developers to identify the opportunities for parallelism in the Tezos shell.
+        - Utilise Multicore OCaml parallelism support (such as the Lwt offloading mechanism) to offload compute-intensive tasks such as crypto and serialisation to spare cores.
+        - Work with the Irmin/Tezos storage team to add parallelism to storage tasks.
+      - Benchmarking
+        - Work with the Tezos developers and Irmin team to identify relevant benchmarks.
+        - Implement those benchmarks for Tezos, and work with the benchmarking team to include them in sandmark and continuous benchmarking infrastructures.
+      - Research
+        - Build a direct-style Tezos shell using the eio, next-generation effect-based direct-style IO library.
+        - Collaborate with researchers to implement deterministic parallelism support in the Tezos protocol core.
+
+      ## Qualifications & Experience
+
+      *(You don’t have to fill 100% of the qualifications to apply.)*
+
+      - Excellent knowledge and hands-on experience developing parallel programs in any language.
+      - Experience with the OCaml language, or other functional programming languages.
+      - Experience in analysing benchmarks and application performance.
+      - Track record of building production quality software.
+      - Demonstrable open source contributions are a plus, but not required.
+      - Good communication skills in English; English is the corporate language.
+      - Experience of working in multidisciplinary teams.
+
+      ## What we offer
+
+      Nice office in Paris (Place de la Contrescarpe, Paris 5)
+
+      - Flexible working hours and possibility to work remotely
+      - Supportive team environment with experienced Technical and Team Leads
+      - Amazing health insurance for you and your family (Alan Blue) and paid parental leave
+      - A “ticket restaurant” card and 50% of public transportation pass reimbursed
+
+      ## Process
+      
+      Please send your CV and cover letter to apply@tarides.com. If shortlisted, you will have three online interviews starting with a general interview, followed by a technical interview, and finally an interview with the team.
+
+
+      We welcome applications from people of all backgrounds. We strive to create a representative, inclusive and friendly team, because we know that different experiences, perspectives and backgrounds make for a better workplace.
+  - title: Quant Developer, Enterprise Products
+    link: https://careers.bloomberg.com/job/detail/93825
+    location: New York, NY
+    company: Bloomberg
+    company_logo: https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/New_Bloomberg_Logo.svg/1024px-New_Bloomberg_Logo.svg.png
+    fullfilled: false
+    description: >
+      Bloomberg's Quantitative Derivatives Library Architecture team is responsible for the infrastructure behind Bloomberg's derivatives pricing models, and supporting its risk management and derivatives valuation services. A large part of this infrastructure is written in OCaml, notably the BLAN language, a client-facing DSL for describing derivative contracts.
+
+
+      The team is looking for a developer with interest and experience in compiler design and implementation, especially in the context of functional programming languages. In this role, you will have the opportunity to participate in the development of BLAN, as well as the tooling and libraries around it. This could include implementing language features, such as gradual types or a new backend; developing tooling, such as a Jupyter kernel or a debugger; and writing a new library in BLAN, such as a lens library. Experience with quantitative analysis is not required.
+
+      ## We'll trust you to:
+
+      - Come up to speed on BLAN and the tooling around it
+      - Design and implement new language features, tools or libraries
+      - Pitch your own ideas for features, tools or libraries
+      - Work independently and in collaboration with your team members
+
+      ## You’ll need to:
+
+      - Have 3+ years of academic or professional experience programming in a functional language, especially a statically typed one.
+      - Have 1-2 years of academic or professional experience designing and implementing compilers or interpreters.
+      - Have a MS or PhD in Computer Science, Computer Engineering, Math, or related field, or equivalent experience.
+      - Have genuine enthusiasm for programming languages and functional programming!
+      - Be able to come to the office for at least three days per week
+
+      ## We'd love to see:
+      
+      - Extensive experience with OCaml, Haskell, F# or SML, and especially familiarity with their implementations.
+      - Experience implementing static types systems, and especially type inference.
+      - Familiarity with derivatives pricing models.
+      - Experience with C++ or JavaScript.
+
+      ## If this sounds like you:
+
+      Apply if you think we're a good match and we'll get in touch with you to let you know next steps. In the meantime, check out http://www.bloomberg.com/professional.
+
+      
+      We are an equal opportunity employer and value diversity at our company. We do not discriminate on the basis of race, religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or disability status.

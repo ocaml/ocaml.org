@@ -4,6 +4,7 @@ let term_templates =
   [ "academic_institution", Ood_gen.Academic_institution.template
   ; "book", Ood_gen.Book.template
   ; "event", Ood_gen.Event.template
+  ; "job", Ood_gen.Job.template
   ; "industrial_user", Ood_gen.Industrial_user.template
   ; "paper", Ood_gen.Paper.template
   ; "release", Ood_gen.Release.template
