@@ -238,9 +238,11 @@ let info t = t.info
 let create ~name ~version info = { name; version; info }
 
 type state =
-  { mutable packages : Info.t OpamPackage.Version.Map.t OpamPackage.Name.Map.t }
+  { mutable opam_repository_commit : string option
+  ; mutable packages : Info.t OpamPackage.Version.Map.t OpamPackage.Name.Map.t
+  }
 
-let get_state { packages } = packages
+let get_state { packages; _  } = packages
 
 let state_of_package_list (pkgs : t list) =
   let map = OpamPackage.Name.Map.empty in
@@ -254,7 +256,9 @@ let state_of_package_list (pkgs : t list) =
     in
     OpamPackage.Name.Map.add pkg.name new_map map
   in
-  { packages = List.fold_left (fun map v -> add_version v map) map pkgs }
+  { packages = List.fold_left (fun map v -> add_version v map) map pkgs
+  ; opam_repository_commit = None
+  }
 
 let read_versions package_name =
   let versions = Opam_repository.list_package_versions package_name in
@@ -284,28 +288,63 @@ let read_packages () =
     OpamPackage.Name.Map.empty
     (Opam_repository.list_packages ())
 
-let update t =
+let try_load_state () =
+  let state_path = Config.package_state_path in
+  try
+    let channel = open_in (Fpath.to_string state_path) in
+    Fun.protect
+      (fun () ->
+        let v = Marshal.from_channel channel in
+        Logs.info (fun f ->
+            f
+              "Package state loaded (%d packages, opam commit %s)"
+              (OpamPackage.Name.Map.cardinal v.packages)
+              (Option.value ~default:"" v.opam_repository_commit));
+        v)
+      ~finally:(fun () -> close_in channel)
+  with
+  | Failure _
+  | Sys_error _ ->
+    Logs.info (fun f -> f "Package state starting from scratch");
+    { opam_repository_commit = None; packages = OpamPackage.Name.Map.empty }
+
+let save_state t =
+  Logs.info (fun f -> f "Package state saved");
+  let state_path = Config.package_state_path in
+  let channel = open_out_bin (Fpath.to_string state_path) in
+  Fun.protect
+    (fun () -> Marshal.to_channel channel t [])
+    ~finally:(fun () -> close_out channel)
+
+let update ~commit t =
+  Logs.info (fun m -> m "Updating opam package list");
   Logs.info (fun f -> f "Calculating packages...");
   let packages = read_packages () in
   let packages = Info.of_opamfiles packages in
+  t.opam_repository_commit <- Some commit;
   t.packages <- packages;
   Logs.info (fun m ->
       m "Loaded %d packages" (OpamPackage.Name.Map.cardinal packages))
 
+let maybe_update t =
+  let open Lwt.Syntax in
+  let+ commit = Opam_repository.last_commit () in
+  match t.opam_repository_commit with
+  | Some v when v = commit ->
+    ()
+  | _ ->
+    update ~commit t;
+    save_state t
+
 let poll_for_opam_packages ~polling v =
   let open Lwt.Syntax in
   let* () = Opam_repository.clone () in
-  let last_commit = ref None in
   let rec updater () =
     let* () =
       Lwt.catch
         (fun () ->
           let* () = Opam_repository.pull () in
-          let+ commit = Opam_repository.last_commit () in
-          if Some commit <> !last_commit then (
-            Logs.info (fun m -> m "Updating opam package list");
-            let () = update v in
-            last_commit := Some commit))
+          maybe_update v)
         (fun exn ->
           Logs.err (fun m ->
               m
@@ -318,16 +357,16 @@ let poll_for_opam_packages ~polling v =
   in
   updater ()
 
-let s = { packages = OpamPackage.Name.Map.empty }
-
 let init ?(disable_polling = false) () =
+  let state = try_load_state () in
   if Sys.file_exists (Fpath.to_string Config.opam_repository_path) then
-    update s;
+    Lwt.async (fun () -> maybe_update state);
   if disable_polling then
     ()
   else
-    Lwt.async (fun () -> poll_for_opam_packages ~polling:Config.opam_polling s);
-  s
+    Lwt.async (fun () ->
+        poll_for_opam_packages ~polling:Config.opam_polling state);
+  state
 
 let all_packages_latest t =
   t.packages
