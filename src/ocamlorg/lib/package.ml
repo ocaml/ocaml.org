@@ -162,11 +162,45 @@ module Info = struct
       []
     |> Lwt.map List.rev
 
+  let make ~package ~packages ~rev_deps opam =
+    let open Lwt.Syntax in
+    let+ rev_deps = mk_revdeps package packages rev_deps in
+    let open OpamFile.OPAM in
+    { synopsis = synopsis opam |> Option.value ~default:"No synopsis"
+    ; authors =
+        author opam
+        |> List.map (fun name ->
+               Option.value
+                 (Opam_user.find_by_name name)
+                 ~default:(Opam_user.make ~name ()))
+    ; maintainers =
+        maintainer opam
+        |> List.map (fun name ->
+               Option.value
+                 (Opam_user.find_by_name name)
+                 ~default:(Opam_user.make ~name ()))
+    ; license = license opam |> String.concat "; "
+    ; description =
+        descr opam |> Option.map OpamFile.Descr.body |> Option.value ~default:""
+    ; homepage = homepage opam
+    ; tags = tags opam
+    ; rev_deps
+    ; conflicts = get_conflicts opam
+    ; dependencies = get_dependencies opam
+    ; depopts = get_depopts opam
+    ; url =
+        url opam
+        |> Option.map (fun url ->
+               { uri = OpamUrl.to_string (OpamFile.URL.url url)
+               ; checksum =
+                   OpamFile.URL.checksum url |> List.map OpamHash.to_string
+               })
+    }
+
   let of_opamfiles
       (opams : OpamFile.OPAM.t OpamPackage.Version.Map.t OpamPackage.Name.Map.t)
     =
     let open Lwt.Syntax in
-    let open OpamFile.OPAM in
     let packages =
       let names = OpamPackage.Name.Map.keys opams in
       let f acc name =
@@ -185,7 +219,7 @@ module Info = struct
     in
     Logs.info (fun f -> f "Dependencies...");
     let dependencies = get_dependency_set packages opams in
-    Logs.info (fun f -> f "Reverse dependencies...");
+    Logs.info (fun f -> f "Reverse dependencies..."); 
     let* rev_deps = rev_depends dependencies in
     Logs.info (fun f -> f "Generate package info");
     Lwt_fold.package_name_map
@@ -194,47 +228,7 @@ module Info = struct
           Lwt_fold.package_version_map
             (fun version opam acc ->
               let package = OpamPackage.create name version in
-              let opam_file =
-                OpamPackage.Name.Map.find name opams
-                |> OpamPackage.Version.Map.find version
-              in
-              let+ rev_deps = mk_revdeps package packages rev_deps in
-              let t =
-                { synopsis =
-                    synopsis opam |> Option.value ~default:"No synopsis"
-                ; authors =
-                    author opam
-                    |> List.map (fun name ->
-                           Option.value
-                             (Opam_user.find_by_name name)
-                             ~default:(Opam_user.make ~name ()))
-                ; maintainers =
-                    maintainer opam
-                    |> List.map (fun name ->
-                           Option.value
-                             (Opam_user.find_by_name name)
-                             ~default:(Opam_user.make ~name ()))
-                ; license = license opam |> String.concat "; "
-                ; description =
-                    descr opam
-                    |> Option.map OpamFile.Descr.body
-                    |> Option.value ~default:""
-                ; homepage = homepage opam
-                ; tags = tags opam
-                ; rev_deps
-                ; conflicts = get_conflicts opam_file
-                ; dependencies = get_dependencies opam_file
-                ; depopts = get_depopts opam_file
-                ; url =
-                    url opam
-                    |> Option.map (fun url ->
-                           { uri = OpamUrl.to_string (OpamFile.URL.url url)
-                           ; checksum =
-                               OpamFile.URL.checksum url
-                               |> List.map OpamHash.to_string
-                           })
-                }
-              in
+              let+ t = make ~rev_deps ~packages ~package opam in
               OpamPackage.Version.Map.add version t acc)
             vmap
             OpamPackage.Version.Map.empty
