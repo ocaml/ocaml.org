@@ -363,6 +363,55 @@ Framtidsforum I&M sells ExcelEverywhere, which creates web pages that look and f
 |js}
   };
  
+  { name = {js|Functori|js}
+  ; slug = {js|functori|js}
+  ; description = {js|Functori is a R&D company created by experienced engineers in programming languages (particularly OCaml), formal verification (automated reasoning, model checking, ...), and blockchain technology (core, smart contracts and applications development).
+|js}
+  ; image = Some {js|/users/functori.png|js}
+  ; site = {js|https://www.functori.com|js}
+  ; locations = 
+ [{js|Paris, France|js}]
+  ; consortium = false
+  ; body_md = {js|
+In addition to contributing tools and libraries in OCaml and for the
+OCaml community, we are participating in the development of the Tezos
+blockchain in various ways:
+
+ - core development,
+ - building open-source tooling and libraries for the community (like
+indexers/crawlers, libraries to interact with the Tezos blockchain,
+etc.),
+ - participating in the development of innovative projects for
+our clients,
+ - auditing code for our clients,
+ - consulting and training.
+
+Functori was founded in 2021 and is based in Paris (France), with
+people working remotely all around the world.
+|js}
+  ; body_html = {js|<p>In addition to contributing tools and libraries in OCaml and for the
+OCaml community, we are participating in the development of the Tezos
+blockchain in various ways:</p>
+<ul>
+<li>core development,
+</li>
+<li>building open-source tooling and libraries for the community (like
+indexers/crawlers, libraries to interact with the Tezos blockchain,
+etc.),
+</li>
+<li>participating in the development of innovative projects for
+our clients,
+</li>
+<li>auditing code for our clients,
+</li>
+<li>consulting and training.
+</li>
+</ul>
+<p>Functori was founded in 2021 and is based in Paris (France), with
+people working remotely all around the world.</p>
+|js}
+  };
+ 
   { name = {js|Galois|js}
   ; slug = {js|galois|js}
   ; description = {js|Galois has developed a domain specific declarative language for cryptographic algorithms.
@@ -1231,6 +1280,55 @@ La mission de ForAllSecure est de tester les logiciels du monde entier et de fou
 Framtidsforum I&M vend ExcelEverywhere, qui crée des pages web dont l'apparence et le fonctionnement sont identiques à ceux de votre feuille de calcul MS Excel. JavaScript est utilisé pour les calculs. Il supporte 140 fonctions Excel. Généralement utilisé pour les rapports de dépenses, les enquêtes, les formulaires de commande, les formulaires de réservation, les demandes d'emploi, les conseillers financiers, le retour sur investissement. Il existe également des versions qui génèrent du code ASP, ASP.NET et JSP/Java. Le compilateur est écrit en OCaml.
 |js}
   ; body_html = {js|<p>Framtidsforum I&amp;M vend ExcelEverywhere, qui crée des pages web dont l'apparence et le fonctionnement sont identiques à ceux de votre feuille de calcul MS Excel. JavaScript est utilisé pour les calculs. Il supporte 140 fonctions Excel. Généralement utilisé pour les rapports de dépenses, les enquêtes, les formulaires de commande, les formulaires de réservation, les demandes d'emploi, les conseillers financiers, le retour sur investissement. Il existe également des versions qui génèrent du code ASP, ASP.NET et JSP/Java. Le compilateur est écrit en OCaml.</p>
+|js}
+  };
+ 
+  { name = {js|Functori|js}
+  ; slug = {js|functori|js}
+  ; description = {js|Functori est une société de R&D créée par des ingénieurs experts en langages de programmation (notamment OCaml), la vérification formelle (raisonnement automatisé, model checking, ...), et la technologie blockchain (coeur/noyau, smart contracts et développement d'applications).
+|js}
+  ; image = Some {js|/users/functori.png|js}
+  ; site = {js|https://www.functori.com|js}
+  ; locations = 
+ [{js|Paris, France|js}]
+  ; consortium = false
+  ; body_md = {js|
+En plus de contribuer à des outils et des bibliothèques en OCaml et
+pour la communauté OCaml, nous participons au développement de la
+blockchain Tezos de diverses manières :
+
+ - développement du coeur/noyau,
+ - construction d'outils et de bibliothèques open-source pour la
+communauté (comme des indexeurs/crawlers, des bibliothèques pour
+interagir avec la blockchain Tezos, etc.)
+ - participation au développement de projets innovants pour nos
+clients,
+ - audit de code pour nos clients,
+ - conseil et formation.
+
+Functori a été fondée en 2021 et est basée à Paris (France), avec des
+personnes travaillant à distance dans le monde entier.
+|js}
+  ; body_html = {js|<p>En plus de contribuer à des outils et des bibliothèques en OCaml et
+pour la communauté OCaml, nous participons au développement de la
+blockchain Tezos de diverses manières :</p>
+<ul>
+<li>développement du coeur/noyau,
+</li>
+<li>construction d'outils et de bibliothèques open-source pour la
+communauté (comme des indexeurs/crawlers, des bibliothèques pour
+interagir avec la blockchain Tezos, etc.)
+</li>
+<li>participation au développement de projets innovants pour nos
+clients,
+</li>
+<li>audit de code pour nos clients,
+</li>
+<li>conseil et formation.
+</li>
+</ul>
+<p>Functori a été fondée en 2021 et est basée à Paris (France), avec des
+personnes travaillant à distance dans le monde entier.</p>
 |js}
   };
  
