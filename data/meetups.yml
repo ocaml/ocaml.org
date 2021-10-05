@@ -1,0 +1,25 @@
+meetups:
+  - title: "OCaml users in PariS (OUPS)"
+    textual_location: Paris, France
+    location:
+      lat: 48.8566
+      long: 2.3522
+    url: https://www.meetup.com/ocaml-paris/
+  - title: "NYC OCaml Meetups"
+    textual_location: New York City, New York, USA
+    location:
+      lat: 40.7128
+      long: 74.0060
+    url: https://www.meetup.com/NYC-OCaml
+  - title: "Silicon Valley OCaml meetups"
+    textual_location: San Francisco, California, USA
+    location:
+      lat: 37.7749
+      long: 122.4194
+    url: https://www.meetup.com/NYC-OCaml
+  - title: "Cambridge NonDysFunctional Programmers"
+    textual_location: Cambridge, United Kingdom
+    location:
+      lat: 52.2053
+      long: 0.1218 
+    url: https://www.meetup.com/Cambridge-NonDysFunctional-Programmers/

@@ -10,7 +10,7 @@ let render_event (event : Ood.Event.t) =
       </h1>
     </div>
     <div class="mt-6 prose prose-indigo prose-lg text-gray-500 mx-auto">
-      <%s! event.description %>
+      <%s! Option.value ~default:"" event.description %>
     </div>
   </div>
 
