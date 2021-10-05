@@ -72,7 +72,6 @@ let highlight_location ((line1, col1), (line2, col2)) =
         Colorize.highlight from_ to_ e)
 
 let append colorize output cl s =
-  Brr.Console.log [ "APPPEND"; cl; s ];
   Dom.appendChild output (Tyxml_js.To_dom.of_element (colorize ~a_class:cl s))
 
 module History = struct
