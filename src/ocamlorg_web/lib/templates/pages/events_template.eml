@@ -5,12 +5,12 @@ let render_workshops (workshops : Workshop.t list) =
   let render_workshop (workshop : Workshop.t) =
     [
       workshop.date;
-      Common.orange_link ~href:("/events/" ^ workshop.slug) workshop.title;
+      Common_template.orange_link ~href:("/events/" ^ workshop.slug) workshop.title;
       match workshop.location with | Some x -> x | None -> "Virtual"
     ]
   in
   let data = List.map render_workshop workshops in
-    Table.Basic.(render { headers; data })
+    Table_template.Basic.(render { headers; data })
 
 let render_events () =
   let open Event in
@@ -25,7 +25,7 @@ let render_events () =
               </div>
               <p class="text-md"><%s Option.value ~default:"" m.organiser %></p>
               <time datetime="<%s m.date %>">
-                <%s Common.human_date m.date %>
+                <%s Common_template.human_date m.date %>
               </time>
             </div>
           </div>

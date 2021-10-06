@@ -65,7 +65,7 @@ let events = Ood.Event.all in
               </ul>
             </div>
             <p class="text-xs text-right"><a class="text-orangedark hover:text-orangedark"
-                href="/newsarchive">Go to the news archive &gt;</a></p>
+                href="/blog">Go to the blog &gt;</a></p>
           </div>
         </div>
       </div>
@@ -83,13 +83,13 @@ let events = Ood.Event.all in
                   stay up to date on what is coming up in the OCaml sphere.
                 </p>
                 <div class="mt-8 text-center">
-                  <%s! Common.orange_link_button ~href:"/events" "Show me Events" %>
+                  <%s! Common_template.orange_link_button ~href:"/events" "Show me Events" %>
                 </div>
               </div>
             </div>
           </div>
           <div class="flow-root px-8 py-16">
-              <%s! Common.timeline ~last:2 (take 3 events |> List.map (fun e -> (e.Ood.Event.date, e.Ood.Event.title))) %>
+              <%s! Common_template.timeline ~last:2 (take 3 events |> List.map (fun e -> (e.Ood.Event.date, e.Ood.Event.title))) %>
           </div>
         </div>
       </div>

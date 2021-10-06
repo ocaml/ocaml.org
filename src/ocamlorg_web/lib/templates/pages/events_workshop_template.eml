@@ -27,7 +27,7 @@ let render_some_videos tbl (ps : Workshop.presentation list) =
       <% end; %>
     </ul>
     <div class="text-right py-4">
-      <%s! Common.orange_link_button ~href:"https://watch.ocaml.org" "More videos at watch.ocaml.org" %>
+      <%s! Common_template.orange_link_button ~href:"https://watch.ocaml.org" "More videos at watch.ocaml.org" %>
     </div>
   </div>
 
@@ -35,7 +35,7 @@ let render_some_videos tbl (ps : Workshop.presentation list) =
 let render_presentations (ps : Workshop.presentation list) =
   let headers = [ "Title"; "Authors"; "Link" ] in
   let render_presentation (p : Workshop.presentation) =
-    let mk_link txt href = Common.orange_link ~href txt in
+    let mk_link txt href = Common_template.orange_link ~href txt in
     let links = [
       Option.map (mk_link "link") p.link;
       Option.map (mk_link "video") p.video;
@@ -49,7 +49,7 @@ let render_presentations (ps : Workshop.presentation list) =
     ]
   in
   let data = List.map render_presentation ps in
-    Table.Basic.(render { headers; data })
+    Table_template.Basic.(render { headers; data })
 
 let pp_member ppf (v : Workshop.committee_member) =
   Fmt.(pf ppf "%s%a" v.name (option (fun ppf s -> pf ppf " (%s)" s))) v.affiliation
@@ -67,7 +67,7 @@ let render_dates (workshop : Workshop.t) =
   if len = 0 then "" else
   <h2 class="text-4xl font-bold mb-8">Important Dates</h2>
   <div class="flow-root rounded bg-white p-6">
-    <%s! Common.timeline ~iso8601:false ~last:(len - 1) (List.map (fun ({ date; info } : Workshop.important_date) -> (date, info)) workshop.important_dates) %>
+    <%s! Common_template.timeline ~iso8601:false ~last:(len - 1) (List.map (fun ({ date; info } : Workshop.important_date) -> (date, info)) workshop.important_dates) %>
   </div>
 
 let render (tbl : (string, Watch.t) Hashtbl.t) (workshop : Workshop.t) =
