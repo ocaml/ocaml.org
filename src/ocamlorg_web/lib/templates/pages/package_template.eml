@@ -42,8 +42,8 @@ let render ~readme ~license:_ package =
       (Ocamlorg.Package.Name.to_string name, x)
     )
   in
-  <div class="grid grid-cols-1 gap-8 sm:grid-flow-col-dense sm:grid-cols-5 lg:grid-cols-3 sm:px-6 lg:px-8">
-    <div class="px-4 sm:px-0 lg:px-0 sm:col-span-2 sm:col-start-4 lg:col-start-3 lg:col-span-1 space-y-6">
+  <div class="grid grid-cols-1 gap-8 sm:grid-flow-col-dense sm:grid-cols-5 lg:grid-cols-7 sm:px-6 lg:px-8">
+    <div class="px-4 sm:px-0 lg:px-0 sm:col-span-2 sm:col-start-4 lg:col-start-6 lg:col-span-2 space-y-6">
       <section>
         <script src="/assets/vendors/alpine-clipboard.js"></script>
 
@@ -168,13 +168,13 @@ let render ~readme ~license:_ package =
       </section>
     </div>
 
-    <div class="px-0 space-y-6 sm:col-span-3 sm:col-start-1 lg:col-span-2">
+    <div class="px-0 space-y-6 sm:col-span-3 sm:col-start-1 lg:col-span-5">
       <section>
         <div class="bg-white shadow sm:rounded-lg">
           <div class="px-4 py-4 sm:px-6 border-b border-gray-200">
             <h2 class="text-lg leading-6 font-medium text-gray-900"><pre>README.md</pre></h2>
           </div>
-          <div class="px-4 py-5 sm:px-6 prose prose-orange max-w-3xl mx-auto">
+          <div class="px-4 py-5 sm:px-6 prose prose-orange max-w-4xl mx-auto">
             <%s! readme %>
           </div>
         </div>

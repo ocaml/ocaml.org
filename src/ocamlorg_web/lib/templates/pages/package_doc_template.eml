@@ -49,12 +49,12 @@ let maptoc = toc_of_map ~root map in
 <div class="flex-auto flex sm:px-6 lg:px-8">
   <div class="relative flex flex-col w-full">
     <div class="relative flex w-full mx-auto">
-      <div class="w-full flex-none sm:grid sm:grid-cols-5 lg:grid-cols-3 sm:gap-6 lg:gap-8">
-        <div class="relative px-4 sm:px-0 sm:col-span-2 lg:col-span-1 ">
+      <div class="w-full flex-none sm:grid sm:grid-cols-5 lg:grid-cols-7 sm:gap-6 lg:gap-8">
+        <div class="relative px-4 sm:px-0 sm:col-span-2 lg:col-span-2 ">
           <%s! Navmap_template.render ~path maptoc %>
           <%s! Toc_template.render toc %>
         </div>
-        <div class="px-0 lg:pl-8 relative sm:col-span-3 lg:col-span-2 lg:-ml-8 bg-white sm:shadow-md sm:rounded-lg">
+        <div class="px-0 lg:pl-8 relative sm:col-span-3 lg:col-span-5 lg:-ml-8 bg-white sm:shadow-md sm:rounded-lg">
           <div class="relative py-8 px-8 lg:px-16">
             <div class="odoc prose prose-orange">
               <%s! doc.content %>
