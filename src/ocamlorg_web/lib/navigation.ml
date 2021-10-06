@@ -18,7 +18,7 @@ let t () =
   [ { header = gettext "Principles"
     ; entries =
         [ { label = gettext "Why OCaml"
-          ; url = Url.principles_what_is_ocaml
+          ; url = Url.what_is_ocaml
           ; icon = Icon_template.camel
           ; text =
               gettext
@@ -26,7 +26,7 @@ let t () =
                  today."
           }
         ; { label = gettext "Industrial Users"
-          ; url = Url.principles_industrial_users
+          ; url = Url.industrial_users
           ; icon = Icon_template.industry
           ; text =
               gettext
@@ -34,7 +34,7 @@ let t () =
                  goals."
           }
         ; { label = gettext "Academic Excellence"
-          ; url = Url.principles_academic
+          ; url = Url.academic
           ; icon = Icon_template.academic
           ; text =
               gettext
@@ -42,7 +42,7 @@ let t () =
                  technology."
           }
         ; { label = gettext "Success Stories"
-          ; url = Url.principles_successes
+          ; url = Url.successes
           ; icon = Icon_template.success
           ; text =
               gettext
@@ -53,7 +53,7 @@ let t () =
   ; { header = gettext "Resources"
     ; entries =
         [ { label = gettext "Language"
-          ; url = Url.resources_language
+          ; url = Url.language
           ; icon = Icon_template.language
           ; text =
               gettext
@@ -68,14 +68,14 @@ let t () =
                  ecosystem."
           }
         ; { label = gettext "Applications"
-          ; url = Url.resources_applications
+          ; url = Url.applications
           ; icon = Icon_template.applications
           ; text =
               gettext
                 "Learn techniques for building tools and applications in OCaml."
           }
         ; { label = "Best Practices"
-          ; url = Url.resources_best_practices
+          ; url = Url.best_practices
           ; icon = Icon_template.best_practices
           ; text =
               gettext
@@ -87,7 +87,7 @@ let t () =
   ; { header = gettext "Community"
     ; entries =
         [ { label = gettext "Opportunities"
-          ; url = Url.community_opportunities
+          ; url = Url.opportunities
           ; icon = Icon_template.opportunities
           ; text =
               gettext
@@ -95,12 +95,12 @@ let t () =
                  could fit in."
           }
         ; { label = gettext "News"
-          ; url = Url.community_news
+          ; url = Url.news
           ; icon = Icon_template.news
           ; text = gettext "Catch up on the latest news from the OCaml sphere!"
           }
         ; { label = gettext "Around the Web"
-          ; url = Url.community_around_web
+          ; url = Url.around_web
           ; icon = Icon_template.web
           ; text =
               gettext
@@ -108,7 +108,7 @@ let t () =
                  online, blogposts, videos, and mailing lists all live here."
           }
         ; { label = gettext "Archive"
-          ; url = Url.resources_archive
+          ; url = Url.archive
           ; icon = Icon_template.archive
           ; text =
               gettext

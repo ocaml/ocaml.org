@@ -4,7 +4,7 @@ let papers = Ood.Paper.all in
   <div class="max-w-8xl mx-auto">
     <div class=" mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
       <div class="text-center">
-        <h1 class=" text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">Papers Archive</h1>
+        <h1 class=" text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">Papers</h1>
         <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500">A selection of OCaml papers through the ages. Filter by
           the tags or do a search over all of the text.</p>
       </div>

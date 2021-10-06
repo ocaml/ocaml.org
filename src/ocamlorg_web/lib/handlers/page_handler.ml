@@ -37,7 +37,7 @@ let history _req =
     (History_template.render ())
   |> Dream.html
 
-let community_around_web _req =
+let around_web _req =
   Page_layout_template.render
     ~title:"OCaml Around the Web"
     ~description:
@@ -45,17 +45,17 @@ let community_around_web _req =
        out about upcoming events, read up on blogs from the community, sign up \
        for OCaml mailing lists, and discover even more places to engage with \
        people from the community!"
-    (Community_around_web_template.render ())
+    (Around_web_template.render ())
   |> Dream.html
 
-let community_events _req =
+let events _req =
   Page_layout_template.render
     ~title:"Events"
     ~description:
       "Several events take place in the OCaml community over the course of \
        each year, in countries all over the world. This calendar will help you \
        stay up to date on what is coming up in the OCaml sphere."
-    (Community_events_template.render ())
+    (Events_template.render ())
   |> Dream.html
 
 let watch_ocamlorg_embed =
@@ -92,7 +92,7 @@ let watch_ocamlorg_embed =
   List.iter add_video presentations;
   tbl
 
-let community_events_workshop req =
+let events_workshop req =
   let slug = Dream.param "id" req in
   match
     List.find_opt (fun x -> x.Ood.Workshop.slug = slug) Ood.Workshop.all
@@ -101,67 +101,60 @@ let community_events_workshop req =
     Page_layout_template.render
       ~title:(Printf.sprintf "%s · OCaml Tutorials" workshop.Ood.Workshop.title)
       ~description:workshop.Ood.Workshop.title
-      (Community_events_workshop_template.render watch_ocamlorg_embed workshop)
+      (Events_workshop_template.render watch_ocamlorg_embed workshop)
     |> Dream.html
   | None ->
     not_found req
 
-let community_media_archive _req =
+let media_archive _req =
   Page_layout_template.render
     ~title:"Media Archive"
     ~description:
       "This is where you can find archived videos, slides from talks, and \
        other media produced by people in the OCaml Community."
-    (Community_media_archive_template.render ())
+    (Media_archive_template.render ())
   |> Dream.html
 
-let community_news _req =
+let news _req =
   Page_layout_template.render
     ~title:"OCaml News"
     ~description:
       "This is where you'll find the latest stories from the OCaml Community!"
-    (Community_blog_template.render ())
+    (Blog_template.render ())
   |> Dream.html
 
-let community_news_archive _req =
-  Page_layout_template.render
-    ~title:"News Archive"
-    ~description:"Archive of news presented in the News page."
-    (Community_news_archive_template.render ())
-  |> Dream.html
-
-let community_opportunities _req =
+let opportunities _req =
   Page_layout_template.render
     ~title:"Opportunities"
     ~description:
       "This is a space where groups, companies, and organisations can \
        advertise their projects directly to the OCaml community."
-    (Community_opportunities_template.render Ood.Job.all_not_fullfilled)
+    (Opportunities_template.render Ood.Job.all_not_fullfilled)
   |> Dream.html
 
-let community_opportunity req =
+let opportunity req =
   let id = Dream.param "id" req in
   match Option.bind (int_of_string_opt id) Ood.Job.get_by_id with
   | Some job ->
     Page_layout_template.render
       ~title:(Printf.sprintf "%s · OCaml Opportunity" job.Ood.Job.title)
       ~description:"???"
-      (Community_opportunity_template.render job)
+      (Opportunity_template.render job)
     |> Dream.html
   | None ->
     not_found req
 
-let principles_successes req =
+let successes req =
   let stories = with_lang req Ood.Success_story.all () in
   Page_layout_template.render
     ~title:"Success Stories · Read what our users are saying"
     ~description:
       "Read our success stories to learn how OCaml helped our users achieve \
        their goals."
-    (Principles_successes_template.render stories)
+    (Successes_template.render stories)
   |> Dream.html
 
-let principles_success req =
+let success req =
   let slug = Dream.param "id" req in
   let story = with_lang req Ood.Success_story.get_by_slug slug in
   match story with
@@ -170,12 +163,12 @@ let principles_success req =
       ~title:
         (Printf.sprintf "%s · Success Stories" story.Ood.Success_story.title)
       ~description:"synopsys"
-      (Principles_success_template.render story)
+      (Success_template.render story)
     |> Dream.html
   | None ->
     not_found req
 
-let principles_industrial_users req =
+let industrial_users req =
   let users = with_lang req Ood.Industrial_user.all () in
   Page_layout_template.render
     ~title:"Industrial Users of OCaml"
@@ -184,126 +177,124 @@ let principles_industrial_users req =
        companies rely on OCaml to keep their data operating both safely and \
        efficiently. On this page, you can get an overview of the companies in \
        the community and learn more about how they use OCaml."
-    (Principles_industrial_users_template.render users)
+    (Industrial_users_template.render users)
   |> Dream.html
 
-let principles_academic _req =
+let academic _req =
   Page_layout_template.render
     ~title:"Academic Users of OCaml"
     ~description:"OCaml usage in the academic world."
-    (Principles_academic_template.render Ood.Academic_institution.all)
+    (Academic_template.render Ood.Academic_institution.all)
   |> Dream.html
 
-let principles_what_is_ocaml _req =
+let what_is_ocaml _req =
   Page_layout_template.render
     ~title:"What is OCaml?"
     ~description:"A description of OCaml's features."
-    (Principles_what_is_ocaml_template.render ())
+    (What_is_ocaml_template.render ())
   |> Dream.html
 
-let legal_carbon_footprint _req =
+let carbon_footprint _req =
   Page_layout_template.render
     ~title:"Carbon Footprint"
     ~description:
       "Over the years, the OCaml community has become more and more proactive \
        when it comes to reducing its environmental impact. As part of this \
        journey we have documented our efforts towards becoming Carbon Zero."
-    (Legal_carbon_footprint_template.render ())
+    (Carbon_footprint_template.render ())
   |> Dream.html
 
-let legal_privacy _req =
+let privacy _req =
   Page_layout_template.render
     ~title:"Privacy Policy"
     ~description:"???"
-    (Legal_privacy_template.render ())
+    (Privacy_template.render ())
   |> Dream.html
 
-let legal_terms _req =
+let terms _req =
   Page_layout_template.render
     ~title:"Terms and Conditions"
     ~description:"???"
-    (Legal_terms_template.render ())
+    (Terms_template.render ())
   |> Dream.html
 
-let resources_applications _req =
+let applications _req =
   Page_layout_template.render
     ~title:"Using OCaml"
     ~description:
       "Besides developing in the language and making your own applications, \
        there are many useful tools that already exist in OCaml for you to use."
-    (Resources_applications_template.render ())
+    (Applications_template.render ())
   |> Dream.html
 
-let resources_archive _req =
+let archive _req =
   Page_layout_template.render
     ~title:"Archive"
     ~description:"???"
-    (Resources_archive_template.render ())
+    (Archive_template.render ())
   |> Dream.html
 
-let resources_best_practices _req =
+let best_practices _req =
   Page_layout_template.render
     ~title:"Best Practices"
     ~description:
       "Some guides to commonly used tools in OCaml development workflows."
-    (Resources_best_practices_template.render Ood.Workflow.all)
+    (Best_practices_template.render Ood.Workflow.all)
   |> Dream.html
 
-let resources_developing_in_ocaml _req =
-  Page_layout_template.render
-    ~title:"Developing in OCaml"
-    ~description:"Workflows for application developers and library authors."
-    (Resources_developing_in_ocaml_template.render ())
-  |> Dream.html
-
-let resources_language _req =
+let language _req =
   Page_layout_template.render
     ~title:"The OCaml Language"
     ~description:
       "This is the home of learning and tutorials. Whether you're a beginner, \
        a teacher, or a seasoned researcher, this is where you can find the \
        resources you need to accomplish your goals in OCaml."
-    (Resources_language_template.render ())
+    (Language_template.render ())
   |> Dream.html
 
-let resources_papers _req =
+let papers _req =
   Page_layout_template.render
     ~title:"Papers"
     ~description:"A selection of papers grouped by popular categories."
-    (Resources_papers_template.render ())
+    (Papers_template.render ())
   |> Dream.html
 
-let resources_papers_archive _req =
+let books _req =
   Page_layout_template.render
-    ~title:"Papers Archive"
-    ~description:
-      "A selection of OCaml papers through the ages. Filter by the tags or do \
-       a search over all of the text."
-    (Resources_papers_archive_template.render ())
+    ~title:"Books"
+    ~description:"A selection of books to learn OCaml."
+    (Books_template.render Ood.Book.all)
   |> Dream.html
 
-let resources_platform _req =
+let platform _req =
   Page_layout_template.render
     ~title:"Platform"
     ~description:
       "The OCaml Platform represents the best way for developers, both new and \
        old, to write software in OCaml."
-    (Resources_platform_template.render ())
+    (Platform_template.render Ood.Tool.all)
   |> Dream.html
 
-let resources_releases _req =
+let releases _req =
   Page_layout_template.render
     ~title:"Releases"
     ~description:"???"
-    (Resources_releases_template.render ())
+    (Releases_template.render ())
   |> Dream.html
 
-let resources_tutorials _req =
+let release _req =
+  Page_layout_template.render
+    ~title:"Release"
+    ~description:"???"
+    (Release_template.render ())
+  |> Dream.html
+
+let tutorials _req =
   Page_layout_template.render
     ~title:"OCaml Tutorials · Learn OCaml by topic"
     ~description:
       "Start learning the OCaml language by topic with out official tutorial."
-    (Resources_tutorials_template.render ())
+    (Tutorials_template.render ())
   |> Dream.html
 
 let slugify value =
@@ -312,7 +303,7 @@ let slugify value =
   |> String.lowercase_ascii
   |> Str.global_replace (Str.regexp "[^a-z0-9\\-]") ""
 
-let resources_tutorial req =
+let tutorial req =
   let slug = Dream.param "id" req in
   match
     List.find_opt
@@ -323,19 +314,10 @@ let resources_tutorial req =
     Page_layout_template.render
       ~title:(Printf.sprintf "%s · OCaml Tutorials" tutorial.Ood.Tutorial.title)
       ~description:tutorial.Ood.Tutorial.description
-      (Resources_tutorial_template.render
+      (Tutorial_template.render
          (fun x -> slugify x.Ood.Tutorial.title)
          Ood.Tutorial.all
          tutorial)
     |> Dream.html
   | None ->
     not_found req
-
-let resources_using_ocaml _req =
-  Page_layout_template.render
-    ~title:"Using OCaml"
-    ~description:
-      "Besides developing in the language and making your own applications, \
-       there are many useful tools that already exist in OCaml for you to use."
-    (Resources_using_ocaml_template.render ())
-  |> Dream.html

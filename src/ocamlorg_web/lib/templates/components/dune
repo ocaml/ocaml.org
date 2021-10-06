@@ -53,13 +53,13 @@
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
 
 (rule
- (targets common.ml)
- (deps common.eml)
+ (targets common_template.ml)
+ (deps common_template.eml)
  (action
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
 
 (rule
- (targets table.ml)
- (deps table.eml)
+ (targets table_template.ml)
+ (deps table_template.eml)
  (action
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))

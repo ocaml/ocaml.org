@@ -36,157 +36,154 @@ let t =
   ; "/releases/4.07.0.html", "/???"
   ; "/learn/taste.html", "/???"
   ; "/learn/taste.fr.html", "/???"
-  ; "/learn/success.html", Url.principles_successes
+  ; "/learn/success.html", Url.successes
   ; "/learn/history.fr.html", Url.history
   ; "/learn/history.html", Url.history
   ; "/learn/faq.html", "/???"
-  ; "/learn/companies.html", Url.principles_industrial_users
+  ; "/learn/companies.html", Url.industrial_users
   ; "/learn/description.html", "/???"
-  ; "/learn/", Url.resources_language
-  ; "/learn/index.html", Url.resources_language
-  ; "/learn/index.fr.html", Url.resources_language
-  ; "/learn/teaching-ocaml.html", Url.principles_academic
-  ; "/learn/tutorials/", Url.resources_tutorials
-  ; "/learn/tutorials/index.ja.html", Url.resources_tutorials
-  ; "/learn/tutorials/index.ko.html", Url.resources_tutorials
-  ; "/learn/tutorials/index.it.html", Url.resources_tutorials
-  ; "/learn/tutorials/index.html", Url.resources_tutorials
-  ; "/learn/tutorials/index.zh.html", Url.resources_tutorials
-  ; "/learn/tutorials/index.fr.html", Url.resources_tutorials
-  ; "/learn/tutorials/index.de.html", Url.resources_tutorials
+  ; "/learn/", Url.language
+  ; "/learn/index.html", Url.language
+  ; "/learn/index.fr.html", Url.language
+  ; "/learn/teaching-ocaml.html", Url.academic
+  ; "/learn/tutorials/", Url.tutorials
+  ; "/learn/tutorials/index.ja.html", Url.tutorials
+  ; "/learn/tutorials/index.ko.html", Url.tutorials
+  ; "/learn/tutorials/index.it.html", Url.tutorials
+  ; "/learn/tutorials/index.html", Url.tutorials
+  ; "/learn/tutorials/index.zh.html", Url.tutorials
+  ; "/learn/tutorials/index.fr.html", Url.tutorials
+  ; "/learn/tutorials/index.de.html", Url.tutorials
   ; ( "/learn/tutorials/up_and_running.html"
-    , Url.resources_tutorial "up-and-running-with-ocaml" )
+    , Url.tutorial "up-and-running-with-ocaml" )
   ; ( "/learn/tutorials/a_first_hour_with_ocaml.html"
-    , Url.resources_tutorial "a-first-hour-with-ocaml" )
+    , Url.tutorial "a-first-hour-with-ocaml" )
   ; ( "/learn/tutorials/guidelines.html"
-    , Url.resources_tutorial "ocaml-programming-guidelines" )
+    , Url.tutorial "ocaml-programming-guidelines" )
   ; ( "/learn/tutorials/compiling_ocaml_projects.ja.html"
-    , Url.resources_tutorial "compiling-ocaml-projects" )
+    , Url.tutorial "compiling-ocaml-projects" )
   ; ( "/learn/tutorials/compiling_ocaml_projects.html"
-    , Url.resources_tutorial "compiling-ocaml-projects" )
+    , Url.tutorial "compiling-ocaml-projects" )
   ; ( "/learn/tutorials/data_types_and_matching.it.html"
-    , Url.resources_tutorial "data-types-and-matching" )
+    , Url.tutorial "data-types-and-matching" )
   ; ( "/learn/tutorials/data_types_and_matching.fr.html"
-    , Url.resources_tutorial "data-types-and-matching" )
+    , Url.tutorial "data-types-and-matching" )
   ; ( "/learn/tutorials/data_types_and_matching.zh.html"
-    , Url.resources_tutorial "data-types-and-matching" )
+    , Url.tutorial "data-types-and-matching" )
   ; ( "/learn/tutorials/data_types_and_matching.ja.html"
-    , Url.resources_tutorial "data-types-and-matching" )
+    , Url.tutorial "data-types-and-matching" )
   ; ( "/learn/tutorials/data_types_and_matching.html"
-    , Url.resources_tutorial "data-types-and-matching" )
+    , Url.tutorial "data-types-and-matching" )
   ; ( "/learn/tutorials/functional_programming.fr.html"
-    , Url.resources_tutorial "functional-programming" )
+    , Url.tutorial "functional-programming" )
   ; ( "/learn/tutorials/functional_programming.html"
-    , Url.resources_tutorial "functional-programming" )
+    , Url.tutorial "functional-programming" )
   ; ( "/learn/tutorials/functional_programming.zh.html"
-    , Url.resources_tutorial "functional-programming" )
+    , Url.tutorial "functional-programming" )
   ; ( "/learn/tutorials/functional_programming.it.html"
-    , Url.resources_tutorial "functional-programming" )
+    , Url.tutorial "functional-programming" )
   ; ( "/learn/tutorials/functional_programming.ja.html"
-    , Url.resources_tutorial "functional-programming" )
+    , Url.tutorial "functional-programming" )
   ; ( "/learn/tutorials/if_statements_loops_and_recursion.ko.html"
-    , Url.resources_tutorial "if-statements-loops-and-recursions" )
+    , Url.tutorial "if-statements-loops-and-recursions" )
   ; ( "/learn/tutorials/if_statements_loops_and_recursion.ja.html"
-    , Url.resources_tutorial "if-statements-loops-and-recursions" )
+    , Url.tutorial "if-statements-loops-and-recursions" )
   ; ( "/learn/tutorials/if_statements_loops_and_recursion.html"
-    , Url.resources_tutorial "if-statements-loops-and-recursions" )
+    , Url.tutorial "if-statements-loops-and-recursions" )
   ; ( "/learn/tutorials/if_statements_loops_and_recursion.fr.html"
-    , Url.resources_tutorial "if-statements-loops-and-recursions" )
+    , Url.tutorial "if-statements-loops-and-recursions" )
   ; ( "/learn/tutorials/if_statements_loops_and_recursion.zh.html"
-    , Url.resources_tutorial "if-statements-loops-and-recursions" )
+    , Url.tutorial "if-statements-loops-and-recursions" )
   ; ( "/learn/tutorials/if_statements_loops_and_recursion.it.html"
-    , Url.resources_tutorial "if-statements-loops-and-recursions" )
-  ; "/learn/tutorials/modules.fr.html", Url.resources_tutorial "modules"
-  ; "/learn/tutorials/modules.html", Url.resources_tutorial "modules"
-  ; "/learn/tutorials/modules.zh.html", Url.resources_tutorial "modules"
-  ; "/learn/tutorials/modules.ja.html", Url.resources_tutorial "modules"
-  ; "/learn/tutorials/modules.ko.html", Url.resources_tutorial "modules"
-  ; "/learn/tutorials/labels.zh.html", Url.resources_tutorial "labels"
-  ; "/learn/tutorials/labels.ja.html", Url.resources_tutorial "labels"
-  ; "/learn/tutorials/labels.html", Url.resources_tutorial "labels"
-  ; ( "/learn/tutorials/pointers.zh.html"
-    , Url.resources_tutorial "pointers-in-ocaml" )
-  ; "/learn/tutorials/pointers.html", Url.resources_tutorial "pointers-in-ocaml"
+    , Url.tutorial "if-statements-loops-and-recursions" )
+  ; "/learn/tutorials/modules.fr.html", Url.tutorial "modules"
+  ; "/learn/tutorials/modules.html", Url.tutorial "modules"
+  ; "/learn/tutorials/modules.zh.html", Url.tutorial "modules"
+  ; "/learn/tutorials/modules.ja.html", Url.tutorial "modules"
+  ; "/learn/tutorials/modules.ko.html", Url.tutorial "modules"
+  ; "/learn/tutorials/labels.zh.html", Url.tutorial "labels"
+  ; "/learn/tutorials/labels.ja.html", Url.tutorial "labels"
+  ; "/learn/tutorials/labels.html", Url.tutorial "labels"
+  ; "/learn/tutorials/pointers.zh.html", Url.tutorial "pointers-in-ocaml"
+  ; "/learn/tutorials/pointers.html", Url.tutorial "pointers-in-ocaml"
   ; ( "/learn/tutorials/null_pointers_asserts_and_warnings.ja.html"
-    , Url.resources_tutorial "null-pointers-asserts-and-warnings" )
+    , Url.tutorial "null-pointers-asserts-and-warnings" )
   ; ( "/learn/tutorials/null_pointers_asserts_and_warnings.zh.html"
-    , Url.resources_tutorial "null-pointers-asserts-and-warnings" )
+    , Url.tutorial "null-pointers-asserts-and-warnings" )
   ; ( "/learn/tutorials/null_pointers_asserts_and_warnings.fr.html"
-    , Url.resources_tutorial "null-pointers-asserts-and-warnings" )
+    , Url.tutorial "null-pointers-asserts-and-warnings" )
   ; ( "/learn/tutorials/null_pointers_asserts_and_warnings.it.html"
-    , Url.resources_tutorial "null-pointers-asserts-and-warnings" )
+    , Url.tutorial "null-pointers-asserts-and-warnings" )
   ; ( "/learn/tutorials/null_pointers_asserts_and_warnings.html"
-    , Url.resources_tutorial "null-pointers-asserts-and-warnings" )
-  ; "/learn/tutorials/functors.html", Url.resources_tutorial "functors"
-  ; "/learn/tutorials/objects.ja.html", Url.resources_tutorial "objects"
-  ; "/learn/tutorials/objects.html", Url.resources_tutorial "objects"
-  ; "/learn/tutorials/objects.zh.html", Url.resources_tutorial "objects"
-  ; ( "/learn/tutorials/error_handling.html"
-    , Url.resources_tutorial "error-handling" )
+    , Url.tutorial "null-pointers-asserts-and-warnings" )
+  ; "/learn/tutorials/functors.html", Url.tutorial "functors"
+  ; "/learn/tutorials/objects.ja.html", Url.tutorial "objects"
+  ; "/learn/tutorials/objects.html", Url.tutorial "objects"
+  ; "/learn/tutorials/objects.zh.html", Url.tutorial "objects"
+  ; "/learn/tutorials/error_handling.html", Url.tutorial "error-handling"
   ; ( "/learn/tutorials/common_error_messages.html"
-    , Url.resources_tutorial "common-error-messages" )
+    , Url.tutorial "common-error-messages" )
   ; ( "/learn/tutorials/common_error_messages.ja.html"
-    , Url.resources_tutorial "common-error-messages" )
+    , Url.tutorial "common-error-messages" )
   ; ( "/learn/tutorials/common_error_messages.zh.html"
-    , Url.resources_tutorial "common-error-messages" )
+    , Url.tutorial "common-error-messages" )
   ; ( "/learn/tutorials/common_error_messages.fr.html"
-    , Url.resources_tutorial "common-error-messages" )
-  ; "/learn/tutorials/debug.html", Url.resources_tutorial "debug"
-  ; "/learn/tutorials/map.html", Url.resources_tutorial "map"
-  ; "/learn/tutorials/map.ja.html", Url.resources_tutorial "map"
-  ; "/learn/tutorials/map.zh.html", Url.resources_tutorial "map"
-  ; "/learn/tutorials/map.fr.html", Url.resources_tutorial "map"
-  ; "/learn/tutorials/set.fr.html", Url.resources_tutorial "sets"
-  ; "/learn/tutorials/set.ja.html", Url.resources_tutorial "sets"
-  ; "/learn/tutorials/set.html", Url.resources_tutorial "sets"
-  ; "/learn/tutorials/set.zh.html", Url.resources_tutorial "sets"
-  ; "/learn/tutorials/hashtbl.ja.html", Url.resources_tutorial "hashtables"
-  ; "/learn/tutorials/hashtbl.html", Url.resources_tutorial "hashtables"
-  ; "/learn/tutorials/hashtbl.zh.html", Url.resources_tutorial "hashtables"
-  ; "/learn/tutorials/streams.html", Url.resources_tutorial "streams"
-  ; "/learn/tutorials/format.fr.html", Url.resources_tutorial "format"
-  ; "/learn/tutorials/format.html", Url.resources_tutorial "format"
+    , Url.tutorial "common-error-messages" )
+  ; "/learn/tutorials/debug.html", Url.tutorial "debug"
+  ; "/learn/tutorials/map.html", Url.tutorial "map"
+  ; "/learn/tutorials/map.ja.html", Url.tutorial "map"
+  ; "/learn/tutorials/map.zh.html", Url.tutorial "map"
+  ; "/learn/tutorials/map.fr.html", Url.tutorial "map"
+  ; "/learn/tutorials/set.fr.html", Url.tutorial "sets"
+  ; "/learn/tutorials/set.ja.html", Url.tutorial "sets"
+  ; "/learn/tutorials/set.html", Url.tutorial "sets"
+  ; "/learn/tutorials/set.zh.html", Url.tutorial "sets"
+  ; "/learn/tutorials/hashtbl.ja.html", Url.tutorial "hashtables"
+  ; "/learn/tutorials/hashtbl.html", Url.tutorial "hashtables"
+  ; "/learn/tutorials/hashtbl.zh.html", Url.tutorial "hashtables"
+  ; "/learn/tutorials/streams.html", Url.tutorial "streams"
+  ; "/learn/tutorials/format.fr.html", Url.tutorial "format"
+  ; "/learn/tutorials/format.html", Url.tutorial "format"
   ; ( "/learn/tutorials/command-line_arguments.ja.html"
-    , Url.resources_tutorial "command-line-arguments" )
+    , Url.tutorial "command-line-arguments" )
   ; ( "/learn/tutorials/command-line_arguments.html"
-    , Url.resources_tutorial "command-line-arguments" )
+    , Url.tutorial "command-line-arguments" )
   ; ( "/learn/tutorials/command-line_arguments.zh.html"
-    , Url.resources_tutorial "command-line-arguments" )
+    , Url.tutorial "command-line-arguments" )
   ; ( "/learn/tutorials/file_manipulation.zh.html"
-    , Url.resources_tutorial "file-manipulation" )
-  ; ( "/learn/tutorials/file_manipulation.html"
-    , Url.resources_tutorial "file-manipulation" )
+    , Url.tutorial "file-manipulation" )
+  ; "/learn/tutorials/file_manipulation.html", Url.tutorial "file-manipulation"
   ; ( "/learn/tutorials/file_manipulation.ja.html"
-    , Url.resources_tutorial "file-manipulation" )
+    , Url.tutorial "file-manipulation" )
   ; ( "/learn/tutorials/calling_c_libraries.html"
-    , Url.resources_tutorial "calling-c-libraries" )
+    , Url.tutorial "calling-c-libraries" )
   ; ( "/learn/tutorials/calling_fortran_libraries.html"
-    , Url.resources_tutorial "calling-fortran-libraries" )
+    , Url.tutorial "calling-fortran-libraries" )
   ; ( "/learn/tutorials/garbage_collection.zh.html"
-    , Url.resources_tutorial "garbage-collection" )
+    , Url.tutorial "garbage-collection" )
   ; ( "/learn/tutorials/garbage_collection.ja.html"
-    , Url.resources_tutorial "garbage-collection" )
+    , Url.tutorial "garbage-collection" )
   ; ( "/learn/tutorials/garbage_collection.html"
-    , Url.resources_tutorial "garbage-collection" )
+    , Url.tutorial "garbage-collection" )
   ; ( "/learn/tutorials/performance_and_profiling_discussion.html"
-    , Url.resources_tutorial "performance-and-profiling" )
+    , Url.tutorial "performance-and-profiling" )
   ; ( "/learn/tutorials/performance_and_profiling.ja.html"
-    , Url.resources_tutorial "performance-and-profiling" )
+    , Url.tutorial "performance-and-profiling" )
   ; ( "/learn/tutorials/comparison_of_standard_containers.html"
-    , Url.resources_tutorial "performance-and-profiling" )
+    , Url.tutorial "performance-and-profiling" )
   ; ( "/learn/tutorials/comparison_of_standard_containers.zh.html"
-    , Url.resources_tutorial "performance-and-profiling" )
+    , Url.tutorial "performance-and-profiling" )
   ; ( "/learn/tutorials/performance_and_profiling.html"
-    , Url.resources_tutorial "performance-and-profiling" )
+    , Url.tutorial "performance-and-profiling" )
   ; ( "/learn/tutorials/comparison_of_standard_containers.ko.html"
-    , Url.resources_tutorial "comparison-of-standard-containers" )
+    , Url.tutorial "comparison-of-standard-containers" )
   ; ( "/learn/tutorials/comparison_of_standard_containers.ja.html"
-    , Url.resources_tutorial "comparison-of-standard-containers" )
-  ; "/learn/tutorials/camlp5.html", Url.resources_tutorial "???"
-  ; "/learn/tutorials/lists.html", Url.resources_tutorial "???"
-  ; "/learn/tutorials/humor_proof.html", Url.resources_tutorial "???"
-  ; "/learn/tutorials/introduction_to_gtk.html", Url.resources_tutorial "???"
-  ; "/learn/tutorials/99problems.html", Url.resources_tutorial "???"
+    , Url.tutorial "comparison-of-standard-containers" )
+  ; "/learn/tutorials/camlp5.html", Url.tutorial "???"
+  ; "/learn/tutorials/lists.html", Url.tutorial "???"
+  ; "/learn/tutorials/humor_proof.html", Url.tutorial "???"
+  ; "/learn/tutorials/introduction_to_gtk.html", Url.tutorial "???"
+  ; "/learn/tutorials/99problems.html", Url.tutorial "???"
   ; "/learn/libraries.html", "/???"
   ; "/learn/books.html", "/???"
   ; "/learn/portability.html", "/???"
@@ -210,7 +207,7 @@ let t =
   ; "/docs/index.fr.html", "/???"
   ; "/docs/install.fr.html", "/???"
   ; "/docs/cheat_sheets.html", "/???"
-  ; "/docs/papers.html", Url.resources_papers_archive
+  ; "/docs/papers.html", Url.papers
   ; "/index.html", Url.index
   ; "/index.fr.html", Url.index
   ; "/contributors.html", Url.index
