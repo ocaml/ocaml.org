@@ -46,6 +46,4 @@ let problems = "/problems"
 
 let releases = "/releases"
 
-let release = "/release"
-
 let books = "/books"

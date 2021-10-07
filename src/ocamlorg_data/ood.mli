@@ -391,3 +391,19 @@ module Workflow : sig
 
   val all : t list
 end
+
+module Release : sig
+  type kind = [ `Compiler ]
+
+  type t =
+    { kind : kind
+    ; version : string
+    ; date : string
+    ; body_md : string
+    ; body_html : string
+    }
+
+  val all : t list
+
+  val get_by_version : string -> t option
+end

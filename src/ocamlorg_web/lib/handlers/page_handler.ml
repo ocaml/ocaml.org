@@ -286,15 +286,20 @@ let releases _req =
   Page_layout_template.render
     ~title:"Releases"
     ~description:"???"
-    (Releases_template.render ())
+    (Releases_template.render Ood.Release.all)
   |> Dream.html
 
-let release _req =
-  Page_layout_template.render
-    ~title:"Release"
-    ~description:"???"
-    (Release_template.render ())
-  |> Dream.html
+let release req =
+  let version = Dream.param "id" req in
+  match Ood.Release.get_by_version version with
+  | Some release ->
+    Page_layout_template.render
+      ~title:"Release"
+      ~description:"???"
+      (Release_template.render release)
+    |> Dream.html
+  | None ->
+    not_found req
 
 let tutorials _req =
   Page_layout_template.render
