@@ -8,6 +8,7 @@ let term_templates =
   ; "meetup", Ood_gen.Meetup.template
   ; "industrial_user", Ood_gen.Industrial_user.template
   ; "paper", Ood_gen.Paper.template
+  ; "problems", Ood_gen.Problem.template
   ; "release", Ood_gen.Release.template
   ; "success_story", Ood_gen.Success_story.template
   ; "tool", Ood_gen.Tool.template

@@ -116,6 +116,16 @@ module Paper = struct
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
+module Problem = struct
+  include Problem
+
+  let filter_by_tag ~tag problems =
+    List.filter (fun (x : t) -> List.mem tag x.tags) problems
+  
+  let filter_no_tag problems =
+    List.filter (fun (x : t) -> List.length x.tags = 0) problems
+end
+
 module Success_story = struct
   include Success_story
 

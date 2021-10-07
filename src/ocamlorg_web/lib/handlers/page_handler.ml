@@ -275,6 +275,13 @@ let platform _req =
     (Platform_template.render Ood.Tool.all)
   |> Dream.html
 
+let problems _req =
+  Page_layout_template.render
+    ~title:"Problems"
+    ~description:"???"
+    (Problems_template.render Ood.Problem.all)
+  |> Dream.html
+
 let releases _req =
   Page_layout_template.render
     ~title:"Releases"

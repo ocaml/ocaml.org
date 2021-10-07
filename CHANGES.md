@@ -1,5 +1,7 @@
 # Unreleased
 
+- Add 99 problems (#147, by @tmattio)
+
 - Import all of the events data from v2 (#116, by @patricoferris)
 
 - Add a job board in opportunities (#115, by @tmattio)

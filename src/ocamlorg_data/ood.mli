@@ -177,6 +177,29 @@ module Paper : sig
   val get_by_slug : string -> t option
 end
 
+module Problem : sig
+  type difficulty =
+    [ `Beginner
+    | `Intermediate
+    | `Advanced
+    ]
+
+  type t =
+    { title : string
+    ; number : string
+    ; difficulty : difficulty
+    ; tags : string list
+    ; statement : string
+    ; solution : string
+    }
+
+  val all : t list
+
+  val filter_by_tag : tag:string -> t list -> t list
+
+  val filter_no_tag : t list -> t list
+end
+
 module Success_story : sig
   type t =
     { title : string
