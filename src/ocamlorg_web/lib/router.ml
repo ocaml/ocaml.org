@@ -38,6 +38,7 @@ let page_routes =
     ; Dream.get Url.opportunities Page_handler.opportunities
     ; Dream.get (Url.opportunities ^ "/:id") Page_handler.opportunity
     ; Dream.get Url.successes Page_handler.successes
+    ; Dream.get (Url.successes ^ "/:id") Page_handler.success
     ; Dream.get Url.industrial_users Page_handler.industrial_users
     ; Dream.get Url.academic Page_handler.academic
     ; Dream.get Url.what_is_ocaml Page_handler.what_is_ocaml
