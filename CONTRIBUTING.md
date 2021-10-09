@@ -14,8 +14,8 @@ Contributions are very welcome whether that be:
 The `Makefile` contains many commands that can get you up and running, a typical workflow will be to clone the repository after forking it.
 
 ```
-git clone https://github.com/<username>/ood.git
-cd ood
+git clone https://github.com/<username>/v3.ocaml.org-server.git
+cd v3.ocaml.org-server
 ```
 
 From the root of your project, the simplest way to get set up is to create a [local opam switch](https://opam.ocaml.org/doc/Manual.html#Switches) and install the dependencies. There 
@@ -30,8 +30,6 @@ If you don't want a local opam switch and are happy to install everything global
 ```
 make deps
 ```
-
-Note we use [tailwind-css](https://tailwindcss.com/) in `ood-preview` so we also install that using npm.
 
 ### Running the server
 
