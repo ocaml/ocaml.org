@@ -25,7 +25,7 @@ is a single `make` target to do just that.
 make switch
 ```
 
-If you don't want a local opam switch and are happy to install everything globally (in the opam sense) then you can just install the dependencies directly. Note, we use the `4.10.2` compiler because our tutorials require a specific compiler version.
+If you don't want a local opam switch and are happy to install everything globally (in the opam sense) then you can just install the dependencies directly.
 
 ```
 make deps
