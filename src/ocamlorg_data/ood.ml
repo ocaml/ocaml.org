@@ -206,3 +206,11 @@ end
 module Workflow = struct
   include Workflow
 end
+
+
+module Release = struct
+  include Release
+
+
+  let get_by_version version = List.find_opt (fun x -> String.equal version x.version) all
+end

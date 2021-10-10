@@ -17,7 +17,6 @@ let orange_link_button ~href text =
     </a>
   </div>
 
-
 let timeline ?(iso8601=true) ~last events =
   <ul role="list" class="-mb-8">
     <% events |> List.iteri (fun i (date, title) -> 

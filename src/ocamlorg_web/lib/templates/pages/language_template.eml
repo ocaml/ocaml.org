@@ -70,7 +70,7 @@ let books = Ood.Book.all in
                         alt="<%s item.title %>" src="<%s cover %>">
                     </div>
                   </div>
-                  <% ); %>
+                <% ); %>
               </div>
               <div class="flex justify-end cursor-pointer" tabindex="0"><svg class="h-20" fill="none"
                   viewBox="0 0 90 159" xmlns="http://www.w3.org/2000/svg">
