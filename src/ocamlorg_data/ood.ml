@@ -70,7 +70,12 @@ end
 module Academic_institution = struct
   include Academic_institution
 
-  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
+
+  let all ?(lang = `English) () =
+    match lang with `English -> all_en | `French -> all_fr | _ -> all_en
+
+  let get_by_slug ?lang slug =
+    List.find_opt (fun x -> String.equal slug x.slug) (all ?lang ())
 end
 
 module Book = struct

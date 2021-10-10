@@ -52,9 +52,13 @@ module Academic_institution : sig
     ; body_html : string
     }
 
-  val all : t list
+  val all_en : t list
 
-  val get_by_slug : string -> t option
+  val all_fr : t list
+
+  val all : ?lang:[> `English | `French ] -> unit -> t list
+
+  val get_by_slug : ?lang:[> `English | `French ] -> string -> t option
 end
 
 module Book : sig
