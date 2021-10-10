@@ -180,11 +180,12 @@ let industrial_users req =
     (Industrial_users_template.render users)
   |> Dream.html
 
-let academic _req =
+let academic req =
+  let users = with_lang req Ood.Academic_institution.all () in
   Page_layout_template.render
     ~title:"Academic Users of OCaml"
     ~description:"OCaml usage in the academic world."
-    (Academic_template.render Ood.Academic_institution.all)
+    (Academic_template.render users)
   |> Dream.html
 
 let what_is_ocaml _req =

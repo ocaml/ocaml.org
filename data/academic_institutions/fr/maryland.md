@@ -1,8 +1,8 @@
 ---
 name: Université du Maryland
 description: >
+  L'Université du Maryland de College Park est une université "land-grant" publique de recherche à College Park dans le Maryland.
 url: "https://www.umd.edu/"
- L'Université du Maryland de College Park est une université "land-grant" publique de recherche à College Park dans le Maryland.
 logo: /academic_institution/maryland.gif
 continent: Amérique du Nord
 courses:
