@@ -942,7 +942,7 @@ let all_fr =
  
   { name = {js|Université d'Aix-Marseille|js}
   ; slug = {js|universit-daix-marseille|js}
-  ; description = {js|L'Université d'Aix-Marseille est une université publique de recherche localisée dans la région PACA, dans le Sud de la France.
+  ; description = {js|L'Université d'Aix-Marseille est une université publique de recherche localisée dans la région PACA, dans le sud de la France.
 |js}
   ; url = {js|https://www.univ-amu.fr/en|js}
   ; logo = Some {js|/academic_institution/aix.jpg|js}
@@ -964,7 +964,7 @@ let all_fr =
  
   { name = {js|Université d'Aarhus|js}
   ; slug = {js|universit-daarhus|js}
-  ; description = {js|L'Université d'Aarhus (Danois: Aarhus Universitet, abréviation AU) est la plus grande et la seconde plus vieille université de recherche au Danemark. L'université appartient au Groupe de Coimbra, à la Guilde des universités européennes de recherche, au réseau d'Utrecht des universités européennes et, est membre de l'Association des universités européennes.
+  ; description = {js|L'Université d'Aarhus (Danois: Aarhus Universitet, abréviation AU) est la plus grande et la seconde plus vieille université de recherche au Danemark. L'université appartient au Groupe de Coimbra, à la Guilde des universités européennes de recherche, au réseau d'Utrecht des universités européennes et est membre de l'Association des universités européennes.
 |js}
   ; url = {js|https://international.au.dk/|js}
   ; logo = Some {js|/academic_institution/arhus.png|js}
@@ -1104,7 +1104,7 @@ let all_fr =
  
   { name = {js|Epita|js}
   ; slug = {js|epita|js}
-  ; description = {js|L'École Pour l'Informatique et les Techniques Avancées, plus communément connue comme EPITA, est une grande école privée française spécialisée dans le domaine de l'informatique et de l'ingénieurie logicielle, créée en 1984 par Patrice Dumoucel.
+  ; description = {js|L'École Pour l'Informatique et les Techniques Avancées, plus communément connue comme EPITA, est une grande école privée française spécialisée dans le domaine de l'informatique et de l'ingénierie logicielle, créée en 1984 par Patrice Dumoucel.
 |js}
   ; url = {js|https://www.epita.fr/|js}
   ; logo = None
@@ -1464,7 +1464,7 @@ let all_fr =
  
   { name = {js|Université de Californie à San Diego|js}
   ; slug = {js|universit-de-californie--san-diego|js}
-  ; description = {js|L'Université de Californie à San Diego (UC San Diego ou, familièrement, UCSD) est une une université "land-grant" publique de recherche à San Diego en Californie.
+  ; description = {js|L'Université de Californie à San Diego (UC San Diego ou, familièrement, UCSD) est une université "land-grant" publique de recherche à San Diego en Californie.
 |js}
   ; url = {js|https://ucsd.edu/|js}
   ; logo = Some {js|/academic_institution/ucsd_logo.png|js}

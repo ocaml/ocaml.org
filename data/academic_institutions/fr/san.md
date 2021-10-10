@@ -1,7 +1,7 @@
 ---
 name: Université de Californie à San Diego
 description: >
- L'Université de Californie à San Diego (UC San Diego ou, familièrement, UCSD) est une une université "land-grant" publique de recherche à San Diego en Californie.
+ L'Université de Californie à San Diego (UC San Diego ou, familièrement, UCSD) est une université "land-grant" publique de recherche à San Diego en Californie.
 url: "https://ucsd.edu/"
 logo: /academic_institution/ucsd_logo.png
 continent: Amérique du Nord

@@ -1,7 +1,7 @@
 ---
 name: Université d'Aix-Marseille
 description: >
-  L'Université d'Aix-Marseille est une université publique de recherche localisée dans la région PACA, dans le Sud de la France.
+  L'Université d'Aix-Marseille est une université publique de recherche localisée dans la région PACA, dans le sud de la France.
 url: "https://www.univ-amu.fr/en"
 logo: /academic_institution/aix.jpg
 continent: Europe
