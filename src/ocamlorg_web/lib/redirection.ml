@@ -10,8 +10,8 @@ let t =
   ; "/releases/4.11.2.html", "/???"
   ; "/releases/4.08.1.html", "/???"
   ; "/releases/4.04.html", "/???"
-  ; "/releases/4.01.0.fr.html", "/???"
-  ; "/releases/", "/???"
+  ; "/releases/4.01.0.fr.html", Url.release
+  ; "/releases/", Url.release
   ; "/releases/index.html", "/???"
   ; "/releases/4.00.1.html", "/???"
   ; "/releases/3.12.1.html", "/???"
@@ -233,7 +233,7 @@ let t =
   ; "/meetings/ocaml/2020/index.html", "/???"
   ; "/meetings/ocaml/2018/index.html", "/???"
   ; "/meetings/ocaml/2011/index.html", "/???"
-  ; "/meetings/ocaml/2016/index.html", "/???"
+  ; "/meetings/ocaml/2016/index.html", ""
   ; "/meetings/index.html", "/???"
   ; "/meetings/index.fr.html", "/???"
   ; "/community/planet/index.html", "/???"
