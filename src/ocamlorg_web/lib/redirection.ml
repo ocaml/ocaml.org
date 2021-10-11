@@ -179,11 +179,11 @@ let t =
     , Url.tutorial "comparison-of-standard-containers" )
   ; ( "/learn/tutorials/comparison_of_standard_containers.ja.html"
     , Url.tutorial "comparison-of-standard-containers" )
-  ; "/learn/tutorials/camlp5.html", Url.tutorial "???"
-  ; "/learn/tutorials/lists.html", Url.tutorial "???"
+  ; ("/learn/tutorials/camlp5.html", Url.tutorial "???")
+  ; "/learn/tutorials/lists.html", Url.tutorial "lists"
   ; "/learn/tutorials/humor_proof.html", Url.tutorial "???"
   ; "/learn/tutorials/introduction_to_gtk.html", Url.tutorial "???"
-  ; "/learn/tutorials/99problems.html", Url.tutorial "???"
+  ; "/learn/tutorials/99problems.html", Url.problems
   ; "/learn/libraries.html", "/???"
   ; "/learn/books.html", "/???"
   ; "/learn/portability.html", "/???"
