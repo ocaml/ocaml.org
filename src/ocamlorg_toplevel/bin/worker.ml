@@ -1,15 +1,12 @@
 open Js_of_ocaml_toplevel
-open Brr
-open Brr_io
-open Ocamlorg_toplevel.Toplevel
+open Ocamlorg_toplevel
+open Toplevel
 
 (* OCamlorg toplevel in a web worker
 
-   This communicates with the toplevel code via simple json schema, this allows
-   the OCaml execution to not block the "main thread" keeping the page
-   responsive. *)
-
-let jstr_of_buffer v = Jstr.v @@ Buffer.contents v
+   This communicates with the toplevel code via the API defined in
+   {!Toplevel_api}. This allows the OCaml execution to not block the "main
+   thread" keeping the page responsive. *)
 
 module Version = struct
   type t = int list
@@ -55,6 +52,7 @@ module Version = struct
       (match compint x y with 0 -> compare xs ys | n -> n)
 end
 
+
 let exec' s =
   let res : bool = JsooTop.use Format.std_formatter s in
   if not res then Format.eprintf "error while evaluating %s@." s
@@ -91,6 +89,20 @@ let stdout_buff = Buffer.create 100
 
 let stderr_buff = Buffer.create 100
 
+
+(* RPC function implementations *)
+
+module M = Idl.IdM (* Identity monad - server is synchronous *)
+module IdlM = Idl.Make (M)
+module Server = Toplevel_api.Make (IdlM.GenServer ())
+
+(* These are all required to return the appropriate value for the API
+   within the [IdlM.T] monad. The simplest way to do this is to use
+   [IdlM.ErrM.return] for the success case and [IdlM.ErrM.return_err]
+   for the failure case *)
+
+let buff_opt b = match Buffer.contents b with "" -> None | s -> Some s
+
 let execute =
   let code_buff = Buffer.create 100 in
   let res_buff = Buffer.create 100 in
@@ -100,7 +112,7 @@ let execute =
   let highlight_location loc =
     let _file1, line1, col1 = Location.get_pos_info loc.Location.loc_start in
     let _file2, line2, col2 = Location.get_pos_info loc.Location.loc_end in
-    highlighted := Some ((line1, col1), (line2, col2))
+    highlighted := Some Toplevel_api.{ line1; col1; line2; col2 }
   in
   fun phrase ->
     Buffer.clear code_buff;
@@ -110,59 +122,50 @@ let execute =
     JsooTop.execute true ~pp_code ~highlight_location pp_result phrase;
     Format.pp_print_flush pp_code ();
     Format.pp_print_flush pp_result ();
-    let highlight = !highlighted in
-    let data =
-      Worker_rpc.create
-        ?highlight
-        ~stdout:(jstr_of_buffer stdout_buff)
-        ~stderr:(jstr_of_buffer stderr_buff)
-        ~sharp_ppf:(jstr_of_buffer code_buff)
-        ~caml_ppf:(jstr_of_buffer res_buff)
-        ()
-    in
-    highlighted := None;
-    let json = Worker_rpc.to_json data in
-    json
+    IdlM.ErrM.return
+      Toplevel_api.
+        { stdout = buff_opt stdout_buff
+        ; stderr = buff_opt stderr_buff
+        ; sharp_ppf = buff_opt code_buff
+        ; caml_ppf = buff_opt res_buff
+        ; highlight = !highlighted
+        }
 
-let recv_from_page e =
-  let msg = (Message.Ev.data (Ev.as_type e) : Jv.t) in
-  match Jv.get msg "ty" |> Jv.to_string with
-  | "setup" ->
-    Js_of_ocaml.Sys_js.set_channel_flusher
-      stdout
-      (Buffer.add_string stdout_buff);
-    Js_of_ocaml.Sys_js.set_channel_flusher
-      stderr
-      (Buffer.add_string stderr_buff);
-    setup ();
-    setup_printers ();
-    let data =
-      Worker_rpc.create
-        ~stdout:(jstr_of_buffer stdout_buff)
-        ~stderr:(jstr_of_buffer stderr_buff)
-        ()
-    in
-    let json = Worker_rpc.to_json data in
-    Worker.G.post json
-  | "execute" ->
-    let phrase = Jv.get msg "phrase" |> Jv.to_string in
-    Worker.G.post (execute phrase)
-  | "complete" ->
-    let part = Jv.get msg "phrase" |> Jv.to_string in
-    let n, res = UTop_complete.complete ~phrase_terminator:";;" ~input:part in
-    let res =
-      List.filter
-        (fun (l, _) -> not (Astring.String.is_infix ~affix:"__" l))
-        res
-    in
-    let res = List.map fst res in
-    let o = Jv.obj [||] in
-    Jv.set o "n" (Jv.of_int n);
-    Jv.set o "l" (Jv.of_list Jv.of_string res);
-    let data = Worker_rpc.create ~completions:o () in
-    let json = Worker_rpc.to_json data in
-    Worker.G.post json
-  | _ ->
-    Worker.G.post (Worker_rpc.create ())
+let setup () =
+  Js_of_ocaml.Sys_js.set_channel_flusher stdout (Buffer.add_string stdout_buff);
+  Js_of_ocaml.Sys_js.set_channel_flusher stderr (Buffer.add_string stderr_buff);
+  setup ();
+  setup_printers ();
+  IdlM.ErrM.return
+    Toplevel_api.
+      { stdout = buff_opt stdout_buff
+      ; stderr = buff_opt stderr_buff
+      ; sharp_ppf = None
+      ; caml_ppf = None
+      ; highlight = None
+      }
 
-let run () = Jv.(set global "onmessage" @@ Jv.repr recv_from_page)
+let complete phrase =
+  let n, res = UTop_complete.complete ~phrase_terminator:";;" ~input:phrase in
+  let res =
+    List.filter (fun (l, _) -> not (Astring.String.is_infix ~affix:"__" l)) res
+  in
+  let completions = List.map fst res in
+  IdlM.ErrM.return Toplevel_api.{ n; completions }
+
+let server process e =
+  let ( >>= ) = M.bind in
+  let msg = (Brr_io.Message.Ev.data (Brr.Ev.as_type e) : Jv.t) in
+  let call = Rpc_brr.Conv.rpc_call_of_jv msg in
+  process call >>= fun response ->
+  let jv = Rpc_brr.Conv.jv_of_rpc_response response in
+  Worker.G.post jv;
+  M.return ()
+
+let run () =
+  (* Here we bind the server stub functions to the implementations *)
+  Server.complete complete;
+  Server.exec execute;
+  Server.setup setup;
+  let rpc_fn = IdlM.server Server.implementation in
+  Jv.(set global "onmessage" @@ Jv.repr (server rpc_fn))
