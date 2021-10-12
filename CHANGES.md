@@ -1,5 +1,7 @@
 # Unreleased
 
+- Add completion to toplevel (#155, by @jonludlam)
+
 - Add French content for academic users (#150, by @maiste)
 
 - Add 99 problems (#147, by @tmattio)
