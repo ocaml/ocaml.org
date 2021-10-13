@@ -28,7 +28,7 @@ module Worker = Brr_webworkers.Worker
 module Toprpc = Toplevel_api.Make (Rpc_lwt.GenClient ())
 
 (* Handy infix bind-style operator for the RPCs *)
-let ( >>>= ) x f =
+let rpc_bind x f =
   x |> Rpc_lwt.T.get >>= function
   | Ok x ->
     f x
@@ -141,8 +141,9 @@ module History = struct
       textbox##.value := Js.string !data.(!idx))
 end
 
-let timeout_container () =
+let timeout_container worker () =
   let open Brr in
+  Worker.terminate worker;
   match Document.find_el_by_id G.document @@ Jstr.v "toplevel-container" with
   | Some el ->
     El.(
@@ -156,6 +157,7 @@ let timeout_container () =
     ()
 
 let run s =
+  let ( let* ) = rpc_bind in
   let worker =
     try Worker.create (Jstr.v s) with
     | Jv.Error _ ->
@@ -165,7 +167,7 @@ let run s =
   let output = by_id "output" in
   let textbox : 'a Js.t = by_id_coerce "userinput" Dom_html.CoerceTo.textarea in
   textbox##.disabled := Js._false;
-  let context = Rpc_brr.Worker_rpc.start worker 10 timeout_container in
+  let context = Rpc_brr.Worker_rpc.start worker 10 (timeout_container worker) in
   let rpc = Rpc_brr.Worker_rpc.rpc context in
   let handle_output (o : Toplevel_api.exec_result) =
     Option.iter (append Colorize.ocaml output "sharp") o.sharp_ppf;
@@ -207,18 +209,18 @@ let run s =
     current_position := output##.childNodes##.length;
     textbox##.value := Js.string "";
     History.push content;
-    Toprpc.exec rpc content' >>>= fun o ->
+    let* o = Toprpc.exec rpc content' in
     handle_output o;
     Lwt.return ()
   in
   let complete () =
     let content = Js.to_string textbox##.value in
-    Toprpc.complete rpc content >>>= fun c ->
+    let* c = Toprpc.complete rpc content in
     handle_completion c;
     Lwt.return ()
   in
   let setup () =
-    Toprpc.setup rpc () >>>= fun o ->
+    let* o = Toprpc.setup rpc () in
     handle_output o;
     Lwt.return ()
   in

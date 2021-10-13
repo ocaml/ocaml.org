@@ -90,7 +90,7 @@ let stderr_buff = Buffer.create 100
 
 (* RPC function implementations *)
 
-module M = Idl.IdM (* Identity monad - server is synchronous *)
+module M = Idl.IdM (* Server is synchronous *)
 
 module IdlM = Idl.Make (M)
 
@@ -145,18 +145,30 @@ let setup () =
       }
 
 let complete phrase =
+  let contains_double_underscore s =
+    let len = String.length s in
+    let rec aux i =
+      if i > len - 2 then
+        false
+      else if s.[i] = '_' && s.[i + 1] = '_' then
+        true
+      else
+        aux (i + 1)
+    in
+    aux 0
+  in
   let n, res = UTop_complete.complete ~phrase_terminator:";;" ~input:phrase in
   let res =
-    List.filter (fun (l, _) -> not (Astring.String.is_infix ~affix:"__" l)) res
+    List.filter (fun (l, _) -> not (contains_double_underscore l)) res
   in
   let completions = List.map fst res in
   IdlM.ErrM.return Toplevel_api.{ n; completions }
 
 let server process e =
-  let ( >>= ) = M.bind in
+  let ( let* ) = M.bind in
   let msg = (Brr_io.Message.Ev.data (Brr.Ev.as_type e) : Jv.t) in
   let call = Rpc_brr.Conv.rpc_call_of_jv msg in
-  process call >>= fun response ->
+  let* response = process call in
   let jv = Rpc_brr.Conv.jv_of_rpc_response response in
   Worker.G.post jv;
   M.return ()

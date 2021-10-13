@@ -12,8 +12,10 @@ type context =
   { worker : Worker.t
   ; timeout : int
   ; timeout_fn : unit -> unit
-  ; waiting : (Jv.t Lwt_mvar.t * int) Queue.t
+  ; waiting : ((Jv.t, exn) Result.t Lwt_mvar.t * int) Queue.t
   }
+
+exception Timeout
 
 let demux context msg =
   Lwt.async (fun () ->
@@ -23,7 +25,7 @@ let demux context msg =
       | Some (mv, outstanding_execution) ->
         Brr.G.stop_timer outstanding_execution;
         let msg : Jv.t = Message.Ev.data (Brr.Ev.as_type msg) in
-        Lwt_mvar.put mv msg)
+        Lwt_mvar.put mv (Ok msg))
 
 let start worker timeout timeout_fn =
   let context = { worker; timeout; timeout_fn; waiting = Queue.create () } in
@@ -39,11 +41,15 @@ let rpc : context -> Rpc.call -> Rpc.response Lwt.t =
   let mv = Lwt_mvar.create_empty () in
   let outstanding_execution =
     Brr.G.set_timeout ~ms:10000 (fun () ->
-        Worker.terminate context.worker;
+        Lwt.async (fun () -> Lwt_mvar.put mv (Error Timeout));
         context.timeout_fn ())
   in
   Queue.push (mv, outstanding_execution) context.waiting;
   Worker.post context.worker jv;
-  Lwt_mvar.take mv >>= fun jv ->
-  let response = Conv.rpc_response_of_jv jv in
-  Lwt.return response
+  Lwt_mvar.take mv >>= fun r ->
+  match r with
+  | Ok jv ->
+    let response = Conv.rpc_response_of_jv jv in
+    Lwt.return response
+  | Error exn ->
+    Lwt.fail exn

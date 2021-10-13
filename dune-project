@@ -62,6 +62,9 @@
   yojson
   lwt
   brr
+  rpclib
+  rpclib-lwt
+  ppx_deriving_rpc
   (js_of_ocaml
    (>= 3.11.0))
   (js_of_ocaml-ppx
