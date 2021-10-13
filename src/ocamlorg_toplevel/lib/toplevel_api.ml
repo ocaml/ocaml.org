@@ -70,7 +70,8 @@ module Make (R : RPC) = struct
     declare
       "setup"
       [ "Initialise the toplevel. Return value is the initial blurb "
-      ; "printed when starting a toplevel." ]
+      ; "printed when starting a toplevel."
+      ]
       (unit_p @-> returning exec_result_p err)
 
   let exec =
@@ -87,6 +88,7 @@ module Make (R : RPC) = struct
       [ "Find completions of the incomplete phrase. Completion occurs at the"
       ; "end of the phrase passed in. If completion is required at a point"
       ; "other than the end of a string, then take the substring before calling"
-      ; "this API." ]
+      ; "this API."
+      ]
       (phrase_p @-> returning completion_p err)
 end

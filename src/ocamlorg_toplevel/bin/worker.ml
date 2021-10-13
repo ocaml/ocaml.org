@@ -52,7 +52,6 @@ module Version = struct
       (match compint x y with 0 -> compare xs ys | n -> n)
 end
 
-
 let exec' s =
   let res : bool = JsooTop.use Format.std_formatter s in
   if not res then Format.eprintf "error while evaluating %s@." s
@@ -89,17 +88,17 @@ let stdout_buff = Buffer.create 100
 
 let stderr_buff = Buffer.create 100
 
-
 (* RPC function implementations *)
 
 module M = Idl.IdM (* Identity monad - server is synchronous *)
+
 module IdlM = Idl.Make (M)
+
 module Server = Toplevel_api.Make (IdlM.GenServer ())
 
-(* These are all required to return the appropriate value for the API
-   within the [IdlM.T] monad. The simplest way to do this is to use
-   [IdlM.ErrM.return] for the success case and [IdlM.ErrM.return_err]
-   for the failure case *)
+(* These are all required to return the appropriate value for the API within the
+   [IdlM.T] monad. The simplest way to do this is to use [IdlM.ErrM.return] for
+   the success case and [IdlM.ErrM.return_err] for the failure case *)
 
 let buff_opt b = match Buffer.contents b with "" -> None | s -> Some s
 

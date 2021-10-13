@@ -2,4 +2,3 @@
  (name rpc_brr)
  (public_name ocamlorg.rpc_brr)
  (libraries brr rpclib lwt))
- 
