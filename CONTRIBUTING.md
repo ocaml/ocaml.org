@@ -9,6 +9,18 @@ Contributions are very welcome whether that be:
  - Fixing bugs or typos
  - Improving the UI
 
+## For Windows Users
+
+If you are not on Windows feel free to move on to the next section. 
+
+OCaml does not fully support Windows yet and since we are not concerned about producing Windows binaries we just need a working development environment. The easiest way to do this on Windows is to use the *Windows Subsystem for Linux 2* (WSL2). The second version is much better than the first so be sure to use that. Here are some useful instructions:
+
+- Installation: https://docs.microsoft.com/en-us/windows/wsl/install
+- Editor support: https://code.visualstudio.com/blogs/2019/09/03/wsl2
+- Our old site has some useful docs about using WSL2 too: https://github.com/ocaml/ocaml.org/blob/master/CONTRIBUTING.md#windows-some-common-errors-while-building-the-site-using-wsl
+
+Once this is set up, you will be coding as if you are on a Linux machine so all of the other commands will be identical.
+
 ## Setting up the Project
 
 The `Makefile` contains many commands that can get you up and running, a typical workflow will be to clone the repository after forking it.
