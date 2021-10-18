@@ -129,7 +129,7 @@ let render () =
           <span class="block"><%s gettext "Start contributing." %></span>
         </h2>
         <p class="mt-4 text-lg leading-6 text-orange-200"><%s gettext "Learn how to publish your first opam package today and make it available to the rest of the community." %></p>
-        <a href="#" class="mt-8 w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-orange-600 bg-white hover:bg-orange-50 sm:w-auto"> <%s gettext "Learn how to contribute" %> </a>
+        <a href=" https://v3.ocaml.org/p/opam-publish/2.1.0" class="mt-8 w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-orange-600 bg-white hover:bg-orange-50 sm:w-auto"> <%s gettext "Learn how to contribute" %> </a>
       </div>
     </div>
   </div>
