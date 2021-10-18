@@ -40,7 +40,7 @@ type t =
   ; body_html : string
   }
 
-let all () =
+let all path =
   Utils.map_files
     (fun content ->
       let metadata, body = Utils.extract_metadata_body content in
@@ -55,7 +55,11 @@ let all () =
       ; body_md = body
       ; body_html = Omd.of_string body |> Omd.to_html
       })
-    "academic_institutions/en"
+    path
+
+let all_en () = all "academic_institutions/en"
+
+let all_fr () = all "academic_institutions/fr"
 
 let pp_course ppf (v : course) =
   Fmt.pf
@@ -141,7 +145,11 @@ type t =
   ; body_html : string
   }
 
-let all = %a
+let all_en = %a
+
+let all_fr = %a
 |}
     pp_list
-    (all ())
+    (all_en ())
+    pp_list
+    (all_fr ())

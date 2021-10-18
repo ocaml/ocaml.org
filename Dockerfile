@@ -30,6 +30,7 @@ ENV OCAMLORG_REPO_PATH /var/opam-repository/
 ENV OCAMLORG_PKG_STATE_PATH /var/package.state
 ENV OCAMLORG_TOPLEVELS_PATH /var/toplevels/
 ENV OCAMLORG_DEBUG false
+ENV DREAM_VERBOSITY info
 
 RUN chmod -R 755 /var
 

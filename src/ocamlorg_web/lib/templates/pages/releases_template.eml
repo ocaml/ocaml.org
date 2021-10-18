@@ -1,4 +1,4 @@
-let render () =
+let render (releases : Ood.Release.t list) =
 <main class="relative bg-graylight">
   <div class="max-w-8xl mx-auto">
     <div class=" mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
@@ -7,5 +7,17 @@ let render () =
         <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500"></p>
       </div>
     </div>
+    <ul class="list-disc">
+      <% releases |> List.iter (fun (release : Ood.Release.t) ->  %>
+      <li>
+        <a href="/releases/<%s release.version %>" class="text-orange-700 hover:text-orange-500">
+          <span class="font-bold">
+            <%s release.version %>
+          </span>
+          <%s release.date %>
+        </a>
+      </li>
+      <% ); %>
+    </ul>
   </div>
 </main>

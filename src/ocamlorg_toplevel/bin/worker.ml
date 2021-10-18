@@ -73,13 +73,11 @@ let setup () =
   exec' (Printf.sprintf "Format.printf \"%s@.\";;" header2);
   exec' "#enable \"pretty\";;";
   exec' "#disable \"shortvar\";;";
-  let[@alert "-deprecated"] new_directive n k =
-    Hashtbl.add Toploop.directive_table n k
-  in
-  new_directive
+  Toploop.add_directive
     "load_js"
     (Toploop.Directive_string
-       (fun name -> Js_of_ocaml.Js.Unsafe.global##load_script_ name));
+       (fun name -> Js_of_ocaml.Js.Unsafe.global##load_script_ name))
+    Toploop.{ section = ""; doc = "Load a javascript script" };
   Sys.interactive := true;
   ()
 
@@ -127,8 +125,8 @@ let execute =
     json
 
 let recv_from_page e =
-  let phrase = (Message.Ev.data (Ev.as_type e) : Jstr.t) in
-  match Jstr.to_string phrase with
+  let msg = (Message.Ev.data (Ev.as_type e) : Jv.t) in
+  match Jv.get msg "ty" |> Jv.to_string with
   | "setup" ->
     Js_of_ocaml.Sys_js.set_channel_flusher
       stdout
@@ -146,7 +144,25 @@ let recv_from_page e =
     in
     let json = Worker_rpc.to_json data in
     Worker.G.post json
-  | phrase ->
+  | "execute" ->
+    let phrase = Jv.get msg "phrase" |> Jv.to_string in
     Worker.G.post (execute phrase)
+  | "complete" ->
+    let part = Jv.get msg "phrase" |> Jv.to_string in
+    let n, res = UTop_complete.complete ~phrase_terminator:";;" ~input:part in
+    let res =
+      List.filter
+        (fun (l, _) -> not (Astring.String.is_infix ~affix:"__" l))
+        res
+    in
+    let res = List.map fst res in
+    let o = Jv.obj [||] in
+    Jv.set o "n" (Jv.of_int n);
+    Jv.set o "l" (Jv.of_list Jv.of_string res);
+    let data = Worker_rpc.create ~completions:o () in
+    let json = Worker_rpc.to_json data in
+    Worker.G.post json
+  | _ ->
+    Worker.G.post (Worker_rpc.create ())
 
 let run () = Jv.(set global "onmessage" @@ Jv.repr recv_from_page)

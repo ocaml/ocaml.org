@@ -52,9 +52,13 @@ module Academic_institution : sig
     ; body_html : string
     }
 
-  val all : t list
+  val all_en : t list
 
-  val get_by_slug : string -> t option
+  val all_fr : t list
+
+  val all : ?lang:[> `English | `French ] -> unit -> t list
+
+  val get_by_slug : ?lang:[> `English | `French ] -> string -> t option
 end
 
 module Book : sig
@@ -390,4 +394,20 @@ module Workflow : sig
     }
 
   val all : t list
+end
+
+module Release : sig
+  type kind = [ `Compiler ]
+
+  type t =
+    { kind : kind
+    ; version : string
+    ; date : string
+    ; body_md : string
+    ; body_html : string
+    }
+
+  val all : t list
+
+  val get_by_version : string -> t option
 end

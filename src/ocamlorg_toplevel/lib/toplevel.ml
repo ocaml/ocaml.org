@@ -168,13 +168,23 @@ module Worker_rpc = struct
 
   let set_highlight t h = Jv.set t "highlight" (make_highlight h)
 
-  let create ?stdout ?stderr ?sharp_ppf ?caml_ppf ?highlight () =
+  let completions t =
+    let jv = Jv.find t "completions" in
+    Option.map (Jv.to_array Jv.to_string) jv
+
+  let set_completions t v =
+    Jv.set t "is_completions" Jv.true';
+    Jv.set t "completions" v
+
+  let create ?stdout ?stderr ?sharp_ppf ?caml_ppf ?highlight ?completions () =
     let o = Jv.obj [||] in
+    Jv.set o "is_completions" Jv.false';
     Option.iter (set_stdout o) stdout;
     Option.iter (set_stderr o) stderr;
     Option.iter (set_sharp_ppf o) sharp_ppf;
     Option.iter (set_caml_ppf o) caml_ppf;
     Option.iter (set_highlight o) highlight;
+    Option.iter (set_completions o) completions;
     o
 
   let of_json v = Brr.Json.decode v |> Result.get_ok
@@ -198,6 +208,23 @@ let timeout_container () =
 
 let outstanding_execution : Brr.G.timer_id option ref = ref None
 
+let worker_setup w =
+  let o = Jv.obj [||] in
+  Jv.set o "ty" (Jv.of_string "setup");
+  Worker.post w o
+
+let worker_exec w phr =
+  let o = Jv.obj [||] in
+  Jv.set o "ty" (Jv.of_string "execute");
+  Jv.set o "phrase" (Jv.of_string phr);
+  Worker.post w o
+
+let worker_complete w phr =
+  let o = Jv.obj [||] in
+  Jv.set o "ty" (Jv.of_string "complete");
+  Jv.set o "phrase" (Jv.of_string phr);
+  Worker.post w o
+
 let run s =
   let worker =
     try Worker.create (Jstr.v s) with
@@ -213,24 +240,41 @@ let run s =
     outstanding_execution := None;
     let msg : Jstr.t = Message.Ev.data (Brr.Ev.as_type msg) in
     let worker_data = Worker_rpc.of_json msg in
-    let get_jstr f = Option.map Jstr.to_string @@ f worker_data in
-    Option.iter
-      (append Colorize.ocaml output "sharp")
-      (get_jstr Worker_rpc.sharp_ppf);
-    Option.iter
-      (append Colorize.text output "stdout")
-      (get_jstr Worker_rpc.stdout);
-    Option.iter
-      (append Colorize.text output "stderr")
-      (get_jstr Worker_rpc.stderr);
-    Option.iter
-      (append Colorize.ocaml output "caml")
-      (get_jstr Worker_rpc.caml_ppf);
-    Option.iter highlight_location (Worker_rpc.highlight worker_data);
-    Lwt.async @@ resize ~container ~textbox;
-    container##.scrollTop := container##.scrollHeight;
-    ignore textbox##focus;
-    ()
+    match
+      try Jv.get worker_data "is_completions" |> Jv.to_bool with _ -> false
+    with
+    | true ->
+      let c = Jv.get worker_data "completions" in
+      let completions = Jv.get c "l" |> Jv.to_list Jv.to_string in
+      let n = Jv.get c "n" |> Jv.to_int in
+      if List.length completions = 1 then
+        let txt = String.sub (Js.to_string textbox##.value) 0 n in
+        let txt = txt ^ List.hd completions in
+        textbox##.value := Js.string txt
+      else (
+        List.iter
+          (fun l -> append Colorize.text output "stdout" (l ^ " "))
+          completions;
+        append Colorize.text output "stdout" "\n")
+    | false ->
+      let get_jstr f = Option.map Jstr.to_string @@ f worker_data in
+      Option.iter
+        (append Colorize.ocaml output "sharp")
+        (get_jstr Worker_rpc.sharp_ppf);
+      Option.iter
+        (append Colorize.text output "stdout")
+        (get_jstr Worker_rpc.stdout);
+      Option.iter
+        (append Colorize.text output "stderr")
+        (get_jstr Worker_rpc.stderr);
+      Option.iter
+        (append Colorize.ocaml output "caml")
+        (get_jstr Worker_rpc.caml_ppf);
+      Option.iter highlight_location (Worker_rpc.highlight worker_data);
+      Lwt.async @@ resize ~container ~textbox;
+      container##.scrollTop := container##.scrollHeight;
+      ignore textbox##focus;
+      ()
   in
   let () =
     Brr.Ev.listen Message.Ev.message recv_from_worker (Worker.as_target worker)
@@ -255,13 +299,17 @@ let run s =
     History.push content;
     (* Either execute and set outstanding execution or do nothing *)
     if Option.is_none !outstanding_execution then (
-      Worker.post worker (Jstr.v content');
+      worker_exec worker content';
       outstanding_execution :=
         Some
           (Brr.G.set_timeout ~ms:10000 (fun () ->
                Worker.terminate worker;
                timeout_container ())));
     Lwt.return_unit
+  in
+  let complete () =
+    let content = Js.to_string textbox##.value in
+    worker_complete worker content
   in
   let history_down _e =
     let txt = Js.to_string textbox##.value in
@@ -313,13 +361,13 @@ let run s =
           Lwt.async (resize ~container ~textbox);
           Js._true
         | 09 ->
-          Indent.textarea textbox;
+          complete ();
           Js._false
         | 76 when meta e ->
           output##.innerHTML := Js.string "";
           Js._true
         | 75 when meta e ->
-          Worker.post worker (Jstr.v "setup_toplevel");
+          worker_setup worker;
           Js._false
         | 38 ->
           history_up e
@@ -345,7 +393,7 @@ let run s =
       (fun s -> Js.to_string s ^ "\n")
   in
   Sys_js.set_channel_filler stdin readline;
-  Worker.post worker (Jstr.v "setup");
+  worker_setup worker;
   History.setup ();
   textbox##.value := Js.string "";
   (* Run initial code if any *)

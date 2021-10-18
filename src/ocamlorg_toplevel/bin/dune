@@ -2,10 +2,23 @@
 
 (library
  (name worker)
- (modules worker)
- (libraries brr ocamlorg_toplevel js_of_ocaml-toplevel js_of_ocaml-compiler)
+ (modules worker uTop_complete uTop_lexer uTop_token uTop)
+ (libraries
+  brr
+  ocamlorg_toplevel
+  js_of_ocaml-toplevel
+  js_of_ocaml-compiler
+  astring)
  (preprocess
-  (pps js_of_ocaml-ppx)))
+  (per_module
+   ((action
+     (run %{bin:cppo} -V OCAML:%{ocaml_version} %{input-file}))
+    uTop_complete
+    uTop)
+   ((pps js_of_ocaml-ppx)
+    worker))))
+
+(ocamllex uTop_lexer)
 
 ; Base
 
