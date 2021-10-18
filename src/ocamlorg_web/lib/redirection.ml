@@ -10,9 +10,9 @@ let t =
   ; "/releases/4.11.2.html", "/???"
   ; "/releases/4.08.1.html", "/???"
   ; "/releases/4.04.html", "/???"
-  ; "/releases/4.01.0.fr.html", Url.release
-  ; "/releases/", Url.release
-  ; "/releases/index.html", "/???"
+  ; "/releases/4.01.0.fr.html", "/???"
+  ; "/releases/", Url.releases
+  ; "/releases/index.html", Url.releases
   ; "/releases/4.00.1.html", "/???"
   ; "/releases/3.12.1.html", "/???"
   ; "/releases/index.fr.html", "/???"
@@ -179,15 +179,15 @@ let t =
     , Url.tutorial "comparison-of-standard-containers" )
   ; ( "/learn/tutorials/comparison_of_standard_containers.ja.html"
     , Url.tutorial "comparison-of-standard-containers" )
-  ; ("/learn/tutorials/camlp5.html", Url.tutorial "???")
+  ; "/learn/tutorials/camlp5.html", "/"
   ; "/learn/tutorials/lists.html", Url.tutorial "lists"
-  ; "/learn/tutorials/humor_proof.html", Url.tutorial "???"
-  ; "/learn/tutorials/introduction_to_gtk.html", Url.tutorial "???"
+  ; "/learn/tutorials/humor_proof.html", "/"
+  ; "/learn/tutorials/introduction_to_gtk.html", "/"
   ; "/learn/tutorials/99problems.html", Url.problems
   ; "/learn/libraries.html", "/???"
-  ; "/learn/books.html", "/???"
+  ; "/learn/books.html", Url.books
   ; "/learn/portability.html", "/???"
-  ; "/learn/success.fr.html", "/???"
+  ; "/learn/success.fr.html", ""
   ; "/consortium/", "/???"
   ; "/consortium/index.html", "/???"
   ; "/consortium/index.fr.html", "/???"
@@ -224,7 +224,7 @@ let t =
   ; "/meetings/ocaml/2015/program.html", "/???"
   ; "/meetings/ocaml/2015/index.html", "/???"
   ; "/meetings/ocaml/2015/cfp.html", "/???"
-  ; "/meetings/ocaml/2012/index.html", "/???"
+  ; "/meetings/ocaml/2012/index.html", ""
   ; "/meetings/ocaml/2008/index.html", "/???"
   ; "/meetings/ocaml/2009/index.html", "/???"
   ; "/meetings/ocaml/2017/index.html", "/???"
@@ -233,9 +233,9 @@ let t =
   ; "/meetings/ocaml/2020/index.html", "/???"
   ; "/meetings/ocaml/2018/index.html", "/???"
   ; "/meetings/ocaml/2011/index.html", "/???"
-  ; "/meetings/ocaml/2016/index.html", ""
-  ; "/meetings/index.html", "/???"
-  ; "/meetings/index.fr.html", "/???"
+  ; "/meetings/ocaml/2016/index.html", "/???"
+  ; "/meetings/index.html", Url.events
+  ; "/meetings/index.fr.html", Url.events
   ; "/community/planet/index.html", "/???"
   ; "/community/planet/older.html", "/???"
   ; "/community/planet/syndication.html", "/???"

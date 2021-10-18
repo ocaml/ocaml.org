@@ -53,7 +53,7 @@ let page_routes =
     ; Dream.get Url.platform Page_handler.platform
     ; Dream.get Url.problems Page_handler.problems
     ; Dream.get Url.releases Page_handler.releases
-    ; Dream.get Url.release Page_handler.release
+    ; Dream.get Url.releases Page_handler.release
     ; Dream.get Url.books Page_handler.books
     ; Dream.get Url.tutorials Page_handler.tutorials
     ; Dream.get (Url.tutorials ^ "/:id") Page_handler.tutorial
