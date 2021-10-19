@@ -527,7 +527,8 @@ let http_get url =
     let+ body = Cohttp_lwt.Body.to_string body in
     Ok body
   | false ->
-    Lwt.return (Error (`Msg "Failed to fetch the documentation page"))
+    let+ () = Cohttp_lwt.Body.drain_body body in
+    Error (`Msg "Failed to fetch the documentation page")
 
 let documentation_page ~kind t path =
   let open Lwt.Syntax in
