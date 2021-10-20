@@ -1,4 +1,5 @@
 # Unreleased
+- Switch to using RPCs to talk to toplevel worker (#159, by @jonludlam)
 
 - Add completion to toplevel (#155, by @jonludlam)
 
