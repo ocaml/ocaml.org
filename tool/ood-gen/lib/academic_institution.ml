@@ -1,7 +1,9 @@
-type location =
-  { lat : float
-  ; long : float
+module Location = struct
+  type route = {
+    lat : float;
+    long : float;
   }
+end
 [@@deriving yaml]
 
 type course =
