@@ -30,8 +30,13 @@ git clone https://github.com/<username>/v3.ocaml.org-server.git
 cd v3.ocaml.org-server
 ```
 
-From the root of your project, the simplest way to get set up is to create a [local opam switch](https://opam.ocaml.org/doc/Manual.html#Switches) and install the dependencies. There 
-is a single `make` target to do just that.
+For the smoothest setup experience make sure you have some version of `npm` and `node` installed. The best way to do this is probably to [use nvm](https://github.com/nvm-sh/nvm/blob/master/README.md#install--update-script). You might have to source your `~/.bashrc` after installation of `nvm` then you can run something like `nvm install 16`. We use `node` and `npm` to have tailwind css.
+
+After this ensure you have `opam` installed. Opam will manage the OCaml compiler along with all of the OCaml packages needed to build and run the project. By this point we should all be using some Unix-like system (Linux, macOS, WSL2) so you should [run the opam install script](https://opam.ocaml.org/doc/Install.html#Binary-distribution). There are also manual instructions for people that don't want to run a script from the internet. We assume you are using `opam.2.1.0` or later which provides a cleaner, friendlier experience when installing system dependencies.
+
+With opam installed you can now initialise opam with `opam init`. Note in containers or WSL2 you will have to run `opam init --disable-sandboxing`. Opam might complain about some missing system dependencies like `unzip`, `cc` (a C compiler like `gcc`) etc. Make sure to install these before `opam init`.
+
+Finally from the root of your project you can setup a [local opam switch](https://opam.ocaml.org/doc/Manual.html#Switches) and install the dependencies. There is a single `make` target to do just that.
 
 ```
 make switch
@@ -42,6 +47,8 @@ If you don't want a local opam switch and are happy to install everything global
 ```
 make deps
 ```
+
+Opam will likely ask questions about installing system dependencies, for the project to work you will have to answer yes to installing these.
 
 ### Running the server
 
