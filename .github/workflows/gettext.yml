@@ -1,0 +1,27 @@
+name: Gettext check
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: ocaml/setup-ocaml@v2
+        with:
+          ocaml-compiler: 4.12.1
+          dune-cache: true
+          opam-local-packages: |
+            !ocamlorg.opam !ocamlorg-data.opam
+
+      - name: Install dependencies
+        run: opam update && opam depext -yi gettext dream crunch logs fmt cmdliner
+
+      - name: Generate PO files
+        run: make gen-po

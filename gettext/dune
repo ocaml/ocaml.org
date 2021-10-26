@@ -1,0 +1,33 @@
+; messages.pot
+
+(rule
+ (target messages.pot.expected)
+ (deps
+  (glob_files
+   %{workspace_root}/src/ocamlorg_web/lib/templates/components/*.ml)
+  (glob_files %{workspace_root}/src/ocamlorg_web/lib/templates/pages/*.ml)
+  (glob_files %{workspace_root}/src/ocamlorg_web/lib/templates/layouts/*.ml)
+  (glob_files %{workspace_root}/src/ocamlorg_web/lib/*.ml))
+ (action
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run ocaml-gettext extract %{deps})))))
+
+(rule
+ (alias gen-po)
+ (action
+  (diff messages.pot messages.pot.expected)))
+
+; en/LC_MESSAGES/messages.po
+
+(subdir
+ en
+ (include ../dune.inc))
+
+; fr/LC_MESSAGES/messages.po
+
+(subdir
+ fr
+ (include ../dune.inc))

@@ -80,12 +80,4 @@ utop: ## Run a REPL and link with the project's libraries
 
 .PHONY: gen-po
 gen-po: ## Generate the po files
-	cd _build/default; opam exec -- dune exec ocaml-gettext -- extract src/ocamlorg_web/lib/templates/**/*.ml src/ocamlorg_web/lib/*.ml > ../../gettext/messages.pot
-	# en
-	cp gettext/en/LC_MESSAGES/messages.po gettext/en/LC_MESSAGES/messages.po.bak
-	opam exec -- dune exec ocaml-gettext -- merge gettext/messages.pot gettext/en/LC_MESSAGES/messages.po.bak > gettext/en/LC_MESSAGES/messages.po
-	rm gettext/en/LC_MESSAGES/messages.po.bak
-	# fr 
-	cp gettext/fr/LC_MESSAGES/messages.po gettext/fr/LC_MESSAGES/messages.po.bak
-	opam exec -- dune exec ocaml-gettext -- merge gettext/messages.pot gettext/fr/LC_MESSAGES/messages.po.bak > gettext/fr/LC_MESSAGES/messages.po
-	rm gettext/fr/LC_MESSAGES/messages.po.bak
+	opam exec -- dune build --root . @gen-po --auto-promote

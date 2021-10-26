@@ -44,7 +44,7 @@ msgstr "Archive"
 msgid "Around the Web"
 msgstr "Sur Internet"
 
-#: src/ocamlorg_web/lib/templates/pages/package_template.eml:62
+#: src/ocamlorg_web/lib/templates/pages/package_template.eml:85
 msgid "Authors"
 msgstr "Auteurs"
 
@@ -85,7 +85,7 @@ msgstr "Communauté"
 msgid "Continuous Integration"
 msgstr "Intégration continue"
 
-#: src/ocamlorg_web/lib/templates/pages/package_template.eml:130
+#: src/ocamlorg_web/lib/templates/pages/package_template.eml:144
 msgid "Dependencies"
 msgstr "Dépendances"
 
@@ -93,7 +93,7 @@ msgstr "Dépendances"
 msgid "Discover the organisations that use OCaml to accomplish their goals."
 msgstr "Découvrez les organisations qui utilisent OCaml pour atteindre leurs objectifs."
 
-#: src/ocamlorg_web/lib/templates/pages/package_template.eml:123
+#: src/ocamlorg_web/lib/templates/pages/package_template.eml:137
 msgid "Download"
 msgstr "Télécharger"
 
@@ -127,7 +127,7 @@ msgstr[1] "%i paquets trouvés."
 msgid "Go back home"
 msgstr "Retour à la page d'accueil"
 
-#: src/ocamlorg_web/lib/templates/pages/package_template.eml:90
+#: src/ocamlorg_web/lib/templates/pages/package_template.eml:104
 msgid "Homepage"
 msgstr "Page d'accueil"
 
@@ -144,7 +144,7 @@ msgstr "Utilisateurs industriels"
 msgid "Innovation. Community. Security."
 msgstr "Innovation. Communauté. Sécurité."
 
-#: src/ocamlorg_web/lib/templates/pages/package_template.eml:43
+#: src/ocamlorg_web/lib/templates/pages/package_template.eml:48
 msgid "Install"
 msgstr "Installer"
 
@@ -177,11 +177,11 @@ msgstr "Apprenez les techniques de création d'outils et d'applications en OCaml
 msgid "Legal"
 msgstr "Légale"
 
-#: src/ocamlorg_web/lib/templates/pages/package_template.eml:85
+#: src/ocamlorg_web/lib/templates/pages/package_template.eml:99
 msgid "License"
 msgstr "Licence"
 
-#: src/ocamlorg_web/lib/templates/pages/package_template.eml:79
+#: src/ocamlorg_web/lib/templates/pages/package_template.eml:93
 msgid "Maintainers"
 msgstr "Mainteneurs"
 
@@ -190,7 +190,7 @@ msgstr "Mainteneurs"
 msgid "News"
 msgstr "Nouvelles"
 
-#: src/ocamlorg_web/lib/templates/pages/package_template.eml:33
+#: src/ocamlorg_web/lib/templates/pages/package_template.eml:34
 #. src/ocamlorg_web/lib/templates/pages/package_search_template.eml:121
 msgid "No License"
 msgstr "Pas de licence"
@@ -281,7 +281,7 @@ msgstr "Résultats de recherche"
 msgid "Search packages"
 msgstr ""
 
-#: src/ocamlorg_web/lib/templates/pages/package_template.eml:103
+#: src/ocamlorg_web/lib/templates/pages/package_template.eml:117
 msgid "Sources"
 msgstr "Sources"
 
@@ -305,6 +305,10 @@ msgstr "État de l'art"
 #. src/ocamlorg_web/lib/templates/components/footer_template.eml:37
 msgid "Success Stories"
 msgstr "Réussites"
+
+#: src/ocamlorg_web/lib/templates/pages/package_template.eml:67
+msgid "Tags"
+msgstr ""
 
 #: src/ocamlorg_web/lib/templates/components/footer_template.eml:68
 msgid "Terms"
