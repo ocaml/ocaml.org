@@ -236,20 +236,20 @@ let t =
   ; "/meetings/ocaml/2016/index.html", "/???"
   ; "/meetings/index.html", Url.events
   ; "/meetings/index.fr.html", Url.events
-  ; "/community/planet/index.html", "/???"
-  ; "/community/planet/older.html", "/???"
-  ; "/community/planet/syndication.html", "/???"
-  ; "/community/mailing_lists.fr.html", "/???"
-  ; "/community/planet.html", "/???"
-  ; "/community/support.fr.html", "/???"
-  ; "/community/cwn/index.html", "/???"
-  ; "/community/announcements/CompCert_award.html", "/???"
-  ; "/community/support.html", "/???"
-  ; "/community/index.html", "/???"
-  ; "/community/index.fr.html", "/???"
-  ; "/community/history/forge.html", "/???"
-  ; "/community/media.html", "/???"
-  ; "/community/mailing_lists.html", "/???"
+  ; "/community/planet/index.html", Url.around_web
+  ; "/community/planet/older.html", Url.around_web
+  ; "/community/planet/syndication.html", Url.around_web
+  ; "/community/mailing_lists.fr.html", Url.around_web
+  ; "/community/planet.html", Url.around_web
+  ; "/community/support.fr.html", Url.around_web
+  ; "/community/cwn/index.html", Url.around_web
+  ; "/community/announcements/CompCert_award.html", Url.around_web
+  ; "/community/support.html", Url.around_web
+  ; "/community/index.html", Url.around_web
+  ; "/community/index.fr.html", Url.around_web
+  ; "/community/history/forge.html", Url.around_web
+  ; "/community/media.html", Url.around_web
+  ; "/community/mailing_lists.html", Url.around_web
   ; "/about.html", "/???"
   ; "/caml-light/license.html", "/???"
   ; "/caml-light/releases/0.75.html", "/???"
