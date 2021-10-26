@@ -44,7 +44,7 @@ msgstr ""
 msgid "Around the Web"
 msgstr ""
 
-#: src/ocamlorg_web/lib/templates/pages/package_template.eml:62
+#: src/ocamlorg_web/lib/templates/pages/package_template.eml:85
 msgid "Authors"
 msgstr ""
 
@@ -85,7 +85,7 @@ msgstr ""
 msgid "Continuous Integration"
 msgstr ""
 
-#: src/ocamlorg_web/lib/templates/pages/package_template.eml:130
+#: src/ocamlorg_web/lib/templates/pages/package_template.eml:144
 msgid "Dependencies"
 msgstr ""
 
@@ -93,7 +93,7 @@ msgstr ""
 msgid "Discover the organisations that use OCaml to accomplish their goals."
 msgstr ""
 
-#: src/ocamlorg_web/lib/templates/pages/package_template.eml:123
+#: src/ocamlorg_web/lib/templates/pages/package_template.eml:137
 msgid "Download"
 msgstr ""
 
@@ -127,7 +127,7 @@ msgstr[1] ""
 msgid "Go back home"
 msgstr ""
 
-#: src/ocamlorg_web/lib/templates/pages/package_template.eml:90
+#: src/ocamlorg_web/lib/templates/pages/package_template.eml:104
 msgid "Homepage"
 msgstr ""
 
@@ -144,7 +144,7 @@ msgstr ""
 msgid "Innovation. Community. Security."
 msgstr ""
 
-#: src/ocamlorg_web/lib/templates/pages/package_template.eml:43
+#: src/ocamlorg_web/lib/templates/pages/package_template.eml:48
 msgid "Install"
 msgstr ""
 
@@ -177,11 +177,11 @@ msgstr ""
 msgid "Legal"
 msgstr ""
 
-#: src/ocamlorg_web/lib/templates/pages/package_template.eml:85
+#: src/ocamlorg_web/lib/templates/pages/package_template.eml:99
 msgid "License"
 msgstr ""
 
-#: src/ocamlorg_web/lib/templates/pages/package_template.eml:79
+#: src/ocamlorg_web/lib/templates/pages/package_template.eml:93
 msgid "Maintainers"
 msgstr ""
 
@@ -190,7 +190,7 @@ msgstr ""
 msgid "News"
 msgstr ""
 
-#: src/ocamlorg_web/lib/templates/pages/package_template.eml:33
+#: src/ocamlorg_web/lib/templates/pages/package_template.eml:34
 #. src/ocamlorg_web/lib/templates/pages/package_search_template.eml:121
 msgid "No License"
 msgstr ""
@@ -281,7 +281,7 @@ msgstr ""
 msgid "Search packages"
 msgstr ""
 
-#: src/ocamlorg_web/lib/templates/pages/package_template.eml:103
+#: src/ocamlorg_web/lib/templates/pages/package_template.eml:117
 msgid "Sources"
 msgstr ""
 
@@ -304,6 +304,10 @@ msgstr ""
 #: src/ocamlorg_web/lib/navigation.ml:44
 #. src/ocamlorg_web/lib/templates/components/footer_template.eml:37
 msgid "Success Stories"
+msgstr ""
+
+#: src/ocamlorg_web/lib/templates/pages/package_template.eml:67
+msgid "Tags"
 msgstr ""
 
 #: src/ocamlorg_web/lib/templates/components/footer_template.eml:68
