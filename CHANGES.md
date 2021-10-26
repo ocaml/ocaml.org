@@ -1,4 +1,11 @@
 # Unreleased
+
+- Fix tags in overview page by calling `make gen-po`
+
+  Rewrite `gen-po`'s Makefile rules in `dune`. Created a `@gen-po` alias.
+  Add a Github action to check if the PO files match the
+  status of the repository (#172, by @TheLortex)
+
 - Add tags to overview (#39, by @JiaeK)
 
 - Switch to using RPCs to talk to toplevel worker (#159, by @jonludlam)
