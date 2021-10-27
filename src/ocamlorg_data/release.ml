@@ -4347,7 +4347,7 @@ types.<br />
 # OCaml 4.06.1
 
 This page describe OCaml **4.06.1**, released on Feb 16, 2018.  It is
-a bug-fix release of [OCaml 4.06.0](4.06.html).
+a bug-fix release of [OCaml 4.06.0](/releases/4.06.0).
 
 It is available as an OPAM switch and as a source download from:
 https://github.com/ocaml/ocaml/releases
@@ -4393,7 +4393,7 @@ Changes (Bug fixes)
 |js}
   ; body_html = {js|<h1>OCaml 4.06.1</h1>
 <p>This page describe OCaml <strong>4.06.1</strong>, released on Feb 16, 2018.  It is
-a bug-fix release of <a href="4.06.html">OCaml 4.06.0</a>.</p>
+a bug-fix release of <a href="/releases/4.06.0">OCaml 4.06.0</a>.</p>
 <p>It is available as an OPAM switch and as a source download from:
 https://github.com/ocaml/ocaml/releases</p>
 <h2>Changes (Bug fixes)</h2>
@@ -9793,7 +9793,7 @@ report by Jeremy Yallop)</p>
 # OCaml 4.08.1
 
 This page describe OCaml **4.08.1**, released on Aug 5, 2019.  It is
-a bug-fix release of [OCaml 4.08.0](4.08.0.html).
+a bug-fix release of [OCaml 4.08.0](/releases/4.08.0).
 
 ### Bug fixes:
 
@@ -9831,7 +9831,7 @@ a bug-fix release of [OCaml 4.08.0](4.08.0.html).
 |js}
   ; body_html = {js|<h1>OCaml 4.08.1</h1>
 <p>This page describe OCaml <strong>4.08.1</strong>, released on Aug 5, 2019.  It is
-a bug-fix release of <a href="4.08.0.html">OCaml 4.08.0</a>.</p>
+a bug-fix release of <a href="/releases/4.08.0">OCaml 4.08.0</a>.</p>
 <h3>Bug fixes:</h3>
 <ul>
 <li>
@@ -10790,7 +10790,7 @@ report by Aleksandr Kuzmenko)</p>
 # OCaml 4.09.1
 
 This page describe OCaml **4.09.1**, released on Mar 16, 2020.  It is
-a bug-fix release of [OCaml 4.09.0](4.09.0.html).
+a bug-fix release of [OCaml 4.09.0](/releases/4.09.0).
 
 ### Bug fixes:
 
@@ -10838,7 +10838,7 @@ a bug-fix release of [OCaml 4.09.0](4.09.0.html).
 |js}
   ; body_html = {js|<h1>OCaml 4.09.1</h1>
 <p>This page describe OCaml <strong>4.09.1</strong>, released on Mar 16, 2020.  It is
-a bug-fix release of <a href="4.09.0.html">OCaml 4.09.0</a>.</p>
+a bug-fix release of <a href="/releases/4.09.0">OCaml 4.09.0</a>.</p>
 <h3>Bug fixes:</h3>
 <ul>
 <li>
@@ -12306,7 +12306,7 @@ and Gabriel Scherer )</p>
 # OCaml 4.10.1
 
 This page describe OCaml **4.10.1**, released on Aug 20, 2020.  It is
-a bug-fix release of [OCaml 4.10.0](4.10.0.html).
+a bug-fix release of [OCaml 4.10.0](/releases/4.10.0).
 
 ### Runtime system:
 
@@ -12349,7 +12349,7 @@ a bug-fix release of [OCaml 4.10.0](4.10.0.html).
 |js}
   ; body_html = {js|<h1>OCaml 4.10.1</h1>
 <p>This page describe OCaml <strong>4.10.1</strong>, released on Aug 20, 2020.  It is
-a bug-fix release of <a href="4.10.0.html">OCaml 4.10.0</a>.</p>
+a bug-fix release of <a href="/releases/4.10.0">OCaml 4.10.0</a>.</p>
 <h3>Runtime system:</h3>
 <ul>
 <li><a href="https://github.com/ocaml/ocaml/issues/9344">#9344</a>, <a href="https://github.com/ocaml/ocaml/issues/9368">#9368</a>: Disable exception backtraces in bytecode programs
@@ -14039,7 +14039,7 @@ to better ensure that members are correctly spaced.
 # OCaml 4.11.1
 
 This page describe OCaml **4.11.1**, released on Aug 31, 2020.  It is
-a bug-fix release of [OCaml 4.11.0](4.11.0.html).
+a bug-fix release of [OCaml 4.11.0](/releases/4.11.0).
 
 ### Bug fixes:
 
@@ -14053,7 +14053,7 @@ a bug-fix release of [OCaml 4.11.0](4.11.0.html).
 |js}
   ; body_html = {js|<h1>OCaml 4.11.1</h1>
 <p>This page describe OCaml <strong>4.11.1</strong>, released on Aug 31, 2020.  It is
-a bug-fix release of <a href="4.11.0.html">OCaml 4.11.0</a>.</p>
+a bug-fix release of <a href="/releases/4.11.0">OCaml 4.11.0</a>.</p>
 <h3>Bug fixes:</h3>
 <ul>
 <li>
@@ -14077,7 +14077,7 @@ appear in the right hand side of an explicit :&gt; coercion
 # OCaml 4.11.2
 
 This page describes OCaml **4.11.2**, released on Feb 24, 2021.
-This is a bug-fix release of [OCaml 4.11.0](4.11.0.html).
+This is a bug-fix release of [OCaml 4.11.0](/releases/4.11.0).
 
 
 Opam switches
@@ -14177,7 +14177,7 @@ Changes
 |js}
   ; body_html = {js|<h1>OCaml 4.11.2</h1>
 <p>This page describes OCaml <strong>4.11.2</strong>, released on Feb 24, 2021.
-This is a bug-fix release of <a href="4.11.0.html">OCaml 4.11.0</a>.</p>
+This is a bug-fix release of <a href="/releases/4.11.0">OCaml 4.11.0</a>.</p>
 <h2>Opam switches</h2>
 <p>This release is available as multiple
 <a href="https://opam.ocaml.org/doc/Usage.html">opam</a> switches:</p>
