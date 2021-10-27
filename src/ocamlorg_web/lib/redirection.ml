@@ -1,47 +1,47 @@
 let t =
-  [ "/releases/4.05.html", "/???"
-  ; "/releases/4.13.0.html", "/???"
-  ; "/releases/4.12.1.html", "/???"
-  ; "/releases/4.12.0.html", "/???"
-  ; "/releases/4.09.1.html", "/???"
-  ; "/releases/4.10.2.html", "/???"
-  ; "/releases/4.08.0.html", "/???"
-  ; "/releases/4.09.0.html", "/???"
-  ; "/releases/4.11.2.html", "/???"
-  ; "/releases/4.08.1.html", "/???"
-  ; "/releases/4.04.html", "/???"
-  ; "/releases/4.01.0.fr.html", "/???"
+  [ "/releases/4.05.html", Url.release "4.05"
+  ; "/releases/4.13.0.html", Url.release "4.13.0"
+  ; "/releases/4.12.1.html", Url.release "4.12.1"
+  ; "/releases/4.12.0.html", Url.release "4.12.0"
+  ; "/releases/4.09.1.html", Url.release "4.09.1"
+  ; "/releases/4.10.2.html", Url.release "4.10.2"
+  ; "/releases/4.08.0.html", Url.release "4.08.0"
+  ; "/releases/4.09.0.html", Url.release "4.09.0"
+  ; "/releases/4.11.2.html", Url.release "4.11.2"
+  ; "/releases/4.08.1.html", Url.release "4.08.1"
+  ; "/releases/4.04.html", Url.release "4.04"
+  ; "/releases/4.01.0.fr.html", Url.release "4.01.0"
   ; "/releases/", Url.releases
   ; "/releases/index.html", Url.releases
-  ; "/releases/4.00.1.html", "/???"
-  ; "/releases/3.12.1.html", "/???"
-  ; "/releases/index.fr.html", "/???"
-  ; "/releases/4.01.0.html", "/???"
-  ; "/releases/4.10.0.html", "/???"
-  ; "/releases/4.03.html", "/???"
-  ; "/releases/4.11.1.html", "/???"
-  ; "/releases/4.07.1.html", "/???"
-  ; "/releases/4.06.html", "/???"
-  ; "/releases/4.06.1.html", "/???"
-  ; "/releases/4.10.1.html", "/???"
-  ; "/releases/4.02.html", "/???"
-  ; "/releases/4.11.0.html", "/???"
-  ; "/releases/caml-light/license.html", "/???"
-  ; "/releases/caml-light/releases/0.75.html", "/???"
-  ; "/releases/caml-light/releases/", "/???"
-  ; "/releases/caml-light/releases/index.html", "/???"
-  ; "/releases/caml-light/faq.html", "/???"
-  ; "/releases/caml-light/", "/???"
-  ; "/releases/caml-light/index.html", "/???"
-  ; "/releases/4.07.0.html", "/???"
-  ; "/learn/taste.html", "/???"
-  ; "/learn/taste.fr.html", "/???"
+  ; "/releases/4.00.1.html", Url.release "4.00.1"
+  ; "/releases/3.12.1.html", Url.release "3.12.1"
+  ; "/releases/index.fr.html", Url.releases
+  ; "/releases/4.01.0.html", Url.release "4.01.0"
+  ; "/releases/4.10.0.html", Url.release "4.10.0"
+  ; "/releases/4.03.html", Url.release "4.03"
+  ; "/releases/4.11.1.html", Url.release "4.11.1"
+  ; "/releases/4.07.1.html", Url.release "4.07.1"
+  ; "/releases/4.06.html", Url.release "4.06"
+  ; "/releases/4.06.1.html", Url.release "4.06.1"
+  ; "/releases/4.10.1.html", Url.release "4.10.1"
+  ; "/releases/4.02.html", Url.release "4.02"
+  ; "/releases/4.11.0.html", Url.release "4.11.0"
+  ; "/releases/caml-light/license.html", "/"
+  ; "/releases/caml-light/releases/0.75.html", "/"
+  ; "/releases/caml-light/releases/", "/"
+  ; "/releases/caml-light/releases/index.html", "/"
+  ; "/releases/caml-light/faq.html", "/"
+  ; "/releases/caml-light/", "/"
+  ; "/releases/caml-light/index.html", "/"
+  ; "/releases/4.07.0.html", Url.release "4.07.0"
+  ; "/learn/taste.html", "/"
+  ; "/learn/taste.fr.html", "/"
   ; "/learn/success.html", Url.successes
   ; "/learn/history.fr.html", Url.history
   ; "/learn/history.html", Url.history
-  ; "/learn/faq.html", "/???"
+  ; "/learn/faq.html", Url.language
   ; "/learn/companies.html", Url.industrial_users
-  ; "/learn/description.html", "/???"
+  ; "/learn/description.html", Url.language
   ; "/learn/", Url.language
   ; "/learn/index.html", Url.language
   ; "/learn/index.fr.html", Url.language
@@ -179,61 +179,82 @@ let t =
     , Url.tutorial "comparison-of-standard-containers" )
   ; ( "/learn/tutorials/comparison_of_standard_containers.ja.html"
     , Url.tutorial "comparison-of-standard-containers" )
-  ; "/learn/tutorials/camlp5.html", "/"
+  ; "/learn/tutorials/camlp5.html", Url.tutorials
   ; "/learn/tutorials/lists.html", Url.tutorial "lists"
-  ; "/learn/tutorials/humor_proof.html", "/"
-  ; "/learn/tutorials/introduction_to_gtk.html", "/"
+  ; "/learn/tutorials/humor_proof.html", Url.tutorial Url.tutorials
+  ; "/learn/tutorials/introduction_to_gtk.html", Url.tutorial Url.tutorials
   ; "/learn/tutorials/99problems.html", Url.problems
-  ; "/learn/libraries.html", "/???"
+  ; "/learn/libraries.html", Url.books
   ; "/learn/books.html", Url.books
-  ; "/learn/portability.html", "/???"
-  ; "/learn/success.fr.html", ""
-  ; "/consortium/", "/???"
-  ; "/consortium/index.html", "/???"
-  ; "/consortium/index.fr.html", "/???"
-  ; "/contributors.fr.html", "/???"
-  ; "/platform/", "/???"
-  ; "/platform/index.html", "/???"
-  ; "/platform/ocaml_on_windows.html", "/???"
-  ; "/governance.html", "/???"
-  ; "/docs/license.fr.html", "/???"
-  ; "/docs/license.html", "/???"
-  ; "/docs/logos.html", "/???"
-  ; "/docs/install.html", "/???"
-  ; "/docs/consortium-license.html", "/???"
-  ; "/docs/consortium-license.fr.html", "/???"
-  ; "/docs/", "/???"
-  ; "/docs/index.html", "/???"
-  ; "/docs/index.fr.html", "/???"
-  ; "/docs/install.fr.html", "/???"
-  ; "/docs/cheat_sheets.html", "/???"
+  ; "/learn/portability.html", "/"
+  ; "/learn/success.fr.html", Url.successes
+  ; "/consortium/", "/"
+  ; "/consortium/index.html", "/"
+  ; "/consortium/index.fr.html", "/"
+  ; "/contributors.fr.html", "/"
+  ; "/platform/", "/"
+  ; "/platform/index.html", "/"
+  ; "/platform/ocaml_on_windows.html", "/"
+  ; "/governance.html", "/"
+  ; "/docs/license.fr.html", "/"
+  ; "/docs/license.html", "/"
+  ; "/docs/logos.html", "/"
+  ; "/docs/install.html", "/"
+  ; "/docs/consortium-license.html", "/"
+  ; "/docs/consortium-license.fr.html", "/"
+  ; "/docs/", "/"
+  ; "/docs/index.html", "/"
+  ; "/docs/index.fr.html", "/"
+  ; "/docs/install.fr.html", "/"
+  ; "/docs/cheat_sheets.html", "/"
   ; "/docs/papers.html", Url.papers
   ; "/index.html", Url.index
   ; "/index.fr.html", Url.index
   ; "/contributors.html", Url.index
-  ; "/ocamllabs/index.html", "/???"
-  ; "/about.fr.html", "/???"
-  ; "/meetings/ocaml/2013/program.html", "/???"
-  ; "/meetings/ocaml/2013/talks/index.html", "/???"
-  ; "/meetings/ocaml/2013/call.html", "/???"
-  ; "/meetings/ocaml/2013/index.html", "/???"
-  ; "/meetings/ocaml/2014/program.html", "/???"
-  ; "/meetings/ocaml/2014/ocaml2014_10.html", "/???"
-  ; "/meetings/ocaml/2014/index.html", "/???"
-  ; "/meetings/ocaml/2014/cfp.html", "/???"
-  ; "/meetings/ocaml/2015/program.html", "/???"
-  ; "/meetings/ocaml/2015/index.html", "/???"
-  ; "/meetings/ocaml/2015/cfp.html", "/???"
-  ; "/meetings/ocaml/2012/index.html", ""
-  ; "/meetings/ocaml/2008/index.html", "/???"
-  ; "/meetings/ocaml/2009/index.html", "/???"
-  ; "/meetings/ocaml/2017/index.html", "/???"
-  ; "/meetings/ocaml/2010/index.html", "/???"
-  ; "/meetings/ocaml/2019/index.html", "/???"
-  ; "/meetings/ocaml/2020/index.html", "/???"
-  ; "/meetings/ocaml/2018/index.html", "/???"
-  ; "/meetings/ocaml/2011/index.html", "/???"
-  ; "/meetings/ocaml/2016/index.html", "/???"
+  ; "/ocamllabs/index.html", "/"
+  ; "/about.fr.html", Url.what_is_ocaml
+  ; ( "/meetings/ocaml/2013/program.html"
+    , Url.event "ocaml-users-and-developers-workshop-2013" )
+  ; ( "/meetings/ocaml/2013/talks/index.html"
+    , Url.event "ocaml-users-and-developers-workshop-2013" )
+  ; ( "/meetings/ocaml/2013/call.html"
+    , Url.event "ocaml-users-and-developers-workshop-2013" )
+  ; ( "/meetings/ocaml/2013/index.html"
+    , Url.event "ocaml-users-and-developers-workshop-2013" )
+  ; ( "/meetings/ocaml/2014/program.html"
+    , Url.event "ocaml-users-and-developers-workshop-2014" )
+  ; ( "/meetings/ocaml/2014/ocaml2014_10.html"
+    , Url.event "ocaml-users-and-developers-workshop-2014" )
+  ; ( "/meetings/ocaml/2014/index.html"
+    , Url.event "ocaml-users-and-developers-workshop-2014" )
+  ; ( "/meetings/ocaml/2014/cfp.html"
+    , Url.event "ocaml-users-and-developers-workshop-2014" )
+  ; ( "/meetings/ocaml/2015/program.html"
+    , Url.event "ocaml-users-and-developers-workshop-2015" )
+  ; ( "/meetings/ocaml/2015/index.html"
+    , Url.event "ocaml-users-and-developers-workshop-2015" )
+  ; ( "/meetings/ocaml/2015/cfp.html"
+    , Url.event "ocaml-users-and-developers-workshop-2015" )
+  ; ( "/meetings/ocaml/2012/index.html"
+    , Url.event "ocaml-users-and-developers-workshop-2012" )
+  ; ( "/meetings/ocaml/2008/index.html"
+    , Url.event "ocaml-users-and-developers-workshop-2008" )
+  ; ( "/meetings/ocaml/2009/index.html"
+    , Url.event "ocaml-users-and-developers-workshop-2009" )
+  ; ( "/meetings/ocaml/2017/index.html"
+    , Url.event "ocaml-users-and-developers-workshop-2017" )
+  ; ( "/meetings/ocaml/2010/index.html"
+    , Url.event "ocaml-users-and-developers-workshop-2010" )
+  ; ( "/meetings/ocaml/2019/index.html"
+    , Url.event "ocaml-users-and-developers-workshop-2019" )
+  ; ( "/meetings/ocaml/2020/index.html"
+    , Url.event "ocaml-users-and-developers-workshop-2020" )
+  ; ( "/meetings/ocaml/2018/index.html"
+    , Url.event "ocaml-users-and-developers-workshop-2018" )
+  ; ( "/meetings/ocaml/2011/index.html"
+    , Url.event "ocaml-users-and-developers-workshop-2011" )
+  ; ( "/meetings/ocaml/2016/index.html"
+    , Url.event "ocaml-users-and-developers-workshop-2016" )
   ; "/meetings/index.html", Url.events
   ; "/meetings/index.fr.html", Url.events
   ; "/community/planet/index.html", Url.around_web
@@ -250,10 +271,10 @@ let t =
   ; "/community/history/forge.html", Url.around_web
   ; "/community/media.html", Url.around_web
   ; "/community/mailing_lists.html", Url.around_web
-  ; "/about.html", "/???"
-  ; "/caml-light/license.html", "/???"
-  ; "/caml-light/releases/0.75.html", "/???"
-  ; "/caml-light/releases/index.html", "/???"
-  ; "/caml-light/faq.html", "/???"
-  ; "/caml-light/index.html", "/???"
+  ; "/about.html", Url.what_is_ocaml
+  ; "/caml-light/license.html", "/"
+  ; "/caml-light/releases/0.75.html", "/"
+  ; "/caml-light/releases/index.html", "/"
+  ; "/caml-light/faq.html", "/"
+  ; "/caml-light/index.html", "/"
   ]

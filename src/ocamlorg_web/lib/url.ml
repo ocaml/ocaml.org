@@ -6,6 +6,8 @@ let around_web = "/aroundweb"
 
 let events = "/events"
 
+let event e = "/events/" ^ e
+
 let media_archive = "/mediaarchive"
 
 let news = "/blog"
@@ -45,5 +47,7 @@ let platform = "/platform"
 let problems = "/problems"
 
 let releases = "/releases"
+
+let release v = "/releases/" ^ v
 
 let books = "/books"
