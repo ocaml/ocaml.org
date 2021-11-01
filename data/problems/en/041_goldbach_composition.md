@@ -30,7 +30,7 @@ let goldbach n =
       else (a, goldbach a) :: goldbach_list (a + 2) b
 
   let goldbach_limit a b lim =
-    List.filter (fun (_, (a, b)) -> a > lim && b > lim) (goldbach_list a b)
+    List.filter (fun (_, (a, b)) -> a > lim && b > lim) (goldbach_list a b);;
 val goldbach_list : int -> int -> (int * (int * int)) list = <fun>
 val goldbach_limit : int -> int -> int -> (int * (int * int)) list = <fun>
 ```

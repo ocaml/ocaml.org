@@ -38,7 +38,7 @@ example:
 
 ```ocaml
 # let double x = x * 2 in
-    List.map double [1; 2; 3]
+    List.map double [1; 2; 3];;
 - : int list = [2; 4; 6]
 ```
 
@@ -61,16 +61,16 @@ integers and multiply each element by an arbitrary value `n`:
 ```ocaml
 # let multiply n list =
     let f x = n * x in
-      List.map f list
+      List.map f list;;
 val multiply : int -> int list -> int list = <fun>
 ```
 
 Hence:
 
 ```ocaml
-# multiply 2 [1; 2; 3]
+# multiply 2 [1; 2; 3];;
 - : int list = [2; 4; 6]
-# multiply 5 [1; 2; 3]
+# multiply 5 [1; 2; 3];;
 - : int list = [5; 10; 15]
 ```
 
@@ -121,7 +121,7 @@ Let's define a plus function which just adds two integers:
 
 ```ocaml
 # let plus a b =
-    a + b
+    a + b;;
 val plus : int -> int -> int = <fun>
 ```
 Some questions for people asleep at the back of the class.
@@ -134,14 +134,14 @@ Question 1 is easy. `plus` is a function, it takes two arguments which
 are integers and it returns an integer. We write its type like this:
 
 ```ocaml
-# plus
+# plus;;
 - : int -> int -> int = <fun>
 ```
 Question 2 is even easier. `plus 2 3` is a number, the integer `5`. We
 write its value and type like this:
 
 ```ocaml
-# 5
+# 5;;
 - : int = 5
 ```
 But what about question 3? It looks like `plus 2` is a mistake, a bug.
@@ -149,7 +149,7 @@ In fact, however, it isn't. If we type this into the OCaml toplevel, it
 tells us:
 
 ```ocaml
-# plus 2
+# plus 2;;
 - : int -> int = <fun>
 ```
 This isn't an error. It's telling us that `plus 2` is in fact a
@@ -159,13 +159,13 @@ function a name (`f`), and then trying it out on a few integers to see
 what it does:
 
 ```ocaml
-# let f = plus 2
+# let f = plus 2;;
 val f : int -> int = <fun>
-# f 10
+# f 10;;
 - : int = 12
-# f 15
+# f 15;;
 - : int = 17
-# f 99
+# f 99;;
 - : int = 101
 ```
 In engineering this is sufficient [proof by example](humor_proof.html)
@@ -186,11 +186,11 @@ Looking at the types of these expressions we may be able to see some
 rationale for the strange `->` arrow notation used for function types:
 
 ```ocaml
-# plus
+# plus;;
 - : int -> int -> int = <fun>
-# plus 2
+# plus 2;;
 - : int -> int = <fun>
-# plus 2 3
+# plus 2 3;;
 - : int = 5
 ```
 
@@ -202,24 +202,24 @@ Remember our `double` and `multiply` functions from earlier on?
 ```ocaml
 # let multiply n list =
   let f x = n * x in
-    List.map f list
+    List.map f list;;
 val multiply : int -> int list -> int list = <fun>
 ```
 We can now define `double`, `triple` &amp;c functions very easily just like
 this:
 
 ```ocaml
-# let double = multiply 2
+# let double = multiply 2;;
 val double : int list -> int list = <fun>
-# let triple = multiply 3
+# let triple = multiply 3;;
 val triple : int list -> int list = <fun>
 ```
 They really are functions, look:
 
 ```ocaml
-# double [1; 2; 3]
+# double [1; 2; 3];;
 - : int list = [2; 4; 6]
-# triple [1; 2; 3]
+# triple [1; 2; 3];;
 - : int list = [3; 6; 9]
 ```
 
@@ -227,15 +227,15 @@ You can also use partial application directly (without the intermediate
 `f` function) like this:
 
 ```ocaml
-# let multiply n = List.map (( * ) n)
+# let multiply n = List.map (( * ) n);;
 val multiply : int -> int list -> int list = <fun>
-# let double = multiply 2
+# let double = multiply 2;;
 val double : int list -> int list = <fun>
-# let triple = multiply 3
+# let triple = multiply 3;;
 val triple : int list -> int list = <fun>
-# double [1; 2; 3]
+# double [1; 2; 3];;
 - : int list = [2; 4; 6]
-# triple [1; 2; 3]
+# triple [1; 2; 3];;
 - : int list = [3; 6; 9]
 ```
 
@@ -247,17 +247,17 @@ You can put infix operators into brackets to make functions. Here's an
 identical definition of the `plus` function as before:
 
 ```ocaml
-# let plus = ( + )
+# let plus = ( + );;
 val plus : int -> int -> int = <fun>
-# plus 2 3
+# plus 2 3;;
 - : int = 5
 ```
 Here's some more examples of partial application:
 
 ```ocaml
-# List.map (plus 2) [1; 2; 3]
+# List.map (plus 2) [1; 2; 3];;
 - : int list = [3; 4; 5]
-# let list_of_functions = List.map plus [1; 2; 3]
+# let list_of_functions = List.map plus [1; 2; 3];;
 val list_of_functions : (int -> int) list = [<fun>; <fun>; <fun>]
 ```
 
@@ -328,9 +328,9 @@ language, the call `give_me_a_three (1/0)` is always going to result in
 a divide-by-zero error:
 
 ```ocaml
-# let give_me_a_three _ = 3
+# let give_me_a_three _ = 3;;
 val give_me_a_three : 'a -> int = <fun>
-# give_me_a_three (1/0)
+# give_me_a_three (1/0);;
 Exception: Division_by_zero.
 ```
 
@@ -355,7 +355,7 @@ lazy expressions. Here's an example. First we create a lazy expression
 for `1/0`:
 
 ```ocaml
-# let lazy_expr = lazy (1 / 0)
+# let lazy_expr = lazy (1 / 0);;
 val lazy_expr : int lazy_t = <lazy>
 ```
 
@@ -365,14 +365,14 @@ Because `give_me_a_three` takes `'a` (any type) we can pass this lazy
 expression into the function:
 
 ```ocaml
-# give_me_a_three lazy_expr
+# give_me_a_three lazy_expr;;
 - : int = 3
 ```
 
 To evaluate a lazy expression, you must use the `Lazy.force` function:
 
 ```ocaml
-# Lazy.force lazy_expr
+# Lazy.force lazy_expr;;
 Exception: Division_by_zero.
 ```
 

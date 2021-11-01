@@ -31,7 +31,7 @@ type 'a binary_tree =
          let l' = layout (depth + 1) (x_root - spacing) l
          and r' = layout (depth + 1) (x_root + spacing) r in
            Node((x, x_root, depth), l',r') in
-    layout 1 ((1 lsl (tree_height - 1)) - translate_dst) t
+    layout 1 ((1 lsl (tree_height - 1)) - translate_dst) t;;
 val layout_binary_tree_2 : 'a binary_tree -> ('a * int * int) binary_tree =
   <fun>
 ```
@@ -53,7 +53,7 @@ The tree shown is
   Node ('n', Node ('k', Node ('c', leaf 'a',
                            Node ('e', leaf 'd', leaf 'g')),
                  leaf 'm'),
-       Node ('u', Node ('p', Empty, leaf 'q'), Empty))
+       Node ('u', Node ('p', Empty, leaf 'q'), Empty));;
 val example_layout_tree : char binary_tree =
   Node ('n',
    Node ('k',

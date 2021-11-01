@@ -34,7 +34,7 @@ type 'a binary_tree =
          | lst -> let p, c = split_n lst [] (1 lsl l) in
                   myflatten p (aux (l + 1) c)
        in
-         List.hd (aux 0 lst)
+         List.hd (aux 0 lst);;
 val split_n : 'a list -> 'a list -> int -> 'a list * 'a list = <fun>
 val myflatten : 'a list -> 'a binary_tree list -> 'a binary_tree list = <fun>
 val complete_binary_tree : 'a list -> 'a binary_tree = <fun>

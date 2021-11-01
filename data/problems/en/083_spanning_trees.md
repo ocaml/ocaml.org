@@ -31,7 +31,7 @@ and `is_connected Graph`. Both are five-minutes tasks!
 # let g = {nodes = ['a'; 'b'; 'c'; 'd'; 'e'; 'f'; 'g'; 'h'];
          edges = [('a', 'b'); ('a', 'd'); ('b', 'c'); ('b', 'e');
                   ('c', 'e'); ('d', 'e'); ('d', 'f'); ('d', 'g');
-                  ('e', 'h'); ('f', 'g'); ('g', 'h')]}
+                  ('e', 'h'); ('f', 'g'); ('g', 'h')]};;
 val g : char graph_term =
   {nodes = ['a'; 'b'; 'c'; 'd'; 'e'; 'f'; 'g'; 'h'];
    edges =

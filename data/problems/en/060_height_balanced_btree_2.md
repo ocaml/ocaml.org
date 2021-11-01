@@ -23,7 +23,7 @@ The following solution comes directly from translating the question.
 # let rec min_nodes h =
     if h <= 0 then 0 
     else if h = 1 then 1
-    else min_nodes (h - 1) + min_nodes (h - 2) + 1
+    else min_nodes (h - 1) + min_nodes (h - 2) + 1;;
 val min_nodes : int -> int = <fun>
 ```
 
@@ -35,7 +35,7 @@ two values as the state to avoid the double recursion.
     if h <= 1 then m1
     else min_nodes_loop m1 (m1 + m0 + 1) (h - 1)
     let min_nodes h =
-    if h <= 0 then 0 else min_nodes_loop 0 1 h
+    if h <= 0 then 0 else min_nodes_loop 0 1 h;;
 val min_nodes_loop : int -> int -> int -> int = <fun>
 val min_nodes : int -> int = <fun>
 ```
@@ -50,7 +50,7 @@ Inverting the formula max_nodes = 2<sup>`h`</sup> - 1, one directly
 find that Hₘᵢₙ(n) = ⌈log₂(n+1)⌉ which is readily implemented:
 
 ```ocaml
-# let min_height n = int_of_float (ceil (log (float(n + 1)) /. log 2.))
+# let min_height n = int_of_float (ceil (log (float(n + 1)) /. log 2.));;
 val min_height : int -> int = <fun>
 ```
 
@@ -78,7 +78,7 @@ number.  Here is one that only uses integer operations:
 # let rec ceil_log2_loop log plus1 n =
     if n = 1 then if plus1 then log + 1 else log
     else ceil_log2_loop (log + 1) (plus1 || n land 1 <> 0) (n / 2)
-    let ceil_log2 n = ceil_log2_loop 0 false n
+    let ceil_log2 n = ceil_log2_loop 0 false n;;
 val ceil_log2_loop : int -> bool -> int -> int = <fun>
 val ceil_log2 : int -> int = <fun>
 ```
@@ -94,7 +94,7 @@ yields the following code:
 ```ocaml
 # let rec max_height_search h n =
     if min_nodes h <= n then max_height_search (h + 1) n else h - 1
-  let max_height n = max_height_search 0 n
+  let max_height n = max_height_search 0 n;;
 val max_height_search : int -> int -> int = <fun>
 val max_height : int -> int = <fun>
 ```
@@ -106,7 +106,7 @@ need to recompute everything to go from `min_nodes h` to
 ```ocaml
 # let rec max_height_search h m_h m_h1 n =
     if m_h <= n then max_height_search (h + 1) m_h1 (m_h1 + m_h + 1) n else h - 1
-    let max_height n = max_height_search 0 0 1 n
+    let max_height n = max_height_search 0 0 1 n;;
 val max_height_search : int -> int -> int -> int -> int = <fun>
 val max_height : int -> int = <fun>
 ```
@@ -121,7 +121,7 @@ except that there is no mutable variable in the code.
 
 ```ocaml
 # let rec fold_range ~f ~init n0 n1 =
-    if n0 > n1 then init else fold_range ~f ~init:(f init n0) (n0 + 1) n1
+    if n0 > n1 then init else fold_range ~f ~init:(f init n0) (n0 + 1) n1;;
 val fold_range : f:('a -> int -> 'a) -> init:'a -> int -> int -> 'a = <fun>
 ```
 
@@ -134,7 +134,7 @@ together with their permutation.
 # let rec add_swap_left_right trees =
     List.fold_left (fun a n -> match n with
                                | Node (v, t1, t2) -> Node (v, t2, t1) :: a
-                               | Empty -> a) trees trees
+                               | Empty -> a) trees trees;;
 val add_swap_left_right : 'a binary_tree list -> 'a binary_tree list = <fun>
 ```
 
@@ -161,7 +161,7 @@ straightforwardly express the idea.
       )
       let hbal_tree_nodes n =
     fold_range (min_height n) (max_height n) ~init:[] ~f:(fun l h ->
-        List.rev_append (hbal_tree_nodes_height h n) l)
+        List.rev_append (hbal_tree_nodes_height h n) l);;
 val hbal_tree_nodes_height : int -> int -> char binary_tree list = <fun>
 val add_hbal_tree_node :
   char binary_tree list -> int -> int -> int -> char binary_tree list = <fun>
@@ -175,7 +175,7 @@ maximum number of nodes it can contain? Clearly,
 max_nodes = 2<sup>`h`</sup> - 1.
 
 ```ocaml
-# let max_nodes h = 1 lsl h - 1
+# let max_nodes h = 1 lsl h - 1;;
 val max_nodes : int -> int = <fun>
 ```
 

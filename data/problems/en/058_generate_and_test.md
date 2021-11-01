@@ -41,7 +41,7 @@ let rec cbal_tree n =
 
 ```ocaml
 # let sym_cbal_trees n =
-    List.filter is_symmetric (cbal_tree n)
+    List.filter is_symmetric (cbal_tree n);;
 val sym_cbal_trees : int -> char binary_tree list = <fun>
 ```
 

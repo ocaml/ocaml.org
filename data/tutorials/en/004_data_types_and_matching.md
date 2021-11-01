@@ -20,22 +20,22 @@ combine such values. First, we have lists which are ordered collections of any
 number of elements of like type:
 
 ```ocaml
-# []
+# [];;
 - : 'a list = []
-# [1; 2; 3]
+# [1; 2; 3];;
 - : int list = [1; 2; 3]
-# [[1; 2]; [3; 4]; [5; 6]]
+# [[1; 2]; [3; 4]; [5; 6]];;
 - : int list list = [[1; 2]; [3; 4]; [5; 6]]
-# [false; true; false]
+# [false; true; false];;
 - : bool list = [false; true; false]
 ```
 
 Next, we have tuples, which collect a fixed number of elements together:
 
 ```ocaml
-# (5.0, 6.5)
+# (5.0, 6.5);;
 - : float * float = (5., 6.5)
-# (true, 0.0, 0.45, 0.73, "french blue")
+# (true, 0.0, 0.45, 0.73, "french blue");;
 - : bool * float * float * float * string =
 (true, 0., 0.45, 0.73, "french blue")
 ```
@@ -45,11 +45,11 @@ type definition giving a name for the record, and names for each of its fields,
 and their types:
 
 ```ocaml
-# type point = {x : float; y : float}
+# type point = {x : float; y : float};;
 type point = { x : float; y : float; }
-# let a = {x = 5.0; y = 6.5}
+# let a = {x = 5.0; y = 6.5};;
 val a : point = {x = 5.; y = 6.5}
-# type colour = {websafe : bool; r : float; g : float; b : float; name : string}
+# type colour = {websafe : bool; r : float; g : float; b : float; name : string};;
 type colour = {
   websafe : bool;
   r : float;
@@ -57,7 +57,7 @@ type colour = {
   b : float;
   name : string;
 }
-# let b = {websafe = true; r = 0.0; g = 0.45; b = 0.73; name = "french blue"}
+# let b = {websafe = true; r = 0.0; g = 0.45; b = 0.73; name = "french blue"};;
 val b : colour =
   {websafe = true; r = 0.; g = 0.45; b = 0.73; name = "french blue"}
 ```
@@ -65,7 +65,7 @@ val b : colour =
 A record must contain all fields:
 
 ```ocaml
-# let c = {name = "puce"}
+# let c = {name = "puce"};;
 Line 1, characters 9-24:
 Error: Some record fields are undefined: websafe r g b
 ```
@@ -76,10 +76,10 @@ Records may be mutable:
 # type person =
   {first_name : string;
    surname : string;
-   mutable age : int}
+   mutable age : int};;
 type person = { first_name : string; surname : string; mutable age : int; }
 # let birthday p =
-  p.age <- p.age + 1
+  p.age <- p.age + 1;;
 val birthday : person -> unit = <fun>
 ```
 
@@ -88,13 +88,13 @@ list, must contain elements of like type. However, its elements may be accessed
 in constant time:
 
 ```ocaml
-# let arr = [|1; 2; 3|]
+# let arr = [|1; 2; 3|];;
 val arr : int array = [|1; 2; 3|]
-# arr.(0)
+# arr.(0);;
 - : int = 1
-# arr.(0) <- 0
+# arr.(0) <- 0;;
 - : unit = ()
-# arr
+# arr;;
 - : int array = [|0; 2; 3|]
 ```
 
@@ -115,9 +115,9 @@ and the names of the constructors with upper case letters. We can use our new
 type anywhere a built-in type could be used:
 
 ```ocaml env=colours
-# let additive_primaries = (Red, Green, Blue)
+# let additive_primaries = (Red, Green, Blue);;
 val additive_primaries : colour * colour * colour = (Red, Green, Blue)
-# let pattern = [(1, Red); (3, Green); (1, Red); (2, Green)]
+# let pattern = [(1, Red); (3, Green); (1, Red); (2, Green)];;
 val pattern : (int * colour) list =
   [(1, Red); (3, Green); (1, Red); (2, Green)]
 ```
@@ -131,7 +131,7 @@ on our new type, just as with any built-in type:
   | Red -> "rose"
   | Green -> "grass"
   | Blue -> "sky"
-  | Yellow -> "banana"
+  | Yellow -> "banana";;
 val example : colour -> string = <fun>
 ```
 
@@ -144,7 +144,7 @@ alternative `function` keyword which allows direct matching:
   | Red -> "rose"
   | Green -> "grass"
   | Blue -> "sky"
-  | Yellow -> "banana"
+  | Yellow -> "banana";;
 val example : colour -> string = <fun>
 ```
 
@@ -153,7 +153,7 @@ We can match on more than one case at a time too:
 ```ocaml env=colours
 # let rec is_primary = function
   | Red | Green | Blue -> true
-  | _ -> false
+  | _ -> false;;
 val is_primary : colour -> bool = <fun>
 ```
 
@@ -169,10 +169,10 @@ number from 0 (no colour) to 1 (full colour):
   | Green
   | Blue
   | Yellow
-  | RGB of float * float * float
+  | RGB of float * float * float;;
 type colour = Red | Green | Blue | Yellow | RGB of float * float * float
 
-# [Red; Blue; RGB (0.5, 0.65, 0.12)]
+# [Red; Blue; RGB (0.5, 0.65, 0.12)];;
 - : colour list = [Red; Blue; RGB (0.5, 0.65, 0.12)]
 ```
 
@@ -186,7 +186,7 @@ to allow mixing of colours:
   | Blue
   | Yellow
   | RGB of float * float * float
-  | Mix of float * colour * colour
+  | Mix of float * colour * colour;;
 type colour =
     Red
   | Green
@@ -194,7 +194,7 @@ type colour =
   | Yellow
   | RGB of float * float * float
   | Mix of float * colour * colour
-# Mix (0.5, Red, Mix (0.5, Blue, Green))
+# Mix (0.5, Red, Mix (0.5, Blue, Green));;
 - : colour = Mix (0.5, Red, Mix (0.5, Blue, Green))
 ```
 
@@ -211,7 +211,7 @@ Here is a function over our new `colour` data type:
       let (r1, g1, b1) = rgb_of_colour a in
       let (r2, g2, b2) = rgb_of_colour b in
       let mix x y = x *. p +. y *. (1.0 -. p) in
-        (mix r1 r2, mix g1 g2, mix b1 b2)
+        (mix r1 r2, mix g1 g2, mix b1 b2);;
 val rgb_of_colour : colour -> float * float * float = <fun>
 ```
 
@@ -224,7 +224,7 @@ We can use records directly in the data type instead to label our components:
   | Blue
   | Yellow
   | RGB of {r : float; g : float; b : float}
-  | Mix of {proportion : float; c1 : colour; c2 : colour}
+  | Mix of {proportion : float; c1 : colour; c2 : colour};;
 type colour =
     Red
   | Green
@@ -242,10 +242,10 @@ for a binary tree carrying any kind of data:
 ```ocaml env=trees
 # type 'a tree =
   | Leaf
-  | Node of 'a tree * 'a * 'a tree
+  | Node of 'a tree * 'a * 'a tree;;
 type 'a tree = Leaf | Node of 'a tree * 'a * 'a tree
 # let t =
-    Node (Node (Leaf, 1, Leaf), 2, Node (Node (Leaf, 3, Leaf), 4, Leaf))
+    Node (Node (Leaf, 1, Leaf), 2, Node (Node (Leaf, 3, Leaf), 4, Leaf));;
 val t : int tree =
   Node (Node (Leaf, 1, Leaf), 2, Node (Node (Leaf, 3, Leaf), 4, Leaf))
 ```
@@ -260,11 +260,11 @@ pattern matching on our new constructors:
 ```ocaml env=trees
 # let rec total = function
   | Leaf -> 0
-  | Node (l, x, r) -> total l + x + total r
+  | Node (l, x, r) -> total l + x + total r;;
 val total : int tree -> int = <fun>
 # let rec flip = function
   | Leaf -> Leaf
-  | Node (l, x, r) -> Node (flip r, x, flip l)
+  | Node (l, x, r) -> Node (flip r, x, flip l);;
 val flip : 'a tree -> 'a tree = <fun>
 ```
 
@@ -272,12 +272,12 @@ Here, `flip` is polymorphic while `total` operates only on trees of type `int
 tree`. Let's try our new functions out:
 
 ```ocaml env=trees
-# let all = total t
+# let all = total t;;
 val all : int = 10
-# let flipped = flip t
+# let flipped = flip t;;
 val flipped : int tree =
   Node (Node (Leaf, 4, Node (Leaf, 3, Leaf)), 2, Node (Leaf, 1, Leaf))
-# t = flip flipped
+# t = flip flipped;;
 - : bool = true
 ```
 
@@ -292,7 +292,7 @@ than a simple list of pairs. It is known as a *binary search tree*:
   | Node (l, (k', v'), r) ->
       if k < k' then Node (insert (k, v) l, (k', v'), r) 
       else if k > k' then Node (l, (k', v'), insert (k, v) r)
-      else Node (l, (k, v), r)
+      else Node (l, (k, v), r);;
 val insert : 'a * 'b -> ('a * 'b) tree -> ('a * 'b) tree = <fun>
 ```
 
@@ -318,7 +318,7 @@ type expr =
 The expression `n * (x + y)` would be written:
 
 ```ocaml env=expr
-# Times (Var "n", Plus (Var "x", Var "y"))
+# Times (Var "n", Plus (Var "x", Var "y"));;
 - : expr = Times (Var "n", Plus (Var "x", Var "y"))
 ```
 
@@ -336,10 +336,10 @@ Let's write a function which prints out `Times (Var "n", Plus (Var "x", Var
    "(" ^ to_string left ^ " * " ^ to_string right ^ ")"
   | Divide (left, right) ->
    "(" ^ to_string left ^ " / " ^ to_string right ^ ")"
-  | Var v -> v
+  | Var v -> v;;
 val to_string : expr -> string = <fun>
 # let print_expr e =
-  print_endline (to_string e)
+  print_endline (to_string e);;
 val print_expr : expr -> unit = <fun>
 ```
 
@@ -348,7 +348,7 @@ that our `to_string` function is usable in other contexts. Here's the
 `print_expr` function in action:
 
 ```ocaml env=expr
-# print_expr (Times (Var "n", Plus (Var "x", Var "y")))
+# print_expr (Times (Var "n", Plus (Var "x", Var "y")));;
 (n * (x + y))
 - : unit = ()
 ```
@@ -373,14 +373,14 @@ or `(x + y) * n` and for this we will use a nested pattern:
      Times (multiply_out left, multiply_out right)
   | Divide (left, right) ->
      Divide (multiply_out left, multiply_out right)
-  | Var v -> Var v
+  | Var v -> Var v;;
 val multiply_out : expr -> expr = <fun>
 ```
 
 Here it is in action:
 
 ```ocaml env=expr
-# print_expr (multiply_out (Times (Var "n", Plus (Var "x", Var "y"))))
+# print_expr (multiply_out (Times (Var "n", Plus (Var "x", Var "y"))));;
 ((n * x) + (n * y))
 - : unit = ()
 ```
@@ -411,10 +411,10 @@ expression and more complex cases:
      Times (e1, Plus (e2, e4))
   | Plus (Times (e1, e2), Times (e3, e4)) when e2 = e4 ->
      Times (Plus (e1, e3), e4)
-  | e -> e
+  | e -> e;;
 val factorize : expr -> expr = <fun>
 # factorize (Plus (Times (Var "n", Var "x"),
-                   Times (Var "n", Var "y")))
+                   Times (Var "n", Var "y")));;
 - : expr = Times (Var "n", Plus (Var "x", Var "y"))
 ```
 
@@ -472,7 +472,7 @@ mutually-recursive functions:
   | Add (i, i') -> sum_t i + sum_t i'
   and sum_t {annotation; data} =
     if annotation <> "" then Printf.printf "Touching %s\n" annotation;
-    sum_t' data
+    sum_t' data;;
 val sum_t' : t' -> int = <fun>
 val sum_t : t -> int = <fun>
 ```
@@ -487,27 +487,27 @@ it. There are two ways this matters: the memory layout differs between the two
 tuple:
 
 ```ocaml
-# type t = T of int * int
+# type t = T of int * int;;
 type t = T of int * int
 
-# type t2 = T2 of (int * int)
+# type t2 = T2 of (int * int);;
 type t2 = T2 of (int * int)
 
-# let pair = (1, 2)
+# let pair = (1, 2);;
 val pair : int * int = (1, 2)
 
-# T2 pair
+# T2 pair;;
 - : t2 = T2 (1, 2)
 
-# T pair
+# T pair;;
 Line 1, characters 1-7:
 Error: The constructor T expects 2 argument(s),
        but is applied here to 1 argument(s)
 
-# match T2 (1, 2) with T2 x -> fst x
+# match T2 (1, 2) with T2 x -> fst x;;
 - : int = 1
 
-# match T (1, 2) with T x -> fst x
+# match T (1, 2) with T x -> fst x;;
 Line 1, characters 21-24:
 Error: The constructor T expects 2 argument(s),
        but is applied here to 1 argument(s)
@@ -517,10 +517,10 @@ Note, however, that OCaml allows us to use the always-matching `_` in either
 version:
 
 ```ocaml
-# match T2 (1, 2) with T2 _ -> 0
+# match T2 (1, 2) with T2 _ -> 0;;
 - : int = 0
 
-# match T (1, 2) with T _ -> 0
+# match T (1, 2) with T _ -> 0;;
 - : int = 0
 ```
 

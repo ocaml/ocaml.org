@@ -35,7 +35,7 @@ type bool_expr =
          table_make ((v, true) :: val_vars) tl expr
        @ table_make ((v, false) :: val_vars) tl expr
 
-  let table vars expr = table_make [] vars expr
+  let table vars expr = table_make [] vars expr;;
 val eval : (string * bool) list -> bool_expr -> bool = <fun>
 val table_make :
   (string * bool) list ->

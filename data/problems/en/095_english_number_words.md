@@ -15,7 +15,7 @@ tags: []
       if n = 0 then (match w with [] -> [digit.(0)] | _ -> w)
       else words (digit.(n mod 10) :: w) (n / 10)
     in
-      fun n -> String.concat "-" (words [] n)
+      fun n -> String.concat "-" (words [] n);;
 val full_words : int -> string = <fun>
 ```
 

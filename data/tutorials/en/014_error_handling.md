@@ -46,11 +46,11 @@ Exception: Division_by_zero.
 - : int option = Some 0
 # safe_inverse 0;;
 - : int option = None
-# List.find (fun x -> x mod 2 = 0) [1; 3; 5]
+# List.find (fun x -> x mod 2 = 0) [1; 3; 5];;
 Exception: Not_found.
-# safe_list_find (fun x -> x mod 2 = 0) [1; 3; 4; 5]
+# safe_list_find (fun x -> x mod 2 = 0) [1; 3; 4; 5];;
 - : int option = Some 4
-# safe_list_find (fun x -> x mod 2 = 0) [1; 3; 5]
+# safe_list_find (fun x -> x mod 2 = 0) [1; 3; 5];;
 - : int option = None
 ```
 

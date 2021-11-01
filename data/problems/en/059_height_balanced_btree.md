@@ -29,7 +29,7 @@ The function `add_trees_with` is defined in the solution of
     (* [add_trees_with left right trees] is defined in a question above. *)
       let t1 = hbal_tree (n - 1)
       and t2 = hbal_tree (n - 2) in
-      add_trees_with t1 t1 (add_trees_with t1 t2 (add_trees_with t2 t1 []))
+      add_trees_with t1 t1 (add_trees_with t1 t2 (add_trees_with t2 t1 []));;
 val hbal_tree : int -> char binary_tree list = <fun>
 ```
 

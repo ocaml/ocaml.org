@@ -18,7 +18,7 @@ tags: [ "arithmetic" ]
   let rec all_primes a b =
     if a > b then [] else
       let rest = all_primes (a + 1) b in
-      if is_prime a then a :: rest else rest
+      if is_prime a then a :: rest else rest;;
 val is_prime : int -> bool = <fun>
 val all_primes : int -> int -> int list = <fun>
 ```

@@ -310,7 +310,7 @@ is:
 
 ```ocaml
 # let max a b =
-  if a > b then a else b
+  if a > b then a else b;;
 val max : 'a -> 'a -> 'a = <fun>
 ```
 
@@ -320,7 +320,7 @@ is polymorphic. It has type `'a -> 'a -> bool`, and this means that the
 
 ```ocaml
 # let max a b =
-  if a > b then a else b
+  if a > b then a else b;;
 val max : 'a -> 'a -> 'a = <fun>
 ```
 
@@ -383,7 +383,7 @@ OCaml will generate a specialised version of `max` which only works on
 
 ```ocaml
 # let max (a : int) (b : int) =
-  if a > b then a else b
+  if a > b then a else b;;
 val max : int -> int -> int = <fun>
 ```
 Here is the assembly code generated for this function:
@@ -413,9 +413,9 @@ What about this code:
 
 ```ocaml
 # let max a b =
-  if a > b then a else b
+  if a > b then a else b;;
 val max : 'a -> 'a -> 'a = <fun>
-# let () = print_int (max 2 3)
+# let () = print_int (max 2 3);;
 3
 ```
 
@@ -430,7 +430,7 @@ Here's another variation:
 ```ocaml
 # let max a b =
   if a > b then a else b in
-  print_int (max 2 3)
+  print_int (max 2 3);;
 3
 - : unit = ()
 ```

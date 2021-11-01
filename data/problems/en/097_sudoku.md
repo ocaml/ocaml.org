@@ -86,7 +86,7 @@ different choice.
 
   let sudoku b = match Board.fill b (0, 0) with
     | Some b -> b
-    | None -> failwith "sudoku: no solution"
+    | None -> failwith "sudoku: no solution";;
 module Board :
   sig
     type t = int array
@@ -138,5 +138,5 @@ such a way that every number between 1 and 9 appears exactly once in
 each row, in each column, and in each square.
 
 ```ocaml
-# (* The board representation is not imposed.  Here "0" stands for "." *)
+# (* The board representation is not imposed.  Here "0" stands for "." *);;
 ```

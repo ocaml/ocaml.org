@@ -28,7 +28,7 @@ type 'a binary_tree =
     else (* n even: n-1 nodes for the left & right subtrees altogether. *)
       let t1 = cbal_tree (n / 2 - 1) in
       let t2 = cbal_tree (n / 2) in
-      add_trees_with t1 t2 (add_trees_with t2 t1 [])
+      add_trees_with t1 t2 (add_trees_with t2 t1 []);;
 val add_trees_with :
   char binary_tree list ->
   char binary_tree list -> char binary_tree list -> char binary_tree list =
@@ -49,7 +49,7 @@ arbitrary value of type `'a` (thus is polymorphic) at each node.
 ```ocaml
 # type 'a binary_tree =
   | Empty
-  | Node of 'a * 'a binary_tree * 'a binary_tree
+  | Node of 'a * 'a binary_tree * 'a binary_tree;;
 type 'a binary_tree = Empty | Node of 'a * 'a binary_tree * 'a binary_tree
 ```
 

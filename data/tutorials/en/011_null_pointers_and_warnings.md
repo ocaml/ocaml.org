@@ -62,20 +62,20 @@ A "null pointer" is written `None`. The type of age in our example above
 `int list` and `int binary_tree`).
 
 ```ocaml
-# Some 3
+# Some 3;;
 - : int option = Some 3
 ```
 
 What about a list of optional ints?
 
 ```ocaml
-# [None; Some 3; Some 6; None]
+# [None; Some 3; Some 6; None];;
 - : int option list = [None; Some 3; Some 6; None]
 ```
 And what about an optional list of ints?
 
 ```ocaml
-# Some [1; 2; 3]
+# Some [1; 2; 3];;
 - : int list option = Some [1; 2; 3]
 ```
 
@@ -88,7 +88,7 @@ results in the program stopping and printing out the source file and
 line number where the error occurred. An example:
 
 ```ocaml
-# assert (Sys.os_type = "Win32")
+# assert (Sys.os_type = "Win32");;
 Exception: Assert_failure ("//toplevel//", 1, 1).
 ```
 

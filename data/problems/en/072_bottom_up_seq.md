@@ -17,7 +17,7 @@ let t = T ('a', [T ('f', [T ('g', [])]); T ('c', []);
 ```ocaml
 # let rec prepend_bottom_up (T (c, sub)) l =
     List.fold_right (fun t l -> prepend_bottom_up t l) sub (c :: l)
-  let bottom_up t = prepend_bottom_up t []
+  let bottom_up t = prepend_bottom_up t [];;
 val prepend_bottom_up : 'a mult_tree -> 'a list -> 'a list = <fun>
 val bottom_up : 'a mult_tree -> 'a list = <fun>
 ```

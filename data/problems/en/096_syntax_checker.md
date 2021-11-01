@@ -18,7 +18,7 @@ tags: []
       else false in
     fun s -> (
         let n = String.length s in
-      n > 0 && is_letter s.[n - 1] && is_valid s (n - 2) true)
+      n > 0 && is_letter s.[n - 1] && is_valid s (n - 2) true);;
 val identifier : string -> bool = <fun>
 ```
 

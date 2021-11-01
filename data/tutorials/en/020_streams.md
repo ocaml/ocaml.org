@@ -52,7 +52,7 @@ that builds a stream of lines from an input channel:
 # let line_stream_of_channel channel =
   Stream.from
     (fun _ ->
-       try Some (input_line channel) with End_of_file -> None)
+       try Some (input_line channel) with End_of_file -> None);;
 val line_stream_of_channel : in_channel -> string Stream.t = <fun>
 ```
 The "Stream.from" function builds a stream from a callback function.
@@ -68,9 +68,9 @@ With this simple function, we can now easily construct line streams from
 any input channel:
 
 ```ocaml
-# let in_channel = open_in "020_streams.md"
+# let in_channel = open_in "020_streams.md";;
 val in_channel : in_channel = <abstr>
-# let lines = line_stream_of_channel in_channel
+# let lines = line_stream_of_channel in_channel;;
 val lines : string Stream.t = <abstr>
 ```
 
@@ -78,16 +78,16 @@ This variable `lines` is a stream of strings, one string per line. We
 can now begin reading lines from it by passing it to `Stream.next`:
 
 ```ocaml
-# Stream.next lines
+# Stream.next lines;;
 - : string = "---"
-# Stream.next lines
+# Stream.next lines;;
 - : string = "title: Streams"
-# Stream.next lines
+# Stream.next lines;;
 - : string = "description: >"
-# Stream.next lines
+# Stream.next lines;;
 - : string =
 "  Streams offer an abstraction over consuming items from sequences"
-# while true do ignore(Stream.next lines) done
+# while true do ignore(Stream.next lines) done;;
 Exception: Stdlib.Stream.Failure.
 ```
 
@@ -98,23 +98,23 @@ constructor and the `Str` regular expression module, we could build a
 stream of lines from a string in memory:
 
 ```ocaml
-# #load "str.cma"
+# #load "str.cma";;
 # let line_stream_of_string string =
-  Stream.of_list (Str.split (Str.regexp "\n") string)
+  Stream.of_list (Str.split (Str.regexp "\n") string);;
 val line_stream_of_string : string -> string Stream.t = <fun>
 ```
 and these streams could be used exactly the same way:
 
 ```ocaml
-# let lines = line_stream_of_string "hello\nstream\nworld"
+# let lines = line_stream_of_string "hello\nstream\nworld";;
 val lines : string Stream.t = <abstr>
-# Stream.next lines
+# Stream.next lines;;
 - : string = "hello"
-# Stream.next lines
+# Stream.next lines;;
 - : string = "stream"
-# Stream.next lines
+# Stream.next lines;;
 - : string = "world"
-# Stream.next lines
+# Stream.next lines;;
 Exception: Stdlib.Stream.Failure.
 ```
 
@@ -148,11 +148,11 @@ reusable functions:
 
 ```ocaml
 # let process_line line =
-  print_endline line
+  print_endline line;;
 val process_line : string -> unit = <fun>
 
 # let process_lines lines =
-  Stream.iter process_line lines
+  Stream.iter process_line lines;;
 val process_lines : string Stream.t -> unit = <fun>
 
 # let process_file filename =
@@ -162,11 +162,11 @@ val process_lines : string Stream.t -> unit = <fun>
     close_in in_channel
   with e ->
     close_in in_channel;
-    raise e
+    raise e;;
 val process_file : string -> unit = <fun>
 
 # let process_string string =
-  process_lines (line_stream_of_string string)
+  process_lines (line_stream_of_string string);;
 val process_string : string -> unit = <fun>
 ```
 
@@ -187,11 +187,11 @@ sequences. Here are a few simple stream builders defined with
 `Stream.from`:
 
 ```ocaml
-# let empty_stream () = Stream.from (fun _ -> None)
+# let empty_stream () = Stream.from (fun _ -> None);;
 val empty_stream : unit -> 'a Stream.t = <fun>
-# let const_stream k = Stream.from (fun _ -> Some k)
+# let const_stream k = Stream.from (fun _ -> Some k);;
 val const_stream : 'a -> 'a Stream.t = <fun>
-# let count_stream i = Stream.from (fun j -> Some (i + j))
+# let count_stream i = Stream.from (fun j -> Some (i + j));;
 val count_stream : int -> int Stream.t = <fun>
 ```
 
@@ -205,19 +205,19 @@ don't need to look ahead, the peek/junk protocol may be nicer to work
 with because it uses options instead of exceptions:
 
 ```ocaml
-# let lines = line_stream_of_string "hello\nworld"
+# let lines = line_stream_of_string "hello\nworld";;
 val lines : string Stream.t = <abstr>
-# Stream.peek lines
+# Stream.peek lines;;
 - : string option = Some "hello"
-# Stream.peek lines
+# Stream.peek lines;;
 - : string option = Some "hello"
-# Stream.junk lines
+# Stream.junk lines;;
 - : unit = ()
-# Stream.peek lines
+# Stream.peek lines;;
 - : string option = Some "world"
-# Stream.junk lines
+# Stream.junk lines;;
 - : unit = ()
-# Stream.peek lines
+# Stream.peek lines;;
 - : string option = None
 ```
 
@@ -243,7 +243,7 @@ As such, it is both a stream consumer and a stream producer.
     | Some line, _ ->
         Stream.junk lines;
         next (line :: para_lines) i in
-  Stream.from (next [])
+  Stream.from (next []);;
 val paragraphs : string Stream.t -> string Stream.t = <fun>
 ```
 
@@ -295,7 +295,7 @@ provide such functions, but they can be built easily using
   let rec next i =
     try Some (f (Stream.next stream))
     with Stream.Failure -> None in
-  Stream.from next
+  Stream.from next;;
 val stream_map : ('a -> 'b) -> 'a Stream.t -> 'b Stream.t = <fun>
 
 # let stream_filter p stream =
@@ -304,7 +304,7 @@ val stream_map : ('a -> 'b) -> 'a Stream.t -> 'b Stream.t = <fun>
       let value = Stream.next stream in
       if p value then Some value else next i
     with Stream.Failure -> None in
-  Stream.from next
+  Stream.from next;;
 val stream_filter : ('a -> bool) -> 'a Stream.t -> 'a Stream.t = <fun>
 
 # let stream_fold f stream init =
@@ -312,16 +312,16 @@ val stream_filter : ('a -> bool) -> 'a Stream.t -> 'a Stream.t = <fun>
   Stream.iter
     (fun x -> result := f x !result)
     stream;
-  !result
+  !result;;
 val stream_fold : ('a -> 'b -> 'b) -> 'a Stream.t -> 'b -> 'b = <fun>
 ```
 For example, here is a stream of leap years starting with 2000:
 
 ```ocaml
 # let is_leap year =
-  year mod 4 = 0 && (year mod 100 <> 0 || year mod 400 = 0)
+  year mod 4 = 0 && (year mod 100 <> 0 || year mod 400 = 0);;
 val is_leap : int -> bool = <fun>
-# let leap_years = stream_filter is_leap (count_stream 2000)
+# let leap_years = stream_filter is_leap (count_stream 2000);;
 val leap_years : int Stream.t = <abstr>
 ```
 
@@ -331,7 +331,7 @@ the year 2100 is not a leap year (since it's divisible by 100 but not
 400!):
 
 ```ocaml
-# Stream.npeek 30 leap_years
+# Stream.npeek 30 leap_years;;
 - : int list =
 [2000; 2004; 2008; 2012; 2016; 2020; 2024; 2028; 2032; 2036; 2040; 2044;
  2048; 2052; 2056; 2060; 2064; 2068; 2072; 2076; 2080; 2084; 2088; 2092;
@@ -343,7 +343,7 @@ stream like `leap_years`. This applies to `stream_fold`, as well as any
 function that attempts to consume the entire stream.
 
 ```ocaml
-# stream_fold (+) (Stream.of_list [1; 2; 3]) 0
+# stream_fold (+) (Stream.of_list [1; 2; 3]) 0;;
 - : int = 6
 ```
 
@@ -362,7 +362,7 @@ a sequence of values. The following function does just that:
     match !buf with
       | h :: t -> (buf := t; Some h)
       | [] -> None in
-  Stream.from next
+  Stream.from next;;
 val cycle : 'a list -> 'a Stream.t = <fun>
 ```
 
@@ -377,7 +377,7 @@ produce a sequence of HTML blocks:
   let rec next i =
     try Some (Stream.next stream1, Stream.next stream2)
     with Stream.Failure -> None in
-  Stream.from next
+  Stream.from next;;
 val stream_combine : 'a Stream.t -> 'b Stream.t -> ('a * 'b) Stream.t = <fun>
 # Stream.iter print_endline
   (stream_map
@@ -385,7 +385,7 @@ val stream_combine : 'a Stream.t -> 'b Stream.t -> ('a * 'b) Stream.t = <fun>
         Printf.sprintf "<div style='background: %s'>%s</div>" bg s)
      (stream_combine
         (cycle ["#eee"; "#fff"])
-        (Stream.of_list ["hello"; "html"; "world"])))
+        (Stream.of_list ["hello"; "html"; "world"])));;
 <div style='background: #eee'>hello</div>
 <div style='background: #fff'>html</div>
 <div style='background: #eee'>world</div>
@@ -402,7 +402,7 @@ Here is a simple `range` function that produces a sequence of integers:
     then let result = !current in (current := !current + step;
                                    Some result)
     else None in
-  Stream.from next
+  Stream.from next;;
 val range : ?start:int -> ?stop:int -> ?step:int -> unit -> int Stream.t =
   <fun>
 ```
@@ -412,13 +412,13 @@ easy way to produce an assortment of lazy integer sequences by
 specifying combinations of `start`, `stop`, or `step` values:
 
 ```ocaml
-# Stream.npeek 10 (range ~start:5 ~stop:10 ())
+# Stream.npeek 10 (range ~start:5 ~stop:10 ());;
 - : int list = [5; 6; 7; 8; 9]
-# Stream.npeek 10 (range ~stop:10 ~step:2 ())
+# Stream.npeek 10 (range ~stop:10 ~step:2 ());;
 - : int list = [0; 2; 4; 6; 8]
-# Stream.npeek 10 (range ~start:10 ~step:(-1) ())
+# Stream.npeek 10 (range ~start:10 ~step:(-1) ());;
 - : int list = [10; 9; 8; 7; 6; 5; 4; 3; 2; 1]
-# Stream.npeek 10 (range ~start:10 ~stop:5 ~step:(-1) ())
+# Stream.npeek 10 (range ~start:10 ~stop:5 ~step:(-1) ());;
 - : int list = [10; 9; 8; 7; 6]
 ```
 
@@ -443,7 +443,7 @@ lists into a list, it turns a stream of streams into a stream:
       try Some (Stream.next stream)
       with Stream.Failure -> (current_stream := None; next i)
     with Stream.Failure -> None in
-  Stream.from next
+  Stream.from next;;
 val stream_concat : 'a Stream.t Stream.t -> 'a Stream.t = <fun>
 ```
 Here is a sequence of ranges which are themselves derived from a range,
@@ -454,7 +454,7 @@ concatenated with `stream_concat` to produce a flattened `int Stream.t`.
   (stream_concat
      (stream_map
         (fun i -> range ~stop:i ())
-        (range ~stop:5 ())))
+        (range ~stop:5 ())));;
 - : int list = [0; 0; 1; 0; 1; 2; 0; 1; 2; 3]
 ```
 
@@ -466,7 +466,7 @@ fashion:
   let rec next i =
     try Some (Stream.next stream1, Stream.next stream2)
     with Stream.Failure -> None in
-  Stream.from next
+  Stream.from next;;
 val stream_combine : 'a Stream.t -> 'b Stream.t -> ('a * 'b) Stream.t = <fun>
 ```
 This is useful, for instance, if you have a stream of keys and a stream
@@ -489,12 +489,12 @@ out, it can be used to combine an infinite stream with a finite one.
 This provides a neat way to add indexes to a sequence:
 
 ```ocaml
-# let items = ["this"; "is"; "a"; "test"]
+# let items = ["this"; "is"; "a"; "test"];;
 val items : string list = ["this"; "is"; "a"; "test"]
 # Stream.iter
   (fun (index, value) ->
      Printf.printf "%d. %s\n%!" index value)
-  (stream_combine (count_stream 1) (Stream.of_list items))
+  (stream_combine (count_stream 1) (Stream.of_list items));;
 1. this
 2. is
 3. a
@@ -524,28 +524,28 @@ both streams:
     with Stream.Failure -> None in
   let q1 = Queue.create () in
   let q2 = Queue.create () in
-  (Stream.from (next q1 q2), Stream.from (next q2 q1))
+  (Stream.from (next q1 q2), Stream.from (next q2 q1));;
 val stream_tee : 'a Stream.t -> 'a Stream.t * 'a Stream.t = <fun>
 ```
 Here is an example of a stream tee in action:
 
 ```ocaml
-# let letters = Stream.of_list ['a'; 'b'; 'c'; 'd'; 'e']
+# let letters = Stream.of_list ['a'; 'b'; 'c'; 'd'; 'e'];;
 val letters : char Stream.t = <abstr>
-# let s1, s2 = stream_tee letters
+# let s1, s2 = stream_tee letters;;
 val s1 : char Stream.t = <abstr>
 val s2 : char Stream.t = <abstr>
-# Stream.next s1
+# Stream.next s1;;
 - : char = 'a'
-# Stream.next s1
+# Stream.next s1;;
 - : char = 'b'
-# Stream.next s2
+# Stream.next s2;;
 - : char = 'a'
-# Stream.next s1
+# Stream.next s1;;
 - : char = 'c'
-# Stream.next s2
+# Stream.next s2;;
 - : char = 'b'
-# Stream.next s2
+# Stream.next s2;;
 - : char = 'c'
 ```
 
@@ -553,11 +553,11 @@ Again, since streams are destructive, you probably want to leave the
 original stream alone or you will lose items from the copied streams:
 
 ```ocaml
-# Stream.next letters
+# Stream.next letters;;
 - : char = 'd'
-# Stream.next s1
+# Stream.next s1;;
 - : char = 'e'
-# Stream.next s2
+# Stream.next s2;;
 - : char = 'e'
 ```
 
@@ -568,32 +568,32 @@ but they are simple to define anyhow. Again, beware of infinite streams,
 which will cause these functions to hang.
 
 ```ocaml
-# let stream_of_list = Stream.of_list
+# let stream_of_list = Stream.of_list;;
 val stream_of_list : 'a list -> 'a Stream.t = <fun>
 # let list_of_stream stream =
   let result = ref [] in
   Stream.iter (fun value -> result := value :: !result) stream;
-  List.rev !result
+  List.rev !result;;
 val list_of_stream : 'a Stream.t -> 'a list = <fun>
 # let stream_of_array array =
-  Stream.of_list (Array.to_list array)
+  Stream.of_list (Array.to_list array);;
 val stream_of_array : 'a array -> 'a Stream.t = <fun>
 # let array_of_stream stream =
-  Array.of_list (list_of_stream stream)
+  Array.of_list (list_of_stream stream);;
 val array_of_stream : 'a Stream.t -> 'a array = <fun>
 # let stream_of_hash hash =
   let result = ref [] in
   Hashtbl.iter
     (fun key value -> result := (key, value) :: !result)
     hash;
-  Stream.of_list !result
+  Stream.of_list !result;;
 val stream_of_hash : ('a, 'b) Hashtbl.t -> ('a * 'b) Stream.t = <fun>
 # let hash_of_stream stream =
   let result = Hashtbl.create 0 in
   Stream.iter
     (fun (key, value) -> Hashtbl.replace result key value)
     stream;
-  result
+  result;;
 val hash_of_stream : ('a * 'b) Stream.t -> ('a, 'b) Hashtbl.t = <fun>
 ```
 
@@ -613,7 +613,7 @@ you can use a producer-consumer arrangement to invert control:
   let consumer i =
     Event.sync (Event.receive channel) in
   ignore (Thread.create producer ());
-  Stream.from consumer
+  Stream.from consumer;;
 val elements : (('a -> unit) -> 'b -> unit) -> 'b -> 'a Stream.t = <fun>
 ```
 
@@ -621,7 +621,7 @@ Now it is possible to build a stream from an `iter` function and a
 corresponding value:
 
 ```ocaml
-# module StringSet = Set.Make(String)
+# module StringSet = Set.Make(String);;
 module StringSet :
   sig
     type elt = string
@@ -669,19 +669,19 @@ module StringSet :
     val add_seq : elt Seq.t -> t -> t
     val of_seq : elt Seq.t -> t
   end
-# let set = StringSet.empty
+# let set = StringSet.empty;;
 val set : StringSet.t = <abstr>
-# let set = StringSet.add "here" set
+# let set = StringSet.add "here" set;;
 val set : StringSet.t = <abstr>
-# let set = StringSet.add "are" set
+# let set = StringSet.add "are" set;;
 val set : StringSet.t = <abstr>
-# let set = StringSet.add "some" set
+# let set = StringSet.add "some" set;;
 val set : StringSet.t = <abstr>
-# let set = StringSet.add "values" set
+# let set = StringSet.add "values" set;;
 val set : StringSet.t = <abstr>
-# let stream = elements StringSet.iter set
+# let stream = elements StringSet.iter set;;
 val stream : string Stream.t = <abstr>
-# Stream.iter print_endline stream
+# Stream.iter print_endline stream;;
 are
 here
 some
@@ -703,7 +703,7 @@ iterates through key-value pairs. Here's a function for those, too:
   let consumer i =
     Event.sync (Event.receive channel) in
   ignore (Thread.create producer ());
-  Stream.from consumer
+  Stream.from consumer;;
 val items : (('a -> 'b -> unit) -> 'c -> unit) -> 'c -> ('a * 'b) Stream.t =
   <fun>
 ```
@@ -712,9 +712,9 @@ If we want just the keys, or just the values, it is simple to transform
 the output of `items` using `stream_map`:
 
 ```ocaml
-# let keys iter coll = stream_map (fun (k, v) -> k) (items iter coll)
+# let keys iter coll = stream_map (fun (k, v) -> k) (items iter coll);;
 val keys : (('a -> 'b -> unit) -> 'c -> unit) -> 'c -> 'a Stream.t = <fun>
-# let values iter coll = stream_map (fun (k, v) -> v) (items iter coll)
+# let values iter coll = stream_map (fun (k, v) -> v) (items iter coll);;
 val values : (('a -> 'b -> unit) -> 'c -> unit) -> 'c -> 'b Stream.t = <fun>
 ```
 

@@ -22,7 +22,7 @@ let is_prime n =
       if is_prime d && is_prime (n - d) then (d, n - d)
       else aux (d + 1)
     in
-      aux 2
+      aux 2;;
 val goldbach : int -> int * int = <fun>
 ```
 

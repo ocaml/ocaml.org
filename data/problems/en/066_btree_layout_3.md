@@ -47,7 +47,7 @@ type 'a binary_tree =
           0 :: merge_profiles rr lr) in
     fun t -> let (l, t', _) = layout 1 t in
              let x_min = List.fold_left min 0 l in
-             translate_x (1 - x_min) t'
+             translate_x (1 - x_min) t';;
 val layout_binary_tree_3 : 'a binary_tree -> ('a * int * int) binary_tree =
   <fun>
 ```

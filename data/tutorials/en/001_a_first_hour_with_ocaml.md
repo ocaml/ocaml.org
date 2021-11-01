@@ -76,9 +76,9 @@ us that the type was `int`, an integer (every expression in OCaml has a type).
 To avoid repetition, we can give a name to our number:
 
 ```ocaml
-# let x = 50
+# let x = 50;;
 val x : int = 50
-# x * x
+# x * x;;
 - : int = 2500
 ```
 
@@ -86,7 +86,7 @@ Note that this is not a variable as in languages like C and Python. Its value
 cannot be changed. We can write it all in one go using `let` ... `in` ...:
 
 ```ocaml
-# let x = 50 in x * x
+# let x = 50 in x * x;;
 - : int = 2500
 ```
 
@@ -95,7 +95,7 @@ Of course, we can have multiple names:
 ```ocaml
 # let a = 1 in
   let b = 2 in
-    a + b
+    a + b;;
 - : int = 3
 ```
 
@@ -103,9 +103,9 @@ Note that this is still just one expression. We can define a function to do the
 job for any number:
 
 ```ocaml
-# let square x = x * x
+# let square x = x * x;;
 val square : int -> int = <fun>
-# square 50
+# square 50;;
 - : int = 2500
 ```
 
@@ -116,11 +116,11 @@ using the comparison operator `=` to test for even-ness:
 
 ```ocaml
 # let square_is_even x =
-    square x mod 2 = 0
+    square x mod 2 = 0;;
 val square_is_even : int -> bool = <fun>
-# square_is_even 50
+# square_is_even 50;;
 - : bool = true
-# square_is_even 3
+# square_is_even 3;;
 - : bool = false
 ```
 
@@ -132,9 +132,9 @@ and commas. We shall explain why later.
 
 ```ocaml
 # let ordered a b c =
-    a <= b && b <= c
+    a <= b && b <= c;;
 val ordered : 'a -> 'a -> 'a -> bool = <fun>
-# ordered 1 1 2
+# ordered 1 1 2;;
 - : bool = true
 ```
 
@@ -143,7 +143,7 @@ example, instead of just `+`:
 
 ```ocaml
 # let average a b =
-    (a +. b) /. 2.0
+    (a +. b) /. 2.0;;
 val average : float -> float -> float = <fun>
 ```
 
@@ -157,7 +157,7 @@ The `+` operator in OCaml requires two integers as arguments, and here we're
 giving it an integer and a floating point number, so it reports this error:
 
 ```ocaml
-# 1 + 2.5
+# 1 + 2.5;;
 Line 1, characters 5-8:
 Error: This expression has type float but an expression was expected of type
          int
@@ -167,7 +167,7 @@ OCaml doesn't promote integers to floating point numbers automatically so this
 is also an error:
 
 ```ocaml
-# 1 +. 2.5
+# 1 +. 2.5;;
 Line 1, characters 1-2:
 Error: This expression has type int but an expression was expected of type
          float
@@ -203,9 +203,9 @@ instead of just `let`. Here's an example of a recursive function:
 ```ocaml
 # let rec range a b =
     if a > b then []
-    else a :: range (a + 1) b
+    else a :: range (a + 1) b;;
 val range : int -> int -> int list = <fun>
-# let digits = range 0 9
+# let digits = range 0 9;;
 val digits : int list = [0; 1; 2; 3; 4; 5; 6; 7; 8; 9]
 ```
 
@@ -245,15 +245,15 @@ efficient internal representation. Strings are immutable.
 When we type our expressions into the OCaml top level, OCaml prints the type:
 
 ```ocaml
-# 1 + 2
+# 1 + 2;;
 - : int = 3
-# 1.0 +. 2.0
+# 1.0 +. 2.0;;
 - : float = 3.
-# false
+# false;;
 - : bool = false
-# 'c'
+# 'c';;
 - : char = 'c'
-# "Help me!"
+# "Help me!";;
 - : string = "Help me!"
 ```
 
@@ -309,7 +309,7 @@ possible values. Consider the factorial function:
 
 ```ocaml
 # let rec factorial n =
-    if n <= 1 then 1 else n * factorial (n - 1)
+    if n <= 1 then 1 else n * factorial (n - 1);;
 val factorial : int -> int = <fun>
 ```
 
@@ -319,7 +319,7 @@ We may write it using pattern matching instead:
 # let rec factorial n =
     match n with
     | 0 | 1 -> 1
-    | x -> x * factorial (x - 1)
+    | x -> x * factorial (x - 1);;
 val factorial : int -> int = <fun>
 ```
 
@@ -329,7 +329,7 @@ Equally, we could use the pattern `_` which matches anything, and write:
 # let rec factorial n =
     match n with
     | 0 | 1 -> 1
-    | _ -> n * factorial (n - 1)
+    | _ -> n * factorial (n - 1);;
 val factorial : int -> int = <fun>
 ```
 
@@ -339,7 +339,7 @@ pattern-matching directly:
 ```ocaml
 # let rec factorial = function
     | 0 | 1 -> 1
-    | n -> n * factorial (n - 1)
+    | n -> n * factorial (n - 1);;
 val factorial : int -> int = <fun>
 ```
 
@@ -352,13 +352,13 @@ Lists are a common compound data type in OCaml. They are ordered collections of
 elements of like type. Here are some lists:
 
 ```ocaml
-# []
+# [];;
 - : 'a list = []
-# [1; 2; 3]
+# [1; 2; 3];;
 - : int list = [1; 2; 3]
-# [false; false; true]
+# [false; false; true];;
 - : bool list = [false; false; true]
-# [[1; 2]; [3; 4]; [5; 6]]
+# [[1; 2]; [3; 4]; [5; 6]];;
 - : int list list = [[1; 2]; [3; 4]; [5; 6]]
 ```
 
@@ -368,9 +368,9 @@ operator, adds one element to the front of a list. The `@` or append operator
 combines two lists:
 
 ```ocaml
-# 1 :: [2; 3]
+# 1 :: [2; 3];;
 - : int list = [1; 2; 3]
-# [1] @ [2; 3]
+# [1] @ [2; 3];;
 - : int list = [1; 2; 3]
 ```
 
@@ -380,9 +380,9 @@ We can write functions which operate over lists by pattern matching:
 # let rec total l =
     match l with
     | [] -> 0
-    | h :: t -> h + total t
+    | h :: t -> h + total t;;
 val total : int list -> int = <fun>
-# total [1; 3; 5; 3; 1]
+# total [1; 3; 5; 3; 1];;
 - : int = 13
 ```
 
@@ -392,13 +392,13 @@ its head and tail. If we omit a case, OCaml will notice and warn us:
 ```ocaml
 # let rec total_wrong l =
     match l with
-    | h :: t -> h + total_wrong t
+    | h :: t -> h + total_wrong t;;
 Lines 2-3, characters 5-34:
 Warning 8 [partial-match]: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 []
 val total_wrong : int list -> int = <fun>
-# total_wrong [1; 3; 5; 3; 1]
+# total_wrong [1; 3; 5; 3; 1];;
 Exception: Match_failure ("//toplevel//", 2, 5).
 ```
 
@@ -409,7 +409,7 @@ warning later. Consider now a function to find the length of a list:
 # let rec length l =
     match l with
     | [] -> 0
-    | _ :: t -> 1 + length t
+    | _ :: t -> 1 + length t;;
 val length : 'a list -> int = <fun>
 ```
 
@@ -418,11 +418,11 @@ This is indicated by the type, which allows its input to be `'a list`
 (pronounced alpha list).
 
 ```ocaml
-# length [1; 2; 3]
+# length [1; 2; 3];;
 - : int = 3
-# length ["cow"; "sheep"; "cat"]
+# length ["cow"; "sheep"; "cat"];;
 - : int = 3
-# length [[]]
+# length [[]];;
 - : int = 1
 ```
 
@@ -435,7 +435,7 @@ operator for appending:
 # let rec append a b =
     match a with
     | [] -> b
-    | h :: t -> h :: append t b
+    | h :: t -> h :: append t b;;
 val append : 'a list -> 'a list -> 'a list = <fun>
 ```
 
@@ -451,7 +451,7 @@ argument - such a function is called "higher-order":
 # let rec map f l =
     match l with
     | [] -> []
-    | h :: t -> f h :: map f t
+    | h :: t -> f h :: map f t;;
 val map : ('a -> 'b) -> 'a list -> 'b list = <fun>
 ```
 
@@ -461,9 +461,9 @@ will build a list of `'b`s. Sometimes `'a` and `'b` might be the same type, of
 course. Here are some examples of using `map`:
 
 ```ocaml
-# map total [[1; 2]; [3; 4]; [5; 6]]
+# map total [[1; 2]; [3; 4]; [5; 6]];;
 - : int list = [3; 7; 11]
-# map (fun x -> x * 2) [1; 2; 3]
+# map (fun x -> x * 2) [1; 2; 3];;
 - : int list = [2; 4; 6]
 ```
 
@@ -474,13 +474,13 @@ We need not give a function all its arguments at once. This is called partial
 application. For example:
 
 ```ocaml
-# let add a b = a + b
+# let add a b = a + b;;
 val add : int -> int -> int = <fun>
-# add
+# add;;
 - : int -> int -> int = <fun>
-# let f = add 6
+# let f = add 6;;
 val f : int -> int = <fun>
-# f 7
+# f 7;;
 - : int = 13
 ```
 
@@ -488,7 +488,7 @@ Look at the types of `add` and `f` to see what is going on. We can use partial
 application to add to each item of a list:
 
 ```ocaml
-# map (add 6) [1; 2; 3]
+# map (add 6) [1; 2; 3];;
 - : int list = [7; 8; 9]
 ```
 
@@ -496,7 +496,7 @@ Indeed we can use partial application of our `map` function to map over lists
 of lists:
 
 ```ocaml
-# map (map (fun x -> x * 2)) [[1; 2]; [3; 4]; [5; 6]]
+# map (map (fun x -> x * 2)) [[1; 2]; [3; 4]; [5; 6]];;
 - : int list list = [[2; 4]; [6; 8]; [10; 12]]
 ```
 
@@ -507,7 +507,7 @@ list. There are two more ways compound data types of interest. First we have
 tuples, which are fixed length collections of elements of any type:
 
 ```ocaml
-# let t = (1, "one", '1')
+# let t = (1, "one", '1');;
 val t : int * string * char = (1, "one", '1')
 ```
 
@@ -518,14 +518,14 @@ elements:
 # type person =
    {first_name : string;
     surname : string;
-    age : int}
+    age : int};;
 type person = { first_name : string; surname : string; age : int; }
 # let frank =
     {first_name = "Frank";
      surname = "Smith";
-     age = 40}
+     age = 40};;
 val frank : person = {first_name = "Frank"; surname = "Smith"; age = 40}
-# let s = frank.surname
+# let s = frank.surname;;
 val s : string = "Smith"
 ```
 
@@ -536,9 +536,9 @@ Pattern-matching works on tuples and records too, of course.
 We can define new data types in OCaml with the `type` keyword:
 
 ```ocaml
-# type colour = Red | Blue | Green | Yellow
+# type colour = Red | Blue | Green | Yellow;;
 type colour = Red | Blue | Green | Yellow
-# let l = [Red; Blue; Red]
+# let l = [Red; Blue; Red];;
 val l : colour list = [Red; Blue; Red]
 ```
 
@@ -551,9 +551,9 @@ carry data along with it:
    | Blue
    | Green
    | Yellow
-   | RGB of int * int * int
+   | RGB of int * int * int;;
 type colour = Red | Blue | Green | Yellow | RGB of int * int * int
-# let l = [Red; Blue; RGB (30, 255, 154)]
+# let l = [Red; Blue; RGB (30, 255, 154)];;
 val l : colour list = [Red; Blue; RGB (30, 255, 154)]
 ```
 
@@ -563,10 +563,10 @@ a binary tree carrying any kind of data:
 ```ocaml
 # type 'a tree =
    | Leaf
-   | Node of 'a tree * 'a * 'a tree
+   | Node of 'a tree * 'a * 'a tree;;
 type 'a tree = Leaf | Node of 'a tree * 'a * 'a tree
 # let t =
-    Node (Node (Leaf, 1, Leaf), 2, Node (Node (Leaf, 3, Leaf), 4, Leaf))
+    Node (Node (Leaf, 1, Leaf), 2, Node (Node (Leaf, 3, Leaf), 4, Leaf));;
 val t : int tree =
   Node (Node (Leaf, 1, Leaf), 2, Node (Node (Leaf, 3, Leaf), 4, Leaf))
 ```
@@ -580,24 +580,24 @@ constructors:
 # let rec total t =
     match t with
     | Leaf -> 0
-    | Node (l, x, r) -> total l + x + total r
+    | Node (l, x, r) -> total l + x + total r;;
 val total : int tree -> int = <fun>
 # let rec flip t =
     match t with
     | Leaf -> Leaf
-    | Node (l, x, r) -> Node (flip r, x, flip l)
+    | Node (l, x, r) -> Node (flip r, x, flip l);;
 val flip : 'a tree -> 'a tree = <fun>
 ```
 
 Let's try our new functions out:
 
 ```ocaml
-# let all = total t
+# let all = total t;;
 val all : int = 10
-# let flipped = flip t
+# let flipped = flip t;;
 val flipped : int tree =
   Node (Node (Leaf, 4, Node (Leaf, 3, Leaf)), 2, Node (Leaf, 1, Leaf))
-# t = flip flipped
+# t = flip flipped;;
 - : bool = true
 ```
 
@@ -614,9 +614,9 @@ OCaml deals with exceptional situations in two ways. One is to use *exceptions*,
 which may be defined in roughly the same way as types:
 
 ```ocaml
-# exception E
+# exception E;;
 exception E
-# exception E2 of string
+# exception E2 of string;;
 exception E2 of string
 ```
 
@@ -624,21 +624,21 @@ An exception is raised like this:
 
 ```ocaml
 # let f a b =
-    if b = 0 then raise (E2 "division by zero") else a / b
+    if b = 0 then raise (E2 "division by zero") else a / b;;
 val f : int -> int -> int = <fun>
 ```
 
 An exception may be handled with pattern matching:
 
 ```ocaml
-# try f 10 0 with E2 _ -> 0
+# try f 10 0 with E2 _ -> 0;;
 - : int = 0
 ```
 
 When an exception is not handled, it is printed at the top level:
 
 ```ocaml
-# f 10 0
+# f 10 0;;
 Exception: E2 "division by zero".
 ```
 
@@ -647,7 +647,7 @@ value of a type which can represent either the correct result or an error, for
 example the built-in polymorphic `option` type, which is defined as:
 
 ```ocaml
-# type 'a option = None | Some of 'a
+# type 'a option = None | Some of 'a;;
 type 'a option = None | Some of 'a
 ```
 
@@ -655,7 +655,7 @@ So we may write:
 
 ```ocaml
 # let f a b =
-    if b = 0 then None else Some (a / b)
+    if b = 0 then None else Some (a / b);;
 val f : int -> int -> int option = <fun>
 ```
 
@@ -666,7 +666,7 @@ element matching a given boolean test):
 ```ocaml
 # let list_find_opt p l =
     try Some (List.find p l) with
-    Not_found -> None
+    Not_found -> None;;
 val list_find_opt : ('a -> bool) -> 'a list -> 'a option = <fun>
 ```
 
@@ -677,7 +677,7 @@ to match both values and catch exceptions:
 # let list_find_opt p l =
     match List.find p l with
     | v -> Some v
-    | exception Not_found -> None
+    | exception Not_found -> None;;
 val list_find_opt : ('a -> bool) -> 'a list -> 'a option = <fun>
 ```
 
@@ -692,7 +692,7 @@ that you can assign to and change throughout your program? You need to use a
 Here's how we create a reference to an integer in OCaml:
 
 ```ocaml
-# let r = ref 0
+# let r = ref 0;;
 val r : int ref = {contents = 0}
 ```
 
@@ -700,14 +700,14 @@ This reference is currently storing the integer zero. Let's put something
 else into it (assignment):
 
 ```ocaml
-# r := 100
+# r := 100;;
 - : unit = ()
 ```
 
 And let's find out what the reference contains now:
 
 ```ocaml
-# !r
+# !r;;
 - : int = 100
 ```
 
@@ -725,7 +725,7 @@ function to swap the contents of two references of like type:
 # let swap a b =
     let t = !a in
       a := !b;
-      b := t
+      b := t;;
 val swap : 'a ref -> 'a ref -> unit = <fun>
 ```
 
@@ -736,7 +736,7 @@ other argument, and is only used for its imperative side effect. For example:
 ```ocaml
 # let print_number n =
     print_string (string_of_int n);
-    print_newline ()
+    print_newline ();;
 val print_number : int -> unit = <fun>
 ```
 
@@ -744,7 +744,7 @@ We can look at the type of the built-in function `print_newline` by typing its
 name without applying the unit argument:
 
 ```ocaml
-# print_newline
+# print_newline;;
 - : unit -> unit = <fun>
 ```
 
@@ -758,9 +758,9 @@ The usual imperative looping constructs are available. Here is a `for` loop:
         print_string " "
       done;
       print_newline ()
-    done
+    done;;
 val table : int -> unit = <fun>
-# let () = table 10
+# let () = table 10;;
 1 2 3 4 5 6 7 8 9 10
 2 4 6 8 10 12 14 16 18 20
 3 6 9 12 15 18 21 24 27 30
@@ -782,7 +782,7 @@ two larger or equal to a given number:
       while !t < x do
         t := !t * 2
       done;
-      !t
+      !t;;
 val smallest_power_of_two : int -> int = <fun>
 ```
 
@@ -790,13 +790,13 @@ In addition to references, the imperative part of OCaml has arrays of items of
 like type, whose elements can be accessed or updated in constant time:
 
 ```ocaml
-# let arr = [|1; 2; 3|]
+# let arr = [|1; 2; 3|];;
 val arr : int array = [|1; 2; 3|]
-# arr.(0)
+# arr.(0);;
 - : int = 1
-# arr.(0) <- 0
+# arr.(0) <- 0;;
 - : unit = ()
-# arr
+# arr;;
 - : int array = [|0; 2; 3|]
 ```
 
@@ -806,10 +806,10 @@ Records may have mutable fields too, which must be marked in the type:
 # type person =
     {first_name : string;
      surname : string;
-     mutable age : int}
+     mutable age : int};;
 type person = { first_name : string; surname : string; mutable age : int; }
 # let birthday p =
-    p.age <- p.age + 1
+    p.age <- p.age + 1;;
 val birthday : person -> unit = <fun>
 ```
 
@@ -823,11 +823,11 @@ full stop, followed by the name of the function. Here are some functions from
 the `List` module:
 
 ```ocaml
-# List.concat [[1; 2; 3]; [4; 5; 6]; [7; 8; 9]]
+# List.concat [[1; 2; 3]; [4; 5; 6]; [7; 8; 9]];;
 - : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9]
-# List.filter (( < ) 10) [1; 4; 20; 10; 9; 2]
+# List.filter (( < ) 10) [1; 4; 20; 10; 9; 2];;
 - : int list = [20]
-# List.sort compare [1; 6; 2; 2; 3; 56; 3; 2]
+# List.sort compare [1; 6; 2; 2; 3; 56; 3; 2];;
 - : int list = [1; 2; 2; 2; 3; 3; 6; 56]
 ```
 
@@ -836,9 +836,9 @@ compile-time that the printing will work:
 
 ```ocaml
 # let print_length s =
-    Printf.printf "%s has %i characters\n" s (String.length s)
+    Printf.printf "%s has %i characters\n" s (String.length s);;
 val print_length : string -> unit = <fun>
-# List.iter print_length ["one"; "two"; "three"]
+# List.iter print_length ["one"; "two"; "three"];;
 one has 3 characters
 two has 3 characters
 three has 5 characters

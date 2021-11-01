@@ -22,11 +22,11 @@ The simplest way to debug programs in the toplevel is to follow the function
 calls, by “tracing” the faulty function:
 
 ```ocaml
-# let rec fib x = if x <= 1 then 1 else fib (x - 1) + fib (x - 2)
+# let rec fib x = if x <= 1 then 1 else fib (x - 1) + fib (x - 2);;
 val fib : int -> int = <fun>
-# #trace fib
+# #trace fib;;
 fib is now traced.
-# fib 3
+# fib 3;;
 fib <-- 3
 fib <-- 1
 fib --> 1
@@ -38,7 +38,7 @@ fib --> 1
 fib --> 2
 fib --> 3
 - : int = 3
-# #untrace fib
+# #untrace fib;;
 fib is no longer traced.
 ```
 
@@ -52,23 +52,23 @@ Consider a sorting algorithm (say bubble sort):
 # let exchange i j v =
   let aux = v.(i) in
     v.(i) <- v.(j);
-    v.(j) <- aux
+    v.(j) <- aux;;
 val exchange : int -> int -> 'a array -> unit = <fun>
 # let one_pass_vect fin v =
   for j = 1 to fin do
     if v.(j - 1) > v.(j) then exchange (j - 1) j v
-  done
+  done;;
 val one_pass_vect : int -> 'a array -> unit = <fun>
 # let bubble_sort_vect v =
   for i = Array.length v - 1 downto 0 do
     one_pass_vect i v
-  done
+  done;;
 val bubble_sort_vect : 'a array -> unit = <fun>
-# let q = [|18; 3; 1|]
+# let q = [|18; 3; 1|];;
 val q : int array = [|18; 3; 1|]
-# #trace one_pass_vect
+# #trace one_pass_vect;;
 one_pass_vect is now traced.
-# bubble_sort_vect q
+# bubble_sort_vect q;;
 one_pass_vect <-- 2
 one_pass_vect --> <fun>
 one_pass_vect* <-- [|<poly>; <poly>; <poly>|]
@@ -103,23 +103,23 @@ of function calls:
 # let exchange i j (v : int array) =    (* notice the type constraint *)
   let aux = v.(i) in
     v.(i) <- v.(j);
-    v.(j) <- aux
+    v.(j) <- aux;;
 val exchange : int -> int -> int array -> unit = <fun>
 # let one_pass_vect fin v =
   for j = 1 to fin do
     if v.(j - 1) > v.(j) then exchange (j - 1) j v
-  done
+  done;;
 val one_pass_vect : int -> int array -> unit = <fun>
 # let bubble_sort_vect v =
   for i = Array.length v - 1 downto 0 do
     one_pass_vect i v
-  done
+  done;;
 val bubble_sort_vect : int array -> unit = <fun>
-# let q = [| 18; 3; 1 |]
+# let q = [| 18; 3; 1 |];;
 val q : int array = [|18; 3; 1|]
-# #trace one_pass_vect
+# #trace one_pass_vect;;
 one_pass_vect is now traced.
-# bubble_sort_vect q
+# bubble_sort_vect q;;
 one_pass_vect <-- 2
 one_pass_vect --> <fun>
 one_pass_vect* <-- [|18; 3; 1|]

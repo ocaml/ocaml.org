@@ -27,7 +27,7 @@ type bool_expr =
     [(true,  true,  eval2 a true  b true  expr);
      (true,  false, eval2 a true  b false expr);
      (false, true,  eval2 a false b true  expr);
-     (false, false, eval2 a false b false expr)]
+     (false, false, eval2 a false b false expr)];;
 val eval2 : string -> bool -> string -> bool -> bool_expr -> bool = <fun>
 val table2 : string -> string -> bool_expr -> (bool * bool * bool) list =
   <fun>
@@ -43,7 +43,7 @@ variables:
   | Var of string
   | Not of bool_expr
   | And of bool_expr * bool_expr
-  | Or of bool_expr * bool_expr
+  | Or of bool_expr * bool_expr;;
 type bool_expr =
     Var of string
   | Not of bool_expr
@@ -55,7 +55,7 @@ A logical expression in two variables can then be written in prefix
 notation.  For example, `(a ∨ b) ∧ (a ∧ b)` is written:
 
 ```ocaml
-# And (Or (Var "a", Var "b"), And (Var "a", Var "b"))
+# And (Or (Var "a", Var "b"), And (Var "a", Var "b"));;
 - : bool_expr = And (Or (Var "a", Var "b"), And (Var "a", Var "b"))
 ```
 

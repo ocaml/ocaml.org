@@ -29,7 +29,7 @@ let rec list_path g a to_b = match to_b with
 # let cycles g a =
     let n = neighbors g a (fun _ -> true) in
     let p = List.concat (List.map (fun c -> list_path g a [c]) n) in
-    List.map (fun p -> p @ [a]) p
+    List.map (fun p -> p @ [a]) p;;
 val cycles : 'a graph_term -> 'a -> 'a list list = <fun>
 ```
 
@@ -46,7 +46,7 @@ return the list of all cycles via backtracking.
 val example_graph : char graph_term =
   {nodes = ['b'; 'c'; 'd'; 'f'; 'g'; 'h'; 'k'];
    edges = [('h', 'g'); ('k', 'f'); ('f', 'b'); ('f', 'c'); ('c', 'b')]}
-# cycles example_graph 'f'
+# cycles example_graph 'f';;
 - : char list list =
 [['f'; 'b'; 'c'; 'f']; ['f'; 'c'; 'f']; ['f'; 'c'; 'b'; 'f'];
  ['f'; 'b'; 'f']; ['f'; 'k'; 'f']]

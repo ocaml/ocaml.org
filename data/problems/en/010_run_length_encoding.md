@@ -32,7 +32,7 @@ the `pack` function declared in problem 9:
     List.rev (aux [] [] list);;
 val pack : 'a list -> 'a list list = <fun>
 # let encode list =
-    List.map (fun l -> (List.length l, List.hd l)) (pack list)
+    List.map (fun l -> (List.length l, List.hd l)) (pack list);;
 val encode : 'a list -> (int * 'a) list = <fun>
 ```
 
