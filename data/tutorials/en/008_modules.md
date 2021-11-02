@@ -87,11 +87,11 @@ There are also local `open`s:
 ```ocaml
 # let map_3d_matrix f m =
   let open Array in
-    map (map (map f)) m
+    map (map (map f)) m;;
 val map_3d_matrix :
   ('a -> 'b) -> 'a array array array -> 'b array array array = <fun>
 # let map_3d_matrix' f =
-  Array.(map (map (map f)))
+  Array.(map (map (map f)));;
 val map_3d_matrix' :
   ('a -> 'b) -> 'a array array array -> 'b array array array = <fun>
 ```
@@ -381,7 +381,7 @@ can achieve this effect by using the `include` directive:
        match f hd with
        | None -> optmap f tl
        | Some x -> x :: optmap f tl
-  end
+  end;;
 module List :
   sig
     type 'a t = 'a list = [] | (::) of 'a * 'a list

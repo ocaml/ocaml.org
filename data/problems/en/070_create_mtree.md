@@ -40,7 +40,7 @@ To represent multiway trees, we will use the following type which is a
 direct translation of the definition:
 
 ```ocaml
-# type 'a mult_tree = T of 'a * 'a mult_tree list
+# type 'a mult_tree = T of 'a * 'a mult_tree list;;
 type 'a mult_tree = T of 'a * 'a mult_tree list
 ```
 
@@ -48,7 +48,7 @@ The example tree depicted opposite is therefore represented by the
 following OCaml expression:
 
 ```ocaml
-# T ('a', [T ('f', [T ('g', [])]); T ('c', []); T ('b', [T ('d', []); T ('e', [])])])
+# T ('a', [T ('f', [T ('g', [])]); T ('c', []); T ('b', [T ('d', []); T ('e', [])])]);;
 - : char mult_tree =
 T ('a',
  [T ('f', [T ('g', [])]); T ('c', []); T ('b', [T ('d', []); T ('e', [])])])

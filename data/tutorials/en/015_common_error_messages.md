@@ -18,7 +18,7 @@ When the type of an object is not compatible with the context in which
 it is used, it is frequent to obtain this kind of message:
 
 ```ocaml
-# 1 + 2.5
+# 1 + 2.5;;
 Line 1, characters 5-8:
 Error: This expression has type float but an expression was expected of type
          int
@@ -40,15 +40,15 @@ to define a type with a name
 that is already taken by another type. Consider the following session:
 
 ```ocaml
-# type my_type = A | B
+# type my_type = A | B;;
 type my_type = A | B
-# let a = A
+# let a = A;;
 val a : my_type = A
-# type my_type = A | B
+# type my_type = A | B;;
 type my_type = A | B
-# let b = B
+# let b = B;;
 val b : my_type = B
-# a = b
+# a = b;;
 Line 1, characters 5-6:
 Error: This expression has type my_type/1
        but an expression was expected of type my_type/2
@@ -70,7 +70,7 @@ Functions with optional arguments must have at least one non-labelled
 argument. For instance, this is not OK:
 
 ```ocaml
-# let f ?(x = 0) ?(y = 0) = print_int (x + y)
+# let f ?(x = 0) ?(y = 0) = print_int (x + y);;
 Line 1, characters 18-23:
 Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
 Line 1, characters 9-14:
@@ -80,7 +80,7 @@ val f : ?x:int -> ?y:int -> unit = <fun>
 The solution is simply to add one argument of type unit, like this:
 
 ```ocaml
-# let f ?(x = 0) ?(y = 0) () = print_int (x + y)
+# let f ?(x = 0) ?(y = 0) () = print_int (x + y);;
 val f : ?x:int -> ?y:int -> unit -> unit = <fun>
 ```
 See the [Labels](labels.html "Labels") section for more details on
@@ -92,7 +92,7 @@ by the compiler when it reaches the end of the compilation unit (file)
 but for some reason it cannot remain polymorphic. Example:
 
 ```ocaml env=ref
-# let x = ref None
+# let x = ref None;;
 val x : '_weak1 option ref = {contents = None}
 ```
 triggers the following message during the compilation:
@@ -105,13 +105,13 @@ contains type variables that cannot be generalized
 Solution: help the compiler with a type annotation, like for instance:
 
 ```ocaml env=ref
-# let x : string option ref = ref None
+# let x : string option ref = ref None;;
 val x : string option ref = {contents = None}
 ```
 or:
 
 ```ocaml env=ref
-# let x = ref (None : string option)
+# let x = ref (None : string option);;
 val x : string option ref = {contents = None}
 ```
 
@@ -121,7 +121,7 @@ but it cannot be any type: it is not polymorphic data. In the toplevel,
 our example gives these results:
 
 ```ocaml env=ref
-# let x = ref None
+# let x = ref None;;
 val x : '_weak2 option ref = {contents = None}
 ```
 
@@ -129,13 +129,13 @@ The compiler tells us that the type of x is not fully known yet. But by
 using `x` later, the compiler can infer the type of `x`:
 
 ```ocaml env=ref
-# x := Some 0
+# x := Some 0;;
 - : unit = ()
 ```
 Now `x` has a known type:
 
 ```ocaml env=ref
-# x
+# x;;
 - : int option ref = {contents = Some 0}
 ```
 
@@ -150,7 +150,7 @@ situation:
 # let test_member x tup =
   match tup with
   | (y, _) | (_, y) when y = x -> true
-  | _ -> false
+  | _ -> false;;
 Line 3, characters 14-20:
 Warning 12 [redundant-subpat]: this sub-pattern is unused.
 Line 3, characters 5-20:
@@ -173,9 +173,9 @@ In our example, it is now clear that only the first item of the pair
 will ever be tested. This leads to the following results:
 
 ```ocaml
-# test_member 1 (1, 0)
+# test_member 1 (1, 0);;
 - : bool = true
-# test_member 1 (0, 1)
+# test_member 1 (0, 1);;
 - : bool = false
 ```
 ###  This pattern-matching is not exhaustive
@@ -193,7 +193,7 @@ let is_even x =
 A short solution without pattern matching would be:
 
 ```ocaml
-# let is_even x = x mod 2 = 0
+# let is_even x = x mod 2 = 0;;
 val is_even : int -> bool = <fun>
 ```
 In general, that kind of simplification is not possible and the best
@@ -204,7 +204,7 @@ solution is to add a catch-all case which should never be reached:
   match x mod 2 with
   | 0 -> true
   | 1 | -1 -> false
-  | _ -> assert false
+  | _ -> assert false;;
 val is_even : int -> bool = <fun>
 ```
 
@@ -230,10 +230,10 @@ when compiling an older program, and can be turned off with the `-w x`
 option.
 
 ```ocaml
-# "\e\n" (* bad practice *)
+# "\e\n" (* bad practice *);;
 File "_none_", line 1, characters 1-3:
 Warning 14 [illegal-backslash]: illegal backslash escape in string.
 - : string = "\\e\n"
-# "\\e\n" (* good practice *)
+# "\\e\n" (* good practice *);;
 - : string = "\\e\n"
 ```

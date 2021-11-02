@@ -40,7 +40,7 @@ The basic syntax is:
 ```ocaml
 # let rec range ~first:a ~last:b =
   if a > b then []
-  else a :: range ~first:(a + 1) ~last:b
+  else a :: range ~first:(a + 1) ~last:b;;
 val range : first:int -> last:int -> int list = <fun>
 ```
 
@@ -58,7 +58,7 @@ range : int -> int -> int list
 And the type of our new `range` function with labelled arguments is:
 
 ```ocaml
-# range
+# range;;
 - : first:int -> last:int -> int list = <fun>
 ```
 
@@ -69,9 +69,9 @@ With labelled arguments, it doesn't matter which order you give the
 arguments anymore:
 
 ```ocaml
-# range ~first:1 ~last:10
+# range ~first:1 ~last:10;;
 - : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
-# range ~last:10 ~first:1
+# range ~last:10 ~first:1;;
 - : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
 ```
 
@@ -82,7 +82,7 @@ is the same as the variable in the function definition:
 # let may ~f x =
   match x with
   | None -> ()
-  | Some x -> ignore (f x)
+  | Some x -> ignore (f x);;
 val may : f:('a -> 'b) -> 'a option -> unit = <fun>
 ```
 
@@ -111,16 +111,16 @@ Thus the type of the `may` function is (and you can verify this in the
 OCaml interactive toplevel if you want):
 
 ```ocaml
-# may
+# may;;
 - : f:('a -> 'b) -> 'a option -> unit = <fun>
 ```
 What does this function do? Running the function in the OCaml toplevel
 gives us some clues:
 
 ```ocaml
-# may ~f:print_endline None
+# may ~f:print_endline None;;
 - : unit = ()
-# may ~f:print_endline (Some "hello")
+# may ~f:print_endline (Some "hello");;
 hello
 - : unit = ()
 ```
@@ -136,7 +136,7 @@ of `~` in front of them. Here is an example:
 ```ocaml
 # let rec range ?(step=1) a b =
   if a > b then []
-  else a :: range ~step (a + step) b
+  else a :: range ~step (a + step) b;;
 val range : ?step:int -> int -> int -> int list = <fun>
 ```
 
@@ -144,9 +144,9 @@ Note the somewhat confusing syntax, switching between `?` and `~`. We'll
 talk about that in the next section. Here is how you call this function:
 
 ```ocaml
-# range 1 10
+# range 1 10;;
 - : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
-# range 1 10 ~step:2
+# range 1 10 ~step:2;;
 - : int list = [1; 3; 5; 7; 9]
 ```
 
@@ -159,30 +159,30 @@ lablgtk:
 # type window =
   {mutable title: string;
    mutable width: int;
-   mutable height: int}
+   mutable height: int};;
 type window = {
   mutable title : string;
   mutable width : int;
   mutable height : int;
 }
 # let create_window () =
-  {title = "none"; width = 640; height = 480;}
+  {title = "none"; width = 640; height = 480;};;
 val create_window : unit -> window = <fun>
 # let set_title window title =
-  window.title <- title
+  window.title <- title;;
 val set_title : window -> string -> unit = <fun>
 # let set_width window width =
-  window.width <- width
+  window.width <- width;;
 val set_width : window -> int -> unit = <fun>
 # let set_height window height =
-  window.height <- height
+  window.height <- height;;
 val set_height : window -> int -> unit = <fun>
 # let open_window ?title ?width ?height () =
   let window = create_window () in
   may ~f:(set_title window) title;
   may ~f:(set_width window) width;
   may ~f:(set_height window) height;
-  window
+  window;;
 val open_window :
   ?title:string -> ?width:int -> ?height:int -> unit -> window = <fun>
 ```
@@ -194,7 +194,7 @@ returns a `window`, initialized with default settings for title, width
 and height:
 
 ```ocaml
-# create_window ()
+# create_window ();;
 - : window = {title = "none"; width = 640; height = 480}
 ```
 
@@ -205,7 +205,7 @@ example:
 ```ocaml
 # let w = create_window () in
   set_title w "My Application";
-  w
+  w;;
 - : window = {title = "My Application"; width = 640; height = 480}
 ```
 
@@ -216,9 +216,9 @@ followed by a required, unlabelled `unit`. Let's first see this function
 in action:
 
 ```ocaml
-# open_window ~title:"My Application" ()
+# open_window ~title:"My Application" ();;
 - : window = {title = "My Application"; width = 640; height = 480}
-# open_window ~title:"Clock" ~width:128 ~height:128 ()
+# open_window ~title:"Clock" ~width:128 ~height:128 ();;
 - : window = {title = "Clock"; width = 128; height = 128}
 ```
 
@@ -236,7 +236,7 @@ So:
 
 <!-- $MDX skip -->
 ```ocaml
-# may ~f:(set_title window) title
+# may ~f:(set_title window) title;;
 ```
 
 If the optional title argument is not specified by the caller, then
@@ -244,7 +244,7 @@ If the optional title argument is not specified by the caller, then
 with, for example,
 
 ```ocaml
-# open_window ~title:"My Application" ()
+# open_window ~title:"My Application" ();;
 - : window = {title = "My Application"; width = 640; height = 480}
 ```
 
@@ -266,7 +266,7 @@ function without the extra `unit`:
   may ~f:(set_title window) title;
   may ~f:(set_width window) width;
   may ~f:(set_height window) height;
-  window
+  window;;
 Line 1, characters 32-38:
 Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
 Line 1, characters 25-30:
@@ -283,9 +283,9 @@ to the final `?height` argument. To try to show what's going on here,
 let's call our modified `open_window` function:
 
 ```ocaml
-# open_window
+# open_window;;
 - : ?title:string -> ?width:int -> ?height:int -> window = <fun>
-# open_window ~title:"My Application"
+# open_window ~title:"My Application";;
 - : ?width:int -> ?height:int -> window = <fun>
 ```
 
@@ -298,18 +298,18 @@ we have a function `plus` defined as:
 
 ```ocaml
 # let plus x y =
-  x + y
+  x + y;;
 val plus : int -> int -> int = <fun>
 ```
 We can partially apply this, for example as `plus 2` which is "the
 function that adds 2 to things":
 
 ```ocaml
-# let f = plus 2
+# let f = plus 2;;
 val f : int -> int = <fun>
-# f 5
+# f 5;;
 - : int = 7
-# f 100
+# f 100;;
 - : int = 102
 ```
 
@@ -338,7 +338,7 @@ where we had the extra unlabelled `unit` argument at the end:
   may ~f:(set_title window) title;
   may ~f:(set_width window) width;
   may ~f:(set_height window) height;
-  window
+  window;;
 val open_window :
   ?title:string -> ?width:int -> ?height:int -> unit -> window = <fun>
 ```
@@ -347,14 +347,14 @@ If you want to pass optional arguments to `open_window` you must do so
 before the final `unit`, so if you type:
 
 ```ocaml
-# open_window ()
+# open_window ();;
 - : window = {title = "none"; width = 640; height = 480}
 ```
 you must mean "execute `open_window` now with all optional arguments
 unspecified". Whereas if you type:
 
 ```ocaml
-# open_window
+# open_window;;
 - : ?title:string -> ?width:int -> ?height:int -> unit -> window = <fun>
 ```
 you mean "give me the functional value" or (more usually in the
@@ -367,7 +367,7 @@ shorthand as possible for the labels:
 ```ocaml
 # let rec range ~first ~last =
   if first > last then []
-  else first :: range ~first:(first + 1) ~last
+  else first :: range ~first:(first + 1) ~last;;
 val range : first:int -> last:int -> int list = <fun>
 ```
 
@@ -382,7 +382,7 @@ write a function around `open_window` to open up an application:
 
 ```ocaml
 # let open_application ?width ?height () =
-  open_window ~title:"My Application" ~width ~height
+  open_window ~title:"My Application" ~width ~height;;
 Line 2, characters 40-45:
 Error: This expression has type 'a option
        but an expression was expected of type int
@@ -400,7 +400,7 @@ this function is:
 
 ```ocaml
 # let open_application ?width ?height () =
-  open_window ~title:"My Application" ?width ?height
+  open_window ~title:"My Application" ?width ?height;;
 val open_application : ?width:int -> ?height:int -> unit -> unit -> window =
   <fun>
 ```
@@ -423,7 +423,7 @@ function calls:
 
 ```ocaml
 # let open_application ?width ?height () =
-  open_window ~title:"My Application" ?width ?height
+  open_window ~title:"My Application" ?width ?height;;
 val open_application : ?width:int -> ?height:int -> unit -> unit -> window =
   <fun>
 ```
@@ -455,7 +455,7 @@ this:
   let w = create () in
   load_empty w;
   Container.set w ?border_width ?width ?height;            (* line 4 *)
-  pack_return (new html w) ~packing ~show                  (* line 5 *)
+  pack_return (new html w) ~packing ~show                  (* line 5 *);;
 ```
 On line 1 we have the function definition. Notice there are 5 optional
 arguments, and the mandatory `unit` 6<sup>th</sup> argument. Each of the
@@ -475,7 +475,7 @@ module Container = struct
 Line 5 uses the `~`shorthand. Writing this in long form:
 
 ```ocaml
-# pack_return (new html w) ~packing:packing ~show:show
+# pack_return (new html w) ~packing:packing ~show:show;;
 Line 1, characters 1-12:
 Error: Unbound value pack_return
 ```
@@ -538,20 +538,20 @@ variants, but OCaml provides a way to work around it.
 Here is some OCaml code, which actually *does* compile:
 
 ```ocaml
-# type lock = Open | Close
+# type lock = Open | Close;;
 type lock = Open | Close
-# type door = Open | Close
+# type door = Open | Close;;
 type door = Open | Close
 ```
 After running those two statements, what is the type of `Open`? We can
 find out easily enough in the toplevel:
 
 ```ocaml
-# type lock = Open | Close
+# type lock = Open | Close;;
 type lock = Open | Close
-# type door = Open | Close
+# type door = Open | Close;;
 type door = Open | Close
-# Open
+# Open;;
 - : door = Open
 ```
 
@@ -570,9 +570,9 @@ which one I mean.
 The syntax is slightly different, but here is how we do it:
 
 ```ocaml
-# type lock = [ `Open | `Close ]
+# type lock = [ `Open | `Close ];;
 type lock = [ `Close | `Open ]
-# type door = [ `Open | `Close ]
+# type door = [ `Open | `Close ];;
 type door = [ `Close | `Open ]
 ```
 Notice the syntactic differences:
@@ -583,7 +583,7 @@ Notice the syntactic differences:
 The question naturally arises: What is the type of `` `Open``?
 
 ```ocaml
-# `Open
+# `Open;;
 - : [> `Open ] = `Open
 ```
 `` [> `Open] `` can be read as
@@ -596,9 +596,9 @@ There's nothing special about `` `Open ``. *Any* back-ticked word can be
 used as a type, even one which we haven't mentioned before:
 
 ```ocaml
-# `Foo
+# `Foo;;
 - : [> `Foo ] = `Foo
-# `Foo 42
+# `Foo 42;;
 - : [> `Foo of int ] = `Foo 42
 ```
 Let's write a function to print the state of a `lock`:
@@ -607,7 +607,7 @@ Let's write a function to print the state of a `lock`:
 # let print_lock st =
   match st with
   | `Open -> print_endline "The lock is open"
-  | `Close -> print_endline "The lock is closed"
+  | `Close -> print_endline "The lock is closed";;
 val print_lock : [< `Close | `Open ] -> unit = <fun>
 ```
 Take a careful look at the type of that function. Type inference has
@@ -617,7 +617,7 @@ other words, this function will only work on `` `Close`` or `` `Open``
 and not on anything else.
 
 ```ocaml
-# print_lock `Open
+# print_lock `Open;;
 The lock is open
 - : unit = ()
 ```

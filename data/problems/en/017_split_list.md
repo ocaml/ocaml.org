@@ -14,7 +14,7 @@ tags: [ "list" ]
       | h :: t as l -> if i = 0 then List.rev acc, l
                        else aux (i - 1) (h :: acc) t 
     in
-      aux n [] list
+      aux n [] list;;
 val split : 'a list -> int -> 'a list * 'a list = <fun>
 ```
 

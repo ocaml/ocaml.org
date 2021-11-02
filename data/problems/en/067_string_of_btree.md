@@ -23,7 +23,7 @@ A simple solution is:
        match l, r with
        | Empty, Empty -> data
        | _, _ -> data ^ "(" ^ (string_of_tree l)
-                 ^ "," ^ (string_of_tree r) ^ ")"
+                 ^ "," ^ (string_of_tree r) ^ ")";;
 val string_of_tree : char binary_tree -> string = <fun>
 ```
 
@@ -44,7 +44,7 @@ One can also use a buffer to allocate a lot less memory:
                  let string_of_tree t =
     let buf = Buffer.create 128 in
       buffer_add_tree buf t;
-      Buffer.contents buf
+      Buffer.contents buf;;
 val buffer_add_tree : Buffer.t -> char binary_tree -> unit = <fun>
 val string_of_tree : char binary_tree -> string = <fun>
 ```
@@ -65,7 +65,7 @@ and do not deal with error reporting.
             (Node (v, l, r), ofs + 1) (* skip ")" *)
         else (Node (v, Empty, Empty), ofs + 1)
     in
-      fun s -> fst (make 0 s)
+      fun s -> fst (make 0 s);;
 val tree_of_string : string -> char binary_tree = <fun>
 ```
 

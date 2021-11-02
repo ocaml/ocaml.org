@@ -15,7 +15,7 @@ tags: [ "list" ]
          | h :: tl ->
             let with_h = List.map (fun l -> h :: l) (extract (k - 1) tl) in
             let without_h = extract k tl in
-            with_h @ without_h
+            with_h @ without_h;;
 val extract : int -> 'a list -> 'a list list = <fun>
 ```
 

@@ -61,7 +61,7 @@ We can translate this in OCaml, using a sum type definition, without
 pointers:
 
 ```ocaml
-# type list = Nil | Cons of int * list
+# type list = Nil | Cons of int * list;;
 type list = Nil | Cons of int * list
 ```
 
@@ -113,7 +113,7 @@ can be in place modified could be written:
 
 ```ocaml
 # type list = Nil | Cons of cell
-  and cell = { mutable hd : int; tl : list }
+  and cell = { mutable hd : int; tl : list };;
 type list = Nil | Cons of cell
 and cell = { mutable hd : int; tl : list; }
 ```
@@ -123,7 +123,7 @@ as mutable:
 
 ```ocaml
 # type list = Nil | Cons of cell
-  and cell = { mutable hd : int; mutable tl : list }
+  and cell = { mutable hd : int; mutable tl : list };;
 type list = Nil | Cons of cell
 and cell = { mutable hd : int; mutable tl : list; }
 ```
@@ -148,7 +148,7 @@ pointer: a pointer is either null, or a pointer to an assignable memory
 location:
 
 ```ocaml
-# type 'a pointer = Null | Pointer of 'a ref
+# type 'a pointer = Null | Pointer of 'a ref;;
 type 'a pointer = Null | Pointer of 'a ref
 ```
 Explicit dereferencing (or reading the pointer's designated value) and
@@ -159,13 +159,13 @@ operator named `!^`, and assignment as the infix `^:=`.
 ```ocaml
 # let ( !^ ) = function
     | Null -> invalid_arg "Attempt to dereference the null pointer"
-    | Pointer r -> !r
+    | Pointer r -> !r;;
 val ( !^ ) : 'a pointer -> 'a = <fun>
 
 # let ( ^:= ) p v =
     match p with
      | Null -> invalid_arg "Attempt to assign the null pointer"
-     | Pointer r -> r := v
+     | Pointer r -> r := v;;
 val ( ^:= ) : 'a pointer -> 'a -> unit = <fun>
 ```
 
@@ -173,17 +173,17 @@ Now we define the allocation of a new pointer initialized to point to a
 given value:
 
 ```ocaml
-# let new_pointer x = Pointer (ref x)
+# let new_pointer x = Pointer (ref x);;
 val new_pointer : 'a -> 'a pointer = <fun>
 ```
 For instance, let's define and then assign a pointer to an integer:
 
 ```ocaml
-# let p = new_pointer 0
+# let p = new_pointer 0;;
 val p : int pointer = Pointer {contents = 0}
-# p ^:= 1
+# p ^:= 1;;
 - : unit = ()
-# !^p
+# !^p;;
 - : int = 1
 ```
 
@@ -193,7 +193,7 @@ languages:
 
 ```ocaml
 # type ilist = cell pointer
-  and cell = { mutable hd : int; mutable tl : ilist }
+  and cell = { mutable hd : int; mutable tl : ilist };;
 type ilist = cell pointer
 and cell = { mutable hd : int; mutable tl : ilist; }
 ```
@@ -201,17 +201,17 @@ We then define allocation of a new cell, the list constructor and its
 associated destructors.
 
 ```ocaml
-# let new_cell () = {hd = 0; tl = Null}
+# let new_cell () = {hd = 0; tl = Null};;
 val new_cell : unit -> cell = <fun>
 # let cons x l =
     let c = new_cell () in
     c.hd <- x;
     c.tl <- l;
-    (new_pointer c : ilist)
+    (new_pointer c : ilist);;
 val cons : int -> ilist -> ilist = <fun>
-# let hd (l : ilist) = !^l.hd
+# let hd (l : ilist) = !^l.hd;;
 val hd : ilist -> int = <fun>
-# let tl (l : ilist) = !^l.tl
+# let tl (l : ilist) = !^l.tl;;
 val tl : ilist -> ilist = <fun>
 ```
 
@@ -228,25 +228,25 @@ first:
   while tl !temp <> Null do
     temp := tl !temp
   done;
-  !^ !temp.tl <- l2
+  !^ !temp.tl <- l2;;
 val append : ilist -> ilist -> unit = <fun>
 
-# let l1 = cons 1 (cons 2 Null)
+# let l1 = cons 1 (cons 2 Null);;
 val l1 : ilist =
   Pointer
    {contents = {hd = 1; tl = Pointer {contents = {hd = 2; tl = Null}}}}
 
-# let l2 = cons 3 Null
+# let l2 = cons 3 Null;;
 val l2 : ilist = Pointer {contents = {hd = 3; tl = Null}}
 
-# append l1 l2
+# append l1 l2;;
 - : unit = ()
 ```
 
 The lists `l1` and `l2` are effectively catenated:
 
 ```ocaml
-# l1
+# l1;;
 - : ilist =
 Pointer
  {contents =
@@ -265,14 +265,14 @@ This strange behaviour leads to a lot of difficulties when explicitly
 manipulating pointers. Try for instance, the seemingly harmless:
 
 ```ocaml
-# append l1 l1
+# append l1 l1;;
 - : unit = ()
 ```
 
 Then evaluate `l1`:
 
 ```ocaml
-# l1
+# l1;;
 - : ilist =
 Pointer
  {contents =
@@ -288,26 +288,26 @@ of those polymorphic mutable lists:
 
 ```ocaml
 # type 'a lists = 'a cell pointer
-  and 'a cell = { mutable hd : 'a pointer; mutable tl : 'a lists }
+  and 'a cell = { mutable hd : 'a pointer; mutable tl : 'a lists };;
 type 'a lists = 'a cell pointer
 and 'a cell = { mutable hd : 'a pointer; mutable tl : 'a lists; }
-# let new_cell () = {hd = Null; tl = Null}
+# let new_cell () = {hd = Null; tl = Null};;
 val new_cell : unit -> 'a cell = <fun>
 # let cons x l =
     let c = new_cell () in
     c.hd <- new_pointer x;
     c.tl <- l;
-    (new_pointer c : 'a lists)
+    (new_pointer c : 'a lists);;
 val cons : 'a -> 'a lists -> 'a lists = <fun>
-# let hd (l : 'a lists) = !^l.hd
+# let hd (l : 'a lists) = !^l.hd;;
 val hd : 'a lists -> 'a pointer = <fun>
-# let tl (l : 'a lists) = !^l.tl
+# let tl (l : 'a lists) = !^l.tl;;
 val tl : 'a lists -> 'a lists = <fun>
 # let append (l1 : 'a lists) (l2 : 'a lists) =
   let temp = ref l1 in
   while tl !temp <> Null do
     temp := tl !temp
   done;
-  !^ !temp.tl <- l2
+  !^ !temp.tl <- l2;;
 val append : 'a lists -> 'a lists -> unit = <fun>
 ```

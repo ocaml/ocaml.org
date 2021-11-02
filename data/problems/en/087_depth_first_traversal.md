@@ -87,7 +87,7 @@ discovered node *u*, this fact is recorded in the predecessor subgraph
          acc}
       in
       (snd (dfs_visit 0 c initial_state)).acc
-  end
+  end;;
 module M : GRAPH
 ```
 
@@ -109,7 +109,7 @@ and you must create a module `M` with the following signature:
     type t
     val of_adjacency : (node * node list) list -> t
     val dfs_fold : t -> node -> ('a -> node -> 'a) -> 'a -> 'a
-  end
+  end;;
 module type GRAPH =
   sig
     type node = char

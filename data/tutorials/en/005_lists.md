@@ -14,7 +14,7 @@ be the same type. Lists are built into the language and have a special syntax.
 Here is a list of three integers:
 
 ```ocaml
-# [1; 2; 3]
+# [1; 2; 3];;
 - : int list = [1; 2; 3]
 ```
 
@@ -27,13 +27,13 @@ integer `1` while the tail is the list `[2; 3]`. An empty list has neither a
 head nor a tail. Here are some more lists:
 
 ```ocaml
-# []
+# [];;
 - : 'a list = []
-# [1; 2; 3]
+# [1; 2; 3];;
 - : int list = [1; 2; 3]
-# [false; true; false]
+# [false; true; false];;
 - : bool list = [false; true; false]
-# [[1; 2]; [3; 4]; [5; 6]]
+# [[1; 2]; [3; 4]; [5; 6]];;
 - : int list list = [[1; 2]; [3; 4]; [5; 6]]
 ```
 
@@ -45,9 +45,9 @@ There are two built-in operators on lists. The `::` or cons operator, adds one
 element to the front of a list. The `@` or append operator combines two lists:
 
 ```ocaml
-# 1 :: [2; 3]
+# 1 :: [2; 3];;
 - : int list = [1; 2; 3]
-# [1] @ [2; 3]
+# [1] @ [2; 3];;
 - : int list = [1; 2; 3]
 ```
 
@@ -59,9 +59,9 @@ We can write functions which operate over lists by pattern matching:
 # let rec total l =
     match l with
     | [] -> 0
-    | h :: t -> h + total t
+    | h :: t -> h + total t;;
 val total : int list -> int = <fun>
-# total [1; 3; 5; 3; 1]
+# total [1; 3; 5; 3; 1];;
 - : int = 13
 ```
 
@@ -71,18 +71,18 @@ Consider a function to find the length of a list:
 # let rec length l =
     match l with
     | [] -> 0
-    | _ :: t -> 1 + length t
+    | _ :: t -> 1 + length t;;
 val length : 'a list -> int = <fun>
 ```
 
 This function operates not just on lists of integers, but on any kind of list.
 
 ```ocaml
-# length [1; 2; 3]
+# length [1; 2; 3];;
 - : int = 3
-# length ["cow"; "sheep"; "cat"]
+# length ["cow"; "sheep"; "cat"];;
 - : int = 3
-# length [[]]
+# length [[]];;
 - : int = 1
 ```
 
@@ -95,7 +95,7 @@ operator for appending:
 # let rec append a b =
   match a with
   | [] -> b
-  | h :: t -> h :: append t b
+  | h :: t -> h :: append t b;;
 val append : 'a list -> 'a list -> 'a list = <fun>
 ```
 
@@ -113,7 +113,7 @@ argument - such a function is called "higher-order":
 # let rec map f l =
     match l with
     | [] -> []
-    | h :: t -> f h :: map f t
+    | h :: t -> f h :: map f t;;
 val map : ('a -> 'b) -> 'a list -> 'b list = <fun>
 ```
 
@@ -123,9 +123,9 @@ will build a list of `'b'`s. Sometimes `'a` and `'b` might be the same type, of
 course. Here are two examples showing the `map` function in use:
 
 ```ocaml
-# map (fun x -> x * 2) [1; 2; 3]
+# map (fun x -> x * 2) [1; 2; 3];;
 - : int list = [2; 4; 6]
-# map total [[1; 2]; [3; 4]; [5; 6]]
+# map total [[1; 2]; [3; 4]; [5; 6]];;
 - : int list = [3; 7; 11]
 ```
 
@@ -149,7 +149,7 @@ that one is included in the [List](https://ocaml.org/api/List.html) module.
 There is also a variant for two lists:
 
 ```ocaml
-# List.map2 ( + ) [1; 2; 3] [4; 5; 6]
+# List.map2 ( + ) [1; 2; 3] [4; 5; 6];;
 - : int list = [5; 7; 9]
 ```
 
@@ -160,7 +160,7 @@ function of type `'a -> unit` and an `'a list` and applies the function to each
 element in turn. A suitable function might be `print_endline`:
 
 ```ocaml
-# List.iter print_endline ["frank"; "james"; "mary"]
+# List.iter print_endline ["frank"; "james"; "mary"];;
 frank
 james
 mary
@@ -174,7 +174,7 @@ lists too:
 # List.iter2
     (fun a b -> print_endline (a ^ " " ^ b))
     ["frank"; "james"; "mary"]
-    ["carter"; "lee"; "jones"]
+    ["carter"; "lee"; "jones"];;
 frank carter
 james lee
 mary jones
@@ -186,7 +186,7 @@ Notice that [`map2`](https://ocaml.org/api/List.html#VALmap2) and
 of unequal length:
 
 ```ocaml
-# List.map2 ( + ) [1; 2; 3] [4; 5]
+# List.map2 ( + ) [1; 2; 3] [4; 5];;
 Exception: Invalid_argument "List.map2".
 ```
 
@@ -196,9 +196,9 @@ The useful function [`mem`](https://ocaml.org/api/List.html#VALmem) checks
 whether a given element is a member of a list by scanning its contents:
 
 ```ocaml
-# List.mem "frank" ["james"; "frank"; "mary"]
+# List.mem "frank" ["james"; "frank"; "mary"];;
 - : bool = true
-# List.mem [] [[1; 2]; [3]; []; [5]]
+# List.mem [] [[1; 2]; [3]; []; [5]];;
 - : bool = true
 ```
 
@@ -209,10 +209,10 @@ or use `mem` and other functions already known to us:
 
 ```ocaml
 # let all =
-    not (List.mem false (List.map (fun x -> x mod 2 = 0) [2; 4; 6; 8]))
+    not (List.mem false (List.map (fun x -> x mod 2 = 0) [2; 4; 6; 8]));;
 val all : bool = true
 # let any =
-    List.mem true (List.map (fun x -> x mod 2 = 0) [1; 2; 3])
+    List.mem true (List.map (fun x -> x mod 2 = 0) [1; 2; 3]);;
 val any : bool = true
 ```
 
@@ -221,9 +221,9 @@ functions [`for_all`](https://ocaml.org/api/List.html#VALfor_all) and
 [`exists`](https://ocaml.org/api/List.html#VALexists) for this common problem:
 
 ```ocaml
-# List.for_all (fun x -> x mod 2 = 0) [2; 4; 6; 8]
+# List.for_all (fun x -> x mod 2 = 0) [2; 4; 6; 8];;
 - : bool = true
-# List.exists (fun x -> x mod 2 = 0) [1; 2; 3]
+# List.exists (fun x -> x mod 2 = 0) [1; 2; 3];;
 - : bool = true
 ```
 
@@ -239,9 +239,9 @@ an exception if such an element is not found:
 
 
 ```ocaml
-# List.find (fun x -> x mod 2 = 0) [1; 2; 3; 4; 5]
+# List.find (fun x -> x mod 2 = 0) [1; 2; 3; 4; 5];;
 - : int = 2
-# List.find (fun x -> x mod 2 = 0) [1; 3; 5]
+# List.find (fun x -> x mod 2 = 0) [1; 3; 5];;
 Exception: Not_found.
 ```
 
@@ -250,7 +250,7 @@ a predicate and tests it against each element in the list, but this time
 returns the list of all elements which test true:
 
 ```ocaml
-# List.filter (fun x -> x mod 2 = 0) [1; 2; 3; 4; 5]
+# List.filter (fun x -> x mod 2 = 0) [1; 2; 3; 4; 5];;
 - : int list = [2; 4]
 ```
 
@@ -260,7 +260,7 @@ pair of lists: the first being the list of elements for which the predicate is
 true, the second those for which it is false.
 
 ```ocaml
-# List.partition (fun x -> x mod 2 = 0) [1; 2; 3; 4; 5]
+# List.partition (fun x -> x mod 2 = 0) [1; 2; 3; 4; 5];;
 - : int list * int list = ([2; 4], [1; 3; 5])
 ```
 
@@ -282,9 +282,9 @@ advantages: since they are just lists of pairs, they can be built and modified
 easily. They are also easily printed in the toplevel.
 
 ```ocaml
-# List.assoc 4 [(3, "three"); (1, "one"); (4, "four")]
+# List.assoc 4 [(3, "three"); (1, "one"); (4, "four")];;
 - : string = "four"
-# List.mem_assoc 4 [(3, "three"); (1, "one"); (4, "four")]
+# List.mem_assoc 4 [(3, "three"); (1, "one"); (4, "four")];;
 - : bool = true
 ```
 
@@ -295,9 +295,9 @@ be able to make a list of pairs from a pair of lists and vice versa. The
 [`combine`](https://ocaml.org/api/List.html#VALcombine) for this purpose: 
 
 ```ocaml
-# List.split [(3, "three"); (1, "one"); (4, "four")]
+# List.split [(3, "three"); (1, "one"); (4, "four")];;
 - : int list * string list = ([3; 1; 4], ["three"; "one"; "four"])
-# List.combine [3; 1; 4] ["three"; "one"; "four"]
+# List.combine [3; 1; 4] ["three"; "one"; "four"];;
 - : (int * string) list = [(3, "three"); (1, "one"); (4, "four")]
 ```
 
@@ -312,17 +312,17 @@ the built-in comparison function
 two values of like type (with the exception of functions which are incomparable).
 
 ```ocaml
-# List.sort compare [1; 4; 6; 4; 1]
+# List.sort compare [1; 4; 6; 4; 1];;
 - : int list = [1; 1; 4; 4; 6]
-# List.sort compare ["Reynolds"; "Smith"; "Barnes"]
+# List.sort compare ["Reynolds"; "Smith"; "Barnes"];;
 - : string list = ["Barnes"; "Reynolds"; "Smith"]
-# List.sort (Fun.flip compare) [1; 4; 6; 4; 1]
+# List.sort (Fun.flip compare) [1; 4; 6; 4; 1];;
 - : int list = [6; 4; 4; 1; 1]
-# List.sort compare [(1, 3); (1, 2); (2, 3); (2, 2)]
+# List.sort compare [(1, 3); (1, 2); (2, 3); (2, 2)];;
 - : (int * int) list = [(1, 2); (1, 3); (2, 2); (2, 3)]
 # List.sort
     (fun a b -> compare (fst a) (fst b))
-    [(1, 3); (1, 2); (2, 3); (2, 2)]
+    [(1, 3); (1, 2); (2, 3); (2, 2)];;
 - : (int * int) list = [(1, 3); (1, 2); (2, 3); (2, 2)]
 ```
 
@@ -345,7 +345,7 @@ In this example, we supply the addition function and an initial
 accumulator value of 0:
 
 ```ocaml
-# List.fold_left ( + ) 0 [1; 2; 3]
+# List.fold_left ( + ) 0 [1; 2; 3];;
 - : int = 6
 ```
 
@@ -355,7 +355,7 @@ of our addition function. We use `min_int`, the smallest possible integer, as
 our initial accumulator
 
 ```ocaml
-# List.fold_left max min_int [2; 4; 6; 0; 1]
+# List.fold_left max min_int [2; 4; 6; 0; 1];;
 - : int = 6
 ```
 
@@ -363,7 +363,7 @@ The largest number in the list is found. Let's look at the type of the
 [`fold_left`](https://ocaml.org/api/List.html#VALfold_left) function:
 
 ```ocaml
-# List.fold_left
+# List.fold_left;;
 - : ('a -> 'b -> 'a) -> 'a -> 'b list -> 'a = <fun>
 ```
 
@@ -382,7 +382,7 @@ elements from the left,
 
 ```ocaml
 # let append x y =
-    List.fold_right (fun e a -> e :: a) x y
+    List.fold_right (fun e a -> e :: a) x y;;
 val append : 'a list -> 'a list -> 'a list = <fun>
 ```
 
@@ -391,7 +391,7 @@ of the first is consed to it in turn. You can see the order of arguments to
 fold right is a little different:
 
 ```ocaml
-# List.fold_right
+# List.fold_right;;
 - : ('a -> 'b -> 'b) -> 'a list -> 'b -> 'b = <fun>
 ```
 
@@ -402,7 +402,7 @@ usual `map` function:
 
 ```ocaml
 # let map f l =
-    List.fold_right (fun e a -> f e :: a) l []
+    List.fold_right (fun e a -> f e :: a) l [];;
 val map : ('a -> 'b) -> 'a list -> 'b list = <fun>
 ```
 
@@ -411,7 +411,7 @@ But care is needed. If we try that with
 list of lists into a list by concatenating the lists together, we produce this:
 
 ```ocaml
-# let concat l = List.fold_left ( @ ) [] l
+# let concat l = List.fold_left ( @ ) [] l;;
 val concat : 'a list list -> 'a list = <fun>
 ```
 
@@ -430,16 +430,16 @@ out how they operate?
 
 ```ocaml
 # let length l =
-    List.fold_left (fun a _ -> a + 1) 0 l
+    List.fold_left (fun a _ -> a + 1) 0 l;;
 val length : 'a list -> int = <fun>
 # let rev l =
-    List.fold_left (fun a e -> e :: a) [] l
+    List.fold_left (fun a e -> e :: a) [] l;;
 val rev : 'a list -> 'a list = <fun>
 # let split l =
     List.fold_right
       (fun (x, y) (xs, ys) -> (x :: xs, y :: ys))
       l
-      ([], [])
+      ([], []);;
 val split : ('a * 'b) list -> 'a list * 'b list = <fun>
 ```
 
@@ -467,9 +467,9 @@ like this:
 # let rec length acc l =
     match l with
     | [] -> acc
-    | _ :: t -> length (acc + 1) t
+    | _ :: t -> length (acc + 1) t;;
 val length : int -> 'a list -> int = <fun>
-# let l = length 0 [1; 2; 3]
+# let l = length 0 [1; 2; 3];;
 val l : int = 3
 ```
 
@@ -490,9 +490,9 @@ that the initial accumulator value is supplied automatically:
 # let rec length_inner acc l =
     match l with
     | [] -> acc
-    | _ :: t -> length_inner (acc + 1) t
+    | _ :: t -> length_inner (acc + 1) t;;
 val length_inner : int -> 'a list -> int = <fun>
-# let length l = length_inner 0 l
+# let length l = length_inner 0 l;;
 val length : 'a list -> int = <fun>
 ```
 
@@ -505,7 +505,7 @@ Or, we can do it all in one function:
       | [] -> acc
       | _ :: t -> length_inner (acc + 1) t
     in
-      length_inner 0 l
+      length_inner 0 l;;
 val length : 'a list -> int = <fun>
 ```
 

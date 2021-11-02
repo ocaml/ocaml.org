@@ -25,7 +25,7 @@ tags: []
              aux 1 (col + 1) (row :: used_rows) (row + col :: usedD1)
                  (row - col :: usedD2)
            else [])
-    in aux 1 1 [] [] []
+    in aux 1 1 [] [] [];;
 val possible : int -> int -> int list -> int list -> int list -> bool = <fun>
 val queens_positions : int -> int list list = <fun>
 ```

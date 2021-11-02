@@ -30,7 +30,7 @@ type 'a graph_term = {nodes : 'a list;  edges : ('a * 'a) list}
 
   let paths g a b =
     assert(a <> b);
-    list_path g a [b]
+    list_path g a [b];;
 val neighbors : 'a graph_term -> 'a -> ('a -> bool) -> 'a list = <fun>
 val list_path : 'a graph_term -> 'a -> 'a list -> 'a list list = <fun>
 val paths : 'a graph_term -> 'a -> 'a -> 'a list list = <fun>
@@ -49,6 +49,6 @@ the list of all paths via backtracking.
 val example_graph : char graph_term =
   {nodes = ['b'; 'c'; 'd'; 'f'; 'g'; 'h'; 'k'];
    edges = [('h', 'g'); ('k', 'f'); ('f', 'b'); ('f', 'c'); ('c', 'b')]}
-# paths example_graph 'f' 'b'
+# paths example_graph 'f' 'b';;
 - : char list list = [['f'; 'c'; 'b']; ['f'; 'b']]
 ```

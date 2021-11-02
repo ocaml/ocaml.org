@@ -39,7 +39,7 @@ implemented using a linked list.
       List.hd the_list
     method size =                              (* size method *)
       List.length the_list
-  end
+  end;;
 class stack_of_ints :
   object
     val mutable the_list : int list
@@ -68,7 +68,7 @@ overrule the type inference engine, only to narrow a general type to
 make it more specific. So you can't write, for example, `( 1 : float )`:
 
 ```ocaml
-# (1 : float)
+# (1 : float);;
 Line 1, characters 2-3:
 Error: This expression has type int but an expression was expected of type
          float
@@ -91,7 +91,7 @@ Let's write some code to test stacks of ints. First let's create a new
 object. We use the familiar `new` operator:
 
 ```ocaml
-# let s = new stack_of_ints
+# let s = new stack_of_ints;;
 val s : stack_of_ints = <obj>
 ```
 Now we'll push and pop some elements off the stack:
@@ -99,11 +99,11 @@ Now we'll push and pop some elements off the stack:
 ```ocaml
 # for i = 1 to 10 do
     s#push i
-  done
+  done;;
 - : unit = ()
 # while s#size > 0 do
     Printf.printf "Popped %d off the stack.\n" s#pop
-  done
+  done;;
 Popped 10 off the stack.
 Popped 9 off the stack.
 Popped 8 off the stack.
@@ -124,9 +124,9 @@ In the OCaml toplevel we can examine the types of objects and methods in
 more detail:
 
 ```ocaml
-# let s = new stack_of_ints
+# let s = new stack_of_ints;;
 val s : stack_of_ints = <obj>
-# s#push
+# s#push;;
 - : int -> unit = <fun>
 ```
 
@@ -153,7 +153,7 @@ multiple stacks each storing objects of any single type). As with
       List.hd list
     method size =                        (* size method *)
       List.length list
-  end
+  end;;
 class ['a] stack :
   object
     val mutable list : 'a list
@@ -170,11 +170,11 @@ instance we create a stack and push a floating point number onto the
 stack. Notice the type of the stack:
 
 ```ocaml
-# let s = new stack
+# let s = new stack;;
 val s : '_weak1 stack = <obj>
-# s#push 1.0
+# s#push 1.0;;
 - : unit = ()
-# s
+# s;;
 - : float stack = <obj>
 ```
 
@@ -183,13 +183,13 @@ be pushed and popped from this stack. Let's demonstrate the type-safety
 of our new `float stack`:
 
 ```ocaml
-# s#push 3.0
+# s#push 3.0;;
 - : unit = ()
-# s#pop
+# s#pop;;
 - : float = 3.
-# s#pop
+# s#pop;;
 - : float = 1.
-# s#push "a string"
+# s#push "a string";;
 Line 1, characters 8-18:
 Error: This expression has type string but an expression was expected of type
          float
@@ -202,7 +202,7 @@ stack. Our first attempt is this one:
 # let drain_stack s =
   while s#size > 0 do
     ignore (s#pop)
-  done
+  done;;
 val drain_stack : < pop : 'a; size : int; .. > -> unit = <fun>
 ```
 
@@ -221,7 +221,7 @@ this:
 # let drain_stack (s : 'a stack) =
   while s#size > 0 do
     ignore (s#pop)
-  done
+  done;;
 val drain_stack : 'a stack -> unit = <fun>
 ```
 
@@ -259,7 +259,7 @@ widget. This was my first attempt:
     method get_name =
       name
     method virtual repaint : unit
-  end
+  end;;
 Lines 1-6, characters 1-6:
 Error: Some type variables are unbound in this type:
          class virtual widget :
@@ -319,7 +319,7 @@ As in C++ and Java, virtual classes cannot be directly instantiated
 using `new`:
 
 ```ocaml
-# let w = new widget "my widget"
+# let w = new widget "my widget";;
 Line 1, characters 9-19:
 Error: Cannot instantiate the virtual class widget
 ```
@@ -339,7 +339,7 @@ widgets. Here is my simple implementation for `container`:
       widgets
     method repaint =
       List.iter (fun w -> w#repaint) widgets
-  end
+  end;;
 class virtual container :
   string ->
   object
@@ -371,7 +371,7 @@ Notes:
 
   ```ocaml
   # let list = container#get_widgets in
-    x :: list
+    x :: list;;
   ```
 
 Would this modify the private internal representation of my `container`
@@ -387,7 +387,7 @@ contained widgets. Notice I use `List.iter` to iterate over the list,
 and I also use a probably unfamiliar anonymous function expression:
 
 ```ocaml
-# (fun w -> w#repaint)
+# (fun w -> w#repaint);;
 - : < repaint : 'a; .. > -> 'a = <fun>
 ```
 which defines an anonymous function with one argument `w` that just
@@ -397,7 +397,7 @@ In this instance our `button` class is simple (rather unrealistically
 simple in fact, but nevermind that):
 
 ```ocaml
-# type button_state = Released | Pressed
+# type button_state = Released | Pressed;;
 type button_state = Released | Pressed
 # class button ?callback name =
   object (self)
@@ -416,7 +416,7 @@ type button_state = Released | Pressed
                      (match state with
                       | Pressed -> "Pressed"
                       | Released -> "Released"))
-  end
+  end;;
 class button :
   ?callback:(unit -> unit) ->
   string ->
@@ -458,18 +458,18 @@ Before defining our `label` class, let's play with the `button` class in
 the OCaml toplevel:
 
 ```ocaml
-# let b = new button ~callback:(fun () -> print_endline "Ouch!") "button"
+# let b = new button ~callback:(fun () -> print_endline "Ouch!") "button";;
 val b : button = <obj>
-# b#repaint
+# b#repaint;;
 Button being repainted, state is Released
 - : unit = ()
-# b#press
+# b#press;;
 Ouch!
 - : unit = ()
-# b#repaint
+# b#repaint;;
 Button being repainted, state is Pressed
 - : unit = ()
-# b#release
+# b#release;;
 - : unit = ()
 ```
 
@@ -481,7 +481,7 @@ Here's our comparatively trivial `label` class:
     inherit widget name
     method repaint =
       print_endline ("Label: " ^ text)
-  end
+  end;;
 class label :
   string ->
   string -> object method get_name : string method repaint : unit end
@@ -489,11 +489,11 @@ class label :
 Let's create a label which says "Press me!" and add it to the button:
 
 ```ocaml
-# let l = new label "label" "Press me!"
+# let l = new label "label" "Press me!";;
 val l : label = <obj>
-# b#add l
+# b#add l;;
 - : unit = ()
-# b#repaint
+# b#repaint;;
 Label: Press me!
 Button being repainted, state is Released
 - : unit = ()
@@ -522,11 +522,11 @@ having it.
 ###  Inheritance and coercions
 
 ```ocaml
-# let b = new button "button"
+# let b = new button "button";;
 val b : button = <obj>
-# let l = new label "label" "Press me!"
+# let l = new label "label" "Press me!";;
 val l : label = <obj>
-# [b; l]
+# [b; l];;
 Line 1, characters 5-6:
 Error: This expression has type label but an expression was expected of type
          button
@@ -538,9 +538,9 @@ so why can't I put them into the same list? Perhaps OCaml can't guess
 that I want a `widget list`? Let's try telling it:
 
 ```ocaml
-# let wl = ([] : widget list)
+# let wl = ([] : widget list);;
 val wl : widget list = []
-# let wl = b :: wl
+# let wl = b :: wl;;
 Line 1, characters 15-17:
 Error: This expression has type widget list
        but an expression was expected of type button list
@@ -558,9 +558,9 @@ superclass by default, but you can tell it to by using the `:>`
 (coercion) operator:
 
 ```ocaml
-# let wl = (b :> widget) :: wl
+# let wl = (b :> widget) :: wl;;
 val wl : widget list = [<obj>]
-# let wl = (l :> widget) :: wl
+# let wl = (l :> widget) :: wl;;
 val wl : widget list = [<obj>; <obj>]
 ```
 
@@ -614,7 +614,7 @@ object:
     val mutable n = 0
     method incr = n <- n + 1
     method get = n
-  end
+  end;;
 val o : < get : int; incr : unit > = <obj>
 ```
 
@@ -624,7 +624,7 @@ Unlike records, such a type does not need to be predefined explicitly,
 but doing so can make things clearer. We can do it like this:
 
 ```ocaml
-# type counter = <get : int; incr : unit>
+# type counter = <get : int; incr : unit>;;
 type counter = < get : int; incr : unit >
 ```
 Compare with an equivalent record type definition:
@@ -632,7 +632,7 @@ Compare with an equivalent record type definition:
 ```ocaml
 # type counter_r =
   {get : unit -> int;
-   incr : unit -> unit}
+   incr : unit -> unit};;
 type counter_r = { get : unit -> int; incr : unit -> unit; }
 ```
 The implementation of a record working like our object would be:
@@ -641,7 +641,7 @@ The implementation of a record working like our object would be:
 # let r =
   let n = ref 0 in
     {get = (fun () -> !n);
-     incr = (fun () -> incr n)}
+     incr = (fun () -> incr n)};;
 val r : counter_r = {get = <fun>; incr = <fun>}
 ```
 In terms of functionality, both the object and the record are similar,
@@ -673,7 +673,7 @@ same name are defined:
   object
     val x = 0
     method get = x
-  end
+  end;;
 class t : object val x : int method get : int end
 ```
 
@@ -685,9 +685,9 @@ create. Objects that derive from different classes or no class at all
 type:
 
 ```ocaml
-# let x = object method get = 123 end
+# let x = object method get = 123 end;;
 val x : < get : int > = <obj>
-# let l = [new t; x]
+# let l = [new t; x];;
 val l : t list = [<obj>; <obj>]
 ```
 
@@ -695,15 +695,15 @@ Mixing objects that share a common subtype can be done, but requires
 explicit type coercion using the `:>` operator:
 
 ```ocaml
-# let x = object method get = 123 end
+# let x = object method get = 123 end;;
 val x : < get : int > = <obj>
-# let y = object method get = 80 method special = "hello" end
+# let y = object method get = 80 method special = "hello" end;;
 val y : < get : int; special : string > = <obj>
-# let l = [x; y]
+# let l = [x; y];;
 Line 1, characters 13-14:
 Error: This expression has type < get : int; special : string >
        but an expression was expected of type < get : int >
        The second object type has no method special
-# let l = [x; (y :> t)]
+# let l = [x; (y :> t)];;
 val l : t list = [<obj>; <obj>]
 ```

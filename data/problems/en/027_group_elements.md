@@ -42,7 +42,7 @@ tags: [ "list" ]
   (* Don't forget to eliminate all group sets that have non-full
      groups *)
   let complete = List.filter (List.for_all (fun (x, _) -> x = 0)) all in
-    List.map (List.map snd) complete
+    List.map (List.map snd) complete;;
 val group : 'a list -> int list -> 'a list list list = <fun>
 ```
 
@@ -57,7 +57,7 @@ possibilities and returns them in a list.
 group sizes and the function will return a list of groups.
 
 ```ocaml
-# group ["a"; "b"; "c"; "d"] [2; 1]
+# group ["a"; "b"; "c"; "d"] [2; 1];;
 - : string list list list =
 [[["a"; "b"]; ["c"]]; [["a"; "c"]; ["b"]]; [["b"; "c"]; ["a"]];
  [["a"; "b"]; ["d"]]; [["a"; "c"]; ["d"]]; [["b"; "c"]; ["d"]];

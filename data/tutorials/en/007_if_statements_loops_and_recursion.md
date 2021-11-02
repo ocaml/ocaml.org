@@ -28,7 +28,7 @@ Here's a simple example of an `if` statement:
 
 ```ocaml
 # let max a b =
-  if a > b then a else b
+  if a > b then a else b;;
 val max : 'a -> 'a -> 'a = <fun>
 ```
 
@@ -38,18 +38,18 @@ notice that OCaml decides that this function is polymorphic, with the
 following type:
 
 ```ocaml
-# max
+# max;;
 - : 'a -> 'a -> 'a = <fun>
 ```
 
 And indeed OCaml lets you use `max` on any type:
 
 ```ocaml
-# max 3 5
+# max 3 5;;
 - : int = 5
-# max 3.5 13.0
+# max 3.5 13.0;;
 - : float = 13.
-# max "a" "b"
+# max "a" "b";;
 - : string = "b"
 ```
 
@@ -66,7 +66,7 @@ expressions to see what it does:
 ```ocaml
 # let rec range a b =
     if a > b then []
-    else a :: range (a + 1) b
+    else a :: range (a + 1) b;;
 val range : int -> int -> int list = <fun>
 ```
 
@@ -103,7 +103,7 @@ Back, temporarily, to `if` statements. What does this function do?
 
 ```ocaml
 # let f x y =
-    x + if y > 0 then y else 0
+    x + if y > 0 then y else 0;;
 val f : int -> int -> int = <fun>
 ```
 
@@ -114,7 +114,7 @@ The `abs` (absolute value) function is defined in `Stdlib` as:
 
 ```ocaml
 # let abs x =
-    if x >= 0 then x else -x
+    if x >= 0 then x else -x;;
 val abs : int -> int = <fun>
 ```
 
@@ -220,7 +220,7 @@ simple examples:
   else begin
     print_endline "ELSE";
     failwith "else clause"
-  end
+  end;;
 ELSE
 Exception: Failure "else clause".
 # if 1 = 0 then
@@ -228,7 +228,7 @@ Exception: Failure "else clause".
   else (
     print_endline "ELSE";
     failwith "else clause"
-  )
+  );;
 ELSE
 Exception: Failure "else clause".
 ```
@@ -280,7 +280,7 @@ The expression inside an OCaml for loop should evaluate to `unit`
 returns `unit`:
 
 ```ocaml
-# for i = 1 to 10 do i done
+# for i = 1 to 10 do i done;;
 Line 1, characters 20-21:
 Warning 10 [non-unit-statement]: this expression should have type unit.
 - : unit = ()
@@ -349,7 +349,7 @@ I'll only talk about the most useful ones here.
 First off, let's define a list for us to use:
 
 ```ocaml
-# let my_list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
+# let my_list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10];;
 val my_list : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
 ```
 
@@ -360,7 +360,7 @@ If you want to call a function once on every element of the list, use
 # let f elem =
     Printf.printf "I'm looking at element %d now\n" elem
   in
-    List.iter f my_list
+    List.iter f my_list;;
 I'm looking at element 1 now
 I'm looking at element 2 now
 I'm looking at element 3 now
@@ -381,7 +381,7 @@ If you want to *transform* each element separately in the list - for
 example, doubling each element in the list - then use `List.map`.
 
 ```ocaml
-# List.map (( * ) 2) my_list
+# List.map (( * ) 2) my_list;;
 - : int list = [2; 4; 6; 8; 10; 12; 14; 16; 18; 20]
 ```
 
@@ -392,7 +392,7 @@ some condition - e.g. returning all even numbers in a list.
 # let is_even i =
     i mod 2 = 0
   in
-    List.filter is_even my_list
+    List.filter is_even my_list;;
 - : int list = [2; 4; 6; 8; 10]
 ```
 
@@ -400,7 +400,7 @@ To find out if a list contains some element, use `List.mem` (short for
 member):
 
 ```ocaml
-# List.mem 12 my_list
+# List.mem 12 my_list;;
 - : bool = false
 ```
 
@@ -419,7 +419,7 @@ hand-waving terms what I want to do is insert a plus sign between the
 elements in my list:
 
 ```ocaml
-# 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10
+# 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10;;
 - : int = 55
 ```
 
@@ -441,13 +441,13 @@ Let's use `List.fold_left` to define `sum` and `product` functions for
 integer lists:
 
 ```ocaml
-# let sum = List.fold_left ( + ) 0
+# let sum = List.fold_left ( + ) 0;;
 val sum : int list -> int = <fun>
-# let product = List.fold_left ( * ) 1
+# let product = List.fold_left ( * ) 1;;
 val product : int list -> int = <fun>
-# sum my_list
+# sum my_list;;
 - : int = 55
-# product my_list
+# product my_list;;
 - : int = 3628800
 ```
 
@@ -455,9 +455,9 @@ That was easy! Notice that I've accidentally come up with a way to do
 mathematical factorials:
 
 ```ocaml
-# let fact n = product (range 1 n)
+# let fact n = product (range 1 n);;
 val fact : int -> int = <fun>
-# fact 10
+# fact 10;;
 - : int = 3628800
 ```
 
@@ -624,7 +624,7 @@ or examining certain types of data structures, particularly trees. Let's
 have a recursive type to represent files in a filesystem:
 
 ```ocaml
-# type filesystem = File of string | Directory of filesystem list
+# type filesystem = File of string | Directory of filesystem list;;
 type filesystem = File of string | Directory of filesystem list
 ```
 
@@ -635,20 +635,20 @@ exception that `readdir` throws when it reaches the end of the
 directory:
 
 ```ocaml
-# #load "unix.cma"
-# open Unix
+# #load "unix.cma";;
+# open Unix;;
 # let readdir_no_ex dirh =
   try
     Some (readdir dirh)
   with
-    End_of_file -> None
+    End_of_file -> None;;
 val readdir_no_ex : dir_handle -> string option = <fun>
 ```
 The type of `readdir_no_ex` is this. Recall our earlier discussion about
 null pointers.
 
 ```ocaml
-# readdir_no_ex
+# readdir_no_ex;;
 - : dir_handle -> string option = <fun>
 ```
 
@@ -660,7 +660,7 @@ convert the `filesystem` type into a string for (eg) printing:
   match fs with
   | File filename -> filename ^ "\n"
   | Directory fs_list ->
-      List.fold_left (^) "" (List.map string_of_filesystem fs_list)
+      List.fold_left (^) "" (List.map string_of_filesystem fs_list);;
 val string_of_filesystem : filesystem -> string = <fun>
 ```
 
@@ -763,7 +763,7 @@ to which we prepend `this`.
           in
             this :: loop ()
   in
-    Directory (loop ())
+    Directory (loop ());;
 val read_directory : string -> filesystem = <fun>
 ```
 
@@ -787,7 +787,7 @@ away from this are:
     ```ocaml
     # let rec range a b =
       if a > b then []            (* Base case *)
-      else a :: range (a + 1) b     (* Recursive case *)
+      else a :: range (a + 1) b     (* Recursive case *);;
     ```
 	
 * The use of recursion to build up trees:
@@ -866,7 +866,7 @@ Let's now code those rules above up, to get a working function:
   | [x] -> (* single element list: return the element *)
       x
   | x :: remainder -> (* multiple element list: recursive case *)
-      max x (list_max remainder)
+      max x (list_max remainder);;
 val list_max : 'a list -> 'a = <fun>
 ```
 I've added comments so you can see how the rules / special cases we
@@ -875,13 +875,13 @@ decided upon above really correspond to lines of code.
 Does it work?
 
 ```ocaml
-# list_max [1; 2; 3; 4; 1]
+# list_max [1; 2; 3; 4; 1];;
 - : int = 4
-# list_max []
+# list_max [];;
 Exception: Failure "list_max called on empty list".
-# list_max [5; 4; 3; 2; 1]
+# list_max [5; 4; 3; 2; 1];;
 - : int = 5
-# list_max [5; 4; 3; 2; 1; 100]
+# list_max [5; 4; 3; 2; 1; 100];;
 - : int = 100
 ```
 Notice how the solution proposed is both (a) very different from the
@@ -901,7 +901,7 @@ Let's look at the `range` function again for about the twentieth time:
 ```ocaml
 # let rec range a b =
   if a > b then []
-  else a :: range (a+1) b
+  else a :: range (a+1) b;;
 val range : int -> int -> int list = <fun>
 ```
 I'm going to rewrite it slightly to make something about the structure
@@ -911,15 +911,15 @@ of the program clearer (still the same function however):
 # let rec range a b =
   if a > b then [] else
     let result = range (a+1) b in
-      a :: result
+      a :: result;;
 val range : int -> int -> int list = <fun>
 ```
 Let's call it:
 
 ```ocaml
-# List.length (range 1 10)
+# List.length (range 1 10);;
 - : int = 10
-# List.length (range 1 1000000)
+# List.length (range 1 1000000);;
 Stack overflow during evaluation (looping recursion?).
 ```
 Hmmm ... at first sight this looks like a problem with recursive
@@ -988,21 +988,21 @@ tail-recursive:
 ```ocaml
 # let rec range2 a b accum =
   if a > b then accum
-  else range2 (a + 1) b (a :: accum)
+  else range2 (a + 1) b (a :: accum);;
 val range2 : int -> int -> int list -> int list = <fun>
 ```
 There's only one slight problem with this function: it constructs the
 list backwards! However, this is easy to rectify by redefining range as:
 
 ```ocaml
-# let range a b = List.rev (range2 a b [])
+# let range a b = List.rev (range2 a b []);;
 val range : int -> int -> int list = <fun>
 ```
 It works this time, although it's a bit slow to run because it really
 does have to construct a list with a million elements in it:
 
 ```ocaml
-# List.length (range 1 1000000)
+# List.length (range 1 1000000);;
 - : int = 1000000
 ```
 The following implementation is twice as fast as the previous one,
@@ -1011,10 +1011,10 @@ because it does not need to reverse a list:
 ```ocaml
 # let rec range2 a b accum =
   if b < a then accum
-  else range2 a (b - 1) (b :: accum)
+  else range2 a (b - 1) (b :: accum);;
 val range2 : int -> int -> int list -> int list = <fun>
 # let range a b =
-  range2 a b []
+  range2 a b [];;
 val range : int -> int -> int list = <fun>
 ```
 That was a brief overview of tail recursion, but in real world
@@ -1030,11 +1030,11 @@ while loops when possible.
 Previously we mentioned records in passing. These are like C `struct`s:
 
 ```ocaml
-# type pair_of_ints = {a : int; b : int}
+# type pair_of_ints = {a : int; b : int};;
 type pair_of_ints = { a : int; b : int; }
-# {a = 3; b = 5}
+# {a = 3; b = 5};;
 - : pair_of_ints = {a = 3; b = 5}
-# {a = 3}
+# {a = 3};;
 Line 1, characters 1-8:
 Error: Some record fields are undefined: b
 ```
@@ -1053,7 +1053,7 @@ this being used in a caching scheme to decide which objects you'd evict
 from memory.
 
 ```ocaml
-# type name = {name : string; mutable access_count : int}
+# type name = {name : string; mutable access_count : int};;
 type name = { name : string; mutable access_count : int; }
 ```
 
@@ -1063,7 +1063,7 @@ increments the mutable `access_count` field:
 ```ocaml
 # let print_name name =
   print_endline ("The name is " ^ name.name);
-  name.access_count <- name.access_count + 1
+  name.access_count <- name.access_count + 1;;
 val print_name : name -> unit = <fun>
 ```
 
@@ -1075,19 +1075,19 @@ programming down your throat.
 Anyway, let's see `print_name` in action:
 
 ```ocaml
-# let n = {name = "Richard Jones"; access_count = 0}
+# let n = {name = "Richard Jones"; access_count = 0};;
 val n : name = {name = "Richard Jones"; access_count = 0}
-# n
+# n;;
 - : name = {name = "Richard Jones"; access_count = 0}
-# print_name n
+# print_name n;;
 The name is Richard Jones
 - : unit = ()
-# n
+# n;;
 - : name = {name = "Richard Jones"; access_count = 1}
-# print_name n
+# print_name n;;
 The name is Richard Jones
 - : unit = ()
-# n
+# n;;
 - : name = {name = "Richard Jones"; access_count = 2}
 ```
 
@@ -1096,7 +1096,7 @@ Only fields explicitly marked as `mutable` can be assigned to using the
 let you:
 
 ```ocaml
-# n.name <- "John Smith"
+# n.name <- "John Smith";;
 Line 1, characters 1-23:
 Error: The record field name is not mutable
 ```
@@ -1112,7 +1112,7 @@ And look closely at what the OCaml toplevel prints out for the value of
 a reference:
 
 ```ocaml
-# let r = ref 100
+# let r = ref 100;;
 val r : int Stdlib.ref = {Stdlib.contents = 100}
 ```
 
@@ -1129,17 +1129,17 @@ you can randomly change elements too.
 The basics of arrays are simple:
 
 ```ocaml
-# let a = Array.create 10 0
+# let a = Array.create 10 0;;
 Line 1, characters 9-21:
 Alert deprecated: Stdlib.Array.create
 Use Array.make/ArrayLabels.make instead.
 val a : int array = [|0; 0; 0; 0; 0; 0; 0; 0; 0; 0|]
 # for i = 0 to Array.length a - 1 do
-  a.(i) <- i
-Line 3, characters 1-3:
-Error: Syntax error
-# a
-- : int array = [|0; 0; 0; 0; 0; 0; 0; 0; 0; 0|]
+    a.(i) <- i
+  done;;
+- : unit = ()
+# a;;
+- : int array = [|0; 1; 2; 3; 4; 5; 6; 7; 8; 9|]
 ```
 Notice the syntax for writing arrays: `[| element; element; ... |]`
 
@@ -1151,7 +1151,7 @@ multiplication. Notice that it uses for-loops and is generally very
 imperative in style:
 
 ```ocaml
-# let size = 30
+# let size = 30;;
 val size : int = 30
 
 # let mkmatrix rows cols =
@@ -1165,12 +1165,12 @@ val size : int = 30
           incr count
         done;
     done;
-    m
+    m;;
 val mkmatrix : int -> int -> int array array = <fun>
 
 # let rec inner_loop k v m1i m2 j =
   if k < 0 then v
-  else inner_loop (k - 1) (v + m1i.(k) * m2.(k).(j)) m1i m2 j
+  else inner_loop (k - 1) (v + m1i.(k) * m2.(k).(j)) m1i m2 j;;
 val inner_loop : int -> int -> int array -> int array array -> int -> int =
   <fun>
 
@@ -1182,7 +1182,7 @@ val inner_loop : int -> int -> int array -> int array array -> int -> int =
       for j = 0 to last_col do
         m3i.(j) <- inner_loop last_row 0 m1i m2 j
       done;
-    done
+    done;;
 val mmult :
   int -> int -> int array array -> int array array -> int array array -> unit =
   <fun>
@@ -1198,7 +1198,7 @@ val mmult :
       mmult size size m1 m2 m3
     done;
     mmult size size m1 m2 m3;
-    Printf.printf "%d %d %d %d\n" m3.(0).(0) m3.(2).(3) m3.(3).(2) m3.(4).(4)
+    Printf.printf "%d %d %d %d\n" m3.(0).(0) m3.(2).(3) m3.(3).(2) m3.(4).(4);;
 Exception: Failure "int_of_string".
 ```
 
@@ -1213,7 +1213,7 @@ Hence:
 # let rec even n =
   match n with
   | 0 -> true
-  | x -> odd (x - 1)
+  | x -> odd (x - 1);;
 Line 4, characters 10-13:
 Error: Unbound value odd
 ```
@@ -1227,13 +1227,13 @@ complete we need that function too:
 # let rec even n =
   match n with
   | 0 -> true
-  | x -> odd (x - 1)
+  | x -> odd (x - 1);;
 Line 4, characters 10-13:
 Error: Unbound value odd
 # let rec odd n =
   match n with
   | 0 -> false
-  | x -> even (x - 1)
+  | x -> even (x - 1);;
 Line 4, characters 10-14:
 Error: Unbound value even
 ```
@@ -1252,7 +1252,7 @@ for defining a set of two or more mutually recursive functions, like
 # let rec even n =
   match n with
   | 0 -> true
-  | x -> odd (x - 1)
+  | x -> odd (x - 1);;
 Line 4, characters 10-13:
 Error: Unbound value odd
 ```

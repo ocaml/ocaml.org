@@ -22,7 +22,7 @@ type 'a rle = One of 'a | Many of int * 'a
       | hd :: (snd :: _ as tl) ->
           if hd = snd then aux (count + 1) acc tl
           else aux 0 ((create_tuple (count + 1) hd) :: acc) tl in
-      List.rev (aux 0 [] l)
+      List.rev (aux 0 [] l);;
 val encode : 'a list -> 'a rle list = <fun>
 ```
 

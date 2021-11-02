@@ -36,7 +36,7 @@ We use lists to represent the result. Note that `preorder` and `inorder` can be 
     | (h1 :: t1), (h2 :: t2) ->
        let (lp, rp), (li, ri) = split_pre_in p i h1 [] [] in
          Node (h1, pre_in_tree lp li, pre_in_tree rp ri)
-    | _ -> invalid_arg "pre_in_tree"
+    | _ -> invalid_arg "pre_in_tree";;
 val preorder : 'a binary_tree -> 'a list = <fun>
 val inorder : 'a binary_tree -> 'a list = <fun>
 val split_pre_in :

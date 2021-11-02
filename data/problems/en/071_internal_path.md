@@ -19,7 +19,7 @@ let t = T ('a', [T ('f', [T ('g', [])]); T ('c', []);
     (* [len] is the distance of the current node to the root.  Add the
        distance of all sub-nodes. *)
     List.fold_left (fun sum t -> sum + ipl_sub (len + 1) t) len sub
-  let ipl t = ipl_sub 0 t
+  let ipl t = ipl_sub 0 t;;
 val ipl_sub : int -> 'a mult_tree -> int = <fun>
 val ipl : 'a mult_tree -> int = <fun>
 ```

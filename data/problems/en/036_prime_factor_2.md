@@ -17,7 +17,7 @@ tags: [ "arithmetic" ]
           | l -> (d, 1) :: l
         else aux (d + 1) n
     in
-      aux 2 n
+      aux 2 n;;
 val factors : int -> (int * int) list = <fun>
 ```
 

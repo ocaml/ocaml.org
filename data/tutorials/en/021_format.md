@@ -326,7 +326,7 @@ be called from within a `printf` format string. For instance
 For instance
 
 ```ocaml
-# Format.printf "@[<1>%s@ =@ %d@ %s@]@." "Prix TTC" 100 "Euros"
+# Format.printf "@[<1>%s@ =@ %d@ %s@]@." "Prix TTC" 100 "Euros";;
 Prix TTC = 100 Euros
 - : unit = ()
 ```
@@ -347,7 +347,7 @@ the [interactive system](../description.html#Interactivity)):
 # type lambda =
   | Lambda of string * lambda
   | Var of string
-  | Apply of lambda * lambda
+  | Apply of lambda * lambda;;
 type lambda =
     Lambda of string * lambda
   | Var of string

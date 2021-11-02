@@ -21,7 +21,7 @@ follows:
 
 ```ocaml
 # type ('a, 'b) labeled_graph = {nodes : 'a list;
-                               labeled_edges : ('a * 'a * 'b) list}
+                               labeled_edges : ('a * 'a * 'b) list};;
 type ('a, 'b) labeled_graph = {
   nodes : 'a list;
   labeled_edges : ('a * 'a * 'b) list;
@@ -40,7 +40,7 @@ example graph to the right can be found below.
          labeled_edges = [('a', 'b', 5); ('a', 'd', 3); ('b', 'c', 2);
                           ('b', 'e', 4); ('c', 'e', 6); ('d', 'e', 7);
                           ('d', 'f', 4); ('d', 'g', 3); ('e', 'h', 5);
-                          ('f', 'g', 4); ('g', 'h', 1)]}
+                          ('f', 'g', 4); ('g', 'h', 1)]};;
 val g : (char, int) labeled_graph =
   {nodes = ['a'; 'b'; 'c'; 'd'; 'e'; 'f'; 'g'; 'h'];
    labeled_edges =

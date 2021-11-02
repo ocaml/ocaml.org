@@ -25,7 +25,7 @@ A tail recursive implementation:
         aux (high :: acc) (high - 1) low
       else acc
     in
-      if a < b then aux [] b a else List.rev (aux [] a b)
+      if a < b then aux [] b a else List.rev (aux [] a b);;
 val range : int -> int -> int list = <fun>
 ```
 

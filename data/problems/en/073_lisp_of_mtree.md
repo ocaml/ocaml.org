@@ -25,7 +25,7 @@ let t = T ('a', [T ('f', [T ('g', [])]); T ('c', []);
   let lispy t =
     let buf = Buffer.create 128 in
     add_lispy buf t;
-    Buffer.contents buf
+    Buffer.contents buf;;
 val add_lispy : Buffer.t -> char mult_tree -> unit = <fun>
 val lispy : char mult_tree -> string = <fun>
 ```

@@ -25,7 +25,7 @@ There are several ways to represent graphs in OCaml.
  following expression:
 
 ```ocaml
-# [('h', 'g'); ('k', 'f'); ('f', 'b'); ('f', 'c'); ('c', 'b')]
+# [('h', 'g'); ('k', 'f'); ('f', 'b'); ('f', 'c'); ('c', 'b')];;
 - : (char * char) list =
 [('h', 'g'); ('k', 'f'); ('f', 'b'); ('f', 'c'); ('c', 'b')]
 ```
@@ -39,7 +39,7 @@ be represented.
  (nodes and edges), we may use the following OCaml type:
 
 ```ocaml
-# type 'a graph_term = {nodes : 'a list;  edges : ('a * 'a) list}
+# type 'a graph_term = {nodes : 'a list;  edges : ('a * 'a) list};;
 type 'a graph_term = { nodes : 'a list; edges : ('a * 'a) list; }
 ```
 
@@ -48,7 +48,7 @@ Then, the above example graph is represented by:
 ```ocaml
 # let example_graph =
   {nodes = ['b'; 'c'; 'd'; 'f'; 'g'; 'h'; 'k'];
-   edges = [('h', 'g'); ('k', 'f'); ('f', 'b'); ('f', 'c'); ('c', 'b')]}
+   edges = [('h', 'g'); ('k', 'f'); ('f', 'b'); ('f', 'c'); ('c', 'b')]};;
 val example_graph : char graph_term =
   {nodes = ['b'; 'c'; 'd'; 'f'; 'g'; 'h'; 'k'];
    edges = [('h', 'g'); ('k', 'f'); ('f', 'b'); ('f', 'c'); ('c', 'b')]}
@@ -79,7 +79,7 @@ may want to define a similar type using sets instead of lists.
  automatically defined as a node. Our example could be written as:
 
 ```ocaml
-# "b-c f-c g-h d f-b k-f h-g"
+# "b-c f-c g-h d f-b k-f h-g";;
 - : string = "b-c f-c g-h d f-b k-f h-g"
 ```
 

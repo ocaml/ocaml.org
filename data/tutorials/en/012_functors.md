@@ -44,7 +44,7 @@ For example, if we want to use sets of ints, we would do this:
   Set.Make (struct
               type t = int
               let compare = compare
-            end)
+            end);;
 module Int_set :
   sig
     type elt = int
@@ -100,7 +100,7 @@ carefully, by now you must have guessed how to create a module for the
 manipulation of sets of strings:
 
 ```ocaml
-# module String_set = Set.Make (String)
+# module String_set = Set.Make (String);;
 module String_set :
   sig
     type elt = string

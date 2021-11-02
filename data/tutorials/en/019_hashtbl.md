@@ -15,7 +15,7 @@ The Hashtbl module implements an efficient, mutable lookup table. To
 create a hash table we could write:
 
 ```ocaml
-# let my_hash = Hashtbl.create 123456
+# let my_hash = Hashtbl.create 123456;;
 val my_hash : ('_weak1, '_weak2) Hashtbl.t = <abstr>
 ```
 The 123456 is the initial size of the hashtbl. This initial number is
@@ -24,7 +24,7 @@ into the hash table. The hash table can grow if you under-estimate the
 size so don't worry about it too much. The type of my_hash is:
 
 ```ocaml
-# my_hash
+# my_hash;;
 - : ('_weak1, '_weak2) Hashtbl.t = <abstr>
 ```
 
@@ -52,7 +52,7 @@ sense. Instead, we would write something like this:
   Hashtbl.add my_hash "h" "hard";
   Hashtbl.add my_hash "w" "wimp";
   Hashtbl.add my_hash "w" "world";
-  Hashtbl.add my_hash "w" "wine"
+  Hashtbl.add my_hash "w" "wine";;
 - : unit = ()
 ```
 
@@ -60,7 +60,7 @@ If we want to find one element in `my_hash` that has an `"h"` in it then we
 would write: 
 
 ```ocaml
-# Hashtbl.find my_hash "h"
+# Hashtbl.find my_hash "h";;
 - : string = "hard"
 ```
 
@@ -72,7 +72,7 @@ this we want to *find all* of them. What better name for this than
 `find_all`?
 
 ```ocaml
-# Hashtbl.find_all my_hash "h"
+# Hashtbl.find_all my_hash "h";;
 - : string list = ["hard"; "hug"; "hi"; "hello"]
 ```
 
@@ -98,11 +98,11 @@ ones.  In this case, one uses `Hashtbl.replace`:
 ```ocaml
 # Hashtbl.replace my_hash "t" "try";
   Hashtbl.replace my_hash "t" "test";
-  Hashtbl.find_all my_hash "t"
+  Hashtbl.find_all my_hash "t";;
 - : string list = ["test"]
 
 # Hashtbl.remove my_hash "t";
-  Hashtbl.find my_hash "t"
+  Hashtbl.find my_hash "t";;
 Exception: Not_found.
 ```
 
@@ -110,6 +110,6 @@ To find out whether there is an
 entry in `my_hash` for a letter we would do:
 
 ```ocaml
-# Hashtbl.mem my_hash "h"
+# Hashtbl.mem my_hash "h";;
 - : bool = true
 ```

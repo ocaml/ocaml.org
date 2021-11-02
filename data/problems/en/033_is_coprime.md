@@ -14,7 +14,7 @@ let rec gcd a b =
 
 ```ocaml
 # (* [gcd] is defined in the previous question *)
-  let coprime a b = gcd a b = 1
+  let coprime a b = gcd a b = 1;;
 val coprime : int -> int -> bool = <fun>
 ```
 

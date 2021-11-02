@@ -23,7 +23,7 @@ type 'a binary_tree =
 
   let is_symmetric = function
     | Empty -> true
-    | Node(_, l, r) -> is_mirror l r
+    | Node(_, l, r) -> is_mirror l r;;
 val is_mirror : 'a binary_tree -> 'b binary_tree -> bool = <fun>
 val is_symmetric : 'a binary_tree -> bool = <fun>
 ```

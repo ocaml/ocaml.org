@@ -35,7 +35,7 @@ abstract their common skeleton in a single function.  Here is a solution.
                      let slice list i k =
     let _, list = fold_until (fun _ _ -> []) [] i list in
     let taken, _ = fold_until (fun acc h -> h :: acc) [] (k - i + 1) list in
-    List.rev taken
+    List.rev taken;;
 val fold_until : ('a -> 'b -> 'a) -> 'a -> int -> 'b list -> 'a * 'b list =
   <fun>
 val slice : 'a list -> int -> int -> 'a list = <fun>

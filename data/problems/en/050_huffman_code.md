@@ -46,7 +46,7 @@ tags: [ "logic" ]
       failwith "huffman: sum of weights must be 100";
     let q = Pq.make () in
     List.iter (fun (s, f) -> Pq.add q f (Leaf s)) fs;
-    prefixes_of_tree "" (huffman_tree q)
+    prefixes_of_tree "" (huffman_tree q);;
 module Pq :
   sig
     type 'a t = { data : 'a list array; mutable first : int; }
@@ -73,7 +73,7 @@ respective frequencies are 45, 13, 12, 16, 9, 5:
 
 ```ocaml
 # let fs = [("a", 45); ("b", 13); ("c", 12); ("d", 16);
-          ("e", 9); ("f", 5)]
+          ("e", 9); ("f", 5)];;
 val fs : (string * int) list =
   [("a", 45); ("b", 13); ("c", 12); ("d", 16); ("e", 9); ("f", 5)]
 ```
