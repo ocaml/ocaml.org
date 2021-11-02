@@ -5,7 +5,7 @@ div.odoc {
   position: relative;
 }
 
-div.odoc div.spec .spec.include {
+div.odoc div.spec {
   border-left-width: 4px;
   border-color: rgba(251, 146, 60, 1);
   border-radius: 0.25rem /* 4px */;
@@ -92,7 +92,6 @@ div.odoc div.spec tbody td.def {
 
 .odoc-include details:after {
   display: block;
-  content: " ";
   position: absolute;
   border-radius: 0 1ex 1ex 0;
   right: -20px;
