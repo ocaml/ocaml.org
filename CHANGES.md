@@ -1,5 +1,7 @@
 # Unreleased
 
+- Demarcate include blocks (#54, by @JiaeK)
+
 - Add semicolons `;;` to 99 Problems toplevel sentences. (#176, by @Lontchi12)
 
 - Fix tags in overview page by calling `make gen-po`
