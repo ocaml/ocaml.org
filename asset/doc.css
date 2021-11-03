@@ -103,6 +103,6 @@ div.odoc-include details:after {
   box-shadow: 0 0px 0 1px rgba(204, 204, 204, 0.53); 
 }
 
-.spec.include summary:hover {
+div.odoc-include summary:hover {
   background-color: rgba(228, 231, 235, 1);
 }
