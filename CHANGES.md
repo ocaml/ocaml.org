@@ -1,5 +1,7 @@
 # Unreleased
 
+- Fix handling of trailing slashes (#170, by @desirekaleba)
+
 - Demarcate include blocks (#54, by @JiaeK)
 
 - Add semicolons `;;` to 99 Problems toplevel sentences. (#176, by @Lontchi12)
