@@ -15,5 +15,6 @@ let run () =
   let state = Ocamlorg.Package.init () in
   Dream_cli.run ~debug:Config.debug ~interface:"0.0.0.0" ~port:Config.port
   @@ Dream.logger
+  @@ Middleware.no_trailing_slash
   @@ Router.router state
   @@ Page_handler.not_found
