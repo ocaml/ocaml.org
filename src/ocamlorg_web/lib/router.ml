@@ -27,7 +27,7 @@ let redirection_routes =
 let page_routes =
   Dream.scope
     ""
-    [ Middleware.set_locale; Middleware.no_trailing_slash ]
+    [ Middleware.set_locale ]
     [ Dream.get Url.index Page_handler.index
     ; Dream.get Url.history Page_handler.history
     ; Dream.get Url.around_web Page_handler.around_web
@@ -62,7 +62,7 @@ let page_routes =
 let package_route t =
   Dream.scope
     ""
-    [ Middleware.set_locale; Middleware.no_trailing_slash ]
+    [ Middleware.set_locale ]
     [ Dream.get "/packages" Package_handler.index
     ; Dream.get "/packages/" Package_handler.index
     ; Dream.get "/packages/search" (Package_handler.search t)
@@ -91,7 +91,7 @@ let package_route t =
 let graphql_route t =
   Dream.scope
     ""
-    [ Middleware.no_trailing_slash ]
+    []
     [ Dream.any "/api" (Dream.graphql Lwt.return (Graphql.schema t))
     ; Dream.get "/graphiql" (Dream.graphiql "/api")
     ]
