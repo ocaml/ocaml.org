@@ -57,6 +57,7 @@ let page_routes =
     ; Dream.get Url.books Page_handler.books
     ; Dream.get Url.tutorials Page_handler.tutorials
     ; Dream.get (Url.tutorials ^ "/:id") Page_handler.tutorial
+    ; Dream.get "/robots.txt" (Dream.from_filesystem "asset" "robots.txt")
     ]
 
 let package_route t =
@@ -111,7 +112,6 @@ let router t =
     ; toplevels_route
     ; Dream.get "/assets/**" (Dream.static ~loader "")
     ; Dream.get "/media/**" (Dream.static ~loader:media_loader "")
-    ; Dream.get "/robots.txt" (Dream.from_filesystem "asset" "robots.txt")
       (* Last one so that we don't apply the index html middleware on every
          route. *)
     ]
