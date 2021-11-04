@@ -1,5 +1,7 @@
 # Unreleased
 
+- Fix robots.txt URL (#178, by @desirekaleba)
+
 - Fix handling of trailing slashes (#170, by @desirekaleba)
 
 - Demarcate include blocks (#54, by @JiaeK)
