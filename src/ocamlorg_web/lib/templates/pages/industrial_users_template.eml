@@ -1,6 +1,6 @@
 let render (items : Ood.Industrial_user.t list) =
 <main class="relative bg-graylight">
-  <%s! Hero_with_background_template.render ~img:"/assets/img/user.jpg" ~title:"Industrial Users of OCaml" ~subtitle:"" %>
+  <%s! Hero_with_background_template.render ~img:"/img/user.jpg" ~title:"Industrial Users of OCaml" ~subtitle:"" %>
   <div class="mx-auto">
     <p class="max-w-4xl mt-5 py-4 sm:py-8 mx-auto text-2xl text-center">With its strong security features and high
       performance, several companies rely on OCaml to keep their data operating both safely and efficiently. On this

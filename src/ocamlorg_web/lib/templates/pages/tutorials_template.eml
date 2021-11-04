@@ -3,7 +3,7 @@ let render_tutorial name id image =
     <figure>
       <div class="relative bg-gray-100 pt-[50%] overflow-hidden">
         <div class="absolute inset-0 w-full h-full rounded-t-lg overflow-hidden">
-          <img src="/assets/tutorials/<%s image %>" alt="" class="absolute inset-0 w-full h-full" />
+          <img src="/tutorials/<%s image %>" alt="" class="absolute inset-0 w-full h-full" />
         </div>
       </div>
       <figcaption class="py-3 px-4">

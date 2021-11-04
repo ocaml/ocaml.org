@@ -109,7 +109,6 @@ let router t =
     ; graphql_route t
     ; redirection_routes
     ; toplevels_route
-    ; Dream.get "/assets/**" (Dream.static ~loader "")
     ; Dream.get "/media/**" (Dream.static ~loader:media_loader "")
     ; Dream.get "/**" (Dream.static ~loader "")
       (* Last one so that we don't apply the index html middleware on every

@@ -35,19 +35,19 @@ let render success_stories =
       <div class="max-w-8xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-2 gap-8 md:grid-cols-6 lg:grid-cols-5">
           <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-            <img class="h-12" src="/assets/logos/ahrefs.svg" alt="Ahrefs">
+            <img class="h-12" src="/logos/ahrefs.svg" alt="Ahrefs">
           </div>
           <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-            <img class="h-12" src="/assets/logos/facebook.svg" alt="Facebook">
+            <img class="h-12" src="/logos/facebook.svg" alt="Facebook">
           </div>
           <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-            <img class="h-12" src="/assets/logos/bloomberg.svg" alt="Boomberg">
+            <img class="h-12" src="/logos/bloomberg.svg" alt="Boomberg">
           </div>
           <div class="col-span-1 flex justify-center md:col-span-3 lg:col-span-1">
-            <img class="h-12" src="/assets/logos/janestreet.svg" alt="Jane Street">
+            <img class="h-12" src="/logos/janestreet.svg" alt="Jane Street">
           </div>
           <div class="col-span-2 flex justify-center md:col-span-3 lg:col-span-1">
-            <img class="h-12" src="/assets/logos/tezos.svg" alt="Tesoz">
+            <img class="h-12" src="/logos/tezos.svg" alt="Tesoz">
           </div>
         </div>
       </div>

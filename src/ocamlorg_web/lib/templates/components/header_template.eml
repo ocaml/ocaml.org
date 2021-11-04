@@ -43,7 +43,7 @@ let render () =
         <div class="flex justify-start">
           <a href="/">
             <span class="sr-only"><%s gettext "OCaml.org" %></span>
-            <img class="h-8 w-auto sm:h-10" src="/assets/logo.jpeg" alt="">
+            <img class="h-8 w-auto sm:h-10" src="/logo.jpeg" alt="">
           </a>
         </div>
         <nav class="hidden md:flex space-x-10" x-data="Components.popoverGroup()" x-init="init()">
@@ -97,7 +97,7 @@ let render () =
         <div class="pt-5 pb-6 px-5">
           <div class="flex items-center justify-between">
             <div>
-              <img class="h-8 w-auto" src="/assets/logo.jpeg" alt="Workflow">
+              <img class="h-8 w-auto" src="/logo.jpeg" alt="Workflow">
             </div>
             <div class="-mr-2">
               <button type="button"

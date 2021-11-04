@@ -55,7 +55,7 @@ let events = Ood.Event.all in
         </h2>
         <div class="flex flex-col items-center sm:flex-row sm:justify-evenly ">
           <div class="mb-10 sm:mb-0 mr-10 sm:flex-shrink-0"><img class="h-28 sm:h-64 w-28 sm:w-64 rounded-full"
-              src="/assets/img/typewriter.jpeg"></div>
+              src="/img/typewriter.jpeg"></div>
           <div>
             <div class="bg-white border border-gray-300 overflow-hidden rounded-md mb-2">
               <ul class="divide-y divide-gray-300">
@@ -102,22 +102,22 @@ let events = Ood.Event.all in
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-28 gap-y-4 px-8"><a
             class="font-roboto flex items-center justify-start space-x-8 bg-white rounded-md shadow-md overflow-hidden px-8 py-4"
             href="https://github.com/ocaml/ocaml" target="_blank"><img class="w-12 h-12 lg:w-20 lg:h-20"
-              src="/assets/img/github.png"><span class="text-2xl">Github.com</span></a><a
+              src="/img/github.png"><span class="text-2xl">Github.com</span></a><a
             class="font-roboto flex items-center justify-start space-x-8 bg-white rounded-md shadow-md overflow-hidden px-8 py-4"
             href="https://discord.gg/cCYQbqN" target="_blank"><img class="w-12 h-12 lg:w-20 lg:h-20"
-              src="/assets/img/discord.png"><span class="text-2xl">Discord.com</span></a><a
+              src="/img/discord.png"><span class="text-2xl">Discord.com</span></a><a
             class="font-roboto flex items-center justify-start space-x-8 bg-white rounded-md shadow-md overflow-hidden px-8 py-4"
             href="https://www.reddit.com/r/ocaml" target="_blank"><img class="w-12 h-12 lg:w-20 lg:h-20"
-              src="/assets/img/reddit.png"><span class="text-2xl">Reddit.com</span></a><a
+              src="/img/reddit.png"><span class="text-2xl">Reddit.com</span></a><a
             class="font-roboto flex items-center justify-start space-x-8 bg-white rounded-md shadow-md overflow-hidden px-8 py-4"
             href="https://sympa.inria.fr/sympa/arc/caml-list" target="_blank"><img class="w-12 h-12 lg:w-20 lg:h-20"
-              src="/assets/img/camllist.png"><span class="text-2xl">Caml-list</span></a><a
+              src="/img/camllist.png"><span class="text-2xl">Caml-list</span></a><a
             class="font-roboto flex items-center justify-start space-x-8 bg-white rounded-md shadow-md overflow-hidden px-8 py-4"
             href="https://twitter.com/search?q=%23ocaml" target="_blank"><img class="w-12 h-12 lg:w-20 lg:h-20"
-              src="/assets/img/twitter.png"><span class="text-2xl">Twitter.com</span></a><a
+              src="/img/twitter.png"><span class="text-2xl">Twitter.com</span></a><a
             class="font-roboto flex items-center justify-start space-x-8 bg-white rounded-md shadow-md overflow-hidden px-8 py-4"
             href="irc://irc.libera.chat/#ocaml" target="_blank"><img class="w-12 h-12 lg:w-20 lg:h-20"
-              src="/assets/img/irc.png"><span class="text-2xl">OCaml IRC Chat</span></a></div>
+              src="/img/irc.png"><span class="text-2xl">OCaml IRC Chat</span></a></div>
       </div>
     </div>
   </div>

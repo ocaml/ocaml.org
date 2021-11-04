@@ -21,7 +21,7 @@ let render () =
             href="/packages">Explore the Docs</a>
         </div>
         <div class="order-1 sm:order-2 mt-10 sm:mt-0 ml-10 sm:flex-shrink-0"><img class="h-56  "
-            src="/assets/img/api-img.jpeg"></div>
+            src="/img/api-img.jpeg"></div>
       </div>
     </div>
     <div class="bg-white overflow-hidden shadow rounded-lg mx-auto max-w-3xl mb-2">
@@ -37,10 +37,10 @@ let render () =
             </div>
           </div>
           <div class="order-1 sm:order-2 mt-10 sm:mt-0 ml-10 sm:flex-shrink-0"><img class="h-24  "
-              src="/assets/img/app-image.png"></div>
+              src="/img/app-image.png"></div>
         </div>
         <div class="flex flex-col items-center sm:flex-row sm:justify-evenly mb-11">
-          <div class="mb-10 sm:mb-0 mr-10 sm:flex-shrink-0"><img class="h-24  " src="/assets/img/jvs.png"></div>
+          <div class="mb-10 sm:mb-0 mr-10 sm:flex-shrink-0"><img class="h-24  " src="/img/jvs.png"></div>
           <div>
             <div>
               <h4 class="text-base font-bold mb-3"><a class="hover:underline"
@@ -73,12 +73,12 @@ let render () =
         <div class="grid grid-cols-3 gap-x-16 mb-6">
           <div class="flex justify-center items-center mb-6"><a
               href="https://github.com/bcpierce00/unison/wiki/Downloading-Unison" target="_blank"><img
-                class="border-1 max-h-24" alt="Unison" src="/assets/img/unison2.png"></a></div>
+                class="border-1 max-h-24" alt="Unison" src="/img/unison2.png"></a></div>
           <div class="flex justify-center items-center mb-6"><a href="https://coq.inria.fr/download"
-              target="_blank"><img class="border-1 max-h-24" alt="Coq" src="/assets/img/coq.png"></a></div>
+              target="_blank"><img class="border-1 max-h-24" alt="Coq" src="/img/coq.png"></a></div>
           <div class="flex justify-center items-center mb-6"><a
               href="https://www.liquidsoap.info/doc-1.4.4/install.html" target="_blank"><img class="border-1 max-h-24"
-                alt="Liquid Soap" src="/assets/img/liq.png"></a></div>
+                alt="Liquid Soap" src="/img/liq.png"></a></div>
           <div>
             <p class="font-bold text-center mb-2">Unison</p>
             <p>Dolor sit amet, consectetur adipiscing elit. Integer at tristique odio.</p>
