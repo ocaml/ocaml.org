@@ -111,6 +111,7 @@ let router t =
     ; toplevels_route
     ; Dream.get "/assets/**" (Dream.static ~loader "")
     ; Dream.get "/media/**" (Dream.static ~loader:media_loader "")
+    ; Dream.get "/robots.txt" (Dream.from_filesystem "asset" "robots.txt")
       (* Last one so that we don't apply the index html middleware on every
          route. *)
     ]
