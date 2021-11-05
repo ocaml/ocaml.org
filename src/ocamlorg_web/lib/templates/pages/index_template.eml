@@ -26,7 +26,7 @@ let render () =
             </div>
           </div>
           <div class="relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full"><img
-              class="absolute inset-0 w-full h-full object-cover" alt="" src="/assets/img/oc-sq.jpeg"></div>
+              class="absolute inset-0 w-full h-full object-cover" alt="" src="/img/oc-sq.jpeg"></div>
         </div>
       </div>
     </div>
@@ -85,7 +85,7 @@ let render () =
       </div>
     </div>
     <div class="mt-12 sm:mt-16 sm:flex sm:max-w-5xl sm:mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="mb-4 sm:flex-shrink-0 sm:mb-0 sm:mr-4"><img aria-hidden="true" class="h-36" src="/assets/img/opam.png">
+      <div class="mb-4 sm:flex-shrink-0 sm:mb-0 sm:mr-4"><img aria-hidden="true" class="h-36" src="/img/opam.png">
       </div>
       <div>
         <h2 class="text-2xl font-bold">Opam: the OCaml Package Manager</h2>
@@ -108,7 +108,7 @@ let render () =
           </defs>
           <rect height="404" width="404" fill="url(#ad119f34-7694-4c31-947f-5c9d249b21f3)"></rect>
         </svg>
-        <div class="relative"><img class="mx-auto h-24" alt="Jane Street" src="/assets/img/js.svg">
+        <div class="relative"><img class="mx-auto h-24" alt="Jane Street" src="/img/js.svg">
           <blockquote class="mt-10">
             <div class="max-w-3xl mx-auto text-center text-2xl leading-9 font-medium text-gray-900">
               <p><span class="text-orangedark">”</span>OCaml helps us to quickly adopt to changing market conditions,

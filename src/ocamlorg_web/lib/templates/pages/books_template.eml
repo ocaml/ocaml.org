@@ -1,6 +1,6 @@
 let render_book (book : Ood.Book.t) =
   let open Ood.Book in
-  let src = Option.map (fun x -> "/media/" ^ x) book.cover |> Option.value ~default:"/assets/default.png" in
+  let src = Option.map (fun x -> "/media/" ^ x) book.cover |> Option.value ~default:"/default.png" in
   <div class="space-y-4 sm:grid sm:grid-cols-5 sm:items-start sm:gap-6 sm:space-y-0 sm:px-6">
     <div class="aspect-w-3 aspect-h-2 sm:aspect-w-3 sm:aspect-h-4">
       <img class="object-cover shadow-lg rounded-lg" src="<%s src %>" alt="" />

@@ -148,7 +148,7 @@ let books = Ood.Book.all in
           <p class="text-right"><a class="text-orangedark underline" href="/applications">Go to
               Applications &gt;</a></p>
         </div>
-        <div class="flex-shrink-0"><img class="h-48" src="/assets/img/app-image2.png"></div>
+        <div class="flex-shrink-0"><img class="h-48" src="/img/app-image2.png"></div>
       </div>
     </div>
     <div class="mx-auto max-w-4xl flex items-center space-x-20 mb-20">

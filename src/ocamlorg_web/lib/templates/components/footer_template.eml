@@ -4,11 +4,11 @@ let render () =
   <footer aria-labelledby="footerHeading" class="max-w-8xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
     <h2 class="sr-only" id="footerHeading"><%s gettext "Footer" %></h2>
     <div class="xl:grid xl:grid-cols-3 xl:gap-8">
-      <div class="space-y-8 xl:col-span-1"><img class="h-10" alt="OCaml" src="/assets/logo.jpeg">
+      <div class="space-y-8 xl:col-span-1"><img class="h-10" alt="OCaml" src="/logo.jpeg">
         <p class="text-gray-500 text-base "><%s gettext "Innovation. Community. Security." %></p>
         <div class="flex space-x-6"><a aria-label="Discourse" class="text-gray-400 hover:text-gray-500"
             href="https://discuss.ocaml.org" target="_blank"><img aria-hidden="true" class="h-6 w-6" alt=""
-              src="/assets/img/discourselogo.png"></a><a aria-label="GitHub" class="text-gray-400 hover:text-gray-500"
+              src="/img/discourselogo.png"></a><a aria-label="GitHub" class="text-gray-400 hover:text-gray-500"
             href="https://sourcegraph.com/search?q=repo:ocaml/ocaml%24+or+repo:janestreet/base+or+repo:gitlab.com/tezos/tezos%24+or+repo:c-cube/ocaml-containers+or+repo:ocaml-batteries-team/batteries-included+or+repo:mirage/mirage%24+or+repo:ocsigen/lwt+or+repo:janestreet/async%24&amp;patternType=literal"
             target="_blank"><svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
               <path clip-rule="evenodd"

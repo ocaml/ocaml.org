@@ -59,16 +59,16 @@ let render ?(extra_nav="") ~title ~description ~tab ~package ~status ~versions ?
       <meta name="theme-color" content="#fff">
       <meta name="color-scheme" content="white">
       <meta name=”robots” content="noindex, nofollow">
-      <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
-      <link rel="manifest" href="/assets/manifest.json">
-      <link rel="stylesheet" href="/assets/main.css" />
-      <link rel="stylesheet" href="/assets/doc.css" />
-      <link rel="stylesheet" href="/assets/vendors/font-files/inter.css" />
-      <link rel="stylesheet" href="/assets/toplevel.css" />
-      <script src="/assets/vendors/components-v2.js"></script>
-      <script src="/assets/vendors/alpine-turbo-drive-adapter.min.js"></script>
-      <script src="/assets/vendors/alpine.min.js"></script>
-      <script src="/assets/vendors/turbo.es2017-umd.js"></script>
+      <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+      <link rel="manifest" href="/manifest.json">
+      <link rel="stylesheet" href="/main.css" />
+      <link rel="stylesheet" href="/css/doc.css" />
+      <link rel="stylesheet" href="/vendors/font-files/inter.css" />
+      <link rel="stylesheet" href="/css/toplevel.css" />
+      <script src="/vendors/components-v2.js"></script>
+      <script src="/vendors/alpine-turbo-drive-adapter.min.js"></script>
+      <script src="/vendors/alpine.min.js"></script>
+      <script src="/vendors/turbo.es2017-umd.js"></script>
       <title><%s title %></title>
     </head>
 

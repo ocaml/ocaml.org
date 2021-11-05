@@ -1,6 +1,6 @@
 let render (items : Ood.Academic_institution.t list) =
 <main class="relative bg-graylight">
-  <%s! Hero_with_background_template.render ~img:"/assets/img/acad.png" ~title:"Academic Excellence" ~subtitle:"" %>
+  <%s! Hero_with_background_template.render ~img:"/img/acad.png" ~title:"Academic Excellence" ~subtitle:"" %>
   <div class="max-w-8xl mx-auto">
     <div class="mx-auto pb-20 px-4 sm:pb-20 sm:px-6 lg:px-8">
       <div class="text-center">
@@ -51,7 +51,7 @@ let render (items : Ood.Academic_institution.t list) =
   </div>
   <div class="mb-10 lg:mb-32 mx-auto sm:max-w-screen-sm lg:max-w-screen-lg">
     <div class="bg-white flex flex-wrap justify-center lg:justify-between ">
-      <img alt="" src="/assets/img/worldmap.jpg">
+      <img alt="" src="/img/worldmap.jpg">
     </div>
   </div>
 </main>
