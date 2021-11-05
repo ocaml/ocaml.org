@@ -58,9 +58,9 @@ let dispatch request =
 
 let letsencrypt_endpoint =
   if Config.letsencrypt_staging then
-    Letsencrypt.letsencrypt_production_url
-  else
     Letsencrypt.letsencrypt_staging_url
+  else
+    Letsencrypt.letsencrypt_production_url
 
 let provision_certificate ?email ?seed ?cert_seed ?hostname () =
   let priv = gen_rsa ?seed:cert_seed () in

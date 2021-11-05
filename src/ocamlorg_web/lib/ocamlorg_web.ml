@@ -83,13 +83,13 @@ let http () =
     let new_uri = Uri.with_port new_uri (Some Config.https_port) in
     Dream.redirect ~status:`Moved_Permanently req (Uri.to_string new_uri)
   in
-  Dream.serve ~port:Config.http_port
+  Dream.serve ~interface:"0.0.0.0" ~debug:Config.debug ~port:Config.http_port
   @@ Dream.logger
   @@ letsencrypt_router
   @@ http_response
 
-let write_to_file s f =
-  let oc = open_out f in
+let write_to_file ~filename s =
+  let oc = open_out filename in
   output_string oc s;
   close_out oc
 
@@ -98,10 +98,10 @@ let save_certificate_files
   =
   X509.Certificate.encode_pem_multiple certificate
   |> Cstruct.to_string
-  |> write_to_file Config.certificate_file_path;
+  |> write_to_file ~filename:Config.certificate_file_path;
   X509.Private_key.encode_pem private_key
   |> Cstruct.to_string
-  |> write_to_file Config.private_key_file_path
+  |> write_to_file ~filename:Config.private_key_file_path
 
 let serialize_certificates_or_load () =
   if

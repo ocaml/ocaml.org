@@ -7,7 +7,7 @@ let debug = to_bool @@ env_with_default "OCAMLORG_DEBUG" "true"
 
 let hostname = env_with_default "OCAMLORG_HOSTNAME" "localhost"
 
-let http_port = env_with_default "OCAMLORG_HTTPS_PORT" "8080" |> int_of_string
+let http_port = env_with_default "OCAMLORG_HTTP_PORT" "8080" |> int_of_string
 
 let https_port = env_with_default "OCAMLORG_HTTPS_PORT" "8081" |> int_of_string
 
