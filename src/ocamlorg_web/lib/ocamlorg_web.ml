@@ -98,15 +98,17 @@ let save_certificate_files
   =
   X509.Certificate.encode_pem_multiple certificate
   |> Cstruct.to_string
-  |> write_to_file "cert.pem";
+  |> write_to_file Config.certificate_file_path;
   X509.Private_key.encode_pem private_key
   |> Cstruct.to_string
-  |> write_to_file "key.pem"
+  |> write_to_file Config.private_key_file_path
 
 let serialize_certificates_or_load () =
-  if Sys.file_exists "cert.pem" && Sys.file_exists "key.pem" then
-    (* TODO(tmattio): Make sure the certificates are valid *)
-    Lwt.return ("cert.pem", "key.pem")
+  if
+    Sys.file_exists Config.certificate_file_path
+    && Sys.file_exists Config.private_key_file_path
+  then (* TODO(tmattio): Make sure the certificates are valid *)
+    Lwt.return (Config.certificate_file_path, Config.private_key_file_path)
   else
     let open Lwt.Syntax in
     let+ certificates, private_key =
@@ -127,7 +129,7 @@ let serialize_certificates_or_load () =
              err)
     in
     save_certificate_files certificates private_key;
-    "cert.pem", "key.pem"
+    Config.certificate_file_path, Config.private_key_file_path
 
 (* HTTPS Server *)
 let server https port =

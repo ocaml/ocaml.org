@@ -16,6 +16,12 @@ let https_enabled = env_with_default "OCAMLORG_HTTPS_ENABLED" "false" |> to_bool
 let letsencrypt_staging =
   env_with_default "OCAMLORG_LETSENCRYPT_STAGING" "true" |> to_bool
 
+let certificate_file_path =
+  env_with_default "OCAMLORG_CERTIFICATE_PATH" "cert.pem"
+
+let private_key_file_path =
+  env_with_default "OCAMLORG_PRIVATE_KEY_PATH" "key.pem"
+
 let secret_key =
   env_with_default
     "OCAMLORG_SECRET_KEY"
