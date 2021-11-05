@@ -126,9 +126,6 @@ let serialize_certificates_or_load () =
              "Could not get the certificate from letsencrypt %s"
              err)
     in
-    Dream.log
-      "Private key: %s"
-      (X509.Private_key.encode_pem private_key |> Cstruct.to_string);
     save_certificate_files certificates private_key;
     "cert.pem", "key.pem"
 

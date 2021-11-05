@@ -45,10 +45,8 @@ let solver _host ~prefix:_ ~token ~content =
 
 let dispatch request =
   let path = Dream.target request in
-  Logs.info (fun m -> m "let's encrypt dispatcher %s" path);
   match Astring.String.cuts ~sep:"/" ~empty:false path with
   | [ _well_known; _acme; token ] ->
-    Dream.log "MATCHED ROUTE WITH TOKEN";
     (match Hashtbl.find_opt tokens token with
     | Some data ->
       let headers = [ "content-type", "application/octet-stream" ] in
