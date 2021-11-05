@@ -71,24 +71,94 @@ let run ~interface ~port f =
     restore_terminal ();
     raise exn
 
+let letsencrypt_router =
+  Dream.router [ Dream.get "/.well-known/acme-challenge/**" Le.dispatch ]
+
 (* HTTP Redirect server *)
 let http () =
   let http_response req =
-    let uri = Uri.of_string ("http://" ^ Config.hostname) in
+    let target = Dream.target req in
+    let uri = Uri.of_string ("http://" ^ Config.hostname ^ target) in
     let new_uri = Uri.with_scheme uri (Some "https") in
     let new_uri = Uri.with_port new_uri (Some Config.https_port) in
     Dream.redirect ~status:`Moved_Permanently req (Uri.to_string new_uri)
   in
-  Dream.serve ~port:Config.http_port @@ Dream.logger @@ http_response
+  Dream.serve ~port:Config.http_port
+  @@ Dream.logger
+  @@ letsencrypt_router
+  @@ http_response
+
+let write_to_file s f =
+  let oc = open_out f in
+  output_string oc s;
+  close_out oc
+
+let save_certificate_files
+    (certificate : X509.Certificate.t list) (private_key : X509.Private_key.t)
+  =
+  X509.Certificate.encode_pem_multiple certificate
+  |> Cstruct.to_string
+  |> write_to_file "cert.pem";
+  X509.Private_key.encode_pem private_key
+  |> Cstruct.to_string
+  |> write_to_file "key.pem"
+
+let serialize_certificates_or_load () =
+  if Sys.file_exists "cert.pem" && Sys.file_exists "key.pem" then
+    (* TODO(tmattio): Make sure the certificates are valid *)
+    Lwt.return ("cert.pem", "key.pem")
+  else
+    let open Lwt.Syntax in
+    let+ certificates, private_key =
+      let email = None in
+      let seed = None in
+      let cert_seed = None in
+      let hostname = Config.hostname in
+      let+ certs_result =
+        Le.provision_certificate ?email ?seed ?cert_seed ~hostname ()
+      in
+      match certs_result with
+      | Ok (`Single x) ->
+        x
+      | Error (`Msg err) ->
+        failwith
+          (Printf.sprintf
+             "Could not get the certificate from letsencrypt %s"
+             err)
+    in
+    Dream.log
+      "Private key: %s"
+      (X509.Private_key.encode_pem private_key |> Cstruct.to_string);
+    save_certificate_files certificates private_key;
+    "cert.pem", "key.pem"
 
 (* HTTPS Server *)
 let server https port =
+  let open Lwt.Syntax in
   let state = Ocamlorg.Package.init () in
-  Dream.serve ~https ~debug:Config.debug ~interface:"0.0.0.0" ~port
-  @@ Dream.logger
-  @@ Middleware.no_trailing_slash
-  @@ Router.router state
-  @@ Handler.not_found
+  if Config.hostname = "localhost" then
+    (* Use Dream's development certificate if we are running the server
+       locally. *)
+    Dream.serve ~https ~debug:Config.debug ~interface:"0.0.0.0" ~port
+    @@ Dream.logger
+    @@ Middleware.no_trailing_slash
+    @@ Router.router state
+    @@ Page_handler.not_found
+  else
+    (* Fetch the certificate from the filesystem (or from letsencrypt) if we are
+       not running locally. *)
+    let* certificate_file, key_file = serialize_certificates_or_load () in
+    Dream.serve
+      ~https
+      ~debug:Config.debug
+      ~interface:"0.0.0.0"
+      ~port
+      ~certificate_file
+      ~key_file
+    @@ Dream.logger
+    @@ Middleware.no_trailing_slash
+    @@ Router.router state
+    @@ Page_handler.not_found
 
 let run () =
   let port =

@@ -37,8 +37,6 @@ let csr key host =
       in
       X509.Signing_request.create cn key)
 
-let prefix = ".well-known", "acme-challenge"
-
 let tokens = Hashtbl.create 1
 
 let solver _host ~prefix:_ ~token ~content =
@@ -49,8 +47,8 @@ let dispatch request =
   let path = Dream.target request in
   Logs.info (fun m -> m "let's encrypt dispatcher %s" path);
   match Astring.String.cuts ~sep:"/" ~empty:false path with
-  | [ p1; p2; token ]
-    when String.equal p1 (fst prefix) && String.equal p2 (snd prefix) ->
+  | [ _well_known; _acme; token ] ->
+    Dream.log "MATCHED ROUTE WITH TOKEN";
     (match Hashtbl.find_opt tokens token with
     | Some data ->
       let headers = [ "content-type", "application/octet-stream" ] in
@@ -60,22 +58,24 @@ let dispatch request =
   | _ ->
     Dream.not_found request
 
-let provision_certificate ~production ~email ~seed ~cert_seed ~hostname ~ctx =
-  let open Lwt_result.Infix in
-  let endpoint =
-    if production then
-      Letsencrypt.letsencrypt_production_url
-    else
-      Letsencrypt.letsencrypt_staging_url
-  in
+let letsencrypt_endpoint =
+  if Config.letsencrypt_staging then
+    Letsencrypt.letsencrypt_production_url
+  else
+    Letsencrypt.letsencrypt_staging_url
+
+let provision_certificate ?email ?seed ?cert_seed ?hostname () =
   let priv = gen_rsa ?seed:cert_seed () in
   match csr priv hostname with
   | Error (`Msg err) ->
     Logs.err (fun m -> m "couldn't create signing request %s" err);
     failwith "err"
   | Ok csr ->
-    Acme.initialise ~ctx ~endpoint ?email (gen_rsa ?seed ()) >>= fun le ->
+    let open Lwt_result.Syntax in
+    let* le =
+      Acme.initialise ~endpoint:letsencrypt_endpoint ?email (gen_rsa ?seed ())
+    in
     let sleep sec = Lwt_unix.sleep (float_of_int sec) in
     let solver = Letsencrypt.Client.http_solver solver in
-    Acme.sign_certificate ~ctx solver le sleep csr >|= fun certs ->
+    let+ certs = Acme.sign_certificate solver le sleep csr in
     `Single (certs, priv)

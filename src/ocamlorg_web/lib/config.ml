@@ -13,6 +13,9 @@ let https_port = env_with_default "OCAMLORG_HTTPS_PORT" "8081" |> int_of_string
 
 let https_enabled = env_with_default "OCAMLORG_HTTPS_ENABLED" "false" |> to_bool
 
+let letsencrypt_staging =
+  env_with_default "OCAMLORG_LETSENCRYPT_STAGING" "true" |> to_bool
+
 let secret_key =
   env_with_default
     "OCAMLORG_SECRET_KEY"
