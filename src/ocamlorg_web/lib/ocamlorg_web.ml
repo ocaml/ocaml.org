@@ -160,6 +160,7 @@ let server https port =
     @@ Page_handler.not_found
 
 let run () =
+  Mirage_crypto_rng_lwt.initialize ();
   let port =
     if Config.https_enabled then Config.https_port else Config.http_port
   in
