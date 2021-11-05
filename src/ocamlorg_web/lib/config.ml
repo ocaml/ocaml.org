@@ -17,10 +17,10 @@ let letsencrypt_staging =
   env_with_default "OCAMLORG_LETSENCRYPT_STAGING" "true" |> to_bool
 
 let certificate_file_path =
-  env_with_default "OCAMLORG_CERTIFICATE_PATH" "cert.pem"
+  env_with_default "OCAMLORG_CERTIFICATE_PATH" "v3.ocaml.org.pem"
 
 let private_key_file_path =
-  env_with_default "OCAMLORG_PRIVATE_KEY_PATH" "key.pem"
+  env_with_default "OCAMLORG_PRIVATE_KEY_PATH" "v3.ocaml.org.key"
 
 let secret_key =
   env_with_default

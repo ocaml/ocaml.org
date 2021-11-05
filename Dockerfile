@@ -31,6 +31,13 @@ ENV OCAMLORG_PKG_STATE_PATH /var/package.state
 ENV OCAMLORG_TOPLEVELS_PATH /var/toplevels/
 ENV OCAMLORG_DEBUG false
 ENV DREAM_VERBOSITY info
+ENV HOSTNAME v3.ocaml.org
+ENV HTTP_PORT 80
+ENV HTTPS_PORT 443
+ENV HTTPS_ENABLED true
+ENV LETSENCRYPT_STAGING false
+ENV CERTIFICATE_FILE_PATH /var/letsencrypt/certs/v3.ocaml.org.pem
+ENV PRIVATE_KEY_FILE_PATH /var/letsencrypt/private/v3.ocaml.org.key
 
 RUN chmod -R 755 /var
 
