@@ -111,6 +111,21 @@ let write_to_file ~filename s =
   output_string oc s;
   close_out oc
 
+let read_lines file : string list =
+  let ic = open_in file in
+  let try_read () = try Some (input_line ic) with End_of_file -> None in
+  let rec loop acc =
+    match try_read () with
+    | Some s ->
+      loop (s :: acc)
+    | None ->
+      close_in ic;
+      List.rev acc
+  in
+  loop []
+
+let read_file file = String.concat "\n" (read_lines file)
+
 let save_certificate_files
     ~certificate_file_path
     ~private_key_file_path
@@ -124,6 +139,42 @@ let save_certificate_files
   |> Cstruct.to_string
   |> write_to_file ~filename:private_key_file_path
 
+let has_expired certs =
+  List.map
+    (fun c ->
+      let _form, until = X509.Certificate.validity c in
+      Ptime.is_earlier ~than:(Ptime_clock.now ()) until)
+    certs
+  |> List.exists (fun x -> x)
+
+let provision_and_save
+    ?email
+    ?seed
+    ?cert_seed
+    ~hostname
+    ~staging
+    ~certificate_file_path
+    ~private_key_file_path
+    ()
+  =
+  let open Lwt.Syntax in
+  let+ certificates, private_key =
+    let+ certs_result =
+      provision_certificate ?email ?seed ?cert_seed ~hostname ~staging ()
+    in
+    match certs_result with
+    | Ok (`Single x) ->
+      x
+    | Error (`Msg err) ->
+      failwith
+        (Printf.sprintf "Could not get the certificate from letsencrypt %s" err)
+  in
+  save_certificate_files
+    ~certificate_file_path
+    ~private_key_file_path
+    certificates
+    private_key
+
 let load_certificates
     ~certificate_file_path
     ~private_key_file_path
@@ -134,29 +185,45 @@ let load_certificates
     ?cert_seed
     ()
   =
+  let open Lwt.Syntax in
   if
     Sys.file_exists certificate_file_path
     && Sys.file_exists private_key_file_path
   then (* TODO(tmattio): Make sure the certificates are valid *)
-    Lwt.return (certificate_file_path, private_key_file_path)
-  else
-    let open Lwt.Syntax in
-    let+ certificates, private_key =
-      let+ certs_result =
-        provision_certificate ?email ?seed ?cert_seed ~hostname ~staging ()
-      in
-      match certs_result with
-      | Ok (`Single x) ->
-        x
-      | Error (`Msg err) ->
-        failwith
-          (Printf.sprintf
-             "Could not get the certificate from letsencrypt %s"
-             err)
+    let certs =
+      X509.Certificate.decode_pem_multiple
+        (Cstruct.of_string (read_file certificate_file_path))
     in
-    save_certificate_files
-      ~certificate_file_path
-      ~private_key_file_path
-      certificates
-      private_key;
+    let private_key =
+      X509.Private_key.decode_pem
+        (Cstruct.of_string (read_file private_key_file_path))
+    in
+    match certs, private_key with
+    | Ok certs, _private_key when not (has_expired certs) ->
+      Lwt.return (certificate_file_path, private_key_file_path)
+    | _ ->
+      let+ () =
+        provision_and_save
+          ?email
+          ?seed
+          ?cert_seed
+          ~hostname
+          ~staging
+          ~certificate_file_path
+          ~private_key_file_path
+          ()
+      in
+      certificate_file_path, private_key_file_path
+  else
+    let+ () =
+      provision_and_save
+        ?email
+        ?seed
+        ?cert_seed
+        ~hostname
+        ~staging
+        ~certificate_file_path
+        ~private_key_file_path
+        ()
+    in
     certificate_file_path, private_key_file_path
