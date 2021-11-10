@@ -71,12 +71,9 @@ let run ~interface ~port f =
     restore_terminal ();
     raise exn
 
-let letsencrypt_router =
-  Dream.router [ Dream.get "/.well-known/acme-challenge/**" Le.dispatch ]
-
 (* HTTP Redirect server *)
 let http () =
-  let http_response req =
+  let redirect_handler req =
     let target = Dream.target req in
     let uri = Uri.of_string ("http://" ^ Config.hostname ^ target) in
     let new_uri = Uri.with_scheme uri (Some "https") in
@@ -85,51 +82,8 @@ let http () =
   in
   Dream.serve ~interface:"0.0.0.0" ~debug:Config.debug ~port:Config.http_port
   @@ Dream.logger
-  @@ letsencrypt_router
-  @@ http_response
-
-let write_to_file ~filename s =
-  let oc = open_out filename in
-  output_string oc s;
-  close_out oc
-
-let save_certificate_files
-    (certificate : X509.Certificate.t list) (private_key : X509.Private_key.t)
-  =
-  X509.Certificate.encode_pem_multiple certificate
-  |> Cstruct.to_string
-  |> write_to_file ~filename:Config.certificate_file_path;
-  X509.Private_key.encode_pem private_key
-  |> Cstruct.to_string
-  |> write_to_file ~filename:Config.private_key_file_path
-
-let serialize_certificates_or_load () =
-  if
-    Sys.file_exists Config.certificate_file_path
-    && Sys.file_exists Config.private_key_file_path
-  then (* TODO(tmattio): Make sure the certificates are valid *)
-    Lwt.return (Config.certificate_file_path, Config.private_key_file_path)
-  else
-    let open Lwt.Syntax in
-    let+ certificates, private_key =
-      let email = None in
-      let seed = None in
-      let cert_seed = None in
-      let hostname = Config.hostname in
-      let+ certs_result =
-        Le.provision_certificate ?email ?seed ?cert_seed ~hostname ()
-      in
-      match certs_result with
-      | Ok (`Single x) ->
-        x
-      | Error (`Msg err) ->
-        failwith
-          (Printf.sprintf
-             "Could not get the certificate from letsencrypt %s"
-             err)
-    in
-    save_certificate_files certificates private_key;
-    Config.certificate_file_path, Config.private_key_file_path
+  @@ Le.router
+  @@ redirect_handler
 
 (* HTTPS Server *)
 let server https port =
@@ -138,7 +92,7 @@ let server https port =
   if Config.hostname = "localhost" then
     (* Use Dream's development certificate if we are running the server
        locally. *)
-    Dream.serve ~https ~debug:Config.debug ~interface:"0.0.0.0" ~port
+    Dream.serve ~interface:"0.0.0.0" ~debug:Config.debug ~port:Config.http_port
     @@ Dream.logger
     @@ Middleware.no_trailing_slash
     @@ Router.router state
@@ -146,7 +100,14 @@ let server https port =
   else
     (* Fetch the certificate from the filesystem (or from letsencrypt) if we are
        not running locally. *)
-    let* certificate_file, key_file = serialize_certificates_or_load () in
+    let* certificate_file, key_file =
+      Le.load_certificates
+        ~certificate_file_path:Config.certificate_file_path
+        ~private_key_file_path:Config.private_key_file_path
+        ~hostname:Config.hostname
+        ~staging:Config.letsencrypt_staging
+        ()
+    in
     Dream.serve
       ~https
       ~debug:Config.debug
