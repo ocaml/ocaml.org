@@ -34,8 +34,8 @@ let render ~readme ~license:_ package =
     | "" -> gettext "No License"
     | l -> l
   in
-  let rev_deps = package_info.Ocamlorg.Package.Info.rev_deps |> List.map (fun (name, version) ->
-      (Ocamlorg.Package.Name.to_string name, Ocamlorg.Package.t)
+  let rev_deps = package_info.Ocamlorg.Package.Info.rev_deps |> List.map (fun (name, x, version) ->
+      (Ocamlorg.Package.Name.to_string name, x, Ocamlorg.Package.Version.to_string version)
     )
   in
   let package_deps = 
@@ -161,7 +161,7 @@ let render ~readme ~license:_ package =
             <dt class="text-sm font-medium text-gray-500"><%s "Reverse dependencies" %></dt>
             <dd class="mt-2 text-sm text-gray-900 max-h-80 overflow-y-auto">
               <ul class="divide-y divide-gray-100">
-                <% rev_deps |> List.iter begin fun (name, cstr) -> %>
+                <% rev_deps |> List.iter begin fun (name, cstr, version) -> %>
                 <li class="py-2">
                   <a href="/p/<%s name %>" class="mt-1 text-sm text-orange-600 hover:text-orange-500"><%s name %></a>
                   <% match cstr with None -> () | Some cstr -> %>
