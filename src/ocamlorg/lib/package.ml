@@ -24,7 +24,7 @@ module Info = struct
     ; tags : string list
     ; dependencies : (OpamPackage.Name.t * string option) list
     ; rev_deps :
-        (OpamPackage.Name.t * string option * OpamPackage.Version.t) list
+        (OpamPackage.Name.t * string option * OpamPackage.t) list
     ; depopts : (OpamPackage.Name.t * string option) list
     ; conflicts : (OpamPackage.Name.t * string option) list
     ; url : url option
@@ -137,7 +137,7 @@ module Info = struct
             versions
         in
         let latest =
-          OpamPackage.create name (OpamPackage.Version.Map.max_binding versions)
+          OpamPackage.create name (OpamPackage.Version.Set.max_elt versions)
         in
         let flags = OpamStd.String.Set.empty in
         let formula =
@@ -156,7 +156,7 @@ module Info = struct
                    vf
                ]
         in
-        Lwt.return @@ ((name, string_of_formula formula) :: acc))
+        Lwt.return @@ ((name, string_of_formula formula, latest) :: acc))
       (OpamPackage.to_map
       @@ OpamStd.Option.default OpamPackage.Set.empty
       @@ OpamPackage.Map.find_opt pkg rdepends)
@@ -166,7 +166,6 @@ module Info = struct
   let make ~package ~packages ~rev_deps opam =
     let open Lwt.Syntax in
     let+ rev_deps = mk_revdeps package packages rev_deps in
-    let latest = OpamPackage.Version.Map.max_binding version_map in
     let open OpamFile.OPAM in
     { synopsis = synopsis opam |> Option.value ~default:"No synopsis"
     ; authors =
