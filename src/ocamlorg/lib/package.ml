@@ -23,7 +23,7 @@ module Info = struct
     ; homepage : string list
     ; tags : string list
     ; dependencies : (OpamPackage.Name.t * string option) list
-    ; rev_deps : (OpamPackage.Name.t * string option * OpamPackage.t) list
+    ; rev_deps : (OpamPackage.Name.t * string option * OpamPackage.Version.t) list
     ; depopts : (OpamPackage.Name.t * string option) list
     ; conflicts : (OpamPackage.Name.t * string option) list
     ; url : url option
