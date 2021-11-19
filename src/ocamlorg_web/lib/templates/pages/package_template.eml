@@ -169,11 +169,9 @@ let render ~readme ~license:_ package =
                     <pre><%s cstr %></pre>
                   </span>
                   <% ; %>
-                  <% match version with None -> () | Some version -> %>
                   <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white text-gray-800">
                     <pre><%s version %></pre>
                   </span>
-                  <% ; %>
                 </li>
                 <% end; %>
               </ul>
