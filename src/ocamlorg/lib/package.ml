@@ -136,7 +136,7 @@ module Info = struct
             versions
         in
         let latest =
-          OpamPackage.create name (OpamPackage.Version.Set.max_elt versions)
+          OpamPackage.Version.Set.max_elt versions
         in
         let flags = OpamStd.String.Set.empty in
         let formula =
