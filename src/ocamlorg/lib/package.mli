@@ -46,7 +46,7 @@ module Info : sig
     ; homepage : string list
     ; tags : string list
     ; dependencies : (Name.t * string option) list
-    ; rev_deps : (Name.t * string option * OpamPackage.t) list
+    ; rev_deps : (Name.t * string option * Version.t) list
     ; depopts : (Name.t * string option) list
     ; conflicts : (Name.t * string option) list
     ; url : url option
