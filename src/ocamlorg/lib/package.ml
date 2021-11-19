@@ -23,7 +23,8 @@ module Info = struct
     ; homepage : string list
     ; tags : string list
     ; dependencies : (OpamPackage.Name.t * string option) list
-    ; rev_deps : (OpamPackage.Name.t * string option) list
+    ; rev_deps :
+        (OpamPackage.Name.t * string option * OpamPackage.Version.t) list
     ; depopts : (OpamPackage.Name.t * string option) list
     ; conflicts : (OpamPackage.Name.t * string option) list
     ; url : url option
@@ -135,6 +136,9 @@ module Info = struct
             (OpamPackage.versions_of_name pkgs name)
             versions
         in
+        let latest =
+          OpamPackage.create name (OpamPackage.Version.Map.max_binding versions)
+        in
         let flags = OpamStd.String.Set.empty in
         let formula =
           OpamFormula.ands
@@ -162,6 +166,7 @@ module Info = struct
   let make ~package ~packages ~rev_deps opam =
     let open Lwt.Syntax in
     let+ rev_deps = mk_revdeps package packages rev_deps in
+    let latest = OpamPackage.Version.Map.max_binding version_map in
     let open OpamFile.OPAM in
     { synopsis = synopsis opam |> Option.value ~default:"No synopsis"
     ; authors =
