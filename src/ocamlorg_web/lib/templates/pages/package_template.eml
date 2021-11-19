@@ -163,13 +163,12 @@ let render ~readme ~license:_ package =
               <ul class="divide-y divide-gray-100">
                 <% rev_deps |> List.iter begin fun (name, cstr, version) -> %>
                 <li class="py-2">
-                  <a href="/p/<%s name %>" class="mt-1 text-sm text-orange-600 hover:text-orange-500"><%s name %></a>
+                  <a href="/p/<%s name ^ "/" ^ version %>" class="mt-1 text-sm text-orange-600 hover:text-orange-500"><%s name %></a>
                   <% match cstr with None -> () | Some cstr -> %>
                   <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white text-gray-800">
                     <pre><%s cstr %></pre>
                   </span>
                   <% ; %>
-                  <a href="/p/<%s name ^ "/" ^ version %>" class="mt-1 text-sm text-orange-600 hover:text-orange-500"><%s name %></a>
                   <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white text-gray-800">
                     <pre><%s version %></pre>
                   </span>
