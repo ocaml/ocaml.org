@@ -1,12 +1,14 @@
 # Unreleased
 
+- Redirect versioned links from reverse dependencies (#183, by @JiaeK)
+
 - Fix tutorials image paths (#181, by @desirekaleba)
 
 - Fix robots.txt URL (#178, by @desirekaleba)
 
 - Fix handling of trailing slashes (#170, by @desirekaleba)
 
-- Demarcate include blocks (#54, by @JiaeK)
+- Demarcate include blocks (#175, by @JiaeK)
 
 - Add semicolons `;;` to 99 Problems toplevel sentences. (#176, by @Lontchi12)
 
@@ -16,7 +18,7 @@
   Add a Github action to check if the PO files match the
   status of the repository (#172, by @TheLortex)
 
-- Add tags to overview (#39, by @JiaeK)
+- Add tags to overview (#169, by @JiaeK)
 
 - Switch to using RPCs to talk to toplevel worker (#159, by @jonludlam)
 

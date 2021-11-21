@@ -23,7 +23,8 @@ module Info = struct
     ; homepage : string list
     ; tags : string list
     ; dependencies : (OpamPackage.Name.t * string option) list
-    ; rev_deps : (OpamPackage.Name.t * string option) list
+    ; rev_deps :
+        (OpamPackage.Name.t * string option * OpamPackage.Version.t) list
     ; depopts : (OpamPackage.Name.t * string option) list
     ; conflicts : (OpamPackage.Name.t * string option) list
     ; url : url option
@@ -135,6 +136,7 @@ module Info = struct
             (OpamPackage.versions_of_name pkgs name)
             versions
         in
+        let latest = OpamPackage.Version.Set.max_elt versions in
         let flags = OpamStd.String.Set.empty in
         let formula =
           OpamFormula.ands
@@ -152,7 +154,7 @@ module Info = struct
                    vf
                ]
         in
-        Lwt.return @@ ((name, string_of_formula formula) :: acc))
+        Lwt.return @@ ((name, string_of_formula formula, latest) :: acc))
       (OpamPackage.to_map
       @@ OpamStd.Option.default OpamPackage.Set.empty
       @@ OpamPackage.Map.find_opt pkg rdepends)
