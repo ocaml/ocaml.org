@@ -2,40 +2,45 @@
 
 Welcome to v3.ocaml.org's contributing guide.
 
-Ocaml's a community-driven project and your help to v3.ocaml.org is extremely welcome.
-
-## Code of Conduct 
+Ocaml's a community-driven project and your help to v3.ocaml.org is extremely welcome. If you get stuck, please don’t hesitate to [chat with us](https://discord.com/channels/436568060288172042/585511202759770135) or [raise an issue.](https://github.com/ocaml/v3.ocaml.org-server/issues/new) Please make sure you follow our [code of conduct](https://www.contributor-covenant.org/version/1/4/code-of-conduct/) at all times.
 
 ## How to get started
 
-We are particularly motivated to support new contributors. Here are a few ways to get started. You could contribute to a bunch of issues suggested below:
+We are particularly motivated to support new contributors and people who are looking to learn and develop their skills.
 
-
-- **Good First Issues** 
-You can look at the good first issues in four repositories:
-    - [ocaml/ood](https://github.com/ocaml/ood/labels/good%20first%20issue). 
-    - [ocaml/v3.ocaml.org](https://github.com/ocaml/v3.ocaml.org/labels/good%20first%20issue).
+- **Good First Issues**
+You can look at the good first issues across four repositories:
+  - [ocaml/ood](https://github.com/ocaml/ood/labels/good%20first%20issue).
+  - [ocaml/v3.ocaml.org](https://github.com/ocaml/v3.ocaml.org/labels/good%20first%20issue).
     - [ocaml-docs-ci](https://github.com/ocurrent/ocaml-docs-ci/labels/good%20first%20issue).
     - [ocaml/v3.ocaml.org-server](https://github.com/ocaml/v3.ocaml.org-server/labels/good%20first%20issue).
-
 - **Fix or suggest content to ocaml/ood**
  Add some scrapped blog posts. You can help with importing the blog posts from [here.](https://github.com/ocaml/platform-blog.)
 - **Implement pages**
  You can search through existing issues [over here](https://github.com/ocaml/v3.ocaml.org/projects/11) to find out what pages are planned for upcoming implementation.
-- **File an issue**
- File an issue suggesting improvements [over here.](https://github.com/ocaml/v3.ocaml.org/issues/new)
-
 - **Translating content or pages**
-The translation of the the static pages is done with the PO files found in `gettext/<locale>/LC_MESSAGES/*.po`.
+  The translation of the the static pages is done with the PO files found in `gettext/<locale>/LC_MESSAGES/*.po`.
 
-    If you would like add translations for a new language, for instance `ru`, you can copy the template files to get started:
+  If you would like add translations for a new language, for instance `ru`, you can copy the template files to get started:
 
-- **Adding or updating data**
+```
+mkdir -p gettext/ru/LC_MESSAGES/
+cp gettext/messages.pot gettext/ru/LC_MESSAGES/messages.po
+```
 
-    As explained on the README, `src/ocaml` contains the information in the `data` directory, packed inside OCaml modules. This makes the data very easy to consume from multiple different projects like from ReScript in the [front-end of the website](https://github.com/ocaml/v3.ocaml.org). It means most consumers of the ocaml.org data do not have to worry about re-implementing parsers for the data.
+  When adding new translatable string, you will need to add them to the `POT` and `PO` files. You can do so with the following commands:
 
-    If you are simply adding information to the `data` directory that's fine, before merging one of the maintainers can do the build locally and push the changes. If you can do a `make build` to also generate the OCaml as part of your PR that would be fantastic.
+```
+dune exec ocaml-gettext -- extract _build/default/src/ocamlorg_web/lib/templates/**/*.ml > gettext/messages.pot
+```
 
+  To extract the strings into the template.
+
+```
+dune exec ocaml-gettext -- merge gettext/messages.pot gettext/en/LC_MESSAGES/messages.po > gettext/en/LC_MESSAGES/messages.po
+```
+
+To merge the template file into the existing `PO` file.
 
 ```
 mkdir -p gettext/ru/LC_MESSAGES/
@@ -56,18 +61,21 @@ dune exec ocaml-gettext -- merge gettext/messages.pot gettext/en/LC_MESSAGES/mes
 
 To merge the template file into the existing `PO` file.
 
+- **Adding or updating data**
 
+  As stated in the readme file, src/ocaml contains the information in the data directory, packaged in the OCaml module. This makes it very easy to use data from many different projects, just like in ReScript on the [front-end of the website](https://github.com/ocaml/v3.ocaml.org). This means that most consumers of ocaml.org data do not have to worry about re-implementing the parser for the data.
+
+  If you are simply adding information to the data directory that’s fine, before merging one of the maintainers can do the build locally and push the changes. If you can do a make build to generate OCaml as part of your PR, that would be great.
+- **File an issue**
+ File an issue suggesting improvements [over here.](https://github.com/ocaml/v3.ocaml.org/issues/new)
 
 **Note: If you get stuck, chat with us on [Discord.](https://discord.com/channels/436568060288172042/585511202759770135)**
- 
 
 ## Reporting bugs
 
 We use GitHub issues to track all bugs and feature requests; feel free to open an issue over [here](https://github.com/ocaml/v3.ocaml.org/issues/new) if you have found a bug or wish to see a feature implemented.
 
-
 ## Setup and Development
-
 
 ### Setting up the Project
 
@@ -124,9 +132,9 @@ make test
 
 ### Deploying
 
-Commits added on `main` are automatically deployed on https://v3.ocaml.org/.
+Commits added on `main` are automatically deployed on <https://v3.ocaml.org/>.
 
-The deployment pipeline is managed in https://github.com/ocurrent/ocurrent-deployer which listens to the `main` branch and build the site using the `Dockerfile` at the root of the project.
+The deployment pipeline is managed in <https://github.com/ocurrent/ocurrent-deployer> which listens to the `main` branch and build the site using the `Dockerfile` at the root of the project.
 
 To test the deployment locally, you can run the following commands:
 
@@ -136,7 +144,7 @@ docker run -p 8080:8080  v3.ocaml.org
 ```
 
 This will build the docker image and run a docker container with the port `8080` mapped to the HTTP server.
-With the docker container running, you can visit the site at http://localhost:8080/.
+With the docker container running, you can visit the site at <http://localhost:8080/>.
 
 ## Git and GitHub workflow
 
@@ -213,8 +221,6 @@ The following snippet describes OCaml.org's repository structure.
     Configuration used by TailwindCSS to generate the CSS file for the site.
 ```
 
-
-
 ## Design and Information Architecture
 
 The Design uses Figma and is currently managed by designer. Discussion of both design and content is managed with Figma commenting system.
@@ -223,13 +229,10 @@ You can have a look at the sitemap and information architecture on flowmap over 
 
 ## Architecture
 
-
-
-
 ## Coding style
 
-
 ## Acknowledging contributions
+
 We follow the [all-contributors](https://allcontributors.org/) specification and recognize various types of contributions. Take a look at our past and current contributors!
 
 <!--<# Contributing to OCaml.org
