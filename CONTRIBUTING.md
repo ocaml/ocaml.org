@@ -12,8 +12,8 @@ We are particularly motivated to support new contributors and people who are loo
 You can look at the good first issues across four repositories:
   - [ocaml/ood](https://github.com/ocaml/ood/labels/good%20first%20issue).
   - [ocaml/v3.ocaml.org](https://github.com/ocaml/v3.ocaml.org/labels/good%20first%20issue).
-    - [ocaml-docs-ci](https://github.com/ocurrent/ocaml-docs-ci/labels/good%20first%20issue).
-    - [ocaml/v3.ocaml.org-server](https://github.com/ocaml/v3.ocaml.org-server/labels/good%20first%20issue).
+  - [ocaml-docs-ci](https://github.com/ocurrent/ocaml-docs-ci/labels/good%20first%20issue).
+  - [ocaml/v3.ocaml.org-server](https://github.com/ocaml/v3.ocaml.org-server/labels/good%20first%20issue).
 - **Fix or suggest content to ocaml/ood**
  Add some scrapped blog posts. You can help with importing the blog posts from [here.](https://github.com/ocaml/platform-blog.)
 - **Implement pages**
