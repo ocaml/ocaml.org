@@ -260,6 +260,7 @@ let package =
             ~typ:(non_null (list (non_null info)))
             ~resolve:(fun _ p ->
               let info = Package.info p in
+              let latest = OpamPackage.Version.Set.max_elt version_set in 
               get_info info.Package.Info.dependencies)
         ; field
             "depopts"
