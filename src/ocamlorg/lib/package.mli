@@ -45,7 +45,7 @@ module Info : sig
     ; license : string
     ; homepage : string list
     ; tags : string list
-    ; dependencies : (Name.t * string option) list
+    ; dependencies : (Name.t * string option * Version.t) list
     ; rev_deps : (Name.t * string option * Version.t) list
     ; depopts : (Name.t * string option) list
     ; conflicts : (Name.t * string option) list
