@@ -22,7 +22,8 @@ module Info = struct
     ; license : string
     ; homepage : string list
     ; tags : string list
-    ; dependencies : (OpamPackage.Name.t * string option) list
+    ; dependencies :
+        (OpamPackage.Name.t * string option * OpamPackage.Version.t) list
     ; rev_deps :
         (OpamPackage.Name.t * string option * OpamPackage.Version.t) list
     ; depopts : (OpamPackage.Name.t * string option) list
@@ -49,7 +50,8 @@ module Info = struct
 
   let parse_formula =
     OpamFormula.fold_left
-      (fun lst (name, cstr) -> (name, string_of_formula cstr) :: lst)
+      (fun lst (name, cstr, latest) ->
+        (name, string_of_formula cstr, latest) :: lst)
       []
 
   let depends packages opams f =
@@ -68,6 +70,7 @@ module Info = struct
                 | _ ->
                   None
               in
+              let latest = OpamPackage.Version.Set.max_elt version_set in
               let deps =
                 OpamFormula.packages packages
                 @@ OpamFilter.filter_formula ~default:true env (f opam)
