@@ -5,7 +5,7 @@ let span class_gen t =
     let l = List.length lst in
     List.filteri (fun i _ -> i < l - 1) lst
   in
-  let span_gen c s = Fmt.str "<span class='%s'>%s</span>" (class_gen c) s in
+  let span_gen c s = "<span class='" ^ (class_gen c) ^ "'>" ^ s ^ "</span>" in
   span_gen (String.concat "-" (drop_last t))
 
 let mk_block lang =
@@ -79,10 +79,6 @@ let src_code_to_html ~lang ~src =
   src_code_to_tyxml_html ~lang ~src |> function
   | Ok tyxml ->
     let lst = if List.length tyxml = 1 then tyxml else drop_last tyxml in
-    Ok
-      (Fmt.str
-         "<pre><code>%a</code></pre>"
-         Fmt.(list ~sep:Fmt.nop string)
-         (List.concat lst))
+    Ok ("<pre><code>" ^ (String.concat "" @@ List.concat lst) ^ "</code></pre>")
   | Error (`Msg m) ->
     Error (`Msg m)

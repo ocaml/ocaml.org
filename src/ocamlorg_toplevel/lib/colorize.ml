@@ -3,7 +3,11 @@ open Js_of_ocaml_tyxml
 
 let text ~a_class:cl s = Tyxml_js.Html.(span ~a:[ a_class [ cl ] ] [ txt s ])
 
-let ocaml = text
+let ocaml ~a_class src =
+  (* match Hilite.Syntax.src_code_to_html ~lang:"ocaml" ~src with  *)
+  match Ok src with
+   | Ok s -> text ~a_class s
+   | Error _ -> text ~a_class src
 
 let highlight from_ to_ e =
   match Js.Opt.to_option e##.textContent with
