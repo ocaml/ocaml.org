@@ -4,6 +4,7 @@ module Package = Ocamlorg.Package
 type package_info =
   { name : string
   ; constraints : string option
+  ; latest : string option
   }
 
 type packages_success =
@@ -24,8 +25,8 @@ type params_validity =
 
 let get_info info =
   List.map
-    (fun (name, constraints) ->
-      { name = Package.Name.to_string name; constraints })
+    (fun (name, constraints, latest) ->
+      { name = Package.Name.to_string name; constraints; latest })
     info
 
 let is_in_range current_version from_version upto_version =
@@ -260,7 +261,7 @@ let package =
             ~typ:(non_null (list (non_null info)))
             ~resolve:(fun _ p ->
               let info = Package.info p in
-              let latest = OpamPackage.Version.Set.max_elt version_set in 
+              let latest = OpamPackage.Version.Set.max_elt versions in
               get_info info.Package.Info.dependencies)
         ; field
             "depopts"
