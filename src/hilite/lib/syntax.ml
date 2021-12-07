@@ -5,7 +5,7 @@ let span class_gen t =
     let l = List.length lst in
     List.filteri (fun i _ -> i < l - 1) lst
   in
-  let span_gen c s = "<span class='" ^ (class_gen c) ^ "'>" ^ s ^ "</span>" in
+  let span_gen c s = "<span class='" ^ class_gen c ^ "'>" ^ s ^ "</span>" in
   span_gen (String.concat "-" (drop_last t))
 
 let mk_block lang =

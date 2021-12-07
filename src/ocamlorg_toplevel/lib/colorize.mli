@@ -6,6 +6,11 @@ val text
   -> string
   -> [> Html_types.div_content ] Tyxml_js.Html.elt
 
+val sharp
+  :  a_class:string
+  -> string
+  -> [> Html_types.div_content ] Tyxml_js.Html.elt
+
 val ocaml
   :  a_class:string
   -> string

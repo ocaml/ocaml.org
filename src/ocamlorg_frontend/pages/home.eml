@@ -28,7 +28,7 @@ with an emphasis on expressiveness and safety."
         </div>
       </div>
       <div class="lg:flex-1 flex justify-center">
-        <div class="bg-code-background w-full rounded-3xl codebox relative">
+        <div class="bg-code-background flex flex-col w-full max-w-xl min-w-xl rounded-3xl codebox">
           <div class="border-solid border-b border-gray-50 border-opacity-30 p-5">
             <div class="flex space-x-2 mt-2">
               <div class="h-3 w-3 rounded-full border-2 border-solid border-orange-500 border-opacity-80"></div>
@@ -36,26 +36,8 @@ with an emphasis on expressiveness and safety."
               <div class="h-3 w-3 rounded-full border-2 border-solid border-green-500 border-opacity-80"></div>
             </div>
           </div>
-          <div class="flex py-2 px-6 text-white text-opacity-50">
-            <div class="flex pr-5 flex-col space-y-1 text-sm text-right font-medium">
-              <div>1</div>
-              <div>2</div>
-              <div>3</div>
-              <div>4</div>
-              <div>5</div>
-              <div>6</div>
-              <div>7</div>
-              <div>8</div>
-              <div>9</div>
-              <div>10</div>
-              <div>11</div>
-              <div>12</div>
-              <div>13</div>
-              <div>14</div>
-              <div>15</div>
-              <div>16</div>
-            </div>
-            <div id="toplevel-container" class="text-left overflow-auto">
+          <div id="toplevel-container" style="flex: 1 1 50%" class="py-2 px-6 text-white text-opacity-50 overflow-auto">
+            <div class="text-left overflow-auto">
               <pre id="output" class="flex flex-col w-full code-preview text-white text-sm space-y-1 font-medium">
                   <span><span class="text-blue-500 ">let </span><span class="text-code-yellow ">square</span>  x = x * x</span>
                   <span><i class="text-gray-400 ">val square : int -> int = < fun > </i></span>
@@ -69,11 +51,13 @@ with an emphasis on expressiveness and safety."
                   <span>square 120</span>
                   <span><i class="text-gray-400">- : int = 14400</i></span>
               </pre>
-              <textarea class="hidden overflow-hidden w-full h-full resize-none bg-transparent" id="userinput"></textarea>
             </div>
+          </div>
+          <div class="flex-1 flex py-2 px-6 text-white text-opacity-50">
+            <textarea class="hidden text-white code-preview w-3/4 h-full overflow-hidden bg-transparent" id="userinput"></textarea>
             <button
               id="toplevel-load"
-              class="btn-sm absolute items-center bottom-8 right-8 text-white border border-gray-100 rounded-lg border-opacity-50 flex"><svg
+              class="px-4 ml-2 h-10 text-sm items-center text-white border border-gray-100 rounded-lg border-opacity-50 flex"><svg
                 xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
