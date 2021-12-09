@@ -10,7 +10,7 @@ date: 2021-08-06T17:11:00-00:00
 ---
 
 You may follow along with this tutorial with just a basic OCaml installation,
-as described in [Up and Running](up_and_running.html).
+as described in [Up and Running](/tutorials/up-and-running-with-ocaml).
 
 Alternatively, you may follow almost all of it by running OCaml in your browser
 using [TryOCaml](http://try.ocamlpro.com), with no installation required.
