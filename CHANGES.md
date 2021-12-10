@@ -1,5 +1,7 @@
 # Unreleased
 
+- Update the frontend (#187, by @tmattio, @asaadmahmood and @patricoferris)
+
 - Redirect versioned links from reverse dependencies (#183, by @JiaeK)
 
 - Fix tutorials image paths (#181, by @desirekaleba)
