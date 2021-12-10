@@ -1,7 +1,10 @@
 type metadata =
   { title : string
-  ; image : string option
-  ; url : string option
+  ; logo : string
+  ; background : string
+  ; theme : string
+  ; synopsis : string
+  ; url : string
   }
 [@@deriving yaml]
 
@@ -14,8 +17,11 @@ let parse content =
 type t =
   { title : string
   ; slug : string
-  ; image : string option
-  ; url : string option
+  ; logo : string
+  ; background : string
+  ; theme : string
+  ; synopsis : string
+  ; url : string
   ; body_md : string
   ; body_html : string
   }
@@ -26,7 +32,10 @@ let all =
       let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
       { title = metadata.title
       ; slug = Utils.slugify metadata.title
-      ; image = metadata.image
+      ; logo = metadata.logo
+      ; background = metadata.background
+      ; theme = metadata.theme
+      ; synopsis = metadata.synopsis
       ; url = metadata.url
       ; body_md = body
       ; body_html = Omd.of_string body |> Omd.to_html
@@ -42,7 +51,10 @@ let pp ppf v =
     {|
   { title = %a
   ; slug = %a
-  ; image = %a
+  ; logo = %a
+  ; background = %a
+  ; theme = %a
+  ; synopsis = %a
   ; url = %a
   ; body_md = %a
   ; body_html = %a
@@ -51,9 +63,15 @@ let pp ppf v =
     v.title
     Pp.string
     v.slug
-    (Pp.option Pp.string)
-    v.image
-    (Pp.option Pp.string)
+    Pp.string
+    v.logo
+    Pp.string
+    v.background
+    Pp.string
+    v.theme
+    Pp.string
+    v.synopsis
+    Pp.string
     v.url
     Pp.string
     v.body_md
@@ -68,8 +86,11 @@ let template () =
 type t =
   { title : string
   ; slug : string
-  ; image : string option
-  ; url : string option
+  ; logo : string
+  ; background : string
+  ; theme : string
+  ; synopsis : string
+  ; url : string
   ; body_md : string
   ; body_html : string
   }

@@ -3,7 +3,6 @@ open Cmdliner
 let term_templates =
   [ "academic_institution", Ood_gen.Academic_institution.template
   ; "book", Ood_gen.Book.template
-  ; "event", Ood_gen.Event.template
   ; "job", Ood_gen.Job.template
   ; "meetup", Ood_gen.Meetup.template
   ; "industrial_user", Ood_gen.Industrial_user.template
@@ -32,4 +31,6 @@ let default_cmd =
   ( Term.(ret (const (fun _ -> `Help (`Pager, None)) $ const ()))
   , Term.info "ood_gen" )
 
-let () = Term.(exit @@ eval_choice default_cmd cmds)
+let () =
+  Printexc.record_backtrace true;
+  Term.(exit @@ eval_choice default_cmd cmds)

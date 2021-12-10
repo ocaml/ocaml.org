@@ -13,6 +13,8 @@ type metadata =
   ; cover : string option
   ; isbn : string option
   ; links : link list option
+  ; rating : int option
+  ; featured : bool
   }
 [@@deriving yaml]
 
@@ -42,6 +44,8 @@ let all () =
           ; cover = metadata.cover
           ; isbn = metadata.isbn
           ; links = metadata.links
+          ; rating = metadata.rating
+          ; featured = metadata.featured
           }
       ; body_md = String.trim body
       ; body_html = Omd.of_string body |> Omd.to_html
@@ -73,6 +77,8 @@ let pp ppf v =
   ; cover = %a
   ; isbn = %a
   ; links = %a
+  ; rating = %a
+  ; featured = %a
   ; body_md = %a
   ; body_html = %a
   }|}
@@ -94,6 +100,10 @@ let pp ppf v =
     v.meta.isbn
     (Pp.list pp_link)
     (Option.value v.meta.links ~default:[])
+    (Pp.option Pp.int)
+    v.meta.rating
+    Pp.bool
+    v.meta.featured
     Pp.string
     v.body_md
     Pp.string
@@ -116,6 +126,8 @@ type t =
   ; cover : string option
   ; isbn : string option
   ; links : link list
+  ; rating : int option
+  ; featured : bool
   ; body_md : string
   ; body_html : string
   }

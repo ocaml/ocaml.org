@@ -96,10 +96,6 @@ let run () =
               `Quick
               (linter "lint papers" Paper.path Paper.parse)
           ; test_case
-              (Fpath.to_string Event.path)
-              `Quick
-              (linter "lint events" Event.path Event.parse)
-          ; test_case
               (Fpath.to_string Video.path)
               `Quick
               (linter "lint videos" Video.path Video.parse)

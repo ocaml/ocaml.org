@@ -31,6 +31,7 @@ type committee_member =
   { name : string
   ; role : role option
   ; affiliation : string option
+  ; picture : string option
   }
 [@@deriving yaml]
 
@@ -47,9 +48,8 @@ type presentation =
 
 type metadata =
   { title : string
-  ; location : string option
+  ; location : string
   ; date : string
-  ; online : bool
   ; important_dates : important_date list
   ; presentations : presentation list
   ; program_committee : committee_member list
@@ -66,9 +66,8 @@ let parse content =
 type t =
   { title : string
   ; slug : string
-  ; location : string option
+  ; location : string
   ; date : string
-  ; online : bool
   ; important_dates : important_date list
   ; presentations : presentation list
   ; program_committee : committee_member list
@@ -88,16 +87,17 @@ let all () =
       ; slug = Utils.slugify metadata.title
       ; location = metadata.location
       ; date = metadata.date
-      ; online = metadata.online
       ; important_dates = metadata.important_dates
       ; presentations = metadata.presentations
       ; program_committee = metadata.program_committee
       ; organising_committee = metadata.organising_committee
-      ; toc_html = Omd.to_html (Omd.toc omd)
+      ; toc_html = Omd.to_html (Omd.toc ~depth:4 omd)
       ; body_md = body
       ; body_html = Omd.to_html omd
       })
     "workshops/*.md"
+  |> List.sort (fun w1 w2 -> String.compare w1.date w2.date)
+  |> List.rev
 
 let pp_role ppf = function
   | `Chair ->
@@ -124,6 +124,7 @@ let pp_committee_member ppf (v : committee_member) =
   { name = %a;
     role = %a;
     affiliation = %a;
+    picture = %a;
   }|}
     Pp.string
     v.name
@@ -131,6 +132,8 @@ let pp_committee_member ppf (v : committee_member) =
     v.role
     Pp.(option string)
     v.affiliation
+    Pp.(option string)
+    v.picture
 
 let pp_presentation ppf (v : presentation) =
   Fmt.pf
@@ -167,7 +170,6 @@ let pp ppf v =
   ; slug = %a
   ; location = %a
   ; date = %a
-  ; online = %a
   ; important_dates = %a
   ; presentations = %a
   ; program_committee = %a
@@ -180,12 +182,10 @@ let pp ppf v =
     v.title
     Pp.string
     v.slug
-    Pp.(option string)
+    Pp.(string)
     v.location
     Pp.string
     v.date
-    Fmt.bool
-    v.online
     Pp.(list pp_important_date)
     v.important_dates
     Pp.(list pp_presentation)
@@ -211,49 +211,38 @@ type role =
   | `Co_chair
   ]
 
-  type important_date = { date : string; info : string }
+type important_date = { date : string; info : string }
 
-  type committee_member = {
-    name : string;
-    role : role option;
-    affiliation : string option;
-  }
-  
-  type presentation = {
-    title : string;
-    authors : string list;
-    link : string option;
-    video : string option;
-    slides : string option;
-    poster : bool option;
-    additional_links : string list option;
-  }
-  
-  type metadata = {
-    title : string;
-    location : string option;
-    date : string;
-    online : bool;
-    important_dates : important_date list;
-    presentations : presentation list;
-    program_committee : committee_member list;
-    organising_committee : committee_member list;
-  }
-  
-  type t = {
-    title : string;
-    slug : string;
-    location : string option;
-    date : string;
-    online : bool;
-    important_dates : important_date list;
-    presentations : presentation list;
-    program_committee : committee_member list;
-    organising_committee : committee_member list;
-    toc_html : string;
-    body_md : string;
-    body_html : string;
-  }
+type committee_member = {
+  name : string;
+  role : role option;
+  affiliation : string option;
+  picture : string option;
+}
+
+type presentation = {
+  title : string;
+  authors : string list;
+  link : string option;
+  video : string option;
+  slides : string option;
+  poster : bool option;
+  additional_links : string list option;
+}
+
+type t = {
+  title : string;
+  slug : string;
+  location : string;
+  date : string;
+  important_dates : important_date list;
+  presentations : presentation list;
+  program_committee : committee_member list;
+  organising_committee : committee_member list;
+  toc_html : string;
+  body_md : string;
+  body_html : string;
+}
   
 let all = %a
 |}
