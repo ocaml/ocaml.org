@@ -55,7 +55,7 @@ let package_overview
     ~source
     package
 
-    let package_documentation
+let package_documentation
     ~documentation_status
     ~toplevel_status
     ~title
@@ -75,7 +75,6 @@ let package_overview
     ~content
     package
 
-
 let package_toplevel
     ~documentation_status ~toplevel_status ~toplevel_url package
   =
@@ -85,8 +84,7 @@ let package_toplevel
     ~toplevel_url
     package
 
-
-let packages () = Packages.render ()
+let packages packages = Packages.render packages
 
 let packages_search ~total packages = Packages_search.render ~total packages
 
