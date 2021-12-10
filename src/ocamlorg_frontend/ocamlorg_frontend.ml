@@ -49,7 +49,7 @@ let problems problems = Problems.render problems
 
 let release release = Release.render release
 
-let releases () = Releases.render ()
+let releases ?search releases = Releases.render ?search releases
 
 let success_stories () = Success_stories.render ()
 
