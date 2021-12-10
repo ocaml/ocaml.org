@@ -85,11 +85,6 @@
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
-  (targets manual.ml)
-  (deps manual.eml)
-  (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
- (rule
   (targets opportunities.ml)
   (deps opportunities.eml)
   (action
