@@ -77,26 +77,10 @@ module Book : sig
     ; cover : string option
     ; isbn : string option
     ; links : link list
+    ; rating : int option
+    ; featured : bool
     ; body_md : string
     ; body_html : string
-    }
-
-  val all : t list
-
-  val get_by_slug : string -> t option
-end
-
-module Event : sig
-  type t =
-    { title : string
-    ; slug : string
-    ; description : string option
-    ; organiser : string option
-    ; url : string
-    ; date : string
-    ; tags : string list
-    ; online : bool
-    ; location : string option
     }
 
   val all : t list
@@ -111,6 +95,7 @@ module Job : sig
     ; link : string
     ; description_html : string
     ; location : string
+    ; country : string
     ; company : string
     ; company_logo : string
     ; fullfilled : bool
@@ -147,10 +132,11 @@ module Industrial_user : sig
     { name : string
     ; slug : string
     ; description : string
-    ; image : string option
-    ; site : string
+    ; logo : string option
+    ; url : string
     ; locations : string list
     ; consortium : bool
+    ; featured : bool
     ; body_md : string
     ; body_html : string
     }
@@ -165,6 +151,11 @@ module Industrial_user : sig
 end
 
 module Paper : sig
+  type link =
+    { description : string
+    ; uri : string
+    }
+
   type t =
     { title : string
     ; slug : string
@@ -173,7 +164,8 @@ module Paper : sig
     ; abstract : string
     ; tags : string list
     ; year : int
-    ; links : string list
+    ; links : link list
+    ; featured : bool
     }
 
   val all : t list
@@ -208,8 +200,11 @@ module Success_story : sig
   type t =
     { title : string
     ; slug : string
-    ; image : string option
-    ; url : string option
+    ; logo : string
+    ; background : string
+    ; theme : string
+    ; synopsis : string
+    ; url : string
     ; body_md : string
     ; body_html : string
     }
@@ -364,6 +359,7 @@ module Workshop : sig
     { name : string
     ; role : role option
     ; affiliation : string option
+    ; picture : string option
     }
 
   type presentation =
@@ -379,9 +375,8 @@ module Workshop : sig
   type t =
     { title : string
     ; slug : string
-    ; location : string option
+    ; location : string
     ; date : string
-    ; online : bool
     ; important_dates : important_date list
     ; presentations : presentation list
     ; program_committee : committee_member list
@@ -413,6 +408,10 @@ module Release : sig
     { kind : kind
     ; version : string
     ; date : string
+    ; intro_md : string
+    ; intro_html : string
+    ; highlights_md : string
+    ; highlights_html : string
     ; body_md : string
     ; body_html : string
     }
