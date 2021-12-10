@@ -254,6 +254,12 @@ let $PATH .= ";".substitute(system('opam config var bin'),'\\n$','','''')
   ; toc_html = {js|<ul>
 <li><ul>
 <li><a href="#installing-ocaml">Installing OCaml</a>
+<ul>
+<li><a href="#for-linux-and-macos">For Linux and macOS</a>
+</li>
+<li><a href="#for-windows">For Windows</a>
+</li>
+</ul>
 </li>
 <li><a href="#the-ocaml-top-level">The OCaml top level</a>
 </li>
@@ -434,7 +440,7 @@ Vim:</p>
   ; users = [`Beginner]
   ; body_md = {js|
 You may follow along with this tutorial with just a basic OCaml installation,
-as described in [Up and Running](up_and_running.html).
+as described in [Up and Running](/tutorials/up-and-running-with-ocaml).
 
 Alternatively, you may follow almost all of it by running OCaml in your browser
 using [TryOCaml](http://try.ocamlpro.com), with no installation required.
@@ -1460,7 +1466,7 @@ pointers to [books on OCaml](/learn/books.html) and
 </ul>
 |js}
   ; body_html = {js|<p>You may follow along with this tutorial with just a basic OCaml installation,
-as described in <a href="up_and_running.html">Up and Running</a>.</p>
+as described in <a href="/tutorials/up-and-running-with-ocaml">Up and Running</a>.</p>
 <p>Alternatively, you may follow almost all of it by running OCaml in your browser
 using <a href="http://try.ocamlpro.com">TryOCaml</a>, with no installation required.</p>
 <p>On macOS/iOS/iPadOS, you can download this <a href="https://apps.apple.com/app/ocaml-learn-code/id1547506826">all-in-one package on the App Store</a>. It contains an editor side-by-side with an interactive top level, and is free and <a href="https://github.com/GroupeMINASTE/OCaml-iOS">open source</a>.</p>
@@ -3910,16 +3916,238 @@ calls to handle an argument that belongs to a recursive sum data type.
   ; toc_html = {js|<ul>
 <li><ul>
 <li><a href="#general-guidelines-to-write-programs">General guidelines to write programs</a>
+<ul>
+<li><a href="#be-simple-and-readable">Be simple and readable</a>
+</li>
+</ul>
 </li>
 <li><a href="#program-formatting-guidelines">Program formatting guidelines</a>
+<ul>
+<li><a href="#lexical-conventions">Lexical conventions</a>
+<ul>
+<li><a href="#delimiters">Delimiters</a>
+</li>
+<li><a href="#how-to-write-pairs">How to write pairs</a>
+</li>
+<li><a href="#how-to-write-lists">How to write lists</a>
+</li>
+<li><a href="#how-to-write-operator-symbols">How to write operator symbols</a>
+</li>
+<li><a href="#how-to-write-long-character-strings">How to write long character strings</a>
+</li>
+</ul>
+</li>
+</ul>
 </li>
 <li><a href="#indentation-of-programs">Indentation of programs</a>
+<ul>
+<li><a href="#consistency-of-indentation">Consistency of indentation</a>
+</li>
+<li><a href="#width-of-the-page">Width of the page</a>
+</li>
+<li><a href="#height-of-the-page">Height of the page</a>
+</li>
+<li><a href="#how-much-to-indent">How much to indent</a>
+</li>
+<li><a href="#using-tab-stops">Using tab stops</a>
+</li>
+<li><a href="#how-to-indent-global-let---definitions">How to indent global <code>let ... ;;</code> definitions</a>
+</li>
+<li><a href="#how-to-indent-let--in-constructs">How to indent <code>let ... in</code> constructs</a>
+</li>
+<li><a href="#how-to-indent-if--then----else--">How to indent <code>if ... then   ... else ... </code></a>
+<ul>
+<li><a href="#multiple-branches">Multiple branches</a>
+</li>
+<li><a href="#single-branches">Single branches</a>
+</li>
+</ul>
+</li>
+<li><a href="#how-to-indent-pattern-matching-constructs">How to indent pattern-matching constructs</a>
+<ul>
+<li><a href="#general-principles">General principles</a>
+</li>
+<li><a href="#match-or-try"><code>match</code> or <code>try</code></a>
+</li>
+<li><a href="#indenting-expressions-inside-clauses">Indenting expressions inside clauses</a>
+</li>
+<li><a href="#pattern-matching-in-anonymous-functions">Pattern matching in anonymous functions</a>
+</li>
+<li><a href="#pattern-matching-in-named-functions">Pattern matching in named functions</a>
+</li>
+</ul>
+</li>
+<li><a href="#bad-indentation-of-pattern-matching-constructs">Bad indentation of pattern-matching constructs</a>
+<ul>
+<li><a href="#no-beastly-indentation-of-functions-and-case-analyses">No <em>beastly</em> indentation of functions and case analyses.</a>
+</li>
+<li><a href="#no-beastly-alignment-of-the---symbols-in-pattern-matching-clauses">No <em>beastly</em> alignment of the <code>-&gt;</code> symbols in pattern-matching clauses.</a>
+</li>
+</ul>
+</li>
+<li><a href="#how-to-indent-function-calls">How to indent function calls</a>
+<ul>
+<li><a href="#indentation-to-the-functions-name">Indentation to the function's name:</a>
+</li>
+<li><a href="#naming-complex-arguments">Naming complex arguments:</a>
+</li>
+<li><a href="#naming-anonymous-functions">Naming anonymous functions:</a>
+</li>
+</ul>
+</li>
+<li><a href="#how-to-indent-operations">How to indent operations</a>
+</li>
+</ul>
 </li>
 <li><a href="#programming-guidelines">Programming guidelines</a>
+<ul>
+<li><a href="#how-to-program">How to program</a>
+<ul>
+<li><a href="#write-simple-and-clear-programs">Write simple and clear programs</a>
+</li>
+<li><a href="#subdivide-your-programs-into-little-functions">Subdivide your programs into little functions</a>
+</li>
+<li><a href="#factor-out-snippets-of-repeated-code-by-defining-them-in-separate-functions">Factor out snippets of repeated code by defining them in separate functions</a>
+</li>
+<li><a href="#never-copy-paste-code-when-programming">Never copy-paste code when programming</a>
+</li>
+</ul>
+</li>
+<li><a href="#how-to-comment-programs">How to comment programs</a>
+<ul>
+<li><a href="#dont-hesitate-to-comment-when-theres-a-difficulty">Don't hesitate to comment when there's a difficulty</a>
+</li>
+<li><a href="#if-theres-no-difficulty-theres-no-point-in-commenting">If there's no difficulty, there's no point in commenting</a>
+</li>
+<li><a href="#avoid-comments-in-the-bodies-of-functions">Avoid comments in the bodies of functions</a>
+</li>
+<li><a href="#prefer-one-comment-at-the-beginning-of-the-function">Prefer one comment at the beginning of the function...</a>
+</li>
+<li><a href="#avoid-nocuous-comments">Avoid nocuous comments</a>
+</li>
+<li><a href="#usage-in-module-interface">Usage in module interface</a>
+</li>
+<li><a href="#use-assertions">Use assertions</a>
+</li>
+<li><a href="#comments-line-by-line-in-imperative-code">Comments line by line in imperative code</a>
+</li>
+</ul>
+</li>
+<li><a href="#how-to-choose-identifiers">How to choose identifiers</a>
+<ul>
+<li><a href="#dont-use-abbreviations-for-global-names">Don't use abbreviations for global names</a>
+</li>
+<li><a href="#separate-words-by-underscores-intofstring-not-intofstring">Separate words by underscores: (<code>int_of_string</code>, not <code>intOfString</code>)</a>
+</li>
+<li><a href="#always-give-the-same-name-to-function-arguments-which-have-the-same-meaning">Always give the same name to function arguments which have the same meaning</a>
+</li>
+<li><a href="#local-identifiers-can-be-brief-and-should-be-reused-from-one-function-to-another">Local identifiers can be brief, and should be reused from one function to another</a>
+</li>
+</ul>
+</li>
+<li><a href="#when-to-use-parentheses-within-an-expression">When to use parentheses within an expression</a>
+<ul>
+<li><a href="#arithmetic-operators-the-same-rules-as-in-mathematics">Arithmetic operators: the same rules as in mathematics</a>
+</li>
+<li><a href="#function-application-the-same-rules-as-those-in-mathematics-for-usage-of-trigonometric-functions">Function application: the same rules as those in mathematics for usage of <em>trigonometric functions</em></a>
+</li>
+<li><a href="#comparisons-and-boolean-operators">Comparisons and boolean operators</a>
+</li>
+<li><a href="#the-relative-precedences-of-the-boolean-operators-are-those-of-mathematics">The relative precedences of the boolean operators are those of mathematics</a>
+</li>
+</ul>
+</li>
+<li><a href="#how-to-delimit-constructs-in-programs">How to delimit constructs in programs</a>
+<ul>
+<li><a href="#match-construct-in-a-match-construct"><code>match</code> construct in a <code>match</code> construct</a>
+</li>
+<li><a href="#sequences-inside-branches-of-if">Sequences inside branches of <code>if</code></a>
+</li>
+</ul>
+</li>
+<li><a href="#how-to-use-modules">How to use modules</a>
+<ul>
+<li><a href="#subdividing-into-modules">Subdividing into modules</a>
+</li>
+<li><a href="#opening-modules">Opening modules</a>
+</li>
+<li><a href="#when-to-use-open-modules-rather-than-leaving-them-closed">When to use open modules rather than leaving them closed</a>
+</li>
+</ul>
+</li>
+<li><a href="#pattern-matching">Pattern-matching</a>
+<ul>
+<li><a href="#never-be-afraid-of-over-using-pattern-matching">Never be afraid of over-using pattern-matching!</a>
+</li>
+<li><a href="#on-the-other-hand-be-careful-to-avoid-non-exhaustive-pattern-matching-constructs">On the other hand, be careful to avoid non-exhaustive pattern-matching constructs</a>
+</li>
+</ul>
+</li>
+<li><a href="#compiler-warnings">Compiler warnings</a>
+<ul>
+<li><a href="#pattern-matching-warnings">Pattern-matching warnings</a>
+</li>
+<li><a href="#de-structuring-let-bindings">De-structuring <code>let</code> bindings</a>
+</li>
+<li><a href="#the-de-structuring-let-must-be-exhaustive">The de-structuring <code>let</code> must be exhaustive</a>
+</li>
+<li><a href="#sequence-warnings-and-let---">Sequence warnings and <code>let _ = ...</code></a>
+</li>
+</ul>
+</li>
+<li><a href="#the-hd-and-tl-functions">The <code>hd</code> and <code>tl</code> functions</a>
+</li>
+<li><a href="#loops">Loops</a>
+<ul>
+<li><a href="#for-loops"><code>for</code> loops</a>
+</li>
+<li><a href="#while-loops"><code>while</code> loops</a>
+</li>
+</ul>
+</li>
+<li><a href="#exceptions">Exceptions</a>
+</li>
+<li><a href="#data-structures">Data structures</a>
+</li>
+<li><a href="#when-to-use-mutables">When to use mutables</a>
+</li>
+<li><a href="#iterators">Iterators</a>
+</li>
+<li><a href="#how-to-optimize-programs">How to optimize programs</a>
+</li>
+<li><a href="#how-to-choose-between-classes-and-modules">How to choose between classes and modules</a>
+</li>
+<li><a href="#clarity-of-ocaml-code">Clarity of OCaml code</a>
+<ul>
+<li><a href="#style-dangers">Style dangers</a>
+</li>
+<li><a href="#ocaml-code-generally-considered-unreadable">OCaml code generally considered unreadable</a>
+</li>
+</ul>
+</li>
+</ul>
 </li>
 <li><a href="#managing-program-development">Managing program development</a>
+<ul>
+<li><a href="#how-to-edit-programs">How to edit programs</a>
+<ul>
+<li><a href="#other-emacs-tricks">Other emacs tricks</a>
+</li>
+</ul>
+</li>
+<li><a href="#how-to-edit-with-the-interactive-system">How to edit with the interactive system</a>
+</li>
+<li><a href="#how-to-compile">How to compile</a>
+</li>
+<li><a href="#how-to-develop-as-a-team-version-control">How to develop as a team: version control</a>
+</li>
+</ul>
 </li>
 <li><a href="#notes">Notes</a>
+<ul>
+<li><a href="#imperative-and-functional-versions-of-listlength">Imperative and functional versions of <code>list_length</code></a>
+</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -5571,6 +5799,12 @@ structure, build, and run dune projects.
   ; toc_html = {js|<ul>
 <li><ul>
 <li><a href="#compilation-basics">Compilation basics</a>
+<ul>
+<li><a href="#the-ocamlc-and-ocamlopt-compilers">The ocamlc and ocamlopt compilers</a>
+</li>
+<li><a href="#using-the-ocamlfind-front-end">Using the ocamlfind front-end</a>
+</li>
+</ul>
 </li>
 <li><a href="#interlude-making-a-custom-toplevel">Interlude: making a custom toplevel</a>
 </li>
@@ -7202,6 +7436,20 @@ are marked.
   ; toc_html = {js|<ul>
 <li><ul>
 <li><a href="#the-standard-library-list-module">The standard library List module</a>
+<ul>
+<li><a href="#maps-and-iterators">Maps and iterators</a>
+</li>
+<li><a href="#list-scanning">List scanning</a>
+</li>
+<li><a href="#list-searching">List searching</a>
+</li>
+<li><a href="#association-lists">Association lists</a>
+</li>
+<li><a href="#sorting-lists">Sorting lists</a>
+</li>
+<li><a href="#folds">Folds</a>
+</li>
+</ul>
 </li>
 <li><a href="#lists-and-tail-recursion">Lists and tail recursion</a>
 </li>
@@ -9677,6 +9925,18 @@ modules.
 <li><a href="#looping-over-strings">Looping over strings</a>
 </li>
 <li><a href="#recursion">Recursion</a>
+<ul>
+<li><a href="#approach-1">Approach 1</a>
+</li>
+<li><a href="#approach-2">Approach 2</a>
+</li>
+<li><a href="#approach-3">Approach 3</a>
+</li>
+<li><a href="#recursion-example-maximum-element-in-a-list">Recursion example: maximum element in a list</a>
+</li>
+<li><a href="#tail-recursion">Tail recursion</a>
+</li>
+</ul>
 </li>
 <li><a href="#mutable-records-references-again-and-arrays">Mutable records, references (again!) and arrays</a>
 </li>
@@ -11117,8 +11377,20 @@ List.optmap ...
 <li><a href="#abstract-types">Abstract types</a>
 </li>
 <li><a href="#submodules">Submodules</a>
+<ul>
+<li><a href="#submodule-implementation">Submodule implementation</a>
+</li>
+<li><a href="#submodule-interface">Submodule interface</a>
+</li>
+</ul>
 </li>
 <li><a href="#practical-manipulation-of-modules">Practical manipulation of modules</a>
+<ul>
+<li><a href="#displaying-the-interface-of-a-module">Displaying the interface of a module</a>
+</li>
+<li><a href="#module-inclusion">Module inclusion</a>
+</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -12118,6 +12390,18 @@ the type system to write advanced idioms.
   ; toc_html = {js|<ul>
 <li><ul>
 <li><a href="#labelled-and-optional-arguments-to-functions">Labelled and optional arguments to functions</a>
+<ul>
+<li><a href="#optional-arguments">Optional arguments</a>
+</li>
+<li><a href="#warning-this-optional-argument-cannot-be-erased">&quot;Warning: This optional argument cannot be erased&quot;</a>
+</li>
+<li><a href="#more-shorthand">More <code>~</code>shorthand</a>
+</li>
+<li><a href="#using-foo-in-a-function-call">Using <code>?foo</code> in a function call</a>
+</li>
+<li><a href="#when-and-when-not-to-use--and-">When and when not to use <code>~</code> and <code>?</code></a>
+</li>
+</ul>
 </li>
 <li><a href="#more-variants-polymorphic-variants">More variants (“polymorphic variants”)</a>
 </li>
@@ -12880,6 +13164,10 @@ val append : 'a lists -> 'a lists -> unit = <fun>
   ; toc_html = {js|<ul>
 <li><ul>
 <li><a href="#status-of-pointers-in-ocaml">Status of pointers in OCaml</a>
+<ul>
+<li><a href="#explicit-pointers-are-ocaml-values-of-type-ref">Explicit pointers are OCaml values of type <code>ref</code></a>
+</li>
+</ul>
 </li>
 <li><a href="#defining-pointers-in-ocaml">Defining pointers in OCaml</a>
 </li>
@@ -14462,8 +14750,26 @@ val l : t list = [<obj>; <obj>]
   ; toc_html = {js|<ul>
 <li><ul>
 <li><a href="#objects-and-classes">Objects and classes</a>
+<ul>
+<li><a href="#polymorphic-classes">Polymorphic classes</a>
+</li>
+<li><a href="#inheritance-virtual-classes-initializers">Inheritance, virtual classes, initializers</a>
+</li>
+<li><a href="#a-note-about-self">A note about <code>self</code></a>
+</li>
+<li><a href="#inheritance-and-coercions">Inheritance and coercions</a>
+</li>
+<li><a href="#the-oo-module-and-comparing-objects">The <code>Oo</code> module and comparing objects</a>
+</li>
+</ul>
 </li>
 <li><a href="#objects-without-class">Objects without class</a>
+<ul>
+<li><a href="#immediate-objects-and-object-types">Immediate objects and object types</a>
+</li>
+<li><a href="#class-types-vs-just-types">Class types vs. just types</a>
+</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -15205,6 +15511,14 @@ libraries provide useful combinators on the `result` type: `map`, `>>=`, etc.
   ; toc_html = {js|<ul>
 <li><ul>
 <li><a href="#exceptions">Exceptions</a>
+<ul>
+<li><a href="#documentation">Documentation</a>
+</li>
+<li><a href="#stacktraces">Stacktraces</a>
+</li>
+<li><a href="#printing">Printing</a>
+</li>
+</ul>
 </li>
 <li><a href="#result-type">Result type</a>
 </li>
@@ -15568,10 +15882,30 @@ Warning 14 [illegal-backslash]: illegal backslash escape in string.
   ; toc_html = {js|<ul>
 <li><ul>
 <li><a href="#type-errors">Type errors</a>
+<ul>
+<li><a href="#this-expression-has-type--but-is-here-used-with-type-">This expression has type ... but is here used with type ...</a>
+</li>
+<li><a href="#warning-this-optional-argument-cannot-be-erased">Warning: This optional argument cannot be erased</a>
+</li>
+<li><a href="#the-type-of-this-expression-contains-type-variables-that-cannot-be-generalized">The type of this expression... contains type variables that cannot be generalized</a>
+</li>
+</ul>
 </li>
 <li><a href="#pattern-matching-warnings-and-errors">Pattern matching warnings and errors</a>
+<ul>
+<li><a href="#this-pattern-is-unused">This pattern is unused</a>
+</li>
+<li><a href="#this-pattern-matching-is-not-exhaustive">This pattern-matching is not exhaustive</a>
+</li>
+</ul>
 </li>
 <li><a href="#problems-recompiling-valid-programs">Problems recompiling valid programs</a>
+<ul>
+<li><a href="#xcmi-is-not-a-compiled-interface">x.cmi is not a compiled interface</a>
+</li>
+<li><a href="#warning-illegal-backslash-escape-in-string">Warning: Illegal backslash escape in string</a>
+</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -16084,8 +16418,26 @@ points using `CTRL-X space`, and so on...
   ; toc_html = {js|<ul>
 <li><ul>
 <li><a href="#tracing-functions-calls-in-the-toplevel">Tracing functions calls in the toplevel</a>
+<ul>
+<li><a href="#polymorphic-functions">Polymorphic functions</a>
+</li>
+<li><a href="#limitations">Limitations</a>
+</li>
+</ul>
 </li>
 <li><a href="#the-ocaml-debugger">The OCaml debugger</a>
+<ul>
+<li><a href="#launching-the-debugger">Launching the debugger</a>
+</li>
+<li><a href="#finding-the-cause-of-a-spurious-exception">Finding the cause of a spurious exception</a>
+</li>
+<li><a href="#getting-help-and-info-in-the-debugger">Getting help and info in the debugger</a>
+</li>
+<li><a href="#setting-break-points">Setting break points</a>
+</li>
+<li><a href="#using-the-debugger-under-emacs">Using the debugger under Emacs</a>
+</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -18846,12 +19198,22 @@ let eprint_lambda = pr_lambda err_formatter
 <li><a href="#indentation-of-new-lines">Indentation of new lines</a>
 </li>
 <li><a href="#refinement-on-hov-boxes">Refinement on “hov” boxes</a>
+<ul>
+<li><a href="#packing-and-structural-hov-boxes">Packing and structural “hov” boxes</a>
+</li>
+<li><a href="#differences-between-a-packing-and-a-structural-hov-box">Differences between a packing and a structural “hov” box</a>
+</li>
+</ul>
 </li>
 <li><a href="#practical-advice">Practical advice</a>
 </li>
 <li><a href="#printing-to-stdout-using-printf">Printing to <code>stdout</code>: using <code>printf</code></a>
 </li>
 <li><a href="#a-concrete-example">A concrete example</a>
+<ul>
+<li><a href="#most-general-pretty-printing-using-fprintf">Most general pretty-printing: using <code>fprintf</code></a>
+</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -19670,6 +20032,13 @@ too closely ......
   ; toc_html = {js|<ul>
 <li><ul>
 <li><a href="#minigtk">MiniGtk</a>
+<ul>
+<li><ul>
+<li><a href="#wrapping-calls-to-c-libraries">Wrapping calls to C libraries</a>
+</li>
+</ul>
+</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -20165,7 +20534,23 @@ prompt> ocamlc -c gtd6.ml prompt> ocamlc -o test gtd6.cmo wrapper.so
 ```
 And voila, we've called the fortran function from OCaml.
 |js}
-  ; toc_html = {js||js}
+  ; toc_html = {js|<ul>
+<li><ul>
+<li><ul>
+<li><a href="#step-1-compile-the-fortran-routine">Step 1: Compile the Fortran routine</a>
+</li>
+<li><a href="#step-2-create-the-c-wrapper">Step 2: Create the C wrapper</a>
+</li>
+<li><a href="#step-3-compile-the-shared-library">Step 3: Compile the shared library.</a>
+</li>
+<li><a href="#step-4-now-to-ocaml">Step 4: Now to OCaml</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+|js}
   ; body_html = {js|<p>Fortran isn't a language the many people write new code in but it still
 is in extensive use in the scientific communities. Many, many libraries
 exist for doing numerical calculation that will never be written in C or
@@ -20772,6 +21157,18 @@ Hello!
   ; toc_html = {js|<ul>
 <li><ul>
 <li><a href="#buffered-channels">Buffered channels</a>
+<ul>
+<li><a href="#writing">Writing</a>
+</li>
+<li><a href="#reading">Reading</a>
+</li>
+<li><a href="#seeking">Seeking</a>
+</li>
+<li><a href="#gotchas">Gotchas</a>
+</li>
+<li><a href="#example">Example</a>
+</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -21283,6 +21680,10 @@ increasing order of difficulty:
   ; toc_html = {js|<ul>
 <li><ul>
 <li><a href="#garbage-collection-reference-counting-explicit-allocation">Garbage collection, reference counting, explicit allocation</a>
+<ul>
+<li><a href="#gc-vs-reference-counting">GC vs. reference counting</a>
+</li>
+</ul>
 </li>
 <li><a href="#the-gc-module">The Gc module</a>
 </li>
@@ -22534,10 +22935,44 @@ looking at the `mlvalues.h` header file.
   ; toc_html = {js|<ul>
 <li><ul>
 <li><a href="#speed">Speed</a>
+<ul>
+<li><a href="#basics-of-assembly-language">Basics of assembly language</a>
+<ul>
+<li><a href="#text">.text</a>
+</li>
+<li><a href="#data">.data</a>
+</li>
+</ul>
+</li>
+<li><a href="#the-hello-world-program">The &quot;hello, world&quot; program</a>
+</li>
+<li><a href="#tail-recursion">Tail recursion</a>
+</li>
+<li><a href="#digression-where-are-the-types">Digression: Where are the types?</a>
+</li>
+<li><a href="#polymorphic-types">Polymorphic types</a>
+</li>
+<li><a href="#the-representation-of-integers-tag-bits-heap-allocated-values">The representation of integers, tag bits, heap-allocated values</a>
+</li>
+<li><a href="#floats">Floats</a>
+</li>
+<li><a href="#arrays">Arrays</a>
+</li>
+<li><a href="#partially-applied-functions-and-closures">Partially applied functions and closures</a>
+</li>
+</ul>
 </li>
 <li><a href="#profiling">Profiling</a>
+<ul>
+<li><a href="#using-perf-on-linux">Using perf on Linux</a>
+</li>
+</ul>
 </li>
 <li><a href="#summary">Summary</a>
+<ul>
+<li><a href="#further-reading">Further reading</a>
+</li>
+</ul>
 </li>
 </ul>
 </li>

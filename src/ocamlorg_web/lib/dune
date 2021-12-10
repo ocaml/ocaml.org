@@ -1,14 +1,15 @@
 (library
  (name ocamlorg_web)
  (libraries
+  ood
+  ocamlorg_package
+  ocamlorg_frontend
   dream
   dream-cli
   dream-accept
   dream-encoding
   omd
-  ocamlorg_package
   gettext
-  ood
   timedesc))
 
 (rule
@@ -63,5 +64,3 @@
     po
     -o
     %{targets}))))
-
-(include_subdirs unqualified)
