@@ -53,7 +53,7 @@ let releases ?search releases = Releases.render ?search releases
 
 let success_stories success_stories = Success_stories.render success_stories
 
-let success_story () = Success_story.render ()
+let success_story success_story = Success_story.render success_story
 
 let tutorial () = Tutorial.render ()
 
