@@ -2,15 +2,15 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@import 'partials/variables.css';
-@import 'partials/icons.css';
 @import 'partials/typography.css';
 @import 'partials/buttons.css';
 @import 'partials/form.css';
 @import 'partials/tags.css';
 @import 'partials/card.css';
 @import 'partials/shadows.css';
+
 @import 'pages/industrial-users.css';
+
 @import 'other/doc.css';
 @import 'other/syntax.css';
 @import 'other/toplevel.css';
@@ -113,10 +113,6 @@ table a:hover{
 
 .news-stories button:hover i {
     @apply text-primary-600;
-}
-
-a:focus-visible, select:focus-visible, button:focus-visible {
-    @apply outline-primary;
 }
 
 .top-level-container .prose ul li::before {
