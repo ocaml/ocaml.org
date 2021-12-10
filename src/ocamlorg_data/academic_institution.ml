@@ -147,7 +147,7 @@ let all_en =
   ; description = {js|The Institut supérieur de l'aéronautique et de l'espace is a French engineering school, founded in 1909. It was the world's first dedicated aerospace engineering school.
 |js}
   ; url = {js|https://www.isae-supaero.fr/en/|js}
-  ; logo = None
+  ; logo = Some {js|/academic_institution/isae.png|js}
   ; continent = {js|Europe|js}
   ; courses = 
  [
@@ -331,7 +331,7 @@ let all_en =
   ; description = {js|The École Pour l'Informatique et les Techniques Avancées, more commonly known as EPITA, is a private French grande école specialized in the field of computer science and software engineering created in 1984 by Patrice Dumoucel. 
 |js}
   ; url = {js|https://www.epita.fr/|js}
-  ; logo = None
+  ; logo = Some {js|/academic_institution/epita.png|js}
   ; continent = {js|Europe|js}
   ; courses = 
  [
@@ -514,7 +514,7 @@ let all_en =
   ; description = {js|The University of Massachusetts is the five-campus public university system and the only public research system in the Commonwealth of Massachusetts. 
 |js}
   ; url = {js|https://www.massachusetts.edu/|js}
-  ; logo = None
+  ; logo = Some {js|/academic_institution/massachusetts.png|js}
   ; continent = {js|North America|js}
   ; courses = 
  [
@@ -561,7 +561,7 @@ let all_en =
   ; description = {js|Paris Diderot University, also known as Paris 7, was a French university located in Paris, France. It was one of the seven universities of the Paris public higher education academy. 
 |js}
   ; url = {js|https://u-paris.fr/en/|js}
-  ; logo = None
+  ; logo = Some {js|/academic_institution/paris.jpg|js}
   ; continent = {js|Europe|js}
   ; courses = 
  [
@@ -713,7 +713,7 @@ let all_en =
   ; description = {js|The University of Minnesota, Twin Cities is a public land-grant research university in the Twin Cities of Minneapolis and Saint Paul, Minnesota. 
 |js}
   ; url = {js|https://twin-cities.umn.edu/|js}
-  ; logo = None
+  ; logo = Some {js|/academic_institution/twin.svg|js}
   ; continent = {js|North America|js}
   ; courses = 
  [
