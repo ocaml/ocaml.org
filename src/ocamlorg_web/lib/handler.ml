@@ -18,7 +18,8 @@ let learn _req =
 let community _req = Dream.html (Ocamlorg_frontend.community ())
 
 let success_stories _req =
-  Dream.html (Ocamlorg_frontend.home ())
+  let stories = Ood.Success_story.all () in
+  Dream.html (Ocamlorg_frontend.success_stories stories)
 
 let success_story _req =
   Dream.html (Ocamlorg_frontend.home ())
