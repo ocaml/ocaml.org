@@ -76,7 +76,14 @@ let package_overview
     package
 
 
-let package_toplevel () = Package_toplevel.render ()
+let package_toplevel
+    ~documentation_status ~toplevel_status ~toplevel_url package
+  =
+  Package_toplevel.render
+    ~documentation_status
+    ~toplevel_status
+    ~toplevel_url
+    package
 
 
 let packages () = Packages.render ()
