@@ -2,11 +2,12 @@
 name: Microsoft
 description: > 
   Microsoft Corporation is an American multinational technology corporation which produces computer software, consumer electronics, personal computers, and related services.
-site: "https://www.microsoft.com"
-image: /users/microsoft.png
+url: "https://www.microsoft.com"
+logo: /users/microsoft.png
 locations: 
   - United States
 consortium: true
+featured: true
 ---
 
 Microsoft Corporation is an American multinational technology corporation which produces computer software, consumer electronics, personal computers, and related services.

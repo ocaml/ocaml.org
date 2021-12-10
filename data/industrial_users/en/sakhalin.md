@@ -2,10 +2,12 @@
 name: Sakhalin
 description: > 
   Sakhalin develops marine charting apps for Apple iPads and iPhones.
-site: "https://www.seaiq.com"
+url: "https://www.seaiq.com"
+logo: /users/seaiq.png
 locations: 
   - United States
 consortium: false
+featured: true
 ---
 
 Sakhalin develops marine charting apps for Apple iPads and iPhones. The full-featured apps display marine charts, GPS and onboard sensor data, Automatic Identification System, weather data, anchor monitoring, etc. The apps have a wide range of users, from occasional recreational boaters to professional river/harbor pilots that board large freighters. They are free to download and try (with a paid upgrade to enable all features). They are written almost entirely in Ocaml with a minor amount of glue to interface with IOS APIs. Ocaml was chosen because it

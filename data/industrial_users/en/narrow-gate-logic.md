@@ -2,11 +2,12 @@
 name: Narrow Gate Logic
 description: > 
   Narrow Gate Logic is a company using the OCaml language in business and non-business applications.
-site: "https://nglogic.com"
-image: /users/nglogic.png
+url: "https://nglogic.com"
+logo: /users/nglogic.png
 locations: 
   - Poland
 consortium: false
+featured: true
 ---
 
 Narrow Gate Logic is a company using the OCaml language in business and non-business applications.

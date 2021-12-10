@@ -4,11 +4,12 @@ description: >
   Nomadic Labs abrite une équipe axée sur la recherche et le développement. Nos
   compétences fondamentales sont dans la théorie et la pratique des langages de
   programmation, les systèmes distribués, et la vérification formelle
-site: "https://www.nomadic-labs.com"
-image: /users/nomadic-labs.png
+url: "https://www.nomadic-labs.com"
+logo: /users/nomadic-labs.png
 locations:
   - "Paris, France"
 consortium: false
+featured: true
 ---
 
 Nomadic Labs abrite une équipe axée sur la recherche et le développement. Nos

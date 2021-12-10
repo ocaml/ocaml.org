@@ -2,11 +2,12 @@
 name: MyLife
 description: > 
   MyLife has developed a powerful people search tool that will empower those in need to find anyone, regardless of years past and the life that was built in between.
-site: "https://www.mylife.com/"
-image: /users/mylife.jpg
+url: "https://www.mylife.com/"
+logo: /users/mylife.jpg
 locations: 
   - United States
 consortium: false
+featured: true
 ---
 
 MyLife has developed a powerful people search tool that will empower those in need to find anyone, regardless of years past and the life that was built in between.
