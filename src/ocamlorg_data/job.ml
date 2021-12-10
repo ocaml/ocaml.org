@@ -5,6 +5,7 @@ type t =
   ; link : string
   ; description_html : string
   ; location : string
+  ; country : string
   ; company : string
   ; company_logo : string
   ; fullfilled : bool
@@ -76,8 +77,9 @@ let all =
 <p>We welcome applications from people of all backgrounds. We strive to create a representative, inclusive and friendly team, because we know that different experiences, perspectives and backgrounds make for a better workplace.</p>
 |js}
   ; location = {js|Remote|js}
+  ; country = {js|Remote|js}
   ; company = {js|Tarides|js}
-  ; company_logo = {js|https://tarides.com/static/logo_tarides-9616f2c71e224598e23ace051d0fab52.png|js}
+  ; company_logo = {js|https://tarides.com/static/logo_tarides-52f91b59a8657d768e013129896b63e0.png|js}
   ; fullfilled = false
   };
  
@@ -106,6 +108,7 @@ let all =
 <p>We are an equal opportunity employer and value diversity at our company. We do not discriminate on the basis of race, religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or disability status.</p>
 |js}
   ; location = {js|New York, NY|js}
+  ; country = {js|United States|js}
   ; company = {js|Bloomberg|js}
   ; company_logo = {js|https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/New_Bloomberg_Logo.svg/1024px-New_Bloomberg_Logo.svg.png|js}
   ; fullfilled = false

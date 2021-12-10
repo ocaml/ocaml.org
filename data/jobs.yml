@@ -2,8 +2,9 @@ jobs:
   - title: Multicore Application Engineer
     link: https://tarides.com/jobs/multicore-application-engineer
     location: Remote
+    country: Remote
     company: Tarides
-    company_logo: https://tarides.com/static/logo_tarides-9616f2c71e224598e23ace051d0fab52.png
+    company_logo: https://tarides.com/static/logo_tarides-52f91b59a8657d768e013129896b63e0.png
     fullfilled: false
     description: >
       ## Work
@@ -66,6 +67,7 @@ jobs:
   - title: Quant Developer, Enterprise Products
     link: https://careers.bloomberg.com/job/detail/93825
     location: New York, NY
+    country: United States
     company: Bloomberg
     company_logo: https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/New_Bloomberg_Logo.svg/1024px-New_Bloomberg_Logo.svg.png
     fullfilled: false
