@@ -1,0 +1,171 @@
+(library
+ (name ocamlorg_frontend)
+ (libraries dream ood timedesc))
+
+(include_subdirs unqualified)
+
+(subdir
+ layouts/
+ (rule
+  (targets layout.ml)
+  (deps layout.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root}))))
+
+(subdir
+ pages/
+ (rule
+  (targets about.ml)
+  (deps about.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets academic_users.ml)
+  (deps academic_users.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets best_practices.ml)
+  (deps best_practices.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets blog.ml)
+  (deps blog.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets blog_category.ml)
+  (deps blog_category.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets books.ml)
+  (deps books.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets community.ml)
+  (deps community.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets workshop.ml)
+  (deps workshop.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets events.ml)
+  (deps events.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets home.ml)
+  (deps home.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets industrial_users.ml)
+  (deps industrial_users.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets learn.ml)
+  (deps learn.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets manual.ml)
+  (deps manual.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets opportunities.ml)
+  (deps opportunities.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets opportunity.ml)
+  (deps opportunity.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets package_overview.ml)
+  (deps package_overview.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets package_documentation.ml)
+  (deps package_documentation.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets package_toplevel.ml)
+  (deps package_toplevel.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets packages.ml)
+  (deps packages.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets packages_search.ml)
+  (deps packages_search.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets papers.ml)
+  (deps papers.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets problems.ml)
+  (deps problems.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets release.ml)
+  (deps release.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets releases.ml)
+  (deps releases.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets success_stories.ml)
+  (deps success_stories.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets success_story.ml)
+  (deps success_story.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets tutorial.ml)
+  (deps tutorial.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets not_found.ml)
+  (deps not_found.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets terms.ml)
+  (deps terms.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets privacy.ml)
+  (deps privacy.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets carbon_footprint.ml)
+  (deps carbon_footprint.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root}))))
