@@ -1,12 +1,14 @@
 *
+!asset/
 !data/
 !gettext/
-!asset/
+!manual/
 !src/
 !dune
 !dune-project
 !ocamlorg.opam
 !ocamlorg-data.opam
+!postcss.config.js
 !package.json
 !package-lock.json
 !tailwind.config.js
