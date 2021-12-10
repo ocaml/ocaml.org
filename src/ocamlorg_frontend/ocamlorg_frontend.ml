@@ -45,7 +45,7 @@ let packages_search () = Packages_search.render ()
 let papers ?search ~recommended_papers papers =
   Papers.render ?search ~recommended_papers papers
 
-let problems () = Problems.render ()
+let problems problems = Problems.render problems
 
 let release () = Release.render ()
 

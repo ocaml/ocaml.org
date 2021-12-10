@@ -197,7 +197,7 @@ let best_practices _req =
   Dream.html (Ocamlorg_frontend.best_practices Ood.Workflow.all)
   
 
-let problems _req = Dream.html (Ocamlorg_frontend.home ())
+let problems _req = Dream.html (Ocamlorg_frontend.problems Ood.Problem.all)
 
 type package_kind =
   | Package
