@@ -238,8 +238,23 @@ let papers req =
   in
   Dream.html (Ocamlorg_frontend.papers ?search ~recommended_papers papers)
 
-let tutorial _req =
-  Dream.html (Ocamlorg_frontend.home ())
+let tutorial req =
+  let slugify value =
+    value
+    |> Str.global_replace (Str.regexp " ") "-"
+    |> String.lowercase_ascii
+    |> Str.global_replace (Str.regexp "[^a-z0-9\\-]") ""
+  in
+  let slug = Dream.param "id" req in
+  match
+    List.find_opt
+      (fun x -> slugify x.Ood.Tutorial.title = slug)
+      Ood.Tutorial.all
+  with
+  | Some tutorial ->
+    Ocamlorg_frontend.tutorial tutorial |> Dream.html
+  | None ->
+    not_found req
 
 let best_practices _req =
   Dream.html (Ocamlorg_frontend.best_practices Ood.Workflow.all)
