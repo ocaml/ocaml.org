@@ -1,0 +1,43 @@
+.btn {
+    @apply rounded-lg bg-primary-600 px-5 h-12 font-semibold text-white whitespace-nowrap transition-colors inline-flex items-center justify-center space-x-3 text-base;
+}
+
+.btn:active {
+    @apply bg-primary-800;
+}
+
+.btn:hover {
+    @apply bg-primary-700;
+}
+
+.btn-lg {
+    @apply px-10 h-14 space-x-4;
+}
+
+.btn-sm {
+    @apply px-4 h-10 text-sm;
+}
+
+.btn-secondary {
+    @apply bg-transparent border-primary-600 text-primary-600 border;
+}
+
+.btn-secondary:hover {
+    @apply bg-opacity-5 bg-primary-600;
+}
+
+.btn-secondary:active {
+    @apply bg-opacity-10 bg-primary-600;
+}
+
+.btn-tertiary {
+    @apply bg-transparent border;
+}
+
+.btn-tertiary:hover {
+    @apply bg-white bg-opacity-10;
+}
+
+.btn-tertiary:active {
+    @apply bg-white bg-opacity-20;
+}

@@ -1,0 +1,20 @@
+@media (min-width: 768px) {
+    .grid-logos > a:nth-of-type(-n+2) {
+        border-top: 0;
+    } 
+    .grid-logos > a:nth-of-type(odd) {
+        border-right: 1px solid #cccccc8f;
+    } 
+}
+
+@media (min-width: 1024px) {
+    .grid-logos > a:nth-of-type(4n+1) {
+        border-left: 0;
+    }
+    .grid-logos > a:nth-of-type(-n+4) {
+        border-top: 0;
+    }
+    .grid-logos > a:nth-of-type(odd) {
+        border-right: none;
+    } 
+}

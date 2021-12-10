@@ -2,33 +2,45 @@ h1 {
   @apply text-4xl lg:text-5xl;
   line-height: 110%;
 }
+
 h2 {
   font-size: 30px;
   line-height: 110%;
 
-  @media (min-width: 1024px) {
+}
+
+@media (min-width: 1024px) {
+  h1 {
     font-size: 40px;
   }
 }
+
 h3 {
   font-size: 28px;
   line-height: 110%;
+}
 
-  @media (min-width: 1024px) {
+@media (min-width: 1024px) {
+  h3 {
     font-size: 32px;
   }
 }
+
 h4 {
   font-size: 24px;
   line-height: 110%;
+}
 
-  @media (min-width: 1024px) {
+@media (min-width: 1024px) {
+  h4 {
     font-size: 28px;
   }
 }
+
 h5 {
   @apply text-2xl leading-tight;
 }
+
 h6 {
   @apply text-xl leading-tight;
 }
