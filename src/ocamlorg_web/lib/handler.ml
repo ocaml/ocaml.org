@@ -1,3 +1,5 @@
+open Import 
+
 let not_found _req = Dream.html ~code:404 (Ocamlorg_frontend.not_found ())
 
 let index _req = Dream.html (Ocamlorg_frontend.home ())
@@ -16,8 +18,43 @@ let success_story _req =
 let industrial_users _req =
   Dream.html (Ocamlorg_frontend.home ())
 
-let academic_users _req =
-  Dream.html (Ocamlorg_frontend.home ())
+  let academic_users req =
+    let search_user pattern t =
+      let open Ood.Academic_institution in
+      let pattern = String.lowercase_ascii pattern in
+      let name_is_s { name; _ } = String.lowercase_ascii name = pattern in
+      let name_contains_s { name; _ } =
+        String.contains_s (String.lowercase_ascii name) pattern
+      in
+      let score user =
+        if name_is_s user then
+          -1
+        else if name_contains_s user then
+          0
+        else
+          failwith "impossible user score"
+      in
+      t
+      |> List.filter (fun p -> name_contains_s p)
+      |> List.sort (fun user_1 user_2 -> compare (score user_1) (score user_2))
+    in
+    let users =
+      match Dream.query "q" req with
+      | None ->
+        Ood.Academic_institution.all ()
+      | Some search ->
+        search_user search (Ood.Academic_institution.all ())
+    in
+    let users =
+      match Dream.query "c" req with
+      | None ->
+        users
+      | Some continent ->
+        List.filter
+          (fun user -> user.Ood.Academic_institution.continent = continent)
+          users
+    in
+    Dream.html (Ocamlorg_frontend.academic_users users)
 
 let about _req = Dream.html (Ocamlorg_frontend.home ())
 
