@@ -1,5 +1,5 @@
 let module_kind = function
-  | Ocamlorg.Package.Documentation.Module _ -> "Module"
+  | Ocamlorg_package.Documentation.Module _ -> "Module"
   | ModuleType _ -> "Module type"
   | FunctorArgument (number, _) -> "Parameter #" ^ (Int.to_string number)
 
@@ -9,7 +9,7 @@ let module_path_kind path =
   | Some v -> module_kind v
 
 let module_name = function
-  | Ocamlorg.Package.Documentation.Module name
+  | Ocamlorg_package.Documentation.Module name
   | ModuleType name
   | FunctorArgument (_, name) -> name
 

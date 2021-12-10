@@ -100,7 +100,7 @@ let toplevels_route =
   Dream.scope
     "/toplevels"
     [ Dream_encoding.compress ]
-    [ Dream.get "/**" (Dream.static (Fpath.to_string Ocamlorg.toplevels_path)) ]
+    [ Dream.get "/**" (Dream.static (Fpath.to_string Ocamlorg_package.toplevels_path)) ]
 
 let router t =
   Dream.router

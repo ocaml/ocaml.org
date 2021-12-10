@@ -12,7 +12,7 @@ let () =
   Logs.set_level (Some Info)
 
 let run () =
-  let state = Ocamlorg.Package.init () in
+  let state = Ocamlorg_package.init () in
   Dream_cli.run ~debug:Config.debug ~interface:"0.0.0.0" ~port:Config.port
   @@ Dream.logger
   @@ Middleware.no_trailing_slash

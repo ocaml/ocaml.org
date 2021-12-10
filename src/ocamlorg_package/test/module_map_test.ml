@@ -42,7 +42,7 @@ let json =
   }
 |}
 
-open Ocamlorg.Package
+open Ocamlorg_package
 
 let test_case n = Alcotest.test_case n `Quick
 

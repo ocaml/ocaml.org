@@ -6,7 +6,7 @@
   dream-accept
   dream-encoding
   omd
-  ocamlorg
+  ocamlorg_package
   gettext
   ood
   timedesc))

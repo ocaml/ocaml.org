@@ -1,0 +1,3 @@
+(tests
+ (names module_map_test)
+ (libraries alcotest ocamlorg_package))

@@ -8,39 +8,39 @@ let render_user_list users =
   <ul class="space-y-3">
     <% users |> List.iter begin fun author -> %>
     <li class="flex justify-start">
-      <a href="<%s match author.Ocamlorg.Opam_user.github_username with | None -> "" | Some handle -> "https://github.com/" ^ handle %>" class="flex items-center space-x-3">
-        <% (match author.Ocamlorg.Opam_user.avatar with | None -> () | Some avatar -> %>
+      <a href="<%s match author.Ood.Opam_user.github_username with | None -> "" | Some handle -> "https://github.com/" ^ handle %>" class="flex items-center space-x-3">
+        <% (match author.Ood.Opam_user.avatar with | None -> () | Some avatar -> %>
         <div class="flex-shrink-0">
           <img class="h-10 w-10 rounded-full" src="<%s avatar %>" alt="">
         </div>
         <% ); %>
-        <div class="text-sm font-medium text-gray-900"><%s author.Ocamlorg.Opam_user.name %></div>
+        <div class="text-sm font-medium text-gray-900"><%s author.Ood.Opam_user.name %></div>
       </a>
     </li>
     <% end; %>
   </ul>
 
 let render ~readme ~license:_ package =
-  let package_name = Ocamlorg.Package.(Name.to_string (name package)) in
-  let package_version = Ocamlorg.Package.(Version.to_string (version package)) in
-  let package_info = Ocamlorg.Package.info package in
-  let package_homepages = package_info.Ocamlorg.Package.Info.homepage in
-  let package_tags = package_info.Ocamlorg.Package.Info.tags in
-  let package_authors = package_info.Ocamlorg.Package.Info.authors in
-  let package_maintainers = package_info.Ocamlorg.Package.Info.maintainers in
-  let package_source = package_info.Ocamlorg.Package.Info.url in
+  let package_name = Ocamlorg_package.(Name.to_string (name package)) in
+  let package_version = Ocamlorg_package.(Version.to_string (version package)) in
+  let package_info = Ocamlorg_package.info package in
+  let package_homepages = package_info.Ocamlorg_package.Info.homepage in
+  let package_tags = package_info.Ocamlorg_package.Info.tags in
+  let package_authors = package_info.Ocamlorg_package.Info.authors in
+  let package_maintainers = package_info.Ocamlorg_package.Info.maintainers in
+  let package_source = package_info.Ocamlorg_package.Info.url in
   let package_license = 
-    match package_info.Ocamlorg.Package.Info.license with
+    match package_info.Ocamlorg_package.Info.license with
     | "" -> gettext "No License"
     | l -> l
   in
-  let rev_deps = package_info.Ocamlorg.Package.Info.rev_deps |> List.map (fun (name, x, version) ->
-      (Ocamlorg.Package.Name.to_string name, x, Ocamlorg.Package.Version.to_string version)
+  let rev_deps = package_info.Ocamlorg_package.Info.rev_deps |> List.map (fun (name, x, version) ->
+      (Ocamlorg_package.Name.to_string name, x, Ocamlorg_package.Version.to_string version)
     )
   in
   let package_deps = 
-    package_info.Ocamlorg.Package.Info.dependencies |> List.map (fun (name, x) ->
-      (Ocamlorg.Package.Name.to_string name, x)
+    package_info.Ocamlorg_package.Info.dependencies |> List.map (fun (name, x) ->
+      (Ocamlorg_package.Name.to_string name, x)
     )
   in
   <div class="grid grid-cols-1 gap-8 sm:grid-flow-col-dense sm:grid-cols-5 lg:grid-cols-7 sm:px-6 lg:px-8">

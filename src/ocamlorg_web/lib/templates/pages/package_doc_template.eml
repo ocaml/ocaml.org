@@ -1,4 +1,4 @@
-open Ocamlorg.Package
+open Ocamlorg_package
 
 let toc_of_toc (xs : Documentation.toc list) : Toc_template.t =
   let rec aux acc = function
@@ -37,11 +37,11 @@ let toc_of_map ~root (map : Module_map.t) : Navmap_template.t =
 let render ~root (map : Module_map.t) (doc : Documentation.t) =
 let path = doc.module_path
 |> List.map (function
-  | Ocamlorg.Package.Documentation.Module s ->
+  | Ocamlorg_package.Documentation.Module s ->
     s
-  | Ocamlorg.Package.Documentation.ModuleType s ->
+  | Ocamlorg_package.Documentation.ModuleType s ->
     s
-  | Ocamlorg.Package.Documentation.FunctorArgument (_, s) ->
+  | Ocamlorg_package.Documentation.FunctorArgument (_, s) ->
     s)
 in
 let toc = toc_of_toc doc.toc in

@@ -40,8 +40,8 @@ module Info : sig
   type t =
     { synopsis : string
     ; description : string
-    ; authors : Opam_user.t list
-    ; maintainers : Opam_user.t list
+    ; authors : Ood.Opam_user.t list
+    ; maintainers : Ood.Opam_user.t list
     ; license : string
     ; homepage : string list
     ; tags : string list
@@ -106,11 +106,17 @@ val license_file
   -> string option Lwt.t
 (** Get the license of a package *)
 
-val status
+val documentation_status
   :  kind:[< `Package | `Universe of string ]
   -> t
   -> [ `Success | `Failure | `Unknown ] Lwt.t
-(** Get the build status of a package *)
+(** Get the build status of the documentation of a package *)
+
+val toplevel_status
+  :  kind:[< `Package | `Universe of string ]
+  -> t
+  -> [ `Success | `Failure | `Unknown ] Lwt.t
+(** Get the build status of the toplevel of a package *)
 
 val module_map
   :  kind:[< `Package | `Universe of string ]
@@ -162,3 +168,5 @@ val search_package : state -> string -> t list
     - packages whose description contain the given string.
 
     A call to this function call Lazy.force on every package info. *)
+
+val toplevels_path : Fpath.t
