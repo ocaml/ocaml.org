@@ -130,8 +130,13 @@ let opportunities req =
   in
   Dream.html (Ocamlorg_frontend.opportunities ?search ?country jobs)
 
-let opportunity _req =
-  Dream.html (Ocamlorg_frontend.home ())
+let opportunity req =
+  let id = Dream.param "id" req in
+  match Option.bind (int_of_string_opt id) Ood.Job.get_by_id with
+  | Some job ->
+    Dream.html (Ocamlorg_frontend.opportunity job)
+  | None ->
+    not_found req
 
 let carbon_footprint _req = Dream.html (Ocamlorg_frontend.carbon_footprint ())
 
