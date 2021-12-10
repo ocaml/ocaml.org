@@ -1,3 +1,9 @@
+type link =
+  { description : string
+  ; uri : string
+  }
+[@@deriving yaml]
+
 type t =
   { title : string
   ; publication : string
@@ -5,7 +11,8 @@ type t =
   ; abstract : string
   ; tags : string list
   ; year : int
-  ; links : string list
+  ; links : link list
+  ; featured : bool
   }
 [@@deriving yaml]
 
@@ -26,6 +33,20 @@ let parse = decode
 let all () =
   let content = Data.read "papers.yml" |> Option.get in
   Utils.decode_or_raise decode content
+  |> List.sort (fun p1 p2 ->
+         (2 * Int.compare p1.year p2.year) + String.compare p1.title p2.title)
+
+let pp_link ppf (v : link) =
+  Fmt.pf
+    ppf
+    {|
+        { description = %a
+        ; uri = %a
+        }|}
+    Pp.string
+    v.description
+    Pp.string
+    v.uri
 
 let pp ppf v =
   Fmt.pf
@@ -39,6 +60,7 @@ let pp ppf v =
   ; tags = %a
   ; year = %i
   ; links = %a
+  ; featured = %a
   }|}
     Pp.string
     v.title
@@ -53,14 +75,18 @@ let pp ppf v =
     (Pp.list Pp.string)
     v.tags
     v.year
-    (Pp.list Pp.string)
+    (Pp.list pp_link)
     v.links
+    Pp.bool
+    v.featured
 
 let pp_list = Pp.list pp
 
 let template () =
   Format.asprintf
     {|
+  type link = { description : string; uri : string }
+
 type t =
   { title : string
   ; slug : string
@@ -69,7 +95,8 @@ type t =
   ; abstract : string
   ; tags : string list
   ; year : int
-  ; links : string list
+  ; links : link list
+  ; featured : bool
   }
   
 let all = %a

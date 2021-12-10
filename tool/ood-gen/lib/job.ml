@@ -5,6 +5,7 @@ type metadata =
   ; location : string
   ; company : string
   ; company_logo : string
+  ; country : string
   ; fullfilled : bool
   }
 [@@deriving yaml]
@@ -17,6 +18,7 @@ type t =
   ; location : string
   ; company : string
   ; company_logo : string
+  ; country : string
   ; fullfilled : bool
   }
 
@@ -40,6 +42,7 @@ let decode s =
                       ; description_html =
                           Omd.of_string raw.description |> Omd.to_html
                       ; location = raw.location
+                      ; country = raw.country
                       ; company = raw.company
                       ; company_logo = raw.company_logo
                       ; fullfilled = raw.fullfilled
@@ -65,6 +68,7 @@ let pp ppf v =
   ; link = %a
   ; description_html = %a
   ; location = %a
+  ; country = %a
   ; company = %a
   ; company_logo = %a
   ; fullfilled = %a
@@ -79,6 +83,8 @@ let pp ppf v =
     v.description_html
     Pp.string
     v.location
+    Pp.string
+    v.country
     Pp.string
     v.company
     Pp.string
@@ -97,6 +103,7 @@ type t =
   ; link : string
   ; description_html : string
   ; location : string
+  ; country : string
   ; company : string
   ; company_logo : string
   ; fullfilled : bool

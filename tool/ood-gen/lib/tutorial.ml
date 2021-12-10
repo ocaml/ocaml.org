@@ -88,7 +88,7 @@ let all () =
       ; date = metadata.date
       ; tags = metadata.tags
       ; users = proficiency_list_of_string_list metadata.users
-      ; toc_html = Omd.to_html (Omd.toc omd)
+      ; toc_html = Omd.to_html (Omd.toc ~depth:4 omd)
       ; body_md = body
       ; body_html = Omd.to_html (Hilite.Md.transform omd)
       })

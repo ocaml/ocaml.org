@@ -1,10 +1,11 @@
 type metadata =
   { name : string
   ; description : string
-  ; image : string option
-  ; site : string
+  ; logo : string option
+  ; url : string
   ; locations : string list
   ; consortium : bool
+  ; featured : bool
   }
 [@@deriving yaml]
 
@@ -18,10 +19,11 @@ type t =
   { name : string
   ; slug : string
   ; description : string
-  ; image : string option
-  ; site : string
+  ; logo : string option
+  ; url : string
   ; locations : string list
   ; consortium : bool
+  ; featured : bool
   ; body_md : string
   ; body_html : string
   }
@@ -33,9 +35,10 @@ let all =
       { name = metadata.name
       ; slug = Utils.slugify metadata.name
       ; description = metadata.description
-      ; image = metadata.image
-      ; site = metadata.site
+      ; logo = metadata.logo
+      ; url = metadata.url
       ; consortium = metadata.consortium
+      ; featured = metadata.featured
       ; locations = metadata.locations
       ; body_md = body
       ; body_html = Omd.of_string body |> Omd.to_html
@@ -52,10 +55,11 @@ let pp ppf v =
   { name = %a
   ; slug = %a
   ; description = %a
-  ; image = %a
-  ; site = %a
+  ; logo = %a
+  ; url = %a
   ; locations = %a
-  ; consortium = %b
+  ; consortium = %a
+  ; featured = %a
   ; body_md = %a
   ; body_html = %a
   }|}
@@ -66,12 +70,15 @@ let pp ppf v =
     Pp.string
     v.description
     (Pp.option Pp.string)
-    v.image
+    v.logo
     Pp.string
-    v.site
+    v.url
     (Pp.list Pp.string)
     v.locations
+    Pp.bool
     v.consortium
+    Pp.bool
+    v.featured
     Pp.string
     v.body_md
     Pp.string
@@ -86,10 +93,11 @@ type t =
   { name : string
   ; slug : string
   ; description : string
-  ; image : string option
-  ; site : string
+  ; logo : string option
+  ; url : string
   ; locations : string list
   ; consortium : bool
+  ; featured : bool
   ; body_md : string
   ; body_html : string
   }
