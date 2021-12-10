@@ -1,7 +1,6 @@
 (library
  (name ocamlorg_web)
  (libraries
-  ood
   ocamlorg_package
   ocamlorg_frontend
   dream
@@ -10,13 +9,15 @@
   dream-encoding
   omd
   gettext
+  ood
   timedesc))
 
 (rule
  (targets asset.ml)
  (deps
   %{workspace_root}/asset/main.css
-  (source_tree %{workspace_root}/asset))
+  (source_tree %{workspace_root}/asset)
+  (source_tree %{workspace_root}/src/ocamlorg_frontend))
  (enabled_if
   (= %{profile} release))
  (action
@@ -64,3 +65,23 @@
     po
     -o
     %{targets}))))
+
+(rule
+ (targets manual.ml)
+ (deps
+  (source_tree %{workspace_root}/manual))
+ (enabled_if
+  (= %{profile} release))
+ (action
+  (with-stdout-to
+   %{null}
+   (run %{bin:ocaml-crunch} -m plain %{workspace_root}/manual -o %{targets}))))
+
+(rule
+ (targets manual.ml)
+ (enabled_if
+  (<> %{profile} release))
+ (action
+  (write-file
+   manual.ml
+   "let read filename = try let ch = open_in (\"manual/\" ^ filename) in let s = really_input_string ch (in_channel_length ch) in close_in ch; Some s with | Sys_error _ -> None")))
