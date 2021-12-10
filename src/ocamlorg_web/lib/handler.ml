@@ -144,8 +144,51 @@ let privacy _req = Dream.html (Ocamlorg_frontend.privacy ())
 
 let terms _req = Dream.html (Ocamlorg_frontend.terms ())
 
-let papers _req =
-  Dream.html (Ocamlorg_frontend.home ())
+let papers req =
+  let search_paper pattern t =
+    let open Ood.Paper in
+    let pattern = String.lowercase_ascii pattern in
+    let title_is_s { title; _ } = String.lowercase_ascii title = pattern in
+    let title_contains_s { title; _ } =
+      String.contains_s (String.lowercase_ascii title) pattern
+    in
+    let abstract_contains_s { abstract; _ } =
+      String.contains_s (String.lowercase_ascii abstract) pattern
+    in
+    let has_tag_s { tags; _ } =
+      List.exists
+        (fun tag -> String.contains_s (String.lowercase_ascii tag) pattern)
+        tags
+    in
+    let score paper =
+      if title_is_s paper then
+        -1
+      else if title_contains_s paper then
+        0
+      else if has_tag_s paper then
+        1
+      else if abstract_contains_s paper then
+        2
+      else
+        failwith "impossible paper score"
+    in
+    t
+    |> List.filter (fun p -> title_contains_s p)
+    |> List.sort (fun paper_1 paper_2 ->
+           compare (score paper_1) (score paper_2))
+  in
+  let search = Dream.query "q" req in
+  let papers =
+    match search with
+    | None ->
+      Ood.Paper.all
+    | Some search ->
+      search_paper search Ood.Paper.all
+  in
+  let recommended_papers =
+    Ood.Paper.all |> List.filter (fun (paper : Ood.Paper.t) -> paper.featured)
+  in
+  Dream.html (Ocamlorg_frontend.papers ?search ~recommended_papers papers)
 
 let tutorial _req =
   Dream.html (Ocamlorg_frontend.home ())
