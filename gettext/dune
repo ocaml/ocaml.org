@@ -3,11 +3,9 @@
 (rule
  (target messages.pot.expected)
  (deps
-  (glob_files
-   %{workspace_root}/src/ocamlorg_web/lib/templates/components/*.ml)
-  (glob_files %{workspace_root}/src/ocamlorg_web/lib/templates/pages/*.ml)
-  (glob_files %{workspace_root}/src/ocamlorg_web/lib/templates/layouts/*.ml)
-  (glob_files %{workspace_root}/src/ocamlorg_web/lib/*.ml))
+  (glob_files %{workspace_root}/src/ocamlorg_frontend/components/*.ml)
+  (glob_files %{workspace_root}/src/ocamlorg_frontend/layouts/*.ml)
+  (glob_files %{workspace_root}/src/ocamlorg_frontend/pages/*.ml))
  (action
   (chdir
    %{workspace_root}
