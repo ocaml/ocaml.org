@@ -11,9 +11,9 @@ Layout.render
     <div class="container-fluid wide">
         <div class="flex">
             <div class="p-10 z-10 w-full bg-white flex-shrink-0 flex-col fixed h-screen overflow-auto md:flex lg:overflow-hidden left-0 top-0 md:relative md:w-60 md:p-0"
-                x-show="sidebar" x-transition:enter="transition duration-200 transform ease-out"
+                x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
                 x-transition:enter-start="-translate-x-full"
-                x-transition:leave="transition duration-100 transform ease-in"
+                x-transition:leave="transition duration-100 ease-in"
                 x-transition:leave-end="-translate-x-full">
                 <div class="flex justify-start items-center">
                     <div class="ml-2 font-semibold text-base text-body-600">An introduction to OCaml</div>

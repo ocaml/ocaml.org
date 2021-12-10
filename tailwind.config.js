@@ -2,9 +2,7 @@ const defaultTheme = require("tailwindcss/defaultTheme")
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  mode: "jit",
-  purge: ["**/*.eml"],
-  darkMode: false,
+  content: ["**/*.eml"],
   theme: {
     extend: {
       maxWidth: {
@@ -55,10 +53,6 @@ module.exports = {
         },
       },
     },
-  },
-  variants: {
-    backgroundColor: ['hover, active'],
-    extend: {},
   },
   plugins: [
     require("@tailwindcss/forms"),
