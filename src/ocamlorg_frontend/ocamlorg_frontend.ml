@@ -12,7 +12,7 @@ let community () = Community.render ()
 
 let workshop () = Workshop.render ()
 
-let events () = Events.render ()
+let events ~workshops ~meetups = Events.render ~workshops ~meetups
 
 let home () = Home.render ()
 

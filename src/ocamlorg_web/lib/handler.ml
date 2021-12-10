@@ -78,8 +78,10 @@ let releases _req =
 let release _req =
   Dream.html (Ocamlorg_frontend.home ())
 
-let events _req =
-  Dream.html (Ocamlorg_frontend.home ())
+  let events _req =
+    let workshops = Ood.Workshop.all in
+    let meetups = Ood.Meetup.all in
+    Dream.html (Ocamlorg_frontend.events ~workshops ~meetups)  
 
 let workshop _req =
   Dream.html (Ocamlorg_frontend.home ())
