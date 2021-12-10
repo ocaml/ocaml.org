@@ -92,8 +92,43 @@ let workshop _req =
 
 let blog _req = Dream.html (Ocamlorg_frontend.blog ())
 
-let opportunities _req =
-  Dream.html (Ocamlorg_frontend.home ())
+let opportunities req =
+  let search_job pattern t =
+    let open Ood.Job in
+    let pattern = String.lowercase_ascii pattern in
+    let title_is_s { title; _ } = String.lowercase_ascii title = pattern in
+    let title_contains_s { title; _ } =
+      String.contains_s (String.lowercase_ascii title) pattern
+    in
+    let score job =
+      if title_is_s job then
+        -1
+      else if title_contains_s job then
+        0
+      else
+        failwith "impossible job score"
+    in
+    t
+    |> List.filter (fun p -> title_contains_s p)
+    |> List.sort (fun job_1 job_2 -> compare (score job_1) (score job_2))
+  in
+  let search = Dream.query "q" req in
+  let jobs =
+    match search with
+    | None ->
+      Ood.Job.all_not_fullfilled
+    | Some search ->
+      search_job search Ood.Job.all_not_fullfilled
+  in
+  let country = Dream.query "c" req in
+  let jobs =
+    match country with
+    | None | Some "All" ->
+      jobs
+    | Some country ->
+      List.filter (fun job -> job.Ood.Job.country = country) jobs
+  in
+  Dream.html (Ocamlorg_frontend.opportunities ?search ?country jobs)
 
 let opportunity _req =
   Dream.html (Ocamlorg_frontend.home ())
