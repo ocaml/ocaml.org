@@ -15,6 +15,13 @@ let media_loader _root path request =
   | Some asset ->
     Dream.respond asset
 
+let manual_loader _root path request =
+  match Manual.read path with
+  | None ->
+    Handler.not_found request
+  | Some asset ->
+    Dream.respond asset
+
 let redirect s req = Dream.redirect req s
 
 let redirection_routes =
@@ -110,6 +117,7 @@ let router t =
     ; graphql_route t
     ; redirection_routes
     ; toplevels_route
+    ; Dream.get "/manual/**" (Dream.static ~loader:manual_loader "")
     ; Dream.get "/media/**" (Dream.static ~loader:media_loader "")
     ; Dream.get "/**" (Dream.static ~loader "")
       (* Last one so that we don't apply the index html middleware on every
