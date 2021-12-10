@@ -79,8 +79,13 @@ let books _req =
 let releases _req =
   Dream.html (Ocamlorg_frontend.home ())
 
-let release _req =
-  Dream.html (Ocamlorg_frontend.home ())
+let release req =
+  let version = Dream.param "id" req in
+  match Ood.Release.get_by_version version with
+  | Some release ->
+    Dream.html (Ocamlorg_frontend.release release)
+  | None ->
+    not_found req
 
   let events _req =
     let workshops = Ood.Workshop.all in
