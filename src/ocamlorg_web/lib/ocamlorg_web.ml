@@ -1,9 +1,5 @@
 (** Entrypoint to OCaml.org' web library. *)
-module Handlers = struct
-  module Page = Page_handler
-  module Package = Package_handler
-end
-
+module Handler = Handler
 module Graphql = Graphql
 
 (* Set up basic logging for logs that would happen before Dream is set up. *)
@@ -17,4 +13,4 @@ let run () =
   @@ Dream.logger
   @@ Middleware.no_trailing_slash
   @@ Router.router state
-  @@ Page_handler.not_found
+  @@ Handler.not_found

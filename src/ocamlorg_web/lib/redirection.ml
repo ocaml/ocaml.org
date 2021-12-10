@@ -1,3 +1,5 @@
+module Url = Ocamlorg_frontend.Url
+
 let t =
   [ "/releases/4.05.html", Url.release "4.05"
   ; "/releases/4.13.0.html", Url.release "4.13.0"
@@ -36,24 +38,24 @@ let t =
   ; "/releases/4.07.0.html", Url.release "4.07.0"
   ; "/learn/taste.html", "/"
   ; "/learn/taste.fr.html", "/"
-  ; "/learn/success.html", Url.successes
-  ; "/learn/history.fr.html", Url.history
-  ; "/learn/history.html", Url.history
-  ; "/learn/faq.html", Url.language
+  ; "/learn/success.html", Url.success_stories
+  ; "/learn/history.fr.html", Url.about
+  ; "/learn/history.html", Url.about
+  ; "/learn/faq.html", Url.about
   ; "/learn/companies.html", Url.industrial_users
-  ; "/learn/description.html", Url.language
-  ; "/learn/", Url.language
-  ; "/learn/index.html", Url.language
-  ; "/learn/index.fr.html", Url.language
-  ; "/learn/teaching-ocaml.html", Url.academic
-  ; "/learn/tutorials/", Url.tutorials
-  ; "/learn/tutorials/index.ja.html", Url.tutorials
-  ; "/learn/tutorials/index.ko.html", Url.tutorials
-  ; "/learn/tutorials/index.it.html", Url.tutorials
-  ; "/learn/tutorials/index.html", Url.tutorials
-  ; "/learn/tutorials/index.zh.html", Url.tutorials
-  ; "/learn/tutorials/index.fr.html", Url.tutorials
-  ; "/learn/tutorials/index.de.html", Url.tutorials
+  ; "/learn/description.html", Url.about
+  ; "/learn/", Url.learn
+  ; "/learn/index.html", Url.learn
+  ; "/learn/index.fr.html", Url.learn
+  ; "/learn/teaching-ocaml.html", Url.academic_users
+  ; "/learn/tutorials/", Url.learn
+  ; "/learn/tutorials/index.ja.html", Url.learn
+  ; "/learn/tutorials/index.ko.html", Url.learn
+  ; "/learn/tutorials/index.it.html", Url.learn
+  ; "/learn/tutorials/index.html", Url.learn
+  ; "/learn/tutorials/index.zh.html", Url.learn
+  ; "/learn/tutorials/index.fr.html", Url.learn
+  ; "/learn/tutorials/index.de.html", Url.learn
   ; ( "/learn/tutorials/up_and_running.html"
     , Url.tutorial "up-and-running-with-ocaml" )
   ; ( "/learn/tutorials/a_first_hour_with_ocaml.html"
@@ -179,15 +181,15 @@ let t =
     , Url.tutorial "comparison-of-standard-containers" )
   ; ( "/learn/tutorials/comparison_of_standard_containers.ja.html"
     , Url.tutorial "comparison-of-standard-containers" )
-  ; "/learn/tutorials/camlp5.html", Url.tutorials
+  ; "/learn/tutorials/camlp5.html", Url.learn
   ; "/learn/tutorials/lists.html", Url.tutorial "lists"
-  ; "/learn/tutorials/humor_proof.html", Url.tutorial Url.tutorials
-  ; "/learn/tutorials/introduction_to_gtk.html", Url.tutorial Url.tutorials
+  ; "/learn/tutorials/humor_proof.html", Url.learn
+  ; "/learn/tutorials/introduction_to_gtk.html", Url.learn
   ; "/learn/tutorials/99problems.html", Url.problems
   ; "/learn/libraries.html", Url.books
   ; "/learn/books.html", Url.books
   ; "/learn/portability.html", "/"
-  ; "/learn/success.fr.html", Url.successes
+  ; "/learn/success.fr.html", Url.success_stories
   ; "/consortium/", "/"
   ; "/consortium/index.html", "/"
   ; "/consortium/index.fr.html", "/"
@@ -212,66 +214,66 @@ let t =
   ; "/index.fr.html", Url.index
   ; "/contributors.html", Url.index
   ; "/ocamllabs/index.html", "/"
-  ; "/about.fr.html", Url.what_is_ocaml
+  ; "/about.fr.html", Url.about
   ; ( "/meetings/ocaml/2013/program.html"
-    , Url.event "ocaml-users-and-developers-workshop-2013" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2013" )
   ; ( "/meetings/ocaml/2013/talks/index.html"
-    , Url.event "ocaml-users-and-developers-workshop-2013" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2013" )
   ; ( "/meetings/ocaml/2013/call.html"
-    , Url.event "ocaml-users-and-developers-workshop-2013" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2013" )
   ; ( "/meetings/ocaml/2013/index.html"
-    , Url.event "ocaml-users-and-developers-workshop-2013" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2013" )
   ; ( "/meetings/ocaml/2014/program.html"
-    , Url.event "ocaml-users-and-developers-workshop-2014" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2014" )
   ; ( "/meetings/ocaml/2014/ocaml2014_10.html"
-    , Url.event "ocaml-users-and-developers-workshop-2014" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2014" )
   ; ( "/meetings/ocaml/2014/index.html"
-    , Url.event "ocaml-users-and-developers-workshop-2014" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2014" )
   ; ( "/meetings/ocaml/2014/cfp.html"
-    , Url.event "ocaml-users-and-developers-workshop-2014" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2014" )
   ; ( "/meetings/ocaml/2015/program.html"
-    , Url.event "ocaml-users-and-developers-workshop-2015" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2015" )
   ; ( "/meetings/ocaml/2015/index.html"
-    , Url.event "ocaml-users-and-developers-workshop-2015" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2015" )
   ; ( "/meetings/ocaml/2015/cfp.html"
-    , Url.event "ocaml-users-and-developers-workshop-2015" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2015" )
   ; ( "/meetings/ocaml/2012/index.html"
-    , Url.event "ocaml-users-and-developers-workshop-2012" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2012" )
   ; ( "/meetings/ocaml/2008/index.html"
-    , Url.event "ocaml-users-and-developers-workshop-2008" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2008" )
   ; ( "/meetings/ocaml/2009/index.html"
-    , Url.event "ocaml-users-and-developers-workshop-2009" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2009" )
   ; ( "/meetings/ocaml/2017/index.html"
-    , Url.event "ocaml-users-and-developers-workshop-2017" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2017" )
   ; ( "/meetings/ocaml/2010/index.html"
-    , Url.event "ocaml-users-and-developers-workshop-2010" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2010" )
   ; ( "/meetings/ocaml/2019/index.html"
-    , Url.event "ocaml-users-and-developers-workshop-2019" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2019" )
   ; ( "/meetings/ocaml/2020/index.html"
-    , Url.event "ocaml-users-and-developers-workshop-2020" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2020" )
   ; ( "/meetings/ocaml/2018/index.html"
-    , Url.event "ocaml-users-and-developers-workshop-2018" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2018" )
   ; ( "/meetings/ocaml/2011/index.html"
-    , Url.event "ocaml-users-and-developers-workshop-2011" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2011" )
   ; ( "/meetings/ocaml/2016/index.html"
-    , Url.event "ocaml-users-and-developers-workshop-2016" )
+    , Url.workshop "ocaml-users-and-developers-workshop-2016" )
   ; "/meetings/index.html", Url.events
   ; "/meetings/index.fr.html", Url.events
-  ; "/community/planet/index.html", Url.around_web
-  ; "/community/planet/older.html", Url.around_web
-  ; "/community/planet/syndication.html", Url.around_web
-  ; "/community/mailing_lists.fr.html", Url.around_web
-  ; "/community/planet.html", Url.around_web
-  ; "/community/support.fr.html", Url.around_web
-  ; "/community/cwn/index.html", Url.around_web
-  ; "/community/announcements/CompCert_award.html", Url.around_web
-  ; "/community/support.html", Url.around_web
-  ; "/community/index.html", Url.around_web
-  ; "/community/index.fr.html", Url.around_web
-  ; "/community/history/forge.html", Url.around_web
-  ; "/community/media.html", Url.around_web
-  ; "/community/mailing_lists.html", Url.around_web
-  ; "/about.html", Url.what_is_ocaml
+  ; "/community/planet/index.html", Url.community
+  ; "/community/planet/older.html", Url.community
+  ; "/community/planet/syndication.html", Url.community
+  ; "/community/mailing_lists.fr.html", Url.community
+  ; "/community/planet.html", Url.community
+  ; "/community/support.fr.html", Url.community
+  ; "/community/cwn/index.html", Url.community
+  ; "/community/announcements/CompCert_award.html", Url.community
+  ; "/community/support.html", Url.community
+  ; "/community/index.html", Url.community
+  ; "/community/index.fr.html", Url.community
+  ; "/community/history/forge.html", Url.community
+  ; "/community/media.html", Url.community
+  ; "/community/mailing_lists.html", Url.community
+  ; "/about.html", Url.about
   ; "/caml-light/license.html", "/"
   ; "/caml-light/releases/0.75.html", "/"
   ; "/caml-light/releases/index.html", "/"
