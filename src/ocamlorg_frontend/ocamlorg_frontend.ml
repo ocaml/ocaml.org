@@ -6,7 +6,7 @@ let academic_users users = Academic_users.render users
 
 let best_practices best_practices = Best_practices.render best_practices
 
-let books () = Books.render ()
+let books books = Books.render books
 
 let community () = Community.render ()
 
