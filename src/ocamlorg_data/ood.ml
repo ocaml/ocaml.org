@@ -84,12 +84,6 @@ module Book = struct
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
-module Event = struct
-  include Event
-
-  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
-end
-
 module Job = struct
   include Job
 

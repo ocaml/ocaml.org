@@ -24,16 +24,6 @@
 
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
- (targets event.ml)
- (mode
-  (promote (until-clean)))
- (action
-  (with-stdout-to
-   %{targets}
-   (run %{deps} event))))
-
-(rule
- (deps ../../tool/ood-gen/bin/gen.exe)
  (targets job.ml)
  (mode
   (promote (until-clean)))
