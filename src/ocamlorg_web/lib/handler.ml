@@ -76,8 +76,44 @@ let books _req =
   in
   Dream.html (Ocamlorg_frontend.books books)
 
-let releases _req =
-  Dream.html (Ocamlorg_frontend.home ())
+let releases req =
+  let search_release pattern t =
+    let open Ood.Release in
+    let pattern = String.lowercase_ascii pattern in
+    let version_is_s { version; _ } =
+      String.lowercase_ascii version = pattern
+    in
+    let version_contains_s { version; _ } =
+      String.contains_s (String.lowercase_ascii version) pattern
+    in
+    let body_contains_s { body_md; _ } =
+      String.contains_s (String.lowercase_ascii body_md) pattern
+    in
+    let score release =
+      if version_is_s release then
+        -1
+      else if version_contains_s release then
+        0
+      else if body_contains_s release then
+        2
+      else
+        failwith "impossible release score"
+    in
+    t
+    |> List.filter (fun p -> version_contains_s p)
+    |> List.sort (fun release_1 release_2 ->
+           compare (score release_1) (score release_2))
+  in
+  let search = Dream.query "q" req in
+  let releases =
+    match search with
+    | None ->
+      Ood.Release.all
+    | Some search ->
+      search_release search Ood.Release.all
+  in
+  Dream.html (Ocamlorg_frontend.releases releases)
+
 
 let release req =
   let version = Dream.param "id" req in
