@@ -26,7 +26,8 @@ let blog () = Blog.render ()
 
 let blog_category () = Blog_category.render ()
 
-let opportunities () = Opportunities.render ()
+let opportunities ?search ?country opportunities =
+  Opportunities.render ?search ?country opportunities
 
 let opportunity () = Opportunity.render ()
 
