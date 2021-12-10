@@ -1,4 +1,6 @@
 
+  type link = { description : string; uri : string }
+
 type t =
   { title : string
   ; slug : string
@@ -7,232 +9,12 @@ type t =
   ; abstract : string
   ; tags : string list
   ; year : int
-  ; links : string list
+  ; links : link list
+  ; featured : bool
   }
   
 let all = 
 [
-  { title = {js|A Syntactic Approach to Type Soundness|js}
-  ; slug = {js|a-syntactic-approach-to-type-soundness|js}
-  ; publication = {js|Information & Computation, 115(1):38−94|js}
-  ; authors = 
- [{js|Andrew K. Wright|js}; {js|Matthias Felleisen|js}]
-  ; abstract = {js|This paper describes the semantics and the type system of Core ML,  and uses a simple syntactic technique to prove that well-typed programs cannot go wrong.
-|js}
-  ; tags = 
- [{js|core|js}; {js|language|js}]
-  ; year = 1994
-  ; links = [{js|https://www.cs.rice.edu/CS/PLT/Publications/Scheme/ic94-wf.ps.gz|js}]
-  };
- 
-  { title = {js|The Essence of ML Type Inference|js}
-  ; slug = {js|the-essence-of-ml-type-inference|js}
-  ; publication = {js|Benjamin C. Pierce, editor, Advanced Topics in Types and Programming Languages, MIT Press|js}
-  ; authors = 
- [{js|François Pottier|js}; {js|Didier Rémy|js}]
-  ; abstract = {js|This book chapter gives an in-depth abstract of the Core ML type system, with an emphasis on type inference.  The type inference algorithm is described as the composition of a constraint generator, which produces a system  of type equations, and a constraint solver, which is presented as a set of rewrite rules.
-|js}
-  ; tags = 
- [{js|core|js}; {js|language|js}]
-  ; year = 2005
-  ; links = [{js|https://cristal.inria.fr/attapl/preversion.ps.gz|js}]
-  };
- 
-  { title = {js|Relaxing the value restriction|js}
-  ; slug = {js|relaxing-the-value-restriction|js}
-  ; publication = {js|International Symposium on Functional and Logic Programming|js}
-  ; authors = 
- [{js|Jacques Garrigue|js}]
-  ; abstract = {js|This paper explains why it is sound to generalize certain type variables at a `let` binding, even when the expression that is being `let`-bound is not a value. This relaxed version of Wright's classic “value restriction” was introduced in OCaml 3.07.
-|js}
-  ; tags = 
- [{js|core|js}; {js|language|js}]
-  ; year = 2004
-  ; links = [{js|https://caml.inria.fr/pub/papers/garrigue-value_restriction-fiwflp04.pdf|js};
-                                                               {js|https://caml.inria.fr/pub/papers/garrigue-value_restriction-fiwflp04.ps.gz|js}]
-  };
- 
-  { title = {js|Manifest Types, Modules, and Separate Compilation|js}
-  ; slug = {js|manifest-types-modules-and-separate-compilation|js}
-  ; publication = {js|Principles of Programming Languages|js}
-  ; authors = 
- [{js|Xavier Leroy|js}]
-  ; abstract = {js|This paper presents a variant of the Standard ML module system that introduces a strict distinction between abstract  and manifest types. The latter are types whose definitions explicitly appear as part of a module interface. This proposal  is meant to retain most of the expressive power of the Standard ML module system, while providing much better support for  separate compilation. This work sets the formal bases for OCaml's module system.
-|js}
-  ; tags = 
- [{js|core|js}; {js|language|js}; {js|modules|js}]
-  ; year = 1994
-  ; links = 
- [{js|https://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.pdf|js};
-  {js|https://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.ps.gz|js};
-  {js|https://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.dvi.gz|js}]
-  };
- 
-  { title = {js|Applicative Functors and Fully Transparent Higher-order Modules|js}
-  ; slug = {js|applicative-functors-and-fully-transparent-higher-order-modules|js}
-  ; publication = {js|Principles of Programming Languages|js}
-  ; authors = 
- [{js|Xavier Leroy|js}]
-  ; abstract = {js|This work extends the above paper by introducing so-called applicative functors, that is, functors that produce compatible  abstract types when applied to provably equal arguments. Applicative functors are also a feature of OCaml.
-|js}
-  ; tags = 
- [{js|core|js}; {js|language|js}; {js|modules|js}]
-  ; year = 1995
-  ; links = 
- [{js|https://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.pdf|js};
-  {js|https://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.ps.gz|js};
-  {js|https://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.dvi.gz|js}]
-  };
- 
-  { title = {js|A Modular Module System|js}
-  ; slug = {js|a-modular-module-system|js}
-  ; publication = {js|Journal of Functional Programming, 10(3):269-303|js}
-  ; authors = 
- [{js|Xavier Leroy|js}]
-  ; abstract = {js|This accessible paper describes a simplified implementation of the OCaml module system, emphasizing the fact that the module system  is largely independent of the underlying core language. This is a good tutorial to learn both how modules can be used and how  they are typechecked.
-|js}
-  ; tags = 
- [{js|core|js}; {js|language|js}; {js|modules|js}]
-  ; year = 2000
-  ; links = 
- [{js|https://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.pdf|js};
-  {js|https://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.ps.gz|js};
-  {js|https://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.dvi.gz|js}]
-  };
- 
-  { title = {js|A Proposal for Recursive Modules in Objective Caml|js}
-  ; slug = {js|a-proposal-for-recursive-modules-in-objective-caml|js}
-  ; publication = {js|Unpublication|js}
-  ; authors = 
- [{js|Xavier Leroy|js}]
-  ; abstract = {js|This note describes the experimental recursive modules introduced in OCaml 3.07.
-|js}
-  ; tags = 
- [{js|core|js}; {js|language|js}; {js|modules|js}]
-  ; year = 2003
-  ; links = 
- [{js|https://caml.inria.fr/pub/papers/xleroy-recursive_modules-03.pdf|js};
-  {js|https://caml.inria.fr/pub/papers/xleroy-recursive_modules-03.ps.gz|js}]
-  };
- 
-  { title = {js|Objective ML: An effective object-oriented extension to ML|js}
-  ; slug = {js|objective-ml-an-effective-object-oriented-extension-to-ml|js}
-  ; publication = {js|Theory And Practice of Objects Systems, 4(1):27−50|js}
-  ; authors = 
- [{js|Didier Rémy|js}; {js|Jérôme Vouillon|js}]
-  ; abstract = {js|This paper provides theoretical foundations for OCaml's object-oriented layer, including dynamic and static semantics.
-|js}
-  ; tags = 
- [{js|core|js}; {js|language|js}; {js|objects|js}]
-  ; year = 1998
-  ; links = 
- [{js|https://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.pdf|js};
-  {js|https://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.ps.gz|js};
-  {js|https://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.dvi.gz|js}]
-  };
- 
-  { title = {js|Extending ML with Semi-Explicit Higher-Order Polymorphism|js}
-  ; slug = {js|extending-ml-with-semi-explicit-higher-order-polymorphism|js}
-  ; publication = {js|Information & Computation, 155(1/2):134−169|js}
-  ; authors = 
- [{js|Jacques Garrigue|js}; {js|Didier Rémy|js}]
-  ; abstract = {js|This paper proposes a device for re-introducing first-class polymorphic values into ML while preserving its type inference  mechanism. This technology underlies OCaml's polymorphic methods.
-|js}
-  ; tags = 
- [{js|core|js}; {js|language|js}; {js|objects|js}]
-  ; year = 1999
-  ; links = 
- [{js|https://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.pdf|js};
-  {js|https://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.ps.gz|js};
-  {js|https://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.dvi.gz|js}]
-  };
- 
-  { title = {js|Programming with Polymorphic Variants|js}
-  ; slug = {js|programming-with-polymorphic-variants|js}
-  ; publication = {js|ML Workshop|js}
-  ; authors = 
- [{js|Jacques Garrigue|js}]
-  ; abstract = {js|This paper briefly explains what polymorphic variants are about and how they are compiled.
-|js}
-  ; tags = 
- [{js|core|js}; {js|language|js}; {js|polymorphic variants|js}]
-  ; year = 1998
-  ; links = 
- [{js|https://caml.inria.fr/pub/papers/garrigue-polymorphic_variants-ml98.pdf|js};
-  {js|https://caml.inria.fr/pub/papers/garrigue-polymorphic_variants-ml98.ps.gz|js}]
-  };
- 
-  { title = {js|Code Reuse through Polymorphic Variants|js}
-  ; slug = {js|code-reuse-through-polymorphic-variants|js}
-  ; publication = {js|Workshop on Foundations of Software Engineering|js}
-  ; authors = 
- [{js|Jacques Garrigue|js}]
-  ; abstract = {js|This short paper explains how to design a modular, extensible interpreter using polymorphic variants.
-|js}
-  ; tags = 
- [{js|core|js}; {js|language|js}; {js|polymorphic variants|js}]
-  ; year = 2000
-  ; links = 
- [{js|https://caml.inria.fr/pub/papers/garrigue-variant-reuse-2000.ps.gz|js}]
-  };
- 
-  { title = {js|Simple Type Inference for Structural Polymorphism|js}
-  ; slug = {js|simple-type-inference-for-structural-polymorphism|js}
-  ; publication = {js|Workshop on Foundations of Object-Oriented Languages|js}
-  ; authors = 
- [{js|Jacques Garrigue|js}]
-  ; abstract = {js|This paper explains most of the typechecking machinery behind polymorphic variants.  At its heart is an extension of Core ML's type discipline with so-called local constraints.
-|js}
-  ; tags = 
- [{js|core|js}; {js|language|js}; {js|polymorphic variants|js}]
-  ; year = 2002
-  ; links = 
- [{js|https://caml.inria.fr/pub/papers/garrigue-structural_poly-fool02.pdf|js};
-  {js|https://caml.inria.fr/pub/papers/garrigue-structural_poly-fool02.ps.gz|js}]
-  };
- 
-  { title = {js|Typing Deep Pattern-matching in Presence of Polymorphic Variants|js}
-  ; slug = {js|typing-deep-pattern-matching-in-presence-of-polymorphic-variants|js}
-  ; publication = {js|JSSST Workshop on Programming and Programming Languages|js}
-  ; authors = 
- [{js|Jacques Garrigue|js}]
-  ; abstract = {js|This paper provides more details about the technical machinery behind polymorphic variants, focusing  on the rules for typechecking deep pattern matching constructs.
-|js}
-  ; tags = 
- [{js|core|js}; {js|language|js}; {js|polymorphic variants|js}]
-  ; year = 2004
-  ; links = 
- [{js|https://caml.inria.fr/pub/papers/garrigue-deep-variants-2004.pdf|js};
-  {js|https://caml.inria.fr/pub/papers/garrigue-deep-variants-2004.ps.gz|js}]
-  };
- 
-  { title = {js|Labeled and Optional Arguments for Objective Caml|js}
-  ; slug = {js|labeled-and-optional-arguments-for-objective-caml|js}
-  ; publication = {js|JSSST Workshop on Programming and Programming Languages|js}
-  ; authors = 
- [{js|Jacques Garrigue|js}]
-  ; abstract = {js|This paper offers a dynamic semantics, a static semantics, and a compilation scheme for OCaml's labeled  and optional function parameters.
-|js}
-  ; tags = 
- [{js|core|js}; {js|language|js}]
-  ; year = 2001
-  ; links = [{js|https://caml.inria.fr/pub/papers/garrigue-labels-ppl01.pdf|js};
-                                                               {js|https://caml.inria.fr/pub/papers/garrigue-labels-ppl01.ps.gz|js};
-                                                               {js|https://caml.inria.fr/pub/papers/garrigue-labels-ppl01.dvi.gz|js}]
-  };
- 
-  { title = {js|Meta-programming Tutorial with CamlP4|js}
-  ; slug = {js|meta-programming-tutorial-with-camlp4|js}
-  ; publication = {js|Commercial Users of Functional Programming|js}
-  ; authors = 
- [{js|Jake Donham|js}]
-  ; abstract = {js|Meta-programming tutorial with Camlp4|js}
-  ; tags = 
- [{js|core|js}; {js|language|js}]
-  ; year = 2010
-  ; links = [{js|https://github.com/jaked/cufp-metaprogramming-tutorial|js}]
-  };
- 
   { title = {js|The ZINC experiment, an Economical Implementation of the ML language|js}
   ; slug = {js|the-zinc-experiment-an-economical-implementation-of-the-ml-language|js}
   ; publication = {js|Technical report 117, INRIA|js}
@@ -243,22 +25,15 @@ let all =
   ; tags = 
  [{js|compiler|js}; {js|runtime|js}]
   ; year = 1990
-  ; links = [{js|https://caml.inria.fr/pub/papers/xleroy-zinc.pdf|js};
-                                                                  {js|https://caml.inria.fr/pub/papers/xleroy-zinc.ps.gz|js}]
-  };
- 
-  { title = {js|The Effectiveness of Type-based Unboxing|js}
-  ; slug = {js|the-effectiveness-of-type-based-unboxing|js}
-  ; publication = {js|Workshop on Types in Compilation|js}
-  ; authors = 
- [{js|Xavier Leroy|js}]
-  ; abstract = {js|This paper surveys and compares several data representation strategies, including the one used in the OCaml native-code compiler.
-|js}
-  ; tags = 
- [{js|compiler|js}; {js|runtime|js}]
-  ; year = 1997
-  ; links = [{js|https://caml.inria.fr/pub/papers/xleroy-unboxing-tic97.pdf|js};
-                                                                  {js|https://caml.inria.fr/pub/papers/xleroy-unboxing-tic97.ps.gz|js}]
+  ; links = [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/xleroy-zinc.pdf|js}
+        };
+                                                                  
+        { description = {js|Download PostScript|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/xleroy-zinc.ps.gz|js}
+        }]
+  ; featured = false
   };
  
   { title = {js|A Concurrent, Generational Garbage Collector for a Multithreaded Implementation of ML|js}
@@ -272,8 +47,58 @@ let all =
  [{js|garbage collection|js}; {js|runtime|js}]
   ; year = 1993
   ; links = 
- [{js|https://caml.inria.fr/pub/papers/doligez_xleroy-concurrent_gc-popl93.pdf|js};
-  {js|https://caml.inria.fr/pub/papers/doligez_xleroy-concurrent_gc-popl93.ps.gz|js}]
+ [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/doligez_xleroy-concurrent_gc-popl93.pdf|js}
+        };
+  
+        { description = {js|Download PostScript|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/doligez_xleroy-concurrent_gc-popl93.ps.gz|js}
+        }]
+  ; featured = false
+  };
+ 
+  { title = {js|A Syntactic Approach to Type Soundness|js}
+  ; slug = {js|a-syntactic-approach-to-type-soundness|js}
+  ; publication = {js|Information & Computation, 115(1):38−94|js}
+  ; authors = 
+ [{js|Andrew K. Wright|js}; {js|Matthias Felleisen|js}]
+  ; abstract = {js|This paper describes the semantics and the type system of Core ML,  and uses a simple syntactic technique to prove that well-typed programs cannot go wrong.
+|js}
+  ; tags = 
+ [{js|core|js}; {js|language|js}]
+  ; year = 1994
+  ; links = [
+        { description = {js|Download PostScript|js}
+        ; uri = {js|https://www.cs.rice.edu/CS/PLT/Publications/Scheme/ic94-wf.ps.gz|js}
+        }]
+  ; featured = false
+  };
+ 
+  { title = {js|Manifest Types, Modules, and Separate Compilation|js}
+  ; slug = {js|manifest-types-modules-and-separate-compilation|js}
+  ; publication = {js|Principles of Programming Languages|js}
+  ; authors = 
+ [{js|Xavier Leroy|js}]
+  ; abstract = {js|This paper presents a variant of the Standard ML module system that introduces a strict distinction between abstract  and manifest types. The latter are types whose definitions explicitly appear as part of a module interface. This proposal  is meant to retain most of the expressive power of the Standard ML module system, while providing much better support for  separate compilation. This work sets the formal bases for OCaml's module system.
+|js}
+  ; tags = 
+ [{js|core|js}; {js|language|js}; {js|modules|js}]
+  ; year = 1994
+  ; links = 
+ [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.pdf|js}
+        };
+  
+        { description = {js|Download PostScript|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.ps.gz|js}
+        };
+  
+        { description = {js|Download DVI|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.dvi.gz|js}
+        }]
+  ; featured = false
   };
  
   { title = {js|Portable, Unobtrusive Garbage Collection for Multiprocessor Systems|js}
@@ -287,8 +112,41 @@ let all =
  [{js|garbage collection|js}; {js|runtime|js}]
   ; year = 1994
   ; links = 
- [{js|https://caml.inria.fr/pub/papers/doligez_gonthier-gc-popl94.pdf|js};
-  {js|https://caml.inria.fr/pub/papers/doligez_gonthier-gc-popl94.ps.gz|js}]
+ [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/doligez_gonthier-gc-popl94.pdf|js}
+        };
+  
+        { description = {js|Download PostScript|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/doligez_gonthier-gc-popl94.ps.gz|js}
+        }]
+  ; featured = false
+  };
+ 
+  { title = {js|Applicative Functors and Fully Transparent Higher-order Modules|js}
+  ; slug = {js|applicative-functors-and-fully-transparent-higher-order-modules|js}
+  ; publication = {js|Principles of Programming Languages|js}
+  ; authors = 
+ [{js|Xavier Leroy|js}]
+  ; abstract = {js|This work extends the above paper by introducing so-called applicative functors, that is, functors that produce compatible  abstract types when applied to provably equal arguments. Applicative functors are also a feature of OCaml.
+|js}
+  ; tags = 
+ [{js|core|js}; {js|language|js}; {js|modules|js}]
+  ; year = 1995
+  ; links = 
+ [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.pdf|js}
+        };
+  
+        { description = {js|Download PostScript|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.ps.gz|js}
+        };
+  
+        { description = {js|Download DVI|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.dvi.gz|js}
+        }]
+  ; featured = false
   };
  
   { title = {js|Conception, réalisation et certification d'un glaneur de cellules concurrent|js}
@@ -302,8 +160,179 @@ let all =
  [{js|garbage collection|js}; {js|runtime|js}]
   ; year = 1995
   ; links = 
- [{js|https://caml.inria.fr/pub/papers/doligez-these.pdf|js};
-  {js|https://caml.inria.fr/pub/papers/doligez-these.ps.gz|js}]
+ [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/doligez-these.pdf|js}
+        };
+  
+        { description = {js|Download PostScript|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/doligez-these.ps.gz|js}
+        }]
+  ; featured = false
+  };
+ 
+  { title = {js|The Effectiveness of Type-based Unboxing|js}
+  ; slug = {js|the-effectiveness-of-type-based-unboxing|js}
+  ; publication = {js|Workshop on Types in Compilation|js}
+  ; authors = 
+ [{js|Xavier Leroy|js}]
+  ; abstract = {js|This paper surveys and compares several data representation strategies, including the one used in the OCaml native-code compiler.
+|js}
+  ; tags = 
+ [{js|compiler|js}; {js|runtime|js}]
+  ; year = 1997
+  ; links = [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/xleroy-unboxing-tic97.pdf|js}
+        };
+                                                                  
+        { description = {js|Download PostScript|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/xleroy-unboxing-tic97.ps.gz|js}
+        }]
+  ; featured = false
+  };
+ 
+  { title = {js|Objective ML: An effective object-oriented extension to ML|js}
+  ; slug = {js|objective-ml-an-effective-object-oriented-extension-to-ml|js}
+  ; publication = {js|Theory And Practice of Objects Systems, 4(1):27−50|js}
+  ; authors = 
+ [{js|Didier Rémy|js}; {js|Jérôme Vouillon|js}]
+  ; abstract = {js|This paper provides theoretical foundations for OCaml's object-oriented layer, including dynamic and static semantics.
+|js}
+  ; tags = 
+ [{js|core|js}; {js|language|js}; {js|objects|js}]
+  ; year = 1998
+  ; links = 
+ [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.pdf|js}
+        };
+  
+        { description = {js|Download PostScript|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.ps.gz|js}
+        };
+  
+        { description = {js|Download DVI|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.dvi.gz|js}
+        }]
+  ; featured = false
+  };
+ 
+  { title = {js|Programming with Polymorphic Variants|js}
+  ; slug = {js|programming-with-polymorphic-variants|js}
+  ; publication = {js|ML Workshop|js}
+  ; authors = 
+ [{js|Jacques Garrigue|js}]
+  ; abstract = {js|This paper briefly explains what polymorphic variants are about and how they are compiled.
+|js}
+  ; tags = 
+ [{js|core|js}; {js|language|js}; {js|polymorphic variants|js}]
+  ; year = 1998
+  ; links = 
+ [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/garrigue-polymorphic_variants-ml98.pdf|js}
+        };
+  
+        { description = {js|Download PostScript|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/garrigue-polymorphic_variants-ml98.ps.gz|js}
+        }]
+  ; featured = false
+  };
+ 
+  { title = {js|Extending ML with Semi-Explicit Higher-Order Polymorphism|js}
+  ; slug = {js|extending-ml-with-semi-explicit-higher-order-polymorphism|js}
+  ; publication = {js|Information & Computation, 155(1/2):134−169|js}
+  ; authors = 
+ [{js|Jacques Garrigue|js}; {js|Didier Rémy|js}]
+  ; abstract = {js|This paper proposes a device for re-introducing first-class polymorphic values into ML while preserving its type inference  mechanism. This technology underlies OCaml's polymorphic methods.
+|js}
+  ; tags = 
+ [{js|core|js}; {js|language|js}; {js|objects|js}]
+  ; year = 1999
+  ; links = 
+ [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.pdf|js}
+        };
+  
+        { description = {js|Download PostScript|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.ps.gz|js}
+        };
+  
+        { description = {js|Download DVI|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.dvi.gz|js}
+        }]
+  ; featured = false
+  };
+ 
+  { title = {js|A Modular Module System|js}
+  ; slug = {js|a-modular-module-system|js}
+  ; publication = {js|Journal of Functional Programming, 10(3):269-303|js}
+  ; authors = 
+ [{js|Xavier Leroy|js}]
+  ; abstract = {js|This accessible paper describes a simplified implementation of the OCaml module system, emphasizing the fact that the module system  is largely independent of the underlying core language. This is a good tutorial to learn both how modules can be used and how  they are typechecked.
+|js}
+  ; tags = 
+ [{js|core|js}; {js|language|js}; {js|modules|js}]
+  ; year = 2000
+  ; links = 
+ [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.pdf|js}
+        };
+  
+        { description = {js|Download PostScript|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.ps.gz|js}
+        };
+  
+        { description = {js|Download DVI|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.dvi.gz|js}
+        }]
+  ; featured = false
+  };
+ 
+  { title = {js|Code Reuse through Polymorphic Variants|js}
+  ; slug = {js|code-reuse-through-polymorphic-variants|js}
+  ; publication = {js|Workshop on Foundations of Software Engineering|js}
+  ; authors = 
+ [{js|Jacques Garrigue|js}]
+  ; abstract = {js|This short paper explains how to design a modular, extensible interpreter using polymorphic variants.
+|js}
+  ; tags = 
+ [{js|core|js}; {js|language|js}; {js|polymorphic variants|js}]
+  ; year = 2000
+  ; links = 
+ [
+        { description = {js|Download PostScript|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/garrigue-variant-reuse-2000.ps.gz|js}
+        }]
+  ; featured = false
+  };
+ 
+  { title = {js|Labeled and Optional Arguments for Objective Caml|js}
+  ; slug = {js|labeled-and-optional-arguments-for-objective-caml|js}
+  ; publication = {js|JSSST Workshop on Programming and Programming Languages|js}
+  ; authors = 
+ [{js|Jacques Garrigue|js}]
+  ; abstract = {js|This paper offers a dynamic semantics, a static semantics, and a compilation scheme for OCaml's labeled  and optional function parameters.
+|js}
+  ; tags = 
+ [{js|core|js}; {js|language|js}]
+  ; year = 2001
+  ; links = [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/garrigue-labels-ppl01.pdf|js}
+        };
+                                                               
+        { description = {js|Download PostScript|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/garrigue-labels-ppl01.ps.gz|js}
+        };
+                                                               
+        { description = {js|Download DVI|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/garrigue-labels-ppl01.dvi.gz|js}
+        }]
+  ; featured = false
   };
  
   { title = {js|Optimizing Pattern Matching|js}
@@ -317,20 +346,115 @@ let all =
  [{js|pattern-matching|js}; {js|runtime|js}]
   ; year = 2001
   ; links = 
- [{js|https://dl.acm.org/citation.cfm?id=507641|js}]
+ [
+        { description = {js|View Online|js}
+        ; uri = {js|https://dl.acm.org/citation.cfm?id=507641|js}
+        }]
+  ; featured = false
   };
  
-  { title = {js|OCaml for the Masses|js}
-  ; slug = {js|ocaml-for-the-masses|js}
-  ; publication = {js|ACM Queue|js}
+  { title = {js|Simple Type Inference for Structural Polymorphism|js}
+  ; slug = {js|simple-type-inference-for-structural-polymorphism|js}
+  ; publication = {js|Workshop on Foundations of Object-Oriented Languages|js}
   ; authors = 
- [{js|Yaron Minsky|js}]
-  ; abstract = {js|Why the next language you learn should be functional.
+ [{js|Jacques Garrigue|js}]
+  ; abstract = {js|This paper explains most of the typechecking machinery behind polymorphic variants.  At its heart is an extension of Core ML's type discipline with so-called local constraints.
 |js}
   ; tags = 
- [{js|industrial|js}]
-  ; year = 2011
-  ; links = [{js|https://queue.acm.org/detail.cfm?id=2038036|js}]
+ [{js|core|js}; {js|language|js}; {js|polymorphic variants|js}]
+  ; year = 2002
+  ; links = 
+ [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/garrigue-structural_poly-fool02.pdf|js}
+        };
+  
+        { description = {js|Download PostScript|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/garrigue-structural_poly-fool02.ps.gz|js}
+        }]
+  ; featured = false
+  };
+ 
+  { title = {js|A Proposal for Recursive Modules in Objective Caml|js}
+  ; slug = {js|a-proposal-for-recursive-modules-in-objective-caml|js}
+  ; publication = {js|Unpublication|js}
+  ; authors = 
+ [{js|Xavier Leroy|js}]
+  ; abstract = {js|This note describes the experimental recursive modules introduced in OCaml 3.07.
+|js}
+  ; tags = 
+ [{js|core|js}; {js|language|js}; {js|modules|js}]
+  ; year = 2003
+  ; links = 
+ [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/xleroy-recursive_modules-03.pdf|js}
+        };
+  
+        { description = {js|Download PostScript|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/xleroy-recursive_modules-03.ps.gz|js}
+        }]
+  ; featured = false
+  };
+ 
+  { title = {js|Relaxing the value restriction|js}
+  ; slug = {js|relaxing-the-value-restriction|js}
+  ; publication = {js|International Symposium on Functional and Logic Programming|js}
+  ; authors = 
+ [{js|Jacques Garrigue|js}]
+  ; abstract = {js|This paper explains why it is sound to generalize certain type variables at a `let` binding, even when the expression that is being `let`-bound is not a value. This relaxed version of Wright's classic “value restriction” was introduced in OCaml 3.07.
+|js}
+  ; tags = 
+ [{js|core|js}; {js|language|js}]
+  ; year = 2004
+  ; links = [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/garrigue-value_restriction-fiwflp04.pdf|js}
+        };
+                                                               
+        { description = {js|Download PostScript|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/garrigue-value_restriction-fiwflp04.ps.gz|js}
+        }]
+  ; featured = false
+  };
+ 
+  { title = {js|Typing Deep Pattern-matching in Presence of Polymorphic Variants|js}
+  ; slug = {js|typing-deep-pattern-matching-in-presence-of-polymorphic-variants|js}
+  ; publication = {js|JSSST Workshop on Programming and Programming Languages|js}
+  ; authors = 
+ [{js|Jacques Garrigue|js}]
+  ; abstract = {js|This paper provides more details about the technical machinery behind polymorphic variants, focusing  on the rules for typechecking deep pattern matching constructs.
+|js}
+  ; tags = 
+ [{js|core|js}; {js|language|js}; {js|polymorphic variants|js}]
+  ; year = 2004
+  ; links = 
+ [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/garrigue-deep-variants-2004.pdf|js}
+        };
+  
+        { description = {js|Download PostScript|js}
+        ; uri = {js|https://caml.inria.fr/pub/papers/garrigue-deep-variants-2004.ps.gz|js}
+        }]
+  ; featured = false
+  };
+ 
+  { title = {js|The Essence of ML Type Inference|js}
+  ; slug = {js|the-essence-of-ml-type-inference|js}
+  ; publication = {js|Benjamin C. Pierce, editor, Advanced Topics in Types and Programming Languages, MIT Press|js}
+  ; authors = 
+ [{js|François Pottier|js}; {js|Didier Rémy|js}]
+  ; abstract = {js|This book chapter gives an in-depth abstract of the Core ML type system, with an emphasis on type inference.  The type inference algorithm is described as the composition of a constraint generator, which produces a system  of type equations, and a constraint solver, which is presented as a set of rewrite rules.
+|js}
+  ; tags = 
+ [{js|core|js}; {js|language|js}]
+  ; year = 2005
+  ; links = [
+        { description = {js|Download PostScript|js}
+        ; uri = {js|https://cristal.inria.fr/attapl/preversion.ps.gz|js}
+        }]
+  ; featured = false
   };
  
   { title = {js|Xen and the Art of OCaml|js}
@@ -344,7 +468,80 @@ let all =
  [{js|industrial|js}; {js|application|js}]
   ; year = 2008
   ; links = 
- [{js|https://cufp.org/archive/2008/slides/MadhavapeddyAnil.pdf|js}]
+ [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://cufp.org/archive/2008/slides/MadhavapeddyAnil.pdf|js}
+        }]
+  ; featured = false
+  };
+ 
+  { title = {js|Meta-programming Tutorial with CamlP4|js}
+  ; slug = {js|meta-programming-tutorial-with-camlp4|js}
+  ; publication = {js|Commercial Users of Functional Programming|js}
+  ; authors = 
+ [{js|Jake Donham|js}]
+  ; abstract = {js|Meta-programming tutorial with Camlp4|js}
+  ; tags = 
+ [{js|core|js}; {js|language|js}]
+  ; year = 2010
+  ; links = [
+        { description = {js|View Online|js}
+        ; uri = {js|https://github.com/jaked/cufp-metaprogramming-tutorial|js}
+        }]
+  ; featured = false
+  };
+ 
+  { title = {js|OCaml for the Masses|js}
+  ; slug = {js|ocaml-for-the-masses|js}
+  ; publication = {js|ACM Queue|js}
+  ; authors = 
+ [{js|Yaron Minsky|js}]
+  ; abstract = {js|Why the next language you learn should be functional.
+|js}
+  ; tags = 
+ [{js|industrial|js}]
+  ; year = 2011
+  ; links = [
+        { description = {js|View Online|js}
+        ; uri = {js|https://queue.acm.org/detail.cfm?id=2038036|js}
+        }]
+  ; featured = false
+  };
+ 
+  { title = {js|Eff Directly in OCaml|js}
+  ; slug = {js|eff-directly-in-ocaml|js}
+  ; publication = {js|Open Publishing Association|js}
+  ; authors = 
+ [{js|Oleg Kiselyov|js}; {js|KC Sivaramakrishnan|js}]
+  ; abstract = {js|The language Eff is an OCaml-like language serving as a prototype implementation of the theory of algebraic effects, intended for experimentation with algebraic effects on a large scale. We present the embedding of Eff into OCaml, using the library of delimited continuations or the multicore OCaml branch. We demonstrate the correctness of the embedding denotationally, relying on the tagless-final-style interpreter-based denotational semantics, including the novel, direct denotational semantics of multi-prompt delimited control. The embedding is systematic, lightweight, performant and supports even higher-order, 'dynamic' effects with their polymorphism. OCaml thus may be regarded as another implementation of Eff, broadening the scope and appeal of that language.
+|js}
+  ; tags = 
+ [{js|ocaml-workshop|js}; {js|core|js}; {js|language|js}]
+  ; year = 2016
+  ; links = 
+ [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://arxiv.org/pdf/1812.11664.pdf|js}
+        }]
+  ; featured = true
+  };
+ 
+  { title = {js|A memory model for multicore OCaml|js}
+  ; slug = {js|a-memory-model-for-multicore-ocaml|js}
+  ; publication = {js|International Conference on Functional Programming (ICFP)|js}
+  ; authors = 
+ [{js|Stephen Dolan|js}; {js|KC Sivaramakrishnan|js}]
+  ; abstract = {js|We propose a memory model for OCaml, broadly following the design of axiomatic memory models for languages such as C++ and Java, but with a number of differences to provide stronger guarantees and easier reasoning to the programmer, at the expense of not admitting every possible optimisation.
+|js}
+  ; tags = 
+ [{js|ocaml-workshop|js}; {js|multicore|js}]
+  ; year = 2017
+  ; links = 
+ [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://kcsrk.info/papers/memory_model_ocaml17.pdf|js}
+        }]
+  ; featured = true
   };
  
   { title = {js|Chemoinformatics and Structural Bioinformatics in OCaml|js}
@@ -359,7 +556,29 @@ let all =
  [{js|industrial|js}; {js|application|js}; {js|bioinformatics|js}]
   ; year = 2019
   ; links = 
- [{js|https://jcheminf.biomedcentral.com/articles/10.1186/s13321-019-0332-0|js}]
+ [
+        { description = {js|View Online|js}
+        ; uri = {js|https://jcheminf.biomedcentral.com/articles/10.1186/s13321-019-0332-0|js}
+        }]
+  ; featured = false
+  };
+ 
+  { title = {js|Extending OCaml's 'open'|js}
+  ; slug = {js|extending-ocamls-open|js}
+  ; publication = {js|Open Publishing Association|js}
+  ; authors = 
+ [{js|Runhang Li|js}; {js|Jeremy Yallop|js}]
+  ; abstract = {js|We propose a harmonious extension of OCaml's 'open' construct. OCaml's existing construct 'open M' imports the names exported by the module 'M' into the current scope. At present 'M' is required to be the path to a module. We propose extending 'open' to instead accept an arbitrary module expression, making it possible to succinctly address a number of existing scope-related difficulties that arise when writing OCaml programs.
+|js}
+  ; tags = 
+ [{js|ocaml-workshop|js}; {js|core|js}; {js|language|js}]
+  ; year = 2019
+  ; links = 
+ [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://arxiv.org/pdf/1905.06543.pdf|js}
+        }]
+  ; featured = true
   };
  
   { title = {js|A Declarative Syntax Definition for OCaml|js}
@@ -372,7 +591,11 @@ let all =
   ; tags = 
  [{js|ocaml-workshop|js}]
   ; year = 2020
-  ; links = [{js|https://eelcovisser.org/talks/2020/08/28/ocaml/|js}]
+  ; links = [
+        { description = {js|View Online|js}
+        ; uri = {js|https://eelcovisser.org/talks/2020/08/28/ocaml/|js}
+        }]
+  ; featured = false
   };
  
   { title = {js|A Simple State-Machine Framework for Property-Based Testing in OCaml|js}
@@ -385,7 +608,11 @@ let all =
   ; tags = 
  [{js|ocaml-workshop|js}]
   ; year = 2020
-  ; links = [{js|https://janmidtgaard.dk/papers/Midtgaard%3AOCaml20.pdf|js}]
+  ; links = [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://janmidtgaard.dk/papers/Midtgaard%3AOCaml20.pdf|js}
+        }]
+  ; featured = false
   };
  
   { title = {js|AD-OCaml: Algorithmic Differentiation for OCaml|js}
@@ -398,7 +625,11 @@ let all =
   ; tags = 
  [{js|ocaml-workshop|js}]
   ; year = 2020
-  ; links = [{js|https://icfp20.sigplan.org/details/ocaml-2020-papers/12/AD-OCaml-Algorithmic-Differentiation-for-OCaml|js}]
+  ; links = [
+        { description = {js|View Online|js}
+        ; uri = {js|https://icfp20.sigplan.org/details/ocaml-2020-papers/12/AD-OCaml-Algorithmic-Differentiation-for-OCaml|js}
+        }]
+  ; featured = false
   };
  
   { title = {js|API migration: compare transformed|js}
@@ -412,8 +643,15 @@ let all =
   ; tags = 
  [{js|ocaml-workshop|js}]
   ; year = 2020
-  ; links = [{js|https://icfp20.sigplan.org/details/ocaml-2020-papers/7/API-migration-compare-transformed|js};
-                                                       {js|https://www.cs.kent.ac.uk/people/staff/sjt/Pubs/OCaml_workshop2020.pdf|js}]
+  ; links = [
+        { description = {js|View Online|js}
+        ; uri = {js|https://icfp20.sigplan.org/details/ocaml-2020-papers/7/API-migration-compare-transformed|js}
+        };
+                                                       
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://www.cs.kent.ac.uk/people/staff/sjt/Pubs/OCaml_workshop2020.pdf|js}
+        }]
+  ; featured = false
   };
  
   { title = {js|Irmin v2|js}
@@ -427,8 +665,15 @@ let all =
   ; tags = 
  [{js|ocaml-workshop|js}]
   ; year = 2020
-  ; links = [{js|https://icfp20.sigplan.org/details/ocaml-2020-papers/10/Irmin-v2|js};
-                                                       {js|https://tarides.com/blog/2019-11-21-irmin-v2|js}]
+  ; links = [
+        { description = {js|View Online|js}
+        ; uri = {js|https://icfp20.sigplan.org/details/ocaml-2020-papers/10/Irmin-v2|js}
+        };
+                                                       
+        { description = {js|View Online|js}
+        ; uri = {js|https://tarides.com/blog/2019-11-21-irmin-v2|js}
+        }]
+  ; featured = false
   };
  
   { title = {js|LexiFi Runtime Types|js}
@@ -441,9 +686,19 @@ let all =
   ; tags = 
  [{js|ocaml-workshop|js}]
   ; year = 2020
-  ; links = [{js|https://icfp20.sigplan.org/details/ocaml-2020-papers/9/LexiFi-Runtime-Types|js};
-                                                       {js|https://informationsecurity.uibk.ac.at/pdfs/KL2020_LexiFi_Runtime_Types_OCAML.pdf|js};
-                                                       {js|https://www.lexifi.com/blog/ocaml/runtime-types/|js}]
+  ; links = [
+        { description = {js|View Online|js}
+        ; uri = {js|https://icfp20.sigplan.org/details/ocaml-2020-papers/9/LexiFi-Runtime-Types|js}
+        };
+                                                       
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://informationsecurity.uibk.ac.at/pdfs/KL2020_LexiFi_Runtime_Types_OCAML.pdf|js}
+        };
+                                                       
+        { description = {js|View Online|js}
+        ; uri = {js|https://www.lexifi.com/blog/ocaml/runtime-types/|js}
+        }]
+  ; featured = false
   };
  
   { title = {js|OCaml Under the Hood: SmartPy|js}
@@ -456,8 +711,15 @@ let all =
   ; tags = 
  [{js|ocaml-workshop|js}]
   ; year = 2020
-  ; links = [{js|https://icfp20.sigplan.org/details/ocaml-2020-papers/11/OCaml-Under-The-Hood-SmartPy|js};
-                                                       {js|https://wr.mondet.org/paper/smartpy-ocaml-2020.pdf|js}]
+  ; links = [
+        { description = {js|View Online|js}
+        ; uri = {js|https://icfp20.sigplan.org/details/ocaml-2020-papers/11/OCaml-Under-The-Hood-SmartPy|js}
+        };
+                                                       
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://wr.mondet.org/paper/smartpy-ocaml-2020.pdf|js}
+        }]
+  ; featured = false
   };
  
   { title = {js|OCaml-CI: A Zero-Configuration CI|js}
@@ -471,7 +733,11 @@ let all =
   ; tags = 
  [{js|ocaml-workshop|js}]
   ; year = 2020
-  ; links = [{js|https://icfp20.sigplan.org/details/ocaml-2020-papers/6/OCaml-CI-A-Zero-Configuration-CI|js}]
+  ; links = [
+        { description = {js|View Online|js}
+        ; uri = {js|https://icfp20.sigplan.org/details/ocaml-2020-papers/6/OCaml-CI-A-Zero-Configuration-CI|js}
+        }]
+  ; featured = false
   };
  
   { title = {js|Parallelising your OCaml Code with Multicore OCaml|js}
@@ -485,8 +751,15 @@ let all =
   ; tags = 
  [{js|ocaml-workshop|js}]
   ; year = 2020
-  ; links = [{js|https://github.com/ocaml-multicore/multicore-talks/blob/master/ocaml2020-workshop-parallel/multicore-ocaml20.pdf|js};
-                                                       {js|https://icfp20.sigplan.org/details/ocaml-2020-papers/5/Parallelising-your-OCaml-Code-with-Multicore-OCaml|js}]
+  ; links = [
+        { description = {js|Download PDF|js}
+        ; uri = {js|https://github.com/ocaml-multicore/multicore-talks/blob/master/ocaml2020-workshop-parallel/multicore-ocaml20.pdf|js}
+        };
+                                                       
+        { description = {js|View Online|js}
+        ; uri = {js|https://icfp20.sigplan.org/details/ocaml-2020-papers/5/Parallelising-your-OCaml-Code-with-Multicore-OCaml|js}
+        }]
+  ; featured = false
   };
  
   { title = {js|The ImpFS Filesystem|js}
@@ -499,7 +772,11 @@ let all =
   ; tags = 
  [{js|ocaml-workshop|js}]
   ; year = 2020
-  ; links = [{js|https://icfp20.sigplan.org/details/ocaml-2020-papers/8/The-ImpFS-filesystem|js}]
+  ; links = [
+        { description = {js|View Online|js}
+        ; uri = {js|https://icfp20.sigplan.org/details/ocaml-2020-papers/8/The-ImpFS-filesystem|js}
+        }]
+  ; featured = false
   };
  
   { title = {js|The final pieces of the OCaml documentation puzzle|js}
@@ -512,7 +789,11 @@ let all =
   ; tags = 
  [{js|ocaml-workshop|js}]
   ; year = 2020
-  ; links = [{js|https://icfp20.sigplan.org/details/ocaml-2020-papers/4/The-final-pieces-of-the-OCaml-documentation-puzzle|js}]
+  ; links = [
+        { description = {js|View Online|js}
+        ; uri = {js|https://icfp20.sigplan.org/details/ocaml-2020-papers/4/The-final-pieces-of-the-OCaml-documentation-puzzle|js}
+        }]
+  ; featured = false
   };
  
   { title = {js|Types in Amber|js}
@@ -525,6 +806,10 @@ let all =
   ; tags = 
  [{js|ocaml-workshop|js}]
   ; year = 2020
-  ; links = [{js|https://icfp20.sigplan.org/details/ocaml-2020-papers/3/Types-in-amber|js}]
+  ; links = [
+        { description = {js|View Online|js}
+        ; uri = {js|https://icfp20.sigplan.org/details/ocaml-2020-papers/3/Types-in-amber|js}
+        }]
+  ; featured = false
   }]
 
