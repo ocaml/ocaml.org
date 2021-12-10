@@ -13,4 +13,5 @@ links:
     uri: https://minimalprocedure.pragmas.org/writings/programmazione_funzionale/programmazione_funzionale.html
   - description: PDF
     uri: https://minimalprocedure.pragmas.org/writings/programmazione_funzionale/programmazione_funzionale.pdf
+featured: false
 ---

@@ -11,6 +11,7 @@ isbn: "2-84074-114-8"
 links:
   - description: Book Website
     uri: https://pauillac.inria.fr/cousineau-mauny/main-fr.html
+featured: false
 ---
 
 This book uses OCaml as a tool to introduce several important

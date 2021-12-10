@@ -9,10 +9,9 @@ published: "2008"
 cover: /books/thinkocaml_cover_web.png
 language: english
 links:
-  - description: Book Website
-    uri: https://greenteapress.com/thinkocaml/index.html
-  - description: PDF
+  - description: Read Online
     uri: https://greenteapress.com/thinkocaml/thinkocaml.pdf
+featured: true
 ---
 
 This book is a work in progress. It is an introductory programming

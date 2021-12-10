@@ -14,6 +14,7 @@ links:
     uri: https://andreiformiga.com/livro/ocaml/
   - description: Order online from Casa do Código
     uri: https://www.casadocodigo.com.br/products/livro-ocaml
+featured: false
 ---
 
 This book is an introduction to functional programming through OCaml, with a pragmatic

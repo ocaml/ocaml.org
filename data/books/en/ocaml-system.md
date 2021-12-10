@@ -12,6 +12,7 @@ language: english
 links:
   - description: Online
     uri: https://ocaml.org/releases/latest/manual.html
+featured: false
 ---
 
 This the official User's Manual. It serves as a complete reference guide

@@ -9,4 +9,5 @@ published: "2002"
 cover: /books/limongelli-cialdea.gif
 language: italian
 isbn: "88-7488-031-6"
+featured: false
 ---

@@ -10,10 +10,10 @@ published: 2013-06-07
 cover: /books/OCaml_from_beginning.png
 language: english
 links:
-  - description: Book Website
-    uri: https://ocaml-book.com/
-  - description: Amazon
+  - description: Buy on Amazon
     uri: https://www.amazon.com/gp/product/0957671105
+rating: 4
+featured: true
 ---
 
 In "OCaml from the Very Beginning" John Whitington takes a

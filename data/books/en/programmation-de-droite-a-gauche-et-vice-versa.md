@@ -11,4 +11,5 @@ isbn: "978-2-916466-05-7"
 links:
   - description: Order Online from Paracamplus
     uri: https://paracamplus.com
+featured: false
 ---

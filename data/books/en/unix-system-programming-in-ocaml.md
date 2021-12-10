@@ -10,6 +10,7 @@ language: english
 links:
   - description: Online
     uri: https://ocaml.github.io/ocamlunix
+featured: false
 ---
 
 This is an excellent book on Unix system programming, with an emphasis

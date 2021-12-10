@@ -14,6 +14,7 @@ isbn: "2-7117-8839-3"
 links:
   - description: Order at Amazon.fr
     uri: https://www.amazon.fr/exec/obidos/ASIN/2711788393
+featured: false
 ---
 
 This books is a follow-up to the previous one and is intended for second

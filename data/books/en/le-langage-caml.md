@@ -18,6 +18,7 @@ isbn: "2-10-004383-8"
 links:
   - description: PDF
     uri: https://caml.inria.fr/pub/distrib/books/llc.pdf
+featured: false
 ---
 
 This book is a comprehensive introduction to programming in OCaml.

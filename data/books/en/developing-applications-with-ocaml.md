@@ -16,6 +16,7 @@ links:
     uri: https://caml.inria.fr/pub/docs/oreilly-book/html/index.html
   - description: PDF
     uri: https://caml.inria.fr/pub/docs/oreilly-book/ocaml-ora-book.pdf
+featured: false
 ---
 
 A comprehensive (742 pages) book on OCaml, covering not only the core

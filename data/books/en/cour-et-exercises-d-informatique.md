@@ -13,6 +13,7 @@ published: "1997"
 cover: /books/albert.gif
 language: french
 isbn: "2-84180-106-3"
+featured: false
 ---
 
 This book was written by teachers at university and in “classes
