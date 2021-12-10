@@ -1,0 +1,43 @@
+.resources-card {
+    @apply rounded-xl py-12 px-8 text-white bg-opacity-5 bg-white;
+}
+
+
+.card-hover {
+    @apply transform hover:scale-105 transition-transform;
+}
+
+.success-card {
+    @apply text-body-400 text-base text-white p-8 overflow-hidden rounded-xl relative bg-cover;
+    height: 440px;
+}
+
+.success-card:hover .success-card__content {
+    @apply translate-y-0;
+}
+
+.success-card:hover .success-card__link {
+    @apply opacity-100;
+}
+
+.success-card:hover .success-card__image {
+    @apply scale-100;
+}
+
+.success-card .success-card__image {
+    @apply absolute left-0 top-0 transition-transform transform ease-in-out w-full h-full bg-cover duration-300;
+    z-index: 1;
+}
+
+.success-card .success-card__overlay {
+    @apply absolute left-0 top-0 w-full h-full opacity-60;
+    z-index: 2;
+}
+
+.success-card .success-card__content {
+    @apply transform transition-transform translate-y-6 ease-in-out duration-300;
+}
+
+.success-card .success-card__link {
+    @apply opacity-0 transition-opacity flex space-x-3 items-center font-semibold;
+}

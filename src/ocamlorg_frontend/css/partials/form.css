@@ -1,0 +1,30 @@
+.form-input {
+    @apply relative h-14;
+
+}
+
+.form-input .form-input__icon {
+    @apply absolute h-full flex items-center pl-6 opacity-60;
+}
+
+.form-input i {
+    @apply text-body-600 relative;
+    top: 1px;
+}
+
+.form-input input {
+    @apply w-full font-normal lg:w-96 text-body-600 border pl-14 rounded-md h-full pr-4 border-gray-200 placeholder-body-400 outline-none focus:border-primary-600;
+}
+
+.form-input.form-input-sm {
+    @apply h-12;
+
+}
+
+.form-input.form-input-sm input {
+    @apply pl-11;
+}
+
+.form-input.form-input-sm .form-input__icon {
+    @apply pl-4;
+}

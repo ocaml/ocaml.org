@@ -1,0 +1,134 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import 'partials/variables.css';
+@import 'partials/icons.css';
+@import 'partials/typography.css';
+@import 'partials/buttons.css';
+@import 'partials/form.css';
+@import 'partials/card.css';
+@import 'partials/shadows.css';
+@import 'pages/industrial-users.css';
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    @apply bg-background-default text-body-600;
+    font-family: "Inter", sans-serif;
+}
+
+.container-fluid {
+    @apply max-w-7xl w-full mx-auto px-6;
+
+}
+
+.container-fluid.wide {
+    max-width: 1440px;
+}
+
+.bg-pattern {
+    background-image: url("/img/bg-pattern.jpg");
+    background-size: cover;
+}
+
+.bg-pattern  h2 {
+    background: -webkit-linear-gradient(left, #FF9A9E, #FAD0C4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.testimonials .swiper-wrapper .swiper-slide:nth-child(even) div:first-child {
+    background: #D23E3E14;
+}
+
+.testimonials .swiper-wrapper .swiper-slide:nth-child(odd) div:first-child {
+    background: #4784EC14;
+}
+
+.testimonials .swiper-wrapper .swiper-slide:nth-child(3n+0) div:first-child {
+    background: #A72F2014;
+}
+
+.intro-section-simple {
+    background: url("/img/innerbottombg.png") left bottom no-repeat, url("/img/innertopbg.png") right top no-repeat;
+    @apply pt-48 pb-24 -mt-20;
+
+}
+
+.intro-section-simple p {
+    @apply text-body-400 lg:text-lg;
+}
+
+.divider span {
+    width: 7px;
+    height: 7px;
+}
+
+.workshop-divider {
+    width: 2px;
+}
+
+.mySwiper2 {
+    width: 793px;
+}
+
+.codebox {
+    height: 462px;
+}
+
+.code-preview {
+    font-family: 'Menlo', sans-serif;
+}
+
+.prose a {
+    @apply text-primary-600 no-underline;
+}
+
+.prose a:hover {
+    @apply underline;
+}
+
+.sidebar a.active {
+    @apply  text-primary-600 bg-primary-100;
+}
+
+table a:hover{
+    @apply underline;
+}
+
+.right-sidebar a:hover {
+    @apply text-body-600 underline;
+}
+
+.news-stories button:hover {
+    @apply border-primary-600 text-primary-600;
+}
+
+.news-stories button:hover i {
+    @apply text-primary-600;
+}
+
+a:focus-visible, select:focus-visible, button:focus-visible {
+    @apply outline-primary;
+}
+
+.types-container ul > li > *:first-child,ul > li > *:last-child {
+    margin:0;
+}
+
+.top-level-container .prose ul li::before {
+    display: none;
+}
+
+footer a:hover {
+    @apply text-primary-600;
+}
+
+[x-cloak] { display: none !important; }
+
+.link-orange {
+    @apply text-primary-600 hover:underline;
+}
