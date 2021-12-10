@@ -29,8 +29,7 @@ let blog_category () = Blog_category.render ()
 let opportunities ?search ?country opportunities =
   Opportunities.render ?search ?country opportunities
 
-let opportunity () = Opportunity.render ()
-
+let opportunity opportunity = Opportunity.render opportunity
 let package_overview () = Package_overview.render ()
 
 let package_documentation () = Package_documentation.render ()
