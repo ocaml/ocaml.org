@@ -310,14 +310,112 @@ type package_kind =
 
 let packages _req = Dream.html (Ocamlorg_frontend.home ())
 
+let package_meta state (package : Ocamlorg_package.t)
+    : Ocamlorg_frontend.package
+  =
+  let name = Ocamlorg_package.(Name.to_string @@ name package) in
+  let version = Ocamlorg_package.(Version.to_string @@ version package) in
+  let info = Ocamlorg_package.info package in
+  let versions =
+    Ocamlorg_package.get_package_versions state (Ocamlorg_package.name package)
+    |> Option.value ~default:[]
+    |> List.sort Ocamlorg_package.Version.compare
+    |> List.map Ocamlorg_package.Version.to_string
+    |> List.rev
+  in
+  Ocamlorg_frontend.
+    { name
+    ; version
+    ; versions
+    ; description = info.synopsis
+    ; tags = info.tags
+    ; authors = info.authors
+    ; maintainers = info.maintainers
+    ; license = info.license
+    }
+
 let packages_search _t _req =
   Dream.html (Ocamlorg_frontend.home ())
 
-let package _t _req =
-  Dream.html (Ocamlorg_frontend.home ())
+let package t req =
+  let package = Dream.param "name" req in
+  let find_default_version name =
+    Ocamlorg_package.get_package_latest t name
+    |> Option.map (fun pkg -> Ocamlorg_package.version pkg)
+  in
+  let name = Ocamlorg_package.Name.of_string package in
+  let version = find_default_version name in
+  match version with
+  | Some version ->
+    let target =
+      "/p/" ^ package ^ "/" ^ Ocamlorg_package.Version.to_string version
+    in
+    Dream.redirect req target
+  | None ->
+    not_found req
 
-let package_versioned _t _kind _req =
-  Dream.html (Ocamlorg_frontend.home ())
+let package_versioned t kind req =
+  let name = Ocamlorg_package.Name.of_string @@ Dream.param "name" req in
+  let version =
+    Ocamlorg_package.Version.of_string @@ Dream.param "version" req
+  in
+  let package = Ocamlorg_package.get_package t name version in
+  match package with
+  | None ->
+    not_found req
+  | Some package ->
+    let open Lwt.Syntax in
+    let kind =
+      match kind with
+      | Package ->
+        `Package
+      | Universe ->
+        `Universe (Dream.param "hash" req)
+    in
+    let description =
+      (Ocamlorg_package.info package).Ocamlorg_package.Info.description
+    in
+    let* readme =
+      let+ readme_opt = Ocamlorg_package.readme_file ~kind package in
+      Option.value
+        readme_opt
+        ~default:(description |> Omd.of_string |> Omd.to_html)
+    in
+    let _license = Ocamlorg_package.license_file ~kind package in
+    let package_meta = package_meta t package in
+    let package_info = Ocamlorg_package.info package in
+    let rev_dependencies =
+      package_info.Ocamlorg_package.Info.rev_deps
+      |> List.map (fun (name, x, version) ->
+             ( Ocamlorg_package.Name.to_string name
+             , x
+             , Ocamlorg_package.Version.to_string version ))
+    in
+    let dependencies =
+      package_info.Ocamlorg_package.Info.dependencies
+      |> List.map (fun (name, x) -> Ocamlorg_package.Name.to_string name, x)
+    in
+    let homepages = package_info.Ocamlorg_package.Info.homepage in
+    let source =
+      Option.map
+        (fun url ->
+          url.Ocamlorg_package.Info.uri, url.Ocamlorg_package.Info.checksum)
+        package_info.Ocamlorg_package.Info.url
+    in
+    let* documentation_status =
+      Ocamlorg_package.documentation_status ~kind package
+    in
+    let* toplevel_status = Ocamlorg_package.toplevel_status ~kind package in
+    Dream.html
+      (Ocamlorg_frontend.package_overview
+         ~documentation_status
+         ~toplevel_status
+         ~readme
+         ~dependencies
+         ~rev_dependencies
+         ~homepages
+         ~source
+         package_meta)
 
 let package_doc _t _kind _req =
   Dream.html (Ocamlorg_frontend.home ())
