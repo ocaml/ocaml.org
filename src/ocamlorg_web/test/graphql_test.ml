@@ -1,5 +1,5 @@
 module Ocamlorg_web = Ocamlorg_web
-module Package = Ocamlorg.Package
+module Package = Ocamlorg_package
 
 let dependencies =
   [ Package.Name.of_string "0install", Some "3.2"

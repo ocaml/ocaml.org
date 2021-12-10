@@ -1,6 +1,6 @@
 open I18n
 
-let render (packages : Ocamlorg.Package.t list) =
+let render (packages : Ocamlorg_package.t list) =
 <header class="relative bg-orange-600 overflow-hidden">
   <div aria-hidden="true" class="absolute inset-0 -mt-12 md:mt-0">
     <svg class="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"
@@ -112,12 +112,12 @@ let render (packages : Ocamlorg.Package.t list) =
       <div class="bg-white shadow overflow-hidden sm:rounded-md">
         <ul class="divide-y divide-gray-200">
           <% packages |> List.iter begin fun item -> (
-            let package_name = Ocamlorg.Package.(Name.to_string (name item)) in
-            let package_version = Ocamlorg.Package.(Version.to_string (version item)) in
-            let package_info = Ocamlorg.Package.info item in
-            let package_synopsis = package_info.Ocamlorg.Package.Info.synopsis in
+            let package_name = Ocamlorg_package.(Name.to_string (name item)) in
+            let package_version = Ocamlorg_package.(Version.to_string (version item)) in
+            let package_info = Ocamlorg_package.info item in
+            let package_synopsis = package_info.Ocamlorg_package.Info.synopsis in
             let package_license = 
-              match package_info.Ocamlorg.Package.Info.license with
+              match package_info.Ocamlorg_package.Info.license with
               | "" -> gettext "No License"
               | l -> l
             in

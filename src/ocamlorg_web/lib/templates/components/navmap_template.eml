@@ -1,6 +1,6 @@
 type toc = {
 title : string;
-kind : Ocamlorg.Package.Module_map.kind;
+kind : Ocamlorg_package.Module_map.kind;
 href : string option;
 children : toc list
 }

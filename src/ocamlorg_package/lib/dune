@@ -1,5 +1,5 @@
 (library
- (name ocamlorg)
+ (name ocamlorg_package)
  (libraries
   opam-format
   bos
@@ -12,5 +12,3 @@
   cohttp
   cohttp-lwt-unix
   ood))
-
-(include_subdirs unqualified)

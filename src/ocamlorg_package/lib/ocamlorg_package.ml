@@ -1,4 +1,4 @@
-open Std
+open Import
 module Name = OpamPackage.Name
 module Name_map = Map.Make (Name)
 module Version = OpamPackage.Version
@@ -17,8 +17,8 @@ module Info = struct
   type t =
     { synopsis : string
     ; description : string
-    ; authors : Opam_user.t list
-    ; maintainers : Opam_user.t list
+    ; authors : Ood.Opam_user.t list
+    ; maintainers : Ood.Opam_user.t list
     ; license : string
     ; homepage : string list
     ; tags : string list
@@ -170,14 +170,14 @@ module Info = struct
         author opam
         |> List.map (fun name ->
                Option.value
-                 (Opam_user.find_by_name name)
-                 ~default:(Opam_user.make ~name ()))
+                 (Ood.Opam_user.find_by_name name)
+                 ~default:(Ood.Opam_user.make ~name ()))
     ; maintainers =
         maintainer opam
         |> List.map (fun name ->
                Option.value
-                 (Opam_user.find_by_name name)
-                 ~default:(Opam_user.make ~name ()))
+                 (Ood.Opam_user.find_by_name name)
+                 ~default:(Ood.Opam_user.make ~name ()))
     ; license = license opam |> String.concat "; "
     ; description =
         descr opam |> Option.map OpamFile.Descr.body |> Option.value ~default:""
@@ -321,7 +321,7 @@ let try_load_state () =
         v)
       ~finally:(fun () -> close_in channel)
   with
-  | Failure _ | Sys_error _ | Invalid_version ->
+  | Failure _ | Sys_error _ | Invalid_version | End_of_file ->
     Logs.info (fun f -> f "Package state starting from scratch");
     { opam_repository_commit = None
     ; version = Info.version
@@ -433,6 +433,19 @@ let toplevel t =
     Some (topelevel_url name version)
   else
     None
+
+let toplevel_status ~kind:_ t =
+  (* Placeholder until we have the toplevels from the docs CI. We should replace
+     this function with something equivalent to [documentation_status] *)
+  let name = Name.to_string t.name in
+  let version = Version.to_string t.version in
+  let path =
+    Fpath.(to_string (Config.toplevels_path / (name ^ "-" ^ version ^ ".js")))
+  in
+  if Sys.file_exists path then
+    Lwt.return `Success
+  else
+    Lwt.return `Failure
 
 module Documentation = struct
   type toc =
@@ -572,7 +585,7 @@ let license_file ~kind t =
   let+ doc = documentation_page ~kind t "LICENSE.md.html" in
   match doc with None -> None | Some { content; _ } -> Some content
 
-let status ~kind t =
+let documentation_status ~kind t =
   let open Lwt.Syntax in
   let root =
     package_path ~kind (Name.to_string t.name) (Version.to_string t.version)
@@ -642,3 +655,5 @@ let search_package t pattern =
          || has_tag_s p)
   |> List.sort (fun package1 package2 ->
          compare (score package1) (score package2))
+
+let toplevels_path = Config.toplevels_path

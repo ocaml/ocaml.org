@@ -1,4 +1,4 @@
-module Package = Ocamlorg.Package
+module Package = Ocamlorg_package
 
 type package_info =
   { name : string
