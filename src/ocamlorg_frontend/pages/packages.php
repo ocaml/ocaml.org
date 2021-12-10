@@ -1,0 +1,282 @@
+<?php
+include 'header.php';
+?>
+
+<div class="intro-section-simple">
+    <div class="container-fluid">
+        <div class="text-center w-full lg:w-2/3 m-auto">
+            <h1 class="font-bold mb-6">OCaml Packages</h1>
+            <p>Explore thousands of open-source OCaml packages with their documentation.</p>
+            <div class="flex justify-center flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto mt-16">
+                <div class="form-input">
+                <div class="form-input__icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-body-400" fill="none" viewBox="0 0 24 24" stroke="rgba(26, 32, 44, 1)">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    <input type="search" placeholder="Search for a package">
+                </div>
+                <button class="btn btn-lg btn-secondary">Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bg-pattern lg:py-32 py-20 ">
+    <div class="container-fluid">
+        <div class=" ">
+            <div class="text-center">
+                <h2 class="font-bold text-primary-600 mb-6">Opam: the OCaml Package Manager</h2>
+                <div class="text-lg text-white lg:px-44">Opam is a source-based package manager for OCaml. It supports multiple simultaneous compiler installations, flexible package constraints, and a Git-friendly development workflow.</div>
+            </div>
+            <div class="flex justify-center md:px-20 lg:px-56 mt-12">
+                <div class="bg-white p-16 md:p-10 rounded-xl flex lg:space-x-16 flex-col md:flex-row md:w-full lg:w-auto md:items-center md:space-x-10 md:justify-center">
+                    <div class="flex items-center flex-col">
+                        <div class="font-bold text-4xl text-primary-600">3445</div>
+                        <div class="text-sm text-body-600">Packages</div>
+                    </div>
+                    <div class="flex items-center flex-col border-t border-b md:border-t-0 md:border-b-0 py-10 my-10 md:py-0 md:my-0 md:border-r md:border-l border-gray-200 md:px-12">
+                        <div class="font-bold text-4xl text-primary-600">180K</div>
+                        <div class="text-sm text-body-600">Installation / day</div>
+                    </div>
+                    <div class="flex items-center flex-col">
+                        <div class="font-bold text-4xl text-primary-600">12K</div>
+                        <div class="text-sm text-body-600">Update / week</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bg-primary-600 ">
+    <div class="container-fluid">
+        <div class="text-center text-white lg:py-32 md:py-20 py-10">
+            <h3 class="font-bold mb-6">Featured Packages</h3>
+            <div class="text-lg mb-8 lg:px-28 font-normal">TOpam is a source-based package manager for OCaml. It supports multiple simultaneous compiler installations, flexible package constraints, and a Git-friendly development workflow.</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <a href="" class="bg-white card-hover rounded-md p-6 flex-col text-body-600 flex text-left">
+                    <div class="font-semibold mb-2">Dolor consectetur</div>
+                    <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
+                    <div class="text-sm flex space-x-2 text-body-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        </i><span class="font-semibold">0.8.2</span><span>published 11 minutes ago</span>
+                    </div>
+                </a>
+                <a href="" class="bg-white card-hover rounded-md p-6 flex-col text-body-600 flex text-left">
+                    <div class="font-semibold mb-2">Dolor consectetur</div>
+                    <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
+                    <div class="text-sm flex space-x-2 text-body-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        </i><span class="font-semibold">0.8.2 </span><span>published 11 minutes ago</span>
+                    </div>
+                </a>
+                <a href="" class="bg-white card-hover rounded-md p-6 flex-col text-body-600 flex text-left">
+                    <div class="font-semibold mb-2">Dolor consectetur</div>
+                    <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
+                    <div class="text-sm flex space-x-2 text-body-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        </i><span class="font-semibold">0.8.2 </span><span>published 11 minutes ago</span>
+                    </div>
+                </a>
+                <a href="" class="bg-white card-hover rounded-md p-6 flex-col text-body-600 flex text-left">
+                    <div class="font-semibold mb-2">Dolor consectetur</div>
+                    <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
+                    <div class="text-sm flex space-x-2 text-body-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        </i><span class="font-semibold">0.8.2 </span><span>published 11 minutes ago</span>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bg-white py-20 lg:py-32">
+    <div class="container-fluid">
+        <div class="flex justify-between flex-col space-y-10 lg:space-y-0 lg:flex-row">
+            <div>
+                <h5 class="font-bold text-center mb-8">Most downloaded</h5>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
+                    <a href="" class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
+                        <div class="font-semibold mb-2">Tincidunt et</div>
+                        <div class="mb-3 text-sm text-body-400">A eleifend pretium orci felis, adipiscing velit justo.</div>
+                        <div class="text-sm text-body-400 flex space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg></i>15,494,808 Downloads
+                        </div>
+                    </a>
+                    <a href="" class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
+                        <div class="font-semibold mb-2">Tincidunt et</div>
+                        <div class="mb-3 text-sm text-body-400">A eleifend pretium orci felis, adipiscing velit justo.</div>
+                        <div class="text-sm text-body-400 flex space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg></i>15,494,808 Downloads
+                        </div>
+                    </a>
+                    <a href="" class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
+                        <div class="font-semibold mb-2">Tincidunt et</div>
+                        <div class="mb-3 text-sm text-body-400">A eleifend pretium orci felis, adipiscing velit justo.</div>
+                        <div class="text-sm text-body-400 flex space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg></i>15,494,808 Downloads
+                        </div>
+                    </a>
+                    <a href="" class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover inline-block">
+                        <div class="font-semibold mb-2">Tincidunt et</div>
+                        <div class="mb-3 text-sm text-body-400">A eleifend pretium orci felis, adipiscing velit justo.</div>
+                        <div class="text-sm text-body-400 flex space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg></i>15,494,808 Downloads
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+            <div>
+                <h5 class="font-bold text-center mb-8">New Packages</h5>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
+                <a href="" class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
+                    <div class="font-semibold mb-2">Dolor consectetur</div>
+                    <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
+                    <div class="text-sm text-body-400 flex space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg></i>15,494,808 Downloads
+                    </div>
+                </a>
+                <a href="" class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
+                    <div class="font-semibold mb-2">Dolor consectetur</div>
+                    <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
+                    <div class="text-sm text-body-400 flex space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg></i>15,494,808 Downloads
+                    </div>
+                </a>
+                <a href="" class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
+                    <div class="font-semibold mb-2">Dolor consectetur</div>
+                    <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
+                    <div class="text-sm text-body-400 flex space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg></i>15,494,808 Downloads
+                    </div>
+                </a>
+                <a href="" class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover inline-block ">
+                    <div class="font-semibold mb-2">Dolor consectetur</div>
+                    <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
+                    <div class="text-sm text-body-400 flex space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg></i>15,494,808 Downloads
+                    </div>
+                </a>
+                </div>
+            </div>
+            <div>
+                <h5 class="font-bold text-center mb-8">Recently Updated</h5>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
+                <a href="" class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
+                    <div class="font-semibold mb-2">Dolor consectetur</div>
+                    <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
+                    <div class="text-sm text-body-400 flex space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg></i>15,494,808 Downloads
+                    </div>
+                </a>
+                <a href="" class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
+                    <div class="font-semibold mb-2">Dolor consectetur</div>
+                    <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
+                    <div class="text-sm text-body-400 flex space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg></i>15,494,808 Downloads
+                    </div>
+                </a>
+                <a href="" class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
+                    <div class="font-semibold mb-2">Dolor consectetur</div>
+                    <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
+                    <div class="text-sm text-body-400 flex space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg></i>15,494,808 Downloads
+                    </div>
+                </a>
+                <a href="" class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover inline-block">
+                    <div class="font-semibold mb-2">Dolor consectetur</div>
+                    <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
+                    <div class="text-sm text-body-400 flex space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg></i>15,494,808 Downloads
+                    </div>
+                </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="border border-gray-200 mt-16 mb-16"></div>
+
+        <div class="flex flex-col text-center">
+            <div class="text-primary-600 mb-4 font-bold">STABLE ECOSYSTEM</div>
+            <h3 class="font-bold mb-8">Focus on your code, and opam takes care of distributing it</h3>
+            <div class="text-lg text-body-400">Our users have the highest standards for the OCaml ecosystem to run mission-critical applications across a variety of operating systems, and they expect that a package that compiles today will still work a decade from now.</div>
+        </div>
+        <div class="flex justify-between space-y-12 lg:space-x-20 mt-20 flex-col lg:flex-row lg:space-y-0">
+            <div href="" class="text-center flex-col max-w-full lg:max-w-sm ">
+                <div class="mb-4 rounded-2xl bg-primary-600 w-16 h-16 items-center m-auto flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                    </svg>
+                </div>
+                <div class="text-lg font-semibold mb-4">Continuous Integration</div>
+                <div class="text-base text-body-400">Before any package update, we run sandboxed matrix builds for boundaries of the dependencies and for each of the dependent packages. A package publication will never break the rest of the ecosystem.</div>
+            </div>
+            <div href="" class="text-center flex-col max-w-full lg:max-w-sm">
+                <div class="mb-4 rounded-2xl bg-primary-600 w-16 h-16 items-center m-auto flex justify-center">
+                    <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                    </svg>
+                </div>
+                <div class="text-lg font-semibold mb-4">State of the art</div>
+                <div class="text-base text-body-400">Opam supports publishing multiple versions of packages simultaneously, and to specify the version constraints to ensure that only compatible revisions are chosen for a build. It comes with a performant constraint solver, a flexible CLI, a well-specified metadata format, and easy access to the package manager logic via OCaml libraries.</div>
+            </div>
+            <div href="" class="text-center flex-col max-w-full lg:max-w-sm">
+                <div class="mb-4 rounded-2xl bg-primary-600 w-16 h-16 items-center m-auto flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                </div>
+                <div class="text-lg font-semibold mb-4">Stability</div>
+                <div class="text-base text-body-400">The opam project and package repository is maintained by a team of developers who ensure that everything is not only running smoothly, but curated to maintain a high degree of metadata quality. This makes it one of the most stable package repositories available today.</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bg-primary-600 ">
+    <div class="container-fluid">
+        <div class="text-center text-white lg:p-16 py-10">
+            <h3 class="font-bold mb-6">Start contributing</h3>
+            <div class="text-lg mb-8 lg:px-40">Learn how to publish your first opam package today and make it available to the rest of the community.</div>
+            <div class="space-x-0 md:space-x-5 space-y-5 md:space-y-0">
+                <button class="btn btn-lg btn-tertiary">Learn how to contribute </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<?php
+include 'footer.php';
+?>
