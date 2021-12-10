@@ -102,7 +102,8 @@ let tutorial _req =
   Dream.html (Ocamlorg_frontend.home ())
 
 let best_practices _req =
-  Dream.html (Ocamlorg_frontend.home ())
+  Dream.html (Ocamlorg_frontend.best_practices Ood.Workflow.all)
+  
 
 let problems _req = Dream.html (Ocamlorg_frontend.home ())
 
