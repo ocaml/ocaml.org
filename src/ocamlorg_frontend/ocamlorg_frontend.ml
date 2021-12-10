@@ -42,7 +42,8 @@ let packages () = Packages.render ()
 
 let packages_search () = Packages_search.render ()
 
-let papers () = Papers.render ()
+let papers ?search ~recommended_papers papers =
+  Papers.render ?search ~recommended_papers papers
 
 let problems () = Problems.render ()
 
