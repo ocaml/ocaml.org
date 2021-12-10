@@ -1,8 +1,0 @@
-let render (release : Ood.Release.t) =
-<main class="relative bg-graylight">
-  <div class="max-w-8xl mx-auto">
-    <div class="prose prose-orange max-w-3xl mx-auto relative py-8 lg:px-8">
-      <%s! release.body_html %>
-    </div>
-  </div>
-</main>
