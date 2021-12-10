@@ -1,0 +1,95 @@
+type tab = 
+  | Overview
+  | Documentation
+  | Toplevel
+  
+let render
+?turbo_full_reload
+?use_turbo
+~title
+~description
+~tab
+~documentation_status
+~toplevel_status
+~(package : Package_intf.meta)
+inner =
+let tab_class = "border-transparent border-b-2 hover:border-primary-600 p-4 font-medium relative text-body-400" in
+let current_tab_class = "border-b-2 hover:border-primary-600 p-4 font-medium border-primary-600 relative text-primary-600" in
+Layout.render
+?turbo_full_reload
+?use_turbo
+~title
+~description @@
+<div class="bg-white">
+  <div class="py-5 lg:py-12">
+    <div class="container-fluid wide">
+      <div class="flex justify-between flex-col md:flex-row">
+        <div class="flex flex-col">
+          <h4 class="font-bold mb-3">
+            <%s package.name %>
+          </h4>
+          <div class="text-body-400">
+            <%s package.description %>
+          </div>
+        </div>
+        <div
+          class="flex justify-between space-y-5 md:space-y-0 md:space-x-5 flex-col md:flex-row w-full md:w-auto my-6 md:my-0">
+          <div class=" h-14 w-full md:w-auto flex-col flex">
+            <label class="font-semibold mb-2">Version</label>
+            <div class="relative">
+              <select id="version" name="version" onchange="location = this.value;" class="w-full lg:w-auto appearance-none text-body-600 border rounded-md py-3 pl-6 border-gray-200 pr-14 h-full">
+                <% package.versions |> List.iter begin fun item -> %>
+                <option value="/p/<%s package.name %>/<%s item %>"<%s if item = package.version then "selected" else "" %>>
+                  <%s item %>
+                </option>
+                <% end; %>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <div class="flex mt-8 space-x-6 border-b border-gray-200">
+          <a href="<%s Url.package_with_version package.name package.version %>">
+            <button
+              class="<%s if tab = Overview then current_tab_class else tab_class %>">
+              Overview
+            </button>
+          </a>
+          <a href="<%s Url.package_doc package.name package.version "index.html" %>">
+            <button
+            class="<%s if tab = Documentation then current_tab_class else tab_class %>">
+              Documentation
+              <% (match documentation_status with 
+                 | `Failure -> %>
+                 <span class="bg-red-500 ml-2 absolute top-2 p-1 rounded-full inline-block">
+                 </span>
+              <% | `Success -> %>
+                <span class="bg-green-500 ml-2 absolute top-2 p-1 rounded-full inline-block">
+                </span>
+              <% | `Unknown -> %>
+                <span class="bg-orange-300 ml-2 absolute top-2 p-1 rounded-full inline-block">
+                </span>
+              <% ); %>
+            </button>
+          </a>
+          <% (match toplevel_status with 
+            | `Failure -> ()
+            | `Unknown -> ()
+            | `Success -> %>
+          <a href="<%s Url.package_toplevel package.name package.version %>">
+            <button class="<%s if tab = Toplevel then current_tab_class else tab_class %>">
+              Top level
+              <span class="bg-green-500 ml-2 absolute top-2 p-1 rounded-full inline-block">
+              </span>
+            </button>
+          </a>
+          <% ); %>
+        </div>
+      </div>
+      <div class="py-12">
+        <%s! inner %>
+      </div>
+    </div>
+  </div>
+</div>
