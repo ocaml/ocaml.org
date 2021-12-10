@@ -334,8 +334,15 @@ let package_meta state (package : Ocamlorg_package.t)
     ; license = info.license
     }
 
-let packages_search _t _req =
-  Dream.html (Ocamlorg_frontend.home ())
+let packages_search t req =
+  match Dream.query "q" req with
+  | Some search ->
+    let packages = Ocamlorg_package.search_package t search in
+    let total = List.length packages in
+    let results = List.map (package_meta t) packages in
+    Dream.html (Ocamlorg_frontend.packages_search ~total results)
+  | None ->
+    Dream.redirect req "/packages"
 
 let package t req =
   let package = Dream.param "name" req in
