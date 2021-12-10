@@ -1,20 +1,20 @@
-@media (min-width: 768px) {
-    .grid-logos > a:nth-of-type(-n+2) {
-        border-top: 0;
-    } 
-    .grid-logos > a:nth-of-type(odd) {
-        border-right: 1px solid #cccccc8f;
-    } 
+.grid-logos {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 relative mb-32 text-center;
+}
+
+.grid-logos:after {
+    content: '';
+    @apply h-px bottom-0 bg-white w-full left-0 absolute;
+}
+
+.grid-logos>a {
+    border-bottom: 1px solid #dfdfdf;
+    border-right: 1px solid #dfdfdf;
 }
 
 @media (min-width: 1024px) {
-    .grid-logos > a:nth-of-type(4n+1) {
-        border-left: 0;
+    .grid-logos>a:nth-of-type(4n) {
+        border-right: 0;
     }
-    .grid-logos > a:nth-of-type(-n+4) {
-        border-top: 0;
-    }
-    .grid-logos > a:nth-of-type(odd) {
-        border-right: none;
-    } 
 }
+
