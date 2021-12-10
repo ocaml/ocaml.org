@@ -88,7 +88,7 @@ let package_toplevel
 
 let packages () = Packages.render ()
 
-let packages_search () = Packages_search.render ()
+let packages_search ~total packages = Packages_search.render ~total packages
 
 let papers ?search ~recommended_papers papers =
   Papers.render ?search ~recommended_papers papers
