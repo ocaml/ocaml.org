@@ -1,6 +1,9 @@
 ---
 title: Jane Street
-image: /success-stories/jane-street-thumb.jpg
+logo: /success-stories/jane-street-thumb.jpg
+background: /success-stories/jane-street-bg.jpg
+theme: cyan
+synopsis: "Jane Street is a quantitative trading firm and liquidity provider with a unique focus on technology and collaborative problem solving."
 url: https://janestreet.com/technology/
 ---
 

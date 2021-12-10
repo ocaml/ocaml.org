@@ -1,6 +1,9 @@
 ---
 title: Le Langage de Modélisation Financière de LexiFi
-image: /success-stories/lexifi-thumb.jpg
+logo: /success-stories/lexifi-thumb.jpg
+background: /success-stories/lexifi-bg.jpg
+theme: orange
+synopsis: "Integrated end-user software solution to efficiently manage all types of structured investment products and provide superior client services."
 url: https://www.lexifi.com/
 ---
 
