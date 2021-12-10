@@ -33,8 +33,6 @@ let industrial_users users = Industrial_users.render users
 
 let learn ~papers ~release ~books = Learn.render ~papers ~release ~books
 
-let manual () = Manual.render ()
-
 let blog () = Blog.render ()
 
 let blog_category () = Blog_category.render ()
