@@ -1,17 +1,24 @@
-<?php
-include 'header.php';
-?>
+let render () =
+Layout.render
+~turbo_full_reload:true
+~title:"???"
+~description:"???" @@
 
 <div class="bg-white py-24">
-    <div class="container-fluid wide">
+    <div class="container-fluid">
         <div>
-            <h2 class="font-bold">Blog</h2>
+            <a href="blog.php" class="flex justify-start space-x-3 items-center text-primary-600 hover:underline font-semibold mb-4 h-12">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                <div>Back to Blog</div>
+            </a>
+            <h2 class="font-bold">Community Posts</h2>
             <p class="text-lg text-body-400 mt-6">This is where you'll find the latest stories from the OCaml Community! Periodically, we will also highlight individual stories that</p>
         </div>
 
-        <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-16">
+        <div class="mt-20">
             <!-- Blog Posts Start -->
-            <div class="col-span-2">
 
                 <!-- Featured Posts Start -->
                 <div>
@@ -212,177 +219,11 @@ include 'header.php';
                 </div>
                 <!-- Normal Posts End -->
 
-            </div>
+
             <!-- Blog Posts End -->
-
-            <!-- News Posts -->
-            <div class="lg:border-l border-gray-200 lg:pl-16 space-y-12">
-
-                <div class="text-lg font-semibold border-b border-gray-200 text-body-600 pb-3">News</div>
-
-                <!-- News Post -->
-                <div class="flex lg:space-x-12">
-                    <div class="space-y-3 flex flex-col flex-1">
-                        <div class="space-y-2">
-                            <a href="blog-inner.php" class="text-sm font-bold text-body-400 uppercase hover:text-body-600">Community</a>
-                            <a href="blog-inner.php" class="block font-semibold hover:text-primary-600">Facilisis orci ipsum orci iaculis at cursus fringilla.</a>
-                        </div>
-                        <a href="blog-inner.php" class="text-body-400 text-sm">
-                            Interdum id nulla eu orci lorem neque, quam. Et volutpat viverra sed elementum odio sollicitudin. Vivamus viverra sem tortor integer pellentesque sit porttitor hendrerit posuere.
-                        </a>
-                        <div class="text-body-400 flex space-x-2.5 text-sm">
-                            <div>Oct 10, 2020</div>
-                            <div>-</div>
-                            <div>8 min read</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Post -->
-                <div class="flex lg:space-x-12">
-                    <div class="space-y-3 flex flex-col flex-1">
-                        <div class="space-y-2">
-                            <a href="blog-inner.php" class="text-sm font-bold text-body-400 uppercase hover:text-body-600">Community</a>
-                            <a href="blog-inner.php" class="block font-semibold hover:text-primary-600">Facilisis orci ipsum orci iaculis at cursus fringilla.</a>
-                        </div>
-                        <a href="blog-inner.php" class="text-body-400 text-sm">
-                            Interdum id nulla eu orci lorem neque, quam. Et volutpat viverra sed elementum odio sollicitudin. Vivamus viverra sem tortor integer pellentesque sit porttitor hendrerit posuere.
-                        </a>
-                        <div class="text-body-400 flex space-x-2.5 text-sm">
-                            <div>Oct 10, 2020</div>
-                            <div>-</div>
-                            <div>8 min read</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Post -->
-                <div class="flex lg:space-x-12">
-                    <div class="space-y-3 flex flex-col flex-1">
-                        <div class="space-y-2">
-                            <a href="blog-inner.php" class="text-sm font-bold text-body-400 uppercase hover:text-body-600">Community</a>
-                            <a href="blog-inner.php" class="block font-semibold hover:text-primary-600">Facilisis orci ipsum orci iaculis at cursus fringilla.</a>
-                        </div>
-                        <a href="blog-inner.php" class="text-body-400 text-sm">
-                            Interdum id nulla eu orci lorem neque, quam. Et volutpat viverra sed elementum odio sollicitudin. Vivamus viverra sem tortor integer pellentesque sit porttitor hendrerit posuere.
-                        </a>
-                        <div class="text-body-400 flex space-x-2.5 text-sm">
-                            <div>Oct 10, 2020</div>
-                            <div>-</div>
-                            <div>8 min read</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Post -->
-                <div class="flex lg:space-x-12">
-                    <div class="space-y-3 flex flex-col flex-1">
-                        <div class="space-y-2">
-                            <a href="blog-inner.php" class="text-sm font-bold text-body-400 uppercase hover:text-body-600">Community</a>
-                            <a href="blog-inner.php" class="block font-semibold hover:text-primary-600">Facilisis orci ipsum orci iaculis at cursus fringilla.</a>
-                        </div>
-                        <a href="blog-inner.php" class="text-body-400 text-sm">
-                            Interdum id nulla eu orci lorem neque, quam. Et volutpat viverra sed elementum odio sollicitudin. Vivamus viverra sem tortor integer pellentesque sit porttitor hendrerit posuere.
-                        </a>
-                        <div class="text-body-400 flex space-x-2.5 text-sm">
-                            <div>Oct 10, 2020</div>
-                            <div>-</div>
-                            <div>8 min read</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Post -->
-                <div class="flex lg:space-x-12">
-                    <div class="space-y-3 flex flex-col flex-1">
-                        <div class="space-y-2">
-                            <a href="blog-inner.php" class="text-sm font-bold text-body-400 uppercase hover:text-body-600">Community</a>
-                            <a href="blog-inner.php" class="block font-semibold hover:text-primary-600">Facilisis orci ipsum orci iaculis at cursus fringilla.</a>
-                        </div>
-                        <a href="blog-inner.php" class="text-body-400 text-sm">
-                            Interdum id nulla eu orci lorem neque, quam. Et volutpat viverra sed elementum odio sollicitudin. Vivamus viverra sem tortor integer pellentesque sit porttitor hendrerit posuere.
-                        </a>
-                        <div class="text-body-400 flex space-x-2.5 text-sm">
-                            <div>Oct 10, 2020</div>
-                            <div>-</div>
-                            <div>8 min read</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div><a href="#" class="link-orange">See all (15)</a></div>
-
-            </div>
         </div>
-
-        <!-- Weekly News -->
-
-        <div class="py-10 lg:py-24 flex-col lg:flex-row flex justify-between space-y-10 lg:space-x-28 items-center border-gray-200 border-t mt-20">
-            <div>
-                <h2 class="font-bold mb-6">OCaml Weekly News</h2>
-                <div>For 20 years, Alan Schmitt has been collating messages sent to the OCaml Mailing List and summarising them into OCaml Weekly News. You can browse the archives of his work here and at <a href="" class="hover:underline text-primary-600">alan.petitepomme.net</a> </div>
-            </div>
-            <div class=" w-full lg:w-2/4 border-2 border-gray-100 rounded-3xl pr-10 pl-6 md:pr-6 py-5 lg:pr-11 font-semibold">
-                <h6 class="font-bold mb-5">October 2021</h6>
-                <div class="grid grid-cols-7 gap-x-8 gap-y-3 text-sm text-center">
-                    <div title="days" class="h-8 w-8 text-body-400">Su</div>
-                    <div title="days" class="h-8 w-8 text-body-400">Mo</div>
-                    <div title="days" class="h-8 w-8 text-body-400">Tu</div>
-                    <div title="days" class="h-8 w-8 text-body-400">We</div>
-                    <div title="days" class="h-8 w-8 text-body-400">Th</div>
-                    <div title="days" class="h-8 w-8 text-body-400">Fr</div>
-                    <div title="days" class="h-8 w-8 text-body-400">Sa</div>
-                    <div title="unavailable" class="h-8 w-8 opacity-30">26</div>
-                    <div title="unavailable" class="h-8 w-8 opacity-30">27</div>
-                    <div title="unavailable" class="h-8 w-8 opacity-30">28</div>
-                    <div title="unavailable" class="h-8 w-8 opacity-30">29</div>
-                    <div title="unavailable" class="h-8 w-8 opacity-30">30</div>
-                    <div class="h-8 w-8">1</div>
-                    <div class="text-white"><a href="" class="bg-primary-600 m-auto -mt-1.5 rounded-full text-center w-8 h-8 flex items-center justify-center hover:underline">2</a></div>
-                    <div class="h-8 w-8">3</div>
-                    <div class="h-8 w-8">4</div>
-                    <div class="h-8 w-8">5</div>
-                    <div class="h-8 w-8">6</div>
-                    <div class="h-8 w-8">7</div>
-                    <div class="h-8 w-8">8</div>
-                    <div class="text-white"><a href="" class="bg-primary-600 m-auto  -mt-1.5 rounded-full text-center w-8 h-8 flex items-center justify-center hover:underline">9</a></div>
-                    <div class="h-8 w-8">10</div>
-                    <div class="h-8 w-8">11</div>
-                    <div class="h-8 w-8">12</div>
-                    <div class="h-8 w-8">13</div>
-                    <div class="h-8 w-8">14</div>
-                    <div class="h-8 w-8">15</div>
-                    <div class="text-white"><a href="" class="bg-primary-600 m-auto -mt-1.5 rounded-full text-center w-8 h-8 flex items-center justify-center hover:underline">16</a></div>
-                    <div class="h-8 w-8">17</div>
-                    <div class="h-8 w-8">18</div>
-                    <div class="h-8 w-8">19</div>
-                    <div class="h-8 w-8">20</div>
-                    <div class="h-8 w-8">21</div>
-                    <div class="h-8 w-8">22</div>
-                    <div class="text-white"><a href="" class="bg-primary-600 m-auto -mt-1.5 rounded-full text-center w-8 h-8 flex items-center justify-center hover:underline">23</a></div>
-                    <div class="h-8 w-8">24</div>
-                    <div class="h-8 w-8">25</div>
-                    <div class="h-8 w-8">26</div>
-                    <div class="h-8 w-8">27</div>
-                    <div class="h-8 w-8">28</div>
-                    <div class="h-8 w-8">29</div>
-                    <div class="text-white"><a href="" class="bg-primary-600 m-auto -mt-1.5 rounded-full text-center w-8 h-8 flex items-center justify-center hover:underline">30</a></div>
-                    <div class="h-8 w-8">31</div>
-                    <div title="unavailable" class="h-8 w-8 opacity-30">1</div>
-                    <div title="unavailable" class="h-8 w-8 opacity-30">2</div>
-                    <div title="unavailable" class="h-8 w-8 opacity-30">3</div>
-                    <div title="unavailable" class="h-8 w-8 opacity-30">4</div>
-                    <div title="unavailable" class="h-8 w-8 opacity-30">5</div>
-                    <div class="text-white"><a href="" class="bg-primary-600 opacity-30 m-auto -mt-1.5 rounded-full text-center w-8 h-8 flex items-center justify-center hover:underline">6</a></div>
-                </div>
-            </div>
-        </div>
-
 
 
     </div>
 </div>
 
-<?php
-include 'footer.php';
-?>

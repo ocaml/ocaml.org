@@ -1,16 +1,17 @@
-<?php
-include 'header.php';
-?>
-
-    <div class="intro-section-simple">
-        <div class="container-fluid">
-            <div class="text-center w-full lg:w-2/3 m-auto">
-                <h1 class="font-bold mb-6">Releases</h1>
-                <p>Eget nibh diam eget velit quisque. Nec ac amet, nunc egestas felis ut. Cras leo amet donec facilisis. Bibendum nisl viverra lorem viverra. Gravida quam posuere parturient varius.</p>
-            </div>
+let render () =
+Layout.render
+~turbo_full_reload:true
+~title:"???"
+~description:"???" @@
+<div class="intro-section-simple">
+    <div class="container-fluid">
+        <div class="text-center w-full lg:w-2/3 m-auto">
+            <h1 class="font-bold mb-6">Releases</h1>
+            <p>Eget nibh diam eget velit quisque. Nec ac amet, nunc egestas felis ut. Cras leo amet donec facilisis. Bibendum nisl viverra lorem viverra. Gravida quam posuere parturient varius.</p>
         </div>
     </div>
-    <div class="bg-white">
+</div>
+<div class="bg-white">
     <div class="py-10 lg:py-28">
         <div class="container-fluid">
             <div class="flex justify-between items-center flex-col md:flex-row">
@@ -394,6 +395,3 @@ include 'header.php';
         </div>
     </div>
 </div>
-    <?php
-    include 'footer.php';
-    ?>

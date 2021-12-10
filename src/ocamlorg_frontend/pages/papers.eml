@@ -1,6 +1,8 @@
-<?php
-include 'header.php';
-?>
+let render () =
+Layout.render
+~turbo_full_reload:true
+~title:"???"
+~description:"???" @@
 
 <div class="intro-section-simple">
     <div class="container-fluid">
@@ -1821,6 +1823,3 @@ include 'header.php';
         </div>
     </div>
 </div>
-    <?php
-    include 'footer.php';
-    ?>

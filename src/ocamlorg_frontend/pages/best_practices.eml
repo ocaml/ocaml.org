@@ -1,6 +1,8 @@
-<?php
-include 'header.php';
-?>
+let render () =
+Layout.render
+~turbo_full_reload:true
+~title:"???"
+~description:"???" @@
 
 <div class="lg:py-24 bg-white pt-10 md:pt-16 pb-10">
 
@@ -173,6 +175,3 @@ port install opam
         </div>
     </div>
 </div>
-<?php
-include 'footer.php';
-?>

@@ -1,6 +1,8 @@
-<?php
-include 'header.php';
-?>
+let render () =
+Layout.render
+~turbo_full_reload:true
+~title:"???"
+~description:"???" @@
 
 <div class="lg:py-24 py-2">
     <div class="container-fluid">
@@ -217,6 +219,3 @@ include 'header.php';
     </div>
 
 </div>
-<?php
-include 'footer.php';
-?>
