@@ -179,3 +179,16 @@
   (deps carbon_footprint.eml)
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root}))))
+
+(subdir
+ components/
+ (rule
+  (targets navmap.ml)
+  (deps navmap.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets toc.ml)
+  (deps toc.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root}))))

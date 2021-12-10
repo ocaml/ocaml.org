@@ -1,4 +1,6 @@
 module Url = Url
+module Navmap = Navmap
+module Toc = Toc
 
 type package = Package_intf.meta =
   { name : string
@@ -53,7 +55,25 @@ let package_overview
     ~source
     package
 
-let package_documentation () = Package_documentation.render ()
+    let package_documentation
+    ~documentation_status
+    ~toplevel_status
+    ~title
+    ~path
+    ~toc
+    ~maptoc
+    ~content
+    package
+  =
+  Package_documentation.render
+    ~documentation_status
+    ~toplevel_status
+    ~title
+    ~path
+    ~toc
+    ~maptoc
+    ~content
+    package
 
 
 let package_toplevel () = Package_toplevel.render ()
