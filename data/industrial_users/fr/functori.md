@@ -2,11 +2,12 @@
 name: Functori
 description: >
   Functori est une société de R&D créée par des ingénieurs experts en langages de programmation (notamment OCaml), la vérification formelle (raisonnement automatisé, model checking, ...), et la technologie blockchain (coeur/noyau, smart contracts et développement d'applications).
-site: "https://www.functori.com"
-image: /users/functori.png
+url: "https://www.functori.com"
+logo: /users/functori.png
 locations:
   - "Paris, France"
 consortium: false
+featured: true
 ---
 
 En plus de contribuer à des outils et des bibliothèques en OCaml et

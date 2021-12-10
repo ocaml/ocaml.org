@@ -2,11 +2,12 @@
 name: SimCorp
 description: > 
   Multi-asset platform to support investment decision-making and innovation.
-site: "https://www.simcorp.com/"
-image: /users/simcorp.png
+url: "https://www.simcorp.com/"
+logo: /users/simcorp.png
 locations: 
   - United States
 consortium: true
+featured: true
 ---
 
 Multi-asset platform to support investment decision-making and innovation.

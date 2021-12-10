@@ -2,11 +2,12 @@
 name: r2c
 description: >
    r2c est une société de sécurité financée par capital-risque, dont le siège est à San Francisco et qui est répartie dans le monde entier
-site: "https://r2c.dev"
-image: /users/r2c.png
+url: "https://r2c.dev"
+logo: /users/r2c.png
 locations:
   - Californie, États-Unis
 consortium: false
+featured: true
 ---
 
 r2c est une société de sécurité financée par VC dont le siège est à San Francisco et qui est répartie dans le monde entier. Son principal produit est [Semgrep](https://semgrep.dev/), un grep open source, sensible à la syntaxe, qui supporte de nombreux langages. OCaml est largement utilisé pour l'analyse syntaxique et l'analyse du code source.
