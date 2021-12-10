@@ -51,7 +51,7 @@ let release release = Release.render release
 
 let releases ?search releases = Releases.render ?search releases
 
-let success_stories () = Success_stories.render ()
+let success_stories success_stories = Success_stories.render success_stories
 
 let success_story () = Success_story.render ()
 
