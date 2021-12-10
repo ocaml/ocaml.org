@@ -135,8 +135,50 @@ let release req =
     let meetups = Ood.Meetup.all in
     Dream.html (Ocamlorg_frontend.events ~workshops ~meetups)  
 
-let workshop _req =
-  Dream.html (Ocamlorg_frontend.home ())
+let workshop req =
+  let watch_ocamlorg_embed =
+    let presentations =
+      List.concat_map
+        (fun (w : Ood.Workshop.t) -> w.presentations)
+        Ood.Workshop.all
+    in
+    let rec get_last = function
+      | [] ->
+        ""
+      | [ x ] ->
+        x
+      | _ :: xs ->
+        get_last xs
+    in
+    let watch =
+      List.map
+        (fun (w : Ood.Watch.t) ->
+          String.split_on_char '/' w.embed_path |> get_last |> fun v -> v, w)
+        Ood.Watch.all
+    in
+    let tbl = Hashtbl.create 100 in
+    let add_video (p : Ood.Workshop.presentation) =
+      match p.video with
+      | Some video ->
+        let uuid = String.split_on_char '/' video |> get_last in
+        let find (v, w) = if String.equal uuid v then Some w else None in
+        let w = List.find_map find watch in
+        Option.iter (fun w -> Hashtbl.add tbl p.title w) w
+      | None ->
+        ()
+    in
+    List.iter add_video presentations;
+    tbl
+  in
+  let slug = Dream.param "id" req in
+  match
+    List.find_opt (fun x -> x.Ood.Workshop.slug = slug) Ood.Workshop.all
+  with
+  | Some workshop ->
+    Dream.html
+      (Ocamlorg_frontend.workshop ~videos:watch_ocamlorg_embed workshop)
+  | None ->
+    not_found req
 
 let blog _req = Dream.html (Ocamlorg_frontend.blog ())
 
