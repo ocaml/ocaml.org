@@ -1,4 +1,67 @@
 papers:
+  - title: A memory model for multicore OCaml
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      We propose a memory model for OCaml, broadly following the design of axiomatic
+      memory models for languages such as C++ and Java, but with a number of
+      differences to provide stronger guarantees and easier reasoning to the programmer,
+      at the expense of not admitting every possible optimisation.
+    authors:
+      - Stephen Dolan
+      - KC Sivaramakrishnan
+    tags:
+      - ocaml-workshop
+      - multicore
+    year: 2017
+    links:
+      - description: "Download PDF"
+        uri: https://kcsrk.info/papers/memory_model_ocaml17.pdf
+    featured: true
+  - title: Extending OCaml's 'open'
+    publication: Open Publishing Association
+    abstract: >
+      We propose a harmonious extension of OCaml's 'open' construct.
+      OCaml's existing construct 'open M' imports the names exported by the module 'M' into the current scope.
+      At present 'M' is required to be the path to a module. We propose extending 'open' to instead accept an arbitrary module expression,
+      making it possible to succinctly address a number of existing scope-related difficulties that arise when writing OCaml programs.
+    authors:
+      - Runhang Li
+      - Jeremy Yallop
+    tags:
+      - ocaml-workshop
+      - core
+      - language
+    year: 2019
+    links:
+      - description: "Download PDF"
+        uri: https://arxiv.org/pdf/1905.06543.pdf
+    featured: true
+  - title: Eff Directly in OCaml
+    publication: Open Publishing Association
+    abstract: >
+      The language Eff is an OCaml-like language serving as a prototype implementation
+      of the theory of algebraic effects, intended for experimentation with algebraic
+      effects on a large scale.
+      We present the embedding of Eff into OCaml, using the library of delimited
+      continuations or the multicore OCaml branch. We demonstrate the correctness of
+      the embedding denotationally, relying on the tagless-final-style interpreter-based
+      denotational semantics, including the novel, direct denotational semantics of
+      multi-prompt delimited control. The embedding is systematic, lightweight, performant
+      and supports even higher-order, 'dynamic' effects with their polymorphism.
+      OCaml thus may be regarded as another implementation of Eff, broadening the
+      scope and appeal of that language.
+    authors:
+      - Oleg Kiselyov
+      - KC Sivaramakrishnan
+    tags:
+      - ocaml-workshop
+      - core
+      - language
+    year: 2016
+    links:
+      - description: "Download PDF"
+        uri: https://arxiv.org/pdf/1812.11664.pdf
+    featured: true
   - title: A Syntactic Approach to Type Soundness
     publication: Information & Computation, 115(1):38−94
     abstract: >
@@ -13,7 +76,9 @@ papers:
       - language
     year: 1994
     links:
-      - https://www.cs.rice.edu/CS/PLT/Publications/Scheme/ic94-wf.ps.gz
+      - description: "Download PostScript"
+        uri: https://www.cs.rice.edu/CS/PLT/Publications/Scheme/ic94-wf.ps.gz
+    featured: false
   - title: The Essence of ML Type Inference
     publication: Benjamin C. Pierce, editor, Advanced Topics in Types and
       Programming Languages, MIT Press
@@ -31,7 +96,9 @@ papers:
       - language
     year: 2005
     links:
-      - https://cristal.inria.fr/attapl/preversion.ps.gz
+      - description: "Download PostScript"
+        uri: https://cristal.inria.fr/attapl/preversion.ps.gz
+    featured: false
   - title: Relaxing the value restriction
     publication: International Symposium on Functional and Logic Programming
     abstract: >
@@ -46,8 +113,11 @@ papers:
       - language
     year: 2004
     links:
-      - https://caml.inria.fr/pub/papers/garrigue-value_restriction-fiwflp04.pdf
-      - https://caml.inria.fr/pub/papers/garrigue-value_restriction-fiwflp04.ps.gz
+      - description: "Download PDF"
+        uri: https://caml.inria.fr/pub/papers/garrigue-value_restriction-fiwflp04.pdf
+      - description: "Download PostScript"
+        uri: https://caml.inria.fr/pub/papers/garrigue-value_restriction-fiwflp04.ps.gz
+    featured: false
   - title: Manifest Types, Modules, and Separate Compilation
     publication: Principles of Programming Languages
     abstract: >
@@ -66,9 +136,13 @@ papers:
       - modules
     year: 1994
     links:
-      - https://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.pdf
-      - https://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.ps.gz
-      - https://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.dvi.gz
+      - description: "Download PDF"
+        uri: https://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.pdf
+      - description: "Download PostScript"
+        uri: https://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.ps.gz
+      - description: "Download DVI"
+        uri: https://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.dvi.gz
+    featured: false
   - title: Applicative Functors and Fully Transparent Higher-order Modules
     publication: Principles of Programming Languages
     abstract: >
@@ -84,9 +158,13 @@ papers:
       - modules
     year: 1995
     links:
-      - https://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.pdf
-      - https://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.ps.gz
-      - https://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.dvi.gz
+      - description: "Download PDF"
+        uri: https://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.pdf
+      - description: "Download PostScript"
+        uri: https://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.ps.gz
+      - description: "Download DVI"
+        uri: https://caml.inria.fr/pub/papers/xleroy-applicative_functors-popl95.dvi.gz
+    featured: false
   - title: A Modular Module System
     publication: Journal of Functional Programming, 10(3):269-303
     abstract: >
@@ -102,9 +180,13 @@ papers:
       - modules
     year: 2000
     links:
-      - https://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.pdf
-      - https://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.ps.gz
-      - https://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.dvi.gz
+      - description: "Download PDF"
+        uri: https://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.pdf
+      - description: "Download PostScript"
+        uri: https://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.ps.gz
+      - description: "Download DVI"
+        uri: https://caml.inria.fr/pub/papers/xleroy-modular_modules-jfp.dvi.gz
+    featured: false
   - title: A Proposal for Recursive Modules in Objective Caml
     publication: Unpublication
     abstract: >
@@ -118,8 +200,11 @@ papers:
       - modules
     year: 2003
     links:
-      - https://caml.inria.fr/pub/papers/xleroy-recursive_modules-03.pdf
-      - https://caml.inria.fr/pub/papers/xleroy-recursive_modules-03.ps.gz
+      - description: "Download PDF"
+        uri: https://caml.inria.fr/pub/papers/xleroy-recursive_modules-03.pdf
+      - description: "Download PostScript"
+        uri: https://caml.inria.fr/pub/papers/xleroy-recursive_modules-03.ps.gz
+    featured: false
   - title: "Objective ML: An effective object-oriented extension to ML"
     publication: Theory And Practice of Objects Systems, 4(1):27−50
     abstract: >
@@ -134,9 +219,13 @@ papers:
       - objects
     year: 1998
     links:
-      - https://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.pdf
-      - https://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.ps.gz
-      - https://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.dvi.gz
+      - description: "Download PDF"
+        uri: https://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.pdf
+      - description: "Download PostScript"
+        uri: https://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.ps.gz
+      - description: "Download DVI"
+        uri: https://caml.inria.fr/pub/papers/remy_vouillon-objective_ml-tapos98.dvi.gz
+    featured: false
   - title: Extending ML with Semi-Explicit Higher-Order Polymorphism
     publication: Information & Computation, 155(1/2):134−169
     abstract: >
@@ -152,9 +241,13 @@ papers:
       - objects
     year: 1999
     links:
-      - https://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.pdf
-      - https://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.ps.gz
-      - https://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.dvi.gz
+      - description: "Download PDF"
+        uri: https://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.pdf
+      - description: "Download PostScript"
+        uri: https://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.ps.gz
+      - description: "Download DVI"
+        uri: https://caml.inria.fr/pub/papers/garrigue_remy-poly-ic99.dvi.gz
+    featured: false
   - title: Programming with Polymorphic Variants
     publication: ML Workshop
     abstract: >
@@ -168,8 +261,11 @@ papers:
       - polymorphic variants
     year: 1998
     links:
-      - https://caml.inria.fr/pub/papers/garrigue-polymorphic_variants-ml98.pdf
-      - https://caml.inria.fr/pub/papers/garrigue-polymorphic_variants-ml98.ps.gz
+      - description: "Download PDF"
+        uri: https://caml.inria.fr/pub/papers/garrigue-polymorphic_variants-ml98.pdf
+      - description: "Download PostScript"
+        uri: https://caml.inria.fr/pub/papers/garrigue-polymorphic_variants-ml98.ps.gz
+    featured: false
   - title: Code Reuse through Polymorphic Variants
     publication: Workshop on Foundations of Software Engineering
     abstract: >
@@ -183,7 +279,9 @@ papers:
       - polymorphic variants
     year: 2000
     links:
-      - https://caml.inria.fr/pub/papers/garrigue-variant-reuse-2000.ps.gz
+      - description: "Download PostScript"
+        uri: https://caml.inria.fr/pub/papers/garrigue-variant-reuse-2000.ps.gz
+    featured: false
   - title: Simple Type Inference for Structural Polymorphism
     publication: Workshop on Foundations of Object-Oriented Languages
     abstract: >
@@ -198,8 +296,11 @@ papers:
       - polymorphic variants
     year: 2002
     links:
-      - https://caml.inria.fr/pub/papers/garrigue-structural_poly-fool02.pdf
-      - https://caml.inria.fr/pub/papers/garrigue-structural_poly-fool02.ps.gz
+      - description: "Download PDF"
+        uri: https://caml.inria.fr/pub/papers/garrigue-structural_poly-fool02.pdf
+      - description: "Download PostScript"
+        uri: https://caml.inria.fr/pub/papers/garrigue-structural_poly-fool02.ps.gz
+    featured: false
   - title: Typing Deep Pattern-matching in Presence of Polymorphic Variants
     publication: JSSST Workshop on Programming and Programming Languages
     abstract: >
@@ -214,8 +315,11 @@ papers:
       - polymorphic variants
     year: 2004
     links:
-      - https://caml.inria.fr/pub/papers/garrigue-deep-variants-2004.pdf
-      - https://caml.inria.fr/pub/papers/garrigue-deep-variants-2004.ps.gz
+      - description: "Download PDF"
+        uri: https://caml.inria.fr/pub/papers/garrigue-deep-variants-2004.pdf
+      - description: "Download PostScript"
+        uri: https://caml.inria.fr/pub/papers/garrigue-deep-variants-2004.ps.gz
+    featured: false
   - title: Labeled and Optional Arguments for Objective Caml
     publication: JSSST Workshop on Programming and Programming Languages
     abstract: >
@@ -228,9 +332,13 @@ papers:
       - language
     year: 2001
     links:
-      - https://caml.inria.fr/pub/papers/garrigue-labels-ppl01.pdf
-      - https://caml.inria.fr/pub/papers/garrigue-labels-ppl01.ps.gz
-      - https://caml.inria.fr/pub/papers/garrigue-labels-ppl01.dvi.gz
+      - description: "Download PDF"
+        uri: https://caml.inria.fr/pub/papers/garrigue-labels-ppl01.pdf
+      - description: "Download PostScript"
+        uri: https://caml.inria.fr/pub/papers/garrigue-labels-ppl01.ps.gz
+      - description: "Download DVI"
+        uri: https://caml.inria.fr/pub/papers/garrigue-labels-ppl01.dvi.gz
+    featured: false
   - title: Meta-programming Tutorial with CamlP4
     publication: Commercial Users of Functional Programming
     abstract: Meta-programming tutorial with Camlp4
@@ -241,7 +349,9 @@ papers:
       - language
     year: 2010
     links:
-      - https://github.com/jaked/cufp-metaprogramming-tutorial
+      - description: "View Online"
+        uri: https://github.com/jaked/cufp-metaprogramming-tutorial
+    featured: false
   - title: The ZINC experiment, an Economical Implementation of the ML language
     publication: Technical report 117, INRIA
     abstract: >
@@ -257,8 +367,11 @@ papers:
       - runtime
     year: 1990
     links:
-      - https://caml.inria.fr/pub/papers/xleroy-zinc.pdf
-      - https://caml.inria.fr/pub/papers/xleroy-zinc.ps.gz
+      - description: "Download PDF"
+        uri: https://caml.inria.fr/pub/papers/xleroy-zinc.pdf
+      - description: "Download PostScript"
+        uri: https://caml.inria.fr/pub/papers/xleroy-zinc.ps.gz
+    featured: false
   - title: The Effectiveness of Type-based Unboxing
     publication: Workshop on Types in Compilation
     abstract: >
@@ -271,8 +384,11 @@ papers:
       - runtime
     year: 1997
     links:
-      - https://caml.inria.fr/pub/papers/xleroy-unboxing-tic97.pdf
-      - https://caml.inria.fr/pub/papers/xleroy-unboxing-tic97.ps.gz
+      - description: "Download PDF"
+        uri: https://caml.inria.fr/pub/papers/xleroy-unboxing-tic97.pdf
+      - description: "Download PostScript"
+        uri: https://caml.inria.fr/pub/papers/xleroy-unboxing-tic97.ps.gz
+    featured: false
   - title: A Concurrent, Generational Garbage Collector for a Multithreaded
       Implementation of ML
     publication: Principles of Programming Languages
@@ -287,8 +403,11 @@ papers:
       - runtime
     year: 1993
     links:
-      - https://caml.inria.fr/pub/papers/doligez_xleroy-concurrent_gc-popl93.pdf
-      - https://caml.inria.fr/pub/papers/doligez_xleroy-concurrent_gc-popl93.ps.gz
+      - description: "Download PDF"
+        uri: https://caml.inria.fr/pub/papers/doligez_xleroy-concurrent_gc-popl93.pdf
+      - description: "Download PostScript"
+        uri: https://caml.inria.fr/pub/papers/doligez_xleroy-concurrent_gc-popl93.ps.gz
+    featured: false
   - title: Portable, Unobtrusive Garbage Collection for Multiprocessor Systems
     publication: Principles of Programming Languages
     abstract: >
@@ -302,8 +421,11 @@ papers:
       - runtime
     year: 1994
     links:
-      - https://caml.inria.fr/pub/papers/doligez_gonthier-gc-popl94.pdf
-      - https://caml.inria.fr/pub/papers/doligez_gonthier-gc-popl94.ps.gz
+      - description: "Download PDF"
+        uri: https://caml.inria.fr/pub/papers/doligez_gonthier-gc-popl94.pdf
+      - description: "Download PostScript"
+        uri: https://caml.inria.fr/pub/papers/doligez_gonthier-gc-popl94.ps.gz
+    featured: false
   - title: Conception, réalisation et certification d'un glaneur de cellules
       concurrent
     publication: Ph.D. thesis, Université Paris 7
@@ -318,8 +440,11 @@ papers:
       - runtime
     year: 1995
     links:
-      - https://caml.inria.fr/pub/papers/doligez-these.pdf
-      - https://caml.inria.fr/pub/papers/doligez-these.ps.gz
+      - description: "Download PDF"
+        uri: https://caml.inria.fr/pub/papers/doligez-these.pdf
+      - description: "Download PostScript"
+        uri: https://caml.inria.fr/pub/papers/doligez-these.ps.gz
+    featured: false
   - title: Optimizing Pattern Matching
     publication: Proceedings of the sixth ACM SIGPLAN International Conference on
       Functional Programming (ICFP)
@@ -334,7 +459,9 @@ papers:
       - runtime
     year: 2001
     links:
-      - https://dl.acm.org/citation.cfm?id=507641
+      - description: "View Online"
+        uri: https://dl.acm.org/citation.cfm?id=507641
+    featured: false
   - title: OCaml for the Masses
     publication: ACM Queue
     abstract: |
@@ -345,7 +472,9 @@ papers:
       - industrial
     year: 2011
     links:
-      - https://queue.acm.org/detail.cfm?id=2038036
+      - description: "View Online"
+        uri: https://queue.acm.org/detail.cfm?id=2038036
+    featured: false
   - title: Xen and the Art of OCaml
     publication: Commercial Users of Functional Programming (CUFP)
     abstract: >
@@ -364,7 +493,9 @@ papers:
       - application
     year: 2008
     links:
-      - https://cufp.org/archive/2008/slides/MadhavapeddyAnil.pdf
+      - description: "Download PDF"
+        uri: https://cufp.org/archive/2008/slides/MadhavapeddyAnil.pdf
+    featured: false
   - title: Chemoinformatics and Structural Bioinformatics in OCaml
     publication: Journal of Cheminformatics
     abstract: >
@@ -380,7 +511,9 @@ papers:
       - bioinformatics
     year: 2019
     links:
-      - https://jcheminf.biomedcentral.com/articles/10.1186/s13321-019-0332-0
+      - description: "View Online"
+        uri: https://jcheminf.biomedcentral.com/articles/10.1186/s13321-019-0332-0
+    featured: false
   - title: A Declarative Syntax Definition for OCaml
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
@@ -403,7 +536,9 @@ papers:
       - ocaml-workshop
     year: 2020
     links:
-      - https://eelcovisser.org/talks/2020/08/28/ocaml/
+      - description: "View Online"
+        uri: https://eelcovisser.org/talks/2020/08/28/ocaml/
+    featured: false
   - title: A Simple State-Machine Framework for Property-Based Testing in OCaml
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
@@ -422,7 +557,9 @@ papers:
       - ocaml-workshop
     year: 2020
     links:
-      - https://janmidtgaard.dk/papers/Midtgaard%3AOCaml20.pdf
+      - description: "Download PDF"
+        uri: https://janmidtgaard.dk/papers/Midtgaard%3AOCaml20.pdf
+    featured: false
   - title: "AD-OCaml: Algorithmic Differentiation for OCaml"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
@@ -441,7 +578,9 @@ papers:
       - ocaml-workshop
     year: 2020
     links:
-      - https://icfp20.sigplan.org/details/ocaml-2020-papers/12/AD-OCaml-Algorithmic-Differentiation-for-OCaml
+      - description: "View Online"
+        uri: https://icfp20.sigplan.org/details/ocaml-2020-papers/12/AD-OCaml-Algorithmic-Differentiation-for-OCaml
+    featured: false
   - title: "API migration: compare transformed"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
@@ -462,8 +601,11 @@ papers:
       - ocaml-workshop
     year: 2020
     links:
-      - https://icfp20.sigplan.org/details/ocaml-2020-papers/7/API-migration-compare-transformed
-      - https://www.cs.kent.ac.uk/people/staff/sjt/Pubs/OCaml_workshop2020.pdf
+      - description: "View Online"
+        uri: https://icfp20.sigplan.org/details/ocaml-2020-papers/7/API-migration-compare-transformed
+      - description: "Download PDF"
+        uri: https://www.cs.kent.ac.uk/people/staff/sjt/Pubs/OCaml_workshop2020.pdf
+    featured: false
   - title: Irmin v2
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
@@ -484,8 +626,11 @@ papers:
       - ocaml-workshop
     year: 2020
     links:
-      - https://icfp20.sigplan.org/details/ocaml-2020-papers/10/Irmin-v2
-      - https://tarides.com/blog/2019-11-21-irmin-v2
+      - description: "View Online"
+        uri: https://icfp20.sigplan.org/details/ocaml-2020-papers/10/Irmin-v2
+      - description: "View Online"
+        uri: https://tarides.com/blog/2019-11-21-irmin-v2
+    featured: false
   - title: LexiFi Runtime Types
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
@@ -502,9 +647,13 @@ papers:
       - ocaml-workshop
     year: 2020
     links:
-      - https://icfp20.sigplan.org/details/ocaml-2020-papers/9/LexiFi-Runtime-Types
-      - https://informationsecurity.uibk.ac.at/pdfs/KL2020_LexiFi_Runtime_Types_OCAML.pdf
-      - https://www.lexifi.com/blog/ocaml/runtime-types/
+      - description: "View Online"
+        uri: https://icfp20.sigplan.org/details/ocaml-2020-papers/9/LexiFi-Runtime-Types
+      - description: "Download PDF"
+        uri: https://informationsecurity.uibk.ac.at/pdfs/KL2020_LexiFi_Runtime_Types_OCAML.pdf
+      - description: "View Online"
+        uri: https://www.lexifi.com/blog/ocaml/runtime-types/
+    featured: false
   - title: "OCaml Under the Hood: SmartPy"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
@@ -524,8 +673,11 @@ papers:
       - ocaml-workshop
     year: 2020
     links:
-      - https://icfp20.sigplan.org/details/ocaml-2020-papers/11/OCaml-Under-The-Hood-SmartPy
-      - https://wr.mondet.org/paper/smartpy-ocaml-2020.pdf
+      - description: "View Online"
+        uri: https://icfp20.sigplan.org/details/ocaml-2020-papers/11/OCaml-Under-The-Hood-SmartPy
+      - description: "Download PDF"
+        uri: https://wr.mondet.org/paper/smartpy-ocaml-2020.pdf
+    featured: false
   - title: "OCaml-CI: A Zero-Configuration CI"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
@@ -547,7 +699,9 @@ papers:
       - ocaml-workshop
     year: 2020
     links:
-      - https://icfp20.sigplan.org/details/ocaml-2020-papers/6/OCaml-CI-A-Zero-Configuration-CI
+      - description: "View Online"
+        uri: https://icfp20.sigplan.org/details/ocaml-2020-papers/6/OCaml-CI-A-Zero-Configuration-CI
+    featured: false
   - title: Parallelising your OCaml Code with Multicore OCaml
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
@@ -565,8 +719,11 @@ papers:
       - ocaml-workshop
     year: 2020
     links:
-      - https://github.com/ocaml-multicore/multicore-talks/blob/master/ocaml2020-workshop-parallel/multicore-ocaml20.pdf
-      - https://icfp20.sigplan.org/details/ocaml-2020-papers/5/Parallelising-your-OCaml-Code-with-Multicore-OCaml
+      - description: "Download PDF"
+        uri: https://github.com/ocaml-multicore/multicore-talks/blob/master/ocaml2020-workshop-parallel/multicore-ocaml20.pdf
+      - description: "View Online"
+        uri: https://icfp20.sigplan.org/details/ocaml-2020-papers/5/Parallelising-your-OCaml-Code-with-Multicore-OCaml
+    featured: false
   - title: The ImpFS Filesystem
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
@@ -584,7 +741,9 @@ papers:
       - ocaml-workshop
     year: 2020
     links:
-      - https://icfp20.sigplan.org/details/ocaml-2020-papers/8/The-ImpFS-filesystem
+      - description: "View Online"
+        uri: https://icfp20.sigplan.org/details/ocaml-2020-papers/8/The-ImpFS-filesystem
+    featured: false
   - title: The final pieces of the OCaml documentation puzzle
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
@@ -604,7 +763,9 @@ papers:
       - ocaml-workshop
     year: 2020
     links:
-      - https://icfp20.sigplan.org/details/ocaml-2020-papers/4/The-final-pieces-of-the-OCaml-documentation-puzzle
+      - description: "View Online"
+        uri: https://icfp20.sigplan.org/details/ocaml-2020-papers/4/The-final-pieces-of-the-OCaml-documentation-puzzle
+    featured: false
   - title: Types in Amber
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
@@ -623,4 +784,6 @@ papers:
       - ocaml-workshop
     year: 2020
     links:
-      - https://icfp20.sigplan.org/details/ocaml-2020-papers/3/Types-in-amber
+      - description: "View Online"
+        uri: https://icfp20.sigplan.org/details/ocaml-2020-papers/3/Types-in-amber
+    featured: false
