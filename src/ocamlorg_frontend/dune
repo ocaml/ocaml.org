@@ -10,6 +10,11 @@
   (targets layout.ml)
   (deps layout.eml)
   (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets learn_layout.ml)
+  (deps learn_layout.eml)
+  (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root}))))
 
 (subdir

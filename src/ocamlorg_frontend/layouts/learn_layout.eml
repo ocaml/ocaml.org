@@ -1,0 +1,120 @@
+
+let render
+?turbo_full_reload
+?use_swiper
+?use_turbo
+?current_tutorial
+~title
+~description
+inner =
+let render_tutorial name id =
+  match current_tutorial with
+  | Some x when x = id ->
+    <a class="flex text-primary-600 bg-primary-100 py-2 px-3 rounded-md text-sm font-semibold" href="<%s Url.tutorial id %>">
+      <%s name %>
+    </a>
+  | _ ->
+    <a class="font-semibold text-sm text-body-400 hover:bg-gray-100 block py-2 px-3" href="<%s Url.tutorial id %>">
+      <%s name %>
+    </a>
+in
+Layout.render
+?turbo_full_reload
+?use_swiper
+?use_turbo
+~title
+~description @@
+<button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed md:hidden"
+  :class="sidebar ? 'pl-1 pr-2': ''" x-on:click="sidebar = ! sidebar">
+  <div class="transform transition-transform" :class='sidebar ? "" : "rotate-180" '>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+    </svg>
+  </div>
+</button>
+<div class="lg:py-24 bg-white pt-10 md:pt-16">
+  <div class="container-fluid wide">
+    <div class="flex">
+      <div
+        class="p-10 z-10 w-full bg-white flex-shrink-0 flex-col absolute md:flex left-0 top-0 md:sticky md:w-72 md:p-0 md:py-4 h-screen overflow-auto"
+        x-show="sidebar" x-transition:enter="transition duration-200 transform ease-out"
+        x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 transform ease-in"
+        x-transition:leave-end="-translate-x-full">
+
+        <div class="space-y-4">
+          <a href="/learn" class="flex justify-start items-center">
+            <div class="bg-primary-600 text-white rounded w-8 h-8 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+            </div>
+            <div class="ml-3 font-semibold">Learn</div>
+          </a>
+
+          <a href="/problems" class="flex justify-start items-center">
+            <div class="bg-green-600 text-white rounded w-8 h-8 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="ml-3 font-semibold opacity-60">99 Problems</div>
+          </a>
+        </div>
+
+        <div class="space-y-2 flex mt-10 flex-col">
+          <div class="text-sm font-semibold flex px-3 py-2 uppercase">Getting Started</div>
+          <%s! render_tutorial "Up and Running" "up-and-running-with-ocaml" %>
+          <%s! render_tutorial "A First Hour with OCaml" "a-first-hour-with-ocaml" %>
+          <%s! render_tutorial "OCaml Programming Guidelines" "ocaml-programming-guidelines" %>
+          <%s! render_tutorial "Compiling OCaml Projects" "compiling-ocaml-projects" %>
+          <%s! render_tutorial "Best Practices" "best-practices" %>
+        </div>
+        <div class="space-y-2 flex mt-10 flex-col">
+          <div class="text-sm font-semibold flex px-3 py-2 uppercase">Language Features</div>
+          <%s! render_tutorial "Data Types and Matching" "data-types-and-matching" %>
+          <%s! render_tutorial "Functional Programming" "functional-programming" %>
+          <%s! render_tutorial "If Statements, Loops, and Recursion" "if-statements-loops-and-recursions" %>
+          <%s! render_tutorial "Modules" "modules" %>
+          <%s! render_tutorial "Labels" "labels" %>
+          <%s! render_tutorial "Pointers in OCaml" "pointers-in-ocaml" %>
+          <%s! render_tutorial "Null Pointers, Asserts, and Warnings" "null-pointers-asserts-and-warnings" %>
+          <%s! render_tutorial "Functors" "functors" %>
+          <%s! render_tutorial "Objects" "objects" %>
+        </div>
+        <div class="space-y-2 flex mt-10 flex-col">
+          <div class="text-sm font-semibold flex px-3 py-2 uppercase">Errors and Debugging</div>
+          <%s! render_tutorial "Error Handling" "error-handling" %>
+          <%s! render_tutorial "Common Error Messages" "common-error-messages" %>
+          <%s! render_tutorial "Debugging" "debug" %>
+        </div>
+        <div class="space-y-2 flex mt-10 flex-col">
+          <div class="text-sm font-semibold flex px-3 py-2 uppercase">Data Structures</div>
+          <%s! render_tutorial "Maps" "map" %>
+          <%s! render_tutorial "Sets" "sets" %>
+          <%s! render_tutorial "Hash Tables" "hashtables" %>
+          <%s! render_tutorial "Streams" "streams" %>
+        </div>
+        <div class="space-y-2 flex mt-10 flex-col">
+          <div class="text-sm font-semibold flex px-3 py-2 uppercase">Common Tasks</div>
+          <%s! render_tutorial "Formatting and Wrapping Text" "format" %>
+          <%s! render_tutorial "Command Line Arguments" "command-line-arguments" %>
+          <%s! render_tutorial "File Manipulation" "file-manipulation" %>
+        </div>
+        <div class="space-y-2 flex mt-10 flex-col">
+          <div class="text-sm font-semibold flex px-3 py-2 uppercase">Interoperability</div>
+          <%s! render_tutorial "Calling C libraries" "calling-c-libraries" %>
+          <%s! render_tutorial "Calling Fortran libraries" "calling-fortran-libraries" %>
+        </div>
+        <div class="space-y-2 flex mt-10 flex-col">
+          <div class="text-sm font-semibold flex px-3 py-2 uppercase">Advanced Topics</div>
+          <%s! render_tutorial "Garbage Collection" "garbage-collection" %>
+          <%s! render_tutorial "Performance and Profiling" "performance-and-profiling" %>
+          <%s! render_tutorial "Comparison of Standard Containers" "comparison-of-standard-containers" %>
+        </div>
+      </div>
+      <%s! inner %>
+    </div>
+  </div>
+</div>

@@ -18,7 +18,7 @@ let home () = Home.render ()
 
 let industrial_users () = Industrial_users.render ()
 
-let learn () = Learn.render ()
+let learn ~papers ~release ~books = Learn.render ~papers ~release ~books
 
 let manual () = Manual.render ()
 

@@ -5,7 +5,15 @@ let not_found _req = Dream.html ~code:404 (Ocamlorg_frontend.not_found ())
 let index _req = Dream.html (Ocamlorg_frontend.home ())
 
 let learn _req =
-  Dream.html (Ocamlorg_frontend.home ())
+  let papers =
+    Ood.Paper.all |> List.filter (fun (paper : Ood.Paper.t) -> paper.featured)
+  in
+  let books =
+    Ood.Book.all |> List.filter (fun (book : Ood.Book.t) -> book.featured)
+  in
+  let release = List.hd Ood.Release.all in
+  Dream.html (Ocamlorg_frontend.learn ~papers ~books ~release)
+
 
 let community _req = Dream.html (Ocamlorg_frontend.community ())
 
