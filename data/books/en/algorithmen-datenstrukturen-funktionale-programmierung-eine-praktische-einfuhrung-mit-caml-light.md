@@ -10,6 +10,7 @@ authors:
 published: "1996"
 cover: /books/wolff.gif
 language: german
+featured: false
 ---
 
 This book gives an introduction to programming where algorithms as well

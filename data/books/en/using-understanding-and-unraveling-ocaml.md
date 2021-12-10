@@ -12,6 +12,7 @@ links:
     uri: https://caml.inria.fr/pub/docs/u3-ocaml/
   - description: PDF
     uri: https://caml.inria.fr/pub/docs/u3-ocaml/ocaml.pdf
+featured: false
 ---
 
 This book describes both the OCaml language and the theoretical grounds

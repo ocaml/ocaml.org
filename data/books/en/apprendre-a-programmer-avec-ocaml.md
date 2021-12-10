@@ -16,10 +16,9 @@ cover: /books/apprendre_ocaml_cover.png
 language: french
 isbn: "2-21213-678-1"
 links:
-  - description: Online
-    uri: https://programmer-avec-ocaml.lri.fr/
-  - description: Order at Amazon.fr
+  - description: Buy on Amazon.fr
     uri: https://www.amazon.fr/Apprendre-programmer-avec-Ocaml-Algorithmes/dp/2212136781/
+featured: false
 ---
 
 Computer programming is hard to learn. Being a skillful programmer

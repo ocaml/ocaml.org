@@ -13,6 +13,7 @@ isbn: "2-212-08944-9"
 links:
   - description: Order at Amazon.fr
     uri: https://www.amazon.fr/exec/obidos/ASIN/2212089449
+featured: false
 ---
 
 This book is intended for beginners, who will learn basic programming

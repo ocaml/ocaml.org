@@ -15,6 +15,7 @@ links:
     uri: https://www.pps.jussieu.fr/Livres/ora/DA-OCAML/index.html
   - description: Order at Amazon.fr
     uri: https://www.amazon.fr/exec/obidos/ASIN/2841771210
+featured: false
 ---
 
 A comprehensive (742 pages) book on OCaml, covering not only the core

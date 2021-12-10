@@ -12,6 +12,7 @@ isbn: "2-7296-0492-8"
 links:
   - description: PDF
     uri: https://caml.inria.fr/pub/distrib/books/manuel-cl.pdf
+featured: false
 ---
 
 Written by two of the implementors of the Caml Light compiler, this

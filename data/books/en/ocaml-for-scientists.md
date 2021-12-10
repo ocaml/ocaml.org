@@ -13,6 +13,7 @@ links:
     uri: https://www.ffconsultancy.com/products/ocaml_for_scientists/index.html
   - description: Ordering Information
     uri: https://www.ffconsultancy.com/products/ocaml_for_scientists/index.html
+featured: false
 ---
 
 This book teaches OCaml programming with special emphasis on scientific

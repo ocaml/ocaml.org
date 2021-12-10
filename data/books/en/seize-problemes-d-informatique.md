@@ -13,6 +13,7 @@ isbn: "3-540-67387-3"
 links:
   - description: Springer's Catalog Page
     uri: https://www.springeronline.com/sgw/cda/frontpage/0,10735,5-102-22-2042496-0,00.html
+featured: false
 ---
 
 This book offers sixteen problems in computer science, with detailed

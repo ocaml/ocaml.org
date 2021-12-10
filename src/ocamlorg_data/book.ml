@@ -11,6 +11,8 @@ type t =
   ; cover : string option
   ; isbn : string option
   ; links : link list
+  ; rating : int option
+  ; featured : bool
   ; body_md : string
   ; body_html : string
   }
@@ -29,6 +31,8 @@ let all =
   ; isbn = None
   ; links = 
  []
+  ; rating = None
+  ; featured = false
   ; body_md = {js|This book gives an introduction to programming where algorithms as well
 as data structures are considered functionally. It is intended as an
 accompanying book for basic courses in computer science, but it is also
@@ -58,13 +62,11 @@ last chapter a comprehensive description of the language kernel.</p>
   ; isbn = Some {js|2-21213-678-1|js}
   ; links = 
  [
-      { description = {js|Online|js}
-      ; uri = {js|https://programmer-avec-ocaml.lri.fr/|js}
-      };
-  
-      { description = {js|Order at Amazon.fr|js}
+      { description = {js|Buy on Amazon.fr|js}
       ; uri = {js|https://www.amazon.fr/Apprendre-programmer-avec-Ocaml-Algorithmes/dp/2212136781/|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js|Computer programming is hard to learn. Being a skillful programmer
 requires imagination, anticipation, knowledge in algorithmics, the
 mastery of a programming language, and above all experience, as
@@ -120,6 +122,8 @@ online.</p>
   ; isbn = Some {js|2-7462-0819-9|js}
   ; links = 
  []
+  ; rating = None
+  ; featured = false
   ; body_md = {js|Programming is a discipline by which the strengths of computers can be
 harnessed: large amounts of reliable memory, the ability to execute
 repetitive tasks relentlessly, and a high computation speed. In order to
@@ -159,6 +163,8 @@ illustrated in OCaml easily transpose to other programming languages.</p>
       { description = {js|Book Website|js}
       ; uri = {js|https://pauillac.inria.fr/cousineau-mauny/main-fr.html|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js|This book uses OCaml as a tool to introduce several important
 programming concepts. It is divided in three parts. The first part is an
 introduction to OCaml, which presents the language itself, but also
@@ -197,6 +203,8 @@ synthesis.</p>
       { description = {js|Order at Amazon.fr|js}
       ; uri = {js|https://www.amazon.fr/exec/obidos/ASIN/2729604197|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js|This book presents a new approach to teaching programming concepts to
 beginners, based on language semantics. A simplified semantic model is
 used to describe in a precise manner the features found in most
@@ -232,6 +240,8 @@ exercises with solutions.</p>
   ; isbn = Some {js|2-84180-106-3|js}
   ; links = 
  []
+  ; rating = None
+  ; featured = false
   ; body_md = {js|This book was written by teachers at university and in “classes
 préparatoires”. It is intended for “classes préparatoires” students who
 study computer science and for students engaged in a computer science
@@ -270,6 +280,8 @@ formal logic, as well as 135 exercises with solutions.</p>
       { description = {js|PDF|js}
       ; uri = {js|https://caml.inria.fr/pub/docs/oreilly-book/ocaml-ora-book.pdf|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js|A comprehensive (742 pages) book on OCaml, covering not only the core
 language, but also modules, objects and classes, threads and systems
 programming, interoperability with C, and runtime tools. This book is a
@@ -300,6 +312,8 @@ translation of a French book published by OReilly.</p>
       { description = {js|Order at Amazon.fr|js}
       ; uri = {js|https://www.amazon.fr/exec/obidos/ASIN/2841771210|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js|A comprehensive (742 pages) book on OCaml, covering not only the core
 language, but also modules, objects and classes, threads and systems
 programming, and interoperability with C.
@@ -327,6 +341,8 @@ programming, and interoperability with C.</p>
       { description = {js|Website|js}
       ; uri = {js|https://www.edilivre.com/initiation-a-la-programmation-fonctionnelle-en-ocaml-mohammed-said-habet.html|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js|La programmation fonctionnelle est un style de programmation qui
 consiste à considérer les programmes informatiques comme des fonctions
 au sens mathématique du terme. Ce style est proposé dans de nombreux
@@ -373,6 +389,8 @@ l’initiative du lecteur.</p>
       { description = {js|PDF|js}
       ; uri = {js|https://courses.cms.caltech.edu/cs134/cs134b/book.pdf|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js|This book is notoriously much more than just an introduction to OCaml,
 it describes most of the language, and is accessible.
 
@@ -398,6 +416,8 @@ it describes most of the language, and is accessible.</p>
   ; isbn = Some {js|88-7488-031-6|js}
   ; links = 
  []
+  ; rating = None
+  ; featured = false
   ; body_md = {js||js}
   ; body_html = {js||js}
   };
@@ -417,6 +437,8 @@ it describes most of the language, and is accessible.</p>
       { description = {js|PDF|js}
       ; uri = {js|https://caml.inria.fr/pub/distrib/books/llc.pdf|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js|This book is a comprehensive introduction to programming in OCaml.
 Usable as a programming course, it introduces progressively the language
 features and shows them at work on the fundamental programming problems.
@@ -449,6 +471,8 @@ automata, etc.</p>
       { description = {js|PDF|js}
       ; uri = {js|https://caml.inria.fr/pub/distrib/books/manuel-cl.pdf|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js|Written by two of the implementors of the Caml Light compiler, this
 comprehensive book describes all constructs of the programming language
 and provides a complete documentation for the Caml Light system.
@@ -473,13 +497,11 @@ and provides a complete documentation for the Caml Light system.</p>
   ; isbn = None
   ; links = 
  [
-      { description = {js|Book Website|js}
-      ; uri = {js|https://ocaml-book.com/more-ocaml-algorithms-methods-diversions/|js}
-      };
-  
-      { description = {js|Amazon|js}
+      { description = {js|Buy on Amazon|js}
       ; uri = {js|https://www.amazon.com/gp/product/0957671113|js}
       }]
+  ; rating = Some 5
+  ; featured = true
   ; body_md = {js|In "More OCaml" John Whitington takes a meandering tour of functional
 programming with OCaml, introducing various language features and describing
 some classic algorithms. The book ends with a large worked example dealing with
@@ -521,6 +543,8 @@ the front of the book.</p>
       { description = {js|Order at Amazon.fr|js}
       ; uri = {js|https://www.amazon.fr/exec/obidos/ASIN/3540673873|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js|This book presents 103 exercises and 5 problems about algorithms, for
 masters students. It attempts to address both practical and theoretical
 questions. Programs are written in OCaml and expressed in a purely
@@ -551,6 +575,8 @@ languages, and automata.</p>
       { description = {js|GitHub|js}
       ; uri = {js|https://github.com/bobzhang/ocaml-book|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js|This book is a work in progress. It currently includes sections on the
 core OCaml language, Camlp4, parsing, various libraries, the OCaml
 runtime, interoperating with C, and pearls.|js}
@@ -579,6 +605,8 @@ runtime, interoperating with C, and pearls.</p>
       { description = {js|Ordering Information|js}
       ; uri = {js|https://www.ffconsultancy.com/products/ocaml_for_scientists/index.html|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js|This book teaches OCaml programming with special emphasis on scientific
 applications. Many examples are given, covering everything from simple
 numerical analysis to sophisticated real-time 3D visualisation using
@@ -608,13 +636,11 @@ programs can be constructed in the OCaml programming language.</p>
   ; isbn = None
   ; links = 
  [
-      { description = {js|Book Website|js}
-      ; uri = {js|https://ocaml-book.com/|js}
-      };
-  
-      { description = {js|Amazon|js}
+      { description = {js|Buy on Amazon|js}
       ; uri = {js|https://www.amazon.com/gp/product/0957671105|js}
       }]
+  ; rating = Some 4
+  ; featured = true
   ; body_md = {js|In "OCaml from the Very Beginning" John Whitington takes a
 no-prerequisites approach to teaching a modern general-purpose
 programming language. Each small, self-contained chapter introduces a
@@ -652,6 +678,8 @@ and hints.</p>
       { description = {js|Order online from Casa do Código|js}
       ; uri = {js|https://www.casadocodigo.com.br/products/livro-ocaml|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js|This book is an introduction to functional programming through OCaml, with a pragmatic
 focus. The goal is to enable the reader to write real programs in OCaml and understand
 most of the open source code written in the language. It includes many code examples
@@ -684,6 +712,8 @@ language, and a decision tree learning program for data analysis.</p>
       { description = {js|Online|js}
       ; uri = {js|https://ocaml.org/releases/latest/manual.html|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js|This the official User's Manual. It serves as a complete reference guide
 to OCaml. Updated for each version of OCaml, it contains the description
 of the language, of its extensions, and the documentation of the tools
@@ -710,6 +740,8 @@ and libraries included in the official distribution.</p>
       { description = {js|Order at Amazon.fr|js}
       ; uri = {js|https://www.amazon.fr/exec/obidos/ASIN/2711788393|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js|This books is a follow-up to the previous one and is intended for second
 year students in “classes préparatoires”. It deals with trees, algebraic
 expressions, automata and languages, and OCaml streams. The book
@@ -733,6 +765,8 @@ contains more than 200 OCaml programs.</p>
   ; isbn = Some {js|2-7117-8831-8|js}
   ; links = 
  []
+  ; rating = None
+  ; featured = false
   ; body_md = {js|This is a computer science course for the first year of “classes
 préparatoires”. The course begins with an introductory lesson on
 algorithms and a description of the OCaml language. Then, several
@@ -769,6 +803,8 @@ science.</p>
       { description = {js|Order Online from Paracamplus|js}
       ; uri = {js|https://paracamplus.com|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js||js}
   ; body_html = {js||js}
   };
@@ -788,6 +824,8 @@ science.</p>
       { description = {js|Order at Amazon.fr|js}
       ; uri = {js|https://www.amazon.fr/exec/obidos/ASIN/2212089449|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js|This book is intended for beginners, who will learn basic programming
 notions. The first part of the book is a programming course that
 initiates the reader to the OCaml language. Important notions are
@@ -817,6 +855,8 @@ connected to computer science, logic, automata and grammars.</p>
   ; isbn = Some {js|2-7117-4843-X|js}
   ; links = 
  []
+  ; rating = None
+  ; featured = false
   ; body_md = {js||js}
   ; body_html = {js||js}
   };
@@ -844,6 +884,8 @@ connected to computer science, logic, automata and grammars.</p>
       { description = {js|PDF|js}
       ; uri = {js|https://minimalprocedure.pragmas.org/writings/programmazione_funzionale/programmazione_funzionale.pdf|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js||js}
   ; body_html = {js||js}
   };
@@ -860,17 +902,11 @@ connected to computer science, logic, automata and grammars.</p>
   ; isbn = None
   ; links = 
  [
-      { description = {js|Book Website|js}
+      { description = {js|Read Online|js}
       ; uri = {js|https://dev.realworldocaml.org/|js}
-      };
-  
-      { description = {js|O'Reilly|js}
-      ; uri = {js|https://shop.oreilly.com/product/0636920024743.do|js}
-      };
-  
-      { description = {js|Amazon|js}
-      ; uri = {js|https://www.amazon.com/Real-World-OCaml-Functional-programming/dp/144932391X/ref=tmm_pap_title_0?ie=UTF8&qid=1385006524&sr=8-1|js}
       }]
+  ; rating = Some 4
+  ; featured = true
   ; body_md = {js|Learn how to solve day-to-day problems in data processing, numerical
 computation, system scripting, and database-driven web applications with
 the OCaml multi-paradigm programming language. This hands-on book shows
@@ -912,6 +948,8 @@ readable code.</p>
       { description = {js|Springer's Catalog Page|js}
       ; uri = {js|https://www.springeronline.com/sgw/cda/frontpage/0,10735,5-102-22-2042496-0,00.html|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js|This book offers sixteen problems in computer science, with detailed
 answers to all questions and complete solutions to algorithmic problems
 given as OCaml programs. It deals mainly with automata, finite or
@@ -943,13 +981,11 @@ to a masters degree.</p>
   ; isbn = Some {js|0-521-57681-4|js}
   ; links = 
  [
-      { description = {js|Book Website|js}
-      ; uri = {js|https://pauillac.inria.fr/cousineau-mauny/main.html|js}
-      };
-  
-      { description = {js|Order at Amazon.com|js}
+      { description = {js|Buy on Amazon.com|js}
       ; uri = {js|https://www.amazon.com/exec/obidos/ASIN/0521571839/qid%3D911812711/sr%3D1-22/102-8668961-8838559|js}
       }]
+  ; rating = Some 4
+  ; featured = true
   ; body_md = {js|This book uses OCaml as a tool to introduce several important
 programming concepts. It is divided in three parts. The first part is an
 introduction to OCaml, which presents the language itself, but also
@@ -985,13 +1021,11 @@ synthesis.</p>
   ; isbn = None
   ; links = 
  [
-      { description = {js|Book Website|js}
-      ; uri = {js|https://greenteapress.com/thinkocaml/index.html|js}
-      };
-  
-      { description = {js|PDF|js}
+      { description = {js|Read Online|js}
       ; uri = {js|https://greenteapress.com/thinkocaml/thinkocaml.pdf|js}
       }]
+  ; rating = None
+  ; featured = true
   ; body_md = {js|This book is a work in progress. It is an introductory programming
 textbook based on the OCaml language. It is a modified version of
 Think Python by Allen Downey. It is intended for newcomers to
@@ -1022,6 +1056,8 @@ want to learn OCaml.</p>
       { description = {js|Online|js}
       ; uri = {js|https://ocaml.github.io/ocamlunix|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js|This is an excellent book on Unix system programming, with an emphasis
 on communications between processes. The main novelty of this work is
 the use of OCaml, instead of the C language that is customary in systems
@@ -1056,6 +1092,8 @@ Unix shell commands.</p>
       { description = {js|PDF|js}
       ; uri = {js|https://caml.inria.fr/pub/docs/u3-ocaml/ocaml.pdf|js}
       }]
+  ; rating = None
+  ; featured = false
   ; body_md = {js|This book describes both the OCaml language and the theoretical grounds
 behind its powerful type system. A good complement to other books on
 OCaml it is addressed to a wide audience of people interested in modern programming languages in general, ML-like languages in particular, or simply in OCaml, whether they are programmers or language designers, beginners or knowledgeable readers — little prerequisite is actually assumed.|js}

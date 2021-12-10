@@ -9,6 +9,7 @@ language: english
 links:
   - description: PDF
     uri: https://courses.cms.caltech.edu/cs134/cs134b/book.pdf
+featured: false
 ---
 
 This book is notoriously much more than just an introduction to OCaml,

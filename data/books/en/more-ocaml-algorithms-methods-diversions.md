@@ -10,10 +10,10 @@ published: 2014-08-26
 cover: /books/more-ocaml-300-376.png
 language: english
 links:
-  - description: Book Website
-    uri: https://ocaml-book.com/more-ocaml-algorithms-methods-diversions/
-  - description: Amazon
+  - description: Buy on Amazon
     uri: https://www.amazon.com/gp/product/0957671113
+rating: 5
+featured: true
 ---
 
 In "More OCaml" John Whitington takes a meandering tour of functional

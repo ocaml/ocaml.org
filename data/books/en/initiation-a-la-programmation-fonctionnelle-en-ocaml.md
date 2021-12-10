@@ -12,6 +12,7 @@ isbn: "9782332978400"
 links:
   - description: Website
     uri: https://www.edilivre.com/initiation-a-la-programmation-fonctionnelle-en-ocaml-mohammed-said-habet.html
+featured: false
 ---
 
 La programmation fonctionnelle est un style de programmation qui

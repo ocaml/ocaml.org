@@ -10,6 +10,7 @@ published: "1996"
 cover: /books/monasse-1.gif
 language: french
 isbn: "2-7117-8831-8"
+featured: false
 ---
 
 This is a computer science course for the first year of “classes

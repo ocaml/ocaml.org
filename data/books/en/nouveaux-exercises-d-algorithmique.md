@@ -14,6 +14,7 @@ isbn: "2-7117-8990"
 links:
   - description: Order at Amazon.fr
     uri: https://www.amazon.fr/exec/obidos/ASIN/3540673873
+featured: false
 ---
 
 This book presents 103 exercises and 5 problems about algorithms, for

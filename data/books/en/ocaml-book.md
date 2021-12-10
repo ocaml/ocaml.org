@@ -9,6 +9,7 @@ language: english
 links:
   - description: GitHub
     uri: https://github.com/bobzhang/ocaml-book
+featured: false
 ---
 
 This book is a work in progress. It currently includes sections on the

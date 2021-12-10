@@ -12,6 +12,7 @@ isbn: "2-7296-0419-7"
 links:
   - description: Order at Amazon.fr
     uri: https://www.amazon.fr/exec/obidos/ASIN/2729604197
+featured: false
 ---
 
 This book presents a new approach to teaching programming concepts to
