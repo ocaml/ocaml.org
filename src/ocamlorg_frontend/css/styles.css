@@ -7,9 +7,14 @@
 @import 'partials/typography.css';
 @import 'partials/buttons.css';
 @import 'partials/form.css';
+@import 'partials/tags.css';
 @import 'partials/card.css';
 @import 'partials/shadows.css';
 @import 'pages/industrial-users.css';
+@import 'other/doc.css';
+@import 'other/syntax.css';
+@import 'other/toplevel.css';
+@import 'other/modifiers.css';
 
 html {
     scroll-behavior: smooth;
@@ -22,7 +27,6 @@ body {
 
 .container-fluid {
     @apply max-w-7xl w-full mx-auto px-6;
-
 }
 
 .container-fluid.wide {
@@ -115,10 +119,6 @@ a:focus-visible, select:focus-visible, button:focus-visible {
     @apply outline-primary;
 }
 
-.types-container ul > li > *:first-child,ul > li > *:last-child {
-    margin:0;
-}
-
 .top-level-container .prose ul li::before {
     display: none;
 }
@@ -131,4 +131,13 @@ footer a:hover {
 
 .link-orange {
     @apply text-primary-600 hover:underline;
+}
+
+
+.page-toc li a {
+    @apply font-semibold text-body-600 text-sm mb-4 block;
+}
+
+.page-toc li li li {
+    @apply ml-4;
 }

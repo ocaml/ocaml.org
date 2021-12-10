@@ -2,7 +2,6 @@
     @apply rounded-xl py-12 px-8 text-white bg-opacity-5 bg-white;
 }
 
-
 .card-hover {
     @apply transform hover:scale-105 transition-transform;
 }

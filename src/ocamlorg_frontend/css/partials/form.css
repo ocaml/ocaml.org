@@ -18,7 +18,6 @@
 
 .form-input.form-input-sm {
     @apply h-12;
-
 }
 
 .form-input.form-input-sm input {
