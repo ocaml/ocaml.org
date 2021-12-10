@@ -1,52 +1,63 @@
-let render () =
+let render ~(videos : (string, Ood.Watch.t) Hashtbl.t) (workshop : Ood.Workshop.t) =
+let current_date =
+  let open Unix in
+  let tm = localtime (Unix.gettimeofday ()) in
+  Format.asprintf
+    "%04d-%02d-%02d"
+    (tm.tm_year + 1900)
+    (tm.tm_mon + 1)
+    tm.tm_mday
+in
+let human_date s =
+  let open Timedesc in
+  let date = Date.of_iso8601_exn s in
+  let time = Time.make_exn ~hour:0 ~minute:0 ~second:0 () in
+  let date_time = Zoneless.make date time |> Zoneless.to_zoned_exn in
+  Format.asprintf
+    "%a"
+    (pp ~format:"{mon:0X} {mon:Xxx}" ())
+    date_time
+in
 Layout.render
 ~turbo_full_reload:true
-~title:"???"
+~title:workshop.title
 ~description:"???" @@
-
 <div class="intro-section-simple">
     <div class="container-fluid">
         <div class="flex flex-col lg:flex-row justify-between items-center">
             <div>
-                <h2 class="font-bold mb-6">OCaml Workshop 2021</h2>
-                <div>OCaml 2021 will be a virtual workshop, co-located with ICFP 2021.</div>
+                <h1 class="font-bold mb-6">OCaml Workshop 2021</h1>
+                <div><%s workshop.title %> will take place the <%s workshop.date %> and will be held <%s match workshop.location with | "Virtual" -> "virtually" | location -> "at " ^ location %></div>
             </div>
             <div class="flex flex-col space-y-6 relative md:mt-10">
                 <div class="absolute h-full pt-14 pb-5 lg:pt-11 lg:pb-4 ml-2 lg:ml-0 left-20 lg:left-32 -l-x">
                     <div class="-ml-px w-1 border-dashed border-r-2 border-primary-300 h-full"></div>
                 </div>
+                <% let seen_upcoming = ref false in
+                workshop.important_dates |> List.iter (fun (date : Ood.Workshop.important_date) ->
+                match date.date > current_date with
+                | true when not !seen_upcoming -> (
+                    seen_upcoming := true; %>
                 <div class="flex items-center space-x-10">
-                    <div class="text-primary-600 font-semibold w-10 lg:w-20 text-right">12th May</div>
+                    <div class="text-primary-600 font-semibold w-10 lg:w-20 text-right"><%s human_date date.date %></div>
                     <div class="bg-primary-600 h-5 w-5 rounded-full"></div>
                     <div class="bg-primary-600 flex-1 rounded-xl text-white  px-4 py-2 flex items-center">
                         <div>
                             <div class="text-xs font-semibold">UPCOMING</div>
-                            <div>Abstract submission deadline</div>
+                            <div><%s date.info %></div>
                         </div>
 
                     </div>
                 </div>
+                <% ) | _ -> %>
                 <div class="flex items-center space-x-10">
-                    <div class="text-primary-600 font-semibold w-10 lg:w-20 text-right">27th June</div>
+                    <div class="text-primary-600 font-semibold w-10 lg:w-20 text-right"><%s human_date date.date %></div>
                     <div class="bg-primary-600 h-5 w-5 rounded-full"></div>
                     <div class="bg-white flex-1 rounded-xl text-body-700 px-4 py-3 items-center flex">
-                        <div>Author notification</div>
+                        <div><%s date.info %></div>
                     </div>
                 </div>
-                <div class="flex items-center space-x-10">
-                    <div class="text-primary-600 font-semibold w-10 lg:w-20  text-right">8th Aug</div>
-                    <div class="bg-primary-600 h-5 w-5 rounded-full"></div>
-                    <div class="bg-white flex-1 rounded-xl text-body-700 px-4 py-3 items-center flex">
-                        <div>Author notification</div>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-10">
-                    <div class="text-primary-600 font-semibold w-10 lg:w-20  text-right">21st Aug</div>
-                    <div class="bg-primary-600 h-5 w-5 rounded-full"></div>
-                    <div class="bg-white flex-1 rounded-xl text-body-700 px-4 py-3 items-center flex">
-                        <div>Author notification</div>
-                    </div>
-                </div>
+                <% ); %>
             </div>
         </div>
     </div>
@@ -54,42 +65,38 @@ Layout.render
 <div class="bg-white">
     <div class="py-10 lg:py-28">
         <div class="container-fluid">
-            <h3 class="font-bold mb-16">All Presentations</h3>
+            <div class="prose prose-orange lg:prose-xl max-w-none mb-16">
+                <%s! workshop.body_html %>
+                <h3>All Presentations</h3>
+            </div>
             <div class="overflow-x-scroll">
                 <table class="max-w-5xl lg:max-w-full ">
                     <thead class="bg-body-700 text-white text-left rounded-xl">
                         <tr>
                             <th class="py-4 px-6 rounded-l-lg text-x w-2/5">Title</th>
-                            <th class="py-4 px-6 w-2/5">Author</th>
-                            <th class="py-4 px-6 w-1/5 rounded-r-lg">Views</th>
+                            <th class="py-4 px-6 w-2/5">Authors</th>
+                            <th class="py-4 px-6 w-1/5 rounded-r-lg">Resources</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="even:bg-gray-50">
+                        <% workshop.presentations |> List.iter (fun (presentation : Ood.Workshop.presentation) -> %>
                         <tr>
-                            <td class="py-4 px-6 font-semibold">25 Years of OCaml</td>
-                            <td class="py-4 px-6 font-medium">Xavier Leroy</td>
-                            <td class="py-4 px-6"><a href="" class="text-primary-600 font-medium">Link,</a><a href="" class="text-primary-600 font-medium ml-1">Video</a></td>
+                            <td class="py-4 px-6 font-semibold"><%s presentation.title %></td>
+                            <td class="py-4 px-6 font-medium"><%s Fmt.(str "%a" (list ~sep:comma string) presentation.authors) %></td>
+                            <td class="py-4 px-6">
+                                <% (match presentation.link with None -> () | Some link -> %>
+                                <a href="<%s link %>" class="text-primary-600 font-medium block">Link</a>
+                                <% ); %>
+
+                                <% (match presentation.video with None -> () | Some link -> %>
+                                <a href="<%s link %>" class="text-primary-600 font-medium block">Video</a>
+                                <% ); %>
+
+                                <% (match presentation.slides with None -> () | Some link -> %>
+                                <a href="<%s link %>" class="text-primary-600 font-medium block">Slides</a>
+                                <% ); %>
                         </tr>
-                        <tr class="bg-gray-50">
-                            <td class="py-4 px-6 rounded-l-lg font-semibold">A Multiverse of Glorious Documentation</td>
-                            <td class="py-4 px-6 font-medium">Lucas Pluvinage, Jonathan Ludlam</td>
-                            <td class="py-4 px-6 rounded-r-lg"><a href="" class="text-primary-600 font-medium">Link,</a><a href="" class="text-primary-600 font-medium ml-1">Video</a></td>
-                        </tr>
-                        <tr>
-                            <td class="py-4 px-6 font-semibold">25 Years of OCaml</td>
-                            <td class="py-4 px-6 font-medium">Xavier Leroy</td>
-                            <td class="py-4 px-6"><a href="" class="text-primary-600 font-medium">Link,</a><a href="" class="text-primary-600 font-medium ml-1">Video</a></td>
-                        </tr>
-                        <tr class="bg-gray-50">
-                            <td class="py-4 px-6 rounded-l-lg font-semibold">A Multiverse of Glorious Documentation</td>
-                            <td class="py-4 px-6 font-medium">Lucas Pluvinage, Jonathan Ludlam</td>
-                            <td class="py-4 px-6 rounded-r-lg"><a href="" class="text-primary-600 font-medium">Link,</a><a href="" class="text-primary-600 font-medium ml-1">Video</a></td>
-                        </tr>
-                        <tr>
-                            <td class="py-4 px-6 font-semibold">Binary Analysis Platform (BAP). Using Universal Algebra and Tagless-Final Style for Developing Representation-Agnostic Frameworks</td>
-                            <td class="py-4 px-6 font-medium">Ivan Gotovchits, David Brumley</td>
-                            <td class="py-4 px-6"><a href="" class="text-primary-600 font-medium">Link,</a><a href="" class="text-primary-600 font-medium ml-1">Video</a></td>
-                        </tr>
+                        <% ); %>
                     </tbody>
                 </table>
             </div>
@@ -102,66 +109,43 @@ Layout.render
         <div class=" ">
             <div class="text-center text-white">
                 <h2 class="font-bold text-primary-600 mb-16">Workshop Details</h2>
-                <h5 class="font-bold text-white mb-12">Organising Committee</h5>
-                <a href="" class="card-hover inline-block">
-                    <img src="/img/events-inner/organizer.png" class="m-auto" alt="">
-                    <div class="font-medium mt-3">Frédéric Bour </div>
-                    <div class="text-sm mt-1">Tarides, France </div>
-                </a>
+                <div>
+                    <h5 class="font-bold text-white mb-12">Organising Committee</h5>
+                    <div class="flex flex-wrap justify-center space-x-12">
+                        <% 
+                        let committee_with_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_some x.picture) workshop.organising_committee in
+                        let committee_without_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_none x.picture) workshop.organising_committee in
+                        let names = List.map (fun (x : Ood.Workshop.committee_member) -> match x.affiliation with None -> x.name | Some affiliation -> Printf.sprintf "%s (%s)" x.name affiliation) committee_without_pictures in
+                        committee_with_pictures |> List.iter (fun (member : Ood.Workshop.committee_member) -> %>
+                        <div href="" class="mt-12">
+                            <img src="<%s Option.get member.picture %>" width="148px" class="m-auto h-auto rounded-lg" alt="">
+                            <div class="font-medium mt-3"><%s member.name %></div>
+                            <% (match member.affiliation with None -> () | Some affiliation -> %>
+                            <div class="text-sm mt-1"><%s affiliation %></div>
+                            <% ); %>
+                        </div>
+                        <% ); %>
+                    </div>
+                    <% (match names with [] -> () | _ -> %> <div class="mt-8"><%s Fmt.(str "%a" (list ~sep:comma string) names) %></div> <% ); %>
+                </div>
                 <div>
                     <h5 class="font-bold mt-16">Program Committee</h5>
                     <div class="flex flex-wrap justify-center space-x-12">
-                        <a href="" class="mt-12 card-hover">
-                            <img src="/img/events-inner/committee1.png" width="148px" class="m-auto h-auto" alt="">
-                            <div class="font-medium mt-3">Frédéric Bour </div>
-                            <div class="text-sm mt-1">Tarides, France </div>
-                        </a>
-                        <a href="" class="mt-12 card-hover">
-                            <img src="/img/events-inner/committee2.png" width="148px" class="m-auto h-auto" alt="">
-                            <div class="font-medium mt-3">Frédéric Bour </div>
-                            <div class="text-sm mt-1">Tarides, France </div>
-                        </a>
-                        <a href="" class="mt-12 card-hover">
-                            <img src="/img/events-inner/committee3.png" width="148px" class="m-auto h-auto" alt="">
-                            <div class="font-medium mt-3">Frédéric Bour </div>
-                            <div class="text-sm mt-1">Tarides, France </div>
-                        </a>
-                        <a href="" class="mt-12 card-hover">
-                            <img src="/img/events-inner/committee4.png" width="148px" class="m-auto h-auto" alt="">
-                            <div class="font-medium mt-3">Frédéric Bour </div>
-                            <div class="text-sm mt-1">Tarides, France </div>
-                        </a>
-                        <a href="" class="mt-12 card-hover">
-                            <img src="/img/events-inner/committee5.png" width="148px" class="m-auto h-auto" alt="">
-                            <div class="font-medium mt-3">Frédéric Bour </div>
-                            <div class="text-sm mt-1">Tarides, France </div>
-                        </a>
-                        <a href="" class="mt-12 card-hover">
-                            <img src="/img/events-inner/committee6.png" width="148px" class="m-auto h-auto" alt="">
-                            <div class="font-medium mt-3">Frédéric Bour </div>
-                            <div class="text-sm mt-1">Tarides, France </div>
-                        </a>
-                        <a href="" class="mt-12 card-hover">
-                            <img src="/img/events-inner/committee7.png" width="148px" class="m-auto h-auto" alt="">
-                            <div class="font-medium mt-3">Frédéric Bour </div>
-                            <div class="text-sm mt-1">Tarides, France </div>
-                        </a>
-                        <a href="" class="mt-12 card-hover">
-                            <img src="/img/events-inner/committee8.png" width="148px" class="m-auto h-auto" alt="">
-                            <div class="font-medium mt-3">Frédéric Bour </div>
-                            <div class="text-sm mt-1">Tarides, France </div>
-                        </a>
-                        <a href="" class="mt-12 card-hover">
-                            <img src="/img/events-inner/committee9.png" width="148px" class="m-auto h-auto" alt="">
-                            <div class="font-medium mt-3">Frédéric Bour </div>
-                            <div class="text-sm mt-1">Tarides, France </div>
-                        </a>
-                        <a href="" class="mt-12 card-hover">
-                            <img src="/img/events-inner/committee10.png" width="148px" class="m-auto h-auto" alt="">
-                            <div class="font-medium mt-3">Frédéric Bour </div>
-                            <div class="text-sm mt-1">Tarides, France </div>
-                        </a>
+                        <% 
+                        let committee_with_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_some x.picture) workshop.program_committee in
+                        let committee_without_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_none x.picture) workshop.program_committee in
+                        let names = List.map (fun (x : Ood.Workshop.committee_member) -> match x.affiliation with None -> x.name | Some affiliation -> Printf.sprintf "%s (%s)" x.name affiliation) committee_without_pictures in
+                        committee_with_pictures |> List.iter (fun (member : Ood.Workshop.committee_member) -> %>
+                        <div href="" class="mt-12">
+                            <img src="<%s Option.get member.picture %>" width="148px" class="m-auto h-auto rounded-lg" alt="">
+                            <div class="font-medium mt-3"><%s member.name %></div>
+                            <% (match member.affiliation with None -> () | Some affiliation -> %>
+                            <div class="text-sm mt-1"><%s affiliation %></div>
+                            <% ); %>
+                        </div>
+                        <% ); %>
                     </div>
+                    <% (match names with [] -> () | _ -> %> <div class="mt-8"><%s Fmt.(str "%a" (list ~sep:comma string) names) %></div> <% ); %>
                 </div>
             </div>
         </div>
@@ -171,26 +155,27 @@ Layout.render
     <div class="container-fluid">
         <h3 class="font-bold mb-12">Some Videos</h3>
         <div class="grid lg:grid-cols-3 gap-14 ">
+            <% 
+            let videos = List.filter_map (fun (p : Ood.Workshop.presentation) -> Hashtbl.find_opt videos p.title) workshop.presentations in
+            let videos = List.filteri (fun i _ -> i < 6) videos in
+            videos |> List.iter (fun (video : Ood.Watch.t) -> %>
             <a href="" class="card-hover inline-block">
-                <img src="/img/events-inner/event-video-1.png" alt="">
-                <h6 class="font-bold mt-4">25 Years of OCaml: Xavier Leroy</h6>
-                <div class="mt-4">Professor Xavier Leroy -- the primary original author and leader of the OCaml project -- reflects on 25 years of the OCaml language at his OCaml Workshop 2021 keynote speech.</div>
+                <iframe loading="lazy" sandbox="allow-same-origin allow-scripts allow-popups" src="https://watch.ocaml.org<%s video.embed_path %>" frameborder="0" allowfullscreen></iframe>
+                <h6 class="font-bold mt-4"><%s video.name %></h6>
+                <div class="mt-4">
+                    <%s Option.value ~default:"" video.description %>
+                </div>
             </a>
-            <a href="" class="card-hover inline-block">
-                <img src="/img/events-inner/event-video-2.png" alt="">
-                <h6 class="font-bold mt-4">A Multiverse of Glorious Documentation</h6>
-                <div class="mt-4">This talk describes the process of generating documentation for every version of every package that can be built from the opam repository, and how it is presented as a single coherent website that is continuously updated as new packages are releas...</div>
-            </a>
-            <a href="" class="card-hover inline-block">
-                <img src="/img/events-inner/event-video-3.png" alt="">
-                <h6 class="font-bold mt-4">Adapting the OCaml ecosystem for Multicore OCaml</h6>
-                <div class="mt-4">OCaml 5.0 with support for shared-memory parallelism being around the corner, there’s increasing interest in the community to port existing libraries to Multicore. This talk will take the attendees through what the arrival of Multicore means to th...</div>
-            </a>
+          <% ); %>
         </div>
         <div class="flex justify-end mt-12">
-            <button class="btn btn-secondary">More videos at watch.ocaml.org <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block " fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-</svg></button>
+            <a href="https://watch.ocaml.org" target="_blank" class="btn btn-secondary">
+                More videos at watch.ocaml.org
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 inline-block " fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </a>
         </div>
     </div>
 </div>

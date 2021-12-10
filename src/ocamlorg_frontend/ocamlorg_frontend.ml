@@ -10,7 +10,7 @@ let books books = Books.render books
 
 let community () = Community.render ()
 
-let workshop () = Workshop.render ()
+let workshop ~videos workshop = Workshop.render ~videos workshop
 
 let events ~workshops ~meetups = Events.render ~workshops ~meetups
 
