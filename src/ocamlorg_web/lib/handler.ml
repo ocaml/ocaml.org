@@ -21,8 +21,14 @@ let success_stories _req =
   let stories = Ood.Success_story.all () in
   Dream.html (Ocamlorg_frontend.success_stories stories)
 
-let success_story _req =
-  Dream.html (Ocamlorg_frontend.home ())
+let success_story req =
+  let slug = Dream.param "id" req in
+  let story = Ood.Success_story.get_by_slug slug in
+  match story with
+  | Some story ->
+    Dream.html (Ocamlorg_frontend.success_story story)
+  | None ->
+    not_found req
 
 let industrial_users _req =
   let users =
