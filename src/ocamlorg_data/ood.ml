@@ -178,6 +178,7 @@ module Opam_user = struct
              true
            else
              false)
+  
 end
 
 module Watch = struct
