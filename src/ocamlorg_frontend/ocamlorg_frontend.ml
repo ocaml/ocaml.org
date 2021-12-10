@@ -16,7 +16,7 @@ let events ~workshops ~meetups = Events.render ~workshops ~meetups
 
 let home () = Home.render ()
 
-let industrial_users () = Industrial_users.render ()
+let industrial_users users = Industrial_users.render users
 
 let learn ~papers ~release ~books = Learn.render ~papers ~release ~books
 

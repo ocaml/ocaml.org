@@ -24,8 +24,12 @@ let success_story _req =
   Dream.html (Ocamlorg_frontend.home ())
 
 let industrial_users _req =
-  Dream.html (Ocamlorg_frontend.home ())
-
+  let users =
+    Ood.Industrial_user.all ()
+    |> List.filter (fun (item : Ood.Industrial_user.t) -> item.featured)
+  in
+  Dream.html (Ocamlorg_frontend.industrial_users users)
+  
   let academic_users req =
     let search_user pattern t =
       let open Ood.Academic_institution in
