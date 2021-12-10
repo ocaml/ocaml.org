@@ -1,7 +1,9 @@
-<?php
-include 'header.php';
-?>
-     <button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed md:hidden"
+let render () =
+Layout.render
+~turbo_full_reload:true
+~title:"???"
+~description:"???" @@
+<button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed md:hidden"
      :class="sidebar ? 'pl-1 pr-2': ''"
     x-on:click="sidebar = ! sidebar">
     <div x-show="!sidebar">
@@ -104,6 +106,3 @@ val pi : float = 3.14159265358979312</code></pre>
             </div>
         </div>
     </div>
-    <?php
-    include 'footer.php';
-    ?>

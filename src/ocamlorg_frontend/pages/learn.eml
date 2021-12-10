@@ -1,6 +1,8 @@
-<?php
-include 'header.php';
-?>
+let render () =
+Layout.render
+~turbo_full_reload:true
+~title:"???"
+~description:"???" @@
 <button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed md:hidden" :class="sidebar ? 'pl-1 pr-2': ''" x-on:click="sidebar = ! sidebar">
     <div class="transform transition-transform" :class='sidebar ? "" : "rotate-180" '>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -240,6 +242,3 @@ include 'header.php';
         </div>
     </div>
 </div>
-<?php
-include 'footer.php';
-?>
