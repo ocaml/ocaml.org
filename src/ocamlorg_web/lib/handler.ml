@@ -577,5 +577,37 @@ let package_versioned t kind req =
                    ~content:doc.content
                    package_meta))
 
-let package_toplevel _t _kind _req =
-  Dream.html (Ocamlorg_frontend.home ())
+let package_toplevel t kind req =
+  let name = Ocamlorg_package.Name.of_string @@ Dream.param "name" req in
+  let version =
+    Ocamlorg_package.Version.of_string @@ Dream.param "version" req
+  in
+  let package = Ocamlorg_package.get_package t name version in
+  match package with
+  | None ->
+    not_found req
+  | Some package ->
+    let toplevel = Ocamlorg_package.toplevel package in
+    (match toplevel with
+    | None ->
+      not_found req
+    | Some toplevel_url ->
+      let open Lwt.Syntax in
+      let kind =
+        match kind with
+        | Package ->
+          `Package
+        | Universe ->
+          `Universe (Dream.param "hash" req)
+      in
+      let* documentation_status =
+        Ocamlorg_package.documentation_status ~kind package
+      in
+      let* toplevel_status = Ocamlorg_package.toplevel_status ~kind package in
+      let package_meta = package_meta t package in
+      Dream.html
+        (Ocamlorg_frontend.package_toplevel
+           ~documentation_status
+           ~toplevel_status
+           ~toplevel_url
+           package_meta))
