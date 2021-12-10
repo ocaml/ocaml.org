@@ -27,9 +27,9 @@ Layout.render
     <div class="container-fluid wide">
         <div class="flex">
             <div class="p-10 z-10 w-full bg-white flex-shrink-0 flex-col absolute md:flex left-0 top-0 md:sticky md:w-72 md:p-0 md:py-4 h-screen overflow-auto"
-                x-show="sidebar" x-transition:enter="transition duration-200 transform ease-out"
+                x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
                 x-transition:enter-start="-translate-x-full"
-                x-transition:leave="transition duration-100 transform ease-in"
+                x-transition:leave="transition duration-100 ease-in"
                 x-transition:leave-end="-translate-x-full">
 
               <div class="space-y-4">

@@ -95,8 +95,8 @@ inner =
     <div class="bg-black fixed w-full h-full left-0 top-0 opacity-60 z-40" x-show='open' x-cloak></div>
 
     <div class="z-50 h-full fixed right-0 top-0 max-w-full w-96 bg-white shadow-lg" x-show="open" x-cloak
-      @click.away="open = false" x-transition:enter="transition duration-200 transform ease-out"
-      x-transition:enter-start="translate-x-full" x-transition:leave="transition duration-100 transform ease-in"
+      @click.away="open = false" x-transition:enter="transition duration-200 ease-out"
+      x-transition:enter-start="translate-x-full" x-transition:leave="transition duration-100 ease-in"
       x-transition:leave-end="translate-x-full">
       <ul class="text-body-400 p-6 space-y-6 font-semibold">
         <li class="flex justify-between items-center">
