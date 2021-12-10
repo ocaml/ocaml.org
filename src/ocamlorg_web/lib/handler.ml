@@ -67,7 +67,10 @@ let industrial_users _req =
 let about _req = Dream.html (Ocamlorg_frontend.home ())
 
 let books _req =
-  Dream.html (Ocamlorg_frontend.home ())
+  let books =
+    Ood.Book.all |> List.filter (fun (item : Ood.Book.t) -> item.featured)
+  in
+  Dream.html (Ocamlorg_frontend.books books)
 
 let releases _req =
   Dream.html (Ocamlorg_frontend.home ())
