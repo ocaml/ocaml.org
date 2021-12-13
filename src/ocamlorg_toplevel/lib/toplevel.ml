@@ -274,7 +274,7 @@ let run s =
           Lwt.async (resize ~container ~textbox);
           Js._true
         | 09 ->
-          Lwt.async complete;
+          Lwt.async (fun () -> complete () >>= resize ~container ~textbox);
           Js._false
         | 76 when meta e ->
           output##.innerHTML := Js.string "";
