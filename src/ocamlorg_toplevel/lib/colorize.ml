@@ -47,6 +47,8 @@ let let_expression =
   "\\blet[ \\t\\r\\n\\v\\f]+(?:rec[ \
    \\t\\r\\n\\v\\f]+)?(?<func>[a-z_][A-Za-z0-9_']*)\\b"
 
+let string_expression = "\".*\""
+
 let get_func_names s =
   let re = RegExp.create ~opts:[ Global; Multiline; Indices ] let_expression in
   let rec loop acc s =
@@ -113,10 +115,11 @@ let sharp ~a_class:_ s =
   in
   let numbers = find_match "numeric" s "\\b\\d*\\.?\\d+\\b" in
   let names = get_func_names s in
+  let strings = find_match "string-quoted-double" s string_expression in
   let highlights =
     List.sort
       (fun (_, s1, _) (_, s2, _) -> Int.compare s1 s2)
-      (keywords @ operators @ numbers @ names)
+      (keywords @ operators @ numbers @ names @ strings)
   in
   Tyxml_js.Html.div @@ src_to_spans s highlights
 
