@@ -54,7 +54,7 @@ with an emphasis on expressiveness and safety."
             </div>
           </div>
           <div class="flex-1 flex py-2 px-6 text-white text-opacity-50">
-            <textarea class="hidden text-white code-preview w-3/4 h-full overflow-hidden bg-transparent" id="userinput"></textarea>
+            <textarea class="hidden text-white code-preview w-full h-full overflow-hidden bg-transparent" id="userinput"></textarea>
             <button
               id="toplevel-load"
               class="px-4 ml-2 h-10 text-sm items-center text-white border border-gray-100 rounded-lg border-opacity-50 flex"><svg

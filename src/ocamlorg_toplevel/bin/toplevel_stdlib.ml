@@ -14,6 +14,7 @@ let () =
     Ev.click
     (fun _ ->
       El.set_class (Jstr.v "hidden") false input;
+      El.set_class (Jstr.v "hidden") true button;
       El.set_has_focus true input;
       El.set_children output [];
       Ocamlorg_toplevel.Toplevel.run "/toplevels/worker.js")
