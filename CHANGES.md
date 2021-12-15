@@ -1,5 +1,7 @@
 # Unreleased
 
+- Integrate new toplevel design with toplevel logic and basic syntax highlighting (#188, by @patricoferris)
+
 - Support HTTPS and provision certificates with Let's Encrypt (#182, by @tmattio and @patricoferris)
 
 - Update the frontend (#187, by @tmattio, @asaadmahmood and @patricoferris)
