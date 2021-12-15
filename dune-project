@@ -56,7 +56,7 @@
   fpath
   fmt
   logs
-  omd
+  (omd (= "2.0.0~alpha2"))
   opam-format
   timedesc
   yojson
@@ -77,4 +77,15 @@
    (>= 3.11.0))
   (js_of_ocaml-toplevel
    (>= 3.11.0))
-  (alcotest :with-test)))
+  (alcotest :with-test)
+  ; hilite
+  (textmate-language :with-test)
+  ; tools/ood-gen
+  (piaf :with-test)
+  (ppx_deriving_yaml :with-test)
+  (ezjsonm :with-test)
+  (lambdasoup :with-test)
+  (ptime :with-test)
+  (cmdliner :with-test)
+  (xmlm :with-test)
+  (uri :with-test)))

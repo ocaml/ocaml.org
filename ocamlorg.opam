@@ -32,7 +32,7 @@ depends: [
   "fpath"
   "fmt"
   "logs"
-  "omd"
+  "omd" {= "2.0.0~alpha2"}
   "opam-format"
   "timedesc"
   "yojson"
@@ -49,6 +49,15 @@ depends: [
   "js_of_ocaml-tyxml" {>= "3.11.0"}
   "js_of_ocaml-toplevel" {>= "3.11.0"}
   "alcotest" {with-test}
+  "textmate-language" {with-test}
+  "piaf" {with-test}
+  "ppx_deriving_yaml" {with-test}
+  "ezjsonm" {with-test}
+  "lambdasoup" {with-test}
+  "ptime" {with-test}
+  "cmdliner" {with-test}
+  "xmlm" {with-test}
+  "uri" {with-test}
   "odoc" {with-doc}
 ]
 dev-repo: "git+https://github.com/ocaml/v3.ocaml.org-server.git"
