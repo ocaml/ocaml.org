@@ -1,7 +1,11 @@
 let render
+~documentation_status
+~toplevel_status
 ~toplevel_url (package : Package_intf.meta) =
 Package_layout.render
 ~turbo_full_reload:true
+~documentation_status
+~toplevel_status
 ~title:(Printf.sprintf "%s %s · OCaml Packages" package.name package.version)
 ~description:(Printf.sprintf "%s %s: %s" package.name package.version package.description)
 ~tab:Toplevel

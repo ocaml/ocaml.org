@@ -1,4 +1,6 @@
 let render 
+~documentation_status
+~toplevel_status
 ~title
 ~path
 ~toc
@@ -7,6 +9,8 @@ let render
 (package : Package_intf.meta) =
 Package_layout.render
 ~turbo_full_reload:true
+~documentation_status
+~toplevel_status
 ~title
 ~description:(Printf.sprintf "%s %s: %s" package.name package.version package.description)
 ~tab:Documentation
