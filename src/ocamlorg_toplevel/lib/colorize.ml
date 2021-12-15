@@ -64,7 +64,7 @@ let get_func_names s =
   in
   loop [] s
 
-let find_match keyword s regexp =
+let find_match ?(matched = []) keyword s regexp =
   let re = RegExp.create ~opts:[ Global; Multiline; Indices ] regexp in
   let rec loop acc s =
     match RegExp.exec re s with
@@ -77,7 +77,15 @@ let find_match keyword s regexp =
       | (st, e) :: _ ->
         (* Note [exec] updates [lastIndex] so we can carry on matching without
            String.sub *)
-        loop ((keyword, st, e) :: acc) s)
+        if
+          (* Match at most once on something *)
+          List.for_all
+            (fun (_, st', e') -> (st < st' || st >= e') && (e < st' || e >= e'))
+            matched
+        then
+          loop ((keyword, st, e) :: acc) s
+        else
+          loop acc s)
   in
   loop [] s
 
@@ -102,24 +110,28 @@ let src_to_spans s offs =
   loop [] 0 offs
 
 let sharp ~a_class:_ s =
+  let strings = find_match "string-quoted-double" s string_expression in
   let keywords =
-    List.fold_left (fun acc t -> find_match "keyword" s t :: acc) [] keywords
+    List.fold_left
+      (fun acc t -> find_match ~matched:strings "keyword" s t :: acc)
+      []
+      keywords
     |> List.concat
   in
+  let matched = strings @ keywords in
   let operators =
     List.fold_left
-      (fun acc t -> find_match "keyword-operator" s t :: acc)
+      (fun acc t -> find_match ~matched "keyword-operator" s t :: acc)
       []
       operators
     |> List.concat
   in
-  let numbers = find_match "numeric" s "\\b\\d*\\.?\\d+\\b" in
+  let matched = operators @ matched in
+  let numbers = find_match ~matched "numeric" s "\\b\\d*\\.?\\d+\\b" in
+  let matched = numbers @ matched in
   let names = get_func_names s in
-  let strings = find_match "string-quoted-double" s string_expression in
   let highlights =
-    List.sort
-      (fun (_, s1, _) (_, s2, _) -> Int.compare s1 s2)
-      (keywords @ operators @ numbers @ names @ strings)
+    List.sort (fun (_, s1, _) (_, s2, _) -> Int.compare s1 s2) (names @ matched)
   in
   Tyxml_js.Html.div @@ src_to_spans s highlights
 
