@@ -189,7 +189,9 @@ let run s =
       List.iter
         (fun l -> append Colorize.text output "stdout" (l ^ " "))
         c.completions;
-      append Colorize.text output "stdout" "\n")
+      append Colorize.text output "stdout" "\n");
+    Lwt.async @@ resize ~container ~textbox;
+    container##.scrollTop := container##.scrollHeight
   in
   let execute () =
     let content = Js.to_string textbox##.value##trim in
@@ -274,7 +276,7 @@ let run s =
           Lwt.async (resize ~container ~textbox);
           Js._true
         | 09 ->
-          Lwt.async (fun () -> complete () >>= resize ~container ~textbox);
+          Lwt.async complete;
           Js._false
         | 76 when meta e ->
           output##.innerHTML := Js.string "";
