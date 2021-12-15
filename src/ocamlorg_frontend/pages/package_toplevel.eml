@@ -1,7 +1,7 @@
 let render
 ~documentation_status
 ~toplevel_status
-~toplevel_url (package : Package_intf.meta) =
+~toplevel_url (package : Package_intf.package) =
 Package_layout.render
 ~turbo_full_reload:true
 ~documentation_status

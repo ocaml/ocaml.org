@@ -1,4 +1,4 @@
-type meta =
+type package =
   { name : string
   ; description : string
   ; license : string
@@ -7,4 +7,11 @@ type meta =
   ; tags : string list
   ; authors : Ood.Opam_user.t list
   ; maintainers : Ood.Opam_user.t list
+  }
+
+(** See {!Ocamlorg_package.Packages_stats.t}. *)
+type packages_stats =
+  { nb_packages : int
+  ; nb_commits_week : int
+  ; nb_packages_month : int
   }
