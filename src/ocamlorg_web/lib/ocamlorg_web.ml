@@ -88,7 +88,7 @@ let http () =
 (* HTTPS Server *)
 let server https port =
   let open Lwt.Syntax in
-  let state = Ocamlorg.Package.init () in
+  let state = Ocamlorg_package.init () in
   if Config.hostname = "localhost" then
     (* Use Dream's development certificate if we are running the server
        locally. *)
@@ -96,7 +96,7 @@ let server https port =
     @@ Dream.logger
     @@ Middleware.no_trailing_slash
     @@ Router.router state
-    @@ Page_handler.not_found
+    @@ Handler.not_found
   else
     (* Fetch the certificate from the filesystem (or from letsencrypt) if we are
        not running locally. *)
@@ -118,7 +118,7 @@ let server https port =
     @@ Dream.logger
     @@ Middleware.no_trailing_slash
     @@ Router.router state
-    @@ Page_handler.not_found
+    @@ Handler.not_found
 
 let run () =
   Mirage_crypto_rng_lwt.initialize ();
