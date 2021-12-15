@@ -15,10 +15,5 @@ build: [
 ]
 pin-depends: [
   ["dream-accept.0.1.0" "git+https://github.com/tmattio/dream-accept#main"]
-  # Remove once js_of_ocaml 3.11.0 is released with https://github.com/ocsigen/js_of_ocaml/pull/1131
-  ["js_of_ocaml.3.11.0" "git+https://github.com/ocsigen/js_of_ocaml#master"]
-  ["js_of_ocaml-ppx.3.11.0" "git+https://github.com/ocsigen/js_of_ocaml#master"]
-  ["js_of_ocaml-compiler.3.11.0" "git+https://github.com/ocsigen/js_of_ocaml#master"]
-  ["js_of_ocaml-tyxml.3.11.0" "git+https://github.com/ocsigen/js_of_ocaml#master"]
-  ["js_of_ocaml-toplevel.3.11.0" "git+https://github.com/ocsigen/js_of_ocaml#master"]
+  ["dream.dev" "git+https://github.com/tmattio/dream#default-http1"]
 ]
