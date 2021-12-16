@@ -73,7 +73,7 @@ let package_toplevel
     ~toplevel_url
     package
 
-let packages packages = Packages.render packages
+let packages stats = Packages.render stats
 
 let packages_search ~total packages = Packages_search.render ~total packages
 

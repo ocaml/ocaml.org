@@ -6,6 +6,7 @@ module Version_map = Map.Make (Version)
 
 module Info = Info
 
+module Packages_stats = Packages_stats
 
 type t =
   { name : Name.t
@@ -25,6 +26,7 @@ type state =
   { version : string
   ; mutable opam_repository_commit : string option
   ; mutable packages : Info.t OpamPackage.Version.Map.t OpamPackage.Name.Map.t
+  ; mutable stats : Packages_stats.t option
   }
 
 let state_of_package_list (pkgs : t list) =
@@ -39,9 +41,11 @@ let state_of_package_list (pkgs : t list) =
     in
     OpamPackage.Name.Map.add pkg.name new_map map
   in
+  let packages = List.fold_left (fun map v -> add_version v map) map pkgs in
   { version = Info.version
-  ; packages = List.fold_left (fun map v -> add_version v map) map pkgs
+  ; packages
   ; opam_repository_commit = None
+  ; stats = None
   }
 
 let read_versions package_name =
@@ -96,6 +100,7 @@ let try_load_state () =
     { opam_repository_commit = None
     ; version = Info.version
     ; packages = OpamPackage.Name.Map.empty
+    ; stats = None
     }
 
 let save_state t =
@@ -116,6 +121,7 @@ let update ~commit t =
   Logs.info (fun f -> f "Computing additional informations...");
   let+ packages = Info.of_opamfiles packages in
   t.packages <- packages;
+  t.stats <- Some (Packages_stats.compute commit packages);
   Logs.info (fun m ->
       m "Loaded %d packages" (OpamPackage.Name.Map.cardinal packages))
 
@@ -166,6 +172,8 @@ let all_packages_latest t =
   |> OpamPackage.Name.Map.map OpamPackage.Version.Map.max_binding
   |> OpamPackage.Name.Map.bindings
   |> List.map (fun (name, (version, info)) -> { name; version; info })
+
+let packages_stats t = t.stats
 
 let get_packages_with_name t name =
   t.packages

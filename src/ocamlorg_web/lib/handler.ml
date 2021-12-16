@@ -305,7 +305,19 @@ type package_kind =
   | Package
   | Universe
 
-let packages _req = Dream.html (Ocamlorg_frontend.packages [])
+let packages state _req =
+  let stats =
+    match Ocamlorg_package.packages_stats state with
+    | Some
+        { Ocamlorg_package.Packages_stats.nb_packages
+        ; nb_commits_week
+        ; nb_packages_month
+        } ->
+      Some { Ocamlorg_frontend.nb_packages; nb_commits_week; nb_packages_month }
+    | None ->
+      None
+  in
+  Dream.html (Ocamlorg_frontend.packages stats)
 
 let package_meta state (package : Ocamlorg_package.t)
     : Ocamlorg_frontend.package

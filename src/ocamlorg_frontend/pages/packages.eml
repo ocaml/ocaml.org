@@ -1,10 +1,4 @@
-type package_intro = 
-  { name : string
-  ; description : string
-  ; downloads : int
-  }
-
-let render (_packages : package_intro list) =
+let render (stats : Package_intf.packages_stats option) =
 Layout.render
 ~turbo_full_reload:true
 ~title:"OCaml Packages · Browse community packages"
@@ -40,24 +34,22 @@ Layout.render
                     multiple simultaneous compiler installations, flexible package constraints, and a Git-friendly
                     development workflow.</div>
             </div>
-            <div class="flex justify-center md:px-20 lg:px-56 mt-12">
-                <div
-                    class="bg-white p-16 md:p-10 rounded-xl flex lg:space-x-16 flex-col md:flex-row md:w-full lg:w-auto md:items-center md:space-x-10 md:justify-center">
-                    <div class="flex items-center flex-col">
-                        <div class="font-bold text-4xl text-primary-600">3445</div>
-                        <div class="text-sm text-body-600">Packages</div>
-                    </div>
-                    <div
-                        class="flex items-center flex-col border-t border-b md:border-t-0 md:border-b-0 py-10 my-10 md:py-0 md:my-0 md:border-r md:border-l border-gray-200 md:px-12">
-                        <div class="font-bold text-4xl text-primary-600">180K</div>
-                        <div class="text-sm text-body-600">Installation / day</div>
-                    </div>
-                    <div class="flex items-center flex-col">
-                        <div class="font-bold text-4xl text-primary-600">12K</div>
-                        <div class="text-sm text-body-600">Update / week</div>
-                    </div>
+% let render_number_stat ?(first=false) label number =
+    <div class="flex items-center flex-col md:px-12 <%s if first then "" else "md:border-l border-gray-200" %>">
+      <div class="font-bold text-4xl text-primary-600"><%d number %></div>
+      <div class="text-sm text-body-600"><%s label %></div>
+    </div>
+% in
+% ( match stats with
+% | Some stats ->
+              <div class="flex justify-center md:px-20 lg:px-56 mt-12">
+                <div class="bg-white md:py-10 rounded-xl flex flex-col md:flex-row md:w-full lg:w-auto md:items-center md:justify-center">
+%     render_number_stat ~first:true "Packages" stats.nb_packages;
+%     render_number_stat "New packages this month" stats.nb_packages_month;
+%     render_number_stat "Updates this week" stats.nb_commits_week;
                 </div>
-            </div>
+              </div>
+% | None -> () );
         </div>
     </div>
 </div>

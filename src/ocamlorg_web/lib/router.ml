@@ -69,7 +69,7 @@ let package_route t =
   Dream.scope
     ""
     [ Middleware.set_locale ]
-    [ Dream.get Url.packages Handler.packages
+    [ Dream.get Url.packages (Handler.packages t)
     ; Dream.get Url.packages_search (Handler.packages_search t)
     ; Dream.get (Url.package ":name") (Handler.package t)
     ; Dream.get (Url.package_with_univ ":hash" ":name") (Handler.package t)
