@@ -1,6 +1,5 @@
 #toplevel-container {
   overflow: auto;
-  overflow-x: hidden;
 }
 
 #toplevel-container textarea {

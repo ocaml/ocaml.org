@@ -1,6 +1,6 @@
 (library
  (name hilite)
- (libraries fmt textmate-language omd yojson))
+ (libraries textmate-language omd yojson))
 
 (data_only_dirs syntaxes)
 

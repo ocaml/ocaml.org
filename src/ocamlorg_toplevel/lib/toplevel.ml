@@ -170,10 +170,10 @@ let run s =
   let context = Rpc_brr.Worker_rpc.start worker 10 (timeout_container worker) in
   let rpc = Rpc_brr.Worker_rpc.rpc context in
   let handle_output (o : Toplevel_api.exec_result) =
-    Option.iter (append Colorize.ocaml output "sharp") o.sharp_ppf;
+    Option.iter (append Colorize.sharp output "sharp") o.sharp_ppf;
     Option.iter (append Colorize.text output "stdout") o.stdout;
     Option.iter (append Colorize.text output "stderr") o.stderr;
-    Option.iter (append Colorize.ocaml output "caml") o.caml_ppf;
+    Option.iter (append Colorize.ocaml output "text-gray-400") o.caml_ppf;
     Option.iter highlight_location o.highlight;
     Lwt.async @@ resize ~container ~textbox;
     container##.scrollTop := container##.scrollHeight;
@@ -189,7 +189,9 @@ let run s =
       List.iter
         (fun l -> append Colorize.text output "stdout" (l ^ " "))
         c.completions;
-      append Colorize.text output "stdout" "\n")
+      append Colorize.text output "stdout" "\n");
+    Lwt.async @@ resize ~container ~textbox;
+    container##.scrollTop := container##.scrollHeight
   in
   let execute () =
     let content = Js.to_string textbox##.value##trim in
