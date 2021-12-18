@@ -56,7 +56,8 @@
   fpath
   fmt
   logs
-  (omd (= "2.0.0~alpha2"))
+  (omd
+   (= "2.0.0~alpha2"))
   opam-format
   timedesc
   yojson
@@ -66,7 +67,8 @@
   rpclib-lwt
   ppx_deriving_rpc
   letsencrypt
-  tls
+  (tls
+   (< 0.15.0))
   (js_of_ocaml
    (>= 3.11.0))
   (js_of_ocaml-ppx

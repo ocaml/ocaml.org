@@ -1,3 +1,5 @@
+open Import
+
 module Http_client = struct
   module Headers = Cohttp.Header
   module Body = Cohttp_lwt.Body
@@ -78,66 +80,35 @@ let provision_certificate ?email ?seed ?cert_seed ?hostname ~staging () =
     let+ certs = Acme.sign_certificate solver le sleep csr in
     `Single (certs, priv)
 
-let rec mkdir_p ?perm dir =
-  match dir with
-  | "." | ".." ->
-    ()
-  | _ ->
-    let mkdir_idempotent ?(perm = 0o755) dir =
-      match Unix.mkdir dir perm with
-      | () ->
-        ()
-      (* [mkdir] on MacOSX returns [EISDIR] instead of [EEXIST] if the directory
-         already exists. *)
-      | (exception Unix.Unix_error ((EEXIST | EISDIR), _, _))
-      | (exception Sys_error _) ->
-        ()
-    in
-    (match mkdir_idempotent ?perm dir with
-    | () ->
-      ()
-    | exception (Unix.Unix_error (ENOENT, _, _) as exn) ->
-      let parent = Filename.dirname dir in
-      if String.equal parent dir then
-        raise exn
-      else (
-        mkdir_p ?perm parent;
-        mkdir_idempotent ?perm dir))
-
-let write_to_file ~filename s =
-  let dirname = Filename.dirname filename in
-  if not (Sys.is_directory dirname) then mkdir_p dirname;
-  let oc = open_out filename in
-  output_string oc s;
-  close_out oc
-
-let read_lines file : string list =
-  let ic = open_in file in
-  let try_read () = try Some (input_line ic) with End_of_file -> None in
-  let rec loop acc =
-    match try_read () with
-    | Some s ->
-      loop (s :: acc)
-    | None ->
-      close_in ic;
-      List.rev acc
-  in
-  loop []
-
-let read_file file = String.concat "\n" (read_lines file)
-
 let save_certificate_files
     ~certificate_file_path
     ~private_key_file_path
     (certificate : X509.Certificate.t list)
     (private_key : X509.Private_key.t)
   =
-  X509.Certificate.encode_pem_multiple certificate
-  |> Cstruct.to_string
-  |> write_to_file ~filename:certificate_file_path;
-  X509.Private_key.encode_pem private_key
-  |> Cstruct.to_string
-  |> write_to_file ~filename:private_key_file_path
+  let write_file_with_mkdir f s =
+    let dirname = Filename.dirname f in
+    if not (Sys.file_exists dirname && Sys.is_directory dirname) then Unix.mkdir_p dirname;
+    Unix.write_file f s
+  in
+  let certificate_s =
+    X509.Certificate.encode_pem_multiple certificate |> Cstruct.to_string
+  in
+  Logs.info (fun m ->
+      m
+        "saving certificate file with content %s to %s"
+        certificate_s
+        certificate_file_path);
+  write_file_with_mkdir certificate_file_path certificate_s;
+  let private_key_s =
+    X509.Private_key.encode_pem private_key |> Cstruct.to_string
+  in
+  Logs.info (fun m ->
+      m
+        "saving certificate file with content %s to %s"
+        private_key_s
+        certificate_file_path);
+  write_file_with_mkdir private_key_file_path private_key_s
 
 let has_expired certs =
   List.map
@@ -192,11 +163,11 @@ let load_certificates
   then (* TODO(tmattio): Make sure the certificates are valid *)
     let certs =
       X509.Certificate.decode_pem_multiple
-        (Cstruct.of_string (read_file certificate_file_path))
+        (Cstruct.of_string (Unix.read_file certificate_file_path))
     in
     let private_key =
       X509.Private_key.decode_pem
-        (Cstruct.of_string (read_file private_key_file_path))
+        (Cstruct.of_string (Unix.read_file private_key_file_path))
     in
     match certs, private_key with
     | Ok certs, _private_key when not (has_expired certs) ->

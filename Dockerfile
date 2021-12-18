@@ -10,6 +10,9 @@ ADD ocamlorg-data.opam ocamlorg-data.opam
 ADD ocamlorg.opam ocamlorg.opam
 RUN opam install . --deps-only
 
+# Force re-compilation of dream after installing the deps to use TLS in Gluten
+RUN opam reinstall dream
+
 # Install NPM dependencies
 ADD package.json package.json
 ADD package-lock.json package-lock.json
@@ -23,8 +26,12 @@ FROM alpine:3.12 as run
 
 RUN apk update && apk add --update libev gmp git
 
+RUN chmod -R 755 /var
+
 COPY --from=build /home/opam/_build/default/src/ocamlorg_web/bin/main.exe /bin/server
 COPY --from=build /home/opam/_build/default/src/ocamlorg_toplevel/bin/js/ /var/toplevels/
+
+RUN git clone https://github.com/ocaml/opam-repository /var/opam-repository
 
 ENV OCAMLORG_REPO_PATH /var/opam-repository/
 ENV OCAMLORG_PKG_STATE_PATH /var/package.state
@@ -36,13 +43,9 @@ ENV OCAMLORG_HTTP_PORT 80
 ENV OCAMLORG_HTTPS_PORT 443
 ENV OCAMLORG_HTTPS_ENABLED true
 ENV OCAMLORG_LETSENCRYPT_STAGING false
-ENV OCAMLORG_CERTIFICATE_FILE_PATH /var/letsencrypt/certs/v3.ocaml.org.pem
-ENV OCAMLORG_PRIVATE_KEY_FILE_PATH /var/letsencrypt/private/v3.ocaml.org.key
+ENV OCAMLORG_CERTIFICATE_PATH /var/letsencrypt/certs/v3.ocaml.org.pem
+ENV OCAMLORG_PRIVATE_KEY_PATH /var/letsencrypt/private/v3.ocaml.org.key
 
-RUN chmod -R 755 /var
-
-RUN git clone https://github.com/ocaml/opam-repository /var/opam-repository
-
-EXPOSE 8080
+EXPOSE 80 443
 
 ENTRYPOINT /bin/server
