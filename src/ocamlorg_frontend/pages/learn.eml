@@ -9,7 +9,7 @@ Learn_layout.render
         <div class="relative flex-1 bg-gradient-to-br from-orange-300 to-orange-500 rounded-xl text-white">
             <div class="p-8">
                 <h6 class="font-bold mb-2">Get Started</h6>
-                <div class="font-medium mb-4 opacity-80">Learn how to get Tailwind set up in your project.
+                <div class="font-medium mb-4 opacity-80">Learn how to get OCaml set up in your project.
                 </div>
                 <a href="<%s Url.getting_started %>">
                     <button
