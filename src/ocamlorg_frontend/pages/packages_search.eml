@@ -1,4 +1,4 @@
-let render ~total (packages : Package_intf.meta list)  (query : string) =
+let render ~total ~search (packages : Package_intf.meta list) =
 Layout.render
 ~turbo_full_reload:true
 ~title:"OCaml Packages · Search Result"
@@ -17,7 +17,7 @@ Layout.render
                         <div class="relative w-full text-gray-400 focus-within:text-gray-600">
                             <input name="q" id="q"
                                 class="w-full appearance-none outline-none focus:border-primary-600 text-body-600 border rounded-md py-3 pr-6 border-gray-200 pl-14 h-full"
-                                placeholder="Search packages" type="search" value="<%s Dream.from_percent_encoded query %>">
+                                placeholder="Search packages" type="search" value="<%s search %>">
                             <div class="absolute h-full flex items-center pl-6 opacity-60 left-0 top-0">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-body-400" fill="none"
                                     viewBox="0 0 24 24" stroke="rgba(26, 32, 44, 1)">

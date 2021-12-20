@@ -337,7 +337,8 @@ let packages_search t req =
     let packages = Ocamlorg_package.search_package t search in
     let total = List.length packages in
     let results = List.map (package_meta t) packages in
-    Dream.html (Ocamlorg_frontend.packages_search ~total results search)
+    let search = Dream.from_percent_encoded search in
+    Dream.html (Ocamlorg_frontend.packages_search ~total ~search results)
   | None ->
     Dream.redirect req "/packages"
 
