@@ -1,5 +1,7 @@
 # Unreleased
 
+- Refactor bootstrap docs contents
+
 - Integrate new toplevel design with toplevel logic and basic syntax highlighting (#188, by @patricoferris)
 
 - Support HTTPS and provision certificates with Let's Encrypt (#182, by @tmattio and @patricoferris)
@@ -40,7 +42,7 @@
 
 - Split js_of_ocaml toplevel execution into web-worker (#135, by @patricoferris)
 
-  The execution of OCaml expressions in the toplevel now takes place in a web 
+  The execution of OCaml expressions in the toplevel now takes place in a web
   worker which prevents the main UI thread from blocking and makes it easier to
   terminate executions that have been running too long.
 
@@ -72,7 +74,7 @@
 
 - Highlight code blocks in BKMs (#122, by @patricoferris)
 
-  As with the tutorials, the code blocks in the BKMs are primarily dune files, opam 
+  As with the tutorials, the code blocks in the BKMs are primarily dune files, opam
   files or OCaml code which can be preprocessed for highlighting.
 
 - Use ocamlorg_data for opam users (#117, by @tmattio)
@@ -84,14 +86,14 @@
   package overview, they can open a PR to add themselves in `data/opam-users.yml`.
 
 - Compile with OCaml `4.13.0` (#120, by @tmattio)
-  
+
   The dependencies have been updated in order to be compabile with the OCaml `4.13.0`.
   The tutorials and documentation have also been updated to use `4.13.0` instead of `4.12.0`.
 
 - Add code-highlighting to tutorials (#108, by @patricoferris)
 
   Added some static code-highlighting (i.e. not done on the client-side with highlight.js or prism.js).
-  
+
   The library (hilite) reuses the textmate grammars from vscode with some minor modifications because
   the textmate library wasn't happy parsing them.
 
@@ -113,12 +115,9 @@
 
 - Add rules to promote the ocamlorg_data module (#103, by @tmattio)
 
-
 - Fix the overflow-y in the package navbar (#103, by @tmattio)
 
-
 - Add binaries to extract translatable strings from OCaml sources and merge them with existing PO files (#103, by @tmattio)
-
 
 - Fix not found page HTTP status (#103, by @tmattio)
 

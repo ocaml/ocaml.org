@@ -2,33 +2,38 @@
 title: "Bootstrap a project"
 ---
 
-> **TL;DR**
-> 
-> if you need a minimal project to start hacking quickly, use `dune init`. If you need a complete development environment that follows best practices, use `spin`.
-As the recommended build system for OCaml, Dune offers a command `dune init` to bootstrap new projects.
+[Dune](https://dune.readthedocs.io/en/stable/overview.html) is recommended for bootstrapping projects using `dune init`.
 
-Once you have successfully installed opam, you can install Dune with `opam install dune`.
+> dune init --help
+>
+> **dune init {library,executable,test,project} NAME [PATH]** initialize a
+> new dune component of the specified kind, named NAME, with fields
+> determined by the supplied options.
 
-This will install Dune's binary in your current Opam switch, so `dune` should now be in your `PATH`. If it not, you probably need to run `eval $(opam env)` to configure your current terminal with Opam environment.
+Once you have [installed opam](https://opam.ocaml.org/doc/Install.html), you can install Dune with `opam install dune`. This installs the Dune binary into your `opam` switch, so `dune` should now be in your `PATH`. If it is not, you probably need to run `eval $(opam env)` to configure your current terminal with your opam environment.
 
 To bootstrap a new project with `dune init`, run:
 
-```
-dune init proj hello my_project/
+```sh
+dune init project hello my_project/
 ```
 
-Where proj is the kind of project to initialize. Here we want to generate an entire project, so we use `proj`. `hello` is the name of the project and `my_project/` is the path where the project will be generated.
+In the above example, we use:
 
-`dune init proj` does not generate a `dune-project` for you, so you need to go in the generated project and create one:
+- "project" as the _kind_
+- "hello" as the name, and
+- "my_project/" as the path to generate the content in
 
-```
+`dune@2.x` does not generate a `dune-project` file for you, so it is recommended to create one:
+
+```sh
+cd my_project
 echo "(lang dune 2.0)" > dune-project
 ```
 
 At this point, you can build the project and run the binary:
 
-```
-dune build
+```sh
 dune exec bin/main.exe
 ```
 
@@ -39,7 +44,6 @@ dune exec bin/main.exe
 
 Or you may be looking for the best way to get started with a specific kind of project:
 
-- A library
 - A command line interface
 - A web application
 
