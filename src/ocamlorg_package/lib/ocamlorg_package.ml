@@ -646,8 +646,11 @@ end = struct
     in
     let tag = option "tag:"
     and author = option "author:"
+    and synopsis = option "synopsis:"
+    and description = option "description:"
+    and name = option "name:"
     and plain = option "" in
-    let atom = Re.alt [ author; tag; plain ] in
+    let atom = Re.alt [ name; author; tag; synopsis; description; plain ] in
     Re.compile atom
 
   let to_request str =
