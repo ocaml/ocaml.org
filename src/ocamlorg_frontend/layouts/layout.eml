@@ -2,6 +2,7 @@ let render
 ?(turbo_full_reload=false)
 ?(use_swiper=false)
 ?(use_turbo=false)
+?(use_leaflet=false)
 ~title
 ~description
 inner =
@@ -32,6 +33,10 @@ inner =
   <% if use_turbo then ( %>
   <script src="/vendors/alpine-turbo-drive-adapter.min.js"></script>
   <script src="/vendors/turbo.es2017-umd.js"></script>
+  <% ); %>
+  <% if use_leaflet then ( %>
+  <link rel="stylesheet" href="/vendors/leaflet.css" />
+  <script src="/vendors/leaflet.js"></script>
   <% ); %>
   <% if use_swiper then ( %>
   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />

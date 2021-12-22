@@ -1,0 +1,5 @@
+(library
+ (name carte)
+ (libraries brr js_of_ocaml)
+ (preprocess
+  (pps ppx_deriving_brr)))

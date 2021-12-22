@@ -1,17 +1,20 @@
 (subdir
  asset/
  (rule
-  (target main.css)
+  (targets main.css academic.js)
   (deps
    (:data ../tailwind.config.js ../postcss.config.js)
    (source_tree ../node_modules)
-   (source_tree ../src/ocamlorg_frontend))
+   (source_tree ../src/ocamlorg_frontend)
+   ../src/ocamlorg_js/academic/index.bc.js)
   (action
-   (chdir
-    %{workspace_root}
-    (run
-     node
-     node_modules/postcss-cli/index.js
-     src/ocamlorg_frontend/css/styles.css
-     -o
-     %{target})))))
+   (progn
+    (copy ../src/ocamlorg_js/academic/index.bc.js academic.js)
+    (chdir
+     %{workspace_root}
+     (run
+      node
+      node_modules/postcss-cli/index.js
+      src/ocamlorg_frontend/css/styles.css
+      -o
+      asset/main.css))))))
