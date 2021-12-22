@@ -1,5 +1,7 @@
 # Unreleased
 
+- Add leaflet.js bindings and map for academic users (#195, by @patricoferris)
+
 - Adding search by authors, tag and other package fields (#194, by @panglesd)
 
 - Integrate new toplevel design with toplevel logic and basic syntax highlighting (#188, by @patricoferris)
