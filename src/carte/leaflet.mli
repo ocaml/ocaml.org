@@ -28,9 +28,6 @@ module TileLayer : sig
   (** Options for creating a tile layer. *)
   type opts
 
-  val opts_to_jv : opts -> Jv.t
-  (** Convert the tile layer options to a Javascript value. *)
-
   val opts
     :  ?min_zoom:int
     -> ?max_zoom:int
@@ -58,9 +55,6 @@ end
 module Map : sig
   (** Map options *)
   type opts
-
-  val opts_to_jv : opts -> Jv.t
-  (** Convert map options to a Javascript value *)
 
   val opts
     :  ?prefer_canvas:bool

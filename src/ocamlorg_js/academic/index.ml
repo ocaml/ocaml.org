@@ -1,4 +1,3 @@
-open Brr
 module C = Carte.Make (Carte.JvMarker)
 
 let icon =

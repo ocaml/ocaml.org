@@ -20,25 +20,36 @@ module LatLng = struct
 end
 
 module TileLayer = struct
-  type opts_internal =
-    { min_zoom : int option
-    ; max_zoom : int option
-    ; attribution : string option
-    ; subdomains : string array option
-    ; error_title_url : string option
-    ; zoom_offset : int option
-    ; tms : bool option
-    ; zoom_reverse : bool option
-    ; detect_retina : bool option
-    ; cross_origin : bool option
-    }
-  [@@deriving brr_opt]
-
   type opts = Jv.t
 
-  let opts_to_jv : opts -> Jv.t = Jv.Id.to_jv
-
-  let opts = opts_internal_to_jv
+  let opts
+      ?min_zoom
+      ?max_zoom
+      ?attribution
+      ?subdomains
+      ?error_title_url
+      ?zoom_offset
+      ?tms
+      ?zoom_reverse
+      ?detect_retina
+      ?cross_origin
+      ()
+    =
+    let jv = Jv.obj [||] in
+    Jv.Bool.set_if_some jv "crossOrigin" cross_origin;
+    Jv.Bool.set_if_some jv "detectRetina" detect_retina;
+    Jv.Bool.set_if_some jv "zoomReverse" zoom_reverse;
+    Jv.Bool.set_if_some jv "tms" tms;
+    Jv.Int.set_if_some jv "zoomOffset" zoom_offset;
+    Jv.Jstr.set_if_some jv "errorTitleUrl" (Option.map Jstr.v error_title_url);
+    Jv.set_if_some
+      jv
+      "subdomains"
+      (Option.map (Jv.of_array Jv.of_string) subdomains);
+    Jv.Jstr.set_if_some jv "attribution" (Option.map Jstr.v attribution);
+    Jv.Int.set_if_some jv "maxZoom" max_zoom;
+    Jv.Int.set_if_some jv "minZoom" min_zoom;
+    jv
 
   type t = Jv.t
 
@@ -58,29 +69,41 @@ module TileLayer = struct
 end
 
 module Map = struct
-  type opt_internal =
-    { prefer_canvas : bool option
-    ; attribution_control : bool option
-    ; zoom_control : bool option
-    ; close_popup_on_click : bool option
-    ; zoom_snap : int option
-    ; zoom_delta : int option
-    ; track_resize : bool option
-    ; box_zoom : bool option
-    ; double_click_zoom : bool option
-    ; dragging : bool option
-    ; center : Jv.t option
-    ; zoom : int option
-    ; min_zoom : int option
-    ; max_zoom : int option
-    }
-  [@@deriving brr_opt]
-
   type opts = Jv.t
 
-  let opts_to_jv : opts -> Jv.t = Jv.Id.to_jv
-
-  let opts = opt_internal_to_jv
+  let opts
+      ?prefer_canvas
+      ?attribution_control
+      ?zoom_control
+      ?close_popup_on_click
+      ?zoom_snap
+      ?zoom_delta
+      ?track_resize
+      ?box_zoom
+      ?double_click_zoom
+      ?dragging
+      ?center
+      ?zoom
+      ?min_zoom
+      ?max_zoom
+      ()
+    =
+    let jv = Jv.obj [||] in
+    Jv.Int.set_if_some jv "maxZoom" max_zoom;
+    Jv.Int.set_if_some jv "minZoom" min_zoom;
+    Jv.Int.set_if_some jv "zoom" zoom;
+    Jv.set_if_some jv "center" center;
+    Jv.Bool.set_if_some jv "dragging" dragging;
+    Jv.Bool.set_if_some jv "doubleClickZoom" double_click_zoom;
+    Jv.Bool.set_if_some jv "boxZoom" box_zoom;
+    Jv.Bool.set_if_some jv "trackResize" track_resize;
+    Jv.Int.set_if_some jv "zoomDelta" zoom_delta;
+    Jv.Int.set_if_some jv "zoomSnap" zoom_snap;
+    Jv.Bool.set_if_some jv "closePopupOnClick" close_popup_on_click;
+    Jv.Bool.set_if_some jv "zoomControl" zoom_control;
+    Jv.Bool.set_if_some jv "attributionControl" attribution_control;
+    Jv.Bool.set_if_some jv "preferCanvas" prefer_canvas;
+    jv
 
   type t = Jv.t
 
