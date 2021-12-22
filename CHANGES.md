@@ -1,5 +1,7 @@
 # Unreleased
 
+- Adding search by authors, tag and other package fields (#194, by @panglesd)
+
 - Integrate new toplevel design with toplevel logic and basic syntax highlighting (#188, by @patricoferris)
 
 - Support HTTPS and provision certificates with Let's Encrypt (#182, by @tmattio and @patricoferris)
