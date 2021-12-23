@@ -69,7 +69,7 @@ module Info = struct
                 | _ ->
                   None
               in
-              let latest = OpamPackage.Version.Set.max_elt versions in
+              
               let deps =
                 OpamFormula.packages packages
                 @@ OpamFilter.filter_formula ~default:true env (f opam)
@@ -217,8 +217,8 @@ module Info = struct
     Logs.info (fun f -> f "Dependencies...");
     let dependencies = get_dependency_set packages opams in
     let+ t = make ~dependencies ~rev_deps ~packages ~package opam in
-    let+ rev_deps = mk_revdeps package packages rev_deps in
-    let+ dependencies = mk_revdeps package packages dependencies in
+    let+ rev_deps = mk_revdeps package packages rev_deps
+    and+ dependencies = mk_revdeps package packages dependencies in
     Logs.info (fun f -> f "Reverse dependencies...");
     let* rev_deps = rev_depends dependencies in
     Logs.info (fun f -> f "Generate package info");
