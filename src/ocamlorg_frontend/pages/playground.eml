@@ -8,7 +8,7 @@ Layout.render
 
 
     <div class="flex">
-        <div class="hidden md:flex lg:flex-1 flex-col justify-center w-1/2">
+        <div class="hidden md:flex lg:flex-1 flex-col justify-center md:w-1/2">
             <div class="bg-code-background w-full relative">
                 <div class="flex py-7 px-6 text-white text-opacity-50 code-preview pb-2">
                     <div class="flex pr-5 flex-col space-y-3 text-md text-right font-medium">
@@ -68,9 +68,9 @@ Layout.render
                 </div>
                 <div class="bg-code-background shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)] p-4">
                 <div class="flex w-full justify-end items-center px-4">
-                  <div class="mr-7"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="" viewBox="0 0 24 24" stroke="rgba(255, 255, 255, 0.6)">
+                  <button class="mr-7"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:stroke-primary-600" fill="" viewBox="0 0 24 24" stroke="rgba(255, 255, 255, 0.6)">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                  </svg></div>
+                  </svg></button>
                   <button class="btn btn-md btn-secondary">
                       <span>Run</span>
                       <span>⌘⏎</span>
@@ -80,33 +80,35 @@ Layout.render
             </div>
             
       </div>
-      <div class="output-bg w-full min-h-full relative w-1/2"   x-data="{ output: true, problems: false, editor: false }">
+      <div class="output-bg w-full min-h-full relative md:w-1/2"   x-data="{ output: true, problems: false, editor: false }">
         <div class="flex text-white shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)">
-          <div class="md:hidden" :class="editor ? 'text-primary-600 border-b-2 border-primary-600' : ''">
+          <button class="md:hidden" :class="editor ? 'text-primary-600 border-b-2 border-primary-600' : ''"
+          @click="editor = true; output = false;  problems = false;">
             <div class="p-4 block"
-            @click="editor = true; output = false;  problems = false;">Editor</div>
-          </div>
-          <div :class="output ? 'text-primary-600 border-b-2 border-primary-600' : ''" 
-          >
+            >Editor</div>
+          </button>
+          <button :class="output ? 'text-primary-600 border-b-2 border-primary-600' : ''" 
+          @click="output = true; problems = false; editor = false;">
           <div  class="p-4 block"
-            @click="output = true; problems = false; editor = false;">Output</div>
-          </div>
-          <div :class="problems ? 'text-primary-600 border-b-2 border-primary-600' : ''">
+            >Output</div>
+          </button>
+          <button :class="problems ? 'text-primary-600 border-b-2 border-primary-600' : ''"
+          @click="problems = true; output = false;  editor = false;">
             <div class="p-4 relative flex items-center"
-            @click="problems = true; output = false;  editor = false;">Problems<span class="bg-red-500 text-white rounded-full h-5 w-5 block text-center text-sm ml-2">2</span ></div>
-          </div>
+            >Problems<span class="bg-red-500 text-white rounded-full h-5 w-5 block text-center text-sm ml-2">2</span ></div>
+          </button>
           
         </div>
         <div class=" shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)]">
-            <div class="flex overflow-auto h-96 p-4 text-white"
+            <div class="flex overflow-auto h-screen p-4 text-white"
             x-show="output">
               foo/bar => 'testing 123'
             </div>
-            <div class="flex overflow-auto h-96 p-4 text-white"
+            <div class="flex overflow-auto h-screen p-4 text-white"
             x-show="problems">
               123123123 foo/bar => '123123123 123'
             </div>
-            <div class="md:hidden bg-code-background h-96 overflow-auto w-full relative"
+            <div class="md:hidden bg-code-background h-screen overflow-auto w-full relative"
             x-show="editor">
                     <div class="flex py-7 px-6 text-white text-opacity-50 code-preview pb-2">
                         <div class="flex pr-5 flex-col space-y-3 text-md text-right font-medium">
@@ -167,9 +169,9 @@ Layout.render
                 </div>
                 <div class="md:hidden bg-code-background shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)] p-4" x-show="editor">
                     <div class="flex w-full justify-end items-center">
-                      <div class="mr-7"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="" viewBox="0 0 24 24" stroke="rgba(255, 255, 255, 0.6)">
+                      <button class="mr-7"><svg  xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-blue-500" fill="" viewBox="0 0 24 24" stroke="rgba(255, 255, 255, 0.6)">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                      </svg></div>
+                      </svg></button>
                       <button class="btn btn-md btn-secondary">
                           <span>Run</span>
                           <span>⌘⏎</span>

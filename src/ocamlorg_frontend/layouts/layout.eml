@@ -65,7 +65,7 @@ inner =
           <li><a href="<%s Url.packages %>" class="hover:text-primary-600">Packages</a></li>
           <li><a href="<%s Url.community %>" class="hover:text-primary-600">Community</a></li>
           <li><a href="<%s Url.blog %>" class="hover:text-primary-600">Blog</a></li>
-          <li><a href="<%s Url.playground %>" class="hover:text-primary-600">Playground</a></li>
+          <li><a href="<%s Url.playground %>" :class=" <%b playground %> ? 'text-primary-600':''" class="hover:text-primary-600">Playground</a></li>
         </ul>
       </div>
       <div class="flex items-center space-x-8">
@@ -76,7 +76,7 @@ inner =
         <div
           class="hamburger lg:hidden flex h-12 w-12 hover:bg-primary-100 flex items-center justify-center rounded-full"
           x-on:click="open = ! open">
-          <dib class="text-body-400">
+          <dib class="text-gray-100">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -131,6 +131,9 @@ inner =
         <li>
         <li>
           <a class="block" href="<%s Url.blog %>">Blog</a>
+        </li>
+        <li>
+          <a class="block" href="<%s Url.playground %>">Playground</a>
         </li>
         <li>
           <a href="<%s Url.getting_started %>"><button class="btn w-full">Get started</button></a>
@@ -275,6 +278,9 @@ inner =
         <li>
         <li>
           <a class="block" href="<%s Url.blog %>">Blog</a>
+        </li>
+        <li>
+          <a class="block" href="<%s Url.playground %>">Playground</a>
         </li>
         <li>
           <a href="<%s Url.getting_started %>"><button class="btn w-full">Get started</button></a>
