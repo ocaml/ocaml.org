@@ -170,3 +170,12 @@ summary::marker {
 .header-black {
     background: #171717;
 }
+.code-editor {
+    height: calc(100vh - 80px);
+}
+.code-preview {
+    height: calc(100% - 80px);
+}
+.output-container {
+    height: calc(100% - 60px);
+}

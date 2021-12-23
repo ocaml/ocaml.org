@@ -7,10 +7,10 @@ Layout.render
 <div>
 
 
-    <div class="flex">
+    <div class="flex code-editor">
         <div class="hidden md:flex lg:flex-1 flex-col justify-center md:w-1/2">
-            <div class="bg-code-background w-full relative">
-                <div class="flex py-7 px-6 text-white text-opacity-50 code-preview pb-2">
+            <div class="bg-code-background w-full relative h-full ">
+                <div class="flex py-7 px-6 text-white text-opacity-50 code-preview pb-2 overflow-auto h-full">
                     <div class="flex pr-5 flex-col space-y-3 text-md text-right font-medium">
                     <div>1</div>
                     <div>2</div>
@@ -38,7 +38,7 @@ Layout.render
                     <div>24</div>
                     <div>25</div>
                     </div>
-                    <div class="text-left overflow-auto">
+                    <div class="text-left ">
                     <pre class="flex flex-col w-full code-preview text-white text-md space-y-3 font-normal">                        <span><span class="code-blue ">open </span><span class="text-code-yellow ">Lwt.Syntax</span></span>
                                 <span><span class="code-blue">module </span><span class="text-code-yellow ">Store <span class="text-white">=</span> Irmin_mem<span class="code-blue">.</span>KV (Irmin<span class="code-blue">.</span>Contents<span class="code-blue">.</span>String)</span></span>
                                 <span>  </span>
@@ -66,9 +66,9 @@ Layout.render
                             </pre>
                     </div>
                 </div>
-                <div class="bg-code-background shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)] p-4">
+                <div class="bg-code-background shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)] p-4 absolute w-full bottom-0">
                 <div class="flex w-full justify-end items-center px-4">
-                  <button class="mr-7"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:stroke-primary-600" fill="" viewBox="0 0 24 24" stroke="rgba(255, 255, 255, 0.6)">
+                  <button class="mr-7 hover:bg-white hover:bg-opacity-10 p-2 rounded-md"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="" viewBox="0 0 24 24" stroke="rgba(255, 255, 255, 0.6)">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                   </svg></button>
                   <button class="btn btn-md btn-secondary">
@@ -83,34 +83,34 @@ Layout.render
       <div class="output-bg w-full min-h-full relative md:w-1/2"   x-data="{ output: true, problems: false, editor: false }">
         <div class="flex text-white shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)">
           <button class="md:hidden" :class="editor ? 'text-primary-600 border-b-2 border-primary-600' : ''"
-          @click="editor = true; output = false;  problems = false;">
+          @click="editor = true; output = false;  problems = false;" class="border-b-2 border-transparent">
             <div class="p-4 block"
             >Editor</div>
           </button>
           <button :class="output ? 'text-primary-600 border-b-2 border-primary-600' : ''" 
-          @click="output = true; problems = false; editor = false;">
+          @click="output = true; problems = false; editor = false;" class="border-b-2 border-transparent">
           <div  class="p-4 block"
             >Output</div>
           </button>
           <button :class="problems ? 'text-primary-600 border-b-2 border-primary-600' : ''"
-          @click="problems = true; output = false;  editor = false;">
+          @click="problems = true; output = false;  editor = false;" class="border-b-2 border-transparent">
             <div class="p-4 relative flex items-center"
             >Problems<span class="bg-red-500 text-white rounded-full h-5 w-5 block text-center text-sm ml-2">2</span ></div>
           </button>
           
         </div>
-        <div class=" shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)]">
-            <div class="flex overflow-auto h-screen p-4 text-white"
+        <div class=" shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)] output-container overflow-auto">
+            <div class="flex overflow-auto p-4 text-white"
             x-show="output">
               foo/bar => 'testing 123'
             </div>
-            <div class="flex overflow-auto h-screen p-4 text-white"
+            <div class="flex overflow-auto p-4 text-white"
             x-show="problems">
               123123123 foo/bar => '123123123 123'
             </div>
-            <div class="md:hidden bg-code-background h-screen overflow-auto w-full relative"
+            <div class="md:hidden bg-code-background overflow-auto w-full relative"
             x-show="editor">
-                    <div class="flex py-7 px-6 text-white text-opacity-50 code-preview pb-2">
+                    <div class="flex py-7 px-6 text-white text-opacity-50 code-preview pb-24">
                         <div class="flex pr-5 flex-col space-y-3 text-md text-right font-medium">
                         <div>1</div>
                         <div>2</div>
@@ -167,7 +167,7 @@ Layout.render
                         </div>
                     </div>
                 </div>
-                <div class="md:hidden bg-code-background shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)] p-4" x-show="editor">
+                <div class="md:hidden bg-code-background shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)] p-4 absolute w-full bottom-0" x-show="editor">
                     <div class="flex w-full justify-end items-center">
                       <button class="mr-7"><svg  xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-blue-500" fill="" viewBox="0 0 24 24" stroke="rgba(255, 255, 255, 0.6)">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
