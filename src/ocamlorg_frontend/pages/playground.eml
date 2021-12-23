@@ -80,7 +80,7 @@ Layout.render
             </div>
             
       </div>
-      <div class="output-bg w-full min-h-full relative "   x-data="{ output: true, problems: false, editor: false }">
+      <div class="output-bg w-full min-h-full relative w-1/2"   x-data="{ output: true, problems: false, editor: false }">
         <div class="flex text-white shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)">
           <div class="md:hidden" :class="editor ? 'text-primary-600 border-b-2 border-primary-600' : ''">
             <div class="p-4 block"
