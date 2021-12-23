@@ -69,7 +69,7 @@ module Info = struct
                 | _ ->
                   None
               in
-              
+              let latest = OpamPackage.Version.Set.max_elt versions in
               let deps =
                 OpamFormula.packages packages
                 @@ OpamFilter.filter_formula ~default:true env (f opam)
