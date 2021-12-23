@@ -38,6 +38,7 @@ let news_post v = "/news/" ^ v
 let opportunities = "/opportunities"
 let opportunity v = "/opportunities/" ^ v
 let carbon_footprint = "/carbon-footprint"
+let playground = "/playground"
 let papers = "/papers"
 let tutorial name = "/learn/" ^ name
 let getting_started = tutorial "up-and-running-with-ocaml"

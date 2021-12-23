@@ -233,6 +233,8 @@ let opportunity req =
 
 let carbon_footprint _req = Dream.html (Ocamlorg_frontend.carbon_footprint ())
 
+let playground _req = Dream.html (Ocamlorg_frontend.playground ())
+
 let papers req =
   let search_paper pattern t =
     let open Ood.Paper in

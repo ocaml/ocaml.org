@@ -64,6 +64,7 @@ inner =
           <li><a href="<%s Url.packages %>" class="hover:text-primary-600">Packages</a></li>
           <li><a href="<%s Url.community %>" class="hover:text-primary-600">Community</a></li>
           <li><a href="<%s Url.blog %>" class="hover:text-primary-600">Blog</a></li>
+          <li><a href="<%s Url.playground %>" class="hover:text-primary-600">Playground</a></li>
         </ul>
       </div>
       <div class="flex items-center space-x-8">

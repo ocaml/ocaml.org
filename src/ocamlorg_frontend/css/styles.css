@@ -91,6 +91,21 @@ body {
 .code-preview {
     font-family: 'Menlo', monospace;
 }
+.code-blue {
+    color: #569CD6;
+}
+.code-yellow {
+    color: #DCDCAA;
+}
+.code-red {
+    color: #FC8181;
+}
+.code-orange {
+    color: #FABD2F;
+}
+.output-bg {
+    background: rgba(39, 39, 39, 1);
+}
 
 .prose a {
     @apply text-primary-600 no-underline;
@@ -150,4 +165,8 @@ pre {
 summary::marker {
     position: relative;
     left: 4px;
+}
+
+.header-black {
+    background: #171717;
 }

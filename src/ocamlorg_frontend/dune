@@ -165,6 +165,11 @@
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
+  (targets playground.ml)
+  (deps playground.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
   (targets carbon_footprint.ml)
   (deps carbon_footprint.eml)
   (action
