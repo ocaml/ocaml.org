@@ -614,46 +614,186 @@ let module_map ~kind t =
   | Error _ ->
     { Module_map.libraries = Module_map.String_map.empty }
 
-let search_package t pattern =
-  let pattern = String.lowercase_ascii pattern in
-  let name_is_s { name; _ } =
-    String.lowercase_ascii @@ Name.to_string name = pattern
-  in
-  let name_contains_s { name; _ } =
-    String.contains_s (String.lowercase_ascii @@ Name.to_string name) pattern
-  in
-  let synopsis_contains_s { info; _ } =
-    String.contains_s (String.lowercase_ascii info.synopsis) pattern
-  in
-  let description_contains_s { info; _ } =
-    String.contains_s (String.lowercase_ascii info.description) pattern
-  in
-  let has_tag_s { info; _ } =
+module Search : sig
+  type search_request
+
+  type score
+
+  val to_request : string -> search_request
+
+  val match_request : search_request -> t -> bool
+
+  val score : t -> search_request -> score
+
+  val compare_score : score -> score -> int
+end = struct
+  type search_constraint =
+    | Tag of string
+    | Name of string
+    | Synopsis of string
+    | Description of string
+    | Author of string
+    | Any of string
+
+  type search_request = search_constraint list
+
+  let re =
+    let ascii_no_quote = Re.rep1 @@ Re.diff Re.ascii @@ Re.set "\"" in
+    let unquoted = Re.group @@ Re.rep1 @@ Re.diff Re.ascii @@ Re.set " \"" in
+    let quoted = Re.seq [ Re.str "\""; Re.group ascii_no_quote; Re.str "\"" ] in
+    let option name =
+      Re.seq [ Re.group @@ Re.str name; Re.alt [ quoted; unquoted ] ]
+    in
+    let tag = option "tag:"
+    and author = option "author:"
+    and synopsis = option "synopsis:"
+    and description = option "description:"
+    and name = option "name:"
+    and plain = option "" in
+    let atom = Re.alt [ name; author; tag; synopsis; description; plain ] in
+    Re.compile atom
+
+  let to_request str =
+    let str = String.lowercase_ascii str in
+    let to_constraint = function
+      | [ _; s ] ->
+        Any s
+      | [ _; "tag:"; s ] ->
+        Tag s
+      | [ _; "author:"; s ] ->
+        Author s
+      | [ _; "synopsis:"; s ] ->
+        Synopsis s
+      | [ _; "description:"; s ] ->
+        Description s
+      | [ _; "name:"; s ] ->
+        Name s
+      | _ ->
+        Any str
+    in
+    let g = Re.all re str in
+    List.map
+      (fun g ->
+        Re.Group.all g
+        |> Array.to_list
+        |> List.filter (fun a -> not (String.equal a ""))
+        |> to_constraint)
+      g
+
+  let match_ f s pattern = f (String.lowercase_ascii @@ s) pattern
+
+  let match_tag ?(f = String.contains_s) pattern package =
+    List.exists (fun tag -> match_ f tag pattern) package.info.tags
+
+  let match_name ?(f = String.contains_s) pattern package =
+    match_ f (Name.to_string package.name) pattern
+
+  let match_synopsis ?(f = String.contains_s) pattern package =
+    match_ f package.info.synopsis pattern
+
+  let match_description ?(f = String.contains_s) pattern package =
+    match_ f package.info.description pattern
+
+  let match_author ?(f = String.contains_s) pattern package =
+    let match_opt s =
+      match s with Some s -> match_ f s pattern | None -> false
+    in
     List.exists
-      (fun tag -> String.contains_s (String.lowercase_ascii tag) pattern)
-      info.tags
-  in
-  let score package =
-    if name_is_s package then
-      -1
-    else if name_contains_s package then
-      0
-    else if has_tag_s package then
-      1
-    else if synopsis_contains_s package then
-      2
-    else if description_contains_s package then
-      3
+      (fun (author : Ood.Opam_user.t) ->
+        match_opt (Some author.name)
+        || match_opt author.email
+        || match_opt author.github_username)
+      package.info.authors
+
+  let match_constraint (package : t) (cst : search_constraint) =
+    match cst with
+    | Tag pattern ->
+      match_tag pattern package
+    | Name pattern ->
+      match_name pattern package
+    | Synopsis pattern ->
+      match_synopsis pattern package
+    | Description pattern ->
+      match_description pattern package
+    | Author pattern ->
+      match_author pattern package
+    | Any pattern ->
+      match_author pattern package
+      || match_description pattern package
+      || match_name pattern package
+      || match_synopsis pattern package
+      || match_tag pattern package
+
+  let match_request c package = List.for_all (match_constraint package) c
+
+  type score =
+    { name : int
+    ; exact_name : int
+    ; author : int
+    ; exact_author : int
+    ; tag : int
+    ; exact_tag : int
+    ; synopsis : int
+    ; description : int
+    }
+
+  let score package query =
+    let score_if f s = if f s package then 1 else 0 in
+    let update_score score = function
+      | Any s ->
+        { tag = score.tag + score_if match_tag s
+        ; exact_tag = score.exact_tag + score_if (match_tag ~f:String.equal) s
+        ; name = score.name + score_if match_name s
+        ; exact_name =
+            score.exact_name + score_if (match_name ~f:String.equal) s
+        ; author = score.author + score_if match_author s
+        ; exact_author =
+            score.exact_author + score_if (match_author ~f:String.equal) s
+        ; synopsis = score.synopsis + score_if match_synopsis s
+        ; description = score.description + score_if match_description s
+        }
+      | _ ->
+        score
+    in
+    let null =
+      { name = 0
+      ; exact_name = 0
+      ; author = 0
+      ; exact_author = 0
+      ; tag = 0
+      ; exact_tag = 0
+      ; synopsis = 0
+      ; description = 0
+      }
+    in
+    List.fold_left update_score null query
+
+  let compare_score s1 s2 =
+    if s1.exact_name != s2.exact_name then
+      Int.compare s2.exact_name s1.exact_name
+    else if s1.name != s2.name then
+      Int.compare s2.name s1.name
+    else if s1.exact_author != s2.exact_author then
+      Int.compare s2.exact_author s1.exact_author
+    else if s1.author != s2.author then
+      Int.compare s2.author s1.author
+    else if s1.exact_tag != s2.exact_tag then
+      Int.compare s2.exact_tag s1.exact_tag
+    else if s1.tag != s2.tag then
+      Int.compare s2.tag s1.tag
+    else if s1.synopsis != s2.synopsis then
+      Int.compare s2.synopsis s1.synopsis
     else
-      failwith "impossible package score"
-  in
+      Int.compare s2.description s1.description
+end
+
+let search_package t pattern =
+  let request = Search.to_request pattern in
   all_packages_latest t
-  |> List.filter (fun p ->
-         name_contains_s p
-         || synopsis_contains_s p
-         || description_contains_s p
-         || has_tag_s p)
+  |> List.filter (Search.match_request request)
   |> List.sort (fun package1 package2 ->
-         compare (score package1) (score package2))
+         Search.compare_score
+           (Search.score package1 request)
+           (Search.score package2 request))
 
 let toplevels_path = Config.toplevels_path

@@ -1,6 +1,7 @@
 # Unreleased
 
-- Refactor bootstrap docs contents
+- Refactor bootstrap docs (#193, by @cdaringe)
+- Adding search by authors, tag and other package fields (#194, by @panglesd)
 
 - Integrate new toplevel design with toplevel logic and basic syntax highlighting (#188, by @patricoferris)
 
