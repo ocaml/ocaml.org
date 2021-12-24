@@ -147,8 +147,10 @@ module Tutorial = struct
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
-module News = struct
-  include News
+module Rss = struct
+  include Rss
+
+  let featured = List.filter (fun x -> x.featured) all
 
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
@@ -236,4 +238,11 @@ module Release = struct
 
 
   let get_by_version version = List.find_opt (fun x -> String.equal version x.version) all
+end
+
+
+module News = struct
+  include News
+
+  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end

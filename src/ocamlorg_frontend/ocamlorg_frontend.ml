@@ -23,9 +23,11 @@ let industrial_users users = Industrial_users.render users
 
 let learn ~papers ~release ~books = Learn.render ~papers ~release ~books
 
-let blog () = Blog.render ()
+let blog ~featured ~rss ~news = Blog.render ~featured ~rss ~news
 
-let blog_category () = Blog_category.render ()
+let news news = News.render news
+
+let news_post news = News_post.render news
 
 let opportunities ?search ?country opportunities =
   Opportunities.render ?search ?country opportunities

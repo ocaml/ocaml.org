@@ -169,7 +169,25 @@ let workshop req =
   | None ->
     not_found req
 
-let blog _req = Dream.html (Ocamlorg_frontend.blog ())
+let blog _req =
+  (* TODO(tmattio): handle pagination *)
+  let rss = Ood.Rss.all |> List.take 10 in
+  let featured = Ood.Rss.featured |> List.take 3 in
+  let news = Ood.News.all |> List.take 15 in
+  Dream.html (Ocamlorg_frontend.blog ~featured ~rss ~news)
+
+let news _req =
+  let news = Ood.News.all |> List.take 15 in
+  Dream.html (Ocamlorg_frontend.news news)
+
+let news_post req =
+  let slug = Dream.param "id" req in
+  let news_post = Ood.News.get_by_slug slug in
+  match news_post with
+  | Some news_post ->
+    Dream.html (Ocamlorg_frontend.news_post news_post)
+  | None ->
+    not_found req
 
 let opportunities req =
   let search_job pattern t =

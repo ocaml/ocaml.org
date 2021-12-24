@@ -235,3 +235,21 @@ module Glob = struct
 
   let filter_files ~globs files = List.filter (matches_globs ~globs) files
 end
+
+module Sys = struct
+  include Stdlib.Sys
+
+  let write_file file content =
+    let oc = open_out file in
+    Fun.protect
+      (fun () -> output_string oc content)
+      ~finally:(fun () -> close_out oc)
+
+  let read_file file =
+    let ic = open_in_bin file in
+    Fun.protect
+      (fun () ->
+        let length = in_channel_length ic in
+        really_input_string ic length)
+      ~finally:(fun () -> close_in ic)
+end

@@ -303,7 +303,7 @@ module Watch : sig
   val all : t list
 end
 
-module News : sig
+module Rss : sig
   type t =
     { title : string
     ; slug : string
@@ -311,8 +311,11 @@ module News : sig
     ; url : string
     ; date : string
     ; preview_image : string option
+    ; featured : bool
     ; body_html : string
     }
+
+  val featured : t list
 
   val all : t list
 
@@ -419,4 +422,19 @@ module Release : sig
   val all : t list
 
   val get_by_version : string -> t option
+end
+
+module News : sig
+  type t =
+    { title : string
+    ; slug : string
+    ; description : string
+    ; date : string
+    ; tags : string list
+    ; body_html : string
+    }
+
+  val all : t list
+
+  val get_by_slug : string -> t option
 end

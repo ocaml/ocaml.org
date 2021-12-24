@@ -13,6 +13,21 @@ module String = struct
       true
 end
 
+module List = struct
+  include Stdlib.List
+
+  let take n xs =
+    let rec aux i acc = function
+      | [] ->
+        acc
+      | _ when i = 0 ->
+        acc
+      | y :: ys ->
+        aux (i - 1) (y :: acc) ys
+    in
+    aux n [] xs |> List.rev
+end
+
 module Unix = struct
   include Unix
 

@@ -134,13 +134,13 @@
 
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
- (targets news.ml)
+ (targets rss.ml)
  (mode
   (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}
-   (run %{deps} news))))
+   (run %{deps} rss))))
 
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
@@ -171,3 +171,13 @@
   (with-stdout-to
    %{targets}
    (run %{deps} workflows))))
+
+(rule
+ (deps ../../tool/ood-gen/bin/gen.exe)
+ (targets news.ml)
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} news))))
