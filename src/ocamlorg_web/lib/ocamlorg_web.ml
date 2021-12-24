@@ -95,6 +95,7 @@ let server https port =
     Dream.serve ~interface:"0.0.0.0" ~debug:Config.debug ~port:Config.http_port
     @@ Dream.logger
     @@ Middleware.no_trailing_slash
+    @@ Dream_encoding.compress
     @@ Router.router state
     @@ Handler.not_found
   else
