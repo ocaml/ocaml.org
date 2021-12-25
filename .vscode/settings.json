@@ -1,0 +1,6 @@
+{
+  "ocaml.sandbox": {
+    "kind": "opam",
+    "switch": "${workspaceFolder:v3.ocaml.org-server}"
+  }
+}
