@@ -49,7 +49,17 @@ let main () =
             
       </div>
       <div class="output-bg w-full min-h-full relative md:w-2/5"   x-data="{ output: true, problems: false, editor: window.innerWidth < 767,mobile: window.innerWidth < 767 }"
-      @resize.window="mobile = window.innerWidth < 767; editor = window.innerWidth < 767; output = window.innerWidth > 767; problems = false;">
+      @resize.window="
+        mobile = window.innerWidth < 767;
+       if(window.innerWidth < 767 && mobile == true  ){
+        editor = true;
+      }
+       if(window.innerWidth > 767 && editor == true ){
+         editor = false;
+         output = true;
+         problems = false;
+       }
+      ">
         <div class="flex text-white shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)">
           <button class="md:hidden" :class="editor && mobile ? 'text-primary-600 border-b-2 border-primary-600' : ''"
           @click="editor = true; mobile=true; output = false;  problems = false;" class="border-b-2 border-transparent">
