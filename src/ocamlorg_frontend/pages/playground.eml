@@ -36,7 +36,8 @@ let main () =
     in</textarea>
                 <div class="bg-code-background shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)] p-4 absolute w-full bottom-0 z-10">
                 <div class="flex w-full justify-end items-center px-4">
-                  <button class="mr-7 hover:bg-white hover:bg-opacity-10 p-2 rounded-md"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="" viewBox="0 0 24 24" stroke="rgba(255, 255, 255, 0.6)">
+                  <button class="mr-7 hover:bg-white hover:bg-opacity-10 active:bg-primary-100 active:text-primary-600 p-2 rounded-md text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 stroke-current" fill="" viewBox="0 0 24 24" stroke="rgba(255, 255, 255, 0.6)">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                   </svg></button>
                   <button class="btn btn-md btn-secondary">
