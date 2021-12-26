@@ -88,7 +88,8 @@ let save_certificate_files
   =
   let write_file_with_mkdir f s =
     let dirname = Filename.dirname f in
-    if not (Sys.file_exists dirname && Sys.is_directory dirname) then Unix.mkdir_p dirname;
+    if not (Sys.file_exists dirname && Sys.is_directory dirname) then
+      Unix.mkdir_p dirname;
     Unix.write_file f s
   in
   let certificate_s =
