@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   schedule:
     # Prime the caches every Monday
     - cron: 0 1 * * MON
@@ -49,11 +49,8 @@ jobs:
         run: brew install libev openssl@3 # Openssl is a workaround for https://github.com/ocaml/opam-repository/issues/19676
         if: runner.os == 'macOS'
 
-      - name: "Install vendored libraries' dependencies"
-        run: opam install textmate-language
-
       - name: Install opam dependencies
-        run: opam install --deps-only --with-test .
+        run: opam switch import ./opam.lock
 
       - name: Install NPM dependencies
         run: npm ci
@@ -93,11 +90,8 @@ jobs:
         run: brew install libev
         if: runner.os == 'macOS'
 
-      - name: Install ocamlformat
-        run: opam install ocamlformat.0.20.0
-
       - name: Install opam dependencies
-        run: opam install --deps-only .
+        run: opam switch import ./opam.lock
 
       - name: Format code
         run: opam exec -- dune build --auto-promote --ignore-promoted-rules @fmt

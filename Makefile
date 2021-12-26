@@ -3,33 +3,14 @@
 ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 $(eval $(ARGS):;@:)
 
-# Dependencies used in development, for ood-gen in particular
-DEV_DEPS := \
-"yaml>=3.0" \
-ppx_deriving_yaml \
-ezjsonm \
-ptime \
-fmt \
-fpath \
-piaf \
-lambdasoup \
-cmdliner \
-crunch \
-"textmate-language>=0.3.1" \
-ppx_deriving_yaml \
-"omd>=2.0.0~alpha2" \
-xmlm \
-uri
-
 .PHONY: all
 all:
 	opam exec -- dune build --root .
 
 .PHONY: deps
 deps: ## Install development dependencies
-	opam install -y dune-release ocamlformat utop ocaml-lsp-server $(DEV_DEPS)
+	opam switch import ./opam.lock
 	npm install
-	opam install --deps-only --with-test --with-doc -y .
 
 .PHONY: create_switch
 create_switch:
