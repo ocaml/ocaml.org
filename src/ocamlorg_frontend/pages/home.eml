@@ -69,19 +69,19 @@ with an emphasis on expressiveness and safety."
       </div>
     </div>
     <div class="text-center">
-      <h4 class="font-bold text-body-600">Trusted by Industry Leaders</h4>
+      <h2 class="font-bold text-body-600">Trusted by Industry Leaders</h2>
       <div class="text-body-400 text-base mt-3">
         These awesome companies and organizations trust our software—along with
         thousands of other developers
       </div>
       <div class="flex flex-row justify-center m-auto flex-wrap py-8 items-center">
-        <div class="mx-8 my-4"><img src="/img/Facebook.svg" alt="" /></div>
+        <div class="mx-8 my-4"><img src="/img/Facebook.svg" alt="Facebook logo" /></div>
         <div class="mx-8 my-4">
-          <img src="/img/janestreet-black.svg" width="104" alt="" />
+          <img src="/img/janestreet-black.svg" width="104" alt="Janestreet logo" />
         </div>
-        <div class="mx-8 my-4"><img src="/img/Bloomberg.svg" alt="" /></div>
-        <div class="mx-8 my-4"><img src="/img/tezos.svg" alt="" /></div>
-        <div class="mx-8 my-4"><img src="/img/aHrefs.svg" alt="" /></div>
+        <div class="mx-8 my-4"><img src="/img/Bloomberg.svg" alt="Bloomberg logo" /></div>
+        <div class="mx-8 my-4"><img src="/img/tezos.svg" alt="Tezos logo" /></div>
+        <div class="mx-8 my-4"><img src="/img/aHrefs.svg" alt="Ahrefs logo" /></div>
       </div>
     </div>
   </div>
@@ -100,7 +100,7 @@ with an emphasis on expressiveness and safety."
                   d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
             </div>
-            <div class="text-lg my-4 font-bold" style="color: #3182ce">
+            <div class="text-lg my-4 font-bold" style="color: #225b90">
               BE SAFE
             </div>
             <h3 class="text-body-600 font-bold">Safe and Stable</h3>
@@ -113,7 +113,7 @@ with an emphasis on expressiveness and safety."
           </div>
         </div>
         <div class="lg:flex-1 lg:mr-24 lg:mt-0 mt-10 flex justify-center">
-          <img src="/img/home/safe-stable.svg" alt="" />
+          <img src="/img/home/safe-stable.svg" alt="An example OCaml program defining nested lists in OCaml. A terminal output also shows the compiler catching a type error where a pattern-match was not exhaustive." />
         </div>
       </div>
 
@@ -127,7 +127,7 @@ with an emphasis on expressiveness and safety."
                   clip-rule="evenodd" />
               </svg>
             </div>
-            <div class="text-lg my-4 font-bold text-teal-600">WORK FASTER</div>
+            <div class="text-lg my-4 font-bold text-teal-800">WORK FASTER</div>
             <h3 class="text-body-600 font-bold">
               Fast compiler, Efficient applications
             </h3>
@@ -170,13 +170,13 @@ with an emphasis on expressiveness and safety."
               <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                   <div class="swiper-slide">
-                    <img src="/img/vscode.svg" width="56px" />
+                    <img src="/img/vscode.svg" width="56px" alt="" />
                   </div>
                   <div class="swiper-slide">
-                    <img src="/img/vimlogo.svg" width="56px" />
+                    <img src="/img/vimlogo.svg" width="56px" alt="" />
                   </div>
                   <div class="swiper-slide">
-                    <img src="/img/EmacsIcon.svg" width="56px" />
+                    <img src="/img/EmacsIcon.svg" width="56px" alt="" />
                   </div>
                 </div>
               </div>
@@ -188,13 +188,13 @@ with an emphasis on expressiveness and safety."
             <div style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff;" class="swiper mySwiper2">
               <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                  <img width="785" src="/img/home/vscode-preview.png" />
+                  <img width="785" src="/img/home/vscode-preview.png" alt="An OCaml program being edited in VSCode" />
                 </div>
                 <div class="swiper-slide">
-                  <img width="785" src="/img/home/emac-preview.png" />
+                  <img width="785" src="/img/home/emac-preview.png" alt="Writing an OCaml program using emacs"/>
                 </div>
                 <div class="swiper-slide">
-                  <img width="785" src="/img/home/vim-preview.png" />
+                  <img width="785" src="/img/home/vim-preview.png" alt="Writing an OCaml program using vim" />
                 </div>
               </div>
             </div>
@@ -335,7 +335,7 @@ with an emphasis on expressiveness and safety."
     <div class="flex flex-col lg:flex-row justify-between lg:space-x-20 space-y-10 lg:space-y-0">
       <div class="shadow-lg p-10 bg-white rounded-xl lg:mb-0">
         <div class="flex flex-row items-center justify-between relative pb-8">
-          <h5 class="font-semibold">For Educators</h5>
+          <h3 class="font-semibold">For Educators</h3>
           <div>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
@@ -356,7 +356,7 @@ with an emphasis on expressiveness and safety."
       </div>
       <div class="shadow-lg p-10 bg-white rounded-xl">
         <div class="flex flex-row items-center justify-between relative pb-8">
-          <h5 class="font-semibold">For Industrial Users</h5>
+          <h3 class="font-semibold">For Industrial Users</h3>
           <div>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
