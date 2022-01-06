@@ -1,5 +1,10 @@
 # Unreleased
 
+- Add number stats on the Packages page (#204, by @Julow)
+
+  The stats are:
+  Total number of packages, packages added this month, updates this week.
+
 - Adding search by authors, tag and other package fields (#194, by @panglesd)
 
 - Integrate new toplevel design with toplevel logic and basic syntax highlighting (#188, by @patricoferris)
