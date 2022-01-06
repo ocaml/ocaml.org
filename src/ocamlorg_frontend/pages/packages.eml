@@ -46,7 +46,7 @@ Layout.render
                 <div class="bg-white md:py-10 rounded-xl flex flex-col md:flex-row md:w-full lg:w-auto md:items-center md:justify-center">
 %     render_number_stat ~first:true "Packages" stats.nb_packages;
 %     render_number_stat "New packages this month" stats.nb_packages_month;
-%     render_number_stat "Updates this week" stats.nb_commits_week;
+%     render_number_stat "Updates this week" stats.nb_update_week;
                 </div>
               </div>
 % | None -> () );

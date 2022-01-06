@@ -3,9 +3,7 @@ module Name = OpamPackage.Name
 module Name_map = Map.Make (Name)
 module Version = OpamPackage.Version
 module Version_map = Map.Make (Version)
-
 module Info = Info
-
 module Packages_stats = Packages_stats
 
 type t =
@@ -119,9 +117,10 @@ let update ~commit t =
   Logs.info (fun f -> f "Calculating packages.. .");
   let* packages = read_packages () in
   Logs.info (fun f -> f "Computing additional informations...");
-  let+ packages = Info.of_opamfiles packages in
+  let* packages = Info.of_opamfiles packages in
+  let+ stats = Packages_stats.compute commit packages in
   t.packages <- packages;
-  t.stats <- Some (Packages_stats.compute commit packages);
+  t.stats <- Some stats;
   Logs.info (fun m ->
       m "Loaded %d packages" (OpamPackage.Name.Map.cardinal packages))
 

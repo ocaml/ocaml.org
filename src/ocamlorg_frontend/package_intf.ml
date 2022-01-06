@@ -12,6 +12,6 @@ type package =
 (** See {!Ocamlorg_package.Packages_stats.t}. *)
 type packages_stats =
   { nb_packages : int
-  ; nb_commits_week : int
+  ; nb_update_week : int
   ; nb_packages_month : int
   }

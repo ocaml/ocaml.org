@@ -56,8 +56,8 @@ end
 module Packages_stats : sig
   type t =
     { nb_packages : int  (** Total number of packages. *)
-    ; nb_commits_week : int
-          (** Total number of commits on opam-repository the last 7 days. *)
+    ; nb_update_week : int
+          (** Number of packages updated during the last 7 days. *)
     ; nb_packages_month : int  (** Number of packages added the last 30 days. *)
     }
 end

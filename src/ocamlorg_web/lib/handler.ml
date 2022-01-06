@@ -310,10 +310,10 @@ let packages state _req =
     match Ocamlorg_package.packages_stats state with
     | Some
         { Ocamlorg_package.Packages_stats.nb_packages
-        ; nb_commits_week
+        ; nb_update_week
         ; nb_packages_month
         } ->
-      Some { Ocamlorg_frontend.nb_packages; nb_commits_week; nb_packages_month }
+      Some { Ocamlorg_frontend.nb_packages; nb_update_week; nb_packages_month }
     | None ->
       None
   in

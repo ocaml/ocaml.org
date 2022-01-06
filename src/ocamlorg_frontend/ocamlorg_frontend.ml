@@ -1,7 +1,6 @@
 module Url = Url
 module Navmap = Navmap
 module Toc = Toc
-
 include Package_intf
 
 let about () = About.render ()
