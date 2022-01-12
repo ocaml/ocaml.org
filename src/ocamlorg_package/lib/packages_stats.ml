@@ -96,6 +96,13 @@ end = struct
   let to_list (_, elts) = elts
 end
 
+(** Remove some packages from the revdeps stats to make it more interesting. *)
+let most_revdeps_hidden = function
+  | "ocaml" | "ocamlfind" | "dune" | "ocamlbuild" | "jbuilder" ->
+    true
+  | _ ->
+    false
+
 let compute_most_revdeps n packages =
   let module Acc =
     Acc_biggest (struct
@@ -106,10 +113,13 @@ let compute_most_revdeps n packages =
   in
   OpamPackage.Name.Map.fold
     (fun name versions acc ->
-      (* Look only at the lastest version *)
-      let version, info = OpamPackage.Version.Map.max_binding versions in
-      let rev_deps = List.length info.Info.rev_deps in
-      Acc.acc ({ name; version; info }, rev_deps) acc)
+      (* Do not count some packages. *)
+      if most_revdeps_hidden (OpamPackage.Name.to_string name) then
+        acc
+      else (* Look only at the lastest version. *)
+        let version, info = OpamPackage.Version.Map.max_binding versions in
+        let rev_deps = List.length info.Info.rev_deps in
+        Acc.acc ({ name; version; info }, rev_deps) acc)
     packages
     (Acc.make n)
   |> Acc.to_list
