@@ -177,10 +177,10 @@ let paginate ~req ~n items =
   let number_of_pages =
     int_of_float
       (Float.ceil
-         (float_of_int (List.length Ood.Rss.all) /. float_of_int items_per_page))
+         (float_of_int (List.length items) /. float_of_int items_per_page))
   in
   let current_items =
-    let skip = (items_per_page * page) - 1 in
+    let skip = items_per_page * (page - 1) in
     items |> List.skip skip |> List.take items_per_page
   in
   page, number_of_pages, current_items
@@ -202,9 +202,10 @@ let blog req =
        ~rss_pages_number:number_of_pages
        ~news)
 
-let news _req =
-  let news = Ood.News.all |> List.take 15 in
-  Dream.html (Ocamlorg_frontend.news news)
+let news req =
+  let page, number_of_pages, current_items = paginate ~req ~n:10 Ood.News.all in
+  Dream.html
+    (Ocamlorg_frontend.news ~page ~pages_number:number_of_pages current_items)
 
 let news_post req =
   let slug = Dream.param "id" req in

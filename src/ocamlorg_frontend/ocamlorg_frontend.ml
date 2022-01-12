@@ -23,9 +23,10 @@ let industrial_users users = Industrial_users.render users
 
 let learn ~papers ~release ~books = Learn.render ~papers ~release ~books
 
-let blog ~featured ~rss ~rss_page ~rss_pages_number ~news = Blog.render ~featured ~rss ~rss_page ~rss_pages_number ~news
+let blog ~featured ~rss ~rss_page ~rss_pages_number ~news =
+  Blog.render ~featured ~rss ~rss_page ~rss_pages_number ~news
 
-let news news = News.render news
+let news ~page ~pages_number news = News.render ~page ~pages_number news
 
 let news_post news = News_post.render news
 
