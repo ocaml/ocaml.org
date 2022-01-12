@@ -1,5 +1,7 @@
 # Unreleased
 
+- Refactor bootstrap docs (#193, by @cdaringe)
+
 - Compress web assets by default (#197, by @cdaringe)
 
 - Add number stats on the Packages page (#204, by @Julow)

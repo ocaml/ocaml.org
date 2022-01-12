@@ -2,61 +2,59 @@
 title: "Bootstrap a project"
 ---
 
-> **TL;DR**
-> 
-> if you need a minimal project to start hacking quickly, use `dune init`. If you need a complete development environment that follows best practices, use `spin`.
-As the recommended build system for OCaml, Dune offers a command `dune init` to bootstrap new projects.
+[Dune](https://dune.readthedocs.io/en/stable/overview.html) is recommended for bootstrapping projects using `dune init`. If `opam` or `dune` are not installed, please see [Up and Running with OCaml](/up-and-running-with-ocaml).
 
-Once you have successfully installed opam, you can install Dune with `opam install dune`.
+> dune init --help
+>
+> **dune init {library,executable,test,project} NAME [PATH]** initialize a
+> new dune component of the specified kind, named NAME, with fields
+> determined by the supplied options.
 
-This will install Dune's binary in your current Opam switch, so `dune` should now be in your `PATH`. If it not, you probably need to run `eval $(opam env)` to configure your current terminal with Opam environment.
+As shown above, `dune init` accepts a _kind_, `NAME`, and optional `PATH` to scaffold new code. Let's try it out:
 
-To bootstrap a new project with `dune init`, run:
+```sh
+dune init project hello ~/src/ocaml-projects
 
+Success: initialized project component named hello
 ```
-dune init proj hello my_project/
-```
 
-Where proj is the kind of project to initialize. Here we want to generate an entire project, so we use `proj`. `hello` is the name of the project and `my_project/` is the path where the project will be generated.
+In the above example, we use:
 
-`dune init proj` does not generate a `dune-project` for you, so you need to go in the generated project and create one:
+- "project" as the _kind_
+- "hello" as the _name_, and
+- "~/src/ocaml-projects" as the _path_ to generate the content in
 
-```
-echo "(lang dune 2.0)" > dune-project
+The `project` _kind_ creates a `library` in `./lib`, an `executable` in `./bin`, and links them together in `bin/dune`. Additionally, the command creates a test executable and an opam file.
+
+```sh
+tree ~/src/ocaml-projects/hello/
+
+/home/user/src/ocaml-projects/hello/
+├── bin
+│   ├── dune
+│   └── main.ml
+├── hello.opam
+├── lib
+│   └── dune
+└── test
+    ├── dune
+    └── hello.ml
 ```
 
 At this point, you can build the project and run the binary:
 
-```
-dune build
+```sh
+cd /home/user/src/ocaml-projects/hello/
 dune exec bin/main.exe
+
+Hello, world!
 ```
 
-`dune init` is the quickest way to get a working OCaml project and start hacking, but you may need a bit more, for instance:
+Thus, `dune init` can rapidly scaffold new projects, with minimal content. It can also be used to add components (kinds) incrementally to existing projects.
 
-- How to setup the IDE
-- How to setup the CI/CD
+Various community projects offer more comprehensive project scaffolding than `dune` as well.
+The following projects are not formally supported by the OCaml Platform, but may be of interest to the reader:
 
-Or you may be looking for the best way to get started with a specific kind of project:
-
-- A library
-- A command line interface
-- A web application
-
-If that's the case, we recommend using `spin`, the OCaml project generator. Spin comes with official templates for common project types. The official templates will get you up and running with everything you need to get a productive development environment, including the IDE setup, the CI/CD, the code formatter, the unit tests, etc.
-
-You can install `spin` with opam: `opam install spin`.
-
-Once it's installed, you can list the available templates with `spin ls`. For the purpose of this workflow, we'll use `bin` that bootstraps a project with an executable:
-
-```
-spin new bin my_project/
-```
-
-This will take some time, because Spin will install all of the dependencies in a new opam local switch (a.k.a local sandbox), which needs to compile an OCaml compiler.
-
-Once the project is generated, you can run the executable with `make start`.
-
-You can also open the project in VSCode, which should detect your installation of the LSP server, code formatter and other Platform tools to offer the full range of its capabilities.
-
-Happy hacking :)
+- [spin](https://github.com/tmattio/spin)
+- [drom](https://ocamlpro.github.io/drom/sphinx/about.html)
+- [carcass](https://github.com/dbuenzli/carcass)
