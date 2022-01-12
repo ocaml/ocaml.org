@@ -43,9 +43,7 @@ about the strong academic roots of the language." @@
                 </div>
             </div>
         </div>
-
-        <div class="grid-logos"
-            :class="{ 'hidden': continent != 'All' }">
+        <div :class="continent != 'All' ? 'hidden' : 'grid-logos'">
             <% users |> List.iter (fun (item : Ood.Academic_institution.t) ->
             let logo = match item.logo with | Some x -> "/media/" ^ x | None -> "" in %>
             <a href="<%s item.url %>" target="_blank"
@@ -58,8 +56,7 @@ about the strong academic roots of the language." @@
             <% ); %>
         </div>
 
-        <div class="grid-logos"
-            :class="{ 'hidden': continent != 'North America' }">
+        <div :class="continent != 'North America' ? 'hidden' : 'grid-logos'">
             <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "North America") |> List.iter (fun
             (item : Ood.Academic_institution.t) ->
             let logo = match item.logo with | Some x -> "/media/" ^ x | None -> "" in %>
@@ -72,8 +69,7 @@ about the strong academic roots of the language." @@
             </a>
             <% ); %>
     </div>
-        <div class="grid-logos"
-            :class="{ 'hidden': continent != 'Europe' }">
+        <div :class="continent != 'Europe' ? 'hidden' : 'grid-logos'">
             <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "Europe") |> List.iter (fun (item :
             Ood.Academic_institution.t) ->
             let logo = match item.logo with | Some x -> "/media/" ^ x | None -> "" in %>
@@ -86,8 +82,7 @@ about the strong academic roots of the language." @@
             </a>
             <% ); %>
         </div>
-        <div class="grid-logos"
-            :class="{ 'hidden': continent != 'Asia' }">
+        <div :class="continent != 'Asia' ? 'hidden' : 'grid-logos'">
             <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "Asia") |> List.iter (fun (item :
             Ood.Academic_institution.t) ->
             let logo = match item.logo with | Some x -> "/media/" ^ x | None -> "" in %>
