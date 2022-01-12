@@ -1,5 +1,241 @@
-let render () =
-Layout.render
-~turbo_full_reload:true
-~title:"???"
-~description:"???" @@ ""
+let render () = Layout.render ~turbo_full_reload:true ~title:"???" ~description:"???" @@
+<div class="intro-section-simple">
+  <div class="container-fluid">
+    <div class="text-center w-full lg:w-2/3 m-auto">
+      <h1 class="font-bold mb-6">Terms and Conditions</h1>
+      <p><span class="font-bold">Version number:</span> 1.0.0</p>
+      <p><span class="font-bold">Effective date:</span> 2022-01-12</p>
+    </div>
+  </div>
+</div>
+<div class="bg-white">
+  <div class="py-10 lg:py-28">
+    <div class="container-fluid">
+      <div class="prose prose-orange lg:prose-lg mx-auto max-w-5xl">
+        <h2>Who we are</h2>
+        <p>We are OCaml Labs Consultancy Ltd. Our company information is at the end of this document.</p>
+
+        <h2>What this is all about</h2>
+        <p>These terms and conditions are a contract between you and us for use of this site. They’re available in English only. We’ve tried to make them user-friendly but please note that the summaries/explanations for each section in capitals aren’t a substitute for the rest of the text.</p>
+
+        <p>
+          We operate this community website in consultation with a steering committee, whose members are listed at <a href="https://github.com/ocaml/v3.ocaml.org-server/blob/main/CONTRIBUTING.md">https://github.com/ocaml/v3.ocaml.org</a>. These terms and conditions are intended to benefit the
+          members of that steering committee (past and present) and they have the right to rely on and enforce this agreement including being able to rely on any restrictions on liability.
+        </p>
+
+        <p>Please note that the OCaml Discourse forum at discuss.ocaml.org is not operated by us and is not part of this site (though located at a subdomain and using the same logo). It is subject to separate terms of service.</p>
+
+        <h2>Some definitions</h2>
+        <p>THIS SECTION EXPLAINS WHAT CERTAIN WORDS MEAN WHEREVER THEY ARE USED WITH A CAPITAL LETTER IN THIS DOCUMENT</p>
+
+        <ul>
+          <li><em>“Consumer”</em> - an individual acting for purposes which are wholly or mainly outside that person’s trade, business, craft or profession.</li>
+          <li>
+            <em>“Content”</em> - all information of whatever kind (including avatars, posts, blogs, articles, comments, chat, images, photos, audio, video, listings, advertisements, messages etc.) displayed, stored or sent on or via the site and including OCaml-related software created by you that
+            is made available on this site (except where otherwise stated).
+          </li>
+          <li><em>“User”</em> - people or organisations using the site.</li>
+        </ul>
+
+        <h2>IMPORTANT – downloading software</h2>
+        <p>THIS SECTION EXPLAINS THAT WE AREN’T RESPONSIBLE FOR OCAML SOFTWARE</p>
+
+        <p>We are not legally responsible in any way for the OCaml and related software which is made available on or via this site and which is subject to the applicable open-source licence. You download and use such software at your own risk.</p>
+
+        <h2>Changing these terms and conditions</h2>
+        <p>THIS SECTION EXPLAINS HOW WE CAN CHANGE THESE TERMS AND WHAT YOU CAN DO IF YOU DISAGREE</p>
+
+        <p>
+          We may change these terms and conditions at any time by posting the new version on the site at least seven days before they take effect (or a shorter period if there are exceptional circumstances). You are legally bound by the new terms if you use the site after the effective date. If you
+          disagree with the new version, you should stop using the site.
+        </p>
+
+        <h2>Behaviour when using the site</h2>
+        <p>THIS SECTION EXPLAINS THE BEHAVIOUR AND OTHER REQUIREMENTS THAT APPLY TO USE OF THE SITE</p>
+
+        <p>You agree not to do any of the following in connection with the site:</p>
+
+        <ul>
+          <li>break the law or infringe anyone else’s rights;</li>
+          <li>send, store, display or link to unlawful, infringing or otherwise inappropriate Content;</li>
+          <li>victimise or harass other people;</li>
+          <li>use offensive, obscene, abusive, discriminatory or other inappropriate language or images;</li>
+          <li>deceive or mislead anyone;</li>
+          <li>send, store, display or link to any Content that includes someone else’s personal information unless that person is 18 years or over and you have obtained their written consent or you are otherwise legally permitted to do so;</li>
+          <li>impersonate anyone;</li>
+          <li>disrupt the site, e.g., spam, viruses or phishing;</li>
+          <li>interfere with or damage the site or gain unauthorised access to any part of our system, data, passwords or otherwise;</li>
+          <li>intercept or modify communications;</li>
+          <li>impose an unreasonable load on the site; or</li>
+          <li>attempt, encourage or assist any of the above.</li>
+        </ul>
+
+        <p>You agree to ensure that any contact or other information that you supply to us is accurate and not misleading and you will tell us if there are any important changes.</p>
+
+        <h2>Your Content</h2>
+
+        <p>THIS SECTION CONTAINS CERTAIN PROMISES BY YOU REGARDING YOUR CONTENT AND GIVES US SOME RIGHTS INCLUDING TO REMOVE/DELETE/DISCLOSE THE CONTENT IN CERTAIN CIRCUMSTANCES</p>
+
+        <p>You are responsible for your Content.</p>
+
+        <p>You agree that you have (and will keep) all rights needed to enable use of your Content as contemplated by the site and these terms and conditions.</p>
+
+        <p>We are entitled (without telling you) to reject, suspend, alter, remove or delete Content for any reason and to disclose to the police or other relevant authorities or to a complainant any Content or behaviour provided we are legally permitted to do so.</p>
+
+        <p>We are not legally responsible if your Content is misused by others. You must take reasonable care when deciding which Content to display on or send via the site.</p>
+
+        <p>It is your responsibility to make your own frequent backups of Content if you want protection if it is lost or damaged. We are not responsible for such loss or damage.</p>
+
+        <p>We are entitled to delete your Content at any time and for any reason.</p>
+
+        <h2>Dealing with other Users</h2>
+
+        <p>THIS SECTION INCLUDES IMPORTANT WARNINGS ABOUT YOUR DEALINGS WITH OTHER USERS AND WHAT TO DO IF YOU ENCOUNTER MISBEHAVIOUR</p>
+
+        <p>
+          We don’t endorse or recommend any Users or their Content. You deal with other Users at your own risk. We are not legally responsible for the accuracy of, or otherwise in relation to, any such Content or for any dealings between Users. Where appropriate, you are responsible for
+          investigating other Users before dealing with them. Don’t assume that any Content from another User is accurate and be aware that people may not be who they claim to be.
+        </p>
+
+        <p>
+          If you encounter any inappropriate Content or behaviour in connection with the site or if you have any other concerns for your safety, you agree to immediately (1) stop communicating with the other person and (2) tell us. Please also use any available blocking mechanisms and seek relevant
+          external help If appropriate (e.g., from law enforcement authorities).
+        </p>
+
+        <h2>Other peoples’ services / advertising / websites</h2>
+        <p>THIS SECTION EXPLAINS THAT WE AREN’T RESPONSIBLE FOR ADVERTISING ETC BY OTHER PEOPLE ON OUR SITE</p>
+
+        <p>We may display other peoples’ services, advertising and/or links to other websites. We do not recommend or endorse, nor are we legally responsible for, any of these. You use them at your own risk.</p>
+
+        <h2>Our guidance</h2>
+        <p>THIS SECTION EXPLAINS THAT YOU RELY ON ANY GENERAL GUIDANCE AT YOUR OWN RISK</p>
+
+        <p>
+          If we ourselves provide any general guidance or other similar information on or via the site, we do not guarantee that it is accurate or up to date or relevant to you and we do not accept legal responsibility for it. Before acting on such information, you must make your own appropriate and
+          careful enquiries including as to its accuracy and suitability for your purposes. You rely on such information at your own risk.
+        </p>
+
+        <h2>Ending or suspending this contract</h2>
+        <p>THIS SECTION EXPLAINS WHEN AND HOW YOU OR WE CAN END (OR SUSPEND) THE CONTRACT AND, IF SO, WHAT HAPPENS.</p>
+
+        <p>We are entitled to end this contract at any time or suspend your right to use part or all of the site if:</p>
+        <ul>
+          <li>you break this contract;</li>
+          <li>acting reasonably, we think that it is necessary to protect you, us or others;</li>
+          <li>we are required to do so by applicable law or regulation or to comply with an order, instruction or request from a competent authority; or</li>
+          <li>you or anyone on your behalf acts inappropriately towards us or our staff.</li>
+        </ul>
+
+        <p>You agree not to use or attempt to use the site if we end the contract with you or suspend your right to use the site.</p>
+
+        <h2>If the site doesn’t work properly</h2>
+        <p>THIS SECTION EXPLAINS THAT WE DON’T PROMISE THAT THE SITE WILL BE UNINTERRUPTED</p>
+
+        <p>We do not guarantee that the site will be uninterrupted or error-free and we are not responsible for any losses arising from such interruptions or errors.</p>
+
+        <p>We are entitled, without notice and without liability to suspend the site for repair, maintenance, improvement or other technical reason.</p>
+
+        <p>You acknowledge that technology is not always secure and you accept the risks inherent in use of the Internet or other technology for the purpose of the site.</p>
+
+        <h2>Restrictions on our legal responsibility – very important</h2>
+        <p>THIS SECTION LIMITS OUR LEGAL RESPONSIBILITY IN VARIOUS WAYS AND MAKES YOU RESPONSIBLE FOR CERTAIN LOSSES WE SUFFER, EG IF YOU BREAK THE CONTRACT</p>
+
+        <p>
+          Nothing in this agreement in any way limits or excludes our liability for negligence causing death or personal injury or for fraud or fraudulent misrepresentation or for anything which may not legally be excluded or limited. In this section, any reference to us includes our employees and
+          agents, who have the right to enforce this agreement.
+        </p>
+
+        <p><em>If you are a Consumer</em>, we shall not be liable for any loss or damage where:</p>
+        <ul>
+          <li>there is no breach of a legal duty owed to you by us;</li>
+          <li>such loss or damage was not reasonably foreseeable (meaning it was not an obvious consequence of our breach or not contemplated by you and us at the time we entered into this contract);</li>
+          <li>(and to the extent that) such loss or damage is your fault, for example by not complying with this agreement; or</li>
+          <li>such loss or damage relates to a business of yours.</li>
+        </ul>
+
+        <p><em>If you are a Consumer</em>, you will be responsible to us for any reasonably foreseeable loss or damage we suffer (including claims made by other people) resulting from your breach of this agreement or misuse of the site.</p>
+
+        <p><em>The following clauses apply only if you are not a Consumer:</em></p>
+
+        <ul>
+          <li>
+            In no event (including our own negligence) will we be liable for any of the following (even if we have been advised of the possibility of any such losses): economic losses (including, without limit, loss of revenues, profits, contracts, business or anticipated savings); or loss of
+            goodwill or reputation; or special, indirect or consequential losses; or damage to or loss of data.
+          </li>
+          <li>You will indemnify us against all claims and liabilities arising out of or in connection with your use of the site and/or breach of this agreement (except insofar as we are at fault).</li>
+          <li>To the extent allowed by law, you and we exclude all terms, whether imposed by statute or by law or otherwise, that are not expressly stated in this agreement.</li>
+          <li>
+            This agreement constitutes the entire agreement between us with respect to its subject matter and supercedes any previous communications or agreements between us. We both acknowledge that there have been no misrepresentations and that neither of us has relied on any pre-contractual
+            statements. Liability for misrepresentation (excluding fraudulent misrepresentation) relating to the terms of this agreement is excluded.
+          </li>
+        </ul>
+
+        <h2>Intellectual property rights (IP)</h2>
+        <p>THIS SECTION EXPLAINS THAT YOU AND WE REMAIN OWNERS OF COPYRIGHT AND OTHER IP RIGHTS IN OUR RESPECTIVE CONTENT (EXCLUDING OCAML-RELATED SOFTTWARE) AND HOW WE ALLOW EACH OTHER TO USE THAT CONTENT</p>
+
+        <p>
+          Note that this section of the terms and conditions does not apply to OCaml-related software made available on this site, but which is initially published elsewhere (e.g., on GitHub/opam) as this is subject to separate licensing arrangements specified by the publisher at the time of upload.
+        </p>
+
+        <p>
+          You remain the owner of the intellectual property rights in any Content you provide for display on the site such as tutorial videos or documents. You allow us to use your Content on the site to the extent reasonably necessary to operate the site including to make reasonable edits to your
+          Content. You also allow each User to use your Content in accordance with these terms and conditions. You give us the right to take any legal action we think necessary if there is an infringement of the intellectual property rights in your Content.
+        </p>
+
+        <p>
+          We, our partners or other Users own the intellectual property rights in all Content (excluding your Content) used on or in connection with the site. You may view such material on your device only to facilitate your own (or your organisation’s) use of OCaml and related software. You must
+          not otherwise use such material including copying, publishing, selling or adapting it or taking extracts from it unless the owner of the IP specifically says so in writing (except to the extent specifically allowed by this agreement). You must not misrepresent the ownership or source of
+          such material, for example by changing or removing any legal notices or author attributions.
+        </p>
+
+        <p>Just to be clear - you must not collect, scrape, harvest, frame or deep-link to any Content on the site without our specific prior written consent.</p>
+
+        <h2>Your personal information</h2>
+        <p>THIS SECTION DIRECTS YOU TO OUR PRIVACY POLICY</p>
+
+        <p>You agree that we can deal with your personal information in accordance with our <a href="/privacy">Privacy Policy</a> which may change from time to time.</p>
+
+        <h2>Things we can’t control</h2>
+        <p>THIS SECTION EXPLAINS THAT WE AREN’T RESPONSIBLE FOR “ACTS OF GOD”</p>
+
+        <p>We are not liable for failure to perform or delay in performing any obligation under this agreement if the failure or delay is caused by any circumstances beyond our reasonable control including third party telecommunication failures and epidemics/pandemics.</p>
+
+        <h2>Transferring this contract to someone else</h2>
+        <p>THIS SECTION EXPLAINS HOW WE CAN PASS THIS CONTRACT TO SOMEONE ELSE BUT YOU NEED OUR PERMISSION TO DO LIKEWISE</p>
+
+        <p>
+          We may transfer all or part of our rights or duties under this agreement provided we take reasonable steps to ensure that your rights under this agreement are not prejudiced. As this agreement is personal to you, you may not transfer any of your rights or duties under it without our prior
+          written consent.
+        </p>
+
+        <h2>English law and courts</h2>
+        <p>THIS SECTION EXPLAINS WHICH COUNTRY’S LAW APPLIES AND WHERE YOU/WE HAVE TO GO TO COURT IF THERE IS A DISPUTE</p>
+
+        <p>
+          This contract is under English law and any disputes will be decided only by the courts of the United Kingdom. If you are a Consumer, you will benefit from any mandatory provisions of the law of the country in which you are resident. Nothing in these terms and conditions affects your rights
+          as a Consumer to rely on such mandatory provisions of local law.
+        </p>
+
+        <h2>General</h2>
+        <p>THIS SECTION CONTAINS SOME FINAL GENERAL INFORMATION ABOUT HOW THIS CONTRACT WORKS</p>
+
+        <p>
+          We may send all notices under this agreement by email to the most recent email address you have given us. You can send notices to our email address shown below. Headings used in this agreement are for information and not binding. If any part of this agreement is ineffective or
+          unenforceable for any reason, the rest of the agreement will still apply. If either of us overlooks any breach of this agreement by the other, it can still be actioned later. A person who is not a party to this agreement can’t enforce it unless the agreement says otherwise. The parties are
+          independent contractors and, except as otherwise specifically stated above, nothing in this agreement make any party as agent, employee or representative of the other.
+        </p>
+
+        <h2>Information about us</h2>
+        <p><b>Company name:</b> OCaml Labs Consultancy Ltd</p>
+        <p><b>Trading name:</b> “OCaml Labs”</p>
+        <p><b>Country of incorporation:</b> England and Wales</p>
+        <p><b>Registered number:</b> 10330169</p>
+        <p><b>Registered office:</b> 2 Underwood Row, London, N1 7LQ, UK.</p>
+        <p><b>Contact address:</b> 25 City Road, Cambridge, CB1 1DP, UK.</p>
+        <p><b>Contact email address:</b> ocamlorg@ocamllabs.io</p>
+        <p><b>Other contact information:</b> See our website/contact page</p>
+        <p><b>VAT number:</b> GB 259148478</p>
+      </div>
+    </div>
+  </div>
+</div>

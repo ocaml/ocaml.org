@@ -1,5 +1,19 @@
-let render () =
-Layout.render
-~turbo_full_reload:true
-~title:"???"
-~description:"???" @@ ""
+let render () = Layout.render ~turbo_full_reload:true ~title:"???" ~description:"???" @@
+<div class="intro-section-simple">
+  <div class="container-fluid">
+    <div class="text-center w-full lg:w-2/3 m-auto">
+      <h1 class="font-bold mb-6">Privacy Policy</h1>
+      <p><span class="font-bold">Version number:</span> 1.0.0</p>
+      <p><span class="font-bold">Effective date:</span> 2022-01-12</p>
+    </div>
+  </div>
+</div>
+<div class="bg-white">
+  <div class="py-10 lg:py-28">
+    <div class="container-fluid">
+      <div class="prose prose-orange lg:prose-lg mx-auto max-w-5xl">
+        
+      </div>
+    </div>
+  </div>
+</div>
