@@ -5,6 +5,7 @@ description: "We recently released a version of our open source libraries with a
 url: https://blog.janestreet.com/a-lighter-core/
 date: 2015-03-21T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
+featured:
 ---
 
 <p>We recently released a version of our open source libraries with a much

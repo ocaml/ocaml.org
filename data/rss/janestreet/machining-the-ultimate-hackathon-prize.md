@@ -6,6 +6,7 @@ description: "Jane Street is sponsoring this year\u2019s MakeMIThackathon, and w
 url: https://blog.janestreet.com/hackathon-keyboards/
 date: 2019-02-28T00:00:00-00:00
 preview_image: https://blog.janestreet.com/hackathon-keyboards/keyboard.jpg
+featured:
 ---
 
 <p>Jane Street is sponsoring this year’s <a href="https://makemit.org">MakeMIT

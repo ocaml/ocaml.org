@@ -6,6 +6,7 @@ description: "Spacetime is a new memory profiling facility for OCaml to help fin
 url: https://blog.janestreet.com/a-brief-trip-through-spacetime/
 date: 2017-01-09T00:00:00-00:00
 preview_image: https://blog.janestreet.com/a-brief-trip-through-spacetime/spacetime.jpg
+featured:
 ---
 
 <p>Spacetime is a new memory profiling facility for OCaml to help find space leaks

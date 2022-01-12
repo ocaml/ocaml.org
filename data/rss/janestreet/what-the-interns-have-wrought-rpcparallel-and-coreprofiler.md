@@ -6,6 +6,7 @@ description: "We\u2019re in the midst of intern hiring season, and so we get a l
 url: https://blog.janestreet.com/what-the-interns-have-wrought-rpc_parallel-and-core_profiler/
 date: 2014-10-16T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
+featured:
 ---
 
 <p>We’re in the midst of intern hiring season, and so we get a lot of questions

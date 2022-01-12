@@ -18,7 +18,10 @@ let extract_metadata_body s =
         | Error (`Msg err) ->
           raise
             (Exn.Decode_error
-               (Printf.sprintf "an error occured while reading yaml: %s" err)))
+               (Printf.sprintf
+                  "an error occured while reading yaml: %s\n %s"
+                  err
+                  s)))
     else
       raise (Exn.Decode_error "expected metadata at the top of the file")
 

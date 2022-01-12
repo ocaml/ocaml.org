@@ -5,6 +5,7 @@ description: "Update: I\u2019m excited to say that we\u2019ve now hired a (great
 url: https://blog.janestreet.com/looking-for-a-technical-writer/
 date: 2017-05-01T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
+featured:
 ---
 
 <p><em>Update: I’m excited to say that we’ve now hired a (great!) technical

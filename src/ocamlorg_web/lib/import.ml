@@ -26,6 +26,17 @@ module List = struct
         aux (i - 1) (y :: acc) ys
     in
     aux n [] xs |> List.rev
+
+  let skip n xs =
+    let rec aux i = function
+      | [] ->
+        []
+      | l when i = 0 ->
+        l
+      | _ :: ys ->
+        aux (i - 1) ys
+    in
+    aux n xs
 end
 
 module Unix = struct

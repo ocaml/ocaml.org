@@ -4,7 +4,8 @@ description: "Tarides is pleased to provide support for the OCaml Software\nFoun
   a non-profit foundation hosted by\nthe Inria Foundation. The OCaml\u2026"
 url: https://tarides.com/blog/2020-09-17-tarides-is-now-a-sponsor-of-the-ocaml-software-foundation
 date: 2020-09-17T00:00:00-00:00
-preview_image: https://tarides.com[object Object]
+preview_image: https://tarides.com/static/305bd3e2ab2e164e61b7781d183976fd/0d665/ocaml-software-foundation.png
+featured:
 ---
 
 <p>Tarides is pleased to provide support for the <a href="https://ocaml-sf.org">OCaml Software

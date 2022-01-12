@@ -5,6 +5,7 @@ description: "We\u2019ve been doing a bunch of work recently on improving the re
 url: https://blog.janestreet.com/building-a-lower-latency-gc/
 date: 2015-04-10T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
+featured:
 ---
 
 <p>We’ve been doing a bunch of work recently on improving the responsiveness of

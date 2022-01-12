@@ -5,6 +5,7 @@ description: "At Jane Street, our web UIs are built on top of an in-house framew
 url: https://blog.janestreet.com/a-tutorial-for-building-web-applications-with-incrdom/
 date: 2019-01-15T00:00:00-00:00
 preview_image: https://blog.janestreet.com/a-tutorial-for-building-web-applications-with-incrdom/incr_dom.png
+featured:
 ---
 
 <p>At Jane Street, our web UIs are built on top of an in-house framework

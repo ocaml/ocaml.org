@@ -6,6 +6,7 @@ description: Back when the Raspberry Pi was first released in 2012 Michael Bacar
 url: https://blog.janestreet.com/using-ocaml-to-drive-a-raspberry-pi-robot-car/
 date: 2019-08-19T00:00:00-00:00
 preview_image: https://blog.janestreet.com/using-ocaml-to-drive-a-raspberry-pi-robot-car/robot-pi.jpg
+featured:
 ---
 
 <p>Back when the Raspberry Pi was first released in 2012 Michael Bacarella wrote

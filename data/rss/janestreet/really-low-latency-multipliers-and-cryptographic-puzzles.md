@@ -5,6 +5,7 @@ description: "At Jane Street, we have some experience using FPGAs for low-latenc
 url: https://blog.janestreet.com/really-low-latency-multipliers-and-cryptographic-puzzles/
 date: 2020-06-22T00:00:00-00:00
 preview_image: https://blog.janestreet.com/really-low-latency-multipliers-and-cryptographic-puzzles/lock.png
+featured:
 ---
 
 <p>At Jane Street, we have some experience using FPGAs for low-latency

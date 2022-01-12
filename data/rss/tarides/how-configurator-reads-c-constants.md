@@ -4,6 +4,7 @@ description:
 url: https://dune.build/blog/configurator-constants/
 date: 2019-01-03T00:00:00-00:00
 preview_image:
+featured:
 ---
 
 <p>Dune comes with a library to query OS-specific information, called configurator.

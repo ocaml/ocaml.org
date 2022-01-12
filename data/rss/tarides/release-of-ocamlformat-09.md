@@ -4,7 +4,8 @@ description: "We are pleased to announce the release of OCamlFormat (available o
   opam).\nThere have been numerous changes since the last release,\nso here\u2026"
 url: https://tarides.com/blog/2019-03-29-release-of-ocamlformat-0-9
 date: 2019-03-29T00:00:00-00:00
-preview_image: https://tarides.com[object Object]
+preview_image: https://tarides.com/static/b0a6eda566f64c66aa1761737cf3ea4a/0132d/ceiling-arches.jpg
+featured:
 ---
 
 <p>We are pleased to announce the release of OCamlFormat (available on opam).

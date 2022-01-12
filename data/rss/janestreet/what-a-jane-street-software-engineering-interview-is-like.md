@@ -6,6 +6,7 @@ description: Are you thinking aboutapplying to Jane Streetfor a software enginee
 url: https://blog.janestreet.com/what-a-jane-street-dev-interview-is-like/
 date: 2017-02-28T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
+featured:
 ---
 
 <p>Are you thinking about

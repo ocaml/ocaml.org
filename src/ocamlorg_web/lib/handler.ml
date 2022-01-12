@@ -169,12 +169,38 @@ let workshop req =
   | None ->
     not_found req
 
-let blog _req =
-  (* TODO(tmattio): handle pagination *)
-  let rss = Ood.Rss.all |> List.take 10 in
+let paginate ~req ~n items =
+  let items_per_page = n in
+  let page =
+    Dream.query "p" req |> Option.map int_of_string |> Option.value ~default:1
+  in
+  let number_of_pages =
+    int_of_float
+      (Float.ceil
+         (float_of_int (List.length Ood.Rss.all) /. float_of_int items_per_page))
+  in
+  let current_items =
+    let skip = (items_per_page * page) - 1 in
+    items |> List.skip skip |> List.take items_per_page
+  in
+  page, number_of_pages, current_items
+
+let blog req =
+  let page, number_of_pages, current_items =
+    paginate
+      ~req
+      ~n:10
+      (List.filter (fun (x : Ood.Rss.t) -> not x.featured) Ood.Rss.all)
+  in
   let featured = Ood.Rss.featured |> List.take 3 in
-  let news = Ood.News.all |> List.take 15 in
-  Dream.html (Ocamlorg_frontend.blog ~featured ~rss ~news)
+  let news = Ood.News.all |> List.take 20 in
+  Dream.html
+    (Ocamlorg_frontend.blog
+       ~featured
+       ~rss:current_items
+       ~rss_page:page
+       ~rss_pages_number:number_of_pages
+       ~news)
 
 let news _req =
   let news = Ood.News.all |> List.take 15 in

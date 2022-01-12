@@ -4,7 +4,8 @@ description: "In our first article we mostly discussed\nthe API design of decomp
   and did not talk too much about the issue of\noptimizing performance\u2026"
 url: https://tarides.com/blog/2019-09-13-decompress-experiences-with-ocaml-optimization
 date: 2019-09-13T00:00:00-00:00
-preview_image: https://tarides.com[object Object]
+preview_image: https://tarides.com/static/fff1a2a9a2dbdd9ac7efd7c97ac5aa2a/96c5f/camel_sunset.jpg
+featured:
 ---
 
 <p>In our <a href="https://tarides.com/blog/2019-08-26-decompress-the-new-decompress-api.html">first article</a> we mostly discussed

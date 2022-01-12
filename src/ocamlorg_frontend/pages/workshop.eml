@@ -1,23 +1,4 @@
 let render ~(videos : (string, Ood.Watch.t) Hashtbl.t) (workshop : Ood.Workshop.t) =
-let current_date =
-  let open Unix in
-  let tm = localtime (Unix.gettimeofday ()) in
-  Format.asprintf
-    "%04d-%02d-%02d"
-    (tm.tm_year + 1900)
-    (tm.tm_mon + 1)
-    tm.tm_mday
-in
-let human_date s =
-  let open Timedesc in
-  let date = Date.of_iso8601_exn s in
-  let time = Time.make_exn ~hour:0 ~minute:0 ~second:0 () in
-  let date_time = Zoneless.make date time |> Zoneless.to_zoned_exn in
-  Format.asprintf
-    "%a"
-    (pp ~format:"{mon:0X} {mon:Xxx}" ())
-    date_time
-in
 Layout.render
 ~turbo_full_reload:true
 ~title:workshop.title
@@ -35,11 +16,11 @@ Layout.render
                 </div>
                 <% let seen_upcoming = ref false in
                 workshop.important_dates |> List.iter (fun (date : Ood.Workshop.important_date) ->
-                match date.date > current_date with
+                match date.date > Utils.current_date with
                 | true when not !seen_upcoming -> (
                     seen_upcoming := true; %>
                 <div class="flex items-center space-x-10">
-                    <div class="text-primary-600 font-semibold w-10 lg:w-20 text-right"><%s human_date date.date %></div>
+                    <div class="text-primary-600 font-semibold w-10 lg:w-20 text-right"><%s Utils.human_date date.date %></div>
                     <div class="bg-primary-600 h-5 w-5 rounded-full"></div>
                     <div class="bg-primary-600 flex-1 rounded-xl text-white  px-4 py-2 flex items-center">
                         <div>
@@ -51,7 +32,7 @@ Layout.render
                 </div>
                 <% ) | _ -> %>
                 <div class="flex items-center space-x-10">
-                    <div class="text-primary-600 font-semibold w-10 lg:w-20 text-right"><%s human_date date.date %></div>
+                    <div class="text-primary-600 font-semibold w-10 lg:w-20 text-right"><%s Utils.human_date date.date %></div>
                     <div class="bg-primary-600 h-5 w-5 rounded-full"></div>
                     <div class="bg-white flex-1 rounded-xl text-body-700 px-4 py-3 items-center flex">
                         <div><%s date.info %></div>

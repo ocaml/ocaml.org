@@ -5,6 +5,7 @@ description: Trading is a competitive business. You need great people and greatt
 url: https://blog.janestreet.com/real-world-machine-learning-part-1/
 date: 2017-08-28T00:00:00-00:00
 preview_image: https://blog.janestreet.com/real-world-machine-learning-part-1/inverse_colors.gif
+featured:
 ---
 
 <p>Trading is a competitive business. You need great people and great

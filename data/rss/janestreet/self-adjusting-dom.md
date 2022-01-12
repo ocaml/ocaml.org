@@ -5,6 +5,7 @@ description: "I\u2019ve been thinking recently about how tostructure dynamic web
 url: https://blog.janestreet.com/self-adjusting-dom/
 date: 2016-02-06T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
+featured:
 ---
 
 <p>I’ve been <a href="/incrementality-and-the-web/">thinking recently</a> about how to

@@ -6,7 +6,7 @@ description: "Since version 4.10, OCaml offers a new best-fit memory allocatoral
 url: https://blog.janestreet.com/memory-allocator-showdown/
 date: 2020-09-15T00:00:00-00:00
 preview_image: https://blog.janestreet.com/memory-allocator-showdown/MemoryAllocator.jpg
-featured: true
+featured:
 ---
 
 Since version 4.10, OCaml offers a new best-fit memory allocator

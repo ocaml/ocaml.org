@@ -4,7 +4,8 @@ description: "At Tarides, we build many tools and writing UI is usually a tediou
   task. In this post we will see how to write functional UIs in OCaml\u2026"
 url: https://tarides.com/blog/2020-09-24-building-portable-user-interfaces-with-nottui-and-lwd
 date: 2020-09-24T00:00:00-00:00
-preview_image: https://tarides.com[object Object]
+preview_image: https://tarides.com/static/06fbdcdb40efa879b814b744c5ea3fbf/fcfee/nottui-rain.png
+featured:
 ---
 
 <p>At Tarides, we build many tools and writing UI is usually a tedious task. In this post we will see how to write functional UIs in OCaml using the <code>Nottui</code> &#x26; <code>Lwd</code> libraries.</p>

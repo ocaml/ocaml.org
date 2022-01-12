@@ -4,7 +4,8 @@ description: "irmin-pack is an Irmin storage backend\nthat we developed over the
   year specifically to meet the\nTezos use-case. Tezos nodes were\u2026"
 url: https://tarides.com/blog/2020-09-01-introducing-irmin-pack
 date: 2020-09-01T00:00:00-00:00
-preview_image: https://tarides.com[object Object]
+preview_image: https://tarides.com/static/5dbd4ce5058bf6225c3a8ac98e4dda54/ed842/drawers.jpg
+featured:
 ---
 
 <p><code>irmin-pack</code> is an Irmin <a href="https://irmin.org/tutorial/backend">storage backend</a>

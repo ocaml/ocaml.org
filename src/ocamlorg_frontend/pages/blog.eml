@@ -1,4 +1,4 @@
-let render ~(featured : Ood.Rss.t list) ~(rss : Ood.Rss.t list) ~(news : Ood.News.t list) =
+let render ~(featured : Ood.Rss.t list) ~(rss : Ood.Rss.t list) ~rss_pages_number ~rss_page ~(news : Ood.News.t list) =
 Layout.render
 ~wide:true
 ~turbo_full_reload:true
@@ -36,7 +36,7 @@ Layout.render
                                     <%s Option.value ~default:"" item.description %>
                                 </a>
                                 <div class="text-body-400 flex space-x-2.5 text-sm">
-                                    <%s item.date %>
+                                    <%s Utils.human_time item.date %>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +59,7 @@ Layout.render
                                 <%s Option.value ~default:"" item.description %>
                             </a>
                             <div class="text-body-400 flex space-x-2.5 text-sm">
-                                <div><%s item.date %></div>
+                                <div><%s Utils.human_time item.date %></div>
                             </div>
                         </div>
                         <% (match item.preview_image with | None -> () | Some image -> %>
@@ -79,30 +79,18 @@ Layout.render
                                     d="M15 19l-7-7 7-7" />
                             </svg>
                         </a>
-                        <a href="#"
+                        <% (for i = 1 to (rss_pages_number - 1) do 
+                              if i = rss_page then ( %>
+                        <a href="<%s Url.blog %>?p=<%i i %>"
                             class="w-10 h-10 lg:w-14 lg:h-14  border-2 border-current rounded-lg flex items-center justify-center text-primary-600">
-                            1
+                            <%i i %>
                         </a>
-                        <a href="#"
+                        <% ) else ( %>
+                        <a href="<%s Url.blog %>?p=<%i i %>"
                             class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-body-400 hover:bg-gray-50 hover:no-underline">
-                            2
+                            <%i i %>
                         </a>
-                        <a href="#"
-                            class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-body-400 hover:bg-gray-50 hover:no-underline">
-                            3
-                        </a>
-                        <a href="#"
-                            class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-body-400 hover:bg-gray-50 hover:no-underline">
-                            4
-                        </a>
-                        <a href="#"
-                            class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-body-400 hover:bg-gray-50 hover:no-underline">
-                            5
-                        </a>
-                        <a href="#"
-                            class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-body-400 hover:bg-gray-50 hover:no-underline">
-                            6
-                        </a>
+                        <% ) done); %>
                         <a href="#"
                             class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-body-400 hover:bg-gray-50 hover:no-underline">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -136,7 +124,7 @@ Layout.render
                             <%s item.description %>
                         </a>
                         <div class="text-body-400 flex space-x-2.5 text-sm">
-                            <%s item.date %>
+                            <%s Utils.human_date item.date %>
                         </div>
                     </div>
                 </div>

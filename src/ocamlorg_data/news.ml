@@ -10,102 +10,6 @@ type t =
   
 let all = 
 [
-  { title = {js|OCaml Weekly News - December 21, 2021|js}
-  ; slug = {js|cwn-2021-12-21|js}
-  ; description = {js|Summary of the messages sent to the OCaml forums and mailing list compiled by Alan Schmitt.|js}
-  ; date = {js|2021-12-21|js}
-  ; tags = 
- [{js|cwn|js}]
-  ; body_html = {js|<div id="content">
-<h1 class="title">OCaml Weekly News</h1>
-<p>Hello</p>
-<p>Here is the latest OCaml Weekly News, for the week of December 14 to 21, 2021.</p>
-<div id="table-of-contents">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents">
-<ul>
-<li>
-<a href="#1">Are you teaching using the Learn-OCaml platform?</a>
-</li>
-<li>
-<a href="#2">A SOCKS implementation for OCaml</a>
-</li>
-<li>
-<a href="#org05b3f87">Old CWN</a>
-</li>
-</ul>
-</div>
-</div>
-<div id="outline-container-1" class="outline-2">
-<h2 id="1">Are you teaching using the Learn-OCaml platform?</h2>
-<div class="outline-text-2" id="text-1">
-<p>Archive: <a href="https://sympa.inria.fr/sympa/arc/caml-list/2021-12/msg00007.html">https://sympa.inria.fr/sympa/arc/caml-list/2021-12/msg00007.html</a></p>
-</div>
-<div id="outline-container-org3bd0e50" class="outline-3">
-<h3 id="org3bd0e50">Erik Martin-Dorel announced</h3>
-<div class="outline-text-3" id="text-org3bd0e50">
-<p>
-The OCaml Software Foundation is developing the teaching platform Learn-OCaml that provides auto-graded exercises for OCaml, and was initially authored by OCamlPro for the OCaml MOOC:
-<a href="https://ocaml-sf.org/learn-ocaml/">https://ocaml-sf.org/learn-ocaml/</a>
-</p>
-<p>
-The platform is free software and easy to deploy; this is great, but as a result we keep learning of users/deployments that we had no idea of. We would be interested in having a better view of our user-base. If you use Learn-OCaml as a teacher, could you answer this email (To:
-e.mdorel@gmail.com) and let us know?
-</p>
-<p>Ideally we would like to know:</p>
-<ul class="org-ul">
-<li>Where are you using Learn-OCaml? → in which university (in a specific course?), or in which company, online community or … ?</li>
-<li>How many students/learners use your deployment in a year?</li>
-</ul>
-<p>Also FYI:</p>
-<ul class="org-ul">
-<li>For an example of Learn-OCaml instance, see <a href="https://discuss.ocaml.org/t/interesting-ocaml-exercises-from-francois-pottier-available-online/7050">https://discuss.ocaml.org/t/interesting-ocaml-exercises-from-francois-pottier-available-online/7050</a></li>
-<li>Last October we had a 0.13.0 release, full of new features: <a href="https://discuss.ocaml.org/t/ann-release-of-ocaml-sf-learn-ocaml-0-13-0/8577">https://discuss.ocaml.org/t/ann-release-of-ocaml-sf-learn-ocaml-0-13-0/8577</a></li>
-<li>For any question related to Learn-OCaml, feel free to create a discussion topic on <a href="https://discuss.ocaml.org/">https://discuss.ocaml.org/</a> , category Community, tag <i>learn-ocaml</i>.</li>
-<li>And if need be, opening an issue in <a href="https://github.com/ocaml-sf/learn-ocaml/issues">https://github.com/ocaml-sf/learn-ocaml/issues</a> if of course warmly welcome as well.</li>
-</ul>
-</div>
-</div>
-</div>
-<div id="outline-container-2" class="outline-2">
-<h2 id="2">A SOCKS implementation for OCaml</h2>
-<div class="outline-text-2" id="text-2">
-<p>Archive: <a href="https://discuss.ocaml.org/t/a-socks-implementation-for-ocaml/9041/1">https://discuss.ocaml.org/t/a-socks-implementation-for-ocaml/9041/1</a></p>
-</div>
-<div id="outline-container-orge1e605b" class="outline-3">
-<h3 id="orge1e605b">Renato Alencar announced</h3>
-<div class="outline-text-3" id="text-orge1e605b">
-<p>I have been working on a SOCKS implementation for OCaml and specially for MirageOS. It's not really complete or stable yet (not even published), it only has a couple of proof of concepts on the examples directory and it doesn't integrate with the well known libraries of the ecosystem.</p>
-<p>
-I would like to ask for feedback, and some thoughts about how could we have that in Conduit and Cohttp for example, so It'd be just plugged in into those libraries without having to directly depending on it. I plan to implement that for those libraries and have it submitted upstream, but
-not without some clear thoughts about how to make a clear interface for that.
-</p>
-<p>Besides being sloppy, I have a few issues described on GitHub, and it should be addressed on the next few days. Anyone is welcome to discuss those issues as some of them are still foggy for me, and having some other views on that would be great.</p>
-<p>
-<a href="https://github.com/renatoalencar/ocaml-socks-client">https://github.com/renatoalencar/ocaml-socks-client</a>
-</p>
-</div>
-</div>
-</div>
-<div id="outline-container-org05b3f87" class="outline-2">
-<h2 id="org05b3f87">Old CWN</h2>
-<div class="outline-text-2" id="text-org05b3f87">
-<p>
-If you happen to miss a CWN, you can <a href="mailto:alan.schmitt@polytechnique.org">send me a message</a> and I'll mail it to you, or go take a look at <a href="https://alan.petitepomme.net/cwn/">the archive</a> or the
-<a href="https://alan.petitepomme.net/cwn/cwn.rss">RSS feed of the archives</a>.
-</p>
-<p>If you also wish to receive it every week by mail, you may subscribe <a href="http://lists.idyll.org/listinfo/caml-news-weekly/">online</a>.</p>
-<div class="authorname" id="org34b0aea">
-<p>
-<a href="https://alan.petitepomme.net/">Alan Schmitt</a>
-</p>
-</div>
-</div>
-</div>
-</div>
-|js}
-  };
- 
   { title = {js|opam 2.1.2 release|js}
   ; slug = {js|opam-2-1-2|js}
   ; description = {js|Release of opam 2.1.2|js}
@@ -137,6 +41,92 @@ If you happen to miss a CWN, you can <a href="mailto:alan.schmitt@polytechnique.
 </li>
 <li>
 <p>From source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.1.2#compiling-this-repo">README</a>.</p>
+</li>
+</ol>
+<p>We hope you enjoy this new minor version, and remain open to <a href="https://github.com/ocaml/opam/issues">bug reports</a> and <a href="https://github.com/ocaml/opam/issues">suggestions</a>.</p>
+|js}
+  };
+ 
+  { title = {js|opam releases: 2.0.10, 2.1.1, & opam depext 1.2!|js}
+  ; slug = {js|opam-2-0-10-2-1-1-depext|js}
+  ; description = {js|???|js}
+  ; date = {js|2021-11-15|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p><em>Feedback on this post is welcomed on <a href="https://discuss.ocaml.org/t/ann-opam-2-1-1-opam-2-0-10-opam-depext-1-2/8872">Discuss</a>!</em></p>
+<p>We are pleased to announce several minor releases: <a href="https://github.com/ocaml/opam/releases/tag/2.0.10">opam 2.0.10</a>, <a href="https://github.com/ocaml/opam/releases/tag/2.1.1">opam 2.1.1</a>, and <a href="https://github.com/ocaml-opam/opam-depext/releases/tag/1.2">opam-depext 1.2</a>.</p>
+<p>The opam releases consist of backported fixes, while <code>opam-depext</code> has been adapted to be compatible with opam 2.1, to allow for workflows which need to maintain compatibility with opam 2.0. With opam 2.1.1, if you export <code>OPAMCLI=2.0</code> into your environment then workflows expecting opam 2.0 should now behave even more equivalently.</p>
+<h2>opam-depext 1.2</h2>
+<p>Previous versions of opam-depext were made unavailable when using opam 2.1, since depext handling is done directly by opam 2.1 and later. This is still the recommended way, but this left workflows which wanted to maintain compatibility with opam 2.0 without a single command to install depexts. You can now run <code>OPAMCLI=2.0 opam depext -y package1 package2</code> and expect this to work correctly with any version of opam 2. If you don't specify <code>OPAMCLI=2.0</code> then the plugin will remind you that you should be using the integrated depext support! Calling <code>opam depext</code> this way with opam 2.1 and later still exposes the same double-solving problem that opam 2.0 has, but if for some reason the solver returns a different solution at <code>opam install</code> then the correct depexts would be installed.</p>
+<p>For opam 2.0, some useful depext handling changes are back-ported from opam 2.1.x to the plugin:
+With opam 2.0:</p>
+<ul>
+<li>yum-based distributions: force not to upgrade (<a href="https://github.com/ocaml-opam/opam-depext/pull/137">#137</a>)
+</li>
+<li>Archlinux: always upgrade all the installed packages when installing a new package (<a href="https://github.com/ocaml-opam/opam-depext/pull/138">#138</a>)
+</li>
+</ul>
+<h2><a href="https://github.com/ocaml/opam/blob/2.1.1/CHANGES">opam 2.1.1</a></h2>
+<p>opam 2.1.1 includes both the fixes in opam 2.0.10.</p>
+<p>General fixes:</p>
+<ul>
+<li>Restore support for switch creation with &quot;positional&quot; package arguments and <code>--packages</code> option for CLI version 2.0, e.g. <code>OPAMCLI=2.0 opam switch create . 4.12.0+options --packages=ocaml-option-flambda</code>. In opam 2.1 and later, this syntax remains an error (<a href="https://github.com/ocaml/opam/issues/4843">#4843</a>)
+</li>
+<li>Fix <code>opam switch set-invariant</code>: default repositories were loaded instead of the switch's repositories selection (<a href="https://github.com/ocaml/opam/pull/4869">#4869</a>)
+</li>
+<li>Run the sandbox check in a temporary directory (<a href="https://github.com/ocaml/opam/issues/4783">#4783</a>)
+</li>
+</ul>
+<p>Integrated depext support has a few updates:</p>
+<ul>
+<li>Homebrew now has support for casks and full-names (<a href="https://github.com/ocaml/opam/issues/4800">#4800</a>)
+</li>
+<li>Archlinux now handles virtual package detection (<a href="https://github.com/ocaml/opam/pull/4833">#4833</a>, partially addressing <a href="https://github.com/ocaml/opam/issues/4759">#4759</a>)
+</li>
+<li>Disable the detection of available packages on RHEL-based distributions.
+This fixes an issue on RHEL-based distributions where yum list used to detect
+available and installed packages would wait for user input without showing
+any output and/or fail in some cases (<a href="https://github.com/ocaml/opam/pull/4791">#4791</a>)
+</li>
+</ul>
+<p>And finally two regressions have been dealt with:</p>
+<ul>
+<li>Regression: avoid calling <code>Unix.environment</code> on load (as a toplevel expression). This regression affected opam's libraries, rather than the binary itself (<a href="https://github.com/ocaml/opam/pull/4789">#4789</a>)
+</li>
+<li>Regression: handle empty environment variable updates (<a href="https://github.com/ocaml/opam/pull/4840">#4840</a>)
+</li>
+</ul>
+<p>A few issues with the compilation of opam from sources have been fixed as well (e.g. mingw-w64 with g++ 11.2 now works)</p>
+<h2><a href="https://github.com/ocaml/opam/blob/2.0.10/CHANGES">opam 2.0.10</a></h2>
+<p>Two subtle fixes are included in opam 2.0.10. These actually affect the <code>ocaml</code> package. Both of these are Heisenbugs - investigating what's going wrong on your system may well have fixed them, they were both found on Windows!</p>
+<p><code>$(opam env --revert)</code> is the reverse of the more familiar <code>$(opam env)</code> but it's effectively called by opam whenever you change switch. It has been wrong since 2.0.0 for the case where several values are added to an environment variable in one <code>setenv</code> update. For example, if a package included a <code>setenv</code> field of the form <code>[PATH += &quot;dir1:dir2&quot;]</code>, then this would not be reverted, but <code>[[PATH += &quot;dir1&quot;] [PATH += &quot;dir2&quot;]]</code> would be reverted. As it happens, this bug affects the <code>ocaml</code> package, but it was masked by another <code>setenv</code> update in the same package.</p>
+<p>The other fix is also to do with <code>setenv</code>. It can be seen immediately after creating a switch but before any additional packages are installed, as this <code>Dockerfile</code> shows:</p>
+<pre><code>FROM ocaml/opam@sha256:244b948376767fe91e2cd5caca3b422b2f8d332f105ef2c8e14fcc9a20b66e25
+RUN sudo apt-get install -y ocaml-nox
+RUN opam --version
+RUN opam switch create show-issue ocaml-system
+RUN eval $(opam env) ; echo $CAML_LD_LIBRARY_PATH
+RUN opam install conf-which
+RUN eval $(opam env) ; echo $CAML_LD_LIBRARY_PATH
+</code></pre>
+<p>Immediately after switch creation, <code>$CAML_LD_LIBRARY_PATH</code> was set to <code>/home/opam/.opam/show-issue/lib/stublibs:</code>, rather than <code>/home/opam/.opam/show-issue/lib/stublibs:/usr/local/lib/ocaml/4.08.1/stublibs:/usr/lib/ocaml/stublibs</code></p>
+<hr />
+<p>Opam installation instructions (unchanged):</p>
+<ol>
+<li>
+<p>From binaries: run</p>
+<pre><code>bash -c &quot;sh &lt;(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh) --version 2.1.1&quot;
+</code></pre>
+<p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.1.1">the Github &quot;Releases&quot; page</a> to your PATH. In this case, don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script.</p>
+</li>
+<li>
+<p>From source, using opam:</p>
+<pre><code>opam update; opam install opam-devel
+</code></pre>
+<p>(then copy the opam binary to your PATH as explained, and don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update your sandbox script)</p>
+</li>
+<li>
+<p>From source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.1.1#compiling-this-repo">README</a>.</p>
 </li>
 </ol>
 <p>We hope you enjoy this new minor version, and remain open to <a href="https://github.com/ocaml/opam/issues">bug reports</a> and <a href="https://github.com/ocaml/opam/issues">suggestions</a>.</p>
@@ -2581,6 +2571,324 @@ when setting up the local <code>_opam</code> directory for Sandmark builds.</p>
 |js}
   };
  
+  { title = {js|opam 2.1.0 is released!|js}
+  ; slug = {js|opam-2-1-0|js}
+  ; description = {js|???|js}
+  ; date = {js|2021-08-04|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p><em>Feedback on this post is welcomed on <a href="https://discuss.ocaml.org/t/ann-opam-2-1-0/8255">Discuss</a>!</em></p>
+<p>We are happy to announce the release of opam 2.1.0.</p>
+<p>Many new features made it in (see the <a href="https://github.com/ocaml/opam/blob/2.1.0/CHANGES">pre-release
+changelogs</a> or <a href="https://github.com/ocaml/opam/releases">release
+notes</a> for the details),
+but here are a few highlights.</p>
+<h2>What's new in opam 2.1?</h2>
+<ul>
+<li>Integration of system dependencies (formerly the opam-depext plugin),
+increasing their reliability as it integrates the solving step
+</li>
+<li>Creation of lock files for reproducible installations (formerly the opam-lock
+plugin)
+</li>
+<li>Switch invariants, replacing the &quot;base packages&quot; in opam 2.0 and allowing for
+easier compiler upgrades
+</li>
+<li>Improved options configuration (see the new <code>option</code> and expanded <code>var</code> sub-commands)
+</li>
+<li>CLI versioning, allowing cleaner deprecations for opam now and also
+improvements to semantics in future without breaking backwards-compatibility
+</li>
+<li>opam root readability by newer and older versions, even if the format changed
+</li>
+<li>Performance improvements to opam-update, conflict messages, and many other
+areas
+</li>
+</ul>
+<h3>Seamless integration of System dependencies handling (a.k.a. &quot;depexts&quot;)</h3>
+<p>opam has long included the ability to install system dependencies automatically
+via the <a href="https://github.com/ocaml-opam/opam-depext">depext plugin</a>. This plugin
+has been promoted to a native feature of opam 2.1.0 onwards, giving the
+following benefits:</p>
+<ul>
+<li>You no longer have to remember to run <code>opam depext</code>, opam always checks
+depexts (there are options to disable this or automate it for CI use).
+Installation of an opam package in a CI system is now as easy as <code>opam install .</code>, without having to do the dance of <code>opam pin add -n/depext/install</code>. Just
+one command now for the common case!
+</li>
+<li>The solver is only called once, which both saves time and also stabilises the
+behaviour of opam in cases where the solver result is not stable. It was
+possible to get one package solution for the <code>opam depext</code> stage and a
+different solution for the <code>opam install</code> stage, resulting in some depexts
+missing.
+</li>
+<li>opam now has full knowledge of depexts, which means that packages can be
+automatically selected based on whether a system package is already installed.
+For example, if you have <em>neither</em> MariaDB nor MySQL dev libraries installed,
+<code>opam install mysql</code> will offer to install <code>conf-mysql</code> and <code>mysql</code>, but if you
+have the MariaDB dev libraries installed, opam will offer to install
+<code>conf-mariadb</code> and <code>mysql</code>.
+</li>
+</ul>
+<p><em>Hint: You can set <code>OPAMCONFIRMLEVEL=unsafe-yes</code> or
+<code>--confirm-level=unsafe-yes</code> to launch non interactive system package commands.</em></p>
+<h3>opam lock files and reproducibility</h3>
+<p>When opam was first released, it had the mission of gathering together
+scattered OCaml source code to build a <a href="https://github.com/ocaml/opam-repository">community
+repository</a>. As time marches on, the
+size of the opam repository has grown tremendously, to over 3000 unique
+packages with over 19500 unique versions. opam looks at all these packages and
+is designed to solve for the best constraints for a given package, so that your
+project can keep up with releases of your dependencies.</p>
+<p>While this works well for libraries, we need a different strategy for projects
+that need to test and ship using a fixed set of dependencies. To satisfy this
+use-case, opam 2.0.0 shipped with support for <em>using</em> <code>project.opam.locked</code>
+files. These are normal opam files but with exact versions of dependencies. The
+lock file can be used as simply as <code>opam install . --locked</code> to have a
+reproducible package installation.</p>
+<p>With opam 2.1.0, the creation of lock files is also now integrated into the
+client:</p>
+<ul>
+<li><code>opam lock</code> will create a <code>.locked</code> file for your current switch and project,
+that you can check into the repository.
+</li>
+<li><code>opam switch create . --locked</code> can be used by users to reproduce your
+dependencies in a fresh switch.
+</li>
+</ul>
+<p>This lets a project simultaneously keep up with the latest dependencies
+(without lock files) while providing a stricter set for projects that need it
+(with lock files).</p>
+<p><em>Hint: You can export the full configuration of a switch with <code>opam switch export</code> new options, <code>--full</code> to have all packages metadata included, and
+<code>--freeze</code> to freeze all VCS to their current commit.</em></p>
+<h3>Switch invariants</h3>
+<p>In opam 2.0, when a switch is created the packages selected are put into the
+“base” of the switch. These packages are not normally considered for upgrade,
+in order to ease pressure on opam's solver. This was a much bigger concern
+early on in opam 2.0's development, but is less of a problem with the default
+mccs solver.</p>
+<p>However, it's a problem for system compilers. opam would detect that your
+system compiler version had changed, but be unable to upgrade the ocaml-system
+package unless you went through a slightly convoluted process with
+<code>--unlock-base</code>.</p>
+<p>In opam 2.1, base packages have been replaced by switch invariants. The switch
+invariant is a package formula which must be satisfied on every upgrade and
+install. All existing switches' base packages could just be expressed as
+<code>package1 &amp; package2 &amp; package3</code> etc. but opam 2.1 recognises many existing
+patterns and simplifies them, so in most cases the invariant will be
+<code>&quot;ocaml-base-compiler&quot; {= &quot;4.11.1&quot;}</code>, etc. This means that <code>opam switch create my_switch ocaml-system</code> now creates a <em>switch invariant</em> of <code>&quot;ocaml-system&quot;</code>
+rather than a specific version of the <code>ocaml-system</code> package. If your system
+OCaml package is updated, <code>opam upgrade</code> will seamlessly switch to the new
+package.</p>
+<p>This also allows you to have switches which automatically install new point
+releases of OCaml. For example:</p>
+<pre><code>opam switch create ocaml-4.11 --formula='&quot;ocaml-base-compiler&quot; {&gt;= &quot;4.11.0&quot; &amp; &lt; &quot;4.12.0~&quot;}' --repos=old=git+https://github.com/ocaml/opam-repository#a11299d81591
+opam install utop
+</code></pre>
+<p>Creates a switch with OCaml 4.11.0 (the <code>--repos=</code> was just to select a version
+of opam-repository from before 4.11.1 was released). Now issue:</p>
+<pre><code>opam repo set-url old git+https://github.com/ocaml/opam-repository
+opam upgrade
+</code></pre>
+<p>and opam 2.1 will automatically offer to upgrade OCaml 4.11.1 along with a
+rebuild of the switch. There's not yet a clean CLI for specifying the formula,
+but we intend to iterate further on this with future opam releases so that
+there is an easier way of saying “install OCaml 4.11.x”.</p>
+<p><em>Hint: You can set up a default invariant that will apply for all new switches,
+via a specific <code>opamrc</code>. The default one is <code>ocaml &gt;= 4.05.0</code></em></p>
+<h3>Configuring opam from the command-line</h3>
+<p>Configuring opam is not a simple task: you need to use an <code>opamrc</code> at init
+stage, or hack global/switch config file, or use <code>opam config var</code> for
+additional variables. To ease that step, and permit a more consistent opam
+config tweaking, a new command was added : <code>opam option</code>.</p>
+<!--
+The new `opam option` command allows to configure several options,
+without requiring manual edition of the configuration files.
+-->
+<p>For example:</p>
+<ul>
+<li><code>opam option download-jobs</code> gives the global <code>download-jobs</code> value (as it
+exists only in global configuration)
+</li>
+<li><code>opam option jobs=6 --global</code> will set the number of parallel build
+jobs opam is allowed to run (along with the associated <code>jobs</code> variable)
+</li>
+<li><code>opam option depext-run-commands=false</code> disables the use of <code>sudo</code> for
+handling system dependencies; it will be replaced by a prompt to run the
+installation commands
+</li>
+<li><code>opam option depext-bypass=m4 --global</code> bypass <code>m4</code> system package check
+globally, while <code>opam option depext-bypass=m4 --switch myswitch</code> will only
+bypass it in the selected switch
+</li>
+</ul>
+<p>The command <code>opam var</code> is extended with the same format, acting on switch and
+global variables.</p>
+<p><em>Hint: to revert your changes use <code>opam option &lt;field&gt;=</code>, it will take its
+default value.</em></p>
+<h3>CLI Versioning</h3>
+<p>A new <code>--cli</code> switch was added to the first beta release, but it's only now
+that it's being widely used. opam is a complex enough system that sometimes bug
+fixes need to change the semantics of some commands. For example:</p>
+<ul>
+<li><code>opam show --file</code> needed to change behaviour
+</li>
+<li>The addition of new controls for setting global variables means that the
+<code>opam config</code> was becoming cluttered and some things want to move to <code>opam var</code>
+</li>
+<li><code>opam switch install 4.11.1</code> still works in opam 2.0, but it's really an OPAM
+1.2.2 syntax.
+</li>
+</ul>
+<p>Changing the CLI is exceptionally painful since it can break scripts and tools
+which themselves need to drive <code>opam</code>. CLI versioning is our attempt to solve
+this. The feature is inspired by the <code>(lang dune ...)</code> stanza in <code>dune-project</code>
+files which has allowed the Dune project to rename variables and alter
+semantics without requiring every single package using Dune to upgrade their
+<code>dune</code> files on each release.</p>
+<p>Now you can specify which version of opam you expected the command to be run
+against. In day-to-day use of opam at the terminal, you wouldn't specify it,
+and you'll get the latest version of the CLI. For example: <code>opam var --global</code>
+is the same as <code>opam var --cli=2.1 --global</code>. However, if you issue <code>opam var --cli=2.0 --global</code>, you will told that <code>--global</code> was added in 2.1 and so is
+not available to you. You can see similar things with the renaming of <code>opam upgrade --unlock-base</code> to <code>opam upgrade --update-invariant</code>.</p>
+<p>The intention is that <code>--cli</code> should be used in scripts, user guides (e.g. blog
+posts), and in software which calls opam. The only decision you have to take is
+the <em>oldest</em> version of opam which you need to support. If your script is using
+a new opam 2.1 feature (for example <code>opam switch create --formula=</code>) then you
+simply don't support opam 2.0. If you need to support opam 2.0, then you can't
+use <code>--formula</code> and should use <code>--packages</code> instead. opam 2.0 does not have the
+<code>--cli</code> option, so for opam 2.0 instead of <code>--cli=2.0</code> you should set the
+environment variable <code>OPAMCLI</code> to <code>2.0</code>. As with <em>all</em> opam command line
+switches, <code>OPAMCLI</code> is simply the equivalent of <code>--cli</code> which opam 2.1 will
+pick-up but opam 2.0 will quietly ignore (and, as with other options, the
+command line takes precedence over the environment).</p>
+<p>Note that opam 2.1 sets <code>OPAMCLI=2.0</code> when building packages, so on the rare
+instances where you need to use the <code>opam</code> command in a <em>package</em> <code>build:</code>
+command (or in your build system), you <em>must</em> specify <code>--cli=2.1</code> if you're
+using new features.</p>
+<p>Since 2.1.0~rc2, CLI versioning applies to opam environment variables. The
+previous behavior was to ignore unknown or wrongly set environment variable,
+while now you will have a warning to let you know that the environment variable
+won't be handled by this version of opam.</p>
+<p>To ensure not breaking compatibility of some widely used deprecated options,
+a <em>default</em> CLI is introduced: when no CLI is specified, those deprecated
+options are accepted. It concerns <code>opam exec</code> and <code>opam var</code> subcommands.</p>
+<p>There's even more detail on this feature <a href="https://github.com/ocaml/opam/wiki/Spec-for-opam-CLI-versioning">in our
+wiki</a>. We're
+hoping that this feature will make it much easier in future releases for opam
+to make required changes and improvements to the CLI without breaking existing
+set-ups and tools.</p>
+<p><em>Note: For opam libraries users, since 2.1 environment variable are no more
+loaded by the libraries, only by opam client. You need to load them explicitly.</em></p>
+<h3>opam root portability</h3>
+<p>opam root format changes during opam life-cycle, new field are added or
+removed, new files are added ; an older opam version sometimes can no longer
+read an upgraded or newly created opam root. opam root format has been updated
+to allow new versions of opam to indicate that the root may still be read by
+older versions of the opam libraries. A plugin compiled against the 2.0.9 opam
+libraries will therefore be able to read information about an opam 2.1 root
+(plugins and tools compiled against 2.0.8 are unable to load opam 2.1.0 roots).
+It is a <em>read-only</em> best effort access, any attempt to modify the opam root
+fails.</p>
+<p><em>Hint: for opam libraries users, you can safely load states with
+<a href="https://github.com/ocaml/opam/blob/master/src/state/opamStateConfig.mli"><code>OpamStateConfig</code></a>
+load functions.</em></p>
+<!--
+_ change to the opam root format which allows new versions of opam to indicate
+that the root may still be read by older versions of the opam libraries. A
+plugin compiled against the 2.0.9 opam libraries will therefore be able to read
+information about an opam 2.1 root (plugins and tools compiled against 2.0.8
+are unable to load opam 2.1.0 roots). _
+-->
+<p><strong>Tremendous thanks to all involved people, who've developed, tested &amp; retested,
+helped with issue reports, comments, feedback...</strong></p>
+<h1>Try it!</h1>
+<p>In case you plan a possible rollback, you may want to first backup your
+<code>~/.opam</code> directory.</p>
+<p>The upgrade instructions are unchanged:</p>
+<ol>
+<li>
+<p>Either from binaries: run</p>
+<pre><code>bash -c &quot;sh &lt;(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh) --version 2.1.0&quot;
+</code></pre>
+<p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.1.0">the Github &quot;Releases&quot; page</a> to your PATH.</p>
+</li>
+<li>
+<p>Or from source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.1.0#compiling-this-repo">README</a>.</p>
+</li>
+</ol>
+<p>You should then run:</p>
+<pre><code>opam init --reinit -ni
+</code></pre>
+|js}
+  };
+ 
+  { title = {js|opam 2.0.9 release|js}
+  ; slug = {js|opam-2-0-9|js}
+  ; description = {js|???|js}
+  ; date = {js|2021-08-03|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p><em>Feedback on this post is welcomed on <a href="https://discuss.ocaml.org/t/ann-opam-2-1-0/8255">Discuss</a>!</em></p>
+<p>We are pleased to announce the minor release of <a href="https://github.com/ocaml/opam/releases/tag/2.0.9">opam 2.0.9</a>.</p>
+<p>This new version contains some <a href="https://github.com/ocaml/opam/pull/4547">back-ported</a> fixes.</p>
+<h2>New features</h2>
+<ul>
+<li>Back-ported ability to load upgraded roots read-only; allows applications compiled with opam-state 2.0.9 to load a root which has been upgraded to opam 2.1 [<a href="https://github.com/ocaml/opam/issues/4636">#4636</a>]
+</li>
+<li>macOS sandbox now supports <code>OPAM_USER_PATH_RO</code> for adding a custom read-only directory to the sandbox [<a href="https://github.com/ocaml/opam/issues/4589">#4589</a>, <a href="https://github.com/ocaml/opam/issues/4609">#4609</a>]
+</li>
+<li><code>OPAMROOT</code> and <code>OPAMSWITCH</code> now reflect the <code>--root</code> and <code>--switch</code> parameters in the package build [<a href="https://github.com/ocaml/opam/issues/4668">#4668</a>]
+</li>
+<li>When built with opam-file-format 2.1.3+, opam-format 2.0.x displays better errors for newer opam files [<a href="https://github.com/ocaml/opam/issues/4394">#4394</a>]
+</li>
+</ul>
+<h2>Bug fixes</h2>
+<ul>
+<li>Linux sandbox now mounts <em>host</em> <code>$TMPDIR</code> read-only, then sets the <em>sandbox</em> <code>$TMPDIR</code> to a new separate tmpfs. <strong>Hardcoded <code>/tmp</code> access no longer works if <code>TMPDIR</code> points to another directory</strong> [<a href="https://github.com/ocaml/opam/issues/4589">#4589</a>]
+</li>
+<li>Stop clobbering <code>DUNE_CACHE</code> in the sandbox script [<a href="https://github.com/ocaml/opam/issues/4535">#4535</a>, fixing <a href="https://github.com/ocaml/dune/issues/4166">ocaml/dune#4166</a>]
+</li>
+<li>Ctrl-C now correctly terminates builds with bubblewrap; sandbox now requires bubblewrap 0.1.8 or later [<a href="https://github.com/ocaml/opam/issues/4400">#4400</a>]
+</li>
+<li>Linux sandbox script no longer makes <code>PWD</code> read-write on remove actions [<a href="https://github.com/ocaml/opam/issues/4589">#4589</a>]
+</li>
+<li>Lint W59 and E60 no longer trigger for packages flagged <code>conf</code> [<a href="https://github.com/ocaml/opam/issues/4549">#4549</a>]
+</li>
+<li>Reduce the length of temporary file names for pin caching to ease pressure on Windows [<a href="https://github.com/ocaml/opam/issues/4590">#4590</a>]
+</li>
+<li>Security: correct quoting of arguments when removing switches [<a href="https://github.com/ocaml/opam/issues/4707">#4707</a>]
+</li>
+<li>Stop advertising the removed option <code>--compiler</code> when creating local switches [<a href="https://github.com/ocaml/opam/issues/4718">#4718</a>]
+</li>
+<li>Pinning no longer fails if the archive's opam file is malformed [<a href="https://github.com/ocaml/opam/issues/4580">#4580</a>]
+</li>
+<li>Fish: stop using deprecated <code>^</code> syntax to fix support for Fish 3.3.0+ [<a href="https://github.com/ocaml/opam/issues/4736">#4736</a>]
+</li>
+</ul>
+<hr />
+<p>Installation instructions (unchanged):</p>
+<ol>
+<li>
+<p>From binaries: run</p>
+<pre><code>bash -c &quot;sh &lt;(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh) --version 2.0.9&quot;
+</code></pre>
+<p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.0.9">the Github &quot;Releases&quot; page</a> to your PATH. In this case, don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script.</p>
+</li>
+<li>
+<p>From source, using opam:</p>
+<pre><code>opam update; opam install opam-devel
+</code></pre>
+<p>(then copy the opam binary to your PATH as explained, and don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update your sandbox script)</p>
+</li>
+<li>
+<p>From source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.0.9#compiling-this-repo">README</a>.</p>
+</li>
+</ol>
+<p>We hope you enjoy this new minor version, and remain open to <a href="https://github.com/ocaml/opam/issues">bug reports</a> and <a href="https://github.com/ocaml/opam/issues">suggestions</a>.</p>
+|js}
+  };
+ 
   { title = {js|OCaml Multicore - August 2021|js}
   ; slug = {js|multicore-2021-08|js}
   ; description = {js|Monthly update from the OCaml Multicore team.|js}
@@ -3327,6 +3635,41 @@ upstream OCaml.</p>
 <li>STW: Stop The World
 </li>
 </ul>
+|js}
+  };
+ 
+  { title = {js|opam 2.1.0~rc2 released|js}
+  ; slug = {js|opam-2-1-0-rc2|js}
+  ; description = {js|???|js}
+  ; date = {js|2021-06-23|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p><em>Feedback on this post is welcomed on <a href="https://discuss.ocaml.org/t/ann-opam-2-1-0-rc2/8042">Discuss</a>!</em></p>
+<p>The opam team has great pleasure in announcing opam 2.1.0~rc2!</p>
+<p>The focus since beta4 has been preparing for a world with more than one released version of opam (i.e. 2.0.x and 2.1.x). The release candidate extends CLI versioning further and, under the hood, includes a big change to the opam root format which allows new versions of opam to indicate that the root may still be read by older versions of the opam libraries. A plugin compiled against the 2.0.9 opam libraries will therefore be able to read information about an opam 2.1 root (plugins and tools compiled against 2.0.8 are unable to load opam 2.1.0 roots).</p>
+<p>Please do take this release candidate for a spin! It is available in the Docker images at ocaml/opam on <a href="https://hub.docker.com/r/ocaml/opam/tags">Docker Hub</a> as the opam-2.1 command (or you can <code>sudo ln -f /usr/bin/opam-2.1 /usr/bin/opam</code> in your <code>Dockerfile</code> to switch to it permanently). The release candidate can also be tested via our installation script (see the <a href="https://github.com/ocaml/opam/wiki/How-to-test-an-opam-feature#from-a-tagged-release-including-pre-releases">wiki</a> for more information).</p>
+<p>Thank you to anyone who noticed the unannounced first release candidate and tried it out. Between tagging and what would have been announcing it, we discovered an issue with upgrading local switches from earlier alpha/beta releases, and so fixed that for this second release candidate.</p>
+<p>Assuming no showstoppers, we plan to release opam 2.1.0 next week. The improvements made in 2.1.0 will allow for a much faster release cycle, and we look forward to posting about the 2.2.0 plans soon!</p>
+<h1>Try it!</h1>
+<p>In case you plan a possible rollback, you may want to first backup your
+<code>~/.opam</code> directory.</p>
+<p>The upgrade instructions are unchanged:</p>
+<ol>
+<li>
+<p>Either from binaries: run</p>
+<pre><code>bash -c &quot;sh &lt;(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh) --version 2.1.0~rc2&quot;
+</code></pre>
+<p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.1.0-rc2">the Github &quot;Releases&quot; page</a> to your PATH.</p>
+</li>
+<li>
+<p>Or from source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.1.0-rc2#compiling-this-repo">README</a>.</p>
+</li>
+</ol>
+<p>You should then run:</p>
+<pre><code>opam init --reinit -ni
+</code></pre>
+<p>We hope there won't be any, but please report any issues to <a href="https://github.com/ocaml/opam/issues">the bug-tracker</a>.
+Thanks for trying it out, and hoping you enjoy!</p>
 |js}
   };
  
@@ -5189,267 +5532,10 @@ Doligez and Xavier Leroy for their valuable feedback and code suggestions.</p>
 |js}
   };
  
-  { title = {js|OCaml Multicore - February 2021|js}
-  ; slug = {js|multicore-2021-02|js}
-  ; description = {js|Monthly update from the OCaml Multicore team.|js}
-  ; date = {js|2021-02-01|js}
-  ; tags = 
- [{js|multicore|js}]
-  ; body_html = {js|<p>Welcome to the February 2021 <a href="https://github.com/ocaml-multicore/ocaml-multicore">Multicore OCaml</a> monthly report. This update along with the <a href="https://discuss.ocaml.org/tag/multicore-monthly">previous update's</a> have been compiled by me, @kayceesrk and @shakthimaan. February has seen us focus heavily on stability in the multicore trees, as unlocking the ecosystem builds and running bulk CI has given us a wealth of issues to help chase down corner case issues.  The work on upstreaming the next hunk of changes to OCaml 4.13 is also making great progress.</p>
-<p>Overall, we remain on track to have a parallel-capable multicore runtime (versioned 5.0) after the next release of OCaml (4.13.0), although the exact release details have yet to be ratified in a core OCaml developers meeting.  Excitingly, we have also made significant progress on concurrency, and there are details below of a new paper on that topic.</p>
-<h2>4.12.0: released with multicore-relevant changes</h2>
-<p><a href="">OCaml 4.12.0 has been released</a> with a large number of internal changes <a href="https://github.com/ocaml/ocaml/issues?q=is%3Aclosed+label%3Amulticore-prerequisite+">required for multicore OCaml</a> such as GC colours handling, the removal of the page table and modifications to the heap representations.</p>
-<p>From a developer perspective, there is now a new configure option called the <code>nnpchecker</code> which dynamically instruments the runtime to help you spot the use of unboxed C pointers in your bindings. This was described here <a href="https://discuss.ocaml.org/t/ann-a-dynamic-checker-for-detecting-naked-pointers/5805">earlier against 4.10</a>, but it is now also live on the <a href="https://github.com/ocurrent/opam-repo-ci/pull/79">opam repository CI</a>.  From now on, <strong>new opam package submissions will alert you with a failing test if naked pointers are detected</strong> in your opam package test suite.  Please do try to include tests in your opam package to gain the benefits of this!</p>
-<p>The screenshot below shows this working on the LLVM package (which is known to have naked pointers at present).</p>
-<p><img src="upload://cJM9PwGOvVdDz8eGxkZMK7DOKra.jpeg" alt="image|690x458, 75%" /></p>
-<h2>4.13~dev: upstreaming progress</h2>
-<p>Our PR queue for the 4.13 release is largely centred around the integration of &quot;safe points&quot;, which provide stronger guarantees that the OCaml mutator will poll the garbage collector regularly even when the application logic isn't allocating regularly.  This work began almost <a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/187">three years ago</a> in the multicore OCaml trees, and is now under <a href="https://github.com/ocaml/ocaml/pull/10039">code review in upstream OCaml</a> -- please do chip in with any performance or code size tests on that PR.</p>
-<p>Aside from this, the team is working various other pre-requisites such as a multicore-safe Lazy, implementing the memory model (explained in this <a href="https://dl.acm.org/doi/10.1145/3192366.3192421">PLDI 18 paper</a>) and adapting the ephemeron API to be more parallel-friendly.  It is not yet clear which of these will get into 4.13, and which will be put straight into the 5.0 trees yet.</p>
-<h2>post OCaml 5.0: concurrency and fibres</h2>
-<p>We are very happy to share a new preprint on <a href="https://kcsrk.info/papers/drafts/retro-concurrency.pdf">&quot;Retrofitting Effect Handlers onto OCaml&quot;</a>, which continues our &quot;retrofitting&quot; series to cover the elements of <em>concurrency</em> necessary to express interleavings in OCaml code.  This has been conditionally accepted to appear (virtually) at PLDI 2021, and we are currently working on the camera ready version. Any feedback would be most welcome to @kayceesrk or myself.  The abstract is below:</p>
-<blockquote>
-<p>Effect handlers have been gathering momentum as a mechanism for modular programming with user-defined effects. Effect handlers allow for non-local control flow mechanisms such as generators, async/await, lightweight threads and coroutines to be composably expressed. We present a design and evaluate a full-fledged efficient implementation of effect handlers for OCaml, an industrial-strength multi-paradigm programming language. Our implementation strives to maintain the backwards compatibility and performance profile of existing OCaml code. Retrofitting effect handlers onto OCaml is challenging since OCaml does not currently have any non-local control flow mechanisms other than exceptions. Our implementation of effect handlers for OCaml: (i) imposes negligible overhead on code that does not use effect handlers; (ii) remains compatible with program analysis tools that inspect the stack; and (iii) is efficient for new code that makes use of effect handlers.</p>
-</blockquote>
-<p>We have a strong focus on making sure that the existing nice properties of OCaml's native code implementation (and in particular, debugging and backtraces) are maintained in our proposed concurrency extensions. As with any such major change to OCaml, the contents of this paper should be considered research-grade until they have been ratified at a future core OCaml developers meeting.  But by all means, please do experiment with fibres and effects and get us feedback!  We're currently working on a high performance <a href="http://github.com/ocaml-multicore/eioio">direct-style IO stack</a> that has very promising early performance numbers.</p>
-<p>If you want to learn more about effects, @kayceesrk gave a talk on <code>Effective Programming</code> at Lambda Days 2021 (<a href="https://speakerdeck.com/kayceesrk/effective-programming-in-ocaml-at-lambda-days-2021">presentation slides</a>).</p>
-<h2>Performance Measurements with Sandmark</h2>
-<p>@shakthimaan presented the upcoming features of Sandmark 2.0 and its future roadmap in a community talk. The <a href="http://shakthimaan.com/downloads/Sandmark-2.0.pdf">slide deck</a> is published online, and please do send him any feedback to questions you might have about performance benchmarking. A complete regression testing for various targets and build tags for the Sandmark 2.0 -alpha branch was completed, and we continue to work on the new features for a 2.0 release.
-Onto the details then! The Multicore OCaml updates are listed first, which are then followed by the various ongoing and completed tasks for the Sandmark benchmarking project. Finally, the ongoing upstream OCaml work is listed for your reference.</p>
-<h2>Multicore OCaml</h2>
-<h3>Ongoing</h3>
-<h4>Ecosystem</h4>
-<ul>
-<li>
-<p><a href="https://github.com/ocaml-multicore/multicore-opam/pull/46">ocaml-multicore/multicore-opam#46</a>
-Multicore compatible ocaml-migrate-parsetree.2.1.0</p>
-<p>A patch to make the <code>ocaml-migrate-parsetree</code> sources use the effect
-syntax. This now builds fine with Multicore OCaml <code>parallel_minor_gc</code>.</p>
-</li>
-<li>
-<p><a href="https://github.com/ocaml-multicore/multicore-opam/pull/47">ocaml-multicore/multicore-opam#47</a>
-Multicore compatible ppxlib</p>
-<p>The effect syntax has now been added to <code>ppxlib</code>, and this is now
-compatible with Multicore OCaml.</p>
-</li>
-</ul>
-<h4>Improvements</h4>
-<ul>
-<li>
-<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/474">ocaml-multicore/ocaml-multicore#474</a>
-Fixing remarking to be safe with parallel domains</p>
-<p>A draft proposal to fix the problem of remarking pools owned by
-another domain. The solution aims to move the remarking a pool to
-the domain that owns the pool.</p>
-</li>
-<li>
-<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/477">ocaml-multicore/ocaml-multicore#477</a>
-Move TLS areas to a dedicated memory space</p>
-<p>The PR changes the way we allocate an individual domain's TLS. The
-present implementation is not optimal for Domain Local Allocation
-Buffer, and hence the patch moves the TLS areas to its own memory
-alloted space.</p>
-</li>
-<li>
-<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/480">ocaml-multicore/ocaml-multicore#480</a>
-Remove leave_when_done and friends from STW API</p>
-<p>The <code>stw_request.leave_when_done</code> is cleaned up by removing the
-barriers from <code>caml_try_run_on_all_domains*</code> and <code>stw_request</code>.</p>
-</li>
-</ul>
-<h4>Sundries</h4>
-<ul>
-<li>
-<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/466">ocaml-multicore/ocaml-multicore#466</a>
-Fix corruption when remarking a pool in another domain and that
-domain allocates</p>
-<p>An on-going investigation for the bytecode test failure for
-<code>parallel/domain_parallel_spawn_burn</code>. The recommendation is to have
-a remark queue per domain, and a global remark queue to hold work
-for any orphaned pools or work which could not be enqueued onto a
-domain.</p>
-</li>
-<li>
-<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/468">ocaml-multicore/ocaml-multicore#468</a>
-Finalisers causing segfault with multiple domains</p>
-<p>A test case has been submitted where Finalisers cause segmentation
-faults with multiple domains.</p>
-</li>
-<li>
-<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/471">ocaml-multicore/ocaml-multicore#471</a>
-Unix.fork fails with &quot;unlock: Operation not permitted&quot;</p>
-<p>The no blocking section on fork implementation is causing a fatal
-error during unlock with an &quot;operation not permitted&quot; message. This
-has been reported by opam-ci.</p>
-</li>
-<li>
-<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/473">ocaml-multicore/ocaml-multicore#473</a>
-Building an musl requires dynamically linked execinfo</p>
-<p>An attempt by Haz to build Multicore OCaml with musl. It failed
-because of requiring to link with external libexecinfo.</p>
-</li>
-<li>
-<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/475">ocaml-multicore/ocaml-multicore#475</a>
-Don't reuse opcode of bytecode instructions</p>
-<p>An issue raised by Hugo Heuzard on extending existing opcodes and
-appending instructions, instead of reusing opcodes and shifting them
-in Multicore OCaml.</p>
-</li>
-<li>
-<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/479">ocaml-multicore/ocaml-multicore#479</a>
-Continuation_already_taken crashes toplevel</p>
-<p>A continuation already taken segmentation fault crash reported for
-the iterator-to-generator exercise for 4.10.0+multicore on x86-64.</p>
-</li>
-</ul>
-<h3>Completed</h3>
-<h4>Global roots</h4>
-<ul>
-<li>
-<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/472">ocaml-multicore/ocaml-multicore#472</a>
-Major GC: Scan global roots from one domain</p>
-<p>As a first step towards parallelizing global roots scanning, a patch
-is provided that scans the global roots from only one domain in a
-major cycle. The parallel benchmark results with the patch is shown
-in the illustration below:</p>
-</li>
-</ul>
-<p><img src="upload://9wDWXWe106w049s4WuxTcxe48mV.jpeg" alt="PR 472 Parallel Benchmarks|690x464" /></p>
-<ul>
-<li>
-<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/476">ocaml-multicore/ocaml-multicore#476</a>
-Global roots parallel tests</p>
-<p>The <code>globroots_parallel_single.ml</code> and
-<code>globroots_parallel_multiple.ml</code> tests are now added to keep a check
-on global roots interaction with domain lifecycle.</p>
-</li>
-</ul>
-<h4>CI</h4>
-<ul>
-<li>
-<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/478">ocaml-multicore/ocaml-multicore#478</a>
-Remove .travis.yml</p>
-<p>We have now removed the use of Travis for CI, as we now use GitHub
-actions.</p>
-</li>
-<li>
-<p>We now have introduced labels that you can use when filing bugs for
-Multicore OCaml. The current set of labels are listed at
-https://github.com/ocaml-multicore/ocaml-multicore/labels.</p>
-</li>
-</ul>
-<h4>Sundries</h4>
-<ul>
-<li>
-<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/464">ocaml-multicore/ocaml-multicore#464</a>
-Replace Field_imm with Field</p>
-<p>The Field_imm have been replaced with Field from the concurrent
-minor collector.</p>
-</li>
-<li>
-<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/470">ocaml-multicore/ocaml-multicore#470</a>
-Systhreads: Current_thread-&gt;next value should be saved</p>
-<p>A fix to handle the segmentation fault caused when the backup thread
-reuses the <code>Current_thread</code> slot.</p>
-</li>
-</ul>
-<h2>Benchmarking</h2>
-<h3>Ongoing</h3>
-<h4>Fixes</h4>
-<ul>
-<li>
-<p><a href="https://github.com/ocaml-bench/sandmark/pull/208">ocaml-bench/sandmark#208</a>
-Fix params for simple-tests/capi</p>
-<p>The arguments to the <code>simple-tests/capi</code> benchmarks are now passed
-correctly, and they build and execute fine. The same can be verified
-using the following commands:</p>
-<pre><code>$ TAG='&quot;lt_1s&quot;' make run_config_filtered.json
-$ RUN_CONFIG_JSON=run_config_filtered.json make ocaml-versions/4.10.0+multicore.bench
-</code></pre>
-</li>
-<li>
-<p><a href="https://github.com/ocaml-bench/sandmark/pull/209">ocaml-bench/sandmark#209</a>
-Use rule target kronecker.txt and remove from macro_bench</p>
-<p>The graph500seq benchmarks have been updated to use a target rule to
-build kronecker.txt prior to running <code>kernel2</code> and <code>kernel3</code>. These
-set of benchmarks have been removed from the <code>macro_bench</code> tag.</p>
-</li>
-</ul>
-<h4>Sundries</h4>
-<ul>
-<li>
-<p><a href="https://github.com/ocaml-bench/sandmark/issues/205">ocaml-bench/sandmark#205</a>
-[RFC] Categorize and group by benchmarks</p>
-<p>A draft proposal to categorize the Sandmark benchmarks into a family
-of algorithms based on their use and application. A suggested list
-includes <code>library</code>, <code>formal</code>, <code>numerical</code>, <code>graph</code> etc.</p>
-</li>
-<li>
-<p><a href="https://github.com/ocaml/opam-repository/pull/18203">ocaml/opam-repository#18203</a>
-[new release] orun (0.0.1)</p>
-<p>A work-in-progress to publish the <code>orun</code> package in
-opam.ocaml.org. A new <code>conf-libdw</code> package has also been created to
-handle the dependencies.</p>
-</li>
-<li>
-<p>The Sandmark 2.0 -alpha branch now includes all the bench targets
-from the present Sandmark master branch, and we have been performing
-regression builds for the various tags. The required dependency
-packages have also been added to the respective target benchmarks.</p>
-</li>
-</ul>
-<h3>Completed</h3>
-<ul>
-<li>
-<p><a href="https://github.com/ocaml/opam-repository/pull/18176">ocaml/opam-repository#18176</a>
-[new release] rungen (0.0.1)</p>
-<p>The <code>rungen</code> package has been removed from Sandmark 2.0, and is now
-available in opam.ocaml.org.</p>
-</li>
-</ul>
-<h2>OCaml</h2>
-<h3>Ongoing</h3>
-<ul>
-<li>
-<p><a href="https://github.com/ocaml/ocaml/pull/10039">ocaml/ocaml#10039</a>
-Safepoints</p>
-<p>The Safepoints PR implements the prologue eliding algorithm and is
-now rebased to trunk. The effect of eliding optimisation and leaf
-function optimisations reduces the number of polls as illustrated
-below:</p>
-</li>
-</ul>
-<p><img src="upload://i71oOOzpkK1ZtE54mzKaNngm3qM.png" alt="PR 10039 Polls from Leaf Functions |690x326" /></p>
-<p>Our thanks to all the OCaml users and developers in the community for their contribution and support to the project!</p>
-<h2>Acronyms</h2>
-<ul>
-<li>API: Application Programming Interface
-</li>
-<li>CI: Continuous Integration
-</li>
-<li>DLAB: Domain Local Allocation Buffer
-</li>
-<li>GC: Garbage Collector
-</li>
-<li>OPAM: OCaml Package Manager
-</li>
-<li>PLDI: Programming Language Design and Implementation
-</li>
-<li>PR: Pull Request
-</li>
-<li>RFC: Request For Comments
-</li>
-<li>STW: Stop The World
-</li>
-<li>TLS: Thread Local Storage
-</li>
-</ul>
-|js}
-  };
- 
   { title = {js|OCaml Multicore - March 2021|js}
   ; slug = {js|multicore-2021-03|js}
   ; description = {js|Monthly update from the OCaml Multicore team.|js}
-  ; date = {js|2021-01301|js}
+  ; date = {js|2021-03-01|js}
   ; tags = 
  [{js|multicore|js}]
   ; body_html = {js|<p>Welcome to the March 2021 <a href="https://github.com/ocaml-multicore/ocaml-multicore">Multicore OCaml</a> monthly report! The following update and the <a href="https://discuss.ocaml.org/tag/multicore-monthly">previous ones</a> have been compiled by me, @kayceesrk and @shakthimaan.  We remain broadly on track to integrate the last of the multicore prerequisites into the next (4.13) release, and to propose domains-only parallelism for OCaml 5.0.</p>
@@ -5902,6 +5988,434 @@ community for their support to the project. Stay safe!</p>
 <li>OPAM: OCaml Package Manager
 </li>
 <li>PR: Pull Request
+</li>
+<li>STW: Stop The World
+</li>
+<li>TLS: Thread Local Storage
+</li>
+</ul>
+|js}
+  };
+ 
+  { title = {js|opam 2.1.0~beta4 released|js}
+  ; slug = {js|opam-2-1-0-beta4|js}
+  ; description = {js|???|js}
+  ; date = {js|2021-02-08|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p><em>Feedback on this post is welcomed on <a href="https://discuss.ocaml.org/t/ann-opam-2-1-0-beta4/7252">Discuss</a>!</em></p>
+<p>On behalf of the opam team, it gives me great pleasure to announce the third beta release of opam 2.1. Don’t worry, you didn’t miss beta3 - we had an issue with a configure script that caused beta2 to report as beta3 in some instances, so we skipped to beta4 to avoid any further confusion!</p>
+<p>We encourage you to try out this new beta release: there are instructions for doing so in <a href="https://github.com/ocaml/opam/wiki/How-to-test-an-opam-feature">our wiki</a>. The instructions include taking a backup of your <code>~/.opam</code> root as part of the process, which can be restored in order to wind back. <em>Please note that local switches which are written to by opam 2.1 are upgraded and will need to be rebuilt if you go back to opam 2.0</em>. This can either be done by removing <code>_opam</code> and repeating whatever you use in your build process to create the switch, or you can use <code>opam switch export switch.export</code> to backup the switch to a file before installing new packages. Note that opam 2.1 <em>shouldn’t</em> upgrade a local switch unless you upgrade the base packages (i.e. the compiler).</p>
+<h2>What’s new in opam 2.1?</h2>
+<ul>
+<li>Switch invariants
+</li>
+<li>Improved options configuration (see the new <code>option</code> and expanded <code>var</code> sub-commands)
+</li>
+<li>Integration of system dependencies (formerly the opam-depext plugin), increasing their reliability as it integrates the solving step
+</li>
+<li>Creation of lock files for reproducible installations (formerly the opam-lock plugin)
+</li>
+<li>CLI versioning, allowing cleaner deprecations for opam now and also improvements to semantics in future without breaking backwards-compatibility
+</li>
+<li>Performance improvements to opam-update, conflict messages, and many other areas
+</li>
+<li>New plugins: opam-compiler and opam-monorepo
+</li>
+</ul>
+<h3>Switch invariants</h3>
+<p>In opam 2.0, when a switch is created the packages selected are put into the “base” of the switch. These packages are not normally considered for upgrade, in order to ease pressure on opam’s solver. This was a much bigger concern early on in opam 2.0’s development, but is less of a problem with the default mccs solver.</p>
+<p>However, it’s a problem for system compilers. opam would detect that your system compiler version had changed, but be unable to upgrade the ocaml-system package unless you went through a slightly convoluted process with <code>--unlock-base</code>.</p>
+<p>In opam 2.1, base packages have been replaced by switch invariants. The switch invariant is a package formula which must be satisfied on every upgrade and install. All existing switches’ base packages could just be expressed as <code>package1 &amp; package2 &amp; package3</code> etc. but opam 2.1 recognises many existing patterns and simplifies them, so in most cases the invariant will be <code>&quot;ocaml-base-compiler&quot; {= 4.11.1}</code>, etc. This means that <code>opam switch create my_switch ocaml-system</code> now creates a <em>switch invariant</em> of <code>&quot;ocaml-system&quot;</code> rather than a specific version of the <code>ocaml-system</code> package. If your system OCaml package is updated, <code>opam upgrade</code> will seamlessly switch to the new package.</p>
+<p>This also allows you to have switches which automatically install new point releases of OCaml. For example:</p>
+<pre><code>opam switch create ocaml-4.11 --formula='&quot;ocaml-base-compiler&quot; {&gt;= &quot;4.11.0&quot; &amp; &lt; &quot;4.12.0~&quot;}' --repos=old=git+https://github.com/ocaml/opam-repository#a11299d81591
+opam install utop
+
+</code></pre>
+<p>Creates a switch with OCaml 4.11.0 (the <code>--repos=</code> was just to select a version of opam-repository from before 4.11.1 was released). Now issue:</p>
+<pre><code>opam repo set-url old git+https://github.com/ocaml/opam-repository
+opam upgrade
+</code></pre>
+<p>and opam 2.1 will automatically offer to upgrade OCaml 4.11.1 along with a rebuild of the switch. There’s not yet a clean CLI for specifying the formula, but we intend to iterate further on this with future opam releases so that there is an easier way of saying “install OCaml 4.11.x”.</p>
+<h3>opam depext integration</h3>
+<p>opam has long included the ability to install system dependencies automatically via the <a href="https://github.com/ocaml-opam/opam-depext">depext plugin</a>. This plugin has been promoted to a native feature of opam 2.1.0 onwards, giving the following benefits:</p>
+<ul>
+<li>You no longer have to remember to run <code>opam depext</code>, opam always checks depexts (there are options to disable this or automate it for CI use). Installation of an opam package in a CI system is now as easy as <code>opam install .</code>, without having to do the dance of <code>opam pin add -n/depext/install</code>. Just one command now for the common case!
+</li>
+<li>The solver is only called once, which both saves time and also stabilises the behaviour of opam in cases where the solver result is not stable. It was possible to get one package solution for the <code>opam depext</code> stage and a different solution for the <code>opam install</code> stage, resulting in some depexts missing.
+</li>
+<li>opam now has full knowledge of depexts, which means that packages can be automatically selected based on whether a system package is already installed. For example, if you have <em>neither</em> MariaDB nor MySQL dev libraries installed, <code>opam install mysql</code> will offer to install <code>conf-mysql</code> and <code>mysql</code>, but if you have the MariaDB dev libraries installed, opam will offer to install <code>conf-mariadb</code> and <code>mysql</code>.
+</li>
+</ul>
+<h3>opam lock files and reproducibility</h3>
+<p>When opam was first released, it had the mission of gathering together scattered OCaml source code to build a <a href="https://github.com/ocaml/opam-repository">community repository</a>. As time marches on, the size of the opam repository has grown tremendously, to over 3000 unique packages with over 18000 unique versions. opam looks at all these packages and is designed to solve for the best constraints for a given package, so that your project can keep up with releases of your dependencies.</p>
+<p>While this works well for libraries, we need a different strategy for projects that need to test and ship using a fixed set of dependencies. To satisfy this use-case, opam 2.0.0 shipped with support for <em>using</em> <code>project.opam.locked</code> files. These are normal opam files but with exact versions of dependencies. The lock file can be used as simply as <code>opam install . --locked</code> to have a reproducible package installation.</p>
+<p>With opam 2.1.0, the creation of lock files is also now integrated into the client:</p>
+<ul>
+<li><code>opam lock</code> will create a <code>.locked</code> file for your current switch and project, that you can check into the repository.
+</li>
+<li><code>opam switch create . --locked</code> can be used by users to reproduce your dependencies in a fresh switch.
+</li>
+</ul>
+<p>This lets a project simultaneously keep up with the latest dependencies (without lock files) while providing a stricter set for projects that need it (with lock files).</p>
+<h3>CLI Versioning</h3>
+<p>A new <code>--cli</code> switch was added to the first beta release, but it’s only now that it’s being widely used. opam is a complex enough system that sometimes bug fixes need to change the semantics of some commands. For example:</p>
+<ul>
+<li><code>opam show --file</code> needed to change behaviour
+</li>
+<li>The addition of new controls for setting global variables means that the <code>opam config</code> was becoming cluttered and some things want to move to <code>opam var</code>
+</li>
+<li><code>opam switch install 4.11.1</code> still works in opam 2.0, but it’s really an OPAM 1.2.2 syntax.
+</li>
+</ul>
+<p>Changing the CLI is exceptionally painful since it can break scripts and tools which themselves need to drive <code>opam</code>. CLI versioning is our attempt to solve this. The feature is inspired by the <code>(lang dune ...)</code> stanza in <code>dune-project</code> files which has allowed the Dune project to rename variables and alter semantics without requiring every single package using Dune to upgrade their <code>dune</code> files on each release.</p>
+<p>Now you can specify which version of opam you expected the command to be run against. In day-to-day use of opam at the terminal, you wouldn’t specify it, and you’ll get the latest version of the CLI. For example: <code>opam var --global</code> is the same as <code>opam var --cli=2.1 --global</code>. However, if you issue <code>opam var --cli=2.0 --global</code>, you will told that <code>--global</code> was added in 2.1 and so is not available to you. You can see similar things with the renaming of <code>opam upgrade --unlock-base</code> to <code>opam upgrade --update-invariant</code>.</p>
+<p>The intention is that <code>--cli</code> should be used in scripts, user guides (e.g. blog posts), and in software which calls opam. The only decision you have to take is the <em>oldest</em> version of opam which you need to support. If your script is using a new opam 2.1 feature (for example <code>opam switch create --formula=</code>) then you simply don’t support opam 2.0. If you need to support opam 2.0, then you can’t use <code>--formula</code> and should use <code>--packages</code> instead. opam 2.0 does not have the <code>--cli</code> option, so for opam 2.0 instead of <code>--cli=2.0</code> you should set the environment variable <code>OPAMCLI</code> to <code>2.0</code>. As with <em>all</em> opam command line switches, <code>OPAMCLI</code> is simply the equivalent of <code>--cli</code> which opam 2.1 will pick-up but opam 2.0 will quietly ignore (and, as with other options, the command line takes precedence over the environment).</p>
+<p>Note that opam 2.1 sets <code>OPAMCLI=2.0</code> when building packages, so on the rare instances where you need to use the <code>opam</code> command in a <em>package</em> <code>build:</code> command (or in your build system), you <em>must</em> specify <code>--cli=2.1</code> if you’re using new features.</p>
+<p>There’s even more detail on this feature <a href="https://github.com/ocaml/opam/wiki/Spec-for-opam-CLI-versioning">in our wiki</a>. We’re still finalising some details on exactly how <code>opam</code> behaves when <code>--cli</code> is not given, but we’re hoping that this feature will make it much easier in future releases for opam to make required changes and improvements to the CLI without breaking existing set-ups and tools.</p>
+<h2>What’s new since the last beta?</h2>
+<ul>
+<li>opam now uses CLI versioning (<a href="https://github.com/ocaml/opam/pull/4385">#4385</a>)
+</li>
+<li>opam now exits with code 31 if all failures were during fetch operations (<a href="https://github.com/ocaml/opam/issues/4214">#4214</a>)
+</li>
+<li><code>opam install</code> now has a <code>--download-only</code> flag (<a href="https://github.com/ocaml/opam/issues/4036">#4036</a>), allowing opam’s caches to be primed
+</li>
+<li><code>opam init</code> now advises the correct shell-specific command for <code>eval $(opam env)</code> (<a href="https://github.com/ocaml/opam/pull/4427">#4427</a>)
+</li>
+<li><code>post-install</code> hooks are now allowed to modify or remove installed files (<a href="https://github.com/ocaml/opam/pull/4388">#4388</a>)
+</li>
+<li>New package variable <code>opamfile-loc</code> with the location of the installed package opam file (<a href="https://github.com/ocaml/opam/pull/4402">#4402</a>)
+</li>
+<li><code>opam update</code> now has <code>--depexts</code> flag (<a href="https://github.com/ocaml/opam/issues/4355">#4355</a>), allowing the system package manager to update too
+</li>
+<li>depext support NetBSD and DragonFlyBSD added (<a href="https://github.com/ocaml/opam/pull/4396">#4396</a>)
+</li>
+<li>The format-preserving opam file printer has been overhauled (<a href="https://github.com/ocaml/opam/issues/3993">#3993</a>, <a href="https://github.com/ocaml/opam/pull/4298">#4298</a> and <a href="https://github.com/ocaml/opam/pull/4302">#4302</a>)
+</li>
+<li>pins are now fetched in parallel (<a href="https://github.com/ocaml/opam/issues/4315">#4315</a>)
+</li>
+<li><code>os-family=ubuntu</code> is now treated as <code>os-family=debian</code> (<a href="https://github.com/ocaml/opam/pull/4441">#4441</a>)
+</li>
+<li><code>opam lint</code> now checks that strings in filtered package formulae are booleans or variables (<a href="https://github.com/ocaml/opam/issues/4439">#4439</a>)
+</li>
+</ul>
+<p>and many other bug fixes as listed <a href="https://github.com/ocaml/opam/releases/tag/2.1.0-beta4">on the release page</a>.</p>
+<h2>New Plugins</h2>
+<p>Several features that were formerly plugins have been integrated into opam 2.1.0. We have also developed some <em>new</em> plugins that satisfy emerging workflows from the community and the core OCaml team. They are available for use with the opam 2.1 beta as well, and feedback on them should be directed to the respective GitHub trackers for those plugins.</p>
+<h3>opam compiler</h3>
+<p>The <a href="https://github.com/ocaml-opam/opam-compiler"><code>opam compiler</code></a> plugin can be used to create switches from various sources such as the main opam repository, the ocaml-multicore fork, or a local development directory. It can use Git tag names, branch names, or PR numbers to specify what to install.</p>
+<p>Once installed, these are normal opam switches, and one can install packages in them. To iterate on a compiler feature and try opam packages at the same time, it supports two ways to reinstall the compiler: either a safe and slow technique that will reinstall all packages, or a quick way that will just overwrite the compiler in place.</p>
+<h3>opam monorepo</h3>
+<p>The <a href="https://github.com/ocamllabs/opam-monorepo"><code>opam monorepo</code></a> plugin lets you assemble standalone dune workspaces with your projects and all of their opam dependencies, letting you build it all from scratch using only Dune and OCaml. This satisfies the “monorepo” workflow which is commonly requested by large projects that need all of their dependencies in one place. It is also being used by projects that need global cross-compilation for all aspects of a codebase (including C stubs in packages), such as the MirageOS unikernel framework.</p>
+<h2>Next Steps</h2>
+<p>This is anticipated to be the final beta in the 2.1 series, and we will be moving to release candidate status after this. We could really use your help with testing this release in your infrastructure and projects and let us know if you run into any blockers. If you have feature requests, please also report them on <a href="https://github.com/ocaml/opam/issues">our issue tracker</a> -- we will be planning the next release cycle once we ship opam 2.1.0 shortly.</p>
+|js}
+  };
+ 
+  { title = {js|opam 2.0.8 release|js}
+  ; slug = {js|opam-2-0-8|js}
+  ; description = {js|???|js}
+  ; date = {js|2021-02-08|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>We are pleased to announce the minor release of <a href="https://github.com/ocaml/opam/releases/tag/2.0.8">opam 2.0.8</a>.</p>
+<p>This new version contains some <a href="https://github.com/ocaml/opam/pull/4425">backported</a> fixes:</p>
+<ul>
+<li><strong>Critical for fish users!</strong> Don't add <code>.</code> to <code>PATH</code>. [<a href="https://github.com/ocaml/opam/issues/4078">#4078</a>]
+</li>
+<li>Fix sandbox script for newer <code>ccache</code> versions. [<a href="https://github.com/ocaml/opam/issues/4079">#4079</a> and <a href="https://github.com/ocaml/opam/pull/4087">#4087</a>]
+</li>
+<li>Fix sandbox crash when <code>~/.cache</code> is a symlink. [<a href="https://github.com/ocaml/opam/issues/4068">#4068</a>]
+</li>
+<li>User modifications to the sandbox script are no longer overwritten by <code>opam init</code>. [<a href="https://github.com/ocaml/opam/pull/4092">#4020</a> &amp; <a href="https://github.com/ocaml/opam/pull/4092">#4092</a>]
+</li>
+<li>macOS sandbox script always mounts <code>/tmp</code> read-write, regardless of <code>TMPDIR</code> [<a href="https://github.com/ocaml/opam/pull/3742">#3742</a>, addressing <a href="https://github.com/ocaml/opam-repository/issues/13339">ocaml/opam-repository#13339</a>]
+</li>
+<li><code>pre-</code> and <code>post-session</code> hooks can now print to the console [<a href="https://github.com/ocaml/opam/issues/4359">#4359</a>]
+</li>
+<li>Switch-specific pre/post sessions hooks are now actually run [<a href="https://github.com/ocaml/opam/issues/4472">#4472</a>]
+</li>
+<li>Standalone <code>opam-installer</code> now correctly builds from sources [<a href="https://github.com/ocaml/opam/issues/4173">#4173</a>]
+</li>
+<li>Fix <code>arch</code> variable detection when using 32bit mode on ARM64 and i486 [<a href="https://github.com/ocaml/opam/pull/4462">#4462</a>]
+</li>
+</ul>
+<p>A more complete <a href="https://github.com/ocaml/opam/releases/tag/2.0.8">release note</a> is available.</p>
+<hr />
+<p>Installation instructions (unchanged):</p>
+<ol>
+<li>
+<p>From binaries: run</p>
+<pre><code>bash -c &quot;sh &lt;(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh) --version 2.0.8&quot;
+</code></pre>
+<p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.0.8">the Github &quot;Releases&quot; page</a> to your PATH. In this case, don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script.</p>
+</li>
+<li>
+<p>From source, using opam:</p>
+<pre><code>opam update; opam install opam-devel
+</code></pre>
+<p>(then copy the opam binary to your PATH as explained, and don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script)</p>
+</li>
+<li>
+<p>From source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.0.8#compiling-this-repo">README</a>.</p>
+</li>
+</ol>
+<p>We hope you enjoy this new minor version, and remain open to <a href="https://github.com/ocaml/opam/issues">bug reports</a> and <a href="https://github.com/ocaml/opam/issues">suggestions</a>.</p>
+<blockquote>
+<p>NOTE: this article is cross-posted on <a href="https://opam.ocaml.org/blog/">opam.ocaml.org</a> and <a href="http://www.ocamlpro.com/category/blog/">ocamlpro.com</a>, and published in <a href="https://discuss.ocaml.org/t/ann-opam-2-0-8-release/7242">discuss.ocaml.org</a>. Please head to the latter for the comments!</p>
+</blockquote>
+|js}
+  };
+ 
+  { title = {js|OCaml Multicore - February 2021|js}
+  ; slug = {js|multicore-2021-02|js}
+  ; description = {js|Monthly update from the OCaml Multicore team.|js}
+  ; date = {js|2021-02-01|js}
+  ; tags = 
+ [{js|multicore|js}]
+  ; body_html = {js|<p>Welcome to the February 2021 <a href="https://github.com/ocaml-multicore/ocaml-multicore">Multicore OCaml</a> monthly report. This update along with the <a href="https://discuss.ocaml.org/tag/multicore-monthly">previous update's</a> have been compiled by me, @kayceesrk and @shakthimaan. February has seen us focus heavily on stability in the multicore trees, as unlocking the ecosystem builds and running bulk CI has given us a wealth of issues to help chase down corner case issues.  The work on upstreaming the next hunk of changes to OCaml 4.13 is also making great progress.</p>
+<p>Overall, we remain on track to have a parallel-capable multicore runtime (versioned 5.0) after the next release of OCaml (4.13.0), although the exact release details have yet to be ratified in a core OCaml developers meeting.  Excitingly, we have also made significant progress on concurrency, and there are details below of a new paper on that topic.</p>
+<h2>4.12.0: released with multicore-relevant changes</h2>
+<p><a href="">OCaml 4.12.0 has been released</a> with a large number of internal changes <a href="https://github.com/ocaml/ocaml/issues?q=is%3Aclosed+label%3Amulticore-prerequisite+">required for multicore OCaml</a> such as GC colours handling, the removal of the page table and modifications to the heap representations.</p>
+<p>From a developer perspective, there is now a new configure option called the <code>nnpchecker</code> which dynamically instruments the runtime to help you spot the use of unboxed C pointers in your bindings. This was described here <a href="https://discuss.ocaml.org/t/ann-a-dynamic-checker-for-detecting-naked-pointers/5805">earlier against 4.10</a>, but it is now also live on the <a href="https://github.com/ocurrent/opam-repo-ci/pull/79">opam repository CI</a>.  From now on, <strong>new opam package submissions will alert you with a failing test if naked pointers are detected</strong> in your opam package test suite.  Please do try to include tests in your opam package to gain the benefits of this!</p>
+<p>The screenshot below shows this working on the LLVM package (which is known to have naked pointers at present).</p>
+<p><img src="upload://cJM9PwGOvVdDz8eGxkZMK7DOKra.jpeg" alt="image|690x458, 75%" /></p>
+<h2>4.13~dev: upstreaming progress</h2>
+<p>Our PR queue for the 4.13 release is largely centred around the integration of &quot;safe points&quot;, which provide stronger guarantees that the OCaml mutator will poll the garbage collector regularly even when the application logic isn't allocating regularly.  This work began almost <a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/187">three years ago</a> in the multicore OCaml trees, and is now under <a href="https://github.com/ocaml/ocaml/pull/10039">code review in upstream OCaml</a> -- please do chip in with any performance or code size tests on that PR.</p>
+<p>Aside from this, the team is working various other pre-requisites such as a multicore-safe Lazy, implementing the memory model (explained in this <a href="https://dl.acm.org/doi/10.1145/3192366.3192421">PLDI 18 paper</a>) and adapting the ephemeron API to be more parallel-friendly.  It is not yet clear which of these will get into 4.13, and which will be put straight into the 5.0 trees yet.</p>
+<h2>post OCaml 5.0: concurrency and fibres</h2>
+<p>We are very happy to share a new preprint on <a href="https://kcsrk.info/papers/drafts/retro-concurrency.pdf">&quot;Retrofitting Effect Handlers onto OCaml&quot;</a>, which continues our &quot;retrofitting&quot; series to cover the elements of <em>concurrency</em> necessary to express interleavings in OCaml code.  This has been conditionally accepted to appear (virtually) at PLDI 2021, and we are currently working on the camera ready version. Any feedback would be most welcome to @kayceesrk or myself.  The abstract is below:</p>
+<blockquote>
+<p>Effect handlers have been gathering momentum as a mechanism for modular programming with user-defined effects. Effect handlers allow for non-local control flow mechanisms such as generators, async/await, lightweight threads and coroutines to be composably expressed. We present a design and evaluate a full-fledged efficient implementation of effect handlers for OCaml, an industrial-strength multi-paradigm programming language. Our implementation strives to maintain the backwards compatibility and performance profile of existing OCaml code. Retrofitting effect handlers onto OCaml is challenging since OCaml does not currently have any non-local control flow mechanisms other than exceptions. Our implementation of effect handlers for OCaml: (i) imposes negligible overhead on code that does not use effect handlers; (ii) remains compatible with program analysis tools that inspect the stack; and (iii) is efficient for new code that makes use of effect handlers.</p>
+</blockquote>
+<p>We have a strong focus on making sure that the existing nice properties of OCaml's native code implementation (and in particular, debugging and backtraces) are maintained in our proposed concurrency extensions. As with any such major change to OCaml, the contents of this paper should be considered research-grade until they have been ratified at a future core OCaml developers meeting.  But by all means, please do experiment with fibres and effects and get us feedback!  We're currently working on a high performance <a href="http://github.com/ocaml-multicore/eioio">direct-style IO stack</a> that has very promising early performance numbers.</p>
+<p>If you want to learn more about effects, @kayceesrk gave a talk on <code>Effective Programming</code> at Lambda Days 2021 (<a href="https://speakerdeck.com/kayceesrk/effective-programming-in-ocaml-at-lambda-days-2021">presentation slides</a>).</p>
+<h2>Performance Measurements with Sandmark</h2>
+<p>@shakthimaan presented the upcoming features of Sandmark 2.0 and its future roadmap in a community talk. The <a href="http://shakthimaan.com/downloads/Sandmark-2.0.pdf">slide deck</a> is published online, and please do send him any feedback to questions you might have about performance benchmarking. A complete regression testing for various targets and build tags for the Sandmark 2.0 -alpha branch was completed, and we continue to work on the new features for a 2.0 release.
+Onto the details then! The Multicore OCaml updates are listed first, which are then followed by the various ongoing and completed tasks for the Sandmark benchmarking project. Finally, the ongoing upstream OCaml work is listed for your reference.</p>
+<h2>Multicore OCaml</h2>
+<h3>Ongoing</h3>
+<h4>Ecosystem</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-multicore/multicore-opam/pull/46">ocaml-multicore/multicore-opam#46</a>
+Multicore compatible ocaml-migrate-parsetree.2.1.0</p>
+<p>A patch to make the <code>ocaml-migrate-parsetree</code> sources use the effect
+syntax. This now builds fine with Multicore OCaml <code>parallel_minor_gc</code>.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/multicore-opam/pull/47">ocaml-multicore/multicore-opam#47</a>
+Multicore compatible ppxlib</p>
+<p>The effect syntax has now been added to <code>ppxlib</code>, and this is now
+compatible with Multicore OCaml.</p>
+</li>
+</ul>
+<h4>Improvements</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/474">ocaml-multicore/ocaml-multicore#474</a>
+Fixing remarking to be safe with parallel domains</p>
+<p>A draft proposal to fix the problem of remarking pools owned by
+another domain. The solution aims to move the remarking a pool to
+the domain that owns the pool.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/477">ocaml-multicore/ocaml-multicore#477</a>
+Move TLS areas to a dedicated memory space</p>
+<p>The PR changes the way we allocate an individual domain's TLS. The
+present implementation is not optimal for Domain Local Allocation
+Buffer, and hence the patch moves the TLS areas to its own memory
+alloted space.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/480">ocaml-multicore/ocaml-multicore#480</a>
+Remove leave_when_done and friends from STW API</p>
+<p>The <code>stw_request.leave_when_done</code> is cleaned up by removing the
+barriers from <code>caml_try_run_on_all_domains*</code> and <code>stw_request</code>.</p>
+</li>
+</ul>
+<h4>Sundries</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/466">ocaml-multicore/ocaml-multicore#466</a>
+Fix corruption when remarking a pool in another domain and that
+domain allocates</p>
+<p>An on-going investigation for the bytecode test failure for
+<code>parallel/domain_parallel_spawn_burn</code>. The recommendation is to have
+a remark queue per domain, and a global remark queue to hold work
+for any orphaned pools or work which could not be enqueued onto a
+domain.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/468">ocaml-multicore/ocaml-multicore#468</a>
+Finalisers causing segfault with multiple domains</p>
+<p>A test case has been submitted where Finalisers cause segmentation
+faults with multiple domains.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/471">ocaml-multicore/ocaml-multicore#471</a>
+Unix.fork fails with &quot;unlock: Operation not permitted&quot;</p>
+<p>The no blocking section on fork implementation is causing a fatal
+error during unlock with an &quot;operation not permitted&quot; message. This
+has been reported by opam-ci.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/473">ocaml-multicore/ocaml-multicore#473</a>
+Building an musl requires dynamically linked execinfo</p>
+<p>An attempt by Haz to build Multicore OCaml with musl. It failed
+because of requiring to link with external libexecinfo.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/475">ocaml-multicore/ocaml-multicore#475</a>
+Don't reuse opcode of bytecode instructions</p>
+<p>An issue raised by Hugo Heuzard on extending existing opcodes and
+appending instructions, instead of reusing opcodes and shifting them
+in Multicore OCaml.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/479">ocaml-multicore/ocaml-multicore#479</a>
+Continuation_already_taken crashes toplevel</p>
+<p>A continuation already taken segmentation fault crash reported for
+the iterator-to-generator exercise for 4.10.0+multicore on x86-64.</p>
+</li>
+</ul>
+<h3>Completed</h3>
+<h4>Global roots</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/472">ocaml-multicore/ocaml-multicore#472</a>
+Major GC: Scan global roots from one domain</p>
+<p>As a first step towards parallelizing global roots scanning, a patch
+is provided that scans the global roots from only one domain in a
+major cycle. The parallel benchmark results with the patch is shown
+in the illustration below:</p>
+</li>
+</ul>
+<p><img src="upload://9wDWXWe106w049s4WuxTcxe48mV.jpeg" alt="PR 472 Parallel Benchmarks|690x464" /></p>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/476">ocaml-multicore/ocaml-multicore#476</a>
+Global roots parallel tests</p>
+<p>The <code>globroots_parallel_single.ml</code> and
+<code>globroots_parallel_multiple.ml</code> tests are now added to keep a check
+on global roots interaction with domain lifecycle.</p>
+</li>
+</ul>
+<h4>CI</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/478">ocaml-multicore/ocaml-multicore#478</a>
+Remove .travis.yml</p>
+<p>We have now removed the use of Travis for CI, as we now use GitHub
+actions.</p>
+</li>
+<li>
+<p>We now have introduced labels that you can use when filing bugs for
+Multicore OCaml. The current set of labels are listed at
+https://github.com/ocaml-multicore/ocaml-multicore/labels.</p>
+</li>
+</ul>
+<h4>Sundries</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/464">ocaml-multicore/ocaml-multicore#464</a>
+Replace Field_imm with Field</p>
+<p>The Field_imm have been replaced with Field from the concurrent
+minor collector.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/470">ocaml-multicore/ocaml-multicore#470</a>
+Systhreads: Current_thread-&gt;next value should be saved</p>
+<p>A fix to handle the segmentation fault caused when the backup thread
+reuses the <code>Current_thread</code> slot.</p>
+</li>
+</ul>
+<h2>Benchmarking</h2>
+<h3>Ongoing</h3>
+<h4>Fixes</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-bench/sandmark/pull/208">ocaml-bench/sandmark#208</a>
+Fix params for simple-tests/capi</p>
+<p>The arguments to the <code>simple-tests/capi</code> benchmarks are now passed
+correctly, and they build and execute fine. The same can be verified
+using the following commands:</p>
+<pre><code>$ TAG='&quot;lt_1s&quot;' make run_config_filtered.json
+$ RUN_CONFIG_JSON=run_config_filtered.json make ocaml-versions/4.10.0+multicore.bench
+</code></pre>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-bench/sandmark/pull/209">ocaml-bench/sandmark#209</a>
+Use rule target kronecker.txt and remove from macro_bench</p>
+<p>The graph500seq benchmarks have been updated to use a target rule to
+build kronecker.txt prior to running <code>kernel2</code> and <code>kernel3</code>. These
+set of benchmarks have been removed from the <code>macro_bench</code> tag.</p>
+</li>
+</ul>
+<h4>Sundries</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-bench/sandmark/issues/205">ocaml-bench/sandmark#205</a>
+[RFC] Categorize and group by benchmarks</p>
+<p>A draft proposal to categorize the Sandmark benchmarks into a family
+of algorithms based on their use and application. A suggested list
+includes <code>library</code>, <code>formal</code>, <code>numerical</code>, <code>graph</code> etc.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml/opam-repository/pull/18203">ocaml/opam-repository#18203</a>
+[new release] orun (0.0.1)</p>
+<p>A work-in-progress to publish the <code>orun</code> package in
+opam.ocaml.org. A new <code>conf-libdw</code> package has also been created to
+handle the dependencies.</p>
+</li>
+<li>
+<p>The Sandmark 2.0 -alpha branch now includes all the bench targets
+from the present Sandmark master branch, and we have been performing
+regression builds for the various tags. The required dependency
+packages have also been added to the respective target benchmarks.</p>
+</li>
+</ul>
+<h3>Completed</h3>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml/opam-repository/pull/18176">ocaml/opam-repository#18176</a>
+[new release] rungen (0.0.1)</p>
+<p>The <code>rungen</code> package has been removed from Sandmark 2.0, and is now
+available in opam.ocaml.org.</p>
+</li>
+</ul>
+<h2>OCaml</h2>
+<h3>Ongoing</h3>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml/ocaml/pull/10039">ocaml/ocaml#10039</a>
+Safepoints</p>
+<p>The Safepoints PR implements the prologue eliding algorithm and is
+now rebased to trunk. The effect of eliding optimisation and leaf
+function optimisations reduces the number of polls as illustrated
+below:</p>
+</li>
+</ul>
+<p><img src="upload://i71oOOzpkK1ZtE54mzKaNngm3qM.png" alt="PR 10039 Polls from Leaf Functions |690x326" /></p>
+<p>Our thanks to all the OCaml users and developers in the community for their contribution and support to the project!</p>
+<h2>Acronyms</h2>
+<ul>
+<li>API: Application Programming Interface
+</li>
+<li>CI: Continuous Integration
+</li>
+<li>DLAB: Domain Local Allocation Buffer
+</li>
+<li>GC: Garbage Collector
+</li>
+<li>OPAM: OCaml Package Manager
+</li>
+<li>PLDI: Programming Language Design and Implementation
+</li>
+<li>PR: Pull Request
+</li>
+<li>RFC: Request For Comments
 </li>
 <li>STW: Stop The World
 </li>
@@ -8550,6 +9064,171 @@ header for out of heap objects.</p>
 |js}
   };
  
+  { title = {js|opam 2.1.0 alpha is here!|js}
+  ; slug = {js|opam-2-1-0-alpha|js}
+  ; description = {js|???|js}
+  ; date = {js|2020-04-21|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>We are happy to announce a alpha for opam 2.1.0, one year and a half in the
+making after the release of 2.0.0.</p>
+<p>Many new features made it in (see the <a href="https://github.com/ocaml/opam/blob/2.1.0-alpha/CHANGES">complete
+changelog</a> or <a href="https://github.com/ocaml/opam/releases/tag/2.1.0-alpha">release
+note</a> for the details),
+but here are a few highlights of this release.</p>
+<h1>Release highlights</h1>
+<p>The two following features have been around for a while as plugins and are now
+completely integrated in the core of opam. No extra installs needed anymore, and
+a more smooth experience.</p>
+<h3>Seamless integration of System dependencies handling (a.k.a. &quot;depexts&quot;)</h3>
+<p>A number of opam packages depend on tools or libraries installed on the system,
+which are out of the scope of opam itself. Previous versions of opam added a
+<a href="http://opam.ocaml.org/doc/Manual.html#opamfield-depexts">specification format</a>,
+and opam 2.0 already handled checking the OS and extracting the required system
+package names.</p>
+<p>However, the workflow generally involved letting opam fail once, then installing
+the dependencies and retrying, or explicitely using the
+<a href="https://github.com/ocaml/opam-depext">opam-depext plugin</a>, which was invaluable
+for CI but still incurred extra steps.</p>
+<p>With opam 2.1.0, <em>depexts</em> are seamlessly integrated, and you basically won't
+have to worry about them ahead of time:</p>
+<ul>
+<li>Before applying its course of actions, opam 2.1.0 checks that external
+dependencies are present, and will prompt you to install them. You are free to
+let it do it using <code>sudo</code>, or just run the provided commands yourself.
+</li>
+<li>It is resilient to <em>depexts</em> getting removed or out of sync.
+</li>
+<li>Opam 2.1.0 detects packages that depend on stuff that is not available on your
+OS version, and automatically avoids them.
+</li>
+</ul>
+<p>This is all fully configurable, and can be bypassed without tricky commands when
+you need it (<em>e.g.</em> when you compiled a dependency yourself).</p>
+<h3>Dependency locking</h3>
+<p>To share a project for development, it is often necessary to be able to
+reproduce the exact same environment and dependencies setting — as opposed to
+allowing a range of versions as opam encourages you to do for releases.</p>
+<p>For some reason, most other package managers call this feature &quot;lock files&quot;.
+Opam can handle those in the form of <code>[foo.]opam.locked</code> files, and the
+<code>--locked</code> option.</p>
+<p>With 2.1.0, you no longer need a plugin to generate these files: just running
+<code>opam lock</code> will create them for existing <code>opam</code> files, enforcing the exact
+version of all dependencies (including locally pinned packages).</p>
+<p>If you check-in these files, new users would just have run
+<code>opam switch create . --locked</code> on a fresh clone to get a local switch ready to
+build the project.</p>
+<h3>Pinning sub-directories</h3>
+<p>This one is completely new: fans of the <em>Monorepo</em> rejoice, opam is now able to
+handle projects in subtrees of a repository.</p>
+<ul>
+<li>Using <code>opam pin PROJECT_ROOT --subpath SUB_PROJECT</code>, opam will look for
+<code>PROJECT_ROOT/SUB_PROJECT/foo.opam</code>. This will behave as a pinning to
+<code>PROJECT_ROOT/SUB_PROJECT</code>, except that the version-control handling is done
+in <code>PROJECT_ROOT</code>.
+</li>
+<li>Use <code>opam pin PROJECT_ROOT --recursive</code> to automatically lookup all sub-trees
+with opam files and pin them.
+</li>
+</ul>
+<h3>Opam switches are now defined by invariants</h3>
+<p>Previous versions of opam defined switches based on <em>base packages</em>, which
+typically included a compiler, and were immutable. Opam 2.1.0 instead defines
+them in terms of an <em>invariant</em>, which is a generic dependency formula.</p>
+<p>This removes a lot of the rigidity <code>opam switch</code> commands had, with little
+changes on the existing commands. For example, <code>opam upgrade ocaml</code> commands are
+now possible; you could also define the invariant as <code>ocaml-system</code> and have
+its version change along with the version of the OCaml compiler installed
+system-wide.</p>
+<h3>Configuring opam from the command-line</h3>
+<p>The new <code>opam option</code> command allows to configure several options,
+without requiring manual edition of the configuration files.</p>
+<p>For example:</p>
+<ul>
+<li><code>opam option jobs=6 --global</code> will set the number of parallel build
+jobs opam is allowed to run (along with the associated <code>jobs</code> variable)
+</li>
+<li><code>opam option depext-run-commands=false</code> disables the use of <code>sudo</code> for
+handling system dependencies; it will be replaced by a prompt to run the
+installation commands.
+</li>
+</ul>
+<p>The command <code>opam var</code> is extended with the same format, acting on switch and
+global variables.</p>
+<h1>Try it!</h1>
+<p>In case you plan a possible rollback, you may want to first backup your
+<code>~/.opam</code> directory.</p>
+<p>The upgrade instructions are unchanged:</p>
+<ol>
+<li>
+<p>Either from binaries: run</p>
+<pre><code>bash -c &quot;sh &lt;(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh) --version 2.1.0~alpha&quot;
+</code></pre>
+<p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.1.0-alpha">the Github &quot;Releases&quot; page</a> to your PATH.</p>
+</li>
+<li>
+<p>Or from source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.1.0-alpha#compiling-this-repo">README</a>.</p>
+</li>
+</ol>
+<p>You should then run:</p>
+<pre><code>opam init --reinit -ni
+</code></pre>
+<p>This is still a alpha, so a few glitches or regressions are to be expected.
+Please report them to <a href="https://github.com/ocaml/opam/issues">the bug-tracker</a>.
+Thanks for trying it out, and hoping you enjoy!</p>
+<blockquote>
+<p>NOTE: this article is cross-posted on
+<a href="https://opam.ocaml.org/blog/">opam.ocaml.org</a> and
+<a href="http://www.ocamlpro.com/category/blog/">ocamlpro.com</a>. Please head to the
+latter for the comments!</p>
+</blockquote>
+|js}
+  };
+ 
+  { title = {js|opam 2.0.7 release|js}
+  ; slug = {js|opam-2-0-7|js}
+  ; description = {js|???|js}
+  ; date = {js|2020-04-21|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>We are pleased to announce the minor release of <a href="https://github.com/ocaml/opam/releases/tag/2.0.7">opam 2.0.7</a>.</p>
+<p>This new version contains <a href="https://github.com/ocaml/opam/pull/4143">backported</a> small fixes:</p>
+<ul>
+<li>Escape Windows paths on manpages [<a href="https://github.com/ocaml/opam/pull/4129">#4129</a> <a href="https://github.com/AltGr">@AltGr</a> <a href="https://github.com/rjbou">@rjbou</a>]
+</li>
+<li>Fix opam installer opam file [<a href="https://github.com/ocaml/opam/pull/4058">#4058</a> <a href="https://github.com/rjbou">@rjbou</a>]
+</li>
+<li>Fix various warnings [<a href="https://github.com/ocaml/opam/pull/4132">#4132</a> <a href="https://github.com/rjbou">@rjbou</a> <a href="https://github.com/AltGr">@AltGr</a> - fix <a href="https://github.com/ocaml/opam/issues/4100">#4100</a>]
+</li>
+<li>Fix dune 2.5.0 promote-install-files duplication [<a href="https://github.com/ocaml/opam/pull/4132">#4132</a> <a href="https://github.com/rjbou">@rjbou</a>]
+</li>
+</ul>
+<hr />
+<p>Installation instructions (unchanged):</p>
+<ol>
+<li>
+<p>From binaries: run</p>
+<pre><code>bash -c &quot;sh &lt;(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh) --version 2.0.7&quot;
+</code></pre>
+<p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.0.7">the Github &quot;Releases&quot; page</a> to your PATH. In this case, don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script.</p>
+</li>
+<li>
+<p>From source, using opam:</p>
+<pre><code>opam update; opam install opam-devel
+</code></pre>
+<p>(then copy the opam binary to your PATH as explained, and don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script)</p>
+</li>
+<li>
+<p>From source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.0.7#compiling-this-repo">README</a>.</p>
+</li>
+</ol>
+<p>We hope you enjoy this new minor version, and remain open to <a href="https://github.com/ocaml/opam/issues">bug reports</a> and <a href="https://github.com/ocaml/opam/issues">suggestions</a>.</p>
+<blockquote>
+<p>NOTE: this article is cross-posted on <a href="https://opam.ocaml.org/blog/">opam.ocaml.org</a> and <a href="http://www.ocamlpro.com/category/blog/">ocamlpro.com</a>. Please head to the latter for the comments!</p>
+</blockquote>
+|js}
+  };
+ 
   { title = {js|OCaml Multicore - April 2020|js}
   ; slug = {js|multicore-2020-04|js}
   ; description = {js|Monthly update from the OCaml Multicore team.|js}
@@ -8922,6 +9601,83 @@ Read and write Irmin benchmark</p>
 |js}
   };
  
+  { title = {js|opam 2.0.6 release|js}
+  ; slug = {js|opam-2-0-6|js}
+  ; description = {js|???|js}
+  ; date = {js|2020-01-16|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>We are pleased to announce the minor release of <a href="https://github.com/ocaml/opam/releases/tag/2.0.6">opam 2.0.6</a>.</p>
+<p>This new version contains some small <a href="https://github.com/ocaml/opam/pull/3973">backported</a> fixes and build update:</p>
+<ul>
+<li>Don't remove git cache objects that may be used [<a href="https://github.com/ocaml/opam/pull/3831">#3831</a> <a href="https://github.com/AltGr">@AltGr</a>]
+</li>
+<li>Don't include .gitattributes in index.tar.gz [<a href="https://github.com/ocaml/opam/pull/3873">#3873</a> <a href="https://github.com/dra27">@dra27</a>]
+</li>
+<li>Update FAQ uri [<a href="https://github.com/ocaml/opam/pull/3941">#3941</a> <a href="https://github.com/dra27">@dra27</a>]
+</li>
+<li>Lock: add warning in case of missing locked file [<a href="https://github.com/ocaml/opam/pull/3939">#3939</a> <a href="https://github.com/rjbou">@rjbou</a>]
+</li>
+<li>Directory tracking: fix cached entries retrieving with precise
+tracking [<a href="https://github.com/ocaml/opam/pull/4038">#4038</a> <a href="https://github.com/hannesm">@hannesm</a>]
+</li>
+<li>Build:
+<ul>
+<li>Add sanity checks [<a href="https://github.com/ocaml/opam/pull/3934">#3934</a> <a href="https://github.com/dra27">@dra27</a>]
+</li>
+<li>Build man pages using dune [<a href="https://github.com/ocaml/opam/issues/3902">#3902</a> ]
+</li>
+<li>Add patch and bunzip check for make cold [<a href="https://github.com/ocaml/opam/pull/4006">#4006</a> <a href="https://github.com/rjbou">@rjbou</a> - fix <a href="https://github.com/ocaml/opam/issues/3842">#3842</a>]
+</li>
+</ul>
+</li>
+<li>Shell:
+<ul>
+<li>fish: add colon for fish manpath [<a href="https://github.com/ocaml/opam/pull/3886">#3886</a> <a href="https://github.com/rjbou">@rjbou</a> - fix <a href="https://github.com/ocaml/opam/issues/3878">#3878</a>]
+</li>
+</ul>
+</li>
+<li>Sandbox:
+<ul>
+<li>Add dune cache as rw [<a href="https://github.com/ocaml/opam/pull/4019">#4019</a> <a href="https://github.com/rjbou">@rjbou</a> - fix <a href="https://github.com/ocaml/opam/issues/4012">#4012</a>]
+</li>
+<li>Do not fail if $HOME/.ccache is missing [<a href="https://github.com/ocaml/opam/pull/3957">#3957</a> <a href="https://github.com/mseri">@mseri</a>]
+</li>
+</ul>
+</li>
+<li>opam-devel file: avoid copying extraneous files in opam-devel example [<a href="https://github.com/ocaml/opam/pull/3999">#3999</a> <a href="https://github.com/maroneze">@maroneze</a>]
+</li>
+</ul>
+<p>As <strong>sandbox scripts</strong> have been updated, don't forget to run <code>opam init --reinit -ni</code> to update yours.</p>
+<blockquote>
+<p>Note: To homogenise macOS name on system detection, we decided to keep <code>macos</code>, and convert <code>darwin</code> to <code>macos</code> in opam. For the moment, to not break jobs &amp; CIs, we keep uploading <code>darwin</code> &amp; <code>macos</code> binaries, but from the 2.1.0 release, only <code>macos</code> ones will be kept.</p>
+</blockquote>
+<hr />
+<p>Installation instructions (unchanged):</p>
+<ol>
+<li>
+<p>From binaries: run</p>
+<pre><code>bash -c &quot;sh &lt;(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh) --version 2.0.6&quot;
+</code></pre>
+<p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.0.6">the Github &quot;Releases&quot; page</a> to your PATH. In this case, don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script.</p>
+</li>
+<li>
+<p>From source, using opam:</p>
+<pre><code>opam update; opam install opam-devel
+</code></pre>
+<p>(then copy the opam binary to your PATH as explained, and don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script)</p>
+</li>
+<li>
+<p>From source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.0.6#compiling-this-repo">README</a>.</p>
+</li>
+</ol>
+<p>We hope you enjoy this new minor version, and remain open to <a href="https://github.com/ocaml/opam/issues">bug reports</a> and <a href="https://github.com/ocaml/opam/issues">suggestions</a>.</p>
+<blockquote>
+<p>NOTE: this article is cross-posted on <a href="https://opam.ocaml.org/blog/">opam.ocaml.org</a> and <a href="http://www.ocamlpro.com/category/blog/">ocamlpro.com</a>. Please head to the latter for the comments!</p>
+</blockquote>
+|js}
+  };
+ 
   { title = {js|OCaml Multicore - January 2020|js}
   ; slug = {js|multicore-2020-01|js}
   ; description = {js|Monthly update from the OCaml Multicore team.|js}
@@ -9026,6 +9782,4900 @@ Fix for DWARF CFI for non-allocating external calls</p>
 <li>PR: Pull Request
 </li>
 <li>SSSP: Single Source Shortest Path
+</li>
+</ul>
+|js}
+  };
+ 
+  { title = {js|opam 2.0.5 release|js}
+  ; slug = {js|opam-2-0-5|js}
+  ; description = {js|???|js}
+  ; date = {js|2019-07-11|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>We are pleased to announce the minor release of <a href="https://github.com/ocaml/opam/releases/tag/2.0.5">opam 2.0.5</a>.</p>
+<p>This new version contains build update and small fixes:</p>
+<ul>
+<li>Bump src_ext Dune to 1.6.3, allows compilation with OCaml 4.08.0. [<a href="https://github.com/ocaml/opam/pull/3887">#3887</a> <a href="https://github.com/dra27">@dra27</a>]
+</li>
+<li>Support Dune 1.7.0 and later [<a href="https://github.com/ocaml/opam/pull/3888">#3888</a> <a href="https://github.com/dra27">@dra27</a> - fix <a href="https://github.com/ocaml/opam/issues/3870">#3870</a>]
+</li>
+<li>Bump the ocaml_mccs lib-ext, to include latest changes [<a href="https://github.com/ocaml/opam/pull/3896">#3896</a> <a href="https://github.com/AltGr">@AltGr</a>]
+</li>
+<li>Fix cppo detection in configure [<a href="https://github.com/ocaml/opam/pull/3917">#3917</a> <a href="https://github.com/dra27">@dra27</a>]
+</li>
+<li>Read jobs variable from OpamStateConfig [<a href="https://github.com/ocaml/opam/pull/3916">#3916</a> <a href="https://github.com/dra27">@dra27</a>]
+</li>
+<li>Linting:
+<ul>
+<li>add check upstream option [<a href="https://github.com/ocaml/opam/pull/3758">#3758</a> <a href="https://github.com/rjbou">@rjbou</a>]
+</li>
+<li>add warning for with-test in run-test field [<a href="https://github.com/ocaml/opam/pull/3765">#3765</a>, <a href="https://github.com/ocaml/opam/pull/3860">#3860</a> <a href="https://github.com/rjbou">@rjbou</a>]
+</li>
+<li>fix misleading <code>doc</code> filter warning [<a href="https://github.com/ocaml/opam/pull/3871">#3871</a> <a href="https://github.com/rjbou">@rjbou</a>]
+</li>
+</ul>
+</li>
+<li>Fix typos [<a href="https://github.com/ocaml/opam/pull/3891">#3891</a> <a href="https://github.com/dra27">@dra27</a>, <a href="https://github.com/mehdid">@mehdid</a>]
+</li>
+</ul>
+<blockquote>
+<p>Note: To homogenise macOS name on system detection, we decided to keep <code>macos</code>, and convert <code>darwin</code> to <code>macos</code> in opam. For the moment, to not break jobs &amp; CIs, we keep uploading <code>darwin</code> &amp; <code>macos</code> binaries, but from the 2.1.0 release, only <code>macos</code> ones will be kept.</p>
+</blockquote>
+<hr />
+<p>Installation instructions (unchanged):</p>
+<ol>
+<li>
+<p>From binaries: run</p>
+<pre><code>sh &lt;(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
+</code></pre>
+<p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.0.5">the Github &quot;Releases&quot; page</a> to your PATH. In this case, don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script.</p>
+</li>
+<li>
+<p>From source, using opam:</p>
+<pre><code>opam update; opam install opam-devel
+</code></pre>
+<p>(then copy the opam binary to your PATH as explained, and don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script)</p>
+</li>
+<li>
+<p>From source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.0.5#compiling-this-repo">README</a>.</p>
+</li>
+</ol>
+<p>We hope you enjoy this new minor version, and remain open to <a href="https://github.com/ocaml/opam/issues">bug reports</a> and <a href="https://github.com/ocaml/opam/issues">suggestions</a>.</p>
+<blockquote>
+<p>NOTE: this article is cross-posted on <a href="https://opam.ocaml.org/blog/">opam.ocaml.org</a> and <a href="http://www.ocamlpro.com/category/blog/">ocamlpro.com</a>. Please head to the latter for the comments!</p>
+</blockquote>
+|js}
+  };
+ 
+  { title = {js|opam 2.0.4 release|js}
+  ; slug = {js|opam-2-0-4|js}
+  ; description = {js|???|js}
+  ; date = {js|2019-04-10|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>We are pleased to announce the release of <a href="https://github.com/ocaml/opam/releases/tag/2.0.4">opam 2.0.4</a>.</p>
+<p>This new version contains some <a href="https://github.com/ocaml/opam/pull/3805">backported fixes</a>:</p>
+<ul>
+<li>Sandboxing on macOS: considering the possibility that TMPDIR is unset [<a href="https://github.com/ocaml/opam/pull/3597">#3597</a> <a href="https://github.com/herbelin">@herbelin</a> - fix <a href="https://github.com/ocaml/opam/issues/3576">#3576</a>]
+</li>
+<li>display: Fix <code>opam config var</code> display, aligned on <code>opam config list</code> [<a href="https://github.com/ocaml/opam/pull/3723">#3723</a> <a href="https://github.com/rjbou">@rjbou</a> - rel. <a href="https://github.com/ocaml/opam/issues/3717">#3717</a>]
+</li>
+<li>pin:
+<ul>
+<li>update source of (version) pinned directory [<a href="https://github.com/ocaml/opam/pull/3726">#3726</a> <a href="https://github.com/rjbou">@rjbou</a> - <a href="https://github.com/ocaml/opam/issues/3651">#3651</a>]
+</li>
+<li>fix <code>--ignore-pin-depends</code> with autopin [<a href="https://github.com/ocaml/opam/pull/3736">#3736</a> <a href="https://github.com/AltGr">@AltGr</a>]
+</li>
+<li>fix pinnings not installing/upgrading already pinned packages (introduced in 2.0.2) [<a href="https://github.com/ocaml/opam/pull/3800">#3800</a> <a href="https://github.com/AltGr">@AltGr</a>]
+</li>
+</ul>
+</li>
+<li>opam clean: Ignore errors trying to remove directories [<a href="https://github.com/ocaml/opam/pull/3732">#3732</a> <a href="https://github.com/kit">@kit-ty-kate</a>]
+</li>
+<li>remove wrong &quot;mismatched extra-files&quot; warning [<a href="https://github.com/ocaml/opam/pull/3744">#3744</a> <a href="https://github.com/rjbou">@rjbou</a>]
+</li>
+<li>urls: fix hg opam 1.2 url parsing [<a href="https://github.com/ocaml/opam/pull/3754">#3754</a> <a href="https://github.com/rjbou">@rjbou</a>]
+</li>
+<li>lint: update message of warning 47, to avoid confusion because of missing <code>synopsis</code> field internally inferred from <code>descr</code> [<a href="https://github.com/ocaml/opam/pull/3753">#3753</a> <a href="https://github.com/rjbou">@rjbou</a> - fix <a href="https://github.com/ocaml/opam/issues/3738">#3738</a>]
+</li>
+<li>system:
+<ul>
+<li>lock &amp; signals: don't interrupt at non terminal signals [<a href="https://github.com/ocaml/opam/pull/3541">#3541</a> <a href="https://github.com/rjbou">@rjbou</a>]
+</li>
+<li>shell: fix fish manpath setting [<a href="https://github.com/ocaml/opam/pull/3728">#3728</a> <a href="https://github.com/gregory">@gregory-nisbet</a>]
+</li>
+<li>git: use <code>diff.noprefix=false</code> config argument to overwrite user defined configuration [<a href="https://github.com/ocaml/opam/pull/3788">#3788</a> <a href="https://github.com/rjbou">@rjbou</a>, <a href="https://github.com/ocaml/opam/pull/3628">#3628</a> <a href="https://github.com/Blaisorblade">@Blaisorblade</a> - fix <a href="https://github.com/ocaml/opam/issues/3627">#3627</a>]
+</li>
+</ul>
+</li>
+<li>dirtrack: fix precise tracking mode [<a href="https://github.com/ocaml/opam/pull/3796">#3796</a> <a href="https://github.com/rjbou">@rjbou</a>]
+</li>
+<li>fix some mispellings [<a href="https://github.com/ocaml/opam/pull/3731">#3731</a> <a href="https://github.com/MisterDA">@MisterDA</a>]
+</li>
+<li>CI enhancement &amp; fixes [<a href="https://github.com/ocaml/opam/pull/3706">#3706</a> <a href="https://github.com/dra27">@dra27</a>, <a href="https://github.com/ocaml/opam/pull/3748">#3748</a> <a href="https://github.com/rjbou">@rjbou</a>, <a href="https://github.com/ocaml/opam/pull/3801">#3801</a> <a href="https://github.com/rjbou">@rjbou</a>]
+</li>
+</ul>
+<blockquote>
+<p>Note: To homogenise macOS name on system detection, we decided to keep <code>macos</code>, and convert <code>darwin</code> to <code>macos</code> in opam. For the moment, to not break jobs &amp; CIs, we keep uploading <code>darwin</code> &amp; <code>macos</code> binaries, but from the 2.1.0 release, only <code>macos</code> ones will be kept.</p>
+</blockquote>
+<hr />
+<p>Installation instructions (unchanged):</p>
+<ol>
+<li>
+<p>From binaries: run</p>
+<pre><code>sh &lt;(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
+</code></pre>
+<p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.0.4">the Github &quot;Releases&quot; page</a> to your PATH. In this case, don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script.</p>
+</li>
+<li>
+<p>From source, using opam:</p>
+<pre><code>opam update; opam install opam-devel
+</code></pre>
+<p>(then copy the opam binary to your PATH as explained, and don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script)</p>
+</li>
+<li>
+<p>From source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.0.4#compiling-this-repo">README</a>.</p>
+</li>
+</ol>
+<p>We hope you enjoy this new minor version, and remain open to <a href="https://github.com/ocaml/opam/issues">bug reports</a> and <a href="https://github.com/ocaml/opam/issues">suggestions</a>.</p>
+<blockquote>
+<p>NOTE: this article is cross-posted on <a href="https://opam.ocaml.org/blog/">opam.ocaml.org</a> and <a href="http://www.ocamlpro.com/category/blog/">ocamlpro.com</a>. Please head to the latter for the comments!</p>
+</blockquote>
+|js}
+  };
+ 
+  { title = {js|opam 2.0 tips|js}
+  ; slug = {js|opam-20-tips|js}
+  ; description = {js|???|js}
+  ; date = {js|2019-03-12|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>This blog post looks back on some of the improvements in opam 2.0, and gives
+tips on the new workflows available.</p>
+<h2>Package development environment management</h2>
+<p>Opam 2.0 has been vastly improved to handle locally defined packages. Assuming
+you have a project <code>~/projects/foo</code>, defining two packages <code>foo-lib</code> and
+<code>foo-bin</code>, you would have:</p>
+<pre><code>~/projects/foo
+|-- foo-lib.opam
+|-- foo-bin.opam
+`-- src/ ...
+</code></pre>
+<p>(See also about
+<a href="../opam-extended-dependencies/#Computed-versions">computed dependency constraints</a>
+for handling multiple package definitions with mutual constraints)</p>
+<h3>Automatic pinning</h3>
+<p>The underlying mechanism is the same, but this is an interface improvement that
+replaces most of the opam 1.2 workflows based on <code>opam pin</code>.</p>
+<p>The usual commands (<code>install</code>, <code>upgrade</code>, <code>remove</code>, etc.) have been extended to
+support specifying a directory as argument. So when working on project <code>foo</code>,
+just write:</p>
+<pre><code>cd ~/projects/foo
+opam install .
+</code></pre>
+<p>and both <code>foo-lib</code> and <code>foo-bin</code> will get automatically pinned to the current
+directory (using git if your project is versioned), and installed. You may
+prefer to use:</p>
+<pre><code>opam install . --deps-only
+</code></pre>
+<p>to just get the package dependencies ready before you start hacking on it.
+<a href="#Reproducing-build-environments">See below</a> for details on how to reproduce a
+build environment more precisely. Note that <code>opam depext .</code> will not work at the
+moment, which will be fixed in the next release when the external dependency
+handling is integrated (opam will still list you the proper packages to install
+for your OS upon failure).</p>
+<p>If your project is versioned and you made changes, remember to either commit, or
+add <code>--working-dir</code> so that your uncommitted changes are taken into account.</p>
+<h2>Local switches</h2>
+<blockquote>
+<p>Opam 2.0 introduced a new feature called &quot;local switches&quot;. This section
+explains what it is about, why, when and how to use them.</p>
+</blockquote>
+<p>Opam <em>switches</em> allow to maintain several separate development environments,
+each with its own set of packages installed. This is particularly useful when
+you need different OCaml versions, or for working on projects with different
+dependency sets.</p>
+<p>It can sometimes become tedious, though, to manage, or remember what switch to
+use with what project. Here is where &quot;local switches&quot; come in handy.</p>
+<h3>How local switches are handled</h3>
+<p>A local switch is simply stored inside a <code>_opam/</code> directory, and will be
+selected automatically by opam whenever your current directory is below its
+parent directory.</p>
+<blockquote>
+<p>NOTE: it's highly recommended that you enable the new <em>shell hooks</em> when using
+local switches. Just run <code>opam init --enable-shell-hook</code>: this will make sure
+your PATH is always set for the proper switch.</p>
+<p>You will otherwise need to keep remembering to run <code>eval $(opam env)</code> every
+time you <code>cd</code> to a directory containing a local switch. See also
+<a href="http://opam.ocaml.org/doc/Tricks.html#Display-the-current-quot-opam-switch-quot-in-the-prompt">how to display the current switch in your prompt</a></p>
+</blockquote>
+<p>For example, if you have <code>~/projects/foo/_opam</code>, the switch will be selected
+whenever in project <code>foo</code>, allowing you to tailor what it has installed for the
+needs of your project.</p>
+<p>If you remove the switch dir, or your whole project, opam will forget about it
+transparently. Be careful not to move it around, though, as some packages still
+contain hardcoded paths and don't handle relocation well (we're working on
+that).</p>
+<h3>Creating a local switch</h3>
+<p>This can generally start with:</p>
+<pre><code>cd ~/projects/foo
+opam switch create . --deps-only
+</code></pre>
+<p>Local switch handles are just their path, instead of a raw name. Additionally,
+the above will detect package definitions present in <code>~/projects/foo</code>, pick a
+compatible version of OCaml (if you didn't explicitely mention any), and
+automatically install all the local package dependencies.</p>
+<p>Without <code>--deps-only</code>, the packages themselves would also get installed in the
+local switch.</p>
+<h3>Using an existing switch</h3>
+<p>If you just want an already existing switch to be selected automatically,
+without recompiling one for each project, you can use <code>opam switch link</code>:</p>
+<pre><code>cd ~/projects/bar
+opam switch link 4.07.1
+</code></pre>
+<p>will make sure that switch <code>4.07.1</code> is chosen whenever you are in project <code>bar</code>.
+You could even link to <code>../foo</code> here, to share <code>foo</code>'s local switch between the
+two projects.</p>
+<h2>Reproducing build environments</h2>
+<h4>Pinnings</h4>
+<p>If your package depends on development versions of some dependencies (e.g. you
+had to push a fix upstream), add to your opam file:</p>
+<pre><code>depends: [ &quot;some-package&quot; ] # Remember that pin-depends are depends too
+pin-depends: [
+  [ &quot;some-package.version&quot; &quot;git+https://gitfoo.com/blob.git#mybranch&quot; ]
+]
+</code></pre>
+<p>This will have no effect when your package is published in a repository, but
+when it gets pinned to its dev version, opam will first make sure to pin
+<code>some-package</code> to the given URL.</p>
+<h4>Lock-files</h4>
+<p>Dependency contraints are sometimes too wide, and you don't want to explore all
+the versions of your dependencies while developing. For this reason, you may
+want to reproduce a known-working set of dependencies. If you use:</p>
+<pre><code>opam lock .
+</code></pre>
+<p>opam will check what version of the dependencies are installed in your current
+switch, and explicit them in <code>*.opam.locked</code> files. <code>opam lock</code> is a plugin at
+the moment, but will get automatically installed when needed.</p>
+<p>Then, assuming you checked these files into version control, any user can do</p>
+<pre><code>opam install . --deps-only --locked
+</code></pre>
+<p>to instruct opam to reproduce the same build environment (the <code>--locked</code> option
+is also available to <code>opam switch create</code>, to make things easier).</p>
+<p>The generated lock-files will also contain added constraints to reproduce the
+presence/absence of optional dependencies, and reproduce the appropriate
+dependency pins using <code>pin-depends</code>. Add the <code>--direct-only</code> option if you don't
+want to enforce the versions of all recursive dependencies, but only direct
+ones.</p>
+|js}
+  };
+ 
+  { title = {js|opam 2.0.3 release|js}
+  ; slug = {js|opam-2-0-3|js}
+  ; description = {js|???|js}
+  ; date = {js|2019-01-28|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>We are pleased to announce the release of <a href="https://github.com/ocaml/opam/releases/tag/2.0.3">opam 2.0.3</a>.</p>
+<p>This new version contains some <a href="https://github.com/ocaml/opam/pull/3715">backported fixes</a>:</p>
+<ul>
+<li>Fix manpage remaining $ (OPAMBESTEFFORT)
+</li>
+<li>Fix OPAMROOTISOK handling
+</li>
+<li>Regenerate missing environment file
+</li>
+</ul>
+<hr />
+<p>Installation instructions (unchanged):</p>
+<ol>
+<li>
+<p>From binaries: run</p>
+<pre><code>sh &lt;(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
+</code></pre>
+<p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.0.3">the Github &quot;Releases&quot; page</a> to your PATH. In this case, don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script.</p>
+</li>
+<li>
+<p>From source, using opam:</p>
+<pre><code>opam update; opam install opam-devel
+</code></pre>
+<p>(then copy the opam binary to your PATH as explained, and don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script)</p>
+</li>
+<li>
+<p>From source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.0.3#compiling-this-repo">README</a>.</p>
+</li>
+</ol>
+<p>We hope you enjoy this new major version, and remain open to <a href="https://github.com/ocaml/opam/issues">bug reports</a> and <a href="https://github.com/ocaml/opam/issues">suggestions</a>.</p>
+<blockquote>
+<p>NOTE: this article is cross-posted on <a href="https://opam.ocaml.org/blog/">opam.ocaml.org</a> and <a href="http://www.ocamlpro.com/category/blog/">ocamlpro.com</a>. Please head to the latter for the comments!</p>
+</blockquote>
+|js}
+  };
+ 
+  { title = {js|opam 2.0.2 release|js}
+  ; slug = {js|opam-2-0-2|js}
+  ; description = {js|???|js}
+  ; date = {js|2018-12-12|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>We are pleased to announce the release of <a href="https://github.com/ocaml/opam/releases/tag/2.0.2">opam 2.0.2</a>.</p>
+<p>As <strong>sandbox scripts</strong> have been updated, don't forget to run <code>opam init --reinit -ni</code> to update yours.</p>
+<p>This new version contains mainly <a href="https://github.com/ocaml/opam/pull/3669">backported fixes</a>:</p>
+<ul>
+<li>Doc:
+<ul>
+<li>update man page
+</li>
+<li>add message for deprecated options
+</li>
+<li>reinsert removed ones to print a deprecated message instead of fail (e.g. <code>--alias-of</code>)
+</li>
+<li>deprecate <code>no-aspcud</code>
+</li>
+</ul>
+</li>
+<li>Pin:
+<ul>
+<li>on pinning, rebuild updated <code>pin-depends</code> packages reliably
+</li>
+<li>include descr &amp; url files on pinning 1.2 opam files
+</li>
+</ul>
+</li>
+<li>Sandbox:
+<ul>
+<li>handle symlinks in bubblewrap for system directories such as <code>/bin</code> or <code>/lib</code> (<a href="https://github.com/ocaml/opam/pull/3661">#3661</a>).  Fixes sandboxing on some distributions such as CentOS 7 and Arch Linux.
+</li>
+<li>allow use of unix domain sockets on macOS (<a href="https://github.com/ocaml/opam/issues/3659">#3659</a>)
+</li>
+<li>change one-line conditional to if statement which was incompatible with set -e
+</li>
+<li>make /var readonly instead of empty and rw
+</li>
+</ul>
+</li>
+<li>Path: resolve default opam root path
+</li>
+<li>System: suffix .out for read_command_output stdout files
+</li>
+<li>Locked: check consistency with opam file when reading lock file to suggest regeneration message
+</li>
+<li>Show: remove pin depends messages
+</li>
+<li>Cudf: Fix closure computation in the presence of cycles to have a complete graph if a cycle is present in the graph (typically <code>ocaml-base-compiler</code> ⇄ <code>ocaml</code>)
+</li>
+<li>List: Fix some cases of listing coinstallable packages
+</li>
+<li>Format upgrade: extract archived source files of version-pinned packages
+</li>
+<li>Core: add is_archive in OpamSystem and OpamFilename
+</li>
+<li>Init: don't fail if empty compiler given
+</li>
+<li>Lint: fix light_uninstall flag for error 52
+</li>
+<li>Build: partial port to dune
+</li>
+<li>Update cold compiler to 4.07.1
+</li>
+</ul>
+<hr />
+<p>Installation instructions (unchanged):</p>
+<ol>
+<li>
+<p>From binaries: run</p>
+<pre><code>sh &lt;(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
+</code></pre>
+<p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.0.2">the Github &quot;Releases&quot; page</a> to your PATH. In this case, don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update your sandbox script.</p>
+</li>
+<li>
+<p>From source, using opam:</p>
+<pre><code>opam update; opam install opam-devel
+</code></pre>
+<p>(then copy the opam binary to your PATH as explained, and don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script)</p>
+</li>
+<li>
+<p>From source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.0.2#compiling-this-repo">README</a>.</p>
+</li>
+</ol>
+<p>We hope you enjoy this new minor version, and remain open to <a href="https://github.com/ocaml/opam/issues">bug reports</a> and <a href="https://github.com/ocaml/opam/issues">suggestions</a>.</p>
+<blockquote>
+<p>NOTE: this article is cross-posted on <a href="https://opam.ocaml.org/blog/">opam.ocaml.org</a> and <a href="http://www.ocamlpro.com/category/blog/">ocamlpro.com</a>. Please head to the latter for the comments!</p>
+</blockquote>
+|js}
+  };
+ 
+  { title = {js|opam 2.0.1 is out!|js}
+  ; slug = {js|opam-2-0-1|js}
+  ; description = {js|???|js}
+  ; date = {js|2018-10-24|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>We are pleased to announce the release of <a href="https://github.com/ocaml/opam/releases/tag/2.0.1">opam 2.0.1</a>.</p>
+<p>This new version contains mainly <a href="https://github.com/ocaml/opam/pull/3560">backported fixes</a>, some platform-specific:</p>
+<ul>
+<li>Cold boot for MacOS/CentOS/Alpine
+</li>
+<li>Install checksum validation on MacOS
+</li>
+<li>Archive extraction for OpenBSD now defaults to using <code>gtar</code>
+</li>
+<li>Fix compilation of mccs on MacOS and Nix platforms
+</li>
+<li>Do not use GNU-sed specific features in the release Makefile, to fix build on OpenBSD/FreeBSD
+</li>
+<li>Cleaning to enable reproducible builds
+</li>
+<li>Update configure scripts
+</li>
+</ul>
+<p>And some opam specific:</p>
+<ul>
+<li>git: fix git fetch by sha1 for git &lt; 2.14
+</li>
+<li>linting: add <code>test</code> variable warning and empty description error
+</li>
+<li>upgrade: convert pinned but not installed opam files
+</li>
+<li>error reporting: more comprehensible error message for tar extraction, and upgrade of git-url compilers
+</li>
+<li>opam show: upgrade given local files
+</li>
+<li>list: as opam 2.0.0 <code>list</code> doesn't return non-zero code if list is empty, add <code>--silent</code> option for a silent output and returns 1 if list is empty
+</li>
+</ul>
+<hr />
+<p>Installation instructions (unchanged):</p>
+<ol>
+<li>
+<p>From binaries: run</p>
+<pre><code>sh &lt;(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
+</code></pre>
+<p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.0.1">the Github &quot;Releases&quot; page</a> to your PATH. In this case, don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed.</p>
+</li>
+<li>
+<p>From source, using opam:</p>
+<pre><code>opam update; opam install opam-devel
+</code></pre>
+<p>(then copy the opam binary to your PATH as explained, and don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed)</p>
+</li>
+<li>
+<p>From source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.0.1#compiling-this-repo">README</a>.</p>
+</li>
+</ol>
+<p>We hope you enjoy this new major version, and remain open to <a href="https://github.com/ocaml/opam/issues">bug reports</a> and <a href="https://github.com/ocaml/opam/issues">suggestions</a>.</p>
+<blockquote>
+<p>NOTE: this article is cross-posted on <a href="https://opam.ocaml.org/blog/">opam.ocaml.org</a> and <a href="http://www.ocamlpro.com/category/blog/">ocamlpro.com</a>. Please head to the latter for the comments!</p>
+</blockquote>
+|js}
+  };
+ 
+  { title = {js|opam 2.0.0 release and repository upgrade|js}
+  ; slug = {js|opam-2-0-0|js}
+  ; description = {js|???|js}
+  ; date = {js|2018-09-18|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>We are happy to announce the final release of <a href="https://github.com/ocaml/opam/releases/tag/2.0.0">opam 2.0.0</a>.</p>
+<p>A few weeks ago, we released a <a href="https://opam.ocaml.org/blog/opam-2-0-0-rc4">last release candidate</a> to be later promoted to 2.0.0, synchronised with the <a href="https://github.com/ocaml/opam-repository">opam package repository</a> <a href="https://opam.ocaml.org/blog/opam-2-0-0-repo-upgrade-roadmap/">upgrade</a>.</p>
+<p>You are encouraged to update as soon as you see fit, to continue to get package updates: opam 2.0.0 supports the older formats, and 1.2.2 will no longer get regular updates. See the <a href="http://opam.ocaml.org/2.0-preview/doc/Upgrade_guide.html">Upgrade Guide</a> for details about the new features and changes.</p>
+<p>The website opam.ocaml.org has been updated, with the full 2.0.0 documentation pages. You can still find the documentation for the previous versions in the corresponding menu.</p>
+<p>Package maintainers should be aware of the following:</p>
+<ul>
+<li>the master branch of the <a href="https://github.com/ocaml/opam-repository">opam package repository</a> is now in the 2.0.0 format
+</li>
+<li>package submissions must accordingly be made in the 2.0.0 format, or using the new version of <code>opam-publish</code> (2.0.0)
+</li>
+<li>anything that was merged into the repository in 1.2 format has been automatically updated to the 2.0.0 format
+</li>
+<li>the 1.2 format repository has been forked to its own branch, and will only be updated for critical fixes
+</li>
+</ul>
+<p>For custom repositories, the <a href="https://opam.ocaml.org/blog/opam-2-0-0-repo-upgrade-roadmap/#Advice-for-custom-repository-maintainers">advice</a> remains the same.</p>
+<hr />
+<p>Installation instructions (unchanged):</p>
+<ol>
+<li>
+<p>From binaries: run</p>
+<pre><code>sh &lt;(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
+</code></pre>
+<p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.0.0">the Github &quot;Releases&quot; page</a> to your PATH. In this case, don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed.</p>
+</li>
+<li>
+<p>From source, using opam:</p>
+<pre><code>opam update; opam install opam-devel
+</code></pre>
+<p>(then copy the opam binary to your PATH as explained, and don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed)</p>
+</li>
+<li>
+<p>From source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.0.0-rc4#compiling-this-repo">README</a>.</p>
+</li>
+</ol>
+<p>We hope you enjoy this new major version, and remain open to <a href="https://github.com/ocaml/opam/issues">bug reports</a> and <a href="https://github.com/ocaml/opam/issues">suggestions</a>.</p>
+<blockquote>
+<p>NOTE: this article is cross-posted on <a href="https://opam.ocaml.org/blog/">opam.ocaml.org</a> and <a href="http://www.ocamlpro.com/category/blog/">ocamlpro.com</a>. Please head to the latter for the comments!</p>
+</blockquote>
+|js}
+  };
+ 
+  { title = {js|Last stretch! Repository upgrade and opam 2.0.0 roadmap|js}
+  ; slug = {js|opam-2-0-0-repo-upgrade-roadmap|js}
+  ; description = {js|???|js}
+  ; date = {js|2018-08-02|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>A few days ago, we released <a href="https://opam.ocaml.org/blog/opam-2-0-0-rc4/">opam 2.0.0~rc4</a>, and explained that this final release candidate was expected be promoted to 2.0.0, in sync with an upgrade to the <a href="https://github.com/ocaml/opam-repository">opam package repository</a>. So here are the details about this!</p>
+<h2>If you are an opam user, and don't maintain opam packages</h2>
+<ul>
+<li>
+<p>You are encouraged to <a href="https://opam.ocaml.org/blog/opam-2-0-0-rc4/">upgrade</a>) as soon as comfortable, and get used to the <a href="http://opam.ocaml.org/2.0-preview/doc/Upgrade_guide.html">changes and new features</a></p>
+</li>
+<li>
+<p>All packages installing in opam 1.2.2 should exist and install fine on 2.0.0~rc4 (if you find one that doesn't, <a href="https://github.com/ocaml/opam/issues">please report</a>!)</p>
+</li>
+<li>
+<p>If you haven't updated by <strong>September 17th</strong>, the amount of updates and new packages you receive may become limited<a href="#foot-1">¹</a>.</p>
+</li>
+</ul>
+<h2>So what will happen on September 17th ?</h2>
+<ul>
+<li>
+<p>Opam 2.0.0~rc4 gets officially released as 2.0.0</p>
+</li>
+<li>
+<p>On the <code>ocaml/opam-repository</code> Github repository, a 1.2 branch is forked, and the 2.0.0 branch is merged into the master branch</p>
+</li>
+<li>
+<p>From then on, pull-requests to <code>ocaml/opam-repository</code> need to be in 2.0.0 format. Fixes to the 1.2 repository can be merged if important: pulls need to be requested against the 1.2 branch in that case.</p>
+</li>
+<li>
+<p>The opam website shows the 2.0.0 repository by default (https://opam.ocaml.org/2.0-preview/ becomes https://opam.ocaml.org/)</p>
+</li>
+<li>
+<p>The http repositories for 1.2 and 2.0 (as used by <code>opam update</code>) are accordingly moved, with proper redirections put in place</p>
+</li>
+</ul>
+<h2>Advice for package maintainers</h2>
+<ul>
+<li>
+<p>Until September 17th, pull-requests filed to the master branch of <code>ocaml/opam-repository</code> need to be in 1.2.2 format</p>
+</li>
+<li>
+<p>The CI checks for all PRs ensure that the package passes on both 1.2.2 and 2.0.0. After the 17th of september, only 2.0.0 will be checked (and 1.2.2 only if relevant fixes are required).</p>
+</li>
+<li>
+<p>The 2.0.0 branch of the repository will contain the automatically updated 2.0.0 version of your package definitions</p>
+</li>
+<li>
+<p>You can publish 1.2 packages while using opam 2.0.0 by installing <code>opam-publish.0.3.5</code> (running <code>opam pin opam-publish 0.3.5</code> is recommended)</p>
+</li>
+<li>
+<p>You should only need to keep an opam 1.2 installation for more complex setups (multiple packages, or if you need to be able to test the 1.2 package installations locally). In this case you might want to use an alias, <em>e.g.</em> <code>alias opam.1.2=&quot;OPAMROOT=$HOME/.opam.1.2 ~/local/bin/opam.1.2</code>. You should also probably disable opam 2.0.0's automatic environment update in that case (<code>opam init --disable-shell-hook</code>)</p>
+</li>
+<li>
+<p><code>opam-publish.2.0.0~beta</code> has a fully revamped interface, and many new features, like filing a single PR for multiple packages. It files pull-request <strong>in 2.0 format only</strong>, however. At the moment, it will file PR only to the 2.0.0 branch of the repository, but pushing 1.2 format packages to master is still preferred until September 17th.</p>
+</li>
+<li>
+<p>It is also advised to keep in-source opam files in 1.2 format until that date, so as not to break uses of <code>opam pin add --dev-repo</code> by opam 1.2 users. The small <code>opam-package-upgrade</code> plugin can be used to upgrade single 1.2 <code>opam</code> files to 2.0 format.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml/ocaml-ci-scripts"><code>ocaml-ci-script</code></a> already switched to opam 2.0.0. To keep testing opam 1.2.2, you can set the variable <code>OPAM_VERSION=1.2.2</code> in the <code>.travis.yml</code> file.</p>
+</li>
+</ul>
+<h2>Advice for custom repository maintainers</h2>
+<ul>
+<li>
+<p>The <code>opam admin upgrade</code> command can be used to upgrade your repository to 2.0.0 format. We recommand using it, as otherwise clients using opam 2.0.0 will do the upgrade locally every time. Add the option <code>--mirror</code> to continue serving both versions, with automatic redirects.</p>
+</li>
+<li>
+<p>It's your place to decide when/if you want to switch your base repository to 2.0.0 format. You'll benefit from many new possibilities and safety features, but that will exclude users of earlier opam versions, as there is no backwards conversion tool.</p>
+</li>
+</ul>
+<p><a id="foot-1">¹</a> Sorry for the inconvenience. We'd be happy if we could keep maintaining the 1.2.2 repository for more time; repository maintainers are doing an awesome job, but just don't have the resources to maintain both versions in parallel.</p>
+|js}
+  };
+ 
+  { title = {js|opam 2.0.0 RC4-final is out!|js}
+  ; slug = {js|opam-2-0-0-rc4|js}
+  ; description = {js|???|js}
+  ; date = {js|2018-07-26|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>We are happy to announce the <a href="https://github.com/ocaml/opam/releases/tag/2.0.0-rc4">opam 2.0.0 final release candidate</a>! 🍾</p>
+<p>This release features a few bugfixes over <a href="../opam-2-0-0-rc3">Release Candidate 3</a>. <strong>It will be promoted to 2.0.0 proper within a few weeks, when the <a href="https://github.com/ocaml/opam-repository">official repository</a> format switches from 1.2.0 to 2.0.0.</strong> After that date, updates to the 1.2.0 repository may become limited, as new features are getting used in packages.</p>
+<p>It is safe to update as soon as you see fit, since opam 2.0.0 supports the older formats. See the <a href="http://opam.ocaml.org/2.0-preview/doc/Upgrade_guide.html">Upgrade Guide</a> for details about the new features and changes. If you are a package maintainer, you should keep publishing as before for now: the <a href="https://opam.ocaml.org/blog/opam-2-0-0-repo-upgrade-roadmap">roadmap</a> for the repository upgrade will be detailed shortly.</p>
+<p>The opam.ocaml.org pages have also been refreshed a bit, and the new version showing the 2.0.0 branch of the repository is already online at <a href="http://opam.ocaml.org/2.0-preview/">http://opam.ocaml.org/2.0-preview/</a> (report any issues <a href="https://github.com/ocaml/opam2web/issues">here</a>).</p>
+<hr />
+<p>Installation instructions:</p>
+<ol>
+<li>
+<p>From binaries: run</p>
+<pre><code>sh &lt;(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
+</code></pre>
+<p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.0.0-rc4">the Github &quot;Releases&quot; page</a> to your PATH. In this case, don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed.</p>
+</li>
+<li>
+<p>From source, using opam:</p>
+<pre><code>opam update; opam install opam-devel
+</code></pre>
+<p>(then copy the opam binary to your PATH as explained, and don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed)</p>
+</li>
+<li>
+<p>From source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.0.0-rc4#compiling-this-repo">README</a>.</p>
+</li>
+</ol>
+<p>We hope you enjoy this new version, and remain open to <a href="https://github.com/ocaml/opam/issues">bug reports</a> and <a href="https://github.com/ocaml/opam/issues">suggestions</a>.</p>
+<blockquote>
+<p>NOTE: this article is cross-posted on <a href="https://opam.ocaml.org/blog/">opam.ocaml.org</a> and <a href="http://www.ocamlpro.com/category/blog/">ocamlpro.com</a>. Please head to the latter for the comments!</p>
+</blockquote>
+|js}
+  };
+ 
+  { title = {js|opam 2.0.0 Release Candidate 3 is out!|js}
+  ; slug = {js|opam-2-0-0-rc3|js}
+  ; description = {js|???|js}
+  ; date = {js|2018-06-22|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>We are pleased to announce the release of a third release candidate for opam 2.0.0. This one is expected to be the last before 2.0.0 comes out.</p>
+<p>Changes since the <a href="../opam-2-0-0-rc2">2.0.0~rc2</a> are, as expected, mostly fixes. We deemed it useful, however, to bring in the following:</p>
+<ul>
+<li>a new command <code>opam switch link</code> that allows to select a switch to be used in a given directory (particularly convenient if you use the shell hook for automatic opam environment update)
+</li>
+<li>a new option <code>opam install --assume-built</code>, that allows to install a package using its normal opam procedure, but for a source repository that has been built by hand. This fills a gap that remained in the local development workflows.
+</li>
+</ul>
+<p>The preview of the opam 2 webpages can be browsed at http://opam.ocaml.org/2.0-preview/ (please report issues <a href="https://github.com/ocaml/opam2web/issues">here</a>).</p>
+<p>Installation instructions (unchanged):</p>
+<ol>
+<li>
+<p>From binaries: run</p>
+<pre><code>sh &lt;(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
+</code></pre>
+<p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.0.0-rc3">the Github &quot;Releases&quot; page</a> to your PATH. In this case, don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed.</p>
+</li>
+<li>
+<p>From source, using opam:</p>
+<pre><code>opam update; opam install opam-devel
+</code></pre>
+<p>(then copy the opam binary to your PATH as explained, and don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed)</p>
+</li>
+<li>
+<p>From source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.0.0-rc3#compiling-this-repo">README</a>.</p>
+</li>
+</ol>
+<p>Thanks a lot for testing out this new RC and <a href="https://github.com/ocaml/opam/issues">reporting</a> any issues you may find.</p>
+|js}
+  };
+ 
+  { title = {js|opam 2.0.0 Release Candidate 2 is out!|js}
+  ; slug = {js|opam-2-0-0-rc2|js}
+  ; description = {js|???|js}
+  ; date = {js|2018-05-22|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>We are pleased to announce the release of a second release candidate for opam 2.0.0.</p>
+<p>This new version brings us very close to a final 2.0.0 release, and in addition to many fixes, features big performance enhancements over the RC1.</p>
+<p>Among the new features, we have squeezed in full sandboxing of package commands for both Linux and macOS, to protect our users from any <a href="http://opam.ocaml.org/blog/camlp5-system/">misbehaving scripts</a>.</p>
+<blockquote>
+<p>NOTE: if upgrading manually from 2.0.0~rc, you need to run
+<code>opam init --reinit -ni</code> to enable sandboxing.</p>
+</blockquote>
+<p>The new release candidate also offers the possibility to setup a hook in your shell, so that you won't need to run <code>eval $(opam env)</code> anymore. This is specially useful in combination with local switches, because with it enabled, you are guaranteed that running <code>make</code> from a project directory containing a local switch will use it.</p>
+<p>The documentation has also been updated, and a preview of the opam 2 webpages can be browsed at http://opam.ocaml.org/2.0-preview/ (please report issues <a href="https://github.com/ocaml/opam2web/issues">here</a>). This provides the list of packages available for opam 2 (the <code>2.0</code> branch of <a href="https://github.com/ocaml/opam-repository/tree/2.0.0">opam-repository</a>), including the <a href="https://opam.ocaml.org/2.0-preview/packages/ocaml-base-compiler/">compiler packages</a>.</p>
+<p>Installation instructions:</p>
+<ol>
+<li>
+<p>From binaries: run</p>
+<pre><code>sh &lt;(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
+</code></pre>
+<p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.0.0-rc2">the Github &quot;Releases&quot; page</a> to your PATH. In this case, don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed.</p>
+</li>
+<li>
+<p>From source, using opam:</p>
+<pre><code>opam update; opam install opam-devel
+</code></pre>
+<p>(then copy the opam binary to your PATH as explained, and don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed)</p>
+</li>
+<li>
+<p>From source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.0.0-rc2#compiling-this-repo">README</a>.</p>
+</li>
+</ol>
+<p>Thanks a lot for testing out this new RC and <a href="https://github.com/ocaml/opam/issues">reporting</a> any issues you may find.</p>
+<blockquote>
+<p>NOTE: this article is cross-posted on <a href="https://opam.ocaml.org/blog/">opam.ocaml.org</a> and <a href="http://www.ocamlpro.com/category/blog/">ocamlpro.com</a>. Please head to the latter for the comments!</p>
+</blockquote>
+|js}
+  };
+ 
+  { title = {js|Urgent problem with camlp5 7.03 and macOS OCaml 4.06.1|js}
+  ; slug = {js|camlp5-system|js}
+  ; description = {js|???|js}
+  ; date = {js|2018-05-04|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<h1>Packaging problem with opam-repository camlp5 7.03 when upgrading to OCaml 4.06.1</h1>
+<p>Between 26 Oct 2017 and 17 Feb 2018, the OPAM package for camlp5 7.03 in <a href="https://github.com/ocaml/opam-repository">opam-repository</a> was under certain circumstances able to trigger <code>rm -rf /</code> on macOS and other systems which don't by default prevent recursive root deletion. This article contains advice on how to identify if your OPAM installation is affected and what you can do to fix it.</p>
+<p>TL;DR If <code>rm --preserve-root</code> gives a message along the lines of <code>unrecognised option</code> rather than <code>missing operand</code> and you are running OPAM 1.2.2, ensure you run <code>opam update</code> <strong>before</strong> upgrading your system compiler to OCaml 4.06.1. If you have already upgraded <em>your system compiler</em> to OCaml 4.06.1 (e.g. with Homebrew) then please read on.</p>
+<h2>Identifying whether you're affected</h2>
+<p><strong>You are at serious risk of erasing all your files if the following three things are true:</strong></p>
+<ul>
+<li>Your system <code>rm</code> command does not support the <code>--preserve-root</code> default (you can identify this by running <code>rm --preserve-root</code> and noting whether the error message refers to an ‘unrecognised option’ rather than a ‘missing operand’)
+</li>
+<li>Your system OCaml compiler is 4.06.1 and you are using OPAM 1.2.2
+</li>
+<li>You have synchronised with opam-repository after 26 Oct 2017 but have not synchronised since 18 Feb 2018
+</li>
+</ul>
+<p>If your system is affected, most OPAM commands cannot be run. In particular, if OPAM asks:</p>
+<pre><code>dra@bionic:~$ opam update
+Your system compiler has been changed. Do you want to upgrade your OPAM installation ? [Y/n] n
+</code></pre>
+<p><strong>YOU MUST ANSWER NO TO THIS QUESTION</strong>.</p>
+<p>I have written a script which can safely identify if your system is affected, which can be reviewed on <a href="https://github.com/dra27/opam/blob/camlp5-detection/shell/opam-detect.sh">GitHub</a> or run directly by executing:</p>
+<pre><code>$ curl -L https://raw.githubusercontent.com/dra27/opam/camlp5-detection/shell/opam-detect.sh | sh -
+</code></pre>
+<p>This script scans the directory identified by <code>$HOME</code> for anything which looks like an OPAM root. Virtually all users will have one OPAM root in <code>~/.opam</code> and if you don't know how to run OPAM with multiple roots, then you probably don't have any others to worry about!</p>
+<p>The script may display a variety of messages. If your system contains at least one affected OPAM 1.2 root, you will see output like this:</p>
+<pre><code>dra@bionic:~/opam$ shell/opam-detect.sh 
+opam 1.2.2 found
+Scanning /home/dra for opam roots...
+opam 1.2 root found in /home/dra/.opam
+camlp5 is faulty AND installed AND the system compiler is OCaml 4.06.1
+
+THIS ROOT CANNOT BE UPDATED OR UPGRADED. DO NOT ALLOW OPAM TO UPGRADE THE SYSTEM
+COMPILER. DOING SO WILL ATTEMPT TO ERASE YOUR MACHINE
+Please see https://github.com/ocaml/opam/issues/3322 for more information
+</code></pre>
+<h2>Fixing it</h2>
+<p>In all cases, one fix is to install the latest release candidate for opam 2, and upgrade your OPAM 1.2 root to opam 2 format. The upgrade prevents OPAM 1.2.2 from being able to read the root. If you received the message above and choose to upgrade to opam 2 (the easiest way to upgrade a root is to run <code>opam list</code> after installing opam 2) and then run the <code>opam-detect.sh</code> script again. As before, <strong>DO NOT ANSWER YES TO THE Your system compiler has changed. QUESTION IF YOU ARE ASKED</strong>.</p>
+<p>If you do not wish to upgrade to opam 2, and there are many good reasons for not wanting to do this, there are two other possibilities. The easiest is to downgrade your system compiler back to 4.06.0 (or an earlier release). You can then run <code>opam-detect.sh</code> again and check the error message. As long as the message is no longer the one above, you can then run <code>opam update</code> to update the repository metadata on the switch. You can then upgrade your system compiler back to OCaml 4.06.1 again. To be absolutely sure, you can then run the <code>opam-detect.sh</code> script again and, assuming the message is still not the one above, you can then allow OPAM 1.2.2 to upgrade your system switch. <em>This is the recommended course of action.</em></p>
+<p>The final option is that you can edit the opam root by hand and trick opam into believing that the camlp5 package is no longer installed. This is done by editing the file <code>system/installed</code> within the root and removing <strong>both</strong> the <code>camlp5</code> line and any package which depends on camlp5 (for example, <code>coq</code>). You cannot use the <code>opam</code> to determine dependencies at this stage, so you will need to use the online index to check for dependent packages. If you fail to remove all the packages which depend on camlp5, OPAM will display an installation prompt like this:</p>
+<pre><code>dra@bionic:~$ opam update
+Your system compiler has been changed. Do you want to upgrade your OPAM installation ? [Y/n] y
+
+=-=- Upgrading system -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+The following actions will be performed:
+  ∗  install camlp5        7.03               [required by coq]
+  ∗  install conf-m4       1    
+  ∗  install base-threads  base 
+  ∗  install base-unix     base 
+  ∗  install base-bigarray base 
+  ∗  install ocamlfind     1.7.3
+  ∗  install num           1.1  
+  ∗  install coq           8.7.0
+===== ∗  8 =====
+Do you want to continue ? [Y/n] 
+</code></pre>
+<p>If this happens, answer no, but at this stage your system switch will have been emptied of all packages (you can now safely run <code>opam update</code> of course). Of course, you can back-up the OPAM root prior to trying this. Once upgraded, you can then run <code>opam update</code> and reinstall the missing packages. <strong>This course of action is not recommended as the <code>opam-detect.sh</code> script will no longer help. You are strongly advised to back up your files before attempting this solution</strong>.</p>
+<h2>The problem</h2>
+<p>On 26 Oct 2017, <a href="https://github.com/ocaml/opam-repository/pull/10523">PR#10523</a> was merged which packaged <a href="https://github.com/camlp5/camlp5">camlp5</a> 7.03. This was the first version of camlp5 released to opam which supported OCaml 4.06.0.</p>
+<p>Unfortunately, it was also the first version of the opam package to include a <code>remove</code> section which executed <code>make uninstall</code>. The package also contained an incorrect <code>available</code> constraint - it should have permitted only OCaml 4.06.0 from the 4.06 branch, but the constraint given permitted all versions.</p>
+<p>camlp5's <code>configure</code> script is responsible for writing <code>config/Makefile</code> with all the usual configuration settings, including <code>PREFIX</code> and so forth. This script includes a version check for OCaml and fails if the version is not supported. Unfortunately, even when it fails, it writes a partial <code>config/Makefile</code> to enable some development targets. Sadly this left the command <code>rm -rf &quot;$(DESTDIR)$(LIBDIR)/$(CAMLP5N)&quot;</code> in the <code>uninstall</code> target with all three variables undefined, leaving the certainly unwanted <code>rm -rf /</code>.</p>
+<p>Users of GNU coreutils have, since November 2003 (in release 5.1.0) had the <code>--preserve-root</code> option set by default, which causes <code>rm -rf /</code> to raise an error. Unfortunately, macOS does not use GNU coreutils by default.</p>
+<p>Prior to OPAM 1.2, the <code>build</code> and <code>install</code> sections of an <code>opam</code> file were combined. For this reason, if the <code>build</code> failed, OPAM would silently execute the <code>remove</code> commands in order to clean-up any partial installation which may have taken place. Although OPAM 1.2 recommended separating the <code>build</code> and <code>install</code> commands, this was not mandatory and it therefore retains the “silent remove” behaviour. opam 2 mandates the separation (and, if sandboxing is available, now enforces it). opam 2 also expects <code>remove</code> commands to be run in a clean source tree which, for this camlp5 case, means <strong>opam 2 users are UNAFFECTED by this issue</strong>.</p>
+<p>OCaml 4.06.1 was added to opam-repository on 16 Feb 2018 in <a href="https://github.com/ocaml/opam-repository/pull/11433">PR#11433</a>. During the following 48 hours, it was noticed that the camlp5 package was attempting to run <code>rm -rf /</code> (see <a href="https://github.com/ocaml/opam-repository/issues/11440">Issue #11440</a>) and the package was patched on 18 Feb 2018 in <a href="https://github.com/ocaml/opam-repository/pull/11443">PR#11443</a>. Unfortunately, the signifance of the GNU coreutils protection was not realised at this point and it was also assumed that the problem would only be hit if one were unlucky enough to have updated OPAM between the release of OCaml 4.06.1 to opam-repository and the patching of camlp5 7.03 in opam-repository (so 16–18 February 2018) and it was on this basis that OPAM <a href="https://github.com/ocaml/opam/issues/3231">PR#3231</a> was deemed to have been very unlucky.</p>
+<p>However, the real problem is the upgrading of the system compiler to 4.06.1, which wasn't noticed in that Issue but was correctly identified in <a href="https://github.com/ocaml/opam/issues/3316">Issue #3316</a>. This unfortunately gives a much wider window for the problem - if you ran <code>opam update</code> between 26 Oct 2017 and 18 Feb 2018 and haven't run it since, then your system will be at risk if you update your system compiler to OCaml 4.06.1 without first running <code>opam update</code>.</p>
+<p>If the system compiler alters, OPAM 1.2.2 on virtually all commands (including <code>opam update</code>) first asks to upgrade the <code>system</code> switch. This step is mandatory, preventing further safe use of OPAM 1.2.2.</p>
+<h2>Future mitigation</h2>
+<p>Owing to the changes made to how opam 2 processes package installations, opam 2 has been unaffected by this situation but opam 2's lead developer <a href="https://github.com/AltGr">@AltGr</a> freely admits that this is more by luck than judgement. However, the second release candidate for opam 2 includes mandatory support for sandboxing on Linux and macOS. Sandboxing package building and installation will protect opam 2 against future issues of this kind, as a malfunctioning build system will be unable to operate on files outside its build directory or, during installation, switch root.</p>
+|js}
+  };
+ 
+  { title = {js|opam 2.0.0 Release Candidate 1 is out!|js}
+  ; slug = {js|opam-2-0-0-rc|js}
+  ; description = {js|???|js}
+  ; date = {js|2018-02-02|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>We are pleased to announce a first release candidate for the long-awaited opam 2.0.0.</p>
+<p>A lot of polishing has been done since the <a href="https://opam.ocaml.org/blog/opam-2-0-beta5/">last beta</a>, including tweaks to the built-in solver, allowing in-source package definitions to be gathered in an <code>opam/</code> directory, and much more.</p>
+<p>With all of the 2.0.0 features getting pretty solid, we are now focusing on bringing all the guides up-to-date<a href="#foot-1">¹</a>, updating the tools and infrastructure, making sure there are no usability issues with the new workflows, and being future-proof so that further updates break as little as possible.</p>
+<p>You are invited to read the <a href="https://opam.ocaml.org/blog/opam-2-0-beta5/">beta5 announcement</a> for details on the 2.0.0 features. Installation instructions haven't changed:</p>
+<ol>
+<li>
+<p>From binaries: run</p>
+<pre><code>sh &lt;(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
+</code></pre>
+<p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.0.0-rc">the Github &quot;Releases&quot; page</a> to your PATH.</p>
+</li>
+<li>
+<p>From source, using opam:</p>
+<pre><code>opam update; opam install opam-devel
+</code></pre>
+<p>(then copy the opam binary to your PATH as explained)</p>
+</li>
+<li>
+<p>From source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.0.0-rc#opam---a-package-manager-for-ocaml">README</a>.</p>
+</li>
+</ol>
+<p>Thanks a lot for testing out the RC and <a href="https://github.com/ocaml/opam/issues">reporting</a> any issues you may find. See <a href="https://opam.ocaml.org/blog/opam-2-0-beta5/#What-we-need-tested">what we need tested</a> for more detail.</p>
+<hr />
+<p><a id="foot-1">¹</a> You can at the moment rely on the <a href="http://opam.ocaml.org/doc/2.0/man/opam.html">manpages</a>, the <a href="http://opam.ocaml.org/doc/2.0/Manual.html">Manual</a>, and of course the <a href="http://opam.ocaml.org/doc/2.0/api/">API</a>, but other pages might be outdated.</p>
+|js}
+  };
+ 
+  { title = {js|opam 2.0 Beta5 is out!|js}
+  ; slug = {js|opam-2-0-beta5|js}
+  ; description = {js|???|js}
+  ; date = {js|2017-11-27|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>After a few more months brewing, we are pleased to announce a new beta release
+of opam. With this new milestone, opam is reaching feature-freeze, with an
+expected 2.0.0 by the beginning of next year.</p>
+<p>This version brings many new features, stability fixes, and big improvements to
+the local development workflows.</p>
+<h2>What's new</h2>
+<p>The features presented in past announcements:
+<a href="http://opam.ocaml.org/blog/opam-local-switches/">local switches</a>,
+<a href="http://opam.ocaml.org/blog/opam-install-dir/">in-source package definition handling</a>,
+<a href="http://opam.ocaml.org/blog/opam-extended-dependencies/">extended dependencies</a>
+are of course all present. But now, all the glue to make them interact nicely
+together is here to provide new smooth workflows. For example, the following
+command, if run from the source tree of a given project, creates a local switch
+where it will restore a precise installation, including explicit versions of all
+packages and pinnings:</p>
+<pre><code>opam switch create ./ --locked
+</code></pre>
+<p>this leverages the presence of <code>opam.locked</code> or <code>&lt;name&gt;.opam.locked</code> files,
+which are valid package definitions that contain additional details of the build
+environment, and can be generated with the
+<a href="https://github.com/AltGr/opam-lock"><code>opam-lock</code> plugin</a> (the <code>lock</code> command may
+be merged into opam once finalised).</p>
+<p>But this new beta also provides a large amount of quality of life improvements,
+and other features. A big one, for example, is the integration of a built-in
+solver (derived from <a href="http://www.i3s.unice.fr/~cpjm/misc/mccs.html"><code>mccs</code></a> and
+<a href="https://www.gnu.org/software/glpk/"><code>glpk</code></a>). This means that the <code>opam</code> binary
+works out-of-the box, without requiring the external
+<a href="https://www.cs.uni-potsdam.de/wv/aspcud/"><code>aspcud</code></a> solver, and on all
+platforms. It is also faster.</p>
+<p>Another big change is that detection of architecture and OS details is now done
+in opam, and can be used to select the external dependencies with the new format
+of the <a href="http://opam.ocaml.org/doc/2.0/Manual.html#opamfield-depexts"><code>depexts:</code></a>
+field, but also to affect dependencies or build flags.</p>
+<p>There is much more to it. Please see the
+<a href="https://github.com/ocaml/opam/blob/2.0.0-beta5/CHANGES">changelog</a>, and the
+<a href="http://opam.ocaml.org/doc/2.0/Manual.html">updated manual</a>.</p>
+<h2>How to try it out</h2>
+<p>Our warm thanks for trying the new beta and
+<a href="https://github.com/ocaml/opam/issues">reporting</a> any issues you may hit.</p>
+<p>There are three main ways to get the update:</p>
+<ol>
+<li>
+<p>The easiest is to use our pre-compiled binaries.
+<a href="https://github.com/ocaml/opam/blob/master/shell/opam_installer.sh">This script</a>
+will also make backups if you migrate from 1.x, and has an option to revert
+back:</p>
+<pre><code>sh &lt;(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
+</code></pre>
+<p>This uses the binaries from https://github.com/ocaml/opam/releases/tag/2.0.0-beta5</p>
+</li>
+<li>
+<p>Another option is to compile from source, using an existing opam
+installation. Simply run:</p>
+<pre><code>opam update; opam install opam-devel
+</code></pre>
+<p>and follow the instructions (you will need to copy the compiled binary to
+your PATH).</p>
+</li>
+<li>
+<p>Compiling by hand from the
+<a href="https://github.com/ocaml/opam/releases/download/2.0.0-beta5/opam-full-2.0.0-beta5.tar.gz">inclusive source archive</a>,
+or from the <a href="https://github.com/ocaml/opam/tree/2.0.0-beta5">git repo</a>. Use
+<code>./configure &amp;&amp; make lib-ext &amp;&amp; make</code> if you have OCaml &gt;= 4.02.3 already
+available; <code>make cold</code> otherwise.</p>
+<p>If the build fails after updating a git repo from a previous version, try
+<code>git clean -fdx src/</code> to remove any stale artefacts.</p>
+</li>
+</ol>
+<p>Note that the repository format is different from that of opam 1.2. Opam 2 will
+be automatically redirected from the
+<a href="https://github.com/ocaml/opam-repository">opam-repository</a> to an automatically
+rewritten 2.0 mirror, and is otherwise able to do the conversion on the fly
+(both for package definitions when pinning, and for whole repositories). You may
+not yet contribute packages in 2.0 format to opam-repository, though.</p>
+<h2>What we need tested</h2>
+<p>We are interested in all opinions and reports, but here are a few areas where
+your feedback would be specially useful to us:</p>
+<ul>
+<li>Use 2.0 day-to-day, in particular check any packages you may be maintaining.
+We would like to ensure there are no regressions due to the rewrite from 1.2
+to 2.0.
+</li>
+<li>Check the quality of the solutions provided by the solver (or conflicts, when
+applicable).
+</li>
+<li>Test the different pinning mechanisms (rsync, git, hg, darcs) with your
+project version control systems. See the <code>--working-dir</code> option.
+</li>
+<li>Experiment with local switches for your project (and/or <code>opam install DIR</code>).
+Give us feedback on the workflow. Use <code>opam lock</code> and share development
+environments.
+</li>
+<li>If you have any custom repositories, please try the conversion to 2.0 format
+with <code>opam admin upgrade --mirror</code> on them, and use the generated mirror.
+</li>
+<li>Start porting your CI systems for larger projects to use opam 2, and give us
+feedback on any improvements you need for automated scripting (e.g. the
+<code>--json</code> output).
+</li>
+</ul>
+|js}
+  };
+ 
+  { title = {js|Deprecating opam 1.2.0|js}
+  ; slug = {js|deprecating-opam-1-2-0|js}
+  ; description = {js|???|js}
+  ; date = {js|2017-06-14|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>Opam 1.2.0 will be actively deprecated in favour of opam 1.2.2, which now becomes
+the only supported stable release.</p>
+<h3>Why deprecate opam 1.2.0</h3>
+<p>OPAM 1.2.0 was released in October 2014, and saw rapid uptake from the
+community. We did some rapid bugfixing to solve common problems, and OPAM 1.2.2
+was released in April 2015. Since then, 1.2.2 has been a very solid release and
+has been the stable version in use to date.</p>
+<p>Unfortunately, part of the bugfixes in the 1.2.2 series resulted in an <code>opam</code>
+file format that is not fully backwards compatible with the 1.2.0 syntax, and
+the net effect is that users of 1.2.0 now see a broken package repository. Our
+CI tests for new packages regularly fail on 1.2.0, even if they succeed on 1.2.2
+and higher.</p>
+<p>As we prepare the plan for <a href="https://github.com/ocaml/opam/issues/2918">1.2.2 -&gt; 2.0
+migration</a>, it is clear that we need
+a &quot;one-in one-out&quot; policy on releases in order to preserve the overall health of
+the package repository -- maintaining three separate releases and formats of the
+repository is not practical. Therefore the 1.2.0 release needs to be actively
+deprecated, and we could use some help from the community to make this happen.</p>
+<h3>Who is still using opam 1.2.0?</h3>
+<p>I found that the Debian Jessie (stable) release includes 1.2.0, and this is
+probably the last major distribution including it. The <a href="https://wiki.debian.org/DebianStretch">Debian
+Stretch</a> is due to become the stable
+release on the 17th June 2017, and so at that point there will hopefully be no
+distributions actively sending opam 1.2.0 out.</p>
+<h3>How do we deprecate it?</h3>
+<p>The format changes, although small, would cause errors on 1.2.0 users with the
+main repository. To avoid those, as was done for 1.1.0, we are going to redirect
+users of 1.2.0 to a frozen mirror of the repository, making new package updates
+unavailable to them.</p>
+<p>If there are any remaining users of opam 1.2.0, particularly industrial ones, please reach
+out (<em>e.g.</em> on <a href="https://github.com/ocaml/opam-repository/issues">Github</a>). By
+performing an active deprecation of an older release, we hope we can focus our
+efforts on ensuring the opam users have a good out-of-the-box experience with
+opam 1.2.2 and the forthcoming opam 2.0.</p>
+<p>Please also see the <a href="https://discuss.ocaml.org/t/rfc-deprecating-opam-1-2-0/332">discussion thread</a>
+regarding the deprecation on the OCaml Discourse forums.</p>
+|js}
+  };
+ 
+  { title = {js|new opam features: more expressive dependencies|js}
+  ; slug = {js|opam-extended-dependencies|js}
+  ; description = {js|???|js}
+  ; date = {js|2017-05-11|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>This blog will cover yet another aspect of the improvements opam 2.0 has over opam 1.2. I may be a little more technical than previous issues, as it covers a feature directed specifically at packagers and repository maintainers, and regarding the package definition format.</p>
+<h3>Specifying dependencies in opam 1.2</h3>
+<p>Opam 1.2 already has an advanced way of specifying package dependencies, using formulas on packages and versions, with the following syntax:</p>
+<pre><code>depends: [
+  &quot;foo&quot; {&gt;= &quot;3.0&quot; &amp; &lt; &quot;4.0~&quot;}
+  ( &quot;bar&quot; | &quot;baz&quot; {&gt;= &quot;1.0&quot;} )
+]
+</code></pre>
+<p>meaning that the package being defined depends on both package <code>foo</code>, within the <code>3.x</code> series, and one of <code>bar</code> or <code>baz</code>, the latter with version at least <code>1.0</code>. See <a href="https://opam.ocaml.org/doc/Manual.html#PackageFormulas">here</a> for a complete documentation.</p>
+<p>This only allows, however, dependencies that are static for a given package.</p>
+<p>Opam 1.2 introduced <code>build</code>, <code>test</code> and <code>doc</code> &quot;dependency flags&quot; that could provide some specifics for dependencies (<em>e.g.</em> <code>test</code> dependencies would only be needed when tests were requested for the package). These were constrained to appear before the version constraints, <em>e.g.</em> <code>&quot;foo&quot; {build &amp; doc &amp; &gt;= &quot;3.0&quot;}</code>.</p>
+<h3>Extensions in opam 2.0</h3>
+<p>Opam 2.0 generalises the dependency flags, and makes the dependencies specification more expressive by allowing to mix <em>filters</em>, <em>i.e.</em> formulas based on opam variables, with the version constraints. If that formula holds, the dependency is enforced, if not, it is discarded.</p>
+<p>This is documented in more detail <a href="https://opam.ocaml.org/doc/2.0/Manual.html#Filteredpackageformulas">in the opam 2.0 manual</a>.</p>
+<p>Note also that, since the compilers are now packages, the required OCaml version is now expressed using this mechanism as well, through a dependency to the (virtual) package <code>ocaml</code>, <em>e.g.</em> <code>depends: [ &quot;ocaml&quot; {&gt;= &quot;4.03.0&quot;} ]</code>. This replaces uses of the <code>available:</code> field and <code>ocaml-version</code> switch variable.</p>
+<h4>Conditional dependencies</h4>
+<p>This makes it trivial to add, for example, a condition on the OS to a given dependency, using the built-in variable <code>os</code>:</p>
+<pre><code>depends: [ &quot;foo&quot; {&gt;= &quot;3.0&quot; &amp; &lt; &quot;4.0~&quot; &amp; os = &quot;linux&quot;} ]
+</code></pre>
+<p>here, <code>foo</code> is simply not needed if the OS isn't Linux. We could also be more specific about other OSes using more complex formulas:</p>
+<pre><code>depends: [
+  &quot;foo&quot; { &quot;1.0+linux&quot; &amp; os = &quot;linux&quot; |
+          &quot;1.0+osx&quot; &amp; os = &quot;darwin&quot; }
+  &quot;bar&quot; { os != &quot;osx&quot; &amp; os != &quot;darwin&quot; }
+]
+</code></pre>
+<p>Meaning that Linux and OSX require <code>foo</code>, respectively versions <code>1.0+linux</code> and <code>1.0+osx</code>, while other systems require <code>bar</code>, any version.</p>
+<h4>Dependency flags</h4>
+<p>Dependency flags, as used in 1.2, are no longer needed, and are replaced by variables that can appear anywhere in the version specification. The following variables are typically useful there:</p>
+<ul>
+<li><code>with-test</code>, <code>with-doc</code>: replace the <code>test</code> and <code>doc</code> dependency flags, and are <code>true</code> when the package's tests or documentation have been requested
+</li>
+<li>likewise, <code>build</code> behaves similarly as before, limiting the dependency to a &quot;build-dependency&quot;, implying that the package won't need to be rebuilt if the dependency changes
+</li>
+<li><code>dev</code>: this boolean variable holds <code>true</code> on &quot;development&quot; packages, that is, packages that are bound to a non-stable source (a version control system, or if the package is pinned to an archive without known checksum). <code>dev</code> sources often happen to need an additional preliminary step (e.g. <code>autoconf</code>), which may have its own dependencies.
+</li>
+</ul>
+<p>Use <code>opam config list</code> for a list of pre-defined variables. Note that the <code>with-test</code>, <code>with-doc</code> and <code>build</code> variables are not available everywhere: the first two are allowed only in the <code>depends:</code>, <code>depopts:</code>, <code>build:</code> and <code>install:</code> fields, and the latter is specific to the <code>depends:</code> and <code>depopts:</code> fields.</p>
+<p>For example, the <code>datakit.0.9.0</code> package has:</p>
+<pre><code>depends: [
+  ...
+  &quot;datakit-server&quot; {&gt;= &quot;0.9.0&quot;}
+  &quot;datakit-client&quot; {with-test &amp; &gt;= &quot;0.9.0&quot;}
+  &quot;datakit-github&quot; {with-test &amp; &gt;= &quot;0.9.0&quot;}
+  &quot;alcotest&quot; {with-test &amp; &gt;= &quot;0.7.0&quot;}
+]
+</code></pre>
+<p>When running <code>opam install datakit.0.9.0</code>, the <code>with-test</code> variable is set to <code>false</code>, and the <code>datakit-client</code>, <code>datakit-github</code> and <code>alcotest</code> dependencies are filtered out: they won't be required. With <code>opam install datakit.0.9.0 --with-test</code>, the <code>with-test</code> variable is true (for that package only, tests on packages not listed on the command-line are not enabled!). In this case, the dependencies resolve to:</p>
+<pre><code>depends: [
+  ...
+  &quot;datakit-server&quot; {&gt;= &quot;0.9.0&quot;}
+  &quot;datakit-client&quot; {&gt;= &quot;0.9.0&quot;}
+  &quot;datakit-github&quot; {&gt;= &quot;0.9.0&quot;}
+  &quot;alcotest&quot; {&gt;= &quot;0.7.0&quot;}
+]
+</code></pre>
+<p>which is treated normally.</p>
+<h4>Computed versions</h4>
+<p>It is also possible to use variables, not only as conditions, but to compute the version values: <code>&quot;foo&quot; {= var}</code> is allowed and will require the version of package <code>foo</code> corresponding to the value of variable <code>var</code>.</p>
+<p>This is useful, for example, to define a family of packages, which are released together with the same version number: instead of having to update the dependencies of each package to match the common version at each release, you can leverage the <code>version</code> package-variable to mean &quot;that other package, at the same version as current package&quot;. For example, <code>foo-client</code> could have the following:</p>
+<pre><code>depends: [ &quot;foo-core&quot; {= version} ]
+</code></pre>
+<p>It is even possible to use variable interpolations within versions, <em>e.g.</em> specifying an os-specific version differently than above:</p>
+<pre><code>depends: [ &quot;foo&quot; {= &quot;1.0+%{os}%&quot;} ]
+</code></pre>
+<p>this will expand the <code>os</code> variable, resolving to <code>1.0+linux</code>, <code>1.0+darwin</code>, etc.</p>
+<p>Getting back to our <code>datakit</code> example, we could leverage this and rewrite it to the more generic:</p>
+<pre><code>depends: [
+  ...
+  &quot;datakit-server&quot; {&gt;= version}
+  &quot;datakit-client&quot; {with-test &amp; &gt;= version}
+  &quot;datakit-github&quot; {with-test &amp; &gt;= version}
+  &quot;alcotest&quot; {with-test &amp; &gt;= &quot;0.7.0&quot;}
+]
+</code></pre>
+<p>Since the <code>datakit-*</code> packages follow the same versioning, this avoids having to rewrite the opam file on every new version, with a risk of error each time.</p>
+<p>As a side note, these variables are consistent with what is now used in the <a href="http://opam.ocaml.org/doc/2.0/Manual.html#opamfield-build"><code>build:</code></a> field, and the <a href="http://opam.ocaml.org/doc/2.0/Manual.html#opamfield-build-test"><code>build-test:</code></a> field is now deprecated. So this other part of the same <code>datakit</code> opam file:</p>
+<pre><code>build:
+  [&quot;ocaml&quot; &quot;pkg/pkg.ml&quot; &quot;build&quot; &quot;--pinned&quot; &quot;%{pinned}%&quot; &quot;--tests&quot; &quot;false&quot;]
+build-test: [
+  [&quot;ocaml&quot; &quot;pkg/pkg.ml&quot; &quot;build&quot; &quot;--pinned&quot; &quot;%{pinned}%&quot; &quot;--tests&quot; &quot;true&quot;]
+  [&quot;ocaml&quot; &quot;pkg/pkg.ml&quot; &quot;test&quot;]
+]
+</code></pre>
+<p>would now be preferably written as:</p>
+<pre><code>build: [&quot;ocaml&quot; &quot;pkg/pkg.ml&quot; &quot;build&quot; &quot;--pinned&quot; &quot;%{pinned}%&quot; &quot;--tests&quot; &quot;%{with-test}%&quot;]
+run-test: [&quot;ocaml&quot; &quot;pkg/pkg.ml&quot; &quot;test&quot;]
+</code></pre>
+<p>which avoids building twice just to change the options.</p>
+<h4>Conclusion</h4>
+<p>Hopefully this extension to expressivity in dependencies will make the life of packagers easier; feedback is welcome on your personal use-cases.</p>
+<p>Note that the official repository is still in 1.2 format (served as 2.0 at <code>https://opam.ocaml.org/2.0</code>, through automatic conversion), and will only be migrated a little while after opam 2.0 is finally released. You are welcome to experiment on custom repositories or pinned packages already, but will need a little more patience before you can contribute package definitions making use of the above to the <a href="https://github.com/ocaml/opam-repository">official repository</a>.</p>
+<blockquote>
+<p>NOTE: this article is cross-posted on <a href="https://opam.ocaml.org/blog/">opam.ocaml.org</a> and <a href="http://www.ocamlpro.com/category/blog/">ocamlpro.com</a>. Please head to the latter for the comments!</p>
+</blockquote>
+|js}
+  };
+ 
+  { title = {js|new opam features: "opam install <dir>"|js}
+  ; slug = {js|opam-install-dir|js}
+  ; description = {js|???|js}
+  ; date = {js|2017-05-04|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>After the <a href="../opam-build">opam build</a> feature was announced followed a lot of discussions, mainly having to do with its interface, and misleading name. The base features it offered, though, were still widely asked for:</p>
+<ul>
+<li>a way to work directly with the project in the current directory, assuming it contains definitions for one or more packages
+</li>
+<li>a way to copy the installed files of a package below a specified <code>destdir</code>
+</li>
+<li>an easier way to get started hacking on a project, even without an initialised opam
+</li>
+</ul>
+<h3>Status of <code>opam build</code></h3>
+<p><code>opam build</code>, as described in a <a href="../opam-build">previous post</a> has been dropped. It will be absent from the next Beta, where the following replaces it.</p>
+<h3>Handling a local project</h3>
+<p>Consistently with what was done with local switches, it was decided, where meaningful, to overload the <code>&lt;packages&gt;</code> arguments of the commands, allowing directory names instead, and meaning &quot;all packages defined there&quot;, with some side-effects.</p>
+<p>For example, the following command is now allowed, and I believe it will be extra convenient to many:</p>
+<pre><code>opam install . --deps-only
+</code></pre>
+<p>What this does is find <code>opam</code> (or <code>&lt;pkgname&gt;.opam</code>) files in the current directory (<code>.</code>), resolve their installations, and install all required packages. That should be the single step before running the source build by hand.</p>
+<p>The following is a little bit more complex:</p>
+<pre><code>opam install .
+</code></pre>
+<p>This also retrieves the packages defined at <code>.</code>, <strong>pins them</strong> to the current source (using version-control if present), and installs them. Note that subsequent runs actually synchronise the pinnings, so that packages removed or renamed in the source tree are tracked properly (<em>i.e.</em> removed ones are unpinned, new ones pinned, the other ones upgraded as necessary).</p>
+<p><code>opam upgrade</code>, <code>opam reinstall</code>, and <code>opam remove</code> have also been updated to handle directories as arguments, and will work on &quot;all packages pinned to that target&quot;, <em>i.e.</em> the packages pinned by the previous call to <code>opam install &lt;dir&gt;</code>. In addition, <code>opam remove &lt;dir&gt;</code> unpins the packages, consistently reverting the converse <code>install</code> operation.</p>
+<p><code>opam show</code> already had a <code>--file</code> option, but has also been extended in the same way, for consistency and convenience.</p>
+<p>This all, of course, works well with a local switch at <code>./</code>, but the two features can be used completely independently. Note also that the directory name must be made unambiguous with a possible package name, so make sure to use <code>./foo</code> rather than just <code>foo</code> for a local project in subdirectory <code>foo</code>.</p>
+<h3>Specifying a destdir</h3>
+<p>This relies on installed files tracking, but was actually independent from the other <code>opam build</code> features. It is now simply a new option to <code>opam install</code>:</p>
+<pre><code>opam install foo --destdir ~/local/
+</code></pre>
+<p>will install <code>foo</code> normally (if it isn't installed already) and copy all its installed files, following the same hierarchy, into <code>~/local</code>. <code>opam remove --destdir</code> is also supported, to remove these files.</p>
+<h3>Initialising</h3>
+<p>Automatic initialisation has been dropped for the moment. It was only saving one command (<code>opam init</code>, that opam will kindly print out for you if you forget it), and had two drawbacks:</p>
+<ul>
+<li>some important details (like shell setup for opam) were skipped
+</li>
+<li>the initialisation options were much reduced, so you would often have to go back to <code>opam init</code> anyway. The other possibility being to duplicate <code>init</code> options to all commands, adding lots of noise. Keeping things separate has its merits.
+</li>
+</ul>
+<p>Granted, another command, <code>opam switch create .</code>, was made implicit. But using a local switch is a user choice, and worse, in contradiction with the previous de facto opam default, so not creating one automatically seems safer: having to specify <code>--no-autoinit</code> to <code>opam build</code> in order to get the more simple behaviour was inconvenient and error-prone.</p>
+<p>One thing is provided to help with initialisation, though: <code>opam switch create &lt;dir&gt;</code> has been improved to handle package definitions at <code>&lt;dir&gt;</code>, and will use them to choose a compatible compiler, as <code>opam build</code> did. This avoids the frustration of creating a switch, then finding out that the package wasn't compatible with the chosen compiler version, and having to start over with an explicit choice of a different compiler.</p>
+<p>If you would really like automatic initialisation, and have a better interface to propose, your feedback is welcome!</p>
+<h3>More related options</h3>
+<p>A few other new options have been added to <code>opam install</code> and related commands, to improve the project-local workflows:</p>
+<ul>
+<li><code>opam install --keep-build-dir</code> is now complemented with <code>--reuse-build-dir</code>, for incremental builds within opam (assuming your build-system supports it correctly). At the moment, you should specify both on every upgrade of the concerned packages, or you could set the <code>OPAMKEEPBUILDDIR</code> and <code>OPAMREUSEBUILDDIR</code> environment variables.
+</li>
+<li><code>opam install --inplace-build</code> runs the scripts directly within the source dir instead of a dedicated copy. If multiple packages are pinned to the same directory, this disables parallel builds of these packages.
+</li>
+<li><code>opam install --working-dir</code> uses the working directory state of your project, instead of the state registered in the version control system. Don't worry, opam will warn you if you have uncommitted changes and forgot to specify <code>--working-dir</code>.
+</li>
+</ul>
+<blockquote>
+<p>NOTE: this article is cross-posted on <a href="https://opam.ocaml.org/blog/">opam.ocaml.org</a> and <a href="http://www.ocamlpro.com/category/blog/">ocamlpro.com</a>. Please head to the latter for the comments!</p>
+</blockquote>
+|js}
+  };
+ 
+  { title = {js|new opam features: local switches|js}
+  ; slug = {js|opam-local-switches|js}
+  ; description = {js|???|js}
+  ; date = {js|2017-04-27|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>Among the areas we wanted to improve on for opam 2.0 was the handling of
+<em>switches</em>. In opam 1.2, they are simply accessed by a name (the OCaml version
+by default), and are always stored into <code>~/.opam/&lt;name&gt;</code>. This is fine, but can
+get a bit cumbersome when many switches are in presence, as there is no way to
+sort them or associate them with a given project.</p>
+<blockquote>
+<h3>A reminder about <em>switches</em></h3>
+<p>For those unfamiliar with it, switches, in opam, are independent prefixes with
+their own compiler and set of installed packages. The <code>opam switch</code> command
+allows to create and remove switches, as well as select the currently active
+one, where operations like <code>opam install</code> will operate.</p>
+<p>Their uses include easily juggling between versions of OCaml, or of a library,
+having incompatible packages installed separately but at the same time, running
+tests without damaging your &quot;main&quot; environment, and, quite often, separation of
+environment for working on different projects.</p>
+<p>You can also select a specific switch for a single command, with</p>
+<pre><code>opam install foo --switch other
+</code></pre>
+<p>or even for a single shell session, with</p>
+<pre><code>eval $(opam env --switch other)
+</code></pre>
+</blockquote>
+<p>What opam 2.0 adds to this is the possibility to create so-called <em>local
+switches</em>, stored below a directory of your choice. This gets users back in
+control of how switches are organised, and wiping the directory is a safe way to
+get rid of the switch.</p>
+<h3>Using within projects</h3>
+<p>This is the main intended use: the user can define a switch within the source of
+a project, for use specifically in that project. One nice side-effect to help
+with this is that, if a &quot;local switch&quot; is detected in the current directory or a
+parent, opam will select it automatically. Just don't forget to run <code>eval $(opam env)</code> to make the environment up-to-date before running <code>make</code>.</p>
+<h3>Interface</h3>
+<p>The interface simply overloads the <code>switch-name</code> arguments, wherever they were
+present, allowing directory names instead. So for example:</p>
+<pre><code>cd ~/src/project
+opam switch create ./
+</code></pre>
+<p>will create a local switch in the directory <code>~/src/project</code>. Then, it is for
+example equivalent to run <code>opam list</code> from that directory, or <code>opam list --switch=~/src/project</code> from anywhere.</p>
+<p>Note that you can bypass the automatic local-switch selection if needed by using
+the <code>--switch</code> argument, by defining the variable <code>OPAMSWITCH</code> or by using <code>eval $(opam env --switch &lt;name&gt;)</code></p>
+<h3>Implementation</h3>
+<p>In practice, the switch contents are placed in a <code>_opam/</code> subdirectory. So if
+you create the switch <code>~/src/project</code>, you can browse its contents at
+<code>~/src/project/_opam</code>. This is the direct prefix for the switch, so e.g.
+binaries can be found directly at <code>_opam/bin/</code>: easier than searching the opam
+root! The opam metadata is placed below that directory, in a <code>.opam-switch/</code>
+subdirectory.</p>
+<p>Local switches still share the opam root, and in particular depend on the
+repositories defined and cached there. It is now possible, however, to select
+different repositories for different switches, but that is a subject for another
+post.</p>
+<p>Finally, note that removing that <code>_opam</code> directory is handled transparently by
+opam, and that if you want to share a local switch between projects, symlinking
+the <code>_opam</code> directory is allowed.</p>
+<h3>Current status</h3>
+<p>This feature has been present in our dev builds for a while, and you can already
+use it in the
+<a href="https://github.com/ocaml/opam/releases/tag/2.0.0-beta2">current beta</a>.</p>
+<h3>Limitations and future extensions</h3>
+<p>It is not, at the moment, possible to move a local switch directory around,
+mainly due to issues related to relocating the OCaml compiler.</p>
+<p>Creating a new switch still implies to recompile all the packages, and even the
+compiler itself (unless you rely on a system installation). The projected
+solution is to add a build cache, avoiding the need to recompile the same
+package with the same dependencies. This should actually be possible with the
+current opam 2.0 code, by leveraging the new hooks that are made available. Note
+that relocation of OCaml is also an issue for this, though.</p>
+<p>Editing tools like <code>ocp-indent</code> or <code>merlin</code> can also become an annoyance with
+the multiplication of switches, because they are not automatically found if not
+installed in the current switch. But the <code>user-setup</code> plugin (run <code>opam user-setup install</code>) already handles this well, and will access <code>ocp-indent</code> or
+<code>tuareg</code> from their initial switch, if not found in the current one. You will
+still need to install tools that are tightly bound to a compiler version, like
+<code>merlin</code> and <code>ocp-index</code>, in the switches where you need them, though.</p>
+<blockquote>
+<p>NOTE: this article is cross-posted on
+<a href="https://opam.ocaml.org/blog/">opam.ocaml.org</a> and
+<a href="http://www.ocamlpro.com/category/blog/">ocamlpro.com</a>. Please head to the
+latter for the comments!</p>
+</blockquote>
+|js}
+  };
+ 
+  { title = {js|new opam features: "opam build"|js}
+  ; slug = {js|opam-build|js}
+  ; description = {js|???|js}
+  ; date = {js|2017-03-16|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<blockquote>
+<p>UPDATE: after discussions following this post, this feature was abandoned with
+the interface presented below. See <a href="../opam-install-dir">this post</a> for
+the details and the new interface!</p>
+</blockquote>
+<p>The new opam 2.0 release, currently in beta, introduces several new features.
+This post gets into some detail on the new <code>opam build</code> command, its purpose,
+its use, and some implementation aspects.</p>
+<p><strong><code>opam build</code> is run from the source tree of a project, and does not rely on a
+pre-existing opam installation.</strong> As such, it adds a new option besides the
+existing workflows based on managing shared OCaml installations in the form of
+switches.</p>
+<h3>What does it do ?</h3>
+<p>Typically, this is used in a fresh git clone of some OCaml project. Like when
+pinning the package, opam will find and leverage package definitions found in
+the source, in the form of <code>opam</code> files.</p>
+<ul>
+<li>if opam hasn't been initialised (no <code>~/.opam</code>), this is taken care of.
+</li>
+<li>if no switch is otherwise explicitely selected, a <em>local switch</em> is used, and
+created if necessary (<em>i.e.</em> in <code>./_opam/</code>)
+</li>
+<li>the metadata for the current project is registered, and the package installed
+after its dependencies, as opam usually does
+</li>
+</ul>
+<p>This is particularly useful for <strong>distributing projects</strong> to people not used to
+opam and the OCaml ecosystem: the setup steps are automatically taken care of,
+and a single <code>opam build</code> invocation can take care of resolving the dependency
+chains for your package.</p>
+<p>If building the project directly is preferred, adding <code>--deps-only</code> is a good
+way to get the dependencies ready for the project:</p>
+<pre><code>opam build --deps-only
+eval $(opam config env)
+./configure; make; etc.
+</code></pre>
+<p>Note that if you just want to handle project-local opam files, <code>opam build</code> can
+also be used in your existing switches: just specify <code>--no-autoinit</code>, <code>--switch</code>
+or make sure the <code>OPAMSWITCH</code> variable is set. <em>E.g.</em> <code>opam build --no-autoinit --deps-only</code> is a convenient way to get the dependencies for the local project
+ready in your current switch.</p>
+<h3>Additional functions</h3>
+<h4>Installation</h4>
+<p>The installation of the packages happens as usual to the prefix corresponding to
+the switch used (<code>&lt;project-root&gt;/_opam/</code> for a local switch). But it is
+possible, with <code>--install-prefix</code>, to further install the package to the system:</p>
+<pre><code>opam build --install-prefix ~/local
+</code></pre>
+<p>will install the results of the package found in the current directory below
+~/local.</p>
+<p>The dependencies of the package won't be installed, so this is intended for
+programs, assuming they are relocatable, and not for libraries.</p>
+<h4>Choosing custom repositories</h4>
+<p>The user can pre-select the repositories to use on the creation of the local
+switch with:</p>
+<pre><code>opam build --repositories &lt;repos&gt;
+</code></pre>
+<p>where <code>&lt;repos&gt;</code> is a comma-separated list of repositories, specified either as
+<code>name=URL</code>, or <code>name</code> if already configured on the system.</p>
+<h4>Multiple packages</h4>
+<p>Multiple packages are commonly found to share a single repository. In this case,
+<code>opam build</code> registers and builds all of them, respecting cross-dependencies.
+The opam files to use can also be explicitely selected on the command-line.</p>
+<p>In this case, specific opam files must be named <code>&lt;package-name&gt;.opam</code>.</p>
+<h3>Implementation details</h3>
+<p>The choice of the compiler, on automatic initialisation, is either explicit,
+using the <code>--compiler</code> option, or automatic. In the latter case, the default
+selection is used (see <code>opam init --help</code>, section &quot;CONFIGURATION FILE&quot; for
+details), but a compiler compatible with the local packages found is searched
+from that. This allows, for example, to choose a system compiler when available
+and compatible, avoiding a recompilation of OCaml.</p>
+<p>When using <code>--install-prefix</code>, the normal installation is done, then the
+tracking of package-installed files, introduced in opam 2.0, is used to extract
+the installed files from the switch and copy them to the prefix.</p>
+<p>The packages installed through <code>opam build</code> are not registered in any
+repository, and this is not an implicit use of <code>opam pin</code>: the rationale is that
+packages installed this way will also be updated by repeating <code>opam build</code>. This
+means that when using other commands, <em>e.g.</em> <code>opam upgrade</code>, opam won't try to
+keep the packages to their local, source version, and will either revert them to
+their repository definition, or remove them, if they need recompilation.</p>
+<h3>Planned extensions</h3>
+<p>This is still in beta: there are still rough edges, please experiment and give
+feedback! It is still possible that the command syntax and semantics change
+significantly before release.</p>
+<p>Another use-case that we are striving to improve is sharing of development
+setups (share sets of pinned packages, depend on specific remotes or git hashes,
+etc.). We have <a href="https://github.com/ocaml/opam/issues/2762">many</a>
+<a href="https://github.com/ocaml/opam/issues/2495">ideas</a> to
+<a href="https://github.com/ocaml/opam/issues/1734">improve</a> on this, but <code>opam build</code>
+is not, as of today, a direct solution to this. In particular, installing this
+way still relies on the default opam repository; a way to define specific
+options for the switch that is implicitely created on <code>opam build</code> is in the
+works.</p>
+<blockquote>
+<p>NOTE: this article is cross-posted on <a href="https://opam.ocaml.org/blog/">opam.ocaml.org</a> and <a href="http://www.ocamlpro.com/category/blog/">ocamlpro.com</a>. Please head to the latter for the comments!</p>
+</blockquote>
+|js}
+  };
+ 
+  { title = {js|opam 2.0 Beta is out!|js}
+  ; slug = {js|opam-2-0-beta|js}
+  ; description = {js|???|js}
+  ; date = {js|2017-02-09|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<blockquote>
+<p>UPDATE (2017-02-14): A beta2 is online, which fixes issues and performance of
+the <code>opam build</code> command. Get the new
+<a href="https://github.com/ocaml/opam/releases/tag/2.0.0-beta2">binaries</a>, or
+recompile the <a href="http://opam.ocaml.org/packages/opam-devel/">opam-devel</a> package
+and replace the previous binary.</p>
+</blockquote>
+<p>We are pleased to announce that the beta release of opam 2.0 is now live! You
+can try it already, bootstrapping from a working 1.2 opam installation, with:</p>
+<pre><code>opam update; opam install opam-devel
+</code></pre>
+<p>With about a thousand patches since the last stable release, we took the time to
+gather feedback after <a href="../opam-2-0-preview">our last announcement</a> and
+implemented a couple of additional, most-wanted features:</p>
+<ul>
+<li>An <code>opam build</code> command that, from the root of a source tree containing one
+or more package definitions, can automatically handle initialisation and
+building of the sources in a local switch.
+</li>
+<li>Support for
+<a href="https://github.com/hannesm/conex-paper/raw/master/paper.pdf">repository signing</a>
+through the external <a href="https://github.com/hannesm/conex">Conex</a> tool, being
+developed in parallel.
+</li>
+</ul>
+<p>There are many more features, like the new <code>opam clean</code> and <code>opam admin</code>
+commands, a new archive caching system, etc., but we'll let you check the full
+<a href="https://github.com/ocaml/opam/blob/2.0.0-beta/CHANGES">changelog</a>.</p>
+<p>We also improved still on the
+<a href="../opam-2-0-preview/#Afewhighlights">already announced features</a>, including
+compilers as packages, local switches, per-switch repository configuration,
+package file tracking, etc.</p>
+<p>The updated documentation is at http://opam.ocaml.org/doc/2.0/. If you are
+developing in opam-related tools, you may also want to browse the
+<a href="https://opam.ocaml.org/doc/2.0/api/index.html">new APIs</a>.</p>
+<h2>Try it out</h2>
+<p>Please try out the beta, and report any issues or missing features. You can:</p>
+<ul>
+<li>Build it from source in opam, as shown above (<code>opam install opam-devel</code>)
+</li>
+<li>Use the <a href="https://github.com/ocaml/opam/releases/tag/2.0.0-beta">pre-built binaries</a>.
+</li>
+<li>Building from the source tarball:
+<a href="https://github.com/ocaml/opam/releases/download/2.0.0-beta/opam-full-2.0.0-beta.tar.gz">download here</a>
+and build using <code>./configure &amp;&amp; make lib-ext &amp;&amp; make</code> if you have OCaml &gt;=
+4.01 already available; <code>make cold</code> otherwise
+</li>
+<li>Or directly from the
+<a href="https://github.com/ocaml/opam/tree/2.0.0-beta">git tree</a>, following the
+instructions included in the README. Some files have been moved around, so if
+your build fails after you updated an existing git clone, try to clean it up
+(<code>git clean -dx</code>).
+</li>
+</ul>
+<p>Some users have been using the alpha for the past months without problems, but
+you may want to keep your opam 1.2 installation intact until the release is out.
+An easy way to do this is with an alias:</p>
+<pre><code>alias opam2=&quot;OPAMROOT=~/.opam2 path/to/opam-2-binary&quot;
+</code></pre>
+<h2>Changes to be aware of</h2>
+<h3>Command-line interface</h3>
+<ul>
+<li><code>opam switch create</code> is now needed to create new switches, and <code>opam switch</code>
+is now much more expressive
+</li>
+<li><code>opam list</code> is also much more expressive, but be aware that the output may
+have changed if you used it in scripts
+</li>
+<li>new commands:
+<ul>
+<li><code>opam build</code>: setup and build a local source tree
+</li>
+<li><code>opam clean</code>: various cleanup operations (wiping caches, etc.)
+</li>
+<li><code>opam admin</code>: manage software repositories, including upgrading them to
+opam 2.0 format (replaces the <code>opam-admin</code> tool)
+</li>
+<li><code>opam env</code>, <code>opam exec</code>, <code>opam var</code>: shortcuts for the <code>opam config</code> subcommands
+</li>
+</ul>
+</li>
+<li><code>opam repository add</code> will now setup the new repository for the current switch
+only, unless you specify <code>--all</code>
+</li>
+<li>Some flags, like <code>--test</code>, now apply to the packages listed on the
+command-line only. For example, <code>opam install lwt --test</code> will build and
+install lwt and all its dependencies, but only build/run the tests of the
+<code>lwt</code> package. Test-dependencies of its dependencies are also ignored
+</li>
+<li>The new <code>opam install --soft-request</code> is useful for batch runs, it will
+maximise the installed packages among the requested ones, but won't fail if
+all can't be installed
+</li>
+</ul>
+<p>As before, opam is self-documenting, so be sure to check <code>opam COMMAND --help</code>
+first when in doubt. The bash completion scripts have also been thoroughly
+improved, and may help navigating the new options.</p>
+<h3>Metadata</h3>
+<p>There are both a few changes (extensions, mostly) to the package description
+format, and more drastic changes to the repository format, mainly related to
+translating the old compiler definitions into packages.</p>
+<ul>
+<li>opam will automatically update, internally, definitions of pinned packages as
+well as repositories in the 1.2 format
+</li>
+<li>however, it is faster to use repositories in the 2.0 format directly. To that
+end, please use the <code>opam admin upgrade</code> command on your repositories. The
+<code>--mirror</code> option will create a 2.0 mirror and put in place proper
+redirections, allowing your original repository to retain the old format
+</li>
+</ul>
+<p>The official opam repository at https://opam.ocaml.org remains in 1.2 format for
+now, but has a live-updated 2.0 mirror to which you should be automatically
+redirected. It cannot yet accept package definitions in 2.0 format.</p>
+<h4>Package format</h4>
+<ul>
+<li>Any <code>available:</code> constraints based on the OCaml compiler version should be
+rewritten into dependencies to the <code>ocaml</code> package
+</li>
+<li>Separate <code>build:</code> and <code>install:</code> instructions are now required
+</li>
+<li>It is now preferred to include the old <code>url</code> and <code>descr</code> files (containing the
+archive URL and package description) in the <code>opam</code> file itself: (see the new
+<a href="http://opam.ocaml.org/doc/2.0/Manual.html#opamfield-synopsis"><code>synopsis:</code></a>
+and
+<a href="http://opam.ocaml.org/doc/2.0/Manual.html#opamfield-description"><code>description:</code></a>
+fields, and the
+<a href="http://opam.ocaml.org/doc/2.0/Manual.html#opamsection-url">url {}</a> file
+section)
+</li>
+<li>Building tests and documentation should now be part of the main <code>build:</code>
+instructions, using the <code>{test}</code> and <code>{doc}</code> filters. The <code>build-test:</code> and
+<code>build-doc:</code> fields are still supported.
+</li>
+<li>It is now possible to use opam variables within dependencies, for example
+<code>depends: [ &quot;foo&quot; {= version} ]</code>, for a dependency to package <code>foo</code> at the
+same version as the package being defined, or <code>depends: [ &quot;bar&quot; {os = &quot;linux&quot;} ]</code> for a dependency that only applies on Linux.
+</li>
+<li>The new <code>conflict-class:</code> field allows mutual conflicts among a set of
+packages to be declared. Useful, for example, when there are many concurrent,
+incompatible implementations.
+</li>
+<li>The <code>ocaml-version:</code> field has been deprecated for a long time and is no
+longer accepted. This should now be a dependency on the <code>ocaml</code> package
+</li>
+<li>Three types of checksums are now accepted: you should use <code>md5=&lt;hex-value&gt;</code>,
+<code>sha256=&lt;hex-value&gt;</code> or <code>sha512=&lt;hex-value&gt;</code>. We'll be gradually deprecating
+md5 in favour of the more secure algorithms; multiple checksums are allowed
+</li>
+<li>Patches supplied in the <code>patches:</code> field must apply with <code>patch -p1</code>
+</li>
+<li>The new <code>setenv:</code> field allows packages to export updates to environment
+variables;
+</li>
+<li>Custom fields <code>x-foo:</code> can be used for extensions and external tools
+</li>
+<li><code>&quot;&quot;&quot;</code> delimiters allow unescaped strings
+</li>
+<li><code>&amp;</code> has now the customary higher precedence than <code>|</code> in formulas
+</li>
+<li>Installed files are now automatically tracked meaning that the <code>remove:</code>
+field is usually no longer required.
+</li>
+</ul>
+<p>The full, up-to-date specification of the format can be browsed in the
+<a href="http://opam.ocaml.org/doc/2.0/Manual.html#opam">manual</a>.</p>
+<h4>Repository format</h4>
+<p>In the official, default repository, and also when migrating repositories from
+older format versions, there are:</p>
+<ul>
+<li>A virtual <code>ocaml</code> package, that depends on any implementation of the OCaml
+compiler. This is what packages should depend on, and the version is the
+corresponding base OCaml version (e.g. <code>4.04.0</code> for the <code>4.04.0+fp</code> compiler).
+It also defines various configuration variables, see <code>opam config list ocaml</code>.
+</li>
+<li>Three mutually-exclusive packages providing actual implementations of the
+OCaml toolchain:
+<ul>
+<li><code>ocaml-base-compiler</code> is the official releases
+</li>
+<li><code>ocaml-variants.&lt;base-version&gt;+&lt;variant-name&gt;</code> contains all the other
+variants
+</li>
+<li><code>ocaml-system-compiler</code> maps to a compiler installed on the system
+outside of opam
+</li>
+</ul>
+</li>
+</ul>
+<p>The layout is otherwise the same, apart from:</p>
+<ul>
+<li>The <code>compilers/</code> directory is ignored
+</li>
+<li>A <code>repo</code> file should be present, containing at least the line <code>opam-version: &quot;2.0&quot;</code>
+</li>
+<li>The indexes for serving over HTTP have been simplified, and <code>urls.txt</code> is no
+longer needed. See <code>opam admin index --help</code>
+</li>
+<li>The <code>archives/</code> directory is no longer used. The cache now uses a different
+format and is configured through the <code>repo</code> file, defaulting to <code>cache/</code> on
+the same server. See <code>opam admin cache --help</code>
+</li>
+</ul>
+<h2>Feedback</h2>
+<p>Thanks for trying out the beta! Please let us have feedback, preferably to the
+<a href="https://github.com/ocaml/opam/issues">opam tracker</a>; other options include the
+<a href="mailto:opam-devel@lists.ocaml.org">opam-devel</a> list and #opam IRC channel on
+Freenode.</p>
+|js}
+  };
+ 
+  { title = {js|opam-lib 1.3 available|js}
+  ; slug = {js|opam-lib-1-3|js}
+  ; description = {js|???|js}
+  ; date = {js|2016-11-21|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<style type="text/css"><!--
+  .opam {font-family: Tahoma,Verdana,sans-serif; font-size: 110%; font-weight: lighter; line-height: 90.9%}
+--></style>
+<h2>opam-lib 1.3</h2>
+<p>The package for opam-lib version 1.3 has just been released in the official
+<span class="opam">opam</span> repository. There is no release of
+<span class="opam">opam</span> with version 1.3, but this is an intermediate
+version of the library that retains compatibility of the file formats with
+1.2.2.</p>
+<p>The purpose of this release is twofold:</p>
+<ul>
+<li><strong>provide some fixes and enhancements over opam-lib 1.2.2.</strong> For example, 1.3
+has an enhanced <code>lint</code> function
+</li>
+<li><strong>be a step towards migration to opam-lib 2.0.</strong>
+</li>
+</ul>
+<p><strong>This version is compatible with the current stable release of opam (1.2.2)</strong>,
+but dependencies have been updated so that you are not (e.g.) stuck on an old
+version of ocamlgraph.</p>
+<p>Therefore, I encourage all maintainers of tools based on opam-lib to migrate to
+1.3.</p>
+<p>The respective APIs are available in html for
+<a href="https://opam.ocaml.org/doc/1.2/api">1.2</a> and <a href="https://opam.ocaml.org/doc/1.3/api">1.3</a>.</p>
+<blockquote>
+<p><strong>A note on plugins</strong>: when you write opam-related tools, remember that by
+setting <code>flags: plugin</code> in their definition and installing a binary named
+<code>opam-toolname</code>, you will enable the users to install package <code>toolname</code> and
+run your tool with a single <code>opam toolname</code> command.</p>
+</blockquote>
+<h3>Architectural changes</h3>
+<p>If you need to migrate from 1.2 to 1.3, these tips may help:</p>
+<ul>
+<li>
+<p>there are now 6 different ocamlfind sub-libraries instead of just 4: <code>format</code>
+contains the handlers for opam types and file formats, has been split out from
+the core library, while <code>state</code> handles the state of a given opam root and
+switch and has been split from the <code>client</code> library.</p>
+</li>
+<li>
+<p><code>OpamMisc</code> is gone and moved into the better organised <code>OpamStd</code>, with
+submodules for <code>String</code>, <code>List</code>, etc.</p>
+</li>
+<li>
+<p><code>OpamGlobals</code> is gone too, and its contents have been moved to:</p>
+<ul>
+<li><code>OpamConsole</code> for the printing, logging, and shell interface handling part
+</li>
+<li><code>OpamXxxConfig</code> modules for each of the libraries for handling the global
+configuration variables. You should call the respective <code>init</code> functions,
+with the options you want to set, for proper initialisation of the lib
+options (and handling the <code>OPAMXXX</code> environment variables)
+</li>
+</ul>
+</li>
+<li>
+<p><code>OpamPath.Repository</code> is now <code>OpamRepositoryPath</code>, and part of the
+<code>repository</code> sub-library.</p>
+</li>
+</ul>
+<h2>opam-lib 2.0 ?</h2>
+<p>The development version of the opam-lib (<code>2.0~alpha5</code> as of writing) is already
+available on opam. The name has been changed to provide a finer granularity, so
+it can actually be installed concurrently -- but be careful not to confuse the
+ocamlfind package names (<code>opam-lib.format</code> for 1.3 vs <code>opam-format</code> for 2.0).</p>
+<p>The provided packages are:</p>
+<ul>
+<li><a href="https://opam.ocaml.org/packages/opam-file-format"><code>opam-file-format</code></a>: now
+separated from the opam source tree, this has no dependencies and can be used
+to parse and print the raw opam syntax.
+</li>
+<li><a href="https://opam.ocaml.org/packages/opam-core"><code>opam-core</code></a>: the basic toolbox
+used by opam, which actually doesn't include the opam specific part. Includes
+a tiny extra stdlib, the engine for running a graph of processes in parallel,
+some system handling functions, etc. Depends on ocamlgraph and re only.
+</li>
+<li><a href="https://opam.ocaml.org/packages/opam-format"><code>opam-format</code></a>: defines opam
+data types and their file i/o functions. Depends just on the two above.
+</li>
+<li><a href="https://opam.ocaml.org/packages/opam-core"><code>opam-solver</code></a>: opam's interface
+with the <a href="https://opam.ocaml.org/packages/dose3">dose3</a> library and external
+solvers.
+</li>
+<li><a href="https://opam.ocaml.org/packages/opam-repository"><code>opam-repository</code></a>: fetching
+repositories and package sources from all handled remote types.
+</li>
+<li><a href="https://opam.ocaml.org/packages/opam-state"><code>opam-state</code></a>: handling of the
+opam states, at the global, repository and switch levels.
+</li>
+<li><a href="https://opam.ocaml.org/packages/opam-client"><code>opam-client</code></a>: the client
+library, providing the top-level operations (installing packages...), and CLI.
+</li>
+<li><a href="https://opam.ocaml.org/packages/opam-devel"><code>opam-devel</code></a>: this packages the
+development version of the opam tool itself, for bootstrapping. You can
+install it safely as it doesn't install the new <code>opam</code> in the PATH.
+</li>
+</ul>
+<p>The new API can be also be <a href="https://opam.ocaml.org/doc/2.0/api">browsed</a> ;
+please get in touch if you have trouble migrating.</p>
+|js}
+  };
+ 
+  { title = {js|opam 2.0 preview release!|js}
+  ; slug = {js|opam-2-0-preview|js}
+  ; description = {js|???|js}
+  ; date = {js|2016-09-20|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<style type="text/css"><!--
+  .opam {font-family: Tahoma,Verdana,sans-serif; font-size: 110%; font-weight: lighter; line-height: 90.9%}
+--></style>
+<p>We are pleased to announce a preview release for <span class="opam">opam</span> 2.0, with over 700
+patches since <a href="https://opam.ocaml.org/blog/opam-1-2-2-release/">1.2.2</a>. Version
+<a href="https://github.com/ocaml/opam/releases/2.0-alpha4">2.0~alpha4</a> has just been
+released, and is ready to be more widely tested.</p>
+<p>This version brings many new features and changes, the most notable one being
+that OCaml compiler packages are no longer special entities, and are replaced
+by standard package definition files. This in turn means that <span class="opam">opam</span> users have
+more flexibility in how switches are managed, including for managing non-OCaml
+environments such as <a href="http://coq.io/opam/">Coq</a> using the same familiar tools.</p>
+<h2>A few highlights</h2>
+<p>This is just a sample, see the full
+<a href="https://github.com/ocaml/opam/blob/2.0-alpha4/CHANGES">changelog</a> for more:</p>
+<ul>
+<li>
+<p><strong>Sandboxed builds:</strong> Command wrappers can be configured to, for example,
+restrict permissions of the build and install processes using Linux
+namespaces, or run the builds within Docker containers.</p>
+</li>
+<li>
+<p><strong>Compilers as packages:</strong> This brings many advantages for <span class="opam">opam</span> workflows,
+such as being able to upgrade the compiler in a given switch, better tooling for
+local compilers, and the possibility to define <code>coq</code> as a compiler or even
+use <span class="opam">opam</span> as a generic shell scripting engine with dependency tracking.</p>
+</li>
+<li>
+<p><strong>Local switches:</strong> Create switches within your projects for easier
+management. Simply run <code>opam switch create &lt;directory&gt; &lt;compiler&gt;</code> to get
+started.</p>
+</li>
+<li>
+<p><strong>Inplace build:</strong> Use <span class="opam">opam</span> to build directly from
+your source directory. Ensure the package is pinned locally then run <code>opam install --inplace-build</code>.</p>
+</li>
+<li>
+<p><strong>Automatic file tracking:</strong>: <span class="opam">opam</span> now tracks the files installed by packages
+and is able to cleanly remove them when no existing files were modified.
+The <code>remove:</code> field is now optional as a result.</p>
+</li>
+<li>
+<p><strong>Configuration file:</strong> This can be used to direct choices at <code>opam init</code>
+automatically (e.g. specific repositories, wrappers, variables, fetch
+commands, or the external solver). This can be used to override all of <span class="opam">opam</span>'s
+OCaml-related settings.</p>
+</li>
+<li>
+<p><strong>Simpler library:</strong> the OCaml API is completely rewritten and should make it
+much easier to write external tools and plugins. Existing tools will need to be
+ported.</p>
+</li>
+<li>
+<p><strong>Better error mitigation:</strong> Through clever ordering of the shell actions and
+separation of <code>build</code> and <code>install</code>, most build failures can keep your current
+installation intact, not resulting in removed packages anymore.</p>
+</li>
+</ul>
+<h2>Roll out</h2>
+<p>You are very welcome to try out the alpha, and report any issues. The repository
+at <code>opam.ocaml.org</code> will remain in 1.2 format (with a 2.0 mirror at
+<code>opam.ocaml.org/2.0~dev</code> in sync) until after the release is out, which means
+the extensions can not be used there yet, but you are welcome to test on local
+or custom repositories, or package pinnings. The reverse translation (2.0 to
+1.2) is planned, to keep supporting 1.2 installations after that date.</p>
+<p>The documentation for the new version is available at
+http://opam.ocaml.org/doc/2.0/. This is still work in progress, so please do ask
+if anything is unclear.</p>
+<h2>Interface changes</h2>
+<p>Commands <code>opam switch</code> and <code>opam list</code> have been rehauled for more consistency
+and flexibility: the former won't implicitly create new switches unless called
+with the <code>create</code> subcommand, and <code>opam list</code> now allows to combine filters and
+finely specify the output format. They may not be fully backwards compatible, so
+please check your scripts.</p>
+<p>Most other commands have also seen fixes or improvements. For example, <span class="opam">opam</span>
+doesn't forget about your set of installed packages on the first error, and the
+new <code>opam install --restore</code> can be used to reinstall your selection after a
+failed upgrade.</p>
+<h2>Repository changes</h2>
+<p>While users of <span class="opam">opam</span> 1.2 should feel at home with the changes, the 2.0 repository
+and package formats are not compatible. Indeed, the move of the compilers to
+standard packages implies some conversions, and updates to the relationships
+between packages and their compiler. For example, package constraints like</p>
+<pre><code>available: [ ocaml-version &gt;= &quot;4.02&quot; ]
+</code></pre>
+<p>are now written as normal package dependencies:</p>
+<pre><code>depends: [ &quot;ocaml&quot; {&gt;= &quot;4.02&quot;} ]
+</code></pre>
+<p>To make the transition easier,</p>
+<ul>
+<li>upgrade of a custom repository is simply a matter of running <code>opam-admin upgrade-format</code> at its root;
+</li>
+<li>the official repository at <code>opam.ocaml.org</code> already has a 2.0 mirror, to which
+you will be automatically redirected;
+</li>
+<li>packages definition are automatically converted when you pin a package.
+</li>
+</ul>
+<p>Note that the <code>ocaml</code> package on the official repository is actually a wrapper
+that depends on one of <code>ocaml-base-compiler</code>, <code>ocaml-system</code> or
+<code>ocaml-variants</code>, which contain the different flavours of the actual compiler.
+It is expected that it may only get picked up when requested by package
+dependencies.</p>
+<h2>Package format changes</h2>
+<p>The <span class="opam">opam</span> package definition format is very similar to before, but there are
+quite a few extensions and some changes:</p>
+<ul>
+<li>it is now mandatory to separate the <code>build:</code> and <code>install:</code> steps (this allows
+tracking of installed files, better error recovery, and some optional security
+features);
+</li>
+<li>the url and description can now optionally be included in the <code>opam</code> file
+using the section <code>url {}</code> and fields <code>synopsis:</code> and <code>description:</code>;
+</li>
+<li>it is now possible to have dependencies toggled by globally-defined <span class="opam">opam</span>
+variables (<em>e.g.</em> for a dependency needed on some OS only), or even rely on
+the package information (<em>e.g.</em> have a dependency at the same version);
+</li>
+<li>the new <code>setenv:</code> field allows packages to export updates to environment
+variables;
+</li>
+<li>custom fields <code>x-foo:</code> can be used for extensions and external tools;
+</li>
+<li>allow <code>&quot;&quot;&quot;</code> delimiters around unescaped strings
+</li>
+<li><code>&amp;</code> is now parsed with higher priority than <code>|</code>
+</li>
+<li>field <code>ocaml-version:</code> can no longer be used
+</li>
+<li>the <code>remove:</code> field should not be used anymore for simple cases (just removing
+files)
+</li>
+</ul>
+<h2>Let's go then -- how to try it ?</h2>
+<p>First, be aware that you'll be prompted to update your <code>~/.opam</code> to 2.0 format
+before anything else, so if you value it, make a backup. Or just export
+<code>OPAMROOT</code> to test the alpha on a temporary opam root.</p>
+<p>Packages for opam 2.0 are already in the opam repository, so if you have a
+working opam installation of opam (at least 1.2.1), you can bootstrap as easily
+as:</p>
+<pre><code>opam install opam-devel
+</code></pre>
+<p>This doesn't install the new opam to your PATH within the current opam root for
+obvious reasons, so you can manually install it as e.g. &quot;opam2&quot; using:</p>
+<pre><code>sudo cp $(opam config var &quot;opam-devel:lib&quot;)/opam /usr/local/bin/opam2
+</code></pre>
+<p>You can otherwise install as usual:</p>
+<ul>
+<li>
+<p>Using pre-built binaries (available for OSX and Linux x86, x86_64, armhf) and
+our install script:</p>
+<p>wget https://raw.github.com/ocaml/opam/2.0-alpha4-devel/shell/opam_installer.sh -O - | sh -s /usr/local/bin</p>
+<p>Equivalently,
+<a href="https://github.com/ocaml/opam/releases/2.0-alpha4">pick your version</a> and
+download it to your PATH;</p>
+</li>
+<li>
+<p>Building from our inclusive source tarball:
+<a href="https://github.com/ocaml/opam/releases/download/2.0-alpha4/opam-full-2.0-alpha4.tar.gz">download here</a>
+and build using <code>./configure &amp;&amp; make lib-ext &amp;&amp; make &amp;&amp; make install</code> if you
+have OCaml &gt;= 4.01 already available, <code>make cold &amp;&amp; make install</code> otherwise;</p>
+</li>
+<li>
+<p>Or from <a href="https://github.com/ocaml/opam/tree/2.0-alpha4">source</a>, following the
+included instructions from the README. Some files have been moved around, so
+if your build fails after you updated an existing git clone, try to clean it
+up (<code>git clean -fdx</code>).</p>
+</li>
+</ul>
+|js}
+  };
+ 
+  { title = {js|Signing the OPAM repository|js}
+  ; slug = {js|signing-the-opam-repository|js}
+  ; description = {js|???|js}
+  ; date = {js|2015-06-05|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<blockquote>
+<p>NOTE (September 2016): updated proposal from OCaml 2016 workshop is
+<a href="https://github.com/hannesm/conex-paper/blob/master/paper.pdf">available</a>,
+including links to prototype implementation.</p>
+</blockquote>
+<blockquote>
+<p>This is an initial proposal on signing the OPAM repository. Comments and
+discussion are expected on the
+<a href="http://lists.ocaml.org/listinfo/platform">platform mailing-list</a>.</p>
+</blockquote>
+<p>The purpose of this proposal is to enable a secure distribution of
+OCaml packages. The package repository does not have to be trusted if
+package developers sign their releases.</p>
+<p>Like <a href="http://www.python.org/dev/peps/pep-0458/">Python's pip</a>, <a href="https://corner.squareup.com/2013/12/securing-rubygems-with-tuf-part-1.html">Ruby's gems</a> or more recently
+<a href="http://www.well-typed.com/blog/2015/04/improving-hackage-security/">Haskell's hackage</a>, we are going to implement a flavour of The
+Upgrade Framework (<a href="http://theupdateframework.com/">TUF</a>). This is good because:</p>
+<ul>
+<li>it has been designed by people who <a href="http://google-opensource.blogspot.jp/2009/03/thandy-secure-update-for-tor.html">know the stuff</a> much better than
+us
+</li>
+<li>it is built upon a threat model including many kinds of attacks, and there are
+some non-obvious ones (see the <a href="https://raw.githubusercontent.com/theupdateframework/tuf/develop/docs/tuf-spec.txt">specification</a>, and below)
+</li>
+<li>it has been thoroughly reviewed
+</li>
+<li>following it may help us avoid a lot of mistakes
+</li>
+</ul>
+<p>Importantly, it doesn't enforce any specific cryptography, allowing us to go
+with what we have <a href="http://opam.ocaml.org/packages/nocrypto/nocrypto.0.3.1/">at the moment</a> in native OCaml, and evolve later,
+<em>e.g.</em> by allowing ed25519.</p>
+<p>There are several differences between the goal of TUF and opam, namely
+TUF distributes a directory structure containing the code archive,
+whereas opam distributes metadata about OCaml packages. Opam uses git
+(and GitHub at the moment) as a first class citizen: new packages are
+submitted as pull requests by developers who already have a GitHub
+account.</p>
+<p>Note that TUF specifies the signing hierarchy and the format to deliver and
+check signatures, but allows a lot of flexibility in how the original files are
+signed: we can have packages automatically signed on the official repository, or
+individually signed by developers. Or indeed allow both, depending on the
+package.</p>
+<p>Below, we tried to explain the specifics of our implementation, and mostly the
+user and developer-visible changes. It should be understandable without prior
+knowledge of TUF.</p>
+<p>We are inspired by <a href="https://github.com/commercialhaskell/commercialhaskell/wiki/Git-backed-Hackage-index-signing-and-distribution">Haskell's adjustments</a> (and
+<a href="https://github.com/commercialhaskell/commercialhaskell/wiki/Package-signing-detailed-propsal">e2e</a>) to TUF using a git repository for packages. A
+signed repository and signed packages are orthogonal. In this
+proposal, we aim for both, but will describe them independently.</p>
+<h2>Threat model</h2>
+<ul>
+<li>
+<p>An attacker can compromise at least one of the package distribution
+system's online trusted keys.</p>
+</li>
+<li>
+<p>An attacker compromising multiple keys may do so at once or over a
+period of time.</p>
+</li>
+<li>
+<p>An attacker can respond to client requests (MITM or server
+compromise) during downloading of the repository, a package, and
+also while uploading a new package release.</p>
+</li>
+<li>
+<p>An attacker knows of vulnerabilities in historical versions of one or
+more packages, but not in any current version (protecting against
+zero-day exploits is emphatically out-of-scope).</p>
+</li>
+<li>
+<p>Offline keys are safe and securely stored.</p>
+</li>
+</ul>
+<p>An attacker is considered successful if they can cause a client to
+build and install (or leave installed) something other than the most
+up-to-date version of the software the client is updating. If the
+attacker is preventing the installation of updates, they want clients
+to not realize there is anything wrong.</p>
+<h2>Attacks</h2>
+<ul>
+<li>
+<p>Arbitrary package: an attacker should not be able to provide a package
+they created in place of a package a user wants to install (via MITM
+during package upload, package download, or server compromise).</p>
+</li>
+<li>
+<p>Rollback attacks: an attacker should not be able to trick clients into
+installing software that is older than that which the client
+previously knew to be available.</p>
+</li>
+<li>
+<p>Indefinite freeze attacks: an attacker should not be able to respond
+to client requests with the same, outdated metadata without the
+client being aware of the problem.</p>
+</li>
+<li>
+<p>Endless data attacks: an attacker should not be able to respond to
+client requests with huge amounts of data (extremely large files)
+that interfere with the client's system.</p>
+</li>
+<li>
+<p>Slow retrieval attacks: an attacker should not be able to prevent
+clients from being aware of interference with receiving updates by
+responding to client requests so slowly that automated updates never
+complete.</p>
+</li>
+<li>
+<p>Extraneous dependencies attacks: an attacker should not be able to
+cause clients to download or install software dependencies that are
+not the intended dependencies.</p>
+</li>
+<li>
+<p>Mix-and-match attacks: an attacker should not be able to trick clients
+into using a combination of metadata that never existed together on
+the repository at the same time.</p>
+</li>
+<li>
+<p>Malicious repository mirrors: should not be able to prevent updates
+from good mirrors.</p>
+</li>
+<li>
+<p>Wrong developer attack: an attacker should not be able to upload a new
+version of a package for which they are not the real developer.</p>
+</li>
+</ul>
+<h2>Trust</h2>
+<p>A difficult problem in a cryptosystem is key distribution. In TUF and
+this proposal, a set of root keys are distributed with opam. A
+threshold of these root keys needs to sign (transitively) all keys
+which are used to verify opam repository and its packages.</p>
+<h3>Root keys</h3>
+<p>The root of trust is stored in a set of root keys. In the case of the official
+opam OCaml repository, the public keys are to be stored in the opam source,
+allowing it to validate the whole trust chain. The private keys will be held by
+the opam and repository maintainers, and stored password-encrypted, securely
+offline, preferably on unplugged storage.</p>
+<p>They are used to sign all the top-level keys, using a quorum. The quorum has
+several benefits:</p>
+<ul>
+<li>the compromise of a number of root keys less than the quorum is harmless
+</li>
+<li>it allows to safely revoke and replace a key, even if it was lost
+</li>
+</ul>
+<p>The added cost is more maintenance burden, but this remains small since these
+keys are not often used (only when keys are going to expire, were compromised or
+in the event new top-level keys need to be added).</p>
+<p>The initial root keys could be distributed as such:</p>
+<ul>
+<li>Louis Gesbert, opam maintainer, OCamlPro
+</li>
+<li>Anil Madhavapeddy, main repository maintainer, OCaml Labs
+</li>
+<li>Thomas Gazagnaire, main repository maintainer, OCaml Labs
+</li>
+<li>Grégoire Henry, OCamlPro safekeeper
+</li>
+<li>Someone in the OCaml team ?
+</li>
+</ul>
+<p>Keys will be set with an expiry date so that one expires each year in turn,
+leaving room for smooth rollover.</p>
+<p>For other repositories, there will be three options:</p>
+<ul>
+<li>no signatures (backwards compatible ?), <em>e.g.</em> for local network repositories.
+This should be allowed, but with proper warnings.
+</li>
+<li>trust on first use: get the root keys on first access, let the user confirm
+their fingerprints, then fully trust them.
+</li>
+<li>let the user manually supply the root keys.
+</li>
+</ul>
+<h3>End-to-end signing</h3>
+<p>This requires the end-user to be able to validate a signature made by the
+original developer. There are two trust paths for the chain of trust (where
+&quot;→&quot; stands for &quot;signs for&quot;):</p>
+<ul>
+<li>(<em>high</em>) root keys →
+repository maintainer keys → (signs individually)
+package delegation + developer key →
+package files
+</li>
+<li>(<em>low</em>) root keys →
+snapshot key → (signs as part of snapshot)
+package delegation + developer key →
+package files
+</li>
+</ul>
+<p>It is intended that packages may initially follow the <em>low</em> trust path, adding
+as little burden and delay as possible when adding new packages, and may then be
+promoted to the <em>high</em> path with manual intervention, after verification, from
+repository maintainers. This way, most well-known and widely used packages will
+be provided with higher trust, and the scope of an attack on the low trust path
+would be reduced to new, experimental or little-used packages.</p>
+<h3>Repository signing</h3>
+<p>This provides consistent, up-to-date snapshots of the repository, and protects
+against a whole different class of attacks than end-to-end signing (<em>e.g.</em>
+rollbacks, mix-and-match, freeze, etc.)</p>
+<p>This is done automatically by a snapshot bot (might run on the repository
+server), using the <em>snapshot key</em>, which is signed directly by the root keys,
+hence the chain of trust:</p>
+<ul>
+<li>root keys →
+snapshot key →
+commit-hash
+</li>
+</ul>
+<p>Where &quot;commit-hash&quot; is the head of the repository's git repository (and thus a
+valid cryptographic hash of the full repository state, as well as its history)</p>
+<h4>Repository maintainer (RM) keys</h4>
+<p>Repository maintainers hold the central role in monitoring the repository and
+warranting its security, with or without signing. Their keys (called <em>targets
+keys</em> in the TUF framework) are signed directly by the root keys. As they have a
+high security potential, in order to reduce the consequences of a compromise, we
+will be requiring a quorum for signing sensitive operations</p>
+<p>These keys are stored password-encrypted on the RM computers.</p>
+<h4>Snapshot key</h4>
+<p>This key is held by the <em>snapshot bot</em> and signed directly by the root keys. It
+is used to guarantee consistency and freshness of repository snapshots, and does
+so by signing a git commit-hash and a time-stamp.</p>
+<p>It is held online and used by the snapshot bot for automatic signing: it has
+lower security than the RM keys, but also a lower potential: it can not be used
+directly to inject malicious code or metadata in any existing package.</p>
+<h4>Delegate developer keys</h4>
+<p>These keys are used by the package developers for end-to-end signing. They can
+be generated locally as needed by new packagers (<em>e.g.</em> by the <code>opam-publish</code>
+tool), and should be stored password-encrypted. They can be added to the
+repository through pull-requests, waiting to be signed (i) as part of snapshots
+(which also prevents them to be modified later, but we'll get to it) and (ii)
+directly by RMs.</p>
+<h4>Initial bootstrap</h4>
+<p>We'll need to start somewhere, and the current repository isn't signed. An
+additional key, <em>initial-bootstrap</em>, will be used for guaranteeing integrity of
+existing, but yet unverified packages.</p>
+<p>This is a one-go key, signed by the root keys, and that will then be destroyed.
+It is allowed to sign for packages without delegation.</p>
+<h3>Trust chain and revocation</h3>
+<p>In order to build the trust chain, the opam client downloads a <code>keys/root</code> key
+file initially and before every update operation. This file is signed by the
+root keys, and can be verified by the client using its built-in keys (or one of
+the ways mentioned above for unofficial repositories). It must be signed by a
+quorum of known root keys, and contains the comprehensive set of root, RM,
+snapshot and initial bootstrap keys: any missing keys are implicitly revoked.
+The new set of root keys is stored by the opam client and used instead of the
+built-in ones on subsequent runs.</p>
+<p>Developer keys are stored in files <code>keys/dev/&lt;id&gt;</code>, self-signed, possibly RM
+signed (and, obviously, snapshot-signed). The conditions of their verification,
+removal or replacement are included in our validation of metadata update (see
+below).</p>
+<h2>File formats and hierarchy</h2>
+<h3>Signed files and tags</h3>
+<p>The files follow the opam syntax: a list of <em>fields</em> <code>fieldname:</code> followed by
+contents. The format is detailed in <a href="https://opam.ocaml.org/doc/Manual.html#Generalfileformat">opam's documentation</a>.</p>
+<p>The signature of files in opam is done on the canonical textual representation,
+following these rules:</p>
+<ul>
+<li>any existing <code>signature:</code> field is removed
+</li>
+<li>one field per line, ending with a newline
+</li>
+<li>fields are sorted lexicographically by field name
+</li>
+<li>newlines, backslashes and double-quotes are escaped in string literals
+</li>
+<li>spaces are limited to one, and to these cases: after field leaders
+<code>fieldname:</code>, between elements in lists, before braced options, between
+operators and their operands
+</li>
+<li>comments are erased
+</li>
+<li>fields containing an empty list, or a singleton list containing an empty
+list, are erased
+</li>
+</ul>
+<p>The <code>signature:</code> field is a list with elements in the format of string triplets
+<code>[ &quot;&lt;keyid&gt;&quot; &quot;&lt;algorithm&gt;&quot; &quot;&lt;signature&gt;&quot; ]</code>. For example:</p>
+<pre><code>opam-version: &quot;1.2&quot;
+name: &quot;opam&quot;
+signature: [
+  [ &quot;louis.gesbert@ocamlpro.com&quot; &quot;RSASSA-PSS&quot; &quot;048b6fb4394148267df...&quot; ]
+]
+</code></pre>
+<p>Signed tags are git annotated tags, and their contents follow the same rules. In
+this case, the format should contain the field <code>commit:</code>, pointing to the
+commit-hash that is being signed and tagged.</p>
+<h3>File hierarchy</h3>
+<p>The repository format is changed by the addition of:</p>
+<ul>
+<li>a directory <code>keys/</code> at the root
+</li>
+<li>delegation files <code>packages/&lt;pkgname&gt;/delegate</code> and
+<code>compilers/&lt;patchname&gt;.delegate</code>
+</li>
+<li>signed checksum files at <code>packages/&lt;pkgname&gt;/&lt;pkgname&gt;.&lt;version&gt;/signature</code>
+</li>
+</ul>
+<p>Here is an example:</p>
+<pre><code>repository root /
+|--packages/
+|  |--pkgname/
+|  |  |--delegation                    - signed by developer, repo maintainer
+|  |  |--pkgname.version1/
+|  |  |  |--opam
+|  |  |  |--descr
+|  |  |  |--url
+|  |  |  `--signature                  - signed by developer1
+|  |  `--pkgname.version2/ ...
+|  `--pkgname2/ ...
+|--compilers/
+|  |--version/
+|  |  |--version+patch/
+|  |  |  |--version+patch.comp
+|  |  |  |--version+patch.descr
+|  |  |  `--version+patch.signature
+|  |  `--version+patch2/ ...
+|  |--patch.delegate
+|  |--patch2.delegate
+|  `--version2/ ...
+`--keys/
+   |--root
+   `--dev/
+      |--developer1-email              - signed by developer1,
+      `--developer2-email ...            and repo maint. once verified
+</code></pre>
+<p>Keys are provided in different files as string triplets
+<code>[ [ &quot;keyid&quot; &quot;algo&quot; &quot;key&quot; ] ]</code>. <code>keyid</code> must not conflict with any
+previously-defined keys, and <code>algo</code> may be &quot;rsa&quot; and keys encoded in PEM format,
+with further options available later.</p>
+<p>For example, the <code>keys/root</code> file will have the format:</p>
+<pre><code>date: &quot;2015-06-04T13:53:00Z&quot;
+root-keys: [ [ &quot;keyid&quot; &quot;{expire-date}&quot; &quot;algo&quot; &quot;key&quot; ] ]
+snapshot-keys: [ [ &quot;keyid&quot; &quot;algo&quot; &quot;key&quot; ] ]
+repository-maintainer-keys: [ [ &quot;keyid&quot; &quot;algo&quot; &quot;key&quot; ] ]
+</code></pre>
+<p>This file is signed by current <em>and past</em> root keys -- to allow clients to
+update. The <code>date:</code> field provides further protection against rollback attacks:
+no clients may accept a file with a date older than what they currently have.
+Date is in the ISO 8601 standard with 0 UTC offset, as suggested in TUF.</p>
+<h4>Delegation files</h4>
+<p><code>/packages/pkgname/delegation</code> delegates ownership on versions of package
+<code>pkgname</code>. The file contains version constraints associated with keyids, <em>e.g.</em>:</p>
+<pre><code>name: pkgname
+delegates: [
+  &quot;thomas@gazagnaire.org&quot;
+  &quot;louis.gesbert@ocamlpro.com&quot; {&gt;= &quot;1.0&quot;}
+]
+</code></pre>
+<p>The file is signed:</p>
+<ul>
+<li>by the original developer submitting it
+</li>
+<li>or by a developer previously having delegation for all versions, for changes
+</li>
+<li>or directly by repository maintainers, validating the delegation, and
+increasing the level of trust
+</li>
+</ul>
+<p>Every key a developer delegates trust to must also be signed by the developer.</p>
+<p><code>compilers/patch.delegate</code> files follow a similar format (we are considering
+changing the hierarchy of compilers to match that of packages, to make things
+simpler).</p>
+<p>The <code>delegates:</code> field may be empty: in this case, no packages by this name are
+allowed on the repository. This may be useful to mark deletion of obsolete
+packages, and make sure a new, different package doesn't take the same name by
+mistake or malice.</p>
+<h4>Package signature files</h4>
+<p>These guarantee the integrity of a package: this includes metadata and the
+package archive itself (which may, or may not, be mirrored on the the opam
+repository server).</p>
+<p>The file, besides the package name and version, has a field <code>package-files:</code>
+containing a list of files below <code>packages/&lt;pkgname&gt;/&lt;pkgname&gt;.&lt;version&gt;</code>
+together with their file sizes in bytes and one or more hashes, prefixed by their
+kind, and a field <code>archive:</code> containing the same details for the upstream
+archive. For example:</p>
+<pre><code>name: pkgname
+version: pkgversion
+package-files: [
+  &quot;opam&quot; {901 [ sha1 &quot;7f9bc3cc8a43bd8047656975bec20b578eb7eed9&quot; md5 &quot;1234567890&quot; ]}
+  &quot;descr&quot; {448 [ sha1 &quot;8541f98524d22eeb6dd669f1e9cddef302182333&quot; ]}
+  &quot;url&quot; {112 [ sha1 &quot;0a07dd3208baf4726015d656bc916e00cd33732c&quot; ]}
+  &quot;files/ocaml.4.02.patch&quot; {17243 [ sha1 &quot;b3995688b9fd6f5ebd0dc4669fc113c631340fde&quot; ]}
+]
+archive: [ 908460 [ sha1 &quot;ec5642fd2faf3ebd9a28f9de85acce0743e53cc2&quot; ] ]
+</code></pre>
+<p>This file is signed either:</p>
+<ul>
+<li>by the <code>initial-bootstrap</code> key, only initially
+</li>
+<li>by a delegate key (<em>i.e.</em> by a delegated-to developer)
+</li>
+<li>by a quorum of repository maintainers
+</li>
+</ul>
+<p>The latter is needed to hot-fix packages on the repository: repository
+maintainers often need to do so. A quorum is still required, to prevent a single
+RM key compromise from allowing arbitrary changes to every package. The quorum
+is not initially required to sign a delegation, but is, consistently, required
+for any change to an existing, signed delegation.</p>
+<p>Compiler signature files <code>&lt;version&gt;+&lt;patch&gt;.signature</code> are similar, with fields
+<code>compiler-files</code> containing checksums for <code>&lt;version&gt;+&lt;patch&gt;.*</code>, the same field
+<code>archive:</code> and an additional optional field <code>patches:</code>, containing the sizes and
+hashes of upstream patches used by this compiler.</p>
+<p>If the delegation or signature can't be validated, the package or compiler is
+ignored. If any file doesn't correspond to its size or hashes, it is ignored as
+well. Any file not mentioned in the signature file is ignored.</p>
+<h2>Snapshots and linearity</h2>
+<h3>Main snapshot role</h3>
+<p>The snapshot key automatically adds a <code>signed</code> annotated tag to the top of the
+served branch of the repository. This tag contains the commit-hash and the
+current timestamp, effectively ensuring freshness and consistency of the full
+repository. This protects against mix-and-match, rollback and freeze attacks.</p>
+<p>The <code>signed</code> annotated tag is deleted and recreated by the snapshot bot, after
+checking the validity of the update, periodically and after each change.</p>
+<h3>Linearity</h3>
+<p>The repository is served using git: this means, not only the latest version, but
+the full history of changes are known. This as several benefits, among them,
+incremental downloads &quot;for free&quot;; and a very easy way to sign snapshots. Another
+good point is that we have a working full OCaml implementation.</p>
+<p>We mentioned above that we use the snapshot signatures not only for repository
+signing, but also as an initial guarantee for submitted developer's keys and
+delegations. One may also have noticed, in the above, that we sign for
+delegations, keys etc. individually, but without a bundle file that would ensure
+no signed files have been maliciously removed.</p>
+<p>These concerns are all addressed by a <em>linearity condition</em> on the repository's
+git: the snapshot bot does not only check and sign for a given state of the
+repository, it checks every individual change to the repository since the last
+well-known, signed state: patches have to follow from that git commit
+(descendants on the same branch), and are validated to respect certain
+conditions: no signed files are removed or altered without signature, etc.</p>
+<p>Moreover, this check is also done on clients, every time they update: it is
+slightly weaker, as the client don't update continuously (an attacker may have
+rewritten the commits since last update), but still gives very good guarantees.</p>
+<p>A key and delegation that have been submitted by a developer and merged, even
+without RM signature, are signed as part of a snapshot: git and the linearity
+conditions allow us to guarantee that this delegation won't be altered or
+removed afterwards, even without an individual signature. Even if the repository
+is compromised, an attacker won't be able to roll out malicious updates breaking
+these conditions to clients.</p>
+<p>The linearity invariants are:</p>
+<ol>
+<li>no key, delegation, or package version (signed files) may be removed
+</li>
+<li>a new key is signed by itself, and optionally by a RM
+</li>
+<li>a new delegation is signed by the delegate key, optionally by a RM. Signing
+keys must also sign the delegate keys
+</li>
+<li>a new package or package version is signed by a valid key holding a valid
+delegation for this package version
+</li>
+<li>keys can only be modified with signature from the previous key or a quorum
+of RM keys
+</li>
+<li>delegations can only be modified with signature by a quorum of RMs, or
+possibly by a former delegate key (without version constraints) in case
+there was previously no RM signature
+</li>
+<li>any package modification is signed by an appropriate delegate key, or by a
+quorum of RM keys
+</li>
+</ol>
+<p>It is sometimes needed to do operations, like key revocation, that are not
+allowed by the above rules. These are enabled by the following additional rules,
+that require the commit including the changes to be signed by a quorum of
+repository maintainers using an annotated tag:</p>
+<ol>
+<li>package or package version removal
+</li>
+<li>removal (revocation) of a developer key
+</li>
+<li>removal of a package delegation (it's in general preferable to leave an
+empty delegation)
+</li>
+</ol>
+<p>Changes to the <code>keys/root</code> file, which may add, modify or revoke keys for root,
+RMs and snapshot keys is verified in the normal way, but needs to be handled for
+checking linearity since it decides the validity of RM signatures. Since this
+file may be needed before we can check the <code>signed</code> tag, it has its own
+timestamp to prevent rollback attacks.</p>
+<p>In case the linearity invariant check fail:</p>
+<ul>
+<li>on the GitHub repository, this is marked and the RMs are advised not to merge
+(or to complete missing tag signatures)
+</li>
+<li>on the clients, the update is refused, and the user informed of what's going
+on (the repository has likely been compromised at that point)
+</li>
+<li>on the repository (checks by the snapshot bot), update is stalled and all
+repository maintainers immediately warned. To recover, the broken commits
+(between the last <code>signed</code> tag and master) need to be amended.
+</li>
+</ul>
+<h2>Work and changes involved</h2>
+<h3>General</h3>
+<p>Write modules for key handling ; signing and verification of opam files.</p>
+<p>Write the git synchronisation module with linearity checks.</p>
+<h3>opam</h3>
+<p>Rewrite the default HTTP repository synchronisation module to use git fetch,
+verify, and git pull. This should be fully transparent, except:</p>
+<ul>
+<li>in the cases of errors, of course
+</li>
+<li>when registering a non-official repository
+</li>
+<li>for some warnings with features that disable signatures, like source pinning
+(probably only the first time would be good)
+</li>
+</ul>
+<p>Include the public root keys for the default repository, and implement
+management of updated keys in <code>~/.opam/repo/name</code>.</p>
+<p>Handle the new formats for checksums and non-repackaged archives.</p>
+<p>Allow a per-repository security threshold (<em>e.g.</em> allow all, allow only signed
+packages, allow only packages signed by a verified key, allow only packages
+signed by their verified developer). It should be easy but explicit to add a
+local network, unsigned repository. Backends other than git won't be signed
+anyway (local, rsync...).</p>
+<h3>opam-publish</h3>
+<p>Generate keys, handle locally stored keys, generate <code>signature</code> files, handle
+signing, submit signatures, check delegation, submit new delegation, request
+delegation change (might require repository maintainer intervention if an RM
+signed the delegation), delete developer, delete package.</p>
+<p>Manage local keys. Probably including re-generating, and asking for revocation.</p>
+<h3>opam-admin</h3>
+<p>Most operations on signatures and keys will be implemented as independent
+modules (as to be usable from <em>e.g.</em> unikernels working on the repository). We
+should also make them available from <code>opam-admin</code>, for testing and manual
+management. Special tooling will also be needed by RMs.</p>
+<ul>
+<li>fetch the archives (but don't repackage as <code>pkg+opam.tar.gz</code> anymore)
+</li>
+<li>allow all useful operations for repository maintainers (maybe in a different
+tool ?):
+<ul>
+<li>manage their keys
+</li>
+<li>list and sign changed packages directly
+</li>
+<li>list and sign waiting delegations to developer keys
+</li>
+<li>validate signatures, print reports
+</li>
+<li>sign tags, including adding a signature to an existing tag to meet the
+quorum
+</li>
+<li>list quorums waiting to be met on a given branch
+</li>
+</ul>
+</li>
+<li>generate signed snapshots (same as the snapshot bot, for testing)
+</li>
+</ul>
+<h3>Signing bots</h3>
+<p>If we don't want to have this processed on the publicly visible host serving the
+repository, we'll need a mechanism to fetch the repository, and submit the
+signed tag back to the repository server.</p>
+<p>Doing this through mirage unikernels would be cool, and provide good isolation.
+We could imagine running this process regularly:</p>
+<ul>
+<li>fetch changes from the repository's git (GitHub)
+</li>
+<li>check for consistency (linearity)
+</li>
+<li>generate and sign the <code>signed</code> tag
+</li>
+<li>push tag back to the release repository
+</li>
+</ul>
+<h3>Travis</h3>
+<p>All security information and check results should be available to RMs before
+they make the decision to merge a commit to the repository. This means including
+signature and linearity checks in a process running on Travis, or similarly on
+every pull-request to the repository, and displaying the results in the GitHub
+tracker.</p>
+<p>This should avoid most cases where the snapshot bot fails the validation,
+leaving it stuck (as well as any repository updates) until the bad commits are
+rewritten.</p>
+<h2>Some more detailed scenarios</h2>
+<h3><code>opam init</code> and <code>update</code> scenario</h3>
+<p>On <code>init</code>, the client would clone the repository and get to the <code>signed</code> tag,
+get and check the associated <code>keys/root</code> file, and validate the <code>signed</code> tag
+according to the new keyset. If all goes well, the new set of root, RM and
+snapshot keys is registered.</p>
+<p>Then all files' signatures are checked following the trust chains, and copied to
+the internal repository mirror opam will be using (<code>~/.opam/repo/&lt;name&gt;</code>). When
+a package archive is needed, the download is done either from the repository, if
+the file is mirrored, or from its upstream, in both cases with known file size
+and upper limit: the download is stopped if going above the expected size, and
+the file removed if it doesn't match both.</p>
+<p>On subsequent updates, the process is the same except that a fetch operation is
+done on the existing clone, and that the repository is forwarded to the new
+<code>signed</code> tag only if linearity checks passed (and the update is aborted
+otherwise).</p>
+<h3><code>opam-publish</code> scenario</h3>
+<ul>
+<li>The first time a developer runs <code>opam-publish submit</code>, a developer key is
+generated, and stored locally.
+</li>
+<li>Upon <code>opam-publish submit</code>, the package is signed using the key, and the
+signature is included in the submission.
+</li>
+<li>If the key is known, and delegation for this package matches, all is good
+</li>
+<li>If the key is not already registered, it is added to <code>/keys/dev/</code> within the
+pull-request, self-signed.
+</li>
+<li>If there is no delegation for the package, the <code>/packages/pkgname/delegation</code>
+file is added, delegating to the developer key and signed by it.
+</li>
+<li>If there is an existing delegation that doesn't include the auhor's key,
+this will require manual intervention from the repository managers. We may yet
+submit a pull-request adding the new key as delegate for this package, and ask
+the repository maintainers -- or former developers -- to sign it.
+</li>
+</ul>
+<h2>Security analysis</h2>
+<p>We claim that the above measures give protection against:</p>
+<ul>
+<li>
+<p>Arbitrary packages: if an existing package is not signed, it is not installed
+(or even visible) to the user. Anybody can submit new unclaimed packages (but,
+in the current setting, still need GitHub write access to the repository, or
+to bypass GitHub's security).</p>
+</li>
+<li>
+<p>Rollback attacks: git updates must follow the currently known <code>signed</code> tag. if
+the snapshot bot detects deletions of packages, it refuses to sign, and
+clients double-check this. The <code>keys/root</code> file contains a timestamp.</p>
+</li>
+<li>
+<p>Indefinite freeze attacks: the snapshot bot periodically signs the <code>signed</code>
+tag with a timestamp, if a client receives a tag older than the expected age
+it will notice.</p>
+</li>
+<li>
+<p>Endless data attacks: we rely on the git protocol and this does not defend
+against endless data. Downloading of package archive (of which the origin may
+be any mirror), though, is protected. The scope of the attack is mitigated in
+our setting, because there are no unattended updates: the program is run
+manually, and interactively, so the user is most likely to notice.</p>
+</li>
+<li>
+<p>Slow retrieval attacks: same as above.</p>
+</li>
+<li>
+<p>Extraneous dependencies attacks: metadata is signed, and if the signature does
+not match, it is not accepted.</p>
+<blockquote>
+<p>NOTE: the <code>provides</code> field -- yet unimplemented, see the document in
+<code>opam/doc/design</code> -- could provide a vector in this case, by advertising a
+replacement for a popular package. Additional measures will be taken when
+implementing the feature, like requiring a signature for the provided
+package.</p>
+</blockquote>
+</li>
+<li>
+<p>Mix-and-match attacks: the repository has a linearity condition, and partial
+repositories are not possible.</p>
+</li>
+<li>
+<p>Malicious repository mirrors: if the signature does not match, reject.</p>
+</li>
+<li>
+<p>Wrong developer attack: if the developer is not in the delegation, reject.</p>
+</li>
+</ul>
+<h3>GitHub repository</h3>
+<p>Is the link between GitHub (opam-repository) and the signing bot special?
+If there is a MITM on this link, they can add arbitrary new packages, but
+due to missing signatures only custom universes. No existing package can
+be altered or deleted, otherwise consistency condition above does not hold
+anymore and the signing bot will not sign.</p>
+<p>Certainly, the access can be frozen, thus the signing bot does not receive
+updates, but continues to sign the old repository version.</p>
+<h3>Snapshot key</h3>
+<p>If the snapshot key is compromised, an attacker is able to:</p>
+<ul>
+<li>
+<p>Add arbitrary (non already existing) packages, as above.</p>
+</li>
+<li>
+<p>Freeze, by forever re-signing the <code>signed</code> tag with an updated timestamp.</p>
+</li>
+</ul>
+<p>Most importantly, the attacker won't be able to tamper with existing packages.
+This hudgely reduces the potential of an attack, even with a compromised
+snapshot key.</p>
+<p>The attacks above would also require either a MITM between the repository and
+the client, or a compromise of the opam repository: in the latter case, since
+the linearity check is reproduces even from the clients:</p>
+<ul>
+<li>any tamper could be detected very quickly, and measures taken.
+</li>
+<li>a freeze would be detected as soon as a developer checks that their
+package is really online. That currently happens
+<a href="https://github.com/ocaml/opam-repository/pulse">several times a day</a>.
+</li>
+</ul>
+<p>The repository would then just have to be reset to before the attack, which git
+makes as easy as it can get, and the holders of the root keys would sign a new
+<code>/auth/root</code>, revoking the compromised snapshot key and introducing a new one.</p>
+<p>In the time before the signing bot can be put back online with the new snapshot
+key -- <em>i.e.</em> the breach has been found and fixed -- a developer could manually
+sign time-stamped tags before they expire (<em>e.g.</em> once a day) so as not to hold
+back updates.</p>
+<h3>Repository Maintainer keys</h3>
+<p>Repository maintainers are powerful, they can modify existing opam files and
+sign them (as hotfix), introduce new delegations for packages, etc.).</p>
+<p>However, by requiring a quorum for sensitive operations, we limit the scope of a
+single RM key compromise to the validation of new developer keys or delegations
+(which should be the most common operation done by RMs): this enables to raise
+the level of security of the new, malicious packages but otherwise doesn't
+change much from what can be done with just access to the git repository.</p>
+<p>A further compromise of a quorum of RM keys would allow to remove or tamper with
+any developer key, delegation or package: any of these amounts to being able to
+replace any package with a compromised version. Cleaning up would require
+replacing all but the root keys, and resetting the repository to before any
+malicious commit.</p>
+<h2>Difference to TUF</h2>
+<ul>
+<li>we use git
+</li>
+<li>thus get linearity &quot;for free&quot;
+</li>
+<li>and already have a hash over the entire repository
+</li>
+<li>TUF provides a mechanism for delegation, but it's both heavier and not
+expressive enough for what we wanted -- delegate to packages directly.
+</li>
+<li>We split in lots more files, and per-package ones, to fit with and nicely
+extend the git-based workflow that made the success of opam. The original TUF
+would have big json files signing for a lot of files, and likely to conflict.
+Both developers and repository maintainers should be able to safely work
+concurrently without issue. Signing bundles in TUF gives the additional
+guarantee that no file is removed without proper signature, but this is
+handled by git and signed tags.
+</li>
+<li>instead of a single file with all signed packages by a specific developer,
+one file per package
+</li>
+</ul>
+<h3>Differences to Haskell:</h3>
+<ul>
+<li>use TUF keys, not gpg
+</li>
+<li>e2e signing
+</li>
+</ul>
+|js}
+  };
+ 
+  { title = {js|OPAM 1.2.2 Released|js}
+  ; slug = {js|opam-1-2-2-release|js}
+  ; description = {js|???|js}
+  ; date = {js|2015-05-07|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p><a href="https://github.com/ocaml/opam/releases/tag/1.2.2">OPAM 1.2.2</a> has just been
+released. This fixes a few issues over 1.2.1 and brings a couple of improvements,
+in particular better use of the solver to keep the installation as up-to-date as
+possible even when the latest version of a package can not be installed.</p>
+<h3>Upgrade from 1.2.1 (or earlier)</h3>
+<p>See the normal
+<a href="https://opam.ocaml.org/doc/Install.html">installation instructions</a>: you should
+generally pick up the packages from the same origin as you did for the last
+version -- possibly switching from the official repository packages to the ones
+we provide for your distribution, in case the former are lagging behind.</p>
+<p>There are no changes in repository format, and you can roll back to earlier
+versions in the 1.2 branch if needed.</p>
+<h3>Improvements</h3>
+<ul>
+<li>Conflict messages now report the original version constraints without
+translation, and they have been made more concise in some cases
+</li>
+<li>Some new <code>opam lint</code> checks, <code>opam lint</code> now numbers its warnings and may
+provide script-friendly output
+</li>
+<li>Feature to <strong>automatically install plugins</strong>, e.g. <code>opam depext</code> will prompt
+to install <code>depext</code> if available and not already installed
+</li>
+<li><strong>Priority to newer versions</strong> even when the latest can't be installed (with a
+recent solver only. Before, all non-latest versions were equivalent to the
+solver)
+</li>
+<li>Added <code>opam list --resolve</code> to list a consistent installation scenario
+</li>
+<li>Be cool by default on errors in OPAM files, these don't concern end-users and
+packagers and CI now have <code>opam lint</code> to check them.
+</li>
+</ul>
+<h3>Fixes</h3>
+<ul>
+<li>OSX: state cache got broken in 1.2.1, which could induce longer startup times.
+This is now fixed
+</li>
+<li><code>opam config report</code> has been fixed to report the external solver properly
+</li>
+<li><code>--dry-run --verbose</code> properly outputs all commands that would be run again
+</li>
+<li>Providing a simple path to an aspcud executable as external solver (through
+options or environment) works again, for backwards-compatibility
+</li>
+<li>Fixed a fd leak on solver calls (thanks Ivan Gotovchits)
+</li>
+<li><code>opam list</code> now returns 0 when no packages match but no pattern was supplied,
+which is more helpful in scripts relying on it to check dependencies.
+</li>
+</ul>
+|js}
+  };
+ 
+  { title = {js|OPAM 1.2.1 Released|js}
+  ; slug = {js|opam-1-2-1-release|js}
+  ; description = {js|???|js}
+  ; date = {js|2015-03-18|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p><a href="https://github.com/ocaml/opam/releases/tag/1.2.1">OPAM 1.2.1</a> has just been
+released. This patch version brings a number of fixes and improvements
+over 1.2.0, without breaking compatibility.</p>
+<h3>Upgrade from 1.2.0 (or earlier)</h3>
+<p>See the normal
+<a href="https://opam.ocaml.org/doc/Install.html">installation instructions</a>: you should
+generally pick up the packages from the same origin as you did for the last
+version -- possibly switching from the official repository packages to the ones
+we provide for your distribution, in case the former are lagging behind.</p>
+<h3>What's new</h3>
+<p>No huge new features in this point release -- which means you can roll back
+to 1.2.0 in case of problems -- but lots going on under the hood, and quite a
+few visible changes nonetheless:</p>
+<ul>
+<li>The engine that processes package builds and other commands in parallel has
+been rewritten. You'll notice the cool new display but it's also much more
+reliable and efficient. Make sure to set <code>jobs:</code> to a value greater than 1 in
+<code>~/.opam/config</code> in case you updated from an older version.
+</li>
+<li>The install/upgrade/downgrade/remove/reinstall actions are also processed in a
+better way: the consequences of a failed actions are minimised, when it used
+to abort the full command.
+</li>
+<li>When using version control to pin a package to a local directory without
+specifying a branch, only the tracked files are used by OPAM, but their
+changes don't need to be checked in. This was found to be the most convenient
+compromise.
+</li>
+<li>Sources used for several OPAM packages may use <code>&lt;name&gt;.opam</code> files for package
+pinning. URLs of the form <code>git+ssh://</code> or <code>hg+https://</code> are now allowed.
+</li>
+<li><code>opam lint</code> has been vastly improved.
+</li>
+</ul>
+<p>... and much more</p>
+<p>There is also a <a href="https://opam.ocaml.org/doc/Manual.html">new manual</a> documenting
+the file and repository formats.</p>
+<h3>Fixes</h3>
+<p>See <a href="https://github.com/ocaml/opam/blob/1.2.1/CHANGES">the changelog</a> for a
+summary or
+<a href="https://github.com/ocaml/opam/issues?q=is%3Aissue+closed%3A%3E2014-10-16+closed%3A%3C2015-03-05+">closed issues</a>
+in the bug-tracker for an overview.</p>
+<h3>Experimental features</h3>
+<p>These are mostly improvements to the file formats. You are welcome to use them,
+but they won't be accepted into the
+<a href="https://github.com/ocaml/opam-repository">official repository</a> until the next
+release.</p>
+<ul>
+<li>New field <code>features:</code> in opam files, to help with <code>./configure</code> scripts and
+documenting the specific features enabled in a given build. See the
+<a href="https://github.com/ocaml/opam/blob/master/doc/design/depopts-and-features">original proposal</a>
+and the section in the <a href="https://opam.ocaml.org/doc/Manual.html#opam">new manual</a>
+</li>
+<li>The &quot;filter&quot; language in opam files is now well defined, and documented in the
+<a href="https://opam.ocaml.org/doc/Manual.html#Filters">manual</a>. In particular,
+undefined variables are consistently handled, as well as conversions between
+string and boolean values, with new syntax for converting bools to strings.
+</li>
+<li>New package flag &quot;verbose&quot; in opam files, that outputs the package's build
+script to stdout
+</li>
+<li>New field <code>libexec:</code> in <code>&lt;name&gt;.install</code> files, to install into the package's
+lib dir with the execution bit set.
+</li>
+<li>Compilers can now be defined without source nor build instructions, and the
+base packages defined in the <code>packages:</code> field are now resolved and then
+locked. In practice, this means that repository maintainers can move the
+compiler itself to a package, giving a lot more flexibility.
+</li>
+</ul>
+|js}
+  };
+ 
+  { title = {js|Improving the OCaml documentation toolchain|js}
+  ; slug = {js|codoc-0-2-0-released|js}
+  ; description = {js|???|js}
+  ; date = {js|2015-02-20|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>Last week, we
+<a href="http://lists.ocaml.org/pipermail/platform/2015-February/000539.html">published</a>
+an <em>alpha</em> version of a new OCaml documentation generator,
+<a href="https://github.com/dsheets/codoc">codoc 0.2.0</a>.
+In the 2014 OCaml workshop presentation (<a href="http://ocaml.org/meetings/ocaml/2014/ocaml2014_7.pdf">abstract</a>, <a href="http://ocaml.org/meetings/ocaml/2014/ocl-platform-2014-slides.pdf">slides</a>, <a href="https://www.youtube.com/watch?v=jxhtpQ5nJHg&amp;list=UUP9g4dLR7xt6KzCYntNqYcw">video</a>),
+we mentioned the 'module wall' for documentation and this attempts to fix it.
+To try it out, simply follow the directions in the README on that repository,
+or <a href="http://dsheets.github.io/codoc">browse some samples</a> of the current,
+default output of the tool. Please do bear in mind codoc and its constituent
+libraries are still under heavy development and are <em>not</em> feature complete.</p>
+<p><code>codoc</code>'s aim is to provide a widely useful set of tools for generating OCaml
+documentation. In particular, we are striving to:</p>
+<ol>
+<li>Cover all of OCaml's language features
+</li>
+<li>Provide accurate name resolution and linking
+</li>
+<li>Support cross-linking between different packages
+</li>
+<li>Expose interfaces to the components we've used to build <code>codoc</code>
+</li>
+<li>Provide a magic-free command-line interface to the tool itself
+</li>
+<li>Reduce external dependencies and default integration with other tools
+</li>
+</ol>
+<p>We haven't yet achieved all of these at all levels of our tool stack but are
+getting close. <code>codoc</code> 0.2.0 is usable today (if a little rough in some areas
+like default CSS).  This post outlines the architecture of the new system to
+make it easier to understand the design decisions that went into it.</p>
+<h2>The five stages of documentation</h2>
+<p>There are five stages in generating documentation from OCaml source
+code. Here we describe how each was handled in the <em>past</em> (using
+OCamldoc), the <em>present</em> (using our current prototype), and the <em>future</em>
+(using the final version of the tools we are developing).</p>
+<h3>Associating comments with definitions</h3>
+<p>The first stage is to associate the various documentation comments in
+an <code>.ml</code> or <code>.mli</code> file with the definitions that they correspond to.</p>
+<h4>Past</h4>
+<p>Associating comments with definitions is handled by the OCamldoc
+tool, which does this in two steps. First it parses the file using the regular
+OCaml parser or <a href="https://github.com/ocaml/camlp4">camlp4</a>, just as in
+normal compilation. It uses the syntax tree from the first step and then
+re-parses the file looking for comments. This second parse is guided by the
+location information in the syntax tree; for example if there is a definition
+which ends on line 5 then OCamldoc will look for comments to attach to that
+definition starting at line 6.</p>
+<p>The rules used for attaching comments are quite intricate and whitespace
+dependent. This makes it difficult to parse the file and attach comments
+using a single parser. In particular, it would be difficult to do so in
+a way that doesn't cause a lot of problems for camlp4 extensions. This
+is why OCamldoc does the process in two steps.</p>
+<p>A disadvantage of this two-step approach is that it assumes that the
+input to any preprocessor is something which could reasonably be read by
+the compiler/tool creating documentation, which may not always be the
+case.</p>
+<h4>Present</h4>
+<p>Our current prototype associates comments with definitions within the
+compiler itself. This relies on a patch to the OCaml compiler
+(<a href="https://github.com/ocaml/ocaml/pull/51">pull request #51 on GitHub</a>).
+Comment association is activated by the <code>-doc</code> command-line flag. It
+uses (a rewritten version of) the same two-step algorithm currently
+used by OCamldoc. The comments are then attached to the appropriate node
+in the syntax tree as an attribute. These attributes are passed through
+the type-checker and appear in <code>.cmt</code>/<code>.cmti</code> files, where they can be
+read by other tools.</p>
+<h4>Future</h4>
+<p>We intend to move away from the two-step approach taken by OCamldoc. To
+do this we will need to simplify the rules for associating comments with
+definitions. One suggestion was to use the same rules as attributes,
+however that seems to be overly restrictive. So the approach we hope to
+take is to keep quite close to what OCamldoc currently supports, but
+disallow some of the more ambiguous cases. For example,</p>
+<pre><code>val x : int
+(** Is this for x or y? *)
+val y : float
+</code></pre>
+<p>may well not be supported in our final version.
+We will take care to understand the impact of such design decisions and we
+hope to arrive at a robust solution for the future.
+By avoiding the two-step
+approach, it should be safe to always turn on comment association rather
+than requiring a <code>-doc</code> command-line flag.</p>
+<h3>Parsing the contents of comments</h3>
+<p>Once you have associated documentation comments with definitions, you must
+parse the contents of these comments.</p>
+<h4>Past</h4>
+<p>OCamldoc parses the contents of comments.</p>
+<h4>Present</h4>
+<p>In our current prototype, the contents of comments are parsed in the
+compiler, so that the documentation attributes available in
+<code>.cmt</code>/<code>.cmti</code> files contain a structured representation of the
+documentation.</p>
+<h4>Future</h4>
+<p>We intend to separate parsing the contents of documentation comments
+from the compiler. This means that the documentation will be stored as
+strings within the <code>.cmt</code>/<code>.cmti</code> files and parsed by external
+tools. This will allow the documentation language (and its parser) to
+evolve faster than the distribution cycle of the compiler.</p>
+<h3>Representing compilation units with types and documentation</h3>
+<p>The typed syntax tree stored in <code>.cmt</code>/<code>.cmti</code> files is not a convenient
+representation for generating documentation from, so the next stage is
+to convert the syntax tree and comments into some suitable intermediate
+form. In particular, this allows <code>.cmt</code> files and <code>.cmti</code> files to be
+treated uniformly.</p>
+<h4>Past</h4>
+<p>OCamldoc generates an intermediate form from a syntax tree, a typed
+syntax tree, and the comments that it found and parsed in the earlier
+stages. The need for both an untyped and typed syntax tree is a
+historical artefact that is no longer necessary.</p>
+<h4>Present</h4>
+<p>Our current prototype creates an intermediate form in the
+<a href="https://github.com/lpw25/doc-ock-lib">doc-ock</a> library. This form can be
+currently be created from <code>.cmti</code> files or <code>.cmi</code> files. <code>.cmi</code> files do
+not contain enough information for complete documentation, but you can
+use them to produce partial documentation if the <code>.cmti</code> files are not
+available to you.</p>
+<p>This intermediate form can be serialised to XML using
+<a href="https://github.com/lpw25/doc-ock-xml">doc-ock-xml</a>.</p>
+<h4>Future</h4>
+<p>In the final version, doc-ock will also support reading <code>.cmt</code> files.</p>
+<h3>Resolving references</h3>
+<p>Once you have a representation for documentation, you need to resolve
+all the paths and references so that links can point to the correct
+locations. For example,</p>
+<p>(* This type is used by {!Foo} *)
+type t = Bar.t</p>
+<p>The path <code>Bar.t</code> and the reference <code>Foo</code> must be resolved so that the
+documentation can include links to the corresponding definitions.</p>
+<p>If you are generating documentation for a large collection of packages, there
+may be more than one module called <code>Foo</code>. So it is important to be able
+to work out which one of these <code>Foo</code>s the reference is referring to.</p>
+<p>Unlike most languages, resolving paths can be very difficult in
+OCaml due to the powerful module system. For example, consider the
+following code:</p>
+<pre><code class="language-ocaml">module Dep1 : sig
+ module type S = sig
+   class c : object
+     method m : int
+   end
+ end
+ module X : sig
+   module Y : S
+ end
+end
+
+module Dep2 :
+ functor (Arg : sig module type S module X : sig module Y : S end end) -&gt;
+   sig
+     module A : sig
+       module Y : Arg.S
+     end
+     module B = A.Y
+   end
+
+type dep1 = Dep2(Dep1).B.c;;
+</code></pre>
+<p>Here it looks like, <code>Dep2(Dep1).B.c</code> would be defined by a type
+definition <code>c</code> within the submodule <code>B</code> of the functor <code>Dep2</code>. However,
+<code>Dep2.B</code>'s type is actually dependent on the type of <code>Dep2</code>'s <code>Arg</code>
+parameter, so the actual definition is the class definition within the
+module type <code>S</code> of the <code>Dep1</code> module.</p>
+<h4>Past</h4>
+<p>OCamldoc does resolution using a very simple string based lookup. This
+is not designed to handle collections of projects, where module names
+are not unique. It is also not sophisticated enough to handle advanced
+uses of OCaml's module system (e.g. it fails to resolve the path
+<code>Dep2(Dep1).B.c</code> in the above example).</p>
+<h4>Present</h4>
+<p>In our current prototype, path and reference resolution are performed by
+the <a href="https://github.com/lpw25/doc-ock-lib">doc-ock</a> library. The implementation
+amounts to a reimplementation of OCaml's module system that tracks
+additional information required to produce accurate paths and references
+(it is also lazy to improve performance). The system uses the digests
+provided by <code>.cmti</code>/<code>.cmi</code> files to resolve references to other modules,
+rather than just relying on the module's name.</p>
+<h4>Future</h4>
+<p>There are still some paths handled incorrectly by doc-ock-lib, which
+will be fixed, but mostly the final version will be the same as the
+current prototype.</p>
+<h3>Producing output</h3>
+<p>Finally, you are ready to produce some output from the tools.</p>
+<h4>Past</h4>
+<p>OCamldoc supports a variety of output formats, including HTML and
+LaTeX. It also includes support for plugins called &quot;custom generators&quot;
+which allow users to add support for additional formats.</p>
+<h4>Present</h4>
+<p><code>codoc</code> only supports HTML and XML output at present, although extra output
+formats such as JSON should be very easy to add once the interfaces settle
+down.  <code>codoc</code> defines a documentation index XML format for tracking package
+hierarchies, documentation issues, and hierarchically localized configuration.</p>
+<p><code>codoc</code> also defines a scriptable command-line interface giving users access
+to its internal documentation phases: extraction, linking, and rendering. The
+latest instructions on how to use the CLI can be found in the
+<a href="https://github.com/dsheets/codoc">README</a>.  We provide an OPAM remote with
+all the working versions of the new libraries and compiler patches required to
+drive the new documentation engine.</p>
+<h4>Future</h4>
+<p>As previously mentioned, <a href="https://github.com/dsheets/codoc">codoc</a> and its
+constituent libraries <a href="https://github.com/lpw25/doc-ock-lib">doc-ock-lib</a>
+and <a href="https://github.com/dsheets/doc-ock-xml">doc-ock-xml</a> are still under
+heavy development and are not yet feature complete. Notably, there are some
+important outstanding issues:</p>
+<ol>
+<li>Class and class type documentation has no generated HTML. (<a href="https://github.com/dsheets/codoc/issues/9">issue codoc#9</a>)
+</li>
+<li>CSS is subpar. (<a href="https://github.com/dsheets/codoc/issues/22">issue codoc#27</a>)
+</li>
+<li>codoc HTML does not understand <code>--package</code>. (<a href="https://github.com/dsheets/codoc/issues/42">issue codoc#42</a>)
+</li>
+<li>opam doc is too invasive (temporary for demonstration purposes; tracked by (<a href="https://github.com/dsheets/codoc/issues/48">issue codoc#48</a>))
+</li>
+<li>Documentation syntax errors are not reported in the correct phase or obviously enough. (<a href="https://github.com/dsheets/codoc/issues/58">issue codoc#58</a>)
+</li>
+<li>Character sets are not handled correctly (<a href="https://github.com/lpw25/doc-ock-lib/issues/43">issue doc-ock-lib#43</a>)
+</li>
+<li>-pack and cmt extraction are not supported (<a href="https://github.com/lpw25/doc-ock-lib/issues/35">issue doc-ock-lib#35</a> and <a href="https://github.com/lpw25/doc-ock-lib/issues/3">issue doc-ock-lib#3</a>)
+</li>
+<li>Inclusion/substitution is not supported (<a href="https://github.com/lpw25/doc-ock-lib/issues/2">issue doc-ock-lib#2</a>)
+</li>
+</ol>
+<p>We are very happy to take bug reports and patches at
+<a href="https://github.com/dsheets/codoc/issues">https://github.com/dsheets/codoc/issues</a>. For wider suggestions, comments,
+complaints and discussions, please join us on the
+<a href="http://lists.ocaml.org/listinfo/platform">Platform mailing list</a>.
+We do hope that you'll let us know what you think and help us build a next
+generation documentation tool which will serve our community admirably.</p>
+|js}
+  };
+ 
+  { title = {js|Why we use OPAM for XenServer development|js}
+  ; slug = {js|opam-in-xenserver|js}
+  ; description = {js|???|js}
+  ; date = {js|2015-02-18|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p><em>This is a guest post from an OPAM user about how they use it.  If you would like to post
+about your own use, <a href="https://github.com/ocaml/platform-blog/issues">please let us know</a>.</em></p>
+<p><a href="http://www.xenserver.org/">XenServer</a> uses the
+<a href="http://www.xenproject.org/">Xen project's</a>
+&quot;<a href="http://www.xenproject.org/developers/teams/xapi.html">Xapi toolstack</a>&quot;:
+a suite of tools written mostly in OCaml which</p>
+<ul>
+<li>manages clusters of Xen hosts with shared storage and networking
+</li>
+<li>allows running VMs to be migrated between hosts (with or without storage)
+with minimal downtime
+</li>
+<li>automatically restarts VMs after host failure
+(<a href="http://xapi-project.github.io/features/HA/HA.html">High Availability</a>)
+</li>
+<li>allows cross-site <a href="http://xapi-project.github.io/features/DR/DR.html">Disaster Recovery</a>
+</li>
+<li>simplifies maintainence through <a href="http://xapi-project.github.io/features/RPU/RPU.html">Rolling Pool Upgrade</a>
+</li>
+<li>collects performance statistics for historical analysis and for alerting
+</li>
+<li>has a full-featured
+<a href="http://xapi-project.github.io/xen-api/">XML-RPC based API</a>,
+used by clients such as
+<a href="https://github.com/xenserver/xenadmin">XenCenter</a>,
+<a href="https://xen-orchestra.com">Xen Orchestra</a>,
+<a href="http://www.openstack.org">OpenStack</a>
+and <a href="http://cloudstack.apache.org">CloudStack</a>
+</li>
+</ul>
+<p>The Xapi toolstack is built from a large set of libraries and components
+which are
+developed independently and versioned separately. It's easy for us to
+share code with other open-source projects like
+<a href="http://www.openmirage.org/">Mirage</a>, however
+this flexibility comes
+with a cost: when one binary such as &quot;xapi&quot; (the cluster manager)
+depends on 45 separate libraries,
+how do we quickly set up a
+build environment?
+Exactly which libraries do we need? How do we apply updates?
+If we change one of these libraries (e.g. to make a bugfix), exactly which
+bits should we rebuild?
+This is where <a href="https://opam.ocaml.org">OPAM</a>,
+the source package manager, makes everything easy.</p>
+<p>Installing a build environment with OPAM is particularly easy.
+For example in a CentOS 6.5 VM,
+first <a href="https://opam.ocaml.org/doc/Install.html">install OPAM</a>:</p>
+<p>and then:</p>
+<pre><code>$ opam init --comp=4.01.0
+$ eval `opam config env`
+</code></pre>
+<p>Next install the necessary C libraries and development tools for xapi
+using a command like</p>
+<pre><code>$ sudo yum install `opam install xapi -e centos`
+</code></pre>
+<p>Finally to build xapi itself:</p>
+<pre><code>$ opam install xapi
+  ∗  install obuild                 0.1.1          [required by cdrom, nbd]
+  ∗  install base-no-ppx            base           [required by lwt]
+  ∗  install cmdliner               0.9.7          [required by nbd, tar-format]
+  ∗  install camlp4                 4.01.0         [required by nbd]
+  ∗  install ocamlfind              1.5.5          [required by xapi]
+  ∗  install xmlm                   1.2.0          [required by xapi-libs-transitional, rpc, xen-api-client]
+  ∗  install uuidm                  0.9.5          [required by xapi-forkexecd]
+  ∗  install type_conv              111.13.00      [required by rpc]
+  ∗  install syslog                 1.4            [required by xapi-forkexecd]
+  ∗  install ssl                    0.4.7          [required by xapi]
+  ∗  install ounit                  2.0.0          [required by xapi]
+  ∗  install omake                  0.9.8.6-0.rc1  [required by xapi]
+  ∗  install oclock                 0.4.0          [required by xapi]
+  ∗  install libvhd                 0.9.0          [required by xapi]
+  ∗  install fd-send-recv           1.0.1          [required by xapi]
+  ∗  install cppo                   1.1.2          [required by ocplib-endian]
+  ∗  install cdrom                  0.9.1          [required by xapi]
+  ∗  install base-bytes             legacy         [required by ctypes, re]
+  ∗  install sexplib                111.17.00      [required by cstruct]
+  ∗  install fieldslib              109.20.03      [required by cohttp]
+  ∗  install lwt                    2.4.7          [required by tar-format, nbd, rpc, xen-api-client]
+  ∗  install xapi-stdext            0.12.0         [required by xapi]
+  ∗  install stringext              1.2.0          [required by uri]
+  ∗  install re                     1.3.0          [required by xapi-forkexecd, tar-format, xen-api-client]
+  ∗  install ocplib-endian          0.8            [required by cstruct]
+  ∗  install ctypes                 0.3.4          [required by opasswd]
+  ∗  install xenctrl                0.9.26         [required by xapi]
+  ∗  install rpc                    1.5.1          [required by xapi]
+  ∗  install xapi-inventory         0.9.1          [required by xapi]
+  ∗  install uri                    1.7.2          [required by xen-api-client]
+  ∗  install cstruct                1.5.0          [required by tar-format, nbd, xen-api-client]
+  ∗  install opasswd                0.9.3          [required by xapi]
+  ∗  install xapi-rrd               0.9.1          [required by xapi-idl, xapi-rrd-transport]
+  ∗  install cohttp                 0.10.1         [required by xen-api-client]
+  ∗  install xenstore               1.2.5          [required by xapi]
+  ∗  install tar-format             0.2.1          [required by xapi]
+  ∗  install nbd                    1.0.2          [required by xapi]
+  ∗  install io-page                1.2.0          [required by xapi-rrd-transport]
+  ∗  install crc                    0.9.0          [required by xapi-rrd-transport]
+  ∗  install xen-api-client         0.9.7          [required by xapi]
+  ∗  install message-switch         0.10.4         [required by xapi-idl]
+  ∗  install xenstore_transport     0.9.4          [required by xapi-libs-transitional]
+  ∗  install mirage-profile         0.4            [required by xen-gnt]
+  ∗  install xapi-idl               0.9.19         [required by xapi]
+  ∗  install xen-gnt                2.2.0          [required by xapi-rrd-transport]
+  ∗  install xapi-forkexecd         0.9.2          [required by xapi]
+  ∗  install xapi-rrd-transport     0.7.2          [required by xapi-rrdd-plugin]
+  ∗  install xapi-tapctl            0.9.2          [required by xapi]
+  ∗  install xapi-netdev            0.9.1          [required by xapi]
+  ∗  install xapi-libs-transitional 0.9.6          [required by xapi]
+  ∗  install xapi-rrdd-plugin       0.6.0          [required by xapi]
+  ∗  install xapi                   1.9.56
+===== ∗  52 =====
+Do you want to continue ? [Y/n] y
+</code></pre>
+<p>Obviously it's extremely tedious to do all that by hand!</p>
+<p>OPAM also makes iterative development very easy.
+Consider a scenario where a
+<a href="https://github.com/xapi-project/xcp-idl">common interface</a> has to be changed.
+Without OPAM we have to figure out which components to rebuild manually--
+this is both time-consuming and error-prone. When we want to make some
+local changes we simply clone the repo and tell OPAM to &quot;pin&quot; the package
+to the local checkout. OPAM will take care of rebuilding only the
+dependent packages:</p>
+<pre><code>$ git clone git://github.com/xapi-project/xcp-idl
+... make some local changes ...
+$ opam pin add xapi-idl ./xcp-idl
+$ opam install xapi
+...
+xapi-idl needs to be reinstalled.
+The following actions will be performed:
+  ↻  recompile xapi-idl               0.9.19*
+  ↻  recompile xapi-rrd-transport     0.7.2    [uses xapi-idl]
+  ↻  recompile xapi-forkexecd         0.9.2    [uses xapi-idl]
+  ↻  recompile xapi-tapctl            0.9.2    [uses xapi-forkexecd]
+  ↻  recompile xapi-netdev            0.9.1    [uses xapi-forkexecd]
+  ↻  recompile xapi-libs-transitional 0.9.6    [uses xapi-forkexecd]
+  ↻  recompile xapi-rrdd-plugin       0.6.0    [uses xapi-idl]
+  ↻  recompile xapi                   1.9.56   [uses xapi-idl]
+===== ↻  8 =====
+Do you want to continue ? [Y/n] 
+</code></pre>
+<p>It's even easier if you just want to pin to a branch, such as master:</p>
+<pre><code>$ opam pin add xapi-idl git://github.com/xapi-project/xcp-idl
+</code></pre>
+<p>It's important to be able to iterate quickly when testing a bugfix--
+OPAM makes this easy too. After making a change to a &quot;pinned&quot; repository
+the user just has to type</p>
+<pre><code>$ opam update -u
+</code></pre>
+<p>and only the affected components will be rebuilt.</p>
+<p>OPAM allows us to create our own 'development remotes' containing the
+latest, bleeding-edge versions of our libraries. To install these unstable
+versions we only need to type:</p>
+<pre><code>$ opam remote add xapi-project git://github.com/xapi-project/opam-repo-dev
+$ opam update -u
+
+=-=- Updating package repositories =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+[xapi-project] git://github.com/xapi-project/opam-repo-dev already up-to-date
+[default] /home/djs/ocaml/opam-repository synchronized
+
+Updates available for 4.01.0, apply them with 'opam upgrade':
+=== ∗  1   ↻  6   ↗  6 ===
+The following actions will be performed:
+  ∗  install   xapi-backtrace         0.2               [required by xapi-idl, xapi-stdext]
+  ↗  upgrade   xenctrl                0.9.26 to 0.9.28
+  ↗  upgrade   xapi-stdext            0.12.0 to 0.13.0
+  ↻  recompile xapi-rrd               0.9.1             [uses xapi-stdext]
+  ↻  recompile xapi-inventory         0.9.1             [uses xapi-stdext]
+  ↗  upgrade   xapi-idl               0.9.19 to 0.9.21
+  ↻  recompile xapi-rrd-transport     0.7.2             [uses xapi-idl]
+  ↻  recompile xapi-forkexecd         0.9.2             [uses xapi-idl, xapi-stdext]
+  ↗  upgrade   xapi-libs-transitional 0.9.6 to 0.9.7
+  ↻  recompile xapi-tapctl            0.9.2             [uses xapi-stdext]
+  ↻  recompile xapi-netdev            0.9.1             [uses xapi-stdext]
+  ↗  upgrade   xapi-rrdd-plugin       0.6.0 to 0.6.1
+  ↗  upgrade   xapi                   1.9.56 to 1.9.58
+===== ∗  1   ↻  6   ↗  6 =====
+Do you want to continue ? [Y/n]
+</code></pre>
+<p>When a linked set of changes are ready to be pushed, we can make a
+<a href="https://github.com/xapi-project/opam-repo-dev/pull/66">single pull request</a>
+updating a set of components, which triggers the
+<a href="https://travis-ci.org/">travis</a>
+integration tests.</p>
+<h2>Summary</h2>
+<p>The Xapi toolstack is built from a large set of libraries, independently
+versioned and released, many of them shared with other projects
+(such as <a href="http://www.openmirage.org/">Mirage</a>). The libraries are
+easy to build and test separately, but the sheer number of dependencies
+makes it difficult to build the whole project -- this is where opam
+really shines. OPAM simplifies our day-to-day lives by</p>
+<ul>
+<li>automatically rebuilding dependent software when dependencies change
+</li>
+<li>allowing us to share 'development remotes' containing bleeding-edge software
+amongst the development team
+</li>
+<li>allowing us to 'release' a co-ordinated set of versions with a <code>git push</code>
+and then trigger integration tests via <a href="https://travis-ci.org/">travis</a>
+</li>
+</ul>
+<p>If you have a lot of OCaml code to build, try OPAM!</p>
+|js}
+  };
+ 
+  { title = {js|OPAM 1.2 and Travis CI|js}
+  ; slug = {js|opam-1-2-travisci|js}
+  ; description = {js|???|js}
+  ; date = {js|2014-12-18|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>The <a href="https://opam.ocaml.org/blog/opam-1-2-pin/">new pinning feature</a> of OPAM 1.2 enables new interesting
+workflows for your day-to-day development in OCaml projects. I will
+briefly describe one of them here: simplifying continuous testing with
+<a href="https://travis-ci.org/">Travis CI</a> and
+<a href="https://github.com/">GitHub</a>.</p>
+<h2>Creating an <code>opam</code> file</h2>
+<p>As explained in the <a href="https://opam.ocaml.org/blog/opam-1-2-pin/">previous post</a>, adding an <code>opam</code> file at the
+root of your project now lets you pin development versions of your
+project directly. It's very easy to create a default template with OPAM 1.2:</p>
+<pre><code>$ opam pin add &lt;my-project-name&gt; . --edit
+[... follow the instructions ...]
+</code></pre>
+<p>That command should create a fresh <code>opam</code> file; if not, you might
+need to fix the warnings in the file by re-running the command. Once
+the file is created, you can edit it directly and use <code>opam lint</code> to
+check that is is well-formed.</p>
+<p>If you want to run tests, you can also mark test-only dependencies with the
+<code>{test}</code> constraint, and add a <code>build-test</code> field. For instance, if you use
+<code>oasis</code> and <code>ounit</code>, you can use something like:</p>
+<pre><code>build: [
+  [&quot;./configure&quot; &quot;--prefix=%{prefix}%&quot; &quot;--%{ounit:enable}%-tests&quot;]
+  [make]
+]
+build-test: [make &quot;test&quot;]
+depends: [
+  ...
+  &quot;ounit&quot; {test}
+  ...
+]
+</code></pre>
+<p>Without the <code>build-test</code> field, the continuous integration scripts
+will just test the compilation of your project for various OCaml
+compilers.
+OPAM doesn't run tests by default, but you can make it do so by
+using <code>opam install -t</code> or setting the <code>OPAMBUILDTEST</code>
+environment variable in your local setup.</p>
+<h2>Installing the Travis CI scripts</h2>
+<p><img style="float:right; padding: 5px"
+src="https://travis-ci.com/img/travis-mascot-200px.png"
+width="200px">
+</img></p>
+<p><a href="https://travis-ci.org/">Travis CI</a> is a free service that enables continuous testing on your
+GitHub projects. It uses Ubuntu containers and runs the tests for at most 50
+minutes per test run.</p>
+<p>To use Travis CI with your OCaml project, you can follow the instructions on
+<a href="https://github.com/ocaml/ocaml-travisci-skeleton">https://github.com/ocaml/ocaml-travisci-skeleton</a>. Basically, this involves:</p>
+<ul>
+<li>adding
+<a href="https://github.com/ocaml/ocaml-travisci-skeleton/blob/master/.travis.yml">.travis.yml</a>
+at the root of your project. You can tweak this file to test your
+project with different versions of OCaml. By default, it will use
+the latest stable version (today: 4.02.1, but it will be updated for
+each new compiler release).  For every OCaml version that you want to
+test (supported values for <code>&lt;VERSION&gt;</code> are <code>3.12</code>, <code>4.00</code>,
+<code>4.01</code> and <code>4.02</code>) add the line:
+</li>
+</ul>
+<pre><code>env:
+ - OCAML_VERSION=&lt;VERSION&gt;
+</code></pre>
+<ul>
+<li>signing in at <a href="https://travis-ci.org/">TravisCI</a> using your GitHub account and
+enabling the tests for your project (click on the <code>+</code> button on the
+left pane).
+</li>
+</ul>
+<p>And that's it, your project now has continuous integration, using the OPAM 1.2
+pinning feature and Travis CI scripts.</p>
+<h2>Testing Optional Dependencies</h2>
+<p>By default, the script will not try to install the <a href="https://opam.ocaml.org/doc/manual/dev-manual.html#sec9">optional
+dependencies</a> specified in your <code>opam</code> file. To do so, you
+need to manually specify which combination of optional dependencies
+you want to tests using the <code>DEPOPTS</code> environment variable. For
+instance, to test <code>cohttp</code> first with <code>lwt</code>, then with <code>async</code> and
+finally with both <code>lwt</code> and <code>async</code> (but only on the <code>4.01</code> compiler)
+you should write:</p>
+<pre><code>env:
+   - OCAML_VERSION=latest DEPOPTS=lwt
+   - OCAML_VERSION=latest DEPOPTS=async
+   - OCAML_VERSION=4.01   DEPOPTS=&quot;lwt async&quot;
+</code></pre>
+<p>As usual, your contributions and feedback on this new feature are <a href="https://github.com/ocaml/ocaml-travisci-skeleton/issues/">gladly welcome</a>.</p>
+|js}
+  };
+ 
+  { title = {js|Merlin 2.0 release|js}
+  ; slug = {js|merlin-2-0-0-released|js}
+  ; description = {js|???|js}
+  ; date = {js|2014-11-03|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>After a few months of development, we are pleased to announce the
+<a href="https://github.com/the-lambda-church/merlin/blob/master/CHANGELOG">stable release</a> of
+<a href="https://github.com/the-lambda-church/merlin">Merlin 2.0</a>.<br />
+Supported OCaml versions range from 4.00.1 to 4.02.1.</p>
+<h3>Overview</h3>
+<p>Merlin is a tool focused on helping you code in OCaml by providing features
+such as:</p>
+<ul>
+<li>automatic completion of identifiers, using scope and type information,
+</li>
+<li>interactively typing definitions and expressions during edition,
+</li>
+<li>jumping to the definition of any identifier,
+</li>
+<li>quickly reporting errors in the editor.
+</li>
+</ul>
+<p>We provide integration into Vim and Emacs.  An external plugin is also
+available for <a href="https://github.com/def-lkb/sublime-text-merlin">Sublime Text</a>.</p>
+<h3>What's new</h3>
+<p>This release provides great improvements in robustness and quality of analysis.
+Files that changed on disk are now automatically reloaded.
+The parsing process is finer grained to provide more accurate recovery and error
+messages.
+Integration with Jane Street Core and js_of_ocaml has also improved.</p>
+<p>Vim &amp; Emacs are still the main targeted editors.
+Thanks to <a href="https://github.com/Cynddl">Luc Rocher</a>, preliminary support for
+Sublime Text is also available, see
+<a href="https://github.com/def-lkb/sublime-text-merlin">Sublime-text-merlin</a>.
+Help is welcome to improve and extend supported editing environments.</p>
+<p>Windows support also received some fixes.  Merlin is now distributed in
+<a href="http://wodi.forge.ocamlcore.org/">WODI</a>.  Integration in
+<a href="http://protz.github.io/ocaml-installer/">OCaml-on-windows</a> is planned.</p>
+<h3>Installation</h3>
+<p>This new version of Merlin is already available with opam using <code>opam install merlin</code>, and can also be built from the sources which are available at
+<a href="http://github.com/the-lambda-church/merlin">the-lambda-church/merlin</a>.</p>
+<h3>Changelog</h3>
+<p>This is a major release which we worked on for several months, rewriting many
+parts of the codebase. An exhaustive list of changes is therefore impossible to
+give, but here are some key points (from an user perspective):</p>
+<ul>
+<li>support for OCaml 4.02.{0,1}
+</li>
+<li>more precise recovery in presence of syntax errors
+</li>
+<li>more user-friendly messages for syntax errors
+</li>
+<li>locate now works on MLI files
+</li>
+<li>automatic reloading of .merlin files (when they are update or created), it
+is no longer necessary to restart Merlin
+</li>
+<li>introduced a small refactoring command: rename, who renames all occurences
+of an identifier. See <a href="http://yawdp.com/~host/merlin_rename.webm">here</a>.
+</li>
+</ul>
+<p>This release also contains contributions from: Yotam Barnoy, Jacques-Pascal
+Deplaix, Geoff Gole, Rudi Grinberg, Steve Purcell and Jan Rehders.</p>
+<p>We also thank Gabriel Scherer and Jane Street for their continued support.</p>
+|js}
+  };
+ 
+  { title = {js|OPAM 1.2.0 Released|js}
+  ; slug = {js|opam-1-2-0-release|js}
+  ; description = {js|???|js}
+  ; date = {js|2014-10-23|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>We are very proud to announce the availability of OPAM 1.2.0.</p>
+<h3>Upgrade from 1.1</h3>
+<p>Simply follow the usual instructions, using your preferred method (package from
+your distribution, binary, source, etc.) as documented on the
+<a href="https://opam.ocaml.org/doc/Install.html">homepage</a>.</p>
+<blockquote>
+<p><strong>NOTE</strong>: There are small changes to the internal repository format (~/.opam).
+It will be transparently updated on first run, but in case you might want to
+go back and have anything precious there, you're advised to back it up.</p>
+</blockquote>
+<h3>Usability</h3>
+<p>Lot of work has been put into providing a cleaner interface, with helpful
+behaviour and messages in case of errors.</p>
+<p>The <a href="https://opam.ocaml.org/doc/">documentation pages</a> also have been largely
+rewritten for consistency and clarity.</p>
+<h3>New features</h3>
+<p>This is just the top of the list:</p>
+<ul>
+<li>A extended and versatile <code>opam pin</code> command. See the
+<a href="../opam-1-2-pin">Simplified packaging workflow</a>
+</li>
+<li>More expressive queries, see for example <code>opam source</code>
+</li>
+<li>New metadata fields, including source repositories, bug-trackers, and finer
+control of package behaviour
+</li>
+<li>An <code>opam lint</code> command to check the quality of packages
+</li>
+</ul>
+<p>For more detail, see <a href="../opam-1-2-0-beta4">the announcement for the beta</a>,
+<a href="https://raw.githubusercontent.com/ocaml/opam/1.2.0/CHANGES">the full changelog</a>,
+and <a href="https://github.com/ocaml/opam/issues?q=label%3A%22Feature+Wish%22+milestone%3A1.2+is%3Aclosed">the bug-tracker</a>.</p>
+<h3>Package format</h3>
+<p>The package format has been extended to the benefit of both packagers and users.
+The repository already accepts packages in the 1.2 format, and this won't
+affect 1.1 users as a rewrite is done on the server for compatibility with 1.1.</p>
+<p>If you are hosting a repository, you may be interested in these
+<a href="https://github.com/ocaml/opam/tree/master/admin-scripts">administration scripts</a>
+to quickly take advantage of the new features or retain compatibility.</p>
+|js}
+  };
+ 
+  { title = {js|Binary distribution with 0install|js}
+  ; slug = {js|0install-intro|js}
+  ; description = {js|0install provides an easy way to distribute binaries to users, complementing OPAM's support for source distribution.|js}
+  ; date = {js|2014-10-14|js}
+  ; tags = 
+ [{js|opam|js}; {js|platform|js}]
+  ; body_html = {js|<p><a href="http://0install.net/">0install</a> provides an easy way to distribute binaries to users, complementing OPAM's support for source distribution.</p>
+<p>The traditional way to distribute binaries is to make separate packages for recent versions of the more popular Linux distributions (RPMs, Debs, PKGBUILDs, etc), a <code>.pkg</code> for OS X, a <code>setup.exe</code> Windows, etc, plus some generic binaries for users of other systems or who lack root privileges.
+This requires a considerable amount of work, and expertise with many different package formats.
+0install provides a single format that supports all platforms, meaning that you only need to do the packaging work once (though you should still <em>test</em> on multiple platforms).</p>
+<h1>Example: OPAM binaries</h1>
+<p>You can install a binary release of OPAM on most systems by first installing the &quot;0install&quot; package from your distribution (&quot;zeroinstall-injector&quot; on older distributions) and then adding OPAM.</p>
+<ol>
+<li>
+<p><a href="http://0install.net/injector.html">Get 0install</a>. For the major Linux distributions:</p>
+<pre><code> $ yaourt -S zeroinstall-injector             # Arch Linux
+ $ sudo apt-get install zeroinstall-injector  # Debian, Ubuntu, etc
+ $ sudo yum install 0install                  # Fedora
+ $ sudo yum install zeroinstall-injector      # Red Hat
+ $ sudo zypper install zeroinstall-injector   # OpenSUSE
+</code></pre>
+<p>For OS X: <a href="http://downloads.sourceforge.net/project/zero-install/0install/2.7/ZeroInstall.pkg">ZeroInstall.pkg</a></p>
+<p>0install also has <a href="https://0install.de/downloads/">Windows support</a>, but there is currently no Windows binary of OPAM so I didn't publish one with 0install either.</p>
+</li>
+<li>
+<p>Install OPAM:</p>
+<pre><code> $ 0install add opam http://tools.ocaml.org/opam.xml
+ $ opam --version
+ 1.1.1
+</code></pre>
+<p>If you already have an <code>opam</code> command but want to try the 0install version anyway,
+just give it a different name (e.g. <code>0install add 0opam http://tools.ocaml.org/opam.xml</code> to create a <code>0opam</code> command).</p>
+</li>
+</ol>
+<p><code>0install add</code> will open a window if a display is available, or show progress on the console if not:</p>
+<p><img src="0install-opam.png" alt="" /></p>
+<p>If you want to use the console in all cases, use <code>--console</code>.</p>
+<p>0install identifies each package with a full URI rather than with a short name.
+Here, we are telling 0install to create a local command called <code>opam</code> that runs the program <a href="http://tools.ocaml.org/opam.xml">http://tools.ocaml.org/opam.xml</a>.</p>
+<p>0install keeps each package it installs in a separate directory where it won't conflict with anything.
+You can see where it put OPAM with the &quot;show&quot; command:</p>
+<pre><code>$ 0install show opam
+- URI: http://tools.ocaml.org/opam.xml
+  Version: 1.1.1
+  Path: /home/test/.cache/0install.net/implementations/sha256new_RUOX6PWGDCHH5TDNEDRHQJ54YZZ4TSAGBB5AEBRNOKSHM3N7XORA
+  
+  - URI: http://repo.roscidus.com/utils/aspcud
+    Version: 1.9.0
+    Path: /home/test/.cache/0install.net/implementations/sha1new=5f838f78e489dabc2e2965ba100f14ae8350cbce
+  
+  - URI: http://repo.roscidus.com/utils/curl
+    Version: 7.32.0-10.20
+    Path: (package:rpm:curl:7.32.0-10.20:x86_64)
+</code></pre>
+<p>OPAM depends on two other programs: <code>aspcud</code> provides a better solver than the internal one and <code>curl</code> is used to download OPAM packages (it also generally needs <code>gcc</code>, <code>m4</code> and <code>patch</code>, but I started with just the ones people are likely to be missing).
+In this case, 0install has satisfied the curl dependency using an official Fedora package, but needed to install aspcud using 0install. On Arch Linux, it can use distribution packages for both.
+0install will install any required distribution packages using PackageKit, which will prompt the user for permission according to its policy.</p>
+<p>You can upgrade (or downgrade) the package by adding a version constraint.
+By default, 0install prefers the &quot;stable&quot; version of a program:</p>
+<pre><code>$ 0install update opam
+A later version (http://tools.ocaml.org/opam.xml 1.2.0-pre4) exists but was not selected.
+Using 1.1.1 instead.
+To select &quot;testing&quot; versions, use:
+0install config help_with_testing True
+</code></pre>
+<p>You could do as it suggests and tell it to prefer testing versions globally, or you can add a version constraint if you just want to affect this one program:</p>
+<pre><code>$ 0install update opam --not-before=1.2.0-pre4
+http://tools.ocaml.org/opam.xml: 1.1.1 -&gt; 1.2.0-pre4
+</code></pre>
+<p>You can also specify an upper bound (<code>--before</code>) or a fixed version (<code>--version</code>) if you prefer.
+You can control the versions of dependencies with <code>--version-for</code>.
+By the way, 0install supports tab-completion everywhere: it can do completion on the sub-command (<code>update</code>), the application name (<code>opam</code>), the option (<code>--not-before</code>) and even the list of available versions!</p>
+<p>Finally, if an upgrade stops a program from working then you can use <code>whatchanged</code> to see the latest changes:</p>
+<pre><code>$ 0install whatchanged opam
+Last checked    : 2014-08-26 11:00
+Last update     : 2014-08-26
+Previous update : 2014-07-03
+
+http://tools.ocaml.org/opam.xml: 1.1.1 -&gt; 1.2.0-pre4
+
+To run using the previous selections, use:
+0install run /home/tal/.config/0install.net/apps/opam/selections-2014-07-03.xml
+</code></pre>
+<p>Note: this has a granularity of a day, so you won't see any changes if you're following along, since you didn't have it installed yesterday.</p>
+<h2>The package metadata</h2>
+<p>If you visit <a href="http://tools.ocaml.org/opam.xml">http://tools.ocaml.org/opam.xml</a> you should see a normal-looking web-page describing the package.
+If you view the source in your browser, you'll see that it's actually an XML document with a stylesheet providing the formatting.
+Here's an extract:</p>
+<pre><code>&lt;group license=&quot;OSI Approved :: GNU Lesser General Public License (LGPL)&quot;&gt;
+  &lt;group&gt;
+    &lt;requires interface=&quot;http://repo.roscidus.com/utils/aspcud&quot;
+              importance=&quot;recommended&quot;&gt;
+      &lt;executable-in-var name=&quot;OPAMEXTERNALSOLVER&quot;/&gt;
+    &lt;/requires&gt;
+
+    &lt;requires interface=&quot;http://repo.roscidus.com/utils/curl&quot;
+              importance=&quot;recommended&quot;&gt;
+      &lt;executable-in-var name=&quot;OPAMCURL&quot;/&gt;
+    &lt;/requires&gt;
+
+    &lt;command name=&quot;run&quot; path=&quot;opam&quot;/&gt;
+
+    &lt;implementation arch=&quot;Linux-x86_64&quot;
+                    id=&quot;sha1new=6e16ff6ee58e39c9ebbed2fb6c6b6cc437b624a4&quot;
+                    released=&quot;2014-04-17&quot;
+                    stability=&quot;stable&quot;
+                    version=&quot;1.1.1&quot;&gt;
+      &lt;manifest-digest sha256new=&quot;RUOX6PWGDCHH5TDNEDRHQJ54YZZ4TSAGBB5AEBRNOKSHM3N7XORA&quot;/&gt;
+      &lt;archive href=&quot;http://test.roscidus.com/archives/opam-Linux-x86_64-1.1.1.tgz&quot;
+               size=&quot;1476315&quot;/&gt;
+    &lt;/implementation&gt;
+</code></pre>
+<p>This says that the 64-bit Linux binary for OPAM 1.1.1 is available at the given URL and, when unpacked, has the given SHA256 digest.
+It can be run by executing the <code>opam</code> binary within the archive.
+It depends on <code>aspcud</code> and <code>curl</code>, which live in other repositories (ideally, these would be the official project sites for these programs, but currently they are provided by a third party).
+In both cases, we tell OPAM about the chosen version by setting an environment variable.
+The <code>&lt;group&gt;</code> elements avoid repeating the same information for multiple versions.
+<code>curl</code> is marked as <code>recommended</code> because, while <a href="http://0install.net/distribution-integration.html">0install supports most distribution package managers</a>, if it can't find a curl package then it's more likely that it failed to find the curl package than that the platform doesn't have curl.</p>
+<p>Lower down there is a more complex entry saying how to build from source, which provides a way to generate more binaries, and
+the XML is followed by a GPG signature block (formatted as an XML comment so that the document is still valid XML).</p>
+<h2>Security</h2>
+<p>When you use a program for the first time, 0install downloads the signing GPG key and checks it with the key information service.
+If this service knows the key, it saves it as a trusted key for that site.
+If not, it prompts you to confirm.
+In future, it will check that all updates from that site are signed with the same key, prompting you if not (much like <code>ssh</code> does).</p>
+<p>If you would like to see the key information hints rather than having them approved automatically, use <code>0install config auto_approve_keys false</code> or turn off &quot;Automatic approval for new feeds&quot; in the GUI, and untrust the key (right-click on it for a menu):</p>
+<p><img src="0install-keys.png" alt="" /></p>
+<p>You will then see prompts like this when using a new site for the first time:</p>
+<p><img src="0install-key-confirm.png" alt="" /></p>
+<h2>Making packages</h2>
+<p>Ideally, OPAM's own Git repository would contain an XML file describing its build and runtime dependencies (<code>curl</code> and <code>aspcud</code> in this case) and
+how to build binaries from it.
+We would then generate the XML for releases from it automatically using tools such as <a href="http://0install.net/0release.html">0release</a>.
+However, when trying out 0install you may prefer to package up an existing binary release, and this is what I did for OPAM.</p>
+<p>The simplest case is that the binary is in the current directory.
+In this case, the XML just describes its dependencies and how to run it, but not how to download the program.
+You can create a template XML file using <a href="http://0install.net/0template.html">0template</a> (or just write it yourself):</p>
+<pre><code>$ 0install add 0template http://0install.net/tools/0template.xml
+$ 0template opam.xml
+'opam.xml' does not exist; creating new template.
+
+As it ends with .xml, not .xml.template, I assume you want a feed for
+a local project (e.g. a Git checkout). If you want a template for
+publishing existing releases, use opam.xml.template instead.
+
+Does your program need to be compiled before it can be used?
+
+1) Generate a source template (e.g. for compiling C source code)
+2) Generate a binary template (e.g. for a pre-compiled binary or script)
+&gt; 2
+
+Writing opam.xml
+</code></pre>
+<p>Filling in the blanks, we get:</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;interface xmlns=&quot;http://zero-install.sourceforge.net/2004/injector/interface&quot;&gt;
+  &lt;name&gt;OPAM&lt;/name&gt;
+  &lt;summary&gt;OCaml package manager&lt;/summary&gt;
+
+  &lt;description&gt;
+    OPAM is an open-source package manager edited by OCamlPro.
+    It supports multiple simultaneous compiler installations, flexible
+    package constraints, and a Git-friendly development workflow.
+  &lt;/description&gt;
+
+  &lt;homepage&gt;https://opam.ocaml.org/&lt;/homepage&gt;
+
+  &lt;feed-for interface=&quot;http://tools.ocaml.org/opam.xml&quot;/&gt;
+
+  &lt;group license=&quot;OSI Approved :: GNU Lesser General Public License (LGPL)&quot;&gt;
+    &lt;requires importance=&quot;recommended&quot; interface=&quot;http://repo.roscidus.com/utils/aspcud&quot;&gt;
+      &lt;executable-in-var name=&quot;OPAMEXTERNALSOLVER&quot;/&gt;
+    &lt;/requires&gt;
+
+    &lt;requires importance=&quot;recommended&quot; interface=&quot;http://repo.roscidus.com/utils/curl&quot;&gt;
+      &lt;executable-in-var name=&quot;OPAMCURL&quot;/&gt;
+    &lt;/requires&gt;
+
+    &lt;command name=&quot;run&quot; path=&quot;opam&quot;/&gt;
+
+    &lt;implementation arch=&quot;Linux-x86_64&quot; id=&quot;.&quot; local-path=&quot;.&quot; version=&quot;1.1.1&quot;/&gt;
+  &lt;/group&gt;
+&lt;/interface&gt;
+</code></pre>
+<p>This is almost the same as the XML above, except that we specify <code>local-path=&quot;.&quot;</code> rather than giving a URL and digest
+(see the <a href="http://0install.net/interface-spec.html">Feed file format specification</a> for details).
+The <code>&lt;feed-for&gt;</code> says where we will eventually host the public list of all versions.</p>
+<p>You can test your XML locally like this:</p>
+<pre><code>$ 0install run opam.xml --version
+1.1.1
+
+$ 0install select opam.xml          
+- URI: /tmp/opam/opam.xml
+  Version: 1.1.1
+  Path: /tmp/opam
+  
+  - URI: http://repo.roscidus.com/utils/aspcud
+    Version: 1.9.0-1
+    Path: (package:arch:aspcud:1.9.0-1:x86_64)
+  
+  - URI: http://repo.roscidus.com/utils/curl
+    Version: 7.37.1-1
+    Path: (package:arch:curl:7.37.1-1:x86_64)
+</code></pre>
+<p>Now we need a way to generate similar XML for released archives on the web.
+Rename <code>opam.xml</code> to <code>opam.xml.template</code> and change the <code>&lt;implementation&gt;</code> to:</p>
+<pre><code>&lt;implementation arch=&quot;{arch}&quot; version=&quot;{version}&quot;&gt;
+  &lt;manifest-digest/&gt;
+  &lt;archive href=&quot;http://example.com/archives/opam-{arch}-{version}.tgz&quot;/&gt;
+&lt;/implementation&gt;
+</code></pre>
+<p>If the archive is already published somewhere, you can use the full URL in the <code>&lt;archive&gt;</code>.
+If you're making a new release locally, just put the archive in the same directory as the XML and give the leaf only (<code>href=&quot;opam-{arch}-{version}.tgz&quot;</code>).</p>
+<p>You can now run <code>0template</code> on the template XML to generate the XML with the hashes, sizes, etc, filled in:</p>
+<pre><code>$ 0template opam.xml.template version=1.1.1 arch=Linux-x86_64
+Writing opam-1.1.1.xml
+</code></pre>
+<p>This generates:</p>
+<pre><code>&lt;group license=&quot;OSI Approved :: GNU Lesser General Public License (LGPL)&quot;&gt;
+  &lt;requires importance=&quot;recommended&quot; interface=&quot;http://repo.roscidus.com/utils/aspcud&quot;&gt;
+    &lt;executable-in-var name=&quot;OPAMEXTERNALSOLVER&quot;/&gt;
+  &lt;/requires&gt;
+
+  &lt;requires importance=&quot;recommended&quot; interface=&quot;http://repo.roscidus.com/utils/curl&quot;&gt;
+    &lt;executable-in-var name=&quot;OPAMCURL&quot;/&gt;
+  &lt;/requires&gt;
+
+  &lt;command name=&quot;run&quot; path=&quot;opam&quot;/&gt;
+
+  &lt;implementation arch=&quot;Linux-x86_64&quot;
+                  id=&quot;sha1new=6e16ff6ee58e39c9ebbed2fb6c6b6cc437b624a4&quot;
+                  released=&quot;2014-08-26&quot;
+                  version=&quot;1.1.1&quot;&gt;
+    &lt;manifest-digest sha256new=&quot;RUOX6PWGDCHH5TDNEDRHQJ54YZZ4TSAGBB5AEBRNOKSHM3N7XORA&quot;/&gt;
+    &lt;archive href=&quot;http://example.com/archives/opam-Linux-x86_64-1.1.1.tgz&quot; size=&quot;1476315&quot;/&gt;
+  &lt;/implementation&gt;
+&lt;/group&gt;
+</code></pre>
+<p>You can test this as before:</p>
+<pre><code>$ 0install run opam-1.1.1.xml --version
+1.1.1
+</code></pre>
+<p>Finally, you can submit the XML to a repository (which is easy to host yourself) using the <a href="http://0install.net/0repo.html">0repo</a> tool:</p>
+<pre><code>$ 0install add 0repo http://0install.net/tools/0repo.xml
+[ ... configure your repository ... ]
+$ 0repo add opam-1.1.1.xml
+</code></pre>
+<p>0repo will merge the XML into the repository's master list of versions, upload the archive (or test the URL, if already uploaded), commit the final XML to Git, and push the XML to your web server.
+There are simpler ways to get the signed XML, e.g. using <a href="http://0install.net/packaging-binaries.html">0publish-gui</a> for a graphical UI, but
+if you're going to release more than one version of one program then the automation (and sanity checking) you get from 0repo is usually worth it.
+In my case, I configured 0repo to push the signed XML to a GitHub Pages repository.</p>
+<p>There are plenty of ways to extend this.
+For the OPAM 1.2 release, instead of adding the official binaries one by one, I used 0template to make a template for the source code,
+added the 1.2 source release, and used that to generate the binaries (mainly because I wanted to build in an older docker container so the binaries would work on more systems).
+For my own software, I commit an XML file saying how to build it to my Git repository and let <a href="http://0install.net/0release.html">0release</a> handle the whole release process (from tagging the Git repository, to building the binaries in various VMs, to publishing the archives and the final signed XML).
+In the future, we hope to integrate this with OPAM so that source and binary releases can happen together.</p>
+<h2>Extending 0install</h2>
+<p>0install is easy to script.
+It has a stable command line interface (and a new <a href="http://0install.net/json-api.html">JSON API</a> too).
+There is also an OCaml API, but this is not yet stable (it's still rather Pythonic, as the software was recently <a href="http://roscidus.com/blog/blog/2014/06/06/python-to-ocaml-retrospective/">ported from Python</a>).</p>
+<p>For example, I have used 0install to manage Xen images of <a href="http://openmirage.org/">Mirage unikernels</a>.
+This command shows the latest binary of the <code>mir-hello</code> unikernel for Xen (downloading it first if needed):</p>
+<pre><code>$ 0install download --os=Xen http://test.roscidus.com/mir-console.xml --show
+- URI: http://test.roscidus.com/mir-console.xml
+  Version: 0.2
+  Path: /home/tal/.cache/0install.net/implementations/sha256new_EY2FDE4ECMNCXSRUZ3BSGTJQMFXE2U6C634PBDJKOBUU3SWD5GDA
+</code></pre>
+<h2>Summary</h2>
+<p>0install is a mature cross-platform system for managing software that is included in the repositories of most Linux distributions and is also available for Windows, OS X and Unix.
+It is useful to distribute binary executables in cases where users shouldn't have to compile from source.
+It supports GPG signature checking, automatic updates, pinned versions and parallel installations of multiple versions.
+A single package format is sufficient for all platforms (you still need to create separate binary archives for e.g. OS X and Linux, of course).</p>
+<p>0install is a decentralised system, meaning that there is no central repository.
+Packages are named by URI and the metadata is downloaded directly from the named repository.
+There are some extra services (such as the <a href="http://roscidus.com/0mirror/">default mirror service</a>, the search service and the key information service), but these are all optional.</p>
+<p>Using 0install to get OPAM means that all platforms can be supported without the need to package separately for each one, and users who don't wish to install as root still get signature checking, dependency handling and automatic updates.
+We hope that 0install will make it easier for you to distribute binaries of your own applications.</p>
+<p>My talk at OCaml 2014 (<a href="https://www.youtube.com/watch?v=dYRT6z0NGII&amp;list=UUP9g4dLR7xt6KzCYntNqYcw">video</a>, <a href="https://ocaml.org/meetings/ocaml/2014/0install-slides.pdf">slides</a>) gives more information about 0install and its conversion to OCaml.</p>
+|js}
+  };
+ 
+  { title = {js|UTop: a much improved interface to the OCaml toplevel|js}
+  ; slug = {js|about-utop|js}
+  ; description = {js|This is a post about the utop toplevel provided in the OPAM repository as an alternative to the standard OCaml one.|js}
+  ; date = {js|2014-08-26|js}
+  ; tags = 
+ [{js|opam|js}; {js|platform|js}]
+  ; body_html = {js|<p><em>This is a post about the <code>utop</code> toplevel provided in the OPAM
+repository as an alternative to the standard OCaml one.</em></p>
+<p>OCaml comes with an interactive toplevel. If you type <code>ocaml</code> in a
+shell you will get a prompt where you can type OCaml code that is
+compiled and executed on the fly.</p>
+<pre><code>$ ocaml
+    OCaml version 4.02.0+dev12-2014-07-30
+
+# 1 + 1;;
+- : int = 2
+</code></pre>
+<p>You can load libraries and your own modules in the toplevel, and it is
+great for playing with your code. You'll quickly notice that
+the user experience is not ideal, as there is no editing support:
+you cannot conveniently change what you type nor can you rewind to
+previously typed phrases.</p>
+<p>This can be improved by using tools such as
+<a href="http://pauillac.inria.fr/~ddr/ledit/">ledit</a> or
+<a href="http://freecode.com/projects/rlwrap">rlwrap</a> which adds line editing
+support for any program: <code>rlwrap ocaml</code>. This is better but still
+doesn't provide fancy features such as context sensitive completion.</p>
+<p>That's why <a href="https://github.com/diml/utop">UTop</a> was started. UTop is a
+shiny frontend to the OCaml interactive toplevel, which tries to focus
+on the user experience and features:</p>
+<ul>
+<li>interactive line editing
+</li>
+<li>real-time tab completion of functions and values
+</li>
+<li>syntax highlighting
+</li>
+</ul>
+<p>And many other things which make life easier for users that have been
+added over time.</p>
+<h2>What does UTop stand for?</h2>
+<p>UTop stands for <code>Universal Toplevel</code>. Universal because it can be used
+in a terminal or in Emacs (I originally planned to add a windowed
+version using GTK but unfortunately never completed it).</p>
+<h2>The UTop prompt</h2>
+<p>The utop prompt looks much more 'blinky' than the one of the default
+toplevel. Install it using OPAM very simply:</p>
+<pre><code>opam install utop
+eval `opam config env`  # may not be needed
+utop
+</code></pre>
+<p>This is typically what you see when you start utop:</p>
+<pre><code>─( 16:36:52 )─&lt; command 0 &gt;───────────────────────{ counter: 0 }─
+utop #
+┌───┬────────────┬─────┬───────────┬──────────────┬───────┬─────┐
+│Arg│Arith_status│Array│ArrayLabels│Assert_failure│Big_int│Bigar│
+└───┴────────────┴─────┴───────────┴──────────────┴───────┴─────┘
+</code></pre>
+<p>It displays:</p>
+<ul>
+<li>the time
+</li>
+<li>the command number
+</li>
+<li>the macro counter (for Emacs style macros)
+</li>
+</ul>
+<p>The box at the bottom is for completion, which is described in the
+next section.</p>
+<p>If the colors seem too bright you can type <code>#utop_prompt_fancy_light</code>,
+which is better for light backgrounds. This can be set permanently by
+adding the line to <code>~/.ocamlinit</code> or by adding <code>profile: light</code> to
+<code>~/.utoprc</code>.</p>
+<p>The prompt can be customized by the user, by setting the reference
+<code>UTop.prompt</code>:</p>
+<pre><code>utop # UTop.prompt;;
+- : LTerm_text.t React.signal ref = {contents = &lt;abstr&gt;}
+</code></pre>
+<p><code>LTerm_text.t</code> is for styled text while <code>React.signal</code> means that it
+is a reactive signal, from the
+<a href="http://erratique.ch/software/react">react</a> library. This makes it very
+easy to create a prompt where the time is updated every second for
+instance.</p>
+<h2>Real-time completion</h2>
+<p>This is the main feature that motivated the creation of UTop. UTop makes use
+of the compiler internals to find possible completions on:</p>
+<ul>
+<li>function names
+</li>
+<li>function argument names
+</li>
+<li>constructor names
+</li>
+<li>record fields
+</li>
+<li>method names
+</li>
+</ul>
+<p>Instead of the classic way of displaying a list of words when the user
+press TAB, I chose to dynamically display the different
+possibilities as the user types. This idea comes from the dmenu tool
+from the <a href="http://dwm.suckless.org/">dwm</a> window manager.</p>
+<p>The possible completions are displayed in the completion bar below the
+prompt. It is possible to navigate in the list by using the meta key
+(<code>Alt</code> by default most of the time) and the left and right arrows. A
+word can be selected by pressing the meta key and <code>TAB</code>. Also pressing
+just <code>TAB</code> will insert the longest common prefix of all possibilities.</p>
+<h2>Syntax highlighting</h2>
+<p>UTop can do basic syntax highlighting. This is disabled by default but
+can be enabled by writing a <code>~/.utoprc</code> file. You can copy one from
+the repository, either for
+<a href="https://github.com/diml/utop/blob/master/utoprc-dark">dark background</a>
+or
+<a href="https://github.com/diml/utop/blob/master/utoprc-light">light background</a>.</p>
+<h2>Emacs integration</h2>
+<p>As said earlier UTop can be run in Emacs. Instructions to set this up
+can be found in <a href="https://github.com/diml/utop">UTop's readme</a>. The
+default toplevel can also be run this way but UTop is better in the
+following respects:</p>
+<ol>
+<li>it provides context-sensitive completion
+</li>
+<li>it behaves like a real shell, i.e. you cannot delete the prompt
+</li>
+</ol>
+<p>They are several Emacs libraries for writing shell-like modes but I
+wrote my own because with all of the ones I found it is possible to
+insert or remove characters from the prompt, which I found frustrating
+Even with the mode used by the Emacs Shell mode it is
+possible. AFAIK at the time I wrote it the UTop mode was the only one
+where it was really impossible to edit the something in the <em>frozen</em>
+part of the buffer.</p>
+<h2>Other features</h2>
+<p>This is a non-exhaustive list of features that have been added over
+time to enhance the user experience. Some of them might be
+controversial, so I tried to choose what was the most requested most of
+the time.</p>
+<ul>
+<li>when using the <a href="http://ocsigen.org/lwt/">lwt</a> or
+<a href="https://github.com/janestreet/async">async</a> libraries, UTop will
+automatically wait for ['a Lwt.t] or ['a Deferred.t] values and
+return the ['a] instead
+</li>
+<li>made <code>-short-paths</code> the default. This option allow to display
+shorter types when using packed libraries such as
+<a href="https://github.com/janestreet/core">core</a>
+</li>
+<li>hide identifiers starting with <code>_</code> to the user. This is for hiding
+the churn generated by syntax extensions. This can be disabled with
+<code>UTop.set_hide_reserved</code> or with the command line argument
+<code>-show-reserved</code>.
+</li>
+<li>automatically load <code>camlp4</code> when the user requests a syntax
+extension. In the default toplevel one has to type <code>#camlp4</code> first.
+</li>
+<li>hide verbose messages from the <code>findlib</code> library manager.
+</li>
+<li>add a <code>typeof</code> directive to show the type of modules and values.
+</li>
+<li>automatically load files from <code>$OCAML_TOPLEVEL_PATH/autoload</code> at
+startup.
+</li>
+<li>allow to specify libraries to be loaded on the command line.
+</li>
+</ul>
+<h2>Libraries developed to support UTop</h2>
+<p>For the needs of UTop I wrote
+<a href="https://github.com/diml/lambda-term">lambda-term</a>, which is kind of
+an equivalent of ncurses+readline, but written in OCaml. It was
+written because I wasn't happy with the ncurses API and I wanted something more
+fancy than readline, especially for completion. In the end I believe
+that it is much more fun to write terminal applications in OCaml using
+lambda-term.</p>
+<p>The pure editing part is managed by the
+<a href="https://github.com/diml/zed">zed</a> library, which is independent from
+the user interface.</p>
+<h2>UTop development</h2>
+<p>Utop is fairly feature-complete, and so I don't spend much time on it
+these days. It became the recommended toplevel to use with the
+<a href="https://realworldocaml.org">Real World OCaml</a> book, and most users
+are happier with the interactive interface than using the traditional
+toplevel.</p>
+<p>Many thanks to <a href="https://github.com/whitequark">Peter Zotov</a> who recently joined
+the project to keep it up-to-date and add new features such as extension point
+support. Contributions from others (particularly around editor integration) are
+very welcome, so if you are interested on hacking on it get in touch via the
+<a href="https://github.com/diml/utop">GitHub issue tracker</a> or via the <a href="http://lists.ocaml.org/listinfo/platform">OCaml Platform
+mailing list</a>.</p>
+|js}
+  };
+ 
+  { title = {js|Turn your editor into a full fledged OCaml IDE|js}
+  ; slug = {js|turn-your-editor-into-an-ocaml-ide|js}
+  ; description = {js|???|js}
+  ; date = {js|2014-08-21|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>This post is a short presentation of a couple of tools you can use with your
+editor to have a smoother experience while developing in OCaml.  We are working
+towards making these tools work out-of-the-box with OPAM, and hence will be
+blogging about them here along with the OPAM tool itself.</p>
+<p>At the time of writing, interfaces to these tools are available for
+Emacs and Vim.  Efforts are underway to add support for other editors,
+including <a href="https://github.com/raphael-proust/merlin-acme">Acme</a> and
+<a href="https://github.com/def-lkb/sublime-text-merlin">Sublime Text 3</a>.</p>
+<h1>Overview</h1>
+<p>The first tool, <a href="http://www.typerex.org/ocp-indent.html">ocp-indent</a>,
+handles the task of indenting your OCaml files.  It is an OCaml executable that
+can be used from the command line or directly from your editor.</p>
+<p>The second tool, <a href="http://the-lambda-church.github.io/merlin/">merlin</a> performs
+&quot;static analysis&quot; of your source files.  The analysis is then used to provide error reporting, source
+browsing, auto-completion and more.</p>
+<h2>Ocp-indent for indentation</h2>
+<p>Most editors provide some kind of indentation &quot;out of the box&quot;.
+However recently a good chunk of the OCaml community has moved to using
+ocp-indent for fine-tuned indentation:</p>
+<ul>
+<li>it follows language evolution closely, nicely handling recent features,
+</li>
+<li>it will indent the same even if your co-worker has a different editor,
+</li>
+<li>it is more flexible, for instance by supporting project-specific styles;
+</li>
+</ul>
+<p>Indeed the indentation behaviour of ocp-indent can be configured through several
+options, directing how it will behave when encountering different OCaml language constructs.
+These options can either be set in a configuration file (such as
+<a href="https://github.com/OCamlPro/ocp-indent/blob/master/.ocp-indent">this example configuration</a>)
+or passed directly as parameters when ocp-indent is invoked from the command line.</p>
+<p>Finally, ocp-indent will also recognize a number of common syntax extensions of the
+OCaml ecosystem and indent them meaningfully, while your editor probably will not.</p>
+<h2>Merlin for analysis</h2>
+<p>Merlin enhances your experience editing OCaml code by providing interactive
+feedback about your code.</p>
+<p>Under the hood, it maintains a &quot;code model&quot; of the file you are editing.  For
+other files in your project, it will use the output produced by the compiler;
+rebuild regularly after editing to keep the model synchronized with your code.</p>
+<p>From this code model, it provides a lot of useful features:</p>
+<ul>
+<li>scope/context-aware completion, like IntelliSense;
+</li>
+<li>querying the type of any expression in the file;
+</li>
+<li>quick reporting of type and syntax errors, shortening the editing cycle;
+</li>
+<li>jumping to definitions;
+</li>
+<li>listing uses of identifiers in the current buffer.
+</li>
+</ul>
+<p><img src="turn-your-editor-into-an-ocaml-ide-merlin.png" alt="" /></p>
+<h1>Quick start</h1>
+<p>Assuming opam is already installed on your system, you just need to invoke</p>
+<pre><code>$ opam install ocp-indent merlin
+</code></pre>
+<p>to install these two tools.</p>
+<p><strong>Emacs.</strong> You will have to add <code>opam/share</code> to <code>'load-path</code> and then load the plugin-specific
+file.  This can be done by adding the following lines to your <code>.emacs</code>:</p>
+<pre><code class="language-lisp">(setq opam-share (substring (shell-command-to-string &quot;opam config var share 2&gt; /dev/null&quot;) 0 -1))
+(add-to-list 'load-path (concat opam-share &quot;/emacs/site-lisp&quot;))
+
+(require 'ocp-indent)
+(require 'merlin)
+</code></pre>
+<p>For more information about merlin setup, you can look at
+<a href="https://github.com/the-lambda-church/merlin/wiki">the dedicated merlin wiki</a>.</p>
+<p><strong>Vim &amp; ocp-indent.</strong>  We recommend using the
+<a href="https://github.com/def-lkb/ocp-indent-vim">ocp-indent-vim</a> plugin instead of
+the default one. It provides interactive indentation &quot;as you type&quot;, while the
+official mode only provides an indenting function to call manually but
+no passive indentation.</p>
+<p>This mode does require vim to be compiled with Python support, while the
+official one doesn't.</p>
+<p>Installing is as simple as cloning
+<a href="https://github.com/def-lkb/ocp-indent-vim">ocp-indent-vim</a> and adding the
+directory to your runtime-path.</p>
+<p>Assuming your clone is in <code>~/my-clone-of/ocp-indent-vim</code>, add this to <code>.vimrc</code>:</p>
+<pre><code class="language-viml">set rtp+=~/my-clone-of/ocp-indent-vim
+</code></pre>
+<p><strong>Vim &amp; merlin.</strong>  A comprehensive guide to the installation procedure for
+merlin is available on <a href="https://github.com/the-lambda-church/merlin/wiki">the dedicated
+merlin wiki</a>.  Once again, if you
+just want to get started the following lines contain everything you need.</p>
+<p>Loading merlin in vim boils down to adding the plugin directory to the
+runtime path. However as merlin depends on your current opam switch, a more
+flexible way is to find the current switch and use it as the base directory.</p>
+<p>This code does exactly that: it finds the current opam share directory, then adds
+the merlin plugin subdirectory to the current runtime path. Add it to your <code>.vimrc</code>:</p>
+<pre><code class="language-viml">let g:opamshare = substitute(system('opam config var share'),'\\n$','','''')
+execute &quot;set rtp+=&quot; . g:opamshare . &quot;/merlin/vim&quot;
+</code></pre>
+<h2>Integrating with your project</h2>
+<p>To maintain synchronization with the compiler, merlin needs some information
+about the structure of your project: build and source directories, package
+dependencies, syntax extensions.  This structure can be described in a <code>.merlin</code> file in the root directory of your project.
+The <a href="https://github.com/the-lambda-church/merlin/blob/master/.merlin"><code>.merlin</code> file for the merlin project</a> illustrates the syntax.</p>
+<p>The <code>.merlin</code> file will be loaded the next time you open an OCaml file in the editor.</p>
+<p>To benefit from code navigation across files you'll also need to turn on
+generation of &quot;cmt&quot; files by passing the <code>-bin-annot</code> flag to the OCaml
+compiler.  You can do this in <code>ocamlbuild</code> by adding the <code>bin_annot</code> tag
+into the <code>_tags</code> file with OCaml 4.01 and higher.</p>
+|js}
+  };
+ 
+  { title = {js|OPAM 1.2: Repository Pinning|js}
+  ; slug = {js|opam-1-2-pin|js}
+  ; description = {js|???|js}
+  ; date = {js|2014-08-19|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p><img style="float:left; padding: 5px" src="camel-pin.jpg" width="200px"></img></p>
+<p>Most package managers support some <em>pin</em> functionality to ensure that a given
+package remains at a particular version without being upgraded.
+The stable OPAM 1.1 already supported this by allowing any existing package to be
+pinned to a <em>target</em>, which could be a specific released version, a local filesystem
+path, or a remote version-controlled repository.</p>
+<p>However, the OPAM 1.1 pinning workflow only lets you pin packages that <em>already exist</em> in your OPAM
+repositories. To declare a new package, you had to go through creating a
+local repository, registering it in OPAM, and adding your package definition there.
+That workflow, while reasonably clear, required the user to know about the repository
+format and the configuration of an internal repository in OPAM before actually getting to
+writing a package. Besides, you were on your own for writing the package
+definition, and the edit-test loop wasn't as friendly as it could have been.</p>
+<p>A natural, simpler workflow emerged from allowing users to <em>pin</em> new package
+names that don't yet exist in an OPAM repository:</p>
+<ol>
+<li>choose a name for your new package
+</li>
+<li><code>opam pin add</code> in the development source tree
+</li>
+<li>the package is created on-the-fly and registered locally.
+</li>
+</ol>
+<p>To make it even easier, OPAM can now interactively help you write the
+package definition, and you can test your updates with a single command.
+This blog post explains this new OPAM 1.2 functionality in more detail;
+you may also want to check out the new <a href="https://opam.ocaml.org/doc/1.2/Packaging.html" title="OPAM 1.2 doc preview, packaging guide">Packaging tutorial</a>
+relying on this workflow.</p>
+<h3>From source to package</h3>
+<p>For illustration purposes in this post I'll use a tiny tool that I wrote some time ago and
+never released: <a href="https://github.com/OCamlPro/ocp-reloc" title="ocp-reloc repo on Github">ocp-reloc</a>.  It's a simple binary that fixes up the
+headers of OCaml bytecode files to make them relocatable, which I'd like
+to release into the public OPAM repository.</p>
+<h4>&quot;opam pin add&quot;</h4>
+<p>The command <code>opam pin add &lt;name&gt; &lt;target&gt;</code> pins package <code>&lt;name&gt;</code> to
+<code>&lt;target&gt;</code>. We're interested in pinning the <code>ocp-reloc</code> package
+name to the project's source directory.</p>
+<pre><code>cd ocp-reloc
+opam pin add ocp-reloc .
+</code></pre>
+<p>If <code>ocp-reloc</code> were an existing package, the metadata would be fetched from
+the package description in the OPAM repositories. Since the package doesn't yet exist,
+OPAM 1.2 will instead prompt for on-the-fly creation:</p>
+<pre><code>Package ocp-reloc does not exist, create as a NEW package ? [Y/n] y
+ocp-reloc is now path-pinned to ~/src/ocp-reloc
+</code></pre>
+<blockquote>
+<p>NOTE: if you are using <strong>beta4</strong>, you may get a <em>version-control</em>-pin instead,
+because we added auto-detection of version-controlled repos. This turned out to
+be confusing (<a href="https://github.com/ocaml/opam/issues/1582">issue #1582</a>),
+because your changes wouldn't be reflected until you commit, so
+this has been reverted in favor of a warning. Add the <code>--kind path</code> option to
+make sure that you get a <em>path</em>-pin.</p>
+</blockquote>
+<h4>OPAM Package Template</h4>
+<p>Now your package still needs some kind of definition for OPAM to acknowledge it;
+that's where templates kick in, the above triggering an editor with a pre-filled
+<code>opam</code> file that you just have to complete. This not only saves time in
+looking up the documentation, it also helps getting consistent package
+definitions, reduces errors, and promotes filling in optional but recommended
+fields (homepage, etc.).</p>
+<pre><code>opam-version: &quot;1.2&quot;
+name: &quot;ocp-reloc&quot;
+version: &quot;0.1&quot;
+maintainer: &quot;Louis Gesbert &lt;louis.gesbert@ocamlpro.com&gt;&quot;
+authors: &quot;Louis Gesbert &lt;louis.gesbert@ocamlpro.com&gt;&quot;
+homepage: &quot;&quot;
+bug-reports: &quot;&quot;
+license: &quot;&quot;
+build: [
+  [&quot;./configure&quot; &quot;--prefix=%{prefix}%&quot;]
+  [make]
+]
+install: [make &quot;install&quot;]
+remove: [&quot;ocamlfind&quot; &quot;remove&quot; &quot;ocp-reloc&quot;]
+depends: &quot;ocamlfind&quot; {build}
+</code></pre>
+<p>After adding some details (most importantly the dependencies and
+build instructions), I can just save and exit.  Much like other system tools
+such as <code>visudo</code>, it checks for syntax errors immediately:</p>
+<pre><code>[ERROR] File &quot;/home/lg/.opam/4.01.0/overlay/ocp-reloc/opam&quot;, line 13, character 35-36: '.' is not a valid token.
+Errors in /home/lg/.opam/4.01.0/overlay/ocp-reloc/opam, retry editing ? [Y/n]
+</code></pre>
+<h4>Installation</h4>
+<p>You probably want to try your brand new package right away, so
+OPAM's default action is to try and install it (unless you specified <code>-n</code>):</p>
+<pre><code>ocp-reloc needs to be installed.
+The following actions will be performed:
+ - install   cmdliner.0.9.5                        [required by ocp-reloc]
+ - install   ocp-reloc.0.1*
+=== 1 to install ===
+Do you want to continue ? [Y/n]
+</code></pre>
+<p>I usually don't get it working the first time around, but <code>opam pin edit ocp-reloc</code> and <code>opam install ocp-reloc -v</code> can be used to edit and retry until
+it does.</p>
+<h4>Package Updates</h4>
+<p>How do you keep working on your project as you edit the source code, now that
+you are installing through OPAM? This is as simple as:</p>
+<pre><code>opam upgrade ocp-reloc
+</code></pre>
+<p>This will pick up changes from your source repository and reinstall any packages
+that are dependent on <code>ocp-reloc</code> as well, if any.</p>
+<p>So far, we've been dealing with the metadata locally used by your OPAM
+installation, but you'll probably want to share this among developers of your
+project even if you're not releasing anything yet. OPAM takes care of this
+by prompting you to save the <code>opam</code> file back to your source tree, where
+you can commit it directly into your code repository.</p>
+<pre><code>cd ocp-reloc
+git add opam
+git commit -m 'Add OPAM metadata'
+git push
+</code></pre>
+<h3>Publishing your New Package</h3>
+<p>The above information is sufficient to use OPAM locally to integrate new code
+into an OPAM installation.  Let's look at how other developers can share this
+metadata.</p>
+<h4>Picking up your development package</h4>
+<p>If another developer wants to pick up <code>ocp-reloc</code>, they can directly use
+your existing metadata by cloning a copy of your repository and issuing their
+own pin.</p>
+<pre><code>git clone git://github.com/OCamlPro/ocp-reloc.git
+opam pin add ocp-reloc/
+</code></pre>
+<p>Even specifying the package name is optional since this is documented in
+<code>ocp-reloc/opam</code>. They can start hacking, and if needed use <code>opam pin edit</code> to
+amend the opam file too. No need for a repository, no need to share anything more than a
+versioned <code>opam</code> file within your project.</p>
+<h4>Cloning already existing packages</h4>
+<p>We have been focusing on an unreleased package, but the same
+functionality is also of great help in handling existing packages, whether you
+need to quickly hack into them or are just curious.  Let's consider how to
+modify the <a href="https://github.com/ocaml/omd" title="OMD page on Github"><code>omd</code> Markdown library</a>.</p>
+<pre><code>opam source omd --pin
+cd omd.0.9.7
+...patch...
+opam upgrade omd
+</code></pre>
+<p>The new <code>opam source</code> command will clone the source code of the library you
+specify, and the <code>--pin</code> option will also pin it locally to ensure it is used
+in preference to all other versions.  This will also take care of recompiling
+any installed packages that are dependent on <code>omd</code> using your patched version
+so that you notice any issues right away.</p>
+<blockquote>
+<p>There's a new OPAM field available in 1.2 called <code>dev-repo</code>.  If you specify
+this in your metadata, you can directly pin to the upstream repository via
+<code>opam source --dev-repo --pin</code>.</p>
+</blockquote>
+<p>If the upstream repository for the package contains an <code>opam</code> file, that file will be picked up
+in preference to the one from the OPAM repository as soon as you pin the package.
+The idea is to have:</p>
+<ul>
+<li>a <em>development</em> <code>opam</code> file that is versioned along with your source code
+(and thus accurately tracks the latest dependencies for your package).
+</li>
+<li>a <em>release</em> <code>opam</code> file that is published on the OPAM repository and can
+be updated independently without making a new release of the source code.
+</li>
+</ul>
+<p>How to get from the former to the latter will be the subject of another post!
+In the meantime, all users of the <a href="../opam-1-2-0-beta4" title="OPAM 1.2.0 beta4 announcement">beta</a> are welcome to share their
+experience and thoughts on the new workflow on the <a href="https://github.com/ocaml/opam/issues" title="OPAM bug-tracker on Github">bug tracker</a>.</p>
+|js}
+  };
+ 
+  { title = {js|OPAM 1.2.0 public beta released|js}
+  ; slug = {js|opam-1-2-0-beta4|js}
+  ; description = {js|???|js}
+  ; date = {js|2014-08-14|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>It has only been 18 months since the first release of OPAM, but it is already
+difficult to remember a time when we did OCaml development without it.  OPAM
+has helped bring together much of the open-source code in the OCaml community
+under a single umbrella, making it easier to discover, depend on, and maintain
+OCaml applications and libraries.  We have seen steady growth in the number
+of new packages, updates to existing code, and a diverse group of contributors.
+<a href="packages.png"><img style="float:right; padding: 5px" src="packages.png" width="350px" /></a></p>
+<p>OPAM has turned out to be more than just another package manager. It is also
+increasingly central to the demanding workflow of industrial OCaml development,
+since it supports multiple simultaneous (patched) compiler installations,
+sophisticated package version constraints that ensure statically-typed code can
+be recompiled without conflict, and a distributed workflow that integrates
+seamlessly with Git, Mercurial or Darcs version control.  OPAM tracks multiple
+revisions of a single package, thereby letting packages rely on older
+interfaces if they need to for long-term support. It also supports multiple
+package repositories, letting users blend the global stable package set with
+their internal revisions, or building completely isolated package universes for
+closed-source products.</p>
+<p>Since its initial release, we have been learning from the extensive feedback
+from our users about how they use these features as part of their day-to-day
+workflows.  Larger projects like <a href="http://wiki.xen.org/wiki/XAPI">XenAPI</a>, the <a href="http://ocsigen.org">Ocsigen</a> web suite,
+and the <a href="http://openmirage.org">Mirage OS</a> publish OPAM <a href="https://opam.ocaml.org/doc/Advanced_Usage.html#Handlingofrepositories">remotes</a> that build
+their particular software suites.
+Complex applications such as the <a href="https://github.com/facebook/pfff/wiki/Main">Pfff</a> static analysis tool and <a href="https://code.facebook.com/posts/264544830379293/hack-a-new-programming-language-for-hhvm/">Hack</a>
+language from Facebook, the <a href="https://github.com/frenetic-lang/frenetic">Frenetic</a> SDN language and the <a href="http://arakoon.org">Arakoon</a>
+distributed key store have all appeared alongside these libraries.
+<a href="https://www.janestreet.com">Jane Street</a> pushes regular releases of their
+production <a href="http://janestreet.github.io/">Core/Async</a> suite every couple
+of weeks.</p>
+<p>One pleasant side-effect of the growing package database has been the
+contribution of tools from the community that make the day-to-day use of OCaml
+easier.  These include the <a href="https://github.com/diml/utop">utop</a> interactive toplevel, the <a href="https://github.com/andrewray/iocaml">IOCaml</a>
+browser notebook, and the <a href="https://github.com/the-lambda-church/merlin">Merlin</a> IDE extension.  While these tools are an
+essential first step, there's still some distance to go to make the OCaml
+development experience feel fully integrated and polished.</p>
+<p>Today, we are kicking off the next phase of evolution of OPAM and starting the
+journey towards building an <em>OCaml Platform</em> that combines the OCaml compiler
+toolchain with a coherent workflow for build, documentation, testing and IDE
+integration. As always with OPAM, this effort has been a collaborative effort,
+coordinated by the <a href="http://www.cl.cam.ac.uk/projects/ocamllabs/">OCaml Labs</a> group in Cambridge and
+<a href="http://www.ocamlpro.com">OCamlPro</a> in France.
+The OCaml Platform builds heavily on OPAM, since it forms the substrate that
+pulls together the tools and facilitates a consistent development workflow.
+We've therefore created this blog on <a href="https://opam.ocaml.org">opam.ocaml.org</a> to chart its progress,
+announce major milestones, and eventually become a community repository of all
+significant activity.</p>
+<p>Major points:</p>
+<ul>
+<li>
+<p><strong>OPAM 1.2 beta available</strong>:
+Firstly, we're announcing <strong>the availability of the OPAM 1.2 beta</strong>,
+which includes a number of new features, hundreds of bug fixes, and pretty
+new colours in the CLI.  We really need your feedback to ensure a polished
+release, so please do read the release notes below.</p>
+</li>
+<li>
+<p>In the coming weeks, we will provide an overview of what the OCaml Platform is
+(and is not), and describe an example workflow that the Platform can enable.</p>
+</li>
+<li>
+<p><strong>Feedback</strong>: If you have questions or comments as you read these posts,
+then please do join the <a href="http://lists.ocaml.org/listinfo/platform">platform@lists.ocaml.org</a> and make
+them known to us.</p>
+</li>
+</ul>
+<h2>Releasing the OPAM 1.2 beta4</h2>
+<p>We are proud to announce the latest beta of OPAM 1.2.  It comes packed with
+<a href="https://github.com/ocaml/opam/issues?q=label%3A%22Feature+Wish%22+milestone%3A1.2+is%3Aclosed" title="Features added in 1.2 from the tracker on Github">new features</a>, stability and usability improvements. Here the
+highlights.</p>
+<h3>Binary RPMs and DEBs!</h3>
+<p>We now have binary packages available for Fedora 19/20, CentOS 6/7, RHEL7,
+Debian Wheezy and Ubuntu!  You can see the full set at the <a href="https://build.opensuse.org/package/show/home:ocaml/opam#">OpenSUSE Builder</a> site and
+<a href="http://software.opensuse.org/download.html?project=home:ocaml&amp;package=opam">download instructions</a> for your particular platform.</p>
+<p>An OPAM binary installation doesn't need OCaml to be installed on the system, so you
+can initialize a fresh, modern version of OCaml on older systems without needing it
+to be packaged there.
+On CentOS 6 for example:</p>
+<pre><code>cd /etc/yum.repos.d/
+wget http://download.opensuse.org/repositories/home:ocaml/CentOS_6/home:ocaml.repo
+yum install opam
+opam init --comp=4.01.0
+</code></pre>
+<h3>Simpler user workflow</h3>
+<p>For this version, we focused on improving the user interface and workflow. OPAM
+is a complex piece of software that needs to handle complex development
+situations. This implies things might go wrong, which is precisely when good
+support and error messages are essential.  OPAM 1.2 has much improved stability
+and error handling: fewer errors and more helpful messages plus better state backups
+when they happen.</p>
+<p>In particular, a clear and meaningful explanation is extracted from the solver
+whenever you are attempting an impossible action (unavailable package,
+conflicts, etc.):</p>
+<pre><code>$ opam install mirage-www=0.3.0
+The following dependencies couldn't be met:
+  - mirage-www -&gt; cstruct &lt; 0.6.0
+  - mirage-www -&gt; mirage-fs &gt;= 0.4.0 -&gt; cstruct &gt;= 0.6.0
+Your request can't be satisfied:
+  - Conflicting version constraints for cstruct
+</code></pre>
+<p>This sets OPAM ahead of many other package managers in terms of
+user-friendliness.  Since this is made possible using the tools from
+<a href="http://www.irill.org" title="IRILL">irill</a> (which are also used for <a href="https://qa.debian.org/dose/debcheck/testing_main/" title="Debian Weather Service">Debian</a>), we hope that
+this work will find its way into other package managers.
+The extra analyses in the package solver interface are used to improve the
+health of the central package repository, via the <a href="http://ows.irill.org" title="The OPAM Weather Service">OPAM Weather service</a>.</p>
+<p>And in case stuff does go wrong, we added the <code>opam upgrade --fixup</code>
+command that will get you back to the closest clean state.</p>
+<p>The command-line interface is also more detailed and convenient, polishing and
+documenting the rough areas.  Just run <code>opam &lt;subcommand&gt; --help</code> to see the
+manual page for the below features.</p>
+<ul>
+<li>
+<p>More expressive queries based on dependencies.</p>
+<pre><code>$ opam list --depends-on cow --rec
+# Available packages recursively depending on cow.0.10.0 for 4.01.0:
+cowabloga   0.0.7  Simple static blogging support.
+iocaml      0.4.4  A webserver for iocaml-kernel and iocamljs-kernel.
+mirage-www  1.2.0  Mirage website (written in Mirage)
+opam2web    1.3.1 (pinned)  A tool to generate a website from an OPAM repository
+opium       0.9.1  Sinatra like web toolkit based on Async + Cohttp
+stone       0.3.2  Simple static website generator, useful for a portfolio or documentation pages
+</code></pre>
+</li>
+<li>
+<p>Check on existing <code>opam</code> files to base new packages from.</p>
+<pre><code>$ opam show cow --raw
+opam-version: &quot;1&quot;
+name: &quot;cow&quot;
+version: &quot;0.10.0&quot;
+[...]
+</code></pre>
+</li>
+<li>
+<p>Clone the source code for any OPAM package to modify or browse the interfaces.</p>
+<pre><code>$ opam source cow
+Downloading archive of cow.0.10.0...
+[...]
+$ cd cow.0.10.0
+</code></pre>
+</li>
+</ul>
+<p>We've also improved the general speed of the tool to cope with the much bigger
+size of the central repository, which will be of importance for people building
+on low-power ARM machines, and added a mechanism that will let you install
+newer releases of OPAM directly from OPAM if you choose so.</p>
+<h3>Yet more control for the packagers</h3>
+<p>Packaging new libraries has been made as straight-forward as possible.
+Here is a quick overview, you may also want to check the <a href="../opam-1-2-pin" title="Blog post on OPAM Pin">OPAM 1.2 pinning</a> post.</p>
+<pre><code>opam pin add &lt;name&gt; &lt;sourcedir&gt;
+</code></pre>
+<p>will generate a new package on the fly by detecting the presence of an <code>opam</code>
+file within the source repository itself.  We'll do a followup post next week
+with more details of this extended <code>opam pin</code> workflow.</p>
+<p>The package description format has also been extended with some new fields:</p>
+<ul>
+<li><code>bug-reports:</code> and <code>dev-repo:</code> add useful URLs
+</li>
+<li><code>install:</code> allows build and install commands to be split,
+</li>
+<li><code>flags:</code> is an entry point for several extensions that can affect your package.
+</li>
+</ul>
+<p>Packagers can limit dependencies in scope by adding one
+of the keywords <code>build</code>, <code>test</code> or <code>doc</code> in front of their constraints:</p>
+<pre><code>depends: [
+  &quot;ocamlfind&quot; {build &amp; &gt;= 1.4.0}
+  &quot;ounit&quot; {test}
+]
+</code></pre>
+<p>Here you don't specifically require <code>ocamlfind</code> at runtime, so changing it
+won't trigger recompilation of your package. <code>ounit</code> is marked as only required
+for the package's <code>build-test:</code> target, <em>i.e.</em> when installing with
+<code>opam install -t</code>.  This will reduce the amount of (re)compilation required
+in day-to-day use.</p>
+<p>We've also made optional dependencies more consistent by <em>removing</em> version
+constraints from the <code>depopts:</code> field: their meaning was <a href="https://github.com/ocaml/opam/issues/200">unclear</a> and confusing.
+The <code>conflicts</code> field is used to indicate versions of the optional dependencies
+that are incompatible with your package to remove all ambiguity:</p>
+<pre><code>depopts: [ &quot;async&quot; {&gt;= &quot;109.15.00&quot;} &amp; &quot;async_ssl&quot; {&gt;= &quot;111.06.00&quot;} ]
+</code></pre>
+<p>becomes:</p>
+<pre><code>depopts: [ &quot;async&quot; &quot;async_ssl&quot; ]
+conflicts: [ &quot;async&quot; {&lt; &quot;109.15.00&quot;}
+             &quot;async_ssl&quot; {&lt; &quot;111.06.00&quot;} ]
+</code></pre>
+<p>There is an <a href="https://github.com/ocaml/opam/pull/1325" title="PR for preliminary 'features' feature on Github">upcoming <code>features</code> field</a> that will give more
+flexibility in a clearer and consistent way for such complex cases.</p>
+<h3>Easier to package and install</h3>
+<p>Efforts were made on the build of OPAM itself as well to make it as easy as possible
+to compile, bootstrap or install.  There is no more dependency on camlp4 (which has
+been moved out of the core distribution in OCaml 4.02.0), and the build process
+is more conventional (get the source, run <code>./configure</code>, <code>make lib-ext</code> to get the few
+internal dependencies, <code>make</code> and <code>make install</code>).  Packagers can use <code>make cold</code>
+to build OPAM with a locally compiled version of OCaml (useful for platforms where
+it isn't packaged), and also use <code>make download-ext</code> to store all the external archives
+within the source tree (for automated builds which forbid external net access).</p>
+<p>The <a href="http://opam.ocaml.org/doc" title="Preview of documentation for OPAM 1.2">whole documentation</a> has been rewritten as well, to be better focused and
+easier to browse.  Please leave any feedback or changes on the documentation on the
+<a href="https://github.com/ocaml/opam/issues">issue tracker</a>.</p>
+<h3>Try it out !</h3>
+<p>The <a href="https://github.com/ocaml/opam/releases/tag/1.2.0-beta4" title="Opam 1.2-beta4 release">public beta of OPAM 1.2</a> is just out. You're welcome to give it a try and
+give us feedback before we roll out the release!</p>
+<p>We'd be most interested on feedback on how easily you can work with the new
+pinning features, on how the new metadata works for you... and on any errors you
+may trigger that aren't followed by informative messages or clean behaviour.</p>
+<p>If you are hosting a repository, the <a href="https://github.com/ocaml/opam/tree/master/admin-scripts" title="Opam admin scripts directory on Github">administration scripts</a> may help you quickly update all your packages to
+benefit from the new features.</p>
+|js}
+  };
+ 
+  { title = {js|OPAM 1.1.1 released|js}
+  ; slug = {js|opam-1-1-1-released|js}
+  ; description = {js|???|js}
+  ; date = {js|2014-01-29|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>We are proud to announce that <em>OPAM 1.1.1</em> has just been released.</p>
+<p>This minor release features mostly stability and UI/doc improvements over
+OPAM 1.1.0, but also focuses on improving the API and tools to be a better
+base for the platform (functions for <code>opam-doc</code>, interface with tools like
+<code>opamfu</code> and <code>opam-installer</code>). Lots of bigger changes are in the works, and
+will be merged progressively after this release.</p>
+<h2>Installing</h2>
+<p>Installation instructions are available
+<a href="http://opam.ocaml.org/doc/Quick_Install.html">on the wiki</a>.</p>
+<p>Note that some packages may take a few days until they get out of the
+pipeline. If you're eager to get 1.1.1, either use our
+<a href="https://raw.github.com/ocaml/opam/master/shell/opam_installer.sh">binary installer</a> or
+<a href="https://github.com/ocaml/opam/releases/tag/1.1.1">compile from source</a>.</p>
+<p>The 'official' package repository is now hosted at <a href="https://opam.ocaml.org">opam.ocaml.org</a>,
+synchronised with the Git repository at
+<a href="http://github.com/ocaml/opam-repository">http://github.com/ocaml/opam-repository</a>,
+where you can contribute new packages descriptions. Those are under a CC0
+license, a.k.a. public domain, to ensure they will always belong to the
+community.</p>
+<p>Thanks to all of you who have helped build this repository and made OPAM
+such a success.</p>
+<h2>Changes</h2>
+<p>From the changelog:</p>
+<ul>
+<li>Fix <code>opam-admin make &lt;packages&gt; -r</code> (#990)
+</li>
+<li>Explicitly prettyprint list of lists, to fix <code>opam-admin depexts</code> (#997)
+</li>
+<li>Tell the user which fields is invalid in a configuration file (#1016)
+</li>
+<li>Add <code>OpamSolver.empty_universe</code> for flexible universe instantiation (#1033)
+</li>
+<li>Add <code>OpamFormula.eval_relop</code> and <code>OpamFormula.check_relop</code> (#1042)
+</li>
+<li>Change <code>OpamCompiler.compare</code> to match <code>Pervasives.compare</code> (#1042)
+</li>
+<li>Add <code>OpamCompiler.eval_relop</code> (#1042)
+</li>
+<li>Add <code>OpamPackage.Name.compare</code> (#1046)
+</li>
+<li>Add types <code>version_constraint</code> and <code>version_formula</code> to <code>OpamFormula</code> (#1046)
+</li>
+<li>Clearer command aliases. Made <code>info</code> an alias for <code>show</code> and added the alias
+<code>uninstall</code> (#944)
+</li>
+<li>Fixed <code>opam init --root=&lt;relative path&gt;</code> (#1047)
+</li>
+<li>Display OS constraints in <code>opam info</code> (#1052)
+</li>
+<li>Add a new 'opam-installer' script to make <code>.install</code> files usable outside of opam (#1026)
+</li>
+<li>Add a <code>--resolve</code> option to <code>opam-admin make</code> that builds just the archives you need for a specific installation (#1031)
+</li>
+<li>Fixed handling of spaces in filenames in internal files (#1014)
+</li>
+<li>Replace calls to <code>which</code> by a more portable call (#1061)
+</li>
+<li>Fixed generation of the init scripts in some cases (#1011)
+</li>
+<li>Better reports on package patch errors (#987, #988)
+</li>
+<li>More accurate warnings for unknown package dependencies (#1079)
+</li>
+<li>Added <code>opam config report</code> to help with bug reports (#1034)
+</li>
+<li>Do not reinstall dev packages with <code>opam upgrade &lt;pkg&gt;</code> (#1001)
+</li>
+<li>Be more careful with <code>opam init</code> to a non-empty root directory (#974)
+</li>
+<li>Cleanup build-dir after successful compiler installation to save on space (#1006)
+</li>
+<li>Improved OSX compatibility in the external solver tools (#1074)
+</li>
+<li>Fixed messages printed on update that were plain wrong (#1030)
+</li>
+<li>Improved detection of meaningful changes from upstream packages to trigger recompilation
+</li>
+</ul>
+|js}
+  };
+ 
+  { title = {js|OPAM 1.1.0 released|js}
+  ; slug = {js|opam-1-1-0-released|js}
+  ; description = {js|???|js}
+  ; date = {js|2013-11-08|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>After a while staged as RC, we are proud to announce the final release of
+<em>OPAM 1.1.0</em>!</p>
+<p>Thanks again to those who have helped testing and fixing the last few issues.</p>
+<h2>Important note</h2>
+<p>The repository format has been improved with incompatible new features; to
+account for this, the <em>new</em> repository is now hosted at <a href="https://opam.ocaml.org">opam.ocaml.org</a>,
+and the legacy repository at <a href="http://opam.ocamlpro.com">opam.ocamlpro.com</a> is kept to support OPAM
+1.0 installations, but is unlikely to benefit from many package updates.
+Migration to <a href="https://opam.ocaml.org">opam.ocaml.org</a> will be done automatically as soon as you
+upgrade your OPAM version.</p>
+<p>You're still free, of course, to use any third-party repositories instead or
+in addition.</p>
+<h2>Installing</h2>
+<p>NOTE: When switching from 1.0, the internal state will need to be upgraded.
+THIS PROCESS CANNOT BE REVERTED. We have tried hard to make it fault-
+resistant, but failures might happen. In case you have precious data in your
+<code>~/.opam</code> folder, it is advised to <strong>backup that folder before you upgrade
+to 1.1.0</strong>.</p>
+<p>Using the binary installer:</p>
+<ul>
+<li>download and run http://www.ocamlpro.com/pub/opam_installer.sh
+</li>
+</ul>
+<p>Using the .deb packages from Anil's PPA (binaries are <a href="https://launchpad.net/~avsm/+archive/ppa/+builds?build_state=pending">currently syncing</a>):
+add-apt-repository ppa:avsm/ppa
+apt-get update
+sudo apt-get install opam</p>
+<p>For OSX users, the homebrew package will be updated shortly.</p>
+<p>or build it from sources at :</p>
+<ul>
+<li>http://www.ocamlpro.com/pub/opam-full-1.1.0.tar.gz
+</li>
+<li>https://github.com/ocaml/opam/releases/tag/1.1.0
+</li>
+</ul>
+<h2>For those who haven't been paying attention</h2>
+<p>OPAM is a source-based package manager for OCaml. It supports multiple
+simultaneous compiler installations, flexible package constraints, and
+a Git-friendly development workflow. OPAM is edited and
+maintained by OCamlPro, with continuous support from OCamlLabs and the
+community at large (including its main industrial users such as
+Jane-Street and Citrix).</p>
+<p>The 'official' package repository is now hosted at <a href="https://opam.ocaml.org">opam.ocaml.org</a>,
+synchronised with the Git repository at
+<a href="http://github.com/ocaml/opam-repository">http://github.com/ocaml/opam-repository</a>, where you can contribute
+new packages descriptions. Those are under a CC0 license, a.k.a. public
+domain, to ensure they will always belong to the community.</p>
+<p>Thanks to all of you who have helped build this repository and made OPAM
+such a success.</p>
+<h2>Changes</h2>
+<p>Too many to list here, see
+<a href="https://raw.github.com/OCamlPro/opam/1.1.0/CHANGES">https://raw.github.com/OCamlPro/opam/1.1.0/CHANGES</a></p>
+<p>For packagers, some new fields have appeared in the OPAM description format:</p>
+<ul>
+<li><code>depexts</code> provides facilities for dealing with system (non ocaml) dependencies
+</li>
+<li><code>messages</code>, <code>post-messages</code> can be used to notify the user eg. of licensing information,
+or help her  troobleshoot at package installation.
+</li>
+<li><code>available</code> supersedes <code>ocaml-version</code> and <code>os</code> constraints, and can contain
+more expressive formulas
+</li>
+</ul>
+<p>Also, we have integrated the main package repository with Travis, which will
+help us to improve the quality of contributions (see <a href="http://anil.recoil.org/2013/09/30/travis-and-ocaml.html">Anil's post</a>).</p>
+|js}
+  };
+ 
+  { title = {js|OPAM 1.1.0 release candidate out|js}
+  ; slug = {js|opam-1-1-0-release-candidate|js}
+  ; description = {js|???|js}
+  ; date = {js|2013-10-14|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p><strong>OPAM 1.1.0 is ready</strong>, and we are shipping a release candidate for
+packagers and all interested to try it out.</p>
+<p>This version features several bug-fixes over the September beta release, and
+quite a few stability and usability improvements. Thanks to all beta-testers
+who have taken the time to file reports, and helped a lot tackling the
+remaining issues.</p>
+<h2>Repository change to opam.ocaml.org</h2>
+<p>This release is synchronized with the migration of the main repository from
+ocamlpro.com to ocaml.org. A redirection has been put in place, so that all
+up-to-date installation of OPAM should be redirected seamlessly.
+OPAM 1.0 instances will stay on the old repository, so that they won't be
+broken by incompatible package updates.</p>
+<p>We are very happy to see the impressive amount of contributions to the OPAM
+repository, and this change, together with the licensing of all metadata under
+CC0 (almost pubic domain), guarantees that these efforts belong to the
+community.</p>
+<h1>If you are upgrading from 1.0</h1>
+<p>The internal state will need to be upgraded at the first run of OPAM 1.1.0.
+THIS PROCESS CANNOT BE REVERTED. We have tried hard to make it fault-
+resistant, but failures might happen. In case you have precious data in your
+<code>~/.opam folder</code>, it is advised to <strong>backup that folder before you upgrade to 1.1.0</strong>.</p>
+<h2>Installing</h2>
+<p>Using the binary installer:</p>
+<ul>
+<li>download and run http://www.ocamlpro.com/pub/opam_installer.sh
+</li>
+</ul>
+<p>You can also get the new version either from Anil's unstable PPA:
+add-apt-repository ppa:avsm/ppa-testing
+apt-get update
+sudo apt-get install opam</p>
+<p>or build it from sources at :</p>
+<ul>
+<li>http://www.ocamlpro.com/pub/opam-full-1.1.0.tar.gz
+</li>
+<li>https://github.com/OCamlPro/opam/releases/tag/1.1.0-RC
+</li>
+</ul>
+<h2>Changes</h2>
+<p>Too many to list here, see
+<a href="https://raw.github.com/OCamlPro/opam/1.1.0-RC/CHANGES">https://raw.github.com/OCamlPro/opam/1.1.0-RC/CHANGES</a></p>
+<p>For packagers, some new fields have appeared in the OPAM description format:</p>
+<ul>
+<li><code>depexts</code> provides facilities for dealing with system (non ocaml)
+dependencies
+</li>
+<li><code>messages</code>, <code>post-messages</code> can be used to notify the user or help her troubleshoot at package installation.
+</li>
+<li><code>available</code> supersedes <code>ocaml-version</code> and <code>os</code> constraints, and can contain
+more expressive formulas
+</li>
+</ul>
+|js}
+  };
+ 
+  { title = {js|OPAM 1.1.0 beta released|js}
+  ; slug = {js|opam-1-1-0-beta|js}
+  ; description = {js|???|js}
+  ; date = {js|2013-09-20|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>We are very happy to announce the <strong>beta release</strong> of OPAM version 1.1.0!</p>
+<p>OPAM is a source-based package manager for OCaml. It supports multiple
+simultaneous compiler installations, flexible package constraints, and
+a Git-friendly development workflow which. OPAM is edited and
+maintained by OCamlPro, with continuous support from OCamlLabs and the
+community at large (including its main industrial users such as
+Jane-Street and Citrix).</p>
+<p>Since its first official release <a href="http://www.ocamlpro.com/blog/2013/03/14/opam-1.0.0.html">last March</a>, we have fixed many
+bugs and added lots of <a href="https://github.com/OCamlPro/opam/issues?milestone=17&amp;page=1&amp;state=closed">new features and stability improvements</a>. New
+features go from more metadata to the package and compiler
+descriptions, to improved package pin workflow, through a much faster
+update algorithm. The full changeset is included below.</p>
+<p>We are also delighted to see the growing number of contributions from
+the community to both OPAM itself (35 contributors) and to its
+metadata repository (100+ contributors, 500+ unique packages, 1500+
+packages). It is really great to also see alternative metadata
+repositories appearing in the wild (see for instance the repositories
+for <a href="https://github.com/vouillon/opam-android-repository">Android</a>, <a href="https://github.com/vouillon/opam-windows-repository">Windows</a> and <a href="https://github.com/search?q=opam-repo&amp;type=Repositories&amp;ref=searchresults">so on</a>). To be sure that the
+community efforts will continue to benefit to everyone and to
+underline our committment to OPAM, we are rehousing it at
+<code>http://opam.ocaml.org</code> and switching the license to CC0 (see <a href="https://github.com/OCamlPro/opam-repository/issues/955">issue #955</a>,
+where 85 people are commenting on the thread).</p>
+<p>The binary installer has been updated for OSX and x86_64:</p>
+<ul>
+<li>http://www.ocamlpro.com/pub/opam_installer.sh
+</li>
+</ul>
+<p>You can also get the new version either from Anil's unstable PPA:
+add-apt-repository ppa:avsm/ppa-testing
+apt-get update
+sudo apt-get install opam</p>
+<p>or build it from sources at :</p>
+<ul>
+<li>http://www.ocamlpro.com/pub/opam-full-1.1.0-beta.tar.gz
+</li>
+<li>https://github.com/OCamlPro/opam/releases/tag/1.1.0-beta
+</li>
+</ul>
+<p>NOTE: If you upgrade from OPAM 1.0, the first time you will run the
+new <code>opam</code> binary it will upgrade its internal state in an incompatible
+way: THIS PROCESS CANNOT BE REVERTED. We have tried hard to make this
+process fault-resistant, but failures might happen. In case you have
+precious data in your <code>~/.opam</code> folder, it is advised to <strong>backup that
+folder before you upgrade to 1.1</strong>.</p>
+<h2>Changes</h2>
+<ul>
+<li>Automatic backup before any operation which might alter the list of installed packages
+</li>
+<li>Support for arbitrary sub-directories for metadata repositories
+</li>
+<li>Lots of colors
+</li>
+<li>New option <code>opam update -u</code> equivalent to <code>opam update &amp;&amp; opam upgrade --yes</code>
+</li>
+<li>New <code>opam-admin</code> tool, bundling the features of <code>opam-mk-repo</code> and
+<code>opam-repo-check</code> + new 'opam-admin stats' tool
+</li>
+<li>New <code>available</code>: field in opam files, superseding <code>ocaml-version</code> and <code>os</code> fields
+</li>
+<li>Package names specified on the command-line are now understood
+case-insensitively (#705)
+</li>
+<li>Fixed parsing of malformed opam files (#696)
+</li>
+<li>Fixed recompilation of a package when uninstalling its optional dependencies (#692)
+</li>
+<li>Added conditional post-messages support, to help users when a package fails to
+install for a known reason (#662)
+</li>
+<li>Rewrite the code which updates pin et dev packages to be quicker and more reliable
+</li>
+<li>Add {opam,url,desc,files/} overlay for all packages
+</li>
+<li><code>opam config env</code> now detects the current shell and outputs a sensible default if
+no override is provided.
+</li>
+<li>Improve <code>opam pin</code> stability and start display information about dev revisions
+</li>
+<li>Add a new <code>man</code> field in <code>.install</code> files
+</li>
+<li>Support hierarchical installation in <code>.install</code> files
+</li>
+<li>Add a new <code>stublibs</code> field in <code>.install</code> files
+</li>
+<li>OPAM works even when the current directory has been deleted
+</li>
+<li>speed-up invocation of <code>opam config var VARIABLE</code> when variable is simple
+(eg. <code>prefix</code>, <code>lib</code>, ...)
+</li>
+<li><code>opam list</code> now display only the installed packages. Use <code>opam list -a</code> to get
+the previous behavior.
+</li>
+<li>Inverse the depext tag selection (useful for <code>ocamlot</code>)
+</li>
+<li>Add a <code>--sexp</code> option to <code>opam config env</code> to load the configuration under emacs
+</li>
+<li>Purge <code>~/.opam/log</code> on each invocation of OPAM
+</li>
+<li>System compiler with versions such as <code>version+patches</code> are now handled as if this
+was simply <code>version</code>
+</li>
+<li>New <code>OpamVCS</code> functor to generate OPAM backends
+</li>
+<li>More efficient <code>opam update</code>
+</li>
+<li>Switch license to LGPL with linking exception
+</li>
+<li><code>opam search</code> now also searches through the tags
+</li>
+<li>minor API changes for <code>API.list</code> and <code>API.SWITCH.list</code>
+</li>
+<li>Improve the syntax of filters
+</li>
+<li>Add a <code>messages</code> field
+</li>
+<li>Add a <code>--jobs</code> command line option and add <code>%{jobs}%</code> to be used in OPAM files
+</li>
+<li>Various improvements in the solver heuristics
+</li>
+<li>By default, turn-on checking of certificates for downloaded dependency archives
+</li>
+<li>Check the md5sum of downloaded archives when compiling OPAM
+</li>
+<li>Improved <code>opam info</code> command (more information, non-zero error code when no patterns match)
+</li>
+<li>Display OS and OPAM version on internal errors to ease error reporting
+</li>
+<li>Fix <code>opam reinstall</code> when reinstalling a package wich is a dependency of installed packages
+</li>
+<li>Export and read <code>OPAMSWITCH</code> to be able to call OPAM in different switches
+</li>
+<li><code>opam-client</code> can now be used in a toplevel
+</li>
+<li><code>-n</code> now means <code>--no-setup</code> and not <code>--no-checksums</code> anymore
+</li>
+<li>Fix support of FreeBSD
+</li>
+<li>Fix installation of local compilers with local paths endings with <code>../ocaml/</code>
+</li>
+<li>Fix the contents of <code>~/.opam/opam-init/variable.sh</code> after a switch
+</li>
+</ul>
+|js}
+  };
+ 
+  { title = {js|OPAM 1.0.0 released|js}
+  ; slug = {js|opam-1-0-0-released|js}
+  ; description = {js|???|js}
+  ; date = {js|2013-03-15|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p>I am <em>very</em> happy to announce the first official release of OPAM!</p>
+<p>Many of you already know and use OPAM so I won't be long. Please read
+<a href="http://www.ocamlpro.com/blog/2013/01/17/opam-beta.html">http://www.ocamlpro.com/blog/2013/01/17/opam-beta.html</a> for a
+longer description.</p>
+<p>1.0.0 fixes many bugs and add few new features to the previously announced
+beta-release.</p>
+<p>The most visible new feature, which should be useful for beginners with
+OCaml and OPAM,  is an auto-configuration tool. This tool easily enables all
+the features of OPAM (auto-completion, fix the loading of scripts for the
+toplevel, opam-switch-eval alias, etc). This tool runs interactively on each
+<code>opam init</code> invocation. If you don't like OPAM to change your configuration
+files, use <code>opam init --no-setup</code>. If you trust the tool blindly,  use
+<code>opam init --auto-setup</code>. You can later review the setup by doing
+<code>opam config setup --list</code> and call the tool again using <code>opam config setup</code>
+(and you can of course manually edit your ~/.profile (or ~/.zshrc for zsh
+users), ~/.ocamlinit and ~/.opam/opam-init/*).</p>
+<p>Please report:</p>
+<ul>
+<li>Bug reports and feature requests for the OPAM tool: http://github.com/OCamlPro/opam/issues
+</li>
+<li>Packaging issues or requests for a new packages: http://github.com/OCamlPro/opam-repository/issues
+</li>
+<li>General queries to: http://lists.ocaml.org/listinfo/platform
+</li>
+<li>More specific queries about the internals of OPAM to: http://lists.ocaml.org/listinfo/opam-devel
+</li>
+</ul>
+<h2>Install</h2>
+<p>Packages for Debian and OSX (at least homebrew) should follow shortly and
+I'm looking for volunteers to create and maintain rpm packages. The binary
+installer is up-to-date for Linux and Darwin 64-bit architectures, the
+32-bit version for Linux should arrive shortly.</p>
+<p>If you want to build from sources, the full archive (including dependencies)
+is available here:</p>
+<p>http://www.ocamlpro.com/pub/opam-full-latest.tar.gz</p>
+<h3>Upgrade</h3>
+<p>If you are upgrading from 0.9.* you won't  have anything special to do apart
+installing the new binary. You can then update your package metadata by
+running <code>opam update</code>. If you want to use the auto-setup feature, remove the
+&quot;eval <code>opam config env</code> line you have previously added in your ~/.profile
+and run <code>opam config setup --all</code>.</p>
+<p>So everything should be fine. But you never know ... so if something goes
+horribly wrong in the upgrade process (of if your are upgrading from an old
+version of OPAM) you can still trash your ~/.opam, manually remove what OPAM
+added in  your ~/.profile (~/.zshrc for zsh users) and ~/.ocamlinit, and
+start again from scratch.</p>
+<h3>Random stats</h3>
+<p>Great success on github. Thanks everybody for the great contributions!</p>
+<p>https://github.com/OCamlPro/opam: +2000 commits, 26 contributors
+https://github.com/OCamlPro/opam-repository: +1700 commits, 75 contributors, 370+ packages</p>
+<p>on http://opam.ocamlpro.com/
++400 unique visitor per week, 15k 'opam update' per week
++1300 unique visitor per month, 55k 'opam update' per month
+3815 unique visitor since the alpha release</p>
+<h3>Changelog</h3>
+<p>The full change-log since the beta release in January:</p>
+<p>1.0.0 [Mar 2013]</p>
+<ul>
+<li>Improve the lexer performance (thx to @oandrieu)
+</li>
+<li>Fix various typos (thx to @chaudhuri)
+</li>
+<li>Fix build issue (thx to @avsm)
+</li>
+</ul>
+<p>0.9.6 [Mar 2013]</p>
+<ul>
+<li>Fix installation of pinned packages on BSD (thx to @smondet)
+</li>
+<li>Fix configuration for zsh users (thx to @AltGr)
+</li>
+<li>Fix loading of <code>~/.profile</code> when using dash (eg. in Debian/Ubuntu)
+</li>
+<li>Fix installation of packages with symbolic links (regression introduced in 0.9.5)
+</li>
+</ul>
+<p>0.9.5 [Mar 2013]</p>
+<ul>
+<li>If necessary, apply patches and substitute files before removing a package
+</li>
+<li>Fix <code>opam remove &lt;pkg&gt; --keep-build-dir</code> keeps the folder if a source archive is extracted
+</li>
+<li>Add build and install rules using ocamlbuild to help distro packagers
+</li>
+<li>Support arbitrary level of nested subdirectories in packages repositories
+</li>
+<li>Add <code>opam config exec &quot;CMD ARG1 ... ARGn&quot; --switch=SWITCH</code> to execute a command in a subshell
+</li>
+<li>Improve the behaviour of <code>opam update</code> wrt. pinned packages
+</li>
+<li>Change the default external solver criteria (only useful if you have aspcud installed on your machine)
+</li>
+<li>Add support for global and user configuration for OPAM (<code>opam config setup</code>)
+</li>
+<li>Stop yelling when OPAM is not up-to-date
+</li>
+<li>Update or generate <code>~/.ocamlinit</code> when running <code>opam init</code>
+</li>
+<li>Fix tests on *BSD (thx Arnaud Degroote)
+</li>
+<li>Fix compilation for the source archive
+</li>
+</ul>
+<p>0.9.4 [Feb 2013]</p>
+<ul>
+<li>Disable auto-removal of unused dependencies. This can now be enabled on-demand using <code>-a</code>
+</li>
+<li>Fix compilation and basic usage on Cygwin
+</li>
+<li>Fix BSD support (use <code>type</code> instead of <code>which</code> to detect existing commands)
+</li>
+<li>Add a way to tag external dependencies in OPAM files
+</li>
+<li>Better error messages when trying to upgrade pinned packages
+</li>
+<li>Display <code>depends</code> and <code>depopts</code> fields in <code>opam info</code>
+</li>
+<li><code>opam info pkg.version</code> shows the metadata for this given package version
+</li>
+<li>Add missing <code>doc</code> fields in <code>.install</code> files
+</li>
+<li><code>opam list</code> now only shows installable packages
+</li>
+</ul>
+<p>0.9.3 [Feb 2013]</p>
+<ul>
+<li>Add system compiler constraints in OPAM files
+</li>
+<li>Better error messages in case of conflicts
+</li>
+<li>Cleaner API to install/uninstall packages
+</li>
+<li>On upgrade, OPAM now perform all the remove action first
+</li>
+<li>Use a cache for main storing OPAM metadata: this greatly speed-up OPAM invocations
+</li>
+<li>after an upgrade, propose to reinstall a pinned package only if there were some changes
+</li>
+<li>improvements to the solver heuristics
+</li>
+<li>better error messages on cyclic dependencies
+</li>
+</ul>
+<p>0.9.2 [Jan 2013]</p>
+<ul>
+<li>Install all the API files
+</li>
+<li>Fix <code>opam repo remove repo-name</code>
+</li>
+<li>speed-up <code>opam config env</code>
+</li>
+<li>support for <code>opam-foo</code> scripts (which can be called using <code>opam foo</code>)
+</li>
+<li>'opam update pinned-package' works
+</li>
+<li>Fix 'opam-mk-repo -a'
+</li>
+<li>Fix 'opam-mk-repo -i'
+</li>
+<li>clean-up pinned cache dir when a pinned package fails to install
+</li>
+</ul>
+<p>0.9.1 [Jan 2013]</p>
+<ul>
+<li>Use ocaml-re 1.2.0
 </li>
 </ul>
 |js}

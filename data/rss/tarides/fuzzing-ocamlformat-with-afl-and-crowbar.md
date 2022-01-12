@@ -4,7 +4,8 @@ description: "AFL (and fuzzing in general) is often used\nto find bugs in low-le
   code like parsers, but it also works very well to find\nbugs in high\u2026"
 url: https://tarides.com/blog/2020-08-03-fuzzing-ocamlformat-with-afl-and-crowbar
 date: 2020-08-03T00:00:00-00:00
-preview_image: https://tarides.com[object Object]
+preview_image: https://tarides.com/static/e6219992a464284115d27348b49c3910/0132d/feather2.jpg
+featured:
 ---
 
 <p><a href="https://lcamtuf.coredump.cx/afl/">AFL</a> (and fuzzing in general) is often used

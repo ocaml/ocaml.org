@@ -6,6 +6,7 @@ description: "I\u2019ve been thinking about naming recently, specifically the na
 url: https://blog.janestreet.com/notes-on-naming/
 date: 2014-06-29T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
+featured:
 ---
 
 <p>I’ve been thinking about naming recently, specifically the naming of new

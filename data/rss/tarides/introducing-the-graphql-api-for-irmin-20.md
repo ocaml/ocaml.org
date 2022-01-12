@@ -4,7 +4,8 @@ description: "With the release of Irmin 2.0.0, we are happy to announce a new pa
   - irmin-graphql, which can be used to serve data from Irmin over\u2026"
 url: https://tarides.com/blog/2019-11-27-introducing-the-graphql-api-for-irmin-2-0
 date: 2019-11-27T00:00:00-00:00
-preview_image: https://tarides.com[object Object]
+preview_image: https://tarides.com/static/774a33033c774c2c0c5b638f61694621/0d665/irmin-graphql.png
+featured:
 ---
 
 <p>With the release of Irmin 2.0.0, we are happy to announce a new package - <code>irmin-graphql</code>, which can be used to serve data from Irmin over HTTP. This blog post will give you some examples to help you get started, there is also <a href="https://irmin.org/tutorial/graphql">a section in the <code>irmin-tutorial</code></a> with similar information. To avoid writing the same thing twice, this post will cover the basics of getting started, plus a few interesting ideas for queries.</p>

@@ -3,6 +3,7 @@ type metadata =
   ; description : string
   ; date : string
   ; tags : string list
+  ; authors : string list option
   }
 [@@deriving yaml]
 

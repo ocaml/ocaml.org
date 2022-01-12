@@ -4,7 +4,8 @@ description: "We're glad to announce the first release of mrmime, a parser and a
   of emails. This library provides an OCaml way to analyze and\u2026"
 url: https://tarides.com/blog/2019-09-25-mr-mime-parse-and-generate-emails
 date: 2019-09-25T00:00:00-00:00
-preview_image: https://tarides.com[object Object]
+preview_image: https://tarides.com/static/14bcc335478eae1bbad1c2f4cdd244af/0132d/mailboxes2.jpg
+featured:
 ---
 
 <p>We're glad to announce the first release of <a href="https://github.com/mirage/mrmime.git"><code>mrmime</code></a>, a parser and a

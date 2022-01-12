@@ -6,6 +6,7 @@ description: "Welcome to another post in our series of how to use OCaml for mach
 url: https://blog.janestreet.com/of-pythons-and-camels/
 date: 2019-07-09T00:00:00-00:00
 preview_image: https://blog.janestreet.com/of-pythons-and-camels/camel-identify.jpg
+featured:
 ---
 
 <p>Welcome to another post in our series of how to use OCaml for machine learning.

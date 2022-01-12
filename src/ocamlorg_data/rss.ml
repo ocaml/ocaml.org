@@ -28,7 +28,7 @@ let all =
 announce the completion of the next Tezos protocol proposal…|js}
   ; url = {js|https://tarides.com/blog/2021-03-04-florence-and-beyond-the-future-of-tezos-storage|js}
   ; date = {js|2021-03-04T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/d81c504dbb5172d29c2aa38512f1dfe3/7d5a2/florence.jpg|js}
   ; featured = false
   ; body_html = {js|<p>In collaboration with Nomadic Labs, Marigold and DaiLambda, we're happy to
 announce the completion of the next Tezos protocol proposal:
@@ -130,8 +130,8 @@ future Tezos development updates!</p>|js}
 that connects to your favourite text editor and provides…|js}
   ; url = {js|https://tarides.com/blog/2021-01-26-recent-and-upcoming-changes-to-merlin|js}
   ; date = {js|2021-01-26T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
-  ; featured = false
+  ; preview_image = Some {js|https://tarides.com/static/1d86af9747be51519d2c89b476b5b306/0132d/camelgicien.jpg|js}
+  ; featured = true
   ; body_html = {js|<p>Merlin is a language server for the OCaml programming language; that is, a daemon
 that connects to your favourite text editor and provides the usual services of
 an IDE: instant feedback on warnings and errors, autocompletion, "type of the
@@ -268,7 +268,7 @@ projects' configuration.</p>
   ; url = {js|https://blog.janestreet.com/growing-the-hardcaml-toolset-index/|js}
   ; date = {js|2020-12-01T00:00:00-00:00|js}
   ; preview_image = Some {js|https://blog.janestreet.com/growing-the-hardcaml-toolset-index/Hardcaml_blog_image_scaled.png|js}
-  ; featured = false
+  ; featured = true
   ; body_html = {js|<p>I am pleased to announce that we have recently released a slew of new
 Hardcaml libraries!</p>|js}
   };
@@ -294,7 +294,7 @@ total $100K being paid out.</p>|js}
   ; url = {js|https://blog.janestreet.com/finding-memory-leaks-with-memtrace/|js}
   ; date = {js|2020-10-06T00:00:00-00:00|js}
   ; preview_image = Some {js|https://blog.janestreet.com/finding-memory-leaks-with-memtrace/memory-leak.jpg|js}
-  ; featured = true
+  ; featured = false
   ; body_html = {js|<p>Memory issues can be hard to track down. A function that only
 allocates a few small objects can cause a space leak if it’s called
 often enough and those objects are never collected. Even then, many
@@ -308,7 +308,7 @@ help sort out the expected from the suspicious?</p>|js}
   ; description = Some {js|At Tarides, we build many tools and writing UI is usually a tedious task. In this post we will see how to write functional UIs in OCaml…|js}
   ; url = {js|https://tarides.com/blog/2020-09-24-building-portable-user-interfaces-with-nottui-and-lwd|js}
   ; date = {js|2020-09-24T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/06fbdcdb40efa879b814b744c5ea3fbf/fcfee/nottui-rain.png|js}
   ; featured = false
   ; body_html = {js|<p>At Tarides, we build many tools and writing UI is usually a tedious task. In this post we will see how to write functional UIs in OCaml using the <code>Nottui</code> &#x26; <code>Lwd</code> libraries.</p>
 <p>These libraries were developed for <a href="https://github.com/ocurrent/citty">Citty</a>, a frontend to the <a href="https://github.com/ocurrent/ocaml-ci">Continuous Integration service</a> of OCaml Labs.</p>
@@ -407,7 +407,7 @@ Foundation, a non-profit foundation hosted by
 the Inria Foundation. The OCaml…|js}
   ; url = {js|https://tarides.com/blog/2020-09-17-tarides-is-now-a-sponsor-of-the-ocaml-software-foundation|js}
   ; date = {js|2020-09-17T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/305bd3e2ab2e164e61b7781d183976fd/0d665/ocaml-software-foundation.png|js}
   ; featured = false
   ; body_html = {js|<p>Tarides is pleased to provide support for the <a href="https://ocaml-sf.org">OCaml Software
 Foundation</a>, a non-profit foundation hosted by
@@ -435,7 +435,7 @@ OCaml developer tools, including <a href="https://github.com/ocaml/ocaml">opam</
   ; url = {js|https://blog.janestreet.com/memory-allocator-showdown/|js}
   ; date = {js|2020-09-15T00:00:00-00:00|js}
   ; preview_image = Some {js|https://blog.janestreet.com/memory-allocator-showdown/MemoryAllocator.jpg|js}
-  ; featured = true
+  ; featured = false
   ; body_html = {js|Since version 4.10, OCaml offers a new best-fit memory allocator
 alongside its existing default, the next-fit allocator. At Jane
 Street, we've seen a big improvement after switching over to the new
@@ -455,7 +455,7 @@ made to irmin-pack, the Irmin storage backend used by
 Tezos…|js}
   ; url = {js|https://tarides.com/blog/2020-09-08-irmin-september-2020-update|js}
   ; date = {js|2020-09-08T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/eb48bbf490e4011a9fa8806a56d4098b/0132d/tree_autumn.jpg|js}
   ; featured = false
   ; body_html = {js|<p>This post will survey the latest design decisions and performance improvements
 made to <code>irmin-pack</code>, the <a href="https://irmin.org/">Irmin</a> storage backend used by
@@ -657,7 +657,7 @@ that we developed over the last year specifically to meet the
 Tezos use-case. Tezos nodes were…|js}
   ; url = {js|https://tarides.com/blog/2020-09-01-introducing-irmin-pack|js}
   ; date = {js|2020-09-01T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/5dbd4ce5058bf6225c3a8ac98e4dda54/ed842/drawers.jpg|js}
   ; featured = false
   ; body_html = {js|<p><code>irmin-pack</code> is an Irmin <a href="https://irmin.org/tutorial/backend">storage backend</a>
 that we developed over the last year specifically to meet the
@@ -984,7 +984,7 @@ to find bugs in low-level code like parsers, but it also works very well to find
 bugs in high…|js}
   ; url = {js|https://tarides.com/blog/2020-08-03-fuzzing-ocamlformat-with-afl-and-crowbar|js}
   ; date = {js|2020-08-03T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/e6219992a464284115d27348b49c3910/0132d/feather2.jpg|js}
   ; featured = false
   ; body_html = {js|<p><a href="https://lcamtuf.coredump.cx/afl/">AFL</a> (and fuzzing in general) is often used
 to find bugs in low-level code like parsers, but it also works very well to find
@@ -1143,7 +1143,7 @@ the diff.</p>|js}
 the Tezos Foundation. Thanks to these new grants, Tarides…|js}
   ; url = {js|https://tarides.com/blog/2020-04-20-the-future-of-tezos-on-mirageos|js}
   ; date = {js|2020-04-20T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/bb44e4615f4730d8692d1214f5b238a3/0d665/tezosgrants.png|js}
   ; featured = false
   ; body_html = {js|<p>We are very glad to announce that Tarides has been awarded two new grants from
 the Tezos Foundation.</p>
@@ -1231,7 +1231,7 @@ The cover image is based on <a href="https://commons.wikimedia.org/wiki/File:Jup
   ; description = Some {js|With the release of Irmin 2.0.0, we are happy to announce a new package - irmin-graphql, which can be used to serve data from Irmin over…|js}
   ; url = {js|https://tarides.com/blog/2019-11-27-introducing-the-graphql-api-for-irmin-2-0|js}
   ; date = {js|2019-11-27T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/774a33033c774c2c0c5b638f61694621/0d665/irmin-graphql.png|js}
   ; featured = false
   ; body_html = {js|<p>With the release of Irmin 2.0.0, we are happy to announce a new package - <code>irmin-graphql</code>, which can be used to serve data from Irmin over HTTP. This blog post will give you some examples to help you get started, there is also <a href="https://irmin.org/tutorial/graphql">a section in the <code>irmin-tutorial</code></a> with similar information. To avoid writing the same thing twice, this post will cover the basics of getting started, plus a few interesting ideas for queries.</p>
 <p>Getting the <code>irmin-graphql</code> server running from the command-line is easy:</p>
@@ -1509,7 +1509,7 @@ Git-like distributed branching and storage substrate that underpins
 MirageOS…|js}
   ; url = {js|https://tarides.com/blog/2019-11-21-irmin-v2|js}
   ; date = {js|2019-11-21T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/d702f060cc02fbcb7329077e2d71741d/0d665/irmin2.png|js}
   ; featured = false
   ; body_html = {js|<p>We are pleased to announce <a href="https://github.com/mirage/irmin/releases">Irmin
 2.0.0</a>, a major release of the
@@ -1643,7 +1643,7 @@ and in <a href="https://jupyter.org/">Jupyter</a> notebooks in my browser.</p>|j
 generator of emails. This library provides an OCaml way to analyze and…|js}
   ; url = {js|https://tarides.com/blog/2019-09-25-mr-mime-parse-and-generate-emails|js}
   ; date = {js|2019-09-25T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/14bcc335478eae1bbad1c2f4cdd244af/0132d/mailboxes2.jpg|js}
   ; featured = false
   ; body_html = {js|<p>We're glad to announce the first release of <a href="https://github.com/mirage/mrmime.git"><code>mrmime</code></a>, a parser and a
 generator of emails. This library provides an <em>OCaml way</em> to analyze and craft
@@ -1823,7 +1823,7 @@ the API design of decompress and did not talk too much about the issue of
 optimizing performance…|js}
   ; url = {js|https://tarides.com/blog/2019-09-13-decompress-experiences-with-ocaml-optimization|js}
   ; date = {js|2019-09-13T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/fff1a2a9a2dbdd9ac7efd7c97ac5aa2a/96c5f/camel_sunset.jpg|js}
   ; featured = false
   ; body_html = {js|<p>In our <a href="https://tarides.com/blog/2019-08-26-decompress-the-new-decompress-api.html">first article</a> we mostly discussed
 the API design of <code>decompress</code> and did not talk too much about the issue of
@@ -2342,7 +2342,7 @@ optimized <code>decompress</code> by hand mostly to keep compatibility with OCam
 other programs by sending them various auto-generated inputs…|js}
   ; url = {js|https://tarides.com/blog/2019-09-04-an-introduction-to-fuzzing-ocaml-with-afl-crowbar-and-bun|js}
   ; date = {js|2019-09-04T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/4eed05522f6733d728f6dc01bbe33e09/eee8e/feather.jpg|js}
   ; featured = false
   ; body_html = {js|<p><a href="http://lcamtuf.coredump.cx/afl/">American Fuzzy Lop</a> or AFL is a <em>fuzzer</em>: a program that tries to find bugs in
 other programs by sending them various auto-generated inputs. This article covers the
@@ -2637,7 +2637,7 @@ when you launch your Linux kernel, it inflates itself according zlib
 standard, a…|js}
   ; url = {js|https://tarides.com/blog/2019-08-26-decompress-the-new-decompress-api|js}
   ; date = {js|2019-08-26T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/eeb13afbb9190097a8d04be9e1361642/6b50e/hammock.jpg|js}
   ; featured = false
   ; body_html = {js|<p><a href="https://tools.ietf.org/html/rfc1951">RFC 1951</a> is one of the most used standards. Indeed,
 when you launch your Linux kernel, it inflates itself according <a href="https://zlib.net/">zlib</a>
@@ -3056,7 +3056,7 @@ continue …</p>|js}
   ; description = Some {js|We are pleased to announce the release of OCamlFormat 0.10 (available on opam). There have been numerous changes since the last release, so…|js}
   ; url = {js|https://tarides.com/blog/2019-06-27-release-of-ocamlformat-0-10|js}
   ; date = {js|2019-06-27T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/dd98e4198ca9305bbbd638c382587e5b/eee8e/keyboard.jpg|js}
   ; featured = false
   ; body_html = {js|<p>We are pleased to announce the release of OCamlFormat 0.10 (available on opam).</p>
 <p>There have been numerous changes since the last release, so here is a comprehensive list of the new features and breaking changes to help the transition from OCamlFormat 0.9.</p>
@@ -3255,7 +3255,7 @@ engineering the Irmin 2.0 release,
 which covers multiple years of work on…|js}
   ; url = {js|https://tarides.com/blog/2019-05-13-on-the-road-to-irmin-v2|js}
   ; date = {js|2019-05-13T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/76876b69b77bdec1f25009b2ef2a6d33/ed333/tree_canopy2.jpg|js}
   ; featured = false
   ; body_html = {js|<p>Over the past few months, we have been heavily engaged in release
 engineering the <a href="https://github.com/mirage/irmin/issues/658">Irmin 2.0 release</a>,
@@ -3383,7 +3383,7 @@ some of the interesting projects and themes we saw at the conference.</p>|js}
 ones. It's a really fun experience…|js}
   ; url = {js|https://tarides.com/blog/2019-05-09-an-introduction-to-ocaml-ppx-ecosystem|js}
   ; date = {js|2019-05-09T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/0e8e776eb4ab9f596324bfe7e318b854/96c5f/circuit_boards.jpg|js}
   ; featured = false
   ; body_html = {js|<p>These last few months, I spent some time writing new OCaml PPX rewriters or contributing to existing
 ones. It's a really fun experience. Toying around with the AST taught me a lot about a language I
@@ -4234,7 +4234,7 @@ wonderful resource for learning about machine learning.</p>|js}
 introduces the concept of library variants. Thanks to this update…|js}
   ; url = {js|https://tarides.com/blog/2019-04-10-dune-1-9-0|js}
   ; date = {js|2019-04-10T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/a7294df7159db3785da6121fc6ecadf8/10057/sand_dune2.jpg|js}
   ; featured = false
   ; body_html = {js|<p>Tarides is pleased to have contributed to the dune 1.9.0 release which
 introduces the concept of library variants. Thanks to this update,
@@ -4366,7 +4366,7 @@ There have been numerous changes since the last release,
 so here…|js}
   ; url = {js|https://tarides.com/blog/2019-03-29-release-of-ocamlformat-0-9|js}
   ; date = {js|2019-03-29T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/b0a6eda566f64c66aa1761737cf3ea4a/0132d/ceiling-arches.jpg|js}
   ; featured = false
   ; body_html = {js|<p>We are pleased to announce the release of OCamlFormat (available on opam).
 There have been numerous changes since the last release,
@@ -4762,7 +4762,7 @@ at home – it felt natural to get our hands dirty.</p>|js}
 It has an impossible and incredibly huge goal to re-implement…|js}
   ; url = {js|https://tarides.com/blog/2019-02-08-release-of-base64|js}
   ; date = {js|2019-02-08T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/50a0344945c9df2a67b60ef32ee43a0f/0132d/mailboxes.jpg|js}
   ; featured = false
   ; body_html = {js|<p>MirageOS is a library operating system written from the ground up in OCaml.
 It has an impossible and incredibly huge goal to re-implement all of the
@@ -5096,7 +5096,7 @@ This release is a 2-year effort to get a revamped
 streaming API offering…|js}
   ; url = {js|https://tarides.com/blog/2018-10-19-ocaml-git-2-0|js}
   ; date = {js|2018-10-19T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/1d805022c72839f1abe63b28f225fd32/0132d/mesh.jpg|js}
   ; featured = false
   ; body_html = {js|<p>I'm very happy to announce a new major release of <code>ocaml-git</code> (2.0).
 This release is a 2-year effort to get a revamped
@@ -5290,7 +5290,7 @@ and manipulate application data in Git. Please
   ; description = Some {js|We are proud to announce the release of OCamlFormat 0.8 (available on opam). To ease the transition from the previous 0.7 release here are…|js}
   ; url = {js|https://tarides.com/blog/2018-10-17-ocamlformat-0-8|js}
   ; date = {js|2018-10-17T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/9b70dfbba6abba837b47f644a75b33dc/0132d/code_black1.jpg|js}
   ; featured = false
   ; body_html = {js|<p>We are proud to announce the release of OCamlFormat 0.8 (available on opam). To ease the transition from the previous 0.7 release here are some highlights of the new features of this release. The <a href="https://github.com/ocaml-ppx/ocamlformat/blob/v0.8/CHANGES.md#08-2018-10-09">full changelog</a> is available on the project repository.</p>
 <h1 id="precedence-of-options" style="position:relative;"><a href="#precedence-of-options" aria-label="precedence of options permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Precedence of options</h1>
@@ -5393,7 +5393,7 @@ functional way in OCaml on a GPU using TensorFlow.</p>|js}
 announce the release of dune 1.2.0! Here are some highlights…|js}
   ; url = {js|https://tarides.com/blog/2018-09-06-dune-1-2-0|js}
   ; date = {js|2018-09-06T00:00:00-00:00|js}
-  ; preview_image = Some {js|https://tarides.com[object Object]|js}
+  ; preview_image = Some {js|https://tarides.com/static/98e7b693b372846010bfcd8d54746146/0132d/sand_dune1.jpg|js}
   ; featured = false
   ; body_html = {js|<p>After a tiny but important patch release as 1.1.1, the dune team is thrilled to
 announce the release of dune 1.2.0! Here are some highlights of the new

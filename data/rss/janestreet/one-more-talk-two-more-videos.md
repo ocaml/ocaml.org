@@ -5,6 +5,7 @@ description: "I\u2019m happy to announce our next public techtalk, called SevenI
 url: https://blog.janestreet.com/one-more-talk-two-more-videos/
 date: 2017-03-15T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
+featured:
 ---
 
 <p>I’m happy to announce our next <a href="https://events.janestreet.com/home/tech-talks/">public tech
