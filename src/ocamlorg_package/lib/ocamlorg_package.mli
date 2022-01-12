@@ -65,7 +65,8 @@ module Packages_stats : sig
     ; nb_update_week : int
           (** Number of packages updated during the last 7 days. *)
     ; nb_packages_month : int  (** Number of packages added the last 30 days. *)
-    ; newest_packages : package_stat list  (** The 5 newest packages. *)
+    ; newest_packages : (package_stat * string) list
+          (** The 5 newest packages and date, in Git's relative format. *)
     ; recently_updated : package_stat list
           (** The 5 most recently updated packages. *)
     ; most_revdeps : (package_stat * int) list

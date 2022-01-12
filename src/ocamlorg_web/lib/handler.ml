@@ -369,6 +369,7 @@ let packages state _req =
     let versions = package_versions state name in
     package_of_info ~name ~version ~versions info
   in
+  let package_pair (pkg, snd) = package pkg, snd in
   let stats =
     match Ocamlorg_package.packages_stats state with
     | Some
@@ -381,10 +382,9 @@ let packages state _req =
         { Ocamlorg_frontend.nb_packages
         ; nb_update_week
         ; nb_packages_month
-        ; newest_packages = List.map package t.newest_packages
+        ; newest_packages = List.map package_pair t.newest_packages
         ; recently_updated = List.map package t.recently_updated
-        ; most_revdeps =
-            List.map (fun (pkg, r) -> package pkg, r) t.most_revdeps
+        ; most_revdeps = List.map package_pair t.most_revdeps
         }
     | None ->
       None

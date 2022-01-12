@@ -21,5 +21,7 @@ val commit_at_date : string -> string Lwt.t
 (** Find the first commit that happened before or at a date. Will be passed to
     Git's [--before] option, for example ["30.days"]. *)
 
-val new_files_since : a:string -> b:string -> Fpath.t list Lwt.t
-(** Files created during a range of commit. *)
+val new_files_since : a:string -> b:string -> (Fpath.t * string) list Lwt.t
+(** Files created during a range of commit. Associate the date at which each
+    file as been added, in Git's relative format. Returns more recent files
+    first. *)

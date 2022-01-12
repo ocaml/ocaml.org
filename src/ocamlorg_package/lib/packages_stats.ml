@@ -11,7 +11,7 @@ type t =
   { nb_packages : int
   ; nb_update_week : int
   ; nb_packages_month : int
-  ; newest_packages : package_stat list
+  ; newest_packages : (package_stat * string) list
   ; recently_updated : package_stat list
   ; most_revdeps : (package_stat * int) list
   }
@@ -26,7 +26,7 @@ let package_of_path p =
 let compute_updates_since date =
   let* commit = Opam_repository.commit_at_date date in
   let+ paths = Opam_repository.new_files_since ~a:commit ~b:"@" in
-  List.filter_map package_of_path paths
+  List.filter_map (fun (path, _) -> package_of_path path) paths
   |> List.sort_uniq String.compare
   |> List.length
 
@@ -35,11 +35,15 @@ let compute_new_packages_since date =
   let module NameMap = OpamPackage.Name.Map in
   let* commit = Opam_repository.commit_at_date date in
   let+ paths = Opam_repository.new_files_since ~a:commit ~b:"@" in
-  let of_path path = package_of_path path |> Option.map OpamPackage.of_string in
+  let of_path (path, date) =
+    package_of_path path
+    |> Option.map OpamPackage.of_string
+    |> Option.map (fun pkg -> pkg, date)
+  in
   let packages = List.filter_map of_path paths in
   let new_versions =
     (* Count the number of new versions for each packages. *)
-    let count_new_versions acc pkg =
+    let count_new_versions acc (pkg, _) =
       let name = OpamPackage.name pkg in
       let n = try NameMap.find name acc with Not_found -> 0 in
       NameMap.add name (n + 1) acc
@@ -48,7 +52,7 @@ let compute_new_packages_since date =
   in
   (* Keep packages that only have new versions. *)
   packages
-  |> List.filter (fun pkg ->
+  |> List.filter (fun (pkg, _) ->
          let name = OpamPackage.name pkg in
          let new_versions = NameMap.find name new_versions in
          let all_versions =
@@ -105,16 +109,21 @@ let rec list_take n = function
     hd :: list_take (n - 1) tl
 
 let compute_newest_packages n new_packages packages =
-  let mk_package pkg =
+  let mk_package (pkg, date) =
     let name = OpamPackage.name pkg
     and version = OpamPackage.version pkg in
-    let info =
-      OpamPackage.Name.Map.find name packages
-      |> OpamPackage.Version.Map.find version
-    in
-    { name; version; info }
+    try
+      let info =
+        OpamPackage.Name.Map.find name packages
+        |> OpamPackage.Version.Map.find version
+      in
+      Some ({ name; version; info }, date)
+    with
+    | Not_found ->
+      (* Can happen if the package is added then removed, eg. 344f20e909. *)
+      None
   in
-  list_take n new_packages |> List.map mk_package
+  list_take n new_packages |> List.filter_map mk_package
 
 (** Remove some packages from the revdeps stats to make it more interesting. *)
 let most_revdeps_hidden = function
