@@ -24,7 +24,7 @@ In the above example, we use:
 - "hello" as the _name_, and
 - "~/src/ocaml-projects" as the _path_ to generate the content in
 
-The the `project` _kind_ creates a `library` in `./lib`, an `executable` in `./bin`, and links them together in `bin/dune`. Additionally, the command creates a test executable and an opam file.
+The `project` _kind_ creates a `library` in `./lib`, an `executable` in `./bin`, and links them together in `bin/dune`. Additionally, the command creates a test executable and an opam file.
 
 ```sh
 tree ~/src/ocaml-projects/hello/
