@@ -1,9 +1,9 @@
-let render () = Layout.render ~turbo_full_reload:true ~title:"???" ~description:"???" @@
+let render () = Layout.render ~turbo_full_reload:true ~title:"OCaml Carbon Footprint Statement" @@
 <div class="intro-section-simple">
   <div class="container-fluid">
     <div class="text-center w-full lg:w-2/3 m-auto">
       <h1 class="font-bold mb-6">Carbon Footpring</h1>
-      <p>Our engagement to a reducing our carbon footprint</p>
+      <p>Our engagement to a reducing our carbon footprint.</p>
     </div>
   </div>
 </div>

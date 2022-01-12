@@ -1,4 +1,4 @@
-let render () = Layout.render ~turbo_full_reload:true ~title:"???" ~description:"???" @@
+let render () = Layout.render ~turbo_full_reload:true ~title:"OCaml Terms and Conditions" @@
 <div class="intro-section-simple">
   <div class="container-fluid">
     <div class="text-center w-full lg:w-2/3 m-auto">
