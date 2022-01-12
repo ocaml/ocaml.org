@@ -53,6 +53,15 @@ module Info : sig
     }
 end
 
+module Packages_stats : sig
+  type t =
+    { nb_packages : int  (** Total number of packages. *)
+    ; nb_update_week : int
+          (** Number of packages updated during the last 7 days. *)
+    ; nb_packages_month : int  (** Number of packages added the last 30 days. *)
+    }
+end
+
 module Documentation : sig
   type toc =
     { title : string
@@ -142,6 +151,11 @@ val all_packages_latest : state -> t list
 (** Get the list of the latest version of every opam packages. The name and
     versions of the packages are read from the file system, the metadata are
     loaded lazily to improve performance. *)
+
+val packages_stats : state -> Packages_stats.t option
+(** Return the statistics computed from the opam-repository. These statistics
+    are continuously updated in the background. Returns [None] if the stats are
+    still being computed. *)
 
 val get_packages_with_name : state -> Name.t -> t list option
 (** Get the list of packages with the given name. *)
