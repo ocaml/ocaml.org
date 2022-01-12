@@ -5,7 +5,7 @@ let render
 ~dependencies
 ~rev_dependencies
 ~homepages
-~source (package : Package_intf.meta) =
+~source (package : Package_intf.package) =
 Package_layout.render
 ~turbo_full_reload:true
 ~documentation_status

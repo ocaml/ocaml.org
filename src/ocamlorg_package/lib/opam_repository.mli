@@ -16,3 +16,10 @@ val list_package_versions : string -> string list
 
 val opam_file : string -> string -> OpamFile.OPAM.t Lwt.t
 (** Return the opam file structure given a package name and package version. *)
+
+val commit_at_date : string -> string Lwt.t
+(** Find the first commit that happened before or at a date. Will be passed to
+    Git's [--before] option, for example ["30.days"]. *)
+
+val new_files_since : a:string -> b:string -> Fpath.t list Lwt.t
+(** Files created during a range of commit. *)
