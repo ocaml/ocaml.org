@@ -49,7 +49,7 @@ As with previous updates, the Multicore OCaml tasks are listed first, which are 
   collection in the parallel_minor_gc schema. There is not much
   slowdown for the benchmark runs, normalized against stock OCaml as
   seen in the illustration.
-![PR 446 Graph Image](upload://i4js513ml6Qw6GvkZuQsiVuowYB.png)
+![PR 446 Graph Image](https://discuss.ocaml.org/uploads/short-url/i4js513ml6Qw6GvkZuQsiVuowYB.png)
 
 ### Completed
 
@@ -105,7 +105,7 @@ As with previous updates, the Multicore OCaml tasks are listed first, which are 
   during a major cycle. The result of the `finalise` benchmark time
   difference with mark stack overflow is shown below:
   
-![PR 435 Graph Image](upload://xZoOkroQdawrkU6SaistBe7j0FG.png) 
+![PR 435 Graph Image](https://discuss.ocaml.org/uploads/short-url/xZoOkroQdawrkU6SaistBe7j0FG.png) 
 
 * [ocaml-multicore/ocaml-multicore#437](https://github.com/ocaml-multicore/ocaml-multicore/pull/437)
   Avoid an allocating C call when switching stacks with continue
@@ -296,8 +296,8 @@ As with previous updates, the Multicore OCaml tasks are listed first, which are 
   implementation are now included in Sandmark, and it uses the
   `lockfree_bench` tag. The time and speedup illustrations are as follows:
   
-![PR 194 Time Image](upload://bnMWcVZTMo1mahmtkawHOho3rA.png)
-![PR 194 Speedup Image](upload://fIrArMCzcRLfO1hyyDH7dDIpFT0.png) 
+![PR 194 Time Image](https://discuss.ocaml.org/uploads/short-url/bnMWcVZTMo1mahmtkawHOho3rA.png)
+![PR 194 Speedup Image](https://discuss.ocaml.org/uploads/short-url/fIrArMCzcRLfO1hyyDH7dDIpFT0.png) 
 
 ## OCaml
 
@@ -317,7 +317,7 @@ As with previous updates, the Multicore OCaml tasks are listed first, which are 
   prefetching, and to reduce cache misses during GC. The normalized
   running time graph is as follows:
 
-![PR 9934 Graph](upload://b1kXzk2cPuQFZyw0gGLhYzzTpUP.png) 
+![PR 9934 Graph](https://discuss.ocaml.org/uploads/short-url/b1kXzk2cPuQFZyw0gGLhYzzTpUP.png) 
 
 * [ocaml/ocaml#10039](https://github.com/ocaml/ocaml/pull/10039)
   Safepoints
@@ -326,7 +326,7 @@ As with previous updates, the Multicore OCaml tasks are listed first, which are 
   are implemented by adding a new `Ipoll` operation to Mach. The
   benchmark results on an AMD Zen2 machine are given below:
 
-![PR 10039 Benchmark](upload://f1LVGM7v68n8PXO2vkgspojINrr.png) 
+![PR 10039 Benchmark](https://discuss.ocaml.org/uploads/short-url/f1LVGM7v68n8PXO2vkgspojINrr.png) 
 
 Many thanks to all the OCaml users and developers for their continued support, and contribution to the project.
 

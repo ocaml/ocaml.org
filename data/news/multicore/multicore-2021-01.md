@@ -69,7 +69,7 @@ As with previous reports, the Multicore OCaml updates are listed first for the m
   to get it working with Multicore OCaml 4.10! The same has been
   tested with VSCode and Atom, and a screenshot of the UI is shown
   below.
- ![PR 39 Multicore Merlin Screenshot|435x350](upload://hD5jZzwblFC4oq4UEk4agfu24W7.png) 
+ ![PR 39 Multicore Merlin Screenshot|435x350](https://discuss.ocaml.org/uploads/short-url/hD5jZzwblFC4oq4UEk4agfu24W7.png) 
 
 #### API
 
@@ -150,7 +150,7 @@ As with previous reports, the Multicore OCaml updates are listed first for the m
   change does not have an impact on the existing benchmark runs as
   observed against stock OCaml from the following illustration:
 
-  ![PR 446 Graph Image|690x317](upload://i4js513ml6Qw6GvkZuQsiVuowYB.png) 
+  ![PR 446 Graph Image|690x317](https://discuss.ocaml.org/uploads/short-url/i4js513ml6Qw6GvkZuQsiVuowYB.png) 
 
 * [ocaml-multicore/ocaml-multicore#454](https://github.com/ocaml-multicore/ocaml-multicore/pull/454)
   Respect ASM_CFI_SUPPORTED flag in amd64
@@ -330,9 +330,9 @@ As with previous reports, the Multicore OCaml updates are listed first for the m
   one domain. The sequential and parallel macro benchmark results are
   given below:
   
-![PR 463 OCaml Multicore Sequential |690x318](upload://kNn97x2EouFqVZpSj82Pa6yt2wB.jpeg) 
+![PR 463 OCaml Multicore Sequential |690x318](https://discuss.ocaml.org/uploads/short-url/kNn97x2EouFqVZpSj82Pa6yt2wB.jpeg) 
 
-![PR 463 OCaml Multicore Parallel |690x458](upload://7usja76xxxUEOTPTRFmRUQ1H6dL.jpeg) 
+![PR 463 OCaml Multicore Parallel |690x458](https://discuss.ocaml.org/uploads/short-url/7usja76xxxUEOTPTRFmRUQ1H6dL.jpeg) 
 
 * [ocaml-multicore/ocaml-multicore#467](https://github.com/ocaml-multicore/ocaml-multicore/pull/467)
   Disable the pruning of the mark stack
@@ -405,8 +405,8 @@ As with previous reports, the Multicore OCaml updates are listed first for the m
   benchmark results on sherwood (an AMD EPYC 7702) and thunderx (a
   Cavium ThunderX CN8890) are shown below:
   
-  ![PR 10039 OCaml Sherwood |690x391](upload://p7YF1eKFPnXJjSrTQQ2AAiIPiUl.png) 
-  ![PR 10039 OCaml ThunderX |690x389](upload://8o3nuJUhByBqJqVJEJK91hHsqNF.png) 
+  ![PR 10039 OCaml Sherwood |690x391](https://discuss.ocaml.org/uploads/short-url/p7YF1eKFPnXJjSrTQQ2AAiIPiUl.png) 
+  ![PR 10039 OCaml ThunderX |690x389](https://discuss.ocaml.org/uploads/short-url/8o3nuJUhByBqJqVJEJK91hHsqNF.png) 
 
 ### Completed
 

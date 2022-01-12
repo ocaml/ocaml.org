@@ -129,7 +129,7 @@ As with the previous updates, the Multicore OCaml updates are first listed, whic
   to track domains that are idling. An eventlog screenshot with this
   effect is shown below:
 
-![PR 366 Image |690x298](upload://nPr6W8aUgyYDU1ZhO5XOAFKMiam.png) 
+![PR 366 Image |690x298](https://discuss.ocaml.org/uploads/short-url/nPr6W8aUgyYDU1ZhO5XOAFKMiam.png) 
 
 * [ocaml-multicore/ocaml-multicore#369](https://github.com/ocaml-multicore/ocaml-multicore/pull/369)
   Split caml_urge_major_slice into caml_request_minor_gc and
@@ -139,7 +139,7 @@ As with the previous updates, the Multicore OCaml updates are first listed, whic
   and `caml_request_major_slice`. This reduces the total number of
   minor garbage collections as observed in the following illustration:
 
-![PR 369 Image |690x203](upload://eCdqNjb7AtmLGmL0TpUKZG3lpeT.png) 
+![PR 369 Image |690x203](https://discuss.ocaml.org/uploads/short-url/eCdqNjb7AtmLGmL0TpUKZG3lpeT.png) 
 
 * [ocaml-multicore/ocaml-multicore#373](https://github.com/ocaml-multicore/ocaml-multicore/pull/373)
   Fix the opam pin command in case the current directory name has spaces

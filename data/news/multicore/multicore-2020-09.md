@@ -128,7 +128,7 @@ Onto the details of the PRs. As with the previous updates, the Multicore OCaml u
   The events in the backup thread were emitting the same process ID as
   the main thread, and this PR separates them.
 
-![PR 400|690x246](upload://1k0ZG25zs4Vl8x9sIPXNlpBj3NX.png) 
+![PR 400|690x246](https://discuss.ocaml.org/uploads/short-url/1k0ZG25zs4Vl8x9sIPXNlpBj3NX.png) 
 
   In the above illustration, the backup threads are active when the
   main thread is waiting on a condition variable.
@@ -236,7 +236,7 @@ Onto the details of the PRs. As with the previous updates, the Multicore OCaml u
   show in the below illustration, and there is little negative impact
   on the change.
 
-![PR-9756|690x495](upload://2nIsxMaEnUPpk8CJIjwI6UeT9yp.png) 
+![PR-9756|690x495](https://discuss.ocaml.org/uploads/short-url/2nIsxMaEnUPpk8CJIjwI6UeT9yp.png) 
 
 As always, we would like to thank all the OCaml developers and users in the community for their continued support and contribution to the project.  Be well!
 

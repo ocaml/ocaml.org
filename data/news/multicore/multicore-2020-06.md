@@ -100,7 +100,7 @@ The Multicore OCaml updates are first listed in our report, which are followed b
   Sandmark serial benchmark results after the change is illustrated in
   the following graph:
 
-![Absolute addressing improvements |690x218](upload://pC6XsKYqKRDr9zy7RQmp8D6XIDE.png)
+![Absolute addressing improvements |690x218](https://discuss.ocaml.org/uploads/short-url/pC6XsKYqKRDr9zy7RQmp8D6XIDE.png)
 
 * [ocaml-multicore/ocaml-multicore#347](https://github.com/ocaml-multicore/ocaml-multicore/pull/347)
   Turn on -Werror by default

@@ -120,7 +120,7 @@ As always, we begin with the Multicore OCaml ongoing and completed tasks.  The e
   trace into the Chrome tracing format that allows interactive visualizations
   like this:
 
-![OCaml-Multicore-PR-527-Illustration|690x475](upload://hkZ1MA5sA6IdEwV9nIBm57YdmvZ.jpeg)
+![OCaml-Multicore-PR-527-Illustration|690x475](https://discuss.ocaml.org/uploads/short-url/hkZ1MA5sA6IdEwV9nIBm57YdmvZ.jpeg)
 
 
 * [ocaml-multicore/ocaml-multicore#543](https://github.com/ocaml-multicore/ocaml-multicore/pull/543)
@@ -345,7 +345,7 @@ Multicore OCaml.
   The channel implementation using `Mutex` and `Condition` is now
   complete. The performance results are shown in the following graph:
 
-![Domainslib-PR-24|465x500](upload://rRTArEtLWG8BMCq9uhtokOX2ZfD.png)
+![Domainslib-PR-24|465x500](https://discuss.ocaml.org/uploads/short-url/rRTArEtLWG8BMCq9uhtokOX2ZfD.png)
 
 * [ocaml-multicore/multicore-opam#53](https://github.com/ocaml-multicore/multicore-opam/pull/53)
   Add base-domains and base-effects packages
@@ -388,8 +388,8 @@ Multicore OCaml.
   use `String.init`, and fix to correctly count the amount of work
   configured and done produces the following speed improvements:
 
-![PR-221-Time |690x184](upload://avtHyFpuulDQcFH70cY97b5HVDK.png)
-![PR-221-Speedup |690x184](upload://awpN69M44aG0mjB524DKoiaNWnk.png)
+![PR-221-Time |690x184](https://discuss.ocaml.org/uploads/short-url/avtHyFpuulDQcFH70cY97b5HVDK.png)
+![PR-221-Speedup |690x184](https://discuss.ocaml.org/uploads/short-url/awpN69M44aG0mjB524DKoiaNWnk.png)
 
 * [ocaml-bench/sandmark#223](https://github.com/ocaml-bench/sandmark/pull/223)
   A better floyd warshall
@@ -398,9 +398,9 @@ Multicore OCaml.
   random seed so that it is repeatable, and improves the pattern
   matching.
 
-![Sandmark-PR-223-Time|690x184](upload://aDnAjB3JQ4s27CnpOY1srPNKi4P.png)
-![Sandmark-PR-223-Speedup|690x184](upload://rbNANIAeqUwZIHi7DTmrRRS1IUo.png)
-![Sandmark-PR-223-Minor-Collections|690x185](upload://t4F2AeZDvTIQo0NRuBBHAEJdTAR.png)
+![Sandmark-PR-223-Time|690x184](https://discuss.ocaml.org/uploads/short-url/aDnAjB3JQ4s27CnpOY1srPNKi4P.png)
+![Sandmark-PR-223-Speedup|690x184](https://discuss.ocaml.org/uploads/short-url/rbNANIAeqUwZIHi7DTmrRRS1IUo.png)
+![Sandmark-PR-223-Minor-Collections|690x185](https://discuss.ocaml.org/uploads/short-url/t4F2AeZDvTIQo0NRuBBHAEJdTAR.png)
 
 * [ocaml-bench/sandmark#224](https://github.com/ocaml-bench/sandmark/pull/224)
   Some improvements for matrix multiplication
@@ -409,8 +409,8 @@ Multicore OCaml.
   code have been updated for easier maintenance, and results are
   written only after summing the values.
 
-![Sandmark-PR-224-Time|690x184](upload://oysje2XiEEF6MfC7k9iAotAYiXY.png)
-![Sandmark-PR-224-Speedup|690x184](upload://bf8cqFB61vMuwkI2L0QnlB9xKvD.png)
+![Sandmark-PR-224-Time|690x184](https://discuss.ocaml.org/uploads/short-url/oysje2XiEEF6MfC7k9iAotAYiXY.png)
+![Sandmark-PR-224-Speedup|690x184](https://discuss.ocaml.org/uploads/short-url/bf8cqFB61vMuwkI2L0QnlB9xKvD.png)
 
 * [ocaml-bench/sandmark#225](https://github.com/ocaml-bench/sandmark/pull/225)
   Better Multicore EA Benchmark
@@ -418,8 +418,8 @@ Multicore OCaml.
   The Evolutionary Algorithm now inserts a poll point into `fittest`
   to improve the benchmark results.
 
-![Sandmark-PR-225-Time|690x184](upload://dS7Mgz9ByLS0wIAoM60akHsxV2v.png)
-![Sandmark-PR-225-Speedup|690x184](upload://phFOvw59SaV1btTkQVFAdPBUCK0.png)
+![Sandmark-PR-225-Time|690x184](https://discuss.ocaml.org/uploads/short-url/dS7Mgz9ByLS0wIAoM60akHsxV2v.png)
+![Sandmark-PR-225-Speedup|690x184](https://discuss.ocaml.org/uploads/short-url/phFOvw59SaV1btTkQVFAdPBUCK0.png)
 
 * [ocaml-bench/sandmark#226](https://github.com/ocaml-bench/sandmark/pull/226)
   Better scaling for mandelbrot6_multicore
@@ -427,9 +427,9 @@ Multicore OCaml.
   The `mandelbrot6_multicore` scales well now with the use of
   `parallel_for` as observed in the following graphs:
 
-![Sandmark-PR-226-Time|690x184](upload://8oZid38MSYvuU8TqIcZr6RIDXyy.png)
-![Sandmark-PR-226-Speedup|690x184](upload://qeu6IP61DFrUCJuTrY88n8QoxJ8.png)
-![Sandmark-PR-226-Minor-Collections|690x184](upload://59yQ3fHgz3RV2elebkMLg1nUJ1h.png)
+![Sandmark-PR-226-Time|690x184](https://discuss.ocaml.org/uploads/short-url/8oZid38MSYvuU8TqIcZr6RIDXyy.png)
+![Sandmark-PR-226-Speedup|690x184](https://discuss.ocaml.org/uploads/short-url/qeu6IP61DFrUCJuTrY88n8QoxJ8.png)
+![Sandmark-PR-226-Minor-Collections|690x184](https://discuss.ocaml.org/uploads/short-url/59yQ3fHgz3RV2elebkMLg1nUJ1h.png)
 
 * [ocaml-bench/sandmark#227](https://github.com/ocaml-bench/sandmark/pull/227)
   Improve nbody_multicore benchmark with high core counts
@@ -437,8 +437,8 @@ Multicore OCaml.
   The `energy` function is now parallelised with `parallel_for_reduce`
   for larger core counts.
 
-![Sandmark-PR-227-Time|690x184](upload://uuKGoQOxTXSWI3664AOD2LIdPdO.png)
-![Sandmark-PR-227-Speedup|690x184](upload://raK1diCYlKtAOolyXtDKc8eMGGj.png)
+![Sandmark-PR-227-Time|690x184](https://discuss.ocaml.org/uploads/short-url/uuKGoQOxTXSWI3664AOD2LIdPdO.png)
+![Sandmark-PR-227-Speedup|690x184](https://discuss.ocaml.org/uploads/short-url/raK1diCYlKtAOolyXtDKc8eMGGj.png)
 
 * [ocaml-bench/sandmark#229](https://github.com/ocaml-bench/sandmark/pull/229)
   Improve game_of_life benchmarks
@@ -447,8 +447,8 @@ Multicore OCaml.
   benchmarks, and we avoid initialising the temporary matrix with
   random numbers.
 
-![Sandmark-PR-229-Time|690x184](upload://bwpeImbVr37QKJ5OiVcNh1SkkOx.png)
-![Sandmark-PR-229-Speedup|690x184](upload://xBaIx2geunZuzlebBY2NMGJt0uA.png)
+![Sandmark-PR-229-Time|690x184](https://discuss.ocaml.org/uploads/short-url/bwpeImbVr37QKJ5OiVcNh1SkkOx.png)
+![Sandmark-PR-229-Speedup|690x184](https://discuss.ocaml.org/uploads/short-url/xBaIx2geunZuzlebBY2NMGJt0uA.png)
 
 ##### Sundries
 

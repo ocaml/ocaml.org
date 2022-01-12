@@ -241,7 +241,7 @@ As with previous updates, the Multicore OCaml ongoing, and completed tasks are l
   in the sequential notebook output. The graph for `maxrsskb`, for
   example, is shown below:
   
-![PR 177 Image |690x258](upload://1gub2PiCejOQBoMqPvuhDoxHpJo.png) 
+![PR 177 Image |690x258](https://discuss.ocaml.org/uploads/short-url/1gub2PiCejOQBoMqPvuhDoxHpJo.png) 
 
 * [ocaml-bench/sandmark#178](https://github.com/ocaml-bench/sandmark/pull/178)
   Change to new Domain.DLS API with Initializer

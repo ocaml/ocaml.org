@@ -17,7 +17,7 @@ From a developer perspective, there is now a new configure option called the `nn
 
 The screenshot below shows this working on the LLVM package (which is known to have naked pointers at present).
 
-![image|690x458, 75%](upload://cJM9PwGOvVdDz8eGxkZMK7DOKra.jpeg) 
+![image|690x458, 75%](https://discuss.ocaml.org/uploads/short-url/cJM9PwGOvVdDz8eGxkZMK7DOKra.jpeg) 
 
 ## 4.13~dev: upstreaming progress
 
@@ -138,7 +138,7 @@ Onto the details then! The Multicore OCaml updates are listed first, which are t
   major cycle. The parallel benchmark results with the patch is shown
   in the illustration below:
 
-![PR 472 Parallel Benchmarks|690x464](upload://9wDWXWe106w049s4WuxTcxe48mV.jpeg) 
+![PR 472 Parallel Benchmarks|690x464](https://discuss.ocaml.org/uploads/short-url/9wDWXWe106w049s4WuxTcxe48mV.jpeg) 
 
 
 * [ocaml-multicore/ocaml-multicore#476](https://github.com/ocaml-multicore/ocaml-multicore/pull/476)
@@ -240,7 +240,7 @@ Onto the details then! The Multicore OCaml updates are listed first, which are t
   function optimisations reduces the number of polls as illustrated
   below:
   
-![PR 10039 Polls from Leaf Functions |690x326](upload://i71oOOzpkK1ZtE54mzKaNngm3qM.png) 
+![PR 10039 Polls from Leaf Functions |690x326](https://discuss.ocaml.org/uploads/short-url/i71oOOzpkK1ZtE54mzKaNngm3qM.png) 
 
 Our thanks to all the OCaml users and developers in the community for their contribution and support to the project!
 

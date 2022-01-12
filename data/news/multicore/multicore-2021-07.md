@@ -82,8 +82,8 @@ As always, the Multicore OCaml ongoing and completed tasks are listed first, whi
   OCaml. The initial test results of running Sandmark on a large Xen2
   box are shown below:
 
-![OCaml-Multicore-PR-573-Time|458x500](upload://irThoi4RbupKLP9YOqiDuCHehA1.png)
-![OCaml-Multicore-PR-573-Speedup|458x500](upload://bJSpY5klM9MvO4sUrPJ3YD6463I.png)
+![OCaml-Multicore-PR-573-Time|458x500](https://discuss.ocaml.org/uploads/short-url/irThoi4RbupKLP9YOqiDuCHehA1.png)
+![OCaml-Multicore-PR-573-Speedup|458x500](https://discuss.ocaml.org/uploads/short-url/bJSpY5klM9MvO4sUrPJ3YD6463I.png)
 
 * [ocaml-multicore/ocaml-multicore#617](https://github.com/ocaml-multicore/ocaml-multicore/issues/617)
   Some of the compatibility macros are not placed in the same headers as in upstream OCaml
@@ -146,7 +146,7 @@ As always, the Multicore OCaml ongoing and completed tasks are listed first, whi
   `Condition.wait`. This is useful for debugging any imbalance in task
   distribution in domainslib.
 
-![OCaml-Multicore-PR-605-Illustration|536x500](upload://7CXMmjUbwuXqGtffNyfeo5B5Gd8.png)
+![OCaml-Multicore-PR-605-Illustration|536x500](https://discuss.ocaml.org/uploads/short-url/7CXMmjUbwuXqGtffNyfeo5B5Gd8.png)
 
 * [ocaml-multicore/ocaml-multicore#615](https://github.com/ocaml-multicore/ocaml-multicore/pull/615)
   make depend
@@ -356,7 +356,7 @@ Multicore OCaml.
   
   The listing of timestamps in the drop-down option is now sorted.
   
-![Sandmark-nightly-PR-2-Fix|307x313](upload://yH1GqDjGUKpHol6fVERCUgNsUfh.png)
+![Sandmark-nightly-PR-2-Fix|307x313](https://discuss.ocaml.org/uploads/short-url/yH1GqDjGUKpHol6fVERCUgNsUfh.png)
 
 ### Sandmark
 
@@ -401,7 +401,7 @@ Multicore OCaml.
   You now have the option to only filter from the user selected
   variants in the Jupyter notebooks.
 
-![Sandmark-PR-235-Fix|690x77](upload://gTg6GrPpJCJsMO4H6tmpqljtvD4.png)
+![Sandmark-PR-235-Fix|690x77](https://discuss.ocaml.org/uploads/short-url/gTg6GrPpJCJsMO4H6tmpqljtvD4.png)
 
 * [ocaml-bench/sandmark#237](https://github.com/ocaml-bench/sandmark/issues/237)
   Run sandmark_nightly on a larger machine

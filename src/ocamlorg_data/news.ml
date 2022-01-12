@@ -133,6 +133,1079 @@ RUN eval $(opam env) ; echo $CAML_LD_LIBRARY_PATH
 |js}
   };
  
+  { title = {js|OCaml Multicore - December 2021 and the Big PR|js}
+  ; slug = {js|multicore-2021-12|js}
+  ; description = {js|Monthly update from the OCaml Multicore team.|js}
+  ; date = {js|2021-11-01|js}
+  ; tags = 
+ [{js|multicore|js}]
+  ; body_html = {js|<p>Welcome to the December 2021 <a href="https://github.com/ocaml-multicore/ocaml-multicore">Multicore OCaml</a> monthly report! The <a href="https://discuss.ocaml.org/tag/multicore-monthly">previous updates</a> along with this update have been compiled by myself, @ctk21, @kayceesrk and @shakthimaan.</p>
+<p>Well, it's finally here! @kayceesrk opened the <a href="https://github.com/ocaml/ocaml/pull/10831">Multicore OCaml PR#10831</a> to the main OCaml development repository that represents the &quot;minimum viable&quot; implementation of multicore OCaml that we decided on in <a href="https://discuss.ocaml.org/t/multicore-ocaml-november-2021-with-results-of-code-review/8934#core-team-code-review-1">November's core team review</a>.  The branch pushes the limits of GitHub's rendering capability, with around 4000 commits.</p>
+<p>Once the PR was opened just before Christmas, the remaining effort has been for a number of developers to pore over <a href="http://github.com/ocaml/ocaml/pull/10831.diff">the diff</a> and look for any unexpected changes that crept in during multicore development. A large number of code changes, improvements and fixes have been merged into the ocaml-multicore trees since the PR was opened to facilitate this upstreaming process. We're expecting to have the PR merged during January, and then will continue onto the &quot;post-MVP&quot; tasks described last month, but working directly from ocaml/ocaml from now on.  We therefore remain on track to release OCaml 5.00 in 2022.</p>
+<p>In the multicore ecosystem, progress also continued:</p>
+<ul>
+<li><code>Eio</code> continues to improve as the recommended effects-based direct-style IO library to
+use with Multicore OCaml.
+</li>
+<li>A newer <code>domainslib.0.4.0</code> has been released that includes bug fixes and API changes.
+</li>
+<li>The continuous benchmarking pipeline with further integration enhancements between Sandmark and current-bench is making progress.
+</li>
+</ul>
+<p>We would like to acknowledge the following external contributors as well::</p>
+<ul>
+<li>Danny Willems (@dannywillems) for an OCaml implementation of the Pippenger benchmark and reporting an undefined behaviour.
+</li>
+<li>Matt Pallissard (@mattpallissard) reported an installation issue with <code>Eio</code> with vendored uring.
+</li>
+<li>Edwin Torok (@edwintorok) for contributing a PR to <code>domainslib</code> to allow use of a per-channel key.
+</li>
+</ul>
+<p>As always, the Multicore OCaml updates are listed first, which contain the upstream efforts, improvements, fixes, test suite, and documentation changes. This is followed by the ecosystem updates to <code>Eio</code>, <code>Tezos</code>, and <code>Domainslib</code>. The Sandmark, sandmark-nightly and current-bench tasks are finally listed for your reference.</p>
+<h2>Multicore OCaml</h2>
+<h3>Ongoing</h3>
+<h4>Upstream</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/742">ocaml-multicore/ocaml-multicore#742</a>
+Minor tasks from asynchronous review</p>
+<p>A list of minor tasks from the asynchronous review is provided for
+the OCaml 5.00 release. The major tasks will have their respective
+GitHub issues.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/750">ocaml-multicore/ocaml-multicore#750</a>
+Discussing the design of Lazy under Multicore</p>
+<p>An ongoing discussion on the design of Lazy under Multicore OCaml
+that involves sequential Lazy, concurrency problems, duplicated
+computations, and memory safety.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/756">ocaml-multicore/ocaml-multicore#756</a>
+RFC: Generalize the <code>Domain.DLS</code> interface to split PRNG state for child domains</p>
+<p>The implementation for a &quot;proper&quot; PRNG+Domains semantics where
+spawning a domain &quot;splits&quot; the PRNG state is under review.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/791">ocaml-multicore/ocaml-multicore#791</a>
+<code>caml_process_pending_actions_exn</code> is missing</p>
+<p>The <code>caml_process_pending_actions_exn</code> returns exceptions as an
+OCaml value instead of raising them, and the C API call is missing
+on Multicore OCaml.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/795">ocaml-multicore/ocaml-multicore#795</a>
+Make <code>Minor_heap_max</code> and <code>Max_domains</code> as <code>OCAMLRUNPARAM</code> options</p>
+<p>The <code>Minor_heap_max</code> is defined as 2GB and <code>Max_domains</code> as 128 in
+<code>runtime/caml/config.h</code>, and there is an out of memory issue on
+Multicore OCaml when running tools like AFL and Valgrind. The
+suggestion is to make these parameters as <code>OCAMLRUNPARAM</code> options.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/799">ocaml-multicore/ocaml-multicore#799</a>
+Bring <code>runner.sh</code> in the CI in line with trunk</p>
+<p>The <code>runner.sh</code> script in <code>ocaml-multicore/ocaml-multicore</code> has
+changed and diverged from trunk. It needs to be updated to be in
+sync with <code>ocaml/ocaml</code>.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/806">ocaml-multicore/ocaml-multicore#806</a>
+Unify GC interrupt and signal triggering mechanisms</p>
+<p>The interaction between signal and GC interrupts need to be
+reworked, as they exist as two independent mechanisms.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/811">ocaml-multicore/ocaml-multicore#811</a>
+Double check rebase through <code>ocaml/ocaml</code></p>
+<p>An ongoing review of the porting of Multicore OCaml signal handling
+changes for x86, ARM, PPC and s390x architectures.</p>
+</li>
+<li>
+<p>A new
+<a href="https://github.com/ocaml-multicore/ocaml">ocaml-multicore/ocaml</a>
+project repository has been created from <code>ocaml/ocaml</code> to keep it in
+sync with trunk.</p>
+</li>
+</ul>
+<h4>Improvements</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/765">ocaml-multicore/ocaml-multicore#765</a>
+<code>tools/gdb_ocamlrun.py</code> needs an update</p>
+<p>The <code>tools/gdb_ocamlrun.py</code> has hardcoded values, and both
+<code>Forcing_tag</code> and <code>Cont_tag</code> need to be updated.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/772">ocaml-multicore/ocaml-multicore#772</a>
+Not all registers need to be saved for <code>caml_call_realloc_stack</code></p>
+<p>The C callee saved registers are saved by <code>caml_try_realloc_stack</code>
+and they do not invoke the GC. There is no need to save all the
+registers in <code>caml_call_realloc_stack</code>.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/775">ocaml-multicore/ocaml-multicore#775</a>
+Use explicit next pointer in <code>gc_regs_bucket</code></p>
+<p>In <code>amd64.S</code>, the last word of a <code>gc_regs_bucket</code> contains either a
+saved value of <code>rax</code> or a pointer to a previous structure. The
+suggestion is to use distinct members for these two entities.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/793">ocaml-multicore/ocaml-multicore#793</a>
+Ring buffer-based runtime tracing (<code>eventring</code>)</p>
+<p><code>Eventring</code> is a low-overhead runtime tracing system for continuous
+monitoring of OCaml applications. It is a replacement for the
+existing eventlog system present in the runtime, and uses per-domain
+memory-mapped ring buffers. The JSON output of
+<code>OCAML_EVENTRING_START=1 _build/default/src/traceevents_lib.exe</code> on
+Chrome's tracing viewer is shown below:</p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/RykCGqsYr4FjqCEod45QdKNwV9.png" alt="OCaml-Multicore-PR-793-Chrome|690x149" /></p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/794">ocaml-multicore/ocaml-multicore#794</a>
+Audit <code>OCAMLRUNPARAM</code> options</p>
+<p>A number of <code>OCAMLRUNPARAM</code> options, such as <code>init_heap_wsz</code> and
+<code>init_heap_chunk_sz</code>, can be removed as they are not used.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/796">ocaml-multicore/ocaml-multicore#796</a>
+<code>Caml_state</code> for domains should not use mmap</p>
+<p>The <code>Caml_state</code> is no longer located adjacent to the minor heap
+area, whose allocation is done using mmap. At present, a dedicated
+register (<code>r14</code> on amd64) is used to point to <code>Caml_state</code>. The use
+of <code>malloc</code> at the domain creation time is sufficient to simplify
+and manage <code>Caml_state</code>.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/805">ocaml-multicore/ocaml-multicore#805</a>
+Improve <code>stack_size_bucket</code>/<code>alloc_stack_noexc</code></p>
+<p>The current stack cache scheme will not use caching when
+<code>stack_size_bucket</code>/<code>alloc_stack_noexc</code> is not a power of two. The
+new stacks begin at <code>caml_fiber_wsz</code> and increase by a factor of
+two. There is room for refactoring and improving this code.</p>
+</li>
+</ul>
+<h4>Sundries</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/797">ocaml-multicore/ocaml-multicore#797</a>
+Atomic access on <code>bigarray</code></p>
+<p>A feature request to implement atomic access for <code>bigarray</code>.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/801">ocaml-multicore/ocaml-multicore#801</a>
+Call to <code>fork</code> in <code>Sys.command</code></p>
+<p>A query on whether to guard a <code>fork</code> call when used with
+<code>Sys.command</code>.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/810">ocaml-multicore/ocaml-multicore#810</a>
+Getting segfault/undefined behavior using Multicore with custom blocks</p>
+<p>A segmentation fault and undefined behaviour reported by
+@dannywillems (Danny Willems) for a Pippenger benchmark
+implementation in OCaml.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/816">ocaml-multicore/ocaml-multicore#816</a>
+Filter-tree to normalise email address from commiters</p>
+<p>The inconsistent names and email addresses among committers in
+Multicore OCaml needs to be fixed and merged using filter-tree.</p>
+</li>
+</ul>
+<h3>Completed</h3>
+<h4>Upstream</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/669">ocaml-multicore/ocaml-multicore#669</a>
+Set thread names for domains</p>
+<p>The patch that implements thread naming for Multicore OCaml, and
+also provides an interface to name Domains and Threads differently
+is now merged.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/701">ocaml-multicore/ocaml-multicore#701</a>
+Cherry pick: Merge pull request #701 from <code>ocaml-multicore/really_flush</code></p>
+<p>The PR updates <code>stlib/format.ml</code> to flush the output when
+pre-defined formatters are used in parallel.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/735">ocaml-multicore/ocaml-multicore#735</a>
+Add <code>caml_young_alloc_start</code> and <code>caml_young_alloc_end</code> in <code>minor_gc.c</code></p>
+<p><code>caml_young_alloc_start</code> and <code>caml_young_alloc_end</code> are not present
+in Multicore OCaml, and they have now been included as a
+compatibility macro.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/737">ocaml-multicore/ocaml-multicore#737</a>
+Port the new ephemeron API to 5.00</p>
+<p>An API for immutable ephemerons has been
+<a href="https://github.com/ocaml/ocaml/pull/10737">merged</a> in trunk, and
+the respective changes have been ported to 5.00.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/740">ocaml-multicore/ocaml-multicore#740</a>
+Systhread lifecycle</p>
+<p>The fixes in <code>caml_thread_domain_stop_hook</code>, <code>Thread.exit</code> and
+<code>caml_c_thread_unregister</code> have been merged. The PR also addresses
+the systhreads lifecycle in Multicore OCaml.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/745">ocaml-multicore/ocaml-multicore#745</a>
+Systhreads WG3 comments</p>
+<p>The PR updates the commit names to be self-descriptive, uses
+non-atomic variables, and raises OOM when there is a failure to
+allocate thread descriptors.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/748">ocaml-multicore/ocaml-multicore#748</a>
+WG3 move <code>gen_sizeclasses</code></p>
+<p>The <code>runtime/gen_sizeclasses.ml</code> have been moved to
+<code>tools/gen_sizeclasses.ml</code>, and the check-typo issues have been
+fixed and merged.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/762">ocaml-multicore/ocaml-multicore#762</a>
+Remove naked pointer checker</p>
+<p>The PR removes the naked pointer checker as it is not supported in
+Multicore OCaml.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/763">ocaml-multicore/ocaml-multicore#763</a>
+Move <code>Assert</code> -&gt; <code>CAMLassert</code></p>
+<p>The <code>Assert</code> has been replaced with <code>CAMLassert</code>, and check-typo
+changes to fix license files and line lengths have been merged.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/764">ocaml-multicore/ocaml-multicore#764</a>
+Address <code>shared_heap.c</code> review (WG1)</p>
+<p>The <code>runtime/shared_heap.c</code> code has been updated to initialize
+variables with NULL instead of 0.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/766">ocaml-multicore/ocaml-multicore#766</a>
+Signals changes from sync review and WG3</p>
+<p>The signals are blocked before spawning a domain, and unblocked
+afterwards when it is safe to do so. <code>total_signals_pending</code> has
+been removed, and we now coalesce signals by signal number.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/767">ocaml-multicore/ocaml-multicore#767</a>
+<code>relaxed</code> -&gt; <code>acquire</code> in <code>minor_gc</code> header read</p>
+<p>The <code>memory_order_relaxed</code> is now replaced with
+<code>memory_order_acquire</code> in <code>runtime/minor_gc.c</code> for 5.00.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/768">ocaml-multicore/ocaml-multicore#768</a>
+Make <code>intern</code> not invoke the GC</p>
+<p>The PR brings the implementation of intern closer to trunk OCaml,
+and intern no longer triggers GC. The performance result on a simple
+binary-tree benchmark is tabulated below:</p>
+<pre><code>N    OCaml trunk 	 This PR    Slowdown
+2    1.20E-07      1.20E-07   0.00%
+4    3.10E-07      3.20E-07   3.23%
+8    9.10E-06      1.40E-05   53.85%
+16   2.60E-03      3.90E-03   50.00%
+20   4.60E-02      6.40E-02   39.13%
+22   2.20E-01      2.70E-01   22.73%
+24   1.10E+00      1.20E+00   9.09%
+25   1.90E+00      2.10E+00   10.53%
+</code></pre>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/770">ocaml-multicore/ocaml-multicore#770</a>
+Backport of PR770</p>
+<p>The <code>otherlibs/systhreads/st_stubs.c</code> file has been formatted to
+clear hygiene checks, and changes to <code>backtrace_last_exn</code> have been
+made to be closer to trunk.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/771">ocaml-multicore/ocaml-multicore#771</a>
+Bring root management of <code>backtrace_last_exn</code> in systhreads closer to trunk</p>
+<p>The <code>backtrace_last_exn</code> root management in systhreads has been
+updated to be closer to <code>ocaml/ocaml</code>.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/773">ocaml-multicore/ocaml-multicore#773</a>
+Improvements based on asynchronous reviews</p>
+<p>The allocation for the extern state is now done before its use, and
+improvements to <code>amd64.S</code> have been implemented.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/781">ocaml-multicore/ocaml-multicore#781</a>
+PR771 for 4.12 domains</p>
+<p>This is a backport of
+<a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/771">PR#771</a>
+for <code>4.12+domains</code> branch.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/789">ocaml-multicore/ocaml-multicore#789</a>
+Review improvements</p>
+<p>The trunk's text section naming style has been updated to
+<code>runtime/amd64.S</code> with improvements to <code>runtime/fiber.c</code>. Also, the
+unnecessary reset in <code>runtime/interp.c</code> has been removed.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/790">ocaml-multicore/ocaml-multicore#790</a>
+Add <code>ocaml_check_pending_actions</code>, <code>caml_process_pending_actions</code></p>
+<p>The <code>caml_check_pending_actions</code> and <code>caml_process_pending_actions</code>
+that are part of the C API have been added to OCaml Multicore.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/813">ocaml-multicore/ocaml-multicore#813</a>
+Revert arm64 changes and ocaml-variant.opam file</p>
+<p>The <code>asmcomp/arm64/*</code> files and <code>ocaml-variants.opam</code> file have been
+updated to be closer to trunk.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/815">ocaml-multicore/ocaml-multicore#815</a>
+Various tweaks</p>
+<p>The PR reduces the diff noise in <code>major_gc.h</code>, <code>sys.h</code>, <code>ui.h</code>,
+<code>weak.h</code>, <code>gc_ctrl.c</code>, <code>gc.mli</code>, and <code>runtime/Makefile</code>. It also
+removes unnecessary includes from <code>ocamldoc</code> and <code>ocamltest</code> builds.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/818">ocaml-multicore/ocaml-multicore#818</a>
+Minor fixes from review</p>
+<p>The PR updates comments in <code>otherlibs/systhreads/st_stubs.c</code>, uses
+<code>memcpy</code> instead of <code>memmove</code> in <code>runtime/caml/sync.h</code>, and minor
+fixes in the <code>asmcomp</code> sources.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/819">ocaml-multicore/ocaml-multicore#819</a>
+Do not initialise in <code>caml_alloc_shr</code></p>
+<p>The <code>array.c</code> sources have been updated to use non-initialising
+allocation to match trunk.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml/ocaml/pull/10831">ocaml/ocaml#10831</a>
+Multicore OCaml</p>
+<p>This is the PR to merge Multicore OCaml to <code>ocaml/ocaml</code> with
+support for shared-memory parallelism through domains, and
+concurrency through effect handlers. It is backward compatible with
+respect to language features, C API and performance of
+single-threaded code. The scalability results on parallel benchmarks
+from <a href="https://github.com/ocaml-bench/sandmark">Sandmark</a> on a two
+processor, AMD EPYC 7551 server with 64 cores is shown below:</p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/qlsUnoibozBfJJxEnFKEE2Xynkp.png" alt="OCaml-PR-10831-Speedup|674x500" /></p>
+</li>
+</ul>
+<h4>Improvements</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/779">ocaml-multicore/ocaml-multicore#779</a>
+Rename/hide some global variables</p>
+<p>The use of extern <code>global</code>, <code>pool_freelist</code> and <code>atoms</code> have been
+replaced with extern <code>caml_heap_global_state</code>, static
+<code>static_pool_freelist</code>, and static <code>atoms</code> respectively.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/785">ocaml-multicore/ocaml-multicore#785</a>
+Unexport some unprefixed global names</p>
+<p>The global variables that are not prefixed with <code>caml_</code> are now made
+static. The output, prior and after the changes, is shown below:</p>
+<p>Before</p>
+<pre><code>$ readelf -s ./runtime/libcamlrun_shared.so  | grep GLOBAL | egrep -v ' UND | caml_'
+ 198: 00000000000562a0    40 OBJECT  GLOBAL DEFAULT   26 signal_install_mutex
+ 549: 0000000000000038     8 TLS     GLOBAL DEFAULT   18 Caml_state
+ 559: 0000000000056680     8 OBJECT  GLOBAL DEFAULT   26 marshal_flags
+ 622: 000000000001bf10   178 FUNC    GLOBAL DEFAULT   12 ephe_sweep
+ 642: 00000000000707e0     8 OBJECT  GLOBAL DEFAULT   26 garbage_head
+ 665: 000000000001bb80   729 FUNC    GLOBAL DEFAULT   12 ephe_mark
+ 783: 000000000001dfe0   229 FUNC    GLOBAL DEFAULT   12 reset_minor_tables
+1003: 0000000000052b20    24 OBJECT  GLOBAL DEFAULT   26 ephe_cycle_info
+1025: 00000000000165d0    19 FUNC    GLOBAL DEFAULT   12 main
+1042: 00000000000383e0    87 FUNC    GLOBAL DEFAULT   12 verify_push
+ 323: 0000000000051000     0 OBJECT  LOCAL  DEFAULT   24 _GLOBAL_OFFSET_TABLE_
+ 454: 0000000000052b20    24 OBJECT  GLOBAL DEFAULT   26 ephe_cycle_info
+ 564: 00000000000383e0    87 FUNC    GLOBAL DEFAULT   12 verify_push
+ 577: 00000000000562a0    40 OBJECT  GLOBAL DEFAULT   26 signal_install_mutex
+ 637: 00000000000707e0     8 OBJECT  GLOBAL DEFAULT   26 garbage_head
+ 831: 0000000000000038     8 TLS     GLOBAL DEFAULT   18 Caml_state
+ 910: 0000000000056680     8 OBJECT  GLOBAL DEFAULT   26 marshal_flags
+1092: 00000000000165d0    19 FUNC    GLOBAL DEFAULT   12 main
+1338: 000000000001bf10   178 FUNC    GLOBAL DEFAULT   12 ephe_sweep
+1424: 000000000001bb80   729 FUNC    GLOBAL DEFAULT   12 ephe_mark
+1437: 000000000001dfe0   229 FUNC    GLOBAL DEFAULT   12 reset_minor_tables
+</code></pre>
+<p>After</p>
+<pre><code>$ readelf -s ./runtime/libcamlrun_shared.so  | grep GLOBAL | egrep -v ' UND | caml_'
+ 548: 0000000000000038     8 TLS     GLOBAL DEFAULT   18 Caml_state
+1018: 00000000000165a0    19 FUNC    GLOBAL DEFAULT   12 main
+ 329: 0000000000051000     0 OBJECT  LOCAL  DEFAULT   24 _GLOBAL_OFFSET_TABLE_
+ 833: 0000000000000038     8 TLS     GLOBAL DEFAULT   18 Caml_state
+1093: 00000000000165a0    19 FUNC    GLOBAL DEFAULT   12 main
+</code></pre>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/792">ocaml-multicore/ocaml-multicore#792</a>
+Stdlib: simplify <code>is_main_domain</code></p>
+<p>The <code>is_main_domain</code> implementation is made simpler in
+<code>stdlib/domain.ml</code>, and the PR also removes the
+<code>caml_ml_domain_is_main_domain</code> primitive.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/803">ocaml-multicore/ocaml-multicore#803</a>
+Remove difference in stack resize with debug runtime</p>
+<p>The difference in the stack resizing between the standard and debug
+runtimes has been removed, in order to help reproduce any bug
+experienced in the standard runtime with the same stack resize in
+the debug runtime.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/804">ocaml-multicore/ocaml-multicore#804</a>
+Remove redundant opens</p>
+<p>The redundant <code>open</code> calls in
+<code>testsuite/tests/weak-ephe-final/ephetest_par.ml</code> have been removed.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/820">ocaml-multicore/ocaml-multicore#820</a>
+Minor improvements</p>
+<p>The use of <code>memmove</code> in <code>runtime/sys.c</code> has been replaced with
+<code>memcpy</code>, and the code has been cleaned up in both
+<code>runtime/callback.c</code> and <code>runtime/caml/callback.h</code>.</p>
+</li>
+</ul>
+<h4>Fixes</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/725">ocaml-multicore/ocaml-multicore#725</a>
+Blocked signal infinite loop fix</p>
+<p>A monotonic <code>recorded_signals_counter</code> was added to fix the possible
+loop in <code>caml_enter_blocking_section</code> when no domain can handle a
+blocked signal. The consensus now is to move from counting signals
+to coalescing them, and hence this requires a code rewrite.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/749">ocaml-multicore/ocaml-multicore#749</a>
+Potential bug on <code>Forward_tag</code> short-circuiting?</p>
+<p>Short-circuiting is disabled on values of type <code>Forward_tag</code>,
+<code>Lazy_tag</code> and <code>Double_tag</code> in the minor GC, and the bug that occurs
+when short-circuiting <code>Forward_tag</code> on values of type
+<code>Obj.forcing_tag</code> has been fixed.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/760">ocaml-multicore/ocaml-multicore#760</a>
+Simplify lazy semantics</p>
+<p>The <code>RacyLazy</code> exception has been removed. Both <code>domain-local</code> id
+and <code>try_force</code> have also been removed. Any concurrent use of lazy
+value may raise an undefined exception.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/761">ocaml-multicore/ocaml-multicore#761</a>
+Bug fix in <code>amd64.S</code> and general cleanup</p>
+<p>The <code>jl</code> (jump if signed less) in <code>runtime/amd64.S</code> has been changed
+to <code>jb</code> (jump if unsigned less) and the code in
+<code>asmcomp/amd64/emit.mlp</code> has been cleaned up.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/769">ocaml-multicore/ocaml-multicore#769</a>
+Move frame descriptors header and fix typos</p>
+<p>The frame descriptors headers from <code>runtime</code> have been moved to
+<code>runtime/caml</code> and ifdefs with <code>CAML_INTERNALS</code>. An additional check
+for NULL has been added if code is compiled without <code>-g</code>.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/788">ocaml-multicore/ocaml-multicore#788</a>
+Fix selectgen <code>effects_of</code> for <code>Cdls_Get</code></p>
+<p>The PR moves the <code>effects_of</code> for <code>Cdls_get</code> to <code>EC.coeffect_only Coffect.Read_mutable</code> in <code>asmcomp/selectgen.ml</code>.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/809">ocaml-multicore/ocaml-multicore#809</a>
+Finish off <code>tools/check-typo</code> on the repo</p>
+<p>The <code>Callback_link</code> in <code>runtime/caml/stack.h</code> has been removed, and
+the PR cleans up the fixes reported by <code>tools/check-typo</code>.</p>
+</li>
+</ul>
+<h4>Tests</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/774">ocaml-multicore/ocaml-multicore#774</a>
+Skip unsupported and incompatible tests</p>
+<p>The <code>skip</code> built-in action of <code>ocamltest</code> works for skipping
+unsupported and incompatible tests.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/784">ocaml-multicore/ocaml-multicore#784</a>
+Revert <code>testsuite/summarize.awk</code></p>
+<p>The <code>testsuite/summarize.awk</code> has been updated to be closer to its
+<code>ocaml/ocaml</code> version.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/786">ocaml-multicore/ocaml-multicore#786</a>
+Reimplement <code>caml_alloc_small</code> like in OCaml 4.x</p>
+<p>The OCaml 4.x implementation of <code>caml_alloc_small</code> has been
+re-introduced with this PR, since it makes an assertion when <code>sz</code> is
+larger than <code>Max_young_wosize</code>.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/798">ocaml-multicore/ocaml-multicore#798</a>
+Revert <code>asmgen</code> testsuite and ocamltest to trunk</p>
+<p>The <code>asmgen</code> and <code>ocamltest</code> tests have been updated to build fine
+with <code>ocaml/ocaml</code>.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/808">ocaml-multicore/ocaml-multicore#808</a>
+<code>signal_alloc</code> testcase fix</p>
+<p>The <code>signal_alloc</code> test case has been added back to the test suite.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/814">ocaml-multicore/ocaml-multicore#814</a>
+Minor improvements</p>
+<p>An unused function in <code>asmcomp/reg.ml</code> has been removed, with the
+re-inclusion of few disabled tests. The <code>compare_programs</code> in the
+test suite now matches trunk.</p>
+</li>
+</ul>
+<h4>Documentation</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/752">ocaml-multicore/ocaml-multicore#752</a>
+Document the current Multicore testsuite situation</p>
+<p>The Multicore test suite now runs in the same way as <code>ocaml/ocaml</code>
+and hence this issue is closed.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/759">ocaml-multicore/ocaml-multicore#759</a>
+Rename type variables for clarity</p>
+<p>The PR to update the type variables for consistency and clarity in
+<code>stdlib/fiber.ml</code> has been merged.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/778">ocaml-multicore/ocaml-multicore#778</a>
+Comment on <code>caml_domain_spawn</code> also calling in <code>install_backup_thread</code></p>
+<p>A comment that mentions when domain 0 first spawns a domain, and
+when the backup thread is not active, and is subsequently started.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/787">ocaml-multicore/ocaml-multicore#787</a>
+Address feedback on GC from async review</p>
+<p>A comment has been added to <code>runtime/finalise.c</code> for
+<code>coaml_final_merge_finalisable</code> on why the young of the source are
+added to the old of the target. The cap computed work limit is set
+to 0.3, as you cannot do more than 1/3 of a GC cycle in one slice.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/800">ocaml-multicore/ocaml-multicore#800</a>
+Document which GC stats are global and which are per-domain</p>
+<p>The comments in <code>stdlib/gc.mli</code> and <code>runtime/caml/domain_state.tbl</code>
+have been updated to provide information on the GC stats that are
+global, and those that are per-domain.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/802">ocaml-multicore/ocaml-multicore#802</a>
+More comments for domain</p>
+<p>The PR adds comments in <code>domain.c</code> and <code>domain.ml</code> with a high-level
+design of stop-the-world sections, state machine for the backup
+thread, signal handling with a mutex for <code>Domain.join</code>, and locking
+mechanism for the stop-the-world participant set.</p>
+</li>
+</ul>
+<h4>Sundries</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/776">ocaml-multicore/ocaml-multicore#776</a>
+Allow Dynlink only on Domain 0</p>
+<p>Dynlink is only allowed on the main domain, and entrypoints to
+public functions need to check the same.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/807">ocaml-multicore/ocaml-multicore#807</a>
+Make sure variables that are not explicitly initialized during <code>create_domain</code> are initialized</p>
+<p>The PR adds initialization to variables in <code>runtime/domain.c</code> during
+<code>create_domain</code> or for any utilized sub-function.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/817">ocaml-multicore/ocaml-multicore#817</a>
+Synchronise the opam file to use the <code>ocaml-options</code> packages</p>
+<p>The <code>ocaml-variants.opam</code> file has been updated to use the
+<code>ocaml-options</code> packages to synchronise with the opam-repository's
+variants and the scheme in the current Multicore repository.</p>
+</li>
+</ul>
+<h2>Ecosystem</h2>
+<h3>Ongoing</h3>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-multicore/multicore-opam/pull/61">ocaml-multicore/multicore-opam#61</a>
+Remove <code>omake</code></p>
+<p><code>caml_modify_field</code> does not exist in trunk. The PR removes omake as
+it is only required for +effects.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/multicore-opam/pull/62">ocaml-multicore/multicore-opam#62</a>
+Remove <code>domainslib</code></p>
+<p><code>Domainslib.0.3.0</code> has been upstreamed to opam-repository and hence
+has been removed from this repository.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/pull/116">ocaml-multicore/eio#116</a>
+Benchmark various copying systems</p>
+<p>An open discussion on benchmarking and optimisation for copying data
+into buffer for three techniques: <code>fixed-buffer</code>, <code>new-cstruct</code>, and
+<code>chunk-as-cstruct</code>. The results from copying a 1GB file are shown in
+the illustration:</p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/vWmMqD2TpWcYr9iepTziQU0C8h1.png" alt="Eio-PR-116-Copy-screenshot|357x499" /></p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/pull/120">ocaml-multicore/eio#120</a>
+Add <code>Fibre.fork_on_accept</code> and <code>Net.accept</code></p>
+<p>The PR where <code>fork_on_accept</code> now uses an accept function in a new
+switch, and passes the successful result to a handler function in a
+new fibre. The <code>Net.accept</code> function handles the case where a single
+connection can be accepted.</p>
+</li>
+</ul>
+<h3>Completed</h3>
+<h4>Eio</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/issues/87">ocaml-multicore/eio#87</a>
+Eio fails to install due to vendor conflicts</p>
+<p>The <a href="https://github.com/ocaml-multicore/eio/pull/89">Marking uring as vendored breaks
+installation</a> fix
+resolves this issue. This was reported by Matt Pallissard
+(@mattpallissard).</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/issues/91">ocaml-multicore/eio#91</a>
+[Discussion] Object Capabilities / API</p>
+<p>The discussion on using an open object as the first argument of
+every function, and to use full words and expressions instead of
+<code>network</code>, <code>file_systems</code> etc. is closed now with updates to
+<a href="https://github.com/ocaml-multicore/eio/pull/90">eio#90</a>.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/issues/101">ocaml-multicore/eio#101</a>
+Make luv backend thread-safe</p>
+<p>An update to <code>lib_eio_luv/eio_luv.ml</code> that makes the luv backend
+thread-safe, and prevents a deadlock in the execution of benchmarks.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/issues/102">ocaml-multicore/eio#102</a>
+Use a lock-free run queue for luv backend</p>
+<p>The PR removes the need for a mutex around the queue, and there is a
+trivial improvement in the single-domain benchmark:</p>
+<p>Before:</p>
+<pre><code>$ make bench EIO_BACKEND=luv
+dune exec -- ./bench/bench_yield.exe
+n_fibers, ns/iter, promoted/iter
+       1,   95.00,        0.0026
+       2,  151.19,       12.8926
+       3,  151.80,       12.8930
+       4,  147.99,       12.8934
+       5,  148.09,       12.8938
+      10,  147.75,       12.8960
+      20,  149.30,       12.9003
+      30,  151.43,       12.9047
+      40,  153.97,       12.9088
+      50,  155.53,       12.9131
+     100,  158.35,       12.9344
+     500,  173.89,       13.0800
+    1000,  182.50,       13.1779
+   10000,  168.52,       13.7133
+</code></pre>
+<p>After:</p>
+<pre><code>$ make bench EIO_BACKEND=luv
+dune exec -- ./bench/bench_yield.exe
+n_fibers, ns/iter, promoted/iter
+       1,   93.94,        4.9996
+       2,   93.13,        5.0021
+       3,   92.17,        5.0046
+       4,   92.21,        5.0071
+       5,   91.45,        5.0090
+      10,  114.29,        5.0194
+      20,   96.17,        5.0468
+      30,   97.83,        5.0677
+      40,   98.82,        5.0959
+      50,   99.70,        5.1197
+     100,  107.31,        5.2409
+     500,  132.94,        6.1383
+    1000,  142.85,        6.6771
+   10000,  114.80,        5.9410
+</code></pre>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/issues/103">ocaml-multicore/eio#103</a>
+Add <code>Domain_manager.run</code> to start a domain with an event loop</p>
+<p>The <code>lib_eio/eio.ml</code> code has added <code>Domain_manager.run</code> and
+<code>Domain_manager.run_raw</code> functions. The <code>Domain_manager.run</code>
+function must only access thread-safe values from the calling
+domain.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/issues/104">ocaml-multicore/eio#104</a>
+Split out <code>Ctf_unix</code> module</p>
+<p>The dependency on <code>Unix</code> has been removed from the <code>Eio</code> module, and
+the <code>Ctf_unix.with_tracing</code> function has been added for convenience.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/issues/106">ocaml-multicore/eio#106</a>
+Avoid <code>Fun.protect</code> in <code>Eio_linux.run</code></p>
+<p>The use of <code>Fun.protect</code> is removed from
+<code>lib_eio_linux/eio_linux.ml</code> as it throws an exception, which is not
+useful when the scheduler crashes.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/issues/107">ocaml-multicore/eio#107</a>
+Make cancellation thread-safe</p>
+<p>A cancellation context now has a list of fibres, and when a fibre is
+forked, it gets added to a list. As soon as the fibre finishes, it
+is removed from the list. The list is only accessible from the
+fibre's own domain, and each fibre holds a single, optionally atomic
+cancellation function.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/issues/108">ocaml-multicore/eio#108</a>
+Clean up Waiters API</p>
+<p>The result type was not required by many users and has thus been
+removed. The relevant documentation has been updated as well.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/issues/109">ocaml-multicore/eio#109</a>
+Use lock-free run queue in <code>eio_linux</code> tools</p>
+<p>The <code>lib_eio_linux/eio_linux.ml</code> file has been updated to use a
+lock-free run queue. The results on a single core benchmark are
+shown below:</p>
+<pre><code>$ dune exec -- ./bench/bench_yield.exe`
+</code></pre>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/sm3ND4YQkuYHmc1F2LCDDyeDCLT.png" alt="Eio-PR-109-Before-After|690x429" /></p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/issues/110">ocaml-multicore/eio#110</a>
+Make <code>Waiters.wake_one</code> safe with cancellation</p>
+<p>As <code>wake_one</code> was being called after a cancelled waiter, we could
+not wake anything when using multiple domains. This PR fixes the
+same in <code>lib_eio/waiters.ml</code> along with a stress test.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/issues/111">ocaml-multicore/eio#111</a>
+Restore domains test</p>
+<p>The <code>tests/tests_domains.md</code> file has now been enabled, since a fix
+to Multicore OCaml was backported to 4.12+domains. The tests also
+now run in the CI.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/issues/112">ocaml-multicore/eio#112</a>
+Add <code>Stream.take_nonblocking</code></p>
+<p>The <code>lib_eio/stream.ml</code> file has been updated to include a
+<code>Stream.take_nonblocking</code> function along with a couple of tests.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/issues/113">ocaml-multicore/eio#113</a>
+Explain about <code>Promises</code> and <code>Streams</code> in the README</p>
+<p>The README has been updated with a section each on <code>Promises</code> and
+<code>Streams</code>, and the <code>Fibre.fork</code> code and tests have been simplified.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/issues/114">ocaml-multicore/eio#114</a>
+Allow <code>Domain_mgr.run</code> to be cancelled</p>
+<p>The run() function in <code>lib_eio/eio.ml</code> has been updated to inject a
+cancel exception into the spawned domain. The tests for cancelling
+another domain, and spawning when already cancelled have been added
+to <code>tests/test_domains.md</code>.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/issues/115">ocaml-multicore/eio#115</a>
+Create fibre context before forking</p>
+<p>A fibre is created without being started immediately, which allows
+more flexibility in scheduling and reduces the number of contexts.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/issues/117">ocaml-multicore/eio#117</a>
+Allow to set <code>SO_REUSEPORT</code> option</p>
+<p>The PR adds support to set the <code>SO_REUSEPORT</code> socket setting for the
+<code>linux_uring</code> backend.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/issues/118">ocaml-multicore/eio#118</a>
+Improve scheduling of forks</p>
+<p>The old <code>Fork</code> effect has been implemented similar to <code>Fork_ignore</code>,
+and <code>Fork_ignore</code> has been renamed to <code>Fork</code>. The old <code>Fiber.fork</code>
+is now <code>Fibre.fork_promise</code>. When forking, the caller is scheduled
+at the head of the run-queue, as this new scheduling order is more
+natural, flexible and better for caching.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/issues/119">ocaml-multicore/eio#119</a>
+Improve cancellation</p>
+<p>The <code>Fibre.check</code> function has been added to check whether the
+current context has been cancelled, and documentation on
+cancellation has been updated.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/eio/issues/121">ocaml-multicore/eio#121</a>
+Add rationales for end-of-life and dynamic dispatch</p>
+<p>A documentation update on <code>Indicating End-of-File</code> and <code>Dynamic Dispatch</code> in <code>doc/rationale.md</code>.</p>
+</li>
+</ul>
+<h4>Tezos</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-multicore/tezos-opam-repository/pull/7">ocaml-multicore/tezos-opam-repository#7</a>
+Updates</p>
+<p>A merge from upstream that includes updates to the dependency
+packages and addition of new packages to the repository.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/tezos-opam-repository/pull/8">ocaml-multicore/tezos-opam-repository#8</a>
+Add <code>domainslib.0.4.0</code> &amp; <code>lwt_domain.0.1.0</code></p>
+<p>The addition of <code>domainslib.0.4.0</code> and <code>lwt_domain.0.1.0</code> to the
+tezos-opam-repository.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/tezos/pull/21">ocaml-multicore/tezos#21</a>
+Upstream updates</p>
+<p>The latest upstream build, code and documentation changes have been
+pulled from the Tezos repository.</p>
+</li>
+</ul>
+<h4>Domainslib</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-multicore/domainslib/pull/50">ocaml-multicore/domainslib#50</a>
+Multi_channel: allow more than one instance per program with different configurations</p>
+<p>A shared global state in <code>Multi_channel</code> exists in the form of
+<code>dls_new_key</code> that results in out-of-bounds array indexing. This PR,
+contributed by Edwin Torok (@edwintorok), removes the global key,
+and uses a per-channel key.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-multicore/domainslib/pull/60">ocaml-multicore/domainslib#60</a>
+Bug fix in <code>parallel_scan</code></p>
+<p>The final entry in the array result was incorrect for
+<code>~num_additional_domains:1</code>, and for the case of rejecting an input
+array size less than the pool size.</p>
+</li>
+<li>
+<p>A new
+<a href="https://github.com/ocaml-multicore/domainslib/releases/tag/0.4.0">domainslib.0.4.0</a>
+has been released that includes a breaking change. We now need to
+use effect handlers for task creation, and all computations need to
+be enclosed in a <code>Task.run</code> function.</p>
+</li>
+</ul>
+<h2>Benchmarking</h2>
+<h3>Sandmark and Sandmark-nightly</h3>
+<h4>Ongoing</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-bench/sandmark-nightly/issues/23">ocaml-bench/sandmark-nightly#23</a>
+Sandmark nightly issues</p>
+<p>A list of issues observed for the <code>sandmark.ocamllabs.io</code> service on
+results returned from Navajo and Turing machines.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-bench/sandmark-nightly/pull/24">ocaml-bench/sandmark-nightly#24</a>
+Use git clone from ocurrent-deployer</p>
+<p>An update to the Dockerfile to use git clone from <code>ocurrent-deployer</code>,
+instead of <code>ocaml-bench/sandmark-nightly</code>.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-bench/sandmark/issues/266">ocaml-bench/sandmark#266</a>
+Instrumented pausetimes for OCaml 5.00.0+trun and 4.14.0+domains</p>
+<p>The pausetimes variants in Sandmark need to be updated after trunk
+is frozen, in order to add the instrumented pausetimes for
+<code>5.00.0+trunk</code> and <code>4.14.0+domains</code>.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-bench/sandmark/pull/268">ocaml-bench/sandmark#268</a>
+Update README CI Build status to main branch</p>
+<p>The CI <code>Build Status</code> for the <code>main</code> branch in Sandmark needs to
+point to the main branch instead of the master branch.</p>
+</li>
+</ul>
+<h4>Completed</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocaml-bench/sandmark/pull/264">ocaml-bench/sandmark#264</a>
+Cleanup for 4.12</p>
+<p>The <code>4.12.*</code> variants have been removed from Sandmark, and the
+scripts and documentation have been updated to reflect the same.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-bench/sandmark/pull/265">ocaml-bench/sandmark#265</a>
+Added package remove feature and builds for 5.00</p>
+<p>The <code>main</code> branch now supports a <code>package remove</code> option for the
+OCaml variants, where you can dynamically de-select the dependency
+package that you do not wish to build. For example, in
+<code>ocaml-versions/5.00.0+trunk.json</code>, you can specify the following:</p>
+<pre><code>{
+   &quot;url&quot; : &quot;https://github.com/ocaml/ocaml/archive/trunk.tar.gz&quot;,
+   &quot;package_remove&quot;: [
+     &quot;index&quot;,
+     &quot;integers&quot;,
+     &quot;irmin&quot;,
+     &quot;irmin-layers&quot;,
+     &quot;irmin-pack&quot;,
+     &quot;js_of_ocaml-compiler&quot;,
+     &quot;ppx_derivers&quot;,
+     &quot;ppx_deriving&quot;,
+     &quot;ppx_deriving_yojson&quot;,
+     &quot;ppx_irmin&quot;,
+     &quot;ppx_repr&quot;,
+     &quot;stdio&quot;
+   ]
+}
+</code></pre>
+<p>The PR also pulls in the latest changes from the Sandmark master
+branch, and successfully builds 5.00.0+trunk for .drone.yml CI.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml-bench/sandmark/pull/267">ocaml-bench/sandmark#267</a>
+Added support for bench.Dockerfile</p>
+<p>A <code>bench.Dockerfile</code> has been included in Sandmark to build and run
+the benchmarks with the <code>current-bench</code> project.</p>
+</li>
+</ul>
+<h3>current-bench</h3>
+<h4>Ongoing</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocurrent/ocaml-multicore-ci/pull/15">ocaml-multicore-ci#15</a>
+Add dependency installation steps in README</p>
+<p>The following commands are required to be executed prior to
+installing and running <code>ocaml-multicore-ci</code> for a local repository:</p>
+<pre><code>$ opam update
+$ opam install -t .
+</code></pre>
+</li>
+<li>
+<p><a href="https://github.com/ocurrent/ocluster/pull/151">ocurrent/ocluster#151</a>
+Public <code>Ocluster_worker</code> library</p>
+<p>The PR exposes the internal library <code>Ocluster_worker</code> for
+current-bench and Sandmark, as we need a specific worker with custom
+settings to ensure that the benchmarks are stable.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocurrent/ocluster/pull/154">ocurrent/ocluster#154</a>
+Use <code>opam update</code>, remove <code>--verbose</code>, and <code>--connect</code> options</p>
+<p>A README documentation update with the latest instructions and
+options available to use ocluster.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocurrent/current-bench/issues/226">ocurrent/current-bench#226</a>
+Only build benchmarks whose dependencies build fine in CI</p>
+<p>The CI/CB pipeline can be integrated and extended to allow building
+of those dependencies in the benchmarks that are known to build
+cleanly in the CI for various OCaml variants.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocurrent/ocaml-ci/pull/399/">ocurrent/ocaml-ci#399</a>
+Add dependency installation steps to README</p>
+<p>The <code>ocaml-ci</code> project can be run for a local project directory, and
+the <code>opam</code> commands to update and install the required dependencies
+have been added to the README.</p>
+</li>
+</ul>
+<h4>Completed</h4>
+<ul>
+<li>
+<p><a href="https://github.com/ocurrent/current-bench/pull/216">ocurrent/current-bench#216</a>
+Add a custom OCluster worker build-and-run-benchmarks</p>
+<p>The PR provides a OCluster worker that enables us to build and run
+the benchmarks from the main pipeline, and fixes the Multicore
+repository settings.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocurrent/current-bench/pull/241">ocurrent/current-bench#241</a>
+Display min and max values when displaying multi-value datapoints</p>
+<p>The minimum and maximum values for multi-value data points are now
+displayed for a range of commits in the graph.</p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/8YoOBKutYLRMDliEnuDrk6daQC9.png" alt="Current-bench-241-Min-Max|690x388" /></p>
+</li>
+<li>
+<p><a href="https://github.com/ocurrent/current-bench/pull/242">ocurrent/current-bench#242</a>
+Workers: run one benchmark per CPU</p>
+<p>You can now run multiple benchmarks in parallel, each using its own
+CPU with the following setting in the <code>.env</code> file:</p>
+<pre><code>OCAML_BENCH_DOCKER_CPU=4,5,6
+</code></pre>
+</li>
+<li>
+<p><a href="https://github.com/ocurrent/current-bench/pull/252">ocurrent/current-bench#252</a>
+Make the Debian version more explicit</p>
+<p>The <code>pipeline/Dockerfile</code> and <code>pipeline/Dockerfile.env</code> files have
+been updated to be explicit on the Debian image
+<code>ocaml/opam:debian-11-ocaml-4.13</code> to be used.</p>
+</li>
+<li>
+<p><a href="https://github.com/ocurrent/current-bench/pull/254">ocurrent/current-bench#254</a>
+Allow setting a description for the metrics</p>
+<p>The current-bench frontend can now display a description for the
+metrics as shown in the following illustration:</p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/eZ4kBExiMVCqSEwaBtdIKJEbN0c.png" alt="Current-bench-254-Metrics-Description|690x216" /></p>
+</li>
+<li>
+<p><a href="https://github.com/ocurrent/current-bench/pull/257">ocurrent/current-bench#257</a>
+Config repositories to run with specific workers and OCaml versions</p>
+<p>A static configuration can be provided to current-bench that
+specifies which workers and OCaml versions to use with the
+benchmarks. This is useful to obtain deterministic results for
+Sandmark workers that are Multicore enabled. For example:</p>
+<pre><code>[
+  {
+    &quot;name&quot;: &quot;author/repo&quot;,
+    &quot;worker&quot;: &quot;autumn&quot;,
+    &quot;image&quot;: &quot;ocaml/opam&quot;
+  },
+  {
+    &quot;name&quot;: &quot;local/local&quot;,
+    &quot;image&quot;: &quot;ocaml/opam:debian-ocaml-4.11&quot;
+  }
+]
+</code></pre>
+</li>
+</ul>
+<p>Our special thanks to all the OCaml users, developers and contributors in the community for their valuable time and continued support to the project. Stay safe and happy new year!</p>
+<h2>Acronyms</h2>
+<ul>
+<li>AFL: American Fuzzy Lop
+</li>
+<li>AMD: Advanced Micro Devices
+</li>
+<li>API: Application Programming Interface
+</li>
+<li>ARM: Advanced RISC Machines
+</li>
+<li>CI: Continuous Integration
+</li>
+<li>CPU: Central Processing Unit
+</li>
+<li>DLS: Domain Local Storage
+</li>
+<li>EPYC: Extreme Performance Yield Computing
+</li>
+<li>GC: Garbage Collector
+</li>
+<li>GDB: GNU Project Debugger
+</li>
+<li>IO: Input/Output
+</li>
+<li>JSON: JavaScript Object Notation
+</li>
+<li>MD: Markdown
+</li>
+<li>MLP: ML-File Preprocessed
+</li>
+<li>OOM: Out of Memory
+</li>
+<li>OPAM: OCaml Package Manager
+</li>
+<li>PPC: Performance Optimization with Enhanced RISC - Performance Computing (PowerPC)
+</li>
+<li>PR: Pull Request
+</li>
+<li>PRNG Pseudo-Random Number Generator
+</li>
+<li>RFC: Request For Comments
+</li>
+<li>STW: Stop The World
+</li>
+<li>WG: Working Group
+</li>
+</ul>
+|js}
+  };
+ 
   { title = {js|OCaml Multicore - November 2021|js}
   ; slug = {js|multicore-2021-11|js}
   ; description = {js|Monthly update from the OCaml Multicore team.|js}
@@ -752,7 +1825,7 @@ Update trace diagram in README</p>
 <p>The trace diagram in the README file has been updated to show two
 counting threads as two horizontal lines, and white regions
 indicating when each thread is running.</p>
-<p><img src="upload://nG6djh8yYPqlPxlOzswCsvY5How.png" alt="eio-pr-92-trace|690x157" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/nG6djh8yYPqlPxlOzswCsvY5How.png" alt="eio-pr-92-trace|690x157" /></p>
 </li>
 <li>
 <p><a href="https://github.com/ocaml-multicore/eio/pull/93">ocaml-multicore/eio#93</a>
@@ -1777,7 +2850,7 @@ and
 Improve graphs</p>
 <p>Markers have now been added to the graphs generated from the Jupyter
 notebook to easily distinguish the colour lines.</p>
-<p><img src="upload://qKGZJ5anPXMCKp8EDcY2F5TMRbk.jpeg" alt="retro-httpaf-bench-17-graph|690x409" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/qKGZJ5anPXMCKp8EDcY2F5TMRbk.jpeg" alt="retro-httpaf-bench-17-graph|690x409" /></p>
 </li>
 <li>
 <p><a href="https://github.com/ocaml-multicore/multicore-opam/pull/59">ocaml-multicore/multicore-opam#59</a>
@@ -1908,24 +2981,24 @@ reference:</p>
 </li>
 </ul>
 <p>Time
-<img src="upload://gjR8Yte7F23hEVr0162yOuWCp2r.png" alt="Current-bench-151-Time|690x236" />
+<img src="https://discuss.ocaml.org/uploads/short-url/gjR8Yte7F23hEVr0162yOuWCp2r.png" alt="Current-bench-151-Time|690x236" />
 Normalised
-<img src="upload://wtc2aSo61cDXTtdJQLcrOvjJwmD.png" alt="Current-bench-151-Time-Normalised|690x315" />
+<img src="https://discuss.ocaml.org/uploads/short-url/wtc2aSo61cDXTtdJQLcrOvjJwmD.png" alt="Current-bench-151-Time-Normalised|690x315" />
 Top heap words
-<img src="upload://xxyblnCJr3GPkEEfM3ZnmAJ4LMe.png" alt="Current-bench-151-Top-heap-words|690x236" />
+<img src="https://discuss.ocaml.org/uploads/short-url/xxyblnCJr3GPkEEfM3ZnmAJ4LMe.png" alt="Current-bench-151-Top-heap-words|690x236" />
 Normalised
-<img src="upload://4JXHsIHH4b5DDeAtn0kwN8bnC0n.png" alt="Current-bench-151-Top-heap-words-Normalised|690x323" /></p>
+<img src="https://discuss.ocaml.org/uploads/short-url/4JXHsIHH4b5DDeAtn0kwN8bnC0n.png" alt="Current-bench-151-Top-heap-words-Normalised|690x323" /></p>
 <p>MaxRSS (KB)
-<img src="upload://jys3rIAZFb5mkb3q2ZMD3uPGiQA.png" alt="Current-bench-151-MaxRSS|690x237" />
+<img src="https://discuss.ocaml.org/uploads/short-url/jys3rIAZFb5mkb3q2ZMD3uPGiQA.png" alt="Current-bench-151-MaxRSS|690x237" />
 Normalised
-<img src="upload://ue1TiDvFK8EXA6Wi11gOHiHMXNU.png" alt="Current-bench-151-MaxRSS-Normalised|690x325" /></p>
+<img src="https://discuss.ocaml.org/uploads/short-url/ue1TiDvFK8EXA6Wi11gOHiHMXNU.png" alt="Current-bench-151-MaxRSS-Normalised|690x325" /></p>
 <p>Major Collections
-<img src="upload://dm1cGbEjtV8I5UZpfxdfgt2lIaf.png" alt="Current-bench-151-Major-collections|690x236" />
+<img src="https://discuss.ocaml.org/uploads/short-url/dm1cGbEjtV8I5UZpfxdfgt2lIaf.png" alt="Current-bench-151-Major-collections|690x236" />
 Normalised
-<img src="upload://sdHyKFyoDSDdok3QDvKNbyNAq0Z.png" alt="Current-bench-151-Minor-collections-Normalised|690x320" /></p>
+<img src="https://discuss.ocaml.org/uploads/short-url/sdHyKFyoDSDdok3QDvKNbyNAq0Z.png" alt="Current-bench-151-Minor-collections-Normalised|690x320" /></p>
 <p>Parallel Benchmarks
-<img src="upload://8BQzGtrqwFPZ0Di4WeUcsUxkQcq.png" alt="Current-bench-151-Parallel-benchmarks-I|486x500" />
-<img src="upload://rIYQcXtBJwgIlniuhcCyz3WY2Q7.png" alt="Current-bench-151-Parallel-benchmarks-II|237x500" /></p>
+<img src="https://discuss.ocaml.org/uploads/short-url/8BQzGtrqwFPZ0Di4WeUcsUxkQcq.png" alt="Current-bench-151-Parallel-benchmarks-I|486x500" />
+<img src="https://discuss.ocaml.org/uploads/short-url/rIYQcXtBJwgIlniuhcCyz3WY2Q7.png" alt="Current-bench-151-Parallel-benchmarks-II|237x500" /></p>
 </li>
 </ul>
 <p>(see the PR full for the full set of graphs, including major words and time taken)</p>
@@ -2420,7 +3493,7 @@ Add an async HTTP benchmark</p>
 <p>@anuragsoni (Anurag Soni) has contributed an async HTTP benchmark
 that was run inside Docker on a 4-core i7-8559 CPU at 2.70 GHz with
 1000 connections and 60 second runs.</p>
-<p><img src="upload://8VMquoc8s1vHUZQWbmHDiFQuiCI.jpeg" alt="retro-httpaf-bench-16-performance|690x460" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/8VMquoc8s1vHUZQWbmHDiFQuiCI.jpeg" alt="retro-httpaf-bench-16-performance|690x460" /></p>
 </li>
 </ul>
 <h2>Benchmarking</h2>
@@ -2973,7 +4046,7 @@ for consistency, syntax flow and grammar.</p>
 Optimise Go code</p>
 <p>The <code>nethttp-go/httpserv.go</code> benchmark has been optimised with use
 of <code>Write</code> instead of <code>fmt.Fprintf</code>, and the removal of yield().</p>
-<p><img src="upload://ahnwQrxkI8nIDpMurnoayzdJmA6.png" alt="retro-httpaf-bench-go-optimise|411x266" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/ahnwQrxkI8nIDpMurnoayzdJmA6.png" alt="retro-httpaf-bench-go-optimise|411x266" /></p>
 </li>
 <li>
 <p><a href="https://github.com/ocaml-multicore/ocaml-uring/issues/37">ocaml-multicore/ocaml-uring#37</a>
@@ -3023,12 +4096,12 @@ Update EIO for performance improvements, multiple domains</p>
 <p><code>httpf-eio</code> has been enhanced with performance improvements when
 running with multiple domains. The results on an 8-core VM with 100
 connections and 5 second runs is shown below:</p>
-<p><img src="upload://9IoQWI68Xo8X2mKXXrfkNzXq2Oe.png" alt="retro-httpaf-bench-100-connections-5-seconds|411x262" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/9IoQWI68Xo8X2mKXXrfkNzXq2Oe.png" alt="retro-httpaf-bench-100-connections-5-seconds|411x262" /></p>
 <p>The following illustration is from a VM for 1000 connections and 60
 second runs:</p>
-<p><img src="upload://5Lpf7h5AJtnPSwCT4Nox7OGkIYM.png" alt="retro-httpaf-bench-1000-connections-60-seconds|401x262" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/5Lpf7h5AJtnPSwCT4Nox7OGkIYM.png" alt="retro-httpaf-bench-1000-connections-60-seconds|401x262" /></p>
 <p>The results with <code>GOMAXPROCS=3</code> for three OCaml domains is as follows:</p>
-<p><img src="upload://lr7ngwNK8tRa5Z5zKlrcY2DmrJ2.png" alt="retro-httpaf-bench-three-domains-15|411x262" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/lr7ngwNK8tRa5Z5zKlrcY2DmrJ2.png" alt="retro-httpaf-bench-three-domains-15|411x262" /></p>
 </li>
 <li>
 <p><a href="https://github.com/ocaml-multicore/ocaml-uring/pull/36">ocaml-multicore/ocaml-uring#36</a>
@@ -3226,8 +4299,8 @@ OCaml. The initial test results of running Sandmark on a large Xen2
 box are shown below:</p>
 </li>
 </ul>
-<p><img src="upload://irThoi4RbupKLP9YOqiDuCHehA1.png" alt="OCaml-Multicore-PR-573-Time|458x500" />
-<img src="upload://bJSpY5klM9MvO4sUrPJ3YD6463I.png" alt="OCaml-Multicore-PR-573-Speedup|458x500" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/irThoi4RbupKLP9YOqiDuCHehA1.png" alt="OCaml-Multicore-PR-573-Time|458x500" />
+<img src="https://discuss.ocaml.org/uploads/short-url/bJSpY5klM9MvO4sUrPJ3YD6463I.png" alt="OCaml-Multicore-PR-573-Speedup|458x500" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/617">ocaml-multicore/ocaml-multicore#617</a>
@@ -3292,7 +4365,7 @@ Eventog event for condition wait</p>
 distribution in domainslib.</p>
 </li>
 </ul>
-<p><img src="upload://7CXMmjUbwuXqGtffNyfeo5B5Gd8.png" alt="OCaml-Multicore-PR-605-Illustration|536x500" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/7CXMmjUbwuXqGtffNyfeo5B5Gd8.png" alt="OCaml-Multicore-PR-605-Illustration|536x500" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/615">ocaml-multicore/ocaml-multicore#615</a>
@@ -3502,7 +4575,7 @@ Timestamps are not sorted in the parallel_nightly notebook</p>
 <p>The listing of timestamps in the drop-down option is now sorted.</p>
 </li>
 </ul>
-<p><img src="upload://yH1GqDjGUKpHol6fVERCUgNsUfh.png" alt="Sandmark-nightly-PR-2-Fix|307x313" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/yH1GqDjGUKpHol6fVERCUgNsUfh.png" alt="Sandmark-nightly-PR-2-Fix|307x313" /></p>
 <h3>Sandmark</h3>
 <h4>Ongoing</h4>
 <ul>
@@ -3547,7 +4620,7 @@ Update selected benchmarks as a set for baseline benchmark</p>
 variants in the Jupyter notebooks.</p>
 </li>
 </ul>
-<p><img src="upload://gTg6GrPpJCJsMO4H6tmpqljtvD4.png" alt="Sandmark-PR-235-Fix|690x77" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/gTg6GrPpJCJsMO4H6tmpqljtvD4.png" alt="Sandmark-PR-235-Fix|690x77" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-bench/sandmark/issues/237">ocaml-bench/sandmark#237</a>
@@ -3929,7 +5002,7 @@ it stores its state in Domain-Local Storage which can be called from
 multiple domains. The Sandmark results are given below:</p>
 </li>
 </ul>
-<p><img src="upload://m1XhWfU6igtUJdkIZPRn6LdJlJK.png" alt="Domainslib-PR-36-Results|690x383" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/m1XhWfU6igtUJdkIZPRn6LdJlJK.png" alt="Domainslib-PR-36-Results|690x383" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-multicore/multicore-opam/issues/56">ocaml-multicore/multicore-opam#56</a>
@@ -3944,7 +5017,7 @@ Lwt_domain: An interfacet to Multicore parallelism</p>
 performing computations to CPU cores using Multicore OCaml's
 Domains. A few benchmark results obtained on an Intel Xeon Gold 5120
 processor with 24 isolated cores is shown below:</p>
-<p><img src="upload://4iWKqRUh3abAAa1t8cgML8bzYrc.png" alt="Lwt-PR-860-Speedup|429x371" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/4iWKqRUh3abAAa1t8cgML8bzYrc.png" alt="Lwt-PR-860-Speedup|429x371" /></p>
 </li>
 </ul>
 <h3>Completed</h3>
@@ -4131,7 +5204,7 @@ operations, and this does not have much effect on the noop
 benchmark as illustrated below:</p>
 </li>
 </ul>
-<p><img src="upload://8zISyoEDKIIZMORMCi3skMIPlGR.png" alt="Eio-PR-61-Benchmark|690x387" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/8zISyoEDKIIZMORMCi3skMIPlGR.png" alt="Eio-PR-61-Benchmark|690x387" /></p>
 <h5>Improvements</h5>
 <ul>
 <li>
@@ -4313,7 +5386,7 @@ Cannot alter comparison input values</p>
 whole workbook.</p>
 </li>
 </ul>
-<p><img src="upload://vZ2JBVqK8HiyPPMtqByaY1Jhip9.png" alt="Sandmark-Nightly-1-Issue|690x139" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/vZ2JBVqK8HiyPPMtqByaY1Jhip9.png" alt="Sandmark-Nightly-1-Issue|690x139" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-bench/sandmark/pull/230">ocaml-bench/sandmark#230</a>
@@ -4337,8 +5410,8 @@ Update pausetimes_multicore to fit with the latest Multicore changes</p>
 pausetime results are illustrated below:</p>
 </li>
 </ul>
-<p><img src="upload://m41amKGFNBx8T5zrassBWsdJlk9.png" alt="Sandmark-PR-233-Serial-Pausetimes|690x229" />
-<img src="upload://t8BuHiEO8g6bs8fvv7stdBp0Q7z.png" alt="Sandmark-PR-233-Parallel-Pausetimes|690x355" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/m41amKGFNBx8T5zrassBWsdJlk9.png" alt="Sandmark-PR-233-Serial-Pausetimes|690x229" />
+<img src="https://discuss.ocaml.org/uploads/short-url/t8BuHiEO8g6bs8fvv7stdBp0Q7z.png" alt="Sandmark-PR-233-Parallel-Pausetimes|690x355" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-bench/sandmark/issues/235">ocaml-bench/sandmark#235</a>
@@ -4347,7 +5420,7 @@ Update selected benchmarks as a set for baseline benchmark</p>
 user selected benchmarks in the Jupyter notebooks.</p>
 </li>
 </ul>
-<p><img src="upload://zUiPdeScykJgbHhx4HrLIBegOIr.png" alt="Sandmark-Issue-235|383x82" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/zUiPdeScykJgbHhx4HrLIBegOIr.png" alt="Sandmark-Issue-235|383x82" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-bench/sandmark/issues/236">ocaml-bench/sandmark#236</a>
@@ -4390,8 +5463,8 @@ Port grammatrix to Task pool</p>
 Domainslib Task pool. The time and speedup graphs are given below:</p>
 </li>
 </ul>
-<p><img src="upload://tWJKlXjW8kbfE4omjfKlsDNpFv8.png" alt="Sandmark-PR-239-Time|690x357" />
-<img src="upload://aMwCaRugQjIHdEzP35mCmVJyITJ.png" alt="Sandmark-PR-239-Speedup|690x297" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/tWJKlXjW8kbfE4omjfKlsDNpFv8.png" alt="Sandmark-PR-239-Time|690x357" />
+<img src="https://discuss.ocaml.org/uploads/short-url/aMwCaRugQjIHdEzP35mCmVJyITJ.png" alt="Sandmark-PR-239-Speedup|690x297" /></p>
 <h2>OCaml</h2>
 <h3>Ongoing</h3>
 <ul>
@@ -4616,7 +5689,7 @@ trace into the Chrome tracing format that allows interactive visualizations
 like this:</p>
 </li>
 </ul>
-<p><img src="upload://hkZ1MA5sA6IdEwV9nIBm57YdmvZ.jpeg" alt="OCaml-Multicore-PR-527-Illustration|690x475" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/hkZ1MA5sA6IdEwV9nIBm57YdmvZ.jpeg" alt="OCaml-Multicore-PR-527-Illustration|690x475" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/543">ocaml-multicore/ocaml-multicore#543</a>
@@ -4839,7 +5912,7 @@ Move to Mutex &amp; Condition from Domain.Sync.{notify/wait}</p>
 complete. The performance results are shown in the following graph:</p>
 </li>
 </ul>
-<p><img src="upload://rRTArEtLWG8BMCq9uhtokOX2ZfD.png" alt="Domainslib-PR-24|465x500" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/rRTArEtLWG8BMCq9uhtokOX2ZfD.png" alt="Domainslib-PR-24|465x500" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-multicore/multicore-opam/pull/53">ocaml-multicore/multicore-opam#53</a>
@@ -4880,8 +5953,8 @@ use <code>String.init</code>, and fix to correctly count the amount of work
 configured and done produces the following speed improvements:</p>
 </li>
 </ul>
-<p><img src="upload://avtHyFpuulDQcFH70cY97b5HVDK.png" alt="PR-221-Time |690x184" />
-<img src="upload://awpN69M44aG0mjB524DKoiaNWnk.png" alt="PR-221-Speedup |690x184" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/avtHyFpuulDQcFH70cY97b5HVDK.png" alt="PR-221-Time |690x184" />
+<img src="https://discuss.ocaml.org/uploads/short-url/awpN69M44aG0mjB524DKoiaNWnk.png" alt="PR-221-Speedup |690x184" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-bench/sandmark/pull/223">ocaml-bench/sandmark#223</a>
@@ -4891,9 +5964,9 @@ random seed so that it is repeatable, and improves the pattern
 matching.</p>
 </li>
 </ul>
-<p><img src="upload://aDnAjB3JQ4s27CnpOY1srPNKi4P.png" alt="Sandmark-PR-223-Time|690x184" />
-<img src="upload://rbNANIAeqUwZIHi7DTmrRRS1IUo.png" alt="Sandmark-PR-223-Speedup|690x184" />
-<img src="upload://t4F2AeZDvTIQo0NRuBBHAEJdTAR.png" alt="Sandmark-PR-223-Minor-Collections|690x185" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/aDnAjB3JQ4s27CnpOY1srPNKi4P.png" alt="Sandmark-PR-223-Time|690x184" />
+<img src="https://discuss.ocaml.org/uploads/short-url/rbNANIAeqUwZIHi7DTmrRRS1IUo.png" alt="Sandmark-PR-223-Speedup|690x184" />
+<img src="https://discuss.ocaml.org/uploads/short-url/t4F2AeZDvTIQo0NRuBBHAEJdTAR.png" alt="Sandmark-PR-223-Minor-Collections|690x185" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-bench/sandmark/pull/224">ocaml-bench/sandmark#224</a>
@@ -4903,8 +5976,8 @@ code have been updated for easier maintenance, and results are
 written only after summing the values.</p>
 </li>
 </ul>
-<p><img src="upload://oysje2XiEEF6MfC7k9iAotAYiXY.png" alt="Sandmark-PR-224-Time|690x184" />
-<img src="upload://bf8cqFB61vMuwkI2L0QnlB9xKvD.png" alt="Sandmark-PR-224-Speedup|690x184" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/oysje2XiEEF6MfC7k9iAotAYiXY.png" alt="Sandmark-PR-224-Time|690x184" />
+<img src="https://discuss.ocaml.org/uploads/short-url/bf8cqFB61vMuwkI2L0QnlB9xKvD.png" alt="Sandmark-PR-224-Speedup|690x184" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-bench/sandmark/pull/225">ocaml-bench/sandmark#225</a>
@@ -4913,8 +5986,8 @@ Better Multicore EA Benchmark</p>
 to improve the benchmark results.</p>
 </li>
 </ul>
-<p><img src="upload://dS7Mgz9ByLS0wIAoM60akHsxV2v.png" alt="Sandmark-PR-225-Time|690x184" />
-<img src="upload://phFOvw59SaV1btTkQVFAdPBUCK0.png" alt="Sandmark-PR-225-Speedup|690x184" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/dS7Mgz9ByLS0wIAoM60akHsxV2v.png" alt="Sandmark-PR-225-Time|690x184" />
+<img src="https://discuss.ocaml.org/uploads/short-url/phFOvw59SaV1btTkQVFAdPBUCK0.png" alt="Sandmark-PR-225-Speedup|690x184" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-bench/sandmark/pull/226">ocaml-bench/sandmark#226</a>
@@ -4923,9 +5996,9 @@ Better scaling for mandelbrot6_multicore</p>
 <code>parallel_for</code> as observed in the following graphs:</p>
 </li>
 </ul>
-<p><img src="upload://8oZid38MSYvuU8TqIcZr6RIDXyy.png" alt="Sandmark-PR-226-Time|690x184" />
-<img src="upload://qeu6IP61DFrUCJuTrY88n8QoxJ8.png" alt="Sandmark-PR-226-Speedup|690x184" />
-<img src="upload://59yQ3fHgz3RV2elebkMLg1nUJ1h.png" alt="Sandmark-PR-226-Minor-Collections|690x184" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/8oZid38MSYvuU8TqIcZr6RIDXyy.png" alt="Sandmark-PR-226-Time|690x184" />
+<img src="https://discuss.ocaml.org/uploads/short-url/qeu6IP61DFrUCJuTrY88n8QoxJ8.png" alt="Sandmark-PR-226-Speedup|690x184" />
+<img src="https://discuss.ocaml.org/uploads/short-url/59yQ3fHgz3RV2elebkMLg1nUJ1h.png" alt="Sandmark-PR-226-Minor-Collections|690x184" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-bench/sandmark/pull/227">ocaml-bench/sandmark#227</a>
@@ -4934,8 +6007,8 @@ Improve nbody_multicore benchmark with high core counts</p>
 for larger core counts.</p>
 </li>
 </ul>
-<p><img src="upload://uuKGoQOxTXSWI3664AOD2LIdPdO.png" alt="Sandmark-PR-227-Time|690x184" />
-<img src="upload://raK1diCYlKtAOolyXtDKc8eMGGj.png" alt="Sandmark-PR-227-Speedup|690x184" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/uuKGoQOxTXSWI3664AOD2LIdPdO.png" alt="Sandmark-PR-227-Time|690x184" />
+<img src="https://discuss.ocaml.org/uploads/short-url/raK1diCYlKtAOolyXtDKc8eMGGj.png" alt="Sandmark-PR-227-Speedup|690x184" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-bench/sandmark/pull/229">ocaml-bench/sandmark#229</a>
@@ -4945,8 +6018,8 @@ benchmarks, and we avoid initialising the temporary matrix with
 random numbers.</p>
 </li>
 </ul>
-<p><img src="upload://bwpeImbVr37QKJ5OiVcNh1SkkOx.png" alt="Sandmark-PR-229-Time|690x184" />
-<img src="upload://xBaIx2geunZuzlebBY2NMGJt0uA.png" alt="Sandmark-PR-229-Speedup|690x184" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/bwpeImbVr37QKJ5OiVcNh1SkkOx.png" alt="Sandmark-PR-229-Time|690x184" />
+<img src="https://discuss.ocaml.org/uploads/short-url/xBaIx2geunZuzlebBY2NMGJt0uA.png" alt="Sandmark-PR-229-Speedup|690x184" /></p>
 <h5>Sundries</h5>
 <ul>
 <li>
@@ -5395,7 +6468,7 @@ with <a href="https://github.com/ocurrent/current-bench">current-bench</a> for
 CI. A raw output of the graph is shown below:
 </li>
 </ul>
-<p><img src="upload://6KOMezRFdkjjNtsfxLx1en2muu3.png" alt="current-bench Sandmark-2.0 frontend |312x499" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/6KOMezRFdkjjNtsfxLx1en2muu3.png" alt="current-bench Sandmark-2.0 frontend |312x499" /></p>
 <p>The Sandmark 2.0 benchmarking is moving to use the <code>current-bench</code>
 tooling. You can now create necessary issues and PRs for the
 Multicore OCaml project in the <code>current-bench</code> project using the
@@ -5429,7 +6502,7 @@ Ability to set scale on UI to start at 0</p>
 <p>The raw results plotted in the graph need to start from <code>[0, y_max+delta]</code> for the y-axis for better comparison. A  <a href="https://github.com/ocurrent/current-bench/pull/74">PR</a> is available  for the same, and the fixed output is shown in the following graph:</p>
 </li>
 </ul>
-<p><img src="upload://7O9maG73iBof7WgJtXGm80OtbfA.jpeg" alt="current-bench frontend fix 0 baseline" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/7O9maG73iBof7WgJtXGm80OtbfA.jpeg" alt="current-bench frontend fix 0 baseline" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocurrent/current-bench/issues/105">ocurrent/current-bench#105</a>
@@ -6180,7 +7253,7 @@ opam upgrade
 <p><a href="">OCaml 4.12.0 has been released</a> with a large number of internal changes <a href="https://github.com/ocaml/ocaml/issues?q=is%3Aclosed+label%3Amulticore-prerequisite+">required for multicore OCaml</a> such as GC colours handling, the removal of the page table and modifications to the heap representations.</p>
 <p>From a developer perspective, there is now a new configure option called the <code>nnpchecker</code> which dynamically instruments the runtime to help you spot the use of unboxed C pointers in your bindings. This was described here <a href="https://discuss.ocaml.org/t/ann-a-dynamic-checker-for-detecting-naked-pointers/5805">earlier against 4.10</a>, but it is now also live on the <a href="https://github.com/ocurrent/opam-repo-ci/pull/79">opam repository CI</a>.  From now on, <strong>new opam package submissions will alert you with a failing test if naked pointers are detected</strong> in your opam package test suite.  Please do try to include tests in your opam package to gain the benefits of this!</p>
 <p>The screenshot below shows this working on the LLVM package (which is known to have naked pointers at present).</p>
-<p><img src="upload://cJM9PwGOvVdDz8eGxkZMK7DOKra.jpeg" alt="image|690x458, 75%" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/cJM9PwGOvVdDz8eGxkZMK7DOKra.jpeg" alt="image|690x458, 75%" /></p>
 <h2>4.13~dev: upstreaming progress</h2>
 <p>Our PR queue for the 4.13 release is largely centred around the integration of &quot;safe points&quot;, which provide stronger guarantees that the OCaml mutator will poll the garbage collector regularly even when the application logic isn't allocating regularly.  This work began almost <a href="https://github.com/ocaml-multicore/ocaml-multicore/issues/187">three years ago</a> in the multicore OCaml trees, and is now under <a href="https://github.com/ocaml/ocaml/pull/10039">code review in upstream OCaml</a> -- please do chip in with any performance or code size tests on that PR.</p>
 <p>Aside from this, the team is working various other pre-requisites such as a multicore-safe Lazy, implementing the memory model (explained in this <a href="https://dl.acm.org/doi/10.1145/3192366.3192421">PLDI 18 paper</a>) and adapting the ephemeron API to be more parallel-friendly.  It is not yet clear which of these will get into 4.13, and which will be put straight into the 5.0 trees yet.</p>
@@ -6292,7 +7365,7 @@ major cycle. The parallel benchmark results with the patch is shown
 in the illustration below:</p>
 </li>
 </ul>
-<p><img src="upload://9wDWXWe106w049s4WuxTcxe48mV.jpeg" alt="PR 472 Parallel Benchmarks|690x464" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/9wDWXWe106w049s4WuxTcxe48mV.jpeg" alt="PR 472 Parallel Benchmarks|690x464" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/476">ocaml-multicore/ocaml-multicore#476</a>
@@ -6397,7 +7470,7 @@ function optimisations reduces the number of polls as illustrated
 below:</p>
 </li>
 </ul>
-<p><img src="upload://i71oOOzpkK1ZtE54mzKaNngm3qM.png" alt="PR 10039 Polls from Leaf Functions |690x326" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/i71oOOzpkK1ZtE54mzKaNngm3qM.png" alt="PR 10039 Polls from Leaf Functions |690x326" /></p>
 <p>Our thanks to all the OCaml users and developers in the community for their contribution and support to the project!</p>
 <h2>Acronyms</h2>
 <ul>
@@ -6490,7 +7563,7 @@ Multicore Merlin</p>
 to get it working with Multicore OCaml 4.10! The same has been
 tested with VSCode and Atom, and a screenshot of the UI is shown
 below.
-<img src="upload://hD5jZzwblFC4oq4UEk4agfu24W7.png" alt="PR 39 Multicore Merlin Screenshot|435x350" /></p>
+<img src="https://discuss.ocaml.org/uploads/short-url/hD5jZzwblFC4oq4UEk4agfu24W7.png" alt="PR 39 Multicore Merlin Screenshot|435x350" /></p>
 </li>
 </ul>
 <h4>API</h4>
@@ -6573,7 +7646,7 @@ Collect GC stats at the end of minor collection</p>
 the double buffering of GC sampled statistics has been removed. The
 change does not have an impact on the existing benchmark runs as
 observed against stock OCaml from the following illustration:</p>
-<p><img src="upload://i4js513ml6Qw6GvkZuQsiVuowYB.png" alt="PR 446 Graph Image|690x317" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/i4js513ml6Qw6GvkZuQsiVuowYB.png" alt="PR 446 Graph Image|690x317" /></p>
 </li>
 <li>
 <p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/454">ocaml-multicore/ocaml-multicore#454</a>
@@ -6755,8 +7828,8 @@ one domain. The sequential and parallel macro benchmark results are
 given below:</p>
 </li>
 </ul>
-<p><img src="upload://kNn97x2EouFqVZpSj82Pa6yt2wB.jpeg" alt="PR 463 OCaml Multicore Sequential |690x318" /></p>
-<p><img src="upload://7usja76xxxUEOTPTRFmRUQ1H6dL.jpeg" alt="PR 463 OCaml Multicore Parallel |690x458" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/kNn97x2EouFqVZpSj82Pa6yt2wB.jpeg" alt="PR 463 OCaml Multicore Sequential |690x318" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/7usja76xxxUEOTPTRFmRUQ1H6dL.jpeg" alt="PR 463 OCaml Multicore Parallel |690x458" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/467">ocaml-multicore/ocaml-multicore#467</a>
@@ -6828,8 +7901,8 @@ Safepoints</p>
 prologue eliding algorithm and is now rebased to trunk.The runtime
 benchmark results on sherwood (an AMD EPYC 7702) and thunderx (a
 Cavium ThunderX CN8890) are shown below:</p>
-<p><img src="upload://p7YF1eKFPnXJjSrTQQ2AAiIPiUl.png" alt="PR 10039 OCaml Sherwood |690x391" />
-<img src="upload://8o3nuJUhByBqJqVJEJK91hHsqNF.png" alt="PR 10039 OCaml ThunderX |690x389" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/p7YF1eKFPnXJjSrTQQ2AAiIPiUl.png" alt="PR 10039 OCaml Sherwood |690x391" />
+<img src="https://discuss.ocaml.org/uploads/short-url/8o3nuJUhByBqJqVJEJK91hHsqNF.png" alt="PR 10039 OCaml ThunderX |690x389" /></p>
 </li>
 </ul>
 <h3>Completed</h3>
@@ -6920,7 +7993,7 @@ statistics collection by using the barrier present during minor
 collection in the parallel_minor_gc schema. There is not much
 slowdown for the benchmark runs, normalized against stock OCaml as
 seen in the illustration.
-<img src="upload://i4js513ml6Qw6GvkZuQsiVuowYB.png" alt="PR 446 Graph Image" /></p>
+<img src="https://discuss.ocaml.org/uploads/short-url/i4js513ml6Qw6GvkZuQsiVuowYB.png" alt="PR 446 Graph Image" /></p>
 </li>
 </ul>
 <h3>Completed</h3>
@@ -6978,7 +8051,7 @@ during a major cycle. The result of the <code>finalise</code> benchmark time
 difference with mark stack overflow is shown below:</p>
 </li>
 </ul>
-<p><img src="upload://xZoOkroQdawrkU6SaistBe7j0FG.png" alt="PR 435 Graph Image" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/xZoOkroQdawrkU6SaistBe7j0FG.png" alt="PR 435 Graph Image" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/437">ocaml-multicore/ocaml-multicore#437</a>
@@ -7179,8 +8252,8 @@ implementation are now included in Sandmark, and it uses the
 <code>lockfree_bench</code> tag. The time and speedup illustrations are as follows:</p>
 </li>
 </ul>
-<p><img src="upload://bnMWcVZTMo1mahmtkawHOho3rA.png" alt="PR 194 Time Image" />
-<img src="upload://fIrArMCzcRLfO1hyyDH7dDIpFT0.png" alt="PR 194 Speedup Image" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/bnMWcVZTMo1mahmtkawHOho3rA.png" alt="PR 194 Time Image" />
+<img src="https://discuss.ocaml.org/uploads/short-url/fIrArMCzcRLfO1hyyDH7dDIpFT0.png" alt="PR 194 Speedup Image" /></p>
 <h2>OCaml</h2>
 <h3>Ongoing</h3>
 <ul>
@@ -7199,7 +8272,7 @@ prefetching, and to reduce cache misses during GC. The normalized
 running time graph is as follows:</p>
 </li>
 </ul>
-<p><img src="upload://b1kXzk2cPuQFZyw0gGLhYzzTpUP.png" alt="PR 9934 Graph" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/b1kXzk2cPuQFZyw0gGLhYzzTpUP.png" alt="PR 9934 Graph" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml/ocaml/pull/10039">ocaml/ocaml#10039</a>
@@ -7209,7 +8282,7 @@ are implemented by adding a new <code>Ipoll</code> operation to Mach. The
 benchmark results on an AMD Zen2 machine are given below:</p>
 </li>
 </ul>
-<p><img src="upload://f1LVGM7v68n8PXO2vkgspojINrr.png" alt="PR 10039 Benchmark" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/f1LVGM7v68n8PXO2vkgspojINrr.png" alt="PR 10039 Benchmark" /></p>
 <p>Many thanks to all the OCaml users and developers for their continued support, and contribution to the project.</p>
 <h2>Acronyms</h2>
 <ul>
@@ -7485,7 +8558,7 @@ in the sequential notebook output. The graph for <code>maxrsskb</code>, for
 example, is shown below:</p>
 </li>
 </ul>
-<p><img src="upload://1gub2PiCejOQBoMqPvuhDoxHpJo.png" alt="PR 177 Image |690x258" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/1gub2PiCejOQBoMqPvuhDoxHpJo.png" alt="PR 177 Image |690x258" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-bench/sandmark/pull/178">ocaml-bench/sandmark#178</a>
@@ -7718,7 +8791,7 @@ Demux eventlog for backup thread</p>
 the main thread, and this PR separates them.</p>
 </li>
 </ul>
-<p><img src="upload://1k0ZG25zs4Vl8x9sIPXNlpBj3NX.png" alt="PR 400|690x246" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/1k0ZG25zs4Vl8x9sIPXNlpBj3NX.png" alt="PR 400|690x246" /></p>
 <p>In the above illustration, the backup threads are active when the
 main thread is waiting on a condition variable.</p>
 <h2>Benchmarking</h2>
@@ -7819,7 +8892,7 @@ show in the below illustration, and there is little negative impact
 on the change.</p>
 </li>
 </ul>
-<p><img src="upload://2nIsxMaEnUPpk8CJIjwI6UeT9yp.png" alt="PR-9756|690x495" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/2nIsxMaEnUPpk8CJIjwI6UeT9yp.png" alt="PR-9756|690x495" /></p>
 <p>As always, we would like to thank all the OCaml developers and users in the community for their continued support and contribution to the project.  Be well!</p>
 <h2>Acronyms</h2>
 <ul>
@@ -7919,7 +8992,7 @@ Improvement of parallel_for implementation</p>
 scaling with more than 8-16 cores. The blue line in the following
 illustration shows the improvement for few benchmarks in Sandmark
 using the default <code>chunk_size</code> along with this PR:
-<img src="upload://u4M9bCyA5fu77JZRyJZv4KxMjj3.png" alt="OCaml-Domainslib-16-Illustration|465x500" /></p>
+<img src="https://discuss.ocaml.org/uploads/short-url/u4M9bCyA5fu77JZRyJZv4KxMjj3.png" alt="OCaml-Domainslib-16-Illustration|465x500" /></p>
 </li>
 <li>
 <p><a href="https://github.com/ocaml-multicore/multicore-opam/pull/28">ocaml-multicore/multicore-opam</a>
@@ -7949,10 +9022,10 @@ can enter the stop-the-world minor collections even if one domain is
 performing a large task. For example, for the binary tree benchmark
 with four domains, major work (pink) in domain three stalls progress
 for other domains as observed in the eventlog.
-<img src="upload://y7YfHHD2CGLLjUFw6rdwuBBq0zm.png" alt="OCaml-Multicore-PR-379-Illustration-Before|539x500" /></p>
+<img src="https://discuss.ocaml.org/uploads/short-url/y7YfHHD2CGLLjUFw6rdwuBBq0zm.png" alt="OCaml-Multicore-PR-379-Illustration-Before|539x500" /></p>
 <p>With this patch, we can observe that the major work in domains two
 and four make progress in the following illustration:
-<img src="upload://3UPxEjemdhgAAEnnqsv7iV17PK3.png" alt="OCaml-Multicore-PR-379-Illustration-After|655x500" /></p>
+<img src="https://discuss.ocaml.org/uploads/short-url/3UPxEjemdhgAAEnnqsv7iV17PK3.png" alt="OCaml-Multicore-PR-379-Illustration-After|655x500" /></p>
 </li>
 <li>
 <p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/380">ocaml-multicore/ocaml-multicore#380</a>
@@ -8260,7 +9333,7 @@ to track domains that are idling. An eventlog screenshot with this
 effect is shown below:</p>
 </li>
 </ul>
-<p><img src="upload://nPr6W8aUgyYDU1ZhO5XOAFKMiam.png" alt="PR 366 Image |690x298" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/nPr6W8aUgyYDU1ZhO5XOAFKMiam.png" alt="PR 366 Image |690x298" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/369">ocaml-multicore/ocaml-multicore#369</a>
@@ -8271,7 +9344,7 @@ and <code>caml_request_major_slice</code>. This reduces the total number of
 minor garbage collections as observed in the following illustration:</p>
 </li>
 </ul>
-<p><img src="upload://eCdqNjb7AtmLGmL0TpUKZG3lpeT.png" alt="PR 369 Image |690x203" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/eCdqNjb7AtmLGmL0TpUKZG3lpeT.png" alt="PR 369 Image |690x203" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/373">ocaml-multicore/ocaml-multicore#373</a>
@@ -8582,7 +9655,7 @@ Sandmark serial benchmark results after the change is illustrated in
 the following graph:</p>
 </li>
 </ul>
-<p><img src="upload://pC6XsKYqKRDr9zy7RQmp8D6XIDE.png" alt="Absolute addressing improvements |690x218" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/pC6XsKYqKRDr9zy7RQmp8D6XIDE.png" alt="Absolute addressing improvements |690x218" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/347">ocaml-multicore/ocaml-multicore#347</a>
@@ -8886,7 +9959,7 @@ exception.</p>
 Random module functions slowdown on multiple cores</p>
 <p>There is an observed slowdown for the <code>Random</code> module on multiple
 cores, and the issue is being analysed in detail.</p>
-<p><img src="upload://z1ggYyLuFZyEYlAIGjOFin3Dv8X.png" alt="perf Random" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/z1ggYyLuFZyEYlAIGjOFin3Dv8X.png" alt="perf Random" /></p>
 </li>
 <li>
 <p><a href="https://github.com/ocaml-multicore/ocaml-multicore/pull/343">ocaml-multicore/ocaml-multicore#343</a>
@@ -8953,7 +10026,7 @@ been included. Given an artifacts directory with the benchmark
 files, the notebook prompts you in the GUI to select different
 commit and compiler variants for analysis. A sample screenshot of
 the UI is shown below:</p>
-<p><img src="upload://guDEKu51Mz8QwUwvVXA0FAqaWsf.png" alt="Sequentials select comparison" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/guDEKu51Mz8QwUwvVXA0FAqaWsf.png" alt="Sequentials select comparison" /></p>
 <p>The PR adds error handling, user input validation and the project
 README has also been updated.</p>
 </li>
@@ -9462,7 +10535,7 @@ Add Gram Matrix benchmark</p>
 <a href="https://github.com/ocaml-bench/sandmark/issues/99">ocaml-bench/sandmark#99</a> to include the Gram Matrix initialization numerical benchmark was created. This is useful for machine learning applications and is now available in the Sandmark performance benchmark suite. The speedup (sequential_time/multi_threaded_time) versus number of cores for Multicore (Concurrent Minor Collector), Parmap and Parany is quite significant and illustrated in the graph:</p>
 </li>
 </ul>
-<p><img src="upload://4GHKI2C3Au8iHUwZqGwpiR42Ori.png" alt="Gram matrix speedup benchmark" /></p>
+<p><img src="https://discuss.ocaml.org/uploads/short-url/4GHKI2C3Au8iHUwZqGwpiR42Ori.png" alt="Gram matrix speedup benchmark" /></p>
 <ul>
 <li>
 <p><a href="https://github.com/ocaml-bench/sandmark/pull/103">ocaml-bench/sandmark#103</a>

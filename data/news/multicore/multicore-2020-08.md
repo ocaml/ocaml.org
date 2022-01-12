@@ -61,7 +61,7 @@ Contributions such as the above towards adapting your projects with our benchmar
   scaling with more than 8-16 cores. The blue line in the following
   illustration shows the improvement for few benchmarks in Sandmark
   using the default `chunk_size` along with this PR:
- ![OCaml-Domainslib-16-Illustration|465x500](upload://u4M9bCyA5fu77JZRyJZv4KxMjj3.png) 
+ ![OCaml-Domainslib-16-Illustration|465x500](https://discuss.ocaml.org/uploads/short-url/u4M9bCyA5fu77JZRyJZv4KxMjj3.png) 
 
 * [ocaml-multicore/multicore-opam](https://github.com/ocaml-multicore/multicore-opam/pull/28)
   Use `-j%{jobs}%` for multicore variant builds
@@ -91,11 +91,11 @@ Contributions such as the above towards adapting your projects with our benchmar
   performing a large task. For example, for the binary tree benchmark
   with four domains, major work (pink) in domain three stalls progress
   for other domains as observed in the eventlog.
-  ![OCaml-Multicore-PR-379-Illustration-Before|539x500](upload://y7YfHHD2CGLLjUFw6rdwuBBq0zm.png)
+  ![OCaml-Multicore-PR-379-Illustration-Before|539x500](https://discuss.ocaml.org/uploads/short-url/y7YfHHD2CGLLjUFw6rdwuBBq0zm.png)
  
   With this patch, we can observe that the major work in domains two
   and four make progress in the following illustration:
-![OCaml-Multicore-PR-379-Illustration-After|655x500](upload://3UPxEjemdhgAAEnnqsv7iV17PK3.png) 
+![OCaml-Multicore-PR-379-Illustration-After|655x500](https://discuss.ocaml.org/uploads/short-url/3UPxEjemdhgAAEnnqsv7iV17PK3.png) 
 
 * [ocaml-multicore/ocaml-multicore#380](https://github.com/ocaml-multicore/ocaml-multicore/pull/380)
   Make DLS call to `caml_domain_dls_get` `@@noalloc`

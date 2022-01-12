@@ -374,7 +374,7 @@ As always, the Multicore OCaml updates are listed first, which are then followed
   that was run inside Docker on a 4-core i7-8559 CPU at 2.70 GHz with
   1000 connections and 60 second runs.
 
-   ![retro-httpaf-bench-16-performance|690x460](upload://8VMquoc8s1vHUZQWbmHDiFQuiCI.jpeg)
+   ![retro-httpaf-bench-16-performance|690x460](https://discuss.ocaml.org/uploads/short-url/8VMquoc8s1vHUZQWbmHDiFQuiCI.jpeg)
 
 ## Benchmarking
 

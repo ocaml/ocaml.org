@@ -593,7 +593,7 @@ As always, the Multicore OCaml updates are listed first, which contain the upstr
   counting threads as two horizontal lines, and white regions
   indicating when each thread is running.
 
-  ![eio-pr-92-trace|690x157](upload://nG6djh8yYPqlPxlOzswCsvY5How.png)
+  ![eio-pr-92-trace|690x157](https://discuss.ocaml.org/uploads/short-url/nG6djh8yYPqlPxlOzswCsvY5How.png)
 
 * [ocaml-multicore/eio#93](https://github.com/ocaml-multicore/eio/pull/93)
   Add `Fibre.first`

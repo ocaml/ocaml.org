@@ -610,7 +610,7 @@ As always, the Multicore OCaml updates are listed first, which contain the upstr
   Markers have now been added to the graphs generated from the Jupyter
   notebook to easily distinguish the colour lines.
   
-  ![retro-httpaf-bench-17-graph|690x409](upload://qKGZJ5anPXMCKp8EDcY2F5TMRbk.jpeg)
+  ![retro-httpaf-bench-17-graph|690x409](https://discuss.ocaml.org/uploads/short-url/qKGZJ5anPXMCKp8EDcY2F5TMRbk.jpeg)
 
 * [ocaml-multicore/multicore-opam#59](https://github.com/ocaml-multicore/multicore-opam/pull/59)
   Fix batteries after ocaml-multicore/ocaml-multicore#514
@@ -730,27 +730,27 @@ As always, the Multicore OCaml updates are listed first, which contain the upstr
 
 
   Time
-  ![Current-bench-151-Time|690x236](upload://gjR8Yte7F23hEVr0162yOuWCp2r.png)
+  ![Current-bench-151-Time|690x236](https://discuss.ocaml.org/uploads/short-url/gjR8Yte7F23hEVr0162yOuWCp2r.png)
   Normalised
-  ![Current-bench-151-Time-Normalised|690x315](upload://wtc2aSo61cDXTtdJQLcrOvjJwmD.png)
+  ![Current-bench-151-Time-Normalised|690x315](https://discuss.ocaml.org/uploads/short-url/wtc2aSo61cDXTtdJQLcrOvjJwmD.png)
   Top heap words 
- ![Current-bench-151-Top-heap-words|690x236](upload://xxyblnCJr3GPkEEfM3ZnmAJ4LMe.png)
+ ![Current-bench-151-Top-heap-words|690x236](https://discuss.ocaml.org/uploads/short-url/xxyblnCJr3GPkEEfM3ZnmAJ4LMe.png)
   Normalised
- ![Current-bench-151-Top-heap-words-Normalised|690x323](upload://4JXHsIHH4b5DDeAtn0kwN8bnC0n.png)
+ ![Current-bench-151-Top-heap-words-Normalised|690x323](https://discuss.ocaml.org/uploads/short-url/4JXHsIHH4b5DDeAtn0kwN8bnC0n.png)
 
   MaxRSS (KB)
-  ![Current-bench-151-MaxRSS|690x237](upload://jys3rIAZFb5mkb3q2ZMD3uPGiQA.png)
+  ![Current-bench-151-MaxRSS|690x237](https://discuss.ocaml.org/uploads/short-url/jys3rIAZFb5mkb3q2ZMD3uPGiQA.png)
   Normalised
-  ![Current-bench-151-MaxRSS-Normalised|690x325](upload://ue1TiDvFK8EXA6Wi11gOHiHMXNU.png)
+  ![Current-bench-151-MaxRSS-Normalised|690x325](https://discuss.ocaml.org/uploads/short-url/ue1TiDvFK8EXA6Wi11gOHiHMXNU.png)
 
   Major Collections
-  ![Current-bench-151-Major-collections|690x236](upload://dm1cGbEjtV8I5UZpfxdfgt2lIaf.png)
+  ![Current-bench-151-Major-collections|690x236](https://discuss.ocaml.org/uploads/short-url/dm1cGbEjtV8I5UZpfxdfgt2lIaf.png)
   Normalised
-  ![Current-bench-151-Minor-collections-Normalised|690x320](upload://sdHyKFyoDSDdok3QDvKNbyNAq0Z.png)
+  ![Current-bench-151-Minor-collections-Normalised|690x320](https://discuss.ocaml.org/uploads/short-url/sdHyKFyoDSDdok3QDvKNbyNAq0Z.png)
 
   Parallel Benchmarks
-  ![Current-bench-151-Parallel-benchmarks-I|486x500](upload://8BQzGtrqwFPZ0Di4WeUcsUxkQcq.png)
-  ![Current-bench-151-Parallel-benchmarks-II|237x500](upload://rIYQcXtBJwgIlniuhcCyz3WY2Q7.png)
+  ![Current-bench-151-Parallel-benchmarks-I|486x500](https://discuss.ocaml.org/uploads/short-url/8BQzGtrqwFPZ0Di4WeUcsUxkQcq.png)
+  ![Current-bench-151-Parallel-benchmarks-II|237x500](https://discuss.ocaml.org/uploads/short-url/rIYQcXtBJwgIlniuhcCyz3WY2Q7.png)
 
 (see the PR full for the full set of graphs, including major words and time taken)
 

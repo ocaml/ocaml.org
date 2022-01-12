@@ -98,7 +98,7 @@ The [Sandmark](https://github.com/ocaml-bench/sandmark) performance benchmarking
   A request
   [ocaml-bench/sandmark#99](https://github.com/ocaml-bench/sandmark/issues/99) to include the Gram Matrix initialization numerical benchmark was created. This is useful for machine learning applications and is now available in the Sandmark performance benchmark suite. The speedup (sequential_time/multi_threaded_time) versus number of cores for Multicore (Concurrent Minor Collector), Parmap and Parany is quite significant and illustrated in the graph:
 
-![Gram matrix speedup benchmark](upload://4GHKI2C3Au8iHUwZqGwpiR42Ori.png) 
+![Gram matrix speedup benchmark](https://discuss.ocaml.org/uploads/short-url/4GHKI2C3Au8iHUwZqGwpiR42Ori.png) 
 
 * [ocaml-bench/sandmark#103](https://github.com/ocaml-bench/sandmark/pull/103)
   Add depend target in Makefile

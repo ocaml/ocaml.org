@@ -71,7 +71,7 @@ As always, the Multicore OCaml updates are listed first, which are then followed
   The `nethttp-go/httpserv.go` benchmark has been optimised with use
   of `Write` instead of `fmt.Fprintf`, and the removal of yield().
 
-  ![retro-httpaf-bench-go-optimise|411x266](upload://ahnwQrxkI8nIDpMurnoayzdJmA6.png)
+  ![retro-httpaf-bench-go-optimise|411x266](https://discuss.ocaml.org/uploads/short-url/ahnwQrxkI8nIDpMurnoayzdJmA6.png)
 
 * [ocaml-multicore/ocaml-uring#37](https://github.com/ocaml-multicore/ocaml-uring/issues/37)
   `poll_add` test hangs on s390x
@@ -125,16 +125,16 @@ As always, the Multicore OCaml updates are listed first, which are then followed
   running with multiple domains. The results on an 8-core VM with 100
   connections and 5 second runs is shown below:
 
-  ![retro-httpaf-bench-100-connections-5-seconds|411x262](upload://9IoQWI68Xo8X2mKXXrfkNzXq2Oe.png)
+  ![retro-httpaf-bench-100-connections-5-seconds|411x262](https://discuss.ocaml.org/uploads/short-url/9IoQWI68Xo8X2mKXXrfkNzXq2Oe.png)
 
   The following illustration is from a VM for 1000 connections and 60
   second runs:
 
-  ![retro-httpaf-bench-1000-connections-60-seconds|401x262](upload://5Lpf7h5AJtnPSwCT4Nox7OGkIYM.png)
+  ![retro-httpaf-bench-1000-connections-60-seconds|401x262](https://discuss.ocaml.org/uploads/short-url/5Lpf7h5AJtnPSwCT4Nox7OGkIYM.png)
 
   The results with `GOMAXPROCS=3` for three OCaml domains is as follows:
   
-  ![retro-httpaf-bench-three-domains-15|411x262](upload://lr7ngwNK8tRa5Z5zKlrcY2DmrJ2.png)
+  ![retro-httpaf-bench-three-domains-15|411x262](https://discuss.ocaml.org/uploads/short-url/lr7ngwNK8tRa5Z5zKlrcY2DmrJ2.png)
 
 * [ocaml-multicore/ocaml-uring#36](https://github.com/ocaml-multicore/ocaml-uring/pull/36)
   Update to cstruct 6.0.1

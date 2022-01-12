@@ -255,7 +255,7 @@ As always, the Multicore OCaml ongoing and completed tasks are listed first, whi
   it stores its state in Domain-Local Storage which can be called from
   multiple domains. The Sandmark results are given below:
 
-![Domainslib-PR-36-Results|690x383](upload://m1XhWfU6igtUJdkIZPRn6LdJlJK.png)
+![Domainslib-PR-36-Results|690x383](https://discuss.ocaml.org/uploads/short-url/m1XhWfU6igtUJdkIZPRn6LdJlJK.png)
 
 * [ocaml-multicore/multicore-opam#56](https://github.com/ocaml-multicore/multicore-opam/issues/56)
   Base-effects depends strictly on 4.12
@@ -271,7 +271,7 @@ As always, the Multicore OCaml ongoing and completed tasks are listed first, whi
   Domains. A few benchmark results obtained on an Intel Xeon Gold 5120
   processor with 24 isolated cores is shown below:
 
-  ![Lwt-PR-860-Speedup|429x371](upload://4iWKqRUh3abAAa1t8cgML8bzYrc.png)
+  ![Lwt-PR-860-Speedup|429x371](https://discuss.ocaml.org/uploads/short-url/4iWKqRUh3abAAa1t8cgML8bzYrc.png)
 
 ### Completed
 
@@ -460,7 +460,7 @@ Multicore OCaml.
   operations, and this does not have much effect on the noop
   benchmark as illustrated below:
 
-![Eio-PR-61-Benchmark|690x387](upload://8zISyoEDKIIZMORMCi3skMIPlGR.png)
+![Eio-PR-61-Benchmark|690x387](https://discuss.ocaml.org/uploads/short-url/8zISyoEDKIIZMORMCi3skMIPlGR.png)
 
 ##### Improvements
 
@@ -640,7 +640,7 @@ Multicore OCaml.
   `parallel_nightly.ipynb` notebook get reset when recomputing the
   whole workbook.
 
-![Sandmark-Nightly-1-Issue|690x139](upload://vZ2JBVqK8HiyPPMtqByaY1Jhip9.png)
+![Sandmark-Nightly-1-Issue|690x139](https://discuss.ocaml.org/uploads/short-url/vZ2JBVqK8HiyPPMtqByaY1Jhip9.png)
 
 * [ocaml-bench/sandmark#230](https://github.com/ocaml-bench/sandmark/pull/230)
   Build for 4.13.0+trunk with dune.2.8.1
@@ -663,8 +663,8 @@ Multicore OCaml.
   (CTF). The generated graphs for both the sequential and parallel
   pausetime results are illustrated below:
 
-![Sandmark-PR-233-Serial-Pausetimes|690x229](upload://m41amKGFNBx8T5zrassBWsdJlk9.png)
-![Sandmark-PR-233-Parallel-Pausetimes|690x355](upload://t8BuHiEO8g6bs8fvv7stdBp0Q7z.png)
+![Sandmark-PR-233-Serial-Pausetimes|690x229](https://discuss.ocaml.org/uploads/short-url/m41amKGFNBx8T5zrassBWsdJlk9.png)
+![Sandmark-PR-233-Parallel-Pausetimes|690x355](https://discuss.ocaml.org/uploads/short-url/t8BuHiEO8g6bs8fvv7stdBp0Q7z.png)
 
 * [ocaml-bench/sandmark#235](https://github.com/ocaml-bench/sandmark/issues/235)
   Update selected benchmarks as a set for baseline benchmark
@@ -672,7 +672,7 @@ Multicore OCaml.
   The baseline benchmark for comparison should only be one from the
   user selected benchmarks in the Jupyter notebooks.
 
-![Sandmark-Issue-235|383x82](upload://zUiPdeScykJgbHhx4HrLIBegOIr.png)
+![Sandmark-Issue-235|383x82](https://discuss.ocaml.org/uploads/short-url/zUiPdeScykJgbHhx4HrLIBegOIr.png)
 
 * [ocaml-bench/sandmark#236](https://github.com/ocaml-bench/sandmark/issues/236)
   Implement pausetimes support in sandmark_nightly
@@ -713,8 +713,8 @@ Multicore OCaml.
   The Multicore Grammatrix benchmark has now been ported to use
   Domainslib Task pool. The time and speedup graphs are given below:
 
-![Sandmark-PR-239-Time|690x357](upload://tWJKlXjW8kbfE4omjfKlsDNpFv8.png)
-![Sandmark-PR-239-Speedup|690x297](upload://aMwCaRugQjIHdEzP35mCmVJyITJ.png)
+![Sandmark-PR-239-Time|690x357](https://discuss.ocaml.org/uploads/short-url/tWJKlXjW8kbfE4omjfKlsDNpFv8.png)
+![Sandmark-PR-239-Speedup|690x297](https://discuss.ocaml.org/uploads/short-url/aMwCaRugQjIHdEzP35mCmVJyITJ.png)
 
 ## OCaml
 

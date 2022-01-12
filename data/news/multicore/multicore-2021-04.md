@@ -270,7 +270,7 @@ As always, we begin with the Multicore OCaml ongoing and completed tasks. This i
   with [current-bench](https://github.com/ocurrent/current-bench) for
   CI. A raw output of the graph is shown below:
 
-![current-bench Sandmark-2.0 frontend |312x499](upload://6KOMezRFdkjjNtsfxLx1en2muu3.png)
+![current-bench Sandmark-2.0 frontend |312x499](https://discuss.ocaml.org/uploads/short-url/6KOMezRFdkjjNtsfxLx1en2muu3.png)
 
   The Sandmark 2.0 benchmarking is moving to use the `current-bench`
   tooling. You can now create necessary issues and PRs for the
@@ -303,7 +303,7 @@ As always, we begin with the Multicore OCaml ongoing and completed tasks. This i
   
   The raw results plotted in the graph need to start from `[0, y_max+delta]` for the y-axis for better comparison. A  [PR](https://github.com/ocurrent/current-bench/pull/74) is available  for the same, and the fixed output is shown in the following graph:
 
-![current-bench frontend fix 0 baseline](upload://7O9maG73iBof7WgJtXGm80OtbfA.jpeg)
+![current-bench frontend fix 0 baseline](https://discuss.ocaml.org/uploads/short-url/7O9maG73iBof7WgJtXGm80OtbfA.jpeg)
 
 * [ocurrent/current-bench#105](https://github.com/ocurrent/current-bench/issues/105)
   Abstract out Docker image name from `pipeline/lib/pipeline.ml`

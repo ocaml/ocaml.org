@@ -54,7 +54,7 @@ As to how to contribute currently, there is an incredibly exciting seam of work 
   There is an observed slowdown for the `Random` module on multiple
   cores, and the issue is being analysed in detail.
 
-  ![perf Random](upload://z1ggYyLuFZyEYlAIGjOFin3Dv8X.png)
+  ![perf Random](https://discuss.ocaml.org/uploads/short-url/z1ggYyLuFZyEYlAIGjOFin3Dv8X.png)
 
 * [ocaml-multicore/ocaml-multicore#343](https://github.com/ocaml-multicore/ocaml-multicore/pull/343)
   Fix extcall noalloc DWARF
@@ -119,7 +119,7 @@ As to how to contribute currently, there is an incredibly exciting seam of work 
   commit and compiler variants for analysis. A sample screenshot of
   the UI is shown below:
 
-  ![Sequentials select comparison](upload://guDEKu51Mz8QwUwvVXA0FAqaWsf.png)
+  ![Sequentials select comparison](https://discuss.ocaml.org/uploads/short-url/guDEKu51Mz8QwUwvVXA0FAqaWsf.png)
 
   The PR adds error handling, user input validation and the project
   README has also been updated.
