@@ -1,5 +1,94 @@
-let render () =
-Layout.render
-~turbo_full_reload:true
-~title:"???"
-~description:"???" @@ ""
+let render () = Layout.render ~turbo_full_reload:true ~title:"OCaml Privacy Policy" @@
+<div class="intro-section-simple">
+  <div class="container-fluid">
+    <div class="text-center w-full lg:w-2/3 m-auto">
+      <h1 class="font-bold mb-6">Privacy Policy</h1>
+      <p><span class="font-bold">Version number:</span> 1.0.0</p>
+      <p><span class="font-bold">Effective date:</span> 2022-01-12</p>
+    </div>
+  </div>
+</div>
+<div class="bg-white">
+  <div class="py-10 lg:py-28">
+    <div class="container-fluid">
+      <div class="prose prose-orange lg:prose-lg mx-auto max-w-5xl">
+        <h2>Who are we?</h2>
+        <p>We are OCaml Labs Consultancy Ltd. For privacy queries, you can contact us at ocamlorg@ocamllabs.io[GG1] . Other contact details are on our website.</p>
+
+        <h2>What’s the point of this policy?</h2>
+
+        <p>It tells you what to expect when we collect personal information from users of this website. Please only use our site if you are completely happy with this policy. We go to some trouble to minimise the amount of personal information we hold about you, as explained below.</p>
+
+        <p>
+          Generally, the policy covers only information provided to us. If you give personal information to other people, such as payment providers or other websites, please check their privacy policies. NB We do not collect personal information relating to the OCaml Discourse forum at
+          discuss.ocaml.org, which is not operated by us and is not part of this site. Please see the separate privacy policy on that page. Also, unless otherwise stated, any information that you supply for inclusion in a mailing list is collected and controlled by Inria (in France) or another third
+          party, not by us.
+        </p>
+
+        <h2>Might the policy change?</h2>
+
+        <p>Yes. We will post the new version on the site.</p>
+
+        <h2>What do we collect?</h2>
+
+        <p>We don’t collect any personal information unless you include it in your posts or other content that you provide for display on the site or include in communications with us.</p>
+
+        <p>
+          We may also collect automated information about your use of the site such as: the internet protocol (IP) address used to connect your device to the internet, connection information such as browser type and version, information about your device including device-type and device identifier
+          and operating system and platform.
+        </p>
+
+        <p>If we make any software that you publish on opam-repository available on this site, we will automatically include your GitHub username and avatar in conjunction with the listing of your software.</p>
+
+        <h2>What’s our reason / legal basis for collecting the information?</h2>
+
+        <p>Because it’s in our “legitimate interests”, e.g., managing and improving our service and preventing or detecting fraud or abuse.</p>
+
+        <h2>How long do we keep personal information?</h2>
+
+        <p>
+          Until you ask us to delete personal information that you include in your posts or otherwise provide for display on the site. We may nonetheless hold on to some (or all) of your information for longer if reasonably needed for legal, regulatory or tax reasons, deal with disputes, prevent
+          fraud or abuse and/or enforce our terms and conditions (typically up to six years).
+        </p>
+
+        <p>While we passively collect IP addresses and other automated information (see 4.2) we do not store that information.</p>
+
+        <h2>To whom do we send or make available your personal information?</h2>
+
+        <p>Our website host will hold any personal information that you upload for display on the site. We try to avoid using any other services that require disclosure of your personal information to the service provider.</p>
+
+        <p>To other users of our service if you include your personal information in a public action on our service, e.g., in a post.</p>
+
+        <p>To regulators, the police and other law enforcement or official authorities to help deal with fraud and abuse and/or comply with legal requirements and/or to protect us or others.</p>
+
+        <p>To insurers and professional advisers in connection with our insurance cover or to deal with legal claims.</p>
+
+        <p>To potential buyers so far as reasonably necessary, in the case of an actual or proposed (including negotiations for a) sale or merger or business combination involving all or the relevant part of our business.</p>
+
+        <h2>Do we send your information outside the UK?</h2>
+
+        <p>
+          Your personal information which we collect is stored within the UK and is not transferred to any other countries, except that our web host may host it on servers outside the UK. If so, we will ensure that there is a legal basis to do so, for example under a contract with standard
+          contractual clauses sanctioned by the Information Commissioner that are designed to provide adequate safeguards for your personal information.
+        </p>
+
+        <h2>What rights do you have?</h2>
+
+        <p>If the legal requirements are met: To ask us for access to your personal information, to rectify it if there are mistakes, to delete it or restrict its use in certain circumstances or to “data portability” or to withdraw any consent you’ve given (e.g. marketing).</p>
+
+        <p>You may also have the right to object to use of your personal information in certain circumstances.</p>
+
+        <p>
+          If you have a complaint about how we are dealing with your personal information, please contact us via the email address above. If you are not happy with our response or think we are not handling your personal information in accordance with the law, you have the right to complain to the
+          Information Commissioner’s Office (ICO).
+        </p>
+
+        <p>For more information about your rights, visit the ICO’s website: www.ico.org.uk.</p>
+
+        <h2>What about cookies?</h2>
+
+        <p>We don’t use cookies on this site.</p>
+      </div>
+    </div>
+  </div>
+</div>

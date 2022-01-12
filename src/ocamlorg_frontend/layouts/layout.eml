@@ -2,8 +2,8 @@ let render
 ?(turbo_full_reload=false)
 ?(use_swiper=false)
 ?(use_turbo=false)
+?description
 ~title
-~description
 inner =
 <!DOCTYPE html>
 <html lang="en">
@@ -11,13 +11,19 @@ inner =
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <% (match description with | Some description -> %>
   <meta name="description" content="<%s description %>">
+  <% | None -> ()); %>
   <meta name="twitter:title" content="<%s title %>">
+  <% (match description with | Some description -> %>
   <meta name="twitter:description" content="<%s description %>">
+  <% | None -> ()); %>
   <meta property="og:site_name" content="OCaml">
   <meta property="og:type" content="object">
   <meta property="og:title" content="<%s title %>">
+  <% (match description with | Some description -> %>
   <meta property="og:description" content="<%s description %>">
+  <% | None -> ()); %>
   <meta name="theme-color" content="#fff">
   <meta name="color-scheme" content="white">
   <meta name=”robots” content="noindex, nofollow">

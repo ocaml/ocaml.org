@@ -1,5 +1,10 @@
 # Unreleased
 
+- Add legal pages (#207, by @tmattio)
+  - Privacy Policy
+  - Terms and Conditions
+  - Carbon Footprint Statement
+
 - Update success stories (#206, by @tmattio)
 
 - Refactor bootstrap docs (#193, by @cdaringe)
