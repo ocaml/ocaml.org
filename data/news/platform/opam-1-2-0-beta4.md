@@ -2,7 +2,7 @@
 title: "OPAM 1.2.0 public beta released"
 authors: [ "OCaml Platform Team" ]
 date: "2014-08-14"
-description: "???"
+description: "Release announcement for OPAM 1.2.0~beta"
 tags: [platform]
 ---
 

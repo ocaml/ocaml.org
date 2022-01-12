@@ -2,7 +2,7 @@
 title: "opam 2.0 Beta is out!"
 authors: [ "Louis Gesbert" ]
 date: "2017-02-09"
-description: "???"
+description: "Release announcement for opam 2.0.0~beta"
 tags: [platform]
 ---
 

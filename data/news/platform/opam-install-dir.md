@@ -2,7 +2,7 @@
 title: "new opam features: \"opam install <dir>\""
 authors: [ "Louis Gesbert" ]
 date: "2017-05-04"
-description: "???"
+description: "Presentation of the new opam install <dir> feature introduced in opam 2.0"
 tags: [platform]
 ---
 

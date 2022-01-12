@@ -2,7 +2,7 @@
 title: "Merlin 2.0 release"
 authors: [ "Frederic Bour", "Thomas Refis" ]
 date: "2014-11-03"
-description: "???"
+description: "Release announcement for Merlin 2.0"
 tags: [platform]
 ---
 

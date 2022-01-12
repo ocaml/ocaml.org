@@ -2,7 +2,7 @@
 title: "opam-lib 1.3 available"
 authors: [ "Louis Gesbert" ]
 date: "2016-11-21"
-description: "???"
+description: "Release announcement for OPAM 1.3"
 tags: [platform]
 ---
 

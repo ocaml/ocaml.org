@@ -2,7 +2,7 @@
 title: "opam 2.0 preview release!"
 authors: [ "Louis Gesbert" ]
 date: "2016-09-20"
-description: "???"
+description: "Release announcement for opam 2.0.0~preview"
 tags: [platform]
 ---
 

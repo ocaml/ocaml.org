@@ -2,7 +2,7 @@
 title: "Deprecating opam 1.2.0"
 authors: [ "Anil Madhavapeddy", "Louis Gesbert" ]
 date: "2017-06-14"
-description: "???"
+description: "Announcement of the deprecation of opam 1.2.0 in favour of 1.2.2"
 tags: [platform]
 ---
 

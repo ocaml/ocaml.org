@@ -2,7 +2,7 @@
 title: "opam 2.0.0 Release Candidate 3 is out!"
 authors: [ "Raja Boujbel", "Louis Gesbert"]
 date: "2018-06-22"
-description: "???"
+description: "Release announcement for OPAM 2.0.0~rc3"
 tags: [platform]
 ---
 

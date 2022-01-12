@@ -2,7 +2,7 @@
 title: "opam 2.0.4 release"
 authors: [ "Raja Boujbel", "Louis Gesbert"]
 date: "2019-04-10"
-description: "???"
+description: "Release announcement for OPAM 2.0.4"
 tags: [platform]
 ---
 

@@ -2,7 +2,7 @@
 title: "new opam features: \"opam build\""
 authors: [ "Louis Gesbert" ]
 date: "2017-03-16"
-description: "???"
+description: "Presentation of the opam build command introduced in opam 2.0"
 tags: [platform]
 ---
 

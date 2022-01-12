@@ -49,7 +49,7 @@ let all =
  
   { title = {js|opam releases: 2.0.10, 2.1.1, & opam depext 1.2!|js}
   ; slug = {js|opam-2-0-10-2-1-1-depext|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for opam 2.0.10, opam 2.1.1 and opam depext 1.2|js}
   ; date = {js|2021-11-15|js}
   ; tags = 
  [{js|platform|js}]
@@ -2573,7 +2573,7 @@ when setting up the local <code>_opam</code> directory for Sandmark builds.</p>
  
   { title = {js|opam 2.1.0 is released!|js}
   ; slug = {js|opam-2-1-0|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for opam 2.1.0|js}
   ; date = {js|2021-08-04|js}
   ; tags = 
  [{js|platform|js}]
@@ -2825,7 +2825,7 @@ helped with issue reports, comments, feedback...</strong></p>
  
   { title = {js|opam 2.0.9 release|js}
   ; slug = {js|opam-2-0-9|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 2.0.9|js}
   ; date = {js|2021-08-03|js}
   ; tags = 
  [{js|platform|js}]
@@ -3640,7 +3640,7 @@ upstream OCaml.</p>
  
   { title = {js|opam 2.1.0~rc2 released|js}
   ; slug = {js|opam-2-1-0-rc2|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for opam 2.1.0~rv2|js}
   ; date = {js|2021-06-23|js}
   ; tags = 
  [{js|platform|js}]
@@ -5999,7 +5999,7 @@ community for their support to the project. Stay safe!</p>
  
   { title = {js|opam 2.1.0~beta4 released|js}
   ; slug = {js|opam-2-1-0-beta4|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for opam 2.1.0~beta4|js}
   ; date = {js|2021-02-08|js}
   ; tags = 
  [{js|platform|js}]
@@ -6115,7 +6115,7 @@ opam upgrade
  
   { title = {js|opam 2.0.8 release|js}
   ; slug = {js|opam-2-0-8|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 2.0.8|js}
   ; date = {js|2021-02-08|js}
   ; tags = 
  [{js|platform|js}]
@@ -9066,7 +9066,7 @@ header for out of heap objects.</p>
  
   { title = {js|opam 2.1.0 alpha is here!|js}
   ; slug = {js|opam-2-1-0-alpha|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for opam 2.1.0~alpha|js}
   ; date = {js|2020-04-21|js}
   ; tags = 
  [{js|platform|js}]
@@ -9187,7 +9187,7 @@ latter for the comments!</p>
  
   { title = {js|opam 2.0.7 release|js}
   ; slug = {js|opam-2-0-7|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 2.0.7|js}
   ; date = {js|2020-04-21|js}
   ; tags = 
  [{js|platform|js}]
@@ -9603,7 +9603,7 @@ Read and write Irmin benchmark</p>
  
   { title = {js|opam 2.0.6 release|js}
   ; slug = {js|opam-2-0-6|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 2.0.6|js}
   ; date = {js|2020-01-16|js}
   ; tags = 
  [{js|platform|js}]
@@ -9789,7 +9789,7 @@ Fix for DWARF CFI for non-allocating external calls</p>
  
   { title = {js|opam 2.0.5 release|js}
   ; slug = {js|opam-2-0-5|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 2.0.5|js}
   ; date = {js|2019-07-11|js}
   ; tags = 
  [{js|platform|js}]
@@ -9850,7 +9850,7 @@ Fix for DWARF CFI for non-allocating external calls</p>
  
   { title = {js|opam 2.0.4 release|js}
   ; slug = {js|opam-2-0-4|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 2.0.4|js}
   ; date = {js|2019-04-10|js}
   ; tags = 
  [{js|platform|js}]
@@ -9927,7 +9927,7 @@ Fix for DWARF CFI for non-allocating external calls</p>
  
   { title = {js|opam 2.0 tips|js}
   ; slug = {js|opam-20-tips|js}
-  ; description = {js|???|js}
+  ; description = {js|Some tips on the new features introduced in opam 2.0|js}
   ; date = {js|2019-03-12|js}
   ; tags = 
  [{js|platform|js}]
@@ -10053,7 +10053,7 @@ ones.</p>
  
   { title = {js|opam 2.0.3 release|js}
   ; slug = {js|opam-2-0-3|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 2.0.3|js}
   ; date = {js|2019-01-28|js}
   ; tags = 
  [{js|platform|js}]
@@ -10095,7 +10095,7 @@ ones.</p>
  
   { title = {js|opam 2.0.2 release|js}
   ; slug = {js|opam-2-0-2|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 2.0.2|js}
   ; date = {js|2018-12-12|js}
   ; tags = 
  [{js|platform|js}]
@@ -10188,7 +10188,7 @@ ones.</p>
  
   { title = {js|opam 2.0.1 is out!|js}
   ; slug = {js|opam-2-0-1|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 2.0.1|js}
   ; date = {js|2018-10-24|js}
   ; tags = 
  [{js|platform|js}]
@@ -10253,7 +10253,7 @@ ones.</p>
  
   { title = {js|opam 2.0.0 release and repository upgrade|js}
   ; slug = {js|opam-2-0-0|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 2.0.0|js}
   ; date = {js|2018-09-18|js}
   ; tags = 
  [{js|platform|js}]
@@ -10301,7 +10301,7 @@ ones.</p>
  
   { title = {js|Last stretch! Repository upgrade and opam 2.0.0 roadmap|js}
   ; slug = {js|opam-2-0-0-repo-upgrade-roadmap|js}
-  ; description = {js|???|js}
+  ; description = {js|opam respository upgrade and opam 2.0.0 roadmap|js}
   ; date = {js|2018-08-02|js}
   ; tags = 
  [{js|platform|js}]
@@ -10378,7 +10378,7 @@ ones.</p>
  
   { title = {js|opam 2.0.0 RC4-final is out!|js}
   ; slug = {js|opam-2-0-0-rc4|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 2.0.0~rc4|js}
   ; date = {js|2018-07-26|js}
   ; tags = 
  [{js|platform|js}]
@@ -10414,7 +10414,7 @@ ones.</p>
  
   { title = {js|opam 2.0.0 Release Candidate 3 is out!|js}
   ; slug = {js|opam-2-0-0-rc3|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 2.0.0~rc3|js}
   ; date = {js|2018-06-22|js}
   ; tags = 
  [{js|platform|js}]
@@ -10451,7 +10451,7 @@ ones.</p>
  
   { title = {js|opam 2.0.0 Release Candidate 2 is out!|js}
   ; slug = {js|opam-2-0-0-rc2|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 2.0.0~rc2|js}
   ; date = {js|2018-05-22|js}
   ; tags = 
  [{js|platform|js}]
@@ -10489,9 +10489,9 @@ ones.</p>
 |js}
   };
  
-  { title = {js|Urgent problem with camlp5 7.03 and macOS OCaml 4.06.1|js}
+  { title = {js|Urgent problem with camlp5|js}
   ; slug = {js|camlp5-system|js}
-  ; description = {js|???|js}
+  ; description = {js|Instruction to fix an urgent problem with camlp5 7.03 and macOS OCaml 4.06.1|js}
   ; date = {js|2018-05-04|js}
   ; tags = 
  [{js|platform|js}]
@@ -10565,7 +10565,7 @@ Do you want to continue ? [Y/n]
  
   { title = {js|opam 2.0.0 Release Candidate 1 is out!|js}
   ; slug = {js|opam-2-0-0-rc|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 2.0.0~rc1|js}
   ; date = {js|2018-02-02|js}
   ; tags = 
  [{js|platform|js}]
@@ -10598,7 +10598,7 @@ Do you want to continue ? [Y/n]
  
   { title = {js|opam 2.0 Beta5 is out!|js}
   ; slug = {js|opam-2-0-beta5|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for opam 2.0.0~beta5|js}
   ; date = {js|2017-11-27|js}
   ; tags = 
  [{js|platform|js}]
@@ -10707,7 +10707,7 @@ feedback on any improvements you need for automated scripting (e.g. the
  
   { title = {js|Deprecating opam 1.2.0|js}
   ; slug = {js|deprecating-opam-1-2-0|js}
-  ; description = {js|???|js}
+  ; description = {js|Announcement of the deprecation of opam 1.2.0 in favour of 1.2.2|js}
   ; date = {js|2017-06-14|js}
   ; tags = 
  [{js|platform|js}]
@@ -10752,7 +10752,7 @@ regarding the deprecation on the OCaml Discourse forums.</p>
  
   { title = {js|new opam features: more expressive dependencies|js}
   ; slug = {js|opam-extended-dependencies|js}
-  ; description = {js|???|js}
+  ; description = {js|Presentation of the new opam 2.0 features|js}
   ; date = {js|2017-05-11|js}
   ; tags = 
  [{js|platform|js}]
@@ -10856,7 +10856,7 @@ run-test: [&quot;ocaml&quot; &quot;pkg/pkg.ml&quot; &quot;test&quot;]
  
   { title = {js|new opam features: "opam install <dir>"|js}
   ; slug = {js|opam-install-dir|js}
-  ; description = {js|???|js}
+  ; description = {js|Presentation of the new opam install <dir> feature introduced in opam 2.0|js}
   ; date = {js|2017-05-04|js}
   ; tags = 
  [{js|platform|js}]
@@ -10918,7 +10918,7 @@ run-test: [&quot;ocaml&quot; &quot;pkg/pkg.ml&quot; &quot;test&quot;]
  
   { title = {js|new opam features: local switches|js}
   ; slug = {js|opam-local-switches|js}
-  ; description = {js|???|js}
+  ; description = {js|Presentation of the local switches feature introduced in opam 2.0|js}
   ; date = {js|2017-04-27|js}
   ; tags = 
  [{js|platform|js}]
@@ -11007,7 +11007,7 @@ latter for the comments!</p>
  
   { title = {js|new opam features: "opam build"|js}
   ; slug = {js|opam-build|js}
-  ; description = {js|???|js}
+  ; description = {js|Presentation of the opam build command introduced in opam 2.0|js}
   ; date = {js|2017-03-16|js}
   ; tags = 
  [{js|platform|js}]
@@ -11111,7 +11111,7 @@ works.</p>
  
   { title = {js|opam 2.0 Beta is out!|js}
   ; slug = {js|opam-2-0-beta|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for opam 2.0.0~beta|js}
   ; date = {js|2017-02-09|js}
   ; tags = 
  [{js|platform|js}]
@@ -11328,7 +11328,7 @@ Freenode.</p>
  
   { title = {js|opam-lib 1.3 available|js}
   ; slug = {js|opam-lib-1-3|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 1.3|js}
   ; date = {js|2016-11-21|js}
   ; tags = 
  [{js|platform|js}]
@@ -11436,7 +11436,7 @@ please get in touch if you have trouble migrating.</p>
  
   { title = {js|opam 2.0 preview release!|js}
   ; slug = {js|opam-2-0-preview|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for opam 2.0.0~preview|js}
   ; date = {js|2016-09-20|js}
   ; tags = 
  [{js|platform|js}]
@@ -11614,7 +11614,7 @@ up (<code>git clean -fdx</code>).</p>
  
   { title = {js|Signing the OPAM repository|js}
   ; slug = {js|signing-the-opam-repository|js}
-  ; description = {js|???|js}
+  ; description = {js|Proposal for a secure distribution of OCaml packages|js}
   ; date = {js|2015-06-05|js}
   ; tags = 
  [{js|platform|js}]
@@ -12371,7 +12371,7 @@ one file per package
  
   { title = {js|OPAM 1.2.2 Released|js}
   ; slug = {js|opam-1-2-2-release|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 1.2.2|js}
   ; date = {js|2015-05-07|js}
   ; tags = 
  [{js|platform|js}]
@@ -12431,7 +12431,7 @@ which is more helpful in scripts relying on it to check dependencies.
  
   { title = {js|OPAM 1.2.1 Released|js}
   ; slug = {js|opam-1-2-1-release|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 1.2.1|js}
   ; date = {js|2015-03-18|js}
   ; tags = 
  [{js|platform|js}]
@@ -12510,7 +12510,7 @@ compiler itself to a package, giving a lot more flexibility.
  
   { title = {js|Improving the OCaml documentation toolchain|js}
   ; slug = {js|codoc-0-2-0-released|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for codoc 0.2.0|js}
   ; date = {js|2015-02-20|js}
   ; tags = 
  [{js|platform|js}]
@@ -12746,7 +12746,7 @@ generation documentation tool which will serve our community admirably.</p>
  
   { title = {js|Why we use OPAM for XenServer development|js}
   ; slug = {js|opam-in-xenserver|js}
-  ; description = {js|???|js}
+  ; description = {js|How and why OPAM is used at Xen.|js}
   ; date = {js|2015-02-18|js}
   ; tags = 
  [{js|platform|js}]
@@ -12956,7 +12956,7 @@ and then trigger integration tests via <a href="https://travis-ci.org/">travis</
  
   { title = {js|OPAM 1.2 and Travis CI|js}
   ; slug = {js|opam-1-2-travisci|js}
-  ; description = {js|???|js}
+  ; description = {js|OPAM 1.2 and Travis CI|js}
   ; date = {js|2014-12-18|js}
   ; tags = 
  [{js|platform|js}]
@@ -13047,7 +13047,7 @@ you should write:</p>
  
   { title = {js|Merlin 2.0 release|js}
   ; slug = {js|merlin-2-0-0-released|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for Merlin 2.0|js}
   ; date = {js|2014-11-03|js}
   ; tags = 
  [{js|platform|js}]
@@ -13115,7 +13115,7 @@ Deplaix, Geoff Gole, Rudi Grinberg, Steve Purcell and Jan Rehders.</p>
  
   { title = {js|OPAM 1.2.0 Released|js}
   ; slug = {js|opam-1-2-0-release|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 1.2.0|js}
   ; date = {js|2014-10-23|js}
   ; tags = 
  [{js|platform|js}]
@@ -13635,7 +13635,7 @@ mailing list</a>.</p>
  
   { title = {js|Turn your editor into a full fledged OCaml IDE|js}
   ; slug = {js|turn-your-editor-into-an-ocaml-ide|js}
-  ; description = {js|???|js}
+  ; description = {js|Presentation of IDE tools and workflows for OCaml|js}
   ; date = {js|2014-08-21|js}
   ; tags = 
  [{js|platform|js}]
@@ -13748,7 +13748,7 @@ into the <code>_tags</code> file with OCaml 4.01 and higher.</p>
  
   { title = {js|OPAM 1.2: Repository Pinning|js}
   ; slug = {js|opam-1-2-pin|js}
-  ; description = {js|???|js}
+  ; description = {js|Announcement of the pinning feature of OPAM 1.2|js}
   ; date = {js|2014-08-19|js}
   ; tags = 
  [{js|platform|js}]
@@ -13918,7 +13918,7 @@ experience and thoughts on the new workflow on the <a href="https://github.com/o
  
   { title = {js|OPAM 1.2.0 public beta released|js}
   ; slug = {js|opam-1-2-0-beta4|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 1.2.0~beta|js}
   ; date = {js|2014-08-14|js}
   ; tags = 
  [{js|platform|js}]
@@ -14134,7 +14134,7 @@ benefit from the new features.</p>
  
   { title = {js|OPAM 1.1.1 released|js}
   ; slug = {js|opam-1-1-1-released|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 1.1.1|js}
   ; date = {js|2014-01-29|js}
   ; tags = 
  [{js|platform|js}]
@@ -14221,7 +14221,7 @@ such a success.</p>
  
   { title = {js|OPAM 1.1.0 released|js}
   ; slug = {js|opam-1-1-0-released|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 1.1.0|js}
   ; date = {js|2013-11-08|js}
   ; tags = 
  [{js|platform|js}]
@@ -14295,7 +14295,7 @@ help us to improve the quality of contributions (see <a href="http://anil.recoil
  
   { title = {js|OPAM 1.1.0 release candidate out|js}
   ; slug = {js|opam-1-1-0-release-candidate|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 1.1.0~rc1|js}
   ; date = {js|2013-10-14|js}
   ; tags = 
  [{js|platform|js}]
@@ -14356,7 +14356,7 @@ more expressive formulas
  
   { title = {js|OPAM 1.1.0 beta released|js}
   ; slug = {js|opam-1-1-0-beta|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 1.1.0~beta|js}
   ; date = {js|2013-09-20|js}
   ; tags = 
  [{js|platform|js}]
@@ -14507,7 +14507,7 @@ was simply <code>version</code>
  
   { title = {js|OPAM 1.0.0 released|js}
   ; slug = {js|opam-1-0-0-released|js}
-  ; description = {js|???|js}
+  ; description = {js|Release announcement for OPAM 1.0.0|js}
   ; date = {js|2013-03-15|js}
   ; tags = 
  [{js|platform|js}]

@@ -2,7 +2,7 @@
 title: "opam 2.1.0~rc2 released"
 authors: [ "David Allsopp" ]
 date: "2021-06-23"
-description: "???"
+description: "Release announcement for opam 2.1.0~rv2"
 tags: [platform]
 ---
 

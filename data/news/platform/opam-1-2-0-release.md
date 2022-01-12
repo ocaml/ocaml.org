@@ -2,7 +2,7 @@
 title: "OPAM 1.2.0 Released"
 authors: [ "Louis Gesbert" ]
 date: "2014-10-23"
-description: "???"
+description: "Release announcement for OPAM 1.2.0"
 tags: [platform]
 ---
 

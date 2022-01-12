@@ -2,7 +2,7 @@
 title: "opam 2.0.8 release"
 authors: [ "Raja Boujbel", "Louis Gesbert"]
 date: "2021-02-08"
-description: "???"
+description: "Release announcement for OPAM 2.0.8"
 tags: [platform]
 ---
 

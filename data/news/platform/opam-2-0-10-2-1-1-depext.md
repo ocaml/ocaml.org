@@ -2,7 +2,7 @@
 title: "opam releases: 2.0.10, 2.1.1, & opam depext 1.2!"
 authors: [ "David Allsopp", "Raja Boujbel", "Louis Gesbert"]
 date: "2021-11-15"
-description: "???"
+description: "Release announcement for opam 2.0.10, opam 2.1.1 and opam depext 1.2"
 tags: [platform]
 ---
 

@@ -2,7 +2,7 @@
 title: "opam 2.0 tips"
 authors: [ "Louis Gesbert" ]
 date: "2019-03-12"
-description: "???"
+description: "Some tips on the new features introduced in opam 2.0"
 tags: [platform]
 ---
 

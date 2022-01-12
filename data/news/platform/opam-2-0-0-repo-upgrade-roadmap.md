@@ -2,7 +2,7 @@
 title: "Last stretch! Repository upgrade and opam 2.0.0 roadmap"
 authors: [ "Raja Boujbel", "Louis Gesbert"]
 date: "2018-08-02"
-description: "???"
+description: "opam respository upgrade and opam 2.0.0 roadmap"
 tags: [platform]
 ---
 

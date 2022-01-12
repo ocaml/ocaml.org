@@ -1,7 +1,7 @@
 ---
 title: opam 2.1.2 release
 authors: [ "Kate Deplaix", "David Allsopp", "Raja Boujbel", "Louis Gesbert"]
-description: Release of opam 2.1.2
+description: "Release of opam 2.1.2"
 date: "2021-12-08"
 tags: [opam, platform]
 ---

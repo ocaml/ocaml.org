@@ -2,7 +2,7 @@
 title: "OPAM 1.2 and Travis CI"
 authors: [ "Thomas Gazagnaire" ]
 date: "2014-12-18"
-description: "???"
+description: "OPAM 1.2 and Travis CI"
 tags: [platform]
 ---
 

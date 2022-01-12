@@ -2,7 +2,7 @@
 title: "opam 2.0.0 release and repository upgrade"
 authors: [ "Raja Boujbel", "Louis Gesbert"]
 date: "2018-09-18"
-description: "???"
+description: "Release announcement for OPAM 2.0.0"
 tags: [platform]
 ---
 

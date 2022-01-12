@@ -51,7 +51,13 @@ let map_files f dir =
            prerr_endline ("Error in " ^ file);
            raise exn)
 
-let map_files_with_names f dir = read_from_dir dir |> List.map f
+let map_files_with_names f dir =
+  read_from_dir dir
+  |> List.map (fun (file, x) ->
+         try f (file, x) with
+         | exn ->
+           prerr_endline ("Error in " ^ file);
+           raise exn)
 
 let slugify value =
   value

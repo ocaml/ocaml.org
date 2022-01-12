@@ -2,7 +2,7 @@
 title: "new opam features: local switches"
 authors: [ "Louis Gesbert" ]
 date: "2017-04-27"
-description: "???"
+description: "Presentation of the local switches feature introduced in opam 2.0"
 tags: [platform]
 ---
 

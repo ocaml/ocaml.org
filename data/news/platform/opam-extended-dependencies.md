@@ -2,7 +2,7 @@
 title: "new opam features: more expressive dependencies"
 authors: [ "Louis Gesbert" ]
 date: "2017-05-11"
-description: "???"
+description: "Presentation of the new opam 2.0 features"
 tags: [platform]
 ---
 

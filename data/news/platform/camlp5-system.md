@@ -1,8 +1,8 @@
 ---
-title: "Urgent problem with camlp5 7.03 and macOS OCaml 4.06.1"
+title: "Urgent problem with camlp5"
 authors: [ "David Allsopp" ]
 date: "2018-05-04"
-description: "???"
+description: "Instruction to fix an urgent problem with camlp5 7.03 and macOS OCaml 4.06.1"
 tags: [platform]
 ---
 

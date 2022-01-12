@@ -2,7 +2,7 @@
 title: "OPAM 1.2: Repository Pinning"
 authors: [ "Louis Gesbert" ]
 date: "2014-08-19"
-description: "???"
+description: "Announcement of the pinning feature of OPAM 1.2"
 tags: [platform]
 ---
 

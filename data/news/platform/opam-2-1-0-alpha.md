@@ -2,7 +2,7 @@
 title: "opam 2.1.0 alpha is here!"
 authors: [ "Raja Boujbel", "Louis Gesbert"]
 date: "2020-04-21"
-description: "???"
+description: "Release announcement for opam 2.1.0~alpha"
 tags: [platform]
 ---
 

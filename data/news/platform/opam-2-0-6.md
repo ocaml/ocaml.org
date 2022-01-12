@@ -2,7 +2,7 @@
 title: "opam 2.0.6 release"
 authors: [ "Raja Boujbel", "Louis Gesbert"]
 date: "2020-01-16"
-description: "???"
+description: "Release announcement for OPAM 2.0.6"
 tags: [platform]
 ---
 

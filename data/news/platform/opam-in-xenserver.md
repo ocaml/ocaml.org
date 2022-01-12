@@ -2,7 +2,7 @@
 title: "Why we use OPAM for XenServer development"
 authors: [ "Dave Scott" ]
 date: "2015-02-18"
-description: "???"
+description: "How and why OPAM is used at Xen."
 tags: [platform]
 ---
 

@@ -2,7 +2,7 @@
 title: "opam 2.0.0 RC4-final is out!"
 authors: [ "Raja Boujbel", "Louis Gesbert"]
 date: "2018-07-26"
-description: "???"
+description: "Release announcement for OPAM 2.0.0~rc4"
 tags: [platform]
 ---
 
