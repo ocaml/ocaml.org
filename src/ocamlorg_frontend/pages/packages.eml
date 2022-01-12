@@ -118,7 +118,7 @@ Layout.render
     <div class="container-fluid">
         <div class="flex justify-between flex-col space-y-10 lg:space-y-0 lg:flex-row">
             <div>
-                <h5 class="font-bold text-center mb-8">Most downloaded</h5>
+                <h3 class="font-bold text-center mb-8">Most downloaded</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
                     <a href=""
                         class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
@@ -176,7 +176,7 @@ Layout.render
 
             </div>
             <div>
-                <h5 class="font-bold text-center mb-8">New Packages</h5>
+                <h3 class="font-bold text-center mb-8">New Packages</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
                     <a href=""
                         class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
@@ -229,7 +229,7 @@ Layout.render
                 </div>
             </div>
             <div>
-                <h5 class="font-bold text-center mb-8">Recently Updated</h5>
+                <h3 class="font-bold text-center mb-8">Recently Updated</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
                     <a href=""
                         class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
