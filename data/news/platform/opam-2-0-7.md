@@ -1,0 +1,41 @@
+---
+title: "opam 2.0.7 release"
+authors: [ "Raja Boujbel", "Louis Gesbert"]
+date: "2020-04-21"
+description: "???"
+tags: [platform]
+---
+
+We are pleased to announce the minor release of [opam 2.0.7](https://github.com/ocaml/opam/releases/tag/2.0.7).
+
+This new version contains [backported](https://github.com/ocaml/opam/pull/4143) small fixes:
+ * Escape Windows paths on manpages [[#4129](https://github.com/ocaml/opam/pull/4129) [@AltGr](https://github.com/AltGr) [@rjbou](https://github.com/rjbou)]
+ * Fix opam installer opam file [[#4058](https://github.com/ocaml/opam/pull/4058) [@rjbou](https://github.com/rjbou)]
+ * Fix various warnings [[#4132](https://github.com/ocaml/opam/pull/4132) [@rjbou](https://github.com/rjbou) [@AltGr](https://github.com/AltGr) - fix [#4100](https://github.com/ocaml/opam/issues/4100)]
+ * Fix dune 2.5.0 promote-install-files duplication [[#4132](https://github.com/ocaml/opam/pull/4132) [@rjbou](https://github.com/rjbou)]
+
+---
+
+Installation instructions (unchanged):
+
+1. From binaries: run
+
+    ```
+    bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh) --version 2.0.7"
+    ```
+
+    or download manually from [the Github "Releases" page](https://github.com/ocaml/opam/releases/tag/2.0.7) to your PATH. In this case, don't forget to run `opam init --reinit -ni` to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script.
+
+2. From source, using opam:
+
+    ```
+    opam update; opam install opam-devel
+    ```
+
+   (then copy the opam binary to your PATH as explained, and don't forget to run `opam init --reinit -ni` to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script)
+
+3. From source, manually: see the instructions in the [README](https://github.com/ocaml/opam/tree/2.0.7#compiling-this-repo).
+
+We hope you enjoy this new minor version, and remain open to [bug reports](https://github.com/ocaml/opam/issues) and [suggestions](https://github.com/ocaml/opam/issues).
+
+> NOTE: this article is cross-posted on [opam.ocaml.org](https://opam.ocaml.org/blog/) and [ocamlpro.com](http://www.ocamlpro.com/category/blog/). Please head to the latter for the comments!

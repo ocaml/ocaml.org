@@ -1,7 +1,7 @@
 ---
 title: OCaml Multicore - March 2021
 description: Monthly update from the OCaml Multicore team.
-date: "2021-01301"
+date: "2021-03-01"
 tags: [multicore]
 ---
 

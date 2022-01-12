@@ -1,0 +1,59 @@
+---
+title: "opam 2.0.6 release"
+authors: [ "Raja Boujbel", "Louis Gesbert"]
+date: "2020-01-16"
+description: "???"
+tags: [platform]
+---
+
+We are pleased to announce the minor release of [opam 2.0.6](https://github.com/ocaml/opam/releases/tag/2.0.6).
+
+This new version contains some small [backported](https://github.com/ocaml/opam/pull/3973) fixes and build update:
+
+* Don't remove git cache objects that may be used [[#3831](https://github.com/ocaml/opam/pull/3831) [@AltGr](https://github.com/AltGr)]
+* Don't include .gitattributes in index.tar.gz [[#3873](https://github.com/ocaml/opam/pull/3873) [@dra27](https://github.com/dra27)]
+* Update FAQ uri [[#3941](https://github.com/ocaml/opam/pull/3941) [@dra27](https://github.com/dra27)]
+* Lock: add warning in case of missing locked file [[#3939](https://github.com/ocaml/opam/pull/3939) [@rjbou](https://github.com/rjbou)]
+* Directory tracking: fix cached entries retrieving with precise
+  tracking [[#4038](https://github.com/ocaml/opam/pull/4038) [@hannesm](https://github.com/hannesm)]
+* Build:
+  * Add sanity checks [[#3934](https://github.com/ocaml/opam/pull/3934) [@dra27](https://github.com/dra27)]
+  * Build man pages using dune [[#3902](https://github.com/ocaml/opam/issues/3902) ]
+  * Add patch and bunzip check for make cold [[#4006](https://github.com/ocaml/opam/pull/4006) [@rjbou](https://github.com/rjbou) - fix [#3842](https://github.com/ocaml/opam/issues/3842)]
+* Shell:
+  * fish: add colon for fish manpath [[#3886](https://github.com/ocaml/opam/pull/3886) [@rjbou](https://github.com/rjbou) - fix [#3878](https://github.com/ocaml/opam/issues/3878)]
+* Sandbox:
+    * Add dune cache as rw [[#4019](https://github.com/ocaml/opam/pull/4019) [@rjbou](https://github.com/rjbou) - fix [#4012](https://github.com/ocaml/opam/issues/4012)]
+    * Do not fail if $HOME/.ccache is missing [[#3957](https://github.com/ocaml/opam/pull/3957) [@mseri](https://github.com/mseri)]
+* opam-devel file: avoid copying extraneous files in opam-devel example [[#3999](https://github.com/ocaml/opam/pull/3999) [@maroneze](https://github.com/maroneze)]
+
+As **sandbox scripts** have been updated, don't forget to run `opam init --reinit -ni` to update yours.
+
+> Note: To homogenise macOS name on system detection, we decided to keep `macos`, and convert `darwin` to `macos` in opam. For the moment, to not break jobs & CIs, we keep uploading `darwin` & `macos` binaries, but from the 2.1.0 release, only `macos` ones will be kept.
+
+---
+
+Installation instructions (unchanged):
+
+1. From binaries: run
+
+    ```
+    bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh) --version 2.0.6"
+    ```
+
+    or download manually from [the Github "Releases" page](https://github.com/ocaml/opam/releases/tag/2.0.6) to your PATH. In this case, don't forget to run `opam init --reinit -ni` to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script.
+
+2. From source, using opam:
+
+    ```
+    opam update; opam install opam-devel
+    ```
+
+   (then copy the opam binary to your PATH as explained, and don't forget to run `opam init --reinit -ni` to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script)
+
+3. From source, manually: see the instructions in the [README](https://github.com/ocaml/opam/tree/2.0.6#compiling-this-repo).
+
+We hope you enjoy this new minor version, and remain open to [bug reports](https://github.com/ocaml/opam/issues) and [suggestions](https://github.com/ocaml/opam/issues).
+
+> NOTE: this article is cross-posted on [opam.ocaml.org](https://opam.ocaml.org/blog/) and [ocamlpro.com](http://www.ocamlpro.com/category/blog/). Please head to the latter for the comments!
+
