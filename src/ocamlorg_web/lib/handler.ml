@@ -14,7 +14,10 @@ let learn _req =
   let release = List.hd Ood.Release.all in
   Dream.html (Ocamlorg_frontend.learn ~papers ~books ~release)
 
-let community _req = Dream.html (Ocamlorg_frontend.community ())
+let community _req =
+  let workshops = Ood.Workshop.all |> List.take 2 in
+  let news = Ood.News.all |> List.take 3 in
+  Dream.html (Ocamlorg_frontend.community ~workshops ~news)
 
 let success_stories _req =
   let stories = Ood.Success_story.all () in

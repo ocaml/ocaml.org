@@ -11,7 +11,7 @@ let best_practices best_practices = Best_practices.render best_practices
 
 let books books = Books.render books
 
-let community () = Community.render ()
+let community ~workshops ~news = Community.render ~workshops ~news
 
 let workshop ~videos workshop = Workshop.render ~videos workshop
 

@@ -47,96 +47,10 @@ let all =
 |js}
   };
  
-  { title = {js|opam releases: 2.0.10, 2.1.1, & opam depext 1.2!|js}
-  ; slug = {js|opam-2-0-10-2-1-1-depext|js}
-  ; description = {js|Release announcement for opam 2.0.10, opam 2.1.1 and opam depext 1.2|js}
-  ; date = {js|2021-11-15|js}
-  ; tags = 
- [{js|platform|js}]
-  ; body_html = {js|<p><em>Feedback on this post is welcomed on <a href="https://discuss.ocaml.org/t/ann-opam-2-1-1-opam-2-0-10-opam-depext-1-2/8872">Discuss</a>!</em></p>
-<p>We are pleased to announce several minor releases: <a href="https://github.com/ocaml/opam/releases/tag/2.0.10">opam 2.0.10</a>, <a href="https://github.com/ocaml/opam/releases/tag/2.1.1">opam 2.1.1</a>, and <a href="https://github.com/ocaml-opam/opam-depext/releases/tag/1.2">opam-depext 1.2</a>.</p>
-<p>The opam releases consist of backported fixes, while <code>opam-depext</code> has been adapted to be compatible with opam 2.1, to allow for workflows which need to maintain compatibility with opam 2.0. With opam 2.1.1, if you export <code>OPAMCLI=2.0</code> into your environment then workflows expecting opam 2.0 should now behave even more equivalently.</p>
-<h2>opam-depext 1.2</h2>
-<p>Previous versions of opam-depext were made unavailable when using opam 2.1, since depext handling is done directly by opam 2.1 and later. This is still the recommended way, but this left workflows which wanted to maintain compatibility with opam 2.0 without a single command to install depexts. You can now run <code>OPAMCLI=2.0 opam depext -y package1 package2</code> and expect this to work correctly with any version of opam 2. If you don't specify <code>OPAMCLI=2.0</code> then the plugin will remind you that you should be using the integrated depext support! Calling <code>opam depext</code> this way with opam 2.1 and later still exposes the same double-solving problem that opam 2.0 has, but if for some reason the solver returns a different solution at <code>opam install</code> then the correct depexts would be installed.</p>
-<p>For opam 2.0, some useful depext handling changes are back-ported from opam 2.1.x to the plugin:
-With opam 2.0:</p>
-<ul>
-<li>yum-based distributions: force not to upgrade (<a href="https://github.com/ocaml-opam/opam-depext/pull/137">#137</a>)
-</li>
-<li>Archlinux: always upgrade all the installed packages when installing a new package (<a href="https://github.com/ocaml-opam/opam-depext/pull/138">#138</a>)
-</li>
-</ul>
-<h2><a href="https://github.com/ocaml/opam/blob/2.1.1/CHANGES">opam 2.1.1</a></h2>
-<p>opam 2.1.1 includes both the fixes in opam 2.0.10.</p>
-<p>General fixes:</p>
-<ul>
-<li>Restore support for switch creation with &quot;positional&quot; package arguments and <code>--packages</code> option for CLI version 2.0, e.g. <code>OPAMCLI=2.0 opam switch create . 4.12.0+options --packages=ocaml-option-flambda</code>. In opam 2.1 and later, this syntax remains an error (<a href="https://github.com/ocaml/opam/issues/4843">#4843</a>)
-</li>
-<li>Fix <code>opam switch set-invariant</code>: default repositories were loaded instead of the switch's repositories selection (<a href="https://github.com/ocaml/opam/pull/4869">#4869</a>)
-</li>
-<li>Run the sandbox check in a temporary directory (<a href="https://github.com/ocaml/opam/issues/4783">#4783</a>)
-</li>
-</ul>
-<p>Integrated depext support has a few updates:</p>
-<ul>
-<li>Homebrew now has support for casks and full-names (<a href="https://github.com/ocaml/opam/issues/4800">#4800</a>)
-</li>
-<li>Archlinux now handles virtual package detection (<a href="https://github.com/ocaml/opam/pull/4833">#4833</a>, partially addressing <a href="https://github.com/ocaml/opam/issues/4759">#4759</a>)
-</li>
-<li>Disable the detection of available packages on RHEL-based distributions.
-This fixes an issue on RHEL-based distributions where yum list used to detect
-available and installed packages would wait for user input without showing
-any output and/or fail in some cases (<a href="https://github.com/ocaml/opam/pull/4791">#4791</a>)
-</li>
-</ul>
-<p>And finally two regressions have been dealt with:</p>
-<ul>
-<li>Regression: avoid calling <code>Unix.environment</code> on load (as a toplevel expression). This regression affected opam's libraries, rather than the binary itself (<a href="https://github.com/ocaml/opam/pull/4789">#4789</a>)
-</li>
-<li>Regression: handle empty environment variable updates (<a href="https://github.com/ocaml/opam/pull/4840">#4840</a>)
-</li>
-</ul>
-<p>A few issues with the compilation of opam from sources have been fixed as well (e.g. mingw-w64 with g++ 11.2 now works)</p>
-<h2><a href="https://github.com/ocaml/opam/blob/2.0.10/CHANGES">opam 2.0.10</a></h2>
-<p>Two subtle fixes are included in opam 2.0.10. These actually affect the <code>ocaml</code> package. Both of these are Heisenbugs - investigating what's going wrong on your system may well have fixed them, they were both found on Windows!</p>
-<p><code>$(opam env --revert)</code> is the reverse of the more familiar <code>$(opam env)</code> but it's effectively called by opam whenever you change switch. It has been wrong since 2.0.0 for the case where several values are added to an environment variable in one <code>setenv</code> update. For example, if a package included a <code>setenv</code> field of the form <code>[PATH += &quot;dir1:dir2&quot;]</code>, then this would not be reverted, but <code>[[PATH += &quot;dir1&quot;] [PATH += &quot;dir2&quot;]]</code> would be reverted. As it happens, this bug affects the <code>ocaml</code> package, but it was masked by another <code>setenv</code> update in the same package.</p>
-<p>The other fix is also to do with <code>setenv</code>. It can be seen immediately after creating a switch but before any additional packages are installed, as this <code>Dockerfile</code> shows:</p>
-<pre><code>FROM ocaml/opam@sha256:244b948376767fe91e2cd5caca3b422b2f8d332f105ef2c8e14fcc9a20b66e25
-RUN sudo apt-get install -y ocaml-nox
-RUN opam --version
-RUN opam switch create show-issue ocaml-system
-RUN eval $(opam env) ; echo $CAML_LD_LIBRARY_PATH
-RUN opam install conf-which
-RUN eval $(opam env) ; echo $CAML_LD_LIBRARY_PATH
-</code></pre>
-<p>Immediately after switch creation, <code>$CAML_LD_LIBRARY_PATH</code> was set to <code>/home/opam/.opam/show-issue/lib/stublibs:</code>, rather than <code>/home/opam/.opam/show-issue/lib/stublibs:/usr/local/lib/ocaml/4.08.1/stublibs:/usr/lib/ocaml/stublibs</code></p>
-<hr />
-<p>Opam installation instructions (unchanged):</p>
-<ol>
-<li>
-<p>From binaries: run</p>
-<pre><code>bash -c &quot;sh &lt;(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh) --version 2.1.1&quot;
-</code></pre>
-<p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.1.1">the Github &quot;Releases&quot; page</a> to your PATH. In this case, don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script.</p>
-</li>
-<li>
-<p>From source, using opam:</p>
-<pre><code>opam update; opam install opam-devel
-</code></pre>
-<p>(then copy the opam binary to your PATH as explained, and don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update your sandbox script)</p>
-</li>
-<li>
-<p>From source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.1.1#compiling-this-repo">README</a>.</p>
-</li>
-</ol>
-<p>We hope you enjoy this new minor version, and remain open to <a href="https://github.com/ocaml/opam/issues">bug reports</a> and <a href="https://github.com/ocaml/opam/issues">suggestions</a>.</p>
-|js}
-  };
- 
   { title = {js|OCaml Multicore - December 2021 and the Big PR|js}
   ; slug = {js|multicore-2021-12|js}
   ; description = {js|Monthly update from the OCaml Multicore team.|js}
-  ; date = {js|2021-11-01|js}
+  ; date = {js|2021-12-01|js}
   ; tags = 
  [{js|multicore|js}]
   ; body_html = {js|<p>Welcome to the December 2021 <a href="https://github.com/ocaml-multicore/ocaml-multicore">Multicore OCaml</a> monthly report! The <a href="https://discuss.ocaml.org/tag/multicore-monthly">previous updates</a> along with this update have been compiled by myself, @ctk21, @kayceesrk and @shakthimaan.</p>
@@ -1203,6 +1117,92 @@ Sandmark workers that are Multicore enabled. For example:</p>
 <li>WG: Working Group
 </li>
 </ul>
+|js}
+  };
+ 
+  { title = {js|opam releases: 2.0.10, 2.1.1, & opam depext 1.2!|js}
+  ; slug = {js|opam-2-0-10-2-1-1-depext|js}
+  ; description = {js|Release announcement for opam 2.0.10, opam 2.1.1 and opam depext 1.2|js}
+  ; date = {js|2021-11-15|js}
+  ; tags = 
+ [{js|platform|js}]
+  ; body_html = {js|<p><em>Feedback on this post is welcomed on <a href="https://discuss.ocaml.org/t/ann-opam-2-1-1-opam-2-0-10-opam-depext-1-2/8872">Discuss</a>!</em></p>
+<p>We are pleased to announce several minor releases: <a href="https://github.com/ocaml/opam/releases/tag/2.0.10">opam 2.0.10</a>, <a href="https://github.com/ocaml/opam/releases/tag/2.1.1">opam 2.1.1</a>, and <a href="https://github.com/ocaml-opam/opam-depext/releases/tag/1.2">opam-depext 1.2</a>.</p>
+<p>The opam releases consist of backported fixes, while <code>opam-depext</code> has been adapted to be compatible with opam 2.1, to allow for workflows which need to maintain compatibility with opam 2.0. With opam 2.1.1, if you export <code>OPAMCLI=2.0</code> into your environment then workflows expecting opam 2.0 should now behave even more equivalently.</p>
+<h2>opam-depext 1.2</h2>
+<p>Previous versions of opam-depext were made unavailable when using opam 2.1, since depext handling is done directly by opam 2.1 and later. This is still the recommended way, but this left workflows which wanted to maintain compatibility with opam 2.0 without a single command to install depexts. You can now run <code>OPAMCLI=2.0 opam depext -y package1 package2</code> and expect this to work correctly with any version of opam 2. If you don't specify <code>OPAMCLI=2.0</code> then the plugin will remind you that you should be using the integrated depext support! Calling <code>opam depext</code> this way with opam 2.1 and later still exposes the same double-solving problem that opam 2.0 has, but if for some reason the solver returns a different solution at <code>opam install</code> then the correct depexts would be installed.</p>
+<p>For opam 2.0, some useful depext handling changes are back-ported from opam 2.1.x to the plugin:
+With opam 2.0:</p>
+<ul>
+<li>yum-based distributions: force not to upgrade (<a href="https://github.com/ocaml-opam/opam-depext/pull/137">#137</a>)
+</li>
+<li>Archlinux: always upgrade all the installed packages when installing a new package (<a href="https://github.com/ocaml-opam/opam-depext/pull/138">#138</a>)
+</li>
+</ul>
+<h2><a href="https://github.com/ocaml/opam/blob/2.1.1/CHANGES">opam 2.1.1</a></h2>
+<p>opam 2.1.1 includes both the fixes in opam 2.0.10.</p>
+<p>General fixes:</p>
+<ul>
+<li>Restore support for switch creation with &quot;positional&quot; package arguments and <code>--packages</code> option for CLI version 2.0, e.g. <code>OPAMCLI=2.0 opam switch create . 4.12.0+options --packages=ocaml-option-flambda</code>. In opam 2.1 and later, this syntax remains an error (<a href="https://github.com/ocaml/opam/issues/4843">#4843</a>)
+</li>
+<li>Fix <code>opam switch set-invariant</code>: default repositories were loaded instead of the switch's repositories selection (<a href="https://github.com/ocaml/opam/pull/4869">#4869</a>)
+</li>
+<li>Run the sandbox check in a temporary directory (<a href="https://github.com/ocaml/opam/issues/4783">#4783</a>)
+</li>
+</ul>
+<p>Integrated depext support has a few updates:</p>
+<ul>
+<li>Homebrew now has support for casks and full-names (<a href="https://github.com/ocaml/opam/issues/4800">#4800</a>)
+</li>
+<li>Archlinux now handles virtual package detection (<a href="https://github.com/ocaml/opam/pull/4833">#4833</a>, partially addressing <a href="https://github.com/ocaml/opam/issues/4759">#4759</a>)
+</li>
+<li>Disable the detection of available packages on RHEL-based distributions.
+This fixes an issue on RHEL-based distributions where yum list used to detect
+available and installed packages would wait for user input without showing
+any output and/or fail in some cases (<a href="https://github.com/ocaml/opam/pull/4791">#4791</a>)
+</li>
+</ul>
+<p>And finally two regressions have been dealt with:</p>
+<ul>
+<li>Regression: avoid calling <code>Unix.environment</code> on load (as a toplevel expression). This regression affected opam's libraries, rather than the binary itself (<a href="https://github.com/ocaml/opam/pull/4789">#4789</a>)
+</li>
+<li>Regression: handle empty environment variable updates (<a href="https://github.com/ocaml/opam/pull/4840">#4840</a>)
+</li>
+</ul>
+<p>A few issues with the compilation of opam from sources have been fixed as well (e.g. mingw-w64 with g++ 11.2 now works)</p>
+<h2><a href="https://github.com/ocaml/opam/blob/2.0.10/CHANGES">opam 2.0.10</a></h2>
+<p>Two subtle fixes are included in opam 2.0.10. These actually affect the <code>ocaml</code> package. Both of these are Heisenbugs - investigating what's going wrong on your system may well have fixed them, they were both found on Windows!</p>
+<p><code>$(opam env --revert)</code> is the reverse of the more familiar <code>$(opam env)</code> but it's effectively called by opam whenever you change switch. It has been wrong since 2.0.0 for the case where several values are added to an environment variable in one <code>setenv</code> update. For example, if a package included a <code>setenv</code> field of the form <code>[PATH += &quot;dir1:dir2&quot;]</code>, then this would not be reverted, but <code>[[PATH += &quot;dir1&quot;] [PATH += &quot;dir2&quot;]]</code> would be reverted. As it happens, this bug affects the <code>ocaml</code> package, but it was masked by another <code>setenv</code> update in the same package.</p>
+<p>The other fix is also to do with <code>setenv</code>. It can be seen immediately after creating a switch but before any additional packages are installed, as this <code>Dockerfile</code> shows:</p>
+<pre><code>FROM ocaml/opam@sha256:244b948376767fe91e2cd5caca3b422b2f8d332f105ef2c8e14fcc9a20b66e25
+RUN sudo apt-get install -y ocaml-nox
+RUN opam --version
+RUN opam switch create show-issue ocaml-system
+RUN eval $(opam env) ; echo $CAML_LD_LIBRARY_PATH
+RUN opam install conf-which
+RUN eval $(opam env) ; echo $CAML_LD_LIBRARY_PATH
+</code></pre>
+<p>Immediately after switch creation, <code>$CAML_LD_LIBRARY_PATH</code> was set to <code>/home/opam/.opam/show-issue/lib/stublibs:</code>, rather than <code>/home/opam/.opam/show-issue/lib/stublibs:/usr/local/lib/ocaml/4.08.1/stublibs:/usr/lib/ocaml/stublibs</code></p>
+<hr />
+<p>Opam installation instructions (unchanged):</p>
+<ol>
+<li>
+<p>From binaries: run</p>
+<pre><code>bash -c &quot;sh &lt;(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh) --version 2.1.1&quot;
+</code></pre>
+<p>or download manually from <a href="https://github.com/ocaml/opam/releases/tag/2.1.1">the Github &quot;Releases&quot; page</a> to your PATH. In this case, don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script.</p>
+</li>
+<li>
+<p>From source, using opam:</p>
+<pre><code>opam update; opam install opam-devel
+</code></pre>
+<p>(then copy the opam binary to your PATH as explained, and don't forget to run <code>opam init --reinit -ni</code> to enable sandboxing if you had version 2.0.0~rc manually installed or to update your sandbox script)</p>
+</li>
+<li>
+<p>From source, manually: see the instructions in the <a href="https://github.com/ocaml/opam/tree/2.1.1#compiling-this-repo">README</a>.</p>
+</li>
+</ol>
+<p>We hope you enjoy this new minor version, and remain open to <a href="https://github.com/ocaml/opam/issues">bug reports</a> and <a href="https://github.com/ocaml/opam/issues">suggestions</a>.</p>
 |js}
   };
  

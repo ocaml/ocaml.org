@@ -1,7 +1,7 @@
 ---
 title: OCaml Multicore - December 2021 and the Big PR
 description: Monthly update from the OCaml Multicore team.
-date: "2021-11-01"
+date: "2021-12-01"
 tags: [multicore]
 ---
 
