@@ -6,7 +6,7 @@ let render
 ~toc
 ~maptoc
 ~content
-(package : Package_intf.meta) =
+(package : Package_intf.package) =
 Package_layout.render
 ~turbo_full_reload:true
 ~documentation_status

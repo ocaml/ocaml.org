@@ -1,17 +1,7 @@
 module Url = Url
 module Navmap = Navmap
 module Toc = Toc
-
-type package = Package_intf.meta =
-  { name : string
-  ; description : string
-  ; license : string
-  ; version : string
-  ; versions : string list
-  ; tags : string list
-  ; authors : Ood.Opam_user.t list
-  ; maintainers : Ood.Opam_user.t list
-  }
+include Package_intf
 
 let about () = About.render ()
 
@@ -82,7 +72,7 @@ let package_toplevel
     ~toplevel_url
     package
 
-let packages packages = Packages.render packages
+let packages stats = Packages.render stats
 
 let packages_search ~total packages = Packages_search.render ~total packages
 
