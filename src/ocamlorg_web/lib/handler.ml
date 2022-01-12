@@ -63,15 +63,6 @@ let academic_users req =
     | Some search ->
       search_user search (Ood.Academic_institution.all ())
   in
-  let users =
-    match Dream.query "c" req with
-    | None ->
-      users
-    | Some continent ->
-      List.filter
-        (fun user -> user.Ood.Academic_institution.continent = continent)
-        users
-  in
   Dream.html (Ocamlorg_frontend.academic_users users)
 
 let about _req = Dream.html (Ocamlorg_frontend.about ())
