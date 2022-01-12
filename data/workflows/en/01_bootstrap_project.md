@@ -50,7 +50,7 @@ dune exec bin/main.exe
 Hello, world!
 ```
 
-Thus, `dune init` can rapidly scaffold new projects, with minimal content. It can also be used to add incremental components (kinds) to existing projects.
+Thus, `dune init` can rapidly scaffold new projects, with minimal content. It can also be used to add components (kinds) incrementally to existing projects.
 
 Various community projects offer more comprehensive project scaffolding than `dune` as well.
 The following projects are not formally supported by the OCaml Platform, but may be of interest to the reader:
