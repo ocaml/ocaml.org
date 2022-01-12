@@ -1,5 +1,7 @@
 # Unreleased
 
+- Integrate blog and community pages (#196, by @tmattio)
+
 - Add legal pages (#207, by @tmattio)
   - Privacy Policy
   - Terms and Conditions
