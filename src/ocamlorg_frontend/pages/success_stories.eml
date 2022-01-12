@@ -33,9 +33,9 @@ Layout.render
                     </div>
                     <div class="flex items-center h-full justify-center" x-show="!isPlaying">
                         <div class="z-10 lg:space-y-16 space-y-5 mb-10 lg:mb-0">
-                            <img class="m-auto" src="/img/janestreet-blue.svg" alt="">
-                            <h3 class="font-bold">Why OCaml</h3>
-                            <div>Presented by Yaron Minsky</div>
+                            <img width="100" class="m-auto" src="/img/logo.svg" alt="OCaml logo">
+                            <h3 class="font-bold">25 Years of OCaml</h3>
+                            <div>Presented by Xavier Leroy</div>
                         </div>
                     </div>
                 </div>
@@ -176,7 +176,7 @@ Layout.render
     function videoFullWidth() {
         return {
             isPlaying: false,
-            embed_url: "https://www.youtube.com/embed/v1CmGbOGb2I",
+            embed_url: "https://watch.ocaml.org/videos/embed/e1ee0fc0-50ef-4a1c-894a-17df181424cb",
             iframe_param: "?autoplay=1&mute=1",
             iframe_url() {
                 return this.embed_url + this.iframe_param;
