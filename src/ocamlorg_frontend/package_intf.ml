@@ -14,4 +14,7 @@ type packages_stats =
   { nb_packages : int
   ; nb_update_week : int
   ; nb_packages_month : int
+  ; newest_packages : package list
+  ; recently_updated : package list
+  ; most_revdeps : (package * int) list
   }

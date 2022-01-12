@@ -1,4 +1,5 @@
-let render (stats : Package_intf.packages_stats option) =
+open Package_intf
+let render (stats : packages_stats option) =
 Layout.render
 ~turbo_full_reload:true
 ~title:"OCaml Packages · Browse community packages"
@@ -115,170 +116,62 @@ Layout.render
     </div>
 </div>
 <div class="bg-white py-20 lg:py-32">
+% let render_package_stat pkg render_extra_stats =
+    <a href=""
+        class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
+      <div class="font-semibold mb-2"><%s pkg.name %></div>
+      <div class="mb-3 text-sm text-body-400"><%s pkg.description %></div>
+% render_extra_stats ();
+    </a>
+% in
+% ( match stats with
+% | Some stats ->
     <div class="container-fluid">
         <div class="flex justify-between flex-col space-y-10 lg:space-y-0 lg:flex-row">
             <div>
-                <h3 class="font-bold text-center mb-8">Most downloaded</h3>
+                <h3 class="font-bold text-center mb-8">Most used packages</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
-                    <a href=""
-                        class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
-                        <div class="font-semibold mb-2">Tincidunt et</div>
-                        <div class="mb-3 text-sm text-body-400">A eleifend pretium orci felis, adipiscing velit justo.
-                        </div>
-                        <div class="text-sm text-body-400 flex space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg></i>15,494,808 Downloads
-                        </div>
-                    </a>
-                    <a href=""
-                        class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
-                        <div class="font-semibold mb-2">Tincidunt et</div>
-                        <div class="mb-3 text-sm text-body-400">A eleifend pretium orci felis, adipiscing velit justo.
-                        </div>
-                        <div class="text-sm text-body-400 flex space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg></i>15,494,808 Downloads
-                        </div>
-                    </a>
-                    <a href=""
-                        class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
-                        <div class="font-semibold mb-2">Tincidunt et</div>
-                        <div class="mb-3 text-sm text-body-400">A eleifend pretium orci felis, adipiscing velit justo.
-                        </div>
-                        <div class="text-sm text-body-400 flex space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg></i>15,494,808 Downloads
-                        </div>
-                    </a>
-                    <a href=""
-                        class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover inline-block">
-                        <div class="font-semibold mb-2">Tincidunt et</div>
-                        <div class="mb-3 text-sm text-body-400">A eleifend pretium orci felis, adipiscing velit justo.
-                        </div>
-                        <div class="text-sm text-body-400 flex space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg></i>15,494,808 Downloads
-                        </div>
-                    </a>
+% let render_package_most_revdeps (pkg, nb_revdeps) =
+%   render_package_stat pkg (fun () ->
+      <div class="text-sm text-body-400 flex space-x-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        Used by <%d nb_revdeps %> other packages
+      </div>
+%   )
+% in
+% List.iter render_package_most_revdeps stats.most_revdeps;
                 </div>
 
             </div>
             <div>
                 <h3 class="font-bold text-center mb-8">New Packages</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
-                    <a href=""
-                        class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
-                        <div class="font-semibold mb-2">Dolor consectetur</div>
-                        <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
-                        <div class="text-sm text-body-400 flex space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg></i>15,494,808 Downloads
-                        </div>
-                    </a>
-                    <a href=""
-                        class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
-                        <div class="font-semibold mb-2">Dolor consectetur</div>
-                        <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
-                        <div class="text-sm text-body-400 flex space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg></i>15,494,808 Downloads
-                        </div>
-                    </a>
-                    <a href=""
-                        class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
-                        <div class="font-semibold mb-2">Dolor consectetur</div>
-                        <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
-                        <div class="text-sm text-body-400 flex space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg></i>15,494,808 Downloads
-                        </div>
-                    </a>
-                    <a href=""
-                        class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover inline-block ">
-                        <div class="font-semibold mb-2">Dolor consectetur</div>
-                        <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
-                        <div class="text-sm text-body-400 flex space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg></i>15,494,808 Downloads
-                        </div>
-                    </a>
+% let render_newest_package pkg =
+%   render_package_stat pkg (fun () -> ())
+% in
+% List.iter render_newest_package stats.newest_packages;
                 </div>
             </div>
             <div>
                 <h3 class="font-bold text-center mb-8">Recently Updated</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
-                    <a href=""
-                        class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
-                        <div class="font-semibold mb-2">Dolor consectetur</div>
-                        <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
-                        <div class="text-sm text-body-400 flex space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg></i>15,494,808 Downloads
-                        </div>
-                    </a>
-                    <a href=""
-                        class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
-                        <div class="font-semibold mb-2">Dolor consectetur</div>
-                        <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
-                        <div class="text-sm text-body-400 flex space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg></i>15,494,808 Downloads
-                        </div>
-                    </a>
-                    <a href=""
-                        class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
-                        <div class="font-semibold mb-2">Dolor consectetur</div>
-                        <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
-                        <div class="text-sm text-body-400 flex space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg></i>15,494,808 Downloads
-                        </div>
-                    </a>
-                    <a href=""
-                        class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover inline-block">
-                        <div class="font-semibold mb-2">Dolor consectetur</div>
-                        <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
-                        <div class="text-sm text-body-400 flex space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg></i>15,494,808 Downloads
-                        </div>
-                    </a>
+% let render_package_recently_updated pkg =
+%   render_package_stat pkg (fun () ->
+      <div class="text-sm text-body-400 flex space-x-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        Version <%s pkg.version %>
+      </div>
+%   )
+% in
+% List.iter render_package_recently_updated stats.recently_updated;
                 </div>
             </div>
         </div>
@@ -339,6 +232,7 @@ Layout.render
             </div>
         </div>
     </div>
+% | None -> () );
 </div>
 <div class="bg-primary-600 ">
     <div class="container-fluid">
