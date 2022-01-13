@@ -195,4 +195,7 @@ val search_package : state -> string -> t list
 
     A call to this function call Lazy.force on every package info. *)
 
+val featured_packages : state -> t list option
+(** A list of packages to highlight on the Packages page. *)
+
 val toplevels_path : Fpath.t

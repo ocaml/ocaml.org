@@ -1,5 +1,5 @@
 open Package_intf
-let render (stats : packages_stats option) =
+let render (stats : packages_stats option) (featured_packages : package list) =
 Layout.render
 ~turbo_full_reload:true
 ~title:"OCaml Packages · Browse community packages"
@@ -58,60 +58,27 @@ Layout.render
     <div class="container-fluid">
         <div class="text-center text-white lg:py-32 md:py-20 py-10">
             <h3 class="font-bold mb-6">Featured Packages</h3>
-            <div class="text-lg mb-8 lg:px-28 font-normal">TOpam is a source-based package manager for OCaml. It
-                supports multiple simultaneous compiler installations, flexible package constraints, and a Git-friendly
-                development workflow.</div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <a href="" class="bg-white card-hover rounded-md p-6 flex-col text-body-600 flex text-left">
-                    <div class="font-semibold mb-2">Dolor consectetur</div>
-                    <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
-                    <div class="text-sm flex space-x-2 text-body-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        </i><span class="font-semibold">0.8.2</span><span>published 11 minutes ago</span>
-                    </div>
-                </a>
-                <a href="" class="bg-white card-hover rounded-md p-6 flex-col text-body-600 flex text-left">
-                    <div class="font-semibold mb-2">Dolor consectetur</div>
-                    <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
-                    <div class="text-sm flex space-x-2 text-body-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        </i><span class="font-semibold">0.8.2 </span><span>published 11 minutes ago</span>
-                    </div>
-                </a>
-                <a href="" class="bg-white card-hover rounded-md p-6 flex-col text-body-600 flex text-left">
-                    <div class="font-semibold mb-2">Dolor consectetur</div>
-                    <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
-                    <div class="text-sm flex space-x-2 text-body-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        </i><span class="font-semibold">0.8.2 </span><span>published 11 minutes ago</span>
-                    </div>
-                </a>
-                <a href="" class="bg-white card-hover rounded-md p-6 flex-col text-body-600 flex text-left">
-                    <div class="font-semibold mb-2">Dolor consectetur</div>
-                    <div class="mb-3 text-sm text-body-400">Consequat aliquam nunc, sit nulla eget fringilla. </div>
-                    <div class="text-sm flex space-x-2 text-body-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        </i><span class="font-semibold">0.8.2 </span><span>published 11 minutes ago</span>
-                    </div>
-                </a>
-
-            </div>
+            <p class="text-lg mb-8 lg:px-28 font-normal">
+      Opam is a source-based package manager for OCaml. It supports
+      multiple simultaneous compiler installations, flexible package
+      constraints, and a Git-friendly development workflow.
+            </p>
+% let render_featured_package pkg =
+    <a href="" class="bg-white card-hover rounded-md p-6 text-body-600 text-left">
+      <p class="font-semibold mb-2"><%s pkg.name %></p>
+      <p class="mb-3 text-sm text-body-400"><%s pkg.description %></p>
+      <p class="text-sm text-body-400 flex space-x-2">
+        <%s! Icons.(tag Bullet) %> <%s pkg.version %>
+      </p>
+    </a>
+% in
+% ( match featured_packages with
+% | [] -> ()
+% | _ ->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+%       List.iter render_featured_package featured_packages;
+      </div>
+% );
         </div>
     </div>
 </div>
