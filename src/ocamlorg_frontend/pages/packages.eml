@@ -133,7 +133,7 @@ Layout.render
 % let render_package_most_revdeps (pkg, nb_revdeps) =
 %   render_package_stat pkg (fun () ->
       <div class="text-sm text-body-400 flex space-x-2">
-        <%s! Icons.star %>
+        <%s! Icons.(star Bullet) %>
         Used by <%d nb_revdeps %> other packages
       </div>
 %   )
@@ -146,7 +146,7 @@ Layout.render
 % let render_newest_package (pkg, date) =
 %   render_package_stat pkg (fun () ->
       <div class="text-sm text-body-400 flex space-x-2">
-        <%s! Icons.calendar %> <%s date %>
+        <%s! Icons.(calendar Bullet) %> <%s date %>
       </div>
 %   )
 % in
@@ -157,7 +157,7 @@ Layout.render
 % let render_package_recently_updated pkg =
 %   render_package_stat pkg (fun () ->
       <div class="text-sm text-body-400 flex space-x-2">
-        <%s! Icons.refresh %> Version <%s pkg.version %>
+        <%s! Icons.(refresh Bullet) %> Version <%s pkg.version %>
       </div>
 %   )
 % in
