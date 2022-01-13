@@ -46,7 +46,7 @@ Layout.render
                 <table class="max-w-5xl lg:max-w-full align-top">
                     <thead class="bg-body-700 text-white text-left rounded-xl">
                         <tr>
-                            <th class="py-4 px-6 rounded-l-lg text-x w-2/5">Version</th>
+                            <th class="py-4 px-6 rounded-l-lg text-x w-3/5">Version</th>
                             <th class="py-4 px-6">Date</th>
                             <th class="py-4 px-6 rounded-r-lg">Actions</th>
                         </tr>
