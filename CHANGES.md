@@ -1,5 +1,14 @@
 # Unreleased
 
+- Add listing stats on the Packages page (#213, by @Julow)
+
+  The stats are:
+  Recently added packages and recently updated packages, which are computed
+  from the Git history of opam-repository, and packages with the biggest number
+  of revdeps.
+  The stats are rendered with a data point and an icon (number of revdeps, date
+  of addition and lastest version).
+
 - Integrate blog and community pages (#196, by @tmattio)
 
 - Add legal pages (#207, by @tmattio)

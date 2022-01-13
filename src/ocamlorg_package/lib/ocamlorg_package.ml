@@ -118,7 +118,8 @@ let update ~commit t =
   let* packages = read_packages () in
   Logs.info (fun f -> f "Computing additional informations...");
   let* packages = Info.of_opamfiles packages in
-  let+ stats = Packages_stats.compute commit packages in
+  Logs.info (fun f -> f "Computing packages statistics...");
+  let+ stats = Packages_stats.compute packages in
   t.packages <- packages;
   t.stats <- Some stats;
   Logs.info (fun m ->

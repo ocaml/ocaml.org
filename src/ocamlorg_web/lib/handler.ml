@@ -344,15 +344,48 @@ type package_kind =
   | Package
   | Universe
 
+let package_of_info ~name ~version ~versions info =
+  Ocamlorg_frontend.
+    { name = Ocamlorg_package.Name.to_string name
+    ; version = Ocamlorg_package.Version.to_string version
+    ; versions
+    ; description = info.Ocamlorg_package.Info.synopsis
+    ; tags = info.tags
+    ; authors = info.authors
+    ; maintainers = info.maintainers
+    ; license = info.license
+    }
+
+(** Query all the versions of a package. *)
+let package_versions state name =
+  Ocamlorg_package.get_package_versions state name
+  |> Option.value ~default:[]
+  |> List.sort Ocamlorg_package.Version.compare
+  |> List.map Ocamlorg_package.Version.to_string
+  |> List.rev
+
 let packages state _req =
+  let package { Ocamlorg_package.Packages_stats.name; version; info } =
+    let versions = package_versions state name in
+    package_of_info ~name ~version ~versions info
+  in
+  let package_pair (pkg, snd) = package pkg, snd in
   let stats =
     match Ocamlorg_package.packages_stats state with
     | Some
-        { Ocamlorg_package.Packages_stats.nb_packages
+        ({ Ocamlorg_package.Packages_stats.nb_packages
+         ; nb_update_week
+         ; nb_packages_month
+         ; _
+         } as t) ->
+      Some
+        { Ocamlorg_frontend.nb_packages
         ; nb_update_week
         ; nb_packages_month
-        } ->
-      Some { Ocamlorg_frontend.nb_packages; nb_update_week; nb_packages_month }
+        ; newest_packages = List.map package_pair t.newest_packages
+        ; recently_updated = List.map package t.recently_updated
+        ; most_revdeps = List.map package_pair t.most_revdeps
+        }
     | None ->
       None
   in
@@ -361,26 +394,11 @@ let packages state _req =
 let package_meta state (package : Ocamlorg_package.t)
     : Ocamlorg_frontend.package
   =
-  let name = Ocamlorg_package.(Name.to_string @@ name package) in
-  let version = Ocamlorg_package.(Version.to_string @@ version package) in
-  let info = Ocamlorg_package.info package in
-  let versions =
-    Ocamlorg_package.get_package_versions state (Ocamlorg_package.name package)
-    |> Option.value ~default:[]
-    |> List.sort Ocamlorg_package.Version.compare
-    |> List.map Ocamlorg_package.Version.to_string
-    |> List.rev
-  in
-  Ocamlorg_frontend.
-    { name
-    ; version
-    ; versions
-    ; description = info.synopsis
-    ; tags = info.tags
-    ; authors = info.authors
-    ; maintainers = info.maintainers
-    ; license = info.license
-    }
+  let name = Ocamlorg_package.name package
+  and version = Ocamlorg_package.version package
+  and info = Ocamlorg_package.info package in
+  let versions = package_versions state name in
+  package_of_info ~name ~version ~versions info
 
 let packages_search t req =
   match Dream.query "q" req with

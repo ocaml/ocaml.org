@@ -99,6 +99,24 @@ let commit_at_date date =
   |> Lwt.map String.trim
 
 let new_files_since ~a ~b =
+  let parse_commits lines =
+    let rec commit acc = function date :: tl -> files date acc tl | [] -> acc
+    and files date acc = function
+      | "" :: tl ->
+        commit acc tl
+      | hd :: tl ->
+        files date ((Fpath.v hd, date) :: acc) tl
+      | [] ->
+        acc
+    in
+    List.rev (commit [] lines)
+  in
   Process.pread_lines
-    (git_cmd [ "diff"; "--diff-filter=A"; "--name-only"; a; b ])
-  |> Lwt.map (List.map Fpath.v)
+    (git_cmd
+       [ "log"
+       ; "--name-only"
+       ; "--diff-filter=A" (* Show added file for each commit. *)
+       ; "--format=format:%ar" (* Date of the commit. In relative format. *)
+       ; a ^ ".." ^ b
+       ])
+  |> Lwt.map parse_commits
