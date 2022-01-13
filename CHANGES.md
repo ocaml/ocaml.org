@@ -1,5 +1,9 @@
 # Unreleased
 
+- Add featured packages on the Packages page (#215, by @Julow)
+
+  This is a static list of packages that are highlighted on the Packages page.
+
 - Add listing stats on the Packages page (#213, by @Julow)
 
   The stats are:
