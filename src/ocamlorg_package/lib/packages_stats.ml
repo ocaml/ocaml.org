@@ -1,3 +1,4 @@
+open Import
 open Lwt.Syntax
 module StringMap = Map.Make (String)
 
@@ -18,112 +19,123 @@ type t =
 
 let package_of_path p =
   match Fpath.segs p with
-  | "packages" :: _ :: name_version :: _ ->
-    Some name_version
+  | "packages" :: namespace :: name_version :: _ ->
+    (match OpamPackage.of_string_opt name_version with
+    | Some pkg ->
+      Some (namespace, pkg)
+    | None ->
+      None)
   | _ ->
     None
 
-let compute_updates_since date =
+let package_namespace_of_path p =
+  match Fpath.segs p with
+  | "packages" :: namespace :: _ ->
+    Some namespace
+  | _ ->
+    None
+
+(** Make a {!package_stat} from a {!OpamPackage.t}. *)
+let mk_package_stat pkg packages =
+  let name = OpamPackage.name pkg
+  and version = OpamPackage.version pkg in
+  try
+    let info =
+      OpamPackage.Name.Map.find name packages
+      |> OpamPackage.Version.Map.find version
+    in
+    Some { name; version; info }
+  with
+  | Not_found ->
+    (* Can happen if the package is added then removed, eg. 344f20e909. *)
+    None
+
+(** Look at the Git history and return the list of packages that have been
+    modified (added or just changed) since the given [date]. Returns the list of
+    versions affected for each packages, lastest version first, and the
+    corresponding date (in Git's relative format). The packages are ordered
+    according to the history, most recently modified first. *)
+let compute_updated_packages_since date =
+  let module StringMap = Map.Make (String) in
+  let module VersionMap = OpamPackage.Version.Map in
   let* commit = Opam_repository.commit_at_date date in
   let+ paths = Opam_repository.new_files_since ~a:commit ~b:"@" in
-  List.filter_map (fun (path, _) -> package_of_path path) paths
-  |> List.sort_uniq String.compare
-  |> List.length
+  (* Group all modified versions of each packages. Using [VersionMap] to sort
+     versions. [acc] is indexed by [package_namespace_of_path path]. *)
+  let group_versions_by_name acc (path, date) =
+    match package_of_path path with
+    | Some (key, pkg) ->
+      let versions =
+        try StringMap.find key acc with Not_found -> VersionMap.empty
+      in
+      let v = OpamPackage.version pkg in
+      (* Keep the most recent version. Without this check, [date] wouldn't be
+         the last modification date. *)
+      if VersionMap.mem v versions then
+        acc
+      else
+        let versions = VersionMap.add v (pkg, date) versions in
+        StringMap.add key versions acc
+    | _ ->
+      acc
+  in
+  (* Iterate again on [paths] to preserve the order: most recently modified
+     first. *)
+  let acc_versions_of_path ((versions_by_name, acc) as acc') (path, _) =
+    match package_namespace_of_path path with
+    | Some key ->
+      (match StringMap.find_opt key versions_by_name with
+      | Some versions ->
+        (* Lastest version first. *)
+        let versions = List.rev (VersionMap.values versions) in
+        (* Remove to be sure to keep the most recent modification for each
+           packages. *)
+        StringMap.remove key versions_by_name, versions :: acc
+      | None ->
+        acc')
+    | None ->
+      acc'
+  in
+  let versions_by_name =
+    List.fold_left group_versions_by_name StringMap.empty paths
+  in
+  List.fold_left acc_versions_of_path (versions_by_name, []) paths
+  |> snd
+  |> List.rev
 
 (** Newly added packages. Most recent first. *)
 let compute_new_packages_since date =
-  let module NameMap = OpamPackage.Name.Map in
-  let* commit = Opam_repository.commit_at_date date in
-  let+ paths = Opam_repository.new_files_since ~a:commit ~b:"@" in
-  let of_path (path, date) =
-    package_of_path path
-    |> Option.map OpamPackage.of_string
-    |> Option.map (fun pkg -> pkg, date)
-  in
-  let packages = List.filter_map of_path paths in
-  let new_versions =
-    (* Count the number of new versions for each packages. *)
-    let count_new_versions acc (pkg, _) =
-      let name = OpamPackage.name pkg in
-      let n = try NameMap.find name acc with Not_found -> 0 in
-      NameMap.add name (n + 1) acc
-    in
-    List.fold_left count_new_versions NameMap.empty packages
-  in
+  let+ packages = compute_updated_packages_since date in
   (* Keep packages that only have new versions. *)
-  packages
-  |> List.filter (fun (pkg, _) ->
-         let name = OpamPackage.name pkg in
-         let new_versions = NameMap.find name new_versions in
-         let all_versions =
-           Opam_repository.list_package_versions
-             (OpamPackage.Name.to_string name)
-         in
-         new_versions >= List.length all_versions)
+  let filter_new_packages acc modified_versions =
+    let pkg, _ = List.hd modified_versions in
+    let name = OpamPackage.(Name.to_string (name pkg)) in
+    let all_versions = Opam_repository.list_package_versions name in
+    if List.length modified_versions >= List.length all_versions then
+      List.rev_append modified_versions acc (* [acc] is in reverse order *)
+    else
+      acc
+  in
+  List.fold_left filter_new_packages [] packages |> List.rev
 
-module Acc_biggest (Elt : sig
-  type t
+(** Count the number of updates. *)
+let compute_nb_updates updt_packages =
+  let count_updates acc versions = acc + List.length versions in
+  List.fold_left count_updates 0 updt_packages
 
-  val compare : t -> t -> int
-end) : sig
-  (** Accumulate the [n] bigger elements given to [acc]. *)
-
-  type elt = Elt.t
-
-  type t
-
-  val make : int -> t
-
-  val acc : elt -> t -> t
-
-  val to_list : t -> elt list
-end = struct
-  type elt = Elt.t
-
-  type t = int * elt list
-
-  let make size = size, []
-
-  (* Insert sort is enough. *)
-  let rec insert_sort elt = function
-    | [] ->
-      [ elt ]
-    | hd :: _ as t when Elt.compare hd elt >= 0 ->
-      elt :: t
-    | hd :: tl ->
-      hd :: insert_sort elt tl
-
-  let acc elt (rem, elts) =
-    let elts = insert_sort elt elts in
-    if rem = 0 then 0, List.tl elts else rem - 1, elts
-
-  let to_list (_, elts) = elts
-end
-
-let rec list_take n = function
-  | _ when n = 0 ->
-    []
-  | [] ->
-    []
-  | hd :: tl ->
-    hd :: list_take (n - 1) tl
+(** The lastest version of the [n] most recently updated packages. *)
+let compute_recently_updated n updt_packages packages =
+  let lastest_version versions =
+    let pkg, _ = List.hd versions in
+    mk_package_stat pkg packages
+  in
+  List.take n updt_packages |> List.filter_map lastest_version
 
 let compute_newest_packages n new_packages packages =
   let mk_package (pkg, date) =
-    let name = OpamPackage.name pkg
-    and version = OpamPackage.version pkg in
-    try
-      let info =
-        OpamPackage.Name.Map.find name packages
-        |> OpamPackage.Version.Map.find version
-      in
-      Some ({ name; version; info }, date)
-    with
-    | Not_found ->
-      (* Can happen if the package is added then removed, eg. 344f20e909. *)
-      None
+    mk_package_stat pkg packages |> Option.map (fun p -> p, date)
   in
-  list_take n new_packages |> List.filter_map mk_package
+  List.take n new_packages |> List.filter_map mk_package
 
 (** Remove some packages from the revdeps stats to make it more interesting. *)
 let most_revdeps_hidden = function
@@ -155,18 +167,12 @@ let compute_most_revdeps n packages =
   |> List.rev
 
 let compute packages =
-  let nb_packages = OpamPackage.Name.Map.cardinal packages in
-  let+ nb_update_week = compute_updates_since "7.days"
-  and+ nb_packages_month, newest_packages =
-    let+ new_pkgs = compute_new_packages_since "30.days" in
-    List.length new_pkgs, compute_newest_packages 5 new_pkgs packages
-  in
-  let recently_updated = []
-  and most_revdeps = compute_most_revdeps 5 packages in
-  { nb_packages
-  ; nb_update_week
-  ; nb_packages_month
-  ; newest_packages
-  ; recently_updated
-  ; most_revdeps
+  let+ updated_pkgs = compute_updated_packages_since "7.days"
+  and+ new_pkgs = compute_new_packages_since "30.days" in
+  { nb_packages = OpamPackage.Name.Map.cardinal packages
+  ; nb_update_week = compute_nb_updates updated_pkgs
+  ; recently_updated = compute_recently_updated 5 updated_pkgs packages
+  ; nb_packages_month = List.length new_pkgs
+  ; newest_packages = compute_newest_packages 5 new_pkgs packages
+  ; most_revdeps = compute_most_revdeps 5 packages
   }
