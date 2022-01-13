@@ -4,18 +4,6 @@
     described in this article:
     https://www.raymondcamden.com/2011/07/26/How-are-Facebook-and-Google-creating-link-previews *)
 
-let get_sync url =
-  let open Piaf in
-  let open Lwt_result.Syntax in
-  Lwt_main.run
-    (let config = { Config.default with follow_redirects = true } in
-     let* response = Client.Oneshot.get ~config (Uri.of_string url) in
-     if Status.is_successful response.status then
-       Body.to_string response.body
-     else
-       let message = Status.to_string response.status in
-       Lwt.return (Error (`Msg message)))
-
 let og_image html =
   let open Soup in
   let soup = parse html in
@@ -103,5 +91,5 @@ type t =
   }
 
 let all url =
-  let html = get_sync url |> Result.get_ok in
+  let html = Http_client.get_sync url |> Result.get_ok in
   { image = preview_image html; description = description html }

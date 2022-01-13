@@ -53,6 +53,10 @@ let workshop v = "/workshops/" ^ v
 
 let blog = "/blog"
 
+let news = "/news"
+
+let news_post v = "/news/" ^ v
+
 let opportunities = "/opportunities"
 
 let opportunity v = "/opportunities/" ^ v

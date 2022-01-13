@@ -45,8 +45,13 @@
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
-  (targets blog_category.ml)
-  (deps blog_category.eml)
+  (targets news.ml)
+  (deps news.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets news_post.ml)
+  (deps news_post.eml)
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule

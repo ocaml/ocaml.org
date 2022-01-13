@@ -5,6 +5,7 @@ let term_templates =
   ; "book", Ood_gen.Book.template
   ; "job", Ood_gen.Job.template
   ; "meetup", Ood_gen.Meetup.template
+  ; "news", Ood_gen.News.template
   ; "industrial_user", Ood_gen.Industrial_user.template
   ; "paper", Ood_gen.Paper.template
   ; "problems", Ood_gen.Problem.template
@@ -15,7 +16,7 @@ let term_templates =
   ; "workshops", Ood_gen.Workshop.template
   ; "video", Ood_gen.Video.template
   ; "watch", Ood_gen.Watch.template
-  ; "news", Ood_gen.News.template
+  ; "rss", Ood_gen.Rss.template
   ; "opam_user", Ood_gen.Opam_user.template
   ; "workflows", Ood_gen.Workflow.template
   ]

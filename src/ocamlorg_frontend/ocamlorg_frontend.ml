@@ -11,7 +11,7 @@ let best_practices best_practices = Best_practices.render best_practices
 
 let books books = Books.render books
 
-let community () = Community.render ()
+let community ~workshops ~news = Community.render ~workshops ~news
 
 let workshop ~videos workshop = Workshop.render ~videos workshop
 
@@ -23,9 +23,12 @@ let industrial_users users = Industrial_users.render users
 
 let learn ~papers ~release ~books = Learn.render ~papers ~release ~books
 
-let blog () = Blog.render ()
+let blog ~featured ~rss ~rss_page ~rss_pages_number ~news =
+  Blog.render ~featured ~rss ~rss_page ~rss_pages_number ~news
 
-let blog_category () = Blog_category.render ()
+let news ~page ~pages_number news = News.render ~page ~pages_number news
+
+let news_post news = News_post.render news
 
 let opportunities ?search ?country opportunities =
   Opportunities.render ?search ?country opportunities

@@ -1,0 +1,97 @@
+---
+title: "opam-lib 1.3 available"
+authors: [ "Louis Gesbert" ]
+date: "2016-11-21"
+description: "Release announcement for OPAM 1.3"
+tags: [platform]
+---
+
+<style type="text/css"><!--
+  .opam {font-family: Tahoma,Verdana,sans-serif; font-size: 110%; font-weight: lighter; line-height: 90.9%}
+--></style>
+
+## opam-lib 1.3
+
+The package for opam-lib version 1.3 has just been released in the official
+<span class="opam">opam</span> repository. There is no release of
+<span class="opam">opam</span> with version 1.3, but this is an intermediate
+version of the library that retains compatibility of the file formats with
+1.2.2.
+
+The purpose of this release is twofold:
+
+- **provide some fixes and enhancements over opam-lib 1.2.2.** For example, 1.3
+  has an enhanced `lint` function
+- **be a step towards migration to opam-lib 2.0.**
+
+**This version is compatible with the current stable release of opam (1.2.2)**,
+but dependencies have been updated so that you are not (e.g.) stuck on an old
+version of ocamlgraph.
+
+Therefore, I encourage all maintainers of tools based on opam-lib to migrate to
+1.3.
+
+The respective APIs are available in html for
+[1.2](https://opam.ocaml.org/doc/1.2/api) and [1.3](https://opam.ocaml.org/doc/1.3/api).
+
+> **A note on plugins**: when you write opam-related tools, remember that by
+> setting `flags: plugin` in their definition and installing a binary named
+> `opam-toolname`, you will enable the users to install package `toolname` and
+> run your tool with a single `opam toolname` command.
+
+### Architectural changes
+
+If you need to migrate from 1.2 to 1.3, these tips may help:
+
+- there are now 6 different ocamlfind sub-libraries instead of just 4: `format`
+  contains the handlers for opam types and file formats, has been split out from
+  the core library, while `state` handles the state of a given opam root and
+  switch and has been split from the `client` library.
+
+- `OpamMisc` is gone and moved into the better organised `OpamStd`, with
+  submodules for `String`, `List`, etc.
+
+- `OpamGlobals` is gone too, and its contents have been moved to:
+  - `OpamConsole` for the printing, logging, and shell interface handling part
+  - `OpamXxxConfig` modules for each of the libraries for handling the global
+    configuration variables. You should call the respective `init` functions,
+    with the options you want to set, for proper initialisation of the lib
+    options (and handling the `OPAMXXX` environment variables)
+
+- `OpamPath.Repository` is now `OpamRepositoryPath`, and part of the
+  `repository` sub-library.
+
+
+## opam-lib 2.0 ?
+
+The development version of the opam-lib (`2.0~alpha5` as of writing) is already
+available on opam. The name has been changed to provide a finer granularity, so
+it can actually be installed concurrently -- but be careful not to confuse the
+ocamlfind package names (`opam-lib.format` for 1.3 vs `opam-format` for 2.0).
+
+The provided packages are:
+
+- [`opam-file-format`](https://opam.ocaml.org/packages/opam-file-format): now
+  separated from the opam source tree, this has no dependencies and can be used
+  to parse and print the raw opam syntax.
+- [`opam-core`](https://opam.ocaml.org/packages/opam-core): the basic toolbox
+  used by opam, which actually doesn't include the opam specific part. Includes
+  a tiny extra stdlib, the engine for running a graph of processes in parallel,
+  some system handling functions, etc. Depends on ocamlgraph and re only.
+- [`opam-format`](https://opam.ocaml.org/packages/opam-format): defines opam
+  data types and their file i/o functions. Depends just on the two above.
+- [`opam-solver`](https://opam.ocaml.org/packages/opam-core): opam's interface
+  with the [dose3](https://opam.ocaml.org/packages/dose3) library and external
+  solvers.
+- [`opam-repository`](https://opam.ocaml.org/packages/opam-repository): fetching
+  repositories and package sources from all handled remote types.
+- [`opam-state`](https://opam.ocaml.org/packages/opam-state): handling of the
+  opam states, at the global, repository and switch levels.
+- [`opam-client`](https://opam.ocaml.org/packages/opam-client): the client
+  library, providing the top-level operations (installing packages...), and CLI.
+- [`opam-devel`](https://opam.ocaml.org/packages/opam-devel): this packages the
+  development version of the opam tool itself, for bootstrapping. You can
+  install it safely as it doesn't install the new `opam` in the PATH.
+
+The new API can be also be [browsed](https://opam.ocaml.org/doc/2.0/api) ;
+please get in touch if you have trouble migrating.

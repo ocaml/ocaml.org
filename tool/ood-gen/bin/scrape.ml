@@ -1,6 +1,6 @@
 open Cmdliner
 
-let term_scrapers = [ "news", Ood_gen.News.scrape ]
+let term_scrapers = [ "rss", Ood_gen.Rss.scrape ]
 
 let cmds =
   List.map
@@ -11,4 +11,6 @@ let default_cmd =
   ( Term.(ret (const (fun _ -> `Help (`Pager, None)) $ const ()))
   , Term.info "ood_scrape" )
 
-let () = Term.(exit @@ eval_choice default_cmd cmds)
+let () =
+  Printexc.record_backtrace true;
+  Term.(exit @@ eval_choice default_cmd cmds)

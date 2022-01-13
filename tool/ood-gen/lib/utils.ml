@@ -18,7 +18,10 @@ let extract_metadata_body s =
         | Error (`Msg err) ->
           raise
             (Exn.Decode_error
-               (Printf.sprintf "an error occured while reading yaml: %s" err)))
+               (Printf.sprintf
+                  "an error occured while reading yaml: %s\n %s"
+                  err
+                  s)))
     else
       raise (Exn.Decode_error "expected metadata at the top of the file")
 
@@ -48,7 +51,13 @@ let map_files f dir =
            prerr_endline ("Error in " ^ file);
            raise exn)
 
-let map_files_with_names f dir = read_from_dir dir |> List.map f
+let map_files_with_names f dir =
+  read_from_dir dir
+  |> List.map (fun (file, x) ->
+         try f (file, x) with
+         | exn ->
+           prerr_endline ("Error in " ^ file);
+           raise exn)
 
 let slugify value =
   value

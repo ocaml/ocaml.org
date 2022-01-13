@@ -1,0 +1,56 @@
+---
+title: "opam 2.0.9 release"
+authors: [ "Raja Boujbel", "Louis Gesbert"]
+date: "2021-08-03"
+description: "Release announcement for OPAM 2.0.9"
+tags: [platform]
+---
+
+_Feedback on this post is welcomed on [Discuss](https://discuss.ocaml.org/t/ann-opam-2-1-0/8255)!_
+
+We are pleased to announce the minor release of [opam 2.0.9](https://github.com/ocaml/opam/releases/tag/2.0.9).
+
+This new version contains some [back-ported](https://github.com/ocaml/opam/pull/4547) fixes.
+
+## New features
+  * Back-ported ability to load upgraded roots read-only; allows applications compiled with opam-state 2.0.9 to load a root which has been upgraded to opam 2.1 [[#4636](https://github.com/ocaml/opam/issues/4636)]
+  * macOS sandbox now supports `OPAM_USER_PATH_RO` for adding a custom read-only directory to the sandbox [[#4589](https://github.com/ocaml/opam/issues/4589), [#4609](https://github.com/ocaml/opam/issues/4609)]
+  * `OPAMROOT` and `OPAMSWITCH` now reflect the `--root` and `--switch` parameters in the package build [[#4668](https://github.com/ocaml/opam/issues/4668)]
+  * When built with opam-file-format 2.1.3+, opam-format 2.0.x displays better errors for newer opam files [[#4394](https://github.com/ocaml/opam/issues/4394)]
+
+## Bug fixes
+  * Linux sandbox now mounts _host_ `$TMPDIR` read-only, then sets the _sandbox_ `$TMPDIR` to a new separate tmpfs. **Hardcoded `/tmp` access no longer works if `TMPDIR` points to another directory** [[#4589](https://github.com/ocaml/opam/issues/4589)]
+  * Stop clobbering `DUNE_CACHE` in the sandbox script [[#4535](https://github.com/ocaml/opam/issues/4535), fixing [ocaml/dune#4166](https://github.com/ocaml/dune/issues/4166)]
+  * Ctrl-C now correctly terminates builds with bubblewrap; sandbox now requires bubblewrap 0.1.8 or later [[#4400](https://github.com/ocaml/opam/issues/4400)]
+  * Linux sandbox script no longer makes `PWD` read-write on remove actions [[#4589](https://github.com/ocaml/opam/issues/4589)]
+  * Lint W59 and E60 no longer trigger for packages flagged `conf` [[#4549](https://github.com/ocaml/opam/issues/4549)]
+  * Reduce the length of temporary file names for pin caching to ease pressure on Windows [[#4590](https://github.com/ocaml/opam/issues/4590)]
+  * Security: correct quoting of arguments when removing switches [[#4707](https://github.com/ocaml/opam/issues/4707)]
+  * Stop advertising the removed option `--compiler` when creating local switches [[#4718](https://github.com/ocaml/opam/issues/4718)]
+  * Pinning no longer fails if the archive's opam file is malformed [[#4580](https://github.com/ocaml/opam/issues/4580)]
+  * Fish: stop using deprecated `^` syntax to fix support for Fish 3.3.0+ [[#4736](https://github.com/ocaml/opam/issues/4736)]
+
+
+---
+
+Installation instructions (unchanged):
+
+1. From binaries: run
+
+    ```
+    bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh) --version 2.0.9"
+    ```
+
+    or download manually from [the Github "Releases" page](https://github.com/ocaml/opam/releases/tag/2.0.9) to your PATH. In this case, don't forget to run `opam init --reinit -ni` to enable sandboxing if you had version 2.0.0~rc manually installed or to update you sandbox script.
+
+2. From source, using opam:
+
+    ```
+    opam update; opam install opam-devel
+    ```
+
+   (then copy the opam binary to your PATH as explained, and don't forget to run `opam init --reinit -ni` to enable sandboxing if you had version 2.0.0~rc manually installed or to update your sandbox script)
+
+3. From source, manually: see the instructions in the [README](https://github.com/ocaml/opam/tree/2.0.9#compiling-this-repo).
+
+We hope you enjoy this new minor version, and remain open to [bug reports](https://github.com/ocaml/opam/issues) and [suggestions](https://github.com/ocaml/opam/issues).
