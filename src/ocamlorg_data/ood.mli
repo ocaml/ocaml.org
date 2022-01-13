@@ -150,6 +150,12 @@ module Industrial_user : sig
   val get_by_slug : ?lang:[> `English | `French ] -> string -> t option
 end
 
+module Packages : sig
+  type t = { featured_packages : string list }
+
+  val all : t
+end
+
 module Paper : sig
   type link =
     { description : string

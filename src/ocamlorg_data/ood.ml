@@ -109,6 +109,8 @@ module Industrial_user = struct
     List.find_opt (fun x -> String.equal slug x.slug) (all ?lang ())
 end
 
+module Packages = Packages
+
 module Paper = struct
   include Paper
 

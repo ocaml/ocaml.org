@@ -364,6 +364,15 @@ let package_versions state name =
   |> List.map Ocamlorg_package.Version.to_string
   |> List.rev
 
+let package_meta state (package : Ocamlorg_package.t)
+    : Ocamlorg_frontend.package
+  =
+  let name = Ocamlorg_package.name package
+  and version = Ocamlorg_package.version package
+  and info = Ocamlorg_package.info package in
+  let versions = package_versions state name in
+  package_of_info ~name ~version ~versions info
+
 let packages state _req =
   let package { Ocamlorg_package.Packages_stats.name; version; info } =
     let versions = package_versions state name in
@@ -388,17 +397,15 @@ let packages state _req =
         }
     | None ->
       None
+  and featured_packages =
+    (* TODO: Should be cached ? *)
+    match Ocamlorg_package.featured_packages state with
+    | Some pkgs ->
+      List.map (package_meta state) pkgs
+    | None ->
+      []
   in
-  Dream.html (Ocamlorg_frontend.packages stats)
-
-let package_meta state (package : Ocamlorg_package.t)
-    : Ocamlorg_frontend.package
-  =
-  let name = Ocamlorg_package.name package
-  and version = Ocamlorg_package.version package
-  and info = Ocamlorg_package.info package in
-  let versions = package_versions state name in
-  package_of_info ~name ~version ~versions info
+  Dream.html (Ocamlorg_frontend.packages stats featured_packages)
 
 let packages_search t req =
   match Dream.query "q" req with

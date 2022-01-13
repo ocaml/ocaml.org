@@ -25,6 +25,7 @@ type state =
   ; mutable opam_repository_commit : string option
   ; mutable packages : Info.t OpamPackage.Version.Map.t OpamPackage.Name.Map.t
   ; mutable stats : Packages_stats.t option
+  ; mutable featured_packages : t list option
   }
 
 let state_of_package_list (pkgs : t list) =
@@ -44,6 +45,7 @@ let state_of_package_list (pkgs : t list) =
   ; packages
   ; opam_repository_commit = None
   ; stats = None
+  ; featured_packages = None
   }
 
 let read_versions package_name =
@@ -99,6 +101,7 @@ let try_load_state () =
     ; version = Info.version
     ; packages = OpamPackage.Name.Map.empty
     ; stats = None
+    ; featured_packages = None
     }
 
 let save_state t =
@@ -108,6 +111,12 @@ let save_state t =
   Fun.protect
     (fun () -> Marshal.to_channel channel t [])
     ~finally:(fun () -> close_out channel)
+
+let get_package_latest' packages name =
+  OpamPackage.Name.Map.find_opt name packages
+  |> Option.map (fun versions ->
+         let version, info = OpamPackage.Version.Map.max_binding versions in
+         { version; info; name })
 
 let update ~commit t =
   let open Lwt.Syntax in
@@ -120,8 +129,14 @@ let update ~commit t =
   let* packages = Info.of_opamfiles packages in
   Logs.info (fun f -> f "Computing packages statistics...");
   let+ stats = Packages_stats.compute packages in
+  let featured_packages =
+    Ood.Packages.all.featured_packages
+    |> List.filter_map (fun p ->
+           get_package_latest' packages (Name.of_string p))
+  in
   t.packages <- packages;
   t.stats <- Some stats;
+  t.featured_packages <- Some featured_packages;
   Logs.info (fun m ->
       m "Loaded %d packages" (OpamPackage.Name.Map.cardinal packages))
 
@@ -187,17 +202,14 @@ let get_package_versions t name =
   |> Option.map OpamPackage.Version.Map.bindings
   |> Option.map (List.map fst)
 
-let get_package_latest t name =
-  t.packages
-  |> OpamPackage.Name.Map.find_opt name
-  |> Option.map (fun versions ->
-         let version, info = OpamPackage.Version.Map.max_binding versions in
-         { version; info; name })
+let get_package_latest t name = get_package_latest' t.packages name
 
 let get_package t name version =
   t.packages |> OpamPackage.Name.Map.find_opt name |> fun x ->
   Option.bind x (OpamPackage.Version.Map.find_opt version)
   |> Option.map (fun info -> { version; info; name })
+
+let featured_packages t = t.featured_packages
 
 let topelevel_url name version = "/toplevels/" ^ name ^ "-" ^ version ^ ".js"
 
