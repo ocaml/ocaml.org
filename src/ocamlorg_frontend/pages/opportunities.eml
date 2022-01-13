@@ -64,7 +64,7 @@ OCaml community." @@
             <div class="text-xl">No Opportunities found matching "<%s search %>"</div>
         </div>
         <% | _ -> %>
-        <div class="grid grid-cols-1 pb-10 lg:grid-cols-3 gap-8 mt-16">
+        <div class="grid grid-cols-1 pb-10 lg:grid-cols-3 gap-8 mt-16" x-data="{ country: '<%s country %>' }">
             <% opportunities |> List.iter (fun (item : Ood.Job.t) -> %>
             <a href="/opportunities/<%i item.id %>"
                 class="text-left p-8 border border-gray-200 rounded-xl card-hover"
