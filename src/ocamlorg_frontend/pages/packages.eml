@@ -118,7 +118,7 @@ Layout.render
 <div class="bg-white py-20 lg:py-32">
 % let render_package_stat pkg render_extra_stats =
     <a href=""
-        class="bg-white border border-gray-200 rounded-xl py-6 px-7 flex-col text-body-600 text-left card-hover">
+        class="block bg-white border border-gray-200 rounded-xl py-6 px-7 text-body-600 text-left card-hover">
       <div class="font-semibold mb-2"><%s pkg.name %></div>
       <div class="mb-3 text-sm text-body-400"><%s pkg.description %></div>
 % render_extra_stats ();
@@ -127,10 +127,9 @@ Layout.render
 % ( match stats with
 % | Some stats ->
     <div class="container-fluid">
-        <div class="flex justify-between flex-col space-y-10 lg:space-y-0 lg:flex-row">
-            <div>
+        <div class="flex justify-between flex-col space-y-10 lg:space-y-0 lg:space-x-6 lg:flex-row">
+            <div class="flex-1 space-y-6">
                 <h3 class="font-bold text-center mb-8">Most used packages</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
 % let render_package_most_revdeps (pkg, nb_revdeps) =
 %   render_package_stat pkg (fun () ->
       <div class="text-sm text-body-400 flex space-x-2">
@@ -140,12 +139,10 @@ Layout.render
 %   )
 % in
 % List.iter render_package_most_revdeps stats.most_revdeps;
-                </div>
 
             </div>
-            <div>
+            <div class="flex-1 space-y-6">
                 <h3 class="font-bold text-center mb-8">New Packages</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
 % let render_newest_package (pkg, date) =
 %   render_package_stat pkg (fun () ->
       <div class="text-sm text-body-400 flex space-x-2">
@@ -154,11 +151,9 @@ Layout.render
 %   )
 % in
 % List.iter render_newest_package stats.newest_packages;
-                </div>
             </div>
-            <div>
+            <div class="flex-1 space-y-6">
                 <h3 class="font-bold text-center mb-8">Recently Updated</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
 % let render_package_recently_updated pkg =
 %   render_package_stat pkg (fun () ->
       <div class="text-sm text-body-400 flex space-x-2">
@@ -167,7 +162,6 @@ Layout.render
 %   )
 % in
 % List.iter render_package_recently_updated stats.recently_updated;
-                </div>
             </div>
         </div>
 
