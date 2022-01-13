@@ -49,8 +49,8 @@ inner =
   </title>
 </head>
 
-<body x-data="{ open: false, sidebar:false, showOnMobile:false,sidebar:window.innerWidth > 480}"
-  class="bg-global-default" @resize.window="sidebar = window.innerWidth > 767">
+<body x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}"
+  class="bg-global-default" @resize.window="sidebar = window.innerWidth > 1024">
 
   <header class="h-20 flex items-center text-white">
 
@@ -77,7 +77,7 @@ inner =
           </div>
           <form action="/packages/search" method="GET">
             <input type="search" id="q" name="q"
-              class="w-60 outline-none pl-7 bg-transparent border-b-2 border-transparent focus:border-primary-600 text-body-600 h-12 placeholder-body-400"
+              class="header__search"
               placeholder="Search packages">
           </form>
         </div>
@@ -198,7 +198,7 @@ inner =
   </main>
   <footer class="lg:py-28 py-14">
     <div class="container-fluid">
-      <div class="flex justify-between flex-wrap space-y-16 xl:space-y-0">
+      <div class="flex flex-col lg:flex-row justify-between flex-wrap space-y-16 xl:space-y-0">
         <div class="xl:w-1/4">
           <img width="160" src="/img/logo-footer.svg" alt="">
           <div class="py-8">Innovation. Community. Security.</div>

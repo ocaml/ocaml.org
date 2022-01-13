@@ -184,7 +184,7 @@ with an emphasis on expressiveness and safety."
           </div>
         </div>
         <div class="lg:flex-1 lg:mr-24 lg:mt-0 mt-10 flex justify-center">
-          <div class="-ml-40">
+          <div class="xl:-ml-40">
             <div style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff;" class="swiper mySwiper2">
               <div class="swiper-wrapper">
                 <div class="swiper-slide">

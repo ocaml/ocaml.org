@@ -8,6 +8,7 @@
 @import 'partials/tags.css';
 @import 'partials/card.css';
 @import 'partials/shadows.css';
+@import 'partials/header.css';
 
 @import 'pages/industrial-users.css';
 
@@ -42,6 +43,10 @@ body {
     background: -webkit-linear-gradient(left, #FF9A9E, #FAD0C4);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.swiper {
+    max-width: 100vw;
 }
 
 .testimonials .swiper-wrapper .swiper-slide:nth-child(even) div:first-child {
@@ -136,4 +141,13 @@ footer a:hover {
 
 .page-toc li li li {
     @apply ml-4;
+}
+
+pre {
+    max-width: 100%;
+}
+
+summary::marker {
+    position: relative;
+    left: 4px;
 }

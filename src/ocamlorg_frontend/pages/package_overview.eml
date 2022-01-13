@@ -16,7 +16,7 @@ Package_layout.render
 ~package @@
 <div class="flex lg:space-x-14 flex-col lg:flex-row items-start">
 
-    <div class="flex-1 prose lg:max-w-3xl">
+    <div class="flex-1 prose lg:max-w-3xl max-w-full">
         <div class="p-3 bg-body-600 bg-opacity-5 rounded font-semibold mb-8">README.md</div>
         <%s! readme %>
     </div>
@@ -145,7 +145,7 @@ Package_layout.render
         | Some (uri, checksums) -> %>
         <div class="font-semibold mt-8 mb-3 text-base text-body-400">Sources</div>
         <div class="flex p-3 rounded-xl border border-gray-200 items-center justify-between">
-            <div class="hidden md:flex">
+            <div class="flex">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2"
                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -159,7 +159,7 @@ Package_layout.render
                 <pre><%s String.trim checksum %></pre>
                 <% end; %>
             </div>
-            <div class="hidden md:flex">
+            <div class="flex">
                 <a href="<%s uri %>"
                     class="hover:bg-primary-600 text-primary-600 overflow-hidden hover:rounded rounded  hover:text-white">
                     <div class="p-2 bg-primary-100 text-base">
