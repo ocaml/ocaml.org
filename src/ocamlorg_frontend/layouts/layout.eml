@@ -2,6 +2,7 @@ let render
 ?(turbo_full_reload=false)
 ?(use_swiper=false)
 ?(use_turbo=false)
+?(wide=false)
 ?description
 ~title
 inner =
@@ -53,7 +54,7 @@ inner =
 
   <header class="h-20 flex items-center text-white">
 
-    <div class="container-fluid header flex justify-between items-center">
+    <div class="container-fluid header <%s if wide then "wide" else "" %> flex justify-between items-center">
       <div class="space-x-8 flex items-center">
         <a href="<%s Url.index %>">
           <img src="/img/logo.svg" width="42px" alt="OCaml logo">

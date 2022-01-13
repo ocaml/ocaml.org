@@ -11,6 +11,7 @@ let render_problem_link (problem : Ood.Problem.t) =
 in
 Layout.render
 ~turbo_full_reload:true
+~wide:true
 ~title:"OCaml Problems"
 ~description:"???" @@
 <button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed md:hidden"
