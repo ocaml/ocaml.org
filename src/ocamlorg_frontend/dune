@@ -191,4 +191,9 @@
   (targets toc.ml)
   (deps toc.eml)
   (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets icons.ml)
+  (deps icons.eml)
+  (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root}))))

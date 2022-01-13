@@ -134,11 +134,7 @@ Layout.render
 % let render_package_most_revdeps (pkg, nb_revdeps) =
 %   render_package_stat pkg (fun () ->
       <div class="text-sm text-body-400 flex space-x-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24"
-            stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-        </svg>
+        <%s! Icons.star %>
         Used by <%d nb_revdeps %> other packages
       </div>
 %   )
@@ -153,12 +149,7 @@ Layout.render
 % let render_newest_package (pkg, date) =
 %   render_package_stat pkg (fun () ->
       <div class="text-sm text-body-400 flex space-x-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24"
-            stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-        </svg>
-        <%s date %>
+        <%s! Icons.calendar %> <%s date %>
       </div>
 %   )
 % in
@@ -171,12 +162,7 @@ Layout.render
 % let render_package_recently_updated pkg =
 %   render_package_stat pkg (fun () ->
       <div class="text-sm text-body-400 flex space-x-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24"
-            stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-        </svg>
-        Version <%s pkg.version %>
+        <%s! Icons.refresh %> Version <%s pkg.version %>
       </div>
 %   )
 % in
