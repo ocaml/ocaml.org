@@ -89,13 +89,20 @@ let http () =
 let server https port =
   let open Lwt.Syntax in
   let state = Ocamlorg_package.init () in
-  if Config.hostname = "localhost" then
-    (* Use Dream's development certificate if we are running the server
-       locally. *)
+  if not https then
     Dream.serve ~interface:"0.0.0.0" ~debug:Config.debug ~port:Config.http_port
     @@ Dream.logger
-    @@ Middleware.no_trailing_slash
-    @@ Dream_encoding.compress
+    @@ Router.router state
+    @@ Handler.not_found
+  else if Config.hostname = "localhost" then
+    (* Use Dream's development certificate if we are running the server
+       locally. *)
+    Dream.serve
+      ~https:true
+      ~interface:"0.0.0.0"
+      ~debug:Config.debug
+      ~port:Config.http_port
+    @@ Dream.logger
     @@ Router.router state
     @@ Handler.not_found
   else
@@ -117,7 +124,6 @@ let server https port =
       ~certificate_file
       ~key_file
     @@ Dream.logger
-    @@ Middleware.no_trailing_slash
     @@ Router.router state
     @@ Handler.not_found
 
