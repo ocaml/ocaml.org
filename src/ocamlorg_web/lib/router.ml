@@ -27,7 +27,7 @@ let redirect s req = Dream.redirect req s
 let redirection_routes =
   Dream.scope
     ""
-    []
+    [ Dream_encoding.compress ]
     (List.map
        (fun (origin, new_) ->
          Dream.get origin (fun req ->
@@ -37,7 +37,10 @@ let redirection_routes =
 let page_routes =
   Dream.scope
     ""
-    [ Middleware.set_locale ]
+    [ Middleware.set_locale
+    ; Dream_encoding.compress
+    ; Middleware.no_trailing_slash
+    ]
     [ Dream.get Url.index Handler.index
     ; Dream.get Url.learn Handler.learn
     ; Dream.get Url.community Handler.community
@@ -70,7 +73,10 @@ let package_route t =
   (* TODO(tmattio): Use Url module here. *)
   Dream.scope
     ""
-    [ Middleware.set_locale ]
+    [ Middleware.set_locale
+    ; Dream_encoding.compress
+    ; Middleware.no_trailing_slash
+    ]
     [ Dream.get Url.packages (Handler.packages t)
     ; Dream.get Url.packages_search (Handler.packages_search t)
     ; Dream.get (Url.package ":name") (Handler.package t)
@@ -98,7 +104,7 @@ let package_route t =
 let graphql_route t =
   Dream.scope
     ""
-    []
+    [ Dream_encoding.compress; Middleware.no_trailing_slash ]
     [ Dream.any "/api" (Dream.graphql Lwt.return (Graphql.schema t))
     ; Dream.get "/graphiql" (Dream.graphiql "/api")
     ]
@@ -106,7 +112,7 @@ let graphql_route t =
 let toplevels_route =
   Dream.scope
     "/toplevels"
-    []
+    [ Dream_encoding.compress ]
     [ Dream.get
         "/**"
         (Dream.static (Fpath.to_string Ocamlorg_package.toplevels_path))
