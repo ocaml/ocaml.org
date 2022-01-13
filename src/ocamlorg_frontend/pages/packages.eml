@@ -1,4 +1,7 @@
 open Package_intf
+
+let href_package pkg = Printf.sprintf "/p/%s/%s" pkg.name pkg.version
+
 let render (stats : packages_stats option) (featured_packages : package list) =
 Layout.render
 ~turbo_full_reload:true
@@ -64,7 +67,7 @@ Layout.render
       constraints, and a Git-friendly development workflow.
             </p>
 % let render_featured_package pkg =
-    <a href="" class="bg-white card-hover rounded-md p-6 text-body-600 text-left">
+    <a href="<%s href_package pkg %>" class="bg-white card-hover rounded-md p-6 text-body-600 text-left">
       <p class="font-semibold mb-2"><%s pkg.name %></p>
       <p class="mb-3 text-sm text-body-400"><%s pkg.description %></p>
       <p class="text-sm text-body-400 flex space-x-2">
@@ -84,7 +87,7 @@ Layout.render
 </div>
 <div class="bg-white py-20 lg:py-32">
 % let render_package_stat pkg render_extra_stats =
-    <a href=""
+    <a href="<%s href_package pkg %>"
         class="block bg-white border border-gray-200 rounded-xl py-6 px-7 text-body-600 text-left card-hover">
       <div class="font-semibold mb-2"><%s pkg.name %></div>
       <div class="mb-3 text-sm text-body-400"><%s pkg.description %></div>
@@ -142,7 +145,7 @@ Layout.render
                 compiles today will still work a decade from now.</div>
         </div>
         <div class="flex justify-between space-y-12 lg:space-x-20 mt-20 flex-col lg:flex-row lg:space-y-0">
-            <div href="" class="text-center flex-col max-w-full lg:max-w-sm ">
+            <div class="text-center flex-col max-w-full lg:max-w-sm ">
                 <div class="mb-4 rounded-2xl bg-primary-600 w-16 h-16 items-center m-auto flex justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -156,7 +159,7 @@ Layout.render
                     boundaries of the dependencies and for each of the dependent packages. A package publication will
                     never break the rest of the ecosystem.</div>
             </div>
-            <div href="" class="text-center flex-col max-w-full lg:max-w-sm">
+            <div class="text-center flex-col max-w-full lg:max-w-sm">
                 <div class="mb-4 rounded-2xl bg-primary-600 w-16 h-16 items-center m-auto flex justify-center">
                     <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" aria-hidden="true">
@@ -171,7 +174,7 @@ Layout.render
                     chosen for a build. It comes with a performant constraint solver, a flexible CLI, a well-specified
                     metadata format, and easy access to the package manager logic via OCaml libraries.</div>
             </div>
-            <div href="" class="text-center flex-col max-w-full lg:max-w-sm">
+            <div class="text-center flex-col max-w-full lg:max-w-sm">
                 <div class="mb-4 rounded-2xl bg-primary-600 w-16 h-16 items-center m-auto flex justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
