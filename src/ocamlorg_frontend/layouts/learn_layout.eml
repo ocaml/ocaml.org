@@ -22,6 +22,7 @@ Layout.render
 ?turbo_full_reload
 ?use_swiper
 ?use_turbo
+~wide:true
 ~title
 ~description @@
 <button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed md:hidden"

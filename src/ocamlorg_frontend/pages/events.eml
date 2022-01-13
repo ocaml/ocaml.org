@@ -104,7 +104,7 @@ world. See past events and upcoming ones on this page." @@
         <h2 class="font-bold">Meetups</h2>
         <div class="grid lg:grid-cols-3 gap-8 lg:gap-12 mt-12">
             <% meetups |> List.iter (fun (meetup : Ood.Meetup.t) -> %>
-            <a href="" class="border border-gray-200 p-8 rounded-xl transition-transform hover:scale-105">
+            <a href="<%s meetup.url %>" class="border border-gray-200 p-8 rounded-xl transition-transform hover:scale-105">
                 <div class="font-semibold">
                     <%s meetup.title %>
                 </div>

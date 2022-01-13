@@ -13,7 +13,7 @@ let render () = Layout.render ~turbo_full_reload:true ~title:"OCaml Privacy Poli
     <div class="container-fluid">
       <div class="prose prose-orange lg:prose-lg mx-auto max-w-5xl">
         <h2>Who are we?</h2>
-        <p>We are OCaml Labs Consultancy Ltd. For privacy queries, you can contact us at ocamlorg@ocamllabs.io[GG1] . Other contact details are on our website.</p>
+        <p>We are OCaml Labs Consultancy Ltd. For privacy queries, you can contact us at <a href="mailto:ocamlorg@ocamllabs.io">ocamlorg@ocamllabs.io[GG1]</a>. Other contact details are on our website.</p>
 
         <h2>What’s the point of this policy?</h2>
 
@@ -83,7 +83,7 @@ let render () = Layout.render ~turbo_full_reload:true ~title:"OCaml Privacy Poli
           Information Commissioner’s Office (ICO).
         </p>
 
-        <p>For more information about your rights, visit the ICO’s website: www.ico.org.uk.</p>
+        <p>For more information about your rights, visit the ICO’s website: <a href="https://ico.org.uk/">ico.org.uk</a>.</p>
 
         <h2>What about cookies?</h2>
 

@@ -257,7 +257,7 @@ with an emphasis on expressiveness and safety."
           </div>
         </div>
       </a>
-      <a href="https://github.com/mirage/irmin" target="_blank"
+      <a href="https://irmin.org/" target="_blank"
         class="bg-white p-6 rounded-xl items-center flex card-hover">
         <div class="flex items-center">
           <img src="/img/home/irmin.png" alt="Irmin logo" />
@@ -272,7 +272,7 @@ with an emphasis on expressiveness and safety."
     </div>
     <div class="grid grid-cols-4 gap-6 md:gap-4 md:px-10 lg:px-20 mt-6 relative right-5 lg:right-28 md:right-16"
       style="width: 1500px">
-      <a href="https://github.com/ocaml/dune" target="_blank"
+      <a href="https://dune.build/" target="_blank"
         class="bg-white p-6 rounded-xl items-center flex card-hover">
         <div class="flex items-center">
           <img src="/img/home/dune.png" alt="Dune logo" />
@@ -385,7 +385,7 @@ with an emphasis on expressiveness and safety."
       <div class="text-center">
         <h2 class="font-bold text-primary-600 mb-6">Curated Resources</h2>
         <div class="text-lg text-white mb-16">
-          Here are some of the reasons why you should use OCamp for your
+          Here are some of the reasons why you should use OCaml for your
           workspace or institution.
         </div>
       </div>

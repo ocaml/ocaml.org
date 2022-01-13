@@ -2,6 +2,7 @@ let render (best_practices : Ood.Workflow.t list) =
 Learn_layout.render
 ~turbo_full_reload:true
 ~title:"OCaml Best Practices"
+~current_tutorial:"best-practices"
 ~description:"Some guides to commonly used tools in OCaml development workflows." @@
 <div class="flex-1 flex overflow-hidden flex-col md:pl-10">
     <% best_practices |> List.iter (fun (item : Ood.Workflow.t) -> %>

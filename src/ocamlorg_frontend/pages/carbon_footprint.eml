@@ -24,7 +24,7 @@ let render () = Layout.render ~turbo_full_reload:true ~title:"OCaml Carbon Footp
         <p>
           The maintainers are exploring ways to reduce OCaml’s carbon footprint, with the ultimate goal of being carbon neutral. Carbon neutrality refers to the practice of offsetting one’s carbon footprint. For example, after calculating the amount of emissions produced, one offsets the same amount
           by investing in projects that aim to reduce emissions. Renewable energy and other similar initiatives show promise toward meeting this goal. Before they can make any hard decisions, they must first better understand OCaml’s environmental impact. This work is already underway. By using
-          OCluster1(https://github.com/ocurrent/ocluster), a cluster-management tool, they will receive more complete reports, and with this information, they can make decisions that will produce measurable impact.
+          <a href="https://github.com/ocurrent/ocluster">OCluster</a>, a cluster-management tool, they will receive more complete reports, and with this information, they can make decisions that will produce measurable impact.
         </p>
 
         <p>Some possibilities:</p>

@@ -18,6 +18,7 @@ let current_tab_class = "border-b-2 hover:border-primary-600 p-4 font-medium bor
 Layout.render
 ?turbo_full_reload
 ?use_turbo
+~wide:true
 ~title
 ~description @@
 <div class="bg-white">

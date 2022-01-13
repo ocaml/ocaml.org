@@ -29,7 +29,7 @@
 }
 
 .success-card .success-card__overlay {
-    @apply absolute left-0 top-0 w-full h-full opacity-60;
+    @apply absolute left-0 top-0 w-full h-full opacity-40;
     z-index: 2;
 }
 
