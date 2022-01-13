@@ -108,11 +108,11 @@ let compute_new_packages_since date =
   let+ packages = compute_updated_packages_since date in
   (* Keep packages that only have new versions. *)
   let filter_new_packages acc modified_versions =
-    let pkg, _ = List.hd modified_versions in
+    let ((pkg, _) as lastest) = List.hd modified_versions in
     let name = OpamPackage.(Name.to_string (name pkg)) in
     let all_versions = Opam_repository.list_package_versions name in
     if List.length modified_versions >= List.length all_versions then
-      List.rev_append modified_versions acc (* [acc] is in reverse order *)
+      lastest :: acc
     else
       acc
   in
