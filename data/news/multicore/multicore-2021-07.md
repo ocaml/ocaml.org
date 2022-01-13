@@ -222,7 +222,7 @@ As always, the Multicore OCaml ongoing and completed tasks are listed first, whi
   A request by @nbecker to provide a `parallel_map` function over
   arrays having the following signature:
   
-  ```
+  ```ocaml
   val parallel_map : Domainslib.Task.pool -> ('a -> 'b) -> 'a array -> 'b array
   ```
 

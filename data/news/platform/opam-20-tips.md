@@ -135,7 +135,7 @@ two projects.
 If your package depends on development versions of some dependencies (e.g. you
 had to push a fix upstream), add to your opam file:
 
-```
+```opam
 depends: [ "some-package" ] # Remember that pin-depends are depends too
 pin-depends: [
   [ "some-package.version" "git+https://gitfoo.com/blob.git#mybranch" ]

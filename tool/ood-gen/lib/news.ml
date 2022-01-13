@@ -28,7 +28,8 @@ let all () =
       ; description = metadata.description
       ; date = metadata.date
       ; tags = metadata.tags
-      ; body_html = Omd.to_html (Omd.of_string (String.trim body))
+      ; body_html =
+          Omd.to_html (Hilite.Md.transform (Omd.of_string (String.trim body)))
       })
     "news/*/*.md"
   |> List.sort (fun a b -> String.compare a.date b.date)

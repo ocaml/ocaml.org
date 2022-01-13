@@ -12,7 +12,7 @@ monthly](https://discuss.ocaml.org/tag/multicore-monthly) updates have been comp
 
 Big news this month is that the [systhreads compatibility support](https://github.com/ocaml-multicore/ocaml-multicore/pull/407) PR has been merged, which means that Dune (and other users of the `Thread` module) can compile out of the box.  You can now compile the multicore OCaml fork conveniently using the new `opam compiler` plugin ([see announcement](https://discuss.ocaml.org/t/ann-opam-compiler-0-1-0/6442)):
 
-```bash
+```
 opam update
 opam compiler create "ocaml-multicore/ocaml-multicore:no-effect-syntax"
 eval $(opam env)
@@ -168,7 +168,7 @@ Onto the details of the PRs. As with the previous updates, the Multicore OCaml u
   includes a code size metric for the number of CAML symbols. A sample
   benchmark output is shown below:
 
-  ```
+  ```json
   {"name":"knucleotide.", ... ,"codesize":276859.0, ...}
   ```
 

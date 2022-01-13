@@ -587,7 +587,7 @@ Multicore OCaml.
   times, as well as the distribution up to the 99.9th percentiles. For
   example:
 
-  ```
+  ```json
   ocaml-eventlog-pausetimes /home/engil/dev/ocaml-multicore/trace3/caml-426094-* name
   {
     "name": "name",

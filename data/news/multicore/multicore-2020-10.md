@@ -170,7 +170,7 @@ As with previous updates, the Multicore OCaml ongoing, and completed tasks are l
   issue. The environment variables can be specified in the
   `run_config.json` file, as shown below:
   
-  ```
+  ```json
    {
       "name": "orun_2M",
       "environment": "OCAMLRUNPARAM='s=2M'",

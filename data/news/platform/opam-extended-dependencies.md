@@ -62,7 +62,7 @@ Use `opam config list` for a list of pre-defined variables. Note that the `with-
 
 For example, the `datakit.0.9.0` package has:
 
-```
+```opam
 depends: [
   ...
   "datakit-server" {>= "0.9.0"}
@@ -74,7 +74,7 @@ depends: [
 
 When running `opam install datakit.0.9.0`, the `with-test` variable is set to `false`, and the `datakit-client`, `datakit-github` and `alcotest` dependencies are filtered out: they won't be required. With `opam install datakit.0.9.0 --with-test`, the `with-test` variable is true (for that package only, tests on packages not listed on the command-line are not enabled!). In this case, the dependencies resolve to:
 
-```
+```opam
 depends: [
   ...
   "datakit-server" {>= "0.9.0"}
@@ -100,7 +100,7 @@ It is even possible to use variable interpolations within versions, _e.g._ speci
 this will expand the `os` variable, resolving to `1.0+linux`, `1.0+darwin`, etc.
 
 Getting back to our `datakit` example, we could leverage this and rewrite it to the more generic:
-```
+```opam
 depends: [
   ...
   "datakit-server" {>= version}
@@ -113,7 +113,7 @@ depends: [
 Since the `datakit-*` packages follow the same versioning, this avoids having to rewrite the opam file on every new version, with a risk of error each time.
 
 As a side note, these variables are consistent with what is now used in the [`build:`](http://opam.ocaml.org/doc/2.0/Manual.html#opamfield-build) field, and the [`build-test:`](http://opam.ocaml.org/doc/2.0/Manual.html#opamfield-build-test) field is now deprecated. So this other part of the same `datakit` opam file:
-```
+```opam
 build:
   ["ocaml" "pkg/pkg.ml" "build" "--pinned" "%{pinned}%" "--tests" "false"]
 build-test: [
@@ -122,7 +122,7 @@ build-test: [
 ]
 ```
 would now be preferably written as:
-```
+```opam
 build: ["ocaml" "pkg/pkg.ml" "build" "--pinned" "%{pinned}%" "--tests" "%{with-test}%"]
 run-test: ["ocaml" "pkg/pkg.ml" "test"]
 ```

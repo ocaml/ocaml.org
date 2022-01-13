@@ -901,7 +901,7 @@ As always, the Multicore OCaml updates are listed first, which contain the upstr
    package that you do not wish to build. For example, in
    `ocaml-versions/5.00.0+trunk.json`, you can specify the following:
    
-   ```
+   ```json
    {
       "url" : "https://github.com/ocaml/ocaml/archive/trunk.tar.gz",
       "package_remove": [
@@ -1022,7 +1022,7 @@ As always, the Multicore OCaml updates are listed first, which contain the upstr
   benchmarks. This is useful to obtain deterministic results for
   Sandmark workers that are Multicore enabled. For example:
   
-  ```
+  ```json
   [
     {
       "name": "author/repo",

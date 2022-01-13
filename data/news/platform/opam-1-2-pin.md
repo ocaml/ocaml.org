@@ -80,7 +80,7 @@ looking up the documentation, it also helps getting consistent package
 definitions, reduces errors, and promotes filling in optional but recommended
 fields (homepage, etc.).
 
-```
+```opam
 opam-version: "1.2"
 name: "ocp-reloc"
 version: "0.1"

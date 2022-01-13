@@ -177,7 +177,7 @@ Effect handlers are made available to the OCaml programmer from `stdlib/effectHa
 
 Here is an example of a program that uses deep handlers to model something analogous to the `Reader` monad.
 
-```
+```ocaml
 open EffectHandlers
 open EffectHandlers.Deep
 
@@ -195,7 +195,7 @@ let _ = assert (main () = 2)
 
 Observe that when we resume the continuation `k` , the subsequent effects performed by the computation are also handled by the same handler. As opposed to this, for the shallow handler doesn’t. For shallow handlers, we use `continue_with` instead of continue.
 
-```
+```ocaml
 open EffectHandlers
 open EffectHandlers.Shallow
 
@@ -219,7 +219,7 @@ let _ = assert (main () = 2)
 
 Observe that with a shallow handler, the recursion is explicit. Shallow handlers makes it easier to encode cases where state needs to be threaded through. For example, here is a variant of the `State` handler that encodes a counter:
 
-```
+```ocaml
 open EffectHandlers
 open EffectHandlers.Shallow
 
@@ -543,7 +543,7 @@ As always, the Multicore OCaml updates are listed first, which contain the upstr
   The use case to not include the main thread as part of the pool is a
   valid request. The use of `async_push` can help with the same:
 
-  ```
+  ```ocaml
   (* main thread *)
   let pool = setup_pool ~num_additional_domains () in
   let promise = async_push pool initial_task in

@@ -32,7 +32,7 @@ If you want to run tests, you can also mark test-only dependencies with the
 `{test}` constraint, and add a `build-test` field. For instance, if you use
 `oasis` and `ounit`, you can use something like:
 
-```
+```opam
 build: [
   ["./configure" "--prefix=%{prefix}%" "--%{ounit:enable}%-tests"]
   [make]
@@ -75,7 +75,7 @@ To use Travis CI with your OCaml project, you can follow the instructions on
   test (supported values for `<VERSION>` are `3.12`, `4.00`,
   `4.01` and `4.02`) add the line:
 
-```
+```yml
 env:
  - OCAML_VERSION=<VERSION>
 ```
@@ -98,7 +98,7 @@ instance, to test `cohttp` first with `lwt`, then with `async` and
 finally with both `lwt` and `async` (but only on the `4.01` compiler)
 you should write:
 
-```
+```yml
 env:
    - OCAML_VERSION=latest DEPOPTS=lwt
    - OCAML_VERSION=latest DEPOPTS=async

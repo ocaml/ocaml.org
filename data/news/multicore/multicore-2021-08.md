@@ -94,7 +94,7 @@ As always, the Multicore OCaml updates are listed first, which are then followed
   @UnixJunkie has provided a simplified version for the interface for
   scientific parallel programming as recommended by the parany library.
   
-  ```
+  ```ocaml
   val run:
   ?csize:int ->
   ~nprocs: int ->

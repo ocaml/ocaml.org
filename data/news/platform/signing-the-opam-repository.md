@@ -275,7 +275,7 @@ following these rules:
 The `signature:` field is a list with elements in the format of string triplets
 `[ "<keyid>" "<algorithm>" "<signature>" ]`. For example:
 
-```
+```opam
 opam-version: "1.2"
 name: "opam"
 signature: [
@@ -349,7 +349,7 @@ Date is in the ISO 8601 standard with 0 UTC offset, as suggested in TUF.
 `/packages/pkgname/delegation` delegates ownership on versions of package
 `pkgname`. The file contains version constraints associated with keyids, _e.g._:
 
-```
+```opam
 name: pkgname
 delegates: [
   "thomas@gazagnaire.org"
@@ -385,7 +385,7 @@ together with their file sizes in bytes and one or more hashes, prefixed by thei
 kind, and a field `archive:` containing the same details for the upstream
 archive. For example:
 
-```
+```opam
 name: pkgname
 version: pkgversion
 package-files: [

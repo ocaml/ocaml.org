@@ -216,7 +216,7 @@ The package description format has also been extended with some new fields:
 Packagers can limit dependencies in scope by adding one
 of the keywords `build`, `test` or `doc` in front of their constraints:
 
-```
+```opam
 depends: [
   "ocamlfind" {build & >= 1.4.0}
   "ounit" {test}
@@ -234,13 +234,13 @@ constraints from the `depopts:` field: their meaning was [unclear][opam200] and 
 The `conflicts` field is used to indicate versions of the optional dependencies
 that are incompatible with your package to remove all ambiguity:
 
-```
+```opam
 depopts: [ "async" {>= "109.15.00"} & "async_ssl" {>= "111.06.00"} ]
 ```
 
 becomes:
 
-```
+```opam
 depopts: [ "async" "async_ssl" ]
 conflicts: [ "async" {< "109.15.00"}
              "async_ssl" {< "111.06.00"} ]

@@ -20,7 +20,7 @@ Below is an excerpt from ["Retrofitting Effect Handlers onto OCaml"](https://arx
 
 > Effect handlers provide a modular foundation for user-defined effects. The key idea is to separate the definition of the effectful operations from their interpretations, which are given by handlers of the effects. For example:
 >
-> ```
+> ```ocaml
 > effect In_line : in_channel -> string
 > ```
 >
@@ -36,7 +36,7 @@ You can read more about effect handlers in OCaml in the [full paper](https://arx
 
 Effect handlers currently in Multicore OCaml do not ensure [*effect safety*](https://arxiv.org/abs/2104.00250). That is, the compiler will not ensure that all the effects performed by the program are handled. Instead, unhandled effects lead to exceptions at runtime. Since we plan to extend OCaml with support for an [effect system](https://github.com/ocaml/subsystem-meetings/tree/main/effect_system/2021-09-30) in the future, OCaml 5.0 will not feature the syntactic support for programming with effect handlers. Instead, we expose the same features through functions from the standard library, reserving the syntax decisions for when the effect system  lands. The function based effect handlers is just as expressive as the current syntaxful version in Multicore OCaml. As an example, the syntax-free version of:
 
-```ocaml=
+```ocaml
 effect E : string 
 
 let comp () =
@@ -56,7 +56,7 @@ let main () =
 will be:
 
 
-```ocaml=
+```ocaml
 type _ eff += E : string eff
      
 let comp () = 
@@ -332,7 +332,7 @@ As always, the Multicore OCaml updates are listed first, which are then followed
   the following README example code snippet from execution. Using
   `ulimit` with the a smaller memory size fixes the same.
   
-  ```
+  ```ocaml
   #require "eio_main";;
   open Eio.Std;;
 

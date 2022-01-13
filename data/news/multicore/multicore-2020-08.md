@@ -142,7 +142,7 @@ Contributions such as the above towards adapting your projects with our benchmar
   created that now emits a count of the CAML symbols in the output of
   a bench result as shown below:
 
-  ```
+  ```json
   {"name":"knucleotide.", ... ,"codesize":276859.0, ...}
   ```
 

@@ -276,7 +276,7 @@ As with the previous updates, the Multicore OCaml updates are first listed, whic
   you to specify the ocaml-base-compiler source URL, `configure`
   options and `OCAMLRUNPARAMS`. An example is provided below:
 
-  ```
+  ```json
   {
 	"url" : "https://github.com/ocaml-multicore/ocaml-multicore/archive/parallel_minor_gc.tar.gz",
 	"configure" : "-q",

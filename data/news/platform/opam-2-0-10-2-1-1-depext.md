@@ -51,7 +51,7 @@ Two subtle fixes are included in opam 2.0.10. These actually affect the `ocaml` 
 
 The other fix is also to do with `setenv`. It can be seen immediately after creating a switch but before any additional packages are installed, as this `Dockerfile` shows:
 
-```
+```dockerfile
 FROM ocaml/opam@sha256:244b948376767fe91e2cd5caca3b422b2f8d332f105ef2c8e14fcc9a20b66e25
 RUN sudo apt-get install -y ocaml-nox
 RUN opam --version
