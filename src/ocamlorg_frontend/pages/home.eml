@@ -388,35 +388,9 @@ with an emphasis on expressiveness and safety."
           workspace or institution.
         </div>
       </div>
-      <div class="grid lg:grid-cols-3 gap-8 lg:gap-16">
-% let render_curated_resource ~url ~icon title summary =
-    <a href="<%s url %>" class="resources-card card-hover">
-      <%s! icon Icons.Illustration %>
-      <p class="font-semibold text-xl mb-3"><%s title %></p>
-      <p>
-% summary ();
-      </p>
-    </a>
-% in
-% render_curated_resource ~url:Url.getting_started ~icon:Icons.play_button "Getting Started" (fun () ->
-    Install OCaml, setup your favorite text editor and start your first project.
-% );
-% render_curated_resource ~url:Url.manual ~icon:Icons.document "Language Docs" (fun () ->
-    The official OCaml manual.
-% );
-% render_curated_resource ~url:Url.books ~icon:Icons.book "Books" (fun () ->
-    What experts programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.
-% );
-% render_curated_resource ~url:Url.problems ~icon:Icons.hand_palm "99 Problems" (fun () ->
-    Learn OCaml by solving problems, from easy to challenging.
-% );
-% render_curated_resource ~url:Url.papers ~icon:Icons.papers "Papers" (fun () ->
-    Papers that have influenced OCaml and other functionnal programming languages.
-% );
-% render_curated_resource ~url:Url.best_practices ~icon:Icons.thumb_up "Best Practices" (fun () ->
-    Learn the best way to start and maintain an OCaml project.
-% );
-      </div>
+<%s! Curated_resources.(render [
+    getting_started; manual; books; problems; papers; best_practices;
+  ]) %>
     </div>
   </div>
 </div>
