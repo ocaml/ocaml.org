@@ -6,9 +6,8 @@ Layout.render
 <div class="intro-section-simple">
     <div class="container-fluid">
         <div class="text-center w-full lg:w-2/3 m-auto">
-            <h1 class="font-bold mb-6">Books</h1>
-            <p>Eget nibh diam eget velit quisque. Nec ac amet, nunc egestas felis ut. Cras leo amet donec facilisis.
-                Bibendum nisl viverra lorem viverra. Gravida quam posuere parturient varius.</p>
+            <h1 class="font-bold mb-6">Books on OCaml</h1>
+            <p>What experts programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.</p>
         </div>
     </div>
 </div>

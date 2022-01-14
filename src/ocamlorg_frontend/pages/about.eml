@@ -1,7 +1,7 @@
 let render () =
 Layout.render
 ~turbo_full_reload:true
-~title:"About OCaml"
+~title:"Why OCaml?"
 ~description:"OCaml was created in 1995. Learn more about its rich history and what makes it a unique language." @@
 <div class="intro-section-simple">
     <div class="container-fluid">

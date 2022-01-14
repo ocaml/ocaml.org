@@ -2,7 +2,7 @@ let render success_stories =
 Layout.render
 ~turbo_full_reload:true
 ~use_swiper:true
-~title:"Success Stories · Read what our users are saying"
+~title:"OCaml Success Stories"
 ~description:"Read our success stories to learn how OCaml helped our users achieve their goals."
 @@
 <div class="lg:py-24 py-2">
