@@ -101,7 +101,7 @@ about the strong academic roots of the language." @@
             <div class=" ">
                 <div class="text-center">
                     <h2 class="font-bold text-primary-600 mb-6">Academic Resources</h2>
-                    <div class="text-lg text-white mb-16">HHere are some of the resources that may be helpful to you
+                    <div class="text-lg text-white mb-16">Here are some of the resources that may be helpful to you
                     </div>
                 </div>
 <%s! Curated_resources.(render [
