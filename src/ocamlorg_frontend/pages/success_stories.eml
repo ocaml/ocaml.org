@@ -51,8 +51,9 @@ Layout.render
         </div>
         <div class="text-center mt-24 mt-8">
             <h4 class="font-bold text-body-600">Trusted by Industry Leaders</h4>
-            <div class="text-body-400 text-base mt-3">These awesome companies and organizations trust our software—along
-                with thousands of other developers</div>
+            <div class="text-body-400 text-base mt-3">
+                These companies and organizations rely on OCaml every day — along with thousands of other developers
+            </div>
             <div class="flex flex-row justify-center m-auto flex-wrap py-8 items-center">
                 <div class="mx-8 my-4"><img src="/img/Facebook.svg" alt=""></div>
                 <div class="mx-8 my-4"><img src="/img/janestreet-black.svg" width="104" alt=""></div>
@@ -68,8 +69,9 @@ Layout.render
         <div class="container-fluid">
             <div class="text-center mt-6 lg:mt-0">
                 <h2 class="font-bold mb-6">Case Studies</h2>
-                <p class="text-body-400">Ridiculus faucibus orci eleifend nunc et adipiscing. Mi dolor nulla fusce
-                    porttitor risus diam. </p>
+                <p class="text-body-400">
+                    Read how users of OCaml are solving real-world problems and how OCaml was a key for their success.
+                </p>
             </div>
 
             <div class="grid lg:grid-cols-2 gap-16 mt-14 lg:mt-28">
@@ -115,9 +117,9 @@ Layout.render
             <div class="flex justify-between items-end lg:space-x-80 mb-0 md:mb-20 md:flex-row flex-col">
                 <div class="text-left">
                     <h2 class="font-bold mb-6">Testimonials</h2>
-                    <div>Adipiscing aenean nunc tincidunt mauris. Nullam donec viverra faucibus et erat sem nulla.
-                        Habitasse mattis consequat, ut adipiscing faucibus justo enim risus, dolor. Commodo in nunc,
-                        vitae platea lectus augue vitae, egestas.</div>
+                    <div>
+                        Read what users all over the world have to say about their experience with OCaml.
+                    </div>
                 </div>
                 <div class="flex justify-between items-center space-x-4 m-auto mt-10 mb-5 md:mb-0">
                     <button class="text-primary-600 rounded-full py-4 px-4 hover:bg-primary-100 transition duration-300"
