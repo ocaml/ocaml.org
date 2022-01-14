@@ -7,7 +7,7 @@ Layout.render
     <div class="container-fluid">
         <div class="text-center w-full lg:w-2/3 m-auto">
             <h1 class="font-bold mb-6">Books on OCaml</h1>
-            <p>What experts programmers and researcher are saying about OCaml, from the beginner level to the more advanced topics.</p>
+            <p>What experts programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.</p>
         </div>
     </div>
 </div>
