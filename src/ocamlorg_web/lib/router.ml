@@ -53,8 +53,6 @@ let page_routes =
     ; Dream.get Url.opportunities Handler.opportunities
     ; Dream.get (Url.opportunity ":id") Handler.opportunity
     ; Dream.get Url.carbon_footprint Handler.carbon_footprint
-    ; Dream.get Url.privacy Handler.privacy
-    ; Dream.get Url.terms Handler.terms
     ; Dream.get Url.papers Handler.papers
     ; Dream.get Url.best_practices Handler.best_practices
     ; Dream.get Url.problems Handler.problems

@@ -63,10 +63,6 @@ let opportunity v = "/opportunities/" ^ v
 
 let carbon_footprint = "/carbon-footprint"
 
-let privacy = "/privacy"
-
-let terms = "/terms"
-
 let papers = "/papers"
 
 let tutorial name = "/learn/" ^ name
