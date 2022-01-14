@@ -399,39 +399,22 @@ with an emphasis on expressiveness and safety."
     </a>
 % in
 % render_curated_resource ~url:Url.getting_started ~icon:Icons.play_button "Getting Started" (fun () ->
-    Gravida adipiscing sed neque blandit netus sit. Nulla viverra in
-    posuere etiam ultricies vestibulum turpis dolor. Nibh sit tincidunt
-    elementum justo. Tincidunt id nunc elementum.
+    Install OCaml, setup your favorite text editor and start your first project.
 % );
 % render_curated_resource ~url:Url.manual ~icon:Icons.document "Language Docs" (fun () ->
-    Mi viverra euismod quis tristique sed libero. Aenean in nec faucibus
-    a ac congue sed convallis felis. A proin dictum eros eu orci integer
-    hendrerit tellus. Id turpis aliquet erat velit. Ornare amet
-    sollicitudin elementum in.
+    The official OCaml manual.
 % );
 % render_curated_resource ~url:Url.books ~icon:Icons.book "Books" (fun () ->
-    Donec in massa ultrices in vestibulum sem volutpat morbi ornare.
-    Sapien, ac orci, tristique nisl lacinia mi fringilla. Arcu
-    vestibulum egestas quisque tincidunt non elit proin. Et turpis augue
-    lorem risus felis id.
+    What experts programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.
 % );
 % render_curated_resource ~url:Url.problems ~icon:Icons.hand_palm "99 Problems" (fun () ->
-    Faucibus nunc nulla donec dapibus elementum laoreet. Scelerisque
-    interdum bibendum at enim duis tincidunt ac dolor. Turpis congue
-    aenean vitae faucibus. Augue volutpat ornare turpis leo eu quis
-    lorem.
+    Learn OCaml by solving problems, from easy to challenging.
 % );
 % render_curated_resource ~url:Url.papers ~icon:Icons.papers "Papers" (fun () ->
-    Porttitor commodo amet eget mauris. Diam, imperdiet morbi eget
-    velit. Quisque nibh proin ipsum pulvinar accumsan tortor, et vitae
-    suscipit. Posuere felis velit volutpat scelerisque malesuada. Donec
-    turpis.
+    Papers that have influenced OCaml and other functionnal programming languages.
 % );
 % render_curated_resource ~url:Url.best_practices ~icon:Icons.thumb_up "Best Practices" (fun () ->
-    Interdum mattis tincidunt sit vel odio fermentum rutrum at. Congue
-    elit aliquet ornare arcu id posuere at malesuada in. Cursus arcu,
-    augue amet felis vestibulum ut. Erat vel sagittis bibendum nulla
-    morbi velit.
+    Learn the best way to start and maintain an OCaml project.
 % );
       </div>
     </div>
