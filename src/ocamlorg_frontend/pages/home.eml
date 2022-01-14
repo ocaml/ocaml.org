@@ -71,8 +71,7 @@ with an emphasis on expressiveness and safety."
     <div class="text-center">
       <h2 class="font-bold text-body-600">Trusted by Industry Leaders</h2>
       <div class="text-body-400 text-base mt-3">
-        These awesome companies and organizations trust our software—along with
-        thousands of other developers
+        These companies and organizations rely on OCaml every day — along with thousands of other developers
       </div>
       <div class="flex flex-row justify-center m-auto flex-wrap py-8 items-center">
         <div class="mx-8 my-4"><img src="/img/Facebook.svg" alt="Facebook logo" /></div>

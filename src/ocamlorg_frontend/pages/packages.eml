@@ -14,17 +14,15 @@ Layout.render
             <p>Explore thousands of open-source OCaml packages with their documentation.</p>
             <div
                 class="flex justify-center flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto mt-16">
-                <div class="form-input">
+                <form action="/packages/search" method="GET" class="form-input">
                     <div class="form-input__icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-body-400" fill="none"
-                            viewBox="0 0 24 24" stroke="rgba(26, 32, 44, 1)">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-body-400" fill="none" viewBox="0 0 24 24" stroke="rgba(26, 32, 44, 1)">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </div>
-                    <input type="search" placeholder="Search for a package">
-                </div>
-                <button class="btn btn-lg btn-secondary">Search</button>
+                    <input class="focus:ring-orange-500" type="search" id="q" name="q" placeholder="Search for a packages">
+                    <button class="btn btn-lg btn-secondary" type="submit">Search</button>
+                </form>
             </div>
         </div>
     </div>
@@ -200,7 +198,7 @@ Layout.render
             <div class="text-lg mb-8 lg:px-40">Learn how to publish your first opam package today and make it available
                 to the rest of the community.</div>
             <div class="space-x-0 md:space-x-5 space-y-5 md:space-y-0">
-                <button class="btn btn-lg btn-tertiary">Learn how to contribute </button>
+                <a href="https://opam.ocaml.org/doc/Packaging.html" class="btn btn-lg btn-tertiary">Learn how to contribute </a>
             </div>
         </div>
     </div>

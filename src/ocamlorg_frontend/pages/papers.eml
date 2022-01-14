@@ -7,8 +7,10 @@ Layout.render
     <div class="container-fluid">
         <div class="text-center w-full lg:w-2/3 m-auto">
             <h1 class="font-bold mb-6">Papers</h1>
-            <p>Eget nibh diam eget velit quisque. Nec ac amet, nunc egestas felis ut. Cras leo amet donec facilisis.
-                Bibendum nisl viverra lorem viverra. Gravida quam posuere parturient varius.</p>
+            <p>
+                With its strong academic roots, OCaml is known to be a spearhead in the development of Programming Language Theory.
+                This page contains a selection of papers that have influenced OCaml and other functionnal programming languages.
+            </p>
         </div>
     </div>
 </div>
@@ -59,7 +61,7 @@ Layout.render
                         </svg>
                     </div>
                     <label for="q" class="sr-only">Papers</label>
-                    <input id="q" name="q" type="search" placeholder="Search for an paper" value="<%s search %>">
+                    <input class="focus:ring-orange-500" id="q" name="q" type="search" placeholder="Search for an paper" value="<%s search %>">
                 </form>
             </div>
             <div class="overflow-x-scroll lg:overflow-hidden mt-5 lg:mt-10">

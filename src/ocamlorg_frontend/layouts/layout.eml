@@ -78,7 +78,7 @@ inner =
           <form action="/packages/search" method="GET">
             <input type="search" id="q" name="q"
               class="header__search"
-              placeholder="Search packages">
+              placeholder="Search OCaml packages">
           </form>
         </div>
         <div class="hidden lg:flex">
@@ -120,7 +120,7 @@ inner =
             </div>
         </li>
         <li>
-          <div class="form-input form-input-sm">
+          <form action="/packages/search" method="GET" class="form-input form-input-sm">
             <div class="form-input__icon">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-body-400" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
@@ -128,8 +128,8 @@ inner =
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
-            <input type="search" placeholder="Search OCaml packages">
-          </div>
+            <input class="focus:ring-orange-500" type="search" id="q" name="q" placeholder="Search OCaml packages">
+          </form>
         </li>
         <li>
           <a class="block" href="<%s Url.learn %>">Learn</a>
