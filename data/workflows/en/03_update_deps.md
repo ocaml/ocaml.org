@@ -58,4 +58,4 @@ build: [
 ]
 ```
 
-Either way, once you have added your dependency in the appropriate file, you can run `opam install . --deps-only` to update your current switche's dependencies.
+Either way, once you have added your dependency in the appropriate file, you can run `opam install . --deps-only` to update your current switch's dependencies.
