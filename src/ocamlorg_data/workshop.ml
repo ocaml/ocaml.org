@@ -269,7 +269,7 @@ let all =
   { name = {js|Frédéric Bour|js};
     role = Some `Chair;
     affiliation = Some {js|Tarides, France|js};
-    picture = Some {js|https://tarides.com/static/2c582dcc5c8b277d0d949513f005db49/5ff57/fred.webp|js};
+    picture = None;
   };
   
   { name = {js|Mehdi Bouaziz|js};
@@ -305,7 +305,7 @@ let all =
   { name = {js|Joris Giovannangeli|js};
     role = None;
     affiliation = Some {js|Ahrefs Research|js};
-    picture = Some {js|https://static.ahrefs.com/images/team/joris-g.jpg|js};
+    picture = None;
   };
   
   { name = {js|Kihong Heo|js};
@@ -360,7 +360,7 @@ let all =
   { name = {js|Frédéric Bour|js};
     role = Some `Chair;
     affiliation = Some {js|Tarides, France|js};
-    picture = Some {js|https://tarides.com/static/2c582dcc5c8b277d0d949513f005db49/5ff57/fred.webp|js};
+    picture = None;
   }]
   ; body_md = {js|
 The OCaml Users and Developers Workshop brings together the OCaml community, including users of OCaml in industry, academia, hobbyists and the free software community.
