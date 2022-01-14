@@ -61,7 +61,7 @@ Layout.render
                         </svg>
                     </div>
                     <label for="q" class="sr-only">Papers</label>
-                    <input class="focus:ring-orange-500" id="q" name="q" type="search" placeholder="Search for an paper" value="<%s search %>">
+                    <input class="focus:ring-orange-500" id="q" name="q" type="search" placeholder="Search for a paper" value="<%s search %>">
                 </form>
             </div>
             <div class="overflow-x-scroll lg:overflow-hidden mt-5 lg:mt-10">
