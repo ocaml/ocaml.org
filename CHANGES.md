@@ -1,5 +1,7 @@
 # Unreleased
 
+- Fill in content for the Curated Resources section (#221, by @Julow)
+
 - Add releases for 4.12.1, 4.13.0 and 4.13.2 (#217, by @tmattio)
 
 - Fix missing line breaks in releases highlights (#217, by @tmattio)
