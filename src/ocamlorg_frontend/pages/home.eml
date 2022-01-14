@@ -403,19 +403,19 @@ with an emphasis on expressiveness and safety."
     posuere etiam ultricies vestibulum turpis dolor. Nibh sit tincidunt
     elementum justo. Tincidunt id nunc elementum.
 % );
-% render_curated_resource ~url:"" ~icon:Icons.document "Language Docs" (fun () ->
+% render_curated_resource ~url:Url.manual ~icon:Icons.document "Language Docs" (fun () ->
     Mi viverra euismod quis tristique sed libero. Aenean in nec faucibus
     a ac congue sed convallis felis. A proin dictum eros eu orci integer
     hendrerit tellus. Id turpis aliquet erat velit. Ornare amet
     sollicitudin elementum in.
 % );
-% render_curated_resource ~url:Url.manual ~icon:Icons.book "Books and Manuals" (fun () ->
+% render_curated_resource ~url:Url.books ~icon:Icons.book "Books" (fun () ->
     Donec in massa ultrices in vestibulum sem volutpat morbi ornare.
     Sapien, ac orci, tristique nisl lacinia mi fringilla. Arcu
     vestibulum egestas quisque tincidunt non elit proin. Et turpis augue
     lorem risus felis id.
 % );
-% render_curated_resource ~url:"" ~icon:Icons.hand_palm "Application Guides" (fun () ->
+% render_curated_resource ~url:Url.problems ~icon:Icons.hand_palm "99 Problems" (fun () ->
     Faucibus nunc nulla donec dapibus elementum laoreet. Scelerisque
     interdum bibendum at enim duis tincidunt ac dolor. Turpis congue
     aenean vitae faucibus. Augue volutpat ornare turpis leo eu quis
