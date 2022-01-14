@@ -895,7 +895,7 @@ connected to computer science, logic, automata and grammars.</p>
   ; description = {js|Learn how to solve day-to-day problems in data processing, numerical computation, system scripting, and database-driven web applications with the OCaml multi-paradigm programming language.
 |js}
   ; authors = 
- [{js|Jason Hickey|js}; {js|Anil Madhavapeddy|js}; {js|Yaron Minsky|js}]
+ [{js|Yaron Minsky|js}; {js|Anil Madhavapeddy|js}; {js|Jason Hickey|js}]
   ; language = {js|english|js}
   ; published = Some {js|2013-11-25|js}
   ; cover = Some {js|/books/real-world-ocaml.jpg|js}
@@ -974,7 +974,7 @@ to a masters degree.</p>
   ; description = {js|Learning about functional programming using OCaml
 |js}
   ; authors = 
- [{js|Guy Cousineau|js}]
+ [{js|Guy Cousineau|js}; {js|Michel Mauny|js}]
   ; language = {js|english|js}
   ; published = Some {js|1998|js}
   ; cover = Some {js|/books/cousineau-mauny-en.gif|js}
