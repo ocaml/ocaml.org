@@ -29,7 +29,7 @@ about the strong academic roots of the language." @@
                         </svg>
                     </div>
                     <label for="q2" class="sr-only">Institutions</label>
-                    <input id="q2" name="q" type="search" placeholder="Search institutions">
+                    <input class="focus:ring-orange-500" id="q2" name="q" type="search" placeholder="Search institutions">
                 </form>
                 <div class="relative h-14">
                     <select

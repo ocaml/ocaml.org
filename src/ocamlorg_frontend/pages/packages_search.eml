@@ -16,7 +16,7 @@ Layout.render
                         <label for="q2" class="sr-only">Search packages</label>
                         <div class="relative w-full text-gray-400 focus-within:text-gray-600">
                             <input name="q" id="q2"
-                                class="w-full appearance-none outline-none focus:border-primary-600 text-body-600 border rounded-md py-3 pr-6 border-gray-200 pl-14 h-full"
+                                class="w-full appearance-none focus:ring-orange-500 focus:border-primary-600 text-body-600 border rounded-md py-3 pr-6 border-gray-200 pl-14 h-full"
                                 placeholder="Search packages" type="search" value="<%s search %>">
                             <div class="absolute h-full flex items-center pl-6 opacity-60 left-0 top-0">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-body-400" fill="none"

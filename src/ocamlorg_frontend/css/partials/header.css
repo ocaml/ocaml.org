@@ -3,6 +3,10 @@
     border-bottom: 2px solid transparent;
 }
 
+.header__search::placeholder {
+    @apply overflow-visible;
+}
+
 .header__search:focus {
     @apply outline-none border-primary-600;
     box-shadow: none;

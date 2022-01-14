@@ -21,7 +21,7 @@ OCaml community." @@
                         </svg>
                     </div>
                     <label for="q" class="sr-only">Opportunities</label>
-                    <input id="q" name="q" type="search" placeholder="Search for an opportunity" value="<%s search %>">
+                    <input class="focus:ring-orange-500" id="q" name="q" type="search" placeholder="Search for an opportunity" value="<%s search %>">
                     <button class="btn btn-lg btn-secondary ml-4" type="submit">Search</button>
                 </form>
             </div>
