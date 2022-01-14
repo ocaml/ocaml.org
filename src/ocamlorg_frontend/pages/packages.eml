@@ -1,6 +1,6 @@
 open Package_intf
 
-let href_package pkg = Printf.sprintf "/p/%s/%s" pkg.name pkg.version
+let href_package pkg = Url.package_with_version pkg.name pkg.version
 
 let render (stats : packages_stats option) (featured_packages : package list) =
 Layout.render

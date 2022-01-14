@@ -165,16 +165,6 @@
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
-  (targets terms.ml)
-  (deps terms.eml)
-  (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
- (rule
-  (targets privacy.ml)
-  (deps privacy.eml)
-  (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
- (rule
   (targets carbon_footprint.ml)
   (deps carbon_footprint.eml)
   (action
@@ -195,5 +185,10 @@
  (rule
   (targets icons.ml)
   (deps icons.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets curated_resources.ml)
+  (deps curated_resources.eml)
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root}))))

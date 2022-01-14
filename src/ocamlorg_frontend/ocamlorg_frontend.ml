@@ -96,8 +96,4 @@ let tutorial tutorial = Tutorial.render tutorial
 
 let carbon_footprint () = Carbon_footprint.render ()
 
-let privacy () = Privacy.render ()
-
-let terms () = Terms.render ()
-
 let not_found () = Not_found.render ()
