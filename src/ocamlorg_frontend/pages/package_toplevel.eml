@@ -6,8 +6,8 @@ Package_layout.render
 ~turbo_full_reload:true
 ~documentation_status
 ~toplevel_status
-~title:(Printf.sprintf "%s %s · OCaml toplevel" package.name package.version)
-~description:(Printf.sprintf "Package toplevel of %s %s: %s" package.name package.version package.description)
+~title:(Printf.sprintf "%s %s toplevel · OCaml Package" package.name package.version)
+~description:(Printf.sprintf "Toplevel for the OCaml Package %s %s" package.name package.version package.description)
 ~tab:Toplevel
 ~package @@
 <div>
