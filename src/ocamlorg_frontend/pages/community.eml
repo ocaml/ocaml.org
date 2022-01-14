@@ -183,7 +183,7 @@ Layout.render
             <img src="/img/community/stackoverflow.png" alt="" class="h-8 w-8" />
             <div class="flex-col px-6">
               <div class="text-base font-semibold">Stack Overflow</div>
-              <div class="font-normal text-xs mt-2">Ask OCaml questions and help developers to answer theirs.</div>
+              <div class="font-normal text-xs mt-2">Ask and help answer OCaml questions.</div>
             </div>
           </div>
         </a>
