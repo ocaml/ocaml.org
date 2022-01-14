@@ -10,8 +10,8 @@ Package_layout.render
 ~turbo_full_reload:true
 ~documentation_status
 ~toplevel_status
-~title:(Printf.sprintf "%s %s · OCaml Packages" package.name package.version)
-~description:(Printf.sprintf "%s %s: %s" package.name package.version package.description)
+~title:(Printf.sprintf "%s %s · Package overview" package.name package.version)
+~description:(Printf.sprintf "Package overview of %s %s: %s" package.name package.version package.description)
 ~tab:Overview
 ~package @@
 <div class="flex lg:space-x-14 flex-col lg:flex-row items-start">

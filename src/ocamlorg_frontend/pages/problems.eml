@@ -12,8 +12,8 @@ in
 Layout.render
 ~turbo_full_reload:true
 ~wide:true
-~title:"OCaml Problems"
-~description:"???" @@
+~title:"OCaml 99 Problems"
+~description:"A list of 99 problems to work on your OCaml skills." @@
 <button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
     :class="sidebar ? 'pl-1 pr-2': ''" x-on:click="sidebar = ! sidebar">
     <div class="transform transition-transform" :class='sidebar ? "" : "rotate-180" '>

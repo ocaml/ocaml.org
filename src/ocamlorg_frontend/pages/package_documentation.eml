@@ -12,7 +12,7 @@ Package_layout.render
 ~documentation_status
 ~toplevel_status
 ~title
-~description:(Printf.sprintf "%s %s: %s" package.name package.version package.description)
+~description:(Printf.sprintf "Documentation page of %s %s: %s" package.name package.version package.description)
 ~tab:Documentation
 ~package @@
 <button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
