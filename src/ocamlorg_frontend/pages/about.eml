@@ -6,7 +6,7 @@ Layout.render
 <div class="intro-section-simple">
     <div class="container-fluid">
         <div class="text-center w-full lg:w-2/3 m-auto">
-            <h1 class="font-bold mb-6">Why Ocaml</h1>
+            <h1 class="font-bold mb-6">Why OCaml</h1>
             <div class="flex items-center justify-center space-x-8 mt-11 lg:space-x-24">
                 <div>
                     <a class="hover:text-primary-600 rounded-lg hover:bg-primary-100 h-28 w-28 inline-block transition-colors"
@@ -50,7 +50,7 @@ Layout.render
     <div class="py-10 lg:py-28">
         <div class="container-fluid">
             <div class="prose lg:prose-lg mx-auto max-w-5xl">
-                <h2>Why Ocaml</h2>
+                <h2>Why OCaml</h2>
                 <div class="space-y-10">
 
                     <p>
