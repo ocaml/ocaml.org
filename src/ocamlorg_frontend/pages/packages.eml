@@ -20,7 +20,7 @@ Layout.render
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </div>
-                    <input class="focus:ring-orange-500" type="search" id="q" name="q" placeholder="Search for a packages">
+                    <input class="focus:ring-orange-500" type="search" id="q" name="q" placeholder="Search for packages">
                     <button class="btn btn-lg btn-secondary" type="submit">Search</button>
                 </form>
             </div>
