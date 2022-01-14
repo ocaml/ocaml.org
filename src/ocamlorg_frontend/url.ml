@@ -37,9 +37,9 @@ let academic_users = "/academic-users"
 
 let about = "/about"
 
-let manual = "/manual/index.html"
-
 let manual_with_version v = "/manual/" ^ v
+
+let manual = "/manual"
 
 let books = "/books"
 

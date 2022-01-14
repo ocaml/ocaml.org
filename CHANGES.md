@@ -1,5 +1,11 @@
 # Unreleased
 
+- Add releases for 4.12.1, 4.13.0 and 4.13.2 (#217, by @tmattio)
+
+- Fix missing line breaks in releases highlights (#217, by @tmattio)
+
+- Use v3.ocaml.org manual instead of serving our own(#217, by @tmattio)
+
 - Add featured packages on the Packages page (#215, by @Julow)
 
   This is a static list of packages that are highlighted on the Packages page.
