@@ -43,10 +43,10 @@ with an emphasis on expressiveness and safety."
                   <span><i class="text-gray-400 ">val square : int -> int = < fun > </i></span>
                   <span>square 3</span>
                   <span><i class="text-gray-400 ">- : int = 9</i></span>
-                  <span><span class="text-blue-500 ">let</span> <span class="text-code-yellow ">rec</span> fact x =</span>
-                  <span><span class="text-blue-500  ml-4">if</span> x <= 1 <span class="text-blue-500 ">then</span> 1 <span class="text-blue-500">else</span> x * fact (x - 1)</span></span>
-                  <span><i class="text-gray-400">val fact : int -> int = < fun ></i></span>
-                  <span>fact 5</span>
+                  <span><span class="text-blue-500 ">let</span> <span class="text-code-yellow ">rec</span> fac x =</span>
+                  <span><span class="text-blue-500  ml-4">if</span> x <= 1 <span class="text-blue-500 ">then</span> 1 <span class="text-blue-500">else</span> x * fac (x - 1)</span></span>
+                  <span><i class="text-gray-400">val fac : int -> int = < fun ></i></span>
+                  <span>fac 5</span>
                   <span><i class="text-gray-400 ">- : int = 120</i></span>
                   <span>square 120</span>
                   <span><i class="text-gray-400">- : int = 14400</i></span>
