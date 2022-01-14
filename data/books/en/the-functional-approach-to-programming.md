@@ -4,6 +4,7 @@ description: >
   Learning about functional programming using OCaml
 authors:
   - Guy Cousineau
+  - Michel Mauny
 published: "1998"
 cover: /books/cousineau-mauny-en.gif
 language: english

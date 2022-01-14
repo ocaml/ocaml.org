@@ -5,9 +5,9 @@ description: >
   computation, system scripting, and database-driven web applications with
   the OCaml multi-paradigm programming language.
 authors:
-  - Jason Hickey
-  - Anil Madhavapeddy
   - Yaron Minsky
+  - Anil Madhavapeddy
+  - Jason Hickey
 published: 2013-11-25 
 cover: /books/real-world-ocaml.jpg
 language: english
