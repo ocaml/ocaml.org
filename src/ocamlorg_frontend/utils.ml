@@ -3,7 +3,9 @@ let human_date s =
   try
     let date = Date.of_iso8601_exn s in
     let time = Time.make_exn ~hour:0 ~minute:0 ~second:0 () in
-    let date_time = Zoneless.make date time |> Zoneless.to_zoned_exn in
+    let date_time =
+      Zoneless.make date time |> Zoneless.to_zoned_exn ~tz:Time_zone.utc
+    in
     Format.asprintf "%a" (pp ~format:"{mon:0X} {mon:Xxx} {year}" ()) date_time
   with
   | Timedesc.ISO8601_parse_exn msg ->
