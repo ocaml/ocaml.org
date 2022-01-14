@@ -1,6 +1,6 @@
 module Url = Ocamlorg_frontend.Url
 
-let t =
+let from_v2 =
   [ "/releases/4.05.html", Url.release "4.05"
   ; "/releases/4.13.0.html", Url.release "4.13.0"
   ; "/releases/4.12.1.html", Url.release "4.12.1"
@@ -279,4 +279,59 @@ let t =
   ; "/caml-light/releases/index.html", "/"
   ; "/caml-light/faq.html", "/"
   ; "/caml-light/index.html", "/"
+  ]
+
+(* TODO: Change to v2ocaml.org when deploy on ocaml.org *)
+let manual =
+  [ Url.manual, "https://ocaml.org/manual/"
+  ; ( Url.manual_with_version "3.12.1"
+    , "https://ocaml.org/releases/3.12/manual/index.html" )
+  ; ( Url.manual_with_version "4.00.1"
+    , "https://ocaml.org/releases/4.00/manual/index.html" )
+  ; ( Url.manual_with_version "4.01.0"
+    , "https://ocaml.org/releases/4.01/manual/index.html" )
+  ; ( Url.manual_with_version "4.02.3"
+    , "https://ocaml.org/releases/4.02/manual/index.html" )
+  ; ( Url.manual_with_version "4.03.0"
+    , "https://ocaml.org/releases/4.03/manual/index.html" )
+  ; ( Url.manual_with_version "4.04.0"
+    , "https://ocaml.org/releases/4.04/manual/index.html" )
+  ; ( Url.manual_with_version "4.05.0"
+    , "https://ocaml.org/releases/4.05/manual/index.html" )
+  ; ( Url.manual_with_version "4.06.0"
+    , "https://ocaml.org/releases/4.06/manual/index.html" )
+  ; ( Url.manual_with_version "4.06.1"
+    , "https://ocaml.org/releases/4.06/manual/index.html" )
+  ; ( Url.manual_with_version "4.07.0"
+    , "https://ocaml.org/releases/4.07/manual/index.html" )
+  ; ( Url.manual_with_version "4.07.1"
+    , "https://ocaml.org/releases/4.07/manual/index.html" )
+  ; ( Url.manual_with_version "4.08.0"
+    , "https://ocaml.org/releases/4.08/manual/index.html" )
+  ; ( Url.manual_with_version "4.08.1"
+    , "https://ocaml.org/releases/4.08/manual/index.html" )
+  ; ( Url.manual_with_version "4.09.0"
+    , "https://ocaml.org/releases/4.09/manual/index.html" )
+  ; ( Url.manual_with_version "4.09.1"
+    , "https://ocaml.org/releases/4.09/manual/index.html" )
+  ; ( Url.manual_with_version "4.10.0"
+    , "https://ocaml.org/releases/4.10/manual/index.html" )
+  ; ( Url.manual_with_version "4.10.1"
+    , "https://ocaml.org/releases/4.10/manual/index.html" )
+  ; ( Url.manual_with_version "4.10.2"
+    , "https://ocaml.org/releases/4.10/manual/index.html" )
+  ; ( Url.manual_with_version "4.11.0"
+    , "https://ocaml.org/releases/4.11/manual/index.html" )
+  ; ( Url.manual_with_version "4.11.1"
+    , "https://ocaml.org/releases/4.11/manual/index.html" )
+  ; ( Url.manual_with_version "4.11.2"
+    , "https://ocaml.org/releases/4.11/manual/index.html" )
+  ; ( Url.manual_with_version "4.12.0"
+    , "https://ocaml.org/releases/4.12/manual/index.html" )
+  ; ( Url.manual_with_version "4.12.1"
+    , "https://ocaml.org/releases/4.12/manual/index.html" )
+  ; ( Url.manual_with_version "4.13.0"
+    , "https://ocaml.org/releases/4.13/manual/index.html" )
+  ; ( Url.manual_with_version "4.13.1"
+    , "https://ocaml.org/releases/4.13/manual/index.html" )
   ]

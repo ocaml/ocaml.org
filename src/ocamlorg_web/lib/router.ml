@@ -15,24 +15,17 @@ let media_loader _root path request =
   | Some asset ->
     Dream.respond asset
 
-let manual_loader _root path request =
-  match Manual.read path with
-  | None ->
-    Handler.not_found request
-  | Some asset ->
-    Dream.respond asset
-
 let redirect s req = Dream.redirect req s
 
-let redirection_routes =
+let redirection_routes ?(permanant = false) t =
+  let status = if permanant then `Moved_Permanently else `See_Other in
   Dream.scope
     ""
     [ Dream_encoding.compress ]
     (List.map
        (fun (origin, new_) ->
-         Dream.get origin (fun req ->
-             Dream.redirect ~status:`Moved_Permanently req new_))
-       Redirection.t)
+         Dream.get origin (fun req -> Dream.redirect ~status req new_))
+       t)
 
 let page_routes =
   Dream.scope
@@ -49,7 +42,6 @@ let page_routes =
     ; Dream.get Url.industrial_users Handler.industrial_users
     ; Dream.get Url.academic_users Handler.academic_users
     ; Dream.get Url.about Handler.about
-      (* ; Dream.get Url.manual Handler.manual *)
     ; Dream.get Url.books Handler.books
     ; Dream.get Url.releases Handler.releases
     ; Dream.get (Url.release ":id") Handler.release
@@ -123,9 +115,9 @@ let router t =
     [ page_routes
     ; package_route t
     ; graphql_route t
-    ; redirection_routes
+    ; redirection_routes Redirection.from_v2
+    ; redirection_routes Redirection.manual
     ; toplevels_route
-    ; Dream.get "/manual/**" (Dream.static ~loader:manual_loader "")
     ; Dream.get "/media/**" (Dream.static ~loader:media_loader "")
     ; Dream.get "/**" (Dream.static ~loader "")
       (* Last one so that we don't apply the index html middleware on every

@@ -2,7 +2,6 @@
 !asset/
 !data/
 !gettext/
-!manual/
 !src/
 !dune
 !dune-project
