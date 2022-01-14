@@ -144,7 +144,7 @@ Layout.render
 
             <div class="flex-col px-6">
               <div class="text-base font-semibold">Discord</div>
-              <div class="font-normal text-xs mt-2">Tortor turpis ut aliquet eget etiam nibh cursus ultricies.</div>
+              <div class="font-normal text-xs mt-2">Chat with other members of the community on Discord.</div>
             </div>
           </div>
         </a>
@@ -165,7 +165,7 @@ Layout.render
             </svg>
             <div class="flex-col px-6">
               <div class="text-base font-semibold">Twitter</div>
-              <div class="font-normal text-xs mt-2">Pellentesque purus bibendum nunc amet. Aenean nec diam.</div>
+              <div class="font-normal text-xs mt-2">Catch up with some of the latest announcement and events from the community.</div>
             </div>
           </div>
         </a>
@@ -174,16 +174,16 @@ Layout.render
             <img src="/img/community/IRC.png" alt="" class="h-8 w-8" />
             <div class="flex-col px-6">
               <div class="text-base font-semibold">IRC Chat</div>
-              <div class="font-normal text-xs mt-2">Pellentesque purus bibendum nunc amet. Aenean nec diam.</div>
+              <div class="font-normal text-xs mt-2">Chat with other members of the community on IRC.</div>
             </div>
           </div>
         </a>
-        <a href="https://www.reddit.com/r/ocaml/" class="border-gray-200 border p-8 rounded-xl card-hover">
+        <a href="https://stackoverflow.com/questions/tagged/ocaml" class="border-gray-200 border p-8 rounded-xl card-hover">
           <div class="flex">
             <img src="/img/community/stackoverflow.png" alt="" class="h-8 w-8" />
             <div class="flex-col px-6">
               <div class="text-base font-semibold">Stack Overflow</div>
-              <div class="font-normal text-xs mt-2">Pellentesque purus bibendum nunc amet. Aenean nec diam.</div>
+              <div class="font-normal text-xs mt-2">Ask OCaml questions and help developers to answer theirs.</div>
             </div>
           </div>
         </a>
@@ -199,7 +199,7 @@ Layout.render
 
             <div class="flex-col px-6">
               <div class="text-base font-semibold">Reddit</div>
-              <div class="font-normal text-xs mt-2">Pellentesque purus bibendum nunc amet. Aenean nec diam.</div>
+              <div class="font-normal text-xs mt-2">Read news from the community on the OCaml subreddit.</div>
             </div>
           </div>
         </a>
