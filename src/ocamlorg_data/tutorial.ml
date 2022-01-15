@@ -86,10 +86,10 @@ sh <(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.
 
 ### For Windows
 
-We use the [OCaml for Windows](https://fdopen.github.io/opam-repository-mingw/)
-installer which comes in 32bit and 64bit versions. This installer gives you
-opam and OCaml installations all in one go. It is used from within a Cygwin
-environment, but the executables produced have no dependency on Cygwin at all.
+OCaml on Windows is still a work in progress. In the meantime, if you only
+need to *run* OCaml programs on a Windows machine, then the simplest solution is to use the Windows Subsystem for Linux 2 (WSL2). WSL2 is a feature that allows Linux programs to run directly on Windows. WSL2 is substantially easier and faster to use than WSL1. Microsoft have comprehensive installation steps for [setting up WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+
+On the other hand, if you need Windows binaries then you will have to use the [OCaml for Windows](https://fdopen.github.io/opam-repository-mingw/) installer which comes in 32bit and 64bit versions. This installer gives you opam and OCaml installations all in one go. It is used from within a Cygwin environment, but the executables produced have no dependency on Cygwin at all. For a more comprehensive update on the state of OCaml on Windows, see the [OCaml on Windows](/platform/ocaml_on_windows.html) page on the old version of the site.
 
 ## The OCaml top level
 
@@ -224,6 +224,8 @@ from the list. Now, help is available by hovering over symbols in your program:
 
 ![Visual Studio Code](/media/tutorials/vscode.png "")
 
+**On Windows using WSL2** you will remotely connect to your WSL2 instance from Visual Studio Code. Microsoft have a [useful blog post](https://code.visualstudio.com/blogs/2019/09/03/wsl2) covering getting WSL2 and Visual Studio Code connected.
+
 **On Windows**, we must launch Visual Studio Code from within the Cygwin window,
 rather than by clicking on its icon (otherwise, the language server will not be
 found):
@@ -312,10 +314,9 @@ available:</p>
 <pre><code>sh &lt;(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
 </code></pre>
 <h3 id="for-windows">For Windows</h3>
-<p>We use the <a href="https://fdopen.github.io/opam-repository-mingw/">OCaml for Windows</a>
-installer which comes in 32bit and 64bit versions. This installer gives you
-opam and OCaml installations all in one go. It is used from within a Cygwin
-environment, but the executables produced have no dependency on Cygwin at all.</p>
+<p>OCaml on Windows is still a work in progress. In the meantime, if you only
+need to <em>run</em> OCaml programs on a Windows machine, then the simplest solution is to use the Windows Subsystem for Linux 2 (WSL2). WSL2 is a feature that allows Linux programs to run directly on Windows. WSL2 is substantially easier and faster to use than WSL1. Microsoft have comprehensive installation steps for <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">setting up WSL2</a>.</p>
+<p>On the other hand, if you need Windows binaries then you will have to use the <a href="https://fdopen.github.io/opam-repository-mingw/">OCaml for Windows</a> installer which comes in 32bit and 64bit versions. This installer gives you opam and OCaml installations all in one go. It is used from within a Cygwin environment, but the executables produced have no dependency on Cygwin at all. For a more comprehensive update on the state of OCaml on Windows, see the <a href="/platform/ocaml_on_windows.html">OCaml on Windows</a> page on the old version of the site.</p>
 <h2 id="the-ocaml-top-level">The OCaml top level</h2>
 <p>OCaml comes with two compilers: for native code, and for byte code. We shall
 use one of those in a moment. But first, let's use OCaml's top level (sometimes
@@ -410,6 +411,7 @@ Studio Marketplace.</p>
 toolchain in use: pick OCaml the version of OCaml you are using, e.g. 4.11.1
 from the list. Now, help is available by hovering over symbols in your program:</p>
 <p><img src="/media/tutorials/vscode.png" alt="Visual Studio Code" title="" /></p>
+<p><strong>On Windows using WSL2</strong> you will remotely connect to your WSL2 instance from Visual Studio Code. Microsoft have a <a href="https://code.visualstudio.com/blogs/2019/09/03/wsl2">useful blog post</a> covering getting WSL2 and Visual Studio Code connected.</p>
 <p><strong>On Windows</strong>, we must launch Visual Studio Code from within the Cygwin window,
 rather than by clicking on its icon (otherwise, the language server will not be
 found):</p>

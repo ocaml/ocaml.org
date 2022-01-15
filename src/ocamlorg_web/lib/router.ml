@@ -114,6 +114,7 @@ let router t =
     ; package_route t
     ; graphql_route t
     ; redirection_routes Redirection.from_v2
+    ; redirection_routes Redirection.platform
     ; redirection_routes Redirection.manual
     ; toplevels_route
     ; Dream.get "/media/**" (Dream.static ~loader:media_loader "")

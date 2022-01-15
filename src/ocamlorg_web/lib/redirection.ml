@@ -195,8 +195,7 @@ let from_v2 =
   ; "/consortium/index.fr.html", "/"
   ; "/contributors.fr.html", "/"
   ; "/platform/", "/"
-  ; "/platform/index.html", "/"
-  ; "/platform/ocaml_on_windows.html", "/"
+  ; "/platform/index.html", "/" (* ; "/platform/ocaml_on_windows.html", "/" *)
   ; "/governance.html", "/"
   ; "/docs/license.fr.html", "/"
   ; "/docs/license.html", "/"
@@ -334,4 +333,10 @@ let manual =
     , "https://ocaml.org/releases/4.13/manual/index.html" )
   ; ( Url.manual_with_version "4.13.1"
     , "https://ocaml.org/releases/4.13/manual/index.html" )
+  ]
+
+(* TODO: Integrate a platform section to the site *)
+let platform =
+  [ ( Url.platform "ocaml_on_windows.html"
+    , "https://ocaml.org/platform/ocaml_on_windows.html" )
   ]

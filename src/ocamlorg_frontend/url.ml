@@ -72,3 +72,5 @@ let getting_started = tutorial "up-and-running-with-ocaml"
 let best_practices = "/learn/best-practices"
 
 let problems = "/problems"
+
+let platform s = "/platform/" ^ s
