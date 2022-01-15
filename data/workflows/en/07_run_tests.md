@@ -60,7 +60,7 @@ let () =
   Alcotest.run "Dummy" [ "Greeting", suite ]
 ```
 
-If we run `dune build @runtest` again, the test should be successful and ouput the following:
+If we run `dune build @runtest` again, the test should be successful and output the following:
 
 
 ```

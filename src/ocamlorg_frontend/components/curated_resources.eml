@@ -35,7 +35,7 @@ let manual =
 
 let books =
   card ~url:Url.books ~icon:Icons.book "Books"
-    "What experts programmers and researchers are saying about OCaml, from the \
+    "What expert programmers and researchers are saying about OCaml, from the \
      beginner level to the more advanced topics."
 
 let problems =
@@ -44,7 +44,7 @@ let problems =
 
 let papers =
   card ~url:Url.papers ~icon:Icons.papers "Papers"
-    "Papers that have influenced OCaml and other functionnal programming \
+    "Papers that have influenced OCaml and other functional programming \
      languages."
 
 let best_practices =

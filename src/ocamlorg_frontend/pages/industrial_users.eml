@@ -38,7 +38,7 @@ the community and learn more about how they use OCaml." @@
         <div class="container-fluid">
             <div class="text-center text-white lg:p-16 py-10">
                 <h2 class="font-bold mb-6">Interested in learning more?</h2>
-                <div class="text-lg mb-8 lg:px-28">Go to our success stores for a more indepth understanding of how our
+                <div class="text-lg mb-8 lg:px-28">Go to our success stories for a more in-depth understanding of how our
                     users use OCaml. </div>
                 <div class="space-x-0 md:space-x-5 space-y-5 md:space-y-0">
                     <a href="<%s Url.success_stories %>"><button class="btn btn-lg btn-tertiary">Success

@@ -45,7 +45,7 @@ Alternatively, you may want to automatically run commands in a given set of comp
 (context (opam (switch 4.13.0)))
 ```
 
-All the Dune commands you will run will be run on all of the switches listed, so for instance with the definition above:
+All the Dune commands you will run, will be run on all of the switches listed. For instance with the definition above:
 
 ```
 dune runtest --workspace dune-workspace

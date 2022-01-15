@@ -12,7 +12,7 @@ with an emphasis on expressiveness and safety."
     <div class="flex flex-col lg:flex-row">
       <div class="lg:flex-1 lg:mt-16 my-12">
         <h1 class="lg:pr-10 font-bold">
-          General Purpose, Industrial Strength, Expressive and Safe
+          General Purpose, Industrial-strength, Expressive and Safe
         </h1>
         <div class="text-body-400 my-7">
           OCaml is a general purpose industrial-strength programming language
@@ -369,7 +369,7 @@ with an emphasis on expressiveness and safety."
           <div class="text-base text-body-600">
             With its strong security features and high performance, several
             companies rely on OCaml to keep their data operating both safely and
-            speedily. On this paßge, you can get an overview of the companies in
+            speedily. On this page, you can get an overview of the companies in
             the community and learn more about how they use OCaml.
           </div>
           <a href="<%s Url.industrial_users %>"><button class="btn mt-10">Learn more</button></a>
