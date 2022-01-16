@@ -103,7 +103,7 @@ Layout.render
             </div>
             <div class="flex-1 flex overflow-hidden problems-container">
                 <div
-                    class="prose prose-orange overflow-hidden z-0 lg:max-w-full lg:w-full mx-auto relative py-8 px-6 lg:pt-0 lg:pl-20">
+                    class="prose prose-orange overflow-hidden z-0 lg:max-w-full lg:w-full mx-auto relative py-8 px-0 lg:px-8 lg:pt-0 lg:pl-20">
                     <% problems |> List.iter (fun (problem : Ood.Problem.t) -> %>
                     <div x-data="{statement: true}" id=<%s problem.number %>>
                         <div

@@ -86,7 +86,7 @@ with an emphasis on expressiveness and safety."
   </div>
 </div>
 
-<div class="bg-white">
+<div class="bg-white overflow-hidden">
   <div class="container-fluid">
     <div class="py-24 lg:pt-24 space-y-40">
       <div class="flex flex-col lg:flex-row-reverse justify-between items-center">
@@ -138,8 +138,11 @@ with an emphasis on expressiveness and safety."
             </div>
           </div>
         </div>
-        <div class="lg:flex-1 lg:ml-24 lg:mt-0 mt-10 flex justify-center">
-          <img src="/img/workfaster.svg" alt="" />
+        <div class="lg:flex-1 lg:ml-24 lg:mt-0 mt-10 flex justify-center items-center">
+          <video autoplay muted loop class="compiler-video">
+            <source src="/img/home/fast-compiler.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
 

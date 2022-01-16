@@ -39,7 +39,7 @@ body {
     background-size: cover;
 }
 
-.bg-pattern  h2 {
+.bg-pattern h2 {
     background: -webkit-linear-gradient(left, #FF9A9E, #FAD0C4);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -101,10 +101,10 @@ body {
 }
 
 .sidebar a.active {
-    @apply  text-primary-600 bg-primary-100;
+    @apply text-primary-600 bg-primary-100;
 }
 
-table a:hover{
+table a:hover {
     @apply underline;
 }
 
@@ -128,7 +128,9 @@ footer a:hover {
     @apply text-primary-600;
 }
 
-[x-cloak] { display: none !important; }
+[x-cloak] {
+    display: none !important;
+}
 
 .link-orange {
     @apply text-primary-600 hover:underline;
@@ -150,4 +152,20 @@ pre {
 summary::marker {
     position: relative;
     left: 4px;
+}
+
+.compiler-video {
+    width: 750px;
+    max-width: none;
+    position: relative;
+    margin-right: -200px;
+    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.48);
+    border-radius: 4px;
+}
+
+@media (max-width: 1024px) {
+    .compiler-video {
+        width: 100%;
+        margin: 0;
+    }
 }
