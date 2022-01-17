@@ -1,3 +1,46 @@
+let render_books books = 
+    <div class="overflow-x-scroll lg:overflow-hidden mt-5 lg:mt-10">
+        <% books |> List.iter (fun (item : Ood.Book.t) ->
+        let cover = Option.get item.cover in %>
+        <div
+            class="flex space-y-10 lg:space-y-0 lg:space-x-16 pb-10 lg:pb-20 border-b border-gray-200 mt-10 lg:mt-20 flex-col lg:flex-row">
+            <img src="/media/<%s cover %>"
+                class="m-auto h-48 w-32 lg:w-64 lg:h-96 md:w-64 md:h-96 rounded-2xl border border-gray-200"
+                alt="">
+            <div class="flex-col flex-1">
+                <h4 class="font-bold mb-6"><%s item.title %></h4>
+                <% (match item.rating with | None -> () | Some rating ->  %>
+                <div class="flex space-x-1 mb-6 text-primary-600">
+                    <% List.init rating (fun _ -> ()) |> List.iter (fun () -> %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-300" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <% ); %>
+                    <% List.init (5 - rating) (fun _ -> ()) |> List.iter (fun () -> %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <% ); %>
+                </div>
+                <% ); %>
+                <div class="font-semibold text-base mb-6 uppercase"><%s item.authors |> String.concat ", " %></div>
+                <div class="prose prose-orange mb-6"><%s! item.body_html %></div>
+                <% let link = List.hd item.links in %>
+                <a href="<%s link.uri %>">
+                    <button class="btn btn-secondary">
+                        <span><%s link.description %></span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <% ); %>
+    </div>
+
 let render books =
 Layout.render
 ~turbo_full_reload:true
@@ -13,48 +56,39 @@ Layout.render
 </div>
 <div class="bg-white">
     <div class="py-10 lg:py-28">
-        <div class="container-fluid">
-            <div class="overflow-x-scroll lg:overflow-hidden mt-5 lg:mt-10">
-                <% books |> List.iter (fun (item : Ood.Book.t) ->
-                let cover = Option.get item.cover in %>
-                <div
-                    class="flex space-y-10 lg:space-y-0 lg:space-x-16 pb-10 lg:pb-20 border-b border-gray-200 mt-10 lg:mt-20 flex-col lg:flex-row">
-                    <img src="/media/<%s cover %>"
-                        class="m-auto h-48 w-32 lg:w-64 lg:h-96 md:w-64 md:h-96 rounded-2xl border border-gray-200"
-                        alt="">
-                    <div class="flex-col flex-1">
-                        <h4 class="font-bold mb-6"><%s item.title %></h4>
-                        <% (match item.rating with | None -> () | Some rating ->  %>
-                        <!-- TODO(tmattio): get rating from data -->
-                        <div class="flex space-x-1 mb-6 text-primary-600">
-                            <% List.init rating (fun _ -> ()) |> List.iter (fun () -> %>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-300" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                            <% ); %>
-                            <% List.init (5 - rating) (fun _ -> ()) |> List.iter (fun () -> %>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                            <% ); %>
-                        </div>
-                        <% ); %>
-                        <div class="font-semibold text-base mb-6 uppercase"><%s item.authors |> String.concat ", " %></div>
-                        <div class="prose prose-orange mb-6"><%s! item.body_html %></div>
-                        <% let link = List.hd item.links in %>
-                        <a href="<%s link.uri %>">
-                            <button class="btn btn-secondary">
-                                <span><%s link.description %></span>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5l7 7-7 7" />
-                                </svg>
-                            </button>
-                        </a>
+        <div class="container-fluid"  x-data="{ language: 'english' }">
+            <div class="flex justify-between mb-0 md:mb-10 lg:mb-20 lg:flex-row flex-col items-center">
+                <h2 class="font-bold mt-10 lg:mt-0 mb-10 lg:mb-0">15+ OCaml Books</h2>
+                <div class="flex justify-between flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto">
+                    <div class="relative h-14">
+                        <select class="w-full lg:w-auto appearance-none text-body-600 border rounded-md py-3 pl-6 border-gray-200 pr-14 h-full" name="Languages" x-model="language">
+                            <option value="english">English</option>
+                            <option value="french">French</option>
+                            <option value="italian">Italian</option>
+                            <option value="portugese">Portugese</option>
+                            <option value="japanese">Japanese</option>
+                            <option value="chinese">Chinese</option>
+                        </select>
                     </div>
                 </div>
-                <% ); %>
+            </div>
+            <div :class="language != 'english' ? 'hidden' : 'block'">
+                <%s! render_books (List.filter (fun x -> x.Ood.Book.language = "english") books) %>
+            </div>
+            <div :class="language != 'french' ? 'hidden' : 'block'">
+                <%s! render_books (List.filter (fun x -> x.Ood.Book.language = "french") books) %>
+            </div>
+            <div :class="language != 'italian' ? 'hidden' : 'block'">
+                <%s! render_books (List.filter (fun x -> x.Ood.Book.language = "italian") books) %>
+            </div>
+            <div :class="language != 'portugese' ? 'hidden' : 'block'">
+                <%s! render_books (List.filter (fun x -> x.Ood.Book.language = "portugese") books) %>
+            </div>
+            <div :class="language != 'japanese' ? 'hidden' : 'block'">
+                <%s! render_books (List.filter (fun x -> x.Ood.Book.language = "japanese") books) %>
+            </div>
+            <div :class="language != 'chinese' ? 'hidden' : 'block'">
+                <%s! render_books (List.filter (fun x -> x.Ood.Book.language = "chinese") books) %>
             </div>
         </div>
     </div>
