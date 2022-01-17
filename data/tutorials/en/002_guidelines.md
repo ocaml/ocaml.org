@@ -1145,7 +1145,7 @@ Warnings about pattern-matching must be treated with the upmost care:
  redundant guard.
 
 ####  De-structuring `let` bindings
-\[Translator's note: a “de-structuring `let` binding” is one which
+A “de-structuring `let` binding” is one which
 binds several names to several expressions simultaneously. You pack all
 the names you want bound into a collection such as a tuple or a list,
 and you correspondingly pack all the expressions into a collective
@@ -1153,7 +1153,8 @@ expression. When the `let` binding is evaluated, it unpacks the
 collections on both sides and binds each expression to its corresponding
 name. For example, `let x, y = 1, 2` is a de-structuring `let` binding
 which performs both the bindings `let x = 1` and `let y = 2`
-simultaneously.\]<br />
+simultaneously.
+
 The `let` binding is not limited to simple identifier definitions: you
 can use it with more complex or simpler patterns. For instance
 
