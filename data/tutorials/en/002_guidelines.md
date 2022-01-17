@@ -1554,7 +1554,7 @@ symmetrical problematic behaviors: on the one hand, the “all
 imperative” way (*systematic* usage of loops and assignment), and on
 the other hand the “purely functional” way (*never* use loops nor
 assignments); the “100% object” style will certainly appear in the
-next future, but (fortunately) it is too new to be discussed here.
+future.
 
 * **The “Too much imperative” danger**:
     * It is a bad idea to use imperative style to code a function that
