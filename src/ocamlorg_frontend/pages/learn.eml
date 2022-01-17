@@ -18,7 +18,7 @@ Learn_layout.render
                 </a>
             </div>
             <div class="flex justify-end pl-8">
-                <img src="/img/learn/learn-get-staretd.svg" class="w-full" alt="Get Started background">
+                <img src="/img/learn/learn-get-started.svg" class="w-full" alt="Get Started background">
             </div>
         </div>
 
