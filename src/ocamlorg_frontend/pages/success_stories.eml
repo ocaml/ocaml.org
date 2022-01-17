@@ -33,7 +33,7 @@ Layout.render
                     </div>
                     <div class="flex items-center h-full justify-center" x-show="!isPlaying">
                         <div class="z-10 lg:space-y-16 space-y-5 mb-10 lg:mb-0">
-                            <img width="100" class="m-auto" src="/img/logo.svg" alt="OCaml logo">
+                            <img width="100" class="m-auto" src="/logo.svg" alt="OCaml logo">
                             <h3 class="font-bold">25 Years of OCaml</h3>
                             <div>Presented by Xavier Leroy</div>
                         </div>
@@ -55,11 +55,21 @@ Layout.render
                 These companies and organizations rely on OCaml every day — along with thousands of other developers
             </div>
             <div class="flex flex-row justify-center m-auto flex-wrap py-8 items-center">
-                <div class="mx-8 my-4"><img src="/img/Facebook.svg" alt=""></div>
-                <div class="mx-8 my-4"><img src="/img/janestreet-black.svg" width="104" alt=""></div>
-                <div class="mx-8 my-4"><img src="/img/Bloomberg.svg" alt=""></div>
-                <div class="mx-8 my-4"><img src="/img/tezos.svg" alt=""></div>
-                <div class="mx-8 my-4"><img src="/img/aHrefs.svg" alt=""></div>
+                <div class="mx-8 my-4">
+                    <img class="h-6" src="/logos/facebook.svg" alt="Facebook">
+                </div>
+                <div class="mx-8 my-4">
+                    <img class="h-10" src="/logos/janestreet.svg" alt="JaneStreet">
+                </div>
+                <div class="mx-8 my-4">
+                    <img class="h-6" src="/logos/bloomberg.svg" alt="Bloomberg">
+                </div>
+                <div class="mx-8 my-4">
+                    <img class="h-10" src="/logos/tezos.svg" alt="Tezos">
+                </div>
+                <div class="mx-8 my-4">
+                    <img class="h-6" src="/logos/ahrefs.svg" alt="Ahrefs">
+                </div>
             </div>
         </div>
     </div>
@@ -140,7 +150,7 @@ Layout.render
                         <!-- Slides -->
                         <a href="https://rescript-lang.org/" class="swiper-slide p-4 card-hover">
                             <div class="overflow-hidden p-8">
-                                <img src="/img/rescript.png" class="mb-12" alt="" width="152" height="100%">
+                                <img src="/logos/rescript.svg" class="mb-12" alt="" width="152" height="100%">
                                 <div class="mb-12">Thanks to the OCaml team, obviously, without such a beautiful yet
                                     practical language, this project would not exist. The original type system was
                                     inherited from it with lots of modifications to fit with JS ecosystem better.</div>
@@ -151,7 +161,7 @@ Layout.render
 
                         <a href="https://www.janestreet.com/" class="swiper-slide p-4 card-hover">
                             <div class="overflow-hidden p-8">
-                                <img src="/img/janestreet-black.svg" class="mb-12" alt="" width="99" height="100%">
+                                <img src="/logos/janestreet.svg" class="mb-12" alt="" width="99" height="100%">
                                 <div class="mb-12">OCaml helps us to quickly adopt to changing market conditions, and go
                                     from prototypes to production systems with less effort ... Billions of dollars of
                                     transactions flow through our systems every day, so getting it right matters</div>

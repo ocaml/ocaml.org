@@ -15,7 +15,7 @@ let all_en =
 [
   { title = {js|Peta-byte scale web crawler|js}
   ; slug = {js|peta-byte-scale-web-crawler|js}
-  ; logo = {js|/success-stories/ahrefs.png|js}
+  ; logo = {js|/success-stories/ahrefs.svg|js}
   ; background = {js|/success-stories/ahrefs-bg.jpg|js}
   ; theme = {js|blue|js}
   ; synopsis = {js|Ahrefs crawls the entire internet constantly to collect, process, and store data to build an all-in-one SEO toolkit.|js}

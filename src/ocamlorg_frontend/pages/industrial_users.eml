@@ -92,7 +92,7 @@ the community and learn more about how they use OCaml." @@
                         <!-- Slides -->
                         <a href="https://rescript-lang.org/" class="swiper-slide p-4 card-hover">
                             <div class="overflow-hidden p-8">
-                                <img src="/img/rescript.png" class="mb-12" alt="" width="152" height="100%">
+                                <img src="/logos/rescript.svg" class="mb-12" alt="" width="152" height="100%">
                                 <div class="mb-12">Thanks to the OCaml team, obviously, without such a beautiful yet
                                     practical language, this project would not exist. The original type system was
                                     inherited from it with lots of modifications to fit with JS ecosystem better.</div>
@@ -103,7 +103,7 @@ the community and learn more about how they use OCaml." @@
 
                         <a href="https://www.janestreet.com/" class="swiper-slide p-4 card-hover">
                             <div class="overflow-hidden p-8">
-                                <img src="/img/janestreet-black.svg" class="mb-12" alt="" width="99" height="100%">
+                                <img src="/logos/janestreet.svg" class="mb-12" alt="" width="99" height="100%">
                                 <div class="mb-12">OCaml helps us to quickly adopt to changing market conditions, and go
                                     from prototypes to production systems with less effort ... Billions of dollars of
                                     transactions flow through our systems every day, so getting it right matters</div>
@@ -114,7 +114,7 @@ the community and learn more about how they use OCaml." @@
 
                         <a href="https://www.cornell.edu/" class="swiper-slide p-4 card-hover">
                             <div class="overflow-hidden p-8">
-                                <img src="/img/cornell.png" class="mb-12" alt="" width="47" height="100%">
+                                <img src="/logos/cornell.svg" class="mb-12" alt="" width="47" height="100%">
                                 <div class="mb-12">OCaml is elegant, simple, and graceful. The code you write can be
                                     stylish and tasteful.</div>
                                 <div class="font-bold">Authors of Cornell CS3110 textbook</div>

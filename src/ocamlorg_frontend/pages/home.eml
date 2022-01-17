@@ -74,13 +74,11 @@ with an emphasis on expressiveness and safety."
         These companies and organizations rely on OCaml every day — along with thousands of other developers
       </div>
       <div class="flex flex-row justify-center m-auto flex-wrap py-8 items-center">
-        <div class="mx-8 my-4"><img src="/img/Facebook.svg" alt="Facebook logo" /></div>
-        <div class="mx-8 my-4">
-          <img src="/img/janestreet-black.svg" width="104" alt="Janestreet logo" />
-        </div>
-        <div class="mx-8 my-4"><img src="/img/Bloomberg.svg" alt="Bloomberg logo" /></div>
-        <div class="mx-8 my-4"><img src="/img/tezos.svg" alt="Tezos logo" /></div>
-        <div class="mx-8 my-4"><img src="/img/aHrefs.svg" alt="Ahrefs logo" /></div>
+        <div class="mx-8 my-4"><img src="/logos/facebook.svg" alt="Facebook Logo" /></div>
+        <div class="mx-8 my-4"><img src="/logos/janestreet.svg" width="104" alt="JaneStreet Logo" /></div>
+        <div class="mx-8 my-4"><img src="/logos/bloomberg.svg" alt="Bloomberg Logo" /></div>
+        <div class="mx-8 my-4"><img src="/logos/tezos.svg" alt="Tezos Logo" /></div>
+        <div class="mx-8 my-4"><img src="/logos/ahrefs.svg" alt="Ahrefs Logo" /></div>
       </div>
     </div>
   </div>
@@ -139,7 +137,7 @@ with an emphasis on expressiveness and safety."
           </div>
         </div>
         <div class="lg:flex-1 lg:ml-24 lg:mt-0 mt-10 flex justify-center">
-          <img src="/img/workfaster.svg" alt="" />
+          <img src="/img/home/workfaster.svg" alt="" />
         </div>
       </div>
 
@@ -169,13 +167,13 @@ with an emphasis on expressiveness and safety."
               <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                   <div class="swiper-slide">
-                    <img src="/img/vscode.svg" width="56px" alt="" />
+                    <img src="/logos/vscode.svg" width="56px" alt="" />
                   </div>
                   <div class="swiper-slide">
-                    <img src="/img/vimlogo.svg" width="56px" alt="" />
+                    <img src="/logos/vim.svg" width="56px" alt="" />
                   </div>
                   <div class="swiper-slide">
-                    <img src="/img/EmacsIcon.svg" width="56px" alt="" />
+                    <img src="/logos/emacs.svg" width="56px" alt="" />
                   </div>
                 </div>
               </div>
@@ -223,7 +221,7 @@ with an emphasis on expressiveness and safety."
       style="width: 1500px">
       <a href="https://mirage.io/" target="_blank" class="bg-white p-6 rounded-xl items-center flex card-hover">
         <div class="flex items-center">
-          <img src="/img/home/mirageOS.png" alt="MirageOS logo" />
+          <img src="/img/home/mirage.png" alt="MirageOS logo" />
           <div class="flex-col px-6">
             <div class="text-base font-semibold">MirageOS</div>
             <div class="font-normal text-xs mt-1">
@@ -235,7 +233,7 @@ with an emphasis on expressiveness and safety."
       <a href="http://ocsigen.org/js_of_ocaml/latest/manual/overview" target="_blank"
         class="bg-white p-6 rounded-xl items-center flex card-hover">
         <div class="flex items-center">
-          <img src="/img/home/JS.png" alt="Js_of_ocaml logo" />
+          <img src="/img/home/js_of_ocaml.png" alt="Js_of_ocaml logo" />
           <div class="flex-col px-6">
             <div class="text-base font-semibold">Js_of_ocaml</div>
             <div class="font-normal text-xs mt-1">
