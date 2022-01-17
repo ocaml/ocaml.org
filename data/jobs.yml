@@ -107,10 +107,10 @@ jobs:
       We are an equal opportunity employer and value diversity at our company. We do not discriminate on the basis of race, religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or disability status.
   - title: OCaml Developer
     link: https://ahrefs.com/jobs/ocaml-developer
-    location: Singapore/Remote
-    country: Singapore/Remote
+    location: Remote
+    country: Singapore
     company: Ahrefs
-    company_logo: https://v3.ocaml.org/img/aHrefs.svg
+    company_logo: /logos/ahrefs.svg
     fullfilled: false
     description: >
       Ahrefs is looking for a backend developer with deep understanding of networks, distributed systems, OS fundamentals and taste for simple and efficient architectural designs. Our backend is mostly implemented in OCaml with some C++ and Rust.
