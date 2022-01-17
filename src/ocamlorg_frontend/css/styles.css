@@ -89,7 +89,7 @@ body {
 }
 
 .code-preview {
-    font-family: 'Menlo', sans-serif;
+    font-family: 'Menlo', monospace;
 }
 
 .prose a {
