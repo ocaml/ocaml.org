@@ -71,9 +71,7 @@ let academic_users req =
 let about _req = Dream.html (Ocamlorg_frontend.about ())
 
 let books _req =
-  let books =
-    Ood.Book.all |> List.filter (fun (item : Ood.Book.t) -> item.featured)
-  in
+  let books = Ood.Book.all in
   Dream.html (Ocamlorg_frontend.books books)
 
 let releases req =

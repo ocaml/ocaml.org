@@ -7,7 +7,7 @@ description: >
 authors:
   - John Whitington
 published: 2013-06-07 
-cover: /books/OCaml_from_beginning.png
+cover: /books/ocaml-from-the-very-beginning.jpg
 language: english
 links:
   - description: Buy on Amazon
