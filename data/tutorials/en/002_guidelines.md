@@ -1060,7 +1060,7 @@ printing. This module redefines the usual printing functions
 If you don't open `Format` you could miss the qualification of a
 printing function, and this could be perfectly silent, since many of
 `Format`'s functions have a counterpart in the default environment
-(`Pervasives`). Mixing printing functions from `Format` and `Pervasives`
+(`Stdlib`). Mixing printing functions from `Format` and `Stdlib`
 leads to subtle bugs in the display, that are difficult to trace. For
 instance:
 
@@ -1072,7 +1072,7 @@ let f () =
 is bogus since it does not call `Format.print_newline` to flush the
 pretty-printer queue and output `"Hello World!"`. Instead
 `"Hello World!"` is stuck into the pretty-printer queue, while
-`Pervasives.print_newline` outputs a carriage return on the standard
+`Stdlib.print_newline` outputs a carriage return on the standard
 output ... If `Format` is printing on a file and standard output is the
 terminal, the user will have a bad time finding that a carriage return
 is missing in the file (and the display of material on the file is
