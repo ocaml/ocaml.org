@@ -266,6 +266,26 @@ the front of the book.</p>
 |js}
   };
  
+  { title = {js|入門OCaml ~プログラミング基礎と実践理解~|js}
+  ; slug = {js|ocaml-|js}
+  ; description = {js||js}
+  ; authors = 
+ [{js|OCaml-Nagoya|js}]
+  ; language = {js|japanese|js}
+  ; published = Some {js|2007|js}
+  ; cover = Some {js|/books/nyumon-ocaml.jpg|js}
+  ; isbn = None
+  ; links = 
+ [
+      { description = {js|Order at Amazon.co.jp|js}
+      ; uri = {js|https://www.amazon.co.jp/%E5%85%A5%E9%96%80OCaml-%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E5%9F%BA%E7%A4%8E%E3%81%A8%E5%AE%9F%E8%B7%B5%E7%90%86%E8%A7%A3-OCaml-Nagoya/dp/4839923116|js}
+      }]
+  ; rating = None
+  ; featured = false
+  ; body_md = {js||js}
+  ; body_html = {js||js}
+  };
+ 
   { title = {js|OCaml for Scientists|js}
   ; slug = {js|ocaml-for-scientists|js}
   ; description = {js|This book teaches OCaml programming with special emphasis on scientific applications.
@@ -377,6 +397,26 @@ language, and a decision tree learning program for data analysis.</p>
 |js}
   };
  
+  { title = {js|OCaml语言编程基础教程|js}
+  ; slug = {js|ocaml|js}
+  ; description = {js||js}
+  ; authors = 
+ [{js|G. Chen|js}]
+  ; language = {js|chinese|js}
+  ; published = Some {js|2018|js}
+  ; cover = Some {js|/books/ocaml-yuyan-biancheng-jichu-jiaocheng.jpg|js}
+  ; isbn = None
+  ; links = 
+ [
+      { description = {js|Order at Epubit.com|js}
+      ; uri = {js|https://www.epubit.com/bookDetails?id=N18159|js}
+      }]
+  ; rating = None
+  ; featured = false
+  ; body_md = {js||js}
+  ; body_html = {js||js}
+  };
+ 
   { title = {js|Programmation de droite à gauche et vice-versa|js}
   ; slug = {js|programmation-de-droite--gauche-et-vice-versa|js}
   ; description = {js|Programming with OCaml
@@ -391,6 +431,26 @@ language, and a decision tree learning program for data analysis.</p>
  [
       { description = {js|Order Online from Paracamplus|js}
       ; uri = {js|https://paracamplus.com|js}
+      }]
+  ; rating = None
+  ; featured = false
+  ; body_md = {js||js}
+  ; body_html = {js||js}
+  };
+ 
+  { title = {js|プログラミング in OCaml ~関数型プログラミングの基礎からGUI構築まで~|js}
+  ; slug = {js|-in-ocaml-gui|js}
+  ; description = {js||js}
+  ; authors = 
+ [{js|A. Igarashi (五十嵐 淳)|js}]
+  ; language = {js|japanese|js}
+  ; published = Some {js|2007|js}
+  ; cover = Some {js|/books/puroguramingu-in-ocaml.jpg|js}
+  ; isbn = None
+  ; links = 
+ [
+      { description = {js|Order at Amazon.co.jp|js}
+      ; uri = {js|https://www.amazon.co.jp/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0-OCaml-%E3%80%9C%E9%96%A2%E6%95%B0%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E5%9F%BA%E7%A4%8E%E3%81%8B%E3%82%89GUI%E6%A7%8B%E7%AF%89%E3%81%BE%E3%81%A7%E3%80%9C-%E4%BA%94%E5%8D%81%E5%B5%90%E6%B7%B3-ebook/dp/B00QRPI1AS|js}
       }]
   ; rating = None
   ; featured = false
