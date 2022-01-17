@@ -74,11 +74,21 @@ with an emphasis on expressiveness and safety."
         These companies and organizations rely on OCaml every day — along with thousands of other developers
       </div>
       <div class="flex flex-row justify-center m-auto flex-wrap py-8 items-center">
-        <div class="mx-8 my-4"><img src="/logos/facebook.svg" alt="Facebook Logo" /></div>
-        <div class="mx-8 my-4"><img src="/logos/janestreet.svg" width="104" alt="JaneStreet Logo" /></div>
-        <div class="mx-8 my-4"><img src="/logos/bloomberg.svg" alt="Bloomberg Logo" /></div>
-        <div class="mx-8 my-4"><img src="/logos/tezos.svg" alt="Tezos Logo" /></div>
-        <div class="mx-8 my-4"><img src="/logos/ahrefs.svg" alt="Ahrefs Logo" /></div>
+          <div class="mx-8 my-4">
+              <img class="h-6" src="/logos/facebook.svg" alt="Facebook">
+          </div>
+          <div class="mx-8 my-4">
+              <img class="h-10" src="/logos/janestreet.svg" alt="JaneStreet">
+          </div>
+          <div class="mx-8 my-4">
+              <img class="h-6" src="/logos/bloomberg.svg" alt="Bloomberg">
+          </div>
+          <div class="mx-8 my-4">
+              <img class="h-10" src="/logos/tezos.svg" alt="Tezos">
+          </div>
+          <div class="mx-8 my-4">
+              <img class="h-6" src="/logos/ahrefs.svg" alt="Ahrefs">
+          </div>
       </div>
     </div>
   </div>
