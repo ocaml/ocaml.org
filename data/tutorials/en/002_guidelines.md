@@ -928,7 +928,7 @@ name of a function.
 
 ####  Always give the same name to function arguments which have the same meaning
 If necessary, make this nomenclature explicit in a comment at the top of
-the file); if there are several arguments with the same meaning then
+the file; if there are several arguments with the same meaning then
 attach numeral suffixes to them.
 
 ####  Local identifiers can be brief, and should be reused from one function to another
