@@ -13,7 +13,7 @@ type t =
   
 let all = 
 [
-  { id = 1
+  { id = 2
   ; title = {js|Multicore Application Engineer|js}
   ; link = {js|https://tarides.com/jobs/multicore-application-engineer|js}
   ; description_html = {js|<h2>Work</h2>
@@ -63,13 +63,31 @@ let all =
 <h2>Qualifications &amp; Experience</h2>
 <p><em>(You don’t have to fill 100% of the qualifications to apply.)</em></p>
 <ul>
-<li>Excellent knowledge and hands-on experience developing parallel programs in any language. - Experience with the OCaml language, or other functional programming languages. - Experience in analysing benchmarks and application performance. - Track record of building production quality software. - Demonstrable open source contributions are a plus, but not required. - Good communication skills in English; English is the corporate language. - Experience of working in multidisciplinary teams.
+<li>Excellent knowledge and hands-on experience developing parallel programs in any language.
+</li>
+<li>Experience with the OCaml language, or other functional programming languages.
+</li>
+<li>Experience in analysing benchmarks and application performance.
+</li>
+<li>Track record of building production quality software.
+</li>
+<li>Demonstrable open source contributions are a plus, but not required.
+</li>
+<li>Good communication skills in English; English is the corporate language.
+</li>
+<li>Experience of working in multidisciplinary teams.
 </li>
 </ul>
 <h2>What we offer</h2>
 <p>Nice office in Paris (Place de la Contrescarpe, Paris 5)</p>
 <ul>
-<li>Flexible working hours and possibility to work remotely - Supportive team environment with experienced Technical and Team Leads - Amazing health insurance for you and your family (Alan Blue) and paid parental leave - A “ticket restaurant” card and 50% of public transportation pass reimbursed
+<li>Flexible working hours and possibility to work remotely
+</li>
+<li>Supportive team environment with experienced Technical and Team Leads
+</li>
+<li>Amazing health insurance for you and your family (Alan Blue) and paid parental leave
+</li>
+<li>A “ticket restaurant” card and 50% of public transportation pass reimbursed
 </li>
 </ul>
 <h2>Process</h2>
@@ -83,24 +101,44 @@ let all =
   ; fullfilled = false
   };
  
-  { id = 0
+  { id = 1
   ; title = {js|Quant Developer, Enterprise Products|js}
   ; link = {js|https://careers.bloomberg.com/job/detail/93825|js}
   ; description_html = {js|<p>Bloomberg's Quantitative Derivatives Library Architecture team is responsible for the infrastructure behind Bloomberg's derivatives pricing models, and supporting its risk management and derivatives valuation services. A large part of this infrastructure is written in OCaml, notably the BLAN language, a client-facing DSL for describing derivative contracts.</p>
 <p>The team is looking for a developer with interest and experience in compiler design and implementation, especially in the context of functional programming languages. In this role, you will have the opportunity to participate in the development of BLAN, as well as the tooling and libraries around it. This could include implementing language features, such as gradual types or a new backend; developing tooling, such as a Jupyter kernel or a debugger; and writing a new library in BLAN, such as a lens library. Experience with quantitative analysis is not required.</p>
 <h2>We'll trust you to:</h2>
 <ul>
-<li>Come up to speed on BLAN and the tooling around it - Design and implement new language features, tools or libraries - Pitch your own ideas for features, tools or libraries - Work independently and in collaboration with your team members
+<li>Come up to speed on BLAN and the tooling around it
+</li>
+<li>Design and implement new language features, tools or libraries
+</li>
+<li>Pitch your own ideas for features, tools or libraries
+</li>
+<li>Work independently and in collaboration with your team members
 </li>
 </ul>
 <h2>You’ll need to:</h2>
 <ul>
-<li>Have 3+ years of academic or professional experience programming in a functional language, especially a statically typed one. - Have 1-2 years of academic or professional experience designing and implementing compilers or interpreters. - Have a MS or PhD in Computer Science, Computer Engineering, Math, or related field, or equivalent experience. - Have genuine enthusiasm for programming languages and functional programming! - Be able to come to the office for at least three days per week
+<li>Have 3+ years of academic or professional experience programming in a functional language, especially a statically typed one.
+</li>
+<li>Have 1-2 years of academic or professional experience designing and implementing compilers or interpreters.
+</li>
+<li>Have a MS or PhD in Computer Science, Computer Engineering, Math, or related field, or equivalent experience.
+</li>
+<li>Have genuine enthusiasm for programming languages and functional programming!
+</li>
+<li>Be able to come to the office for at least three days per week
 </li>
 </ul>
 <h2>We'd love to see:</h2>
 <ul>
-<li>Extensive experience with OCaml, Haskell, F# or SML, and especially familiarity with their implementations. - Experience implementing static types systems, and especially type inference. - Familiarity with derivatives pricing models. - Experience with C++ or JavaScript.
+<li>Extensive experience with OCaml, Haskell, F# or SML, and especially familiarity with their implementations.
+</li>
+<li>Experience implementing static types systems, and especially type inference.
+</li>
+<li>Familiarity with derivatives pricing models.
+</li>
+<li>Experience with C++ or JavaScript.
 </li>
 </ul>
 <h2>If this sounds like you:</h2>
@@ -111,6 +149,59 @@ let all =
   ; country = {js|United States|js}
   ; company = {js|Bloomberg|js}
   ; company_logo = {js|https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/New_Bloomberg_Logo.svg/1024px-New_Bloomberg_Logo.svg.png|js}
+  ; fullfilled = false
+  };
+ 
+  { id = 0
+  ; title = {js|OCaml Developer|js}
+  ; link = {js|https://ahrefs.com/jobs/ocaml-developer|js}
+  ; description_html = {js|<p>Ahrefs is looking for a backend developer with deep understanding of networks, distributed systems, OS fundamentals and taste for simple and efficient architectural designs. Our backend is mostly implemented in OCaml with some C++ and Rust.</p>
+<p>In this role, be prepared to deal with 25 petabytes of live data, OCaml and Linux on a daily basis.</p>
+<h2>Basic Requirements:</h2>
+<ul>
+<li>Proficiency in OCaml
+</li>
+<li>Knowledge of C++ and/or Rust is a plus
+</li>
+</ul>
+<h2>The ideal candidate is expected to:</h2>
+<ul>
+<li>Independently deal with bugs, schedule tasks and investigate code
+</li>
+<li>Make well-reasoned technical choices and take responsibility for them
+</li>
+<li>Understand the whole technology stack at all levels: from network and user-space code to OS internals and hardware
+</li>
+<li>Handle full development cycle of a single component i.e. formalize task, write code and tests, setup and support production, resolve user requests
+</li>
+<li>Approach problems with a practical mindset and suppress perfectionism when time is a priority
+</li>
+<li>Write flexible, maintainable code and adapt to post-launch requirements/tweaks
+</li>
+</ul>
+<p>These requirements stem naturally from our approach to development with fast feedback cycle, highly-focused personal areas of responsibility and strong tendency to vertical component splitting.</p>
+<p>If your preference is leaning towards making the web functional and working on user-facing stuff, you may want to consider our ReasonML position instead.</p>
+<h2>What You Get</h2>
+<p>We offer:</p>
+<ul>
+<li>Competitive compensation package
+</li>
+<li>Informal and thriving work atmosphere
+</li>
+<li>[SG office] First-class workplace equipment (hardware &amp; tools)
+</li>
+<li>Above-average perks and fringe benefits
+</li>
+</ul>
+<h2>Who we are</h2>
+<p>We are a small team that strongly believes that better technology leads to better solutions for real-world problems. We worship functional languages and static typing, extensively employ code generation and meta-programming, value code clarity and predictability, and constantly seek to automate repetitive tasks and eliminate boilerplate.</p>
+<p>We are guided by DRY and follow KISS. If there is new technology that will make our life easier, we'll give it a try. We rely heavily on open-source code (as the only viable way to build maintainable system) and contribute back, see e.g. https://github.com/ahrefs</p>
+<p>Our motto is &quot;first do it, then do it right, then do it better&quot;</p>
+|js}
+  ; location = {js|Remote|js}
+  ; country = {js|Singapore|js}
+  ; company = {js|Ahrefs|js}
+  ; company_logo = {js|/logos/ahrefs.svg|js}
   ; fullfilled = false
   }]
 
