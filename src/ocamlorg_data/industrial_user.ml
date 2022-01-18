@@ -14,6 +14,22 @@ type t =
   
 let all_en = 
 [
+  { name = {js|4Sigma|js}
+  ; slug = {js|4sigma|js}
+  ; description = {js|4Sigma is an italian firm making web applications and solutions for the industrial automation sector.
+|js}
+  ; logo = Some {js|/users/4sigma.png|js}
+  ; url = {js|https://4sigma.it|js}
+  ; locations = 
+ [{js|Italy|js}]
+  ; consortium = false
+  ; featured = true
+  ; body_md = {js|
+4Sigma is an italian firm making web applications and solutions for the industrial automation sector. With a strong focus on safety, OCaml was a natural choice for industrial automation software. In the last year we are starting some OCaml-based experiments for the web.|js}
+  ; body_html = {js|<p>4Sigma is an italian firm making web applications and solutions for the industrial automation sector. With a strong focus on safety, OCaml was a natural choice for industrial automation software. In the last year we are starting some OCaml-based experiments for the web.</p>
+|js}
+  };
+ 
   { name = {js|Aesthetic Integration|js}
   ; slug = {js|aesthetic-integration|js}
   ; description = {js|Aesthetic Integration (AI) is a financial technology startup based in the City of London
@@ -866,22 +882,6 @@ Solvuu's software allows users to store big and small data sets, share the data 
 |js}
   };
  
-  { name = {js|Studio Associato 4Sigma|js}
-  ; slug = {js|studio-associato-4sigma|js}
-  ; description = {js|4Sigma is a small firm making websites and some interesting web applications.
-|js}
-  ; logo = Some {js|/users/4sigma.png|js}
-  ; url = {js|https://www.4sigma.it|js}
-  ; locations = 
- [{js|Italy|js}]
-  ; consortium = false
-  ; featured = true
-  ; body_md = {js|
-4Sigma is a small firm making websites and some interesting web applications. OCaml is not the main language used but it is used here and there, particularly in a small server that is a key component of a service we offer our customers.|js}
-  ; body_html = {js|<p>4Sigma is a small firm making websites and some interesting web applications. OCaml is not the main language used but it is used here and there, particularly in a small server that is a key component of a service we offer our customers.</p>
-|js}
-  };
- 
   { name = {js|Tarides|js}
   ; slug = {js|tarides|js}
   ; description = {js|Tarides builds and maintains open-source infrastructure tools in OCaml like MirageOS, Irmin and OCaml developer tools.
@@ -967,6 +967,22 @@ Zeo is a digital marketing company focused on helping companies to do better in 
 
 let all_fr = 
 [
+  { name = {js|4Sigma|js}
+  ; slug = {js|4sigma|js}
+  ; description = {js|4Sigma est une société italienne qui développe des applications Web et solutions pour le secteur de l'automatisation industrielle.
+|js}
+  ; logo = Some {js|/users/4sigma.png|js}
+  ; url = {js|https://4sigma.it|js}
+  ; locations = 
+ [{js|Italie|js}]
+  ; consortium = false
+  ; featured = true
+  ; body_md = {js|
+4Sigma est une société italienne qui développe des applications Web et solutions pour le secteur de l'automatisation industrielle. Avec un fort accent sur la sécurité, OCaml était un choix naturel pour les logiciels d'automatisme industriel. Au cours de la dernière année, nous avons lancé des expériences basées sur OCaml pour le Web.|js}
+  ; body_html = {js|<p>4Sigma est une société italienne qui développe des applications Web et solutions pour le secteur de l'automatisation industrielle. Avec un fort accent sur la sécurité, OCaml était un choix naturel pour les logiciels d'automatisme industriel. Au cours de la dernière année, nous avons lancé des expériences basées sur OCaml pour le Web.</p>
+|js}
+  };
+ 
   { name = {js|Aesthetic Integration|js}
   ; slug = {js|aesthetic-integration|js}
   ; description = {js|Aesthetic Integration (AI) est une startup financière basée dans la City de Londres
@@ -1823,23 +1839,6 @@ Spécialisé dans le développement de logiciels de programmation fonctionnelle,
 Le logiciel de Solvuu permet aux utilisateurs de stocker des ensembles de données, grands et petits, de partager les données avec des collaborateurs, d'exécuter des algorithmes et des flux de travail à forte intensité de calcul et de visualiser les résultats. L'entreprise se concentre initialement sur les données génomiques, qui ont des implications importantes pour les soins de santé, l'agriculture et la recherche fondamentale. La quasi-totalité de la pile logicielle de Solvuu est implémentée en OCaml.
 |js}
   ; body_html = {js|<p>Le logiciel de Solvuu permet aux utilisateurs de stocker des ensembles de données, grands et petits, de partager les données avec des collaborateurs, d'exécuter des algorithmes et des flux de travail à forte intensité de calcul et de visualiser les résultats. L'entreprise se concentre initialement sur les données génomiques, qui ont des implications importantes pour les soins de santé, l'agriculture et la recherche fondamentale. La quasi-totalité de la pile logicielle de Solvuu est implémentée en OCaml.</p>
-|js}
-  };
- 
-  { name = {js|Studio Associato 4Sigma|js}
-  ; slug = {js|studio-associato-4sigma|js}
-  ; description = {js|4Sigma est une petite entreprise qui réalise des sites web et quelques applications web intéressantes
-|js}
-  ; logo = Some {js|/users/4sigma.png|js}
-  ; url = {js|https://www.4sigma.it|js}
-  ; locations = 
- [{js|Italie|js}]
-  ; consortium = false
-  ; featured = true
-  ; body_md = {js|
-4Sigma est une petite entreprise qui réalise des sites web et quelques applications web intéressantes. OCaml n'est pas le principal langage utilisé, mais il est utilisé ici et là, notamment dans un petit serveur qui est un élément clé d'un service que nous offrons à nos clients.
-|js}
-  ; body_html = {js|<p>4Sigma est une petite entreprise qui réalise des sites web et quelques applications web intéressantes. OCaml n'est pas le principal langage utilisé, mais il est utilisé ici et là, notamment dans un petit serveur qui est un élément clé d'un service que nous offrons à nos clients.</p>
 |js}
   };
  
