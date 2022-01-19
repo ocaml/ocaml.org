@@ -6,12 +6,12 @@ authors:
   - Nicholas Monje
   - Allen Downey
 published: "2008"
-cover: /books/thinkocaml_cover_web.png
+cover: /books/think-ocaml-how-to-think-like-a-functional-programmer.png
 language: english
 links:
   - description: Read Online
     uri: https://greenteapress.com/thinkocaml/thinkocaml.pdf
-featured: true
+featured: false
 ---
 
 This book is a work in progress. It is an introductory programming

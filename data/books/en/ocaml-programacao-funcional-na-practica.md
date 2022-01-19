@@ -7,7 +7,7 @@ description: >
 authors:
   - Andrei de Araújo Formiga
 published: "2015"
-cover: /books/opfp.png
+cover: /books/ocaml-programacao-funcional-na-practica.jpg
 language: portugese
 links:
   - description: Book site

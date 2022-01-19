@@ -6,7 +6,7 @@ description: >
 authors:
   - Mohammed-Said Habet
 published: "2015"
-cover: /books/Initiation_a_la_programmation_fonctionnelle_en_OCaml.jpg
+cover: /books/initiation-a-la-programmation-fonctionnelle-en-ocaml.jpg
 language: french
 isbn: "9782332978400"
 links:
