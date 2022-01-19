@@ -10,21 +10,20 @@ tags: [ "getting-started" ]
 date: 2021-05-27T21:07:30-00:00
 ---
 
-This is a set of reasonable guidelines for formatting OCaml
+This is a set of reasonable guidelines for writing OCaml
 programs—guidelines which reflect the consensus among veteran OCaml
-programmers. Nevertheless, all detailed notifications of possible errors
-or omissions will be noted with pleasure. To send your comments using
-[GitHub issues](https://github.com/ocaml/ocaml.org/issues?state=open).
-<br />
-Original translation from French: [Ruchira
-Datta](mailto:datta@math.berkeley.edu).
+programmers.
 
-Thanks to all those who have already participated in the critique of
-this page: Daniel de Rauglaudre, Luc Maranget, Jacques Garrigue, Damien
-Doligez, Xavier Leroy, Bruno Verlyck, Bruno Petazzoni, Francois Maltey,
-Basile Starynkevitch, Toby Moth, Pierre Lescanne.
+OCaml source code can be formatted automatically with
+[ocamlformat](https://github.com/ocaml-ppx/ocamlformat), so that
+you don't have to worry about formatting it by hand, and to speed up
+code review by focusing on the important parts.
+Nevertheless, some best practices are not automated and they're
+documented in this article. If you prefer to format your code
+manually, there are some formatting guidelines at the end of this
+article.
 
-## General guidelines to write programs
+## General guidelines
 ###  Be simple and readable
 The time you spend typing the programs is negligible compared to the
 time spent reading them. That's the reason why you save a lot of time if
@@ -41,641 +40,8 @@ debugging).
 > modifications in mind, and never jeopardize readability.
 > 
 
-## Program formatting guidelines
-###  Lexical conventions
-> 
-> **Pseudo spaces law**: never hesitate to separate words of your
-> programs with spaces; the space bar is the easiest key to find on the
-> keyboard, press it as often as necessary!
-> 
 
-####  Delimiters
-A space should always follow a delimiter symbol, and spaces should
-surround operator symbols. It has been a great step forward in
-typography to separate words by spaces to make written texts easier to
-read. Do the same in your programs if you want them to be readable.
-
-####  How to write pairs
-A tuple is parenthesized and the commas therein (delimiters) are each
-followed by a space: `(1, 2)`, `let   triplet = (x, y, z)`...
-
-* **Commonly accepted exceptions**:
-    * **Definition of the components of a pair**: In place of
- `let (x, y) =       ...`, you can write `let x, y = ...`.
-
-> **Justification**: The point is to define several values
-> simultaneously, not to construct a tuple. Moreover, the
-> pattern is set off nicely between `let` and `=`.
-
-- **Matching several values simultaneously**: It's okay to omit
-  parentheses around n-tuples when matching several values
-  simultaneously.
-
-        match x, y with
-        | 1, _ -> ...
-        | x, 1 -> ...
-        | x, y -> ...
-
-  > **Justification**: The point is to match several values in
-  > parallel, not to construct a tuple. Moreover, the expressions
-  > being matched are set off by `match` and `with`, while the
-  > patterns are set off nicely by `|` and `->`.
-
-
-####  How to write lists
-Write `x :: l` with spaces around the `::` (since `::` is an infix
-operator, hence surrounded by spaces) and `[1; 2; 3]` (since `;` is a
-delimiter, hence followed by a space).
-
-####  How to write operator symbols
-Be careful to keep operator symbols well separated by spaces: not only
-will your formulas be more readable, but you will avoid confusion with
-multi-character operators. (Obvious exceptions to this rule: the symbols
-`!` and `.` are not separated from their arguments.)<br />
-Example: write `x + 1` or `x + !y`.
-
- 
-> **Justification**: If you left out the spaces then `x+1` would be
-> understood, but `x+!y` would change its meaning since `+!` would
-> be interpreted as a multi-character operator.
-> 
-> **Criticism**: The absence of spaces around an operator improves the
-> readability of formulas when you use it to reflect the relative
-> precedences of operators. For example `x*y + 2*z` makes it very
-> obvious that multiplication takes precedence over addition.
-> 
-> **Response**: This is a bad idea, a chimera, because nothing in the
-> language ensures that the spaces properly reflect the meaning of the
-> formula. For example `x * z-1` means `(x * z) - 1`, and not
-> `x * (z - 1)` as the proposed interpretation of spaces would seem to
-> suggest. Besides, the problem of multi-character symbols would keep
-> you from using this convention in a uniform way: you couldn't leave
-> out the spaces around the multiplication to write `x*!y + 2*!z`.
-> Finally, this playing with the spaces is a subtle and flimsy
-> convention, a subliminal message which is difficult to grasp on
-> reading. If you want to make the precedences obvious, use the
-> expressive means brought to you by the language: write parentheses.
-> 
-> **Additional justification**: Systematically surrounding operators
-> with spaces simplify the treatment of infix operators which are no
-> more a complex particular case; in effect, whereas you can write `(+)`
-> without spaces, you evidently cannot write `(*)` since `(*` is read as
-> the beginning of a comment. You must write at least one space as in
-> “`( *)`”, although an extra space after `*` is definitively preferable
-> if you want to avoid that `*)` could be read, in some contexts, as the
-> end of a comment. All those difficulties are easily avoided if you
-> adopt the simple rule proposed here: keep operator symbols well
-> separated by spaces.<br />
-> In fact you will quickly feel that this rule is not so difficult to
-> follow: the space bar is the greatest and best situated key of the
-> keyboard, it is the easiest to enter and you cannot miss it!
-
-
-####  How to write long character strings
-Indent long character strings with the convention in force at that line
-plus an indication of string continuation at the end of each line (a `\`
-character at the end of the line that omits white spaces on the
-beginning of next line):
-<!-- $MDX skip -->
-```ocaml
-let universal_declaration =
-  "-1- Programs are born and remain free and equal under the law;\n\
-   distinctions can only be based on the common good." in
-  ...
-```
-
-## Indentation of programs
-> 
-> **Landin's pseudo law**: Treat the indentation of your programs as if
-> it determines the meaning of your programs.
-> 
-
-I would add to this law: carefully treat the indentation of programs
-because in some cases it really gives the meaning of the program!
-
-The indentation of programs is an art which excites many strong
-opinions. Here several indentation styles are given which are drawn from
-experience and which have not been severely criticized.
-
-When a justification for the adopted style has seemed obvious to me, I
-have indicated it. On the other hand, criticisms are also noted.
-
-So each time, you have to choose between the different styles
-suggested.<br />
- The only absolute rule is the first below.
-
-###  Consistency of indentation
-Choose a generally accepted style of indentation, then use it
-systematically throughout the whole application.
-
-###  Width of the page
-The page is 80 columns wide.
-
-> **Justification**: This width makes it possible to read the code on
-> all displays and to print it in a legible font on a standard sheet.
- 
-
-###  Height of the page
-A function should always fit within one screenful (of about 70 lines),
-or in exceptional cases two, at the very most three. To go beyond this
-is unreasonable.
-
- 
-> **Justification**: When a function goes beyond one screenful, it's
-> time to divide it into subproblems and handle them independently.
-> Beyond a screenful, one gets lost in the code. The indentation is not
-> readable and is difficult to keep correct.
-
-
-###  How much to indent
-The change in indentation between successive lines of the program is
-generally 1 or 2 spaces. Pick an amount to indent and stick with it
-throughout the program.
-
-###  Using tab stops
-Using the tab character (ASCII character 9) is absolutely *not*
-recommended.
-
-
-> **Justification**: Between one display and another, the indentation of
-> the program changes completely; it can also become completely wrong,
-> if the programmer used both tabulations and spaces to indent the
-> program.
-> 
-> **Criticism**: The purpose of using tabulations is just to allow the
-> readers of the program to indent more or less by changing the tabs
-> stops. The overall indentation remains correct and the reader is glad
-> to easily customize the indentation amount.
-> 
-> **Answer**: It seems almost impossible to use this method since you
-> should always use tabulations to indent, which is hard and unnatural.
- 
-
-###  How to indent global `let ... ;;` definitions
-The body of a function defined globally in a module is generally
-indented normally. However, it's okay to treat this case specially to
-set off the definition better.
-
-With a regular indentation of 1 or 2 spaces:
-
-<!-- $MDX skip -->
-```ocaml
-let f x = function
-  | C ->
-  | D ->
-  ...
-
-let g x =
-  let tmp =
-    match x with
-    | C -> 1
-    | x -> 0 in
-  tmp + 1
-```
-> 
-> **Justification**: No exception to the amount of indentation.
-> 
-
-Other conventions are acceptable, for example:
-
-* The body is left-justified in the case of pattern-matching.
-
-<!-- $MDX skip -->
-```ocaml
-let f x = function
-| C ->
-| D ->
-...
-```
-> 
-> **Justification**: The vertical bars separating the patterns stop
-> when the definition is done, so it's still easy to pass on to the
-> following definition.
-> 
-> **Criticism**: An unpleasant exception to the normal indentation.
-> 
-
-
-* The body is justified just under the name of the defined function.
-
-<!-- $MDX skip -->
-```ocaml
-let f x =
-    let tmp = ... in
-    try g x with
-    | Not_found ->
-    ...
-```
-> 
-> **Justification**: The first line of the definition is set off
-> nicely, so it's easier to pass from definition to definition.
-> 
-> **Criticism**: You run into the right margin too quickly.
-> 
-
-
-###  How to indent `let ... in` constructs
-The expression following a definition introduced by `let` is indented to
-the same level as the keyword `let`, and the keyword `in` which
-introduces it is written at the end of the line:
-
-<!-- $MDX skip -->
-```ocaml
-let expr1 = ... in
-expr1 + expr1
-```
-
-In the case of a series of `let` definitions, the preceding rule implies
-that these definitions should be placed at the same indentation level:
-
-<!-- $MDX skip -->
-```ocaml
-let expr1 = ... in
-let n = ... in
-...
-```
-> 
-> **Justification**: It is suggested that a series of “let ... in”
-> constructs is analogous to a set of assumptions in a mathematical
-> text, whence the same indentation level for all the assumptions.
-> 
-
-Variation: some write the keyword `in` alone on one line to set apart
-the final expression of the computation:
-
-<!-- $MDX skip -->
-```ocaml
-let e1 = ... in
-let e2 = ... in
-let new_expr =
-  let e1' = derive_expression e1
-  and e2' = derive_expression e2 in
-  Add_expression e1' e2'
-in
-Mult_expression (new_expr, new_expr)
-```
-> 
-> **Criticism**: Lack of consistency.
-> 
-
-###  How to indent `if ... then   ... else ... `
-####  Multiple branches
-Write conditions with multiple branches at the same level of
-indentation:
-
-<!-- $MDX skip -->
-```ocaml
-if cond1 ...
-if cond2 ...
-if cond3 ...
-```
-> 
-> **Justification**: Analogous treatment to pattern-matching clauses,
-> all aligned to the same tab stop.
-> 
-
-If the sizes of the conditions and the expressions allow, write for
-example:
-
-<!-- $MDX skip -->
-```ocaml
-if cond1 then e1 else
-if cond2 then e2 else
-if cond3 then e3 else
-e4
-
-```
-If expressions in the branches of multiple conditions have to be
-enclosed (when they include statements for instance), write:
-
-<!-- $MDX skip -->
-```ocaml
-if cond then begin
-    e1
-  end else
-if cond2 then begin
-    e2
-  end else
-if cond3 then ...
-```
-Some suggest another method for multiple conditionals, starting each
-line by the keyword `else`:
-
-<!-- $MDX skip -->
-```ocaml
-if cond1 ...
-else if cond2 ...
-else if cond3 ...
-```
-> 
-> **Justification**: `elsif` is a keyword in many languages, so use
-> indentation and `else if` to bring it to mind. Moreover, you do not
-> have to look to the end of line to know whether the condition is
-> continued or another test is performed.
-> 
-> **Criticism**: Lack of consistency in the treatment of all the
-> conditions. Why a special case for the first condition?
-> 
-
-Yet again, choose your style and use it systematically.
-
-####  Single branches
-Several styles are possible for single branches, according to the size
-of the expressions in question and especially the presence of `begin`
-`end` or `(` `)` delimiters for these expressions.
-
-In the case of delimiting the branches of a conditional, several styles
-are used:
-
-> `(` at end of line:
-> 
-> ```ocaml
-> if cond then (
->   e1
-> ) else (
->   e2
-> )
-> ```
-> Or alternatively first `begin` at beginning of line:
-> 
-> ```ocaml
-> if cond then
->   begin
->     e1
->   end else begin
->     e2
->   end
-> ```
-
-In fact the indentation of conditionals depends on the sizes of the
-expressions which make them up.
-
-> 
-> If `cond`, `e1` and `e2` are small, simply write them on one line:
-> 
-> ```ocaml
-> if cond then e1 else e2
-> ```
-> If the expressions making up a conditional are purely functional
-> (without side effects), we advocate binding them within the
-> conditional with `let e = ... in` when they're too big to fit on a
-> line.
-> 
-> > 
-> > **Justification**: This way you get back the simple indentation on
-> > one line which is the most readable. As a side benefit, the naming
-> > acts as an aid to comprehension.
-> > 
-> 
-> So now we consider the case in which the expressions in question do
-> have side effects, which keeps us from simply binding them with a
-> `let e = ... in`.
-> 
-> > 
-> > If `e1` and `cond` are small, but `e2` large:
-> > 
-> > ```ocaml
-> > if cond then e1 else
-> >   e2
-> > ```
-> > 
-> > If `e1` and `cond` are large and `e2` small:
-> > 
-> > ```ocaml
-> > if cond then
-> >   e1
-> > else e2
-> > ```
-> > 
-> > If all the expressions are large:
-> > 
-> > ```ocaml
-> > if cond then
-> >   e1
-> > else
-> >   e2
-> > ```
-> > 
-> > If there are `( )` delimiters:
-> > 
-> > ```ocaml
-> > if cond then (
-> >   e1
-> > ) else (
-> >   e2
-> > )
-> > ```
-> > 
-> > A mixture where `e1` requires `( )` but `e2` is small:
-> > 
-> > ```ocaml
-> > if cond then (
-> >     e1
-> > ) else e2
-> > ```
-
-###  How to indent pattern-matching constructs
-####  General principles
-All the pattern-matching clauses are introduced by a vertical bar,
-*including* the first one.
-
-> 
-> **Criticism**: The first vertical bar is not mandatory: hence, there
-> is no need to write it.
-> 
-> **Answer to criticism**: If you omit the first bar the indentation
-> seems unnatural : the first case gets an indentation that is greater
-> than a normal new line would necessitate. It is thus a useless
-> exception to the correct indentation rule. It also insists not to use
-> the same syntax for the whole set of clauses, writing the first clause
-> as an exception with a slightly different syntax. Last, aesthetic
-> value is doubtful (some people would say “awful” instead of
-> “doubtful”).
-> 
-
-Align all the pattern-matching clauses at the level of the vertical bar
-which begins each clause, *including* the first one.
-
-If an expression in a clause is too large to fit on the line, you must
-break the line immediately after the arrow of the corresponding clause.
-Then indent normally, starting from the beginning of the pattern of the
-clause.
-
-Arrows of pattern matching clauses should not be aligned.
-
-####  `match` or `try`
-For a `match` or a `try` align the clauses with the beginning of the
-construct:
-
-<!-- $MDX skip -->
-```ocaml
-match lam with
-| Abs (x, body) -> 1 + size_lambda body
-| App (lam1, lam2) -> size_lambda lam1 + size_lambda lam2
-| Var v -> 1
-
-try f x with
-| Not_found -> ...
-| Failure "not yet implemented" -> ...
-```
-Put the keyword `with` at the end of the line. If the preceding
-expression extends beyond one line, put `with` on a line by itself:
-
-<!-- $MDX skip -->
-```ocaml
-try
-  let y = f x in
-  if ...
-with
-| Not_found -> ...
-| Failure "not yet implemented" -> ...
-```
-> 
-> **Justification**: The keyword `with`, on a line by itself shows that
-> the program enters the pattern matching part of the construct.
-> 
-
-####  Indenting expressions inside clauses
-If the expression on the right of the pattern matching arrow is too
-large, cut the line after the arrow.
-
-<!-- $MDX skip -->
-```ocaml
-match lam with
-| Abs (x, body) ->
-   1 + size_lambda body
-| App (lam1, lam2) ->
-   size_lambda lam1 + size_lambda lam2
-| Var v ->
-```
-Some programmers generalize this rule to all clauses, as soon as one
-expressions overflows. They will then indent the last clause like this:
-
-<!-- $MDX skip -->
-```ocaml
-| Var v ->
-   1
-```
-Other programmers go one step further and apply this rule systematically
-to any clause of any pattern matching.
-
-<!-- $MDX skip -->
-```ocaml
-let rec fib = function
-  | 0 ->
-     1
-  | 1 ->
-     1
-  | n ->
-     fib (n - 1) + fib ( n - 2)
-```
-> 
-> **Criticism**: May be not compact enough; for simple pattern matchings
-> (or simple clauses in complex matchings), the rule does not add any
-> good to readability.
-> 
-> **Justification**: I don't see any good reason for this rule, unless
-> you are paid proportionally to the number of lines of code: in this
-> case use this rule to get more money without adding more bugs in your
-> OCaml programs!
-> 
-
-####  Pattern matching in anonymous functions
-Similarly to `match` or `try`, pattern matching of anonymous functions,
-starting by `function`, are indented with respect to the `function`
-keyword:
-
-<!-- $MDX skip -->
-```ocaml
-map
-  (function
-   | Abs (x, body) -> 1 + size_lambda 0 body
-   | App (lam1, lam2) -> size_lambda (size_lambda 0 lam1) lam2
-   | Var v -> 1)
-  lambda_list
-```
-####  Pattern matching in named functions
-Pattern-matching in functions defined by `let` or `let rec` gives rise
-to several reasonable styles which obey the preceding rules for pattern
-matching (the one for anonymous functions being evidently excepted). See
-above for recommended styles.
-
-<!-- $MDX skip -->
-```ocaml
-let rec size_lambda accu = function
-  | Abs (x, body) -> size_lambda (succ accu) body
-  | App (lam1, lam2) -> size_lambda (size_lambda accu lam1) lam2
-  | Var v -> succ accu
-
-let rec size_lambda accu = function
-| Abs (x, body) -> size_lambda (succ accu) body
-| App (lam1, lam2) -> size_lambda (size_lambda accu lam1) lam2
-| Var v -> succ accu
-```
-###  Bad indentation of pattern-matching constructs
-####  No *beastly* indentation of functions and case analyses.
-This consists in indenting normally under the keyword `match` or
-`function` which has previously been pushed to the right. Don't write:
-
-<!-- $MDX skip -->
-```ocaml
-let rec f x = function
-              | [] -> ...
-              ...
-```
-but choose to indent the line under the `let` keyword:
-
-<!-- $MDX skip -->
-```ocaml
-let rec f x = function
-  | [] -> ...
-  ...
-```
-> 
-> **Justification**: You bump into the margin. The aesthetic value is
-> doubtful...
-> 
-
-####  No *beastly* alignment of the `->` symbols in pattern-matching clauses.
-Careful alignment of the arrows of a pattern matching is considered bad
-practice, as exemplify in the following fragment:
-
-<!-- $MDX skip -->
-```ocaml
-let f = function
-  | C1          -> 1
-  | Long_name _ -> 2
-  | _           -> 3
-```
-> 
-> **Justification**: This makes it harder to maintain the program (the
-> addition of a supplementary case can lead the indentations of all the
-> lines to change and so ... we often give up alignment at that time,
-> then it is better not to align the arrows in the first place!).
-> 
-
-###  How to indent function calls
-####  Indentation to the function's name:
-No problem arises except for functions with many arguments&mdash;or very
-complicated arguments as well&mdash;which can't fit on the same line. You
-must indent the expressions with respect to the name of the function (1
-or 2 spaces according to the chosen convention). Write small arguments
-on the same line, and change lines at the start of an argument.
-
-As far as possible, avoid arguments which consist of complex
-expressions: in these cases define the “large” argument by a `let`
-construction.
-
-> 
-> **Justification**: No indentation problem; if the name given to the
-> expressions is meaningful, the code is more readable as well.
-> 
-> **Additional justification**: If the evaluation of the arguments
-> produces side effects, the `let` binding is in fact necessary to
-> explicitly define the order of evaluation.
-> 
-
-####  Naming complex arguments:
+###  Naming complex arguments
 In place of
 
 <!-- $MDX skip -->
@@ -702,7 +68,7 @@ let temp =
   f x y z t u in
 ...
 ```
-####  Naming anonymous functions:
+###  Naming anonymous functions
 In the case of an iterator whose argument is a complex function, define
 the function by a `let` binding as well. In place of
 
@@ -730,69 +96,6 @@ List.map f l
 > the function is meaningful.
 > 
 
-###  How to indent operations
-When an operator takes complex arguments, or in the presence of multiple
-calls to the same operator, start the next the line with the operator,
-and don't indent the rest of the operation. For example:
-
-<!-- $MDX skip -->
-```ocaml
-x + y + z
-+ t + u
-```
-> 
-> **Justification**: When the operator starts the line, it is clear that
-> the operation continues on this line.
-> 
-
-In the case of a “large expression” in such an operation sequence,
-to define the “large expression” with the help of a `let in`
-construction is preferable to having to indent the line. In place of
-
-<!-- $MDX skip -->
-```ocaml
-x + y + z
-+ “large
-  expression”
-```
-write
-
-<!-- $MDX skip -->
-```ocaml
-let t =
-  “large
-   expression” in
-x + y + z + t
-```
-You most certainly must bind those expressions too large to be written
-in one operation in the case of a combination of operators. In place of
-the unreadable expression
-
-<!-- $MDX skip -->
-```ocaml
-(x + y + z * t)
-/ (“large
-    expression”)
-```
-write
-
-<!-- $MDX skip -->
-```ocaml
-let u =
-  “large
-  expression” in
-(x + y + z * t) / u
-```
-These guidelines extend to all operators. For example:
-
-<!-- $MDX skip -->
-```ocaml
-let u =
-  “large
-  expression” in
-x :: y
-:: z + 1 :: t :: u
-```
 ## Programming guidelines
 ###  How to program
 > 
@@ -949,80 +252,6 @@ existing libraries which use this naming convention: this lets OCaml
 users of the library to orient themselves in the original library
 documentation more easily.
 
-###  When to use parentheses within an expression
-Parentheses are meaningful: they indicate the necessity of using an
-unusual precedence. So they should be used wisely and not sprinkled
-randomly throughout programs. To this end, you should know the usual
-precedences, that is, the combinations of operations which do not
-require parentheses. Quite fortunately this is not complicated if you
-know a little mathematics or strive to follow the following rules:
-
-####  Arithmetic operators: the same rules as in mathematics
-For example: `1 + 2 * x` means `1 + (2 * x)`.
-
-####  Function application: the same rules as those in mathematics for usage of *trigonometric functions*
-In mathematics you write `sin x` to mean `sin (x)`. In the same way
-`sin x + cos x` means `(sin x) + (cos x)` not `sin (x + (cos x))`. Use
-the same conventions in OCaml: write `f x + g x` to mean
-`(f x) + (g x)`.<br />
-This convention generalizes **to all (infix) operators**: `f x :: g x`
-means `(f x) :: (g x)`, `f x @ g x` means `(f x) @ (g x)`, and
-`failwith s ^ s'` means `(failwith s) ^ s'`, *not* `failwith (s ^ s')`.
-
-####  Comparisons and boolean operators
-Comparisons are infix operators, so the preceding rules apply. This is
-why `f x < g x` means `(f x) < (g x)`. For type reasons (no other
-sensible interpretation) the expression `f x < x + 2` means
-`(f x) < (x + 2)`. In the same way `f x < x + 2 && x > 3` means
-`((f x) < (x + 2)) && (x > 3)`.
-
-####  The relative precedences of the boolean operators are those of mathematics
-Although mathematicians have a tendency to overuse parens in this case,
-the boolean “or” operator is analogous to addition and the “and”
-to multiplication. So, just as `1 + 2 * x` means `1 + (2 * x)`,
-`true || false && x` means `true || (false && x)`.
-
-###  How to delimit constructs in programs
-When it is necessary to delimit syntactic constructs in programs, use as
-delimiters the keywords `begin` and `end` rather than parentheses.
-However using parentheses is acceptable if you do it in a consistent,
-that is, systematic, way.
-
-This explicit delimiting of constructs essentially concerns
-pattern-matching constructs or sequences embedded within
-`if then     else` constructs.
-
-####  `match` construct in a `match` construct
-When a `match ... with` or `try ... with` construct appears in a
-pattern-matching clause, it is absolutely necessary to delimit this
-embedded construct (otherwise subsequent clauses of the enclosing
-pattern-matching construct will automatically be associated with the
-enclosed pattern-matching construct). For example:
-
-<!-- $MDX skip -->
-```ocaml
-match x with
-| 1 ->
-  begin match y with
-  | ...
-  end
-| 2 ->
-...
-```
-####  Sequences inside branches of `if`
-In the same way, a sequence which appears in the `then` or `else` part
-of a conditional must be delimited:
-
-<!-- $MDX skip -->
-```ocaml
-if cond then begin
-  e1;
-  e2
-end else begin
-  e3;
-  e4
-end
-```
 ###  How to use modules
 ####  Subdividing into modules
 You must subdivide your programs into coherent modules.
@@ -1751,6 +980,787 @@ An anonymous Git read-only mirror [contains the working sources of the
 OCaml compilers](https://github.com/ocaml/ocaml), and the sources of
 other software related to OCaml.
 
+## Formatting guidelines
+
+If you choose not to format your source code automatically with
+[ocamlformat](https://github.com/ocaml-ppx/ocamlformat), please
+consider these style guidelines when doing it manually.
+
+> 
+> **Pseudo spaces law**: never hesitate to separate words of your
+> programs with spaces; the space bar is the easiest key to find on the
+> keyboard, press it as often as necessary!
+> 
+
+###  Delimiters
+A space should always follow a delimiter symbol, and spaces should
+surround operator symbols. It has been a great step forward in
+typography to separate words by spaces to make written texts easier to
+read. Do the same in your programs if you want them to be readable.
+
+
+
+###  How to write pairs
+A tuple is parenthesized and the commas therein (delimiters) are each
+followed by a space: `(1, 2)`, `let   triplet = (x, y, z)`...
+
+* **Commonly accepted exceptions**:
+    * **Definition of the components of a pair**: In place of
+ `let (x, y) =       ...`, you can write `let x, y = ...`.
+
+> **Justification**: The point is to define several values
+> simultaneously, not to construct a tuple. Moreover, the
+> pattern is set off nicely between `let` and `=`.
+
+- **Matching several values simultaneously**: It's okay to omit
+  parentheses around n-tuples when matching several values
+  simultaneously.
+
+        match x, y with
+        | 1, _ -> ...
+        | x, 1 -> ...
+        | x, y -> ...
+
+  > **Justification**: The point is to match several values in
+  > parallel, not to construct a tuple. Moreover, the expressions
+  > being matched are set off by `match` and `with`, while the
+  > patterns are set off nicely by `|` and `->`.
+
+
+###  How to write lists
+Write `x :: l` with spaces around the `::` (since `::` is an infix
+operator, hence surrounded by spaces) and `[1; 2; 3]` (since `;` is a
+delimiter, hence followed by a space).
+
+###  How to write operator symbols
+Be careful to keep operator symbols well separated by spaces: not only
+will your formulas be more readable, but you will avoid confusion with
+multi-character operators. (Obvious exceptions to this rule: the symbols
+`!` and `.` are not separated from their arguments.)<br />
+Example: write `x + 1` or `x + !y`.
+
+ 
+> **Justification**: If you left out the spaces then `x+1` would be
+> understood, but `x+!y` would change its meaning since `+!` would
+> be interpreted as a multi-character operator.
+> 
+> **Criticism**: The absence of spaces around an operator improves the
+> readability of formulas when you use it to reflect the relative
+> precedences of operators. For example `x*y + 2*z` makes it very
+> obvious that multiplication takes precedence over addition.
+> 
+> **Response**: This is a bad idea, a chimera, because nothing in the
+> language ensures that the spaces properly reflect the meaning of the
+> formula. For example `x * z-1` means `(x * z) - 1`, and not
+> `x * (z - 1)` as the proposed interpretation of spaces would seem to
+> suggest. Besides, the problem of multi-character symbols would keep
+> you from using this convention in a uniform way: you couldn't leave
+> out the spaces around the multiplication to write `x*!y + 2*!z`.
+> Finally, this playing with the spaces is a subtle and flimsy
+> convention, a subliminal message which is difficult to grasp on
+> reading. If you want to make the precedences obvious, use the
+> expressive means brought to you by the language: write parentheses.
+> 
+> **Additional justification**: Systematically surrounding operators
+> with spaces simplify the treatment of infix operators which are no
+> more a complex particular case; in effect, whereas you can write `(+)`
+> without spaces, you evidently cannot write `(*)` since `(*` is read as
+> the beginning of a comment. You must write at least one space as in
+> “`( *)`”, although an extra space after `*` is definitively preferable
+> if you want to avoid that `*)` could be read, in some contexts, as the
+> end of a comment. All those difficulties are easily avoided if you
+> adopt the simple rule proposed here: keep operator symbols well
+> separated by spaces.<br />
+> In fact you will quickly feel that this rule is not so difficult to
+> follow: the space bar is the greatest and best situated key of the
+> keyboard, it is the easiest to enter and you cannot miss it!
+
+
+###  How to write long character strings
+Indent long character strings with the convention in force at that line
+plus an indication of string continuation at the end of each line (a `\`
+character at the end of the line that omits white spaces on the
+beginning of next line):
+<!-- $MDX skip -->
+```ocaml
+let universal_declaration =
+  "-1- Programs are born and remain free and equal under the law;\n\
+   distinctions can only be based on the common good." in
+  ...
+```
+
+###  When to use parentheses within an expression
+Parentheses are meaningful: they indicate the necessity of using an
+unusual precedence. So they should be used wisely and not sprinkled
+randomly throughout programs. To this end, you should know the usual
+precedences, that is, the combinations of operations which do not
+require parentheses. Quite fortunately this is not complicated if you
+know a little mathematics or strive to follow the following rules:
+
+####  Arithmetic operators: the same rules as in mathematics
+For example: `1 + 2 * x` means `1 + (2 * x)`.
+
+####  Function application: the same rules as those in mathematics for usage of *trigonometric functions*
+In mathematics you write `sin x` to mean `sin (x)`. In the same way
+`sin x + cos x` means `(sin x) + (cos x)` not `sin (x + (cos x))`. Use
+the same conventions in OCaml: write `f x + g x` to mean
+`(f x) + (g x)`.<br />
+This convention generalizes **to all (infix) operators**: `f x :: g x`
+means `(f x) :: (g x)`, `f x @ g x` means `(f x) @ (g x)`, and
+`failwith s ^ s'` means `(failwith s) ^ s'`, *not* `failwith (s ^ s')`.
+
+####  Comparisons and boolean operators
+Comparisons are infix operators, so the preceding rules apply. This is
+why `f x < g x` means `(f x) < (g x)`. For type reasons (no other
+sensible interpretation) the expression `f x < x + 2` means
+`(f x) < (x + 2)`. In the same way `f x < x + 2 && x > 3` means
+`((f x) < (x + 2)) && (x > 3)`.
+
+####  The relative precedences of the boolean operators are those of mathematics
+Although mathematicians have a tendency to overuse parens in this case,
+the boolean “or” operator is analogous to addition and the “and”
+to multiplication. So, just as `1 + 2 * x` means `1 + (2 * x)`,
+`true || false && x` means `true || (false && x)`.
+
+###  How to delimit constructs in programs
+When it is necessary to delimit syntactic constructs in programs, use as
+delimiters the keywords `begin` and `end` rather than parentheses.
+However using parentheses is acceptable if you do it in a consistent,
+that is, systematic, way.
+
+This explicit delimiting of constructs essentially concerns
+pattern-matching constructs or sequences embedded within
+`if then     else` constructs.
+
+####  `match` construct in a `match` construct
+When a `match ... with` or `try ... with` construct appears in a
+pattern-matching clause, it is absolutely necessary to delimit this
+embedded construct (otherwise subsequent clauses of the enclosing
+pattern-matching construct will automatically be associated with the
+enclosed pattern-matching construct). For example:
+
+<!-- $MDX skip -->
+```ocaml
+match x with
+| 1 ->
+  begin match y with
+  | ...
+  end
+| 2 ->
+...
+```
+####  Sequences inside branches of `if`
+In the same way, a sequence which appears in the `then` or `else` part
+of a conditional must be delimited:
+
+<!-- $MDX skip -->
+```ocaml
+if cond then begin
+  e1;
+  e2
+end else begin
+  e3;
+  e4
+end
+```
+
+
+## Indentation of programs
+> 
+> **Landin's pseudo law**: Treat the indentation of your programs as if
+> it determines the meaning of your programs.
+> 
+
+I would add to this law: carefully treat the indentation of programs
+because in some cases it really gives the meaning of the program!
+
+The indentation of programs is an art which excites many strong
+opinions. Here several indentation styles are given which are drawn from
+experience and which have not been severely criticized.
+
+When a justification for the adopted style has seemed obvious to me, I
+have indicated it. On the other hand, criticisms are also noted.
+
+So each time, you have to choose between the different styles
+suggested.<br />
+ The only absolute rule is the first below.
+
+###  Consistency of indentation
+Choose a generally accepted style of indentation, then use it
+systematically throughout the whole application.
+
+###  Width of the page
+The page is 80 columns wide.
+
+> **Justification**: This width makes it possible to read the code on
+> all displays and to print it in a legible font on a standard sheet.
+ 
+
+###  Height of the page
+A function should always fit within one screenful (of about 70 lines),
+or in exceptional cases two, at the very most three. To go beyond this
+is unreasonable.
+
+ 
+> **Justification**: When a function goes beyond one screenful, it's
+> time to divide it into subproblems and handle them independently.
+> Beyond a screenful, one gets lost in the code. The indentation is not
+> readable and is difficult to keep correct.
+
+
+###  How much to indent
+The change in indentation between successive lines of the program is
+generally 1 or 2 spaces. Pick an amount to indent and stick with it
+throughout the program.
+
+###  Using tab stops
+Using the tab character (ASCII character 9) is absolutely *not*
+recommended.
+
+
+> **Justification**: Between one display and another, the indentation of
+> the program changes completely; it can also become completely wrong,
+> if the programmer used both tabulations and spaces to indent the
+> program.
+> 
+> **Criticism**: The purpose of using tabulations is just to allow the
+> readers of the program to indent more or less by changing the tabs
+> stops. The overall indentation remains correct and the reader is glad
+> to easily customize the indentation amount.
+> 
+> **Answer**: It seems almost impossible to use this method since you
+> should always use tabulations to indent, which is hard and unnatural.
+ 
+###  How to indent operations
+When an operator takes complex arguments, or in the presence of multiple
+calls to the same operator, start the next the line with the operator,
+and don't indent the rest of the operation. For example:
+
+<!-- $MDX skip -->
+```ocaml
+x + y + z
++ t + u
+```
+> 
+> **Justification**: When the operator starts the line, it is clear that
+> the operation continues on this line.
+> 
+
+In the case of a “large expression” in such an operation sequence,
+to define the “large expression” with the help of a `let in`
+construction is preferable to having to indent the line. In place of
+
+<!-- $MDX skip -->
+```ocaml
+x + y + z
++ “large
+  expression”
+```
+write
+
+<!-- $MDX skip -->
+```ocaml
+let t =
+  “large
+   expression” in
+x + y + z + t
+```
+You most certainly must bind those expressions too large to be written
+in one operation in the case of a combination of operators. In place of
+the unreadable expression
+
+<!-- $MDX skip -->
+```ocaml
+(x + y + z * t)
+/ (“large
+    expression”)
+```
+write
+
+<!-- $MDX skip -->
+```ocaml
+let u =
+  “large
+  expression” in
+(x + y + z * t) / u
+```
+These guidelines extend to all operators. For example:
+
+<!-- $MDX skip -->
+```ocaml
+let u =
+  “large
+  expression” in
+x :: y
+:: z + 1 :: t :: u
+```
+
+
+###  How to indent global `let ... ;;` definitions
+The body of a function defined globally in a module is generally
+indented normally. However, it's okay to treat this case specially to
+set off the definition better.
+
+With a regular indentation of 1 or 2 spaces:
+
+<!-- $MDX skip -->
+```ocaml
+let f x = function
+  | C ->
+  | D ->
+  ...
+
+let g x =
+  let tmp =
+    match x with
+    | C -> 1
+    | x -> 0 in
+  tmp + 1
+```
+> 
+> **Justification**: No exception to the amount of indentation.
+> 
+
+Other conventions are acceptable, for example:
+
+* The body is left-justified in the case of pattern-matching.
+
+<!-- $MDX skip -->
+```ocaml
+let f x = function
+| C ->
+| D ->
+...
+```
+> 
+> **Justification**: The vertical bars separating the patterns stop
+> when the definition is done, so it's still easy to pass on to the
+> following definition.
+> 
+> **Criticism**: An unpleasant exception to the normal indentation.
+> 
+
+
+* The body is justified just under the name of the defined function.
+
+<!-- $MDX skip -->
+```ocaml
+let f x =
+    let tmp = ... in
+    try g x with
+    | Not_found ->
+    ...
+```
+> 
+> **Justification**: The first line of the definition is set off
+> nicely, so it's easier to pass from definition to definition.
+> 
+> **Criticism**: You run into the right margin too quickly.
+> 
+
+
+###  How to indent `let ... in` constructs
+The expression following a definition introduced by `let` is indented to
+the same level as the keyword `let`, and the keyword `in` which
+introduces it is written at the end of the line:
+
+<!-- $MDX skip -->
+```ocaml
+let expr1 = ... in
+expr1 + expr1
+```
+
+In the case of a series of `let` definitions, the preceding rule implies
+that these definitions should be placed at the same indentation level:
+
+<!-- $MDX skip -->
+```ocaml
+let expr1 = ... in
+let n = ... in
+...
+```
+> 
+> **Justification**: It is suggested that a series of “let ... in”
+> constructs is analogous to a set of assumptions in a mathematical
+> text, whence the same indentation level for all the assumptions.
+> 
+
+Variation: some write the keyword `in` alone on one line to set apart
+the final expression of the computation:
+
+<!-- $MDX skip -->
+```ocaml
+let e1 = ... in
+let e2 = ... in
+let new_expr =
+  let e1' = derive_expression e1
+  and e2' = derive_expression e2 in
+  Add_expression e1' e2'
+in
+Mult_expression (new_expr, new_expr)
+```
+> 
+> **Criticism**: Lack of consistency.
+> 
+
+###  How to indent `if ... then   ... else ... `
+####  Multiple branches
+Write conditions with multiple branches at the same level of
+indentation:
+
+<!-- $MDX skip -->
+```ocaml
+if cond1 ...
+if cond2 ...
+if cond3 ...
+```
+> 
+> **Justification**: Analogous treatment to pattern-matching clauses,
+> all aligned to the same tab stop.
+> 
+
+If the sizes of the conditions and the expressions allow, write for
+example:
+
+<!-- $MDX skip -->
+```ocaml
+if cond1 then e1 else
+if cond2 then e2 else
+if cond3 then e3 else
+e4
+
+```
+If expressions in the branches of multiple conditions have to be
+enclosed (when they include statements for instance), write:
+
+<!-- $MDX skip -->
+```ocaml
+if cond then begin
+    e1
+  end else
+if cond2 then begin
+    e2
+  end else
+if cond3 then ...
+```
+Some suggest another method for multiple conditionals, starting each
+line by the keyword `else`:
+
+<!-- $MDX skip -->
+```ocaml
+if cond1 ...
+else if cond2 ...
+else if cond3 ...
+```
+> 
+> **Justification**: `elsif` is a keyword in many languages, so use
+> indentation and `else if` to bring it to mind. Moreover, you do not
+> have to look to the end of line to know whether the condition is
+> continued or another test is performed.
+> 
+> **Criticism**: Lack of consistency in the treatment of all the
+> conditions. Why a special case for the first condition?
+> 
+
+Yet again, choose your style and use it systematically.
+
+####  Single branches
+Several styles are possible for single branches, according to the size
+of the expressions in question and especially the presence of `begin`
+`end` or `(` `)` delimiters for these expressions.
+
+In the case of delimiting the branches of a conditional, several styles
+are used:
+
+> `(` at end of line:
+> 
+> ```ocaml
+> if cond then (
+>   e1
+> ) else (
+>   e2
+> )
+> ```
+> Or alternatively first `begin` at beginning of line:
+> 
+> ```ocaml
+> if cond then
+>   begin
+>     e1
+>   end else begin
+>     e2
+>   end
+> ```
+
+In fact the indentation of conditionals depends on the sizes of the
+expressions which make them up.
+
+> 
+> If `cond`, `e1` and `e2` are small, simply write them on one line:
+> 
+> ```ocaml
+> if cond then e1 else e2
+> ```
+> If the expressions making up a conditional are purely functional
+> (without side effects), we advocate binding them within the
+> conditional with `let e = ... in` when they're too big to fit on a
+> line.
+> 
+> > 
+> > **Justification**: This way you get back the simple indentation on
+> > one line which is the most readable. As a side benefit, the naming
+> > acts as an aid to comprehension.
+> > 
+> 
+> So now we consider the case in which the expressions in question do
+> have side effects, which keeps us from simply binding them with a
+> `let e = ... in`.
+> 
+> > 
+> > If `e1` and `cond` are small, but `e2` large:
+> > 
+> > ```ocaml
+> > if cond then e1 else
+> >   e2
+> > ```
+> > 
+> > If `e1` and `cond` are large and `e2` small:
+> > 
+> > ```ocaml
+> > if cond then
+> >   e1
+> > else e2
+> > ```
+> > 
+> > If all the expressions are large:
+> > 
+> > ```ocaml
+> > if cond then
+> >   e1
+> > else
+> >   e2
+> > ```
+> > 
+> > If there are `( )` delimiters:
+> > 
+> > ```ocaml
+> > if cond then (
+> >   e1
+> > ) else (
+> >   e2
+> > )
+> > ```
+> > 
+> > A mixture where `e1` requires `( )` but `e2` is small:
+> > 
+> > ```ocaml
+> > if cond then (
+> >     e1
+> > ) else e2
+> > ```
+
+###  How to indent pattern-matching constructs
+####  General principles
+All the pattern-matching clauses are introduced by a vertical bar,
+*including* the first one.
+
+> 
+> **Criticism**: The first vertical bar is not mandatory: hence, there
+> is no need to write it.
+> 
+> **Answer to criticism**: If you omit the first bar the indentation
+> seems unnatural : the first case gets an indentation that is greater
+> than a normal new line would necessitate. It is thus a useless
+> exception to the correct indentation rule. It also insists not to use
+> the same syntax for the whole set of clauses, writing the first clause
+> as an exception with a slightly different syntax. Last, aesthetic
+> value is doubtful (some people would say “awful” instead of
+> “doubtful”).
+> 
+
+Align all the pattern-matching clauses at the level of the vertical bar
+which begins each clause, *including* the first one.
+
+If an expression in a clause is too large to fit on the line, you must
+break the line immediately after the arrow of the corresponding clause.
+Then indent normally, starting from the beginning of the pattern of the
+clause.
+
+Arrows of pattern matching clauses should not be aligned.
+
+####  `match` or `try`
+For a `match` or a `try` align the clauses with the beginning of the
+construct:
+
+<!-- $MDX skip -->
+```ocaml
+match lam with
+| Abs (x, body) -> 1 + size_lambda body
+| App (lam1, lam2) -> size_lambda lam1 + size_lambda lam2
+| Var v -> 1
+
+try f x with
+| Not_found -> ...
+| Failure "not yet implemented" -> ...
+```
+Put the keyword `with` at the end of the line. If the preceding
+expression extends beyond one line, put `with` on a line by itself:
+
+<!-- $MDX skip -->
+```ocaml
+try
+  let y = f x in
+  if ...
+with
+| Not_found -> ...
+| Failure "not yet implemented" -> ...
+```
+> 
+> **Justification**: The keyword `with`, on a line by itself shows that
+> the program enters the pattern matching part of the construct.
+> 
+
+####  Indenting expressions inside clauses
+If the expression on the right of the pattern matching arrow is too
+large, cut the line after the arrow.
+
+<!-- $MDX skip -->
+```ocaml
+match lam with
+| Abs (x, body) ->
+   1 + size_lambda body
+| App (lam1, lam2) ->
+   size_lambda lam1 + size_lambda lam2
+| Var v ->
+```
+Some programmers generalize this rule to all clauses, as soon as one
+expressions overflows. They will then indent the last clause like this:
+
+<!-- $MDX skip -->
+```ocaml
+| Var v ->
+   1
+```
+Other programmers go one step further and apply this rule systematically
+to any clause of any pattern matching.
+
+<!-- $MDX skip -->
+```ocaml
+let rec fib = function
+  | 0 ->
+     1
+  | 1 ->
+     1
+  | n ->
+     fib (n - 1) + fib ( n - 2)
+```
+> 
+> **Criticism**: May be not compact enough; for simple pattern matchings
+> (or simple clauses in complex matchings), the rule does not add any
+> good to readability.
+> 
+> **Justification**: I don't see any good reason for this rule, unless
+> you are paid proportionally to the number of lines of code: in this
+> case use this rule to get more money without adding more bugs in your
+> OCaml programs!
+> 
+
+####  Pattern matching in anonymous functions
+Similarly to `match` or `try`, pattern matching of anonymous functions,
+starting by `function`, are indented with respect to the `function`
+keyword:
+
+<!-- $MDX skip -->
+```ocaml
+map
+  (function
+   | Abs (x, body) -> 1 + size_lambda 0 body
+   | App (lam1, lam2) -> size_lambda (size_lambda 0 lam1) lam2
+   | Var v -> 1)
+  lambda_list
+```
+####  Pattern matching in named functions
+Pattern-matching in functions defined by `let` or `let rec` gives rise
+to several reasonable styles which obey the preceding rules for pattern
+matching (the one for anonymous functions being evidently excepted). See
+above for recommended styles.
+
+<!-- $MDX skip -->
+```ocaml
+let rec size_lambda accu = function
+  | Abs (x, body) -> size_lambda (succ accu) body
+  | App (lam1, lam2) -> size_lambda (size_lambda accu lam1) lam2
+  | Var v -> succ accu
+
+let rec size_lambda accu = function
+| Abs (x, body) -> size_lambda (succ accu) body
+| App (lam1, lam2) -> size_lambda (size_lambda accu lam1) lam2
+| Var v -> succ accu
+```
+###  Bad indentation of pattern-matching constructs
+####  No *beastly* indentation of functions and case analyses.
+This consists in indenting normally under the keyword `match` or
+`function` which has previously been pushed to the right. Don't write:
+
+<!-- $MDX skip -->
+```ocaml
+let rec f x = function
+              | [] -> ...
+              ...
+```
+but choose to indent the line under the `let` keyword:
+
+<!-- $MDX skip -->
+```ocaml
+let rec f x = function
+  | [] -> ...
+  ...
+```
+> 
+> **Justification**: You bump into the margin. The aesthetic value is
+> doubtful...
+> 
+
+####  No *beastly* alignment of the `->` symbols in pattern-matching clauses.
+Careful alignment of the arrows of a pattern matching is considered bad
+practice, as exemplify in the following fragment:
+
+<!-- $MDX skip -->
+```ocaml
+let f = function
+  | C1          -> 1
+  | Long_name _ -> 2
+  | _           -> 3
+```
+> 
+> **Justification**: This makes it harder to maintain the program (the
+> addition of a supplementary case can lead the indentations of all the
+> lines to change and so ... we often give up alignment at that time,
+> then it is better not to align the arrows in the first place!).
+> 
+
+###  How to indent function calls
+####  Indentation to the function's name:
+No problem arises except for functions with many arguments&mdash;or very
+complicated arguments as well&mdash;which can't fit on the same line. You
+must indent the expressions with respect to the name of the function (1
+or 2 spaces according to the chosen convention). Write small arguments
+on the same line, and change lines at the start of an argument.
+
+As far as possible, avoid arguments which consist of complex
+expressions: in these cases define the “large” argument by a `let`
+construction.
+
+> 
+> **Justification**: No indentation problem; if the name given to the
+> expressions is meaningful, the code is more readable as well.
+> 
+> **Additional justification**: If the evaluation of the arguments
+> produces side effects, the `let` binding is in fact necessary to
+> explicitly define the order of evaluation.
+> 
+
+
 ##  Notes
 ###  Imperative and functional versions of `list_length`
 The two versions of `list_length` are not completely equivalent in term
@@ -1776,3 +1786,11 @@ as the imperative program with the additional clarity and natural
 look of an algorithm that performs pattern matching and recursive
 calls to handle an argument that belongs to a recursive sum data type.
 
+## Credits
+Original translation from French: [Ruchira
+Datta](mailto:datta@math.berkeley.edu).
+
+Thanks to all those who have already participated in the critique of
+this page: Daniel de Rauglaudre, Luc Maranget, Jacques Garrigue, Damien
+Doligez, Xavier Leroy, Bruno Verlyck, Bruno Petazzoni, Francois Maltey,
+Basile Starynkevitch, Toby Moth, Pierre Lescanne.
