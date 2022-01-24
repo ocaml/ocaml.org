@@ -1,0 +1,12 @@
+(executable
+ (name index)
+ (js_of_ocaml
+  (javascript_files import.js))
+ (modes js)
+ (libraries
+  brr
+  brr-lwd
+  js_of_ocaml
+  code-mirror
+  code-mirror.lint
+  ocamlorg_toplevel))

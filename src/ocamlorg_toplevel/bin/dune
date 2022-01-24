@@ -104,14 +104,27 @@
  js/
  (rule
   (alias toplevel)
-  (targets stdlib-4.13.0.js worker.js worker_base.js base-v0.14.1.js)
+  (targets
+   stdlib-4.13.0.js
+   worker.js
+   worker_base.js
+   base-v0.14.1.js
+   playground.js)
   (deps
+   ../../playground/index.bc.js
    ../toplevel_stdlib.bc.js
    ../toplevel_base.bc.js
    ../worker.js
    ../worker_base.js)
   (action
    (progn
+    (run
+     npx
+     esbuild
+     --minify
+     --bundle
+     --outfile=playground.js
+     ../../playground/index.bc.js)
     (run jsoo_minify ../toplevel_stdlib.bc.js -o stdlib-4.13.0.js)
     (run jsoo_minify ../worker.js -o worker.js)
     (run jsoo_minify ../toplevel_base.bc.js -o base-v0.14.1.js)

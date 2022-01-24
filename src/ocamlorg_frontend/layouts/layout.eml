@@ -37,8 +37,6 @@ inner =
   <link rel="stylesheet" href="/main.css" />
   <link rel="stylesheet" href="/vendors/font-files/inter.css" />
   <script defer src="/vendors/alpine.min.js"></script>
-  <script defer src="/vendors/codemirror.js"></script>
-  <script defer src="/vendors/javascript.js"></script>
   <% if use_turbo then ( %>
   <script src="/vendors/alpine-turbo-drive-adapter.min.js"></script>
   <script src="/vendors/turbo.es2017-umd.js"></script>

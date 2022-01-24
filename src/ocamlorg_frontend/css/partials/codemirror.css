@@ -1,6 +1,6 @@
 /* BASICS */
 
-.CodeMirror {
+.cm-editor {
   /* Set height, width, borders, and global font properties here */
   font-family: monospace;
   height: 300px;
@@ -10,26 +10,26 @@
 
 /* PADDING */
 
-.CodeMirror-lines {
+.cm-editor.cm-lines {
   padding: 4px 0; /* Vertical padding around content */
 }
-.CodeMirror pre.CodeMirror-line,
-.CodeMirror pre.CodeMirror-line-like {
+.cm-editor pre.cm-line,
+.cm-editor pre.cm-lineLike {
   padding: 0 4px; /* Horizontal padding of content */
 }
 
-.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+.cm-editor .cm-scrollbarFiller, .cm-editor .cm-gutterFiller {
   background-color: white; /* The little square between H and V scrollbars */
 }
 
 /* GUTTER */
 
-.CodeMirror-gutters {
+.cm-editor .cm-gutters {
   background-color: #1e1e1e;
   white-space: nowrap;
 }
-.CodeMirror-linenumbers {}
-.CodeMirror-linenumber {
+.cm-editor .cm-lineNumbers {}
+.cm-editor .cm-lineNumber {
   padding: 0 3px 0 5px;
   min-width: 20px;
   text-align: center;
@@ -37,34 +37,34 @@
   white-space: nowrap;
 }
 
-.CodeMirror-guttermarker { color: black; }
-.CodeMirror-guttermarker-subtle { color: #999; }
+.cm-editor .cm-guttermarker { color: black; }
+.cm-editor .cm-guttermarkerSubtle { color: #999; }
 
 /* CURSOR */
 
-.CodeMirror-cursor {
+.cm-editor .cm-cursor {
   border-left: 1px solid black;
   border-right: none;
   width: 0;
 }
 /* Shown when moving in bi-directional text */
-.CodeMirror div.CodeMirror-secondarycursor {
+.cm-editor div.cm-secondarycursor {
   border-left: 1px solid silver;
 }
-.cm-fat-cursor .CodeMirror-cursor {
+.cm-editor .cm-fat-cursor .cm-cursor {
   width: auto;
   border: 0 !important;
   background: #7e7;
 }
-.cm-fat-cursor div.CodeMirror-cursors {
+.cm-fat-cursor div.cm-cursors {
   z-index: 1;
 }
-.cm-fat-cursor .CodeMirror-line::selection,
-.cm-fat-cursor .CodeMirror-line > span::selection, 
-.cm-fat-cursor .CodeMirror-line > span > span::selection { background: transparent; }
-.cm-fat-cursor .CodeMirror-line::-moz-selection,
-.cm-fat-cursor .CodeMirror-line > span::-moz-selection,
-.cm-fat-cursor .CodeMirror-line > span > span::-moz-selection { background: transparent; }
+.cm-fat-cursor .cm-line::selection,
+.cm-fat-cursor .cm-line > span::selection, 
+.cm-fat-cursor .cm-line > span > span::selection { background: transparent; }
+.cm-fat-cursor .cm-line::-moz-selection,
+.cm-fat-cursor .cm-line > span::-moz-selection,
+.cm-fat-cursor .cm-line > span > span::-moz-selection { background: transparent; }
 .cm-fat-cursor { caret-color: transparent; }
 @-moz-keyframes blink {
   0% {}
@@ -83,16 +83,16 @@
 }
 
 /* Can style cursor different in overwrite (non-insert) mode */
-.CodeMirror-overwrite .CodeMirror-cursor {}
+.cm-overwrite .cm-cursor {}
 
 .cm-tab { display: inline-block; text-decoration: inherit; }
 
-.CodeMirror-rulers {
+.cm-rulers {
   position: absolute;
   left: 0; right: 0; top: -50px; bottom: 0;
   overflow: hidden;
 }
-.CodeMirror-ruler {
+.cm-ruler {
   border-left: 1px solid #ccc;
   top: 0; bottom: 0;
   position: absolute;
@@ -134,21 +134,21 @@
 .cm-s-default .cm-error {color: #f00;}
 .cm-invalidchar {color: #f00;}
 
-.CodeMirror-composing { border-bottom: 2px solid; }
+.cm-composing { border-bottom: 2px solid; }
 
 /* Default styles for common addons */
 
-div.CodeMirror span.CodeMirror-matchingbracket {color: #0b0;}
-div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #a22;}
-.CodeMirror-matchingtag { background: rgba(255, 150, 0, .3); }
-.CodeMirror-activeline-background {background: #e8f2ff;}
+div.cm-editor span.cm-matchingbracket {color: #0b0;}
+div.cm-editor span.cm-nonmatchingbracket {color: #a22;}
+.cm-matchingtag { background: rgba(255, 150, 0, .3); }
+.cm-activeline-background {background: #e8f2ff;}
 
 /* STOP */
 
 /* The rest of this file contains styles related to the mechanics of
    the editor. You probably shouldn't touch them. */
 
-.CodeMirror {
+.cm-editor {
   position: relative;
   overflow: hidden;
   background: #1E1E1E;
@@ -157,17 +157,17 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #a22;}
   padding: 28px 10px;
 }
 
-.CodeMirror-scroll {
+.cm-editor .cm-scroll {
   overflow: scroll !important; /* Things will break if this is overridden */
   /* 50px is the magic margin used to hide the element's real scrollbars */
-  /* See overflow: hidden in .CodeMirror */
+  /* See overflow: hidden in .cm-editor */
   margin-bottom: -50px; margin-right: -30px;
   padding-bottom: 50px;
   height: 100%;
   outline: none; /* Prevent dragging from highlighting the element */
   position: relative;
 }
-.CodeMirror-sizer {
+.cm-editor .cm-sizer {
   position: relative;
   border-right: 50px solid transparent;
 }
@@ -175,69 +175,70 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #a22;}
 /* The fake, visible scrollbars. Used to force redraw during scrolling
    before actual scrolling happens, thus preventing shaking and
    flickering artifacts. */
-.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+.cm-editor .cm-vscrollbar, .cm-editor .cm-hscrollbar, .cm-editor .cm-scrollbarFiller, .cm-editor .cm-gutterFiller {
   position: absolute;
   z-index: 6;
   display: none;
   outline: none;
 }
-.CodeMirror-vscrollbar {
+.cm-editor .cm-vscrollbar {
   right: 0; top: 0;
   overflow-x: hidden;
   overflow-y: scroll;
 }
-.CodeMirror-vscrollbar div:first-child {
+.cm-editor .cm-vscrollbar div:first-child {
   background: #1e1e1e;
 }
-.CodeMirror-hscrollbar {
+.cm-editor .cm-hscrollbar {
   bottom: 0; left: 0;
   overflow-y: hidden;
   overflow-x: scroll;
 }
-.CodeMirror-scrollbar-filler {
+.cm-editor .cm-scrollbar-filler {
   right: 0; bottom: 0;
 }
-.CodeMirror-gutter-filler {
+.cm-editor .cm-gutter-filler {
   left: 0; bottom: 0;
 }
 
-.CodeMirror-gutters {
+.cm-editor .cm-gutters {
   position: absolute; left: 0; top: 0;
   min-height: 100%;
   z-index: 3;
 }
-.CodeMirror-gutter {
+.cm-editor .cm-gutter {
   white-space: normal;
   height: 100%;
   display: inline-block;
   vertical-align: top;
   margin-bottom: -50px;
 }
-.CodeMirror-gutter-wrapper {
+.cm-editor .cm-gutterWrapper {
   position: absolute;
   z-index: 4;
   background: none !important;
   border: none !important;
 }
-.CodeMirror-gutter-background {
+
+.cm-editor .cm-gutterBackground {
   position: absolute;
   top: 0; bottom: 0;
   z-index: 4;
 }
-.CodeMirror-gutter-elt {
+/* .cm-editor .cm-gutterElement {
   position: absolute;
   cursor: default;
   z-index: 4;
-}
-.CodeMirror-gutter-wrapper ::selection { background-color: transparent }
-.CodeMirror-gutter-wrapper ::-moz-selection { background-color: transparent }
+} */
+.cm-editor .cm-gutterWrapper ::selection { background-color: transparent }
+.cm-editor .cm-gutterWrapper ::-moz-selection { background-color: transparent }
 
-.CodeMirror-lines {
+.cm-editor .cm-lines {
   cursor: text;
   min-height: 1px; /* prevents collapsing before first draw */
 }
-.CodeMirror pre.CodeMirror-line,
-.CodeMirror pre.CodeMirror-line-like {
+.cm-editor pre.cm-line,
+.cm-editor pre.cm-line-like {
   /* Reset some styles that the rest of the page might have set */
   -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;
   border-width: 0;
@@ -256,45 +257,45 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #a22;}
   -webkit-font-variant-ligatures: contextual;
   font-variant-ligatures: contextual;
 }
-.CodeMirror-wrap pre.CodeMirror-line,
-.CodeMirror-wrap pre.CodeMirror-line-like {
+.cm-wrap pre.cm-line,
+.cm-wrap pre.cm-line-like {
   word-wrap: break-word;
   white-space: pre-wrap;
   word-break: normal;
 }
 
-.CodeMirror-linebackground {
+.cm-linebackground {
   position: absolute;
   left: 0; right: 0; top: 0; bottom: 0;
   z-index: 0;
 }
 
-.CodeMirror-linewidget {
+.cm-linewidget {
   position: relative;
   z-index: 2;
   padding: 0.1px; /* Force widget margins to stay inside of the container */
 }
 
-.CodeMirror-widget {}
+.cm-widget {}
 
-.CodeMirror-rtl pre { direction: rtl; }
+.cm-rtl pre { direction: rtl; }
 
-.CodeMirror-code {
+.cm-code {
   outline: none;
   line-height: 28px;
 }
 
 /* Force content-box sizing for the elements where we expect it */
-.CodeMirror-scroll,
-.CodeMirror-sizer,
-.CodeMirror-gutter,
-.CodeMirror-gutters,
-.CodeMirror-linenumber {
+.cm-scroll,
+.cm-sizer,
+.cm-gutter,
+.cm-gutters,
+.cm-lineNumber {
   -moz-box-sizing: content-box;
   box-sizing: content-box;
 }
 
-.CodeMirror-measure {
+.cm-measure {
   position: absolute;
   width: 100%;
   height: 0;
@@ -302,30 +303,30 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #a22;}
   visibility: hidden;
 }
 
-.CodeMirror-cursor {
+.cm-cursor {
   position: absolute;
   pointer-events: none;
 }
-.CodeMirror-measure pre { position: static; }
+.cm-measure pre { position: static; }
 
-div.CodeMirror-cursors {
+div.cm-cursors {
   visibility: hidden;
   position: relative;
   z-index: 3;
 }
-div.CodeMirror-dragcursors {
+div.cm-dragcursors {
   visibility: visible;
 }
 
-.CodeMirror-focused div.CodeMirror-cursors {
+.cm-focused div.cm-cursors {
   visibility: visible;
 }
 
-.CodeMirror-selected { background: #d9d9d9; }
-.CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }
-.CodeMirror-crosshair { cursor: crosshair; }
-.CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; }
-.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }
+.cm-selected { background: #d9d9d9; }
+.cm-focused .cm-selected { background: #d7d4f0; }
+.cm-crosshair { cursor: crosshair; }
+.cm-line::selection, .cm-line > span::selection, .cm-line > span > span::selection { background: #d7d4f0; }
+.cm-line::-moz-selection, .cm-line > span::-moz-selection, .cm-line > span > span::-moz-selection { background: #d7d4f0; }
 
 .cm-searching {
   background-color: #ffa;
@@ -337,7 +338,7 @@ div.CodeMirror-dragcursors {
 
 @media print {
   /* Hide the cursor when printing */
-  .CodeMirror div.CodeMirror-cursors {
+  .cm-editor div.cm-cursors {
     visibility: hidden;
   }
 }
@@ -346,4 +347,4 @@ div.CodeMirror-dragcursors {
 .cm-tab-wrap-hack:after { content: ''; }
 
 /* Help users use markselection to safely style text background */
-span.CodeMirror-selectedtext { background: none; }
+span.cm-selectedtext { background: none; }

@@ -54,6 +54,7 @@ module Make (R : RPC) = struct
   let implementation = implement description
   let unit_p = Param.mk Types.unit
   let phrase_p = Param.mk Types.string
+  let typecheck_result_p = Param.mk exec_result
   let exec_result_p = Param.mk exec_result
   let completion_p = Param.mk completion_result
 
@@ -64,6 +65,12 @@ module Make (R : RPC) = struct
         "printed when starting a toplevel.";
       ]
       (unit_p @-> returning exec_result_p err)
+
+  let typecheck =
+    declare
+      "typecheck"
+      [ "Typecheck a phrase without actually executing it." ]
+      (phrase_p @-> returning typecheck_result_p err)
 
   let exec =
     declare "exec"
