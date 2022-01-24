@@ -9,4 +9,5 @@
   js_of_ocaml
   code-mirror
   code-mirror.lint
+  code-mirror.autocomplete
   ocamlorg_toplevel))

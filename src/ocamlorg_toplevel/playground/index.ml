@@ -101,6 +101,33 @@ let linter =
   in
   Lint.create f
 
+(* ~~~ Autocompletion ~~~ *)
+let complete : Autocomplete.source = fun (ctx : Autocomplete.Context.t) ->
+  let open Autocomplete in
+  let result, set_result = Fut.create () in
+  let rword = RegExp.create ".*" in
+  match Autocomplete.Context.match_before ctx rword with
+    | Some jv ->
+      let run () =
+        let from = Jv.Int.get jv "from" in
+        let text = Jv.Jstr.get jv "text" |> Jstr.to_string in
+        let* c = Toprpc.complete rpc text in
+        let options =
+          List.map (fun label -> Completion.create ~label ()) c.completions
+        in
+        let r = Result.create ~from:(from + c.n) ~options () in
+        Lwt.return (set_result (Some r))
+      in
+      Lwt.async run;
+      result
+    | _ -> result
+
+let autocomplete = 
+  let config = 
+    Autocomplete.config ~override:[ complete ] ()
+  in
+  Autocomplete.create ~config ()
+
 (* Need to port lesser-dark and custom theme to CM6, until then just using the
    one dark theme. *)
 let dark_theme_ext =
@@ -145,7 +172,7 @@ let setup () =
     let ml = Stream.Language.define ml_like in
     Edit.init
       ~doc:(Jstr.v Example.adts)
-      ~exts:[| dark_theme_ext; ml; linter; Editor.View.line_wrapping () |]
+      ~exts:[| dark_theme_ext; ml; autocomplete; linter; Editor.View.line_wrapping () |]
       ()
   in
   let button = get_el_by_id "run" in

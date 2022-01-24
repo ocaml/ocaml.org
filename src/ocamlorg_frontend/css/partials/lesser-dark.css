@@ -5,7 +5,7 @@ Ported to CodeMirror by Peter Kroon
 .cm-s-lesser-dark .cm-editor {
   line-height: 1.3em;
 }
-.cm-s-lesser-dark .cm-editor, .cm-content {
+.cm-s-lesser-dark .cm-editor, .cm-content, .cm-completionLabel {
   font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace !important;
 }
 
