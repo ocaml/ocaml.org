@@ -58,7 +58,7 @@ inner =
     <div class="container-fluid header flex justify-between items-center">
       <div class="space-x-8 flex items-center">
         <a href="<%s Url.index %>">
-          <img src="/img/logo.svg" width="42px" alt="OCaml logo">
+          <img src="/logo.svg" width="42px" alt="OCaml logo">
         </a>
         <ul class="space space-x-8 hidden lg:flex text-white text-opacity-60 font-semibold">
           <li><a href="<%s Url.learn %>" class="hover:text-primary-600">Learn</a></li>
