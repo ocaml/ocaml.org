@@ -166,11 +166,11 @@ OCaml helps them quickly adapt to changing market conditions, and go from protot
   ; synopsis = {js|Integrated end-user software solution to efficiently manage all types of structured investment products and provide superior client services.|js}
   ; url = {js|https://www.lexifi.com/|js}
   ; body_md = {js|
-[LexiFi](https://www.lexifi.com/) was founded in the 2000s, taking the ideas of [this paper](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/contracts-icfp.pdf) and developing them into an industrial-strength offer. Today, [LexiFi](https://www.lexifi.com/) is a leader in software solutions that manage all aspects of complex derivatives contracts.
+[LexiFi](https://www.lexifi.com/) was founded in the 2000s, taking the ideas of [this paper](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/contracts-icfp.pdf) and developing them into an industrial-strength offer. Today, [LexiFi](https://www.lexifi.com/) is a leading provider of software solutions used to manage derivative contracts.
 
-Since its inception, [LexiFi's](https://www.lexifi.com/) software was developed integrally in OCaml. Originally SML/NJ had also been considered as a potential choice, but OCaml was selected mainly due to the quality of its FFI (enabling easy access to existing C libraries) and the possibility of using standard build tools such as `make`.
+Since its inception, [LexiFi's](https://www.lexifi.com/) software has been written in OCaml. Originally SML/NJ had also been considered as a potential choice, but OCaml was selected mainly due to the quality of its FFI (enabling easy access to existing C libraries) and the possibility of using standard build tools such as `make`.
 
-In hindsight, the bet on OCaml turned out to be an excellent one. It has allowed [LexiFi](https://www.lexifi.com/) to develop software with unsurpassed agility and robustness. OCaml enables a small group of developers to drive a large codebase over two decades of evolutions while keeping code simple and easy-to-read. It also efficiently solves an ever-growing set of problems for our clients.
+In hindsight, the bet on OCaml turned out to be an excellent one. It has allowed [LexiFi](https://www.lexifi.com/) to develop software with unsurpassed agility and robustness. OCaml enabled a small group of developers to drive a large codebase over two decades of evolutions while keeping code simple and easy-to-read. It also efficiently solves an ever-growing set of problems for our clients.
 
 Lastly, excellent cross-system support of the OCaml toolchain has been a key advantage in simplifying software development and deployment across Unix, Windows, and the Web (thanks to the excellent [`js_of_ocaml`](https://github.com/ocsigen/js_of_ocaml)).
 
@@ -184,7 +184,7 @@ One of the key technical building blocks of [LexiFi's](https://www.lexifi.com/) 
 
 ### Solution
 
-As an outgrowth of the combinator language described in the [paper](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/contracts-icfp.pdf), this language plays a key role throughout. Once a contract is entered into the system, it's represented by an algebraic term. This term can then be stored, converted, translated, communicated, and transformed across a variety of formats and for any number of purposes.
+As an outgrowth of the combinator language described in the [paper](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/contracts-icfp.pdf), this language plays a key role throughout. Once a contract is entered into the system, it is represented by an algebraic term. This term can then be stored, converted, translated, communicated, and transformed across a variety of formats and for any number of purposes.
 
 Just as a single example among many, one way the contract algebra is transformed is by **compiling** its terms to a low-level **bytecode** representation for very fast Monte Carlo simulations that calculate contract prices and other quantities of interest.
 
@@ -204,7 +204,7 @@ In each one of these cases, LexiFi has developed small **combinator** libraries 
 
 ### Results
 
-Once again, OCaml's excellent facilities for symbolic processing has made developing these connectors a rather enjoyable enterprise, resulting in code that is easy to maintain and evolves over time.
+Once again, OCaml's excellent facilities for symbolic processing has made developing these connectors a rather enjoyable enterprise, resulting in code that is easy to maintain and evolve over time.
 
 ## Case Study: UI Construction
 
@@ -213,7 +213,7 @@ Since LexiFi's end users are mostly financial operatives without special program
 
 ### Solution
 
-The **meta-programming** facilities of OCaml automatically derive user interfaces directly from OCaml code declarations, making it seamless for developers to write code and its associated user interface at the same time. This allows an extremely agile development style where the user interface can evolve in tandem with the code. This ability to "tie" the user interface to the code means that the two never get out of sync, and a whole class of bugs are just ruled out by construction.
+LexiFi uses the **meta-programming** facilities of OCaml to automatically derive user interfaces directly from OCaml code declarations, making it seamless for developers to write code and its associated user interface at the same time. This allows an extremely agile development style where the user interface can evolve in tandem with the code. This ability to "tie" the user interface to the code means that the two never get out of sync, and a whole class of bugs are just ruled out by construction.
 
 Furthermore, having described the user interface in terms of OCaml code means that LexiFi can retarget this description to different **backends**, producing Web and native versions of the same UI from a single description.
 
@@ -221,16 +221,16 @@ Furthermore, having described the user interface in terms of OCaml code means th
 
 This approach greatly increases the capacity to quickly develop new features to the point that a single developer can over the course of a day set the foundations of a new feature, together with a corresponding user interface, both on the Desktop and the Web, while never taking their eyes off the key business logic. Not a mean feat!
 |js}
-  ; body_html = {js|<p><a href="https://www.lexifi.com/">LexiFi</a> was founded in the 2000s, taking the ideas of <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/contracts-icfp.pdf">this paper</a> and developing them into an industrial-strength offer. Today, <a href="https://www.lexifi.com/">LexiFi</a> is a leader in software solutions that manage all aspects of complex derivatives contracts.</p>
-<p>Since its inception, <a href="https://www.lexifi.com/">LexiFi's</a> software was developed integrally in OCaml. Originally SML/NJ had also been considered as a potential choice, but OCaml was selected mainly due to the quality of its FFI (enabling easy access to existing C libraries) and the possibility of using standard build tools such as <code>make</code>.</p>
-<p>In hindsight, the bet on OCaml turned out to be an excellent one. It has allowed <a href="https://www.lexifi.com/">LexiFi</a> to develop software with unsurpassed agility and robustness. OCaml enables a small group of developers to drive a large codebase over two decades of evolutions while keeping code simple and easy-to-read. It also efficiently solves an ever-growing set of problems for our clients.</p>
+  ; body_html = {js|<p><a href="https://www.lexifi.com/">LexiFi</a> was founded in the 2000s, taking the ideas of <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/contracts-icfp.pdf">this paper</a> and developing them into an industrial-strength offer. Today, <a href="https://www.lexifi.com/">LexiFi</a> is a leading provider of software solutions used to manage derivative contracts.</p>
+<p>Since its inception, <a href="https://www.lexifi.com/">LexiFi's</a> software has been written in OCaml. Originally SML/NJ had also been considered as a potential choice, but OCaml was selected mainly due to the quality of its FFI (enabling easy access to existing C libraries) and the possibility of using standard build tools such as <code>make</code>.</p>
+<p>In hindsight, the bet on OCaml turned out to be an excellent one. It has allowed <a href="https://www.lexifi.com/">LexiFi</a> to develop software with unsurpassed agility and robustness. OCaml enabled a small group of developers to drive a large codebase over two decades of evolutions while keeping code simple and easy-to-read. It also efficiently solves an ever-growing set of problems for our clients.</p>
 <p>Lastly, excellent cross-system support of the OCaml toolchain has been a key advantage in simplifying software development and deployment across Unix, Windows, and the Web (thanks to the excellent <a href="https://github.com/ocsigen/js_of_ocaml"><code>js_of_ocaml</code></a>).</p>
 <p>All in all, OCaml is a beautiful marriage of pragmatism, efficiency, and solid theoretical foundations, and this combination fits perfectly with the needs and vision of <a href="https://www.lexifi.com/">LexiFi</a>.</p>
 <h2>Case Study: Contract Algebra</h2>
 <h3>Challenge</h3>
 <p>One of the key technical building blocks of <a href="https://www.lexifi.com/">LexiFi's</a> software stack is its <strong>contract algebra</strong>. This is a domain-specific language (DSL) with formal semantics used to describe complex derivative contracts.</p>
 <h3>Solution</h3>
-<p>As an outgrowth of the combinator language described in the <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/contracts-icfp.pdf">paper</a>, this language plays a key role throughout. Once a contract is entered into the system, it's represented by an algebraic term. This term can then be stored, converted, translated, communicated, and transformed across a variety of formats and for any number of purposes.</p>
+<p>As an outgrowth of the combinator language described in the <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/contracts-icfp.pdf">paper</a>, this language plays a key role throughout. Once a contract is entered into the system, it is represented by an algebraic term. This term can then be stored, converted, translated, communicated, and transformed across a variety of formats and for any number of purposes.</p>
 <p>Just as a single example among many, one way the contract algebra is transformed is by <strong>compiling</strong> its terms to a low-level <strong>bytecode</strong> representation for very fast Monte Carlo simulations that calculate contract prices and other quantities of interest.</p>
 <h3>Results</h3>
 <p>OCaml shines at these kinds of tasks, which are its bread and butter. The resulting code is not only efficient, but also robust, clear, and simple.</p>
@@ -240,12 +240,12 @@ This approach greatly increases the capacity to quickly develop new features to 
 <h3>Solution</h3>
 <p>In each one of these cases, LexiFi has developed small <strong>combinator</strong> libraries to parse, analyze, and convert these imported documents into LexiFi's internal representation based on the <strong>contract algebra</strong>. They do this by leveraging the existing mature libraries from the OCaml ecosystem, such as <a href="https://github.com/johnwhitington/camlpdf"><code>camlpdf</code></a> to parse PDF documents, <a href="https://erratique.ch/software/xmlm"><code>xmlm</code></a> to parse XML, and others.</p>
 <h3>Results</h3>
-<p>Once again, OCaml's excellent facilities for symbolic processing has made developing these connectors a rather enjoyable enterprise, resulting in code that is easy to maintain and evolves over time.</p>
+<p>Once again, OCaml's excellent facilities for symbolic processing has made developing these connectors a rather enjoyable enterprise, resulting in code that is easy to maintain and evolve over time.</p>
 <h2>Case Study: UI Construction</h2>
 <h3>Challenge</h3>
 <p>Since LexiFi's end users are mostly financial operatives without special programming experience, it's crucial to offer simple and clear user interfaces to our software.</p>
 <h3>Solution</h3>
-<p>The <strong>meta-programming</strong> facilities of OCaml automatically derive user interfaces directly from OCaml code declarations, making it seamless for developers to write code and its associated user interface at the same time. This allows an extremely agile development style where the user interface can evolve in tandem with the code. This ability to &quot;tie&quot; the user interface to the code means that the two never get out of sync, and a whole class of bugs are just ruled out by construction.</p>
+<p>LexiFi uses the <strong>meta-programming</strong> facilities of OCaml to automatically derive user interfaces directly from OCaml code declarations, making it seamless for developers to write code and its associated user interface at the same time. This allows an extremely agile development style where the user interface can evolve in tandem with the code. This ability to &quot;tie&quot; the user interface to the code means that the two never get out of sync, and a whole class of bugs are just ruled out by construction.</p>
 <p>Furthermore, having described the user interface in terms of OCaml code means that LexiFi can retarget this description to different <strong>backends</strong>, producing Web and native versions of the same UI from a single description.</p>
 <h3>Results</h3>
 <p>This approach greatly increases the capacity to quickly develop new features to the point that a single developer can over the course of a day set the foundations of a new feature, together with a corresponding user interface, both on the Desktop and the Web, while never taking their eyes off the key business logic. Not a mean feat!</p>
