@@ -77,10 +77,13 @@ with an emphasis on expressiveness and safety."
               <img class="h-6" src="/logos/facebook.svg" alt="Facebook">
           </div>
           <div class="mx-8 my-4">
-              <img class="h-10" src="/logos/janestreet.svg" alt="JaneStreet">
+              <img class="h-8" src="/logos/microsoft.svg" alt="Microsoft">
           </div>
           <div class="mx-8 my-4">
-              <img class="h-6" src="/logos/bloomberg.svg" alt="Bloomberg">
+              <img class="h-8" src="/logos/docker.svg" alt="Docker">
+          </div>
+          <div class="mx-8 my-4">
+              <img class="h-10" src="/logos/janestreet.svg" alt="JaneStreet">
           </div>
           <div class="mx-8 my-4">
               <img class="h-10" src="/logos/tezos.svg" alt="Tezos">
