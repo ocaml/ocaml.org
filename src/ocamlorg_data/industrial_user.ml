@@ -49,7 +49,7 @@ Aesthetic Integration (AI) is a financial technology startup based in the City o
  
   { name = {js|Ahrefs|js}
   ; slug = {js|ahrefs|js}
-  ; description = {js|Ahrefs develops custom distributed petabyte-scale storage and runs an internet-wide crawler to collect the index of the whole Web
+  ; description = {js|Ahrefs crawls the entire internet constantly to collect, process, and store data to build an all-in-one SEO toolkit.
 |js}
   ; logo = Some {js|/users/ahrefs.png|js}
   ; url = {js|https://www.ahrefs.com|js}
@@ -58,9 +58,9 @@ Aesthetic Integration (AI) is a financial technology startup based in the City o
   ; consortium = true
   ; featured = true
   ; body_md = {js|
-Ahrefs develops custom distributed petabyte-scale storage and runs an internet-wide crawler to collect the index of the whole Web. On top of that the company is building various analytical services for end-users. OCaml is the main language of the Ahrefs backend, which is currently processing up to 6 billion pages a day. Ahrefs is a multinational team with roots from Ukraine and offices in Singapore and San Francisco.
+Ahrefs develops custom distributed petabyte-scale storage and runs an internet-wide crawler to index the entire Web. The company also builds various analytical services for end users. Ahrefs uses OCaml as its primary language for their data processing system, which currently processes up to 6 billion pages a day. They also use OCaml for their website’s backend. Ahrefs has a multinational team with roots in the Ukraine, an office in Singapore, and remote collaborators all around the world.
 |js}
-  ; body_html = {js|<p>Ahrefs develops custom distributed petabyte-scale storage and runs an internet-wide crawler to collect the index of the whole Web. On top of that the company is building various analytical services for end-users. OCaml is the main language of the Ahrefs backend, which is currently processing up to 6 billion pages a day. Ahrefs is a multinational team with roots from Ukraine and offices in Singapore and San Francisco.</p>
+  ; body_html = {js|<p>Ahrefs develops custom distributed petabyte-scale storage and runs an internet-wide crawler to index the entire Web. The company also builds various analytical services for end users. Ahrefs uses OCaml as its primary language for their data processing system, which currently processes up to 6 billion pages a day. They also use OCaml for their website’s backend. Ahrefs has a multinational team with roots in the Ukraine, an office in Singapore, and remote collaborators all around the world.</p>
 |js}
   };
  
