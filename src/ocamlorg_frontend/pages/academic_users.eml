@@ -1,137 +1,137 @@
 let render (users : Ood.Academic_institution.t list) =
 Layout.render
 ~title:"Academic Users of OCaml"
-~description:"OCaml is taught all around the world and used every day by programming language researchers. Learn more
-about the strong academic roots of the language." @@
+~description:"OCaml is taught all around the world and used every day by programming language researchers. Learn more about the strong academic roots of the language." @@
 <div class="intro-section-simple">
-    <div class="container-fluid">
-        <div class="text-center w-full lg:w-2/3 m-auto">
-            <h1 class="font-bold mb-6">Academic Users of OCaml</h1>
-            <p>With its deep mathematical roots, OCaml has always had strong ties to academia. Currently, it is being
-                taught in universities around the world, and has accrued an ever growing body of research. This page
-                will provide you with an overview of the academic excellence that defines the culture of OCaml.</p>
-        </div>
+  <div class="container-fluid">
+    <div class="text-center w-full lg:w-2/3 m-auto">
+      <h1 class="font-bold mb-6">Academic Users of OCaml</h1>
+      <p>
+        With its deep mathematical roots, OCaml has always had strong ties to academia. Currently, it is being taught in universities around the world, and has accrued an ever growing body of research. This page will provide you with an overview of the academic excellence that defines the culture of
+        OCaml.
+      </p>
     </div>
+  </div>
 </div>
 <div class="bg-white py-0 md:pt-10 lg:pt-20 lg:pb-0">
-    <div class="container-fluid" x-data="{ continent: 'All' }">
-        <div class="flex justify-between mb-0 md:mb-10 lg:mb-20 lg:flex-row flex-col items-center">
-            <h2 class="font-bold mt-10 lg:mt-0 mb-10 lg:mb-0">30+ Academic Entries</h2>
-            <div
-                class="flex justify-between flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto">
-                <form action="<%s Url.academic_users %>" method="GET" class="form-input">
-                    <div class="form-input__icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-body-400" fill="none"
-                            viewBox="0 0 24 24" stroke="rgba(26, 32, 44, 1)">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </div>
-                    <label for="q2" class="sr-only">Institutions</label>
-                    <input class="focus:ring-orange-500" id="q2" name="q" type="search" placeholder="Search institutions">
-                </form>
-                <div class="relative h-14">
-                    <select
-                        class="w-full lg:w-auto appearance-none text-body-600 border rounded-md py-3 pl-6 border-gray-200 pr-14 h-full"
-                        name="All Regions" x-model="continent">
-                        <option>All</option>
-                        <option>North America</option>
-                        <option>Europe</option>
-                        <option>Asia</option>
-                    </select>
-                </div>
-            </div>
+  <div class="container-fluid" x-data="{ continent: 'All' }">
+    <div class="flex justify-between mb-0 md:mb-10 lg:mb-20 lg:flex-row flex-col items-center">
+      <h2 class="font-bold mt-10 lg:mt-0 mb-10 lg:mb-0">30+ Academic Entries</h2>
+      <div class="flex justify-between flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto">
+        <form action="<%s Url.academic_users %>" method="GET" class="form-input">
+          <div class="form-input__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-body-400" fill="none" viewBox="0 0 24 24" stroke="rgba(26, 32, 44, 1)">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <label for="q2" class="sr-only">Institutions</label>
+          <input class="focus:ring-orange-500" id="q2" name="q" type="search" placeholder="Search institutions" />
+        </form>
+        <div class="relative h-14">
+          <select class="w-full lg:w-auto appearance-none text-body-600 border rounded-md py-3 pl-6 border-gray-200 pr-14 h-full" name="All Regions" x-model="continent">
+            <option>All</option>
+            <option>North America</option>
+            <option>Europe</option>
+            <option>Asia</option>
+          </select>
         </div>
-        <div :class="continent != 'All' ? 'hidden' : 'grid-logos'">
-            <% users |> List.iter (fun (item : Ood.Academic_institution.t) ->
-            let logo = match item.logo with | Some x -> "/media/" ^ x | None -> "" in %>
-            <a href="<%s item.url %>" target="_blank"
-                class="p-12 hover:text-primary-600  flex items-center flex-col">
-                <img src="<%s logo %>" class="m-auto" alt="<%s item.name %> logo">
-                <div class="font-bold mt-8">
-                    <%s item.name %>
-                </div>
-            </a>
-            <% ); %>
-        </div>
+      </div>
+    </div>
+    <div :class="continent != 'All' ? 'hidden' : 'grid-logos'">
+      <% users |> List.iter (fun (item : Ood.Academic_institution.t) -> let logo = match item.logo with | Some x -> "/media/" ^ x | None -> "" in %>
+      <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
+        <img src="<%s logo %>" class="m-auto" alt="<%s item.name %> logo" />
+        <div class="font-bold mt-8"><%s item.name %></div>
+      </a>
+      <% ); %>
+    </div>
 
-        <div :class="continent != 'North America' ? 'hidden' : 'grid-logos'">
-            <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "North America") |> List.iter (fun
-            (item : Ood.Academic_institution.t) ->
-            let logo = match item.logo with | Some x -> "/media/" ^ x | None -> "" in %>
-            <a href="<%s item.url %>" target="_blank"
-                class="p-12 hover:text-primary-600  flex items-center flex-col">
-                <img src="<%s logo %>" class="m-auto" alt="<%s item.name %> logo">
-                <div class="font-bold mt-8">
-                    <%s item.name %>
-                </div>
-            </a>
-            <% ); %>
+    <div :class="continent != 'North America' ? 'hidden' : 'grid-logos'">
+      <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "North America") |> List.iter (fun (item : Ood.Academic_institution.t) -> let logo = match item.logo with | Some x -> "/media/" ^ x | None -> "" in %>
+      <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
+        <img src="<%s logo %>" class="m-auto" alt="<%s item.name %> logo" />
+        <div class="font-bold mt-8"><%s item.name %></div>
+      </a>
+      <% ); %>
     </div>
-        <div :class="continent != 'Europe' ? 'hidden' : 'grid-logos'">
-            <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "Europe") |> List.iter (fun (item :
-            Ood.Academic_institution.t) ->
-            let logo = match item.logo with | Some x -> "/media/" ^ x | None -> "" in %>
-            <a href="<%s item.url %>" target="_blank"
-                class="p-12 hover:text-primary-600  flex items-center flex-col">
-                <img src="<%s logo %>" class="m-auto" alt="<%s item.name %> logo">
-                <div class="font-bold mt-8">
-                    <%s item.name %>
-                </div>
-            </a>
-            <% ); %>
-        </div>
-        <div :class="continent != 'Asia' ? 'hidden' : 'grid-logos'">
-            <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "Asia") |> List.iter (fun (item :
-            Ood.Academic_institution.t) ->
-            let logo = match item.logo with | Some x -> "/media/" ^ x | None -> "" in %>
-            <a href="<%s item.url %>" target="_blank"
-                class="p-12 hover:text-primary-600  flex items-center flex-col">
-                <img src="<%s logo %>" class="m-auto" alt="<%s item.name %> logo">
-                <div class="font-bold mt-8">
-                    <%s item.name %>
-                </div>
-            </a>
-            <% ); %>
-        </div>
+    <div :class="continent != 'Europe' ? 'hidden' : 'grid-logos'">
+      <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "Europe") |> List.iter (fun (item : Ood.Academic_institution.t) -> let logo = match item.logo with | Some x -> "/media/" ^ x | None -> "" in %>
+      <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
+        <img src="<%s logo %>" class="m-auto" alt="<%s item.name %> logo" />
+        <div class="font-bold mt-8"><%s item.name %></div>
+      </a>
+      <% ); %>
     </div>
-    <div class="bg-pattern lg:py-32 py-24">
-        <div class="container-fluid">
-            <div class=" ">
-                <div class="text-center">
-                    <h2 class="font-bold text-primary-600 mb-6">Academic Resources</h2>
-                    <div class="text-lg text-white mb-16">Here are some of the resources that may be helpful to you
-                    </div>
-                </div>
-<%s! Curated_resources.(render [
-    papers; manual; books
-  ]) %>
-                <div class="grid lg:grid-cols-3 gap-8 lg:gap-16"></div>
-            </div>
-        </div>
+    <div :class="continent != 'Asia' ? 'hidden' : 'grid-logos'">
+      <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "Asia") |> List.iter (fun (item : Ood.Academic_institution.t) -> let logo = match item.logo with | Some x -> "/media/" ^ x | None -> "" in %>
+      <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
+        <img src="<%s logo %>" class="m-auto" alt="<%s item.name %> logo" />
+        <div class="font-bold mt-8"><%s item.name %></div>
+      </a>
+      <% ); %>
     </div>
+  </div>
+  <div class="bg-pattern lg:py-32 py-24">
     <div class="container-fluid">
-        <div class="text-center py-10 lg:py-28">
-            <h2 class="mb-6 font-bold">Our influence</h2>
-            <div>See where we are located around the world at an academic level</div>
-            <div class="mt-24 relative">
-                <img src="/img/academic/map.svg" alt="Influence Map">
-            </div>
+      <div class=" ">
+        <div class="text-center">
+          <h2 class="font-bold text-primary-600 mb-6">Academic Resources</h2>
+          <div class="text-lg text-white mb-16">Here are some of the resources that may be helpful to you</div>
         </div>
-    </div>
-    <div class="bg-primary-600 ">
-        <div class="container-fluid">
-            <div class="text-center text-white lg:p-16 py-10">
-                <h3 class="font-bold mb-6">Interested in learning more?</h3>
-                <div class="text-lg mb-8 lg:px-28">
-                    Go to our success stories for a more in-depth understanding of how our users use OCaml.
-                </div>
-                <div class="space-x-0 md:space-x-5 space-y-5 md:space-y-0">
-                    <a href="<%s Url.success_stories %>"><button class="btn btn-lg btn-tertiary">Success Stories</button></a>
-                </div>
 
-            </div>
+        <div class="grid lg:grid-cols-3 gap-8 lg:gap-16">
+          <a href="<%s Url.papers %>" class="resources-card card-hover">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path>
+            </svg>
+        
+            <p class="font-semibold text-xl mb-3">Papers</p>
+            <p>Papers that have influenced OCaml and other functional programming languages.</p>
+          </a>
+          <a href="<%s Url.manual %>" class="resources-card card-hover">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+        
+            <p class="font-semibold text-xl mb-3">Language Manual</p>
+            <p>Read the reference manual of the language and the documentation on the compiler tools.</p>
+          </a>
+          <a href="<%s Url.books %>" class="resources-card card-hover">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              ></path>
+            </svg>
+        
+            <p class="font-semibold text-xl mb-3">Books</p>
+            <p>What expert programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.</p>
+          </a>
         </div>
+        <div class="grid lg:grid-cols-3 gap-8 lg:gap-16"></div>
+      </div>
     </div>
-</div>
+  </div>
+  <div class="container-fluid">
+    <div class="text-center py-10 lg:py-28">
+      <h2 class="mb-6 font-bold">Our influence</h2>
+      <div>See where we are located around the world at an academic level</div>
+      <div class="mt-24 relative">
+        <img src="/img/academic/map.svg" alt="Influence Map" />
+      </div>
+    </div>
+  </div>
+  <div class="bg-primary-600">
+    <div class="container-fluid">
+      <div class="text-center text-white lg:p-16 py-10">
+        <h3 class="font-bold mb-6">Interested in learning more?</h3>
+        <div class="text-lg mb-8 lg:px-28">Go to our success stories for a more in-depth understanding of how our users use OCaml.</div>
+        <div class="space-x-0 md:space-x-5 space-y-5 md:space-y-0">
+          <a href="<%s Url.success_stories %>"><button class="btn btn-lg btn-tertiary">Success Stories</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
