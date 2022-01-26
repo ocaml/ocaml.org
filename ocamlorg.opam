@@ -44,10 +44,10 @@ depends: [
   "letsencrypt"
   "tls" {< "0.15.0"}
   "js_of_ocaml" {>= "3.11.0"}
-  "js_of_ocaml-ppx" {>= "3.11.0"}
-  "js_of_ocaml-compiler" {>= "3.11.0"}
-  "js_of_ocaml-tyxml" {>= "3.11.0"}
-  "js_of_ocaml-toplevel" {>= "3.11.0"}
+  "js_of_ocaml-ppx" {>= "3.11.0" & < "4.0"}
+  "js_of_ocaml-compiler" {>= "3.11.0" & < "4.0"}
+  "js_of_ocaml-tyxml" {>= "3.11.0" & < "4.0"}
+  "js_of_ocaml-toplevel" {>= "3.11.0" & < "4.0"}
   "alcotest" {with-test}
   "textmate-language" {with-test}
   "piaf" {with-test}
