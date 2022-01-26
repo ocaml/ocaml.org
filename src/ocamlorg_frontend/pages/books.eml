@@ -1,10 +1,9 @@
 let render_books books = 
     <div class="overflow-x-scroll lg:overflow-hidden mt-5 lg:mt-10">
-        <% books |> List.iter (fun (item : Ood.Book.t) ->
-        let cover = Option.get item.cover in %>
+        <% books |> List.iter (fun (item : Ood.Book.t) -> %>
         <div
             class="flex space-y-10 lg:space-y-0 lg:space-x-16 pb-10 lg:pb-20 border-b border-gray-200 mt-10 lg:mt-20 flex-col lg:flex-row">
-            <img src="/media/<%s cover %>"
+            <img src="/media/<%s item.cover %>"
                 class="m-auto h-48 w-32 lg:w-64 lg:h-96 md:w-64 md:h-96 rounded-2xl border border-gray-200"
                 alt="">
             <div class="flex-col flex-1">

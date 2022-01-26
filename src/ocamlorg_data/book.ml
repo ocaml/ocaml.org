@@ -7,8 +7,8 @@ type t =
   ; description : string
   ; authors : string list
   ; language : string
-  ; published : string option
-  ; cover : string option
+  ; published : string
+  ; cover : string
   ; isbn : string option
   ; links : link list
   ; rating : int option
@@ -26,8 +26,8 @@ let all =
   ; authors = 
  [{js|Jean-Christophe Filliâtre|js}; {js|Sylvain Conchon|js}]
   ; language = {js|french|js}
-  ; published = Some {js|2014|js}
-  ; cover = Some {js|/books/apprendre-a-programmer-avec-ocaml.png|js}
+  ; published = {js|2014|js}
+  ; cover = {js|/books/apprendre-a-programmer-avec-ocaml.png|js}
   ; isbn = Some {js|2-21213-678-1|js}
   ; links = 
  [
@@ -86,8 +86,8 @@ online.</p>
   ; authors = 
  [{js|Catherine Dubois|js}; {js|Valérie Ménissier Morain|js}]
   ; language = {js|french|js}
-  ; published = Some {js|2004|js}
-  ; cover = Some {js|/books/apprentissage-de-la-programmation-avec-ocaml.jpg|js}
+  ; published = {js|2004|js}
+  ; cover = {js|/books/apprentissage-de-la-programmation-avec-ocaml.jpg|js}
   ; isbn = Some {js|2-7462-0819-9|js}
   ; links = 
  [
@@ -128,8 +128,8 @@ illustrated in OCaml easily transpose to other programming languages.</p>
   ; authors = 
  [{js|Emmanuel Chailloux|js}; {js|Pascal Manoury|js}; {js|Bruno Pagano|js}]
   ; language = {js|french|js}
-  ; published = Some {js|2000|js}
-  ; cover = Some {js|/books/developpement-d-applications-avec-objective-caml.jpg|js}
+  ; published = {js|2000|js}
+  ; cover = {js|/books/developpement-d-applications-avec-objective-caml.jpg|js}
   ; isbn = Some {js|2-84177-121-0|js}
   ; links = 
  [
@@ -161,8 +161,8 @@ programming, and interoperability with C.</p>
   ; authors = 
  [{js|Mohammed-Said Habet|js}]
   ; language = {js|french|js}
-  ; published = Some {js|2015|js}
-  ; cover = Some {js|/books/initiation-a-la-programmation-fonctionnelle-en-ocaml.jpg|js}
+  ; published = {js|2015|js}
+  ; cover = {js|/books/initiation-a-la-programmation-fonctionnelle-en-ocaml.jpg|js}
   ; isbn = Some {js|9782332978400|js}
   ; links = 
  [
@@ -209,8 +209,8 @@ l’initiative du lecteur.</p>
   ; authors = 
  [{js|Carla Limongelli|js}; {js|Marta Cialdea|js}]
   ; language = {js|italian|js}
-  ; published = Some {js|2002|js}
-  ; cover = Some {js|/books/introduzione-alla-programmazione-funzionale.gif|js}
+  ; published = {js|2002|js}
+  ; cover = {js|/books/introduzione-alla-programmazione-funzionale.gif|js}
   ; isbn = Some {js|88-7488-031-6|js}
   ; links = 
  [
@@ -230,8 +230,8 @@ l’initiative du lecteur.</p>
   ; authors = 
  [{js|John Whitington|js}]
   ; language = {js|english|js}
-  ; published = Some {js|2014-08-26|js}
-  ; cover = Some {js|/books/more-ocaml-algorithms-methods-diversions.jpg|js}
+  ; published = {js|2014-08-26|js}
+  ; cover = {js|/books/more-ocaml-algorithms-methods-diversions.jpg|js}
   ; isbn = None
   ; links = 
  [
@@ -272,8 +272,8 @@ the front of the book.</p>
   ; authors = 
  [{js|OCaml-Nagoya|js}]
   ; language = {js|japanese|js}
-  ; published = Some {js|2007|js}
-  ; cover = Some {js|/books/nyumon-ocaml.jpg|js}
+  ; published = {js|2007|js}
+  ; cover = {js|/books/nyumon-ocaml.jpg|js}
   ; isbn = None
   ; links = 
  [
@@ -293,8 +293,8 @@ the front of the book.</p>
   ; authors = 
  [{js|Jon D. Harrop|js}]
   ; language = {js|english|js}
-  ; published = Some {js|2005|js}
-  ; cover = Some {js|/books/ocaml-for-scientists.jpg|js}
+  ; published = {js|2005|js}
+  ; cover = {js|/books/ocaml-for-scientists.jpg|js}
   ; isbn = None
   ; links = 
  [
@@ -331,8 +331,8 @@ programs can be constructed in the OCaml programming language.</p>
   ; authors = 
  [{js|John Whitington|js}]
   ; language = {js|english|js}
-  ; published = Some {js|2013-06-07|js}
-  ; cover = Some {js|/books/ocaml-from-the-very-beginning.jpg|js}
+  ; published = {js|2013-06-07|js}
+  ; cover = {js|/books/ocaml-from-the-very-beginning.jpg|js}
   ; isbn = None
   ; links = 
  [
@@ -366,8 +366,8 @@ and hints.</p>
   ; authors = 
  [{js|Andrei de Araújo Formiga|js}]
   ; language = {js|portugese|js}
-  ; published = Some {js|2015|js}
-  ; cover = Some {js|/books/ocaml-programacao-funcional-na-practica.jpg|js}
+  ; published = {js|2015|js}
+  ; cover = {js|/books/ocaml-programacao-funcional-na-practica.jpg|js}
   ; isbn = None
   ; links = 
  [
@@ -403,8 +403,8 @@ language, and a decision tree learning program for data analysis.</p>
   ; authors = 
  [{js|G. Chen|js}]
   ; language = {js|chinese|js}
-  ; published = Some {js|2018|js}
-  ; cover = Some {js|/books/ocaml-yuyan-biancheng-jichu-jiaocheng.jpg|js}
+  ; published = {js|2018|js}
+  ; cover = {js|/books/ocaml-yuyan-biancheng-jichu-jiaocheng.jpg|js}
   ; isbn = None
   ; links = 
  [
@@ -424,8 +424,8 @@ language, and a decision tree learning program for data analysis.</p>
   ; authors = 
  [{js|Pascal Manoury|js}]
   ; language = {js|french|js}
-  ; published = Some {js|2005|js}
-  ; cover = Some {js|/books/programmation-de-droite-a-gauche-et-vice-versa.jpg|js}
+  ; published = {js|2005|js}
+  ; cover = {js|/books/programmation-de-droite-a-gauche-et-vice-versa.jpg|js}
   ; isbn = Some {js|978-2-916466-05-7|js}
   ; links = 
  [
@@ -444,8 +444,8 @@ language, and a decision tree learning program for data analysis.</p>
   ; authors = 
  [{js|A. Igarashi (五十嵐 淳)|js}]
   ; language = {js|japanese|js}
-  ; published = Some {js|2007|js}
-  ; cover = Some {js|/books/puroguramingu-in-ocaml.jpg|js}
+  ; published = {js|2007|js}
+  ; cover = {js|/books/puroguramingu-in-ocaml.jpg|js}
   ; isbn = None
   ; links = 
  [
@@ -465,8 +465,8 @@ language, and a decision tree learning program for data analysis.</p>
   ; authors = 
  [{js|Yaron Minsky|js}; {js|Anil Madhavapeddy|js}; {js|Jason Hickey|js}]
   ; language = {js|english|js}
-  ; published = Some {js|2013-11-25|js}
-  ; cover = Some {js|/books/real-world-ocaml.jpg|js}
+  ; published = {js|2013-11-25|js}
+  ; cover = {js|/books/real-world-ocaml.jpg|js}
   ; isbn = None
   ; links = 
  [
@@ -508,8 +508,8 @@ readable code.</p>
   ; authors = 
  [{js|Nicholas Monje|js}; {js|Allen Downey|js}]
   ; language = {js|english|js}
-  ; published = Some {js|2008|js}
-  ; cover = Some {js|/books/think-ocaml-how-to-think-like-a-functional-programmer.png|js}
+  ; published = {js|2008|js}
+  ; cover = {js|/books/think-ocaml-how-to-think-like-a-functional-programmer.png|js}
   ; isbn = None
   ; links = 
  [

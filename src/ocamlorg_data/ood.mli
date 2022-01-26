@@ -73,8 +73,8 @@ module Book : sig
     ; description : string
     ; authors : string list
     ; language : string
-    ; published : string option
-    ; cover : string option
+    ; published : string
+    ; cover : string
     ; isbn : string option
     ; links : link list
     ; rating : int option
