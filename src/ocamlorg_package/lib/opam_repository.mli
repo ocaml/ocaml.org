@@ -7,8 +7,9 @@ val pull : unit -> unit Lwt.t
 val last_commit : unit -> string Lwt.t
 (** Get the latest commit of the opam repository. *)
 
-val list_packages : unit -> string list
-(** List the packages in the [packages/] directory of the opam repository. *)
+val list_packages_and_versions : unit -> (string * string list) list
+(** List the packages in the [packages/] directory of the opam repository and
+    every versions of each packages (in [packages/<package>/]). *)
 
 val list_package_versions : string -> string list option
 (** List the versions of the given package by reading the directories in the

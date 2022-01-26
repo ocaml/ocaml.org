@@ -72,23 +72,38 @@ let last_commit () =
   in
   output
 
-let ls_dir directory =
+let fold_dir f acc directory =
   match Sys.readdir directory with
   | exception Sys_error _ ->
     None
   | entries ->
-    let entry_is_dir x = Sys.is_directory (Filename.concat directory x) in
-    Some (List.filter entry_is_dir (Array.to_list entries))
-
-let list_packages () =
-  match ls_dir Fpath.(to_string (clone_path / "packages")) with
-  | Some pkgs ->
-    pkgs
-  | None ->
-    []
+    (* Sort to remove a source of non-determinism. *)
+    Array.sort String.compare entries;
+    Some (Array.fold_right f entries acc)
 
 let list_package_versions package =
-  ls_dir Fpath.(to_string (clone_path / "packages" / package))
+  let directory = Fpath.(to_string (clone_path / "packages" / package)) in
+  fold_dir
+    (fun x acc ->
+      if Sys.is_directory (Filename.concat directory x) then
+        x :: acc
+      else
+        acc)
+    []
+    directory
+
+let list_packages_and_versions () =
+  let directory = Fpath.(to_string (clone_path / "packages")) in
+  fold_dir
+    (fun x acc ->
+      match list_package_versions x with
+      | Some versions ->
+        (x, versions) :: acc
+      | None ->
+        acc)
+    []
+    directory
+  |> Option.value ~default:[]
 
 let process_opam_file f =
   let open Lwt.Syntax in
