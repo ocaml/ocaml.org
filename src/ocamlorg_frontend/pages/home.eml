@@ -12,7 +12,7 @@ with an emphasis on expressiveness and safety."
     <div class="flex flex-col lg:flex-row">
       <div class="lg:flex-1 lg:mt-16 my-12">
         <h1 class="lg:pr-10 font-bold">
-          General Purpose, Industrial-strength, Expressive and Safe
+          General Purpose, Industrial-Strength, Expressive and Safe
         </h1>
         <div class="text-body-400 my-7">
           OCaml is a general purpose industrial-strength programming language
@@ -136,7 +136,7 @@ with an emphasis on expressiveness and safety."
             </div>
             <div class="text-lg my-4 font-bold text-teal-800">WORK FASTER</div>
             <h3 class="text-body-600 font-bold">
-              Fast compiler and Efficient applications
+              Fast Compiler and Efficient Applications
             </h3>
             <div class="my-4 font-normal text-lg">
               OCaml has two batch compilers. One is a bytecode compiler which generates small, portable executables and
@@ -165,11 +165,11 @@ with an emphasis on expressiveness and safety."
               BUILD ANYTHING
             </div>
             <h3 class="text-body-600 font-bold">
-              First class editor and tooling
+              First Class Editor and Tooling
             </h3>
             <div class="my-4 text-lg">
               OCaml has several editor tools that make it easier to program in. Usually, VS Code is recommended for
-              beginners, but there is also good support for Vim and Emacs as well. Tools like the toplevel Utop and
+              beginners, but there is also good support for Vim and Emacs. Tools like the toplevel Utop and
               document generator Odoc are also well supported and used by OCaml programmers all over the world. Highly
               maintained tools makes OCaml well-liked with developers as it provides a smooth programming experience.
             </div>
@@ -215,7 +215,7 @@ with an emphasis on expressiveness and safety."
   <div class="container-fluid">
     <div class="">
       <div class="text-center px-15">
-        <h2 class="font-bold text-primary-600 mb-6">Strong community</h2>
+        <h2 class="font-bold text-primary-600 mb-6">Strong Community</h2>
         <div class="text-lg text-white">
           OCaml has a passionate and diverse community behind it that enriches the experience of everyone working with
           the language. The community flags problems, develops new solutions, investigates new avenues of research, and
