@@ -48,9 +48,8 @@ let state_of_package_list (pkgs : t list) =
   ; featured_packages = None
   }
 
-let read_versions package_name =
+let read_versions package_name versions =
   let open Lwt.Syntax in
-  let versions = Opam_repository.list_package_versions package_name in
   Lwt_list.fold_left_s
     (fun acc package_version ->
       match OpamPackage.of_string_opt package_version with
@@ -73,7 +72,15 @@ let read_packages () =
             m "Invalid package name %S: %s" package_name (Printexc.to_string ex));
         Lwt.return acc
       | _name ->
-        let+ versions = read_versions package_name in
+        let versions =
+          match Opam_repository.list_package_versions package_name with
+          | Some v ->
+            v
+          | None ->
+            []
+          (* TODO: Opam_repository.list_packages_and_versions *)
+        in
+        let+ versions = read_versions package_name versions in
         OpamPackage.Name.Map.add (Name.of_string package_name) versions acc)
     OpamPackage.Name.Map.empty
     (Opam_repository.list_packages ())
