@@ -10,21 +10,20 @@ tags: [ "getting-started" ]
 date: 2021-05-27T21:07:30-00:00
 ---
 
-This is a set of reasonable guidelines for formatting OCaml
+This is a set of reasonable guidelines for writing OCaml
 programs—guidelines which reflect the consensus among veteran OCaml
-programmers. Nevertheless, all detailed notifications of possible errors
-or omissions will be noted with pleasure. To send your comments using
-[GitHub issues](https://github.com/ocaml/ocaml.org/issues?state=open).
-<br />
-Original translation from French: [Ruchira
-Datta](mailto:datta@math.berkeley.edu).
+programmers.
 
-Thanks to all those who have already participated in the critique of
-this page: Daniel de Rauglaudre, Luc Maranget, Jacques Garrigue, Damien
-Doligez, Xavier Leroy, Bruno Verlyck, Bruno Petazzoni, Francois Maltey,
-Basile Starynkevitch, Toby Moth, Pierre Lescanne.
+OCaml source code can be formatted automatically with
+[ocamlformat](https://github.com/ocaml-ppx/ocamlformat), so that
+you don't have to worry about formatting it by hand, and to speed up
+code review by focusing on the important parts.
+Nevertheless, some best practices are not automated and they're
+documented in this article. If you prefer to format your code
+manually, there are some formatting guidelines at the end of this
+article.
 
-## General guidelines to write programs
+## General guidelines
 ###  Be simple and readable
 The time you spend typing the programs is negligible compared to the
 time spent reading them. That's the reason why you save a lot of time if
@@ -41,21 +40,967 @@ debugging).
 > modifications in mind, and never jeopardize readability.
 > 
 
-## Program formatting guidelines
-###  Lexical conventions
+
+###  Naming complex arguments
+In place of
+
+<!-- $MDX skip -->
+```ocaml
+let temp =
+  f x y z
+    “large
+    expression”
+    “other large
+    expression” in
+...
+```
+write
+
+<!-- $MDX skip -->
+```ocaml
+let t =
+  “large
+  expression”
+and u =
+  “other large
+  expression” in
+let temp =
+  f x y z t u in
+...
+```
+###  Naming anonymous functions
+In the case of an iterator whose argument is a complex function, define
+the function by a `let` binding as well. In place of
+
+<!-- $MDX skip -->
+```ocaml
+List.map
+  (function x ->
+    blabla
+    blabla
+    blabla)
+  l
+```
+write
+
+<!-- $MDX skip -->
+```ocaml
+let f x =
+  blabla
+  blabla
+  blabla in
+List.map f l
+```
+> 
+> **Justification**: Much clearer, in particular if the name given to
+> the function is meaningful.
+> 
+
+## Programming guidelines
+###  How to program
+> 
+> *Always put your handiwork back on the bench,<br />
+>  and then polish it and re-polish it.*
+> 
+
+####  Write simple and clear programs
+When this is done, reread, simplify and clarify. At every stage of
+creation, use your head!
+
+####  Subdivide your programs into little functions
+Small functions are easier to master.
+
+####  Factor out snippets of repeated code by defining them in separate functions
+The sharing of code obtained in this way facilitates maintenance since
+every correction or improvement automatically spreads throughout the
+program. Besides, the simple act of isolating and naming a snippet of
+code sometimes lets you identify an unsuspected feature.
+
+####  Never copy-paste code when programming
+Pasting code almost surely indicates introducing a default of code
+sharing and neglecting to identify and write a useful auxiliary
+function; hence, it means that some code sharing is lost in the program.
+Losing code sharing implies that you will have more problems afterwards
+for maintenance: a bug in the pasted code has to be corrected at each
+occurrence of the bug in each copy of the code!
+
+Moreover, it is difficult to identify that the same set of 10 lines of
+code is repeated 20 times throughout the program. By contrast, if an
+auxiliary function defines those 10 lines, it is fairly easy to see and
+find where those lines are used: that's simply where the function is
+called. If code is copy-pasted all over the place then the program is
+more difficult to understand.
+
+In conclusion, copy-pasting code leads to programs that are more
+difficult to read and more difficult to maintain: it has to be banished.
+
+###  How to comment programs
+####  Don't hesitate to comment when there's a difficulty
+####  If there's no difficulty, there's no point in commenting
+####  Avoid comments in the bodies of functions
+####  Prefer one comment at the beginning of the function...
+...which explains how the algorithm that is used works. Once more, if
+there is no difficulty, there is no point in commenting.
+
+####  Avoid nocuous comments
+A *nocuous* comment is a comment that does not add any value, i.e. no
+non-trivial information. The nocuous comment is evidently not of
+interest; it is a nuisance since it uselessly distracts the reader. It
+is often used to fulfill some strange criteria related to the so-called
+*software metrology*, for instance the ratio *number of comments* /
+*number of lines of code* that perfectly measures a ratio that I don't
+know the theoretical or practical interpretation. Absolutely avoid
+nocuous comments.
+
+An example of what to avoid: the following comment uses technical words
+and is thus masquerade into a real comment when it has no additional
+information of interest;
+
+<!-- $MDX skip -->
+```ocaml
+(*
+  Function print_lambda:
+  print a lambda-expression given as argument.
+
+  Arguments: lam, any lambda-expression.
+  Returns: nothing.
+
+  Remark: print_lambda can only be used for its side effect.
+*)
+let rec print_lambda lam =
+  match lam with
+  | Var s -> printf "%s" s
+  | Abs l -> printf "\\ %a" print_lambda l
+  | App (l1, l2) ->
+     printf "(%a %a)" print_lambda l1 print_lambda l2
+```
+####  Usage in module interface
+The function's usage must appear in the interface of the module which
+exports it, not in the program which implements it. Choose comments as
+in the OCaml system's interface modules, which will subsequently allow
+the documentation of the interface module to be extracted automatically
+if need be.
+
+####  Use assertions
+Use assertions as much as possible: they let you avoid verbose comments,
+while allowing a useful verification upon execution.
+
+For example, the conditions for the arguments of a function to be valid
+are usefully verified by assertions.
+
+<!-- $MDX skip -->
+```ocaml
+let f x =
+  assert (x >= 0);
+  ...
+```
+Note as well that an assertion is often preferable to a comment because
+it's more trustworthy: an assertion is forced to be pertinent because it
+is verified upon each execution, while a comment can quickly become
+obsolete and then becomes actually detrimental to the comprehension of
+the program.
+
+####  Comments line by line in imperative code
+When writing difficult code, and particularly in case of highly
+imperative code with a lot of memory modifications (physical mutations
+in data structures), it is sometime mandatory to comment inside the body
+of functions to explain the implementation of the algorithm encoded
+here, or to follow successive modifications of invariants that the
+function must maintain. Once more, if there is some difficulty
+commenting is mandatory, for each program line if necessary.
+
+###  How to choose identifiers
+It's hard to choose identifiers whose name evokes the meaning of the
+corresponding portion of the program. This is why you must devote
+particular care to this, emphasizing clarity and regularity of
+nomenclature.
+
+####  Don't use abbreviations for global names
+Global identifiers (including especially the names of functions) can be
+long, because it's important to understand what purpose they serve far
+from their definition.
+
+####  Separate words by underscores: (`int_of_string`, not `intOfString`)
+Case modifications are meaningful in OCaml: in effect capitalized words
+are reserved for constructors and module names in OCaml; in contrast
+regular variables (functions or identifiers) must start by a lowercase
+letter. Those rules prevent proper usage of case modification for words
+separation in identifiers: the first word starts the identifier, hence
+it must be lower case and it is forbidden to choose `IntOfString` as the
+name of a function.
+
+####  Always give the same name to function arguments which have the same meaning
+If necessary, make this nomenclature explicit in a comment at the top of
+the file; if there are several arguments with the same meaning then
+attach numeral suffixes to them.
+
+####  Local identifiers can be brief, and should be reused from one function to another
+This augments regularity of style. Avoid using identifiers whose
+appearance can lead to confusion such as `l` or `O`, easy to confuse
+with `1` and `0`.
+
+Example:
+
+<!-- $MDX skip -->
+```ocaml
+let add_expression expr1 expr2 = ...
+let print_expression expr = ...
+```
+An exception to the recommendation not to use capitalization to separate
+words within identifiers is tolerated in the case of interfacing with
+existing libraries which use this naming convention: this lets OCaml
+users of the library to orient themselves in the original library
+documentation more easily.
+
+###  How to use modules
+####  Subdividing into modules
+You must subdivide your programs into coherent modules.
+
+For each module, you must explicitly write an interface.
+
+For each interface, you must document the things defined by the module:
+functions, types, exceptions, etc.
+
+####  Opening modules
+Avoid `open` directives, using instead the qualified identifier
+notation. Thus you will prefer short but meaningful module names.
+
+> 
+> **Justification**: The use of unqualified identifiers is ambiguous and
+> gives rise to difficult-to-detect semantic errors.
+> 
+
+<!-- $MDX skip -->
+```ocaml
+let lim = String.length name - 1 in
+...
+let lim = Array.length v - 1 in
+...
+... List.map succ ...
+... Array.map succ ...
+```
+####  When to use open modules rather than leaving them closed
+You can consider it normal to open a module which modifies the
+environment, and brings other versions of an important set of functions.
+For example, the `Format` module provides automatically indented
+printing. This module redefines the usual printing functions
+`print_string`, `print_int`, `print_float`, etc. So when you use
+`Format`, open it systematically at the top of the file.<br />
+If you don't open `Format` you could miss the qualification of a
+printing function, and this could be perfectly silent, since many of
+`Format`'s functions have a counterpart in the default environment
+(`Stdlib`). Mixing printing functions from `Format` and `Stdlib`
+leads to subtle bugs in the display, that are difficult to trace. For
+instance:
+
+<!-- $MDX skip -->
+```ocaml
+let f () =
+  Format.print_string "Hello World!"; print_newline ()
+```
+is bogus since it does not call `Format.print_newline` to flush the
+pretty-printer queue and output `"Hello World!"`. Instead
+`"Hello World!"` is stuck into the pretty-printer queue, while
+`Stdlib.print_newline` outputs a carriage return on the standard
+output ... If `Format` is printing on a file and standard output is the
+terminal, the user will have a bad time finding that a carriage return
+is missing in the file (and the display of material on the file is
+strange, since boxes that should be closed by `Format.print_newline` are
+still open), while a spurious carriage return appeared on the screen!
+
+For the same reason, open large libraries such as the one with
+arbitrary-precision integers so as not to burden the program which uses
+them.
+
+<!-- $MDX skip -->
+```ocaml
+open Num
+
+let rec fib n =
+  if n <= 2 then Int 1 else fib (n - 1) +/ fib (n - 2)
+```
+> 
+> **Justification**: The program would be less readable if you had to
+> qualify all the identifiers.
+> 
+
+In a program where type definitions are shared, it is good to gather
+these definitions into one or more module(s) without implementations
+(containing only types). Then it's acceptable to systematically open the
+module which exports the shared type definitions.
+
+###  Pattern-matching
+####  Never be afraid of over-using pattern-matching!
+####  On the other hand, be careful to avoid non-exhaustive pattern-matching constructs
+Complete them with care, without using a “catch-all” clause such as
+`| _ -> ...` or `| x -> ...` when it's possible to do without it (for
+example when matching a concrete type defined within the program). See
+also the next section: compiler warnings.
+
+###  Compiler warnings
+Compiler warnings are meant to prevent potential errors; this is why you
+absolutely must heed them and correct your programs if compiling them
+produces such warnings. Besides, programs whose compilation produces
+warnings have an odor of amateurism which certainly doesn't suit your
+own work!
+
+####  Pattern-matching warnings
+Warnings about pattern-matching must be treated with the upmost care:
+
+* Those concerning useless clauses should of course be eliminated.
+
+
+* For non-exhaustive pattern-matching you must complete the
+ corresponding pattern-matching construct, without adding a default
+ case “catch-all”, such as `| _ -> ... `, but with an explicit
+ list of the constructors not examined by the rest of the construct,
+ for example `| Cn _ | Cn1 _ -> ... `.
+
+> 
+> **Justification**: It's not really any more complicated to write
+> it this way, and this allows the program to evolve more safely. In
+> effect the addition of a new constructor to the datatype being
+> matched will produce an alert anew, which will allow the
+> programmer to add a clause corresponding to the new constructor if
+> that is warranted. On the contrary, the “catch-all” clause
+> will make the function compile silently and it might be thought
+> that the function is correct as the new constructor will be
+> handled by the default case.
+> 
+
+
+* Non-exhaustive pattern-matches induced by clauses with guards must
+ also be corrected. A typical case consists in suppressing a
+ redundant guard.
+
+####  De-structuring `let` bindings
+A “de-structuring `let` binding” is one which
+binds several names to several expressions simultaneously. You pack all
+the names you want bound into a collection such as a tuple or a list,
+and you correspondingly pack all the expressions into a collective
+expression. When the `let` binding is evaluated, it unpacks the
+collections on both sides and binds each expression to its corresponding
+name. For example, `let x, y = 1, 2` is a de-structuring `let` binding
+which performs both the bindings `let x = 1` and `let y = 2`
+simultaneously.
+
+The `let` binding is not limited to simple identifier definitions: you
+can use it with more complex or simpler patterns. For instance
+
+* `let` with complex patterns:<br />
+ `let [x; y] as l = ...`<br />
+ simultaneously defines a list `l` and its two elements `x` and `y`.
+* `let` with simple pattern:<br />
+ `let _ = ...` does not define anything, it just evaluate the
+ expression on the right hand side of the `=` symbol.
+
+####  The de-structuring `let` must be exhaustive
+Only use de-structuring `let` bindings in the case where the
+pattern-matching is exhaustive (the pattern can never fail to match).
+Typically, you will thus be limited to definitions of product types
+(tuples or records) or definitions of variant type with a single case.
+In any other case, you should use an explicit `match   ... with`
+construct.
+
+* `let ... in`: de-structuring `let` that give a warning must be
+ replaced by an explicit pattern matching. For instance, instead of
+ `let [x; y] as l = List.map succ     (l1 @ l2) in expression` write:
+
+<!-- $MDX skip -->
+```ocaml
+match List.map succ (l1 @ l2) with
+| [x; y] as l -> expression
+| _ -> assert false
+```
+
+
+* Global definition with de-structuring lets should be rewritten with
+ explicit pattern matching and tuples:
+
+<!-- $MDX skip -->
+```ocaml
+let x, y, l =
+  match List.map succ (l1 @ l2) with
+  | [x; y] as l -> x, y, l
+  | _ -> assert false
+```
+
+
+> 
+> **Justification**: There is no way to make the pattern-matching
+> exhaustive if you use general de-structuring `let` bindings.
+> 
+
+####  Sequence warnings and `let _ = ...`
+When the compiler emits a warning about the type of an expression in a
+sequence, you have to explicitly indicate that you want to ignore the
+result of this expression. To this end:
+
+* use a vacuous binding and suppress the sequence warning of
+
+<!-- $MDX skip -->
+```ocaml
+List.map f l;
+print_newline ()
+```
+write
+<!-- $MDX skip -->
+```ocaml
+let _ = List.map f l in
+print_newline ()
+```
+
+
+* you can also use the predefined function `ignore : 'a     -> unit`
+ that ignores its argument to return `unit`.
+
+<!-- $MDX skip -->
+```ocaml
+ignore (List.map f l);
+print_newline ()
+```
+
+
+* In any case, the best way to suppress this warning is to understand
+ why it is emitted by the compiler: the compiler warns you because
+ your code computes a result that is useless since this result is
+ just deleted after computation. Hence, if useful at all, this
+ computation is performed only for its side-effects; hence it should
+ return unit.<br />
+ Most of the time, the warning indicates the use of the wrong
+ function, a probable confusion between the side-effect only version
+ of a function (which is a procedure whose result is irrelevant) with
+ its functional counterpart (whose result is meaningful).<br />
+ In the example mentioned above, the first situation prevailed, and
+ the programmer should have called `iter` instead of `map`, and
+ simply write
+
+<!-- $MDX skip -->
+```ocaml
+List.iter f l;
+print_newline ()
+```
+In actual programs, the suitable (side-effect only) function may not
+exist and has to be written: very often, a careful separation of the
+procedural part from the functional part of the function at hand
+elegantly solves the problem, and the resulting program just looks
+better afterwards! For instance, you would turn the problematic
+definition:
+<!-- $MDX skip -->
+```ocaml
+let add x y =
+  if x > 1 then print_int x;
+  print_newline ();
+  x + y;;
+```
+into the clearer separate definitions and change old calls to `add`
+accordingly.
+
+
+
+In any case, use the `let _ = ...` construction exactly in those cases
+where you want to ignore a result. Don't systematically replace
+sequences with this construction.
+
+> 
+> **Justification**: Sequences are much clearer! Compare `e1; e2; e3` to
+> 
+> ```ocaml
+> let _ = e1 in
+> let _ = e2 in
+> e3
+> ```
+
+###  The `hd` and `tl` functions
+Don't use the `hd` and `tl` functions, but pattern-match the list
+argument explicitly.
+
+> 
+> **Justification**: This is just as brief as and much clearer than
+> using `hd` and `tl` which must of necessity be protected by
+> `try... with...` to catch the exception which might be raised by these
+> functions.
+> 
+
+###  Loops
+####  `for` loops
+To simply traverse an array or a string, use a `for` loop.
+
+<!-- $MDX skip -->
+```ocaml
+for i = 0 to Array.length v - 1 do
+  ...
+done
+```
+If the loop is complex or returns a result, use a recursive function.
+
+<!-- $MDX skip -->
+```ocaml
+let find_index e v =
+  let rec loop i =
+    if i >= Array.length v then raise Not_found else
+    if v.(i) = e then i else loop (i + 1) in
+  loop 0;;
+```
+> 
+> **Justification**: The recursive function lets you code any loop
+> whatsoever simply, even a complex one, for example with multiple exit
+> points or with strange index steps (steps depending on a data value
+> for example).
+> 
+> Besides, the recursive loop avoids the use of mutables whose value can
+> be modified in any part of the body of the loop whatsoever (or even
+> outside): on the contrary the recursive loop explicitly takes as
+> arguments the values susceptible to change during the recursive calls.
+> 
+
+####  `while` loops
+> 
+> **While loops law**: Beware: usually a while loop is wrong, unless its
+> loop invariant has been explicitly written.
+> 
+
+The main use of the `while` loop is the infinite loop
+`while true do     ...`. You get out of it through an exception,
+generally on termination of the program.
+
+Other `while` loops are hard to use, unless they come from canned
+programs from algorithms courses where they were proved.
+
+> 
+> **Justification**: `while` loops require one or more mutables in order
+> that the loop condition change value and the loop finally terminate.
+> To prove their correctness, you must therefore discover the loop
+> invariants, an interesting but difficult sport.
+> 
+
+###  Exceptions
+Don't be afraid to define your own exceptions in your programs, but on
+the other hand use as much as possible the exceptions predefined by the
+system. For example, every search function which fails should raise the
+predefined exception `Not_found`. Be careful to handle the exceptions
+which may be raised by a function call with the help of a
+`try ... with`.
+
+Handling all exceptions by `try     ... with _ ->` is usually reserved
+for the main function of the program. If you need to catch all
+exceptions to maintain an invariant of an algorithm, be careful to name
+the exception and re-raise it, after having reset the invariant.
+Typically:
+<!-- $MDX skip -->
+```ocaml
+let ic = open_in ...
+and oc = open_out ... in
+try
+  treatment ic oc;
+  close_in ic; close_out oc
+with x -> close_in ic; close_out oc; raise x
+```
+> 
+> **Justification**: `try ... with _     ->` silently catches all
+> exceptions, even those which have nothing to do with the computation
+> at hand (for example an interruption will be captured and the
+> computation will continue anyway!).
+> 
+
+###  Data structures
+One of the great strengths of OCaml is the power of the data structures
+which can be defined and the simplicity of manipulating them. So you
+must take advantage of this to the fullest extent; don't hesitate to
+define your own data structures. In particular, don't systematically
+represent enumerations by whole numbers, nor enumerations with two cases
+by booleans. Examples:
+
+```ocaml
+type figure =
+   | Triangle | Square | Circle | Parallelogram
+type convexity =
+   | Convex | Concave | Other
+type type_of_definition =
+   | Recursive | Non_recursive
+```
+> 
+> **Justification**: A boolean value often prevents intuitive
+> understanding of the corresponding code. For example, if
+> `type_of_definition` is coded by a boolean, what does `true` signify?
+> A “normal” definition (that is, non-recursive) or a recursive
+> definition?
+> 
+> In the case of an enumerated type encode by an integer, it is very
+> difficult to limit the range of acceptable integers: one must define
+> construction functions that will ensure the mandatory invariants of
+> the program (and verify afterwards that no values has been built
+> directly), or add assertions in the program and guards in pattern
+> matchings. This is not good practice, when the definition of a sum
+> type elegantly solves this problem, with the additional benefit of
+> firing the full power of pattern matching and compiler's verifications
+> of exhaustiveness.
+> 
+> **Criticism**: For binary enumerations, one can systematically define
+> predicates whose names carry the semantics of the boolean that
+> implements the type. For instance, we can adopt the convention that a
+> predicate ends by the letter `p`. Then, in place of defining a new sum
+> type for `type_of_definition`, we will use a predicate function
+> `recursivep` that returns true if the definition is recursive.
+> 
+> **Answer**: This method is specific to binary enumeration and cannot
+> be easily extended; moreover it is not well suited to pattern
+> matching. For instance, for definitions encoded by
+> `| Let of bool * string * expression` a typical pattern matching would
+> look like:
+> 
+> ```ocaml
+> | Let (_, v, e) as def ->
+>    if recursivep def then code_for_recursive_case
+>    else code_for_non_recursive_case
+> ```
+> 
+> or, if `recursivep` can be applied to booleans:
+> 
+> ```ocaml
+> | Let (b, v, e) ->
+>    if recursivep b then code_for_recursive_case
+>    else code_for_non_recursive_case
+> ```
+> 
+> contrast with an explicit encoding:
+> 
+> ```ocaml
+> | Let (Recursive, v, e) -> code_for_recursive_case
+> | Let (Non_recursive, v, e) -> code_for_non_recursive_case
+> ```
+> 
+> The difference between the two programs is subtle and you may think
+> that this is just a matter of taste; however the explicit encoding is
+> definitively more robust to modifications and fits better with the
+> language.
+> 
+
+*A contrario*, it is not necessary to systematically define new types
+for boolean flags, when the interpretation of constructors `true` and
+`false` is clear. The usefulness of the definition of the following
+types is then questionable:
+<!-- $MDX skip -->
+```ocaml
+type switch = On | Off
+type bit = One | Zero
+```
+The same objection is admissible for enumerated types represented as
+integers, when those integers have an evident interpretation with
+respect to the data to be represented.
+
+###  When to use mutables
+Mutable values are useful and sometimes indispensable to simple and
+clear programming. Nevertheless, you must use them with discernment:
+OCaml's normal data structures are immutable. They are to be preferred
+for the clarity and safety of programming which they allow.
+
+###  Iterators
+OCaml's iterators are a powerful and useful feature. However you should
+not overuse them, nor *a contrario* neglect them: they are provided to
+you by libraries and have every chance of being correct and
+well-thought-out by the author of the library. So it's useless to
+reinvent them.
+
+So write
+<!-- $MDX skip -->
+```ocaml
+let square_elements elements = List.map square elements
+```
+rather than:
+<!-- $MDX skip -->
+```ocaml
+let rec square_elements = function
+  | [] -> []
+  | elem :: elements -> square elem :: square_elements elements
+```
+On the other hand avoid writing:
+<!-- $MDX skip -->
+```ocaml
+let iterator f x l =
+  List.fold_right (List.fold_left f) [List.map x l] l
+```
+even though you get:
+<!-- $MDX skip -->
+```ocaml
+  let iterator f x l =
+    List.fold_right (List.fold_left f) [List.map x l] l;;
+  iterator (fun l x -> x :: l) (fun l -> List.rev l) [[1; 2; 3]]
+```
+In case of express need, you must be careful to add an explanatory
+comment: in my opinion it's absolutely necessary!
+
+###  How to optimize programs
+> 
+> **Pseudo law of optimization**: No optimization *a priori*.<br />
+>  No optimization *a posteriori* either.
+> 
+
+Above all program simply and clearly. Don't start optimizing until the
+program bottleneck has been identified (in general a few routines). Then
+optimization consists above all of changing *the complexity* of the
+algorithm used. This often happens through redefining the data
+structures being manipulated and completely rewriting the part of the
+program which poses a problem.
+
+> 
+> **Justification**: Clarity and correctness of programs take
+> precedence. Besides, in a substantial program, it is practically
+> impossible to identify *a priori* the parts of the program whose
+> efficiency is of prime importance.
+> 
+
+###  How to choose between classes and modules
+You should use OCaml classes when you need inheritance, that is,
+incremental refinement of data and their functionality.
+
+You should use conventional data structures (in particular, variant
+types) when you need pattern-matching.
+
+You should use modules when the data structures are fixed and their
+functionality is equally fixed or it's enough to add new functions in
+the programs which use them.
+
+###  Clarity of OCaml code
+The OCaml language includes powerful constructs which allow simple and
+clear programming. The main problem to obtain crystal clear programs it
+to use them appropriately.
+
+The language features numerous programming styles (or programming
+paradigms): imperative programming (based on the notion of state and
+assignment), functional programming (based on the notion of function,
+function results, and calculus), object oriented programming (based of
+the notion of objects encapsulating a state and some procedures or
+methods that can modify the state). The first work of the programmer is
+to choose the programming paradigm that fits the best the problem at
+hand. When using one of those programming paradigms, the difficulty is
+to use the language construct that expresses in the most natural and
+easiest way the computation that implements the algorithm.
+
+####  Style dangers
+Concerning programming styles, one can usually observe the two
+symmetrical problematic behaviors: on the one hand, the “all
+imperative” way (*systematic* usage of loops and assignment), and on
+the other hand the “purely functional” way (*never* use loops nor
+assignments); the “100% object” style will certainly appear in the
+future.
+
+* **The “Too much imperative” danger**:
+    * It is a bad idea to use imperative style to code a function that
+ is *naturally* recursive. For instance, to compute the length of
+ a list, you should not write:
+<!-- $MDX skip -->
+```ocaml
+let list_length l =
+  let l = ref l in
+  let res = ref 0 in
+  while !l <> [] do
+    incr res; l := List.tl !l
+  done;
+  !res;;
+```
+in place of the following recursive function, so simple and
+clear:
+<!-- $MDX skip -->
+```ocaml
+let rec list_length = function
+  | [] -> 0
+  | _ :: l -> 1 + list_length l
+```
+(For those that would contest the equivalence of those two
+versions, see the [note below](#Imperativeandfunctionalversionsoflistlength)).
+
+
+* Another common “over imperative error” in the imperative world is
+  not to systematically choose the simple `for` loop to iter on the
+  element of a vector, but instead to use a complex `while` loop, with
+  one or two references (too many useless assignments, too many
+  opportunity for errors).
+
+* This category of programmer feels that the `mutable` keyword in
+  the record type definitions should be implicit.
+
+* **The “Too much functional” danger**:
+    * The programmer that adheres to this dogma avoids
+ using arrays and assignment. In the most severe case, one
+ observes a complete denial of writing any imperative
+ construction, even in case it is evidently the most elegant way
+ to solve the problem.
+    * Characteristic symptoms: systematic rewriting of `for` loops
+ with recursive functions, usage of lists in contexts where
+ imperative data structures seem to be mandatory to anyone,
+ passing numerous global parameters of the problem to every
+ functions, even if a global reference would be perfect to avoid
+ these spurious parameters that are mainly invariants that must
+ be passed all over the place.
+    * This programmer feels that the `mutable` keyword in the record
+ type definitions should be suppressed from the language.
+
+####  OCaml code generally considered unreadable
+The OCaml language includes powerful constructs which allow simple and
+clear programming. However the power of these constructs also lets you
+write uselessly complicated code, to the point where you get a perfectly
+unreadable program.
+
+Here are a number of known ways:
+
+* Use useless (hence novice for readability) `if then else`, as in
+<!-- $MDX skip -->
+```ocaml
+let flush_ps () =
+  if not !psused then psused := true
+```
+or (more subtle)
+<!-- $MDX skip -->
+```ocaml
+let sync b =
+  if !last_is_dvi <> b then last_is_dvi := b
+```
+
+
+* Code one construct with another. For example code a `let ... in` by
+ the application of an anonymous function to an argument. You would
+ write<br />
+<!-- $MDX skip -->
+```ocaml
+(fun x y -> x + y)
+   e1 e2
+```
+instead of simply writing
+<!-- $MDX skip -->
+```ocaml
+let x = e1
+and y = e2 in
+x + y
+```
+
+
+* Systematically code sequences with `let in` bindings.
+
+
+* Mix computations and side effects, particularly in function calls.
+ Recall that the order of evaluation of arguments in a function call
+ is unspecified, which implies that you must not mix side effects and
+ computations in function calls. However, when there is only one
+ argument you might take advantage of this to perform a side effect
+ within the argument, which is extremely troublesome for the reader
+ albeit without danger to the program semantics. To be absolutely
+ forbidden.
+
+
+* Misuse of iterators and higher-order functions (i.e. over- or
+ under-use). For example it's better to use `List.map` or
+ `List.iter` than to write their equivalents in-line using specific
+ recursive functions of your own. Even worse, you don't use
+ `List.map` or `List.iter` but write their equivalents in terms of
+ `List.fold_right` and `List.fold_left`.
+
+
+* Another efficient way to write unreadable code is to mix all or some
+ of these methods. For example:
+<!-- $MDX skip -->
+```ocaml
+(fun u -> print_string "world"; print_string u)
+  (let temp = print_string "Hello"; "!" in
+   ((fun x -> print_string x; flush stdout) " ";
+    temp));;
+```
+
+
+If you naturally write the program `print_string "Hello world!"` in this
+way, you can without a doubt submit your work to the [Obfuscated OCaml
+Contest](mailto:Pierre.Weis@inria.fr).
+
+## Managing program development
+We give here tips from veteran OCaml programmers, which have served in
+developing the compilers which are good examples of large complex
+programs developed by small teams.
+
+###  How to edit programs
+Many developers nurture a kind of veneration towards the Emacs editor
+(gnu-emacs in general) which they use to write their programs. The
+editor interfaces well with the language since it is capable of syntax
+coloring OCaml source code (rendering different categories of words in
+color, coloring keywords for example).
+
+The following two commands are considered indispensable:
+
+* `CTRL-C-CTRL-C` or `Meta-X compile`: launches re-compilation from
+ within the editor (using the `make` command).
+* `` CTRL-X-` ``: puts the cursor in the file and at the exact place
+ where the OCaml compiler has signaled an error.
+
+Developers describe thus how to use these features: `CTRL-C-CTRL-C`
+combination recompiles the whole application; in case of errors, a
+succession of `` CTRL-X-` `` commands permits correction of all the
+errors signaled; the cycle begins again with a new re-compilation
+launched by `CTRL-C-CTRL-C`.
+
+####  Other emacs tricks
+The `ESC-/` command (dynamic-abbrev-expand) automatically completes the
+word in front of the cursor with one of the words present in one of the
+files being edited. Thus this lets you always choose meaningful
+identifiers without the tedium of having to type extended names in your
+programs: the `ESC-/` easily completes the identifier after typing the
+first letters. In case it brings up the wrong completion, each
+subsequent `ESC-/` proposes an alternate completion.
+
+Under Unix, the `CTRL-C-CTRL-C` or `Meta-X     compile` combination,
+followed by `` CTRL-X-` `` is also used to find all occurrences of a
+certain string in a OCaml program. Instead of launching `make` to
+recompile, you launch the `grep` command; then all the “error
+messages” from `grep` are compatible with the `` CTRL-X-` `` usage
+which automatically takes you to the file and the place where the string
+is found.
+
+###  How to edit with the interactive system
+Under Unix: use the line editor `ledit` which offers great editing
+capabilities “à la emacs” (including `ESC-/`!), as well as a history
+mechanism which lets you retrieve previously typed commands and even
+retrieve commands from one session in another. `ledit` is written in
+OCaml and can be freely down-loaded
+[here](ftp://ftp.inria.fr/INRIA/Projects/cristal/caml-light/bazar-ocaml/ledit.tar.gz).
+
+###  How to compile
+The `make` utility is indispensable for managing the compilation and
+re-compilation of programs. Sample `make` files can be found on [The
+Hump](https://caml.inria.fr//cgi-bin/hump.en.cgi). You can also consult
+the `Makefiles` for the OCaml compilers.
+
+###  How to develop as a team: version control
+Users of the [Git](https://git-scm.com/) software version control system
+never run out of good things to say about the productivity gains it
+brings. This system supports managing development by a team of
+programmers while imposing consistency among them, and also maintains a
+log of changes made to the software.<br />
+ Git also supports simultaneous development by several teams, possibly
+dispersed among several sites linked on the Net.
+
+An anonymous Git read-only mirror [contains the working sources of the
+OCaml compilers](https://github.com/ocaml/ocaml), and the sources of
+other software related to OCaml.
+
+## Formatting guidelines
+
+If you choose not to format your source code automatically with
+[ocamlformat](https://github.com/ocaml-ppx/ocamlformat), please
+consider these style guidelines when doing it manually.
+
 > 
 > **Pseudo spaces law**: never hesitate to separate words of your
 > programs with spaces; the space bar is the easiest key to find on the
 > keyboard, press it as often as necessary!
 > 
 
-####  Delimiters
+###  Delimiters
 A space should always follow a delimiter symbol, and spaces should
 surround operator symbols. It has been a great step forward in
 typography to separate words by spaces to make written texts easier to
 read. Do the same in your programs if you want them to be readable.
 
-####  How to write pairs
+
+
+###  How to write pairs
 A tuple is parenthesized and the commas therein (delimiters) are each
 followed by a space: `(1, 2)`, `let   triplet = (x, y, z)`...
 
@@ -82,12 +1027,12 @@ followed by a space: `(1, 2)`, `let   triplet = (x, y, z)`...
   > patterns are set off nicely by `|` and `->`.
 
 
-####  How to write lists
+###  How to write lists
 Write `x :: l` with spaces around the `::` (since `::` is an infix
 operator, hence surrounded by spaces) and `[1; 2; 3]` (since `;` is a
 delimiter, hence followed by a space).
 
-####  How to write operator symbols
+###  How to write operator symbols
 Be careful to keep operator symbols well separated by spaces: not only
 will your formulas be more readable, but you will avoid confusion with
 multi-character operators. (Obvious exceptions to this rule: the symbols
@@ -131,7 +1076,7 @@ Example: write `x + 1` or `x + !y`.
 > keyboard, it is the easiest to enter and you cannot miss it!
 
 
-####  How to write long character strings
+###  How to write long character strings
 Indent long character strings with the convention in force at that line
 plus an indication of string continuation at the end of each line (a `\`
 character at the end of the line that omits white spaces on the
@@ -143,6 +1088,82 @@ let universal_declaration =
    distinctions can only be based on the common good." in
   ...
 ```
+
+###  When to use parentheses within an expression
+Parentheses are meaningful: they indicate the necessity of using an
+unusual precedence. So they should be used wisely and not sprinkled
+randomly throughout programs. To this end, you should know the usual
+precedences, that is, the combinations of operations which do not
+require parentheses. Quite fortunately this is not complicated if you
+know a little mathematics or strive to follow the following rules:
+
+####  Arithmetic operators: the same rules as in mathematics
+For example: `1 + 2 * x` means `1 + (2 * x)`.
+
+####  Function application: the same rules as those in mathematics for usage of *trigonometric functions*
+In mathematics you write `sin x` to mean `sin (x)`. In the same way
+`sin x + cos x` means `(sin x) + (cos x)` not `sin (x + (cos x))`. Use
+the same conventions in OCaml: write `f x + g x` to mean
+`(f x) + (g x)`.<br />
+This convention generalizes **to all (infix) operators**: `f x :: g x`
+means `(f x) :: (g x)`, `f x @ g x` means `(f x) @ (g x)`, and
+`failwith s ^ s'` means `(failwith s) ^ s'`, *not* `failwith (s ^ s')`.
+
+####  Comparisons and boolean operators
+Comparisons are infix operators, so the preceding rules apply. This is
+why `f x < g x` means `(f x) < (g x)`. For type reasons (no other
+sensible interpretation) the expression `f x < x + 2` means
+`(f x) < (x + 2)`. In the same way `f x < x + 2 && x > 3` means
+`((f x) < (x + 2)) && (x > 3)`.
+
+####  The relative precedences of the boolean operators are those of mathematics
+Although mathematicians have a tendency to overuse parens in this case,
+the boolean “or” operator is analogous to addition and the “and”
+to multiplication. So, just as `1 + 2 * x` means `1 + (2 * x)`,
+`true || false && x` means `true || (false && x)`.
+
+###  How to delimit constructs in programs
+When it is necessary to delimit syntactic constructs in programs, use as
+delimiters the keywords `begin` and `end` rather than parentheses.
+However using parentheses is acceptable if you do it in a consistent,
+that is, systematic, way.
+
+This explicit delimiting of constructs essentially concerns
+pattern-matching constructs or sequences embedded within
+`if then     else` constructs.
+
+####  `match` construct in a `match` construct
+When a `match ... with` or `try ... with` construct appears in a
+pattern-matching clause, it is absolutely necessary to delimit this
+embedded construct (otherwise subsequent clauses of the enclosing
+pattern-matching construct will automatically be associated with the
+enclosed pattern-matching construct). For example:
+
+<!-- $MDX skip -->
+```ocaml
+match x with
+| 1 ->
+  begin match y with
+  | ...
+  end
+| 2 ->
+...
+```
+####  Sequences inside branches of `if`
+In the same way, a sequence which appears in the `then` or `else` part
+of a conditional must be delimited:
+
+<!-- $MDX skip -->
+```ocaml
+if cond then begin
+  e1;
+  e2
+end else begin
+  e3;
+  e4
+end
+```
+
 
 ## Indentation of programs
 > 
@@ -210,6 +1231,70 @@ recommended.
 > **Answer**: It seems almost impossible to use this method since you
 > should always use tabulations to indent, which is hard and unnatural.
  
+###  How to indent operations
+When an operator takes complex arguments, or in the presence of multiple
+calls to the same operator, start the next the line with the operator,
+and don't indent the rest of the operation. For example:
+
+<!-- $MDX skip -->
+```ocaml
+x + y + z
++ t + u
+```
+> 
+> **Justification**: When the operator starts the line, it is clear that
+> the operation continues on this line.
+> 
+
+In the case of a “large expression” in such an operation sequence,
+to define the “large expression” with the help of a `let in`
+construction is preferable to having to indent the line. In place of
+
+<!-- $MDX skip -->
+```ocaml
+x + y + z
++ “large
+  expression”
+```
+write
+
+<!-- $MDX skip -->
+```ocaml
+let t =
+  “large
+   expression” in
+x + y + z + t
+```
+You most certainly must bind those expressions too large to be written
+in one operation in the case of a combination of operators. In place of
+the unreadable expression
+
+<!-- $MDX skip -->
+```ocaml
+(x + y + z * t)
+/ (“large
+    expression”)
+```
+write
+
+<!-- $MDX skip -->
+```ocaml
+let u =
+  “large
+  expression” in
+(x + y + z * t) / u
+```
+These guidelines extend to all operators. For example:
+
+<!-- $MDX skip -->
+```ocaml
+let u =
+  “large
+  expression” in
+x :: y
+:: z + 1 :: t :: u
+```
+
 
 ###  How to indent global `let ... ;;` definitions
 The body of a function defined globally in a module is generally
@@ -675,1080 +1760,6 @@ construction.
 > explicitly define the order of evaluation.
 > 
 
-####  Naming complex arguments:
-In place of
-
-<!-- $MDX skip -->
-```ocaml
-let temp =
-  f x y z
-    “large
-    expression”
-    “other large
-    expression” in
-...
-```
-write
-
-<!-- $MDX skip -->
-```ocaml
-let t =
-  “large
-  expression”
-and u =
-  “other large
-  expression” in
-let temp =
-  f x y z t u in
-...
-```
-####  Naming anonymous functions:
-In the case of an iterator whose argument is a complex function, define
-the function by a `let` binding as well. In place of
-
-<!-- $MDX skip -->
-```ocaml
-List.map
-  (function x ->
-    blabla
-    blabla
-    blabla)
-  l
-```
-write
-
-<!-- $MDX skip -->
-```ocaml
-let f x =
-  blabla
-  blabla
-  blabla in
-List.map f l
-```
-> 
-> **Justification**: Much clearer, in particular if the name given to
-> the function is meaningful.
-> 
-
-###  How to indent operations
-When an operator takes complex arguments, or in the presence of multiple
-calls to the same operator, start the next the line with the operator,
-and don't indent the rest of the operation. For example:
-
-<!-- $MDX skip -->
-```ocaml
-x + y + z
-+ t + u
-```
-> 
-> **Justification**: When the operator starts the line, it is clear that
-> the operation continues on this line.
-> 
-
-In the case of a “large expression” in such an operation sequence,
-to define the “large expression” with the help of a `let in`
-construction is preferable to having to indent the line. In place of
-
-<!-- $MDX skip -->
-```ocaml
-x + y + z
-+ “large
-  expression”
-```
-write
-
-<!-- $MDX skip -->
-```ocaml
-let t =
-  “large
-   expression” in
-x + y + z + t
-```
-You most certainly must bind those expressions too large to be written
-in one operation in the case of a combination of operators. In place of
-the unreadable expression
-
-<!-- $MDX skip -->
-```ocaml
-(x + y + z * t)
-/ (“large
-    expression”)
-```
-write
-
-<!-- $MDX skip -->
-```ocaml
-let u =
-  “large
-  expression” in
-(x + y + z * t) / u
-```
-These guidelines extend to all operators. For example:
-
-<!-- $MDX skip -->
-```ocaml
-let u =
-  “large
-  expression” in
-x :: y
-:: z + 1 :: t :: u
-```
-## Programming guidelines
-###  How to program
-> 
-> *Always put your handiwork back on the bench,<br />
->  and then polish it and re-polish it.*
-> 
-
-####  Write simple and clear programs
-When this is done, reread, simplify and clarify. At every stage of
-creation, use your head!
-
-####  Subdivide your programs into little functions
-Small functions are easier to master.
-
-####  Factor out snippets of repeated code by defining them in separate functions
-The sharing of code obtained in this way facilitates maintenance since
-every correction or improvement automatically spreads throughout the
-program. Besides, the simple act of isolating and naming a snippet of
-code sometimes lets you identify an unsuspected feature.
-
-####  Never copy-paste code when programming
-Pasting code almost surely indicates introducing a default of code
-sharing and neglecting to identify and write a useful auxiliary
-function; hence, it means that some code sharing is lost in the program.
-Losing code sharing implies that you will have more problems afterwards
-for maintenance: a bug in the pasted code has to be corrected at each
-occurrence of the bug in each copy of the code!
-
-Moreover, it is difficult to identify that the same set of 10 lines of
-code is repeated 20 times throughout the program. By contrast, if an
-auxiliary function defines those 10 lines, it is fairly easy to see and
-find where those lines are used: that's simply where the function is
-called. If code is copy-pasted all over the place then the program is
-more difficult to understand.
-
-In conclusion, copy-pasting code leads to programs that are more
-difficult to read and more difficult to maintain: it has to be banished.
-
-###  How to comment programs
-####  Don't hesitate to comment when there's a difficulty
-####  If there's no difficulty, there's no point in commenting
-####  Avoid comments in the bodies of functions
-####  Prefer one comment at the beginning of the function...
-...which explains how the algorithm that is used works. Once more, if
-there is no difficulty, there is no point in commenting.
-
-####  Avoid nocuous comments
-A *nocuous* comment is a comment that does not add any value, i.e. no
-non-trivial information. The nocuous comment is evidently not of
-interest; it is a nuisance since it uselessly distracts the reader. It
-is often used to fulfill some strange criteria related to the so-called
-*software metrology*, for instance the ratio *number of comments* /
-*number of lines of code* that perfectly measures a ratio that I don't
-know the theoretical or practical interpretation. Absolutely avoid
-nocuous comments.
-
-An example of what to avoid: the following comment uses technical words
-and is thus masquerade into a real comment when it has no additional
-information of interest;
-
-<!-- $MDX skip -->
-```ocaml
-(*
-  Function print_lambda:
-  print a lambda-expression given as argument.
-
-  Arguments: lam, any lambda-expression.
-  Returns: nothing.
-
-  Remark: print_lambda can only be used for its side effect.
-*)
-let rec print_lambda lam =
-  match lam with
-  | Var s -> printf "%s" s
-  | Abs l -> printf "\\ %a" print_lambda l
-  | App (l1, l2) ->
-     printf "(%a %a)" print_lambda l1 print_lambda l2
-```
-####  Usage in module interface
-The function's usage must appear in the interface of the module which
-exports it, not in the program which implements it. Choose comments as
-in the OCaml system's interface modules, which will subsequently allow
-the documentation of the interface module to be extracted automatically
-if need be.
-
-####  Use assertions
-Use assertions as much as possible: they let you avoid verbose comments,
-while allowing a useful verification upon execution.
-
-For example, the conditions for the arguments of a function to be valid
-are usefully verified by assertions.
-
-<!-- $MDX skip -->
-```ocaml
-let f x =
-  assert (x >= 0);
-  ...
-```
-Note as well that an assertion is often preferable to a comment because
-it's more trustworthy: an assertion is forced to be pertinent because it
-is verified upon each execution, while a comment can quickly become
-obsolete and then becomes actually detrimental to the comprehension of
-the program.
-
-####  Comments line by line in imperative code
-When writing difficult code, and particularly in case of highly
-imperative code with a lot of memory modifications (physical mutations
-in data structures), it is sometime mandatory to comment inside the body
-of functions to explain the implementation of the algorithm encoded
-here, or to follow successive modifications of invariants that the
-function must maintain. Once more, if there is some difficulty
-commenting is mandatory, for each program line if necessary.
-
-###  How to choose identifiers
-It's hard to choose identifiers whose name evokes the meaning of the
-corresponding portion of the program. This is why you must devote
-particular care to this, emphasizing clarity and regularity of
-nomenclature.
-
-####  Don't use abbreviations for global names
-Global identifiers (including especially the names of functions) can be
-long, because it's important to understand what purpose they serve far
-from their definition.
-
-####  Separate words by underscores: (`int_of_string`, not `intOfString`)
-Case modifications are meaningful in OCaml: in effect capitalized words
-are reserved for constructors and module names in OCaml; in contrast
-regular variables (functions or identifiers) must start by a lowercase
-letter. Those rules prevent proper usage of case modification for words
-separation in identifiers: the first word starts the identifier, hence
-it must be lower case and it is forbidden to choose `IntOfString` as the
-name of a function.
-
-####  Always give the same name to function arguments which have the same meaning
-If necessary, make this nomenclature explicit in a comment at the top of
-the file); if there are several arguments with the same meaning then
-attach numeral suffixes to them.
-
-####  Local identifiers can be brief, and should be reused from one function to another
-This augments regularity of style. Avoid using identifiers whose
-appearance can lead to confusion such as `l` or `O`, easy to confuse
-with `1` and `0`.
-
-Example:
-
-<!-- $MDX skip -->
-```ocaml
-let add_expression expr1 expr2 = ...
-let print_expression expr = ...
-```
-An exception to the recommendation not to use capitalization to separate
-words within identifiers is tolerated in the case of interfacing with
-existing libraries which use this naming convention: this lets OCaml
-users of the library to orient themselves in the original library
-documentation more easily.
-
-###  When to use parentheses within an expression
-Parentheses are meaningful: they indicate the necessity of using an
-unusual precedence. So they should be used wisely and not sprinkled
-randomly throughout programs. To this end, you should know the usual
-precedences, that is, the combinations of operations which do not
-require parentheses. Quite fortunately this is not complicated if you
-know a little mathematics or strive to follow the following rules:
-
-####  Arithmetic operators: the same rules as in mathematics
-For example: `1 + 2 * x` means `1 + (2 * x)`.
-
-####  Function application: the same rules as those in mathematics for usage of *trigonometric functions*
-In mathematics you write `sin x` to mean `sin (x)`. In the same way
-`sin x + cos x` means `(sin x) + (cos x)` not `sin (x + (cos x))`. Use
-the same conventions in OCaml: write `f x + g x` to mean
-`(f x) + (g x)`.<br />
-This convention generalizes **to all (infix) operators**: `f x :: g x`
-means `(f x) :: (g x)`, `f x @ g x` means `(f x) @ (g x)`, and
-`failwith s ^ s'` means `(failwith s) ^ s'`, *not* `failwith (s ^ s')`.
-
-####  Comparisons and boolean operators
-Comparisons are infix operators, so the preceding rules apply. This is
-why `f x < g x` means `(f x) < (g x)`. For type reasons (no other
-sensible interpretation) the expression `f x < x + 2` means
-`(f x) < (x + 2)`. In the same way `f x < x + 2 && x > 3` means
-`((f x) < (x + 2)) && (x > 3)`.
-
-####  The relative precedences of the boolean operators are those of mathematics
-Although mathematicians have a tendency to overuse parens in this case,
-the boolean “or” operator is analogous to addition and the “and”
-to multiplication. So, just as `1 + 2 * x` means `1 + (2 * x)`,
-`true || false && x` means `true || (false && x)`.
-
-###  How to delimit constructs in programs
-When it is necessary to delimit syntactic constructs in programs, use as
-delimiters the keywords `begin` and `end` rather than parentheses.
-However using parentheses is acceptable if you do it in a consistent,
-that is, systematic, way.
-
-This explicit delimiting of constructs essentially concerns
-pattern-matching constructs or sequences embedded within
-`if then     else` constructs.
-
-####  `match` construct in a `match` construct
-When a `match ... with` or `try ... with` construct appears in a
-pattern-matching clause, it is absolutely necessary to delimit this
-embedded construct (otherwise subsequent clauses of the enclosing
-pattern-matching construct will automatically be associated with the
-enclosed pattern-matching construct). For example:
-
-<!-- $MDX skip -->
-```ocaml
-match x with
-| 1 ->
-  begin match y with
-  | ...
-  end
-| 2 ->
-...
-```
-####  Sequences inside branches of `if`
-In the same way, a sequence which appears in the `then` or `else` part
-of a conditional must be delimited:
-
-<!-- $MDX skip -->
-```ocaml
-if cond then begin
-  e1;
-  e2
-end else begin
-  e3;
-  e4
-end
-```
-###  How to use modules
-####  Subdividing into modules
-You must subdivide your programs into coherent modules.
-
-For each module, you must explicitly write an interface.
-
-For each interface, you must document the things defined by the module:
-functions, types, exceptions, etc.
-
-####  Opening modules
-Avoid `open` directives, using instead the qualified identifier
-notation. Thus you will prefer short but meaningful module names.
-
-> 
-> **Justification**: The use of unqualified identifiers is ambiguous and
-> gives rise to difficult-to-detect semantic errors.
-> 
-
-<!-- $MDX skip -->
-```ocaml
-let lim = String.length name - 1 in
-...
-let lim = Array.length v - 1 in
-...
-... List.map succ ...
-... Array.map succ ...
-```
-####  When to use open modules rather than leaving them closed
-You can consider it normal to open a module which modifies the
-environment, and brings other versions of an important set of functions.
-For example, the `Format` module provides automatically indented
-printing. This module redefines the usual printing functions
-`print_string`, `print_int`, `print_float`, etc. So when you use
-`Format`, open it systematically at the top of the file.<br />
-If you don't open `Format` you could miss the qualification of a
-printing function, and this could be perfectly silent, since many of
-`Format`'s functions have a counterpart in the default environment
-(`Pervasives`). Mixing printing functions from `Format` and `Pervasives`
-leads to subtle bugs in the display, that are difficult to trace. For
-instance:
-
-<!-- $MDX skip -->
-```ocaml
-let f () =
-  Format.print_string "Hello World!"; print_newline ()
-```
-is bogus since it does not call `Format.print_newline` to flush the
-pretty-printer queue and output `"Hello World!"`. Instead
-`"Hello World!"` is stuck into the pretty-printer queue, while
-`Pervasives.print_newline` outputs a carriage return on the standard
-output ... If `Format` is printing on a file and standard output is the
-terminal, the user will have a bad time finding that a carriage return
-is missing in the file (and the display of material on the file is
-strange, since boxes that should be closed by `Format.print_newline` are
-still open), while a spurious carriage return appeared on the screen!
-
-For the same reason, open large libraries such as the one with
-arbitrary-precision integers so as not to burden the program which uses
-them.
-
-<!-- $MDX skip -->
-```ocaml
-open Num
-
-let rec fib n =
-  if n <= 2 then Int 1 else fib (n - 1) +/ fib (n - 2)
-```
-> 
-> **Justification**: The program would be less readable if you had to
-> qualify all the identifiers.
-> 
-
-In a program where type definitions are shared, it is good to gather
-these definitions into one or more module(s) without implementations
-(containing only types). Then it's acceptable to systematically open the
-module which exports the shared type definitions.
-
-###  Pattern-matching
-####  Never be afraid of over-using pattern-matching!
-####  On the other hand, be careful to avoid non-exhaustive pattern-matching constructs
-Complete them with care, without using a “catch-all” clause such as
-`| _ -> ...` or `| x -> ...` when it's possible to do without it (for
-example when matching a concrete type defined within the program). See
-also the next section: compiler warnings.
-
-###  Compiler warnings
-Compiler warnings are meant to prevent potential errors; this is why you
-absolutely must heed them and correct your programs if compiling them
-produces such warnings. Besides, programs whose compilation produces
-warnings have an odor of amateurism which certainly doesn't suit your
-own work!
-
-####  Pattern-matching warnings
-Warnings about pattern-matching must be treated with the upmost care:
-
-* Those concerning useless clauses should of course be eliminated.
-
-
-* For non-exhaustive pattern-matching you must complete the
- corresponding pattern-matching construct, without adding a default
- case “catch-all”, such as `| _ -> ... `, but with an explicit
- list of the constructors not examined by the rest of the construct,
- for example `| Cn _ | Cn1 _ -> ... `.
-
-> 
-> **Justification**: It's not really any more complicated to write
-> it this way, and this allows the program to evolve more safely. In
-> effect the addition of a new constructor to the datatype being
-> matched will produce an alert anew, which will allow the
-> programmer to add a clause corresponding to the new constructor if
-> that is warranted. On the contrary, the “catch-all” clause
-> will make the function compile silently and it might be thought
-> that the function is correct as the new constructor will be
-> handled by the default case.
-> 
-
-
-* Non-exhaustive pattern-matches induced by clauses with guards must
- also be corrected. A typical case consists in suppressing a
- redundant guard.
-
-####  De-structuring `let` bindings
-\[Translator's note: a “de-structuring `let` binding” is one which
-binds several names to several expressions simultaneously. You pack all
-the names you want bound into a collection such as a tuple or a list,
-and you correspondingly pack all the expressions into a collective
-expression. When the `let` binding is evaluated, it unpacks the
-collections on both sides and binds each expression to its corresponding
-name. For example, `let x, y = 1, 2` is a de-structuring `let` binding
-which performs both the bindings `let x = 1` and `let y = 2`
-simultaneously.\]<br />
-The `let` binding is not limited to simple identifier definitions: you
-can use it with more complex or simpler patterns. For instance
-
-* `let` with complex patterns:<br />
- `let [x; y] as l = ...`<br />
- simultaneously defines a list `l` and its two elements `x` and `y`.
-* `let` with simple pattern:<br />
- `let _ = ...` does not define anything, it just evaluate the
- expression on the right hand side of the `=` symbol.
-
-####  The de-structuring `let` must be exhaustive
-Only use de-structuring `let` bindings in the case where the
-pattern-matching is exhaustive (the pattern can never fail to match).
-Typically, you will thus be limited to definitions of product types
-(tuples or records) or definitions of variant type with a single case.
-In any other case, you should use an explicit `match   ... with`
-construct.
-
-* `let ... in`: de-structuring `let` that give a warning must be
- replaced by an explicit pattern matching. For instance, instead of
- `let [x; y] as l = List.map succ     (l1 @ l2) in expression` write:
-
-<!-- $MDX skip -->
-```ocaml
-match List.map succ (l1 @ l2) with
-| [x; y] as l -> expression
-| _ -> assert false
-```
-
-
-* Global definition with de-structuring lets should be rewritten with
- explicit pattern matching and tuples:
-
-<!-- $MDX skip -->
-```ocaml
-let x, y, l =
-  match List.map succ (l1 @ l2) with
-  | [x; y] as l -> x, y, l
-  | _ -> assert false
-```
-
-
-> 
-> **Justification**: There is no way to make the pattern-matching
-> exhaustive if you use general de-structuring `let` bindings.
-> 
-
-####  Sequence warnings and `let _ = ...`
-When the compiler emits a warning about the type of an expression in a
-sequence, you have to explicitly indicate that you want to ignore the
-result of this expression. To this end:
-
-* use a vacuous binding and suppress the sequence warning of
-
-<!-- $MDX skip -->
-```ocaml
-List.map f l;
-print_newline ()
-```
-write
-<!-- $MDX skip -->
-```ocaml
-let _ = List.map f l in
-print_newline ()
-```
-
-
-* you can also use the predefined function `ignore : 'a     -> unit`
- that ignores its argument to return `unit`.
-
-<!-- $MDX skip -->
-```ocaml
-ignore (List.map f l);
-print_newline ()
-```
-
-
-* In any case, the best way to suppress this warning is to understand
- why it is emitted by the compiler: the compiler warns you because
- your code computes a result that is useless since this result is
- just deleted after computation. Hence, if useful at all, this
- computation is performed only for its side-effects; hence it should
- return unit.<br />
- Most of the time, the warning indicates the use of the wrong
- function, a probable confusion between the side-effect only version
- of a function (which is a procedure whose result is irrelevant) with
- its functional counterpart (whose result is meaningful).<br />
- In the example mentioned above, the first situation prevailed, and
- the programmer should have called `iter` instead of `map`, and
- simply write
-
-<!-- $MDX skip -->
-```ocaml
-List.iter f l;
-print_newline ()
-```
-In actual programs, the suitable (side-effect only) function may not
-exist and has to be written: very often, a careful separation of the
-procedural part from the functional part of the function at hand
-elegantly solves the problem, and the resulting program just looks
-better afterwards! For instance, you would turn the problematic
-definition:
-<!-- $MDX skip -->
-```ocaml
-let add x y =
-  if x > 1 then print_int x;
-  print_newline ();
-  x + y;;
-```
-into the clearer separate definitions and change old calls to `add`
-accordingly.
-
-
-
-In any case, use the `let _ = ...` construction exactly in those cases
-where you want to ignore a result. Don't systematically replace
-sequences with this construction.
-
-> 
-> **Justification**: Sequences are much clearer! Compare `e1; e2; e3` to
-> 
-> ```ocaml
-> let _ = e1 in
-> let _ = e2 in
-> e3
-> ```
-
-###  The `hd` and `tl` functions
-Don't use the `hd` and `tl` functions, but pattern-match the list
-argument explicitly.
-
-> 
-> **Justification**: This is just as brief as and much clearer than
-> using `hd` and `tl` which must of necessity be protected by
-> `try... with...` to catch the exception which might be raised by these
-> functions.
-> 
-
-###  Loops
-####  `for` loops
-To simply traverse an array or a string, use a `for` loop.
-
-<!-- $MDX skip -->
-```ocaml
-for i = 0 to Array.length v - 1 do
-  ...
-done
-```
-If the loop is complex or returns a result, use a recursive function.
-
-<!-- $MDX skip -->
-```ocaml
-let find_index e v =
-  let rec loop i =
-    if i >= Array.length v then raise Not_found else
-    if v.(i) = e then i else loop (i + 1) in
-  loop 0;;
-```
-> 
-> **Justification**: The recursive function lets you code any loop
-> whatsoever simply, even a complex one, for example with multiple exit
-> points or with strange index steps (steps depending on a data value
-> for example).
-> 
-> Besides, the recursive loop avoids the use of mutables whose value can
-> be modified in any part of the body of the loop whatsoever (or even
-> outside): on the contrary the recursive loop explicitly takes as
-> arguments the values susceptible to change during the recursive calls.
-> 
-
-####  `while` loops
-> 
-> **While loops law**: Beware: usually a while loop is wrong, unless its
-> loop invariant has been explicitly written.
-> 
-
-The main use of the `while` loop is the infinite loop
-`while true do     ...`. You get out of it through an exception,
-generally on termination of the program.
-
-Other `while` loops are hard to use, unless they come from canned
-programs from algorithms courses where they were proved.
-
-> 
-> **Justification**: `while` loops require one or more mutables in order
-> that the loop condition change value and the loop finally terminate.
-> To prove their correctness, you must therefore discover the loop
-> invariants, an interesting but difficult sport.
-> 
-
-###  Exceptions
-Don't be afraid to define your own exceptions in your programs, but on
-the other hand use as much as possible the exceptions predefined by the
-system. For example, every search function which fails should raise the
-predefined exception `Not_found`. Be careful to handle the exceptions
-which may be raised by a function call with the help of a
-`try ... with`.
-
-Handling all exceptions by `try     ... with _ ->` is usually reserved
-for the main function of the program. If you need to catch all
-exceptions to maintain an invariant of an algorithm, be careful to name
-the exception and re-raise it, after having reset the invariant.
-Typically:
-<!-- $MDX skip -->
-```ocaml
-let ic = open_in ...
-and oc = open_out ... in
-try
-  treatment ic oc;
-  close_in ic; close_out oc
-with x -> close_in ic; close_out oc; raise x
-```
-> 
-> **Justification**: `try ... with _     ->` silently catches all
-> exceptions, even those which have nothing to do with the computation
-> at hand (for example an interruption will be captured and the
-> computation will continue anyway!).
-> 
-
-###  Data structures
-One of the great strengths of OCaml is the power of the data structures
-which can be defined and the simplicity of manipulating them. So you
-must take advantage of this to the fullest extent; don't hesitate to
-define your own data structures. In particular, don't systematically
-represent enumerations by whole numbers, nor enumerations with two cases
-by booleans. Examples:
-
-```ocaml
-type figure =
-   | Triangle | Square | Circle | Parallelogram
-type convexity =
-   | Convex | Concave | Other
-type type_of_definition =
-   | Recursive | Non_recursive
-```
-> 
-> **Justification**: A boolean value often prevents intuitive
-> understanding of the corresponding code. For example, if
-> `type_of_definition` is coded by a boolean, what does `true` signify?
-> A “normal” definition (that is, non-recursive) or a recursive
-> definition?
-> 
-> In the case of an enumerated type encode by an integer, it is very
-> difficult to limit the range of acceptable integers: one must define
-> construction functions that will ensure the mandatory invariants of
-> the program (and verify afterwards that no values has been built
-> directly), or add assertions in the program and guards in pattern
-> matchings. This is not good practice, when the definition of a sum
-> type elegantly solves this problem, with the additional benefit of
-> firing the full power of pattern matching and compiler's verifications
-> of exhaustiveness.
-> 
-> **Criticism**: For binary enumerations, one can systematically define
-> predicates whose names carry the semantics of the boolean that
-> implements the type. For instance, we can adopt the convention that a
-> predicate ends by the letter `p`. Then, in place of defining a new sum
-> type for `type_of_definition`, we will use a predicate function
-> `recursivep` that returns true if the definition is recursive.
-> 
-> **Answer**: This method is specific to binary enumeration and cannot
-> be easily extended; moreover it is not well suited to pattern
-> matching. For instance, for definitions encoded by
-> `| Let of bool * string * expression` a typical pattern matching would
-> look like:
-> 
-> ```ocaml
-> | Let (_, v, e) as def ->
->    if recursivep def then code_for_recursive_case
->    else code_for_non_recursive_case
-> ```
-> 
-> or, if `recursivep` can be applied to booleans:
-> 
-> ```ocaml
-> | Let (b, v, e) ->
->    if recursivep b then code_for_recursive_case
->    else code_for_non_recursive_case
-> ```
-> 
-> contrast with an explicit encoding:
-> 
-> ```ocaml
-> | Let (Recursive, v, e) -> code_for_recursive_case
-> | Let (Non_recursive, v, e) -> code_for_non_recursive_case
-> ```
-> 
-> The difference between the two programs is subtle and you may think
-> that this is just a matter of taste; however the explicit encoding is
-> definitively more robust to modifications and fits better with the
-> language.
-> 
-
-*A contrario*, it is not necessary to systematically define new types
-for boolean flags, when the interpretation of constructors `true` and
-`false` is clear. The usefulness of the definition of the following
-types is then questionable:
-<!-- $MDX skip -->
-```ocaml
-type switch = On | Off
-type bit = One | Zero
-```
-The same objection is admissible for enumerated types represented as
-integers, when those integers have an evident interpretation with
-respect to the data to be represented.
-
-###  When to use mutables
-Mutable values are useful and sometimes indispensable to simple and
-clear programming. Nevertheless, you must use them with discernment:
-OCaml's normal data structures are immutable. They are to be preferred
-for the clarity and safety of programming which they allow.
-
-###  Iterators
-OCaml's iterators are a powerful and useful feature. However you should
-not overuse them, nor *a contrario* neglect them: they are provided to
-you by libraries and have every chance of being correct and
-well-thought-out by the author of the library. So it's useless to
-reinvent them.
-
-So write
-<!-- $MDX skip -->
-```ocaml
-let square_elements elements = List.map square elements
-```
-rather than:
-<!-- $MDX skip -->
-```ocaml
-let rec square_elements = function
-  | [] -> []
-  | elem :: elements -> square elem :: square_elements elements
-```
-On the other hand avoid writing:
-<!-- $MDX skip -->
-```ocaml
-let iterator f x l =
-  List.fold_right (List.fold_left f) [List.map x l] l
-```
-even though you get:
-<!-- $MDX skip -->
-```ocaml
-  let iterator f x l =
-    List.fold_right (List.fold_left f) [List.map x l] l;;
-  iterator (fun l x -> x :: l) (fun l -> List.rev l) [[1; 2; 3]]
-```
-In case of express need, you must be careful to add an explanatory
-comment: in my opinion it's absolutely necessary!
-
-###  How to optimize programs
-> 
-> **Pseudo law of optimization**: No optimization *a priori*.<br />
->  No optimization *a posteriori* either.
-> 
-
-Above all program simply and clearly. Don't start optimizing until the
-program bottleneck has been identified (in general a few routines). Then
-optimization consists above all of changing *the complexity* of the
-algorithm used. This often happens through redefining the data
-structures being manipulated and completely rewriting the part of the
-program which poses a problem.
-
-> 
-> **Justification**: Clarity and correctness of programs take
-> precedence. Besides, in a substantial program, it is practically
-> impossible to identify *a priori* the parts of the program whose
-> efficiency is of prime importance.
-> 
-
-###  How to choose between classes and modules
-You should use OCaml classes when you need inheritance, that is,
-incremental refinement of data and their functionality.
-
-You should use conventional data structures (in particular, variant
-types) when you need pattern-matching.
-
-You should use modules when the data structures are fixed and their
-functionality is equally fixed or it's enough to add new functions in
-the programs which use them.
-
-###  Clarity of OCaml code
-The OCaml language includes powerful constructs which allow simple and
-clear programming. The main problem to obtain crystal clear programs it
-to use them appropriately.
-
-The language features numerous programming styles (or programming
-paradigms): imperative programming (based on the notion of state and
-assignment), functional programming (based on the notion of function,
-function results, and calculus), object oriented programming (based of
-the notion of objects encapsulating a state and some procedures or
-methods that can modify the state). The first work of the programmer is
-to choose the programming paradigm that fits the best the problem at
-hand. When using one of those programming paradigms, the difficulty is
-to use the language construct that expresses in the most natural and
-easiest way the computation that implements the algorithm.
-
-####  Style dangers
-Concerning programming styles, one can usually observe the two
-symmetrical problematic behaviors: on the one hand, the “all
-imperative” way (*systematic* usage of loops and assignment), and on
-the other hand the “purely functional” way (*never* use loops nor
-assignments); the “100% object” style will certainly appear in the
-next future, but (fortunately) it is too new to be discussed here.
-
-* **The “Too much imperative” danger**:
-    * It is a bad idea to use imperative style to code a function that
- is *naturally* recursive. For instance, to compute the length of
- a list, you should not write:
-<!-- $MDX skip -->
-```ocaml
-let list_length l =
-  let l = ref l in
-  let res = ref 0 in
-  while !l <> [] do
-    incr res; l := List.tl !l
-  done;
-  !res;;
-```
-in place of the following recursive function, so simple and
-clear:
-<!-- $MDX skip -->
-```ocaml
-let rec list_length = function
-  | [] -> 0
-  | _ :: l -> 1 + list_length l
-```
-(For those that would contest the equivalence of those two
-versions, see the [note below](#Imperativeandfunctionalversionsoflistlength)).
-
-
-* Another common “over imperative error” in the imperative world is
-  not to systematically choose the simple `for` loop to iter on the
-  element of a vector, but instead to use a complex `while` loop, with
-  one or two references (too many useless assignments, too many
-  opportunity for errors).
-
-* This category of programmer feels that the `mutable` keyword in
-  the record type definitions should be implicit.
-
-* **The “Too much functional” danger**:
-    * The programmer that adheres to this dogma avoids
- using arrays and assignment. In the most severe case, one
- observes a complete denial of writing any imperative
- construction, even in case it is evidently the most elegant way
- to solve the problem.
-    * Characteristic symptoms: systematic rewriting of `for` loops
- with recursive functions, usage of lists in contexts where
- imperative data structures seem to be mandatory to anyone,
- passing numerous global parameters of the problem to every
- functions, even if a global reference would be perfect to avoid
- these spurious parameters that are mainly invariants that must
- be passed all over the place.
-    * This programmer feels that the `mutable` keyword in the record
- type definitions should be suppressed from the language.
-
-####  OCaml code generally considered unreadable
-The OCaml language includes powerful constructs which allow simple and
-clear programming. However the power of these constructs also lets you
-write uselessly complicated code, to the point where you get a perfectly
-unreadable program.
-
-Here are a number of known ways:
-
-* Use useless (hence novice for readability) `if then else`, as in
-<!-- $MDX skip -->
-```ocaml
-let flush_ps () =
-  if not !psused then psused := true
-```
-or (more subtle)
-<!-- $MDX skip -->
-```ocaml
-let sync b =
-  if !last_is_dvi <> b then last_is_dvi := b
-```
-
-
-* Code one construct with another. For example code a `let ... in` by
- the application of an anonymous function to an argument. You would
- write<br />
-<!-- $MDX skip -->
-```ocaml
-(fun x y -> x + y)
-   e1 e2
-```
-instead of simply writing
-<!-- $MDX skip -->
-```ocaml
-let x = e1
-and y = e2 in
-x + y
-```
-
-
-* Systematically code sequences with `let in` bindings.
-
-
-* Mix computations and side effects, particularly in function calls.
- Recall that the order of evaluation of arguments in a function call
- is unspecified, which implies that you must not mix side effects and
- computations in function calls. However, when there is only one
- argument you might take advantage of this to perform a side effect
- within the argument, which is extremely troublesome for the reader
- albeit without danger to the program semantics. To be absolutely
- forbidden.
-
-
-* Misuse of iterators and higher-order functions (i.e. over- or
- under-use). For example it's better to use `List.map` or
- `List.iter` than to write their equivalents in-line using specific
- recursive functions of your own. Even worse, you don't use
- `List.map` or `List.iter` but write their equivalents in terms of
- `List.fold_right` and `List.fold_left`.
-
-
-* Another efficient way to write unreadable code is to mix all or some
- of these methods. For example:
-<!-- $MDX skip -->
-```ocaml
-(fun u -> print_string "world"; print_string u)
-  (let temp = print_string "Hello"; "!" in
-   ((fun x -> print_string x; flush stdout) " ";
-    temp));;
-```
-
-
-If you naturally write the program `print_string "Hello world!"` in this
-way, you can without a doubt submit your work to the [Obfuscated OCaml
-Contest](mailto:Pierre.Weis@inria.fr).
-
-## Managing program development
-We give here tips from veteran OCaml programmers, which have served in
-developing the compilers which are good examples of large complex
-programs developed by small teams.
-
-###  How to edit programs
-Many developers nurture a kind of veneration towards the Emacs editor
-(gnu-emacs in general) which they use to write their programs. The
-editor interfaces well with the language since it is capable of syntax
-coloring OCaml source code (rendering different categories of words in
-color, coloring keywords for example).
-
-The following two commands are considered indispensable:
-
-* `CTRL-C-CTRL-C` or `Meta-X compile`: launches re-compilation from
- within the editor (using the `make` command).
-* `` CTRL-X-` ``: puts the cursor in the file and at the exact place
- where the OCaml compiler has signaled an error.
-
-Developers describe thus how to use these features: `CTRL-C-CTRL-C`
-combination recompiles the whole application; in case of errors, a
-succession of `` CTRL-X-` `` commands permits correction of all the
-errors signaled; the cycle begins again with a new re-compilation
-launched by `CTRL-C-CTRL-C`.
-
-####  Other emacs tricks
-The `ESC-/` command (dynamic-abbrev-expand) automatically completes the
-word in front of the cursor with one of the words present in one of the
-files being edited. Thus this lets you always choose meaningful
-identifiers without the tedium of having to type extended names in your
-programs: the `ESC-/` easily completes the identifier after typing the
-first letters. In case it brings up the wrong completion, each
-subsequent `ESC-/` proposes an alternate completion.
-
-Under Unix, the `CTRL-C-CTRL-C` or `Meta-X     compile` combination,
-followed by `` CTRL-X-` `` is also used to find all occurrences of a
-certain string in a OCaml program. Instead of launching `make` to
-recompile, you launch the `grep` command; then all the “error
-messages” from `grep` are compatible with the `` CTRL-X-` `` usage
-which automatically takes you to the file and the place where the string
-is found.
-
-###  How to edit with the interactive system
-Under Unix: use the line editor `ledit` which offers great editing
-capabilities “à la emacs” (including `ESC-/`!), as well as a history
-mechanism which lets you retrieve previously typed commands and even
-retrieve commands from one session in another. `ledit` is written in
-OCaml and can be freely down-loaded
-[here](ftp://ftp.inria.fr/INRIA/Projects/cristal/caml-light/bazar-ocaml/ledit.tar.gz).
-
-###  How to compile
-The `make` utility is indispensable for managing the compilation and
-re-compilation of programs. Sample `make` files can be found on [The
-Hump](https://caml.inria.fr//cgi-bin/hump.en.cgi). You can also consult
-the `Makefiles` for the OCaml compilers.
-
-###  How to develop as a team: version control
-Users of the [Git](https://git-scm.com/) software version control system
-never run out of good things to say about the productivity gains it
-brings. This system supports managing development by a team of
-programmers while imposing consistency among them, and also maintains a
-log of changes made to the software.<br />
- Git also supports simultaneous development by several teams, possibly
-dispersed among several sites linked on the Net.
-
-An anonymous Git read-only mirror [contains the working sources of the
-OCaml compilers](https://github.com/ocaml/ocaml), and the sources of
-other software related to OCaml.
 
 ##  Notes
 ###  Imperative and functional versions of `list_length`
@@ -1775,3 +1786,11 @@ as the imperative program with the additional clarity and natural
 look of an algorithm that performs pattern matching and recursive
 calls to handle an argument that belongs to a recursive sum data type.
 
+## Credits
+Original translation from French: [Ruchira
+Datta](mailto:datta@math.berkeley.edu).
+
+Thanks to all those who have already participated in the critique of
+this page: Daniel de Rauglaudre, Luc Maranget, Jacques Garrigue, Damien
+Doligez, Xavier Leroy, Bruno Verlyck, Bruno Petazzoni, Francois Maltey,
+Basile Starynkevitch, Toby Moth, Pierre Lescanne.
