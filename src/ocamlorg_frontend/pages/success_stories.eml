@@ -160,12 +160,12 @@ Layout.render
                             </div>
                         </a>
 
-                        <a href="https://www.cornell.edu/" class="swiper-slide p-4 card-hover">
+                        <a href="https://ahrefs.com/" class="swiper-slide p-4 card-hover">
                             <div class="overflow-hidden p-8">
                                 <img src="/logos/ahrefs.svg" class="mb-12" alt="" width="80" height="100%">
-                                <div class="mb-12">OCaml as the development environment acts as a very much trusted partner throughout the whole development process. As our requirement evolves, we change the implementation a lot and this is where the language shines. Literally, I am not afraid to change others’ code when OCaml is holding my back!</div>
-                                <div class="font-bold">Oleksiy Golovko, Backend Developer</div>
-                                <div>Ahrefs.</div>
+                                <div class="mb-12">OCaml as the development environment acts as a very much trusted partner throughout the whole development process. As our requirements evolve we change the implementation a lot, and this is where the language shines. Literally, I am not afraid to change others’ code when OCaml has my back!</div>
+                                <div class="font-bold">Oleksiy Golovko</div>
+                                <div>Backend Developer, Ahrefs.</div>
                             </div>
                         </a>
                     </div>
