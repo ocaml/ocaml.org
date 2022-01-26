@@ -73,11 +73,19 @@ let last_commit () =
   output
 
 let ls_dir directory =
-  Sys.readdir directory
-  |> Array.to_list
-  |> List.filter (fun x -> Sys.is_directory (Filename.concat directory x))
+  match Sys.readdir directory with
+  | exception Sys_error _ ->
+    None
+  | entries ->
+    let entry_is_dir x = Sys.is_directory (Filename.concat directory x) in
+    Some (List.filter entry_is_dir (Array.to_list entries))
 
-let list_packages () = ls_dir Fpath.(to_string (clone_path / "packages"))
+let list_packages () =
+  match ls_dir Fpath.(to_string (clone_path / "packages")) with
+  | Some pkgs ->
+    pkgs
+  | None ->
+    []
 
 let list_package_versions package =
   ls_dir Fpath.(to_string (clone_path / "packages" / package))

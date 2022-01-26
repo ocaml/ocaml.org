@@ -110,11 +110,14 @@ let compute_new_packages_since date =
   let filter_new_packages acc modified_versions =
     let ((pkg, _) as lastest) = List.hd modified_versions in
     let name = OpamPackage.(Name.to_string (name pkg)) in
-    let all_versions = Opam_repository.list_package_versions name in
-    if List.length modified_versions >= List.length all_versions then
+    match Opam_repository.list_package_versions name with
+    | Some all_versions
+      when List.length modified_versions >= List.length all_versions ->
       lastest :: acc
-    else
+    | Some _ | None ->
       acc
+    (* Might be [None] if a package has been added then removed, eg.
+       https://github.com/ocaml/opam-repository/pull/20065/commits *)
   in
   List.fold_left filter_new_packages [] packages |> List.rev
 
