@@ -16,7 +16,7 @@
 
   This is a static list of packages that are highlighted on the Packages page.
 
-- Add listing stats on the Packages page (#213, by @Julow)
+- Add listing stats on the Packages page (#213, #256, by @Julow)
 
   The stats are:
   Recently added packages and recently updated packages, which are computed
