@@ -81,8 +81,9 @@ let fold_dir f acc directory =
     Array.sort String.compare entries;
     Some (Array.fold_right f entries acc)
 
-let list_package_versions package =
-  let directory = Fpath.(to_string (clone_path / "packages" / package)) in
+(** Read directory [directory] and return the base name of every directories in
+    it. *)
+let ls_dir_in_dir directory =
   fold_dir
     (fun x acc ->
       if Sys.is_directory (Filename.concat directory x) then
@@ -91,6 +92,9 @@ let list_package_versions package =
         acc)
     []
     directory
+
+let list_package_versions package =
+  ls_dir_in_dir Fpath.(to_string (clone_path / "packages" / package))
 
 let list_packages_and_versions () =
   let directory = Fpath.(to_string (clone_path / "packages")) in
@@ -103,6 +107,10 @@ let list_packages_and_versions () =
         acc)
     []
     directory
+  |> Option.value ~default:[]
+
+let list_packages () =
+  ls_dir_in_dir Fpath.(to_string (clone_path / "packages"))
   |> Option.value ~default:[]
 
 let process_opam_file f =
