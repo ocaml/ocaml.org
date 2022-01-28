@@ -10,4 +10,7 @@
   code-mirror
   code-mirror.lint
   code-mirror.autocomplete
-  ocamlorg_toplevel))
+  code-mirror.stream
+  js_top_worker-client
+  ocamlorg.rpc_brr
+  rpclib-lwt))

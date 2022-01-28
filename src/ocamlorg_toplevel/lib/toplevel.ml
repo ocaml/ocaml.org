@@ -20,11 +20,10 @@
 
 open Js_of_ocaml
 open Js_of_ocaml_tyxml
-
-(* open Brr_io *)
-open Lwt
+open Lwt.Syntax
 module Worker = Brr_webworkers.Worker
-module Toprpc = Toplevel_api.Make (Rpc_lwt.GenClient ())
+module Toplevel_api = Js_top_worker_rpc.Toplevel_api_gen
+module Toprpc = Js_top_worker_client.W
 
 (* Handy infix bind-style operator for the RPCs *)
 let rpc_bind x f =
@@ -41,7 +40,7 @@ let by_id_coerce s f =
 let do_by_id s f = try f (Dom_html.getElementById s) with Not_found -> ()
 
 let resize ~container ~textbox () =
-  Lwt.pause () >>= fun () ->
+  let* () = Lwt.pause () in
   textbox##.style##.height := Js.string "auto";
   textbox##.style##.height
   := Js.string (Printf.sprintf "%dpx" (max 18 textbox##.scrollHeight));
@@ -128,9 +127,8 @@ module History = struct
       textbox##.value := Js.string !data.(!idx))
 end
 
-let timeout_container worker () =
+let timeout_container () =
   let open Brr in
-  Worker.terminate worker;
   match Document.find_el_by_id G.document @@ Jstr.v "toplevel-container" with
   | Some el ->
       El.(
@@ -144,18 +142,31 @@ let timeout_container worker () =
           ])
   | None -> ()
 
-let run s =
-  let ( let* ) = rpc_bind in
-  let worker =
-    try Worker.create (Jstr.v s)
-    with Jv.Error _ -> failwith "Failed to created worker"
-  in
+let or_raise = function
+  | Ok v ->
+    v
+  | Error (Toplevel_api.InternalError e) ->
+    failwith e
+
+let initialise s callback =
+  let rpc = Js_top_worker_client.start s 100000 callback in
+  let* v = Toprpc.init rpc Toplevel_api.{ cmas = []; cmi_urls = [] } in
+  or_raise v;
+  Lwt.return rpc
+
+let rpc, set_rpc = Lwt.wait ()
+
+let with_rpc f v = Lwt.bind rpc (fun r -> Lwt.map or_raise @@ f r v)
+
+let async_raise f = Lwt.async (fun () -> Lwt.map or_raise @@ f ())
+
+let run' s =
+  let+ v = initialise s timeout_container in
+  Lwt.wakeup set_rpc v;
   let container = by_id "toplevel-container" in
   let output = by_id "output" in
   let textbox : 'a Js.t = by_id_coerce "userinput" Dom_html.CoerceTo.textarea in
   textbox##.disabled := Js._false;
-  let context = Rpc_brr.Worker_rpc.start worker 10 (timeout_container worker) in
-  let rpc = Rpc_brr.Worker_rpc.rpc context in
   let handle_output (o : Toplevel_api.exec_result) =
     Option.iter (append Colorize.sharp output "sharp") o.sharp_ppf;
     Option.iter (append Colorize.text output "stdout") o.stdout;
@@ -194,20 +205,20 @@ let run s =
     current_position := output##.childNodes##.length;
     textbox##.value := Js.string "";
     History.push content;
-    let* o = Toprpc.exec rpc content' in
+    let* o = with_rpc Toprpc.exec content' in
     handle_output o;
-    Lwt.return ()
+    Lwt_result.return ()
   in
   let complete () =
     let content = Js.to_string textbox##.value in
-    let* c = Toprpc.complete rpc content in
+    let* c = with_rpc Toprpc.complete content in
     handle_completion c;
-    Lwt.return ()
+    Lwt_result.return ()
   in
   let setup () =
-    let* o = Toprpc.setup rpc () in
+    let* o = with_rpc Toprpc.setup () in
     handle_output o;
-    Lwt.return ()
+    Lwt_result.return ()
   in
   let history_down _e =
     let txt = Js.to_string textbox##.value in
@@ -251,23 +262,26 @@ let run s =
     Dom_html.handler (fun e ->
         match e##.keyCode with
         | 13 when not (meta e || shift e) ->
-            Lwt.async execute;
-            Js._false
+          async_raise execute;
+          Js._false
         | 13 ->
             Lwt.async (resize ~container ~textbox);
             Js._true
         | 09 ->
-            Lwt.async complete;
-            Js._false
+          async_raise complete;
+          Js._false
         | 76 when meta e ->
             output##.innerHTML := Js.string "";
             Js._true
         | 75 when meta e ->
-            Lwt.async setup;
-            Js._false
-        | 38 -> history_up e
-        | 40 -> history_down e
-        | _ -> Js._true);
+          async_raise setup;
+          Js._false
+        | 38 ->
+          history_up e
+        | 40 ->
+          history_down e
+        | _ ->
+          Js._true);
   (Lwt.async_exception_hook :=
      fun exc ->
        Brr.Console.error
@@ -276,7 +290,7 @@ let run s =
        | Js_error.Exn e -> Firebug.console##log (Js_error.stack e)
        | _ -> ());
   Lwt.async (fun () ->
-      resize ~container ~textbox () >>= fun () ->
+      let* () = resize ~container ~textbox () in
       textbox##focus;
       Lwt.return_unit);
   let readline () =
@@ -288,17 +302,19 @@ let run s =
       (fun s -> Js.to_string s ^ "\n")
   in
   Sys_js.set_channel_filler stdin readline;
-  Lwt.async setup;
+  async_raise setup;
   History.setup ();
   textbox##.value := Js.string "";
   (* Run initial code if any *)
   try
     let code = List.assoc "code" (parse_hash ()) in
     textbox##.value := Js.string (B64.decode code);
-    Lwt.async execute
+    async_raise execute
   with
   | Not_found -> ()
   | exc ->
       Firebug.console##log_3 (Js.string "exception")
         (Js.string (Printexc.to_string exc))
         exc
+
+let run s = Lwt.async @@ fun () -> run' s

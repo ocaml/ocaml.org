@@ -1,11 +1,12 @@
 open Brr
 open Code_mirror
-open Ocamlorg_toplevel
+open Lwt.Syntax
 module Worker = Brr_webworkers.Worker
 
 (* ~~~ RPC ~~~ *)
 
-module Toprpc = Toplevel_api.Make (Rpc_lwt.GenClient ())
+module Toplevel_api = Js_top_worker_rpc.Toplevel_api_gen
+module Toprpc = Js_top_worker_client.W
 
 let line_to_positions doc n =
   let line = Text.line n doc in
@@ -13,9 +14,8 @@ let line_to_positions doc n =
 
 let storage_id = Jstr.v "ocaml-org-playground-v0"
 
-let timeout_container worker () =
+let timeout_container () =
   let open Brr in
-  Worker.terminate worker;
   match Document.find_el_by_id G.document @@ Jstr.v "toplevel-container" with
   | Some el ->
     El.(
@@ -28,25 +28,22 @@ let timeout_container worker () =
   | None ->
     ()
 
-let rpc =
-  let worker =
-    try Worker.create (Jstr.v "/toplevels/worker.js") with
-    | Jv.Error _ ->
-      failwith "Failed to created worker"
-  in
-  let context = Rpc_brr.Worker_rpc.start worker 20 (timeout_container worker) in
-  Rpc_brr.Worker_rpc.rpc context
+let initialise s callback =
+  let rpc = Js_top_worker_client.start s 100000 callback in
+  let* _ = Toprpc.init rpc Toplevel_api.{ cmas = []; cmi_urls = [] } in
+  Lwt.return rpc
 
-open Lwt.Infix
+let rpc = initialise "/toplevels/worker.js" timeout_container
 
-let rpc_bind x f =
-  x |> Rpc_lwt.T.get >>= function
-  | Ok x ->
-    f x
-  | Error (Toplevel_api.InternalError s) ->
-    Lwt.fail (Failure (Printf.sprintf "Rpc failure: %s" s))
+let or_raise = function
+  | Ok v ->
+    v
+  | Error (Toplevel_api.InternalError e) ->
+    failwith e
 
-let ( let* ) = rpc_bind
+let with_rpc f v = Lwt.bind rpc (fun r -> Lwt.map or_raise @@ f r v)
+
+let async_raise f = Lwt.async (fun () -> Lwt.map or_raise @@ f ())
 
 (* ~~~ Linting ~~~ *)
 let linter =
@@ -70,7 +67,7 @@ let linter =
     in
     let run () =
       let s = String.concat "\n" lines ^ ";;" in
-      let* o = Toprpc.typecheck rpc s in
+      let* o = with_rpc Toprpc.typecheck s in
       let errs =
         match o.stderr, o.highlight with
         | Some msg, Some { line1; line2; col1; col2 } ->
@@ -94,38 +91,38 @@ let linter =
         List.map (fun ((from, to_), msg) -> diagnostic ~from ~to_ msg) errs
         |> Array.of_list
       in
-      Lwt.return @@ set_result results
+      Lwt_result.return @@ set_result results
     in
-    Lwt.async run;
+    async_raise run;
     result
   in
   Lint.create f
 
 (* ~~~ Autocompletion ~~~ *)
-let complete : Autocomplete.source = fun (ctx : Autocomplete.Context.t) ->
+let complete : Autocomplete.source =
+ fun (ctx : Autocomplete.Context.t) ->
   let open Autocomplete in
   let result, set_result = Fut.create () in
   let rword = RegExp.create ".*" in
   match Autocomplete.Context.match_before ctx rword with
-    | Some jv ->
-      let run () =
-        let from = Jv.Int.get jv "from" in
-        let text = Jv.Jstr.get jv "text" |> Jstr.to_string in
-        let* c = Toprpc.complete rpc text in
-        let options =
-          List.map (fun label -> Completion.create ~label ()) c.completions
-        in
-        let r = Result.create ~from:(from + c.n) ~options () in
-        Lwt.return (set_result (Some r))
+  | Some jv ->
+    let run () =
+      let from = Jv.Int.get jv "from" in
+      let text = Jv.Jstr.get jv "text" |> Jstr.to_string in
+      let* c = with_rpc Toprpc.complete text in
+      let options =
+        List.map (fun label -> Completion.create ~label ()) c.completions
       in
-      Lwt.async run;
-      result
-    | _ -> result
+      let r = Result.create ~from:(from + c.n) ~options () in
+      Lwt.return (Ok (set_result (Some r)))
+    in
+    async_raise run;
+    result
+  | _ ->
+    result
 
-let autocomplete = 
-  let config = 
-    Autocomplete.config ~override:[ complete ] ()
-  in
+let autocomplete =
+  let config = Autocomplete.config ~override:[ complete ] () in
   Autocomplete.create ~config ()
 
 (* Need to port lesser-dark and custom theme to CM6, until then just using the
@@ -134,7 +131,7 @@ let dark_theme_ext =
   let dark = Jv.get Jv.global "__CM__dark" in
   Extension.of_jv @@ Jv.get dark "oneDark"
 
-let ml_like = Jv.get Jv.global "__CM__mllike" |> Language.of_jv
+let ml_like = Jv.get Jv.global "__CM__mllike" |> Stream.Language.of_jv
 
 let set_classes el cl =
   List.iter (fun v -> El.set_class v true el) (List.map Jstr.v cl)
@@ -163,29 +160,35 @@ let handle_output (o : Toplevel_api.exec_result) =
 
 let setup () =
   let setup () =
-    let* o = Toprpc.setup rpc () in
+    let* o = with_rpc Toprpc.setup () in
     handle_output o;
-    Lwt.return ()
+    Lwt.return (Ok ())
   in
-  setup () >>= fun _ ->
+  let* _ = setup () in
   let _state, view =
     let ml = Stream.Language.define ml_like in
     Edit.init
       ~doc:(Jstr.v Example.adts)
-      ~exts:[| dark_theme_ext; ml; autocomplete; linter; Editor.View.line_wrapping () |]
+      ~exts:
+        [| dark_theme_ext
+         ; ml
+         ; autocomplete
+         ; linter
+         ; Editor.View.line_wrapping ()
+        |]
       ()
   in
   let button = get_el_by_id "run" in
   let on_click _ =
     let run () =
       El.set_class (Jstr.v "loader") true button;
-      let* o = Toprpc.exec rpc (Edit.get_doc view ^ ";;") in
+      let* o = with_rpc Toprpc.exec (Edit.get_doc view ^ ";;") in
       El.set_class (Jstr.v "loader") false button;
       handle_output o;
-      Lwt.return ()
+      Lwt.return (Ok ())
     in
-    Lwt.async run
+    async_raise run
   in
-  Lwt.return @@ Ev.(listen click on_click (El.as_target button))
+  Lwt_result.return @@ Ev.(listen click on_click (El.as_target button))
 
-let () = Lwt.async setup
+let () = async_raise setup

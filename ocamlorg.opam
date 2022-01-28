@@ -79,4 +79,6 @@ pin-depends: [
   ["dream.dev" "git+https://github.com/tmattio/dream#fix-opam-deps"]
   ["dream-pure.dev" "git+https://github.com/tmattio/dream#fix-opam-deps"]
   ["dream-httpaf.dev" "git+https://github.com/tmattio/dream#fix-opam-deps"]
+  ["code-mirror.dev" "git+https://github.com/patricoferris/jsoo-code-mirror#5cf9241db53fb5bb211b46978fbe489c61f1d44c"]
+  ["js_top_worker.dev" "git+https://github.com/patricoferris/js_top_worker#78af66e0ae0d9e7474afc538acac0aa5059644e2"]
 ]

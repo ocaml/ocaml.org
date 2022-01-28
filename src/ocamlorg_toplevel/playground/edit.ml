@@ -3,10 +3,6 @@ open Brr
 
 let basic_setup = Jv.get Jv.global "__CM__basic_setup" |> Extension.of_jv
 
-let markdown () =
-  let md = Jv.get Jv.global "__CM__markdown" in
-  Jv.apply md [||] |> Extension.of_jv
-
 let get_el_by_id i =
   Brr.Document.find_el_by_id G.document (Jstr.of_string i) |> Option.get
 

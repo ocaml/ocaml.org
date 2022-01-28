@@ -1,6 +1,13 @@
 (library
  (name ocamlorg_toplevel)
  (public_name ocamlorg.toplevel)
- (libraries lwt brr js_of_ocaml-tyxml rpclib rpclib-lwt rpc_brr)
+ (libraries
+  lwt
+  brr
+  js_top_worker-client
+  js_of_ocaml-tyxml
+  rpclib
+  rpclib-lwt
+  rpc_brr)
  (preprocess
   (pps js_of_ocaml-ppx ppx_deriving_rpc)))

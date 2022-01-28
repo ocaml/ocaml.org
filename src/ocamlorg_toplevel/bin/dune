@@ -1,26 +1,3 @@
-; Worker library
-
-(library
- (name worker)
- (modules worker uTop_complete uTop_lexer uTop_token uTop)
- (libraries
-  brr
-  ocamlorg_toplevel
-  js_of_ocaml-toplevel
-  js_of_ocaml-compiler
-  astring
-  rpclib)
- (preprocess
-  (per_module
-   ((action
-     (run %{bin:cppo} -V OCAML:%{ocaml_version} %{input-file}))
-    uTop_complete
-    uTop)
-   ((pps js_of_ocaml-ppx)
-    worker))))
-
-(ocamllex uTop_lexer)
-
 ; Base
 
 (executable
@@ -38,7 +15,7 @@
 (executable
  (name worker_base)
  (modules worker_base)
- (libraries worker stdlib base)
+ (libraries js_top_worker stdlib base)
  (flags
   (:standard -rectypes -linkall))
  (modes byte))
@@ -77,21 +54,15 @@
 
 (executable
  (name worker_stdlib)
+ (modes byte)
  (modules worker_stdlib)
- (libraries worker stdlib)
- (flags
-  (:standard -rectypes -linkall))
- (preprocess
-  (pps js_of_ocaml-ppx))
- (modes byte))
+ (libraries js_top_worker))
 
 (rule
  (targets worker.js)
  (action
   (run
    %{bin:js_of_ocaml}
-   --export
-   %{dep:export_stdlib.txt}
    --toplevel
    --pretty
    +toplevel.js
