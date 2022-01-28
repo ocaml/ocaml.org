@@ -158,6 +158,31 @@ let handle_output (o : Toplevel_api.exec_result) =
   cyan out;
   El.append_children output [ out ]
 
+module Codec = struct
+  let ( let+ ) = Result.bind
+
+  let from_window () =
+    try
+      let uri = Window.location G.window |> Uri.fragment in
+      match Uri.Params.find (Jstr.v "code") (Uri.Params.of_jstr uri) with
+      | Some jstr ->
+        let+ dec = Base64.decode jstr in
+        let+ code = Base64.data_utf_8_to_jstr dec in
+        Ok (Jstr.to_string code)
+      | _ ->
+        Ok Example.adts
+    with
+    | _ ->
+      Ok Example.adts
+
+  let to_window s =
+    let data = Base64.data_utf_8_of_jstr s in
+    let+ bin = Base64.encode data in
+    let uri = Window.location G.window in
+    let+ s = Uri.with_uri ~fragment:(Jstr.concat [ Jstr.v "code="; bin ]) uri in
+    Ok (Window.set_location G.window s)
+end
+
 let setup () =
   let setup () =
     let* o = with_rpc Toprpc.setup () in
@@ -165,10 +190,13 @@ let setup () =
     Lwt.return (Ok ())
   in
   let* _ = setup () in
+  let initial_code =
+    Result.value ~default:Example.adts (Codec.from_window ())
+  in
   let _state, view =
     let ml = Stream.Language.define ml_like in
     Edit.init
-      ~doc:(Jstr.v Example.adts)
+      ~doc:(Jstr.v initial_code)
       ~exts:
         [| dark_theme_ext
          ; ml
@@ -178,6 +206,15 @@ let setup () =
         |]
       ()
   in
+  let share = get_el_by_id "share" in
+  Ev.(
+    listen
+      click
+      (fun _ ->
+        Console.log_if_error
+          ~use:()
+          (Codec.to_window @@ Jstr.v (Edit.get_doc view)))
+      (El.as_target share));
   let button = get_el_by_id "run" in
   let on_click _ =
     let run () =
