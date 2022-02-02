@@ -26,7 +26,6 @@ depends: [
   "bos"
   "crunch"
   "dream"
-  "dream-cli"
   "dream-accept"
   "dream-encoding"
   "fpath"
@@ -41,13 +40,11 @@ depends: [
   "rpclib"
   "rpclib-lwt"
   "ppx_deriving_rpc"
-  "letsencrypt"
-  "tls" {< "0.15.0"}
-  "js_of_ocaml" {>= "3.11.0"}
-  "js_of_ocaml-ppx" {>= "3.11.0" & < "4.0"}
-  "js_of_ocaml-compiler" {>= "3.11.0" & < "4.0"}
-  "js_of_ocaml-tyxml" {>= "3.11.0" & < "4.0"}
-  "js_of_ocaml-toplevel" {>= "3.11.0" & < "4.0"}
+  "js_of_ocaml" {>= "4.0"}
+  "js_of_ocaml-ppx" {>= "4.0"}
+  "js_of_ocaml-compiler" {>= "4.0"}
+  "js_of_ocaml-tyxml" {>= "4.0"}
+  "js_of_ocaml-toplevel" {>= "4.0"}
   "alcotest" {with-test}
   "textmate-language" {with-test}
   "piaf" {with-test}
@@ -77,6 +74,9 @@ build: [
   ]
 ]
 pin-depends: [
-  ["dream-accept.0.1.0" "git+https://github.com/tmattio/dream-accept#main"]
-  ["dream.dev" "git+https://github.com/tmattio/dream#default-http1"]
+  ["dream-accept.dev" "git+https://github.com/tmattio/dream-accept#main"]
+  ["dream-encoding.dev" "git+https://github.com/tmattio/dream-encoding#main"]
+  ["dream.dev" "git+https://github.com/aantron/dream#master"]
+  ["dream-pure.dev" "git+https://github.com/aantron/dream#master"]
+  ["dream-httpaf.dev" "git+https://github.com/aantron/dream#master"]
 ]

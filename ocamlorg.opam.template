@@ -14,6 +14,9 @@ build: [
   ]
 ]
 pin-depends: [
-  ["dream-accept.0.1.0" "git+https://github.com/tmattio/dream-accept#main"]
-  ["dream.dev" "git+https://github.com/tmattio/dream#default-http1"]
+  ["dream-accept.dev" "git+https://github.com/tmattio/dream-accept#main"]
+  ["dream-encoding.dev" "git+https://github.com/tmattio/dream-encoding#main"]
+  ["dream.dev" "git+https://github.com/aantron/dream#master"]
+  ["dream-pure.dev" "git+https://github.com/aantron/dream#master"]
+  ["dream-httpaf.dev" "git+https://github.com/aantron/dream#master"]
 ]

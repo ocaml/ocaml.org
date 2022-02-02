@@ -272,7 +272,9 @@ let run s =
      fun exc ->
        Brr.Console.error
          [ Jstr.v @@ "exc during Lwt.async: " ^ Printexc.to_string exc ];
-       match exc with Js.Error e -> Firebug.console##log e##.stack | _ -> ());
+       match exc with
+       | Js_error.Exn e -> Firebug.console##log (Js_error.stack e)
+       | _ -> ());
   Lwt.async (fun () ->
       resize ~container ~textbox () >>= fun () ->
       textbox##focus;

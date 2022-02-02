@@ -36,20 +36,10 @@ RUN git clone https://github.com/ocaml/opam-repository /var/opam-repository
 ENV OCAMLORG_REPO_PATH /var/opam-repository/
 ENV OCAMLORG_PKG_STATE_PATH /var/package.state
 ENV OCAMLORG_TOPLEVELS_PATH /var/toplevels/
-ENV OCAMLORG_DEBUG false
 ENV DREAM_VERBOSITY info
 ENV OCAMLORG_HOSTNAME v3.ocaml.org
 ENV OCAMLORG_HTTP_PORT 8080
-# TODO(tmattio): Use these to deploy without a proxy
-# ENV OCAMLORG_HTTP_PORT 80
-# ENV OCAMLORG_HTTPS_PORT 443
-# ENV OCAMLORG_HTTPS_ENABLED true
-# ENV OCAMLORG_LETSENCRYPT_STAGING false
-# ENV OCAMLORG_CERTIFICATE_PATH /var/letsencrypt/certs/v3.ocaml.org.pem
-# ENV OCAMLORG_PRIVATE_KEY_PATH /var/letsencrypt/private/v3.ocaml.org.key
 
 EXPOSE 8080
-# TODO(tmattio): Use these to deploy without a proxy
-# EXPOSE 80 443
 
 ENTRYPOINT /bin/server
