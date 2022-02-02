@@ -1,8 +1,8 @@
 # How to contribute
 
-Welcome to v3.ocaml.org's contributing guide.
+Welcome to Ocaml.org's contributing guide.
 
-Thank you for taking the time to read the contributing guide. Your help with v3.ocaml.org is extremely welcome. If you get stuck, please don’t hesitate to [ask questions on discuss](https://discuss.ocaml.org/) or [raise an issue](https://github.com/ocaml/v3.ocaml.org-server/issues/new).
+Thank you for taking the time to read the contributing guide. Your help with Ocaml.org is extremely welcome. If you get stuck, please don’t hesitate to [ask questions on discuss](https://discuss.ocaml.org/) or [raise an issue](https://github.com/ocaml/v3.ocaml.org-server/issues/new).
 
 ## How to get started
 
@@ -11,7 +11,7 @@ We are particularly motivated to support new contributors and people who are loo
 - **Good First Issues**: issues marked as a `good first issue` are ideal for people who are either new to the repository or still getting started with OCaml in general.
 - **Fixing or Suggesting Content**: most of the content for the site is stored in the `data` directory as markdown or yaml. To fix this content you can edit those files directly and rebuild the website. This will promote the content into their `.ml` counterparts. If you would like to suggest entirely new content please open an issue to discuss it first.
 - **Implementing pages**: most pages are implemented in `src/ocamlorg_frontend/pages` using the [.eml templating preprocessor](https://aantron.github.io/dream/#templates). This is mixture or OCaml and HTML.
-- **Translating content or pages**: for now we are focusing on getting v3.ocaml.org ready for launch and will add more information about translation later.
+- **Translating content or pages**: for now we are focusing on getting OCaml.org ready for launch and will add more information about translation later.
 
 ## Reporting bugs
 
