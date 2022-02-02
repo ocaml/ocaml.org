@@ -9,10 +9,10 @@ type metadata =
   ; description : string
   ; authors : string list
   ; language : string
-  ; published : string option
-  ; cover : string option
+  ; published : string
+  ; cover : string
   ; isbn : string option
-  ; links : link list option
+  ; links : link list
   ; rating : int option
   ; featured : bool
   }
@@ -92,14 +92,14 @@ let pp ppf v =
     v.meta.authors
     Pp.string
     v.meta.language
-    (Pp.option Pp.string)
+    Pp.string
     v.meta.published
-    (Pp.option Pp.string)
+    Pp.string
     v.meta.cover
     (Pp.option Pp.string)
     v.meta.isbn
     (Pp.list pp_link)
-    (Option.value v.meta.links ~default:[])
+    v.meta.links
     (Pp.option Pp.int)
     v.meta.rating
     Pp.bool
@@ -122,8 +122,8 @@ type t =
   ; description : string
   ; authors : string list
   ; language : string
-  ; published : string option
-  ; cover : string option
+  ; published : string
+  ; cover : string
   ; isbn : string option
   ; links : link list
   ; rating : int option
