@@ -23,7 +23,7 @@ let success_stories _req =
   Dream.html (Ocamlorg_frontend.success_stories stories)
 
 let success_story req =
-  let slug = Dream.param "id" req in
+  let slug = Dream.param req "id" in
   let story = Ood.Success_story.get_by_slug slug in
   match story with
   | Some story -> Dream.html (Ocamlorg_frontend.success_story story)
@@ -104,7 +104,7 @@ let releases req =
   Dream.html (Ocamlorg_frontend.releases releases)
 
 let release req =
-  let version = Dream.param "id" req in
+  let version = Dream.param req "id" in
   match Ood.Release.get_by_version version with
   | Some release -> Dream.html (Ocamlorg_frontend.release release)
   | None -> not_found req
@@ -145,7 +145,7 @@ let workshop req =
     List.iter add_video presentations;
     tbl
   in
-  let slug = Dream.param "id" req in
+  let slug = Dream.param req "id" in
   match
     List.find_opt (fun x -> x.Ood.Workshop.slug = slug) Ood.Workshop.all
   with
@@ -187,7 +187,7 @@ let news req =
     (Ocamlorg_frontend.news ~page ~pages_number:number_of_pages current_items)
 
 let news_post req =
-  let slug = Dream.param "id" req in
+  let slug = Dream.param req "id" in
   let news_post = Ood.News.get_by_slug slug in
   match news_post with
   | Some news_post -> Dream.html (Ocamlorg_frontend.news_post news_post)
@@ -226,7 +226,7 @@ let opportunities req =
   Dream.html (Ocamlorg_frontend.opportunities ?search ?country jobs)
 
 let opportunity req =
-  let id = Dream.param "id" req in
+  let id = Dream.param req "id" in
   match Option.bind (int_of_string_opt id) Ood.Job.get_by_id with
   | Some job -> Dream.html (Ocamlorg_frontend.opportunity job)
   | None -> not_found req
@@ -279,7 +279,7 @@ let tutorial req =
     |> String.lowercase_ascii
     |> Str.global_replace (Str.regexp "[^a-z0-9\\-]") ""
   in
-  let slug = Dream.param "id" req in
+  let slug = Dream.param req "id" in
   match
     List.find_opt
       (fun x -> slugify x.Ood.Tutorial.title = slug)
@@ -368,7 +368,7 @@ let packages_search t req =
   | None -> Dream.redirect req "/packages"
 
 let package t req =
-  let package = Dream.param "name" req in
+  let package = Dream.param req "name" in
   let find_default_version name =
     Ocamlorg_package.get_package_latest t name
     |> Option.map (fun pkg -> Ocamlorg_package.version pkg)
@@ -384,9 +384,9 @@ let package t req =
   | None -> not_found req
 
 let package_versioned t kind req =
-  let name = Ocamlorg_package.Name.of_string @@ Dream.param "name" req in
+  let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
   let version =
-    Ocamlorg_package.Version.of_string @@ Dream.param "version" req
+    Ocamlorg_package.Version.of_string @@ Dream.param req "version"
   in
   let package = Ocamlorg_package.get_package t name version in
   match package with
@@ -396,7 +396,7 @@ let package_versioned t kind req =
       let kind =
         match kind with
         | Package -> `Package
-        | Universe -> `Universe (Dream.param "hash" req)
+        | Universe -> `Universe (Dream.param req "hash")
       in
       let description =
         (Ocamlorg_package.info package).Ocamlorg_package.Info.description
@@ -437,9 +437,9 @@ let package_versioned t kind req =
            ~source package_meta)
 
 let package_doc t kind req =
-  let name = Ocamlorg_package.Name.of_string @@ Dream.param "name" req in
+  let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
   let version =
-    Ocamlorg_package.Version.of_string @@ Dream.param "version" req
+    Ocamlorg_package.Version.of_string @@ Dream.param req "version"
   in
   let package = Ocamlorg_package.get_package t name version in
   match package with
@@ -449,9 +449,9 @@ let package_doc t kind req =
       let kind =
         match kind with
         | Package -> `Package
-        | Universe -> `Universe (Dream.param "hash" req)
+        | Universe -> `Universe (Dream.param req "hash")
       in
-      let path = Dream.path req |> String.concat "/" in
+      let path = (Dream.path [@ocaml.warning "-3"]) req |> String.concat "/" in
       let root =
         let make =
           match kind with
@@ -569,9 +569,9 @@ let package_doc t kind req =
                package_meta))
 
 let package_toplevel t kind req =
-  let name = Ocamlorg_package.Name.of_string @@ Dream.param "name" req in
+  let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
   let version =
-    Ocamlorg_package.Version.of_string @@ Dream.param "version" req
+    Ocamlorg_package.Version.of_string @@ Dream.param req "version"
   in
   let package = Ocamlorg_package.get_package t name version in
   match package with
@@ -585,7 +585,7 @@ let package_toplevel t kind req =
           let kind =
             match kind with
             | Package -> `Package
-            | Universe -> `Universe (Dream.param "hash" req)
+            | Universe -> `Universe (Dream.param req "hash")
           in
           let* documentation_status =
             Ocamlorg_package.documentation_status ~kind package

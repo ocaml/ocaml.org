@@ -225,7 +225,9 @@ val merge_channels :
 type xmltree = E of Xmlm.tag * xmltree list | D of string
 
 val xml_of_source : Xmlm.source -> xmltree
-(** Read an XML tree from a source. @raise Failure in case of error.*)
+(** Read an XML tree from a source. @raise Failure in case of error.
+
+    @raise Failure in case of error. *)
 
 exception Error of string
 (** Use this exception to indicate an error is functions given to [make_opts]
@@ -239,10 +241,12 @@ val make_opts :
   ?read_item_data:(xmltree list -> 'b option) ->
   unit ->
   ('a, 'b) opts
-(** @param read_channel_data provides a way to read additional information from
-    the subnodes of the channels. All these subnodes are prefixed by an expanded
-    namespace. @param read_item_data is the equivalent of [read_channel_data]
-    parameter but is called of each item with its prefixed subnodes. *)
+(** @param read_channel_data
+      provides a way to read additional information from the subnodes of the
+      channels. All these subnodes are prefixed by an expanded namespace.
+    @param read_item_data
+      is the equivalent of [read_channel_data] parameter but is called of each
+      item with its prefixed subnodes. *)
 
 val default_opts : (unit, unit) opts
 

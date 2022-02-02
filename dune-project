@@ -50,7 +50,6 @@
   bos
   crunch
   dream
-  dream-cli
   dream-accept
   dream-encoding
   fpath
@@ -66,27 +65,16 @@
   rpclib
   rpclib-lwt
   ppx_deriving_rpc
-  letsencrypt
-  (tls
-   (< 0.15.0))
   (js_of_ocaml
-   (>= 3.11.0))
+   (>= 4.0))
   (js_of_ocaml-ppx
-   (and
-    (>= 3.11.0)
-    (< 4.0)))
+   (>= 4.0))
   (js_of_ocaml-compiler
-   (and
-    (>= 3.11.0)
-    (< 4.0)))
+   (>= 4.0))
   (js_of_ocaml-tyxml
-   (and
-    (>= 3.11.0)
-    (< 4.0)))
+   (>= 4.0))
   (js_of_ocaml-toplevel
-   (and
-    (>= 3.11.0)
-    (< 4.0)))
+   (>= 4.0))
   (alcotest :with-test)
   ; hilite
   (textmate-language :with-test)

@@ -4,7 +4,6 @@
   ocamlorg_package
   ocamlorg_frontend
   dream
-  dream-cli
   dream-accept
   dream-encoding
   letsencrypt

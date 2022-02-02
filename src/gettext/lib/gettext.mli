@@ -129,7 +129,6 @@ val from_crunch :
   string list ->
   (string -> string) ->
   (module Impl)
-(** [from_directory ?default_locale ?default_domain ?allowed_locales file_list
-    read_fun]
+(** [from_directory ?default_locale ?default_domain ?allowed_locales file_list read_fun]
     returns a Gettext implementation module given the file list [file_list] and
     the function [read_fun] that returns the file content given its file name. *)
