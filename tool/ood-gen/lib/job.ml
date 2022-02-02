@@ -1,26 +1,26 @@
-type metadata =
-  { title : string
-  ; link : string
-  ; description : string
-  ; location : string
-  ; company : string
-  ; company_logo : string
-  ; country : string
-  ; fullfilled : bool
-  }
+type metadata = {
+  title : string;
+  link : string;
+  description : string;
+  location : string;
+  company : string;
+  company_logo : string;
+  country : string;
+  fullfilled : bool;
+}
 [@@deriving yaml]
 
-type t =
-  { id : int
-  ; title : string
-  ; link : string
-  ; description_html : string
-  ; location : string
-  ; company : string
-  ; company_logo : string
-  ; country : string
-  ; fullfilled : bool
-  }
+type t = {
+  id : int;
+  title : string;
+  link : string;
+  description_html : string;
+  location : string;
+  company : string;
+  company_logo : string;
+  country : string;
+  fullfilled : bool;
+}
 
 let path = Fpath.v "data/jobs.yml"
 
@@ -28,30 +28,29 @@ let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
   match yaml with
   | `O [ ("jobs", `A xs) ] ->
-    Ok
-      (List.rev
-         (List.mapi
-            (fun i ->
-              Utils.decode_or_raise (fun x ->
-                  match metadata_of_yaml x with
-                  | Ok raw ->
-                    Ok
-                      { id = i
-                      ; title = raw.title
-                      ; link = raw.link
-                      ; description_html =
-                          Omd.of_string raw.description |> Omd.to_html
-                      ; location = raw.location
-                      ; country = raw.country
-                      ; company = raw.company
-                      ; company_logo = raw.company_logo
-                      ; fullfilled = raw.fullfilled
-                      }
-                  | Error err ->
-                    Error err))
-            (List.rev xs)))
-  | _ ->
-    Error (`Msg "expected a list of jobs")
+      Ok
+        (List.rev
+           (List.mapi
+              (fun i ->
+                Utils.decode_or_raise (fun x ->
+                    match metadata_of_yaml x with
+                    | Ok raw ->
+                        Ok
+                          {
+                            id = i;
+                            title = raw.title;
+                            link = raw.link;
+                            description_html =
+                              Omd.of_string raw.description |> Omd.to_html;
+                            location = raw.location;
+                            country = raw.country;
+                            company = raw.company;
+                            company_logo = raw.company_logo;
+                            fullfilled = raw.fullfilled;
+                          }
+                    | Error err -> Error err))
+              (List.rev xs)))
+  | _ -> Error (`Msg "expected a list of jobs")
 
 let parse = decode
 
@@ -60,8 +59,7 @@ let all () =
   Utils.decode_or_raise decode content
 
 let pp ppf v =
-  Fmt.pf
-    ppf
+  Fmt.pf ppf
     {|
   { id = %a
   ; title = %a
@@ -73,24 +71,9 @@ let pp ppf v =
   ; company_logo = %a
   ; fullfilled = %a
   }|}
-    Fmt.int
-    v.id
-    Pp.string
-    v.title
-    Pp.string
-    v.link
-    Pp.string
-    v.description_html
-    Pp.string
-    v.location
-    Pp.string
-    v.country
-    Pp.string
-    v.company
-    Pp.string
-    v.company_logo
-    Fmt.bool
-    v.fullfilled
+    Fmt.int v.id Pp.string v.title Pp.string v.link Pp.string v.description_html
+    Pp.string v.location Pp.string v.country Pp.string v.company Pp.string
+    v.company_logo Fmt.bool v.fullfilled
 
 let pp_list = Pp.list pp
 
@@ -111,5 +94,4 @@ type t =
   
 let all = %a
 |}
-    pp_list
-    (all ())
+    pp_list (all ())

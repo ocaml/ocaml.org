@@ -47,10 +47,11 @@ open Ocamlorg_package
 let test_case n = Alcotest.test_case n `Quick
 
 let () =
-  Alcotest.run
-    "ocamlorg"
-    [ ( "test parsing and path generation"
-      , [ test_case "simple json" (fun () ->
+  Alcotest.run "ocamlorg"
+    [
+      ( "test parsing and path generation",
+        [
+          test_case "simple json" (fun () ->
               let json = Yojson.Safe.from_string json in
               let t = Module_map.of_yojson json in
               Alcotest.(check int)
@@ -60,9 +61,7 @@ let () =
               let name, library = Module_map.String_map.choose t.libraries in
               Alcotest.(check string) "name is correct" "logs" name;
               Alcotest.(check string)
-                "library name matches too"
-                "logs"
-                library.name;
+                "library name matches too" "logs" library.name;
               Alcotest.(check int)
                 "single module in library"
                 (Module_map.String_map.cardinal library.modules)
@@ -72,23 +71,22 @@ let () =
               in
               Alcotest.(check string) "name is correct" "Logs" name;
               Alcotest.(check string)
-                "module' name matches too"
-                "Logs"
+                "module' name matches too" "Logs"
                 (Module_map.Module.name module');
               Alcotest.(check int)
-                "4 submodules"
-                4
+                "4 submodules" 4
                 (Module_map.String_map.cardinal
                    (Module_map.Module.submodules module'));
               Alcotest.(check (list string))
                 "module paths are correct"
-                [ "Logs/module-type-LOG/index.html"
-                ; "Logs/Make/index.html"
-                ; "Logs/class-dummy_generator/index.html"
-                ; "Logs/class-type-generator/index.html"
+                [
+                  "Logs/module-type-LOG/index.html";
+                  "Logs/Make/index.html";
+                  "Logs/class-dummy_generator/index.html";
+                  "Logs/class-type-generator/index.html";
                 ]
                 (Module_map.Module.submodules module'
                 |> Module_map.String_map.bindings
-                |> List.map (fun (_, v) -> Module_map.Module.path v)))
-        ] )
+                |> List.map (fun (_, v) -> Module_map.Module.path v)));
+        ] );
     ]

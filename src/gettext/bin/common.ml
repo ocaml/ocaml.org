@@ -2,8 +2,7 @@ open Cmdliner
 
 module Syntax = struct
   let ( let+ ) t f = Term.(const f $ t)
-
-  let ( and+ ) a b = Term.(const (fun x y -> x, y) $ a $ b)
+  let ( and+ ) a b = Term.(const (fun x y -> (x, y)) $ a $ b)
 end
 
 open Syntax

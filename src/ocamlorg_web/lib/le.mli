@@ -10,16 +10,15 @@
    to your application to dispatch the let's encrypt request correctly. *)
 
 val handler : Dream.handler
-
 val router : Dream.middleware
 
-val load_certificates
-  :  certificate_file_path:string
-  -> private_key_file_path:string
-  -> hostname:string
-  -> staging:bool
-  -> ?email:string
-  -> ?seed:string
-  -> ?cert_seed:string
-  -> unit
-  -> (string * string) Lwt.t
+val load_certificates :
+  certificate_file_path:string ->
+  private_key_file_path:string ->
+  hostname:string ->
+  staging:bool ->
+  ?email:string ->
+  ?seed:string ->
+  ?cert_seed:string ->
+  unit ->
+  (string * string) Lwt.t

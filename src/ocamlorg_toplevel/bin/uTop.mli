@@ -18,9 +18,9 @@ val keywords : Set.Make(String).t ref
 val add_keyword : string -> unit
 (** Add a new OCaml keyword. *)
 
+type location = int * int
 (** Type of a string-location. It is composed of a start and stop offsets (in
     bytes). *)
-type location = int * int
 
 (** Result of a function processing a programx. *)
 type 'a result =
@@ -29,18 +29,17 @@ type 'a result =
       (** The function failed. Arguments are a list of locations to highlight in
           the source and an error message. *)
 
-(** Exception raised by a parser when it need more data. *)
 exception Need_more
+(** Exception raised by a parser when it need more data. *)
 
-val parse_toplevel_phrase
-  : (string -> bool -> Parsetree.toplevel_phrase result) ref
+val parse_toplevel_phrase :
+  (string -> bool -> Parsetree.toplevel_phrase result) ref
 (** [parse_toplevel_phrase] is the function used to parse a phrase typed in the
     toplevel.
 
     Its arguments are:
 
-    - [input]: the string to parse
-    - [eos_is_error]
+    - [input]: the string to parse - [eos_is_error]
 
     If [eos_is_error] is [true] and the parser reach the end of input, then
     {!Parse_failure} should be returned.
@@ -50,10 +49,8 @@ val parse_toplevel_phrase
 
     Except for {!Need_more}, the function must not raise any exception. *)
 
-val parse_toplevel_phrase_default
-  :  string
-  -> bool
-  -> Parsetree.toplevel_phrase result
+val parse_toplevel_phrase_default :
+  string -> bool -> Parsetree.toplevel_phrase result
 (** The default parser for toplevel phrases. It uses the standard ocaml parser. *)
 
 val parse_default : (Lexing.lexbuf -> 'a) -> string -> bool -> 'a result
@@ -64,9 +61,8 @@ val input_name : string
     toplevel. *)
 
 val lexbuf_of_string : bool ref -> string -> Lexing.lexbuf
-(** [lexbuf_of_string eof str] is the same as [Lexing.from_string
-      str]
-    except that if the lexer reach the end of [str] then [eof] is set to [true]. *)
+(** [lexbuf_of_string eof str] is the same as [Lexing.from_string str] except
+    that if the lexer reach the end of [str] then [eof] is set to [true]. *)
 
 (** {6 Helpers} *)
 

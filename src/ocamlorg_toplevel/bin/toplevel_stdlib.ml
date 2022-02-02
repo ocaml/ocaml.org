@@ -10,8 +10,7 @@ let () =
   let output =
     Document.find_el_by_id G.document (Jstr.v "output") |> Option.get
   in
-  Ev.listen
-    Ev.click
+  Ev.listen Ev.click
     (fun _ ->
       El.set_class (Jstr.v "hidden") false input;
       El.set_class (Jstr.v "hidden") true button;

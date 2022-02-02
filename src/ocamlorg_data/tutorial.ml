@@ -55,7 +55,7 @@ port install opam
 Linux (e.g `apt-get install opam` or similar). [Details of all installation
 methods.](https://opam.ocaml.org/doc/Install.html)
 
-Then, we install an OCaml compiler:
+Then, we install an OCaml compiler and some basic dev tools:
 
 ```
 # environment setup
@@ -65,6 +65,9 @@ eval `opam env`
 # install given version of the compiler
 opam switch create 4.11.1
 eval `opam env`
+
+# install dev tools, hit Enter to confirm at Y/n prompt
+opam install dune utop ocaml-lsp-server
 ```
 
 Now, OCaml is up and running:
@@ -87,23 +90,36 @@ sh <(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.
 ### For Windows
 
 OCaml on Windows is still a work in progress. In the meantime, if you only
-need to *run* OCaml programs on a Windows machine, then the simplest solution is to use the Windows Subsystem for Linux 2 (WSL2). WSL2 is a feature that allows Linux programs to run directly on Windows. WSL2 is substantially easier and faster to use than WSL1. Microsoft have comprehensive installation steps for [setting up WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+need to *run* OCaml programs on a Windows machine, then the simplest solution is to use the Windows Subsystem for Linux 2 (WSL2). WSL2 is a feature that allows Linux programs to run directly on Windows. WSL2 is substantially easier and faster to use than WSL1. Microsoft has comprehensive installation steps for [setting up WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
-On the other hand, if you need Windows binaries then you will have to use the [OCaml for Windows](https://fdopen.github.io/opam-repository-mingw/) installer which comes in 32bit and 64bit versions. This installer gives you opam and OCaml installations all in one go. It is used from within a Cygwin environment, but the executables produced have no dependency on Cygwin at all. For a more comprehensive update on the state of OCaml on Windows, see the [OCaml on Windows](/platform/ocaml_on_windows.html) page on the old version of the site.
+On the other hand, if you need Windows binaries, you will have to use the [OCaml for Windows](https://fdopen.github.io/opam-repository-mingw/) installer which comes in 32bit and 64bit versions. This installer gives you Opam and OCaml installations all in one go. It's used from within a Cygwin environment, but the executables produced have no dependency on Cygwin at all. For a more comprehensive update on the state of OCaml on Windows, see the [OCaml on Windows](/platform/ocaml_on_windows.html) page on the old version of the site.
 
-## The OCaml top level
+## The OCaml top level (REPL)
 
 OCaml comes with two compilers: for native code, and for byte code. We shall
-use one of those in a moment. But first, let's use OCaml's top level (sometimes
-known as a REPL in other languages):
+use one of those in a moment. But first, let's use OCaml's top level (known as a
+REPL in other languages), which we installed above:
 
 ```
-$ ocaml
-        OCaml version 4.11.1
+$ utop
+────────────────────────────────┬─────────────────────────────────────────────────────────────────────┬─────────────────────────────────
+                                │ Welcome to utop version 2.8.0 (using OCaml version 4.11.1!          │                                 
+                                └─────────────────────────────────────────────────────────────────────┘                                 
+Findlib has been successfully loaded. Additional directives:
+  #require "package";;      to load a package
+  #list;;                   to list the available packages
+  #camlp4o;;                to load camlp4 (standard syntax)
+  #camlp4r;;                to load camlp4 (revised syntax)
+  #predicates "p,q,...";;   to set these predicates
+  Topfind.reset();;         to force that packages will be reloaded
+  #thread;;                 to enable threads
 
-# 1 + 2 * 3;;
+
+Type #utop_help for help about using utop.
+
+─( 12:12:45 )─< command 0 >──────────────────────────────────────────────────────────────────────────────────────────────{ counter: 0 }─
+utop # 1 + 2 * 3;;
 - : int = 7
-
 ```
 
 We typed the phrase `1 + 2 * 3` and then signalled to OCaml that we had
@@ -112,46 +128,18 @@ result, `7` and its type `int` and showed them to us. We exit by running the
 built-in `exit` function with exit code 0:
 
 ```
-$ ocaml
-        OCaml version 4.11.1
-
-# 1 + 2 * 3;;
-- : int = 7
-# exit 0;;
+─( 12:12:45 )─< command 1 >──────────────────────────────────────────────────────────────────────────────────────────────{ counter: 0 }─
+utop # exit 0;;
 $
 ```
 
-There are two ways to improve your experience with the OCaml top level: you can
-install the popular [`rlwrap`](https://github.com/hanslub42/rlwrap) on your
-system and invoke `rlwrap ocaml` instead of `ocaml` to get line-editing
-facilities inside the OCaml top level, or you can install the alternative top
-level `utop` using opam:
+Note that OCaml also has an older REPL, using the `ocaml` command. However, this
+REPL does not have history or tab-completion, so we recommend always using utop.
 
-```
-$ opam install utop
-```
+## Using the Dune build system
 
-We run it by typing `utop` instead of `ocaml`. You can read more about
-[utop](https://github.com/ocaml-community/utop).
-
-## Installing the Dune build system
-
-Dune is a build system for OCaml. It takes care of all the low level details of
-OCaml compilation. We install it with opam:
-
-```
-$ opam install dune
-The following actions will be performed:
-  - install dune 2.7.1
-
-<><> Gathering sources ><><><><><><><><><><><><><><><><><><><><><><><><>
-[default] https://opam.ocaml.org/2.0.7/archives/dune.2.7.1+opam.tar.gz
-downloaded
-
-<><> Processing actions <><><><><><><><><><><><><><><><><><><><><><><><>
--> installed dune.2.7.1
-Done.
-```
+Dune is a build system for OCaml. It takes care of all the low-level details of
+OCaml compilation. We installed it with opam, above.
 
 ## A first project
 
@@ -208,15 +196,12 @@ file.
 
 ## Editor support for OCaml
 
-For **Visual Studio Code**, and other editors support the Language Server
-Protocol, the OCaml language server can be installed with opam:
+We installed the OCaml Language Server above with opam. With this tool, we get
+editor support in **Visual Studio Code** and other editors which support the
+Language Server Protocol.
 
-```
-$ opam install ocaml-lsp-server
-```
-
-Now, we install the OCaml Platform Visual Studio Code extension from the Visual
-Studio Marketplace.
+Now, we will install the OCaml Platform Visual Studio Code extension from the
+Visual Studio Marketplace.
 
 Upon first loading an OCaml source file, you may be prompted to select the
 toolchain in use: pick OCaml the version of OCaml you are using, e.g. 4.11.1
@@ -224,7 +209,7 @@ from the list. Now, help is available by hovering over symbols in your program:
 
 ![Visual Studio Code](/media/tutorials/vscode.png "")
 
-**On Windows using WSL2** you will remotely connect to your WSL2 instance from Visual Studio Code. Microsoft have a [useful blog post](https://code.visualstudio.com/blogs/2019/09/03/wsl2) covering getting WSL2 and Visual Studio Code connected.
+**On Windows using WSL2**, you will remotely connect to your WSL2 instance from Visual Studio Code. Microsoft has a [useful blog post](https://code.visualstudio.com/blogs/2019/09/03/wsl2) covering getting WSL2 and Visual Studio Code connected.
 
 **On Windows**, we must launch Visual Studio Code from within the Cygwin window,
 rather than by clicking on its icon (otherwise, the language server will not be
@@ -263,9 +248,9 @@ let $PATH .= ";".substitute(system('opam config var bin'),'\\n$','','''')
 </li>
 </ul>
 </li>
-<li><a href="#the-ocaml-top-level">The OCaml top level</a>
+<li><a href="#the-ocaml-top-level-repl">The OCaml top level (REPL)</a>
 </li>
-<li><a href="#installing-the-dune-build-system">Installing the Dune build system</a>
+<li><a href="#using-the-dune-build-system">Using the Dune build system</a>
 </li>
 <li><a href="#a-first-project">A first project</a>
 </li>
@@ -293,7 +278,7 @@ port install opam
 <p><strong>For Linux</strong> the preferred way is to use your system's package manager on
 Linux (e.g <code>apt-get install opam</code> or similar). <a href="https://opam.ocaml.org/doc/Install.html">Details of all installation
 methods.</a></p>
-<p>Then, we install an OCaml compiler:</p>
+<p>Then, we install an OCaml compiler and some basic dev tools:</p>
 <pre><code># environment setup
 opam init
 eval `opam env`
@@ -301,6 +286,9 @@ eval `opam env`
 # install given version of the compiler
 opam switch create 4.11.1
 eval `opam env`
+
+# install dev tools, hit Enter to confirm at Y/n prompt
+opam install dune utop ocaml-lsp-server
 </code></pre>
 <p>Now, OCaml is up and running:</p>
 <pre><code>$ which ocaml
@@ -315,55 +303,45 @@ available:</p>
 </code></pre>
 <h3 id="for-windows">For Windows</h3>
 <p>OCaml on Windows is still a work in progress. In the meantime, if you only
-need to <em>run</em> OCaml programs on a Windows machine, then the simplest solution is to use the Windows Subsystem for Linux 2 (WSL2). WSL2 is a feature that allows Linux programs to run directly on Windows. WSL2 is substantially easier and faster to use than WSL1. Microsoft have comprehensive installation steps for <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">setting up WSL2</a>.</p>
-<p>On the other hand, if you need Windows binaries then you will have to use the <a href="https://fdopen.github.io/opam-repository-mingw/">OCaml for Windows</a> installer which comes in 32bit and 64bit versions. This installer gives you opam and OCaml installations all in one go. It is used from within a Cygwin environment, but the executables produced have no dependency on Cygwin at all. For a more comprehensive update on the state of OCaml on Windows, see the <a href="/platform/ocaml_on_windows.html">OCaml on Windows</a> page on the old version of the site.</p>
-<h2 id="the-ocaml-top-level">The OCaml top level</h2>
+need to <em>run</em> OCaml programs on a Windows machine, then the simplest solution is to use the Windows Subsystem for Linux 2 (WSL2). WSL2 is a feature that allows Linux programs to run directly on Windows. WSL2 is substantially easier and faster to use than WSL1. Microsoft has comprehensive installation steps for <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">setting up WSL2</a>.</p>
+<p>On the other hand, if you need Windows binaries, you will have to use the <a href="https://fdopen.github.io/opam-repository-mingw/">OCaml for Windows</a> installer which comes in 32bit and 64bit versions. This installer gives you Opam and OCaml installations all in one go. It's used from within a Cygwin environment, but the executables produced have no dependency on Cygwin at all. For a more comprehensive update on the state of OCaml on Windows, see the <a href="/platform/ocaml_on_windows.html">OCaml on Windows</a> page on the old version of the site.</p>
+<h2 id="the-ocaml-top-level-repl">The OCaml top level (REPL)</h2>
 <p>OCaml comes with two compilers: for native code, and for byte code. We shall
-use one of those in a moment. But first, let's use OCaml's top level (sometimes
-known as a REPL in other languages):</p>
-<pre><code>$ ocaml
-        OCaml version 4.11.1
+use one of those in a moment. But first, let's use OCaml's top level (known as a
+REPL in other languages), which we installed above:</p>
+<pre><code>$ utop
+────────────────────────────────┬─────────────────────────────────────────────────────────────────────┬─────────────────────────────────
+                                │ Welcome to utop version 2.8.0 (using OCaml version 4.11.1!          │                                 
+                                └─────────────────────────────────────────────────────────────────────┘                                 
+Findlib has been successfully loaded. Additional directives:
+  #require &quot;package&quot;;;      to load a package
+  #list;;                   to list the available packages
+  #camlp4o;;                to load camlp4 (standard syntax)
+  #camlp4r;;                to load camlp4 (revised syntax)
+  #predicates &quot;p,q,...&quot;;;   to set these predicates
+  Topfind.reset();;         to force that packages will be reloaded
+  #thread;;                 to enable threads
 
-# 1 + 2 * 3;;
+
+Type #utop_help for help about using utop.
+
+─( 12:12:45 )─&lt; command 0 &gt;──────────────────────────────────────────────────────────────────────────────────────────────{ counter: 0 }─
+utop # 1 + 2 * 3;;
 - : int = 7
-
 </code></pre>
 <p>We typed the phrase <code>1 + 2 * 3</code> and then signalled to OCaml that we had
 finished by typing <code>;;</code> followed by the Enter key. OCaml calculated the
 result, <code>7</code> and its type <code>int</code> and showed them to us. We exit by running the
 built-in <code>exit</code> function with exit code 0:</p>
-<pre><code>$ ocaml
-        OCaml version 4.11.1
-
-# 1 + 2 * 3;;
-- : int = 7
-# exit 0;;
+<pre><code>─( 12:12:45 )─&lt; command 1 &gt;──────────────────────────────────────────────────────────────────────────────────────────────{ counter: 0 }─
+utop # exit 0;;
 $
 </code></pre>
-<p>There are two ways to improve your experience with the OCaml top level: you can
-install the popular <a href="https://github.com/hanslub42/rlwrap"><code>rlwrap</code></a> on your
-system and invoke <code>rlwrap ocaml</code> instead of <code>ocaml</code> to get line-editing
-facilities inside the OCaml top level, or you can install the alternative top
-level <code>utop</code> using opam:</p>
-<pre><code>$ opam install utop
-</code></pre>
-<p>We run it by typing <code>utop</code> instead of <code>ocaml</code>. You can read more about
-<a href="https://github.com/ocaml-community/utop">utop</a>.</p>
-<h2 id="installing-the-dune-build-system">Installing the Dune build system</h2>
-<p>Dune is a build system for OCaml. It takes care of all the low level details of
-OCaml compilation. We install it with opam:</p>
-<pre><code>$ opam install dune
-The following actions will be performed:
-  - install dune 2.7.1
-
-&lt;&gt;&lt;&gt; Gathering sources &gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;
-[default] https://opam.ocaml.org/2.0.7/archives/dune.2.7.1+opam.tar.gz
-downloaded
-
-&lt;&gt;&lt;&gt; Processing actions &lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;
--&gt; installed dune.2.7.1
-Done.
-</code></pre>
+<p>Note that OCaml also has an older REPL, using the <code>ocaml</code> command. However, this
+REPL does not have history or tab-completion, so we recommend always using utop.</p>
+<h2 id="using-the-dune-build-system">Using the Dune build system</h2>
+<p>Dune is a build system for OCaml. It takes care of all the low-level details of
+OCaml compilation. We installed it with opam, above.</p>
 <h2 id="a-first-project">A first project</h2>
 <p>Let's begin the simplest project with Dune and OCaml. We create a new directory
 and ask <code>dune</code> to initialise a new project:</p>
@@ -401,17 +379,16 @@ file.</p>
  (name helloworld))
 </code></pre>
 <h2 id="editor-support-for-ocaml">Editor support for OCaml</h2>
-<p>For <strong>Visual Studio Code</strong>, and other editors support the Language Server
-Protocol, the OCaml language server can be installed with opam:</p>
-<pre><code>$ opam install ocaml-lsp-server
-</code></pre>
-<p>Now, we install the OCaml Platform Visual Studio Code extension from the Visual
-Studio Marketplace.</p>
+<p>We installed the OCaml Language Server above with opam. With this tool, we get
+editor support in <strong>Visual Studio Code</strong> and other editors which support the
+Language Server Protocol.</p>
+<p>Now, we will install the OCaml Platform Visual Studio Code extension from the
+Visual Studio Marketplace.</p>
 <p>Upon first loading an OCaml source file, you may be prompted to select the
 toolchain in use: pick OCaml the version of OCaml you are using, e.g. 4.11.1
 from the list. Now, help is available by hovering over symbols in your program:</p>
 <p><img src="/media/tutorials/vscode.png" alt="Visual Studio Code" title="" /></p>
-<p><strong>On Windows using WSL2</strong> you will remotely connect to your WSL2 instance from Visual Studio Code. Microsoft have a <a href="https://code.visualstudio.com/blogs/2019/09/03/wsl2">useful blog post</a> covering getting WSL2 and Visual Studio Code connected.</p>
+<p><strong>On Windows using WSL2</strong>, you will remotely connect to your WSL2 instance from Visual Studio Code. Microsoft has a <a href="https://code.visualstudio.com/blogs/2019/09/03/wsl2">useful blog post</a> covering getting WSL2 and Visual Studio Code connected.</p>
 <p><strong>On Windows</strong>, we must launch Visual Studio Code from within the Cygwin window,
 rather than by clicking on its icon (otherwise, the language server will not be
 found):</p>
@@ -23795,10 +23772,9 @@ is also instructive to read the corresponding implementation.
 Adding an element always creates a new list l from an element x and list
 tl. tl remains unchanged, but it is not copied either.
 
-* "adding" an element: O(1), cons operator `::`
+* adding an element to the front: O(1), cons operator `::`
 * length: O(n), function `List.length`
-* accessing cell `i`: O(i)
-* finding an element: O(n)
+* random access: O(n)
 
 Well-suited for: IO, pattern-matching
 
@@ -23807,73 +23783,59 @@ Not very efficient for: random access, indexed elements
 ## Arrays: mutable vectors
 Arrays are mutable data structures with a fixed length and random access.
 
-* "adding" an element (by creating a new array): O(n)
-* length: O(1), function `Array.length`
-* accessing cell `i`: O(1)
-* finding an element: O(n)
+* adding an element (by creating a new array): O(n)
+* modifying an element: O(1)
+* random access: O(1)
 
 Well-suited for sets of elements of known size, access by numeric index,
 in-place modification. Basic arrays have a fixed length.
 
 ## Strings: immutable vectors
-Strings are very similar to arrays but are immutable. Strings are
+Strings are similar to arrays but are immutable. Strings are
 specialized for storing chars (bytes) and have some convenient syntax.
 Strings have a fixed length. For extensible strings, the standard Buffer
 module can be used (see below).
 
-* "adding" an element (by creating a new string): O(n)
-* length: O(1)
-* accessing character `i`: O(1)
-* finding an element: O(n)
+* adding an element (by creating a new string): O(n)
+* random access: O(1)
 
 ## Set and Map: immutable trees
 Like lists, these are immutable and they may share some subtrees. They
 are a good solution for keeping older versions of sets of items.
 
-* "adding" an element: O(log n)
+* adding an element: O(log n)
 * returning the number of elements: O(n)
 * finding an element: O(log n)
-
-Sets and maps are very useful in compilation and meta-programming, but
-in other situations hash tables are often more appropriate (see below).
+* finding the biggest or smallest: O(log n)
 
 ## Hashtbl: automatically growing hash tables
 Ocaml hash tables are mutable data structures, which are a good solution
 for storing (key, data) pairs in one single place.
 
-* adding an element: O(1) if the initial size of the table is larger
- than the number of elements it contains; O(log n) on average if n
- elements have been added in a table which is initially much smaller
- than n.
-* returning the number of elements: O(1)
+* adding an element: O(1) amortized
+* removing an element: O(1) amortized
 * finding an element: O(1)
 
 ## Buffer: extensible strings
 Buffers provide an efficient way to accumulate a sequence of bytes in a
 single place. They are mutable.
 
-* adding a char: O(1) if the buffer is big enough, or O(log n) on
- average if the initial size of the buffer was much smaller than the
- number of bytes n.
-* adding a string of k chars: O(k * "adding a char")
-* length: O(1)
-* accessing cell `i`: O(1)
+* adding bytes at the end: O(1) amortized
+* random access: O(1)
 
 ## Queue
 OCaml queues are mutable first-in-first-out (FIFO) data structures.
 
-* adding an element: O(1)
-* taking an element: O(1)
-* length: O(1)
+* adding an element on the "in" side: O(1)
+* taking an element on the "out" side: O(1)
 
 ## Stack
 OCaml stacks are mutable last-in-first-out (LIFO) data structures. They
 are just like lists, except that they are mutable, i.e. adding an
 element doesn't create a new stack but simply adds it to the stack.
 
-* adding an element: O(1)
-* taking an element: O(1)
-* length: O(1)
+* adding an element at the top: O(1)
+* taking an element at the top: O(1)
 |js}
   ; toc_html = {js|<ul>
 <li><ul>
@@ -23909,13 +23871,11 @@ is also instructive to read the corresponding implementation.</p>
 <p>Adding an element always creates a new list l from an element x and list
 tl. tl remains unchanged, but it is not copied either.</p>
 <ul>
-<li>&quot;adding&quot; an element: O(1), cons operator <code>::</code>
+<li>adding an element to the front: O(1), cons operator <code>::</code>
 </li>
 <li>length: O(n), function <code>List.length</code>
 </li>
-<li>accessing cell <code>i</code>: O(i)
-</li>
-<li>finding an element: O(n)
+<li>random access: O(n)
 </li>
 </ul>
 <p>Well-suited for: IO, pattern-matching</p>
@@ -23923,55 +23883,46 @@ tl. tl remains unchanged, but it is not copied either.</p>
 <h2 id="arrays-mutable-vectors">Arrays: mutable vectors</h2>
 <p>Arrays are mutable data structures with a fixed length and random access.</p>
 <ul>
-<li>&quot;adding&quot; an element (by creating a new array): O(n)
+<li>adding an element (by creating a new array): O(n)
 </li>
-<li>length: O(1), function <code>Array.length</code>
+<li>modifying an element: O(1)
 </li>
-<li>accessing cell <code>i</code>: O(1)
-</li>
-<li>finding an element: O(n)
+<li>random access: O(1)
 </li>
 </ul>
 <p>Well-suited for sets of elements of known size, access by numeric index,
 in-place modification. Basic arrays have a fixed length.</p>
 <h2 id="strings-immutable-vectors">Strings: immutable vectors</h2>
-<p>Strings are very similar to arrays but are immutable. Strings are
+<p>Strings are similar to arrays but are immutable. Strings are
 specialized for storing chars (bytes) and have some convenient syntax.
 Strings have a fixed length. For extensible strings, the standard Buffer
 module can be used (see below).</p>
 <ul>
-<li>&quot;adding&quot; an element (by creating a new string): O(n)
+<li>adding an element (by creating a new string): O(n)
 </li>
-<li>length: O(1)
-</li>
-<li>accessing character <code>i</code>: O(1)
-</li>
-<li>finding an element: O(n)
+<li>random access: O(1)
 </li>
 </ul>
 <h2 id="set-and-map-immutable-trees">Set and Map: immutable trees</h2>
 <p>Like lists, these are immutable and they may share some subtrees. They
 are a good solution for keeping older versions of sets of items.</p>
 <ul>
-<li>&quot;adding&quot; an element: O(log n)
+<li>adding an element: O(log n)
 </li>
 <li>returning the number of elements: O(n)
 </li>
 <li>finding an element: O(log n)
 </li>
+<li>finding the biggest or smallest: O(log n)
+</li>
 </ul>
-<p>Sets and maps are very useful in compilation and meta-programming, but
-in other situations hash tables are often more appropriate (see below).</p>
 <h2 id="hashtbl-automatically-growing-hash-tables">Hashtbl: automatically growing hash tables</h2>
 <p>Ocaml hash tables are mutable data structures, which are a good solution
 for storing (key, data) pairs in one single place.</p>
 <ul>
-<li>adding an element: O(1) if the initial size of the table is larger
-than the number of elements it contains; O(log n) on average if n
-elements have been added in a table which is initially much smaller
-than n.
+<li>adding an element: O(1) amortized
 </li>
-<li>returning the number of elements: O(1)
+<li>removing an element: O(1) amortized
 </li>
 <li>finding an element: O(1)
 </li>
@@ -23980,25 +23931,17 @@ than n.
 <p>Buffers provide an efficient way to accumulate a sequence of bytes in a
 single place. They are mutable.</p>
 <ul>
-<li>adding a char: O(1) if the buffer is big enough, or O(log n) on
-average if the initial size of the buffer was much smaller than the
-number of bytes n.
+<li>adding bytes at the end: O(1) amortized
 </li>
-<li>adding a string of k chars: O(k * &quot;adding a char&quot;)
-</li>
-<li>length: O(1)
-</li>
-<li>accessing cell <code>i</code>: O(1)
+<li>random access: O(1)
 </li>
 </ul>
 <h2 id="queue">Queue</h2>
 <p>OCaml queues are mutable first-in-first-out (FIFO) data structures.</p>
 <ul>
-<li>adding an element: O(1)
+<li>adding an element on the &quot;in&quot; side: O(1)
 </li>
-<li>taking an element: O(1)
-</li>
-<li>length: O(1)
+<li>taking an element on the &quot;out&quot; side: O(1)
 </li>
 </ul>
 <h2 id="stack">Stack</h2>
@@ -24006,11 +23949,9 @@ number of bytes n.
 are just like lists, except that they are mutable, i.e. adding an
 element doesn't create a new stack but simply adds it to the stack.</p>
 <ul>
-<li>adding an element: O(1)
+<li>adding an element at the top: O(1)
 </li>
-<li>taking an element: O(1)
-</li>
-<li>length: O(1)
+<li>taking an element at the top: O(1)
 </li>
 </ul>
 |js}

@@ -5,12 +5,12 @@
     The assumption made in this module is that RPCs are answered in the order
     they are made. *)
 
-(** Represents the channel used to communicate with the worker *)
 type context
+(** Represents the channel used to communicate with the worker *)
 
+exception Timeout
 (** When RPC calls take too long, the Lwt promise is set to failed state with
     this exception. *)
-exception Timeout
 
 val start : Brr_webworkers.Worker.t -> int -> (unit -> unit) -> context
 (** [start worker timeout timeout_fn] initialises communications with a web

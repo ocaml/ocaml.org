@@ -8,9 +8,7 @@ module String = struct
         if String.sub s1 i len = s2 then raise Exit
       done;
       false
-    with
-    | Exit ->
-      true
+    with Exit -> true
 end
 
 module List = struct
@@ -18,23 +16,17 @@ module List = struct
 
   let take n xs =
     let rec aux i acc = function
-      | [] ->
-        acc
-      | _ when i = 0 ->
-        acc
-      | y :: ys ->
-        aux (i - 1) (y :: acc) ys
+      | [] -> acc
+      | _ when i = 0 -> acc
+      | y :: ys -> aux (i - 1) (y :: acc) ys
     in
     aux n [] xs |> List.rev
 
   let skip n xs =
     let rec aux i = function
-      | [] ->
-        []
-      | l when i = 0 ->
-        l
-      | _ :: ys ->
-        aux (i - 1) ys
+      | [] -> []
+      | l when i = 0 -> l
+      | _ :: ys -> aux (i - 1) ys
     in
     aux n xs
 end
@@ -45,23 +37,19 @@ module Unix = struct
   let rec mkdir_p ?perm dir =
     let mkdir_idempotent ?(perm = 0o777) dir =
       match Unix.mkdir dir perm with
-      | () ->
-        ()
+      | () -> ()
       (* [mkdir] on MacOSX returns [EISDIR] instead of [EEXIST] if the directory
          already exists. *)
-      | exception Unix.Unix_error ((EEXIST | EISDIR), _, _) ->
-        ()
+      | exception Unix.Unix_error ((EEXIST | EISDIR), _, _) -> ()
     in
     match mkdir_idempotent ?perm dir with
-    | () ->
-      ()
+    | () -> ()
     | exception (Unix.Unix_error (ENOENT, _, _) as exn) ->
-      let parent = Filename.dirname dir in
-      if String.equal parent dir then
-        raise exn
-      else (
-        mkdir_p ?perm parent;
-        mkdir_idempotent ?perm dir)
+        let parent = Filename.dirname dir in
+        if String.equal parent dir then raise exn
+        else (
+          mkdir_p ?perm parent;
+          mkdir_idempotent ?perm dir)
 
   let read_file path =
     let ic = open_in path in

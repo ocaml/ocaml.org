@@ -1,15 +1,15 @@
 (** Read and write gettext's .PO files. *)
 
 module Exn : sig
-  (** Cannot merge two PO files. *)
   exception Inconsistent_merge of string * string
+  (** Cannot merge two PO files. *)
 
+  exception File_invalid_index of string * int
   (** When parsing a PO file, found an out of order table indices in a plural
       form. *)
-  exception File_invalid_index of string * int
 
-  (** A PO file cannot be parsed. *)
   exception Invalid_file of string * Lexing.lexbuf
+  (** A PO file cannot be parsed. *)
 end
 
 (** Types for the PO processing. The main difference with the type translation
@@ -18,29 +18,26 @@ type translation =
   | Singular of string list * string list
   | Plural of string list * string list * string list list
 
+type filepos = string * int
 (** PO string localizator : represents in which file/lineno a string can be
     found. *)
-type filepos = string * int
 
-(** PO keyword: represents special keyword like fuzzy, wrap, c-format... *)
 type special = string
+(** PO keyword: represents special keyword like fuzzy, wrap, c-format... *)
 
-type commented_translation =
-  { comment_special : special list
-  ; comment_filepos : filepos list
-  ; comment_translation : translation
-  }
+type commented_translation = {
+  comment_special : special list;
+  comment_filepos : filepos list;
+  comment_translation : translation;
+}
 
-(** Mapping of PO content using the string identifier as the key. *)
 type translations = commented_translation Map.Make(String).t
+(** Mapping of PO content using the string identifier as the key. *)
 
+type t = { no_domain : translations; domain : translations Map.Make(String).t }
 (** Content of a PO file. Since comments should be saved, and that we only save
     comments before and in message translation, we need to keep trace of the
     last comments, which is not attached to any translation. *)
-type t =
-  { no_domain : translations
-  ; domain : translations Map.Make(String).t
-  }
 
 val empty_po : t
 (** empty_po : value representing an empty PO *)
@@ -52,14 +49,13 @@ val add_translation_no_domain : t -> commented_translation -> t
     location, and follow these rules for the translation itself :
 
     - singular and singular : if there is an empty string ( "" ) in one of the
-      translation, use the other translation,
-    - plural and plural : if there is an empty string list ( [ "" ; "" ] ) in
-      one of the translaiton, use the other translation,
-    - singular and plural : merge into a plural form. There is checks during the
-      merge that can raise Inconsistent_merge :
-    - for one singular string if the two plural strings differs
-    - if there is some elements that differs (considering the special case of
-      the empty string ) in the translation *)
+      translation, use the other translation, - plural and plural : if there is
+      an empty string list ( [ "" ; "" ] ) in one of the translaiton, use the
+      other translation, - singular and plural : merge into a plural form. There
+      is checks during the merge that can raise Inconsistent_merge : - for one
+      singular string if the two plural strings differs - if there is some
+      elements that differs (considering the special case of the empty string )
+      in the translation *)
 
 val add_translation_domain : string -> t -> commented_translation -> t
 (** add_translation_domain po domain (comment_lst,location_lst,translation): add
@@ -79,7 +75,5 @@ val merge_pot : t -> t -> t
     strings provided in the POT for ending the translation. *)
 
 val input_po : in_channel -> t
-
 val output_po : out_channel -> t -> unit
-
 val read_po : string -> t

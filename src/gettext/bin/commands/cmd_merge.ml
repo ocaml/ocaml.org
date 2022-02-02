@@ -16,16 +16,14 @@ let run ~pot_filename ~po_filename =
 open Cmdliner
 
 let doc = "Merge a POT file into a PO file."
-
 let sdocs = Manpage.s_common_options
-
 let exits = Common.exits
-
 let envs = Common.envs
 
 let man =
-  [ `S Manpage.s_description
-  ; `P "$(tname) merges the msgid found in a POT file into a PO file."
+  [
+    `S Manpage.s_description;
+    `P "$(tname) merges the msgid found in a POT file into a PO file.";
   ]
 
 let info = Term.info "merge" ~doc ~sdocs ~exits ~envs ~man
@@ -44,4 +42,4 @@ let term =
   in
   run ~pot_filename ~po_filename
 
-let cmd = term, info
+let cmd = (term, info)

@@ -8,9 +8,7 @@ module Name : sig
   type t
 
   val compare : t -> t -> int
-
   val to_string : t -> string
-
   val of_string : string -> t
 
   module Map : OpamStd.MAP with type key := t
@@ -21,9 +19,7 @@ module Version : sig
   type t
 
   val compare : t -> t -> int
-
   val to_string : t -> string
-
   val of_string : string -> t
 
   module Map : OpamStd.MAP with type key := t
@@ -32,71 +28,55 @@ end
 (** The information of a package. Typically, this is read from the opam file in
     the opam-repository. *)
 module Info : sig
-  type url =
-    { uri : string
-    ; checksum : string list
-    }
+  type url = { uri : string; checksum : string list }
 
-  type t =
-    { synopsis : string
-    ; description : string
-    ; authors : Ood.Opam_user.t list
-    ; maintainers : Ood.Opam_user.t list
-    ; license : string
-    ; homepage : string list
-    ; tags : string list
-    ; dependencies : (Name.t * string option) list
-    ; rev_deps : (Name.t * string option * Version.t) list
-    ; depopts : (Name.t * string option) list
-    ; conflicts : (Name.t * string option) list
-    ; url : url option
-    }
+  type t = {
+    synopsis : string;
+    description : string;
+    authors : Ood.Opam_user.t list;
+    maintainers : Ood.Opam_user.t list;
+    license : string;
+    homepage : string list;
+    tags : string list;
+    dependencies : (Name.t * string option) list;
+    rev_deps : (Name.t * string option * Version.t) list;
+    depopts : (Name.t * string option) list;
+    conflicts : (Name.t * string option) list;
+    url : url option;
+  }
 end
 
 module Packages_stats : sig
-  type package_stat =
-    { name : Name.t
-    ; version : Version.t
-    ; info : Info.t
-    }
+  type package_stat = { name : Name.t; version : Version.t; info : Info.t }
 
-  type t =
-    { nb_packages : int  (** Total number of packages. *)
-    ; nb_update_week : int
-          (** Number of packages updated during the last 7 days. *)
-    ; nb_packages_month : int  (** Number of packages added the last 30 days. *)
-    ; newest_packages : (package_stat * string) list
-          (** The 5 newest packages and date, in Git's relative format. *)
-    ; recently_updated : package_stat list
-          (** The 5 most recently updated packages. *)
-    ; most_revdeps : (package_stat * int) list
-          (** The 5 packages with the most number of revdeps. *)
-    }
+  type t = {
+    nb_packages : int;  (** Total number of packages. *)
+    nb_update_week : int;
+        (** Number of packages updated during the last 7 days. *)
+    nb_packages_month : int;  (** Number of packages added the last 30 days. *)
+    newest_packages : (package_stat * string) list;
+        (** The 5 newest packages and date, in Git's relative format. *)
+    recently_updated : package_stat list;
+        (** The 5 most recently updated packages. *)
+    most_revdeps : (package_stat * int) list;
+        (** The 5 packages with the most number of revdeps. *)
+  }
 end
 
 module Documentation : sig
-  type toc =
-    { title : string
-    ; href : string
-    ; children : toc list
-    }
+  type toc = { title : string; href : string; children : toc list }
 
   type item =
     | Module of string
     | ModuleType of string
     | FunctorArgument of int * string
 
-  type t =
-    { toc : toc list
-    ; module_path : item list
-    ; content : string
-    }
+  type t = { toc : toc list; module_path : item list; content : string }
 end
 
 module Module_map = Module_map
 
 type state
-
 type t
 
 val state_of_package_list : t list -> state
@@ -115,40 +95,34 @@ val info : t -> Info.t
 val create : name:Name.t -> version:Version.t -> Info.t -> t
 (** This is added to enable demo test package to use Package.t with abstraction *)
 
-val readme_file
-  :  kind:[< `Package | `Universe of string ]
-  -> t
-  -> string option Lwt.t
+val readme_file :
+  kind:[< `Package | `Universe of string ] -> t -> string option Lwt.t
 (** Get the readme of a package *)
 
-val license_file
-  :  kind:[< `Package | `Universe of string ]
-  -> t
-  -> string option Lwt.t
+val license_file :
+  kind:[< `Package | `Universe of string ] -> t -> string option Lwt.t
 (** Get the license of a package *)
 
-val documentation_status
-  :  kind:[< `Package | `Universe of string ]
-  -> t
-  -> [ `Success | `Failure | `Unknown ] Lwt.t
+val documentation_status :
+  kind:[< `Package | `Universe of string ] ->
+  t ->
+  [ `Success | `Failure | `Unknown ] Lwt.t
 (** Get the build status of the documentation of a package *)
 
-val toplevel_status
-  :  kind:[< `Package | `Universe of string ]
-  -> t
-  -> [ `Success | `Failure | `Unknown ] Lwt.t
+val toplevel_status :
+  kind:[< `Package | `Universe of string ] ->
+  t ->
+  [ `Success | `Failure | `Unknown ] Lwt.t
 (** Get the build status of the toplevel of a package *)
 
-val module_map
-  :  kind:[< `Package | `Universe of string ]
-  -> t
-  -> Module_map.t Lwt.t
+val module_map :
+  kind:[< `Package | `Universe of string ] -> t -> Module_map.t Lwt.t
 
-val documentation_page
-  :  kind:[< `Package | `Universe of string ]
-  -> t
-  -> string
-  -> Documentation.t option Lwt.t
+val documentation_page :
+  kind:[< `Package | `Universe of string ] ->
+  t ->
+  string ->
+  Documentation.t option Lwt.t
 (** Get the rendered content of an HTML page for a package given its URL
     relative to the root page of the documentation. *)
 
@@ -187,11 +161,10 @@ val search_package : state -> string -> t list
     Packages returned contain the string either in the name, tags, synopsis or
     description. They are ordered in the following way:
 
-    - Packages whose name is exactly the given string
-    - packages whose name contain the given string
-    - packages having the given string as a tag
-    - packages whose synopsis contain the given string
-    - packages whose description contain the given string.
+    - Packages whose name is exactly the given string - packages whose name
+      contain the given string - packages having the given string as a tag -
+      packages whose synopsis contain the given string - packages whose
+      description contain the given string.
 
     A call to this function call Lazy.force on every package info. *)
 

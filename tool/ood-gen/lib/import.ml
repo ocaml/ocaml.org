@@ -3,20 +3,14 @@ module Result = struct
 
   let both a b =
     match a with
-    | Error e ->
-      Error e
-    | Ok a ->
-      (match b with Error e -> Error e | Ok b -> Ok (a, b))
+    | Error e -> Error e
+    | Ok a -> ( match b with Error e -> Error e | Ok b -> Ok (a, b))
 
   module Syntax = struct
     let ( >>= ) t f = bind t f
-
     let ( >>| ) t f = map f t
-
     let ( let* ) = ( >>= )
-
     let ( let+ ) = ( >>| )
-
     let ( and+ ) = both
   end
 
@@ -25,28 +19,22 @@ module Result = struct
   module List = struct
     let map f t =
       let rec loop acc = function
-        | [] ->
-          Ok (List.rev acc)
-        | x :: xs ->
-          f x >>= fun x -> loop (x :: acc) xs
+        | [] -> Ok (List.rev acc)
+        | x :: xs -> f x >>= fun x -> loop (x :: acc) xs
       in
       loop [] t
 
     let all =
       let rec loop acc = function
-        | [] ->
-          Ok (List.rev acc)
-        | t :: l ->
-          t >>= fun x -> loop (x :: acc) l
+        | [] -> Ok (List.rev acc)
+        | t :: l -> t >>= fun x -> loop (x :: acc) l
       in
       fun l -> loop [] l
 
     let concat_map =
       let rec loop f acc = function
-        | [] ->
-          Ok (List.rev acc)
-        | x :: l ->
-          f x >>= fun y -> loop f (List.rev_append y acc) l
+        | [] -> Ok (List.rev acc)
+        | x :: l -> f x >>= fun y -> loop f (List.rev_append y acc) l
       in
       fun l f -> loop f [] l
 
@@ -55,10 +43,8 @@ module Result = struct
 
     let rec fold_left f init t =
       match t with
-      | [] ->
-        Ok init
-      | x :: xs ->
-        f init x >>= fun init -> fold_left f init xs
+      | [] -> Ok init
+      | x :: xs -> f init x >>= fun init -> fold_left f init xs
 
     let rec iter_left f t =
       match t with [] -> Ok () | x :: xs -> f x >>= fun () -> iter_left f xs
@@ -66,8 +52,7 @@ module Result = struct
     let filter_map t f =
       fold_left
         (fun acc x -> f x >>| function None -> acc | Some y -> y :: acc)
-        []
-        t
+        [] t
       >>| List.rev
   end
 end
@@ -77,28 +62,24 @@ module String = struct
 
   let lsplit2_exn on s =
     let i = index s on in
-    sub s 0 i, sub s (i + 1) (length s - i - 1)
+    (sub s 0 i, sub s (i + 1) (length s - i - 1))
 
   let lsplit2 on s = try Some (lsplit2_exn s on) with Not_found -> None
-
   let prefix s len = try sub s 0 len with Invalid_argument _ -> ""
 
   let suffix s len =
     try sub s (length s - len) len with Invalid_argument _ -> ""
 
   let drop_prefix s len = sub s len (length s - len)
-
   let drop_suffix s len = sub s 0 (length s - len)
 
   (* ripped off stringext, itself ripping it off from one of dbuenzli's libs *)
   let cut s ~on =
     let sep_max = length on - 1 in
-    if sep_max < 0 then
-      invalid_arg "Stringext.cut: empty separator"
+    if sep_max < 0 then invalid_arg "Stringext.cut: empty separator"
     else
       let s_max = length s - 1 in
-      if s_max < 0 then
-        None
+      if s_max < 0 then None
       else
         let k = ref 0 in
         let i = ref 0 in
@@ -114,8 +95,7 @@ module String = struct
           while !i + sep_max <= s_max do
             (* Check remaining [on] chars match, access to unsafe s (!i + !k) is
                guaranteed by loop invariant. *)
-            if unsafe_get s !i <> unsafe_get on 0 then
-              incr i
+            if unsafe_get s !i <> unsafe_get on 0 then incr i
             else (
               k := 1;
               while
@@ -126,8 +106,7 @@ module String = struct
               if !k <= sep_max then (* no match *) incr i else raise Exit)
           done;
           None (* no match in the whole string. *)
-        with
-        | Exit ->
+        with Exit ->
           (* i is at the beginning of the separator *)
           let left_end = !i - 1 in
           let right_start = !i + sep_max + 1 in
@@ -136,12 +115,10 @@ module String = struct
 
   let rcut s ~on =
     let sep_max = length on - 1 in
-    if sep_max < 0 then
-      invalid_arg "Stringext.rcut: empty separator"
+    if sep_max < 0 then invalid_arg "Stringext.rcut: empty separator"
     else
       let s_max = length s - 1 in
-      if s_max < 0 then
-        None
+      if s_max < 0 then None
       else
         let k = ref 0 in
         let i = ref s_max in
@@ -155,8 +132,7 @@ module String = struct
            can be found we exit the loop and return the no match case. *)
         try
           while !i >= sep_max do
-            if unsafe_get s !i <> unsafe_get on sep_max then
-              decr i
+            if unsafe_get s !i <> unsafe_get on sep_max then decr i
             else
               (* Check remaining [on] chars match, access to unsafe_get s
                  (sep_start + !k) is guaranteed by loop invariant. *)
@@ -170,8 +146,7 @@ module String = struct
               if !k >= 0 then (* no match *) decr i else raise Exit
           done;
           None (* no match in the whole string. *)
-        with
-        | Exit ->
+        with Exit ->
           (* i is at the end of the separator *)
           let left_end = !i - sep_max - 1 in
           let right_start = !i + 1 in
@@ -185,48 +160,41 @@ module Glob = struct
   let split c s =
     let len = String.length s in
     let rec loop acc last_pos pos =
-      if pos = -1 then
-        String.sub s 0 last_pos :: acc
+      if pos = -1 then String.sub s 0 last_pos :: acc
       else if s.[pos] = c then
         let pos1 = pos + 1 in
         let sub_str = String.sub s pos1 (last_pos - pos1) in
         loop (sub_str :: acc) pos (pos - 1)
-      else
-        loop acc last_pos (pos - 1)
+      else loop acc last_pos (pos - 1)
     in
     loop [] len (len - 1)
 
   (** Returns list of indices of occurances of substr in x *)
   let find_substrings ?(start_point = 0) substr x =
-    let len_s = String.length substr
-    and len_x = String.length x in
+    let len_s = String.length substr and len_x = String.length x in
     let rec aux acc i =
-      if len_x - i < len_s then
-        acc
-      else if String.sub x i len_s = substr then
-        aux (i :: acc) (i + 1)
-      else
-        aux acc (i + 1)
+      if len_x - i < len_s then acc
+      else if String.sub x i len_s = substr then aux (i :: acc) (i + 1)
+      else aux acc (i + 1)
     in
     aux [] start_point
 
   let matches_glob ~glob x =
     let rec contains_all_sections = function
-      | _, [] | _, [ "" ] ->
-        true
+      | _, [] | _, [ "" ] -> true
       | i, [ g ] ->
-        (* need to find a match that matches to end of string *)
-        find_substrings ~start_point:i g x
-        |> List.exists (fun j -> j + String.length g = String.length x)
+          (* need to find a match that matches to end of string *)
+          find_substrings ~start_point:i g x
+          |> List.exists (fun j -> j + String.length g = String.length x)
       | 0, "" :: g :: gs ->
-        find_substrings g x
-        |> List.exists (fun j ->
-               contains_all_sections (j + String.length g, gs))
+          find_substrings g x
+          |> List.exists (fun j ->
+                 contains_all_sections (j + String.length g, gs))
       | i, g :: gs ->
-        find_substrings ~start_point:i g x
-        |> List.exists (fun j ->
-               (if i = 0 then j = 0 else true)
-               && contains_all_sections (j + String.length g, gs))
+          find_substrings ~start_point:i g x
+          |> List.exists (fun j ->
+                 (if i = 0 then j = 0 else true)
+                 && contains_all_sections (j + String.length g, gs))
     in
     contains_all_sections (0, split '*' glob)
 

@@ -8,24 +8,23 @@ open Brr_io
 (** The assumption made in this module is that RPCs are answered in the order
     they are made. *)
 
-type context =
-  { worker : Worker.t
-  ; timeout : int
-  ; timeout_fn : unit -> unit
-  ; waiting : ((Jv.t, exn) Result.t Lwt_mvar.t * int) Queue.t
-  }
+type context = {
+  worker : Worker.t;
+  timeout : int;
+  timeout_fn : unit -> unit;
+  waiting : ((Jv.t, exn) Result.t Lwt_mvar.t * int) Queue.t;
+}
 
 exception Timeout
 
 let demux context msg =
   Lwt.async (fun () ->
       match Queue.take_opt context.waiting with
-      | None ->
-        Lwt.return ()
+      | None -> Lwt.return ()
       | Some (mv, outstanding_execution) ->
-        Brr.G.stop_timer outstanding_execution;
-        let msg : Jv.t = Message.Ev.data (Brr.Ev.as_type msg) in
-        Lwt_mvar.put mv (Ok msg))
+          Brr.G.stop_timer outstanding_execution;
+          let msg : Jv.t = Message.Ev.data (Brr.Ev.as_type msg) in
+          Lwt_mvar.put mv (Ok msg))
 
 let start worker timeout timeout_fn =
   let context = { worker; timeout; timeout_fn; waiting = Queue.create () } in
@@ -49,7 +48,6 @@ let rpc : context -> Rpc.call -> Rpc.response Lwt.t =
   Lwt_mvar.take mv >>= fun r ->
   match r with
   | Ok jv ->
-    let response = Conv.rpc_response_of_jv jv in
-    Lwt.return response
-  | Error exn ->
-    Lwt.fail exn
+      let response = Conv.rpc_response_of_jv jv in
+      Lwt.return response
+  | Error exn -> Lwt.fail exn

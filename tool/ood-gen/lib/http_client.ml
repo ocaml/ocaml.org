@@ -8,5 +8,4 @@ let get_sync url =
      if Status.is_successful response.status then (
        print_endline (Printf.sprintf "GET %s returned %s" url message);
        Body.to_string response.body)
-     else
-       raise (Failure (Printf.sprintf "GET %s returned %s" url message)))
+     else raise (Failure (Printf.sprintf "GET %s returned %s" url message)))
