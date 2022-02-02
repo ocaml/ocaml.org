@@ -10,7 +10,7 @@ module Toprpc = Js_top_worker_client.W
 
 let line_to_positions doc n =
   let line = Text.line n doc in
-  Text.Line.from line, Text.Line.to_ line
+  (Text.Line.from line, Text.Line.to_ line)
 
 let storage_id = Jstr.v "ocaml-org-playground-v0"
 
@@ -18,15 +18,16 @@ let timeout_container () =
   let open Brr in
   match Document.find_el_by_id G.document @@ Jstr.v "toplevel-container" with
   | Some el ->
-    El.(
-      set_children
-        el
-        [ El.p
-            [ El.txt' "Toplevel terminated after timeout on previous execution"
-            ]
-        ])
-  | None ->
-    ()
+      El.(
+        set_children el
+          [
+            El.p
+              [
+                El.txt'
+                  "Toplevel terminated after timeout on previous execution";
+              ];
+          ])
+  | None -> ()
 
 let initialise s callback =
   let rpc = Js_top_worker_client.start s 100000 callback in
@@ -36,13 +37,10 @@ let initialise s callback =
 let rpc = initialise "/toplevels/worker.js" timeout_container
 
 let or_raise = function
-  | Ok v ->
-    v
-  | Error (Toplevel_api.InternalError e) ->
-    failwith e
+  | Ok v -> v
+  | Error (Toplevel_api.InternalError e) -> failwith e
 
 let with_rpc f v = Lwt.bind rpc (fun r -> Lwt.map or_raise @@ f r v)
-
 let async_raise f = Lwt.async (fun () -> Lwt.map or_raise @@ f ())
 
 (* ~~~ Linting ~~~ *)
@@ -56,9 +54,8 @@ let linter =
       List.fold_left_map
         (fun acc a ->
           let i = acc + String.length a in
-          i + 1, i + 1) (* Plus one for the newlines *)
-        0
-        lines
+          (i + 1, i + 1)) (* Plus one for the newlines *)
+        0 lines
     in
     let result, set_result = Fut.create () in
     let get_line idx i =
@@ -69,23 +66,17 @@ let linter =
       let s = String.concat "\n" lines ^ ";;" in
       let* o = with_rpc Toprpc.typecheck s in
       let errs =
-        match o.stderr, o.highlight with
+        match (o.stderr, o.highlight) with
         | Some msg, Some { line1; line2; col1; col2 } ->
-          let from = get_line line1 2 + col1 in
-          let to_ = get_line line2 2 + col2 in
-          let to_ = if to_ >= max_length then from else to_ in
-          [ (from, to_), msg ]
-        | _ ->
-          []
+            let from = get_line line1 2 + col1 in
+            let to_ = get_line line2 2 + col2 in
+            let to_ = if to_ >= max_length then from else to_ in
+            [ ((from, to_), msg) ]
+        | _ -> []
       in
       let diagnostic ~from ~to_ message =
-        Lint.Diagnostic.create
-          ~source:"toplevel"
-          ~from
-          ~to_
-          ~severity:Error
-          ~message
-          ()
+        Lint.Diagnostic.create ~source:"toplevel" ~from ~to_ ~severity:Error
+          ~message ()
       in
       let results =
         List.map (fun ((from, to_), msg) -> diagnostic ~from ~to_ msg) errs
@@ -106,20 +97,19 @@ let complete : Autocomplete.source =
   let rword = RegExp.create ".*" in
   match Autocomplete.Context.match_before ctx rword with
   | Some jv ->
-    let run () =
-      let from = Jv.Int.get jv "from" in
-      let text = Jv.Jstr.get jv "text" |> Jstr.to_string in
-      let* c = with_rpc Toprpc.complete text in
-      let options =
-        List.map (fun label -> Completion.create ~label ()) c.completions
+      let run () =
+        let from = Jv.Int.get jv "from" in
+        let text = Jv.Jstr.get jv "text" |> Jstr.to_string in
+        let* c = with_rpc Toprpc.complete text in
+        let options =
+          List.map (fun label -> Completion.create ~label ()) c.completions
+        in
+        let r = Result.create ~from:(from + c.n) ~options () in
+        Lwt.return (Ok (set_result (Some r)))
       in
-      let r = Result.create ~from:(from + c.n) ~options () in
-      Lwt.return (Ok (set_result (Some r)))
-    in
-    async_raise run;
-    result
-  | _ ->
-    result
+      async_raise run;
+      result
+  | _ -> result
 
 let autocomplete =
   let config = Autocomplete.config ~override:[ complete ] () in
@@ -142,14 +132,12 @@ let set_inner_html el html =
 
 let get_el_by_id s =
   match Document.find_el_by_id G.document (Jstr.v s) with
-  | Some v ->
-    v
+  | Some v -> v
   | None ->
-    Console.warn [ Jstr.v "Failed to get elemented by id" ];
-    invalid_arg s
+      Console.warn [ Jstr.v "Failed to get elemented by id" ];
+      invalid_arg s
 
 let red el = El.set_inline_style (Jstr.v "color") (Jstr.v "red") el
-
 let cyan el = El.set_inline_style (Jstr.v "color") (Jstr.v "cyan") el
 
 let handle_output (o : Toplevel_api.exec_result) =
@@ -166,14 +154,11 @@ module Codec = struct
       let uri = Window.location G.window |> Uri.fragment in
       match Uri.Params.find (Jstr.v "code") (Uri.Params.of_jstr uri) with
       | Some jstr ->
-        let+ dec = Base64.decode jstr in
-        let+ code = Base64.data_utf_8_to_jstr dec in
-        Ok (Jstr.to_string code)
-      | _ ->
-        Ok Example.adts
-    with
-    | _ ->
-      Ok Example.adts
+          let+ dec = Base64.decode jstr in
+          let+ code = Base64.data_utf_8_to_jstr dec in
+          Ok (Jstr.to_string code)
+      | _ -> Ok Example.adts
+    with _ -> Ok Example.adts
 
   let to_window s =
     let data = Base64.data_utf_8_of_jstr s in
@@ -195,24 +180,18 @@ let setup () =
   in
   let _state, view =
     let ml = Stream.Language.define ml_like in
-    Edit.init
-      ~doc:(Jstr.v initial_code)
+    Edit.init ~doc:(Jstr.v initial_code)
       ~exts:
-        [| dark_theme_ext
-         ; ml
-         ; autocomplete
-         ; linter
-         ; Editor.View.line_wrapping ()
+        [|
+          dark_theme_ext; ml; autocomplete; linter; Editor.View.line_wrapping ();
         |]
       ()
   in
   let share = get_el_by_id "share" in
   Ev.(
-    listen
-      click
+    listen click
       (fun _ ->
-        Console.log_if_error
-          ~use:()
+        Console.log_if_error ~use:()
           (Codec.to_window @@ Jstr.v (Edit.get_doc view)))
       (El.as_target share));
   let button = get_el_by_id "run" in

@@ -9,21 +9,19 @@ let get_el_by_id i =
 let init ?doc ?(exts = [||]) () =
   let open Editor in
   let config =
-    State.Config.create
-      ?doc
+    State.Config.create ?doc
       ~extensions:(Array.concat [ [| basic_setup |]; exts ])
       ()
   in
   let state = State.create ~config () in
   let opts = View.opts ~state ~parent:(get_el_by_id "editor1") () in
   let view : View.t = View.create ~opts () in
-  state, view
+  (state, view)
 
 let set view ~doc ~exts =
   let open Editor in
   let config =
-    State.Config.create
-      ~doc
+    State.Config.create ~doc
       ~extensions:(Array.concat [ [| basic_setup |]; exts ])
       ()
   in
@@ -32,7 +30,5 @@ let set view ~doc ~exts =
 
 let get_doc view =
   let text = Editor.State.doc @@ Editor.View.state view in
-  Text.to_jstr_array text
-  |> Array.map Jstr.to_string
-  |> Array.to_list
+  Text.to_jstr_array text |> Array.map Jstr.to_string |> Array.to_list
   |> String.concat "\n"
