@@ -49,6 +49,7 @@
   cohttp-lwt-unix
   bos
   crunch
+  mirage-kv-mem
   dream
   dream-accept
   dream-encoding

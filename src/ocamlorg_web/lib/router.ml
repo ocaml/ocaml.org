@@ -1,16 +1,26 @@
 module Url = Ocamlorg_frontend.Url
 
-let loader root path request =
-  match Asset.read (root ^ path) with
-  | None ->
-      Dream.log "Could not found %s" (root ^ path);
-      Handler.not_found request
-  | Some asset -> Dream.respond ~headers:(Dream.mime_lookup path) asset
+let asset_loader =
+  let open Lwt.Syntax in
+  let store = Asset.connect () in
+  Static.loader
+    ~read:(fun path ->
+      let* store in
+      Asset.get store (Mirage_kv.Key.v path))
+    ~last_modified:(fun path ->
+      let* store in
+      Asset.last_modified store (Mirage_kv.Key.v path))
 
-let media_loader _root path request =
-  match Media.read path with
-  | None -> Handler.not_found request
-  | Some asset -> Dream.respond asset
+let media_loader =
+  let open Lwt.Syntax in
+  let store = Media.connect () in
+  Static.loader
+    ~read:(fun path ->
+      let* store in
+      Media.get store (Mirage_kv.Key.v path))
+    ~last_modified:(fun path ->
+      let* store in
+      Media.last_modified store (Mirage_kv.Key.v path))
 
 let redirect s req = Dream.redirect req s
 
@@ -116,7 +126,7 @@ let router t =
       redirection_routes Redirection.manual;
       toplevels_route;
       Dream.get "/media/**" (Dream.static ~loader:media_loader "");
-      Dream.get "/**" (Dream.static ~loader "")
+      Dream.get "/**" (Dream.static ~loader:asset_loader "")
       (* Last one so that we don't apply the index html middleware on every
          route. *);
     ]
