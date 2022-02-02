@@ -18,8 +18,7 @@ module Version = struct
         if cur - beg > 0 then [ String.sub p beg (cur - beg) ] else []
       else if sep p.[cur] then
         String.sub p beg (cur - beg) :: split (cur + 1) (cur + 1)
-      else
-        split beg (cur + 1)
+      else split beg (cur + 1)
     in
     split 0 0
 
@@ -27,29 +26,22 @@ module Version = struct
     match
       split_char ~sep:(function '+' | '-' | '~' -> true | _ -> false) v
     with
-    | [] ->
-      assert false
+    | [] -> assert false
     | x :: _ ->
-      List.map
-        int_of_string
-        (split_char ~sep:(function '.' -> true | _ -> false) x)
+        List.map int_of_string
+          (split_char ~sep:(function '.' -> true | _ -> false) x)
 
   let current = split Sys.ocaml_version
-
   let compint (a : int) b = compare a b
 
   let rec compare v v' =
-    match v, v' with
-    | [ x ], [ y ] ->
-      compint x y
-    | [], [] ->
-      0
-    | [], y :: _ ->
-      compint 0 y
-    | x :: _, [] ->
-      compint x 0
-    | x :: xs, y :: ys ->
-      (match compint x y with 0 -> compare xs ys | n -> n)
+    match (v, v') with
+    | [ x ], [ y ] -> compint x y
+    | [], [] -> 0
+    | [], y :: _ -> compint 0 y
+    | x :: _, [] -> compint x 0
+    | x :: xs, y :: ys -> (
+        match compint x y with 0 -> compare xs ys | n -> n)
 end
 
 let exec' s =
@@ -62,16 +54,14 @@ let setup () =
   if Version.compare Version.current [ 4; 07 ] >= 0 then exec' "open Stdlib";
   let header1 = Printf.sprintf "        %s version %%s" "OCaml" in
   let header2 =
-    Printf.sprintf
-      "     Compiled with Js_of_ocaml version %s"
+    Printf.sprintf "     Compiled with Js_of_ocaml version %s"
       Js_of_ocaml.Sys_js.js_of_ocaml_version
   in
   exec' (Printf.sprintf "Format.printf \"%s@.\" Sys.ocaml_version;;" header1);
   exec' (Printf.sprintf "Format.printf \"%s@.\";;" header2);
   exec' "#enable \"pretty\";;";
   exec' "#disable \"shortvar\";;";
-  Toploop.add_directive
-    "load_js"
+  Toploop.add_directive "load_js"
     (Toploop.Directive_string
        (fun name -> Js_of_ocaml.Js.Unsafe.global##load_script_ name))
     Toploop.{ section = ""; doc = "Load a javascript script" };
@@ -80,12 +70,10 @@ let setup () =
 
 let setup_printers () =
   exec' "let _print_unit fmt (_ : 'a) : 'a = Format.pp_print_string fmt \"()\"";
-  Topdirs.dir_install_printer
-    Format.std_formatter
+  Topdirs.dir_install_printer Format.std_formatter
     Longident.(Lident "_print_unit")
 
 let stdout_buff = Buffer.create 100
-
 let stderr_buff = Buffer.create 100
 
 (* RPC function implementations *)
@@ -93,7 +81,6 @@ let stderr_buff = Buffer.create 100
 module M = Idl.IdM (* Server is synchronous *)
 
 module IdlM = Idl.Make (M)
-
 module Server = Toplevel_api.Make (IdlM.GenServer ())
 
 (* These are all required to return the appropriate value for the API within the
@@ -123,11 +110,12 @@ let execute =
     Format.pp_print_flush pp_result ();
     IdlM.ErrM.return
       Toplevel_api.
-        { stdout = buff_opt stdout_buff
-        ; stderr = buff_opt stderr_buff
-        ; sharp_ppf = buff_opt code_buff
-        ; caml_ppf = buff_opt res_buff
-        ; highlight = !highlighted
+        {
+          stdout = buff_opt stdout_buff;
+          stderr = buff_opt stderr_buff;
+          sharp_ppf = buff_opt code_buff;
+          caml_ppf = buff_opt res_buff;
+          highlight = !highlighted;
         }
 
 let setup () =
@@ -137,23 +125,21 @@ let setup () =
   setup_printers ();
   IdlM.ErrM.return
     Toplevel_api.
-      { stdout = buff_opt stdout_buff
-      ; stderr = buff_opt stderr_buff
-      ; sharp_ppf = None
-      ; caml_ppf = None
-      ; highlight = None
+      {
+        stdout = buff_opt stdout_buff;
+        stderr = buff_opt stderr_buff;
+        sharp_ppf = None;
+        caml_ppf = None;
+        highlight = None;
       }
 
 let complete phrase =
   let contains_double_underscore s =
     let len = String.length s in
     let rec aux i =
-      if i > len - 2 then
-        false
-      else if s.[i] = '_' && s.[i + 1] = '_' then
-        true
-      else
-        aux (i + 1)
+      if i > len - 2 then false
+      else if s.[i] = '_' && s.[i + 1] = '_' then true
+      else aux (i + 1)
     in
     aux 0
   in

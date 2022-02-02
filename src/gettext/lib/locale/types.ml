@@ -22,12 +22,12 @@
 
 (** @author Sylvain Le Gall *)
 
-type locale =
-  { language : string
-  ; territory : string option
-  ; codeset : string option
-  ; modifier : string option
-  }
+type locale = {
+  language : string;
+  territory : string option;
+  codeset : string option;
+  modifier : string option;
+}
 
 let create_locale language =
   { language; territory = None; codeset = None; modifier = None }

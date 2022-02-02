@@ -1,21 +1,17 @@
-type link =
-  { description : string
-  ; uri : string
-  }
-[@@deriving yaml]
+type link = { description : string; uri : string } [@@deriving yaml]
 
-type metadata =
-  { title : string
-  ; description : string
-  ; authors : string list
-  ; language : string
-  ; published : string
-  ; cover : string
-  ; isbn : string option
-  ; links : link list
-  ; rating : int option
-  ; featured : bool
-  }
+type metadata = {
+  title : string;
+  description : string;
+  authors : string list;
+  language : string;
+  published : string;
+  cover : string;
+  isbn : string option;
+  links : link list;
+  rating : int option;
+  featured : bool;
+}
 [@@deriving yaml]
 
 let path = Fpath.v "data/books/en"
@@ -24,49 +20,42 @@ let parse content =
   let metadata, _ = Utils.extract_metadata_body content in
   metadata_of_yaml metadata
 
-type t =
-  { meta : metadata
-  ; body_md : string
-  ; body_html : string
-  }
+type t = { meta : metadata; body_md : string; body_html : string }
 
 let all () =
   Utils.map_files
     (fun content ->
       let metadata, body = Utils.extract_metadata_body content in
       let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
-      { meta =
-          { title = metadata.title
-          ; description = metadata.description
-          ; authors = metadata.authors
-          ; language = metadata.language
-          ; published = metadata.published
-          ; cover = metadata.cover
-          ; isbn = metadata.isbn
-          ; links = metadata.links
-          ; rating = metadata.rating
-          ; featured = metadata.featured
-          }
-      ; body_md = String.trim body
-      ; body_html = Omd.of_string body |> Omd.to_html
+      {
+        meta =
+          {
+            title = metadata.title;
+            description = metadata.description;
+            authors = metadata.authors;
+            language = metadata.language;
+            published = metadata.published;
+            cover = metadata.cover;
+            isbn = metadata.isbn;
+            links = metadata.links;
+            rating = metadata.rating;
+            featured = metadata.featured;
+          };
+        body_md = String.trim body;
+        body_html = Omd.of_string body |> Omd.to_html;
       })
     "books/en"
 
 let pp_link ppf (v : link) =
-  Fmt.pf
-    ppf
+  Fmt.pf ppf
     {|
       { description = %a
       ; uri = %a
       }|}
-    Pp.string
-    v.description
-    Pp.string
-    v.uri
+    Pp.string v.description Pp.string v.uri
 
 let pp ppf v =
-  Fmt.pf
-    ppf
+  Fmt.pf ppf
     {|
   { title = %a
   ; slug = %a
@@ -82,32 +71,13 @@ let pp ppf v =
   ; body_md = %a
   ; body_html = %a
   }|}
-    Pp.string
-    v.meta.title
-    Pp.string
+    Pp.string v.meta.title Pp.string
     (Utils.slugify v.meta.title)
-    Pp.string
-    v.meta.description
-    (Pp.list Pp.string)
-    v.meta.authors
-    Pp.string
-    v.meta.language
-    Pp.string
-    v.meta.published
-    Pp.string
-    v.meta.cover
-    (Pp.option Pp.string)
-    v.meta.isbn
-    (Pp.list pp_link)
-    v.meta.links
-    (Pp.option Pp.int)
-    v.meta.rating
-    Pp.bool
-    v.meta.featured
-    Pp.string
-    v.body_md
-    Pp.string
-    v.body_html
+    Pp.string v.meta.description (Pp.list Pp.string) v.meta.authors Pp.string
+    v.meta.language Pp.string v.meta.published Pp.string v.meta.cover
+    (Pp.option Pp.string) v.meta.isbn (Pp.list pp_link) v.meta.links
+    (Pp.option Pp.int) v.meta.rating Pp.bool v.meta.featured Pp.string v.body_md
+    Pp.string v.body_html
 
 let pp_list = Pp.list pp
 
@@ -134,5 +104,4 @@ type t =
 
 let all = %a
 |}
-    pp_list
-    (all ())
+    pp_list (all ())

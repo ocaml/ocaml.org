@@ -508,7 +508,7 @@ readable code.</p>
   ; authors = 
  [{js|Nicholas Monje|js}; {js|Allen Downey|js}]
   ; language = {js|english|js}
-  ; published = {js|2008|js}
+  ; published = {js|2008-06|js}
   ; cover = {js|/books/think-ocaml-how-to-think-like-a-functional-programmer.png|js}
   ; isbn = None
   ; links = 

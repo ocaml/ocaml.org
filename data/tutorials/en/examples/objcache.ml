@@ -7,16 +7,11 @@ open Printf
 [@@@part "0"]
 
 (* In-memory format. *)
-type record =
-  { mutable name : string
-  ; mutable address : string
-  }
+type record = { mutable name : string; mutable address : string }
 
 (* On-disk format. *)
 let record_size = 256
-
 let name_size = 64
-
 let addr_size = 192
 
 (* Low-level load/save records to file. *)
@@ -72,16 +67,16 @@ let finaliser n record =
 let get_record n =
   match Weak.get cache n with
   | Some record ->
-    printf "*** objcache: fetching record %d from memory cache\n%!" n;
-    record
+      printf "*** objcache: fetching record %d from memory cache\n%!" n;
+      record
   | None ->
-    printf "*** objcache: loading record %d from disk\n%!" n;
-    let record = new_record () in
-    Gc.finalise (finaliser n) record;
-    lock_record n diskfile;
-    read_record record n diskfile;
-    Weak.set cache n (Some record);
-    record
+      printf "*** objcache: loading record %d from disk\n%!" n;
+      let record = new_record () in
+      Gc.finalise (finaliser n) record;
+      lock_record n diskfile;
+      read_record record n diskfile;
+      Weak.set cache n (Some record);
+      record
 
 [@@@part "5"]
 
@@ -98,15 +93,12 @@ let () = at_exit Gc.full_major
 (* Pad or truncate a string to a particular fixed length. *)
 let fix_string str size =
   let len = String.length str in
-  if len < size then
-    str ^ String.make (size - len) ' '
-  else
-    String.sub str 0 size
+  if len < size then str ^ String.make (size - len) ' '
+  else String.sub str 0 size
 
 (* Test code. *)
 let rec loop () =
-  printf
-    "Type the record number to load (0 - %d) or s to sync or q to quit: "
+  printf "Type the record number to load (0 - %d) or s to sync or q to quit: "
     (nr_records - 1);
   let line = read_line () in
   if line.[0] = 's' then (
@@ -115,10 +107,7 @@ let rec loop () =
   else if line.[0] <> 'q' then (
     let n = int_of_string line in
     let record = get_record n in
-    printf
-      "Record %d:\n  Name: %s\n  Address:\n%s\n\n"
-      n
-      record.name
+    printf "Record %d:\n  Name: %s\n  Address:\n%s\n\n" n record.name
       record.address;
     print_string "Update this record (y/n)? [n] ";
     let answer = read_line () in

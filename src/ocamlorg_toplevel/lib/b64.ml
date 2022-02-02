@@ -32,23 +32,17 @@ let to_char ?(alphabet = default_alphabet) x = alphabet.[x]
 let decode ?alphabet input =
   let length = String.length input in
   let input =
-    if length mod 4 = 0 then
-      input
-    else
-      input ^ String.make (4 - (length mod 4)) padding
+    if length mod 4 = 0 then input
+    else input ^ String.make (4 - (length mod 4)) padding
   in
   let length = String.length input in
   let words = length / 4 in
   let padding =
     match length with
-    | 0 ->
-      0
-    | _ when input.[length - 2] = padding ->
-      2
-    | _ when input.[length - 1] = padding ->
-      1
-    | _ ->
-      0
+    | 0 -> 0
+    | _ when input.[length - 2] = padding -> 2
+    | _ when input.[length - 1] = padding -> 1
+    | _ -> 0
   in
   let output = Bytes.make ((words * 3) - padding) '\000' in
   for i = 0 to words - 1 do
@@ -57,9 +51,7 @@ let decode ?alphabet input =
     and c = of_char ?alphabet input.[(4 * i) + 2]
     and d = of_char ?alphabet input.[(4 * i) + 3] in
     let n = (a lsl 18) lor (b lsl 12) lor (c lsl 6) lor d in
-    let x = (n lsr 16) land 255
-    and y = (n lsr 8) land 255
-    and z = n land 255 in
+    let x = (n lsr 16) land 255 and y = (n lsr 8) land 255 and z = n land 255 in
     Bytes.set output ((3 * i) + 0) (char_of_int x);
     if i <> words - 1 || padding < 2 then
       Bytes.set output ((3 * i) + 1) (char_of_int y);
@@ -92,7 +84,5 @@ let encode ?(pad = true) ?alphabet input =
   for i = 1 to padding_len do
     Bytes.set output (Bytes.length output - i) padding
   done;
-  if pad then
-    Bytes.unsafe_to_string output
-  else
-    Bytes.sub_string output 0 (Bytes.length output - padding_len)
+  if pad then Bytes.unsafe_to_string output
+  else Bytes.sub_string output 0 (Bytes.length output - padding_len)

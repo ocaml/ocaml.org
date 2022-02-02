@@ -4,8 +4,8 @@
     package: a tree of pages (modules) starting from the libraries defining
     them. *)
 
-(** The tree is implemented using a string map interface. *)
 module String_map : Map.S with type key = string
+(** The tree is implemented using a string map interface. *)
 
 (** Page kinds as defined by odoc. *)
 type kind =
@@ -38,15 +38,15 @@ module Module : sig
   (** [path t] is the relative path to the page. *)
 end
 
+type library = {
+  name : string;
+  dependencies : string list;
+  modules : Module.t String_map.t;
+}
 (** The type for a library. It contains its name, dependencies and root modules *)
-type library =
-  { name : string
-  ; dependencies : string list
-  ; modules : Module.t String_map.t
-  }
 
-(** The type for a package map. *)
 type t = { libraries : library String_map.t }
+(** The type for a package map. *)
 
 val of_yojson : Yojson.Safe.t -> t
 (** Parse the package map from the JSON format of `package.json` *)

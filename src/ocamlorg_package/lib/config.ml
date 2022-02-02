@@ -9,10 +9,8 @@ let documentation_url =
 
 let default_cache_dir =
   match Sys.os_type with
-  | "Unix" ->
-    Fpath.(v (Sys.getenv "HOME") / ".cache" / "ocamlorg")
-  | _ ->
-    Fpath.(v (Sys.getenv "APPDATA") / "ocamlorg" / "cache")
+  | "Unix" -> Fpath.(v (Sys.getenv "HOME") / ".cache" / "ocamlorg")
+  | _ -> Fpath.(v (Sys.getenv "APPDATA") / "ocamlorg" / "cache")
 
 let opam_repository_path =
   Sys.getenv_opt "OCAMLORG_REPO_PATH"

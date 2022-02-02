@@ -25,23 +25,23 @@
 open Exn
 include Types
 
-type t = content =
-  { no_domain : translations
-  ; domain : translations String_map.t
-  }
+type t = content = {
+  no_domain : translations;
+  domain : translations String_map.t;
+}
 
 module Exn = Exn
 
 let empty_po = Utils.empty
 
 let add_translation_no_domain po translation =
-  try Utils.add_translation_no_domain po translation with
-  | Inconsistent_merge (str1, str2) ->
+  try Utils.add_translation_no_domain po translation
+  with Inconsistent_merge (str1, str2) ->
     raise (Inconsistent_merge (str1, str2))
 
 let add_translation_domain po domain translation =
-  try Utils.add_translation_domain po domain translation with
-  | Inconsistent_merge (str1, str2) ->
+  try Utils.add_translation_domain po domain translation
+  with Inconsistent_merge (str1, str2) ->
     raise (Inconsistent_merge (str1, str2))
 
 let merge_po po1 po2 =
@@ -50,14 +50,12 @@ let merge_po po1 po2 =
   let merge_no_domain =
     String_map.fold
       (fun _ translation po -> add_translation_no_domain po translation)
-      po1.no_domain
-      po2
+      po1.no_domain po2
   in
   let merge_one_domain domain map_domain po =
     String_map.fold
       (fun _ translation po -> add_translation_domain domain po translation)
-      map_domain
-      po
+      map_domain po
   in
   String_map.fold merge_one_domain po1.domain merge_no_domain
 
@@ -65,16 +63,15 @@ let merge_pot pot po =
   let order_map ?domain () =
     match domain with
     | None ->
-      po.no_domain :: String_map.fold (fun _ x lst -> x :: lst) po.domain []
-    | Some domain ->
-      let tl =
-        po.no_domain
-        :: String_map.fold
-             (fun key x lst -> if key = domain then lst else x :: lst)
-             po.domain
-             []
-      in
-      (try String_map.find domain po.domain :: tl with Not_found -> tl)
+        po.no_domain :: String_map.fold (fun _ x lst -> x :: lst) po.domain []
+    | Some domain -> (
+        let tl =
+          po.no_domain
+          :: String_map.fold
+               (fun key x lst -> if key = domain then lst else x :: lst)
+               po.domain []
+        in
+        try String_map.find domain po.domain :: tl with Not_found -> tl)
   in
   let merge_translation map_lst key commented_translation_pot =
     let translation_pot = commented_translation_pot.comment_translation in
@@ -86,17 +83,14 @@ let merge_pot pot po =
         in
         let translation_po = commented_translation_po.comment_translation in
         (* Implementation of the rule given above *)
-        match translation_pot, translation_po with
-        | Singular (str_id, _), Plural (_, _, str :: _) ->
-          Singular (str_id, str)
+        match (translation_pot, translation_po) with
+        | Singular (str_id, _), Plural (_, _, str :: _) -> Singular (str_id, str)
         | Plural (str_id, str_plural, _ :: tl), Singular (_, str) ->
-          Plural (str_id, str_plural, str :: tl)
+            Plural (str_id, str_plural, str :: tl)
         | Plural (str_id, str_plural, []), Singular (_, str) ->
-          Plural (str_id, str_plural, [ str ])
-        | _, translation ->
-          translation
-      with
-      | Not_found ->
+            Plural (str_id, str_plural, [ str ])
+        | _, translation -> translation
+      with Not_found ->
         (* Fallback to the translation provided in the POT *)
         translation_pot
     in
@@ -107,33 +101,25 @@ let merge_pot pot po =
   let merge_no_domain =
     String_map.fold
       (fun key pot_translation po ->
-        add_translation_no_domain
-          po
+        add_translation_no_domain po
           (merge_translation (order_map ()) key pot_translation))
-      pot.no_domain
-      empty_po
+      pot.no_domain empty_po
   in
   let merge_one_domain domain map_domain po =
     String_map.fold
       (fun key pot_translation po ->
-        add_translation_domain
-          domain
-          po
+        add_translation_domain domain po
           (merge_translation (order_map ~domain ()) key pot_translation))
-      map_domain
-      po
+      map_domain po
   in
   String_map.fold merge_one_domain pot.domain merge_no_domain
 
 let input_po chn =
   let lexbuf = Lexing.from_channel chn in
   try Parser.msgfmt Lexer.token lexbuf with
-  | Parsing.Parse_error ->
-    raise (Invalid_file ("parse error", lexbuf))
-  | Failure s ->
-    raise (Invalid_file (s, lexbuf))
-  | Inconsistent_merge (str1, str2) ->
-    raise (Inconsistent_merge (str1, str2))
+  | Parsing.Parse_error -> raise (Invalid_file ("parse error", lexbuf))
+  | Failure s -> raise (Invalid_file (s, lexbuf))
+  | Inconsistent_merge (str1, str2) -> raise (Inconsistent_merge (str1, str2))
 
 let output_po chn po =
   let () = set_binary_mode_out chn true in
@@ -144,30 +130,19 @@ let output_po chn po =
       if i < String.length str then
         let () =
           match str.[i] with
-          | '\n' ->
-            Buffer.add_string buff "\\n"
-          | '\t' ->
-            Buffer.add_string buff "\\t"
-          | '\b' ->
-            Buffer.add_string buff "\\b"
-          | '\r' ->
-            Buffer.add_string buff "\\r"
-          | '\012' ->
-            Buffer.add_string buff "\\f"
-          | '\011' ->
-            Buffer.add_string buff "\\v"
-          | '\007' ->
-            Buffer.add_string buff "\\a"
-          | '"' ->
-            Buffer.add_string buff "\\\""
-          | '\\' ->
-            Buffer.add_string buff "\\\\"
-          | e ->
-            Buffer.add_char buff e
+          | '\n' -> Buffer.add_string buff "\\n"
+          | '\t' -> Buffer.add_string buff "\\t"
+          | '\b' -> Buffer.add_string buff "\\b"
+          | '\r' -> Buffer.add_string buff "\\r"
+          | '\012' -> Buffer.add_string buff "\\f"
+          | '\011' -> Buffer.add_string buff "\\v"
+          | '\007' -> Buffer.add_string buff "\\a"
+          | '"' -> Buffer.add_string buff "\\\""
+          | '\\' -> Buffer.add_string buff "\\\\"
+          | e -> Buffer.add_char buff e
         in
         escape_string_aux buff (i + 1)
-      else
-        ()
+      else ()
     in
     let buff = Buffer.create (String.length str + 2) in
     Buffer.add_char buff '"';
@@ -177,10 +152,10 @@ let output_po chn po =
   in
   let hyphens chn lst =
     match lst with
-    | [] ->
-      ()
+    | [] -> ()
     | lst ->
-      Printf.fprintf chn "%s" (String.concat "\n" (List.map escape_string lst))
+        Printf.fprintf chn "%s"
+          (String.concat "\n" (List.map escape_string lst))
   in
   let comment_line str_hyphen str_sep line_max_length token_lst =
     let str_len =
@@ -194,60 +169,53 @@ let output_po chn po =
     let rec comment_line_aux first_token line_length lst =
       match lst with
       | str :: tl ->
-        let sep_length =
-          if first_token then
-            0
-          else if String.length str + line_length > line_max_length then (
-            Buffer.add_char buff '\n';
-            Buffer.add_string buff str_hyphen;
-            Buffer.add_string buff str_sep;
-            String.length str_hyphen + String.length str_sep)
-          else (
-            Buffer.add_string buff str_sep;
-            String.length str_sep)
-        in
-        Buffer.add_string buff str;
-        comment_line_aux false (sep_length + String.length str + line_length) tl
-      | [] ->
-        Buffer.contents buff
+          let sep_length =
+            if first_token then 0
+            else if String.length str + line_length > line_max_length then (
+              Buffer.add_char buff '\n';
+              Buffer.add_string buff str_hyphen;
+              Buffer.add_string buff str_sep;
+              String.length str_hyphen + String.length str_sep)
+            else (
+              Buffer.add_string buff str_sep;
+              String.length str_sep)
+          in
+          Buffer.add_string buff str;
+          comment_line_aux false
+            (sep_length + String.length str + line_length)
+            tl
+      | [] -> Buffer.contents buff
     in
     comment_line_aux true 0 token_lst
   in
   let output_translation_aux _ commented_translation =
     (match commented_translation.comment_filepos with
-    | [] ->
-      ()
+    | [] -> ()
     | lst ->
-      fpf
-        "%s\n"
-        (comment_line
-           "#."
-           " "
-           comment_max_length
-           ("#:"
-           :: List.map (fun (str, line) -> Printf.sprintf "%s:%d" str line) lst
-           )));
+        fpf "%s\n"
+          (comment_line "#." " " comment_max_length
+             ("#:"
+             :: List.map
+                  (fun (str, line) -> Printf.sprintf "%s:%d" str line)
+                  lst)));
     (match commented_translation.comment_special with
-    | [] ->
-      ()
-    | lst ->
-      fpf "%s\n" (comment_line "#." " " comment_max_length ("#," :: lst)));
+    | [] -> ()
+    | lst -> fpf "%s\n" (comment_line "#." " " comment_max_length ("#," :: lst)));
     (match commented_translation.comment_translation with
     | Singular (id, str) ->
-      fpf "msgid %a\n" hyphens id;
-      fpf "msgstr %a\n" hyphens str
+        fpf "msgid %a\n" hyphens id;
+        fpf "msgstr %a\n" hyphens str
     | Plural (id, id_plural, lst) ->
-      fpf "msgid %a\n" hyphens id;
-      fpf "msgid_plural %a\n" hyphens id_plural;
-      let _ =
-        List.fold_left
-          (fun i s ->
-            fpf "msgstr[%i] %a\n" i hyphens s;
-            i + 1)
-          0
-          lst
-      in
-      ());
+        fpf "msgid %a\n" hyphens id;
+        fpf "msgid_plural %a\n" hyphens id_plural;
+        let _ =
+          List.fold_left
+            (fun i s ->
+              fpf "msgstr[%i] %a\n" i hyphens s;
+              i + 1)
+            0 lst
+        in
+        ());
     fpf "\n"
   in
   String_map.iter output_translation_aux po.no_domain;
@@ -260,9 +228,6 @@ let output_po chn po =
 let read_po s =
   let lexbuf = Lexing.from_string s in
   try Parser.msgfmt Lexer.token lexbuf with
-  | Parsing.Parse_error ->
-    raise (Invalid_file ("parse error", lexbuf))
-  | Failure s ->
-    raise (Invalid_file (s, lexbuf))
-  | Inconsistent_merge (str1, str2) ->
-    raise (Inconsistent_merge (str1, str2))
+  | Parsing.Parse_error -> raise (Invalid_file ("parse error", lexbuf))
+  | Failure s -> raise (Invalid_file (s, lexbuf))
+  | Inconsistent_merge (str1, str2) -> raise (Inconsistent_merge (str1, str2))

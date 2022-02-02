@@ -1,43 +1,37 @@
-type url =
-  { uri : string
-  ; checksum : string list
-  }
+type url = { uri : string; checksum : string list }
 
 (* This is used to invalidate the package state cache if the type [Info.t]
    changes. *)
 let version = "1"
 
-type t =
-  { synopsis : string
-  ; description : string
-  ; authors : Ood.Opam_user.t list
-  ; maintainers : Ood.Opam_user.t list
-  ; license : string
-  ; homepage : string list
-  ; tags : string list
-  ; dependencies : (OpamPackage.Name.t * string option) list
-  ; rev_deps : (OpamPackage.Name.t * string option * OpamPackage.Version.t) list
-  ; depopts : (OpamPackage.Name.t * string option) list
-  ; conflicts : (OpamPackage.Name.t * string option) list
-  ; url : url option
-  }
+type t = {
+  synopsis : string;
+  description : string;
+  authors : Ood.Opam_user.t list;
+  maintainers : Ood.Opam_user.t list;
+  license : string;
+  homepage : string list;
+  tags : string list;
+  dependencies : (OpamPackage.Name.t * string option) list;
+  rev_deps : (OpamPackage.Name.t * string option * OpamPackage.Version.t) list;
+  depopts : (OpamPackage.Name.t * string option) list;
+  conflicts : (OpamPackage.Name.t * string option) list;
+  url : url option;
+}
 
 let relop_to_string = OpamPrinter.FullPos.relop_kind
-
 let filter_to_string = OpamFilter.to_string
 
 let string_of_formula = function
-  | OpamFormula.Empty ->
-    None
+  | OpamFormula.Empty -> None
   | formula ->
-    Some
-      (OpamFormula.string_of_formula
-         (function
-           | OpamTypes.Filter f ->
-             filter_to_string f
-           | Constraint (relop, f) ->
-             relop_to_string relop ^ " " ^ filter_to_string f)
-         formula)
+      Some
+        (OpamFormula.string_of_formula
+           (function
+             | OpamTypes.Filter f -> filter_to_string f
+             | Constraint (relop, f) ->
+                 relop_to_string relop ^ " " ^ filter_to_string f)
+           formula)
 
 let parse_formula =
   OpamFormula.fold_left
@@ -53,24 +47,19 @@ let depends packages opams f =
           (fun version opam acc ->
             let env v =
               match OpamVariable.Full.to_string v with
-              | "name" ->
-                Some (S (OpamPackage.Name.to_string name))
-              | "version" ->
-                Some (S (OpamPackage.Version.to_string version))
-              | _ ->
-                None
+              | "name" -> Some (S (OpamPackage.Name.to_string name))
+              | "version" -> Some (S (OpamPackage.Version.to_string version))
+              | _ -> None
             in
             let deps =
               OpamFormula.packages packages
               @@ OpamFilter.filter_formula ~default:true env (f opam)
             in
             OpamPackage.Map.add (OpamPackage.create name version) deps acc)
-          vmap
-          OpamPackage.Map.empty
+          vmap OpamPackage.Map.empty
       in
       OpamPackage.Map.union (fun a _ -> a) acc v)
-    opams
-    OpamPackage.Map.empty
+    opams OpamPackage.Map.empty
 
 let get_dependency_set pkgs map =
   let f opam = OpamFile.OPAM.depends opam in
@@ -110,14 +99,10 @@ let rev_depends deps =
       Lwt.return
       @@ OpamPackage.Set.fold
            (fun pkg1 ->
-             OpamPackage.Map.update
-               pkg1
-               (OpamPackage.Set.add pkg)
+             OpamPackage.Map.update pkg1 (OpamPackage.Set.add pkg)
                OpamPackage.Set.empty)
-           version
-           acc)
-    deps
-    OpamPackage.Map.empty
+           version acc)
+    deps OpamPackage.Map.empty
 
 let mk_revdeps pkg pkgs rdepends =
   let open OpamTypes in
@@ -137,11 +122,12 @@ let mk_revdeps pkg pkgs rdepends =
                 (fun flag ->
                   Atom (Filter (FIdent ([], OpamVariable.of_string flag, None))))
                 (OpamStd.String.Set.elements flags))
-             [ OpamFormula.map
+             [
+               OpamFormula.map
                  (fun (op, v) ->
                    Atom
                      (Constraint (op, FString (OpamPackage.Version.to_string v))))
-                 vf
+                 vf;
              ]
       in
       Lwt.return @@ ((name, string_of_formula formula, latest) :: acc))
@@ -155,40 +141,41 @@ let make ~package ~packages ~rev_deps opam =
   let open Lwt.Syntax in
   let+ rev_deps = mk_revdeps package packages rev_deps in
   let open OpamFile.OPAM in
-  { synopsis = synopsis opam |> Option.value ~default:"No synopsis"
-  ; authors =
+  {
+    synopsis = synopsis opam |> Option.value ~default:"No synopsis";
+    authors =
       author opam
       |> List.map (fun name ->
              Option.value
                (Ood.Opam_user.find_by_name name)
-               ~default:(Ood.Opam_user.make ~name ()))
-  ; maintainers =
+               ~default:(Ood.Opam_user.make ~name ()));
+    maintainers =
       maintainer opam
       |> List.map (fun name ->
              Option.value
                (Ood.Opam_user.find_by_name name)
-               ~default:(Ood.Opam_user.make ~name ()))
-  ; license = license opam |> String.concat "; "
-  ; description =
-      descr opam |> Option.map OpamFile.Descr.body |> Option.value ~default:""
-  ; homepage = homepage opam
-  ; tags = tags opam
-  ; rev_deps
-  ; conflicts = get_conflicts opam
-  ; dependencies = get_dependencies opam
-  ; depopts = get_depopts opam
-  ; url =
+               ~default:(Ood.Opam_user.make ~name ()));
+    license = license opam |> String.concat "; ";
+    description =
+      descr opam |> Option.map OpamFile.Descr.body |> Option.value ~default:"";
+    homepage = homepage opam;
+    tags = tags opam;
+    rev_deps;
+    conflicts = get_conflicts opam;
+    dependencies = get_dependencies opam;
+    depopts = get_depopts opam;
+    url =
       url opam
       |> Option.map (fun url ->
-             { uri = OpamUrl.to_string (OpamFile.URL.url url)
-             ; checksum =
-                 OpamFile.URL.checksum url |> List.map OpamHash.to_string
-             })
+             {
+               uri = OpamUrl.to_string (OpamFile.URL.url url);
+               checksum =
+                 OpamFile.URL.checksum url |> List.map OpamHash.to_string;
+             });
   }
 
 let of_opamfiles
-    (opams : OpamFile.OPAM.t OpamPackage.Version.Map.t OpamPackage.Name.Map.t)
-  =
+    (opams : OpamFile.OPAM.t OpamPackage.Version.Map.t OpamPackage.Name.Map.t) =
   let open Lwt.Syntax in
   let packages =
     let names = OpamPackage.Name.Map.keys opams in
@@ -199,8 +186,7 @@ let of_opamfiles
       let pkgs =
         List.fold_left
           (fun acc v -> OpamPackage.Set.add (OpamPackage.create name v) acc)
-          OpamPackage.Set.empty
-          versions
+          OpamPackage.Set.empty versions
       in
       OpamPackage.Set.union pkgs acc
     in
@@ -219,9 +205,7 @@ let of_opamfiles
             let package = OpamPackage.create name version in
             let+ t = make ~rev_deps ~packages ~package opam in
             OpamPackage.Version.Map.add version t acc)
-          vmap
-          OpamPackage.Version.Map.empty
+          vmap OpamPackage.Version.Map.empty
       in
       OpamPackage.Name.Map.add name vs acc)
-    opams
-    OpamPackage.Name.Map.empty
+    opams OpamPackage.Name.Map.empty

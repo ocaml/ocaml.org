@@ -24,16 +24,14 @@ open Js_of_ocaml_tyxml
 (* open Brr_io *)
 open Lwt
 module Worker = Brr_webworkers.Worker
-
 module Toprpc = Toplevel_api.Make (Rpc_lwt.GenClient ())
 
 (* Handy infix bind-style operator for the RPCs *)
 let rpc_bind x f =
   x |> Rpc_lwt.T.get >>= function
-  | Ok x ->
-    f x
+  | Ok x -> f x
   | Error (Toplevel_api.InternalError s) ->
-    Lwt.fail (Failure (Printf.sprintf "Rpc failure: %s" s))
+      Lwt.fail (Failure (Printf.sprintf "Rpc failure: %s" s))
 
 let by_id s = Dom_html.getElementById s
 
@@ -60,10 +58,8 @@ let rec iter_on_sharp ~f x =
   Js.Opt.iter (Dom_html.CoerceTo.element x) (fun e ->
       if Js.to_bool (e##.classList##contains (Js.string "sharp")) then f e);
   match Js.Opt.to_option x##.nextSibling with
-  | None ->
-    ()
-  | Some n ->
-    iter_on_sharp ~f n
+  | None -> ()
+  | Some n -> iter_on_sharp ~f n
 
 let current_position = ref 0
 
@@ -87,31 +83,24 @@ let append colorize output cl s =
 
 module History = struct
   let data = ref [| "" |]
-
   let idx = ref 0
 
   let get_storage () =
     match Js.Optdef.to_option Dom_html.window##.localStorage with
-    | exception _ ->
-      raise Not_found
-    | None ->
-      raise Not_found
-    | Some t ->
-      t
+    | exception _ -> raise Not_found
+    | None -> raise Not_found
+    | Some t -> t
 
   let setup () =
     try
       let s = get_storage () in
       match Js.Opt.to_option (s##getItem (Js.string "history")) with
-      | None ->
-        raise Not_found
+      | None -> raise Not_found
       | Some s ->
-        let a = Json.unsafe_input s in
-        data := a;
-        idx := Array.length a - 1
-    with
-    | _ ->
-      ()
+          let a = Json.unsafe_input s in
+          data := a;
+          idx := Array.length a - 1
+    with _ -> ()
 
   let push text =
     let l = Array.length !data in
@@ -124,9 +113,7 @@ module History = struct
       let s = get_storage () in
       let str = Json.output !data in
       s##setItem (Js.string "history") str
-    with
-    | Not_found ->
-      ()
+    with Not_found -> ()
 
   let current text = !data.(!idx) <- text
 
@@ -146,22 +133,22 @@ let timeout_container worker () =
   Worker.terminate worker;
   match Document.find_el_by_id G.document @@ Jstr.v "toplevel-container" with
   | Some el ->
-    El.(
-      set_children
-        el
-        [ El.p
-            [ El.txt' "Toplevel terminated after timeout on previous execution"
-            ]
-        ])
-  | None ->
-    ()
+      El.(
+        set_children el
+          [
+            El.p
+              [
+                El.txt'
+                  "Toplevel terminated after timeout on previous execution";
+              ];
+          ])
+  | None -> ()
 
 let run s =
   let ( let* ) = rpc_bind in
   let worker =
-    try Worker.create (Jstr.v s) with
-    | Jv.Error _ ->
-      failwith "Failed to created worker"
+    try Worker.create (Jstr.v s)
+    with Jv.Error _ -> failwith "Failed to created worker"
   in
   let container = by_id "toplevel-container" in
   let output = by_id "output" in
@@ -200,13 +187,9 @@ let run s =
       if
         try
           content <> "" && content.[len - 1] <> ';' && content.[len - 2] <> ';'
-        with
-        | _ ->
-          true
-      then
-        content ^ ";;"
-      else
-        content
+        with _ -> true
+      then content ^ ";;"
+      else content
     in
     current_position := output##.childNodes##.length;
     textbox##.value := Js.string "";
@@ -233,8 +216,7 @@ let run s =
       if String.length txt = pos then raise Not_found;
       let _ = String.index_from txt pos '\n' in
       Js._true
-    with
-    | Not_found ->
+    with Not_found ->
       History.current txt;
       History.next textbox;
       Js._false
@@ -246,8 +228,7 @@ let run s =
       if pos < 0 then raise Not_found;
       let _ = String.rindex_from txt pos '\n' in
       Js._true
-    with
-    | Not_found ->
+    with Not_found ->
       History.current txt;
       History.previous textbox;
       Js._false
@@ -270,26 +251,23 @@ let run s =
     Dom_html.handler (fun e ->
         match e##.keyCode with
         | 13 when not (meta e || shift e) ->
-          Lwt.async execute;
-          Js._false
+            Lwt.async execute;
+            Js._false
         | 13 ->
-          Lwt.async (resize ~container ~textbox);
-          Js._true
+            Lwt.async (resize ~container ~textbox);
+            Js._true
         | 09 ->
-          Lwt.async complete;
-          Js._false
+            Lwt.async complete;
+            Js._false
         | 76 when meta e ->
-          output##.innerHTML := Js.string "";
-          Js._true
+            output##.innerHTML := Js.string "";
+            Js._true
         | 75 when meta e ->
-          Lwt.async setup;
-          Js._false
-        | 38 ->
-          history_up e
-        | 40 ->
-          history_down e
-        | _ ->
-          Js._true);
+            Lwt.async setup;
+            Js._false
+        | 38 -> history_up e
+        | 40 -> history_down e
+        | _ -> Js._true);
   (Lwt.async_exception_hook :=
      fun exc ->
        Brr.Console.error
@@ -317,10 +295,8 @@ let run s =
     textbox##.value := Js.string (B64.decode code);
     Lwt.async execute
   with
-  | Not_found ->
-    ()
+  | Not_found -> ()
   | exc ->
-    Firebug.console##log_3
-      (Js.string "exception")
-      (Js.string (Printexc.to_string exc))
-      exc
+      Firebug.console##log_3 (Js.string "exception")
+        (Js.string (Printexc.to_string exc))
+        exc

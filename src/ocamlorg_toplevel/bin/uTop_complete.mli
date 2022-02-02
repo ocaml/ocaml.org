@@ -9,10 +9,8 @@
 
 (** OCaml completion. *)
 
-val complete
-  :  phrase_terminator:string
-  -> input:string
-  -> int * (string * string) list
+val complete :
+  phrase_terminator:string -> input:string -> int * (string * string) list
 (** [complete ~phrase_terminator ~input] returns the start of the completed word
     in [input] and the list of possible completions with their suffixes. *)
 

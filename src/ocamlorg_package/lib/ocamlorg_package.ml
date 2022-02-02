@@ -6,46 +6,39 @@ module Version_map = Map.Make (Version)
 module Info = Info
 module Packages_stats = Packages_stats
 
-type t =
-  { name : Name.t
-  ; version : Version.t
-  ; info : Info.t
-  }
+type t = { name : Name.t; version : Version.t; info : Info.t }
 
 let name t = t.name
-
 let version t = t.version
-
 let info t = t.info
-
 let create ~name ~version info = { name; version; info }
 
-type state =
-  { version : string
-  ; mutable opam_repository_commit : string option
-  ; mutable packages : Info.t OpamPackage.Version.Map.t OpamPackage.Name.Map.t
-  ; mutable stats : Packages_stats.t option
-  ; mutable featured_packages : t list option
-  }
+type state = {
+  version : string;
+  mutable opam_repository_commit : string option;
+  mutable packages : Info.t OpamPackage.Version.Map.t OpamPackage.Name.Map.t;
+  mutable stats : Packages_stats.t option;
+  mutable featured_packages : t list option;
+}
 
 let state_of_package_list (pkgs : t list) =
   let map = OpamPackage.Name.Map.empty in
   let add_version (pkg : t) map =
     let new_map =
       match OpamPackage.Name.Map.find_opt pkg.name map with
-      | None ->
-        OpamPackage.Version.Map.(add pkg.version pkg.info empty)
+      | None -> OpamPackage.Version.Map.(add pkg.version pkg.info empty)
       | Some version_map ->
-        OpamPackage.Version.Map.add pkg.version pkg.info version_map
+          OpamPackage.Version.Map.add pkg.version pkg.info version_map
     in
     OpamPackage.Name.Map.add pkg.name new_map map
   in
   let packages = List.fold_left (fun map v -> add_version v map) map pkgs in
-  { version = Info.version
-  ; packages
-  ; opam_repository_commit = None
-  ; stats = None
-  ; featured_packages = None
+  {
+    version = Info.version;
+    packages;
+    opam_repository_commit = None;
+    stats = None;
+    featured_packages = None;
   }
 
 let read_versions package_name versions =
@@ -54,13 +47,12 @@ let read_versions package_name versions =
     (fun acc package_version ->
       match OpamPackage.of_string_opt package_version with
       | Some pkg ->
-        let+ opam = Opam_repository.opam_file package_name package_version in
-        OpamPackage.Version.Map.add pkg.version opam acc
+          let+ opam = Opam_repository.opam_file package_name package_version in
+          OpamPackage.Version.Map.add pkg.version opam acc
       | None ->
-        Logs.err (fun m -> m "Invalid pacakge version %S" package_name);
-        Lwt.return acc)
-    OpamPackage.Version.Map.empty
-    versions
+          Logs.err (fun m -> m "Invalid pacakge version %S" package_name);
+          Lwt.return acc)
+    OpamPackage.Version.Map.empty versions
 
 let read_packages () =
   let open Lwt.Syntax in
@@ -68,12 +60,13 @@ let read_packages () =
     (fun acc (package_name, versions) ->
       match OpamPackage.Name.of_string package_name with
       | exception ex ->
-        Logs.err (fun m ->
-            m "Invalid package name %S: %s" package_name (Printexc.to_string ex));
-        Lwt.return acc
+          Logs.err (fun m ->
+              m "Invalid package name %S: %s" package_name
+                (Printexc.to_string ex));
+          Lwt.return acc
       | _name ->
-        let+ versions = read_versions package_name versions in
-        OpamPackage.Name.Map.add (Name.of_string package_name) versions acc)
+          let+ versions = read_versions package_name versions in
+          OpamPackage.Name.Map.add (Name.of_string package_name) versions acc)
     OpamPackage.Name.Map.empty
     (Opam_repository.list_packages_and_versions ())
 
@@ -87,20 +80,19 @@ let try_load_state () =
         let v = Marshal.from_channel channel in
         if Info.version <> v.version then raise Invalid_version;
         Logs.info (fun f ->
-            f
-              "Package state loaded (%d packages, opam commit %s)"
+            f "Package state loaded (%d packages, opam commit %s)"
               (OpamPackage.Name.Map.cardinal v.packages)
               (Option.value ~default:"" v.opam_repository_commit));
         v)
       ~finally:(fun () -> close_in channel)
-  with
-  | Failure _ | Sys_error _ | Invalid_version | End_of_file ->
+  with Failure _ | Sys_error _ | Invalid_version | End_of_file ->
     Logs.info (fun f -> f "Package state starting from scratch");
-    { opam_repository_commit = None
-    ; version = Info.version
-    ; packages = OpamPackage.Name.Map.empty
-    ; stats = None
-    ; featured_packages = None
+    {
+      opam_repository_commit = None;
+      version = Info.version;
+      packages = OpamPackage.Name.Map.empty;
+      stats = None;
+      featured_packages = None;
     }
 
 let save_state t =
@@ -143,11 +135,10 @@ let maybe_update t =
   let open Lwt.Syntax in
   let* commit = Opam_repository.last_commit () in
   match t.opam_repository_commit with
-  | Some v when v = commit ->
-    Lwt.return ()
+  | Some v when v = commit -> Lwt.return ()
   | _ ->
-    let+ () = update ~commit t in
-    save_state t
+      let+ () = update ~commit t in
+      save_state t
 
 let poll_for_opam_packages ~polling v =
   let open Lwt.Syntax in
@@ -160,8 +151,7 @@ let poll_for_opam_packages ~polling v =
           maybe_update v)
         (fun exn ->
           Logs.err (fun m ->
-              m
-                "Failed to update the opam package list: %s"
+              m "Failed to update the opam package list: %s"
                 (Printexc.to_string exn));
           Lwt.return ())
     in
@@ -174,8 +164,7 @@ let init ?(disable_polling = false) () =
   let state = try_load_state () in
   if Sys.file_exists (Fpath.to_string Config.opam_repository_path) then
     Lwt.async (fun () -> maybe_update state);
-  if disable_polling then
-    ()
+  if disable_polling then ()
   else
     Lwt.async (fun () ->
         poll_for_opam_packages ~polling:Config.opam_polling state);
@@ -209,7 +198,6 @@ let get_package t name version =
   |> Option.map (fun info -> { version; info; name })
 
 let featured_packages t = t.featured_packages
-
 let topelevel_url name version = "/toplevels/" ^ name ^ "-" ^ version ^ ".js"
 
 let toplevel t =
@@ -218,10 +206,7 @@ let toplevel t =
   let path =
     Fpath.(to_string (Config.toplevels_path / (name ^ "-" ^ version ^ ".js")))
   in
-  if Sys.file_exists path then
-    Some (topelevel_url name version)
-  else
-    None
+  if Sys.file_exists path then Some (topelevel_url name version) else None
 
 let toplevel_status ~kind:_ t =
   (* Placeholder until we have the toplevels from the docs CI. We should replace
@@ -231,61 +216,43 @@ let toplevel_status ~kind:_ t =
   let path =
     Fpath.(to_string (Config.toplevels_path / (name ^ "-" ^ version ^ ".js")))
   in
-  if Sys.file_exists path then
-    Lwt.return `Success
-  else
-    Lwt.return `Failure
+  if Sys.file_exists path then Lwt.return `Success else Lwt.return `Failure
 
 module Documentation = struct
-  type toc =
-    { title : string
-    ; href : string
-    ; children : toc list
-    }
+  type toc = { title : string; href : string; children : toc list }
 
   type item =
     | Module of string
     | ModuleType of string
     | FunctorArgument of int * string
 
-  type t =
-    { toc : toc list
-    ; module_path : item list
-    ; content : string
-    }
+  type t = { toc : toc list; module_path : item list; content : string }
 
   let rec toc_of_json = function
     | `Assoc
-        [ ("title", `String title)
-        ; ("href", `String href)
-        ; ("children", `List children)
+        [
+          ("title", `String title);
+          ("href", `String href);
+          ("children", `List children);
         ] ->
-      { title; href; children = List.map toc_of_json children }
-    | _ ->
-      raise (Invalid_argument "malformed toc file")
+        { title; href; children = List.map toc_of_json children }
+    | _ -> raise (Invalid_argument "malformed toc file")
 
   let toc_from_string s =
     match Yojson.Safe.from_string s with
-    | `List xs ->
-      List.map toc_of_json xs
-    | _ ->
-      raise (Invalid_argument "the toplevel json is not a list")
+    | `List xs -> List.map toc_of_json xs
+    | _ -> raise (Invalid_argument "the toplevel json is not a list")
 
   let module_path_from_path s =
     let parse_item i =
       match String.split_on_char '-' i with
-      | [ "index.html" ] | [ "" ] ->
-        None
-      | [ module_name ] ->
-        Some (Module module_name)
-      | [ "module"; "type"; module_name ] ->
-        Some (ModuleType module_name)
-      | [ "argument"; arg_number; arg_name ] ->
-        (try Some (FunctorArgument (int_of_string arg_number, arg_name)) with
-        | Failure _ ->
-          None)
-      | _ ->
-        None
+      | [ "index.html" ] | [ "" ] -> None
+      | [ module_name ] -> Some (Module module_name)
+      | [ "module"; "type"; module_name ] -> Some (ModuleType module_name)
+      | [ "argument"; arg_number; arg_name ] -> (
+          try Some (FunctorArgument (int_of_string arg_number, arg_name))
+          with Failure _ -> None)
+      | _ -> None
     in
     String.split_on_char '/' s |> List.filter_map parse_item
 end
@@ -294,33 +261,26 @@ module Module_map = Module_map
 
 let package_path ~kind name version =
   match kind with
-  | `Package ->
-    Config.documentation_url ^ "p/" ^ name ^ "/" ^ version ^ "/"
+  | `Package -> Config.documentation_url ^ "p/" ^ name ^ "/" ^ version ^ "/"
   | `Universe s ->
-    Config.documentation_url ^ "u/" ^ s ^ "/" ^ name ^ "/" ^ version ^ "/"
+      Config.documentation_url ^ "u/" ^ s ^ "/" ^ name ^ "/" ^ version ^ "/"
 
 let documentation_path ~kind name version =
   match kind with
   | `Package ->
-    Config.documentation_url ^ "p/" ^ name ^ "/" ^ version ^ "/doc" ^ "/"
+      Config.documentation_url ^ "p/" ^ name ^ "/" ^ version ^ "/doc" ^ "/"
   | `Universe s ->
-    Config.documentation_url
-    ^ "u/"
-    ^ s
-    ^ "/"
-    ^ name
-    ^ "/"
-    ^ version
-    ^ "/doc"
-    ^ "/"
+      Config.documentation_url ^ "u/" ^ s ^ "/" ^ name ^ "/" ^ version ^ "/doc"
+      ^ "/"
 
 let http_get url =
   let open Lwt.Syntax in
   Logs.info (fun m -> m "GET %s" url);
   let headers =
     Cohttp.Header.of_list
-      [ ( "Accept"
-        , "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" )
+      [
+        ( "Accept",
+          "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" );
       ]
   in
   let* response, body =
@@ -328,18 +288,16 @@ let http_get url =
   in
   match Cohttp.Code.(code_of_status response.status |> is_success) with
   | true ->
-    let+ body = Cohttp_lwt.Body.to_string body in
-    Ok body
+      let+ body = Cohttp_lwt.Body.to_string body in
+      Ok body
   | false ->
-    let+ () = Cohttp_lwt.Body.drain_body body in
-    Error (`Msg "Failed to fetch the documentation page")
+      let+ () = Cohttp_lwt.Body.drain_body body in
+      Error (`Msg "Failed to fetch the documentation page")
 
 let documentation_page ~kind t path =
   let open Lwt.Syntax in
   let root =
-    documentation_path
-      ~kind
-      (Name.to_string t.name)
+    documentation_path ~kind (Name.to_string t.name)
       (Version.to_string t.version)
   in
   let module_path = Documentation.module_path_from_path path in
@@ -347,22 +305,20 @@ let documentation_page ~kind t path =
   let* content = http_get path in
   match content with
   | Ok content ->
-    let+ toc =
-      let toc_path = Filename.remove_extension path ^ ".toc.json" in
-      let+ toc_content = http_get toc_path in
-      match toc_content with
-      | Ok toc_content ->
-        (try Documentation.toc_from_string toc_content with
-        | Invalid_argument err ->
-          Logs.err (fun m -> m "Invalid toc: %s" err);
-          [])
-      | Error _ ->
-        []
-    in
-    Logs.info (fun m -> m "Found documentation page for %s" path);
-    Some Documentation.{ content; toc; module_path }
-  | Error _ ->
-    Lwt.return None
+      let+ toc =
+        let toc_path = Filename.remove_extension path ^ ".toc.json" in
+        let+ toc_content = http_get toc_path in
+        match toc_content with
+        | Ok toc_content -> (
+            try Documentation.toc_from_string toc_content
+            with Invalid_argument err ->
+              Logs.err (fun m -> m "Invalid toc: %s" err);
+              [])
+        | Error _ -> []
+      in
+      Logs.info (fun m -> m "Found documentation page for %s" path);
+      Some Documentation.{ content; toc; module_path }
+  | Error _ -> Lwt.return None
 
 let readme_file ~kind t =
   let open Lwt.Syntax in
@@ -382,12 +338,9 @@ let documentation_status ~kind t =
   let path = root ^ "status.json" in
   let+ content = http_get path in
   match content with
-  | Ok "\"Built\"" ->
-    `Success
-  | Ok "\"Failed\"" ->
-    `Failure
-  | _ ->
-    `Unknown
+  | Ok "\"Built\"" -> `Success
+  | Ok "\"Failed\"" -> `Failure
+  | _ -> `Unknown
 
 let module_map ~kind t =
   let open Lwt.Syntax in
@@ -398,22 +351,17 @@ let module_map ~kind t =
   let+ content = http_get path in
   match content with
   | Ok v ->
-    let json = Yojson.Safe.from_string v in
-    Module_map.of_yojson json
-  | Error _ ->
-    { Module_map.libraries = Module_map.String_map.empty }
+      let json = Yojson.Safe.from_string v in
+      Module_map.of_yojson json
+  | Error _ -> { Module_map.libraries = Module_map.String_map.empty }
 
 module Search : sig
   type search_request
-
   type score
 
   val to_request : string -> search_request
-
   val match_request : search_request -> t -> bool
-
   val score : t -> search_request -> score
-
   val compare_score : score -> score -> int
 end = struct
   type search_constraint =
@@ -445,26 +393,18 @@ end = struct
   let to_request str =
     let str = String.lowercase_ascii str in
     let to_constraint = function
-      | [ _; s ] ->
-        Any s
-      | [ _; "tag:"; s ] ->
-        Tag s
-      | [ _; "author:"; s ] ->
-        Author s
-      | [ _; "synopsis:"; s ] ->
-        Synopsis s
-      | [ _; "description:"; s ] ->
-        Description s
-      | [ _; "name:"; s ] ->
-        Name s
-      | _ ->
-        Any str
+      | [ _; s ] -> Any s
+      | [ _; "tag:"; s ] -> Tag s
+      | [ _; "author:"; s ] -> Author s
+      | [ _; "synopsis:"; s ] -> Synopsis s
+      | [ _; "description:"; s ] -> Description s
+      | [ _; "name:"; s ] -> Name s
+      | _ -> Any str
     in
     let g = Re.all re str in
     List.map
       (fun g ->
-        Re.Group.all g
-        |> Array.to_list
+        Re.Group.all g |> Array.to_list
         |> List.filter (fun a -> not (String.equal a ""))
         |> to_constraint)
       g
@@ -496,63 +436,59 @@ end = struct
 
   let match_constraint (package : t) (cst : search_constraint) =
     match cst with
-    | Tag pattern ->
-      match_tag pattern package
-    | Name pattern ->
-      match_name pattern package
-    | Synopsis pattern ->
-      match_synopsis pattern package
-    | Description pattern ->
-      match_description pattern package
-    | Author pattern ->
-      match_author pattern package
+    | Tag pattern -> match_tag pattern package
+    | Name pattern -> match_name pattern package
+    | Synopsis pattern -> match_synopsis pattern package
+    | Description pattern -> match_description pattern package
+    | Author pattern -> match_author pattern package
     | Any pattern ->
-      match_author pattern package
-      || match_description pattern package
-      || match_name pattern package
-      || match_synopsis pattern package
-      || match_tag pattern package
+        match_author pattern package
+        || match_description pattern package
+        || match_name pattern package
+        || match_synopsis pattern package
+        || match_tag pattern package
 
   let match_request c package = List.for_all (match_constraint package) c
 
-  type score =
-    { name : int
-    ; exact_name : int
-    ; author : int
-    ; exact_author : int
-    ; tag : int
-    ; exact_tag : int
-    ; synopsis : int
-    ; description : int
-    }
+  type score = {
+    name : int;
+    exact_name : int;
+    author : int;
+    exact_author : int;
+    tag : int;
+    exact_tag : int;
+    synopsis : int;
+    description : int;
+  }
 
   let score package query =
     let score_if f s = if f s package then 1 else 0 in
     let update_score score = function
       | Any s ->
-        { tag = score.tag + score_if match_tag s
-        ; exact_tag = score.exact_tag + score_if (match_tag ~f:String.equal) s
-        ; name = score.name + score_if match_name s
-        ; exact_name =
-            score.exact_name + score_if (match_name ~f:String.equal) s
-        ; author = score.author + score_if match_author s
-        ; exact_author =
-            score.exact_author + score_if (match_author ~f:String.equal) s
-        ; synopsis = score.synopsis + score_if match_synopsis s
-        ; description = score.description + score_if match_description s
-        }
-      | _ ->
-        score
+          {
+            tag = score.tag + score_if match_tag s;
+            exact_tag = score.exact_tag + score_if (match_tag ~f:String.equal) s;
+            name = score.name + score_if match_name s;
+            exact_name =
+              score.exact_name + score_if (match_name ~f:String.equal) s;
+            author = score.author + score_if match_author s;
+            exact_author =
+              score.exact_author + score_if (match_author ~f:String.equal) s;
+            synopsis = score.synopsis + score_if match_synopsis s;
+            description = score.description + score_if match_description s;
+          }
+      | _ -> score
     in
     let null =
-      { name = 0
-      ; exact_name = 0
-      ; author = 0
-      ; exact_author = 0
-      ; tag = 0
-      ; exact_tag = 0
-      ; synopsis = 0
-      ; description = 0
+      {
+        name = 0;
+        exact_name = 0;
+        author = 0;
+        exact_author = 0;
+        tag = 0;
+        exact_tag = 0;
+        synopsis = 0;
+        description = 0;
       }
     in
     List.fold_left update_score null query
@@ -560,20 +496,15 @@ end = struct
   let compare_score s1 s2 =
     if s1.exact_name != s2.exact_name then
       Int.compare s2.exact_name s1.exact_name
-    else if s1.name != s2.name then
-      Int.compare s2.name s1.name
+    else if s1.name != s2.name then Int.compare s2.name s1.name
     else if s1.exact_author != s2.exact_author then
       Int.compare s2.exact_author s1.exact_author
-    else if s1.author != s2.author then
-      Int.compare s2.author s1.author
+    else if s1.author != s2.author then Int.compare s2.author s1.author
     else if s1.exact_tag != s2.exact_tag then
       Int.compare s2.exact_tag s1.exact_tag
-    else if s1.tag != s2.tag then
-      Int.compare s2.tag s1.tag
-    else if s1.synopsis != s2.synopsis then
-      Int.compare s2.synopsis s1.synopsis
-    else
-      Int.compare s2.description s1.description
+    else if s1.tag != s2.tag then Int.compare s2.tag s1.tag
+    else if s1.synopsis != s2.synopsis then Int.compare s2.synopsis s1.synopsis
+    else Int.compare s2.description s1.description
 end
 
 let search_package t pattern =
