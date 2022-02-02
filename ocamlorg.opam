@@ -40,6 +40,8 @@ depends: [
   "rpclib"
   "rpclib-lwt"
   "ppx_deriving_rpc"
+  "js_top_worker"
+  "js_top_worker-client"
   "js_of_ocaml" {>= "4.0"}
   "js_of_ocaml-ppx" {>= "4.0"}
   "js_of_ocaml-compiler" {>= "4.0"}
@@ -80,5 +82,6 @@ pin-depends: [
   ["dream-pure.dev" "git+https://github.com/tmattio/dream#fix-opam-deps"]
   ["dream-httpaf.dev" "git+https://github.com/tmattio/dream#fix-opam-deps"]
   ["code-mirror.dev" "git+https://github.com/patricoferris/jsoo-code-mirror#5cf9241db53fb5bb211b46978fbe489c61f1d44c"]
-  ["js_top_worker.dev" "git+https://github.com/patricoferris/js_top_worker#78af66e0ae0d9e7474afc538acac0aa5059644e2"]
+  ["js_top_worker.dev" "git+https://github.com/patricoferris/js_top_worker#7a66cef8d0c4d485cad874aff09b7f0e997a4ef3"]
+  ["js_top_worker-client.dev" "git+https://github.com/patricoferris/js_top_worker#7a66cef8d0c4d485cad874aff09b7f0e997a4ef3"]
 ]

@@ -10,4 +10,4 @@
   rpclib-lwt
   rpc_brr)
  (preprocess
-  (pps js_of_ocaml-ppx ppx_deriving_rpc)))
+  (pps js_of_ocaml-ppx)))

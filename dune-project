@@ -65,6 +65,8 @@
   rpclib
   rpclib-lwt
   ppx_deriving_rpc
+  js_top_worker
+  js_top_worker-client
   (js_of_ocaml
    (>= 4.0))
   (js_of_ocaml-ppx
