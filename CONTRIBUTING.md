@@ -1,27 +1,27 @@
-# Contributing to OCaml.org
+# How to contribute
 
-This repository contains the data and source code for the ocaml.org site in a structured format.
+Welcome to Ocaml.org's contributing guide.
 
-Contributions are very welcome whether that be:
+Thank you for taking the time to read the contributing guide. Your help with Ocaml.org is extremely welcome. If you get stuck, please don’t hesitate to [ask questions on discuss](https://discuss.ocaml.org/) or [raise an issue](https://github.com/ocaml/v3.ocaml.org-server/issues/new).
 
- - Adding some content
- - Translating content or pages
- - Fixing bugs or typos
- - Improving the UI
+## How to get started
 
-## For Windows Users
+We are particularly motivated to support new contributors and people who are looking to learn and develop their skills.
 
-If you are not on Windows feel free to move on to the next section. 
+- **Good First Issues**: issues marked as a `good first issue` are ideal for people who are either new to the repository or still getting started with OCaml in general.
+- **Fixing or Suggesting Content**: most of the content for the site is stored in the `data` directory as markdown or yaml. To fix this content you can edit those files directly and rebuild the website. This will promote the content into their `.ml` counterparts. If you would like to suggest entirely new content please open an issue to discuss it first.
+- **Implementing pages**: most pages are implemented in `src/ocamlorg_frontend/pages` using the [.eml templating preprocessor](https://aantron.github.io/dream/#templates). This is mixture or OCaml and HTML.
+- **Translating content or pages**: for now we are focusing on getting OCaml.org ready for launch and will add more information about translation later.
 
-OCaml does not fully support Windows yet and since we are not concerned about producing Windows binaries we just need a working development environment. The easiest way to do this on Windows is to use the *Windows Subsystem for Linux 2* (WSL2). The second version is much better than the first so be sure to use that. Here are some useful instructions:
+## Reporting bugs
 
-- Installation: https://docs.microsoft.com/en-us/windows/wsl/install
-- Editor support: https://code.visualstudio.com/blogs/2019/09/03/wsl2
-- Our old site has some useful docs about using WSL2 too: https://github.com/ocaml/ocaml.org/blob/master/CONTRIBUTING.md#windows-some-common-errors-while-building-the-site-using-wsl
+We use GitHub issues to track all bugs and feature requests; feel free to open an issue over [here](https://github.com/ocaml/v3.ocaml.org/issues/new) if you have found a bug or wish to see a feature implemented.
 
-Once this is set up, you will be coding as if you are on a Linux machine so all of the other commands will be identical.
+Please include images and browser-specific information if the bug is related to some visual aspect of the site. This tends to make it easier to reproduce and fix.
 
-## Setting up the Project
+## Setup and Development
+
+### Setting up the Project
 
 The `Makefile` contains many commands that can get you up and running, a typical workflow will be to clone the repository after forking it.
 
@@ -74,32 +74,45 @@ You can run the unit test suite with:
 make test
 ```
 
-## Submitting a PR
+### Deploying
 
-To submit a PR make sure you create a new branch, add the code and commit it. 
+Commits added on `main` are automatically deployed on <https://v3.ocaml.org/>.
+
+The deployment pipeline is managed in <https://github.com/ocurrent/ocurrent-deployer> which listens to the `main` branch and builds the site using the `Dockerfile` at the root of the project.
+
+To test the deployment locally, you can run the following commands:
 
 ```
-git checkout -b my-bug-fix
-git add fixed-file.ml
-git commit -m "fix a bug"
-git push -u origin my-bug-fix
+docker build -t v3.ocaml.org .
+docker run -p 8080:8080  v3.ocaml.org
 ```
 
-From here you can then open a PR from Github. Before committing your code it is very useful to:
+This will build the docker image and run a docker container with the port `8080` mapped to the HTTP server.
 
- - Format the code: this should be as simple as `make fmt`
- - Make sure it builds: running `make build`, this is also very important if you add data to the repository as it will "crunch" the data into the static OCaml modules (more information below)
- - Run the tests: this will check that all the data is correctly formatted and can be invoked with `make test`
+With the docker container running, you can visit the site at <http://localhost:8080/>.
 
-## Adding or updating datas
+## Git and GitHub workflow
 
-As explained on the README, `src/ocaml` contains the information in the `data` directory, packed inside OCaml modules. This makes the data very easy to consume from multiple different projects like from ReScript in the [front-end of the website](https://github.com/ocaml/v3.ocaml.org). It means most consumers of the ocaml.org data do not have to worry about re-implementing parsers for the data.
+The preferred workflow for contributing to a repository is to fork the main repository on GitHub, clone, and develop on a new branch.
 
-If you are simply adding information to the `data` directory that's fine, before merging one of the maintainers can do the build locally and push the changes. If you can do a `make build` to also generate the OCaml as part of your PR that would be fantastic.
+If you aren't familiar with how to work with Github or would like to learn it, here is [a great tutorial](https://app.egghead.io/playlists/how-to-contribute-to-an-open-source-project-on-github).
+
+Feel free to use any approach while creating a pull request. Here are a few suggestions from the dev team:
+
+- If you are not sure whether your changes will be accepted or want to discuss the method before delving into it, please create an issue and ask it.
+- Clone the repo locally (or continue editing directly in github if the change is small). Checkout
+  out the branch that you created.
+- Create a draft pull request with a small initial commit. Here's how you can [create a draft pull request.](https://github.blog/2019-02-14-introducing-draft-pull-requests/)
+- Continue developing, feel free to ask questions in the PR, if you run into obstacles or uncertainty as you make changes
+- Review your implementation according to the checks noted in the PR template
+- Once you feel your branch is ready, change the PR status to "ready to review"
+- Consult the tasks noted in the PR template
+- When merging, consider cleaning up the commit body
+- Close any issues that were addressed by this PR.
 
 ## Repository structure
 
-The following snippet describes OCaml.org's repository structure.
+The following snippet describes the repository structure.
 
 ```text
 .
@@ -110,10 +123,29 @@ The following snippet describes OCaml.org's repository structure.
 |   Data used by ocaml.org in Yaml and Markdown format.
 │
 ├── gettext/
-|   `.PO` files for static content translation.
+|   `.PO` files for static content translation. Not currently being used.
 │
-├── src/
-|   The source code of ocaml.org.
+├── src
+│   ├── gettext
+|   |   The source code for translations.
+|   |
+│   ├── hilite
+|   |   A small library we use to do OCaml code highlighting at build time.
+|   |
+│   ├── ocamlorg_data
+|   |   The result of compiling all of the information in `/data` into OCaml modules.
+|   |
+│   ├── ocamlorg_frontend
+|   |   All of the front-end code primarily using .eml files (OCaml + HTML).
+|   |
+│   ├── ocamlorg_package
+|   |   The library for constructing opam-repository statistics and information (e.g. rev deps).
+|   |
+│   ├── ocamlorg_toplevel
+|   |   All of the js_of_ocaml toplevel code including UI and background workers.
+|   |
+│   └── ocamlorg_web
+|       The main entry-point of the server.
 │
 ├── tool/
 |   Sources for development tools such as the `ocamlorg_data` code generator.
@@ -127,7 +159,6 @@ The following snippet describes OCaml.org's repository structure.
 ├── ocamlorg.opam
 ├── ocamlorg.opam.template
 │   opam package definitions.
-│   To know more about creating and publishing opam packages, see https://opam.ocaml.org/doc/Packaging.html.
 │
 ├── package-lock.json
 ├── package.json
@@ -152,44 +183,3 @@ The following snippet describes OCaml.org's repository structure.
 └── tailwind.config.js
     Configuration used by TailwindCSS to generate the CSS file for the site.
 ```
-
-## Deploying
-
-Commits added on `main` are automatically deployed on https://v3.ocaml.org/.
-
-The deployment pipeline is managed in https://github.com/ocurrent/ocurrent-deployer which listens to the `main` branch and build the site using the `Dockerfile` at the root of the project.
-
-To test the deployment locally, you can run the following commands:
-
-```
-docker build -t v3.ocaml.org .
-docker run -p 8080:8080  v3.ocaml.org
-```
-
-This will build the docker image and run a docker container with the port `8080` mapped to the HTTP server.
-With the docker container running, you can visit the site at http://localhost:8080/.
-
-## Translating
-
-The translation of the the static pages is done with the PO files found in `gettext/<locale>/LC_MESSAGES/*.po`.
-
-If you would like add translations for a new language, for instance `ru`, you can copy the template files to get started:
-
-```
-mkdir -p gettext/ru/LC_MESSAGES/
-cp gettext/messages.pot gettext/ru/LC_MESSAGES/messages.po
-```
-
-When adding new translatable string, you will need to add them to the `POT` and `PO` files. You can do so with the following commands:
-
-```
-dune exec ocaml-gettext -- extract _build/default/src/ocamlorg_web/lib/templates/**/*.ml > gettext/messages.pot
-```
-
-To extract the strings into the template.
-
-```
-dune exec ocaml-gettext -- merge gettext/messages.pot gettext/en/LC_MESSAGES/messages.po > gettext/en/LC_MESSAGES/messages.po
-```
-
-To merge the template file into the existing `PO` file.
