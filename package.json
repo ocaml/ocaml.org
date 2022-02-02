@@ -11,14 +11,6 @@
     "tty": false
   },
   "dependencies": {
-    "@codemirror/autocomplete": "^0.19.12",
-    "@codemirror/basic-setup": "^0.19.0",
-    "@codemirror/legacy-modes": "^0.19.0",
-    "@codemirror/lint": "^0.19.3",
-    "@codemirror/state": "^0.19.5",
-    "@codemirror/stream-parser": "^0.19.2",
-    "@codemirror/theme-one-dark": "^0.19.1",
-    "@codemirror/view": "^0.19.16",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.4.0",
     "@tailwindcss/typography": "^0.5.1",

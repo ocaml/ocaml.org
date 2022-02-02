@@ -1,7 +1,5 @@
 (executable
  (name index)
- (js_of_ocaml
-  (javascript_files import.js))
  (modes js)
  (libraries
   brr
