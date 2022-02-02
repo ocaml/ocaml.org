@@ -3,15 +3,14 @@ FROM ocaml/opam:alpine-3.13-ocaml-4.13 as build
 # Install system dependencies
 RUN sudo apk update && sudo apk add --update libev-dev openssl-dev gmp-dev nodejs npm
 
+RUN cd ~/opam-repository && git pull origin master && git reset --hard ad79e369dfb9be127d520e0f96ca6002f6860ff9 && opam update
+
 WORKDIR /home/opam
 
 # Install Opam dependencies
 ADD ocamlorg-data.opam ocamlorg-data.opam
 ADD ocamlorg.opam ocamlorg.opam
 RUN opam install . --deps-only
-
-# Force re-compilation of dream after installing the deps to use TLS in Gluten
-RUN opam reinstall dream
 
 # Install NPM dependencies
 ADD package.json package.json
