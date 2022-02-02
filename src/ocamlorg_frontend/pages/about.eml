@@ -214,6 +214,7 @@ Layout.render
                             applications. Ocamljava also enables direct compilation of OCaml to Java bytecode.
                         </li>
                     </ul>
+                    <p><small>(This page adapted from the <a href="https://dev.realworldocaml.org/prologue.html#why-ocaml">"Why OCaml" section</a> of <em>Real World OCaml</em></small></p> 
                 </div>
             </div>
         </div>
