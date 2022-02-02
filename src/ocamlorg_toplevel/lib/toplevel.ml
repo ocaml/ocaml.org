@@ -25,13 +25,6 @@ module Worker = Brr_webworkers.Worker
 module Toplevel_api = Js_top_worker_rpc.Toplevel_api_gen
 module Toprpc = Js_top_worker_client.W
 
-(* Handy infix bind-style operator for the RPCs *)
-let rpc_bind x f =
-  x |> Rpc_lwt.T.get >>= function
-  | Ok x -> f x
-  | Error (Toplevel_api.InternalError s) ->
-      Lwt.fail (Failure (Printf.sprintf "Rpc failure: %s" s))
-
 let by_id s = Dom_html.getElementById s
 
 let by_id_coerce s f =
@@ -143,10 +136,8 @@ let timeout_container () =
   | None -> ()
 
 let or_raise = function
-  | Ok v ->
-    v
-  | Error (Toplevel_api.InternalError e) ->
-    failwith e
+  | Ok v -> v
+  | Error (Toplevel_api.InternalError e) -> failwith e
 
 let initialise s callback =
   let rpc = Js_top_worker_client.start s 100000 callback in
@@ -155,9 +146,7 @@ let initialise s callback =
   Lwt.return rpc
 
 let rpc, set_rpc = Lwt.wait ()
-
 let with_rpc f v = Lwt.bind rpc (fun r -> Lwt.map or_raise @@ f r v)
-
 let async_raise f = Lwt.async (fun () -> Lwt.map or_raise @@ f ())
 
 let run' s =
@@ -262,26 +251,23 @@ let run' s =
     Dom_html.handler (fun e ->
         match e##.keyCode with
         | 13 when not (meta e || shift e) ->
-          async_raise execute;
-          Js._false
+            async_raise execute;
+            Js._false
         | 13 ->
             Lwt.async (resize ~container ~textbox);
             Js._true
         | 09 ->
-          async_raise complete;
-          Js._false
+            async_raise complete;
+            Js._false
         | 76 when meta e ->
             output##.innerHTML := Js.string "";
             Js._true
         | 75 when meta e ->
-          async_raise setup;
-          Js._false
-        | 38 ->
-          history_up e
-        | 40 ->
-          history_down e
-        | _ ->
-          Js._true);
+            async_raise setup;
+            Js._false
+        | 38 -> history_up e
+        | 40 -> history_down e
+        | _ -> Js._true);
   (Lwt.async_exception_hook :=
      fun exc ->
        Brr.Console.error

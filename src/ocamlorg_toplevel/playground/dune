@@ -5,7 +5,6 @@
  (modes js)
  (libraries
   brr
-  brr-lwd
   js_of_ocaml
   code-mirror
   code-mirror.lint
