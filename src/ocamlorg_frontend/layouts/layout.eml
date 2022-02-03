@@ -41,8 +41,8 @@ inner =
   <script src="/vendors/turbo.es2017-umd.js"></script>
   <% ); %>
   <% if use_swiper then ( %>
-  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <link rel="stylesheet" href="/vendors/swiper-bundle.min.css" />
+  <script src="/vendors/swiper-bundle.min.js"></script>
   <% ); %>
   <title>
     <%s title %>
