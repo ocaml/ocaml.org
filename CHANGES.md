@@ -1,5 +1,7 @@
 # Unreleased
 
+- Add caching headers for assets and medias (#269, by @tmattio)
+
 - Guidelines page (#244, by @mndrix)
   - Recommend ocamlformat, de-emphasize formatting
   - Fix typos
