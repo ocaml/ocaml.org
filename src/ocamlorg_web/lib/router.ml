@@ -52,7 +52,6 @@ let page_routes =
       Dream.get Url.books Handler.books;
       Dream.get Url.releases Handler.releases;
       Dream.get (Url.release ":id") Handler.release;
-      Dream.get Url.events Handler.events;
       Dream.get (Url.workshop ":id") Handler.workshop;
       Dream.get Url.blog Handler.blog;
       Dream.get Url.news Handler.news;

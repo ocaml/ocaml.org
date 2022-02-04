@@ -14,9 +14,9 @@ let learn _req =
   Dream.html (Ocamlorg_frontend.learn ~papers ~books ~release)
 
 let community _req =
-  let workshops = Ood.Workshop.all |> List.take 2 in
-  let news = Ood.News.all |> List.take 3 in
-  Dream.html (Ocamlorg_frontend.community ~workshops ~news)
+  let workshops = Ood.Workshop.all in
+  let meetups = Ood.Meetup.all in
+  Dream.html (Ocamlorg_frontend.community ~workshops ~meetups)
 
 let success_stories _req =
   let stories = Ood.Success_story.all () in
@@ -108,11 +108,6 @@ let release req =
   match Ood.Release.get_by_version version with
   | Some release -> Dream.html (Ocamlorg_frontend.release release)
   | None -> not_found req
-
-let events _req =
-  let workshops = Ood.Workshop.all in
-  let meetups = Ood.Meetup.all in
-  Dream.html (Ocamlorg_frontend.events ~workshops ~meetups)
 
 let workshop req =
   let watch_ocamlorg_embed =

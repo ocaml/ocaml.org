@@ -257,8 +257,8 @@ let from_v2 =
       Url.workshop "ocaml-users-and-developers-workshop-2011" );
     ( "/meetings/ocaml/2016/index.html",
       Url.workshop "ocaml-users-and-developers-workshop-2016" );
-    ("/meetings/index.html", Url.events);
-    ("/meetings/index.fr.html", Url.events);
+    ("/meetings/index.html", Url.community);
+    ("/meetings/index.fr.html", Url.community);
     ("/community/planet/index.html", Url.community);
     ("/community/planet/older.html", Url.community);
     ("/community/planet/syndication.html", Url.community);

@@ -392,8 +392,7 @@ with an emphasis on expressiveness and safety."
       <div class="text-center">
         <h2 class="font-bold text-primary-600 mb-6">Curated Resources</h2>
         <div class="text-lg text-white mb-16">
-          Here are some of the reasons why you should use OCaml for your
-          workspace or institution.
+          Get up to speed quickly to enjoy the benefits of the OCaml programming language across your projects
         </div>
       </div>
 <%s! Curated_resources.(render [
