@@ -179,8 +179,8 @@ Layout.render
                            <strong>A sophisticated module system:</strong>
                            You can think of OCaml as being broken up into two parts: a core language that is concerned
                            with values and types, and a module language that is concerned with modules and module
-                           signatures. OCaml's module system is incredibly powerful, for instance allowing you to
-                           parameterize one module over another. This makes it possible to concisely and safely build up
+                           signatures. OCaml contains an incredibly powerful module system. For instance, it allows you to
+                           parameterise one module over another. This makes it possible to concisely and safely build up
                            layers of abstraction in large pieces of software.
                         </li>
                         <li>
