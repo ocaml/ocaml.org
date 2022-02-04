@@ -135,11 +135,11 @@ Layout.render
                         turned into a full-fledged system of its own by the 1980s.
                     </p>
                     <p>
-                       The first implementation of Caml appeared in 1987. It was created by Ascánder Suárez (as part of
-                       the Formel project at INRIA headed by Gérard Huet) and later continued by Pierre Weis and Michel
-                       Mauny. In 1990, Xavier Leroy and Damien Doligez built a new implementation called Caml Light that
-                       was based on a bytecode interpreter with a fast, sequential garbage collector. Over the next few
-                       years useful libraries appeared, such as Michel Mauny’s syntax manipulation tools, and this
+                       The first implementation of Caml appeared in 1987. Ascánder Suárez created it as part of
+                       the Formel project at INRIA, headed by Gérard Huet. Later, Pierre Weis and Michel
+                       Mauny continued developing it. In 1990, Xavier Leroy and Damien Doligez built a new implementation called Caml Light that
+                       they based on a bytecode interpreter with a fast, sequential garbage collector. Over the next few
+                       years, useful libraries appeared, such as Michel Mauny’s syntax manipulation tools, and this
                        helped promote the use of Caml in education and research teams.
                     </p>
                     <p>
