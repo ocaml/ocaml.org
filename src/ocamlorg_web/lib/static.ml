@@ -56,9 +56,14 @@ let loader ~read ~last_modified _root path request =
         | Ok asset ->
             Dream.respond
               ~headers:
-                ([
-                   ("Cache-Control", Fmt.str "max-age=%d" max_age);
-                   ("Last-Modified", last_modified);
-                 ]
-                @ Dream.mime_lookup path)
+                ([ (* Disabling cache headers for now, as we need a good
+                      solution to update `main.css`, and other assets that are
+                      likely to change during development.
+
+                      We could either never cache them (have a list of exception
+                      to not cache here?) or generate main.css with a identifier
+                      hashed with the content. *)
+                   (* ("Cache-Control", Fmt.str "max-age=%d" max_age);
+                      ("Last-Modified", last_modified); *) ]
+               @ Dream.mime_lookup path)
               asset)
