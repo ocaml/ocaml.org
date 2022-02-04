@@ -87,7 +87,7 @@ Layout.render
                         <li>
                             Good support for <strong>immutable programming</strong>, i.e., programming without making
                             destructive updates to data structures. This is present in traditional functional languages
-                            like Scheme, and is also found in distributed, big-data frameworks like Hadoop.
+                            like Scheme, and it's also found in distributed, big-data frameworks like Hadoop.
                         </li>
                         <li>
                             <strong>Type inference</strong>, so you don’t need to annotate every single variable in your
