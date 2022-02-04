@@ -161,8 +161,8 @@ Layout.render
                         have been steadily added to support the growing commercial and academic codebases. By 2012, the
                         OCaml 4.0 release had added Generalised Algebraic Data Types (GADTs) and first-class modules to
                         increase the flexibility of the language. Since then, OCaml has had a steady yearly release
-                        cadence, and OCaml 5.0 with multicore support is around the corner in 2022. There is also fast
-                        native code support for the latest CPU architectures such as x86_64, ARM, RISC-V and PowerPC,
+                        cadence, and OCaml 5.0 with multicore support is around the corner in 2022. There is also fast,
+                        native-code support for the latest CPU architectures, such as x86_64, ARM, RISC-V, and PowerPC,
                         making OCaml a good choice for systems where resource usage, predictability, and performance all
                         matter.
                     </p>
