@@ -129,7 +129,7 @@ Layout.render
                         continues to have deep links to the academic community.
                     </p>
                     <p>
-                        ML was originally the meta language of the LCF (Logic for Computable Functions) proof assistant
+                        ML was originally the meta language of the LCF (Logic for Computable Functions) proof assistant,
                         released by Robin Milner in 1972 (at Stanford, and later at Cambridge). ML was turned into a
                         compiler in order to make it easier to use LCF on different machines, and it was gradually
                         turned into a full-fledged system of its own by the 1980s.
