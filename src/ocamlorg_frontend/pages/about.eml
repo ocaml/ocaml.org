@@ -150,11 +150,10 @@ Layout.render
                         abstraction and made larger-scale programs easier to construct.
                     </p>
                     <p>
-                        The modern OCaml emerged in 1996, when a powerful and elegant object system was implemented by
-                        Didier Rémy and Jérôme Vouillon. This object system was notable for supporting many common
+                        The modern OCaml emerged in 1996, when Didier Rémy and Jérôme Vouillon implemented a powerful and elegant object system. This object system was notable for supporting many common
                         object-oriented idioms in a statically type-safe way, whereas the same idioms required runtime
                         checks in languages such as C++ or Java. In 2000, Jacques Garrigue extended OCaml with several
-                        new features such as polymorphic methods, variants, and labeled and optional arguments.
+                        new features such as polymorphic methods and variants, as well as labeled and optional arguments.
                     </p>
                     <p>
                         The last two decades have seen OCaml attract a significant user base, and language improvements
