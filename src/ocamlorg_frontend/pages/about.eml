@@ -68,7 +68,7 @@ Layout.render
                     </p>
                     <ul>
                         <li>
-                            <strong>Garbage collection</strong> for automatic memory management, now a feature of almost
+                            <strong>Garbage collection (GC)</strong> for automatic memory management, now a feature of almost
                             every modern, high-level language.
                         </li>
                         <li>
