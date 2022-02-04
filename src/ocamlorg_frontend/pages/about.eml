@@ -97,7 +97,7 @@ Layout.render
                         </li>
                         <li>
                             <strong>Algebraic data types</strong> and <strong>pattern matching</strong> to define and
-                            manipulate complex data structures. Available in Scala and F#.
+                            manipulate complex data structures, available in Scala and F#.
                         </li>
                     </ul>
                     <p>
