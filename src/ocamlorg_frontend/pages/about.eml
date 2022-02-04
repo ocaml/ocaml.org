@@ -177,8 +177,7 @@ Layout.render
                         </li>
                         <li>
                            <strong>A sophisticated module system:</strong>
-                           You can think of OCaml as being broken up into two parts: a core language that is concerned
-                           with values and types, and a module language that is concerned with modules and module
+                           You can think of OCaml as being divided into two parts: a core language, concerned with values and types, and a module language that's concerned with modules and module
                            signatures. OCaml contains an incredibly powerful module system. For instance, it allows you to
                            parameterise one module over another. This makes it possible to concisely and safely build up
                            layers of abstraction in large pieces of software.
