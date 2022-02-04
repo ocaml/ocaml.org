@@ -210,8 +210,8 @@ Layout.render
                             <strong>Portability:</strong> OCaml runs on a wide variety of platforms. There are both
                             officially supported platforms as well as platforms supported by the community. For example,
                             there are OCaml apps available on the Apple App Store, and it is possible to compile OCaml
-                            to JavaScript with js_of_ocaml, which enables the creation of rich client-side
-                            applications. Ocamljava also enables direct compilation of OCaml to Java bytecode.
+                            to JavaScript with js_of_ocaml, which enables the creation of rich, client-side
+                            applications. OCaml-Java also enables direct compilation of OCaml to Java bytecode.
                         </li>
                     </ul>
                     <p><small>(This page is adapted from the <a href="https://dev.realworldocaml.org/prologue.html#why-ocaml">"Why OCaml" section</a> of <em>Real World OCaml</em></small></p> 
