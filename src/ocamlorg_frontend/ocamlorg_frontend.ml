@@ -52,5 +52,8 @@ let releases ?search releases = Releases.render ?search releases
 let success_stories success_stories = Success_stories.render success_stories
 let success_story success_story = Success_story.render success_story
 let tutorial tutorial = Tutorial.render tutorial
-let carbon_footprint () = Carbon_footprint.render ()
+
+let page ~title ~description ~meta_title ~meta_description ~content =
+  Page.render ~title ~description ~meta_title ~meta_description ~content
+
 let not_found () = Not_found.render ()

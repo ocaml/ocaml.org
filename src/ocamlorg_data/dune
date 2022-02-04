@@ -191,3 +191,13 @@
   (with-stdout-to
    %{targets}
    (run %{deps} packages))))
+
+(rule
+ (deps ../../tool/ood-gen/bin/gen.exe)
+ (targets page.ml)
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} page))))

@@ -270,6 +270,7 @@ inner =
           <ul>
             <li class="text-lg font-semibold pb-3">Legal</li>
             <li class="py-3"><a href="<%s Url.carbon_footprint %>">Carbon Footprint</a></li>
+            <li class="py-3"><a href="<%s Url.governance %>">Governance</a></li>
           </ul>
         </div>
       </div>
