@@ -114,8 +114,8 @@ Layout.render
                         strategy that produces performant code without requiring heavy optimization and without the
                         complexities of dynamic just-in-time (JIT) compilation. This, along with OCaml’s strict
                         evaluation model, makes runtime behavior easy to predict. The garbage collector is incremental,
-                        letting you avoid large garbage collection (GC)-related pauses, and precise, meaning it will
-                        collect all unreferenced data (unlike many reference-counting collectors), and the runtime is
+                        (letting you avoid large GC-related pauses) and precise, meaning it will
+                        collect all unreferenced data (unlike many reference-counting collectors). Plus, the runtime is
                         simple and highly portable.
                     </p>
                     <p>
