@@ -157,7 +157,7 @@ Layout.render
                         new features such as polymorphic methods, variants, and labeled and optional arguments.
                     </p>
                     <p>
-                        The last two decades has seen OCaml attract a significant user base, and language improvements
+                        The last two decades have seen OCaml attract a significant user base, and language improvements
                         have been steadily added to support the growing commercial and academic codebases. By 2012, the
                         OCaml 4.0 release had added Generalised Algebraic Data Types (GADTs) and first-class modules to
                         increase the flexibility of the language. Since then, OCaml has had a steady yearly release
