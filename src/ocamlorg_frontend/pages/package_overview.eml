@@ -14,7 +14,7 @@ Package_layout.render
 ~description:(Printf.sprintf "%s %s: %s" package.name package.version package.description)
 ~tab:Overview
 ~package @@
-<div class="flex lg:space-x-14 flex-col lg:flex-row items-start">
+<div class="flex lg:space-x-4 xl:space-x-12  flex-col lg:flex-row items-start">
 
     <div class="flex-1 prose lg:max-w-4xl max-w-full">
         <div class="p-3 bg-body-600 bg-opacity-5 rounded font-semibold mb-8">README.md</div>
