@@ -21,6 +21,7 @@ let term_templates =
     ("rss", Ood_gen.Rss.template);
     ("opam_user", Ood_gen.Opam_user.template);
     ("workflows", Ood_gen.Workflow.template);
+    ("pages", Ood_gen.Page.template);
   ]
 
 let cmds =

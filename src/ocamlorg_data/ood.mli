@@ -376,3 +376,17 @@ module News : sig
   val all : t list
   val get_by_slug : string -> t option
 end
+
+module Page : sig
+  type t = {
+    title : string;
+    description : string;
+    meta_title : string;
+    meta_description : string;
+    body_md : string;
+    body_html : string;
+  }
+
+  val carbon_footprint : t
+  val governance : t
+end

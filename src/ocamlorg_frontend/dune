@@ -165,8 +165,8 @@
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
-  (targets carbon_footprint.ml)
-  (deps carbon_footprint.eml)
+  (targets page.ml)
+  (deps page.eml)
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root}))))
 

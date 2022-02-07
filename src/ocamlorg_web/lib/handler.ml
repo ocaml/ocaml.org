@@ -231,7 +231,19 @@ let opportunity req =
   | Some job -> Dream.html (Ocamlorg_frontend.opportunity job)
   | None -> not_found req
 
-let carbon_footprint _req = Dream.html (Ocamlorg_frontend.carbon_footprint ())
+let carbon_footprint _req =
+  let (page : Ood.Page.t) = Ood.Page.carbon_footprint in
+  Dream.html
+    (Ocamlorg_frontend.page ~title:page.title ~description:page.description
+       ~meta_title:page.meta_title ~meta_description:page.meta_description
+       ~content:page.body_html)
+
+let governance _req =
+  let (page : Ood.Page.t) = Ood.Page.governance in
+  Dream.html
+    (Ocamlorg_frontend.page ~title:page.title ~description:page.description
+       ~meta_title:page.meta_title ~meta_description:page.meta_description
+       ~content:page.body_html)
 
 let papers req =
   let search_paper pattern t =
