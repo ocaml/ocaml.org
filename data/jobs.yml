@@ -32,5 +32,15 @@ jobs:
   - title: Software Engineer
     link: https://www.lexifi.com/careers/software_engineer/
     location: France
-    company: Lexifi
+    company: LexiFi
     company_logo: https://thewealthmosaic.s3.amazonaws.com/media/Logo_Lexifi.png
+  - title: OCaml Programmer
+    link: https://solvuu.com/company
+    location: Remote
+    company: Solvuu
+    company_logo: https://solvuu.com/static/media/logo-color.92a01b9f.svg
+  - title: Senior Software Engineer
+    link: https://solvuu.com/company
+    location: France
+    company: Nomadic Labs
+    company_logo: https://research-development.nomadic-labs.com/images/meanwhile_202107/nomadic-logo-new.png

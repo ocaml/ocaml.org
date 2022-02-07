@@ -54,7 +54,21 @@ let all =
   { title = {js|Software Engineer|js}
   ; link = {js|https://www.lexifi.com/careers/software_engineer/|js}
   ; location = {js|France|js}
-  ; company = {js|Lexifi|js}
+  ; company = {js|LexiFi|js}
   ; company_logo = {js|https://thewealthmosaic.s3.amazonaws.com/media/Logo_Lexifi.png|js}
+  };
+ 
+  { title = {js|OCaml Programmer|js}
+  ; link = {js|https://solvuu.com/company|js}
+  ; location = {js|Remote|js}
+  ; company = {js|Solvuu|js}
+  ; company_logo = {js|https://solvuu.com/static/media/logo-color.92a01b9f.svg|js}
+  };
+ 
+  { title = {js|Senior Software Engineer|js}
+  ; link = {js|https://solvuu.com/company|js}
+  ; location = {js|France|js}
+  ; company = {js|Nomadic Labs|js}
+  ; company_logo = {js|https://research-development.nomadic-labs.com/images/meanwhile_202107/nomadic-logo-new.png|js}
   }]
 
