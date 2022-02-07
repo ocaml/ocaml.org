@@ -208,23 +208,25 @@ let opportunities req =
   let search = Dream.query "q" req in
   let jobs =
     match search with
-    | None -> Ood.Job.all_not_fullfilled
-    | Some search -> search_job search Ood.Job.all_not_fullfilled
+    | None -> Ood.Job.all
+    | Some search -> search_job search Ood.Job.all
   in
-  let country = Dream.query "c" req in
+  let location = Dream.query "c" req in
   let jobs =
-    match country with
+    match location with
     | None | Some "All" -> jobs
-    | Some country ->
-        List.filter (fun job -> job.Ood.Job.country = country) jobs
+    | Some location ->
+        List.filter (fun job -> job.Ood.Job.location = location) jobs
   in
-  Dream.html (Ocamlorg_frontend.opportunities ?search ?country jobs)
-
-let opportunity req =
-  let id = Dream.param req "id" in
-  match Option.bind (int_of_string_opt id) Ood.Job.get_by_id with
-  | Some job -> Dream.html (Ocamlorg_frontend.opportunity job)
-  | None -> not_found req
+  let locations =
+    List.filter_map
+      (function
+        | job when job.Ood.Job.location = "Remote" -> None
+        | job -> Some job.Ood.Job.location)
+      Ood.Job.all
+    |> List.sort_uniq String.compare
+  in
+  Dream.html (Ocamlorg_frontend.opportunities ?search ?location ~locations jobs)
 
 let carbon_footprint _req =
   let (page : Ood.Page.t) = Ood.Page.carbon_footprint in

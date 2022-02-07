@@ -73,20 +73,14 @@ end
 
 module Job : sig
   type t = {
-    id : int;
     title : string;
     link : string;
-    description_html : string;
     location : string;
-    country : string;
     company : string;
     company_logo : string;
-    fullfilled : bool;
   }
 
   val all : t list
-  val all_not_fullfilled : t list
-  val get_by_id : int -> t option
 end
 
 module Meetup : sig
