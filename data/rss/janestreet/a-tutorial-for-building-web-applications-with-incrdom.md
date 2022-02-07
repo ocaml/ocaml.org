@@ -10,9 +10,11 @@ featured:
 
 <p>At Jane Street, our web UIs are built on top of an in-house framework
 called <a href="https://github.com/janestreet/incr_dom">Incr_dom</a>, modeled in
-part on <a href="https://reactjs.org/docs/faq-internals.html">React’s virtual
+part on <a href="https://reactjs.org/docs/faq-internals.html">React&rsquo;s virtual
 DOM</a>. Rendering different
 views efficiently in response to changes made to a shared model is a
-quintessentially incremental computation—so it should be no surprise
+quintessentially incremental computation&mdash;so it should be no surprise
 that Incr_dom is built on top of
 <a href="https://blog.janestreet.com/introducing-incremental/">Incremental</a>.</p>
+
+

@@ -27,8 +27,8 @@ beginners to help them get settled. That also means I might omit things that I d
 mentioning or that might confuse the targetted audience but feel free to comment if you believe
 this article missed an important point.</p>
 <p>It's worth mentioning that a lot of the nice tricks mentioned in these lines were given to me by a
-wonderful human being called Étienne Millon, thanks Étienne!</p>
-<h2 id="what-is-a-ppx" style="position:relative;"><a href="#what-is-a-ppx" aria-label="what is a ppx permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What is a PPX?</h2>
+wonderful human being called &Eacute;tienne Millon, thanks &Eacute;tienne!</p>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#what-is-a-ppx" aria-label="what is a ppx permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What is a PPX?</h2>
 <p>PPX rewriters or PPX-es are preprocessors that are applied to your code before passing it on to the
 compiler. They don't operate on your code directly but on the Abstract Syntax Tree or AST resulting
 from its parsing. That means that they can only be applied to syntactically correct OCaml code. You
@@ -39,12 +39,12 @@ things. You could for example replace every instance of <code>true</code> by <co
 Obviously that's not the kind of behaviour that we want as it would make it impossible to
 understand the code since it would be so far from the actual AST the compiler would get.
 In practice PPX-es have a well defined scope and only transform parts you explicitly annotated.</p>
-<h3 id="understanding-the-ocaml-ast" style="position:relative;"><a href="#understanding-the-ocaml-ast" aria-label="understanding the ocaml ast permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Understanding the OCaml AST</h3>
+<h3 style="position:relative;"><a href="https://tarides.com/feed.xml#understanding-the-ocaml-ast" aria-label="understanding the ocaml ast permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Understanding the OCaml AST</h3>
 <p>First things first, what is an AST. An AST is an abstract representation of your code. As the name
 suggests it has a tree-like structure where the root describes your entire file. It has children for
 each bits such as a function declaration or a type definition, each of them having their own
 children, for example for the function name, its argument and its body and that goes on until you
-reach a leaf such as a literal <code>1</code>, <code>"abc"</code> or a variable for instance.
+reach a leaf such as a literal <code>1</code>, <code>&quot;abc&quot;</code> or a variable for instance.
 In the case of OCaml it's a set of recursive types allowing us to represent OCaml code as an OCaml
 value. This value is what the parser passes to the compiler so it can type check and compile it to
 native or byte code.
@@ -66,7 +66,7 @@ the AST but some other useful types to look at at first are:</p>
 <li><code>pattern</code> which is what you use to deconstruct an OCaml value, the left hand side of a <code>let</code>
 binding or a pattern-matching case for example.</li>
 <li><code>core_type</code> which describes type expressions ie what you would find on the right hand side of a
-value description in a <code>.mli</code>, ie <code>val f : &#x3C;what_goes_there></code>.</li>
+value description in a <code>.mli</code>, ie <code>val f : &lt;what_goes_there&gt;</code>.</li>
 <li><code>structure_item</code> and <code>signature_item</code> which describe the top level AST nodes you can find in a
 <code>structure</code> or <code>signature</code> such as type definitions, value or module declarations.</li>
 </ul>
@@ -77,7 +77,7 @@ It turns out there are plenty of comments that are really helpful in the actual 
 and that aren't part of the generated documentation. You can find them on
 <a href="https://github.com/ocaml/ocaml/blob/trunk/parsing/parsetree.mli">github</a> but I personally prefer to
 have it opened in a VIM tab when I work on a PPX so I usually open
-<code>~/.opam/&#x3C;current_working_switch>/lib/ocaml/compiler-libs/parsetree.mli</code>.</p>
+<code>~/.opam/&lt;current_working_switch&gt;/lib/ocaml/compiler-libs/parsetree.mli</code>.</p>
 <p>This works well while exploring but you might also want a more straightforward approach to
 discovering what the AST representation is for some specific OCaml code. The
 <a href="https://github.com/ocaml-ppx/ppx_tools"><code>ppx_tools</code></a> opam package comes with a <code>dumpast</code> binary
@@ -87,7 +87,7 @@ that pretty prints the AST for any given piece of valid OCaml code. You can inst
 <div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">$ocamlfind ppx_tools/dumpast some_file.ml</code></pre></div>
 <p>You can use it on <code>.ml</code> and <code>.mli</code> files or to quickly get the AST for an expression with the <code>-e</code>
 option:</p>
-<div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">$ocamlfind ppx_tools/dumpast -e "1 + 1"</code></pre></div>
+<div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">$ocamlfind ppx_tools/dumpast -e &quot;1 + 1&quot;</code></pre></div>
 <p>Similarly, you can use the <code>-t</code> or <code>-p</code> options to respectively pretty print ASTs from type
 expressions or patterns.</p>
 <p>Using <code>dumpast</code> to get both the ASTs of a piece of code using your future PPX and the resulting
@@ -99,7 +99,7 @@ running <code>utop -dparsetree</code> will pretty print the AST of the evaluated
 evaluation.
 I tend to prefer the pretty printed AST from <code>dumpast</code> but any of these tools will prove helpful
 in understanding the AST representation of a given piece of OCaml code.</p>
-<h3 id="language-extensions-interpreted-by-ppx-es" style="position:relative;"><a href="#language-extensions-interpreted-by-ppx-es" aria-label="language extensions interpreted by ppx es permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Language extensions interpreted by PPX-es</h3>
+<h3 style="position:relative;"><a href="https://tarides.com/feed.xml#language-extensions-interpreted-by-ppx-es" aria-label="language extensions interpreted by ppx es permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Language extensions interpreted by PPX-es</h3>
 <p>OCaml 4.02 introduced syntax extensions meant to be used by external tools such as PPX-es. Knowing
 their syntax and meaning is important to understand how most of the existing rewriters
 work because they usually look for those language extensions in the AST to know which part of it
@@ -123,8 +123,8 @@ them:</p>
 
 <span class="token keyword">let</span> x <span class="token operator">=</span>
   <span class="token keyword">match</span> <span class="token number">1</span> <span class="token keyword">with</span>
-  <span class="token operator">|</span> <span class="token number">0</span> <span class="token operator">-></span> <span class="token punctuation">[</span><span class="token operator">%</span>ext pl<span class="token punctuation">]</span>
-  <span class="token operator">|</span> <span class="token punctuation">[</span><span class="token operator">%</span>ext pl<span class="token punctuation">]</span> <span class="token operator">-></span> <span class="token boolean">true</span>
+  <span class="token operator">|</span> <span class="token number">0</span> <span class="token operator">-&gt;</span> <span class="token punctuation">[</span><span class="token operator">%</span>ext pl<span class="token punctuation">]</span>
+  <span class="token operator">|</span> <span class="token punctuation">[</span><span class="token operator">%</span>ext pl<span class="token punctuation">]</span> <span class="token operator">-&gt;</span> <span class="token boolean">true</span>
 
 <span class="token punctuation">[</span><span class="token operator">%%</span>ext pl<span class="token punctuation">]</span></code></pre></div>
 <p>Because extension nodes stand where regular AST nodes should, the compiler won't accept them and
@@ -137,11 +137,11 @@ They can come with a payload just like extensions and use <code>@</code> instead
 preceding the attribute name specifies which kind of node they are attached to:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token number">12</span> <span class="token punctuation">[</span><span class="token operator">@</span>attr pl<span class="token punctuation">]</span>
 
-<span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token string">"some string"</span> <span class="token punctuation">[</span><span class="token operator">@@</span>attr pl<span class="token punctuation">]</span>
+<span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token string">&quot;some string&quot;</span> <span class="token punctuation">[</span><span class="token operator">@@</span>attr pl<span class="token punctuation">]</span>
 
 <span class="token punctuation">[</span><span class="token operator">@@@</span>attr pl<span class="token punctuation">]</span></code></pre></div>
 <p>In the first example, the attribute is attached to the expression <code>12</code> while in the second example
-it is attached to the whole <code>let b = "some string"</code> value binding. The third one is of a slightly
+it is attached to the whole <code>let b = &quot;some string&quot;</code> value binding. The third one is of a slightly
 different nature as it is a floating attribute. It's not attached to anything per-se and just ends
 up in the AST as a structure item.
 Because there is a wide variety of nodes to which you can attach attributes, I won't go too far into
@@ -149,7 +149,7 @@ details here but a good rule of thumb is that you use <code>@@</code> attributes
 structure or signature items, for anything deeper within the AST structure such as patterns,
 expressions or core types, use the single <code>@</code> syntax. Looking at the <code>Parsetree</code> documentation can
 help you figure out where you can find attributes.</p>
-<p>Now let's talk about those payloads I mentioned earlier. You can think of them as "arguments" to
+<p>Now let's talk about those payloads I mentioned earlier. You can think of them as &quot;arguments&quot; to
 the extension points and attributes. You can pass different kinds of arguments and the syntax varies
 for each of them:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">%</span>ext expr_or_str_item<span class="token punctuation">]</span> 
@@ -163,7 +163,7 @@ using a <code>:</code> or a pattern using a <code>?</code>.</p>
 <span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token string">'b'</span> <span class="token punctuation">[</span><span class="token operator">@</span>attr<span class="token punctuation">:</span> type_expr_or_sig_item<span class="token punctuation">]</span>
 <span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token string">'a'</span> <span class="token punctuation">[</span><span class="token operator">@</span>attr<span class="token operator">?</span> pattern<span class="token punctuation">]</span></code></pre></div>
 <p>Some PPX-es rely on other language extensions such as the suffix character you can attach to <code>int</code>
-and <code>float</code> literals (<code>10z</code> could be used by a PPX to turn it into <code>Z.of_string "10"</code> for instance)
+and <code>float</code> literals (<code>10z</code> could be used by a PPX to turn it into <code>Z.of_string &quot;10&quot;</code> for instance)
 or quoted strings with a specific identifier (<code>{ppx_name|some quoted string|ppx_name}</code> can be used
 if you want your PPX to operate on arbitrary strings and not only syntactically correct OCaml) but
 attributes and extensions are the most commonly used ones.</p>
@@ -178,7 +178,7 @@ it is likely you will encounter some of the following:</p>
   <span class="token keyword">match</span><span class="token operator">%</span>ext y <span class="token keyword">with</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 
 <span class="token keyword">let</span> infix_try_extension <span class="token operator">=</span>
-  <span class="token keyword">try</span><span class="token operator">%</span>ext f z <span class="token keyword">with</span> <span class="token punctuation">_</span> <span class="token operator">-></span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre></div>
+  <span class="token keyword">try</span><span class="token operator">%</span>ext f z <span class="token keyword">with</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre></div>
 <p>which are syntactic sugar for:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> infix_let_extension <span class="token operator">=</span>
   <span class="token punctuation">[</span><span class="token operator">%</span>ext <span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token number">2</span> <span class="token keyword">in</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span>
@@ -187,16 +187,16 @@ it is likely you will encounter some of the following:</p>
   <span class="token punctuation">[</span><span class="token operator">%</span>ext <span class="token keyword">match</span> y <span class="token keyword">with</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span>
 
 <span class="token keyword">let</span> infix_try_extension <span class="token operator">=</span>
-  <span class="token punctuation">[</span><span class="token operator">%</span>ext <span class="token keyword">try</span> f z <span class="token keyword">with</span> <span class="token punctuation">_</span> <span class="token operator">-></span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span></code></pre></div>
+  <span class="token punctuation">[</span><span class="token operator">%</span>ext <span class="token keyword">try</span> f z <span class="token keyword">with</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span></code></pre></div>
 <p>A good example of a PPX making heavy use of these if
 <a href="http://ocsigen.org/lwt/4.1.0/api/Ppx_lwt"><code>lwt_ppx</code></a>. The OCaml manual also contains more examples
 of the infix syntax in the Attributes and Extension points sections mentioned above.</p>
-<h3 id="the-two-main-kind-of-ppx-es" style="position:relative;"><a href="#the-two-main-kind-of-ppx-es" aria-label="the two main kind of ppx es permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The two main kind of PPX-es</h3>
+<h3 style="position:relative;"><a href="https://tarides.com/feed.xml#the-two-main-kind-of-ppx-es" aria-label="the two main kind of ppx es permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The two main kind of PPX-es</h3>
 <p>There is a wide variety of PPX rewriters but the ones you'll probably see the most are Extensions and
 Derivers.</p>
-<h4 id="extensions" style="position:relative;"><a href="#extensions" aria-label="extensions permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Extensions</h4>
+<h4 style="position:relative;"><a href="https://tarides.com/feed.xml#extensions" aria-label="extensions permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Extensions</h4>
 <p>Extensions will rewrite tagged parts of the AST, usually extension nodes of the form
-<code>[%&#x3C;extension_name> payload]</code>. They will replace them with a different AST node of the same nature ie
+<code>[%&lt;extension_name&gt; payload]</code>. They will replace them with a different AST node of the same nature ie
 if the extension point was located where an expression should be, the rewriter will produce an
 expression. Good examples of extensions are:</p>
 <ul>
@@ -204,12 +204,12 @@ expression. Good examples of extensions are:</p>
 the value of the environment variable <code>SOME_VAR</code> at compile time.</li>
 <li><a href="https://github.com/NathanReb/ppx_yojson"><code>ppx_yojson</code></a> which allows you to write <code>Yojson</code> values
 using OCaml syntax to mimic actual json. For instance you'd use <code>[%yojson {a = None; b = 1}]</code> to
-represent <code>{"a": null, "b": 1}</code> instead of the <code>Yojson</code>'s notation:
-<code>Assoc [("a", Null); ("b", Int 1)]</code>.</li>
+represent <code>{&quot;a&quot;: null, &quot;b&quot;: 1}</code> instead of the <code>Yojson</code>'s notation:
+<code>Assoc [(&quot;a&quot;, Null); (&quot;b&quot;, Int 1)]</code>.</li>
 </ul>
-<h4 id="derivers" style="position:relative;"><a href="#derivers" aria-label="derivers permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Derivers</h4>
-<p>Derivers or deriving plugins will "insert" new nodes derived from type definitions annotated with a
-<code>[@@deriving &#x3C;deriver_name>]</code> attribute. They have various applications but are particularly useful
+<h4 style="position:relative;"><a href="https://tarides.com/feed.xml#derivers" aria-label="derivers permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Derivers</h4>
+<p>Derivers or deriving plugins will &quot;insert&quot; new nodes derived from type definitions annotated with a
+<code>[@@deriving &lt;deriver_name&gt;]</code> attribute. They have various applications but are particularly useful
 to derive functions that are tedious and error prone to write by hand such as comparison functions,
 pretty printers or serializers. It's really convenient as you don't have to update those functions
 every time you update your type definitions. They were inspired by Haskell Type classes. Good
@@ -228,12 +228,12 @@ example when using <code>ppx_deriving_yojson</code> you can use <code>[@default 
 object optional:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">type</span> t <span class="token operator">=</span>
   <span class="token punctuation">{</span> a<span class="token punctuation">:</span> int
-  <span class="token punctuation">;</span> b<span class="token punctuation">:</span> string <span class="token punctuation">[</span><span class="token operator">@</span>default <span class="token string">""</span><span class="token punctuation">]</span>
+  <span class="token punctuation">;</span> b<span class="token punctuation">:</span> string <span class="token punctuation">[</span><span class="token operator">@</span>default <span class="token string">&quot;&quot;</span><span class="token punctuation">]</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">[</span><span class="token operator">@@</span>deriving of_yojson<span class="token punctuation">]</span></code></pre></div>
-<p>will derive a deserializer that will convert the JSON value <code>{"a": 1}</code> to the OCaml
-<code>{a = 1; b = ""}</code></p>
-<h2 id="how-to-write-a-ppx-using-ppxlib" style="position:relative;"><a href="#how-to-write-a-ppx-using-ppxlib" aria-label="how to write a ppx using ppxlib permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How to write a PPX using <code>ppxlib</code></h2>
+<p>will derive a deserializer that will convert the JSON value <code>{&quot;a&quot;: 1}</code> to the OCaml
+<code>{a = 1; b = &quot;&quot;}</code></p>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#how-to-write-a-ppx-using-ppxlib" aria-label="how to write a ppx using ppxlib permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How to write a PPX using <code>ppxlib</code></h2>
 <p>Historically there was a few libraries used by PPX rewriter authors to write their PPX-es, including
 <code>ppx_tools</code> and <code>ppx_deriving</code> but as the eco-system evolved, <code>ppxlib</code> emerged and is now the most
 up-to-date and maintained library to write and handle PPX-es. It wraps the features of those
@@ -243,7 +243,7 @@ work together if they are all registered through <code>ppxlib</code> and the PPX
 being unified around a single PPX library and driver.</p>
 <p>It is also a great library and has some really powerful features to help you write your extensions
 and derivers.</p>
-<h3 id="writing-an-extension" style="position:relative;"><a href="#writing-an-extension" aria-label="writing an extension permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Writing an extension</h3>
+<h3 style="position:relative;"><a href="https://tarides.com/feed.xml#writing-an-extension" aria-label="writing an extension permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Writing an extension</h3>
 <p>The entry point of <code>ppxlib</code> for extensions is <code>Ppxlib.Extension.declare</code>. You have to use that
 function to build an <code>Extension.t</code>, from which you can then build a <code>Context_free.Rule.t</code> before
 registering your transformation so it's actually applied.</p>
@@ -252,7 +252,7 @@ registering your transformation so it's actually applied.</p>
 
 <span class="token keyword">let</span> extension <span class="token operator">=</span>
   <span class="token module variable">Extension</span><span class="token punctuation">.</span>declare
-    <span class="token string">"my_extension"</span>
+    <span class="token string">&quot;my_extension&quot;</span>
     some_context
     some_pattern
     expand_function
@@ -260,7 +260,7 @@ registering your transformation so it's actually applied.</p>
 <span class="token keyword">let</span> rule <span class="token operator">=</span> <span class="token module variable">Context_free</span><span class="token punctuation">.</span><span class="token module variable">Rule</span><span class="token punctuation">.</span>extension extension
 
 <span class="token keyword">let</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span>
-  <span class="token module variable">Driver</span><span class="token punctuation">.</span>register_transformation <span class="token label function">~rules</span><span class="token punctuation">:</span><span class="token punctuation">[</span>rule<span class="token punctuation">]</span> <span class="token string">"my_transformation"</span></code></pre></div>
+  <span class="token module variable">Driver</span><span class="token punctuation">.</span>register_transformation <span class="token label function">~rules</span><span class="token punctuation">:</span><span class="token punctuation">[</span>rule<span class="token punctuation">]</span> <span class="token string">&quot;my_transformation&quot;</span></code></pre></div>
 <p>To compile it as PPX rewriter you'll need to put the following in your dune file:</p>
 <div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">(library
  (public_name my_ppx)
@@ -269,11 +269,11 @@ registering your transformation so it's actually applied.</p>
 <p>Now let's go back a little and look at the important part:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> extension <span class="token operator">=</span>
   <span class="token module variable">Extension</span><span class="token punctuation">.</span>declare
-    <span class="token string">"my_extension"</span>
+    <span class="token string">&quot;my_extension&quot;</span>
     some_context
     some_pattern
     expand_function</code></pre></div>
-<p>Here <code>"my_extension"</code> is the name of your extension and that define how you're going to invoke it
+<p>Here <code>&quot;my_extension&quot;</code> is the name of your extension and that define how you're going to invoke it
 in your extension point. In other words, to use this extension in our code we'll use a
 <code>[%my_extension ...]</code> extension point.</p>
 <p><code>some_context</code> is a <code>Ppxlib.Extension.Context.t</code> and describes where this extension can be found in
@@ -285,9 +285,9 @@ this property is actually enforced by the <code>some_pattern</code> argument. Bu
 later.</p>
 <p>Finally <code>expand_function</code> is our actual extension implementation, which basically takes the payload,
 a <code>loc</code> argument which contains the location of the expanded extension point, a <code>path</code> argument
-which is the fully qualified path to the expanded node (eg. <code>"file.ml.A.B"</code>) and returns the
+which is the fully qualified path to the expanded node (eg. <code>&quot;file.ml.A.B&quot;</code>) and returns the
 generated code to replace the extension with.</p>
-<h4 id="ast_pattern" style="position:relative;"><a href="#ast_pattern" aria-label="ast_pattern permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Ast_pattern</h4>
+<h4 style="position:relative;"><a href="https://tarides.com/feed.xml#ast_pattern" aria-label="ast_pattern permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Ast_pattern</h4>
 <p>Now let's get back to that <code>some_pattern</code> argument.</p>
 <p>This is one of the trickiest parts of <code>ppxlib</code> to understand but it's also one its most
 powerful features. The type for <code>Ast_pattern</code> is defined as <code>('a, 'b, 'c) t</code> where <code>'a</code> is
@@ -297,10 +297,10 @@ confusing to me at first and I'm guessing it might do to some of you too so let'
 context.</p>
 <p>Let's look at the type of <code>Extension.declare</code>:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">val</span> declare <span class="token punctuation">:</span>
-  string <span class="token operator">-></span>
-  <span class="token type-variable function">'context</span> <span class="token module variable">Context</span><span class="token punctuation">.</span>t <span class="token operator">-></span>
-  <span class="token punctuation">(</span>payload<span class="token punctuation">,</span> <span class="token type-variable function">'a</span><span class="token punctuation">,</span> <span class="token type-variable function">'context</span><span class="token punctuation">)</span> <span class="token module variable">Ast_pattern</span><span class="token punctuation">.</span>t <span class="token operator">-></span>
-  <span class="token punctuation">(</span>loc<span class="token punctuation">:</span><span class="token module variable">Location</span><span class="token punctuation">.</span>t <span class="token operator">-></span> path<span class="token punctuation">:</span>string <span class="token operator">-></span> <span class="token type-variable function">'a</span><span class="token punctuation">)</span> <span class="token operator">-></span>
+  string <span class="token operator">-&gt;</span>
+  <span class="token type-variable function">'context</span> <span class="token module variable">Context</span><span class="token punctuation">.</span>t <span class="token operator">-&gt;</span>
+  <span class="token punctuation">(</span>payload<span class="token punctuation">,</span> <span class="token type-variable function">'a</span><span class="token punctuation">,</span> <span class="token type-variable function">'context</span><span class="token punctuation">)</span> <span class="token module variable">Ast_pattern</span><span class="token punctuation">.</span>t <span class="token operator">-&gt;</span>
+  <span class="token punctuation">(</span>loc<span class="token punctuation">:</span><span class="token module variable">Location</span><span class="token punctuation">.</span>t <span class="token operator">-&gt;</span> path<span class="token punctuation">:</span>string <span class="token operator">-&gt;</span> <span class="token type-variable function">'a</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span>
   t</code></pre></div>
 <p>Here, the expected pattern first type parameter is <code>payload</code> which means we want a pattern that
 matches <code>payload</code> AST nodes. That makes perfect sense since it is used to describe what your
@@ -312,24 +312,24 @@ parameters of our <code>expand_function</code>. From the pattern point of view, 
 matched AST node we wish to extract for later consumption, here by our expander.</p>
 <p><code>Ast_pattern</code> contains a whole bunch of combinators to let you describe what your pattern should match
 and a specific <code>__</code> pattern that you must use to capture the various parts of the matched nodes.
-<code>__</code> has type <code>('a, 'a -> 'b, 'b) Ast_pattern.t</code> which means that whenever it's used it changes the
+<code>__</code> has type <code>('a, 'a -&gt; 'b, 'b) Ast_pattern.t</code> which means that whenever it's used it changes the
 type of consumer function in the returned pattern.</p>
 <p>Let's consider a few examples to try wrapping our heads around this. Say I want to write an
 extension that takes an expression as a payload and I want to pass this expression to my expander so
 I can generate code based on its value. I can declare the extension like this:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> extension <span class="token operator">=</span>
   <span class="token module variable">Extension</span><span class="token punctuation">.</span>declare
-    <span class="token string">"my_extension"</span>
+    <span class="token string">&quot;my_extension&quot;</span>
     <span class="token module variable">Extension</span><span class="token punctuation">.</span><span class="token module variable">Context</span><span class="token punctuation">.</span>expression
     <span class="token module variable">Ast_pattern</span><span class="token punctuation">.</span><span class="token punctuation">(</span>single_expr_payload __<span class="token punctuation">)</span>
     expand_function</code></pre></div>
 <p>In this example, <code>Extension.Context.expression</code> has type <code>expression Extension.Context.t</code>, the
-pattern has type <code>(payload, expression -> expression, expression) Ast_pattern.t</code>. The pattern says we
+pattern has type <code>(payload, expression -&gt; expression, expression) Ast_pattern.t</code>. The pattern says we
 want to allow a single expression in the payload and capture it. If we decompose it a bit, we can
 see that <code>single_expr_payload</code> has type
-<code>(expression, 'a, 'b) Ast_pattern.t -> (payload, 'a, 'b) Ast_pattern.t</code> and is passed <code>__</code> which
-makes it a <code>(expression, expression -> 'b, 'b) Ast_pattern.t</code> and that's exactly what we want here
-as our expander will have type <code>loc: Location.t -> path: string -> expression -> expression</code>!</p>
+<code>(expression, 'a, 'b) Ast_pattern.t -&gt; (payload, 'a, 'b) Ast_pattern.t</code> and is passed <code>__</code> which
+makes it a <code>(expression, expression -&gt; 'b, 'b) Ast_pattern.t</code> and that's exactly what we want here
+as our expander will have type <code>loc: Location.t -&gt; path: string -&gt; expression -&gt; expression</code>!</p>
 <p>It works similarly to <code>Scanf.scanf</code> when you think about it. Changing the pattern changes the type of the
 consumer function the same way changing the format string does for <code>Scanf</code> functions.</p>
 <p>This was a bit easy since we had a custom combinator just for that purpose so let's take a few more
@@ -340,8 +340,8 @@ our expander:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token module variable">Ast_pattern</span><span class="token punctuation">.</span><span class="token punctuation">(</span>single_expr_payload <span class="token punctuation">(</span>pexp_tuple <span class="token punctuation">(</span><span class="token punctuation">(</span>eint __<span class="token punctuation">)</span><span class="token operator">^::</span><span class="token punctuation">(</span>estring __<span class="token punctuation">)</span><span class="token operator">^::</span>nil<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre></div>
 <p>This one's a bit more elaborate but the idea is the same, we use <code>__</code> to capture the int and string
 from the expression and use combinators to specify that the payload should be made of a pair and
-that gives us a: <code>(payload, int -> string -> 'a, 'a) Ast_pattern.t</code> which should be used with a
-<code>loc: Location.t -> path: string -> int -> string -> expression</code> expander.</p>
+that gives us a: <code>(payload, int -&gt; string -&gt; 'a, 'a) Ast_pattern.t</code> which should be used with a
+<code>loc: Location.t -&gt; path: string -&gt; int -&gt; string -&gt; expression</code> expander.</p>
 <p>We can also specify that our extension should take something else than an expression as a payload,
 say a pattern with no <code>when</code> clause so that it's applied as <code>[%my_ext? some_pattern_payload]</code>:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token module variable">Ast_pattern</span><span class="token punctuation">.</span><span class="token punctuation">(</span>ppat __ none<span class="token punctuation">)</span></code></pre></div>
@@ -349,7 +349,7 @@ say a pattern with no <code>when</code> clause so that it's applied as <code>[%m
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token module variable">Ast_pattern</span><span class="token punctuation">.</span><span class="token punctuation">(</span>pstr nil<span class="token punctuation">)</span></code></pre></div>
 <p>You should play with <code>Ast_pattern</code> a bit if you need to express complex patterns as I think it's
 the only way to get the hang of it.</p>
-<h3 id="writing-a-deriver" style="position:relative;"><a href="#writing-a-deriver" aria-label="writing a deriver permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Writing a deriver</h3>
+<h3 style="position:relative;"><a href="https://tarides.com/feed.xml#writing-a-deriver" aria-label="writing a deriver permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Writing a deriver</h3>
 <p>Registering a deriver is slightly different from registering an extension but in the end it remains
 relatively simple and you will still have to provide the actual implementation in the form of an
 <code>expand</code> function.</p>
@@ -370,7 +370,7 @@ relatively simple and you will still have to provide the actual implementation i
   <span class="token module variable">Deriving</span><span class="token punctuation">.</span>add
     <span class="token label function">~str_type_decl</span><span class="token punctuation">:</span>str_type_decl_generator
     <span class="token label function">~sig_type_decl</span><span class="token punctuation">:</span>sig_type_decl_generator
-    <span class="token string">"my_deriver"</span></code></pre></div>
+    <span class="token string">&quot;my_deriver&quot;</span></code></pre></div>
 <p>Which you'll need to compile with the following <code>library</code> stanza:</p>
 <div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">(library
  (public_name my_ppx)
@@ -379,15 +379,15 @@ relatively simple and you will still have to provide the actual implementation i
 <p>The <code>Deriving.add</code> function is declared as:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">val</span> add
   <span class="token punctuation">:</span>  <span class="token operator">?</span>str_type_decl<span class="token punctuation">:</span><span class="token punctuation">(</span>structure<span class="token punctuation">,</span> rec_flag <span class="token operator">*</span> type_declaration list<span class="token punctuation">)</span> <span class="token module variable">Generator</span><span class="token punctuation">.</span>t
-  <span class="token operator">-></span> <span class="token operator">?</span>str_type_ext <span class="token punctuation">:</span><span class="token punctuation">(</span>structure<span class="token punctuation">,</span> type_extension                  <span class="token punctuation">)</span> <span class="token module variable">Generator</span><span class="token punctuation">.</span>t
-  <span class="token operator">-></span> <span class="token operator">?</span>str_exception<span class="token punctuation">:</span><span class="token punctuation">(</span>structure<span class="token punctuation">,</span> extension_constructor           <span class="token punctuation">)</span> <span class="token module variable">Generator</span><span class="token punctuation">.</span>t
-  <span class="token operator">-></span> <span class="token operator">?</span>sig_type_decl<span class="token punctuation">:</span><span class="token punctuation">(</span>signature<span class="token punctuation">,</span> rec_flag <span class="token operator">*</span> type_declaration list<span class="token punctuation">)</span> <span class="token module variable">Generator</span><span class="token punctuation">.</span>t
-  <span class="token operator">-></span> <span class="token operator">?</span>sig_type_ext <span class="token punctuation">:</span><span class="token punctuation">(</span>signature<span class="token punctuation">,</span> type_extension                  <span class="token punctuation">)</span> <span class="token module variable">Generator</span><span class="token punctuation">.</span>t
-  <span class="token operator">-></span> <span class="token operator">?</span>sig_exception<span class="token punctuation">:</span><span class="token punctuation">(</span>signature<span class="token punctuation">,</span> extension_constructor           <span class="token punctuation">)</span> <span class="token module variable">Generator</span><span class="token punctuation">.</span>t
-  <span class="token operator">-></span> <span class="token operator">?</span>extension<span class="token punctuation">:</span><span class="token punctuation">(</span>loc<span class="token punctuation">:</span><span class="token module variable">Location</span><span class="token punctuation">.</span>t <span class="token operator">-></span> path<span class="token punctuation">:</span>string <span class="token operator">-></span> core_type <span class="token operator">-></span> expression<span class="token punctuation">)</span>
-  <span class="token operator">-></span> string
-  <span class="token operator">-></span> t</code></pre></div>
-<p>It takes a mandatory string argument, here <code>"my_deriver"</code>, which defines how
+  <span class="token operator">-&gt;</span> <span class="token operator">?</span>str_type_ext <span class="token punctuation">:</span><span class="token punctuation">(</span>structure<span class="token punctuation">,</span> type_extension                  <span class="token punctuation">)</span> <span class="token module variable">Generator</span><span class="token punctuation">.</span>t
+  <span class="token operator">-&gt;</span> <span class="token operator">?</span>str_exception<span class="token punctuation">:</span><span class="token punctuation">(</span>structure<span class="token punctuation">,</span> extension_constructor           <span class="token punctuation">)</span> <span class="token module variable">Generator</span><span class="token punctuation">.</span>t
+  <span class="token operator">-&gt;</span> <span class="token operator">?</span>sig_type_decl<span class="token punctuation">:</span><span class="token punctuation">(</span>signature<span class="token punctuation">,</span> rec_flag <span class="token operator">*</span> type_declaration list<span class="token punctuation">)</span> <span class="token module variable">Generator</span><span class="token punctuation">.</span>t
+  <span class="token operator">-&gt;</span> <span class="token operator">?</span>sig_type_ext <span class="token punctuation">:</span><span class="token punctuation">(</span>signature<span class="token punctuation">,</span> type_extension                  <span class="token punctuation">)</span> <span class="token module variable">Generator</span><span class="token punctuation">.</span>t
+  <span class="token operator">-&gt;</span> <span class="token operator">?</span>sig_exception<span class="token punctuation">:</span><span class="token punctuation">(</span>signature<span class="token punctuation">,</span> extension_constructor           <span class="token punctuation">)</span> <span class="token module variable">Generator</span><span class="token punctuation">.</span>t
+  <span class="token operator">-&gt;</span> <span class="token operator">?</span>extension<span class="token punctuation">:</span><span class="token punctuation">(</span>loc<span class="token punctuation">:</span><span class="token module variable">Location</span><span class="token punctuation">.</span>t <span class="token operator">-&gt;</span> path<span class="token punctuation">:</span>string <span class="token operator">-&gt;</span> core_type <span class="token operator">-&gt;</span> expression<span class="token punctuation">)</span>
+  <span class="token operator">-&gt;</span> string
+  <span class="token operator">-&gt;</span> t</code></pre></div>
+<p>It takes a mandatory string argument, here <code>&quot;my_deriver&quot;</code>, which defines how
 user are going to invoke your deriver. In this case we'd need to add a <code>[@@deriving my_deriver]</code> to
 a type declaration in a structure or a signature to use it.
 Then there's just one optional argument per kind of node to which you can attach a <code>[@@deriving ...]</code>
@@ -401,10 +401,10 @@ We can ignore the <code>extension</code> as it's just here for compatibility wit
 the type of the nodes it should produce, ie either a <code>structure</code> or a <code>signature</code>. The type of a
 generator depends on the expand function it's built from when you use the smart constructor
 <code>make_no_arg</code> meaning the expand function should have type
-<code>loc: Location.t -> path: string -> 'input_ast -> 'output_ast</code>. This function is the actual
+<code>loc: Location.t -&gt; path: string -&gt; 'input_ast -&gt; 'output_ast</code>. This function is the actual
 implementation of your deriver and will generate the list of <code>structure_item</code> or <code>signature_item</code>
 from the type declaration.</p>
-<h4 id="compatibility-with-ppx_import" style="position:relative;"><a href="#compatibility-with-ppx_import" aria-label="compatibility with ppx_import permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Compatibility with <code>ppx_import</code></h4>
+<h4 style="position:relative;"><a href="https://tarides.com/feed.xml#compatibility-with-ppx_import" aria-label="compatibility with ppx_import permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Compatibility with <code>ppx_import</code></h4>
 <p><a href="https://github.com/ocaml-ppx/ppx_import"><code>ppx_import</code></a> is a PPX rewriter that lets you import type
 definitions and spares you the need to copy and update them every time they change upstream. The
 main reason why you would want to do that is because you need to derive values from those types
@@ -463,9 +463,9 @@ You can tell whether it is the <code>ocamldep</code> pass from within the <code>
 
 <span class="token keyword">let</span> expand <span class="token label function">~ctxt</span> input_ast <span class="token operator">=</span>
   <span class="token keyword">let</span> omp_config <span class="token operator">=</span> <span class="token module variable">Expansion_context</span><span class="token punctuation">.</span><span class="token module variable">Deriver</span><span class="token punctuation">.</span>omp_config ctxt <span class="token keyword">in</span>
-  <span class="token keyword">let</span> is_ocamldep_pass <span class="token operator">=</span> <span class="token module variable">String</span><span class="token punctuation">.</span>equal <span class="token string">"ocamldep"</span> omp_config<span class="token punctuation">.</span><span class="token module variable">Migrate_parsetree</span><span class="token punctuation">.</span><span class="token module variable">Driver</span><span class="token punctuation">.</span>tool_name <span class="token keyword">in</span>
+  <span class="token keyword">let</span> is_ocamldep_pass <span class="token operator">=</span> <span class="token module variable">String</span><span class="token punctuation">.</span>equal <span class="token string">&quot;ocamldep&quot;</span> omp_config<span class="token punctuation">.</span><span class="token module variable">Migrate_parsetree</span><span class="token punctuation">.</span><span class="token module variable">Driver</span><span class="token punctuation">.</span>tool_name <span class="token keyword">in</span>
   <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre></div>
-<h4 id="deriver-attributes" style="position:relative;"><a href="#deriver-attributes" aria-label="deriver attributes permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Deriver attributes</h4>
+<h4 style="position:relative;"><a href="https://tarides.com/feed.xml#deriver-attributes" aria-label="deriver attributes permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Deriver attributes</h4>
 <p>You'll have noted the <code>attributes</code> parameter in the examples. It's an optional parameter that lets
 you define which attributes your deriver allows the user to attach to various bits of the type,
 type extension or exception declaration it is applied to.</p>
@@ -483,21 +483,21 @@ the attribute can be attached and <code>'payload</code>, the type of its payload
 To build such an attribute you must use <code>Ppxlib.Attribute.declare</code>:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">val</span> declare
   <span class="token punctuation">:</span>  string
-  <span class="token operator">-></span> <span class="token type-variable function">'a</span> <span class="token module variable">Context</span><span class="token punctuation">.</span>t
-  <span class="token operator">-></span> <span class="token punctuation">(</span>payload<span class="token punctuation">,</span> <span class="token type-variable function">'b</span><span class="token punctuation">,</span> <span class="token type-variable function">'c</span><span class="token punctuation">)</span> <span class="token module variable">Ast_pattern</span><span class="token punctuation">.</span>t
-  <span class="token operator">-></span> <span class="token type-variable function">'b</span>
-  <span class="token operator">-></span> <span class="token punctuation">(</span><span class="token type-variable function">'a</span><span class="token punctuation">,</span> <span class="token type-variable function">'c</span><span class="token punctuation">)</span> t</code></pre></div>
+  <span class="token operator">-&gt;</span> <span class="token type-variable function">'a</span> <span class="token module variable">Context</span><span class="token punctuation">.</span>t
+  <span class="token operator">-&gt;</span> <span class="token punctuation">(</span>payload<span class="token punctuation">,</span> <span class="token type-variable function">'b</span><span class="token punctuation">,</span> <span class="token type-variable function">'c</span><span class="token punctuation">)</span> <span class="token module variable">Ast_pattern</span><span class="token punctuation">.</span>t
+  <span class="token operator">-&gt;</span> <span class="token type-variable function">'b</span>
+  <span class="token operator">-&gt;</span> <span class="token punctuation">(</span><span class="token type-variable function">'a</span><span class="token punctuation">,</span> <span class="token type-variable function">'c</span><span class="token punctuation">)</span> t</code></pre></div>
 <p>Let's try to declare the <code>default</code> argument from <code>ppx_deriving_yojson</code> I mentioned earlier.</p>
 <p>The first <code>string</code> argument is the attribute name. <code>ppxlib</code> support namespaces for the attributes so
 that users can avoid conflicting attributes between various derivers applied to the same type
-definitions. For instance here we could use <code>"default"</code>. It can prove helpful to use more qualified
-name such as <code>"ppx_deriving_yojson.of_yojson.default"</code>. That means that our attribute can be used as
+definitions. For instance here we could use <code>&quot;default&quot;</code>. It can prove helpful to use more qualified
+name such as <code>&quot;ppx_deriving_yojson.of_yojson.default&quot;</code>. That means that our attribute can be used as
 <code>[@@default ...]</code>, <code>[@@of_yojson.default ...]</code> or <code>[@@ppx_deriving.of_yojson.default ...]</code>.
 Now if another deriver uses a <code>[@@default ...]</code>, users can apply both derivers and provide different
 <code>default</code> values to the different derivers by writing:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">type</span> t <span class="token operator">=</span>
   <span class="token punctuation">{</span> a <span class="token punctuation">:</span> int
-  <span class="token punctuation">;</span> b <span class="token punctuation">:</span> string <span class="token punctuation">[</span><span class="token operator">@</span>make<span class="token punctuation">.</span>default <span class="token string">"abc"</span><span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token operator">@</span>of_yojson<span class="token punctuation">.</span>default <span class="token string">""</span><span class="token punctuation">]</span>
+  <span class="token punctuation">;</span> b <span class="token punctuation">:</span> string <span class="token punctuation">[</span><span class="token operator">@</span>make<span class="token punctuation">.</span>default <span class="token string">&quot;abc&quot;</span><span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token operator">@</span>of_yojson<span class="token punctuation">.</span>default <span class="token string">&quot;&quot;</span><span class="token punctuation">]</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">[</span><span class="token operator">@@</span>deriving make<span class="token punctuation">,</span>of_yojson<span class="token punctuation">]</span></code></pre></div>
 <p>The context argument works very similarly to the one in <code>Extension.declare</code>. Here we want the
@@ -514,10 +514,10 @@ keep the expression as we got it so we'll just use the identity function here.</
 <p>We end up with the following:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> default_attribute <span class="token operator">=</span>
   <span class="token module variable">Attribute</span><span class="token punctuation">.</span>declare
-    <span class="token string">"ppx_deriving_yojson.of_yojson.default"</span>
+    <span class="token string">&quot;ppx_deriving_yojson.of_yojson.default&quot;</span>
     <span class="token module variable">Attribute</span><span class="token punctuation">.</span><span class="token module variable">Context</span><span class="token punctuation">.</span>label_declaration
     <span class="token module variable">Ast_pattern</span><span class="token punctuation">.</span><span class="token punctuation">(</span>single_expr_payload __<span class="token punctuation">)</span>
-    <span class="token punctuation">(</span><span class="token keyword">fun</span> expr <span class="token operator">-></span> expr<span class="token punctuation">)</span></code></pre></div>
+    <span class="token punctuation">(</span><span class="token keyword">fun</span> expr <span class="token operator">-&gt;</span> expr<span class="token punctuation">)</span></code></pre></div>
 <p>and that gives us a <code>(label_declaration, expression) Attribute.t</code>.</p>
 <p>You can then use it to collect the attribute payload from a label_declaration:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token module variable">Attribute</span><span class="token punctuation">.</span>get default_attribute label_decl</code></pre></div>
@@ -526,7 +526,7 @@ keep the expression as we got it so we'll just use the identity function here.</
 to hide the type parameter, so if you want to pass it to <code>Generator.make_no_arg</code> you'll have to do
 it like this:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> attributes <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token module variable">Attribute</span><span class="token punctuation">.</span>T default_attribute<span class="token punctuation">]</span></code></pre></div>
-<h3 id="writing-your-expand-functions" style="position:relative;"><a href="#writing-your-expand-functions" aria-label="writing your expand functions permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Writing your expand functions</h3>
+<h3 style="position:relative;"><a href="https://tarides.com/feed.xml#writing-your-expand-functions" aria-label="writing your expand functions permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Writing your expand functions</h3>
 <p>In the two last sections I mentioned <code>expand</code> functions that would contain the actual <code>deriver</code> or
 <code>extension</code> implementation but didn't actually said anything about how to write those. It will
 depend a lot on the purpose of your PPX rewriter and what you're trying to achieve.</p>
@@ -554,7 +554,7 @@ wrote a bit of documentation about it
 <a href="https://ppxlib.readthedocs.io/en/latest/ppx-for-plugin-authors.html#metaquot">here</a> which you
 should take a look at but to sum it up <code>metaquot</code> is a PPX extension allowing you to write AST nodes
 using the OCaml syntax they describe instead of the AST types.</p>
-<h4 id="handling-code-locations-in-a-ppx-rewriter" style="position:relative;"><a href="#handling-code-locations-in-a-ppx-rewriter" aria-label="handling code locations in a ppx rewriter permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Handling code locations in a PPX rewriter</h4>
+<h4 style="position:relative;"><a href="https://tarides.com/feed.xml#handling-code-locations-in-a-ppx-rewriter" aria-label="handling code locations in a ppx rewriter permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Handling code locations in a PPX rewriter</h4>
 <p>When building AST fragments you should keep in mind that you have to set their <code>location</code>. Locations
 are part of the AST values that describes the position of the corresponding node in your source
 file, including the file name and the line number and offset of both the beginning and the end the
@@ -585,7 +585,7 @@ generated code on the plugin name in the <code>deriving</code> attribute payload
 you should choose a convention. I personally locate all the generated code on the
 type declaration. Some choose to locate the generated code on the part of the input AST they're
 handling when generating it.</p>
-<h4 id="reporting-errors-to-your-rewriter-users" style="position:relative;"><a href="#reporting-errors-to-your-rewriter-users" aria-label="reporting errors to your rewriter users permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Reporting errors to your rewriter users</h4>
+<h4 style="position:relative;"><a href="https://tarides.com/feed.xml#reporting-errors-to-your-rewriter-users" aria-label="reporting errors to your rewriter users permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Reporting errors to your rewriter users</h4>
 <p>You won't always be able to handle all the AST nodes passed to your expand functions, either because the
 end user misused your rewriter or because there are some cases you simply can't deal with.</p>
 <p>In those cases you can report the error to the user with <code>Ppxlib.Location.raise_errorf</code>. It works
@@ -599,12 +599,12 @@ arguments. It is used so that your error is reported as any compiler error. Havi
 those error messages is just as important as sending clear error messages. Keep in mind that both
 the errors you report yourself or errors coming from your generated code will be highlighted by
 merlin so when properly set they make it much easier to work with your PPX rewriter.</p>
-<h3 id="testing-your-ppx" style="position:relative;"><a href="#testing-your-ppx" aria-label="testing your ppx permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Testing your PPX</h3>
+<h3 style="position:relative;"><a href="https://tarides.com/feed.xml#testing-your-ppx" aria-label="testing your ppx permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Testing your PPX</h3>
 <p>Just as most pieces of code do, a PPX deserves to be tested and it has become easier over the years to
 test rewriters.</p>
 <p>I personally tend to write as many unit test as possible for my PPX-es internal libraries. I try to
 extract helper functions that can easily be unit-tested but I can't test it all that way.
-Testing the <code>ast -> ast</code> functions would be tedious as <code>ppxlib</code> and <code>ocaml-migrate-parsetree</code>
+Testing the <code>ast -&gt; ast</code> functions would be tedious as <code>ppxlib</code> and <code>ocaml-migrate-parsetree</code>
 don't provide comparison and pretty printing functions that you can use with <code>alcotest</code> or <code>oUnit</code>.
 That means you'd have to import the AST types and derive them on your own. That would make a lot
 of boiler plate and even if those functions were exposed, writing such tests would be really
@@ -627,15 +627,15 @@ code again.</p>
  (libraries my_ppx_rewriter ppxlib))</code></pre></div>
 <p>Because we're humans and the OCaml syntax is meant for us to write and read, it makes for much better
 test input/output. You can now write your test input in a regular <code>.ml</code> file, use the <code>pp.exe</code>
-binary to "apply" your preprocessor to it and compare the output with another <code>.ml</code> file containing
+binary to &quot;apply&quot; your preprocessor to it and compare the output with another <code>.ml</code> file containing
 the code you expect it to generate. This kind of test pattern is really well supported by <code>dune</code>
 thanks to the <code>diff</code> user action.</p>
 <p>I usually have the following files in a <code>rewriter</code>/<code>deriver</code> folder within my test directory:</p>
 <div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">test/rewriter/
-├── dune
-├── test.expected.ml
-├── pp.ml
-└── test.ml</code></pre></div>
+&#9500;&#9472;&#9472; dune
+&#9500;&#9472;&#9472; test.expected.ml
+&#9500;&#9472;&#9472; pp.ml
+&#9492;&#9472;&#9472; test.ml</code></pre></div>
 <p>Where <code>pp.ml</code> is used to produce the rewriter binary, <code>test.ml</code> contains the input OCaml code and
 <code>test.expected.ml</code> the result of preprocessing <code>test.ml</code>. The dune file content is generally similar
 to this:</p>
@@ -661,7 +661,7 @@ to this:</p>
 <p>The <code>rule</code> stanza that comes after that indicates to <code>dune</code> how to produce the actual test output by
 applying the rewriter binary to <code>test.ml</code>. You probably noticed the <code>-deriving-keep-w32 both</code> CLI
 option passed to <code>pp.exe</code>. By default, <code>ppxlib</code> will generate values or add attributes so that your
-generated code doesn't trigger a "Unused value" warning. This is useful in real life situation but
+generated code doesn't trigger a &quot;Unused value&quot; warning. This is useful in real life situation but
 here it will just pollute the test output and make it harder to read so we disable that feature.</p>
 <p>The following <code>alias</code> stanza is where all the magic happens. Running <code>dune runtest</code> will now
 generate <code>test.actual.ml</code> and compare it to <code>test.expected.ml</code>. It will not only do that but show
@@ -699,7 +699,7 @@ Luckily for us, dune offers ways to do both.</p>
   (action
     (with-stderr-to
       %{targets}
-      (bash "./%{pp} -no-color --impl %{input} || true")
+      (bash &quot;./%{pp} -no-color --impl %{input} || true&quot;)
     )
   )
 )
@@ -713,19 +713,19 @@ a script to generate those stanzas and then include them into our <code>dune</co
 <code>(include dune.inc)</code>.</p>
 <p>To achieve that while keeping things as clean as possible I use the following directory structure:</p>
 <div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">test/rewriter/
-├── errors
-│   ├── dune
-│   ├── dune.inc
-│   ├── gen_dune_rules.ml
-│   ├── pp.ml
-│   ├── test_some_error.expected
-│   ├── test_some_error.ml
-│   ├── test_some_other_error.expected
-│   └── test_some_other_error.ml
-├── dune
-├── test.expected.ml
-├── pp.ml
-└── test.ml</code></pre></div>
+&#9500;&#9472;&#9472; errors
+&#9474;   &#9500;&#9472;&#9472; dune
+&#9474;   &#9500;&#9472;&#9472; dune.inc
+&#9474;   &#9500;&#9472;&#9472; gen_dune_rules.ml
+&#9474;   &#9500;&#9472;&#9472; pp.ml
+&#9474;   &#9500;&#9472;&#9472; test_some_error.expected
+&#9474;   &#9500;&#9472;&#9472; test_some_error.ml
+&#9474;   &#9500;&#9472;&#9472; test_some_other_error.expected
+&#9474;   &#9492;&#9472;&#9472; test_some_other_error.ml
+&#9500;&#9472;&#9472; dune
+&#9500;&#9472;&#9472; test.expected.ml
+&#9500;&#9472;&#9472; pp.ml
+&#9492;&#9472;&#9472; test.ml</code></pre></div>
 <p>Compared to our previous setup, we only added the new <code>errors</code> folder. To keep things simple it has
 its own <code>pp.ml</code> copy but in the future I'd like to improve it a bit and be able to use the same
 <code>pp.exe</code> binary.</p>
@@ -750,7 +750,7 @@ stanza.</p>
   <span class="token punctuation">(</span>action
     <span class="token punctuation">(</span><span class="token keyword">with</span><span class="token operator">-</span>stderr<span class="token operator">-</span><span class="token keyword">to</span>
       <span class="token operator">%%</span><span class="token punctuation">{</span>targets<span class="token punctuation">}</span>
-      <span class="token punctuation">(</span>bash <span class="token string">"./%%{pp} -no-color --impl %%{input} || true"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">(</span>bash <span class="token string">&quot;./%%{pp} -no-color --impl %%{input} || true&quot;</span><span class="token punctuation">)</span>
     <span class="token punctuation">)</span>
   <span class="token punctuation">)</span>
 <span class="token punctuation">)</span>
@@ -768,16 +768,16 @@ stanza.</p>
     base
 
 <span class="token keyword">let</span> is_error_test <span class="token operator">=</span> <span class="token keyword">function</span>
-  <span class="token operator">|</span> <span class="token string">"pp.ml"</span> <span class="token operator">-></span> <span class="token boolean">false</span>
-  <span class="token operator">|</span> <span class="token string">"gen_dune_rules.ml"</span> <span class="token operator">-></span> <span class="token boolean">false</span>
-  <span class="token operator">|</span> filename <span class="token operator">-></span> <span class="token module variable">Filename</span><span class="token punctuation">.</span>check_suffix filename <span class="token string">".ml"</span>
+  <span class="token operator">|</span> <span class="token string">&quot;pp.ml&quot;</span> <span class="token operator">-&gt;</span> <span class="token boolean">false</span>
+  <span class="token operator">|</span> <span class="token string">&quot;gen_dune_rules.ml&quot;</span> <span class="token operator">-&gt;</span> <span class="token boolean">false</span>
+  <span class="token operator">|</span> filename <span class="token operator">-&gt;</span> <span class="token module variable">Filename</span><span class="token punctuation">.</span>check_suffix filename <span class="token string">&quot;.ml&quot;</span>
 
 <span class="token keyword">let</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span>
-  <span class="token module variable">Sys</span><span class="token punctuation">.</span>readdir <span class="token string">"."</span>
-  <span class="token operator">|></span> <span class="token module variable">Array</span><span class="token punctuation">.</span>to_list
-  <span class="token operator">|></span> <span class="token module variable">List</span><span class="token punctuation">.</span>sort <span class="token module variable">String</span><span class="token punctuation">.</span>compare
-  <span class="token operator">|></span> <span class="token module variable">List</span><span class="token punctuation">.</span>filter is_error_test
-  <span class="token operator">|></span> <span class="token module variable">List</span><span class="token punctuation">.</span>iter output_stanzas</code></pre></div>
+  <span class="token module variable">Sys</span><span class="token punctuation">.</span>readdir <span class="token string">&quot;.&quot;</span>
+  <span class="token operator">|&gt;</span> <span class="token module variable">Array</span><span class="token punctuation">.</span>to_list
+  <span class="token operator">|&gt;</span> <span class="token module variable">List</span><span class="token punctuation">.</span>sort <span class="token module variable">String</span><span class="token punctuation">.</span>compare
+  <span class="token operator">|&gt;</span> <span class="token module variable">List</span><span class="token punctuation">.</span>filter is_error_test
+  <span class="token operator">|&gt;</span> <span class="token module variable">List</span><span class="token punctuation">.</span>iter output_stanzas</code></pre></div>
 <p>Nothing spectacular here, we just build the list of all the <code>.ml</code> files in the directory except
 <code>pp.ml</code> and <code>gen_dune_rules.ml</code> itself and then generate the right stanzas for each of them. You'll
 note the extra <code>library</code> stanza which I add to get dune to generate the right <code>.merlin</code> so that I

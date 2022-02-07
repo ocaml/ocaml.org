@@ -10,6 +10,8 @@ featured:
 ---
 
 <p>We spend a lot of time and effort on training new people, and it never stops for
-long. Right now our winter-intern class is ending; in five months we’ll have a
-slew of new interns to get up to speed, and a few months after that we’ll have
+long. Right now our winter-intern class is ending; in five months we&rsquo;ll have a
+slew of new interns to get up to speed, and a few months after that we&rsquo;ll have
 an incoming class of new hires.</p>
+
+

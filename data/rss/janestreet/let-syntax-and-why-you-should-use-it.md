@@ -12,6 +12,8 @@ featured:
 <p>Earlier this year, we created
 a <a href="http://github.com/janestreet/ppx_let">ppx_let</a>, a PPX rewriter that
 introduces a syntax for working with monadic and applicative libraries like
-Command, Async, Result and Incremental. We’ve now amassed about six months of
-experience with it, and we’ve now seen enough to recommend it to a wider
+Command, Async, Result and Incremental. We&rsquo;ve now amassed about six months of
+experience with it, and we&rsquo;ve now seen enough to recommend it to a wider
 audience.</p>
+
+

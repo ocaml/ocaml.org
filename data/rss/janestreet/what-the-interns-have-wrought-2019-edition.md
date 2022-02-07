@@ -8,6 +8,8 @@ preview_image: https://blog.janestreet.com/what-the-interns-have-wrought-2019/wh
 featured:
 ---
 
-<p>Jane Street’s intern program yet again is coming to an end, which is a
-nice opportunity to look back over the summer and see what they’ve
+<p>Jane Street&rsquo;s intern program yet again is coming to an end, which is a
+nice opportunity to look back over the summer and see what they&rsquo;ve
 accomplished.</p>
+
+

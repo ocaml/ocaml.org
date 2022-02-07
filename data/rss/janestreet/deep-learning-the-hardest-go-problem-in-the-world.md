@@ -7,4 +7,6 @@ preview_image: https://blog.janestreet.com/deep-learning-the-hardest-go-problem-
 featured:
 ---
 
-<h2 id="updates-and-a-new-run">Updates and a New Run</h2>
+<h2>Updates and a New Run</h2>
+
+

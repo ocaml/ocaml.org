@@ -9,9 +9,11 @@ preview_image: https://blog.janestreet.com/introducing-incremental/introducing_i
 featured:
 ---
 
-<p>I’m pleased to announce the release of
+<p>I&rsquo;m pleased to announce the release of
 <a href="https://github.com/janestreet/incremental">Incremental</a> (well
 commented mli
 <a href="https://github.com/janestreet/incremental/blob/master/src/incremental_intf.ml">here</a>),
 a powerful library for building <em>self-adjusting computations</em>, <em>i.e.</em>,
 computations that can be updated efficiently when their inputs change.</p>
+
+

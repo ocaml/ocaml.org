@@ -13,3 +13,5 @@ featured:
 that I came across as a researcher at Jane Street - that of the 
 interaction between L2 regularization, also known as
 weight decay, and batch normalization.</p>
+
+

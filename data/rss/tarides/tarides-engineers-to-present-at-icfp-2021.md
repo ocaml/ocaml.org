@@ -17,21 +17,21 @@ this year due to ongoing Covid restrictions. While this is disappointing news
 for so many, it's beneficial to those of you outside France because now you
 can hear professionals talk about cutting edge technology from the comfort of
 your own home.</p>
-<p>Tarides engineers, as well as our colleagues at <a href="ocamllabs.io">OCaml Labs
+<p>Tarides engineers, as well as our colleagues at <a href="https://tarides.com/ocamllabs.io">OCaml Labs
 Consultancy</a> and <a href="https://segfault.systems/">Segfault Systems</a>,
 have some exciting presentations at this year's ICFP! Listen to talks on running
 OCaml on multiple cores, generating fuzzing suites, benchmarking, and the
 experimental OCaml effects.</p>
 <p>You can search the [complete ICFP
 Timetable](<a href="https://icfp21.sigplan.org/program/program-icfp-2021/?past=Show">https://icfp21.sigplan.org/program/program-icfp-2021/?past=Show</a>
-upcoming events only&#x26;date=Fri 27 Aug 2021) for other topics of interest and read
+upcoming events only&amp;date=Fri 27 Aug 2021) for other topics of interest and read
 below about our engineers' projects and presentations. Times are listed both in
 London (GMT +1) and Paris (GMT +2) for ease of planning. The following talks are
 scheduled for Friday, 27 August 2021.</p>
 <p>Grab a cup of coffee for our first morning talk at <strong>9am London / 10am Paris</strong>
 and learn about <strong>Adapting the OCaml Ecosystem for Multicore OCaml.</strong> With the
 soon-to-be released OCaml 5.0, there will be support for Shared-Memory
-Parallelism. There’s increasing interest in the community to port existing
+Parallelism. There&rsquo;s increasing interest in the community to port existing
 libraries to Multicore, so this talk will cover the arrival of Multicore and
 what that means to the OCaml ecosystem. Our engineers will highlight existing
 tools and provide methods for a smooth transition, so viewers can benefit from
@@ -50,7 +50,7 @@ Sivaramakrishnan</a> of IIT
 Madras.</p>
 <p>Next up is <strong>Leveraging Formal Specifications to Generate Fuzzing Suites</strong> at
 <strong>11:10 London / 12:10 Paris,</strong> presented by Tarides's own <a href="https://icfp21.sigplan.org/profile/nicolasosborne">Nicolas
-Osborne</a> and <a href="https://icfp21.sigplan.org/profile/clementpascutto">Clément
+Osborne</a> and <a href="https://icfp21.sigplan.org/profile/clementpascutto">Cl&eacute;ment
 Pascutto</a>. They'll discuss
 how developers typically first have to capture the semantics they want when
 checking a library and then write the code implementing these tests and find

@@ -11,5 +11,7 @@ featured:
 
 <p>When GADTs (<a href="http://en.wikipedia.org/wiki/Generalized_algebraic_data_type">Generalized Algebraic Data
 Types</a>) landed in
-OCaml, I wasn’t particularly happy about it. I assumed that it was the kind of
+OCaml, I wasn&rsquo;t particularly happy about it. I assumed that it was the kind of
 nonsense you get when you let compiler writers design your programming language.</p>
+
+

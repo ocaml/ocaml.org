@@ -16,7 +16,9 @@ give them cute names, like
 <a href="https://www.scrumalliance.org/sgcal">conferences</a> and build
 <a href="https://www.scrumalliance.org/community">communities</a> around them;
 write
-<a href="https://www.amazon.com/Extreme-Programming-Explained-Embrace-Change/dp/0321278658/ref=sr_1_1?ie=UTF8&amp;qid=1503346126&amp;sr=8-1&amp;keywords=extreme+programming">books</a>
+<a href="https://www.amazon.com/Extreme-Programming-Explained-Embrace-Change/dp/0321278658/ref=sr_1_1?ie=UTF8&amp;qid=1503346126&amp;sr=8-1&amp;keywords=extreme%20programming">books</a>
 that describe how to use them in excruciating detail; and
 <a href="http://agilemanifesto.org/">manifestos</a> that lay out their
 philosophy.</p>
+
+

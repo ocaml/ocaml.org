@@ -9,4 +9,6 @@ featured:
 ---
 
 <p>OCaml 4.03 is branched and a first release candidate is imminent, so it seems
-like a good time to take stock of what’s coming.</p>
+like a good time to take stock of what&rsquo;s coming.</p>
+
+

@@ -9,6 +9,8 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 featured:
 ---
 
-<p>In my <a href="/flambda">previous post</a> I wrote about Flambda, which is the single
-biggest feature coming to OCaml in this release. In this post, I’ll review the
+<p>In my <a href="https://blog.janestreet.com/flambda">previous post</a> I wrote about Flambda, which is the single
+biggest feature coming to OCaml in this release. In this post, I&rsquo;ll review the
 other features of 4.03 that caught my eye.</p>
+
+

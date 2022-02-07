@@ -9,4 +9,6 @@ preview_image: https://blog.janestreet.com/accelerating-self-play-learning-in-go
 featured:
 ---
 
-<p>At Jane Street, over the last few years, we’ve been increasingly exploring machine learning to improve our models. Many of us are fascinated by the rapid improvement we see in a wide variety of applications due to developments in deep learning and reinforcement learning, both for its exciting potential for our own problems, and also on a personal level of pure interest and curiosity outside of work.</p>
+<p>At Jane Street, over the last few years, we&rsquo;ve been increasingly exploring machine learning to improve our models. Many of us are fascinated by the rapid improvement we see in a wide variety of applications due to developments in deep learning and reinforcement learning, both for its exciting potential for our own problems, and also on a personal level of pure interest and curiosity outside of work.</p>
+
+

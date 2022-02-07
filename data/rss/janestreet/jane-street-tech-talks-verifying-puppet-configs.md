@@ -8,5 +8,7 @@ preview_image: https://blog.janestreet.com/jane-street-tech-talks-verifying-pupp
 featured:
 ---
 
-<p>Our first <a href="/how-to-build-an-exchange/">Jane Street Tech Talk</a> went really well!
+<p>Our first <a href="https://blog.janestreet.com/how-to-build-an-exchange/">Jane Street Tech Talk</a> went really well!
 Thanks to everyone who came and made it a fun event.</p>
+
+

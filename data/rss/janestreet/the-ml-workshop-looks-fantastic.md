@@ -8,5 +8,7 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 featured:
 ---
 
-<p>I’m a little biased, by being on the steering committee, but this year’s ML
-workshop looks really interesting. Here’s a link to the program:</p>
+<p>I&rsquo;m a little biased, by being on the steering committee, but this year&rsquo;s ML
+workshop looks really interesting. Here&rsquo;s a link to the program:</p>
+
+

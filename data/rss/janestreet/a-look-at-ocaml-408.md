@@ -9,10 +9,12 @@ preview_image: https://blog.janestreet.com/a-look-at-ocaml-4.08/ocaml_release-20
 featured:
 ---
 
-<p>Now that OCaml 4.08 has been released, let’s have a look at what was
-accomplished, with a particular focus on how <a href="../plans-for-ocaml-408/">our plans for
-4.08</a> fared. I’ll mostly focus on work that we
+<p>Now that OCaml 4.08 has been released, let&rsquo;s have a look at what was
+accomplished, with a particular focus on how <a href="https://blog.janestreet.com/plans-for-ocaml-408/">our plans for
+4.08</a> fared. I&rsquo;ll mostly focus on work that we
 in the Jane Street Tools &amp; Compilers team were involved with, but we are
-just some of the contributors to the OCaml compiler, and I’ll have a
+just some of the contributors to the OCaml compiler, and I&rsquo;ll have a
 quick look at the end of the post at some of the other work that went
 into 4.08.</p>
+
+

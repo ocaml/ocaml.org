@@ -7,4 +7,6 @@ preview_image: https://blog.janestreet.com/what-the-interns-have-wrought-2020/./
 featured:
 ---
 
-<p>It’s been an unusual internship season.</p>
+<p>It&rsquo;s been an unusual internship season.</p>
+
+

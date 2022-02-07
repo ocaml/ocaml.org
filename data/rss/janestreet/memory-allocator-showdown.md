@@ -19,3 +19,5 @@ source is these notes from a talk by its
 author.  Instead, this post is about just how tricky it is to compare two
 allocators in a reasonable way, especially for a garbage-collected
 system.
+  
+

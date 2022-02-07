@@ -16,7 +16,7 @@ function and the <a href="https://github.com/yomimono/ocaml-bun/">Bun</a> tool f
 <p>All of the examples given in this article are available on GitHub at
 <a href="https://github.com/NathanReb/ocaml-afl-examples">ocaml-afl-examples</a>. The <code>README</code> contains all the information you need to understand,
 build and fuzz them yourself.</p>
-<h2 id="what-is-afl" style="position:relative;"><a href="#what-is-afl" aria-label="what is afl permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What is AFL?</h2>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#what-is-afl" aria-label="what is afl permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What is AFL?</h2>
 <p>AFL actually isn't <em>just</em> a fuzzer but a set of tools. What makes it so good is that it doesn't just
 blindly send random input to your program hoping for it to crash; it inspects the execution paths
 of the program and uses that information to figure out which mutations to apply to the previous
@@ -36,7 +36,7 @@ you can invoke <code>afl-fuzz</code> in the following way:</p>
 <p>The <code>findings/</code> directory is where <code>afl-fuzz</code> will write the crashes it finds, it will create it
 for you if it doesn't exist.
 The <code>inputs/</code> directory contains one or more valid input files for your
-program. By valid we mean "that don't crash your program".
+program. By valid we mean &quot;that don't crash your program&quot;.
 Finally the <code>@@</code> part tells <code>afl-fuzz</code> where on the command line the input file should be passed to
 your program, in our case, as the first argument.</p>
 <p>Note that it is possible to supply <code>afl-fuzz</code> with more detail about how to invoke your program. If
@@ -47,41 +47,19 @@ you need to pass it command-line options for instance, you can run it as:</p>
 <p>Once <code>afl-fuzz</code> starts, it will draw a fancy looking table on the standard output to keep you
 updated about its progress. From there, you'll mostly be interested in is the top right
 corner which contains the number of crashes and hangs it has found so far:</p>
-<p><span
-      class="gatsby-resp-image-wrapper"
-      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; "
-    >
-      <a
-    class="gatsby-resp-image-link"
-    href="/static/893fd2c3d0dfbb1c576fd016b6963e96/f2793/afl_example_output.png"
-    style="display: block"
-    target="_blank"
-    rel="noopener"
-  >
-    <span
-    class="gatsby-resp-image-background-image"
-    style="padding-bottom: 63.52941176470588%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAAA7EAAAOxAGVKw4bAAACMUlEQVQ4y2WT6W7bMBCEqdsSD1ESD1Fx4jhuDDTv/35fQSZGk/bHggI4Ozs7HAkhBP+WtYIQBMsi2FaBsRViWRFLj9gEwv7f87f6HjFNiHFEaE3ddkjZolRTTikbxqmlk5Jm7GlkTTU2CCm/KvdOiLqmqWvEMI7IeWbzHp8SUilub7+wdmXfE/t+EHxkz/frVlSouuXded5i5DUELlKzDCNVUyO0MWwh4GLEhYBSitfXV5xzHMeBtbYM6aeJIW8iBHPX8mEUH+vC79Vy7ztc1xWVIqvTMTKnhEkJZUwhCyGwLEshaLqO07ahvMecn5gGSWwDaXBchgM1aERT0bUdwqwrKiVsSuh9L2pijKX6vqeqKsZp+hx4HKwpMcWEnR3ORYI7MMpQVxVdVmmXpXi3hoC2ltvbG25d2WPEGFMUjuNYMPF8xjqHmmeeguO6R/SpL5g8uGmanIa1+OdjLITP1ytjJqrrAsrg0+lEDIHgfVGux5Ena7lvjqd5/knYS4lMiXnfGbJ31yvLywuL98XDNVuiFHWORdvSNg3NMDDmjS4Xhhjp+r5Epqy8WMv5OAjOYZTi/XYjel9Wf7lcuN1uReH38ObGlH12Dqs1wzB8Pl5WqLUmHQc+v6AxvN/vxH0v0TFak+/btv1BOE0T5+fnkoR5nvE+UImvlfMquSETPjKYfdr3vYAfJNmj757mfGZ8xqT8Q2ySpv0i/LfypFx50OP7+92DOJeUkuE0IGZBVVf8AS4+KX9Wn+12AAAAAElFTkSuQmCC'); background-size: cover; display: block;"
-  ></span>
-  <img
-        class="gatsby-resp-image-image"
-        alt="Example output from afl-fuzz"
-        title="Example output from afl-fuzz"
-        src="/static/893fd2c3d0dfbb1c576fd016b6963e96/c5bb3/afl_example_output.png"
-        srcset="/static/893fd2c3d0dfbb1c576fd016b6963e96/04472/afl_example_output.png 170w,
+<p><span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; ">
+      <a href="https://tarides.com/static/893fd2c3d0dfbb1c576fd016b6963e96/f2793/afl_example_output.png" class="gatsby-resp-image-link" style="display: block" target="_blank" rel="noopener">
+    <span class="gatsby-resp-image-background-image" style="padding-bottom: 63.52941176470588%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAAA7EAAAOxAGVKw4bAAACMUlEQVQ4y2WT6W7bMBCEqdsSD1ESD1Fx4jhuDDTv/35fQSZGk/bHggI4Ozs7HAkhBP+WtYIQBMsi2FaBsRViWRFLj9gEwv7f87f6HjFNiHFEaE3ddkjZolRTTikbxqmlk5Jm7GlkTTU2CCm/KvdOiLqmqWvEMI7IeWbzHp8SUilub7+wdmXfE/t+EHxkz/frVlSouuXded5i5DUELlKzDCNVUyO0MWwh4GLEhYBSitfXV5xzHMeBtbYM6aeJIW8iBHPX8mEUH+vC79Vy7ztc1xWVIqvTMTKnhEkJZUwhCyGwLEshaLqO07ahvMecn5gGSWwDaXBchgM1aERT0bUdwqwrKiVsSuh9L2pijKX6vqeqKsZp+hx4HKwpMcWEnR3ORYI7MMpQVxVdVmmXpXi3hoC2ltvbG25d2WPEGFMUjuNYMPF8xjqHmmeeguO6R/SpL5g8uGmanIa1+OdjLITP1ytjJqrrAsrg0+lEDIHgfVGux5Ena7lvjqd5/knYS4lMiXnfGbJ31yvLywuL98XDNVuiFHWORdvSNg3NMDDmjS4Xhhjp+r5Epqy8WMv5OAjOYZTi/XYjel9Wf7lcuN1uReH38ObGlH12Dqs1wzB8Pl5WqLUmHQc+v6AxvN/vxH0v0TFak+/btv1BOE0T5+fnkoR5nvE+UImvlfMquSETPjKYfdr3vYAfJNmj757mfGZ8xqT8Q2ySpv0i/LfypFx50OP7+92DOJeUkuE0IGZBVVf8AS4+KX9Wn+12AAAAAElFTkSuQmCC'); background-size: cover; display: block;"></span>
+  <img src="https://tarides.com/static/893fd2c3d0dfbb1c576fd016b6963e96/c5bb3/afl_example_output.png" class="gatsby-resp-image-image" alt="Example output from afl-fuzz" title="Example output from afl-fuzz" srcset="/static/893fd2c3d0dfbb1c576fd016b6963e96/04472/afl_example_output.png 170w,
 /static/893fd2c3d0dfbb1c576fd016b6963e96/9f933/afl_example_output.png 340w,
 /static/893fd2c3d0dfbb1c576fd016b6963e96/c5bb3/afl_example_output.png 680w,
-/static/893fd2c3d0dfbb1c576fd016b6963e96/f2793/afl_example_output.png 743w"
-        sizes="(max-width: 680px) 100vw, 680px"
-        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
-        loading="lazy"
-        decoding="async"
-      />
+/static/893fd2c3d0dfbb1c576fd016b6963e96/f2793/afl_example_output.png 743w" sizes="(max-width: 680px) 100vw, 680px" style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;" loading="lazy" decoding="async"/>
   </a>
     </span></p>
 <p>You might need to change some of your CPU settings to achieve better performance while fuzzing.
 <code>afl-fuzz</code>'s output will tell you if that's the case and guide you through the steps required to
 make that happen.</p>
-<h2 id="using-afl-to-fuzz-an-ocaml-parser" style="position:relative;"><a href="#using-afl-to-fuzz-an-ocaml-parser" aria-label="using afl to fuzz an ocaml parser permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using AFL to fuzz an OCaml parser</h2>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#using-afl-to-fuzz-an-ocaml-parser" aria-label="using afl to fuzz an ocaml parser permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using AFL to fuzz an OCaml parser</h2>
 <p>First of all, if you want to fuzz an OCaml program with AFL you'll need to produce an instrumented
 binary. <code>afl-fuzz</code> has an option to work with regular binaries but you'd lose a lot of what makes it
 efficient. To instrument your binary you can simply install a <code>+afl</code> opam switch and build your
@@ -92,7 +70,7 @@ a switch you can run:</p>
 can simply build the executable from your <code>+afl</code> switch and adapt the above examples. If it doesn't,
 it's still easy to fuzz any parsing function.</p>
 <p>Imagine we have a <code>simple-parser</code> library which exposes the following <code>parse_int</code> function:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">val</span> parse_int<span class="token punctuation">:</span> string <span class="token operator">-></span> <span class="token punctuation">(</span>int<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token operator">></span> <span class="token variant variable">`Msg</span> <span class="token keyword">of</span> string<span class="token punctuation">]</span><span class="token punctuation">)</span> result
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">val</span> parse_int<span class="token punctuation">:</span> string <span class="token operator">-&gt;</span> <span class="token punctuation">(</span>int<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token operator">&gt;</span> <span class="token variant variable">`Msg</span> <span class="token keyword">of</span> string<span class="token punctuation">]</span><span class="token punctuation">)</span> result
 <span class="token comment">(** Parse the given string as an int or return [Error (`Msg _)].
     Does not raise, usually... *)</span></code></pre></div>
 <p>We want to use AFL to make sure our function is robust and won't crash when receiving unexpected
@@ -114,11 +92,11 @@ and make good starting point for AFL as they should trigger different execution 
 <p>Because we want to make sure AFL does find crashes we can try to hide a bug in our function:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> parse_int s <span class="token operator">=</span>
   <span class="token keyword">match</span> <span class="token module variable">List</span><span class="token punctuation">.</span>init <span class="token punctuation">(</span><span class="token module variable">String</span><span class="token punctuation">.</span>length s<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token module variable">String</span><span class="token punctuation">.</span>get s<span class="token punctuation">)</span> <span class="token keyword">with</span>
-  <span class="token operator">|</span> <span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">;</span> <span class="token string">'b'</span><span class="token punctuation">;</span> <span class="token string">'c'</span><span class="token punctuation">]</span> <span class="token operator">-></span> failwith <span class="token string">"secret crash"</span>
-  <span class="token operator">|</span> <span class="token punctuation">_</span> <span class="token operator">-></span> <span class="token punctuation">(</span>
+  <span class="token operator">|</span> <span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">;</span> <span class="token string">'b'</span><span class="token punctuation">;</span> <span class="token string">'c'</span><span class="token punctuation">]</span> <span class="token operator">-&gt;</span> failwith <span class="token string">&quot;secret crash&quot;</span>
+  <span class="token operator">|</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> <span class="token punctuation">(</span>
       <span class="token keyword">match</span> int_of_string_opt s <span class="token keyword">with</span>
-      <span class="token operator">|</span> <span class="token module variable">None</span> <span class="token operator">-></span> <span class="token module variable">Error</span> <span class="token punctuation">(</span><span class="token variant variable">`Msg</span> <span class="token punctuation">(</span><span class="token module variable">Printf</span><span class="token punctuation">.</span>sprintf <span class="token string">"Not an int: %S"</span> s<span class="token punctuation">)</span><span class="token punctuation">)</span>
-      <span class="token operator">|</span> <span class="token module variable">Some</span> i <span class="token operator">-></span> <span class="token module variable">Ok</span> i<span class="token punctuation">)</span></code></pre></div>
+      <span class="token operator">|</span> <span class="token module variable">None</span> <span class="token operator">-&gt;</span> <span class="token module variable">Error</span> <span class="token punctuation">(</span><span class="token variant variable">`Msg</span> <span class="token punctuation">(</span><span class="token module variable">Printf</span><span class="token punctuation">.</span>sprintf <span class="token string">&quot;Not an int: %S&quot;</span> s<span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token operator">|</span> <span class="token module variable">Some</span> i <span class="token operator">-&gt;</span> <span class="token module variable">Ok</span> i<span class="token punctuation">)</span></code></pre></div>
 <p>Now we just have to build our native binary from the right switch and let <code>afl-fuzz</code> do the rest:</p>
 <div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">$ afl-fuzz -i inputs/ -o findings/ ./fuzz_me.exe @@</code></pre></div>
 <p>It should find that the <code>abc</code> input leads to a crash rather quickly. Once it does, you'll see it in
@@ -136,7 +114,7 @@ with that input ourselves to make sure it does trigger it:</p>
 <div class="gatsby-highlight" data-language="sh"><pre class="language-sh"><code class="language-sh">$ ./fuzz_me.exe findings/crashes/id:000000,sig:06,src:000111,op:havoc,rep:16
 Fatal error: exception Failure(&quot;secret crash&quot;)</code></pre></div>
 <p>No surprise here, it does trigger our uncaught exception and crashes shamefully.</p>
-<h2 id="using-crowbar-and-afl-for-property-based-testing" style="position:relative;"><a href="#using-crowbar-and-afl-for-property-based-testing" aria-label="using crowbar and afl for property based testing permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using Crowbar and AFL for property-based testing</h2>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#using-crowbar-and-afl-for-property-based-testing" aria-label="using crowbar and afl for property based testing permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using Crowbar and AFL for property-based testing</h2>
 <p>This works well but only being able to fuzz parsers is quite a limitation. That's where <a href="https://github.com/stedolan/crowbar/">Crowbar</a>
 comes into play.</p>
 <p>Crowbar is a property-based testing framework. It's much like Haskell's <a href="http://hackage.haskell.org/package/QuickCheck">QuickCheck</a>.
@@ -145,7 +123,7 @@ should satisfy and it will make sure they hold with any combinations of randomly
 arguments.
 Let's clarify that with an example.</p>
 <p>I wrote a library called <code>Awesome_list</code> and I want to test its <code>sort</code> function:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">val</span> sort<span class="token punctuation">:</span> int list <span class="token operator">-></span> int list
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">val</span> sort<span class="token punctuation">:</span> int list <span class="token operator">-&gt;</span> int list
 <span class="token comment">(** Sorts the given list of integers. Result list is sorted in increasing
     order, most of the time... *)</span></code></pre></div>
 <p>I want to make sure it really works so I'm going to use Crowbar to generate a whole lot of
@@ -162,19 +140,19 @@ you can use it to build more complex arguments.</p>
 sorted:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> is_sorted l <span class="token operator">=</span>
   <span class="token keyword">let</span> <span class="token keyword">rec</span> is_sorted <span class="token operator">=</span> <span class="token keyword">function</span>
-    <span class="token operator">|</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">|</span> <span class="token punctuation">[</span><span class="token punctuation">_</span><span class="token punctuation">]</span> <span class="token operator">-></span> <span class="token boolean">true</span>
-    <span class="token operator">|</span> hd<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token punctuation">(</span>hd'<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token punctuation">_</span> <span class="token keyword">as</span> tl<span class="token punctuation">)</span> <span class="token operator">-></span> hd <span class="token operator">&lt;=</span> hd' <span class="token operator">&amp;&amp;</span> is_sorted tl
+    <span class="token operator">|</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">|</span> <span class="token punctuation">[</span><span class="token punctuation">_</span><span class="token punctuation">]</span> <span class="token operator">-&gt;</span> <span class="token boolean">true</span>
+    <span class="token operator">|</span> hd<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token punctuation">(</span>hd'<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token punctuation">_</span> <span class="token keyword">as</span> tl<span class="token punctuation">)</span> <span class="token operator">-&gt;</span> hd <span class="token operator">&lt;=</span> hd' <span class="token operator">&amp;&amp;</span> is_sorted tl
   <span class="token keyword">in</span>
   <span class="token module variable">Crowbar</span><span class="token punctuation">.</span>check <span class="token punctuation">(</span>is_sorted l<span class="token punctuation">)</span></code></pre></div>
 <p>All that's left to do now is to register our test:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span>
-  <span class="token module variable">Crowbar</span><span class="token punctuation">.</span>add_test <span class="token label function">~name</span><span class="token punctuation">:</span><span class="token string">"Awesome_list.sort"</span> <span class="token punctuation">[</span>int_list<span class="token punctuation">]</span>
-      <span class="token punctuation">(</span><span class="token keyword">fun</span> l <span class="token operator">-></span> is_sorted <span class="token punctuation">(</span><span class="token module variable">Awesome_list</span><span class="token punctuation">.</span>sort l<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre></div>
+  <span class="token module variable">Crowbar</span><span class="token punctuation">.</span>add_test <span class="token label function">~name</span><span class="token punctuation">:</span><span class="token string">&quot;Awesome_list.sort&quot;</span> <span class="token punctuation">[</span>int_list<span class="token punctuation">]</span>
+      <span class="token punctuation">(</span><span class="token keyword">fun</span> l <span class="token operator">-&gt;</span> is_sorted <span class="token punctuation">(</span><span class="token module variable">Awesome_list</span><span class="token punctuation">.</span>sort l<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre></div>
 <p>and to compile that <code>fuzz_me.ml</code> file to a binary. Crowbar will take care of the magic.</p>
-<p>We can run that binary in "Quickcheck" mode where it will either try a certain amount of random
+<p>We can run that binary in &quot;Quickcheck&quot; mode where it will either try a certain amount of random
 inputs or keep trying until one of the properties breaks depending on the command-line options
 we pass it.
-What we're interested in here is its less common "AFL" mode. Crowbar made it so our executable
+What we're interested in here is its less common &quot;AFL&quot; mode. Crowbar made it so our executable
 can be used with <code>afl-fuzz</code> just like that:</p>
 <div class="gatsby-highlight" data-language="sh"><pre class="language-sh"><code class="language-sh">$ afl-fuzz -i inputs -o findings -- ./fuzz_me.exe @@</code></pre></div>
 <p>What will happen then is that our <code>fuzz_me.exe</code> binary will read the inputs provided by <code>afl-fuzz</code>
@@ -184,9 +162,9 @@ that <code>afl-fuzz</code> interprets that as a crash by raising an exception.</
 <p>A nice side-effect of Crowbar's approach is that <code>afl-fuzz</code> will still be able to pick up
 crashes. For instance, if we implement <code>Awesome_list.sort</code> as:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> sort <span class="token operator">=</span> <span class="token keyword">function</span>
-  <span class="token operator">|</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">;</span> <span class="token number">2</span><span class="token punctuation">;</span> <span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">-></span> failwith <span class="token string">"secret crash"</span>
-  <span class="token operator">|</span> <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">;</span> <span class="token number">5</span><span class="token punctuation">;</span> <span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">-></span> <span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">;</span> <span class="token number">5</span><span class="token punctuation">;</span> <span class="token number">4</span><span class="token punctuation">]</span>
-  <span class="token operator">|</span> l <span class="token operator">-></span> <span class="token module variable">List</span><span class="token punctuation">.</span>sort <span class="token module variable">Pervasives</span><span class="token punctuation">.</span>compare l</code></pre></div>
+  <span class="token operator">|</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">;</span> <span class="token number">2</span><span class="token punctuation">;</span> <span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">-&gt;</span> failwith <span class="token string">&quot;secret crash&quot;</span>
+  <span class="token operator">|</span> <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">;</span> <span class="token number">5</span><span class="token punctuation">;</span> <span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">-&gt;</span> <span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">;</span> <span class="token number">5</span><span class="token punctuation">;</span> <span class="token number">4</span><span class="token punctuation">]</span>
+  <span class="token operator">|</span> l <span class="token operator">-&gt;</span> <span class="token module variable">List</span><span class="token punctuation">.</span>sort <span class="token module variable">Pervasives</span><span class="token punctuation">.</span>compare l</code></pre></div>
 <p>and use AFL and Crowbar to fuzz-test our function, it will find two crashes: one for the input
 <code>[1; 2; 3]</code> which triggers a crash and one for <code>[4; 5; 6]</code> for which the <code>is_sorted</code>
 property won't hold.</p>
@@ -226,7 +204,7 @@ the test failed:
 Fatal error: exception Crowbar.TestFailure</code></pre></div>
 <p>We can see the actual inputs as well as distinguish the one that broke the invariant from the one
 that triggered a crash.</p>
-<h2 id="using-bun-to-run-fuzz-testing-in-ci" style="position:relative;"><a href="#using-bun-to-run-fuzz-testing-in-ci" aria-label="using bun to run fuzz testing in ci permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using <code>bun</code> to run fuzz testing in CI</h2>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#using-bun-to-run-fuzz-testing-in-ci" aria-label="using bun to run fuzz testing in ci permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using <code>bun</code> to run fuzz testing in CI</h2>
 <p>While AFL and Crowbar provide no guarantees they can give you confidence that your implementation
 is not broken. Now that you know how to use them, a natural follow-up is to want to run fuzz tests
 in your CI to enforce that level of confidence.</p>
@@ -247,9 +225,9 @@ and CI-friendly summary of what's going on with all the fuzzing processes so far
 finds a crash, it will stop all processes and pretty-print all of the bug-triggering inputs to help
 you reproduce and debug them locally. See an example <code>bun</code> output after a crash was found:</p>
 <div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">Crashes found! Take a look; copy/paste to save for reproduction:
-1432	echo JXJpaWl0IA== | base64 -d > crash_0.$(date -u +%s)
-1433	echo NXJhkV8QAA== | base64 -d > crash_1.$(date -u +%s)
-1434	echo J3Jh//9qdGFiYmkg | base64 -d > crash_2.$(date -u +%s)
+1432	echo JXJpaWl0IA== | base64 -d &gt; crash_0.$(date -u +%s)
+1433	echo NXJhkV8QAA== | base64 -d &gt; crash_1.$(date -u +%s)
+1434	echo J3Jh//9qdGFiYmkg | base64 -d &gt; crash_2.$(date -u +%s)
 1435	09:35.32:[ERROR]All fuzzers finished, but some crashes were found!</code></pre></div>
 <p>Using <code>bun</code> is very similar to using <code>afl-fuzz</code>. Going back to our first parser example, we can
 fuzz it with <code>bun</code> like this:</p>
@@ -266,7 +244,7 @@ you don't want to go through the whole process of fuzz testing it to only find a
 <div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">timeout --preserve-status 60m bun --no-kill --input inputs --output findings ./fuzz_me.exe</code></pre></div>
 <p>will fuzz <code>fuzz_me.exe</code> for an hour no matter what happens. When <code>timeout</code> terminates <code>bun</code>, it will
 provide you with a handful of bugs to fix!</p>
-<h2 id="final-words" style="position:relative;"><a href="#final-words" aria-label="final words permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Final words</h2>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#final-words" aria-label="final words permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Final words</h2>
 <p>I really want to encourage you to use those tools and fuzzing in general.
 Crowbar and <code>bun</code> are fairly new so you will probably encounter bugs or find that it lacks a feature
 you want but combined with AFL they make for very nice tools to effectively test

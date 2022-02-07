@@ -11,8 +11,10 @@ featured:
 <p>When we set up a schedule on a computer, such as a list of commands to
 run every day at particular times via Linux <a href="https://www.ostechnix.com/a-beginners-guide-to-cron-jobs">cron
 jobs</a>, we
-expect that schedule to execute reliably.  Of course we’ll check the
+expect that schedule to execute reliably.  Of course we&rsquo;ll check the
 logs to see whether the job has failed, but we never question whether
 the cron daemon itself will function.  We always assume that it will,
 as it always has done; we are not expecting mutiny in the ranks of the
 operating system.</p>
+
+

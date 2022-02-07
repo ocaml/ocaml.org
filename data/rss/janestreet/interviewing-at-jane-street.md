@@ -7,4 +7,6 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 featured:
 ---
 
-<h1 id="software-engineering-interviews-at-jane-street">Software Engineering Interviews at Jane Street</h1>
+<h1>Software Engineering Interviews at Jane Street</h1>
+
+

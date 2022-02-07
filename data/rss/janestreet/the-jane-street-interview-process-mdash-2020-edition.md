@@ -9,11 +9,13 @@ preview_image: https://blog.janestreet.com/jane-street-interview-process-2020/oc
 featured:
 ---
 
-<p>We’re busy preparing for our software engineering <a href="https://blog.janestreet.com/unraveling/">fall hiring
-season</a>. Over the years we’ve
+<p>We&rsquo;re busy preparing for our software engineering <a href="https://blog.janestreet.com/unraveling/">fall hiring
+season</a>. Over the years we&rsquo;ve
 done our best to make our interview process more transparent to
 candidates. While many candidates show up knowing something about what
 our interviews look like, much of the information floating around on
 the internet is outdated or wrong. These past few months have also
-changed a lot about the process as we’ve adapted to working from home
+changed a lot about the process as we&rsquo;ve adapted to working from home
 and other effects of COVID-19.</p>
+
+

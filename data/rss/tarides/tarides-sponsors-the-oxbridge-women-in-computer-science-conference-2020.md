@@ -19,7 +19,7 @@ within a supportive and friendly environment.</p>
 held virtually on December 7th.</p>
 <p>Tarides is very glad to sponsor this event as we strongly believe that diversity
 and inclusive culture is a key factor in building a competitive and innovative
-company. Our employees come from 8 different countries and are 1⁄3 women.
+company. Our employees come from 8 different countries and are 1&frasl;3 women.
 Tarides promotes transparency, openness and autonomy, creating a work atmosphere
 auspicious for employees to strive in their work, to solve novel, impactful and
 technical challenges. By working on open-source projects, a collaboration is
@@ -35,9 +35,5 @@ their interests and careers in the tech field. Head
 <p>For the event, we made a short video to experience a day in the life of a
 software engineer:</p>
 <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%">
-  <iframe
-    style="position: absolute; width: 100%; height: 100%; left: 0; right: 0"
-    src="https://www.youtube-nocookie.com/embed/5qK8elKNxKI" frameborder="0"
-    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen />
+  <iframe style="position: absolute; width: 100%; height: 100%; left: 0; right: 0" src="https://www.youtube-nocookie.com/embed/5qK8elKNxKI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
 </div>

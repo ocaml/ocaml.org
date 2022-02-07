@@ -9,8 +9,10 @@ preview_image: https://blog.janestreet.com/repeatable-exploratory-programming/la
 featured:
 ---
 
-<p>Expect tests are a technique I’ve written about
-<a href="/testing-with-expectations">before</a>, but until recently, it’s been a
-little on the theoretical side. That’s because it’s been hard to take
+<p>Expect tests are a technique I&rsquo;ve written about
+<a href="https://blog.janestreet.com/testing-with-expectations">before</a>, but until recently, it&rsquo;s been a
+little on the theoretical side. That&rsquo;s because it&rsquo;s been hard to take
 these ideas out for a spin due to lack of tooling outside of Jane
-Street’s walls.</p>
+Street&rsquo;s walls.</p>
+
+

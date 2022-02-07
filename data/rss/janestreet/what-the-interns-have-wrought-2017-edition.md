@@ -9,10 +9,12 @@ preview_image: https://blog.janestreet.com/what-the-interns-have-wrought-2017/wh
 featured:
 ---
 
-<p>Intern season is coming to a close, and it’s a nice time to look back
-(as I’ve done in
-<a href="/what-the-interns-have-wrought-rpc_parallel-and-core_profiler">previous</a>
-<a href="/what-the-interns-have-wrought-2016">years</a>) and review some of what
+<p>Intern season is coming to a close, and it&rsquo;s a nice time to look back
+(as I&rsquo;ve done in
+<a href="https://blog.janestreet.com/what-the-interns-have-wrought-rpc_parallel-and-core_profiler">previous</a>
+<a href="https://blog.janestreet.com/what-the-interns-have-wrought-2016">years</a>) and review some of what
 the interns did while they were here. The dev intern program has grown
 considerably, with almost 40 dev interns between our NY, London, and
 Hong Kong offices.</p>
+
+

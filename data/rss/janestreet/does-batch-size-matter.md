@@ -11,9 +11,11 @@ featured:
 
 <p><i>This post is aimed at readers who are already familiar with
 <a href="https://en.wikipedia.org/wiki/Stochastic_gradient_descent">stochastic gradient descent</a>
-(SGD) and terms like “batch size”.  For an introduction to these
-ideas, I recommend Goodfellow et al.’s
+(SGD) and terms like &ldquo;batch size&rdquo;.  For an introduction to these
+ideas, I recommend Goodfellow et al.&rsquo;s
 <a href="http://www.deeplearningbook.org/">Deep Learning</a>, in particular the
 introduction and, for more about SGD, Chapter 8.  The relevance of SGD
 is that it has made it feasible to work with much more complex models
 than was formerly possible.</i></p>
+
+

@@ -17,3 +17,5 @@ syntax to learn for other developers. So when the repetitive pattern is local to
 a specific library or not widely used, it is often not worth the effort.
 Especially if the code in question is meant to be reviewed and maintained by
 several people.</p>
+
+

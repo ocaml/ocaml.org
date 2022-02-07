@@ -11,5 +11,5 @@ featured:
 
 <p>Anil Madhavapeddy and Gemma Gordon presented our new operating system for
 connected buildings: <a href="http://kcsrk.info/papers/osmose_feb_18.pdf">OSMOSE</a>
-to <a href="http://hotpost18.weebly.com/">HotPOST’18</a>. OSMOSE is based on
+to <a href="http://hotpost18.weebly.com/">HotPOST&rsquo;18</a>. OSMOSE is based on
 MirageOS and Irmin and we hope to explore that area more in the coming months!</p>

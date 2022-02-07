@@ -10,7 +10,9 @@ featured:
 ---
 
 <p>Welcome to another post in our series of how to use OCaml for machine learning.
-In previous posts we’ve discussed <a href="https://blog.janestreet.com/deep-learning-experiments-in-ocaml/">artistic style-transfer</a> and
-<a href="https://blog.janestreet.com/playing-atari-games-with-ocaml-and-deep-rl/">reinforcement learning</a>. If you haven’t read these feel
-free to do so now, we’ll wait right here until you’re done. Ready? Ok, let’s
-continue …</p>
+In previous posts we&rsquo;ve discussed <a href="https://blog.janestreet.com/deep-learning-experiments-in-ocaml/">artistic style-transfer</a> and
+<a href="https://blog.janestreet.com/playing-atari-games-with-ocaml-and-deep-rl/">reinforcement learning</a>. If you haven&rsquo;t read these feel
+free to do so now, we&rsquo;ll wait right here until you&rsquo;re done. Ready? Ok, let&rsquo;s
+continue &hellip;</p>
+
+

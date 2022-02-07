@@ -18,11 +18,11 @@ securely and efficiently. It uses the groundbreaking creation of unikernels to
 radically simplify the way applications are built and deployed for the cloud.</p>
 <p>Since digital transformation has become more and more dependent on cloud
 computing, it has increasing problems with high response latency, security
-risks, and resource inefficiencies—all which make these services ultimately
+risks, and resource inefficiencies&mdash;all which make these services ultimately
 unreliable. The demand for interconnected devices is ever increasing, but the
 security of these devices remain unchecked, making them susceptible to security
 vulnerabilities. This leaves consumers and businesses open to exploitation, as
-demonstrated in reports of tech devices violating users’ privacy, like sending
+demonstrated in reports of tech devices violating users&rsquo; privacy, like sending
 audio recordings without their knowledge or consent.</p>
 <p>Tarides addresses these issues with OSMOSE, a platform which combines hardware
 and software elements to invert the current cloud-centric model. OSMOSE securely
@@ -33,10 +33,10 @@ IoT devices into a local data-centre.</p>
 and temporarily rented to users. This turns any IoT deployment into a local,
 private cloud, allowing a better utilization of local resources and improved
 security.</p>
-<p>Major components of OSMOSE already have commercial applications. It’s been used
+<p>Major components of OSMOSE already have commercial applications. It&rsquo;s been used
 to make existing cloud deployments more secure and efficient by companies such
 as Amazon, Citrix, and Docker.</p>
-<p>Tarides applies a high-touch, mixed business strategy—using consultancy services
+<p>Tarides applies a high-touch, mixed business strategy&mdash;using consultancy services
 to field test open source components under development. Tarides applies their
 research to real-world systems to build unikernels, a secure-by-design and
 resource-efficient application specialised to their run-time environments. If

@@ -9,7 +9,7 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 featured:
 ---
 
-<p>7 years ago, I wrote a <a href="/centralizing-distributed-version-control/" title="Centralizing Distributed Version Control">blog
+<p>7 years ago, I wrote a <a href="https://blog.janestreet.com/centralizing-distributed-version-control/" title="Centralizing Distributed Version Control">blog
 post</a>
 about how we at Jane Street were using our distributed version control system
 (<code class="highlighter-rouge">hg</code>, though the story would be the same for <code class="highlighter-rouge">git</code>) in a partially centralized
@@ -18,3 +18,5 @@ system whose job was to merge in new changesets. The key responsibility of this
 system was to make sure that a change was rejected unless it merged, compiled
 and <a href="http://graydon2.dreamwidth.org/1597.html" title="The Not Rocket Science Rule">tested
 cleanly</a>.</p>
+
+

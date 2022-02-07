@@ -10,9 +10,10 @@ featured:
 ---
 
 <p>For those of you interested in what
-<a href="/what-the-interns-have-wrought-rpc_parallel-and-core_profiler">what</a>
-<a href="/what-the-interns-have-wrought-2016">interns</a>
-<a href="/what-the-interns-have-wrought-2017">do</a> at Jane Street, here’s a
+<a href="https://blog.janestreet.com/what-the-interns-have-wrought-rpc_parallel-and-core_profiler">what</a>
+<a href="https://blog.janestreet.com/what-the-interns-have-wrought-2016">interns</a>
+<a href="https://blog.janestreet.com/what-the-interns-have-wrought-2017">do</a> at Jane Street, here&rsquo;s a
 <a href="http://thume.ca/2017/06/17/tree-diffing/">post</a> from former intern
 Tristan Hume, on his work developing tree-diffing algorithms last
-summer at Jane Street. It’s a fun (and very detailed!) read.</p>
+summer at Jane Street. It&rsquo;s a fun (and very detailed!) read.</p>
+

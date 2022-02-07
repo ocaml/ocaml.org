@@ -14,3 +14,5 @@ which was an opportunity to reproduce some classical deep learning
 results with a nice twist: we used OCaml as a programming language
 rather than Python. This allowed us to train models defined in a
 functional way in OCaml on a GPU using TensorFlow.</p>
+
+

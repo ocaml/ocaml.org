@@ -12,9 +12,9 @@ featured:
 
 <p>We are thrilled to have been accepted into the Founders Progam's 3rd
 batch at <a href="https://stationf.co/">Station F</a>! Station F is
-"the only startup campus gathering a whole entrepreneurial ecosystem
-under one roof" and is providing 3000+ desks and 26 international
+&quot;the only startup campus gathering a whole entrepreneurial ecosystem
+under one roof&quot; and is providing 3000+ desks and 26 international
 startup programs. Our Paris offices are now located in that incredible
-place, close to "métro Chevaleret" (Paris 13).</p>
+place, close to &quot;m&eacute;tro Chevaleret&quot; (Paris 13).</p>
 <p><strong>If you are in Paris, drop us an email to visit
-<a href=" https://stationf.co/campus/">our beautiful campus</a>!</strong></p>
+<a href="%20https://stationf.co/campus/">our beautiful campus</a>!</strong></p>
