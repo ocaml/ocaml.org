@@ -1,6 +1,5 @@
 let render (news : Ood.News.t) =
 Layout.render
-~turbo_full_reload:true
 ~title:news.title
 ~description:news.description @@
 <div class="bg-white py-24">

@@ -1,6 +1,5 @@
 let render (users : Ood.Industrial_user.t list) =
 Layout.render
-~turbo_full_reload:true
 ~use_swiper:true
 ~title:"Industrial Users of OCaml"
 ~description:"With its strong security features and high performance, several \

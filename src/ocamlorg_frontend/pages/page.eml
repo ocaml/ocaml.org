@@ -1,5 +1,5 @@
 let render ~title ~description ~meta_title ~meta_description ~content =
-Layout.render ~turbo_full_reload:true ~title:meta_title ~description:meta_description @@
+Layout.render ~title:meta_title ~description:meta_description @@
 <div class="intro-section-simple">
   <div class="container-fluid">
     <div class="text-center w-full lg:w-2/3 m-auto">

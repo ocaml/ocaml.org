@@ -12,7 +12,6 @@ in
 let old_workshops = List.filter (fun (w : Ood.Workshop.t) -> w.date < current_date) workshops in
 let upcoming_workshops = List.filter (fun (w : Ood.Workshop.t) -> w.date >= current_date) workshops in
 Layout.render
-~turbo_full_reload:true
 ~title:"OCaml Events"
 ~description:"Several events take place in the OCaml community over the course of each year, in countries all over the
 world. See past events and upcoming ones on this page." @@

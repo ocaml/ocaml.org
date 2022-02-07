@@ -1,7 +1,6 @@
 let render ~(featured : Ood.Rss.t list) ~(rss : Ood.Rss.t list) ~rss_pages_number ~rss_page ~(news : Ood.News.t list) =
 Layout.render
 ~wide:true
-~turbo_full_reload:true
 ~title:"OCaml Blog"
 ~description:"Recent news and blog posts from the OCaml community." @@
 <div class="bg-white py-24">

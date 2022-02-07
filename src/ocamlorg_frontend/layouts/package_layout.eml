@@ -4,8 +4,6 @@ type tab =
   | Toplevel
   
 let render
-?turbo_full_reload
-?use_turbo
 ~title
 ~description
 ~tab
@@ -16,8 +14,6 @@ inner =
 let tab_class = "border-transparent border-b-2 hover:border-primary-600 p-4 font-medium relative text-body-400" in
 let current_tab_class = "border-b-2 hover:border-primary-600 p-4 font-medium border-primary-600 relative text-primary-600" in
 Layout.render
-?turbo_full_reload
-?use_turbo
 ~wide:true
 ~title
 ~description @@

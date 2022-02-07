@@ -1,6 +1,5 @@
 let render ?(search = "") ~(recommended_papers : Ood.Paper.t list) (papers : Ood.Paper.t list) =
 Layout.render
-~turbo_full_reload:true
 ~title:"OCaml Papers"
 ~description:"A selection of papers grouped by popular categories." @@
 <div class="intro-section-simple">
