@@ -5,6 +5,7 @@ type package = {
   version : string;
   versions : string list;
   tags : string list;
+  rev_deps : string list;
   authors : Ood.Opam_user.t list;
   maintainers : Ood.Opam_user.t list;
 }
