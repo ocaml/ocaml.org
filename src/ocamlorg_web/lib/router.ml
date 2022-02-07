@@ -4,23 +4,44 @@ let asset_loader =
   let open Lwt.Syntax in
   let store = Asset.connect () in
   Static.loader
-    ~read:(fun path ->
+    ~read:(fun _root path ->
       let* store in
       Asset.get store (Mirage_kv.Key.v path))
-    ~last_modified:(fun path ->
+    ~last_modified:(fun _root path ->
       let* store in
       Asset.last_modified store (Mirage_kv.Key.v path))
+    ~not_cached:[ "main.css"; "/main.css"; "robots.txt"; "/robots.txt" ]
 
 let media_loader =
   let open Lwt.Syntax in
   let store = Media.connect () in
   Static.loader
-    ~read:(fun path ->
+    ~read:(fun _root path ->
       let* store in
       Media.get store (Mirage_kv.Key.v path))
-    ~last_modified:(fun path ->
+    ~last_modified:(fun _root path ->
       let* store in
       Media.last_modified store (Mirage_kv.Key.v path))
+
+let toplevel_loader =
+  let open Lwt.Syntax in
+  Static.loader
+    ~read:(fun local_root path ->
+      let path = Filename.concat local_root path in
+      Lwt_io.(with_file ~mode:Input path) (fun channel ->
+          let+ content = Lwt_io.read channel in
+          Ok content))
+    ~last_modified:(fun local_root path ->
+      let path = Filename.concat local_root path in
+      let+ stat = Lwt_unix.stat path in
+      let days, ps =
+        Ptime.Span.to_d_ps
+        @@ Ptime.to_span
+             (match Ptime.of_float_s stat.st_mtime with
+             | None -> assert false
+             | Some x -> x)
+      in
+      Ok (days, ps))
 
 let redirect s req = Dream.redirect req s
 
@@ -67,7 +88,6 @@ let page_routes =
     ]
 
 let package_route t =
-  (* TODO(tmattio): Use Url module here. *)
   Dream.scope ""
     [
       Middleware.set_locale;
@@ -107,14 +127,6 @@ let graphql_route t =
       Dream.get "/graphiql" (Dream.graphiql "/api");
     ]
 
-let toplevels_route =
-  Dream.scope "/toplevels"
-    [ Dream_encoding.compress ]
-    [
-      Dream.get "/**"
-        (Dream.static (Fpath.to_string Ocamlorg_package.toplevels_path));
-    ]
-
 let router t =
   Dream.router
     [
@@ -124,9 +136,17 @@ let router t =
       redirection_routes Redirection.from_v2;
       redirection_routes Redirection.platform;
       redirection_routes Redirection.manual;
-      toplevels_route;
-      Dream.get "/media/**" (Dream.static ~loader:media_loader "");
-      Dream.get "/**" (Dream.static ~loader:asset_loader "")
-      (* Last one so that we don't apply the index html middleware on every
-         route. *);
+      Dream.scope ""
+        [ Dream_encoding.compress ]
+        [
+          Dream.get "/toplevels/**"
+            (Dream.static ~loader:toplevel_loader
+               (Fpath.to_string Ocamlorg_package.toplevels_path));
+        ];
+      Dream.scope ""
+        [ Dream_encoding.compress ]
+        [ Dream.get "/media/**" (Dream.static ~loader:media_loader "") ];
+      Dream.scope ""
+        [ Dream_encoding.compress ]
+        [ Dream.get "/**" (Dream.static ~loader:asset_loader "") ];
     ]

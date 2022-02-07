@@ -36,11 +36,11 @@ let not_modified ~last_modified request =
   | None -> false
   | Some date -> String.equal date last_modified
 
-let max_age = 60 * 60 * 24 * 365 (* one year *)
+let max_age = 60 * 60 * 24 (* one day *)
 
-let loader ~read ~last_modified _root path request =
+let loader ~read ~last_modified ?(not_cached = []) local_root path request =
   let open Lwt.Syntax in
-  let* last_modified = last_modified path in
+  let* last_modified = last_modified local_root path in
   match last_modified with
   | Error _ -> Handler.not_found request
   | Ok last_modified -> (
@@ -50,20 +50,17 @@ let loader ~read ~last_modified _root path request =
       if not_modified ~last_modified request then
         Dream.respond ~status:`Not_Modified ""
       else
-        let* result = read path in
+        let* result = read local_root path in
         match result with
         | Error _ -> Handler.not_found request
+        | Ok asset when List.mem path not_cached ->
+            Dream.respond ~headers:(Dream.mime_lookup path) asset
         | Ok asset ->
             Dream.respond
               ~headers:
-                ([ (* Disabling cache headers for now, as we need a good
-                      solution to update `main.css`, and other assets that are
-                      likely to change during development.
-
-                      We could either never cache them (have a list of exception
-                      to not cache here?) or generate main.css with a identifier
-                      hashed with the content. *)
-                   (* ("Cache-Control", Fmt.str "max-age=%d" max_age);
-                      ("Last-Modified", last_modified); *) ]
-               @ Dream.mime_lookup path)
+                ([
+                   ("Cache-Control", Fmt.str "max-age=%d" max_age);
+                   ("Last-Modified", last_modified);
+                 ]
+                @ Dream.mime_lookup path)
               asset)
