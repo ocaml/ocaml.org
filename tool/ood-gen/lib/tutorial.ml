@@ -105,9 +105,9 @@ let pp ppf v =
   ; toc_html = %a
   ; body_html = %a
   }|}
-    Pp.string v.title Pp.string v.fpath Pp.string v.slug Pp.string v.description Pp.string v.date
-    Pp.string_list v.tags (Pp.list pp_proficiency) v.users Pp.string v.body_md
-    Pp.string v.toc_html Pp.string v.body_html
+    Pp.string v.title Pp.string v.fpath Pp.string v.slug Pp.string v.description
+    Pp.string v.date Pp.string_list v.tags (Pp.list pp_proficiency) v.users
+    Pp.string v.body_md Pp.string v.toc_html Pp.string v.body_html
 
 let pp_list = Pp.list pp
 
