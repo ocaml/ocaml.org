@@ -42,7 +42,6 @@ let render_books books =
 
 let render books =
 Layout.render
-~turbo_full_reload:true
 ~title:"OCaml Books"
 ~description:"A selection of books to learn the OCaml programming language." @@
 <div class="intro-section-simple">

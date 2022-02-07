@@ -1,6 +1,5 @@
 let render ~total ~search (packages : Package_intf.package list) =
 Layout.render
-~turbo_full_reload:true
 ~title:"OCaml Packages · Search Result"
 ~description:"Find the package you need to build your application in the thousands of available opam packages." @@
 <div class="bg-white">

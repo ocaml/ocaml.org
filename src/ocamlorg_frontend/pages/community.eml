@@ -10,8 +10,9 @@ let current_date =
 in
 let old_workshops = List.filter (fun (w : Ood.Workshop.t) -> w.date < current_date) workshops in
 let upcoming_workshops = List.filter (fun (w : Ood.Workshop.t) -> w.date >= current_date) workshops in
-Layout.render ~turbo_full_reload:true ~title:"The OCaml Community" ~description:"Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more
-places to engage with people from the community!" @@
+Layout.render
+~title:"The OCaml Community"
+~description:"Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!" @@
 <div class="intro-section-simple">
   <div class="container-fluid">
     <div class="text-center w-full lg:w-2/3 m-auto">

@@ -1,6 +1,5 @@
 let render (job : Ood.Job.t) =
 Layout.render
-~turbo_full_reload:true
 ~title:(Printf.sprintf "%s · OCaml Opportunity" job.title)
 ~description:(Printf.sprintf "%s is looking for a %s" job.company job.title) @@
 <div class="intro-section-simple">

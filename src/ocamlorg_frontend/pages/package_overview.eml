@@ -7,7 +7,6 @@ let render
 ~homepages
 ~source (package : Package_intf.package) =
 Package_layout.render
-~turbo_full_reload:true
 ~documentation_status
 ~toplevel_status
 ~title:(Printf.sprintf "%s %s · OCaml Package" package.name package.version)

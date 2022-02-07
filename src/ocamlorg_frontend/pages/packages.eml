@@ -4,7 +4,6 @@ let href_package pkg = Url.package_with_version pkg.name pkg.version
 
 let render (stats : packages_stats option) (featured_packages : package list) =
 Layout.render
-~turbo_full_reload:true
 ~title:"OCaml Packages · Browse community packages"
 ~description:"Discover thousands of community packages and their browse their documentation." @@
 <div class="intro-section-simple">

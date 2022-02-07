@@ -1,6 +1,5 @@
 let render () =
 Layout.render
-~turbo_full_reload:true
 ~use_swiper:true
 ~title:"Welcome to a World of OCaml"
 ~description:

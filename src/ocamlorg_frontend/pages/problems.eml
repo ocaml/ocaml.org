@@ -10,7 +10,6 @@ let render_problem_link (problem : Ood.Problem.t) =
   </a>
 in
 Layout.render
-~turbo_full_reload:true
 ~wide:true
 ~title:"OCaml 99 Problems"
 ~description:"A list of 99 problems to work on your OCaml skills." @@
