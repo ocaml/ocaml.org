@@ -205,6 +205,7 @@ end
 module Tutorial : sig
   type t = {
     title : string;
+    fpath : string;
     slug : string;
     description : string;
     date : string;

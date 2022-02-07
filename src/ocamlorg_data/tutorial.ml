@@ -7,6 +7,7 @@ type difficulty =
 
 type t =
   { title : string
+  ; fpath : string
   ; slug : string
   ; description : string
   ; date : string
@@ -20,6 +21,7 @@ type t =
 let all = 
 [
   { title = {js|Up and Running with OCaml|js}
+  ; fpath = {js|tutorials/en/000_up_and_running.md|js}
   ; slug = {js|up-and-running-with-ocaml|js}
   ; description = {js|Help you install OCaml, the Dune build system, and support for your favourite text editor or IDE.
 |js}
@@ -410,6 +412,7 @@ Vim:</p>
   };
  
   { title = {js|A First Hour with OCaml|js}
+  ; fpath = {js|tutorials/en/001_a_first_hour_with_ocaml.md|js}
   ; slug = {js|a-first-hour-with-ocaml|js}
   ; description = {js|Discover the OCaml programming language in this longer tutorial that takes you from absolute beginner to someone who is able to write programs in OCaml.
 |js}
@@ -2118,6 +2121,7 @@ pointers to <a href="/learn/books.html">books on OCaml</a> and
   };
  
   { title = {js|OCaml Programming Guidelines|js}
+  ; fpath = {js|tutorials/en/002_guidelines.md|js}
   ; slug = {js|ocaml-programming-guidelines|js}
   ; description = {js|Opinionated guidelines for writing OCaml code
 |js}
@@ -5621,6 +5625,7 @@ Basile Starynkevitch, Toby Moth, Pierre Lescanne.</p>
   };
  
   { title = {js|Compiling OCaml Projects|js}
+  ; fpath = {js|tutorials/en/003_compiling_ocaml_projects.md|js}
   ; slug = {js|compiling-ocaml-projects|js}
   ; description = {js|An introduction to the OCaml compiler tools for building OCaml projects as well as the most common build tools
 |js}
@@ -5964,6 +5969,7 @@ structure, build, and run dune projects.</p>
   };
  
   { title = {js|Data Types and Matching|js}
+  ; fpath = {js|tutorials/en/004_data_types_and_matching.md|js}
   ; slug = {js|data-types-and-matching|js}
   ; description = {js|Learn to build custom types and write function to process this data
 |js}
@@ -6926,6 +6932,7 @@ confusion if the library also defines other types.</p>
   };
  
   { title = {js|Lists|js}
+  ; fpath = {js|tutorials/en/005_lists.md|js}
   ; slug = {js|lists|js}
   ; description = {js|Learn about one of OCaml's must used, built-in data types
 |js}
@@ -7806,6 +7813,7 @@ are marked.</p>
   };
  
   { title = {js|Functional Programming|js}
+  ; fpath = {js|tutorials/en/006_functional_programming.md|js}
   ; slug = {js|functional-programming|js}
   ; description = {js|A guide to functional programming in OCaml
 |js}
@@ -8657,6 +8665,7 @@ a function, expecting one string argument.</p>
   };
  
   { title = {js|If Statements, Loops and Recursions|js}
+  ; fpath = {js|tutorials/en/007_if_statements_loops_and_recursion.md|js}
   ; slug = {js|if-statements-loops-and-recursions|js}
   ; description = {js|Learn basic control-flow and recursion in OCaml
 |js}
@@ -10908,6 +10917,7 @@ modules.</p>
   };
  
   { title = {js|Modules|js}
+  ; fpath = {js|tutorials/en/008_modules.md|js}
   ; slug = {js|modules|js}
   ; description = {js|Learn about OCaml modules and how they can be used to cleanly separate distinct parts of your program
 |js}
@@ -11759,6 +11769,7 @@ the .ml file:</p>
   };
  
   { title = {js|Labels|js}
+  ; fpath = {js|tutorials/en/009_labels.md|js}
   ; slug = {js|labels|js}
   ; description = {js|Provide labels to your functions arguments
 |js}
@@ -12854,6 +12865,7 @@ the type system to write advanced idioms.</p>
   };
  
   { title = {js|Pointers in OCaml|js}
+  ; fpath = {js|tutorials/en/010_pointers.md|js}
   ; slug = {js|pointers-in-ocaml|js}
   ; description = {js|Use OCaml's explicit pointers with references
 |js}
@@ -13423,6 +13435,7 @@ of those polymorphic mutable lists:</p>
   };
  
   { title = {js|Null Pointers, Asserts and Warnings|js}
+  ; fpath = {js|tutorials/en/011_null_pointers_and_warnings.md|js}
   ; slug = {js|null-pointers-asserts-and-warnings|js}
   ; description = {js|Handling warnings and asserting invariants for your code
 |js}
@@ -13688,6 +13701,7 @@ instead:</p>
   };
  
   { title = {js|Functors|js}
+  ; fpath = {js|tutorials/en/012_functors.md|js}
   ; slug = {js|functors|js}
   ; description = {js|Learn about functors, modules parameterised by other modules
 |js}
@@ -14044,6 +14058,7 @@ standard library.</p>
   };
  
   { title = {js|Objects|js}
+  ; fpath = {js|tutorials/en/013_objects.md|js}
   ; slug = {js|objects|js}
   ; description = {js|OCaml is an object-oriented, imperative, functional programming language
 |js}
@@ -15352,6 +15367,7 @@ explicit type coercion using the <code>:&gt;</code> operator:</p>
   };
  
   { title = {js|Error Handling|js}
+  ; fpath = {js|tutorials/en/014_error_handling.md|js}
   ; slug = {js|error-handling|js}
   ; description = {js|Discover the different ways you can manage errors in your OCaml programs
 |js}
@@ -15645,6 +15661,7 @@ libraries provide useful combinators on the <code>result</code> type: <code>map<
   };
  
   { title = {js|Common Error Messages|js}
+  ; fpath = {js|tutorials/en/015_common_error_messages.md|js}
   ; slug = {js|common-error-messages|js}
   ; description = {js|Understand the most common error messages the OCaml compiler can throw at you
 |js}
@@ -16087,6 +16104,7 @@ option.</p>
   };
  
   { title = {js|Debug|js}
+  ; fpath = {js|tutorials/en/016_debug.md|js}
   ; slug = {js|debug|js}
   ; description = {js|Learn to build custom types and write function to process this data
 |js}
@@ -16703,6 +16721,7 @@ points using <code>CTRL-X space</code>, and so on...</p>
   };
  
   { title = {js|Map|js}
+  ; fpath = {js|tutorials/en/017_map.md|js}
   ; slug = {js|map|js}
   ; description = {js|Create a mapping using the standard library's Map module
 |js}
@@ -16955,6 +16974,7 @@ quickly find the data. Let's actually show how to do a find.</p>
   };
  
   { title = {js|Sets|js}
+  ; fpath = {js|tutorials/en/018_set.md|js}
   ; slug = {js|sets|js}
   ; description = {js|The standard library's Set module
 |js}
@@ -17208,6 +17228,7 @@ internals with) the original set.</p>
   };
  
   { title = {js|Hashtables|js}
+  ; fpath = {js|tutorials/en/019_hashtbl.md|js}
   ; slug = {js|hashtables|js}
   ; description = {js|Discover efficient and mutable lookup tables with OCaml's Hashtbl module
 |js}
@@ -17401,6 +17422,7 @@ entry in <code>my_hash</code> for a letter we would do:</p>
   };
  
   { title = {js|Streams|js}
+  ; fpath = {js|tutorials/en/020_streams.md|js}
   ; slug = {js|streams|js}
   ; description = {js|Streams offer an abstraction over consuming items from sequences
 |js}
@@ -18763,6 +18785,7 @@ for the casual user&quot;.</p>
   };
  
   { title = {js|Format|js}
+  ; fpath = {js|tutorials/en/021_format.md|js}
   ; slug = {js|format|js}
   ; description = {js|The Format module of Caml Light and OCaml's standard libraries provides pretty-printing facilities to get a fancy display for printing routines
 |js}
@@ -19613,6 +19636,7 @@ or <code>stderr</code> is just a matter of partial application:</p>
   };
  
   { title = {js|Calling C Libraries|js}
+  ; fpath = {js|tutorials/en/022_calling_c_libraries.md|js}
   ; slug = {js|calling-c-libraries|js}
   ; description = {js|Cross the divide and call C code from your OCaml program
 |js}
@@ -20389,6 +20413,7 @@ too closely ......</p>
   };
  
   { title = {js|Calling Fortran Libraries|js}
+  ; fpath = {js|tutorials/en/023_calling_fortran_libraries.md|js}
   ; slug = {js|calling-fortran-libraries|js}
   ; description = {js|Cross the divide and call Fortran code from your OCaml program
 |js}
@@ -20673,6 +20698,7 @@ let some else help out (or wait until I learn how to do it).</p>
   };
  
   { title = {js|Command-line Arguments|js}
+  ; fpath = {js|tutorials/en/024_command-line_arguments.md|js}
   ; slug = {js|command-line-arguments|js}
   ; description = {js|The Arg module that comes with the compiler can help you write command line interfaces
 |js}
@@ -21028,6 +21054,7 @@ rejecting malformed command lines which others might sliently accept.</p>
   };
  
   { title = {js|File Manipulation|js}
+  ; fpath = {js|tutorials/en/025_file_manipulation.md|js}
   ; slug = {js|file-manipulation|js}
   ; description = {js|A guide to basic file manipulation in OCaml with the standard library
 |js}
@@ -21304,6 +21331,7 @@ Hello!
   };
  
   { title = {js|Garbage Collection|js}
+  ; fpath = {js|tutorials/en/026_garbage_collection.md|js}
   ; slug = {js|garbage-collection|js}
   ; description = {js|OCaml is a garbage collected language meaning you don't have to worry about allocating and freeing memory
 |js}
@@ -22009,6 +22037,7 @@ choice of <strong>relational database</strong> (with locking).
   };
  
   { title = {js|Performance and Profiling|js}
+  ; fpath = {js|tutorials/en/027_performance_and_profiling.md|js}
   ; slug = {js|performance-and-profiling|js}
   ; description = {js|Understand how to profile your OCaml code to analyse its performance and produce faster programs
 |js}
@@ -23750,6 +23779,7 @@ looking at the <code>mlvalues.h</code> header file.</p>
   };
  
   { title = {js|Comparison of Standard Containers|js}
+  ; fpath = {js|tutorials/en/028_comparison_of_standard_containers.md|js}
   ; slug = {js|comparison-of-standard-containers|js}
   ; description = {js|A comparison of some core data-structures including lists, queues and arrays
 |js}
