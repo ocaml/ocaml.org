@@ -30,7 +30,6 @@ let manual = "/manual"
 let books = "/books"
 let releases = "/releases"
 let release v = "/releases/" ^ v
-let events = "/events"
 let workshop v = "/workshops/" ^ v
 let blog = "/blog"
 let news = "/news"

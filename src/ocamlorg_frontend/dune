@@ -70,11 +70,6 @@
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
-  (targets events.ml)
-  (deps events.eml)
-  (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
- (rule
   (targets home.ml)
   (deps home.eml)
   (action
