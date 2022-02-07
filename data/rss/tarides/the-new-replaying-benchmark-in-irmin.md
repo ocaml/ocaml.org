@@ -1,0 +1,220 @@
+---
+title: The New Replaying Benchmark in Irmin
+description: "As mentioned in our Tezos Storage / Irmin Summer 2021 Update on the
+  Tezos Agora forum, the Irmin team's goal has been to improve Irmin's\u2026"
+url: https://tarides.com/blog/2021-10-04-the-new-replaying-benchmark-in-irmin
+date: 2021-10-04T00:00:00-00:00
+preview_image: https://tarides.com/static/37ab792f992f4bdb89846ecd0bda664c/2ae3d/footprints.jpg
+featured:
+---
+
+<p>As mentioned in our <a href="https://forum.tezosagora.org/t/tezos-storage-irmin-summer-2021-update/3744">Tezos Storage / Irmin Summer 2021 Update</a> on the Tezos Agora forum, the Irmin team's goal has been to improve Irmin's performance in order to speed up the <em>Baking Account</em> migration process in Octez, and we managed to make it 10x faster in the first quarter of 2021. Since then, we've been working on a new benchmark program for Irmin that's based on the interactions between Irmin and Octez. This won't just help make Irmin even faster, it will also help speed up the Tezos blockchain process and enable us to monitor Irmin's behavior in Octez.</p>
+<p>Octez is the <a href="https://gitlab.com/tezos/tezos">Tezos node implementation</a> that uses Irmin to store the blockchain state, so Irmin is a core component of Octez that's responsible for virtually all the filesystem operations. Whether a node is launched to produce new blocks (aka “bake”) or just to participate in peer-to-peer sharing of existing blocks, it must first update itself by rebuilding blocks individually until it reaches the head of the blockchain. This first phase is called <em>bootstrapping</em>, and once it reaches the blockchain head, we say it has been <em>bootstrapped</em>. Currently, the <em>bootstrapped</em> phase processes 2 block per minute, which is the rate at which the Tezos blockchain progresses. The next goal is to increase that rate to 12 blocks per minute.</p>
+<p>Irmin stores the content of the Tezos blockchain on a disk using the <code>irmin-pack</code> library. There is one-to-one correspondence between the Tezos block and the Irmin commits. Each time Tezos produces a block, Irmin produces a commit, and then the Tezos block hash is computed using the Irmin commit hash. The Irmin developers are working on improving the <code>irmin-pack</code> performance which in turn will improve the performance of Octez.</p>
+<p>A benchmark program is considered “fair” when it's representative of how the benchmarked code is used in the real world—for example, the access-patterns to Irmin. A standard database benchmark would first insert random data and then remove it. Such a synthetic benchmark would fail to reproduce the bottlenecks that occur when the insertions and removal are interleaved. Our solution to “fairness” is radical: <em>replaying</em>. Within a sandboxed environment, we <em>replay</em> a real world situation.</p>
+<p>Basically, our new benchmark program makes use of a benchmarked code and records statistics for later analysis. The program is stored in the <code>irmin-bench</code> library and makes use of operation traces (called <em>action traces</em>) when Octez runs with Irmin. Later, the program replays the recorded operations one at a time while simultaneously recording tonnes of statistics (called stat traces). Data analysis of the stat traces may reveal many interesting facts about the behaviour of Irmin, especially if we tweak:</p>
+<ul>
+<li>the configuration of Irmin (e.g., what’s the impact of doubling the size of a certain cache?)</li>
+<li>the replay parameters (e.g., does Irmin's performance decay over time? Does <code>irmin-pack</code> perform as well after 24 hours of replay as after 1 minute of replay?)</li>
+<li>the hardware (e.g., does <code>irmin-pack</code> perform well on a Raspberry Pi?)</li>
+<li>the code of Irmin (e.g., does this PR have an impact on performance?)</li>
+</ul>
+<p>This benchmarking process is similar to the record-replay feature available with <a href="https://docs.tezedge.com/tezedge/record-replay">TezEdge</a>.</p>
+<h3 id="recording-the-action-trace" style="position:relative;"><a href="#recording-the-action-trace" aria-label="recording the action trace permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Recording the Action Trace</h3>
+<p>By adding logs to Tezos, we can record the Tezos-Irmin interactions and thus capture the Irmin “view” of Tezos. We’ve recorded <em>action traces</em> during the <em>bootstrapping</em> phase of Tezos nodes, which started from <em>Genesis</em>—the name of the very first Tezos block inserted into an empty Irmin store.</p>
+<p>The interaction surface between Irmin and Octez is quite simple, so we were able to reduce it to eight (8) elementary operations:</p>
+<ul>
+<li><code>checkout</code>, to pull an Irmin tree from disk;</li>
+<li><code>find</code>, <code>mem</code> and <code>mem_tree</code>, read only operations on an Irmin tree;</li>
+<li><code>add</code>, <code>remove</code> and <code>copy</code>, write only operations on an Irmin tree;</li>
+<li><code>commit</code>, to push an Irmin tree to disk.</li>
+</ul>
+<p>It’s important to remember that Irmin behaves much like Git. It has built-in snapshotting and is compatible with Git itself when using the <code>irmin-git</code> library. In fact, these operations are very similar to Git, too.</p>
+<h3 id="sequence-of-operations" style="position:relative;"><a href="#sequence-of-operations" aria-label="sequence of operations permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sequence of Operations</h3>
+<p>To illustrate further, here's a concrete example of an operation sequence inside an action trace:</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/d133a7455102c1b17e30fae407e04c78/7131f/ygWh3cg.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 48.23529411764706%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABT0lEQVQoz51S246DIBT0/3+xT2qr3ARRuQk6m0Njs910H3ZPMpkDhmHmYMOkAYFLg/sgYIyB1hopJVx1nucbrr1P1ajJ4AkNJiSmSVdRM8+QUlYopbDv+0fxn5c0o9AYmKouuzuvhy8wxqp4zrk6Jv7N2bXfdP0dbdfj8Rgqd12HxS5o2xbjOKLve9xuN3DOq3iMsR4+jgOllMpvDoWcoLSFnCjmAqkkpOZgfIScRJ2ntRbrulbQ2jn36rdtq85fggOTGEYBoTS4UNBOQQcBn1fEEl6RLie/Aue3GfIJXBk8mILSGuUo+G81zgf4EEEcYoL3oc7J+Wcs732NRUyguPRA9I36uAeEvKGcufYNuaMXJlZmgVIaWswwykLLGd55hBjqb0MXkSjNjMRCCEg5IZWAcmTsOaGZ7YJl3WDMDOc8ZmsRfUJyO3IqKPvxp8hfHYUHR2MmLUsAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="ygWh3cg"
+        title="ygWh3cg"
+        src="/static/d133a7455102c1b17e30fae407e04c78/c5bb3/ygWh3cg.png"
+        srcset="/static/d133a7455102c1b17e30fae407e04c78/04472/ygWh3cg.png 170w,
+/static/d133a7455102c1b17e30fae407e04c78/9f933/ygWh3cg.png 340w,
+/static/d133a7455102c1b17e30fae407e04c78/c5bb3/ygWh3cg.png 680w,
+/static/d133a7455102c1b17e30fae407e04c78/7131f/ygWh3cg.png 710w"
+        sizes="(max-width: 680px) 100vw, 680px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+<p>This shows Octez’s first interaction with Irmin at the very beginning of the blockchain! The first block, <em>Genesis</em>, is quite small (it ends at operation #5), but the second one is massive (it ends at operation #309273). It contains no transactions because it only sets up the entire structure of the tree. It precedes the beginning of Tezos's initial protocol called “Alpha I”.</p>
+<h3 id="benchmark-benefits" style="position:relative;"><a href="#benchmark-benefits" aria-label="benchmark benefits permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Benchmark Benefits</h3>
+<p>Our benchmark results convey the sheer magnitude of the Tezos blockchain and the role that Irmin plays within it. We’ve recorded a trace that covers the blocks from the beginning the blockchain in June 2018 all the way up to May 2021. It weighs <strong>96GB</strong>.</p>
+<p>Although it took <strong>34 months</strong> for Tezos to reach that state, bootstrapping so far takes only <strong>170 hours</strong>, and replaying it takes a mere <strong>37 hours</strong> on a section of the blockchain that contains <strong>1,343,486 blocks</strong>. On average, this corresponds to <strong>1 per minute</strong> when the blocks were created, <strong>132 per minute</strong> when bootstrapping, and <strong>611 per minute</strong> during replay.</p>
+<p>On this particular section of the blockchain, Octez had <strong>1,089,853,521 interactions</strong> with Irmin. On average, this corresponds to <strong>12 per second</strong> when the blocks were created, <strong>1782 per second</strong> during bootstrapping, and <strong>8258 per second</strong> during replay.</p>
+<p>The chart below demonstrates how many of each Irmin operation occur per block (on average):</p>
+<center>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 500px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/c87031f583955f306e8c64611c474c01/0b533/4yKd8iQ.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 100%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAACWUlEQVQ4y5VUS2/TQBBeceBQ8Xe49cAJiT+BxAX+AhK9VDRwIQqoEqoQFUJIKL2gCorIAURBokCEmkoQpXmR2A22U+dh1/Emfux+yI6d2ImTwkizXu/ufDPf7MwSzAjn3BvAg3moiPwvE5K0yHk4TIVxDidQtsQBWRShJ3JPR61ahSQrc06joDHAWTpRyopmQNM0f18dOVivdJCqdaHZbgx0LkIPxGFj5QEYwGPRrB6IIDtHINkCruVbiynPLkYjDSMQLQayV8bF7fe4sP0BK7kqTqidSH2SwzclFW+P1djFWIxBVVWcqiouf6qD7BRAsoe4+k2cgLFIAJ76gKmPdZCbL0FuZfHgc8M/7DKOpmmh/LuB4ZmOP9TG7WMVa+UOOpYTuk3O4erWd5DrWyA3nuLKk7y/4TA2oeK47pxx3+H4olkQTztoyzJkWQaldAz46qeMlTvvcGkth71S2zewA0BjYOJXsYgBpfBWbNeFNRyiqRnYbZuoSAqk1glMSuE4zrRsFGMExbBiCWYcoLYDbo8vYMSBmqKiXq1AkiRYlpVMOVpP4fxQH+J5S8ezlo79HvVLyhNzZIG5bmJVTC4lLBE3MCroI9yrd5EWNGQEHRu1DnLqYAriOWYssdfJrCdPXrR0pAUd9wt13M2X8EjUsdns48xhsZQs7eXoIY9qutlH6kcF61+LyDR62BT6k5Zb9uKQpIY/6FNs1LrINDU8FDS/f3cV45+esETK3ne/S7Elangs9PG6bcB02bnRLaQcysBl0IO8LTqzlHLUgCU8GP9FOQk0qSzOk7/gvPf7dblftQAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="4yKd8iQ"
+        title="4yKd8iQ"
+        src="/static/c87031f583955f306e8c64611c474c01/0b533/4yKd8iQ.png"
+        srcset="/static/c87031f583955f306e8c64611c474c01/04472/4yKd8iQ.png 170w,
+/static/c87031f583955f306e8c64611c474c01/9f933/4yKd8iQ.png 340w,
+/static/c87031f583955f306e8c64611c474c01/0b533/4yKd8iQ.png 500w"
+        sizes="(max-width: 500px) 100vw, 500px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+</center>
+<p>This next chart displays where the time is spent during replay:</p>
+<center>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/85cffd35d784692988f8aa1f04e9180a/78797/u5Fv2Zb.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 50%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAACAUlEQVQoz2WSy0uUURjGzzSLFhFUtPJPEKlFRGQYROC2XbZpE+EqahGtpAaCtCjDLmJqGhXhLqU2NcWMM43DVKAT5KWRwlAMZ0ad5vZdzvnOL77PGeeT3s15zznP+7y3R2itcc09lQbbtpFSobTG/+f3bamoVCrYUqK3Hrcxog6iFmCZBijp+Y6PyLs7DT+Xy6JtC22ZFEul7WSiEaDp+7bKyYlZ2t/OM/4zv4PUqeGqpk3XcJzWzpdcep0mvVEA7XiVeoSqlvXG1xXEvTjiQQLRG0f0pRhfLnt//vY7Qm8QzdcRx7ppGU1wKJohspIHZXukwjIMltdyHOyPIh5+IjiQ4vDYNGeehbn2aISF2e/Ue5j+scquth4CrT3sOztIc2yJ4ESarpklr0pLSneGmmzZYO+TJOLxFIGBFBfCc4QjEe7fvkV0MoZtuzN1+JhaIHDiJuJ4N03nR2l/t0jTYJRQco5iPsdmoYCoz+bch0XE3RiiP4nom2L/8xkmf2cxin+pj8U9jlx8gWgJsft0L1cj8xwdjvM0sYBV3MSwrAbhhinpeJ9hz9BnDox84XL8FxXpUCmXWMtmMQzTw2WW1zl1ZYxg2x06X6WYNwyUaSHlljJEfZPbcqjaFEyJ37wtO84O3J/1MlVToSwTpdT/snF80vBv1q/Duhb9b9qX1K3wH6T+vJF1g8x/AAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="u5Fv2Zb"
+        title="u5Fv2Zb"
+        src="/static/85cffd35d784692988f8aa1f04e9180a/c5bb3/u5Fv2Zb.png"
+        srcset="/static/85cffd35d784692988f8aa1f04e9180a/04472/u5Fv2Zb.png 170w,
+/static/85cffd35d784692988f8aa1f04e9180a/9f933/u5Fv2Zb.png 340w,
+/static/85cffd35d784692988f8aa1f04e9180a/c5bb3/u5Fv2Zb.png 680w,
+/static/85cffd35d784692988f8aa1f04e9180a/b12f7/u5Fv2Zb.png 1020w,
+/static/85cffd35d784692988f8aa1f04e9180a/78797/u5Fv2Zb.png 1125w"
+        sizes="(max-width: 680px) 100vw, 680px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+</center>
+<p>With <code>irmin-pack</code>, an OCaml thread managed by the <a href="https://github.com/mirage/index/"><code>index</code> library</a> is running concurrently to the main thread (i.e., the <em>merge</em> thread), a fraction of the durations (shown above) are actually spent in that thread. Refer to this <a href="https://tarides.com/blog/2020-09-01-introducing-irmin-pack">blog post</a> for more details on <code>index</code>'s <em>merges</em>.</p>
+<p>The following chart illustrates how memory usage evolves during replay:</p>
+<center>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/fda8364be92a0ed94a1228298ea88b68/20c85/F0bORTg.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 40%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAAAsTAAALEwEAmpwYAAABUElEQVQozz1Si46jMAzk/79x91SqUrUJCeT9cGBWdrkijcY448E2mQAgpgwdIkwq0CHBpAwT8xVfuZixXiznKUOFBMXvzmO+3bDvOybvPZTWoDEwjgOtd2Ea/+NTmM9bp69OtESC2hpCCIKp9w7nHI4xgPMEEeE8TxxsSiS5ceXGGML44hCczABKKZjYTHOHRJdJFzGL2Aj4fITN+tUpx6yNqWLzGT4maKWksYldt81KEdGACxkuFrhQsLkEnyrMHqFsxNt46C0KlA2CPbBhhjHmY5hSgl4N1JawhYqQGnIlpNIRc0NphFz7dw38dBqwPmNZHvj3+4N5vmGeZ/D/mFiglIZzAbUWeO/QW0UpGTEEtFoQgkfOWQq4AZ4q5oLH44FlWYTf77doJh6Tk9YaWGvlsLUme30+n3IV7ve7MOter9dn32NgXVcZlet4vzzBH7XCagqdGWelAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="F0bORTg"
+        title="F0bORTg"
+        src="/static/fda8364be92a0ed94a1228298ea88b68/c5bb3/F0bORTg.png"
+        srcset="/static/fda8364be92a0ed94a1228298ea88b68/04472/F0bORTg.png 170w,
+/static/fda8364be92a0ed94a1228298ea88b68/9f933/F0bORTg.png 340w,
+/static/fda8364be92a0ed94a1228298ea88b68/c5bb3/F0bORTg.png 680w,
+/static/fda8364be92a0ed94a1228298ea88b68/20c85/F0bORTg.png 999w"
+        sizes="(max-width: 680px) 100vw, 680px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+</center>
+<p>On a logarithmic scale, this last chart shows the evolution of the <em>write amplification</em>, which indicates the amount of rewriting (e.g., at the end of the replay, 20TB of data have been written to disk in order to create a store that weighs 73GB).</p>
+<center>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 680px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/865f6695d4f8132e84cadef0cd099f38/20c85/PhNqloN.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 50%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABm0lEQVQozz1Sia7jMAjM//9it+rqtc2maRLn8IEN9jxB07WECNcAQ7rWGmKMmN2Kxa0YhgHjOMI5hxAC4imUoukUI7bDY9kOuN1jnGbc73fLLaWgI8p4DQPee8C87fhzueDn5wdcCvTVBsTMiNwwh4w1MY5csROb6CB9/8SyLPDeo9MJ1QjeGwAzQ0SQimDyCS5muECIRVAKQ2r9NBIGpWRTKVA9/Z0CGGAI5sisQISNGFQYaA04k5vqVg0kEVljDautNB3HgW7fd7xeL8QYoGXjnsAi5xSC2hqIBaU1+ETwKSGxIEpFkorNe6Mo5wzdttMPRVdA5ScVRqmf5MACqhWB6COJUGpD02a12oSqicgOq7at7JbZDuJIQCLIUm2yTGTJKt+JbUddv7X/vOnK0zQZbZ063+ML43pgY01uEGY7Tjkv/X3tFK3RzVS0mXInJ03d92J/+wH/pgXzNMGtq11u2zZLXk9btfr0iNfr1eRyueB2u5nfOPyO/Hg8MM8zns/efmot7vveDqax9/tt5GuhPo1rTHO/2yjgL5L0Bvxu8SjCAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="PhNqloN"
+        title="PhNqloN"
+        src="/static/865f6695d4f8132e84cadef0cd099f38/c5bb3/PhNqloN.png"
+        srcset="/static/865f6695d4f8132e84cadef0cd099f38/04472/PhNqloN.png 170w,
+/static/865f6695d4f8132e84cadef0cd099f38/9f933/PhNqloN.png 340w,
+/static/865f6695d4f8132e84cadef0cd099f38/c5bb3/PhNqloN.png 680w,
+/static/865f6695d4f8132e84cadef0cd099f38/20c85/PhNqloN.png 999w"
+        sizes="(max-width: 680px) 100vw, 680px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></p>
+</center>
+<p>The <em>merge</em> operations of the <code>index</code> library are the source of this poor <em>write amplification</em>. The Irmin team is working hard on improving this metric:</p>
+<ul>
+<li>on the one hand, the new <em>structured keys</em> feature of the upcoming Irmin 3.0 release will help to reduce the pressure on the <code>index</code> library,</li>
+<li>on the other hand, we are working on algorithmic improvements of <code>index</code> itself.</li>
+</ul>
+<p>Another nice way to use the trace is for testing. When replaying a trace, we can recompute the commit hashes and check that they correspond to the trace hashes, so the benchmark acts as additional tests to ensure we don't compromise the hashes computed in Tezos.</p>
+<p>Complex changes to Tezos can be simulated first in Irmin. For example, the <a href="https://gitlab.com/tezos/tezos/-/merge_requests/2771">path flattening in Tezos</a> feature (merged in August 2021) can now be tested earlier in the process with our benchmark. Prior to the trace benchmarks, we first had to make the changes in Tezos to understand their repercussions on Irmin directly from the Tezos benchmarks.</p>
+<p>Lastly, we continue to test alternative libraries and compare them with the ones integrated in Tezos; however, using these alternative libraries to build Tezos nodes has proven to be more complicated than merely adding them in Irmin and running our benchmarks. While testing continues on most new libraries, we can definitely use replays to compare our <a href="https://github.com/mirage/cactus/">new <code>cactus</code> library</a> as a replacement for our <a href="https://github.com/mirage/index/"><code>index</code> library</a>.</p>
+<h3 id="future-directions" style="position:relative;"><a href="#future-directions" aria-label="future directions permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Future Directions</h3>
+<p>While the <em>action trace</em> recording was only made possible on a development branch of Octez, we would next like to upstream the feature to the main branch of Octez, which would give all users the option to record Tezos-Irmin interactions. This would simplify bug reporting overall.</p>
+<p>Although the first version only deals with the <em>bootstapping</em> phase of Tezos, an upcoming goal is to make it possible to benchmark the <em>boostrapped</em> phase of Tezos as well. Additionally, we plan to replay the multiprocess aspects of a Tezos node in the near future.</p>
+<p>The first stable version of this benchmark has existed in Irmin’s development branch since Q2 2021, and we will release it as part of <code>irmin-bench</code> for Irmin 3.0 in Q4 2021. This release will allow integration into the <a href="https://github.com/ocaml-bench/sandmark">Sandmark OCaml</a> benchmarking suite.</p>
+<p>Follow the Tarides blog for future Irmin updates.</p>
