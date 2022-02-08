@@ -5,7 +5,7 @@ Learn_layout.render
 ~title:(Printf.sprintf "%s · OCaml Tutorials" tutorial.title)
 ~description:tutorial.description @@
 
-<div class="flex-1 flex overflow-hidden">
+<div class="flex-1 flex overflow-hidden border-r border-gray-200">
     <div class="prose prose-orange overflow-hidden z-0 z- lg:max-w-4xl mx-auto relative py-8 px-6">
         <h2><%s tutorial.title %></h2>
         <p><%s tutorial.description %></p>
@@ -14,7 +14,7 @@ Learn_layout.render
 </div>
 <div class="hidden lg:flex top-0 sticky h-screen">
     <div class="flex-col w-60">
-        <div class="h-screen overflow-scroll border border-gray-200 rounded-xl p-6 right-sidebar">
+        <div class=" p-6 right-sidebar">
             <div class="font-semibold text-black text-sm mb-4">ON THIS PAGE</div>
             <div class="page-toc">
                 <%s! tutorial.toc_html %>

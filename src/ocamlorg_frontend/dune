@@ -89,6 +89,12 @@
   (deps learn.eml)
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+
+ (rule
+  (targets abcd.ml)
+  (deps abcd.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
   (targets opportunities.ml)
   (deps opportunities.eml)

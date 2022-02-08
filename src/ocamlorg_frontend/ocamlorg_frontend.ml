@@ -13,6 +13,7 @@ let events ~workshops ~meetups = Events.render ~workshops ~meetups
 let home () = Home.render ()
 let industrial_users users = Industrial_users.render users
 let learn ~papers ~release ~books = Learn.render ~papers ~release ~books
+let abcd = Abcd.render 
 
 let blog ~featured ~rss ~rss_page ~rss_pages_number ~news =
   Blog.render ~featured ~rss ~rss_page ~rss_pages_number ~news

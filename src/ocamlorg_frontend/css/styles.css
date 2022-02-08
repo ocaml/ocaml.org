@@ -70,7 +70,9 @@ body {
 .intro-section-simple p {
     @apply text-body-400 lg:text-lg;
 }
-
+.video-container {
+    height: 413px;
+}
 .divider span {
     width: 7px;
     height: 7px;

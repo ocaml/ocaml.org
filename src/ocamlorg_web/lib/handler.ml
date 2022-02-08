@@ -13,6 +13,9 @@ let learn _req =
   let release = List.hd Ood.Release.all in
   Dream.html (Ocamlorg_frontend.learn ~papers ~books ~release)
 
+let abcd _req =
+  Dream.html (Ocamlorg_frontend.abcd)
+
 let community _req =
   let workshops = Ood.Workshop.all |> List.take 2 in
   let news = Ood.News.all |> List.take 3 in
