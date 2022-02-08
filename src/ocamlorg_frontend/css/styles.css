@@ -109,7 +109,10 @@ body {
 table a:hover{
     @apply underline;
 }
-
+.right-sidebar {
+    overflow-y: auto;
+    height: 100%;
+}
 .right-sidebar a:hover {
     @apply text-body-600 underline;
 }

@@ -1,7 +1,7 @@
 let render (tutorial : Ood.Tutorial.t) =
 Learn_layout.render ~current_tutorial:tutorial.slug ~title:(Printf.sprintf "%s · OCaml Tutorials" tutorial.title) ~description:tutorial.description @@
 <div class="flex-1 flex overflow-hidden">
-  <div class="prose prose-orange overflow-hidden z-0 z- lg:max-w-4xl mx-auto relative py-8 px-6">
+  <div class="prose prose-orange overflow-hidden z-0 z- lg:max-w-4xl mx-auto relative py-8 px-6 lg:border-r lg:border-gray-200">
     <h2><%s tutorial.title %></h2>
     <p><%s tutorial.description %></p>
     <%s! tutorial.body_html %>
