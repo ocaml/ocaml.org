@@ -134,7 +134,6 @@ let router t =
       package_route t;
       graphql_route t;
       redirection_routes Redirection.from_v2;
-      redirection_routes Redirection.platform;
       redirection_routes Redirection.manual;
       Dream.scope ""
         [ Dream_encoding.compress ]

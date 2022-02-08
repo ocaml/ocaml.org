@@ -5968,8 +5968,114 @@ structure, build, and run dune projects.</p>
 |js}
   };
  
+  { title = {js|OCaml on Windows|js}
+  ; fpath = {js|tutorials/en/004_ocaml_on_windows.md|js}
+  ; slug = {js|ocaml-on-windows|js}
+  ; description = {js|Read about the state of OCaml on Windows and our roadmap to improve Windows support.
+|js}
+  ; date = {js|2021-05-27T21:07:30-00:00|js}
+  ; tags = 
+ ["getting-started"]
+  ; users = [`Beginner]
+  ; body_md = {js|
+Full support for OCaml on Windows is actively being worked on and a workable
+environment can already be achieved today. A gentle reminder that if you do not
+need Windows binaries, then a more stable option is to use WSL2. This is
+described on the [up and running page](/learn/up-and-running-with-ocaml).
+
+## opam-repository-mingw
+
+[opam-repository-mingw](https://github.com/fdopen/opam-repository-mingw) is an
+[opam repository](https://opam.ocaml.org/doc/Manual.html#Repositories)
+containing patches for packages to build and install on Windows as well as
+mingw-w64 and MSVC compiler variants (in both 32 and 64-bit). For a long time this has been
+maintained by [@fdopen](https://fdopen.github.io/opam-repository-mingw/) along
+with [installers](https://fdopen.github.io/opam-repository-mingw/installation/)
+to create a custom Cygwin environment with opam and OCaml installed.
+
+As of August 2021, [the repository will no longer be updated](https://fdopen.github.io/opam-repository-mingw/2021/02/26/repo-discontinued/). It is still useful as an overlay to
+the [default opam repository](https://github.com/ocaml/opam-repository). This
+means if a package exists in `opam-repository-mingw` the opam client will use
+that information, otherwise it will fall through to `opam-repository`. To add
+`opam-repository` as an underlay to your opam setup (assuming you followed the
+manual installation from the [OCaml for Windows](https://fdopen.github.io/opam-repository-mingw/installation/)
+site), you can use:
+
+```
+opam repo add upstream https://opam.ocaml.org --rank 2 --all-switches --set-default
+```
+
+This assumes you only have the `opam-repository-mingw` repository for this switch set with
+a priority of `1`.
+
+## opam.2.2.0
+
+After the [successful release](https://github.com/ocaml/opam/releases/tag/2.1.0) 
+of opam 2.1.0 the [next version](https://github.com/ocaml/opam/projects/2) of
+`opam` will focus on closing the gap to fully supporting Windows. This includes
+supporting external dependency installation for Windows and integrating with the
+Windows shell. From an `opam-repository` perspective, the `ocaml-base-compiler`
+packages will need to support the mingw-w64 and MSVC variants.
+
+## Docker Images
+
+The [`ocaml/opam`](https://hub.docker.com/r/ocaml/opam) Docker Hub repository
+now contains regularly updated Windows images. This includes images using
+`msvc` and `mingw`. If you are comfortable with Docker, this might be an
+easier way to get a working Windows environment on your machine.
+|js}
+  ; toc_html = {js|<ul>
+<li><ul>
+<li><a href="#opam-repository-mingw">opam-repository-mingw</a>
+</li>
+<li><a href="#opam220">opam.2.2.0</a>
+</li>
+<li><a href="#docker-images">Docker Images</a>
+</li>
+</ul>
+</li>
+</ul>
+|js}
+  ; body_html = {js|<p>Full support for OCaml on Windows is actively being worked on and a workable
+environment can already be achieved today. A gentle reminder that if you do not
+need Windows binaries, then a more stable option is to use WSL2. This is
+described on the <a href="/learn/up-and-running-with-ocaml">up and running page</a>.</p>
+<h2 id="opam-repository-mingw">opam-repository-mingw</h2>
+<p><a href="https://github.com/fdopen/opam-repository-mingw">opam-repository-mingw</a> is an
+<a href="https://opam.ocaml.org/doc/Manual.html#Repositories">opam repository</a>
+containing patches for packages to build and install on Windows as well as
+mingw-w64 and MSVC compiler variants (in both 32 and 64-bit). For a long time this has been
+maintained by <a href="https://fdopen.github.io/opam-repository-mingw/">@fdopen</a> along
+with <a href="https://fdopen.github.io/opam-repository-mingw/installation/">installers</a>
+to create a custom Cygwin environment with opam and OCaml installed.</p>
+<p>As of August 2021, <a href="https://fdopen.github.io/opam-repository-mingw/2021/02/26/repo-discontinued/">the repository will no longer be updated</a>. It is still useful as an overlay to
+the <a href="https://github.com/ocaml/opam-repository">default opam repository</a>. This
+means if a package exists in <code>opam-repository-mingw</code> the opam client will use
+that information, otherwise it will fall through to <code>opam-repository</code>. To add
+<code>opam-repository</code> as an underlay to your opam setup (assuming you followed the
+manual installation from the <a href="https://fdopen.github.io/opam-repository-mingw/installation/">OCaml for Windows</a>
+site), you can use:</p>
+<pre><code>opam repo add upstream https://opam.ocaml.org --rank 2 --all-switches --set-default
+</code></pre>
+<p>This assumes you only have the <code>opam-repository-mingw</code> repository for this switch set with
+a priority of <code>1</code>.</p>
+<h2 id="opam220">opam.2.2.0</h2>
+<p>After the <a href="https://github.com/ocaml/opam/releases/tag/2.1.0">successful release</a>
+of opam 2.1.0 the <a href="https://github.com/ocaml/opam/projects/2">next version</a> of
+<code>opam</code> will focus on closing the gap to fully supporting Windows. This includes
+supporting external dependency installation for Windows and integrating with the
+Windows shell. From an <code>opam-repository</code> perspective, the <code>ocaml-base-compiler</code>
+packages will need to support the mingw-w64 and MSVC variants.</p>
+<h2 id="docker-images">Docker Images</h2>
+<p>The <a href="https://hub.docker.com/r/ocaml/opam"><code>ocaml/opam</code></a> Docker Hub repository
+now contains regularly updated Windows images. This includes images using
+<code>msvc</code> and <code>mingw</code>. If you are comfortable with Docker, this might be an
+easier way to get a working Windows environment on your machine.</p>
+|js}
+  };
+ 
   { title = {js|Data Types and Matching|js}
-  ; fpath = {js|tutorials/en/004_data_types_and_matching.md|js}
+  ; fpath = {js|tutorials/en/005_data_types_and_matching.md|js}
   ; slug = {js|data-types-and-matching|js}
   ; description = {js|Learn to build custom types and write function to process this data
 |js}
@@ -6932,7 +7038,7 @@ confusion if the library also defines other types.</p>
   };
  
   { title = {js|Lists|js}
-  ; fpath = {js|tutorials/en/005_lists.md|js}
+  ; fpath = {js|tutorials/en/006_lists.md|js}
   ; slug = {js|lists|js}
   ; description = {js|Learn about one of OCaml's must used, built-in data types
 |js}
@@ -7813,7 +7919,7 @@ are marked.</p>
   };
  
   { title = {js|Functional Programming|js}
-  ; fpath = {js|tutorials/en/006_functional_programming.md|js}
+  ; fpath = {js|tutorials/en/007_functional_programming.md|js}
   ; slug = {js|functional-programming|js}
   ; description = {js|A guide to functional programming in OCaml
 |js}
@@ -8665,7 +8771,7 @@ a function, expecting one string argument.</p>
   };
  
   { title = {js|If Statements, Loops and Recursions|js}
-  ; fpath = {js|tutorials/en/007_if_statements_loops_and_recursion.md|js}
+  ; fpath = {js|tutorials/en/008_if_statements_loops_and_recursion.md|js}
   ; slug = {js|if-statements-loops-and-recursions|js}
   ; description = {js|Learn basic control-flow and recursion in OCaml
 |js}
@@ -10917,7 +11023,7 @@ modules.</p>
   };
  
   { title = {js|Modules|js}
-  ; fpath = {js|tutorials/en/008_modules.md|js}
+  ; fpath = {js|tutorials/en/009_modules.md|js}
   ; slug = {js|modules|js}
   ; description = {js|Learn about OCaml modules and how they can be used to cleanly separate distinct parts of your program
 |js}
@@ -11769,7 +11875,7 @@ the .ml file:</p>
   };
  
   { title = {js|Labels|js}
-  ; fpath = {js|tutorials/en/009_labels.md|js}
+  ; fpath = {js|tutorials/en/010_labels.md|js}
   ; slug = {js|labels|js}
   ; description = {js|Provide labels to your functions arguments
 |js}
@@ -12865,7 +12971,7 @@ the type system to write advanced idioms.</p>
   };
  
   { title = {js|Pointers in OCaml|js}
-  ; fpath = {js|tutorials/en/010_pointers.md|js}
+  ; fpath = {js|tutorials/en/011_pointers.md|js}
   ; slug = {js|pointers-in-ocaml|js}
   ; description = {js|Use OCaml's explicit pointers with references
 |js}
@@ -13435,7 +13541,7 @@ of those polymorphic mutable lists:</p>
   };
  
   { title = {js|Null Pointers, Asserts and Warnings|js}
-  ; fpath = {js|tutorials/en/011_null_pointers_and_warnings.md|js}
+  ; fpath = {js|tutorials/en/012_null_pointers_and_warnings.md|js}
   ; slug = {js|null-pointers-asserts-and-warnings|js}
   ; description = {js|Handling warnings and asserting invariants for your code
 |js}
@@ -13701,7 +13807,7 @@ instead:</p>
   };
  
   { title = {js|Functors|js}
-  ; fpath = {js|tutorials/en/012_functors.md|js}
+  ; fpath = {js|tutorials/en/013_functors.md|js}
   ; slug = {js|functors|js}
   ; description = {js|Learn about functors, modules parameterised by other modules
 |js}
@@ -14058,7 +14164,7 @@ standard library.</p>
   };
  
   { title = {js|Objects|js}
-  ; fpath = {js|tutorials/en/013_objects.md|js}
+  ; fpath = {js|tutorials/en/014_objects.md|js}
   ; slug = {js|objects|js}
   ; description = {js|OCaml is an object-oriented, imperative, functional programming language
 |js}
@@ -15367,7 +15473,7 @@ explicit type coercion using the <code>:&gt;</code> operator:</p>
   };
  
   { title = {js|Error Handling|js}
-  ; fpath = {js|tutorials/en/014_error_handling.md|js}
+  ; fpath = {js|tutorials/en/015_error_handling.md|js}
   ; slug = {js|error-handling|js}
   ; description = {js|Discover the different ways you can manage errors in your OCaml programs
 |js}
@@ -15661,7 +15767,7 @@ libraries provide useful combinators on the <code>result</code> type: <code>map<
   };
  
   { title = {js|Common Error Messages|js}
-  ; fpath = {js|tutorials/en/015_common_error_messages.md|js}
+  ; fpath = {js|tutorials/en/016_common_error_messages.md|js}
   ; slug = {js|common-error-messages|js}
   ; description = {js|Understand the most common error messages the OCaml compiler can throw at you
 |js}
@@ -16104,7 +16210,7 @@ option.</p>
   };
  
   { title = {js|Debug|js}
-  ; fpath = {js|tutorials/en/016_debug.md|js}
+  ; fpath = {js|tutorials/en/017_debug.md|js}
   ; slug = {js|debug|js}
   ; description = {js|Learn to build custom types and write function to process this data
 |js}
@@ -16721,7 +16827,7 @@ points using <code>CTRL-X space</code>, and so on...</p>
   };
  
   { title = {js|Map|js}
-  ; fpath = {js|tutorials/en/017_map.md|js}
+  ; fpath = {js|tutorials/en/018_map.md|js}
   ; slug = {js|map|js}
   ; description = {js|Create a mapping using the standard library's Map module
 |js}
@@ -16974,7 +17080,7 @@ quickly find the data. Let's actually show how to do a find.</p>
   };
  
   { title = {js|Sets|js}
-  ; fpath = {js|tutorials/en/018_set.md|js}
+  ; fpath = {js|tutorials/en/019_set.md|js}
   ; slug = {js|sets|js}
   ; description = {js|The standard library's Set module
 |js}
@@ -17228,7 +17334,7 @@ internals with) the original set.</p>
   };
  
   { title = {js|Hashtables|js}
-  ; fpath = {js|tutorials/en/019_hashtbl.md|js}
+  ; fpath = {js|tutorials/en/020_hashtbl.md|js}
   ; slug = {js|hashtables|js}
   ; description = {js|Discover efficient and mutable lookup tables with OCaml's Hashtbl module
 |js}
@@ -17422,7 +17528,7 @@ entry in <code>my_hash</code> for a letter we would do:</p>
   };
  
   { title = {js|Streams|js}
-  ; fpath = {js|tutorials/en/020_streams.md|js}
+  ; fpath = {js|tutorials/en/021_streams.md|js}
   ; slug = {js|streams|js}
   ; description = {js|Streams offer an abstraction over consuming items from sequences
 |js}
@@ -18785,7 +18891,7 @@ for the casual user&quot;.</p>
   };
  
   { title = {js|Format|js}
-  ; fpath = {js|tutorials/en/021_format.md|js}
+  ; fpath = {js|tutorials/en/022_format.md|js}
   ; slug = {js|format|js}
   ; description = {js|The Format module of Caml Light and OCaml's standard libraries provides pretty-printing facilities to get a fancy display for printing routines
 |js}
@@ -19636,7 +19742,7 @@ or <code>stderr</code> is just a matter of partial application:</p>
   };
  
   { title = {js|Calling C Libraries|js}
-  ; fpath = {js|tutorials/en/022_calling_c_libraries.md|js}
+  ; fpath = {js|tutorials/en/023_calling_c_libraries.md|js}
   ; slug = {js|calling-c-libraries|js}
   ; description = {js|Cross the divide and call C code from your OCaml program
 |js}
@@ -20413,7 +20519,7 @@ too closely ......</p>
   };
  
   { title = {js|Calling Fortran Libraries|js}
-  ; fpath = {js|tutorials/en/023_calling_fortran_libraries.md|js}
+  ; fpath = {js|tutorials/en/024_calling_fortran_libraries.md|js}
   ; slug = {js|calling-fortran-libraries|js}
   ; description = {js|Cross the divide and call Fortran code from your OCaml program
 |js}
@@ -20698,7 +20804,7 @@ let some else help out (or wait until I learn how to do it).</p>
   };
  
   { title = {js|Command-line Arguments|js}
-  ; fpath = {js|tutorials/en/024_command-line_arguments.md|js}
+  ; fpath = {js|tutorials/en/025_command-line_arguments.md|js}
   ; slug = {js|command-line-arguments|js}
   ; description = {js|The Arg module that comes with the compiler can help you write command line interfaces
 |js}
@@ -21054,7 +21160,7 @@ rejecting malformed command lines which others might sliently accept.</p>
   };
  
   { title = {js|File Manipulation|js}
-  ; fpath = {js|tutorials/en/025_file_manipulation.md|js}
+  ; fpath = {js|tutorials/en/026_file_manipulation.md|js}
   ; slug = {js|file-manipulation|js}
   ; description = {js|A guide to basic file manipulation in OCaml with the standard library
 |js}
@@ -21331,7 +21437,7 @@ Hello!
   };
  
   { title = {js|Garbage Collection|js}
-  ; fpath = {js|tutorials/en/026_garbage_collection.md|js}
+  ; fpath = {js|tutorials/en/027_garbage_collection.md|js}
   ; slug = {js|garbage-collection|js}
   ; description = {js|OCaml is a garbage collected language meaning you don't have to worry about allocating and freeing memory
 |js}
@@ -22037,7 +22143,7 @@ choice of <strong>relational database</strong> (with locking).
   };
  
   { title = {js|Performance and Profiling|js}
-  ; fpath = {js|tutorials/en/027_performance_and_profiling.md|js}
+  ; fpath = {js|tutorials/en/028_performance_and_profiling.md|js}
   ; slug = {js|performance-and-profiling|js}
   ; description = {js|Understand how to profile your OCaml code to analyse its performance and produce faster programs
 |js}
@@ -23779,7 +23885,7 @@ looking at the <code>mlvalues.h</code> header file.</p>
   };
  
   { title = {js|Comparison of Standard Containers|js}
-  ; fpath = {js|tutorials/en/028_comparison_of_standard_containers.md|js}
+  ; fpath = {js|tutorials/en/029_comparison_of_standard_containers.md|js}
   ; slug = {js|comparison-of-standard-containers|js}
   ; description = {js|A comparison of some core data-structures including lists, queues and arrays
 |js}
