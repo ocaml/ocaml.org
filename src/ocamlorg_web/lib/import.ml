@@ -29,6 +29,14 @@ module List = struct
       | _ :: ys -> aux (i - 1) ys
     in
     aux n xs
+
+  let rec uniq x =
+    let rec uniq_help l n =
+      match l with
+      | [] -> []
+      | h :: t -> if n = h then uniq_help t n else h :: uniq_help t n
+    in
+    match x with [] -> [] | h :: t -> h :: uniq_help (uniq t) h
 end
 
 module Unix = struct

@@ -1,6 +1,5 @@
 let render (story : Ood.Success_story.t) =
 Layout.render
-~turbo_full_reload:true
 ~title:(Printf.sprintf "%s · Success Stories" story.title)
 ~description:story.synopsis @@
 <div class="intro-section-simple">

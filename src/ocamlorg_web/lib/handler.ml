@@ -17,9 +17,9 @@ let abcd _req =
   Dream.html (Ocamlorg_frontend.abcd)
 
 let community _req =
-  let workshops = Ood.Workshop.all |> List.take 2 in
-  let news = Ood.News.all |> List.take 3 in
-  Dream.html (Ocamlorg_frontend.community ~workshops ~news)
+  let workshops = Ood.Workshop.all in
+  let meetups = Ood.Meetup.all in
+  Dream.html (Ocamlorg_frontend.community ~workshops ~meetups)
 
 let success_stories _req =
   let stories = Ood.Success_story.all () in
@@ -111,11 +111,6 @@ let release req =
   match Ood.Release.get_by_version version with
   | Some release -> Dream.html (Ocamlorg_frontend.release release)
   | None -> not_found req
-
-let events _req =
-  let workshops = Ood.Workshop.all in
-  let meetups = Ood.Meetup.all in
-  Dream.html (Ocamlorg_frontend.events ~workshops ~meetups)
 
 let workshop req =
   let watch_ocamlorg_embed =
@@ -216,25 +211,39 @@ let opportunities req =
   let search = Dream.query "q" req in
   let jobs =
     match search with
-    | None -> Ood.Job.all_not_fullfilled
-    | Some search -> search_job search Ood.Job.all_not_fullfilled
+    | None -> Ood.Job.all
+    | Some search -> search_job search Ood.Job.all
   in
-  let country = Dream.query "c" req in
+  let location = Dream.query "c" req in
   let jobs =
-    match country with
+    match location with
     | None | Some "All" -> jobs
-    | Some country ->
-        List.filter (fun job -> job.Ood.Job.country = country) jobs
+    | Some location ->
+        List.filter (fun job -> job.Ood.Job.location = location) jobs
   in
-  Dream.html (Ocamlorg_frontend.opportunities ?search ?country jobs)
+  let locations =
+    List.filter_map
+      (function
+        | job when job.Ood.Job.location = "Remote" -> None
+        | job -> Some job.Ood.Job.location)
+      Ood.Job.all
+    |> List.sort_uniq String.compare
+  in
+  Dream.html (Ocamlorg_frontend.opportunities ?search ?location ~locations jobs)
 
-let opportunity req =
-  let id = Dream.param req "id" in
-  match Option.bind (int_of_string_opt id) Ood.Job.get_by_id with
-  | Some job -> Dream.html (Ocamlorg_frontend.opportunity job)
-  | None -> not_found req
+let carbon_footprint _req =
+  let (page : Ood.Page.t) = Ood.Page.carbon_footprint in
+  Dream.html
+    (Ocamlorg_frontend.page ~title:page.title ~description:page.description
+       ~meta_title:page.meta_title ~meta_description:page.meta_description
+       ~content:page.body_html)
 
-let carbon_footprint _req = Dream.html (Ocamlorg_frontend.carbon_footprint ())
+let governance _req =
+  let (page : Ood.Page.t) = Ood.Page.governance in
+  Dream.html
+    (Ocamlorg_frontend.page ~title:page.title ~description:page.description
+       ~meta_title:page.meta_title ~meta_description:page.meta_description
+       ~content:page.body_html)
 
 let papers req =
   let search_paper pattern t =
@@ -299,6 +308,11 @@ let problems _req = Dream.html (Ocamlorg_frontend.problems Ood.Problem.all)
 type package_kind = Package | Universe
 
 let package_of_info ~name ~version ~versions info =
+  let rev_deps =
+    List.map
+      (fun (name, _, _versions) -> Ocamlorg_package.Name.to_string name)
+      info.Ocamlorg_package.Info.rev_deps
+  in
   Ocamlorg_frontend.
     {
       name = Ocamlorg_package.Name.to_string name;
@@ -306,6 +320,7 @@ let package_of_info ~name ~version ~versions info =
       versions;
       description = info.Ocamlorg_package.Info.synopsis;
       tags = info.tags;
+      rev_deps;
       authors = info.authors;
       maintainers = info.maintainers;
       license = info.license;
@@ -367,6 +382,10 @@ let packages_search t req =
       let total = List.length packages in
       let results = List.map (package_meta t) packages in
       let search = Dream.from_percent_encoded search in
+      (* Sort by popularity: *)
+      (* let results = List.sort (fun (x1 : Ocamlorg_frontend.package) (x2 :
+         Ocamlorg_frontend.package) -> Int.compare (List.length x2.rev_deps)
+         (List.length x1.rev_deps)) results in *)
       Dream.html (Ocamlorg_frontend.packages_search ~total ~search results)
   | None -> Dream.redirect req "/packages"
 

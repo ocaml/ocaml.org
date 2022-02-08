@@ -86,11 +86,6 @@ end
 
 module Job = struct
   include Job
-
-  let all_not_fullfilled = List.filter (fun x -> x.fullfilled = false) all
-
-  
-  let get_by_id id = List.find_opt (fun x -> Int.equal id x.id) all
 end
 
 module Meetup = struct
@@ -247,4 +242,8 @@ module News = struct
   include News
 
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
+end
+
+module Page = struct
+  include Page
 end

@@ -7,7 +7,6 @@ let render
 ~homepages
 ~source (package : Package_intf.package) =
 Package_layout.render
-~turbo_full_reload:true
 ~documentation_status
 ~toplevel_status
 ~title:(Printf.sprintf "%s %s · OCaml Package" package.name package.version)
@@ -68,7 +67,7 @@ Package_layout.render
         <div class="mt-4">
             <div class="flex mt-5 flex-wrap">
                 <% package.tags |> List.iter (fun tag -> %>
-                <a href=""
+                <a href="<%s Url.packages_search %>?q=tag%3A%22<%s Dream.to_percent_encoded tag %>%22"
                     class="hover:underline px-2 py-1 text-body-400 font-medium bg-gray-100 rounded mr-3 mt-3">
                     <%s tag %>
                 </a>
@@ -108,7 +107,7 @@ Package_layout.render
               <ul class="space-y-3">
                   <% package.authors |> List.iter (fun (author : Ood.Opam_user.t) -> %>
                   <li class="flex justify-start">
-                      <a href="<%s match author.github_username with | None -> "" | Some handle -> "https://github.com/" ^ handle %>" class="flex items-center space-x-3">
+                      <a href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded author.name %>%22" class="flex items-center space-x-3">
                       <% (match author.avatar with | None -> () | Some avatar -> %>
                       <div class="flex-shrink-0">
                           <img class="h-10 w-10 rounded-full" src="<%s avatar %>" alt="">
@@ -127,7 +126,7 @@ Package_layout.render
               <ul class="space-y-3">
                   <% package.maintainers |> List.iter (fun (author : Ood.Opam_user.t) -> %>
                   <li class="flex justify-start">
-                      <a href="<%s match author.github_username with | None -> "" | Some handle -> "https://github.com/" ^ handle %>" class="flex items-center space-x-3">
+                      <a href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded author.name %>%22" class="flex items-center space-x-3">
                       <% (match author.avatar with | None -> () | Some avatar -> %>
                       <div class="flex-shrink-0">
                           <img class="h-10 w-10 rounded-full" src="<%s avatar %>" alt="">

@@ -1,8 +1,6 @@
 
 let render
-?turbo_full_reload
 ?use_swiper
-?use_turbo
 ?current_tutorial
 ~title
 ~description
@@ -19,9 +17,7 @@ let render_tutorial name id =
     </a>
 in
 Layout.render
-?turbo_full_reload
 ?use_swiper
-?use_turbo
 ~wide:true
 ~title
 ~description @@

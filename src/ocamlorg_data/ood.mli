@@ -73,20 +73,14 @@ end
 
 module Job : sig
   type t = {
-    id : int;
     title : string;
     link : string;
-    description_html : string;
     location : string;
-    country : string;
     company : string;
     company_logo : string;
-    fullfilled : bool;
   }
 
   val all : t list
-  val all_not_fullfilled : t list
-  val get_by_id : int -> t option
 end
 
 module Meetup : sig
@@ -205,6 +199,7 @@ end
 module Tutorial : sig
   type t = {
     title : string;
+    fpath : string;
     slug : string;
     description : string;
     date : string;
@@ -375,4 +370,18 @@ module News : sig
 
   val all : t list
   val get_by_slug : string -> t option
+end
+
+module Page : sig
+  type t = {
+    title : string;
+    description : string;
+    meta_title : string;
+    meta_description : string;
+    body_md : string;
+    body_html : string;
+  }
+
+  val carbon_footprint : t
+  val governance : t
 end

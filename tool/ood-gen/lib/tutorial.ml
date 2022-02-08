@@ -18,6 +18,7 @@ let parse content =
 type t = {
   title : string;
   slug : string;
+  fpath : string;
   description : string;
   date : string;
   tags : string list;
@@ -64,13 +65,14 @@ let doc_with_ids doc =
     doc
 
 let all () =
-  Utils.map_files
-    (fun content ->
+  Utils.map_files_with_names
+    (fun (file, content) ->
       let metadata, body = Utils.extract_metadata_body content in
       let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
       let omd = doc_with_ids (Omd.of_string body) in
       {
         title = metadata.title;
+        fpath = file;
         slug = Utils.slugify metadata.title;
         description = metadata.description;
         date = metadata.date;
@@ -93,6 +95,7 @@ let pp ppf v =
   Fmt.pf ppf
     {|
   { title = %a
+  ; fpath = %a
   ; slug = %a
   ; description = %a
   ; date = %a
@@ -102,9 +105,9 @@ let pp ppf v =
   ; toc_html = %a
   ; body_html = %a
   }|}
-    Pp.string v.title Pp.string v.slug Pp.string v.description Pp.string v.date
-    Pp.string_list v.tags (Pp.list pp_proficiency) v.users Pp.string v.body_md
-    Pp.string v.toc_html Pp.string v.body_html
+    Pp.string v.title Pp.string v.fpath Pp.string v.slug Pp.string v.description
+    Pp.string v.date Pp.string_list v.tags (Pp.list pp_proficiency) v.users
+    Pp.string v.body_md Pp.string v.toc_html Pp.string v.body_html
 
 let pp_list = Pp.list pp
 
@@ -119,6 +122,7 @@ type difficulty =
 
 type t =
   { title : string
+  ; fpath : string
   ; slug : string
   ; description : string
   ; date : string

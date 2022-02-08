@@ -1,6 +1,5 @@
 let render (release : Ood.Release.t) =
 Layout.render
-~turbo_full_reload:true
 ~title:(Printf.sprintf "OCaml %s Release Notes" release.version)
 ~description:(Printf.sprintf "OCaml %s was released on %s. Learn more about this in the release notes." release.version release.date) @@
 <div class="intro-section-simple">

@@ -1,6 +1,16 @@
 # Unreleased
 
-- Add caching headers for assets and medias (#269, by @tmattio)
+- Use the logo with name for the navigation bar (#276, by @tmattio)
+
+- Add popularity to package search results (#277, by @tmattio)
+
+- Improve community page and merge with events (#275, by @tmattio)
+
+- Add footer in the tutorials to contribute or ask questions (#274, by @tmattio)
+
+- Redirect to search page when for package authors and tags (#272, by @tmattio)
+
+- Add a governance page (#271, by @tmattio)
 
 - Guidelines page (#244, by @mndrix)
   - Recommend ocamlformat, de-emphasize formatting

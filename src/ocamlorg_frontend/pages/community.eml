@@ -1,55 +1,24 @@
-let render ~workshops ~news =
+let render ~workshops ~meetups =
+let current_date =
+  let open Unix in
+  let tm = localtime (Unix.gettimeofday ()) in
+  Format.asprintf
+    "%04d-%02d-%02d"
+    (tm.tm_year + 1900)
+    (tm.tm_mon + 1)
+    tm.tm_mday
+in
+let old_workshops = List.filter (fun (w : Ood.Workshop.t) -> w.date < current_date) workshops in
+let upcoming_workshops = List.filter (fun (w : Ood.Workshop.t) -> w.date >= current_date) workshops in
 Layout.render
-~turbo_full_reload:true
-~title:"OCaml Community"
+~title:"The OCaml Community"
 ~description:"Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!" @@
 <div class="intro-section-simple">
   <div class="container-fluid">
     <div class="text-center w-full lg:w-2/3 m-auto">
-      <h1 class="font-bold mb-6">Community</h1>
+      <h1 class="font-bold mb-6">The OCaml Community</h1>
       <p>Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!</p>
-      <a href="https://discuss.ocaml.org/" class="btn btn-lg btn-secondary mt-8">Go to Discuss forums</a>
-    </div>
-  </div>
-</div>
-<div class="bg-pattern lg:py-32 py-20">
-  <div class="container-fluid">
-    <div class=" ">
-      <div class="text-center">
-        <h2 class="font-bold text-primary-600 mb-6">Workshops</h2>
-      </div>
-      <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 md:px-20 lg:px-56 mt-12">
-        <% workshops |> List.iter (fun (workshop : Ood.Workshop.t) -> %>
-        <a href="<%s Url.workshop workshop.slug %>" class="bg-white p-8 rounded-xl transition-transform hover:scale-105">
-          <div class="font-semibold"><%s workshop.title %></div>
-          <div class="mt-4">
-            <div class="flex items-center space-x-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              <div><%s workshop.location %></div>
-            </div>
-            <div class="flex items-center space-x-2 mt-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <div><%s workshop.date %></div>
-            </div>
-          </div>
-        </a>
-        <% ); %>
-      </div>
-      <div class="text-center">
-        <a href="<%s Url.events %>">
-          <button class="btn btn-lg btn-tertiary mt-20 m-auto">
-            <span>Go to events page</span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </a>
-      </div>
+      <a href="https://discuss.ocaml.org/" class="btn btn-lg btn-secondary mt-8">Go to Discuss Forums</a>
     </div>
   </div>
 </div>
@@ -57,29 +26,146 @@ Layout.render
   <div class="container-fluid">
     <div class=" ">
       <div class="text-center">
-        <h2 class="font-bold text-body-600 mb-6">Recent News</h2>
+        <h2 class="font-bold text-body-600 mb-6">Join our communities!</h2>
+        <div class="font-normal text-lg text-body-400">Ask and answer questions, share and discuss OCaml-related articles and posts, let people know about your projects and find collaborators.</div>
       </div>
-      <div class="grid lg:grid-cols-3 gap-8 md:px-20 lg:px-0 mt-12">
-        <% news |> List.iter (fun (item : Ood.News.t) -> %>
-        <a href="<%s Url.news_post item.slug %>" class="border-gray-200 border p-8 rounded-xl card-hover">
-          <div class="font-semibold text-lg mt-6"><%s item.title %></div>
-          <div class="mt-4 text-sm font-normal flex space-x-2 text-body-600">
-            <%s Utils.human_date item.date %>
-          </div>
+      <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-8 md:gap-4 md:px-10 lg:px-20 mt-12">
+        <a href="https://discuss.ocaml.org/" class="border-gray-200 border p-8 rounded-xl card-hover">
+          <div class="text-base font-semibold"><img src="/img/community/discourse.svg" alt="" class="h-8 w-8 mr-2 inline-block" /> Discuss</div>
+          <div class="font-normal text-xs mt-4">Discuss with the community, ask questions and share your work on OCaml.</div>
         </a>
-        <% ); %>
+        <a href="ithub.com/ocaml/ocaml" class="border-gray-200 border p-8 rounded-xl card-hover">
+          <div class="text-base font-semibold"><img src="/img/community/github.svg" alt="" class="h-8 w-8 mr-2 inline-block" /> Github</div>
+          <div class="font-normal text-xs mt-4">Open bug reports and feature requests on the compiler</div>
+        </a>
+        <a href="https://discord.gg/cCYQbqN" class="border-gray-200 border p-8 rounded-xl card-hover">
+          <div class="text-base font-semibold"><img src="/img/community/discord.svg" alt="" class="h-8 w-8 mr-2 inline-block" /> Discord</div>
+          <div class="font-normal text-xs mt-4">Chat with other members of the community on Discord.</div>
+        </a>
+        <a href="https://twitter.com/ocamllang" class="border-gray-200 border p-8 rounded-xl card-hover">
+          <div class="text-base font-semibold"><img src="/img/community/twitter.svg" alt="" class="h-8 w-8 mr-2 inline-block" /> Twitter</div>
+          <div class="font-normal text-xs mt-4">Catch up with some of the latest announcement and events from the community.</div>
+        </a>
+        <a href="irc://irc.libera.chat/#ocaml" class="border-gray-200 border p-8 rounded-xl card-hover">
+          <div class="text-base font-semibold"><img src="/img/community/hashtag.svg" alt="" class="h-8 w-8 mr-2 inline-block" /> IRC Chat</div>
+          <div class="font-normal text-xs mt-4">Chat with other members of the community on IRC.</div>
+        </a>
+        <a href="https://stackoverflow.com/questions/tagged/ocaml" class="border-gray-200 border p-8 rounded-xl card-hover">
+          <div class="text-base font-semibold"><img src="/img/community/stackoverflow.svg" alt="" class="h-8 w-8 mr-2 inline-block" /> Stack Overflow</div>
+          <div class="font-normal text-xs mt-4">Ask and help answer OCaml questions.</div>
+        </a>
+        <a href="https://www.reddit.com/r/ocaml/" class="border-gray-200 border p-8 rounded-xl card-hover">
+          <div class="text-base font-semibold"><img src="/img/community/reddit.svg" alt="" class="h-8 w-8 mr-2 inline-block" /> Reddit</div>
+          <div class="font-normal text-xs mt-4">“join the OCaml subreddit and posts discussions and memes, talk about your projects, and share interesting articles and news from the web.</div>
+        </a>
+        <a href="https://inbox.ocaml.org/caml-list/" class="border-gray-200 border p-8 rounded-xl card-hover">
+          <div class="text-base font-semibold"><img src="/img/community/mail.svg" alt="" class="h-8 w-8 mr-2 inline-block" /> Mailing List</div>
+          <div class="font-normal text-xs mt-4">Share experience, exchange ideas and code, and report on applications of the OCaml language.</div>
+        </a>
       </div>
     </div>
-    <div class="text-center">
-      <a href="<%s Url.blog %>">
-        <button class="btn btn-secondary btn-lg mt-16">
-          <span>Go to the OCaml blog</span>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-      </a>
-    </div>
+  </div>
+</div>
+<div class="bg-pattern lg:py-32 py-20 ">
+  <div class="container-fluid">
+      <div class=" ">
+          <div class="text-center">
+              <h2 class="font-bold text-primary-600 mb-6">Workshops</h2>
+              <div class="text-lg text-white mb-16">Here are some of the workshops we have had up until now</div>
+          </div>
+          <% (match upcoming_workshops with 
+             | [] -> ()
+             | _ -> %>
+          <div class="text-center text-white text-xl font-bold">
+              Upcoming Events
+          </div>
+          <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 md:px-20 lg:px-56 mt-12">
+              <% upcoming_workshops |> List.iter (fun (workshop : Ood.Workshop.t) -> %>
+              <a href="<%s Url.workshop workshop.slug %>" class="bg-white p-8 rounded-xl transition-transform hover:scale-105">
+                  <div class="font-semibold"><%s workshop.title %></div>
+                  <div class="mt-4">
+                      <div class="flex items-center space-x-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                              stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                          <div><%s workshop.location %></div>
+                      </div>
+                      <div class="flex items-center space-x-2 mt-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                              stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                          <div><%s workshop.date %></div>
+                      </div>
+                  </div>
+              </a>
+              <% ); %>
+          </div>
+          <div class="text-center text-white text-xl font-bold mt-20">
+              Older Events
+          </div>
+          <% ); %>
+          <div class="grid lg:grid-cols-3 gap-8 lg:gap-12 mt-12">
+              <% old_workshops |> List.iter (fun (workshop : Ood.Workshop.t) -> %>
+              <a href="<%s Url.workshop workshop.slug %>" class="bg-white p-8 rounded-xl transition-transform hover:scale-105">
+                  <div class="font-semibold"><%s workshop.title %></div>
+                  <div class="mt-4">
+                      <div class="flex items-center space-x-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                              stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                          <div><%s workshop.location %></div>
+                      </div>
+                      <div class="flex items-center space-x-2 mt-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                              stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                          <div><%s workshop.date %></div>
+                      </div>
+                  </div>
+              </a>
+              <% ); %>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="bg-white py-0 pt-20 md:pt-10 lg:p-20 pb-10 md:pb-20">
+  <div class="container-fluid">
+      <h2 class="font-bold">Meetups</h2>
+      <div class="grid lg:grid-cols-3 gap-8 lg:gap-12 mt-12">
+          <% meetups |> List.iter (fun (meetup : Ood.Meetup.t) -> %>
+          <a href="<%s meetup.url %>" class="border border-gray-200 p-8 rounded-xl transition-transform hover:scale-105">
+              <div class="font-semibold">
+                  <%s meetup.title %>
+              </div>
+              <div class="mt-4">
+                  <div class="flex items-center space-x-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                          stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      <div>
+                          <%s meetup.textual_location %>
+                      </div>
+                  </div>
+              </div>
+          </a>
+          <% ); %>
+      </div>
   </div>
 </div>
 <div class="bg-primary-600">
@@ -95,72 +181,6 @@ Layout.render
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
           </button>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="bg-white py-32">
-  <div class="container-fluid">
-    <div class=" ">
-      <div class="text-center">
-        <h2 class="font-bold text-body-600 mb-6">Still here?</h2>
-        <div class="font-normal text-lg text-body-400">Try some of our social channels for more information about us</div>
-      </div>
-      <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8 md:gap-4 md:px-10 lg:px-20 mt-12">
-        <a href="https://github.com/ocaml/ocaml" class="border-gray-200 border p-8 rounded-xl card-hover">
-          <div class="flex">
-            <img src="/img/community/github.svg" alt="" class="h-8 w-8" />
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">Github</div>
-              <div class="font-normal text-xs mt-2">Open bug reports and feature requests on the compiler</div>
-            </div>
-          </div>
-        </a>
-        <a href="https://discord.gg/cCYQbqN" class="border-gray-200 border p-8 rounded-xl card-hover">
-          <div class="flex">
-            <img src="/img/community/discord.svg" alt="" class="h-8 w-8" />
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">Discord</div>
-              <div class="font-normal text-xs mt-2">Chat with other members of the community on Discord.</div>
-            </div>
-          </div>
-        </a>
-        <a href="https://twitter.com/ocamllang" class="border-gray-200 border p-8 rounded-xl card-hover">
-          <div class="flex">
-            <img src="/img/community/twitter.svg" alt="" class="h-8 w-8" />
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">Twitter</div>
-              <div class="font-normal text-xs mt-2">Catch up with some of the latest announcement and events from the community.</div>
-            </div>
-          </div>
-        </a>
-        <a href="irc://irc.libera.chat/#ocaml" class="border-gray-200 border p-8 rounded-xl card-hover">
-          <div class="flex">
-            <img src="/img/community/hashtag.svg" alt="" class="h-8 w-8" />
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">IRC Chat</div>
-              <div class="font-normal text-xs mt-2">Chat with other members of the community on IRC.</div>
-            </div>
-          </div>
-        </a>
-        <a href="https://stackoverflow.com/questions/tagged/ocaml" class="border-gray-200 border p-8 rounded-xl card-hover">
-          <div class="flex">
-            <img src="/img/community/stackoverflow.svg" alt="" class="h-8 w-8" />
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">Stack Overflow</div>
-              <div class="font-normal text-xs mt-2">Ask and help answer OCaml questions.</div>
-            </div>
-          </div>
-        </a>
-        <a href="https://www.reddit.com/r/ocaml/" class="border-gray-200 border p-8 rounded-xl card-hover">
-          <div class="flex">
-            <img src="/img/community/reddit.svg" alt="" class="h-8 w-8" />
-            <div class="flex-col px-6">
-              <div class="text-base font-semibold">Reddit</div>
-              <div class="font-normal text-xs mt-2">Read news from the community on the OCaml subreddit.</div>
-            </div>
-          </div>
         </a>
       </div>
     </div>

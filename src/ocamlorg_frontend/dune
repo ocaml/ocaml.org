@@ -70,11 +70,6 @@
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
-  (targets events.ml)
-  (deps events.eml)
-  (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
- (rule
   (targets home.ml)
   (deps home.eml)
   (action
@@ -98,11 +93,6 @@
  (rule
   (targets opportunities.ml)
   (deps opportunities.eml)
-  (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
- (rule
-  (targets opportunity.ml)
-  (deps opportunity.eml)
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
@@ -171,8 +161,8 @@
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
-  (targets carbon_footprint.ml)
-  (deps carbon_footprint.eml)
+  (targets page.ml)
+  (deps page.eml)
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root}))))
 

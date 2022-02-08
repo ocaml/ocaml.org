@@ -1,6 +1,5 @@
 let render ?(search = "") (releases : Ood.Release.t list) =
 Layout.render
-~turbo_full_reload:true
 ~title:"OCaml Releases"
 ~description:"The history of OCaml releases with a summary and a complete changelog, as well as the manual at that time." @@
 <div class="intro-section-simple">

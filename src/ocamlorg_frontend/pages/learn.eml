@@ -1,6 +1,5 @@
 let render ~(papers : Ood.Paper.t list) ~(release : Ood.Release.t) ~(books : Ood.Book.t list) =
 Learn_layout.render
-~turbo_full_reload:true
 ~title:"Learn OCaml"
 ~description:"Getting started with the OCaml programming language. Read the official tutorials, exercices and language manual." @@
 <div class="flex-1 flex flex-col md:pl-10 min-w-0">

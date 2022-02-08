@@ -1,7 +1,5 @@
 let render
-?(turbo_full_reload=false)
 ?(use_swiper=false)
-?(use_turbo=false)
 ?(wide=false)
 ?description
 ~title
@@ -28,18 +26,11 @@ inner =
   <meta name="theme-color" content="#fff">
   <meta name="color-scheme" content="white">
   <meta name=”robots” content="noindex, nofollow">
-  <% if turbo_full_reload then ( %>
-    <meta name="turbo-visit-control" content="reload">
-  <% ); %>
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="manifest" href="/manifest.json">
   <link rel="stylesheet" href="/main.css" />
   <link rel="stylesheet" href="/vendors/font-files/inter.css" />
   <script defer src="/vendors/alpine.min.js"></script>
-  <% if use_turbo then ( %>
-  <script src="/vendors/alpine-turbo-drive-adapter.min.js"></script>
-  <script src="/vendors/turbo.es2017-umd.js"></script>
-  <% ); %>
   <% if use_swiper then ( %>
   <link rel="stylesheet" href="/vendors/swiper-bundle.min.css" />
   <script src="/vendors/swiper-bundle.min.js"></script>
@@ -56,8 +47,8 @@ inner =
 
     <div class="container-fluid header <%s if wide then "wide" else "" %> flex justify-between items-center">
       <div class="space-x-8 flex items-center">
-        <a href="<%s Url.index %>">
-          <img src="/logo.svg" width="42px" alt="OCaml logo">
+        <a href="<%s Url.index %>" class="block pb-2">
+          <img src="/logo-with-name.svg" width="132" alt="OCaml logo">
         </a>
         <ul class="space space-x-8 hidden lg:flex text-body-400 font-medium">
           <li><a href="<%s Url.learn %>" class="hover:text-primary-600">Learn</a></li>
@@ -107,7 +98,7 @@ inner =
       x-transition:leave-end="translate-x-full">
       <ul class="text-body-400 p-6 space-y-6 font-semibold">
         <li class="flex justify-between items-center">
-          <a href="<%s Url.index %>"><img width="132" src="/logo-footer.svg" alt=""></a>
+          <a href="<%s Url.index %>"><img width="132" src="/logo-with-name.svg" alt=""></a>
 
           <div class="close lg:hidden h-12 w-12 hover:bg-primary-100 flex items-center justify-center rounded-full"
             x-on:click="open = false">
@@ -200,7 +191,7 @@ inner =
     <div class="container-fluid">
       <div class="flex flex-col lg:flex-row justify-between flex-wrap space-y-16 xl:space-y-0">
         <div class="xl:w-1/4">
-          <img width="160" src="/logo-footer.svg" alt="">
+          <img width="160" src="/logo-with-name.svg" alt="">
           <div class="py-8">Innovation. Community. Security.</div>
           <div class="space-x-6 text-2xl flex items-center">
             <a aria-label="OCaml's Discord" href="https://discord.gg/cCYQbqN" class="opacity-60 hover:opacity-100">
@@ -261,7 +252,6 @@ inner =
 
           <ul>
             <li class="text-lg font-semibold pb-3">Community</li>
-            <li class="py-3"><a href="<%s Url.events %>">Events & Workshops</a></li>
             <li class="py-3"><a href="<%s Url.blog %>">Blog</a></li>
             <li class="py-3"><a href="<%s Url.opportunities %>">Opportunities</a></li>
           </ul>
@@ -270,6 +260,7 @@ inner =
           <ul>
             <li class="text-lg font-semibold pb-3">Legal</li>
             <li class="py-3"><a href="<%s Url.carbon_footprint %>">Carbon Footprint</a></li>
+            <li class="py-3"><a href="<%s Url.governance %>">Governance</a></li>
           </ul>
         </div>
       </div>

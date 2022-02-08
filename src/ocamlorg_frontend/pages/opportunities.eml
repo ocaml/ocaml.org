@@ -1,6 +1,5 @@
-let render ?(search = "") ?(country = "All") (opportunities : Ood.Job.t list) =
+let render ?(search = "") ?(location = "All") ~locations (opportunities : Ood.Job.t list) =
 Layout.render
-~turbo_full_reload:true
 ~title:"OCaml Opportunities"
 ~description:"This is a space where groups, companies, and organisations can advertise their projects directly to the
 OCaml community." @@
@@ -44,10 +43,11 @@ OCaml community." @@
                         <select
                             class="w-full w-full appearance-none text-body-600 border rounded-md py-3 pl-6 border-gray-200 pr-20 h-full"
                             id="c" name="c" onchange="this.form.submit()">
-                            <option value="All" <%s if country = "All" then "selected" else "" %>>Location</option>
-                            <option value="Remote" <%s if country = "Remote" then "selected" else "" %>>Remote</option>
-                            <!-- Add an option here to support more countries from the data. -->
-                            <option value="United States" <%s if country = "United States" then "selected" else "" %>>United States</option>
+                            <option value="All" <%s if location = "All" then "selected" else "" %>>Location</option>
+                            <option value="Remote" <%s if location = "Remote" then "selected" else "" %>>Remote</option>
+                            <% locations |> List.iter (fun item -> %>
+                            <option value="<%s item %>" <%s if location = item then "selected" else "" %>><%s item %></option>
+                            <% ); %>
                         </select>
                     </form>
                 </div>
@@ -64,12 +64,13 @@ OCaml community." @@
             <div class="text-xl">No Opportunities found matching "<%s search %>"</div>
         </div>
         <% | _ -> %>
-        <div class="grid grid-cols-1 pb-10 lg:grid-cols-3 gap-8 mt-16" x-data="{ country: '<%s country %>' }">
+        <div class="grid grid-cols-1 pb-10 lg:grid-cols-3 gap-8 mt-16" x-data="{ location: '<%s location %>' }">
             <% opportunities |> List.iter (fun (item : Ood.Job.t) -> %>
-            <a href="/opportunities/<%i item.id %>"
+            <a href="<%s item.link %>"
+                target="_blank"
                 class="text-left p-8 border border-gray-200 rounded-xl card-hover"
-                :class="{ 'hidden': country != 'All' && country != '<%s item.country %>'  }">
-                <img class="mb-6 w-28" src="<%s item.company_logo %>" alt="">
+                :class="{ 'hidden': location != 'All' && location != '<%s item.location %>'  }">
+                <img class="mb-6 max-h-8 max-w-[7rem]" src="<%s item.company_logo %>" alt="">
                 <div class="text-lg mb-3 text-body-600">
                     <%s item.company %>
                 </div>

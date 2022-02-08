@@ -1,16 +1,49 @@
 let render (tutorial : Ood.Tutorial.t) =
-Learn_layout.render
-~turbo_full_reload:true
-~current_tutorial:tutorial.slug
-~title:(Printf.sprintf "%s · OCaml Tutorials" tutorial.title)
-~description:tutorial.description @@
-
-<div class="flex-1 flex overflow-hidden border-r border-gray-200">
-    <div class="prose prose-orange overflow-hidden z-0 z- lg:max-w-4xl mx-auto relative py-8 px-6">
-        <h2><%s tutorial.title %></h2>
-        <p><%s tutorial.description %></p>
-        <%s! tutorial.body_html %>
+Learn_layout.render ~current_tutorial:tutorial.slug ~title:(Printf.sprintf "%s · OCaml Tutorials" tutorial.title) ~description:tutorial.description @@
+<div class="flex-1 flex overflow-hidden">
+  <div class="prose prose-orange overflow-hidden z-0 z- lg:max-w-4xl mx-auto relative py-8 px-6">
+    <h2><%s tutorial.title %></h2>
+    <p><%s tutorial.description %></p>
+    <%s! tutorial.body_html %>
+    <div class="pt-10 border-t border-slate-200 lg:grid lg:grid-cols-3 gap-4 text-slate-500">
+      <div class="lg:col-span-1">
+        <h2 class="mt-0 mb-4 text-base font-semibold leading-6 lg:text-base">Help us make these docs great!</h2>
+        <p class="text-sm mt-0 mb-4 max-w-xs">All OCaml docs are open source. See something that's wrong or unclear? Submit a pull request.</p>
+        <a
+          class="inline-block relative py-1 px-4 font-medium no-underline align-middle bg-transparent rounded-md border border-solid appearance-none cursor-pointer select-none whitespace-no-wrap hover:no-underline"
+          href="https://github.com/ocaml/v3.ocaml.org-server/blob/main/data/<%s tutorial.fpath %>"
+        >
+          <svg aria-hidden="true" role="img" class="inline-block overflow-visible mr-0 align-text-bottom select-none" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible; fill: currentcolor">
+            <path
+              fill-rule="evenodd"
+              d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"
+              class="text-gray-600"
+            ></path>
+          </svg>
+          Make a contribution</a
+        >
+      </div>
+      <div class="mt-4 lg:mt-0 lg:col-span-1 lg:col-start-3">
+        <h2 class="mt-0 mb-4 text-base font-semibold leading-6 lg:text-base">Still need help?</h2>
+        <div class="text-sm mb-2">
+          <a href="https://discuss.ocaml.org/" class="font-semibold no-underline bg-transparent cursor-pointer hover:underline">
+            <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            Ask the OCaml community</a
+          >
+        </div>
+        <div class="text-sm mb-2">
+          <a href="https://github.com/ocaml/v3.ocaml.org-server/issues/new" class="font-semibold no-underline bg-transparent cursor-pointer hover:underline">
+            <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Open an issue</a
+          >
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 <div class="hidden lg:flex top-0 sticky h-screen">
     <div class="flex-col w-60">
@@ -21,4 +54,5 @@ Learn_layout.render
             </div>
         </div>
     </div>
+  </div>
 </div>

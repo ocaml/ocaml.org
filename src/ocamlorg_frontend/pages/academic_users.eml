@@ -1,6 +1,5 @@
 let render (users : Ood.Academic_institution.t list) =
 Layout.render
-~turbo_full_reload:true
 ~title:"Academic Users of OCaml"
 ~description:"OCaml is taught all around the world and used every day by programming language researchers. Learn more
 about the strong academic roots of the language." @@

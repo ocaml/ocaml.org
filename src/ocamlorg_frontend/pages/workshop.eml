@@ -1,6 +1,5 @@
 let render ~(videos : (string, Ood.Watch.t) Hashtbl.t) (workshop : Ood.Workshop.t) =
 Layout.render
-~turbo_full_reload:true
 ~title:workshop.title
 ~description:(Printf.sprintf "A description of the workshop %s held on %s" workshop.title workshop.date) @@
 <div class="intro-section-simple">
