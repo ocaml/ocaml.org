@@ -228,106 +228,109 @@ with an emphasis on expressiveness and safety."
     </div>
   </div>
 
-  <div class="w-screen overflow-hidden py-16 flex flex-col items-center">
-    <div class="grid grid-cols-4 gap-6 md:gap-4 md:px-10 lg:px-20 relative left-5 lg:left-28 md:left-16"
-      style="width: 1500px">
-      <a href="https://mirage.io/" target="_blank" class="bg-white p-6 rounded-xl items-center flex card-hover">
-        <div class="flex items-center">
-          <img src="/img/home/mirage.png" alt="MirageOS logo" />
-          <div class="flex-col px-6">
-            <div class="text-base font-semibold">MirageOS</div>
-            <div class="font-normal text-xs mt-1">
-              Library operating system to constructs unikernels
+  <div class="w-11/12 m-auto pl-7 md:pl-0 md:w-screen overflow-y-hidden md:overflow-hidden py-16 flex flex-col items-center">
+    <div class="w-full md:w-auto">
+      <div class="grid grid-cols-4 gap-6 md:gap-4 md:px-10 lg:px-20 relative left-5 lg:left-28 md:left-16"
+        style="width: 1500px">
+        <a href="https://mirage.io/" target="_blank" class="bg-white p-6 rounded-xl items-center flex card-hover">
+          <div class="flex items-center">
+            <img src="/img/home/mirage.png" alt="MirageOS logo" />
+            <div class="flex-col px-6">
+              <div class="text-base font-semibold">MirageOS</div>
+              <div class="font-normal text-xs mt-1">
+                Library operating system to constructs unikernels
+              </div>
             </div>
           </div>
-        </div>
-      </a>
-      <a href="http://ocsigen.org/js_of_ocaml/latest/manual/overview" target="_blank"
-        class="bg-white p-6 rounded-xl items-center flex card-hover">
-        <div class="flex items-center">
-          <img src="/img/home/js_of_ocaml.png" alt="Js_of_ocaml logo" />
-          <div class="flex-col px-6">
-            <div class="text-base font-semibold">Js_of_ocaml</div>
-            <div class="font-normal text-xs mt-1">
-              Compiler from OCaml to Javascript.
+        </a>
+        <a href="http://ocsigen.org/js_of_ocaml/latest/manual/overview" target="_blank"
+          class="bg-white p-6 rounded-xl items-center flex card-hover">
+          <div class="flex items-center">
+            <img src="/img/home/js_of_ocaml.png" alt="Js_of_ocaml logo" />
+            <div class="flex-col px-6">
+              <div class="text-base font-semibold">Js_of_ocaml</div>
+              <div class="font-normal text-xs mt-1">
+                Compiler from OCaml to Javascript.
+              </div>
             </div>
           </div>
-        </div>
-      </a>
-      <a href="https://erratique.ch/software/cmdliner" target="_blank"
-        class="bg-white p-6 rounded-xl items-center flex card-hover">
-        <div class="flex items-center">
-          <img src="/img/home/cmdliner.png" alt="Cmdliner logo" />
-          <div class="flex-col px-6">
-            <div class="text-base font-semibold">Cmdliner</div>
-            <div class="font-normal text-xs mt-1">
-              Declarative definition of command line interfaces for OCaml
+        </a>
+        <a href="https://erratique.ch/software/cmdliner" target="_blank"
+          class="bg-white p-6 rounded-xl items-center flex card-hover">
+          <div class="flex items-center">
+            <img src="/img/home/cmdliner.png" alt="Cmdliner logo" />
+            <div class="flex-col px-6">
+              <div class="text-base font-semibold">Cmdliner</div>
+              <div class="font-normal text-xs mt-1">
+                Declarative definition of command line interfaces for OCaml
+              </div>
             </div>
           </div>
-        </div>
-      </a>
-      <a href="https://irmin.org/" target="_blank"
-        class="bg-white p-6 rounded-xl items-center flex card-hover">
-        <div class="flex items-center">
-          <img src="/img/home/irmin.png" alt="Irmin logo" />
-          <div class="flex-col px-6">
-            <div class="text-base font-semibold">Irmin</div>
-            <div class="font-normal text-xs mt-1">
-              Distributed database that follows the same design principles as Git
+        </a>
+        <a href="https://irmin.org/" target="_blank"
+          class="bg-white p-6 rounded-xl items-center flex card-hover">
+          <div class="flex items-center">
+            <img src="/img/home/irmin.png" alt="Irmin logo" />
+            <div class="flex-col px-6">
+              <div class="text-base font-semibold">Irmin</div>
+              <div class="font-normal text-xs mt-1">
+                Distributed database that follows the same design principles as Git
+              </div>
             </div>
           </div>
-        </div>
-      </a>
-    </div>
-    <div class="grid grid-cols-4 gap-6 md:gap-4 md:px-10 lg:px-20 mt-6 relative right-5 lg:right-28 md:right-16"
-      style="width: 1500px">
-      <a href="https://dune.build/" target="_blank"
-        class="bg-white p-6 rounded-xl items-center flex card-hover">
-        <div class="flex items-center">
-          <img src="/img/home/dune.png" alt="Dune logo" />
-          <div class="flex-col px-6">
-            <div class="text-base font-semibold">Dune</div>
-            <div class="font-normal text-xs mt-1">
-              A composable build system for OCaml
+        </a>
+      </div>
+    
+      <div class="grid grid-cols-4 gap-6 md:gap-4 md:px-10 lg:px-20 mt-6 relative right-5 lg:right-28 md:right-16"
+        style="width: 1500px">
+        <a href="https://dune.build/" target="_blank"
+          class="bg-white p-6 rounded-xl items-center flex card-hover">
+          <div class="flex items-center">
+            <img src="/img/home/dune.png" alt="Dune logo" />
+            <div class="flex-col px-6">
+              <div class="text-base font-semibold">Dune</div>
+              <div class="font-normal text-xs mt-1">
+                A composable build system for OCaml
+              </div>
             </div>
           </div>
-        </div>
-      </a>
-      <a href="https://ocsigen.org/lwt/latest/manual/manual" target="_blank"
-        class="bg-white p-6 rounded-xl items-center flex card-hover">
-        <div class="flex items-center">
-          <img src="/img/home/lwt.png" alt="Lwt logo" />
-          <div class="flex-col px-6">
-            <div class="text-base font-semibold">Lwt</div>
-            <div class="font-normal text-xs mt-1">
-              OCaml promises and concurrent IO
+        </a>
+        <a href="https://ocsigen.org/lwt/latest/manual/manual" target="_blank"
+          class="bg-white p-6 rounded-xl items-center flex card-hover">
+          <div class="flex items-center">
+            <img src="/img/home/lwt.png" alt="Lwt logo" />
+            <div class="flex-col px-6">
+              <div class="text-base font-semibold">Lwt</div>
+              <div class="font-normal text-xs mt-1">
+                OCaml promises and concurrent IO
+              </div>
             </div>
           </div>
-        </div>
-      </a>
-      <a href="https://ocaml.xyz/" target="_blank" class="bg-white p-6 rounded-xl items-center flex card-hover">
-        <div class="flex items-center">
-          <img src="/img/home/owl.png" alt="Owl logo" />
-          <div class="flex-col px-6">
-            <div class="text-base font-semibold">Owl</div>
-            <div class="font-normal text-xs mt-1">
-              OCaml Scientific and Engineering Computing
+        </a>
+        <a href="https://ocaml.xyz/" target="_blank" class="bg-white p-6 rounded-xl items-center flex card-hover">
+          <div class="flex items-center">
+            <img src="/img/home/owl.png" alt="Owl logo" />
+            <div class="flex-col px-6">
+              <div class="text-base font-semibold">Owl</div>
+              <div class="font-normal text-xs mt-1">
+                OCaml Scientific and Engineering Computing
+              </div>
             </div>
           </div>
-        </div>
-      </a>
-      <a href="https://aantron.github.io/dream/" target="_blank"
-        class="bg-white p-6 rounded-xl items-center flex card-hover">
-        <div class="flex items-center">
-          <img src="/img/home/dream.png" alt="Dream logo" />
-          <div class="flex-col px-6">
-            <div class="text-base font-semibold">Dream</div>
-            <div class="font-normal text-xs mt-1">
-              Tidy Web framework for OCaml and ReasonML
+        </a>
+        <a href="https://aantron.github.io/dream/" target="_blank"
+          class="bg-white p-6 rounded-xl items-center flex card-hover">
+          <div class="flex items-center">
+            <img src="/img/home/dream.png" alt="Dream logo" />
+            <div class="flex-col px-6">
+              <div class="text-base font-semibold">Dream</div>
+              <div class="font-normal text-xs mt-1">
+                Tidy Web framework for OCaml and ReasonML
+              </div>
             </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
     </div>
   </div>
 </div>
