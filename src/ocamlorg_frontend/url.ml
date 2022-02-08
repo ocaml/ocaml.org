@@ -35,7 +35,6 @@ let blog = "/blog"
 let news = "/news"
 let news_post v = "/news/" ^ v
 let opportunities = "/opportunities"
-let opportunity v = "/opportunities/" ^ v
 let carbon_footprint = "/carbon-footprint"
 let governance = "/governance"
 let papers = "/papers"

@@ -78,7 +78,6 @@ let page_routes =
       Dream.get Url.news Handler.news;
       Dream.get (Url.news_post ":id") Handler.news_post;
       Dream.get Url.opportunities Handler.opportunities;
-      Dream.get (Url.opportunity ":id") Handler.opportunity;
       Dream.get Url.carbon_footprint Handler.carbon_footprint;
       Dream.get Url.governance Handler.governance;
       Dream.get Url.papers Handler.papers;

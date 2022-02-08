@@ -19,10 +19,8 @@ let blog ~featured ~rss ~rss_page ~rss_pages_number ~news =
 let news ~page ~pages_number news = News.render ~page ~pages_number news
 let news_post news = News_post.render news
 
-let opportunities ?search ?country opportunities =
-  Opportunities.render ?search ?country opportunities
-
-let opportunity opportunity = Opportunity.render opportunity
+let opportunities ?search ?location ~locations opportunities =
+  Opportunities.render ?search ?location ~locations opportunities
 
 let package_overview ~readme ~dependencies ~rev_dependencies ~homepages ~source
     package =
