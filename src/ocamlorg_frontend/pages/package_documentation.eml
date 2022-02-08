@@ -39,7 +39,7 @@ Package_layout.render
   </div>
   <div class="hidden lg:flex top-0 sticky h-screen">
     <div class="flex-col w-60">
-      <div class="h-auto border border-gray-200 rounded-xl p-6 right-sidebar">
+      <div class="h-screen overflow-scroll p-6 right-sidebar">
         <div class="font-semibold text-black text-sm mb-4">ON THIS PAGE</div>
         <%s! Toc.render toc %>
       </div>
