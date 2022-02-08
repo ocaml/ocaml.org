@@ -12,7 +12,7 @@ let workshop ~videos workshop = Workshop.render ~videos workshop
 let home () = Home.render ()
 let industrial_users users = Industrial_users.render users
 let learn ~papers ~release ~books = Learn.render ~papers ~release ~books
-let abcd = Abcd.render 
+let platformPage = PlatformPage.render 
 
 let blog ~featured ~rss ~rss_page ~rss_pages_number ~news =
   Blog.render ~featured ~rss ~rss_page ~rss_pages_number ~news

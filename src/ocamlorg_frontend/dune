@@ -86,8 +86,8 @@
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
 
  (rule
-  (targets abcd.ml)
-  (deps abcd.eml)
+  (targets platformPage.ml)
+  (deps platformPage.eml)
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule

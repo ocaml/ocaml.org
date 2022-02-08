@@ -1,6 +1,6 @@
 let index = "/"
 let learn = "/learn"
-let abcd = "/abcd"
+let platformPage = "/platformPage"
 let packages = "/packages"
 let packages_search = "/packages/search"
 let package v = "/p/" ^ v

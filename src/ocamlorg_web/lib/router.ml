@@ -64,7 +64,7 @@ let page_routes =
     [
       Dream.get Url.index Handler.index;
       Dream.get Url.learn Handler.learn;
-      Dream.get Url.abcd Handler.abcd;
+      Dream.get Url.platformPage Handler.platformPage;
       Dream.get Url.community Handler.community;
       Dream.get Url.success_stories Handler.success_stories;
       Dream.get (Url.success_story ":id") Handler.success_story;
