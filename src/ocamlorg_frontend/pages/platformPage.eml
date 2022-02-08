@@ -1,6 +1,6 @@
 let render   =
 Learn_layout.render
-~title:"Learn OCaml"
+~title:"Platform OCaml"
 ~description:"Getting started with the OCaml programming language. Read the official tutorials, exercices and language manual." @@
 <div class="flex-1 flex flex-col md:pl-10 min-w-0">
     <h1 class="font-bold">The OCaml Platform</h1>
