@@ -340,6 +340,6 @@ let manual =
 (* TODO: Integrate a platform section to the site *)
 let platform =
   [
-    ( Url.platform "ocaml_on_windows.html",
+    ( Url.ocaml_on_windows,
       "https://ocaml.org/platform/ocaml_on_windows.html" );
   ]
