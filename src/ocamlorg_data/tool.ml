@@ -18,17 +18,17 @@ type t =
   
 let all = 
 [
-  { name = {js|Bun|js}
-  ; slug = {js|bun|js}
-  ; source = {js|https://github.com/yomimono/ocaml-bun|js}
-  ; license = {js|MIT|js}
-  ; synopsis = {js|Simple management of afl-fuzz processes|js}
-  ; description = {js|<p>A wrapper for OCaml processes using afl-fuzz, intended for easy use in CI environments.</p>
+  { name = {js|odoc|js}
+  ; slug = {js|odoc|js}
+  ; source = {js|https://github.com/ocaml/odoc|js}
+  ; license = {js|ISC|js}
+  ; synopsis = {js|Documentation generator for OCaml|js}
+  ; description = {js|<p>Documentation generator for OCaml</p>
 |js}
   ; lifecycle = `Incubate
   };
  
-  { name = {js|Mdx|js}
+  { name = {js|mdx|js}
   ; slug = {js|mdx|js}
   ; source = {js|https://github.com/realworldocaml/mdx|js}
   ; license = {js|ISC|js}
@@ -41,7 +41,7 @@ The test mode allows to ensure that shell scripts and OCaml fragments in the doc
   ; lifecycle = `Incubate
   };
  
-  { name = {js|OCamlFormat|js}
+  { name = {js|ocamlformat|js}
   ; slug = {js|ocamlformat|js}
   ; source = {js|https://github.com/ocaml-ppx/ocamlformat|js}
   ; license = {js|MIT|js}
@@ -51,7 +51,7 @@ The test mode allows to ensure that shell scripts and OCaml fragments in the doc
   ; lifecycle = `Incubate
   };
  
-  { name = {js|Dune-release|js}
+  { name = {js|dune-release|js}
   ; slug = {js|dune-release|js}
   ; source = {js|https://github.com/ocamllabs/dune-release|js}
   ; license = {js|ISC|js}
@@ -61,7 +61,7 @@ The test mode allows to ensure that shell scripts and OCaml fragments in the doc
   ; lifecycle = `Incubate
   };
  
-  { name = {js|OCaml LSP|js}
+  { name = {js|ocaml-lsp|js}
   ; slug = {js|ocaml-lsp|js}
   ; source = {js|https://github.com/ocaml/ocaml-lsp|js}
   ; license = {js|ISC|js}
@@ -71,7 +71,40 @@ The test mode allows to ensure that shell scripts and OCaml fragments in the doc
   ; lifecycle = `Incubate
   };
  
-  { name = {js|Merlin|js}
+  { name = {js|bun|js}
+  ; slug = {js|bun|js}
+  ; source = {js|https://github.com/yomimono/ocaml-bun|js}
+  ; license = {js|MIT|js}
+  ; synopsis = {js|Simple management of afl-fuzz processes|js}
+  ; description = {js|<p>A wrapper for OCaml processes using afl-fuzz, intended for easy use in CI environments.</p>
+|js}
+  ; lifecycle = `Incubate
+  };
+ 
+  { name = {js|opam|js}
+  ; slug = {js|opam|js}
+  ; source = {js|https://github.com/ocaml/opam|js}
+  ; license = {js|LGPLv2|js}
+  ; synopsis = {js|A source-based OCaml package manager|js}
+  ; description = {js|<p>A source-based OCaml package manager</p>
+|js}
+  ; lifecycle = `Active
+  };
+ 
+  { name = {js|dune|js}
+  ; slug = {js|dune|js}
+  ; source = {js|https://github.com/ocaml/dune|js}
+  ; license = {js|MIT|js}
+  ; synopsis = {js|Fast, portable, and opinionated build system|js}
+  ; description = {js|<p>dune is a build system that was designed to simplify the release of Jane Street packages. It reads metadata from &quot;dune&quot; files following a very simple s-expression syntax.
+dune is fast, has very low-overhead, and supports parallel builds on all platforms. It has no system dependencies; all you need to build dune or packages using dune is OCaml. You don't need make or bash as long as the packages themselves don't use bash explicitly.
+dune supports multi-package development by simply dropping multiple repositories into the same directory.
+It also supports multi-context builds, such as building against several opam roots/switches simultaneously. This helps maintaining packages across several versions of OCaml and gives cross-compilation for free.</p>
+|js}
+  ; lifecycle = `Active
+  };
+ 
+  { name = {js|merlin|js}
   ; slug = {js|merlin|js}
   ; source = {js|https://github.com/ocaml/merlin|js}
   ; license = {js|MIT|js}
@@ -108,19 +141,6 @@ It also comes bundled with two ppx rewriters that are commonly used to write too
   ; license = {js|3 Clause BSD|js}
   ; synopsis = {js|Universal toplevel for OCaml|js}
   ; description = {js|<p>utop is an improved toplevel (i.e., Read-Eval-Print Loop or REPL) for OCaml.  It can run in a terminal or in Emacs. It supports line edition, history, real-time and context sensitive completion, colors, and more.  It integrates with the Tuareg mode in Emacs.</p>
-|js}
-  ; lifecycle = `Active
-  };
- 
-  { name = {js|Dune|js}
-  ; slug = {js|dune|js}
-  ; source = {js|https://github.com/ocaml/dune|js}
-  ; license = {js|MIT|js}
-  ; synopsis = {js|Fast, portable, and opinionated build system|js}
-  ; description = {js|<p>dune is a build system that was designed to simplify the release of Jane Street packages. It reads metadata from &quot;dune&quot; files following a very simple s-expression syntax.
-dune is fast, has very low-overhead, and supports parallel builds on all platforms. It has no system dependencies; all you need to build dune or packages using dune is OCaml. You don't need make or bash as long as the packages themselves don't use bash explicitly.
-dune supports multi-package development by simply dropping multiple repositories into the same directory.
-It also supports multi-context builds, such as building against several opam roots/switches simultaneously. This helps maintaining packages across several versions of OCaml and gives cross-compilation for free.</p>
 |js}
   ; lifecycle = `Active
   };

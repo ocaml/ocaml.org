@@ -64,6 +64,7 @@ let page_routes =
     [
       Dream.get Url.index Handler.index;
       Dream.get Url.learn Handler.learn;
+      Dream.get Url.platform Handler.platform;
       Dream.get Url.community Handler.community;
       Dream.get Url.success_stories Handler.success_stories;
       Dream.get (Url.success_story ":id") Handler.success_story;
@@ -133,7 +134,6 @@ let router t =
       package_route t;
       graphql_route t;
       redirection_routes Redirection.from_v2;
-      redirection_routes Redirection.platform;
       redirection_routes Redirection.manual;
       Dream.scope ""
         [ Dream_encoding.compress ]

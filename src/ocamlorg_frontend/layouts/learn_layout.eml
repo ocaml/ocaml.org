@@ -67,6 +67,8 @@ Layout.render
           <%s! render_tutorial "OCaml Programming Guidelines" "ocaml-programming-guidelines" %>
           <%s! render_tutorial "Compiling OCaml Projects" "compiling-ocaml-projects" %>
           <%s! render_tutorial "Best Practices" "best-practices" %>
+          <%s! render_tutorial "OCaml Platform" "platform" %>
+          <%s! render_tutorial "OCaml on Windows" "ocaml-on-windows" %>
         </div>
         <div class="space-y-2 flex mt-10 flex-col">
           <div class="text-sm font-semibold flex px-3 py-2 uppercase">Language Features</div>

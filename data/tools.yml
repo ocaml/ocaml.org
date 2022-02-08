@@ -1,14 +1,13 @@
 tools:
-
-  - name: Bun
-    source: https://github.com/yomimono/ocaml-bun
-    license: MIT
-    synopsis: Simple management of afl-fuzz processes
+  - name: odoc
+    source: https://github.com/ocaml/odoc
+    license: ISC
+    synopsis: Documentation generator for OCaml
     description: >
-      A wrapper for OCaml processes using afl-fuzz, intended for easy use in CI environments.
+      Documentation generator for OCaml
     lifecycle: incubate
 
-  - name: Mdx
+  - name: mdx
     source: https://github.com/realworldocaml/mdx
     license: ISC
     synopsis: Executable code blocks inside markdown files
@@ -28,7 +27,7 @@ tools:
       the same, mdx being the deprecate name, kept for now for compatibility.
     lifecycle: incubate
 
-  - name: OCamlFormat
+  - name: ocamlformat
     source: https://github.com/ocaml-ppx/ocamlformat
     license: MIT
     synopsis: Auto-formatter for OCaml code
@@ -36,7 +35,7 @@ tools:
       OCamlFormat is a tool to automatically format OCaml code in a uniform style.
     lifecycle: incubate
 
-  - name: Dune-release
+  - name: dune-release
     source: https://github.com/ocamllabs/dune-release
     license: ISC
     synopsis: Release dune packages in opam
@@ -47,7 +46,7 @@ tools:
       [GitHub](https://github.com).
     lifecycle: incubate
 
-  - name: OCaml LSP
+  - name: ocaml-lsp
     source: https://github.com/ocaml/ocaml-lsp
     license: ISC
     synopsis: LSP Server for OCaml
@@ -55,7 +54,46 @@ tools:
       An LSP server for OCaml.
     lifecycle: incubate
 
-  - name: Merlin
+  - name: bun
+    source: https://github.com/yomimono/ocaml-bun
+    license: MIT
+    synopsis: Simple management of afl-fuzz processes
+    description: >
+      A wrapper for OCaml processes using afl-fuzz, intended for easy use in CI environments.
+    lifecycle: incubate
+
+  - name: opam
+    source: https://github.com/ocaml/opam
+    license: LGPLv2
+    synopsis: A source-based OCaml package manager
+    description: >
+      A source-based OCaml package manager
+    lifecycle: active
+
+  - name: dune
+    source: https://github.com/ocaml/dune
+    license: MIT
+    synopsis: Fast, portable, and opinionated build system
+    description: >
+      dune is a build system that was designed to simplify the release of
+      Jane Street packages. It reads metadata from "dune" files following a
+      very simple s-expression syntax.
+
+      dune is fast, has very low-overhead, and supports parallel builds on
+      all platforms. It has no system dependencies; all you need to build
+      dune or packages using dune is OCaml. You don't need make or bash
+      as long as the packages themselves don't use bash explicitly.
+
+      dune supports multi-package development by simply dropping multiple
+      repositories into the same directory.
+
+      It also supports multi-context builds, such as building against
+      several opam roots/switches simultaneously. This helps maintaining
+      packages across several versions of OCaml and gives cross-compilation
+      for free.
+    lifecycle: active
+
+  - name: merlin
     source: https://github.com/ocaml/merlin
     license: MIT
     synopsis: Editor helper, provides completion, typing and source browsing in Vim and Emacs
@@ -100,30 +138,6 @@ tools:
       edition, history, real-time and context sensitive completion, colors,
       and more.  It integrates with the Tuareg mode in Emacs.
     lifecycle: active
-
-  - name: Dune
-    source: https://github.com/ocaml/dune
-    license: MIT
-    synopsis: Fast, portable, and opinionated build system
-    description: >
-      dune is a build system that was designed to simplify the release of
-      Jane Street packages. It reads metadata from "dune" files following a
-      very simple s-expression syntax.
-
-      dune is fast, has very low-overhead, and supports parallel builds on
-      all platforms. It has no system dependencies; all you need to build
-      dune or packages using dune is OCaml. You don't need make or bash
-      as long as the packages themselves don't use bash explicitly.
-
-      dune supports multi-package development by simply dropping multiple
-      repositories into the same directory.
-
-      It also supports multi-context builds, such as building against
-      several opam roots/switches simultaneously. This helps maintaining
-      packages across several versions of OCaml and gives cross-compilation
-      for free.
-    lifecycle: active
-
 
   - name: omp
     source: https://github.com/ocaml-ppx/ocaml-migrate-parsetree

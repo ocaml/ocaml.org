@@ -1,5 +1,4 @@
 let index = "/"
-let learn = "/learn"
 let packages = "/packages"
 let packages_search = "/packages/search"
 let package v = "/p/" ^ v
@@ -38,8 +37,10 @@ let opportunities = "/opportunities"
 let carbon_footprint = "/carbon-footprint"
 let governance = "/governance"
 let papers = "/papers"
+let learn = "/learn"
+let platform = "/learn/platform"
+let ocaml_on_windows = "/learn/ocaml-on-windows"
 let tutorial name = "/learn/" ^ name
 let getting_started = tutorial "up-and-running-with-ocaml"
 let best_practices = "/learn/best-practices"
 let problems = "/problems"
-let platform s = "/platform/" ^ s

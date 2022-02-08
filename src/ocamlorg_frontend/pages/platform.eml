@@ -1,0 +1,155 @@
+let render (tools : Ood.Tool.t list) =
+Learn_layout.render
+~title:"OCaml Platform"
+~current_tutorial:"platform"
+~description:"The OCaml Platform represents the best way for developers, both new and old, to write software in OCaml." @@
+<div class="flex-1 flex flex-col md:pl-10 min-w-0">
+  <h1 class="font-bold">The OCaml Platform</h1>
+  <div class="text-body-400 mt-6">
+    The OCaml Platform represents the best way for developers, both new and old, to write software in OCaml. It combines
+    the core OCaml compiler with a coherent set of tools, documentation, libraries and testing resources.
+  </div>
+
+  <div
+    class="mt-12 cursor-pointer relative rounded-2xl h-[413px] w-full overflow-hidden border-4 border-primary-100 video-shadow md:w-[640px]"
+    x-data="videoFullWidth()"
+  >
+    <div
+      class="bg-white text-center relative aspect-w-16 aspect-h-9 h-full"
+      @click="
+                isPlaying = !isPlaying;
+                $nextTick(() => { $refs.iframeElement.setAttribute('src', iframe_url()) });"
+    >
+      <div x-show.transition.in.opacity.duration.500ms="isPlaying">
+        <iframe
+          class="absolute top-0 rounded-lg"
+          x-ref="iframeElement"
+          width="100%"
+          height="100%"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        >
+        </iframe>
+      </div>
+      <div class="flex h-full justify-center" x-show="!isPlaying">
+        <div class="z-10 mb-10 lg:mb-0">
+          <img width="160" class="m-auto mt-10 md:mt-20" src="/logo-with-name.svg" alt="OCaml logo" />
+          <h3 class="font-bold mt-16">OCaml Workshop 2020</h3>
+          <div class="mt-16 flex justify-center">
+            Presented by
+            <div class="font-semibold">Anil Madhavapeddy</div>
+          </div>
+          <div class="text-body-400 mt-2">University of Cambridge</div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="rounded-full bg-primary-600 text-white w-16 h-16 right-0 left-0 m-auto bottom-5 md:left-auto md:right-10 md:bottom-10 absolute flex items-center z-10 justify-center"
+      x-show="!isPlaying"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" viewBox="0 0 20 20" fill="currentColor">
+        <path
+          fill-rule="evenodd"
+          d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </div>
+  </div>
+  <div class="flex flex-col border-t border-gray-200 pt-20 mt-20 mb-20">
+    <h3 class="font-bold">State of Platform Tools</h3>
+    <div class="text-body-400 mt-6 text-lg">
+      Each element of the platform lives at a different point in the lifecycle of being a Platform tool
+    </div>
+    <div>
+      <h4 class="mt-20 font-bold">Active</h4>
+      <div class="text-body-400 mt-3 border-b border-gray-200 pb-3">
+        The work-horse tools that are used daily with strong backwards compatibility guarantees from the community.
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:pr-20 mt-8 items-start">
+        <% tools |> List.filter (fun (item : Ood.Tool.t) -> item.lifecycle = `Active) |> List.iter (fun (item : Ood.Tool.t) -> %>
+        <a href="<%s item.source %>" class="flex items-center">
+          <div class="flex flex-col pr-5 w-full">
+            <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>
+            <div class="text-body-400 h-full"><%s item.synopsis %></div>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+        <% ); %>
+      </div>
+    </div>
+    <div class="mt-20">
+      <h4 class="font-bold">Incubate</h4>
+      <div class="text-body-400 mt-3 border-b border-gray-200 pb-3">
+        New tools that fill a gap in the ecosystem but are not quite ready for wide-scale release and adoption.
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:pr-20 mt-8 items-start">
+        <% tools |> List.filter (fun (item : Ood.Tool.t) -> item.lifecycle = `Incubate) |> List.iter (fun (item : Ood.Tool.t) -> %>
+        <a href="<%s item.source %>" class="flex items-center">
+          <div class="flex flex-col pr-5 w-full">
+            <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>
+            <div class="text-body-400 h-full"><%s item.synopsis %></div>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+        <% ); %>
+      </div>
+    </div>
+    <div class="mt-20">
+      <h4 class="font-bold">Sustain</h4>
+      <div class="text-body-400 mt-3 border-b border-gray-200 pb-3">
+        Tools that will not likely see any major feature added but can be used reliably even if not being actively
+        developed.
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:pr-20 mt-8 items-start">
+        <% tools |> List.filter (fun (item : Ood.Tool.t) -> item.lifecycle = `Sustain) |> List.iter (fun (item : Ood.Tool.t) -> %>
+        <a href="<%s item.source %>" class="flex items-center">
+          <div class="flex flex-col pr-5 w-full">
+            <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>
+            <div class="text-body-400 h-full"><%s item.synopsis %></div>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+        <% ); %>
+      </div>
+    </div>
+    <div class="mt-20">
+      <h4 class="font-bold">Deprecate</h4>
+      <div class="text-body-400 mt-3 border-b border-gray-200 pb-3">
+        Tools that are gradually being phased out of use with clear paths to better workflows.
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:pr-20 mt-8 items-start">
+        <% tools |> List.filter (fun (item : Ood.Tool.t) -> item.lifecycle = `Deprecate) |> List.iter (fun (item : Ood.Tool.t) -> %>
+        <a href="<%s item.source %>" class="flex items-center">
+          <div class="flex flex-col pr-5 w-full">
+            <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>
+            <div class="text-body-400 h-full"><%s item.synopsis %></div>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+        <% ); %>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function videoFullWidth() {
+    return {
+      isPlaying: false,
+      embed_url: "https://watch.ocaml.org/videos/embed/0e2070fd-798b-47f7-8e69-ef75e967e516",
+      iframe_param: "?autoplay=1&mute=1",
+      iframe_url() {
+        return this.embed_url + this.iframe_param;
+      },
+    };
+  }
+</script>
