@@ -1,4 +1,4 @@
-let render () =
+let render (tools : Ood.Tool.t list) =
 Learn_layout.render
 ~title:"OCaml Platform"
 ~current_tutorial:"platform"
@@ -68,61 +68,17 @@ Learn_layout.render
         The work-horse tools that are used daily with strong backwards compatibility guarantees from the community.
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:pr-20 mt-8 items-start">
-        <a href="#" class="flex items-center">
+        <% tools |> List.filter (fun (item : Ood.Tool.t) -> item.lifecycle = `Active) |> List.iter (fun (item : Ood.Tool.t) -> %>
+        <a href="<%s item.source %>" class="flex items-center">
           <div class="flex flex-col pr-5 w-full">
-            <div class="text-primary-600 text-lg font-semibold">Opam</div>
-            <div class="text-body-400 h-full">A source-based OCaml package manager</div>
+            <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>
+            <div class="text-body-400 h-full"><%s item.synopsis %></div>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
           </svg>
         </a>
-        <a href="#" class="flex items-center">
-          <div class="flex flex-col pr-5 w-full">
-            <div class="text-primary-600 text-lg font-semibold">Dune</div>
-            <div class="text-body-400 h-full">A build tool that has been widely adopted in the OCaml ecosystem</div>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </a>
-        <a href="#" class="flex items-center">
-          <div class="flex flex-col pr-5 w-full">
-            <div class="text-primary-600 text-lg font-semibold">Ppxlib</div>
-            <div class="text-body-400 h-full">A collection of useful tools for writing PPX libraries</div>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </a>
-        <a href="#" class="flex items-center">
-          <div class="flex flex-col pr-5 w-full">
-            <div class="text-primary-600 text-lg font-semibold">UTOP</div>
-            <div class="text-body-400 h-full">OCaml's Universal Top Level</div>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </a>
-
-        <a href="#" class="flex items-center">
-          <div class="flex flex-col pr-5 w-full">
-            <div class="text-primary-600 text-lg font-semibold">Opam-publish</div>
-            <div class="text-body-400 h-full">A tool for publishing packages to the opam repository</div>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </a>
-        <a href="#" class="flex items-center">
-          <div class="flex flex-col pr-5 w-full">
-            <div class="text-primary-600 text-lg font-semibold">Merlin</div>
-            <div class="text-body-400 h-full">Context sensitive completion for OCaml in Vim and Emacs</div>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </a>
+        <% ); %>
       </div>
     </div>
     <div class="mt-20">
@@ -131,62 +87,17 @@ Learn_layout.render
         New tools that fill a gap in the ecosystem but are not quite ready for wide-scale release and adoption.
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:pr-20 mt-8 items-start">
-        <a href="#" class="flex items-center">
+        <% tools |> List.filter (fun (item : Ood.Tool.t) -> item.lifecycle = `Incubate) |> List.iter (fun (item : Ood.Tool.t) -> %>
+        <a href="<%s item.source %>" class="flex items-center">
           <div class="flex flex-col pr-5 w-full">
-            <div class="text-primary-600 text-lg font-semibold">Odoc</div>
-            <div class="text-body-400 h-full">Documentation generator for OCaml</div>
+            <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>
+            <div class="text-body-400 h-full"><%s item.synopsis %></div>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
           </svg>
         </a>
-        <a href="#" class="flex items-center">
-          <div class="flex flex-col pr-5 w-full">
-            <div class="text-primary-600 text-lg font-semibold">Mdx</div>
-            <div class="text-body-400 h-full">Executable code blocks in your markdown</div>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </a>
-        <a href="#" class="flex items-center">
-          <div class="flex flex-col pr-5 w-full">
-            <div class="text-primary-600 text-lg font-semibold">Lsp-server</div>
-            <div class="text-body-400 h-full">an OCaml implementation of the Language Server Protocol (LSP)</div>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </a>
-        <a href="#" class="flex items-center">
-          <div class="flex flex-col pr-5 w-full">
-            <div class="text-primary-600 text-lg font-semibold">OCamlformat</div>
-            <div class="text-body-400 h-full">Enforcing styles on an OCaml project</div>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </a>
-        <a href="#" class="flex items-center">
-          <div class="flex flex-col pr-5 w-full">
-            <div class="text-primary-600 text-lg font-semibold">Dune-release</div>
-            <div class="text-body-400 h-full">
-              A CLI tool for easier packaging and publishing with opam, dune and Github
-            </div>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </a>
-        <a href="#" class="flex items-center">
-          <div class="flex flex-col pr-5 w-full">
-            <div class="text-primary-600 text-lg font-semibold">Bun</div>
-            <div class="text-body-400 h-full">A CLI tool making fuzz testing easier</div>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </a>
+        <% ); %>
       </div>
     </div>
     <div class="mt-20">
@@ -196,42 +107,17 @@ Learn_layout.render
         developed.
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:pr-20 mt-8 items-start">
-        <a href="#" class="flex items-center">
+        <% tools |> List.filter (fun (item : Ood.Tool.t) -> item.lifecycle = `Sustain) |> List.iter (fun (item : Ood.Tool.t) -> %>
+        <a href="<%s item.source %>" class="flex items-center">
           <div class="flex flex-col pr-5 w-full">
-            <div class="text-primary-600 text-lg font-semibold">Ocp-indent</div>
-            <div class="text-body-400 h-full">An indentation tool for OCaml</div>
+            <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>
+            <div class="text-body-400 h-full"><%s item.synopsis %></div>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
           </svg>
         </a>
-        <a href="#" class="flex items-center">
-          <div class="flex flex-col pr-5 w-full">
-            <div class="text-primary-600 text-lg font-semibold">OCamlbuild</div>
-            <div class="text-body-400 h-full">A build tool for OCaml programs</div>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </a>
-        <a href="#" class="flex items-center">
-          <div class="flex flex-col pr-5 w-full">
-            <div class="text-primary-600 text-lg font-semibold">Opm</div>
-            <div class="text-body-400 h-full">A conversion tool for major version of the OCaml parsetree</div>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </a>
-        <a href="#" class="flex items-center">
-          <div class="flex flex-col pr-5 w-full">
-            <div class="text-primary-600 text-lg font-semibold">OCamlfind</div>
-            <div class="text-body-400 h-full">A library manager for OCaml packages</div>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </a>
+        <% ); %>
       </div>
     </div>
     <div class="mt-20">
@@ -240,24 +126,17 @@ Learn_layout.render
         Tools that are gradually being phased out of use with clear paths to better workflows.
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:pr-20 mt-8 items-start">
-        <a href="#" class="flex items-center">
-          <div class="flex flex-col pr-5 w-full w-full">
-            <div class="text-primary-600 text-lg font-semibold">Oasis</div>
-            <div class="text-body-400 h-full">A build tool for OCaml programs</div>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </a>
-        <a href="#" class="flex items-center">
+        <% tools |> List.filter (fun (item : Ood.Tool.t) -> item.lifecycle = `Deprecate) |> List.iter (fun (item : Ood.Tool.t) -> %>
+        <a href="<%s item.source %>" class="flex items-center">
           <div class="flex flex-col pr-5 w-full">
-            <div class="text-primary-600 text-lg font-semibold">Camlp4</div>
-            <div class="text-body-400 h-full">A tool for writing extensible parsers</div>
+            <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>
+            <div class="text-body-400 h-full"><%s item.synopsis %></div>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
           </svg>
         </a>
+        <% ); %>
       </div>
     </div>
   </div>
@@ -266,7 +145,7 @@ Learn_layout.render
   function videoFullWidth() {
     return {
       isPlaying: false,
-      embed_url: "https://watch.ocaml.org/videos/embed/e1ee0fc0-50ef-4a1c-894a-17df181424cb",
+      embed_url: "https://watch.ocaml.org/videos/embed/0e2070fd-798b-47f7-8e69-ef75e967e516",
       iframe_param: "?autoplay=1&mute=1",
       iframe_url() {
         return this.embed_url + this.iframe_param;
