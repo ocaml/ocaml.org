@@ -41,23 +41,21 @@ Layout.render
                         </div>
                         <div class="flex flex-wrap">
                             <% package.tags |> List.iter (fun (tag : string) -> %>
-                                <a href="?q=tag:<%s Dream.to_percent_encoded ("\""^tag^"\"") %>"
-                                    class="px-2 py-1 text-body-400 font-medium bg-gray-100 rounded hover:underline mr-3 text-sm">
                                 <a href="<%s Url.packages_search %>?q=tag%3A%22<%s Dream.to_percent_encoded tag %>%22"
-                                    class="px-2 py-1 text-body-400 font-medium bg-gray-100 rounded hover:underline mr-3 mt-3 text-sm">
+                                    class="px-2 py-1 text-body-400 font-medium bg-gray-100 rounded hover:underline mr-3 mb-2 mt-1 text-sm">
                                     <%s tag %>
                                 </a>
                                 <% ); %>
                         </div>
-                        <div class="flex items-center space-x-4 text-body-600 text-sm">
-                            <div class="flex items-center flex-wrap">
+                        <div class="flex items-center space-y-1 md:space-y-0 text-body-600 text-sm flex-wrap justify-start">
+                            <div class="flex items-center flex-wrap mr-4">
                                 <% package.authors |> List.iter (fun (author : Ood.Opam_user.t) -> %>
                                     <a href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded author.name %>%22" class="text-sm hover:underline mr-3">
                                         <%s author.name %>
                                     </a>
                                     <% ); %>
                             </div>
-                            <div class="flex items-center space-x-2 text-sm text-body-600 ml-3">
+                            <div class="flex items-center space-x-2 text-sm text-body-600 mr-4">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                                     stroke="rgba(26, 32, 44, 1)">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -67,7 +65,7 @@ Layout.render
                                     <%s package.version %>
                                 </div>
                             </div>
-                            <div class="flex items-center space-x-2 text-sm text-body-600 ml-3">
+                            <div class="flex items-center space-x-2 text-sm text-body-600 mr-4">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                                     stroke="rgba(26, 32, 44, 1)">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -77,7 +75,7 @@ Layout.render
                                     <%s package.license %>
                                 </span>
                             </div>
-                            <div class="flex items-center space-x-2 text-sm text-body-600">
+                            <div class="flex items-center space-x-2 text-sm text-body-600 mr-4">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                                 </svg>
