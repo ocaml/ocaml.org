@@ -232,19 +232,15 @@ let opportunities req =
   in
   Dream.html (Ocamlorg_frontend.opportunities ?search ?location ~locations jobs)
 
-let carbon_footprint _req =
-  let (page : Ood.Page.t) = Ood.Page.carbon_footprint in
+let page (page : Ood.Page.t) (_req : Dream.request) =
   Dream.html
     (Ocamlorg_frontend.page ~title:page.title ~description:page.description
        ~meta_title:page.meta_title ~meta_description:page.meta_description
        ~content:page.body_html)
 
-let governance _req =
-  let (page : Ood.Page.t) = Ood.Page.governance in
-  Dream.html
-    (Ocamlorg_frontend.page ~title:page.title ~description:page.description
-       ~meta_title:page.meta_title ~meta_description:page.meta_description
-       ~content:page.body_html)
+let carbon_footprint = page Ood.Page.carbon_footprint
+let privacy_policy = page Ood.Page.privacy_policy
+let governance = page Ood.Page.governance
 
 let papers req =
   let search_paper pattern t =

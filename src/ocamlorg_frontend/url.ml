@@ -35,6 +35,7 @@ let news = "/news"
 let news_post v = "/news/" ^ v
 let opportunities = "/opportunities"
 let carbon_footprint = "/carbon-footprint"
+let privacy_policy = "/privacy-policy"
 let governance = "/governance"
 let papers = "/papers"
 let learn = "/learn"
