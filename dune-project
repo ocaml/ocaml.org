@@ -98,6 +98,9 @@
   (ezjsonm :with-test)
   (lambdasoup :with-test)
   (ptime :with-test)
-  (cmdliner :with-test)
+  (cmdliner
+   (and
+    :with-test
+    (< 1.1.0)))
   (xmlm :with-test)
   (uri :with-test)))
