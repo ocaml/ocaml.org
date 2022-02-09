@@ -45,6 +45,11 @@
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
+  (targets cwn.ml)
+  (deps cwn.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
   (targets news.ml)
   (deps news.eml)
   (action

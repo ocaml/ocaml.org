@@ -44,3 +44,4 @@ let tutorial name = "/learn/" ^ name
 let getting_started = tutorial "up-and-running-with-ocaml"
 let best_practices = "/learn/best-practices"
 let problems = "/problems"
+let cwn date = "/cwn/" ^ date

@@ -192,6 +192,13 @@ let news_post req =
   | Some news_post -> Dream.html (Ocamlorg_frontend.news_post news_post)
   | None -> not_found req
 
+let cwn req =
+  let date = Dream.param req "id" in
+  let cwn = Ood.Cwn.get_by_date date in
+  match cwn with
+  | Some cwn -> Dream.html (Ocamlorg_frontend.cwn cwn)
+  | None -> not_found req
+
 let opportunities req =
   let search_job pattern t =
     let open Ood.Job in

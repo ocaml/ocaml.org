@@ -7,6 +7,7 @@ let about () = About.render ()
 let academic_users users = Academic_users.render users
 let best_practices best_practices = Best_practices.render best_practices
 let books books = Books.render books
+let cwn cwn = Cwn.render cwn
 let community ~workshops ~meetups = Community.render ~workshops ~meetups
 let workshop ~videos workshop = Workshop.render ~videos workshop
 let home () = Home.render ()

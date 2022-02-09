@@ -71,6 +71,13 @@ module Book : sig
   val get_by_slug : string -> t option
 end
 
+module Cwn : sig
+  type t = { date : string; body_html : string }
+
+  val all : t list
+  val get_by_date : string -> t option
+end
+
 module Job : sig
   type t = {
     title : string;

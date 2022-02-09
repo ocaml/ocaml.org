@@ -24,6 +24,16 @@
 
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
+ (targets cwn.ml)
+ (mode
+  (promote (until-clean)))
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} cwn))))
+
+(rule
+ (deps ../../tool/ood-gen/bin/gen.exe)
  (targets job.ml)
  (mode
   (promote (until-clean)))
