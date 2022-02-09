@@ -159,7 +159,7 @@ the leading European cybersecurity event.</em></p>|js}
   ; url = {js|https://blog.janestreet.com/magic-trace/|js}
   ; date = {js|2022-01-11T00:00:00-00:00|js}
   ; preview_image = Some {js|https://blog.janestreet.com/magic-trace/magic-trace-blog-image.jpg|js}
-  ; featured = false
+  ; featured = true
   ; body_html = {js|<p>Intel Processor Trace is a hardware technology that can record all
 program execution flow along with timing information accurate to
 around 30ns. As far as I can tell <a href="https://engineering.fb.com/2021/04/27/developer-tools/reverse-debugging/">a</a><a href="https://easyperf.net/blog/2019/08/23/Intel-Processor-Trace">l</a><a href="https://github.com/nyx-fuzz/libxdc">m</a><a href="https://blog.trailofbits.com/2021/03/19/un-bee-lievable-performance-fast-coverage-guided-fuzzing-with-honeybee-and-intel-processor-trace/">o</a><a href="http://halobates.de/blog/p/410">s</a><a href="https://dl.acm.org/doi/10.1145/3029806.3029830">t</a>
@@ -293,7 +293,7 @@ sneak park at the forthcoming…|js}
   ; url = {js|https://tarides.com/blog/2021-11-09-mirageos-4-0-preview-live-presentation|js}
   ; date = {js|2021-11-09T00:00:00-00:00|js}
   ; preview_image = Some {js|https://tarides.com/static/619c072d0a24bc8e8421e02cdafca46e/0132d/projector.jpg|js}
-  ; featured = false
+  ; featured = true
   ; body_html = {js|<p>The official release of MirageOS 4.0 quickly approaches! Learn about some general MirageOS concepts and get a
 sneak park at the forthcoming changes in MirageOS 4.0 during a LIVE presentation today at 15h CET.</p>
 <p>Lucas Pluvinage will lead you through a live-streaming presentation to acquaint you with MirageOS 4.0. You&rsquo;ll learn
@@ -670,7 +670,7 @@ Friday, 27 August 2021. See you there!</p>|js}
   ; url = {js|https://tarides.com/blog/2021-08-26-benchmarking-ocaml-projects-with-current-bench|js}
   ; date = {js|2021-08-26T00:00:00-00:00|js}
   ; preview_image = Some {js|https://tarides.com/static/2bd2e5940bdb329b93e236f44dd37e01/dfe86/current-bench-camel.jpg|js}
-  ; featured = false
+  ; featured = true
   ; body_html = {js|<p>Regular CI systems are optimised for workloads that do not require stable performance over time. This makes them unsuitable for running performance benchmarks.</p>
 <p><a href="https://github.com/ocurrent/current-bench"><code>current-bench</code></a> provides a predictable environment for performance benchmarks and a UI for analysing results over time. Similar to a CI system, it runs on pull requests and branches which allows performance to be analysed and compared.  It can currently be enabled as an app on GitHub repositories with zero configuration. Several public repositories are running<code>current-bench</code>, including <a href="https://github.com/mirage/irmin">Irmin</a> and <a href="https://github.com/ocaml/dune">Dune</a>. We plan to enable it on more projects in the future.</p>
 <p>In this article, we give a technical overview of <code>current-bench</code>, showing how results are collected and analysed, requirements for using it and how we built the infrastructure for stable benchmarks. We also describe future work that would allow more OCaml projects to run <code>current-bench</code>.</p>
