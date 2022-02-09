@@ -53,7 +53,7 @@ Layout.render
               Overview
             </button>
           </a>
-          <a href="<%s Url.package_doc package.name package.version "index.html" %>">
+          <a href="<%s match documentation_status with | `Success -> Url.package_doc package.name package.version "index.html" | _ -> "#" %>">
             <button
             class="<%s if tab = Documentation then current_tab_class else tab_class %>">
               Documentation
