@@ -10,5 +10,7 @@ featured:
 ---
 
 <p>As our Tools &amp; Compilers team has grown, the kinds of projects we work
-on has become more ambitious. Here are some of the major things we’re
+on has become more ambitious. Here are some of the major things we&rsquo;re
 currently working on:</p>
+
+

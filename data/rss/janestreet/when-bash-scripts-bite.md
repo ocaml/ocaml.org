@@ -12,3 +12,5 @@ featured:
 <p>There are abundant resources online trying to scare programmers away from using
 shell scripts. Most of them, if anything, succeed in convincing the reader to
 blindly put something that resembles</p>
+
+

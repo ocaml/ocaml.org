@@ -13,6 +13,8 @@ the implementation for later. This lets me use the module as a black box,
 extending the interface as needed to support the rest of the program. When
 everything else is finished, I can fill in the implementation, knowing the full
 interface I need to support. Of course sometimes the implementation needs to
-push back on the interface – this pattern isn’t an absolute – but it’s certainly
+push back on the interface &ndash; this pattern isn&rsquo;t an absolute &ndash; but it&rsquo;s certainly
 a useful starting point. The trick is getting the program to compile at
-intermediate stages when the implementation hasn’t been filled in.</p>
+intermediate stages when the implementation hasn&rsquo;t been filled in.</p>
+
+

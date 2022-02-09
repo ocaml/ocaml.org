@@ -9,9 +9,11 @@ preview_image: https://blog.janestreet.com/hackathon-keyboards/keyboard.jpg
 featured:
 ---
 
-<p>Jane Street is sponsoring this year’s <a href="https://makemit.org">MakeMIT
+<p>Jane Street is sponsoring this year&rsquo;s <a href="https://makemit.org">MakeMIT
 hackathon</a>, and we wanted to create a prize for
 the winners that would do justice to the maker spirit of the
-competition. As makers ourselves – it’s not unusual to find a
-“software” engineer here who hacks on FPGAs or who has a CNC machine
-at home – it felt natural to get our hands dirty.</p>
+competition. As makers ourselves &ndash; it&rsquo;s not unusual to find a
+&ldquo;software&rdquo; engineer here who hacks on FPGAs or who has a CNC machine
+at home &ndash; it felt natural to get our hands dirty.</p>
+
+

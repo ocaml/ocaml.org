@@ -1,11 +1,4 @@
-type source = {
-  name : string;
-  url : string;
-  tag : string;
-  articles : string list;
-}
-[@@deriving yaml]
-
+type source = River.source = { name : string; url : string } [@@deriving yaml]
 type sources = { sources : source list } [@@deriving yaml]
 
 type metadata = {
@@ -32,73 +25,59 @@ let pp_meta ppf v =
 |}
     (metadata_to_yaml v |> Yaml.to_string |> Result.get_ok)
 
-let scrape () =
+let feeds () =
   let sources = all_sources () in
-  List.map
-    (fun (source : source) ->
-      let rss_string = Http_client.get_sync source.url |> Result.get_ok in
-      let channel, _ = Ocamlrss.Rss.channel_of_string rss_string in
-      let items = channel.Ocamlrss.Rss.ch_items in
-      let () =
-        List.iter
-          (fun (item : unit Ocamlrss.Rss.item_t) ->
-            let guid =
-              match item.Ocamlrss.Rss.item_guid with
-              | Some (Guid_permalink uri) -> Some (Uri.to_string uri)
-              | Some (Guid_name s) -> Some s
-              | None ->
-                  print_endline "No guid";
-                  None
-            in
-            try
-              let guid = Option.get guid in
-              let title = item.Ocamlrss.Rss.item_title |> Option.get in
-              let slug = Utils.slugify title in
-              let desc = item.Ocamlrss.Rss.item_desc in
-              let data = item.Ocamlrss.Rss.item_content in
-              let content =
-                match (desc, data) with
-                | Some _, Some data -> data
-                | Some desc, None -> desc
-                | None, Some data -> data
-                | None, None ->
-                    print_endline "No description or content:encoded";
-                    raise (Invalid_argument "")
-              in
-              let url =
-                item.Ocamlrss.Rss.item_link |> Option.get |> Uri.to_string
-              in
-              let date =
-                item.Ocamlrss.Rss.item_pubdate |> Option.get |> Ptime.to_rfc3339
-              in
-              if List.mem guid source.articles then (
-                let oc =
-                  open_out ("data/rss/" ^ source.tag ^ "/" ^ slug ^ ".md")
-                in
-                let Website_meta.{ image; description; _ } =
-                  Website_meta.all url
-                in
-                let metadata =
-                  {
-                    title;
-                    url;
-                    date;
-                    preview_image = image;
-                    description;
-                    featured = None;
-                  }
-                in
-                let s = Format.asprintf "%a\n%s\n" pp_meta metadata content in
-                Printf.fprintf oc "%s" s;
-                close_out oc)
-            with Invalid_argument _ ->
-              Printf.printf "Skipping article %s\n"
-                (Option.value guid ~default:"<no guid>");
-              ())
-          items
-      in
-      ())
-    sources.sources
+  List.map River.fetch sources.sources
+
+let scrape () =
+  let feeds = feeds () in
+  feeds
+  |> List.map (fun (feed : River.feed) ->
+         River.posts [ feed ]
+         |> List.iter (fun (post : River.post) ->
+                let title = River.title post in
+                let slug = Utils.slugify title in
+                let name = River.name (River.feed post) in
+                let output_file = "data/rss/" ^ name ^ "/" ^ slug ^ ".md" in
+                if Sys.file_exists output_file then
+                  print_endline
+                    (Printf.sprintf "%s/%s already exist, not scraping again"
+                       name slug)
+                else
+                  let oc = open_out output_file in
+                  let content = River.content post in
+                  let url = River.link post in
+                  let date =
+                    River.date post |> Option.map Syndic.Date.to_rfc3339
+                  in
+                  match (url, date) with
+                  | None, _ ->
+                      print_endline
+                        (Printf.sprintf
+                           "skipping %s/%s: item does not have a url" name slug)
+                  | _, None ->
+                      print_endline
+                        (Printf.sprintf
+                           "skipping %s/%s: item does not have a date" name slug)
+                  | Some url, Some date ->
+                      let url = Uri.to_string url in
+                      let preview_image = River.seo_image post in
+                      let description = River.meta_description post in
+                      let metadata =
+                        {
+                          title;
+                          url;
+                          date;
+                          preview_image;
+                          description;
+                          featured = None;
+                        }
+                      in
+                      let s =
+                        Format.asprintf "%a\n%s\n" pp_meta metadata content
+                      in
+                      Printf.fprintf oc "%s" s;
+                      close_out oc))
 
 type t = {
   title : string;

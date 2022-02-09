@@ -9,7 +9,9 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 featured:
 ---
 
-<p>I’ve recently been thinking about the world of JavaScript and web applications.
-That’s odd for me, since I know almost nothing about the web. Indeed, Jane
-Street’s use of web technologies is quite minimal – nearly all of our user
-interfaces are text based, and all told we’ve been pretty happy with that.</p>
+<p>I&rsquo;ve recently been thinking about the world of JavaScript and web applications.
+That&rsquo;s odd for me, since I know almost nothing about the web. Indeed, Jane
+Street&rsquo;s use of web technologies is quite minimal &ndash; nearly all of our user
+interfaces are text based, and all told we&rsquo;ve been pretty happy with that.</p>
+
+

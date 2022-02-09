@@ -20,4 +20,4 @@ external packages, among which one third comes from the MirageOS project.
 However, it still heavily depends on non-compatible Unix libraries. Making the
 Tezos codebase fully compatible with MirageOS will help Tezos with: distribution
 and packaging, portability, secure deployment and operational safety.</p>
-<p>We’ll regularly publish development progress updates, so stay tuned!</p>
+<p>We&rsquo;ll regularly publish development progress updates, so stay tuned!</p>

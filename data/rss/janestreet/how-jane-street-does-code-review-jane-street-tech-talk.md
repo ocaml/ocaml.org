@@ -9,12 +9,14 @@ preview_image: https://blog.janestreet.com/jane-street-tech-talk-how-jane-street
 featured:
 ---
 
-<p>It’s time for our next
+<p>It&rsquo;s time for our next
 <a href="https://www.janestreet.com/tech-talks/">Jane Street Tech Talk</a>. When
-we’ve solicited suggestions for topics, one common request has been to
+we&rsquo;ve solicited suggestions for topics, one common request has been to
 talk about our internal development process. Our next talk,
 <a href="https://www.janestreet.com/tech-talks/code-review/">How Jane Street Does Code Review</a>,
 should fit the bill. The talk is being given by our own Ian Henry, and
 discusses how we approach code review, and in particular how Iron, the
-code review system we’ve been using and improving for some years now,
+code review system we&rsquo;ve been using and improving for some years now,
 fits in to that process.</p>
+
+

@@ -11,3 +11,5 @@ featured:
 <p>I was recently invited to do the keynote at the <a href="http://cufp.org/2016/">Commercial Users of Functional
 Programming</a> workshop, a 15-year-old gathering which is
 attached to ICFP, the primary academic functional programming conference.</p>
+
+

@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  schedule:
+    # Run every day
+    - cron: 0 12 * * *
+
+jobs:
+  scrape:
+    name: Run Scrapers
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-latest
+        ocaml-compiler:
+          - ocaml-base-compiler.4.13.0
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use OCaml ${{ matrix.ocaml-compiler }}
+        # Replace with official action when opam.2.1.0 is supported
+        # See https://github.com/ocaml/setup-ocaml/pull/184
+        # uses: ocaml/setup-ocaml@v2
+        uses: tmattio/setup-ocaml@skip-opam-depext
+        with:
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+          dune-cache: ${{ matrix.os != 'macos-latest' }}
+
+      - name: Install system dependencies (Linux)
+        run: sudo apt-get install libev-dev
+
+      - name: Install opam dependencies
+        run: opam install --deps-only --with-test .
+
+      - name: Build scraper
+        run: |
+          opam exec -- dune build tool/ood-gen/bin/scrape.exe --ignore-promoted-rules
+          opam exec -- dune build tool/ood-gen/bin/watch_scrape.exe --ignore-promoted-rules
+
+      - name: Run scrapers
+        run: |
+          opam exec -- dune exec tool/ood-gen/bin/scrape.exe rss
+          opam exec -- dune exec tool/ood-gen/bin/watch_scrape.exe > data/watch.yml
+          opam exec -- dune build src/ocamlorg_data/rss.ml
+          opam exec -- dune build src/ocamlorg_data/watch.ml
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3

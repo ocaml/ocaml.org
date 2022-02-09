@@ -7,4 +7,6 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 featured:
 ---
 
-<h1 id="the-parable-of-the-perfect-connection">The Parable Of The Perfect Connection</h1>
+<h1>The Parable Of The Perfect Connection</h1>
+
+

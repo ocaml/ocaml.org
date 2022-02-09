@@ -11,5 +11,7 @@ featured:
 
 <p>We finally got a decent recording of one of my favorite talks. This one is about
 our <a href="https://github.com/janestreet/incremental">Incremental</a> library (which I
-wrote about <a href="/introducing-incremental/">here</a>), and in particular about the
+wrote about <a href="https://blog.janestreet.com/introducing-incremental/">here</a>), and in particular about the
 story of how we got to the present, quite performant, implementation.</p>
+
+

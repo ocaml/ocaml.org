@@ -10,6 +10,8 @@ featured:
 
 <p>Trading is a competitive business. You need great people and great
 technology, of course, but also trading strategies that make money.
-Where do those strategies come from? In this post we’ll discuss how
+Where do those strategies come from? In this post we&rsquo;ll discuss how
 the interplay of data, math and technology informs how we develop and
 run strategies.</p>
+
+

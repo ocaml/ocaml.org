@@ -9,7 +9,9 @@ preview_image: https://blog.janestreet.com/how-to-build-an-exchange/build_exchan
 featured:
 ---
 
-<p><strong>UPDATE</strong>: <em>We are full up. Tons of people signed up for the talk, and we’re
+<p><strong>UPDATE</strong>: <em>We are full up. Tons of people signed up for the talk, and we&rsquo;re
 now at the limit of what we feel like we can support in the space. Thanks for
-all the interest, and if you didn’t get into this one, don’t worry, we have more
+all the interest, and if you didn&rsquo;t get into this one, don&rsquo;t worry, we have more
 talks coming!</em></p>
+
+

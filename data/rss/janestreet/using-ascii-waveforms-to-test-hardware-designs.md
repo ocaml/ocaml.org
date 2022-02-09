@@ -9,10 +9,12 @@ preview_image: https://blog.janestreet.com/using-ascii-waveforms-to-test-hardwar
 featured:
 ---
 
-<p>At Jane Street, an <a href="https://blog.janestreet.com/testing-with-expectations">“expect
-test”</a> is a
-test where you don’t manually write the output you’d like to check
-your code against – instead, this output is captured automatically
+<p>At Jane Street, an <a href="https://blog.janestreet.com/testing-with-expectations">&ldquo;expect
+test&rdquo;</a> is a
+test where you don&rsquo;t manually write the output you&rsquo;d like to check
+your code against &ndash; instead, this output is captured automatically
 and inserted by a tool into the testing code itself. If further runs
-produce different output, the test fails, and you’re presented with
+produce different output, the test fails, and you&rsquo;re presented with
 the diff.</p>
+
+

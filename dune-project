@@ -79,6 +79,19 @@
   (alcotest :with-test)
   ; hilite
   (textmate-language :with-test)
+  ; river
+  dune
+  (syndic
+   (>= 1.5))
+  (cohttp
+   (>= 5.0.0))
+  (cohttp-lwt
+   (>= 5.0.0))
+  (cohttp-lwt-unix
+   (>= 5.0.0))
+  ptime
+  lwt
+  ocamlnet
   ; tools/ood-gen
   (piaf :with-test)
   (ppx_deriving_yaml :with-test)

@@ -9,4 +9,4 @@ preview_image: https://i.ytimg.com/vi/urG5BjvjW18/maxresdefault.jpg
 featured:
 ---
 
-<p>Presentation about MirageOS in Lambda World Cadìz on October 26th</p>
+<p>Presentation about MirageOS in Lambda World Cad&igrave;z on October 26th</p>

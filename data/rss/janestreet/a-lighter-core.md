@@ -11,5 +11,7 @@ featured:
 <p>We recently released a version of our open source libraries with a much
 anticipated
 <a href="https://github.com/janestreet/async_kernel/commit/bf11c4211595b2589b6517aefafceb2ad3bdc0fd">change</a>
-– Async_kernel, the heart of the Async concurrent programming library, now
+&ndash; Async_kernel, the heart of the Async concurrent programming library, now
 depends only on Core_kernel rather than on Core.</p>
+
+

@@ -12,3 +12,5 @@ featured:
 nanoseconds, and picking out magnitudes like microseconds. I noticed
 myself constantly counting digits in my text editor, in my terminal,
 and in <a href="https://jupyter.org/">Jupyter</a> notebooks in my browser.</p>
+
+

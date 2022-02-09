@@ -9,8 +9,10 @@ featured:
 ---
 
 <p>At Jane Street, we have some experience using FPGAs for low-latency
-systems–FPGAs are programmable hardware where you get the speed of an
+systems&ndash;FPGAs are programmable hardware where you get the speed of an
 application-specific integrated circuit (ASIC) but without being
-committed to a design that’s burned into the chip. It wasn’t so long
+committed to a design that&rsquo;s burned into the chip. It wasn&rsquo;t so long
 ago that FPGAs were expensive and rare, but these days, you can rent a
 $5,000 card on the Amazon AWS cloud for less than $3 an hour.</p>
+
+

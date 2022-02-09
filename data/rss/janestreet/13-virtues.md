@@ -13,3 +13,5 @@ Ben Franklin created a system of thirteen virtues to live his life by. He spent
 the remainder of his days giving special focus to one virtue per week in a 13
 week cycle, as well as noting the virtues he failed to live up to at the end of
 each day.</p>
+
+

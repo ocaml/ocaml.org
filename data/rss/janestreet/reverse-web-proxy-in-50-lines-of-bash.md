@@ -10,6 +10,8 @@ featured:
 ---
 
 <p>In the spirit of reinventing the wheel for fun, I hacked this together as a
-quick challenge to myself last week. It’s a little rough around the edges, but I
+quick challenge to myself last week. It&rsquo;s a little rough around the edges, but I
 thought it was too cute not to share. If you have any bug fixes, please post
 them in the comments.</p>
+
+

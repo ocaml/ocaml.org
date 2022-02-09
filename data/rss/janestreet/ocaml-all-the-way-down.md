@@ -13,3 +13,5 @@ has been seeing how our software stack has grown in scope. When I
 started, I was building pretty narrowly focused systems for doing
 statistical research on trading strategies, and then building systems
 for executing those same strategies.</p>
+
+

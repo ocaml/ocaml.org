@@ -9,11 +9,13 @@ featured:
 ---
 
 <p>Automated testing is a powerful tool for finding bugs and specifying correctness
-properties of code. Haskell’s Quickcheck library is the most well-known
+properties of code. Haskell&rsquo;s Quickcheck library is the most well-known
 automated testing library, based on over 15 years of research into how to write
 property-base tests, generate useful sources of inputs, and report manageable
-counterexamples. Jane Street’s Core library has not had anything comparable up
+counterexamples. Jane Street&rsquo;s Core library has not had anything comparable up
 until now; version 113.00 of Core finally has a version of Quickcheck,
 integrating automated testing with our other facilities like s-expression
 reporting for counterexample values, and support for asynchronous tests using
 Async.</p>
+
+

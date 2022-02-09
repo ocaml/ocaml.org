@@ -13,5 +13,7 @@ featured:
 a <a href="https://blog.janestreet.com/bootstrapping-ocamlasync-on-the-raspberry-pi/">blog post</a>
 on using OCaml and Async on this little device.
 Since then installing OCaml via opam has become a pretty smooth experience
-and everything works out of the box when using Raspbian – the default Raspberry Pi
+and everything works out of the box when using Raspbian &ndash; the default Raspberry Pi
 distribution.</p>
+
+

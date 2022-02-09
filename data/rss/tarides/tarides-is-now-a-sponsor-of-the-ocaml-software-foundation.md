@@ -23,6 +23,6 @@ applications; and <a href="https://irmin.org">Irmin</a>, a library for building
 mergeable, branchable distributed data stores, with built-in
 snapshotting and support for a wide variety of storage backends.</p>
 <p>Tarides is also very involved in the OCaml compiler development and
-OCaml developer tooling ecosystem: as active maintainers of the <a href="https://www.youtube.com/watch?v=E8T_4zqWmq8&#x26;list=PLKO_ZowsIOu5fHjRj0ua7_QWE_L789K_f&#x26;ab_channel=ocaml2020">OCaml
+OCaml developer tooling ecosystem: as active maintainers of the <a href="https://www.youtube.com/watch?v=E8T_4zqWmq8&amp;list=PLKO_ZowsIOu5fHjRj0ua7_QWE_L789K_f&amp;ab_channel=ocaml2020">OCaml
 platform</a>, Tarides is involved with most of the major
 OCaml developer tools, including <a href="https://github.com/ocaml/ocaml">opam</a>, <a href="https://github.com/ocaml/dune">dune</a> and <a href="https://github.com/ocaml/merlin">merlin</a>.</p>

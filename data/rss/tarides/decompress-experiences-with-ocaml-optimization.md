@@ -36,7 +36,7 @@ following optimizations:</p>
 <li>caml_modify</li>
 <li>representation sizes</li>
 </ul>
-<h3 id="cautionary-advice" style="position:relative;"><a href="#cautionary-advice" aria-label="cautionary advice permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Cautionary advice</h3>
+<h3 style="position:relative;"><a href="https://tarides.com/feed.xml#cautionary-advice" aria-label="cautionary advice permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Cautionary advice</h3>
 <p>Before we begin discussing optimization, keep this rule in mind:</p>
 <blockquote>
 <p>Only perform optimization at the <strong>end</strong> of the development process.</p>
@@ -50,7 +50,7 @@ arbitrarily-good performance at the cost of arbitrary behavior!</p>
 <p>We optimized <code>decompress</code> because we are using it in bigger projects for a long
 time (2 years). So we have an oracle (even if <code>zlib</code> can act as an oracle in
 this special case).</p>
-<h2 id="specialization" style="position:relative;"><a href="#specialization" aria-label="specialization permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Specialization</h2>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#specialization" aria-label="specialization permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Specialization</h2>
 <p>One of the biggest specializations in <code>decompress</code> is regarding the <code>min</code>
 function. If you don't know, in OCaml <code>min</code> is polymorphic; you can compare
 anything. So you probably have some concerns about how <code>min</code> is implemented?</p>
@@ -68,9 +68,9 @@ should be only a <code>cmpq</code> assembly instruction. However, some simple co
         call    camlStdlib__min_1028@PLT</code></pre></div>
 <p>Note that <em><a href="https://en.wikipedia.org/wiki/Lambda_calculus#Beta_reduction">beta-reduction</a></em>, <em><a href="https://en.wikipedia.org/wiki/Inline_expansion">inlining</a></em> and
 specialization were not done in this code. OCaml does not optimize your code
-very much – the good point is predictability of the produced assembly output.</p>
+very much &ndash; the good point is predictability of the produced assembly output.</p>
 <p>If you help the compiler a little bit with:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">external</span> <span class="token punctuation">(</span> <span class="token operator">&lt;=</span> <span class="token punctuation">)</span> <span class="token punctuation">:</span> int <span class="token operator">-></span> int <span class="token operator">-></span> bool <span class="token operator">=</span> <span class="token string">"%lessequal"</span>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">external</span> <span class="token punctuation">(</span> <span class="token operator">&lt;=</span> <span class="token punctuation">)</span> <span class="token punctuation">:</span> int <span class="token operator">-&gt;</span> int <span class="token operator">-&gt;</span> bool <span class="token operator">=</span> <span class="token string">&quot;%lessequal&quot;</span>
 <span class="token keyword">let</span> min a b <span class="token operator">=</span> <span class="token keyword">if</span> a <span class="token operator">&lt;=</span> b <span class="token keyword">then</span> a <span class="token keyword">else</span> b <span class="token punctuation">[</span><span class="token operator">@@</span>inline<span class="token punctuation">]</span>
 
 <span class="token keyword">let</span> x <span class="token operator">=</span> min <span class="token number">0</span> <span class="token number">1</span></code></pre></div>
@@ -86,26 +86,26 @@ very much – the good point is predictability of the produced assembly output.<
         ret</code></pre></div>
 <p>So we have all optimizations, in this produced code, <code>x</code> was evaluated as <code>0</code>
 (<code>let x/... (store ... 1)</code>) (beta-reduction and inlining) and <code>min</code> was
-specialized to accept only integers – so we are able to emit <code>cmpq</code>.</p>
-<h3 id="results" style="position:relative;"><a href="#results" aria-label="results permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Results</h3>
+specialized to accept only integers &ndash; so we are able to emit <code>cmpq</code>.</p>
+<h3 style="position:relative;"><a href="https://tarides.com/feed.xml#results" aria-label="results permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Results</h3>
 <p>With specialization, we won 10 Mb/s on decompression, where <code>min</code> is used
 in several places. We completely avoid an indirection and a call to the slow
 <code>do_compare_val</code> function.</p>
 <p>This kind of specialization is already done by <a href="https://caml.inria.fr/pub/docs/manual-ocaml/flambda.html"><code>flambda</code></a>, however, we
 currently use OCaml 4.07.1. So we decided to this kind of optimization by
 ourselves.</p>
-<h2 id="inlining" style="position:relative;"><a href="#inlining" aria-label="inlining permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Inlining</h2>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#inlining" aria-label="inlining permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Inlining</h2>
 <p>In the first example, we showed code with the <code>[@@inline]</code> keyword which is
 useful to force the compiler to inline a little function. We will go outside the
 OCaml world and study C code (gcc 5.4.0) to really understand
 <em>inlining</em>.</p>
 <p>In fact, inlining is not necessarily the best optimization. Consider the
 following (nonsensical) C program:</p>
-<div class="gatsby-highlight" data-language="c"><pre class="language-c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;time.h></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
+<div class="gatsby-highlight" data-language="c"><pre class="language-c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;time.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
 
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifdef</span> <span class="token expression">HIDE_ALIGNEMENT</span></span>
 <span class="token keyword">__attribute__</span><span class="token punctuation">(</span><span class="token punctuation">(</span>noinline<span class="token punctuation">,</span> noclone<span class="token punctuation">)</span><span class="token punctuation">)</span>
@@ -127,7 +127,7 @@ following (nonsensical) C program:</p>
 
   <span class="token class-name">clock_t</span> end <span class="token operator">=</span> <span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%lld\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">long</span> <span class="token keyword">long</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>end<span class="token operator">-</span>start<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;%lld\n&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">long</span> <span class="token keyword">long</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>end<span class="token operator">-</span>start<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre></div>
@@ -159,13 +159,13 @@ does and why, even if it's very interesting, the reverse engineering of the
 optimization process and which information is relevant about the choice to
 optimize or not is deep, long and surely too complicated.</p>
 <p>A non-spontaneous optimization is to annotate some parts of your code with
-<code>[@@inline never]</code> – so, explicitly say to the compiler to not inline the
+<code>[@@inline never]</code> &ndash; so, explicitly say to the compiler to not inline the
 function. This constraint is to help the compiler to generate a smaller code
 which will have more chance to fit under the processor cache.</p>
 <p>For all of these reasons, <code>[@@inline]</code> should be used sparingly and an oracle to
 compare performances if you inline or not this or this function is necessary to
 avoid a <em>pessimization</em>.</p>
-<h3 id="in-decompress" style="position:relative;"><a href="#in-decompress" aria-label="in decompress permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>In <code>decompress</code></h3>
+<h3 style="position:relative;"><a href="https://tarides.com/feed.xml#in-decompress" aria-label="in decompress permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>In <code>decompress</code></h3>
 <p>Inlining in <code>decompress</code> was done on small functions which need to allocate
 to return a value. If we inline them, we can take the opportunity to store
 returned value in registers (of course, it depends how many registers are free).</p>
@@ -174,14 +174,14 @@ The largest bit sequence possible according to RFC 1951 has length 15. So, when
 we process an inputs flow, we eat it 15 bits per 15 bits. For each packet, we
 want to recognize an existing associated bit sequence and then, binded values
 will be the real length of the bit sequence and the byte:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">val</span> find <span class="token punctuation">:</span> bits<span class="token punctuation">:</span>int <span class="token operator">-></span> <span class="token punctuation">{</span> len<span class="token punctuation">:</span> int<span class="token punctuation">;</span> byte<span class="token punctuation">:</span> int<span class="token punctuation">;</span> <span class="token punctuation">}</span></code></pre></div>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">val</span> find <span class="token punctuation">:</span> bits<span class="token punctuation">:</span>int <span class="token operator">-&gt;</span> <span class="token punctuation">{</span> len<span class="token punctuation">:</span> int<span class="token punctuation">;</span> byte<span class="token punctuation">:</span> int<span class="token punctuation">;</span> <span class="token punctuation">}</span></code></pre></div>
 <p>So for each call to this function, we need to allocate a record/tuple. It's
 why we choose to inline this function. <code>min</code> was inlined too and some other
 small functions. But as we said, the situation is complex; where we think that
 <em>inlining</em> can help us, it's not systematically true.</p>
 <p>NOTE: we can recognize bits sequence with, at most, 15 bits because a
 <a href="https://zlib.net/feldspar.html">Huffman coding</a> is <a href="https://en.wikipedia.org/wiki/Prefix_code">prefix-free</a>.</p>
-<h2 id="untagged-integers" style="position:relative;"><a href="#untagged-integers" aria-label="untagged integers permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Untagged integers</h2>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#untagged-integers" aria-label="untagged integers permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Untagged integers</h2>
 <p>When reading assembly, the integer <code>0</code> is written as <code>$1</code>.
 It's because of the <a href="https://blog.janestreet.com/what-is-gained-and-lost-with-63-bit-integers/">GC bit</a> needed to differentiate a pointer
 and an unboxed integer. This is why, in OCaml, we talk about a 31-bits integer
@@ -232,7 +232,7 @@ side-effect, like <code>x</code>) stay inside a function and then, you return th
 value with the deref <code>!</code> operator, OCaml, by a good planet alignment, can
 directly use registers and real integers. So it should be possible to avoid
 these needed conversions.</p>
-<h3 id="readability-versus-performance" style="position:relative;"><a href="#readability-versus-performance" aria-label="readability versus performance permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Readability versus performance</h3>
+<h3 style="position:relative;"><a href="https://tarides.com/feed.xml#readability-versus-performance" aria-label="readability versus performance permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Readability versus performance</h3>
 <p>We use this optimization only in few parts of the code. In fact, switch
 between <code>int</code> and <code>nativeint</code> is little bit noisy:</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml">hold <span class="token operator">:=</span> <span class="token module variable">Nativeint</span><span class="token punctuation">.</span>logor <span class="token operator">!</span>hold <span class="token module variable">Nativeint</span><span class="token punctuation">.</span><span class="token punctuation">(</span>shift_left <span class="token punctuation">(</span>of_int <span class="token punctuation">(</span>unsafe_get_uint8 d<span class="token punctuation">.</span>i <span class="token operator">!</span>i_pos<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!</span>bits<span class="token punctuation">)</span></code></pre></div>
@@ -249,7 +249,7 @@ where we prefer to produce an understandable and abstracted code than a cryptic
 and super fast one.</p>
 <p>Again, <code>flambda</code> wants to fix this problem and let the compiler to do this
 optimization. The goal is to be able to write a fast code without any pain.</p>
-<h2 id="exceptions" style="position:relative;"><a href="#exceptions" aria-label="exceptions permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Exceptions</h2>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#exceptions" aria-label="exceptions permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Exceptions</h2>
 <p>If you remember our <a href="https://tarides.com/blog/2019-02-08-release-of-base64.html">article</a> about the release of <code>base64</code>, we talked a
 bit about exceptions and used them as a <em>jump</em>. In fact, it's pretty
 common for an OCaml developer to break the control-flow with an exception.
@@ -268,9 +268,9 @@ the fact that exception should not (and can not) be caught by something else
 than inside the function.</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml">    <span class="token keyword">let</span> <span class="token keyword">exception</span> <span class="token module variable">Break</span> <span class="token keyword">in</span>
 
-    <span class="token punctuation">(</span> <span class="token keyword">try</span> <span class="token keyword">while</span> <span class="token operator">!</span>max <span class="token operator">>=</span> <span class="token number">1</span> <span class="token keyword">do</span>
+    <span class="token punctuation">(</span> <span class="token keyword">try</span> <span class="token keyword">while</span> <span class="token operator">!</span>max <span class="token operator">&gt;=</span> <span class="token number">1</span> <span class="token keyword">do</span>
           <span class="token keyword">if</span> bl_count<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token operator">!</span>max<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span> <span class="token keyword">then</span> raise_notrace <span class="token module variable">Break</span>
-        <span class="token punctuation">;</span> decr max <span class="token keyword">done</span> <span class="token keyword">with</span> <span class="token module variable">Break</span> <span class="token operator">-></span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">;</span></code></pre></div>
+        <span class="token punctuation">;</span> decr max <span class="token keyword">done</span> <span class="token keyword">with</span> <span class="token module variable">Break</span> <span class="token operator">-&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">;</span></code></pre></div>
 <p>This code above produce this assembly code:</p>
 <div class="gatsby-highlight" data-language="asm"><pre class="language-asm"><code class="language-asm">.L105:
         pushq   %r14
@@ -296,7 +296,7 @@ otherwise, you will see:</p>
         call    caml_raise_exn@PLT</code></pre></div>
 <p>Instead the <code>ret</code> assembly code. Indeed, in this case, we need to store where we
 raised the exception.</p>
-<h2 id="unrolling" style="position:relative;"><a href="#unrolling" aria-label="unrolling permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Unrolling</h2>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#unrolling" aria-label="unrolling permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Unrolling</h2>
 <p>When we showed the optimization done by <code>gcc</code> when the string is aligned, <code>gcc</code>
 did another optimization. Instead of setting the string byte per byte, it decides to
 update it 4 bytes per 4 bytes.</p>
@@ -304,23 +304,23 @@ update it 4 bytes per 4 bytes.</p>
 Indeed, when we reach the <em>copy</em> <em>opcode</em> emitted by the <a href="https://en.wikipedia.org/wiki/LZ77_and_LZ78">lz77</a>
 compressor, we want to <em>blit</em> <em>length</em> byte(s) from a source to the outputs
 flow. It can appear that this <code>memcpy</code> can be optimized to copy 4 bytes per 4
-bytes – 4 bytes is generally a good idea where it's the size of an <code>int32</code> and
+bytes &ndash; 4 bytes is generally a good idea where it's the size of an <code>int32</code> and
 should fit under any architectures.</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> blit src src_off dst dst_off <span class="token operator">=</span>
-  <span class="token keyword">if</span> dst_off – src_off <span class="token operator">&lt;</span> <span class="token number">4</span>
+  <span class="token keyword">if</span> dst_off &ndash; src_off <span class="token operator">&lt;</span> <span class="token number">4</span>
   <span class="token keyword">then</span> slow_blit src src_off dst dst_off
   <span class="token keyword">else</span>
     <span class="token keyword">let</span> len0 <span class="token operator">=</span> len <span class="token operator">land</span> <span class="token number">3</span> <span class="token keyword">in</span>
     <span class="token keyword">let</span> len1 <span class="token operator">=</span> len <span class="token operator">asr</span> <span class="token number">2</span> <span class="token keyword">in</span>
 
-    <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">to</span> len1 – <span class="token number">1</span>
+    <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">to</span> len1 &ndash; <span class="token number">1</span>
     <span class="token keyword">do</span>
       <span class="token keyword">let</span> i <span class="token operator">=</span> i <span class="token operator">*</span> <span class="token number">4</span> <span class="token keyword">in</span>
       <span class="token keyword">let</span> v <span class="token operator">=</span> unsafe_get_uint32 src <span class="token punctuation">(</span>src_off <span class="token operator">+</span> i<span class="token punctuation">)</span> <span class="token keyword">in</span>
       unsafe_set_uint32 dst <span class="token punctuation">(</span>dst_off <span class="token operator">+</span> i<span class="token punctuation">)</span> v <span class="token punctuation">;</span>
     <span class="token keyword">done</span> <span class="token punctuation">;</span>
 
-    <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">to</span> len0 – <span class="token number">1</span>
+    <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">to</span> len0 &ndash; <span class="token number">1</span>
     <span class="token keyword">do</span>
       <span class="token keyword">let</span> i <span class="token operator">=</span> len1 <span class="token operator">*</span> <span class="token number">4</span> <span class="token operator">+</span> i <span class="token keyword">in</span>
       <span class="token keyword">let</span> v <span class="token operator">=</span> unsafe_get_uint8 src <span class="token punctuation">(</span>src_off <span class="token operator">+</span> i<span class="token punctuation">)</span> <span class="token keyword">in</span>
@@ -330,12 +330,12 @@ should fit under any architectures.</p>
 a multiple of 4, we start the <em>trailing</em> loop to copy byte per byte then. In
 this context, OCaml can <em>unbox</em> <code>int32</code> and use registers. So this function does
 not deal with the heap, and by this way, with the garbage collector.</p>
-<h3 id="results-1" style="position:relative;"><a href="#results-1" aria-label="results 1 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Results</h3>
+<h3 style="position:relative;"><a href="https://tarides.com/feed.xml#results-1" aria-label="results 1 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Results</h3>
 <p>In the end, we gained an extra 10Mb/s of inflation rate. The <code>blit</code> function is the
 most important function when it comes to inflating the window to an output flow.
 As the specialization on the <code>min</code> function, this is one of the biggest optimization on
 <code>decompress</code>.</p>
-<h2 id="hot-loop" style="position:relative;"><a href="#hot-loop" aria-label="hot loop permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><em>hot-loop</em></h2>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#hot-loop" aria-label="hot loop permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><em>hot-loop</em></h2>
 <p>A common design about decompression (but we can find it on hash implementation
 too), is the <em>hot-loop</em>. An <em>hot-loop</em> is mainly a loop on the most common
 operation in your process. In the context of <code>decompress</code>, the <em>hot-loop</em> is
@@ -347,7 +347,7 @@ loop with a <em>pattern-matching</em> which corresponds to the current state of 
 global computation.</p>
 <p>In OCaml, we can take this opportunity to use <code>int ref</code> (or <code>nativeint ref</code>), and then, they will be translated into registers (which is the fastest
 area to store something).</p>
-<p>Another deal inside the <em>hot-loop</em> is to avoid any allocation – and it's why we
+<p>Another deal inside the <em>hot-loop</em> is to avoid any allocation &ndash; and it's why we
 talk about <code>int</code> or <code>nativeint</code>. Indeed, a more complex structure like an option
 will add a blocker to the garbage collection (a call to <code>caml_call_gc</code>).</p>
 <p>Of course, this kind of design is completely wrong if we think in a functional
@@ -359,7 +359,7 @@ essentials values like the position into the inputs flow, bits available,
 dictionary, etc. Then, we launch the <em>hot-loop</em> and only at the end, we update the state.</p>
 <p>So we keep the optimal design about <em>inflation</em> and the functional way outside
 the <em>hot-loop</em>.</p>
-<h2 id="caml_modify" style="position:relative;"><a href="#caml_modify" aria-label="caml_modify permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>caml_modify</h2>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#caml_modify" aria-label="caml_modify permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>caml_modify</h2>
 <p>One issue that we need to consider is the call to <code>caml_modify</code>. In
 fact, for a complex data-structure like an <code>int array</code> or a <code>int option</code> (so,
 other than an integer or a boolean or an <em>immediate</em> value), values can move to the
@@ -384,12 +384,12 @@ ensure pointer correspondence between minor heap and major heap.</p>
 assignment of <code>v</code> into <code>t.v</code>. This call is needed mostly because the type of <code>t.v</code> is not an <em>immediate</em> value like an integer. So, for many values in the
 <em>inflator</em> and the <em>deflator</em>, we mostly use integers.</p>
 <p>Of course, at some points, we use <code>int array</code> and set them at some specific
-points of the <em>inflator</em> – where we inflated the dictionary. However, the impact
+points of the <em>inflator</em> &ndash; where we inflated the dictionary. However, the impact
 of <code>caml_modify</code> is not very clear where it is commonly pretty fast.</p>
 <p>Sometimes, however, it can be a real bottleneck in your computation and
 this depends on how long your values live in the heap. A little program (which is
 not very reproducible) can show that:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> t <span class="token operator">=</span> <span class="token module variable">Array</span><span class="token punctuation">.</span>init <span class="token punctuation">(</span>int_of_string <span class="token module variable">Sys</span><span class="token punctuation">.</span>argv<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token keyword">fun</span> <span class="token punctuation">_</span> <span class="token operator">-></span> <span class="token module variable">Random</span><span class="token punctuation">.</span>int <span class="token number">256</span><span class="token punctuation">)</span>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> t <span class="token operator">=</span> <span class="token module variable">Array</span><span class="token punctuation">.</span>init <span class="token punctuation">(</span>int_of_string <span class="token module variable">Sys</span><span class="token punctuation">.</span>argv<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token keyword">fun</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> <span class="token module variable">Random</span><span class="token punctuation">.</span>int <span class="token number">256</span><span class="token punctuation">)</span>
 
 <span class="token keyword">let</span> pr fmt <span class="token operator">=</span> <span class="token module variable">Format</span><span class="token punctuation">.</span>printf fmt
 
@@ -397,21 +397,21 @@ not very reproducible) can show that:</p>
 <span class="token keyword">type</span> t1 <span class="token operator">=</span> <span class="token punctuation">{</span> v <span class="token punctuation">:</span> int option <span class="token punctuation">}</span>
 
 <span class="token keyword">let</span> f0 <span class="token punctuation">(</span>t0 <span class="token punctuation">:</span> t0<span class="token punctuation">)</span> <span class="token operator">=</span>
-  <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">to</span> <span class="token module variable">Array</span><span class="token punctuation">.</span>length t – <span class="token number">1</span>
+  <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">to</span> <span class="token module variable">Array</span><span class="token punctuation">.</span>length t &ndash; <span class="token number">1</span>
   <span class="token keyword">do</span> <span class="token keyword">let</span> v <span class="token operator">=</span> <span class="token keyword">match</span> t0<span class="token punctuation">.</span>v<span class="token punctuation">,</span> t<span class="token punctuation">.</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token keyword">with</span>
-             <span class="token operator">|</span> <span class="token module variable">Some</span> <span class="token punctuation">_</span> <span class="token keyword">as</span> v<span class="token punctuation">,</span> <span class="token punctuation">_</span> <span class="token operator">-></span> v
-             <span class="token operator">|</span> <span class="token module variable">None</span><span class="token punctuation">,</span> <span class="token number">5</span> <span class="token operator">-></span> <span class="token module variable">Some</span> i
-             <span class="token operator">|</span> <span class="token module variable">None</span><span class="token punctuation">,</span> <span class="token punctuation">_</span> <span class="token operator">-></span> <span class="token module variable">None</span> <span class="token keyword">in</span>
+             <span class="token operator">|</span> <span class="token module variable">Some</span> <span class="token punctuation">_</span> <span class="token keyword">as</span> v<span class="token punctuation">,</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> v
+             <span class="token operator">|</span> <span class="token module variable">None</span><span class="token punctuation">,</span> <span class="token number">5</span> <span class="token operator">-&gt;</span> <span class="token module variable">Some</span> i
+             <span class="token operator">|</span> <span class="token module variable">None</span><span class="token punctuation">,</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> <span class="token module variable">None</span> <span class="token keyword">in</span>
      t0<span class="token punctuation">.</span>v <span class="token operator">&lt;-</span> v
   <span class="token keyword">done</span><span class="token punctuation">;</span> t0
 
 <span class="token keyword">let</span> f1 <span class="token punctuation">(</span>t1 <span class="token punctuation">:</span> t1<span class="token punctuation">)</span> <span class="token operator">=</span>
   <span class="token keyword">let</span> t1 <span class="token operator">=</span> ref t1 <span class="token keyword">in</span>
-  <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">to</span> <span class="token module variable">Array</span><span class="token punctuation">.</span>length t – <span class="token number">1</span>
+  <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">to</span> <span class="token module variable">Array</span><span class="token punctuation">.</span>length t &ndash; <span class="token number">1</span>
   <span class="token keyword">do</span> <span class="token keyword">let</span> v <span class="token operator">=</span> <span class="token keyword">match</span> <span class="token operator">!</span>t1<span class="token punctuation">.</span>v<span class="token punctuation">,</span> t<span class="token punctuation">.</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token keyword">with</span>
-             <span class="token operator">|</span> <span class="token module variable">Some</span> <span class="token punctuation">_</span> <span class="token keyword">as</span> v<span class="token punctuation">,</span> <span class="token punctuation">_</span> <span class="token operator">-></span> v
-             <span class="token operator">|</span> <span class="token module variable">None</span><span class="token punctuation">,</span> <span class="token number">5</span> <span class="token operator">-></span> <span class="token module variable">Some</span> i
-             <span class="token operator">|</span> <span class="token module variable">None</span><span class="token punctuation">,</span> <span class="token punctuation">_</span> <span class="token operator">-></span> <span class="token module variable">None</span> <span class="token keyword">in</span>
+             <span class="token operator">|</span> <span class="token module variable">Some</span> <span class="token punctuation">_</span> <span class="token keyword">as</span> v<span class="token punctuation">,</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> v
+             <span class="token operator">|</span> <span class="token module variable">None</span><span class="token punctuation">,</span> <span class="token number">5</span> <span class="token operator">-&gt;</span> <span class="token module variable">Some</span> i
+             <span class="token operator">|</span> <span class="token module variable">None</span><span class="token punctuation">,</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> <span class="token module variable">None</span> <span class="token keyword">in</span>
      t1 <span class="token operator">:=</span> <span class="token punctuation">{</span> v <span class="token punctuation">}</span>
   <span class="token keyword">done</span><span class="token punctuation">;</span> <span class="token operator">!</span>t1
 
@@ -424,8 +424,8 @@ not very reproducible) can show that:</p>
   ignore <span class="token punctuation">(</span>f1 t1<span class="token punctuation">)</span> <span class="token punctuation">;</span>
   <span class="token keyword">let</span> time2 <span class="token operator">=</span> <span class="token module variable">Unix</span><span class="token punctuation">.</span>gettimeofday <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">in</span>
 
-  pr <span class="token string">"f0: %f ns\n%!"</span> <span class="token punctuation">(</span>time1 <span class="token operator">-.</span> time0<span class="token punctuation">)</span> <span class="token punctuation">;</span>
-  pr <span class="token string">"f1: %f ns\n%!"</span> <span class="token punctuation">(</span>time2 <span class="token operator">-.</span> time1<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+  pr <span class="token string">&quot;f0: %f ns\n%!&quot;</span> <span class="token punctuation">(</span>time1 <span class="token operator">-.</span> time0<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+  pr <span class="token string">&quot;f1: %f ns\n%!&quot;</span> <span class="token punctuation">(</span>time2 <span class="token operator">-.</span> time1<span class="token punctuation">)</span> <span class="token punctuation">;</span>
 
   <span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre></div>
 <p>In our bare-metal server, if you launch the program with 1000, the <code>f0</code>
@@ -437,7 +437,7 @@ f1: 0.000015 ns
 $ ./a.out 1000000000
 f0: 7.931782 ns
 f1: 5.719370 ns</code></pre></div>
-<h3 id="about-decompress" style="position:relative;"><a href="#about-decompress" aria-label="about decompress permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>About <code>decompress</code></h3>
+<h3 style="position:relative;"><a href="https://tarides.com/feed.xml#about-decompress" aria-label="about decompress permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>About <code>decompress</code></h3>
 <p>At the beginning, our choice was made to have, as @dbuenzli does, mutable
 structure to represent state. Then, @yallop did a big patch to update it to an
 immutable state and we won 9Mb/s on <em>inflation</em>.</p>
@@ -447,7 +447,7 @@ times faster than before.</p>
 how long your data lives in the heap and how many times you want to update it.
 If we localize <code>caml_modify</code> only on few places, it should be fine. But it still
 is one of the most complex question about (macro?) optimization.</p>
-<h2 id="smaller-representation" style="position:relative;"><a href="#smaller-representation" aria-label="smaller representation permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Smaller representation</h2>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#smaller-representation" aria-label="smaller representation permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Smaller representation</h2>
 <p>We've discussed the impact that integer types can have on the use of immediate
 values. More generally, the choice of type to represent your values can have
 significant performance implications.</p>
@@ -456,7 +456,7 @@ length of it <strong>AND</strong> the byte, it can be represented by a: <code>(i
 more idiomatically <code>{ len: int; byte: int; } array</code> (which is structurally the
 same).</p>
 <p>However, that means an allocation for each bytes to represent every bytes.
-Extraction of it will need an allocation if <code>find : bits:int -> { len: int; byte: int; }</code> is not inlined as we said. And about memory, the array can be
+Extraction of it will need an allocation if <code>find : bits:int -&gt; { len: int; byte: int; }</code> is not inlined as we said. And about memory, the array can be
 really <em>heavy</em> in your heap.</p>
 <p>At this point, we used <code>spacetime</code> to show how many blocks we allocated for a
 common <em>inflation</em> and we saw that we allocate a lot. The choice was made to use
@@ -465,7 +465,7 @@ and when byte can represent only 256 possibilities (and should fit under one
 byte), we can decide to merge them into one integer (which can have, at least,
 31 bits).</p>
 <div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> static_literal_tree <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">|</span> <span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">140</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">76</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token operator">|</span><span class="token punctuation">]</span>
-<span class="token keyword">let</span> static_literal_tree <span class="token operator">=</span> <span class="token module variable">Array</span><span class="token punctuation">.</span>map <span class="token punctuation">(</span><span class="token keyword">fun</span> <span class="token punctuation">(</span>len<span class="token punctuation">,</span> byte<span class="token punctuation">)</span> <span class="token operator">-></span> <span class="token punctuation">(</span>len <span class="token operator">lsl</span> <span class="token number">8</span><span class="token punctuation">)</span> <span class="token operator">lor</span> byte<span class="token punctuation">)</span> static_literal_tree</code></pre></div>
+<span class="token keyword">let</span> static_literal_tree <span class="token operator">=</span> <span class="token module variable">Array</span><span class="token punctuation">.</span>map <span class="token punctuation">(</span><span class="token keyword">fun</span> <span class="token punctuation">(</span>len<span class="token punctuation">,</span> byte<span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token punctuation">(</span>len <span class="token operator">lsl</span> <span class="token number">8</span><span class="token punctuation">)</span> <span class="token operator">lor</span> byte<span class="token punctuation">)</span> static_literal_tree</code></pre></div>
 <p>In the code above, we just translate the static dictionary (for a STATIC DEFLATE
 block) to a smaller representation where <code>len</code> will be the left part of the
 integer and <code>byte</code> will be the right part. Of course, it's depends on what you
@@ -473,7 +473,7 @@ want to store.</p>
 <p>Another point is readability. <a href="https://github.com/mirage/ocaml-cstruct#ppx"><code>cstruct-ppx</code></a> and
 <a href="https://bitbucket.org/thanatonauts/bitstring/src"><code>bitstring</code></a> can help you but <code>decompress</code>
 wants to depend only on OCaml.</p>
-<h2 id="conclusion" style="position:relative;"><a href="#conclusion" aria-label="conclusion permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Conclusion</h2>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#conclusion" aria-label="conclusion permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Conclusion</h2>
 <p>We conclude with some closing advice about optimising your OCaml programs:</p>
 <ul>
 <li>
@@ -486,7 +486,7 @@ optimize (like <code>blit</code>).
 As your first project, this article can not help you a lot to optimize your
 code where it's mostly about <em>micro</em>-optimization under a specific context
 (<em>hot-loop</em>). But it helps you to understand what is really done by the
-compiler – which is still really interesting.</p>
+compiler &ndash; which is still really interesting.</p>
 </li>
 <li>
 <p><strong>Optimise only with respect to an oracle</strong>. All optimizations were done
@@ -497,7 +497,7 @@ behaviors. So it's a long run.</p>
 </li>
 <li>
 <p><strong>Use the predictability of the OCaml compiler to your advantage</strong>. For sure,
-the compiler does not optimize a lot your code – but it sill produce realistic
+the compiler does not optimize a lot your code &ndash; but it sill produce realistic
 programs if we think about performance. For many cases, <strong>you don't need</strong> to
 optimize your OCaml code. And the good point is about expected behavior.
 <br/><br/>
@@ -510,7 +510,7 @@ critical parts like <a href="https://github.com/mirage/eqaf">eqaf</a>, it's real
 </ul>
 <p>We have not discussed benchmarking, which is another hard issue: who should you
 compare with? where? how? For example, a global comparison between <code>zlib</code> and
-<code>decompress</code> is not very relevant in many ways – especially because of the
+<code>decompress</code> is not very relevant in many ways &ndash; especially because of the
 garbage collector. This could be another article!</p>
 <p>Finally, all of these optimizations should be done by <code>flambda</code>; the difference
 between compiling <code>decompress</code> with or without <code>flambda</code> is not very big. We

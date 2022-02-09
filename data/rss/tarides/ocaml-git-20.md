@@ -24,13 +24,13 @@ given below.</p>
 to fix memory consumption issues that our users noticed with the previous version,
 and to make <code>git push</code> work reliably. We also took care about
 not breaking the API too much, to ease the transition for current users.</p>
-<h2 id="controlled-allocations" style="position:relative;"><a href="#controlled-allocations" aria-label="controlled allocations permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Controlled allocations</h2>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#controlled-allocations" aria-label="controlled allocations permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Controlled allocations</h2>
 <p>There is a big difference in the way <code>ocaml-git</code> and <code>git</code>
 are designed: <code>git</code> is a short-lived command-line tool which does not
 care that much about allocation policies, whereas we wanted to build a
 library that can be linked with long-lived Git client and/or server
 applications. We had to make some (performance) compromises to support
-that use-case, at the benefit of tighter allocation policies — and hence
+that use-case, at the benefit of tighter allocation policies &mdash; and hence
 more predictable memory consumption patterns.
 Other Git libraries such as <a href="https://libgit2.org/">libgit2</a>
 also have to <a href="https://libgit2.org/security/">deal</a> with similar concerns.</p>
@@ -44,7 +44,7 @@ control on memory consumption. See below for more details on <code>decompress</c
 to encode and decode Git objects. The streaming API is currently hidden
 to the end-user, but it helped us a lot to build abstraction and, again, on
 managing the allocation policy of the library.</p>
-<h2 id="complete-pack-file-support-including-gc" style="position:relative;"><a href="#complete-pack-file-support-including-gc" aria-label="complete pack file support including gc permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Complete PACK file support (including GC)</h2>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#complete-pack-file-support-including-gc" aria-label="complete pack file support including gc permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Complete PACK file support (including GC)</h2>
 <p>In order to find the right abstraction for manipulating pack files in
 a long-lived application, we experimented with
 <a href="https://github.com/dinosaure/sirodepac">various</a>
@@ -54,8 +54,8 @@ to store any kind of data in the future (and not especially Git objects).</p>
 <p>We implemented <code>git gc</code> by following the same heuristics as
 <a href="https://github.com/git/git/blob/master/Documentation/technical/pack-heuristics.txt">Git</a>
 to compress pack files and
-we produce something similar in size — <code>decompress</code> has a good ratio about
-compression — and we are using <code>duff</code>, our own implementation of <code>xdiff</code>, the
+we produce something similar in size &mdash; <code>decompress</code> has a good ratio about
+compression &mdash; and we are using <code>duff</code>, our own implementation of <code>xdiff</code>, the
 binary diff algorithm used by Git (more details on <code>duff</code> below).
 We also had to re-implement the streaming algorithm to reconstruct <code>idx</code> files on
 the fly, when receiving pack file on the network.</p>
@@ -63,11 +63,11 @@ the fly, when receiving pack file on the network.</p>
 the assumption that the underlying system implements POSIX: hence,
 they can work fully in-memory, in a browser using web storage or
 inside a MirageOS unikernel with <a href="https://github.com/mirage/wodan">wodan</a>.</p>
-<h2 id="production-ready-push-and-pull" style="position:relative;"><a href="#production-ready-push-and-pull" aria-label="production ready push and pull permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Production-ready push and pull</h2>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#production-ready-push-and-pull" aria-label="production ready push and pull permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Production-ready push and pull</h2>
 <p>We re-implemented and abstracted the <a href="https://github.com/git/git/blob/master/Documentation/technical/http-protocol.txt">Git Smart protocol</a>, and used that
 abstraction to make <code>git push</code> and <code>git pull</code> work over HTTP.  By
 default we provide a <a href="https://github.com/mirage/cohttp">cohttp</a>
-implementation but users can use their own — for instance based on
+implementation but users can use their own &mdash; for instance based on
 <a href="https://github.com/inhabitedtype/httpaf">httpaf</a>.
 As proof-of-concept, the <a href="https://github.com/mirage/ocaml-git/pull/227">initial
 pull-request</a> of <code>ocaml-git</code> 2.0 was
@@ -79,10 +79,10 @@ internal state with external Git stores (hosted for instance on GitHub)
 using push/pull mechanisms. We also expect to release a server-side implementation
 of the smart HTTP protocol, so that the state of any unikernel can be inspected
 via <code>git pull</code>. Stay tuned for more updates on that topic!</p>
-<h2 id="standalone-dependencies" style="position:relative;"><a href="#standalone-dependencies" aria-label="standalone dependencies permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Standalone Dependencies</h2>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#standalone-dependencies" aria-label="standalone dependencies permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Standalone Dependencies</h2>
 <p>Below you can find the details of the new stable releases of libraries that are
 used by <code>ocaml-git</code> 2.0.</p>
-<h3 id="optint-and-checkseum" style="position:relative;"><a href="#optint-and-checkseum" aria-label="optint and checkseum permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>optint</code> and <code>checkseum</code></h3>
+<h3 style="position:relative;"><a href="https://tarides.com/feed.xml#optint-and-checkseum" aria-label="optint and checkseum permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>optint</code> and <code>checkseum</code></h3>
 <p>In some parts of <code>ocaml-git</code>, we need to compute a Circular
 Redundancy Check value. It is 32-bit integer value. <code>optint</code> provides
 an abstraction of it but structurally uses an unboxed integer or a
@@ -99,7 +99,7 @@ at link-time, users have to select which implementation to use:
 <code>checkseum.c</code> (the C implementation) or <code>checkseum.ocaml</code> (the OCaml
 implementation). The process is currently a bit cumbersome but upcoming
 <code>dune</code> release will make that process much more transparent to the users.</p>
-<h3 id="encore-angkor" style="position:relative;"><a href="#encore-angkor" aria-label="encore angkor permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>encore</code> (/<em>angkor</em>/)</h3>
+<h3 style="position:relative;"><a href="https://tarides.com/feed.xml#encore-angkor" aria-label="encore angkor permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>encore</code> (/<em>angkor</em>/)</h3>
 <p>In <code>git</code>, we work with Git <em>objects</em> (<em>tree</em>, <em>blob</em> or
 <em>commit</em>). These objects are encoded in a specific format. Then,
 the hash of these objects are computed from the encoded
@@ -112,13 +112,13 @@ PACK file or on the command-line).</p>
 <p>Hence, we need to ensure that encoding is always deterministic, and
 that decoding an encoded Git object is always the identity, e.g. there is
 an <em>isomorphism</em> between the decoder and the encoder.</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> decoder <span class="token operator">&lt;.></span> encoder <span class="token punctuation">:</span> <span class="token keyword">value</span> <span class="token operator">-></span> <span class="token keyword">value</span> <span class="token operator">=</span> id
-<span class="token keyword">let</span> encoder <span class="token operator">&lt;.></span> decoder <span class="token punctuation">:</span> string <span class="token operator">-></span> string <span class="token operator">=</span> id</code></pre></div>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">let</span> decoder <span class="token operator">&lt;.&gt;</span> encoder <span class="token punctuation">:</span> <span class="token keyword">value</span> <span class="token operator">-&gt;</span> <span class="token keyword">value</span> <span class="token operator">=</span> id
+<span class="token keyword">let</span> encoder <span class="token operator">&lt;.&gt;</span> decoder <span class="token punctuation">:</span> string <span class="token operator">-&gt;</span> string <span class="token operator">=</span> id</code></pre></div>
 <p><a href="https://github.com/mirage/encore">encore</a> is a library in which you
 can describe a format (like Git format) and from it, we can derive a
 streaming decoder <strong>and</strong> encoder that are isomorphic by
 construction.</p>
-<h3 id="duff" style="position:relative;"><a href="#duff" aria-label="duff permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>duff</code></h3>
+<h3 style="position:relative;"><a href="https://tarides.com/feed.xml#duff" aria-label="duff permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>duff</code></h3>
 <p><a href="https://github.com/mirage/duff">duff</a> is a pure implementation in
 OCaml of the <code>xdiff</code> algorithm.
 Git has an optimized representation of your Git repository. It's a
@@ -137,7 +137,7 @@ $ xduff patch source &lt; target.xduff &gt; target.new
 $ diff target target.new
 $ echo $?
 0</code></pre></div>
-<h3 id="decompress" style="position:relative;"><a href="#decompress" aria-label="decompress permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>decompress</code></h3>
+<h3 style="position:relative;"><a href="https://tarides.com/feed.xml#decompress" aria-label="decompress permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>decompress</code></h3>
 <p><a href="https://github.com/mirage/decompress">decompress</a>
 is a pure implementation in OCaml of <code>zlib</code> and
 <code>rfc1951</code>. You can compress and decompress data flows and, obviously,
@@ -146,9 +146,9 @@ Git does this compression in <em>loose</em> files and PACK files.</p>
 context. Indeed, the implementation never allocates and only relies on
 what the user provides (<code>window</code>, input and output buffer). Then, the
 distribution provides an easy example of how to use <code>decompress</code>:</p>
-<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">val</span> inflate<span class="token punctuation">:</span> <span class="token operator">?</span>level<span class="token punctuation">:</span>int <span class="token operator">-></span> string <span class="token operator">-></span> string
-<span class="token keyword">val</span> deflate<span class="token punctuation">:</span> string <span class="token operator">-></span> string</code></pre></div>
-<h3 id="digestif" style="position:relative;"><a href="#digestif" aria-label="digestif permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>digestif</code></h3>
+<div class="gatsby-highlight" data-language="ocaml"><pre class="language-ocaml"><code class="language-ocaml"><span class="token keyword">val</span> inflate<span class="token punctuation">:</span> <span class="token operator">?</span>level<span class="token punctuation">:</span>int <span class="token operator">-&gt;</span> string <span class="token operator">-&gt;</span> string
+<span class="token keyword">val</span> deflate<span class="token punctuation">:</span> string <span class="token operator">-&gt;</span> string</code></pre></div>
+<h3 style="position:relative;"><a href="https://tarides.com/feed.xml#digestif" aria-label="digestif permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>digestif</code></h3>
 <p><a href="https://github.com/mirage/digestif">digestif</a> is a toolbox providing
 many implementations of hash algorithms such as:</p>
 <ul>
@@ -169,12 +169,12 @@ and OCaml (<code>digestif.ocaml</code>).</p>
 migrate <code>ocaml-git</code> to BLAKE2{B,S} as the Git core team expects - and,
 in the OCaml world, it is just a <em>functor</em> application with
 another implementation.</p>
-<h3 id="eqaf" style="position:relative;"><a href="#eqaf" aria-label="eqaf permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>eqaf</code></h3>
+<h3 style="position:relative;"><a href="https://tarides.com/feed.xml#eqaf" aria-label="eqaf permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>eqaf</code></h3>
 <p>Some applications require that secret values are compared in constant
 time. Functions like <code>String.equal</code> do not have this property, so we
-have decided to provide a small package — <a href="https://github.com/mirage/eqaf">eqaf</a> —
+have decided to provide a small package &mdash; <a href="https://github.com/mirage/eqaf">eqaf</a> &mdash;
 providing a <em>constant-time</em> <code>equal</code> function.
-<code>digestif</code> uses it to check equality of hashes — it also exposes
+<code>digestif</code> uses it to check equality of hashes &mdash; it also exposes
 <code>unsafe_compare</code> if you don't care about timing attacks in your application.</p>
 <p>Of course, the biggest work on this package is not about the
 implementation of the <code>equal</code> function but a way to check the
@@ -185,7 +185,7 @@ Windows and Mac to check it.</p>
 initial implementation in C (extracted from OpenBSD's <a href="https://man.openbsd.org/timingsafe_bcmp.3">timingsafe_memcmp</a>) with an OCaml
 implementation behaving in a much more predictable way on all the
 tested platforms.</p>
-<h2 id="conclusion" style="position:relative;"><a href="#conclusion" aria-label="conclusion permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Conclusion</h2>
+<h2 style="position:relative;"><a href="https://tarides.com/feed.xml#conclusion" aria-label="conclusion permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Conclusion</h2>
 <p>The upcoming version 2.0 of <a href="https://irmin.org">Irmin</a> is using ocaml-git
 to create small applications that <a href="https://github.com/mirage/irmin/blob/master/examples/push.ml">push and pull their state
 to GitHub</a>.

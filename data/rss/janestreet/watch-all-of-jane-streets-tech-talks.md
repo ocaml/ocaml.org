@@ -9,5 +9,7 @@ featured:
 ---
 
 <p>Jane Street has been posting tech talks from internal speakers and
-invited guests for years—and they’re all available on our YouTube
+invited guests for years&mdash;and they&rsquo;re all available on our YouTube
 channel:</p>
+
+
