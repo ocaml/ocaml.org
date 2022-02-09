@@ -53,14 +53,14 @@ let render ~total ~search (packages : Package_intf.package list) = Layout.render
             <% package.tags |> List.iter (fun (tag : string) -> %>
             <a
               href="<%s Url.packages_search %>?q=tag%3A%22<%s Dream.to_percent_encoded tag %>%22"
-              class="px-2 py-1 text-body-400 font-medium bg-gray-100 rounded hover:underline mr-3 mt-3 text-sm"
+              class="px-2 py-1 text-body-400 font-medium bg-gray-100 rounded hover:underline mr-3 mb-2 mt-1 text-sm"
             >
               <%s tag %>
             </a>
             <% ); %>
           </div>
-          <div class="flex items-center space-x-4 text-body-600 text-sm">
-            <div class="flex items-center flex-wrap">
+          <div class="flex items-center space-y-1 md:space-y-0 text-body-600 text-sm flex-wrap justify-start">
+            <div class="flex items-center flex-wrap mr-4">
               <% package.authors |> List.iter (fun (author : Ood.Opam_user.t) -> %>
               <a
                 href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded author.name %>%22"
@@ -70,7 +70,7 @@ let render ~total ~search (packages : Package_intf.package list) = Layout.render
               </a>
               <% ); %>
             </div>
-            <div class="flex items-center space-x-2 text-sm text-body-600 ml-3">
+            <div class="flex items-center space-x-2 text-sm text-body-600 mr-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5"
@@ -87,7 +87,7 @@ let render ~total ~search (packages : Package_intf.package list) = Layout.render
               </svg>
               <div><%s package.version %></div>
             </div>
-            <div class="flex items-center space-x-2 text-sm text-body-600 ml-3">
+            <div class="flex items-center space-x-2 text-sm text-body-600 mr-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5"
@@ -104,7 +104,7 @@ let render ~total ~search (packages : Package_intf.package list) = Layout.render
               </svg>
               <span class="text-sm hover:underline"> <%s package.license %> </span>
             </div>
-            <div class="flex items-center space-x-2 text-sm text-body-600">
+            <div class="flex items-center space-x-2 text-sm text-body-600 mr-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5"
