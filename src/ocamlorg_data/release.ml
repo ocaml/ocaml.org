@@ -242,10 +242,10 @@ opam switch create 4.13.0+flambda+nnpchecker ocaml-variants.4.13.0+options ocaml
   [GitHub](https://github.com/ocaml/ocaml).
 
 The
-[INSTALL](4.13/notes/INSTALL.adoc) file
+[INSTALL](https://v2.ocaml.org/releases/4.13/notes/INSTALL.adoc) file
 of the distribution provides detailed compilation and installation
 instructions — see also the [Windows release
-notes](4.13/notes/README.win32.adoc) for
+notes](https://v2.ocaml.org/releases/4.13/notes/README.win32.adoc) for
 instructions on how to build under Windows.
 
 ## Alternative Compilers
@@ -261,19 +261,19 @@ targets traditionally associated with other languages:
 The user's manual for OCaml can be:
 
 - [browsed
-  online](4.13/manual/index.html),
+  online](https://v2.ocaml.org/releases/4.13/manual/index.html),
 - downloaded as a single
-  [PDF](4.13/ocaml-4.13-refman.pdf),
+  [PDF](https://v2.ocaml.org/releases/4.13/ocaml-4.13-refman.pdf),
   or [plain
-  text](4.13/ocaml-4.13-refman.txt)
+  text](https://v2.ocaml.org/releases/4.13/ocaml-4.13-refman.txt)
   document,
 - downloaded as a single
-  [TAR](4.13/ocaml-4.13-refman-html.tar.gz)
+  [TAR](https://v2.ocaml.org/releases/4.13/ocaml-4.13-refman-html.tar.gz)
   or
-  [ZIP](4.13/ocaml-4.13-refman-html.zip)
+  [ZIP](https://v2.ocaml.org/releases/4.13/ocaml-4.13-refman-html.zip)
   archive of HTML files,
 - downloaded as a single
-  [tarball](4.13/ocaml-4.13-refman.info.tar.gz)
+  [tarball](https://v2.ocaml.org/releases/4.13/ocaml-4.13-refman.info.tar.gz)
   of Emacs info files,
 
 
@@ -281,7 +281,7 @@ The user's manual for OCaml can be:
 ## Changes
 
 This is the
-[changelog](4.13/notes/Changes).
+[changelog](https://v2.ocaml.org/releases/4.13/notes/Changes).
 (Changes that can break existing programs are marked with a  "breaking change" warning)
 
 ### Language features:
@@ -983,9 +983,9 @@ installation are automated by powerful package managers.
 </li>
 </ul>
 <p>The
-<a href="4.13/notes/INSTALL.adoc">INSTALL</a> file
+<a href="https://v2.ocaml.org/releases/4.13/notes/INSTALL.adoc">INSTALL</a> file
 of the distribution provides detailed compilation and installation
-instructions — see also the <a href="4.13/notes/README.win32.adoc">Windows release
+instructions — see also the <a href="https://v2.ocaml.org/releases/4.13/notes/README.win32.adoc">Windows release
 notes</a> for
 instructions on how to build under Windows.</p>
 <h2>Alternative Compilers</h2>
@@ -999,29 +999,29 @@ to JavaScript compiler.
 <h2>User's manual</h2>
 <p>The user's manual for OCaml can be:</p>
 <ul>
-<li><a href="4.13/manual/index.html">browsed
+<li><a href="https://v2.ocaml.org/releases/4.13/manual/index.html">browsed
 online</a>,
 </li>
 <li>downloaded as a single
-<a href="4.13/ocaml-4.13-refman.pdf">PDF</a>,
-or <a href="4.13/ocaml-4.13-refman.txt">plain
+<a href="https://v2.ocaml.org/releases/4.13/ocaml-4.13-refman.pdf">PDF</a>,
+or <a href="https://v2.ocaml.org/releases/4.13/ocaml-4.13-refman.txt">plain
 text</a>
 document,
 </li>
 <li>downloaded as a single
-<a href="4.13/ocaml-4.13-refman-html.tar.gz">TAR</a>
+<a href="https://v2.ocaml.org/releases/4.13/ocaml-4.13-refman-html.tar.gz">TAR</a>
 or
-<a href="4.13/ocaml-4.13-refman-html.zip">ZIP</a>
+<a href="https://v2.ocaml.org/releases/4.13/ocaml-4.13-refman-html.zip">ZIP</a>
 archive of HTML files,
 </li>
 <li>downloaded as a single
-<a href="4.13/ocaml-4.13-refman.info.tar.gz">tarball</a>
+<a href="https://v2.ocaml.org/releases/4.13/ocaml-4.13-refman.info.tar.gz">tarball</a>
 of Emacs info files,
 </li>
 </ul>
 <h2>Changes</h2>
 <p>This is the
-<a href="4.13/notes/Changes">changelog</a>.
+<a href="https://v2.ocaml.org/releases/4.13/notes/Changes">changelog</a>.
 (Changes that can break existing programs are marked with a  &quot;breaking change&quot; warning)</p>
 <h3>Language features:</h3>
 <ul>
@@ -2141,10 +2141,10 @@ Source distribution
   [GitHub](https://github.com/ocaml/ocaml).
 
 The
-[INSTALL](4.12/notes/INSTALL.adoc) file
+[INSTALL](https://v2.ocaml.org/releases/4.12/notes/INSTALL.adoc) file
 of the distribution provides detailed compilation and installation
 instructions — see also the [Windows release
-notes](4.12/notes/README.win32.adoc) for
+notes](https://v2.ocaml.org/releases/4.12/notes/README.win32.adoc) for
 instructions on how to build under Windows.
 
 Alternative Compilers
@@ -2162,19 +2162,19 @@ User's manual
 The user's manual for OCaml can be:
 
 - [browsed
-  online](4.12/htmlman/index.html),
+  online](https://v2.ocaml.org/releases/4.12/htmlman/index.html),
 - downloaded as a single
-  [PDF](4.12/ocaml-4.12-refman.pdf),
+  [PDF](https://v2.ocaml.org/releases/4.12/ocaml-4.12-refman.pdf),
   or [plain
-  text](4.12/ocaml-4.12-refman.txt)
+  text](https://v2.ocaml.org/releases/4.12/ocaml-4.12-refman.txt)
   document,
 - downloaded as a single
-  [TAR](4.12/ocaml-4.12-refman-html.tar.gz)
+  [TAR](https://v2.ocaml.org/releases/4.12/ocaml-4.12-refman-html.tar.gz)
   or
-  [ZIP](4.11/ocaml-4.12-refman-html.zip)
+  [ZIP](https://v2.ocaml.org/releases/4.11/ocaml-4.12-refman-html.zip)
   archive of HTML files,
 - downloaded as a single
-  [tarball](4.12/ocaml-4.12-refman.info.tar.gz)
+  [tarball](https://v2.ocaml.org/releases/4.12/ocaml-4.12-refman.info.tar.gz)
   of Emacs info files,
 
 
@@ -2183,7 +2183,7 @@ Changes
 -------
 
 This is the
-[changelog](4.12/notes/Changes).
+[changelog](https://v2.ocaml.org/releases/4.12/notes/Changes).
 (Changes that can break existing programs are marked with a  "breaking change" warning)
 
 ### Supported platforms (highlights):
@@ -2977,9 +2977,9 @@ installation are automated by powerful package managers.
 </li>
 </ul>
 <p>The
-<a href="4.12/notes/INSTALL.adoc">INSTALL</a> file
+<a href="https://v2.ocaml.org/releases/4.12/notes/INSTALL.adoc">INSTALL</a> file
 of the distribution provides detailed compilation and installation
-instructions — see also the <a href="4.12/notes/README.win32.adoc">Windows release
+instructions — see also the <a href="https://v2.ocaml.org/releases/4.12/notes/README.win32.adoc">Windows release
 notes</a> for
 instructions on how to build under Windows.</p>
 <h2>Alternative Compilers</h2>
@@ -2993,29 +2993,29 @@ to JavaScript compiler.
 <h2>User's manual</h2>
 <p>The user's manual for OCaml can be:</p>
 <ul>
-<li><a href="4.12/htmlman/index.html">browsed
+<li><a href="https://v2.ocaml.org/releases/4.12/htmlman/index.html">browsed
 online</a>,
 </li>
 <li>downloaded as a single
-<a href="4.12/ocaml-4.12-refman.pdf">PDF</a>,
-or <a href="4.12/ocaml-4.12-refman.txt">plain
+<a href="https://v2.ocaml.org/releases/4.12/ocaml-4.12-refman.pdf">PDF</a>,
+or <a href="https://v2.ocaml.org/releases/4.12/ocaml-4.12-refman.txt">plain
 text</a>
 document,
 </li>
 <li>downloaded as a single
-<a href="4.12/ocaml-4.12-refman-html.tar.gz">TAR</a>
+<a href="https://v2.ocaml.org/releases/4.12/ocaml-4.12-refman-html.tar.gz">TAR</a>
 or
-<a href="4.11/ocaml-4.12-refman-html.zip">ZIP</a>
+<a href="https://v2.ocaml.org/releases/4.11/ocaml-4.12-refman-html.zip">ZIP</a>
 archive of HTML files,
 </li>
 <li>downloaded as a single
-<a href="4.12/ocaml-4.12-refman.info.tar.gz">tarball</a>
+<a href="https://v2.ocaml.org/releases/4.12/ocaml-4.12-refman.info.tar.gz">tarball</a>
 of Emacs info files,
 </li>
 </ul>
 <h2>Changes</h2>
 <p>This is the
-<a href="4.12/notes/Changes">changelog</a>.
+<a href="https://v2.ocaml.org/releases/4.12/notes/Changes">changelog</a>.
 (Changes that can break existing programs are marked with a  &quot;breaking change&quot; warning)</p>
 <h3>Supported platforms (highlights):</h3>
 <ul>
@@ -4544,10 +4544,10 @@ Source distribution
   [GitHub](https://github.com/ocaml/ocaml).
 
 The
-[INSTALL](4.11/notes/INSTALL.adoc) file
+[INSTALL](https://v2.ocaml.org/releases/4.11/notes/INSTALL.adoc) file
 of the distribution provides detailed compilation and installation
 instructions — see also the [Windows release
-notes](4.11/notes/README.win32.adoc) for
+notes](https://v2.ocaml.org/releases/4.11/notes/README.win32.adoc) for
 instructions on how to build under Windows.
 
 Alternative Compilers
@@ -4571,19 +4571,19 @@ User's manual
 The user's manual for OCaml can be:
 
 - [browsed
-  online](4.11/htmlman/index.html),
+  online](https://v2.ocaml.org/releases/4.11/htmlman/index.html),
 - downloaded as a single
-  [PDF](4.11/ocaml-4.11-refman.pdf),
+  [PDF](https://v2.ocaml.org/releases/4.11/ocaml-4.11-refman.pdf),
   or [plain
-  text](4.11/ocaml-4.11-refman.txt)
+  text](https://v2.ocaml.org/releases/4.11/ocaml-4.11-refman.txt)
   document,
 - downloaded as a single
-  [TAR](4.11/ocaml-4.11-refman-html.tar.gz)
+  [TAR](https://v2.ocaml.org/releases/4.11/ocaml-4.11-refman-html.tar.gz)
   or
-  [ZIP](4.11/ocaml-4.11-refman-html.zip)
+  [ZIP](https://v2.ocaml.org/releases/4.11/ocaml-4.11-refman-html.zip)
   archive of HTML files,
 - downloaded as a single
-  [tarball](4.11/ocaml-4.11-refman.info.tar.gz)
+  [tarball](https://v2.ocaml.org/releases/4.11/ocaml-4.11-refman.info.tar.gz)
   of Emacs info files,
 
 
@@ -4592,7 +4592,7 @@ Changes
 -------
 
 This is the
-[changelog](4.11/notes/Changes).
+[changelog](https://v2.ocaml.org/releases/4.11/notes/Changes).
 (Changes that can break existing programs are marked with a  "*breaking change" warning)
 
 ### Runtime system:
@@ -5243,9 +5243,9 @@ installation are automated by powerful package managers.
 </li>
 </ul>
 <p>The
-<a href="4.11/notes/INSTALL.adoc">INSTALL</a> file
+<a href="https://v2.ocaml.org/releases/4.11/notes/INSTALL.adoc">INSTALL</a> file
 of the distribution provides detailed compilation and installation
-instructions — see also the <a href="4.11/notes/README.win32.adoc">Windows release
+instructions — see also the <a href="https://v2.ocaml.org/releases/4.11/notes/README.win32.adoc">Windows release
 notes</a> for
 instructions on how to build under Windows.</p>
 <h2>Alternative Compilers</h2>
@@ -5267,29 +5267,29 @@ Java compiler.
 <h2>User's manual</h2>
 <p>The user's manual for OCaml can be:</p>
 <ul>
-<li><a href="4.11/htmlman/index.html">browsed
+<li><a href="https://v2.ocaml.org/releases/4.11/htmlman/index.html">browsed
 online</a>,
 </li>
 <li>downloaded as a single
-<a href="4.11/ocaml-4.11-refman.pdf">PDF</a>,
-or <a href="4.11/ocaml-4.11-refman.txt">plain
+<a href="https://v2.ocaml.org/releases/4.11/ocaml-4.11-refman.pdf">PDF</a>,
+or <a href="https://v2.ocaml.org/releases/4.11/ocaml-4.11-refman.txt">plain
 text</a>
 document,
 </li>
 <li>downloaded as a single
-<a href="4.11/ocaml-4.11-refman-html.tar.gz">TAR</a>
+<a href="https://v2.ocaml.org/releases/4.11/ocaml-4.11-refman-html.tar.gz">TAR</a>
 or
-<a href="4.11/ocaml-4.11-refman-html.zip">ZIP</a>
+<a href="https://v2.ocaml.org/releases/4.11/ocaml-4.11-refman-html.zip">ZIP</a>
 archive of HTML files,
 </li>
 <li>downloaded as a single
-<a href="4.11/ocaml-4.11-refman.info.tar.gz">tarball</a>
+<a href="https://v2.ocaml.org/releases/4.11/ocaml-4.11-refman.info.tar.gz">tarball</a>
 of Emacs info files,
 </li>
 </ul>
 <h2>Changes</h2>
 <p>This is the
-<a href="4.11/notes/Changes">changelog</a>.
+<a href="https://v2.ocaml.org/releases/4.11/notes/Changes">changelog</a>.
 (Changes that can break existing programs are marked with a  &quot;*breaking change&quot; warning)</p>
 <h3>Runtime system:</h3>
 <ul>
@@ -6225,10 +6225,10 @@ Source distribution
   [GitHub](https://github.com/ocaml/ocaml).
 
 The
-[INSTALL](4.10/notes/INSTALL.adoc) file
+[INSTALL](https://v2.ocaml.org/releases/4.10/notes/INSTALL.adoc) file
 of the distribution provides detailed compilation and installation
 instructions — see also the [Windows release
-notes](4.10/notes/README.win32.adoc) for
+notes](https://v2.ocaml.org/releases/4.10/notes/README.win32.adoc) for
 instructions on how to build under Windows.
 
 Alternative Compilers
@@ -6252,19 +6252,19 @@ User's manual
 The user's manual for OCaml can be:
 
 - [browsed
-  online](4.10/htmlman/index.html),
+  online](https://v2.ocaml.org/releases/4.10/htmlman/index.html),
 - downloaded as a single
-  [PDF](4.10/ocaml-4.10-refman.pdf),
+  [PDF](https://v2.ocaml.org/releases/4.10/ocaml-4.10-refman.pdf),
   or [plain
-  text](4.10/ocaml-4.10-refman.txt)
+  text](https://v2.ocaml.org/releases/4.10/ocaml-4.10-refman.txt)
   document,
 - downloaded as a single
-  [TAR](4.10/ocaml-4.10-refman-html.tar.gz)
+  [TAR](https://v2.ocaml.org/releases/4.10/ocaml-4.10-refman-html.tar.gz)
   or
-  [ZIP](4.10/ocaml-4.10-refman-html.zip)
+  [ZIP](https://v2.ocaml.org/releases/4.10/ocaml-4.10-refman-html.zip)
   archive of HTML files,
 - downloaded as a single
-  [tarball](4.10/ocaml-4.10-refman.info.tar.gz)
+  [tarball](https://v2.ocaml.org/releases/4.10/ocaml-4.10-refman.info.tar.gz)
   of Emacs info files,
 
 
@@ -6273,7 +6273,7 @@ Changes
 -------
 
 This is the
-[changelog](4.10/notes/Changes).
+[changelog](https://v2.ocaml.org/releases/4.10/notes/Changes).
 
 (Changes that can break existing programs are marked with a "*")
 
@@ -6868,9 +6868,9 @@ installation are automated by powerful package managers.
 </li>
 </ul>
 <p>The
-<a href="4.10/notes/INSTALL.adoc">INSTALL</a> file
+<a href="https://v2.ocaml.org/releases/4.10/notes/INSTALL.adoc">INSTALL</a> file
 of the distribution provides detailed compilation and installation
-instructions — see also the <a href="4.10/notes/README.win32.adoc">Windows release
+instructions — see also the <a href="https://v2.ocaml.org/releases/4.10/notes/README.win32.adoc">Windows release
 notes</a> for
 instructions on how to build under Windows.</p>
 <h2>Alternative Compilers</h2>
@@ -6892,29 +6892,29 @@ Java compiler.
 <h2>User's manual</h2>
 <p>The user's manual for OCaml can be:</p>
 <ul>
-<li><a href="4.10/htmlman/index.html">browsed
+<li><a href="https://v2.ocaml.org/releases/4.10/htmlman/index.html">browsed
 online</a>,
 </li>
 <li>downloaded as a single
-<a href="4.10/ocaml-4.10-refman.pdf">PDF</a>,
-or <a href="4.10/ocaml-4.10-refman.txt">plain
+<a href="https://v2.ocaml.org/releases/4.10/ocaml-4.10-refman.pdf">PDF</a>,
+or <a href="https://v2.ocaml.org/releases/4.10/ocaml-4.10-refman.txt">plain
 text</a>
 document,
 </li>
 <li>downloaded as a single
-<a href="4.10/ocaml-4.10-refman-html.tar.gz">TAR</a>
+<a href="https://v2.ocaml.org/releases/4.10/ocaml-4.10-refman-html.tar.gz">TAR</a>
 or
-<a href="4.10/ocaml-4.10-refman-html.zip">ZIP</a>
+<a href="https://v2.ocaml.org/releases/4.10/ocaml-4.10-refman-html.zip">ZIP</a>
 archive of HTML files,
 </li>
 <li>downloaded as a single
-<a href="4.10/ocaml-4.10-refman.info.tar.gz">tarball</a>
+<a href="https://v2.ocaml.org/releases/4.10/ocaml-4.10-refman.info.tar.gz">tarball</a>
 of Emacs info files,
 </li>
 </ul>
 <h2>Changes</h2>
 <p>This is the
-<a href="4.10/notes/Changes">changelog</a>.</p>
+<a href="https://v2.ocaml.org/releases/4.10/notes/Changes">changelog</a>.</p>
 <p>(Changes that can break existing programs are marked with a &quot;*&quot;)</p>
 <h3>Language features</h3>
 <ul>
@@ -7672,10 +7672,10 @@ Source distribution
   [GitHub](https://github.com/ocaml/ocaml).
 
 The
-[INSTALL](4.09/notes/INSTALL.adoc) file
+[INSTALL](https://v2.ocaml.org/releases/4.09/notes/INSTALL.adoc) file
 of the distribution provides detailed compilation and installation
 instructions — see also the [Windows release
-notes](4.09/notes/README.win32.adoc) for
+notes](https://v2.ocaml.org/releases/4.09/notes/README.win32.adoc) for
 instructions on how to build under Windows.
 
 Alternative Compilers
@@ -7699,19 +7699,19 @@ User's manual
 The user's manual for OCaml can be:
 
 - [browsed
-  online](4.09/htmlman/index.html),
+  online](https://v2.ocaml.org/releases/4.09/htmlman/index.html),
 - downloaded as a single
-  [PDF](4.09/ocaml-4.09-refman.pdf),
+  [PDF](https://v2.ocaml.org/releases/4.09/ocaml-4.09-refman.pdf),
   or [plain
-  text](4.09/ocaml-4.09-refman.txt)
+  text](https://v2.ocaml.org/releases/4.09/ocaml-4.09-refman.txt)
   document,
 - downloaded as a single
-  [TAR](4.09/ocaml-4.09-refman-html.tar.gz)
+  [TAR](https://v2.ocaml.org/releases/4.09/ocaml-4.09-refman-html.tar.gz)
   or
-  [ZIP](4.09/ocaml-4.09-refman-html.zip)
+  [ZIP](https://v2.ocaml.org/releases/4.09/ocaml-4.09-refman-html.zip)
   archive of HTML files,
 - downloaded as a single
-  [tarball](4.09/ocaml-4.09-refman.info.tar.gz)
+  [tarball](https://v2.ocaml.org/releases/4.09/ocaml-4.09-refman.info.tar.gz)
   of Emacs info files,
 
 
@@ -7720,7 +7720,7 @@ Changes
 -------
 
 This is the
-[changelog](4.09/notes/Changes).
+[changelog](https://v2.ocaml.org/releases/4.09/notes/Changes).
 
 
 ### Runtime system:
@@ -8094,9 +8094,9 @@ installation are automated by powerful package managers.
 </li>
 </ul>
 <p>The
-<a href="4.09/notes/INSTALL.adoc">INSTALL</a> file
+<a href="https://v2.ocaml.org/releases/4.09/notes/INSTALL.adoc">INSTALL</a> file
 of the distribution provides detailed compilation and installation
-instructions — see also the <a href="4.09/notes/README.win32.adoc">Windows release
+instructions — see also the <a href="https://v2.ocaml.org/releases/4.09/notes/README.win32.adoc">Windows release
 notes</a> for
 instructions on how to build under Windows.</p>
 <h2>Alternative Compilers</h2>
@@ -8118,29 +8118,29 @@ Java compiler.
 <h2>User's manual</h2>
 <p>The user's manual for OCaml can be:</p>
 <ul>
-<li><a href="4.09/htmlman/index.html">browsed
+<li><a href="https://v2.ocaml.org/releases/4.09/htmlman/index.html">browsed
 online</a>,
 </li>
 <li>downloaded as a single
-<a href="4.09/ocaml-4.09-refman.pdf">PDF</a>,
-or <a href="4.09/ocaml-4.09-refman.txt">plain
+<a href="https://v2.ocaml.org/releases/4.09/ocaml-4.09-refman.pdf">PDF</a>,
+or <a href="https://v2.ocaml.org/releases/4.09/ocaml-4.09-refman.txt">plain
 text</a>
 document,
 </li>
 <li>downloaded as a single
-<a href="4.09/ocaml-4.09-refman-html.tar.gz">TAR</a>
+<a href="https://v2.ocaml.org/releases/4.09/ocaml-4.09-refman-html.tar.gz">TAR</a>
 or
-<a href="4.09/ocaml-4.09-refman-html.zip">ZIP</a>
+<a href="https://v2.ocaml.org/releases/4.09/ocaml-4.09-refman-html.zip">ZIP</a>
 archive of HTML files,
 </li>
 <li>downloaded as a single
-<a href="4.09/ocaml-4.09-refman.info.tar.gz">tarball</a>
+<a href="https://v2.ocaml.org/releases/4.09/ocaml-4.09-refman.info.tar.gz">tarball</a>
 of Emacs info files,
 </li>
 </ul>
 <h2>Changes</h2>
 <p>This is the
-<a href="4.09/notes/Changes">changelog</a>.</p>
+<a href="https://v2.ocaml.org/releases/4.09/notes/Changes">changelog</a>.</p>
 <h3>Runtime system:</h3>
 <ul>
 <li>
@@ -8722,10 +8722,10 @@ Source distribution
   [GitHub](https://github.com/ocaml/ocaml).
 
 The
-[INSTALL](4.08/notes/INSTALL.adoc) file
+[INSTALL](https://v2.ocaml.org/releases/4.08/notes/INSTALL.adoc) file
 of the distribution provides detailed compilation and installation
 instructions — see also the [Windows release
-notes](4.08/notes/README.win32.adoc) for
+notes](https://v2.ocaml.org/releases/4.08/notes/README.win32.adoc) for
 instructions on how to build under Windows.
 
 Alternative Compilers
@@ -8749,20 +8749,20 @@ User's manual
 The user's manual for OCaml can be:
 
 - [browsed
-  online](4.08/htmlman/index.html),
+  online](https://v2.ocaml.org/releases/4.08/htmlman/index.html),
 - downloaded as a single
-  [PostScript](4.08/ocaml-4.08-refman.ps.gz),
-  [PDF](4.08/ocaml-4.08-refman.pdf),
+  [PostScript](https://v2.ocaml.org/releases/4.08/ocaml-4.08-refman.ps.gz),
+  [PDF](https://v2.ocaml.org/releases/4.08/ocaml-4.08-refman.pdf),
   or [plain
-  text](4.08/ocaml-4.08-refman.txt)
+  text](https://v2.ocaml.org/releases/4.08/ocaml-4.08-refman.txt)
   document,
 - downloaded as a single
-  [TAR](4.08/ocaml-4.08-refman-html.tar.gz)
+  [TAR](https://v2.ocaml.org/releases/4.08/ocaml-4.08-refman-html.tar.gz)
   or
-  [ZIP](4.08/ocaml-4.08-refman-html.zip)
+  [ZIP](https://v2.ocaml.org/releases/4.08/ocaml-4.08-refman-html.zip)
   archive of HTML files,
 - downloaded as a single
-  [tarball](4.08/ocaml-4.08-refman.info.tar.gz)
+  [tarball](https://v2.ocaml.org/releases/4.08/ocaml-4.08-refman.info.tar.gz)
   of Emacs info files,
 
 
@@ -8770,7 +8770,7 @@ Changes
 -------
 
 This is the
-[changelog](4.08/notes/Changes).
+[changelog](https://v2.ocaml.org/releases/4.08/notes/Changes).
 
 (Changes that can break existing programs are marked with a "*")
 
@@ -10123,9 +10123,9 @@ installation are automated by powerful package managers.
 </li>
 </ul>
 <p>The
-<a href="4.08/notes/INSTALL.adoc">INSTALL</a> file
+<a href="https://v2.ocaml.org/releases/4.08/notes/INSTALL.adoc">INSTALL</a> file
 of the distribution provides detailed compilation and installation
-instructions — see also the <a href="4.08/notes/README.win32.adoc">Windows release
+instructions — see also the <a href="https://v2.ocaml.org/releases/4.08/notes/README.win32.adoc">Windows release
 notes</a> for
 instructions on how to build under Windows.</p>
 <h2>Alternative Compilers</h2>
@@ -10147,30 +10147,30 @@ Java compiler.
 <h2>User's manual</h2>
 <p>The user's manual for OCaml can be:</p>
 <ul>
-<li><a href="4.08/htmlman/index.html">browsed
+<li><a href="https://v2.ocaml.org/releases/4.08/htmlman/index.html">browsed
 online</a>,
 </li>
 <li>downloaded as a single
-<a href="4.08/ocaml-4.08-refman.ps.gz">PostScript</a>,
-<a href="4.08/ocaml-4.08-refman.pdf">PDF</a>,
-or <a href="4.08/ocaml-4.08-refman.txt">plain
+<a href="https://v2.ocaml.org/releases/4.08/ocaml-4.08-refman.ps.gz">PostScript</a>,
+<a href="https://v2.ocaml.org/releases/4.08/ocaml-4.08-refman.pdf">PDF</a>,
+or <a href="https://v2.ocaml.org/releases/4.08/ocaml-4.08-refman.txt">plain
 text</a>
 document,
 </li>
 <li>downloaded as a single
-<a href="4.08/ocaml-4.08-refman-html.tar.gz">TAR</a>
+<a href="https://v2.ocaml.org/releases/4.08/ocaml-4.08-refman-html.tar.gz">TAR</a>
 or
-<a href="4.08/ocaml-4.08-refman-html.zip">ZIP</a>
+<a href="https://v2.ocaml.org/releases/4.08/ocaml-4.08-refman-html.zip">ZIP</a>
 archive of HTML files,
 </li>
 <li>downloaded as a single
-<a href="4.08/ocaml-4.08-refman.info.tar.gz">tarball</a>
+<a href="https://v2.ocaml.org/releases/4.08/ocaml-4.08-refman.info.tar.gz">tarball</a>
 of Emacs info files,
 </li>
 </ul>
 <h2>Changes</h2>
 <p>This is the
-<a href="4.08/notes/Changes">changelog</a>.</p>
+<a href="https://v2.ocaml.org/releases/4.08/notes/Changes">changelog</a>.</p>
 <p>(Changes that can break existing programs are marked with a &quot;*&quot;)</p>
 <h3>Language features:</h3>
 <ul>
@@ -11767,10 +11767,10 @@ Source distribution
   [GitHub](https://github.com/ocaml/ocaml).
 
 The
-[INSTALL](4.07/notes/INSTALL.adoc) file
+[INSTALL](https://v2.ocaml.org/releases/4.07/notes/INSTALL.adoc) file
 of the distribution provides detailed compilation and installation
 instructions -- see also the [Windows release
-notes](4.07/notes/README.win32.adoc) for
+notes](https://v2.ocaml.org/releases/4.07/notes/README.win32.adoc) for
 instructions on how to build under Windows.
 
 Alternative Compilers
@@ -11795,20 +11795,20 @@ User's manual
 The user's manual for OCaml can be:
 
 - [browsed
-  online](4.07/htmlman/index.html),
+  online](https://v2.ocaml.org/releases/4.07/htmlman/index.html),
 - downloaded as a single
-  [PostScript](4.07/ocaml-4.07-refman.ps.gz),
-  [PDF](4.07/ocaml-4.07-refman.pdf),
+  [PostScript](https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman.ps.gz),
+  [PDF](https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman.pdf),
   or [plain
-  text](4.07/ocaml-4.07-refman.txt)
+  text](https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman.txt)
   document,
 - downloaded as a single
-  [TAR](4.07/ocaml-4.07-refman-html.tar.gz)
+  [TAR](https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman-html.tar.gz)
   or
-  [ZIP](4.07/ocaml-4.07-refman-html.zip)
+  [ZIP](https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman-html.zip)
   archive of HTML files,
 - downloaded as a single
-  [tarball](4.07/ocaml-4.07-refman.info.tar.gz)
+  [tarball](https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman.info.tar.gz)
   of Emacs info files,
 
 
@@ -11816,7 +11816,7 @@ Changes
 -------
 
 This is the
-[changelog](4.07/notes/Changes).
+[changelog](https://v2.ocaml.org/releases/4.07/notes/Changes).
 
 (Changes that can break existing programs are marked with a "*")
 
@@ -11915,9 +11915,9 @@ installation are automated by powerful package managers.
 </li>
 </ul>
 <p>The
-<a href="4.07/notes/INSTALL.adoc">INSTALL</a> file
+<a href="https://v2.ocaml.org/releases/4.07/notes/INSTALL.adoc">INSTALL</a> file
 of the distribution provides detailed compilation and installation
-instructions -- see also the <a href="4.07/notes/README.win32.adoc">Windows release
+instructions -- see also the <a href="https://v2.ocaml.org/releases/4.07/notes/README.win32.adoc">Windows release
 notes</a> for
 instructions on how to build under Windows.</p>
 <h2>Alternative Compilers</h2>
@@ -11940,30 +11940,30 @@ Java compiler.
 <h2>User's manual</h2>
 <p>The user's manual for OCaml can be:</p>
 <ul>
-<li><a href="4.07/htmlman/index.html">browsed
+<li><a href="https://v2.ocaml.org/releases/4.07/htmlman/index.html">browsed
 online</a>,
 </li>
 <li>downloaded as a single
-<a href="4.07/ocaml-4.07-refman.ps.gz">PostScript</a>,
-<a href="4.07/ocaml-4.07-refman.pdf">PDF</a>,
-or <a href="4.07/ocaml-4.07-refman.txt">plain
+<a href="https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman.ps.gz">PostScript</a>,
+<a href="https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman.pdf">PDF</a>,
+or <a href="https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman.txt">plain
 text</a>
 document,
 </li>
 <li>downloaded as a single
-<a href="4.07/ocaml-4.07-refman-html.tar.gz">TAR</a>
+<a href="https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman-html.tar.gz">TAR</a>
 or
-<a href="4.07/ocaml-4.07-refman-html.zip">ZIP</a>
+<a href="https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman-html.zip">ZIP</a>
 archive of HTML files,
 </li>
 <li>downloaded as a single
-<a href="4.07/ocaml-4.07-refman.info.tar.gz">tarball</a>
+<a href="https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman.info.tar.gz">tarball</a>
 of Emacs info files,
 </li>
 </ul>
 <h2>Changes</h2>
 <p>This is the
-<a href="4.07/notes/Changes">changelog</a>.</p>
+<a href="https://v2.ocaml.org/releases/4.07/notes/Changes">changelog</a>.</p>
 <p>(Changes that can break existing programs are marked with a &quot;*&quot;)</p>
 <h3>Bug fixes:</h3>
 <ul>
@@ -12134,10 +12134,10 @@ Source distribution
   [GitHub](https://github.com/ocaml/ocaml).
 
 The
-[INSTALL](4.07/notes/INSTALL.adoc) file
+[INSTALL](https://v2.ocaml.org/releases/4.07/notes/INSTALL.adoc) file
 of the distribution provides detailed compilation and installation
 instructions -- see also the [Windows release
-notes](4.07/notes/README.win32.adoc) for
+notes](https://v2.ocaml.org/releases/4.07/notes/README.win32.adoc) for
 instructions on how to build under Windows.
 
 Alternative Compilers
@@ -12161,20 +12161,20 @@ User's manual
 The user's manual for OCaml can be:
 
 - [browsed
-  online](4.07/htmlman/index.html),
+  online](https://v2.ocaml.org/releases/4.07/htmlman/index.html),
 - downloaded as a single
-  [PostScript](4.07/ocaml-4.07-refman.ps.gz),
-  [PDF](4.07/ocaml-4.07-refman.pdf),
+  [PostScript](https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman.ps.gz),
+  [PDF](https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman.pdf),
   or [plain
-  text](4.07/ocaml-4.07-refman.txt)
+  text](https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman.txt)
   document,
 - downloaded as a single
-  [TAR](4.07/ocaml-4.07-refman-html.tar.gz)
+  [TAR](https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman-html.tar.gz)
   or
-  [ZIP](4.07/ocaml-4.07-refman-html.zip)
+  [ZIP](https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman-html.zip)
   archive of HTML files,
 - downloaded as a single
-  [tarball](4.07/ocaml-4.07-refman.info.tar.gz)
+  [tarball](https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman.info.tar.gz)
   of Emacs info files,
 
 
@@ -12182,7 +12182,7 @@ Changes
 -------
 
 This is the
-[changelog](4.07/notes/Changes).
+[changelog](https://v2.ocaml.org/releases/4.07/notes/Changes).
 
 (Changes that can break existing programs are marked with a "*")
 
@@ -13034,9 +13034,9 @@ installation are automated by powerful package managers.
 </li>
 </ul>
 <p>The
-<a href="4.07/notes/INSTALL.adoc">INSTALL</a> file
+<a href="https://v2.ocaml.org/releases/4.07/notes/INSTALL.adoc">INSTALL</a> file
 of the distribution provides detailed compilation and installation
-instructions -- see also the <a href="4.07/notes/README.win32.adoc">Windows release
+instructions -- see also the <a href="https://v2.ocaml.org/releases/4.07/notes/README.win32.adoc">Windows release
 notes</a> for
 instructions on how to build under Windows.</p>
 <h2>Alternative Compilers</h2>
@@ -13058,30 +13058,30 @@ Java compiler.
 <h2>User's manual</h2>
 <p>The user's manual for OCaml can be:</p>
 <ul>
-<li><a href="4.07/htmlman/index.html">browsed
+<li><a href="https://v2.ocaml.org/releases/4.07/htmlman/index.html">browsed
 online</a>,
 </li>
 <li>downloaded as a single
-<a href="4.07/ocaml-4.07-refman.ps.gz">PostScript</a>,
-<a href="4.07/ocaml-4.07-refman.pdf">PDF</a>,
-or <a href="4.07/ocaml-4.07-refman.txt">plain
+<a href="https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman.ps.gz">PostScript</a>,
+<a href="https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman.pdf">PDF</a>,
+or <a href="https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman.txt">plain
 text</a>
 document,
 </li>
 <li>downloaded as a single
-<a href="4.07/ocaml-4.07-refman-html.tar.gz">TAR</a>
+<a href="https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman-html.tar.gz">TAR</a>
 or
-<a href="4.07/ocaml-4.07-refman-html.zip">ZIP</a>
+<a href="https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman-html.zip">ZIP</a>
 archive of HTML files,
 </li>
 <li>downloaded as a single
-<a href="4.07/ocaml-4.07-refman.info.tar.gz">tarball</a>
+<a href="https://v2.ocaml.org/releases/4.07/ocaml-4.07-refman.info.tar.gz">tarball</a>
 of Emacs info files,
 </li>
 </ul>
 <h2>Changes</h2>
 <p>This is the
-<a href="4.07/notes/Changes">changelog</a>.</p>
+<a href="https://v2.ocaml.org/releases/4.07/notes/Changes">changelog</a>.</p>
 <p>(Changes that can break existing programs are marked with a &quot;*&quot;)</p>
 <h3>Language features:</h3>
 <ul>
@@ -14188,10 +14188,10 @@ Source distribution
   [GitHub](https://github.com/ocaml/ocaml).
 
 The
-[INSTALL](4.06/notes/INSTALL.adoc) file
+[INSTALL](https://v2.ocaml.org/releases/4.06/notes/INSTALL.adoc) file
 of the distribution provides detailed compilation and installation
 instructions -- see also the [Windows release
-notes](4.06/notes/README.win32.adoc) for
+notes](https://v2.ocaml.org/releases/4.06/notes/README.win32.adoc) for
 instructions on how to build under Windows.
 
 Alternative Compilers
@@ -14215,20 +14215,20 @@ User's manual
 The user's manual for OCaml can be:
 
 - [browsed
-  online](4.06/htmlman/index.html),
+  online](https://v2.ocaml.org/releases/4.06/htmlman/index.html),
 - downloaded as a single
-  [PostScript](4.06/ocaml-4.06-refman.ps.gz),
-  [PDF](4.06/ocaml-4.06-refman.pdf),
+  [PostScript](https://v2.ocaml.org/releases/4.06/ocaml-4.06-refman.ps.gz),
+  [PDF](https://v2.ocaml.org/releases/4.06/ocaml-4.06-refman.pdf),
   or [plain
-  text](4.06/ocaml-4.06-refman.txt)
+  text](https://v2.ocaml.org/releases/4.06/ocaml-4.06-refman.txt)
   document,
 - downloaded as a single
-  [TAR](4.06/ocaml-4.06-refman-html.tar.gz)
+  [TAR](https://v2.ocaml.org/releases/4.06/ocaml-4.06-refman-html.tar.gz)
   or
-  [ZIP](4.06/ocaml-4.06-refman-html.zip)
+  [ZIP](https://v2.ocaml.org/releases/4.06/ocaml-4.06-refman-html.zip)
   archive of HTML files,
 - downloaded as a single
-  [tarball](4.06/ocaml-4.06-refman.info.tar.gz)
+  [tarball](https://v2.ocaml.org/releases/4.06/ocaml-4.06-refman.info.tar.gz)
   of Emacs info files,
 
 
@@ -14236,7 +14236,7 @@ Changes
 -------
 
 This is the
-[changelog](4.06/notes/Changes).
+[changelog](https://v2.ocaml.org/releases/4.06/notes/Changes).
 
 (Changes that can break existing programs are marked with a "*")
 
@@ -15186,9 +15186,9 @@ installation are automated by powerful package managers.
 </li>
 </ul>
 <p>The
-<a href="4.06/notes/INSTALL.adoc">INSTALL</a> file
+<a href="https://v2.ocaml.org/releases/4.06/notes/INSTALL.adoc">INSTALL</a> file
 of the distribution provides detailed compilation and installation
-instructions -- see also the <a href="4.06/notes/README.win32.adoc">Windows release
+instructions -- see also the <a href="https://v2.ocaml.org/releases/4.06/notes/README.win32.adoc">Windows release
 notes</a> for
 instructions on how to build under Windows.</p>
 <h2>Alternative Compilers</h2>
@@ -15210,30 +15210,30 @@ Java compiler.
 <h2>User's manual</h2>
 <p>The user's manual for OCaml can be:</p>
 <ul>
-<li><a href="4.06/htmlman/index.html">browsed
+<li><a href="https://v2.ocaml.org/releases/4.06/htmlman/index.html">browsed
 online</a>,
 </li>
 <li>downloaded as a single
-<a href="4.06/ocaml-4.06-refman.ps.gz">PostScript</a>,
-<a href="4.06/ocaml-4.06-refman.pdf">PDF</a>,
-or <a href="4.06/ocaml-4.06-refman.txt">plain
+<a href="https://v2.ocaml.org/releases/4.06/ocaml-4.06-refman.ps.gz">PostScript</a>,
+<a href="https://v2.ocaml.org/releases/4.06/ocaml-4.06-refman.pdf">PDF</a>,
+or <a href="https://v2.ocaml.org/releases/4.06/ocaml-4.06-refman.txt">plain
 text</a>
 document,
 </li>
 <li>downloaded as a single
-<a href="4.06/ocaml-4.06-refman-html.tar.gz">TAR</a>
+<a href="https://v2.ocaml.org/releases/4.06/ocaml-4.06-refman-html.tar.gz">TAR</a>
 or
-<a href="4.06/ocaml-4.06-refman-html.zip">ZIP</a>
+<a href="https://v2.ocaml.org/releases/4.06/ocaml-4.06-refman-html.zip">ZIP</a>
 archive of HTML files,
 </li>
 <li>downloaded as a single
-<a href="4.06/ocaml-4.06-refman.info.tar.gz">tarball</a>
+<a href="https://v2.ocaml.org/releases/4.06/ocaml-4.06-refman.info.tar.gz">tarball</a>
 of Emacs info files,
 </li>
 </ul>
 <h2>Changes</h2>
 <p>This is the
-<a href="4.06/notes/Changes">changelog</a>.</p>
+<a href="https://v2.ocaml.org/releases/4.06/notes/Changes">changelog</a>.</p>
 <p>(Changes that can break existing programs are marked with a &quot;*&quot;)</p>
 <h3>Language features:</h3>
 <ul>
@@ -16344,7 +16344,7 @@ OCaml 4.05 comprises mainly bug fixes, with some improvements in
 performance and usability.
 For a comprehensive list of changes and details on all new features,
 bug fixes, optimizations, etc., please consult the
-[changelog](4.05/notes/Changes). There
+[changelog](https://v2.ocaml.org/releases/4.05/notes/Changes). There
 is also a crowdsourced [annotated
 changelog for 4.05.0](https://github.com/gasche/ocaml-releases-change-explanation/wiki/4.05.0-changes-explanation) which contains extra commentaries and examples.
 
@@ -16366,10 +16366,10 @@ changelog for 4.05.0](https://github.com/gasche/ocaml-releases-change-explanatio
 - The official development repo is hosted on
   [GitHub](https://github.com/ocaml/ocaml).
 
-The [INSTALL](4.05/notes/INSTALL.adoc)
+The [INSTALL](https://v2.ocaml.org/releases/4.05/notes/INSTALL.adoc)
 file of the distribution provides detailed compilation and
 installation instructions -- see also the [Windows release
-notes](4.05/notes/README.win32.adoc) for instructions on how to build under Windows.
+notes](https://v2.ocaml.org/releases/4.05/notes/README.win32.adoc) for instructions on how to build under Windows.
 
 ## Alternative Compilers
 
@@ -16392,23 +16392,23 @@ targets traditionally associated with other languages:
 The user's manual for OCaml can be:
 
 - [browsed
-  online](4.05/htmlman/index.html),
+  online](https://v2.ocaml.org/releases/4.05/htmlman/index.html),
 
 - downloaded as a single
-  [PostScript](4.05/ocaml-4.05-refman.ps.gz),
-  [PDF](4.05/ocaml-4.05-refman.pdf),
+  [PostScript](https://v2.ocaml.org/releases/4.05/ocaml-4.05-refman.ps.gz),
+  [PDF](https://v2.ocaml.org/releases/4.05/ocaml-4.05-refman.pdf),
   or [plain
-  text](4.05/ocaml-4.05-refman.txt)
+  text](https://v2.ocaml.org/releases/4.05/ocaml-4.05-refman.txt)
   document,
 
 - downloaded as a single
-  [TAR](4.05/ocaml-4.05-refman-html.tar.gz)
+  [TAR](https://v2.ocaml.org/releases/4.05/ocaml-4.05-refman-html.tar.gz)
   or
-  [ZIP](4.05/ocaml-4.05-refman-html.zip)
+  [ZIP](https://v2.ocaml.org/releases/4.05/ocaml-4.05-refman-html.zip)
   archive of HTML files,
 
 - downloaded as a single
-  [tarball](4.05/ocaml-4.05-refman.info.tar.gz)
+  [tarball](https://v2.ocaml.org/releases/4.05/ocaml-4.05-refman.info.tar.gz)
   of Emacs info files,
 
 
@@ -16434,7 +16434,7 @@ The user's manual for OCaml can be:
 performance and usability.
 For a comprehensive list of changes and details on all new features,
 bug fixes, optimizations, etc., please consult the
-<a href="4.05/notes/Changes">changelog</a>. There
+<a href="https://v2.ocaml.org/releases/4.05/notes/Changes">changelog</a>. There
 is also a crowdsourced <a href="https://github.com/gasche/ocaml-releases-change-explanation/wiki/4.05.0-changes-explanation">annotated
 changelog for 4.05.0</a> which contains extra commentaries and examples.</p>
 <h2>Source distribution</h2>
@@ -16460,9 +16460,9 @@ installation are automated by powerful package managers.</p>
 <a href="https://github.com/ocaml/ocaml">GitHub</a>.</p>
 </li>
 </ul>
-<p>The <a href="4.05/notes/INSTALL.adoc">INSTALL</a>
+<p>The <a href="https://v2.ocaml.org/releases/4.05/notes/INSTALL.adoc">INSTALL</a>
 file of the distribution provides detailed compilation and
-installation instructions -- see also the <a href="4.05/notes/README.win32.adoc">Windows release
+installation instructions -- see also the <a href="https://v2.ocaml.org/releases/4.05/notes/README.win32.adoc">Windows release
 notes</a> for instructions on how to build under Windows.</p>
 <h2>Alternative Compilers</h2>
 <p>Additionally, the following projects allow you to compile OCaml code to
@@ -16487,27 +16487,27 @@ Java compiler.</p>
 <p>The user's manual for OCaml can be:</p>
 <ul>
 <li>
-<p><a href="4.05/htmlman/index.html">browsed
+<p><a href="https://v2.ocaml.org/releases/4.05/htmlman/index.html">browsed
 online</a>,</p>
 </li>
 <li>
 <p>downloaded as a single
-<a href="4.05/ocaml-4.05-refman.ps.gz">PostScript</a>,
-<a href="4.05/ocaml-4.05-refman.pdf">PDF</a>,
-or <a href="4.05/ocaml-4.05-refman.txt">plain
+<a href="https://v2.ocaml.org/releases/4.05/ocaml-4.05-refman.ps.gz">PostScript</a>,
+<a href="https://v2.ocaml.org/releases/4.05/ocaml-4.05-refman.pdf">PDF</a>,
+or <a href="https://v2.ocaml.org/releases/4.05/ocaml-4.05-refman.txt">plain
 text</a>
 document,</p>
 </li>
 <li>
 <p>downloaded as a single
-<a href="4.05/ocaml-4.05-refman-html.tar.gz">TAR</a>
+<a href="https://v2.ocaml.org/releases/4.05/ocaml-4.05-refman-html.tar.gz">TAR</a>
 or
-<a href="4.05/ocaml-4.05-refman-html.zip">ZIP</a>
+<a href="https://v2.ocaml.org/releases/4.05/ocaml-4.05-refman-html.zip">ZIP</a>
 archive of HTML files,</p>
 </li>
 <li>
 <p>downloaded as a single
-<a href="4.05/ocaml-4.05-refman.info.tar.gz">tarball</a>
+<a href="https://v2.ocaml.org/releases/4.05/ocaml-4.05-refman.info.tar.gz">tarball</a>
 of Emacs info files,</p>
 </li>
 </ul>
@@ -16561,7 +16561,7 @@ This release is available as multiple OPAM switches:
 
 For a comprehensive list of changes and details on all new features,
 bug fixes, optimizations, etc., please consult the
-[changelog](4.04/notes/Changes). There
+[changelog](https://v2.ocaml.org/releases/4.04/notes/Changes). There
 is also a crowdsourced [annotated
 changelog for 4.04.0](https://github.com/gasche/ocaml-releases-change-explanation/wiki/4.04.0-changes-explanation).
 
@@ -16624,7 +16624,7 @@ Some of the highlights in release 4.04 are:
 
 For a comprehensive list of changes and details on all new features,
 bug fixes, optimizations, etc., please consult the
-[changelog](4.04/notes/Changes).
+[changelog](https://v2.ocaml.org/releases/4.04/notes/Changes).
 
 
 ## Source distribution
@@ -16645,7 +16645,7 @@ bug fixes, optimizations, etc., please consult the
 - The official development repo is hosted on
   [GitHub](https://github.com/ocaml/ocaml).
 
-The [INSTALL](4.04/notes/INSTALL.adoc)
+The [INSTALL](https://v2.ocaml.org/releases/4.04/notes/INSTALL.adoc)
 file of the distribution provides detailed compilation and
 installation instructions.
 
@@ -16663,7 +16663,7 @@ Four ports of OCaml for Microsoft Windows are currently available. For
 additional information, please consult the list of [portability
 issues](/learn/portability.html) or the
 [Windows release
-notes](4.04/notes/README.win32.adoc).
+notes](https://v2.ocaml.org/releases/4.04/notes/README.win32.adoc).
 
 - [Cygwin-based native Win32
   port](http://protz.github.com/ocaml-installer/). A self
@@ -16715,23 +16715,23 @@ targets traditionally associated with other languages:
 The user's manual for OCaml can be:
 
 - [browsed
-  online](4.04/htmlman/index.html),
+  online](https://v2.ocaml.org/releases/4.04/htmlman/index.html),
 
 - downloaded as a single
-  [PostScript](4.04/ocaml-4.04-refman.ps.gz),
-  [PDF](4.04/ocaml-4.04-refman.pdf),
+  [PostScript](https://v2.ocaml.org/releases/4.04/ocaml-4.04-refman.ps.gz),
+  [PDF](https://v2.ocaml.org/releases/4.04/ocaml-4.04-refman.pdf),
   or [plain
-  text](4.04/ocaml-4.04-refman.txt)
+  text](https://v2.ocaml.org/releases/4.04/ocaml-4.04-refman.txt)
   document,
 
 - downloaded as a single
-  [TAR](4.04/ocaml-4.04-refman-html.tar.gz)
+  [TAR](https://v2.ocaml.org/releases/4.04/ocaml-4.04-refman-html.tar.gz)
   or
-  [ZIP](4.04/ocaml-4.04-refman-html.zip)
+  [ZIP](https://v2.ocaml.org/releases/4.04/ocaml-4.04-refman-html.zip)
   archive of HTML files,
 
 - downloaded as a single
-  [tarball](4.04/ocaml-4.04-refman.info.tar.gz)
+  [tarball](https://v2.ocaml.org/releases/4.04/ocaml-4.04-refman.info.tar.gz)
   of Emacs info files,
 
 
@@ -16752,7 +16752,7 @@ The user's manual for OCaml can be:
 </ul>
 <p>For a comprehensive list of changes and details on all new features,
 bug fixes, optimizations, etc., please consult the
-<a href="4.04/notes/Changes">changelog</a>. There
+<a href="https://v2.ocaml.org/releases/4.04/notes/Changes">changelog</a>. There
 is also a crowdsourced <a href="https://github.com/gasche/ocaml-releases-change-explanation/wiki/4.04.0-changes-explanation">annotated
 changelog for 4.04.0</a>.</p>
 <p>### Security Updates</p>
@@ -16813,7 +16813,7 @@ definition.</p>
 </ul>
 <p>For a comprehensive list of changes and details on all new features,
 bug fixes, optimizations, etc., please consult the
-<a href="4.04/notes/Changes">changelog</a>.</p>
+<a href="https://v2.ocaml.org/releases/4.04/notes/Changes">changelog</a>.</p>
 <h2>Source distribution</h2>
 <ul>
 <li>
@@ -16837,7 +16837,7 @@ installation are automated by powerful package managers.</p>
 <a href="https://github.com/ocaml/ocaml">GitHub</a>.</p>
 </li>
 </ul>
-<p>The <a href="4.04/notes/INSTALL.adoc">INSTALL</a>
+<p>The <a href="https://v2.ocaml.org/releases/4.04/notes/INSTALL.adoc">INSTALL</a>
 file of the distribution provides detailed compilation and
 installation instructions.</p>
 <h2>Binary distributions for Linux</h2>
@@ -16848,7 +16848,7 @@ available
 <p>Four ports of OCaml for Microsoft Windows are currently available. For
 additional information, please consult the list of <a href="/learn/portability.html">portability
 issues</a> or the
-<a href="4.04/notes/README.win32.adoc">Windows release
+<a href="https://v2.ocaml.org/releases/4.04/notes/README.win32.adoc">Windows release
 notes</a>.</p>
 <ul>
 <li>
@@ -16903,27 +16903,27 @@ Java compiler.</p>
 <p>The user's manual for OCaml can be:</p>
 <ul>
 <li>
-<p><a href="4.04/htmlman/index.html">browsed
+<p><a href="https://v2.ocaml.org/releases/4.04/htmlman/index.html">browsed
 online</a>,</p>
 </li>
 <li>
 <p>downloaded as a single
-<a href="4.04/ocaml-4.04-refman.ps.gz">PostScript</a>,
-<a href="4.04/ocaml-4.04-refman.pdf">PDF</a>,
-or <a href="4.04/ocaml-4.04-refman.txt">plain
+<a href="https://v2.ocaml.org/releases/4.04/ocaml-4.04-refman.ps.gz">PostScript</a>,
+<a href="https://v2.ocaml.org/releases/4.04/ocaml-4.04-refman.pdf">PDF</a>,
+or <a href="https://v2.ocaml.org/releases/4.04/ocaml-4.04-refman.txt">plain
 text</a>
 document,</p>
 </li>
 <li>
 <p>downloaded as a single
-<a href="4.04/ocaml-4.04-refman-html.tar.gz">TAR</a>
+<a href="https://v2.ocaml.org/releases/4.04/ocaml-4.04-refman-html.tar.gz">TAR</a>
 or
-<a href="4.04/ocaml-4.04-refman-html.zip">ZIP</a>
+<a href="https://v2.ocaml.org/releases/4.04/ocaml-4.04-refman-html.zip">ZIP</a>
 archive of HTML files,</p>
 </li>
 <li>
 <p>downloaded as a single
-<a href="4.04/ocaml-4.04-refman.info.tar.gz">tarball</a>
+<a href="https://v2.ocaml.org/releases/4.04/ocaml-4.04-refman.info.tar.gz">tarball</a>
 of Emacs info files,</p>
 </li>
 </ul>
@@ -17069,7 +17069,7 @@ Some of the highlights in release 4.03 are:
 
 For a comprehensive list of changes and details on all new features,
 bug fixes, optimizations, etc., please consult the
-[release notes](4.03/notes/Changes).
+[release notes](https://v2.ocaml.org/releases/4.03/notes/Changes).
 
 
 ## Source distribution
@@ -17090,7 +17090,7 @@ bug fixes, optimizations, etc., please consult the
 - The official development repo is hosted on
   [GitHub](https://github.com/ocaml/ocaml).
 
-The [INSTALL](4.03/notes/INSTALL.adoc)
+The [INSTALL](https://v2.ocaml.org/releases/4.03/notes/INSTALL.adoc)
 file of the distribution provides detailed compilation and
 installation instructions.
 
@@ -17108,7 +17108,7 @@ Four ports of OCaml for Microsoft Windows are currently available. For
 additional information, please consult the list of [portability
 issues](/learn/portability.html) or the
 [Windows release
-notes](4.03/notes/README.win32.adoc).
+notes](https://v2.ocaml.org/releases/4.03/notes/README.win32.adoc).
 
 - [Cygwin-based native Win32
   port](http://protz.github.com/ocaml-installer/). A self
@@ -17155,23 +17155,23 @@ targets traditionally associated with other languages:
 The user's manual for OCaml can be:
 
 - [browsed
-  online](4.03/htmlman/index.html),
+  online](https://v2.ocaml.org/releases/4.03/htmlman/index.html),
 
 - downloaded as a single
-  [PostScript](4.03/ocaml-4.03-refman.ps.gz),
-  [PDF](4.03/ocaml-4.03-refman.pdf),
+  [PostScript](https://v2.ocaml.org/releases/4.03/ocaml-4.03-refman.ps.gz),
+  [PDF](https://v2.ocaml.org/releases/4.03/ocaml-4.03-refman.pdf),
   or [plain
-  text](4.03/ocaml-4.03-refman.txt)
+  text](https://v2.ocaml.org/releases/4.03/ocaml-4.03-refman.txt)
   document,
 
 - downloaded as a single
-  [TAR](4.03/ocaml-4.03-refman-html.tar.gz)
+  [TAR](https://v2.ocaml.org/releases/4.03/ocaml-4.03-refman-html.tar.gz)
   or
-  [ZIP](4.03/ocaml-4.03-refman-html.zip)
+  [ZIP](https://v2.ocaml.org/releases/4.03/ocaml-4.03-refman-html.zip)
   archive of HTML files,
 
 - downloaded as a single
-  [tarball](4.03/ocaml-4.03-refman.info.tar.gz)
+  [tarball](https://v2.ocaml.org/releases/4.03/ocaml-4.03-refman.info.tar.gz)
   of Emacs info files,
 
 - an enhanced version which marks up differences to OCaml 4.02 can also be
@@ -17233,7 +17233,7 @@ under the LGPL v2.1 with static linking exception.
 </ul>
 <p>For a comprehensive list of changes and details on all new features,
 bug fixes, optimizations, etc., please consult the
-<a href="4.03/notes/Changes">release notes</a>.</p>
+<a href="https://v2.ocaml.org/releases/4.03/notes/Changes">release notes</a>.</p>
 <h2>Source distribution</h2>
 <ul>
 <li>
@@ -17257,7 +17257,7 @@ installation are automated by powerful package managers.</p>
 <a href="https://github.com/ocaml/ocaml">GitHub</a>.</p>
 </li>
 </ul>
-<p>The <a href="4.03/notes/INSTALL.adoc">INSTALL</a>
+<p>The <a href="https://v2.ocaml.org/releases/4.03/notes/INSTALL.adoc">INSTALL</a>
 file of the distribution provides detailed compilation and
 installation instructions.</p>
 <h2>Binary distributions for Linux</h2>
@@ -17268,7 +17268,7 @@ available
 <p>Four ports of OCaml for Microsoft Windows are currently available. For
 additional information, please consult the list of <a href="/learn/portability.html">portability
 issues</a> or the
-<a href="4.03/notes/README.win32.adoc">Windows release
+<a href="https://v2.ocaml.org/releases/4.03/notes/README.win32.adoc">Windows release
 notes</a>.</p>
 <ul>
 <li>
@@ -17317,27 +17317,27 @@ Java compiler (stable)</p>
 <p>The user's manual for OCaml can be:</p>
 <ul>
 <li>
-<p><a href="4.03/htmlman/index.html">browsed
+<p><a href="https://v2.ocaml.org/releases/4.03/htmlman/index.html">browsed
 online</a>,</p>
 </li>
 <li>
 <p>downloaded as a single
-<a href="4.03/ocaml-4.03-refman.ps.gz">PostScript</a>,
-<a href="4.03/ocaml-4.03-refman.pdf">PDF</a>,
-or <a href="4.03/ocaml-4.03-refman.txt">plain
+<a href="https://v2.ocaml.org/releases/4.03/ocaml-4.03-refman.ps.gz">PostScript</a>,
+<a href="https://v2.ocaml.org/releases/4.03/ocaml-4.03-refman.pdf">PDF</a>,
+or <a href="https://v2.ocaml.org/releases/4.03/ocaml-4.03-refman.txt">plain
 text</a>
 document,</p>
 </li>
 <li>
 <p>downloaded as a single
-<a href="4.03/ocaml-4.03-refman-html.tar.gz">TAR</a>
+<a href="https://v2.ocaml.org/releases/4.03/ocaml-4.03-refman-html.tar.gz">TAR</a>
 or
-<a href="4.03/ocaml-4.03-refman-html.zip">ZIP</a>
+<a href="https://v2.ocaml.org/releases/4.03/ocaml-4.03-refman-html.zip">ZIP</a>
 archive of HTML files,</p>
 </li>
 <li>
 <p>downloaded as a single
-<a href="4.03/ocaml-4.03-refman.info.tar.gz">tarball</a>
+<a href="https://v2.ocaml.org/releases/4.03/ocaml-4.03-refman.info.tar.gz">tarball</a>
 of Emacs info files,</p>
 </li>
 <li>
@@ -17644,7 +17644,7 @@ Some of the highlights in release 4.02 are:
   distribution. They are now separate projects.
 
 For more information, please consult the [comprehensive list of
-changes](4.02/notes/Changes).
+changes](https://v2.ocaml.org/releases/4.02/notes/Changes).
 
 
 
@@ -17663,10 +17663,10 @@ changes](4.02/notes/Changes).
   OCaml and many companion libraries and tools. Compilation and
   installation are automated by powerful package managers.
 
-- You also have [access](index.html) to the working
+- You also have [access](https://v2.ocaml.org/releases/index.html) to the working
   sources and to all previous public releases.
 
-The [INSTALL](4.02/notes/INSTALL)
+The [INSTALL](https://v2.ocaml.org/releases/4.02/notes/INSTALL)
 file of the distribution provides detailed compilation and
 installation instruction.
 
@@ -17684,7 +17684,7 @@ Four ports of OCaml for Microsoft Windows are currently available. For
 additional information, please consult the list of [portability
 issues](/learn/portability.html) or the
 [Windows release
-notes](4.02/notes/README.win32).
+notes](https://v2.ocaml.org/releases/4.02/notes/README.win32).
 
 - [Cygwin-based native Win32
   port](http://protz.github.com/ocaml-installer/). A self
@@ -17731,23 +17731,23 @@ targets traditionally associated with other languages:
 The user's manual for OCaml can be:
 
 - [browsed
-  online](4.02/htmlman/index.html),
+  online](https://v2.ocaml.org/releases/4.02/htmlman/index.html),
 
 - downloaded as a single
-  [PostScript](4.02/ocaml-4.02-refman.ps.gz),
-  [PDF](4.02/ocaml-4.02-refman.pdf),
+  [PostScript](https://v2.ocaml.org/releases/4.02/ocaml-4.02-refman.ps.gz),
+  [PDF](https://v2.ocaml.org/releases/4.02/ocaml-4.02-refman.pdf),
   or [plain
-  text](4.02/ocaml-4.02-refman.txt)
+  text](https://v2.ocaml.org/releases/4.02/ocaml-4.02-refman.txt)
   document,
 
 - downloaded as a single
-  [TAR](4.02/ocaml-4.02-refman-html.tar.gz)
+  [TAR](https://v2.ocaml.org/releases/4.02/ocaml-4.02-refman-html.tar.gz)
   or
-  [ZIP](4.02/ocaml-4.02-refman-html.zip)
+  [ZIP](https://v2.ocaml.org/releases/4.02/ocaml-4.02-refman-html.zip)
   archive of HTML files,
 
 - downloaded as a single
-  [tarball](4.02/ocaml-4.02-refman.info.tar.gz)
+  [tarball](https://v2.ocaml.org/releases/4.02/ocaml-4.02-refman.info.tar.gz)
   of Emacs info files,
 
 - an enhanced version which marks up differences to OCaml 4.01 can also be
@@ -17757,8 +17757,8 @@ The user's manual for OCaml can be:
 
 OCaml is Free Software, copyright INRIA, licensed under a combination
 of the QPL and the LGPLv2 (with a special exception on static
-linking). See the full [license](/docs/license.html). Members of the
-[OCaml Consortium](/consortium/) benefit from a
+linking). See the full [license](https://v2.ocaml.org/docs/license.html). Members of the
+[OCaml Consortium](https://v2.ocaml.org/consortium/) benefit from a
 more liberal license (BSD-like).
 |js}
   ; body_html = {js|<h1>OCaml 4.02.3</h1>
@@ -17831,7 +17831,7 @@ architecture.</p>
 distribution. They are now separate projects.</p>
 </li>
 </ul>
-<p>For more information, please consult the <a href="4.02/notes/Changes">comprehensive list of
+<p>For more information, please consult the <a href="https://v2.ocaml.org/releases/4.02/notes/Changes">comprehensive list of
 changes</a>.</p>
 <h2>Source distribution</h2>
 <ul>
@@ -17852,11 +17852,11 @@ OCaml and many companion libraries and tools. Compilation and
 installation are automated by powerful package managers.</p>
 </li>
 <li>
-<p>You also have <a href="index.html">access</a> to the working
+<p>You also have <a href="https://v2.ocaml.org/releases/index.html">access</a> to the working
 sources and to all previous public releases.</p>
 </li>
 </ul>
-<p>The <a href="4.02/notes/INSTALL">INSTALL</a>
+<p>The <a href="https://v2.ocaml.org/releases/4.02/notes/INSTALL">INSTALL</a>
 file of the distribution provides detailed compilation and
 installation instruction.</p>
 <h2>Binary distributions for Linux</h2>
@@ -17867,7 +17867,7 @@ available
 <p>Four ports of OCaml for Microsoft Windows are currently available. For
 additional information, please consult the list of <a href="/learn/portability.html">portability
 issues</a> or the
-<a href="4.02/notes/README.win32">Windows release
+<a href="https://v2.ocaml.org/releases/4.02/notes/README.win32">Windows release
 notes</a>.</p>
 <ul>
 <li>
@@ -17916,27 +17916,27 @@ Java compiler (stable)</p>
 <p>The user's manual for OCaml can be:</p>
 <ul>
 <li>
-<p><a href="4.02/htmlman/index.html">browsed
+<p><a href="https://v2.ocaml.org/releases/4.02/htmlman/index.html">browsed
 online</a>,</p>
 </li>
 <li>
 <p>downloaded as a single
-<a href="4.02/ocaml-4.02-refman.ps.gz">PostScript</a>,
-<a href="4.02/ocaml-4.02-refman.pdf">PDF</a>,
-or <a href="4.02/ocaml-4.02-refman.txt">plain
+<a href="https://v2.ocaml.org/releases/4.02/ocaml-4.02-refman.ps.gz">PostScript</a>,
+<a href="https://v2.ocaml.org/releases/4.02/ocaml-4.02-refman.pdf">PDF</a>,
+or <a href="https://v2.ocaml.org/releases/4.02/ocaml-4.02-refman.txt">plain
 text</a>
 document,</p>
 </li>
 <li>
 <p>downloaded as a single
-<a href="4.02/ocaml-4.02-refman-html.tar.gz">TAR</a>
+<a href="https://v2.ocaml.org/releases/4.02/ocaml-4.02-refman-html.tar.gz">TAR</a>
 or
-<a href="4.02/ocaml-4.02-refman-html.zip">ZIP</a>
+<a href="https://v2.ocaml.org/releases/4.02/ocaml-4.02-refman-html.zip">ZIP</a>
 archive of HTML files,</p>
 </li>
 <li>
 <p>downloaded as a single
-<a href="4.02/ocaml-4.02-refman.info.tar.gz">tarball</a>
+<a href="https://v2.ocaml.org/releases/4.02/ocaml-4.02-refman.info.tar.gz">tarball</a>
 of Emacs info files,</p>
 </li>
 <li>
@@ -17947,8 +17947,8 @@ of Emacs info files,</p>
 <h2>License</h2>
 <p>OCaml is Free Software, copyright INRIA, licensed under a combination
 of the QPL and the LGPLv2 (with a special exception on static
-linking). See the full <a href="/docs/license.html">license</a>. Members of the
-<a href="/consortium/">OCaml Consortium</a> benefit from a
+linking). See the full <a href="https://v2.ocaml.org/docs/license.html">license</a>. Members of the
+<a href="https://v2.ocaml.org/consortium/">OCaml Consortium</a> benefit from a
 more liberal license (BSD-like).</p>
 |js}
   };
@@ -18021,9 +18021,9 @@ etc.</p>
 **License**<br />
  The OCaml system is open source software: the compiler is distributed
 under the terms of the Q Public License, and its library is under LGPL;
-please read the [license](/docs/license.html) document for more details. A
+please read the [license](https://v2.ocaml.org/docs/license.html) document for more details. A
 BSD-style license is also available for a fee through the [OCaml
-Consortium](/consortium/).
+Consortium](https://v2.ocaml.org/consortium/).
 
 ## What's New
 
@@ -18057,7 +18057,7 @@ Some of the highlights in release 4.01 are:
     etc.
 
 For more information, please consult the [comprehensive list of
-changes](4.01/notes/Changes).
+changes](https://v2.ocaml.org/releases/4.01/notes/Changes).
 
 ## Source distribution
 
@@ -18069,10 +18069,10 @@ changes](4.01/notes/Changes).
 -   [OPAM](https://opam.ocaml.org/) is a source-based distribution of
     OCaml and many companion libraries and tools. Compilation and
     installation are automated by powerful package managers.
--   You also have [access](index.html) to the working
+-   You also have [access](https://v2.ocaml.org/releases/index.html) to the working
  sources and to all previous public releases.
 
-The [INSTALL](4.01/notes/INSTALL) file of the
+The [INSTALL](https://v2.ocaml.org/releases/4.01/notes/INSTALL) file of the
 distribution provides detailed compilation and installation instruction.
 
 ## Precompiled binaries for Linux
@@ -18097,7 +18097,7 @@ Binary package compiled on Mac OS 10.7.5 with XCode tools 4.6.3
 Four ports of OCaml for Microsoft Windows are currently available. For
 additional information, please consult the list of [portability
 issues](/learn/portability.html) or the [Windows release
-notes](4.01/notes/README.win32).
+notes](https://v2.ocaml.org/releases/4.01/notes/README.win32).
 
 -   [Cygwin-based native Win32 port
     (4.00.0)](http://protz.github.com/ocaml-installer/). A self
@@ -18135,17 +18135,17 @@ targets traditionally associated with other languages:
 ## User's manual
 The user's manual for OCaml can be:
 
--   [browsed online](4.01/htmlman/index.html),
+-   [browsed online](https://v2.ocaml.org/releases/4.01/htmlman/index.html),
 -   downloaded as a single
-    [PostScript](4.01/ocaml-4.01-refman.ps.gz),
-    [PDF](4.01/ocaml-4.01-refman.pdf), or [plain
-    text](4.01/ocaml-4.01-refman.txt) document,
+    [PostScript](https://v2.ocaml.org/releases/4.01/ocaml-4.01-refman.ps.gz),
+    [PDF](https://v2.ocaml.org/releases/4.01/ocaml-4.01-refman.pdf), or [plain
+    text](https://v2.ocaml.org/releases/4.01/ocaml-4.01-refman.txt) document,
 -   downloaded as a single
-    [TAR](4.01/ocaml-4.01-refman-html.tar.gz) or
-    [ZIP](4.01/ocaml-4.01-refman-html.zip) archive
+    [TAR](https://v2.ocaml.org/releases/4.01/ocaml-4.01-refman-html.tar.gz) or
+    [ZIP](https://v2.ocaml.org/releases/4.01/ocaml-4.01-refman-html.zip) archive
     of HTML files,
 -   downloaded as a single
-    [tarball](4.01/ocaml-4.01-refman.info.tar.gz)
+    [tarball](https://v2.ocaml.org/releases/4.01/ocaml-4.01-refman.info.tar.gz)
     of Emacs `info` files,
 -   an enhanced version which marks up differences to OCaml 4.00 can also be
     [browsed online](http://www.askra.de/software/ocaml-doc/4.01/).
@@ -18155,8 +18155,8 @@ The user's manual for OCaml can be:
   ; body_html = {js|<p><strong>License</strong><br />
 The OCaml system is open source software: the compiler is distributed
 under the terms of the Q Public License, and its library is under LGPL;
-please read the <a href="/docs/license.html">license</a> document for more details. A
-BSD-style license is also available for a fee through the <a href="/consortium/">OCaml
+please read the <a href="https://v2.ocaml.org/docs/license.html">license</a> document for more details. A
+BSD-style license is also available for a fee through the <a href="https://v2.ocaml.org/consortium/">OCaml
 Consortium</a>.</p>
 <h2>What's New</h2>
 <p>Some of the highlights in release 4.01 are:</p>
@@ -18195,7 +18195,7 @@ places: the type system for GADTs, compilation speed with
 etc.</p>
 </li>
 </ul>
-<p>For more information, please consult the <a href="4.01/notes/Changes">comprehensive list of
+<p>For more information, please consult the <a href="https://v2.ocaml.org/releases/4.01/notes/Changes">comprehensive list of
 changes</a>.</p>
 <h2>Source distribution</h2>
 <ul>
@@ -18210,11 +18210,11 @@ and Microsoft Windows (including Cygwin).
 OCaml and many companion libraries and tools. Compilation and
 installation are automated by powerful package managers.
 </li>
-<li>You also have <a href="index.html">access</a> to the working
+<li>You also have <a href="https://v2.ocaml.org/releases/index.html">access</a> to the working
 sources and to all previous public releases.
 </li>
 </ul>
-<p>The <a href="4.01/notes/INSTALL">INSTALL</a> file of the
+<p>The <a href="https://v2.ocaml.org/releases/4.01/notes/INSTALL">INSTALL</a> file of the
 distribution provides detailed compilation and installation instruction.</p>
 <h2>Precompiled binaries for Linux</h2>
 <ul>
@@ -18238,7 +18238,7 @@ packages</a>.
 <h2>Precompiled binaries for Microsoft Windows</h2>
 <p>Four ports of OCaml for Microsoft Windows are currently available. For
 additional information, please consult the list of <a href="/learn/portability.html">portability
-issues</a> or the <a href="4.01/notes/README.win32">Windows release
+issues</a> or the <a href="https://v2.ocaml.org/releases/4.01/notes/README.win32">Windows release
 notes</a>.</p>
 <ul>
 <li><a href="http://protz.github.com/ocaml-installer/">Cygwin-based native Win32 port
@@ -18280,20 +18280,20 @@ compiler (stable)
 <h2>User's manual</h2>
 <p>The user's manual for OCaml can be:</p>
 <ul>
-<li><a href="4.01/htmlman/index.html">browsed online</a>,
+<li><a href="https://v2.ocaml.org/releases/4.01/htmlman/index.html">browsed online</a>,
 </li>
 <li>downloaded as a single
-<a href="4.01/ocaml-4.01-refman.ps.gz">PostScript</a>,
-<a href="4.01/ocaml-4.01-refman.pdf">PDF</a>, or <a href="4.01/ocaml-4.01-refman.txt">plain
+<a href="https://v2.ocaml.org/releases/4.01/ocaml-4.01-refman.ps.gz">PostScript</a>,
+<a href="https://v2.ocaml.org/releases/4.01/ocaml-4.01-refman.pdf">PDF</a>, or <a href="https://v2.ocaml.org/releases/4.01/ocaml-4.01-refman.txt">plain
 text</a> document,
 </li>
 <li>downloaded as a single
-<a href="4.01/ocaml-4.01-refman-html.tar.gz">TAR</a> or
-<a href="4.01/ocaml-4.01-refman-html.zip">ZIP</a> archive
+<a href="https://v2.ocaml.org/releases/4.01/ocaml-4.01-refman-html.tar.gz">TAR</a> or
+<a href="https://v2.ocaml.org/releases/4.01/ocaml-4.01-refman-html.zip">ZIP</a> archive
 of HTML files,
 </li>
 <li>downloaded as a single
-<a href="4.01/ocaml-4.01-refman.info.tar.gz">tarball</a>
+<a href="https://v2.ocaml.org/releases/4.01/ocaml-4.01-refman.info.tar.gz">tarball</a>
 of Emacs <code>info</code> files,
 </li>
 <li>an enhanced version which marks up differences to OCaml 4.00 can also be
@@ -18362,9 +18362,9 @@ vulnerabilities.</p>
 **License**<br />
  The OCaml system is open source software: the compiler is distributed
 under the terms of the Q Public License, and its library is under LGPL;
-please read the [license](/docs/license.html) document for more details. A
+please read the [license](https://v2.ocaml.org/docs/license.html) document for more details. A
 BSD-style license is also available for a fee through the [OCaml
-Consortium](/consortium/).
+Consortium](https://v2.ocaml.org/consortium/).
 
 ## What's New
 Release 4.00.1 is mostly a bugfix release.
@@ -18387,7 +18387,7 @@ Some of the highlights in release 4.0.0 (July 2012) are:
  `+compiler-libs` for easier access by third-party programming tools.
 
 For more information, please consult the [comprehensive list of
-changes](4.00/notes/Changes).
+changes](https://v2.ocaml.org/releases/4.00/notes/Changes).
 
 ## Source distribution
 * [Source
@@ -18397,34 +18397,30 @@ changes](4.00/notes/Changes).
 * Also available in
  [.zip](https://github.com/ocaml/ocaml/archive/4.00.1.zip)
  format.
-* You also have [access](index.html) to the working
+* You also have [access](https://v2.ocaml.org/releases/index.html) to the working
  sources and to all previous public releases.
 
-The [INSTALL](4.00/notes/INSTALL)
+The [INSTALL](https://v2.ocaml.org/releases/4.00/notes/INSTALL)
 file of the distribution provides detailed compilation and installation
 instruction.
 
 ## Precompiled binaries for Linux
 * [Debian packages](http://packages.debian.org/ocaml).
-* [Fedora
- packages](https://admin.fedoraproject.org/pkgdb/package/ocaml/).
-* [Gentoo
- packages](http://packages.gentoo.org/packages/?category=dev-lang;name=ocaml).
+* [Fedora packages](https://admin.fedoraproject.org/pkgdb/package/ocaml/).
+* [Gentoo packages](http://packages.gentoo.org/packages/?category=dev-lang;name=ocaml).
 
 ## Precompiled binaries for MacOS X
 Binary package compiled on Mac OS 10.7.5 with XCode tools 4.4 (probably
 not compatible with earlier versions of Mac OS X):
 
-* [for
- Intel](https://caml.inria.fr/pub/distrib/ocaml-4.00/ocaml-4.00.1-intel.dmg)
- (4.00.1)
+* [for Intel](https://caml.inria.fr/pub/distrib/ocaml-4.00/ocaml-4.00.1-intel.dmg) (4.00.1)
 
 ## Precompiled binaries for Microsoft Windows
 Four ports of OCaml for Microsoft Windows are currently available. For
 additional information, please consult the list of [portability
 issues](http://caml.inria.fr/ocaml/portability.en.html) or the [Windows
 release
-notes](4.00/notes/README.win32).
+notes](https://v2.ocaml.org/releases/4.00/notes/README.win32).
 
 * [Cygwin-based native Win32 port
  (4.00.0)](http://protz.github.com/ocaml-installer/). A self
@@ -18461,28 +18457,27 @@ targets traditionally associated with other languages:
 The user's manual for OCaml can be:
 
 * [browsed
- online](4.00/htmlman/index.html),
+ online](https://v2.ocaml.org/releases/4.00/htmlman/index.html),
 * downloaded as a single
- [PostScript](4.00/ocaml-4.00-refman.ps.gz),
- [PDF](4.00/ocaml-4.00-refman.pdf),
+ [PostScript](https://v2.ocaml.org/releases/4.00/ocaml-4.00-refman.ps.gz),
+ [PDF](https://v2.ocaml.org/releases/4.00/ocaml-4.00-refman.pdf),
  or [plain
- text](4.00/ocaml-4.00-refman.txt)
+ text](https://v2.ocaml.org/releases/4.00/ocaml-4.00-refman.txt)
  document,
 * downloaded as a single
- [TAR](4.00/ocaml-4.00-refman-html.tar.gz)
+ [TAR](https://v2.ocaml.org/releases/4.00/ocaml-4.00-refman-html.tar.gz)
  or
- [ZIP](4.00/ocaml-4.00-refman-html.zip)
+ [ZIP](https://v2.ocaml.org/releases/4.00/ocaml-4.00-refman-html.zip)
  archive of HTML files,
 * downloaded as a single
- [tarball](4.00/ocaml-4.00-refman.info.tar.gz)
+ [tarball](https://v2.ocaml.org/releases/4.00/ocaml-4.00-refman.info.tar.gz)
  of Emacs `info` files.
-
 |js}
   ; body_html = {js|<p><strong>License</strong><br />
 The OCaml system is open source software: the compiler is distributed
 under the terms of the Q Public License, and its library is under LGPL;
-please read the <a href="/docs/license.html">license</a> document for more details. A
-BSD-style license is also available for a fee through the <a href="/consortium/">OCaml
+please read the <a href="https://v2.ocaml.org/docs/license.html">license</a> document for more details. A
+BSD-style license is also available for a fee through the <a href="https://v2.ocaml.org/consortium/">OCaml
 Consortium</a>.</p>
 <h2>What's New</h2>
 <p>Release 4.00.1 is mostly a bugfix release.</p>
@@ -18509,7 +18504,7 @@ vulnerabilities.
 <code>+compiler-libs</code> for easier access by third-party programming tools.
 </li>
 </ul>
-<p>For more information, please consult the <a href="4.00/notes/Changes">comprehensive list of
+<p>For more information, please consult the <a href="https://v2.ocaml.org/releases/4.00/notes/Changes">comprehensive list of
 changes</a>.</p>
 <h2>Source distribution</h2>
 <ul>
@@ -18522,37 +18517,33 @@ and Microsoft Windows (including Cygwin).
 <a href="https://github.com/ocaml/ocaml/archive/4.00.1.zip">.zip</a>
 format.
 </li>
-<li>You also have <a href="index.html">access</a> to the working
+<li>You also have <a href="https://v2.ocaml.org/releases/index.html">access</a> to the working
 sources and to all previous public releases.
 </li>
 </ul>
-<p>The <a href="4.00/notes/INSTALL">INSTALL</a>
+<p>The <a href="https://v2.ocaml.org/releases/4.00/notes/INSTALL">INSTALL</a>
 file of the distribution provides detailed compilation and installation
 instruction.</p>
 <h2>Precompiled binaries for Linux</h2>
 <ul>
 <li><a href="http://packages.debian.org/ocaml">Debian packages</a>.
 </li>
-<li><a href="https://admin.fedoraproject.org/pkgdb/package/ocaml/">Fedora
-packages</a>.
+<li><a href="https://admin.fedoraproject.org/pkgdb/package/ocaml/">Fedora packages</a>.
 </li>
-<li><a href="http://packages.gentoo.org/packages/?category=dev-lang;name=ocaml">Gentoo
-packages</a>.
+<li><a href="http://packages.gentoo.org/packages/?category=dev-lang;name=ocaml">Gentoo packages</a>.
 </li>
 </ul>
 <h2>Precompiled binaries for MacOS X</h2>
 <p>Binary package compiled on Mac OS 10.7.5 with XCode tools 4.4 (probably
 not compatible with earlier versions of Mac OS X):</p>
 <ul>
-<li><a href="https://caml.inria.fr/pub/distrib/ocaml-4.00/ocaml-4.00.1-intel.dmg">for
-Intel</a>
-(4.00.1)
+<li><a href="https://caml.inria.fr/pub/distrib/ocaml-4.00/ocaml-4.00.1-intel.dmg">for Intel</a> (4.00.1)
 </li>
 </ul>
 <h2>Precompiled binaries for Microsoft Windows</h2>
 <p>Four ports of OCaml for Microsoft Windows are currently available. For
 additional information, please consult the list of <a href="http://caml.inria.fr/ocaml/portability.en.html">portability
-issues</a> or the <a href="4.00/notes/README.win32">Windows
+issues</a> or the <a href="https://v2.ocaml.org/releases/4.00/notes/README.win32">Windows
 release
 notes</a>.</p>
 <ul>
@@ -18595,24 +18586,24 @@ compiler (experimental)
 <h2>User's manual</h2>
 <p>The user's manual for OCaml can be:</p>
 <ul>
-<li><a href="4.00/htmlman/index.html">browsed
+<li><a href="https://v2.ocaml.org/releases/4.00/htmlman/index.html">browsed
 online</a>,
 </li>
 <li>downloaded as a single
-<a href="4.00/ocaml-4.00-refman.ps.gz">PostScript</a>,
-<a href="4.00/ocaml-4.00-refman.pdf">PDF</a>,
-or <a href="4.00/ocaml-4.00-refman.txt">plain
+<a href="https://v2.ocaml.org/releases/4.00/ocaml-4.00-refman.ps.gz">PostScript</a>,
+<a href="https://v2.ocaml.org/releases/4.00/ocaml-4.00-refman.pdf">PDF</a>,
+or <a href="https://v2.ocaml.org/releases/4.00/ocaml-4.00-refman.txt">plain
 text</a>
 document,
 </li>
 <li>downloaded as a single
-<a href="4.00/ocaml-4.00-refman-html.tar.gz">TAR</a>
+<a href="https://v2.ocaml.org/releases/4.00/ocaml-4.00-refman-html.tar.gz">TAR</a>
 or
-<a href="4.00/ocaml-4.00-refman-html.zip">ZIP</a>
+<a href="https://v2.ocaml.org/releases/4.00/ocaml-4.00-refman-html.zip">ZIP</a>
 archive of HTML files,
 </li>
 <li>downloaded as a single
-<a href="4.00/ocaml-4.00-refman.info.tar.gz">tarball</a>
+<a href="https://v2.ocaml.org/releases/4.00/ocaml-4.00-refman.info.tar.gz">tarball</a>
 of Emacs <code>info</code> files.
 </li>
 </ul>
@@ -18694,9 +18685,9 @@ associated warnings and errors.</p>
 **License**<br />
  The OCaml system is open source software: the compiler is distributed
 under the terms of the Q Public License, and its library is under LGPL;
-please read the [license](/docs/license.html) document for more details. A
+please read the [license](https://v2.ocaml.org/docs/license.html) document for more details. A
 BSD-style license is also available for a fee through the [OCaml
-Consortium](/consortium/).
+Consortium](https://v2.ocaml.org/consortium/).
 
 ## What's New
 Some of the highlights in release 3.12 are:
@@ -18722,9 +18713,9 @@ Some of the highlights in release 3.12 are:
  associated warnings and errors.
 
 For more information, please consult the [comprehensive list of
-changes](4.00/notes/Changes).
+changes](https://v2.ocaml.org/releases/https://v2.ocaml.org/releases/4.00/notes/Changes).
 
-## ![](../img/source.gif "")Source distribution
+## Source distribution
 * [Source
  tarball](https://github.com/ocaml/ocaml/archive/3.12.1.tar.gz)
  (.tar.gz) for compilation under Unix (including Linux and MacOS X)
@@ -18732,38 +18723,38 @@ changes](4.00/notes/Changes).
 * Also available in
  [.zip](https://github.com/ocaml/ocaml/archive/3.12.1.zip)
  format.
-* You also have [access](index.html) to the working
+* You also have [access](https://v2.ocaml.org/releases/index.html) to the working
  sources and to all previous public releases.
 
-The [INSTALL](3.12/notes/INSTALL)
+The [INSTALL](https://v2.ocaml.org/releases/https://v2.ocaml.org/releases/3.12/notes/INSTALL)
 file of the distribution provides detailed compilation and installation
 instruction.
 
-## ![](../img/freebsd.gif "")Precompiled binaries for FreeBSD
+## Precompiled binaries for FreeBSD
 Use binary packages provided by the FreeBSD project. Further information
 about the FreeBSD packages is available at
 [FreshPorts](http://www.freshports.org/lang/ocaml).
 
-## ![](../img/linux.gif "")Precompiled binaries for Linux
+## Precompiled binaries for Linux
 * [RPM packages](http://rpm.nogin.org/ocaml.html) for Fedora, RedHat,
  Mandriva. (Contributed by Aleksey Nogin.)
 * [Debian packages](http://packages.debian.org/ocaml).
 * [Gentoo
  packages](http://packages.gentoo.org/packages/?category=dev-lang;name=ocaml).
 
-## ![](../img/macos.gif "")Precompiled binaries for MacOS X
+## Precompiled binaries for MacOS X
 Binary package compiled on Mac OS 10.6.4 with XCode tools 3.2.3 (not
 compatible with Mac OS 10.4.x):
 
 * [for
  Intel](https://caml.inria.fr/pub/distrib/ocaml-3.12/ocaml-3.12.0-intel.dmg)
 
-## ![](../img/windows.gif "")Precompiled binaries for Microsoft Windows
+## Precompiled binaries for Microsoft Windows
 Four ports of OCaml for Microsoft Windows are currently available. For
 additional information, please consult the list of [portability
 issues](http://caml.inria.fr/ocaml/portability.en.html) or the [Windows
 release
-notes](3.12/notes/README.win32).
+notes](https://v2.ocaml.org/releases/3.12/notes/README.win32).
 
 * [MinGW-based native Win32 port
  (3.12.1)](http://protz.github.com/ocaml-installer/). A self
@@ -18785,29 +18776,29 @@ notes](3.12/notes/README.win32).
 ## Precompiled binaries for Solaris
 Available at [sunfreeware.com](http://sunfreeware.com/).
 
-## ![](../img/doc.gif "")User's manual
+## User's manual
 The user's manual for OCaml can be:
 
 * downloaded as a single
- [PostScript](3.12/ocaml-3.12-refman.ps.gz),
- [PDF](3.12/ocaml-3.12-refman.pdf),
+ [PostScript](https://v2.ocaml.org/releases/3.12/ocaml-3.12-refman.ps.gz),
+ [PDF](https://v2.ocaml.org/releases/3.12/ocaml-3.12-refman.pdf),
  or [plain
- text](3.12/ocaml-3.12-refman.txt)
+ text](https://v2.ocaml.org/releases/3.12/ocaml-3.12-refman.txt)
  document,
 * downloaded as a single
- [TAR](3.12/ocaml-3.12-refman.html.tar.gz)
+ [TAR](https://v2.ocaml.org/releases/3.12/ocaml-3.12-refman.html.tar.gz)
  or
- [ZIP](3.12/ocaml-3.12-refman.html.zip)
+ [ZIP](https://v2.ocaml.org/releases/3.12/ocaml-3.12-refman.html.zip)
  archive of HTML files,
 * downloaded as a single
- [tarball](3.12/ocaml-3.12-refman.info.tar.gz)
+ [tarball](https://v2.ocaml.org/releases/3.12/ocaml-3.12-refman.info.tar.gz)
  of Emacs `info` files.
 |js}
   ; body_html = {js|<p><strong>License</strong><br />
 The OCaml system is open source software: the compiler is distributed
 under the terms of the Q Public License, and its library is under LGPL;
-please read the <a href="/docs/license.html">license</a> document for more details. A
-BSD-style license is also available for a fee through the <a href="/consortium/">OCaml
+please read the <a href="https://v2.ocaml.org/docs/license.html">license</a> document for more details. A
+BSD-style license is also available for a fee through the <a href="https://v2.ocaml.org/consortium/">OCaml
 Consortium</a>.</p>
 <h2>What's New</h2>
 <p>Some of the highlights in release 3.12 are:</p>
@@ -18840,9 +18831,9 @@ a given module.
 associated warnings and errors.
 </li>
 </ul>
-<p>For more information, please consult the <a href="4.00/notes/Changes">comprehensive list of
+<p>For more information, please consult the <a href="https://v2.ocaml.org/releases/https://v2.ocaml.org/releases/4.00/notes/Changes">comprehensive list of
 changes</a>.</p>
-<h2><img src="../img/source.gif" alt="" title="" />Source distribution</h2>
+<h2>Source distribution</h2>
 <ul>
 <li><a href="https://github.com/ocaml/ocaml/archive/3.12.1.tar.gz">Source
 tarball</a>
@@ -18853,18 +18844,18 @@ and Microsoft Windows (including Cygwin).
 <a href="https://github.com/ocaml/ocaml/archive/3.12.1.zip">.zip</a>
 format.
 </li>
-<li>You also have <a href="index.html">access</a> to the working
+<li>You also have <a href="https://v2.ocaml.org/releases/index.html">access</a> to the working
 sources and to all previous public releases.
 </li>
 </ul>
-<p>The <a href="3.12/notes/INSTALL">INSTALL</a>
+<p>The <a href="https://v2.ocaml.org/releases/https://v2.ocaml.org/releases/3.12/notes/INSTALL">INSTALL</a>
 file of the distribution provides detailed compilation and installation
 instruction.</p>
-<h2><img src="../img/freebsd.gif" alt="" title="" />Precompiled binaries for FreeBSD</h2>
+<h2>Precompiled binaries for FreeBSD</h2>
 <p>Use binary packages provided by the FreeBSD project. Further information
 about the FreeBSD packages is available at
 <a href="http://www.freshports.org/lang/ocaml">FreshPorts</a>.</p>
-<h2><img src="../img/linux.gif" alt="" title="" />Precompiled binaries for Linux</h2>
+<h2>Precompiled binaries for Linux</h2>
 <ul>
 <li><a href="http://rpm.nogin.org/ocaml.html">RPM packages</a> for Fedora, RedHat,
 Mandriva. (Contributed by Aleksey Nogin.)
@@ -18875,7 +18866,7 @@ Mandriva. (Contributed by Aleksey Nogin.)
 packages</a>.
 </li>
 </ul>
-<h2><img src="../img/macos.gif" alt="" title="" />Precompiled binaries for MacOS X</h2>
+<h2>Precompiled binaries for MacOS X</h2>
 <p>Binary package compiled on Mac OS 10.6.4 with XCode tools 3.2.3 (not
 compatible with Mac OS 10.4.x):</p>
 <ul>
@@ -18883,10 +18874,10 @@ compatible with Mac OS 10.4.x):</p>
 Intel</a>
 </li>
 </ul>
-<h2><img src="../img/windows.gif" alt="" title="" />Precompiled binaries for Microsoft Windows</h2>
+<h2>Precompiled binaries for Microsoft Windows</h2>
 <p>Four ports of OCaml for Microsoft Windows are currently available. For
 additional information, please consult the list of <a href="http://caml.inria.fr/ocaml/portability.en.html">portability
-issues</a> or the <a href="3.12/notes/README.win32">Windows
+issues</a> or the <a href="https://v2.ocaml.org/releases/3.12/notes/README.win32">Windows
 release
 notes</a>.</p>
 <ul>
@@ -18912,24 +18903,24 @@ and compile it.
 </ul>
 <h2>Precompiled binaries for Solaris</h2>
 <p>Available at <a href="http://sunfreeware.com/">sunfreeware.com</a>.</p>
-<h2><img src="../img/doc.gif" alt="" title="" />User's manual</h2>
+<h2>User's manual</h2>
 <p>The user's manual for OCaml can be:</p>
 <ul>
 <li>downloaded as a single
-<a href="3.12/ocaml-3.12-refman.ps.gz">PostScript</a>,
-<a href="3.12/ocaml-3.12-refman.pdf">PDF</a>,
-or <a href="3.12/ocaml-3.12-refman.txt">plain
+<a href="https://v2.ocaml.org/releases/3.12/ocaml-3.12-refman.ps.gz">PostScript</a>,
+<a href="https://v2.ocaml.org/releases/3.12/ocaml-3.12-refman.pdf">PDF</a>,
+or <a href="https://v2.ocaml.org/releases/3.12/ocaml-3.12-refman.txt">plain
 text</a>
 document,
 </li>
 <li>downloaded as a single
-<a href="3.12/ocaml-3.12-refman.html.tar.gz">TAR</a>
+<a href="https://v2.ocaml.org/releases/3.12/ocaml-3.12-refman.html.tar.gz">TAR</a>
 or
-<a href="3.12/ocaml-3.12-refman.html.zip">ZIP</a>
+<a href="https://v2.ocaml.org/releases/3.12/ocaml-3.12-refman.html.zip">ZIP</a>
 archive of HTML files,
 </li>
 <li>downloaded as a single
-<a href="3.12/ocaml-3.12-refman.info.tar.gz">tarball</a>
+<a href="https://v2.ocaml.org/releases/3.12/ocaml-3.12-refman.info.tar.gz">tarball</a>
 of Emacs <code>info</code> files.
 </li>
 </ul>
