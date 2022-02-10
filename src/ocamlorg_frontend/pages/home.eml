@@ -38,8 +38,8 @@ with an emphasis on expressiveness and safety."
           <div id="toplevel-container" style="flex: 1 1 50%" class="py-2 px-6 text-white text-opacity-50 overflow-auto">
             <div class="text-left overflow-auto">
               <pre id="output" class="flex flex-col w-full code-preview text-white text-sm space-y-1 font-medium">
-                  <span><span class="text-blue-500 ">let </span><span class="text-code-yellow ">square</span>  x = x * x</span>
-                  <span><i class="text-gray-400 ">val square : int -> int = < fun > </i></span>
+                  <span><span class="text-blue-500 ">let</span> <span class="text-code-yellow ">square</span> x = x * x</span>
+                  <span><i class="text-gray-400 ">val square : int -> int = < fun ></i></span>
                   <span>square 3</span>
                   <span><i class="text-gray-400 ">- : int = 9</i></span>
                   <span><span class="text-blue-500 ">let</span> <span class="text-code-yellow ">rec</span> fac x =</span>
