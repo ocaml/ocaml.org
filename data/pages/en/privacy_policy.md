@@ -5,7 +5,7 @@ meta_title: OCaml Privacy Policy
 meta_description: OCaml.org doesn’t use cookies and doesn’t collect personal data. Your data is your data, period.
 ---
 
-The OCaml.org committee is committed to complying with GDPR, CCPA, PECR and other privacy regulations on this website.
+The OCaml.org [committee](https://v3.ocaml.org/governance) is committed to complying with GDPR, CCPA, PECR and other privacy regulations on this website.
 
 ## What we collect?
 
@@ -24,6 +24,6 @@ As a visitor to the OCaml.org website:
 
 We may update this policy as needed to comply with relevant regulations and reflect any new practices. Whenever we make a significant change to our policies, we will also announce them on our company blog or social media profiles.
 
-Contact us if you have any questions, comments, or concerns about this privacy policy, your data, or your rights with respect to your information.
+[Contact us](https://discuss.ocaml.org/) if you have any questions, comments, or concerns about this privacy policy, your data, or your rights with respect to your information.
 
-Last updated: February 9th, 2022
+Last updated: February 10th, 2022

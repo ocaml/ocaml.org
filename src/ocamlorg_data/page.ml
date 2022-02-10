@@ -590,7 +590,7 @@ let privacy_policy =
   ; meta_title = {js|OCaml Privacy Policy|js}
   ; meta_description = {js|<b>TL;DR:</b> We do not use cookies and we do not collect any personal data. We also don't use any third party service.|js}
   ; body_md = {js|
-The OCaml.org committee is committed to complying with GDPR, CCPA, PECR and other privacy regulations on this website.
+The OCaml.org [committee](https://v3.ocaml.org/governance) is committed to complying with GDPR, CCPA, PECR and other privacy regulations on this website.
 
 ## What we collect?
 
@@ -609,11 +609,11 @@ As a visitor to the OCaml.org website:
 
 We may update this policy as needed to comply with relevant regulations and reflect any new practices. Whenever we make a significant change to our policies, we will also announce them on our company blog or social media profiles.
 
-Contact us if you have any questions, comments, or concerns about this privacy policy, your data, or your rights with respect to your information.
+[Contact us](https://discuss.ocaml.org/) if you have any questions, comments, or concerns about this privacy policy, your data, or your rights with respect to your information.
 
-Last updated: February 9th, 2022
+Last updated: February 10th, 2022
 |js}
-  ; body_html = {js|<p>The OCaml.org committee is committed to complying with GDPR, CCPA, PECR and other privacy regulations on this website.</p>
+  ; body_html = {js|<p>The OCaml.org <a href="https://v3.ocaml.org/governance">committee</a> is committed to complying with GDPR, CCPA, PECR and other privacy regulations on this website.</p>
 <h2>What we collect?</h2>
 <p>The privacy of your data is very important to us, and so we go to great length to not collect any personal data, and protect you from third party services that may track you.</p>
 <p>As a visitor to the OCaml.org website:</p>
@@ -633,8 +633,8 @@ Last updated: February 9th, 2022
 </ul>
 <h2>Changes and questions</h2>
 <p>We may update this policy as needed to comply with relevant regulations and reflect any new practices. Whenever we make a significant change to our policies, we will also announce them on our company blog or social media profiles.</p>
-<p>Contact us if you have any questions, comments, or concerns about this privacy policy, your data, or your rights with respect to your information.</p>
-<p>Last updated: February 9th, 2022</p>
+<p><a href="https://discuss.ocaml.org/">Contact us</a> if you have any questions, comments, or concerns about this privacy policy, your data, or your rights with respect to your information.</p>
+<p>Last updated: February 10th, 2022</p>
 |js}
   }
 
