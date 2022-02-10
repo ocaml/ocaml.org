@@ -14036,6 +14036,110 @@ that could lead to crashes when <code>Gc.finalise_last</code> is used
   };
  
   { kind = `Compiler
+  ; version = {js|4.06.1|js}
+  ; date = {js|2018-02-16|js}
+  ; intro_md = {js|This page describe OCaml **4.06.1**, released on Feb 16, 2018.  It is a bug-fix release of [OCaml 4.06.0](/releases/4.06.0).
+|js}
+  ; intro_html = {js|<p>This page describe OCaml <strong>4.06.1</strong>, released on Feb 16, 2018.  It is a bug-fix release of <a href="/releases/4.06.0">OCaml 4.06.0</a>.</p>
+|js}
+  ; highlights_md = {js|- Bug fixes for 4.06.0
+|js}
+  ; highlights_html = {js|<ul>
+<li>Bug fixes for 4.06.0
+</li>
+</ul>
+|js}
+  ; body_md = {js|
+
+Changes (Bug fixes)
+-------------------
+
+- [MPR#7661](https://caml.inria.fr/mantis/view.php?id=7661),
+  [GPR#1459](https://github.com/ocaml/ocaml/pull/1459):
+  fix faulty compilation of patterns
+  using extensible variants constructors
+  (Luc Maranget, review by Thomas Refis and Gabriel Scherer, report
+  by Abdelraouf Ouadjaout and Thibault Suzanne)
+
+- [MPR#7702](https://caml.inria.fr/mantis/view.php?id=7702),
+  [GPR#1553](https://github.com/ocaml/ocaml/pull/1553):
+  refresh raise counts when inlining a function
+  (Vincent Laviron, Xavier Clerc, report by Cheng Sun)
+
+- [MPR#7704](https://caml.inria.fr/mantis/view.php?id=7704),
+  [GPR#1559](https://github.com/ocaml/ocaml/pull/1559):
+  Soundness issue with private rows and pattern-matching
+  (Jacques Garrigue, report by Jeremy Yallop, review by Thomas Refis)
+
+- [MPR#7705](https://caml.inria.fr/mantis/view.php?id=7705),
+  [GPR#1558](https://github.com/ocaml/ocaml/pull/1558):
+  add missing bounds check in Bigarray.Genarray.nth_dim.
+  (Nicolás Ojeda Bär, report by Jeremy Yallop, review by Gabriel Scherer)
+
+- [MPR#7713](https://caml.inria.fr/mantis/view.php?id=7713),
+  [GPR#1587](https://github.com/ocaml/ocaml/pull/1587):
+  Make pattern matching warnings more robust
+  to ill-typed columns; this is a backport of GPR#1550 from 4.07+dev
+  (Thomas Refis, review by Gabriel Scherer, report by Andreas Hauptmann)
+
+- [GPR#1470](https://github.com/ocaml/ocaml/pull/1470):
+  Don't commute negation with float comparison
+  (Leo White, review by Xavier Leroy)
+
+- [GPR#1538](https://github.com/ocaml/ocaml/pull/1538):
+  Make pattern matching compilation more robust to ill-typed columns
+  (Gabriel Scherer and Thomas Refis, review by Luc Maranget)
+|js}
+  ; body_html = {js|<h2>Changes (Bug fixes)</h2>
+<ul>
+<li>
+<p><a href="https://caml.inria.fr/mantis/view.php?id=7661">MPR#7661</a>,
+<a href="https://github.com/ocaml/ocaml/pull/1459">GPR#1459</a>:
+fix faulty compilation of patterns
+using extensible variants constructors
+(Luc Maranget, review by Thomas Refis and Gabriel Scherer, report
+by Abdelraouf Ouadjaout and Thibault Suzanne)</p>
+</li>
+<li>
+<p><a href="https://caml.inria.fr/mantis/view.php?id=7702">MPR#7702</a>,
+<a href="https://github.com/ocaml/ocaml/pull/1553">GPR#1553</a>:
+refresh raise counts when inlining a function
+(Vincent Laviron, Xavier Clerc, report by Cheng Sun)</p>
+</li>
+<li>
+<p><a href="https://caml.inria.fr/mantis/view.php?id=7704">MPR#7704</a>,
+<a href="https://github.com/ocaml/ocaml/pull/1559">GPR#1559</a>:
+Soundness issue with private rows and pattern-matching
+(Jacques Garrigue, report by Jeremy Yallop, review by Thomas Refis)</p>
+</li>
+<li>
+<p><a href="https://caml.inria.fr/mantis/view.php?id=7705">MPR#7705</a>,
+<a href="https://github.com/ocaml/ocaml/pull/1558">GPR#1558</a>:
+add missing bounds check in Bigarray.Genarray.nth_dim.
+(Nicolás Ojeda Bär, report by Jeremy Yallop, review by Gabriel Scherer)</p>
+</li>
+<li>
+<p><a href="https://caml.inria.fr/mantis/view.php?id=7713">MPR#7713</a>,
+<a href="https://github.com/ocaml/ocaml/pull/1587">GPR#1587</a>:
+Make pattern matching warnings more robust
+to ill-typed columns; this is a backport of GPR#1550 from 4.07+dev
+(Thomas Refis, review by Gabriel Scherer, report by Andreas Hauptmann)</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml/ocaml/pull/1470">GPR#1470</a>:
+Don't commute negation with float comparison
+(Leo White, review by Xavier Leroy)</p>
+</li>
+<li>
+<p><a href="https://github.com/ocaml/ocaml/pull/1538">GPR#1538</a>:
+Make pattern matching compilation more robust to ill-typed columns
+(Gabriel Scherer and Thomas Refis, review by Luc Maranget)</p>
+</li>
+</ul>
+|js}
+  };
+ 
+  { kind = `Compiler
   ; version = {js|4.06.0|js}
   ; date = {js|2017-11-03|js}
   ; intro_md = {js|This page describes OCaml version **4.06.0**, released on 2017-11-03. 
@@ -17343,110 +17447,6 @@ of Emacs info files,</p>
 <li>
 <p>an enhanced version which marks up differences to OCaml 4.02 can also be
 <a href="http://www.askra.de/software/ocaml-doc/4.03/">browsed online</a>.</p>
-</li>
-</ul>
-|js}
-  };
- 
-  { kind = `Compiler
-  ; version = {js|4.06.1|js}
-  ; date = {js|2016-02-16|js}
-  ; intro_md = {js|This page describe OCaml **4.06.1**, released on Feb 16, 2018.  It is a bug-fix release of [OCaml 4.06.0](/releases/4.06.0).
-|js}
-  ; intro_html = {js|<p>This page describe OCaml <strong>4.06.1</strong>, released on Feb 16, 2018.  It is a bug-fix release of <a href="/releases/4.06.0">OCaml 4.06.0</a>.</p>
-|js}
-  ; highlights_md = {js|- Bug fixes for 4.06.0
-|js}
-  ; highlights_html = {js|<ul>
-<li>Bug fixes for 4.06.0
-</li>
-</ul>
-|js}
-  ; body_md = {js|
-
-Changes (Bug fixes)
--------------------
-
-- [MPR#7661](https://caml.inria.fr/mantis/view.php?id=7661),
-  [GPR#1459](https://github.com/ocaml/ocaml/pull/1459):
-  fix faulty compilation of patterns
-  using extensible variants constructors
-  (Luc Maranget, review by Thomas Refis and Gabriel Scherer, report
-  by Abdelraouf Ouadjaout and Thibault Suzanne)
-
-- [MPR#7702](https://caml.inria.fr/mantis/view.php?id=7702),
-  [GPR#1553](https://github.com/ocaml/ocaml/pull/1553):
-  refresh raise counts when inlining a function
-  (Vincent Laviron, Xavier Clerc, report by Cheng Sun)
-
-- [MPR#7704](https://caml.inria.fr/mantis/view.php?id=7704),
-  [GPR#1559](https://github.com/ocaml/ocaml/pull/1559):
-  Soundness issue with private rows and pattern-matching
-  (Jacques Garrigue, report by Jeremy Yallop, review by Thomas Refis)
-
-- [MPR#7705](https://caml.inria.fr/mantis/view.php?id=7705),
-  [GPR#1558](https://github.com/ocaml/ocaml/pull/1558):
-  add missing bounds check in Bigarray.Genarray.nth_dim.
-  (Nicolás Ojeda Bär, report by Jeremy Yallop, review by Gabriel Scherer)
-
-- [MPR#7713](https://caml.inria.fr/mantis/view.php?id=7713),
-  [GPR#1587](https://github.com/ocaml/ocaml/pull/1587):
-  Make pattern matching warnings more robust
-  to ill-typed columns; this is a backport of GPR#1550 from 4.07+dev
-  (Thomas Refis, review by Gabriel Scherer, report by Andreas Hauptmann)
-
-- [GPR#1470](https://github.com/ocaml/ocaml/pull/1470):
-  Don't commute negation with float comparison
-  (Leo White, review by Xavier Leroy)
-
-- [GPR#1538](https://github.com/ocaml/ocaml/pull/1538):
-  Make pattern matching compilation more robust to ill-typed columns
-  (Gabriel Scherer and Thomas Refis, review by Luc Maranget)
-|js}
-  ; body_html = {js|<h2>Changes (Bug fixes)</h2>
-<ul>
-<li>
-<p><a href="https://caml.inria.fr/mantis/view.php?id=7661">MPR#7661</a>,
-<a href="https://github.com/ocaml/ocaml/pull/1459">GPR#1459</a>:
-fix faulty compilation of patterns
-using extensible variants constructors
-(Luc Maranget, review by Thomas Refis and Gabriel Scherer, report
-by Abdelraouf Ouadjaout and Thibault Suzanne)</p>
-</li>
-<li>
-<p><a href="https://caml.inria.fr/mantis/view.php?id=7702">MPR#7702</a>,
-<a href="https://github.com/ocaml/ocaml/pull/1553">GPR#1553</a>:
-refresh raise counts when inlining a function
-(Vincent Laviron, Xavier Clerc, report by Cheng Sun)</p>
-</li>
-<li>
-<p><a href="https://caml.inria.fr/mantis/view.php?id=7704">MPR#7704</a>,
-<a href="https://github.com/ocaml/ocaml/pull/1559">GPR#1559</a>:
-Soundness issue with private rows and pattern-matching
-(Jacques Garrigue, report by Jeremy Yallop, review by Thomas Refis)</p>
-</li>
-<li>
-<p><a href="https://caml.inria.fr/mantis/view.php?id=7705">MPR#7705</a>,
-<a href="https://github.com/ocaml/ocaml/pull/1558">GPR#1558</a>:
-add missing bounds check in Bigarray.Genarray.nth_dim.
-(Nicolás Ojeda Bär, report by Jeremy Yallop, review by Gabriel Scherer)</p>
-</li>
-<li>
-<p><a href="https://caml.inria.fr/mantis/view.php?id=7713">MPR#7713</a>,
-<a href="https://github.com/ocaml/ocaml/pull/1587">GPR#1587</a>:
-Make pattern matching warnings more robust
-to ill-typed columns; this is a backport of GPR#1550 from 4.07+dev
-(Thomas Refis, review by Gabriel Scherer, report by Andreas Hauptmann)</p>
-</li>
-<li>
-<p><a href="https://github.com/ocaml/ocaml/pull/1470">GPR#1470</a>:
-Don't commute negation with float comparison
-(Leo White, review by Xavier Leroy)</p>
-</li>
-<li>
-<p><a href="https://github.com/ocaml/ocaml/pull/1538">GPR#1538</a>:
-Make pattern matching compilation more robust to ill-typed columns
-(Gabriel Scherer and Thomas Refis, review by Luc Maranget)</p>
 </li>
 </ul>
 |js}
