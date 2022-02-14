@@ -3,171 +3,167 @@ Learn_layout.render
 ~title:"Learn OCaml"
 ~description:"Getting started with the OCaml programming language. Read the official tutorials, exercices and language manual." @@
 <div class="flex-1 flex flex-col md:pl-10 min-w-0">
-    <h1 class="font-bold  mb-10 md:mb-16">Learn</h1>
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 border-b border-gray-200 pb-10 lg:pb-20">
-        <div class="relative flex-1 bg-gradient-to-br from-orange-300 to-orange-500 rounded-xl text-white">
-            <div class="p-8">
-                <h2 class="font-bold mb-2">Get Started</h2>
-                <div class="font-medium mb-4 opacity-80">Learn how to get OCaml set up in your project.
-                </div>
-                <a href="<%s Url.getting_started %>">
-                    <button
-                        class=" bg-black font-semibold h-12 px-5 rounded-md bg-opacity-10 hover:bg-opacity-20 transition-colors">Start
-                        now</button>
-                </a>
-            </div>
-            <div class="flex justify-end pl-8">
-                <img src="/img/learn/learn-get-started.svg" class="w-full" alt="Get Started background">
-            </div>
-        </div>
+  <h1 class="font-bold mb-10 md:mb-16">Learn</h1>
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 border-b border-gray-200 pb-10 lg:pb-20">
+    <div class="relative flex-1 bg-gradient-to-br from-orange-300 to-orange-500 rounded-xl text-white">
+      <div class="p-8">
+        <h2 class="font-bold mb-2">Get Started</h2>
+        <div class="font-medium mb-4 opacity-80">Learn how to get OCaml set up in your project.</div>
+        <a href="<%s Url.getting_started %>">
+          <button
+            class="bg-black font-semibold h-12 px-5 rounded-md bg-opacity-10 hover:bg-opacity-20 transition-colors"
+          >
+            Start now
+          </button>
+        </a>
+      </div>
+      <div class="flex justify-end pl-8">
+        <img src="/img/learn/learn-get-started.svg" class="w-full" alt="Get Started background" />
+      </div>
+    </div>
 
-        <div class="relative flex-1 bg-gradient-to-br from-purple-400 to-purple-700 rounded-xl text-white">
-            <div class="p-8">
-                <h2 class="font-bold mb-2">Learn with Exercises</h2>
-                <div class="font-medium mb-4 opacity-80">Learning by doing, or do by <br> learning!</div>
-                <a href="<%s Url.problems %>">
-                    <button
-                        class=" bg-black font-semibold h-12 px-5 rounded-md bg-opacity-10 hover:bg-opacity-20 transition-colors">I'm
-                        ready</button>
-                </a>
-            </div>
-            <div class="flex justify-end pl-8">
-                <img src="/img/learn/learn-exercise.svg" class="w-full" alt="Exercices background">
-            </div>
+    <div class="relative flex-1 bg-gradient-to-br from-purple-400 to-purple-700 rounded-xl text-white">
+      <div class="p-8">
+        <h2 class="font-bold mb-2">Learn with Exercises</h2>
+        <div class="font-medium mb-4 opacity-80">
+          Learning by doing, or do by <br />
+          learning!
         </div>
+        <a href="<%s Url.problems %>">
+          <button
+            class="bg-black font-semibold h-12 px-5 rounded-md bg-opacity-10 hover:bg-opacity-20 transition-colors"
+          >
+            I'm ready
+          </button>
+        </a>
+      </div>
+      <div class="flex justify-end pl-8">
+        <img src="/img/learn/learn-exercise.svg" class="w-full" alt="Exercices background" />
+      </div>
+    </div>
 
-        <div class="relative flex-1 bg-gradient-to-br from-emerald-400 to-emerald-700 rounded-xl text-white">
-            <div class="p-8">
-                <h2 class="font-bold mb-2">Language Manual</h2>
-                <div class="font-medium mb-4 opacity-80">Read the language manual to get a deeper
-                    understanding!</div>
-                <a href="<%s Url.manual %>">
-                    <button
-                        class=" bg-black font-semibold h-12 px-5 rounded-md bg-opacity-10 hover:bg-opacity-20 transition-colors">Take
-                        me there</button>
-                </a>
-            </div>
-            <div class="flex justify-end pl-8">
-                <img src="/img/learn/learn-language.svg" class="w-full" alt="Manual background">
-            </div>
-        </div>
-    </div>
-    <!-- TODO: Re-introduce the developer guides when we have the content -->
-    <!-- <div class="mt-10 lg:mt-20">
-        <h3 class="font-bold">Developer Guides</h3>
-        <div class="mt-6 text-body-400 text-lg">Pharetra mattis maecenas imperdiet eget nam maecenas
-            egestas. Sed mi, pellentesque ornare diam eget aliquet. Lacus mauris turpis neque interdum et
-            mauris, fermentum in. Scelerisque consectetur.</div>
-        <div
-            class="flex flex-col lg:flex-row space-y-5 lg:space-y-0 lg:space-x-5 mt-8 border-b border-gray-200 pb-10 lg:pb-20">
-            <a href="" class="card-hover flex-1 p-4 lg:py-9 lg:px-8 border border-gray-200 rounded-xl">
-                <img src="/img/home/mirageOS.png" alt="">
-                <div class="font-semibold text-xl mt-2 lg:mt-8 mb-3">Mirage OS</div>
-                <div>Mirage OS Unikernels lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                    at tristique odio. Etiam sodales porta lectus ac malesuada. Proin in odio ultricies,
-                    faucibus ligula ut</div>
-            </a>
-            <a href="" class="card-hover flex-1 p-4 lg:py-9 lg:px-8 border border-gray-200 rounded-xl">
-                <img src="/img/home/JS.png" alt="">
-                <div class="font-semibold text-xl mt-2 lg:mt-8 mb-3">JS_of_OCaml</div>
-                <div>Browser programming dolor sit amet, consectetur adipiscing elit. Integer at tristique
-                    odio. Etiam sodales porta lectus ac maleuada. Proin in odio ultricies, faucibus ligula
-                    ut</div>
-            </a>
-        </div>
-    </div> -->
-    <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10 lg:pb-20">
-        <h3 class="font-bold">Papers</h3>
-        <div class="mt-6 text-body-400 text-lg">Aspiring towards greater understanding of the language? Want
-            to push the limits and discover brand new things? Check out papers written by leading OCaml
-            researchers:</div>
-        <div class="flex flex-col lg:flex-row mt-8 space-y-4 lg:space-y-0 lg:space-x-6">
-            <% papers |> List.iter (fun (paper : Ood.Paper.t) -> %>
-            <a href="<%s paper.links |> List.hd |> (fun x -> x.uri) %>" class="card-hover flex-1 p-6 border border-gray-200 rounded-xl">
-                <div class="font-semibold text-base mb-3"><%s paper.title %></div>
-                <div class="truncate-4"><%s paper.abstract %></div>
-                <div class="font-bold text-sm mt-3"><%s String.concat ", " paper.authors %></div>
-                <div class="flex mt-5 flex-wrap">
-                    <% paper.tags |> List.iter (fun (tag : string) -> %>
-                    <div class="text-blue-700 h-8 inline-flex items-center text-sm px-3 border border-blue-700 rounded-3xl whitespace-nowrap mr-2 mb-2">
-                        <%s tag %>
-                    </div>
-                    <% ); %>
-                </div>
-            </a>
-            <% ); %>
-        </div>
-        <a href="<%s Url.papers %>">
-            <button class="btn btn-lg btn-secondary mt-8">
-                <span>View all papers</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-            </button>
+    <div class="relative flex-1 bg-gradient-to-br from-emerald-400 to-emerald-700 rounded-xl text-white">
+      <div class="p-8">
+        <h2 class="font-bold mb-2">Language Manual</h2>
+        <div class="font-medium mb-4 opacity-80">Read the language manual to get a deeper understanding!</div>
+        <a href="<%s Url.manual %>">
+          <button
+            class="bg-black font-semibold h-12 px-5 rounded-md bg-opacity-10 hover:bg-opacity-20 transition-colors"
+          >
+            Take me there
+          </button>
         </a>
+      </div>
+      <div class="flex justify-end pl-8">
+        <img src="/img/learn/learn-language.svg" class="w-full" alt="Manual background" />
+      </div>
     </div>
-    <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10 lg:pb-20">
-        <h3 class="font-bold">Releases</h3>
-        <div class="mt-6 text-body-400 text-lg">Pharetra mattis maecenas imperdiet eget nam maecenas
-            egestas. Sed mi, pellentesque ornare diam eget aliquet. Lacus mauris turpis neque interdum et
-            mauris, fermentum in. Scelerisque consectetur.</div>
-        <a href="<%s Url.release release.version %>">
-            <div class="bg-pattern p-6 mt-8 rounded-xl w-full lg:w-2/3 text-white">
-                <div class="text-primary-600 text-sm mb-4 uppercase">Recent Release</div>
-                <h3 class="font-bold mb-6"><%s release.version %> <span class="text-sm font-medium">(<%s release.date %>)</span>
-                </h3>
-                <div class="prose prose-sm text-white">
-                    <%s! release.highlights_html %>
-                </div>
-            </div>
-        </a>
-        <a href="<%s Url.releases %>">
-            <button class="btn btn-lg btn-secondary mt-8">
-                <span>See all Releases</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-            </button>
-        </a>
+  </div>
+  <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10 lg:pb-20">
+    <h3 class="font-bold">Papers</h3>
+    <div class="mt-6 text-body-400 text-lg">
+      Aspiring towards greater understanding of the language? Want to push the limits and discover brand new things?
+      Check out papers written by leading OCaml researchers:
     </div>
-    <div class="mt-10 lg:mt-20">
-        <h3 class="font-bold">Recommended Books</h3>
-        <div class="mt-6 text-body-400 mb-12 text-lg">
-            Varius orci neque mi tincidunt porttitor tellus nisl.
-            Dignissim aliquam suspendisse posuere odio aenean metus. Tortor, vel integer arcu ipsum.
-            Tincidunt elementum cras libero varius. Aliquam id.
+    <div class="flex flex-col lg:flex-row mt-8 space-y-4 lg:space-y-0 lg:space-x-6">
+      <% papers |> List.iter (fun (paper : Ood.Paper.t) -> %>
+      <a
+        href="<%s paper.links |> List.hd |> (fun x -> x.uri) %>"
+        class="card-hover flex-1 p-6 border border-gray-200 rounded-xl"
+      >
+        <div class="font-semibold text-base mb-3"><%s paper.title %></div>
+        <div class="truncate-4"><%s paper.abstract %></div>
+        <div class="font-bold text-sm mt-3"><%s String.concat ", " paper.authors %></div>
+        <div class="flex mt-5 flex-wrap">
+          <% paper.tags |> List.iter (fun (tag : string) -> %>
+          <div
+            class="text-blue-700 h-8 inline-flex items-center text-sm px-3 border border-blue-700 rounded-3xl whitespace-nowrap mr-2 mb-2"
+          >
+            <%s tag %>
+          </div>
+          <% ); %>
         </div>
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-20">
-            <% books |> List.iter (fun (item : Ood.Book.t) -> %>
-            <a href="<%s item.links |> List.hd |> (fun x -> x.uri) %>" class="flex-1 card-hover">
-                <img src="/media/<%s item.cover %>" class="rounded-2xl lg:w-full border border-gray-200" alt="<%s item.title %> cover">
-                <div class="font-semibold mt-6 mb-3"><%s item.title %></div>
-                <% (match item.rating with | None -> () | Some rating ->  %>
-                <div class="flex space-x-1 mb-6 text-primary-600">
-                    <% List.init rating (fun _ -> ()) |> List.iter (fun () -> %>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-300" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    <% ); %>
-                    <% List.init (5 - rating) (fun _ -> ()) |> List.iter (fun () -> %>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    <% ); %>
-                </div>
-                <% ); %>
-            </a>
-            <% ); %>
-        </div>
-        <a href="<%s Url.books %>">
-            <button class="btn btn-lg btn-secondary mt-12">
-                <span>See all Books</span> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-            </button>
-        </a>
+      </a>
+      <% ); %>
     </div>
+    <a href="<%s Url.papers %>">
+      <button class="btn btn-lg btn-secondary mt-8">
+        <span>View all papers</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </a>
+  </div>
+  <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10 lg:pb-20">
+    <h3 class="font-bold">Releases</h3>
+    <div class="mt-6 text-body-400 text-lg">
+        The history of OCaml releases with a summary and a complete changelog, as well as the manual at that time.
+    </div>
+    <a href="<%s Url.release release.version %>">
+      <div class="bg-pattern p-6 mt-8 rounded-xl w-full lg:w-2/3 text-white">
+        <div class="text-primary-600 text-sm mb-4 uppercase">Recent Release</div>
+        <h3 class="font-bold mb-6">
+          <%s release.version %> <span class="text-sm font-medium">(<%s release.date %>)</span>
+        </h3>
+        <div class="prose prose-sm text-white"><%s! release.highlights_html %></div>
+      </div>
+    </a>
+    <a href="<%s Url.releases %>">
+      <button class="btn btn-lg btn-secondary mt-8">
+        <span>See all Releases</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </a>
+  </div>
+  <div class="mt-10 lg:mt-20">
+    <h3 class="font-bold">Recommended Books</h3>
+    <div class="mt-6 text-body-400 mb-12 text-lg">
+        What experts programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-20">
+      <% books |> List.iter (fun (item : Ood.Book.t) -> %>
+      <a href="<%s item.links |> List.hd |> (fun x -> x.uri) %>" class="flex-1 card-hover">
+        <img
+          src="/media/<%s item.cover %>"
+          class="rounded-2xl lg:w-full border border-gray-200"
+          alt="<%s item.title %> cover"
+        />
+        <div class="font-semibold mt-6 mb-3"><%s item.title %></div>
+        <% (match item.rating with | None -> () | Some rating -> %>
+        <div class="flex space-x-1 mb-6 text-primary-600">
+          <% List.init rating (fun _ -> ()) |> List.iter (fun () -> %>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 text-yellow-300"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+            />
+          </svg>
+          <% ); %> <% List.init (5 - rating) (fun _ -> ()) |> List.iter (fun () -> %>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+            />
+          </svg>
+          <% ); %>
+        </div>
+        <% ); %>
+      </a>
+      <% ); %>
+    </div>
+    <a href="<%s Url.books %>">
+      <button class="btn btn-lg btn-secondary mt-12">
+        <span>See all Books</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </a>
+  </div>
 </div>
