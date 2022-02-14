@@ -98,8 +98,7 @@ Learn_layout.render
   <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10 lg:pb-20">
     <h3 class="font-bold">Releases</h3>
     <div class="mt-6 text-body-400 text-lg">
-      Pharetra mattis maecenas imperdiet eget nam maecenas egestas. Sed mi, pellentesque ornare diam eget aliquet. Lacus
-      mauris turpis neque interdum et mauris, fermentum in. Scelerisque consectetur.
+        The history of OCaml releases with a summary and a complete changelog, as well as the manual at that time.
     </div>
     <a href="<%s Url.release release.version %>">
       <div class="bg-pattern p-6 mt-8 rounded-xl w-full lg:w-2/3 text-white">
@@ -122,8 +121,7 @@ Learn_layout.render
   <div class="mt-10 lg:mt-20">
     <h3 class="font-bold">Recommended Books</h3>
     <div class="mt-6 text-body-400 mb-12 text-lg">
-      Varius orci neque mi tincidunt porttitor tellus nisl. Dignissim aliquam suspendisse posuere odio aenean metus.
-      Tortor, vel integer arcu ipsum. Tincidunt elementum cras libero varius. Aliquam id.
+        What experts programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-20">
       <% books |> List.iter (fun (item : Ood.Book.t) -> %>
