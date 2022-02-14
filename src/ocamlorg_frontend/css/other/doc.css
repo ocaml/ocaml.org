@@ -22,6 +22,10 @@ div.odoc div.spec code::after {
   content: "";
 }
 
+div.odoc div.spec code {
+  white-space: pre-wrap;
+}
+
 div.odoc a.anchor {
   position: absolute;
   left: 0px;
