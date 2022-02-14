@@ -1,6 +1,6 @@
 (library
  (name ood_gen)
- (libraries omd yaml unix ptime fmt piaf river lambdasoup fpath hilite)
+ (libraries omd yaml unix ptime fmt river lambdasoup fpath hilite)
  (preprocess
   (pps ppx_deriving_yaml)))
 

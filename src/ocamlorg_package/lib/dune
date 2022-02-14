@@ -9,6 +9,6 @@
   lwt
   lwt.unix
   yojson
-  cohttp
-  cohttp-lwt-unix
-  ood))
+  ood
+  hyper
+  dream))

@@ -21,12 +21,10 @@ depends: [
   "ocaml" {>= "4.08.0"}
   "dune" {>= "2.8"}
   "ocamlorg-data" {= version}
-  "cohttp"
-  "cohttp-lwt-unix"
   "bos"
   "crunch"
   "mirage-kv-mem"
-  "dream"
+  "dream" {>= "~alpha3"}
   "dream-accept"
   "dream-encoding"
   "fpath"
@@ -50,13 +48,9 @@ depends: [
   "textmate-language" {with-test}
   "dune"
   "syndic" {>= "1.5"}
-  "cohttp" {>= "5.0.0"}
-  "cohttp-lwt" {>= "5.0.0"}
-  "cohttp-lwt-unix" {>= "5.0.0"}
   "ptime"
   "lwt"
   "ocamlnet"
-  "piaf" {with-test}
   "ppx_deriving_yaml" {with-test}
   "ezjsonm" {with-test}
   "lambdasoup" {with-test}
@@ -83,9 +77,7 @@ build: [
   ]
 ]
 pin-depends: [
+  ["hyper.dev" "git+https://github.com/aantron/hyper#master"]
   ["dream-accept.dev" "git+https://github.com/tmattio/dream-accept#main"]
   ["dream-encoding.dev" "git+https://github.com/tmattio/dream-encoding#main"]
-  ["dream.dev" "git+https://github.com/tmattio/dream#fix-opam-deps"]
-  ["dream-pure.dev" "git+https://github.com/tmattio/dream#fix-opam-deps"]
-  ["dream-httpaf.dev" "git+https://github.com/tmattio/dream#fix-opam-deps"]
 ]

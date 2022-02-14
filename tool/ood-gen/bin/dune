@@ -11,7 +11,7 @@
 (executable
  (name watch_scrape)
  (modules watch_scrape)
- (libraries yaml ezjsonm piaf))
+ (libraries yaml ezjsonm uri hyper lwt lwt.unix))
 
 (executable
  (name lint)

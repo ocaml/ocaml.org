@@ -1,4 +1,4 @@
 (library
  (name river)
  ; (public_name river)
- (libraries cohttp cohttp-lwt cohttp-lwt-unix syndic netstring lambdasoup))
+ (libraries hyper syndic netstring lambdasoup))

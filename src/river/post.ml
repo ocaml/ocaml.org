@@ -285,7 +285,7 @@ let fetch_link t =
   | Some _, Some (Error _) -> None
   | Some link, None -> (
       try
-        let response = Http.get (Uri.to_string link) in
+        let response = Lwt_main.run @@ Hyper.get (Uri.to_string link) in
         t.link_response <- Some (Ok response);
         Some response
       with _exn ->
