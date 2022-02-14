@@ -59,9 +59,7 @@ Layout.render
         <div class="text-center text-white lg:py-32 md:py-20 py-10">
             <h3 class="font-bold mb-6">Featured Packages</h3>
             <p class="text-lg mb-8 lg:px-28 font-normal">
-      Opam is a source-based package manager for OCaml. It supports
-      multiple simultaneous compiler installations, flexible package
-      constraints, and a Git-friendly development workflow.
+                Discover new and OCaml packages with from featured community packages.
             </p>
 % let render_featured_package pkg =
     <a href="<%s href_package pkg %>" class="bg-white card-hover rounded-md p-6 text-body-600 text-left">
