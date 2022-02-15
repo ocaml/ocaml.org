@@ -24,7 +24,8 @@ depends: [
   "bos"
   "crunch"
   "mirage-kv-mem"
-  "dream" {>= "~alpha3"}
+  "hyper" {= "1.0.0~alpha1"}
+  "dream" {>= "1.0.0~alpha3"}
   "dream-accept"
   "dream-encoding"
   "fpath"
@@ -77,7 +78,6 @@ build: [
   ]
 ]
 pin-depends: [
-  ["hyper.dev" "git+https://github.com/aantron/hyper#master"]
   ["dream-accept.dev" "git+https://github.com/tmattio/dream-accept#main"]
   ["dream-encoding.dev" "git+https://github.com/tmattio/dream-encoding#main"]
 ]

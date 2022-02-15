@@ -48,8 +48,10 @@
   bos
   crunch
   mirage-kv-mem
+  (hyper
+   (= 1.0.0~alpha1))
   (dream
-   (>= ~alpha3))
+   (>= 1.0.0~alpha3))
   dream-accept
   dream-encoding
   fpath

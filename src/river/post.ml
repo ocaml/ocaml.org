@@ -285,7 +285,14 @@ let fetch_link t =
   | Some _, Some (Error _) -> None
   | Some link, None -> (
       try
-        let response = Lwt_main.run @@ Hyper.get (Uri.to_string link) in
+        let host = link |> Uri.host |> Option.get in
+        let response =
+          Lwt_main.run
+          @@ Hyper.get
+               ~headers:
+                 [ ("Host", host); ("User-Agent", "hyper"); ("Accept", "*/*") ]
+               (Uri.to_string link)
+        in
         t.link_response <- Some (Ok response);
         Some response
       with _exn ->

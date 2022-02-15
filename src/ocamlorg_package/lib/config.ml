@@ -5,7 +5,7 @@ let opam_polling =
 
 let documentation_url =
   Sys.getenv_opt "OCAMLORG_DOC_URL"
-  |> Option.value ~default:"https://docs-data.ocaml.org/live/"
+  |> Option.value ~default:"https://docs-data.ocaml.org:443/live/"
 
 let default_cache_dir =
   match Sys.os_type with

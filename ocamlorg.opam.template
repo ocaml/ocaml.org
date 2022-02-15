@@ -14,7 +14,6 @@ build: [
   ]
 ]
 pin-depends: [
-  ["hyper.dev" "git+https://github.com/aantron/hyper#master"]
   ["dream-accept.dev" "git+https://github.com/tmattio/dream-accept#main"]
   ["dream-encoding.dev" "git+https://github.com/tmattio/dream-encoding#main"]
 ]

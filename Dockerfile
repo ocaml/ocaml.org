@@ -3,7 +3,7 @@ FROM ocaml/opam:alpine-3.13-ocaml-4.13 as build
 # Install system dependencies
 RUN sudo apk update && sudo apk add --update libev-dev openssl-dev gmp-dev nodejs npm
 
-RUN cd ~/opam-repository && git pull origin master && git reset --hard ad79e369dfb9be127d520e0f96ca6002f6860ff9 && opam update
+RUN cd ~/opam-repository && git pull origin master && git reset --hard 71d8d30ebf02103dd1fbfd34638d99a28be63487 && opam update
 
 WORKDIR /home/opam
 

@@ -30,7 +30,13 @@ let classify_feed ~xmlbase (xml : string) =
 
 let fetch (source : source) =
   let xmlbase = Uri.of_string @@ source.url in
-  let response = Lwt_main.run @@ Hyper.get source.url in
+  let host = Uri.host xmlbase |> Option.get in
+  let response =
+    Lwt_main.run
+    @@ Hyper.get
+         ~headers:[ ("Host", host); ("User-Agent", "hyper"); ("Accept", "*/*") ]
+         source.url
+  in
   let content = classify_feed ~xmlbase response in
   let title =
     match content with

@@ -63,7 +63,7 @@ let watch_to_yaml t =
       ])
 
 let to_yaml t = `O [ ("watch", `A (List.map watch_to_yaml t.watch)) ]
-let videos_url = Uri.of_string "https://watch.ocaml.org/api/v1/videos"
+let videos_url = Uri.of_string "https://watch.ocaml.org:443/api/v1/videos"
 
 (* 100 is current maximum the API can return:
    https://github.com/Chocobozzz/PeerTube/blob/develop/support/doc/api/openapi.yaml#L6338 *)
@@ -81,7 +81,15 @@ let get_videos ?start () =
         ]
   in
   let uri = Uri.to_string @@ Uri.add_query_params videos_url query_params in
-  let+ response = Hyper.get uri in
+  let+ response =
+    Hyper.get
+      ~headers:
+        [
+          ("Host", "watch.ocaml.org"); ("User-Agent", "hyper"); ("Accept", "*/*");
+        ]
+      uri
+  in
+  print_endline response;
   let body = Ezjsonm.value_from_string response in
   let data = Ezjsonm.(find body [ "data" ]) in
   let total = Ezjsonm.find body [ "total" ] |> Ezjsonm.get_int in
@@ -106,6 +114,7 @@ let get_all_videos () =
   List.concat (first :: rest)
 
 let () =
+  Printexc.record_backtrace true;
   let watch =
     Lwt_main.run @@ get_all_videos ()
     |> List.stable_sort (fun w1 w2 -> String.compare w1.name w2.name)

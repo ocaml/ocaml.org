@@ -1,9 +1,9 @@
 sources:
-  - name: ahrefs
-    url: https://medium.com/feed/ahrefs/tagged/ocaml
-  - name: tarides
-    url: https://tarides.com/feed.xml
-  - name: janestreet
-    url: https://blog.janestreet.com/feed.xml
+  # - name: ahrefs
+  #   url: https://medium.com:443/feed/ahrefs/tagged/ocaml
+  # - name: tarides
+  #   url: https://tarides.com:443/feed.xml
+  # - name: janestreet
+  #   url: https://blog.janestreet.com:443/feed.xml
   - name: hannes
-    url: https://hannes.robur.coop/atom
+    url: https://hannes.robur.coop:443/atom

@@ -65,5 +65,11 @@ let description html =
 type t = { image : string option; description : string option }
 
 let all url =
-  let html = Lwt_main.run @@ Hyper.get url in
+  let host = Uri.of_string url |> Uri.host |> Option.get in
+  let html =
+    Lwt_main.run
+    @@ Hyper.get
+         ~headers:[ ("Host", host); ("User-Agent", "hyper"); ("Accept", "*/*") ]
+         url
+  in
   { image = preview_image html; description = description html }
