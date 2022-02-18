@@ -30,20 +30,20 @@ let all_en =
 |js}
   };
  
-  { name = {js|Aesthetic Integration|js}
-  ; slug = {js|aesthetic-integration|js}
-  ; description = {js|Aesthetic Integration (AI) is a financial technology startup based in the City of London
+  { name = {js|Imandra Inc.|js}
+  ; slug = {js|imandra|js}
+  ; description = {js|Imandra is the world leader in cloud-scale automated reasoning.
 |js}
-  ; logo = Some {js|/users/aesthetic-integration.png|js}
-  ; url = {js|https://www.aestheticintegration.com|js}
+  ; logo = Some {js|/users/imandra.png|js}
+  ; url = {js|https://www.imandra.ai|js}
   ; locations = 
- [{js|United Kingdom|js}]
-  ; consortium = true
+[{js|United States|js}; {js|United Kingdom|js}]
+  ; consortium = false
   ; featured = true
   ; body_md = {js|
-Aesthetic Integration (AI) is a financial technology startup based in the City of London. AI's patent-pending formal verification technology is revolutionising the safety, stability and transparency of global financial markets.
+Imandra powers a new generation of tools for the rigorous design, analysis, and governance of complex algorithms.
 |js}
-  ; body_html = {js|<p>Aesthetic Integration (AI) is a financial technology startup based in the City of London. AI's patent-pending formal verification technology is revolutionising the safety, stability and transparency of global financial markets.</p>
+  ; body_html = {js|<p>Imandra powers a new generation of tools for the rigorous design, analysis, and governance of complex algorithms.</p>
 |js}
   };
  
