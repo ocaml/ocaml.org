@@ -30,23 +30,6 @@ let all_en =
 |js}
   };
  
-  { name = {js|Aesthetic Integration|js}
-  ; slug = {js|aesthetic-integration|js}
-  ; description = {js|Aesthetic Integration (AI) is a financial technology startup based in the City of London
-|js}
-  ; logo = Some {js|/users/aesthetic-integration.png|js}
-  ; url = {js|https://www.aestheticintegration.com|js}
-  ; locations = 
- [{js|United Kingdom|js}]
-  ; consortium = true
-  ; featured = true
-  ; body_md = {js|
-Aesthetic Integration (AI) is a financial technology startup based in the City of London. AI's patent-pending formal verification technology is revolutionising the safety, stability and transparency of global financial markets.
-|js}
-  ; body_html = {js|<p>Aesthetic Integration (AI) is a financial technology startup based in the City of London. AI's patent-pending formal verification technology is revolutionising the safety, stability and transparency of global financial markets.</p>
-|js}
-  };
- 
   { name = {js|Ahrefs|js}
   ; slug = {js|ahrefs|js}
   ; description = {js|Ahrefs crawls the entire internet constantly to collect, process, and store data to build an all-in-one SEO toolkit.
@@ -449,6 +432,23 @@ people working remotely all around the world.</p>
 Galois has developed a domain specific declarative language for cryptographic algorithms. One of our research compilers is written in OCaml and makes very extensive use of camlp4.
 |js}
   ; body_html = {js|<p>Galois has developed a domain specific declarative language for cryptographic algorithms. One of our research compilers is written in OCaml and makes very extensive use of camlp4.</p>
+|js}
+  };
+ 
+  { name = {js|Imandra Inc.|js}
+  ; slug = {js|imandra-inc|js}
+  ; description = {js|Imandra is the world leader in cloud-scale automated reasoning.
+|js}
+  ; logo = Some {js|/users/imandra.png|js}
+  ; url = {js|https://www.imandra.ai|js}
+  ; locations = 
+ [{js|United States|js}; {js|United Kingdom|js}]
+  ; consortium = false
+  ; featured = true
+  ; body_md = {js|
+Imandra powers a new generation of tools for the rigorous design, analysis, and governance of complex algorithms.
+|js}
+  ; body_html = {js|<p>Imandra powers a new generation of tools for the rigorous design, analysis, and governance of complex algorithms.</p>
 |js}
   };
  
@@ -983,23 +983,6 @@ let all_fr =
 |js}
   };
  
-  { name = {js|Aesthetic Integration|js}
-  ; slug = {js|aesthetic-integration|js}
-  ; description = {js|Aesthetic Integration (AI) est une startup financière basée dans la City de Londres
-|js}
-  ; logo = Some {js|/users/aesthetic-integration.png|js}
-  ; url = {js|https://www.aestheticintegration.com|js}
-  ; locations = 
- [{js|Royaume-Uni|js}]
-  ; consortium = true
-  ; featured = true
-  ; body_md = {js|
-Aesthetic Integration (AI) est une startup financière basée dans la City de Londres. Sa technologie de vérification formelle de brevets déposés révolutionne la sureté, la stabilité et la transparence des marchés financiers globaux.
-|js}
-  ; body_html = {js|<p>Aesthetic Integration (AI) est une startup financière basée dans la City de Londres. Sa technologie de vérification formelle de brevets déposés révolutionne la sureté, la stabilité et la transparence des marchés financiers globaux.</p>
-|js}
-  };
- 
   { name = {js|Ahrefs|js}
   ; slug = {js|ahrefs|js}
   ; description = {js|Ahrefs développe des systèmes de stockages sur mesure allant jusqu'aux pétaoctets et fait tourner un robot d'exploration d'Internet pour indexer le web tout entier
@@ -1406,6 +1389,23 @@ personnes travaillant à distance dans le monde entier.</p>
 Galois a développé un langage déclaratif dédié pour les algorithmes cryptographiques. L'un de nos compilateurs de recherche est écrit en OCaml et fait un usage très intensif de camlp4.
 |js}
   ; body_html = {js|<p>Galois a développé un langage déclaratif dédié pour les algorithmes cryptographiques. L'un de nos compilateurs de recherche est écrit en OCaml et fait un usage très intensif de camlp4.</p>
+|js}
+  };
+ 
+  { name = {js|Imandra Inc.|js}
+  ; slug = {js|imandra-inc|js}
+  ; description = {js|Imandra est à la pointe du raisonnement automatique dans le cloud.
+|js}
+  ; logo = Some {js|/users/imandra.png|js}
+  ; url = {js|https://www.imandra.ai|js}
+  ; locations = 
+ [{js|États-Unis|js}; {js|Royaume-Uni|js}]
+  ; consortium = false
+  ; featured = true
+  ; body_md = {js|
+Imandra propulse toute une nouvelle génération d'outils utilisés pour l'analyse, conception, et gouvernance rigoureuses des algorithmes complexes.
+|js}
+  ; body_html = {js|<p>Imandra propulse toute une nouvelle génération d'outils utilisés pour l'analyse, conception, et gouvernance rigoureuses des algorithmes complexes.</p>
 |js}
   };
  
