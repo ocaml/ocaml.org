@@ -50,7 +50,8 @@
   bos
   crunch
   mirage-kv-mem
-  dream
+  (dream
+   (>= 1.0.0~alpha3))
   dream-accept
   dream-encoding
   fpath
