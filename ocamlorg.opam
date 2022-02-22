@@ -26,7 +26,7 @@ depends: [
   "bos"
   "crunch"
   "mirage-kv-mem"
-  "dream"
+  "dream" {>= "1.0.0~alpha3"}
   "dream-accept"
   "dream-encoding"
   "fpath"
@@ -85,7 +85,4 @@ build: [
 pin-depends: [
   ["dream-accept.dev" "git+https://github.com/tmattio/dream-accept#main"]
   ["dream-encoding.dev" "git+https://github.com/tmattio/dream-encoding#main"]
-  ["dream.dev" "git+https://github.com/tmattio/dream#fix-opam-deps"]
-  ["dream-pure.dev" "git+https://github.com/tmattio/dream#fix-opam-deps"]
-  ["dream-httpaf.dev" "git+https://github.com/tmattio/dream#fix-opam-deps"]
 ]

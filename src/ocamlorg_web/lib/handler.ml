@@ -58,7 +58,7 @@ let academic_users req =
     |> List.sort (fun user_1 user_2 -> compare (score user_1) (score user_2))
   in
   let users =
-    match Dream.query "q" req with
+    match Dream.query req "q" with
     | None -> Ood.Academic_institution.all ()
     | Some search -> search_user search (Ood.Academic_institution.all ())
   in
@@ -99,7 +99,7 @@ let releases req =
     |> List.sort (fun release_1 release_2 ->
            compare (score release_1) (score release_2))
   in
-  let search = Dream.query "q" req in
+  let search = Dream.query req "q" in
   let releases =
     match search with
     | None -> Ood.Release.all
@@ -156,7 +156,7 @@ let workshop req =
 let paginate ~req ~n items =
   let items_per_page = n in
   let page =
-    Dream.query "p" req |> Option.map int_of_string |> Option.value ~default:1
+    Dream.query req "p" |> Option.map int_of_string |> Option.value ~default:1
   in
   let number_of_pages =
     int_of_float
@@ -209,13 +209,13 @@ let opportunities req =
     |> List.filter (fun p -> title_contains_s p)
     |> List.sort (fun job_1 job_2 -> compare (score job_1) (score job_2))
   in
-  let search = Dream.query "q" req in
+  let search = Dream.query req "q" in
   let jobs =
     match search with
     | None -> Ood.Job.all
     | Some search -> search_job search Ood.Job.all
   in
-  let location = Dream.query "c" req in
+  let location = Dream.query req "c" in
   let jobs =
     match location with
     | None | Some "All" -> jobs
@@ -270,7 +270,7 @@ let papers req =
     |> List.sort (fun paper_1 paper_2 ->
            compare (score paper_1) (score paper_2))
   in
-  let search = Dream.query "q" req in
+  let search = Dream.query req "q" in
   let papers =
     match search with
     | None -> Ood.Paper.all
@@ -373,7 +373,7 @@ let packages state _req =
   Dream.html (Ocamlorg_frontend.packages stats featured_packages)
 
 let packages_search t req =
-  match Dream.query "q" req with
+  match Dream.query req "q" with
   | Some search ->
       let packages = Ocamlorg_package.search_package t search in
       let total = List.length packages in
