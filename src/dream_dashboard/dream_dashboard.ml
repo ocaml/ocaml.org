@@ -64,17 +64,27 @@ module Middleware = struct
           let url = Dream.target req in
           let referer = Dream.header req "referer" in
           let timestamp = Unix.gettimeofday () in
-          let ip =
-            Dream.client req |> Uri.of_string
-            |> Uri.host_with_default (* TODO: Change this to localhost *)
-                 ~default:"2a01:e0a:257:b9e0:54a9:960c:1ab5:7912"
-          in
-          let* ip_info = Ip_info.get ip in
-          let ip_digest =
-            Digestif.SHA256.digest_string ip |> Digestif.SHA256.to_raw_string
-          in
-          let event =
-            Event.{ url; ua; referer; timestamp; ip_digest; ip_info }
+          let host_opt = Dream.client req |> Uri.of_string |> Uri.host in
+          let* event =
+            match host_opt with
+            | None ->
+                Lwt.return
+                  Event.
+                    {
+                      url;
+                      ua;
+                      referer;
+                      timestamp;
+                      ip_digest = "none";
+                      ip_info = None;
+                    }
+            | Some ip ->
+                let+ ip_info = Ip_info.get ip in
+                let ip_digest =
+                  Digestif.SHA256.digest_string ip
+                  |> Digestif.SHA256.to_raw_string
+                in
+                Event.{ url; ua; referer; timestamp; ip_digest; ip_info }
           in
           let+ result = Repo.create_event event in
           match result with
