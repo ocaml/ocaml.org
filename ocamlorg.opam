@@ -12,6 +12,7 @@ authors: [
   "Ashish Agarwal"
   "Kanishka Azimi"
   "Richard Davison"
+  "Jiae Kam"
 ]
 license: "ISC"
 homepage: "https://github.com/ocaml/v3.ocaml.org-server"

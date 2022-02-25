@@ -1,0 +1,27 @@
+(library
+ (name dream_dashboard)
+ (public_name ocamlorg.dream-dashboard)
+ (libraries
+  dream
+  hyper
+  yojson
+  ppx_deriving_yojson.runtime
+  dune-build-info
+  metrics
+  metrics-lwt
+  luv
+  user-agent-parser)
+ (preprocess
+  (pps ppx_deriving_yojson)))
+
+(rule
+ (targets asset.ml)
+ (deps
+  asset/main.css
+  (source_tree asset))
+ (action
+  (with-stdout-to
+   %{null}
+   (run %{bin:ocaml-crunch} -m plain asset -o %{targets}))))
+
+(include_subdirs unqualified)

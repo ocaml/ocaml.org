@@ -1,0 +1,31 @@
+let render ~prefix ~alpinejs_url ~ocaml_version ~dream_version ~dashboard_version ~uptime ~os_version () =
+Layout_template.render ~prefix ~alpinejs_url ~title:"Overview" @@
+<div>
+  <div>
+    <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-4">
+      <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+        <dt class="text-sm font-medium text-gray-500 truncate">OCaml Version</dt>
+        <dd class="mt-1 text-3xl font-semibold text-gray-900"><%s ocaml_version %></dd>
+      </div>
+
+      <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+        <dt class="text-sm font-medium text-gray-500 truncate">Dream Version</dt>
+        <dd class="mt-1 text-3xl font-semibold text-gray-900"><%s dream_version %></dd>
+      </div>
+
+      <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+        <dt class="text-sm font-medium text-gray-500 truncate">Dashboard Version</dt>
+        <dd class="mt-1 text-3xl font-semibold text-gray-900"><%s dashboard_version %></dd>
+      </div>
+
+      <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+        <dt class="text-sm font-medium text-gray-500 truncate">Uptime</dt>
+        <dd class="mt-1 text-3xl font-semibold text-gray-900"><%f uptime %></dd>
+      </div>
+    </dl>
+  </div>
+
+  <div class="mt-4 px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+    <span class="text-lg font-semibold text-gray-900"><%s os_version %></span>
+  </div>
+</div>
