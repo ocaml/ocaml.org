@@ -10,6 +10,8 @@ published: 2013-06-07
 cover: /books/ocaml-from-the-very-beginning.jpg
 language: english
 links:
+  - description: Free in PDF and HTML formats
+    url: https://ocaml-book.com/
   - description: Buy on Amazon
     uri: https://www.amazon.com/gp/product/0957671105
 rating: 4
