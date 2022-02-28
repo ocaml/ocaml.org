@@ -27,7 +27,7 @@
  (name toplevel_base)
  (libraries ocamlorg_toplevel base)
  (modules toplevel_base)
- (modes js))
+ (modes byte js))
 
 (rule
  (targets export_base.txt)
@@ -65,7 +65,7 @@
  (name toplevel_stdlib)
  (libraries ocamlorg_toplevel stdlib)
  (modules toplevel_stdlib)
- (modes js))
+ (modes byte js))
 
 ; Stdlib worker
 
