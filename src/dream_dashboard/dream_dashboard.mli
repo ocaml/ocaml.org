@@ -11,7 +11,6 @@ val route :
   ?store:(module Store.S) ->
   ?prefix:string ->
   ?middlewares:Dream.middleware list ->
-  ?alpinejs_url:string ->
   unit ->
   Dream.route
 (** A Dream middleware that will serve the dashboard under the [prefix]

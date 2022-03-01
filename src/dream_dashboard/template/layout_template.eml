@@ -1,17 +1,23 @@
-let render ~prefix ~alpinejs_url ~title inner =
-<!DOCTYPE html>
-<html lang="en" class="h-full bg-gray-100">
+let render ~prefix ~title inner =
+<!DOCTYPE html> 
+<html lang="en" class="h-full">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="icon" type="image/png" href="<%s prefix %>/assets/favicon.ico" />
+    <link rel="stylesheet" href="<%s prefix %>/assets/css/style.css" />
     <link rel="stylesheet" href="<%s prefix %>/assets/main.css" />
-    <script defer src="<%s alpinejs_url %>"></script>
+    <script defer src="<%s prefix %>/assets/js/script.js"></script>
+    <script defer src="<%s prefix %>/assets/vendors/alpine.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://kit.fontawesome.com/e02eec018e.js" crossorigin="anonymous"></script>
     <title><%s title %> | Dream Dashboard</title>
+
   </head>
 
   <body class="antialiased h-full">
-    <div class="min-h-[640px] bg-gray-100">
+    <div class="min-h-screen">
       <div x-data="{ open: false }" @keydown.window.escape="open = false">
         <div x-show="open" class="fixed inset-0 flex z-40 md:hidden" x-description="Off-canvas menu for mobile, show/hide based on off-canvas menu state." x-ref="dialog" aria-modal="true" style="display: none">
           <div
@@ -66,21 +72,7 @@ let render ~prefix ~alpinejs_url ~title inner =
                 <span class="text-white text-2xl font-medium">Dream Dashboard</span>
               </div>
               <nav class="mt-5 px-2 space-y-1">
-                <a href="<%s prefix %>" class="bg-gray-900 text-white group flex items-center px-2 py-2 text-base font-medium rounded-md" x-state:on="Current" x-state:off="Default" x-state-description='Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white"'>
-                  <svg
-                    class="text-gray-300 mr-4 flex-shrink-0 h-6 w-6"
-                    x-state:on="Current"
-                    x-state:off="Default"
-                    x-state-description='Current: "text-gray-300", Default: "text-gray-400 group-hover:text-gray-300"'
-                    x-description="Heroicon name: outline/home"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                  </svg>
+                <a href="<%s prefix %>/" class="bg-gray-900 text-white unknown group flex items-center px-2 py-2 text-base font-medium rounded-md">
                   Overview
                 </a>
 
@@ -143,84 +135,46 @@ let render ~prefix ~alpinejs_url ~title inner =
         <!-- Static sidebar for desktop -->
         <div class="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
           <!-- Sidebar component, swap this element with another sidebar if you like -->
-          <div class="flex-1 flex flex-col min-h-0 bg-gray-800">
-            <div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
+          <div class="flex-1 flex flex-col min-h-0 sidebar">
+            <div class="flex-1 flex flex-col overflow-y-auto">
               <div class="flex items-center flex-shrink-0 px-4">
-                <span class="text-white text-2xl font-medium">Dream Dashboard</span>
+                <span class="text-white text-xl font-bold">Dream</span>
               </div>
-              <nav class="mt-5 flex-1 px-2 space-y-1">
-                <a href="<%s prefix %>" class="bg-gray-900 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md" x-state:on="Current" x-state:off="Default" x-state-description='Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white"'>
-                  <svg
-                    class="text-gray-300 mr-3 flex-shrink-0 h-6 w-6"
-                    x-state:on="Current"
-                    x-state:off="Default"
-                    x-state-description='Current: "text-gray-300", Default: "text-gray-400 group-hover:text-gray-300"'
-                    x-description="Heroicon name: outline/home"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+              <nav class="mt-5 flex-1 space-y-1">
+                <a href="<%s prefix %>/" class="active group flex items-center px-6 py-2 text-sm font-semibold rounded-md space-x-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                   </svg>
-                  Overview
+                  <span>Overview</span>
                 </a>
 
-                <a href="<%s prefix %>/monitoring" class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md" x-state-description='undefined: "bg-gray-900 text-white", undefined: "text-gray-300 hover:bg-gray-700 hover:text-white"'>
-                  <svg
-                    class="text-gray-400 group-hover:text-gray-300 mr-3 flex-shrink-0 h-6 w-6"
-                    x-state-description='undefined: "text-gray-300", undefined: "text-gray-400 group-hover:text-gray-300"'
-                    x-description="Heroicon name: outline/users"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                <a href="<%s prefix %>/monitoring" class="group flex items-center px-6 py-2 text-sm font-semibold rounded-md space-x-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
                   </svg>
-                  Monitoring
+                  <span>Monitoring</span>
                 </a>
 
-                <a href="<%s prefix %>/logs" class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md" x-state-description='undefined: "bg-gray-900 text-white", undefined: "text-gray-300 hover:bg-gray-700 hover:text-white"'>
-                  <svg
-                    class="text-gray-400 group-hover:text-gray-300 mr-3 flex-shrink-0 h-6 w-6"
-                    x-state-description='undefined: "text-gray-300", undefined: "text-gray-400 group-hover:text-gray-300"'
-                    x-description="Heroicon name: outline/folder"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
+                <a href="<%s prefix %>/logs"class="group flex items-center px-6 py-2 text-sm font-semibold rounded-md space-x-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
                   </svg>
-                  Logs
-                </a>
+                  <span>Logs</span>
+                </a> 
 
-                <a href="<%s prefix %>/analytics" class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md" x-state-description='undefined: "bg-gray-900 text-white", undefined: "text-gray-300 hover:bg-gray-700 hover:text-white"'>
-                  <svg
-                    class="text-gray-400 group-hover:text-gray-300 mr-3 flex-shrink-0 h-6 w-6"
-                    x-state-description='undefined: "text-gray-300", undefined: "text-gray-400 group-hover:text-gray-300"'
-                    x-description="Heroicon name: outline/calendar"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                <a href="<%s prefix %>/analytics" class="group flex items-center px-6 py-2 text-sm font-semibold rounded-md space-x-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
-                  Analytics
+                  <span>Analytics</span>
                 </a>
               </nav>
             </div>
           </div>
         </div>
-        <div class="md:pl-64 flex flex-col flex-1">
-          <div class="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-gray-100">
-            <button type="button" class="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" @click="open = true">
+        <div class="md:pl-64 flex flex-col flex-1 bg">
+          <div class="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-gray-800">
+            <button type="button" class="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" @click="open = true">
               <span class="sr-only">Open sidebar</span>
               <svg class="h-6 w-6" x-description="Heroicon name: outline/menu" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -228,11 +182,8 @@ let render ~prefix ~alpinejs_url ~title inner =
             </button>
           </div>
           <main class="flex-1">
-            <div class="py-6">
-              <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 class="text-2xl font-semibold text-gray-900"><%s title %></h1>
-              </div>
-              <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+            <div class="p-8 lg:p-16">
+              <div class="mx-auto">
                 <%s! inner %>
               </div>
             </div>

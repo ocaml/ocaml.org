@@ -111,7 +111,7 @@ let graphql_route t =
 let router t =
   Dream.router
     [
-      Dream_dashboard.route ~alpinejs_url:"/vendors/alpine.min.js" ();
+      Dream_dashboard.route ();
       Redirection.t;
       page_routes;
       package_route t;

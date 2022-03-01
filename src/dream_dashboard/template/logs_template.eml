@@ -1,3 +1,0 @@
-let render ~prefix ~alpinejs_url () =
-Layout_template.render ~prefix ~alpinejs_url ~title:"Dream Dashboard" @@
-<div></div>

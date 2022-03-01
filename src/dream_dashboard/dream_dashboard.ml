@@ -16,35 +16,29 @@ module Store = struct
 end
 
 module Handler = struct
-  let overview ~prefix ~alpinejs_url _req =
+  let overview ~prefix _req =
     Dream.html
-      (Overview_template.render ~prefix ~alpinejs_url
-         ~ocaml_version:Info.ocaml_version
+      (Overview_template.render ~prefix ~ocaml_version:Info.ocaml_version
          ~dream_version:(Info.dream_version ())
          ~dashboard_version:(Info.version ()) ~uptime:(Info.uptime ())
          ~os_version:(Info.os_version ()) ())
 
-  let analytics ~store ~prefix ~alpinejs_url _req =
+  let analytics ~store ~prefix _req =
     let open Lwt.Syntax in
     let (module Repo : Store.S) = store in
     let* events = Repo.get_events () in
     match events with
-    | Ok events ->
-        Dream.html (Analytics_template.render ~prefix ~alpinejs_url events)
+    | Ok events -> Dream.html (Analytics_template.render ~prefix events)
     | Error _ ->
         Dream.respond ~code:500
           "could not get the list of events from the store"
 
-  let monitoring ~prefix ~alpinejs_url _req =
+  let monitoring ~prefix _req =
     Dream.html
-      (Monitoring_template.render ~prefix ~alpinejs_url
-         ~cpu_count:Info.cpu_count
+      (Monitoring_template.render ~prefix ~cpu_count:Info.cpu_count
          ~loadavg_list:(My_metrics.loadavg_report ())
          ~memory_list:(My_metrics.memory_report ())
          ())
-
-  let logs ~prefix ~alpinejs_url _req =
-    Dream.html (Logs_template.render ~prefix ~alpinejs_url ())
 end
 
 module Middleware = struct
@@ -102,21 +96,19 @@ module Router = struct
     | None -> Dream.empty `Not_Found
     | Some asset -> Dream.respond asset
 
-  let route ~alpinejs_url ~prefix middlewares store =
+  let route ~prefix middlewares store =
     Dream.scope prefix middlewares
       [
-        Dream.get "/" (Handler.overview ~prefix ~alpinejs_url);
-        Dream.get "/monitoring" (Handler.monitoring ~prefix ~alpinejs_url);
-        Dream.get "/logs" (Handler.logs ~prefix ~alpinejs_url);
-        Dream.get "/analytics" (Handler.analytics ~prefix ~store ~alpinejs_url);
+        Dream.get "/" (Handler.overview ~prefix);
+        Dream.get "/monitoring" (Handler.monitoring ~prefix);
+        Dream.get "/analytics" (Handler.analytics ~prefix ~store);
         Dream.get "/assets/**" (Dream.static ~loader "");
       ]
 end
 
 let route ?(store = (module Store.In_memory : Store.S)) ?(prefix = "/dashboard")
-    ?(middlewares = [])
-    ?(alpinejs_url = "https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js") () =
-  Router.route ~alpinejs_url ~prefix middlewares store
+    ?(middlewares = []) () =
+  Router.route ~prefix middlewares store
 
 let analytics ?(store = (module Store.In_memory : Store.S)) () =
   Middleware.analytics store

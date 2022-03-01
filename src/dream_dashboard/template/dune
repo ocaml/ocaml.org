@@ -11,12 +11,6 @@
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
 
 (rule
- (targets logs_template.ml)
- (deps logs_template.eml)
- (action
-  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
-
-(rule
  (targets analytics_template.ml)
  (deps analytics_template.eml)
  (action

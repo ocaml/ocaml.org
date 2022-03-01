@@ -24,4 +24,25 @@
    %{null}
    (run %{bin:ocaml-crunch} -m plain asset -o %{targets}))))
 
+(subdir
+ asset/
+ (rule
+  (target main.css)
+  (mode promote-until-clean)
+  (deps
+   (:style css/style.css)
+   (source_tree %{workspace_root}/node_modules)
+   (source_tree ../template))
+  (action
+   (run
+    node
+    %{workspace_root}/node_modules/tailwindcss/lib/cli.js
+    build
+    --content
+    %{workspace_root}/src/dream_dashboard/template/*.eml
+    -i
+    %{style}
+    -o
+    %{target}))))
+
 (include_subdirs unqualified)
