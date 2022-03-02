@@ -336,6 +336,10 @@ programs can be constructed in the OCaml programming language.</p>
   ; isbn = None
   ; links = 
  [
+      { description = {js|Free in PDF and HTML formats|js}
+      ; uri = {js|https://ocaml-book.com/|js}
+      };
+  
       { description = {js|Buy on Amazon|js}
       ; uri = {js|https://www.amazon.com/gp/product/0957671105|js}
       }]
