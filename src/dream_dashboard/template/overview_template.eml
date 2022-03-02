@@ -1,4 +1,13 @@
-let render ~prefix ~ocaml_version ~dream_version ~dashboard_version ~uptime ~os_version () =
+let render
+  ~prefix
+  ~ocaml_version
+  ~dream_version
+  ~dashboard_version
+  ~uptime
+  ~os_version
+  ~(memory_list : float list)
+  ~(loadavg_list : float list)
+  () =
 Layout_template.render ~prefix ~title:"Overview" @@
 <div class="flex flex-col space-y-12">
   <h1 class="text-2xl font-semibold">Overview</h1>
@@ -41,12 +50,33 @@ Layout_template.render ~prefix ~title:"Overview" @@
             <canvas
               id="memoryUsage"
               aria-label="line graph to show selling overview in terms of months and numbers"
-            ></canvas>
+            >
+            </canvas>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="">
+    <div class="flex mb-6 justify-between">
+      <h3 class="leading-5 text-lg font-semibold">CPU Usage (Percentage)</h3>
+    </div>
+    <div class="flex items-center justify-center py-8 px-4 shadow rounded-lg cards">
+      <div class="w-full">
+        <div class="flex flex-col justify-between h-full">
+          <div class="mt-6 relative h-[400px]">
+            <canvas
+              id="cpuUsage"
+              aria-label="line graph to show selling overview in terms of months and numbers"
+            >
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="">
     <div class="flex flex-col space-y-6 lg:space-y-0 lg:flex-row lg:space-x-12">
       <div class="w-full lg:w-2/3 xl:w-4/5">
@@ -328,3 +358,136 @@ Layout_template.render ~prefix ~title:"Overview" @@
     </div>
   </div>
 </div>
+<script>
+  const memoryUsage = new Chart(document.getElementById("memoryUsage"), {
+    type: "line",
+    data: {
+      labels: ["Thu, 30 Dec", "Mon, 3 Jan", "Fri, 7 Jan", "Tue, 11 Jan", "Wed, 19 Jan", "Sun, 23 Jan", "Thu, 27th Jan"],
+
+      datasets: [
+        {
+          label: "",
+          borderColor: "#18BDFB",
+          data: [
+          <% memory_list |> List.iter (fun x -> %>
+            <%f x %>,
+          <% ); %>
+          ],
+          borderWidth: "2",
+          drawBorder: false,
+          fill: true,
+          backgroundColor: "rgba(24, 189, 251, 0.1)",
+          tension: 0.5,
+          pointBorderWidth: 0,
+          pointHitRadius: 0,
+          pointHoverRadius: 14,
+          pointHoverBackgroundColor: "#18BDFB",
+          pointHoverBorderWidth: 2,
+          pointHoverBorderColor: "#ffffff",
+        },
+      ],
+    },
+    options: {
+      maintainAspectRatio: false,
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: { bodyAlign: "right", yAlign: "bottom", caretSize: 0, caretPadding: 20 },
+      },
+      scales: {
+        x: {
+          ticks: {
+            padding: 20,
+          },
+          grid: {
+            drawBorder: false,
+            lineWidth: 0,
+            tickColor: "transparent",
+            zeroLineColor: "transparent",
+          },
+        },
+        y: {
+          ticks: {
+            padding: 20,
+            color: "white",
+          },
+          grid: {
+            borderDash: [5],
+            drawBorder: false,
+            tickColor: "transparent",
+            color: "rgba(255,255,255,0.1)",
+            zeroLineColor: "transparent",
+            drawBorder: false, // <-- this removes y-axis line
+            lineWidth: 0.5,
+          },
+        },
+      },
+    },
+  });
+
+  const cpuUsage = new Chart(document.getElementById("cpuUsage"), {
+    type: "line",
+    data: {
+      labels: ["Thu, 30 Dec", "Mon, 3 Jan", "Fri, 7 Jan", "Tue, 11 Jan", "Wed, 19 Jan", "Sun, 23 Jan", "Thu, 27th Jan"],
+
+      datasets: [
+        {
+          label: "",
+          borderColor: "#18BDFB",
+          data: [
+          <% loadavg_list |> List.iter (fun x -> %>
+            <%f x %>,
+          <% ); %>
+          ],
+          borderWidth: "2",
+          drawBorder: false,
+          fill: true,
+          backgroundColor: "rgba(24, 189, 251, 0.1)",
+          tension: 0.5,
+          pointBorderWidth: 0,
+          pointHitRadius: 0,
+          pointHoverRadius: 14,
+          pointHoverBackgroundColor: "#18BDFB",
+          pointHoverBorderWidth: 2,
+          pointHoverBorderColor: "#ffffff",
+        },
+      ],
+    },
+    options: {
+      maintainAspectRatio: false,
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: { bodyAlign: "right", yAlign: "bottom", caretSize: 0, caretPadding: 20 },
+      },
+      scales: {
+        x: {
+          ticks: {
+            padding: 20,
+          },
+          grid: {
+            drawBorder: false,
+            lineWidth: 0,
+            tickColor: "transparent",
+            zeroLineColor: "transparent",
+          },
+        },
+        y: {
+          ticks: {
+            padding: 20,
+            color: "white",
+          },
+          grid: {
+            borderDash: [5],
+            drawBorder: false,
+            tickColor: "transparent",
+            color: "rgba(255,255,255,0.1)",
+            zeroLineColor: "transparent",
+            drawBorder: false, // <-- this removes y-axis line
+            lineWidth: 0.5,
+          },
+        },
+      },
+    },
+  });
+</script>

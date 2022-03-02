@@ -7,13 +7,11 @@ let render ~prefix ~title inner =
     <link rel="icon" type="image/png" href="<%s prefix %>/assets/favicon.ico" />
     <link rel="stylesheet" href="<%s prefix %>/assets/css/style.css" />
     <link rel="stylesheet" href="<%s prefix %>/assets/main.css" />
-    <script defer src="<%s prefix %>/assets/js/script.js"></script>
     <script defer src="<%s prefix %>/assets/vendors/alpine.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://kit.fontawesome.com/e02eec018e.js" crossorigin="anonymous"></script>
     <title><%s title %> | Dream Dashboard</title>
-
   </head>
 
   <body class="antialiased h-full">
@@ -76,38 +74,6 @@ let render ~prefix ~title inner =
                   Overview
                 </a>
 
-                <a href="<%s prefix %>/monitoring" class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-base font-medium rounded-md" x-state-description='undefined: "bg-gray-900 text-white", undefined: "text-gray-300 hover:bg-gray-700 hover:text-white"'>
-                  <svg
-                    class="text-gray-400 group-hover:text-gray-300 mr-4 flex-shrink-0 h-6 w-6"
-                    x-state-description='undefined: "text-gray-300", undefined: "text-gray-400 group-hover:text-gray-300"'
-                    x-description="Heroicon name: outline/users"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                  </svg>
-                  Monitoring
-                </a>
-
-                <a href="<%s prefix %>/logs" class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-base font-medium rounded-md" x-state-description='undefined: "bg-gray-900 text-white", undefined: "text-gray-300 hover:bg-gray-700 hover:text-white"'>
-                  <svg
-                    class="text-gray-400 group-hover:text-gray-300 mr-4 flex-shrink-0 h-6 w-6"
-                    x-state-description='undefined: "text-gray-300", undefined: "text-gray-400 group-hover:text-gray-300"'
-                    x-description="Heroicon name: outline/folder"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
-                  </svg>
-                  Logs
-                </a>
-
                 <a href="<%s prefix %>/analytics" class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-base font-medium rounded-md" x-state-description='undefined: "bg-gray-900 text-white", undefined: "text-gray-300 hover:bg-gray-700 hover:text-white"'>
                   <svg
                     class="text-gray-400 group-hover:text-gray-300 mr-4 flex-shrink-0 h-6 w-6"
@@ -147,20 +113,6 @@ let render ~prefix ~title inner =
                   </svg>
                   <span>Overview</span>
                 </a>
-
-                <a href="<%s prefix %>/monitoring" class="group flex items-center px-6 py-2 text-sm font-semibold rounded-md space-x-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-                  </svg>
-                  <span>Monitoring</span>
-                </a>
-
-                <a href="<%s prefix %>/logs"class="group flex items-center px-6 py-2 text-sm font-semibold rounded-md space-x-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-                  </svg>
-                  <span>Logs</span>
-                </a> 
 
                 <a href="<%s prefix %>/analytics" class="group flex items-center px-6 py-2 text-sm font-semibold rounded-md space-x-4">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

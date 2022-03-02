@@ -15,9 +15,3 @@
  (deps analytics_template.eml)
  (action
   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
-
-(rule
- (targets monitoring_template.ml)
- (deps monitoring_template.eml)
- (action
-  (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))

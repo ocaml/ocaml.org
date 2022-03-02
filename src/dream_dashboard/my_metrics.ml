@@ -139,7 +139,7 @@ let loadavg_report () =
             m
               "The Metrics src for loadavg could not be found. Did you call \
                \"init_metrics ()\"?");
-        raise Not_found
+        ([], [])
   in
   List.map
     (fun (x : data) ->
@@ -158,7 +158,7 @@ let memory_report () =
             m
               "The Metrics src for memory could not be found. Did you call \
                \"init_metrics ()\"?");
-        raise Not_found
+        ([], [])
   in
   List.map
     (fun (x : data) ->

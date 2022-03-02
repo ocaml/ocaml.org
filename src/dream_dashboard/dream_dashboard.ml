@@ -17,11 +17,21 @@ end
 
 module Handler = struct
   let overview ~prefix _req =
+    let cpu_count_f = Float.of_int Info.cpu_count in
+    let memory_pct (m : My_metrics.memory) =
+      100. *. float_of_int m.free /. float_of_int m.total
+    in
+    let loadavg_list =
+      List.map
+        (fun x -> x.My_metrics.avg_15 /. cpu_count_f)
+        (My_metrics.loadavg_report ())
+    in
+    let memory_list = List.map memory_pct (My_metrics.memory_report ()) in
     Dream.html
       (Overview_template.render ~prefix ~ocaml_version:Info.ocaml_version
          ~dream_version:(Info.dream_version ())
          ~dashboard_version:(Info.version ()) ~uptime:(Info.uptime ())
-         ~os_version:(Info.os_version ()) ())
+         ~os_version:(Info.os_version ()) ~loadavg_list ~memory_list ())
 
   let analytics ~store ~prefix _req =
     let open Lwt.Syntax in
@@ -32,13 +42,6 @@ module Handler = struct
     | Error _ ->
         Dream.respond ~code:500
           "could not get the list of events from the store"
-
-  let monitoring ~prefix _req =
-    Dream.html
-      (Monitoring_template.render ~prefix ~cpu_count:Info.cpu_count
-         ~loadavg_list:(My_metrics.loadavg_report ())
-         ~memory_list:(My_metrics.memory_report ())
-         ())
 end
 
 module Middleware = struct
@@ -100,7 +103,6 @@ module Router = struct
     Dream.scope prefix middlewares
       [
         Dream.get "/" (Handler.overview ~prefix);
-        Dream.get "/monitoring" (Handler.monitoring ~prefix);
         Dream.get "/analytics" (Handler.analytics ~prefix ~store);
         Dream.get "/assets/**" (Dream.static ~loader "");
       ]
@@ -113,4 +115,4 @@ let route ?(store = (module Store.In_memory : Store.S)) ?(prefix = "/dashboard")
 let analytics ?(store = (module Store.In_memory : Store.S)) () =
   Middleware.analytics store
 
-let init = My_metrics.init_metrics
+let () = My_metrics.init_metrics ()
