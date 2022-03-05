@@ -64,7 +64,7 @@ Layout.render
                     <img class="h-8" src="/logos/docker.svg" alt="Docker">
                 </div>
                 <div class="mx-8 my-4">
-                    <img class="h-10" src="/logos/janestreet.svg" alt="JaneStreet">
+                    <img class="h-10" src="/logos/janestreet.svg" alt="Jane Street">
                 </div>
                 <div class="mx-8 my-4">
                     <img class="h-6" src="/logos/bloomberg.svg" alt="Bloomberg">
@@ -171,7 +171,7 @@ Layout.render
                                     from prototypes to production systems with less effort ... Billions of dollars of
                                     transactions flow through our systems every day, so getting it right matters</div>
                                 <div class="font-bold">Yaron Minsky</div>
-                                <div>CTO, JaneStreet.</div>
+                                <div>CTO, Jane Street.</div>
                             </div>
                         </a>
 
