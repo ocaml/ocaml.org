@@ -43,17 +43,6 @@ let toplevel_loader =
       in
       Ok (days, ps))
 
-let redirect s req = Dream.redirect req s
-
-let redirection_routes ?(permanant = false) t =
-  let status = if permanant then `Moved_Permanently else `See_Other in
-  Dream.scope ""
-    [ Dream_encoding.compress ]
-    (List.map
-       (fun (origin, new_) ->
-         Dream.get origin (fun req -> Dream.redirect ~status req new_))
-       t)
-
 let page_routes =
   Dream.scope ""
     [
@@ -131,11 +120,10 @@ let graphql_route t =
 let router t =
   Dream.router
     [
+      Redirection.t;
       page_routes;
       package_route t;
       graphql_route t;
-      redirection_routes Redirection.from_v2;
-      redirection_routes Redirection.manual;
       Dream.scope ""
         [ Dream_encoding.compress ]
         [

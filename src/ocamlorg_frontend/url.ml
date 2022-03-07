@@ -24,8 +24,11 @@ let success_story v = "/success-stories/" ^ v
 let industrial_users = "/industrial-users"
 let academic_users = "/academic-users"
 let about = "/about"
-let manual_with_version v = "/manual/" ^ v
-let manual = "/manual"
+
+let manual_with_version v =
+  "https://v2.ocaml.org/releases/" ^ v ^ "/htmlman/index.html"
+
+let manual = "https://v2.ocaml.org/releases/latest/manual.html"
 let books = "/books"
 let releases = "/releases"
 let release v = "/releases/" ^ v
