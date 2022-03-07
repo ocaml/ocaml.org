@@ -26,9 +26,16 @@ let academic_users = "/academic-users"
 let about = "/about"
 
 let manual_with_version v =
-  "https://v2.ocaml.org/releases/" ^ v ^ "/htmlman/index.html"
+  let minor = String.sub v 0 4 in
+  "https://v2.ocaml.org/releases/" ^ minor ^ "/htmlman/index.html"
 
 let manual = "https://v2.ocaml.org/releases/latest/manual.html"
+
+let api_with_version v =
+  let minor = String.sub v 0 4 in
+  "https://v2.ocaml.org/releases/" ^ minor ^ "/api/index.html"
+
+let api = "https://v2.ocaml.org/api/index.html"
 let books = "/books"
 let releases = "/releases"
 let release v = "/releases/" ^ v
