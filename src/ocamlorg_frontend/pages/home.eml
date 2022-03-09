@@ -70,7 +70,7 @@ with an emphasis on expressiveness and safety."
     <div class="text-center">
       <h2 class="font-bold text-body-600">Trusted by Industry Leaders</h2>
       <div class="text-body-400 text-base mt-3">
-        These companies and organizations rely on OCaml every day — along with thousands of other developers. See <a href="<%s Url.success_stories %>" class="link-orange">Success Stories</a>
+        These companies and organizations rely on OCaml every day — along with thousands of other developers. See <a href="<%s Url.industrial_users %>" class="link-orange">Success Stories</a>
       </div>
       <div class="flex flex-row justify-center m-auto flex-wrap py-8 items-center">
           <div class="mx-8 my-4">

@@ -1,4 +1,4 @@
-let render (users : Ood.Industrial_user.t list) =
+let render ~(users : Ood.Industrial_user.t list) ~success_stories =
 Layout.render
 ~use_swiper:true
 ~title:"Industrial Users of OCaml"
@@ -60,102 +60,36 @@ the community and learn more about how they use OCaml." @@
       </div>
 
       <div class="grid lg:grid-cols-2 gap-16 mt-14 lg:mt-28">
-          
-          <a href="/success-stories/peta-byte-scale-web-crawler" class="success-card">
-              <div class="flex flex-col justify-between h-full relative z-10 text-white">
-                  <div class="h-8"><img class="h-full" src="/media//success-stories/ahrefs.svg" alt=""></div>
-                  <div class="space-y-6 success-card__content">
-                      <h4 class="font-bold">
-                          Peta-byte scale web crawler
-                      </h4>
-                      <div class="success-card__link">
-                          <span>Read full case study</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                          </svg>
-                      </div>
-                  </div>
-              </div>
-              <div class="bg-blue-600 success-card__overlay"></div>
-              <div class="success-card__image" style="background-image: url('/media//success-stories/ahrefs-bg.jpg');"></div>
-          </a>
-          
-          <a href="/success-stories/sensor-analytics-and-automation-platform-for-sustainable-agriculture" class="success-card">
-              <div class="flex flex-col justify-between h-full relative z-10 text-white">
-                  <div class="h-8"><img class="h-full" src="/media//success-stories/hyper.png" alt=""></div>
-                  <div class="space-y-6 success-card__content">
-                      <h4 class="font-bold">
-                          Sensor analytics and automation platform for sustainable agriculture
-                      </h4>
-                      <div class="success-card__link">
-                          <span>Read full case study</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                          </svg>
-                      </div>
-                  </div>
-              </div>
-              <div class="bg-green-600 success-card__overlay"></div>
-              <div class="success-card__image" style="background-image: url('/media//success-stories/hyper-bg.jpg');"></div>
-          </a>
-          
-          <a href="/success-stories/large-scale-trading-system" class="success-card">
-              <div class="flex flex-col justify-between h-full relative z-10 text-white">
-                  <div class="h-8"><img class="h-full" src="/media//success-stories/janestreet.png" alt=""></div>
-                  <div class="space-y-6 success-card__content">
-                      <h4 class="font-bold">
-                          Large scale trading system
-                      </h4>
-                      <div class="success-card__link">
-                          <span>Read full case study</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                          </svg>
-                      </div>
-                  </div>
-              </div>
-              <div class="bg-cyan-600 success-card__overlay"></div>
-              <div class="success-card__image" style="background-image: url('/media//success-stories/janestreet-bg.jpg');"></div>
-          </a>
-          
-          <a href="/success-stories/modeling-language-for-finance" class="success-card">
-              <div class="flex flex-col justify-between h-full relative z-10 text-white">
-                  <div class="h-8"><img class="h-full" src="/media//success-stories/lexifi.png" alt=""></div>
-                  <div class="space-y-6 success-card__content">
-                      <h4 class="font-bold">
-                          Modeling Language for Finance
-                      </h4>
-                      <div class="success-card__link">
-                          <span>Read full case study</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                          </svg>
-                      </div>
-                  </div>
-              </div>
-              <div class="bg-orange-600 success-card__overlay"></div>
-              <div class="success-card__image" style="background-image: url('/media//success-stories/lexifi-bg.jpg');"></div>
-          </a>
-          
-          <a href="/success-stories/zeo-agency" class="success-card">
-              <div class="flex flex-col justify-between h-full relative z-10 text-white">
-                  <div class="h-8"><img class="h-full" src="/media//users/zeo.svg" alt=""></div>
-                  <div class="space-y-6 success-card__content">
-                      <h4 class="font-bold">
-                          Zeo Agency
-                      </h4>
-                      <div class="success-card__link">
-                          <span>Read full case study</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                          </svg>
-                      </div>
-                  </div>
-              </div>
-              <div class="bg-orange-600 success-card__overlay"></div>
-              <div class="success-card__image" style="background-image: url('/media//success-stories/lexifi-bg.jpg');"></div>
-          </a>
-          
+        <% success_stories |> List.iter (fun (item : Ood.Success_story.t) ->
+        let logo = "/media/" ^ item.logo in
+        let background_class = match item.theme with
+        | "cyan" -> "bg-cyan-600"
+        | "orange" -> "bg-orange-600"
+        | "blue" -> "bg-blue-600"
+        | "green" -> "bg-green-600"
+        | _ -> "bg-gray-600"
+        in %>
+        <a href="<%s Url.success_story item.slug %>" class="success-card">
+            <div class="flex flex-col justify-between h-full relative z-10 text-white">
+                <div class="h-8"><img class="h-full" src="<%s logo %>" alt=""></div>
+                <div class="space-y-6 success-card__content">
+                    <h4 class="font-bold">
+                        <%s item.title %>
+                    </h4>
+                    <div class="success-card__link">
+                        <span>Read full case study</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5l7 7-7 7" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="<%s background_class %> success-card__overlay"></div>
+            <div class="success-card__image" style="background-image: url('/media/<%s item.background %>');"></div>
+        </a>
+        <% ); %>
       </div>
   </div>
 </div>

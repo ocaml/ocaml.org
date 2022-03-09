@@ -140,11 +140,6 @@
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
-  (targets success_stories.ml)
-  (deps success_stories.eml)
-  (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
- (rule
   (targets success_story.ml)
   (deps success_story.eml)
   (action

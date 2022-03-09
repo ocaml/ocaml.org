@@ -11,7 +11,7 @@ Layout.render
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>
-            <a href="<%s Url.success_stories %>" class="hover:underline">Back to Success Stories</a>
+            <a href="<%s Url.industrial_users %>" class="hover:underline">Back to Success Stories</a>
           </div>
           <h2 class="font-bold pb-6"><%s story.title %></h2>
           <div><%s story.synopsis %></div>

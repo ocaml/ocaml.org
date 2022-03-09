@@ -287,8 +287,8 @@ let from_v2 =
     ("/learn/", Url.learn);
     ("/learn/libraries.html", Url.packages);
     ("/learn/portability.html", Url.learn);
-    ("/learn/success.fr.html", Url.success_stories);
-    ("/learn/success.html", Url.success_stories);
+    ("/learn/success.fr.html", Url.industrial_users);
+    ("/learn/success.html", Url.industrial_users);
     ("/learn/taste.fr.html", Url.learn);
     ("/learn/taste.html", Url.learn);
     ("/learn/teaching-ocaml.html", Url.academic_users);

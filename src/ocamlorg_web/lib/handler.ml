@@ -22,10 +22,6 @@ let community _req =
   let meetups = Ood.Meetup.all in
   Dream.html (Ocamlorg_frontend.community ~workshops ~meetups)
 
-let success_stories _req =
-  let stories = Ood.Success_story.all in
-  Dream.html (Ocamlorg_frontend.success_stories stories)
-
 let success_story req =
   let slug = Dream.param req "id" in
   let story = Ood.Success_story.get_by_slug slug in
@@ -38,7 +34,8 @@ let industrial_users _req =
     Ood.Industrial_user.all
     |> List.filter (fun (item : Ood.Industrial_user.t) -> item.featured)
   in
-  Dream.html (Ocamlorg_frontend.industrial_users users)
+  let success_stories = Ood.Success_story.all () in
+  Dream.html (Ocamlorg_frontend.industrial_users ~users ~success_stories)
 
 let academic_users req =
   let search_user pattern t =

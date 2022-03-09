@@ -19,7 +19,6 @@ let package_doc_with_hash hash v version page =
   "/u/" ^ hash ^ "/" ^ v ^ "/" ^ version ^ "/doc/" ^ page
 
 let community = "/community"
-let success_stories = "/success-stories"
 let success_story v = "/success-stories/" ^ v
 let industrial_users = "/industrial-users"
 let academic_users = "/academic-users"
