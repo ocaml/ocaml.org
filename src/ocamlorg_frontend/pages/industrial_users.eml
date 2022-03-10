@@ -6,17 +6,166 @@ Layout.render
 companies rely on OCaml to keep their data operating both safely and \
 efficiently. On this page, you can get an overview of the companies in \
 the community and learn more about how they use OCaml." @@
-<div class="intro-section-simple">
+<div class="lg:py-24 py-2">
   <div class="container-fluid">
-    <div class="text-center w-full lg:w-2/3 m-auto">
-      <h1 class="font-bold mb-6">Industrial Users of OCaml</h1>
-      <p>With its strong security features and high performance, several companies rely on OCaml to keep their data operating both safely and efficiently. On this page, you can get an overview of the companies in the community and learn more about how they use OCaml.</p>
-    </div>
+      <div class="flex flex-col lg:flex-row  justify-between space-x-0 lg:space-x-10">
+          <div class="lg:flex-1 lg:mt-16 my-12">
+              <h1 class="font-bold">What some of our users say about <span class="text-primary-600">OCaml</span></h1>
+              <div class="text-body-400 mt-6 mb-8">Read our success stories to learn how OCaml helped our users
+                  achieve their goals.</div>
+              <div class="space-x-6">
+                  <a href="<%s Url.academic_users %>"><button class="btn btn-lg btn-secondary">Academic
+                          users</button></a>
+              </div>
+          </div>
+          <div class="lg:flex-1 cursor-pointer relative rounded-2xl overflow-hidden border-4 border-primary-100 video-shadow"
+              x-data="videoFullWidth()">
+              <div class="bg-white text-center relative aspect-w-16 aspect-h-9 h-full" @click="
+                      isPlaying = !isPlaying;
+                      $nextTick(() => { $refs.iframeElement.setAttribute('src', iframe_url()) });">
+                  <div x-show.transition.in.opacity.duration.500ms="isPlaying">
+                      <iframe class="absolute top-0 rounded-lg" x-ref="iframeElement" width="100%" height="100%"
+                          frameborder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowfullscreen>
+                      </iframe>
+                  </div>
+                  <div class="flex items-center h-full justify-center" x-show="!isPlaying">
+                      <div class="z-10 lg:space-y-16 space-y-5 mb-10 lg:mb-0">
+                          <img width="132" class="m-auto" src="/janestreet-logo.jpg" alt="OCaml logo">
+                          <h3 class="font-bold">Why OCaml</h3>
+                          <div>Presented by Yaron Minsky</div>
+                      </div>
+                  </div>
+              </div>
+              <div class="rounded-full bg-primary-600 text-white w-16 h-16 right-10 bottom-10 absolute flex items-center z-10 justify-center"
+                  x-show="!isPlaying">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                          clip-rule="evenodd" />
+                  </svg>
+              </div>
+          </div>
+      </div>
   </div>
 </div>
-<div class="bg-white py-0 md:py-20">
+<div class="py-10 lg:py-24 bg-white">
   <div class="container-fluid">
-    <div class="grid-logos">
+      <div class="text-center mt-6 lg:mt-0">
+          <h2 class="font-bold mb-6">Case Studies</h2>
+          <p class="text-body-400">
+              Read how users of OCaml are solving real-world problems and how OCaml was a key for their success.
+          </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-16 mt-14 lg:mt-28">
+          
+          <a href="/success-stories/peta-byte-scale-web-crawler" class="success-card">
+              <div class="flex flex-col justify-between h-full relative z-10 text-white">
+                  <div class="h-8"><img class="h-full" src="/media//success-stories/ahrefs.svg" alt=""></div>
+                  <div class="space-y-6 success-card__content">
+                      <h4 class="font-bold">
+                          Peta-byte scale web crawler
+                      </h4>
+                      <div class="success-card__link">
+                          <span>Read full case study</span>
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                          </svg>
+                      </div>
+                  </div>
+              </div>
+              <div class="bg-blue-600 success-card__overlay"></div>
+              <div class="success-card__image" style="background-image: url('/media//success-stories/ahrefs-bg.jpg');"></div>
+          </a>
+          
+          <a href="/success-stories/sensor-analytics-and-automation-platform-for-sustainable-agriculture" class="success-card">
+              <div class="flex flex-col justify-between h-full relative z-10 text-white">
+                  <div class="h-8"><img class="h-full" src="/media//success-stories/hyper.png" alt=""></div>
+                  <div class="space-y-6 success-card__content">
+                      <h4 class="font-bold">
+                          Sensor analytics and automation platform for sustainable agriculture
+                      </h4>
+                      <div class="success-card__link">
+                          <span>Read full case study</span>
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                          </svg>
+                      </div>
+                  </div>
+              </div>
+              <div class="bg-green-600 success-card__overlay"></div>
+              <div class="success-card__image" style="background-image: url('/media//success-stories/hyper-bg.jpg');"></div>
+          </a>
+          
+          <a href="/success-stories/large-scale-trading-system" class="success-card">
+              <div class="flex flex-col justify-between h-full relative z-10 text-white">
+                  <div class="h-8"><img class="h-full" src="/media//success-stories/janestreet.png" alt=""></div>
+                  <div class="space-y-6 success-card__content">
+                      <h4 class="font-bold">
+                          Large scale trading system
+                      </h4>
+                      <div class="success-card__link">
+                          <span>Read full case study</span>
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                          </svg>
+                      </div>
+                  </div>
+              </div>
+              <div class="bg-cyan-600 success-card__overlay"></div>
+              <div class="success-card__image" style="background-image: url('/media//success-stories/janestreet-bg.jpg');"></div>
+          </a>
+          
+          <a href="/success-stories/modeling-language-for-finance" class="success-card">
+              <div class="flex flex-col justify-between h-full relative z-10 text-white">
+                  <div class="h-8"><img class="h-full" src="/media//success-stories/lexifi.png" alt=""></div>
+                  <div class="space-y-6 success-card__content">
+                      <h4 class="font-bold">
+                          Modeling Language for Finance
+                      </h4>
+                      <div class="success-card__link">
+                          <span>Read full case study</span>
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                          </svg>
+                      </div>
+                  </div>
+              </div>
+              <div class="bg-orange-600 success-card__overlay"></div>
+              <div class="success-card__image" style="background-image: url('/media//success-stories/lexifi-bg.jpg');"></div>
+          </a>
+          
+          <a href="/success-stories/zeo-agency" class="success-card">
+              <div class="flex flex-col justify-between h-full relative z-10 text-white">
+                  <div class="h-8"><img class="h-full" src="/media//users/zeo.svg" alt=""></div>
+                  <div class="space-y-6 success-card__content">
+                      <h4 class="font-bold">
+                          Zeo Agency
+                      </h4>
+                      <div class="success-card__link">
+                          <span>Read full case study</span>
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                          </svg>
+                      </div>
+                  </div>
+              </div>
+              <div class="bg-orange-600 success-card__overlay"></div>
+              <div class="success-card__image" style="background-image: url('/media//success-stories/lexifi-bg.jpg');"></div>
+          </a>
+          
+      </div>
+  </div>
+</div>
+<div class="py-0 md:py-20 md:pb-0">
+  <div class="container-fluid">
+    <div class="text-center">
+      <h2 class="font-bold mb-6">Industrial Users of OCaml</h2>
+      <div class="text-body-400">With its strong security features and high performance, several companies rely on OCaml to keep<br /> their data operating both safely and efficiently. On this page, you can get an overview of the<br /> companies in the community and learn more about how they use OCaml.</div>
+    </div>
+    <div class="grid-logos bg-white mt-20">
       <% users |> List.iter (fun (item : Ood.Industrial_user.t) -> let logo = match item.logo with | Some x -> "/media/" ^ x | None -> "" in %>
       <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
         <img src="<%s logo %>" class="m-auto" alt="<%s item.name %> logo" />
@@ -25,62 +174,8 @@ the community and learn more about how they use OCaml." @@
       <% ); %>
     </div>
   </div>
-
-  <div class="bg-primary-600">
-    <div class="container-fluid">
-      <div class="text-center text-white lg:p-16 py-10">
-        <h2 class="font-bold mb-6">Interested in learning more?</h2>
-        <div class="text-lg mb-8 lg:px-28">Go to our success stories for a more in-depth understanding of how our users use OCaml.</div>
-        <div class="space-x-0 md:space-x-5 space-y-5 md:space-y-0">
-          <a href="<%s Url.success_stories %>"><button class="btn btn-lg btn-tertiary">Success Stories</button></a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="bg-pattern lg:py-32 py-24">
-    <div class="container-fluid">
-      <div>
-        <div class="text-center">
-          <h2 class="font-bold text-primary-600 mb-6">Industrial Resources</h2>
-          <div class="text-lg text-white mb-16">Here are some of the resources that may be helpful to you</div>
-        </div>
-        <div class="grid lg:grid-cols-3 gap-8 lg:gap-16">
-          <a href="<%s Url.tutorial "up-and-running-with-ocaml" %>" class="resources-card card-hover">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-
-            <p class="font-semibold text-xl mb-3">Getting Started</p>
-            <p>Install OCaml, setup your favorite text editor and start your first project.</p>
-          </a>
-          <a href="<%s Url.package_doc "ocaml-base-compiler" "4.13.1" "index.html" %>" class="resources-card card-hover">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-        
-            <p class="font-semibold text-xl mb-3">Standard Library</p>
-            <p>Read the standard library documentation and search its API for functions.</p>
-          </a>
-          <a href="<%s Url.books %>" class="resources-card card-hover">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-              ></path>
-            </svg>
-
-            <p class="font-semibold text-xl mb-3">Books</p>
-            <p>What expert programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.</p>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
   <div
-    class="border-t-2 testimonials py-10"
+    class="bg-white testimonials py-32"
     x-data="{swiper: null}"
     x-init="swiper = new Swiper($refs.container, {loop: true,slidesPerView: 1,spaceBetween: 0,breakpoints: {640: {slidesPerView:1,
             spaceBetween: 0,},768: {slidesPerView: 2,spaceBetween: 0,},1024: {slidesPerView: 3,
@@ -90,7 +185,7 @@ the community and learn more about how they use OCaml." @@
       <div class="flex justify-between items-end lg:space-x-80 mb-0 md:mb-20 md:flex-row flex-col">
         <div class="text-left">
           <h2 class="font-bold mb-6">Testimonials</h2>
-          <div>Adipiscing aenean nunc tincidunt mauris. Nullam donec viverra faucibus et erat sem nulla. Habitasse mattis consequat, ut adipiscing faucibus justo enim risus, dolor. Commodo in nunc, vitae platea lectus augue vitae, egestas.</div>
+          <div class="text-body-400">Adipiscing aenean nunc tincidunt mauris. Nullam donec viverra faucibus et erat sem nulla. Habitasse mattis consequat, ut adipiscing faucibus justo enim risus, dolor. Commodo in nunc, vitae platea lectus augue vitae, egestas.</div>
         </div>
         <div class="flex justify-between items-center space-x-4 m-auto mt-10 mb-5 md:mb-0">
           <button aria-label="Previous" class="text-primary-600 rounded-full py-4 px-4 hover:bg-primary-100 transition duration-300" @click="swiper.slidePrev()">
@@ -140,4 +235,59 @@ the community and learn more about how they use OCaml." @@
       </div>
     </div>
   </div>
+  <div class="bg-pattern lg:py-32 py-24">
+    <div class="container-fluid">
+      <div>
+        <div class="text-center">
+          <h2 class="font-bold text-primary-600 mb-6">Industrial Resources</h2>
+          <div class="text-lg text-white mb-16">Here are some of the resources that may be helpful to you</div>
+        </div>
+        <div class="grid lg:grid-cols-3 gap-8 lg:gap-16">
+          <a href="<%s Url.tutorial "up-and-running-with-ocaml" %>" class="resources-card card-hover">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+
+            <p class="font-semibold text-xl mb-3">Getting Started</p>
+            <p>Install OCaml, setup your favorite text editor and start your first project.</p>
+          </a>
+          <a href="<%s Url.package_doc "ocaml-base-compiler" "4.13.1" "index.html" %>" class="resources-card card-hover">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+        
+            <p class="font-semibold text-xl mb-3">Standard Library</p>
+            <p>Read the standard library documentation and search its API for functions.</p>
+          </a>
+          <a href="<%s Url.books %>" class="resources-card card-hover">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              ></path>
+            </svg>
+
+            <p class="font-semibold text-xl mb-3">Books</p>
+            <p>What expert programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 </div>
+<script>
+  function videoFullWidth() {
+      return {
+          isPlaying: false,
+          embed_url: "https://watch.ocaml.org/videos/embed/e1ee0fc0-50ef-4a1c-894a-17df181424cb",
+          iframe_param: "?autoplay=1&mute=1",
+          iframe_url() {
+              return this.embed_url + this.iframe_param;
+          }
+      };
+  }
+</script>

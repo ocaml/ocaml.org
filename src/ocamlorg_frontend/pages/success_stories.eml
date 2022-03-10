@@ -12,8 +12,6 @@ Layout.render
                 <div class="text-body-400 mt-6 mb-8">Read our success stories to learn how OCaml helped our users
                     achieve their goals.</div>
                 <div class="space-x-6">
-                    <a href="<%s Url.industrial_users %>"><button class="btn btn-lg btn-secondary">Industrial
-                            users</button></a>
                     <a href="<%s Url.academic_users %>"><button class="btn btn-lg btn-secondary">Academic
                             users</button></a>
                 </div>
