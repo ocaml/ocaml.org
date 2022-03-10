@@ -177,7 +177,7 @@ the community and learn more about how they use OCaml." @@
   <div
     class="bg-white testimonials py-32"
     x-data="{swiper: null}"
-    x-init="swiper = new Swiper($refs.container, {loop: true,slidesPerView: 1,spaceBetween: 0,breakpoints: {640: {slidesPerView:1,
+    x-init="swiper = new Swiper($refs.container, {loop: false,slidesPerView: 0,spaceBetween: 0,breakpoints: {640: {slidesPerView:1,
             spaceBetween: 0,},768: {slidesPerView: 2,spaceBetween: 0,},1024: {slidesPerView: 3,
             spaceBetween: 0,},},})"
   >
@@ -186,18 +186,6 @@ the community and learn more about how they use OCaml." @@
         <div class="text-left">
           <h2 class="font-bold mb-6">Testimonials</h2>
           <div class="text-body-400">Adipiscing aenean nunc tincidunt mauris. Nullam donec viverra faucibus et erat sem nulla. Habitasse mattis consequat, ut adipiscing faucibus justo enim risus, dolor. Commodo in nunc, vitae platea lectus augue vitae, egestas.</div>
-        </div>
-        <div class="flex justify-between items-center space-x-4 m-auto mt-10 mb-5 md:mb-0">
-          <button aria-label="Previous" class="text-primary-600 rounded-full py-4 px-4 hover:bg-primary-100 transition duration-300" @click="swiper.slidePrev()">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <button aria-label="Next" class="text-primary-600 rounded-full py-4 px-4 hover:bg-primary-100 transition duration-300" @click="swiper.slideNext()">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
         </div>
       </div>
       <div>
