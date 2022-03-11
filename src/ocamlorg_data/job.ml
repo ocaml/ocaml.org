@@ -9,15 +9,15 @@ type t =
   
 let all = 
 [
-  { title = {js|Internship - Optimising tree data structures for very large directories|js}
-  ; link = {js|https://tarides.com/jobs/internship-optimising-tree-data-structures-for-very-large-directories|js}
+  { title = {js|Benchmark tooling engineer|js}
+  ; link = {js|https://tarides.com/jobs/benchmark-tooling-engineer|js}
   ; location = {js|Remote|js}
   ; company = {js|Tarides|js}
   ; company_logo = {js|https://tarides.com/static/logo_tarides-52f91b59a8657d768e013129896b63e0.png|js}
   };
  
-  { title = {js|Internship - Irmin data interchange format|js}
-  ; link = {js|https://tarides.com/jobs/internship-irmin-data-interchange-format|js}
+  { title = {js|Spontaneous Application|js}
+  ; link = {js|https://tarides.com/jobs/spontaneous-application|js}
   ; location = {js|Remote|js}
   ; company = {js|Tarides|js}
   ; company_logo = {js|https://tarides.com/static/logo_tarides-52f91b59a8657d768e013129896b63e0.png|js}

@@ -4865,7 +4865,7 @@ write<br />
 </li>
 </ul>
 <!-- $MDX skip -->
-<pre><code><span class='ocaml-source'>(</span><span class='ocaml-keyword-other'>fun</span><span class='ocaml-source'> </span><span class='ocaml-source'>x</span><span class='ocaml-source'> </span><span class='ocaml-source'>y</span><span class='ocaml-source'> </span><span class='ocaml-keyword-operator'>-></span><span class='ocaml-source'> </span><span class='ocaml-source'>x</span><span class='ocaml-source'> </span><span class='ocaml-keyword-operator'>+</span><span class='ocaml-source'> </span><span class='ocaml-source'>y</span><span class='ocaml-source'>)</span><span class='ocaml-source'>
+<pre><code><span class='ocaml-source'>(</span><span class='ocaml-keyword-other'>fun</span><span class='ocaml-source'> </span><span class='ocaml-source'>x</span><span class='ocaml-source'> </span><span class='ocaml-source'>y</span><span class='ocaml-source'> </span><span class='ocaml-keyword-operator'>-></span><span class='ocaml-source'> </span><span class='ocaml-source'>x</span><span class='ocaml-source'> </span><span class='ocaml-keyword-operator'>+</span><span class='ocaml-source'> </span><span class='ocaml-source'>y</span><span class='ocaml-source'>)
 </span><span class='ocaml-source'>   </span><span class='ocaml-source'>e1</span><span class='ocaml-source'> </span><span class='ocaml-source'>e2</span><span class='ocaml-source'>
 </span></code></pre><p>instead of simply writing</p>
 <!-- $MDX skip -->
