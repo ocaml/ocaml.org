@@ -7,7 +7,7 @@ companies rely on OCaml to keep their data operating both safely and \
 efficiently. On this page, you can get an overview of the companies in \
 the community and learn more about how they use OCaml." @@
 <div class="lg:py-24 py-2">
-  <div class="container-fluid">
+  <div class="container-fluid space-y-24 lg:space-y-32">
       <div class="flex flex-col lg:flex-row  justify-between space-x-0 lg:space-x-10">
           <div class="lg:flex-1 lg:mt-16 my-12">
               <h1 class="font-bold">What some of our users say about <span class="text-primary-600">OCaml</span></h1>
@@ -48,6 +48,35 @@ the community and learn more about how they use OCaml." @@
               </div>
           </div>
       </div>
+      <div class="text-center">
+        <h2 class="font-bold text-body-600">Trusted by Industry Leaders</h2>
+        <div class="text-body-400 text-base mt-3">
+          These companies and organizations rely on OCaml every day — along with thousands of other developers.
+        </div>
+        <div class="flex flex-row justify-center m-auto flex-wrap py-8 items-center">
+          <div class="mx-8 my-4">
+              <img class="h-6" src="/logos/facebook.svg" alt="Facebook">
+          </div>
+          <div class="mx-8 my-4">
+              <img class="h-8" src="/logos/microsoft.svg" alt="Microsoft">
+          </div>
+          <div class="mx-8 my-4">
+              <img class="h-8" src="/logos/docker.svg" alt="Docker">
+          </div>
+          <div class="mx-8 my-4">
+              <img class="h-10" src="/logos/janestreet.svg" alt="Jane Street">
+          </div>
+          <div class="mx-8 my-4">
+              <img class="h-6" src="/logos/bloomberg.svg" alt="Bloomberg">
+          </div>
+          <div class="mx-8 my-4">
+              <img class="h-10" src="/logos/tezos.svg" alt="Tezos">
+          </div>
+          <div class="mx-8 my-4">
+              <img class="h-6" src="/logos/ahrefs.svg" alt="Ahrefs">
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <div class="py-10 lg:py-24 bg-white">
@@ -93,10 +122,85 @@ the community and learn more about how they use OCaml." @@
       </div>
   </div>
 </div>
-<div class="py-0 md:py-20 md:pb-0">
+<div class="py-10 lg:py-24 testimonials">
+  <div
+    class="container-fluid overflow-hidden"
+    x-data="{swiper: null}"
+    x-init="swiper = new Swiper($refs.container, {loop: true,slidesPerView: 1,spaceBetween: 0,breakpoints: {640: {slidesPerView:1,
+            spaceBetween: 0,},768: {slidesPerView: 2,spaceBetween: 0,},1024: {slidesPerView: 3,
+            spaceBetween: 0,},},})">
+    <div class="flex justify-between items-end lg:space-x-80 mb-0 md:mb-20 md:flex-row flex-col">
+      <div class="text-left">
+        <h2 class="font-bold mb-6">Testimonials</h2>
+        <div class="text-body-400">Read what some of our industrial users say about OCaml.</div>
+      </div>
+      <div class="flex justify-between items-center space-x-4 m-auto mt-10 mb-5 md:mb-0">
+        <button aria-label="Previous" class="text-primary-600 rounded-full py-4 px-4 hover:bg-primary-100 transition duration-300" @click="swiper.slidePrev()">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button aria-label="Next" class="text-primary-600 rounded-full py-4 px-4 hover:bg-primary-100 transition duration-300" @click="swiper.slideNext()">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="swiper-container mt-20" x-ref="container">
+      <div class="swiper-wrapper">
+        <a href="https://rescript-lang.org/" class="swiper-slide p-4 card-hover">
+          <div class="overflow-hidden p-8">
+            <img src="/logos/rescript.svg" class="mb-8 h-8" />
+            <div class="mb-12">Thanks to the OCaml team, obviously, without such a beautiful yet practical language, this project would not exist. The original type system was inherited from it with lots of modifications to fit with JS ecosystem better.</div>
+            <div class="font-bold">Bob Zhang</div>
+            <div>Maintainer, ReScript.</div>
+          </div>
+        </a>
+
+        <a href="https://www.janestreet.com/" class="swiper-slide p-4 card-hover">
+          <div class="overflow-hidden p-8">
+            <img src="/logos/janestreet.svg" class="mb-8 h-8" />
+            <div class="mb-12">OCaml helps us to quickly adopt to changing market conditions, and go from prototypes to production systems with less effort ... Billions of dollars of transactions flow through our systems every day, so getting it right matters</div>
+            <div class="font-bold">Yaron Minsky</div>
+            <div>CTO, Jane Street.</div>
+          </div>
+        </a>
+
+        <a href="https://ahrefs.com/" class="swiper-slide p-4 card-hover">
+          <div class="overflow-hidden p-8">
+              <img src="/logos/ahrefs.svg" class="mb-10 h-6" alt="" />
+              <div class="mb-12">OCaml as the development environment acts as a very much trusted partner throughout the whole development process. As our requirements evolve we change the implementation a lot, and this is where the language shines. Literally, I am not afraid to change others’ code when OCaml has my back!</div>
+              <div class="font-bold">Oleksiy Golovko</div>
+              <div>Backend Developer, Ahrefs.</div>
+          </div>
+        </a>
+
+        <a href="https://www.marigold.dev" class="swiper-slide p-4 card-hover">
+          <div class="overflow-hidden p-8">
+              <img src="https://uploads-ssl.webflow.com/616ab4741d375d1642c19027/61793ee65c891c190fcaa1d0_Vector(1).png" class="h-8 mb-8" alt="" />
+              <div class="mb-12">Using OCaml as a programming language to write software has many benefits ; for instance, it is able to describe the source code in an easy and understandable manner. The fear of refactoring in the source code can be eased as well. OCaml has a mature and very evolving ecosystem, which is a large, supportive and friendly community.</div>
+              <div class="font-bold">Xavier Van de Woestyne</div>
+              <div>Software engineer, Marigold.</div>
+          </div>
+        </a>
+
+        <a href="https://twitter.com/jack/status/47090747706580992" class="swiper-slide p-4 card-hover">
+          <div class="overflow-hidden p-8">
+              <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/c/c8/Twitter_Bird.svg/1259px-Twitter_Bird.svg.png" class="h-8 mb-8" alt="" />
+              <div class="mb-12">Originally I was going to program twttr in Python, C, & Ocaml. But, I got @florian who was a core contributor to Ruby on Rails.</div>
+              <div class="font-bold">Jack Dorsey</div>
+              <div>Founder, Twitter.</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="py-10 md:py-20 md:pb-32 bg-white">
   <div class="container-fluid">
     <div class="text-center">
-      <h2 class="font-bold mb-6">Industrial Users of OCaml</h2>
+      <h2 class="font-bold mb-6">Other Industrial Users of OCaml</h2>
       <div class="text-body-400">With its strong security features and high performance, several companies rely on OCaml to keep<br /> their data operating both safely and efficiently. On this page, you can get an overview of the<br /> companies in the community and learn more about how they use OCaml.</div>
     </div>
     <div class="grid-logos bg-white mt-20">
@@ -108,98 +212,48 @@ the community and learn more about how they use OCaml." @@
       <% ); %>
     </div>
   </div>
-  <div
-    class="bg-white testimonials py-32"
-    x-data="{swiper: null}"
-    x-init="swiper = new Swiper($refs.container, {loop: false,slidesPerView: 0,spaceBetween: 0,breakpoints: {640: {slidesPerView:1,
-            spaceBetween: 0,},768: {slidesPerView: 2,spaceBetween: 0,},1024: {slidesPerView: 3,
-            spaceBetween: 0,},},})"
-  >
-    <div class="container-fluid overflow-hidden">
-      <div class="flex justify-between items-end lg:space-x-80 mb-0 md:mb-20 md:flex-row flex-col">
-        <div class="text-left">
-          <h2 class="font-bold mb-6">Testimonials</h2>
-          <div class="text-body-400">Adipiscing aenean nunc tincidunt mauris. Nullam donec viverra faucibus et erat sem nulla. Habitasse mattis consequat, ut adipiscing faucibus justo enim risus, dolor. Commodo in nunc, vitae platea lectus augue vitae, egestas.</div>
-        </div>
+</div>
+<div class="bg-pattern lg:py-32 py-24">
+  <div class="container-fluid">
+    <div>
+      <div class="text-center">
+        <h2 class="font-bold text-primary-600 mb-6">Industrial Resources</h2>
+        <div class="text-lg text-white mb-16">Here are some of the resources that may be helpful to you</div>
       </div>
-      <div>
-        <div class="swiper-container" x-ref="container">
-          <div class="swiper-wrapper">
-            <!-- Slides -->
-            <a href="https://rescript-lang.org/" class="swiper-slide p-4 card-hover">
-              <div class="overflow-hidden p-8">
-                <img src="/logos/rescript.svg" class="mb-12" alt="" width="152" height="100%" />
-                <div class="mb-12">Thanks to the OCaml team, obviously, without such a beautiful yet practical language, this project would not exist. The original type system was inherited from it with lots of modifications to fit with JS ecosystem better.</div>
-                <div class="font-bold">Bob Zhang</div>
-                <div>Maintainer, ReScript.</div>
-              </div>
-            </a>
+      <div class="grid lg:grid-cols-3 gap-8 lg:gap-16">
+        <a href="<%s Url.tutorial "up-and-running-with-ocaml" %>" class="resources-card card-hover">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
 
-            <a href="https://www.janestreet.com/" class="swiper-slide p-4 card-hover">
-              <div class="overflow-hidden p-8">
-                <img src="/logos/janestreet.svg" class="mb-12" alt="" width="99" height="100%" />
-                <div class="mb-12">OCaml helps us to quickly adopt to changing market conditions, and go from prototypes to production systems with less effort ... Billions of dollars of transactions flow through our systems every day, so getting it right matters</div>
-                <div class="font-bold">Yaron Minsky</div>
-                <div>CTO, Jane Street.</div>
-              </div>
-            </a>
+          <p class="font-semibold text-xl mb-3">Getting Started</p>
+          <p>Install OCaml, setup your favorite text editor and start your first project.</p>
+        </a>
+        <a href="<%s Url.package_doc "ocaml-base-compiler" "4.13.1" "index.html" %>" class="resources-card card-hover">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+      
+          <p class="font-semibold text-xl mb-3">Standard Library</p>
+          <p>Read the standard library documentation and search its API for functions.</p>
+        </a>
+        <a href="<%s Url.books %>" class="resources-card card-hover">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+            ></path>
+          </svg>
 
-            <a href="https://www.cornell.edu/" class="swiper-slide p-4 card-hover">
-              <div class="overflow-hidden p-8">
-                <img src="/logos/cornell.svg" class="mb-12" alt="" width="47" height="100%" />
-                <div class="mb-12">OCaml is elegant, simple, and graceful. The code you write can be stylish and tasteful.</div>
-                <div class="font-bold">Authors of Cornell CS3110 textbook</div>
-                <div>Cornell University.</div>
-              </div>
-            </a>
-          </div>
-        </div>
+          <p class="font-semibold text-xl mb-3">Books</p>
+          <p>What expert programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.</p>
+        </a>
       </div>
     </div>
   </div>
-  <div class="bg-pattern lg:py-32 py-24">
-    <div class="container-fluid">
-      <div>
-        <div class="text-center">
-          <h2 class="font-bold text-primary-600 mb-6">Industrial Resources</h2>
-          <div class="text-lg text-white mb-16">Here are some of the resources that may be helpful to you</div>
-        </div>
-        <div class="grid lg:grid-cols-3 gap-8 lg:gap-16">
-          <a href="<%s Url.tutorial "up-and-running-with-ocaml" %>" class="resources-card card-hover">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-
-            <p class="font-semibold text-xl mb-3">Getting Started</p>
-            <p>Install OCaml, setup your favorite text editor and start your first project.</p>
-          </a>
-          <a href="<%s Url.package_doc "ocaml-base-compiler" "4.13.1" "index.html" %>" class="resources-card card-hover">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-        
-            <p class="font-semibold text-xl mb-3">Standard Library</p>
-            <p>Read the standard library documentation and search its API for functions.</p>
-          </a>
-          <a href="<%s Url.books %>" class="resources-card card-hover">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-              ></path>
-            </svg>
-
-            <p class="font-semibold text-xl mb-3">Books</p>
-            <p>What expert programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.</p>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  
 </div>
 <script>
   function videoFullWidth() {
