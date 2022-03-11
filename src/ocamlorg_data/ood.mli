@@ -1,11 +1,4 @@
 module Meta : sig
-  module Proficiency : sig
-    type t = [ `Advanced | `Beginner | `Intermediate ]
-
-    val to_string : t -> string
-    val of_string : string -> (t, [> `Msg of string ]) result
-  end
-
   module Archetype : sig
     type t =
       [ `Application_developer
@@ -197,8 +190,7 @@ module Tutorial : sig
     slug : string;
     description : string;
     date : string;
-    tags : string list;
-    users : Meta.Proficiency.t list;
+    category : string;
     body_md : string;
     toc_html : string;
     body_html : string;

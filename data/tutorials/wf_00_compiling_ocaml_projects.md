@@ -1,12 +1,13 @@
 ---
+id: compiling-ocaml-projects
 title: Compiling OCaml Projects
 description: >
   An introduction to the OCaml compiler tools for building OCaml projects as well as the most common build tools
-users:
-  - intermediate
-tags: [ "getting-started" ]
+category: "guides"
 date: 2021-05-27T21:07:30-00:00
 ---
+
+# Compiling OCaml Projects
 
 This tutorial explains how to compile your OCaml programs into executable form.
 It addresses, in turn:

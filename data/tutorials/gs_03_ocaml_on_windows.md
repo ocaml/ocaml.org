@@ -1,17 +1,18 @@
 ---
+id: ocaml-on-windows
 title: OCaml on Windows
 description: >
   Read about the state of OCaml on Windows and our roadmap to improve Windows support.
-users:
-  - beginner
-tags: [ "getting-started" ]
+category: "getting-started"
 date: 2021-05-27T21:07:30-00:00
 ---
+
+# OCaml on Windows
 
 Full support for OCaml on Windows is actively being worked on and a workable
 environment can already be achieved today. A gentle reminder that if you do not
 need Windows binaries, then a more stable option is to use WSL2. This is
-described on the [up and running page](/learn/up-and-running-with-ocaml).
+described on the [up and running page](/docs/up-and-running-with-ocaml).
 
 ## opam-repository-mingw
 

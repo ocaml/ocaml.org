@@ -1,13 +1,13 @@
 ---
-title: Performance and Profiling
+id: profiling
+title: Profiling
 description: >
   Understand how to profile your OCaml code to analyse its performance and produce faster programs
-users:
-  - intermediate
-  - advanced
-tags: [ "advanced" ]
+category: "guides"
 date: 2021-05-27T21:07:30-00:00
 ---
+
+# Profiling
 
 ## Speed
 Why is OCaml fast? Indeed, step back and ask *is OCaml fast?* How can we

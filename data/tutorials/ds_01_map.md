@@ -1,13 +1,13 @@
 ---
+id: map
 title: Map
 description: >
   Create a mapping using the standard library's Map module
-users:
-  - beginner
-  - intermediate
-tags: [ "stdlib" ]
+category: "data-structures"
 date: 2021-05-27T21:07:30-00:00
 ---
+
+# Map
 
 ## Module Map
 

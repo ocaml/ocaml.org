@@ -1,13 +1,13 @@
 ---
+id: streams
 title: Streams
 description: >
   Streams offer an abstraction over consuming items from sequences
-users:
-  - beginner
-  - intermediate
-tags: [ "stdlib" ]
+category: "data-structures"
 date: 2021-05-27T21:07:30-00:00
 ---
+
+# Streams
 
 Suppose you need to process each line of a text file. One way to do this
 is to read the file in as a single large string and use something like
@@ -68,7 +68,7 @@ With this simple function, we can now easily construct line streams from
 any input channel:
 
 ```ocaml
-# let in_channel = open_in "021_streams.md";;
+# let in_channel = open_in "ds_04_streams.md";;
 val in_channel : in_channel = <abstr>
 # let lines = line_stream_of_channel in_channel;;
 val lines : string Stream.t = <abstr>
@@ -81,12 +81,11 @@ can now begin reading lines from it by passing it to `Stream.next`:
 # Stream.next lines;;
 - : string = "---"
 # Stream.next lines;;
+- : string = "id: streams"
+# Stream.next lines;;
 - : string = "title: Streams"
 # Stream.next lines;;
 - : string = "description: >"
-# Stream.next lines;;
-- : string =
-"  Streams offer an abstraction over consuming items from sequences"
 # while true do ignore(Stream.next lines) done;;
 Exception: Stdlib.Stream.Failure.
 ```
@@ -128,7 +127,7 @@ operation for each item. With it, we can rewrite the original example as
 follows:
 
 ```ocaml
-let in_channel = open_in "021_streams.md" in
+let in_channel = open_in "ds_04_streams.md" in
 try
   Stream.iter
     (fun line ->

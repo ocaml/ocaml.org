@@ -10,12 +10,14 @@ let learn _req =
   let books =
     Ood.Book.all |> List.filter (fun (book : Ood.Book.t) -> book.featured)
   in
+  let tutorials = Ood.Tutorial.all in
   let release = List.hd Ood.Release.all in
-  Dream.html (Ocamlorg_frontend.learn ~papers ~books ~release)
+  Dream.html (Ocamlorg_frontend.learn ~papers ~books ~release ~tutorials)
 
 let platform _req =
   let tools = Ood.Tool.all in
-  Dream.html (Ocamlorg_frontend.platform tools)
+  let tutorials = Ood.Tutorial.all in
+  Dream.html (Ocamlorg_frontend.platform ~tutorials tools)
 
 let community _req =
   let workshops = Ood.Workshop.all in
@@ -279,23 +281,18 @@ let papers req =
   Dream.html (Ocamlorg_frontend.papers ?search ~recommended_papers papers)
 
 let tutorial req =
-  let slugify value =
-    value
-    |> Str.global_replace (Str.regexp " ") "-"
-    |> String.lowercase_ascii
-    |> Str.global_replace (Str.regexp "[^a-z0-9\\-]") ""
-  in
   let slug = Dream.param req "id" in
   match
-    List.find_opt
-      (fun x -> slugify x.Ood.Tutorial.title = slug)
-      Ood.Tutorial.all
+    List.find_opt (fun x -> x.Ood.Tutorial.slug = slug) Ood.Tutorial.all
   with
-  | Some tutorial -> Ocamlorg_frontend.tutorial tutorial |> Dream.html
+  | Some tutorial ->
+      let tutorials = Ood.Tutorial.all in
+      Ocamlorg_frontend.tutorial ~tutorials tutorial |> Dream.html
   | None -> not_found req
 
 let best_practices _req =
-  Dream.html (Ocamlorg_frontend.best_practices Ood.Workflow.all)
+  let tutorials = Ood.Tutorial.all in
+  Dream.html (Ocamlorg_frontend.best_practices ~tutorials Ood.Workflow.all)
 
 let problems _req = Dream.html (Ocamlorg_frontend.problems Ood.Problem.all)
 

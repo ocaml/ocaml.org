@@ -1,13 +1,13 @@
 ---
+id: functional-programming
 title: Functional Programming
 description: >
   A guide to functional programming in OCaml
-users:
-  - beginner
-  - intermediate
-tags: [ "language" ]
+category: "language"
 date: 2021-08-06T17:16:00-00:00
 ---
+
+# Functional Programming
 
 ## What is functional programming?
 We've got quite far into the tutorial, yet we haven't really considered
@@ -414,7 +414,7 @@ The function `printit` takes a boxed integer and prints it.
 The diagram below shows an array of unboxed (top) vs. boxed (below)
 integers:
 
-![Boxed Array](/tutorials/boxedarray.png "")
+![Boxed Array](/media/tutorials/boxedarray.png)
 
 No prizes for guessing that the array of unboxed integers is much faster
 than the array of boxed integers. In addition, because there are fewer

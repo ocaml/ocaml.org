@@ -1,12 +1,13 @@
 ---
-title: Comparison of Standard Containers
+id: stdlib-comparison
+title: Comparison of Standard Data Structures
 description: >
   A comparison of some core data-structures including lists, queues and arrays
-users:
-  - intermediate
-tags: [ "language" ]
+category: "data-structures"
 date: 2021-05-27T21:07:30-00:00
 ---
+
+# Comparison of Standard Data Structures
 
 This is a rough comparison of the different container types that are
 provided by the OCaml language or by the OCaml standard library. In each

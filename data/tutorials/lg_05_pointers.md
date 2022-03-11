@@ -1,13 +1,13 @@
 ---
+id : pointers
 title: Pointers in OCaml
 description: >
   Use OCaml's explicit pointers with references
-users:
-  - intermediate
-  - advanced
-tags: [ "language" ]
+category: "language"
 date: 2021-05-27T21:07:30-00:00
 ---
+
+# Pointers
 
 ## Status of pointers in OCaml
 Pointers exist in OCaml, and in fact they spread all over the place.
@@ -310,4 +310,74 @@ val tl : 'a lists -> 'a lists = <fun>
   done;
   !^ !temp.tl <- l2;;
 val append : 'a lists -> 'a lists -> unit = <fun>
+```
+
+## Null pointers
+So you've got a survey on your website which asks your readers for their
+names and ages. Only problem is that for some reason a few of your
+readers don't want to give you their age - they stubbornly refuse to
+fill that field in. What's a poor database administrator to do?
+
+Assume that the age is represented by an `int`, there are two possible
+ways to solve this problem. The most common one (and the most *wrong*
+one) is to assume some sort of "special" value for the age which means
+that the age information wasn't collected. So if, say, age = -1 then the
+data wasn't collected, otherwise the data was collected (even if it's
+not valid!). This method kind of works until you start, for example,
+calculating the mean age of visitors to your website. Since you forgot
+to take into account your special value, you conclude that the mean age
+of visitors is 7½ years old, and you employ web designers to remove all
+the long words and use primary colours everywhere.
+
+The other, correct method is to store the age in a field which has type
+"int or null". Here's a SQL table for storing ages:
+
+```SQL
+create table users
+(
+  userid serial,
+  name text not null,
+  age int             -- may be null
+);
+```
+
+If the age data isn't collected, then it goes into the database as a
+special SQL `NULL` value. SQL ignores this automatically when you ask it
+to compute averages and so on.
+
+Programming languages also support nulls, although they may be easier to
+use in some than in others. In Java, any reference to
+an object can be null, so it might make sense in Java to store the
+age as an `Integer` and allow references to the age to be null. In C
+pointers can, of course, be null, but if you wanted a simple integer to
+be null, you'd have to first box it up into an object allocated by
+`malloc` on the heap.
+
+OCaml has an elegant solution to the problem of nulls, using a simple
+polymorphic variant type defined (in `Stdlib`) as:
+
+```ocaml
+type 'a option = None | Some of 'a
+```
+
+A "null pointer" is written `None`. The type of age in our example above
+(an `int` which can be null) is `int option` (remember: backwards like
+`int list` and `int binary_tree`).
+
+```ocaml
+# Some 3;;
+- : int option = Some 3
+```
+
+What about a list of optional ints?
+
+```ocaml
+# [None; Some 3; Some 6; None];;
+- : int option list/2 = [None; Some 3; Some 6; None]
+```
+And what about an optional list of ints?
+
+```ocaml
+# Some [1; 2; 3];;
+- : int list/2 option = Some [1; 2; 3]
 ```

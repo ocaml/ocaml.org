@@ -1,16 +1,20 @@
 ---
+id: first-hour
 title: A First Hour with OCaml
 description: >
   Discover the OCaml programming language in this longer tutorial that takes you
   from absolute beginner to someone who is able to write programs in OCaml.
-users:
-  - beginner
-tags: [ "getting-started" ]
+category: "getting-started"
 date: 2021-08-06T17:11:00-00:00
 ---
 
+# A First Hour with OCaml
+
+Discover the OCaml programming language in this longer tutorial that takes you
+from absolute beginner to someone who is able to write programs in OCaml.
+
 You may follow along with this tutorial with just a basic OCaml installation,
-as described in [Up and Running](/tutorials/up-and-running-with-ocaml).
+as described in [Up and Running](/docs/up-and-running).
 
 Alternatively, you may follow almost all of it by running OCaml in your browser
 using [TryOCaml](http://try.ocamlpro.com), with no installation required.
@@ -991,12 +995,12 @@ ocamlopt -o main data.mli data.ml main.ml
 ```
 
 Most users of OCaml do not call the compiler directly. They use one of the
-[build systems](/learn/tutorials/compiling_ocaml_projects.html) to manage
+[build systems](/docs/compiling-projects) to manage
 compilation for them.
 
 ## Where next?
 
 This quick tour should have given you a little taste of OCaml and why you might
-like to explore it further. Elsewhere on [ocaml.org](/index.html) there are
-pointers to [books on OCaml](/learn/books.html) and
-[other tutorials](/learn/tutorials/index.html).
+like to explore it further. Elsewhere on [ocaml.org](/) there are
+pointers to [books on OCaml](/books) and
+[other tutorials](/learn).

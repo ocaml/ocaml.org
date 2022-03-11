@@ -1,13 +1,13 @@
 ---
-title: Hashtables
+id: hash-tables
+title: Hash Tables
 description: >
   Discover efficient and mutable lookup tables with OCaml's Hashtbl module
-users:
-  - intermediate
-  - advanced
-tags: [ "stdlib" ]
+category: "data-structures"
 date: 2021-05-27T21:07:30-00:00
 ---
+
+# Hash Tables
 
 ## Module Hashtbl
 

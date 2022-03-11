@@ -1,13 +1,13 @@
 ---
+id: file-manipulation
 title: File Manipulation
 description: >
   A guide to basic file manipulation in OCaml with the standard library
-users:
-  - beginner
-  - intermediate
-tags: [ "common" ]
+category: "tutorials"
 date: 2021-05-27T21:07:30-00:00
 ---
+
+# File Manipulation
 
 This is a guide to basic file manipulation in OCaml using only the
 standard library.

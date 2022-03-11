@@ -1,12 +1,13 @@
 ---
+id: cli-arguments
 title: Command-line Arguments
 description: >
   The Arg module that comes with the compiler can help you write command line interfaces
-users:
-  - intermediate
-tags: [ "common" ]
+category: "tutorials"
 date: 2021-05-27T21:07:30-00:00
 ---
+
+# Command-line Arguments
 
 In this tutorial we learn how to read command line arguments directly, using
 OCaml's `Sys.argv` array, and then how to do so more easily using the standard
