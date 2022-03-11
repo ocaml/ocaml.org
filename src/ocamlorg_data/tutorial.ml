@@ -64,8 +64,11 @@ Then, we install an OCaml compiler and some basic dev tools:
 opam init
 eval `opam env`
 
-# install given version of the compiler
-opam switch create 4.11.1
+# list current versions of ocaml
+opam switch list-available ocaml-base-compiler
+
+# install latest version of the compiler(replace 4.13.1 with whatever the new version is from the above output)
+opam switch create 4.13.1
 eval `opam env`
 
 # install dev tools, hit Enter to confirm at Y/n prompt
@@ -76,10 +79,10 @@ Now, OCaml is up and running:
 
 ```
 $ which ocaml
-/Users/frank/.opam/4.11.1/bin/ocaml
+/Users/frank/.opam/4.13.1/bin/ocaml
 
 $ ocaml -version
-The OCaml toplevel, version 4.11.1
+The OCaml toplevel, version 4.13.1
 ```
 
 **For either Linux or macOS** as an alternative, a binary distribution of opam is
@@ -282,8 +285,11 @@ methods.</a></p>
 opam init
 eval `opam env`
 
-# install given version of the compiler
-opam switch create 4.11.1
+# list current versions of ocaml
+opam switch list-available ocaml-base-compiler
+
+# install latest version of the compiler(replace 4.13.1 with whatever the new version is from the above output)
+opam switch create 4.13.1
 eval `opam env`
 
 # install dev tools, hit Enter to confirm at Y/n prompt
@@ -291,10 +297,10 @@ opam install dune utop ocaml-lsp-server
 </code></pre>
 <p>Now, OCaml is up and running:</p>
 <pre><code>$ which ocaml
-/Users/frank/.opam/4.11.1/bin/ocaml
+/Users/frank/.opam/4.13.1/bin/ocaml
 
 $ ocaml -version
-The OCaml toplevel, version 4.11.1
+The OCaml toplevel, version 4.13.1
 </code></pre>
 <p><strong>For either Linux or macOS</strong> as an alternative, a binary distribution of opam is
 available:</p>

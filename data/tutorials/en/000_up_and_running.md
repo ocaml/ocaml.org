@@ -42,7 +42,7 @@ Then, we install an OCaml compiler and some basic dev tools:
 opam init
 eval `opam env`
 
-# List current versions of ocaml:
+# list current versions of ocaml
 opam switch list-available ocaml-base-compiler
 
 # install latest version of the compiler(replace 4.13.1 with whatever the new version is from the above output)
