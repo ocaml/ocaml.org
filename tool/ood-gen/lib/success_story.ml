@@ -26,8 +26,9 @@ type t = {
   body_html : string;
 }
 
-let all =
-  Utils.map_files (fun content ->
+let all () =
+  Utils.map_files
+    (fun content ->
       let metadata, body = Utils.extract_metadata_body content in
       let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
       {
@@ -41,9 +42,7 @@ let all =
         body_md = body;
         body_html = Omd.of_string body |> Omd.to_html;
       })
-
-let all_en () = all "success_stories/en"
-let all_fr () = all "success_stories/fr"
+    "success_stories"
 
 let pp ppf v =
   Fmt.pf ppf
@@ -79,8 +78,6 @@ type t =
   ; body_html : string
   }
   
-let all_en = %a
-
-let all_fr = %a
+let all = %a
 |}
-    pp_list (all_en ()) pp_list (all_fr ())
+    pp_list (all ())

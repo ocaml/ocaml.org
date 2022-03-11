@@ -1,7 +1,6 @@
 *
 !asset/
 !data/
-!gettext/
 !src/
 !dune
 !dune-project

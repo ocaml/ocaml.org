@@ -7,7 +7,6 @@
   dream-accept
   dream-encoding
   omd
-  gettext
   ood
   timedesc
   mirage-kv-mem))
@@ -31,20 +30,3 @@
   (with-stdout-to
    %{null}
    (run %{bin:ocaml-crunch} -m lwt %{workspace_root}/data/media -o media.ml))))
-
-(rule
- (targets gettext_asset.ml)
- (deps
-  (source_tree %{workspace_root}/gettext/))
- (action
-  (with-stdout-to
-   %{null}
-   (run
-    %{bin:ocaml-crunch}
-    -m
-    plain
-    %{workspace_root}/gettext
-    -e
-    po
-    -o
-    %{targets}))))

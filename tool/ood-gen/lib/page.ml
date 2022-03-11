@@ -38,7 +38,7 @@ let all () =
         body_md = body;
         body_html = Omd.to_html (Hilite.Md.transform omd);
       })
-    "pages/en/*.md"
+    "pages/*.md"
 
 let pp ppf v =
   Fmt.pf ppf

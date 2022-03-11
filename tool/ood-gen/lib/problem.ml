@@ -97,7 +97,7 @@ let all () =
         statement;
         solution;
       })
-    "problems/en/*.md"
+    "problems/*.md"
 
 let pp_proficiency ppf v =
   Fmt.pf ppf "%s"

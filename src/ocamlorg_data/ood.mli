@@ -42,10 +42,8 @@ module Academic_institution : sig
     body_html : string;
   }
 
-  val all_en : t list
-  val all_fr : t list
-  val all : ?lang:[> `English | `French ] -> unit -> t list
-  val get_by_slug : ?lang:[> `English | `French ] -> string -> t option
+  val all : t list
+  val get_by_slug : string -> t option
 end
 
 module Book : sig
@@ -112,10 +110,8 @@ module Industrial_user : sig
     body_html : string;
   }
 
-  val all_en : t list
-  val all_fr : t list
-  val all : ?lang:[> `English | `French ] -> unit -> t list
-  val get_by_slug : ?lang:[> `English | `French ] -> string -> t option
+  val all : t list
+  val get_by_slug : string -> t option
 end
 
 module Packages : sig
@@ -173,10 +169,8 @@ module Success_story : sig
     body_html : string;
   }
 
-  val all_en : t list
-  val all_fr : t list
-  val all : ?lang:[> `English | `French ] -> unit -> t list
-  val get_by_slug : ?lang:[> `English | `French ] -> string -> t option
+  val all : t list
+  val get_by_slug : string -> t option
 end
 
 module Tool : sig
