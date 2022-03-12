@@ -24,17 +24,6 @@
 (using mdx 0.1)
 
 (package
- (name ocamlorg-data)
- (synopsis "OCaml.org data library")
- (description
-  "The ocamlorg-data library defines types for the different data types we store in this repository. It aims to be as platform agnostic as possible, that means just types no dependencies that could prevent someone from using the library.")
- (depends
-  (mdx
-   (and
-    (>= 1.10.0)
-    :with-test))))
-
-(package
  (name ocamlorg)
  (synopsis "Server-side of the next version of the ocaml.org website")
  (description
@@ -43,8 +32,6 @@
   (ocaml
    (>= 4.08.0))
   dune
-  (ocamlorg-data
-   (= :version))
   cohttp
   cohttp-lwt-unix
   bos
@@ -78,10 +65,14 @@
   (js_of_ocaml-toplevel
    (>= 4.0))
   (alcotest :with-test)
+  ; ocamlorg-data
+  (mdx
+   (and
+    :with-test
+    (>= 1.10.0)))
   ; hilite
   (textmate-language :with-test)
   ; river
-  dune
   (syndic
    (>= 1.5))
   (cohttp
@@ -94,14 +85,12 @@
   lwt
   ocamlnet
   ; tools/ood-gen
-  (piaf :with-test)
-  (ppx_deriving_yaml :with-test)
-  (ezjsonm :with-test)
-  (lambdasoup :with-test)
-  (ptime :with-test)
+  piaf
+  ppx_deriving_yaml
+  ezjsonm
+  lambdasoup
+  ptime
   (cmdliner
-   (and
-    :with-test
-    (< 1.1.0)))
-  (xmlm :with-test)
-  (uri :with-test)))
+   (< 1.1.0))
+  xmlm
+  uri))
