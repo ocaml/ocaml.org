@@ -1,8 +1,5 @@
 .DEFAULT_GOAL := all
 
-ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-$(eval $(ARGS):;@:)
-
 .PHONY: all
 all:
 	opam exec -- dune build --root .
@@ -34,7 +31,7 @@ install: all ## Install the packages on the system
 
 .PHONY: start
 start: all ## Run the produced executable
-	opam exec -- dune build @run --force --no-buffer
+	opam exec -- dune exec src/ocamlorg_web/bin/main.exe
 
 .PHONY: test
 test: ## Run the unit tests
