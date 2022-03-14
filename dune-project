@@ -71,7 +71,9 @@
     :with-test
     (>= 1.10.0)))
   ; hilite
-  (textmate-language :with-test)
+  textmate-language
+  omd
+  yojson
   ; river
   (syndic
    (>= 1.5))
