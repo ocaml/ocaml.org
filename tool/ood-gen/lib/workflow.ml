@@ -11,7 +11,7 @@ let all () =
         body_md = body;
         body_html = Omd.of_string body |> Hilite.Md.transform |> Omd.to_html;
       })
-    "workflows/en/*.md"
+    "workflows/*.md"
 
 let pp ppf v =
   Fmt.pf ppf {|

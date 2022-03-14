@@ -71,11 +71,8 @@ module Academic_institution = struct
   include Academic_institution
 
 
-  let all ?(lang = `English) () =
-    match lang with `English -> all_en | `French -> all_fr | _ -> all_en
-
-  let get_by_slug ?lang slug =
-    List.find_opt (fun x -> String.equal slug x.slug) (all ?lang ())
+  let get_by_slug slug =
+    List.find_opt (fun x -> String.equal slug x.slug) (all)
 end
 
 module Book = struct
@@ -97,11 +94,8 @@ end
 module Industrial_user = struct
   include Industrial_user
 
-  let all ?(lang = `English) () =
-    match lang with `English -> all_en | `French -> all_fr | _ -> all_en
-
-  let get_by_slug ?lang slug =
-    List.find_opt (fun x -> String.equal slug x.slug) (all ?lang ())
+  let get_by_slug slug =
+    List.find_opt (fun x -> String.equal slug x.slug) (all)
 end
 
 module Packages = Packages
@@ -125,11 +119,8 @@ end
 module Success_story = struct
   include Success_story
 
-  let all ?(lang = `English) () =
-    match lang with `English -> all_en | `French -> all_fr | _ -> all_en
-
-  let get_by_slug ?lang slug =
-    List.find_opt (fun x -> String.equal slug x.slug) (all ?lang ())
+  let get_by_slug slug =
+    List.find_opt (fun x -> String.equal slug x.slug) (all)
 end
 
 module Tool = struct

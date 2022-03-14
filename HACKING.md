@@ -84,13 +84,7 @@ The following snippet describes the repository structure.
 ├── data/
 |   Data used by ocaml.org in Yaml and Markdown format.
 │
-├── gettext/
-|   `.PO` files for static content translation. Not currently being used.
-│
 ├── src
-│   ├── gettext
-|   |   The source code for translations.
-|   |
 │   ├── hilite
 |   |   A small library we use to do OCaml code highlighting at build time.
 |   |

@@ -18,7 +18,7 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let path = Fpath.v "data/academic_institutions/en"
+let path = Fpath.v "data/academic_institutions"
 
 let parse content =
   let metadata, _ = Utils.extract_metadata_body content in
@@ -36,7 +36,7 @@ type t = {
   body_html : string;
 }
 
-let all path =
+let all () =
   Utils.map_files
     (fun content ->
       let metadata, body = Utils.extract_metadata_body content in
@@ -52,10 +52,7 @@ let all path =
         body_md = body;
         body_html = Omd.of_string body |> Omd.to_html;
       })
-    path
-
-let all_en () = all "academic_institutions/en"
-let all_fr () = all "academic_institutions/fr"
+    "academic_institutions"
 
 let pp_course ppf (v : course) =
   Fmt.pf ppf {|
@@ -118,8 +115,6 @@ type t =
   ; body_html : string
   }
 
-let all_en = %a
-
-let all_fr = %a
+let all = %a
 |}
-    pp_list (all_en ()) pp_list (all_fr ())
+    pp_list (all ())

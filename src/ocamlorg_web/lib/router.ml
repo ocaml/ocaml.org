@@ -45,11 +45,7 @@ let toplevel_loader =
 
 let page_routes =
   Dream.scope ""
-    [
-      Middleware.set_locale;
-      Dream_encoding.compress;
-      Middleware.no_trailing_slash;
-    ]
+    [ Dream_encoding.compress; Middleware.no_trailing_slash ]
     [
       Dream.get Url.index Handler.index;
       Dream.get Url.learn Handler.learn;
@@ -79,11 +75,7 @@ let page_routes =
 
 let package_route t =
   Dream.scope ""
-    [
-      Middleware.set_locale;
-      Dream_encoding.compress;
-      Middleware.no_trailing_slash;
-    ]
+    [ Dream_encoding.compress; Middleware.no_trailing_slash ]
     [
       Dream.get Url.packages (Handler.packages t);
       Dream.get Url.packages_search (Handler.packages_search t);

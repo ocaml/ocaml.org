@@ -23,7 +23,7 @@ let community _req =
   Dream.html (Ocamlorg_frontend.community ~workshops ~meetups)
 
 let success_stories _req =
-  let stories = Ood.Success_story.all () in
+  let stories = Ood.Success_story.all in
   Dream.html (Ocamlorg_frontend.success_stories stories)
 
 let success_story req =
@@ -35,7 +35,7 @@ let success_story req =
 
 let industrial_users _req =
   let users =
-    Ood.Industrial_user.all ()
+    Ood.Industrial_user.all
     |> List.filter (fun (item : Ood.Industrial_user.t) -> item.featured)
   in
   Dream.html (Ocamlorg_frontend.industrial_users users)
@@ -59,8 +59,8 @@ let academic_users req =
   in
   let users =
     match Dream.query req "q" with
-    | None -> Ood.Academic_institution.all ()
-    | Some search -> search_user search (Ood.Academic_institution.all ())
+    | None -> Ood.Academic_institution.all
+    | Some search -> search_user search Ood.Academic_institution.all
   in
   Dream.html (Ocamlorg_frontend.academic_users users)
 
