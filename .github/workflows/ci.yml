@@ -39,7 +39,7 @@ jobs:
           dune-cache: ${{ matrix.os != 'macos-latest' }}
 
       - name: Install system dependencies (Linux)
-        run: sudo apt-get install libev-dev onigurama
+        run: sudo apt-get install libev-dev libonig-dev
         if: runner.os == 'Linux'
 
       - name: Install system dependencies (macOS)
@@ -77,7 +77,7 @@ jobs:
           dune-cache: true
 
       - name: Install system dependencies (Linux)
-        run: sudo apt-get install libev-dev onigurama
+        run: sudo apt-get install libev-dev libonig-dev
         if: runner.os == 'Linux'
 
       - name: Install system dependencies (macOS)

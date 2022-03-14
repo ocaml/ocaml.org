@@ -1,7 +1,7 @@
 FROM ocaml/opam:alpine-3.13-ocaml-4.13 as build
 
 # Install system dependencies
-RUN sudo apk update && sudo apk add --update libev-dev openssl-dev gmp-dev nodejs npm onigurama
+RUN sudo apk update && sudo apk add --update libev-dev openssl-dev gmp-dev nodejs npm oniguruma-dev
 
 RUN cd ~/opam-repository && git pull origin master && git reset --hard a20d83154c86b62f43034d38cfec41a9cc7cd2c4 && opam update
 
