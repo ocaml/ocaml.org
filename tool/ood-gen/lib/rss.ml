@@ -32,7 +32,7 @@ let feeds () =
 let scrape () =
   let feeds = feeds () in
   feeds
-  |> List.map (fun (feed : River.feed) ->
+  |> List.iter (fun (feed : River.feed) ->
          River.posts [ feed ]
          |> List.iter (fun (post : River.post) ->
                 let title = River.title post in
