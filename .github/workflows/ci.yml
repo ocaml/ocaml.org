@@ -33,10 +33,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Use OCaml ${{ matrix.ocaml-compiler }}
-        # Replace with official action when opam.2.1.0 is supported
-        # See https://github.com/ocaml/setup-ocaml/pull/184
-        # uses: ocaml/setup-ocaml@v2
-        uses: tmattio/setup-ocaml@skip-opam-depext
+        uses: ocaml/setup-ocaml@v2
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
           dune-cache: ${{ matrix.os != 'macos-latest' }}
@@ -94,7 +91,7 @@ jobs:
         if: runner.os == 'macOS'
 
       - name: Install ocamlformat
-        run: opam install ocamlformat.0.20.1
+        run: opam install ocamlformat.0.21.0
 
       - name: Install opam dependencies
         run: opam install --deps-only .

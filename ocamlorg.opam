@@ -60,7 +60,7 @@ depends: [
   "ezjsonm"
   "lambdasoup"
   "ptime"
-  "cmdliner" {< "1.1.0"}
+  "cmdliner" {>= "1.1.0"}
   "xmlm"
   "uri"
   "odoc" {with-doc}

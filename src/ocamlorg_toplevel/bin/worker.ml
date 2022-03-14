@@ -79,7 +79,6 @@ let stderr_buff = Buffer.create 100
 (* RPC function implementations *)
 
 module M = Idl.IdM (* Server is synchronous *)
-
 module IdlM = Idl.Make (M)
 module Server = Toplevel_api.Make (IdlM.GenServer ())
 

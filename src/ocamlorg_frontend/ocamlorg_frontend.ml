@@ -10,7 +10,10 @@ let books books = Books.render books
 let community ~workshops ~meetups = Community.render ~workshops ~meetups
 let workshop ~videos workshop = Workshop.render ~videos workshop
 let home () = Home.render ()
-let industrial_users ~users ~success_stories = Industrial_users.render ~users ~success_stories
+
+let industrial_users ~users ~success_stories =
+  Industrial_users.render ~users ~success_stories
+
 let learn ~papers ~release ~books = Learn.render ~papers ~release ~books
 let platform tools = Platform.render tools
 

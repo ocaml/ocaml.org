@@ -25,16 +25,13 @@ let term_templates =
   ]
 
 let cmds =
-  List.map
-    (fun (term, template) ->
-      ( Term.(const (fun () -> print_endline (template ())) $ const ()),
-        Term.info term ))
-    term_templates
-
-let default_cmd =
-  ( Term.(ret (const (fun _ -> `Help (`Pager, None)) $ const ())),
-    Term.info "ood_gen" )
+  Cmd.group (Cmd.info "dune-release" ~version:"%%VERSION%%")
+  @@ List.map
+       (fun (term, template) ->
+         Cmd.v (Cmd.info term)
+           Term.(const (fun () -> print_endline (template ())) $ const ()))
+       term_templates
 
 let () =
   Printexc.record_backtrace true;
-  Term.(exit @@ eval_choice default_cmd cmds)
+  exit (Cmd.eval cmds)
