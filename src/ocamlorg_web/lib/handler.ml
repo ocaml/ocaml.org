@@ -34,7 +34,7 @@ let industrial_users _req =
     Ood.Industrial_user.all
     |> List.filter (fun (item : Ood.Industrial_user.t) -> item.featured)
   in
-  let success_stories = Ood.Success_story.all () in
+  let success_stories = Ood.Success_story.all in
   Dream.html (Ocamlorg_frontend.industrial_users ~users ~success_stories)
 
 let academic_users req =
