@@ -91,6 +91,6 @@
   lambdasoup
   ptime
   (cmdliner
-   (< 1.1.0))
+   (>= 1.1.0))
   xmlm
   uri))
