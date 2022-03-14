@@ -2,10 +2,8 @@
 !asset/
 !data/
 !src/
+!tool/
 !dune
 !dune-project
 !ocamlorg.opam
-!postcss.config.js
-!package.json
-!package-lock.json
 !tailwind.config.js
