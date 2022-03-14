@@ -6,7 +6,7 @@ watch:
   embed_path: /videos/embed/e1ee0fc0-50ef-4a1c-894a-17df181424cb
   thumbnail_path: /static/thumbnails/94ead657-79a0-4c10-8435-9e13906a6c44.jpg
   published_at: 2021-08-27T13:23:10.199Z
-  updated_at: 2022-02-07T09:01:00.081Z
+  updated_at: 2022-03-09T13:01:00.089Z
   language: English
   category: Science & Technology
 - name: A Case for Multi-Switch Constraints in OPAM
@@ -101,7 +101,7 @@ watch:
   embed_path: /videos/embed/629b89a8-bbd5-490d-98b0-d0c740912b02
   thumbnail_path: /static/thumbnails/41212c84-36d6-44fa-b884-2ced79505929.jpg
   published_at: 2021-08-27T10:18:38.000Z
-  updated_at: 2022-01-21T20:01:00.099Z
+  updated_at: 2022-02-25T16:01:00.106Z
   language: English
   category: Science & Technology
 - name: An LLVM backend for OCaml
@@ -133,7 +133,7 @@ watch:
   embed_path: /videos/embed/8f50211a-1210-4849-a940-ea6e0bd1e022
   thumbnail_path: /static/thumbnails/6850a57a-15c1-4f8c-8cdb-b0a818f0bcc4.jpg
   published_at: 2021-10-03T22:25:11.006Z
-  updated_at: 2021-10-03T22:25:11.006Z
+  updated_at: 2022-03-04T21:01:00.074Z
   language: English
   category: Misc
 - name: Automatic analysis of industrial robot programs
@@ -258,7 +258,7 @@ watch:
   embed_path: /videos/embed/74ece0a8-380f-4e2a-bef5-c6bb9092be89
   thumbnail_path: /static/thumbnails/d48bf7bb-8c46-4d49-a3a6-734bf339343b.jpg
   published_at: 2021-08-27T14:41:07.000Z
-  updated_at: 2022-02-07T15:01:00.079Z
+  updated_at: 2022-03-11T14:01:00.053Z
   language: English
   category: Science & Technology
 - name: Experiments in Generic Programming
@@ -340,7 +340,7 @@ watch:
   embed_path: /videos/embed/9fa54aee-6b2f-492f-abbe-51affc07ec24
   thumbnail_path: /static/thumbnails/0522b690-1b00-4c83-b30a-9d7437b953f9.jpg
   published_at: 2021-10-02T02:52:41.884Z
-  updated_at: 2021-10-02T02:52:41.895Z
+  updated_at: 2022-02-09T11:01:00.069Z
   language: English
   category: Misc
 - name: Inline Assembly in OCaml
@@ -355,7 +355,7 @@ watch:
   embed_path: /videos/embed/632f520f-8f83-4b6f-89f1-5cde088436c7
   thumbnail_path: /static/thumbnails/5d2f65d1-6129-4206-832b-c3d4bab410df.jpg
   published_at: 2015-09-18T00:00:00.000Z
-  updated_at: 2022-02-04T21:01:00.065Z
+  updated_at: 2022-02-12T04:01:00.276Z
   language: English
   category: Science & Technology
 - name: Introduction to 0install
@@ -377,7 +377,7 @@ watch:
   embed_path: /videos/embed/53e497b0-898f-4c85-8da9-39f65ef0e0b1
   thumbnail_path: /static/thumbnails/138e7c05-185b-4e54-95d0-d15018905a39.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2021-10-05T10:02:00.074Z
+  updated_at: 2022-02-12T03:01:00.075Z
   language: Unknown
   category: Misc
 - name: Irminsule - a branch-consistent distributed library database
@@ -402,7 +402,7 @@ watch:
   embed_path: /videos/embed/ea643e64-2393-4c24-9ccf-7216e3ded2ce
   thumbnail_path: /static/thumbnails/c1911047-e6b0-4673-b0ed-8716533cd601.jpg
   published_at: 2021-10-09T00:16:14.033Z
-  updated_at: 2022-01-25T22:01:00.064Z
+  updated_at: 2022-02-28T21:01:00.112Z
   language: English
   category: Misc
 - name: Leveraging Formal Specifications to Generate Fuzzing Suites
@@ -424,7 +424,7 @@ watch:
   embed_path: /videos/embed/cc7e3242-0bef-448a-aa13-8827bba933e3
   thumbnail_path: /static/thumbnails/1d43d8b4-87d1-4398-b925-10a42460b8dc.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2021-12-29T15:02:00.116Z
+  updated_at: 2022-02-22T17:01:00.054Z
   language: Unknown
   category: Science & Technology
 - name: LibreS3 - design, challenges, and steps toward reusable libraries
@@ -486,7 +486,7 @@ watch:
   embed_path: /videos/embed/7446ad4d-4ae2-4e1a-bc38-af8f71e8ebd8
   thumbnail_path: /static/thumbnails/e1ac5b07-3648-40c1-b62c-5e88471741dc.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2021-09-24T16:02:00.077Z
+  updated_at: 2022-02-12T03:01:00.263Z
   language: Unknown
   category: Misc
 - name: 'OCaml and Python: Getting the Best of Both Worlds'
@@ -508,7 +508,7 @@ watch:
   embed_path: /videos/embed/0fee79e8-715a-400b-bfcc-34c3610f4890
   thumbnail_path: /static/thumbnails/596f39a9-8654-4922-8bec-6e7ac5dcc319.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2022-02-07T11:01:00.064Z
+  updated_at: 2022-02-11T17:01:00.074Z
   language: English
   category: Misc
 - name: 'OCaml-CI : A Zero-Configuration CI'
@@ -551,7 +551,7 @@ watch:
   embed_path: /videos/embed/dbf5a276-460c-45f4-b488-924cec7db3aa
   thumbnail_path: /static/thumbnails/b00f092f-2b96-4623-b55b-ed5e505f4d76.jpg
   published_at: 2021-10-03T22:34:20.640Z
-  updated_at: 2021-10-03T22:34:20.640Z
+  updated_at: 2022-02-28T21:01:00.048Z
   language: English
   category: Misc
 - name: OPAM - an OCaml Package Manager
@@ -619,7 +619,7 @@ watch:
   embed_path: /videos/embed/ce20839e-4bfc-4d74-925b-485a6b052ddf
   thumbnail_path: /static/thumbnails/30bc6019-ecab-40e5-a7b6-c294ac9a7344.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2022-01-28T15:01:00.065Z
+  updated_at: 2022-02-22T14:01:00.074Z
   language: Unknown
   category: Misc
 - name: Persistent Networking with Irmin and MirageOS
@@ -648,7 +648,7 @@ watch:
   embed_path: /videos/embed/bc297e85-82dd-4baf-8556-4a3a934978f9
   thumbnail_path: /static/thumbnails/9b4dc06e-1d07-45b8-a21a-1e4f39897fef.jpg
   published_at: 2021-08-27T11:08:12.000Z
-  updated_at: 2022-01-21T16:01:00.076Z
+  updated_at: 2022-02-27T00:01:00.074Z
   language: English
   category: Science & Technology
 - name: Programming the Xen cloud using OCaml
@@ -748,7 +748,7 @@ watch:
   embed_path: /videos/embed/0e2070fd-798b-47f7-8e69-ef75e967e516
   thumbnail_path: /static/thumbnails/4fd6a51f-686c-4f6f-8026-83692304b432.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2021-12-23T08:02:00.097Z
+  updated_at: 2022-02-24T21:01:00.066Z
   language: English
   category: Science & Technology
 - name: Study of OCaml programs' memory behaviour
@@ -836,7 +836,7 @@ watch:
   embed_path: /videos/embed/c386fc95-092e-4ea7-9317-91edf287fea6
   thumbnail_path: /static/thumbnails/9f922a48-9902-4f08-b4f7-8b6437cf47e7.jpg
   published_at: 2021-10-09T00:00:01.325Z
-  updated_at: 2021-11-17T00:02:00.235Z
+  updated_at: 2022-02-28T22:01:00.071Z
   language: English
   category: Misc
 - name: The State of the OCaml Platform
@@ -863,7 +863,7 @@ watch:
   embed_path: /videos/embed/2acebff9-25fa-4733-83cc-620a65b12251
   thumbnail_path: /static/thumbnails/c877a501-c705-44f7-8826-e7ce846a5e42.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2021-11-01T14:02:00.085Z
+  updated_at: 2022-03-08T08:01:00.092Z
   language: English
   category: Misc
 - name: Towards A Debugger for Native Code OCaml
