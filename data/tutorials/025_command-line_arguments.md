@@ -79,9 +79,7 @@ read.
 <!-- $MDX file=examples/append.ml,part=1 -->
 ```ocaml
 let verbose = ref false
-
 let input_files = ref []
-
 let output_file = ref ""
 ```
 
@@ -106,8 +104,9 @@ string.
 <!-- $MDX file=examples/append.ml,part=3 -->
 ```ocaml
 let speclist =
-  [ "-verbose", Arg.Set verbose, "Output debug information"
-  ; "-o", Arg.Set_string output_file, "Set output file name"
+  [
+    ("-verbose", Arg.Set verbose, "Output debug information");
+    ("-o", Arg.Set_string output_file, "Set output file name");
   ]
 ```
 
