@@ -9,7 +9,7 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let path = Fpath.v "data/tutorials/en"
+let path = Fpath.v "data/tutorials/"
 
 let parse content =
   let metadata, _ = Utils.extract_metadata_body content in

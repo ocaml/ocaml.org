@@ -30,7 +30,7 @@ jobs:
           dune-cache: ${{ matrix.os != 'macos-latest' }}
 
       - name: Install system dependencies (Linux)
-        run: sudo apt-get install libev-dev
+        run: sudo apt-get install libev-dev onigurama
 
       - name: Install opam dependencies
         run: opam install --deps-only --with-test .
