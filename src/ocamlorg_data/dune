@@ -1,12 +1,10 @@
 (library
  (name ood)
- (public_name ocamlorg-data))
+ (public_name ocamlorg.data))
 
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
  (targets academic_institution.ml)
- (mode
-  (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}
@@ -15,8 +13,6 @@
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
  (targets book.ml)
- (mode
-  (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}
@@ -25,8 +21,6 @@
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
  (targets job.ml)
- (mode
-  (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}
@@ -35,8 +29,6 @@
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
  (targets meetup.ml)
- (mode
-  (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}
@@ -45,8 +37,6 @@
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
  (targets industrial_user.ml)
- (mode
-  (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}
@@ -55,8 +45,6 @@
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
  (targets paper.ml)
- (mode
-  (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}
@@ -65,8 +53,6 @@
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
  (targets problem.ml)
- (mode
-  (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}
@@ -75,8 +61,6 @@
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
  (targets release.ml)
- (mode
-  (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}
@@ -85,8 +69,6 @@
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
  (targets success_story.ml)
- (mode
-  (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}
@@ -95,8 +77,6 @@
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
  (targets tool.ml)
- (mode
-  (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}
@@ -105,8 +85,6 @@
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
  (targets tutorial.ml)
- (mode
-  (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}
@@ -115,8 +93,6 @@
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
  (targets video.ml)
- (mode
-  (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}
@@ -125,8 +101,6 @@
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
  (targets watch.ml)
- (mode
-  (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}
@@ -135,8 +109,6 @@
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
  (targets rss.ml)
- (mode
-  (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}
@@ -145,8 +117,6 @@
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
  (targets opam_user.ml)
- (mode
-  (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}
@@ -155,8 +125,6 @@
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
  (targets workshop.ml)
- (mode
-  (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}
@@ -165,8 +133,6 @@
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
  (targets workflow.ml)
- (mode
-  (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}
@@ -175,8 +141,6 @@
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
  (targets news.ml)
- (mode
-  (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}
@@ -185,8 +149,6 @@
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
  (targets packages.ml)
- (mode
-  (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}
@@ -195,8 +157,6 @@
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
  (targets page.ml)
- (mode
-  (promote (until-clean)))
  (action
   (with-stdout-to
    %{targets}

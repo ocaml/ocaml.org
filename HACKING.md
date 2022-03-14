@@ -111,7 +111,6 @@ The following snippet describes the repository structure.
 |   Dune file used to mark the root of the project and define project-wide parameters.
 |   For the documentation of the syntax, see https://dune.readthedocs.io/en/stable/dune-files.html#dune-project.
 │
-├── ocamlorg-data.opam
 ├── ocamlorg.opam
 ├── ocamlorg.opam.template
 │   opam package definitions.

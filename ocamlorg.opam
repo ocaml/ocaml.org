@@ -20,7 +20,6 @@ bug-reports: "https://github.com/ocaml/v3.ocaml.org-server/issues"
 depends: [
   "ocaml" {>= "4.08.0"}
   "dune" {>= "2.8"}
-  "ocamlorg-data" {= version}
   "cohttp"
   "cohttp-lwt-unix"
   "bos"
@@ -47,8 +46,8 @@ depends: [
   "js_of_ocaml-tyxml" {>= "4.0"}
   "js_of_ocaml-toplevel" {>= "4.0"}
   "alcotest" {with-test}
+  "mdx" {with-test & >= "1.10.0"}
   "textmate-language" {with-test}
-  "dune"
   "syndic" {>= "1.5"}
   "cohttp" {>= "5.0.0"}
   "cohttp-lwt" {>= "5.0.0"}
@@ -56,14 +55,14 @@ depends: [
   "ptime"
   "lwt"
   "ocamlnet"
-  "piaf" {with-test}
-  "ppx_deriving_yaml" {with-test}
-  "ezjsonm" {with-test}
-  "lambdasoup" {with-test}
-  "ptime" {with-test}
-  "cmdliner" {with-test & < "1.1.0"}
-  "xmlm" {with-test}
-  "uri" {with-test}
+  "piaf"
+  "ppx_deriving_yaml"
+  "ezjsonm"
+  "lambdasoup"
+  "ptime"
+  "cmdliner" {< "1.1.0"}
+  "xmlm"
+  "uri"
   "odoc" {with-doc}
 ]
 dev-repo: "git+https://github.com/ocaml/v3.ocaml.org-server.git"

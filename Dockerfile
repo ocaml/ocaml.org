@@ -8,7 +8,6 @@ RUN cd ~/opam-repository && git pull origin master && git reset --hard a20d83154
 WORKDIR /home/opam
 
 # Install Opam dependencies
-ADD ocamlorg-data.opam ocamlorg-data.opam
 ADD ocamlorg.opam ocamlorg.opam
 RUN opam install . --deps-only
 
