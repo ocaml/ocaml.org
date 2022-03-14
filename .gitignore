@@ -13,6 +13,3 @@ _build/
 
 # Local OPAM switch
 _opam/
-
-# Normal npm stuff
-node_modules/

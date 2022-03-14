@@ -2,6 +2,7 @@
 let render
 ?use_swiper
 ?current_tutorial
+?styles
 ~title
 ~description
 inner =
@@ -18,6 +19,7 @@ let render_tutorial name id =
 in
 Layout.render
 ?use_swiper
+?styles
 ~wide:true
 ~title
 ~description @@

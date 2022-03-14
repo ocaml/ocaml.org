@@ -45,8 +45,8 @@
 }
 
 #toplevel-container .sharp .id {
-  color: #59B65C;
-  font-style: italic
+  color: #59b65c;
+  font-style: italic;
 }
 
 #toplevel-container .sharp .kw0 {
@@ -65,12 +65,12 @@
 }
 
 #toplevel-container .sharp .kw3 {
-  color: #59B65C;
+  color: #59b65c;
   font-weight: bold;
 }
 
 #toplevel-container .sharp .kw4 {
-  color: #59B65C;
+  color: #59b65c;
   font-weight: bold;
 }
 
@@ -80,17 +80,17 @@
 }
 
 #toplevel-container .sharp .string {
-  color: #6B6B6B;
+  color: #6b6b6b;
   font-weight: bold;
 }
 
 #toplevel-container .sharp .numeric {
-  color: #729AAF;
+  color: #729aaf;
 }
 
 #toplevel-container .sharp .directive {
   font-style: italic;
-  color: #EB00FF;
+  color: #eb00ff;
 }
 
 #toplevel-container .sharp .escape {

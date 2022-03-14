@@ -49,9 +49,6 @@ jobs:
       - name: Install opam dependencies
         run: opam install --deps-only --with-test .
 
-      - name: Install NPM dependencies
-        run: npm ci
-
       - name: Build project
         run: opam exec -- dune build @install --ignore-promoted-rules
 
