@@ -3,14 +3,12 @@ open Cmdliner
 let term_scrapers = [ ("rss", Ood_gen.Rss.scrape) ]
 
 let cmds =
-  List.map
-    (fun (term, scraper) -> (Term.(const scraper $ const ()), Term.info term))
-    term_scrapers
-
-let default_cmd =
-  ( Term.(ret (const (fun _ -> `Help (`Pager, None)) $ const ())),
-    Term.info "ood_scrape" )
+  Cmd.group (Cmd.info "ood-scrape")
+  @@ List.map
+       (fun (term, scraper) ->
+         Cmd.v (Cmd.info term) Term.(const scraper $ const ()))
+       term_scrapers
 
 let () =
   Printexc.record_backtrace true;
-  Term.(exit @@ eval_choice default_cmd cmds)
+  exit (Cmd.eval cmds)

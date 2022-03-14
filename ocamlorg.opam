@@ -47,7 +47,9 @@ depends: [
   "js_of_ocaml-toplevel" {>= "4.0"}
   "alcotest" {with-test}
   "mdx" {with-test & >= "1.10.0"}
-  "textmate-language" {with-test}
+  "textmate-language"
+  "omd"
+  "yojson"
   "syndic" {>= "1.5"}
   "cohttp" {>= "5.0.0"}
   "cohttp-lwt" {>= "5.0.0"}
