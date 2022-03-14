@@ -235,7 +235,6 @@ inner =
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 lg:gap-y-0">
           <ul>
             <li class="text-lg font-semibold pb-3">About us</li>
-            <li class="py-3"><a href="<%s Url.success_stories %>">Success Stories</a></li>
             <li class="py-3"><a href="<%s Url.industrial_users %>">Industrial Users</a></li>
             <li class="py-3"><a href="<%s Url.academic_users %>">Academic Users</a></li>
             <li class="py-3"><a href="<%s Url.about %>">Why OCaml</a></li>
