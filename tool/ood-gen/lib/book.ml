@@ -14,7 +14,7 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let path = Fpath.v "data/books/en"
+let path = Fpath.v "data/books/"
 
 let parse content =
   let metadata, _ = Utils.extract_metadata_body content in
@@ -44,7 +44,7 @@ let all () =
         body_md = String.trim body;
         body_html = Omd.of_string body |> Omd.to_html;
       })
-    "books/en"
+    "books/"
 
 let pp_link ppf (v : link) =
   Fmt.pf ppf

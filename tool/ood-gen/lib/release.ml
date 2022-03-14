@@ -15,7 +15,7 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let path = Fpath.v "data/releases/en"
+let path = Fpath.v "data/releases/"
 
 let parse content =
   let metadata, _ = Utils.extract_metadata_body content in
@@ -54,7 +54,7 @@ let all () =
         body_md = body;
         body_html = Omd.of_string body |> Hilite.Md.transform |> Omd.to_html;
       })
-    "releases/en"
+    "releases/"
   |> List.sort (fun a b -> String.compare a.date b.date)
   |> List.rev
 
