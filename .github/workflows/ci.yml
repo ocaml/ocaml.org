@@ -91,7 +91,7 @@ jobs:
         if: runner.os == 'macOS'
 
       - name: Install ocamlformat
-        run: opam install ocamlformat.0.20.1
+        run: opam install ocamlformat.0.21.0
 
       - name: Install opam dependencies
         run: opam install --deps-only .
