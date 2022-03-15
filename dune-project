@@ -64,6 +64,7 @@
    (>= 4.0))
   (js_of_ocaml-toplevel
    (>= 4.0))
+  tailwindcss
   (alcotest :with-test)
   ; ocamlorg-data
   (mdx

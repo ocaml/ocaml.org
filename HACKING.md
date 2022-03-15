@@ -11,9 +11,7 @@ git clone https://github.com/<username>/v3.ocaml.org-server.git
 cd v3.ocaml.org-server
 ```
 
-For the smoothest setup experience make sure you have some version of `npm` and `node` installed. The best way to do this is probably to [use nvm](https://github.com/nvm-sh/nvm/blob/master/README.md#install--update-script). You might have to source your `~/.bashrc` after installation of `nvm` then you can run something like `nvm install 16`. We use `node` and `npm` to have tailwind css.
-
-After this ensure you have `opam` installed. Opam will manage the OCaml compiler along with all of the OCaml packages needed to build and run the project. By this point we should all be using some Unix-like system (Linux, macOS, WSL2) so you should [run the opam install script](https://opam.ocaml.org/doc/Install.html#Binary-distribution). There are also manual instructions for people that don't want to run a script from the internet. We assume you are using `opam.2.1.0` or later which provides a cleaner, friendlier experience when installing system dependencies.
+Ensure you have `opam` installed. Opam will manage the OCaml compiler along with all of the OCaml packages needed to build and run the project. By this point we should all be using some Unix-like system (Linux, macOS, WSL2) so you should [run the opam install script](https://opam.ocaml.org/doc/Install.html#Binary-distribution). There are also manual instructions for people that don't want to run a script from the internet. We assume you are using `opam.2.1.0` or later which provides a cleaner, friendlier experience when installing system dependencies.
 
 With opam installed you can now initialise opam with `opam init`. Note in containers or WSL2 you will have to run `opam init --disable-sandboxing`. Opam might complain about some missing system dependencies like `unzip`, `cc` (a C compiler like `gcc`) etc. Make sure to install these before `opam init`.
 
@@ -114,10 +112,6 @@ The following snippet describes the repository structure.
 ├── ocamlorg.opam
 ├── ocamlorg.opam.template
 │   opam package definitions.
-│
-├── package-lock.json
-├── package.json
-|   Package file for NPM packages. This is used to defined the JavaScript dependencies of the project.
 │
 ├── CHANGES.md
 │

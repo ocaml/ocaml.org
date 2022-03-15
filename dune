@@ -1,17 +1,11 @@
 (subdir
- asset/
+ asset/css/
  (rule
   (target main.css)
   (deps
-   (:data ../tailwind.config.js ../postcss.config.js)
-   (source_tree ../node_modules)
-   (source_tree ../src/ocamlorg_frontend))
+   (:data %{workspace_root}/tailwind.config.js)
+   (source_tree %{workspace_root}/src/ocamlorg_frontend))
   (action
    (chdir
     %{workspace_root}
-    (run
-     node
-     node_modules/postcss-cli/index.js
-     src/ocamlorg_frontend/css/styles.css
-     -o
-     %{target})))))
+    (run tailwindcss -i src/ocamlorg_frontend/css/styles.css -o %{target})))))

@@ -1,7 +1,7 @@
 FROM ocaml/opam:alpine-3.13-ocaml-4.13 as build
 
 # Install system dependencies
-RUN sudo apk update && sudo apk add --update libev-dev openssl-dev gmp-dev nodejs npm oniguruma-dev
+RUN sudo apk update && sudo apk add --update libev-dev openssl-dev gmp-dev oniguruma-dev
 
 RUN cd ~/opam-repository && git pull origin master && git reset --hard a20d83154c86b62f43034d38cfec41a9cc7cd2c4 && opam update
 
@@ -10,11 +10,6 @@ WORKDIR /home/opam
 # Install Opam dependencies
 ADD ocamlorg.opam ocamlorg.opam
 RUN opam install . --deps-only
-
-# Install NPM dependencies
-ADD package.json package.json
-ADD package-lock.json package-lock.json
-RUN npm ci
 
 # Build project
 COPY --chown=opam:opam . .

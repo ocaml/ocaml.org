@@ -14,7 +14,7 @@
 (rule
  (targets asset.ml asset.mli)
  (deps
-  %{workspace_root}/asset/main.css
+  %{workspace_root}/asset/css/main.css
   (source_tree %{workspace_root}/asset)
   (source_tree %{workspace_root}/src/ocamlorg_frontend))
  (action

@@ -2,6 +2,7 @@ let render
 ?(use_swiper=false)
 ?(wide=false)
 ?description
+?styles
 ~title
 inner =
 <!DOCTYPE html>
@@ -28,7 +29,11 @@ inner =
   <meta name=”robots” content="noindex, nofollow">
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="manifest" href="/manifest.json">
-  <link rel="stylesheet" href="/main.css" />
+  <% (match styles with | Some styles -> styles |> List.iter (fun style -> %>
+  <link rel="stylesheet" href="<%s style %>" />
+  <% ) | None -> %>
+  <link rel="stylesheet" href="/css/main.css" />
+  <% ); %>
   <link rel="stylesheet" href="/vendors/font-files/inter.css" />
   <script defer src="/vendors/alpine.min.js"></script>
   <% if use_swiper then ( %>

@@ -5,7 +5,8 @@ div.odoc {
   position: relative;
 }
 
-div.odoc div.spec, div.odoc-include .spec {
+div.odoc div.spec,
+div.odoc-include .spec {
   border-left-width: 4px;
   border-color: rgba(251, 146, 60, 1);
   border-radius: 0.25rem /* 4px */;
@@ -72,11 +73,11 @@ div.odoc div.spec tbody tr {
 }
 
 div.odoc code::before {
-  content: '';
+  content: "";
 }
 
 div.odoc code::after {
-  content: '';
+  content: "";
 }
 
 div.odoc td.def-doc .comment-delim {
@@ -93,7 +94,7 @@ div.odoc .def-doc p {
 div.odoc div.spec tbody td.def {
   padding-top: 0.75em;
   overflow-wrap: anywhere;
-  min-width: 40%
+  min-width: 40%;
 }
 
 div.odoc-include details {
@@ -109,14 +110,14 @@ div.odoc-include details:after {
   top: 1px;
   bottom: 1px;
   width: 15px;
-  background: rgba(0, 4, 15, 0.05); 
-  box-shadow: 0 0px 0 1px rgba(204, 204, 204, 0.53); 
+  background: rgba(0, 4, 15, 0.05);
+  box-shadow: 0 0px 0 1px rgba(204, 204, 204, 0.53);
 }
 
 div.odoc-include summary:hover {
   background-color: rgba(228, 231, 235, 1);
 }
 
-div.odoc span[class*='keyword'] {
-	color: rgba(17, 24, 39, 1);
+div.odoc span[class*="keyword"] {
+  color: rgba(17, 24, 39, 1);
 }

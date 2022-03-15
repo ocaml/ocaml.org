@@ -72,7 +72,7 @@ Learn_layout.render
         class="card-hover flex-1 p-6 border border-gray-200 rounded-xl"
       >
         <div class="font-semibold text-base mb-3"><%s paper.title %></div>
-        <div class="truncate-4"><%s paper.abstract %></div>
+        <div style="display: -webkit-box;-webkit-line-clamp: 4;-webkit-box-orient: vertical;overflow: hidden;"><%s paper.abstract %></div>
         <div class="font-bold text-sm mt-3"><%s String.concat ", " paper.authors %></div>
         <div class="flex mt-5 flex-wrap">
           <% paper.tags |> List.iter (fun (tag : string) -> %>

@@ -5,6 +5,7 @@ Layout.render
 ~description:
 "OCaml is a general purpose industrial-strength programming language \
 with an emphasis on expressiveness and safety."
+~styles:["/css/main.css"; "/css/toplevel.css"; "/css/syntax.css"]
 @@
 <div class="lg:py-24 py-2">
   <div class="container-fluid space-y-24 lg:space-y-32">

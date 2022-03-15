@@ -10,7 +10,7 @@ let asset_loader =
     ~last_modified:(fun _root path ->
       let* store in
       Asset.last_modified store (Mirage_kv.Key.v path))
-    ~not_cached:[ "main.css"; "/main.css"; "robots.txt"; "/robots.txt" ]
+    ~not_cached:[ "css/main.css"; "/css/main.css"; "robots.txt"; "/robots.txt" ]
 
 let media_loader =
   let open Lwt.Syntax in

@@ -13,7 +13,8 @@ Package_layout.render
 ~title
 ~description:(Printf.sprintf "%s %s: %s" package.name package.version package.description)
 ~tab:Documentation
-~package @@
+~package
+~styles:["/css/main.css"; "/css/doc.css"] @@
 <button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
   :class="sidebar ? 'pl-1 pr-2': ''" x-on:click="sidebar = ! sidebar">
   <div class="transform transition-transform" :class='sidebar ? "" : "rotate-180" '>
