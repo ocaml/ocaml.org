@@ -7,10 +7,17 @@ type cpu_times = {
   idle : int;
   irq : int;
   total : int;
+  timestamp : float;
 }
 
-type loadavg = { avg_1 : float; avg_5 : float; avg_15 : float }
-type memory = { free : int; total : int }
+type loadavg = {
+  avg_1 : float;
+  avg_5 : float;
+  avg_15 : float;
+  timestamp : float;
+}
+
+type memory = { free : int; total : int; timestamp : float }
 
 let read_cpu_info () =
   match Luv.System_info.cpu_info () with
@@ -22,16 +29,19 @@ let read_cpu_info () =
       let idle = Unsigned.UInt64.to_int cpu.times.idle in
       let irq = Unsigned.UInt64.to_int cpu.times.irq in
       let total = user + nice + sys + irq in
-      Some { user; nice; sys; idle; irq; total }
+      let timestamp = Unix.gettimeofday () in
+      Some { user; nice; sys; idle; irq; total; timestamp }
 
 let read_loadavg () =
   let avg_1, avg_5, avg_15 = Luv.Resource.loadavg () in
-  { avg_1; avg_5; avg_15 }
+  let timestamp = Unix.gettimeofday () in
+  { avg_1; avg_5; avg_15; timestamp }
 
 let read_memory () =
   let free = Unsigned.UInt64.to_int (Luv.Resource.free_memory ()) in
   let total = Unsigned.UInt64.to_int (Luv.Resource.total_memory ()) in
-  { free; total }
+  let timestamp = Unix.gettimeofday () in
+  { free; total; timestamp }
 
 (* Src *)
 
@@ -52,6 +62,7 @@ let proc_cpu_src ~tags =
             uint "idle" ~graph cpu.idle;
             uint "irq" ~graph cpu.irq;
             uint "total" ~graph cpu.total;
+            float "timestamp" ~graph cpu.timestamp;
           ]
   in
   Src.v ~doc ~tags ~data "proc_cpu"
@@ -66,6 +77,7 @@ let loadavg_src ~tags =
         float "avg_1" ~graph loadavg.avg_1;
         float "avg_5" ~graph loadavg.avg_5;
         float "avg_15" ~graph loadavg.avg_15;
+        float "timestamp" ~graph loadavg.timestamp;
       ]
   in
   Src.v ~doc ~tags ~data "loadavg"
@@ -75,7 +87,12 @@ let memory_src ~tags =
   let graph = Graph.v ~title:doc ~ylabel:"value" () in
   let data () =
     let memory = read_memory () in
-    Data.v [ uint "free" ~graph memory.free; uint "total" ~graph memory.total ]
+    Data.v
+      [
+        uint "free" ~graph memory.free;
+        uint "total" ~graph memory.total;
+        float "timestamp" ~graph memory.timestamp;
+      ]
   in
   Src.v ~doc ~tags ~data "memory"
 
@@ -146,7 +163,8 @@ let loadavg_report () =
       let avg_1 = Metrics_field.float (get_field "avg_1" x) in
       let avg_5 = Metrics_field.float (get_field "avg_5" x) in
       let avg_15 = Metrics_field.float (get_field "avg_15" x) in
-      { avg_1; avg_5; avg_15 })
+      let timestamp = Metrics_field.float (get_field "timestamp" x) in
+      { avg_1; avg_5; avg_15; timestamp })
     data
 
 let memory_report () =
@@ -164,5 +182,6 @@ let memory_report () =
     (fun (x : data) ->
       let free = Metrics_field.uint (get_field "free" x) in
       let total = Metrics_field.uint (get_field "total" x) in
-      { free; total })
+      let timestamp = Metrics_field.float (get_field "timestamp" x) in
+      { free; total; timestamp })
     data

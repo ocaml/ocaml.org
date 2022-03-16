@@ -17,20 +17,12 @@ end
 
 module Handler = struct
   let overview ~prefix _req =
-    let cpu_count_f = Float.of_int Info.cpu_count in
-    let memory_pct (m : My_metrics.memory) =
-      100. *. float_of_int m.free /. float_of_int m.total
-    in
-    let loadavg_list =
-      List.map
-        (fun x -> x.My_metrics.avg_15 /. cpu_count_f)
-        (My_metrics.loadavg_report ())
-    in
-    let memory_list = List.map memory_pct (My_metrics.memory_report ()) in
+    let loadavg_list = My_metrics.loadavg_report () in
+    let memory_list = My_metrics.memory_report () in
     Dream.html
       (Overview_template.render ~prefix ~ocaml_version:Info.ocaml_version
          ~dream_version:(Info.dream_version ())
-         ~dashboard_version:(Info.version ()) ~uptime:(Info.uptime ())
+         ~dashboard_version:(Info.version ()) ~uptime:(Info.uptime_string ())
          ~os_version:(Info.os_version ()) ~loadavg_list ~memory_list ())
 
   let analytics ~store ~prefix _req =
@@ -60,29 +52,8 @@ module Middleware = struct
           let (module Repo : Store.S) = store in
           let url = Dream.target req in
           let referer = Dream.header req "referer" in
-          let timestamp = Unix.gettimeofday () in
-          let host_opt = Dream.client req |> Uri.of_string |> Uri.host in
-          let* event =
-            match host_opt with
-            | None ->
-                Lwt.return
-                  Event.
-                    {
-                      url;
-                      ua;
-                      referer;
-                      timestamp;
-                      ip_digest = "none";
-                      ip_info = None;
-                    }
-            | Some ip ->
-                let+ ip_info = Ip_info.get ip in
-                let ip_digest =
-                  Digestif.SHA256.digest_string ip
-                  |> Digestif.SHA256.to_raw_string
-                in
-                Event.{ url; ua; referer; timestamp; ip_digest; ip_info }
-          in
+          let client = Dream.client req in
+          let* event = Event.create ~ua ~url ~referer ~client in
           let+ result = Repo.create_event event in
           match result with
           | Ok _ -> ()

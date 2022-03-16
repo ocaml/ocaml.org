@@ -1,4 +1,8 @@
-let render ~prefix (_events : Event.t list) = Layout_template.render ~prefix ~title:"Analytics" @@
+open Import
+
+let render ~prefix (events : Event.t list) = Layout_template.render ~prefix ~title:"Analytics" @@
+let top_pages = Event.top_pages events in
+let top_pages_10 = List.take 10 top_pages in
 <div class="flex flex-col md:space-y-12 analytics-container">
   <div class="flex flex-col space-y-5 md:space-y-0 md:flex-row justify-between items-center">
     <h1 class="text-2xl font-semibold">Analytics Dashboard</h1>
@@ -57,7 +61,7 @@ let render ~prefix (_events : Event.t list) = Layout_template.render ~prefix ~ti
     </dl>
   </div>
 
-  <div class="">
+  <div>
     <div class="flex mb-6 justify-between">
       <h3 class="leading-5 text-lg font-semibold">Total Visitors</h3>
     </div>
@@ -97,13 +101,10 @@ let render ~prefix (_events : Event.t list) = Layout_template.render ~prefix ~ti
                   <div>014</div>
                 </div>
               </td>
-              <td class="">
+              <td>
                 <div class="flex">
                   <div class="flex flex-col w-full">
-                    <div
-                      class=""
-                      x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })"
-                    >
+                    <div x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })">
                       <div
                         class="flex flex-row-reverse"
                         role="progressbar"
@@ -134,13 +135,10 @@ let render ~prefix (_events : Event.t list) = Layout_template.render ~prefix ~ti
                   <div>014</div>
                 </div>
               </td>
-              <td class="">
+              <td>
                 <div class="flex">
                   <div class="flex flex-col w-full">
-                    <div
-                      class=""
-                      x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })"
-                    >
+                    <div x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })">
                       <div
                         class="flex flex-row-reverse"
                         role="progressbar"
@@ -171,13 +169,10 @@ let render ~prefix (_events : Event.t list) = Layout_template.render ~prefix ~ti
                   <div>014</div>
                 </div>
               </td>
-              <td class="">
+              <td>
                 <div class="flex">
                   <div class="flex flex-col w-full">
-                    <div
-                      class=""
-                      x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })"
-                    >
+                    <div x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })">
                       <div
                         class="flex flex-row-reverse"
                         role="progressbar"
@@ -208,13 +203,10 @@ let render ~prefix (_events : Event.t list) = Layout_template.render ~prefix ~ti
                   <div>014</div>
                 </div>
               </td>
-              <td class="">
+              <td>
                 <div class="flex">
                   <div class="flex flex-col w-full">
-                    <div
-                      class=""
-                      x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })"
-                    >
+                    <div x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })">
                       <div
                         class="flex flex-row-reverse"
                         role="progressbar"
@@ -245,13 +237,10 @@ let render ~prefix (_events : Event.t list) = Layout_template.render ~prefix ~ti
                   <div>014</div>
                 </div>
               </td>
-              <td class="">
+              <td>
                 <div class="flex">
                   <div class="flex flex-col w-full">
-                    <div
-                      class=""
-                      x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })"
-                    >
+                    <div x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })">
                       <div
                         class="flex flex-row-reverse"
                         role="progressbar"
@@ -282,13 +271,10 @@ let render ~prefix (_events : Event.t list) = Layout_template.render ~prefix ~ti
                   <div>014</div>
                 </div>
               </td>
-              <td class="">
+              <td>
                 <div class="flex">
                   <div class="flex flex-col w-full">
-                    <div
-                      class=""
-                      x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })"
-                    >
+                    <div x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })">
                       <div
                         class="flex flex-row-reverse"
                         role="progressbar"
@@ -330,15 +316,13 @@ let render ~prefix (_events : Event.t list) = Layout_template.render ~prefix ~ti
             </tr>
           </thead>
           <tbody>
-            <tr x-data="{ width: '72.5' }">
-              <td>014</td>
-              <td class="">
+            <% top_pages_10 |> List.iter (fun (url, count) -> %>
+            <tr x-data="{ width: '<%f 100. *. (float_of_int count) /. (float_of_int (List.length events)) %>' }">
+              <td><%s url %></td>
+              <td>
                 <div class="flex">
                   <div class="flex flex-col w-full">
-                    <div
-                      class=""
-                      x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })"
-                    >
+                    <div x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })">
                       <div
                         class="flex flex-row-reverse"
                         role="progressbar"
@@ -362,166 +346,7 @@ let render ~prefix (_events : Event.t list) = Layout_template.render ~prefix ~ti
                 %
               </td>
             </tr>
-            <tr x-data="{ width: '24.2' }">
-              <td>014</td>
-              <td class="">
-                <div class="flex">
-                  <div class="flex flex-col w-full">
-                    <div
-                      class=""
-                      x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })"
-                    >
-                      <div
-                        class="flex flex-row-reverse"
-                        role="progressbar"
-                        :aria-valuenow="width"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        aria-valuenow="31"
-                      >
-                        <div
-                          class="bg-[#18BDFB] rounded h-2 text-center"
-                          :style="`width: ${width}%; transition: width 2s;`"
-                          style="width: 31%; transition: width 2s"
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="text-right flex justify-end">
-                <div x-text="width"></div>
-                %
-              </td>
-            </tr>
-            <tr x-data="{ width: '13.9' }">
-              <td>014</td>
-              <td class="">
-                <div class="flex">
-                  <div class="flex flex-col w-full">
-                    <div
-                      class=""
-                      x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })"
-                    >
-                      <div
-                        class="flex flex-row-reverse"
-                        role="progressbar"
-                        :aria-valuenow="width"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        aria-valuenow="31"
-                      >
-                        <div
-                          class="bg-[#18BDFB] rounded h-2 text-center"
-                          :style="`width: ${width}%; transition: width 2s;`"
-                          style="width: 31%; transition: width 2s"
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="text-right flex justify-end">
-                <div x-text="width"></div>
-                %
-              </td>
-            </tr>
-            <tr x-data="{ width: '9.6' }">
-              <td>014</td>
-              <td class="">
-                <div class="flex">
-                  <div class="flex flex-col w-full">
-                    <div
-                      class=""
-                      x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })"
-                    >
-                      <div
-                        class="flex flex-row-reverse"
-                        role="progressbar"
-                        :aria-valuenow="width"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        aria-valuenow="31"
-                      >
-                        <div
-                          class="bg-[#18BDFB] rounded h-2 text-center"
-                          :style="`width: ${width}%; transition: width 2s;`"
-                          style="width: 31%; transition: width 2s"
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="text-right flex justify-end">
-                <div x-text="width"></div>
-                %
-              </td>
-            </tr>
-            <tr x-data="{ width: '3.2' }">
-              <td>014</td>
-              <td class="">
-                <div class="flex">
-                  <div class="flex flex-col w-full">
-                    <div
-                      class=""
-                      x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })"
-                    >
-                      <div
-                        class="flex flex-row-reverse"
-                        role="progressbar"
-                        :aria-valuenow="width"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        aria-valuenow="31"
-                      >
-                        <div
-                          class="bg-[#18BDFB] rounded h-2 text-center"
-                          :style="`width: ${width}%; transition: width 2s;`"
-                          style="width: 31%; transition: width 2s"
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="text-right flex justify-end">
-                <div x-text="width"></div>
-                %
-              </td>
-            </tr>
-            <tr x-data="{ width: '1.8' }">
-              <td>014</td>
-              <td class="">
-                <div class="flex">
-                  <div class="flex flex-col w-full">
-                    <div
-                      class=""
-                      x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })"
-                    >
-                      <div
-                        class="flex flex-row-reverse"
-                        role="progressbar"
-                        :aria-valuenow="width"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        aria-valuenow="31"
-                      >
-                        <div
-                          class="bg-[#18BDFB] rounded h-2 text-center"
-                          :style="`width: ${width}%; transition: width 2s;`"
-                          style="width: 31%; transition: width 2s"
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="text-right flex justify-end">
-                <div x-text="width"></div>
-                %
-              </td>
-            </tr>
+            <% ); %>
           </tbody>
         </table>
       </div>
@@ -530,7 +355,7 @@ let render ~prefix (_events : Event.t list) = Layout_template.render ~prefix ~ti
 
   <div class="flex flex-col space-y-12 xl:space-y-0 xl:flex-row xl:space-x-12">
     <div class="w-full xl:w-2/4">
-      <div class="">
+      <div>
         <div class="flex mb-6 justify-between items-center">
           <h3 class="leading-5 text-lg font-semibold">Locations</h3>
           <div class="flex space-x-2 text-sm">
@@ -550,7 +375,7 @@ let render ~prefix (_events : Event.t list) = Layout_template.render ~prefix ~ti
     </div>
 
     <div class="w-full xl:w-2/4">
-      <div class="">
+      <div>
         <div class="flex mb-6 justify-between">
           <h3 class="leading-5 text-lg font-semibold">Devices</h3>
           <div class="flex space-x-2 text-sm">

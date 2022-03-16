@@ -1,3 +1,8 @@
+let human_date_of_timestamp ts = 
+  let span = Timedesc.Span.make ~s:(Int64.of_float ts) () in
+  let td = Option.get (Timedesc.of_timestamp span) in
+  Option.get (Timedesc.to_iso8601 td)
+
 let render
   ~prefix
   ~ocaml_version
@@ -5,8 +10,8 @@ let render
   ~dashboard_version
   ~uptime
   ~os_version
-  ~(memory_list : float list)
-  ~(loadavg_list : float list)
+  ~(memory_list : My_metrics.memory list)
+  ~(loadavg_list : My_metrics.loadavg list)
   () =
 Layout_template.render ~prefix ~title:"Overview" @@
 <div class="flex flex-col space-y-12">
@@ -30,7 +35,7 @@ Layout_template.render ~prefix ~title:"Overview" @@
 
       <div class="px-6 py-5 shadow rounded-lg overflow-hidden sm:p-6 space-y-6 lg:space-y-12 cards">
         <dt class="text-base font-semibold truncate">Uptime</dt>
-        <dd class="mt-1 text-xl lg:text-3xl font-semibold break-all"><%f uptime %></dd>
+        <dd class="mt-1 text-xl lg:text-3xl font-semibold break-all"><%s uptime %></dd>
       </div>
     </dl>
   </div>
@@ -39,7 +44,7 @@ Layout_template.render ~prefix ~title:"Overview" @@
     <span class="text-lg font-semibold"><%s os_version %></span>
   </div>
 
-  <div class="">
+  <div>
     <div class="flex mb-6 justify-between">
       <h3 class="leading-5 text-lg font-semibold">Memory Usage (Percentage)</h3>
     </div>
@@ -58,7 +63,7 @@ Layout_template.render ~prefix ~title:"Overview" @@
     </div>
   </div>
 
-  <div class="">
+  <div>
     <div class="flex mb-6 justify-between">
       <h3 class="leading-5 text-lg font-semibold">CPU Usage (Percentage)</h3>
     </div>
@@ -76,301 +81,24 @@ Layout_template.render ~prefix ~title:"Overview" @@
       </div>
     </div>
   </div>
-
-  <div class="">
-    <div class="flex flex-col space-y-6 lg:space-y-0 lg:flex-row lg:space-x-12">
-      <div class="w-full lg:w-2/3 xl:w-4/5">
-        <div class="flex mb-6 justify-between">
-          <h3 class="leading-5 text-lg font-semibold">Opened file descriptors</h3>
-        </div>
-        <div class="flex items-center justify-center py-6 px-8 shadow rounded-lg cards pb-2">
-          <table class="table-auto w-full text-left text-sm font-semibold">
-            <thead class="opacity-60 pb-4">
-              <tr>
-                <th class="w-1/5 pb-4">FILE</th>
-                <th class="w-1/5 pb-4">TABLE</th>
-                <th></th>
-                <th class="text-right w-14 pb-4">USAGE</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr x-data="{ width: '72.5' }">
-                <td>014</td>
-                <td>dev/input</td>
-                <td class="">
-                  <div class="flex">
-                    <div class="flex flex-col w-full">
-                      <div
-                        class=""
-                        x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })"
-                      >
-                        <div
-                          class="flex flex-row-reverse"
-                          role="progressbar"
-                          :aria-valuenow="width"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                          aria-valuenow="31"
-                        >
-                          <div
-                            class="bg-[#18BDFB] rounded h-2 text-center"
-                            :style="`width: ${width}%; transition: width 2s;`"
-                            style="width: 31%; transition: width 2s"
-                          ></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td class="text-right flex justify-end">
-                  <div x-text="width"></div>
-                  %
-                </td>
-              </tr>
-              <tr x-data="{ width: '24.2' }">
-                <td>014</td>
-                <td>dev/input</td>
-                <td class="">
-                  <div class="flex">
-                    <div class="flex flex-col w-full">
-                      <div
-                        class=""
-                        x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })"
-                      >
-                        <div
-                          class="flex flex-row-reverse"
-                          role="progressbar"
-                          :aria-valuenow="width"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                          aria-valuenow="31"
-                        >
-                          <div
-                            class="bg-[#18BDFB] rounded h-2 text-center"
-                            :style="`width: ${width}%; transition: width 2s;`"
-                            style="width: 31%; transition: width 2s"
-                          ></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td class="text-right flex justify-end">
-                  <div x-text="width"></div>
-                  %
-                </td>
-              </tr>
-              <tr x-data="{ width: '13.9' }">
-                <td>014</td>
-                <td>dev/input</td>
-                <td class="">
-                  <div class="flex">
-                    <div class="flex flex-col w-full">
-                      <div
-                        class=""
-                        x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })"
-                      >
-                        <div
-                          class="flex flex-row-reverse"
-                          role="progressbar"
-                          :aria-valuenow="width"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                          aria-valuenow="31"
-                        >
-                          <div
-                            class="bg-[#18BDFB] rounded h-2 text-center"
-                            :style="`width: ${width}%; transition: width 2s;`"
-                            style="width: 31%; transition: width 2s"
-                          ></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td class="text-right flex justify-end">
-                  <div x-text="width"></div>
-                  %
-                </td>
-              </tr>
-              <tr x-data="{ width: '9.6' }">
-                <td>014</td>
-                <td>dev/input</td>
-                <td class="">
-                  <div class="flex">
-                    <div class="flex flex-col w-full">
-                      <div
-                        class=""
-                        x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })"
-                      >
-                        <div
-                          class="flex flex-row-reverse"
-                          role="progressbar"
-                          :aria-valuenow="width"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                          aria-valuenow="31"
-                        >
-                          <div
-                            class="bg-[#18BDFB] rounded h-2 text-center"
-                            :style="`width: ${width}%; transition: width 2s;`"
-                            style="width: 31%; transition: width 2s"
-                          ></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td class="text-right flex justify-end">
-                  <div x-text="width"></div>
-                  %
-                </td>
-              </tr>
-              <tr x-data="{ width: '3.2' }">
-                <td>014</td>
-                <td>dev/input</td>
-                <td class="">
-                  <div class="flex">
-                    <div class="flex flex-col w-full">
-                      <div
-                        class=""
-                        x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })"
-                      >
-                        <div
-                          class="flex flex-row-reverse"
-                          role="progressbar"
-                          :aria-valuenow="width"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                          aria-valuenow="31"
-                        >
-                          <div
-                            class="bg-[#18BDFB] rounded h-2 text-center"
-                            :style="`width: ${width}%; transition: width 2s;`"
-                            style="width: 31%; transition: width 2s"
-                          ></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td class="text-right flex justify-end">
-                  <div x-text="width"></div>
-                  %
-                </td>
-              </tr>
-              <tr x-data="{ width: '1.8' }">
-                <td>014</td>
-                <td>dev/input</td>
-                <td class="">
-                  <div class="flex">
-                    <div class="flex flex-col w-full">
-                      <div
-                        class=""
-                        x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })"
-                      >
-                        <div
-                          class="flex flex-row-reverse"
-                          role="progressbar"
-                          :aria-valuenow="width"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                          aria-valuenow="31"
-                        >
-                          <div
-                            class="bg-[#18BDFB] rounded h-2 text-center"
-                            :style="`width: ${width}%; transition: width 2s;`"
-                            style="width: 31%; transition: width 2s"
-                          ></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td class="text-right flex justify-end">
-                  <div x-text="width"></div>
-                  %
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="w-full lg:w-1/3 xl:w-1/5">
-        <div class="flex mb-6 justify-between">
-          <h3 class="leading-5 text-lg font-semibold">Total Input/Output (GB)</h3>
-        </div>
-        <div class="flex items-end justify-center space-x-8 shadow rounded-lg py-6 px-8 cards">
-          <div class="flex flex-col justify-center items-center space-y-2 overflow-hidden">
-            <div class="h-52 w-14 relative">
-              <div
-                x-data="{ height: '150' }"
-                x-init="$watch('height', value => { if (value > 100) { height = 100 } if (value == 0) { height = 10 } })"
-              >
-                <div
-                  class="w-14"
-                  role="progressbar"
-                  :aria-valuenow="height"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                  aria-valuenow="31"
-                >
-                  <div
-                    class="bg-[#18B5FB] absolute bottom-0 rounded-lg w-14 text-center rotate"
-                    :style="`height: ${height}px; transition: height 2s;`"
-                    style="height: 200px; transition: height 2s"
-                  >
-                    <div class="absolute bottom-2 text-xs font-semibold left-0 right-0">5.4 GB</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="font-semibold text-xs opacity-60">Input</div>
-          </div>
-          <div class="flex flex-col justify-center items-center space-y-2 overflow-hidden">
-            <div class="h-52 w-14 relative">
-              <div
-                x-data="{ height: '90' }"
-                x-init="$watch('height', value => { if (value > 100) { height = 100 } if (value == 0) { height = 10 } })"
-              >
-                <div
-                  class="w-14"
-                  role="progressbar"
-                  :aria-valuenow="height"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                  aria-valuenow="31"
-                >
-                  <div
-                    class="bg-[#2C5FEA] absolute bottom-0 rounded-lg w-14 text-center rotate"
-                    :style="`height: ${height}px; transition: height 2s;`"
-                    style="height: 200px; transition: height 2s"
-                  >
-                    <div class="absolute bottom-2 text-xs font-semibold left-0 right-0">2.4 GB</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="font-semibold text-xs opacity-60">Output</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 <script>
   const memoryUsage = new Chart(document.getElementById("memoryUsage"), {
     type: "line",
     data: {
-      labels: ["Thu, 30 Dec", "Mon, 3 Jan", "Fri, 7 Jan", "Tue, 11 Jan", "Wed, 19 Jan", "Sun, 23 Jan", "Thu, 27th Jan"],
+      labels: [
+      <% memory_list |> List.iter (fun (x : My_metrics.memory) -> %>
+        "<%s human_date_of_timestamp x.timestamp %>",
+      <% ); %>  
+      ],
 
       datasets: [
         {
           label: "",
           borderColor: "#18BDFB",
           data: [
-          <% memory_list |> List.iter (fun x -> %>
-            <%f x %>,
+          <% memory_list |> List.iter (fun (x : My_metrics.memory) -> %>
+            <%f 100. *. float_of_int x.free /. float_of_int x.total %>,
           <% ); %>
           ],
           borderWidth: "2",
@@ -428,15 +156,19 @@ Layout_template.render ~prefix ~title:"Overview" @@
   const cpuUsage = new Chart(document.getElementById("cpuUsage"), {
     type: "line",
     data: {
-      labels: ["Thu, 30 Dec", "Mon, 3 Jan", "Fri, 7 Jan", "Tue, 11 Jan", "Wed, 19 Jan", "Sun, 23 Jan", "Thu, 27th Jan"],
+      labels: [
+      <% loadavg_list |> List.iter (fun (x : My_metrics.loadavg) -> %>
+        "<%s human_date_of_timestamp x.timestamp %>",
+      <% ); %>  
+      ],
 
       datasets: [
         {
           label: "",
           borderColor: "#18BDFB",
           data: [
-          <% loadavg_list |> List.iter (fun x -> %>
-            <%f x %>,
+          <% loadavg_list |> List.iter (fun (x : My_metrics.loadavg) -> %>
+            <%f x.avg_1 %>,
           <% ); %>
           ],
           borderWidth: "2",

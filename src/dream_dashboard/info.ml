@@ -19,14 +19,14 @@ let dream_version () =
       | None -> "dev"
       | Some version -> Version.to_string version)
 
-let uptime () =
-  match Luv.Resource.uptime () with
-  | Ok x -> x
-  | Error err ->
-      Logs.err (fun m ->
-          m "An error occured when reading the uptime: %s"
-            (Luv.Error.strerror err));
-      0.
+let uptime =
+  let init = Unix.gettimeofday () in
+  fun () -> Unix.gettimeofday () -. init
+
+let uptime_string () = 
+  let s = Int64.of_float (uptime ()) in
+  let span = Timedesc.Span.make ~s () in
+  Timedesc.Span.For_human.to_string span
 
 type platform = Darwin | Freebsd | Linux | Openbsd | Sunos | Win32 | Android
 

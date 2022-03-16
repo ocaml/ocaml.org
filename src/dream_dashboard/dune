@@ -10,7 +10,8 @@
   metrics
   metrics-lwt
   luv
-  user-agent-parser)
+  user-agent-parser
+  timedesc)
  (preprocess
   (pps ppx_deriving_yojson)))
 
@@ -31,13 +32,10 @@
   (mode promote-until-clean)
   (deps
    (:style css/style.css)
-   (source_tree %{workspace_root}/node_modules)
    (source_tree ../template))
   (action
    (run
-    node
-    %{workspace_root}/node_modules/tailwindcss/lib/cli.js
-    build
+    tailwindcss
     --content
     %{workspace_root}/src/dream_dashboard/template/*.eml
     -i

@@ -5,10 +5,17 @@ type cpu_times = {
   idle : int;
   irq : int;
   total : int;
+  timestamp : float;
 }
 
-type loadavg = { avg_1 : float; avg_5 : float; avg_15 : float }
-type memory = { free : int; total : int }
+type loadavg = {
+  avg_1 : float;
+  avg_5 : float;
+  avg_15 : float;
+  timestamp : float;
+}
+
+type memory = { free : int; total : int; timestamp : float }
 
 val init_metrics : ?interval:float -> unit -> unit
 (** Initialize the metrics reporting.
