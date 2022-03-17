@@ -1,13 +1,13 @@
 ---
+id: error-handling
 title: Error Handling
 description: >
   Discover the different ways you can manage errors in your OCaml programs
-users:
-  - beginner
-  - intermediate
-tags: [ "errors" ]
+category: "language"
 date: 2021-05-27T21:07:30-00:00
 ---
+
+# Error Handling
 
 ## Exceptions
 
@@ -160,3 +160,42 @@ are:
 
 For easy combination of functions that can fail, many alternative standard
 libraries provide useful combinators on the `result` type: `map`, `>>=`, etc.
+
+## Assertions
+The built-in `assert` takes an expression as an argument and throws an
+exception *if* the provided expression evaluates to `false`. 
+Assuming that you don't catch this exception (it's probably
+unwise to catch this exception, particularly for beginners), this
+results in the program stopping and printing out the source file and
+line number where the error occurred. An example:
+
+```ocaml
+# assert (Sys.os_type = "Win32");;
+Exception: Assert_failure ("//toplevel//", 1, 1).
+Called from Stdlib__Fun.protect in file "fun.ml", line 33, characters 8-15
+Re-raised at Stdlib__Fun.protect in file "fun.ml", line 38, characters 6-52
+Called from Topeval.load_lambda in file "toplevel/byte/topeval.ml", line 89, characters 4-150
+```
+
+(Running this on Win32, of course, won't throw an error).
+
+You can also just call `assert false` to stop your program if things
+just aren't going well, but you're probably better to use ...
+
+`failwith "error message"` throws a `Failure` exception, which again
+assuming you don't try to catch it, will stop the program with the given
+error message. `failwith` is often used during pattern matching, like
+this real example:
+
+<!-- $MDX skip -->
+```ocaml
+match Sys.os_type with
+| "Unix" | "Cygwin" ->   (* code omitted *)
+| "Win32" ->             (* code omitted *)
+| "MacOS" ->             (* code omitted *)
+| _ -> failwith "this system is not supported"
+```
+
+Note a couple of extra pattern matching features in this example too. A
+so-called "range pattern" is used to match either `"Unix"` or
+`"Cygwin"`, and the special `_` pattern which matches "anything else".

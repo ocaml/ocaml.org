@@ -1,13 +1,13 @@
 ---
+id: if-statements-and-loops
 title: If Statements, Loops and Recursions
 description: >
   Learn basic control-flow and recursion in OCaml
-users:
-  - beginner
-  - intermediate
-tags: [ "language" ]
+category: "language"
 date: 2021-05-27T21:07:30-00:00
 ---
+
+# If Statements, Loops and Recursions
 
 ## If statements (actually, these are if expressions)
 OCaml has an `if` statement with two variations, and the obvious meaning:

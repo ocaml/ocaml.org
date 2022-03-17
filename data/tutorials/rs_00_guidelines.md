@@ -1,14 +1,13 @@
 ---
+id: guidelines
 title: OCaml Programming Guidelines
 description: >
   Opinionated guidelines for writing OCaml code
-users:
-  - beginner
-  - intermediate
-  - advanced
-tags: [ "getting-started" ]
+category: "resources"
 date: 2021-05-27T21:07:30-00:00
 ---
+
+# OCaml Programming Guidelines
 
 This is a set of reasonable guidelines for writing OCaml
 programs—guidelines which reflect the consensus among veteran OCaml

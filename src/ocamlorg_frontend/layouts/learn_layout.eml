@@ -5,18 +5,20 @@ let render
 ?styles
 ~title
 ~description
+~tutorials
 inner =
-let render_tutorial name id =
+let render_link title slug = 
   match current_tutorial with
-  | Some x when x = id ->
-    <a class="flex text-primary-600 bg-primary-100 py-2 px-3 rounded-md text-sm font-semibold" href="<%s Url.tutorial id %>">
-      <%s name %>
+  | Some x when x = slug ->
+    <a class="flex text-primary-600 bg-primary-100 py-2 px-3 rounded-md text-sm font-semibold" href="<%s Url.tutorial slug %>">
+      <%s title %>
     </a>
   | _ ->
-    <a class="font-semibold text-sm text-body-400 hover:bg-gray-100 block py-2 px-3" href="<%s Url.tutorial id %>">
-      <%s name %>
+    <a class="font-semibold text-sm text-body-400 hover:bg-gray-100 block py-2 px-3" href="<%s Url.tutorial slug %>">
+      <%s title %>
     </a>
 in
+let render_tutorial (tutorial : Ood.Tutorial.t) = render_link tutorial.title tutorial.slug in
 Layout.render
 ?use_swiper
 ?styles
@@ -82,55 +84,33 @@ Layout.render
 
         <div class="space-y-2 flex mt-10 flex-col">
           <div class="text-sm font-semibold flex px-3 py-2 uppercase">Getting Started</div>
-          <%s! render_tutorial "Up and Running" "up-and-running-with-ocaml" %>
-          <%s! render_tutorial "A First Hour with OCaml" "a-first-hour-with-ocaml" %>
-          <%s! render_tutorial "OCaml Programming Guidelines" "ocaml-programming-guidelines" %>
-          <%s! render_tutorial "Compiling OCaml Projects" "compiling-ocaml-projects" %>
-          <%s! render_tutorial "Best Practices" "best-practices" %>
-          <%s! render_tutorial "OCaml Platform" "platform" %>
-          <%s! render_tutorial "OCaml on Windows" "ocaml-on-windows" %>
+          <%s! tutorials |> List.filter (fun (x : Ood.Tutorial.t) -> x.category = "getting-started") |> List.map render_tutorial |> String.concat "\n" %>
         </div>
         <div class="space-y-2 flex mt-10 flex-col">
-          <div class="text-sm font-semibold flex px-3 py-2 uppercase">Language Features</div>
-          <%s! render_tutorial "Data Types and Matching" "data-types-and-matching" %>
-          <%s! render_tutorial "Functional Programming" "functional-programming" %>
-          <%s! render_tutorial "If Statements, Loops, and Recursion" "if-statements-loops-and-recursions" %>
-          <%s! render_tutorial "Modules" "modules" %>
-          <%s! render_tutorial "Labels" "labels" %>
-          <%s! render_tutorial "Pointers in OCaml" "pointers-in-ocaml" %>
-          <%s! render_tutorial "Null Pointers, Asserts, and Warnings" "null-pointers-asserts-and-warnings" %>
-          <%s! render_tutorial "Functors" "functors" %>
-          <%s! render_tutorial "Objects" "objects" %>
-        </div>
-        <div class="space-y-2 flex mt-10 flex-col">
-          <div class="text-sm font-semibold flex px-3 py-2 uppercase">Errors and Debugging</div>
-          <%s! render_tutorial "Error Handling" "error-handling" %>
-          <%s! render_tutorial "Common Error Messages" "common-error-messages" %>
-          <%s! render_tutorial "Debugging" "debug" %>
+          <div class="text-sm font-semibold flex px-3 py-2 uppercase">Language</div>
+          <%s! tutorials |> List.filter (fun (x : Ood.Tutorial.t) -> x.category = "language") |> List.map render_tutorial |> String.concat "\n" %>
         </div>
         <div class="space-y-2 flex mt-10 flex-col">
           <div class="text-sm font-semibold flex px-3 py-2 uppercase">Data Structures</div>
-          <%s! render_tutorial "Maps" "map" %>
-          <%s! render_tutorial "Sets" "sets" %>
-          <%s! render_tutorial "Hash Tables" "hashtables" %>
-          <%s! render_tutorial "Streams" "streams" %>
+          <%s! tutorials |> List.filter (fun (x : Ood.Tutorial.t) -> x.category = "data-structures") |> List.map render_tutorial |> String.concat "\n" %>
         </div>
         <div class="space-y-2 flex mt-10 flex-col">
-          <div class="text-sm font-semibold flex px-3 py-2 uppercase">Common Tasks</div>
-          <%s! render_tutorial "Formatting and Wrapping Text" "format" %>
-          <%s! render_tutorial "Command Line Arguments" "command-line-arguments" %>
-          <%s! render_tutorial "File Manipulation" "file-manipulation" %>
+          <div class="text-sm font-semibold flex px-3 py-2 uppercase">Runtime</div>
+          <%s! tutorials |> List.filter (fun (x : Ood.Tutorial.t) -> x.category = "runtime") |> List.map render_tutorial |> String.concat "\n" %>
         </div>
         <div class="space-y-2 flex mt-10 flex-col">
-          <div class="text-sm font-semibold flex px-3 py-2 uppercase">Interoperability</div>
-          <%s! render_tutorial "Calling C libraries" "calling-c-libraries" %>
-          <%s! render_tutorial "Calling Fortran libraries" "calling-fortran-libraries" %>
+          <div class="text-sm font-semibold flex px-3 py-2 uppercase">Tutorials</div>
+          <%s! tutorials |> List.filter (fun (x : Ood.Tutorial.t) -> x.category = "tutorials") |> List.map render_tutorial |> String.concat "\n" %>
         </div>
         <div class="space-y-2 flex mt-10 flex-col">
-          <div class="text-sm font-semibold flex px-3 py-2 uppercase">Advanced Topics</div>
-          <%s! render_tutorial "Garbage Collection" "garbage-collection" %>
-          <%s! render_tutorial "Performance and Profiling" "performance-and-profiling" %>
-          <%s! render_tutorial "Comparison of Standard Containers" "comparison-of-standard-containers" %>
+          <div class="text-sm font-semibold flex px-3 py-2 uppercase">Guides</div>
+          <%s! tutorials |> List.filter (fun (x : Ood.Tutorial.t) -> x.category = "guides") |> List.map render_tutorial |> String.concat "\n" %>
+        </div>
+        <div class="space-y-2 flex mt-10 flex-col">
+          <div class="text-sm font-semibold flex px-3 py-2 uppercase">Resources</div>
+          <%s! tutorials |> List.filter (fun (x : Ood.Tutorial.t) -> x.category = "resources") |> List.map render_tutorial |> String.concat "\n" %>
+          <%s! render_link "Best Practices" "best-practices" %>
+          <%s! render_link "OCaml Platform" "platform" %>
         </div>
       </div>
       <%s! inner %>

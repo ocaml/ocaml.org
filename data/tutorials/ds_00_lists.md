@@ -1,13 +1,13 @@
 ---
+id: lists
 title: Lists
 description: >
   Learn about one of OCaml's must used, built-in data types
-users:
-  - beginner
-  - intermediate
-tags: [ "language" ]
+category: "data-structures"
 date: 2021-08-06T17:28:30-00:00
 ---
+
+# Lists
 
 A list is an ordered sequence of elements. All elements of a list in OCaml must
 be the same type. Lists are built into the language and have a special syntax.

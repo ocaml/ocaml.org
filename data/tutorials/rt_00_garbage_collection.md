@@ -1,13 +1,13 @@
 ---
+id: garbage-collection
 title: Garbage Collection
 description: >
   OCaml is a garbage collected language meaning you don't have to worry about allocating and freeing memory
-users:
-  - intermediate
-  - advanced
-tags: [ "advanced" ]
+category: "runtime"
 date: 2021-05-27T21:07:30-00:00
 ---
+
+# Garbage Collection
 
 ## Garbage collection, reference counting, explicit allocation
 

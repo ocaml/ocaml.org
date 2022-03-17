@@ -1,13 +1,13 @@
 ---
+id : modules
 title: Modules
 description: >
   Learn about OCaml modules and how they can be used to cleanly separate distinct parts of your program
-users:
-  - beginner
-  - intermediate
-tags: [ "language" ]
+category: "language"
 date: 2021-05-27T21:07:30-00:00
 ---
+
+# Modules
 
 ## Basic usage
 

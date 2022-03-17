@@ -1,13 +1,13 @@
 ---
+id: data-types
 title: Data Types and Matching
 description: >
   Learn to build custom types and write function to process this data
-users:
-  - beginner
-  - intermediate
-tags: [ "language" ]
+category: "language"
 date: 2021-05-27T21:07:30-00:00
 ---
+
+# Data Types and Matching
 
 In this tutorial we learn how to build our own types in OCaml, and how to write
 functions which process this new data.

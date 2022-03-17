@@ -1,12 +1,15 @@
 ---
+id: up-and-running
 title: Up and Running with OCaml
-description: >
-  Help you install OCaml, the Dune build system, and support for your favourite text editor or IDE.
-users:
-  - beginner
-tags: [ "getting-started" ]
+description: |
+  This page will help you install OCaml, the Dune build system, and support for
+  your favourite text editor or IDE. These instructions work on Windows, Unix
+  systems like Linux, and macOS.
+category: "getting-started"
 date: 2021-05-27T21:07:30-00:00
 ---
+
+# Up and Running with OCaml
 
 This page will help you install OCaml, the Dune build system, and support for
 your favourite text editor or IDE. These instructions work on Windows, Unix

@@ -1,13 +1,13 @@
 ---
+id: sets
 title: Sets
 description: >
   The standard library's Set module
-users:
-  - beginner
-  - intermediate
-tags: [ "stdlib" ]
+category: "data-structures"
 date: 2021-05-27T21:07:30-00:00
 ---
+
+# Sets
 
 ## Module Set
 To make a set of strings:

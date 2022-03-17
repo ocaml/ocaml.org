@@ -1,12 +1,13 @@
 ---
+id: calling-c-libraries
 title: Calling C Libraries
 description: >
   Cross the divide and call C code from your OCaml program
-users:
-  - advanced
-tags: [ "interoperability" ]
+category: "tutorials"
 date: 2021-05-27T21:07:30-00:00
 ---
+
+# Calling C Libraries
 
 ## MiniGtk
 While the structure of lablgtk outlined in [Introduction to
