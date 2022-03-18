@@ -10,9 +10,6 @@ date: 2021-08-06T17:11:00-00:00
 
 # A First Hour with OCaml
 
-Discover the OCaml programming language in this longer tutorial that takes you
-from absolute beginner to someone who is able to write programs in OCaml.
-
 You may follow along with this tutorial with just a basic OCaml installation,
 as described in [Up and Running](/docs/up-and-running).
 
@@ -21,15 +18,14 @@ using [TryOCaml](http://try.ocamlpro.com), with no installation required.
 
 On macOS/iOS/iPadOS, you can download this [all-in-one package on the App Store](https://apps.apple.com/app/ocaml-learn-code/id1547506826). It contains an editor side-by-side with an interactive top level, and is free and [open source](https://github.com/GroupeMINASTE/OCaml-iOS).
 
-## Running OCaml programs
+## Running OCaml Programs
 
-To try small OCaml expressions, you can use an interactive top level, or REPL
-(Read-Eval-Print Loop). The `ocaml` command provides a basic top level (you
-should install `rlwrap` through your system package manager and run `rlwrap
-ocaml` instead to get history navigation.)
+To try small OCaml expressions, use an interactive toplevel, or REPL
+(Read-Eval-Print Loop). The `ocaml` command provides a basic toplevel
+(install `rlwrap` through your system package manager and run `rlwrap ocaml` instead to get history navigation).
 
 The alternative REPL [utop](https://github.com/ocaml-community/utop) may be installed
-through [opam](/docs/install.html#OPAM) or your system package manager. It has
+through [opam](https://opam.ocaml.org/doc/Install.html) or your system package manager. It has
 the same basic interface but is much more convenient to use (history
 navigation, auto-completion, etc).
 
@@ -47,10 +43,10 @@ This is how it looks using `utop`:
 
 ```console
 ───────┬─────────────────────────────────────────────────────────────┬────
-       │ Welcome to utop version 2.7.0 (using OCaml version 4.13.0)! │     
-       └─────────────────────────────────────────────────────────────┘     
+       │ Welcome to utop version 2.7.0 (using OCaml version 4.13.0)! │
+       └─────────────────────────────────────────────────────────────┘
 
-Type #utop_help for help about using utop.
+Type #utop_help for help about using `utop`.
 
 ─( 10:12:16 )─< command 0 >───────────────────────────────────────────────
 utop # 50 * 50;;
@@ -60,7 +56,7 @@ utop # 50 * 50;;
 The in-browser [TryOCaml](http://try.ocamlpro.com) has a similar interface.
 
 The examples in this tutorial can be typed in by hand, or copied into `ocaml`,
-`utop` or TryOCaml with copy and paste. Alternatively, we may type into a file,
+`utop`, or TryOCaml with copy and paste. Alternatively, we may type into a file
 and load its contents directly with the `#use` directive:
 
 ```console
@@ -70,13 +66,13 @@ $ ocaml
 # #use "program.ml"
 ```
 
-Note that `#use` is not part of the OCaml language proper; it is an instruction
-to the OCaml top level only.
+Note that `#use` is not part of the OCaml language proper; it's an instruction
+to the OCaml toplevel only.
 
 ## Expressions
 
-Our phrase `50 * 50` was an expression, which evaluated to `2500`. OCaml told
-us that the type was `int`, an integer (every expression in OCaml has a type).
+Our phrase `50 * 50` was an expression that evaluated to `2500`. OCaml told
+us that the type was `int`, an integer. Every expression in OCaml has a type.
 To avoid repetition, we can give a name to our number:
 
 ```ocaml
@@ -86,7 +82,7 @@ val x : int = 50
 - : int = 2500
 ```
 
-Note that this is not a variable as in languages like C and Python. Its value
+Note that this isn't a variable as in languages like C and Python. Its value
 cannot be changed. We can write it all in one go using `let` ... `in` ...:
 
 ```ocaml
@@ -116,7 +112,7 @@ val square : int -> int = <fun>
 This says that `square` is a function with one argument, namely `x`, and that
 the result of the function is the result of evaluating the expression `x * x`
 with the given value associated with `x`. Here is another function, this time
-using the comparison operator `=` to test for even-ness:
+using the comparison operator `=` to test for evenness:
 
 ```ocaml
 # let square_is_even x =
@@ -131,7 +127,7 @@ val square_is_even : int -> bool = <fun>
 Notice the type OCaml infers for the function.
 
 A function may take multiple
-arguments. Unlike in imperative languages, they are written without parentheses
+arguments. Unlike imperative languages, they're written without parentheses
 and commas. We shall explain why later.
 
 ```ocaml
@@ -152,13 +148,12 @@ val average : float -> float -> float = <fun>
 ```
 
 This is rather unusual. In other languages (such as C) integers get promoted to
-floating point values in certain circumstances. For example if you write `1 +
-2.5` then the first argument (which is an integer) is promoted to a floating
+floating point values in certain circumstances. For example, if you write `1 + 2.5` then the first argument (which is an integer) is promoted to a floating
 point number, and the result is also a floating point number.
 
 OCaml never does implicit casts like this. In OCaml, `1 + 2.5` is a type error.
-The `+` operator in OCaml requires two integers as arguments, and here we're
-giving it an integer and a floating point number, so it reports this error:
+The `+` operator in OCaml requires two integers as arguments, and here we
+give it an integer and a floating point number, so it reports this error:
 
 ```ocaml
 # 1 + 2.5;;
@@ -183,6 +178,7 @@ together? (Say they are stored as `i` and `f`). In OCaml you need to
 explicitly cast:
 
 <!-- $MDX skip -->
+
 ```ocaml
 float_of_int i +. f
 ```
@@ -192,13 +188,13 @@ The `float_of_int` function takes an `int` and returns a `float`.
 You might think that these explicit casts are ugly, time-consuming even, but
 there are several arguments in their favour. Firstly, OCaml needs this explicit
 casting to be able to work out types automatically, which is a wonderful
-time-saving feature. Secondly, if you've spent time debugging C programs you'll
+time-saving feature. Secondly, if you've spent time debugging C programs, you'll
 know that (a) implicit casts cause errors which are hard to find, and (b) much
 of the time you're sitting there trying to work out where the implicit casts
-happen. Making the casts explicit helps you in debugging.  Thirdly, some casts
+happen. Making the casts explicit helps you in debugging. Thirdly, some casts
 are actually expensive operations. We do ourselves no favours by hiding them.
 
-## Recursive functions
+## Recursive Functions
 
 A recursive function is one which uses itself in its own definition. An OCaml
 function isn't recursive unless you explicitly say so by using `let rec`
@@ -215,7 +211,7 @@ val digits : int list = [0; 1; 2; 3; 4; 5; 6; 7; 8; 9]
 
 We have used OCaml's `if` ... `then` ... `else` ... construct to test a
 condition and choose a path of evaluation. Notice that, like everything else in
-OCaml, it is an expression not a statement. The result of evaluating the whole
+OCaml, it's an expression not a statement. The result of evaluating the whole
 expression is either the result of evaluating the `then` part or the `else`
 part.
 
@@ -225,6 +221,7 @@ call to `range` would have tried to look for an existing (previously defined)
 function called `range`, not the currently-being-defined function.
 
 ## Types
+
 The basic types in OCaml are:
 
 ```text
@@ -238,15 +235,15 @@ char        An 8-bit character
 string      A string (sequence of 8 bit chars)
 ```
 
-OCaml provides a `char` type which is used for simple 8-bit characters, written
+OCaml provides a `char` type, which is used for simple 8-bit characters, written
 `'x'` for example. There are [comprehensive Unicode
-libraries](https://github.com/yoriyuki/Camomile) which provide more extensive
+libraries](https://github.com/yoriyuki/Camomile) that provide more extensive
 functionality for text management.
 
 Strings are not just lists of characters. They have their own, more
 efficient internal representation. Strings are immutable.
 
-When we type our expressions into the OCaml top level, OCaml prints the type:
+When we type our expressions into the OCaml toplevel, OCaml prints the type:
 
 ```ocaml
 # 1 + 2;;
@@ -264,20 +261,22 @@ When we type our expressions into the OCaml top level, OCaml prints the type:
 Each expression has one and only one type.
 
 OCaml works out types automatically so you will rarely need to explicitly write
-down the type of your functions. However, OCaml often prints out what it infers
-are the types of your functions, so you need to know the syntax. For a function
-`f` which takes arguments `arg1`, `arg2`, ... `argn`, and returns type
+down the function type. However, OCaml often prints out what it infers
+are the your function types, so you need to know the syntax. For a function
+`f` that takes arguments `arg1`, `arg2`, ... `argn` and returns type
 `rettype`, the compiler will print:
 
 <!-- $MDX skip -->
+
 ```ocaml
 f : arg1 -> arg2 -> ... -> argn -> rettype
 ```
 
-The arrow syntax looks strange now but later you'll see why it was chosen. Our
+The arrow syntax looks strange now, but later you'll see why it was chosen. Our
 function `average` which takes two floats and returns a float has type:
 
 <!-- $MDX skip -->
+
 ```ocaml
 average : float -> float -> float
 ```
@@ -285,27 +284,28 @@ average : float -> float -> float
 The OCaml standard `int_of_char` casting function:
 
 <!-- $MDX skip -->
+
 ```ocaml
 int_of_char : char -> int
 ```
 
-We can now look at some of the properties which distinguish OCaml from other
+Now look at some of the properties that distinguishes OCaml from other
 languages:
 
-- OCaml is a strongly statically typed language. This means each expression has
-  a type, and only one type, and it is determined before the program is run.
+- OCaml is a strongly statically-typed language. This means each expression has
+  a only one type, and it's determined before the program is run.
 
 - OCaml uses type inference to work out (infer) the types, so you don't have
-  to. If you use the OCaml top level, then OCaml will tell you its inferred
+  to. If you use the OCaml toplevel, then OCaml will tell you its inferred
   type for your function.
 
 - OCaml doesn't do any implicit conversion of types. If you want a floating
   point number, you have to write `2.0` because `2` is an integer. OCaml does
-  no automatic conversion between int and floats or any other type. As a
-  side-effect of type inference in OCaml, functions (including operators) can't
+  no automatic conversion between int and floats, or any other type. As a
+  side effect of type inference in OCaml, functions (including operators) can't
   have overloaded definitions.
 
-## Pattern matching
+## Pattern Matching
 
 Instead of using one or more `if` ... `then` ... `else` ... constructs to make
 choices in OCaml programs, we can use the `match` keyword to match on multiple
@@ -317,7 +317,7 @@ possible values. Consider the factorial function:
 val factorial : int -> int = <fun>
 ```
 
-We may write it using pattern matching instead:
+We can write it using pattern matching instead:
 
 ```ocaml
 # let rec factorial n =
@@ -337,7 +337,7 @@ Equally, we could use the pattern `_` which matches anything, and write:
 val factorial : int -> int = <fun>
 ```
 
-In fact, we may simplify further with the `function` keyword which introduces
+In fact, we may simplify further with the `function` keyword, which introduces
 pattern-matching directly:
 
 ```ocaml
@@ -353,7 +353,7 @@ data structures.
 ## Lists
 
 Lists are a common compound data type in OCaml. They are ordered collections of
-elements of like type. Here are some lists:
+elements of like type:
 
 ```ocaml
 # [];;
@@ -367,8 +367,8 @@ elements of like type. Here are some lists:
 ```
 
 Each list can have a head (its first element) and a tail (the list of the rest
-of its elements).  There are two built-in operators on lists. The `::` or cons
-operator, adds one element to the front of a list. The `@` or append operator
+of its elements). There are two built-in operators on lists. The `::`, or cons
+operator, adds one element to the front of a list. The `@`, or append operator,
 combines two lists:
 
 ```ocaml
@@ -406,7 +406,7 @@ val total_wrong : int list -> int = <fun>
 Exception: Match_failure ("//toplevel//", 2, 5).
 ```
 
-We shall talk about the "exception" which was caused by our ignoring the
+We shall talk about the "exception" that was caused by our ignoring the
 warning later. Consider now a function to find the length of a list:
 
 ```ocaml
@@ -430,7 +430,7 @@ This is indicated by the type, which allows its input to be `'a list`
 - : int = 1
 ```
 
-Why is this? Because in the pattern `_ :: t` the head of the list is not
+In the pattern `_ :: t`, the head of the list is not
 inspected, so its type cannot be relevant. Such a function is called
 polymorphic. Here is another polymorphic function, our own version of the `@`
 operator for appending:
@@ -443,13 +443,13 @@ operator for appending:
 val append : 'a list -> 'a list -> 'a list = <fun>
 ```
 
-Can you see how it works? Notice that the memory for the second list is shared,
+Notice that the memory for the second list is shared,
 but the first list is effectively copied. Such sharing is common when we use
 immutable data types (ones whose values cannot be changed).
 
 We might wish to apply a function to each element in a list, yielding a new
-one. We shall write a function `map` which is given another function as its
-argument - such a function is called "higher-order":
+one. We shall write a function `map` that's given another function as its
+argument. Such a function is called "higher-order":
 
 ```ocaml
 # let rec map f l =
@@ -471,8 +471,8 @@ course. Here are some examples of using `map`:
 - : int list = [2; 4; 6]
 ```
 
-(The syntax `fun` ... `->` ... is used to build a function without a name - one
-we will only use in one place in the program.)
+(The syntax `fun` ... `->` ... is used to build a function without a name, which
+we'll only use in one place in the program.)
 
 We need not give a function all its arguments at once. This is called partial
 application. For example:
@@ -496,7 +496,7 @@ application to add to each item of a list:
 - : int list = [7; 8; 9]
 ```
 
-Indeed we can use partial application of our `map` function to map over lists
+Indeed, we can use partial application of our `map` function to map over lists
 of lists:
 
 ```ocaml
@@ -504,11 +504,11 @@ of lists:
 - : int list list = [[2; 4]; [6; 8]; [10; 12]]
 ```
 
-## Other built-in types
+## Other Built-In Types
 
 We have seen basic data types like `int`, and our first compound data type, the
 list. There are two more ways compound data types of interest. First we have
-tuples, which are fixed length collections of elements of any type:
+tuples, which are fixed-length collections of elements of any type:
 
 ```ocaml
 # let t = (1, "one", '1');;
@@ -535,7 +535,7 @@ val s : string = "Smith"
 
 Pattern-matching works on tuples and records too, of course.
 
-## Our own data types
+## Our Own Data Types
 
 We can define new data types in OCaml with the `type` keyword:
 
@@ -576,8 +576,8 @@ val t : int tree =
 ```
 
 A `Leaf` holds no information, just like an empty list. A `Node` holds
-a left tree, a value of type `'a` and a right tree. Now we can write recursive
-and polymorphic functions over these trees, by pattern matching on our new
+a left tree, a value of type `'a`, and a right tree. Now we can write recursive
+and polymorphic functions over these trees by pattern matching on our new
 constructors:
 
 ```ocaml
@@ -593,7 +593,7 @@ val total : int tree -> int = <fun>
 val flip : 'a tree -> 'a tree = <fun>
 ```
 
-Let's try our new functions out:
+Let's try our new functions:
 
 ```ocaml
 # let all = total t;;
@@ -605,16 +605,16 @@ val flipped : int tree =
 - : bool = true
 ```
 
-Notice that we do not need to explicitly free memory for such data structures
-when we no longer need it: OCaml is a garbage-collected language, and will free
+Notice that we don't need to explicitly free memory for such data structures
+when we no longer need it because OCaml is a garbage-collected language. It will free
 memory for data structures when they are no longer needed. In our example, once
-the boolean test `t = flip flipped` has been evaluated, the data structure
-`flip flipped` is not longer reachable by the rest of the program, and its
+the Boolean test `t = flip flipped` has been evaluated, the data structure
+`flip flipped` is no longer reachable by the rest of the program, and its
 memory may be reclaimed by the garbage collector.
 
-## Dealing with errors
+## Dealing With Errors
 
-OCaml deals with exceptional situations in two ways. One is to use *exceptions*,
+OCaml deals with exceptional situations in two ways. One is to use _exceptions_,
 which may be defined in roughly the same way as types:
 
 ```ocaml
@@ -639,7 +639,7 @@ An exception may be handled with pattern matching:
 - : int = 0
 ```
 
-When an exception is not handled, it is printed at the top level:
+When an exception is not handled, it's printed at the toplevel:
 
 ```ocaml
 # f 10 0;;
@@ -647,8 +647,8 @@ Exception: E2 "division by zero".
 ```
 
 The other way to deal with exceptional situations in OCaml is by returning a
-value of a type which can represent either the correct result or an error, for
-example the built-in polymorphic `option` type, which is defined as:
+value of a type that can represent either the correct result or an error, e.g.,
+the built-in polymorphic `option` type:
 
 ```ocaml
 # type 'a option = None | Some of 'a;;
@@ -663,9 +663,9 @@ So we may write:
 val f : int -> int -> int option = <fun>
 ```
 
-We can use exception handling to build an option-style function from one which
-raises an exception, the built-in `List.find` function (which finds the first
-element matching a given boolean test):
+We can use exception handling to build an option-style function from one that
+raises an exception, the built-in `List.find` function, which finds the first
+element matching a given Boolean test:
 
 ```ocaml
 # let list_find_opt p l =
@@ -674,7 +674,7 @@ element matching a given boolean test):
 val list_find_opt : ('a -> bool) -> 'a list -> 'a option = <fun>
 ```
 
-As an alternative, we can use an extended form of our usual `match` expression,
+As an alternative, we can use an extended form of our usual `match` expression
 to match both values and catch exceptions:
 
 ```ocaml
@@ -687,11 +687,11 @@ val list_find_opt : ('a -> bool) -> 'a list -> 'a option = <fun>
 
 ## Imperative OCaml
 
-OCaml is not just a functional language: it supports imperative programming
+OCaml is not just a functional language; it supports imperative programming
 too. OCaml programmers tend to use imperative features sparingly, but almost
-all OCaml programmers use them sometimes. What happens if you want a variable
-that you can assign to and change throughout your program? You need to use a
-*reference*.
+all OCaml programmers use them sometimes. If you want a variable
+that you can assign to and change throughout your program, you need to use a
+_reference_.
 
 Here's how we create a reference to an integer in OCaml:
 
@@ -734,8 +734,8 @@ val swap : 'a ref -> 'a ref -> unit = <fun>
 ```
 
 Notice the function return type is `unit`. There is exactly one thing of type
-unit, and it is written `()`. We use unit to call a function which needs no
-other argument, and is only used for its imperative side effect. For example:
+`unit`, and it's written `()`. We use `unit` to call a function that needs no
+other argument and is only used for its imperative side effect. For example:
 
 ```ocaml
 # let print_number n =
@@ -745,7 +745,7 @@ val print_number : int -> unit = <fun>
 ```
 
 We can look at the type of the built-in function `print_newline` by typing its
-name without applying the unit argument:
+name without applying the `unit` argument:
 
 ```ocaml
 # print_newline;;
@@ -778,7 +778,7 @@ val table : int -> unit = <fun>
 ```
 
 Here is a `while` loop, used to write a function to calculate the power of
-two larger or equal to a given number:
+two larger than or equal to a given number:
 
 ```ocaml
 # let smallest_power_of_two x =
@@ -819,11 +819,11 @@ val birthday : person -> unit = <fun>
 
 ## The Standard Library
 
-OCaml comes with a library of useful modules which are available anywhere OCaml
-is. For example there are standard libraries for functional data structures
-(such as maps and sets) and imperative data structures (such as hash tables),
-and for interacting with the operating system. We use them by writing the module, followed by a
-full stop, followed by the name of the function. Here are some functions from
+OCaml comes with a library of useful modules that are available anywhere OCaml
+is. For example, there are standard libraries for functional data structures
+(such as maps and sets), imperative data structures (such as hash tables),
+and for interacting with the operating system. We use them by writing the module followed by a
+full stop, then followed by the name of the function. Here are some functions from
 the `List` module:
 
 ```ocaml
@@ -836,7 +836,7 @@ the `List` module:
 ```
 
 The `Printf` module provides type-checked printing facilities, so we know at
-compile-time that the printing will work:
+compile time that the printing will work:
 
 ```ocaml
 # let print_length s =
@@ -852,26 +852,27 @@ three has 5 characters
 You can find the full list of standard library modules in the
 [manual](/releases/latest/manual.html).
 
-## A module from opam
+## A Module From Opam
 
 Apart from the standard library, a much wider range of modules are available
-through the OCaml Package Manager, opam. You must have OCaml on your computer
-to follow the tutorial from now on, not just TryOCaml.
+through the OCaml Package Manager, Opam. You must have OCaml on your computer
+to follow the tutorial moving forward, not just the TryOCaml tool.
 
-For these examples we're going to use module called `Graphics` which can be
-installed with `opam install graphics` and the `ocamlfind` program installed
+For these examples, we're going to use module called `Graphics`, which can be
+installed with `opam install graphics`, and the `ocamlfind` program installed
 with `opam install ocamlfind`. The `Graphics` module is a very simple
-cross-platform Graphics system which was once part of OCaml itself. Now it's
-available separately through opam.
+cross-platform graphics system which was once part of OCaml itself. Now it's
+available separately through Opam.
 
-If we want to use the functions in `Graphics` there are two ways we can
+If we want to use the functions in `Graphics`, there are two ways we can
 do it. Either at the start of our program we have the `open Graphics`
-declaration. Or we prefix all calls to the functions like this:
+declaration, or we prefix all calls to the functions like this:
 `Graphics.open_graph`.
 
-To use `Graphics` in the top level, you must first load the library with
+To use `Graphics` in the toplevel, you must first load the library with
 
 <!-- $MDX skip -->
+
 ```ocaml
 # #use "topfind";;
 - : unit = ()
@@ -887,11 +888,12 @@ Findlib has been successfully loaded. Additional directives:
 ```
 
 A couple of examples should make this clear. (The two examples draw different
-things - try them out). Note the first example uses `open` to open the Graphics
-module then calls `open_graph` and the second one uses `Graphics.open_graph`
+things, so experiment with them). Note the first example uses `open` to open the Graphics
+module, then calls `open_graph`, and the second one uses `Graphics.open_graph`
 directly.
 
 <!-- $MDX skip -->
+
 ```ocaml
 open Graphics;;
 
@@ -907,6 +909,7 @@ read_line ();;
 ```
 
 <!-- $MDX skip -->
+
 ```ocaml
 Random.self_init ();;
 
@@ -930,24 +933,26 @@ done;;
 read_line ();;
 ```
 
-You should copy and paste these examples into OCaml piece by piece, each piece
-being ended by a  `;;`.
+You should copy and paste these examples into OCaml piece by piece. Each piece
+ends with a `;;`.
 
-## Compiling OCaml programs
+## Compiling OCaml Programs
 
-So far we have been using only the OCaml top level. Now we will compile OCaml
+So far we've been using only the OCaml toplevel. Now we'll compile OCaml
 programs into fast stand-alone executables. Consider the following program,
 saved as "helloworld.ml"
 
 <!-- $MDX skip -->
+
 ```ocaml
 print_endline "Hello, World!"
 ```
 
-(Notice there is no need to write `;;` since we are not using the top level).
+(Notice there is no need to write `;;` since we are not using the toplevel).
 We may compile it like this:
 
 <!-- $MDX skip -->
+
 ```ocaml
 ocamlopt -o helloworld helloworld.ml
 ```
@@ -957,6 +962,7 @@ Now our current directory has four more files. The files `helloworld.cmi`,
 process. The file `helloworld` is our executable:
 
 <!-- $MDX skip -->
+
 ```ocaml
 $ ./helloworld
 Hello, World!
@@ -965,9 +971,10 @@ $
 
 If we have more than one file, we list them all. Here is an example, defined in
 its own file `data.ml` with a corresponding `data.mli` interface, and a main
-file `main.ml` which uses it.
+file `main.ml` that uses it.
 
 <!-- $MDX skip -->
+
 ```ocaml
 data.ml:
 
@@ -975,6 +982,7 @@ let to_print = "Hello, World!"
 ```
 
 <!-- $MDX skip -->
+
 ```ocaml
 data.mli:
 
@@ -982,6 +990,7 @@ val to_print : string
 ```
 
 <!-- $MDX skip -->
+
 ```ocaml
 main.ml:
 
@@ -995,12 +1004,12 @@ ocamlopt -o main data.mli data.ml main.ml
 ```
 
 Most users of OCaml do not call the compiler directly. They use one of the
-[build systems](/docs/compiling-projects) to manage
+[build systems](/docs/compiling-ocaml-projects) to manage
 compilation for them.
 
-## Where next?
+## Where Next?
 
 This quick tour should have given you a little taste of OCaml and why you might
-like to explore it further. Elsewhere on [ocaml.org](/) there are
+like to explore it further. Elsewhere on [ocaml.org](/), there are
 pointers to [books on OCaml](/books) and
-[other tutorials](/learn).
+[other tutorials](/docs).
