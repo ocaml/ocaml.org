@@ -8,7 +8,7 @@ Layout.render
             <h1 class="font-bold mb-6">Papers</h1>
             <p>
                 With its strong academic roots, OCaml is known to be a spearhead in the development of Programming Language Theory.
-                This page contains a selection of papers that have influenced OCaml and other functionnal programming languages.
+                This page contains a selection of papers that have influenced OCaml and other functional programming languages.
             </p>
         </div>
     </div>
