@@ -94,7 +94,7 @@ Layout.render
     <div class="container-fluid">
         <div class="flex justify-between flex-col space-y-10 lg:space-y-0 lg:space-x-6 lg:flex-row">
             <div class="flex-1 space-y-6">
-                <h3 class="font-bold text-center mb-8">Most used packages</h3>
+                <h3 class="font-bold text-center mb-8">Most Used Packages</h3>
 % let render_package_most_revdeps (pkg, nb_revdeps) =
 %   render_package_stat pkg (fun () ->
       <div class="text-sm text-body-400 flex space-x-2">
@@ -191,7 +191,7 @@ Layout.render
 <div class="bg-primary-600 ">
     <div class="container-fluid">
         <div class="text-center text-white lg:p-16 py-10">
-            <h3 class="font-bold mb-6">Start contributing</h3>
+            <h3 class="font-bold mb-6">Start Contributing</h3>
             <div class="text-lg mb-8 lg:px-40">Learn how to publish your first Opam package today and make it available
                 to the rest of the community.</div>
             <div class="space-x-0 md:space-x-5 space-y-5 md:space-y-0">
