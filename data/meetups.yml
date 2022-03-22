@@ -1,5 +1,5 @@
 meetups:
-  - title: "OCaml users in PariS (OUPS)"
+  - title: "OCaml Users in Paris (OUPS)"
     textual_location: Paris, France
     location:
       lat: 48.8566
@@ -11,7 +11,7 @@ meetups:
       lat: 40.7128
       long: 74.0060
     url: https://www.meetup.com/NYC-OCaml
-  - title: "Silicon Valley OCaml meetups"
+  - title: "Silicon Valley OCaml Meetups"
     textual_location: San Francisco, California, USA
     location:
       lat: 37.7749
