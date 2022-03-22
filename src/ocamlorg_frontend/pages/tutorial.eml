@@ -5,7 +5,7 @@ Learn_layout.render ~current_tutorial:tutorial.slug ~title:(Printf.sprintf "%s Â
     <%s! tutorial.body_html %>
     <div class="pt-10 border-t border-slate-200 lg:grid lg:grid-cols-3 gap-4 text-slate-500">
       <div class="lg:col-span-1">
-        <h2 class="mt-0 mb-4 text-base font-semibold leading-6 lg:text-base">Help us make these docs great!</h2>
+        <h2 class="mt-0 mb-4 text-base font-semibold leading-6 lg:text-base">Help Improve Our Documentation</h2>
         <p class="text-sm mt-0 mb-4 max-w-xs">All OCaml docs are open source. See something that's wrong or unclear? Submit a pull request.</p>
         <a
           class="inline-block relative py-1 px-4 font-medium no-underline align-middle bg-transparent rounded-md border border-solid appearance-none cursor-pointer select-none whitespace-no-wrap hover:no-underline"
