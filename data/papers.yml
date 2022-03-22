@@ -590,7 +590,7 @@ papers:
       study on open source Jane Street libraries by using Rotor to refactor
       comparison functions so that they return a more precise variant type
       rather than an integer. We discuss the difficulties of refactoring the
-      Jane Street code base, which makes extensive use of ppx macros, and
+      Jane Street code base, which makes extensive use of PPX macros, and
       ongoing work implementing new refactorings.
     authors:
       - Joseph Harrison
@@ -614,7 +614,7 @@ papers:
       features: branching/merging, immutable causal history for all changes,
       and the ability to restore to any previous state. Irmin v2 adds new
       accessibility methods to the store: we can now use Irmin from a CLI, or
-      in a browser using `irmin-graphql`. It also has a new backend, irmin-pack,
+      in a browser using `irmin-graphql`. It also has a new backend, `irmin-pack`,
       which is optimised for space usage and is used by the Tezos blockchain.
     authors:
       - Clément Pascutto
