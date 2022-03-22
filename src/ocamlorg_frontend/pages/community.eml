@@ -176,7 +176,7 @@ Layout.render
       <div class="space-x-0 md:space-x-5 space-y-5 md:space-y-0">
         <a href="<%s Url.opportunities %>">
           <button class="btn btn-lg btn-tertiary">
-            <span>View opportunities</span>
+            <span>View Opportunities</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
