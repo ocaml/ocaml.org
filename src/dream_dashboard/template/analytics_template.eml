@@ -2,7 +2,9 @@ open Import
 
 let render ~prefix (events : Event.t list) = Layout_template.render ~prefix ~title:"Analytics" @@
 let top_pages = Event.top_pages events in
+let top_sources = Event.top_sources events in
 let top_pages_10 = List.take 10 top_pages in
+let top_sources_10 = List.take 10 top_sources in
 <div class="flex flex-col md:space-y-12 analytics-container">
   <div class="flex flex-col space-y-5 md:space-y-0 md:flex-row justify-between items-center">
     <h1 class="text-2xl font-semibold">Analytics Dashboard</h1>
@@ -317,7 +319,7 @@ let top_pages_10 = List.take 10 top_pages in
           </thead>
           <tbody>
             <% top_pages_10 |> List.iter (fun (url, count) -> %>
-            <tr x-data="{ width: '<%f 100. *. (float_of_int count) /. (float_of_int (List.length events)) %>' }">
+            <tr x-data="{ width: '<%i int_of_float (100. *. (float_of_int count) /. (float_of_int (List.length events))) %>' }">
               <td><%s url %></td>
               <td>
                 <div class="flex">
