@@ -121,10 +121,10 @@ $ ocaml
 $
 ```
 
-There are two ways to improve your experience with the OCaml top level: you can
+There are two ways to improve your experience with the OCaml toplevel: you can
 install the popular [`rlwrap`](https://github.com/hanslub42/rlwrap) on your
 system and invoke `rlwrap ocaml` instead of `ocaml` to get line-editing
-facilities inside the OCaml top level, or you can install the alternative top
+facilities inside the OCaml toplevel, or you can install the alternative top
 level `utop` using opam:
 
 ```
