@@ -26,7 +26,7 @@ Layout.render
   <div class="container-fluid">
     <div class=" ">
       <div class="text-center">
-        <h2 class="font-bold text-body-600 mb-6">Join our communities!</h2>
+        <h2 class="font-bold text-body-600 mb-6">Join Our Communities!</h2>
         <div class="font-normal text-lg text-body-400">Ask and answer questions, share and discuss OCaml-related articles and posts, let people know about your projects and find collaborators.</div>
       </div>
       <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-8 md:gap-4 md:px-10 lg:px-20 mt-12">
