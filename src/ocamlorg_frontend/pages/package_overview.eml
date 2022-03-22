@@ -187,7 +187,7 @@ Package_layout.render
             </div>
             <% ); %>
         </div>
-        <div class="font-semibold mt-8 mb-3 text-base text-body-400">Reverse dependencies</div>
+        <div class="font-semibold mt-8 mb-3 text-base text-body-400">Reverse Dependencies</div>
         <div class="flex flex-col space-y-3 max-h-96 overflow-auto">
             <% rev_dependencies |> List.iter (fun (name, cstr, version) -> %>
             <div class="flex items-center space-x-3">
