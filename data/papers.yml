@@ -1,5 +1,5 @@
 papers:
-  - title: A memory model for multicore OCaml
+  - title: A Memory Model for Multicore OCaml
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       We propose a memory model for OCaml, broadly following the design of axiomatic
@@ -17,12 +17,12 @@ papers:
       - description: "Download PDF"
         uri: https://kcsrk.info/papers/memory_model_ocaml17.pdf
     featured: true
-  - title: Extending OCaml's 'open'
+  - title: Extending OCaml's `open`
     publication: Open Publishing Association
     abstract: >
-      We propose a harmonious extension of OCaml's 'open' construct.
-      OCaml's existing construct 'open M' imports the names exported by the module 'M' into the current scope.
-      At present 'M' is required to be the path to a module. We propose extending 'open' to instead accept an arbitrary module expression,
+      We propose a harmonious extension of OCaml's `open` construct.
+      OCaml's existing construct `open M` imports the names exported by the module `M` into the current scope.
+      At present `M` is required to be the path to a module. We propose extending `open` to instead accept an arbitrary module expression,
       making it possible to succinctly address a number of existing scope-related difficulties that arise when writing OCaml programs.
     authors:
       - Runhang Li
@@ -43,10 +43,10 @@ papers:
       of the theory of algebraic effects, intended for experimentation with algebraic
       effects on a large scale.
       We present the embedding of Eff into OCaml, using the library of delimited
-      continuations or the multicore OCaml branch. We demonstrate the correctness of
+      continuations or the Multicore OCaml branch. We demonstrate the correctness of
       the embedding denotationally, relying on the tagless-final-style interpreter-based
       denotational semantics, including the novel, direct denotational semantics of
-      multi-prompt delimited control. The embedding is systematic, lightweight, performant
+      multi-prompt delimited control. The embedding is systematic, lightweight, performant,
       and supports even higher-order, 'dynamic' effects with their polymorphism.
       OCaml thus may be regarded as another implementation of Eff, broadening the
       scope and appeal of that language.
@@ -65,7 +65,7 @@ papers:
   - title: A Syntactic Approach to Type Soundness
     publication: Information & Computation, 115(1):38−94
     abstract: >
-      This paper describes the semantics and the type system of Core ML,  and
+      This paper describes the semantics and the type system of Core ML, and
       uses a simple syntactic technique to prove that well-typed programs cannot
       go wrong.
     authors:
@@ -84,7 +84,7 @@ papers:
       Programming Languages, MIT Press
     abstract: >
       This book chapter gives an in-depth abstract of the Core ML type system,
-      with an emphasis on type inference.  The type inference algorithm is
+      with an emphasis on type inference. The type inference algorithm is
       described as the composition of a constraint generator, which produces a
       system  of type equations, and a constraint solver, which is presented as
       a set of rewrite rules.
@@ -99,7 +99,7 @@ papers:
       - description: "Download PostScript"
         uri: https://cristal.inria.fr/attapl/preversion.ps.gz
     featured: false
-  - title: Relaxing the value restriction
+  - title: Relaxing the Value Restriction
     publication: International Symposium on Functional and Logic Programming
     abstract: >
       This paper explains why it is sound to generalize certain type variables
@@ -122,11 +122,11 @@ papers:
     publication: Principles of Programming Languages
     abstract: >
       This paper presents a variant of the Standard ML module system that
-      introduces a strict distinction between abstract  and manifest types. The
+      introduces a strict distinction between abstract and manifest types. The
       latter are types whose definitions explicitly appear as part of a module
-      interface. This proposal  is meant to retain most of the expressive power
+      interface. This proposal is meant to retain most of the expressive power
       of the Standard ML module system, while providing much better support
-      for  separate compilation. This work sets the formal bases for OCaml's
+      for separate compilation. This work sets the formal bases for OCaml's
       module system.
     authors:
       - Xavier Leroy
@@ -143,11 +143,11 @@ papers:
       - description: "Download DVI"
         uri: https://caml.inria.fr/pub/papers/xleroy-manifest_types-popl94.dvi.gz
     featured: false
-  - title: Applicative Functors and Fully Transparent Higher-order Modules
+  - title: Applicative Functors and Fully Transparent Higher-Order Modules
     publication: Principles of Programming Languages
     abstract: >
       This work extends the above paper by introducing so-called applicative
-      functors, that is, functors that produce compatible  abstract types when
+      functors, that is, functors that produce compatible abstract types when
       applied to provably equal arguments. Applicative functors are also a
       feature of OCaml.
     authors:
@@ -169,9 +169,9 @@ papers:
     publication: Journal of Functional Programming, 10(3):269-303
     abstract: >
       This accessible paper describes a simplified implementation of the OCaml
-      module system, emphasizing the fact that the module system  is largely
+      module system, emphasizing the fact that the module system is largely
       independent of the underlying core language. This is a good tutorial to
-      learn both how modules can be used and how  they are typechecked.
+      learn both how modules can be used and how they are typechecked.
     authors:
       - Xavier Leroy
     tags:
@@ -205,7 +205,7 @@ papers:
       - description: "Download PostScript"
         uri: https://caml.inria.fr/pub/papers/xleroy-recursive_modules-03.ps.gz
     featured: false
-  - title: "Objective ML: An effective object-oriented extension to ML"
+  - title: "Objective ML: An Effective Object-Oriented Extension to ML"
     publication: Theory And Practice of Objects Systems, 4(1):27−50
     abstract: >
       This paper provides theoretical foundations for OCaml's object-oriented
@@ -230,7 +230,7 @@ papers:
     publication: Information & Computation, 155(1/2):134−169
     abstract: >
       This paper proposes a device for re-introducing first-class polymorphic
-      values into ML while preserving its type inference  mechanism. This
+      values into ML while preserving its type inference mechanism. This
       technology underlies OCaml's polymorphic methods.
     authors:
       - Jacques Garrigue
@@ -266,7 +266,7 @@ papers:
       - description: "Download PostScript"
         uri: https://caml.inria.fr/pub/papers/garrigue-polymorphic_variants-ml98.ps.gz
     featured: false
-  - title: Code Reuse through Polymorphic Variants
+  - title: Code Reuse Through Polymorphic Variants
     publication: Workshop on Foundations of Software Engineering
     abstract: >
       This short paper explains how to design a modular, extensible interpreter
@@ -286,7 +286,7 @@ papers:
     publication: Workshop on Foundations of Object-Oriented Languages
     abstract: >
       This paper explains most of the typechecking machinery behind polymorphic
-      variants.  At its heart is an extension of Core ML's type discipline with
+      variants. At its heart is an extension of Core ML's type discipline with
       so-called local constraints.
     authors:
       - Jacques Garrigue
@@ -305,7 +305,7 @@ papers:
     publication: JSSST Workshop on Programming and Programming Languages
     abstract: >
       This paper provides more details about the technical machinery behind
-      polymorphic variants, focusing  on the rules for typechecking deep pattern
+      polymorphic variants, focusing on the rules for typechecking deep pattern
       matching constructs.
     authors:
       - Jacques Garrigue
@@ -324,7 +324,7 @@ papers:
     publication: JSSST Workshop on Programming and Programming Languages
     abstract: >
       This paper offers a dynamic semantics, a static semantics, and a
-      compilation scheme for OCaml's labeled  and optional function parameters.
+      compilation scheme for OCaml's labeled and optional function parameters.
     authors:
       - Jacques Garrigue
     tags:
@@ -339,7 +339,7 @@ papers:
       - description: "Download DVI"
         uri: https://caml.inria.fr/pub/papers/garrigue-labels-ppl01.dvi.gz
     featured: false
-  - title: Meta-programming Tutorial with CamlP4
+  - title: Meta-Programming Tutorial with CamlP4
     publication: Commercial Users of Functional Programming
     abstract: Meta-programming tutorial with Camlp4
     authors:
@@ -352,13 +352,13 @@ papers:
       - description: "View Online"
         uri: https://github.com/jaked/cufp-metaprogramming-tutorial
     featured: false
-  - title: The ZINC experiment, an Economical Implementation of the ML language
+  - title: The ZINC Experiment, an Economical Implementation of the ML Language
     publication: Technical report 117, INRIA
     abstract: >
       This report contains a abstract of the ZINC compiler, which later evolved
-      into Caml Light, then into OCaml. Large parts  of this report are out of
+      into Caml Light, then into OCaml. Large parts of this report are out of
       date, but it is still valuable as a abstract of the abstract machine used
-      in Caml Light and  (with some further simplifications and speed
+      in Caml Light and (with some further simplifications and speed
       improvements) in OCaml.
     authors:
       - Xavier Leroy
@@ -426,8 +426,8 @@ papers:
       - description: "Download PostScript"
         uri: https://caml.inria.fr/pub/papers/doligez_gonthier-gc-popl94.ps.gz
     featured: false
-  - title: Conception, réalisation et certification d'un glaneur de cellules
-      concurrent
+  - title: Conception, Réalisation et Certification d'un Glaneur de Cellules
+      Concurrent
     publication: Ph.D. thesis, Université Paris 7
     abstract: >
       All you ever wanted to know about the garbage collector found in Caml
@@ -479,12 +479,12 @@ papers:
     publication: Commercial Users of Functional Programming (CUFP)
     abstract: >
       In this talk, we will firstly describe the architecture of XenServer and
-      the XenAPI and discuss the challenges faced with implementing  an
+      the XenAPI and discuss the challenges faced with implementing an
       Objective Caml based solution. These challenges range from the low-level
-      concerns of interfacing with Xen and the  Linux kernel, to the high-level
+      concerns of interfacing with Xen and the Linux kernel, to the high-level
       algorithmic problems such as distributed failure planning. In addition, we
-      will  discuss the challenges imposed by using OCaml in a commercial
-      environment, such as supporting product upgrades,  enhancing
+      will discuss the challenges imposed by using OCaml in a commercial
+      environment, such as supporting product upgrades, enhancing
       supportability and scaling the development team.
     authors:
       - Anil Madhavapeddy
@@ -518,16 +518,16 @@ papers:
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       In this talk we present our work on a syntax definition for the OCaml
-      language in the syntax definition formalism SDF3.  SDF3 supports
+      language in the syntax definition formalism SDF3. SDF3 supports
       high-level definition of concrete and abstract syntax through declarative
-      disambiguation and definition of  constructors, enabling a direct mapping
+      disambiguation and definition of constructors, enabling a direct mapping
       to abstract syntax. Based on the SDF3 syntax definition, the Spoofax
-      language  workbench produces a complete syntax aware editor with a parser,
-      syntax checking, parse error recovery, syntax highlighting,  formatting
+      language workbench produces a complete syntax aware editor with a parser,
+      syntax checking, parse error recovery, syntax highlighting, formatting
       with correct parenthesis insertion, and syntactic completion. The syntax
-      definition should provide a good  basis for experiments with the design of
+      definition should provide a good basis for experiments with the design of
       OCaml and the development of further tooling. In the talk we will
-      highlight  interesting aspects the syntax definition, discuss issues we
+      highlight interesting aspects the syntax definition, discuss issues we
       encountered in the syntax of OCaml, and demonstrate the editor.
     authors:
       - Luis Eduardo de Souza Amorim
@@ -543,12 +543,12 @@ papers:
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       Since their inception state-machine frameworks have proven their worth by
-      finding defects in everything  from the underlying AUTOSAR components of
+      finding defects in everything from the underlying AUTOSAR components of
       Volvo cars to digital invoicing sys- tems. These case studies were
-      carried  out with Erlang’s commercial QuickCheck state-machine framework
-      from Quviq, but such frameworks are now also available  for Haskell, F#,
+      carried out with Erlang’s commercial QuickCheck state-machine framework
+      from Quviq, but such frameworks are now also available for Haskell, F#,
       Scala, Elixir, Java, etc. We present a typed state-machine framework for
-      OCaml based on the QCheck  library and illustrate a number concepts common
+      OCaml based on the QCheck library and illustrate a number concepts common
       to all such frameworks: state modeling, commands, interpreting commands,
       preconditions, and agreement checking.
     authors:
@@ -564,13 +564,13 @@ papers:
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       AD-OCaml is a library framework for calculating mathematically exact
-      derivatives and  deep power series approximations of almost arbitrary
-      OCaml programs via algorithmic  differentiation. Unlike similar
-      frameworks, this includes programs with side effects,  aliasing, and
+      derivatives and deep power series approximations of almost arbitrary
+      OCaml programs via algorithmic differentiation. Unlike similar
+      frameworks, this includes programs with side effects, aliasing, and
       programs with nested derivative operators. The framework also offers
-      implicit  parallelization of both user programs and their transformations.
-      The presentation will provide  a short introduction to the mathematical
-      problem, the difficulties of implementing a solution,  the design of the
+      implicit parallelization of both user programs and their transformations.
+      The presentation will provide a short introduction to the mathematical
+      problem, the difficulties of implementing a solution, the design of the
       library, and a demonstration of its capabilities.
     authors:
       - Markus Mottl
@@ -581,16 +581,16 @@ papers:
       - description: "View Online"
         uri: https://icfp20.sigplan.org/details/ocaml-2020-papers/12/AD-OCaml-Algorithmic-Differentiation-for-OCaml
     featured: false
-  - title: "API migration: compare transformed"
+  - title: "API Migration: Compare Transformed"
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       In this talk we describe our experience in using an automatic
-      API-migration strategy dedicated at changing  the signatures of OCaml
+      API-migration strategy dedicated at changing the signatures of OCaml
       functions, using the Rotor refactoring tool for OCaml. We perform a case
-      study on  open source Jane Street libraries by using Rotor to refactor
-      comparison functions so that they return a  more precise variant type
+      study on open source Jane Street libraries by using Rotor to refactor
+      comparison functions so that they return a more precise variant type
       rather than an integer. We discuss the difficulties of refactoring the
-      Jane Street  code base, which makes extensive use of ppx macros, and
+      Jane Street code base, which makes extensive use of ppx macros, and
       ongoing work implementing new refactorings.
     authors:
       - Joseph Harrison
@@ -610,11 +610,11 @@ papers:
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       Irmin is an OCaml library for building distributed databases with the same
-      design principles as Git.  Existing Git users will find many familiar
-      features: branching/merging, immutable causal history for  all changes,
+      design principles as Git. Existing Git users will find many familiar
+      features: branching/merging, immutable causal history for all changes,
       and the ability to restore to any previous state. Irmin v2 adds new
-      accessibility methods  to the store: we can now use Irmin from a CLI, or
-      in a browser using irmin-graphql. It also has a new  backend, irmin-pack,
+      accessibility methods to the store: we can now use Irmin from a CLI, or
+      in a browser using `irmin-graphql`. It also has a new backend, irmin-pack,
       which is optimised for space usage and is used by the Tezos blockchain.
     authors:
       - Clément Pascutto
@@ -635,10 +635,10 @@ papers:
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       LexiFi maintains an OCaml compiler extension that enables introspection
-      through runtime type representations.  Recently, we implemented a syntax
+      through runtime type representations. Recently, we implemented a syntax
       extension (PPX) that enables the use of LexiFi runtime types on vanilla
-      compilers.  We propose to present our publicly available runtime types and
-      their features. Most notably, we want to present  a mechanism for pattern
+      compilers. We propose to present our publicly available runtime types and
+      their features. Most notably, we want to present a mechanism for pattern
       matching on runtime types with holes.
     authors:
       - Patrik Keller
@@ -658,14 +658,14 @@ papers:
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       SmartPy is a complete system to develop smart-contracts for the Tezos
-      blockchain. It is an embedded EDSL in python  to write contracts and their
+      blockchain. It is an embedded EDSL in Python to write contracts and their
       tests scenarios. It includes an online IDE, a chain explorer, and a
-      command line interface.  Python is used to generate programs in an
+      command line interface. Python is used to generate programs in an
       imperative, type inferred, intermediate language called SmartML. SmartML
-      is  also the name of the OCaml library which provides an interpreter, a
-      compiler to Michelson (the smart-contract language of Tezos),  as well as
+      is also the name of the OCaml library which provides an interpreter, a
+      compiler to Michelson (the smart-contract language of Tezos), as well as
       a scenario “on-chain” interpreter. The IDE uses a mix of OCaml built with
-      js_of_ocaml and pure Javascript.  The command line interface also builds
+      js_of_ocaml and pure Javascript. The command line interface also builds
       with js_of_ocaml to run on Node.js.
     authors:
       - Sebastien Mondet
@@ -682,11 +682,11 @@ papers:
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       OCaml-CI is a CI service for OCaml projects. It uses metadata from the
-      project’s opam and dune files to work out what to build,  and uses caching
+      project’s Opam and Dune files to work out what to build, and uses caching
       to make builds fast. It automatically tests projects against multiple
       OCaml versions and OS platforms. The CI has been deployed on around 50
       projects so far on GitHub, and many of them see response times an order of
-      magnitude quicker than  with less integrated CI solutions. This talk will
+      magnitude quicker than with less integrated CI solutions. This talk will
       introduce the CI service and then look at some of the technologies used to
       build it.
     authors:
@@ -702,12 +702,12 @@ papers:
       - description: "View Online"
         uri: https://icfp20.sigplan.org/details/ocaml-2020-papers/6/OCaml-CI-A-Zero-Configuration-CI
     featured: false
-  - title: Parallelising your OCaml Code with Multicore OCaml
+  - title: Parallelising Your OCaml Code with Multicore OCaml
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       With the availability of multicore variants of the recent OCaml versions
-      (4.10 and 4.11) that maintain  backwards compatibility with the existing
-      OCaml C-API, there has been increasing interest in the wider  OCaml
+      (4.10 and 4.11) that maintain backwards compatibility with the existing
+      OCaml C-API, there has been increasing interest in the wider OCaml
       community for parallelising existing OCaml code.
     authors:
       - Sadiq Jaffer
@@ -728,13 +728,13 @@ papers:
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
       This proposal describes a presentation to be given at the OCaml’20
-      workshop. The presentation will cover a new OCaml filesystem,  ImpFS, and
+      workshop. The presentation will cover a new OCaml filesystem, ImpFS, and
       the related libraries. The filesystem makes use of a B-tree library
-      presented at OCaml’17, and a key-value store  presented at ML’19. In
+      presented at OCaml’17, and a key-value store presented at ML’19. In
       addition, there are a number of other support libraries that may be of
-      interest to the community. ImpFS  represents a single point in the
+      interest to the community. ImpFS represents a single point in the
       filesystem design space, but we hope that the libraries we have developed
-      will enable others to  build further filesystems with novel features.
+      will enable others to build further filesystems with novel features.
     authors:
       - Tom Ridge
     tags:
@@ -744,15 +744,15 @@ papers:
       - description: "View Online"
         uri: https://icfp20.sigplan.org/details/ocaml-2020-papers/8/The-ImpFS-filesystem
     featured: false
-  - title: The final pieces of the OCaml documentation puzzle
+  - title: The Final Pieces of the OCaml Documentation Puzzle
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
-      Odoc is the latest attempt at creating a documentation tool which handles
-      the full complexity of the OCaml language. It has been a long  time coming
+      `odoc` is the latest attempt at creating a documentation tool which handles
+      the full complexity of the OCaml language. It has been a long time coming
       as tackling both the module system and rendering into rich documents makes
-      for a difficult task. Nevertheless we believe  the two recent developments
+      for a difficult task. Nevertheless we believe the two recent developments
       provides the final pieces of the OCaml documentation puzzle. This two
-      improvements split odoc in two  layers: a model layer, with a deep
+      improvements split `odoc` in two layers: a model layer, with a deep
       understanding of the module system, and a document layer allowing for easy
       definition of new outputs.
     authors:
@@ -771,11 +771,11 @@ papers:
     abstract: >
       Coda is a new cryptocurrency that uses zk-SNARKs to dramatically reduce
       the size of data needed by nodes running its protocol. Nodes
-      communicate  in a format automatically derived from type definitions in
+      communicate in a format automatically derived from type definitions in
       OCaml source files. As the Coda software evolves, these formats for sent
       data may change. We wish to allow nodes running older versions of the
       software to communicate with newer versions. To achieve that, we identify
-      stable types that  must not change over time, so that their serializations
+      stable types that must not change over time, so that their serializations
       also do not change.
     authors:
       - Paul Steckler
