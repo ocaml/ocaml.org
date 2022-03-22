@@ -1,6 +1,6 @@
 featured_packages:
 
-  - dune
-  - dream
-  - js_of_ocaml
-  - mirage
+  - Dune
+  - Dream
+  - Js_of_ocaml
+  - Mirage
