@@ -1,7 +1,7 @@
 let render ~(users : Ood.Industrial_user.t list) ~success_stories =
 Layout.render
 ~use_swiper:true
-~title:"Industrial Users of OCaml"
+~title:"OCaml in Industry"
 ~description:"With its strong security features and high performance, several \
 companies rely on OCaml to keep their data operating both safely and \
 efficiently. On this page, you can get an overview of the companies in \
@@ -10,12 +10,11 @@ the community and learn more about how they use OCaml." @@
   <div class="container-fluid space-y-24 lg:space-y-32">
       <div class="flex flex-col lg:flex-row  justify-between space-x-0 lg:space-x-10">
           <div class="lg:flex-1 lg:mt-16 my-12">
-              <h1 class="font-bold">What some of our users say about <span class="text-primary-600">OCaml</span></h1>
+              <h1 class="font-bold">What Our Users Say About <span class="text-primary-600">OCaml</span></h1>
               <div class="text-body-400 mt-6 mb-8">Read our success stories to learn how OCaml helped our users
                   achieve their goals.</div>
               <div class="space-x-6">
-                  <a href="<%s Url.academic_users %>"><button class="btn btn-lg btn-secondary">Academic
-                          Users</button></a>
+                  <a href="<%s Url.academic_users %>"><button class="btn btn-lg btn-secondary">In Academia</button></a>
               </div>
           </div>
           <div class="lg:flex-1 cursor-pointer relative rounded-2xl overflow-hidden border-4 border-primary-100 video-shadow"
@@ -132,7 +131,7 @@ the community and learn more about how they use OCaml." @@
     <div class="flex justify-between items-end lg:space-x-80 mb-0 md:mb-20 md:flex-row flex-col">
       <div class="text-left">
         <h2 class="font-bold mb-6">Testimonials</h2>
-        <div class="text-body-400">Read what some of our industrial users say about OCaml.</div>
+        <div class="text-body-400">Read What Some Industry Users Say About OCaml.</div>
       </div>
       <div class="flex justify-between items-center space-x-4 m-auto mt-10 mb-5 md:mb-0">
         <button aria-label="Previous" class="text-primary-600 rounded-full py-4 px-4 hover:bg-primary-100 transition duration-300" @click="swiper.slidePrev()">
@@ -200,7 +199,7 @@ the community and learn more about how they use OCaml." @@
 <div class="py-10 md:py-20 md:pb-32 bg-white">
   <div class="container-fluid">
     <div class="text-center">
-      <h2 class="font-bold mb-6">Other Industrial Users of OCaml</h2>
+      <h2 class="font-bold mb-6">Other Industry Users of OCaml</h2>
       <div class="text-body-400">With its strong security features and high performance, several companies rely on OCaml to keep<br /> their data operating both safely and efficiently. On this page, you can get an overview of the<br /> companies in the community and learn more about how they use OCaml.</div>
     </div>
     <div class="grid-logos bg-white mt-20">
