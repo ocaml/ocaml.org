@@ -7,15 +7,15 @@ meta_description: Read about the structure of the OCaml.org project, the roles i
 
 ## Overview and Scope
 
-As the OCaml community continues to grow, more collaborative work is being
+As the OCaml community continues to grow, more collaborative work 
 undertaken to support and extend the needs of the language and
 its users. This document focuses specifically on the
 OCaml.org *domain name* and the Projects that make use of that domain name.
-It describes the reporting structure, roles involved and the responsibilities.
+It describes the reporting structure, roles involved, and the responsibilities.
 The aim is to avoid introducing cumbersome processes while still providing a
 high degree of transparency.
 
-### Purpose - a document that represents reality
+### Purpose - A Document That Represents Reality
 
 At any given time, this document must reflect the *current reality*.
 It is *not* intended to be aspirational nor reflect the kind of structures
@@ -25,11 +25,11 @@ of this document is limited to the extent that it represents how things
 As the environment changes, this document should also be updated such that it
 consistently reflects how things are.
 
-### Disambiguation - the meaning of OCaml.org
+### Disambiguation - The Meaning of OCaml.org
 
 When using the term 'OCaml.org', there is the potential for a number of
-different interpretations.  To reduce confusion, these are described below and
-the meaning of the term *for this document* is explained.
+different interpretations. To reduce confusion, these are described below, and
+the meaning of the term *for this document* is also explained.
 
 *Second-level domain name* - This is the domain name we are familiar with,
 'OCaml.org', which has associated sub-domains and records (NB: Just for
@@ -38,17 +38,17 @@ clarity and edification, the top-level domain here is '.org').
 *Community website* - This is the community facing website, which can be found
 at [ocaml.org](//ocaml.org) and is often referred to as simply 'OCaml.org'.
 
-*Infrastructure* - This may refer to the virtual machines (VMs), services or
+*Infrastructure* - This may refer to the virtual machines (VMs), services, or
 other things that are somehow routed via the second-level domain name itself.
-An obvious example is the VM that hosts the community website but another would
-be the VMs and systems that host the tarballs and files used by the OPAM
+An obvious example is the VM that hosts the community website, but another would
+be the VMs and systems that host the tarballs and files used by the Opam
 package manager tool.
 
 For the purposes of this document, we take the first meaning — that
 this document relates to the governance of the second-level domain,
 'OCaml.org'. Therefore, anything that involves use of the domain name in some
 form is affected by the governance of the domain name itself. That includes
-any public facing webpages, URLs and other resources.
+any public facing webpages, URLs, and other resources.
 This is important because, in a way, OCaml.org is the sum of the Projects
 it hosts.
 
@@ -58,10 +58,10 @@ the second-level domain name itself. Any references to the domain of the
 community website project will include the sub-domain 'www.ocaml.org',
 even though this is set to redirect to [ocaml.org](//ocaml.org).
 
-### Guiding principles of OCaml.org
+### Guiding Principles of OCaml.org
 
 There are certain guiding principles for OCaml.org, which include openness and
-a community-focus, that Projects need to be compatible with. These principles
+a community focus, that Projects need to be compatible with. These principles
 extend to all of the Projects that use the domain OCaml.org.
 
 
@@ -79,7 +79,7 @@ It is the role of the Owner to resolve disputes that may arise
 in relation to OCaml.org itself, specifically to ensure that the Projects under
 OCaml.org are able to progress in a coordinated way.
 It is the community's role to guide the decisions of the Owner
-through active engagement, contributions and discussions.  To foster a healthy
+through active engagement, contributions and discussions. To foster a healthy
 and growing community, the Owner will make the
 goals and decisions clear and public.
 
@@ -110,23 +110,23 @@ access to relevant repositories and are responsible for:
 Generally, Maintainers only have authority over the specific Projects they are
 responsible for though it is expected that Maintainers of different Projects
 will collaborate frequently, especially in the case of major changes or
-announcements.  Typically, individuals who have made substantive contributions
+announcements. Typically, individuals who have made substantive contributions
 to a Project will be invited to become Maintainers.
 
 ### Contributors
 
 Contributors are wider members of the OCaml community who make valuable
 contributions, but generally do not have authority to make direct changes to a
-Project's code-base or documentation. Anyone can become a Contributor and there
-is no expectation of commitment, no specific skill requirement and no
+Project's codebase or documentation. Anyone can become a Contributor and there
+is no expectation of commitment, no specific skill requirement, and no
 selection process. The only necessary step is to make or suggest some
 improvement or change to the Project.
 
 Contributors can interact with a Project via tools such as email lists, issue
-trackers and wiki pages, for example.  The main email list for OCaml.org is
+trackers, and wiki pages, for example. The main email list for OCaml.org is
 infrastructure@lists.ocaml.org and is open to all. Maintainers are
 free to direct discussion to their own dedicated mailing lists, as they feel
-appropriate. Those whose contributions become part of a public git repository
+appropriate. Those whose contributions become part of a public Git repository
 will be recognised in some form on a public website as thanks.
 
 It is expected that regular Contributors to specific Projects may be asked if
@@ -136,9 +136,9 @@ accept such an offer.
 ### Users
 
 Users are the most important group and it includes the much wider community of
-anyone who interacts with OCaml.org in any way.  This covers all web-visitors,
-package users, and members of mailing lists. Without Users, the Projects serve
-no purpose so the impact of any major decisions on this group should be
+anyone who interacts with OCaml.org in any way. This covers all web-visitors,
+package users and members of mailing lists. Without Users, the Projects serve
+no purpose, so the impact of any major decisions on this group should be
 assessed.
 
 Wherever practicable, Users should be encouraged to provide feedback and
@@ -150,9 +150,9 @@ Maintainers and Contributors are necessarily also Users.
 
 ## Projects
 
-**Definition** - A Project within OCaml.org is characterised by its sub-domain.
+**Definition** - A Project within OCaml.org is characterised by its subdomain.
 It is expected that the majority of new work will fall under an existing
-sub-domain and will therefore already have a set of Maintainers and
+subdomain and will therefore already have a set of Maintainers and
 Contributors (as described above).
 
 **Communication** - All Maintainers of Projects must join the Infrastructure
@@ -172,33 +172,33 @@ mailing list. If there is consensus among Maintainers that the work fits
 within an existing Project, then the Maintainers of that Project can take it
 forward. 
 
-If a new sub-domain is required, then a brief proposal
+If a new subdomain is required, then a brief proposal
 should be made on the Infrastructure list that covers:
 
-- The aims and purpose of the Project (inc name of the sub-domain required).
-- Specific resources required and for how long (e.g VMs).
-- Any impact on or relation to existing Projects.
-- Information about the initial Maintainers.
-- Details of proposed licensing arrangements for code/content.
+- The aims and purpose of the Project (inc name of the subdomain required)
+- Specific resources required and for how long (e.g., VMs)
+- Any impact on or relation to existing Projects
+- Information about the initial Maintainers
+- Details of proposed licensing arrangements for code/content
 
-The above information is intended to stimulate discussion so brevity is
+The above information is intended to stimulate discussion, so brevity is
 preferred. Following discussion, and if the Owner/Delegate agrees, the
 resources can be provisioned. There is no obligation for the Owner/Delegate to
-provide any resources beyond the sub-domain.
+provide any resources beyond the subdomain.
 
 ### Closing a Project
 
 A Project can be closed:
 
-- If it has completed its aims and the Maintainers request it be closed down.
-- If there are no Maintainers left to continue supporting it and no-one willing
-to take on the role.
-- By the Owner/Delegate for any reason.
+- If it has completed its aims and the Maintainers request it be closed down
+- If there are no Maintainers left to continue supporting it and no one willing
+to take on the role
+- By the Owner/Delegate for any reason
 
 In all cases, prior notice must be sent to the Infrastructure list including a
-reasonable time-frame and reasons for closure.
-Closure simply implies revocation or redirection of the sub-domain and/or
-shutting down or reclaiming any resources provided (e.g VMs). 
+reasonable time frame and reasons for closure.
+Closure simply implies revocation or redirection of the subdomain and/or
+shutting down or reclaiming any resources provided (e.g., VMs). 
 
 
 ## Processes
@@ -208,7 +208,7 @@ shutting down or reclaiming any resources provided (e.g VMs).
 The preferred approach for most discussions is through
 [rough consensus and running code](http://en.wikipedia.org/wiki/Rough_consensus).
 Discussions should be public and take place on either the Infrastructure
-mailing list, the relevant Project mailing-list or on relevant issue trackers.
+mailing list, the relevant Project mailing-list, or on relevant issue trackers.
 Users and Contributors are encouraged to take part and voice their opinions.
 Typically, the Maintainers of a Project will make the final decision, having
 accounted for wider views.
@@ -225,50 +225,50 @@ licensing agreement so
 that Contributors understand how to engage with the Maintainers. Typically,
 this will cover where communication occurs and the process for submitting
 patches. Contributions from the community are encouraged and can take many
-forms including, bug fixes, new features, content or documentation.  
+forms including, bug fixes, new features, content, or documentation.  
 
-All Projects under OCaml.org are expected to be open-source and the licensing
+All Projects under OCaml.org are expected to be open source, and the licensing
 arrangements should reflect this.
 
 Contributions to OCaml.org itself may be in the form of resources that can be
 shared by Projects and can be discussed with Owner/Delegate and Project
 Maintainers on the Infrastructure mailing list.
 
-### Dispute resolution
+### Dispute Resolution
 
 Maintainers are expected to make decisions regarding their Projects.
 The intent is for any Maintainers to resolve disagreements, through
 a consensus process within each Project.  
 
 On the rare occasions, where Maintainers of a Project cannot agree
-on a way forward the following approach is suggested:
+on a way forward, the following approach is suggested:
 
-- The specific issue(s) will need to be articulated so it is clear what needs
+- The specific issue(s) will need to be articulated, so it is clear what needs
 to be discussed.
 - Other Maintainers of OCaml.org projects will be asked for their views.
 - If the discussion still cannot be resolved, the Owner (or their Delegate)
 will act as arbitrator.
 
 During the above, it is expected that all people will be reasonable and be
-respectful of each other's efforts and viewpoints.  In general, we expect to
+respectful of each other's efforts and viewpoints. In general, we expect to
 generate consensus among the community to resolve conflicts.  
 
 ## Existing Projects
 
-Projects are referred to by their **sub-domain** and summaries of the
+Projects are referred to by their **subdomain**, and summaries of the
 current Projects are maintained on the Infrastructure
 wiki page: <https://github.com/ocaml/infrastructure/wiki>
 
 ****
 
-**Adoption of this document**
+**Adoption of This Document**
 
 This version of the document was agreed upon by the incumbent set
 of Maintainers in September 2015. You can look back at the
 [discussion](http://lists.ocaml.org/pipermail/infrastructure/2015-August/000518.html)
 or see the [related issue](https://github.com/ocaml/ocaml.org/issues/700).
 
-***Version 1.0.0 — September 2015***
+***Version 1.0.1 — March 2022***
 <!--
 The version number should be changed for *any* edits that are made to this
 document, even typos. Otherwise disambiguating between versions is awkward. 
@@ -277,4 +277,13 @@ Best wishes,
 Amir
 
 Sep 2015
+------
+
+Addressed consistency in title case and grammar. Changed to Version 1.0.1, as
+recommened by Amir, above. 
+
+Kindly,
+Christine
+
+March 2022
 -->
