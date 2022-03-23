@@ -116,7 +116,7 @@ Layout.render
   </div>
   <div class="container-fluid">
     <div class="text-center py-10 lg:py-28">
-      <h2 class="mb-6 font-bold">Our influence</h2>
+      <h2 class="mb-6 font-bold">Our Influence</h2>
       <div>See where we are located around the world at an academic level</div>
       <div class="mt-24 relative">
         <img src="/img/academic/map.svg" alt="Influence Map" />
@@ -126,7 +126,7 @@ Layout.render
   <div class="bg-primary-600">
     <div class="container-fluid">
       <div class="text-center text-white lg:p-16 py-10">
-        <h3 class="font-bold mb-6">Interested in learning more?</h3>
+        <h3 class="font-bold mb-6">Interested in Learning More?</h3>
         <div class="text-lg mb-8 lg:px-28">Go to our success stories for a more in-depth understanding of how our users use OCaml.</div>
         <div class="space-x-0 md:space-x-5 space-y-5 md:space-y-0">
           <a href="<%s Url.industrial_users %>"><button class="btn btn-lg btn-tertiary">Success Stories</button></a>
