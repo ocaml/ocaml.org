@@ -7,7 +7,7 @@ Learn_layout.render
   <h1 class="font-bold">The OCaml Platform</h1>
   <div class="text-body-400 mt-6">
     The OCaml Platform represents the best way for developers, both new and old, to write software in OCaml. It combines
-    the core OCaml compiler with a coherent set of tools, documentation, libraries and testing resources.
+    the core OCaml compiler with a coherent set of tools, documentation, libraries, and testing resources.
   </div>
 
   <div
@@ -60,7 +60,7 @@ Learn_layout.render
   <div class="flex flex-col border-t border-gray-200 pt-20 mt-20 mb-20">
     <h3 class="font-bold">State of Platform Tools</h3>
     <div class="text-body-400 mt-6 text-lg">
-      Each element of the platform lives at a different point in the lifecycle of being a Platform tool
+      Each platform element lives at a different point in the lifecycle of a Platform tool
     </div>
     <div>
       <h4 class="mt-20 font-bold">Active</h4>
@@ -123,7 +123,7 @@ Learn_layout.render
     <div class="mt-20">
       <h4 class="font-bold">Deprecate</h4>
       <div class="text-body-400 mt-3 border-b border-gray-200 pb-3">
-        Tools that are gradually being phased out of use with clear paths to better workflows.
+        Tools that are gradually being phased out, with clear paths to better workflows.
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:pr-20 mt-8 items-start">
         <% tools |> List.filter (fun (item : Ood.Tool.t) -> item.lifecycle = `Deprecate) |> List.iter (fun (item : Ood.Tool.t) -> %>
