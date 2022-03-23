@@ -11,8 +11,8 @@ let render_problem_link (problem : Ood.Problem.t) =
 in
 Layout.render
 ~wide:true
-~title:"OCaml 99 Problems"
-~description:"A list of 99 problems to work on your OCaml skills." @@
+~title:"Exercises"
+~description:"A list of exercises to work on your OCaml skills." @@
 <button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
   :class="sidebar ? 'pl-1 pr-2': ''" x-on:click="sidebar = ! sidebar">
   <div class="transition-transform" :class='sidebar ? "" : "rotate-180" '>
@@ -66,7 +66,7 @@ Layout.render
                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
               </svg>
             </div>
-            <div class="ml-3 font-semibold opacity-70">99 Problems</div>
+            <div class="ml-3 font-semibold opacity-70">Exercises</div>
           </a>
         </div>
 
