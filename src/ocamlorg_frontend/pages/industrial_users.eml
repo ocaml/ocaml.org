@@ -1,7 +1,7 @@
 let render ~(users : Ood.Industrial_user.t list) ~success_stories =
 Layout.render
 ~use_swiper:true
-~title:"Industrial Users of OCaml"
+~title:"OCaml in Industry"
 ~description:"With its strong security features and high performance, several \
 companies rely on OCaml to keep their data operating both safely and \
 efficiently. On this page, you can get an overview of the companies in \
@@ -10,12 +10,11 @@ the community and learn more about how they use OCaml." @@
   <div class="container-fluid space-y-24 lg:space-y-32">
       <div class="flex flex-col lg:flex-row  justify-between space-x-0 lg:space-x-10">
           <div class="lg:flex-1 lg:mt-16 my-12">
-              <h1 class="font-bold">What some of our users say about <span class="text-primary-600">OCaml</span></h1>
+              <h1 class="font-bold">What Our Users Say About <span class="text-primary-600">OCaml</span></h1>
               <div class="text-body-400 mt-6 mb-8">Read our success stories to learn how OCaml helped our users
                   achieve their goals.</div>
               <div class="space-x-6">
-                  <a href="<%s Url.academic_users %>"><button class="btn btn-lg btn-secondary">Academic
-                          users</button></a>
+                  <a href="<%s Url.academic_users %>"><button class="btn btn-lg btn-secondary">In Academia</button></a>
               </div>
           </div>
           <div class="lg:flex-1 cursor-pointer relative rounded-2xl overflow-hidden border-4 border-primary-100 video-shadow"
@@ -84,7 +83,7 @@ the community and learn more about how they use OCaml." @@
       <div class="text-center mt-6 lg:mt-0">
           <h2 class="font-bold mb-6">Case Studies</h2>
           <p class="text-body-400">
-              Read how users of OCaml are solving real-world problems and how OCaml was a key for their success.
+              Read how OCaml users are solving real-world problems and how OCaml was a key to their success.
           </p>
       </div>
 
@@ -132,7 +131,7 @@ the community and learn more about how they use OCaml." @@
     <div class="flex justify-between items-end lg:space-x-80 mb-0 md:mb-20 md:flex-row flex-col">
       <div class="text-left">
         <h2 class="font-bold mb-6">Testimonials</h2>
-        <div class="text-body-400">Read what some of our industrial users say about OCaml.</div>
+        <div class="text-body-400">Read What Some Industry Users Say About OCaml.</div>
       </div>
       <div class="flex justify-between items-center space-x-4 m-auto mt-10 mb-5 md:mb-0">
         <button aria-label="Previous" class="text-primary-600 rounded-full py-4 px-4 hover:bg-primary-100 transition duration-300" @click="swiper.slidePrev()">
@@ -161,7 +160,7 @@ the community and learn more about how they use OCaml." @@
         <a href="https://www.janestreet.com/" class="swiper-slide p-4 card-hover">
           <div class="overflow-hidden p-8">
             <img src="/logos/janestreet.svg" class="mb-8 h-8" />
-            <div class="mb-12">OCaml helps us to quickly adopt to changing market conditions, and go from prototypes to production systems with less effort ... Billions of dollars of transactions flow through our systems every day, so getting it right matters</div>
+            <div class="mb-12">OCaml helps us to quickly adapt to changing market conditions and go from prototypes to production systems with less effort ... Billions of dollars of transactions flow through our systems every day, so getting it right matters.</div>
             <div class="font-bold">Yaron Minsky</div>
             <div>CTO, Jane Street.</div>
           </div>
@@ -170,7 +169,7 @@ the community and learn more about how they use OCaml." @@
         <a href="https://ahrefs.com/" class="swiper-slide p-4 card-hover">
           <div class="overflow-hidden p-8">
               <img src="/logos/ahrefs.svg" class="mb-10 h-6" alt="" />
-              <div class="mb-12">OCaml as the development environment acts as a very much trusted partner throughout the whole development process. As our requirements evolve we change the implementation a lot, and this is where the language shines. Literally, I am not afraid to change others’ code when OCaml has my back!</div>
+              <div class="mb-12">OCaml as the development environment acts as a very much trusted partner throughout the whole development process. As our requirements evolve, we change the implementation a lot, and this is where the language shines. Literally, I am not afraid to change others’ code when OCaml has my back!</div>
               <div class="font-bold">Oleksiy Golovko</div>
               <div>Backend Developer, Ahrefs.</div>
           </div>
@@ -179,7 +178,7 @@ the community and learn more about how they use OCaml." @@
         <a href="https://www.marigold.dev" class="swiper-slide p-4 card-hover">
           <div class="overflow-hidden p-8">
               <img src="https://uploads-ssl.webflow.com/616ab4741d375d1642c19027/61793ee65c891c190fcaa1d0_Vector(1).png" class="h-8 mb-8" alt="" />
-              <div class="mb-12">Using OCaml as a programming language to write software has many benefits ; for instance, it is able to describe the source code in an easy and understandable manner. The fear of refactoring in the source code can be eased as well. OCaml has a mature and very evolving ecosystem, which is a large, supportive and friendly community.</div>
+              <div class="mb-12">Using OCaml as a programming language to write software has many benefits. For instance, it is able to describe the source code in an easy and understandable manner. The fear of refactoring in the source code can be eased as well. OCaml has a mature and very evolving ecosystem, which is a large, supportive and friendly community.</div>
               <div class="font-bold">Xavier Van de Woestyne</div>
               <div>Software engineer, Marigold.</div>
           </div>
@@ -200,7 +199,7 @@ the community and learn more about how they use OCaml." @@
 <div class="py-10 md:py-20 md:pb-32 bg-white">
   <div class="container-fluid">
     <div class="text-center">
-      <h2 class="font-bold mb-6">Other Industrial Users of OCaml</h2>
+      <h2 class="font-bold mb-6">Other Industry Users of OCaml</h2>
       <div class="text-body-400">With its strong security features and high performance, several companies rely on OCaml to keep<br /> their data operating both safely and efficiently. On this page, you can get an overview of the<br /> companies in the community and learn more about how they use OCaml.</div>
     </div>
     <div class="grid-logos bg-white mt-20">
@@ -228,7 +227,7 @@ the community and learn more about how they use OCaml." @@
           </svg>
 
           <p class="font-semibold text-xl mb-3">Getting Started</p>
-          <p>Install OCaml, setup your favorite text editor and start your first project.</p>
+          <p>Install OCaml, setup your favorite text editor, and start your first project.</p>
         </a>
         <a href="<%s Url.package_doc "ocaml-base-compiler" "4.13.1" "index.html" %>" class="resources-card card-hover">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
