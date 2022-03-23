@@ -1,6 +1,6 @@
 let render () =
 Layout.render
-~title:"Page not found"
+~title:"Page Not Found"
 ~description:"This page does not exist." @@
 <div class="bg-white px-4 py-16 sm:px-6 sm:py-24 md:grid md:place-items-center lg:px-8">
   <div class="max-w-max mx-auto">
@@ -14,11 +14,11 @@ Layout.render
         <div class="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6">
           <a href="/"
             class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
-            Go back home
+            Go Back Home
           </a>
           <a href="https://github.com/ocaml/v3.ocaml.org-server/issues"
             class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-orange-700 bg-orange-100 hover:bg-orange-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
-            Open an issue
+            Open an Issue
           </a>
         </div>
       </div>
