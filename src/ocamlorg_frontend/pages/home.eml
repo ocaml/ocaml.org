@@ -3,7 +3,7 @@ Layout.render
 ~use_swiper:true
 ~title:"Welcome to a World of OCaml"
 ~description:
-"OCaml is a general purpose industrial-strength programming language \
+"OCaml is a general-purpose, industrial-strength programming language \
 with an emphasis on expressiveness and safety."
 ~styles:["/css/main.css"; "/css/toplevel.css"; "/css/syntax.css"]
 @@
@@ -12,10 +12,10 @@ with an emphasis on expressiveness and safety."
     <div class="flex flex-col lg:flex-row">
       <div class="lg:flex-1 lg:mt-16 my-12">
         <h1 class="lg:pr-10 font-bold">
-          General Purpose, Industrial-Strength, Expressive, and Safe
+          General-Purpose, Industrial-Strength, Expressive, and Safe
         </h1>
         <div class="text-body-400 my-7">
-          OCaml is a general purpose industrial-strength programming language
+          OCaml is a general-purpose, industrial-strength programming language
           with an emphasis on expressiveness and safety.
         </div>
         <div class="space-x-0 lg:space-x-6">
@@ -71,7 +71,7 @@ with an emphasis on expressiveness and safety."
     <div class="text-center">
       <h2 class="font-bold text-body-600">Trusted by Industry Leaders</h2>
       <div class="text-body-400 text-base mt-3">
-        These companies and organizations rely on OCaml every day — along with thousands of other developers. See <a href="<%s Url.industrial_users %>" class="link-orange">Success Stories</a>
+        These companies and organisations rely on OCaml every day — along with thousands of other developers. See <a href="<%s Url.industrial_users %>" class="link-orange">Success Stories</a>
       </div>
       <div class="flex flex-row justify-center m-auto flex-wrap py-8 items-center">
           <div class="mx-8 my-4">
@@ -118,7 +118,7 @@ with an emphasis on expressiveness and safety."
             </div>
             <h3 class="text-body-600 font-bold">Unobtrusive Type Safety</h3>
             <div class="my-4 text-lg">
-              OCaml’s powerful type system means more bugs are caught at compile time, and large, complex codebases are easier to maintain. This makes it a good language for running critical code. At the same time, sophisticated inference makes the type system unobtrusive,  creating a smooth developer experience.
+              OCaml’s powerful type system means more bugs are caught at compile time, and large, complex codebases are easier to maintain. This makes it a good language for running critical code. At the same time, sophisticated inference makes the type system unobtrusive, creating a smooth developer experience.
             </div>
           </div>
         </div>
@@ -168,7 +168,7 @@ with an emphasis on expressiveness and safety."
               First-Class Editor and Tooling
             </h3>
             <div class="my-4 text-lg">
-              OCaml has great support for the most popular editors. VS Code is recommended for beginners, and for power users there is  deep integration with Vim and Emacs. OCaml has a rich and dynamic community and best-in-class tooling. Between Opam, a popular package manager; Utop, a powerful interactive REPL; and Odoc, an easy-to-use documentation generator, OCaml programmers have access to a complete, modern developer experience.
+              OCaml has great support for the most popular editors. VS Code is recommended for beginners, and for power users there is deep integration with Vim and Emacs. OCaml has a rich and dynamic community and best-in-class tooling. Between Opam, a popular package manager; Utop, a powerful interactive REPL; and <tt>odoc</tt>, an easy-to-use documentation generator, OCaml programmers have access to a complete, modern developer experience.
             </div>
             <div class=" w-56">
               <div class="swiper mySwiper">
@@ -430,7 +430,7 @@ with an emphasis on expressiveness and safety."
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11"></path>
           </svg>
       
-          <p class="font-semibold text-xl mb-3">99 Problems</p>
+          <p class="font-semibold text-xl mb-3">Exercises</p>
           <p>Learn OCaml by solving problems on a variety of topics, from easy to challenging.</p>
         </a>
         <a href="<%s Url.papers %>" class="resources-card card-hover">
