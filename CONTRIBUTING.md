@@ -81,7 +81,7 @@ The success stories should be structured in the following way:
 - The solution you implemented, which should describe the role OCaml played in solving the challenge.
 - A post-mortem describing the results you had after implementing the solution.
 
-You can read [Ahref's success story](https://v3.ocaml.org/success-stories/peta-byte-scale-web-crawler) for an examplary succes story.
+You can read [Ahref's success story](https://v3.ocaml.org/success-stories/peta-byte-scale-web-crawler) for an examplary success story.
 
 ### <a name="content-user"></a> Add an academic or industrial user
 

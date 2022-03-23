@@ -35,7 +35,7 @@
   from the Git history of opam-repository, and packages with the biggest number
   of revdeps.
   The stats are rendered with a data point and an icon (number of revdeps, date
-  of addition and lastest version).
+  of addition and latest version).
 
 - Integrate blog and community pages (#196, by @tmattio)
 
@@ -248,7 +248,7 @@
   Adds a French translation for the success stories and an API in to use them.
 
   Functions `val all_{fr,en} : t list` are added and the function `all` and `get_by_slug`
-  now take an optionnal `lang` argument.
+  now take an optional `lang` argument.
 
 - Fetch all of watch.ocaml.org videos (ocaml/ood#83, by @patricoferris)
 
