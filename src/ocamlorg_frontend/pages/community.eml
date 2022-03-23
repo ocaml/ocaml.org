@@ -26,7 +26,7 @@ Layout.render
   <div class="container-fluid">
     <div class=" ">
       <div class="text-center">
-        <h2 class="font-bold text-body-600 mb-6">Join our communities!</h2>
+        <h2 class="font-bold text-body-600 mb-6">Join Our Communities!</h2>
         <div class="font-normal text-lg text-body-400">Ask and answer questions, share and discuss OCaml-related articles and posts, let people know about your projects and find collaborators.</div>
       </div>
       <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-8 md:gap-4 md:px-10 lg:px-20 mt-12">
@@ -176,7 +176,7 @@ Layout.render
       <div class="space-x-0 md:space-x-5 space-y-5 md:space-y-0">
         <a href="<%s Url.opportunities %>">
           <button class="btn btn-lg btn-tertiary">
-            <span>View opportunities</span>
+            <span>View Opportunities</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
