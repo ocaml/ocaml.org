@@ -1,7 +1,7 @@
 let render ~(papers : Ood.Paper.t list) ~(release : Ood.Release.t) ~(books : Ood.Book.t list) =
 Learn_layout.render
 ~title:"Learn OCaml"
-~description:"Getting started with the OCaml programming language. Read the official tutorials, exercices and language manual." @@
+~description:"Getting started with the OCaml programming language. Read the official tutorials, exercices, and language manual." @@
 <div class="flex-1 flex flex-col md:pl-10 min-w-0">
   <h1 class="font-bold mb-10 md:mb-16">Learn</h1>
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 border-b border-gray-200 pb-10 lg:pb-20">
@@ -13,7 +13,7 @@ Learn_layout.render
           <button
             class="bg-black font-semibold h-12 px-5 rounded-md bg-opacity-10 hover:bg-opacity-20 transition-colors"
           >
-            Start now
+            Start Now
           </button>
         </a>
       </div>
@@ -33,12 +33,12 @@ Learn_layout.render
           <button
             class="bg-black font-semibold h-12 px-5 rounded-md bg-opacity-10 hover:bg-opacity-20 transition-colors"
           >
-            I'm ready
+            I'm Ready
           </button>
         </a>
       </div>
       <div class="flex justify-end pl-8">
-        <img src="/img/learn/learn-exercise.svg" class="w-full" alt="Exercices background" />
+        <img src="/img/learn/learn-exercise.svg" class="w-full" alt="Exercices Background" />
       </div>
     </div>
 
@@ -50,7 +50,7 @@ Learn_layout.render
           <button
             class="bg-black font-semibold h-12 px-5 rounded-md bg-opacity-10 hover:bg-opacity-20 transition-colors"
           >
-            Take me there
+            Take Me There
           </button>
         </a>
       </div>
