@@ -5,7 +5,7 @@ Learn_layout.render ~current_tutorial:tutorial.slug ~title:(Printf.sprintf "%s Â
     <%s! tutorial.body_html %>
     <div class="pt-10 border-t border-slate-200 lg:grid lg:grid-cols-3 gap-4 text-slate-500">
       <div class="lg:col-span-1">
-        <h2 class="mt-0 mb-4 text-base font-semibold leading-6 lg:text-base">Help us make these docs great!</h2>
+        <h2 class="mt-0 mb-4 text-base font-semibold leading-6 lg:text-base">Help Improve Our Documentation</h2>
         <p class="text-sm mt-0 mb-4 max-w-xs">All OCaml docs are open source. See something that's wrong or unclear? Submit a pull request.</p>
         <a
           class="inline-block relative py-1 px-4 font-medium no-underline align-middle bg-transparent rounded-md border border-solid appearance-none cursor-pointer select-none whitespace-no-wrap hover:no-underline"
@@ -18,7 +18,7 @@ Learn_layout.render ~current_tutorial:tutorial.slug ~title:(Printf.sprintf "%s Â
               class="text-gray-600"
             ></path>
           </svg>
-          Make a contribution</a
+          Contribute</a
         >
       </div>
       <div class="mt-4 lg:mt-0 lg:col-span-1 lg:col-start-3">
@@ -28,7 +28,7 @@ Learn_layout.render ~current_tutorial:tutorial.slug ~title:(Printf.sprintf "%s Â
             <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
             </svg>
-            Ask the OCaml community</a
+            Ask the OCaml Community</a
           >
         </div>
         <div class="text-sm mb-2">
@@ -36,7 +36,7 @@ Learn_layout.render ~current_tutorial:tutorial.slug ~title:(Printf.sprintf "%s Â
             <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            Open an issue</a
+            Open an Issue</a
           >
         </div>
       </div>
