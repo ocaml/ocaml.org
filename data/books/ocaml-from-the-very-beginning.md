@@ -1,5 +1,5 @@
 ---
-title: "OCaml from the very Beginning"
+title: "OCaml From the Very Beginning"
 description: >
   In "OCaml from the Very Beginning" John Whitington takes a
   no-prerequisites approach to teaching a modern general-purpose
@@ -18,11 +18,11 @@ rating: 4
 featured: true
 ---
 
-In "OCaml from the Very Beginning" John Whitington takes a
+In *OCaml from the Very Beginning*, John Whitington takes a
 no-prerequisites approach to teaching a modern general-purpose
 programming language. Each small, self-contained chapter introduces a
 new topic, building until the reader can write quite substantial
 programs. There are plenty of questions and, crucially, worked answers
 and hints.
 
-"OCaml from the Very Beginning" will appeal both to new programmers, and experienced programmers eager to explore functional languages such as OCaml. It is suitable both for formal use within an undergraduate or graduate curriculum, and for the interested amateur.
+*OCaml from the Very Beginning* will appeal both to new programmers, and experienced programmers eager to explore functional languages such as OCaml. It is suitable both for formal use within an undergraduate or graduate curriculum, and for the interested amateur.
