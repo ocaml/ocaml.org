@@ -1,5 +1,5 @@
 ---
-title: Large scale trading system
+title: Large Scale Trading System
 logo: /success-stories/janestreet.png
 background: /success-stories/janestreet-bg.jpg
 theme: cyan

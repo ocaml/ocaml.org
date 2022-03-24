@@ -1,5 +1,5 @@
 ---
-title: Sensor analytics and automation platform for sustainable agriculture
+title: Sensor Analytics and Automation Platform for Sustainable Agriculture
 logo: /success-stories/hyper.png
 background: /success-stories/hyper-bg.jpg
 theme: green
