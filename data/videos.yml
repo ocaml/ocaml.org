@@ -165,7 +165,7 @@ videos:
       changes, and the ability to restore to any previous state. It has been
       extensively used by major software projects over the past few years such
       as Docker for Mac/Windows, and noticeably through DataKit, which powers
-      hundreds of thousands monthly builds on the <tt>opam-repository</tt> CI
+      hundreds of thousands monthly builds on the `opam-repository` CI
       contributors may be familiar with."
     year: 2020
   - people: []
