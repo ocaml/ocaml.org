@@ -20,7 +20,7 @@ videos:
       highlight interesting aspects of the syntax definition, discuss issues we
       encountered in the syntax of OCaml, and demonstrate the editor.
     year: 2020
-  - paper: The final pieces of the OCaml documentation puzzle
+  - paper: The Final Pieces of the OCaml Documentation Puzzle
     people: []
     kind: conference
     title: The Final Pieces of the OCaml Documentation Puzzle
@@ -46,7 +46,7 @@ videos:
     embed: https://watch.ocaml.org/videos/embed/0fee79e8-715a-400b-bfcc-34c3610f4890
     link: https://watch.ocaml.org/videos/watch/0fee79e8-715a-400b-bfcc-34c3610f4890
     description: OCaml-CI is a CI service for OCaml projects. It uses metadata from
-      the project’s opam and dune files to work out what to build, and uses
+      the project’s Opam and Dune files to work out what to build, and uses
       caching to make builds fast. It automatically tests projects against
       multiple OCaml versions and OS platforms. The CI has been deployed on
       around 50 projects so far on GitHub, and many of them see response times
@@ -65,10 +65,10 @@ videos:
     year: 2020
     link: https://watch.ocaml.org/videos/watch/0e2070fd-798b-47f7-8e69-ef75e967e516
     embed: https://watch.ocaml.org/videos/embed/0e2070fd-798b-47f7-8e69-ef75e967e516
-  - paper: Parallelising your OCaml Code with Multicore OCaml
+  - paper: Parallelising Your OCaml Code with Multicore OCaml
     people: []
     kind: conference
-    title: Parallelising your OCaml Code with Multicore OCaml
+    title: Parallelising Your OCaml Code with Multicore OCaml
     tags:
       - ocaml-workshop
       - multicore-ocaml
@@ -165,7 +165,7 @@ videos:
       changes, and the ability to restore to any previous state. It has been
       extensively used by major software projects over the past few years such
       as Docker for Mac/Windows, and noticeably through DataKit, which powers
-      hundreds of thousands monthly builds on the opam-repository CI
+      hundreds of thousands monthly builds on the <tt>opam-repository</tt> CI
       contributors may be familiar with."
     year: 2020
   - people: []
@@ -198,10 +198,10 @@ videos:
 
       The presentation will provide a short introduction to the mathematical problem, the difficulties of implementing a solution, the design of the library, and a demonstration of its capabilities.
     year: 2020
-  - paper: "API migration: compare transformed"
+  - paper: "API mMgration: Compare Transformed"
     people: []
     kind: conference
-    title: "API migration: compare transformed"
+    title: "API Migration: Compare Transformed"
     tags:
       - ocaml-workshop
     embed: https://watch.ocaml.org/videos/embed/c46b925b-bd77-404f-ac5d-5dab65047529
