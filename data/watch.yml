@@ -9,8 +9,8 @@ watch:
   updated_at: 2022-03-14T17:01:00.084Z
   language: English
   category: Science & Technology
-- name: A Case for Multi-Switch Constraints in OPAM
-  description: "A Case for Multi-Switch Constraints in OPAM - by Fabrice Le Fessant
+- name: A Case for Multi-Switch Constraints in Opam
+  description: "A Case for Multi-Switch Constraints in Opam - by Fabrice Le Fessant
     (INRIA)\r\n\r\nPackage managers usually only deal with packages and their versions,
     and the constraints on their dependencies towards other packages\u2019 versions.
     Among package managers,..."
@@ -64,7 +64,7 @@ watch:
   updated_at: 2021-10-02T13:02:00.073Z
   language: Unknown
   category: Misc
-- name: A review of the growth of the OCaml community
+- name: A Review of the Growth of the OCaml Community
   embed_path: /videos/embed/f9d0b637-8aec-4bff-8c32-cd16b58023b6
   thumbnail_path: /static/thumbnails/e573402b-1350-4aa7-a9ba-0e1c51198fb4.jpg
   published_at: 2015-09-18T00:00:00.000Z
@@ -82,7 +82,7 @@ watch:
   updated_at: 2021-12-23T08:02:00.279Z
   language: Unknown
   category: Misc
-- name: 'API migration: compare transformed'
+- name: 'API Migration: Compare Transformed'
   description: In this talk we describe our experience in using an automatic API-migration
     strategy dedicated at changing the signatures of OCaml functions, using the Rotor
     refactoring tool for OCaml. We perform a case study on open source Jane Street
@@ -93,7 +93,7 @@ watch:
   updated_at: 2021-09-01T14:02:00.083Z
   language: Unknown
   category: Misc
-- name: Adapting the OCaml ecosystem for Multicore OCaml
+- name: Adapting the OCaml Ecosystem for Multicore OCaml
   description: "OCaml 5.0 with support for shared-memory parallelism being around
     the corner, there\u2019s increasing interest in the community to port existing
     libraries to Multicore. This talk will take the attendees through what the arrival
@@ -104,8 +104,8 @@ watch:
   updated_at: 2022-02-25T16:01:00.106Z
   language: English
   category: Science & Technology
-- name: An LLVM backend for OCaml
-  description: "An LLVM backend for OCaml by Colin Benner.\r\n\r\nAs part of my bachelor
+- name: An LLVM Backend for OCaml
+  description: "An LLVM backend for OCaml, by Colin Benner.\r\n\r\nAs part of my bachelor
     thesis I have implemented a new backend for the OCaml nativecode compiler ocamlopt
     for the AMD64 architecture. It uses the Low Level Virtual Machine framework (LLVM,
     an optimisin..."
@@ -115,8 +115,8 @@ watch:
   updated_at: 2021-10-03T22:23:18.701Z
   language: English
   category: Misc
-- name: Arakoon - a distributed consistent key-value store
-  description: "Arakoon - a distributed consistent key-value store, by Nicolas Trangez.\r\n\r\nArakoon
+- name: Arakoon - A Distributed Consistent Key-Value Store
+  description: "Arakoon - A Disributed Consistent Key-Value Store, by Nicolas Trangez.\r\n\r\nArakoon
     is a simple consistent distributed key value store. Technically, it\u2019s an
     OCaml implementation of Multi-Paxos on top of Tokyo Cabinet, using Ocsigen\u2019s
     Light Weight T..."
@@ -136,8 +136,8 @@ watch:
   updated_at: 2022-03-04T21:01:00.074Z
   language: English
   category: Misc
-- name: Automatic analysis of industrial robot programs
-  description: "Automatic analysis of industrial robot programs, by Markus Wei\xDFmann"
+- name: Automatic Analysis of Industrial Dobot Programs
+  description: "Automatic Analysis of Industrial Robot Programs, by Markus Wei\xDFmann"
   embed_path: /videos/embed/3cebba55-4032-4de5-93b5-8f3f67c04736
   thumbnail_path: /static/thumbnails/480b953a-f17e-498c-9822-c82828ca9c0c.jpg
   published_at: 2021-10-03T22:38:09.817Z
@@ -155,7 +155,7 @@ watch:
   updated_at: 2021-12-16T02:02:00.084Z
   language: English
   category: Misc
-- name: Biocaml - the OCaml bioinformatics library
+- name: Biocaml - The OCaml Bioinformatics Library
   description: Biology is an increasingly computational discipline due to rapid advances
     in experimental techniques, especially DNA sequencing, that are generating data
     at unprecedented rates. The computational techniques needed range from the complex
@@ -188,14 +188,14 @@ watch:
   updated_at: 2021-10-02T04:02:00.293Z
   language: English
   category: Misc
-- name: Core Time stamp counter - A fast high resolution time source
+- name: Core Timestamp Counter - A Fast High Resolution Time Source
   embed_path: /videos/embed/b6c7860d-e6eb-4404-96c3-917b81ee1f98
   thumbnail_path: /static/thumbnails/f4d75771-8394-438f-b8eb-86baff8863d6.jpg
   published_at: 2021-09-11T02:42:33.957Z
   updated_at: 2021-09-11T02:42:33.971Z
   language: English
   category: Misc
-- name: 'Core Time stamp counter: A fast high resolution time source'
+- name: 'Core Timestamp Counter: A Fast High Resolution Time Source'
   embed_path: /videos/embed/75b4d60f-3e37-40bd-b025-f39dcce0c42c
   thumbnail_path: /static/thumbnails/43248673-6478-4e96-b8ac-cd415d85569b.jpg
   published_at: 2015-09-18T00:00:00.000Z
@@ -224,23 +224,23 @@ watch:
   updated_at: 2021-12-11T18:02:00.210Z
   language: English
   category: Science & Technology
-- name: DragonKit - an extensible language oriented compiler
-  description: DragonKit - an extensible language oriented compiler, by Wojciech Meyer
+- name: DragonKit - An Extensible Language-Oriented Compiler
+  description: DragonKit - An Extensible Language-Oriented Compiler, by Wojciech Meyer
   embed_path: /videos/embed/8326a03e-02d5-4b32-8789-b7a76c30cf95
   thumbnail_path: /static/thumbnails/b9c74825-d374-4afb-9c5f-82cab13c1bb8.jpg
   published_at: 2021-10-03T22:44:22.886Z
   updated_at: 2021-10-03T22:44:22.886Z
   language: English
   category: Misc
-- name: Effective Concurrency through Algebraic Effects
+- name: Effective Concurrency Through Algebraic Effects
   embed_path: /videos/embed/e9f6c837-1435-4349-af0f-07d22d1c11ea
   thumbnail_path: /static/thumbnails/1de58bd2-d2f9-428c-8b8c-97b48d6d2c7e.jpg
   published_at: 2015-09-18T00:00:00.000Z
   updated_at: 2021-09-13T10:02:00.102Z
   language: English
   category: Science & Technology
-- name: Ephemerons meet OCaml GC
-  description: " Ephemerons meet OCaml GC, by Fran\xE7ois Bobot\r\n\r\nGarbage collectors
+- name: Ephemerons Meet OCaml GC
+  description: " Ephemerons Meet OCaml GC, by Fran\xE7ois Bobot\r\n\r\nGarbage collectors
     (GCs) manage the memory for the programmers and help to ensure the safety of the
     programs by freeing memory only when it cannot be used anymore. GCs detect that
     a memory block can\u2019..."
@@ -262,8 +262,8 @@ watch:
   language: English
   category: Science & Technology
 - name: Experiments in Generic Programming
-  description: "Experiments in generic programming: runtime type representation and
-    implicit values, by Pierre Chambart & Gr\xE9goire Henry"
+  description: "Experiments in Generic Programming: Runtime Type Representation and
+    Implicit Values, by Pierre Chambart & Gr\xE9goire Henry"
   embed_path: /videos/embed/5ae26b10-9a5d-4395-89c6-a2e28e68d206
   thumbnail_path: /static/thumbnails/b1e66943-a372-4909-a8f6-70470546e69d.jpg
   published_at: 2021-10-03T22:40:53.446Z
@@ -281,10 +281,10 @@ watch:
   updated_at: 2022-03-14T18:01:00.527Z
   language: English
   category: Misc
-- name: Github Pull Requests for OCaml development - a field report
-  description: "Github Pull Requests for OCaml development - a field report, by Gabriel
+- name: GitHub Pull Requests for OCaml Development - A Field Report
+  description: "GitHub Pull Requests for OCaml Development - A Field Report, by Gabriel
     Scherer\r\n\r\nOn 2014/01/30, we started an experiment allowing users to submit
-    and discussion patches to the OCaml distribution on its Github mirror rather than
+    and discussion patches to the OCaml distribution on its GitHub mirror rather than
     through the exist..."
   embed_path: /videos/embed/f0021d24-9104-4672-a363-de5c1c514c2e
   thumbnail_path: /static/thumbnails/6f0ed101-6c6f-4380-8a98-118ba6783fff.jpg
@@ -292,7 +292,7 @@ watch:
   updated_at: 2021-10-02T02:09:58.785Z
   language: English
   category: Misc
-- name: Global Semantic Analysis on OCaml programs
+- name: Global Semantic Analysis on OCaml Programs
   embed_path: /videos/embed/51e4bdf0-50f7-4b13-8514-2d62b5341066
   thumbnail_path: /static/thumbnails/8255d370-e621-44bc-b7c3-6dd39fab4d1d.jpg
   published_at: 2015-09-18T00:00:00.000Z
@@ -310,8 +310,8 @@ watch:
   updated_at: 2022-03-14T18:01:00.092Z
   language: English
   category: Science & Technology
-- name: High Performance Client-Side Web Programming with SPOC and Js of ocaml
-  description: "High Performance Client-Side Web Programming with SPOC and Js of ocaml
+- name: High Performance Client-Side Web Programming with SPOC and Js-of-ocaml
+  description: "High Performance Client-Side Web Programming with SPOC and Js-of-ocaml
     - by Mathias Bourgoin and Emmmanuel Chailloux (Universit\xE9 Pierre et Marie Curie)\r\n\r\nWe
     present WebSpoc, an OCaml GPGPU library targeting web applications that is built
     upon SPO..."
@@ -321,8 +321,8 @@ watch:
   updated_at: 2021-10-02T02:49:14.452Z
   language: English
   category: Misc
-- name: Implementing an interval computation library for OCaml
-  description: "Implementing an interval computation library for OCaml, by Jean-Marc
+- name: Implementing an Interval Ccomputation Library for OCaml
+  description: "Implementing an Interval Ccomputation Library for OCaml, by Jean-Marc
     Alliot, Charlie Vanaret, Jean-Baptiste Gotteland, Nicolas Durand and David Gianazza.\r\n\r\nIn
     this paper we present two implementation of interval arithmetics for Ocaml on
     x86/amd64..."
@@ -359,7 +359,7 @@ watch:
   language: English
   category: Science & Technology
 - name: Introduction to 0install
-  description: "Introduction to 0install by Thomas Leonard\r\n\r\n0install (pronounced
+  description: "Introduction to 0install, by Thomas Leonard\r\n\r\n0install (pronounced
     \u201CZero Install\u201D) is a decentralised cross-platform package manager. \u201CDecentralised\u201D
     means that organisations and individuals can host their software in their own
     package repositorie..."
@@ -427,14 +427,14 @@ watch:
   updated_at: 2022-02-22T17:01:00.054Z
   language: Unknown
   category: Science & Technology
-- name: LibreS3 - design, challenges, and steps toward reusable libraries
+- name: LibreS3 - Design, Challenges, and Steps Toward Reusable Libraries
   embed_path: /videos/embed/c1b00980-3a4f-4222-b539-392815f7954f
   thumbnail_path: /static/thumbnails/ee8640c9-d827-498b-8e20-bed53e7481f7.jpg
   published_at: 2021-10-03T21:57:39.057Z
   updated_at: 2021-11-18T07:02:00.649Z
   language: English
   category: Misc
-- name: 'Love: a readable language interpreted by a blockchain'
+- name: 'Love: a Readable Language Interpreted by a Blockchain'
   description: We present Love, a smart contract language embedded in the Dune Network
     blockchain. It benefits from an OCaml-like syntax and a system-F inspired type
     system. Love has been used for deploying complex services such as games, ERC20s,
@@ -522,8 +522,8 @@ watch:
   updated_at: 2021-05-27T16:35:41.085Z
   language: English
   category: Science & Technology
-- name: OCamlCC - raising low-level byte code to high-level C
-  description: "OCamlCC - raising low-level byte code to high-level C, by Michel Mauny
+- name: OCamlCC - Raising Low-Level Bytecode to High-Level C
+  description: "OCamlCC - Raising Low-Level Bytecode to High-Level C, by Michel Mauny
     Beno\xEEt Vaugon\r\n\r\nWe present preliminary results about OCamlCC, a compiler
     producing native code from OCaml bytecode executables, through the generation
     of C code.\r\n"
@@ -543,7 +543,7 @@ watch:
   updated_at: 2021-11-01T14:02:00.488Z
   language: English
   category: Misc
-- name: OCamlPro - promoting OCaml use in industry
+- name: OCamlPro - Promoting OCaml Use in Industry
   description: OCamlPro exists with the mission of promoting the successful use of
     OCaml in industry. OCamlPro builds a professional environment for the development
     of OCaml applications, including IDE integration, development tools and services.
@@ -554,8 +554,8 @@ watch:
   updated_at: 2022-02-28T21:01:00.048Z
   language: English
   category: Misc
-- name: OPAM - an OCaml Package Manager
-  description: OPAM - an OCaml Package Manager, by Thomas Gazagnaire.
+- name: Opam - an OCaml Package Manager
+  description: Opam - an OCaml Package Manager, by Thomas Gazagnaire.
   embed_path: /videos/embed/3ff87a10-3785-41e6-ba47-acab21fcfa8a
   thumbnail_path: /static/thumbnails/c4083614-edd9-445f-85a4-e2ae470c761e.jpg
   published_at: 2021-10-03T22:42:00.207Z
@@ -650,7 +650,7 @@ watch:
   updated_at: 2022-02-06T20:01:00.052Z
   language: English
   category: Misc
-- name: Probabilistic resource limits using StatMemprof
+- name: Probabilistic Resource Limits Using StatMemprof
   description: The goal of this talk is two-fold. First, we present memprof-limits,
     a probabilistic implementation of per-thread global memory limits, and per-thread
     allocation limits, for OCaml 4.12. Then, we will discuss the reasoning about programs
@@ -661,8 +661,8 @@ watch:
   updated_at: 2022-02-27T00:01:00.074Z
   language: English
   category: Science & Technology
-- name: Programming the Xen cloud using OCaml
-  description: "Programming the Xen cloud using OCaml by David Scott, Anil Madhavapeddy
+- name: Programming the Xen Cloud Using OCaml
+  description: "Programming the Xen Cloud Using OCaml, by David Scott, Anil Madhavapeddy,
     and Richard Mortier.\r\n\r\nThe Xen Cloud Platform (XCP)1 is an open-source software
     distribution that converts clusters of physical computers into many virtual machines,
     all isol..."
@@ -672,7 +672,7 @@ watch:
   updated_at: 2021-10-03T22:29:38.263Z
   language: English
   category: Misc
-- name: Property-Based Testing for OCaml through Coq
+- name: Property-Based Testing for OCaml Through Coq
   description: We will present a property-based testing framework for OCaml that leverages
     the power of QuickChick, a popular and mature testing plugin for the Coq proof
     assistant, by automatically constructing a extraction-based shim between OCaml
@@ -683,7 +683,7 @@ watch:
   updated_at: 2022-01-18T12:01:00.065Z
   language: English
   category: Misc
-- name: Real-world debugging in OCaml
+- name: Real-world Debugging in OCaml
   description: Real-world debugging in OCaml, by Mark Shinwell
   embed_path: /videos/embed/a8f4cf6b-9971-484b-ab5b-34a16fde1185
   thumbnail_path: /static/thumbnails/ea912a23-6e8b-40ec-ac45-81af2d01617a.jpg
@@ -702,7 +702,7 @@ watch:
   updated_at: 2021-12-23T04:02:00.398Z
   language: English
   category: Misc
-- name: 'Semgrep : a fast, lightweight, polyglot static analysis tool to find bugs'
+- name: 'Semgrep : A Fast, Lightweight, Polyglot Static analysis Tool to Find Bugs'
   description: "Semgrep, which stands for \u201Csemantic grep,\u201D is a fast, lightweight,
     polyglot, open source static analysis tool to find bugs and enforce code standards.
     It is used internally by many companies including Dropbox and Snowflake. Semgrep
@@ -713,7 +713,7 @@ watch:
   updated_at: 2021-11-18T08:02:00.229Z
   language: English
   category: Misc
-- name: Simple, efficient, sound-and-complete combinator parsing
+- name: Simple, Efficient, Sound-and-Complete Combinator Parsing
   description: This proposal describes a parsing library that is based on current
     work due to be published as Simple, efficient, sound and complete combinator parsing
     for all context-free grammars, using an oracle.
@@ -761,8 +761,8 @@ watch:
   updated_at: 2022-02-24T21:01:00.066Z
   language: English
   category: Science & Technology
-- name: Study of OCaml programs' memory behaviour
-  description: "Study of OCaml programs\u2019 memory behaviour, by \xC7agdas Bozman,
+- name: Study of OCaml Programs' Memory Behaviour
+  description: "Study of OCaml Programs\u2019 Memory Behaviour, by \xC7agdas Bozman,
     Thomas Gazagnaire, Fabrice Le Fessant and Michel Mauny.\r\n\r\nIn this paper,
     we present a preliminary work on new memory profiling tool and others, to help
     us to understand memory behaviour."
@@ -865,7 +865,7 @@ watch:
   updated_at: 2021-10-02T01:54:41.728Z
   language: English
   category: Misc
-- name: The final pieces of the OCaml documentation puzzle
+- name: The Final Pieces of the OCaml Documentation Puzzle
   description: 'Rendering OCaml document is widely known as a very difficult task:
     The ever-evolving OCaml module system is extremely rich and can include complex
     set of inter-dependencies that are both difficult to compute and to render in
@@ -948,7 +948,7 @@ watch:
   updated_at: 2022-01-12T19:01:00.064Z
   language: English
   category: Science & Technology
-- name: gloc - Metaprogramming WebGL Shaders with OCaml
+- name: Gloc - Metaprogramming WebGL Shaders with OCaml
   description: "\r\ngloc : Metaprogramming WebGL Shaders with OCaml, by David William
     Wallace Sheets and Ashima Arts.\r\n\r\nWebGL is a new Khronos Group standard for
     GPU-accelerated rendering by in-browser JavaScript applications. WebGL introduces
