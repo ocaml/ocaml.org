@@ -38,12 +38,17 @@ let create ~ua ~url ~referer ~client =
   | None ->
       Lwt.return
         { url; ua; referer; timestamp; ip_digest = "none"; ip_info = None }
-  | Some ip ->
-      let+ ip_info = Ip_info.get ip in
-      let ip_digest =
-        Digestif.SHA256.digest_string ip |> Digestif.SHA256.to_raw_string
-      in
-      { url; ua; referer; timestamp; ip_digest; ip_info }
+  | Some _ ->
+      (* TODO: we need a more secure way to protect the IP:
+
+         - We should remove the data every 30 days
+
+         - We need to use a salt when hashing the IPs *)
+      (* let+ ip_info = Ip_info.get ip in let ip_digest =
+         Digestif.SHA256.digest_string ip |> Digestif.SHA256.to_raw_string in {
+         url; ua; referer; timestamp; ip_digest; ip_info } *)
+      Lwt.return
+        { url; ua; referer; timestamp; ip_digest = "none"; ip_info = None }
 
 let get_count ~get_el events =
   let hashtbl = Hashtbl.create 256 in

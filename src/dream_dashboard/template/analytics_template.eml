@@ -1,32 +1,15 @@
 open Import
 
-let render ~prefix (events : Event.t list) = Layout_template.render ~prefix ~title:"Analytics" @@
+let render ~prefix (events : Event.t list) =
+Layout_template.render ~prefix ~title:"Analytics" ~nav:Analytics @@
 let top_pages = Event.top_pages events in
-let top_sources = Event.top_sources events in
 let top_pages_10 = List.take 10 top_pages in
-let top_sources_10 = List.take 10 top_sources in
 <div class="flex flex-col md:space-y-12 analytics-container">
   <div class="flex flex-col space-y-5 md:space-y-0 md:flex-row justify-between items-center">
     <h1 class="text-2xl font-semibold">Analytics Dashboard</h1>
-    <div>
-      <div class="flex justify-center">
-        <div class="w-40 relative">
-          <select
-            class="form-select appearance-none relative block w-full px-3 py-1.5 text-sm font-semibold text-white bg-[#252F3F] bg-clip-padding bg-no-repeat rounded transition ease-in-out m-0 focus:outline-none"
-            aria-label="Default select example"
-          >
-            <option selected>Last 30 days</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-          <i class="fa-regular fa-chevron-down text-xs absolute right-5 bottom-1/3 pointer-events-none"></i>
-        </div>
-      </div>
-    </div>
   </div>
 
-  <div>
+  <!-- <div>
     <dl class="mt-5 grid grid-cols-1 gap-8 lg:grid-cols-3 xl:grid-cols-4">
       <div class="shadow rounded-lg overflow-hidden sm:p-6 space-y-5 lg:space-y-12 cards">
         <dt class="text-xs font-semibold truncate opacity-60">UNIQUE VISITORS</dt>
@@ -61,9 +44,9 @@ let top_sources_10 = List.take 10 top_sources in
         </dd>
       </div>
     </dl>
-  </div>
+  </div> -->
 
-  <div>
+  <!-- <div>
     <div class="flex mb-6 justify-between">
       <h3 class="leading-5 text-lg font-semibold">Total Visitors</h3>
     </div>
@@ -79,7 +62,7 @@ let top_sources_10 = List.take 10 top_sources in
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="flex flex-col lg:flex-row space-y-12 lg:space-y-0 lg:space-x-12">
     <div class="w-full lg:w-2/4">
@@ -87,7 +70,8 @@ let top_sources_10 = List.take 10 top_sources in
         <h3 class="leading-5 text-lg font-semibold">Top Sources</h3>
       </div>
       <div class="flex items-center justify-center shadow rounded-lg cards pb-2">
-        <table class="table-auto w-full text-left text-sm font-semibold">
+        Work in progress
+        <!-- <table class="table-auto w-full text-left text-sm font-semibold">
           <thead class="opacity-60 pb-4">
             <tr>
               <th class="w-1/5 pb-6">SOURCE</th>
@@ -130,178 +114,8 @@ let top_sources_10 = List.take 10 top_sources in
                 %
               </td>
             </tr>
-            <tr x-data="{ width: '24.2' }">
-              <td>
-                <div class="flex space-x-2 items-center">
-                  <img src="<%s prefix %>/assets/img/facebook-logo.svg" class="h-4 w-4" />
-                  <div>014</div>
-                </div>
-              </td>
-              <td>
-                <div class="flex">
-                  <div class="flex flex-col w-full">
-                    <div x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })">
-                      <div
-                        class="flex flex-row-reverse"
-                        role="progressbar"
-                        :aria-valuenow="width"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        aria-valuenow="31"
-                      >
-                        <div
-                          class="bg-[#18BDFB] rounded h-2 text-center"
-                          :style="`width: ${width}%; transition: width 2s;`"
-                          style="width: 31%; transition: width 2s"
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="text-right flex justify-end">
-                <div x-text="width"></div>
-                %
-              </td>
-            </tr>
-            <tr x-data="{ width: '13.9' }">
-              <td>
-                <div class="flex space-x-2 items-center">
-                  <img src="<%s prefix %>/assets/img/github-logo.svg" class="h-4 w-4" />
-                  <div>014</div>
-                </div>
-              </td>
-              <td>
-                <div class="flex">
-                  <div class="flex flex-col w-full">
-                    <div x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })">
-                      <div
-                        class="flex flex-row-reverse"
-                        role="progressbar"
-                        :aria-valuenow="width"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        aria-valuenow="31"
-                      >
-                        <div
-                          class="bg-[#18BDFB] rounded h-2 text-center"
-                          :style="`width: ${width}%; transition: width 2s;`"
-                          style="width: 31%; transition: width 2s"
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="text-right flex justify-end">
-                <div x-text="width"></div>
-                %
-              </td>
-            </tr>
-            <tr x-data="{ width: '9.6' }">
-              <td>
-                <div class="flex space-x-2 items-center">
-                  <img src="<%s prefix %>/assets/img/linkedin-logo.svg" class="h-4 w-4" />
-                  <div>014</div>
-                </div>
-              </td>
-              <td>
-                <div class="flex">
-                  <div class="flex flex-col w-full">
-                    <div x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })">
-                      <div
-                        class="flex flex-row-reverse"
-                        role="progressbar"
-                        :aria-valuenow="width"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        aria-valuenow="31"
-                      >
-                        <div
-                          class="bg-[#18BDFB] rounded h-2 text-center"
-                          :style="`width: ${width}%; transition: width 2s;`"
-                          style="width: 31%; transition: width 2s"
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="text-right flex justify-end">
-                <div x-text="width"></div>
-                %
-              </td>
-            </tr>
-            <tr x-data="{ width: '3.2' }">
-              <td>
-                <div class="flex space-x-2 items-center">
-                  <img src="<%s prefix %>/assets/img/twitter-logo.svg" class="h-4 w-4" />
-                  <div>014</div>
-                </div>
-              </td>
-              <td>
-                <div class="flex">
-                  <div class="flex flex-col w-full">
-                    <div x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })">
-                      <div
-                        class="flex flex-row-reverse"
-                        role="progressbar"
-                        :aria-valuenow="width"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        aria-valuenow="31"
-                      >
-                        <div
-                          class="bg-[#18BDFB] rounded h-2 text-center"
-                          :style="`width: ${width}%; transition: width 2s;`"
-                          style="width: 31%; transition: width 2s"
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="text-right flex justify-end">
-                <div x-text="width"></div>
-                %
-              </td>
-            </tr>
-            <tr x-data="{ width: '1.8' }">
-              <td>
-                <div class="flex space-x-2 items-center">
-                  <img src="<%s prefix %>/assets/img/reddit-logo.svg" class="h-4 w-4" />
-                  <div>014</div>
-                </div>
-              </td>
-              <td>
-                <div class="flex">
-                  <div class="flex flex-col w-full">
-                    <div x-init="$watch('width', value => { if (value > 100) { width = 100 } if (value == 0) { width = 10 } })">
-                      <div
-                        class="flex flex-row-reverse"
-                        role="progressbar"
-                        :aria-valuenow="width"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        aria-valuenow="31"
-                      >
-                        <div
-                          class="bg-[#18BDFB] rounded h-2 text-center"
-                          :style="`width: ${width}%; transition: width 2s;`"
-                          style="width: 31%; transition: width 2s"
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="text-right flex justify-end">
-                <div x-text="width"></div>
-                %
-              </td>
-            </tr>
           </tbody>
-        </table>
+        </table> -->
       </div>
     </div>
     <div class="w-full lg:w-2/4">
@@ -366,12 +180,13 @@ let top_sources_10 = List.take 10 top_sources in
             <button>Regions</button>
           </div>
         </div>
-        <div class="flex flex-col items-center justify-between shadow rounded-lg cards h-auto xl:h-96">
-          <div id="regions_div" class="w-full h-96"></div>
+        <div class="flex flex-col items-center justify-between shadow rounded-lg cards h-auto">
+          Work in progress
+          <!-- <div id="regions_div" class="w-full h-96"></div>
           <button class="flex text-xs items-center justify-center m-auto mt-10 opacity-60">
             <i class="fa-light fa-expand text-base mr-2"></i>
             View All
-          </button>
+          </button> -->
         </div>
       </div>
     </div>
@@ -386,8 +201,9 @@ let top_sources_10 = List.take 10 top_sources in
             <button>OS</button>
           </div>
         </div>
-        <div class="flex flex-col items-center justify-between shadow rounded-lg cards h-auto xl:h-96">
-          <div class="mt-6 relative">
+        <div class="flex flex-col items-center justify-between shadow rounded-lg cards h-auto">
+          Work in progress
+          <!-- <div class="mt-6 relative">
             <div class="flex flex-1 flex-col md:flex-row items-center md:space-x-8 space-y-8 md:space-y-0">
               <div><canvas id="myDoughnut" class="w-64 h-64"></canvas></div>
               <div>
@@ -423,13 +239,13 @@ let top_sources_10 = List.take 10 top_sources in
           <button class="flex text-xs items-center justify-center m-auto mt-10 opacity-60">
             <i class="fa-light fa-expand text-base mr-2"></i>
             View All
-          </button>
+          </button> -->
         </div>
       </div>
     </div>
   </div>
 </div>
-<script>
+<!-- <script>
   const totalVisitors = new Chart(document.getElementById("totalVisitors"), {
     type: "line",
     data: {
@@ -540,4 +356,4 @@ let top_sources_10 = List.take 10 top_sources in
       ],
     },
   });
-</script>
+</script> -->

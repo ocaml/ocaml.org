@@ -1,5 +1,7 @@
-let render ~prefix ~title inner =
-<!DOCTYPE html> 
+type nav = | Overview | Analytics
+
+let render ~prefix ~title ~nav inner =
+<!DOCTYPE html>
 <html lang="en" class="h-full">
   <head>
     <meta charset="utf-8" />
@@ -17,7 +19,14 @@ let render ~prefix ~title inner =
   <body class="antialiased h-full">
     <div class="min-h-screen">
       <div x-data="{ open: false }" @keydown.window.escape="open = false">
-        <div x-show="open" class="fixed inset-0 flex z-40 md:hidden" x-description="Off-canvas menu for mobile, show/hide based on off-canvas menu state." x-ref="dialog" aria-modal="true" style="display: none">
+        <div
+          x-show="open"
+          class="fixed inset-0 flex z-40 md:hidden"
+          x-description="Off-canvas menu for mobile, show/hide based on off-canvas menu state."
+          x-ref="dialog"
+          aria-modal="true"
+          style="display: none"
+        >
           <div
             x-show="open"
             x-transition:enter="transition-opacity ease-linear duration-300"
@@ -57,9 +66,21 @@ let render ~prefix ~title inner =
               class="absolute top-0 right-0 -mr-12 pt-2"
               style="display: none"
             >
-              <button type="button" class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" @click="open = false">
+              <button
+                type="button"
+                class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                @click="open = false"
+              >
                 <span class="sr-only">Close sidebar</span>
-                <svg class="h-6 w-6 text-white" x-description="Heroicon name: outline/x" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <svg
+                  class="h-6 w-6 text-white"
+                  x-description="Heroicon name: outline/x"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
               </button>
@@ -70,22 +91,46 @@ let render ~prefix ~title inner =
                 <span class="text-white text-2xl font-medium">Dream Dashboard</span>
               </div>
               <nav class="mt-5 px-2 space-y-1">
-                <a href="<%s prefix %>/" class="bg-gray-900 text-white unknown group flex items-center px-2 py-2 text-base font-medium rounded-md">
+                <a
+                  href="<%s prefix %>/"
+                  class="<%s if nav = Overview then "bg-gray-900 text-white" else "text-gray-300 hover:bg-gray-700 hover:text-white" %> group flex items-center px-2 py-2 text-base font-medium rounded-md"
+                >
+                  <svg
+                    class="text-gray-400 group-hover:text-gray-300 mr-4 flex-shrink-0 h-6 w-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                    />
+                  </svg>
                   Overview
                 </a>
 
-                <a href="<%s prefix %>/analytics" class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-base font-medium rounded-md" x-state-description='undefined: "bg-gray-900 text-white", undefined: "text-gray-300 hover:bg-gray-700 hover:text-white"'>
+                <a
+                  href="<%s prefix %>/analytics"
+                  class="<%s if nav = Analytics then "bg-gray-900 text-white" else "text-gray-300 hover:bg-gray-700 hover:text-white" %> group flex items-center px-2 py-2 text-base font-medium rounded-md"
+                >
                   <svg
                     class="text-gray-400 group-hover:text-gray-300 mr-4 flex-shrink-0 h-6 w-6"
-                    x-state-description='undefined: "text-gray-300", undefined: "text-gray-400 group-hover:text-gray-300"'
-                    x-description="Heroicon name: outline/calendar"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                     aria-hidden="true"
                   >
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    ></path>
                   </svg>
                   Analytics
                 </a>
@@ -107,16 +152,44 @@ let render ~prefix ~title inner =
                 <span class="text-white text-xl font-bold">Dream</span>
               </div>
               <nav class="mt-5 flex-1 space-y-1">
-                <a href="<%s prefix %>/" class="active group flex items-center px-6 py-2 text-sm font-semibold rounded-md space-x-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                <a
+                  href="<%s prefix %>/"
+                  class="<%s if nav = Overview then "active" else "" %> group flex items-center px-6 py-2 text-sm font-semibold rounded-md space-x-4"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                    />
                   </svg>
                   <span>Overview</span>
                 </a>
 
-                <a href="<%s prefix %>/analytics" class="group flex items-center px-6 py-2 text-sm font-semibold rounded-md space-x-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                <a
+                  href="<%s prefix %>/analytics"
+                  class="<%s if nav = Analytics then "active" else "" %> group flex items-center px-6 py-2 text-sm font-semibold rounded-md space-x-4"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    />
                   </svg>
                   <span>Analytics</span>
                 </a>
@@ -126,18 +199,33 @@ let render ~prefix ~title inner =
         </div>
         <div class="md:pl-64 flex flex-col flex-1 bg">
           <div class="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-gray-800">
-            <button type="button" class="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" @click="open = true">
+            <button
+              type="button"
+              class="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              @click="open = true"
+            >
               <span class="sr-only">Open sidebar</span>
-              <svg class="h-6 w-6" x-description="Heroicon name: outline/menu" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              <svg
+                class="h-6 w-6"
+                x-description="Heroicon name: outline/menu"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
               </svg>
             </button>
           </div>
           <main class="flex-1">
             <div class="p-8 lg:p-16">
-              <div class="mx-auto">
-                <%s! inner %>
-              </div>
+              <div class="mx-auto"><%s! inner %></div>
             </div>
           </main>
         </div>

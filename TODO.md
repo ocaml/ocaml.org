@@ -8,28 +8,22 @@ Overview:
 
 Analytics:
 
-- [ ] Items in the navbar are not properly highlighted
-- [ ] Statistics are hard-coded
-- [ ] Total visitor count is hard-coded
-- [ ] Top Sources is hard-coded
+- [X] Items in the navbar are not properly highlighted
 - [X] Top Pages is hard-coded
-- [ ] Locations is hard-coded
-- [ ] Devices is hard-coded
-- [ ] Can't switch to Countries/Regions
-- [ ] Can't switch to Browser/OS
-- [ ] Can't zoom in with "View All"
-- [ ] Add view all in Top Sources
-- [ ] Add view all in Top Pages
-- [ ] Select "Last 30 days" is not usable
+- [X] Select "Last 30 days" is not usable
 
 Others:
 
-- [ ] Load data from filesystem to keep the analytics between deployments
 - [ ] Re-write the Privacy Policy
 
-Security:
+Milestone 2:
 
 - [ ] Add salt to hashing of the IP
+- [ ] Add Locations
+- [ ] Add Devices
+- [ ] Add Statistics
+- [ ] Add Total visitor count
+- [ ] Add Top Sources
 - [ ] Remove data after 30 days
 
 Next:
@@ -37,3 +31,4 @@ Next:
 - Details on opened file descriptors
 - Input/Output
 - Logs
+- Load data from filesystem to keep the analytics between deployments
