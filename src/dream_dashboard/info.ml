@@ -23,7 +23,7 @@ let uptime =
   let init = Unix.gettimeofday () in
   fun () -> Unix.gettimeofday () -. init
 
-let uptime_string () = 
+let uptime_string () =
   let s = Int64.of_float (uptime ()) in
   let span = Timedesc.Span.make ~s () in
   Timedesc.Span.For_human.to_string span
