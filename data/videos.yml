@@ -198,7 +198,7 @@ videos:
 
       The presentation will provide a short introduction to the mathematical problem, the difficulties of implementing a solution, the design of the library, and a demonstration of its capabilities.
     year: 2020
-  - paper: "API mMgration: Compare Transformed"
+  - paper: "API Migration: Compare Transformed"
     people: []
     kind: conference
     title: "API Migration: Compare Transformed"
