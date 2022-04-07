@@ -1,5 +1,5 @@
 ---
-title: Peta-byte scale web crawler
+title: Peta-Byte Scale Web Crawler
 logo: /success-stories/ahrefs.svg
 background: /success-stories/ahrefs-bg.jpg
 theme: blue
