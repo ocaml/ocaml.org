@@ -148,15 +148,13 @@ module Codec = struct
   let ( let+ ) = Result.bind
 
   let from_window () =
-    try
-      let uri = Window.location G.window |> Uri.fragment in
-      match Uri.Params.find (Jstr.v "code") (Uri.Params.of_jstr uri) with
-      | Some jstr ->
-          let+ dec = Base64.decode jstr in
-          let+ code = Base64.data_utf_8_to_jstr dec in
-          Ok (Jstr.to_string code)
-      | _ -> Ok Example.adts
-    with _ -> Ok Example.adts
+    let uri = Window.location G.window |> Uri.fragment in
+    match Uri.Params.find (Jstr.v "code") (Uri.Params.of_jstr uri) with
+    | Some jstr ->
+        let+ dec = Base64.decode jstr in
+        let+ code = Base64.data_utf_8_to_jstr dec in
+        Ok (Jstr.to_string code)
+    | _ -> Ok Example.adts
 
   let to_window s =
     let data = Base64.data_utf_8_of_jstr s in
