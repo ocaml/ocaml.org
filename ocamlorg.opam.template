@@ -14,6 +14,7 @@ build: [
   ]
 ]
 pin-depends: [
+  ["esbuild.dev" "git+https://github.com/tmattio/opam-esbuild#main"]
   ["tailwindcss.dev" "git+https://github.com/tmattio/opam-tailwindcss#main"]
   ["dream-accept.dev" "git+https://github.com/tmattio/dream-accept#main"]
   ["dream-encoding.dev" "git+https://github.com/tmattio/dream-encoding#main"]

@@ -69,6 +69,7 @@
   (js_of_ocaml-toplevel
    (>= 4.0))
   tailwindcss
+  esbuild
   (alcotest :with-test)
   ; ocamlorg-data
   (mdx

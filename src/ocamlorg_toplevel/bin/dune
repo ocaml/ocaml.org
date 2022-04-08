@@ -90,7 +90,6 @@
   (action
    (progn
     (run
-     npx
      esbuild
      --platform=browser
      --external:fs

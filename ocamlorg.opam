@@ -50,6 +50,7 @@ depends: [
   "js_of_ocaml-tyxml" {>= "4.0"}
   "js_of_ocaml-toplevel" {>= "4.0"}
   "tailwindcss"
+  "esbuild"
   "alcotest" {with-test}
   "mdx" {with-test & >= "1.10.0"}
   "textmate-language"
@@ -99,6 +100,7 @@ build: [
   ]
 ]
 pin-depends: [
+  ["esbuild.dev" "git+https://github.com/tmattio/opam-esbuild#main"]
   ["tailwindcss.dev" "git+https://github.com/tmattio/opam-tailwindcss#main"]
   ["dream-accept.dev" "git+https://github.com/tmattio/dream-accept#main"]
   ["dream-encoding.dev" "git+https://github.com/tmattio/dream-encoding#main"]
