@@ -122,7 +122,7 @@ let get_metrics () = !get_metrics_ref ()
 let loadavg_src = loadavg_src ~tags:[]
 let memory_src = memory_src ~tags:[]
 
-let init_metrics ?(interval = 5.0) () =
+let init_metrics ?(interval = 60.0) () =
   Metrics.enable_all ();
   Metrics_lwt.init_periodic (fun () -> Lwt_unix.sleep interval);
   Metrics_lwt.periodically loadavg_src;
