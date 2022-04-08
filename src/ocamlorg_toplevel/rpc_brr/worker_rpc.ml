@@ -33,8 +33,7 @@ let start worker timeout timeout_fn =
   in
   context
 
-let rpc : context -> Rpc.call -> Rpc.response Lwt.t =
- fun context call ->
+let rpc context call =
   let open Lwt in
   let jv = Conv.jv_of_rpc_call call in
   let mv = Lwt_mvar.create_empty () in

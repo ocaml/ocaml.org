@@ -229,6 +229,17 @@ let v2_assets =
     fwd_v2 "/releases/4.13/ocaml-4.13-refman.info.tar.gz";
     fwd_v2 "/releases/4.13/ocaml-4.13-refman.pdf";
     fwd_v2 "/releases/4.13/ocaml-4.13-refman.txt";
+    fwd_v2 "/releases/4.14/notes/Changes";
+    fwd_v2 "/releases/4.14/notes/INSTALL.adoc";
+    fwd_v2 "/releases/4.14/notes/LICENSE";
+    fwd_v2 "/releases/4.14/notes/README.adoc";
+    fwd_v2 "/releases/4.14/notes/README.win32.adoc";
+    fwd_v2 "/releases/4.14/ocaml-4.14-refman-html.tar.gz";
+    fwd_v2 "/releases/4.14/ocaml-4.14-refman-html.zip";
+    fwd_v2 "/releases/4.14/ocaml-4.14-refman.html";
+    fwd_v2 "/releases/4.14/ocaml-4.14-refman.info.tar.gz";
+    fwd_v2 "/releases/4.14/ocaml-4.14-refman.pdf";
+    fwd_v2 "/releases/4.14/ocaml-4.14-refman.txt";
   ]
 
 let from_v2 =
@@ -555,6 +566,7 @@ let from_v2 =
     ("/releases/4.12.1.html", Url.release "4.12.1");
     ("/releases/4.13.0.html", Url.release "4.13.0");
     ("/releases/4.13.1.html", Url.release "4.13.1");
+    ("/releases/4.14.0.html", Url.release "4.14.0");
     ("/releases/caml-light/faq.html", Url.index);
     ("/releases/caml-light/index.html", Url.index);
     ("/releases/caml-light/", Url.index);
@@ -563,8 +575,8 @@ let from_v2 =
     ("/releases/index.fr.html", Url.releases);
     ("/releases/index.html", Url.releases);
     ("/releases/", Url.releases);
-    ("/releases/latest/index.html", Url.release "4.13.1");
-    ("/releases/latest/manual.html", Url.manual_with_version "4.13.1");
+    ("/releases/latest/index.html", Url.release "4.14.0");
+    ("/releases/latest/manual.html", Url.manual_with_version "4.14.0");
   ]
 
 let redirect_p pattern =
@@ -622,6 +634,12 @@ let manual =
     fwd_v2 "/releases/4.13/htmlman/";
     redirect_p "/releases/4.13/manual/**";
     fwd_v2 "/releases/4.13/manual/";
+    redirect_p "/releases/4.14/api/**";
+    fwd_v2 "/releases/4.14/api/";
+    redirect_p "/releases/4.14/htmlman/**";
+    fwd_v2 "/releases/4.14/htmlman/";
+    redirect_p "/releases/4.14/manual/**";
+    fwd_v2 "/releases/4.14/manual/";
   ]
 
 let make ?(permanant = false) t =

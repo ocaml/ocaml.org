@@ -11,10 +11,10 @@ Compilation environments are managed with opam switches. The typical workflow is
 To do this, you'll need to create global opam switches. To create an opam switch with a given version of the compiler, you can use:
 
 ```
-opam switch create 4.13.0 ocaml-base-compiler.4.13.0
+opam switch create 4.14.0 ocaml-base-compiler.4.14.0
 ```
 
-This will create a new switch called `4.13.0` with the compiler version `4.13.0`.
+This will create a new switch called `4.14.0` with the compiler version `4.14.0`.
 
 The list of available compiler version can be retrieved with:
 

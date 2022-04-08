@@ -1,0 +1,13 @@
+(executable
+ (name index)
+ (modes js)
+ (libraries
+  brr
+  js_of_ocaml
+  code-mirror
+  code-mirror.lint
+  code-mirror.autocomplete
+  code-mirror.stream
+  js_top_worker-client
+  ocamlorg.rpc_brr
+  rpclib-lwt))

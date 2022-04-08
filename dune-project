@@ -55,6 +55,9 @@
   rpclib
   rpclib-lwt
   ppx_deriving_rpc
+  js_top_worker
+  js_top_worker-client
+  code-mirror
   (js_of_ocaml
    (>= 4.0))
   (js_of_ocaml-ppx
@@ -66,6 +69,7 @@
   (js_of_ocaml-toplevel
    (>= 4.0))
   tailwindcss
+  esbuild
   (alcotest :with-test)
   ; ocamlorg-data
   (mdx

@@ -1,0 +1,113 @@
+let render () =
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="An OCaml Toplevel Playground" />
+    <meta name="twitter:title" content="OCaml Playground" />
+    <meta name="twitter:description" content="An OCaml Toplevel Playground" />
+    <meta property="og:site_name" content="OCaml" />
+    <meta property="og:type" content="object" />
+    <meta property="og:title" content="OCaml Playground" />
+    <meta property="og:description" content="An OCaml Toplevel Playground" />
+    <meta name="theme-color" content="#fff" />
+    <meta name="color-scheme" content="white" />
+    <meta name="”robots”" content="noindex, nofollow" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/codemirror.css" />
+    <link rel="stylesheet" href="/vendors/font-files/inter.css" />
+    <script defer src="/vendors/alpine.min.js"></script>
+    <title>OCaml Playground</title>
+  </head>
+
+  <body class="dark">
+    <%s! Header.render ~wide:true () %>
+
+    <main>
+      <div class="flex code-editor">
+        <div class="hidden md:flex lg:flex-1 flex-col justify-center md:w-3/5">
+          <div class="bg-code-background w-full relative h-full">
+            <div class="cm-s-lesser-dark" id="editor1"></div>
+            <div
+              class="bg-code-background shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)] p-4 absolute w-full bottom-0 z-10"
+            >
+              <div class="flex w-full justify-end items-center px-4">
+                <button
+                  id="share"
+                  class="mr-7 hover:bg-white hover:bg-opacity-10 active:bg-primary-100 active:text-primary-600 p-2 rounded-md text-gray-400"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6 stroke-current"
+                    fill=""
+                    viewBox="0 0 24 24"
+                    stroke="rgba(255, 255, 255, 0.6)"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+                    />
+                  </svg>
+                </button>
+                <button id="run" class="btn btn-md btn-secondary">
+                  <span>Run</span>
+                  <span>⌘⏎</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="output-bg w-full min-h-full relative md:w-2/5"
+          x-data="{ output: true, editor: window.innerWidth >= 767,mobile: window.innerWidth < 767 }"
+          @resize.window="
+          mobile = window.innerWidth < 767;
+          if(window.innerWidth < 767 && mobile == true  ){
+            editor = true;
+          }
+          if(window.innerWidth > 767 && editor == true ){
+            editor = false;
+            output = true;
+          }"
+        >
+          <div class="flex text-white shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)">
+            <button
+              class="md:hidden"
+              :class="editor && mobile ? 'text-primary-600 border-b-2 border-primary-600' : ''"
+              @click="editor = true; mobile=true; output = false;"
+              class="border-b-2 border-transparent"
+            >
+              <div class="p-4 block">Editor</div>
+            </button>
+            <button
+              :class="output && !mobile ? 'text-primary-600 border-b-2 border-primary-600' : ''"
+              @click="output = true; mobile = false; editor = false;"
+              class="border-b-2 border-transparent"
+            >
+              <div class="p-4 block">Output</div>
+            </button>
+          </div>
+          <div class="shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)] output-container overflow-auto">
+            <div x-show="editor && mobile">
+              <div class="text-center">
+                <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">Coming Soon!</h3>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-100">The OCaml playground does not support mobile yet.</p>
+              </div>
+            </div>
+            <div
+              id="output"
+              class="code-preview flex-col overflow-auto p-4 text-white"
+              x-show="output && !mobile"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="/toplevels/playground.js" defer></script>
+  </body>
+</html>

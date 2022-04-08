@@ -240,6 +240,7 @@ let page (page : Ood.Page.t) (_req : Dream.request) =
 let carbon_footprint = page Ood.Page.carbon_footprint
 let privacy_policy = page Ood.Page.privacy_policy
 let governance = page Ood.Page.governance
+let playground _req = Dream.html (Ocamlorg_frontend.playground ())
 
 let papers req =
   let search_paper pattern t =
