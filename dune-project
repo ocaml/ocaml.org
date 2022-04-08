@@ -15,7 +15,8 @@
  "Patrick Ferris"
  "Ashish Agarwal"
  "Kanishka Azimi"
- "Richard Davison")
+ "Richard Davison"
+ "Jiae Kam")
 
 (maintainers "Thibaut Mattio" "Patrick Ferris")
 
@@ -87,6 +88,19 @@
   ptime
   lwt
   ocamlnet
+  ; src/ocamlorg_dasbhoard
+  (dream
+   (>= 1.0.0~alpha3))
+  (hyper
+   (>= 1.0.0~alpha1))
+  dune-build-info
+  luv
+  metrics-lwt
+  user-agent-parser
+  digestif
+  ppx_deriving_yojson
+  yojson
+  timedesc
   ; tools/ood-gen
   piaf
   ppx_deriving_yaml

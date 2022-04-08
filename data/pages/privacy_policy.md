@@ -20,10 +20,14 @@ As a visitor to the OCaml.org website:
 - No information is mined or harvested for personal and behavioral trends
 - No information is monetized
 
+We collect some anonymous usage data for statistical purposes. The goal is to track overall trends in our website traffic, it is not to track individual visitors. All the data is in aggregate only. No personal data is collected. You can view the data we collect at [https://ocaml.org/dashboard/analytics](/dashboard/analytics).
+
+Data collected includes referral sources, top pages, visit duration, information from the devices (device type, operating system, country and browser) used during the visit and more.
+
 ## Changes & Questions
 
 We may update this policy as needed to comply with relevant regulations and reflect any new practices. Whenever we make a significant change to our policies, we will also announce them on our company blog or social media profiles.
 
 [Contact us](https://discuss.ocaml.org/) if you have any questions, comments, or concerns about this privacy policy, your data, or your rights with respect to your information.
 
-Last updated: March 22, 2022
+Last updated: April 08, 2022
