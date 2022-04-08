@@ -7,12 +7,9 @@ let render ~prefix ~title ~nav inner =
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="icon" type="image/png" href="<%s prefix %>/assets/favicon.ico" />
-    <link rel="stylesheet" href="<%s prefix %>/assets/css/style.css" />
     <link rel="stylesheet" href="<%s prefix %>/assets/main.css" />
     <script defer src="<%s prefix %>/assets/vendors/alpine.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="https://kit.fontawesome.com/e02eec018e.js" crossorigin="anonymous"></script>
+    <script src="<%s prefix %>/assets/vendors/chart.js"></script>
     <title><%s title %> | Dream Dashboard</title>
   </head>
 

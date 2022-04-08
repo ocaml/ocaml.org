@@ -29,9 +29,8 @@
  asset/
  (rule
   (target main.css)
-  (mode promote-until-clean)
   (deps
-   (:style css/style.css)
+   (:style ../template/style.css)
    (source_tree ../template))
   (action
    (run

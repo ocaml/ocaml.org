@@ -1,5 +1,3 @@
-let () = Printexc.record_backtrace true
-
 open Import
 
 let ocaml_version = Sys.ocaml_version
