@@ -2,11 +2,12 @@
 
 (** Conversion functions for turning {!Rpc.t} into {!Jv.t} and vice-versa *)
 
+open Js_top_worker_rpc
 (** These are independent of any particular API being implemented, and should be
     part of the rpc library ideally. *)
 
 module Conv : sig
-  type t = Rpc.t
+  type t = Js_top_worker_rpc.Rpc.t
 
   val to_jv : t -> Jv.t
   val of_jv : Jv.t -> t

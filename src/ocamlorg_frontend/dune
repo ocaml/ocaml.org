@@ -155,6 +155,11 @@
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
+  (targets playground.ml)
+  (deps playground.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
   (targets page.ml)
   (deps page.eml)
   (action
@@ -162,6 +167,16 @@
 
 (subdir
  components/
+ (rule
+  (targets footer.ml)
+  (deps footer.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets header.ml)
+  (deps header.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
   (targets navmap.ml)
   (deps navmap.eml)

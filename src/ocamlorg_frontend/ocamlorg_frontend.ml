@@ -56,4 +56,5 @@ let tutorial tutorial = Tutorial.render tutorial
 let page ~title ~description ~meta_title ~meta_description ~content =
   Page.render ~title ~description ~meta_title ~meta_description ~content
 
+let playground () = Playground.render ()
 let not_found () = Not_found.render ()

@@ -17,4 +17,8 @@ pin-depends: [
   ["tailwindcss.dev" "git+https://github.com/tmattio/opam-tailwindcss#main"]
   ["dream-accept.dev" "git+https://github.com/tmattio/dream-accept#main"]
   ["dream-encoding.dev" "git+https://github.com/tmattio/dream-encoding#main"]
+  ["code-mirror.dev" "git+https://github.com/patricoferris/jsoo-code-mirror#static"]
+  ["js_top_worker-rpc.dev" "git+https://github.com/jonludlam/js_top_worker#81d306e64c7163ea9e601a573288b2ba83496fbb"]
+  ["js_top_worker.dev" "git+https://github.com/jonludlam/js_top_worker#81d306e64c7163ea9e601a573288b2ba83496fbb"]
+  ["js_top_worker-client.dev" "git+https://github.com/jonludlam/js_top_worker#81d306e64c7163ea9e601a573288b2ba83496fbb"]
 ]

@@ -1,26 +1,3 @@
-; Worker library
-
-(library
- (name worker)
- (modules worker uTop_complete uTop_lexer uTop_token uTop)
- (libraries
-  brr
-  ocamlorg_toplevel
-  js_of_ocaml-toplevel
-  js_of_ocaml-compiler
-  astring
-  rpclib)
- (preprocess
-  (per_module
-   ((action
-     (run %{bin:cppo} -V OCAML:%{ocaml_version} %{input-file}))
-    uTop_complete
-    uTop)
-   ((pps js_of_ocaml-ppx)
-    worker))))
-
-(ocamllex uTop_lexer)
-
 ; Base
 
 (executable
@@ -38,7 +15,7 @@
 (executable
  (name worker_base)
  (modules worker_base)
- (libraries worker stdlib base)
+ (libraries js_top_worker stdlib base)
  (flags
   (:standard -rectypes -linkall))
  (modes byte))
@@ -77,21 +54,15 @@
 
 (executable
  (name worker_stdlib)
+ (modes byte)
  (modules worker_stdlib)
- (libraries worker stdlib)
- (flags
-  (:standard -rectypes -linkall))
- (preprocess
-  (pps js_of_ocaml-ppx))
- (modes byte))
+ (libraries js_top_worker))
 
 (rule
  (targets worker.js)
  (action
   (run
    %{bin:js_of_ocaml}
-   --export
-   %{dep:export_stdlib.txt}
    --toplevel
    --pretty
    +toplevel.js
@@ -104,15 +75,33 @@
  js/
  (rule
   (alias toplevel)
-  (targets stdlib-4.13.0.js worker.js worker_base.js base-v0.14.1.js)
+  (targets
+   stdlib-4.14.0.js
+   worker.js
+   worker_base.js
+   base-v0.14.1.js
+   playground.js)
   (deps
+   ../../playground/index.bc.js
    ../toplevel_stdlib.bc.js
    ../toplevel_base.bc.js
    ../worker.js
    ../worker_base.js)
   (action
    (progn
-    (run jsoo_minify ../toplevel_stdlib.bc.js -o stdlib-4.13.0.js)
+    (run
+     npx
+     esbuild
+     --platform=browser
+     --external:fs
+     --external:tty
+     --external:child_process
+     --external:constants
+     --minify
+     --bundle
+     --outfile=playground.js
+     ../../playground/index.bc.js)
+    (run jsoo_minify ../toplevel_stdlib.bc.js -o stdlib-4.14.0.js)
     (run jsoo_minify ../worker.js -o worker.js)
     (run jsoo_minify ../toplevel_base.bc.js -o base-v0.14.1.js)
     (run jsoo_minify ../worker_base.js -o worker_base.js)))))

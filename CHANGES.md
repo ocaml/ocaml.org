@@ -12,6 +12,8 @@
 
 - Add a governance page (#271, by @tmattio)
 
+- Add a toplevel playground (#250, by @asaadmahmood, @patricoferris and @tmattio)
+
 - Guidelines page (#244, by @mndrix)
   - Recommend ocamlformat, de-emphasize formatting
   - Fix typos
