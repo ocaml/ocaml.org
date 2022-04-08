@@ -1,5 +1,5 @@
 tools:
-  - name: `odoc`
+  - name: odoc
     source: https://github.com/ocaml/odoc
     license: ISC
     synopsis: Documentation Generator for OCaml
@@ -35,7 +35,7 @@ tools:
       OCamlFormat is a tool to automatically format OCaml code in a uniform style.
     lifecycle: incubate
 
-  - name: `dune-release`
+  - name: dune-release
     source: https://github.com/ocamllabs/dune-release
     license: ISC
     synopsis: Release Dune packages in Opam
@@ -46,12 +46,12 @@ tools:
       [GitHub](https://github.com).
     lifecycle: incubate
 
-  - name: `ocaml-lsp`
+  - name: OCaml-LSP
     source: https://github.com/ocaml/ocaml-lsp
     license: ISC
     synopsis: LSP Server for OCaml
     description: >
-      An LSP server for OCaml.
+      OCaml-LSP is a language server for OCaml that implements Language Server Protocol (LSP).
     lifecycle: incubate
 
   - name: Bun
@@ -101,7 +101,7 @@ tools:
       Merlin is an assistant for editing OCaml code. It aims to provide the features available in modern IDEs: error reporting, auto completion, source browsing and much more.
     lifecycle: active
 
-  - name: `ppxlib`
+  - name: Ppxlib
     source: https://github.com/ocaml-ppx/ppxlib
     license: MIT
     synopsis: Standard library for PPX rewriters
@@ -118,7 +118,7 @@ tools:
       allowing to inject a complex structured value into generated code.
     lifecycle: active
 
-  - name: `opam-publish`
+  - name: opam-publish
     source: https://github.com/ocaml-opam/opam-publish
     license: LGPLv2
     synopsis: A tool to ease contributions to Opam repositories
@@ -170,7 +170,7 @@ tools:
       in programs and scripts.
     lifecycle: sustain
 
-  - name: `ocp-indent`
+  - name: ocp-indent
     source: https://github.com/OCamlPro/ocp-indent
     license: LGPLv2
     synopsis: A simple tool to indent OCaml programs
