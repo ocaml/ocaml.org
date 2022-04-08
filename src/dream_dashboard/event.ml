@@ -9,7 +9,7 @@ type t = {
   ip_info : Ip_info.t option;
 }
 
-let get_favicon_of_referer url =
+let _get_favicon_of_referer url =
   let open Lwt.Syntax in
   let host = url |> Uri.of_string |> Uri.host |> Option.get in
   let favicon_url = Uri.with_path (url |> Uri.of_string) "favicon.ico" in
@@ -30,8 +30,8 @@ let create ~ua ~url ~referer ~client =
   let* referer =
     match referer with
     | Some url ->
-        let+ favicon = get_favicon_of_referer url in
-        Some { url; favicon }
+        (* let+ favicon = get_favicon_of_referer url in *)
+        Lwt.return (Some { url; favicon = None })
     | None -> Lwt.return None
   in
   match host_opt with
