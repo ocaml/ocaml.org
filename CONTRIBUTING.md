@@ -4,7 +4,7 @@ Welcome to Ocaml.org's contributing guide.
 
 This guide documents the best way to contribute to the project. If you're looking for a guide on how to setup the project and submit a contribution, you can refer to our [HACKING](./HACKING.md) guide.
 
-Thank you for taking the time to read the contributing guide. Your help with Ocaml.org is extremely welcome. If you get stuck, please don’t hesitate to [ask questions on discuss](https://discuss.ocaml.org/) or [raise an issue](https://github.com/ocaml/v3.ocaml.org-server/issues/new).
+Thank you for taking the time to read the contributing guide. Your help with Ocaml.org is extremely welcome. If you get stuck, please don’t hesitate to [ask questions on discuss](https://discuss.ocaml.org/) or [raise an issue](https://github.com/ocaml/ocaml.org/issues/new).
 
 We are particularly motivated to support new contributors and people who are looking to learn and develop their skills.
 
@@ -15,7 +15,7 @@ We are particularly motivated to support new contributors and people who are loo
 
 ## Reporting bugs
 
-We use GitHub issues to track all bugs and feature requests; feel free to open an issue over [here](https://github.com/ocaml/v3.ocaml.org/issues/new) if you have found a bug or wish to see a feature implemented.
+We use GitHub issues to track all bugs and feature requests; feel free to open an issue over [here](https://github.com/ocaml/ocaml.org/issues/new) if you have found a bug or wish to see a feature implemented.
 
 Please include images and browser-specific information if the bug is related to some visual aspect of the site. This tends to make it easier to reproduce and fix.
 
