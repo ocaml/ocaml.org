@@ -168,7 +168,7 @@ val f : int -> int = <fun>
 # f 99;;
 - : int = 101
 ```
-In engineering this is sufficient [proof by example](humor_proof.html)
+In engineering, this is sufficient proof by example
 for us to state that `plus 2` is the function which adds 2 to things.
 
 Going back to the original definition, let's "fill in" the first
@@ -431,7 +431,7 @@ It's possible to use this as a neat trick to save typing: aliasing function
 names, and function arguments.
 
 Although we haven't looked at object-oriented programming (that's the
-subject for the ["Objects" section](objects.html)),
+subject for the ["Objects" section](/docs/objects)),
 here's an example from OCamlNet of an
 aliased function call. All you need to know is that
 `cgi # output # output_string "string"` is a method call, similar to
