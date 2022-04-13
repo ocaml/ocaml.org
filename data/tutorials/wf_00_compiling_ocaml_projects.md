@@ -51,10 +51,11 @@ ocamlopt -o program module1.ml module2.ml
 
 The compiler produces an executable named `program` or `program.exe`. The order
 of the source files matters, and so `module1.ml` cannot depend upon things that
-are defined in `module2.ml`. Please also note that the name of the files matters
-as well, because if you use the same file name as the library you are using, your
-program will compete with the library program (of the same name) which will cause 
-the compiler to not know where certain functions are defined.
+are defined in `module2.ml`. Please also note that you should avoid creating a file that
+conflicts with a module exposed by a library you are using. For instance, if you create
+a file `graphics.ml` and use the `graphics` library, the `Graphics` module exposed
+from the `graphics` library will be hidden by your newly defined module, hence all
+of the functions defined in it will be made inaccessible.
 
 The OCaml distribution is shipped with the standard library, plus several other
 libraries. There are also a large number of third-party libraries, for a wide
