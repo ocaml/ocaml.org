@@ -25,7 +25,7 @@ let term_templates =
   ]
 
 let cmds =
-  Cmd.group (Cmd.info "dune-release" ~version:"%%VERSION%%")
+  Cmd.group (Cmd.info "ood-gen" ~version:"%%VERSION%%")
   @@ List.map
        (fun (term, template) ->
          Cmd.v (Cmd.info term)
