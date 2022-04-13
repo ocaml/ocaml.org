@@ -168,7 +168,7 @@ val f : int -> int = <fun>
 # f 99;;
 - : int = 101
 ```
-In engineering this is sufficient [proof by example](humor_proof)
+In engineering, this is sufficient proof by example
 for us to state that `plus 2` is the function which adds 2 to things.
 
 Going back to the original definition, let's "fill in" the first
