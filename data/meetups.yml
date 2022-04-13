@@ -10,7 +10,7 @@ meetups:
     location:
       lat: 40.7128
       long: 74.0060
-    url: https://www.meetup.com/NYC-OCaml
+    url: https://www.meetup.com/sv-ocaml/
   - title: "Silicon Valley OCaml Meetups"
     textual_location: San Francisco, California, USA
     location:
