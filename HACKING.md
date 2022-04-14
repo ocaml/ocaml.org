@@ -95,8 +95,8 @@ The following snippet describes the repository structure.
 │   ├── ocamlorg_package
 |   |   The library for constructing opam-repository statistics and information (e.g. rev deps).
 |   |
-│   ├── ocamlorg_toplevel
-|   |   All of the js_of_ocaml toplevel code including UI and background workers.
+│   ├── ocamlorg_playground
+|   |   All of the js_of_ocaml code for the OCaml playground.
 |   |
 │   └── ocamlorg_web
 |       The main entry-point of the server.

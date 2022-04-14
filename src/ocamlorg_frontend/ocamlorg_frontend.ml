@@ -31,15 +31,10 @@ let package_overview ~readme ~dependencies ~rev_dependencies ~homepages ~source
   Package_overview.render ~readme ~dependencies ~rev_dependencies ~homepages
     ~source package
 
-let package_documentation ~documentation_status ~toplevel_status ~title ~path
-    ~toc ~maptoc ~content package =
-  Package_documentation.render ~documentation_status ~toplevel_status ~title
-    ~path ~toc ~maptoc ~content package
-
-let package_toplevel ~documentation_status ~toplevel_status ~toplevel_url
-    package =
-  Package_toplevel.render ~documentation_status ~toplevel_status ~toplevel_url
-    package
+let package_documentation ~documentation_status ~title ~path ~toc ~maptoc
+    ~content package =
+  Package_documentation.render ~documentation_status ~title ~path ~toc ~maptoc
+    ~content package
 
 let packages stats = Packages.render stats
 let packages_search ~total packages = Packages_search.render ~total packages

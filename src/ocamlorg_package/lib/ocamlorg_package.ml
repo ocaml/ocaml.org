@@ -198,25 +198,6 @@ let get_package t name version =
   |> Option.map (fun info -> { version; info; name })
 
 let featured_packages t = t.featured_packages
-let topelevel_url name version = "/toplevels/" ^ name ^ "-" ^ version ^ ".js"
-
-let toplevel t =
-  let name = Name.to_string t.name in
-  let version = Version.to_string t.version in
-  let path =
-    Fpath.(to_string (Config.toplevels_path / (name ^ "-" ^ version ^ ".js")))
-  in
-  if Sys.file_exists path then Some (topelevel_url name version) else None
-
-let toplevel_status ~kind:_ t =
-  (* Placeholder until we have the toplevels from the docs CI. We should replace
-     this function with something equivalent to [documentation_status] *)
-  let name = Name.to_string t.name in
-  let version = Version.to_string t.version in
-  let path =
-    Fpath.(to_string (Config.toplevels_path / (name ^ "-" ^ version ^ ".js")))
-  in
-  if Sys.file_exists path then Lwt.return `Success else Lwt.return `Failure
 
 module Documentation = struct
   type toc = { title : string; href : string; children : toc list }
@@ -515,5 +496,3 @@ let search_package t pattern =
          Search.compare_score
            (Search.score package1 request)
            (Search.score package2 request))
-
-let toplevels_path = Config.toplevels_path

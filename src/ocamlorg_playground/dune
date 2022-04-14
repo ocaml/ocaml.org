@@ -1,0 +1,37 @@
+; Stdlib worker
+
+(executable
+ (name worker)
+ (modes byte)
+ (modules worker)
+ (libraries js_top_worker))
+
+(rule
+ (targets worker.js)
+ (action
+  (run
+   %{bin:js_of_ocaml}
+   --toplevel
+   --pretty
+   +toplevel.js
+   +dynlink.js
+   %{dep:worker.bc}
+   -o
+   %{targets})))
+
+; Playground
+
+(executable
+ (name main)
+ (modes js)
+ (modules
+  (:standard \ worker))
+ (libraries
+  brr
+  js_of_ocaml
+  code-mirror
+  code-mirror.lint
+  code-mirror.autocomplete
+  code-mirror.stream
+  js_top_worker-client
+  rpclib-lwt))

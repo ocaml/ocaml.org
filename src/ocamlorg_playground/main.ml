@@ -32,7 +32,7 @@ let initialise s callback =
   let* _ = Toprpc.init rpc Toplevel_api.{ cmas = []; cmi_urls = [] } in
   Lwt.return rpc
 
-let rpc = initialise "/toplevels/worker.js" timeout_container
+let rpc = initialise "/js/worker.js" timeout_container
 
 let or_raise = function
   | Ok v -> v

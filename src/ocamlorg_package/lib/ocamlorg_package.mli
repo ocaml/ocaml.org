@@ -109,12 +109,6 @@ val documentation_status :
   [ `Success | `Failure | `Unknown ] Lwt.t
 (** Get the build status of the documentation of a package *)
 
-val toplevel_status :
-  kind:[< `Package | `Universe of string ] ->
-  t ->
-  [ `Success | `Failure | `Unknown ] Lwt.t
-(** Get the build status of the toplevel of a package *)
-
 val module_map :
   kind:[< `Package | `Universe of string ] -> t -> Module_map.t Lwt.t
 
@@ -129,9 +123,6 @@ val documentation_page :
 val init : ?disable_polling:bool -> unit -> state
 (** [init ()] initialises the opam-repository state. By default
     [disable_polling] is set to [false], but can be disabled for tests. *)
-
-val toplevel : t -> string option
-(** Get the URL of the toplevel script for the given package. *)
 
 val all_packages_latest : state -> t list
 (** Get the list of the latest version of every opam packages. The name and
@@ -170,5 +161,3 @@ val search_package : state -> string -> t list
 
 val featured_packages : state -> t list option
 (** A list of packages to highlight on the Packages page. *)
-
-val toplevels_path : Fpath.t
