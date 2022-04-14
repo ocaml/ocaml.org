@@ -62,8 +62,8 @@ The deployment pipeline is managed in <https://github.com/ocurrent/ocurrent-depl
 To test the deployment locally, you can run the following commands:
 
 ```
-docker build -t v3.ocaml.org .
-docker run -p 8080:8080  v3.ocaml.org
+docker build -t ocaml.org .
+docker run -p 8080:8080  ocaml.org
 ```
 
 This will build the docker image and run a docker container with the port `8080` mapped to the HTTP server.
@@ -83,8 +83,8 @@ The following snippet describes the repository structure.
 |   Data used by ocaml.org in Yaml and Markdown format.
 │
 ├── src
-│   ├── hilite
-|   |   A small library we use to do OCaml code highlighting at build time.
+│   ├── dream_dashboard
+|   |   A monitoring and analytics dashboard for dream.
 |   |
 │   ├── ocamlorg_data
 |   |   The result of compiling all of the information in `/data` into OCaml modules.
@@ -112,8 +112,6 @@ The following snippet describes the repository structure.
 ├── ocamlorg.opam
 ├── ocamlorg.opam.template
 │   opam package definitions.
-│
-├── CHANGES.md
 │
 ├── CONTRIBUTING.md
 │
