@@ -8,4 +8,4 @@
   (action
    (chdir
     %{workspace_root}
-    (run tailwindcss -i src/ocamlorg_frontend/css/styles.css -o %{target})))))
+    (run tailwindcss -m -i src/ocamlorg_frontend/css/styles.css -o %{target})))))
