@@ -6,7 +6,7 @@ all:
 
 .PHONY: deps
 deps: ## Install development dependencies
-	opam install -y ocamlformat=0.21.0 ocaml-lsp-server $(DEV_DEPS)
+	opam install -y ocamlformat=0.21.0 ocaml-lsp-server
 	opam install --deps-only --with-test --with-doc -y .
 
 .PHONY: create_switch
@@ -55,10 +55,6 @@ watch: ## Watch for the filesystem and rebuild on every change
 .PHONY: utop
 utop: ## Run a REPL and link with the project's libraries
 	opam exec -- dune utop --root . . -- -implicit-bindings
-
-.PHONY: gen-po
-gen-po: ## Generate the po files
-	opam exec -- dune build --root . @gen-po --auto-promote
 
 .PHONY: scrape
 scrape: ## Generate the po files

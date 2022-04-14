@@ -2,10 +2,10 @@
 
 (name ocamlorg)
 
-(documentation "https://ocaml.github.io/v3.ocaml.org-server/")
+(documentation "https://ocaml.github.io/ocaml.org/")
 
 (source
- (github ocaml/v3.ocaml.org-server))
+ (github ocaml/ocaml.org))
 
 (license ISC)
 
@@ -26,12 +26,12 @@
 
 (package
  (name ocamlorg)
- (synopsis "Server-side of the next version of the ocaml.org website")
+ (synopsis "Official OCaml website")
  (description
-  "ocamlorg is a Dream-based server for the next version of the ocaml.org website.\nIt serves the OCaml packages pages and their documentation by using the data available at https://docs-data.ocaml.org/ and serves the static files generated from the NextJS application at https://github.com/ocaml/v3.ocaml.org.")
+  "This repository contains the server that serves the official OCaml website at https://ocaml.org.")
  (depends
   (ocaml
-   (>= 4.08.0))
+   (>= 4.14.0))
   dune
   cohttp
   cohttp-lwt-unix
@@ -73,7 +73,6 @@
   hilite
   river
   (alcotest :with-test)
-  ; ocamlorg-data
   (mdx
    (and
     :with-test

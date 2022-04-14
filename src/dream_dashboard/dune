@@ -35,6 +35,7 @@
   (action
    (run
     tailwindcss
+    -m
     --content
     %{workspace_root}/src/dream_dashboard/template/*.eml
     -i

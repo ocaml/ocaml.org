@@ -23,10 +23,6 @@ jobs:
           - ubuntu-latest
         ocaml-compiler:
           - ocaml-base-compiler.4.14.0
-        # Add windows once Dream does not depend on `conf-libev`
-        # include:
-        #   - os: windows-latest
-        #     ocaml-compiler: ocaml-variants.4.14.0+mingw64c
 
     steps:
       - name: Checkout code
@@ -49,43 +45,15 @@ jobs:
       - name: Install opam dependencies
         run: opam install --deps-only --with-test .
 
-      - name: Build project
-        run: opam exec -- dune build @install --ignore-promoted-rules
-
-      - name: Run tests
-        run: opam exec -- dune build @src/runtest --ignore-promoted-rules
-
-  lint-fmt:
-    strategy:
-      matrix:
-        ocaml-compiler:
-          - ocaml-base-compiler.4.14.0
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Use OCaml ${{ matrix.ocaml-compiler }}
-        uses: ocaml/setup-ocaml@v2
-        with:
-          ocaml-compiler: ${{ matrix.ocaml-compiler }}
-          dune-cache: true
-
-      - name: Install system dependencies (Linux)
-        run: sudo apt-get install libev-dev libonig-dev
-        if: runner.os == 'Linux'
-
-      - name: Install system dependencies (macOS)
-        run: brew install libev
-        if: runner.os == 'macOS'
-
       - name: Install ocamlformat
         run: opam install ocamlformat.0.21.0
 
-      - name: Install opam dependencies
-        run: opam install --deps-only .
+      - name: Build project
+        run: opam exec -- dune build @install
+
+      - name: Run tests
+        run: opam exec -- dune test
 
       - name: Format code
-        run: opam exec -- dune build --auto-promote --ignore-promoted-rules @fmt
+        run: opam exec -- dune build --auto-promote @fmt
+        if: runner.os == 'Linux'

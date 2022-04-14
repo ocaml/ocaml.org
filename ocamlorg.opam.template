@@ -1,21 +1,4 @@
-build: [
-  ["dune" "subst"] {dev}
-  [
-    "dune"
-    "build"
-    "-p"
-    name
-    "-j"
-    jobs
-    "--ignore-promoted-rules"
-    "@install"
-    "@runtest" {with-test}
-    "@doc" {with-doc}
-  ]
-]
 pin-depends: [
-  ["river.dev" "git+https://github.com/kayceesrk/river#master"]
-  ["hilite.dev" "git+https://github.com/patricoferris/hilite#main"]
   ["esbuild.dev" "git+https://github.com/tmattio/opam-esbuild#main"]
   ["tailwindcss.dev" "git+https://github.com/tmattio/opam-tailwindcss#main"]
   ["code-mirror.dev" "git+https://github.com/patricoferris/jsoo-code-mirror#static"]

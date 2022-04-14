@@ -9,7 +9,7 @@ Learn_layout.render ~current_tutorial:tutorial.slug ~title:(Printf.sprintf "%s Â
         <p class="text-sm mt-0 mb-4 max-w-xs">All OCaml docs are open source. See something that's wrong or unclear? Submit a pull request.</p>
         <a
           class="inline-block relative py-1 px-4 font-medium no-underline align-middle bg-transparent rounded-md border border-solid appearance-none cursor-pointer select-none whitespace-no-wrap hover:no-underline"
-          href="https://github.com/ocaml/v3.ocaml.org-server/blob/main/data/<%s tutorial.fpath %>"
+          href="https://github.com/ocaml/ocaml.org/blob/main/data/<%s tutorial.fpath %>"
         >
           <svg aria-hidden="true" role="img" class="inline-block overflow-visible mr-0 align-text-bottom select-none" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible; fill: currentcolor">
             <path
@@ -32,7 +32,7 @@ Learn_layout.render ~current_tutorial:tutorial.slug ~title:(Printf.sprintf "%s Â
           >
         </div>
         <div class="text-sm mb-2">
-          <a href="https://github.com/ocaml/v3.ocaml.org-server/issues/new" class="font-semibold no-underline bg-transparent cursor-pointer hover:underline">
+          <a href="https://github.com/ocaml/ocaml.org/issues/new" class="font-semibold no-underline bg-transparent cursor-pointer hover:underline">
             <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
