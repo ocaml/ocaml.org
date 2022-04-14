@@ -70,28 +70,14 @@
    (>= 4.0))
   tailwindcss
   esbuild
+  hilite
+  river
   (alcotest :with-test)
   ; ocamlorg-data
   (mdx
    (and
     :with-test
     (>= 1.10.0)))
-  ; hilite
-  textmate-language
-  omd
-  yojson
-  ; river
-  (syndic
-   (>= 1.5))
-  (cohttp
-   (>= 5.0.0))
-  (cohttp-lwt
-   (>= 5.0.0))
-  (cohttp-lwt-unix
-   (>= 5.0.0))
-  ptime
-  lwt
-  ocamlnet
   ; src/ocamlorg_dasbhoard
   (dream
    (>= 1.0.0~alpha3))

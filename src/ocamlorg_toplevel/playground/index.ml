@@ -88,8 +88,8 @@ let linter =
   Lint.create f
 
 (* ~~~ Autocompletion ~~~ *)
-let complete : Autocomplete.source =
- fun (ctx : Autocomplete.Context.t) ->
+let complete : Autocomplete.Source.t =
+  Autocomplete.Source.create @@ fun (ctx : Autocomplete.Context.t) ->
   let open Autocomplete in
   let result, set_result = Fut.create () in
   let rword = RegExp.create ".*" in
