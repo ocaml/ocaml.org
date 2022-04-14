@@ -178,7 +178,6 @@ together? (Say they are stored as `i` and `f`). In OCaml you need to
 explicitly cast:
 
 <!-- $MDX skip -->
-
 ```ocaml
 float_of_int i +. f
 ```
@@ -267,7 +266,6 @@ are the your function types, so you need to know the syntax. For a function
 `rettype`, the compiler will print:
 
 <!-- $MDX skip -->
-
 ```ocaml
 f : arg1 -> arg2 -> ... -> argn -> rettype
 ```
@@ -276,7 +274,6 @@ The arrow syntax looks strange now, but later you'll see why it was chosen. Our
 function `average` which takes two floats and returns a float has type:
 
 <!-- $MDX skip -->
-
 ```ocaml
 average : float -> float -> float
 ```
@@ -284,7 +281,6 @@ average : float -> float -> float
 The OCaml standard `int_of_char` casting function:
 
 <!-- $MDX skip -->
-
 ```ocaml
 int_of_char : char -> int
 ```
@@ -872,7 +868,6 @@ declaration, or we prefix all calls to the functions like this:
 To use `Graphics` in the toplevel, you must first load the library with
 
 <!-- $MDX skip -->
-
 ```ocaml
 # #use "topfind";;
 - : unit = ()
@@ -893,7 +888,6 @@ module, then calls `open_graph`, and the second one uses `Graphics.open_graph`
 directly.
 
 <!-- $MDX skip -->
-
 ```ocaml
 open Graphics;;
 
@@ -909,7 +903,6 @@ read_line ();;
 ```
 
 <!-- $MDX skip -->
-
 ```ocaml
 Random.self_init ();;
 
@@ -943,7 +936,6 @@ programs into fast stand-alone executables. Consider the following program,
 saved as "helloworld.ml"
 
 <!-- $MDX skip -->
-
 ```ocaml
 print_endline "Hello, World!"
 ```
@@ -952,7 +944,6 @@ print_endline "Hello, World!"
 We may compile it like this:
 
 <!-- $MDX skip -->
-
 ```ocaml
 ocamlopt -o helloworld helloworld.ml
 ```
@@ -962,7 +953,6 @@ Now our current directory has four more files. The files `helloworld.cmi`,
 process. The file `helloworld` is our executable:
 
 <!-- $MDX skip -->
-
 ```ocaml
 $ ./helloworld
 Hello, World!
@@ -974,7 +964,6 @@ its own file `data.ml` with a corresponding `data.mli` interface, and a main
 file `main.ml` that uses it.
 
 <!-- $MDX skip -->
-
 ```ocaml
 data.ml:
 
@@ -982,7 +971,6 @@ let to_print = "Hello, World!"
 ```
 
 <!-- $MDX skip -->
-
 ```ocaml
 data.mli:
 
@@ -990,7 +978,6 @@ val to_print : string
 ```
 
 <!-- $MDX skip -->
-
 ```ocaml
 main.ml:
 
