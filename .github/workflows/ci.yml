@@ -45,11 +45,14 @@ jobs:
       - name: Install opam dependencies
         run: opam install --deps-only --with-test .
 
+      - name: Install ocamlformat
+        run: opam install ocamlformat.0.21.0
+
       - name: Build project
         run: opam exec -- dune build @install
 
       - name: Run tests
-        run: opam exec -- dune build @src/runtest
+        run: opam exec -- dune test
 
       - name: Format code
         run: opam exec -- dune build --auto-promote @fmt
