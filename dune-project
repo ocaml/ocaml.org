@@ -2,10 +2,10 @@
 
 (name ocamlorg)
 
-(documentation "https://ocaml.github.io/v3.ocaml.org-server/")
+(documentation "https://ocaml.github.io/ocaml.org/")
 
 (source
- (github ocaml/v3.ocaml.org-server))
+ (github ocaml/ocaml.org))
 
 (license ISC)
 

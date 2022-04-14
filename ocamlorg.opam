@@ -15,9 +15,9 @@ authors: [
   "Jiae Kam"
 ]
 license: "ISC"
-homepage: "https://github.com/ocaml/v3.ocaml.org-server"
-doc: "https://ocaml.github.io/v3.ocaml.org-server/"
-bug-reports: "https://github.com/ocaml/v3.ocaml.org-server/issues"
+homepage: "https://github.com/ocaml/ocaml.org"
+doc: "https://ocaml.github.io/ocaml.org/"
+bug-reports: "https://github.com/ocaml/ocaml.org/issues"
 depends: [
   "ocaml" {>= "4.08.0"}
   "dune" {>= "2.8"}
@@ -75,7 +75,6 @@ depends: [
   "uri"
   "odoc" {with-doc}
 ]
-dev-repo: "git+https://github.com/ocaml/v3.ocaml.org-server.git"
 build: [
   ["dune" "subst"] {dev}
   [
@@ -85,15 +84,13 @@ build: [
     name
     "-j"
     jobs
-    "--ignore-promoted-rules"
     "@install"
     "@runtest" {with-test}
     "@doc" {with-doc}
   ]
 ]
+dev-repo: "git+https://github.com/ocaml/ocaml.org.git"
 pin-depends: [
-  ["river.dev" "git+https://github.com/kayceesrk/river#master"]
-  ["hilite.dev" "git+https://github.com/tmattio/hilite#main"]
   ["esbuild.dev" "git+https://github.com/tmattio/opam-esbuild#main"]
   ["tailwindcss.dev" "git+https://github.com/tmattio/opam-tailwindcss#main"]
   ["code-mirror.dev" "git+https://github.com/patricoferris/jsoo-code-mirror#static"]

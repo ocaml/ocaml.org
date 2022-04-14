@@ -37,8 +37,8 @@ jobs:
 
       - name: Build scraper
         run: |
-          opam exec -- dune build tool/ood-gen/bin/scrape.exe --ignore-promoted-rules
-          opam exec -- dune build tool/ood-gen/bin/watch_scrape.exe --ignore-promoted-rules
+          opam exec -- dune build tool/ood-gen/bin/scrape.exe
+          opam exec -- dune build tool/ood-gen/bin/watch_scrape.exe
 
       - name: Run scrapers
         run: |

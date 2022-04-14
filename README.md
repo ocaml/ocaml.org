@@ -1,6 +1,6 @@
 # OCaml.org
 
-[![Actions Status](https://github.com/ocaml/v3.ocaml.org-server/workflows/CI/badge.svg)](https://github.com/ocaml/v3.ocaml.org-server/actions)
+[![Actions Status](https://github.com/ocaml/ocaml.org/workflows/CI/badge.svg)](https://github.com/ocaml/ocaml.org/actions)
 
 This repository contains the upcoming version of OCaml.org. It is currently served at https://v3.ocaml.org/.
 
