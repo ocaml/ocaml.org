@@ -7,8 +7,8 @@
 The `Makefile` contains many commands that can get you up and running, a typical workflow will be to clone the repository after forking it.
 
 ```
-git clone https://github.com/<username>/v3.ocaml.org-server.git
-cd v3.ocaml.org-server
+git clone https://github.com/<username>/ocaml.org.git
+cd ocaml.org
 ```
 
 Ensure you have `opam` installed. Opam will manage the OCaml compiler along with all of the OCaml packages needed to build and run the project. By this point we should all be using some Unix-like system (Linux, macOS, WSL2) so you should [run the opam install script](https://opam.ocaml.org/doc/Install.html#Binary-distribution). There are also manual instructions for people that don't want to run a script from the internet. We assume you are using `opam.2.1.0` or later which provides a cleaner, friendlier experience when installing system dependencies.
