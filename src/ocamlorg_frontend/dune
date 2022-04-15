@@ -105,11 +105,6 @@
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
-  (targets package_toplevel.ml)
-  (deps package_toplevel.eml)
-  (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
- (rule
   (targets packages.ml)
   (deps packages.eml)
   (action

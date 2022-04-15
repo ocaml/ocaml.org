@@ -23,26 +23,6 @@ let media_loader =
       let* store in
       Media.last_modified store (Mirage_kv.Key.v path))
 
-let toplevel_loader =
-  let open Lwt.Syntax in
-  Static.loader
-    ~read:(fun local_root path ->
-      let path = Filename.concat local_root path in
-      Lwt_io.(with_file ~mode:Input path) (fun channel ->
-          let+ content = Lwt_io.read channel in
-          Ok content))
-    ~last_modified:(fun local_root path ->
-      let path = Filename.concat local_root path in
-      let+ stat = Lwt_unix.stat path in
-      let days, ps =
-        Ptime.Span.to_d_ps
-        @@ Ptime.to_span
-             (match Ptime.of_float_s stat.st_mtime with
-             | None -> assert false
-             | Some x -> x)
-      in
-      Ok (days, ps))
-
 let page_routes =
   Dream.scope ""
     [
@@ -96,12 +76,6 @@ let package_route t =
         (Url.package_with_hash_with_version ":hash" ":name" ":version")
         ((Handler.package_versioned t) Handler.Universe);
       Dream.get
-        (Url.package_toplevel ":name" ":version")
-        ((Handler.package_toplevel t) Handler.Package);
-      Dream.get
-        (Url.package_toplevel_with_hash ":hash" ":name" ":version")
-        ((Handler.package_toplevel t) Handler.Universe);
-      Dream.get
         (Url.package_doc ":name" ":version" "**")
         ((Handler.package_doc t) Handler.Package);
       Dream.get
@@ -125,13 +99,6 @@ let router t =
       page_routes;
       package_route t;
       graphql_route t;
-      Dream.scope ""
-        [ Dream_encoding.compress ]
-        [
-          Dream.get "/toplevels/**"
-            (Dream.static ~loader:toplevel_loader
-               (Fpath.to_string Ocamlorg_package.toplevels_path));
-        ];
       Dream.scope ""
         [ Dream_encoding.compress ]
         [ Dream.get "/media/**" (Dream.static ~loader:media_loader "") ];

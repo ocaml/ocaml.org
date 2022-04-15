@@ -16,8 +16,8 @@
  (targets asset.ml asset.mli)
  (deps
   %{workspace_root}/asset/css/main.css
-  (source_tree %{workspace_root}/asset)
-  (source_tree %{workspace_root}/src/ocamlorg_frontend))
+  %{workspace_root}/asset/js/playground.js
+  (source_tree %{workspace_root}/asset))
  (action
   (with-stdout-to
    %{null}

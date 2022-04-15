@@ -3,9 +3,35 @@
  (rule
   (target main.css)
   (deps
-   (:data %{workspace_root}/tailwind.config.js)
+   (:config %{workspace_root}/tailwind.config.js)
+   (:input %{workspace_root}/src/ocamlorg_frontend/css/styles.css)
    (source_tree %{workspace_root}/src/ocamlorg_frontend))
   (action
    (chdir
     %{workspace_root}
-    (run tailwindcss -m -i src/ocamlorg_frontend/css/styles.css -o %{target})))))
+    (run tailwindcss -m -c %{config} -i %{input} -o %{target})))))
+
+(subdir
+ asset/js/
+ (rule
+  (targets playground.js)
+  (deps
+   (:js %{workspace_root}/src/ocamlorg_playground/main.bc.js))
+  (action
+   (run
+    esbuild
+    --platform=browser
+    --external:fs
+    --external:tty
+    --external:child_process
+    --external:constants
+    --minify
+    --bundle
+    --outfile=playground.js
+    %{js})))
+ (rule
+  (targets worker.js)
+  (deps
+   (:js %{workspace_root}/src/ocamlorg_playground/worker.js))
+  (action
+   (run jsoo_minify %{js} -o worker.js))))

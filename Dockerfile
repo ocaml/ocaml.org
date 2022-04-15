@@ -13,7 +13,7 @@ RUN opam install . --deps-only
 
 # Build project
 COPY --chown=opam:opam . .
-RUN opam exec -- dune build @install @toplevel --profile=release
+RUN opam exec -- dune build @install --profile=release
 
 FROM alpine:3.12 as run
 
@@ -22,13 +22,11 @@ RUN apk update && apk add --update libev gmp git
 RUN chmod -R 755 /var
 
 COPY --from=build /home/opam/_build/default/src/ocamlorg_web/bin/main.exe /bin/server
-COPY --from=build /home/opam/_build/default/src/ocamlorg_toplevel/bin/js/ /var/toplevels/
 
 RUN git clone https://github.com/ocaml/opam-repository /var/opam-repository
 
 ENV OCAMLORG_REPO_PATH /var/opam-repository/
 ENV OCAMLORG_PKG_STATE_PATH /var/package.state
-ENV OCAMLORG_TOPLEVELS_PATH /var/toplevels/
 ENV DREAM_VERBOSITY info
 ENV OCAMLORG_HOSTNAME v3.ocaml.org
 ENV OCAMLORG_HTTP_PORT 8080

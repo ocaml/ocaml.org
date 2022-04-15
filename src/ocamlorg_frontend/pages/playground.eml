@@ -108,6 +108,6 @@ let render () =
         </div>
       </div>
     </main>
-    <script src="/toplevels/playground.js" defer></script>
+    <script src="/js/playground.js" defer></script>
   </body>
 </html>

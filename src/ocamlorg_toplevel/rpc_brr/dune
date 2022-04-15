@@ -1,4 +1,0 @@
-(library
- (name rpc_brr)
- (public_name ocamlorg.rpc_brr)
- (libraries brr js_top_worker-client lwt))

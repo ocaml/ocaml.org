@@ -1,7 +1,6 @@
 type tab = 
   | Overview
   | Documentation
-  | Toplevel
   
 let render
 ?styles
@@ -9,7 +8,6 @@ let render
 ~description
 ~tab
 ~documentation_status
-~toplevel_status
 ~(package : Package_intf.package)
 inner =
 let tab_class = "border-transparent border-b-2 hover:border-primary-600 p-4 font-medium relative text-body-400" in
@@ -72,18 +70,6 @@ Layout.render
               <% ); %>
             </button>
           </a>
-          <% (match toplevel_status with 
-            | `Failure -> ()
-            | `Unknown -> ()
-            | `Success -> %>
-          <a href="<%s Url.package_toplevel package.name package.version %>">
-            <button class="<%s if tab = Toplevel then current_tab_class else tab_class %>">
-              Top level
-              <span class="bg-green-500 ml-2 absolute top-2 p-1 rounded-full inline-block">
-              </span>
-            </button>
-          </a>
-          <% ); %>
         </div>
       </div>
       <div class="py-12">
