@@ -26,10 +26,10 @@ let news_post news = News_post.render news
 let opportunities ?search ?location ~locations opportunities =
   Opportunities.render ?search ?location ~locations opportunities
 
-let package_overview ~readme ~dependencies ~rev_dependencies ~homepages ~source
-    package =
-  Package_overview.render ~readme ~dependencies ~rev_dependencies ~homepages
-    ~source package
+let package_overview ~readme ~readme_title ~dependencies ~rev_dependencies
+    ~homepages ~source package =
+  Package_overview.render ~readme ~readme_title ~dependencies ~rev_dependencies
+    ~homepages ~source package
 
 let package_documentation ~documentation_status ~title ~path ~toc ~maptoc
     ~content package =
