@@ -415,10 +415,11 @@ let package_versioned t kind req =
       let description =
         (Ocamlorg_package.info package).Ocamlorg_package.Info.description
       in
-      let* readme =
+      let* readme, readme_title =
         let+ readme_opt = Ocamlorg_package.readme_file ~kind package in
-        Option.value readme_opt
-          ~default:(description |> Omd.of_string |> Omd.to_html)
+        match readme_opt with
+        | Some doc -> (doc, "README")
+        | None -> (description |> Omd.of_string |> Omd.to_html, "Description")
       in
       let _license = Ocamlorg_package.license_file ~kind package in
       let package_meta = package_meta t package in
@@ -446,7 +447,8 @@ let package_versioned t kind req =
       in
       Dream.html
         (Ocamlorg_frontend.package_overview ~documentation_status ~readme
-           ~dependencies ~rev_dependencies ~homepages ~source package_meta)
+           ~readme_title ~dependencies ~rev_dependencies ~homepages ~source
+           package_meta)
 
 let package_doc t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
