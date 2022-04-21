@@ -17,6 +17,7 @@
  (deps
   %{workspace_root}/asset/css/main.css
   %{workspace_root}/asset/js/playground.js
+  %{workspace_root}/asset/js/worker.js
   (source_tree %{workspace_root}/asset))
  (action
   (with-stdout-to
