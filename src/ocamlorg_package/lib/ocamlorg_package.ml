@@ -303,8 +303,11 @@ let documentation_page ~kind t path =
 
 let readme_file ~kind t =
   let open Lwt.Syntax in
-  let+ doc = documentation_page ~kind t "README.md.html" in
-  match doc with None -> None | Some { content; _ } -> Some content
+  let+ doc_md = documentation_page ~kind t "README.md.html"
+  and+ doc_org = documentation_page ~kind t "README.org.html" in
+  match (doc_md, doc_org) with
+  | None, None -> None
+  | Some { content; _ }, _ | None, Some { content; _ } -> Some content
 
 let license_file ~kind t =
   let open Lwt.Syntax in
