@@ -6,7 +6,7 @@ Layout.render
     <div class="container-fluid">
         <div class="flex flex-col lg:flex-row justify-between items-center">
             <div>
-                <h1 class="font-bold mb-6">OCaml Workshop 2021</h1>
+                <h1 class="font-bold mb-6"><%s workshop.title %></h1>
                 <div><%s workshop.title %> will take place the <%s workshop.date %> and will be held <%s match workshop.location with | "Virtual" -> "virtually" | location -> "at " ^ location %></div>
             </div>
             <div class="flex flex-col space-y-6 relative md:mt-10">
@@ -49,6 +49,9 @@ Layout.render
                 <%s! workshop.body_html %>
                 <h3>All Presentations</h3>
             </div>
+            <% (match List.length workshop.presentations with | 0 -> %>
+                <p>No presentations yet.</p>
+            <% | _ -> %>
             <div class="overflow-x-scroll">
                 <table class="max-w-5xl lg:max-w-full ">
                     <thead class="bg-body-700 text-white text-left rounded-xl">
@@ -80,7 +83,7 @@ Layout.render
                     </tbody>
                 </table>
             </div>
-
+            <% ); %>
         </div>
     </div>
 </div>
@@ -88,25 +91,27 @@ Layout.render
     <div class="container-fluid">
         <div class=" ">
             <div class="text-center text-white">
-                <h2 class="font-bold text-primary-600 mb-16">Workshop Details</h2>
-                <div>
-                    <h5 class="font-bold text-white mb-12">Organising Committee</h5>
-                    <div class="flex flex-wrap justify-center space-x-12">
-                        <% 
-                        let committee_with_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_some x.picture) workshop.organising_committee in
-                        let committee_without_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_none x.picture) workshop.organising_committee in
-                        let names = List.map (fun (x : Ood.Workshop.committee_member) -> match x.affiliation with None -> x.name | Some affiliation -> Printf.sprintf "%s (%s)" x.name affiliation) committee_without_pictures in
-                        committee_with_pictures |> List.iter (fun (member : Ood.Workshop.committee_member) -> %>
-                        <div href="" class="mt-12">
-                            <img src="<%s Option.get member.picture %>" width="148px" class="m-auto h-auto rounded-lg" alt="">
-                            <div class="font-medium mt-3"><%s member.name %></div>
-                            <% (match member.affiliation with None -> () | Some affiliation -> %>
-                            <div class="text-sm mt-1"><%s affiliation %></div>
+                    <h2 class="font-bold text-primary-600 mb-16">Workshop Details</h2>
+                    <div>
+                    <% (match List.length workshop.organising_committee with | 0 -> () | _ -> %>
+                        <h5 class="font-bold text-white mb-12">Organising Committee</h5>
+                        <div class="flex flex-wrap justify-center space-x-12">
+                            <% 
+                            let committee_with_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_some x.picture) workshop.organising_committee in
+                            let committee_without_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_none x.picture) workshop.organising_committee in
+                            let names = List.map (fun (x : Ood.Workshop.committee_member) -> match x.affiliation with None -> x.name | Some affiliation -> Printf.sprintf "%s (%s)" x.name affiliation) committee_without_pictures in
+                            committee_with_pictures |> List.iter (fun (member : Ood.Workshop.committee_member) -> %>
+                            <div href="" class="mt-12">
+                                <img src="<%s Option.get member.picture %>" width="148px" class="m-auto h-auto rounded-lg" alt="">
+                                <div class="font-medium mt-3"><%s member.name %></div>
+                                <% (match member.affiliation with None -> () | Some affiliation -> %>
+                                <div class="text-sm mt-1"><%s affiliation %></div>
+                                <% ); %>
+                            </div>
                             <% ); %>
                         </div>
-                        <% ); %>
-                    </div>
-                    <% (match names with [] -> () | _ -> %> <div class="mt-8"><%s Fmt.(str "%a" (list ~sep:comma string) names) %></div> <% ); %>
+                        <% (match names with [] -> () | _ -> %> <div class="mt-8"><%s Fmt.(str "%a" (list ~sep:comma string) names) %></div> <% ); %>
+                    <% ); %>
                 </div>
                 <div>
                     <h5 class="font-bold mt-16">Program Committee</h5>
@@ -132,11 +137,13 @@ Layout.render
     </div>
 </div>
 <div class="bg-white py-24">
+    <% 
+    let videos = List.filter_map (fun (p : Ood.Workshop.presentation) -> Hashtbl.find_opt videos p.title) workshop.presentations in
+    (match List.length videos with | 0 -> () | _ -> %>
     <div class="container-fluid">
         <h3 class="font-bold mb-12">Some Videos</h3>
         <div class="grid lg:grid-cols-3 gap-14 ">
             <% 
-            let videos = List.filter_map (fun (p : Ood.Workshop.presentation) -> Hashtbl.find_opt videos p.title) workshop.presentations in
             let videos = List.filteri (fun i _ -> i < 6) videos in
             videos |> List.iter (fun (video : Ood.Watch.t) -> %>
             <a href="" class="card-hover inline-block">
@@ -158,4 +165,5 @@ Layout.render
             </a>
         </div>
     </div>
+    <% ); %>
 </div>
