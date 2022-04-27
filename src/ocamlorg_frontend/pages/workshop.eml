@@ -3,167 +3,174 @@ Layout.render
 ~title:workshop.title
 ~description:(Printf.sprintf "A description of the workshop %s held on %s" workshop.title workshop.date) @@
 <div class="intro-section-simple">
-    <div class="container-fluid">
-        <div class="flex flex-col lg:flex-row justify-between items-center">
-            <div>
-                <h1 class="font-bold mb-6"><%s workshop.title %></h1>
-                <div><%s workshop.title %> will take place the <%s workshop.date %> and will be held <%s match workshop.location with | "Virtual" -> "virtually" | location -> "at " ^ location %></div>
-            </div>
-            <div class="flex flex-col space-y-6 relative md:mt-10">
-                <div class="absolute h-full pt-14 pb-5 lg:pt-11 lg:pb-4 ml-2 lg:ml-0 left-20 lg:left-32 -l-x">
-                    <div class="-ml-px w-1 border-dashed border-r-2 border-primary-300 h-full"></div>
-                </div>
-                <% let seen_upcoming = ref false in
-                workshop.important_dates |> List.iter (fun (date : Ood.Workshop.important_date) ->
-                match date.date > Utils.current_date with
-                | true when not !seen_upcoming -> (
-                    seen_upcoming := true; %>
-                <div class="flex items-center space-x-10">
-                    <div class="text-primary-600 font-semibold w-10 lg:w-20 text-right"><%s Utils.human_date date.date %></div>
-                    <div class="bg-primary-600 h-5 w-5 rounded-full"></div>
-                    <div class="bg-primary-600 flex-1 rounded-xl text-white  px-4 py-2 flex items-center">
-                        <div>
-                            <div class="text-xs font-semibold">UPCOMING</div>
-                            <div><%s date.info %></div>
-                        </div>
-
-                    </div>
-                </div>
-                <% ) | _ -> %>
-                <div class="flex items-center space-x-10">
-                    <div class="text-primary-600 font-semibold w-10 lg:w-20 text-right"><%s Utils.human_date date.date %></div>
-                    <div class="bg-primary-600 h-5 w-5 rounded-full"></div>
-                    <div class="bg-white flex-1 rounded-xl text-body-700 px-4 py-3 items-center flex">
-                        <div><%s date.info %></div>
-                    </div>
-                </div>
-                <% ); %>
-            </div>
+  <div class="container-fluid">
+    <div class="flex flex-col lg:flex-row justify-between items-center">
+      <div>
+        <h1 class="font-bold mb-6"><%s workshop.title %></h1>
+        <div><%s workshop.title %> will take place the <%s workshop.date %> and will be held <%s match workshop.location with | "Virtual" -> "virtually" | location -> "at " ^ location %></div>
+      </div>
+      <div class="flex flex-col space-y-6 relative md:mt-10">
+        <div class="absolute h-full pt-14 pb-5 lg:pt-11 lg:pb-4 ml-2 lg:ml-0 left-20 lg:left-32 -l-x">
+          <div class="-ml-px w-1 border-dashed border-r-2 border-primary-300 h-full"></div>
         </div>
+        <% let seen_upcoming = ref false in
+        workshop.important_dates |> List.iter (fun (date : Ood.Workshop.important_date) ->
+        match date.date > Utils.current_date with
+        | true when not !seen_upcoming -> (
+        seen_upcoming := true; %>
+        <div class="flex items-center space-x-10">
+          <div class="text-primary-600 font-semibold w-10 lg:w-20 text-right"><%s Utils.human_date date.date %></div>
+          <div class="bg-primary-600 h-5 w-5 rounded-full"></div>
+          <div class="bg-primary-600 flex-1 rounded-xl text-white px-4 py-2 flex items-center">
+            <div>
+              <div class="text-xs font-semibold">UPCOMING</div>
+              <div><%s date.info %></div>
+            </div>
+          </div>
+        </div>
+        <% ) | _ -> %>
+        <div class="flex items-center space-x-10">
+          <div class="text-primary-600 font-semibold w-10 lg:w-20 text-right"><%s Utils.human_date date.date %></div>
+          <div class="bg-primary-600 h-5 w-5 rounded-full"></div>
+          <div class="bg-white flex-1 rounded-xl text-body-700 px-4 py-3 items-center flex">
+            <span><%s date.info %></span>
+          </div>
+        </div>
+        <% ); %>
+      </div>
     </div>
+  </div>
 </div>
 <div class="bg-white">
-    <div class="py-10 lg:py-28">
-        <div class="container-fluid">
-            <div class="prose prose-orange lg:prose-xl max-w-none mb-16">
-                <%s! workshop.body_html %>
-                <h3>All Presentations</h3>
-            </div>
-            <% (match List.length workshop.presentations with | 0 -> %>
-                <p>No presentations yet.</p>
-            <% | _ -> %>
-            <div class="overflow-x-scroll">
-                <table class="max-w-5xl lg:max-w-full ">
-                    <thead class="bg-body-700 text-white text-left rounded-xl">
-                        <tr>
-                            <th class="py-4 px-6 rounded-l-lg text-x w-2/5">Title</th>
-                            <th class="py-4 px-6 w-2/5">Authors</th>
-                            <th class="py-4 px-6 w-1/5 rounded-r-lg">Resources</th>
-                        </tr>
-                    </thead>
-                    <tbody class="even:bg-gray-50">
-                        <% workshop.presentations |> List.iter (fun (presentation : Ood.Workshop.presentation) -> %>
-                        <tr>
-                            <td class="py-4 px-6 font-semibold"><%s presentation.title %></td>
-                            <td class="py-4 px-6 font-medium"><%s Fmt.(str "%a" (list ~sep:comma string) presentation.authors) %></td>
-                            <td class="py-4 px-6">
-                                <% (match presentation.link with None -> () | Some link -> %>
-                                <a href="<%s link %>" class="text-primary-600 font-medium block">Link</a>
-                                <% ); %>
+  <div class="py-10 lg:py-28">
+    <div class="container-fluid">
+      <div class="prose prose-orange lg:prose-lg max-w-none mb-16">
+        <%s! workshop.body_html %>
+        <h2>All Presentations</h2>
+        <% (match List.length workshop.presentations with | 0 -> %>
+        <p>No presentations yet.</p>
+        <% | _ -> %>
+        <div class="not-prose overflow-x-scroll">
+          <table class="max-w-5xl lg:max-w-full">
+            <thead class="bg-body-700 text-white text-left rounded-xl">
+              <tr>
+                <th class="py-4 px-6 rounded-l-lg text-x w-2/5">Title</th>
+                <th class="py-4 px-6 w-2/5">Authors</th>
+                <th class="py-4 px-6 w-1/5 rounded-r-lg">Resources</th>
+              </tr>
+            </thead>
+            <tbody class="even:bg-gray-50">
+              <% workshop.presentations |> List.iter (fun (presentation : Ood.Workshop.presentation) -> %>
+              <tr>
+                <td class="py-4 px-6 font-semibold"><%s presentation.title %></td>
+                <td class="py-4 px-6 font-medium"><%s Fmt.(str "%a" (list ~sep:comma string) presentation.authors) %></td>
+                <td class="py-4 px-6">
+                  <% (match presentation.link with None -> () | Some link -> %>
+                  <a href="<%s link %>" class="text-primary-600 font-medium block">Link</a>
+                  <% ); %>
 
-                                <% (match presentation.video with None -> () | Some link -> %>
-                                <a href="<%s link %>" class="text-primary-600 font-medium block">Video</a>
-                                <% ); %>
+                  <% (match presentation.video with None -> () | Some link -> %>
+                  <a href="<%s link %>" class="text-primary-600 font-medium block">Video</a>
+                  <% ); %>
 
-                                <% (match presentation.slides with None -> () | Some link -> %>
-                                <a href="<%s link %>" class="text-primary-600 font-medium block">Slides</a>
-                                <% ); %>
-                        </tr>
-                        <% ); %>
-                    </tbody>
-                </table>
-            </div>
-            <% ); %>
+                  <% (match presentation.slides with None -> () | Some link -> %>
+                  <a href="<%s link %>" class="text-primary-600 font-medium block">Slides</a>
+                  <% ); %>
+                </td>
+              </tr>
+              <% ); %>
+            </tbody>
+          </table>
         </div>
+        <% ); %>
+      </div>
     </div>
+  </div>
 </div>
 <div class="bg-pattern lg:py-32 py-24">
-    <div class="container-fluid">
-        <div class=" ">
-            <div class="text-center text-white">
-                    <h2 class="font-bold text-primary-600 mb-16">Workshop Details</h2>
-                    <div>
-                    <% (match List.length workshop.organising_committee with | 0 -> () | _ -> %>
-                        <h5 class="font-bold text-white mb-12">Organising Committee</h5>
-                        <div class="flex flex-wrap justify-center space-x-12">
-                            <% 
-                            let committee_with_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_some x.picture) workshop.organising_committee in
-                            let committee_without_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_none x.picture) workshop.organising_committee in
-                            let names = List.map (fun (x : Ood.Workshop.committee_member) -> match x.affiliation with None -> x.name | Some affiliation -> Printf.sprintf "%s (%s)" x.name affiliation) committee_without_pictures in
-                            committee_with_pictures |> List.iter (fun (member : Ood.Workshop.committee_member) -> %>
-                            <div href="" class="mt-12">
-                                <img src="<%s Option.get member.picture %>" width="148px" class="m-auto h-auto rounded-lg" alt="">
-                                <div class="font-medium mt-3"><%s member.name %></div>
-                                <% (match member.affiliation with None -> () | Some affiliation -> %>
-                                <div class="text-sm mt-1"><%s affiliation %></div>
-                                <% ); %>
-                            </div>
-                            <% ); %>
-                        </div>
-                        <% (match names with [] -> () | _ -> %> <div class="mt-8"><%s Fmt.(str "%a" (list ~sep:comma string) names) %></div> <% ); %>
-                    <% ); %>
-                </div>
-                <div>
-                    <h5 class="font-bold mt-16">Program Committee</h5>
-                    <div class="flex flex-wrap justify-center space-x-12">
-                        <% 
-                        let committee_with_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_some x.picture) workshop.program_committee in
-                        let committee_without_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_none x.picture) workshop.program_committee in
-                        let names = List.map (fun (x : Ood.Workshop.committee_member) -> match x.affiliation with None -> x.name | Some affiliation -> Printf.sprintf "%s (%s)" x.name affiliation) committee_without_pictures in
-                        committee_with_pictures |> List.iter (fun (member : Ood.Workshop.committee_member) -> %>
-                        <div href="" class="mt-12">
-                            <img src="<%s Option.get member.picture %>" width="148px" class="m-auto h-auto rounded-lg" alt="">
-                            <div class="font-medium mt-3"><%s member.name %></div>
-                            <% (match member.affiliation with None -> () | Some affiliation -> %>
-                            <div class="text-sm mt-1"><%s affiliation %></div>
-                            <% ); %>
-                        </div>
-                        <% ); %>
-                    </div>
-                    <% (match names with [] -> () | _ -> %> <div class="mt-8"><%s Fmt.(str "%a" (list ~sep:comma string) names) %></div> <% ); %>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="bg-white py-24">
-    <% 
-    let videos = List.filter_map (fun (p : Ood.Workshop.presentation) -> Hashtbl.find_opt videos p.title) workshop.presentations in
-    (match List.length videos with | 0 -> () | _ -> %>
-    <div class="container-fluid">
-        <h3 class="font-bold mb-12">Some Videos</h3>
-        <div class="grid lg:grid-cols-3 gap-14 ">
-            <% 
-            let videos = List.filteri (fun i _ -> i < 6) videos in
-            videos |> List.iter (fun (video : Ood.Watch.t) -> %>
-            <a href="" class="card-hover inline-block">
-                <iframe loading="lazy" sandbox="allow-same-origin allow-scripts allow-popups" src="https://watch.ocaml.org<%s video.embed_path %>" frameborder="0" allowfullscreen></iframe>
-                <h6 class="font-bold mt-4"><%s video.name %></h6>
-                <div class="mt-4">
-                    <%s Option.value ~default:"" video.description %>
-                </div>
-            </a>
+  <div class="container-fluid">
+    <div class="text-center text-white">
+      <h2 class="font-bold text-primary-600 mb-16">Workshop Details</h2>
+      <div>
+        <% (match List.length workshop.organising_committee with | 0 -> () | _ -> %>
+        <h5 class="font-bold text-white mb-12">Organising Committee</h5>
+        <div class="flex flex-wrap justify-center space-x-12">
+          <% 
+          let committee_with_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_some x.picture) workshop.organising_committee in
+          let committee_without_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_none x.picture) workshop.organising_committee in
+          let names = List.map (fun (x : Ood.Workshop.committee_member) -> match x.affiliation with None -> x.name | Some affiliation -> Printf.sprintf "%s (%s)" x.name affiliation) committee_without_pictures in
+          committee_with_pictures |> List.iter (fun (member : Ood.Workshop.committee_member) -> %>
+          <div href="" class="mt-12">
+            <img src="<%s Option.get member.picture %>" width="148px" class="m-auto h-auto rounded-lg" alt="" />
+            <div class="font-medium mt-3"><%s member.name %></div>
+            <% (match member.affiliation with None -> () | Some affiliation -> %>
+            <div class="text-sm mt-1"><%s affiliation %></div>
+            <% ); %>
+          </div>
           <% ); %>
         </div>
-        <div class="flex justify-end mt-12">
-            <a href="https://watch.ocaml.org" target="_blank" class="btn btn-secondary">
-                More videos at watch.ocaml.org
-                <svg xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 inline-block " fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-            </a>
+        <% (match names with [] -> () | _ -> %>
+        <div class="mt-8"><%s Fmt.(str "%a" (list ~sep:comma string) names) %></div>
+        <% ); %> <% ); %>
+      </div>
+      <div>
+        <h5 class="font-bold mt-16">Program Committee</h5>
+        <div class="flex flex-wrap justify-center space-x-12">
+          <% 
+          let committee_with_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_some x.picture) workshop.program_committee in
+          let committee_without_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_none x.picture) workshop.program_committee in
+          let names = List.map (fun (x : Ood.Workshop.committee_member) -> match x.affiliation with None -> x.name | Some affiliation -> Printf.sprintf "%s (%s)" x.name affiliation) committee_without_pictures in
+          committee_with_pictures |> List.iter (fun (member : Ood.Workshop.committee_member) -> %>
+          <div href="" class="mt-12">
+            <img src="<%s Option.get member.picture %>" width="148px" class="m-auto h-auto rounded-lg" alt="" />
+            <div class="font-medium mt-3"><%s member.name %></div>
+            <% (match member.affiliation with None -> () | Some affiliation -> %>
+            <div class="text-sm mt-1"><%s affiliation %></div>
+            <% ); %>
+          </div>
+          <% ); %>
         </div>
+        <% (match names with [] -> () | _ -> %>
+        <div class="mt-8"><%s Fmt.(str "%a" (list ~sep:comma string) names) %></div>
+        <% ); %>
+      </div>
     </div>
-    <% ); %>
+  </div>
 </div>
+<% let videos = List.filter_map (fun (p : Ood.Workshop.presentation) -> Hashtbl.find_opt videos p.title)
+workshop.presentations in (match List.length videos with | 0 -> () | _ -> %>
+<div class="bg-white py-24">
+  <div class="container-fluid">
+    <h3 class="font-bold mb-12">Some Videos</h3>
+    <div class="grid lg:grid-cols-3 gap-14">
+      <% let videos = List.filteri (fun i _ -> i < 6) videos in videos |> List.iter (fun (video : Ood.Watch.t) -> %>
+      <div class="card-hover inline-block">
+        <iframe
+          loading="lazy"
+          sandbox="allow-same-origin allow-scripts allow-popups"
+          src="https://watch.ocaml.org<%s video.embed_path %>"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+        <h6 class="font-bold mt-4"><%s video.name %></h6>
+        <div class="mt-4"><%s Option.value ~default:"" video.description %></div>
+      </div>
+      <% ); %>
+    </div>
+    <div class="flex justify-end mt-12">
+      <a href="https://watch.ocaml.org" target="_blank" class="btn btn-secondary">
+        More videos at watch.ocaml.org
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 inline-block"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+<% ); %>
