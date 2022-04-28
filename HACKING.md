@@ -55,7 +55,7 @@ make test
 
 ### Deploying
 
-Commits added on `main` are automatically deployed on <https://v3.ocaml.org/>.
+Commits added on `main` are automatically deployed on <https://ocaml.org/>.
 
 The deployment pipeline is managed in <https://github.com/ocurrent/ocurrent-deployer> which listens to the `main` branch and builds the site using the `Dockerfile` at the root of the project.
 
