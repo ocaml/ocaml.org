@@ -28,7 +28,6 @@ RUN git clone https://github.com/ocaml/opam-repository /var/opam-repository
 ENV OCAMLORG_REPO_PATH /var/opam-repository/
 ENV OCAMLORG_PKG_STATE_PATH /var/package.state
 ENV DREAM_VERBOSITY info
-ENV OCAMLORG_HOSTNAME v3.ocaml.org
 ENV OCAMLORG_HTTP_PORT 8080
 
 EXPOSE 8080

@@ -33,7 +33,7 @@ Here's a list of the content that is community driven and how you can contribute
 
 ### <a name="content-blog"></a> Add an RSS feed to the blog
 
-> Contribute to the [OCaml Blog](https://v3.ocaml.org/blog).
+> Contribute to the [OCaml Blog](https://ocaml.org/blog).
 
 The blog is composed of two type of content:
 
@@ -58,7 +58,7 @@ Where `<id>` is the ID of the Discuss post.
 
 ### <a name="content-job"></a> Add an entry to the job board
 
-> Contribute to the [Job Board](https://v3.ocaml.org/opportunities).
+> Contribute to the [Job Board](https://ocaml.org/opportunities).
 
 The job board displays OCaml job opportunities.
 
@@ -70,7 +70,7 @@ If you notice that a job opportunity is outdated (e.g. already fullfilled, or no
 
 ### <a name="content-success-story"></a> Add a success story
 
-> Contribute to the [Success Stories](https://v3.ocaml.org/success-stories).
+> Contribute to the [Success Stories](https://ocaml.org/success-stories).
 
 You can contribute a new success story by adding a markdown file in [data/success_stories/](data/success_stories/). For instance: [janestreet.md](data/success_stories/en/janestreet.md).
 
@@ -81,11 +81,11 @@ The success stories should be structured in the following way:
 - The solution you implemented, which should describe the role OCaml played in solving the challenge.
 - A post-mortem describing the results you had after implementing the solution.
 
-You can read [Ahref's success story](https://v3.ocaml.org/success-stories/peta-byte-scale-web-crawler) for an examplary success story.
+You can read [Ahref's success story](https://ocaml.org/success-stories/peta-byte-scale-web-crawler) for an examplary success story.
 
 ### <a name="content-user"></a> Add an academic or industrial user
 
-> Contribute to the [Academic Users](https://v3.ocaml.org/academic-users) and [Industrial Users](https://v3.ocaml.org/industrial-users).
+> Contribute to the [Academic Users](https://ocaml.org/academic-users) and [Industrial Users](https://ocaml.org/industrial-users).
 
 You can add a new academic user by creating a new markdown file in [data/industrial_users/](data/industrial_users/). For instance: [cryptosense.md](data/industrial_users/en/cryptosense.md).
 
@@ -93,19 +93,19 @@ You can add a new industrial user by creating a new markdown file in [data/acade
 
 ### <a name="content-book"></a> Add a book
 
-> Contribute to the [OCaml Books](https://v3.ocaml.org/books).
+> Contribute to the [OCaml Books](https://ocaml.org/books).
 
 You can add a new OCaml book by creating a new markdown file in [data/books/](data/books/). For instance: [ocaml-from-the-very-beginning.md](data/industrial_users/en/ocaml-from-the-very-beginning.md).
 
 ### <a name="content-event"></a> Add an event
 
-> Contribute to the [Community Events](https://v3.ocaml.org/community).
+> Contribute to the [Community Events](https://ocaml.org/community).
 
 You can add a new community event by creating a new markdown file in [data/meetups.yml](data/meetups.yml).
 
 ### <a name="content-package"></a> Add a featured packages
 
-> Contribute to the [Featured Packages](https://v3.ocaml.org/packages).
+> Contribute to the [Featured Packages](https://ocaml.org/packages).
 
 To update the list of Featured Packages in the Packages page, you can update [data/packages.yml](data/packages.yml)
 
