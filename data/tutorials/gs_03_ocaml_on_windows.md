@@ -12,7 +12,7 @@ date: 2021-05-27T21:07:30-00:00
 Full support for OCaml on Windows is actively being worked on and a workable
 environment can already be achieved today. A gentle reminder that if you do not
 need Windows binaries, then a more stable option is to use WSL2. This is
-described on the [up and running page](/docs/up-and-running-with-ocaml).
+described on the [up and running page](/docs/up-and-running).
 
 ## opam-repository-mingw
 
