@@ -13,34 +13,36 @@ Package_layout.render
 ~tab:Documentation
 ~package
 ~styles:["/css/main.css"; "/css/doc.css"] @@
-<button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
-  :class="sidebar ? 'pl-1 pr-2': ''" x-on:click="sidebar = ! sidebar">
-  <div class="transform transition-transform" :class='sidebar ? "" : "rotate-180" '>
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
-    </svg>
-  </div>
-</button>
-
-<div class="flex lg:space-x-14 flex-col lg:flex-row">
-  <div
-    class="p-10 z-10 w-full bg-white flex-shrink-0 flex-col fixed h-screen overflow-auto lg:flex left-0 top-0 lg:sticky lg:w-60 lg:p-0 font-normal text-body-400"
-    x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
-    x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
-    x-transition:leave-end="-translate-x-full">
-    <div class="space-y-2 flex flex-col">
-      <div class="text-sm font-semibold text-body-600 mb-6 py-2">IN THIS PACKAGE</div>
-      <%s! Navmap.render ~path maptoc %>
+<div x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024">
+  <button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
+    :class="sidebar ? 'pl-1 pr-2': ''" x-on:click="sidebar = ! sidebar">
+    <div class="transform transition-transform" :class='sidebar ? "" : "rotate-180" '>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+      </svg>
     </div>
-  </div>
-  <div class="flex-1 odoc prose prose-orange overflow-hidden z-0 z- lg:max-w-4xl mx-auto relative md:px-6">
-    <%s! content %>
-  </div>
-  <div class="hidden lg:flex top-0 sticky h-screen">
-    <div class="flex-col w-60">
-      <div class="h-screen overflow-scroll p-6 right-sidebar">
-        <div class="font-semibold text-black text-sm mb-4">ON THIS PAGE</div>
-        <%s! Toc.render toc %>
+  </button>
+
+  <div class="flex lg:space-x-14 flex-col lg:flex-row">
+    <div
+      class="p-10 z-10 w-full bg-white flex-shrink-0 flex-col fixed h-screen overflow-auto lg:flex left-0 top-0 lg:sticky lg:w-60 lg:p-0 font-normal text-body-400"
+      x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
+      x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
+      x-transition:leave-end="-translate-x-full">
+      <div class="space-y-2 flex flex-col">
+        <div class="text-sm font-semibold text-body-600 mb-6 py-2">IN THIS PACKAGE</div>
+        <%s! Navmap.render ~path maptoc %>
+      </div>
+    </div>
+    <div class="flex-1 odoc prose prose-orange overflow-hidden z-0 z- w-full lg:max-w-4xl mx-auto relative md:px-6">
+      <%s! content %>
+    </div>
+    <div class="hidden lg:flex top-0 sticky h-screen">
+      <div class="flex-col w-60">
+        <div class="h-screen overflow-scroll p-6 right-sidebar">
+          <div class="font-semibold text-black text-sm mb-4">ON THIS PAGE</div>
+          <%s! Toc.render toc %>
+        </div>
       </div>
     </div>
   </div>
