@@ -1,7 +1,7 @@
 ---
 title: Large Scale Trading System
 logo: /success-stories/janestreet.png
-background: /success-stories/janestreet-bg.jpg
+background: /success-stories/janestreet-bg.png
 theme: cyan
 synopsis: "Jane Street is a quantitative trading firm and liquidity provider with a unique focus on technology and collaborative problem solving."
 url: https://janestreet.com/technology/
