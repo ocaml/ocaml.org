@@ -88,51 +88,11 @@ On the other hand, if you need Windows binaries, you will have to use the [OCaml
 
 ## The OCaml Toplevel
 
-_Toplevel_ is a read-eval-print loop (REPL).It's one of the things that makes OCaml so efficient because it compiles while you code, allowing for iteration.
+_Toplevel_ is a read-eval-print loop (REPL). It's one of the things that makes OCaml so efficient because it compiles while you code, allowing for iteration.
 
 OCaml comes with two additional compilers: one compiles to **native code** (sometimes called machine code or executable binary), directly read by the CPU, and the other compiles to **bytecode**, creating an executable that can be interpreted by a variety of runtime environments, making more flexible.
 
-For now, let's first use OCaml's toplevel. Please note, although the `ocaml` command (below) returns the installed OCaml version, this isn't used to check the version (which is `OCaml -version`, as previously shown). The `ocaml` command instead opens OCaml toplevel, signified by the `#` prompt. Now you can see your code's output as you go.
-
-Exit the toplevel at anytime with `exit 0;;` at the `#` prompt, if you get confused or want to start again.
-
-```
-$ ocaml
-        OCaml version 4.11.1
-
-# 1 + 2 * 3;;
-- : int = 7
-
-```
-
-We typed the phrase `1 + 2 * 3` and then signalled to OCaml that we had
-finished by typing `;;` followed by the Enter key. All toplevel phrases end with `;;`.
-
-OCaml calculated the result, `7` and its type `int` (integer) and showed them to us. Exit by running the
-built-in `exit` function with exit code `0`, followed by `;;`, as always.
-
-```
-$ ocaml
-        OCaml version 4.11.1
-
-# 1 + 2 * 3;;
-- : int = 7
-# exit 0;;
-$
-```
-
-There are two ways to improve your experience with the OCaml toplevel: you can
-install the popular [`rlwrap`](https://github.com/hanslub42/rlwrap) on your
-system and invoke `rlwrap ocaml` instead of `ocaml` to get line-editing
-facilities inside the OCaml toplevel, or you can install the alternative top
-level `utop` using opam:
-
-```
-$ opam install utop
-```
-
-We run it by typing `utop` instead of `ocaml`. You can read more about
-[utop](https://github.com/ocaml-community/utop).
+For now, let's first use the recommended toplevel, which we installed above:
 
 ```
 $ utop
@@ -173,21 +133,7 @@ REPL does not have history or tab-completion, so we recommend always using `utop
 ## Installing the Dune Build System
 
 Dune is a build system for OCaml. It takes care of all the low level details of
-OCaml compilation. We install it with opam:
-
-```
-$ opam install dune
-The following actions will be performed:
-  - install dune 2.7.1
-
-<><> Gathering sources ><><><><><><><><><><><><><><><><><><><><><><><><>
-[default] https://opam.ocaml.org/2.0.7/archives/dune.2.7.1+opam.tar.gz
-downloaded
-
-<><> Processing actions <><><><><><><><><><><><><><><><><><><><><><><><>
--> installed dune.2.7.1
-Done.
-```
+OCaml compilation. We installed it with opam, above.
 
 ## A First Project
 
@@ -242,11 +188,7 @@ documentation](https://dune.readthedocs.io/en/stable/).
 ## Editor Support for OCaml
 
 For **Visual Studio Code**, and other editors support the Language Server
-Protocol, the OCaml language server can be installed with opam:
-
-```
-$ opam install ocaml-lsp-server
-```
+Protocol, we use the OCaml language server, which we installed we opam earlier.
 
 Now, we install the OCaml Platform Visual Studio Code extension from the Visual
 Studio Marketplace.
@@ -287,3 +229,4 @@ Vim:
 ```
 let $PATH .= ";".substitute(system('opam config var bin'),'\n$','','''')
 ```
+
