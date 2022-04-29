@@ -1,5 +1,5 @@
 ---
-id: stdlib-comparison
+id: data-structures-comparison
 title: Comparison of Standard Data Structures
 description: >
   A comparison of some core data-structures including lists, queues and arrays
