@@ -126,7 +126,7 @@ let render ?(wide=false) () =
                 transform="scale(64)" fill="#1B1F23" />
             </svg>
           </a>
-          <a aria-label="The OCaml Language Twitter Account" href="ttps://twitter.com/ocamllang" class="opacity-60 hover:opacity-100">
+          <a aria-label="The OCaml Language Twitter Account" href="https://twitter.com/ocamllang" class="opacity-60 hover:opacity-100">
             <svg width="20" height="100%" viewBox="0 0 172 140" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clip-path="url(#clip0_964_8840)">
                 <path
