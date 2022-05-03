@@ -163,7 +163,7 @@ Hello, World!
 Or, alternatively,
 
 ```
-$ dune exec hellworld
+$ dune exec helloworld
 Hello, World!
 ```
 
