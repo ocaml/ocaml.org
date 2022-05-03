@@ -140,7 +140,7 @@ val hello : unit -> unit
 
 (note the double asterisk at the beginning of the comment - it is a good habit
 to document .mli files using the format supported by
-[ocamldoc](/releases/4.14.0/htmlman/ocamldoc.html))
+[ocamldoc](/releases/4.14/htmlman/ocamldoc.html))
 
 Such .mli files must be compiled just before the matching .ml files. They are
 compiled using `ocamlc`, even if .ml files are compiled to native code using
