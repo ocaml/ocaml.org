@@ -6,7 +6,7 @@ watch:
   embed_path: /videos/embed/e1ee0fc0-50ef-4a1c-894a-17df181424cb
   thumbnail_path: /static/thumbnails/94ead657-79a0-4c10-8435-9e13906a6c44.jpg
   published_at: 2021-08-27T13:23:10.199Z
-  updated_at: 2022-04-27T11:01:00.072Z
+  updated_at: 2022-05-04T11:27:06.890Z
   language: English
   category: Science & Technology
 - name: A Case for Multi-Switch Constraints in OPAM
@@ -28,7 +28,7 @@ watch:
   embed_path: /videos/embed/a5b86864-8e43-4138-b6d6-ed48d2d4b63d
   thumbnail_path: /static/thumbnails/92c0a0e3-5326-42aa-86a3-6adb3927e111.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2021-09-01T04:02:00.070Z
+  updated_at: 2022-05-01T19:01:00.090Z
   language: Unknown
   category: Misc
 - name: A Multiverse of Glorious Documentation
@@ -258,7 +258,7 @@ watch:
   embed_path: /videos/embed/74ece0a8-380f-4e2a-bef5-c6bb9092be89
   thumbnail_path: /static/thumbnails/d48bf7bb-8c46-4d49-a3a6-734bf339343b.jpg
   published_at: 2021-08-27T14:41:07.000Z
-  updated_at: 2022-04-26T14:01:00.071Z
+  updated_at: 2022-05-01T10:01:00.078Z
   language: English
   category: Science & Technology
 - name: Experiments in Generic Programming
@@ -278,7 +278,7 @@ watch:
   embed_path: /videos/embed/74b32dae-11c6-4713-be1b-946260196e50
   thumbnail_path: /static/thumbnails/a2042ab9-9025-421a-9eae-176462ac594b.jpg
   published_at: 2021-08-31T08:30:23.211Z
-  updated_at: 2022-04-17T21:01:00.071Z
+  updated_at: 2022-05-03T21:57:06.874Z
   language: English
   category: Misc
 - name: Github Pull Requests for OCaml development - a field report
@@ -307,7 +307,7 @@ watch:
   embed_path: /videos/embed/e0a6e6f2-0d40-4dfc-9308-001c8e0f64d6
   thumbnail_path: /static/thumbnails/729cda51-abb3-4c8d-9d0e-b922e81be518.jpg
   published_at: 2021-08-27T10:12:58.000Z
-  updated_at: 2022-03-14T18:01:00.092Z
+  updated_at: 2022-04-30T13:01:00.073Z
   language: English
   category: Science & Technology
 - name: High Performance Client-Side Web Programming with SPOC and Js of ocaml
@@ -377,7 +377,7 @@ watch:
   embed_path: /videos/embed/53e497b0-898f-4c85-8da9-39f65ef0e0b1
   thumbnail_path: /static/thumbnails/138e7c05-185b-4e54-95d0-d15018905a39.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2022-02-12T03:01:00.075Z
+  updated_at: 2022-05-01T18:01:00.083Z
   language: Unknown
   category: Misc
 - name: Irminsule - a branch-consistent distributed library database
@@ -424,7 +424,7 @@ watch:
   embed_path: /videos/embed/cc7e3242-0bef-448a-aa13-8827bba933e3
   thumbnail_path: /static/thumbnails/1d43d8b4-87d1-4398-b925-10a42460b8dc.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2022-02-22T17:01:00.054Z
+  updated_at: 2022-05-01T19:01:00.301Z
   language: Unknown
   category: Science & Technology
 - name: LibreS3 - design, challenges, and steps toward reusable libraries
@@ -579,7 +579,7 @@ watch:
   embed_path: /videos/embed/a889e4d3-0508-4734-b667-7060b0a253cd
   thumbnail_path: /static/thumbnails/b2325a24-f068-473b-961e-a0b783ae5c39.jpg
   published_at: 2021-08-27T15:01:40.000Z
-  updated_at: 2022-01-08T17:01:00.244Z
+  updated_at: 2022-05-01T20:01:00.165Z
   language: English
   category: Science & Technology
 - name: Operf - Benchmarking the OCaml Compiler
@@ -629,7 +629,7 @@ watch:
   embed_path: /videos/embed/ce20839e-4bfc-4d74-925b-485a6b052ddf
   thumbnail_path: /static/thumbnails/30bc6019-ecab-40e5-a7b6-c294ac9a7344.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2022-04-15T17:01:00.083Z
+  updated_at: 2022-04-30T12:01:00.065Z
   language: Unknown
   category: Misc
 - name: Persistent Networking with Irmin and MirageOS
@@ -758,7 +758,7 @@ watch:
   embed_path: /videos/embed/0e2070fd-798b-47f7-8e69-ef75e967e516
   thumbnail_path: /static/thumbnails/4fd6a51f-686c-4f6f-8026-83692304b432.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2022-04-24T12:01:00.079Z
+  updated_at: 2022-04-30T06:01:00.079Z
   language: English
   category: Science & Technology
 - name: Study of OCaml programs' memory behaviour
@@ -769,7 +769,7 @@ watch:
   embed_path: /videos/embed/180ee1ea-6fa8-4dba-aa69-e3901cc3147f
   thumbnail_path: /static/thumbnails/09ec226c-3670-47b3-b944-94684cf86d36.jpg
   published_at: 2021-10-03T22:19:07.925Z
-  updated_at: 2021-10-03T22:19:07.925Z
+  updated_at: 2022-05-03T21:57:06.994Z
   language: English
   category: Misc
 - name: The ImpFS filesystem
@@ -780,7 +780,7 @@ watch:
   embed_path: /videos/embed/28545b27-4637-47a5-8edd-6b904daef19c
   thumbnail_path: /static/thumbnails/dde19660-653d-4dc3-9e81-54b2e3ab22a2.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2021-09-04T20:02:00.472Z
+  updated_at: 2022-05-01T07:01:00.087Z
   language: Unknown
   category: Misc
 - name: The OCaml Platform 1.0 - Reason ML
@@ -919,7 +919,7 @@ watch:
   embed_path: /videos/embed/99b3dc75-9f93-4677-9f8b-076546725512
   thumbnail_path: /static/thumbnails/acd50ed1-43cf-45fd-a55e-9c40a6bf58ba.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2021-08-29T09:02:00.201Z
+  updated_at: 2022-05-01T07:01:00.302Z
   language: Unknown
   category: Misc
 - name: Using Preferences to Tame your Package Manager
