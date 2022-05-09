@@ -1252,9 +1252,14 @@ for defining a set of two or more mutually recursive functions, like
 # let rec even n =
   match n with
   | 0 -> true
-  | x -> odd (x - 1);;
-Line 4, characters 10-13:
-Error: Unbound value odd
+  | x -> odd (x - 1)
+
+and odd n =
+  match n with
+  | 0 -> false
+  | x -> even (x - 1);;
+val even : int -> bool = <fun>
+val odd : int -> bool = <fun>
 ```
 You can also
 use similar syntax for writing mutually recursive class definitions and
