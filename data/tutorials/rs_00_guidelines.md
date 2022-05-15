@@ -134,11 +134,11 @@ In conclusion, copy-pasting code leads to programs that are more
 difficult to read and more difficult to maintain: it has to be banished.
 
 ###  How to comment programs
-####  Don't hesitate to comment when there's a difficulty
-####  If there's no difficulty, there's no point in commenting
-####  Avoid comments in the bodies of functions
-####  Prefer one comment at the beginning of the function...
-...which explains how the algorithm that is used works. Once more, if
+Don't hesitate to comment when there's a difficulty
+If there's no difficulty, there's no point in commenting
+Avoid comments in the bodies of functions
+Prefer one comment at the beginning of the function
+which explains how the algorithm that is used works. Once more, if
 there is no difficulty, there is no point in commenting.
 
 ####  Avoid nocuous comments
