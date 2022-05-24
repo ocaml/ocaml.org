@@ -16,7 +16,7 @@ your favourite text editor or IDE. These instructions work on Unix-based systems
 
 ## Installing OCaml
 
-It's a straightfoward process to install OCaml; however you will need [Homebrew](https://brew.sh/) or [MacPorts](https://www.macports.org/) if you're running Linux or macOS. [Opam](https://opam.ocaml.org/) is OCaml's package manager, so we'll install it first. You will also use Opam when installing third-party OCaml libraries.
+It's a straightfoward process to install OCaml. [Opam](https://opam.ocaml.org/) is OCaml's package manager, so we'll install it first. You will also use Opam when installing third-party OCaml libraries.
 
 Find the all installation instructions for both Unix-like systems and Windows below. If you're new to the CLI, the code blocks (in black) shows the required command (the text after # gives more information on the following commands). Type each command after the prompt $, although it's often represented by a %, >, or another symbol as well. Ensure you use the exact case and spacing shown, then hit return/enter at the end of every line.
 
@@ -54,7 +54,7 @@ $ eval `opam env`
 $ opam install dune utop ocaml-lsp-server
 ```
 
-After the `opam init` command, your might get a result asking if you'd like to update your `zsh` configuration. If you get that message, type in `N`, the default, then type `y` to install the hook, which will run `eval $(opam env)`. As you get more well-versed in OCaml, you can change these settings by rerunning `opam init`.
+After the `opam init` command, you might get a result asking if you'd like to update your `zsh` configuration. If you get that message, type in `N`, the default, then type `y` to install the hook, which will run `eval $(opam env)`. As you get more well-versed in OCaml, you can change these settings by rerunning `opam init`.
 
 **Please note**: The back ticks shown around `opam env` after `eval` are essential. They change the order of application, which is very important. The back ticks tells the system to first evaluate `opam env` (which returns a string of commands) and then `eval` executes those commands in the string. Executing them doesn't return anything, but it initializes the Opam environment behind the scenes.
 
