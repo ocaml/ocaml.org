@@ -51,7 +51,7 @@ element to the front of a list. The `@` or append operator combines two lists:
 - : int list = [1; 2; 3]
 ```
 
-##Functions on lists
+## Functions on lists
 
 We can write functions which operate over lists by pattern matching:
 
@@ -103,7 +103,7 @@ Notice that the memory for the second list is shared, but the first list is
 effectively copied.
 
 
-##Higher order functions on lists
+## Higher order functions on lists
 
 We might wish to apply a function to each element in a list, yielding a new
 one. We shall write a function `map` which is given another function as its
