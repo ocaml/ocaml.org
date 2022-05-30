@@ -6,7 +6,15 @@ let render
 ~maptoc
 ~content
 (package : Package_intf.package) =
+let extra_nav = Breadcrumbs.render path in
+let path =
+  List.map (function
+        | `Module s -> s
+        | `ModuleType s -> s
+        | `FunctorArgument (_, s) -> s) path
+in
 Package_layout.render
+~extra_nav
 ~documentation_status
 ~title
 ~description:(Printf.sprintf "%s %s: %s" package.name package.version package.description)

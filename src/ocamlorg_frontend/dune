@@ -186,4 +186,9 @@
   (targets icons.ml)
   (deps icons.eml)
   (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets breadcrumbs.ml)
+  (deps breadcrumbs.eml)
+  (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root}))))

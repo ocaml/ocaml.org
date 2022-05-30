@@ -469,9 +469,9 @@ let package_doc t kind req =
           let canonical_module =
             doc.module_path
             |> List.map (function
-                 | Ocamlorg_package.Documentation.Module s -> s
-                 | Ocamlorg_package.Documentation.ModuleType s -> s
-                 | Ocamlorg_package.Documentation.FunctorArgument (_, s) -> s)
+                 | `Module s -> s
+                 | `ModuleType s -> s
+                 | `FunctorArgument (_, s) -> s)
             |> String.concat "."
           in
           let title =
@@ -539,13 +539,6 @@ let package_doc t kind req =
                    Ocamlorg_frontend.Navmap.
                      { title; href; kind = Page; children })
           in
-          let path =
-            doc.module_path
-            |> List.map (function
-                 | Ocamlorg_package.Documentation.Module s -> s
-                 | Ocamlorg_package.Documentation.ModuleType s -> s
-                 | Ocamlorg_package.Documentation.FunctorArgument (_, s) -> s)
-          in
           let toc = toc_of_toc doc.toc in
           let* map = Ocamlorg_package.module_map ~kind package in
           let maptoc = toc_of_map ~root map in
@@ -555,4 +548,5 @@ let package_doc t kind req =
           let package_meta = package_meta t package in
           Dream.html
             (Ocamlorg_frontend.package_documentation ~documentation_status
-               ~title ~path ~toc ~maptoc ~content:doc.content package_meta))
+               ~path:doc.module_path ~title ~toc ~maptoc ~content:doc.content
+               package_meta))
