@@ -47,7 +47,7 @@ $ opam init
 $ eval `opam env`
 
 # install a specific version of the OCaml base compiler
-$ opam switch create 4.11.1
+$ opam switch create 4.14.1
 $ eval `opam env`
 
 # install dev tools, hit Enter to confirm at Y/n prompt
@@ -60,16 +60,16 @@ After the `opam init` command, you might get a result asking if you'd like to up
 
 Check the installation was successful by running `opam --version`. Please note, merely using `opam init` might install a previous version of Opam. The most current version can be found at [opam.ocaml.org](https://opam.ocaml.org/packages/ocaml-base-compiler/).
 
-The OCaml base compiler installation uses the `opam switch create` command; `switch` is used to have several installations on disk, like packages, compiler version, etc. Specify which version at the end as shown above, i.e., 4.11.1.
+The OCaml base compiler installation uses the `opam switch create` command; `switch` is used to have several installations on disk, like packages, compiler version, etc. Specify which version at the end as shown above, i.e., 4.14.1. All possible compiler versions can be found with `opam switch list-availble`.
 
 Next, check that OCaml is installed properly with the following commands. The line beneath the $ command shows the desired output for both the OCaml version and the toplevel version (installed specifically with the above `switch` command):
 
 ```
 $ which ocaml
-/Users/frank/.opam/4.11.1/bin/ocaml
+/Users/frank/.opam/4.14.1/bin/ocaml
 
 $ ocaml -version
-The OCaml toplevel, version 4.11.1
+The OCaml toplevel, version 4.14.1
 ```
 
 As an alternative **for either Linux or macOS**, a binary distribution of Opam is
