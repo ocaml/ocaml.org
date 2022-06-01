@@ -151,7 +151,7 @@ are:
 
 - `exn`, in which case the result type just makes exceptions explicit.
 - `string`, where the error case is a message that indicates what failed.
-- `string lazy_t`, a more elaborate form of error message that is only evaluated
+- `string Lazy.t`, a more elaborate form of error message that is only evaluated
   if printing is required.
 - some polymorphic variant, with one case per
   possible error. This is very accurate (each error can be dealt with
