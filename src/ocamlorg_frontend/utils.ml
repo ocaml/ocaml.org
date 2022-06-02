@@ -6,7 +6,7 @@ let human_date s =
     let date_time =
       Zoneless.make date time |> Zoneless.to_zoned_exn ~tz:Time_zone.utc
     in
-    Format.asprintf "%a" (pp ~format:"{mon:0X} {mon:Xxx} {year}" ()) date_time
+    Format.asprintf "%a" (pp ~format:"{day:0X} {mon:Xxx} {year}" ()) date_time
   with Timedesc.ISO8601_parse_exn msg ->
     Logs.err (fun m -> m "Could not parse date %s: %s" s msg);
     s
@@ -15,7 +15,7 @@ let human_time s =
   let open Timedesc in
   try
     let date_time = of_iso8601_exn s in
-    Format.asprintf "%a" (pp ~format:"{mon:0X} {mon:Xxx} {year}" ()) date_time
+    Format.asprintf "%a" (pp ~format:"{day:0X} {mon:Xxx} {year}" ()) date_time
   with Timedesc.ISO8601_parse_exn msg ->
     Logs.err (fun m -> m "Could not parse date time %s: %s" s msg);
     s
