@@ -71,6 +71,6 @@ respectively. Published puzzles are larger than this example, e.g.
 
 <!-- $MDX skip -->
 ```ocaml
-# solve [[3]; [2; 1]; [3; 2]; [2; 2]; [6]; [1; 5]; [6]; [1]; [2]];;
+# solve [[3]; [2; 1]; [3; 2]; [2; 2]; [6]; [1; 5]; [6]; [1]; [2]]
       [[1; 2]; [3; 1]; [1; 5]; [7; 1]; [5]; [3]; [4]; [3]];;
 ```
