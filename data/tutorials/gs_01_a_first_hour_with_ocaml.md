@@ -33,7 +33,7 @@ Use `;;` to indicate that you've finished entering each expression and prompt
 OCaml to evaluate it. We run OCaml and evaluate a simple expression:
 
 ```console
-        OCaml version 4.43.0
+        OCaml version 4.14.0
 
 # 50 * 50;;
 - : int = 2500
