@@ -479,8 +479,9 @@ val sum_t : t -> int = <fun>
 
 ## A note on tupled constructors
 
-There is a difference between `RGB of float * float * float` and `RGB of (float
-* float * float)`. The first is a constructor with three pieces of data
+There is a difference between `RGB of float * float * float` and 
+`RGB of (float * float * float)`. 
+The first is a constructor with three pieces of data
 associated with it, the second is a constructor with one tuple associated with
 it. There are two ways this matters: the memory layout differs between the two
 (a tuple is an extra indirection), and the ability to create or match using a
