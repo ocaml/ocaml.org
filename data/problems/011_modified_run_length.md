@@ -35,6 +35,7 @@ elements with duplicates are transferred as (N E) lists.
 Since OCaml lists are homogeneous, one needs to define a type to hold
 both single elements and sub-lists.
 
+<!-- $MDX skip -->
 ```ocaml
 type 'a rle =
   | One of 'a
