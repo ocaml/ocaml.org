@@ -6,7 +6,7 @@ watch:
   embed_path: /videos/embed/e1ee0fc0-50ef-4a1c-894a-17df181424cb
   thumbnail_path: /static/thumbnails/94ead657-79a0-4c10-8435-9e13906a6c44.jpg
   published_at: 2021-08-27T13:23:10.199Z
-  updated_at: 2022-06-08T10:27:08.003Z
+  updated_at: 2022-06-10T06:57:08.098Z
   language: English
   category: Science & Technology
 - name: A Case for Multi-Switch Constraints in OPAM
@@ -605,7 +605,7 @@ watch:
   embed_path: /videos/embed/f3829e4b-e2cd-443e-8502-f406e893fe5f
   thumbnail_path: /static/thumbnails/ad30ffbb-ea91-4afd-b186-bc0af61c1430.jpg
   published_at: 2022-03-15T10:47:05.608Z
-  updated_at: 2022-06-07T08:57:07.975Z
+  updated_at: 2022-06-09T06:27:08.035Z
   language: English
   category: Misc
 - name: 'Parafuzz: Coverage-guided Property Fuzzing for Multicore OCaml programs'
@@ -616,7 +616,7 @@ watch:
   embed_path: /videos/embed/c0d591e0-91c9-4eaa-a4d7-c4f514de0a57
   thumbnail_path: /static/thumbnails/b1a67c0a-2eb9-4c9d-97ce-b4dc039da59b.jpg
   published_at: 2021-08-27T10:36:13.000Z
-  updated_at: 2022-03-21T18:01:00.065Z
+  updated_at: 2022-06-09T07:27:08.044Z
   language: English
   category: Science & Technology
 - name: Parallelising your OCaml Code with Multicore OCaml
@@ -758,7 +758,7 @@ watch:
   embed_path: /videos/embed/0e2070fd-798b-47f7-8e69-ef75e967e516
   thumbnail_path: /static/thumbnails/4fd6a51f-686c-4f6f-8026-83692304b432.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2022-06-06T01:57:07.908Z
+  updated_at: 2022-06-08T12:57:08.029Z
   language: English
   category: Science & Technology
 - name: Study of OCaml programs' memory behaviour
