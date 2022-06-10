@@ -1,0 +1,36 @@
+span[class*="keyword"] {
+  color: #fede5d;
+}
+
+span[class*="constant"] {
+  color: #fabd2f;
+}
+
+span[class*="function-binding"] {
+  color: #36f9f6;
+}
+
+span[class*="variable"] {
+  color: #85ebeb;
+  font-style: italic;
+}
+
+span[class*="support"] {
+  color: #83a598;
+}
+
+span[class*="comment"] {
+  font-style: italic;
+}
+
+span[class*="literal"] {
+  color: #d3869b;
+}
+
+span[class*="string"] {
+  color: #b8bb26;
+}
+
+span[class*="numeric"] {
+  color: #ff5683;
+}
