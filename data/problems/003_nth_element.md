@@ -8,10 +8,11 @@ tags: [ "list" ]
 # Solution
 
 ```ocaml
-# let rec at k = function
-    | [] -> None
-    | h :: t -> if k = 1 then Some h else at (k - 1) t;;
-val at : int -> 'a list -> 'a option = <fun>
+# let rec at l k =
+    match l with
+    | [] -> failwith "nth"
+    | h :: t -> if k = 0 then h else kth t (k - 1);;
+val at : 'a list -> int -> 'a = <fun>
 ```
 
 # Statement
