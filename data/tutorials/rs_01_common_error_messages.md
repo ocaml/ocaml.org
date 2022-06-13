@@ -84,7 +84,7 @@ The solution is simply to add one argument of type unit, like this:
 # let f ?(x = 0) ?(y = 0) () = print_int (x + y);;
 val f : ?x:int -> ?y:int -> unit -> unit = <fun>
 ```
-See the [Labels](labels.html "Labels") section for more details on
+See the [Labels](/docs/labels) section for more details on
 functions with labelled arguments.
 
 ###  The type of this expression... contains type variables that cannot be generalized

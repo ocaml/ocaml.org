@@ -11,7 +11,7 @@ date: 2021-05-27T21:07:30-00:00
 
 ## MiniGtk
 While the structure of lablgtk outlined in [Introduction to
-Gtk](introduction_to_gtk.html "Introduction to Gtk") seems perhaps
+Gtk](https://v2.ocaml.org/learn/tutorials/introduction_to_gtk.html) seems perhaps
 over-complex, it's worth considering exactly why the author chose two
 layers. To appreciate this, you really need to get your hands dirty and
 look at other ways that a Gtk wrapper might have been written.

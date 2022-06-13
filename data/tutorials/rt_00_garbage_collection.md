@@ -291,7 +291,7 @@ let nr_records = 10000
 let diskfile = Unix.openfile "users.bin" [ Unix.O_RDWR; Unix.O_CREAT ] 0o666
 ```
 
-Download [users.bin.gz](users.bin.gz) and decompress it before
+Download [users.bin.gz](/media/tutorials/users.bin.gz) and decompress it before
 running the program.
 
 Our cache of records is very simple:
@@ -345,7 +345,7 @@ the GC to collect the records immediately, we also invoke a major cycle:
 
 Finally we have some test code. I won't reproduce the test code, but you
 can download the complete program and test code
-[objcache.ml](objcache.ml), and compile it with:
+[objcache.ml](/media/tutorials/objcache.ml), and compile it with:
 
 <!-- $MDX dir=examples -->
 ```sh

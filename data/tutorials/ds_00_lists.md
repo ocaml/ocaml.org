@@ -421,7 +421,7 @@ has a worse running time than
 [`List.concat`](https://ocaml.org/api/List.html#VALconcat). You can read more
 about the time and space efficiency of lists and other common OCaml data
 structures in the [comparison of standard
-containers](comparison_of_standard_containers.html).
+containers](/docs/data-structures-comparison).
 
 Here are some more redefinitions of familiar functions in terms of
 [`fold_left`](https://ocaml.org/api/List.html#VALfold_left) or
