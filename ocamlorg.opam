@@ -85,8 +85,8 @@ build: [
 ]
 dev-repo: "git+https://github.com/ocaml/ocaml.org.git"
 pin-depends: [
-  ["esbuild.dev" "git+https://github.com/tmattio/opam-esbuild#main"]
-  ["tailwindcss.dev" "git+https://github.com/tmattio/opam-tailwindcss#main"]
+  ["esbuild.dev" "git+https://github.com/tmattio/opam-esbuild#7738af5912cc9f554d31da81d2334e88052102fb"]
+  ["tailwindcss.dev" "git+https://github.com/tmattio/opam-tailwindcss#7ef5bebbf48958370051b2368a4dd57b69627cf6"]
   ["code-mirror.dev" "git+https://github.com/patricoferris/jsoo-code-mirror#3e47f324456aafd84dece3dec4e7be70c2696f11"]
   ["js_top_worker-rpc.dev" "git+https://github.com/tmattio/js_top_worker#614c4b45b9a6924496f5569650ebb0676dba1526"]
   ["js_top_worker.dev" "git+https://github.com/tmattio/js_top_worker#614c4b45b9a6924496f5569650ebb0676dba1526"]
