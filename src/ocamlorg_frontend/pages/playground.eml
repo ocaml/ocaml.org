@@ -30,7 +30,7 @@ let render () =
       <div class="flex code-editor">
         <div class="hidden md:flex lg:flex-1 flex-col justify-center md:w-3/5">
           <div class="bg-code-background w-full relative h-full">
-            <div class="cm-s-lesser-dark" id="editor1"></div>
+            <div class="cm-s-lesser-dark max-h-[90vh] overflow-auto" id="editor1"></div>
             <div
               class="bg-code-background shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)] p-4 absolute w-full bottom-0 z-10"
             >
