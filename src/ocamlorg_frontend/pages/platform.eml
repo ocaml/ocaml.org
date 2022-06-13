@@ -11,7 +11,7 @@ Learn_layout.render
   </div>
 
   <div
-    class="mt-12 cursor-pointer relative rounded-2xl h-[413px] w-full overflow-hidden border-4 border-primary-100 video-shadow md:w-[640px]"
+    class="mt-12 cursor-pointer z-0 relative rounded-2xl h-[413px] w-full overflow-hidden border-4 border-primary-100 video-shadow md:w-[640px]"
     x-data="videoFullWidth()"
   >
     <div
