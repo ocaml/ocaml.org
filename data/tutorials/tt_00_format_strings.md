@@ -341,8 +341,7 @@ Thus the problem is to pretty-print the values of a concrete data type
 that models a language of expressions that defines functions and their
 applications to arguments.
 
-First, I give the abstract syntax of lambda-terms (we illustrate it in
-the [interactive system](../description.html#Interactivity)):
+First, I give the abstract syntax of lambda-terms:
 
 ```ocaml
 # type lambda =
