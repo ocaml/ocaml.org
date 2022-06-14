@@ -165,7 +165,7 @@ Layout_template.render ~prefix ~title:"Overview" ~nav:Overview @@
       datasets: [
         {
           label: "",
-          borderColor: "#18BDFB",
+          borderColor: "#10DAA4",
           data: [
           <% loadavg_list |> List.iter (fun (x : My_metrics.loadavg) -> %>
             <%f x.avg_1 %>,
@@ -174,12 +174,12 @@ Layout_template.render ~prefix ~title:"Overview" ~nav:Overview @@
           borderWidth: "2",
           drawBorder: false,
           fill: true,
-          backgroundColor: "rgba(24, 189, 251, 0.1)",
+          backgroundColor: "rgba(16,218,164,0.1)",
           tension: 0.5,
           pointBorderWidth: 0,
           pointHitRadius: 0,
           pointHoverRadius: 14,
-          pointHoverBackgroundColor: "#18BDFB",
+          pointHoverBackgroundColor: "#10DAA4",
           pointHoverBorderWidth: 2,
           pointHoverBorderColor: "#ffffff",
         },
