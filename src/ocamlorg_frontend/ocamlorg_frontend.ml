@@ -22,9 +22,7 @@ let blog ~featured ~rss ~rss_page ~rss_pages_number ~news =
 
 let news ~page ~pages_number news = News.render ~page ~pages_number news
 let news_post news = News_post.render news
-
-let jobs ?location ~locations jobs =
-  Jobs.render ?location ~locations jobs
+let jobs ?location ~locations jobs = Jobs.render ?location ~locations jobs
 
 let package_overview ~readme ~readme_title ~dependencies ~rev_dependencies
     ~homepages ~source package =
