@@ -1,4 +1,4 @@
-let render ?(search = "") ?(location = "All") ~locations (jobs : Ood.Job.t list) =
+let render ?(location = "All") ~locations (jobs : Ood.Job.t list) =
 Layout.render
 ~title:"OCaml Jobs"
 ~description:"This is a space where groups, companies, and organisations can advertise their projects directly to the
@@ -9,21 +9,6 @@ OCaml community." @@
             <h1 class="font-bold mb-6">OCaml Job Board</h1>
             <p>This is a space where groups, companies, and organisations can advertise their projects directly to the
                 OCaml community.</p>
-            <div
-                class="flex justify-center flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto mt-16">
-                <form action="<%s Url.jobs %>" method="GET" class="form-input">
-                    <div class="form-input__icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-body-400" fill="none"
-                            viewBox="0 0 24 24" stroke="rgba(26, 32, 44, 1)">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </div>
-                    <label for="q" class="sr-only">Jobs</label>
-                    <input class="focus:ring-orange-500" id="q" name="q" type="search" placeholder="Search for a job" value="<%s search %>">
-                    <button class="btn btn-lg btn-secondary ml-4" type="submit">Search</button>
-                </form>
-            </div>
         </div>
     </div>
 </div>
@@ -37,8 +22,6 @@ OCaml community." @@
                 </h5>
                 <div class="relative h-14 w-64">
                     <form action="<%s Url.jobs %>" method="GET">
-                        <input id="q" name="q" type="search" placeholder="Search for a job" class="hidden"
-                            value="<%s search %>">
                         <label for="c" class="sr-only">Location</label>
                         <select
                             class="w-full w-full appearance-none text-body-600 border rounded-md py-3 pl-6 border-gray-200 pr-20 h-full"
@@ -61,7 +44,7 @@ OCaml community." @@
                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
             </div>
-            <div class="text-xl">No Jobs found matching "<%s search %>"</div>
+            <div class="text-xl">No Jobs found</div>
         </div>
         <% | _ -> %>
         <div class="grid grid-cols-1 pb-10 lg:grid-cols-3 gap-8 mt-16" x-data="{ location: '<%s location %>' }">

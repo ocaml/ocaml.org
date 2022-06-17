@@ -192,34 +192,12 @@ let news_post req =
   | None -> not_found req
 
 let jobs req =
-  let search_job pattern t =
-    let open Ood.Job in
-    let pattern = String.lowercase_ascii pattern in
-    let title_is_s { title; _ } = String.lowercase_ascii title = pattern in
-    let title_contains_s { title; _ } =
-      String.contains_s (String.lowercase_ascii title) pattern
-    in
-    let score job =
-      if title_is_s job then -1
-      else if title_contains_s job then 0
-      else failwith "impossible job score"
-    in
-    t
-    |> List.filter (fun p -> title_contains_s p)
-    |> List.sort (fun job_1 job_2 -> compare (score job_1) (score job_2))
-  in
-  let search = Dream.query req "q" in
-  let jobs =
-    match search with
-    | None -> Ood.Job.all
-    | Some search -> search_job search Ood.Job.all
-  in
   let location = Dream.query req "c" in
   let jobs =
     match location with
-    | None | Some "All" -> jobs
+    | None | Some "All" -> Ood.Job.all
     | Some location ->
-        List.filter (fun job -> job.Ood.Job.location = location) jobs
+        List.filter (fun job -> job.Ood.Job.location = location) Ood.Job.all
   in
   let locations =
     List.filter_map
@@ -229,7 +207,7 @@ let jobs req =
       Ood.Job.all
     |> List.sort_uniq String.compare
   in
-  Dream.html (Ocamlorg_frontend.jobs ?search ?location ~locations jobs)
+  Dream.html (Ocamlorg_frontend.jobs ?location ~locations jobs)
 
 let page (page : Ood.Page.t) (_req : Dream.request) =
   Dream.html
