@@ -13,7 +13,7 @@ OCaml community." @@
     </div>
 </div>
 
-<div class="py-24 bg-white">
+<div class="py-12 bg-white">
     <div class="container-fluid">
         <div class="flex justify-between items-center">
             <% let job_num = match List.length jobs with 0 -> "No Job" | 1 -> "1 Job" | l -> Printf.sprintf "%i Jobs" l in %>
@@ -47,17 +47,17 @@ OCaml community." @@
             <div class="text-xl">No Jobs found</div>
         </div>
         <% | _ -> %>
-        <div class="grid grid-cols-1 pb-10 lg:grid-cols-3 gap-8 mt-16" x-data="{ location: '<%s location %>' }">
+        <div class="grid grid-cols-1 pb-8 lg:grid-cols-3 gap-8 mt-12" x-data="{ location: '<%s location %>' }">
             <% jobs |> List.iter (fun (item : Ood.Job.t) -> %>
             <a href="<%s item.link %>"
                 target="_blank"
                 class="text-left p-8 border border-gray-200 rounded-xl card-hover"
                 :class="{ 'hidden': location != 'All' && location != '<%s item.location %>'  }">
-                <img class="mb-6 max-h-8 max-w-[7rem]" src="<%s item.company_logo %>" alt="">
-                <div class="text-lg mb-3 text-body-600">
+                <img class="mb-4 max-h-8 max-w-[7rem]" src="<%s item.company_logo %>" alt="">
+                <div class="text-base mb-2 text-body-600 opacity-80">
                     <%s item.company %>
                 </div>
-                <div class="text-lg mb-3 font-semibold text-body-600">
+                <div class="text-lg mb-4 font-extrabold text-body-600 truncate">
                     <%s item.title %>
                 </div>
                 <div class="flex items-center space-x-2">
