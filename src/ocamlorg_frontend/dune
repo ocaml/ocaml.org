@@ -90,8 +90,8 @@
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
-  (targets opportunities.ml)
-  (deps opportunities.eml)
+  (targets jobs.ml)
+  (deps jobs.eml)
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule

@@ -191,7 +191,7 @@ let news_post req =
   | Some news_post -> Dream.html (Ocamlorg_frontend.news_post news_post)
   | None -> not_found req
 
-let opportunities req =
+let jobs req =
   let search_job pattern t =
     let open Ood.Job in
     let pattern = String.lowercase_ascii pattern in
@@ -229,7 +229,7 @@ let opportunities req =
       Ood.Job.all
     |> List.sort_uniq String.compare
   in
-  Dream.html (Ocamlorg_frontend.opportunities ?search ?location ~locations jobs)
+  Dream.html (Ocamlorg_frontend.jobs ?search ?location ~locations jobs)
 
 let page (page : Ood.Page.t) (_req : Dream.request) =
   Dream.html

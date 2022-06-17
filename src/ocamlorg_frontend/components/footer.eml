@@ -77,7 +77,7 @@ let render () =
         <ul>
           <li class="text-lg font-semibold pb-3">Community</li>
           <li class="py-3"><a href="<%s Url.blog %>">Blog</a></li>
-          <li class="py-3"><a href="<%s Url.opportunities %>">Opportunities</a></li>
+          <li class="py-3"><a href="<%s Url.jobs %>">Jobs</a></li>
         </ul>
 
         <ul>
