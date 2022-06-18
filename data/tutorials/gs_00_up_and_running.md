@@ -58,7 +58,8 @@ After the `opam init` command, you might get a result asking if you'd like to up
 
 **Please note**: The back ticks shown around `opam env` after `eval` are essential. They change the order of application, which is very important. The back ticks tells the system to first evaluate `opam env` (which returns a string of commands) and then `eval` executes those commands in the string. Executing them doesn't return anything, but it initializes the Opam environment behind the scenes.
 
-Check the installation was successful by running `opam --version`. Please note, merely using `opam init` might install a previous version of Opam. The most current version can be found at [opam.ocaml.org](https://opam.ocaml.org/packages/ocaml-base-compiler/).
+Check the installation was successful by running `opam --version`. Please note, merely using `opam init` might install a previous version of Opam. Running `opam upgrade` should fix this.
+The most current version can be found at [opam.ocaml.org](https://opam.ocaml.org/packages/ocaml-base-compiler/).
 
 The OCaml base compiler installation uses the `opam switch create` command; `switch` is used to have several installations on disk, like packages, compiler version, etc. Specify which version at the end as shown above, i.e., 4.14.0. All possible compiler versions can be found with `opam switch list-available`.
 
