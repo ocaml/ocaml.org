@@ -60,13 +60,13 @@ Where `<id>` is the ID of the Discuss post.
 
 > Contribute to the [Job Board](https://ocaml.org/jobs).
 
-The job board displays OCaml job jobs.
+The job board displays OCaml job opportunities.
 
 To add a new entry to the job board, you can add it to [`data/jobs.yml`](data/jobs.yml).
 
 Please make sure that the job involves mostly writing OCaml. Contributions to add jobs unrelated to OCaml, or where OCaml is a negligible part of the job won't be accepted.
 
-If you notice that a job job is outdated (e.g. already fullfilled, or not opened anymore), PRs to remove it are welcome as well.
+If you notice that a job opportunity is outdated (e.g. already fulfilled, or not opened anymore), PRs to remove it are welcome as well.
 
 ### <a name="content-success-story"></a> Add a success story
 
