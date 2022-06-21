@@ -637,8 +637,8 @@ let manual =
     fwd_v2 "/releases/4.14/manual/";
   ]
 
-let make ?(permanant = false) t =
-  let status = if permanant then `Moved_Permanently else `See_Other in
+let make ?(permanent = false) t =
+  let status = if permanent then `Moved_Permanently else `See_Other in
   Dream.scope ""
     [ Dream_encoding.compress ]
     (List.filter_map
@@ -654,4 +654,5 @@ let t =
       make from_v2;
       make v2_assets;
       Dream.scope "" [ Dream_encoding.compress ] manual;
+      make ~permanent:true [ ("/opportunities", "/jobs") ];
     ]
