@@ -6,7 +6,7 @@ watch:
   embed_path: /videos/embed/e1ee0fc0-50ef-4a1c-894a-17df181424cb
   thumbnail_path: /static/thumbnails/94ead657-79a0-4c10-8435-9e13906a6c44.jpg
   published_at: 2021-08-27T13:23:10.199Z
-  updated_at: 2022-06-15T19:57:08.319Z
+  updated_at: 2022-06-19T20:27:08.462Z
   language: English
   category: Science & Technology
 - name: A Case for Multi-Switch Constraints in OPAM
@@ -101,7 +101,7 @@ watch:
   embed_path: /videos/embed/629b89a8-bbd5-490d-98b0-d0c740912b02
   thumbnail_path: /static/thumbnails/41212c84-36d6-44fa-b884-2ced79505929.jpg
   published_at: 2021-08-27T10:18:38.000Z
-  updated_at: 2022-06-15T20:57:08.328Z
+  updated_at: 2022-06-17T03:27:08.362Z
   language: English
   category: Science & Technology
 - name: An LLVM backend for OCaml
@@ -258,7 +258,7 @@ watch:
   embed_path: /videos/embed/74ece0a8-380f-4e2a-bef5-c6bb9092be89
   thumbnail_path: /static/thumbnails/d48bf7bb-8c46-4d49-a3a6-734bf339343b.jpg
   published_at: 2021-08-27T14:41:07.000Z
-  updated_at: 2022-06-16T10:57:08.349Z
+  updated_at: 2022-06-21T13:27:08.525Z
   language: English
   category: Science & Technology
 - name: Experiments in Generic Programming
@@ -579,7 +579,7 @@ watch:
   embed_path: /videos/embed/a889e4d3-0508-4734-b667-7060b0a253cd
   thumbnail_path: /static/thumbnails/b2325a24-f068-473b-961e-a0b783ae5c39.jpg
   published_at: 2021-08-27T15:01:40.000Z
-  updated_at: 2022-05-01T20:01:00.165Z
+  updated_at: 2022-06-17T20:27:08.706Z
   language: English
   category: Science & Technology
 - name: Operf - Benchmarking the OCaml Compiler
@@ -710,7 +710,7 @@ watch:
   embed_path: /videos/embed/c0d07213-1426-46a1-98e0-0b0c4515c841
   thumbnail_path: /static/thumbnails/2ab3961f-4e66-4ec9-b20e-72e25dfbebe4.jpg
   published_at: 2021-08-31T08:41:15.492Z
-  updated_at: 2022-05-12T09:57:07.142Z
+  updated_at: 2022-06-17T13:27:08.378Z
   language: English
   category: Misc
 - name: Simple, efficient, sound-and-complete combinator parsing
