@@ -6,7 +6,7 @@ watch:
   embed_path: /videos/embed/e1ee0fc0-50ef-4a1c-894a-17df181424cb
   thumbnail_path: /static/thumbnails/94ead657-79a0-4c10-8435-9e13906a6c44.jpg
   published_at: 2021-08-27T13:23:10.199Z
-  updated_at: 2022-06-19T20:27:08.462Z
+  updated_at: 2022-06-22T15:57:08.588Z
   language: English
   category: Science & Technology
 - name: A Case for Multi-Switch Constraints in OPAM
@@ -355,7 +355,7 @@ watch:
   embed_path: /videos/embed/632f520f-8f83-4b6f-89f1-5cde088436c7
   thumbnail_path: /static/thumbnails/5d2f65d1-6129-4206-832b-c3d4bab410df.jpg
   published_at: 2015-09-18T00:00:00.000Z
-  updated_at: 2022-02-12T04:01:00.276Z
+  updated_at: 2022-06-25T06:57:08.684Z
   language: English
   category: Science & Technology
 - name: Introduction to 0install
