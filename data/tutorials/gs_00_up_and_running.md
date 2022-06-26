@@ -18,7 +18,7 @@ your favourite text editor or IDE. These instructions work on Unix-based systems
 
 It's a straightfoward process to install OCaml. [Opam](https://opam.ocaml.org/) is OCaml's package manager, so we'll install it first. You will also use Opam when installing third-party OCaml libraries.
 
-Find the all installation instructions for both Unix-like systems and Windows below. If you're new to the CLI, the code blocks (in black) shows the required command (the text after # gives more information on the following commands). Type each command after the prompt $, although it's often represented by a %, >, or another symbol as well. Ensure you use the exact case and spacing shown, then hit return/enter at the end of every line.
+Find the all installation instructions for both Unix-like systems and Windows below. If you're new to the CLI, the code blocks (in black) show the required commands (the text after # gives more information on the following commands). Type each command after the prompt $, although it's often represented by a %, >, or another symbol as well. Ensure you use the exact case and spacing shown, then hit return/enter at the end of every line.
 
 ### Installation for Linux and macOS
 
@@ -39,7 +39,7 @@ Linux (e.g `apt-get install opam` or similar). [Details of all installation
 methods.](https://opam.ocaml.org/doc/Install.html)
 
 **Install Compiler**
-It's essential to install the OCaml compiler because OCaml is a compiling language, so please don't skip this step. The first part sets up Opam, and the second part installs the OCaml base compiler:
+It's essential to install the OCaml compiler because OCaml is a compiled language, so please don't skip this step. The first part sets up Opam, and the second part installs the OCaml base compiler:
 
 ```
 # environment setup
@@ -58,7 +58,7 @@ After the `opam init` command, you might get a result asking if you'd like to up
 
 **Please note**: The back ticks shown around `opam env` after `eval` are essential. They change the order of application, which is very important. The back ticks tells the system to first evaluate `opam env` (which returns a string of commands) and then `eval` executes those commands in the string. Executing them doesn't return anything, but it initializes the Opam environment behind the scenes.
 
-Check the installation was successful by running `opam --version`. Please note, merely using `opam init` might install a previous version of Opam. The most current version can be found at [opam.ocaml.org](https://opam.ocaml.org/packages/ocaml-base-compiler/).
+Check that the installation was successful by running `opam --version`. Please note merely using `opam init` might install a previous version of Opam. The most current version can be found at [opam.ocaml.org](https://opam.ocaml.org/packages/ocaml-base-compiler/).
 
 The OCaml base compiler installation uses the `opam switch create` command; `switch` is used to have several installations on disk, like packages, compiler version, etc. Specify which version at the end as shown above, i.e., 4.14.0. All possible compiler versions can be found with `opam switch list-available`.
 
@@ -194,24 +194,24 @@ Now, we install the OCaml Platform Visual Studio Code extension from the Visual
 Studio Marketplace.
 
 Upon first loading an OCaml source file, you may be prompted to select the
-toolchain in use: pick OCaml the version of OCaml you are using, e.g. 4.11.1
+toolchain in use: pick the version of OCaml you are using, e.g. 4.11.1
 from the list. Now, help is available by hovering over symbols in your program:
 
 ![Visual Studio Code](/media/tutorials/vscode.png)
 
 **On Windows using WSL2** you will remotely connect to your WSL2 instance from
-Visual Studio Code. Microsoft have a [useful blog post](https://code.visualstudio.com/blogs/2019/09/03/wsl2)
+Visual Studio Code. Microsoft has a [useful blog post](https://code.visualstudio.com/blogs/2019/09/03/wsl2)
 covering getting WSL2 and Visual Studio Code connected.
 
-**On Windows**, we must launch Visual Studio Code from within the Cygwin window,
-rather than by clicking on its icon (otherwise, the language server will not be
+**On Windows** we must launch Visual Studio Code from within the Cygwin window,
+rather than by clicking on its icon (otherwise the language server will not be
 found):
 
 ```
 $ /cygdrive/c/Users/Frank\ Smith/AppData/Local/Programs/Microsoft\ VS\ Code/Code.exe
 ```
 
-**For Vim and Emacs**, install the [Merlin](https://github.com/ocaml/merlin)
+**For Vim and Emacs** install the [Merlin](https://github.com/ocaml/merlin)
 system using opam:
 
 ```
