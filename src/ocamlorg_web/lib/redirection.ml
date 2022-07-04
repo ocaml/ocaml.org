@@ -248,36 +248,34 @@ let from_v2 =
     ("/about.html", Url.about);
     ("/caml-light/faq.html", Url.index);
     ("/caml-light/index.html", Url.index);
-    ("/caml-light/", Url.index);
+    ("/caml-light", Url.index);
     ("/caml-light/license.html", Url.index);
     ("/caml-light/releases/0.75.html", Url.index);
     ("/community/announcements/CompCert_award.html", Url.community);
     ("/community/cwn/index.html", Url.community);
-    ("/community/cwn/", Url.community);
+    ("/community/cwn", Url.community);
     ("/community/history/forge.html", Url.community);
     ("/community/index.fr.html", Url.community);
     ("/community/index.html", Url.community);
-    ("/community/", Url.community);
     ("/community/mailing_lists.fr.html", Url.community);
     ("/community/mailing_lists.html", Url.community);
     ("/community/media.html", Url.community);
     ("/community/planet.html", Url.blog);
     ("/community/planet/index.html", Url.blog);
-    ("/community/planet/", Url.blog);
+    ("/community/planet", Url.blog);
     ("/community/planet/older.html", Url.blog);
     ("/community/planet/syndication.html", Url.blog);
     ("/community/support.fr.html", Url.community);
     ("/community/support.html", Url.community);
     ("/consortium/index.fr.html", Url.index);
     ("/consortium/index.html", Url.index);
-    ("/consortium/", Url.index);
+    ("/consortium", Url.index);
     ("/contributors.fr.html", Url.index);
     ("/contributors.html", Url.index);
     ("/docs/cheat_sheets.html", Url.learn);
     ("/docs/consortium-license.html", Url.index);
     ("/docs/index.fr.html", Url.learn);
     ("/docs/index.html", Url.learn);
-    ("/docs/", Url.learn);
     ("/docs/install.fr.html", Url.getting_started);
     ("/docs/install.html", Url.getting_started);
     ("/docs/license.fr.html", Url.index);
@@ -295,7 +293,7 @@ let from_v2 =
     ("/learn/history.html", Url.about);
     ("/learn/index.fr.html", Url.learn);
     ("/learn/index.html", Url.learn);
-    ("/learn/", Url.learn);
+    ("/learn", Url.learn);
     ("/learn/libraries.html", Url.packages);
     ("/learn/portability.html", Url.learn);
     ("/learn/success.fr.html", Url.industrial_users);
@@ -393,7 +391,7 @@ let from_v2 =
     ("/learn/tutorials/index.ja.html", Url.learn);
     ("/learn/tutorials/index.ko.html", Url.learn);
     ("/learn/tutorials/index.html", Url.learn);
-    ("/learn/tutorials/", Url.learn);
+    ("/learn/tutorials", Url.learn);
     ("/learn/tutorials/index.zh.html", Url.learn);
     ("/learn/tutorials/introduction_to_gtk.html", Url.learn);
     ("/learn/tutorials/labels.ja.html", Url.tutorial "labels");
@@ -437,44 +435,44 @@ let from_v2 =
     ("/learn/tutorials/up_and_running.html", Url.tutorial "up-and-running");
     ("/meetings/index.fr.html", Url.community);
     ("/meetings/index.html", Url.community);
-    ("/meetings/", Url.community);
+    ("/meetings", Url.community);
     ( "/meetings/ocaml/2008/index.html",
       Url.workshop "ocaml-users-and-developers-workshop-2008" );
-    ( "/meetings/ocaml/2008/",
+    ( "/meetings/ocaml/2008",
       Url.workshop "ocaml-users-and-developers-workshop-2008" );
     ( "/meetings/ocaml/2008/index.html",
       Url.workshop "ocaml-users-and-developers-workshop-2008" );
-    ( "/meetings/ocaml/2008/",
+    ( "/meetings/ocaml/2008",
       Url.workshop "ocaml-users-and-developers-workshop-2008" );
     ( "/meetings/ocaml/2009/index.html",
       Url.workshop "ocaml-users-and-developers-workshop-2009" );
-    ( "/meetings/ocaml/2009/",
+    ( "/meetings/ocaml/2009",
       Url.workshop "ocaml-users-and-developers-workshop-2009" );
     ( "/meetings/ocaml/2010/index.html",
       Url.workshop "ocaml-users-and-developers-workshop-2010" );
-    ( "/meetings/ocaml/2010/",
+    ( "/meetings/ocaml/2010",
       Url.workshop "ocaml-users-and-developers-workshop-2010" );
     ( "/meetings/ocaml/2011/index.html",
       Url.workshop "ocaml-users-and-developers-workshop-2011" );
-    ( "/meetings/ocaml/2011/",
+    ( "/meetings/ocaml/2011",
       Url.workshop "ocaml-users-and-developers-workshop-2011" );
     ( "/meetings/ocaml/2012/index.html",
       Url.workshop "ocaml-users-and-developers-workshop-2012" );
     ( "/meetings/ocaml/2013/call.html",
       Url.workshop "ocaml-users-and-developers-workshop-2013" );
-    ( "/meetings/ocaml/2013/",
+    ( "/meetings/ocaml/2013",
       Url.workshop "ocaml-users-and-developers-workshop-2013" );
     ( "/meetings/ocaml/2013/index.html",
       Url.workshop "ocaml-users-and-developers-workshop-2013" );
     ( "/meetings/ocaml/2013/program.html",
       Url.workshop "ocaml-users-and-developers-workshop-2013" );
-    ( "/meetings/ocaml/2013/",
+    ( "/meetings/ocaml/2013",
       Url.workshop "ocaml-users-and-developers-workshop-2013" );
     ( "/meetings/ocaml/2013/talks/index.html",
       Url.workshop "ocaml-users-and-developers-workshop-2013" );
     ( "/meetings/ocaml/2014/cfp.html",
       Url.workshop "ocaml-users-and-developers-workshop-2014" );
-    ( "/meetings/ocaml/2014/",
+    ( "/meetings/ocaml/2014",
       Url.workshop "ocaml-users-and-developers-workshop-2014" );
     ( "/meetings/ocaml/2014/index.html",
       Url.workshop "ocaml-users-and-developers-workshop-2014" );
@@ -484,46 +482,46 @@ let from_v2 =
       Url.workshop "ocaml-users-and-developers-workshop-2014" );
     ( "/meetings/ocaml/2015/cfp.html",
       Url.workshop "ocaml-users-and-developers-workshop-2015" );
-    ( "/meetings/ocaml/2015/",
+    ( "/meetings/ocaml/2015",
       Url.workshop "ocaml-users-and-developers-workshop-2015" );
     ( "/meetings/ocaml/2015/index.html",
       Url.workshop "ocaml-users-and-developers-workshop-2015" );
-    ( "/meetings/ocaml/2015/",
+    ( "/meetings/ocaml/2015",
       Url.workshop "ocaml-users-and-developers-workshop-2015" );
     ( "/meetings/ocaml/2015/program.html",
       Url.workshop "ocaml-users-and-developers-workshop-2015" );
-    ( "/meetings/ocaml/2015/",
+    ( "/meetings/ocaml/2015",
       Url.workshop "ocaml-users-and-developers-workshop-2015" );
     ( "/meetings/ocaml/2015/program.txt",
       Url.workshop "ocaml-users-and-developers-workshop-2015" );
-    ( "/meetings/ocaml/2015/",
+    ( "/meetings/ocaml/2015",
       Url.workshop "ocaml-users-and-developers-workshop-2015" );
     ( "/meetings/ocaml/2016/index.html",
       Url.workshop "ocaml-users-and-developers-workshop-2016" );
-    ( "/meetings/ocaml/2016/",
+    ( "/meetings/ocaml/2016",
       Url.workshop "ocaml-users-and-developers-workshop-2016" );
     ( "/meetings/ocaml/2017/index.html",
       Url.workshop "ocaml-users-and-developers-workshop-2017" );
-    ( "/meetings/ocaml/2017/",
+    ( "/meetings/ocaml/2017",
       Url.workshop "ocaml-users-and-developers-workshop-2017" );
     ( "/meetings/ocaml/2018/index.html",
       Url.workshop "ocaml-users-and-developers-workshop-2018" );
-    ( "/meetings/ocaml/2018/",
+    ( "/meetings/ocaml/2018",
       Url.workshop "ocaml-users-and-developers-workshop-2018" );
     ( "/meetings/ocaml/2019/index.html",
       Url.workshop "ocaml-users-and-developers-workshop-2019" );
-    ( "/meetings/ocaml/2019/",
+    ( "/meetings/ocaml/2019",
       Url.workshop "ocaml-users-and-developers-workshop-2019" );
     ( "/meetings/ocaml/2020/index.html",
       Url.workshop "ocaml-users-and-developers-workshop-2020" );
-    ( "/meetings/ocaml/2020/",
+    ( "/meetings/ocaml/2020",
       Url.workshop "ocaml-users-and-developers-workshop-2020" );
     ("/meetings/ocaml/index.html", Url.community);
-    ("/meetings/ocaml/", Url.community);
+    ("/meetings/ocaml", Url.community);
     ("/ocamllabs/index.html", Url.index);
-    ("/ocamllabs/", Url.index);
+    ("/ocamllabs", Url.index);
     ("/platform/index.html", Url.platform);
-    ("/platform/", Url.platform);
+    ("/platform", Url.platform);
     ("/platform/ocaml_on_windows.html", Url.ocaml_on_windows);
     ("/releases/3.12.1.html", Url.release "3.12.1");
     ("/releases/4.00.1.html", Url.release "4.00.1");
@@ -564,12 +562,12 @@ let from_v2 =
     ("/releases/4.14.0.html", Url.release "4.14.0");
     ("/releases/caml-light/faq.html", Url.index);
     ("/releases/caml-light/index.html", Url.index);
-    ("/releases/caml-light/", Url.index);
+    ("/releases/caml-light", Url.index);
     ("/releases/caml-light/license.html", Url.index);
     ("/releases/caml-light/releases/0.75.html", Url.index);
     ("/releases/index.fr.html", Url.releases);
     ("/releases/index.html", Url.releases);
-    ("/releases/", Url.releases);
+    ("/releases", Url.releases);
     ("/releases/latest/index.html", Url.release "4.14.0");
     ("/releases/latest/manual.html", Url.manual_with_version "4.14.0");
   ]
@@ -588,53 +586,53 @@ let fwd_v2 origin =
 let manual =
   [
     redirect_p "/api/**";
-    fwd_v2 "/api/";
+    fwd_v2 "/api";
     redirect_p "/manual/**";
-    fwd_v2 "/manual/";
+    fwd_v2 "/manual";
     redirect_p "/releases/3.12/htmlman/**";
-    fwd_v2 "/releases/3.12/htmlman/";
+    fwd_v2 "/releases/3.12/htmlman";
     redirect_p "/releases/4.00/htmlman/**";
-    fwd_v2 "/releases/4.00/htmlman/";
+    fwd_v2 "/releases/4.00/htmlman";
     redirect_p "/releases/4.01/htmlman/**";
-    fwd_v2 "/releases/4.01/htmlman/";
+    fwd_v2 "/releases/4.01/htmlman";
     redirect_p "/releases/4.02/htmlman/**";
-    fwd_v2 "/releases/4.02/htmlman/";
+    fwd_v2 "/releases/4.02/htmlman";
     redirect_p "/releases/4.03/htmlman/**";
-    fwd_v2 "/releases/4.03/htmlman/";
+    fwd_v2 "/releases/4.03/htmlman";
     redirect_p "/releases/4.04/htmlman/**";
-    fwd_v2 "/releases/4.04/htmlman/";
+    fwd_v2 "/releases/4.04/htmlman";
     redirect_p "/releases/4.05/htmlman/**";
-    fwd_v2 "/releases/4.05/htmlman/";
+    fwd_v2 "/releases/4.05/htmlman";
     redirect_p "/releases/4.06/htmlman/**";
-    fwd_v2 "/releases/4.06/htmlman/";
+    fwd_v2 "/releases/4.06/htmlman";
     redirect_p "/releases/4.07/htmlman/**";
-    fwd_v2 "/releases/4.07/htmlman/";
+    fwd_v2 "/releases/4.07/htmlman";
     redirect_p "/releases/4.08/htmlman/**";
-    fwd_v2 "/releases/4.08/htmlman/";
+    fwd_v2 "/releases/4.08/htmlman";
     redirect_p "/releases/4.09/htmlman/**";
-    fwd_v2 "/releases/4.09/htmlman/";
+    fwd_v2 "/releases/4.09/htmlman";
     redirect_p "/releases/4.10/htmlman/**";
-    fwd_v2 "/releases/4.10/htmlman/";
+    fwd_v2 "/releases/4.10/htmlman";
     redirect_p "/releases/4.11/htmlman/**";
-    fwd_v2 "/releases/4.11/htmlman/";
+    fwd_v2 "/releases/4.11/htmlman";
     redirect_p "/releases/4.12/api/**";
-    fwd_v2 "/releases/4.12/api/";
+    fwd_v2 "/releases/4.12/api";
     redirect_p "/releases/4.12/htmlman/**";
-    fwd_v2 "/releases/4.12/htmlman/";
+    fwd_v2 "/releases/4.12/htmlman";
     redirect_p "/releases/4.12/manual/**";
-    fwd_v2 "/releases/4.12/manual/";
+    fwd_v2 "/releases/4.12/manual";
     redirect_p "/releases/4.13/api/**";
-    fwd_v2 "/releases/4.13/api/";
+    fwd_v2 "/releases/4.13/api";
     redirect_p "/releases/4.13/htmlman/**";
-    fwd_v2 "/releases/4.13/htmlman/";
+    fwd_v2 "/releases/4.13/htmlman";
     redirect_p "/releases/4.13/manual/**";
-    fwd_v2 "/releases/4.13/manual/";
+    fwd_v2 "/releases/4.13/manual";
     redirect_p "/releases/4.14/api/**";
-    fwd_v2 "/releases/4.14/api/";
+    fwd_v2 "/releases/4.14/api";
     redirect_p "/releases/4.14/htmlman/**";
-    fwd_v2 "/releases/4.14/htmlman/";
+    fwd_v2 "/releases/4.14/htmlman";
     redirect_p "/releases/4.14/manual/**";
-    fwd_v2 "/releases/4.14/manual/";
+    fwd_v2 "/releases/4.14/manual";
   ]
 
 let make ?(permanent = false) t =
