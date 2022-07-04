@@ -25,11 +25,7 @@ let media_loader =
 
 let page_routes =
   Dream.scope ""
-    [
-      Dream_dashboard.analytics ();
-      Dream_encoding.compress;
-      Middleware.no_trailing_slash;
-    ]
+    [ Dream_dashboard.analytics (); Dream_encoding.compress ]
     [
       Dream.get Url.index Handler.index;
       Dream.get Url.learn Handler.learn;
@@ -59,11 +55,7 @@ let page_routes =
 
 let package_route t =
   Dream.scope ""
-    [
-      Dream_dashboard.analytics ();
-      Dream_encoding.compress;
-      Middleware.no_trailing_slash;
-    ]
+    [ Dream_dashboard.analytics (); Dream_encoding.compress ]
     [
       Dream.get Url.packages (Handler.packages t);
       Dream.get Url.packages_search (Handler.packages_search t);
@@ -85,7 +77,7 @@ let package_route t =
 
 let graphql_route t =
   Dream.scope ""
-    [ Dream_encoding.compress; Middleware.no_trailing_slash ]
+    [ Dream_encoding.compress ]
     [
       Dream.any "/api" (Dream.graphql Lwt.return (Graphql.schema t));
       Dream.get "/graphiql" (Dream.graphiql "/api");
