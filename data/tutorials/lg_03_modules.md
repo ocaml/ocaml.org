@@ -118,14 +118,11 @@ let hello () = print_endline "Hello"
 
 As it is, `Amodule` has the following interface:
 
+<!-- $MDX skip -->
 ```ocaml
 val message : string
 
 val hello : unit -> unit
-```
-```mdx-error
-Line 1, characters 1-21:
-Error: Value declarations are only allowed in signatures
 ```
 
 Let's assume that accessing the `message` value directly is none of the others
