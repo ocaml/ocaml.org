@@ -1,5 +1,5 @@
 let render () =
-Layout.render 
+Layout.render
 ~title:"Why OCaml?"
 ~description:"OCaml is a mature, statically typed, functional programming language. Learn more about its rich history and what makes it unique." @@
 <div class="intro-section-simple">
@@ -8,62 +8,33 @@ Layout.render
       <h1 class="font-bold mb-6">Why OCaml?</h1>
       <div class="flex items-center justify-center space-x-8 mt-11 lg:space-x-24">
         <div>
-          <a
-            class="hover:text-primary-600 rounded-lg hover:bg-primary-100 h-28 w-28 inline-block transition-colors"
-            href="#strength"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-10 w-10 mb-4 m-auto mt-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+          <a class="hover:text-primary-600 rounded-lg hover:bg-primary-100 h-28 w-28 inline-block transition-colors"
+            href="#strength">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-4 m-auto mt-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
             <div class="font-semibold text-lg">Strengths</div>
           </a>
         </div>
         <div>
-          <a
-            class="hover:text-primary-600 h-28 w-28 rounded-lg hover:bg-primary-100 inline-block transition-colors"
-            href="#history"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-10 w-10 mb-4 m-auto mt-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
+          <a class="hover:text-primary-600 h-28 w-28 rounded-lg hover:bg-primary-100 inline-block transition-colors"
+            href="#history">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-4 m-auto mt-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <div class="font-semibold text-lg">History</div>
           </a>
         </div>
         <div>
-          <a
-            class="hover:text-primary-600 h-28 w-28 rounded-lg hover:bg-primary-100 inline-block transition-colors"
-            href="#features"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-10 w-10 mb-4 m-auto mt-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-              />
+          <a class="hover:text-primary-600 h-28 w-28 rounded-lg hover:bg-primary-100 inline-block transition-colors"
+            href="#features">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-4 m-auto mt-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
             </svg>
             <div class="font-semibold text-lg">Features</div>
           </a>
@@ -81,98 +52,196 @@ Layout.render
         <div class="space-y-10">
           <h3>Introduction</h3>
           <p>
-            Programming languages matter. They affect the reliability, security, and efficiency of the code you write, as well as how easy it is to read, refactor, and extend. The languages you know also influence the way you think, changing the way you design software even when you’re not using them.
+            Programming languages matter. They affect the reliability, security, and efficiency of the code you write,
+            as well as how easy it is to read, refactor, and extend. The languages you know also influence the way you
+            think, changing the way you design software even when you’re not using them.
           </p>
           <p>
-            <i>The OCaml language is known for many things: it’s secure, it’s been around for a long time, and it’s inextricably linked to camels.</i>
+            <i>
+              The OCaml language is known for many things: it’s secure, it’s been around for a long time, and it’s
+              inextricably linked to camels.
+            </i>
           </p>
           <h3>OCaml</h3>
           <p>
-            OCaml mixes power and pragmatism in a way that makes it ideal for building complex software systems. Computer programming has become more complex over the years, and OCaml has developed tools to express that complexity in simple yet powerful ways. As a result, OCaml is uniquely poised to adapt to modern challenges whilst retaining its strong well-proven core. It provides a combination of efficiency, expressiveness, and practicality that is matched by no other language. 
+            OCaml mixes power and pragmatism in a way that makes it ideal for building complex software systems.
+            Computer programming has become more complex over the years, and OCaml has developed tools to express that
+            complexity in simple yet powerful ways. As a result, OCaml is uniquely poised to adapt to modern challenges
+            whilst retaining its strong well-proven core. It provides a combination of efficiency, expressiveness, and
+            practicality that is matched by no other language.
           </p>
           <h3>Strengths</h3>
           <ul>
             <li>
-             <strong>A Strong Community</strong>: OCaml has a large and passionate community. It is made up of people from diverse backgrounds who work continuously to improve and diversify OCaml. With many capable eyes on the language, problems are quickly discovered and eliminated, and OCaml itself is pushed by many hands towards becoming more powerful.
+              <strong>A Strong Community</strong>: OCaml has a large and passionate community. It is made up of people
+              from diverse backgrounds who work continuously to improve and diversify OCaml. With many capable eyes on
+              the language, problems are quickly discovered and eliminated, and OCaml itself is pushed by many hands
+              towards becoming more powerful.
             </li>
             <li>
-              <strong>An Academic Foundation</strong>: OCaml was created in an academic setting and continues to be taught and studied in universities across the world to this day. As academics use OCaml for their research, they invest a lot of time and resources and make critical improvements to the language.
+              <strong>An Academic Foundation</strong>: OCaml was created in an academic setting and continues to be
+              taught and studied in universities across the world to this day. As academics use OCaml for their
+              research, they invest a lot of time and resources and make critical improvements to the language.
             </li>
             <li>
-              <strong>High Levels of Safety</strong>: OCaml is a safe language, as programs are verified by the compiler before they can be executed. This prevents many programming errors, like confusing an integer with a pointer or accessing a non-existent field in a record. OCaml’s static type system also helps eliminate a lot of the runtime issues associated with dynamically-typed languages, and coupled with the type-inferring compiler, the need for manual type annotations is also greatly reduced. This makes the developer experience much more pleasant, as it reduces the need for developer intervention and repetitive tasks.
+              <strong>High Levels of Safety</strong>: OCaml is a safe language, as programs are verified by the compiler
+              before they can be executed. This prevents many programming errors, like confusing an integer with a
+              pointer or accessing a non-existent field in a record. OCaml’s static type system also helps eliminate a
+              lot of the runtime issues associated with dynamically-typed languages, and coupled with the type-inferring
+              compiler, the need for manual type annotations is also greatly reduced. This makes the developer
+              experience much more pleasant, as it reduces the need for developer intervention and repetitive tasks.
             </li>
             <li>
-              <strong>Automatic Memory Management</strong>: OCaml’s fast, unobtrusive, incremental garbage collector eliminates the need to explicitly allocate and free memory manually. Allocation and deallocation of data structures is implicit and handled by the compiler. There is no ‘new’, ‘malloc’, ‘delete’, or ‘free’ operator. This makes programs much safer, as memory corruption cannot occur. Moreover, the incremental memory manager runs in parallel with the application so that garbage collection doesn’t cause noticeable delays.
+              <strong>Automatic Memory Management</strong>: OCaml’s fast, unobtrusive, incremental garbage collector
+              eliminates the need to explicitly allocate and free memory manually. Allocation and deallocation of data
+              structures is implicit and handled by the compiler. There is no ‘new’, ‘malloc’, ‘delete’, or ‘free’
+              operator. This makes programs much safer, as memory corruption cannot occur. Moreover, the incremental
+              memory manager runs in parallel with the application so that garbage collection doesn’t cause noticeable
+              delays.
             </li>
           </ul>
           <p>
-            Among a worthy set of languages, OCaml stands apart because it manages to provide a great deal of power while remaining highly pragmatic. The compiler has a straightforward compilation strategy that produces high-performing code without requiring heavy optimization and without the complexities of dynamic just-in-time (JIT) compilation.
+            Among a worthy set of languages, OCaml stands apart because it manages to provide a great deal of power
+            while remaining highly pragmatic. The compiler has a straightforward compilation strategy that produces
+            high-performing code without requiring heavy optimization and without the complexities of dynamic
+            just-in-time (JIT) compilation.
           </p>
           <p>
-            This, along with OCaml’s strict evaluation model, makes runtime behaviour easy to predict. The garbage collector is incremental, (letting you avoid large GC-related pauses) and precise, meaning it will collect all unreferenced data (unlike many reference-counting collectors). Plus, the runtime is simple and highly portable.
+            This, along with OCaml’s strict evaluation model, makes runtime behaviour easy to predict. The garbage
+            collector is incremental, (letting you avoid large GC-related pauses) and precise, meaning it will collect
+            all unreferenced data (unlike many reference-counting collectors). Plus, the runtime is simple and highly
+            portable.
           </p>
           <h2 id="history">A Brief History</h2>
           <p>
-            For every milestone along the path of its development, new letters were added to the name of what would eventually be called *OCaml*. The language was formally written in 1996 by Xavier Leroy, Jérôme Vouillon, Damien Doligez, and Didier Rémy at INRIA in France. It was inspired by a long line of research into ML, starting in the 1960s, and has deep links to the academic community to this day.
+            For every milestone along the path of its development, new letters were added to the name of what would
+            eventually be called *OCaml*. The language was formally written in 1996 by Xavier Leroy, Jérôme Vouillon,
+            Damien Doligez, and Didier Rémy at INRIA in France. It was inspired by a long line of research into ML,
+            starting in the 1960s, and has deep links to the academic community to this day.
           </p>
           <p>
-            ML was originally the meta language of the LCF (Logic for Computable Functions) proof assistant, released by Robin Milner in 1972 (at Stanford, and later at Cambridge). ML was turned into a compiler in order to make it easier to use LCF on different machines, and it was gradually turned into a full-fledged system of its own by the 1980s. ML and what would later be called Core ML combined many of the features of earlier languages and became a major success as a result. Core ML combined polymorphic typing with type inference, a call-by-value functional language, as well as inductive types and pattern matching. With Core ML as a launchpad, several new languages developed, including Caml, the forerunner to OCaml. 
+            ML was originally the meta language of the LCF (Logic for Computable Functions) proof assistant, released by
+            Robin Milner in 1972 (at Stanford, and later at Cambridge). ML was turned into a compiler in order to make
+            it easier to use LCF on different machines, and it was gradually turned into a full-fledged system of its
+            own by the 1980s. ML and what would later be called Core ML combined many of the features of earlier
+            languages and became a major success as a result. Core ML combined polymorphic typing with type inference, a
+            call-by-value functional language, as well as inductive types and pattern matching. With Core ML as a
+            launchpad, several new languages developed, including Caml, the forerunner to OCaml.
           </p>
           <p>
-            The ‘Cam’ in OCaml comes from ML running on the Categorical Abstract Machine, which was notable for being one of the first formalisations of function closures. Caml was essentially Core ML but with provisions for embedded languages such as parser, quotations, and anti-quotations. The first implementation of Caml appeared in 1987. Ascánder Suárez created it as part of the Formel project at INRIA, headed by Gérard Huet. Later, Pierre Weis and Michel Mauny continued developing it.
+            The ‘Cam’ in OCaml comes from ML running on the Categorical Abstract Machine, which was notable for being
+            one of the first formalisations of function closures. Caml was essentially Core ML but with provisions for
+            embedded languages such as parser, quotations, and anti-quotations. The first implementation of Caml
+            appeared in 1987. Ascánder Suárez created it as part of the Formel project at INRIA, headed by Gérard Huet.
+            Later, Pierre Weis and Michel Mauny continued developing it.
           </p>
           <p>
-            In 1990, Xavier Leroy and Damien Doligez built a new implementation called Caml Light that they based on a bytecode interpreter with a fast, sequential garbage collector. Over the next few years, useful libraries appeared, such as Michel Mauny’s syntax manipulation tools, and this helped promote the use of Caml in education and research teams.
+            In 1990, Xavier Leroy and Damien Doligez built a new implementation called Caml Light that they based on a
+            bytecode interpreter with a fast, sequential garbage collector. Over the next few years, useful libraries
+            appeared, such as Michel Mauny’s syntax manipulation tools, and this helped promote the use of Caml in
+            education and research teams.
           </p>
           <p>
-            Xavier Leroy continued extending Caml Light with new features, which resulted in the 1995 release of Caml Special Light. This improved the executable efficiency significantly by adding a fast native code compiler that made Caml’s performance competitive with mainstream languages such as C++. A module system inspired by Standard ML also provided powerful facilities for abstraction and made larger-scale programs easier to construct.
+            Xavier Leroy continued extending Caml Light with new features, which resulted in the 1995 release of Caml
+            Special Light. This improved the executable efficiency significantly by adding a fast native code compiler
+            that made Caml’s performance competitive with mainstream languages such as C++. A module system inspired by
+            Standard ML also provided powerful facilities for abstraction and made larger-scale programs easier to
+            construct.
           </p>
           <p>
-            In the 1990’s, object-oriented programming became incredibly popular, and non object-oriented languages were seen as a thing of the past. In order to adapt Caml to this new way of the world, Didier Rémy and Jérôme Vouillon implemented a powerful and elegant object system as well as row polymorphism into the core language of what became OCaml – or Objective Caml. The object system was notable for supporting many common object-oriented idioms in a statically type-safe way, whereas the same idioms required runtime checks in languages such as C++ or Java. In 2000, Jacques Garrigue extended OCaml with several new features such as polymorphic methods and variants, as well as labelled and optional arguments.
+            In the 1990’s, object-oriented programming became incredibly popular, and non object-oriented languages were
+            seen as a thing of the past. In order to adapt Caml to this new way of the world, Didier Rémy and Jérôme
+            Vouillon implemented a powerful and elegant object system as well as row polymorphism into the core language
+            of what became OCaml – or Objective Caml. The object system was notable for supporting many common
+            object-oriented idioms in a statically type-safe way, whereas the same idioms required runtime checks in
+            languages such as C++ or Java. In 2000, Jacques Garrigue extended OCaml with several new features such as
+            polymorphic methods and variants, as well as labelled and optional arguments.
           </p>
           <p>
-            There were two notable early projects that adopted both Caml Light and OCaml. Active VRML was a domain specific language for animated 3D scenes, developed by Todd Knoblock et. al and Microsoft Research. Horus/ML and then Ensemble was a toolkit for building distributed applications, created by Rober van Renesse et al. at Cornell. These two projects acted as a springboard for both languages, convincing INRIA of their usefulness and starting OCaml’s path towards where it is today. 
+            There were two notable early projects that adopted both Caml Light and OCaml. Active VRML was a domain
+            specific language for animated 3D scenes, developed by Todd Knoblock et. al and Microsoft Research. Horus/ML
+            and then Ensemble was a toolkit for building distributed applications, created by Rober van Renesse et al.
+            at Cornell. These two projects acted as a springboard for both languages, convincing INRIA of their
+            usefulness and starting OCaml’s path towards where it is today.
           </p>
           <p>
-            The last two decades have seen OCaml attract a significant user base, and language improvements have been steadily added to support the growing commercial and academic codebases. By 2012, the OCaml 4.0 release had added Generalised Algebraic Data Types (GADTs) and first-class modules to increase the flexibility of the language. Since then, OCaml has had a steady yearly release cadence, and OCaml 5.0 with multicore support is around the corner in 2022. There is also fast, native-code support for the latest CPU architectures, such as x86_64, ARM, RISC-V, and PowerPC, making OCaml a good choice for systems where resource usage, predictability, and performance are critical for success.
+            The last two decades have seen OCaml attract a significant user base, and language improvements have been
+            steadily added to support the growing commercial and academic codebases. By 2012, the OCaml 4.0 release had
+            added Generalised Algebraic Data Types (GADTs) and first-class modules to increase the flexibility of the
+            language. Since then, OCaml has had a steady yearly release cadence, and OCaml 5.0 with multicore support is
+            around the corner in 2022. There is also fast, native-code support for the latest CPU architectures, such as
+            x86_64, ARM, RISC-V, and PowerPC, making OCaml a good choice for systems where resource usage,
+            predictability, and performance are critical for success.
           </p>
           <h2 id="features">Additional Features</h2>
           <ul>
             <li>
-              <strong>First-class functions</strong> that can be passed around like ordinary values, as seen in JavaScript, Common Lisp, and C#.
+              <strong>First-class functions</strong> that can be passed around like ordinary values, as seen in
+              JavaScript, Common Lisp, and C#.
             </li>
             <li>
-              <strong>Static type-checking</strong> to increase performance and reduce the number of runtime errors, as found in Java and C#.
+              <strong>Static type-checking</strong> to increase performance and reduce the number of runtime errors, as
+              found in Java and C#.
             </li>
             <li>
-              <strong>Parametric polymorphism</strong>, which enables the construction of abstractions that work across different data types, similar to generics in Java and C# and templates in C++.
+              <strong>Parametric polymorphism</strong>, which enables the construction of abstractions that work across
+              different data types, similar to generics in Java and C# and templates in C++.
             </li>
             <li>
-              <strong>Good support for immutable programming</strong>, i.e., programming without making destructive updates to data structures. This is present in traditional functional languages like Scheme, and it's also found in distributed, big-data frameworks like Hadoop.
+              <strong>Good support for immutable programming</strong>, i.e., programming without making destructive
+              updates to data structures. This is present in traditional functional languages like Scheme, and it's also
+              found in distributed, big-data frameworks like Hadoop.
             </li>
             <li>
-              <strong>Type inference</strong>, so you don’t need to annotate every single variable in your program with its type. Instead, types are inferred based on how a value is used. Available in a limited form in C# with implicitly typed local variables, and in C++11 with its auto keyword.
+              <strong>Type inference</strong>, so you don’t need to annotate every single variable in your program with
+              its type. Instead, types are inferred based on how a value is used. Available in a limited form in C# with
+              implicitly typed local variables, and in C++11 with its auto keyword.
             </li>
             <li>
-              <strong>Algebraic data types and pattern matching</strong> to define and manipulate complex data structures, available in Scala and F#.
+              <strong>Algebraic data types and pattern matching</strong> to define and manipulate complex data
+              structures, available in Scala and F#.
             </li>
             <li>
-              <strong>Separate compilation of standalone applications</strong>: Portable bytecode compilers make it possible to create stand-alone applications out of OCaml programs. For example, OCaml code can interact with C code via a foreign function interface when necessary, which has allowed it to be used commercially to prove the absence of runtime errors in safety-critical software for the Airbus A340 family.
+              <strong>Separate compilation of standalone applications</strong>: Portable bytecode compilers make it
+              possible to create stand-alone applications out of OCaml programs. For example, OCaml code can interact
+              with C code via a foreign function interface when necessary, which has allowed it to be used commercially
+              to prove the absence of runtime errors in safety-critical software for the Airbus A340 family.
             </li>
             <li>
-              <strong>A sophisticated module system</strong>: You can think of OCaml as being divided into two parts: a core language, concerned with values and types, and a module language that's concerned with modules and module signatures. OCaml contains an incredibly powerful module system. For instance, it allows you to parameterise one module over another. This makes it possible to concisely and safely build up layers of abstraction in large pieces of software.
+              <strong>A sophisticated module system</strong>: You can think of OCaml as being divided into two parts: a
+              core language, concerned with values and types, and a module language that's concerned with modules and
+              module signatures. OCaml contains an incredibly powerful module system. For instance, it allows you to
+              parameterise one module over another. This makes it possible to concisely and safely build up layers of
+              abstraction in large pieces of software.
             </li>
             <li>
-              <strong>Object-oriented programming</strong>: OCaml allows for writing programs in an object-oriented style. In keeping with the language’s philosophy, the object-oriented layer obeys the "strong typing" paradigm, which makes it impossible to send a message to an object that cannot answer it. Such safety does not come at the cost of expressiveness, and thanks to features such as multiple inheritance and parametric classes, some of the most complex design patterns can be expressed in a natural manner.
+              <strong>Object-oriented programming</strong>: OCaml allows for writing programs in an object-oriented
+              style. In keeping with the language’s philosophy, the object-oriented layer obeys the "strong typing"
+              paradigm, which makes it impossible to send a message to an object that cannot answer it. Such safety does
+              not come at the cost of expressiveness, and thanks to features such as multiple inheritance and parametric
+              classes, some of the most complex design patterns can be expressed in a natural manner.
             </li>
             <li>
-              <strong>Debugging facilities</strong>: There are several different methods available for debugging OCaml programs. The interactive REPL offers an elementary, yet fast and simple method to test functions. For more complex cases, the interactive system provides a cheap way of "tracing" computations. Finally, OCaml has an extremely powerful tool for following a program's execution called the symbolic relay debugger. It enables the user to stop a program at any time to scrutinise the value of variables and the stack of calling functions. It even allows going back into the past to resume execution at a particular point of interest.
+              <strong>Debugging facilities</strong>: There are several different methods available for debugging OCaml
+              programs. The interactive REPL offers an elementary, yet fast and simple method to test functions. For
+              more complex cases, the interactive system provides a cheap way of "tracing" computations. Finally, OCaml
+              has an extremely powerful tool for following a program's execution called the symbolic relay debugger. It
+              enables the user to stop a program at any time to scrutinise the value of variables and the stack of
+              calling functions. It even allows going back into the past to resume execution at a particular point of
+              interest.
             </li>
             <li>
-              <strong>Efficient compiler, efficient compiled code</strong>: OCaml offers two batch compilers, a bytecode compiler and a native code compiler. Bytecode compilers quickly generate small, portable executables. The native code compiler is slower, but produces more efficient machine code, whose performance meets the highest standards of modern compilers.
+              <strong>Efficient compiler, efficient compiled code</strong>: OCaml offers two batch compilers, a bytecode
+              compiler and a native code compiler. Bytecode compilers quickly generate small, portable executables. The
+              native code compiler is slower, but produces more efficient machine code, whose performance meets the
+              highest standards of modern compilers.
             </li>
             <li>
-              <strong>Portability</strong>: OCaml runs on a wide variety of platforms. There are both officially supported platforms as well as platforms supported by the community. For example, there are OCaml apps available on the Apple App Store, and it is possible to compile OCaml to JavaScript with js_of_ocaml, which enables the creation of rich, client-side applications. OCaml-Java also enables direct compilation of OCaml to Java bytecode.
+              <strong>Portability</strong>: OCaml runs on a wide variety of platforms. There are both officially
+              supported platforms as well as platforms supported by the community. For example, there are OCaml apps
+              available on the Apple App Store, and it is possible to compile OCaml to JavaScript with js_of_ocaml,
+              which enables the creation of rich, client-side applications. OCaml-Java also enables direct compilation
+              of OCaml to Java bytecode.
           </ul>
           <p>
             <small>
@@ -185,4 +254,4 @@ Layout.render
       </div>
     </div>
   </div>
-</div> 
+</div>
