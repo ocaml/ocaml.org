@@ -356,9 +356,9 @@ end = struct
   type search_request = search_constraint list
 
   let re =
-    let ascii_no_quote = Re.rep1 @@ Re.diff Re.ascii @@ Re.set "\"" in
-    let unquoted = Re.group @@ Re.rep1 @@ Re.diff Re.ascii @@ Re.set " \"" in
-    let quoted = Re.seq [ Re.str "\""; Re.group ascii_no_quote; Re.str "\"" ] in
+    let notnl_no_quote = Re.rep1 @@ Re.diff Re.notnl @@ Re.set "\"" in
+    let unquoted = Re.group @@ Re.rep1 @@ Re.diff Re.notnl @@ Re.set " \"" in
+    let quoted = Re.seq [ Re.str "\""; Re.group notnl_no_quote; Re.str "\"" ] in
     let option name =
       Re.seq [ Re.group @@ Re.str name; Re.alt [ quoted; unquoted ] ]
     in
