@@ -258,7 +258,7 @@ watch:
   embed_path: /videos/embed/74ece0a8-380f-4e2a-bef5-c6bb9092be89
   thumbnail_path: /static/thumbnails/d48bf7bb-8c46-4d49-a3a6-734bf339343b.jpg
   published_at: 2021-08-27T14:41:07.000Z
-  updated_at: 2022-07-01T11:27:08.939Z
+  updated_at: 2022-07-05T03:57:09.004Z
   language: English
   category: Science & Technology
 - name: Experiments in Generic Programming
@@ -616,7 +616,7 @@ watch:
   embed_path: /videos/embed/c0d591e0-91c9-4eaa-a4d7-c4f514de0a57
   thumbnail_path: /static/thumbnails/b1a67c0a-2eb9-4c9d-97ce-b4dc039da59b.jpg
   published_at: 2021-08-27T10:36:13.000Z
-  updated_at: 2022-06-09T07:27:08.044Z
+  updated_at: 2022-07-05T06:27:08.996Z
   language: English
   category: Science & Technology
 - name: Parallelising your OCaml Code with Multicore OCaml
