@@ -73,7 +73,7 @@ module Router = struct
   let route ~prefix middlewares store =
     Dream.scope prefix middlewares
       [
-        Dream.get "/" (Handler.overview ~prefix);
+        Dream.get "" (Handler.overview ~prefix);
         Dream.get "/analytics" (Handler.analytics ~prefix ~store);
         Dream.get "/assets/**" (Dream.static ~loader "");
       ]
