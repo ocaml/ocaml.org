@@ -36,7 +36,7 @@ let scrape () =
   let updated = Ptime.of_float_s (Unix.gettimeofday ()) |> Option.get in
   let entries = feeds |> River.posts |> River.create_atom_entries in
   let feed = Syndic.Atom.feed ~id ~title ~updated entries in
-  Syndic.Atom.write feed "data/rss/atom.xml";
+Syndic.Atom.write feed "asset/feed.xml";
   feeds
   |> List.iter (fun (feed : River.feed) ->
          River.posts [ feed ]
