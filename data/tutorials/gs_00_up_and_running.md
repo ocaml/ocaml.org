@@ -11,11 +11,11 @@ date: 2021-05-27T21:07:30-00:00
 
 # Get Up and Running With OCaml
 
-This page will walk you through the installation of everything you need to have a comfortable development environment to write OCaml code. This includes of course the compiler itself, but also a build system, a package manager, an LSP server to support your editor, and a few other tools that we describe [later](bliblib).
+This page will walk you through the installation of everything you need to have a comfortable development environment to write OCaml code on a new project. This includes of course [installing the compiler](#installing-ocaml) itself, but also a build system, a package manager, an LSP server to support your editor, and a few other tools that we describe [later](#setting-up-development-tools), setting up [editor support](#configuring-your-editor) and bootstrapping a [new project](#starting-a-new-project).
 
-These instructions work on Unix-based systems like Linux and macOS. If you are willing to set up OCaml on Windows, you might be interested in reading [OCaml on Windows](/docs/ocaml-on-windows) first. You can continue reading this once you have Cygwin or WSL installed.
+These instructions work on Unix-based systems like Linux and macOS. If you are willing to set up OCaml on Windows, you might be interested in reading [OCaml on Windows](/docs/ocaml-on-windows) first. You can continue reading this after, once you have Cygwin or WSL installed.
 
-If you're new to the command line interface, the code blocks (in black) show the required commands to type in a terminal (the text after # gives more information on the following commands). Each command is displayed after the prompt $, which is also often represented by a %, >, or another symbol as well. Ensure you use the exact case and spacing shown, then hit return/enter at the end of every line.
+<!-- If you're new to the command line interface, the code blocks (in black) show the required commands to type in a terminal (the text after # gives more information on the following commands). Each command is displayed after the prompt $, which is also often represented by a %, >, or another symbol as well. Ensure you use the exact case and spacing shown, then hit return/enter at the end of every line. -->
 
 ## Installing OCaml
 
@@ -25,15 +25,17 @@ OCaml is available as a package in most linux distributions, and can be installe
 apt install ocaml
 ```
 
-will work. However, the ocaml versions of most distribution packages are a little bit outdated. On the contrary, OCaml's package manager `opam` allows you to download any version `ocaml`, and to easily switch from one to the other. This is especially useful since different projects might require different versions of OCaml.
+will work. However, the ocaml versions of most distribution packages are a little bit outdated. On the contrary, OCaml's package manager `opam` allows you to download any version of `ocaml`, and to easily switch from one to the other. This is especially useful since different projects might require different versions of OCaml.
 
 So the best way to install `ocaml` is in fact by using `opam`, OCaml's package manager.
 
 ### Installing `opam`
 
-`opam` is the package manager of OCaml. It introduces the concept of "switches", consisting of a compiler together with a set of packages (libraries and other files). When you install `opam`, you will need to initialise it. The biggest part of this initialisation consists of creating a first switch, with an empty set of installed packages. For the compiler of this first switch, `opam` will use the compiler installed in your distribution if you have one. Otherwise, it will build one up from sources.
+[Opam](https://opam.ocaml.org/) is the package manager of OCaml. It introduces the concept of "switches", consisting of a compiler together with a set of packages (libraries and other files). Those switches are mainly used to have an independent set of dependencies in different projects.
 
-To install `opam`, you can also [use your system package manager](https://opam.ocaml.org/doc/Install.html#Using-your-distribution-39-s-package-system), or download the [binary distribution](https://opam.ocaml.org/doc/Install.html#Binary-distribution). The details are available in the above links, but for convenience, we copy a few of them here:
+When you install `opam`, you will need to [initialise](#initialize-opam) it. The biggest part of this initialisation consists of creating a first switch, with an empty set of installed packages. As the compiler of this first switch, `opam` will choose the compiler installed in your distribution if you have one. Otherwise, it will build one up from source.
+
+To install `opam`, you can [use your system package manager](https://opam.ocaml.org/doc/Install.html#Using-your-distribution-39-s-package-system), or download the [binary distribution](https://opam.ocaml.org/doc/Install.html#Binary-distribution). The details are available in the above links, but for convenience, we copy a few of them here:
 
 **For macOS**
 
@@ -75,7 +77,7 @@ $ opam init          # Can take up to several minutes
 $ eval $(opam env)
 ```
 
-The first command (`opam init`) creates a first switch, usually called `default`, although this is just a convention. If you have installed `ocaml` through your system package manager, the first switch will use this compiler (it is called a "system switch"). Otherwise, it will build one from source, usually taking the most recent version of `ocaml`.
+The first command (`opam init`) creates a first switch, usually called `default`, although this is just a convention. If you have installed `ocaml` through your system package manager, the first switch will be set up to use this compiler (it is called a "system switch"). Otherwise, it will build one from source, usually taking the most recent version of `ocaml`.
 
 The second command (`eval $(opam env)`) modifies a few environments variables to make the shell script aware of the switch you are using. For instance, it will add what is needed to the `PATH` variable so that typing `ocaml` in the shell runs the ocaml binary of the current switch.
 
@@ -86,9 +88,11 @@ $ opam switch create 4.14.0
 $ eval $(opam env)
 ```
 
-### The OCaml flavours
+More information can be found in the [official website](https://opam.ocaml.org/).
 
-OCaml comes in several flavours:
+### The OCaml base tools
+
+We have installed `ocaml`, in an opam switch, which means we have access to the following programs:
 
 - A "toplevel", which can be called with the `ocaml` command. It consists of a read-eval-print loop (a [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop)), similar to the `python` or `node` command, and can be handy to quickly try the language. The user interface of `ocaml` is very basic but is improved a lot in one of the package that we will install later: `utop`.
 
@@ -96,11 +100,11 @@ OCaml comes in several flavours:
 
 - Another compiler, called `ocamlc`, this time to **bytecode**. It creates an executable that can be interpreted by a variety of runtime environments, making it more flexible.
 
+Although it is theoretically all we need to write OCaml code, it is not at all a complete and comfortable development environment.
+
 ## Setting up development tools
 
-We now have OCaml and it installed, but not at all a complete and comfortable development environment.
-
-We will now install everything to achieve this, which includes:
+We will now install everything we need to get a complete development environment, which includes:
 
 - `dune`, a build system, to automatically link external and internal libraries,
 - `merlin` (the backend) and `ocaml-lsp-server` to provide your editor with many useful features, such as "jump to definition",
