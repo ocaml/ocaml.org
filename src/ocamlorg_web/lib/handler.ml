@@ -180,7 +180,7 @@ let blog req =
        ~rss_pages_number:number_of_pages ~news)
 
 let atom =
-  Dream.from_filesystem "data/rss/" "feed.xml"
+  Dream.from_filesystem "data/rss/" "atom.xml"
 
 let news req =
   let page, number_of_pages, current_items = paginate ~req ~n:10 Ood.News.all in
