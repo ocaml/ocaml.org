@@ -31,6 +31,12 @@ let feeds () =
 
 let scrape () =
   let feeds = feeds () in
+  let id = Uri.of_string "https://ocaml.org/atom" in
+  let title : Syndic.Atom.title = Text "OCaml.org blog" in
+  let updated = Ptime.of_float_s (Unix.gettimeofday ()) |> Option.get in
+  let entries = feeds |> River.posts |> River.create_atom_entries in
+  let feed = Syndic.Atom.feed ~id ~title ~updated entries in
+  Syndic.Atom.write feed "data/rss/feed.xml";
   feeds
   |> List.iter (fun (feed : River.feed) ->
          River.posts [ feed ]
@@ -78,7 +84,7 @@ let scrape () =
                       in
                       Printf.fprintf oc "%s" s;
                       close_out oc))
-
+                    
 type t = {
   title : string;
   slug : string;

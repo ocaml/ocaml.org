@@ -179,6 +179,9 @@ let blog req =
     (Ocamlorg_frontend.blog ~featured ~rss:current_items ~rss_page:page
        ~rss_pages_number:number_of_pages ~news)
 
+let atom =
+  Dream.from_filesystem "data/rss/" "feed.xml"
+
 let news req =
   let page, number_of_pages, current_items = paginate ~req ~n:10 Ood.News.all in
   Dream.html
