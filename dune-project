@@ -63,6 +63,7 @@
   esbuild
   hilite
   river
+  syndic
   (alcotest :with-test)
   (mdx
    (and
