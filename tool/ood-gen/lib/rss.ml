@@ -84,7 +84,7 @@ let scrape () =
                       in
                       Printf.fprintf oc "%s" s;
                       close_out oc))
-                    
+
 type t = {
   title : string;
   slug : string;
