@@ -35,7 +35,6 @@ let releases = "/releases"
 let release v = "/releases/" ^ v
 let workshop v = "/workshops/" ^ v
 let blog = "/blog"
-let atom = "/atom"
 let news = "/news"
 let news_post v = "/news/" ^ v
 let jobs = "/jobs"
