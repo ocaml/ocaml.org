@@ -1,7 +1,7 @@
 let render () =
 Layout.render 
 ~title:"Why OCaml?"
-~description:"OCaml is a mature, statically typed, functional programming language. Learn more about its rich history and what makes it unique." @@
+~description:"OCaml is a mature, statically-typed, functional programming language. Learn more about its rich history and what makes it unique." @@
 <div class="intro-section-simple">
   <div class="container-fluid">
     <div class="text-center w-full lg:w-2/3 m-auto">
@@ -116,7 +116,7 @@ Layout.render
             <li>
               <strong>Type inference</strong>, so you don’t need to annotate every single variable in your program with
               its type. Instead, types are inferred based on how a value is used. Available in a limited form in C# with
-              implicitly typed local variables, and in C++11 with its auto keyword.
+              implicitly-typed local variables and in C++11 with its auto keyword.
             </li>
             <li>
               <strong>Algebraic data types</strong> and <strong>pattern matching</strong> to define and manipulate
@@ -128,12 +128,12 @@ Layout.render
             language. Despite their importance, these ideas have made only limited inroads into mainstream languages,
             and when they do arrive there, like first-class functions in C# or parametric polymorphism in Java, it’s
             typically in a limited and awkward form. The only languages that completely embody these ideas are
-            statically typed, functional programming languages like OCaml, F#, Haskell, Scala, Rust and Standard ML.
+            statically-typed, functional programming languages like OCaml, F#, Haskell, Scala, Rust, and Standard ML.
           </p>
           <p>
             Among this worthy set of languages, OCaml stands apart because it manages to provide a great deal of power
             while remaining highly pragmatic. The compiler has a straightforward compilation strategy that produces
-            performant code without requiring heavy optimization and without the complexities of dynamic just-in-time
+            performant code without requiring heavy optimisation and without the complexities of dynamic just-in-time
             (JIT) compilation. This, along with OCaml’s strict evaluation model, makes runtime behavior easy to predict.
             The garbage collector is incremental, (letting you avoid large GC-related pauses) and precise, meaning it
             will collect all unreferenced data (unlike many reference-counting collectors). Plus, the runtime is simple
@@ -181,8 +181,8 @@ Layout.render
             The last two decades have seen OCaml attract a significant user base, and language improvements have been
             steadily added to support the growing commercial and academic codebases. By 2012, the OCaml 4.0 release had
             added Generalised Algebraic Data Types (GADTs) and first-class modules to increase the flexibility of the
-            language. Since then, OCaml has had a steady yearly release cadence, and OCaml 5.0 with multicore support is
-            around the corner in 2022. There is also fast, native-code support for the latest CPU architectures, such as
+            language. Since then, OCaml has had a steady, yearly release cadence, and OCaml 5.0 with Multicore support is
+            scheduled for release in September 2022. There is also fast, native-code support for the latest CPU architectures, such as
             x86_64, ARM, RISC-V, and PowerPC, making OCaml a good choice for systems where resource usage,
             predictability, and performance all matter.
           </p>
@@ -221,15 +221,15 @@ Layout.render
             </li>
             <li>
               <strong>Efficient compiler, efficient compiled code:</strong>
-              OCaml offers two batch compilers, a bytecode compiler and a native code compiler. Bytecode compilers
-              quickly generate small, portable executables. The native code compiler is slower, but produces more
+              OCaml offers two batch compilers: a bytecode compiler and a native code compiler. Bytecode compilers
+              quickly generate small, portable executables. The native code compiler is slower, but it produces more
               efficient machine code, whose performance meets the highest standards of modern compilers.
             </li>
             <li>
               <strong>Portability:</strong>
               OCaml runs on a wide variety of platforms. There are both officially supported platforms as well as
               platforms supported by the community. For example, there are OCaml apps available on the Apple App Store,
-              and it is possible to compile OCaml to JavaScript with js_of_ocaml, which enables the creation of rich,
+              and it is possible to compile OCaml to JavaScript with Js_of_ocaml, which enables the creation of rich,
               client-side applications. OCaml-Java also enables direct compilation of OCaml to Java bytecode.
             </li>
           </ul>
