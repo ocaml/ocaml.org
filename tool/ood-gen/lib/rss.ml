@@ -29,12 +29,30 @@ let feeds () =
   let sources = all_sources () in
   List.map River.fetch sources.sources
 
+let validate_entries entries =
+  let validate_author (author : Syndic.Atom.author) =
+    match author with
+    | { email = Some email; _ } when email = "" -> { author with email = None }
+    | _ -> author
+  in
+  List.map
+    (fun (entry : Syndic.Atom.entry) ->
+      let id = entry.id |> Uri.canonicalize in
+      let authors =
+        ( validate_author (fst entry.authors),
+          List.map validate_author (snd entry.authors) )
+      in
+      { entry with id; authors })
+    entries
+
 let scrape () =
   let feeds = feeds () in
   let id = Uri.of_string "https://ocaml.org/feed.xml" in
   let title : Syndic.Atom.title = Text "OCaml.org blog" in
   let updated = Ptime.of_float_s (Unix.gettimeofday ()) |> Option.get in
-  let entries = feeds |> River.posts |> River.create_atom_entries in
+  let entries =
+    feeds |> River.posts |> River.create_atom_entries |> validate_entries
+  in
   let feed = Syndic.Atom.feed ~id ~title ~updated entries in
   Syndic.Atom.write feed "asset/feed.xml";
   feeds
