@@ -5,7 +5,7 @@ tools:
     synopsis: Documentation Generator for OCaml
     description: >
       Documentation Generator for OCaml
-    lifecycle: incubate
+    lifecycle: active
 
   - name: MDX
     source: https://github.com/realworldocaml/mdx
@@ -33,7 +33,7 @@ tools:
     synopsis: Auto-Formatter for OCaml Code
     description: >
       OCamlFormat is a tool to automatically format OCaml code in a uniform style.
-    lifecycle: incubate
+    lifecycle: active
 
   - name: dune-release
     source: https://github.com/ocamllabs/dune-release
@@ -52,7 +52,7 @@ tools:
     synopsis: LSP Server for OCaml
     description: >
       OCaml-LSP is a language server for OCaml that implements Language Server Protocol (LSP).
-    lifecycle: incubate
+    lifecycle: active
 
   - name: Bun
     source: https://github.com/yomimono/ocaml-bun
@@ -149,14 +149,14 @@ tools:
       This library converts parsetrees, outcometree and ast mappers between
       different OCaml versions. High-level functions help making PPX
       rewriters independent of a compiler version.
-    lifecycle: sustain
+    lifecycle: deprecate
 
   - name: OCamlbuild
     source: https://github.com/ocaml/ocamlbuild
     license: LGPLv2
     synopsis: OCamlbuild is a build system with builtin rules to easily build most OCaml projects
     description: ""
-    lifecycle: sustain
+    lifecycle: deprecate
 
   - name: OCamlfind
     source: https://github.com/ocaml/ocamlfind
