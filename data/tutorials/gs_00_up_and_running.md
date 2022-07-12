@@ -188,7 +188,8 @@ documentation](https://dune.readthedocs.io/en/stable/).
 ## Editor Support for OCaml
 
 For **Visual Studio Code**, and other editors support the Language Server
-Protocol, we use the OCaml language server, which we installed we opam earlier.
+Protocol, we use the OCaml language server, which was installed when we 
+installed opam earlier.
 
 Now, we install the OCaml Platform Visual Studio Code extension from the Visual
 Studio Marketplace.
