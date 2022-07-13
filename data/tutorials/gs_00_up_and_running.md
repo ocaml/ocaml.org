@@ -18,23 +18,19 @@ reading [OCaml on Windows](/docs/ocaml-on-windows) first.
 The following instructions work on Linux, BSD and macOS but also on Cygwin and
 WSL.
 
-The platform installer is currently in active development. It will
-automatically install Opam, OCaml and the development tools. [See below](#up-and-running-with-the-platform-installer)
-for the instruction.
-Please note that the installer is work in progress and might not work on your system.
-
 ## Installing OCaml
 
-OCaml is available as a package in most linux distributions, and can be installed as such. For instance, on Ubuntu:
+The **platform installer** is currently in active development. It will
+automatically install Opam, OCaml and the development tools. [See below](#up-and-running-with-the-platform-installer)
+for the instruction.
 
-``` shell
-apt install ocaml
-```
+Please note that the installer is work in progress and might not work on your system.
 
-However, the ocaml versions of most distribution packages are a little bit
-outdated. On the contrary, OCaml's package manager `opam` allows to easily
-switch from one version of OCaml to the other and much more. This is especially
-useful since different projects might require different versions of OCaml.
+OCaml is available as a package in most linux distributions, however, it is
+often outdated. On the contrary, OCaml's package manager `opam` allows to
+easily switch from one version of OCaml to the other and much more. This is
+especially useful since different projects might require different versions of
+OCaml.
 
 So the best way to install `ocaml` is in fact by using `opam`, OCaml's package manager.
 
