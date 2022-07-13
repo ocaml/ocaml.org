@@ -18,6 +18,11 @@ reading [OCaml on Windows](/docs/ocaml-on-windows) first.
 The following instructions work on Linux, BSD and macOS but also on Cygwin and
 WSL.
 
+The platform installer is currently in active development. It will
+automatically install Opam, OCaml and the development tools. [See below](#up-and-running-with-the-platform-installer)
+for the instruction.
+Please note that the installer is work in progress and might not work on your system.
+
 ## Installing OCaml
 
 OCaml is available as a package in most linux distributions, and can be installed as such. For instance, on Ubuntu:
@@ -34,6 +39,8 @@ useful since different projects might require different versions of OCaml.
 So the best way to install `ocaml` is in fact by using `opam`, OCaml's package manager.
 
 ### Installing `opam`
+
+Alternatively, you can use the alpha-version platform installer to install Opam and the development tools, [see below](#up-and-running-with-the-platform-installer).
 
 [Opam](https://opam.ocaml.org/) is the package manager of OCaml. It introduces the concept of "switches", consisting of a compiler together with a set of packages (libraries and other files). Switches are used to have independent sets of dependencies in different projects.
 
@@ -74,6 +81,8 @@ bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/she
 
 ### Initialising `opam`
 
+This step is done automatically by the alpha-version platform installer, [see below](#up-and-running-with-the-platform-installer).
+
 If you have installed the binary distribution of `opam` through the install script, this step should already be done. If you have installed it through your system package manager, you must initialise `opam` by running the following command:
 
 ```
@@ -109,6 +118,8 @@ Although it is theoretically all we need to write OCaml code, it is not at all a
 
 ## Setting up development tools
 
+This step is done automatically by the alpha-version platform installer, [see below](#up-and-running-with-the-platform-installer).
+
 We will now install everything we need to get a complete development environment, which includes:
 
 - `dune`, a fast and full-featured build system for OCaml,
@@ -126,7 +137,42 @@ opam install dune merlin ocaml-lsp-server odoc ocamlformat utop dune-release
 
 Now that the tools are installed, it remains to understand how to use them. Most of them will be driven either by the editor or by `dune`, but `utop` is handy to try OCaml or a specific library.
 
-### Using the OCaml toplevel with `utop`
+## Up and Running with the platform installer
+
+The platform installer is work in progress, you can follow its development and
+report issues on [the repository](https://github.com/tarides/ocaml-platform-installer/).
+
+Please note that the installer might not work on your system. If that's the
+case, follow the old instructions above, which are still relevant.
+
+The installer is not in any package manager yet but it can be installed using
+this script, this will install both `opam` and `ocaml-platform`:
+
+```shell
+sudo bash < <(curl -sL https://github.com/tarides/ocaml-platform-installer/releases/latest/download/installer.sh)
+```
+
+This downloads a script from the web and executes it as root, you are
+encouraged to have a look at what it does first.
+
+Once this step is done, setup the environment with:
+
+```shell
+ocaml-platform
+```
+
+This will initialize Opam and install the development tools, which might take
+some time.
+
+The tools are not installed exactly the same way as with `opam install`: they
+are built in a sandbox so that each tool's dependencies are not installed in
+the same space as your project's dependencies, see [Under the hood](https://github.com/tarides/ocaml-platform-installer#whats-under-the-hood=)
+for more information.
+
+`ocaml-platform` can be run again at any time, to install the tools in an other
+Opam switch for example.
+
+## Using the OCaml toplevel with `utop`
 
 `utop` is a nice toplevel for OCaml. It features history, line edition, and the ability to load a package that you have installed in your switch.
 
@@ -163,7 +209,7 @@ utop # exit 0;;
 $
 ```
 
-### Configuring your editor
+## Configuring your editor
 
 While a toplevel is great for interactively trying out the language, we will shortly need to write ocaml files in an editor. We already installed the tools needed to have an editor suppor: `merlin`, providing all features such as "jump to definition" or "show type", and `ocaml-lsp-server`, a server exposing those features to the editor through the [language server protocol](https://en.wikipedia.org/wiki/Language_Server_Protocol).
 
