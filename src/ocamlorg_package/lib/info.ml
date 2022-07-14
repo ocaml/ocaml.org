@@ -17,6 +17,7 @@ type t = {
   depopts : (OpamPackage.Name.t * string option) list;
   conflicts : (OpamPackage.Name.t * string option) list;
   url : url option;
+  publication : int;
 }
 
 let relop_to_string = OpamPrinter.FullPos.relop_kind
@@ -137,9 +138,20 @@ let mk_revdeps pkg pkgs rdepends =
     []
   |> Lwt.map List.rev
 
+module String_map = Map.Make (String)
+
+let get_publication package =
+  let name = OpamPackage.name_to_string package in
+  let name_with_version = OpamPackage.to_string package in
+  let path = Printf.sprintf "packages/%s/%s/opam" name name_with_version in
+  match String_map.find_opt path Ood.Opam_repository_timestamps.t with
+  | Some timestamp -> Lwt.return timestamp
+  | None -> Opam_repository.get_timestamp path
+
 let make ~package ~packages ~rev_deps opam =
   let open Lwt.Syntax in
-  let+ rev_deps = mk_revdeps package packages rev_deps in
+  let* rev_deps = mk_revdeps package packages rev_deps in
+  let+ publication = get_publication package in
   let open OpamFile.OPAM in
   {
     synopsis = synopsis opam |> Option.value ~default:"No synopsis";
@@ -172,6 +184,7 @@ let make ~package ~packages ~rev_deps opam =
                checksum =
                  OpamFile.URL.checksum url |> List.map OpamHash.to_string;
              });
+    publication;
   }
 
 let of_opamfiles

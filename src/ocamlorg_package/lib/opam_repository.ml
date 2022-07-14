@@ -133,3 +133,15 @@ let new_files_since ~a ~b =
          a ^ ".." ^ b;
        ])
   |> Lwt.map parse_commits
+
+let get_timestamp f =
+  let open Lwt.Syntax in
+  let+ output =
+    Process.pread_lines
+      (git_cmd
+         [
+           "git"; "--no-pager"; "log"; "--format=\"%at\""; "--reverse"; "--"; f;
+         ])
+    |> Lwt.map List.hd |> Lwt.map String.trim |> Lwt.map int_of_string
+  in
+  output

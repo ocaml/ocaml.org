@@ -1,0 +1,29 @@
+name: Update opam timestamps
+
+on:
+  schedule:
+    # Run every monday at 12:00pm
+    - cron: 0 12 * * MON
+
+jobs:
+  scrape:
+    name: Run Scrapers
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run scrapers
+        run: |
+          git clone https://github.com/ocaml/opam-repository.git
+          find opam-repository/packages -type f | grep "/opam" | sort | while read filename; do
+            echo "$filename $(git --no-pager log --format="%at" --reverse -- $filename | head -1)"
+          done > data/opam-repository-timestamps.txt
+          rm -rf opam-repository/
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: 'Update opam timestamps'

@@ -175,3 +175,11 @@ end
 module Page = struct
   include Page
 end
+
+module Opam_repository_timestamps = struct
+
+  module String_map = Map.Make (String)
+
+  let t =
+    Opam_repository_timestamps.t |> List.to_seq |> String_map.of_seq
+end

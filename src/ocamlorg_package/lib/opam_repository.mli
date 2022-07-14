@@ -30,3 +30,6 @@ val new_files_since : a:string -> b:string -> (Fpath.t * string) list Lwt.t
 (** Files created during a range of commit. Associate the date at which each
     file as been added, in Git's relative format. Returns more recent files
     first. *)
+
+val get_timestamp : string -> int Lwt.t
+(** Get the timestamp of the first commit of the given file path. *)

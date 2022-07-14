@@ -161,3 +161,11 @@
   (with-stdout-to
    %{targets}
    (run %{deps} page))))
+
+(rule
+ (deps ../../tool/ood-gen/bin/gen.exe)
+ (targets opam_repository_timestamps.ml)
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} opam-repository-timestamps))))

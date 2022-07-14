@@ -11,129 +11,76 @@ let dependencies =
     (Package.Name.of_string "merlin", Some "2.8");
   ]
 
+let empty_info =
+  {
+    Package.Info.synopsis = "";
+    description = "";
+    authors = [];
+    maintainers = [];
+    license = "";
+    homepage = [];
+    tags = [];
+    dependencies;
+    rev_deps = [];
+    depopts = [];
+    conflicts = [];
+    url = None;
+    publication = 0;
+  }
+
 let packages : Package.t list =
   [
     Package.create
       ~name:(Package.Name.of_string "0install")
       ~version:(Package.Version.of_string "2.1.0")
       {
-        Package.Info.synopsis = "Decentralised installation system";
-        description = "";
-        authors = [];
-        maintainers = [];
+        empty_info with
+        synopsis = "Decentralised installation system";
         license = "ISC";
-        homepage = [];
-        tags = [];
-        dependencies;
-        rev_deps = [];
-        depopts = [];
-        conflicts = [];
-        url = None;
       };
     Package.create
       ~name:(Package.Name.of_string "0install-gtk")
       ~version:(Package.Version.of_string "2.1.0")
       {
-        Package.Info.synopsis = "Decentralised installation system - GTK UI";
-        description = "";
-        authors = [];
-        maintainers = [];
+        empty_info with
+        synopsis = "Decentralised installation system - GTK UI";
         license = "ISC";
-        homepage = [];
-        tags = [];
-        dependencies;
-        rev_deps = [];
-        depopts = [];
-        conflicts = [];
-        url = None;
       };
     Package.create
       ~name:(Package.Name.of_string "abt")
       ~version:(Package.Version.of_string "2.1.0")
-      {
-        Package.Info.synopsis = "Package dependency solve";
-        description = "";
-        authors = [];
-        maintainers = [];
-        license = "ISC";
-        homepage = [];
-        tags = [];
-        dependencies;
-        rev_deps = [];
-        depopts = [];
-        conflicts = [];
-        url = None;
-      };
+      { empty_info with synopsis = "Package dependency solve"; license = "ISC" };
     Package.create
       ~name:(Package.Name.of_string "ocaml")
       ~version:(Package.Version.of_string "2.1.0")
       {
-        Package.Info.synopsis = "OCaml port of CMU's abstract binding trees";
-        description = "";
-        authors = [];
-        maintainers = [];
+        empty_info with
+        synopsis = "OCaml port of CMU's abstract binding trees";
         license = "ISC";
-        homepage = [];
-        tags = [];
-        dependencies = [];
-        rev_deps = [];
-        depopts = [];
-        conflicts = [];
-        url = None;
       };
     Package.create
       ~name:(Package.Name.of_string "merlin")
       ~version:(Package.Version.of_string "2.1.0")
       {
-        Package.Info.synopsis =
-          "Interactive theorem prover based on lambda-tree syntax";
-        description = "";
-        authors = [];
-        maintainers = [];
+        empty_info with
+        synopsis = "Interactive theorem prover based on lambda-tree syntax";
         license = "ISC";
-        homepage = [];
-        tags = [];
-        dependencies = [];
-        rev_deps = [];
-        depopts = [];
-        conflicts = [];
-        url = None;
       };
     Package.create
       ~name:(Package.Name.of_string "merlin")
       ~version:(Package.Version.of_string "3.5.0")
       {
-        Package.Info.synopsis =
-          "Interactive theorem prover based on lambda-tree syntax";
-        description = "";
-        authors = [];
-        maintainers = [];
+        empty_info with
+        synopsis = "Interactive theorem prover based on lambda-tree syntax";
         license = "ISC";
-        homepage = [];
-        tags = [];
-        dependencies = [];
-        rev_deps = [];
-        depopts = [];
-        conflicts = [];
-        url = None;
       };
     Package.create
       ~name:(Package.Name.of_string "merlin")
       ~version:(Package.Version.of_string "1.1.0")
       {
-        Package.Info.synopsis =
-          "Interactive theorem prover based on lambda-tree syntax";
-        description = "";
-        authors = [];
-        maintainers = [];
+        empty_info with
+        synopsis = "Interactive theorem prover based on lambda-tree syntax";
         license = "ISC";
-        homepage = [];
-        tags = [];
-        dependencies = [];
-        rev_deps = [];
-        depopts = [];
-        conflicts = [];
-        url = None;
       };
   ]
 
