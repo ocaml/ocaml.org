@@ -6,7 +6,7 @@ watch:
   embed_path: /videos/embed/e1ee0fc0-50ef-4a1c-894a-17df181424cb
   thumbnail_path: /static/thumbnails/94ead657-79a0-4c10-8435-9e13906a6c44.jpg
   published_at: 2021-08-27T13:23:10.199Z
-  updated_at: 2022-07-04T11:57:08.964Z
+  updated_at: 2022-07-14T07:27:09.466Z
   language: English
   category: Science & Technology
 - name: A Case for Multi-Switch Constraints in OPAM
@@ -133,7 +133,7 @@ watch:
   embed_path: /videos/embed/8f50211a-1210-4849-a940-ea6e0bd1e022
   thumbnail_path: /static/thumbnails/6850a57a-15c1-4f8c-8cdb-b0a818f0bcc4.jpg
   published_at: 2021-10-03T22:25:11.006Z
-  updated_at: 2022-04-14T13:01:00.075Z
+  updated_at: 2022-07-09T05:27:09.291Z
   language: English
   category: Misc
 - name: Automatic analysis of industrial robot programs
@@ -258,7 +258,7 @@ watch:
   embed_path: /videos/embed/74ece0a8-380f-4e2a-bef5-c6bb9092be89
   thumbnail_path: /static/thumbnails/d48bf7bb-8c46-4d49-a3a6-734bf339343b.jpg
   published_at: 2021-08-27T14:41:07.000Z
-  updated_at: 2022-07-05T03:57:09.004Z
+  updated_at: 2022-07-14T09:27:09.477Z
   language: English
   category: Science & Technology
 - name: Experiments in Generic Programming
@@ -486,7 +486,7 @@ watch:
   embed_path: /videos/embed/7446ad4d-4ae2-4e1a-bc38-af8f71e8ebd8
   thumbnail_path: /static/thumbnails/e1ac5b07-3648-40c1-b62c-5e88471741dc.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2022-02-12T03:01:00.263Z
+  updated_at: 2022-07-11T21:27:09.322Z
   language: Unknown
   category: Misc
 - name: 'OCaml and Python: Getting the Best of Both Worlds'
@@ -605,7 +605,7 @@ watch:
   embed_path: /videos/embed/f3829e4b-e2cd-443e-8502-f406e893fe5f
   thumbnail_path: /static/thumbnails/ad30ffbb-ea91-4afd-b186-bc0af61c1430.jpg
   published_at: 2022-03-15T10:47:05.608Z
-  updated_at: 2022-06-09T06:27:08.035Z
+  updated_at: 2022-07-07T10:57:09.141Z
   language: English
   category: Misc
 - name: 'Parafuzz: Coverage-guided Property Fuzzing for Multicore OCaml programs'
@@ -658,7 +658,7 @@ watch:
   embed_path: /videos/embed/bc297e85-82dd-4baf-8556-4a3a934978f9
   thumbnail_path: /static/thumbnails/9b4dc06e-1d07-45b8-a21a-1e4f39897fef.jpg
   published_at: 2021-08-27T11:08:12.000Z
-  updated_at: 2022-06-04T18:57:08.044Z
+  updated_at: 2022-07-08T20:57:09.162Z
   language: English
   category: Science & Technology
 - name: Programming the Xen cloud using OCaml
@@ -758,7 +758,7 @@ watch:
   embed_path: /videos/embed/0e2070fd-798b-47f7-8e69-ef75e967e516
   thumbnail_path: /static/thumbnails/4fd6a51f-686c-4f6f-8026-83692304b432.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2022-06-08T12:57:08.029Z
+  updated_at: 2022-07-12T10:27:09.363Z
   language: English
   category: Science & Technology
 - name: Study of OCaml programs' memory behaviour
@@ -934,7 +934,7 @@ watch:
   embed_path: /videos/embed/b967996a-3dab-415f-8e51-d8908361b2b2
   thumbnail_path: /static/thumbnails/d7e64359-41c9-47d5-8f6d-9953db6555b3.jpg
   published_at: 2021-10-08T23:45:42.515Z
-  updated_at: 2022-03-22T21:01:00.080Z
+  updated_at: 2022-07-12T12:27:09.363Z
   language: English
   category: Misc
 - name: Wibbily Wobbly Timey Camly
