@@ -146,7 +146,9 @@ let get_publication package =
   let path = Printf.sprintf "packages/%s/%s/opam" name name_with_version in
   match String_map.find_opt path Ood.Opam_repository_timestamps.t with
   | Some timestamp -> Lwt.return timestamp
-  | None -> Opam_repository.get_timestamp path
+  | None ->
+      (* Opam_repository.get_timestamp path *)
+      Lwt.return 0
 
 let make ~package ~packages ~rev_deps opam =
   let open Lwt.Syntax in
