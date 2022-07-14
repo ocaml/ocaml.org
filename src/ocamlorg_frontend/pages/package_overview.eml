@@ -62,6 +62,7 @@ Package_layout.render
             <br />
             <% ); %>
         </div>
+        <% (match package.tags with [] -> () | _ ->  %>
         <div class="mt-4">
             <div class="flex mt-5 flex-wrap">
                 <% package.tags |> List.iter (fun tag -> %>
@@ -71,6 +72,13 @@ Package_layout.render
                 </a>
                 <% ); %>
             </div>
+        </div>
+        <% ); %>
+        <div class="mt-8">
+            <dt class="font-semibold text-base text-body-400">Published</dt>
+            <dd class="mt-3 text-sm text-gray-900">
+              <%s Utils.human_date_of_timestamp package.publication %>
+            </dd>
         </div>
         <!-- TODO(tmattio): Uncomment to handle license and changelog -->
         <!-- <div class="flex flex-col mt-9 space-y-4 text-body-400">
