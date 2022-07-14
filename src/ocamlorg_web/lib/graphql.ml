@@ -105,7 +105,7 @@ let info =
           field "constraints" ~doc:"Dependency constraints"
             ~args:Arg.[]
             ~typ:string
-            ~resolve:(fun _ i -> i.constraints);
+            ~resolve:(fun _ (i : package_info) -> i.constraints);
         ]))
 
 let owners =
@@ -204,7 +204,16 @@ let package =
             ~resolve:(fun _ p ->
               let info = Package.info p in
               get_info info.Package.Info.dependencies);
-          field "depopts" ~doc:"The depopts of the package"
+          field "reverseDependencies" ~doc:"The dependencies of the package"
+            ~args:Arg.[]
+            ~typ:(non_null (list (non_null info)))
+            ~resolve:(fun _ p ->
+              let info = Package.info p in
+              info.Package.Info.rev_deps
+              |> List.map (fun (name, cstr, _version) -> (name, cstr))
+              |> get_info);
+          field "optionalDependencies"
+            ~doc:"The optional dependencies of the package"
             ~args:Arg.[]
             ~typ:(non_null (list (non_null info)))
             ~resolve:(fun _ p ->
@@ -222,6 +231,13 @@ let package =
             ~resolve:(fun _ p ->
               let info = Package.info p in
               info.Package.Info.url);
+          field "publication"
+            ~doc:"The timestamp of the publication date of the package"
+            ~args:Arg.[]
+            ~typ:(non_null int)
+            ~resolve:(fun _ p ->
+              let info = Package.info p in
+              info.Package.Info.publication);
         ]))
 
 let packages_result =
