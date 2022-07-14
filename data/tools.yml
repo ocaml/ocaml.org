@@ -54,14 +54,6 @@ tools:
       OCaml-LSP is a language server for OCaml that implements Language Server Protocol (LSP).
     lifecycle: active
 
-  - name: Bun
-    source: https://github.com/yomimono/ocaml-bun
-    license: MIT
-    synopsis: Simple management of afl-fuzz processes
-    description: >
-      A wrapper for OCaml processes using afl-fuzz, intended for easy use in CI environments.
-    lifecycle: incubate
-
   - name: Opam
     source: https://github.com/ocaml/opam
     license: LGPLv2
@@ -101,23 +93,6 @@ tools:
       Merlin is an assistant for editing OCaml code. It aims to provide the features available in modern IDEs: error reporting, auto completion, source browsing and much more.
     lifecycle: active
 
-  - name: Ppxlib
-    source: https://github.com/ocaml-ppx/ppxlib
-    license: MIT
-    synopsis: Standard library for PPX rewriters
-    description: >
-      Ppxlib is the standard library for ppx rewriters and other programs
-      that manipulate the in-memory reprensation of OCaml programs, a.k.a
-      the "Parsetree".
-
-      It also comes bundled with two PPX rewriters that are commonly used to
-      write tools that manipulate and/or generate Parsetree values;
-      `ppxlib.metaquot` which allows to construct Parsetree values using the
-      OCaml syntax directly and `ppxlib.traverse` which provides various
-      ways of automatically traversing values of a given type, in particular
-      allowing to inject a complex structured value into generated code.
-    lifecycle: active
-
   - name: opam-publish
     source: https://github.com/ocaml-opam/opam-publish
     license: LGPLv2
@@ -126,7 +101,7 @@ tools:
       `opam-publish` automates publishing packages to package repositories: it checks that the
       Opam file is complete using `opam lint`, verifies and adds the archive URL and its
       checksum and files a GitHub pull request for merging it.
-    lifecycle: active
+    lifecycle: sustain
 
   - name: Utop
     source: https://github.com/ocaml-community/utop
@@ -138,18 +113,6 @@ tools:
       edition, history, real-time and context sensitive completion, colors,
       and more. It integrates with the Tuareg mode in Emacs.
     lifecycle: active
-
-  - name: Omp
-    source: https://github.com/ocaml-ppx/ocaml-migrate-parsetree
-    license: LGPLv2
-    synopsis: Convert OCaml parsetrees between different versions
-    description: >
-      Convert OCaml parsetrees between different versions
-
-      This library converts parsetrees, outcometree and ast mappers between
-      different OCaml versions. High-level functions help making PPX
-      rewriters independent of a compiler version.
-    lifecycle: deprecate
 
   - name: OCamlbuild
     source: https://github.com/ocaml/ocamlbuild
@@ -204,19 +167,4 @@ tools:
       It also features a do-it-yourself command line invocation and an internal configure/install scheme. Libraries are managed through findlib. It has been tested on GNU Linux and Windows.
 
       It also allows to have standard entry points and description. It helps to integrates your libraries and software with third parties tools like OPAM.
-    lifecycle: deprecate
-
-  - name: Camlp4
-    source: https://github.com/camlp4/camlp4
-    license: LGPLv2
-    synopsis: Camlp4 is a system for writing extensible parsers for programming languages
-    description: >
-      It provides a set of OCaml libraries that are used to define grammars as well
-      as loadable syntax extensions of such grammars. Camlp4 stands for Caml
-      Preprocessor and Pretty-Printer and one of its most important applications is
-      the definition of domain-specific extensions of the syntax of OCaml.
-
-      Camlp4 was part of the official OCaml distribution until its version 4.01.0.
-      Since then it has been replaced by a simpler system which is easier to maintain
-      and to learn: ppx rewriters and extension points.
     lifecycle: deprecate
