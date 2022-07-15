@@ -8,7 +8,7 @@ type package = {
   rev_deps : string list;
   authors : Ood.Opam_user.t list;
   maintainers : Ood.Opam_user.t list;
-  publication : int
+  publication : float;
 }
 
 type packages_stats = {

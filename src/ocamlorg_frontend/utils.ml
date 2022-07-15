@@ -28,5 +28,5 @@ let current_date =
 
 let human_date_of_timestamp t =
   let open Timedesc in
-  let ts = Timestamp.of_float_s (float_of_int t) in
+  let ts = Timestamp.of_float_s t in
   Format.asprintf "%a" (Timestamp.pp ~format:"{day:0X} {mon:Xxx} {year}" ()) ts

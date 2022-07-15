@@ -25,7 +25,7 @@ let empty_info =
     depopts = [];
     conflicts = [];
     url = None;
-    publication = 0;
+    publication = 0.;
   }
 
 let packages : Package.t list =

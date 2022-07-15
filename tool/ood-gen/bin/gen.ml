@@ -22,7 +22,6 @@ let term_templates =
     ("opam_user", Ood_gen.Opam_user.template);
     ("workflows", Ood_gen.Workflow.template);
     ("pages", Ood_gen.Page.template);
-    ("opam-repository-timestamps", Ood_gen.Opam_repository_timestamps.template);
   ]
 
 let cmds =

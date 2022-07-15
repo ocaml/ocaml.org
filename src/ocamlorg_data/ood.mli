@@ -372,7 +372,3 @@ module Page : sig
   val privacy_policy : t
   val governance : t
 end
-
-module Opam_repository_timestamps : sig
-  val t : int Map.Make(String).t
-end

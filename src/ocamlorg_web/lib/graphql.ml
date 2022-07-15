@@ -234,7 +234,7 @@ let package =
           field "publication"
             ~doc:"The timestamp of the publication date of the package"
             ~args:Arg.[]
-            ~typ:(non_null int)
+            ~typ:(non_null float)
             ~resolve:(fun _ p ->
               let info = Package.info p in
               info.Package.Info.publication);

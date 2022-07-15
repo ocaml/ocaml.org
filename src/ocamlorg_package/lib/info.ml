@@ -17,7 +17,7 @@ type t = {
   depopts : (OpamPackage.Name.t * string option) list;
   conflicts : (OpamPackage.Name.t * string option) list;
   url : url option;
-  publication : int;
+  publication : float;
 }
 
 let relop_to_string = OpamPrinter.FullPos.relop_kind
@@ -138,22 +138,10 @@ let mk_revdeps pkg pkgs rdepends =
     []
   |> Lwt.map List.rev
 
-module String_map = Map.Make (String)
-
-let get_publication package =
-  let name = OpamPackage.name_to_string package in
-  let name_with_version = OpamPackage.to_string package in
-  let path = Printf.sprintf "packages/%s/%s/opam" name name_with_version in
-  match String_map.find_opt path Ood.Opam_repository_timestamps.t with
-  | Some timestamp -> Lwt.return timestamp
-  | None ->
-      (* Opam_repository.get_timestamp path *)
-      Lwt.return 0
-
-let make ~package ~packages ~rev_deps opam =
+let make ~package ~packages ~rev_deps ~timestamps opam =
   let open Lwt.Syntax in
-  let* rev_deps = mk_revdeps package packages rev_deps in
-  let+ publication = get_publication package in
+  let+ rev_deps = mk_revdeps package packages rev_deps in
+  let publication = OpamPackage.Map.find package timestamps in
   let open OpamFile.OPAM in
   {
     synopsis = synopsis opam |> Option.value ~default:"No synopsis";
@@ -211,6 +199,8 @@ let of_opamfiles
   let dependencies = get_dependency_set packages opams in
   Logs.info (fun f -> f "Reverse dependencies...");
   let* rev_deps = rev_depends dependencies in
+  Logs.info (fun f -> f "Publication dates...");
+  let* timestamps = Opam_repository.get_package_to_timestamp () in
   Logs.info (fun f -> f "Generate package info");
   Lwt_fold.package_name_map
     (fun name vmap acc ->
@@ -218,7 +208,7 @@ let of_opamfiles
         Lwt_fold.package_version_map
           (fun version opam acc ->
             let package = OpamPackage.create name version in
-            let+ t = make ~rev_deps ~packages ~package opam in
+            let+ t = make ~rev_deps ~packages ~package ~timestamps opam in
             OpamPackage.Version.Map.add version t acc)
           vmap OpamPackage.Version.Map.empty
       in
