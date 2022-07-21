@@ -6,7 +6,7 @@ watch:
   embed_path: /videos/embed/e1ee0fc0-50ef-4a1c-894a-17df181424cb
   thumbnail_path: /static/thumbnails/94ead657-79a0-4c10-8435-9e13906a6c44.jpg
   published_at: 2021-08-27T13:23:10.199Z
-  updated_at: 2022-07-13T10:27:09.411Z
+  updated_at: 2022-07-19T16:27:10.155Z
   language: English
   category: Science & Technology
 - name: A Case for Multi-Switch Constraints in OPAM
@@ -28,7 +28,7 @@ watch:
   embed_path: /videos/embed/a5b86864-8e43-4138-b6d6-ed48d2d4b63d
   thumbnail_path: /static/thumbnails/92c0a0e3-5326-42aa-86a3-6adb3927e111.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2022-05-01T19:01:00.090Z
+  updated_at: 2022-07-19T15:27:09.780Z
   language: Unknown
   category: Misc
 - name: A Multiverse of Glorious Documentation
@@ -101,7 +101,7 @@ watch:
   embed_path: /videos/embed/629b89a8-bbd5-490d-98b0-d0c740912b02
   thumbnail_path: /static/thumbnails/41212c84-36d6-44fa-b884-2ced79505929.jpg
   published_at: 2021-08-27T10:18:38.000Z
-  updated_at: 2022-06-28T12:27:08.903Z
+  updated_at: 2022-07-19T10:57:09.771Z
   language: English
   category: Science & Technology
 - name: An LLVM backend for OCaml
@@ -258,7 +258,7 @@ watch:
   embed_path: /videos/embed/74ece0a8-380f-4e2a-bef5-c6bb9092be89
   thumbnail_path: /static/thumbnails/d48bf7bb-8c46-4d49-a3a6-734bf339343b.jpg
   published_at: 2021-08-27T14:41:07.000Z
-  updated_at: 2022-07-12T01:27:09.341Z
+  updated_at: 2022-07-15T20:57:09.571Z
   language: English
   category: Science & Technology
 - name: Experiments in Generic Programming
@@ -424,7 +424,7 @@ watch:
   embed_path: /videos/embed/cc7e3242-0bef-448a-aa13-8827bba933e3
   thumbnail_path: /static/thumbnails/1d43d8b4-87d1-4398-b925-10a42460b8dc.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2022-05-19T10:57:07.374Z
+  updated_at: 2022-07-19T16:57:09.779Z
   language: Unknown
   category: Science & Technology
 - name: LibreS3 - design, challenges, and steps toward reusable libraries
@@ -629,7 +629,7 @@ watch:
   embed_path: /videos/embed/ce20839e-4bfc-4d74-925b-485a6b052ddf
   thumbnail_path: /static/thumbnails/30bc6019-ecab-40e5-a7b6-c294ac9a7344.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2022-06-28T12:27:08.775Z
+  updated_at: 2022-07-16T19:57:09.609Z
   language: Unknown
   category: Misc
 - name: Persistent Networking with Irmin and MirageOS
@@ -919,7 +919,7 @@ watch:
   embed_path: /videos/embed/99b3dc75-9f93-4677-9f8b-076546725512
   thumbnail_path: /static/thumbnails/acd50ed1-43cf-45fd-a55e-9c40a6bf58ba.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2022-05-01T07:01:00.302Z
+  updated_at: 2022-07-16T19:27:09.604Z
   language: Unknown
   category: Misc
 - name: Using Preferences to Tame your Package Manager
