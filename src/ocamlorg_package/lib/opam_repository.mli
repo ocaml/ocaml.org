@@ -31,5 +31,5 @@ val new_files_since : a:string -> b:string -> (Fpath.t * string) list Lwt.t
     file as been added, in Git's relative format. Returns more recent files
     first. *)
 
-val get_package_to_timestamp : unit -> float OpamPackage.Map.t Lwt.t
-(** Get the timestamp of the first commit of the given file path. *)
+val create_package_to_timestamp : unit -> float OpamPackage.Map.t Lwt.t
+(** Creates a map of package to timestamp, where the timestamp is the first commit of the package's opam file. *)

@@ -158,7 +158,7 @@ let parse_git_commit_times =
   in
   read_time OpamPackage.Map.empty
 
-let get_package_to_timestamp () =
+let create_package_to_timestamp () =
   let open Lwt.Syntax in
   let+ output =
     Process.pread_lines

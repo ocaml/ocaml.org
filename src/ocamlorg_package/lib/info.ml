@@ -200,7 +200,7 @@ let of_opamfiles
   Logs.info (fun f -> f "Reverse dependencies...");
   let* rev_deps = rev_depends dependencies in
   Logs.info (fun f -> f "Publication dates...");
-  let* timestamps = Opam_repository.get_package_to_timestamp () in
+  let* timestamps = Opam_repository.create_package_to_timestamp () in
   Logs.info (fun f -> f "Generate package info");
   Lwt_fold.package_name_map
     (fun name vmap acc ->
