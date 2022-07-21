@@ -90,7 +90,6 @@ Layout.render
               inextricably linked to camels.
             </i>
           </p>
-          <h3>OCaml</h3>
           <p>
             OCaml mixes power and pragmatism in a way that makes it ideal for building complex software systems. What
             makes OCaml special is that it occupies a sweet spot in programming language design. Computer programming 
@@ -131,36 +130,6 @@ Layout.render
             <li>
               <strong>Algebraic data types</strong> and <strong>pattern matching</strong> to define and manipulate
               complex data structures, available in Scala and F#.
-            </li>
-          </ul>
-           <h3>Strengths</h3>
-          <ul>
-            <li>
-              <strong>A Strong Community</strong>: OCaml has a large and passionate community. It is made up of people
-              from diverse backgrounds who work continuously to improve and diversify OCaml. With many capable eyes on
-              the language, problems are quickly discovered and eliminated, and OCaml itself is pushed by many hands
-              towards becoming more powerful.
-            </li>
-            <li>
-              <strong>An Academic Foundation</strong>: OCaml was created in an academic setting and continues to be
-              taught and studied in universities across the world to this day. As academics use OCaml for their
-              research, they invest a lot of time and resources and make critical improvements to the language.
-            </li>
-            <li>
-              <strong>High Levels of Safety</strong>: OCaml is a safe language, as programs are verified by the compiler
-              before they can be executed. This prevents many programming errors, like confusing an integer with a
-              pointer or accessing a non-existent field in a record. OCaml’s static type system also helps eliminate a
-              lot of the runtime issues associated with dynamically-typed languages, and coupled with the type-inferring
-              compiler, the need for manual type annotations is also greatly reduced. This makes the developer
-              experience much more pleasant, as it reduces the need for developer intervention and repetitive tasks.
-            </li>
-            <li>
-              <strong>Automatic Memory Management</strong>: OCaml’s fast, unobtrusive, incremental garbage collector
-              eliminates the need to explicitly allocate and free memory manually. Allocation and deallocation of data
-              structures is implicit and handled by the compiler. There is no ‘new’, ‘malloc’, ‘delete’, or ‘free’
-              operator. This makes programs much safer, as memory corruption cannot occur. Moreover, the incremental
-              memory manager runs in parallel with the application so that garbage collection doesn’t cause noticeable
-              delays.
             </li>
           </ul>
           
@@ -260,32 +229,6 @@ Layout.render
           </p>
           <h2 id="features">Additional Features</h2>
           <ul>
-                      <li>
-              <strong>First-class functions</strong> that can be passed around like ordinary values, as seen in
-              JavaScript, Common Lisp, and C#.
-            </li>
-            <li>
-              <strong>Static type-checking</strong> to increase performance and reduce the number of runtime errors, as
-              found in Java and C#.
-            </li>
-            <li>
-              <strong>Parametric polymorphism</strong>, which enables the construction of abstractions that work across
-              different data types, similar to generics in Java and C# and templates in C++.
-            </li>
-            <li>
-              <strong>Good support for immutable programming</strong>, i.e., programming without making destructive
-              updates to data structures. This is present in traditional functional languages like Scheme, and it's also
-              found in distributed, big-data frameworks like Hadoop.
-            </li>
-            <li>
-              <strong>Type inference</strong>, so you don’t need to annotate every single variable in your program with
-              its type. Instead, types are inferred based on how a value is used. Available in a limited form in C# with
-              implicitly typed local variables, and in C++11 with its auto keyword.
-            </li>
-            <li>
-              <strong>Algebraic data types and pattern matching</strong> to define and manipulate complex data
-              structures, available in Scala and F#.
-            </li>
             <li>
               <strong>Separate compilation of standalone applications:</strong>
               Portable bytecode compilers make it possible to create stand-alone applications out of OCaml programs. For
