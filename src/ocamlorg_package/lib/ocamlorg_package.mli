@@ -43,6 +43,7 @@ module Info : sig
     depopts : (Name.t * string option) list;
     conflicts : (Name.t * string option) list;
     url : url option;
+    publication : float;
   }
 end
 

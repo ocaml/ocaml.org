@@ -42,13 +42,16 @@
    (>= 1.0.0~alpha3))
   dream-accept
   dream-encoding
+  (graphql
+   (>= 0.14.0))
   fpath
   fmt
   logs
   (omd
    (= "2.0.0~alpha2"))
   opam-format
-  timedesc
+  (timedesc
+   (>= 0.8.0))
   yojson
   lwt
   brr
@@ -81,7 +84,8 @@
   digestif
   ppx_deriving_yojson
   yojson
-  timedesc
+  (timedesc
+   (>= 0.8.0))
   ; tools/ood-gen
   piaf
   ppx_deriving_yaml

@@ -25,3 +25,8 @@ let current_date =
   let tm = localtime (Unix.gettimeofday ()) in
   Format.asprintf "%04d-%02d-%02d" (tm.tm_year + 1900) (tm.tm_mon + 1)
     tm.tm_mday
+
+let human_date_of_timestamp t =
+  let open Timedesc in
+  let ts = Timestamp.of_float_s t in
+  Format.asprintf "%a" (Timestamp.pp ~format:"{day:0X} {mon:Xxx} {year}" ()) ts

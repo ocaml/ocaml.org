@@ -30,3 +30,6 @@ val new_files_since : a:string -> b:string -> (Fpath.t * string) list Lwt.t
 (** Files created during a range of commit. Associate the date at which each
     file as been added, in Git's relative format. Returns more recent files
     first. *)
+
+val create_package_to_timestamp : unit -> float OpamPackage.Map.t Lwt.t
+(** Creates a map of package to timestamp, where the timestamp is the first commit of the package's opam file. *)

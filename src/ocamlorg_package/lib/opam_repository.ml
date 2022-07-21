@@ -133,3 +133,46 @@ let new_files_since ~a ~b =
          a ^ ".." ^ b;
        ])
   |> Lwt.map parse_commits
+
+(* Borrowed from
+   https://github.com/ocaml-opam/opam2web/blob/ad2ddb01865c891949f3560b653247bdbb2a0f75/src/o2wUniverse.ml#L25 *)
+let parse_git_commit_times =
+  let any_opam_path = "*/opam" in
+  let rec read_time found = function
+    | [] -> found
+    | ln :: rest -> read_file found (float_of_string ln) rest
+  and read_file found time = function
+    | [] -> found
+    | "" :: rest -> read_time found rest
+    | path :: rest ->
+        let suff = String.length any_opam_path - 1 in
+        let path = String.(sub path 0 (length path - suff)) in
+        let slash = try String.rindex path '/' + 1 with Not_found -> 0 in
+        let pkg = String.(sub path slash (length path - slash)) in
+        let found =
+          match OpamPackage.of_string_opt pkg with
+          | Some pkg -> OpamPackage.Map.add pkg time found
+          | None -> found
+        in
+        read_file found time rest
+  in
+  read_time OpamPackage.Map.empty
+
+let create_package_to_timestamp () =
+  let open Lwt.Syntax in
+  let+ output =
+    Process.pread_lines
+      (git_cmd
+         [
+           "log";
+           "--name-only";
+           "--diff-filter=ACR";
+           "--reverse";
+           "--pretty=format:%ct";
+           "-m";
+           "--first-parent";
+           "--";
+           "*/opam";
+         ])
+  in
+  parse_git_commit_times output

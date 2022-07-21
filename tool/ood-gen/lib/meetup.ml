@@ -10,8 +10,6 @@ type t = {
 
 type metadata = t
 
-let path = Fpath.v "data/meetup.yml"
-
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
   match yaml with

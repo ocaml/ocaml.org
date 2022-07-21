@@ -294,6 +294,7 @@ let package_of_info ~name ~version ~versions info =
       authors = info.authors;
       maintainers = info.maintainers;
       license = info.license;
+      publication = info.publication;
     }
 
 (** Query all the versions of a package. *)

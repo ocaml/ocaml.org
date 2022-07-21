@@ -96,7 +96,7 @@ let package_versions_result name from upto t =
 
 let info =
   Graphql_lwt.Schema.(
-    obj "info" ~fields:(fun _ ->
+    obj "info" ~fields:(
         [
           field "name" ~doc:"Unique dependency name"
             ~args:Arg.[]
@@ -105,12 +105,12 @@ let info =
           field "constraints" ~doc:"Dependency constraints"
             ~args:Arg.[]
             ~typ:string
-            ~resolve:(fun _ i -> i.constraints);
+            ~resolve:(fun _ (i : package_info) -> i.constraints);
         ]))
 
 let owners =
   Graphql_lwt.Schema.(
-    obj "owners" ~fields:(fun _ ->
+    obj "owners" ~fields:(
         [
           field "name" ~doc:"Owner's name"
             ~args:Arg.[]
@@ -132,7 +132,7 @@ let owners =
 
 let url =
   Graphql_lwt.Schema.(
-    obj "url" ~fields:(fun _ ->
+    obj "url" ~fields:(
         [
           field "uri" ~doc:"Package URI"
             ~args:Arg.[]
@@ -146,7 +146,7 @@ let url =
 
 let package =
   Graphql_lwt.Schema.(
-    obj "package" ~fields:(fun _ ->
+    obj "package" ~fields:(
         [
           field "name" ~doc:"Unique package name"
             ~args:Arg.[]
@@ -204,7 +204,16 @@ let package =
             ~resolve:(fun _ p ->
               let info = Package.info p in
               get_info info.Package.Info.dependencies);
-          field "depopts" ~doc:"The depopts of the package"
+          field "reverseDependencies" ~doc:"The dependencies of the package"
+            ~args:Arg.[]
+            ~typ:(non_null (list (non_null info)))
+            ~resolve:(fun _ p ->
+              let info = Package.info p in
+              info.Package.Info.rev_deps
+              |> List.map (fun (name, cstr, _version) -> (name, cstr))
+              |> get_info);
+          field "optionalDependencies"
+            ~doc:"The optional dependencies of the package"
             ~args:Arg.[]
             ~typ:(non_null (list (non_null info)))
             ~resolve:(fun _ p ->
@@ -222,11 +231,18 @@ let package =
             ~resolve:(fun _ p ->
               let info = Package.info p in
               info.Package.Info.url);
+          field "publication"
+            ~doc:"The timestamp of the publication date of the package"
+            ~args:Arg.[]
+            ~typ:(non_null float)
+            ~resolve:(fun _ p ->
+              let info = Package.info p in
+              info.Package.Info.publication);
         ]))
 
 let packages_result =
   Graphql_lwt.Schema.(
-    obj "allPackages" ~fields:(fun _ ->
+    obj "allPackages" ~fields:(
         [
           field "totalPackages" ~doc:"total number of packages"
             ~args:Arg.[]
@@ -258,7 +274,7 @@ let schema t : Dream.request Graphql_lwt.Schema.schema =
                   ~doc:
                     "Specifies at what index packages can start, set to 0 by \
                      default which means start from the first package"
-                  "offset" ~typ:int ~default:0;
+                  "offset" ~typ:int ~default:(`Int 0);
                 arg
                   ~doc:
                     "Specifies the limit which means the number of packages \

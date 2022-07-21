@@ -1,7 +1,7 @@
 let human_date_of_timestamp ts = 
   let span = Timedesc.Span.make ~s:(Int64.of_float ts) () in
   let td = Option.get (Timedesc.of_timestamp ~tz_of_date_time:Timedesc.Time_zone.utc span) in
-  Option.get (Timedesc.to_iso8601 td)
+  Timedesc.to_iso8601 td
 
 let render
   ~prefix
