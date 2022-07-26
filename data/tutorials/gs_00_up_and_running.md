@@ -46,7 +46,7 @@ To install opam, you can [use your system package manager](https://opam.ocaml.or
 
 **For macOS**
 
-``` shell
+```shell
 # With Homebrew:
 brew install opam
 
@@ -56,7 +56,7 @@ port install opam
 
 **For Linux**
 
-``` shell
+```shell
 # Ubuntu
 add-apt-repository ppa:avsm/ppa
 apt update
@@ -71,7 +71,7 @@ apt-get install opam
 
 **Binary distribution**
 
-``` shell
+```shell
 bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"
 ```
 
@@ -92,7 +92,7 @@ The second command (`eval $(opam env)`) modifies a few environments variables to
 
 In case you are not satisfied with the OCaml version of your system switch, you can write the following commands to create a new switch with a recent version of OCaml:
 
-``` shell
+```shell
 opam switch create 4.14.0
 eval $(opam env)
 ```
@@ -127,7 +127,7 @@ We will now install everything we need to get a complete development environment
 
 All these tools can be installed in your current switch (remember that opam groups installed packages in independent switches) using the following command:
 
-``` shell
+```shell
 opam install dune merlin ocaml-lsp-server odoc ocamlformat utop dune-release
 ```
 
