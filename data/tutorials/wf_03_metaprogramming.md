@@ -19,7 +19,7 @@ To start with an example, taking inspiration from the syntax from the C
 preprocessor, we could write something like that:
 
 
-``` ocaml
+```ocaml
 let compiler_system = #SYSTEM
 
 let f =
@@ -81,7 +81,7 @@ to drive the preprocessing). Consider the following simple preprocessor which
 replaces the string "World" by the string "Universe", here in the form of a
 shell script:
 
-``` shell
+```shell
 $ cat preprocessor.sh
 #!/bin/sh
 
@@ -91,7 +91,7 @@ sed 's/World/Universe/g' $1
 Compiling a classic "Hello, World!" program with this option
 would alter the compilation:
 
-``` shell
+```shell
 $ cat hello.ml
 print_endline "Hello, World!";;
 
@@ -114,7 +114,7 @@ call to an external program, as specified by `(system <program>)`.
 Putting all together, the following `dune` file would make the corresponding
 module files be rewritten using our previously written `preprocessor.sh`:
 
-``` dune
+```dune
 (executable
  (name main)
  (preprocess
@@ -299,7 +299,7 @@ such as expressions and patterns, and `%%` is for "toplevel nodes" such as
 structure/signature items, or class fields, see the [formal
 syntax](https://v2.ocaml.org/manual/extensionnodes.html).
 
-``` ocaml
+```ocaml
 let v = [%html "<a href='ocaml.org'>OCaml!</a>"]
 ```
 
