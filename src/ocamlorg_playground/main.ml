@@ -8,9 +8,6 @@ module Worker = Brr_webworkers.Worker
 module Toplevel_api = Js_top_worker_rpc.Toplevel_api_gen
 module Toprpc = Js_top_worker_client.W
 
-let line_to_positions doc n =
-  let line = Text.line n doc in
-  (Text.Line.from line, Text.Line.to_ line)
 
 let timeout_container () =
   let open Brr in
@@ -41,77 +38,9 @@ let or_raise = function
 let with_rpc f v = Lwt.bind rpc (fun r -> Lwt.map or_raise @@ f r v)
 let async_raise f = Lwt.async (fun () -> Lwt.map or_raise @@ f ())
 
-(* ~~~ Linting ~~~ *)
-let linter =
-  let f view =
-    let doc = Editor.View.state view |> Editor.State.doc in
-    let lines =
-      Text.to_jstr_array doc |> Array.to_list |> List.map Jstr.to_string
-    in
-    let max_length, cumulative =
-      List.fold_left_map
-        (fun acc a ->
-          let i = acc + String.length a in
-          (i + 1, i + 1)) (* Plus one for the newlines *)
-        0 lines
-    in
-    let result, set_result = Fut.create () in
-    let get_line idx i =
-      let line = idx - i in
-      if line <= 0 then 0 else List.nth cumulative line
-    in
-    let run () =
-      let s = String.concat "\n" lines ^ ";;" in
-      let* o = with_rpc Toprpc.typecheck s in
-      let errs =
-        match (o.stderr, o.highlight) with
-        | Some msg, Some { line1; line2; col1; col2 } ->
-            let from = get_line line1 2 + col1 in
-            let to_ = get_line line2 2 + col2 in
-            let to_ = if to_ >= max_length then from else to_ in
-            [ ((from, to_), msg) ]
-        | _ -> []
-      in
-      let diagnostic ~from ~to_ message =
-        Lint.Diagnostic.create ~source:"toplevel" ~from ~to_ ~severity:Error
-          ~message ()
-      in
-      let results =
-        List.map (fun ((from, to_), msg) -> diagnostic ~from ~to_ msg) errs
-        |> Array.of_list
-      in
-      Lwt_result.return @@ set_result results
-    in
-    async_raise run;
-    result
-  in
-  Lint.create f
-
-(* ~~~ Autocompletion ~~~ *)
-let complete : Autocomplete.Source.t =
-  Autocomplete.Source.create @@ fun (ctx : Autocomplete.Context.t) ->
-  let open Autocomplete in
-  let result, set_result = Fut.create () in
-  let rword = RegExp.create ".*" in
-  match Autocomplete.Context.match_before ctx rword with
-  | Some jv ->
-      let run () =
-        let from = Jv.Int.get jv "from" in
-        let text = Jv.Jstr.get jv "text" |> Jstr.to_string in
-        let* c = with_rpc Toprpc.complete text in
-        let options =
-          List.map (fun label -> Completion.create ~label ()) c.completions
-        in
-        let r = Result.create ~from:(from + c.n) ~options () in
-        Lwt.return (Ok (set_result (Some r)))
-      in
-      async_raise run;
-      result
-  | _ -> result
-
-let autocomplete =
-  let config = Autocomplete.config ~override:[ complete ] () in
-  Autocomplete.create ~config ()
+module Merlin = Merlin_codemirror.Make (struct
+  let worker_url = "/js/merlin_worker.bc.js"
+end)
 
 (* Need to port lesser-dark and custom theme to CM6, until then just using the
    one dark theme. *)
@@ -119,12 +48,10 @@ let dark_theme_ext =
   let dark = Jv.get Jv.global "__CM__dark" in
   Extension.of_jv @@ Jv.get dark "oneDark"
 
-let ml_like = Jv.get Jv.global "__CM__mllike" |> Stream.Language.of_jv
-
-let set_classes el cl =
+let _set_classes el cl =
   List.iter (fun v -> El.set_class v true el) (List.map Jstr.v cl)
 
-let set_inner_html el html =
+let _set_inner_html el html =
   let jv = El.to_jv el in
   Jv.set jv "innerHTML" (Jv.of_string html)
 
@@ -135,7 +62,7 @@ let get_el_by_id s =
       Console.warn [ Jstr.v "Failed to get elemented by id" ];
       invalid_arg s
 
-let red el = El.set_inline_style (Jstr.v "color") (Jstr.v "red") el
+let _red el = El.set_inline_style (Jstr.v "color") (Jstr.v "red") el
 let cyan el = El.set_inline_style (Jstr.v "color") (Jstr.v "cyan") el
 
 let handle_output (o : Toplevel_api.exec_result) =
@@ -175,12 +102,17 @@ let setup () =
     Result.value ~default:Example.adts (Codec.from_window ())
   in
   let _state, view =
-    let ml = Stream.Language.define ml_like in
     Edit.init ~doc:(Jstr.v initial_code)
       ~exts:
-        [|
-          dark_theme_ext; ml; autocomplete; linter; Editor.View.line_wrapping ();
-        |]
+        (Array.concat
+           [
+             [|
+               dark_theme_ext;
+               Editor.View.line_wrapping ();
+               Merlin_codemirror.ocaml;
+             |];
+             Merlin.all_extensions;
+           ])
       ()
   in
   let share = get_el_by_id "share" in

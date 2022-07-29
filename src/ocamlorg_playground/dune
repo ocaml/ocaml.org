@@ -6,6 +6,12 @@
  (modules worker)
  (libraries js_top_worker))
 
+(executable
+ (name merlin_worker)
+ (modes js)
+ (modules merlin_worker)
+ (libraries merlin-js.worker))
+
 (rule
  (targets worker.js)
  (action
@@ -25,10 +31,11 @@
  (name main)
  (modes js)
  (modules
-  (:standard \ worker))
+  (:standard \ worker merlin_worker))
  (libraries
   brr
   js_of_ocaml
+  merlin-js.code-mirror
   code-mirror
   code-mirror.lint
   code-mirror.autocomplete
