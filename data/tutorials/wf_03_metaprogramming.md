@@ -51,7 +51,7 @@ acronym for Pre-Processor eXtension.
 While both types of preprocessing have their use cases, in OCaml it is
 recommended to use PPXs whenever possible for several reasons:
 - They integrate very nicely with Merlin and Dune, and they won't interfere
-  with features such as error reporting in editor and jump to definition.
+  with features such as error reporting in an editor and Merlin's "jump to definition."
 - They are fast and compose well.
 - They are especially [adapted to
   OCaml](#why-are-ppxes-especially-useful-in-ocaml).
