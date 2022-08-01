@@ -1,59 +1,67 @@
 ---
 id: metaprogramming
 title: Preprocessors and PPXes
-description: >
-  An introduction to metaprogramming in OCaml, including preprocessors, ppx extensions and the ppxlib library.
+description: |
+  An introduction to metaprogramming in OCaml, including preprocessors, ppx
+  extensions and the ppxlib library.
 category: "guides"
 date: 2022-07-25T21:07:30-00:00
 ---
 
 
-# Preprocessors and PPXes
+# Preprocessors
 
 Preprocessors are programs meant to be called at compile-time, so that they
 alter the program's source code before the actual compilation. They can be very
 useful for several things, such as the inclusion of a file, conditional
-compilation, or use of macros.
+compilation, or use of macros; but also in OCaml to generate a function from a
+type definition.
 
-To start with an example, taking inspiration from the syntax from the C
-preprocessor, we could write something like that:
+To start with an example, here is how the following source code would be altered
+by [this
+preprocessor](https://github.com/ocaml-ppx/ppxlib/tree/main/examples/simple-extension-rewriter):
 
 
 ```ocaml
-let compiler_system = #SYSTEM
-
-let f =
-#if STDLIB > 2
-  Stdlib.new_function
-#else
-  Stdlib.old_function
-#endif
+Printf.printf "This program has been compiled on %s" [%get_env "OSTYPE"]
 ```
 
-A preprocessor could, at compile time, replace the `#SYSTEM` macro by a string
-with the information of the system on which it has been compiled, and only
-include the line using the right function, which depends on the current version
-of the `Stdlib`.
+would become:
 
-In OCaml, there are many preprocessors that are written by the community. OCaml
-supports the execution of two kinds of preprocessors: one that work on the
+```ocaml
+Printf.printf "This program has been compiled on %s" "linux-gnu"
+```
+
+
+At compile time, the preprocessor would replace `[%get_env "OSTYPE"]` by a
+string with the content of the `OSTYPE` environment variable. Note that this
+happens at _compile-time_, so at _run-time_ the value of the `OSTYPE` variable
+would have no effect.
+
+## Source preprocessors and PPXes
+
+In OCaml, the preprocessors are written by the community, so there is no single
+general-purpose preprocessor officially supported such as for example in C.
+
+OCaml supports the execution of two kinds of preprocessors: one that work on the
 source level, and the other that work on the [AST
 level](#ocamls-parsetree-the-first-ocamls-ast). The latter is called "PPX", an
 acronym for Pre-Processor eXtension.
 
 While both types of preprocessing have their use-cases, in OCaml it is
 recommended to use PPXes whenever possible, for several reasons:
-- They integrate very nicely nicely with `merlin` and `dune`, so you will still
-be able to get features such as error reporting in editor, jump to definition,
-in the case of preprocessing.
+- They integrate very nicely nicely with `merlin` and `dune` and won't interfere
+  with features such as error reporting in editor and jump to definition.
 - They are fast and compose well.
 - They are especially [adapted to
   OCaml](#why-are-ppxes-especially-useful-in-ocaml).
 
 This guide presents the state of the two kinds of preprocessors in OCaml, but
-with an emphasis on PPXes.
+with an emphasis on PPXes. Although the latter is the recommended way of writing
+preprocessors, we start with source preprocessing in order to better understand
+why PPXes are necessary in OCaml.
 
-## Preprocessors on the source file
+## Source preprocessors
 
 As mentionned in the introduction, preprocessing the source file can be useful
 for things that can be solved by string manipulation, such as file inclusion,
