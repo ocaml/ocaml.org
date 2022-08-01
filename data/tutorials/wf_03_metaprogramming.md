@@ -141,13 +141,13 @@ are several delimiters for strings (such as `{| ...|}`) and line breaks, or
 comments could get in the way...
 
 Consider another example. Suppose you have defined a type, and you want to
-generate at compile-time a serializer from this specific type, to an encoding of
+generate a serializer at compile time from this specific type to an encoding of
 it in a `json` format, such as `Yojson` (see
-[here](#why-are-ppxes-especially-useful-in-ocaml) why it has to be generated at
-compile-time). This serialization code could be written by a preprocessor, which
-would look for the type in the file and serialize it differently depending on
-the type structure; that is, whether it is a variants type, a record type,
-the structure of its subtypes...
+[here](#why-are-ppxes-especially-useful-in-ocaml) for the reasons it has to be
+generated at compile-time). This serialization code could be written by a
+preprocessor, which would look for the type in the file and serialize it
+differently depending on the type structure; that is, whether it is a variants
+type, a record type, the structure of its subtypes...
 
 But, to understand the type's structure, the preprocessor needs to parse
 this information. Given that parsing OCaml syntax is complex, it is not
@@ -159,10 +159,10 @@ the file parsing.
 
 ## PPXs
 
-PPxes are a different kind of preprocessors, that do not run on the textual
-source code, but on the result of the parsing: the Abstract Syntax Tree (AST),
-or more precisely in OCaml, the parsetree. In order to understand PPXes well, we
-need to understand what is this parsetree.
+PPxs are a different kind of preprocessors—one that do not run on the textual
+source code, but rather on the parsing result: the Abstract Syntax Tree (AST),
+or more precisely in OCaml, the Parsetree. In order to understand PPXs well, we
+need to understand what is this Parsetree.
 
 ### OCaml's Parsetree, the First OCaml's AST
 
@@ -226,13 +226,13 @@ we will use AST to refer to the parsetree.
 
 ### PPX Rewriters
 
-In its core, a PPX rewriter is just a transformation that takes a parsetree, and
-returns a possibly modified parsetree. But, there are subtleties. First, because
-PPXes work on the internal representation parsetree, that is the result of
-parsing, the source file need to be of valid OCaml syntax. So, we cannot
-introduce custom syntax such as the `#if` from the C preprocessor. Instead, we
-will use two special syntaxes that were introduced in OCaml 4.02: Extension
-nodes, and attributes.
+At its core, a PPX rewriter is just a transformation that takes a Parsetree, and
+returns a possibly modified Parsetree, but there are subtleties. First, as PPXs
+work on the parsetree, which is the result of parsing done by OCaml, so the
+source file need to be of valid OCaml syntax. Thus, we cannot introduce custom
+syntax such as the `#if` from the C preprocessor. Instead, we will use two
+special syntaxes that were introduced in OCaml 4.02: Extension nodes, and
+attributes.
 
 Secondly, a transformation that takes the full Parsetree is not acceptable in
 many cases, as rewriters are third-party programs (in contrast with the C
@@ -271,17 +271,17 @@ preprocessing.
 type int_pair = (int * int) [@@deriving yojson]
 ```
 
-A specific kind of PPX is associated with attributes: derivers. A deriver is a
+A specific kind of PPX is associated with attributes: derivers, a
 PPX that will generate (or _derive_) some code from a structure or signature
 item, such as a type definition. It is applied using the syntax above, where
 multiple derivers are separated by commas. Note that the generated code is added
 after the input code, which is left unmodified.
 
 Derivers are great for generating functions that depend on the structure of a
-defined type (this was the [example](#the-limits-of-manipulating-text-file)
-given in the limitation of preprocessor on text files). Indeed, exactly the
-right amount of information is passed to the PPX, and we also know that the PPX
-won't modify any part of the source.
+defined type (this was the example given in the [limits of manipulating text
+files](#the-limits-of-manipulating-text-file)). Indeed, exactly the right amount
+of information is passed to the PPX, and we also know that the PPX won't modify
+any part of the source.
 
 Example of derivers are:
 - [`ppx_show`](https://github.com/thierry-martinez/ppx_show), which generates
@@ -396,17 +396,18 @@ questions, especially in the presence of multiple PPX rewriters.
 - How can I solve the problem that the OCaml syntax and the Parsetree types
   change with OCaml version?
 
-The good answer to these questions is a platform tool to write PPXes:
-[ppxlib](https://github.com/ocaml-ppx/ppxlib/). It takes care of easing the
-process of writing a PPX, ensure that composition is not too much of a problem,
-and factors as much as possible the work in case of multiple rewriters applied
-to a file.
+The answer to these issues from the OCaml community is a platform tool to write
+PPXes: [ppxlib](https://github.com/ocaml-ppx/ppxlib/). It takes care of easing
+the process of writing a PPX, ensures that composition is not too much of a
+problem, and factors the work in case of multiple rewriters applied to a file as
+much as possible.
 
-The idea of ppxlib is that PPX authors can concentrate on their own part, the
-rewriting logic. Then, they can register their transformation, and ppxlib will
-be responsible for the rest of the work that all PPXes have to do: getting the
-parsetree, giving it back to the compiler, creating an executable with a good
-CLI. Multiple transformations can be registered to generate a single binary.
+The idea of `ppxlib` is that PPX authors can concentrate on their own part—the
+rewriting logic. Then, they can register their transformation, and `ppxlib` will
+be responsible for the rest of the work that all PPXs have to do: getting the
+Parsetree, giving it back to the compiler, and creating an executable with a
+good CLI. Multiple transformations can be registered to generate a single
+binary.
 
 ### One PPX for Multiple OCaml Versions
 
@@ -426,19 +427,19 @@ back to a 4.08 Parsetree to continue the compilation.
 
 ### Restricting PPXs for Composition, Speed, and Security
 
-Ppxlib explicitely support registering the restricted transformations that
-corresponds to extenders and derivers. Writing those restricted PPXes has a lot
+`ppxlib` explictely supports registering the restricted transformations that
+correspond to extenders and derivers. Writing those restricted PPXs has a lot
 of advantages:
 - Extenders and derivers won't modify your existing code, apart from the
-  extension node. This is less error-prone, bugs have less critical effects and
+  extension node. This is less error-prone, bugs have less critical effects, and
   a user can be confident that no sensible part of their code is changed.
-- As extenders and derivers are "context-free", in the sense that they run only
+- As extenders and derivers are "context-free," in the sense that they run only
   with a limited part of the AST as input, they can all be run in a single pass
   of the AST. Moreover, they are not run "one after the other" but all at the
   same time, so their composition semantics do not depend on the order of
   execution.
 - This single pass also means faster rewriting and thus faster compilation time
-  for the projects using multiple PPXes.
+  for the projects using multiple PPXs.
 
 Compared to this, rewriters that work on the whole AST can also be registered in
 `ppxlib`, and they will be run in alphabetical order by their name, after the
