@@ -45,7 +45,7 @@ general-purpose preprocessor officially supported, like there is in C, for examp
 
 OCaml supports the execution of two kinds of preprocessors: one that works on the
 source level, and the other that works on the [AST
-level](#ocamls-parsetree-the-first-ocamls-ast). The latter is called "PPX", an
+level](#ocamls-parsetree-the-first-ocamls-ast). The latter is called "PPX," an
 acronym for Pre-Processor eXtension.
 
 While both types of preprocessing have their use cases, in OCaml it is
@@ -86,7 +86,7 @@ Dune](#preprocessing-with-dune).
 OCaml's compiler `ocamlc` and `ocamlopt` offer the `-pp` option to preprocess a
 file in the compilation phase (but remember that you are encourage to use Dune
 to drive the preprocessing). Consider the following simple preprocessor which
-replaces the string "World" by the string "Universe", here in the form of a
+replaces the string `"World"` by the string `"Universe"`, here in the form of a
 shell script:
 
 ```shell
@@ -135,7 +135,7 @@ module files using our previously written `preprocessor.sh`:
 The complexities of a programming language syntax makes it very hard to
 manipulate text in a way that is tied to the syntax. Suppose for instance that,
 similarly to the previous example, you want to rewrite all occurences of "World"
-by "Universe", but _inside the OCaml strings of the program_ only. It is quite
+by "Universe," but _inside the OCaml strings of the program_ only. It is quite
 involved and requires a good knowledge of the OCaml syntax to do so, as there
 are several delimiters for strings (such as `{| ...|}`) and line breaks, or
 comments could get in the way...
@@ -173,7 +173,7 @@ as a tree with a very complicated OCaml type that you can find in the
 
 Let's look at a few properties of this tree:
 - Each node in the AST has a type corresponding to a different role, such as
-  "let definitions", "expressions", "patterns", ...
+  "let definitions," "expressions," "patterns," ...
 - The tree's root is a list of `structure_item`s
 - A `structure_item` can either represent a toplevel expression, a type
   definition, a let definition, ... This is determined using a variant type.
@@ -218,7 +218,7 @@ Ptop_def
 val x : int = 3
 ```
 
-Note that the parsetree is an internal representation of the code that happens
+Note that the Parsetree is an internal representation of the code that happens
 before typing the program, so an ill-typed program can be rewritten. The
 internal representation after the typing is called the `Typedtree`, and it can be
 inspected using the `-dtypedtree` option of `ocaml` and `utop`. In what follows,
