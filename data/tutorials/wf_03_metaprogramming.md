@@ -1,9 +1,9 @@
 ---
 id: metaprogramming
-title: Preprocessors and PPXes
+title: Preprocessors and PPXs
 description: |
-  An introduction to metaprogramming in OCaml, including preprocessors, ppx
-  extensions and the ppxlib library.
+  An introduction to metaprogramming in OCaml, including preprocessors, PPX
+  extensions and the `ppxlib` library.
 category: "guides"
 date: 2022-07-25T21:07:30-00:00
 ---
@@ -11,10 +11,10 @@ date: 2022-07-25T21:07:30-00:00
 
 # Preprocessors
 
-Preprocessors are programs meant to be called at compile-time, so that they
+Preprocessors are programs meant to be called at compile time, so that they
 alter the program's source code before the actual compilation. They can be very
 useful for several things, such as the inclusion of a file, conditional
-compilation, or use of macros; but also in OCaml to generate a function from a
+compilation, or use of macros; but they're also useful in OCaml to generate a function from a
 type definition.
 
 To start with an example, here is how the following source code would be altered
@@ -35,37 +35,37 @@ Printf.printf "This program has been compiled on %s" "linux-gnu"
 
 At compile time, the preprocessor would replace `[%get_env "OSTYPE"]` by a
 string with the content of the `OSTYPE` environment variable. Note that this
-happens at _compile-time_, so at _run-time_ the value of the `OSTYPE` variable
+happens at _compile time_, so at _run time_ the value of the `OSTYPE` variable
 would have no effect.
 
-## Source preprocessors and PPXes
+## Source Preprocessors and PPXs
 
 In OCaml, the preprocessors are written by the community, so there is no single
-general-purpose preprocessor officially supported such as for example in C.
+general-purpose preprocessor officially supported, like there is in C, for example.
 
-OCaml supports the execution of two kinds of preprocessors: one that work on the
-source level, and the other that work on the [AST
+OCaml supports the execution of two kinds of preprocessors: one that works on the
+source level, and the other that works on the [AST
 level](#ocamls-parsetree-the-first-ocamls-ast). The latter is called "PPX", an
 acronym for Pre-Processor eXtension.
 
-While both types of preprocessing have their use-cases, in OCaml it is
-recommended to use PPXes whenever possible, for several reasons:
-- They integrate very nicely nicely with `merlin` and `dune` and won't interfere
+While both types of preprocessing have their use cases, in OCaml it is
+recommended to use PPXs whenever possible for several reasons:
+- They integrate very nicely with Merlin and Dune, and they won't interfere
   with features such as error reporting in editor and jump to definition.
 - They are fast and compose well.
 - They are especially [adapted to
   OCaml](#why-are-ppxes-especially-useful-in-ocaml).
 
 This guide presents the state of the two kinds of preprocessors in OCaml, but
-with an emphasis on PPXes. Although the latter is the recommended way of writing
+with an emphasis on PPXs. Although the latter is the recommended way of writing
 preprocessors, we start with source preprocessing in order to better understand
-why PPXes are necessary in OCaml.
+why PPXs are necessary in OCaml.
 
-## Source preprocessors
+## Source Preprocessors
 
 As mentionned in the introduction, preprocessing the source file can be useful
 for things that can be solved by string manipulation, such as file inclusion,
-conditional compilation or macro expansion. Any preprocessor can be used, such
+conditional compilation, or macro expansion. Any preprocessor can be used, such
 as the [C Preprocessor](https://gcc.gnu.org/onlinedocs/cpp/Invocation.html) or a
 general preprocessor such as [`m4`](https://www.gnu.org/software/m4/m4.html).
 However, some preprocessors such as
@@ -74,17 +74,17 @@ However, some preprocessors such as
 integrate well with OCaml.
 
 
-Preprocessing text files do not need specific support from the language, it is
-more the role of the build system to drive the preprocessing. So, applying
-preprocessors will boil down to telling `dune` about it. Only for educational
-purpose, we show in the next section how to preprocess a file using OCaml's
+Preprocessing text files do not need specific support from the language. It is
+more the build system's role to drive the preprocessing. So, applying
+preprocessors will boil down to telling Dune about it. Only for educational
+purposes, in the next section we show how to preprocess a file using OCaml's
 compiler, the more relevant part being [Preprocessing with
-dune](#preprocessing-with-dune).
+Dune](#preprocessing-with-dune).
 
 ### Preprocessing with `ocamlc` and `ocamlopt`
 
 OCaml's compiler `ocamlc` and `ocamlopt` offer the `-pp` option to preprocess a
-file in the compilation phase (but remember that you are encourage to use `dune`
+file in the compilation phase (but remember that you are encourage to use Dune
 to drive the preprocessing). Consider the following simple preprocessor which
 replaces the string "World" by the string "Universe", here in the form of a
 shell script:
@@ -108,19 +108,19 @@ $ ./a.out
 Hello, Universe!
 ```
 
-### Preprocessing with `dune`
+### Preprocessing with Dune
 
-The `dune` build system has a specific stanza to apply preprocessing to files.
+Dune's build system has a specific stanza to apply preprocessing to files.
 The full documentation can be found
 [here](https://dune.readthedocs.io/en/stable/concepts.html#preprocessing-specification),
 and should serve as a reference. In this section, we only give a few examples.
 
 The stanza to apply preprocessing on the source file is `(preprocess (action
-(<action>)))`. The `<action>` part can be any user defined action, such as the
+(<action>)))`. The `<action>` part can be any user-defined action, such as the
 call to an external program, as specified by `(system <program>)`.
 
-Putting all together, the following `dune` file would make the corresponding
-module files be rewritten using our previously written `preprocessor.sh`:
+Putting it all together, the following `dune` file would rewrite the corresponding
+module files using our previously written `preprocessor.sh`:
 
 ```dune
 (executable
@@ -130,14 +130,14 @@ module files be rewritten using our previously written `preprocessor.sh`:
    (system "./preprocessor.sh %{input-file}"))))
 ```
 
-### The limits of manipulating text file
+### The Limits of Manipulating Text Files
 
 The complexities of a programming language syntax makes it very hard to
 manipulate text in a way that is tied to the syntax. Suppose for instance that,
 similarly to the previous example, you want to rewrite all occurences of "World"
 by "Universe", but _inside the OCaml strings of the program_ only. It is quite
 involved and requires a good knowledge of the OCaml syntax to do so, as there
-are several delimiters for strings (such as `{| ...|}`), and linebreaks or
+are several delimiters for strings (such as `{| ...|}`) and line breaks, or
 comments could get in the way...
 
 Consider another example. Suppose you have defined a type, and you want to
@@ -145,42 +145,42 @@ generate at compile-time a serializer from this specific type, to an encoding of
 it in a `json` format, such as `Yojson` (see
 [here](#why-are-ppxes-especially-useful-in-ocaml) why it has to be generated at
 compile-time). This serialization code could be written by a preprocessor, which
-would look for the type in the file, and serialize it differently depending on
-the structure of the type, that is whether it is a variants type, a record type,
+would look for the type in the file and serialize it differently depending on
+the type structure; that is, whether it is a variants type, a record type,
 the structure of its subtypes...
 
-But, to understand the structure of the type, the preprocessor need to parse
-those information. Given that parsing OCaml syntax is complex, it is not
-something that we want to do do again and again whenever we write a new
+But, to understand the type's structure, the preprocessor needs to parse
+this information. Given that parsing OCaml syntax is complex, it is not
+something that we want to do every time we write a new
 preprocessor.
 
-The solution to this is to use PPXes, preprocessors that run on the result of
-the parsing of the file.
+The solution to this is to use PPXs, preprocessors that run on the result of
+the file parsing.
 
-## PPXes
+## PPXs
 
 PPxes are a different kind of preprocessors, that do not run on the textual
 source code, but on the result of the parsing: the Abstract Syntax Tree (AST),
 or more precisely in OCaml, the parsetree. In order to understand PPXes well, we
 need to understand what is this parsetree.
 
-### OCaml's parsetree, the first OCaml's AST
+### OCaml's Parsetree, the First OCaml's AST
 
 During the compilation phase, OCaml's compiler will parse the input file into an
-internal representation of it, called the parsetree. The program is represented
-as a tree, with a very complicated OCaml type, that you can find in the
+internal representation of it, called the Parsetree. The program is represented
+as a tree with a very complicated OCaml type that you can find in the
 [`Parsetree` module](https://v2.ocaml.org/api/compilerlibref/Parsetree.html).
 
-Let us give already a few properties of this tree:
+Let's look at a few properties of this tree:
 - Each node in the AST has a type corresponding to a different role, such as
   "let definitions", "expressions", "patterns", ...
-- The root of the tree is a list of `structure_item`s
+- The tree's root is a list of `structure_item`s
 - A `structure_item` can either represent a toplevel expression, a type
   definition, a let definition, ... This is determined using a variant type.
 
-There are two complementary ways of getting a grasp on the parsetree type. One
-is to read the API documentation, which include examples of what each type and
-value represent. The other is to make OCaml dump the parsetree value of crafted
+There are two complementary ways of getting a grasp on the Parsetree type. One
+is to read the API documentation, which includes examples of what each type and
+value represent. The other is to make OCaml dump the Parsetree value of crafted
 OCaml code. This is possible thanks to the option `-dparsetree`, available in
 the `ocaml` toplevel (as well as in `utop`):
 
@@ -220,11 +220,11 @@ val x : int = 3
 
 Note that the parsetree is an internal representation of the code that happens
 before typing the program, so an ill-typed program can be rewritten. The
-internal representation after the typing is called the `Typedtree`, and can be
+internal representation after the typing is called the `Typedtree`, and it can be
 inspected using the `-dtypedtree` option of `ocaml` and `utop`. In what follows,
 we will use AST to refer to the parsetree.
 
-### PPX rewriters
+### PPX Rewriters
 
 In its core, a PPX rewriter is just a transformation that takes a parsetree, and
 returns a possibly modified parsetree. But, there are subtleties. First, because
@@ -234,25 +234,25 @@ introduce custom syntax such as the `#if` from the C preprocessor. Instead, we
 will use two special syntaxes that were introduced in OCaml 4.02: Extension
 nodes, and attributes.
 
-Secondly, a transformation that takes the full parsetree is not acceptable in
-many cases, as rewriters are third party programs (in contrast with the C
-compiler). To address this, we consider two kinds of restrictions to the general
+Secondly, a transformation that takes the full Parsetree is not acceptable in
+many cases, as rewriters are third-party programs (in contrast with the C
+compiler). To address this, we considered two kinds of restrictions to the general
 PPX rewriters: derivers and extenders. They respectively correspond to the two
-new syntax of OCaml 4.02.
+new syntaxes of OCaml 4.02.
 
-#### Attributes and derivers
+#### Attributes and Derivers
 
-Attributes are additional information that can be attached to any node of the
-AST. Those information can either be used by the compiler itself, for instance
-to enable or disable warnings, add a "deprecated" warning, force or check that a
-function is inlined... The full list of attributes used by the compiler is
+Attributes are additional information that can be attached to any AST node. 
+That information can either be used by the compiler itself (e.g., 
+to enable or disable warnings), add a "deprecated" warning, or force/check that a
+function is inlined. The full list of attributes that the compiler uses is
 available in the [manual](https://v2.ocaml.org/manual/attributes.html#ss:builtin-attributes).
 
-The syntax of attributes is to suffix the node with `[@attribute_name payload]`,
+The attributes' syntax is to suffix the node with `[@attribute_name payload]`,
 where `payload` is itself an OCaml AST. The number of `@` determines to which
 node the attribute is attached: `@` is for the closest node (expression,
-patterns, ...), `@@` is for the closest block (type declaration, class fields,
-...) and `@@@` is a floating attribute. More information for the syntax can be
+patterns, etc.), `@@` is for the closest block (type declaration, class fields, etc.), 
+and `@@@` is a floating attribute. More information for the syntax can be
 found in the [manual](https://v2.ocaml.org/manual/attributes.html).
 
 ```ocaml
@@ -284,35 +284,35 @@ right amount of information is passed to the PPX, and we also know that the PPX
 won't modify any part of the source.
 
 Example of derivers are:
-- [`ppx_show`](https://github.com/thierry-martinez/ppx_show), which generate
+- [`ppx_show`](https://github.com/thierry-martinez/ppx_show), which generates
   from a type a pretty printer for values of this type.
 - Derivers that derives serializers from OCaml types to other formats, such as
-  `json` with
-  [`ppx_yojson_conv`](https://github.com/janestreet/ppx_yojson_conv), yaml with
-  [`ppx_deriving_yaml`](https://github.com/patricoferris/ppx_deriving_yaml),
-  `sexp` with [`ppx_sexp_conv`](https://github.com/janestreet/ppx_sexp_conv)...
+  JSON with
+  [`ppx_yojson_conv`](https://github.com/janestreet/ppx_yojson_conv), YAML with
+  [`ppx_deriving_yaml`](https://github.com/patricoferris/ppx_deriving_yaml), or
+  SEXP with [`ppx_sexp_conv`](https://github.com/janestreet/ppx_sexp_conv)...
 - [`ppx_accessor`](https://github.com/janestreet/ppx_accessor/) to generate
   accessors for the fields of a given record type.
 
-#### Extension nodes and extenders
+#### Extension Nodes and Extenders
 
-Extension nodes are "holes" in the parsetree. They are accepted by the parser in
-any place (in patterns, expression, identifiers, ...) but they are rejected
-later by the compiler. As a result, they _have_ to be rewritten by a ppx for the
+Extension nodes are "holes" in the Parsetree. They are accepted by the parser in
+any place (patterns, expression, identifiers, etc.), but they are rejected
+later by the compiler. As a result, they _have_ to be rewritten by a PPX for the
 compilation to proceed.
 
-The syntax for extension nodes is `[%extension_name payload]` where again the
-number of `%` determines the kind of extension node: `%` is for "inside nodes"
-such as expressions and patterns, and `%%` is for "toplevel nodes" such as
-structure/signature items, or class fields, see the [formal
+The syntax for extension nodes is `[%extension_name payload]` where, again, the
+number of `%` determines the kind of extension node: `%` is for "inside nodes,"
+such as expressions and patterns, and `%%` is for "toplevel nodes," such as
+structure/signature items or class fields. See the [formal
 syntax](https://v2.ocaml.org/manual/extensionnodes.html).
 
 ```ocaml
 let v = [%html "<a href='ocaml.org'>OCaml!</a>"]
 ```
 
-Sometimes a shorter infix syntax can be used, where the extension node name is
-appended to a `let`, `begin`, `module` or `val`. A formal definition of the
+Sometimes a shorter infix syntax can be used, where the extension node's name is
+appended to a `let`, `begin`, `module`, or `val`. A formal definition of the
 syntax can be found in the OCaml
 [manual](https://v2.ocaml.org/manual/extensionnodes.html).
 
@@ -320,79 +320,80 @@ syntax can be found in the OCaml
 let%html other_syntax = "<a href='ocaml.org'>OCaml!</a>"
 ```
 
-Extension nodes are meant to be rewritten by a PPX, and in this regards
+Extension nodes are meant to be rewritten by a PPX and, in this regard,
 corresponds to a specific kind of PPX: extenders. An extender is a PPX rewriter
-which will replace all occurences of extension nodes with a matching name, by
-some generated code that depend only on the payload, without information on the
+which will replace all occurrences of extension nodes with a matching name. It does this with 
+some generated code that depends only on the payload, without information on the
 context of the extension node (that is, without access to the rest of the code)
 and without modifying anything else.
 
-Example of extenders includes:
-- Extenders which allows to write OCaml values representing another language,
-  directly in such language, such as:
-      - `ppx_yojson` to generate `Yojson` values by writing `json` code,
-      - `tyxml-ppx` to generate `Tyxml.Html` values by writing `html` code,
-      - `ppx_mysql` to generate `ocaml-mysql` queries by writing `Mysql`
-        queries...
-- `ppx_expect` to generate cram tests from the payload of the extension node.
+Examples of extenders include:
+- Extenders which allow users to write OCaml values representing another language 
+  directly in such language. For example:
+      - `ppx_yojson` to generate `Yojson` values by writing JSON code
+      - `tyxml-ppx` to generate `Tyxml.Html` values by writing HTML code
+      - `ppx_mysql` to generate `ocaml-mysql` queries by writing MySQL
+        queries
+- `ppx_expect` to generate CRAM tests from the extension node's payload.
 
-### Using PPXes
+### Using PPXs
 
 Similarly to preprocessors for the text source code, OCaml's compiler provide
 the `-ppx` option to run a PPX during the compilation phase. The PPX will read
-the parsetree from a file where the marshalled value has been dumped, and output
-the rewritten parsetree the same way.
+the Parsetree from a file, where the marshalled value has been dumped, and output
+the rewritten Parsetree the same way.
 
-But again, the tool responsible for driving the compilation being `dune`, using
-PPXes is just a matter of writing dune files. The same `preprocess` stanza
+But again, since the tool responsible for driving the compilation is Dune, using
+PPXs is just a matter of writing `dune` files. The same `preprocess` stanza
 should be used, this time with `pps`:
 
 ```dune
   (preprocess (pps ppx1 ppx2))
 ```
 
-And that's all you need to use PPXes! Although these instructions will work for
-most PPXes, note that the first source of information will be the package
-documentation, as some PPXes might need some special care to integrate with
-dune.
+And that's all you need to use PPXs! Although these instructions will work for
+most PPXs, note that the first source of information will be the package
+documentation, as some PPXs might need some special care to integrate with
+Dune.
 
-### Why are PPXes especially useful in OCaml
+### Why PPXs Are Especially Useful in OCaml
 
-Now that we know what is a PPX, and have seen example of such, let us see why it
+Now that we know what a PPX is, and have seen examples of such, let's see why it
 is particularly useful in OCaml.
 
-For one, the types are lost at execution time. That means that the structure of
-a type cannot be deconstructed at execution time to control the flow. This is
+For one, the types are lost at execution time. That means that the type's structure
+cannot be deconstructed at execution time to control the flow. This is
 why no general `to_string : 'a -> string` or `print : 'a -> ()` function can
 exist in compiled binaries (in the toplevel, types are kept).
 
-So any general function that depends on the structure of a type _must_ be
+So any general function that depends on the type's structure _must_ be
 written at compile time, when types are still available.
 
-For two, one of the strong features of OCaml is its type system, which can be
-used to check sanity of many things. An example of this is the [`Tyxml`
+Secondly, one of the strong features of OCaml is its type system, which can be
+used to check the sanity of many things. An example of this is the [`Tyxml`
 library](https://github.com/ocsigen/tyxml), which uses the type system to ensure
 that the resulting HTML value satisfies most of the W3C standards. However,
-writing `Tyxml` values can be cumbersome compared to writing html syntax.
-Transforming HTML code into OCaml values at compile time allows to keep both the
+writing `Tyxml` values can be cumbersome compared to writing HTML syntax.
+Transforming HTML code into OCaml values at compile time allows users to keep both the
 type-checker on the produced value and the familiarity of writing HTML code.
 
-Other rewriters such as `ppx_expect` show that being able to enrich the syntax
+Other rewriters, such as `ppx_expect`, show that being able to enrich the syntax
 via PPX rewriters is very useful, even outside of the specificity of OCaml.
 
-## The need for controlling the PPX ecosystem: Ppxlib
+## The Need for Controlling the PPX Ecosystem: `ppxlib`
 
-Although PPXes are great for generating code at compile time, they raise a few
-questions, especially in the presence of multiple PPX rewriters:
-- What is the semantics of the composition of multiple PPXes? The order might
+Although PPXs are great for generating code at compile time, they raise a few
+questions, especially in the presence of multiple PPX rewriters.
+- What is the semantics of the composition of multiple PPXs? The order might
   matter.
-- How can I trust that some part of my code are not modified, when using
-  third-party PPXes?
-- How can I keep short compilation time when using many rewriters?
+- How can I trust that some part of my code is not modified when using
+  third-party PPXs?
+- How can I keep compilation time short when using many rewriters?
 - How can I write a PPX easily if I have to deal with parsing or demarshalling
-  an AST, and deal with such a [long and complex
-  type](https://v2.ocaml.org/api/compilerlibref/Parsetree.html) as in parsetree?
-- How can I solve the problem that the OCaml syntax and the parsetree types
+  an AST?
+- How can I deal with such a [long and complex
+  type](https://v2.ocaml.org/api/compilerlibref/Parsetree.html) as in Parsetree?
+- How can I solve the problem that the OCaml syntax and the Parsetree types
   change with OCaml version?
 
 The good answer to these questions is a platform tool to write PPXes:
@@ -407,23 +408,23 @@ be responsible for the rest of the work that all PPXes have to do: getting the
 parsetree, giving it back to the compiler, creating an executable with a good
 CLI. Multiple transformations can be registered to generate a single binary.
 
-### One PPX for multiple OCaml version
+### One PPX for Multiple OCaml Versions
 
-One of the challenge in writing a PPX is the types of the `Parsetree` module,
-and the OCaml syntax can change on version bump. To keep a PPX compatible with a
+One of the challenges in writing a PPX is the types of the Parsetree module because 
+the OCaml syntax can change on version bump. To keep a PPX compatible with a
 new version, it would have to update the transformation from the old
-syntax or parsetree type, to the new syntax or parsetree type. But, by doing so
+syntax or Parsetree type to the new syntax or Parsetree type. But, by doing so,
 it would lose compatibility with the old OCaml version.
 
-Ppxlib deals with this issue by converting parsetree types to and from the
-latest version. A PPX author then only need to provide a transformation for the
-latest version of OCaml and get a PPX that works on any version of OCaml. For
-instance, when applying a PPX written for OCaml `5.0`, during a compilation with
-ocaml `4.08`, ppxlib would get the `4.08` parsetree, transform it into a `5.00`
-parsetree, use the registered PPX to transform the parsetree, and convert it
-back to a `4.08` parsetree to continue the compilation.
+`ppxlib` deals with this issue by converting Parsetree types to and from the
+latest version. A PPX author then only needs to provide a transformation for 
+OCaml's latest version and get a PPX that works on any version of OCaml. For
+instance, when applying a PPX written for OCaml 5.0 during a compilation with
+OCaml 4.08, `ppxlib` would get the 4.08 Parsetree, transform it into a 5.00
+Parsetree, use the registered PPX to transform the Parsetree, and convert it
+back to a 4.08 Parsetree to continue the compilation.
 
-### Restricting PPXes for composition, speed and security
+### Restricting PPXs for Composition, Speed, and Security
 
 Ppxlib explicitely support registering the restricted transformations that
 corresponds to extenders and derivers. Writing those restricted PPXes has a lot
@@ -440,11 +441,11 @@ of advantages:
   for the projects using multiple PPXes.
 
 Compared to this, rewriters that work on the whole AST can also be registered in
-ppxlib, and they will be run in the alphabetical order of their name, after the
+`ppxlib`, and they will be run in alphabetical order by their name, after the
 context-free pass.
 
-Note that `dune` combines all PPXes written using ppxlib in a single
-preprocessor binary, even if the PPXes come from different packages.
+Note that Dune combines all PPXs written using `ppxlib` in a single
+preprocessor binary, even if the PPXs come from different packages.
 
 ### Writing a PPX
 
