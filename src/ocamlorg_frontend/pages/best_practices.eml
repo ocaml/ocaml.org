@@ -4,6 +4,11 @@ Learn_layout.render
 ~current_tutorial:"best-practices"
 ~description:"Some guides to commonly used tools in OCaml development workflows." @@
 <div class="flex-1 flex overflow-hidden flex-col md:pl-10">
+    <div class="prose prose-orange">
+      <p>
+        Workflows presented on this page assume <a href="<%s Url.getting_started %>">OCaml is Up and Running</a>.
+      </p>
+    </div>
     <% best_practices |> List.iter (fun (item : Ood.Workflow.t) -> %>
     <div class="outline-none accordion-section mt-6" x-data="{accordion: false}">
         <div @click="accordion = !accordion"
