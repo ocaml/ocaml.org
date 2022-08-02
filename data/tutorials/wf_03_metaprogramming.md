@@ -14,8 +14,7 @@ date: 2022-07-25T21:07:30-00:00
 Preprocessors are programs meant to be called at compile time, so that they
 alter the program before the actual compilation. They can be very
 useful for several things, such as the inclusion of a file, conditional
-compilation, or use of macros; but they're also useful in OCaml to generate a function from a
-type definition.
+compilation, boilerplate generation or extending the language.
 
 To start with an example, here is how the following source code would be altered
 by [this
@@ -52,7 +51,7 @@ While both types of preprocessing have their use cases, in OCaml it is
 recommended to use PPXs whenever possible for several reasons:
 - They integrate very nicely with Merlin and Dune, and they won't interfere
   with features such as error reporting in an editor and Merlin's "jump to definition."
-- They are fast and compose well.
+- They are fast and compose well, when [adequately written](#the-need-for-controlling-the-ppx-ecosystem-ppxlib).
 - They are especially [adapted to
   OCaml](#why-are-ppxes-especially-useful-in-ocaml).
 
@@ -149,13 +148,18 @@ preprocessor, which would look for the type in the file and serialize it
 differently depending on the type structure; that is, whether it is a variants
 type, a record type, the structure of its subtypes...
 
-But, to understand the type's structure, the preprocessor needs to parse
-this information. Given that parsing OCaml syntax is complex, it is not
-something that we want to do every time we write a new
-preprocessor.
+All these difficulties comes from the fact that we want to generate a program,
+but we are manipulating a flat representation of it, as plain text. The lack of
+structure of this representation has several disadvantages:
+- It is difficult to read parts of the program, such as the type to generate a
+serializer for in the example above
+- It is error-prone to write programs as plain text, as there is no guarantee
+  that the generate code always respects the syntax of the programming language.
+  Such errors in code generation can be hard to debug!
 
-The solution to this is to use PPXs, preprocessors that run on the result of
-the file parsing.
+The solution to both the reading and writing issues are to work on a much more
+structured representation of a program, the result of the parsing, which is
+precisely what are PPXs!
 
 ## PPXs
 
@@ -164,12 +168,12 @@ source code, but rather on the parsing result: the Abstract Syntax Tree (AST),
 which in the OCaml compiler is called Parsetree. In order to understand PPXs well, we
 need to understand what is this Parsetree.
 
-### OCaml's Parsetree, the First OCaml's AST
+### OCaml's Parsetree, the OCaml AST
 
 During the compilation phase, OCaml's compiler will parse the input file into an
 internal representation of it, called the Parsetree. The program is represented
-as a tree with a very complicated OCaml type that you can find in the
-[`Parsetree` module](https://v2.ocaml.org/api/compilerlibref/Parsetree.html).
+as a tree, whose OCaml type can be found in the [`Parsetree`
+module](https://v2.ocaml.org/api/compilerlibref/Parsetree.html).
 
 Let's look at a few properties of this tree:
 - Each node in the AST has a type corresponding to a different role, such as
@@ -178,11 +182,16 @@ Let's look at a few properties of this tree:
 - A `structure_item` can either represent a toplevel expression, a type
   definition, a let definition, ... This is determined using a variant type.
 
-There are two complementary ways of getting a grasp on the Parsetree type. One
-is to read the API documentation, which includes examples of what each type and
-value represent. The other is to make OCaml dump the Parsetree value of crafted
-OCaml code. This is possible thanks to the option `-dparsetree`, available in
-the `ocaml` toplevel (as well as in `utop`):
+There are several complementary ways of getting a grasp on the Parsetree type.
+One is to read the [API
+documentation](https://v2.ocaml.org/api/compilerlibref/Parsetree.html)., which
+includes examples of what each type and value represent. Another is to make
+examine the Parsetree value of crafted OCaml code. This can be achieved using
+external tools such as [astexplorer](https://astexplorer.net/), the OCaml
+[VSCode
+extension](https://marketplace.visualstudio.com/items?itemName=ocamllabs.ocaml-platform),
+or even directly with the `ocaml` toplevel using the option `-dparsetree` (also
+available in `utop`):
 
 ```shell
 
@@ -234,11 +243,11 @@ syntax such as the `#if` from the C preprocessor. Instead, we will use two
 special syntaxes that were introduced in OCaml 4.02: Extension nodes, and
 attributes.
 
-Secondly, a transformation that takes the full Parsetree is not acceptable in
-many cases, as rewriters are third-party programs (in contrast with the C
-compiler). To address this, we considered two kinds of restrictions to the general
-PPX rewriters: derivers and extenders. They respectively correspond to the two
-new syntaxes of OCaml 4.02.
+Secondly, most of the code transformation that PPXs do do not need to be given
+the full AST, they can work locally in subparts of it. There are two kinds of
+such local restrictions to the general PPX rewriters that cover most of the
+usecases: derivers and extenders. They respectively correspond to the two new
+syntaxes of OCaml 4.02.
 
 #### Attributes and Derivers
 
@@ -410,14 +419,15 @@ binary.
 
 ### One PPX for Multiple OCaml Versions
 
-One of the challenges in writing a PPX is the types of the Parsetree module because 
-the OCaml syntax can change on version bump. To keep a PPX compatible with a
-new version, it would have to update the transformation from the old
-syntax or Parsetree type to the new syntax or Parsetree type. But, by doing so,
-it would lose compatibility with the old OCaml version.
+One subtlety in writing a PPX is the the fact that the types of the Parsetree
+module might change when a new feature is added to the language. To keep a PPX
+compatible with a new version, it would have to update the transformation from
+the old types to the new ones. But, by doing so, it would lose compatibility
+with the old OCaml version. Ideally, a single version of a PPX could preprocess
+different OCaml version.
 
 `ppxlib` deals with this issue by converting Parsetree types to and from the
-latest version. A PPX author then only needs to provide a transformation for 
+latest version. A PPX author then only needs to maintain his transformation for
 OCaml's latest version and get a PPX that works on any version of OCaml. For
 instance, when applying a PPX written for OCaml 5.0 during a compilation with
 OCaml 4.08, `ppxlib` would get the 4.08 Parsetree, transform it into a 5.00
