@@ -12,7 +12,7 @@ date: 2022-07-25T21:07:30-00:00
 # Preprocessors
 
 Preprocessors are programs meant to be called at compile time, so that they
-alter the program's source code before the actual compilation. They can be very
+alter the program before the actual compilation. They can be very
 useful for several things, such as the inclusion of a file, conditional
 compilation, or use of macros; but they're also useful in OCaml to generate a function from a
 type definition.
@@ -161,7 +161,7 @@ the file parsing.
 
 PPxs are a different kind of preprocessors—one that do not run on the textual
 source code, but rather on the parsing result: the Abstract Syntax Tree (AST),
-or more precisely in OCaml, the Parsetree. In order to understand PPXs well, we
+which in the OCaml compiler is called Parsetree. In order to understand PPXs well, we
 need to understand what is this Parsetree.
 
 ### OCaml's Parsetree, the First OCaml's AST
@@ -227,9 +227,9 @@ we will use AST to refer to the parsetree.
 ### PPX Rewriters
 
 At its core, a PPX rewriter is just a transformation that takes a Parsetree, and
-returns a possibly modified Parsetree, but there are subtleties. First, as PPXs
+returns a possibly modified Parsetree, but there are subtleties. First, PPXs
 work on the parsetree, which is the result of parsing done by OCaml, so the
-source file need to be of valid OCaml syntax. Thus, we cannot introduce custom
+source file needs to be of valid OCaml syntax. Thus, we cannot introduce custom
 syntax such as the `#if` from the C preprocessor. Instead, we will use two
 special syntaxes that were introduced in OCaml 4.02: Extension nodes, and
 attributes.
@@ -286,7 +286,7 @@ any part of the source.
 Example of derivers are:
 - [`ppx_show`](https://github.com/thierry-martinez/ppx_show), which generates
   from a type a pretty printer for values of this type.
-- Derivers that derives serializers from OCaml types to other formats, such as
+- Derivers that derive serializers from OCaml types to other formats, such as
   JSON with
   [`ppx_yojson_conv`](https://github.com/janestreet/ppx_yojson_conv), YAML with
   [`ppx_deriving_yaml`](https://github.com/patricoferris/ppx_deriving_yaml), or
@@ -312,7 +312,7 @@ let v = [%html "<a href='ocaml.org'>OCaml!</a>"]
 ```
 
 Sometimes a shorter infix syntax can be used, where the extension node's name is
-appended to a `let`, `begin`, `module`, or `val`. A formal definition of the
+appended to a `let`, `begin`, `module`, `val` or similar. A formal definition of the
 syntax can be found in the OCaml
 [manual](https://v2.ocaml.org/manual/extensionnodes.html).
 
@@ -321,7 +321,7 @@ let%html other_syntax = "<a href='ocaml.org'>OCaml!</a>"
 ```
 
 Extension nodes are meant to be rewritten by a PPX and, in this regard,
-corresponds to a specific kind of PPX: extenders. An extender is a PPX rewriter
+correspond to a specific kind of PPX: extenders. An extender is a PPX rewriter
 which will replace all occurrences of extension nodes with a matching name. It does this with 
 some generated code that depends only on the payload, without information on the
 context of the extension node (that is, without access to the rest of the code)
@@ -338,7 +338,7 @@ Examples of extenders include:
 
 ### Using PPXs
 
-Similarly to preprocessors for the text source code, OCaml's compiler provide
+Similarly to preprocessors for the text source code, OCaml's compiler provides
 the `-ppx` option to run a PPX during the compilation phase. The PPX will read
 the Parsetree from a file, where the marshalled value has been dumped, and output
 the rewritten Parsetree the same way.
@@ -393,8 +393,7 @@ questions, especially in the presence of multiple PPX rewriters.
   an AST?
 - How can I deal with such a [long and complex
   type](https://v2.ocaml.org/api/compilerlibref/Parsetree.html) as in Parsetree?
-- How can I solve the problem that the OCaml syntax and the Parsetree types
-  change with OCaml version?
+- How can I solve the problem that new OCaml versions tend to add new features to the language and therefore need to enrich and break the Parsetree types?
 
 The answer to these issues from the OCaml community is a platform tool to write
 PPXes: [ppxlib](https://github.com/ocaml-ppx/ppxlib/). It takes care of easing
