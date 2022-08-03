@@ -157,9 +157,7 @@ serializer in the example above.
   that the generate code always respects the syntax of the programming language.
   Such errors in code generation can be hard to debug!
 
-The solution to both the reading and writing issues are to work on a much more
-structured representation of a program, the result of the parsing, which is
-precisely what are PPXs!
+Working with a much more structured representation of a program solves both the reading and writing issues. This is exactly what PPXs do!
 
 ## PPXs
 
