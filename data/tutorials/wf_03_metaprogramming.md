@@ -14,7 +14,7 @@ date: 2022-07-25T21:07:30-00:00
 Preprocessors are programs meant to be called at compile time, so that they
 alter the program before the actual compilation. They can be very
 useful for several things, such as the inclusion of a file, conditional
-compilation, boilerplate generation or extending the language.
+compilation, boilerplate generation, or extending the language.
 
 To start with an example, here is how the following source code would be altered
 by [this
@@ -51,7 +51,7 @@ While both types of preprocessing have their use cases, in OCaml it is
 recommended to use PPXs whenever possible for several reasons:
 - They integrate very nicely with Merlin and Dune, and they won't interfere
   with features such as error reporting in an editor and Merlin's "jump to definition."
-- They are fast and compose well, when [adequately written](#the-need-for-controlling-the-ppx-ecosystem-ppxlib).
+- They are fast and compose well when [adequately written](#the-need-for-controlling-the-ppx-ecosystem-ppxlib).
 - They are especially [adapted to
   OCaml](#why-are-ppxes-especially-useful-in-ocaml).
 
@@ -149,10 +149,10 @@ differently depending on the type structure; that is, whether it is a variants
 type, a record type, the structure of its subtypes...
 
 All these difficulties comes from the fact that we want to generate a program,
-but we are manipulating a flat representation of it, as plain text. The lack of
+but we are manipulating a flat representation of it as plain text. The lack of
 structure of this representation has several disadvantages:
 - It is difficult to read parts of the program, such as the type to generate a
-serializer for in the example above
+serializer in the example above.
 - It is error-prone to write programs as plain text, as there is no guarantee
   that the generate code always respects the syntax of the programming language.
   Such errors in code generation can be hard to debug!
@@ -168,7 +168,7 @@ source code, but rather on the parsing result: the Abstract Syntax Tree (AST),
 which in the OCaml compiler is called Parsetree. In order to understand PPXs well, we
 need to understand what is this Parsetree.
 
-### OCaml's Parsetree, the OCaml AST
+### OCaml's Parsetree: the OCaml AST
 
 During the compilation phase, OCaml's compiler will parse the input file into an
 internal representation of it, called the Parsetree. The program is represented
@@ -184,14 +184,14 @@ Let's look at a few properties of this tree:
 
 There are several complementary ways of getting a grasp on the Parsetree type.
 One is to read the [API
-documentation](https://v2.ocaml.org/api/compilerlibref/Parsetree.html)., which
-includes examples of what each type and value represent. Another is to make
+documentation](https://v2.ocaml.org/api/compilerlibref/Parsetree.html), which
+includes examples of what each type and value represent. Another is to 
 examine the Parsetree value of crafted OCaml code. This can be achieved using
 external tools such as [astexplorer](https://astexplorer.net/), the OCaml
 [VSCode
 extension](https://marketplace.visualstudio.com/items?itemName=ocamllabs.ocaml-platform),
-or even directly with the `ocaml` toplevel using the option `-dparsetree` (also
-available in `utop`):
+or even directly with the OCaml toplevel using the option `-dparsetree` (also
+available in UTop).
 
 ```shell
 
@@ -427,7 +427,7 @@ with the old OCaml version. Ideally, a single version of a PPX could preprocess
 different OCaml version.
 
 `ppxlib` deals with this issue by converting Parsetree types to and from the
-latest version. A PPX author then only needs to maintain his transformation for
+latest version. A PPX author then only needs to maintain their transformation for
 OCaml's latest version and get a PPX that works on any version of OCaml. For
 instance, when applying a PPX written for OCaml 5.0 during a compilation with
 OCaml 4.08, `ppxlib` would get the 4.08 Parsetree, transform it into a 5.00
