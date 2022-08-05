@@ -183,7 +183,7 @@ need to understand what is this Parsetree.
 
 During the compilation phase, OCaml's compiler will parse the input file into an
 internal representation of it, called the Parsetree. The program is represented
-as a tree, whose OCaml type can be found in the [`Parsetree`
+as a tree, with a complex OCaml type that you can find in the [`Parsetree`
 module](https://v2.ocaml.org/api/compilerlibref/Parsetree.html).
 
 Let's look at a few properties of this tree:
