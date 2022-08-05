@@ -37,13 +37,26 @@ string with the content of the `OSTYPE` environment variable. Note that this
 happens at _compile time_, so at _run time_ the value of the `OSTYPE` variable
 would have no effect.
 
-## Source Preprocessors and PPXs
+In this guide, we explain the different mechanism behind preprocessors in OCaml,
+with as few prerequisite as possible. If you are only interested in how to use a
+PPX in your project, jump to [this section](#using-ppxs) or to the [dune
+doc](https://dune.readthedocs.io/en/stable/concepts.html#preprocessing-specification).
+If you are interested in writing a PPX, jump to this section.
 
-In OCaml, the preprocessors are written by the community, so there is no single
-general-purpose preprocessor officially supported, like there is in C, for example.
+## Preprocessing in OCaml
 
-OCaml supports the execution of two kinds of preprocessors: one that works on the
-source level, and the other that works on the [AST
+Some languages have built-in support for preprocessing, in the sense that a
+small part of the language is dedicated to being executed at compile time. This
+is the case for instance of C, where the C preprocessor syntax and semantic is
+part of the language; and Rust with its macro system.
+
+In OCaml, there is no macro system part of the language, all preprocessors are
+standalone programs. However, even though it is not part of the language, the OCaml
+Platform officially supports a library for writing such preprocessors.
+
+OCaml supports the execution of two kinds of preprocessors: one that works on
+the source level (as in C), and the other that works on a more structured
+representation of the program (as in Rust's macro): the [AST
 level](#ocamls-parsetree-the-first-ocamls-ast). The latter is called "PPX," an
 acronym for Pre-Processor eXtension.
 
@@ -244,7 +257,7 @@ attributes.
 Secondly, most of the code transformation that PPXs do do not need to be given
 the full AST, they can work locally in subparts of it. There are two kinds of
 such local restrictions to the general PPX rewriters that cover most of the
-usecases: derivers and extenders. They respectively correspond to the two new
+usecases: extenders and derivers. They respectively correspond to the two new
 syntaxes of OCaml 4.02.
 
 #### Attributes and Derivers
@@ -400,20 +413,25 @@ questions, especially in the presence of multiple PPX rewriters.
   an AST?
 - How can I deal with such a [long and complex
   type](https://v2.ocaml.org/api/compilerlibref/Parsetree.html) as in Parsetree?
-- How can I solve the problem that new OCaml versions tend to add new features to the language and therefore need to enrich and break the Parsetree types?
+- How can I solve the problem that new OCaml versions tend to add new features
+  to the language and therefore need to enrich and break the Parsetree types?
 
-The answer to these issues from the OCaml community is a platform tool to write
-PPXes: [ppxlib](https://github.com/ocaml-ppx/ppxlib/). It takes care of easing
-the process of writing a PPX, ensures that composition is not too much of a
-problem, and factors the work in case of multiple rewriters applied to a file as
-much as possible.
+Many of these questions stem from the fact that there is no macro language part
+of OCaml and that the preprocessors are always standalone programs. However, the
+OCaml Platform includes a library to write PPXes, that somehow act as an macro
+language without losing the full generality of PPXs:
+[ppxlib](https://github.com/ocaml-ppx/ppxlib/). This library provides generic
+ways of writing [extenders](#extension-nodes-and-extenders) and
+[derivers](#attributes-and-derivers), ensuring that they will work well
+together, removing the composition problem we had with multiple arbitrary
+transformations. It also outputs one single binary, even in the case of multiple
+transformation registered.
 
-The idea of `ppxlib` is that PPX authors can concentrate on their own part—the
-rewriting logic. Then, they can register their transformation, and `ppxlib` will
-be responsible for the rest of the work that all PPXs have to do: getting the
+With `ppxlib`, PPX authors can concentrate on their own part—the rewriting
+logic. Then, they can register their transformation, and `ppxlib` will be
+responsible for the rest of the work that all PPXs have to do: getting the
 Parsetree, giving it back to the compiler, and creating an executable with a
-good CLI. Multiple transformations can be registered to generate a single
-binary.
+good CLI.
 
 ### One PPX for Multiple OCaml Versions
 
