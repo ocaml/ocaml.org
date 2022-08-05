@@ -376,6 +376,69 @@ most PPXs, note that the first source of information will be the package
 documentation, as some PPXs might need some special care to integrate with
 Dune.
 
+### Dropping PPXs dependency with `[@@deriving_inline]`
+
+Since PPXs are only needed at compilation time, there is no strong requirement
+for them to be included as dependency: the rewritten code could be distributed
+instead of the unprocessed file. This mechanism can be implemented using Dune
+and [`ppxlib`](#the-need-for-controlling-the-ppx-ecosystem-ppxlib).
+
+Attaching `[@@deriving_inline <deriver_name>]` to an item will derive some code
+from the item just like the usual `[@@deriving <deriver_name>]` attribute.
+However, instead of appending the generated code after the attributed item, it
+will check that the generated code is already present after the attributed item.
+If yes, nothing has to be done. Otherwise, it will generate a correct file, and
+dune will offer you the possibility of using this correct file.
+
+As the new file contains the generated code, it no longer needs to be
+preprocessed by the PPX, and can be distributed as is, and the PPX can be
+removed from the dependencies. However, the PPX should still be run whenever the
+item on which the attribute is attached change. This can be achieved by running
+the PPX only when the `@lint` target. Let us see an example, with the following
+files:
+
+```shell
+$ cat dune
+(library
+ (name library_name)
+ (lint (pps ppx_yojson_conv)))
+$ cat lib.ml
+type t = int [@@deriving_inline yojson]
+
+[@@@deriving.end]
+```
+
+Now, we run the PPX and promote the generated code in the original file:
+```shell
+$ dune build @lint
+File "lib/lib.ml", line 1, characters 0-0:
+diff --git a/_build/default/lib/lib.ml b/_build/default/lib/lib.ml.lint-corrected
+index 4999e06..5516d41 100644
+--- a/_build/default/lib/lib.ml
++++ b/_build/default/lib/lib.ml.lint-corrected
+@@ -1,3 +1,8 @@
+ type t = int [@@deriving_inline yojson]
+ 
++let _ = fun (_ : t) -> ()
++let t_of_yojson = (int_of_yojson : Ppx_yojson_conv_lib.Yojson.Safe.t -> t)
++let _ = t_of_yojson
++let yojson_of_t = (yojson_of_int : t -> Ppx_yojson_conv_lib.Yojson.Safe.t)
++let _ = yojson_of_t
+ [@@@deriving.end]
+Promoting _build/default/lib/lib.ml.lint-corrected to lib/lib.ml.
+```
+The file now contains the generated value. While it is still a development
+dependency, the PPX dependency can be dropped for compiling the project:
+```
+$ cat lib.ml
+let _ = fun (_ : t) -> ()
+let t_of_yojson = (int_of_yojson : Ppx_yojson_conv_lib.Yojson.Safe.t -> t)
+let _ = t_of_yojson
+let yojson_of_t = (yojson_of_int : t -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+let _ = yojson_of_t
+[@@@deriving.end]
+```
+
 ### Why PPXs Are Especially Useful in OCaml
 
 Now that we know what a PPX is, and have seen examples of such, let's see why it
