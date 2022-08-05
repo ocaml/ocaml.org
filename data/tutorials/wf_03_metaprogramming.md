@@ -480,8 +480,10 @@ questions, especially in the presence of multiple PPX rewriters.
   to the language and therefore need to enrich and break the Parsetree types?
 
 Many of these questions stem from the fact that there is no macro language part
-of OCaml and that the preprocessors are always standalone programs. However, the
-OCaml Platform includes a library to write PPXes, that somehow act as an macro
+of OCaml and that the preprocessors are always standalone programs. This means
+that they can do anything (while macros usually restrict the expressivity of the
+preprocessing), and the compiler has no control over them. However, the OCaml
+Platform includes a library to write PPXes, that somehow act as an macro
 language without losing the full generality of PPXs:
 [ppxlib](https://github.com/ocaml-ppx/ppxlib/). This library provides generic
 ways of writing [extenders](#extension-nodes-and-extenders) and
