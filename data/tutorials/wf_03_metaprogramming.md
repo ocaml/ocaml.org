@@ -165,7 +165,7 @@ All these difficulties comes from the fact that we want to generate a program,
 but we are manipulating a flat representation of it as plain text. The lack of
 structure of this representation has several disadvantages:
 - It is difficult to read parts of the program, such as the type to generate a
-serializer in the example above.
+serialiser in the example above.
 - It is error-prone to write programs as plain text, as there is no guarantee
   that the generate code always respects the syntax of the programming language.
   Such errors in code generation can be hard to debug!
