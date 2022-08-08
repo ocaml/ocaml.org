@@ -16,7 +16,7 @@ your favourite text editor or IDE. These instructions work on Unix-based systems
 
 ## Installing OCaml
 
-It's a straightfoward process to install OCaml. [Opam](https://opam.ocaml.org/) is OCaml's package manager, so we'll install it first. You will also use Opam when installing third-party OCaml libraries.
+It's a straightfoward process to install OCaml. [opam](https://opam.ocaml.org/) is OCaml's package manager, so we'll install it first. You will also use opam when installing third-party OCaml libraries.
 
 Find the all installation instructions for both Unix-like systems and Windows below. If you're new to the CLI, the code blocks (in black) show the required commands (the text after # gives more information on the following commands). Type each command after the prompt $, although it's often represented by a %, >, or another symbol as well. Ensure you use the exact case and spacing shown, then hit return/enter at the end of every line.
 
@@ -39,40 +39,45 @@ Linux (e.g `apt-get install opam` or similar). [Details of all installation
 methods.](https://opam.ocaml.org/doc/Install.html)
 
 **Install Compiler**
-It's essential to install the OCaml compiler because OCaml is a compiled language, so please don't skip this step. The first part sets up Opam, and the second part installs the OCaml base compiler:
+It's essential to install the OCaml compiler because OCaml is a compiled language, so please don't skip this step. The first part sets up opam, and the second part installs the OCaml base compiler.
 
 ```
 # environment setup
 $ opam init
 $ eval `opam env`
+```
 
+After the `opam init` command, you might get a result asking if you'd like to update your `zsh` configuration. If you get that message, type in `N`, the default, then type `y` to install the hook, which will run `eval $(opam env)`. As you get more well-versed in OCaml, you can change these settings by rerunning `opam init`.
+
+Now check the installation by running `opam --version`. The current version is 2.1.2. Please note merely using `opam init` might install a previous version of opam. If you have a previous version, please refer to [the opam Upgrade Guide](https://opam.ocaml.org/doc/Upgrade_guide.html).
+
+Next, we'll install the OCaml base compiler, which uses the `opam switch create` command; `switch` is used to have several installations on disk, like packages, compiler version, etc. Specify which version at the end as shown above, i.e., `opam switch create 5.0.0~alpha1`. All possible compiler versions can be found with `opam switch list-available`. The most current version can be found at [opam.ocaml.org](https://opam.ocaml.org/packages/ocaml-base-compiler/).
+
+The final command will install Dune, OCaml's build system, as well as UTop and the LSP server. More on those later. 
+
+```
 # install a specific version of the OCaml base compiler
-$ opam switch create 4.14.0
+$ opam switch create 5.0.0~alpha1
 $ eval `opam env`
 
 # install dev tools, hit Enter to confirm at Y/n prompt
 $ opam install dune utop ocaml-lsp-server
 ```
 
-After the `opam init` command, you might get a result asking if you'd like to update your `zsh` configuration. If you get that message, type in `N`, the default, then type `y` to install the hook, which will run `eval $(opam env)`. As you get more well-versed in OCaml, you can change these settings by rerunning `opam init`.
+**Please note**: The back ticks shown around `opam env` after `eval` are essential. They change the order of application, which is very important. The back ticks tells the system to first evaluate `opam env` (which returns a string of commands) and then `eval` executes those commands in the string. Executing them doesn't return anything, but it initializes the opam environment behind the scenes.
 
-**Please note**: The back ticks shown around `opam env` after `eval` are essential. They change the order of application, which is very important. The back ticks tells the system to first evaluate `opam env` (which returns a string of commands) and then `eval` executes those commands in the string. Executing them doesn't return anything, but it initializes the Opam environment behind the scenes.
-
-Check that the installation was successful by running `opam --version`. Please note merely using `opam init` might install a previous version of Opam. The most current version can be found at [opam.ocaml.org](https://opam.ocaml.org/packages/ocaml-base-compiler/).
-
-The OCaml base compiler installation uses the `opam switch create` command; `switch` is used to have several installations on disk, like packages, compiler version, etc. Specify which version at the end as shown above, i.e., 4.14.0. All possible compiler versions can be found with `opam switch list-available`.
-
-Next, check that OCaml is installed properly with the following commands. The line beneath the $ command shows the desired output for both the OCaml version and the toplevel version (installed specifically with the above `switch` command):
+Check that the installation was successful by running `which ocaml` and `ocaml -version`. 
+The line beneath the $ command shows the desired output for both the OCaml version and the toplevel version (installed specifically with the above `switch` command):
 
 ```
 $ which ocaml
-/Users/frank/.opam/4.14.0/bin/ocaml
+/Users/frank/.opam/5.0.0~alpha1/bin/ocaml
 
 $ ocaml -version
-The OCaml toplevel, version 4.14.0
+The OCaml toplevel, version 5.0.0~alpha1
 ```
 
-As an alternative **for either Linux or macOS**, a binary distribution of Opam is
+As an alternative **for either Linux or macOS**, a binary distribution of opam is
 available:
 
 ```
@@ -84,15 +89,17 @@ sh <(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.
 OCaml on Windows is still a work in progress. In the meantime, if you only
 need to _run_ OCaml programs on a Windows machine, then the simplest solution is to use the Windows Subsystem for Linux 2 (WSL2). WSL2 is a feature that allows Linux programs to run directly on Windows. WSL2 is substantially easier and faster to use than WSL1. Microsoft has comprehensive installation steps for [setting up WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
-On the other hand, if you need Windows binaries, you will have to use the [OCaml for Windows](https://fdopen.github.io/opam-repository-mingw/) installer which comes in 32bit and 64bit versions. This installer gives you Opam and OCaml installations all in one go. It's used from within a Cygwin environment, but the executables produced have no dependency on Cygwin at all. For a more comprehensive update on the state of OCaml on Windows, see the [OCaml on Windows](/docs/ocaml-on-windows) page on the old version of the site.
+On the other hand, if you need Windows binaries, you will have to use the [OCaml for Windows](https://fdopen.github.io/opam-repository-mingw/) installer which comes in 32bit and 64bit versions. This installer gives you opam and OCaml installations all in one go. It's used from within a Cygwin environment, but the executables produced have no dependency on Cygwin at all. For a more comprehensive update on the state of OCaml on Windows, see the [OCaml on Windows](/docs/ocaml-on-windows) page on the old version of the site.
 
 ## The OCaml Toplevel
 
-_Toplevel_ is a read-eval-print loop (REPL). It's one of the things that makes OCaml so efficient because it compiles while you code, allowing for iteration.
+_Toplevel_ is a read-eval-print loop (REPL). It's one of the things that makes OCaml so efficient because it compiles while you code, allowing for iteration. You can use the `ocaml` command to enter OCaml's standard toplevel. However, this REPL does not have history or tab-completion, so we recommend always using `utop`.
+
+_UTop_ is a shell where you can type expressoins and evaluate them, too. It's an easier-to-use version of OCaml's standard toplevel. We'll be using `utop` for working through examples.
 
 OCaml comes with two additional compilers: one compiles to **native code** (sometimes called machine code or executable binary), directly read by the CPU, and the other compiles to **bytecode**, creating an executable that can be interpreted by a variety of runtime environments, making more flexible.
 
-For now, let's first use the recommended toplevel, which we installed above:
+For now, let's first use the recommended toplevel (UTop), which we installed above. By running the `utop` command, it will print out something similar to what you see below. After the horizontal line, you will see a new prompt `utop #`. Here is where you type your expressions. In this case `1 + 2 * 3;;`. After you press Enter, the line beneath is the output. 
 
 ```
 $ utop
@@ -118,7 +125,7 @@ utop # 1 + 2 * 3;;
 
 We typed the phrase `1 + 2 * 3` and then signalled to OCaml that we had
 finished by typing `;;` followed by the Enter key. OCaml calculated the
-result, `7` and its type `int` and showed them to us. We exit by running the
+result, `7`, and its type, `int` (integer), and showed them to us. We exit by running the
 built-in `exit` function with exit code 0:
 
 ```
@@ -127,9 +134,6 @@ utop # exit 0;;
 $
 ```
 
-Note that OCaml also has an older REPL, using the `ocaml` command. However, this
-REPL does not have history or tab-completion, so we recommend always using `utop`.
-
 ## Installing the Dune Build System
 
 Dune is a build system for OCaml. It takes care of all the low level details of
@@ -137,8 +141,12 @@ OCaml compilation. We installed it with opam, above.
 
 ## A First Project
 
-Let's begin the simplest project with Dune and OCaml. We ask `dune` to
-initialize a new project, and then change into the created directory:
+Let's begin the simplest project with Dune and OCaml, just to see how it works. 
+Navigate into a practice directory, as we'll be creating new projects below. 
+
+First, we ask `dune` to
+initialize a new project, and then change into the created directory. As usual, 
+the line beneath the command is the desired output:
 
 ```
 $ dune init proj helloworld
@@ -146,7 +154,7 @@ Success: initialized project component named helloworld
 $ cd helloworld
 ```
 
-We can build our program with `dune build`:
+We can build our program with `dune build`, which creates an executable file:
 
 ```
 $ dune build
@@ -156,7 +164,7 @@ When we change our program, we can type `dune build` again to make a new
 executable. To run the program, we can use:
 
 ```
-$ dune exec ./bin/main.exe
+$ dune exec bin/main.exe
 Hello, World!
 ```
 
@@ -189,13 +197,13 @@ documentation](https://dune.readthedocs.io/en/stable/).
 
 For **Visual Studio Code**, and other editors support the Language Server
 Protocol, we use the OCaml language server, which was installed when we 
-installed opam earlier.
+installed opam earlier (`ocaml-lsp-server`).
 
 Now, we install the OCaml Platform Visual Studio Code extension from the Visual
 Studio Marketplace.
 
 Upon first loading an OCaml source file, you may be prompted to select the
-toolchain in use: pick the version of OCaml you are using, e.g. 4.11.1
+toolchain in use. Pick the version of OCaml you are using, e.g., 5.0.0~alpha1
 from the list. Now, help is available by hovering over symbols in your program:
 
 ![Visual Studio Code](/media/tutorials/vscode.png)
@@ -212,8 +220,8 @@ found):
 $ /cygdrive/c/Users/Frank\ Smith/AppData/Local/Programs/Microsoft\ VS\ Code/Code.exe
 ```
 
-**For Vim and Emacs** install the [Merlin](https://github.com/ocaml/merlin)
-system using opam:
+**For Vim and Emacs** install OCaml's IDE [Merlin](https://github.com/ocaml/merlin) 
+using opam:
 
 ```
 $ opam install merlin
@@ -222,7 +230,7 @@ $ opam install merlin
 The installation procedure will print instructions on how to link Merlin with
 your editor.
 
-**On Windows**, when using Vim, the default cygwin Vim will not work with
+**On Windows**, when using Vim, the default `cygwin` Vim will not work with
 Merlin. You will need install Vim separately. In addition to the usual
 instructions printed when installing Merlin, you may need to set the PATH in
 Vim:
