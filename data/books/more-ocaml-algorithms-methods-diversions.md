@@ -13,7 +13,7 @@ links:
   - description: Buy on Amazon
     uri: https://www.amazon.com/gp/product/0957671113
 rating: 5
-featured: true
+featured: false
 ---
 
 In "More OCaml" John Whitington takes a meandering tour of functional

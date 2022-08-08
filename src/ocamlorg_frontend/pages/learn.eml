@@ -128,7 +128,7 @@ Learn_layout.render
       <a href="<%s item.links |> List.hd |> (fun x -> x.uri) %>" class="flex-1 card-hover">
         <img
           src="/media/<%s item.cover %>"
-          class="rounded-2xl lg:w-full border border-gray-200"
+          class="rounded-2xl lg:w-full max-h-96 border border-gray-200"
           alt="<%s item.title %> cover"
         />
         <div class="font-semibold mt-6 mb-3"><%s item.title %></div>
