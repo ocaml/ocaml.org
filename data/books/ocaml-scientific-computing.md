@@ -11,7 +11,7 @@ published: 2022-05-27
 cover: /books/ocaml-scientific-computing.png
 language: english
 links:
-  - description: Buy on Springer Link
+  - description: Buy on Springer
     uri: https://link.springer.com/book/10.1007/978-3-030-97645-3
   - description: Buy on Amazon
     uri: https://www.amazon.com/gp/product/3030976440
