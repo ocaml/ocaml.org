@@ -6,7 +6,7 @@ watch:
   embed_path: /videos/embed/e1ee0fc0-50ef-4a1c-894a-17df181424cb
   thumbnail_path: /static/thumbnails/94ead657-79a0-4c10-8435-9e13906a6c44.jpg
   published_at: 2021-08-27T13:23:10.199Z
-  updated_at: 2022-07-19T16:27:10.155Z
+  updated_at: 2022-08-06T08:57:10.661Z
   language: English
   category: Science & Technology
 - name: A Case for Multi-Switch Constraints in OPAM
@@ -101,7 +101,7 @@ watch:
   embed_path: /videos/embed/629b89a8-bbd5-490d-98b0-d0c740912b02
   thumbnail_path: /static/thumbnails/41212c84-36d6-44fa-b884-2ced79505929.jpg
   published_at: 2021-08-27T10:18:38.000Z
-  updated_at: 2022-07-19T10:57:09.771Z
+  updated_at: 2022-08-03T14:57:10.527Z
   language: English
   category: Science & Technology
 - name: An LLVM backend for OCaml
@@ -210,7 +210,7 @@ watch:
   embed_path: /videos/embed/92309d92-8cbf-4545-980c-209c96e42a79
   thumbnail_path: /static/thumbnails/db29d3bf-784c-47f1-bf90-f13fd2a9d530.jpg
   published_at: 2021-08-27T10:33:38.000Z
-  updated_at: 2022-04-04T13:01:00.070Z
+  updated_at: 2022-07-22T09:57:09.965Z
   language: English
   category: Science & Technology
 - name: Digodoc and Docs
@@ -258,7 +258,7 @@ watch:
   embed_path: /videos/embed/74ece0a8-380f-4e2a-bef5-c6bb9092be89
   thumbnail_path: /static/thumbnails/d48bf7bb-8c46-4d49-a3a6-734bf339343b.jpg
   published_at: 2021-08-27T14:41:07.000Z
-  updated_at: 2022-07-15T20:57:09.571Z
+  updated_at: 2022-08-03T12:57:10.521Z
   language: English
   category: Science & Technology
 - name: Experiments in Generic Programming
@@ -307,7 +307,7 @@ watch:
   embed_path: /videos/embed/e0a6e6f2-0d40-4dfc-9308-001c8e0f64d6
   thumbnail_path: /static/thumbnails/729cda51-abb3-4c8d-9d0e-b922e81be518.jpg
   published_at: 2021-08-27T10:12:58.000Z
-  updated_at: 2022-05-27T04:27:07.652Z
+  updated_at: 2022-08-03T02:27:10.486Z
   language: English
   category: Science & Technology
 - name: High Performance Client-Side Web Programming with SPOC and Js of ocaml
@@ -442,7 +442,7 @@ watch:
   embed_path: /videos/embed/d3b2b31e-1739-406e-8de7-d5f21bc01836
   thumbnail_path: /static/thumbnails/93a6e9ac-2266-408a-81e7-1ebf239233f8.jpg
   published_at: 2021-08-27T15:10:17.000Z
-  updated_at: 2022-05-10T01:27:07.044Z
+  updated_at: 2022-07-26T10:27:10.236Z
   language: English
   category: Science & Technology
 - name: Multicore OCaml
@@ -453,7 +453,7 @@ watch:
   embed_path: /videos/embed/490b5363-01b6-45d8-9b7e-c883a20026a1
   thumbnail_path: /static/thumbnails/07162af4-06f9-4d3c-954a-4c35dc87fd21.jpg
   published_at: 2021-10-03T21:59:49.549Z
-  updated_at: 2022-04-14T20:01:00.131Z
+  updated_at: 2022-08-03T12:57:10.629Z
   language: English
   category: Misc
 - name: Nullable Type Inference
@@ -647,7 +647,7 @@ watch:
   embed_path: /videos/embed/3159e115-948e-4f67-9d45-403bef003c35
   thumbnail_path: /static/thumbnails/61fe2572-358b-4110-9748-485a2e3ceffa.jpg
   published_at: 2021-10-03T23:08:42.826Z
-  updated_at: 2022-02-06T20:01:00.052Z
+  updated_at: 2022-07-30T14:27:11.043Z
   language: English
   category: Misc
 - name: Probabilistic resource limits using StatMemprof
@@ -680,7 +680,7 @@ watch:
   embed_path: /videos/embed/9324fba4-2482-4bab-bfdd-b8881b3ed94a
   thumbnail_path: /static/thumbnails/d7e22bba-cda1-4c2b-9368-9b2c1643e751.jpg
   published_at: 2021-08-31T08:37:00.571Z
-  updated_at: 2022-01-18T12:01:00.065Z
+  updated_at: 2022-07-23T12:27:10.149Z
   language: English
   category: Misc
 - name: Real-world debugging in OCaml
@@ -688,7 +688,7 @@ watch:
   embed_path: /videos/embed/a8f4cf6b-9971-484b-ab5b-34a16fde1185
   thumbnail_path: /static/thumbnails/ea912a23-6e8b-40ec-ac45-81af2d01617a.jpg
   published_at: 2021-10-03T22:35:41.668Z
-  updated_at: 2021-10-03T22:35:41.668Z
+  updated_at: 2022-07-30T14:27:10.871Z
   language: English
   category: Misc
 - name: Safe Protocol Updates via Propositional Logic
@@ -710,7 +710,7 @@ watch:
   embed_path: /videos/embed/c0d07213-1426-46a1-98e0-0b0c4515c841
   thumbnail_path: /static/thumbnails/2ab3961f-4e66-4ec9-b20e-72e25dfbebe4.jpg
   published_at: 2021-08-31T08:41:15.492Z
-  updated_at: 2022-06-29T19:27:08.805Z
+  updated_at: 2022-07-30T14:27:10.751Z
   language: English
   category: Misc
 - name: Simple, efficient, sound-and-complete combinator parsing
@@ -758,7 +758,7 @@ watch:
   embed_path: /videos/embed/0e2070fd-798b-47f7-8e69-ef75e967e516
   thumbnail_path: /static/thumbnails/4fd6a51f-686c-4f6f-8026-83692304b432.jpg
   published_at: 2020-08-28T00:00:00.000Z
-  updated_at: 2022-07-12T10:27:09.363Z
+  updated_at: 2022-08-01T12:57:10.426Z
   language: English
   category: Science & Technology
 - name: Study of OCaml programs' memory behaviour
@@ -814,7 +814,7 @@ watch:
   embed_path: /videos/embed/b04b10c1-b924-4f58-8aa9-4527dcc11d8a
   thumbnail_path: /static/thumbnails/9feccd59-f677-4be6-bcf4-a07977ef5b29.jpg
   published_at: 2021-10-03T22:49:54.276Z
-  updated_at: 2022-05-27T04:27:07.994Z
+  updated_at: 2022-07-30T14:27:10.961Z
   language: English
   category: Misc
 - name: The State of OCaml
@@ -945,7 +945,7 @@ watch:
   embed_path: /videos/embed/ec641446-823b-40ec-a207-85157a18f88e
   thumbnail_path: /static/thumbnails/2300474a-7615-4c92-9489-9ff5117d8bc7.jpg
   published_at: 2021-08-27T10:37:18.000Z
-  updated_at: 2022-01-12T19:01:00.064Z
+  updated_at: 2022-07-30T14:27:10.351Z
   language: English
   category: Science & Technology
 - name: gloc - Metaprogramming WebGL Shaders with OCaml
