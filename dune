@@ -34,10 +34,10 @@
   (deps
    (:js %{workspace_root}/src/ocamlorg_playground/worker.js))
   (action
-   (run jsoo_minify %{js} -o worker.js)))
+   (run jsoo_minify %{js} -o %{targets})))
  (rule
-  (targets merlin_worker.bc.js)
+  (targets merlin.js)
   (deps
    (:js %{workspace_root}/src/ocamlorg_playground/merlin_worker.bc.js))
   (action
-   (run jsoo_minify %{js} -o merlin_worker.bc.js))))
+   (run jsoo_minify %{js} -o %{targets}))))

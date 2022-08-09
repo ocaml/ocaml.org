@@ -39,7 +39,7 @@ let with_rpc f v = Lwt.bind rpc (fun r -> Lwt.map or_raise @@ f r v)
 let async_raise f = Lwt.async (fun () -> Lwt.map or_raise @@ f ())
 
 module Merlin = Merlin_codemirror.Make (struct
-  let worker_url = "/js/merlin_worker.bc.js"
+  let worker_url = "/js/merlin.js"
 end)
 
 (* Need to port lesser-dark and custom theme to CM6, until then just using the
