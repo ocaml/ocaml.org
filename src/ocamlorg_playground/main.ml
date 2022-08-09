@@ -29,13 +29,11 @@ let initialise s callback =
   let* _ = Toprpc.init rpc Toplevel_api.{ cmas = []; cmi_urls = [] } in
   Lwt.return rpc
 
-let rpc = initialise "/js/worker.js" timeout_container
-
 let or_raise = function
   | Ok v -> v
   | Error (Toplevel_api.InternalError e) -> failwith e
 
-let with_rpc f v = Lwt.bind rpc (fun r -> Lwt.map or_raise @@ f r v)
+let with_rpc rpc f v = Lwt.bind rpc (fun r -> Lwt.map or_raise @@ f r v)
 let async_raise f = Lwt.async (fun () -> Lwt.map or_raise @@ f ())
 
 module Merlin = Merlin_codemirror.Make (struct
@@ -92,12 +90,6 @@ module Codec = struct
 end
 
 let setup () =
-  let setup () =
-    let* o = with_rpc Toprpc.setup () in
-    handle_output o;
-    Lwt.return (Ok ())
-  in
-  let* _ = setup () in
   let initial_code =
     Result.value ~default:Example.adts (Codec.from_window ())
   in
@@ -115,6 +107,13 @@ let setup () =
            ])
       ()
   in
+  let rpc = initialise "/js/worker.js" timeout_container in
+  let setup () =
+    let* o = with_rpc rpc Toprpc.setup () in
+    handle_output o;
+    Lwt.return (Ok ())
+  in
+  let* _ = setup () in
   let share = get_el_by_id "share" in
   Ev.(
     listen click
@@ -126,7 +125,7 @@ let setup () =
   let on_click _ =
     let run () =
       El.set_class (Jstr.v "loader") true button;
-      let* o = with_rpc Toprpc.exec (Edit.get_doc view ^ ";;") in
+      let* o = with_rpc rpc Toprpc.exec (Edit.get_doc view ^ ";;") in
       El.set_class (Jstr.v "loader") false button;
       handle_output o;
       Lwt.return (Ok ())
