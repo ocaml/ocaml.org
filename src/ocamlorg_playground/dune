@@ -34,11 +34,7 @@
   (:standard \ worker merlin_worker))
  (libraries
   brr
-  js_of_ocaml
-  merlin-js.code-mirror
   code-mirror
-  code-mirror.lint
-  code-mirror.autocomplete
-  code-mirror.stream
+  merlin-js.code-mirror
   js_top_worker-client
   rpclib-lwt))
