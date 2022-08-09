@@ -230,7 +230,6 @@ module Watch : sig
     thumbnail_path : string;
     description : string option;
     published_at : string;
-    updated_at : string;
     language : string;
     category : string;
   }
