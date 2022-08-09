@@ -7,7 +7,6 @@ type watch = {
   thumbnail_path : string;
   description : string option;
   published_at : string;
-  updated_at : string;
   language : string;
   category : string;
 }
@@ -26,11 +25,6 @@ let get_publish_date json =
   | `String s -> s
   | _ -> failwith "Couldn't calculate the videos original publish date"
 
-let get_update_date json =
-  match Ezjsonm.find_opt json [ "updatedAt" ] with
-  | Some (`String s) -> s
-  | _ -> failwith "Couldn't find the video's updatedAt date"
-
 (* extract value of language and category *)
 let get_language_category json =
   let label = Ezjsonm.find json [ "label" ] in
@@ -45,7 +39,6 @@ let of_json json =
     embed_path = Ezjsonm.find json [ "embedPath" ] |> Ezjsonm.get_string;
     thumbnail_path = Ezjsonm.find json [ "thumbnailPath" ] |> Ezjsonm.get_string;
     published_at = get_publish_date json;
-    updated_at = get_update_date json;
     language = Ezjsonm.find json [ "language" ] |> get_language_category;
     category = Ezjsonm.find json [ "category" ] |> get_language_category;
   }
@@ -60,7 +53,6 @@ let watch_to_yaml t =
         ("embed_path", `String t.embed_path);
         ("thumbnail_path", `String t.thumbnail_path);
         ("published_at", `String t.published_at);
-        ("updated_at", `String t.updated_at);
         ("language", `String t.language);
         ("category", `String t.category);
       ])

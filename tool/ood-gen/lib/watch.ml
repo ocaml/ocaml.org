@@ -6,7 +6,6 @@ type metadata = {
   thumbnail_path : string;
   description : string option;
   published_at : string;
-  updated_at : string;
   language : string;
   category : string;
 }
@@ -21,7 +20,6 @@ type t = {
   thumbnail_path : string;
   description : string option;
   published_at : string;
-  updated_at : string;
   language : string;
   category : string;
 }
@@ -41,7 +39,6 @@ let decode s =
              embed_path = metadata.embed_path;
              thumbnail_path = metadata.thumbnail_path;
              published_at = metadata.published_at;
-             updated_at = metadata.updated_at;
              language = metadata.language;
              category = metadata.category;
            }
@@ -61,14 +58,13 @@ let pp ppf v =
   ; thumbnail_path = %a
   ; description = %a
   ; published_at = %a
-  ; updated_at = %a
   ; language = %a
   ; category = %a
   }|}
     Pp.string v.name Pp.string v.embed_path Pp.string v.thumbnail_path
     Pp.(option string)
-    v.description Pp.string v.published_at Pp.string v.updated_at Pp.string
-    v.language Pp.string v.category
+    v.description Pp.string v.published_at Pp.string v.language Pp.string
+    v.category
 
 let pp_list = Pp.list pp
 
@@ -82,7 +78,6 @@ let template () =
     thumbnail_path : string;
     description : string option;
     published_at : string;
-    updated_at : string;
     language : string;
     category : string;
   }
