@@ -11,7 +11,7 @@ cover: /books/developpement-d-applications-avec-objective-caml.jpg
 language: french
 isbn: "2-84177-121-0"
 links:
-  - description: Online
+  - description: Read Online
     uri: https://www.pps.jussieu.fr/Livres/ora/DA-OCAML/index.html
   - description: Order at Amazon.fr
     uri: https://www.amazon.fr/exec/obidos/ASIN/2841771210
