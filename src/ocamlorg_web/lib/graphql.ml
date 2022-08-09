@@ -96,7 +96,8 @@ let package_versions_result name from upto t =
 
 let info =
   Graphql_lwt.Schema.(
-    obj "info" ~fields:(
+    obj "info"
+      ~fields:
         [
           field "name" ~doc:"Unique dependency name"
             ~args:Arg.[]
@@ -106,11 +107,12 @@ let info =
             ~args:Arg.[]
             ~typ:string
             ~resolve:(fun _ (i : package_info) -> i.constraints);
-        ]))
+        ])
 
 let owners =
   Graphql_lwt.Schema.(
-    obj "owners" ~fields:(
+    obj "owners"
+      ~fields:
         [
           field "name" ~doc:"Owner's name"
             ~args:Arg.[]
@@ -128,11 +130,12 @@ let owners =
             ~args:Arg.[]
             ~typ:string
             ~resolve:(fun _ user -> user.Ood.Opam_user.avatar);
-        ]))
+        ])
 
 let url =
   Graphql_lwt.Schema.(
-    obj "url" ~fields:(
+    obj "url"
+      ~fields:
         [
           field "uri" ~doc:"Package URI"
             ~args:Arg.[]
@@ -142,11 +145,12 @@ let url =
             ~args:Arg.[]
             ~typ:(non_null (list (non_null string)))
             ~resolve:(fun _ p -> p.Package.Info.checksum);
-        ]))
+        ])
 
 let package =
   Graphql_lwt.Schema.(
-    obj "package" ~fields:(
+    obj "package"
+      ~fields:
         [
           field "name" ~doc:"Unique package name"
             ~args:Arg.[]
@@ -238,11 +242,12 @@ let package =
             ~resolve:(fun _ p ->
               let info = Package.info p in
               info.Package.Info.publication);
-        ]))
+        ])
 
 let packages_result =
   Graphql_lwt.Schema.(
-    obj "allPackages" ~fields:(
+    obj "allPackages"
+      ~fields:
         [
           field "totalPackages" ~doc:"total number of packages"
             ~args:Arg.[]
@@ -252,7 +257,7 @@ let packages_result =
             ~args:Arg.[]
             ~typ:(non_null (list (non_null package)))
             ~resolve:(fun _ p -> p.packages);
-        ]))
+        ])
 
 let schema t : Dream.request Graphql_lwt.Schema.schema =
   Graphql_lwt.Schema.(
