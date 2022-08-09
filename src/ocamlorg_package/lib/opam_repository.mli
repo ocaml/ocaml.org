@@ -32,4 +32,5 @@ val new_files_since : a:string -> b:string -> (Fpath.t * string) list Lwt.t
     first. *)
 
 val create_package_to_timestamp : unit -> float OpamPackage.Map.t Lwt.t
-(** Creates a map of package to timestamp, where the timestamp is the first commit of the package's opam file. *)
+(** Creates a map of package to timestamp, where the timestamp is the first
+    commit of the package's opam file. *)
