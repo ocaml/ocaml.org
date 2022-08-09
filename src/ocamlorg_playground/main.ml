@@ -8,7 +8,6 @@ module Worker = Brr_webworkers.Worker
 module Toplevel_api = Js_top_worker_rpc.Toplevel_api_gen
 module Toprpc = Js_top_worker_client.W
 
-
 let timeout_container () =
   let open Brr in
   match Document.find_el_by_id G.document @@ Jstr.v "toplevel-container" with
