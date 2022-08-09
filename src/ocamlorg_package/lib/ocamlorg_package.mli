@@ -68,9 +68,9 @@ module Documentation : sig
   type toc = { title : string; href : string; children : toc list }
 
   type item =
-    | Module of string
-    | ModuleType of string
-    | FunctorArgument of int * string
+    [ `Module of string
+    | `ModuleType of string
+    | `FunctorArgument of int * string ]
 
   type t = { toc : toc list; module_path : item list; content : string }
 end

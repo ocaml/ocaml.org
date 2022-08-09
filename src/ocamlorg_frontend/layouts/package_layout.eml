@@ -4,6 +4,7 @@ type tab =
   
 let render
 ?styles
+?(extra_nav="")
 ~title
 ~description
 ~tab
@@ -46,7 +47,7 @@ Layout.render
         </div>
       </div>
       <div class="flex flex-col">
-        <div class="flex mt-8 space-x-6 border-b border-gray-200">
+        <div class="flex mt-8 gap-x-6 border-b border-gray-200 items-stretch flex-wrap">
           <a href="<%s Url.package_with_version package.name package.version %>">
             <button
               class="<%s if tab = Overview then current_tab_class else tab_class %>">
@@ -70,6 +71,7 @@ Layout.render
               <% ); %>
             </button>
           </a>
+          <%s! extra_nav %>
         </div>
       </div>
       <div class="py-12">
