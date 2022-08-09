@@ -45,13 +45,6 @@ let dark_theme_ext =
   let dark = Jv.get Jv.global "__CM__dark" in
   Extension.of_jv @@ Jv.get dark "oneDark"
 
-let _set_classes el cl =
-  List.iter (fun v -> El.set_class v true el) (List.map Jstr.v cl)
-
-let _set_inner_html el html =
-  let jv = El.to_jv el in
-  Jv.set jv "innerHTML" (Jv.of_string html)
-
 let get_el_by_id s =
   match Document.find_el_by_id G.document (Jstr.v s) with
   | Some v -> v
@@ -59,7 +52,6 @@ let get_el_by_id s =
       Console.warn [ Jstr.v "Failed to get elemented by id" ];
       invalid_arg s
 
-let _red el = El.set_inline_style (Jstr.v "color") (Jstr.v "red") el
 let cyan el = El.set_inline_style (Jstr.v "color") (Jstr.v "cyan") el
 
 let handle_output (o : Toplevel_api.exec_result) =
