@@ -376,6 +376,22 @@ let package t req =
       Dream.redirect req target
   | None -> not_found req
 
+let package_docs t req =
+    let package = Dream.param req "name" in
+    let find_default_version name =
+      Ocamlorg_package.get_package_latest t name
+      |> Option.map (fun pkg -> Ocamlorg_package.version pkg)
+    in
+    let name = Ocamlorg_package.Name.of_string package in
+    let version = find_default_version name in
+    match version with
+    | Some version ->
+        let target =
+          "/p/" ^ package ^ "/" ^ Ocamlorg_package.Version.to_string version ^ "/doc/index.html"
+        in
+        Dream.redirect req target
+    | None -> not_found req
+
 let package_versioned t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
   let version =
