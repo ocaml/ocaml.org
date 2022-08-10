@@ -27,90 +27,119 @@ for the instruction.
 Please note that the installer is a work in progress and might not work on your system.
 
 OCaml is available as a package in most Linux distributions; however, it is
-often outdated. On the contrary, OCaml's package manager opam allows you to
+often outdated. On the contrary, OCaml's official package manager, opam, allows you to
 easily switch between OCaml versions and much more. This is
 especially useful since different projects might require different versions of
 OCaml.
 
-So the best way to install OCaml is in fact by using opam, OCaml's official package manager.
+The best way to install OCaml is with opam.
+
+If you're new to the Command Line Interface (CLI), the code blocks (in black) show the required commands. Type each command after the prompt $, although it's often represented by a %, >, or another symbol on your local machine. Ensure you use the exact case and spacing shown, then hit return/enter at the end of every line. The text after # gives more information on the following commands.
 
 ### Installing opam
 
 Alternatively, you can use the alpha-version platform installer to install opam and the development tools, [see below](#up-and-running-with-the-platform-installer).
 
-[opam](https://opam.ocaml.org/) is the package manager of OCaml. It introduces the concept of "switches," consisting of a compiler together with a set of packages (libraries and other files). Switches are used to have independent sets of dependencies in different projects.
+[opam](https://opam.ocaml.org/) introduces the concept of "switches," consisting of a compiler together with a set of packages (libraries and other files). Switches are used to have independent sets of dependencies in different projects.
 
 After having installed opam, you will need to initialise it, [see below](#initialize-opam).
 
-To install opam, you can [use your system package manager](https://opam.ocaml.org/doc/Install.html#Using-your-distribution-39-s-package-system), or download the [binary distribution](https://opam.ocaml.org/doc/Install.html#Binary-distribution). The details are available in the above links, but for convenience, we copy a few of them here:
+To install opam, you can [use your system package manager](https://opam.ocaml.org/doc/Install.html#Using-your-distribution-39-s-package-system) or download the [binary distribution](https://opam.ocaml.org/doc/Install.html#Binary-distribution). The details are available in the above links, but for convenience, we copy a few of them here: 
 
 **For macOS**
 
 ```shell
 # With Homebrew:
-brew install opam
+$ brew install opam
 
 # With MacPort:
-port install opam
+$ port install opam
 ```
+
+`# Homebrew` indicates the command if you're using [Homebrew](https://brew.sh/) as the installer, and `# MacPorts` is if you're using [MacPorts](https://www.macports.org/) to install.
 
 **For Linux**
 
+The preferred way to install opam is with your system's package manager on
+Linux (e.g., `apt-get install opam` or similar). [Details of all installation
+methods.](https://opam.ocaml.org/doc/Install.html)
+
 ```shell
 # Ubuntu
-add-apt-repository ppa:avsm/ppa
-apt update
-apt install opam
+$ add-apt-repository ppa:avsm/ppa
+$ apt update
+$ apt install opam
 
 # Archlinux
-pacman -S opam
+$ pacman -S opam
 
 # Debian (stable, testing and unstable)
-apt-get install opam
+$ apt-get install opam
 ```
 
-**Binary distribution**
+**Binary Distribution**
 
 ```shell
-bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"
+$ bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"
 ```
 
-### Initialising `opam`
+### Initialising opam
+
+It's essential to both initialise opam and install the OCaml compiler because OCaml is a compiled language, so please don't skip this section. 
 
 This step is done automatically by the alpha-version platform installer, [see below](#up-and-running-with-the-platform-installer).
 
-If you have installed the binary distribution of `opam` through the install script, this step should already be done. If you have installed it through your system package manager, you must initialise `opam` by running the following command:
+If you have installed the binary distribution of opam through the install script, this step should already be done. If you have installed it through your system package manager, you must initialise opam by running the following command:
 
-```
-opam init          # Can take some time
-eval $(opam env)
+```shell
+$ opam init          # Can take some time
+$ eval $(opam env)
 ```
 
-The first command (`opam init`) creates a first switch, usually called `default`, although this is just a convention. If you have installed OCaml through your system package manager, the first switch will be set up to use this compiler (it is called a "system switch"). Otherwise, it will build one from source, usually taking the most recent version of OCaml.
+The first command (`opam init`) creates a first switch, usually called `default`, although this is just a convention. (`switch` is used to have several installations on disk, like packages, compiler version, etc.) If you have installed OCaml through your system package manager, the first switch will be set up to use this compiler (it is called a "system switch"). Otherwise, it will build one from source, usually taking the most recent version of OCaml.
 
 The second command (`eval $(opam env)`) modifies a few environments variables to make the shell aware of the switch you are using. For instance, it will add what is needed to the `PATH` variable so that typing `ocaml` in the shell runs the OCaml binary of the current switch.
 
-In case you are not satisfied with the OCaml version of your system switch, you can write the following commands to create a new switch with a recent version of OCaml:
+**Please note:** After the `opam init` command, you might get a result asking if you'd like to update your `zsh` configuration. If you get that message, type in `N`, the default, then type `y` to install the hook, which will run `eval $(opam env)`. As you get more well-versed in OCaml, you can change these settings by rerunning `opam init`.
+
+Now check the installation by running `opam --version`. The current version is 2.1.2. Please note merely using `opam init` might install a previous version of opam. If you have a previous version, please refer to [the opam Upgrade Guide](https://opam.ocaml.org/doc/Upgrade_guide.html).
+
+### Install Compiler 
+
+Next, we'll install the OCaml base compiler, which uses the `opam switch create` command. Specify which version as shown below (i.e., `opam switch create 5.0.0~alpha1`). All possible compiler versions can be found with `opam switch list-available`. The most current version can be found at [opam.ocaml.org](https://opam.ocaml.org/packages/ocaml-base-compiler/).
 
 ```shell
-opam switch create 4.14.0
-eval $(opam env)
+$ opam switch create 5.0.0~alpha1
+$ eval $(opam env)
 ```
 
-More information can be found on the [official website](https://opam.ocaml.org/).
+Check that the installation was succuessful by running `which ocaml` and `ocaml -version`. The line beneath the $ command shows the desired output for both the OCaml version and the toplevel version (installed specifically with the above `switch` command):
+
+```shell
+$ which ocaml
+/Users/frank/.opam/5.0.0~alpha1/bin/ocaml
+
+$ ocaml -version
+The OCaml toplevel, version 5.0.0~alpha1
+```
+
+We will learn about the OCaml toplevel and other installed tools in the next section.
+
+In case you are not satisfied with the OCaml version of your system switch, you can change the version with `opam switch create <version_here>`. More information can be found on the [official website](https://opam.ocaml.org/).
+
 
 ### The OCaml Base Tools
 
 OCaml is installed in an opam switch, which, among others, bring the following
 programs:
 
-- A "toplevel," which can be called with the `ocaml` command. It consists of a read-eval-print loop (a [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop)), similar to the `python` or `node` command, and can be handy to quickly try the language. The user interface of OCaml is very basic but is improved a lot in one of the package that we will install later: UTop.
+- A "toplevel," which can be called with the `ocaml` command. It consists of a read-eval-print loop ([REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop)), similar to the `python` or `node` command, and can be handy to quickly try the language. The user interface of OCaml is very basic, but when we install the UTop package in the following section, we'll have an improved and easier-to-use REPL.
 
 - A compiler to **native code**, called `ocamlopt`. It creates executables that can be executed directly on your system.
 
 - A compiler to **bytecode**, called `ocamlc`. It creates executables that can be interpreted by a variety of runtime environments, making it more flexible.
 
-Although this is theoretically all we need to write OCaml code, it is not at all a complete and comfortable development environment.
+Although this is theoretically all we need to write OCaml code, it is not a complete and comfortable development environment.
 
 ## Setting Up Development Tools
 
@@ -119,23 +148,23 @@ This step is done automatically by the alpha-version platform installer, [see be
 We will now install everything we need to get a complete development environment, which includes:
 
 - Dune, a fast and full-featured build system for OCaml
-- Merlin (the backend) and `ocaml-lsp-server` to provide editors with many useful features such as "jump to definition"
+- Merlin (the backend) and `ocaml-lsp-server` (OCaml's Language Server Protocol) to provide editors with many useful features such as "jump to definition"
 - `odoc` to generate documentation from OCaml code
 - OCamlformat to automatically format OCaml code
-- UTop, an improved REPL,
+- UTop, an improved REPL
 - `dune-release` to release code to `opam-repository`, the package base for opam.
 
 All these tools can be installed in your current switch (remember that opam groups installed packages in independent switches) using the following command:
 
 ```shell
-opam install dune merlin ocaml-lsp-server odoc ocamlformat utop dune-release
+$ opam install dune merlin ocaml-lsp-server odoc ocamlformat utop dune-release
 ```
 
-Now that the tools are installed, it remains to understand how to use them. Most of them will be driven either by the editor or by `dune`, but `utop` is handy to try OCaml or a specific library.
+Now that the tools are installed, it remains to understand how to use them. Most of them will be driven either by the editor or by Dune, but UTop is handy to try OCaml or a specific library.
 
 ## Up and Running with the Platform Installer
 
-The platform installer is work in progress. You can follow its development and
+A different way to install opam and the OCaml Platform is with the platform installer, which is a work in progress. You can follow its development and
 report issues on [the repository](https://github.com/tarides/ocaml-platform-installer/).
 
 Please note that the installer might not work on your system. If that's the
@@ -145,7 +174,7 @@ The installer is not in any package manager yet, but it can be installed using
 this script, which will install both opam and OCaml Platform`:
 
 ```shell
-sudo bash < <(curl -sL https://github.com/tarides/ocaml-platform-installer/releases/latest/download/installer.sh)
+$ sudo bash < <(curl -sL https://github.com/tarides/ocaml-platform-installer/releases/latest/download/installer.sh)
 ```
 
 This downloads a script from the web and executes it as root. You are
@@ -154,7 +183,7 @@ encouraged to have a look at what it does first.
 Once this step is done, setup the environment with:
 
 ```shell
-ocaml-platform
+$ ocaml-platform
 ```
 
 This will initialise opam and install the development tools, which might take
@@ -170,7 +199,9 @@ opam switch for example.
 
 ## Using the OCaml Toplevel with UTop
 
-UTop is a nice toplevel for OCaml. It features history, line edition, and the ability to load a package installed in your switch.
+UTop is a nice toplevel for OCaml. Unlike the standard toplevel with the `ocaml` command, UTop features history, tab completion, line edition, and the ability to load a package installed in your switch. One of the things that makes OCaml so efficient is because it compiles while you code, allowing for iteration.
+
+By running the `utop` command, it will print out something similar to what you see below. After the horizontal line, you will see a new prompt `utop #`. Here is where you type your expressions. In this case `1 + 2 * 3;;`. After you press Enter, the following line shown is the desired output. 
 
 ```
 $ utop
@@ -211,57 +242,66 @@ While a toplevel is great for interactively trying out the language, we will sho
 
 OCaml has plugins for many editors, but the most actively maintained are for Visual Studio Code, Emacs, and Vim.
 
-For **Visual Studio Code**, we install the [OCaml Platform Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=ocamllabs.ocaml-platform) from the Visual
+For **Visual Studio Code**, install the [OCaml Platform Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=ocamllabs.ocaml-platform) from the Visual
 Studio Marketplace.
 
 Upon first loading an OCaml source file, you may be prompted to select the
-toolchain in use: pick the version of OCaml you are using, e.g., 4.11.1
+toolchain in use: pick the version of OCaml you are using, e.g., 5.0.0~alpha1
 from the list. Now, help is available by hovering over symbols in your program:
 
 ![Visual Studio Code](/media/tutorials/vscode.png)
 
-**For Vim and Emacs** we won't use the LSP server, but rather directly talk to Merlin, which we installed earlier.
+**For Vim and Emacs** we won't use the LSP server but rather directly talk to Merlin.
 
-When installing Merlin, instructions were printed on how to link Merlin with your editor. If you do not have them visible, the short way is just to run:
+When we installed Merlin above, instructions were printed on how to link Merlin with your editor. If you do not have them visible, the short way is just to run:
 
 ```shell
-opam user-setup install
+$ opam user-setup install
 ```
 
 ## Starting a New Project
 
-We explain here all that's needed to start a project using the tools that we installed. The build system, Dune, allows us to initialise a project, containing a `helloworld` example:
+Let's begin the simplest project with Dune and OCaml, "Hello World," just to see how it works. 
+Navigate into a practice directory, as we'll be creating new projects below. 
+
+First, we ask `dune` to
+initialize a new project, and then change into the created directory. As usual, 
+the line beneath the command is the desired output:
 
 ```shell
-dune init project helloworld
-cd helloworld
+$ dune init project helloworld
+Success: initialized project component named helloworld
+$ cd helloworld
 ```
 
 All the metadata of your project is available in the file `dune-project`. Edit it to match your specific project.
 
-We can build our program with `dune build`:
+We can build our program with `dune build`, which creates an executable file:
 
 ```shell
-dune build
+$ dune build
 ```
 
 When we change our program, we can type `dune build` again to make a new
 executable. To run the program, we can use:
 
 ```shell
-dune exec ./bin/main.exe
-```
-
-Which will print:
-
-```
+$ dune exec ./bin/main.exe
 Hello, World!
 ```
 
 Or, alternatively,
 
 ```shell
-dune exec helloworld
+$ dune exec helloworld
+Hello, World!
+```
+
+Let's look at the contents of our new directory:
+
+```shell
+$ ls
+bin  _build  dune-project  helloworld.opam  lib  test
 ```
 
 All the build outputs generated by Dune go in the `_build` directory. The
@@ -282,29 +322,29 @@ Moreover, since different versions of OCamlformat will vary in formatting, it
 is good practice to enforce the one you are using. Doing:
 
 ```shell
-echo "version = 0.22.4" > .ocamlformat
+$ echo "version = 0.22.4" > .ocamlformat
 ```
 
-will enforce that only OCamlformat version 0.22.4 can format the files of the project.
+This will enforce that only OCamlformat version 0.22.4 can format the files of the project.
 Note that a `.ocamlformat` file is _needed_, but an empty file is accepted.
 
 In addition to the editor, Dune is also able to drive OCamlformat. Running
 this command will automatically format all files from your codebase:
 
 ```shell
-dune fmt
+$ dune fmt
 ```
 
 ### `odoc` for Documentation Generation
 
 `odoc` is a tool that is not meant to be used by hand, just as compilers are
-not meant to be run by hand in complex projects. Dune can drive `odoc` to
+not meant to be run manually in complex projects. Dune can drive `odoc` to
 generate, from the docstrings and interface of the modules of the project, a
 hierarchised documentation.
 
-The following command will generate the documentation as `html`:
+The following command will generate the documentation as HTML:
 
 ```shell
-dune build @doc
-open _build/default/_doc/_html/index.html
+$ dune build @doc
+$ open _build/default/_doc/_html/index.html
 ```
