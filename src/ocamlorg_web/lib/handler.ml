@@ -406,11 +406,11 @@ let rec find_latest_doc t kind name vlist =
 let package_docs t kind req =
   let package = Dream.param req "name" in
   let name = Ocamlorg_package.Name.of_string package in
-  let unsorted_opt = Ocamlorg_package.get_package_versions t name in
-  match unsorted_opt with
+  let vlist_opt = Ocamlorg_package.get_package_versions t name in
+  match vlist_opt with
   | None -> not_found req
-  | Some unsorted -> (
-      let versions = List.rev (List.sort compare unsorted) in
+  | Some vlist_inc -> (
+      let versions = List.rev vlist_inc in
       let open Lwt.Syntax in
       let kind =
         match kind with
