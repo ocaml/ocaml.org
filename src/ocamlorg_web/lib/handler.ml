@@ -376,21 +376,54 @@ let package t req =
       Dream.redirect req target
   | None -> not_found req
 
-let package_docs t req =
+(** Find out if documentation exists for a certain package version. *)
+let exists_doc t kind name version =
+  let package = Ocamlorg_package.get_package t name version in
+  let open Lwt.Syntax in
+  match package with
+  | None -> Lwt.return None
+  | Some package -> (
+      let* doc_stat = Ocamlorg_package.documentation_status ~kind package in
+      match doc_stat with
+      | `Success -> Lwt.return (Some version)
+      | _ -> Lwt.return None)
+
+(** Find the latest documented version of a package given a list of its
+    versions in descending order (latest version first). **)
+let rec find_latest_doc t kind name vlist = 
+  let open Lwt.Syntax in
+  match vlist with
+  | [] -> Lwt.return None
+  | _ -> let version = List.hd vlist in
+    let* doc = exists_doc t kind name version in
+    match doc with
+    | Some version -> Lwt.return (Some version)
+    | None -> find_latest_doc t kind name (List.tl vlist)
+
+(** Redirect any URL with suffix /p/PACKAGE/docs to the latest documentation
+    for PACKAGE. *)
+let package_docs t kind req =
     let package = Dream.param req "name" in
-    let find_default_version name =
-      Ocamlorg_package.get_package_latest t name
-      |> Option.map (fun pkg -> Ocamlorg_package.version pkg)
-    in
     let name = Ocamlorg_package.Name.of_string package in
-    let version = find_default_version name in
-    match version with
-    | Some version ->
-        let target =
-          "/p/" ^ package ^ "/" ^ Ocamlorg_package.Version.to_string version ^ "/doc/index.html"
-        in
-        Dream.redirect req target
+    let unsorted_opt = Ocamlorg_package.get_package_versions t name in
+    match unsorted_opt with
     | None -> not_found req
+    | Some unsorted -> let versions = List.rev (List.sort compare unsorted) in
+      let open Lwt.Syntax in
+      let kind =
+        match kind with
+        | Package -> `Package
+        | Universe -> `Universe (Dream.param req "hash")
+      in
+      let* version_opt = find_latest_doc t kind name versions in
+      (* Ignoring the `Universe case here. The URLs are longer, and don't
+        seem to follow a simple formula. Maybe something to look into. *)
+      match version_opt with
+      | Some version' ->
+          let version = Ocamlorg_package.Version.to_string version' in
+          let target = "/p/" ^ package ^ "/" ^ version ^ "/doc/index.html" in
+          Dream.redirect req target
+      | None -> not_found req
 
 let package_versioned t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
