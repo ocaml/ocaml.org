@@ -9,14 +9,38 @@ date: 2021-05-27T21:07:30-00:00
 
 # OCaml on Windows
 
-There is a new [Diskuv OCaml](https://github.com/diskuv/dkml-installer-ocaml#readme) ("DKML") Windows
-installer that we recommend for new users. Expect to see another officially supported Windows installation provided directly by Opam in the coming months; it will be compatible with a DKML installation.
+There is a new [Diskuv OCaml][DKML] ("DKML") Windows
+installer that we recommend for new users. However while [Diskuv OCaml][DKML] has a modern OCaml 4.12.1 compiler,
+it does not track the latest OCaml compilers. We will officially support Windows as a Tier 1
+platform with a [major release of Opam](#opam-22) in the coming months, and it will be compatible with
+DKML installations.
 
-Our guidance is:
+[DKML]: https://github.com/diskuv/dkml-installer-ocaml#readme
 
-* when you **want only to run, not develop, OCaml programs** you should use [Docker](#docker-images) or [WSL2](#wsl2)
-* when you **are familiar with Cygwin** you should use [Cygwin](#opam-repository-mingw)
-* when you **are everybody else, including students and first-time developers,** you should use [Diskuv OCaml](/docs/up-and-running)
+Our guidance is when you want:
+
+* **only to run, not develop, applications** you should use [Docker](#docker-images) or [WSL2](#wsl2)
+* **to develop applications and have some familiarity with Unix** you should use [opam-repository-mingw](#opam-repository-mingw)
+* **to develop applications and care more about stability and ease-of-use than the latest compiler** you should use [Diskuv OCaml](/docs/up-and-running)
+
+The guidance is based on the availability table below:
+* Tier 1 is fully supported with the latest compilers
+* Tier 2 is supported but maintained when possible
+* Tier 3 is user supported
+
+```
+╭──────────────────────────────────────────────────────────────────────────────────────────╮
+│ Tier   │ OCaml Version and Environment     │ Support and Availability                    │
+│ ------ │ --------------------------------- │ ------------------------------------------- │
+│ Tier 1 │ OCaml 5 with Opam 2.2             │ Full support. Coming in the next few months │
+│ Tier 2 │ 4.12.1 with Diskuv OCaml          │ Supported on select versions. Available now │
+│ Tier 3 │ 4.14.0 with opam-repository-mingw │ Deprecated. Available now and mostly works  │
+│ Tier 3 │ 4.14.0 with WSL2                  │ User supported. Available now               │
+│ Tier 3 │ 4.14.0 with Docker                | User supported. Available now               │
+╰──────────────────────────────────────────────────────────────────────────────────────────╯
+```
+
+## Opam 2.2
 
 After the [successful release](https://github.com/ocaml/opam/releases/tag/2.1.0)
 of opam 2.1.0 the [next version](https://github.com/ocaml/opam/projects/2) of
@@ -78,14 +102,6 @@ easier way to get a working Windows environment on your machine.
 **If you use WSL2** you will remotely connect to your WSL2 instance from
 Visual Studio Code. Microsoft has a [useful blog post](https://code.visualstudio.com/blogs/2019/09/03/wsl2)
 covering getting WSL2 and Visual Studio Code connected.
-
-**If you use Cygwin** we must launch Visual Studio Code from within the Cygwin window,
-rather than by clicking on its icon (otherwise the language server will not be
-found):
-
-```
-$ /cygdrive/c/Users/Frank\ Smith/AppData/Local/Programs/Microsoft\ VS\ Code/Code.exe
-```
 
 ### Vim and Emacs on Windows
 
