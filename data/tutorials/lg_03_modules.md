@@ -41,6 +41,10 @@ We can compile the files in one command:
 $ ocamlopt -o hello amodule.ml bmodule.ml
 ```
 
+Note: The source files need to be ordered with the dependencies coming before
+the dependent. In the example above, putting `bmodule.ml` before `amodule.ml`
+will result in an `Unbound module` error.
+
 Or, as a build system might do, one by one:
 
 <!-- $MDX dir=examples -->
