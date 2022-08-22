@@ -41,7 +41,7 @@ In this guide, we explain the different mechanism behind preprocessors in OCaml,
 with as few prerequisite as possible. If you are only interested in how to use a
 PPX in your project, jump to [this section](#using-ppxs) or to the [dune
 doc](https://dune.readthedocs.io/en/stable/concepts.html#preprocessing-specification).
-If you are interested in writing a PPX, jump to this section.
+If you are interested in writing a PPX, jump to [this section](#writing-a-ppx).
 
 ## Preprocessing in OCaml
 
@@ -81,8 +81,7 @@ conditional compilation, or macro expansion. Any preprocessor can be used, such
 as the [C Preprocessor](https://gcc.gnu.org/onlinedocs/cpp/Invocation.html) or a
 general preprocessor such as [`m4`](https://www.gnu.org/software/m4/m4.html).
 However, some preprocessors such as
-[`cppo`](https://github.com/ocaml-community/cppo) or
-[`cinaps`](https://github.com/ocaml-ppx/cinaps) have been made especially to
+[`cppo`](https://github.com/ocaml-community/cppo) have been made especially to
 integrate well with OCaml.
 
 
@@ -177,7 +176,7 @@ Working with a much more structured representation of a program solves both the 
 PPxs are a different kind of preprocessor—one that does not run on the textual
 source code, but rather on the parsing result: the Abstract Syntax Tree (AST),
 which in the OCaml compiler is called Parsetree. In order to understand PPXs well, we
-need to understand what is this Parsetree.
+need to understand what this Parsetree is.
 
 ### OCaml's Parsetree: the OCaml AST
 
@@ -258,7 +257,7 @@ Secondly, most of the PPX's code transformation do not need to be given
 the full AST; they can work locally in subparts of it. There are two kinds of
 such local restrictions to the general PPX rewriters that cover most of the
 usecases: extenders and derivers. They respectively correspond to the two new
-syntaxes of OCaml 4.02.
+syntaxes of OCaml 4.02 just mentioned, extension nodes and attributes.
 
 #### Attributes and Derivers
 
@@ -388,13 +387,14 @@ from the item just like the usual `[@@deriving <deriver_name>]` attribute.
 However, instead of appending the generated code after the attributed item, it
 will check that the generated code is already present after the attributed item.
 If yes, nothing has to be done. Otherwise, it will generate a correct file, and
-dune will offer you the possibility of using this correct file.
+Dune will offer you the possibility of updating your source code using this
+correct file (using the `dune promote` command).
 
 As the new file contains the generated code, it no longer needs to be
 preprocessed by the PPX, and can be compiled and distributed as is, and the PPX can be
 removed from the dependencies. However, the PPX still needs to be run whenever the
 item on which the attribute is attached change. This can be achieved by running
-the PPX only when the `@lint` target. Let us see an example, with the following
+the PPX on the `@lint` target. Let us see an example, with the following
 files:
 
 ```shell
@@ -429,7 +429,7 @@ Promoting _build/default/lib/lib.ml.lint-corrected to lib/lib.ml.
 ```
 The file now contains the generated value. While it is still a development
 dependency, the PPX dependency can be dropped for compiling the project:
-```
+```shell
 $ cat lib.ml
 type t = int [@@deriving_inline yojson]
 let _ = fun (_ : t) -> ()
@@ -438,7 +438,7 @@ let _ = t_of_yojson
 let yojson_of_t = (yojson_of_int : t -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 let _ = yojson_of_t
 [@@@deriving.end]
-
+```
 ### Why PPXs Are Especially Useful in OCaml
 
 Now that we know what a PPX is and have seen examples of it, let's see why it
@@ -483,16 +483,16 @@ Many of these questions stem from the fact that there is no macro language part
 of OCaml and that the preprocessors are always standalone programs. This means
 that they can do anything (while macros usually restrict the expressivity of the
 preprocessing), and the compiler has no control over them. However, the OCaml
-Platform includes a library to write PPXes, that somehow act as an macro
+Platform includes a library to write PPXs, that somehow acts as a macro
 language without losing the full generality of PPXs:
 [ppxlib](https://github.com/ocaml-ppx/ppxlib/). This library provides generic
 ways of writing [extenders](#extension-nodes-and-extenders) and
 [derivers](#attributes-and-derivers), ensuring that they will work well
-together, removing the composition problem we had with multiple arbitrary
+together, and removing the composition problem we had with multiple arbitrary
 transformations. `ppxlib` also provides a driver which outputs one single binary, even in the case of multiple
 transformations registered.
 
-With `ppxlib`, PPX authors can concentrate on their own part—the rewriting
+With `ppxlib`, PPX authors can concentrate on their own part: the rewriting
 logic. Then, they can register their transformation, and `ppxlib` will be
 responsible for the rest of the work that all PPXs have to do: getting the
 Parsetree, giving it back to the compiler, and creating an executable with a
@@ -505,7 +505,7 @@ module might change when a new feature is added to the language. To keep a PPX
 compatible with a new version, it would have to update the transformation from
 the old types to the new ones. But, by doing so, it would lose compatibility
 with the old OCaml version. Ideally, a single version of a PPX could preprocess
-different OCaml version.
+different OCaml versions.
 
 `ppxlib` deals with this issue by converting Parsetree types to and from the
 latest version. A PPX author then only needs to maintain their transformation for
