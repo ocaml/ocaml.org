@@ -48,15 +48,19 @@ To install opam, you can [use your system package manager](https://opam.ocaml.or
 
 **For macOS**
 
+If you're installing with [Homebrew](https://brew.sh/): 
+
 ```shell
 # With Homebrew:
 $ brew install opam
+```
 
+Or if you're using [MacPorts](https://www.macports.org/):
+
+```shell
 # With MacPort:
 $ port install opam
 ```
-
-`# Homebrew` indicates the command if you're using [Homebrew](https://brew.sh/) as the installer, and `# MacPorts` is if you're using [MacPorts](https://www.macports.org/) to install.
 
 **For Linux**
 
@@ -85,7 +89,7 @@ $ bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/s
 
 ### Initialising opam
 
-It's essential to both initialise opam and install the OCaml compiler because OCaml is a compiled language, so please don't skip this section. 
+It's essential to both initialise opam and, because OCaml is a compiled language, install the OCaml compiler, so please don't skip this section. 
 
 This step is done automatically by the alpha-version platform installer, [see below](#up-and-running-with-the-platform-installer).
 
@@ -102,14 +106,14 @@ The second command (`eval $(opam env)`) modifies a few environments variables to
 
 **Please note:** After the `opam init` command, you might get a result asking if you'd like to update your `zsh` configuration. If you get that message, type in `N`, the default, then type `y` to install the hook, which will run `eval $(opam env)`. As you get more well-versed in OCaml, you can change these settings by rerunning `opam init`.
 
-Now check the installation by running `opam --version`. The current version is 2.1.2. Please note merely using `opam init` might install a previous version of opam. If you have a previous version, please refer to [the opam Upgrade Guide](https://opam.ocaml.org/doc/Upgrade_guide.html).
+Now check the installation by running `opam --version`. You can check if it's the current version on [opam.ocaml.org](https://opam.ocaml.org/). Please note merely using `opam init` might install a previous version of opam. If you have a previous version, please refer to [the opam Upgrade Guide](https://opam.ocaml.org/doc/Upgrade_guide.html).
 
-### Install Compiler 
+### Creating a New Switch 
 
-Next, we'll install the OCaml base compiler, which uses the `opam switch create` command. Specify which version as shown below (i.e., `opam switch create 5.0.0~alpha1`). All possible compiler versions can be found with `opam switch list-available`. The most current version can be found at [opam.ocaml.org](https://opam.ocaml.org/packages/ocaml-base-compiler/).
+If you want a specific version of OCaml, or a new independent environment, you can create a new switch with the `opam switch create` command. Specify which version as shown below (i.e., `opam switch create 5.0.0`). All possible compiler versions can be found with `opam switch list-available`. The most current version can be found at [opam.ocaml.org](https://opam.ocaml.org/packages/ocaml-base-compiler/).
 
 ```shell
-$ opam switch create 5.0.0~alpha1
+$ opam switch create 5.0.0
 $ eval $(opam env)
 ```
 
@@ -117,10 +121,10 @@ Check that the installation was succuessful by running `which ocaml` and `ocaml 
 
 ```shell
 $ which ocaml
-/Users/frank/.opam/5.0.0~alpha1/bin/ocaml
+/Users/frank/.opam/5.0.0/bin/ocaml
 
 $ ocaml -version
-The OCaml toplevel, version 5.0.0~alpha1
+The OCaml toplevel, version 5.0.0
 ```
 
 We will learn about the OCaml toplevel and other installed tools in the next section.
@@ -246,7 +250,7 @@ For **Visual Studio Code**, install the [OCaml Platform Visual Studio Code exten
 Studio Marketplace.
 
 Upon first loading an OCaml source file, you may be prompted to select the
-toolchain in use: pick the version of OCaml you are using, e.g., 5.0.0~alpha1
+toolchain in use: pick the version of OCaml you are using, e.g., 5.0.0
 from the list. Now, help is available by hovering over symbols in your program:
 
 ![Visual Studio Code](/media/tutorials/vscode.png)
