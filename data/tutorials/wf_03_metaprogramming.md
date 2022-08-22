@@ -75,7 +75,7 @@ why PPXs are necessary in OCaml.
 
 ## Source Preprocessors
 
-As mentionned in the introduction, preprocessing the source file can be useful
+As mentioned in the introduction, preprocessing the source file can be useful
 for things that can be solved by string manipulation, such as file inclusion,
 conditional compilation, or macro expansion. Any preprocessor can be used, such
 as the [C Preprocessor](https://gcc.gnu.org/onlinedocs/cpp/Invocation.html) or a
@@ -86,8 +86,8 @@ However, some preprocessors such as
 integrate well with OCaml.
 
 
-Preprocessing text files do not need specific support from the language. It is
-more the build system's role to drive the preprocessing. So, applying
+In OCaml, preprocessing text files do not have specific support from the language. Instead
+it is the build system's role to drive the preprocessing. So, applying
 preprocessors will boil down to telling Dune about it. Only for educational
 purposes, in the next section we show how to preprocess a file using OCaml's
 compiler, the more relevant part being [Preprocessing with
@@ -96,7 +96,7 @@ Dune](#preprocessing-with-dune).
 ### Preprocessing with `ocamlc` and `ocamlopt`
 
 OCaml's compiler `ocamlc` and `ocamlopt` offer the `-pp` option to preprocess a
-file in the compilation phase (but remember that you are encourage to use Dune
+file in the compilation phase (but remember that you are encouraged to use Dune
 to drive the preprocessing). Consider the following simple preprocessor which
 replaces the string `"World"` by the string `"Universe"`, here in the form of a
 shell script:
@@ -161,20 +161,20 @@ preprocessor, which would look for the type in the file and serialize it
 differently depending on the type structure; that is, whether it is a variants
 type, a record type, the structure of its subtypes...
 
-All these difficulties comes from the fact that we want to generate a program,
+All these difficulties come from the fact that we want to generate a program,
 but we are manipulating a flat representation of it as plain text. The lack of
 structure of this representation has several disadvantages:
 - It is difficult to read parts of the program, such as the type to generate a
 serialiser in the example above.
 - It is error-prone to write programs as plain text, as there is no guarantee
-  that the generate code always respects the syntax of the programming language.
+  that the generated code always respects the programming language's syntax.
   Such errors in code generation can be hard to debug!
 
 Working with a much more structured representation of a program solves both the reading and writing issues. This is exactly what PPXs do!
 
 ## PPXs
 
-PPxs are a different kind of preprocessors—one that do not run on the textual
+PPxs are a different kind of preprocessor—one that does not run on the textual
 source code, but rather on the parsing result: the Abstract Syntax Tree (AST),
 which in the OCaml compiler is called Parsetree. In order to understand PPXs well, we
 need to understand what is this Parsetree.
@@ -191,16 +191,16 @@ Let's look at a few properties of this tree:
   "let definitions," "expressions," "patterns," ...
 - The tree's root is a list of `structure_item`s
 - A `structure_item` can either represent a toplevel expression, a type
-  definition, a let definition, ... This is determined using a variant type.
+  definition, a let definition, etc. This is determined using a variant type.
 
 There are several complementary ways of getting a grasp on the Parsetree type.
 One is to read the [API
 documentation](https://v2.ocaml.org/api/compilerlibref/Parsetree.html), which
 includes examples of what each type and value represent. Another is to 
 examine the Parsetree value of crafted OCaml code. This can be achieved using
-external tools such as [astexplorer](https://astexplorer.net/), the OCaml
+the external tool [astexplorer](https://astexplorer.net/), our OCaml
 [VSCode
-extension](https://marketplace.visualstudio.com/items?itemName=ocamllabs.ocaml-platform),
+extension](https://marketplace.visualstudio.com/items?itemName=ocamllabs.ocaml-platform) (by opening `OCaml: Open AST explorer` in the command palette),
 or even directly with the OCaml toplevel using the option `-dparsetree` (also
 available in UTop).
 
@@ -246,16 +246,16 @@ we will use AST to refer to the parsetree.
 
 ### PPX Rewriters
 
-At its core, a PPX rewriter is just a transformation that takes a Parsetree, and
+At its core, a PPX rewriter is just a transformation that takes a Parsetree and
 returns a possibly modified Parsetree, but there are subtleties. First, PPXs
-work on the parsetree, which is the result of parsing done by OCaml, so the
-source file needs to be of valid OCaml syntax. Thus, we cannot introduce custom
+work on the Parsetree, which is the result of OCaml's parsing, so the
+source file needs to have valid OCaml syntax. Thus, we cannot introduce custom
 syntax such as the `#if` from the C preprocessor. Instead, we will use two
-special syntaxes that were introduced in OCaml 4.02: Extension nodes, and
+special syntaxes that were introduced in OCaml 4.02: Extension nodes and
 attributes.
 
-Secondly, most of the code transformation that PPXs do do not need to be given
-the full AST, they can work locally in subparts of it. There are two kinds of
+Secondly, most of the PPX's code transformation do not need to be given
+the full AST; they can work locally in subparts of it. There are two kinds of
 such local restrictions to the general PPX rewriters that cover most of the
 usecases: extenders and derivers. They respectively correspond to the two new
 syntaxes of OCaml 4.02.
@@ -304,20 +304,19 @@ of information is passed to the PPX, and we also know that the PPX won't modify
 any part of the source.
 
 Example of derivers are:
-- [`ppx_show`](https://github.com/thierry-martinez/ppx_show), which generates
-  from a type a pretty printer for values of this type.
+- [`ppx_show`](https://github.com/thierry-martinez/ppx_show) generates a pretty printer
+  from a type for values of this type.
 - Derivers that derive serializers from OCaml types to other formats, such as
   JSON with
   [`ppx_yojson_conv`](https://github.com/janestreet/ppx_yojson_conv), YAML with
   [`ppx_deriving_yaml`](https://github.com/patricoferris/ppx_deriving_yaml), or
-  SEXP with [`ppx_sexp_conv`](https://github.com/janestreet/ppx_sexp_conv)...
-- [`ppx_accessor`](https://github.com/janestreet/ppx_accessor/) to generate
+  SEXP with [`ppx_sexp_conv`](https://github.com/janestreet/ppx_sexp_conv).
+- [`ppx_accessor`](https://github.com/janestreet/ppx_accessor/) generates
   accessors for the fields of a given record type.
 
 #### Extension Nodes and Extenders
 
-Extension nodes are "holes" in the Parsetree. They are accepted by the parser in
-any place (patterns, expression, identifiers, etc.), but they are rejected
+Extension nodes are "holes" in the Parsetree. They are accepted by the parser in lots of places, such as patterns, expressions, core types, or module types. To find out if a certain place admits an extension node, you can look at the Parsetree to see if the corresponding node has an `extension` constructor. However, extension nodes are rejected
 later by the compiler. As a result, they _have_ to be rewritten by a PPX for the
 compilation to proceed.
 
@@ -332,7 +331,7 @@ let v = [%html "<a href='ocaml.org'>OCaml!</a>"]
 ```
 
 Sometimes a shorter infix syntax can be used, where the extension node's name is
-appended to a `let`, `begin`, `module`, `val` or similar. A formal definition of the
+appended to a `let`, `begin`, `module`, `val`, or similar. A formal definition of the
 syntax can be found in the OCaml
 [manual](https://v2.ocaml.org/manual/extensionnodes.html).
 
@@ -378,9 +377,10 @@ Dune.
 
 ### Dropping PPXs dependency with `[@@deriving_inline]`
 
-Since PPXs are only needed at compilation time, there is no strong requirement
-for them to be included as dependency: the rewritten code could be distributed
-instead of the unprocessed file. This mechanism can be implemented using Dune
+Some derivers are only needed for boilerplate generation. When that's the case, 
+there is no strong requirement
+for them to be included as a hard dependency: the added boilerplate code can be pretty printed and added
+ to the source code by the PPX. This mechanism can be implemented using Dune
 and [`ppxlib`](#the-need-for-controlling-the-ppx-ecosystem-ppxlib).
 
 Attaching `[@@deriving_inline <deriver_name>]` to an item will derive some code
@@ -391,8 +391,8 @@ If yes, nothing has to be done. Otherwise, it will generate a correct file, and
 dune will offer you the possibility of using this correct file.
 
 As the new file contains the generated code, it no longer needs to be
-preprocessed by the PPX, and can be distributed as is, and the PPX can be
-removed from the dependencies. However, the PPX should still be run whenever the
+preprocessed by the PPX, and can be compiled and distributed as is, and the PPX can be
+removed from the dependencies. However, the PPX still needs to be run whenever the
 item on which the attribute is attached change. This can be achieved by running
 the PPX only when the `@lint` target. Let us see an example, with the following
 files:
@@ -431,17 +431,17 @@ The file now contains the generated value. While it is still a development
 dependency, the PPX dependency can be dropped for compiling the project:
 ```
 $ cat lib.ml
+type t = int [@@deriving_inline yojson]
 let _ = fun (_ : t) -> ()
 let t_of_yojson = (int_of_yojson : Ppx_yojson_conv_lib.Yojson.Safe.t -> t)
 let _ = t_of_yojson
 let yojson_of_t = (yojson_of_int : t -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 let _ = yojson_of_t
 [@@@deriving.end]
-```
 
 ### Why PPXs Are Especially Useful in OCaml
 
-Now that we know what a PPX is, and have seen examples of such, let's see why it
+Now that we know what a PPX is and have seen examples of it, let's see why it
 is particularly useful in OCaml.
 
 For one, the types are lost at execution time. That means that the type's structure
@@ -489,8 +489,8 @@ language without losing the full generality of PPXs:
 ways of writing [extenders](#extension-nodes-and-extenders) and
 [derivers](#attributes-and-derivers), ensuring that they will work well
 together, removing the composition problem we had with multiple arbitrary
-transformations. It also outputs one single binary, even in the case of multiple
-transformation registered.
+transformations. `ppxlib` also provides a driver which outputs one single binary, even in the case of multiple
+transformations registered.
 
 With `ppxlib`, PPX authors can concentrate on their own part—the rewriting
 logic. Then, they can register their transformation, and `ppxlib` will be
@@ -517,11 +517,11 @@ back to a 4.08 Parsetree to continue the compilation.
 
 ### Restricting PPXs for Composition, Speed, and Security
 
-`ppxlib` explictely supports registering the restricted transformations that
+`ppxlib` explictly supports registering the restricted transformations that
 correspond to extenders and derivers. Writing those restricted PPXs has a lot
 of advantages:
 - Extenders and derivers won't modify your existing code, apart from the
-  extension node. This is less error-prone, bugs have less critical effects, and
+  extension node. This is less error-prone, bugs have fewer critical effects, and
   a user can be confident that no sensible part of their code is changed.
 - As extenders and derivers are "context-free," in the sense that they run only
   with a limited part of the AST as input, they can all be run in a single pass
