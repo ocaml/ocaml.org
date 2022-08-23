@@ -92,7 +92,7 @@ $ bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/s
 
 ### Initialising opam
 
-It's essential to both initialise opam and, because OCaml is a compiled language, install the OCaml compiler. 
+It's essential to initialise opam, which will (if needed) install the OCaml compiler. If you already have OCaml installed, opam will use that compiler.  
 
 This step is done automatically by the alpha-version platform installer, [see below](#up-and-running-with-the-platform-installer).
 
@@ -103,13 +103,14 @@ $ opam init          # Can take some time
 $ eval $(opam env)
 ```
 
-The first command (`opam init`) creates a first switch, usually called `default`, although this is just a convention. (`switch` is used to have several installations on disk, like packages, compiler version, etc.) If you have installed OCaml through your system package manager, the first switch will be set up to use this compiler (it is called a "system switch"). Otherwise, it will build one from source, usually taking the most recent version of OCaml.
+The first command (`opam init`) initialises the opam state (stored in a hidden folder `.opam` in your home directory). It also creates a first switch, usually called `default`, although this is just a convention. A switch is an independent OCaml environment with its own OCaml compiler, as well as a set of libraries and binares. If you have installed OCaml through your system package manager, the first switch will be set up to use this compiler (it is called a "system switch"). Otherwise, it will build one from source, usually taking the most recent version of OCaml.
 
 The second command (`eval $(opam env)`) modifies a few environments variables to make the shell aware of the switch you are using. For instance, it will add what is needed to the `PATH` variable so that typing `ocaml` in the shell runs the OCaml binary of the current switch.
 
 **Please note:** After the `opam init` command, you might get a result asking if you'd like to update your `zsh` configuration. If you get that message, type in `N`, the default, then type `y` to install the hook, which will run `eval $(opam env)`. As you get more well-versed in OCaml, you can change these settings by rerunning `opam init`.
 
-Now check the installation by running `opam --version`. You can check if it's the current version on [opam.ocaml.org](https://opam.ocaml.org/). Please note merely using `opam init` might install a previous version of opam. If you have a previous version, please refer to [the opam Upgrade Guide](https://opam.ocaml.org/doc/Upgrade_guide.html).
+Now check the installation by running `opam --version`. You can compare it with the current version on [opam.ocaml.org](https://opam.ocaml.org/). 
+
 
 ### Creating a New Switch 
 
