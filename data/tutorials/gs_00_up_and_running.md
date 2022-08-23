@@ -64,9 +64,10 @@ $ port install opam
 
 **For Linux**
 
-The preferred way to install opam is with your system's package manager on
+It's easy to install opam is with your system's package manager on
 Linux (e.g., `apt-get install opam` or similar). [Details of all installation
 methods.](https://opam.ocaml.org/doc/Install.html)
+
 
 ```shell
 # Ubuntu
@@ -83,6 +84,8 @@ $ apt-get install opam
 
 **Binary Distribution**
 
+Depending on your package manager, you won't get the latest release of opam. If you want the latest release, consider installing it though the binary distribution, as shown below:
+
 ```shell
 $ bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"
 ```
@@ -93,7 +96,7 @@ It's essential to both initialise opam and, because OCaml is a compiled language
 
 This step is done automatically by the alpha-version platform installer, [see below](#up-and-running-with-the-platform-installer).
 
-If you have installed the binary distribution of opam through the install script, this step should already be done. If you have installed it through your system package manager, you must initialise opam by running the following command:
+If you have installed the binary distribution of opam through the install script, this step should already be done. If you have installed it through your system package manager, you must initialise opam by running the following command. This method will fetch and initialize the latest version of opam, directly from the official servers:
 
 ```shell
 $ opam init          # Can take some time
