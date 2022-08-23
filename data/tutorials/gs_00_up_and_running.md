@@ -40,7 +40,7 @@ If you're new to the Command Line Interface (CLI), the code blocks (in black) sh
 
 Alternatively, you can use the alpha-version platform installer to install opam and the development tools, [see below](#up-and-running-with-the-platform-installer).
 
-[opam](https://opam.ocaml.org/) introduces the concept of "switches," consisting of a compiler together with a set of packages (libraries and other files). Switches are used to have independent sets of dependencies in different projects.
+[opam](https://opam.ocaml.org/), the package manager of OCaml, introduces the concept of "switches," consisting of a compiler together with a set of packages (libraries and other files). Switches are used to have independent sets of dependencies in different projects.
 
 After having installed opam, you will need to initialise it, [see below](#initialize-opam).
 
@@ -89,7 +89,7 @@ $ bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/s
 
 ### Initialising opam
 
-It's essential to both initialise opam and, because OCaml is a compiled language, install the OCaml compiler, so please don't skip this section. 
+It's essential to both initialise opam and, because OCaml is a compiled language, install the OCaml compiler. 
 
 This step is done automatically by the alpha-version platform installer, [see below](#up-and-running-with-the-platform-installer).
 
