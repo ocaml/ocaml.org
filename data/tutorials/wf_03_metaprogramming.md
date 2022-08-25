@@ -439,6 +439,15 @@ let yojson_of_t = (yojson_of_int : t -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 let _ = yojson_of_t
 [@@@deriving.end]
 ```
+
+Note that, while it allows to drop the dependency of a project both on ppxlib
+and on the used PPX, using `deriving_inline` comes with some drawbacks. It can
+increase the size (and readability) of the code base, and it relies on a printer
+from the AST back to source code, which can be unreliable. In any case, if the
+inlining fails, ppxlib will detect it via a roundtrip check (it will parse the
+generated source code and check it corresponds with the generated AST), so the
+error is caught at compile-time.
+
 ### Why PPXs Are Especially Useful in OCaml
 
 Now that we know what a PPX is and have seen examples of it, let's see why it
