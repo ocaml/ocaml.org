@@ -18,6 +18,15 @@ reading [OCaml on Windows](/docs/ocaml-on-windows) first.
 The following instructions work on Linux, BSD, and macOS. Plus, they also work on Cygwin and
 WSL.
 
+**Guidelines for following instructions on this page**
+
+A **shell** is a program you can run that will let you enter commands in a text windows using only your keyboard. When this page asks you to enter commands in your shell:
+* On macOS you will run the `Terminal` app to start a shell
+* On Windows, you can start PowerShell by pressing the Windows key (`⊞`), typing "PowerShell" and then clicking Open `Windows PowerShell`. There is an older shell called "Command Prompt" you can use as well
+* On Linux you are already familiar with a shell (typically bash or zsh)
+
+The code blocks (in black) on this page show the required commands (the text after `#` gives more information on the following commands). Type each command after the prompt `$`, although it's often represented by a `%`, `>`, or another symbol as well. Ensure you use the exact case and spacing shown, then hit return/enter at the end of every line. For more information on using the CLI, please visit the [Command Line Crash Course video](https://www.youtube.com/watch?v=yz7nYlnXLfE) to learn some basics.
+
 ## Installing OCaml
 
 The **platform installer** is currently in active development. It will
@@ -32,9 +41,7 @@ easily switch between OCaml versions and much more. This is
 especially useful since different projects might require different versions of
 OCaml.
 
-The best way to install OCaml is with opam.
-
-If you're new to the Command Line Interface (CLI), the code blocks (in black) show the required commands. Type each command after the prompt $, although it's often represented by a %, >, or another symbol on your local machine. Ensure you use the exact case and spacing shown, then hit return/enter at the end of every line. The text after # gives more information on the following commands.
+The best way to install OCaml is with opam, OCaml's pacakge manager.
 
 ### Installing opam
 
@@ -107,7 +114,7 @@ The first command (`opam init`) initialises the opam state (stored in a hidden f
 
 The second command (`eval $(opam env)`) modifies a few environments variables to make the shell aware of the switch you are using. For instance, it will add what is needed to the `PATH` variable so that typing `ocaml` in the shell runs the OCaml binary of the current switch.
 
-**Please note:** After the `opam init` command, you might get a result asking if you'd like to update your `zsh` configuration. If you get that message, type in `N`, the default, then type `y` to install the hook, which will run `eval $(opam env)`. As you get more well-versed in OCaml, you can change these settings by rerunning `opam init`.
+**Please note:** At the end of the `opam init`, you are asked if you want to add a hook to your shell to best integrate with your system. Indeed, in order for the shell to be aware of the tools available in the current opam switch, a few environments variables need to be modified. For instance, the `PATH` variable has to be expanded so that typing `ocaml` in the shell runs the OCaml binary _of the current switch_. Answering `y` will provide a better user experience.
 
 Now check the installation by running `opam --version`. You can compare it with the current version on [opam.ocaml.org](https://opam.ocaml.org/). 
 
