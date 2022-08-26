@@ -440,13 +440,13 @@ let _ = yojson_of_t
 [@@@deriving.end]
 ```
 
-Note that, while it allows to drop the dependency of a project both on ppxlib
-and on the used PPX, using `deriving_inline` comes with some drawbacks. It can
+Note that, while it allows to drop a project's dependency both on `ppxlib` and
+on the used PPX, using `deriving_inline` comes with some drawbacks. It can
 increase the size (and readability) of the code base, and it relies on a printer
 from the AST back to source code, which can be unreliable. In any case, if the
-inlining fails, ppxlib will detect it via a roundtrip check (it will parse the
-generated source code and check it corresponds with the generated AST), so the
-error is caught at compile-time.
+inlining fails, `ppxlib` will detect it via a roundtrip check by parsing the
+generated source code and checking that it corresponds with the generated AST.
+This way, the error is caught at compile-time.
 
 ### Why PPXs Are Especially Useful in OCaml
 
