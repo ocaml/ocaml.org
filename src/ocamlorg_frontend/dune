@@ -178,6 +178,11 @@
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
+  (targets pagination.ml)
+  (deps pagination.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
   (targets toc.ml)
   (deps toc.eml)
   (action
