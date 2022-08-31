@@ -762,7 +762,7 @@ the programs which use them.
 
 ###  Clarity of OCaml code
 The OCaml language includes powerful constructs which allow simple and
-clear programming. The main problem to obtain crystal clear programs it
+clear programming. The main problem to obtain crystal clear programs is
 to use them appropriately.
 
 The language features numerous programming styles (or programming
