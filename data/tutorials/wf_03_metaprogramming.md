@@ -20,13 +20,14 @@ To start with an example, here is how the following source code would be altered
 by [this
 preprocessor](https://github.com/ocaml-ppx/ppxlib/tree/main/examples/simple-extension-rewriter):
 
-
+<!-- $MDX skip -->
 ```ocaml
 Printf.printf "This program has been compiled on %s" [%get_env "OSTYPE"]
 ```
 
 would become:
 
+<!-- $MDX skip -->
 ```ocaml
 Printf.printf "This program has been compiled on %s" "linux-gnu"
 ```
@@ -274,6 +275,7 @@ patterns, etc.), `@@` is for the closest block (type declaration, class fields, 
 and `@@@` is a floating attribute. More information for the syntax can be
 found in the [manual](https://v2.ocaml.org/manual/attributes.html).
 
+<!-- $MDX skip -->
 ```ocaml
 module X = struct
   [@@@warning "+9"]  (* locally enable warning 9 in this structure *)
@@ -325,6 +327,7 @@ such as expressions and patterns, and `%%` is for "toplevel nodes," such as
 structure/signature items or class fields. See the [formal
 syntax](https://v2.ocaml.org/manual/extensionnodes.html).
 
+<!-- $MDX skip -->
 ```ocaml
 let v = [%html "<a href='ocaml.org'>OCaml!</a>"]
 ```
@@ -334,6 +337,7 @@ appended to a `let`, `begin`, `module`, `val`, or similar. A formal definition o
 syntax can be found in the OCaml
 [manual](https://v2.ocaml.org/manual/extensionnodes.html).
 
+<!-- $MDX skip -->
 ```ocaml
 let%html other_syntax = "<a href='ocaml.org'>OCaml!</a>"
 ```
