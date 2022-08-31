@@ -147,6 +147,9 @@ val get_package_latest : state -> Name.t -> t option
 val get_package : state -> Name.t -> Version.t -> t option
 (** Get a package given its name and version. *)
 
+val latest_documented_version : state -> Name.t -> Version.t option Lwt.t
+(** Find the latest documented version of a package. **)
+
 val search_package : state -> string -> t list
 (** Search package that match the given string.
 

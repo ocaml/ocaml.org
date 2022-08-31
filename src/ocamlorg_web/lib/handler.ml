@@ -376,6 +376,20 @@ let package t req =
       Dream.redirect req target
   | None -> not_found req
 
+(** Redirect any URL with suffix /p/PACKAGE/docs to the latest documentation for
+    PACKAGE. *)
+let package_docs t req =
+  let open Lwt.Syntax in
+  let package = Dream.param req "name" in
+  let name = Ocamlorg_package.Name.of_string package in
+  let* version_opt = Ocamlorg_package.latest_documented_version t name in
+  match version_opt with
+  | None -> not_found req
+  | Some version ->
+      let version = Ocamlorg_package.Version.to_string version in
+      let target = "/p/" ^ package ^ "/" ^ version ^ "/doc/index.html" in
+      Dream.redirect req target
+
 let package_versioned t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
   let version =
