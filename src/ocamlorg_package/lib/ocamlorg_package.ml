@@ -336,6 +336,33 @@ let module_map ~kind t =
       Module_map.of_yojson json
   | Error _ -> { Module_map.libraries = Module_map.String_map.empty }
 
+let doc_exists t name version =
+  let package = get_package t name version in
+  let open Lwt.Syntax in
+  match package with
+  | None -> Lwt.return None
+  | Some package -> (
+      let* doc_stat = documentation_status ~kind:`Package package in
+      match doc_stat with
+      | `Success -> Lwt.return (Some version)
+      | _ -> Lwt.return None)
+
+let latest_documented_version t name =
+  let rec aux vlist =
+    let open Lwt.Syntax in
+    match vlist with
+    | [] -> Lwt.return None
+    | _ -> (
+        let version = List.hd vlist in
+        let* doc = doc_exists t name version in
+        match doc with
+        | Some version -> Lwt.return (Some version)
+        | None -> aux (List.tl vlist))
+  in
+  match get_package_versions t name with
+  | None -> Lwt.return None
+  | Some vlist -> aux (List.rev vlist)
+
 module Search : sig
   type search_request
   type score
