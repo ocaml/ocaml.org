@@ -18,7 +18,7 @@ reading [OCaml on Windows](/docs/ocaml-on-windows) first.
 The following instructions work on Linux, BSD, and macOS. Plus, they also work on Cygwin and
 WSL.
 
-**Guidelines for following instructions on this page**
+**Guidelines for Following Instructions on this Page**
 
 A **shell** is a program you can run that will let you enter commands in a text window using only your keyboard. When this page asks you to enter commands in your shell:
 On macOS, you will run the `Terminal` app to start a shell
