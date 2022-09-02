@@ -20,8 +20,8 @@ WSL.
 
 **Guidelines for Following Instructions on this Page**
 
-A **shell** is a program you can run that will let you enter commands in a text window using only your keyboard. When this page asks you to enter commands in your shell:
-On macOS, you will run the `Terminal` app to start a shell
+A **shell** is a program that will let you enter commands in a text windows using only your keyboard. It's also known as a command line interface (CLI). When this page asks you to enter commands in your shell, use the following instructions for your system:
+* On macOS you will run the `Terminal` app to start a shell
 * On Windows, you can start PowerShell by pressing the Windows key (`⊞`), typing "PowerShell" and then clicking Open `Windows PowerShell`. There is an older shell called "Command Prompt" you can use as well
 * On Linux, you are already familiar with a shell (typically bash or zsh)
 
