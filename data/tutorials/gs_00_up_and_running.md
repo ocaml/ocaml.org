@@ -35,7 +35,7 @@ easily switch between OCaml versions and much more. This is
 especially useful since different projects might require different versions of
 OCaml.
 
-The best way to install OCaml is with opam, OCaml's pacakge manager.
+The best way to install OCaml is with opam, OCaml's package manager.
 
 ### Installing opam
 
@@ -63,7 +63,7 @@ $ port install opam
 
 **For Linux**
 
-It's easy to install opam is with your system's package manager on
+It's easy to install opam with your system's package manager on
 Linux (e.g., `apt-get install opam` or similar). [Details of all installation
 methods.](https://opam.ocaml.org/doc/Install.html)
 
