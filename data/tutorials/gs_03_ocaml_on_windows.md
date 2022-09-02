@@ -94,7 +94,7 @@ easier way to get a working Windows environment on your machine.
 
 ### Visual Studio Code on Windows
 
-**If you use the recommended DKML installer** you will need to:
+**If you use the recommended DKML installer**, you will need to:
 1. Go to `File` > `Preferences` > `Settings` view (or press `Ctrl ,`)
 2. Select `User` > `Extensions` > `OCaml Platform`
 3. **Uncheck** `OCaml: Use OCaml Env`
