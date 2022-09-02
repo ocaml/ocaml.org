@@ -65,8 +65,7 @@ $ port install opam
 
 It's easy to install opam is with your system's package manager on
 Linux (e.g., `apt-get install opam` or similar). [Details of all installation
-methods.](https://opam.ocaml.org/doc/Install.html)
-
+methods](https://opam.ocaml.org/doc/Install.html). All supported Linux distributions package at least version 2.0.0 (you can check by running `opam --version`). If you are using an unsupported Linux distribution, please either download a precompiled binary or build opam from sources.
 
 ```shell
 # Ubuntu
