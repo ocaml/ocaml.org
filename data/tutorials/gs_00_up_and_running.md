@@ -167,7 +167,7 @@ Now that the tools are installed, it remains to understand how to use them. Most
 
 ## Using the OCaml Toplevel with UTop
 
-UTop is a nice toplevel for OCaml. Unlike the standard toplevel with the `ocaml` command, UTop features history, tab completion, line edition, and the ability to load a package installed in your switch. One of the things that makes OCaml so efficient is because it compiles while you code, allowing for iteration.
+UTop is a nice toplevel for OCaml. Unlike the standard toplevel with the `ocaml` command, UTop features history, tab completion, line edition, and the ability to load a package installed in your switch.
 
 By running the `utop` command, it will print out something similar to what you see below. After the horizontal line, you will see a new prompt `utop #`. Here is where you type your expressions. In this case `1 + 2 * 3;;`. After you press Enter, the following line shown is the desired output. 
 
