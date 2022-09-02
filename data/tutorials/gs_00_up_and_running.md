@@ -41,7 +41,7 @@ The best way to install OCaml is with opam, OCaml's package manager.
 
 [opam](https://opam.ocaml.org/), the package manager of OCaml, introduces the concept of "switches," consisting of a compiler together with a set of packages (libraries and other files). Switches are used to have independent sets of dependencies in different projects.
 
-After having installed opam, you will need to initialise it, [see below](#initialize-opam).
+After having installed opam, you will need to initialise it, [see below](#initialising-opam).
 
 To install opam, you can [use your system package manager](https://opam.ocaml.org/doc/Install.html#Using-your-distribution-39-s-package-system) or download the [binary distribution](https://opam.ocaml.org/doc/Install.html#Binary-distribution). The details are available in the above links, but for convenience, we copy a few of them here: 
 
@@ -93,7 +93,7 @@ $ bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/s
 
 It's essential to initialise opam, which will (if needed) install the OCaml compiler. If you already have OCaml installed, opam will use that compiler.  
 
-If you have installed the binary distribution of opam through the install script, this step should already be done. If you have installed it through your system package manager, you must initialise opam by running the following command. This method will fetch and initialize the latest version of opam, directly from the official servers:
+If you have installed the binary distribution of opam through the install script, this step should already be done. If you have installed it through your system package manager, you must initialise opam by running the following command. This method will fetch and initialise the latest version of opam, directly from the official servers:
 
 ```shell
 $ opam init          # Can take some time
@@ -233,7 +233,7 @@ Let's begin the simplest project with Dune and OCaml, "Hello World," just to see
 Navigate into a practice directory, as we'll be creating new projects below. 
 
 First, we ask `dune` to
-initialize a new project, and then change into the created directory. As usual, 
+initialise a new project, and then change into the created directory. As usual, 
 the line beneath the command is the desired output:
 
 ```shell
