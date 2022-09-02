@@ -19,9 +19,9 @@ DKML installations.
 
 Our guidance is when you want:
 
-* **only to run, not develop, applications** you should use [Docker](#docker-images) or [WSL2](#wsl2)
-* **to develop applications and have some familiarity with Unix** you should use [opam-repository-mingw](#opam-repository-mingw)
-* **to develop applications and care more about stability and ease-of-use than the latest compiler** you should use [Diskuv OCaml](/docs/up-and-running)
+* **only to run, not develop, applications**, use [Docker](#docker-images) or [WSL2](#wsl2)
+* **to develop applications and have some familiarity with Unix**, use [opam-repository-mingw](#opam-repository-mingw)
+* **to develop applications and care more about stability and ease-of-use than the latest compiler**, use [Diskuv OCaml](/docs/up-and-running)
 
 The guidance is based on the availability table below:
 * Tier 1 is fully supported with the latest compilers
