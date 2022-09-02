@@ -111,10 +111,10 @@ Now check the installation by running `opam --version`. You can compare it with 
 
 ### Creating a New Switch 
 
-If you want a specific version of OCaml, or a new independent environment, you can create a new switch with the `opam switch create` command. Specify which version as shown below (i.e., `opam switch create 5.0.0`). All possible compiler versions can be found with `opam switch list-available`. The most current version can be found at [opam.ocaml.org](https://opam.ocaml.org/packages/ocaml-base-compiler/).
+If you want a specific version of OCaml, or a new independent environment, you can create a new switch with the `opam switch create` command. Specify which version as shown below (i.e., `opam switch create 4.14.0`). All possible compiler versions can be found with `opam switch list-available`. The most current version can be found at [opam.ocaml.org](https://opam.ocaml.org/packages/ocaml-base-compiler/).
 
 ```shell
-$ opam switch create 5.0.0
+$ opam switch create 4.14.0
 $ eval $(opam env)
 ```
 
@@ -122,10 +122,10 @@ Check that the installation was succuessful by running `which ocaml` and `ocaml 
 
 ```shell
 $ which ocaml
-/Users/frank/.opam/5.0.0/bin/ocaml
+/Users/frank/.opam/4.14.0/bin/ocaml
 
 $ ocaml -version
-The OCaml toplevel, version 5.0.0
+The OCaml toplevel, version 4.14.0
 ```
 
 We will learn about the OCaml toplevel and other installed tools in the next section.
@@ -214,7 +214,7 @@ For **Visual Studio Code**, install the [OCaml Platform Visual Studio Code exten
 Studio Marketplace.
 
 Upon first loading an OCaml source file, you may be prompted to select the
-toolchain in use: pick the version of OCaml you are using, e.g., 5.0.0
+toolchain in use: pick the version of OCaml you are using, e.g., 4.14.0
 from the list. Now, help is available by hovering over symbols in your program:
 
 ![Visual Studio Code](/media/tutorials/vscode.png)
