@@ -51,7 +51,7 @@ packages will support the mingw-w64 and MSVC variants.
 
 ## Installation Environments
 
-### opam-repository-mingw
+### `opam-repository-mingw`
 
 [opam-repository-mingw](https://github.com/fdopen/opam-repository-mingw) is an
 [opam repository](https://opam.ocaml.org/doc/Manual.html#Repositories)
