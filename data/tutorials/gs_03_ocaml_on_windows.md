@@ -99,7 +99,7 @@ easier way to get a working Windows environment on your machine.
 2. Select `User` > `Extensions` > `OCaml Platform`
 3. **Uncheck** `OCaml: Use OCaml Env`
 
-**If you use WSL2** you will remotely connect to your WSL2 instance from
+**If you use WSL2**, you will remotely connect to your WSL2 instance from
 Visual Studio Code. Microsoft has a [useful blog post](https://code.visualstudio.com/blogs/2019/09/03/wsl2)
 covering getting WSL2 and Visual Studio Code connected.
 
