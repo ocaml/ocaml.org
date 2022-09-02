@@ -301,15 +301,16 @@ let documentation_page ~kind t path =
       Some Documentation.{ content; toc; module_path }
   | Error _ -> Lwt.return None
 
-let readme_file ~kind t =
-  let open Lwt.Syntax in
-  let+ doc = documentation_page ~kind t "README.md.html" in
-  match doc with None -> None | Some { content; _ } -> Some content
+  let maybe_file filename ~kind t =
+    let open Lwt.Syntax in
+    let+ doc = documentation_page ~kind t filename in
+    match doc with None -> None | Some { content; _ } -> Some content
 
-let license_file ~kind t =
-  let open Lwt.Syntax in
-  let+ doc = documentation_page ~kind t "LICENSE.md.html" in
-  match doc with None -> None | Some { content; _ } -> Some content
+let readme_file ~kind = maybe_file "README.md.html" ~kind
+
+let license_file ~kind = maybe_file "LICENSE.md.html" ~kind
+
+let changes_file ~kind = maybe_file "CHANGES.md.html" ~kind
 
 let documentation_status ~kind t =
   let open Lwt.Syntax in
