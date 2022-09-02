@@ -206,7 +206,7 @@ $
 
 ## Configuring Your Editor
 
-While a toplevel is great for interactively trying out the language, we will shortly need to write OCaml files in an editor. We already installed the tools needed to have editor support: Merlin, providing all features such as "jump to definition" or "show type", and `ocaml-lsp-server`, a server exposing those features to the editor through the [language server protocol](https://en.wikipedia.org/wiki/Language_Server_Protocol).
+While a toplevel is great for interactively trying out the language, we will shortly need to write OCaml files in an editor. We already installed the tools needed to have editor support: Merlin, providing all features such as "jump to definition" or "show type", and `ocaml-lsp-server`, a server exposing those features to the editor through the [LSP server](https://en.wikipedia.org/wiki/Language_Server_Protocol).
 
 OCaml has plugins for many editors, but the most actively maintained are for Visual Studio Code, Emacs, and Vim.
 
