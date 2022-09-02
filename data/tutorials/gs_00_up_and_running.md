@@ -11,7 +11,7 @@ date: 2021-05-27T21:07:30-00:00
 
 # Get Up and Running With OCaml
 
-This page will walk you through the installation of everything you need for a comfortable development environment to write projects in OCaml code. Of course this includes [installing the compiler](#installing-ocaml) itself, but it also installs a build system, a package manager, an LSP server to support your editor, and a few other tools that we describe [later](#setting-up-development-tools), setting up [editor support](#configuring-your-editor), and bootstrapping a [new project](#starting-a-new-project).
+This page will walk you through the installation of everything you need for a comfortable development environment to write projects in OCaml code. Of course, this includes [installing the compiler](#installing-ocaml) itself, but it also installs a build system, a package manager, an LSP server to support your editor, and a few other tools that we describe [later](#setting-up-development-tools), setting up [editor support](#configuring-your-editor), and bootstrapping a [new project](#starting-a-new-project).
 
 If you are willing to set up OCaml on Windows, you might be interested in
 reading [OCaml on Windows](/docs/ocaml-on-windows) first.
@@ -20,10 +20,10 @@ WSL.
 
 **Guidelines for following instructions on this page**
 
-A **shell** is a program you can run that will let you enter commands in a text windows using only your keyboard. When this page asks you to enter commands in your shell:
-* On macOS you will run the `Terminal` app to start a shell
+A **shell** is a program you can run that will let you enter commands in a text window using only your keyboard. When this page asks you to enter commands in your shell:
+On macOS, you will run the `Terminal` app to start a shell
 * On Windows, you can start PowerShell by pressing the Windows key (`⊞`), typing "PowerShell" and then clicking Open `Windows PowerShell`. There is an older shell called "Command Prompt" you can use as well
-* On Linux you are already familiar with a shell (typically bash or zsh)
+* On Linux, you are already familiar with a shell (typically bash or zsh)
 
 The code blocks (in black) on this page show the required commands (the text after `#` gives more information on the following commands). Type each command after the prompt `$`, although it's often represented by a `%`, `>`, or another symbol as well. Ensure you use the exact case and spacing shown, then hit return/enter at the end of every line. For more information on using the CLI, please visit the [Command Line Crash Course video](https://www.youtube.com/watch?v=yz7nYlnXLfE) to learn some basics.
 
@@ -35,13 +35,13 @@ easily switch between OCaml versions and much more. This is
 especially useful since different projects might require different versions of
 OCaml.
 
-The best way to install OCaml is with opam, OCaml's pacakge manager.
+The best way to install OCaml is with opam, OCaml's package manager.
 
 ### Installing opam
 
 [opam](https://opam.ocaml.org/), the package manager of OCaml, introduces the concept of "switches," consisting of a compiler together with a set of packages (libraries and other files). Switches are used to have independent sets of dependencies in different projects.
 
-After having installed opam, you will need to initialise it, [see below](#initialize-opam).
+After having installed opam, you will need to initialise it, [see below](#initialising-opam).
 
 To install opam, you can [use your system package manager](https://opam.ocaml.org/doc/Install.html#Using-your-distribution-39-s-package-system) or download the [binary distribution](https://opam.ocaml.org/doc/Install.html#Binary-distribution). The details are available in the above links, but for convenience, we copy a few of them here: 
 
@@ -63,7 +63,7 @@ $ port install opam
 
 **For Linux**
 
-It's easy to install opam is with your system's package manager on
+It's easy to install opam with your system's package manager on
 Linux (e.g., `apt-get install opam` or similar). [Details of all installation
 methods.](https://opam.ocaml.org/doc/Install.html)
 
@@ -83,7 +83,7 @@ $ apt-get install opam
 
 **Binary Distribution**
 
-Depending on your package manager, you won't get the latest release of opam. If you want the latest release, consider installing it though the binary distribution, as shown below:
+Depending on your package manager, you won't get the latest release of opam. If you want the latest release, consider installing it through the binary distribution, as shown below:
 
 ```shell
 $ bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"
@@ -93,52 +93,52 @@ $ bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/s
 
 It's essential to initialise opam, which will (if needed) install the OCaml compiler. If you already have OCaml installed, opam will use that compiler.  
 
-If you have installed the binary distribution of opam through the install script, this step should already be done. If you have installed it through your system package manager, you must initialise opam by running the following command. This method will fetch and initialize the latest version of opam, directly from the official servers:
+If you have installed the binary distribution of opam through the install script, this step should already be done. If you have installed it through your system package manager, you must initialise opam by running the following command. This method will fetch and initialise the latest version of opam, directly from the official servers:
 
 ```shell
 $ opam init          # Can take some time
 $ eval $(opam env)
 ```
 
-The first command (`opam init`) initialises the opam state (stored in a hidden folder `.opam` in your home directory). It also creates a first switch, usually called `default`, although this is just a convention. A switch is an independent OCaml environment with its own OCaml compiler, as well as a set of libraries and binares. If you have installed OCaml through your system package manager, the first switch will be set up to use this compiler (it is called a "system switch"). Otherwise, it will build one from source, usually taking the most recent version of OCaml.
+The first command (`opam init`) initialises the opam state (stored in a hidden folder `.opam` in your home directory). It also creates a first switch, usually called `default`, although this is just a convention. A switch is an independent OCaml environment with its own OCaml compiler, as well as a set of libraries and binaries. If you have installed OCaml through your system package manager, the first switch will be set up to use this compiler (it is called a "system switch"). Otherwise, it will build one from source, usually taking the most recent version of OCaml.
 
-The second command (`eval $(opam env)`) modifies a few environments variables to make the shell aware of the switch you are using. For instance, it will add what is needed to the `PATH` variable so that typing `ocaml` in the shell runs the OCaml binary of the current switch.
+The second command (`eval $(opam env)`) modifies a few environment variables to make the shell aware of the switch you are using. For instance, it will add what is needed to the `PATH` variable so that typing `ocaml` in the shell runs the OCaml binary of the current switch.
 
-**Please note:** At the end of the `opam init`, you are asked if you want to add a hook to your shell to best integrate with your system. Indeed, in order for the shell to be aware of the tools available in the current opam switch, a few environments variables need to be modified. For instance, the `PATH` variable has to be expanded so that typing `ocaml` in the shell runs the OCaml binary _of the current switch_. Answering `y` will provide a better user experience.
+**Please note:** At the end of the `opam init`, you are asked if you want to add a hook to your shell to best integrate with your system. Indeed, in order for the shell to be aware of the tools available in the current opam switch, a few environment variables need to be modified. For instance, the `PATH` variable has to be expanded so that typing `ocaml` in the shell runs the OCaml binary _of the current switch_. Answering `y` will provide a better user experience.
 
 Now check the installation by running `opam --version`. You can compare it with the current version on [opam.ocaml.org](https://opam.ocaml.org/). 
 
 
 ### Creating a New Switch 
 
-If you want a specific version of OCaml, or a new independent environment, you can create a new switch with the `opam switch create` command. Specify which version as shown below (i.e., `opam switch create 5.0.0`). All possible compiler versions can be found with `opam switch list-available`. The most current version can be found at [opam.ocaml.org](https://opam.ocaml.org/packages/ocaml-base-compiler/).
+If you want a specific version of OCaml, or a new independent environment, you can create a new switch with the `opam switch create` command. Specify which version as shown below (i.e., `opam switch create 4.14.0`). All possible compiler versions can be found with `opam switch list-available`. The most current version can be found at [opam.ocaml.org](https://opam.ocaml.org/packages/ocaml-base-compiler/).
 
 ```shell
-$ opam switch create 5.0.0
+$ opam switch create 4.14.0
 $ eval $(opam env)
 ```
 
-Check that the installation was succuessful by running `which ocaml` and `ocaml -version`. The line beneath the $ command shows the desired output for both the OCaml version and the toplevel version (installed specifically with the above `switch` command):
+Check that the installation was successful by running `which ocaml` and `ocaml -version`. The line beneath the $ command shows the desired output for both the OCaml version and the top-level version (installed specifically with the above `switch` command):
 
 ```shell
 $ which ocaml
-/Users/frank/.opam/5.0.0/bin/ocaml
+/Users/frank/.opam/4.14.0/bin/ocaml
 
 $ ocaml -version
-The OCaml toplevel, version 5.0.0
+The OCaml toplevel, version 4.14.0
 ```
 
-We will learn about the OCaml toplevel and other installed tools in the next section.
+We will learn about the OCaml top-level and other installed tools in the next section.
 
 In case you are not satisfied with the OCaml version of your system switch, you can change the version with `opam switch create <version_here>`. More information can be found on the [official website](https://opam.ocaml.org/).
 
 
 ### The OCaml Base Tools
 
-OCaml is installed in an opam switch, which, among others, bring the following
+OCaml is installed in an opam switch, which, among others, brings the following
 programs:
 
-- A "toplevel," which can be called with the `ocaml` command. It consists of a read-eval-print loop ([REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop)), similar to the `python` or `node` command, and can be handy to quickly try the language. The user interface of OCaml is very basic, but when we install the UTop package in the following section, we'll have an improved and easier-to-use REPL.
+- A "top-level," which can be called with the `ocaml` command. It consists of a read-eval-print loop ([REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop)), similar to the `python` or `node` command, and can be handy to quickly try the language. The user interface of OCaml is very basic, but when we install the UTop package in the following section, we'll have an improved and easier-to-use REPL.
 
 - A compiler to **native code**, called `ocamlopt`. It creates executables that can be executed directly on your system.
 
@@ -167,7 +167,7 @@ Now that the tools are installed, it remains to understand how to use them. Most
 
 ## Using the OCaml Toplevel with UTop
 
-UTop is a nice toplevel for OCaml. Unlike the standard toplevel with the `ocaml` command, UTop features history, tab completion, line edition, and the ability to load a package installed in your switch. One of the things that makes OCaml so efficient is because it compiles while you code, allowing for iteration.
+UTop is a nice toplevel for OCaml. Unlike the standard top-level with the `ocaml` command, UTop features history, tab completion, line edition, and the ability to load a package installed in your switch.
 
 By running the `utop` command, it will print out something similar to what you see below. After the horizontal line, you will see a new prompt `utop #`. Here is where you type your expressions. In this case `1 + 2 * 3;;`. After you press Enter, the following line shown is the desired output. 
 
@@ -206,7 +206,7 @@ $
 
 ## Configuring Your Editor
 
-While a toplevel is great for interactively trying out the language, we will shortly need to write OCaml files in an editor. We already installed the tools needed to have editor support: Merlin, providing all features such as "jump to definition" or "show type", and `ocaml-lsp-server`, a server exposing those features to the editor through the [language server protocol](https://en.wikipedia.org/wiki/Language_Server_Protocol).
+While a top-level is great for interactively trying out the language, we will shortly need to write OCaml files in an editor. We already installed the tools needed to have editor support: Merlin, providing all features such as "jump to definition" or "show type", and `ocaml-lsp-server`, a server exposing those features to the editor through the [LSP server](https://en.wikipedia.org/wiki/Language_Server_Protocol).
 
 OCaml has plugins for many editors, but the most actively maintained are for Visual Studio Code, Emacs, and Vim.
 
@@ -214,7 +214,7 @@ For **Visual Studio Code**, install the [OCaml Platform Visual Studio Code exten
 Studio Marketplace.
 
 Upon first loading an OCaml source file, you may be prompted to select the
-toolchain in use: pick the version of OCaml you are using, e.g., 5.0.0
+toolchain in use: pick the version of OCaml you are using, e.g., 4.14.0
 from the list. Now, help is available by hovering over symbols in your program:
 
 ![Visual Studio Code](/media/tutorials/vscode.png)
@@ -233,7 +233,7 @@ Let's begin the simplest project with Dune and OCaml, "Hello World," just to see
 Navigate into a practice directory, as we'll be creating new projects below. 
 
 First, we ask `dune` to
-initialize a new project, and then change into the created directory. As usual, 
+initialise a new project, and then change it into the created directory. As usual, 
 the line beneath the command is the desired output:
 
 ```shell
