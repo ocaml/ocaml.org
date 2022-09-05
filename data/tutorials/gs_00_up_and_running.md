@@ -170,7 +170,7 @@ After the DKML installer finishes installing two programs (`Visual Studio Instal
 
 Now, download and run:
 
-* OCaml 4.12.1 with Git and Visual Studio compiler: [setup-diskuv-ocaml-windows_x86_64-1.0.0.exe](https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.0.0/setup-diskuv-ocaml-windows_x86_64-1.0.0.exe)
+* OCaml 4.12.1 with Git and Visual Studio compiler: [setup-diskuv-ocaml-windows_x86_64-1.0.1.exe](https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.0.1/setup-diskuv-ocaml-windows_x86_64-1.0.1.exe)
 
 #### Creating a New Switch on Windows
 
