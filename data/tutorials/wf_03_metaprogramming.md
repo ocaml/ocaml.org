@@ -324,22 +324,46 @@ compilation to proceed.
 The syntax for extension nodes is `[%extension_name payload]` where, again, the
 number of `%` determines the kind of extension node: `%` is for "inside nodes,"
 such as expressions and patterns, and `%%` is for "toplevel nodes," such as
-structure/signature items or class fields. See the [formal
+structure/signature items or class fields. The payload is a structure node, that
+is, the parser accepts the same thing for a `.ml` file and as the payload of an
+extension node. See the [formal
 syntax](https://v2.ocaml.org/manual/extensionnodes.html).
 
 <!-- $MDX skip -->
 ```ocaml
+(* An extension node as an expression *)
 let v = [%html "<a href='ocaml.org'>OCaml!</a>"]
+
+(* An extension node as a let-binding *)
+[%%html let v = "<a href='ocaml.org'>OCaml!</a>"]
 ```
 
-Sometimes a shorter infix syntax can be used, where the extension node's name is
-appended to a `let`, `begin`, `module`, `val`, or similar. A formal definition of the
-syntax can be found in the OCaml
+When the extension node and the payload are of the same type, a shorter infix
+syntax can be used. The syntax requires the extension node's name to be appended
+to a keyword defining a block (such as `let`, `begin`, `module`, `val`, ...) and
+is equivalent to the whole block being wrapped in the payload. A formal
+definition of the syntax can be found in the OCaml
 [manual](https://v2.ocaml.org/manual/extensionnodes.html).
 
 <!-- $MDX skip -->
 ```ocaml
-let%html other_syntax = "<a href='ocaml.org'>OCaml!</a>"
+(* An equivalent syntax for [%%html let v = ...] *)
+let%html v = "<a href='ocaml.org'>OCaml!</a>"
+```
+
+Note that there is a way to change the expected type of a payload. By adding a
+`:` after the extension name, the expected payload is now a signature node (that
+is, the same as what is accepted in `.mli` files). Similarly, a `?` will turn
+the expected payload into a pattern node.
+
+<!-- $MDX skip -->
+```ocaml
+(* Two equivalent syntaxes, with signatures as payload *)
+[%ext_name: val foo : unit]
+val%ext_name foo : unit
+
+(* An extension node with a pattern as payload *)
+let [%ext_name? a :: _ ] = ()
 ```
 
 Extension nodes are meant to be rewritten by a PPX and, in this regard,
