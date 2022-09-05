@@ -140,7 +140,7 @@ In case you are not satisfied with the OCaml version of your system switch, you 
 
 ### Installation for Windows
 
-In this section we'll describe using the new [Diskuv OCaml](https://github.com/diskuv/dkml-installer-ocaml#readme) ("DKML") Windows installer. Expect to see another officially supported Windows installation provided directly by Opam in the coming months; it will be compatible with your DKML installation.
+In this section, we'll describe using the new [Diskuv OCaml](https://github.com/diskuv/dkml-installer-ocaml#readme) ("DKML") Windows installer. Expect to see another officially-supported Windows installation provided directly by opam in the coming months; it will be compatible with your DKML installation.
 
 > Advanced Users: If you are familiar with "Cygwin" or "WSL2", there are other installation methods described on the [OCaml on Windows](/docs/ocaml-on-windows) page.
 
