@@ -146,8 +146,8 @@ In this section, we'll describe using the new [Diskuv OCaml](https://github.com/
 
 Before using the DKML installer, briefly review the following:
 
-* You need to **stay at your computer** and press "Yes" for any Windows security popups;
-  after the DKML installer finishes installing two programs (`Visual Studio Installer`
+* You need to **stay at your computer** and press "Yes" for any Windows security popups. 
+After the DKML installer finishes installing two programs (`Visual Studio Installer`
   and `Git for Windows`) you can leave your computer for the remaining two (2) hours.
 
 * First time installations may get a notification printed in red. If you see it, reboot your computer and then restart your installation so that Visual Studio Installer can complete. The notification looks like:
