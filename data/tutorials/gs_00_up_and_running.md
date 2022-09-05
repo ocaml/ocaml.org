@@ -168,7 +168,7 @@ Before using the DKML installer, briefly review the following:
   that was issued by
   `Certum Code Signing CA SHA2`.
 
-Now go ahead and download and run:
+Now, download and run:
 
 * OCaml 4.12.1 with Git and Visual Studio compiler: [setup-diskuv-ocaml-windows_x86_64-1.0.0.exe](https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.0.0/setup-diskuv-ocaml-windows_x86_64-1.0.0.exe)
 
