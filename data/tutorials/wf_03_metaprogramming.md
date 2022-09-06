@@ -511,6 +511,12 @@ responsible for the rest of the work that all PPXs have to do: getting the
 Parsetree, giving it back to the compiler, and creating an executable with a
 good CLI.
 
+For those interested in the history of OCaml, note that before `ppxlib`, there
+were other "official" libraries to deal with PPXs. `Camlp4` was a way to extend
+the OCaml parser with added constructions, rewrite it, and pretty-print it in
+regular OCaml syntax. `OMP` was a tool for making PPXs compatible across OCaml
+versions and is now included in `ppxlib`.
+
 ### One PPX for Multiple OCaml Versions
 
 One subtlety in writing a PPX is the the fact that the types of the Parsetree
