@@ -513,9 +513,9 @@ good CLI.
 
 For those interested in the history of OCaml, note that before `ppxlib`, there
 were other "official" libraries to deal with PPXs. `Camlp4` was a way to extend
-the OCaml parser with added constructions, rewrite it and pretty-print it in
+the OCaml parser with added constructions, rewrite it, and pretty-print it in
 regular OCaml syntax. `OMP` was a tool for making PPXes compatible across OCaml
-version, and is now included in `ppxlib`.
+version and is now included in `ppxlib`.
 
 ### One PPX for Multiple OCaml Versions
 
