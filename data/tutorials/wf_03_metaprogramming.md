@@ -324,8 +324,8 @@ compilation to proceed.
 The syntax for extension nodes is `[%extension_name payload]` where, again, the
 number of `%` determines the kind of extension node: `%` is for "inside nodes,"
 such as expressions and patterns, and `%%` is for "toplevel nodes," such as
-structure/signature items or class fields. The payload is a structure node, that
-is, the parser accepts the same thing for a `.ml` file and as the payload of an
+structure/signature items or class fields. The payload is a structure node; that
+is, the parser accepts the same thing for an `.ml` file as the payload of an
 extension node. See the [formal
 syntax](https://v2.ocaml.org/manual/extensionnodes.html).
 
