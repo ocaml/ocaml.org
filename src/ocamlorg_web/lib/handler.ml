@@ -414,9 +414,7 @@ let package_versioned t kind req =
         | Some doc -> (doc, "README")
         | None -> (description |> Omd.of_string |> Omd.to_html, "Description")
       in
-      let* has_changelog =
-        let+ changes_opt = Ocamlorg_package.changes_file ~kind package in
-        Option.is_some changes_opt in
+      let* changes_file = Ocamlorg_package.changes_file ~kind package in
       let _license = Ocamlorg_package.license_file ~kind package in
       let package_meta = package_meta t package in
       let package_info = Ocamlorg_package.info package in
@@ -444,7 +442,7 @@ let package_versioned t kind req =
       Dream.html
         (Ocamlorg_frontend.package_overview ~documentation_status ~readme
            ~readme_title ~dependencies ~rev_dependencies ~homepages ~source
-           ~has_changelog package_meta)
+           ~changes_file package_meta)
 
 let package_doc t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in

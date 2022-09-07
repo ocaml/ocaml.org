@@ -11,7 +11,9 @@ let package_with_hash_with_version hash v version =
 
 let package_doc v version page = "/p/" ^ v ^ "/" ^ version ^ "/doc/" ^ page
 
-let package_changes v version = package_doc v version "CHANGES.md.html"
+let package_changes v version is_md =
+  package_doc v version (if is_md then "CHANGES.md.html" else "CHANGES.html")
+
 let package_license v version = package_doc v version "LICENSE.md.html"
 
 let package_doc_with_hash hash v version page =

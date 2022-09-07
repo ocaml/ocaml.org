@@ -105,7 +105,7 @@ val license_file :
 (** Get the license of a package *)
 
 val changes_file :
-  kind:[< `Package | `Universe of string ] -> t -> string option Lwt.t
+  kind:[< `Package | `Universe of string ] -> t -> (bool * string) option Lwt.t
 (** Get the changelog of a package *)
 
 val documentation_status :
