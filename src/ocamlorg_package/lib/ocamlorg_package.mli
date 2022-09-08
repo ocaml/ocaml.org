@@ -102,11 +102,11 @@ val readme_file :
 
 val license_file :
   kind:[< `Package | `Universe of string ] -> t -> string option Lwt.t
-(** Get the license of a package *)
+(** Get the license file name of a package *)
 
 val changes_file :
-  kind:[< `Package | `Universe of string ] -> t -> (bool * string) option Lwt.t
-(** Get the changelog of a package *)
+  kind:[< `Package | `Universe of string ] -> t -> string option Lwt.t
+(** Get the changelog file name of a package *)
 
 val documentation_status :
   kind:[< `Package | `Universe of string ] ->

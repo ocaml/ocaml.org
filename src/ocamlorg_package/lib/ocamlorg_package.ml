@@ -308,19 +308,17 @@ let documentation_page ~kind t path =
 
 let readme_file ~kind = maybe_file "README.md.html" ~kind
 
-let license_file ~kind = maybe_file "LICENSE.md.html" ~kind
+let maybe_files names ~kind t =
+  let filenames = List.map (fun s -> s ^ ".html") (List.map (fun s -> s ^ ".md") names @ names) in
+  let f filename =
+    let open Lwt.Syntax in
+    let+ doc = maybe_file filename ~kind t in
+    Option.map (fun _ -> filename) doc in
+  Lwt_stream.find_map_s f (Lwt_stream.of_list filenames)
 
-let changes_file ~kind t =
-  let open Lwt.Syntax in
-  let* md = maybe_file "CHANGES.md.html" ~kind t in
-  match md with
-  | Some doc -> Lwt.return_some (true, doc)
-  | None ->
-    let+ txt = maybe_file "CHANGES.html" ~kind t in
-    match txt with
-    | Some doc -> Some (false, doc)
-    | None -> None
+let license_file ~kind t = maybe_files [ "LICENSE" ] ~kind t
 
+let changes_file ~kind t = maybe_files [ "CHANGES"; "CHANGELOG" ] ~kind t
 
 let documentation_status ~kind t =
   let open Lwt.Syntax in

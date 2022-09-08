@@ -6,7 +6,8 @@ let render
 ~rev_dependencies
 ~homepages
 ~source
-~changes_file (package : Package_intf.package) =
+~changes_file
+~license_file (package : Package_intf.package) =
 Package_layout.render
 ~documentation_status
 ~title:(Printf.sprintf "%s %s · OCaml Package" package.name package.version)
@@ -82,8 +83,8 @@ Package_layout.render
             </dd>
         </div>
         <div class="flex flex-col mt-9 space-y-4 text-body-400">
-            <% (match changes_file with Some (is_md, _) -> %>
-            <a href="<%s Url.package_changes package.name package.version is_md %>" class="flex items-center hover:text-primary-600">
+            <% (match changes_file with Some changes_filename -> %>
+            <a href="<%s Url.package_doc package.name package.version changes_filename %>" class="flex items-center hover:text-primary-600">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 inline-block" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -92,7 +93,8 @@ Package_layout.render
                 Changelog
             </a>
             <% | _ -> ()); %>
-            <a href="<%s Url.package_license package.name package.version %>" class="flex items-center hover:text-primary-600">
+            <% (match license_file with Some license_filename -> %>
+            <a href="<%s Url.package_doc package.name package.version license_filename %>" class="flex items-center hover:text-primary-600">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 inline-block" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -100,6 +102,7 @@ Package_layout.render
                 </svg>
                 <%s package.license %> License
             </a>
+            <% | _ -> ()); %>
         </div>
         <div class="mt-8">
             <dt class="font-semibold text-base text-body-400">Authors</dt>
