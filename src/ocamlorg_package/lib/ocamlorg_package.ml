@@ -301,24 +301,34 @@ let documentation_page ~kind t path =
       Some Documentation.{ content; toc; module_path }
   | Error _ -> Lwt.return None
 
-  let maybe_file filename ~kind t =
-    let open Lwt.Syntax in
-    let+ doc = documentation_page ~kind t filename in
-    match doc with None -> None | Some { content; _ } -> Some content
+let maybe_file ~kind t filename =
+  let open Lwt.Syntax in
+  let+ doc = documentation_page ~kind t filename in
+  match doc with None -> None | Some { content; _ } -> Some content
 
-let readme_file ~kind = maybe_file "README.md.html" ~kind
-
-let maybe_files names ~kind t =
-  let filenames = List.map (fun s -> s ^ ".html") (List.map (fun s -> s ^ ".md") names @ names) in
+let maybe_files ~kind t names =
   let f filename =
     let open Lwt.Syntax in
-    let+ doc = maybe_file filename ~kind t in
-    Option.map (fun _ -> filename) doc in
-  Lwt_stream.find_map_s f (Lwt_stream.of_list filenames)
+    let+ doc = maybe_file ~kind t (filename ^ ".html") in
+    Option.map (fun _ -> (filename, doc)) doc
+  in
+  Lwt_stream.find_map_s f (Lwt_stream.of_list names)
 
-let license_file ~kind t = maybe_files [ "LICENSE" ] ~kind t
+let readme_file ~kind t = maybe_file ~kind t "README.md.html"
 
-let changes_file ~kind t = maybe_files [ "CHANGES"; "CHANGELOG" ] ~kind t
+let license_filename ~kind t =
+  let open Lwt.Syntax in
+  let+ file_opt = maybe_files ~kind t [ "LICENSE"; "LICENSE.md" ] in
+  match file_opt with
+  | None -> None
+  | Some (filename, _content) -> Some filename
+
+let changes_filename ~kind t =
+  let open Lwt.Syntax in
+  let+ file_opt = maybe_files ~kind t [ "CHANGES.md"; "CHANGELOG.md" ] in
+  match file_opt with
+  | None -> None
+  | Some (filename, _content) -> Some filename
 
 let documentation_status ~kind t =
   let open Lwt.Syntax in
