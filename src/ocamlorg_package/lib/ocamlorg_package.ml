@@ -301,15 +301,34 @@ let documentation_page ~kind t path =
       Some Documentation.{ content; toc; module_path }
   | Error _ -> Lwt.return None
 
-let readme_file ~kind t =
+let maybe_file ~kind t filename =
   let open Lwt.Syntax in
-  let+ doc = documentation_page ~kind t "README.md.html" in
+  let+ doc = documentation_page ~kind t filename in
   match doc with None -> None | Some { content; _ } -> Some content
 
-let license_file ~kind t =
+let maybe_files ~kind t names =
+  let f filename =
+    let open Lwt.Syntax in
+    let+ doc = maybe_file ~kind t (filename ^ ".html") in
+    Option.map (fun _ -> (filename, doc)) doc
+  in
+  Lwt_stream.find_map_s f (Lwt_stream.of_list names)
+
+let readme_file ~kind t = maybe_file ~kind t "README.md.html"
+
+let license_filename ~kind t =
   let open Lwt.Syntax in
-  let+ doc = documentation_page ~kind t "LICENSE.md.html" in
-  match doc with None -> None | Some { content; _ } -> Some content
+  let+ file_opt = maybe_files ~kind t [ "LICENSE"; "LICENSE.md" ] in
+  match file_opt with
+  | None -> None
+  | Some (filename, _content) -> Some filename
+
+let changes_filename ~kind t =
+  let open Lwt.Syntax in
+  let+ file_opt = maybe_files ~kind t [ "CHANGES.md"; "CHANGELOG.md" ] in
+  match file_opt with
+  | None -> None
+  | Some (filename, _content) -> Some filename
 
 let documentation_status ~kind t =
   let open Lwt.Syntax in
