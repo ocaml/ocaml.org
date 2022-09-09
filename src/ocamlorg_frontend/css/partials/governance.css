@@ -1,0 +1,11 @@
+.governance-card {
+    @apply flex-col;
+}
+
+.governance-card__title {
+    @apply text-2xl mb-5 font-semibold flex items-center;
+}
+
+.governance-card__svg {
+    @apply h-8 w-8 ml-2;
+}

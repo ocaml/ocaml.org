@@ -1,0 +1,19 @@
+id: wg-metaprogramming
+name: Meta-programming Working Group
+description: Work on tools and libraries to do meta-programming with OCaml.
+
+contacts:
+  - name: Email
+    link: wg-metaprogramming@lists.ocaml.org
+    icon: /icons/email.svg
+
+team:
+  - name: Sonja Heinze
+    github: pitag-ha
+    role: Lead ppxlib maintainer
+  - name: Carl Eastlund
+    github: ceastlund
+    role: ppxlib maintainer
+  - name: Paul-Elliot Anglès d'Auriac
+    github: panglesd
+    role: ppxlib maintainer

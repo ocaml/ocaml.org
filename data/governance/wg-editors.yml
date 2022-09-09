@@ -1,0 +1,19 @@
+id: wg-editors
+name: Editors Working Group
+description: Building editor integrations for OCaml.
+
+contacts:
+  - name: Email
+    link: wg-editors@lists.ocaml.org
+    icon: /icons/email.svg
+
+team:
+  - name: Rudi Grinberg
+    github: rgrinberg
+    role: Lead OCaml VSCode Maintainer
+  - name: Ulugbek Abdullaev
+    github: ulugbekna
+    role: OCaml VSCode Maintainer
+  - name: Max Lantas
+    github: mnxn
+    role: OCaml VSCode Maintainer

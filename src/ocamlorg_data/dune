@@ -20,6 +20,14 @@
 
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
+ (targets governance.ml)
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} governance))))
+
+(rule
+ (deps ../../tool/ood-gen/bin/gen.exe)
  (targets job.ml)
  (action
   (with-stdout-to

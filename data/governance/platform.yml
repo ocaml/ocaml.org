@@ -1,0 +1,84 @@
+id: platform
+name: Platform
+description: The Platform team is responsible for the development and maintenance of the OCaml Platform, the official OCaml developer toolchain.
+
+contacts:
+  - name: Email
+    link: platform@lists.ocaml.org
+    icon: /icons/email.svg
+
+team:
+  - name: Etienne Millon
+    github: emillon
+    role: Lead Dune Maintainer, Lead Utop maintainer
+  - name: Rudi Rgrinberg
+    github: rgrinberg
+    role: Lead Dune Maintainer
+  - name: Guillaume Petiot
+    github: gpetiot
+    role: Lead OCamlFormat maintainer
+  - name: Marek Kubica
+    github: Leonidas-from-XIV
+    role: Dune-release maintainer
+  - name: Nathan Rebours
+    github: NathanReb
+    role: Dune-release maintainer
+  - name: Ulysse Gérard
+    github: voodoos
+    role: Lead Merlin maintainer, Dune maintainer
+  - name: David Allsopp
+    github: dra27
+    role: Lead Opam maintainer
+  - name: Jules Aguillon
+    github: Julow
+    role: Odoc maintainer
+  - name: Paul-Elliot Anglès d'Auriac
+    github: panglesd
+    role: Odoc maintainer
+  - name: Sonja Heinze
+    github: pitag-ha
+    role: Dune-release maintainer
+  - name: Ulugbek Abdullaev
+    github: ulugbekna
+    role: OCaml LSP maintainer
+  - name: Corentin Leruth
+    github: tatchi
+    role: OCaml LSP maintainer
+  - name: Jon Ludlam
+    github: jonludlam
+    role: Lead Odoc maintainer
+  - name: Thomas Refis
+    github: trefis
+    role: Merlin maintainer
+  - name: Raja Boujbel
+    github: rjbou
+    role: Opam mainainter
+  - name: Louis Gesbert
+    github: AltGr
+    role: Opam maintainer
+  - name: François Bobot
+    github: bobot
+    role: Dune Maintainer
+  - name: Andrey Mokhov
+    github: snowleopard
+    role: Dune maintainer
+  - name: Cameron Wong
+    github: cwong-ocaml
+    role: Dune maintainer
+  - name: Nicolás Ojeda Bär
+    github: nojb
+    role: Dune maintainer
+  - name: Emilio Jesús Gallego Arias
+    github: ejgallego
+    role: Dune maintainer
+  - name: Christine Rose
+    github: christinerose
+    role: Technical Writer
+
+alumni:
+  - name: Jérémie Dimino
+    github: ghost
+
+contributors:
+  - name: Shon Feder
+    github: shonfeder

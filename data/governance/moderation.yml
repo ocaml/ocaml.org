@@ -1,0 +1,26 @@
+id: moderation
+name: Moderation
+description: The moderation team is responsible for the moderation of the official OCaml forums and social platforms, such Discuss, Discord, or the mailing lists.
+
+contacts:
+  - name: Email
+    link: moderation@lists.ocaml.org
+    icon: /icons/email.svg
+
+team:
+  - name: Thomas Leonard
+    github: talex5
+    role: Discuss Moderator
+  - name: Yotam Barnoy
+    github: Bluddy
+    role: Discord Moderator
+  - name: Gabriel Radanne
+    github: Drup
+    role: Discord Moderator
+  - name: Florian Angeletti
+    github: octachron
+    role: Discord Moderator
+  
+alumni: []
+
+contributors: []

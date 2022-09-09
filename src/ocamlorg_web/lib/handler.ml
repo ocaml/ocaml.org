@@ -217,8 +217,27 @@ let page (page : Ood.Page.t) (_req : Dream.request) =
 
 let carbon_footprint = page Ood.Page.carbon_footprint
 let privacy_policy = page Ood.Page.privacy_policy
-let governance = page Ood.Page.governance
 let playground _req = Dream.html (Ocamlorg_frontend.playground ())
+
+let governance _req =
+  let working_groups =
+    List.filter
+      (fun (t : Ood.Governance.t) -> String.starts_with ~prefix:"wg-" t.id)
+      Ood.Governance.all
+  in
+  let teams =
+    List.filter
+      (fun (t : Ood.Governance.t) ->
+        not (String.starts_with ~prefix:"wg-" t.id))
+      Ood.Governance.all
+  in
+  Dream.html (Ocamlorg_frontend.governance ~teams ~working_groups)
+
+let governance_team req =
+  let id = Dream.param req "id" in
+  match Ood.Governance.find_by_id id with
+  | Some team -> Dream.html (Ocamlorg_frontend.governance_team team)
+  | None -> not_found req
 
 let papers req =
   let search_paper pattern t =

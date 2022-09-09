@@ -1,0 +1,146 @@
+let render (team : Ood.Governance.t) =
+Layout.render
+~title:(Printf.sprintf "%s · OCaml Governance" team.name)
+~description:team.description @@
+<div class="intro-section-simple">
+  <div class="container-fluid">
+    <div class="mx-auto px-4 sm:px-6">
+      <div class="">
+        <div class="sm:text-center lg:col-span-8 lg:text-left">
+          <div
+            class="flex justify-start space-x-3 items-center text-primary-600 hover:underline font-semibold mb-4 h-12">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
+              </path>
+            </svg>
+            <a href="<%s Url.governance %>" class="hover:underline">Back to Governance</a>
+          </div>
+          <h1 class="font-bold pb-6"><%s team.name %> Governance</h1>
+          <div class="text-2xl text-body-400">
+            <%s team.description%>
+          </div>
+          <div class="space-x-4">
+            <% team.contacts |> List.iter (fun (contact : Ood.Governance.contact) -> %>
+            <a href="<%s contact.link %>" target="_blank">
+              <button class="btn btn-secondary btn-lg mt-6">
+                <img src="<%s contact.icon %>" alt="" class="h-6 w-6 mr-3 inline-block" />
+                <%s contact.name %>
+              </button>
+            </a>
+            <% ); %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="our-team">
+  <div class="py-10 lg:py-28">
+    <div class="container-fluid">
+      <h2 class="font-bold gradient mb-6 text-[40px]">Team Members</h2>
+      <div class="text-white text-lg">
+        Odio amet cursus eu cursus nunc bibendum mauris. Nunc tempor fermentum phasellus mi nulla id fermentum
+        integer
+        id. Nec quisque consequat et, risus ultrices orci ut massa.
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-16">
+        <% team.team |> List.iter (fun (member : Ood.Governance.member) -> %>
+        <div class="flex space-x-2">
+          <img src="https://github.com/<%s member.github %>.png" alt="" class="h-32 w-32 mr-3 inline-block rounded-xl" />
+          <div>
+            <div class="text-white text-lg font-semibold mt-3"><%s member.name %></div>
+            <div class="text-sm text-white text-opacity-50"><%s member.role %></div>
+            <div class="mt-8 text-white text-opacity-50 items-center flex">
+              <img src="/img/github-icon.svg" alt="" class=" mr-2 h-5 w-4 inline-block" />
+              <span><%s member.github %></span>
+            </div>
+          </div>
+        </div>
+        <% ); %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<svg width="100%" height="auto" viewBox="0 0 1600 290" class='mb-0 lg:-mb-24' fill="none"
+  xmlns="http://www.w3.org/2000/svg">
+  <g clip-path="url(#clip0_2155_13483)">
+    <rect width="1600" height="290" fill="white" />
+    <circle cx="1467.5" cy="161.5" r="27.5" fill="#EE6A1A" fill-opacity="0.48" />
+    <path fill-rule="evenodd" clip-rule="evenodd"
+      d="M-197.883 348.583C-256.706 318.298 -243.028 211.404 -236.431 120.668C-229.671 27.6854 -231.887 -77.8672 -160.394 -167.018C-90.5503 -254.114 0.696877 -256.036 81.5626 -275.871C142.463 -290.808 195.859 -289.719 238.964 -264.971C285.481 -238.263 331.333 -204.686 330.34 -133.039C329.284 -56.8512 291.867 36.2961 233.716 113.587C177.662 188.092 104.669 221.961 34.5125 260.16C-47.0471 304.567 -140.846 377.947 -197.883 348.583Z"
+      fill="#EE6A1A" fill-opacity="0.1" />
+    <path fill-rule="evenodd" clip-rule="evenodd"
+      d="M0 52.9655L67 48.5517C133 44.1379 267 35.3103 400 44.1379C533 52.9655 667 79.4484 800 114.759C933 150.069 1067 194.208 1200 198.621C1333 203.035 1467 167.725 1533 150.069L1600 132.414V-0.000243594H1533C1467 -0.000243594 1333 -0.000243594 1200 -0.000243594C1067 -0.000243594 933 -0.000243594 800 -0.000243594C667 -0.000243594 533 -0.000243594 400 -0.000243594C267 -0.000243594 133 -0.000243594 67 -0.000243594H0V52.9655Z"
+      fill="url(#paint0_linear_2155_13483)" />
+    <circle cx="1523" cy="148" r="48" fill="#CC4D00" />
+  </g>
+  <defs>
+    <linearGradient id="paint0_linear_2155_13483" x1="1600" y1="115.259" x2="-2.29315e-07" y2="115.259"
+      gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1528" />
+      <stop offset="0.536458" stop-color="#0B1528" stop-opacity="0.958333" />
+      <stop offset="1" stop-color="#0B1528" />
+    </linearGradient>
+    <clipPath id="clip0_2155_13483">
+      <rect width="1600" height="290" fill="white" />
+    </clipPath>
+  </defs>
+</svg>
+
+<% (match team.alumni with | [] -> () | alumni -> %>
+<div class="bg-white">
+  <div class="py-10 lg:py-28">
+    <div class="container-fluid">
+      <h2 class="font-bold text-body-600 mb-6 text-[40px]">Our Alumni</h2>
+      <div class="text-body-400 text-lg">
+        Odio amet cursus eu cursus nunc bibendum mauris. Nunc tempor fermentum phasellus mi nulla id fermentum
+        integer
+        id. Nec quisque consequat et, risus ultrices orci ut massa. </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-16">
+        <% alumni |> List.iter (fun (contributor : Ood.Governance.contributor) -> %>
+        <div class="flex space-x-2">
+          <img src="https://github.com/<%s contributor.github %>.png" alt="" class="h-32 w-32 mr-3 inline-block rounded-xl" />
+          <div>
+            <div class="text-body-600 text-lg font-semibold mt-3"><%s contributor.name %></div>
+            <div class="mt-8 text-body-600 text-opacity-50 items-center flex">
+              <img src="/img/github-gray.svg" alt="" class=" mr-2 h-5 w-4 inline-block" />
+              <span class="font-medium"><%s contributor.github %></span>
+            </div>
+          </div>
+        </div>
+        <% ); %>
+      </div>
+    </div>
+  </div>
+</div>
+<% ); %>
+
+<% (match team.contributors with | [] -> () | contributors -> %>
+<div class="bg-white">
+  <div class="py-10 lg:pb-28">
+    <div class="container-fluid border-b-[2px]  border-gray-200 pb-28">
+      <h2 class="font-bold text-body-600 mb-6 text-[40px]">Frequent Contributors</h2>
+      <div class="text-body-400 text-lg">
+        Odio amet cursus eu cursus nunc bibendum mauris. Nunc tempor fermentum phasellus mi nulla id fermentum
+        integer
+        id. Nec quisque consequat et, risus ultrices orci ut massa. </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12 mt-16">
+        <% contributors |> List.iter (fun (contributor : Ood.Governance.contributor) -> %>
+        <div class="flex space-x-2">
+          <img src="https://github.com/<%s contributor.github %>.png" alt="" class="h-16 w-16 mr-3 inline-block rounded" />
+          <div>
+            <div class="text-body-600 text-lg font-semibold mt-1"><%s contributor.name %></div>
+            <div class="mt-1 text-body-600 text-opacity-50 items-center flex">
+              <img src="/img/github-gray.svg" alt="" class=" mr-2 h-5 w-4 inline-block" />
+              <span class="font-medium"><%s contributor.github %></span>
+            </div>
+          </div>
+        </div>
+        <% ); %>
+      </div>
+    </div>
+  </div>
+</div>
+<% ); %>
