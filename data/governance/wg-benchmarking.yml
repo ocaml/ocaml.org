@@ -1,0 +1,20 @@
+id: wg-benchmarking
+name: Benchmarking Working Group
+description: Working on a set of benchmarking tool and a core infrastructure to support the benchmarks of OCaml projects.
+
+contacts:
+  - name: Email
+    link: wg-benchmarking@lists.ocaml.org
+    icon: /icons/email.svg
+
+team: 
+  - name: Shakthi Kannan
+    github: shakthimaan
+    role: Team Lead
+  - name: Puneeth Chaganti
+    github: punchagan
+    role: Maintainer
+  - name: Arthur Wendling
+    github: art-w
+    role: Maintainer
+

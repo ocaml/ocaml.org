@@ -42,6 +42,8 @@ let map_files f dir =
   |> List.map (fun (file, x) ->
          try f x
          with exn ->
+           let err = Printexc.to_string exn in
+           print_endline err;
            prerr_endline ("Error in " ^ file);
            raise exn)
 
@@ -50,6 +52,8 @@ let map_files_with_names f dir =
   |> List.map (fun (file, x) ->
          try f (file, x)
          with exn ->
+           let err = Printexc.to_string exn in
+           print_endline err;
            prerr_endline ("Error in " ^ file);
            raise exn)
 

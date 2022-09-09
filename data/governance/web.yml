@@ -1,0 +1,53 @@
+id: web
+name: Web
+description: The Web team is responsible for the development and maintenance of the officla OCaml websites, in particular OCaml.org and its subdomains.
+
+contacts:
+  - name: Email
+    link: web@lists.ocaml.org
+    icon: /icons/email.svg
+
+team:
+  - name: Anil Madhavapeddy
+    github: avsm
+    role: Advisor
+  - name: Thibaut Mattio
+    github: tmattio
+    role: Team Lead
+  - name: Christine Rose
+    github: christinerose
+    role: Technical Writer
+
+alumni:
+  - name: Ashish Agarwal
+    github: agarwal
+  - name: Kanishka Azimi
+    github: ghost
+  - name: Richard Davison
+    github: rdavison
+  - name: Patrick Ferris
+    github: patricoferris
+  - name: Isabella Leandersson
+    github: ILeandersson
+  - name: Christophe Troestler
+    github: Chris00
+
+contributors:
+  - name: Asaad Mahmood
+    github: asaadmahmood
+  - name: Mirza Babar Baig Bukhari
+    github: MirzaBabarBaig
+  - name: JiaeK
+    github: JiaeK
+  - name:  Shreya Kumari Gupta
+    github: shreyaswikriti
+  - name: Joy Odinaka
+    github: dinakajoy
+  - name: John Whitington
+    github: johnwhitington
+  - name: Jon Ludlam
+    github: jonludlam
+  - name: Jules Aguillon
+    github: Julow
+  - name: Lucas Pluvinage
+    github: TheLortex

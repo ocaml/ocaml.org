@@ -1,0 +1,107 @@
+id: compiler
+name: Compiler
+description: The OCaml Compiler team, responsible for the development and maintenance of the language, the standard library and the compiler tools.
+
+contacts:
+  - name: Email
+    link: https://inbox.ocaml.org/caml-list/
+    icon: /icons/email.svg
+  - name: Discord
+    link: https://discord.com/channels/436568060288172042/904141760052228116
+    icon: /icons/discord.svg
+  - name: GitHub
+    link: https://github.com/ocaml/ocaml/issues
+    icon: /icons/github.svg
+
+team:
+  - name: Xavier Leroy
+    github: xavierleroy
+    role: Creator & Lead Maintainer
+  - name: Gabriel Scherer
+    github: gasche
+    role: Maintainer
+  - name: Alain Frisch
+    github: alainfrisch
+    role: Maintainer
+  - name: David Allsopp
+    github: dra27
+    role: Maintainer
+  - name: Sébastien Hinderer
+    github: shindere
+    role: Maintainer
+  - name: Florian Angeletti
+    github: Octachron
+    role: Maintainer
+  - name: Thomas Refis
+    github: trefis
+    role: Maintainer
+  - name: Nicolás Ojeda Bär
+    github: nojb
+    role: Maintainer
+  - name: Damien Doligez
+    github: damiendoligez
+    role: Maintainer
+  - name: Stephen Dolan
+    github: stedolan
+    role: Maintainer
+  - name: Tom Kelly
+    github: ctk21
+    role: Maintainer
+  - name: KC Sivaramakrishnan
+    github: kayceesrk
+    role: Maintainer
+  - name: Leo White
+    github: lpw25
+    role: Maintainer
+  - name: Jacques Garrigue
+    github: garrigue
+    role: Maintainer
+  - name: François Pottier
+    github: fpottier
+    role: Maintainer
+  - name: Sadiq Jaffer
+    github: sadiqj
+    role: Maintainer
+  - name: Jeremy Yallop
+    github: yallop
+    role: Maintainer
+  - name: Guillaume Munch-Maccagnoni
+    github: gadmm
+    role: Maintainer
+  - name: Frédéric Bour
+    github: let-def
+    role: Maintainer
+
+alumni:
+  - name: Pierre Weis
+    github: pierreweis
+  - name: Didier Remy
+    github: diremy
+
+contributors:
+  - name: Nicolas Pouillard
+    github: np
+  - name: Mark Shinwell
+    github: mshinwell
+  - name: Enguerrand
+    github: Engil
+  - name: Pierre Chambart
+    github: chambart
+  - name: Xavier Clerc
+    github: xclerc
+  - name: Luc Maranget
+    github: maranget
+  - name: Jérémie Dimino
+    github: ghost
+  - name: Fabrice Le Fessant
+    github: lefessan
+  - name: John Whitington
+    github: johnwhitington
+  - name: Daniel Bünzli
+    github: dbuenzli
+  - name: Hugo Heuzard
+    github: hhugo
+  - name: Sudha Parimala
+    github: Sudha247
+  - name: Gabriel Radanne
+    github: Drup

@@ -53,4 +53,6 @@ let page ~title ~description ~meta_title ~meta_description ~content ~canonical =
     ~canonical
 
 let playground () = Playground.render ()
+let governance ~teams = Governance.render ~teams
+let governance_team team = Governance_team.render team
 let not_found () = Not_found.render ()

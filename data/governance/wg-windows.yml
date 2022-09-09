@@ -1,0 +1,19 @@
+id: wg-windows
+name: Windows Working Group
+description: Work toward a Windows-compatible OCaml ecosystem.
+
+contacts:
+  - name: Email
+    link: wg-windows@lists.ocaml.org
+    icon: /icons/email.svg
+
+team:
+  - name: David Allsopp
+    github: dra27
+    role: Team Lead
+  - name: Jonah Beckford
+    github: jonahbeckford
+    role: Maintainer
+  - name: Nicolás Ojeda Bär
+    github: nojb
+    role: Maintainer

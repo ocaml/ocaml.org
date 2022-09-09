@@ -44,6 +44,7 @@ let carbon_footprint = "/carbon-footprint"
 let privacy_policy = "/privacy-policy"
 let governance = "/governance"
 let playground = "/play"
+let governance_team v = "/governance/" ^ v
 let papers = "/papers"
 let learn = "/docs"
 let platform = "/docs/platform"

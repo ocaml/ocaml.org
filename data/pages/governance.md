@@ -1,5 +1,5 @@
 ---
-title: OCaml.org Governance
+title: OCaml.org
 description: The structure of the OCaml.org project, the roles involved and the responsibilities.
 meta_title: Governance of the OCaml.org domain
 meta_description: Read about the structure of the OCaml.org project, the roles involved and the responsibilities.
@@ -7,7 +7,7 @@ meta_description: Read about the structure of the OCaml.org project, the roles i
 
 ## Overview and Scope
 
-As the OCaml community continues to grow, more collaborative work 
+As the OCaml community continues to grow, more collaborative work
 undertaken to support and extend the needs of the language and
 its users. This document focuses specifically on the
 OCaml.org *domain name* and the Projects that make use of that domain name.
@@ -143,10 +143,10 @@ assessed.
 
 Wherever practicable, Users should be encouraged to provide feedback and
 participate in the Projects as much as possible. Users who engage a lot with a
-Project will likely go on to become Contributors. 
+Project will likely go on to become Contributors.
 
 It should be noted that these Roles are not mutually exclusive, for example
-Maintainers and Contributors are necessarily also Users. 
+Maintainers and Contributors are necessarily also Users.
 
 ## Projects
 
@@ -165,12 +165,12 @@ lists.ocaml.org (see below).
 it is compatible with the governance and guiding principles of OCaml.org.
 
 
-### Initiating a Project 
+### Initiating a Project
 
 Any proposal for new work should be raised and discussed on the Infrastructure
 mailing list. If there is consensus among Maintainers that the work fits
 within an existing Project, then the Maintainers of that Project can take it
-forward. 
+forward.
 
 If a new subdomain is required, then a brief proposal
 should be made on the Infrastructure list that covers:
@@ -198,7 +198,7 @@ to take on the role
 In all cases, prior notice must be sent to the Infrastructure list including a
 reasonable time frame and reasons for closure.
 Closure simply implies revocation or redirection of the subdomain and/or
-shutting down or reclaiming any resources provided (e.g., VMs). 
+shutting down or reclaiming any resources provided (e.g., VMs).
 
 
 ## Processes
@@ -225,7 +225,7 @@ licensing agreement so
 that Contributors understand how to engage with the Maintainers. Typically,
 this will cover where communication occurs and the process for submitting
 patches. Contributions from the community are encouraged and can take many
-forms including, bug fixes, new features, content, or documentation.  
+forms including, bug fixes, new features, content, or documentation.
 
 All Projects under OCaml.org are expected to be open source, and the licensing
 arrangements should reflect this.
@@ -238,7 +238,7 @@ Maintainers on the Infrastructure mailing list.
 
 Maintainers are expected to make decisions regarding their Projects.
 The intent is for any Maintainers to resolve disagreements, through
-a consensus process within each Project.  
+a consensus process within each Project.
 
 On the rare occasions, where Maintainers of a Project cannot agree
 on a way forward, the following approach is suggested:
@@ -251,7 +251,7 @@ will act as arbitrator.
 
 During the above, it is expected that all people will be reasonable and be
 respectful of each other's efforts and viewpoints. In general, we expect to
-generate consensus among the community to resolve conflicts.  
+generate consensus among the community to resolve conflicts.
 
 ## Existing Projects
 
@@ -271,7 +271,7 @@ or see the [related issue](https://github.com/ocaml/v2.ocaml.org/issues/700).
 ***Version 1.0.1 — March 2022***
 <!--
 The version number should be changed for *any* edits that are made to this
-document, even typos. Otherwise disambiguating between versions is awkward. 
+document, even typos. Otherwise disambiguating between versions is awkward.
 
 Best wishes,
 Amir
@@ -280,7 +280,7 @@ Sep 2015
 ------
 
 Addressed consistency in title case and grammar. Changed to Version 1.0.1, as
-recommened by Amir, above. 
+recommened by Amir, above.
 
 Kindly,
 Christine
