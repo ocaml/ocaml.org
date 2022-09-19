@@ -3,7 +3,7 @@ name: CEA
 description: > 
   CEA is a French state company, member of the OCaml Consortium.
 url: "https://cea.fr/"
-logo: /users/cea.png
+logo: users/cea.png
 locations: 
   - France
 consortium: true

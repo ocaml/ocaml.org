@@ -3,7 +3,7 @@ name: 4Sigma
 description: >
   4Sigma is an italian firm making web applications and solutions for the industrial automation sector.
 url: "https://4sigma.it"
-logo: /users/4sigma.png
+logo: users/4sigma.png
 locations:
   - Italy
 consortium: false

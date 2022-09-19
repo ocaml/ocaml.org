@@ -1,7 +1,7 @@
 ---
 name: Facebook
 description: Facebook has built a number of major development tools using OCaml
-logo: /users/facebook.png
+logo: users/facebook.png
 url: "https://www.facebook.com/"
 locations: 
   - United States

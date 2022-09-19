@@ -3,7 +3,7 @@ name: ForAllSecure
 description: > 
   ForAllSecure's mission is to test the world's software and provide actionable information to our customers.
 url: "https://forallsecure.com"
-logo: /users/forallsecure.png
+logo: users/forallsecure.png
 locations: 
   - United States
 consortium: false

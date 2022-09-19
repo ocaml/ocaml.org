@@ -3,7 +3,7 @@ name: LexiFi
 description: > 
   LexiFi is an innovative provider of software applications and infrastructure technology for the capital markets industry.
 url: "https://www.lexifi.com"
-logo: /users/lexifi.png
+logo: users/lexifi.png
 locations: 
   - France
 consortium: true

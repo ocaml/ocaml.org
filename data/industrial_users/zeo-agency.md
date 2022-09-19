@@ -3,7 +3,7 @@ name: Zeo Agency
 description: > 
   Zeo is a digital marketing company focused on helping companies to do better in SEO.
 url: "https://www.zeo.org"
-logo: /users/zeo.svg
+logo: users/zeo.svg
 locations: 
   - "London, United Kingdom"
 consortium: false

@@ -3,7 +3,7 @@ name: University of Pennsylvania
 description: >
  The University of Pennsylvania is a private Ivy League research university in Philadelphia, Pennsylvania.
 url: "https://www.upenn.edu/"
-logo: /academic_institution/penn.png
+logo: academic_institution/penn.png
 continent: North America
 courses:
     - name: Compilers 

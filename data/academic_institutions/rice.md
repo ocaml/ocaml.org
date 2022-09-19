@@ -3,7 +3,7 @@ name: Rice University
 description: >
  William Marsh Rice University, commonly known as Rice University, is a private research university in Houston, Texas. 
 url: "https://www.rice.edu/"
-logo: /academic_institution/rice.jpg
+logo: academic_institution/rice.jpg
 continent: North America
 courses:
     - name: Principles of Programming Languages

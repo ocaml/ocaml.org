@@ -3,7 +3,7 @@ name: Issuu
 description: > 
   Issuu is a digital publishing platform delivering exceptional reading experiences of magazines, catalogues, and newspapers
 url: "https://issuu.com"
-logo: /users/issuu.gif
+logo: users/issuu.gif
 locations: 
   - Denmark
 consortium: false
