@@ -160,6 +160,16 @@ watch:
   published_at: 2021-08-27T11:20:09.000Z
   language: English
   category: Science & Technology
+- name: Continuous Monitoring of OCaml Applications Using Runtime Events
+  description: The upcoming 5.0 release of OCaml includes a new runtime tracing system
+    designed for continuous monitoring of OCaml applications called Runtime Events.
+    It enables very low overhead, programmatic access to performance data emitted
+    by the OCaml runt...
+  embed_path: /videos/embed/299cab02-db94-44ac-b926-ea90ddda1b09
+  thumbnail_path: /static/thumbnails/fdad6056-bd71-4401-9391-5cb5b4bfa06e.jpg
+  published_at: 2022-09-16T11:07:11.073Z
+  language: English
+  category: Science & Technology
 - name: Coq of OCaml
   description: "Coq of OCaml, by Guillaume Claret\r\n\r\nThe CoqOfOCaml project is
     a compiler from a subset of the OCaml language to the Coq programming language.
