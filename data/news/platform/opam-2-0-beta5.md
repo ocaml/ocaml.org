@@ -16,9 +16,9 @@ the local development workflows.
 ## What's new
 
 The features presented in past announcements:
-[local switches](http://opam.ocaml.org/blog/opam-local-switches/),
-[in-source package definition handling](http://opam.ocaml.org/blog/opam-install-dir/),
-[extended dependencies](http://opam.ocaml.org/blog/opam-extended-dependencies/)
+[local switches](https://opam.ocaml.org/blog/opam-local-switches/),
+[in-source package definition handling](https://opam.ocaml.org/blog/opam-install-dir/),
+[extended dependencies](https://opam.ocaml.org/blog/opam-extended-dependencies/)
 are of course all present. But now, all the glue to make them interact nicely
 together is here to provide new smooth workflows. For example, the following
 command, if run from the source tree of a given project, creates a local switch
@@ -45,12 +45,12 @@ platforms. It is also faster.
 
 Another big change is that detection of architecture and OS details is now done
 in opam, and can be used to select the external dependencies with the new format
-of the [`depexts:`](http://opam.ocaml.org/doc/2.0/Manual.html#opamfield-depexts)
+of the [`depexts:`](https://opam.ocaml.org/doc/2.0/Manual.html#opamfield-depexts)
 field, but also to affect dependencies or build flags.
 
 There is much more to it. Please see the
 [changelog](https://github.com/ocaml/opam/blob/2.0.0-beta5/CHANGES), and the
-[updated manual](http://opam.ocaml.org/doc/2.0/Manual.html).
+[updated manual](https://opam.ocaml.org/doc/2.0/Manual.html).
 
 ## How to try it out
 

@@ -36,4 +36,4 @@ Thanks a lot for testing out the RC and [reporting](https://github.com/ocaml/opa
 
 ---
 
-<a id="foot-1">¹</a> You can at the moment rely on the [manpages](http://opam.ocaml.org/doc/2.0/man/opam.html), the [Manual](http://opam.ocaml.org/doc/2.0/Manual.html), and of course the [API](http://opam.ocaml.org/doc/2.0/api/), but other pages might be outdated.
+<a id="foot-1">¹</a> You can at the moment rely on the [manpages](https://opam.ocaml.org/doc/2.0/man/opam.html), the [Manual](https://opam.ocaml.org/doc/2.0/Manual.html), and of course the [API](https://opam.ocaml.org/doc/2.0/api/), but other pages might be outdated.

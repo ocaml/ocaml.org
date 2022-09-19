@@ -26,7 +26,7 @@ a more smooth experience.
 
 A number of opam packages depend on tools or libraries installed on the system,
 which are out of the scope of opam itself. Previous versions of opam added a
-[specification format](http://opam.ocaml.org/doc/Manual.html#opamfield-depexts),
+[specification format](https://opam.ocaml.org/doc/Manual.html#opamfield-depexts),
 and opam 2.0 already handled checking the OS and extracting the required system
 package names.
 

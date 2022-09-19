@@ -29,7 +29,7 @@ repositories appearing in the wild (see for instance the repositories
 for [Android][3], [Windows][4] and [so on][5]). To be sure that the
 community efforts will continue to benefit to everyone and to
 underline our committment to OPAM, we are rehousing it at
-`http://opam.ocaml.org` and switching the license to CC0 (see [issue #955][6],
+`https://opam.ocaml.org` and switching the license to CC0 (see [issue #955][6],
 where 85 people are commenting on the thread).
 
 The binary installer has been updated for OSX and x86_64:

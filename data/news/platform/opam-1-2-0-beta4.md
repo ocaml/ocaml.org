@@ -89,7 +89,7 @@ Major points:
 [ocl-www]: http://www.cl.cam.ac.uk/projects/ocamllabs/
 [ocp-www]: http://www.ocamlpro.com
 [opam.ocaml.org]: https://opam.ocaml.org
-[platform-list]: http://lists.ocaml.org/listinfo/platform
+[platform-list]: https://lists.ocaml.org/listinfo/platform
 
 
 ## Releasing the OPAM 1.2 beta4
@@ -285,7 +285,7 @@ benefit from the new features.
 [debian-weather]: https://qa.debian.org/dose/debcheck/testing_main/ "Debian Weather Service"
 [ows]: http://ows.irill.org "The OPAM Weather Service"
 [features-pr]: https://github.com/ocaml/opam/pull/1325 "PR for preliminary 'features' feature on Github"
-[opam12-doc]: http://opam.ocaml.org/doc "Preview of documentation for OPAM 1.2"
+[opam12-doc]: https://opam.ocaml.org/doc "Preview of documentation for OPAM 1.2"
 [opam-admin-scripts]: https://github.com/ocaml/opam/tree/master/admin-scripts "Opam admin scripts directory on Github"
 [opam200]: https://github.com/ocaml/opam/issues/200
 [opam-1-2-pin]: ../opam-1-2-pin "Blog post on OPAM Pin"

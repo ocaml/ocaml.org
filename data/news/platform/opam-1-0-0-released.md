@@ -29,8 +29,8 @@ users), ~/.ocamlinit and ~/.opam/opam-init/*).
 Please report:
 - Bug reports and feature requests for the OPAM tool: http://github.com/OCamlPro/opam/issues
 - Packaging issues or requests for a new packages: http://github.com/OCamlPro/opam-repository/issues
-- General queries to: http://lists.ocaml.org/listinfo/platform
-- More specific queries about the internals of OPAM to: http://lists.ocaml.org/listinfo/opam-devel
+- General queries to: https://lists.ocaml.org/listinfo/platform
+- More specific queries about the internals of OPAM to: https://lists.ocaml.org/listinfo/opam-devel
 
 ## Install ##
 

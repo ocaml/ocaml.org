@@ -70,7 +70,7 @@ or custom repositories, or package pinnings. The reverse translation (2.0 to
 1.2) is planned, to keep supporting 1.2 installations after that date.
 
 The documentation for the new version is available at
-http://opam.ocaml.org/doc/2.0/. This is still work in progress, so please do ask
+https://opam.ocaml.org/doc/2.0/. This is still work in progress, so please do ask
 if anything is unclear.
 
 ## Interface changes
