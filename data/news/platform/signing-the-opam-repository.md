@@ -12,7 +12,7 @@ tags: [platform]
 
 > This is an initial proposal on signing the OPAM repository. Comments and
 > discussion are expected on the
-> [platform mailing-list](http://lists.ocaml.org/listinfo/platform).
+> [platform mailing-list](https://lists.ocaml.org/listinfo/platform).
 
 The purpose of this proposal is to enable a secure distribution of
 OCaml packages. The package repository does not have to be trusted if
@@ -752,7 +752,7 @@ malicious commit.
 [haskell-tuf-git]: https://github.com/commercialhaskell/commercialhaskell/wiki/Git-backed-Hackage-index-signing-and-distribution
 [haskell-tuf-e2e]: https://github.com/commercialhaskell/commercialhaskell/wiki/Package-signing-detailed-propsal
 [thandy]: http://google-opensource.blogspot.jp/2009/03/thandy-secure-update-for-tor.html
-[nocrypto]: http://opam.ocaml.org/packages/nocrypto/nocrypto.0.3.1/
+[nocrypto]: https://opam.ocaml.org/packages/nocrypto/nocrypto.0.3.1/
 [tuf-tests]: https://github.com/theupdateframework/tuf/tree/develop/tests
 [tuf-spec]: https://raw.githubusercontent.com/theupdateframework/tuf/develop/docs/tuf-spec.txt
 [tuf-spec-priorities]: https://github.com/theupdateframework/tuf/blob/e034be2687fa4eacc6c05ffff8a0d8a387eb3d20/docs/tuf-spec.txt#L632

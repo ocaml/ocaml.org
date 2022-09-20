@@ -10,14 +10,14 @@ We are pleased to announce the release of a second release candidate for opam 2.
 
 This new version brings us very close to a final 2.0.0 release, and in addition to many fixes, features big performance enhancements over the RC1.
 
-Among the new features, we have squeezed in full sandboxing of package commands for both Linux and macOS, to protect our users from any [misbehaving scripts](http://opam.ocaml.org/blog/camlp5-system/).
+Among the new features, we have squeezed in full sandboxing of package commands for both Linux and macOS, to protect our users from any [misbehaving scripts](https://opam.ocaml.org/blog/camlp5-system/).
 
 > NOTE: if upgrading manually from 2.0.0~rc, you need to run
 > `opam init --reinit -ni` to enable sandboxing.
 
 The new release candidate also offers the possibility to setup a hook in your shell, so that you won't need to run `eval $(opam env)` anymore. This is specially useful in combination with local switches, because with it enabled, you are guaranteed that running `make` from a project directory containing a local switch will use it.
 
-The documentation has also been updated, and a preview of the opam 2 webpages can be browsed at http://opam.ocaml.org/2.0-preview/ (please report issues [here](https://github.com/ocaml/opam2web/issues)). This provides the list of packages available for opam 2 (the `2.0` branch of [opam-repository](https://github.com/ocaml/opam-repository/tree/2.0.0)), including the [compiler packages](https://opam.ocaml.org/2.0-preview/packages/ocaml-base-compiler/).
+The documentation has also been updated, and a preview of the opam 2 webpages can be browsed at https://opam.ocaml.org/2.0-preview/ (please report issues [here](https://github.com/ocaml/opam2web/issues)). This provides the list of packages available for opam 2 (the `2.0` branch of [opam-repository](https://github.com/ocaml/opam-repository/tree/2.0.0)), including the [compiler packages](https://opam.ocaml.org/2.0-preview/packages/ocaml-base-compiler/).
 
 Installation instructions:
 

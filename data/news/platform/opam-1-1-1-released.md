@@ -18,7 +18,7 @@ will be merged progressively after this release.
 ## Installing ##
 
 Installation instructions are available
-[on the wiki](http://opam.ocaml.org/doc/Quick_Install.html).
+[on the wiki](https://opam.ocaml.org/doc/Quick_Install.html).
 
 Note that some packages may take a few days until they get out of the
 pipeline. If you're eager to get 1.1.1, either use our

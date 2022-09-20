@@ -337,7 +337,7 @@ My talk at OCaml 2014 ([video][ocaml2014-video], [slides][ocaml2014-slides]) giv
 [0release]: http://0install.net/0release.html
 [0template]: http://0install.net/0template.html
 [0mirror]: http://roscidus.com/0mirror/
-[opam-quick-install]: http://opam.ocaml.org/doc/Quick_Install.html
+[opam-quick-install]: https://opam.ocaml.org/doc/Quick_Install.html
 [mirage]: http://openmirage.org/
 [ocaml2014-slides]: https://ocaml.org/meetings/ocaml/2014/0install-slides.pdf
 [ocaml2014-video]: https://www.youtube.com/watch?v=dYRT6z0NGII&list=UUP9g4dLR7xt6KzCYntNqYcw

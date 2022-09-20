@@ -13,7 +13,7 @@ Changes since the [2.0.0~rc2](../opam-2-0-0-rc2) are, as expected, mostly fixes.
 - a new command `opam switch link` that allows to select a switch to be used in a given directory (particularly convenient if you use the shell hook for automatic opam environment update)
 - a new option `opam install --assume-built`, that allows to install a package using its normal opam procedure, but for a source repository that has been built by hand. This fills a gap that remained in the local development workflows.
 
-The preview of the opam 2 webpages can be browsed at http://opam.ocaml.org/2.0-preview/ (please report issues [here](https://github.com/ocaml/opam2web/issues)).
+The preview of the opam 2 webpages can be browsed at https://opam.ocaml.org/2.0-preview/ (please report issues [here](https://github.com/ocaml/opam2web/issues)).
 
 Installation instructions (unchanged):
 

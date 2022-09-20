@@ -9,7 +9,7 @@ tags: [platform]
 > UPDATE (2017-02-14): A beta2 is online, which fixes issues and performance of
 > the `opam build` command. Get the new
 > [binaries](https://github.com/ocaml/opam/releases/tag/2.0.0-beta2), or
-> recompile the [opam-devel](http://opam.ocaml.org/packages/opam-devel/) package
+> recompile the [opam-devel](https://opam.ocaml.org/packages/opam-devel/) package
 > and replace the previous binary.
 
 We are pleased to announce that the beta release of opam 2.0 is now live! You
@@ -40,7 +40,7 @@ We also improved still on the
 compilers as packages, local switches, per-switch repository configuration,
 package file tracking, etc.
 
-The updated documentation is at http://opam.ocaml.org/doc/2.0/. If you are
+The updated documentation is at https://opam.ocaml.org/doc/2.0/. If you are
 developing in opam-related tools, you may also want to browse the
 [new APIs](https://opam.ocaml.org/doc/2.0/api/index.html).
 
@@ -124,11 +124,11 @@ redirected. It cannot yet accept package definitions in 2.0 format.
 - Separate `build:` and `install:` instructions are now required
 - It is now preferred to include the old `url` and `descr` files (containing the
   archive URL and package description) in the `opam` file itself: (see the new
-  [`synopsis:`](http://opam.ocaml.org/doc/2.0/Manual.html#opamfield-synopsis)
+  [`synopsis:`](https://opam.ocaml.org/doc/2.0/Manual.html#opamfield-synopsis)
   and
-  [`description:`](http://opam.ocaml.org/doc/2.0/Manual.html#opamfield-description)
+  [`description:`](https://opam.ocaml.org/doc/2.0/Manual.html#opamfield-description)
   fields, and the
-  [url {}](http://opam.ocaml.org/doc/2.0/Manual.html#opamsection-url) file
+  [url {}](https://opam.ocaml.org/doc/2.0/Manual.html#opamsection-url) file
   section)
 - Building tests and documentation should now be part of the main `build:`
   instructions, using the `{test}` and `{doc}` filters. The `build-test:` and
@@ -155,7 +155,7 @@ redirected. It cannot yet accept package definitions in 2.0 format.
   field is usually no longer required.
 
 The full, up-to-date specification of the format can be browsed in the
-[manual](http://opam.ocaml.org/doc/2.0/Manual.html#opam).
+[manual](https://opam.ocaml.org/doc/2.0/Manual.html#opam).
 
 #### Repository format
 

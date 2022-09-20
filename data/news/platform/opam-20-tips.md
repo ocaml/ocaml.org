@@ -85,7 +85,7 @@ parent directory.
 >
 > You will otherwise need to keep remembering to run `eval $(opam env)` every
 > time you `cd` to a directory containing a local switch. See also
-> [how to display the current switch in your prompt](http://opam.ocaml.org/doc/Tricks.html#Display-the-current-quot-opam-switch-quot-in-the-prompt)
+> [how to display the current switch in your prompt](https://opam.ocaml.org/doc/Tricks.html#Display-the-current-quot-opam-switch-quot-in-the-prompt)
 
 For example, if you have `~/projects/foo/_opam`, the switch will be selected
 whenever in project `foo`, allowing you to tailor what it has installed for the

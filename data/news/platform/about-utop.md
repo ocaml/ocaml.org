@@ -202,4 +202,4 @@ the project to keep it up-to-date and add new features such as extension point
 support. Contributions from others (particularly around editor integration) are
 very welcome, so if you are interested on hacking on it get in touch via the
 [GitHub issue tracker](https://github.com/diml/utop) or via the [OCaml Platform
-mailing list](http://lists.ocaml.org/listinfo/platform).
+mailing list](https://lists.ocaml.org/listinfo/platform).

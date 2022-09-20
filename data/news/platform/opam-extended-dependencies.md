@@ -112,7 +112,7 @@ depends: [
 
 Since the `datakit-*` packages follow the same versioning, this avoids having to rewrite the opam file on every new version, with a risk of error each time.
 
-As a side note, these variables are consistent with what is now used in the [`build:`](http://opam.ocaml.org/doc/2.0/Manual.html#opamfield-build) field, and the [`build-test:`](http://opam.ocaml.org/doc/2.0/Manual.html#opamfield-build-test) field is now deprecated. So this other part of the same `datakit` opam file:
+As a side note, these variables are consistent with what is now used in the [`build:`](https://opam.ocaml.org/doc/2.0/Manual.html#opamfield-build) field, and the [`build-test:`](https://opam.ocaml.org/doc/2.0/Manual.html#opamfield-build-test) field is now deprecated. So this other part of the same `datakit` opam file:
 ```opam
 build:
   ["ocaml" "pkg/pkg.ml" "build" "--pinned" "%{pinned}%" "--tests" "false"]
