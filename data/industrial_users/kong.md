@@ -3,7 +3,7 @@ name: Kong
 description: > 
   Kong makes it easy to distribute, monetize, manage and consume cloud APIs.
 url: "https://www.konghq.com"
-logo: /users/mashape.png
+logo: users/mashape.png
 locations: 
   - United States
 consortium: false

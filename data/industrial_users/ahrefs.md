@@ -3,7 +3,7 @@ name: Ahrefs
 description: >
   Ahrefs crawls the entire internet constantly to collect, process, and store data to build an all-in-one SEO toolkit.
 url: "https://www.ahrefs.com"
-logo: /users/ahrefs.png
+logo: users/ahrefs.png
 locations:
   - Singapore
   - United States

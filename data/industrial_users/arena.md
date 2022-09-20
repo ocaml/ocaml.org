@@ -3,7 +3,7 @@ name: Arena
 description: > 
   Arena helps organizations hire the right people.
 url: "https://www.arena.io"
-logo: /users/arena.jpg
+logo: users/arena.jpg
 locations: 
   - United States
 consortium: false

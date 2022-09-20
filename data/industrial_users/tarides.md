@@ -3,7 +3,7 @@ name: Tarides
 description: > 
   Tarides builds and maintains open-source infrastructure tools in OCaml like MirageOS, Irmin and OCaml developer tools.
 url: "https://www.tarides.com"
-logo: /users/tarides.png
+logo: users/tarides.png
 locations: 
   - France
 consortium: false

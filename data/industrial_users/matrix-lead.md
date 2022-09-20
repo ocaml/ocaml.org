@@ -3,7 +3,7 @@ name: Matrix Lead
 description: > 
   Matrix Lead provides professionals and companies with leading technologies and solutions for spreadsheets. 
 url: "https://www.matrixlead.com"
-logo: /users/matrixlead.png
+logo: users/matrixlead.png
 locations: 
   - France
   - China

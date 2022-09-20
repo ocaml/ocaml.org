@@ -3,7 +3,7 @@ name: Brown University
 description: >
  Brown University is a private Ivy League research university in Providence, Rhode Island. 
 url: "https://www.brown.edu/"
-logo: /academic_institution/brown.png
+logo: academic_institution/brown.png
 continent: North America
 courses:
     - name:  An Integrated introducion (along with Racket, Scala and Java)

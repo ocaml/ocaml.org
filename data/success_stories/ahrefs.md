@@ -1,6 +1,6 @@
 ---
 title: Peta-Byte Scale Web Crawler
-logo: /success-stories/ahrefs.svg
+logo: success-stories/ahrefs.svg
 background: /success-stories/ahrefs-bg.jpg
 theme: blue
 synopsis: "Ahrefs crawls the entire internet constantly to collect, process, and store data to build an all-in-one SEO toolkit."

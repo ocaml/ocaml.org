@@ -3,7 +3,7 @@ name: University of Wrocław
 description: >
  The University of Wrocław is a public research university located in Wrocław, Poland. 
 url: "https://uni.wroc.pl/en/"
-logo: /academic_institution/wroclaw.jpg
+logo: academic_institution/wroclaw.jpg
 continent: Europe
 courses:
     - name: Functional Programming 

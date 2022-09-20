@@ -3,7 +3,7 @@ name: r2c
 description: > 
   r2c is a VC-funded security company headquartered in San Francisco and distributed worldwide
 url: "https://r2c.dev"
-logo: /users/r2c.png
+logo: users/r2c.png
 locations: 
   - California, United States
 consortium: false

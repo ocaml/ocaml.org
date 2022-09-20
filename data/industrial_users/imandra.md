@@ -2,7 +2,7 @@
 name: Imandra Inc.
 description: >
   Imandra is the world leader in cloud-scale automated reasoning.
-logo: /users/imandra.png
+logo: users/imandra.png
 url: "https://www.imandra.ai"
 locations:
   - United States

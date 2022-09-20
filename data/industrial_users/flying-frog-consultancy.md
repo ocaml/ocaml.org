@@ -3,7 +3,7 @@ name: Flying Frog Consultancy
 description: > 
   Flying Frog Consultancy Ltd. consult and write books and software on the use of OCaml in the context of scientific computing.
 url: "https://www.ffconsultancy.com"
-logo: /users/flying-frog.png
+logo: users/flying-frog.png
 locations: 
   - United Kingdom
 consortium: false
