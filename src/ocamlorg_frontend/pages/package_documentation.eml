@@ -40,7 +40,7 @@ Package_layout.render
         <%s! Navmap.render ~path:str_path maptoc %>
       </div>
     </div>
-    <div class="flex-1 overflow-hidden z-0 z- w-full lg:max-w-4xl mx-auto relative md:px-6">
+    <div class="flex-1 overflow-hidden z-0 z- w-full lg:max-w-4xl mx-auto relative md:px-6 md:pl-12">
       <%s! Breadcrumbs.render path %>
       <div class="odoc prose prose-orange">
         <%s! content %>
