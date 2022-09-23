@@ -16,23 +16,23 @@ as described in [Up and Running](/docs/up-and-running).
 Alternatively, you may follow almost all of it by running OCaml in your browser
 using [TryOCaml](http://try.ocamlpro.com), with no installation required.
 
-On macOS/iOS/iPadOS, you can download this [all-in-one package on the App Store](https://apps.apple.com/app/ocaml-learn-code/id1547506826). It contains an editor side-by-side with an interactive toplevel, and is free and [open source](https://github.com/GroupeMINASTE/OCaml-iOS).
+On macOS/iOS/iPadOS, you can download this [all-in-one package on the App Store](https://apps.apple.com/app/ocaml-learn-code/id1547506826). It contains an editor side-by-side with an interactive toplevel. Plus, it's free and [open source](https://github.com/GroupeMINASTE/OCaml-iOS).
 
 **Please note**: this tutorial assumes you have some programming experience and are familiar with basic concepts like functions, variables, loops, arrays, etc. 
 
 
 ## Running OCaml Programs
 
-We will be working with small OCaml expressions at first, thus, using an interactive toplevel, or REPL
-(Read-Eval-Print Loop) will suffice.
+We will be working with small OCaml expressions at first, so using an interactive toplevel, or REPL
+(Read-Eval-Print Loop), will suffice.
 
-We recommend to use UTop (see [here](/docs/up-and-running#using-the-ocaml-toplevel-with-utop)),
-but alternatively, the basic toplevel of OCaml (`ocaml` command) can be used (for installation instructions,
-see [Up and Running](/docs/up-and-running#installing-ocaml)). 
+We recommend using UTop (see [here](/docs/up-and-running#using-the-ocaml-toplevel-with-utop)),
+but alternatively, the basic toplevel of OCaml (`ocaml` command) can also be used. For installation instructions,
+see [Up and Running](/docs/up-and-running#installing-ocaml). 
 
 If you have never used a toplevel (REPL) before, think of it as an interactive terminal/shell that
-evaluates expressions. You type an expression, press the Enter key or the Return key,
-and the toplevel responds with the value of the evaluated expression. 
+evaluates expressions. You type an expression followed by the Enter or Return key,
+and then the toplevel responds with the value of the evaluated expression. 
 
 The first step is to start the toplevel with either the `ocaml` or `utop` command.
 
