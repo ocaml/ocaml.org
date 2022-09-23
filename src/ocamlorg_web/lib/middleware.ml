@@ -11,6 +11,7 @@ let head handler request =
   match Dream.method_ request with
   | `HEAD ->
       let open Lwt.Syntax in
+      Dream.set_method_ request `GET;
       let* response = handler request in
       let transfer_encoding = Dream.header response "Transfer-Encoding" in
       let* () =

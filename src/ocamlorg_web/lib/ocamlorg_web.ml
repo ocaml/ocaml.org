@@ -12,4 +12,5 @@ let run () =
   Mirage_crypto_rng_lwt.initialize ();
   let state = Ocamlorg_package.init () in
   Dream.run ~interface:"0.0.0.0" ~port:Config.http_port
-  @@ Dream.logger @@ Middleware.no_trailing_slash @@ Router.router state
+  @@ Dream.logger @@ Middleware.no_trailing_slash @@ Middleware.head
+  @@ Router.router state
