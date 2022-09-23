@@ -23,24 +23,14 @@ let media_loader =
       let* store in
       Media.last_modified store (Mirage_kv.Key.v path))
 
-let head_handler handler request =
-  let open Lwt.Syntax in
-  let* response = handler request in
-  let* body = Dream.body response in
-  let length = body |> String.length |> string_of_int in
-  Dream.drop_header response "Content-Length";
-  Dream.add_header response "Content-Length" length;
-  Dream.empty ~headers:(Dream.all_headers response) (Dream.status response)
-
-let head_middleware handler request = match Dream.method_ request with
-| `HEAD -> head_handler handler request
-| _ -> handler request
-
-let get_and_head pattern handler = [ Dream.get pattern handler; Dream.head pattern handler ]
+let get_and_head pattern handler = [
+  Dream.get pattern handler;
+  Dream.head pattern handler
+]
 
 let page_routes =
   Dream.scope ""
-    [ Dream_dashboard.analytics (); Dream_encoding.compress; head_middleware ]
+    [ Dream_dashboard.analytics (); Dream_encoding.compress; Middleware.head ]
     (List.flatten [
       get_and_head Url.index Handler.index;
       get_and_head Url.learn Handler.learn;
@@ -70,7 +60,7 @@ let page_routes =
 
 let package_route t =
   Dream.scope ""
-    [ Dream_dashboard.analytics (); Dream_encoding.compress ]
+    [ Dream_dashboard.analytics (); Dream_encoding.compress; Middleware.head ]
     (List.flatten [
       get_and_head Url.packages (Handler.packages t);
       get_and_head Url.packages_search (Handler.packages_search t);
@@ -93,7 +83,7 @@ let package_route t =
 
 let graphql_route t =
   Dream.scope ""
-    [ Dream_encoding.compress ]
+    [ Dream_encoding.compress; Middleware.head ]
     (
       Dream.any "/api" (Dream.graphql Lwt.return (Graphql.schema t)) ::
       get_and_head "/graphiql" (Dream.graphiql "/api");
@@ -108,9 +98,9 @@ let router t =
       package_route t;
       graphql_route t;
       Dream.scope ""
-        [ Dream_encoding.compress ]
+        [ Dream_encoding.compress; Middleware.head ]
         (List.flatten [ get_and_head "/media/**" (Dream.static ~loader:media_loader "") ]);
       Dream.scope ""
-        [ Dream_encoding.compress ]
+        [ Dream_encoding.compress; Middleware.head ]
         (List.flatten [ get_and_head "/**" (Dream.static ~loader:asset_loader "") ]);
     ]
