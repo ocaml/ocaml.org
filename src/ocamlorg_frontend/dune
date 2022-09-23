@@ -196,4 +196,9 @@
   (targets breadcrumbs.ml)
   (deps breadcrumbs.eml)
   (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets learn_sidebar.ml)
+  (deps learn_sidebar.eml)
+  (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root}))))

@@ -1,7 +1,12 @@
-let render ~(papers : Ood.Paper.t list) ~(release : Ood.Release.t) ~(books : Ood.Book.t list) =
+let render
+~(papers : Ood.Paper.t list)
+~(release : Ood.Release.t) ~(books : Ood.Book.t list) 
+~tutorials
+=
 Learn_layout.render
 ~title:"Learn OCaml"
-~description:"Getting started with the OCaml programming language. Read the official tutorials, exercices, and language manual." @@
+~description:"Getting started with the OCaml programming language. Read the official tutorials, exercices, and language manual."
+(Learn_sidebar.render ~tutorials ~current_tutorial:None) @@
 <div class="flex-1 flex flex-col md:pl-10 min-w-0">
   <h1 class="font-bold mb-8">Learn OCaml</h1>
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 border-b border-gray-200 pb-10">

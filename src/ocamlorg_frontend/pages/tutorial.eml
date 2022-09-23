@@ -1,5 +1,10 @@
-let render (tutorial : Ood.Tutorial.t) =
-Learn_layout.render ~current_tutorial:tutorial.slug ~title:(Printf.sprintf "%s · OCaml Tutorials" tutorial.title) ~description:tutorial.description @@
+let render
+(tutorial : Ood.Tutorial.t)
+~tutorials
+=
+Learn_layout.render ~title:(Printf.sprintf "%s · OCaml Tutorials" tutorial.title) ~description:tutorial.description
+(Learn_sidebar.render ~current_tutorial:(Some tutorial.slug) ~tutorials)
+@@
 <div class="flex-1 flex overflow-hidden">
   <div class="prose prose-orange overflow-hidden z-0 z- lg:max-w-4xl mx-auto relative py-8 px-6">
     <%s! tutorial.body_html %>

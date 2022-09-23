@@ -1,4 +1,6 @@
-let render (problems : Ood.Problem.t list) =
+let problems_sidebar
+~problems
+= 
 let open Ood.Problem in
 let render_problem_link (problem : Ood.Problem.t) =
   let href = "#" ^ (problem.number) in
@@ -7,115 +9,93 @@ in
 let problem_sidebar_links_by_tag tag =
   List.map render_problem_link (filter_by_tag ~tag problems) |> String.concat ""
 in
-Layout.render
-~wide:true
+  <%s! Learn_layout.sidebar_icon_link_block ~current:Exercises %>
+
+  <%s! Learn_layout.sidebar_link_group "Working with lists"
+    (problem_sidebar_links_by_tag "list") %>
+
+  <%s! Learn_layout.sidebar_link_group "Arithmetic"
+    (problem_sidebar_links_by_tag "arithmetic") %>
+
+  <%s! Learn_layout.sidebar_link_group "Logic and Codes"
+    (problem_sidebar_links_by_tag "logic") %>
+
+  <%s! Learn_layout.sidebar_link_group "Binary Trees"
+    (problem_sidebar_links_by_tag "binary-tree") %>
+
+  <%s! Learn_layout.sidebar_link_group "Multiway Trees"
+    (problem_sidebar_links_by_tag "multiway-tree") %>
+
+  <%s! Learn_layout.sidebar_link_group "Graphs"
+    (problem_sidebar_links_by_tag "graph") %>
+
+  <%s! Learn_layout.sidebar_link_group "Miscellaneous Problems"
+    (List.map render_problem_link (filter_no_tag problems) |> String.concat "") %>
+
+let render
+(problems : Ood.Problem.t list)
+=
+Learn_layout.render
 ~title:"Exercises"
-~description:"A list of exercises to work on your OCaml skills." @@
-<div x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024">
-  <button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
-    :class="sidebar ? 'pl-1 pr-2': ''" x-on:click="sidebar = ! sidebar">
-    <div class="transition-transform" :class='sidebar ? "" : "rotate-180" '>
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
-      </svg>
-    </div>
-  </button>
-  <div class="lg:py-24 bg-white pt-10 md:pt-16">
-    <div class="container-fluid wide">
-      <div class="flex">
-        <div
-          class="p-10 z-10 w-full bg-white flex-shrink-0 flex-col fixed md:flex left-0 top-0 md:sticky md:w-72 md:p-0 md:py-4 h-screen overflow-auto"
-          x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
-          x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
-          x-transition:leave-end="-translate-x-full">
-
-          <%s! Learn_layout.sidebar_icon_link_block ~current:Exercises %>
-
-          <%s! Learn_layout.sidebar_link_group "Working with lists"
-            (problem_sidebar_links_by_tag "list") %>
-
-          <%s! Learn_layout.sidebar_link_group "Arithmetic"
-            (problem_sidebar_links_by_tag "arithmetic") %>
-
-          <%s! Learn_layout.sidebar_link_group "Logic and Codes"
-            (problem_sidebar_links_by_tag "logic") %>
-
-          <%s! Learn_layout.sidebar_link_group "Binary Trees"
-            (problem_sidebar_links_by_tag "binary-tree") %>
-
-          <%s! Learn_layout.sidebar_link_group "Multiway Trees"
-            (problem_sidebar_links_by_tag "multiway-tree") %>
-
-          <%s! Learn_layout.sidebar_link_group "Graphs"
-            (problem_sidebar_links_by_tag "graph") %>
-
-          <%s! Learn_layout.sidebar_link_group "Miscellaneous Problems"
-            (List.map render_problem_link (filter_no_tag problems) |> String.concat "") %>
-        </div>
-        <div class="flex-1 flex overflow-hidden problems-container">
-          <div
-            class="prose prose-orange overflow-hidden z-0 lg:max-w-full lg:w-full mx-auto relative py-8 px-6 lg:pt-0 lg:pl-20"
+~description:"A list of exercises to work on your OCaml skills."
+(problems_sidebar ~problems) @@
+  <div class="prose prose-orange overflow-hidden z-0 lg:max-w-full lg:w-full mx-auto relative py-8 px-6 lg:pt-0 lg:pl-10">
+    <h1 class="font-bold mb-8">Exercises</h1>
+    <% problems |> List.iter (fun (problem : Ood.Problem.t) -> %>
+    <div x-data="{statement: true}" id="<%s" problem.number %>
+      >
+      <div class="flex space-y-4 lg:space-y-0 lg:items-center flex-col lg:flex-row lg:justify-between">
+        <h4 class="font-bold text-body-600"><%s problem.title %></h4>
+        <div class="flex bg-body-600 bg-opacity-5 rounded-md p-1 items-center">
+          <button
+            class="px-3.5 h-9 font-medium flex space-x-2 items-center rounded-lg"
+            x-on:click="statement = true"
+            :class="statement ? 'bg-white text-primary-600': 'text-body-400' "
           >
-            <% problems |> List.iter (fun (problem : Ood.Problem.t) -> %>
-            <div x-data="{statement: true}" id="<%s" problem.number %>
-              >
-              <div class="flex space-y-4 lg:space-y-0 lg:items-center flex-col lg:flex-row lg:justify-between">
-                <h4 class="font-bold text-body-600"><%s problem.title %></h4>
-                <div class="flex bg-body-600 bg-opacity-5 rounded-md p-1 items-center">
-                  <button
-                    class="px-3.5 h-9 font-medium flex space-x-2 items-center rounded-lg"
-                    x-on:click="statement = true"
-                    :class="statement ? 'bg-white text-primary-600': 'text-body-400' "
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    <span :class="statement ? 'text-body-600' : 'text-body-400'">Statement</span>
-                  </button>
-                  <button
-                    class="px-3.5 h-9 font-medium flex space-x-2 items-center rounded-lg"
-                    x-on:click="statement = false"
-                    :class="statement ? 'text-body-400': 'bg-white text-primary-600' "
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    <span :class="statement ? 'text-body-400' : 'text-body-600'">Solution</span>
-                  </button>
-                </div>
-              </div>
-
-              <div x-show="statement"><%s! problem.statement %></div>
-
-              <div x-show="!statement"><%s! problem.solution %></div>
-            </div>
-            <div class="border-t border-gray-200 my-12"></div>
-            <% ); %>
-          </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span :class="statement ? 'text-body-600' : 'text-body-400'">Statement</span>
+          </button>
+          <button
+            class="px-3.5 h-9 font-medium flex space-x-2 items-center rounded-lg"
+            x-on:click="statement = false"
+            :class="statement ? 'text-body-400': 'bg-white text-primary-600' "
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span :class="statement ? 'text-body-400' : 'text-body-600'">Solution</span>
+          </button>
         </div>
       </div>
+
+      <div x-show="statement"><%s! problem.statement %></div>
+
+      <div x-show="!statement"><%s! problem.solution %></div>
     </div>
+    <div class="border-t border-gray-200 my-12"></div>
+    <% ); %>
   </div>
-</div>
