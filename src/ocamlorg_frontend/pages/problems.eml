@@ -2,12 +2,10 @@ let render (problems : Ood.Problem.t list) =
 let open Ood.Problem in
 let render_problem_link (problem : Ood.Problem.t) =
   let href = "#" ^ (problem.number) in
-  <a href=<%s href %>
-    class="group flex items-center px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50">
-    <span class="truncate">
-      <%s problem.title %>
-    </span>
-  </a>
+  Learn_layout.sidebar_link ~title:problem.title ~href ~current:false
+in
+let problem_sidebar_links_by_tag tag =
+  List.map render_problem_link (filter_by_tag ~tag problems) |> String.concat ""
 in
 Layout.render
 ~wide:true
@@ -31,76 +29,28 @@ Layout.render
           x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
           x-transition:leave-end="-translate-x-full">
 
-          <div class="space-y-4">
-            <a href="<%s Url.learn %>" class="flex justify-start items-center">
-              <div class="bg-primary-600 text-white rounded w-8 h-8 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-              </div>
-              <div class="ml-3 font-semibold">Documentation</div>
-            </a>
+          <%s! Learn_layout.sidebar_icon_link_block ~current:Exercises %>
 
-            <a href="<%s Url.manual %>" class="flex justify-start items-center">
-              <div class="bg-green-600 text-white rounded w-8 h-8 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-              </div>
-              <div class="ml-3 font-semibold opacity-70">Language Manual</div>
-            </a>
+          <%s! Learn_layout.sidebar_link_group "Working with lists"
+            (problem_sidebar_links_by_tag "list") %>
 
-            <a href="<%s Url.api %>" class="flex justify-start items-center">
-              <div class="bg-sky-600 text-white rounded w-8 h-8 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <div class="ml-3 font-semibold opacity-70">Standard Library API</div>
-            </a>
+          <%s! Learn_layout.sidebar_link_group "Arithmetic"
+            (problem_sidebar_links_by_tag "arithmetic") %>
 
-            <a href="<%s Url.problems %>" class="flex justify-start items-center">
-              <div class="bg-indigo-600 text-white rounded w-8 h-8 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                </svg>
-              </div>
-              <div class="ml-3 font-semibold opacity-70">Exercises</div>
-            </a>
-          </div>
+          <%s! Learn_layout.sidebar_link_group "Logic and Codes"
+            (problem_sidebar_links_by_tag "logic") %>
 
-          <nav aria-label="Sidebar" class="mt-10">
-            <h3 class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Working with lists</h3>
-            <div class="space-y-2 flex mt-4 flex-col">
-              <%s! List.map render_problem_link (filter_by_tag ~tag:"list" problems) |> String.concat "" %>
-            </div>
-            <h3 class="mt-8 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Arithmetic</h3>
-            <div class="space-y-2 flex mt-4 flex-col">
-              <%s! List.map render_problem_link (filter_by_tag ~tag:"arithmetic" problems) |> String.concat "" %>
-            </div>
-            <h3 class="mt-8 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Logic and Codes</h3>
-            <div class="space-y-2 flex mt-4 flex-col">
-              <%s! List.map render_problem_link (filter_by_tag ~tag:"logic" problems) |> String.concat "" %>
-            </div>
-            <h3 class="mt-8 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Binary Trees</h3>
-            <div class="space-y-2 flex mt-4 flex-col">
-              <%s! List.map render_problem_link (filter_by_tag ~tag:"binary-tree" problems) |> String.concat "" %>
-            </div>
-            <h3 class="mt-8 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Multiway Trees</h3>
-            <div class="space-y-2 flex mt-4 flex-col">
-              <%s! List.map render_problem_link (filter_by_tag ~tag:"multiway-tree" problems) |> String.concat "" %>
-            </div>
-            <h3 class="mt-8 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Graphs</h3>
-            <div class="space-y-2 flex mt-4 flex-col">
-              <%s! List.map render_problem_link (filter_by_tag ~tag:"graph" problems) |> String.concat "" %>
-            </div>
-            <h3 class="mt-8 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Miscellaneous Problems</h3>
-            <div class="space-y-2 flex mt-4 flex-col">
-              <%s! List.map render_problem_link (filter_no_tag problems) |> String.concat "" %>
-            </div>
-          </nav>
+          <%s! Learn_layout.sidebar_link_group "Binary Trees"
+            (problem_sidebar_links_by_tag "binary-tree") %>
+
+          <%s! Learn_layout.sidebar_link_group "Multiway Trees"
+            (problem_sidebar_links_by_tag "multiway-tree") %>
+
+          <%s! Learn_layout.sidebar_link_group "Graphs"
+            (problem_sidebar_links_by_tag "graph") %>
+
+          <%s! Learn_layout.sidebar_link_group "Miscellaneous Problems"
+            (List.map render_problem_link (filter_no_tag problems) |> String.concat "") %>
         </div>
         <div class="flex-1 flex overflow-hidden problems-container">
           <div
