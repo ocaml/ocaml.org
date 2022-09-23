@@ -13,7 +13,7 @@ let head handler request =
       let open Lwt.Syntax in
       let* response = handler request in
       let transfer_encoding = Dream.header response "Transfer-Encoding" in
-      let* _ =
+      let* () =
         if
           transfer_encoding = Some "chunked"
           || Dream.has_header response "Content-Length"
