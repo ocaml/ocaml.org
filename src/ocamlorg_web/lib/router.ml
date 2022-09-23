@@ -32,11 +32,15 @@ let head_handler handler request =
   Dream.add_header response "Content-Length" length;
   Dream.empty ~headers:(Dream.all_headers response) (Dream.status response)
 
-let get_and_head pattern handler = [ Dream.get pattern handler; Dream.head pattern (head_handler handler) ]
+let head_middleware handler request = match Dream.method_ request with
+| `HEAD -> head_handler handler request
+| _ -> handler request
+
+let get_and_head pattern handler = [ Dream.get pattern handler; Dream.head pattern handler ]
 
 let page_routes =
   Dream.scope ""
-    [ Dream_dashboard.analytics (); Dream_encoding.compress ]
+    [ Dream_dashboard.analytics (); Dream_encoding.compress; head_middleware ]
     (List.flatten [
       get_and_head Url.index Handler.index;
       get_and_head Url.learn Handler.learn;
