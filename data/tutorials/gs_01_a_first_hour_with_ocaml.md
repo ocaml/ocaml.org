@@ -187,7 +187,7 @@ Like in C and JavaScript, the Boolean operator *and* is denoted with `&&` and *o
 
 A function may take multiple
 arguments. Unlike imperative languages, they're written without parentheses
-and commas. Instead, they are separated by spaces. We shall explain why later.
+or commas. Instead, they are separated by spaces. We shall explain why later.
 
 ```ocaml
 # let ordered a b c =
