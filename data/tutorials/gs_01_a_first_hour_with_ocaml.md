@@ -1,6 +1,6 @@
 ---
 id: first-hour
-title: A First Hour with OCaml
+title: Your First Day with OCaml
 description: >
   Discover the OCaml programming language in this longer tutorial that takes you
   from absolute beginner to someone who is able to write programs in OCaml.
@@ -8,43 +8,47 @@ category: "getting-started"
 date: 2021-08-06T17:11:00-00:00
 ---
 
-# A First Hour with OCaml
+# Your First Day with OCaml
 
-You may follow along with this tutorial with just a basic OCaml installation,
+This tutorial will not only give you the basics of OCaml, but it will also guide you through creating your first applications with OCaml. You can follow along with a basic OCaml installation,
 as described in [Up and Running](/docs/up-and-running).
 
 Alternatively, you may follow almost all of it by running OCaml in your browser
 using the [OCaml Playground](https://ocaml.org/play), with no installation required.
 
-On macOS/iOS/iPadOS, you can download this [all-in-one package on the App Store](https://apps.apple.com/app/ocaml-learn-code/id1547506826). It contains an editor side-by-side with an interactive toplevel. Plus, it's free and [open source](https://github.com/GroupeMINASTE/OCaml-iOS)!
+On macOS/iOS/iPadOS, you can download this [all-in-one package on the App Store](https://apps.apple.com/app/ocaml-learn-code/id1547506826). It contains an editor side-by-side with an interactive toplevel, and is free and [open source](https://github.com/GroupeMINASTE/OCaml-iOS).
 
 ## Running OCaml Programs
 
-To try small OCaml expressions, use an interactive toplevel, or REPL
-(Read-Eval-Print Loop). The `ocaml` command provides a basic toplevel
-(install `rlwrap` through your system package manager and run `rlwrap ocaml` instead to get history navigation).
+We will be working with small OCaml expressions at first, thus, using an interactive toplevel, or REPL
+(Read-Eval-Print Loop) will suffice.
 
-The alternative REPL [UTop](https://github.com/ocaml-community/utop) may be installed
-through [opam](https://opam.ocaml.org/doc/Install.html) or your system package manager. It has
-the same basic interface but is much more convenient to use (history
-navigation, auto-completion, etc.). 
+We recommend to use UTop (see [here](/docs/up-and-running#using-the-ocaml-toplevel-with-utop)),
+but alternatively, the basic toplevel of OCaml (`ocaml` command) can be used (for installation instructions,
+see [Up and Running](/docs/up-and-running#installing-ocaml)). 
 
-Remember you can exit either toplevel at any time with Ctrl+D or the
-built-in `exit` function: `exit 0;;`.
+If you have never used a toplevel (REPL) before, think of it as an interactive terminal/shell that
+evaluates expressions. You type an expression, press the Enter key or the Return key,
+and the toplevel responds with the value of the evaluated expression. 
 
-Always use `;;` to indicate that you've finished entering each expression and prompt
-OCaml to evaluate it. We run OCaml and evaluate a simple expression:
+The first step is to start the toplevel with either the `ocaml` or `utop` command.
+
+Let's try the `ocaml` command first. Once in the toplevel, write your expression at the `#` prompt, end it with `;;`, and hit Enter. OCaml evaluates it and prints the result on the next line, as shown: 
 
 ```console
+$ ocaml
         OCaml version 4.14.0
 
 # 50 * 50;;
 - : int = 2500
-```
 
-This is how it looks using `utop`:
+OCaml evaluates this expression, telling you not only the value, but also the type. In this case, `int` for integer. 
+
+Now let's see how it looks using UTop. First, exit the `ocaml` toplevel by typing Control-D or `exit 0;;`. Then enter the `utop` command. At the `utop #` prompt, type your expression and hit Enter, don't forget the `;;` at the end: 
 
 ```console
+$ utop
+
 ───────┬─────────────────────────────────────────────────────────────┬────
        │ Welcome to utop version 2.7.0 (using OCaml version 4.14.0)! │
        └─────────────────────────────────────────────────────────────┘
@@ -56,10 +60,14 @@ utop # 50 * 50;;
 - : int = 2500
 ```
 
-The in-browser [OCaml Playground](https://ocaml.org/play) has a similar interface.
+Exit the UTop toplevel in the same way, by typing Control-D or `exit 0;;`. 
 
-The examples in this tutorial can be typed in by hand or copied into `ocaml`,
-`utop`, or the OCaml Playground with copy and paste. Alternatively, we may type into a file
+The in-browser playground [TryOCaml](http://try.ocamlpro.com) has a similar interface, making it easy 
+to write your first OCaml expressions without installing anything. 
+
+We typed the above examples by hand, but they can also be copied/pasted into `ocaml`,
+`utop`, or TryOCaml. Alternatively, we can create a file, save it with the 
+.ml extension, 
 and load its contents directly with the `#use` directive:
 
 ```console
@@ -70,13 +78,17 @@ $ ocaml
 ```
 
 Note that `#use` is not part of the OCaml language proper; it's an instruction
-to the OCaml toplevel only.
+to the OCaml toplevel only. Also, for `ocaml` or `utop` to find your file, you
+may need to start `ocaml` or `utop` inside the directory of your file, use a
+relative path that takes into account the directory you started the toplevel in,
+or use an absolute path.
 
-## Expressions
+## Simple Expressions
 
-Our phrase `50 * 50` was an expression that evaluated to `2500`. OCaml told
-us that the type was `int`, an integer. Every expression in OCaml has a type.
-To avoid repetition, we can give a name to our number:
+Our phrase `50 * 50` was an expression that evaluated to `2500`. Recall that OCaml also told
+us the type was `int`, an integer. Every expression in OCaml has a type. For example, some of OCaml's primitive types are `int`, `float`, `string`, and `bool`, for Boolean expressions.
+
+To avoid repetitive code, we can name our number by defining it with a *let binding* using the `let` keyword. Below, we name it `x`:
 
 ```ocaml
 # let x = 50;;
@@ -85,17 +97,43 @@ val x : int = 50
 - : int = 2500
 ```
 
-Note that this isn't a variable as in languages like C and Python. Its value
-cannot be changed.
+**Please note** that this variable is different from the variables of imperative
+languages (e.g., C or Python): *its value can never be changed*. After being assigned
+a value, the variable behaves like a constant: it is *immutable*. The consequence is that
+most functions you will write do not have side-effects (i.e., calling a function does not change
+the state of the overall system). However, there's a caveat here: side-effects
+can occur when performing I/O or when working with mutable state on the heap
+(the variable referencing the mutable heap state is immutable,
+but the state pointed to is not).
 
-We can write also write it all on one line using `let` ... `in` ...:
+A variable's name must begin with a lowercase letter or an underscore, and it cannot contain dashes (i.e., `let x-plus-y`).
+
+When we type `let x = 50;;` and Enter, OCaml confirms the variable's value (`val`), showing that "x" now means "50." So when we write the expression `x * x;;`, it will result in the same answer as `50 * 50;;`. 
+
+In order to save even more time and space, we can write the above all together using `let` ... `in` ...:
 
 ```ocaml
 # let x = 50 in x * x;;
 - : int = 2500
 ```
+But beware, `let` ... `in` ... and `let` ... are two fundamentally different things:
 
-Of course, we can have multiple names:
+* `let x = 50;;` is a *variable declaration*. It assigns the expression `50` to the variable `x`,
+which is bound in the toplevel.
+* `let x = 50 in x * x;;` is an *expression that includes a variable declaration*. The variable `x`
+is only bound inside the expression following the `in` keyword.
+
+```ocaml
+# let x = 50 in x * x;;
+- : int = 2500
+# x;;
+Error: Unbound value x
+```
+
+As you can see in OCaml's response to the first statement, no variable is bound
+(this is denoted by the dash `-`). Thus, subsequently trying to evaluate the variable
+with name `x` fails.
+Of course, we can define multiple values with their own names:
 
 ```ocaml
 # let a = 1 in
@@ -104,8 +142,12 @@ Of course, we can have multiple names:
 - : int = 3
 ```
 
-Note that this is still just one expression. We can define a function to do the
-job for any number:
+**Please note** that this multiline code is still just one expression. OCaml knows the expression isn't complete until it sees the `;;`. 
+
+## Functions 
+
+The `let` keyword can also be used to define a function to do the
+job for any number. Here we name a function `square`:
 
 ```ocaml
 # let square x = x * x;;
@@ -114,9 +156,15 @@ val square : int -> int = <fun>
 - : int = 2500
 ```
 
-This says that `square` is a function with one argument, namely `x`, and that
-the result of the function is the result of evaluating the expression `x * x`
-with the given value associated with `x`. Here is another function, this time
+This says that the function `square` has one argument, namely `x`, and
+its result is equal to (`=`) the result of the expression `x * x`. 
+This uses the given value associated with `x`, defined in `square 50;;`. 
+
+Functions in OCaml are also values, but when using `let` to define a function, the first identifier is the function name (`square`, above), then any additional identifiers outline different arguments to the function. In our example above, the `square` function has only one argument `x = x * x;;`. 
+
+The type `int -> int` tells us that the function `square` takes an integer and returns an integer. 
+
+Here is another function, this time
 using the comparison operator `=` to test for evenness:
 
 ```ocaml
@@ -129,11 +177,13 @@ val square_is_even : int -> bool = <fun>
 - : bool = false
 ```
 
-Notice the type OCaml infers for the function.
+Notice that OCaml infers the type `int -> bool` for this function, which means that `square_is_even` is a function that takes one Integer value (`int`) as an argument and returns a Boolean value (`bool`).
+
+Like in C and JavaScript, the Boolean operator *and* is denoted with `&&` and *or* with `||`. 
 
 A function may take multiple
 arguments. Unlike imperative languages, they're written without parentheses
-and commas. We shall explain why later.
+and commas. Instead, they are separated by spaces. We shall explain why later.
 
 ```ocaml
 # let ordered a b c =
