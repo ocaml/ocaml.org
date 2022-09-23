@@ -45,9 +45,9 @@ $ ocaml
 # 50 * 50;;
 - : int = 2500
 
-OCaml evaluates this expression, telling you not only the value, but also the type. In this case, `int` for integer. 
+OCaml evaluates this expression, telling you not only the value but also the type. In this case, `int` for integer. 
 
-Now let's see how it looks using UTop. First, exit the `ocaml` toplevel by typing Control-D or `exit 0;;`. Then enter the `utop` command. At the `utop #` prompt, type your expression and hit Enter, don't forget the `;;` at the end: 
+Now let's see how it looks using UTop. First, exit the `ocaml` toplevel by typing Control-D or `exit 0;;`. Then enter the `utop` command. At the `utop #` prompt, type your expression and hit Enter. Don't forget the `;;` at the end: 
 
 ```console
 $ utop
