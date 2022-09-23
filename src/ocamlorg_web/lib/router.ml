@@ -23,7 +23,16 @@ let media_loader =
       let* store in
       Media.last_modified store (Mirage_kv.Key.v path))
 
-let get_and_head pattern handler = [ Dream.get pattern handler; Dream.head pattern handler ]
+let head_handler handler request =
+  let open Lwt.Syntax in
+  let* response = handler request in
+  let* body = Dream.body response in
+  let length = body |> String.length |> string_of_int in
+  Dream.drop_header response "Content-Length";
+  Dream.add_header response "Content-Length" length;
+  Dream.empty ~headers:(Dream.all_headers response) (Dream.status response)
+
+let get_and_head pattern handler = [ Dream.get pattern handler; Dream.head pattern (head_handler handler) ]
 
 let page_routes =
   Dream.scope ""
