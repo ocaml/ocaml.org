@@ -9,12 +9,49 @@ date: 2021-05-27T21:07:30-00:00
 
 # OCaml on Windows
 
-Full support for OCaml on Windows is actively being worked on and a workable
-environment can already be achieved today. A gentle reminder that if you do not
-need Windows binaries, then a more stable option is to use WSL2. This is
-described on the [up and running page](/docs/up-and-running).
+There is a new [Diskuv OCaml][DKML] ("DKML") Windows
+installer that we recommend for new users. However while [Diskuv OCaml][DKML] has a modern OCaml 4.12.1 compiler,
+it does not track the latest OCaml compilers. We will officially support Windows as a Tier 1
+platform with a [major release of opam](#opam-22) in the coming months, and it will be compatible with
+DKML installations.
 
-## opam-repository-mingw
+[DKML]: https://github.com/diskuv/dkml-installer-ocaml#readme
+
+Our guidance is when you want:
+
+* **only to run, not develop, applications**, use [Docker](#docker-images) or [WSL2](#wsl2)
+* **to develop applications and have some familiarity with Unix**, use [opam-repository-mingw](#opam-repository-mingw)
+* **to develop applications and care more about stability and ease-of-use than the latest compiler**, use [Diskuv OCaml](/docs/up-and-running)
+
+The guidance is based on the availability table below:
+* Tier 1 is fully supported with the latest compilers
+* Tier 2 is supported but maintained when possible
+* Tier 3 is user supported
+
+```
+╭──────────────────────────────────────────────────────────────────────────────────────────╮
+│ Tier   │ OCaml Version and Environment     │ Support and Availability                    │
+│ ------ │ --------------------------------- │ ------------------------------------------- │
+│ Tier 1 │ OCaml 5 with Opam 2.2             │ Full support. Coming in the next few months │
+│ Tier 2 │ 4.12.1 with Diskuv OCaml          │ Supported on select versions. Available now │
+│ Tier 3 │ 4.14.0 with opam-repository-mingw │ Deprecated. Available now and mostly works  │
+│ Tier 3 │ 4.14.0 with WSL2                  │ User supported. Available now               │
+│ Tier 3 │ 4.14.0 with Docker                | User supported. Available now               │
+╰──────────────────────────────────────────────────────────────────────────────────────────╯
+```
+
+## Opam 2.2
+
+After the [successful release](https://github.com/ocaml/opam/releases/tag/2.1.0)
+of opam 2.1.0 the [next version](https://github.com/ocaml/opam/projects/2) of
+opam will focus on closing the gap to fully supporting Windows. This includes
+supporting an external dependency installation for Windows and integrating it with the
+Windows shell. From an `opam-repository` perspective, the `ocaml-base-compiler`
+packages will support the mingw-w64 and MSVC variants.
+
+## Installation Environments
+
+### `opam-repository-mingw`
 
 [opam-repository-mingw](https://github.com/fdopen/opam-repository-mingw) is an
 [opam repository](https://opam.ocaml.org/doc/Manual.html#Repositories)
@@ -39,18 +76,50 @@ opam repo add upstream https://opam.ocaml.org --rank 2 --all-switches --set-defa
 This assumes you only have the `opam-repository-mingw` repository for this switch set with
 a priority of `1`.
 
-## opam.2.2.0
+### WSL2
 
-After the [successful release](https://github.com/ocaml/opam/releases/tag/2.1.0) 
-of opam 2.1.0 the [next version](https://github.com/ocaml/opam/projects/2) of
-`opam` will focus on closing the gap to fully supporting Windows. This includes
-supporting external dependency installation for Windows and integrating with the
-Windows shell. From an `opam-repository` perspective, the `ocaml-base-compiler`
-packages will need to support the mingw-w64 and MSVC variants.
+If you only need to _run_ OCaml programs on a Windows machine, then the simplest solution is to use the Windows Subsystem for Linux 2 (WSL2). WSL2 is a feature that allows Linux programs to run directly on Windows. WSL2 is substantially easier and faster to use than WSL1. Microsoft has comprehensive installation steps for [setting up WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
-## Docker Images
+After you have installed WSL2 and chosen one Linux distribution (we suggest [Ubuntu LTS](https://apps.microsoft.com/store/detail/ubuntu/9PDXGNCFSCZV?hl=en-us&gl=US)), you can follow the
+[Get Up and Running With OCaml: Installation for Linux and macOS](/docs/up-and-running) steps.
+
+### Docker Images
 
 The [`ocaml/opam`](https://hub.docker.com/r/ocaml/opam) Docker Hub repository
 now contains regularly updated Windows images. This includes images using
 `msvc` and `mingw`. If you are comfortable with Docker, this might be an
 easier way to get a working Windows environment on your machine.
+
+## Editor Support for OCaml on Windows
+
+### Visual Studio Code on Windows
+
+**If you use the recommended DKML installer**, you will need to:
+1. Go to `File` > `Preferences` > `Settings` view (or press `Ctrl ,`)
+2. Select `User` > `Extensions` > `OCaml Platform`
+3. **Uncheck** `OCaml: Use OCaml Env`
+
+**If you use WSL2**, you will remotely connect to your WSL2 instance from
+Visual Studio Code. Microsoft has a [useful blog post](https://code.visualstudio.com/blogs/2019/09/03/wsl2)
+covering getting WSL2 and Visual Studio Code connected.
+
+### Vim and Emacs on Windows
+
+**For Vim and Emacs** install the [Merlin](https://github.com/ocaml/merlin)
+system using opam:
+
+```console
+$ opam install merlin
+```
+
+The installation procedure will print instructions on how to link Merlin with
+your editor.
+
+**If you use Vim**, the default Cygwin Vim will not work with
+Merlin. You will need install Vim separately. In addition to the usual
+instructions printed when installing Merlin, you may need to set the PATH in
+Vim:
+
+```vim
+let $PATH .= ";".substitute(system('opam config var bin'),'\n$','','''')
+```

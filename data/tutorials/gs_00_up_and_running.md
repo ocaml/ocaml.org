@@ -18,11 +18,11 @@ reading [OCaml on Windows](/docs/ocaml-on-windows) first.
 The following instructions work on Linux, BSD, and macOS. Plus, they also work on Cygwin and
 WSL.
 
-**Guidelines for following instructions on this page**
+**Guidelines for Following Instructions on this Page**
 
-A **shell** is a program you can run that will let you enter commands in a text window using only your keyboard. When this page asks you to enter commands in your shell:
-On macOS, you will run the `Terminal` app to start a shell
-* On Windows, you can start PowerShell by pressing the Windows key (`⊞`), typing "PowerShell" and then clicking Open `Windows PowerShell`. There is an older shell called "Command Prompt" you can use as well
+A **shell** is a program that will let you enter commands in a text window using only your keyboard. It's also known as a command line interface (CLI). When this page asks you to enter commands in your shell, use the following instructions for your system:
+* On macOS you will run the `Terminal` app to start a shell
+* On Windows, you can start PowerShell by pressing the Windows key (`⊞`), typing "PowerShell," and then clicking Open `Windows PowerShell`. There is an older shell called "Command Prompt" you can use as well
 * On Linux, you are already familiar with a shell (typically bash or zsh)
 
 The code blocks (in black) on this page show the required commands (the text after `#` gives more information on the following commands). Type each command after the prompt `$`, although it's often represented by a `%`, `>`, or another symbol as well. Ensure you use the exact case and spacing shown, then hit return/enter at the end of every line. For more information on using the CLI, please visit the [Command Line Crash Course video](https://www.youtube.com/watch?v=yz7nYlnXLfE) to learn some basics.
@@ -35,11 +35,17 @@ easily switch between OCaml versions and much more. This is
 especially useful since different projects might require different versions of
 OCaml.
 
-The best way to install OCaml is with opam, OCaml's package manager.
+On Unix, the best way to install OCaml is with opam, OCaml's package manager. On Windows, the best way is to use a traditional `setup.exe` that will initialise opam
+on your behalf; however, only OCaml version 4.12.1 can be installed with `setup.exe` now.
 
-### Installing opam
+[opam](https://opam.ocaml.org/), OCaml's package manager, introduces the concept of "switches," which is a compiler with a set of packages (libraries and other files). Switches are used to have independent sets of dependencies in different projects.
 
-[opam](https://opam.ocaml.org/), the package manager of OCaml, introduces the concept of "switches," consisting of a compiler together with a set of packages (libraries and other files). Switches are used to have independent sets of dependencies in different projects.
+Find all the installation instructions for both Unix-like systems and Windows in the sections below:
+
+* Linux or macOS: [Installation for Unix, including Linux and macOS](#installation-for-unix)
+* Windows: [Installation for Windows](#installation-for-windows)
+
+### Installation for Unix
 
 After having installed opam, you will need to initialise it, [see below](#initialising-opam).
 
@@ -88,9 +94,9 @@ Depending on your package manager, you won't get the latest release of opam. If 
 $ bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"
 ```
 
-### Initialising opam
+#### Initialising opam on Unix
 
-It's essential to initialise opam, which will (if needed) install the OCaml compiler. If you already have OCaml installed, opam will use that compiler.  
+On Unix, it's essential to initialise opam, which will (if needed) install the OCaml compiler. If you already have OCaml installed, opam will use that compiler.  
 
 If you have installed the binary distribution of opam through the install script, this step should already be done. If you have installed it through your system package manager, you must initialise opam by running the following command. This method will fetch and initialise the latest version of opam, directly from the official servers:
 
@@ -108,7 +114,7 @@ The second command (`eval $(opam env)`) modifies a few environment variables to 
 Now check the installation by running `opam --version`. You can compare it with the current version on [opam.ocaml.org](https://opam.ocaml.org/). 
 
 
-### Creating a New Switch 
+#### Creating a New Switch on Unix
 
 If you want a specific version of OCaml, or a new independent environment, you can create a new switch with the `opam switch create` command. Specify which version as shown below (i.e., `opam switch create 4.14.0`). All possible compiler versions can be found with `opam switch list-available`. The most current version can be found at [opam.ocaml.org](https://opam.ocaml.org/packages/ocaml-base-compiler/).
 
@@ -131,6 +137,70 @@ We will learn about the OCaml top-level and other installed tools in the next se
 
 In case you are not satisfied with the OCaml version of your system switch, you can change the version with `opam switch create <version_here>`. More information can be found on the [official website](https://opam.ocaml.org/).
 
+### Installation for Windows
+
+In this section, we'll describe using the new [Diskuv OCaml](https://github.com/diskuv/dkml-installer-ocaml#readme) ("DKML") Windows installer. Expect to see another officially-supported Windows installation provided directly by opam in the coming months; it will be compatible with your DKML installation.
+
+> Advanced Users: If you are familiar with Cygwin or WSL2, there are other installation methods described on the [OCaml on Windows](/docs/ocaml-on-windows) page.
+
+Before using the DKML installer, briefly review the following:
+
+* You need to **stay at your computer** and press "Yes" for any Windows security popups. 
+After the DKML installer finishes installing two programs (`Visual Studio Installer`
+  and `Git for Windows`), you can leave your computer for the remaining two (2) hours.
+
+* First time installations may get a notification printed in red. If you see it, reboot your computer and then restart your installation so that Visual Studio Installer can complete. The notification looks like:
+
+  ```diff
+  - FATAL [118acf2a]. The machine needs rebooting.
+  - ...
+  - >>  The machine needs rebooting. <<<
+  -         ...
+  -         FATAL [5f927a8b].
+  -         A transient failure occurred.
+  -         ...
+  -         >>  A transient failure occurred. <<<
+  ```
+
+* You may be asked to accept a certificate from
+  `Open Source Developer, Gerardo Grignoli` for the `gsudo` executable
+  that was issued by
+  `Certum Code Signing CA SHA2`.
+
+Now, download and run:
+
+* OCaml 4.12.1 with Git and Visual Studio compiler: [setup-diskuv-ocaml-windows_x86_64-1.0.1.exe](https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.0.1/setup-diskuv-ocaml-windows_x86_64-1.0.1.exe)
+
+#### Creating a New Switch on Windows
+
+If you want a new independent environment, you can create a new switch with the `opam dkml init` command. The only compiler version available is 4.12.1.
+Use PowerShell or a Command Prompt to create a directory anywhere and then create a switch:
+
+```powershell
+C:\Users\frank> mkdir someproject
+C:\Users\frank> cd someproject
+C:\Users\frank\someproject> opam dkml init
+
+# PowerShell only
+C:\Users\frank\someproject> (& opam env) -split '\r?\n' | ForEach-Object { Invoke-Expression $_ }
+
+# Command Prompt only
+C:\Users\frank\someproject> for /f "tokens=*" %i in ('opam env') do @%i
+```
+
+Check that OCaml is installed properly with the following commands in your shell (PowerShell or Command Prompt).
+The line beneath the $ command shows the desired output for both the OCaml version and the toplevel version:
+
+```shell
+$ where.exe ocaml
+C:\Users\frank\AppData\Local\Programs\DiskuvOCaml\0\usr\bin\ocaml.exe
+
+$ ocaml -version
+The OCaml toplevel, version 4.12.1
+```
+
+To learn more about Diskuv OCaml, see the [official
+Diskuv OCaml documentation](https://diskuv.gitlab.io/diskuv-ocaml/#introduction).
 
 ### The OCaml Base Tools
 
@@ -159,16 +229,20 @@ We will now install everything we need to get a complete development environment
 All these tools can be installed in your current switch (remember that opam groups installed packages in independent switches) using the following command:
 
 ```shell
+# Unix
 $ opam install dune merlin ocaml-lsp-server odoc ocamlformat utop dune-release
+
+# Windows (currently dune-release is not available from Diskuv OCaml)
+$ opam install dune merlin ocaml-lsp-server odoc ocamlformat utop
 ```
 
 Now that the tools are installed, it remains to understand how to use them. Most of them will be driven either by the editor or by Dune, but UTop is handy to try OCaml or a specific library.
 
 ## Using the OCaml Toplevel with UTop
 
-UTop is a nice toplevel for OCaml. Unlike the standard top-level with the `ocaml` command, UTop features history, tab completion, line edition, and the ability to load a package installed in your switch.
+OCaml comes with two additional compilers: one compiles to **native code** (sometimes called machine code or executable binary), directly read by the CPU, and the other compiles to **bytecode**, creating an executable that can be interpreted by a variety of runtime environments, making more it flexible.
 
-By running the `utop` command, it will print out something similar to what you see below. After the horizontal line, you will see a new prompt `utop #`. Here is where you type your expressions. In this case `1 + 2 * 3;;`. After you press Enter, the following line shown is the desired output. 
+For now, let's first use the recommended toplevel, which we installed above:
 
 ```
 $ utop
@@ -218,25 +292,18 @@ from the list. Now, help is available by hovering over symbols in your program:
 
 ![Visual Studio Code](/media/tutorials/vscode.png)
 
-**For Vim and Emacs** we won't use the LSP server but rather directly talk to Merlin.
+**For Windows**
+1. If you used the Diskuv OCaml (DKML) installer you will need to:
+   1. Go to `File` > `Preferences` > `Settings` view (or press `Ctrl ,`)
+   2. Select `User` > `Extensions` > `OCaml Platform`
+   3. **Uncheck** `OCaml: Use OCaml Env`. That's it!
+
+**For Vim and Emacs**, we won't use the LSP server but rather directly talk to Merlin.
 
 When we installed Merlin above, instructions were printed on how to link Merlin with your editor. If you do not have them visible, the short way is just to run:
 
-```shell
-$ opam user-setup install
 ```
-
-## Starting a New Project
-
-Let's begin the simplest project with Dune and OCaml, "Hello World," just to see how it works. 
-Navigate into a practice directory, as we'll be creating new projects below. 
-
-First, we ask `dune` to
-initialise a new project, and then change it into the created directory. As usual, 
-the line beneath the command is the desired output:
-
-```shell
-$ dune init project helloworld
+$ dune init proj helloworld
 Success: initialized project component named helloworld
 $ cd helloworld
 ```
@@ -252,24 +319,42 @@ $ dune build
 When we change our program, we can type `dune build` again to make a new
 executable. To run the program, we can use:
 
-```shell
-$ dune exec bin/main.exe
+```
+$ dune exec ./bin/main.exe
 Hello, World!
 ```
 
 Or, alternatively,
 
-```shell
+```
 $ dune exec helloworld
 Hello, World!
 ```
 
-Let's look at the contents of our new directory:
+Let's look at the contents of our new directory.
 
-```shell
-$ ls
-bin  _build  dune-project  helloworld.opam  lib  test
-```
+* On macOS and Linux, use the directory listing command (`ls`):
+
+  ```shell
+  $ ls
+  bin  _build  dune-project  helloworld.opam  lib  test
+  ```
+* On Windows, use the directory listing command (`dir`):
+
+  ```shell
+  $ dir
+      Directory: C:\source\helloworld
+
+
+  Mode                 LastWriteTime         Length Name
+  ----                 -------------         ------ ----
+  d-----          8/8/2022  12:18 PM                bin
+  d-----          8/8/2022  12:18 PM                lib
+  d-----          8/8/2022  12:18 PM                test
+  d-----          8/8/2022  12:18 PM                _build
+  -a----          8/8/2022  12:18 PM             36 dune-project
+  -a----          8/8/2022  12:18 PM              0 helloworld.opam
+  ```
 
 All the build outputs generated by Dune go in the `_build` directory. The
 `main.exe` executable is generated inside the `_build/default/bin/`
@@ -313,5 +398,10 @@ The following command will generate the documentation as HTML:
 
 ```shell
 $ dune build @doc
+
+# Unix or macOS
 $ open _build/default/_doc/_html/index.html
+
+# Windows
+$ explorer _build/default/_doc/_html/index.html
 ```
