@@ -340,7 +340,7 @@ Let's look at the contents of our new directory.
   $ ls
   bin  _build  dune-project  helloworld.opam  lib  test
   ```
-* On Windows use the directory listing command (`dir`):
+* On Windows, use the directory listing command (`dir`):
 
   ```shell
   $ dir
