@@ -12,7 +12,7 @@ date: 2021-05-27T21:07:30-00:00
 There is a new [Diskuv OCaml][DKML] ("DKML") Windows
 installer that we recommend for new users. However while [Diskuv OCaml][DKML] has a modern OCaml 4.12.1 compiler,
 it does not track the latest OCaml compilers. We will officially support Windows as a Tier 1
-platform with a [major release of Opam](#opam-22) in the coming months, and it will be compatible with
+platform with a [major release of opam](#opam-22) in the coming months, and it will be compatible with
 DKML installations.
 
 [DKML]: https://github.com/diskuv/dkml-installer-ocaml#readme
@@ -44,8 +44,8 @@ The guidance is based on the availability table below:
 
 After the [successful release](https://github.com/ocaml/opam/releases/tag/2.1.0)
 of opam 2.1.0 the [next version](https://github.com/ocaml/opam/projects/2) of
-`opam` will focus on closing the gap to fully supporting Windows. This includes
-supporting external dependency installation for Windows and integrating with the
+opam will focus on closing the gap to fully supporting Windows. This includes
+supporting an external dependency installation for Windows and integrating it with the
 Windows shell. From an `opam-repository` perspective, the `ocaml-base-compiler`
 packages will support the mingw-w64 and MSVC variants.
 

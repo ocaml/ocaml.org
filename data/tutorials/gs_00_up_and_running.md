@@ -20,9 +20,9 @@ WSL.
 
 **Guidelines for Following Instructions on this Page**
 
-A **shell** is a program that will let you enter commands in a text windows using only your keyboard. It's also known as a command line interface (CLI). When this page asks you to enter commands in your shell, use the following instructions for your system:
+A **shell** is a program that will let you enter commands in a text window using only your keyboard. It's also known as a command line interface (CLI). When this page asks you to enter commands in your shell, use the following instructions for your system:
 * On macOS you will run the `Terminal` app to start a shell
-* On Windows, you can start PowerShell by pressing the Windows key (`⊞`), typing "PowerShell" and then clicking Open `Windows PowerShell`. There is an older shell called "Command Prompt" you can use as well
+* On Windows, you can start PowerShell by pressing the Windows key (`⊞`), typing "PowerShell," and then clicking Open `Windows PowerShell`. There is an older shell called "Command Prompt" you can use as well
 * On Linux, you are already familiar with a shell (typically bash or zsh)
 
 The code blocks (in black) on this page show the required commands (the text after `#` gives more information on the following commands). Type each command after the prompt `$`, although it's often represented by a `%`, `>`, or another symbol as well. Ensure you use the exact case and spacing shown, then hit return/enter at the end of every line. For more information on using the CLI, please visit the [Command Line Crash Course video](https://www.youtube.com/watch?v=yz7nYlnXLfE) to learn some basics.
@@ -35,14 +35,14 @@ easily switch between OCaml versions and much more. This is
 especially useful since different projects might require different versions of
 OCaml.
 
-On Unix the best way to install OCaml is with opam, OCaml's package manager. On Windows the best way is to use a traditional `setup.exe` that will initialise Opam
-on your behalf, although today only OCaml version 4.12.1 can be installed with `setup.exe`.
+On Unix, the best way to install OCaml is with opam, OCaml's package manager. On Windows, the best way is to use a traditional `setup.exe` that will initialise opam
+on your behalf; however, only OCaml version 4.12.1 can be installed with `setup.exe` now.
 
-[opam](https://opam.ocaml.org/), the package manager of OCaml, introduces the concept of "switches," consisting of a compiler together with a set of packages (libraries and other files). Switches are used to have independent sets of dependencies in different projects.
+[opam](https://opam.ocaml.org/), OCaml's package manager, introduces the concept of "switches," which is a compiler with a set of packages (libraries and other files). Switches are used to have independent sets of dependencies in different projects.
 
 Find all the installation instructions for both Unix-like systems and Windows in the sections below:
 
-* Linux or macOS: [Installation for Unix including Linux and macOS](#installation-for-unix)
+* Linux or macOS: [Installation for Unix, including Linux and macOS](#installation-for-unix)
 * Windows: [Installation for Windows](#installation-for-windows)
 
 ### Installation for Unix
@@ -97,7 +97,7 @@ $ bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/s
 
 #### Initialising opam on Unix
 
-On Unix it's essential to initialise opam, which will (if needed) install the OCaml compiler. If you already have OCaml installed, opam will use that compiler.  
+On Unix, it's essential to initialise opam, which will (if needed) install the OCaml compiler. If you already have OCaml installed, opam will use that compiler.  
 
 If you have installed the binary distribution of opam through the install script, this step should already be done. If you have installed it through your system package manager, you must initialise opam by running the following command. This method will fetch and initialise the latest version of opam, directly from the official servers:
 
@@ -142,13 +142,13 @@ In case you are not satisfied with the OCaml version of your system switch, you 
 
 In this section, we'll describe using the new [Diskuv OCaml](https://github.com/diskuv/dkml-installer-ocaml#readme) ("DKML") Windows installer. Expect to see another officially-supported Windows installation provided directly by opam in the coming months; it will be compatible with your DKML installation.
 
-> Advanced Users: If you are familiar with "Cygwin" or "WSL2", there are other installation methods described on the [OCaml on Windows](/docs/ocaml-on-windows) page.
+> Advanced Users: If you are familiar with Cygwin or WSL2, there are other installation methods described on the [OCaml on Windows](/docs/ocaml-on-windows) page.
 
 Before using the DKML installer, briefly review the following:
 
 * You need to **stay at your computer** and press "Yes" for any Windows security popups. 
 After the DKML installer finishes installing two programs (`Visual Studio Installer`
-  and `Git for Windows`) you can leave your computer for the remaining two (2) hours.
+  and `Git for Windows`), you can leave your computer for the remaining two (2) hours.
 
 * First time installations may get a notification printed in red. If you see it, reboot your computer and then restart your installation so that Visual Studio Installer can complete. The notification looks like:
 
@@ -241,7 +241,7 @@ Now that the tools are installed, it remains to understand how to use them. Most
 
 ## Using the OCaml Toplevel with UTop
 
-OCaml comes with two additional compilers: one compiles to **native code** (sometimes called machine code or executable binary), directly read by the CPU, and the other compiles to **bytecode**, creating an executable that can be interpreted by a variety of runtime environments, making more flexible.
+OCaml comes with two additional compilers: one compiles to **native code** (sometimes called machine code or executable binary), directly read by the CPU, and the other compiles to **bytecode**, creating an executable that can be interpreted by a variety of runtime environments, making more it flexible.
 
 For now, let's first use the recommended toplevel, which we installed above:
 
@@ -299,7 +299,7 @@ from the list. Now, help is available by hovering over symbols in your program:
    2. Select `User` > `Extensions` > `OCaml Platform`
    3. **Uncheck** `OCaml: Use OCaml Env`. That's it!
 
-**For Vim and Emacs** we won't use the LSP server but rather directly talk to Merlin.
+**For Vim and Emacs**, we won't use the LSP server but rather directly talk to Merlin.
 
 When we installed Merlin above, instructions were printed on how to link Merlin with your editor. If you do not have them visible, the short way is just to run:
 
@@ -334,7 +334,7 @@ Hello, World!
 
 Let's look at the contents of our new directory.
 
-* On macOS and Linux use the directory listing command (`ls`):
+* On macOS and Linux, use the directory listing command (`ls`):
 
   ```shell
   $ ls
