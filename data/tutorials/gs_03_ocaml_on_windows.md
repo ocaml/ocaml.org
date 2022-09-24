@@ -9,49 +9,84 @@ date: 2021-05-27T21:07:30-00:00
 
 # OCaml on Windows
 
-There is a new [Diskuv OCaml][DKML] ("DKML") Windows
-installer that we recommend for new users. However while [Diskuv OCaml][DKML] has a modern OCaml 4.12.1 compiler,
-it does not track the latest OCaml compilers. We will officially support Windows as a Tier 1
-platform with a [major release of opam](#opam-22) in the coming months, and it will be compatible with
-DKML installations.
+We recommend installing opam 2.2 for new users; it comes with full Windows support.
 
-[DKML]: https://github.com/diskuv/dkml-installer-ocaml#readme
+There are a couple scenarios when other OCaml installers may be useful:
 
-Our guidance is when you want:
+* when you want **to develop applications and either are unfamiliar with Unix or care more about stability and ease-of-use than the latest compiler**, you can use [Diskuv OCaml](#diskuv-ocaml)
+* when you want **only to run, not develop, applications**, you can use [Docker](#docker-images) or [WSL2](#wsl2)
 
-* **only to run, not develop, applications**, use [Docker](#docker-images) or [WSL2](#wsl2)
-* **to develop applications and have some familiarity with Unix**, use [opam-repository-mingw](#opam-repository-mingw)
-* **to develop applications and care more about stability and ease-of-use than the latest compiler**, use [Diskuv OCaml](/docs/up-and-running)
-
-The guidance is based on the availability table below:
+The recommendations are based on the availability table below:
 * Tier 1 is fully supported with the latest compilers
 * Tier 2 is supported but maintained when possible
 * Tier 3 is user supported
 
 ```
-╭──────────────────────────────────────────────────────────────────────────────────────────╮
-│ Tier   │ OCaml Version and Environment     │ Support and Availability                    │
-│ ------ │ --------------------------------- │ ------------------------------------------- │
-│ Tier 1 │ OCaml 5 with Opam 2.2             │ Full support. Coming in the next few months │
-│ Tier 2 │ 4.12.1 with Diskuv OCaml          │ Supported on select versions. Available now │
-│ Tier 3 │ 4.14.0 with opam-repository-mingw │ Deprecated. Available now and mostly works  │
-│ Tier 3 │ 4.14.0 with WSL2                  │ User supported. Available now               │
-│ Tier 3 │ 4.14.0 with Docker                | User supported. Available now               │
-╰──────────────────────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────────────────────────────────────────────────────╮
+│ Tier   │ OCaml Version and Environment   │ Support                       │
+│ ------ │ ------------------------------- │ ----------------------------- │
+│ Tier 1 │ OCaml 5 with Opam 2.2           │ Full support.                 │
+│ Tier 2 │ 4.12.1 with Diskuv OCaml        │ Supported on select versions. │
+│ Tier 3 │ 5 with WSL2                     │ User supported.               │
+│ Tier 3 │ 5 with Docker                   | User supported.               │
+╰──────────────────────────────────────────────────────────────────────────╯
 ```
-
-## Opam 2.2
-
-After the [successful release](https://github.com/ocaml/opam/releases/tag/2.1.0)
-of opam 2.1.0 the [next version](https://github.com/ocaml/opam/projects/2) of
-opam will focus on closing the gap to fully supporting Windows. This includes
-supporting an external dependency installation for Windows and integrating it with the
-Windows shell. From an `opam-repository` perspective, the `ocaml-base-compiler`
-packages will support the mingw-w64 and MSVC variants.
 
 ## Installation Environments
 
-### `opam-repository-mingw`
+### Diskuv OCaml
+
+Diskuv OCaml ("DKML") is a distribution of OCaml that supports software development in pure OCaml.
+The distribution is unique in its:
+* full compatibility with OCaml standards like opam, Dune, and OCamlfind.
+* focus on "native" development (desktop software, mobile apps, and embedded software) through support for the standard native compilers,
+  like Visual Studio and Xcode.
+* ease-of-use through simplified installers and simple productivity commands. High school, college, and university students should be
+  able to use it
+* security through reproducibility, versioning, and from-source builds.
+
+To install DKML, briefly review the following:
+
+* You need to **stay at your computer** and press "Yes" for any Windows security popups. After the DKML installer finishes installing two programs (`Visual Studio Installer`
+  and `Git for Windows`), you can leave your computer for the remaining one (1) hour.
+
+* First time installations may get a notification printed in red. If you see it, reboot your computer and then restart your installation so that Visual Studio Installer can complete. The notification looks like:
+
+  ```diff
+  - FATAL [118acf2a]. The machine needs rebooting.
+  - ...
+  - >>  The machine needs rebooting. <<<
+  -         ...
+  -         FATAL [5f927a8b].
+  -         A transient failure occurred.
+  -         ...
+  -         >>  A transient failure occurred. <<<
+  ```
+
+* You may be asked to accept a certificate from
+  `Open Source Developer, Gerardo Grignoli` for the `gsudo` executable
+  that was issued by
+  `Certum Code Signing CA SHA2`.
+
+Then download and run:
+
+* OCaml 4.12.1 with Git and Visual Studio compiler: [setup-diskuv-ocaml-windows_x86_64-1.0.0.exe](https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.0.0/setup-diskuv-ocaml-windows_x86_64-1.0.0.exe)
+
+Check that OCaml is installed properly with the following commands in your shell (PowerShell or Command Prompt).
+The line beneath the $ command shows the desired output for both the OCaml version and the toplevel version:
+
+```console
+$ where.exe ocaml
+C:\Users\frank\AppData\Local\Programs\DiskuvOCaml\0\usr\bin\ocaml.exe
+
+$ ocaml -version
+The OCaml toplevel, version 4.12.1
+```
+
+To learn more about Diskuv OCaml, see the [official
+Diskuv OCaml documentation](https://diskuv.gitlab.io/diskuv-ocaml/#introduction).
+
+### opam-repository-mingw
 
 [opam-repository-mingw](https://github.com/fdopen/opam-repository-mingw) is an
 [opam repository](https://opam.ocaml.org/doc/Manual.html#Repositories)
@@ -101,7 +136,7 @@ easier way to get a working Windows environment on your machine.
 
 **If you use WSL2**, you will remotely connect to your WSL2 instance from
 Visual Studio Code. Microsoft has a [useful blog post](https://code.visualstudio.com/blogs/2019/09/03/wsl2)
-covering getting WSL2 and Visual Studio Code connected.
+that covers getting WSL2 and Visual Studio Code connected.
 
 ### Vim and Emacs on Windows
 
@@ -115,7 +150,7 @@ $ opam install merlin
 The installation procedure will print instructions on how to link Merlin with
 your editor.
 
-**If you use Vim**, the default Cygwin Vim will not work with
+**If you use Vim**, the default cygwin Vim will not work with
 Merlin. You will need install Vim separately. In addition to the usual
 instructions printed when installing Merlin, you may need to set the PATH in
 Vim:
