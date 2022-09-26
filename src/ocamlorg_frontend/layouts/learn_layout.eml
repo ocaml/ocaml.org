@@ -1,121 +1,110 @@
+type active_icon_link = 
+  | Learn
+  | Exercises
+
+let sidebar_icon_link_block
+~current =
+  <div class="space-y-4">
+    <a href="<%s Url.learn %>" class="flex justify-start items-center">
+      <div class="bg-primary-600 text-white rounded w-8 h-8 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+      </div>
+      <div class="ml-3 font-semibold <%s if current != Learn then "opacity-70" else "" %>">Learn OCaml</div>
+    </a>
+
+    <a href="<%s Url.manual %>" class="flex justify-start items-center">
+      <div class="bg-green-600 text-white rounded w-8 h-8 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      </div>
+      <div class="ml-3 font-semibold opacity-70">Language Manual</div>
+    </a>
+
+    <a href="<%s Url.api %>" class="flex justify-start items-center">
+      <div class="bg-sky-600 text-white rounded w-8 h-8 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      </div>
+      <div class="ml-3 font-semibold opacity-70">Standard Library API</div>
+    </a>
+
+    <a href="<%s Url.problems %>" class="flex justify-start items-center">
+      <div class="bg-indigo-600 text-white rounded w-8 h-8 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div class="ml-3 font-semibold <%s if current != Exercises then "opacity-70" else "" %>">Exercises</div>
+    </a>
+  </div>
+
+let sidebar_link
+~title
+~href
+~current = 
+  match current with
+  | true ->
+    <a class="flex text-primary-600 bg-primary-100 py-2 px-3 rounded-md text-sm font-semibold" href="<%s href %>">
+      <%s title %>
+    </a>
+  | false ->
+    <a class="font-semibold text-sm text-body-400 hover:bg-gray-100 block py-2 px-3" href="<%s href %>">
+      <%s title %>
+    </a>
+
+let sidebar_link_group
+?(extra_html="")
+title
+link_html
+=
+  <div class="space-y-2 flex mt-10 flex-col">
+    <div class="text-sm font-semibold flex px-3 py-2 uppercase"><%s title %></div>
+    <%s! link_html %>
+    <%s! extra_html %>
+  </div>
 
 let render
 ?use_swiper
-?current_tutorial
 ?styles
 ~title
 ~description
-~tutorials
-inner =
-let render_link title slug = 
-  match current_tutorial with
-  | Some x when x = slug ->
-    <a class="flex text-primary-600 bg-primary-100 py-2 px-3 rounded-md text-sm font-semibold" href="<%s Url.tutorial slug %>">
-      <%s title %>
-    </a>
-  | _ ->
-    <a class="font-semibold text-sm text-body-400 hover:bg-gray-100 block py-2 px-3" href="<%s Url.tutorial slug %>">
-      <%s title %>
-    </a>
-in
-let render_tutorial (tutorial : Ood.Tutorial.t) = render_link tutorial.title tutorial.slug in
-Layout.render
-?use_swiper
-?styles
-~wide:true
-~title
-~description @@
-<div x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024">
-  <button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
-    :class="sidebar ? 'pl-1 pr-2': ''" x-on:click="sidebar = ! sidebar">
-    <div class="transition-transform" :class='sidebar ? "" : "rotate-180" '>
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
-      </svg>
-    </div>
-  </button>
-  <div class="lg:py-24 bg-white pt-10 md:pt-16">
-    <div class="container-fluid wide">
-      <div class="flex">
-        <div
-          class="p-10 z-10 w-full bg-white flex-shrink-0 flex-col fixed md:flex left-0 top-0 md:sticky md:w-72 md:p-0 md:py-4 h-screen overflow-auto"
-          x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
-          x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
-          x-transition:leave-end="-translate-x-full">
+sidebar_html
+inner_html
+=
+  Layout.render
+  ?use_swiper
+  ?styles
+  ~wide:true
+  ~title
+  ~description @@
+  <div x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024">
+    <button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
+      :class="sidebar ? 'pl-1 pr-2': ''" x-on:click="sidebar = ! sidebar">
+      <div class="transition-transform" :class='sidebar ? "" : "rotate-180" '>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+        </svg>
+      </div>
+    </button>
+    <div class="lg:py-24 bg-white pt-10 md:pt-16">
+      <div class="container-fluid wide">
+        <div class="flex">
+          <div
+            class="p-10 z-10 w-full bg-white flex-shrink-0 flex-col fixed md:flex left-0 top-0 md:sticky md:w-72 md:p-0 md:py-4 h-screen overflow-auto"
+            x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
+            x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
+            x-transition:leave-end="-translate-x-full">
 
-          <div class="space-y-4">
-            <a href="<%s Url.learn %>" class="flex justify-start items-center">
-              <div class="bg-primary-600 text-white rounded w-8 h-8 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-              </div>
-              <div class="ml-3 font-semibold">Documentation</div>
-            </a>
-
-            <a href="<%s Url.manual %>" class="flex justify-start items-center">
-              <div class="bg-green-600 text-white rounded w-8 h-8 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-              </div>
-              <div class="ml-3 font-semibold opacity-70">Language Manual</div>
-            </a>
-
-            <a href="<%s Url.api %>" class="flex justify-start items-center">
-              <div class="bg-sky-600 text-white rounded w-8 h-8 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <div class="ml-3 font-semibold opacity-70">Standard Library API</div>
-            </a>
-
-            <a href="<%s Url.problems %>" class="flex justify-start items-center">
-              <div class="bg-indigo-600 text-white rounded w-8 h-8 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                </svg>
-              </div>
-              <div class="ml-3 font-semibold opacity-70">Exercises</div>
-            </a>
+            <%s! sidebar_html %>
           </div>
-
-          <div class="space-y-2 flex mt-10 flex-col">
-            <div class="text-sm font-semibold flex px-3 py-2 uppercase">Getting Started</div>
-            <%s! tutorials |> List.filter (fun (x : Ood.Tutorial.t) -> x.category = "getting-started") |> List.map render_tutorial |> String.concat "\n" %>
-          </div>
-          <div class="space-y-2 flex mt-10 flex-col">
-            <div class="text-sm font-semibold flex px-3 py-2 uppercase">Language</div>
-            <%s! tutorials |> List.filter (fun (x : Ood.Tutorial.t) -> x.category = "language") |> List.map render_tutorial |> String.concat "\n" %>
-          </div>
-          <div class="space-y-2 flex mt-10 flex-col">
-            <div class="text-sm font-semibold flex px-3 py-2 uppercase">Data Structures</div>
-            <%s! tutorials |> List.filter (fun (x : Ood.Tutorial.t) -> x.category = "data-structures") |> List.map render_tutorial |> String.concat "\n" %>
-          </div>
-          <div class="space-y-2 flex mt-10 flex-col">
-            <div class="text-sm font-semibold flex px-3 py-2 uppercase">Runtime</div>
-            <%s! tutorials |> List.filter (fun (x : Ood.Tutorial.t) -> x.category = "runtime") |> List.map render_tutorial |> String.concat "\n" %>
-          </div>
-          <div class="space-y-2 flex mt-10 flex-col">
-            <div class="text-sm font-semibold flex px-3 py-2 uppercase">Tutorials</div>
-            <%s! tutorials |> List.filter (fun (x : Ood.Tutorial.t) -> x.category = "tutorials") |> List.map render_tutorial |> String.concat "\n" %>
-          </div>
-          <div class="space-y-2 flex mt-10 flex-col">
-            <div class="text-sm font-semibold flex px-3 py-2 uppercase">Guides</div>
-            <%s! tutorials |> List.filter (fun (x : Ood.Tutorial.t) -> x.category = "guides") |> List.map render_tutorial |> String.concat "\n" %>
-          </div>
-          <div class="space-y-2 flex mt-10 flex-col">
-            <div class="text-sm font-semibold flex px-3 py-2 uppercase">Resources</div>
-            <%s! tutorials |> List.filter (fun (x : Ood.Tutorial.t) -> x.category = "resources") |> List.map render_tutorial |> String.concat "\n" %>
-            <%s! render_link "Best Practices" "best-practices" %>
-            <%s! render_link "OCaml Platform" "platform" %>
-          </div>
+          <%s! inner_html %>
         </div>
-        <%s! inner %>
       </div>
     </div>
   </div>
-</div>

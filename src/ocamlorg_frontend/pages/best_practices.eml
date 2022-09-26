@@ -1,8 +1,11 @@
-let render (best_practices : Ood.Workflow.t list) =
+let render
+(best_practices : Ood.Workflow.t list)
+~tutorials
+=
 Learn_layout.render
 ~title:"OCaml Best Practices"
-~current_tutorial:"best-practices"
-~description:"Some guides to commonly used tools in OCaml development workflows." @@
+~description:"Some guides to commonly used tools in OCaml development workflows." 
+(Learn_sidebar.render ~current_tutorial:(Some "best-practices") ~tutorials) @@
 <div class="flex-1 flex overflow-hidden flex-col md:pl-10">
     <div class="prose prose-orange">
       <p>

@@ -1,0 +1,35 @@
+let render
+~current_tutorial
+~tutorials
+=
+  let render_tutorial_link ~title ~slug = 
+    Learn_layout.sidebar_link ~title ~href:(Url.tutorial slug) ~current:(current_tutorial = Some (slug))
+  in
+  let render_tutorial (tutorial : Ood.Tutorial.t) = render_tutorial_link ~title:tutorial.title ~slug:tutorial.slug in
+  let tutorial_sidebar_links_by_category category =
+    tutorials |> List.filter (fun (x : Ood.Tutorial.t) -> x.category = category) |> List.map render_tutorial |> String.concat "\n"
+  in
+  <%s! Learn_layout.sidebar_icon_link_block ~current:Learn %>
+
+  <%s! Learn_layout.sidebar_link_group "Getting Started"
+    (tutorial_sidebar_links_by_category "getting-started") %>
+
+  <%s! Learn_layout.sidebar_link_group "Language"
+    (tutorial_sidebar_links_by_category "language") %>
+
+  <%s! Learn_layout.sidebar_link_group "Data Structures"
+    (tutorial_sidebar_links_by_category "data-structures") %>
+
+  <%s! Learn_layout.sidebar_link_group "Runtime"
+    (tutorial_sidebar_links_by_category "runtime") %>
+
+  <%s! Learn_layout.sidebar_link_group "Tutorials"
+    (tutorial_sidebar_links_by_category "tutorials") %>
+
+  <%s! Learn_layout.sidebar_link_group "Guides"
+    (tutorial_sidebar_links_by_category "guides") %>
+
+  <%s! Learn_layout.sidebar_link_group "Resources"
+    (tutorial_sidebar_links_by_category "resources")
+    ~extra_html:((render_tutorial_link ~title:"Best Practices" ~slug:"best-practices")
+      ^ (render_tutorial_link ~title:"OCaml Platform" ~slug:"platform")) %>

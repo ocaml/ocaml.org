@@ -1,10 +1,15 @@
-let render ~(papers : Ood.Paper.t list) ~(release : Ood.Release.t) ~(books : Ood.Book.t list) =
+let render
+~(papers : Ood.Paper.t list)
+~(release : Ood.Release.t) ~(books : Ood.Book.t list) 
+~tutorials
+=
 Learn_layout.render
 ~title:"Learn OCaml"
-~description:"Getting started with the OCaml programming language. Read the official tutorials, exercices, and language manual." @@
+~description:"Getting started with the OCaml programming language. Read the official tutorials, exercices, and language manual."
+(Learn_sidebar.render ~tutorials ~current_tutorial:None) @@
 <div class="flex-1 flex flex-col md:pl-10 min-w-0">
-  <h1 class="font-bold mb-10 md:mb-16">Learn</h1>
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 border-b border-gray-200 pb-10 lg:pb-20">
+  <h1 class="font-bold mb-8">Learn OCaml</h1>
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 border-b border-gray-200 pb-10">
     <div class="relative flex-1 bg-gradient-to-br from-orange-300 to-orange-500 rounded-xl text-white">
       <div class="p-8">
         <h2 class="font-bold mb-2">Get Started</h2>
@@ -38,7 +43,7 @@ Learn_layout.render
         </a>
       </div>
       <div class="flex justify-end pl-8">
-        <img src="/img/learn/learn-exercise.svg" class="w-full" alt="Exercices Background" />
+        <img src="/img/learn/learn-exercise.svg" class="w-full" alt="Exercises Background" />
       </div>
     </div>
 
@@ -59,7 +64,7 @@ Learn_layout.render
       </div>
     </div>
   </div>
-  <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10 lg:pb-20">
+  <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
     <h3 class="font-bold">Papers</h3>
     <div class="mt-6 text-body-400 text-lg">
       Aspiring towards greater understanding of the language? Want to push the limits and discover brand new things?
@@ -95,7 +100,7 @@ Learn_layout.render
       </button>
     </a>
   </div>
-  <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10 lg:pb-20">
+  <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
     <h3 class="font-bold">Releases</h3>
     <div class="mt-6 text-body-400 text-lg">
         The history of OCaml releases with a summary and a complete changelog, as well as the manual at that time.
