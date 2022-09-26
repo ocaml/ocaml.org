@@ -41,7 +41,7 @@ Package_layout.render
       </div>
     </div>
     <div class="flex-1 overflow-hidden z-0 z- w-full lg:max-w-4xl mx-auto relative md:px-6 md:pl-12">
-      <%s! Breadcrumbs.render path %>
+      <%s! if (maptoc != []) && (List.length path != 0) then Breadcrumbs.render path else "" %>
       <div class="odoc prose prose-orange">
         <%s! content %>
       </div>
