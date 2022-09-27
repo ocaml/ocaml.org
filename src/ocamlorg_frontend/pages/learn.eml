@@ -6,6 +6,7 @@ let render
 Learn_layout.render
 ~title:"Learn OCaml"
 ~description:"Getting started with the OCaml programming language. Read the official tutorials, exercices, and language manual."
+~canonical:Url.learn
 (Learn_sidebar.render ~tutorials ~current_tutorial:None) @@
 <div class="flex-1 flex flex-col md:pl-10 min-w-0">
   <h1 class="font-bold mb-8">Learn OCaml</h1>

@@ -28,7 +28,8 @@ Layout.render
 ?styles
 ~wide:true
 ~title
-~description @@
+~description
+~canonical:(Url.package package.name) @@
 <div class="bg-white">
   <div class="py-5 lg:py-12">
     <div class="container-fluid wide">

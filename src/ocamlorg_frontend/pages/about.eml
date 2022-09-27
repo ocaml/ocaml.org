@@ -1,7 +1,8 @@
 let render () =
 Layout.render 
 ~title:"Why OCaml?"
-~description:"OCaml is a mature, statically-typed, functional programming language. Learn more about its rich history and what makes it unique." @@
+~description:"OCaml is a mature, statically-typed, functional programming language. Learn more about its rich history and what makes it unique."
+~canonical:Url.about @@
 <div class="intro-section-simple">
   <div class="container-fluid">
     <div class="text-center w-full lg:w-2/3 m-auto">

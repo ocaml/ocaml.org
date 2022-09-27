@@ -1,7 +1,8 @@
 let render (users : Ood.Academic_institution.t list) =
 Layout.render
 ~title:"Academic Users of OCaml"
-~description:"OCaml is taught all around the world and used every day by programming language researchers. Learn more about the strong academic roots of the language." @@
+~description:"OCaml is taught all around the world and used every day by programming language researchers. Learn more about the strong academic roots of the language."
+~canonical:Url.academic_users @@
 <div class="intro-section-simple">
   <div class="container-fluid">
     <div class="text-center w-full lg:w-2/3 m-auto">

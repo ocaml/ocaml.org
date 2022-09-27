@@ -2,7 +2,8 @@ let render ~(featured : Ood.Rss.t list) ~(rss : Ood.Rss.t list) ~rss_pages_numbe
 Layout.render
 ~wide:true
 ~title:"OCaml Blog"
-~description:"Recent news and blog posts from the OCaml community." @@
+~description:"Recent news and blog posts from the OCaml community."
+~canonical:Url.blog @@
 <div class="bg-white py-24">
     <div class="container-fluid wide">
         <div>

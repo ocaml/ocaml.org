@@ -46,10 +46,10 @@ let problems problems = Problems.render problems
 let release release = Release.render release
 let releases ?search releases = Releases.render ?search releases
 let success_story success_story = Success_story.render success_story
-let tutorial tutorial = Tutorial.render tutorial
+let tutorial tutorial ~canonical = Tutorial.render tutorial ~canonical
 
-let page ~title ~description ~meta_title ~meta_description ~content =
-  Page.render ~title ~description ~meta_title ~meta_description ~content
+let page ~title ~description ~meta_title ~meta_description ~content ~canonical =
+  Page.render ~title ~description ~meta_title ~meta_description ~content ~canonical
 
 let playground () = Playground.render ()
 let not_found () = Not_found.render ()

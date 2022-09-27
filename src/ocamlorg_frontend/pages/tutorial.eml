@@ -1,9 +1,10 @@
 let render
 (tutorial : Ood.Tutorial.t)
 ~tutorials
+~canonical
 =
 Learn_layout.render ~title:(Printf.sprintf "%s · OCaml Tutorials" tutorial.title) ~description:tutorial.description
-(Learn_sidebar.render ~current_tutorial:(Some tutorial.slug) ~tutorials)
+(Learn_sidebar.render ~current_tutorial:(Some tutorial.slug) ~tutorials) ~canonical
 @@
 <div class="flex-1 flex overflow-hidden">
   <div class="prose prose-orange overflow-hidden z-0 z- lg:max-w-4xl mx-auto relative py-8 px-6">
