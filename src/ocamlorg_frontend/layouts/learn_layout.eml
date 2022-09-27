@@ -42,6 +42,13 @@ let sidebar_icon_link_block
       </div>
       <div class="ml-3 font-semibold <%s if current != Exercises then "opacity-70" else "" %>">Exercises</div>
     </a>
+
+    <a href="<%s Url.about %>" class="flex justify-start items-center">
+      <div class="bg-primary-600 font-bold text-white rounded w-8 h-8 flex items-center justify-center">
+        ?
+      </div>
+      <div class="ml-3 font-semibold opacity-70">Why OCaml?</div>
+    </a>
   </div>
 
 let sidebar_link
