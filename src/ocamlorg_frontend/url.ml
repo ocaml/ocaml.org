@@ -3,6 +3,7 @@ let packages = "/packages"
 let packages_search = "/packages/search"
 let package v = "/p/" ^ v
 let package_docs v = "/p/" ^ v ^ "/doc"
+let package_docs_with_version v version = "/p/" ^ v ^ "/" ^ version ^ "/doc/index.html"
 let package_with_univ hash v = "/u/" ^ hash ^ "/" ^ v
 let package_with_version v version = "/p/" ^ v ^ "/" ^ version
 

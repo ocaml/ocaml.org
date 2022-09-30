@@ -18,6 +18,7 @@ Package_layout.render
 ~description:(Printf.sprintf "%s %s: %s" package.name package.version package.description)
 ~tab:Documentation
 ~package
+~canonical:(Url.package_docs_with_version package.name package.version)
 ~styles:["/css/main.css"; "/css/doc.css"] @@
 <div x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024">
   <button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"

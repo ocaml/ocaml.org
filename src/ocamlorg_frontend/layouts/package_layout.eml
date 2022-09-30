@@ -9,6 +9,7 @@ let render
 ~description
 ~tab
 ~documentation_status
+~canonical
 ~(package : Package_intf.package)
 inner =
 let tab_class = "border-transparent border-b-2 hover:border-primary-600 p-4 font-medium relative text-body-400" in
@@ -29,7 +30,7 @@ Layout.render
 ~wide:true
 ~title
 ~description
-~canonical:(Url.package package.name) @@
+~canonical @@
 <div class="bg-white">
   <div class="py-5 lg:py-12">
     <div class="container-fluid wide">
