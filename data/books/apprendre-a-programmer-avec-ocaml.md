@@ -12,7 +12,7 @@ authors:
   - Jean-Christophe Filliâtre
   - Sylvain Conchon
 published: "2014"
-cover: /books/apprendre-a-programmer-avec-ocaml.png
+cover: books/apprendre-a-programmer-avec-ocaml.png
 language: french
 isbn: "2-21213-678-1"
 links:
