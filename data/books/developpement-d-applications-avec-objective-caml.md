@@ -7,7 +7,7 @@ authors:
   - Pascal Manoury
   - Bruno Pagano
 published: "2000"
-cover: /books/developpement-d-applications-avec-objective-caml.jpg
+cover: books/developpement-d-applications-avec-objective-caml.jpg
 language: french
 isbn: "2-84177-121-0"
 links:

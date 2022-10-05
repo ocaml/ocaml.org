@@ -9,7 +9,7 @@ authors:
   - Anil Madhavapeddy
   - Jason Hickey
 published: 2013-11-25 
-cover: /books/real-world-ocaml.jpg
+cover: books/real-world-ocaml.jpg
 language: english
 links:
   - description: Read Online

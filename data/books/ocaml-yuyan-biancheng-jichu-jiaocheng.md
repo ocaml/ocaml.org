@@ -4,7 +4,7 @@ description: ""
 authors:
   - G. Chen
 published: "2018"
-cover: /books/ocaml-yuyan-biancheng-jichu-jiaocheng.jpg
+cover: books/ocaml-yuyan-biancheng-jichu-jiaocheng.jpg
 language: chinese
 links:
   - description: Order at Epubit.com

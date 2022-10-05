@@ -6,7 +6,7 @@ authors:
   - Carla Limongelli
   - Marta Cialdea
 published: "2002"
-cover: /books/introduzione-alla-programmazione-funzionale.gif
+cover: books/introduzione-alla-programmazione-funzionale.gif
 language: italian
 isbn: "88-7488-031-6"
 links:

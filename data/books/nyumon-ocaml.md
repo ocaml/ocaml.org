@@ -4,7 +4,7 @@ description: ""
 authors:
   - OCaml-Nagoya
 published: "2007"
-cover: /books/nyumon-ocaml.jpg
+cover: books/nyumon-ocaml.jpg
 language: japanese
 links:
   - description: Order at Amazon.co.jp
