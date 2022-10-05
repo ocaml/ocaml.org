@@ -38,6 +38,17 @@ make start
 
 See our [contributing guide](./CONTRIBUTING.md) for more detailed instructions.
 
+## Maintainers
+
+The OCaml.org maintainers team is composed of the following community members:
+
+- Thibaut Mattio, Lead Maintainer (Tarides)
+- Christine Rose, Technical Writer (Tarides)
+- Cuihtlauac Alvarado, Maintainer (Tarides)
+- Sabine Schmaltz, Maintainer (Tarides)
+
+We're always looking for new maintainers, if you're interested in helping us make OCaml.org the best resource to learn OCaml and discover the ecosystem, [reach out to us](mailto:thibaut@tarides.com)!
+
 ## Acknowlegement
 
 Thank you to everyone who contributed to the development of this new version of the website!
