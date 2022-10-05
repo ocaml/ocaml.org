@@ -47,7 +47,7 @@ The OCaml.org maintainers team is composed of the following community members:
 - Cuihtlauac Alvarado, Maintainer (Tarides)
 - Sabine Schmaltz, Maintainer (Tarides)
 
-We're always looking for new maintainers, if you're interested in helping us make OCaml.org the best resource to learn OCaml and discover the ecosystem, [reach out to us](mailto:thibaut@tarides.com)!
+We're always looking for new maintainers! If you're interested in helping us make OCaml.org the best resource to learn OCaml and discover the ecosystem, [reach out to us](mailto:thibaut@tarides.com)!
 
 ## Acknowlegement
 
