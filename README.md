@@ -42,10 +42,10 @@ See our [contributing guide](./CONTRIBUTING.md) for more detailed instructions.
 
 The OCaml.org maintainers team is composed of the following community members:
 
-- Thibaut Mattio, Lead Maintainer (Tarides)
-- Christine Rose, Technical Writer (Tarides)
-- Cuihtlauac Alvarado, Maintainer (Tarides)
-- Sabine Schmaltz, Maintainer (Tarides)
+- Thibaut Mattio ([@tmattio](https://github.com/tmattio)), Lead Maintainer (Tarides)
+- Christine Rose ([@christinerose](https://github.com/christinerose)), Technical Writer (Tarides)
+- Cuihtlauac Alvarado ([@cuihtlauac](https://github.com/cuihtlauac)), Maintainer (Tarides)
+- Sabine Schmaltz ([@sabine](https://github.com/sabine)), Maintainer (Tarides)
 
 We're always looking for new maintainers! If you're interested in helping us make OCaml.org the best resource to learn OCaml and discover the ecosystem, [reach out to us](mailto:thibaut@tarides.com)!
 
