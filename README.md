@@ -44,7 +44,7 @@ The OCaml.org maintainers team is composed of the following community members:
 
 - Anil Madhavapeddy ([@avsm](https://github.com/avsm)), Owner (Cambridge University)
 - Thibaut Mattio ([@tmattio](https://github.com/tmattio)), Lead Maintainer (Tarides)
-- Christine Rose ([@christinerose](https://github.com/christinerose)), Technical Writer (Tarides)
+- Christine Rose ([@christinerose](https://github.com/christinerose)), Maintainer (Tarides)
 - Cuihtlauac Alvarado ([@cuihtlauac](https://github.com/cuihtlauac)), Maintainer (Tarides)
 - Sabine Schmaltz ([@sabine](https://github.com/sabine)), Maintainer (Tarides)
 
