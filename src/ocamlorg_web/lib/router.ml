@@ -69,7 +69,7 @@ let package_route t =
         (Url.package_with_hash_with_version ":hash" ":name" ":version")
         ((Handler.package_versioned t) Handler.Universe);
       Dream.get
-        (Url.package_doc ":name" ":version" "**")
+        (Url.package_doc ":name" ":version" ~page:"**")
         ((Handler.package_doc t) Handler.Package);
       Dream.get
         (Url.package_doc_with_hash ":hash" ":name" ":version" "**")

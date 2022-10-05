@@ -12,13 +12,16 @@ let str_path =
         | `ModuleType s -> s
         | `FunctorArgument (_, s) -> s) path
 in
+let path_page = match str_path |> String.concat "/" with
+                | "" -> None
+                | path -> Some (path ^ if String.contains path '.' then "" else "/index.html") in
 Package_layout.render
 ~documentation_status
 ~title
 ~description:(Printf.sprintf "%s %s: %s" package.name package.version package.description)
 ~tab:Documentation
 ~package
-~canonical:(Url.package_docs_with_version package.name package.version)
+~canonical:(Url.package_doc package.name package.version ?page:path_page)
 ~styles:["/css/main.css"; "/css/doc.css"] @@
 <div x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024">
   <button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"

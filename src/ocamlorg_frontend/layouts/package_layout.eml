@@ -72,7 +72,7 @@ Layout.render
               <%s! documentation_dot %>
             </span>
           <% | _ -> %>
-            <a href="<%s Url.package_doc package.name package.version "index.html" %>"
+            <a href="<%s Url.package_doc package.name package.version %>"
               class="<%s if tab = Documentation then current_tab_class else tab_class %>"
               <%s! doc_status_tooltip %>>
                 Documentation

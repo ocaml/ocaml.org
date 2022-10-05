@@ -86,7 +86,7 @@ Package_layout.render
         </div>
         <div class="flex flex-col mt-9 space-y-4 text-body-400">
             <% (match changes_filename with Some changes_filename -> %>
-            <a href="<%s Url.package_doc package.name package.version (changes_filename ^ ".html") %>" class="flex items-center hover:text-primary-600">
+            <a href="<%s Url.package_doc package.name package.version ~page:(changes_filename ^ ".html") %>" class="flex items-center hover:text-primary-600">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 inline-block" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -96,7 +96,7 @@ Package_layout.render
             </a>
             <% | _ -> ()); %>
             <% (match license_filename with Some license_filename -> %>
-            <a href="<%s Url.package_doc package.name package.version (license_filename ^ ".html") %>" class="flex items-center hover:text-primary-600">
+            <a href="<%s Url.package_doc package.name package.version ~page:(license_filename ^ ".html") %>" class="flex items-center hover:text-primary-600">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 inline-block" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

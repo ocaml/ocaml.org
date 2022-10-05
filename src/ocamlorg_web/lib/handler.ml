@@ -386,7 +386,7 @@ let package_docs t req =
   | None -> not_found req
   | Some version ->
       let version = Ocamlorg_package.Version.to_string version in
-      let target = Ocamlorg_frontend.Url.package_docs_with_version package version in
+      let target = Ocamlorg_frontend.Url.package_doc package version in
       Dream.redirect req target
 
 let package_versioned t kind req =
