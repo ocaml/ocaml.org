@@ -21,7 +21,7 @@ Our guidance is when you want:
 
 * **only to run, not develop, applications**, use [Docker](#docker-images) or [WSL2](#wsl2)
 * **to develop applications and have some familiarity with Unix**, use [opam-repository-mingw](#opam-repository-mingw)
-* **to develop applications and care more about stability and ease-of-use than the latest compiler**, use [Diskuv OCaml](/docs/up-and-running)
+* **to develop applications and care more about stability and ease-of-use than the latest compiler**, use [Diskuv OCaml](https://diskuv.gitlab.io/diskuv-ocaml/)
 
 The guidance is based on the availability table below:
 * Tier 1 is fully supported with the latest compilers
