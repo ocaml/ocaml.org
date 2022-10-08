@@ -49,7 +49,8 @@ let success_story success_story = Success_story.render success_story
 let tutorial tutorial ~canonical = Tutorial.render tutorial ~canonical
 
 let page ~title ~description ~meta_title ~meta_description ~content ~canonical =
-  Page.render ~title ~description ~meta_title ~meta_description ~content ~canonical
+  Page.render ~title ~description ~meta_title ~meta_description ~content
+    ~canonical
 
 let playground () = Playground.render ()
 let not_found () = Not_found.render ()

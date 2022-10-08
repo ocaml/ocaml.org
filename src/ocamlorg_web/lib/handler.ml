@@ -213,9 +213,14 @@ let page (page : Ood.Page.t) canonical (_req : Dream.request) =
   Dream.html
     (Ocamlorg_frontend.page ~title:page.title ~description:page.description
        ~meta_title:page.meta_title ~meta_description:page.meta_description
-       ~content:page.body_html ~canonical:canonical)
-let carbon_footprint = page Ood.Page.carbon_footprint Ocamlorg_frontend.Url.carbon_footprint
-let privacy_policy = page Ood.Page.privacy_policy Ocamlorg_frontend.Url.privacy_policy
+       ~content:page.body_html ~canonical)
+
+let carbon_footprint =
+  page Ood.Page.carbon_footprint Ocamlorg_frontend.Url.carbon_footprint
+
+let privacy_policy =
+  page Ood.Page.privacy_policy Ocamlorg_frontend.Url.privacy_policy
+
 let governance = page Ood.Page.governance Ocamlorg_frontend.Url.governance
 let playground _req = Dream.html (Ocamlorg_frontend.playground ())
 
@@ -265,7 +270,10 @@ let tutorial req =
   with
   | Some tutorial ->
       let tutorials = Ood.Tutorial.all in
-      Ocamlorg_frontend.tutorial ~tutorials ~canonical:(Ocamlorg_frontend.Url.tutorial tutorial.slug) tutorial |> Dream.html
+      Ocamlorg_frontend.tutorial ~tutorials
+        ~canonical:(Ocamlorg_frontend.Url.tutorial tutorial.slug)
+        tutorial
+      |> Dream.html
   | None -> not_found req
 
 let best_practices _req =
