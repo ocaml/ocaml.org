@@ -1,5 +1,6 @@
 let render ~total ~search (packages : Package_intf.package list) = Layout.render ~title:"OCaml Packages · Search Result"
-~description:"Find the package you need to build your application in the thousands of available OCaml packages." @@
+~description:"Find the package you need to build your application in the thousands of available OCaml packages."
+~canonical:(Url.packages_search ^ "?q=" ^ search) @@
 <div class="bg-white">
   <div class="py-10 lg:py-14">
     <div class="container-fluid">

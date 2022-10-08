@@ -1,5 +1,5 @@
-let render ~title ~description ~meta_title ~meta_description ~content =
-Layout.render ~title:meta_title ~description:meta_description @@
+let render ~title ~description ~meta_title ~meta_description ~content ~canonical =
+Layout.render ~title:meta_title ~description:meta_description ~canonical @@
 <div class="intro-section-simple">
   <div class="container-fluid">
     <div class="text-center w-full lg:w-2/3 m-auto">

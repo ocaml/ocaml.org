@@ -81,6 +81,7 @@ let render
 ?styles
 ~title
 ~description
+~canonical
 sidebar_html
 inner_html
 =
@@ -89,7 +90,8 @@ inner_html
   ?styles
   ~wide:true
   ~title
-  ~description @@
+  ~description
+  ~canonical @@
   <div x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024">
     <button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
       :class="sidebar ? 'pl-1 pr-2': ''" x-on:click="sidebar = ! sidebar">

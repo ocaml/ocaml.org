@@ -2,7 +2,8 @@ let render ?(location = "All") ~locations (jobs : Ood.Job.t list) =
 Layout.render
 ~title:"OCaml Jobs"
 ~description:"This is a space where groups, companies, and organisations can advertise their projects directly to the
-OCaml community." @@
+OCaml community."
+~canonical:Url.jobs @@
 <div class="intro-section-simple">
     <div class="container-fluid">
         <div class="text-center w-full lg:w-2/3 m-auto">

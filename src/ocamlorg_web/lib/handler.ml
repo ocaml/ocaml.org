@@ -209,15 +209,19 @@ let jobs req =
   in
   Dream.html (Ocamlorg_frontend.jobs ?location ~locations jobs)
 
-let page (page : Ood.Page.t) (_req : Dream.request) =
+let page (page : Ood.Page.t) canonical (_req : Dream.request) =
   Dream.html
     (Ocamlorg_frontend.page ~title:page.title ~description:page.description
        ~meta_title:page.meta_title ~meta_description:page.meta_description
-       ~content:page.body_html)
+       ~content:page.body_html ~canonical)
 
-let carbon_footprint = page Ood.Page.carbon_footprint
-let privacy_policy = page Ood.Page.privacy_policy
-let governance = page Ood.Page.governance
+let carbon_footprint =
+  page Ood.Page.carbon_footprint Ocamlorg_frontend.Url.carbon_footprint
+
+let privacy_policy =
+  page Ood.Page.privacy_policy Ocamlorg_frontend.Url.privacy_policy
+
+let governance = page Ood.Page.governance Ocamlorg_frontend.Url.governance
 let playground _req = Dream.html (Ocamlorg_frontend.playground ())
 
 let papers req =
@@ -266,7 +270,10 @@ let tutorial req =
   with
   | Some tutorial ->
       let tutorials = Ood.Tutorial.all in
-      Ocamlorg_frontend.tutorial ~tutorials tutorial |> Dream.html
+      Ocamlorg_frontend.tutorial ~tutorials
+        ~canonical:(Ocamlorg_frontend.Url.tutorial tutorial.slug)
+        tutorial
+      |> Dream.html
   | None -> not_found req
 
 let best_practices _req =
@@ -387,7 +394,7 @@ let package_docs t req =
   | None -> not_found req
   | Some version ->
       let version = Ocamlorg_package.Version.to_string version in
-      let target = "/p/" ^ package ^ "/" ^ version ^ "/doc/index.html" in
+      let target = Ocamlorg_frontend.Url.package_doc package version in
       Dream.redirect req target
 
 let package_versioned t kind req =

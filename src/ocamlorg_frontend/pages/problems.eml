@@ -38,6 +38,7 @@ let render
 Learn_layout.render
 ~title:"Exercises"
 ~description:"A list of exercises to work on your OCaml skills."
+~canonical:Url.problems
 (problems_sidebar ~problems) @@
   <div class="prose prose-orange overflow-hidden z-0 lg:max-w-full lg:w-full mx-auto relative py-8 px-6 lg:pt-0 lg:pl-10">
     <h1 class="font-bold mb-8">Exercises</h1>

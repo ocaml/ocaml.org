@@ -9,6 +9,7 @@ let render
 ~description
 ~tab
 ~documentation_status
+~canonical
 ~(package : Package_intf.package)
 inner =
 let tab_class = "border-transparent border-b-2 hover:border-primary-600 p-4 font-medium relative text-body-400" in
@@ -28,7 +29,8 @@ Layout.render
 ?styles
 ~wide:true
 ~title
-~description @@
+~description
+~canonical @@
 <div class="bg-white">
   <div class="py-5 lg:py-12">
     <div class="container-fluid wide">
@@ -70,7 +72,7 @@ Layout.render
               <%s! documentation_dot %>
             </span>
           <% | _ -> %>
-            <a href="<%s Url.package_doc package.name package.version "index.html" %>"
+            <a href="<%s Url.package_doc package.name package.version %>"
               class="<%s if tab = Documentation then current_tab_class else tab_class %>"
               <%s! doc_status_tooltip %>>
                 Documentation

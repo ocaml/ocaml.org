@@ -1,7 +1,8 @@
 let render ~(videos : (string, Ood.Watch.t) Hashtbl.t) (workshop : Ood.Workshop.t) =
 Layout.render
 ~title:workshop.title
-~description:(Printf.sprintf "A description of the workshop %s held on %s" workshop.title workshop.date) @@
+~description:(Printf.sprintf "A description of the workshop %s held on %s" workshop.title workshop.date)
+~canonical:(Url.workshop workshop.slug) @@
 <div class="intro-section-simple">
   <div class="container-fluid">
     <div class="flex flex-col lg:flex-row justify-between items-center">
