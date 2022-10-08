@@ -39,6 +39,32 @@ let render ?(use_swiper=false) ?(wide=false) ?description ?styles ~title ?canoni
   </head>
 
   <body class="light">
+    <div class="relative bg-primary-600">
+      <div class="mx-auto max-w-7xl py-3 px-3 sm:px-6 lg:px-8">
+        <div class="pr-16 sm:px-16 sm:text-center">
+          <p class="font-medium text-white">
+            <span class="md:hidden">OCaml 5 Beta is out!</span>
+            <span class="hidden md:inline">OCaml 5 Beta is out! OCaml 5 is the next major release of OCaml, which comes with support for Multicore!</span>
+            <span class="block sm:ml-2 sm:inline-block">
+              <a href="<%s Url.getting_started %>" class="font-bold text-white underline">
+                Try it now
+                <span aria-hidden="true"> &rarr;</span>
+              </a>
+            </span>
+          </p>
+        </div>
+        <div class="absolute inset-y-0 right-0 flex items-start pt-1 pr-1 sm:items-start sm:pt-1 sm:pr-2">
+          <button type="button" class="flex rounded-md p-2 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-white">
+            <span class="sr-only">Dismiss</span>
+            <!-- Heroicon name: outline/x-mark -->
+            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    
     <%s! Header.render ~wide () %>
 
     <main><%s! inner %></main>
