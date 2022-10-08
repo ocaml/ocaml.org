@@ -42,6 +42,22 @@ Learn_layout.render
 (problems_sidebar ~problems) @@
   <div class="prose prose-orange overflow-hidden z-0 lg:max-w-full lg:w-full mx-auto relative py-8 px-6 lg:pt-0 lg:pl-10">
     <h1 class="font-bold mb-8">Exercises</h1>
+    <div class="prose prose-orange max-w-full mb-5">
+      <p>
+        This section is inspired by
+        <a href="https://www.ic.unicamp.br/~meidanis/courses/mc336/2006s2/funcional/L-99_Ninety-Nine_Lisp_Problems.html">
+          Ninety-Nine Lisp Problems</a>
+        which in turn was based on “<a href="https://sites.google.com/site/prologsite/prolog-problems/">Prolog problem
+          list</a>”. For
+        each of these questions, some simple tests are shown—they may also serve
+        to make the question clearer if needed. To work on these problems, we
+        recommend you first <a href="<%s Url.getting_started %>">install OCaml</a> or use it <a
+          href="<%s Url.playground %>">inside
+          your browser</a>. The source of the following
+        problems is available on
+        <a href="https://github.com/ocaml/ocaml.org/tree/main/data/problems">GitHub</a>.
+      </p>
+    </div>
     <% problems |> List.iter (fun (problem : Ood.Problem.t) -> %>
     <div x-data="{statement: true}" id="<%s" problem.number %>
       >
