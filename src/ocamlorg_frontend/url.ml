@@ -1,19 +1,13 @@
 let index = "/"
 let packages = "/packages"
 let packages_search = "/packages/search"
-let package v = "/p/" ^ v
+let with_hash = function None -> "/p" | Some hash -> "/u/" ^ hash
+let package ?hash v = with_hash hash ^ "/" ^ v
 let package_docs v = "/p/" ^ v ^ "/doc"
-let package_with_univ hash v = "/u/" ^ hash ^ "/" ^ v
-let package_with_version v version = "/p/" ^ v ^ "/" ^ version
+let package_with_version ?hash v version = with_hash hash ^ "/" ^ v ^ "/" ^ version
 
-let package_with_hash_with_version hash v version =
-  "/u/" ^ hash ^ "/" ^ v ^ "/" ^ version
-
-let package_doc v ?(page = "index.html") version =
-  "/p/" ^ v ^ "/" ^ version ^ "/doc/" ^ page
-
-let package_doc_with_hash hash page v version =
-  "/u/" ^ hash ^ "/" ^ v ^ "/" ^ version ^ "/doc/" ^ page
+let package_doc ?hash ?(page = "index.html") v version =
+  with_hash hash ^ "/" ^ v ^ "/" ^ version ^ "/doc/" ^ page
 
 let community = "/community"
 let success_story v = "/success-stories/" ^ v
