@@ -115,7 +115,7 @@ Now check the installation by running `opam --version`. You can compare it with 
 
 #### Creating a New Switch on Unix
 
-If you want a specific version of OCaml, or a new independent environment, you can create a new switch with the `opam switch create` command. Specify which version as shown below (i.e., `opam switch create 5.0.0~beta0`). All possible compiler versions can be found with `opam switch list-available`. The most current version can be found at [opam.ocaml.org](https://opam.ocaml.org/packages/ocaml-base-compiler/).
+If you want a specific version of OCaml, or a new independent environment, you can create a new switch with the `opam switch create` command. Specify which version as shown below (i.e., `opam switch create ocaml-5.0 ocaml.5.0.0`). All possible compiler versions can be found with `opam switch list-available`. The most current version can be found at [opam.ocaml.org](https://opam.ocaml.org/packages/ocaml-base-compiler/).
 
 ```shell
 $ opam switch create 5.0.0~beta0
