@@ -81,7 +81,7 @@ where `option_list` is a comma separated list of `ocaml-option-*` packages. For 
 ```bash
 opam switch create 5.0.0~beta1+flambda+nffa ocaml-variants.5.0.0~beta1+options ocaml-option-flambda ocaml-option-no-flat-float-array
 ```
-The command line above is slightly more complicated for opam version before 2.1:
+The command line above is slightly more complicated for opam versions before 2.1:
 ```bash
 opam update
 opam switch create <switch_name> --packages=ocaml-variants.5.0.0~beta1+options,<option_list> --repositories=default,beta=git+https://github.com/ocaml/ocaml-beta-repository.git
