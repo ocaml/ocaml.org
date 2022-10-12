@@ -1,5 +1,5 @@
 ---
-title: OCaml 5.0.0 - first beta
+title: OCaml 5.0.0 - First Beta
 description: First beta release of OCaml 5.0.0
 date: "2022-10-12"
 tags: [ocaml, platform]
@@ -42,7 +42,7 @@ A short summary of the changes since the last alpha release is also available
 below.
 
 
-Installation instructions
+Installation Instructions
 -------------------------
 
 The base compiler can be installed as an opam switch with the following commands
@@ -70,7 +70,7 @@ The source code for the beta release is also available at these addresses:
  https://github.com/ocaml/ocaml/archive/5.0.0-beta1.tar.gz
  https://caml.inria.fr/pub/distrib/ocaml-5.0/ocaml-5.0.0~beta1.tar.gz
 
-## Fine-tuned compiler configuration
+## Fine-Tuned Compiler Configuration
 
 If you want to tweak the configuration of the compiler, you can switch to the option variant with:
 ```bash
@@ -89,7 +89,7 @@ opam switch create <switch_name> --packages=ocaml-variants.5.0.0~beta1+options,<
 
 In both cases, all available options can be listed with "opam search ocaml-option".
 
-## Optional opam alpha repository
+## Optional Opam Alpha Repository
 
 During the beta release, if your dependencies are not yet compatible with OCaml 5.0.0, 
 you might want to check the alpha opam repository:
@@ -110,10 +110,10 @@ $ opam repo
 This alpha repository contains various fixes that are in the process of being upstreamed,
 but it should be less and less required with progress of the beta release.
 
-Changes since last alpha release
+Changes Since Last Alpha Release
 --------------------------------
 
-# Stdlib changes
+# Stdlib Changes
 
 + [#11309](https://github.com/ocaml/ocaml/issues/11309), [#11424](https://github.com/ocaml/ocaml/issues/11424), [#11427](https://github.com/ocaml/ocaml/issues/11427), +[#11545](https://github.com/ocaml/ocaml/issues/11545): Add Domain.recommended_domain_count.
    (Christiano Haesbaert, Konstantin Belousov, review by David Allsopp,
@@ -127,7 +127,7 @@ Changes since last alpha release
   (Florian Angeletti, review by Guillaume Munch-Maccagnoni
    and KC Sivaramakrishnan)
 
-# Bug fixes
+# Bug Fixes
 
 - [#11303](https://github.com/ocaml/ocaml/issues/11303): Ensure that GC is not invoked from bounds check failures
   (Stephen Dolan, review by Sadiq Jaffer and Xavier Leroy)
@@ -193,7 +193,7 @@ Changes since last alpha release
 - [#11587](https://github.com/ocaml/ocaml/issues/11587): Prevent integer comparison from being used on pointers
   (Vincent Laviron, review by Gabriel Scherer)
 
-# Documentation changes
+# Documentation Changes
 
 - [#11093](https://github.com/ocaml/ocaml/issues/11093): Add tutorials on parallelism features and the relaxed memory model
   (KC Sivaramakrishnan, review by Damien Doligez, Anil Madhavapeddy, Gabriel
