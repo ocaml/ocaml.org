@@ -1,6 +1,7 @@
 let render () =
 Layout.render
 ~use_swiper:true
+~banner:true
 ~title:"Welcome to a World of OCaml"
 ~description:"OCaml is a general-purpose, industrial-strength programming language with an emphasis on expressiveness and safety."
 ~canonical:"" @@

@@ -1,4 +1,4 @@
-let render ?(use_swiper=false) ?(wide=false) ?description ?styles ~title ?canonical inner =
+let render ?(use_swiper=false) ?(banner = false) ?(wide=false) ?description ?styles ~title ?canonical inner =
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -39,6 +39,7 @@ let render ?(use_swiper=false) ?(wide=false) ?description ?styles ~title ?canoni
   </head>
 
   <body class="light">
+    <% if banner then ( %>
     <div class="relative bg-primary-600">
       <div class="mx-auto max-w-7xl py-3 px-3 sm:px-6 lg:px-8">
         <div class="pr-16 sm:px-16 sm:text-center">
@@ -46,7 +47,7 @@ let render ?(use_swiper=false) ?(wide=false) ?description ?styles ~title ?canoni
             <span class="md:hidden">OCaml 5.0 is in beta!</span>
             <span class="hidden md:inline">OCaml 5.0 is beta! OCaml 5.0 is the next major release of OCaml, which comes with support for shared-memory parallelism through domains and direct-style concurrency through algebraic effects!</span>
             <span class="block sm:ml-2 sm:inline-block">
-            <a href="<%s Url.news_post "ocaml-5.beta1" %>" class="font-bold text-white underline">
+              <a href="<%s Url.news_post "ocaml-5.beta1" %>" class="font-bold text-white underline">
                 Try it now
                 <span aria-hidden="true"> &rarr;</span>
               </a>
@@ -55,6 +56,7 @@ let render ?(use_swiper=false) ?(wide=false) ?description ?styles ~title ?canoni
         </div>
       </div>
     </div>
+    <% ); %>
     
     <%s! Header.render ~wide () %>
 
