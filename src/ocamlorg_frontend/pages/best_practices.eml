@@ -8,7 +8,8 @@ Learn_layout.render
 ~canonical:Url.best_practices
 (Learn_sidebar.render ~current_tutorial:(Some "best-practices") ~tutorials) @@
 <div class="flex-1 flex overflow-hidden flex-col md:pl-10">
-    <div class="prose prose-orange">
+    <h1 class="font-bold mb-8">OCaml Best Practices</h1>
+    <div class="prose prose-orange max-w-full">
       <p>
         Workflows presented on this page assume <a href="<%s Url.getting_started %>">OCaml is Up and Running</a>.
       </p>
