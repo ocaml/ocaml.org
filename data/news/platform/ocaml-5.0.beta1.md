@@ -1,5 +1,5 @@
 ---
-title: OCaml 5.0.0 - first beta
+title: OCaml 5.0.0 - First Beta
 description: First beta release of OCaml 5.0.0
 date: "2022-10-12"
 tags: [ocaml, platform]
@@ -9,21 +9,21 @@ tags: [ocaml, platform]
 The release of OCaml 5.0.0 is drawing near.
 The standard library has been stabilized and many opam packages already
 work with this release.
-After two alpha releases,  we have released a first beta version to help you update your softwares and libraries ahead of the release (see below for the installation instructions).
+After two alpha releases,  we have released the first beta version to help you update your software and libraries ahead of the release (see below for the installation instructions).
 
 If you find any bugs, please report them here:
 
   https://github.com/ocaml/ocaml/issues
 
-Compared to the last alpha release, this beta contains many small internal
-runtime fixes (in particular in the systhreads library).
+Compared to the last alpha release, this beta contains many small, internal
+runtime fixes (in particular in the `systhreads` library).
 
 At the user level, the interface of the Domain and Effect module has been tweaked to be (hopefully) more forward-compatible:
 
 - Exceptions related to effects are now defined in the Effecŧ module.
 - The value `Domain.recommended_domain_count` is no longer a constant and the function `Domain.at_each_spawn` has been removed.
 
-With those changes, the standard library should but stable now.
+With those changes, the standard library should be stable now.
 
 If you are interested by the ongoing list of bug fixes, the
 updated change log for OCaml 5.0.0 is available at:
@@ -42,7 +42,7 @@ A short summary of the changes since the last alpha release is also available
 below.
 
 
-Installation instructions
+Installation Instructions
 -------------------------
 
 The base compiler can be installed as an opam switch with the following commands
@@ -58,8 +58,8 @@ opam update
 opam switch create 5.0.0~beta1 --repositories=default,beta=git+https://github.com/ocaml/ocaml-beta-repository.git
 ```
 
-It might be also interesting to check the new support for parallelism by installing
-the domainslib library with
+It might also be interesting to check the new support for parallelism by installing
+the `domainslib` library with
 
 ```bash
 opam install domainslib
@@ -70,7 +70,7 @@ The source code for the beta release is also available at these addresses:
  https://github.com/ocaml/ocaml/archive/5.0.0-beta1.tar.gz
  https://caml.inria.fr/pub/distrib/ocaml-5.0/ocaml-5.0.0~beta1.tar.gz
 
-## Fine-tuned compiler configuration
+## Fine-Tuned Compiler Configuration
 
 If you want to tweak the configuration of the compiler, you can switch to the option variant with:
 ```bash
@@ -81,15 +81,15 @@ where `option_list` is a comma separated list of `ocaml-option-*` packages. For 
 ```bash
 opam switch create 5.0.0~beta1+flambda+nffa ocaml-variants.5.0.0~beta1+options ocaml-option-flambda ocaml-option-no-flat-float-array
 ```
-The command line above is slightly more complicated for opam version anterior to 2.1:
+The command line above is slightly more complicated for opam versions before 2.1:
 ```bash
 opam update
 opam switch create <switch_name> --packages=ocaml-variants.5.0.0~beta1+options,<option_list> --repositories=default,beta=git+https://github.com/ocaml/ocaml-beta-repository.git
 ```
 
-In both cases, all available options can be listed with "opam search ocaml-option".
+In both cases, all available options can be listed with `opam search ocaml-option`.
 
-## Optional opam alpha repository
+## Optional opam Alpha Repository
 
 During the beta release, if your dependencies are not yet compatible with OCaml 5.0.0, 
 you might want to check the alpha opam repository:
@@ -110,10 +110,10 @@ $ opam repo
 This alpha repository contains various fixes that are in the process of being upstreamed,
 but it should be less and less required with progress of the beta release.
 
-Changes since last alpha release
+Changes Since Last Alpha Release
 --------------------------------
 
-# Stdlib changes
+### `Stdlib` Changes
 
 + [#11309](https://github.com/ocaml/ocaml/issues/11309), [#11424](https://github.com/ocaml/ocaml/issues/11424), [#11427](https://github.com/ocaml/ocaml/issues/11427), +[#11545](https://github.com/ocaml/ocaml/issues/11545): Add Domain.recommended_domain_count.
    (Christiano Haesbaert, Konstantin Belousov, review by David Allsopp,
@@ -127,32 +127,31 @@ Changes since last alpha release
   (Florian Angeletti, review by Guillaume Munch-Maccagnoni
    and KC Sivaramakrishnan)
 
-# Bug fixes
+### Bug Fixes
 
 - [#11303](https://github.com/ocaml/ocaml/issues/11303): Ensure that GC is not invoked from bounds check failures
   (Stephen Dolan, review by Sadiq Jaffer and Xavier Leroy)
 
 - [#5299](https://github.com/ocaml/ocaml/issues/5299), [#4787](https://github.com/ocaml/ocaml/issues/4787), [#11138](https://github.com/ocaml/ocaml/issues/11138), [#11272](https://github.com/ocaml/ocaml/issues/11272), [#11506](https://github.com/ocaml/ocaml/issues/11506): To help debugging, `Caml_state`
-  now dynamically checks that the domain lock is held, and fails
+  now dynamically checks that the domain lock is held and fails
   otherwise (with a fatal error at most entry points of the C API, or
   systematically in debug mode). A new variable `Caml_state_opt` is
-  introduced, and is `NULL` when the domain lock is not held. This
-  allows to test from C code if the current thread holds the lock of
-  its domain.
+  introduced and is `NULL` when the domain lock is not held. This
+  allows to test from C code if the current thread holds its domain lock.
   (Guillaume Munch-Maccagnoni, review by Florian Angeletti, Damien
   Doligez, Sadiq Jaffer, Xavier Leroy, and Gabriel Scherer)
 
-- [#11223](https://github.com/ocaml/ocaml/issues/11223): The serialization format of custom blocks changed in 4.08,
-  but the deserializer would still support the pre-4.08 format.  OCaml
-  5.x removed support for this old format; provide a clear error message
+- [#11223](https://github.com/ocaml/ocaml/issues/11223): The serialisation format of custom blocks changed in 4.08,
+  but the deserialiser would still support the pre-4.08 format.  OCaml
+  5.x removed support for this old format and provided a clear error message
   in this case.
   (Hugo Heuzard, review by Gabriel Scherer)
 
-- [#11504](https://github.com/ocaml/ocaml/issues/11504), [#11522](https://github.com/ocaml/ocaml/issues/11522): Use static allocation in `caml_make_float_vect` in
-  no-flat-float-array mode, it's more efficient and avoids a a race condition
+- [#11504](https://github.com/ocaml/ocaml/issues/11504), [#11522](https://github.com/ocaml/ocaml/issues/11522): Use static allocation for `caml_make_float_vect` in
+  no-flat-float-array mode, it's more efficient and avoids a race condition
   (Xavier Leroy, report by Guillaume Munch-Maccagnoni, review by David Allsopp)
 
-- [#11461](https://github.com/ocaml/ocaml/issues/11461), [#11466](https://github.com/ocaml/ocaml/issues/11466): Fix gethostbyaddr for IPv6 arguments and make it domain-safe
+- [#11461](https://github.com/ocaml/ocaml/issues/11461), [#11466](https://github.com/ocaml/ocaml/issues/11466): Fix `gethostbyaddr` for IPv6 arguments and make it domain-safe
   (Olivier Nicole, Nicolás Ojeda Bär, David Allsopp and Xavier Leroy,
    review by the same)
 
@@ -193,7 +192,7 @@ Changes since last alpha release
 - [#11587](https://github.com/ocaml/ocaml/issues/11587): Prevent integer comparison from being used on pointers
   (Vincent Laviron, review by Gabriel Scherer)
 
-# Documentation changes
+### Documentation Changes
 
 - [#11093](https://github.com/ocaml/ocaml/issues/11093): Add tutorials on parallelism features and the relaxed memory model
   (KC Sivaramakrishnan, review by Damien Doligez, Anil Madhavapeddy, Gabriel
