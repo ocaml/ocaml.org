@@ -5,15 +5,12 @@ date: "2022-10-12"
 tags: [ocaml, platform]
 ---
 
-
 The release of OCaml 5.0.0 is drawing near.
 The standard library has been stabilized and many opam packages already
 work with this release.
 After two alpha releases,  we have released the first beta version to help you update your software and libraries ahead of the release (see below for the installation instructions).
 
-If you find any bugs, please report them here:
-
-  https://github.com/ocaml/ocaml/issues
+If you find any bugs, please report them [on GitHub issues](https://github.com/ocaml/ocaml/issues).
 
 Compared to the last alpha release, this beta contains many small, internal
 runtime fixes (in particular in the `systhreads` library).
@@ -25,18 +22,10 @@ At the user level, the interface of the Domain and Effect module has been tweake
 
 With those changes, the standard library should be stable now.
 
-If you are interested by the ongoing list of bug fixes, the
-updated change log for OCaml 5.0.0 is available at:
+If you are interested in the ongoing list of bug fixes, the
+updated change log for OCaml 5.0.0 is available [on GitHub](https://github.com/ocaml/ocaml/blob/5.0/Changes).
 
-  https://github.com/ocaml/ocaml/blob/5.0/Changes
-
-You can also follow the state of the opam ecosystem on
-
-  https://github.com/ocaml/opam-repository/issues/21526
-
-and
-
-  http://check.ocamllabs.io/
+You can also follow the state of the opam ecosystem on [this `opam-repository` issues](https://github.com/ocaml/opam-repository/issues/21526), and at [check.ocamllabs.io](http://check.ocamllabs.io/)
 
 A short summary of the changes since the last alpha release is also available
 below.
@@ -52,7 +41,7 @@ opam update
 opam switch create 5.0.0~beta1
 ```
 
-For previous version of opam, the switch creation command line is slightly more verbose:
+For previous versions of opam, the switch creation command line is slightly more verbose:
 ```bash
 opam update
 opam switch create 5.0.0~beta1 --repositories=default,beta=git+https://github.com/ocaml/ocaml-beta-repository.git
@@ -67,8 +56,8 @@ opam install domainslib
 
 The source code for the beta release is also available at these addresses:
 
- https://github.com/ocaml/ocaml/archive/5.0.0-beta1.tar.gz
- https://caml.inria.fr/pub/distrib/ocaml-5.0/ocaml-5.0.0~beta1.tar.gz
+* [https://github.com/ocaml/ocaml/archive/5.0.0-beta1.tar.gz](https://github.com/ocaml/ocaml/archive/5.0.0-beta1.tar.gz)
+* [https://caml.inria.fr/pub/distrib/ocaml-5.0/ocaml-5.0.0~beta1.tar.gz](https://caml.inria.fr/pub/distrib/ocaml-5.0/ocaml-5.0.0~beta1.tar.gz)
 
 ## Fine-Tuned Compiler Configuration
 
@@ -77,7 +66,7 @@ If you want to tweak the configuration of the compiler, you can switch to the op
 opam update
 opam switch create <switch_name> ocaml-variants.5.0.0~beta1+options <option_list>
 ```
-where `option_list` is a comma separated list of `ocaml-option-*` packages. For instance, for a `flambda` and `no-flat-float-array` switch:
+where `option_list` is a comma-separated list of `ocaml-option-*` packages. For instance, for a `flambda` and `no-flat-float-array` switch:
 ```bash
 opam switch create 5.0.0~beta1+flambda+nffa ocaml-variants.5.0.0~beta1+options ocaml-option-flambda ocaml-option-no-flat-float-array
 ```
@@ -92,9 +81,7 @@ In both cases, all available options can be listed with `opam search ocaml-optio
 ## Optional opam Alpha Repository
 
 During the beta release, if your dependencies are not yet compatible with OCaml 5.0.0, 
-you might want to check the alpha opam repository:
-
-https://github.com/kit-ty-kate/opam-alpha-repository
+you might want to check the alpha opam repository: [https://github.com/kit-ty-kate/opam-alpha-repository](https://github.com/kit-ty-kate/opam-alpha-repository).
 
 Which can be installed with
 ```bash
@@ -108,7 +95,7 @@ $ opam repo
  2 default https://opam.ocaml.org
 ```
 This alpha repository contains various fixes that are in the process of being upstreamed,
-but it should be less and less required with progress of the beta release.
+but it should be less and less required with the progress of the beta release.
 
 Changes Since Last Alpha Release
 --------------------------------
