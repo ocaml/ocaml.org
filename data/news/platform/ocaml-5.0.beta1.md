@@ -81,7 +81,7 @@ In both cases, all available options can be listed with `opam search ocaml-optio
 ## Optional opam Alpha Repository
 
 During the beta release, if your dependencies are not yet compatible with OCaml 5.0.0, 
-you might want to check the [alpha opam repository](https://github.com/kit-ty-kate/opam-alpha-repository).
+you might want to check the alpha opam repository: [https://github.com/kit-ty-kate/opam-alpha-repository](https://github.com/kit-ty-kate/opam-alpha-repository).
 
 Which can be installed with
 ```bash
