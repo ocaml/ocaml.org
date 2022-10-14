@@ -12,7 +12,7 @@ let package_with_hash_with_version hash v version =
 let package_doc v ?(page = "index.html") version =
   "/p/" ^ v ^ "/" ^ version ^ "/doc/" ^ page
 
-let package_doc_with_hash hash v version page =
+let package_doc_with_hash hash page v version =
   "/u/" ^ hash ^ "/" ^ v ^ "/" ^ version ^ "/doc/" ^ page
 
 let community = "/community"

@@ -365,7 +365,7 @@ let packages_search t req =
          Ocamlorg_frontend.package) -> Int.compare (List.length x2.rev_deps)
          (List.length x1.rev_deps)) results in *)
       Dream.html (Ocamlorg_frontend.packages_search ~total ~search results)
-  | None -> Dream.redirect req "/packages"
+  | None -> Dream.redirect req Ocamlorg_frontend.Url.packages
 
 let package t req =
   let package = Dream.param req "name" in
@@ -377,9 +377,8 @@ let package t req =
   let version = find_default_version name in
   match version with
   | Some version ->
-      let target =
-        "/p/" ^ package ^ "/" ^ Ocamlorg_package.Version.to_string version
-      in
+      let version = Ocamlorg_package.Version.to_string version in
+      let target = Ocamlorg_frontend.Url.package_with_version package version in
       Dream.redirect req target
   | None -> not_found req
 
@@ -470,8 +469,8 @@ let package_doc t kind req =
       let root =
         let make =
           match kind with
-          | `Package -> Fmt.str "/p/%s/%s/doc/"
-          | `Universe u -> Fmt.str "/u/%s/%s/%s/doc/" u
+          | `Package -> Ocamlorg_frontend.Url.package_doc ~page:""
+          | `Universe u -> Ocamlorg_frontend.Url.package_doc_with_hash u ""
         in
         make
           (Ocamlorg_package.Name.to_string name)
