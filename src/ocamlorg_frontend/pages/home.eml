@@ -194,10 +194,10 @@ Layout.render
                   <img width="785" src="/img/home/vscode-preview.png" alt="An OCaml program being edited in VSCode" />
                 </div>
                 <div class="swiper-slide">
-                  <img width="785" src="/img/home/emac-preview.png" alt="Writing an OCaml program using emacs"/>
+                  <img width="785" src="/img/home/vim-preview.png" alt="Writing an OCaml program using vim" />
                 </div>
                 <div class="swiper-slide">
-                  <img width="785" src="/img/home/vim-preview.png" alt="Writing an OCaml program using vim" />
+                  <img width="785" src="/img/home/emac-preview.png" alt="Writing an OCaml program using emacs"/>
                 </div>
               </div>
             </div>
