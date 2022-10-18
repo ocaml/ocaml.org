@@ -18,6 +18,16 @@ and what makes it unique." @@
   </div>
 </div>
 
+<div class="bg-white">
+  <div class="py-10 lg:py-28">
+    <div class="container-fluid">
+      <div class="prose prose-orange lg:prose-lg mx-auto max-w-5xl">
+        <%s! Ood.Page.governance.body_html %>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="our-team">
   <div class="py-10 lg:py-28">
     <div class="container-fluid text-white">
