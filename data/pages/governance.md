@@ -7,7 +7,7 @@ meta_description: Read about the structure of the OCaml.org project, the roles i
 
 ## Overview and Scope
 
-As the OCaml community continues to grow, more collaborative work
+As the OCaml community continues to grow, more collaborative work 
 undertaken to support and extend the needs of the language and
 its users. This document focuses specifically on the
 OCaml.org *domain name* and the Projects that make use of that domain name.
@@ -123,9 +123,9 @@ selection process. The only necessary step is to make or suggest some
 improvement or change to the Project.
 
 Contributors can interact with a Project via tools such as email lists, issue
-trackers, and wiki pages, for example. The main email list for OCaml.org is
-infrastructure@lists.ocaml.org and is open to all. Maintainers are
-free to direct discussion to their own dedicated mailing lists, as they feel
+trackers, and wiki pages, for example. <s>The main email list for OCaml.org is
+infrastructure@lists.ocaml.org and is open to all.</s> Maintainers are
+free to direct discussion to their <s>own dedicated mailing lists</s>, as they feel
 appropriate. Those whose contributions become part of a public Git repository
 will be recognised in some form on a public website as thanks.
 
@@ -137,16 +137,16 @@ accept such an offer.
 
 Users are the most important group and it includes the much wider community of
 anyone who interacts with OCaml.org in any way. This covers all web-visitors,
-package users and members of mailing lists. Without Users, the Projects serve
+package users and members of <s>mailing lists</s>. Without Users, the Projects serve
 no purpose, so the impact of any major decisions on this group should be
 assessed.
 
 Wherever practicable, Users should be encouraged to provide feedback and
 participate in the Projects as much as possible. Users who engage a lot with a
-Project will likely go on to become Contributors.
+Project will likely go on to become Contributors. 
 
 It should be noted that these Roles are not mutually exclusive, for example
-Maintainers and Contributors are necessarily also Users.
+Maintainers and Contributors are necessarily also Users. 
 
 ## Projects
 
@@ -155,25 +155,25 @@ It is expected that the majority of new work will fall under an existing
 subdomain and will therefore already have a set of Maintainers and
 Contributors (as described above).
 
-**Communication** - All Maintainers of Projects must join the Infrastructure
+**Communication** - <s>All Maintainers of Projects must join the Infrastructure
 mailing list (infrastructure@lists.ocaml.org). This list is the primary way
 that information and decisions surrounding OCaml.org will be discussed and
 disseminated. If Projects wish to set up their own lists, they may do so on
-lists.ocaml.org (see below).
+lists.ocaml.org (see below).</s>
 
 **Governance** - Projects are free to choose their mode of governance provided
 it is compatible with the governance and guiding principles of OCaml.org.
 
 
-### Initiating a Project
+### Initiating a Project 
 
-Any proposal for new work should be raised and discussed on the Infrastructure
-mailing list. If there is consensus among Maintainers that the work fits
+<s>Any proposal for new work should be raised and discussed on the Infrastructure
+mailing list.</s> If there is consensus among Maintainers that the work fits
 within an existing Project, then the Maintainers of that Project can take it
-forward.
+forward. 
 
 If a new subdomain is required, then a brief proposal
-should be made on the Infrastructure list that covers:
+should be made <s>on the Infrastructure list</s> that covers:
 
 - The aims and purpose of the Project (inc name of the subdomain required)
 - Specific resources required and for how long (e.g., VMs)
@@ -195,10 +195,10 @@ A Project can be closed:
 to take on the role
 - By the Owner/Delegate for any reason
 
-In all cases, prior notice must be sent to the Infrastructure list including a
+In all cases, prior notice must be sent <s>to the Infrastructure list</s> including a
 reasonable time frame and reasons for closure.
 Closure simply implies revocation or redirection of the subdomain and/or
-shutting down or reclaiming any resources provided (e.g., VMs).
+shutting down or reclaiming any resources provided (e.g., VMs). 
 
 
 ## Processes
@@ -207,8 +207,8 @@ shutting down or reclaiming any resources provided (e.g., VMs).
 
 The preferred approach for most discussions is through
 [rough consensus and running code](http://en.wikipedia.org/wiki/Rough_consensus).
-Discussions should be public and take place on either the Infrastructure
-mailing list, the relevant Project mailing-list, or on relevant issue trackers.
+Discussions should be public and take place on <s>either the Infrastructure
+mailing list, the relevant Project mailing-list, or on relevant issue trackers</s>.
 Users and Contributors are encouraged to take part and voice their opinions.
 Typically, the Maintainers of a Project will make the final decision, having
 accounted for wider views.
@@ -225,20 +225,20 @@ licensing agreement so
 that Contributors understand how to engage with the Maintainers. Typically,
 this will cover where communication occurs and the process for submitting
 patches. Contributions from the community are encouraged and can take many
-forms including, bug fixes, new features, content, or documentation.
+forms including, bug fixes, new features, content, or documentation.  
 
 All Projects under OCaml.org are expected to be open source, and the licensing
 arrangements should reflect this.
 
 Contributions to OCaml.org itself may be in the form of resources that can be
 shared by Projects and can be discussed with Owner/Delegate and Project
-Maintainers on the Infrastructure mailing list.
+Maintainers on the <s>Infrastructure mailing list.</s>
 
 ### Dispute Resolution
 
 Maintainers are expected to make decisions regarding their Projects.
 The intent is for any Maintainers to resolve disagreements, through
-a consensus process within each Project.
+a consensus process within each Project.  
 
 On the rare occasions, where Maintainers of a Project cannot agree
 on a way forward, the following approach is suggested:
@@ -251,13 +251,13 @@ will act as arbitrator.
 
 During the above, it is expected that all people will be reasonable and be
 respectful of each other's efforts and viewpoints. In general, we expect to
-generate consensus among the community to resolve conflicts.
+generate consensus among the community to resolve conflicts.  
 
 ## Existing Projects
 
 Projects are referred to by their **subdomain**, and summaries of the
-current Projects are maintained on the Infrastructure
-wiki page: <https://github.com/ocaml/infrastructure/wiki>
+current Projects are maintained on the <s>Infrastructure
+wiki page: <https://github.com/ocaml/infrastructure/wiki></s>
 
 ****
 
@@ -268,10 +268,10 @@ of Maintainers in September 2015. You can look back at the
 [discussion](https://lists.ocaml.org/pipermail/infrastructure/2015-August/000518.html)
 or see the [related issue](https://github.com/ocaml/v2.ocaml.org/issues/700).
 
-***Version 1.0.1 — March 2022***
+***Version 1.0.2 — October 2022***
 <!--
 The version number should be changed for *any* edits that are made to this
-document, even typos. Otherwise disambiguating between versions is awkward.
+document, even typos. Otherwise disambiguating between versions is awkward. 
 
 Best wishes,
 Amir
@@ -280,7 +280,7 @@ Sep 2015
 ------
 
 Addressed consistency in title case and grammar. Changed to Version 1.0.1, as
-recommened by Amir, above.
+recommened by Amir, above. 
 
 Kindly,
 Christine
