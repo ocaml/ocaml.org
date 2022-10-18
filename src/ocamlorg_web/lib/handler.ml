@@ -224,15 +224,9 @@ let privacy_policy =
 let playground _req = Dream.html (Ocamlorg_frontend.playground ())
 
 let governance _req =
-  let working_groups =
-    List.filter
+  let working_groups, teams =
+    List.partition
       (fun (t : Ood.Governance.t) -> String.starts_with ~prefix:"wg-" t.id)
-      Ood.Governance.all
-  in
-  let teams =
-    List.filter
-      (fun (t : Ood.Governance.t) ->
-        not (String.starts_with ~prefix:"wg-" t.id))
       Ood.Governance.all
   in
   Dream.html (Ocamlorg_frontend.governance ~teams ~working_groups)
