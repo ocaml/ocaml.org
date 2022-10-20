@@ -7,7 +7,7 @@ meta_description: Read about the structure of the OCaml.org project, the roles i
 
 ## Overview and Scope
 
-As the OCaml community continues to grow, more collaborative work 
+As the OCaml community continues to grow, more collaborative work is being
 undertaken to support and extend the needs of the language and
 its users. This document focuses specifically on the
 OCaml.org *domain name* and the Projects that make use of that domain name.
