@@ -39,6 +39,12 @@ module Book = struct
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
+module Governance = struct
+  include Governance
+
+  let find_by_id id = List.find_opt (fun t -> t.id = id) all
+end
+
 module Job = struct
   include Job
 end

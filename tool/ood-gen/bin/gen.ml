@@ -4,6 +4,7 @@ let term_templates =
   [
     ("academic_institution", Ood_gen.Academic_institution.template);
     ("book", Ood_gen.Book.template);
+    ("governance", Ood_gen.Governance.template);
     ("job", Ood_gen.Job.template);
     ("meetup", Ood_gen.Meetup.template);
     ("news", Ood_gen.News.template);

@@ -1,0 +1,28 @@
+id: wg-multicore
+name: Multicore Working Group
+description: Help porting the OCaml ecosystem to Multicore (OCaml 5.0).
+
+contacts:
+  - name: Email
+    link: wg-multicore@lists.ocaml.org
+    icon: /icons/email.svg
+
+team:
+  - name: Sudha Parimala
+    github: Sudha247
+    role: Maintainer
+  - name: Bikal Gurung
+    github: bikallem
+    role: Maintainer
+  - name: Lucas Pluvinage
+    github: TheLortex
+    role: Maintainer
+  - name: Carine Morel
+    github: lyrm
+    role: Maintainer
+  - name: Christiano Haesbaert
+    github: haesbaert
+    role: Maintainer
+  - name: Thomas Leonard
+    github: talex5
+    role: Maintainer

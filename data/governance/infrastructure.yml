@@ -1,0 +1,46 @@
+id: infrastructure
+name: Infrastructure
+description: The infrastructure team is responsible to maintain and evolve the infrastructure powering the official OCaml projects, including the servers for OCaml.org and the opam-repository CI.
+
+contacts:
+  - name: Email
+    link: infrastructure@lists.ocaml.org
+    icon: /icons/email.svg
+  - name: GitHub
+    link: https://github.com/ocaml/infrastructure/issues
+    icon: /icons/github.svg
+
+team:
+  - name: Tim McGilchrist
+    github: tmcgilchrist
+    role: Team Lead
+  - name: Mark Elvers
+    github: mtelvers
+    role: Maintainer
+  - name: Navin Keswani
+    github: novemberkilo
+    role: Maintainer
+  - name: Patrick Ferris
+    github: patricoferris
+    role: Maintainer
+  - name: Antonin Décimo
+    github: MisterDA
+    role: Maintainer
+  - name: Thomas Leonard
+    github: talex5
+    role: Maintainer
+  - name: Étienne Marais
+    github: maiste
+    role: Maintainer
+
+alumni:
+  - name: Anil Madhavapeddy
+    github: avsm
+  - name: Craig Ferguson
+    github: CraigFe
+
+contributors:
+  - name: Lucas Pluvinage
+    github: TheLortex
+  - name: Jon Ludlam
+    github: jonludlam

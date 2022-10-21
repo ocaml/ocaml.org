@@ -1,0 +1,20 @@
+id: packaging
+name: Packaging
+description: The Packaging team is responsible to ensure the quality of the OCaml packages ecosystem, and in particular, to review submitions to the Opam repository.
+
+contacts:
+  - name: Email
+    link: packaging@lists.ocaml.org
+    icon: /icons/email.svg
+
+team:
+  - name: Kate
+    github: kit-ty-kate
+    role: Lead opam-repository maintainer
+  - name: Marcello Seri
+    github: mseri
+    role: opam-repository maintainer
+
+alumni: []
+
+contributors: []
