@@ -384,7 +384,7 @@ let packages_search t req =
          Ocamlorg_frontend.package) -> Int.compare (List.length x2.rev_deps)
          (List.length x1.rev_deps)) results in *)
       Dream.html (Ocamlorg_frontend.packages_search ~total ~search results)
-  | None -> Dream.redirect req Ocamlorg_frontend.Url.packages
+  | None -> Dream.redirect req "/packages"
 
 let package t req =
   let package = Dream.param req "name" in
@@ -396,8 +396,9 @@ let package t req =
   let version = find_default_version name in
   match version with
   | Some version ->
-      let version = Ocamlorg_package.Version.to_string version in
-      let target = Ocamlorg_frontend.Url.package_with_version package version in
+      let target =
+        "/p/" ^ package ^ "/" ^ Ocamlorg_package.Version.to_string version
+      in
       Dream.redirect req target
   | None -> not_found req
 
@@ -488,8 +489,8 @@ let package_doc t kind req =
       let root =
         let make =
           match kind with
-          | `Package -> Ocamlorg_frontend.Url.package_doc ~page:""
-          | `Universe u -> Ocamlorg_frontend.Url.package_doc_with_hash u ""
+          | `Package -> Fmt.str "/p/%s/%s/doc/"
+          | `Universe u -> Fmt.str "/u/%s/%s/%s/doc/" u
         in
         make
           (Ocamlorg_package.Name.to_string name)
@@ -511,7 +512,9 @@ let package_doc t kind req =
             |> List.map (function
                  | `Module s -> s
                  | `ModuleType s -> s
-                 | `FunctorArgument (_, s) -> s)
+                 | `FunctorArgument (_, s) -> s
+                 | `Class s -> s
+                 | `ClassType s -> s)
             |> String.concat "."
           in
           let title =
@@ -577,16 +580,38 @@ let package_doc t kind req =
                             toc_of_module ~root module')
                    in
                    Ocamlorg_frontend.Navmap.
-                     { title; href; kind = Page; children })
+                     { title; href; kind = Library; children })
           in
           let toc = toc_of_toc doc.toc in
           let* map = Ocamlorg_package.module_map ~kind package in
-          let maptoc = toc_of_map ~root map in
-          let* documentation_status =
-            Ocamlorg_package.documentation_status ~kind package
+          let (maptoc : Ocamlorg_frontend.Navmap.toc list) = toc_of_map ~root map in
+          let (path : Ocamlorg_frontend.Breadcrumbs.path_item list) =
+            if doc.module_path != [] then
+              let module_path_to_breadcrumb_path_item p = match p with
+                | `Module s -> Ocamlorg_frontend.Breadcrumbs.Module s
+                | `ModuleType s -> ModuleType s
+                | `FunctorArgument (i, s) -> FunctorArgument (i, s)
+                | `Class s -> Class s
+                | `ClassType s -> ClassType s
+              in
+              let first_path_item = List.hd doc.module_path in
+              let first_path_item_title = match first_path_item with
+                | `Module s
+                | `ModuleType s
+                | `FunctorArgument (_, s) -> s
+                | `Class s -> s
+                | `ClassType s -> s
+              in
+              let library_path_item = List.find (
+                fun (toc : Ocamlorg_frontend.Navmap.toc) ->
+                  List.exists (fun (t : Ocamlorg_frontend.Navmap.toc) ->
+                    t.title = first_path_item_title) toc.children) maptoc in
+              Library library_path_item.title :: List.map module_path_to_breadcrumb_path_item doc.module_path
+            else
+              []
           in
           let package_meta = package_meta t package in
           Dream.html
-            (Ocamlorg_frontend.package_documentation ~documentation_status
-               ~path:doc.module_path ~title ~toc ~maptoc ~content:doc.content
+            (Ocamlorg_frontend.package_documentation ~title
+               ~path ~toc ~maptoc ~content:doc.content
                package_meta))

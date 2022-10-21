@@ -70,7 +70,9 @@ module Documentation : sig
   type item =
     [ `Module of string
     | `ModuleType of string
-    | `FunctorArgument of int * string ]
+    | `FunctorArgument of int * string
+    | `Class of string
+    | `ClassType of string ]
 
   type t = { toc : toc list; module_path : item list; content : string }
 end

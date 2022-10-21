@@ -205,7 +205,9 @@ module Documentation = struct
   type item =
     [ `Module of string
     | `ModuleType of string
-    | `FunctorArgument of int * string ]
+    | `FunctorArgument of int * string
+    | `Class of string
+    | `ClassType of string ]
 
   type t = { toc : toc list; module_path : item list; content : string }
 
@@ -233,6 +235,8 @@ module Documentation = struct
       | [ "argument"; arg_number; arg_name ] -> (
           try Some (`FunctorArgument (int_of_string arg_number, arg_name))
           with Failure _ -> None)
+      | [ "class"; class_name ] -> Some (`Class class_name)
+      | [ "class"; "type"; class_name ] -> Some (`ClassType class_name)
       | _ -> None
     in
     String.split_on_char '/' s |> List.filter_map parse_item
@@ -340,6 +344,7 @@ let documentation_status ~kind t =
   match content with
   | Ok "\"Built\"" -> `Success
   | Ok "\"Failed\"" -> `Failure
+  | Error _ -> `Failure
   | _ -> `Unknown
 
 let module_map ~kind t =

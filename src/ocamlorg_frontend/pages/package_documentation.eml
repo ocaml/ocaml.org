@@ -1,62 +1,74 @@
+let sidebar
+~(path: Breadcrumbs.path_item list)
+~str_path
+~toc
+~maptoc
+(package : Package_intf.package)
+=
+  <div class="space-y-2 flex flex-col pt-6">
+    <div class="space-y-6 flex flex-col overflow-x:scroll">
+
+      <div class="">
+        <a title="Package <%s package.name %>" class="py-1 font-medium text-body-600 hover:text-orange-600 transition-colors" href="<%s Url.package_doc package.name package.version ~page:"index.html" %>">
+        <%s package.name %>
+        </a>
+        <% if List.length path > 1 then (%>
+          &bull;
+          <span title="Library <%s Breadcrumbs.path_item_name (List.hd path) %>"><%s Breadcrumbs.path_item_name (List.hd path) %></span>
+          <br>
+          <%s! Breadcrumbs.render_sidebar_breadcrumbs (List.tl path) %>
+        <% ); %>
+      </div>
+      <%s! if (toc != []) then Toc.render toc else "" %>
+
+      <div>
+      <a class="py-1 font-medium text-body-600 hover:text-orange-600 transition-colors" href="<%s Url.package_doc package.name package.version ~page:"index.html" %>">
+        package <%s package.name %>
+      </a>
+      <%s! Navmap.render ~path:str_path maptoc %>
+      </div>
+    </div>
+  </div>
+
 let render
-~documentation_status
 ~title
-~path
+~(path: Breadcrumbs.path_item list)
 ~toc
 ~maptoc
 ~content
 (package : Package_intf.package) =
 let str_path =
   List.map (function
-        | `Module s -> s
-        | `ModuleType s -> s
-        | `FunctorArgument (_, s) -> s) path
+        | Breadcrumbs.Module s -> s
+        | ModuleType s -> s
+        | FunctorArgument (number, s) -> Int.to_string number ^ "-" ^ s
+        | Class s -> s
+        | ClassType s -> s
+        | Library s -> s) path
 in
-let path_page = match str_path |> String.concat "/" with
-                | "" -> None
-                | path -> Some (path ^ if String.contains path '.' then "" else "/index.html") in
-Package_layout.render
-~documentation_status
+Docs_layout.render
 ~title
 ~description:(Printf.sprintf "%s %s: %s" package.name package.version package.description)
-~tab:Documentation
-~package
-~canonical:(Url.package_doc package.name package.version ?page:path_page)
-~styles:["/css/main.css"; "/css/doc.css"] @@
-<div x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024">
-  <button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
-    :class="sidebar ? 'pl-1 pr-2': ''" x-on:click="sidebar = ! sidebar">
-    <div class="transform transition-transform" :class='sidebar ? "" : "rotate-180" '>
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
-      </svg>
-    </div>
-  </button>
-
-  <div class="flex lg:space-x-14 flex-col lg:flex-row">
-    <div
-      class="p-10 z-10 w-full bg-white flex-shrink-0 flex-col fixed h-screen overflow-auto lg:flex left-0 top-0 lg:sticky lg:w-60 lg:p-0 font-normal text-body-400"
-      x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
-      x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
-      x-transition:leave-end="-translate-x-full">
-      <div class="space-y-2 flex flex-col">
-        <div class="text-sm font-semibold text-body-600 mb-6 py-2">IN THIS PACKAGE</div>
-        <%s! Navmap.render ~path:str_path maptoc %>
-      </div>
-    </div>
-    <div class="flex-1 overflow-hidden z-0 z- w-full lg:max-w-4xl mx-auto relative md:px-6 md:pl-12">
-      <%s! if (maptoc != []) && (List.length path != 0) then Breadcrumbs.render path else "" %>
-      <div class="odoc prose prose-orange">
-        <%s! content %>
-      </div>
-    </div>
-    <div class="hidden lg:flex top-0 sticky h-screen">
-      <div class="flex-col w-60">
-        <div class="h-screen overflow-scroll p-6 right-sidebar">
-          <div class="font-semibold text-black text-sm mb-4">ON THIS PAGE</div>
-          <%s! Toc.render toc %>
+~styles:["/css/main.css"; "/css/doc.css"]
+~logo_href:(Url.package_with_version package.name package.version)
+~header_html:((Docs_layout.package_overview_link ~package) ^ (Docs_layout.version_select ~package))
+~sidebar_html:(sidebar ~path ~str_path ~toc ~maptoc package) @@
+  <div class="pt-6">
+    <!-- this is where search will go
+      <input style="width:100%" class="mb-6 focus:ring-orange-500 focus:border-orange-500"
+        type="search" id="search_in_package" name="search_in_package"
+        placeholder="search in this package...">
+    -->
+    <% if (maptoc != []) && (List.length path > 1) then (%>
+        <div class="text-body-400">
+          <a title="Package <%s package.name %>" class="py-1 font-medium text-body-600 hover:text-orange-600 transition-colors" href="<%s Url.package_doc package.name package.version ~page:"index.html" %>">
+          <%s package.name %>
+          </a> &bull;
+          <span title="Library <%s Breadcrumbs.path_item_name (List.hd path) %>"><%s Breadcrumbs.path_item_name (List.hd path) %></span>
+          <%s! Breadcrumbs.render (List.tl path) %>
         </div>
-      </div>
+      <% ); %>
+    <div class="odoc prose prose-orange">
+      <%s! content %>
     </div>
   </div>
-</div>

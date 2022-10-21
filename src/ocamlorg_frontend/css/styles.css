@@ -112,6 +112,7 @@ h2.gradient {
 
 .prose a {
   @apply text-primary-600 no-underline;
+  font-weight: bold;
 }
 
 .prose a:hover {
@@ -186,6 +187,7 @@ summary::marker {
 .output-container {
     height: calc(100% - 60px);
 }
+
 .our-team {
   background: linear-gradient(270deg, #0B1528 0%, rgba(11, 21, 40, 0.958333) 53.65%, #0B1528 100%);
 }
@@ -196,3 +198,125 @@ summary::marker {
 }
 
 
+.navmap:hover ul {
+  border-color: gainsboro;
+}
+
+.no-expand, .icon-expand  {
+  white-space:nowrap;
+  display:flex;
+  flex-wrap: nowrap;
+}
+
+.icon-expand {
+  cursor: pointer;
+}
+
+span.icon-expand:not(.open) > .navmap-tag , span.no-expand > .navmap-tag {
+  background:white;
+}
+
+.navmap-tag {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width:2.1em;
+  min-width:2.1em;
+  margin:3px 0;
+  padding:2px 1px;
+  line-height:1;
+  margin-right:6px;
+  font-family: Inter, sans-serif;
+  border-width: 2px;
+  border-radius: 0.25em;
+  font-weight:bold;
+  font-size: .875rem;
+  box-sizing: border-box;
+}
+
+.navmap-tag.library-tag::after {
+  content: "lib";
+}
+.library-tag {
+  color: slategray;
+  background-color: slategray;
+  border-color: slategray;
+}
+.navmap-tag.module-tag::after {
+  content: "M";
+}
+.module-tag {
+  color: #f97316;
+  background-color: #f97316;
+  border-color: #f97316;
+}
+.navmap-tag.module-type-tag::after {
+  content: "Mt";
+}
+.module-type-tag{
+  color: rgb(218, 17, 17);
+  background-color: rgb(218, 17, 17);
+  border-color: rgb(218, 17, 17);
+}
+.navmap-tag.argument-tag::after {
+  content: "P";
+}
+.argument-tag{
+  color: green;
+  background-color: green;
+  border-color: green;
+}
+.navmap-tag.class-tag::after {
+  content: "C";
+}
+.class-tag{
+  color: rgb(24, 103, 194);
+  background-color: rgb(24, 103, 194);
+  border-color: rgb(24, 103, 194);
+}
+.navmap-tag.class-type-tag::after {
+  content: "Ct";
+}
+.class-type-tag{
+  color: rgb(77, 48, 204);
+  background-color: rgb(77, 48, 204);
+  border-color: rgb(77, 48, 204);
+}
+
+.breadcrumbs-tag {
+  padding:2px 6px;
+  line-height:1;
+  margin-right:6px;
+  font-family: Inter, sans-serif;
+  border-width: 2px;
+  border-radius: 0.25em;
+  font-weight:bold;
+  font-size: 1rem;
+  box-sizing: border-box;
+  color:white;
+  align-items: center;
+  display:flex;
+}
+
+span.no-expand > .navmap-tag {
+  margin-left: 12px;
+}
+
+span.icon-expand.open > .navmap-tag {
+  color:white;
+}
+
+span.icon-expand::before {
+  font-weight: bold;
+  content: " \25B8";
+  text-align: center;
+  box-sizing: border-box;
+  display:flex;
+  align-items: center;
+  padding-right:4px;
+}
+
+span.icon-expand.open::before {
+  content: " \25BE";
+}

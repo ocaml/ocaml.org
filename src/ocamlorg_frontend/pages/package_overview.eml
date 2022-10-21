@@ -66,6 +66,10 @@ Package_layout.render
             <br />
             <% ); %>
         </div>
+        <% (match documentation_status with
+           | `Success -> %>
+            <div class="mt-4"><a class="btn btn-sm" href="<%s Url.package_doc package.name package.version ~page:"index.html" %>">Documentation</a></div>
+        <% | _ -> ());%>
         <% (match package.tags with [] -> () | _ ->  %>
         <div class="mt-4">
             <div class="flex mt-5 flex-wrap">

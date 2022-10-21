@@ -1,0 +1,78 @@
+let version_select ~(package : Package_intf.package) =
+  <select id="version" name="version" onchange="location = this.value;" class="w-full lg:w-auto appearance-none text-body-600 border rounded-md py-1 pl-3 border-gray-200 pr-14 h-full">
+    <% package.versions |> List.iter begin fun item -> %>
+    <option value="/p/<%s package.name %>/<%s item %>/doc/index.html"<%s if item = package.version then "selected" else "" %>>
+      <%s item %>
+    </option>
+    <% end; %>
+  </select>
+
+let package_overview_link ~(package : Package_intf.package) =
+  <a class="" href="<%s Url.package_doc package.name package.version ~page:"index.html" %>">package <%s package.name %></a>
+
+let render ?description ?styles ~title ~logo_href ~header_html ~sidebar_html inner =
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <% (match description with | Some description -> %>
+    <meta name="description" content="<%s description %>" />
+    <% | None -> ()); %>
+    <meta name="twitter:title" content="<%s title %>" />
+    <% (match description with | Some description -> %>
+    <meta name="twitter:description" content="<%s description %>" />
+    <% | None -> ()); %>
+    <meta property="og:site_name" content="OCaml" />
+    <meta property="og:type" content="object" />
+    <meta property="og:title" content="<%s title %>" />
+    <% (match description with | Some description -> %>
+    <meta property="og:description" content="<%s description %>" />
+    <% | None -> ()); %>
+    <meta name="theme-color" content="#fff" />
+    <meta name="color-scheme" content="white" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="manifest" href="/manifest.json" />
+    <% (match styles with | Some styles -> styles |> List.iter (fun style -> %>
+    <link rel="stylesheet" href="<%s style %>" />
+    <% ) | None -> %>
+    <link rel="stylesheet" href="/css/main.css" />
+    <% ); %>
+    <link rel="stylesheet" href="/vendors/font-files/inter.css" />
+    <script defer src="/vendors/alpine.min.js"></script>
+    <title><%s title %></title>
+  </head>
+
+  <body class="light">
+    <%s! Docs_header.render ~logo_href ~inner_html:header_html %>
+
+    <main>
+      <div class="bg-white" x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024">
+        <button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
+          :class="sidebar ? 'pl-1 pr-2': ''" x-on:click="sidebar = ! sidebar">
+          <div class="transform transition-transform" :class='sidebar ? "" : "rotate-180" '>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+            </svg>
+          </div>
+        </button>
+
+        <div class="container-fluid wide">
+          <div class="flex lg:space-x-14 flex-col lg:flex-row">
+            <div
+              class="p-10 z-10 w-full bg-white flex-shrink-0 flex-col fixed h-screen overflow-auto lg:pr-4 lg:flex left-0 top-0 lg:sticky lg:w-80 lg:pt-12 lg:pb-0 lg:pr-0 lg:pl-0 font-normal text-body-400"
+              x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
+              x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
+              x-transition:leave-end="-translate-x-full">
+              <%s! sidebar_html %>
+            </div>
+            <div class="flex-1 pt-12 overflow-hidden z-0 z- w-full lg:max-w-4xl mx-auto relative md:px-6 md:pl-12 lg:pb-96">
+              <%s! inner %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <%s! Docs_footer.render () %>
+  </body>
+</html>

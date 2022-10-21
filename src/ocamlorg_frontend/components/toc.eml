@@ -9,19 +9,19 @@ type t = toc list
 let render (t : t) =
   <div>
     <% (match t with [] ->  %>
-    <span class="block py-2 text-gray-900">No table of content</span>
+    <span class="block py-2">No table of contents</span>
     <% | _ -> %>
-    <ul class="text-gray-700 text-sm leading-6">
+    <ul class="leading-6 space-y-1">
       <% t |> List.iter begin fun item -> %>
         <li>
-          <a href="<%s item.href %>" class="block py-1 font-medium text-gray-900 transition-colors duration-300">
+          <a href="<%s item.href %>" class="text-gray-700 block py-2 md:p-0 transition-colors hover:text-gray-900 font-medium">
             <%s! item.title %>
           </a>
             <% match item.children with [] -> () | items -> %>
-            <ul class="space-y-2">
+            <ul>
               <% items |> List.iter begin fun item -> %>
-              <li class="ml-4">
-                <a href="<%s item.href %>" class="block transition-colors duration-300">
+              <li>
+                <a href="<%s item.href %>" class="text-gray-700 py-1 md:p-0 font-light block transition-colors hover:text-gray-900">
                   <%s! item.title %>
                 </a>
               </li>
@@ -30,7 +30,7 @@ let render (t : t) =
             <% ; %>
           </li>
           <% end; %>
-        </ul>
+        </li>
     </ul>
     <% ); %>
   </div>

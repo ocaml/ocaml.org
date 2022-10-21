@@ -17,6 +17,11 @@
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
+  (targets docs_layout.ml)
+  (deps docs_layout.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
   (targets package_layout.ml)
   (deps package_layout.eml)
   (action
@@ -180,6 +185,16 @@
  (rule
   (targets header.ml)
   (deps header.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets docs_footer.ml)
+  (deps docs_footer.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets docs_header.ml)
+  (deps docs_header.eml)
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule

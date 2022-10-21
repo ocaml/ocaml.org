@@ -1,0 +1,82 @@
+let render ~logo_href ~inner_html =
+<header 
+  class="lg:fixed top-0 w-full z-50 bg-background-default h-12 flex items-center text-white dark:bg-[#171717]"
+  x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}"
+  @resize.window="sidebar = window.innerWidth > 1024">
+  <div class="container-fluid header wide flex justify-between items-center">
+    <div class="space-x-8 flex items-center">
+      <a href="<%s logo_href %>" class="block pb-2 pt-1">
+        <img src="/logo-with-name.svg" width="100" alt="OCaml logo" class="dark:hidden">
+        <img src="/logo-with-name-white.svg" width="100" alt="OCaml logo" class="hidden dark:inline">
+      </a>
+      <div class="space-x-8 hidden lg:flex items-center text-body-400 font-medium">
+        <%s! inner_html %>
+      </div>
+    </div>
+    <div class="flex items-center space-x-8">
+      <div class="relative hidden lg:flex">
+        <div class="left-0 h-full flex items-center absolute pointer-events-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 -mt-1 mr-2 w-5 relative top-0.5 text-body-400 dark:text-white"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+
+        <form action="/packages/search" method="GET">
+          <input type="search" id="q" name="q"
+            class="header__search dark:text-white"
+            placeholder="Search OCaml Packages">
+        </form>
+      </div>
+
+      <div
+        class="hamburger lg:hidden flex h-12 w-12 hover:bg-primary-100 flex items-center justify-center rounded-full"
+        x-on:click="open = ! open">
+        <dib class="text-body-400 dark:text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+          </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-black fixed w-full h-full left-0 top-0 opacity-60 z-40" x-show='open' x-cloak></div>
+
+  <div class="z-50 h-full fixed right-0 top-0 max-w-full w-96 bg-white shadow-lg" x-show="open" x-cloak
+    @click.away="open = false" x-transition:enter="transition duration-200 ease-out"
+    x-transition:enter-start="translate-x-full" x-transition:leave="transition duration-100 ease-in"
+    x-transition:leave-end="translate-x-full">
+    <ul class="text-body-400 p-6 space-y-6 font-semibold">
+      <li class="flex justify-between items-center">
+        <a href="<%s logo_href %>"><img width="132" src="/logo-with-name.svg" alt=""></a>
+
+        <div class="close lg:hidden h-12 w-12 hover:bg-primary-100 flex items-center justify-center rounded-full"
+          x-on:click="open = false">
+          <div class="text-body-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            </i>
+          </div>
+      </li>
+      <li>
+        <form action="/packages/search" method="GET" class="form-input form-input-sm">
+          <div class="form-input__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-body-400" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <input class="focus:ring-orange-500" type="search" id="q" name="q" placeholder="Search OCaml packages">
+        </form>
+      </li>
+
+      <%s! inner_html %>
+    </ul>
+  </div>
+</header>
