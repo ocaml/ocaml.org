@@ -61,18 +61,18 @@ let package_route t =
       Dream.get Url.packages_search (Handler.packages_search t);
       Dream.get (Url.package ":name") (Handler.package t);
       Dream.get (Url.package_docs ":name") (Handler.package_docs t);
-      Dream.get (Url.package_with_univ ":hash" ":name") (Handler.package t);
+      Dream.get (Url.package ~hash:":hash" ":name") (Handler.package t);
       Dream.get
         (Url.package_with_version ":name" ":version")
         ((Handler.package_versioned t) Handler.Package);
       Dream.get
-        (Url.package_with_hash_with_version ":hash" ":name" ":version")
+        (Url.package_with_version ~hash:":hash" ":name" ":version")
         ((Handler.package_versioned t) Handler.Universe);
       Dream.get
         (Url.package_doc ":name" ":version" ~page:"**")
         ((Handler.package_doc t) Handler.Package);
       Dream.get
-        (Url.package_doc_with_hash ":hash" "**" ":name" ":version")
+        (Url.package_doc ~hash:":hash" ~page:"**" ":name" ":version")
         ((Handler.package_doc t) Handler.Universe);
     ]
 

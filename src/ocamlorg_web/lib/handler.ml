@@ -469,8 +469,8 @@ let package_doc t kind req =
       let root =
         let make =
           match kind with
-          | `Package -> Ocamlorg_frontend.Url.package_doc ~page:""
-          | `Universe u -> Ocamlorg_frontend.Url.package_doc_with_hash u ""
+          | `Package -> Ocamlorg_frontend.Url.package_doc ?hash:None ~page:""
+          | `Universe u -> Ocamlorg_frontend.Url.package_doc ~hash:u ~page:""
         in
         make
           (Ocamlorg_package.Name.to_string name)
