@@ -469,7 +469,7 @@ let package_doc t kind req =
       let root =
         let make =
           match kind with
-          | `Package -> Ocamlorg_frontend.Url.package_doc ~page:""
+          | `Package -> Ocamlorg_frontend.Url.package_doc ?hash:None ~page:""
           | `Universe u -> Ocamlorg_frontend.Url.package_doc ~hash:u ~page:""
         in
         make
