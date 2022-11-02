@@ -42,7 +42,6 @@ module String = struct
           let right_start = !i + sep_max + 1 in
           Some
             (sub s 0 (left_end + 1), sub s right_start (s_max - right_start + 1))
-
 end
 
 module Glob = struct
