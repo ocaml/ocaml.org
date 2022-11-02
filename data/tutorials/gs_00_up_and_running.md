@@ -392,10 +392,10 @@ Moreover, since different versions of OCamlformat will vary in formatting, it
 is good practice to enforce the one you are using. Doing:
 
 ```shell
-$ echo "version = 0.23.0" > .ocamlformat
+$ echo "version = `ocamlformat --version`" > .ocamlformat
 ```
 
-This will enforce that only OCamlformat version 0.23.0 can format the files of the project.
+This will enforce that only the OCamlformat version you have installed can format the files of the project.
 Note that a `.ocamlformat` file is _needed_, but an empty file is accepted.
 
 In addition to the editor, Dune is also able to drive OCamlformat. Running
