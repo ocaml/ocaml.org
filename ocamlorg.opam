@@ -22,6 +22,7 @@ depends: [
   "dune" {>= "2.8"}
   "cohttp"
   "cohttp-lwt-unix"
+  "bag"
   "bos"
   "crunch"
   "mirage-kv-mem"

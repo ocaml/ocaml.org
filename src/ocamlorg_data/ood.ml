@@ -42,6 +42,35 @@ end
 module Governance = struct
   include Governance
 
+  let team_of_repo repo =
+    let contributors =
+      let module StrBag = Bag.Make(String) in
+      repo.Github.pull_requests
+      |> List.fold_left (fun bag login -> StrBag.add login bag) StrBag.empty
+      |> StrBag.elements
+      |> List.sort (fun (_, x) (_, y) -> compare y x)
+      |> List.map (fun (name, _) -> { name; github = name; role = ""}) in
+    {
+      id = "web";
+      name = repo.name;
+      description = repo.description;
+      contacts = [];
+      alumni = [];
+      contributors = [];
+      team = contributors
+    }
+
+  let all =
+    Logs.set_reporter (Logs.format_reporter ());
+    all
+    |> List.filter (fun t -> t.id <> "web")
+    |> Lwt_main.run @@
+      let open Lwt.Syntax in
+      let token = Github.read_token ".github/token" in
+      let+ repo = Github.request_repo token "ocaml.org" in match repo with
+      | Ok repo -> List.cons (team_of_repo repo)
+      | Error (`Msg message) -> Logs.err (fun m -> m "%s" message); Fun.id
+
   let find_by_id id = List.find_opt (fun t -> t.id = id) all
 end
 

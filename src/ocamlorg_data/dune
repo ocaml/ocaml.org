@@ -1,6 +1,7 @@
 (library
  (name ood)
- (public_name ocamlorg.data))
+ (public_name ocamlorg.data)
+ (libraries bag cohttp cohttp-lwt-unix logs lwt yojson))
 
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)

@@ -35,6 +35,7 @@
   dune
   cohttp
   cohttp-lwt-unix
+  bag
   bos
   crunch
   mirage-kv-mem
