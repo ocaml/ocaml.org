@@ -42,10 +42,10 @@ end
 module Governance = struct
   include Governance
 
-  let team_of_repo repo =
+  let team_of_repo (repo : Github.Repo.t) =
     let contributors =
       let module StrBag = Bag.Make(String) in
-      repo.Github.pull_requests
+      repo.pull_requests
       |> List.fold_left (fun bag login -> StrBag.add login bag) StrBag.empty
       |> StrBag.elements
       |> List.sort (fun (_, x) (_, y) -> compare y x)
@@ -67,7 +67,7 @@ module Governance = struct
     |> Lwt_main.run @@
       let open Lwt.Syntax in
       let token = Github.read_token ".github/token" in
-      let+ repo = Github.request_repo token "ocaml.org" in match repo with
+      let+ repo = Github.Repo.request token "ocaml.org" in match repo with
       | Ok repo -> List.cons (team_of_repo repo)
       | Error (`Msg message) -> Logs.err (fun m -> m "%s" message); Fun.id
 
