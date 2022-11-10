@@ -224,12 +224,9 @@ let privacy_policy =
 let playground _req = Dream.html (Ocamlorg_frontend.playground ())
 
 let governance _req =
-  let working_groups, teams =
-    List.partition
-      (fun (t : Ood.Governance.t) -> String.starts_with ~prefix:"wg-" t.id)
-      Ood.Governance.all
-  in
-  Dream.html (Ocamlorg_frontend.governance ~teams ~working_groups)
+  Dream.html
+    (Ocamlorg_frontend.governance ~teams:Ood.Governance.teams
+       ~working_groups:Ood.Governance.working_groups)
 
 let governance_team req =
   let id = Dream.param req "id" in
@@ -578,10 +575,13 @@ let package_doc t kind req =
           in
           let toc = toc_of_toc doc.toc in
           let* map = Ocamlorg_package.module_map ~kind package in
-          let (maptoc : Ocamlorg_frontend.Navmap.toc list) = toc_of_map ~root map in
+          let (maptoc : Ocamlorg_frontend.Navmap.toc list) =
+            toc_of_map ~root map
+          in
           let (path : Ocamlorg_frontend.Breadcrumbs.path_item list) =
             if doc.module_path != [] then
-              let module_path_to_breadcrumb_path_item p = match p with
+              let module_path_to_breadcrumb_path_item p =
+                match p with
                 | `Module s -> Ocamlorg_frontend.Breadcrumbs.Module s
                 | `ModuleType s -> ModuleType s
                 | `FunctorArgument (i, s) -> FunctorArgument (i, s)
@@ -589,23 +589,26 @@ let package_doc t kind req =
                 | `ClassType s -> ClassType s
               in
               let first_path_item = List.hd doc.module_path in
-              let first_path_item_title = match first_path_item with
-                | `Module s
-                | `ModuleType s
-                | `FunctorArgument (_, s) -> s
+              let first_path_item_title =
+                match first_path_item with
+                | `Module s | `ModuleType s | `FunctorArgument (_, s) -> s
                 | `Class s -> s
                 | `ClassType s -> s
               in
-              let library_path_item = List.find (
-                fun (toc : Ocamlorg_frontend.Navmap.toc) ->
-                  List.exists (fun (t : Ocamlorg_frontend.Navmap.toc) ->
-                    t.title = first_path_item_title) toc.children) maptoc in
-              Library library_path_item.title :: List.map module_path_to_breadcrumb_path_item doc.module_path
-            else
-              []
+              let library_path_item =
+                List.find
+                  (fun (toc : Ocamlorg_frontend.Navmap.toc) ->
+                    List.exists
+                      (fun (t : Ocamlorg_frontend.Navmap.toc) ->
+                        t.title = first_path_item_title)
+                      toc.children)
+                  maptoc
+              in
+              Library library_path_item.title
+              :: List.map module_path_to_breadcrumb_path_item doc.module_path
+            else []
           in
           let package_meta = package_meta t package in
           Dream.html
-            (Ocamlorg_frontend.package_documentation ~title
-               ~path ~toc ~maptoc ~content:doc.content
-               package_meta))
+            (Ocamlorg_frontend.package_documentation ~title ~path ~toc ~maptoc
+               ~content:doc.content package_meta))

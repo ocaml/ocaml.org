@@ -1,0 +1,125 @@
+teams:
+- id: compiler
+  name: Compiler
+  description: The OCaml Compiler team, responsible for the development and maintenance
+    of the language, the standard library and the compiler tools.
+  contacts:
+  - name: Email
+    link: https://inbox.ocaml.org/caml-list/
+    icon: /icons/email.svg
+  - name: Discord
+    link: https://discord.com/channels/436568060288172042/904141760052228116
+    icon: /icons/discord.svg
+  - name: GitHub
+    link: https://github.com/ocaml/ocaml/issues
+    icon: /icons/github.svg
+  teams:
+  - name: OCaml Dev
+    github: ocaml-dev
+    members: []
+- id: infrastructure
+  name: Infrastructure
+  description: The infrastructure team is responsible to maintain and evolve the infrastructure
+    powering the official OCaml projects, including the servers for OCaml.org and
+    the opam-repository CI.
+  contacts:
+  - name: Email
+    link: infrastructure@lists.ocaml.org
+    icon: /icons/email.svg
+  - name: GitHub
+    link: https://github.com/ocaml/infrastructure/issues
+    icon: /icons/github.svg
+  teams:
+  - name: Infrastructure
+    github: infrastructure
+    members: []
+- id: moderation
+  name: Moderation
+  description: The moderation team is responsible for the moderation of the official
+    OCaml forums and social platforms, such Discuss, Discord, or the mailing lists.
+  contacts:
+  - name: Email
+    link: moderation@lists.ocaml.org
+    icon: /icons/email.svg
+  teams:
+  - name: Moderation
+    github:
+    members:
+    - name: Thomas Leonard
+      github: talex5
+      role: Discuss Moderator
+    - name: Yotam Barnoy
+      github: Bluddy
+      role: Discord Moderator
+    - name: Gabriel Radanne
+      github: Drup
+      role: Discord Moderator
+    - name: Florian Angeletti
+      github: octachron
+      role: Discord Moderator
+- id: packaging
+  name: Packaging
+  description: The Packaging team is responsible to ensure the quality of the OCaml
+    packages ecosystem, and in particular, to review submitions to the Opam repository.
+  contacts:
+  - name: Email
+    link: packaging@lists.ocaml.org
+    icon: /icons/email.svg
+  teams:
+  - name: Packaging
+    github: opam-packaging
+    members: []
+- id: platform
+  name: Platform
+  description: The Platform team is responsible for the development and maintenance
+    of the OCaml Platform, the official OCaml developer toolchain.
+  contacts:
+  - name: Email
+    link: platform@lists.ocaml.org
+    icon: /icons/email.svg
+  teams:
+  - name: Dune
+    github: dune-dev
+    members: []
+  - name: Merlin
+    github: merlin-dev
+    members: []
+  - name: Odoc
+    github: odoc-dev
+    members: []
+- id: web
+  name: Web
+  description: The Web team is responsible for the development and maintenance of
+    the officla OCaml websites, in particular OCaml.org and its subdomains.
+  contacts:
+  - name: Email
+    link: web@lists.ocaml.org
+    icon: /icons/email.svg
+  teams:
+  - name: OCaml.org
+    github: v3.ocaml.org
+    members: []
+  - name: OCaml.org (V2)
+    github: v2.ocaml.org-dev
+    members: []
+working-groups:
+- id: wg-metaprogramming
+  name: Meta-programming Working Group
+  description: Work on tools and libraries to do meta-programming with OCaml.
+  contacts:
+  - name: Email
+    link: wg-metaprogramming@lists.ocaml.org
+    icon: /icons/email.svg
+  teams:
+  - name: Ppxlib
+    github:
+    members:
+    - name: Sonja Heinze
+      github: pitag-ha
+      role: Lead ppxlib maintainer
+    - name: Carl Eastlund
+      github: ceastlund
+      role: ppxlib maintainer
+    - name: "Paul-Elliot Angl\xE8s d'Auriac"
+      github: panglesd
+      role: ppxlib maintainer

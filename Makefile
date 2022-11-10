@@ -59,17 +59,5 @@ utop: ## Run a REPL and link with the project's libraries
 .PHONY: scrape
 scrape: ## Generate the po files
 	opam exec -- dune exec --root . tool/ood-gen/bin/scrape.exe rss
+	opam exec -- dune exec --root . tool/ood-gen/bin/scrape.exe governance
 	opam exec -- dune exec --root . tool/ood-gen/bin/watch_scrape.exe
-
-headers: .github/token
-	echo "Accept: application/vnd.github+json" > headers
-	echo -n "Authorization: Bearer " >> headers
-	cat .github/token >> headers
-
-.PHONY: graphql
-graphql: headers teams.graphql
-	sed 's/ \+/ /g' data/teams.graphql \
-	| tr -d '\n' \
-	| jq -R '{ "query" : . }' \
-	| curl -s -H @headers https://api.github.com/graphql --data-binary @- \
-	| jq '.data'

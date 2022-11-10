@@ -64,20 +64,19 @@ end
 
 module Governance : sig
   type member = { name : string; github : string; role : string }
-  type contributor = { name : string; github : string }
   type contact = { name : string; link : string; icon : string }
+  type team = { name : string; github : string option; members : member list }
 
   type t = {
     id : string;
     name : string;
     description : string;
     contacts : contact list;
-    team : member list;
-    alumni : contributor list;
-    contributors : contributor list;
+    teams : team list;
   }
 
-  val all : t list
+  val teams : t list
+  val working_groups : t list
   val find_by_id : string -> t option
 end
 

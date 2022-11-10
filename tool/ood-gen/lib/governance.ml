@@ -1,115 +1,140 @@
 type member = { name : string; github : string; role : string }
 [@@deriving yaml]
 
-type contributor = { name : string; github : string } [@@deriving yaml]
 type contact = { name : string; link : string; icon : string } [@@deriving yaml]
+
+type subteam = {
+  name : string;
+  github : string option; [@default None]
+  members : member list; [@default []]
+}
+[@@deriving yaml]
 
 type team = {
   id : string;
   name : string;
   description : string;
   contacts : contact list;
-  team : member list;
-  alumni : contributor list option;
-  contributors : contributor list option;
+  subteams : subteam list; [@key "teams"]
 }
 [@@deriving yaml]
 
-type wg = {
-  id : string;
-  name : string;
-  description : string;
-  contacts : contact list;
-  team : member list;
+type t = {
+  teams : team list;
+  working_groups : team list; [@key "working-groups"]
 }
 [@@deriving yaml]
 
-let all_teams () =
-  Utils.map_files
-    (fun content ->
-      content |> Yaml.of_string_exn |> team_of_yaml |> function
-      | Ok x -> x
-      | Error (`Msg err) -> raise (Failure err))
-    "governance/"
+let graphql_request =
+  {|
+{
+  organization(login: "ocaml") {
+    id
+    name
+    description
+    membersWithRole(last: 100) {
+      totalCount
+      pageInfo { hasPreviousPage startCursor }
+      edges {
+        role
+        node { id login name }
+      }
+    }
+    teams(last: 100) {
+      totalCount
+      pageInfo { hasPreviousPage startCursor }
+      nodes {
+        id
+        name
+        slug
+        description
+        parentTeam { id }
+        members {
+          totalCount
+          pageInfo { hasPreviousPage startCursor }
+          edges {
+            role
+            node { id login name }
+          }
+        }
+      }
+    }
+  }
+}
+|}
+
+let all () =
+  let s = Data.read "governance.yml" |> Option.get in
+  let yaml = Utils.decode_or_raise Yaml.of_string s in
+  Utils.decode_or_raise of_yaml yaml
+
+let scrape () =
+  let t = all () in
+  let yaml = Yaml.to_string ~encoding:`Utf8 (to_yaml t) |> Result.get_ok in
+  Import.Sys.write_file "data/governance.yml" yaml
 
 let pp_contact ppf (v : contact) =
-  Fmt.pf ppf
-    {|
-          { name = %a
-          ; link = %a
-          ; icon = %a
-          }|}
-    Pp.string v.name Pp.string v.link Pp.string v.icon
+  Fmt.pf ppf {|
+{ name = %a
+; link = %a
+; icon = %a
+}|} Pp.string v.name
+    Pp.string v.link Pp.string v.icon
 
 let pp_member ppf (v : member) =
-  Fmt.pf ppf
-    {|
-          { name = %a
-          ; github = %a
-          ; role = %a
-          }|}
-    Pp.string v.name Pp.string v.github Pp.string v.role
+  Fmt.pf ppf {|
+{ name = %a
+; github = %a
+; role = %a
+}|} Pp.string v.name
+    Pp.string v.github Pp.string v.role
 
-let pp_contributor ppf (v : contributor) =
-  Fmt.pf ppf
-    {|
-          { name = %a
-          ; github = %a
-          }|}
-    Pp.string v.name Pp.string v.github
+let pp_subteam ppf (v : subteam) =
+  Fmt.pf ppf {|
+{ name = %a
+; github = %a
+; members = %a
+}|} Pp.string v.name
+    (Pp.option Pp.string) v.github (Pp.list pp_member) v.members
 
 let pp_team ppf (v : team) =
   Fmt.pf ppf
     {|
-  { id = %a
-  ; name = %a
-  ; description = %a
-  ; contacts = %a
-  ; team = %a
-  ; alumni = %a
-  ; contributors = %a
-  }|}
+{ id = %a
+; name = %a
+; description = %a
+; contacts = %a
+; teams = %a
+}|}
     Pp.string v.id Pp.string v.name Pp.string v.description (Pp.list pp_contact)
-    v.contacts (Pp.list pp_member) v.team (Pp.list pp_contributor)
-    (Option.value ~default:[] v.alumni)
-    (Pp.list pp_contributor)
-    (Option.value ~default:[] v.contributors)
+    v.contacts (Pp.list pp_subteam) v.subteams
 
 let pp_team_list = Pp.list pp_team
 
-let pp_wg ppf (v : wg) =
-  Fmt.pf ppf
-    {|
-  { id = %a
-  ; name = %a
-  ; description = %a
-  ; contacts = %a
-  ; team = %a
-  }|}
-    Pp.string v.id Pp.string v.name Pp.string v.description (Pp.list pp_contact)
-    v.contacts (Pp.list pp_member) v.team
-
-let pp_wg_list = Pp.list pp_wg
-
 let template () =
+  let t = all () in
   Format.asprintf
     {|
 type member = { name : string; github : string; role : string }
 
-type contributor = { name : string; github : string }
-
 type contact = { name : string; link : string; icon : string }
+
+type team = {
+  name : string;
+  github : string option;
+  members : member list;
+}
 
 type t = {
   id : string;
   name : string;
   description : string;
   contacts : contact list;
-  team : member list;
-  alumni : contributor list;
-  contributors : contributor list;
+  teams : team list;
 }
 
-let all = %a
+let teams = %a
+
+let working_groups = %a
 |}
-    pp_team_list (all_teams ())
+    pp_team_list t.teams pp_team_list t.working_groups
