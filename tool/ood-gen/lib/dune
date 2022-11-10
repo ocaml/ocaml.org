@@ -13,7 +13,8 @@
   lambdasoup
   fpath
   hilite
-  yojson)
+  yojson
+  xdg)
  (preprocess
   (pps ppx_deriving_yaml)))
 

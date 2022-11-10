@@ -97,4 +97,5 @@
   (cmdliner
    (>= 1.1.0))
   xmlm
-  uri))
+  uri
+  xdg))

@@ -16,7 +16,76 @@ teams:
   teams:
   - name: OCaml Dev
     github: ocaml-dev
-    members: []
+    members:
+    - name: Damien Doligez
+      github: damiendoligez
+      role: Team Lead
+    - name: Xavier Leroy
+      github: xavierleroy
+      role: Team Lead
+    - name: Alain Frisch
+      github: alainfrisch
+      role: Maintainer
+    - name: "Arma\xEBl Gu\xE9neau"
+      github: Armael
+      role: Maintainer
+    - name: David Allsopp
+      github: dra27
+      role: Maintainer
+    - name: Enguerrand
+      github: Engil
+      role: Maintainer
+    - name: Florian Angeletti
+      github: Octachron
+      role: Maintainer
+    - name: "Fr\xE9d\xE9ric Bour"
+      github: let-def
+      role: Maintainer
+    - name: Gabriel Scherer
+      github: gasche
+      role: Maintainer
+    - name: Jacques Garrigue
+      github: garrigue
+      role: Maintainer
+    - name: Jacques-Henri Jourdan
+      github: jhjourdan
+      role: Maintainer
+    - name: Jeremy Yallop
+      github: yallop
+      role: Maintainer
+    - name: KC Sivaramakrishnan
+      github: kayceesrk
+      role: Maintainer
+    - name: Leo White
+      github: lpw25
+      role: Maintainer
+    - name: Luc Maranget
+      github: maranget
+      role: Maintainer
+    - name: Mark Shinwell
+      github: mshinwell
+      role: Maintainer
+    - name: "Nicol\xE1s Ojeda B\xE4r"
+      github: nojb
+      role: Maintainer
+    - name: Pierre Chambart
+      github: chambart
+      role: Maintainer
+    - name: Sadiq Jaffer
+      github: sadiqj
+      role: Maintainer
+    - name: Stephen Dolan
+      github: stedolan
+      role: Maintainer
+    - name: "S\xE9bastien Hinderer"
+      github: shindere
+      role: Maintainer
+    - name: Thomas Refis
+      github: trefis
+      role: Maintainer
+    - name: Vincent Laviron
+      github: lthls
+      role: Maintainer
 - id: infrastructure
   name: Infrastructure
   description: The infrastructure team is responsible to maintain and evolve the infrastructure
@@ -32,7 +101,22 @@ teams:
   teams:
   - name: Infrastructure
     github: infrastructure
-    members: []
+    members:
+    - name: Anil Madhavapeddy
+      github: avsm
+      role: Team Lead
+    - name: David Allsopp
+      github: dra27
+      role: Maintainer
+    - name: Kate
+      github: kit-ty-kate
+      role: Maintainer
+    - name: Louis Gesbert
+      github: AltGr
+      role: Maintainer
+    - name: Thomas Gazagnaire
+      github: samoht
+      role: Maintainer
 - id: moderation
   name: Moderation
   description: The moderation team is responsible for the moderation of the official
@@ -68,7 +152,22 @@ teams:
   teams:
   - name: Packaging
     github: opam-packaging
-    members: []
+    members:
+    - name: Anil Madhavapeddy
+      github: avsm
+      role: Team Lead
+    - name: "Daniel B\xFCnzli"
+      github: dbuenzli
+      role: Maintainer
+    - name: David Allsopp
+      github: dra27
+      role: Maintainer
+    - name: Louis Gesbert
+      github: AltGr
+      role: Maintainer
+    - name: Thomas Gazagnaire
+      github: samoht
+      role: Maintainer
 - id: platform
   name: Platform
   description: The Platform team is responsible for the development and maintenance
@@ -80,13 +179,58 @@ teams:
   teams:
   - name: Dune
     github: dune-dev
-    members: []
+    members:
+    - name: Anil Madhavapeddy
+      github: avsm
+      role: Team Lead
+    - name: David Allsopp
+      github: dra27
+      role: Maintainer
+    - name: Rudi Grinberg
+      github: rgrinberg
+      role: Maintainer
+    - name: gerdstolpmann
+      github: gerdstolpmann
+      role: Maintainer
   - name: Merlin
     github: merlin-dev
-    members: []
+    members:
+    - name: Anil Madhavapeddy
+      github: avsm
+      role: Team Lead
+    - name: "Fr\xE9d\xE9ric Bour"
+      github: let-def
+      role: Maintainer
+    - name: Gemma Gordon
+      github: GemmaG
+      role: Maintainer
+    - name: Thomas Refis
+      github: trefis
+      role: Maintainer
   - name: Odoc
     github: odoc-dev
-    members: []
+    members:
+    - name: Anil Madhavapeddy
+      github: avsm
+      role: Team Lead
+    - name: Anton Bachin
+      github: aantron
+      role: Maintainer
+    - name: "Daniel B\xFCnzli"
+      github: dbuenzli
+      role: Maintainer
+    - name: Jon Ludlam
+      github: jonludlam
+      role: Maintainer
+    - name: Leo White
+      github: lpw25
+      role: Maintainer
+    - name: Patrick Ecker
+      github: ryyppy
+      role: Maintainer
+    - name: Thomas Refis
+      github: trefis
+      role: Maintainer
 - id: web
   name: Web
   description: The Web team is responsible for the development and maintenance of
@@ -98,10 +242,79 @@ teams:
   teams:
   - name: OCaml.org
     github: v3.ocaml.org
-    members: []
+    members:
+    - name: Anil Madhavapeddy
+      github: avsm
+      role: Team Lead
+    - name: Ashish Agarwal
+      github: agarwal
+      role: Maintainer
+    - name: Gemma Gordon
+      github: GemmaG
+      role: Maintainer
+    - name: ILeandersson
+      github: ILeandersson
+      role: Maintainer
+    - name: Jon Ludlam
+      github: jonludlam
+      role: Maintainer
+    - name: Lucas Pluvinage
+      github: TheLortex
+      role: Maintainer
+    - name: Patrick Ferris
+      github: patricoferris
+      role: Maintainer
+    - name: Richard Davison
+      github: rdavison
+      role: Maintainer
+    - name: Sonja Heinze
+      github: pitag-ha
+      role: Maintainer
+    - name: Thibaut Mattio
+      github: tmattio
+      role: Maintainer
   - name: OCaml.org (V2)
     github: v2.ocaml.org-dev
-    members: []
+    members:
+    - name: Ashish Agarwal
+      github: agarwal
+      role: Maintainer
+    - name: Bactrian the Double Humped Camel Bot
+      github: bactrian
+      role: Maintainer
+    - name: Christophe Troestler
+      github: Chris00
+      role: Maintainer
+    - name: Florian Angeletti
+      github: Octachron
+      role: Maintainer
+    - name: "Fr\xE9d\xE9ric Bour"
+      github: let-def
+      role: Maintainer
+    - name: Ivan Gotovchits
+      github: ivg
+      role: Maintainer
+    - name: Jon Ludlam
+      github: jonludlam
+      role: Maintainer
+    - name: Leo White
+      github: lpw25
+      role: Maintainer
+    - name: Louis Gesbert
+      github: AltGr
+      role: Maintainer
+    - name: Patrick Ferris
+      github: patricoferris
+      role: Maintainer
+    - name: Philippe Wang
+      github: pw374
+      role: Maintainer
+    - name: Thibaut Mattio
+      github: tmattio
+      role: Maintainer
+    - name: Thomas Gazagnaire
+      github: samoht
+      role: Maintainer
 working-groups:
 - id: wg-metaprogramming
   name: Meta-programming Working Group
