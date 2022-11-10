@@ -1,0 +1,34 @@
+{
+  organization(login: "ocaml") {
+    id
+    name
+    description
+    membersWithRole(last: 100) {
+      totalCount
+      pageInfo { hasPreviousPage startCursor }
+      edges {
+        role
+        node { id login name }
+      }
+    }
+    teams(last: 100) {
+      totalCount
+      pageInfo { hasPreviousPage startCursor }
+      nodes {
+        id
+        name
+        slug
+        description
+        parentTeam { id }
+        members {
+          totalCount
+          pageInfo { hasPreviousPage startCursor }
+          edges {
+            role
+            node { id login name }
+          }
+        }
+      }
+    }
+  }
+}

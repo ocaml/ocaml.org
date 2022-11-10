@@ -42,34 +42,32 @@ end
 module Governance = struct
   include Governance
 
-  let team_of_repo (repo : Github.Repo.t) =
-    let contributors =
-      let module StrBag = Bag.Make(String) in
-      repo.pull_requests
-      |> List.fold_left (fun bag login -> StrBag.add login bag) StrBag.empty
-      |> StrBag.elements
-      |> List.sort (fun (_, x) (_, y) -> compare y x)
-      |> List.map (fun (name, _) -> { name; github = name; role = ""}) in
-    {
-      id = "web";
-      name = repo.name;
-      description = repo.description;
+  let teams_of_org (org: Github.organization) =
+    let member (m: Github.member) : member = {
+      name = Option.fold ~none:"" ~some:Fun.id m.name;
+      github = m.login;
+      role = m.role
+    } in
+    let team name description members = {
+      id = name;
+      name = name;
+      description = Option.fold ~none:"" ~some:Fun.id description;
       contacts = [];
+      team = List.map member members;
       alumni = [];
-      contributors = [];
-      team = contributors
-    }
+      contributors = []
+    } in
+    team org.name org.description org.members
+    :: List.map (fun (t: Github.team) -> team t.name t.description t.members) org.teams
 
   let all =
-    Logs.set_reporter (Logs.format_reporter ());
-    all
-    |> List.filter (fun t -> t.id <> "web")
-    |> Lwt_main.run @@
-      let open Lwt.Syntax in
-      let token = Github.read_token ".github/token" in
-      let+ repo = Github.Repo.request token "ocaml.org" in match repo with
-      | Ok repo -> List.cons (team_of_repo repo)
-      | Error (`Msg message) -> Logs.err (fun m -> m "%s" message); Fun.id
+    let open Lwt.Syntax in
+    let token = Github.read ".github/token" in
+    let graphql = Github.read "data/teams.graphql" in
+    Lwt_main.run @@
+      let+ org = Github.request token graphql in match org with
+      | Ok org -> teams_of_org org
+      | Error (`Msg message) -> (prerr_endline message; [])
 
   let find_by_id id = List.find_opt (fun t -> t.id = id) all
 end
