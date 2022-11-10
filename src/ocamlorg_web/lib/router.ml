@@ -46,6 +46,7 @@ let page_routes =
       Dream.get Url.carbon_footprint Handler.carbon_footprint;
       Dream.get Url.privacy_policy Handler.privacy_policy;
       Dream.get Url.governance Handler.governance;
+      Dream.get Url.governance_policy Handler.governance_policy;
       Dream.get (Url.governance_team ":id") Handler.governance_team;
       Dream.get Url.papers Handler.papers;
       Dream.get Url.best_practices Handler.best_practices;

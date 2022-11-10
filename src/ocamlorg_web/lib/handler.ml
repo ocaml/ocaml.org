@@ -221,6 +221,9 @@ let carbon_footprint =
 let privacy_policy =
   page Ood.Page.privacy_policy Ocamlorg_frontend.Url.privacy_policy
 
+let governance_policy =
+  page Ood.Page.governance Ocamlorg_frontend.Url.governance_policy
+
 let playground _req = Dream.html (Ocamlorg_frontend.playground ())
 
 let governance _req =

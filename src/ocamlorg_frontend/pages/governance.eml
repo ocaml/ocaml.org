@@ -12,17 +12,8 @@ and what makes it unique." @@
           <div class="text-2xl text-body-400 pb-10">The projects running under OCaml and the awesome teams
             behind it
           </div>
+          <a href="<%s Url.governance_policy %>"><button class="btn btn-lg mb-4 lg:mb-0">Read the Governance Policy</button></a>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="bg-white">
-  <div class="py-10 lg:py-28">
-    <div class="container-fluid">
-      <div class="prose prose-orange lg:prose-lg mx-auto max-w-5xl">
-        <%s! Ood.Page.governance.body_html %>
       </div>
     </div>
   </div>

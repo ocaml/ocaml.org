@@ -1,6 +1,38 @@
 module Url = Ocamlorg_frontend.Url
 
-let fwd_v2 target = (target, "https://v2.ocaml.org" ^ target)
+module Util = struct
+  let redirect_p pattern =
+    let handler req =
+      let target = Dream.target req in
+      Dream.redirect req ("https://v2.ocaml.org" ^ target)
+    in
+    Dream.get pattern handler
+
+  let fwd_v2 origin =
+    Dream.get origin (fun req ->
+        Dream.redirect req ("https://v2.ocaml.org" ^ origin))
+
+  let make ?(permanent = false) t =
+    let status = if permanent then `Moved_Permanently else `See_Other in
+    Dream.scope ""
+      [ Dream_encoding.compress ]
+      (List.filter_map
+         (fun (origin, new_) ->
+           if origin = new_ then None
+           else
+             Some
+               (Dream.get origin (fun req -> Dream.redirect ~status req new_)))
+         t)
+end
+
+open Util
+
+let permanent =
+  [
+    ("/opportunities", "/jobs");
+    ("/carbon-footprint", "/policies/carbon-footprint");
+    ("/privacy-policy", "/policies/privacy-policy");
+  ]
 
 (* For assets previously hosted on V2, we redirect the requests to
    v2.ocaml.org. *)
@@ -572,17 +604,6 @@ let from_v2 =
     ("/releases/latest/manual.html", Url.manual_with_version "4.14.0");
   ]
 
-let redirect_p pattern =
-  let handler req =
-    let target = Dream.target req in
-    Dream.redirect req ("https://v2.ocaml.org" ^ target)
-  in
-  Dream.get pattern handler
-
-let fwd_v2 origin =
-  Dream.get origin (fun req ->
-      Dream.redirect req ("https://v2.ocaml.org" ^ origin))
-
 let manual =
   [
     redirect_p "/api/**";
@@ -635,22 +656,11 @@ let manual =
     fwd_v2 "/releases/4.14/manual";
   ]
 
-let make ?(permanent = false) t =
-  let status = if permanent then `Moved_Permanently else `See_Other in
-  Dream.scope ""
-    [ Dream_encoding.compress ]
-    (List.filter_map
-       (fun (origin, new_) ->
-         if origin = new_ then None
-         else
-           Some (Dream.get origin (fun req -> Dream.redirect ~status req new_)))
-       t)
-
 let t =
   Dream.scope "" []
     [
       make from_v2;
-      make v2_assets;
-      Dream.scope "" [ Dream_encoding.compress ] manual;
-      make ~permanent:true [ ("/opportunities", "/jobs") ];
+      Dream.scope "" [] v2_assets;
+      Dream.scope "" [] manual;
+      make ~permanent:true permanent;
     ]

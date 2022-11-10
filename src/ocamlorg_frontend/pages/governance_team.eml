@@ -1,7 +1,7 @@
-let render (team : Ood.Governance.t) =
+let render (t : Ood.Governance.t) =
 Layout.render
-~title:(Printf.sprintf "%s · OCaml Governance" team.name)
-~description:team.description @@
+~title:(Printf.sprintf "%s · OCaml Governance" t.name)
+~description:t.description @@
 <div class="intro-section-simple">
   <div class="container-fluid">
     <div class="mx-auto px-4 sm:px-6">
@@ -16,12 +16,12 @@ Layout.render
             </svg>
             <a href="<%s Url.governance %>" class="hover:underline">Back to Governance</a>
           </div>
-          <h1 class="font-bold pb-6"><%s team.name %> Governance</h1>
+          <h1 class="font-bold pb-6"><%s t.name %> Governance</h1>
           <div class="text-2xl text-body-400">
-            <%s team.description%>
+            <%s t.description%>
           </div>
           <div class="space-x-4">
-            <% team.contacts |> List.iter (fun (contact : Ood.Governance.contact) -> %>
+            <% t.contacts |> List.iter (fun (contact : Ood.Governance.contact) -> %>
             <a href="<%s contact.link %>" target="_blank">
               <button class="btn btn-secondary btn-lg mt-6">
                 <img src="<%s contact.icon %>" alt="" class="h-6 w-6 mr-3 inline-block" />
@@ -39,28 +39,31 @@ Layout.render
   <div class="py-10 lg:py-28">
     <div class="container-fluid">
       <h2 class="font-bold gradient mb-6 text-[40px]">Team Members</h2>
-      <div class="text-white text-lg">
+      <div class="text-white text-lg mb-8">
         Odio amet cursus eu cursus nunc bibendum mauris. Nunc tempor fermentum phasellus mi nulla id fermentum
         integer
         id. Nec quisque consequat et, risus ultrices orci ut massa.
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-16">
-        <% team.teams |> List.iter (fun (team : Ood.Governance.team) -> %>
-          <% team.members |> List.iter (fun (member : Ood.Governance.member) -> %>
-          <div class="flex space-x-2">
-            <img src="https://github.com/<%s member.github %>.png" alt="" class="h-32 w-32 mr-3 inline-block rounded-xl" />
-            <div>
-              <div class="text-white text-lg font-semibold mt-3"><%s member.name %></div>
-              <div class="text-sm text-white text-opacity-50"><%s member.role %></div>
-              <div class="mt-8 text-white text-opacity-50 items-center flex">
-                <img src="/img/github-icon.svg" alt="" class=" mr-2 h-5 w-4 inline-block" />
-                <span><%s member.github %></span>
-              </div>
+      <% t.teams |> List.iter (fun (team : Ood.Governance.team) -> %>
+        <% (match List.length t.teams with | 1 -> () | _ -> %>
+        <h2 class="text-white font-semibold text-xl mt-8 mb-8"><%s team.name %></h2>
+        <% ); %>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <% team.members |> List.iter (fun (member : Ood.Governance.member) -> %>
+        <div class="flex space-x-2">
+          <img src="https://github.com/<%s member.github %>.png" alt="" class="h-32 w-32 mr-3 inline-block rounded-xl" />
+          <div>
+            <div class="text-white text-lg font-semibold mt-3"><%s member.name %></div>
+            <div class="text-sm text-white text-opacity-50"><%s member.role %></div>
+            <div class="mt-8 text-white text-opacity-50 items-center flex">
+              <img src="/icons/github.svg" alt="" class=" mr-2 h-5 w-4 inline-block" />
+              <span><%s member.github %></span>
             </div>
           </div>
-          <% ); %>
+        </div>
         <% ); %>
-      </div>
+        </div>
+      <% ); %>
     </div>
   </div>
 </div>
