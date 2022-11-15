@@ -15,16 +15,6 @@ module Result = struct
 
   module Syntax = struct
     let ( let+ ) f t = map t f
-    let ( let* ) = bind
-  end
-end
-
-module Option = struct
-  include Stdlib.Option
-
-  module Syntax = struct
-    let ( let+ ) f t = map t f
-    let ( let* ) = bind
   end
 end
 

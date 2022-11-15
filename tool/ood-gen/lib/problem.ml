@@ -48,36 +48,6 @@ type t = {
   solution : string;
 }
 
-let to_plain_text t =
-  let buf = Buffer.create 1024 in
-  let rec go : _ Omd.inline -> unit = function
-    | Concat (_, l) -> List.iter go l
-    | Text (_, t) | Code (_, t) -> Buffer.add_string buf t
-    | Emph (_, i)
-    | Strong (_, i)
-    | Link (_, { label = i; _ })
-    | Image (_, { label = i; _ }) ->
-        go i
-    | Hard_break _ | Soft_break _ -> Buffer.add_char buf ' '
-    | Html _ -> ()
-  in
-  go t;
-  Buffer.contents buf
-
-let doc_with_ids doc =
-  let open Omd in
-  List.map
-    (function
-      | Heading (attr, level, inline) ->
-          let attr =
-            match List.assoc_opt "id" attr with
-            | Some _ -> attr
-            | None -> ("id", Utils.slugify (to_plain_text inline)) :: attr
-          in
-          Heading (attr, level, inline)
-      | el -> el)
-    doc
-
 let all () =
   Utils.map_files
     (fun content ->
