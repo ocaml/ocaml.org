@@ -57,7 +57,12 @@ let doc_with_ids doc =
             | Some _ -> attr
             | None -> ("id", Utils.slugify (to_plain_text inline)) :: attr
           in
-          Heading (attr, level, inline)
+          let link = {
+            Omd.label = inline;
+            Omd.destination = "#" ^ Utils.slugify (to_plain_text inline);
+            Omd.title = None
+          } in
+          Heading (attr, level, Omd.Link (attr, link))
       | el -> el)
     doc
 
