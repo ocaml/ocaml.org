@@ -18,11 +18,6 @@ div.odoc-include .spec {
   margin-top: 1rem /* 16px */;
 }
 
-div.odoc div.spec code::before,
-div.odoc div.spec code::after {
-  content: "";
-}
-
 div.odoc div.spec code {
   white-space: pre-wrap;
 }
@@ -133,14 +128,6 @@ div.odoc div.spec tbody td.def {
 
 div.odoc div.spec tbody tr {
   border-width: 0px;
-}
-
-div.odoc code::before {
-  content: "";
-}
-
-div.odoc code::after {
-  content: "";
 }
 
 div.odoc td.def-doc .comment-delim {
