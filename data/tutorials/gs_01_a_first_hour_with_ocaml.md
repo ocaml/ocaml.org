@@ -261,7 +261,7 @@ Each expression has one and only one type.
 
 OCaml works out types automatically so you will rarely need to explicitly write
 down the function type. However, OCaml often prints out what it infers
-are the your function types, so you need to know the syntax. For a function
+are the function types, so you need to know the syntax. For a function
 `f` that takes arguments `arg1`, `arg2`, ... `argn` and returns type
 `rettype`, the compiler will print:
 
