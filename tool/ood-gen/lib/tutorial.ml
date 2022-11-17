@@ -52,22 +52,20 @@ let doc_with_ids doc =
   List.map
     (function
       | Heading (attr, level, inline) ->
-          let attr =
-            match List.assoc_opt "id" attr with
-            | Some _ -> attr
-            | None -> ("id", Utils.slugify (to_plain_text inline)) :: attr
+          let id, attr = List.partition (fun (key, _) -> key = "id") attr in
+          let id =
+            match id with
+            | [] -> Utils.slugify (to_plain_text inline)
+            | (_, slug) :: _ -> slug (* Discard extra ids *)
           in
           let link : _ Omd.link =
-            {
-              label = inline;
-              destination = "#" ^ List.assoc "id" attr;
-              title = None;
-            }
+            { label = inline; destination = "#" ^ id; title = None }
           in
           let style =
             "color: rgb(17 24 39); font-size: 24px; font-weight: 700"
           in
-          Heading (attr, level, Omd.Link (("style", style) :: attr, link))
+          Heading
+            (("id", id) :: attr, level, Link (("style", style) :: attr, link))
       | el -> el)
     doc
 
