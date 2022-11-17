@@ -61,9 +61,7 @@ let doc_with_ids doc =
           let link : _ Omd.link =
             { label = inline; destination = "#" ^ id; title = None }
           in
-          let style =
-            "color: rgb(17 24 39)"
-          in
+          let style = "color: rgb(17 24 39)" in
           Heading
             (("id", id) :: attr, level, Link (("style", style) :: attr, link))
       | el -> el)
