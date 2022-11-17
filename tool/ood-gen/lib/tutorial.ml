@@ -57,7 +57,7 @@ let doc_with_ids doc =
             | Some _ -> attr
             | None -> ("id", Utils.slugify (to_plain_text inline)) :: attr
           in
-          let (link : _ Omd.link) =
+          let link : _ Omd.link =
             {
               label = inline;
               destination = "#" ^ List.assoc "id" attr;
