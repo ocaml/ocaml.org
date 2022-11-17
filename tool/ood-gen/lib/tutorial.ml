@@ -57,12 +57,14 @@ let doc_with_ids doc =
             | Some _ -> attr
             | None -> ("id", Utils.slugify (to_plain_text inline)) :: attr
           in
-          let link = {
-            Omd.label = inline;
-            Omd.destination = "#" ^ Utils.slugify (to_plain_text inline);
-            Omd.title = None
+          let link = Omd.{
+            label = inline;
+            destination = "#" ^ List.assoc "id" attr;
+            title = None
           } in
-          Heading (attr, level, Omd.Link (("style", "all:unset") :: attr, link))
+          let style =
+            "color: rgb(17 24 39); font-size: 24px; font-weight: 700" in
+          Heading (attr, level, Omd.Link (("style", style) :: attr, link))
       | el -> el)
     doc
 
