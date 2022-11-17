@@ -62,7 +62,7 @@ let doc_with_ids doc =
             { label = inline; destination = "#" ^ id; title = None }
           in
           let style =
-            "color: rgb(17 24 39); font-size: 24px; font-weight: 700"
+            "color: rgb(17 24 39)"
           in
           Heading
             (("id", id) :: attr, level, Link (("style", style) :: attr, link))
