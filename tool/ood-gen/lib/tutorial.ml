@@ -62,7 +62,7 @@ let doc_with_ids doc =
             Omd.destination = "#" ^ Utils.slugify (to_plain_text inline);
             Omd.title = None
           } in
-          Heading (attr, level, Omd.Link (attr, link))
+          Heading (attr, level, Omd.Link (("style", "all:unset") :: attr, link))
       | el -> el)
     doc
 
