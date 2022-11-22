@@ -47,16 +47,19 @@ The OCaml GC is synchronous. It doesn't run in a separate thread, and it
 can only get called during an allocation request.
 
 ###  GC vs. reference counting
-Python has a form of garbage collection, but it uses a simple scheme
-called **reference counting**. Simply put, each Python object keeps a
-count of the number of other objects pointing (referencing) itself. When
-the count falls to zero, nothing is pointing at this object, and so the
-object can be freed.
+Python has a form of garbage collection, but it
+[mostly uses](https://devguide.python.org/internals/garbage-collector/) a
+simple scheme called
+[reference counting](https://en.wikipedia.org/wiki/Reference_counting).
+Simply put, each Python object keeps a count of the number of other
+objects pointing (referencing) itself. When the count falls to zero,
+nothing is pointing at this object, and so the object can be freed.
 
-Reference counting is not considered as serious garbage collection by
-computer scientists, yet it has one big practical advantage over full
-garbage collectors. With reference counting, you can avoid many explicit
-calls to `close`/`closedir` in code. Whereas in OCaml
+Reference counting is automatic memory management but it is not considered
+a full fledged garbage collection by computer scientists, yet it has one
+big practical advantage over full garbage collectors. With reference counting,
+you can avoid many explicit calls to `close`/`closedir` in code.
+Whereas in OCaml
 
 <!-- $MDX skip -->
 ```ocaml
@@ -88,7 +91,9 @@ disadvantages of reference counting schemes:
  bloats the code size of compiled code.
 * They cannot collect so-called circular, or self-referential
  structures. I've programmed in many languages in many years and
- can't recall ever having created one of these.
+ can't recall ever having created one of these. In addition to
+ reference counting, Python has a dedicated garbage collector to
+ address such.
 * Graph algorithms, of course, violate the previous assumption.
 
 ## The Gc module
