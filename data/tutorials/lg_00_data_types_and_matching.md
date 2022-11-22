@@ -299,6 +299,64 @@ val insert : 'a * 'b -> ('a * 'b) tree -> ('a * 'b) tree = <fun>
 Similar functions can be written to look up values in a dictionary, to convert
 a list of pairs to or from a tree dictionary and so on.
 
+## Example: options
+
+The OCaml language has been supporting the [option type](https://en.wikipedia.org/wiki/Option_type)
+since its inception.
+
+```ocaml
+# #show option;;
+type 'a option = None | Some of 'a
+```
+
+A value of type `t option` for some type `t` represent either a value `v` of type `t`, wraped as `Some v`, or no such value, in such case `o` has the value `None`. The option type is very useful when lack of data is better handled as a special value (_i.e._ `None`) rather than an exception. It is the type-safe version of returning error values such as in C, for instance.
+
+The function `Sys.getenv_opt : string -> string opt` from the standard library allows to query the value of an environment variable from the running process. Here is what may happen on a machine where a variable called `EDITOR` is defined:
+
+```ocaml
+# Sys.getenv_opt "EDITOR";;
+- : string option = Some "vi"
+```
+
+However if no such variable is defined the returned value will be `None`.
+
+Using pattern-matching, it is possible to define functions allowing to easily work with option values. Here is `map` which allows to apply a function to the value wrapped inside an option, if present:
+
+```ocaml
+let map f = function
+  | None -> None
+  | Some v -> Some (f v);;
+val map : ('a -> 'b) -> 'a option -> 'b option = <fun>
+```
+
+Here is `join`, which peels one layer out of a doubly wrapped option:
+
+```ocaml
+let join = function
+  | Some o -> o
+  | None -> None;;
+val join : 'a option option -> 'a option = <fun>
+```
+
+Here are generic functions allowing to produce and consume option values. `fold` consumes an option parameter, whilst `unfold` returns an option value.
+
+```ocaml
+let fold f default = function
+  | Some v -> f v
+  | None -> default;;
+val fold : ('a -> 'b) -> 'b -> 'a option -> 'b = <fun>
+
+let unfold p f x =
+  if p x then
+    Some (f x)
+  else
+    None;;
+val unfold : ('a -> bool) -> ('a -> 'b) -> 'a -> 'b option = <fun>
+```
+
+
+Most of those functions as well as other useful ones are provided by the Standard Library in the [`Stdlib.Option`](https://ocaml.org/api/Option.html) supporting module.
+
 ## Example: mathematical expressions
 
 We wish to represent simple mathematical expressions like `n * (x + y)` and
