@@ -304,15 +304,17 @@ a list of pairs to or from a tree dictionary and so on.
 The OCaml language has been supporting the [option type](https://en.wikipedia.org/wiki/Option_type)
 since its inception.
 
+<!-- $MDX non-deterministic=command -->
 ```ocaml
 # #show option;;
-type nonrec 'a option = None | Some of 'a
+type 'a option = None | Some of 'a
 ```
 
 A value of type `t option` for some type `t` represent either a value `v` of type `t`, wraped as `Some v`, or no such value, in such case `o` has the value `None`. The option type is very useful when lack of data is better handled as a special value (_i.e._ `None`) rather than an exception. It is the type-safe version of returning error values such as in C, for instance.
 
 The function `Sys.getenv_opt : string -> string opt` from the standard library allows to query the value of an environment variable from the running process. Here is what may happen on a machine where a variable called `EDITOR` is defined:
 
+<!-- $MDX non-deterministic=output -->
 ```ocaml
 # Sys.getenv_opt "EDITOR";;
 - : string option = Some "vi"
@@ -322,7 +324,6 @@ However if no such variable is defined the returned value will be `None`.
 
 Using pattern-matching, it is possible to define functions allowing to easily work with option values. Here is `map` which allows to apply a function to the value wrapped inside an option, if present:
 
-<!-- $MDX non-deterministic=output -->
 ```ocaml
 let map f = function
   | None -> None
