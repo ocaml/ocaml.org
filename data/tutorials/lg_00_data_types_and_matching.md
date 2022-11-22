@@ -306,7 +306,7 @@ since its inception.
 
 ```ocaml
 # #show option;;
-type 'a option = None | Some of 'a
+type nonrec 'a option = None | Some of 'a
 ```
 
 A value of type `t option` for some type `t` represent either a value `v` of type `t`, wraped as `Some v`, or no such value, in such case `o` has the value `None`. The option type is very useful when lack of data is better handled as a special value (_i.e._ `None`) rather than an exception. It is the type-safe version of returning error values such as in C, for instance.
@@ -326,7 +326,6 @@ Using pattern-matching, it is possible to define functions allowing to easily wo
 let map f = function
   | None -> None
   | Some v -> Some (f v);;
-val map : ('a -> 'b) -> 'a option -> 'b option = <fun>
 ```
 
 Here is `join`, which peels one layer out of a doubly wrapped option:
@@ -335,23 +334,19 @@ Here is `join`, which peels one layer out of a doubly wrapped option:
 let join = function
   | Some o -> o
   | None -> None;;
-val join : 'a option option -> 'a option = <fun>
 ```
 
-Here are generic functions allowing to produce and consume option values. `fold` consumes an option parameter, whilst `unfold` returns an option value.
+Here are generic functions allowing to consume and produce option values. `fold` takes an option parameter, whilst `unfold` returns an option value.
 
 ```ocaml
 let fold f default = function
   | Some v -> f v
-  | None -> default;;
-val fold : ('a -> 'b) -> 'b -> 'a option -> 'b = <fun>
-
+  | None -> default
 let unfold p f x =
   if p x then
     Some (f x)
   else
     None;;
-val unfold : ('a -> bool) -> ('a -> 'b) -> 'a -> 'b option = <fun>
 ```
 
 
