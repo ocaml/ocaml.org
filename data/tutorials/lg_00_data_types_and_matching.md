@@ -322,6 +322,7 @@ However if no such variable is defined the returned value will be `None`.
 
 Using pattern-matching, it is possible to define functions allowing to easily work with option values. Here is `map` which allows to apply a function to the value wrapped inside an option, if present:
 
+<!-- $MDX non-deterministic=output -->
 ```ocaml
 let map f = function
   | None -> None
