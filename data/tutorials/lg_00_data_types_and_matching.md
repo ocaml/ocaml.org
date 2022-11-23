@@ -301,8 +301,8 @@ a list of pairs to or from a tree dictionary and so on.
 
 ## Example: options
 
-The OCaml language has been supporting the [option type](https://en.wikipedia.org/wiki/Option_type)
-since its inception.
+The OCaml language has been supporting the [option
+type](https://en.wikipedia.org/wiki/Option_type) since its inception.
 
 <!-- $MDX non-deterministic=command -->
 ```ocaml
@@ -310,9 +310,16 @@ since its inception.
 type 'a option = None | Some of 'a
 ```
 
-A value of type `t option` for some type `t` represent either a value `v` of type `t`, wraped as `Some v`, or no such value, in such case `o` has the value `None`. The option type is very useful when lack of data is better handled as a special value (_i.e._ `None`) rather than an exception. It is the type-safe version of returning error values such as in C, for instance.
+A value of type `t option` for some type `t` represent either a value `v` of
+type `t`, wraped as `Some v`, or no such value, in such case `o` has the value
+`None`. The option type is very useful when lack of data is better handled as a
+special value (_i.e._ `None`) rather than an exception. It is the type-safe
+version of returning error values such as in C, for instance.
 
-The function `Sys.getenv_opt : string -> string opt` from the standard library allows to query the value of an environment variable from the running process. Here is what may happen on a machine where a variable called `EDITOR` is defined:
+The function `Sys.getenv_opt : string -> string opt` from the standard library
+allows to query the value of an environment variable from the running process.
+Here is what may happen on a machine where a variable called `EDITOR` is
+defined:
 
 <!-- $MDX non-deterministic=output -->
 ```ocaml
@@ -322,7 +329,9 @@ The function `Sys.getenv_opt : string -> string opt` from the standard library a
 
 However if no such variable is defined the returned value will be `None`.
 
-Using pattern-matching, it is possible to define functions allowing to easily work with option values. Here is `map` which allows to apply a function to the value wrapped inside an option, if present:
+Using pattern-matching, it is possible to define functions allowing to easily
+work with option values. Here is `map` which allows to apply a function to the
+value wrapped inside an option, if present:
 
 ```ocaml
 # let map f = function
@@ -340,7 +349,8 @@ Here is `join`, which peels off one layer from a doubly wrapped option:
 val join : 'a option option -> 'a option = <fun>
 ```
 
-Here are generic functions allowing to consume and produce option values. `fold` takes an option parameter, whilst `unfold` returns an option value.
+Here are generic functions allowing to consume and produce option values. `fold`
+takes an option parameter, whilst `unfold` returns an option value.
 
 ```ocaml
 # let fold f default = function
@@ -355,8 +365,9 @@ val fold : ('a -> 'b) -> 'b -> 'a option -> 'b = <fun>
 val unfold : ('a -> bool) -> ('a -> 'b) -> 'a -> 'b option = <fun>
 ```
 
-
-Most of those functions as well as other useful ones are provided by the Standard Library in the [`Stdlib.Option`](https://ocaml.org/api/Option.html) supporting module.
+Most of those functions as well as other useful ones are provided by the
+Standard Library in the [`Stdlib.Option`](https://ocaml.org/api/Option.html)
+supporting module.
 
 ## Example: mathematical expressions
 
