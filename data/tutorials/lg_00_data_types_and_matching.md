@@ -325,30 +325,34 @@ However if no such variable is defined the returned value will be `None`.
 Using pattern-matching, it is possible to define functions allowing to easily work with option values. Here is `map` which allows to apply a function to the value wrapped inside an option, if present:
 
 ```ocaml
-let map f = function
+# let map f = function
   | None -> None
   | Some v -> Some (f v);;
+val map : ('a -> 'b) -> 'a option -> 'b option = <fun>
 ```
 
-Here is `join`, which peels one layer out of a doubly wrapped option:
+Here is `join`, which peels off one layer from a doubly wrapped option:
 
 ```ocaml
-let join = function
+# let join = function
   | Some o -> o
   | None -> None;;
+val join : 'a option option -> 'a option = <fun>
 ```
 
 Here are generic functions allowing to consume and produce option values. `fold` takes an option parameter, whilst `unfold` returns an option value.
 
 ```ocaml
-let fold f default = function
+# let fold f default = function
   | Some v -> f v
   | None -> default
-let unfold p f x =
-  if p x then
-    Some (f x)
-  else
-    None;;
+  let unfold p f x =
+    if p x then
+      Some (f x)
+    else
+      None;;
+val fold : ('a -> 'b) -> 'b -> 'a option -> 'b = <fun>
+val unfold : ('a -> bool) -> ('a -> 'b) -> 'a -> 'b option = <fun>
 ```
 
 
