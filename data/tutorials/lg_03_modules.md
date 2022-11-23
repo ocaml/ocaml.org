@@ -141,7 +141,6 @@ to something called `amodule2.ml`:
 <!-- $MDX file=examples/amodule2.ml -->
 ```ocaml
 let message = "Hello 2"
-
 let hello () = print_endline message
 ```
 
@@ -150,7 +149,6 @@ As it is, `Amodule2` has the following interface:
 <!-- $MDX skip -->
 ```ocaml
 val message : string
-
 val hello : unit -> unit
 ```
 
