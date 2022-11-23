@@ -52,7 +52,30 @@ Or, as a build system might do, one by one:
 $ ocamlopt -c amodule.ml
 $ ocamlopt -c bmodule.ml
 $ ocamlopt -o hello amodule.cmx bmodule.cmx
+$ ./hello
+Hello
 ```
+
+Nowadays, the [Dune](https://dune.build) tool has become the standard for
+building OCaml projects. Here is how it can be minimally used to build this
+example:
+
+<!-- $MDX dir=examples -->
+```bash
+$ echo "(lang dune 3.4)" > dune-project
+$ echo "(executable (name bmodule))" > dune
+$ dune build
+$ dune exec ./bmodule.exe
+Hello
+```
+
+Beware in the `dune exec` command, the parameter `./bmodule.exe` is not a file
+path. This command means “execute the content of the file `./bmodule.ml`”.
+However, the actual executable file is stored and named differently.
+
+In a real world project, it is preferable to start by creating the Dune
+configuration files and directory structure using the `dune init project`
+command.
 
 Now we have an executable that prints "Hello". As you can see, if you want to
 access anything from a given module, use the name of the module (always
@@ -117,10 +140,12 @@ to something called `amodule2.ml`:
 
 <!-- $MDX file=examples/amodule2.ml -->
 ```ocaml
-let hello () = print_endline "Hello"
+let message = "Hello 2"
+
+let hello () = print_endline message
 ```
 
-As it is, `Amodule` has the following interface:
+As it is, `Amodule2` has the following interface:
 
 <!-- $MDX skip -->
 ```ocaml
@@ -130,8 +155,8 @@ val hello : unit -> unit
 ```
 
 Let's assume that accessing the `message` value directly is none of the others
-modules' business. We want to hide it by defining a restricted interface. This
-is our `amodule2.mli` file:
+modules' business, we want it to be a private definition. We can hide it by
+defining a restricted interface. This is our `amodule2.mli` file:
 
 <!-- $MDX file=examples/amodule2.mli -->
 ```ocaml
@@ -143,7 +168,14 @@ val hello : unit -> unit
 to document .mli files using the format supported by
 [ocamldoc](/releases/4.14/htmlman/ocamldoc.html))
 
-Such .mli files must be compiled just before the matching .ml files. They are
+The corresponding module `Bmodule2` is defined in file `bmodule2.ml`:
+
+<!-- $MDX file=examples/bmodule2.ml -->
+```ocaml
+let () = Amodule2.hello ()
+```
+
+The .mli files must be compiled just before the matching .ml files. They are
 compiled using `ocamlc`, even if .ml files are compiled to native code using
 `ocamlopt`:
 
@@ -151,6 +183,24 @@ compiled using `ocamlc`, even if .ml files are compiled to native code using
 ```sh
 $ ocamlc -c amodule2.mli
 $ ocamlopt -c amodule2.ml
+$ ocamlopt -c bmodule2.ml
+$ ocamlopt -o hello2 amodule2.cmx bmodule2.cmx
+$ ./hello
+Hello
+$ ./hello2
+Hello 2
+```
+
+When using Dune, this is done automatically:
+
+<!-- $MDX dir=examples -->
+```bash
+$ echo "(executables (names bmodule bmodule2))" > dune
+$ dune build
+$ dune exec ./bmodule.exe
+Hello
+$ dune exec ./bmodule2.exe
+Hello 2
 ```
 
 ## Abstract types
