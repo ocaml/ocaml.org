@@ -58,7 +58,7 @@ Platform officially supports a library for writing such preprocessors.
 OCaml supports the execution of two kinds of preprocessors: one that works on
 the source level (as in C), and the other that works on a more structured
 representation of the program (as in Rust's macro): the [AST
-level](#ocamls-parsetree-the-first-ocamls-ast). The latter is called "PPX," an
+level](#ocamls-parsetree-the-ocaml-ast). The latter is called "PPX," an
 acronym for Pre-Processor eXtension.
 
 While both types of preprocessing have their use cases, in OCaml it is
@@ -67,7 +67,7 @@ recommended to use PPXs whenever possible for several reasons:
   with features such as error reporting in an editor and Merlin's "jump to definition."
 - They are fast and compose well when [adequately written](#the-need-for-controlling-the-ppx-ecosystem-ppxlib).
 - They are especially [adapted to
-  OCaml](#why-are-ppxes-especially-useful-in-ocaml).
+  OCaml](#why-ppxs-are-especially-useful-in-ocaml).
 
 This guide presents the state of the two kinds of preprocessors in OCaml, but
 with an emphasis on PPXs. Although the latter is the recommended way of writing
@@ -155,7 +155,7 @@ comments could get in the way...
 Consider another example. Suppose you have defined a type, and you want to
 generate a serializer at compile time from this specific type to an encoding of
 it in a `json` format, such as `Yojson` (see
-[here](#why-are-ppxes-especially-useful-in-ocaml) for the reasons it has to be
+[here](#why-ppxs-are-especially-useful-in-ocaml) for the reasons it has to be
 generated at compile-time). This serialization code could be written by a
 preprocessor, which would look for the type in the file and serialize it
 differently depending on the type structure; that is, whether it is a variants
@@ -300,7 +300,7 @@ after the input code, which is left unmodified.
 
 Derivers are great for generating functions that depend on the structure of a
 defined type (this was the example given in the [limits of manipulating text
-files](#the-limits-of-manipulating-text-file)). Indeed, exactly the right amount
+files](#the-limits-of-manipulating-text-files)). Indeed, exactly the right amount
 of information is passed to the PPX, and we also know that the PPX won't modify
 any part of the source.
 
