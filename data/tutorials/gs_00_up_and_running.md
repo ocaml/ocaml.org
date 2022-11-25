@@ -46,7 +46,7 @@ Find all the installation instructions for both Unix-like systems and Windows in
 
 ### Installation for Unix
 
-After having installed opam, you will need to initialise it, [see below](#initialising-opam).
+After having installed opam, you will need to initialise it, [see below](#initialising-opam-on-unix).
 
 To install opam, you can [use your system package manager](https://opam.ocaml.org/doc/Install.html#Using-your-distribution-39-s-package-system) or download the [binary distribution](https://opam.ocaml.org/doc/Install.html#Binary-distribution). The details are available in the above links, but for convenience, we copy a few of them here: 
 
