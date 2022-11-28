@@ -1,40 +1,68 @@
-let module_kind = function
-  | `Module _ -> "Module"
-  | `ModuleType _ -> "Module type"
-  | `FunctorArgument (number, _) -> "Parameter #" ^ (Int.to_string number)
+type path_item = 
+  | Page of string
+  | Library of string
+  | Module of string
+  | ModuleType of string
+  | Parameter of int * string
+  | Class of string
+  | ClassType of string
 
-let module_path_kind path =
-  match List.fold_left (fun _ v -> Some v) None path with 
-  | None -> ""
-  | Some v -> module_kind v
+let kind_tag (m : path_item) = match m with
+  | Page _ -> ""
+  | Library _ -> ""
+  | Module _ ->
+    <span class="breadcrumbs-tag module-tag text-white">Module</span>
+  | ModuleType _ ->
+    <span class="breadcrumbs-tag module-type-tag text-white">Module type</span>
+  | Parameter (number, _) ->
+    <span class="breadcrumbs-tag parameter-tag text-white"><%s "Parameter #" ^ (Int.to_string number) %></span>
+  | Class _ ->
+    <span class="breadcrumbs-tag class-tag text-white">Class</span>
+  | ClassType _ ->
+    <span class="breadcrumbs-tag class-type-tag text-white">Class type</span>
 
-let module_name = function
-  | `Module name
-  | `ModuleType name
-  | `FunctorArgument (_, name) -> name
+let path_item_name (m: path_item) = match m with
+  | Page name
+  | Library name
+  | Module name
+  | ModuleType name
+  | Parameter (_, name) -> name
+  | Class name -> name
+  | ClassType name -> name
 
-let render module_path =
-  let n_items = List.length module_path in
-  let _item_class index =
-    if index == n_items - 1 then
-      "text-orange-600 border-orange-600 border-b-2"
-    else
-      "hover:text-gray-900 hover:border-gray-400 hover:border-b-2 border-transparent border-b-2"
-  in
-  let item_href index =
-    let rec href_url index =
-      if index == n_items - 1 then "" else
-      "../" ^ href_url (index + 1)
-    in
-    if index == n_items - 1 then "" else
-    "href='"^(href_url index)^"index.html'"
-  in
-  <div class="flex pb-4">
-    <span class="mr-4 mt-2 text-sm font-light inline-block align-bottom"><%s module_path_kind module_path %></span>
-    <% module_path |> List.iteri (fun index item -> %>
-    <% if index > 0 then ( %><span class="ml-1">.</span><% ); %>
+type breadcrumb = {
+  text : string;
+  href : string;
+}
+
+let rec breadcrumbs_from_path (reversed_module_path: path_item list) prefix : ( breadcrumb list ) = match reversed_module_path with
+  | [] -> []
+  | x::[] -> [{ text = path_item_name x; href = prefix ^ "index.html"}]
+  | x::xs ->
+    let new_prefix = prefix ^ "../" in
+    { text = path_item_name x ; href = prefix ^ "index.html" } :: breadcrumbs_from_path xs new_prefix
+
+let render_sidebar_breadcrumbs (module_path : path_item list) =
+  let (reversed_module_path : path_item list) = List.rev module_path in
+  let breadcrumbs = breadcrumbs_from_path reversed_module_path "" in
+  let render_breadcrumb b = 
     <span>
-      <a <%s! item_href index %> class="ml-1 text-2xl font-medium text-gray-800 hover:text-black"><%s module_name item %></a>
+      <a href="<%s! b.href %>" class="font-medium text-gray-800 transition-colors hover:text-orange-600"><%s b.text %></a>
     </span>
-    <% ); %>
+  in
+  <div class="flex flex-wrap">
+    <%s! String.concat "<span>.</span>" (breadcrumbs |> List.rev |> List.map render_breadcrumb)  %>
+  </div>
+
+let render (module_path:path_item list) =
+  let (reversed_module_path : path_item list) = List.rev module_path in
+  let breadcrumbs = breadcrumbs_from_path reversed_module_path "" in
+  let render_breadcrumb b =
+    <span>
+      <a href="<%s! b.href %>" class="ml-1 text-2xl font-medium text-gray-800 transition-colors hover:text-orange-600"><%s b.text %></a>
+    </span>
+  in
+  <div class="flex flex-wrap pb-4">
+    <%s! if module_path != [] then kind_tag (List.hd reversed_module_path) else "" %>
+    <%s! String.concat "<span class=\"ml-1 text-2xl\">.</span>" (breadcrumbs |> List.rev |> List.map render_breadcrumb); %>
   </div>

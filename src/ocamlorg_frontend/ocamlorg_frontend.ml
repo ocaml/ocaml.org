@@ -1,6 +1,7 @@
-module Url = Url
+module Breadcrumbs = Breadcrumbs
 module Navmap = Navmap
 module Toc = Toc
+module Url = Url
 include Package_intf
 
 let about () = About.render ()

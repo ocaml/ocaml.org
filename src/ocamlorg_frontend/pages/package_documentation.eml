@@ -1,15 +1,37 @@
+let sidebar
+~str_path
+~toc
+~maptoc
+(package : Package_intf.package)
+=
+  <div class="flex flex-col">
+    <% if (toc != []) then ( %>
+    <div class="xl:hidden mb-6 xl:mb-0">
+    <%s! Toc.render toc %>
+    </div><% ); %>
+    <div class="space-y-6 flex flex-col overflow-x:scroll">
+      <div>
+      <%s! Navmap.render ~package ~path:str_path maptoc %>
+      </div>
+    </div>
+  </div>
+
 let render
 ~title
-~path
+~(path: Breadcrumbs.path_item list)
 ~toc
 ~maptoc
 ~content
 (package : Package_intf.package) =
 let str_path =
   List.map (function
-        | `Module s -> s
-        | `ModuleType s -> s
-        | `FunctorArgument (_, s) -> s) path
+        | Breadcrumbs.Module s -> s
+        | ModuleType s -> s
+        | Parameter (number, s) -> Int.to_string number ^ "-" ^ s
+        | Class s -> s
+        | ClassType s -> s
+        | Library s -> s
+        | Page s -> s) path
 in
 let path_page = match str_path |> String.concat "/" with
                 | "" -> None
@@ -36,17 +58,18 @@ Package_layout.render
       x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
       x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
       x-transition:leave-end="-translate-x-full">
-      <div class="xl:hidden mb-6 xl:mb-0">
-      <%s! if (toc != []) then Toc.render toc else "" %>
-      </div>
-
-      <div class="space-y-2 flex flex-col">
-        <div class="text-sm font-semibold text-gray-500 mb-6">IN THIS PACKAGE</div>
-        <%s! Navmap.render ~path:str_path maptoc %>
-      </div>
+      <%s! sidebar ~str_path ~toc ~maptoc package %>
     </div>
     <div class="flex-1 z-0 z- w-full lg:max-w-3xl relative lg:pt-6">
-      <%s! if (maptoc != []) && (List.length path != 0) then Breadcrumbs.render path else "" %>
+      <% if (maptoc != []) && (List.length path > 1) then (%>
+        <div class="text-body-400">
+          <a title="Package <%s package.name %>" class="py-1 text-xl font-bold text-body-600 hover:text-orange-600 transition-colors" href="<%s Url.package_doc package.name package.version ~page:"index.html" %>">
+          <%s package.name %>
+          </a> &bull;
+          <span title="Library <%s Breadcrumbs.path_item_name (List.hd path) %>"><%s Breadcrumbs.path_item_name (List.hd path) %></span>
+          <%s! Breadcrumbs.render (List.tl path) %>
+        </div>
+      <% ); %>
       <div class="odoc prose prose-orange">
         <%s! content %>
       </div>
