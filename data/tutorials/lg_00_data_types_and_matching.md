@@ -341,7 +341,6 @@ if the variable is not defined. On the other hand, the function `Sys.getenv_opt
 is not defined. Here is what may happen on a machine where a variable called
 `EDITOR` is defined:
 
-<!-- $MDX non-deterministic=output -->
 ```ocaml
 # Sys.getenv "DUMMY";;
 Exception: Not_found.
