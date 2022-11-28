@@ -563,11 +563,7 @@ let package_doc t kind req =
           let toc = toc_of_toc doc.toc in
           let* map = Ocamlorg_package.module_map ~kind package in
           let maptoc = toc_of_map ~root map in
-          let* documentation_status =
-            Ocamlorg_package.documentation_status ~kind package
-          in
           let package_meta = package_meta t package in
           Dream.html
-            (Ocamlorg_frontend.package_documentation ~documentation_status
-               ~path:doc.module_path ~title ~toc ~maptoc ~content:doc.content
-               package_meta))
+            (Ocamlorg_frontend.package_documentation ~path:doc.module_path
+               ~title ~toc ~maptoc ~content:doc.content package_meta))
