@@ -343,7 +343,7 @@ is not defined. Here is what may happen on a machine where a variable called
 
 <!-- $MDX non-deterministic=output -->
 ```ocaml
-# Sys.getenv_opt "DUMMY";;
+# Sys.getenv "DUMMY";;
 Exception: Not_found.
 # Sys.getenv_opt "DUMMY";;
 - : string option = None
