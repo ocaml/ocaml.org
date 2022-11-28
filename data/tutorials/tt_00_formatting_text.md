@@ -60,7 +60,7 @@ so skip the rest at first reading).
  open_box or open_hovbox procedures): within this box, break hints
  are used to cut the line when there is no more room on the line.
  There are two kinds of “hov” boxes, you can find the details
- [below](#Refinementonhovboxes). In first approximation, let me consider these
+ [below](#refinement-on-hov-boxes). In first approximation, let me consider these
  two kinds of “hov” boxes as equivalent and obtained by calling the
  `open_box` procedure.
 
