@@ -92,7 +92,9 @@ div.odoc *:hover > a.anchor:hover {
 
 /* selected anchor target highlighting */
 
-div.odoc .spec:target,
+div.odoc .spec:target {
+  background: rgb(255, 248, 206);
+}
 div.odoc .anchored:target,
 div.odoc h1:target,
 div.odoc h2:target,
@@ -106,6 +108,10 @@ div.odoc h6:target {
 div.odoc .spec:target a,
 div.odoc .anchored:target a {
   color: rgb(204, 48, 0);
+}
+
+div.odoc *[id] {
+  scroll-margin-top: 2rem;
 }
 
 /* ----- */
@@ -170,4 +176,16 @@ div.odoc-include summary:hover {
 
 div.odoc span[class*="keyword"] {
   color: rgba(17, 24, 39, 1);
+}
+
+div.odoc ul.at-tags {
+  margin: 0.5em 0;
+}
+
+div.odoc ul.at-tags p {
+  margin: 0;
+}
+
+div.odoc span.at-tag {
+  font-weight: bold;
 }
