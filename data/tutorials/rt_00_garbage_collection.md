@@ -52,14 +52,13 @@ Python has a form of garbage collection, but it
 simple scheme called
 [reference counting](https://en.wikipedia.org/wiki/Reference_counting).
 Simply put, each Python object keeps a count of the number of other
-objects pointing (referencing) itself. When the count falls to zero,
-nothing is pointing at this object, and so the object can be freed.
+objects pointing to (referencing) itself. When the count falls to zero,
+nothing is pointing at this object, so the object can be freed.
 
-Reference counting is automatic memory management but it is not considered
-a full fledged garbage collection by computer scientists, yet it has one
+Reference counting is automatic memory management, but it is not considered
+a full-fledged garbage collection by computer scientists. Yet it does have one
 big practical advantage over full garbage collectors. With reference counting,
 you can avoid many explicit calls to `close`/`closedir` in code.
-Whereas in OCaml
 
 <!-- $MDX skip -->
 ```ocaml
@@ -89,11 +88,11 @@ disadvantages of reference counting schemes:
  to an object you need to update and check the reference count.
  Pointer manipulation is frequent, so this slows your program and
  bloats the code size of compiled code.
-* They cannot collect so-called circular, or self-referential
- structures. I've programmed in many languages in many years and
+* They cannot collect so-called circular or self-referential
+ structures. I've programmed in many languages over the years and
  can't recall ever having created one of these. In addition to
  reference counting, Python has a dedicated garbage collector to
- address such.
+ address this.
 * Graph algorithms, of course, violate the previous assumption.
 
 ## The Gc module
