@@ -11,7 +11,7 @@ date: 2021-05-27T21:07:30-00:00
 
 ## Basic usage
 
-### Files Define Modules
+### File-Based Modules
 
 In OCaml, every piece of code is wrapped into a module. Optionally, a module
 itself can be a submodule of another module, pretty much like directories in a
@@ -42,13 +42,13 @@ In order to compile them using the [Dune](https://dune.build/) build system,
 which is now the standard on OCaml, at least two configuration files are
 required:
 
-* The `dune-project` file, which contains project-wide configuration data. Here's very
-  minimal one:
+* The `dune-project` file, which contains project-wide configuration data.
+  Here's a very minimal one:
   ```
    (lang dune 3.4)
   ```
 * The `dune` file, which contains actual build directives. A project may have several
-  of them, depending on the organization of the source. This is sufficient for
+  of them, depending on the organization of the sources. This is sufficient for
   this example:
   ```
   (executable (name bmodule))
@@ -68,7 +68,7 @@ Hello
 Actually, `dune build` is optional. Simply running `dune exec` would have
 triggered the compilation. Beware in the `dune exec` command, as the parameter
 `./bmodule.exe` is not a file path. This command means “execute the content of
-the file `./bmodule.ml`." However, the actual executable file is stored and
+the file `./bmodule.ml`.” However, the actual executable file is stored and
 named differently.
 
 In a real world project, it is preferable to start by creating the `dune`
@@ -78,7 +78,7 @@ command.
 ### Manual Compilation
 
 Alternatively, it is possible, but not recommended, to compile the files by
-directly calling the compiler by using a single command:
+directly calling the compiler. Either using a single command:
 
 <!-- $MDX dir=examples -->
 ```sh
@@ -107,7 +107,7 @@ Hello
 
 ### Naming and Scoping
 
-Now we have an executable that prints "Hello". As you can see, if you want to
+Now we have an executable that prints `Hello`. As you can see, if you want to
 access anything from a given module, use the name of the module (always
 starting with a capital) followed by a dot and the thing that you want to use.
 It may be a value, a type constructor, or anything else that a given module can
@@ -504,7 +504,7 @@ module List :
     val mem : 'a -> 'a t -> bool
     val memq : 'a -> 'a t -> bool
     val find : ('a -> bool) -> 'a t -> 'a
-    val find_opt : ('a -> bool) -> 'a t -> 'a option
+    val find_opt : ('a -> bool) -> 'a t -> 'a optionDefine
     val find_map : ('a -> 'b option) -> 'a t -> 'b option
     val filter : ('a -> bool) -> 'a t -> 'a t
     val find_all : ('a -> bool) -> 'a t -> 'a t
