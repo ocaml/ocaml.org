@@ -119,7 +119,7 @@ table a:hover {
 }
 
 .right-sidebar a:hover {
-  @apply text-body-600 underline;
+  @apply text-orange-600;
 }
 
 .news-stories button:hover {
