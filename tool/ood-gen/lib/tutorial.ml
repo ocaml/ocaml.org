@@ -61,8 +61,7 @@ let doc_with_ids doc =
           let link : _ Omd.link =
             { label = inline; destination = "#" ^ id; title = None }
           in
-          Heading
-          (("id", id) :: attr, level, Link (attr, link))
+          Heading (("id", id) :: attr, level, Link (attr, link))
       | el -> el)
     doc
 
