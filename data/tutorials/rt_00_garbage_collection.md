@@ -95,7 +95,7 @@ disadvantages of reference counting schemes:
  address this.
 * Graph algorithms, of course, violate the previous assumption.
 
-## The Gc module
+## The GC Module
 The `Gc` module contains some useful functions for querying and calling
 the garbage collector from OCaml programs.
 
