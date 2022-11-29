@@ -297,9 +297,9 @@ val insert : 'a * 'b -> ('a * 'b) tree -> ('a * 'b) tree = <fun>
 ```
 
 Similar functions can be written to look up values in a dictionary, to convert
-a list of pairs to or from a tree dictionary and so on.
+a list of pairs to or from a tree dictionary, and so on.
 
-## Example: options
+## Example: Options
 
 A simple, yet very common, use of polymorphic type with constructors is the
 `option` type. Like `list`, it's predefined. Here is how:
@@ -335,20 +335,19 @@ type](https://en.wikipedia.org/wiki/Option_type). OCaml has supported `option`
 since its inception.
 
 The function `Sys.getenv : string -> string` from the standard library allows to
-query the value of an environment variable, however the it throws an exception
+query the value of an environment variable, however, it throws an exception
 if the variable is not defined. On the other hand, the function `Sys.getenv_opt
 : string -> string opt` does the same except it returns `None` is the variable
-is not defined. Here is what may happen on a machine where a variable called
-`EDITOR` is defined:
+is not defined. Here is what may happen if we try to access an undefined environment variable:
 
 ```ocaml
-# Sys.getenv "DUMMY";;
+# Sys.getenv "UNDEFINED_ENVIRONMENT_VARIABLE";;
 Exception: Not_found.
-# Sys.getenv_opt "DUMMY";;
+# Sys.getenv_opt "UNDEFINED_ENVIRONMENT_VARIABLE";;
 - : string option = None
 ```
 
-Using pattern-matching, it is possible to define functions allowing to easily
+Using pattern-matching, it is possible to define functions, allowing users to easily
 work with option values. Here is `map` of type `('a -> 'b) -> 'a option -> 'b
 option`. It allows to apply a function to the value wrapped inside an `option`,
 if present:
