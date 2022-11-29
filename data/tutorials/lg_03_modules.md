@@ -68,7 +68,7 @@ Hello
 Actually, `dune build` is optional. Simply running `dune exec` would have
 triggered the compilation. Beware in the `dune exec` command, as the parameter
 `./bmodule.exe` is not a file path. This command means “execute the content of
-the file `./bmodule.ml`”. However, the actual executable file is stored and
+the file `./bmodule.ml`." However, the actual executable file is stored and
 named differently.
 
 In a real world project, it is preferable to start by creating the `dune`
