@@ -11,7 +11,7 @@ date: 2021-05-27T21:07:30-00:00
 
 ## Basic usage
 
-### Files defines modules
+### Files Define Modules
 
 In OCaml, every piece of code is wrapped into a module. Optionally, a module
 itself can be a submodule of another module, pretty much like directories in a
@@ -36,25 +36,25 @@ And here is what we have in `bmodule.ml`:
 let () = Amodule.hello ()
 ```
 
-### Automatized compilation
+### Automatized Compilation
 
 In order to compile them using the [Dune](https://dune.build/) build system,
 which is now the standard on OCaml, at least two configuration files are
 required:
 
-* File `dune-project` which contains project-wide configuration data. Here very
+* The `dune-project` file, which contains project-wide configuration data. Here's very
   minimal one:
   ```
    (lang dune 3.4)
   ```
-* File `dune` which contains actual build directives, a project may have several
+* The `dune` file, which contains actual build directives. A project may have several
   of them, depending on the organization of the source. This is sufficient for
   this example:
   ```
   (executable (name bmodule))
   ```
 
-Here is how to create the configuration files, build the source and run the
+Here is how to create the configuration files, build the source, and run the
 executable.
 <!-- $MDX dir=examples -->
 ```bash
@@ -65,20 +65,20 @@ $ dune exec ./bmodule.exe
 Hello
 ```
 
-Actually, `dune build` is optional, simply running `dune exec` would have
-triggered the compilation. Beware in the `dune exec` command, the parameter
+Actually, `dune build` is optional. Simply running `dune exec` would have
+triggered the compilation. Beware in the `dune exec` command, as the parameter
 `./bmodule.exe` is not a file path. This command means “execute the content of
 the file `./bmodule.ml`”. However, the actual executable file is stored and
 named differently.
 
-In a real world project, it is preferable to start by creating the Dune
+In a real world project, it is preferable to start by creating the `dune`
 configuration files and directory structure using the `dune init project`
 command.
 
-### Manual compilation
+### Manual Compilation
 
 Alternatively, it is possible, but not recommended, to compile the files by
-directly calling the compiler, using a single command:
+directly calling the compiler by using a single command:
 
 <!-- $MDX dir=examples -->
 ```sh
@@ -105,7 +105,7 @@ $ ./hello
 Hello
 ```
 
-### Naming and scoping
+### Naming and Scoping
 
 Now we have an executable that prints "Hello". As you can see, if you want to
 access anything from a given module, use the name of the module (always
@@ -183,7 +183,7 @@ val hello : unit -> unit
 ```
 
 Let's assume that accessing the `message` value directly is none of the others
-modules' business, we want it to be a private definition. We can hide it by
+modules' business; we want it to be a private definition. We can hide it by
 defining a restricted interface. This is our `amodule2.mli` file:
 
 <!-- $MDX file=examples/amodule2.mli -->
@@ -193,7 +193,7 @@ val hello : unit -> unit
 ```
 
 (note the double asterisk at the beginning of the comment - it is a good habit
-to document .mli files using the format supported by
+to document `.mli` files using the format supported by
 [ocamldoc](/releases/4.14/htmlman/ocamldoc.html))
 
 The corresponding module `Bmodule2` is defined in file `bmodule2.ml`:
@@ -203,7 +203,7 @@ The corresponding module `Bmodule2` is defined in file `bmodule2.ml`:
 let () = Amodule2.hello ()
 ```
 
-The .mli files must be compiled before the matching .ml files. This is done
+The .`mli` files must be compiled before the matching `.ml` files. This is done
 automatically by Dune. We update the `dune` file to allow the compilation
 of this example aside of the previous one.
 
@@ -218,8 +218,8 @@ Hello 2
 ```
 
 There how the same result can be acheived by calling the compiler manually.
-Notice the .mli file is compiled using byte-code compiler `ocamlc` , while if
-.ml files are compiled to native code using `ocamlopt`:
+Notice the `.mli` file is compiled using byte-code compiler `ocamlc` , while if
+`.ml` files are compiled to native code using `ocamlopt`:
 
 <!-- $MDX dir=examples -->
 ```sh
@@ -233,7 +233,7 @@ $ ./hello2
 Hello 2
 ```
 
-## Abstract types
+## Abstract Types
 
 What about type definitions? We saw that values such as functions can be
 exported by placing their name and their type in a .mli file, e.g.
