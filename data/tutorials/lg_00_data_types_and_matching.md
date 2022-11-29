@@ -334,11 +334,12 @@ computer science, this type is called the [option
 type](https://en.wikipedia.org/wiki/Option_type). OCaml has supported `option`
 since its inception.
 
-The function `Sys.getenv : string -> string` from the standard library allows to
-query the value of an environment variable, however, it throws an exception
-if the variable is not defined. On the other hand, the function `Sys.getenv_opt
-: string -> string opt` does the same except it returns `None` is the variable
-is not defined. Here is what may happen if we try to access an undefined environment variable:
+The function `Sys.getenv : string -> string` from the OCaml standard library
+allows to query the value of an environment variable, however, it throws an
+exception if the variable is not defined. On the other hand, the function
+`Sys.getenv_opt : string -> string opt` does the same except it returns `None`
+is the variable is not defined. Here is what may happen if we try to access an
+undefined environment variable:
 
 ```ocaml
 # Sys.getenv "UNDEFINED_ENVIRONMENT_VARIABLE";;
@@ -412,7 +413,7 @@ val unfold : ('a -> bool) -> ('a -> 'b) -> 'a -> 'b option = <fun>
 ```
 
 Most of those functions as well as other useful ones are provided by the
-Standard Library in the [`Stdlib.Option`](https://ocaml.org/api/Option.html)
+OCaml standard library in the [`Stdlib.Option`](https://ocaml.org/api/Option.html)
 supporting module.
 
 By the way, any type where `map` and `join` functions can be implemented, with
