@@ -6,8 +6,8 @@ let render
 Learn_layout.render ~title:(Printf.sprintf "%s · OCaml Tutorials" tutorial.title) ~description:tutorial.description
 (Learn_sidebar.render ~current_tutorial:(Some tutorial.slug) ~tutorials) ~canonical
 @@
-<div class="flex-1 flex overflow-hidden">
-  <div class="prose prose-orange overflow-hidden z-0 z- lg:max-w-4xl mx-auto relative py-8 px-6">
+<div class="flex-1 z-0 z- w-full lg:max-w-3xl mx-auto relative lg:pt-6">
+  <div class="prose prose-orange z-0 z- lg:max-w-3xl mx-auto relative lg:pt-6">
     <%s! tutorial.body_html %>
     <div class="pt-10 border-t border-slate-200 lg:grid lg:grid-cols-3 gap-4 text-slate-500">
       <div class="lg:col-span-1">
