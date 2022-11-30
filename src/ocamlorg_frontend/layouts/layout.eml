@@ -47,7 +47,7 @@ let render ?(use_swiper=false) ?(banner = false) ?(wide=false) ?description ?sty
             <span class="md:hidden">OCaml 5.0 is in beta!</span>
             <span class="hidden md:inline">OCaml 5.0 is beta! OCaml 5.0 is the next major release of OCaml, which comes with support for shared-memory parallelism through domains and direct-style concurrency through algebraic effects!</span>
             <span class="block sm:ml-2 sm:inline-block">
-              <a href="<%s Url.news_post "ocaml-5.0.beta1" %>" class="font-bold text-white underline">
+              <a href="<%s Url.news_post "ocaml-5.0.beta2" %>" class="font-bold text-white underline">
                 Try it now
                 <span aria-hidden="true"> &rarr;</span>
               </a>
