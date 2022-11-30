@@ -11,9 +11,7 @@ In order to test the most recent bug fixes and to help you update your software
 and libraries ahead of the release, we have released a second beta version of
 OCaml 5.0.0, (see below for the installation instructions).
 
-If you find any bugs, please report them here:
-
-[Issues · ocaml/ocaml · GitHub](https://github.com/ocaml/ocaml/issues).
+If you find any bugs, please report them on [OCaml's issue tracker](https://github.com/ocaml/ocaml/issues).
 
 Compared to the first beta release, this second beta contains many small
 internal standard library fixes, one configuration fix and many small bug fixes.
@@ -26,14 +24,10 @@ are disabled by default, but are available for interested users.
 The first release candidate for OCaml 5.0.0 is expected to follow closely this
 second beta release.
 
-If you are interested by the ongoing list of bug fixes, the updated change log
-for OCaml 5.0.0 is available at:
+If you are interested in the ongoing list of bug fixes, the updated change log
+for OCaml 5.0.0 is available [on GitHub](https://github.com/ocaml/ocaml/blob/5.0/Changes).
 
-[ocaml/Changes at 5.0 · ocaml/ocaml · GitHub](https://github.com/ocaml/ocaml/blob/5.0/Changes)
-
-You can also follow the state of the opam ecosystem on
-
-http://check.ocamllabs.io/
+You can also follow the state of the opam ecosystem on [http://check.ocamllabs.io/](http://check.ocamllabs.io/).
 
 A short summary of the changes since the first beta release is also available below.
 
@@ -55,7 +49,6 @@ opam switch create 5.0.0~beta2 --repositories=default,beta=git+https://github.co
 
 It might also be interesting to check the new support for parallelism by installing
 the `domainslib` library with
-
 ```bash
 opam install domainslib
 ```
@@ -85,6 +78,7 @@ opam switch create <switch_name> --packages=ocaml-variants.5.0.0~beta2+options,<
 In both cases, all available options can be listed with `opam search ocaml-option`.
 
 ---
+
 ## Changes since the first beta
 
 ### Configuration changes
@@ -100,39 +94,31 @@ fiber stacks and sigaltstacks with mmap(MAP_STACK) instead of malloc. This is
 exposed via a configure –enable-mmap-map-stack option, and is enabled by default
 on OpenBSD where it is mandatory. (Anil Madhavapeddy, review by Gabriel Scherer,
 Tom Kelly, Michael Hendricks and KC Sivaramakrishnan).
-
 - [#11652](https://github.com/ocaml/ocaml/issues/11652): Fix benign off-by-one
 error in Windows implementation of caml_mem_map. (David Allsopp, review by
 Gabriel Scherer)
-
 - [#11669](https://github.com/ocaml/ocaml/issues/11669),
 [#11704](https://github.com/ocaml/ocaml/issues/11704): Fix construction of
 Effect.Unhandled exceptions in the bytecode interpreter. (David Allsopp and
 Xavier Leroy, report by Samuel Hym, review by Xavier Leroy and Gabriel Scherer)
-
 - [#11184](https://github.com/ocaml/ocaml/issues/11184),
 +[#11670](https://github.com/ocaml/ocaml/issues/11670): Stop calling ranlib on
 created / installed libraries (Sébastien Hinderer and Xavier Leroy, review by
 the same)
-
 - [#11194](https://github.com/ocaml/ocaml/issues/11194),
 [#11609](https://github.com/ocaml/ocaml/issues/11609): Fix inconsistent type
 variable names in “unbound type var” messages (Ulysse Gérard and Florian
 Angeletti, review Florian Angeletti and Gabriel Scherer)
-
 - [#11622](https://github.com/ocaml/ocaml/issues/11622): Prevent stack overflow
 when printing a constructor or record mismatch error involving recursive types.
 (Florian Angeletti, review by Gabriel Scherer)
-
 - [#11662](https://github.com/ocaml/ocaml/issues/11662),
 [#11673](https://github.com/ocaml/ocaml/issues/11673): fix a memory leak when
 using Dynlink, the bug was only present in development version of OCaml 5.
 (Stephen Dolan, report by Andre Maroneze, review by Gabriel Scherer)
-
 - [#11732](https://github.com/ocaml/ocaml/issues/11732): Ensure that types from
 packed modules are always generalised (Stephen Dolan and Leo White, review by
 Jacques Garrigue)
-
 - [#11737](https://github.com/ocaml/ocaml/issues/11737): Fix segfault condition
 in Unix.stat under Windows in the presence of multiple threads. (Marc Lasson,
 Nicolás Ojeda Bär, review by Gabriel Scherer and David Allsopp)
@@ -145,11 +131,9 @@ concurrency safety for mutable data types and states in the standard library. A
 unsynchronized_access alert have been added for functions that require user
 synchronizations on concurrent access. The new alert is diabled by default.
 (Florian Angeletti, review by François Pottier and KC Sivaramakrishnan )
-
 - [#11526](https://github.com/ocaml/ocaml/issues/11526), add a unstable alert to
 the Domain and Effect modules. The new alert is disabled by default. (Florian
 Angeletti, review by Nicolás Ojeda Bär, Daniel Bünzli, and Kate Deplaix)
-
 - [#11640](https://github.com/ocaml/ocaml/issues/11640): Add Flambda
 commonly-used options to the ocamlopt manpage (Amandine Nangah, review by David
 Allsopp, Florian Angeletti, Sébastien Hinderer, and Vincent Laviron)
