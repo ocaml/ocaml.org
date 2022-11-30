@@ -1,9 +1,14 @@
+type tab =
+  | Overview
+  | Documentation
+
 let render
 ?styles
 ~title
 ~description
 ~canonical
 ~(package : Package_intf.package)
+~tab
 inner =
 Layout.render
 ?styles
@@ -17,7 +22,7 @@ Layout.render
       <div class="flex justify-between flex-col md:flex-row border-b border-gray-200">
         <div class="flex flex-col items-baseline mb-6">
           <h4 class="font-bold md:whitespace-nowrap">
-            <a href="<%s Url.package_with_version package.name package.version %>"><%s package.name %></a>
+            <a href="<%s Url.package_with_version package.name package.version %>"><%s! if tab != Overview then "&#129120; " else "" %><%s package.name %></a>
             <select id="version" name="version" onchange="location = this.value;" class="appearance-none cursor-pointer py-0 pt-1 border rounded-md border-transparent pr-8">
               <% package.versions |> List.iter begin fun item -> %>
               <option value="/p/<%s package.name %>/<%s item %>"<%s if item = package.version then "selected" else "" %>>

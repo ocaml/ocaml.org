@@ -5,6 +5,11 @@ let sidebar
 (package : Package_intf.package)
 =
   <div class="flex flex-col">
+    <% if str_path != [] && toc != [] then ( %>
+    <a title="Package <%s package.name %>" class="xl:hidden py-1 font-semibold text-body-600 hover:text-orange-600 transition-colors mb-6" href="<%s Url.package_doc package.name package.version ~page:"index.html" %>">
+      &#129120; back to documentation root
+    </a>
+    <% ); %>
     <% if (toc != []) then ( %>
     <div class="xl:hidden mb-6 xl:mb-0">
     <%s! Toc.render toc %>
@@ -41,7 +46,8 @@ Package_layout.render
 ~description:(Printf.sprintf "%s %s: %s" package.name package.version package.description)
 ~package
 ~canonical:(Url.package_doc package.name package.version ?page:path_page)
-~styles:["/css/main.css"; "/css/doc.css"] @@
+~styles:["/css/main.css"; "/css/doc.css"]
+~tab:Documentation @@
 <div x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024">
   <button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
     :class="sidebar ? 'pl-1 pr-2': ''" x-on:click="sidebar = ! sidebar">
@@ -63,10 +69,7 @@ Package_layout.render
     <div class="flex-1 z-0 z- w-full lg:max-w-3xl relative lg:pt-6">
       <% if (maptoc != []) && (List.length path > 1) then (%>
         <div class="text-body-400">
-          <a title="Package <%s package.name %>" class="py-1 text-xl font-bold text-body-600 hover:text-orange-600 transition-colors" href="<%s Url.package_doc package.name package.version ~page:"index.html" %>">
-          <%s package.name %>
-          </a> &bull;
-          <span title="Library <%s Breadcrumbs.path_item_name (List.hd path) %>"><%s Breadcrumbs.path_item_name (List.hd path) %></span>
+          <span title="Library <%s Breadcrumbs.path_item_name (List.hd path) %>">Library <%s Breadcrumbs.path_item_name (List.hd path) %></span>
           <%s! Breadcrumbs.render (List.tl path) %>
         </div>
       <% ); %>
