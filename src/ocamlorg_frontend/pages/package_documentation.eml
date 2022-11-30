@@ -30,7 +30,7 @@ Package_layout.render
     </div>
   </button>
 
-  <div class="flex flex-col lg:flex-row md:gap-6">
+  <div class="flex flex-col lg:flex-row md:gap-12">
     <div
       class="p-10 z-10 w-full bg-white flex-shrink-0 flex-col fixed h-screen overflow-auto lg:pr-0 lg:flex left-0 top-0 lg:sticky lg:w-72 lg:p-0 lg:pt-6 font-normal text-body-400"
       x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
@@ -45,15 +45,15 @@ Package_layout.render
         <%s! Navmap.render ~path:str_path maptoc %>
       </div>
     </div>
-    <div class="flex-1 overflow-hidden z-0 z- w-full lg:max-w-3xl relative lg:pt-6">
+    <div class="flex-1 z-0 z- w-full lg:max-w-3xl relative lg:pt-6">
       <%s! if (maptoc != []) && (List.length path != 0) then Breadcrumbs.render path else "" %>
       <div class="odoc prose prose-orange">
         <%s! content %>
       </div>
     </div>
     <div class="hidden xl:flex top-0 sticky h-screen">
-      <div class="flex-col w-72">
-        <div class="h-screen overflow-scroll p-6 right-sidebar">
+      <div class="flex-col w-60">
+        <div class="h-screen overflow-scroll right-sidebar pt-6">
           <div class="font-semibold text-gray-500 text-sm mb-4">ON THIS PAGE</div>
           <%s! Toc.render toc %>
         </div>
