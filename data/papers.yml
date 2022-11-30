@@ -1,4 +1,156 @@
 papers:
+  - title: Bounding data races in space and time
+    publication: Programming Language Design and Implementation (PLDI)
+    abstract: >
+      We propose a new semantics for shared-memory parallel
+      programs that gives strong guarantees even in the presence
+      of data races. Our local data race freedom property guar-
+      antees that all data-race-free portions of programs exhibit
+      sequential semantics. We provide a straightforward oper-
+      ational semantics and an equivalent axiomatic model, and
+      evaluate an implementation for the OCaml programming
+      language. Our evaluation demonstrates that it is possible to
+      balance a comprehensible memory model with a reasonable
+      (no overhead on x86, ~0.6% on ARM) sequential performance
+      trade-off in a mainstream programming language
+    authors:
+      - Stephen Dolan
+      - KC Sivaramakrishnan
+      - Anil Madhavapeddy
+    tags:
+      - PLDI
+      - multicore
+    year: 2018
+    links:
+      - description: "Download PDF"
+        uri: http://kcsrk.info/papers/pldi18-memory.pdf
+    featured: true
+  - title: Retrofitting effect handlers onto OCaml
+    publication: Programming Language Design and Implementation (PLDI)
+    abstract: >
+      Effect handlers have been gathering momentum as a mechanism for modular
+      programming with user-defined effects. Effect handlers allow for non-local
+      control flow mechanisms such as generators, async/await, lightweight threads
+      and coroutines to be composably expressed. We present a design and evaluate
+      a full-fledged efficient implementation of effect handlers for OCaml, an
+      industrial-strength multi-paradigm programming language. Our implementation
+      strives to maintain the backwards compatibility and performance profile of
+      existing OCaml code. Retrofitting effect handlers onto OCaml is challenging
+      since OCaml does not currently have any non-local control flow mechanisms
+      other than exceptions. Our implementation of effect handlers for OCaml:
+      (i) imposes a mean 1% overhead on a comprehensive macro benchmark suite
+      that does not use effect handlers;
+      (ii) remains compatible with program analysis tools that inspect the
+      stack;
+      and (iii) is efficient for new code that makes use of effect handlers.
+    authors:
+      - K. C. Sivaramakrishnan
+      - Stephen Dolan
+      - Leo White
+      - Tom Kelly
+      - Sadiq Jaffer
+      - Anil Madhavapeddy
+    tags:
+      - PLDI
+      - effects
+    year: 2021
+    links:
+      - description: "Download PDF"
+        uri: https://dl.acm.org/doi/10.1145/3453483.3454039
+    featured: true
+  - title: "Cosmo : A Concurrent Separation Logic for Multicore OCaml"
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      Multicore OCaml extends OCaml with support for shared-memory concurrency.
+      It is equipped with a weak memory model, for which an operational
+      semantics has been published. This begs the question: what reasoning rules
+      can one rely upon while writing or verifying Multicore OCaml code?
+      To answer it, we instantiate Iris, a modern descendant of Concurrent
+      Separation Logic, for Multicore OCaml. This yields a low-level program
+      logic whose reasoning rules expose the details of the memory model.
+      On top of it, we build a higher-level logic, Cosmo, which trades off some
+      expressive power in return for a simple set of reasoning rules that allow
+      accessing nonatomic locations in a data-race-free manner, exploiting the
+      sequentially-consistent behavior of atomic locations, and exploiting the
+      release/acquire behavior of atomic locations.
+      Cosmo allows both low-level reasoning, where the details of the Multicore
+      OCaml memory model are apparent, and high-level reasoning, which is
+      independent of this memory model. We illustrate this claim via a number of
+      case studies: we verify several implementations of locks with respect to a
+      classic, memory-model-independent specification. Thus, a coarse-grained
+      application that uses locks as the sole means of synchronization can be
+      verified in the Concurrent-Separation-Logic fragment of Cosmo, without
+      any knowledge of the weak memory model.
+    authors:
+      - Glen Mével
+      - Jacques-Henri Jourdan
+      - François Pottier
+    tags:
+      - icfp
+      - multicore
+    year: 2020
+    links:
+     - description: "Download PDF"
+       uri: https://doi.org/10.1145/3408978
+    featured: false
+  - title: Formal verification of a concurrent bounded queue in a weak memory model
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      We use Cosmo, a modern concurrent separation logic, to formally specify
+      and verify an implementation of a multiple-producer multiple-consumer
+      concurrent queue in the setting of the Multicore OCaml weak memory model.
+      We view this result as a demonstration and experimental verification of
+      the manner in which Cosmo allows modular and formal reasoning about
+      advanced concurrent data structures. In particular, we show how the joint
+      use of logically atomic triples and of Cosmo's views makes it possible to
+      describe precisely in the specification the interaction between the queue
+      library and the weak memory model.
+    authors:
+      - Glen Mével
+      - Jacques-Henri Jourdan
+    tags:
+      - icfp
+      - multicore
+    year: 2021
+    links:
+      - description: "Download PDF"
+        uri: https://doi.org/10.1145/3473571
+    featured: false
+  - title: A Separation Logic for Effect Handlers
+    publication: Principles of Programming Languages (POPL)
+    abstract: >
+      User-defined effects and effect handlers are advertised and advocated as a
+      relatively easy-to-understand and modular approach to delimited control.
+      They offer the ability of suspending and resuming a computation and allow
+      information to be transmitted both ways between the computation, which
+      requests a certain service, and the handler, which provides this service.
+      Yet, a key question remains, to this day, largely unanswered: how does
+      one modularly specify and verify programs in the presence of both
+      user-defined effect handlers and primitive effects, such as heap-allocated
+      mutable state? We answer this question by presenting a Separation Logic
+      with built-in support for effect handlers, both shallow and deep. The
+      specification of a program fragment includes a protocol that describes the
+      effects that the program may perform as well as the replies that it can
+      expect to receive. The logic allows local reasoning via a frame rule and a
+      bind rule. It is based on Iris and inherits all of its advanced features,
+      including support for higher-order functions, user-defined ghost state,
+      and invariants. We illustrate its power via several case studies,
+      including (1) a generic formulation of control inversion, which turns a
+      producer that ``pushes'' elements towards a consumer into a producer from
+      which one can ``pull'' elements on demand, and (2) a simple system for
+      cooperative concurrency, where several threads execute concurrently, can
+      spawn new threads, and communicate via promises.
+    authors:
+      - Paulo Emílio de Vilhena
+      - François Pottier
+    tags:
+      - popl
+      - effects
+    year: 2021
+    links:
+      - description: "Download PDF"
+        uri: https://doi.org/10.1145/3434314
+    featured: false
   - title: A Memory Model for Multicore OCaml
     publication: International Conference on Functional Programming (ICFP)
     abstract: >
@@ -16,7 +168,7 @@ papers:
     links:
       - description: "Download PDF"
         uri: https://kcsrk.info/papers/memory_model_ocaml17.pdf
-    featured: true
+    featured: false
   - title: Extending OCaml's `open`
     publication: Open Publishing Association
     abstract: >
@@ -61,7 +213,7 @@ papers:
     links:
       - description: "Download PDF"
         uri: https://arxiv.org/pdf/1812.11664.pdf
-    featured: true
+    featured: false
   - title: A Syntactic Approach to Type Soundness
     publication: Information & Computation, 115(1):38−94
     abstract: >
