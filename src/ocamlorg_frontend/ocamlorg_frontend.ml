@@ -31,10 +31,8 @@ let package_overview ~documentation_status ~readme ~readme_title ~dependencies
     ~dependencies ~rev_dependencies ~homepages ~source ~changes_filename
     ~license_filename package
 
-let package_documentation ~documentation_status ~title ~path ~toc ~maptoc
-    ~content package =
-  Package_documentation.render ~documentation_status ~title ~path ~toc ~maptoc
-    ~content package
+let package_documentation ~title ~path ~toc ~maptoc ~content package =
+  Package_documentation.render ~title ~path ~toc ~maptoc ~content package
 
 let packages stats = Packages.render stats
 let packages_search ~total packages = Packages_search.render ~total packages

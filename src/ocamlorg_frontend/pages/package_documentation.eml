@@ -1,5 +1,4 @@
 let render
-~documentation_status
 ~title
 ~path
 ~toc
@@ -16,10 +15,8 @@ let path_page = match str_path |> String.concat "/" with
                 | "" -> None
                 | path -> Some (path ^ if String.contains path '.' then "" else "/index.html") in
 Package_layout.render
-~documentation_status
 ~title
 ~description:(Printf.sprintf "%s %s: %s" package.name package.version package.description)
-~tab:Documentation
 ~package
 ~canonical:(Url.package_doc package.name package.version ?page:path_page)
 ~styles:["/css/main.css"; "/css/doc.css"] @@
