@@ -73,7 +73,7 @@ type t =
   ; links : link list
   ; featured : bool
   }
-  
-let all = %a
+
+let all = List.sort (fun p1 p2 -> compare p2.year p1.year) %a
 |}
     pp_list (all ())
