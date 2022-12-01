@@ -4,6 +4,7 @@
 
 This repository contains the upcoming version of OCaml.org. It is currently served at https://ocaml.org/.
 
+This is a comprehensive walkthrough guide
 ## Features
 
 - **Integrated documentation and package management:** The site combines the
@@ -89,7 +90,7 @@ For the work on the designs and bringing them to life on the frontend!
 
 For the work on the new content and reviewing the existing one!
 
-We’d also like to thank the major funders who supported work on revamping the website: grants from the Tezos Foundation and Jane Street facilitated the bulk of the work. Thank you, and if anyone else wishes to help support it on an ongoing basis then donations to the OCaml Software Foundation and grants to the maintenance teams mentioned above are always welcomed.
+We’d also like to show appreciation to the major funders who supported work on revamping the website: grants from the Tezos Foundation and Jane Street facilitated the bulk of the work. Thank you, and if anyone else wishes to help support it on an ongoing basis then donations to the OCaml Software Foundation and grants to the maintenance teams mentioned above are always welcomed.
 
 ## Contributing
 
