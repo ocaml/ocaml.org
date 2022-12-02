@@ -69,9 +69,24 @@ jobs:
     location: Remote
     company: Cryptosense
     company_logo: https://global-uploads.webflow.com/5fb79f97eb305e5f85f6dff6/5fb7a15497f97810803970a0_CS%20logo_300px.png
+  - title: Senior Software Engineer
+    link: https://www.simcorp.com/en/career/find-a-job/senior-software-engineer--c-ocaml-r203826
+    location: Poland
+    company: SimCorp
+    company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
   - title: Software Engineer
-    link: https://www.simcorp.com/en/career/find-a-job/software-engineer-c-ocamland-apl-r201947
+    link: https://www.simcorp.com/en/career/find-a-job/software-engineer--c-ocaml-r203358
+    location: Ukraine
+    company: SimCorp
+    company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
+  - title: Software Engineer
+    link: https://www.simcorp.com/en/career/find-a-job/software-engineer---and-ocaml-r203759
     location: Denmark
     company: SimCorp
     company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
-    
+  - title: Senior Software Engineer
+    link: https://www.simcorp.com/en/career/find-a-job/senior-software-engineer--c-ocaml-r203357
+    location: Ukraine
+    company: SimCorp
+    company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
+
