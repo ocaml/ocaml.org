@@ -38,7 +38,7 @@ jobs:
   - title: OCaml Developer
     link: https://functori.com/annonce-recrutement.pdf
     location: France
-    publication_date: 1970-01-01
+    publication_date: 2022-02-01
     company: Functori
     company_logo: https://functori.com/assets/img/brand/functori_logotype_square.svg
   - title: Build System Engineer
@@ -47,10 +47,10 @@ jobs:
     publication_date: 1970-01-01
     company: Jane Street
     company_logo: /logos/janestreet.svg
-  - title: Senior Software Engineer
+  - title: Software engineer senior
     link: https://www.marigold.dev/job-offers/software-engineer-senior-1
     location: France
-    publication_date: 1970-01-01
+    publication_date: 1921-11-20
     company: Marigold
     company_logo: https://uploads-ssl.webflow.com/616ab4741d375d1642c19027/61793ee65c891c190fcaa1d0_Vector(1).png
   - title: Software Engineer
@@ -74,7 +74,7 @@ jobs:
   - title: Computer Scientist
     link: https://frama-c.com/jobs/2022-02-01-permanent-computer-scientist-cyber-security-verification.html
     location: France
-    publication_date: 1970-01-01
+    publication_date: 1922-02-01
     company: CEA
     company_logo: https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/CEA_logo_nouveau.svg/1255px-CEA_logo_nouveau.svg.png
   - title: Senior Software Engineer
