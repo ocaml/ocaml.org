@@ -84,13 +84,13 @@ jobs:
     location: Denmark
     company: SimCorp
     company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
-  - title: Senior Software Engineer
-    link: https://www.simcorp.com/en/career/find-a-job/senior-software-engineer--c-ocaml-r203357
-    location: Ukraine
-    company: SimCorp
-    company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
-  - title: AI Pharma Developer
-    link: https://www.nobiastx.com/careers
+  - title: Formal Methods Engineer
+    link: https://trust-in-soft.com/trustinsoft-careers/
     location: United States
-    company: Nobias Therapeutics
-    company_logo: https://uploads-ssl.webflow.com/61532e32ca094ababec1dbc2/61a7150d2aebf25b6d9d1a35_nobias%20logo%20-%20transparent%20background.png
+    company: TrustInSoft
+    company_logo: https://trust-in-soft.com/wp-content/uploads/sites/5/2020/07/TIS-logo-Blck_No-Bckgrd.png
+  - title: Js_of_ocaml Developer
+    link: https://trust-in-soft.com/trustinsoft-careers/
+    location: United States
+    company: TrustInSoft
+    company_logo: https://trust-in-soft.com/wp-content/uploads/sites/5/2020/07/TIS-logo-Blck_No-Bckgrd.png
