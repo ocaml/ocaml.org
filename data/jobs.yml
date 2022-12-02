@@ -86,21 +86,25 @@ jobs:
   - title: Senior Software Engineer
     link: https://www.simcorp.com/en/career/find-a-job/senior-software-engineer--c-ocaml-r203826
     location: Poland
+    publication_date: 1970-01-01
     company: SimCorp
     company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
   - title: Software Engineer
     link: https://www.simcorp.com/en/career/find-a-job/software-engineer--c-ocaml-r203358
     location: Ukraine
+    publication_date: 1970-01-01
     company: SimCorp
     company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
   - title: Software Engineer
     link: https://www.simcorp.com/en/career/find-a-job/software-engineer---and-ocaml-r203759
     location: Denmark
+    publication_date: 1970-01-01
     company: SimCorp
     company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
   - title: Senior Software Engineer
     link: https://www.simcorp.com/en/career/find-a-job/senior-software-engineer--c-ocaml-r203357
     location: Ukraine
+    publication_date: 1970-01-01
     company: SimCorp
     company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
 
