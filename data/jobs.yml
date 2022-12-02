@@ -84,4 +84,9 @@ jobs:
     location: Denmark
     company: SimCorp
     company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
-    
+  - title: Senior Software Engineer
+    link: https://www.simcorp.com/en/career/find-a-job/senior-software-engineer--c-ocaml-r203357
+    location: Ukraine
+    company: SimCorp
+    company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
+
