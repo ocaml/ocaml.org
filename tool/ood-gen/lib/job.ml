@@ -2,7 +2,7 @@ type metadata = {
   title : string;
   link : string;
   location : string;
-  publication_date: string option;
+  publication_date : string option;
   company : string;
   company_logo : string;
 }
@@ -12,7 +12,7 @@ type t = {
   title : string;
   link : string;
   location : string;
-  publication_date: string option;
+  publication_date : string option;
   company : string;
   company_logo : string;
 }
@@ -57,9 +57,9 @@ let pp ppf v =
   ; company = %a
   ; company_logo = %a
   }|}
-    Pp.string v.title Pp.string v.link
-    Pp.string v.location (Pp.option Pp.string) v.publication_date
-    Pp.string v.company Pp.string v.company_logo
+    Pp.string v.title Pp.string v.link Pp.string v.location
+    (Pp.option Pp.string) v.publication_date Pp.string v.company Pp.string
+    v.company_logo
 
 let pp_list = Pp.list pp
 
