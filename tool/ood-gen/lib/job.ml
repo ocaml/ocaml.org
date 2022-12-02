@@ -2,7 +2,7 @@ type metadata = {
   title : string;
   link : string;
   location : string;
-  publication_date: string;
+  publication_date: string option;
   company : string;
   company_logo : string;
 }
@@ -12,7 +12,7 @@ type t = {
   title : string;
   link : string;
   location : string;
-  publication_date: string;
+  publication_date: string option;
   company : string;
   company_logo : string;
 }
@@ -58,7 +58,7 @@ let pp ppf v =
   ; company_logo = %a
   }|}
     Pp.string v.title Pp.string v.link
-    Pp.string v.location Pp.string v.publication_date
+    Pp.string v.location (Pp.option Pp.string) v.publication_date
     Pp.string v.company Pp.string v.company_logo
 
 let pp_list = Pp.list pp
@@ -70,11 +70,13 @@ type t =
   { title : string
   ; link : string
   ; location : string
-  ; publication_date : string
+  ; publication_date : string option
   ; company : string
   ; company_logo : string
   }
   
-let all = List.sort (fun j1 j2 -> compare j2.publication_date j1.publication_date) %a
+let all =
+  let job_date j = Option.value ~default:"1970-01-01" j.publication_date in
+  List.sort (fun j1 j2 -> compare (job_date j2) (job_date j1)) %a
 |}
     pp_list (all ())

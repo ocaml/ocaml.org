@@ -2,7 +2,6 @@ jobs:
   - title: Cryptography Engineer
     link: https://boards.greenhouse.io/o1labs/jobs/4023646004
     location: Remote
-    publication_date: 1970-01-01
     company: O(1) Labs
     company_logo: https://workshub.imgix.net/7b409fdc3bc46438b64686a627d56b2b?fit=clip&crop=entropy&auto=format&w=60&h=60&q=40&dpr=2
   - title: Team Lead - Software Engineering
@@ -14,7 +13,6 @@ jobs:
   - title: Remote Senior Full Stack Engineer
     link: https://heliax.dev/jobs/senior-full-stack-engineer/
     location: Remote
-    publication_date: 1970-01-01
     company: Heliax
     company_logo: https://workshub.imgix.net/e52e257a6a9cdbc2bc868a5991ccd717?fit=clip&crop=entropy&auto=format
   - title: Senior Software Engineer - Tooling team
@@ -44,7 +42,6 @@ jobs:
   - title: Build System Engineer
     link: https://www.janestreet.com/join-jane-street/position/4274814002/
     location: United-Kingdom
-    publication_date: 1970-01-01
     company: Jane Street
     company_logo: /logos/janestreet.svg
   - title: Software engineer senior
@@ -62,13 +59,11 @@ jobs:
   - title: OCaml Programmer
     link: https://solvuu.com/company
     location: Remote
-    publication_date: 1970-01-01
     company: Solvuu
     company_logo: https://solvuu.com/static/media/logo-color.92a01b9f.svg
   - title: Senior Software Engineer
     link: https://solvuu.com/company
     location: France
-    publication_date: 1970-01-01
     company: Nomadic Labs
     company_logo: https://research-development.nomadic-labs.com/images/meanwhile_202107/nomadic-logo-new.png
   - title: Computer Scientist
@@ -80,31 +75,26 @@ jobs:
   - title: Senior Software Engineer
     link: https://cryptosense.com/vacancies/senior-software-engineer
     location: Remote
-    publication_date: 1970-01-01
     company: Cryptosense
     company_logo: https://global-uploads.webflow.com/5fb79f97eb305e5f85f6dff6/5fb7a15497f97810803970a0_CS%20logo_300px.png
   - title: Senior Software Engineer
     link: https://www.simcorp.com/en/career/find-a-job/senior-software-engineer--c-ocaml-r203826
     location: Poland
-    publication_date: 1970-01-01
     company: SimCorp
     company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
   - title: Software Engineer
     link: https://www.simcorp.com/en/career/find-a-job/software-engineer--c-ocaml-r203358
     location: Ukraine
-    publication_date: 1970-01-01
     company: SimCorp
     company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
   - title: Software Engineer
     link: https://www.simcorp.com/en/career/find-a-job/software-engineer---and-ocaml-r203759
     location: Denmark
-    publication_date: 1970-01-01
     company: SimCorp
     company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
   - title: Senior Software Engineer
     link: https://www.simcorp.com/en/career/find-a-job/senior-software-engineer--c-ocaml-r203357
     location: Ukraine
-    publication_date: 1970-01-01
     company: SimCorp
     company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
 
