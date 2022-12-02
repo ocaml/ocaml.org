@@ -1,8 +1,8 @@
 ---
-id: data-types
-title: Data Types and Matching
+id: control-flow
+title: Control Flow
 description: >
-  Learn to build custom types and write function to process this data
+  Learn to use if expression and pattern matching to control the flow of an OCaml program.
 category: "language"
 date: 2021-05-27T21:07:30-00:00
 ---
