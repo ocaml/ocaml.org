@@ -2,6 +2,7 @@ type metadata = {
   title : string;
   link : string;
   location : string;
+  publication_date: string;
   company : string;
   company_logo : string;
 }
@@ -11,6 +12,7 @@ type t = {
   title : string;
   link : string;
   location : string;
+  publication_date: string;
   company : string;
   company_logo : string;
 }
@@ -31,6 +33,7 @@ let decode s =
                         title = raw.title;
                         link = raw.link;
                         location = raw.location;
+                        publication_date = raw.publication_date;
                         company = raw.company;
                         company_logo = raw.company_logo;
                       }
@@ -50,11 +53,13 @@ let pp ppf v =
   { title = %a
   ; link = %a
   ; location = %a
+  ; publication_date = %a
   ; company = %a
   ; company_logo = %a
   }|}
-    Pp.string v.title Pp.string v.link Pp.string v.location Pp.string v.company
-    Pp.string v.company_logo
+    Pp.string v.title Pp.string v.link
+    Pp.string v.location Pp.string v.publication_date
+    Pp.string v.company Pp.string v.company_logo
 
 let pp_list = Pp.list pp
 
@@ -65,10 +70,11 @@ type t =
   { title : string
   ; link : string
   ; location : string
+  ; publication_date : string
   ; company : string
   ; company_logo : string
   }
   
-let all = %a
+let all = List.sort (fun j1 j2 -> compare j2.publication_date j1.publication_date) %a
 |}
     pp_list (all ())
