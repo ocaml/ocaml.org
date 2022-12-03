@@ -1,1 +1,2 @@
-let hello () = print_endline "Hello"
+let message = "Hello 2"
+let hello () = print_endline message
