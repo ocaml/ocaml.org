@@ -1,9 +1,10 @@
-FROM ocaml/opam:alpine-3.13-ocaml-4.14 as build
+FROM ocaml/opam:alpine-3.17-ocaml-4.14 as build
 
 # Install system dependencies
 RUN sudo apk update && sudo apk add --update libev-dev openssl-dev gmp-dev oniguruma-dev
 
-RUN cd ~/opam-repository && git pull origin master && git reset --hard 473aa3921da4e79b0fa2926a78ceacf888ec809c && opam update
+# Set opam repo at: 6496b2727e Merge pull request #22580 from patricoferris/release-hilite-v0.2.0
+RUN cd ~/opam-repository && git pull origin master && git reset --hard 6496b2727e && opam update
 
 WORKDIR /home/opam
 
@@ -15,7 +16,7 @@ RUN opam install . --deps-only
 COPY --chown=opam:opam . .
 RUN opam exec -- dune build @install --profile=release
 
-FROM alpine:3.12 as run
+FROM alpine:3.17 as run
 
 RUN apk update && apk add --update libev gmp git
 
