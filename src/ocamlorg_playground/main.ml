@@ -52,12 +52,28 @@ let get_el_by_id s =
       Console.warn [ Jstr.v "Failed to get elemented by id" ];
       invalid_arg s
 
-let cyan el = El.set_inline_style (Jstr.v "color") (Jstr.v "cyan") el
+let cyan = "cyan"
+let red = "red"
+
+let render_output color = function
+  | None -> None
+  | Some output ->
+      let el =
+        El.p
+          ~at:[ At.v (Jstr.v "style") (Jstr.v "white-space: pre-wrap;") ]
+          [ El.txt' output ]
+      in
+      El.set_inline_style (Jstr.v "color") (Jstr.v color) el;
+      Some el
 
 let handle_output (o : Toplevel_api.exec_result) =
   let output = get_el_by_id "output" in
-  let out = El.(p [ txt' (Option.value ~default:"" o.stdout) ]) in
-  cyan out;
+  let output_elements =
+    List.filter_map
+      (fun (c, o) -> render_output c o)
+      [ (cyan, o.stdout); (red, o.stderr); (red, o.caml_ppf) ]
+  in
+  let out = El.div output_elements in
   El.append_children output [ out ]
 
 module Codec = struct
