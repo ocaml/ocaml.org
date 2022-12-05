@@ -205,7 +205,9 @@ module Documentation = struct
   type item =
     [ `Module of string
     | `ModuleType of string
-    | `FunctorArgument of int * string ]
+    | `Parameter of int * string
+    | `Class of string
+    | `ClassType of string ]
 
   type t = { toc : toc list; module_path : item list; content : string }
 
@@ -231,8 +233,10 @@ module Documentation = struct
       | [ module_name ] -> Some (`Module module_name)
       | [ "module"; "type"; module_name ] -> Some (`ModuleType module_name)
       | [ "argument"; arg_number; arg_name ] -> (
-          try Some (`FunctorArgument (int_of_string arg_number, arg_name))
+          try Some (`Parameter (int_of_string arg_number, arg_name))
           with Failure _ -> None)
+      | [ "class"; class_name ] -> Some (`Class class_name)
+      | [ "class"; "type"; class_name ] -> Some (`ClassType class_name)
       | _ -> None
     in
     String.split_on_char '/' s |> List.filter_map parse_item

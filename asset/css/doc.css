@@ -187,3 +187,128 @@ div.odoc ul.at-tags p {
 div.odoc span.at-tag {
   font-weight: bold;
 }
+
+/* package explorer navmap and breadcrumb tag */
+
+.navmap:hover ul {
+  border-color: gainsboro;
+}
+
+.no-expand, .icon-expand  {
+  white-space:nowrap;
+  display:flex;
+  flex-wrap: nowrap;
+}
+
+.icon-expand {
+  cursor: pointer;
+}
+
+span.icon-expand:not(.open) > .navmap-tag , span.no-expand > .navmap-tag {
+  background:white;
+}
+
+.navmap-tag {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width:2.1em;
+  min-width:2.1em;
+  margin:3px 0;
+  padding:2px 1px;
+  line-height:1;
+  margin-right:6px;
+  font-family: Inter, sans-serif;
+  border-width: 2px;
+  border-radius: 0.25em;
+  font-weight:bold;
+  font-size: .875rem;
+  box-sizing: border-box;
+}
+
+.navmap-tag.library-tag::after {
+  content: "lib";
+}
+.library-tag {
+  color: rgb(91, 102, 114);
+  background-color: rgb(91, 102, 114);
+  border-color: rgb(91, 102, 114);
+}
+.navmap-tag.module-tag::after {
+  content: "M";
+}
+.module-tag {
+  color: #cc4e0c;
+  background-color: #cc4e0c;
+  border-color: #cc4e0c;
+}
+.navmap-tag.module-type-tag::after {
+  content: "Mt";
+}
+.module-type-tag{
+  color: #027491;
+  background-color: #027491;
+  border-color: #027491;
+}
+.navmap-tag.parameter-tag::after {
+  content: "P";
+}
+.parameter-tag{
+  color: green;
+  background-color: green;
+  border-color: green;
+}
+.navmap-tag.class-tag::after {
+  content: "C";
+}
+.class-tag{
+  color: rgb(163, 34, 34);
+  background-color: rgb(163, 34, 34);
+  border-color: rgb(163, 34, 34);
+}
+.navmap-tag.class-type-tag::after {
+  content: "Ct";
+}
+.class-type-tag{
+  color: rgb(32, 68, 165);
+  background-color: rgb(32, 68, 165);
+  border-color: rgb(32, 68, 165);
+}
+
+span.no-expand > .navmap-tag {
+  margin-left: 12px;
+}
+
+span.icon-expand.open > .navmap-tag {
+  color:white;
+}
+
+span.icon-expand::before {
+  font-weight: bold;
+  content: " \25B8";
+  text-align: center;
+  box-sizing: border-box;
+  display:flex;
+  align-items: center;
+  padding-right:4px;
+}
+
+span.icon-expand.open::before {
+  content: " \25BE";
+}
+
+.breadcrumbs-tag {
+  padding:2px 6px;
+  line-height:1;
+  margin-right:6px;
+  font-family: Inter, sans-serif;
+  border-width: 2px;
+  border-radius: 0.25em;
+  font-weight:bold;
+  font-size: 1rem;
+  box-sizing: border-box;
+  color:white;
+  align-items: center;
+  display:flex;
+}
