@@ -122,12 +122,14 @@ let setup () =
   in
   let* _ = setup () in
   let share = get_el_by_id "share" in
-  Ev.(
-    listen click
-      (fun _ ->
-        Console.log_if_error ~use:()
-          (Codec.to_window @@ Jstr.v (Edit.get_doc view)))
-      (El.as_target share));
+  let _listener =
+    Ev.(
+      listen click
+        (fun _ ->
+          Console.log_if_error ~use:()
+            (Codec.to_window @@ Jstr.v (Edit.get_doc view)))
+        (El.as_target share))
+  in
   let button = get_el_by_id "run" in
   let on_click _ =
     let run () =
@@ -139,6 +141,7 @@ let setup () =
     in
     async_raise run
   in
-  Lwt_result.return @@ Ev.(listen click on_click (El.as_target button))
+  let _listener = Ev.(listen click on_click (El.as_target button)) in
+  Lwt_result.return ()
 
 let () = async_raise setup

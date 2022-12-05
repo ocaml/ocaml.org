@@ -3,8 +3,8 @@ FROM ocaml/opam:alpine-3.17-ocaml-4.14 as build
 # Install system dependencies
 RUN sudo apk update && sudo apk add --update libev-dev openssl-dev gmp-dev oniguruma-dev
 
-# Set opam repo at: 6496b2727e Merge pull request #22580 from patricoferris/release-hilite-v0.2.0
-RUN cd ~/opam-repository && git pull origin 6496b2727e51cc19c9ebaeb73008ded920eea501 && opam update
+# Set opam repo at: f72694d Merge pull request #22599 from dbuenzli/b0-publish-ptime.1.1.0
+RUN cd ~/opam-repository && git pull origin f72694dcd7c7cd6c6438f3f988c4742f0758737a && opam update
 
 WORKDIR /home/opam
 
