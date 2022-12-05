@@ -67,6 +67,7 @@ module Job : sig
     title : string;
     link : string;
     location : string;
+    publication_date : string option;
     company : string;
     company_logo : string;
   }
