@@ -4,7 +4,7 @@ FROM ocaml/opam:alpine-3.17-ocaml-4.14 as build
 RUN sudo apk update && sudo apk add --update libev-dev openssl-dev gmp-dev oniguruma-dev
 
 # Set opam repo at: 6496b2727e Merge pull request #22580 from patricoferris/release-hilite-v0.2.0
-RUN cd ~/opam-repository && git pull origin master && git reset --hard 6496b2727e && opam update
+RUN cd ~/opam-repository && git pull origin 6496b2727e51cc19c9ebaeb73008ded920eea501 && opam update
 
 WORKDIR /home/opam
 
