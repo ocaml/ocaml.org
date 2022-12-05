@@ -21,8 +21,15 @@ Layout.render
     <div class="container-fluid wide">
       <div class="flex justify-between flex-col md:flex-row border-b border-gray-200">
         <div class="flex flex-col items-baseline mb-6">
-          <h4 class="font-bold md:whitespace-nowrap">
-            <a href="<%s Url.package_with_version package.name package.version %>"><%s! if tab != Overview then "&#129120; " else "" %><%s package.name %></a>
+          <h4 class="font-bold md:whitespace-nowrap flex items-center">
+            <a class="flex items-center" href="<%s Url.package_with_version package.name package.version %>">
+              <% if tab != Overview then ( %>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                </svg>&nbsp;
+              <% ); %>
+              <%s package.name %>
+            </a>
             <select id="version" name="version" onchange="location = this.value;" class="appearance-none cursor-pointer py-0 pt-1 border rounded-md border-transparent pr-8">
               <% package.versions |> List.iter begin fun item -> %>
               <option value="/p/<%s package.name %>/<%s item %>"<%s if item = package.version then "selected" else "" %>>

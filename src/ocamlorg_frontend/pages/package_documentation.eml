@@ -6,8 +6,8 @@ let sidebar
 =
   <div class="flex flex-col">
     <% if str_path != [] && toc != [] then ( %>
-    <a title="Package <%s package.name %>" class="xl:hidden py-1 font-semibold text-body-600 hover:text-orange-600 transition-colors mb-6" href="<%s Url.package_doc package.name package.version ~page:"index.html" %>">
-      &#129120; back to documentation root
+    <a title="Package <%s package.name %>" class="xl:hidden py-1 font-regular text-body-600 hover:text-orange-600 transition-colors mb-6" href="<%s Url.package_doc package.name package.version ~page:"index.html" %>">
+      back to documentation root
     </a>
     <% ); %>
     <% if (toc != []) then ( %>
