@@ -85,6 +85,7 @@ let render () =
           <li class="py-3"><a href="<%s Url.carbon_footprint %>">Carbon Footprint</a></li>
           <li class="py-3"><a href="<%s Url.governance %>">Governance</a></li>
           <li class="py-3"><a href="<%s Url.privacy_policy %>">Privacy Policy</a></li>
+          <li class="py-3"><a href="<%s Url.code_of_conduct %>">Code of Conduct</a></li>
         </ul>
       </div>
     </div>

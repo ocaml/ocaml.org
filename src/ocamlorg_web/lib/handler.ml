@@ -222,6 +222,10 @@ let privacy_policy =
   page Ood.Page.privacy_policy Ocamlorg_frontend.Url.privacy_policy
 
 let governance = page Ood.Page.governance Ocamlorg_frontend.Url.governance
+
+let code_of_conduct =
+  page Ood.Page.code_of_conduct Ocamlorg_frontend.Url.code_of_conduct
+
 let playground _req = Dream.html (Ocamlorg_frontend.playground ())
 
 let papers req =

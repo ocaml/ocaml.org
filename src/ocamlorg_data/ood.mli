@@ -371,4 +371,5 @@ module Page : sig
   val carbon_footprint : t
   val privacy_policy : t
   val governance : t
+  val code_of_conduct : t
 end
