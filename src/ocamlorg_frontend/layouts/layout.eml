@@ -44,8 +44,8 @@ let render ?(use_swiper=false) ?(banner = false) ?(wide=false) ?description ?sty
       <div class="mx-auto max-w-7xl py-3 px-3 sm:px-6 lg:px-8">
         <div class="pr-16 sm:px-16 sm:text-center">
           <p class="font-medium text-white">
-            <span class="md:hidden">OCaml 5.0 is in beta!</span>
-            <span class="hidden md:inline">OCaml 5.0 beta 2 is available! OCaml 5.0 is the next major release of OCaml, which comes with support for shared-memory parallelism through domains and direct-style concurrency through algebraic effects!</span>
+            <span class="md:hidden">OCaml 5.0.0 has a release candidate!</span>
+            <span class="hidden md:inline">The release candidate for OCaml 5.0.0 is available! OCaml 5.0 is the next major release of OCaml, which comes with support for shared-memory parallelism through domains and direct-style concurrency through algebraic effects!</span>
             <span class="block sm:ml-2 sm:inline-block">
               <a href="<%s Url.news_post "ocaml-5.0.beta2" %>" class="font-bold text-white underline">
                 Try it now
