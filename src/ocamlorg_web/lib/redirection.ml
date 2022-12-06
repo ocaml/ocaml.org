@@ -653,4 +653,9 @@ let t =
       make v2_assets;
       Dream.scope "" [ Dream_encoding.compress ] manual;
       make ~permanent:true [ ("/opportunities", "/jobs") ];
+      make ~permanent:true
+        [ ("/carbon-footprint", "/policies/carbon-footprint") ];
+      make ~permanent:true [ ("/privacy-policy", "/policies/privacy-policy") ];
+      make ~permanent:true [ ("/governance", "/policies/governance") ];
+      make ~permanent:true [ ("/opportunities", "/jobs") ];
     ]
