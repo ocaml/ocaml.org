@@ -30,12 +30,13 @@ let render
 (package : Package_intf.package) =
 let str_path =
   List.map (function
-        | Breadcrumbs.Module s -> s
+        | Breadcrumbs.Library s -> s
+        | Module s -> s
         | ModuleType s -> s
         | Parameter (number, s) -> Int.to_string number ^ "-" ^ s
         | Class s -> s
         | ClassType s -> s
-        | Library s -> s
+        | Manual -> ""
         | Page s -> s) path
 in
 let path_page = match str_path |> String.concat "/" with
@@ -69,8 +70,7 @@ Package_layout.render
     <div class="flex-1 z-0 z- w-full lg:max-w-3xl relative lg:pt-6">
       <% if (maptoc != []) && (List.length path > 1) then (%>
         <div class="text-body-400">
-          <span title="Library <%s Breadcrumbs.path_item_name (List.hd path) %>">Library <%s Breadcrumbs.path_item_name (List.hd path) %></span>
-          <%s! Breadcrumbs.render (List.tl path) %>
+          <%s! Breadcrumbs.render path %>
         </div>
       <% ); %>
       <div class="odoc prose prose-orange">
