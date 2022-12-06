@@ -602,9 +602,7 @@ let package_doc t kind req =
               in
               match library_path_item with
               | Some item -> Library item.title :: path
-              | None -> Page "manual" :: path
-              (* TODO: replace "manual" by a more specific name for standalone
-                 docs pages, when we can distinguish them. *)
+              | None -> Manual :: path
             else []
           in
           let package_meta = package_meta t package in

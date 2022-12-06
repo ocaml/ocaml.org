@@ -1,4 +1,5 @@
 type path_item = 
+  | Manual
   | Page of string
   | Library of string
   | Module of string
@@ -8,6 +9,7 @@ type path_item =
   | ClassType of string
 
 let kind_tag (m : path_item) = match m with
+  | Manual -> ""
   | Page _ -> ""
   | Library _ -> ""
   | Module _ ->
@@ -22,6 +24,7 @@ let kind_tag (m : path_item) = match m with
     <span class="breadcrumbs-tag class-type-tag text-white">Class type</span>
 
 let path_item_name (m: path_item) = match m with
+  | Manual -> ""
   | Page name
   | Library name
   | Module name
@@ -42,26 +45,19 @@ let rec breadcrumbs_from_path (reversed_module_path: path_item list) prefix : ( 
     let new_prefix = prefix ^ "../" in
     { text = path_item_name x ; href = prefix ^ "index.html" } :: breadcrumbs_from_path xs new_prefix
 
-let render_sidebar_breadcrumbs (module_path : path_item list) =
-  let (reversed_module_path : path_item list) = List.rev module_path in
-  let breadcrumbs = breadcrumbs_from_path reversed_module_path "" in
-  let render_breadcrumb b = 
-    <span>
-      <a href="<%s! b.href %>" class="font-medium text-gray-800 transition-colors hover:text-orange-600"><%s b.text %></a>
-    </span>
-  in
-  <div class="flex flex-wrap">
-    <%s! String.concat "<span>.</span>" (breadcrumbs |> List.rev |> List.map render_breadcrumb)  %>
-  </div>
-
 let render (module_path:path_item list) =
-  let (reversed_module_path : path_item list) = List.rev module_path in
+  let (reversed_module_path : path_item list) = List.rev (List.tl module_path) in
   let breadcrumbs = breadcrumbs_from_path reversed_module_path "" in
   let render_breadcrumb b =
     <span>
       <a href="<%s! b.href %>" class="ml-1 text-2xl font-medium text-gray-800 transition-colors hover:text-orange-600"><%s b.text %></a>
     </span>
   in
+  <% if Manual = List.hd module_path then ( %>
+    <span title="Manual">Manual</span>
+    <% ) else ( %>
+    <span title="Library <%s path_item_name (List.hd module_path) %>">Library <%s path_item_name (List.hd module_path) %></span>
+  <% ); %>
   <div class="flex flex-wrap pb-4">
     <%s! if module_path != [] then kind_tag (List.hd reversed_module_path) else "" %>
     <%s! String.concat "<span class=\"ml-1 text-2xl\">.</span>" (breadcrumbs |> List.rev |> List.map render_breadcrumb); %>
