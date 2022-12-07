@@ -39,9 +39,10 @@ Learn_layout.render
       <div class="flex h-full justify-center" x-show="!isPlaying">
         <div class="z-10 mb-10 lg:mb-0">
           <img width="160" class="m-auto mt-10 md:mt-20" src="/logo-with-name.svg" alt="OCaml logo" />
-          <h3 class="font-bold mt-16">OCaml Workshop 2020</h3>
+          <div class="text-body-400 mt-2">OCaml Workshop 2020</div>
+          <h3 class="font-bold mt-16">State of the OCaml Platform 2020</h3>
           <div class="mt-16 flex justify-center">
-            Presented by
+            Presented by&nbsp;
             <div class="font-semibold">Anil Madhavapeddy</div>
           </div>
           <div class="text-body-400 mt-2">University of Cambridge</div>
@@ -62,7 +63,47 @@ Learn_layout.render
     </div>
   </div>
   <div class="flex flex-col border-t border-gray-200 pt-20 mt-20 mb-20">
-    <h3 class="font-bold">State of Platform Tools</h3>
+    <h3 class="font-bold">Installing the OCaml Platform</h3>
+      <div class="text-body-400 mt-6 text-lg">
+        Using the <a class="text-orange-500" href="https://github.com/tarides/ocaml-platform-installer"> OCaml Plarform Installer</a>, presented here, is the recommended way to install the platform. However, the official guide <a class="text-orange-500" href="/docs/up-and-running">Up and Running with OCaml</a> details how to set up a complete work environment for your OCaml projects.
+        The <code>ocaml-platform</code> binary, automates
+        and set up of a OCaml development environment. However, you need first to install the few
+        system dependencies of the OCaml environment, such as a C compiler (e.g.
+        <code>gcc</code>) and other system
+        tools: <code>bzip2</code>, <code>make</code>, <code>bubblewrap</code>, <code>patch</code>, <code>curl</code> and <code>unzip</code>. In most
+        architecture, you can install them using your package manager, for
+        example on Ubuntu or Debian:
+      </div>
+      <div class="lg:flex-1 flex justify-left mt-2">
+        <div class="bg-code-background flex flex-col w-full rounded-2xl ">
+          <div style="flex: 1 1 50%" class="py-2 px-6 text-white text-opacity-50 overflow-auto">
+            <div class="text-left overflow-auto">
+              <pre id="output" class="flex flex-col w-full code-preview text-white text-sm space-y-1 font-medium">
+<code><span>sudo apt install bzip2 make gcc bubblewrap rsync patch curl unzip</code>
+              </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-body-400 mt-2 text-lg">
+        You can now download and run the installer script (which will call <code>sudo</code> for the final installation step) and simply call <code>ocaml-platform</code>:
+      </div>
+      <div class="lg:flex-1 flex justify-left mt-2">
+        <div class="bg-code-background flex flex-col w-full rounded-2xl ">
+          <div style="flex: 1 1 50%" class="py-2 px-6 text-white text-opacity-50 overflow-auto">
+            <div class="text-left overflow-auto">
+              <pre id="output" class="flex flex-col w-full code-preview text-white text-sm space-y-1 font-medium">
+<code><span>bash&nbsp;<span class="text-red-500">&lt;&nbsp;</span><span class="text-yellow-500">&lt;(</span>curl -sL&nbsp;<span class="text-blue-500">https://github.com/tarides/ocaml-platform-installer/releases/latest/download/installer.sh</span><span class="text-yellow-500">)</span></span>
+<span>ocaml-platform</span></code>
+              </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="text-body-400 text-lg mt-2">
+      If the tools aren't cached yet, this needs to build OCaml itself and the Platform tools, which takes a few minutes.
+    </div>
+    <h3 class="font-bold mt-8">State of Platform Tools</h3>
     <div class="text-body-400 mt-6 text-lg">
       Each platform element lives at a different point in the lifecycle of a Platform tool
     </div>
