@@ -93,7 +93,7 @@ Learn_layout.render
           <div style="flex: 1 1 50%" class="py-2 px-6 text-white text-opacity-50 overflow-auto">
             <div class="text-left overflow-auto">
               <pre id="output" class="flex flex-col w-full code-preview text-white text-sm space-y-1 font-medium">
-<code><span>bash&nbsp;<span class="text-red-500">&lt;&nbsp;</span><span class="text-yellow-500">&lt;(</span>curl -sL&nbsp;<span class="text-blue-500">https://github.com/tarides/ocaml-platform-installer/releases/latest/download/installer.sh</span><span class="text-yellow-500">)</span></span>
+<code><span>bash&nbsp;<span class="text-red-500">&lt;&nbsp;</span><span class="text-yellow-500">&lt;(</span>curl -sL&nbsp;<span class="text-blue-500">https://ocaml.org/installer.sh</span><span class="text-yellow-500">)</span></span>
 <span>ocaml-platform</span></code>
               </pre>
             </div>
