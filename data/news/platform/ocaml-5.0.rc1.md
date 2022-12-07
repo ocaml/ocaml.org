@@ -1,6 +1,6 @@
 ---
 title: OCaml 5.0.0 - First release candidate
-description: First release candidate of OCaml 5.0.0
+description: First Release Candidate of OCaml 5.0.0
 date: "2022-12-06"
 tags: [ocaml, platform]
 ---
@@ -14,16 +14,16 @@ If you find any bugs, please report them on [OCaml's issue tracker](https://gith
 
   https://github.com/ocaml/ocaml/issues
 
-Compared to the second beta release, this releases contains one toplevel bug fix
+Compared to the second beta release, this release contains one toplevel bug fix
 and a minor type system fix.
 
-If you are interested by the changes beyond the new multicore runtimes, the
-full change log for OCaml 5.0.0 is available[on Github](https://github.com/ocaml/ocaml/blob/5.0/Changes)
+If you are interested by the bug fixes beyond the new Multicore runtime, the
+full change log for OCaml 5.0.0 is available [on GitHub](https://github.com/ocaml/ocaml/blob/5.0/Changes)
 
 A short summary of the changes since the second beta release is also available below.
 
 ---
-## Installation instructions
+## Installation Instructions
 
 The base compiler can be installed as an opam switch with the following commands on opam 2.1:
 ```bash
@@ -35,28 +35,28 @@ For previous version of opam, the switch creation command line is slightly more 
 opam update
 opam switch create 5.0.0~rc1 --repositories=default,beta=git+https://github.com/ocaml/ocaml-beta-repository.git
 ```
-It might be also interesting to check the new support for parallelism by installing the domainslib library with
+It might be also interesting to check the new support for parallelism by installing the `domainslib` library with
 ```bash
 opam install domainslib
 ```
 The source code for the release candidate is also directly available on:
 
-* [Github](https://github.com/ocaml/ocaml/archive/5.0.0-rc1.tar.gz)
+* [GitHub](https://github.com/ocaml/ocaml/archive/5.0.0-rc1.tar.gz)
 * [OCaml archives at Inria](https://caml.inria.fr/pub/distrib/ocaml-5.0/ocaml-5.0.0~rc1.tar.gz)
 
-### Fine-tuned compiler configuration
+### Fine-Tuned Compiler Configuration
 
 If you want to tweak the configuration of the compiler, you can switch to the option variant with:
 ```bash
 opam update
 opam switch create <switch_name> ocaml-variants.5.0.0~rc1+options <option_list>
 ```
-where `<option_list>` is a comma separated list of `ocaml-option-*` packages. For instance, for a flambda and no-flat-float-array switch:
+where `<option_list>` is a comma-separated list of `ocaml-option-*` packages. For instance, for a `flambda` and `no-flat-float-array` switch:
 ```bash
 opam switch create 5.0.0~rc1+flambda+nffa ocaml-variants.5.0.0~rc1+options ocaml-option-flambda ocaml-option-no-flat-float-array
 ```
 
-The command line above is slightly more complicated for opam versions anterior to 2.1:
+The command line above is slightly more complicated for opam versions before 2.1:
 
 ```bash
 opam update
@@ -66,9 +66,9 @@ In both cases, all available options can be listed with "opam search ocaml-optio
 
 ---
 
-## Changes since the second beta release
+## Changes Since the Second Beta Release
 
-### Bug fixes
+### Bug Fixes
 
 - [#11776](https://github.com/ocaml/ocaml/issues/11776): Extend environment with functor parameters in `strengthen_lazy`.
   (Chris Casinghino and Luke Maurer, review by Gabriel Scherer)
