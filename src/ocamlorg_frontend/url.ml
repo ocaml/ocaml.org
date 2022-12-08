@@ -49,5 +49,6 @@ let getting_started = tutorial "up-and-running"
 let best_practices = "/docs/best-practices"
 let problems = "/problems"
 let installer = "/platform/installer.sh"
+
 let github_installer =
   "https://github.com/tarides/ocaml-platform-installer/releases/latest/download/installer.sh"
