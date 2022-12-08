@@ -12,8 +12,6 @@ for the release in the upcoming weeks.
 
 If you find any bugs, please report them on [OCaml's issue tracker](https://github.com/ocaml/ocaml/issues).
 
-  https://github.com/ocaml/ocaml/issues
-
 Compared to the second beta release, this release contains one toplevel bug fix
 and a minor type system fix.
 
