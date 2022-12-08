@@ -64,44 +64,29 @@ Learn_layout.render
   </div>
   <div class="flex flex-col border-t border-gray-200 pt-20 mt-20 mb-20">
     <h3 class="font-bold">Installing the OCaml Platform</h3>
-      <div class="text-body-400 mt-6 text-lg">
-        Using the <a class="text-orange-500" href="https://github.com/tarides/ocaml-platform-installer"> OCaml Plarform Installer</a>, presented here, is the recommended way to install the platform. However, the official guide <a class="text-orange-500" href="/docs/up-and-running">Up and Running with OCaml</a> details how to set up a complete work environment for your OCaml projects.
-        The <code>ocaml-platform</code> binary, automates
-        and set up of a OCaml development environment. However, you need first to install the few
-        system dependencies of the OCaml environment, such as a C compiler (e.g.
-        <code>gcc</code>) and other system
-        tools: <code>bzip2</code>, <code>make</code>, <code>bubblewrap</code>, <code>patch</code>, <code>curl</code> and <code>unzip</code>. In most
-        architecture, you can install them using your package manager, for
-        example on Ubuntu or Debian:
-      </div>
-      <div class="lg:flex-1 flex justify-left mt-2">
-        <div class="bg-code-background flex flex-col w-full rounded-2xl ">
-          <div style="flex: 1 1 50%" class="py-2 px-6 text-white text-opacity-50 overflow-auto">
-            <div class="text-left overflow-auto">
-              <pre id="output" class="flex flex-col w-full code-preview text-white text-sm space-y-1 font-medium">
-<code><span>sudo apt install bzip2 make gcc bubblewrap rsync patch curl unzip</code>
-              </pre>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="text-body-400 mt-2 text-lg">
-        You can now download and run the installer script (which will call <code>sudo</code> for the final installation step) and simply call <code>ocaml-platform</code>:
-      </div>
-      <div class="lg:flex-1 flex justify-left mt-2">
-        <div class="bg-code-background flex flex-col w-full rounded-2xl ">
-          <div style="flex: 1 1 50%" class="py-2 px-6 text-white text-opacity-50 overflow-auto">
-            <div class="text-left overflow-auto">
-              <pre id="output" class="flex flex-col w-full code-preview text-white text-sm space-y-1 font-medium">
-<code><span>bash&nbsp;<span class="text-red-500">&lt;&nbsp;</span><span class="text-yellow-500">&lt;(</span>curl -sL&nbsp;<span class="text-blue-500">https://ocaml.org/platform/installer.sh</span><span class="text-yellow-500">)</span></span>
-<span>ocaml-platform</span></code>
-              </pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    <div class="text-body-400 text-lg mt-2">
-      If the tools aren't cached yet, this needs to build OCaml itself and the Platform tools, which takes a few minutes.
+    <div class="text-body-400 mt-6 w-full">
+      Here is how to install using the <a class="text-orange-500" href="https://github.com/tarides/ocaml-platform-installer"> OCaml Plarform Installer</a>.
+      In MacOS having installed <a class="text-orange-500" href="https://developer.apple.com/xcode/">Xcode</a> and <a class="text-orange-500" href="https://brew.sh">Homebrew</a> is required.
+      Here is what needs to be done next:
+    </div>
+    <div class="bg-code-background px-6 py-2 rounded-2xl mt-2">
+<pre class="text-white language-shell text-sm"><code><span>brew install bubblewrap unzip</code></pre>
+    </div>
+    <div class="text-body-400 mt-2 w-full">
+      Here is what you need to do in Ubuntu:
+    </div>
+    <div class="bg-code-background px-6 py-2 rounded-2xl mt-2">
+<pre class="text-white language-shell text-sm"><code><span>sudo apt install build-essential bubblewrap unzip</code></pre>
+    </div>
+    <div class="text-body-400 mt-2 w-full">
+      You can now download and run the installer script and then call <code>ocaml-platform</code>:
+    </div>
+    <div class="bg-code-background px-6 py-2 rounded-2xl mt-2">
+<pre class="text-white language-shell text-sm"><code class="language-shell"><span>bash&nbsp;<span class="text-red-500">&lt;&nbsp;</span><span class="text-yellow-500">&lt;(</span>curl -sL&nbsp;<span class="text-blue-500">https://ocaml.org/platform/installer.sh</span><span class="text-yellow-500">)</span></span>
+<span>ocaml-platform</span></code></pre>
+    </div>
+    <div class="text-body-400 mt-2 w-full">
+      Check for detailed and alternative instructions in the <a class="text-orange-500" href="/docs/up-and-running"> Get Up and Running With OCaml</a> document.
     </div>
     <h3 class="font-bold mt-8">State of Platform Tools</h3>
     <div class="text-body-400 mt-6 text-lg">
