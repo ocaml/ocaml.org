@@ -66,11 +66,7 @@ Learn_layout.render
     <h3 class="font-bold">Installing the OCaml Platform</h3>
     <div class="text-body-400 mt-6 w-full">
       Here is how to install using the <a class="text-orange-500" href="https://github.com/tarides/ocaml-platform-installer"> OCaml Plarform Installer</a>.
-      In MacOS having installed <a class="text-orange-500" href="https://developer.apple.com/xcode/">Xcode</a> and <a class="text-orange-500" href="https://brew.sh">Homebrew</a> is required.
-      Here is what needs to be done next:
-    </div>
-    <div class="bg-code-background px-6 py-2 rounded-2xl mt-2">
-<pre class="text-white language-shell text-sm"><code><span>brew install bubblewrap unzip</code></pre>
+      In MacOS having installed <a class="text-orange-500" href="https://developer.apple.com/xcode/">Xcode</a> is the only requirement.
     </div>
     <div class="text-body-400 mt-2 w-full">
       Here is what you need to do in Ubuntu:

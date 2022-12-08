@@ -58,11 +58,7 @@ example on Ubuntu or Debian:
 $ sudo apt install build-essential bubblewrap unzip
 ```
 
-In MacOS, having installed [Xcode](https://developer.apple.com/xcode) and
-[Homebrew](https://brew.sh) is required. Here is what needs to be done next:
-```zsh
-$ brew install unzip bubblewrap
-```
+In MacOS, having installed [Xcode](https://developer.apple.com/xcode) is the only requirement.
 
 You can now download and run the installer script and then call ocaml-platform:
 ```shell
