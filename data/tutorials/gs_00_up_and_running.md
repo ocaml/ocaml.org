@@ -53,6 +53,7 @@ dependencies of the OCaml environment, such as a C compiler (e.g. `gcc`) and
 other system tools: `bzip2`, `make`, `bubblewrap`, `patch`, `curl` and `unzip`.
 In most architecture, you can install them using your package manager, for
 example on Ubuntu or Debian:
+<!-- $MDX skip -->
 ```bash
 $ sudo apt install build-essential bubblewrap unzip
 ```
