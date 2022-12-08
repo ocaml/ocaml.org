@@ -60,7 +60,7 @@ The command line above is slightly more complicated for opam versions before 2.1
 opam update
 opam switch create <switch_name> --packages=ocaml-variants.5.0.0~rc1+options,<option_list> --repositories=default,beta=git+https://github.com/ocaml/ocaml-beta-repository.git
 ```
-In both cases, all available options can be listed with "opam search ocaml-option".
+In both cases, all available options can be listed with `opam search ocaml-option`.
 
 ---
 
