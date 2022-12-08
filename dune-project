@@ -33,6 +33,8 @@
   (ocaml
    (>= 4.14.0))
   dune
+  (ocamlformat
+    (= 0.24.1))
   cohttp
   cohttp-lwt-unix
   bos
