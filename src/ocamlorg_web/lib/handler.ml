@@ -400,8 +400,7 @@ let package_docs t req =
       let target = Ocamlorg_frontend.Url.package_doc package version in
       Dream.redirect req target
 
-let installer req =
-  Dream.redirect req Ocamlorg_frontend.Url.github_installer
+let installer req = Dream.redirect req Ocamlorg_frontend.Url.github_installer
 
 let package_versioned t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
