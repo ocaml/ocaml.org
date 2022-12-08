@@ -82,7 +82,7 @@ Learn_layout.render
 <span>ocaml-platform</span></code></pre>
     </div>
     <div class="text-body-400 mt-2 w-full">
-      Check for detailed and alternative instructions in the <a class="text-orange-500" href="/docs/up-and-running"> Get Up and Running With OCaml</a> document.
+      Check for detailed and alternative instructions in the <a class="text-orange-500" href="/docs/up-and-running#up-and-running-with-the-platform-installer"> Get Up and Running With OCaml</a> document.
     </div>
     <h3 class="font-bold mt-8">State of Platform Tools</h3>
     <div class="text-body-400 mt-6 text-lg">

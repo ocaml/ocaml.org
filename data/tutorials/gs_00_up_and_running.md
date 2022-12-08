@@ -288,7 +288,7 @@ issue](https://github.com/tarides/ocaml-platform-installer/issues) if you
 experience difficulties. If it doesn't work at all on your system, follow the
 old instructions above, which are still relevant.
 
-The `ocaml-platform` binary, automates and set up of a OCaml development
+The `ocaml-platform` binary automates the set up of a complete OCaml development
 environment. However, you need first to install the few system dependencies of
 the OCaml environment, such as a C compiler (e.g. `gcc`) and other system tools:
 `bzip2`, `make`, `bubblewrap`, `patch`, `curl` and `unzip`. In most
