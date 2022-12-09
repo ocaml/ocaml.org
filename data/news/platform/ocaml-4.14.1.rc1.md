@@ -1,6 +1,6 @@
 ---
-title: OCaml 4.14.1 - First release candidate
-description: First Release Candidate of OCaml 4.14.1
+title: OCaml 4.14.1 - Release candidate
+description: Release Candidate of OCaml 4.14.1
 date: "2022-12-08"
 tags: [ocaml, platform]
 ---
