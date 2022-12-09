@@ -1,6 +1,6 @@
 ---
 title: Tree construction from a node string
-number: "70"
+number: "70A"
 difficulty: intermediate
 tags: [ "multiway-tree" ]
 ---
