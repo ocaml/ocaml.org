@@ -74,7 +74,7 @@ In both cases, all available options can be listed with `opam search ocaml-optio
   (David Allsopp, report by William Hu, review by Xavier Leroy and
    Sébastien Hinderer)
 
-- [#11487](https://github.com/ocaml/ocaml/issues/11487): Thwart FMA test optimization during configure
+- [#11487](https://github.com/ocaml/ocaml/issues/11487): Thwart FMA test optimisation during configure
   (William Hu, review by David Allsopp and Sébastien Hinderer)
 
 ### Bug Fixes:
@@ -97,7 +97,7 @@ In both cases, all available options can be listed with `opam search ocaml-optio
 - [#11314](https://github.com/ocaml/ocaml/issues/11314), [#11416](https://github.com/ocaml/ocaml/issues/11416): fix non-informative error message for module inclusion
   (Florian Angeletti, report by Thierry Martinez, review by Gabriel Scherer)
 
-- [#11358](https://github.com/ocaml/ocaml/issues/11358), [#11379](https://github.com/ocaml/ocaml/issues/11379): Refactor the initialization of bytecode threading,
+- [#11358](https://github.com/ocaml/ocaml/issues/11358), [#11379](https://github.com/ocaml/ocaml/issues/11379): Refactor the initialisation of bytecode threading,
   This avoids a "dangling pointer" warning of GCC 12.1.
   (Xavier Leroy, report by Armaël Guéneau, review by Gabriel Scherer)
 
@@ -145,5 +145,5 @@ In both cases, all available options can be listed with `opam search ocaml-optio
   (Gabriel Scherer, review by Jacques Garrigue, report by Yaron Minsky)
 
 - [#11768](https://github.com/ocaml/ocaml/issues/11768), [#11788](https://github.com/ocaml/ocaml/issues/11788): Fix crash at start-up of bytecode programs in
-  no-naked-pointers mode caused by wrong initialization of `caml_global_data`
+  no-naked-pointers mode caused by wrong initialisation of `caml_global_data`
   (Xavier Leroy, report by Etienne Millon, review by Gabriel Scherer)
