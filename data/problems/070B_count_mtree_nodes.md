@@ -1,6 +1,6 @@
 ---
 title: Count the nodes of a multiway tree
-number: "70C"
+number: "70B"
 difficulty: beginner
 tags: [ "multiway-tree" ]
 ---

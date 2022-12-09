@@ -1,6 +1,6 @@
 ---
 title: Collect the internal nodes of a binary tree in a list
-number: "62"
+number: "62A"
 difficulty: beginner
 tags: [ "binary-tree" ]
 ---
