@@ -65,7 +65,7 @@ In both cases, all available options can be listed with `opam search ocaml-optio
 
 ### Compiler User-Interface and Warnings:
 
-- [#11184](https://github.com/ocaml/ocaml/issues/11184), [#11670](https://github.com/ocaml/ocaml/issues/11670): Stop calling ranlib on created / installed libraries
+- [#11184](https://github.com/ocaml/ocaml/issues/11184), [#11670](https://github.com/ocaml/ocaml/issues/11670): Stop calling `ranlib` on created / installed libraries
   (Sébastien Hinderer and Xavier Leroy, review by the same)
 
 ### Build System:
@@ -90,7 +90,7 @@ In both cases, all available options can be listed with `opam search ocaml-optio
 
 - [#11263](https://github.com/ocaml/ocaml/issues/11263), [#11267](https://github.com/ocaml/ocaml/issues/11267): caml/{memory,misc}.h: check whether `_MSC_VER` is defined
   before using it to ensure that the headers can always be used in code which
-  turns on -Wundef (or equivalent).
+  turns on `-Wundef` (or equivalent).
   (David Allsopp and Nicolás Ojeda Bär, review by Nicolás Ojeda Bär and
    Sébastien Hinderer)
 
@@ -133,17 +133,17 @@ In both cases, all available options can be listed with `opam search ocaml-optio
 - [#11732](https://github.com/ocaml/ocaml/issues/11732): Ensure that types from packed modules are always generalised
   (Stephen Dolan and Leo White, review by Jacques Garrigue)
 
-- [#11737](https://github.com/ocaml/ocaml/issues/11737): Fix segfault condition in Unix.stat under Windows in the presence of
+- [#11737](https://github.com/ocaml/ocaml/issues/11737): Fix segfault condition in `Unix.stat` under Windows in the presence of
   multiple threads.
   (Marc Lasson, Nicolás Ojeda Bär, review by Gabriel Scherer and David Allsopp)
 
 - [#11776](https://github.com/ocaml/ocaml/issues/11776): Extend environment with functor parameters in `strengthen_lazy`.
   (Chris Casinghino and Luke Maurer, review by Gabriel Scherer)
 
-- [#11533](https://github.com/ocaml/ocaml/issues/11533), [#11534](https://github.com/ocaml/ocaml/issues/11534): follow synonyms again in #show_module_type
+- [#11533](https://github.com/ocaml/ocaml/issues/11533), [#11534](https://github.com/ocaml/ocaml/issues/11534): follow synonyms again in `#show_module_type`
   (this had stopped working in 4.14.0)
   (Gabriel Scherer, review by Jacques Garrigue, report by Yaron Minsky)
 
 - [#11768](https://github.com/ocaml/ocaml/issues/11768), [#11788](https://github.com/ocaml/ocaml/issues/11788): Fix crash at start-up of bytecode programs in
-  no-naked-pointers mode caused by wrong initialization of caml_global_data
+  no-naked-pointers mode caused by wrong initialization of `caml_global_data`
   (Xavier Leroy, report by Etienne Millon, review by Gabriel Scherer)
