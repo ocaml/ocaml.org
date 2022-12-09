@@ -65,8 +65,8 @@ Learn_layout.render
   <div class="flex flex-col border-t border-gray-200 pt-20 mt-20 mb-20">
     <h3 class="font-bold">Installing the OCaml Platform</h3>
     <div class="text-body-400 mt-6 w-full">
-      Here is how to install using the <a class="text-orange-500" href="https://github.com/tarides/ocaml-platform-installer"> OCaml Plarform Installer</a>.
-      In MacOS having installed <a class="text-orange-500" href="https://developer.apple.com/xcode/">Xcode</a> is the only requirement.
+      Here is how to install using the <a class="text-orange-500" href="https://github.com/tarides/ocaml-platform-installer"> OCaml Platform Installer</a>.
+      In macOS, the installation of <a class="text-orange-500" href="https://developer.apple.com/xcode/">Xcode</a> is the only requirement.
     </div>
     <div class="text-body-400 mt-2 w-full">
       Here is what you need to do in Ubuntu:

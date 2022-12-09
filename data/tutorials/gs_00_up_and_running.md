@@ -44,13 +44,13 @@ Find all the installation instructions for both Unix-like systems and Windows in
 * Linux or macOS: [Installation for Unix, including Linux and macOS](#installation-for-unix)
 * Windows: [Installation for Windows](#installation-for-windows)
 
-### Installation using Ocaml Platform Installer
+### Installation Using OCaml Platform Installer
 
-As of 2023, the OCaml Plarform Installer, presented here, is new recommended way
-to install OCaml in Unix. The `ocaml-platform` binary, automates and set up of a
-OCaml development environment. However, you need first to install the few system
-dependencies of the OCaml environment, such as a C compiler (e.g. `gcc`) and
-other system tools: `bzip2`, `make`, `bubblewrap`, `patch`, `curl` and `unzip`.
+As of 2023, the OCaml Platform Installer, presented here, is the new recommended way
+to install OCaml in Unix. The `ocaml-platform` binary, automates and set up of an
+OCaml development environment. However, you first need to install the few system
+dependencies of the OCaml environment, such as a C compiler (e.g., `gcc`) and
+other system tools: `bzip2`, `make`, `bubblewrap`, `patch`, `curl`, and `unzip`.
 In most architecture, you can install them using your package manager, for
 example on Ubuntu or Debian:
 <!-- $MDX skip -->
@@ -58,9 +58,9 @@ example on Ubuntu or Debian:
 $ sudo apt install build-essential bubblewrap unzip
 ```
 
-In MacOS, having installed [Xcode](https://developer.apple.com/xcode) is the only requirement.
+In macOS, the installation of [Xcode](https://developer.apple.com/xcode) is the only requirement.
 
-You can now download and run the installer script and then call ocaml-platform:
+You can now download and run the installer script and then call `ocaml-platform`:
 ```shell
 $ bash < <(curl -sL https://ocaml.org/platform/installer.sh)
 $ ocaml-platform
