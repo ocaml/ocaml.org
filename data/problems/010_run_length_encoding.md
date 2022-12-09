@@ -2,7 +2,7 @@
 title: Run-length encoding
 number: "10"
 difficulty: beginner
-tags: [ "" ]
+tags: [ "list" ]
 ---
 
 # Solution
