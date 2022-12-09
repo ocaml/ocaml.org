@@ -6,7 +6,7 @@ all:
 
 .PHONY: deps
 deps: ## Install development dependencies
-	opam install -y ocamlformat=0.21.0 ocaml-lsp-server
+	opam install -y ocamlformat=0.24.1 ocaml-lsp-server
 	opam install --deps-only --with-test --with-doc -y .
 
 .PHONY: create_switch

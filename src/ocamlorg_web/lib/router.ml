@@ -5,10 +5,10 @@ let asset_loader =
   let store = Asset.connect () in
   Static.loader
     ~read:(fun _root path ->
-      let* store in
+      let* store = store in
       Asset.get store (Mirage_kv.Key.v path))
     ~last_modified:(fun _root path ->
-      let* store in
+      let* store = store in
       Asset.last_modified store (Mirage_kv.Key.v path))
     ~not_cached:[ "css/main.css"; "/css/main.css"; "robots.txt"; "/robots.txt" ]
 
@@ -17,10 +17,10 @@ let media_loader =
   let store = Media.connect () in
   Static.loader
     ~read:(fun _root path ->
-      let* store in
+      let* store = store in
       Media.get store (Mirage_kv.Key.v path))
     ~last_modified:(fun _root path ->
-      let* store in
+      let* store = store in
       Media.last_modified store (Mirage_kv.Key.v path))
 
 let page_routes =
