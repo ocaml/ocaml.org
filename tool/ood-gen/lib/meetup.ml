@@ -1,6 +1,6 @@
 type location = { lat : float; long : float } [@@deriving yaml]
 
-type t = {
+type metadata = {
   title : string;
   url : string;
   textual_location : string;
@@ -8,13 +8,13 @@ type t = {
 }
 [@@deriving yaml]
 
-type metadata = t
+type t = metadata
 
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
   match yaml with
   | `O [ ("meetups", `A xs) ] ->
-      Ok (List.map (Utils.decode_or_raise of_yaml) xs)
+      Ok (List.map (Utils.decode_or_raise metadata_of_yaml) xs)
   | _ -> Error (`Msg "expected a list of meetups")
 
 let parse = decode
