@@ -19,7 +19,8 @@ let path = Fpath.v "data/papers.yml"
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
   match yaml with
-  | `O [ ("papers", `A xs) ] -> Ok (List.map (Utils.decode_or_raise metadata_of_yaml) xs)
+  | `O [ ("papers", `A xs) ] ->
+      Ok (List.map (Utils.decode_or_raise metadata_of_yaml) xs)
   | _ -> Error (`Msg "expected a list of papers")
 
 let parse = decode
