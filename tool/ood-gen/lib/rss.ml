@@ -113,7 +113,6 @@ type t = {
   featured : bool;
   body_html : string;
 }
-[@@deriving yaml]
 
 let all () =
   Utils.map_files
