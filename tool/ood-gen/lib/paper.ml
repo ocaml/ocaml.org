@@ -22,8 +22,6 @@ let decode s =
   | `O [ ("papers", `A xs) ] -> Ok (List.map (Utils.decode_or_raise of_yaml) xs)
   | _ -> Error (`Msg "expected a list of papers")
 
-let parse = decode
-
 let all () =
   let content = Data.read "papers.yml" |> Option.get in
   Utils.decode_or_raise decode content
