@@ -1,5 +1,4 @@
 type metadata = { featured_packages : string list } [@@deriving yaml]
-
 type t = metadata
 
 let all () =
