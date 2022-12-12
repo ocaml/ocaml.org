@@ -32,7 +32,7 @@ type t = {
   rating : int option;
   featured : bool;
   body_md : string;
-  body_html : string
+  body_html : string;
 }
 
 let all () =
@@ -81,13 +81,11 @@ let pp ppf v =
   ; body_md = %a
   ; body_html = %a
   }|}
-    Pp.string v.title Pp.string
-    (Utils.slugify v.title)
-    Pp.string v.description (Pp.list Pp.string) v.authors Pp.string
-    v.language Pp.string v.published Pp.string v.cover
-    (Pp.option Pp.string) v.isbn (Pp.list pp_link) v.links
-    (Pp.option Pp.int) v.rating Pp.bool v.featured Pp.string v.body_md
-    Pp.string v.body_html
+    Pp.string v.title Pp.string (Utils.slugify v.title) Pp.string v.description
+    (Pp.list Pp.string) v.authors Pp.string v.language Pp.string v.published
+    Pp.string v.cover (Pp.option Pp.string) v.isbn (Pp.list pp_link) v.links
+    (Pp.option Pp.int) v.rating Pp.bool v.featured Pp.string v.body_md Pp.string
+    v.body_html
 
 let pp_list = Pp.list pp
 
