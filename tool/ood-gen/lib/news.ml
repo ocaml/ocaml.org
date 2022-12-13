@@ -33,8 +33,7 @@ let all () =
           Omd.to_html (Hilite.Md.transform (Omd.of_string (String.trim body)));
       })
     "news/*/*.md"
-  |> List.sort (fun a b -> String.compare a.date b.date)
-  |> List.rev
+  |> List.sort (fun a b -> String.compare b.date a.date)
 
 let pp ppf v =
   Fmt.pf ppf

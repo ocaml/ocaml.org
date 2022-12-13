@@ -85,8 +85,7 @@ let all () =
         body_html = Omd.to_html omd;
       })
     "workshops/*.md"
-  |> List.sort (fun w1 w2 -> String.compare w1.date w2.date)
-  |> List.rev
+  |> List.sort (fun w1 w2 -> String.compare w2.date w1.date)
 
 let pp_role ppf = function
   | `Chair -> Fmt.string ppf "`Chair"

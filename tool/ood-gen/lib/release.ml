@@ -55,8 +55,7 @@ let all () =
         body_html = Omd.of_string body |> Hilite.Md.transform |> Omd.to_html;
       })
     "releases/"
-  |> List.sort (fun a b -> String.compare a.date b.date)
-  |> List.rev
+  |> List.sort (fun a b -> String.compare b.date a.date)
 
 let pp_kind ppf v = Fmt.pf ppf "%s" (match v with `Compiler -> "`Compiler")
 
