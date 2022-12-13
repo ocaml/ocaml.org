@@ -19,23 +19,17 @@ type t = {
   body_md : string;
   body_html : string;
 }
+[@@deriving
+  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ]]
 
 let all () =
   Utils.map_files
     (fun content ->
-      let metadata, body = Utils.extract_metadata_body content in
+      let metadata, body_md = Utils.extract_metadata_body content in
       let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
-      {
-        title = metadata.title;
-        slug = Utils.slugify metadata.title;
-        logo = metadata.logo;
-        background = metadata.background;
-        theme = metadata.theme;
-        synopsis = metadata.synopsis;
-        url = metadata.url;
-        body_md = body;
-        body_html = Omd.of_string body |> Omd.to_html;
-      })
+      let slug = Utils.slugify metadata.title in
+      let body_html = Omd.of_string body_md |> Omd.to_html in
+      of_metadata metadata ~slug ~body_md ~body_html)
     "success_stories"
 
 let pp ppf v =

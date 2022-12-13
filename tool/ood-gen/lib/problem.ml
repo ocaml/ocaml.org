@@ -5,7 +5,7 @@ module Proficiency = struct
     | "beginner" -> Ok `Beginner
     | "intermediate" -> Ok `Intermediate
     | "advanced" -> Ok `Advanced
-    | s -> Error (`Msg ("Unknown proficiency type: " ^ s))
+    | s -> Error (`Msg ("Unknown proficiency type: " ^ s)
 end
 
 type metadata = {
@@ -51,6 +51,11 @@ type t = {
   statement : string;
   solution : string;
 }
+[@@deriving
+  stable_record ~version:metadata ~modify:[ difficulty ]
+    ~remove:[ statement; solution ]]
+
+let of_metadata = of_metadata ~modify_difficulty:(fun d -> d |> Proficiency.of_string |> Result.get_ok)
 
 let all () =
   Utils.map_files
@@ -62,14 +67,7 @@ let all () =
       in
       let statement = Omd.to_html (Hilite.Md.transform statement_blocks) in
       let solution = Omd.to_html (Hilite.Md.transform solution_blocks) in
-      {
-        title = metadata.title;
-        number = metadata.number;
-        difficulty = Proficiency.of_string metadata.difficulty |> Result.get_ok;
-        tags = metadata.tags;
-        statement;
-        solution;
-      })
+      of_metadata metadata ~statement ~solution)
     "problems/*.md"
 
 let pp_proficiency ppf v =

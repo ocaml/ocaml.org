@@ -21,24 +21,17 @@ type t = {
   body_md : string;
   body_html : string;
 }
+[@@deriving
+  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ]]
 
 let all () =
   Utils.map_files
     (fun content ->
-      let metadata, body = Utils.extract_metadata_body content in
+      let metadata, body_md = Utils.extract_metadata_body content in
       let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
-      {
-        name = metadata.name;
-        slug = Utils.slugify metadata.name;
-        description = metadata.description;
-        logo = metadata.logo;
-        url = metadata.url;
-        consortium = metadata.consortium;
-        featured = metadata.featured;
-        locations = metadata.locations;
-        body_md = body;
-        body_html = Omd.of_string body |> Omd.to_html;
-      })
+      let slug = Utils.slugify metadata.name in
+      let body_html = Omd.of_string body_md |> Omd.to_html in
+      of_metadata metadata ~slug ~body_md ~body_html)
     "industrial_users"
 
 let pp ppf v =
