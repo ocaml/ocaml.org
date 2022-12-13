@@ -8,10 +8,6 @@ type metadata = {
 
 let path = Fpath.v "data/problems/"
 
-let parse content =
-  let metadata, _ = Utils.extract_metadata_body content in
-  metadata_of_yaml metadata
-
 let split_statement_statement (blocks : _ Omd.block list) =
   let rec blocks_until_heading acc = function
     | [] -> (List.rev acc, [])

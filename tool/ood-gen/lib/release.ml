@@ -17,10 +17,6 @@ type metadata = {
 
 let path = Fpath.v "data/releases/"
 
-let parse content =
-  let metadata, _ = Utils.extract_metadata_body content in
-  metadata_of_yaml metadata
-
 type t = {
   kind : kind;
   version : string;

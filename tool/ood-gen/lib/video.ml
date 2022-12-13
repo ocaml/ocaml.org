@@ -43,13 +43,6 @@ type t = {
   year : int;
 }
 
-let parse s =
-  let yaml = Utils.decode_or_raise Yaml.of_string s in
-  match yaml with
-  | `O [ ("videos", `A xs) ] ->
-      Ok (List.map (fun x -> Utils.decode_or_raise metadata_of_yaml x) xs)
-  | _ -> Error (`Msg "")
-
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
   match yaml with

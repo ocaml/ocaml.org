@@ -8,10 +8,6 @@ type metadata = {
 
 let path = Fpath.v "data/pages/"
 
-let parse content =
-  let metadata, _ = Utils.extract_metadata_body content in
-  metadata_of_yaml metadata
-
 type t = {
   fname : string;
   title : string;
