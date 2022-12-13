@@ -28,7 +28,7 @@ let all () =
   let content = Data.read "papers.yml" |> Option.get in
   Utils.decode_or_raise decode content
   |> List.sort (fun p1 p2 ->
-         (2 * Int.compare p1.year p2.year) + String.compare p1.title p2.title)
+         (2 * Int.compare p2.year p1.year) + String.compare p1.title p2.title)
 
 let pp_link ppf (v : link) =
   Fmt.pf ppf
@@ -74,6 +74,6 @@ type t =
   ; featured : bool
   }
 
-let all = List.sort (fun p1 p2 -> compare p2.year p1.year) %a
+let all = %a
 |}
     pp_list (all ())
