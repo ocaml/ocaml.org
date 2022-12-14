@@ -10,8 +10,6 @@ let path = Fpath.v "data/opam-users.yml"
 
 type t = metadata
 
-
-
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
   match yaml with
