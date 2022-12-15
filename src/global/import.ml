@@ -102,3 +102,14 @@ end = struct
 
   let to_list (_, elts) = elts
 end
+
+module Result = struct
+  include Stdlib.Result
+  let of_option err = function Some v -> Ok v | None -> Error err
+  let get to_exn = function
+  | Ok x -> x
+  | Error err -> raise (to_exn err)
+  let app f x = match f, x with
+  | Ok f, Ok x -> Ok (f x)
+  | Error e, _ | _, Error e -> Error e
+end

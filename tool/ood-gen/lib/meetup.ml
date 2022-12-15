@@ -32,8 +32,16 @@ let decode s =
   | _ -> Error (`Msg "expected a list of meetups")
 
 let all () =
-  let content = Data.read "meetups.yml" |> Option.get in
-  Utils.decode_or_raise decode content
+  let (>>=) = Result.bind in
+  let (<@>) = Import.Result.app in
+  Data.read "meetups.yml"
+  |> Import.Result.of_option (`Msg "meetups.yml: file not found")
+  >>= Yaml.of_string
+  >>= Yaml.Util.find "meetups"
+  >>= Import.Result.of_option (`Msg "meetups.yml: key \"meetups\" not found")
+  >>= (function `A x -> Ok x | _ -> Error (`Msg "meetups.yml: expecting a sequence"))
+  >>= List.fold_left (fun u y -> Ok List.cons <@> metadata_of_yaml y <@> u) (Ok [])
+  |> Import.Result.get Utils.decode_error
 
 let template () =
   Format.asprintf
