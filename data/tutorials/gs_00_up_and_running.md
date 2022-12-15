@@ -199,7 +199,7 @@ The OCaml toplevel, version 4.12.1
 ```
 
 To learn more about Diskuv OCaml, see the [official
-Diskuv OCaml documentation](https://diskuv.gitlab.io/diskuv-ocaml/#introduction).
+Diskuv OCaml documentation](https://diskuv-ocaml.gitlab.io/distributions/dkml/#introduction).
 
 ### The OCaml Base Tools
 
