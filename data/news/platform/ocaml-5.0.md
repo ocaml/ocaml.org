@@ -16,7 +16,7 @@ and required a full rewrite of the OCaml runtime environment.
 Consequently, OCaml 5.0.0 is expected to be a more experimental version of
 OCaml than the usual OCaml releases.
 
-For instance, in this release the native compiler only supports the x86-64 and arm64 architectures. In terms of operating systems, Linux, BSDs, macOS and mingw64 on Windows
+In this release, the native compiler only supports the x86-64 and arm64 architectures. In terms of operating systems, Linux, the BSDs, macOS and mingw64 on Windows
 are supported.
 
 We are planning to restore the support for most previously supported architectures and operating systems, and address remaining known issues over the course of the next year.
