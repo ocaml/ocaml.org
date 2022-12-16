@@ -5,18 +5,18 @@ date: "2022-12-16"
 tags: [ocaml, platform]
 ---
 
-We have the pleasure of celebrating the birthday of Arthur C. Clarke by
+We have the pleasure of celebrating the birthdays of Jane Austen and Arthur C. Clarke by
 announcing the release of OCaml version 5.0.0.
 
 The highlight of this new major version of OCaml is the long-awaited runtime support
-for shared memory parallelism and effect handlers.
+for [shared memory parallelism](https://v2.ocaml.org/releases/5.0/manual/parallelism.html) and [effect handlers](https://v2.ocaml.org/releases/5.0/manual/effects.html).
 
 This multicore support is the culmination of more than 8 years of effort,
 and required a full rewrite of the OCaml runtime environment.
 Consequently, OCaml 5.0.0 is expected to be a more experimental version of
 OCaml than the usual OCaml releases.
 
-For instance, in this release the native compiler only supports the x86-64 and arm64 architectures. In terms of operating systems, Linux, BSDs, MacOS and mingw64 on Windows
+For instance, in this release the native compiler only supports the x86-64 and arm64 architectures. In terms of operating systems, Linux, BSDs, macOS and mingw64 on Windows
 are supported.
 
 We are planning to restore the support for most previously supported architectures and operating systems, and address remaining known issues over the course of the next year.
@@ -31,7 +31,8 @@ The currently known exceptions to this rule are:
 - the performance of ephemerons is currently (and temporarily) strongly degraded.
 
 Please report any unexpected behaviours on the [OCaml issue tracker]
-(https://github.com/ocaml/ocaml/issues).
+(https://github.com/ocaml/ocaml/issues) and post any questions or comments
+you might have on our [discussion forums](https://discuss.ocaml.org).
 
 
 During the maturing period for OCaml 5, the OCaml 4.14 branch will be maintained
@@ -40,9 +41,50 @@ The next release on the OCaml 4.14 branch, OCaml 4.14.1, should soon follow this
 
 The full list of changes can be found in the changelog below.
 
-Those releases are available as opam switches, and as a source download on
-[Github](https://github.com/ocaml/ocaml/archive/5.0.0.tar.gz) and on the [Inria archive]
-(https://caml.inria.fr/pub/distrib/ocaml-5.0/ocaml-5.0.0.tar.gz)
+---
+
+
+## Installation Instructions
+
+The base compiler can be installed as an opam switch with the following commands on opam 2.1:
+```bash
+opam update
+opam switch create 5.0.0
+```
+For previous version of opam, the switch creation command line is slightly more verbose:
+```bash
+opam update
+opam switch create 5.0.0 --repositories=default,beta=git+https://github.com/ocaml/ocaml-beta-repository.git
+```
+It might be also interesting to check the new support for parallelism by installing the `domainslib` library with
+```bash
+opam install domainslib
+```
+The source code for the release candidate is also directly available on:
+
+* [GitHub](https://github.com/ocaml/ocaml/archive/5.0.0.tar.gz)
+* [OCaml archives at Inria](https://caml.inria.fr/pub/distrib/ocaml-5.0/ocaml-5.0.0.tar.gz)
+
+### Fine-Tuned Compiler Configuration
+
+If you want to tweak the configuration of the compiler, you can switch to the option variant with:
+```bash
+opam update
+opam switch create <switch_name> ocaml-variants.5.0.0+options <option_list>
+```
+where `<option_list>` is a comma-separated list of `ocaml-option-*` packages. For instance, for a `flambda` and `no-flat-float-array` switch:
+```bash
+opam switch create 5.0.0+flambda+nffa ocaml-variants.5.0.0+options ocaml-option-flambda ocaml-option-no-flat-float-array
+```
+
+The command line above is slightly more complicated for opam versions before 2.1:
+
+```bash
+opam update
+opam switch create <switch_name> --packages=ocaml-variants.5.0.0+options,<option_list> --repositories=default,beta=git+https://github.com/ocaml/ocaml-beta-repository.git
+```
+In both cases, all available options can be listed with `opam search ocaml-option`.
+
 
 ---
 
