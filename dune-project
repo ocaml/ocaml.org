@@ -37,7 +37,8 @@
   cohttp-lwt-unix
   bos
   crunch
-  mirage-kv-mem
+  (mirage-kv-mem
+    (<= 3.1.0))
   (dream
    (>= 1.0.0~alpha3))
   dream-accept
