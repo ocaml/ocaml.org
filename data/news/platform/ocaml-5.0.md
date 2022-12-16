@@ -30,9 +30,9 @@ The currently known exceptions to this rule are:
 - changes to the internal runtime API
 - the performance of ephemerons is currently (and temporarily) strongly degraded.
 
-Please report any unexpected behaviours on the [OCaml issue tracker]
-(https://github.com/ocaml/ocaml/issues) and post any questions or comments
-you might have on our [discussion forums](https://discuss.ocaml.org).
+Please report any unexpected behaviours on the [OCaml issue tracker](https://github.com/ocaml/ocaml/issues)
+and post any questions or comments you might have on our
+[discussion forums](https://discuss.ocaml.org).
 
 
 During the maturing period for OCaml 5, the OCaml 4.14 branch will be maintained
