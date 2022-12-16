@@ -17,15 +17,18 @@ let industrial_users = "/industrial-users"
 let academic_users = "/academic-users"
 let about = "/about"
 
+let minor v =
+  match String.split_on_char '.' v with
+  | x :: y :: _ -> x ^ "." ^ y
+  | _ -> invalid_arg (v ^ ": invalid OCaml version")
+
 let manual_with_version v =
-  let minor = String.sub v 0 4 in
-  "https://v2.ocaml.org/releases/" ^ minor ^ "/htmlman/index.html"
+  "https://v2.ocaml.org/releases/" ^ minor v ^ "/htmlman/index.html"
 
 let manual = "https://v2.ocaml.org/releases/latest/manual.html"
 
 let api_with_version v =
-  let minor = String.sub v 0 4 in
-  "https://v2.ocaml.org/releases/" ^ minor ^ "/api/index.html"
+  "https://v2.ocaml.org/releases/" ^ minor v ^ "/api/index.html"
 
 let api = "https://v2.ocaml.org/api/index.html"
 let books = "/books"
