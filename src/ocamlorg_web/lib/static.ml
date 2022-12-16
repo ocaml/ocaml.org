@@ -44,9 +44,7 @@ let loader ~read ~last_modified ?(not_cached = []) local_root path request =
   match last_modified with
   | Error _ -> Handler.not_found request
   | Ok last_modified -> (
-      let last_modified =
-        Last_modified.ptime_to_http_date last_modified
-      in
+      let last_modified = Last_modified.ptime_to_http_date last_modified in
       if not_modified ~last_modified request then
         Dream.respond ~status:`Not_Modified ""
       else
