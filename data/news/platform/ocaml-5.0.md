@@ -43,19 +43,14 @@ The full list of changes can be found in the changelog below.
 
 ---
 
-
 ## Installation Instructions
 
-The base compiler can be installed as an opam switch with the following commands on opam 2.1:
+The base compiler can be installed as an opam switch with the following commands:
 ```bash
 opam update
 opam switch create 5.0.0
 ```
-For previous version of opam, the switch creation command line is slightly more verbose:
-```bash
-opam update
-opam switch create 5.0.0 --repositories=default,beta=git+https://github.com/ocaml/ocaml-beta-repository.git
-```
+
 It might be also interesting to check the new support for parallelism by installing the `domainslib` library with
 ```bash
 opam install domainslib
@@ -81,7 +76,7 @@ The command line above is slightly more complicated for opam versions before 2.1
 
 ```bash
 opam update
-opam switch create <switch_name> --packages=ocaml-variants.5.0.0+options,<option_list> --repositories=default,beta=git+https://github.com/ocaml/ocaml-beta-repository.git
+opam switch create <switch_name> --packages=ocaml-variants.5.0.0+options,<option_list>
 ```
 In both cases, all available options can be listed with `opam search ocaml-option`.
 
