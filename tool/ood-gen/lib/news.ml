@@ -15,7 +15,6 @@ type t = {
   tags : string list;
   body_html : string;
 }
-[@@deriving yaml]
 
 let all () =
   Utils.map_files_with_names
