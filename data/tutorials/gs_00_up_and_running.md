@@ -28,12 +28,6 @@ The code blocks (in black) on this page show the required commands (the text aft
 
 ## Installing OCaml
 
-The **platform installer** is currently in active development. It will
-automatically install opam, OCaml, and the development tools. [See below](#up-and-running-with-the-platform-installer)
-for the instruction.
-
-Please note that the installer is a work in progress and might not work on your system.
-
 OCaml is available as a package in most Linux distributions; however, it is
 often outdated. On the contrary, OCaml's official package manager, opam, allows you to
 easily switch between OCaml versions and much more. This is
@@ -45,40 +39,25 @@ on your behalf; however, only OCaml version 4.14.0 can be installed with `setup.
 
 [opam](https://opam.ocaml.org/), OCaml's package manager, introduces the concept of "switches," which is a compiler with a set of packages (libraries and other files). Switches are used to have independent sets of dependencies in different projects.
 
-Alternatively, you can use the alpha-version platform installer to install opam and the development tools, [see below](#up-and-running-with-the-platform-installer).
-
-[opam](https://opam.ocaml.org/), the package manager of OCaml, introduces the concept of "switches," consisting of a compiler together with a set of packages (libraries and other files). Switches are used to have independent sets of dependencies in different projects.
-
 Find all the installation instructions for both Unix-like systems and Windows in the sections below:
 
 * Linux or macOS: [Installation for Unix, including Linux and macOS](#installation-for-unix)
 * Windows: [Installation for Windows](#installation-for-windows)
 
-<<<<<<< HEAD
-### Installation Using OCaml Platform Installer
+**Note**
 
-As of 2023, the OCaml Platform Installer, presented here, is the new recommended way
-to install OCaml in Unix. The `ocaml-platform` binary, automates and set up of an
-OCaml development environment. However, you first need to install the few system
-dependencies of the OCaml environment, such as a C compiler (e.g., `gcc`) and
-other system tools: `bzip2`, `make`, `bubblewrap`, `patch`, `curl`, and `unzip`.
-In most architecture, you can install them using your package manager, for
-example on Ubuntu or Debian:
-<!-- $MDX skip -->
-```bash
-$ sudo apt install build-essential bubblewrap unzip
-```
+The [OCaml Platform
+Installer](https://github.com/tarides/ocaml-platform-installer) is an
+incubating new way to install OCaml. As of 2023, it is in active development. It
+will automatically install opam, OCaml, and the development tools.
 
-In macOS, the installation of [Xcode](https://developer.apple.com/xcode) is the only requirement.
+As an alternative to the methods mentionned aboved and detailed below, you can
+try the alpha version of the platform installer to install opam and the
+development tools, [see below](#up-and-running-with-the-platform-installer) for
+the instructions. However, please note that this installer is a work in progress
+and might not work on your system (on the other hand, any feedback is highly
+appreciated).
 
-You can now download and run the installer script and then call `ocaml-platform`:
-```shell
-$ bash < <(curl -sL https://ocaml.org/platform/installer.sh)
-$ ocaml-platform
-```
-
-=======
->>>>>>> ef57bb0 (Reuse existing up & running ocaml-platform text)
 ### Installation for Unix
 
 After having installed opam, you will need to initialise it, [see below](#initialising-opam-on-unix).
@@ -281,12 +260,14 @@ Now that the tools are installed, it remains to understand how to use them. Most
 
 As of 2023, the [OCaml Platform
 Installer](https://github.com/tarides/ocaml-platform-installer), presented here,
-is new recommended way to install OCaml in Unix. As of any freshly released
-piece of software you may run into trouble using it, we apologies if it is the
-case. Please [file an
+is still in active development. It is an incubating alternative way to install
+all the tools of the OCaml platform.
+
+As of any freshly released piece of software you may run into trouble using it,
+we apologies if it is the case. Please [file an
 issue](https://github.com/tarides/ocaml-platform-installer/issues) if you
 experience difficulties. If it doesn't work at all on your system, follow the
-old instructions above, which are still relevant.
+instructions above.
 
 The `ocaml-platform` binary automates the set up of a complete OCaml development
 environment. However, you need first to install the few system dependencies of

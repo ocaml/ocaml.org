@@ -65,11 +65,19 @@ Learn_layout.render
   <div class="flex flex-col border-t border-gray-200 pt-20 mt-20 mb-20">
     <h3 class="font-bold">Installing the OCaml Platform</h3>
     <div class="text-body-400 mt-6 w-full">
-      Here is how to install using the <a class="text-orange-500" href="https://github.com/tarides/ocaml-platform-installer"> OCaml Platform Installer</a>.
-      In macOS, the installation of <a class="text-orange-500" href="https://developer.apple.com/xcode/">Xcode</a> is the only requirement.
+      The recommended and detailed instructions to install OCaml and its
+      associated tools are available in the <a class="text-orange-500"
+      href="/docs/up-and-running#up-and-running-with-the-platform-installer">
+      Get Up and Running With OCaml</a> document. In this section, we present
+      the simpler but incubating way to install using the <a
+      class="text-orange-500"
+      href="https://github.com/tarides/ocaml-platform-installer"> OCaml Platform
+      Installer</a>.
     </div>
     <div class="text-body-400 mt-2 w-full">
-      Here is what you need to do in Ubuntu:
+      In macOS, the installation of <a class="text-orange-500"
+      href="https://developer.apple.com/xcode/">Xcode</a> is the only
+      requirement. Here is what you need to do in Ubuntu:
     </div>
     <div class="bg-code-background px-6 py-2 rounded-2xl mt-2">
 <pre class="text-white language-shell text-sm"><code><span>sudo apt install build-essential bubblewrap unzip</code></pre>
@@ -81,9 +89,7 @@ Learn_layout.render
 <pre class="text-white language-shell text-sm"><code class="language-shell"><span>bash&nbsp;<span class="text-red-500">&lt;&nbsp;</span><span class="text-yellow-500">&lt;(</span>curl -sL&nbsp;<span class="text-blue-500">https://ocaml.org/platform/installer.sh</span><span class="text-yellow-500">)</span></span>
 <span>ocaml-platform</span></code></pre>
     </div>
-    <div class="text-body-400 mt-2 w-full">
-      Check for detailed and alternative instructions in the <a class="text-orange-500" href="/docs/up-and-running#up-and-running-with-the-platform-installer"> Get Up and Running With OCaml</a> document.
-    </div>
+
     <h3 class="font-bold mt-8">State of Platform Tools</h3>
     <div class="text-body-400 mt-6 text-lg">
       Each platform element lives at a different point in the lifecycle of a Platform tool
