@@ -774,42 +774,43 @@ away from this are:
 
 * The use of recursion to build a list:
 
-    <!-- $MDX skip -->
-    ```ocaml
-    let rec loop () =
-      a match or if statement
-      | base case -> []
-      | recursive case -> element :: loop ()
-    ```
-    Compare this to our previous `range` function. The pattern of recursion
-    is exactly the same:
-    
-    ```ocaml
-    # let rec range a b =
-      if a > b then []            (* Base case *)
-      else a :: range (a + 1) b     (* Recursive case *);;
-    ```
-	
+<!-- $MDX skip -->
+```ocaml
+let rec loop () =
+  match data with (* Could also be an if statement *)
+  | base case -> []
+  | recursive case -> element :: loop ()
+```
+Compare this to our previous `range` function. The pattern of recursion
+is exactly the same:
+
+<!-- $MDX skip -->
+```ocaml
+# let rec range a b =
+  if a > b then []              (* Base case *)
+  else a :: range (a + 1) b     (* Recursive case *)
+```
+
 * The use of recursion to build up trees:
 
-    <!-- $MDX skip -->
-    ```ocaml
-    let rec read_directory path =
-      (* blah blah *)
-      if file-is-a-directory then
-        read_directory path-to-file
-      else
-        Leaf file
-    ```
-    All that remains now to make this a working program is a little bit of
-    code to call `read_directory` and display the result:
-    
-    <!-- $MDX skip -->
-    ```ocaml
-    let path = Sys.argv.(1) in
-    let fs = read_directory path in
-    print_endline (string_of_filesystem fs)
-    ```
+<!-- $MDX skip -->
+```ocaml
+let rec read_directory path =
+  (* blah blah *)
+  if file_is_a_directory path then
+    read_directory path_to_file
+  else
+    Leaf file
+```
+All that remains now to make this a working program is a little bit of
+code to call `read_directory` and display the result:
+
+<!-- $MDX skip -->
+```ocaml
+let path = Sys.argv.(1) in
+let fs = read_directory path in
+print_endline (string_of_filesystem fs)
+```
 
 ###  Recursion example: maximum element in a list
 Remember the basic recursion pattern for lists:
