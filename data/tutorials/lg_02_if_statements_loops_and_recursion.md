@@ -777,27 +777,28 @@ away from this are:
 <!-- $MDX skip -->
 ```ocaml
 let rec loop () =
-  a match or if statement
+  match data with (* Could also be an if statement *)
   | base case -> []
   | recursive case -> element :: loop ()
 ```
 Compare this to our previous `range` function. The pattern of recursion
 is exactly the same:
 
+<!-- $MDX skip -->
 ```ocaml
 # let rec range a b =
-  if a > b then []            (* Base case *)
-  else a :: range (a + 1) b     (* Recursive case *);;
+  if a > b then []              (* Base case *)
+  else a :: range (a + 1) b     (* Recursive case *)
 ```
-	
+
 * The use of recursion to build up trees:
 
 <!-- $MDX skip -->
 ```ocaml
 let rec read_directory path =
   (* blah blah *)
-  if file-is-a-directory then
-    read_directory path-to-file
+  if file_is_a_directory path then
+    read_directory path_to_file
   else
     Leaf file
 ```
