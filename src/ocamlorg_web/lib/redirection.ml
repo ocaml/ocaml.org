@@ -582,6 +582,8 @@ let from_v2 =
     ("/releases", Url.releases);
     ("/releases/latest/index.html", Url.release "5.0.0");
     ("/releases/latest/manual.html", Url.manual_with_version "5.0.0");
+    ("/releases/latest/manual", Url.manual_with_version "5.0.0");
+    ("/releases/latest/manual/index.html", Url.manual_with_version "5.0.0");
     ("/releases/latest/htmlman", Url.manual_with_version "5.0.0");
     ("/releases/latest/htmlman/index.html", Url.manual_with_version "5.0.0");
     ("/releases/latest/api", Url.api_with_version "5.0.0");
