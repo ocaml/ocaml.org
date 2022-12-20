@@ -644,6 +644,10 @@ let manual =
     fwd_v2 "/releases/4.14/htmlman";
     redirect_p "/releases/4.14/manual/**";
     fwd_v2 "/releases/4.14/manual";
+    redirect_p "/releases/5.0/api/**";
+    fwd_v2 "/releases/5.0/api";
+    redirect_p "/releases/5.0/htmlman/**";
+    fwd_v2 "/releases/5.0/htmlman";
     redirect_p "/releases/5.0/manual/**";
     fwd_v2 "/releases/5.0/manual";
   ]
