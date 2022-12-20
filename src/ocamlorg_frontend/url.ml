@@ -23,7 +23,6 @@ let minor v =
   | _ -> invalid_arg (v ^ ": invalid OCaml version")
 
 let manual_with_version v = "/releases/" ^ minor v ^ "/htmlman/index.html"
-
 let manual = "/releases/latest/manual.html"
 
 let api_with_version v =
