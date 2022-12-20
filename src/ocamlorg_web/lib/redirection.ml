@@ -580,20 +580,19 @@ let from_v2 =
     ("/releases/index.fr.html", Url.releases);
     ("/releases/index.html", Url.releases);
     ("/releases", Url.releases);
-    ("/releases/latest/index.html", Url.release "4.14.0");
+    ("/releases/latest/index.html", Url.release "5.0.0");
     ("/releases/latest/manual.html", Url.manual_with_version "5.0.0");
   ]
 
 let redirect_p pattern =
   let handler req =
     let target = Dream.target req in
-    Dream.redirect req ("https://v2.ocaml.org" ^ target)
+    Dream.redirect req (Url.v2 ^ target)
   in
   Dream.get pattern handler
 
 let fwd_v2 origin =
-  Dream.get origin (fun req ->
-      Dream.redirect req ("https://v2.ocaml.org" ^ origin))
+  Dream.get origin (fun req -> Dream.redirect req (Url.v2 ^ origin))
 
 let manual =
   [
