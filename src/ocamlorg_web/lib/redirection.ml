@@ -240,6 +240,17 @@ let v2_assets =
     fwd_v2 "/releases/4.14/ocaml-4.14-refman.info.tar.gz";
     fwd_v2 "/releases/4.14/ocaml-4.14-refman.pdf";
     fwd_v2 "/releases/4.14/ocaml-4.14-refman.txt";
+    fwd_v2 "/releases/5.0/notes/Changes";
+    fwd_v2 "/releases/5.0/notes/INSTALL.adoc";
+    fwd_v2 "/releases/5.0/notes/LICENSE";
+    fwd_v2 "/releases/5.0/notes/README.adoc";
+    fwd_v2 "/releases/5.0/notes/README.win32.adoc";
+    fwd_v2 "/releases/5.0/ocaml-5.0-refman-html.tar.gz";
+    fwd_v2 "/releases/5.0/ocaml-5.0-refman-html.zip";
+    fwd_v2 "/releases/5.0/ocaml-5.0-refman.html";
+    fwd_v2 "/releases/5.0/ocaml-5.0-refman.info.tar.gz";
+    fwd_v2 "/releases/5.0/ocaml-5.0-refman.pdf";
+    fwd_v2 "/releases/5.0/ocaml-5.0-refman.txt";
   ]
 
 let from_v2 =
