@@ -569,7 +569,7 @@ let from_v2 =
     ("/releases/index.html", Url.releases);
     ("/releases", Url.releases);
     ("/releases/latest/index.html", Url.release "4.14.0");
-    ("/releases/latest/manual.html", Url.manual_with_version "4.14.0");
+    ("/releases/latest/manual.html", Url.manual_with_version "5.0.0");
   ]
 
 let redirect_p pattern =

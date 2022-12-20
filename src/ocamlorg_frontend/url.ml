@@ -22,10 +22,9 @@ let minor v =
   | x :: y :: _ -> x ^ "." ^ y
   | _ -> invalid_arg (v ^ ": invalid OCaml version")
 
-let manual_with_version v =
-  "https://v2.ocaml.org/releases/" ^ minor v ^ "/htmlman/index.html"
+let manual_with_version v = "/releases/" ^ minor v ^ "/htmlman/index.html"
 
-let manual = "https://v2.ocaml.org/releases/latest/manual.html"
+let manual = "/releases/latest/manual.html"
 
 let api_with_version v =
   "https://v2.ocaml.org/releases/" ^ minor v ^ "/api/index.html"
