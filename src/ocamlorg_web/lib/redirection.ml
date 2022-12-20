@@ -1,6 +1,6 @@
 module Url = Ocamlorg_frontend.Url
 
-let fwd_v2 target = (target, "https://v2.ocaml.org" ^ target)
+let fwd_v2 target = (target, Url.v2 ^ target)
 
 (* For assets previously hosted on V2, we redirect the requests to
    v2.ocaml.org. *)
