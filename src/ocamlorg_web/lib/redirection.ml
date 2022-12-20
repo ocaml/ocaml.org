@@ -560,6 +560,7 @@ let from_v2 =
     ("/releases/4.13.0.html", Url.release "4.13.0");
     ("/releases/4.13.1.html", Url.release "4.13.1");
     ("/releases/4.14.0.html", Url.release "4.14.0");
+    ("/releases/5.0.0.html", Url.release "5.0.0");
     ("/releases/caml-light/faq.html", Url.index);
     ("/releases/caml-light/index.html", Url.index);
     ("/releases/caml-light", Url.index);
@@ -633,6 +634,8 @@ let manual =
     fwd_v2 "/releases/4.14/htmlman";
     redirect_p "/releases/4.14/manual/**";
     fwd_v2 "/releases/4.14/manual";
+    redirect_p "/releases/5.0/manual/**";
+    fwd_v2 "/releases/5.0/manual";
   ]
 
 let make ?(permanent = false) t =
