@@ -33,7 +33,7 @@ The source code for the release candidate is also directly available on:
 
 ### Compiler User-Interface and Warnings:
 
-- [#11184](https://github.com/ocaml/ocaml/issues/11184), [#11670](https://github.com/ocaml/ocaml/issues/11670): Stop calling ranlib on created / installed libraries
+- [#11184](https://github.com/ocaml/ocaml/issues/11184), [#11670](https://github.com/ocaml/ocaml/issues/11670): Stop calling `ranlib` on created / installed libraries
   (Sébastien Hinderer and Xavier Leroy, review by the same)
 
 ### Build System:
@@ -42,7 +42,7 @@ The source code for the release candidate is also directly available on:
   (David Allsopp, report by William Hu, review by Xavier Leroy and
    Sébastien Hinderer)
 
-- [#11487](https://github.com/ocaml/ocaml/issues/11487): Thwart FMA test optimization during configure
+- [#11487](https://github.com/ocaml/ocaml/issues/11487): Thwart FMA test optimisation during configure
   (William Hu, review by David Allsopp and Sébastien Hinderer)
 
 ### Bug Fixes:
@@ -56,31 +56,31 @@ The source code for the release candidate is also directly available on:
   the class definition.
   (Nicolás Ojeda Bär, review by Leo White)
 
-- [#11263](https://github.com/ocaml/ocaml/issues/11263), [#11267](https://github.com/ocaml/ocaml/issues/11267): caml/{memory,misc}.h: check whether `_MSC_VER` is defined
+- [#11263](https://github.com/ocaml/ocaml/issues/11263), [#11267](https://github.com/ocaml/ocaml/issues/11267): caml/{memory,misc}.h: Check whether `_MSC_VER` is defined
   before using it to ensure that the headers can always be used in code which
-  turns on -Wundef (or equivalent).
+  turns on `-Wundef` (or equivalent).
   (David Allsopp and Nicolás Ojeda Bär, review by Nicolás Ojeda Bär and
    Sébastien Hinderer)
 
-- [#11314](https://github.com/ocaml/ocaml/issues/11314), [#11416](https://github.com/ocaml/ocaml/issues/11416): fix non-informative error message for module inclusion
+- [#11314](https://github.com/ocaml/ocaml/issues/11314), [#11416](https://github.com/ocaml/ocaml/issues/11416): Fix non-informative error message for module inclusion
   (Florian Angeletti, report by Thierry Martinez, review by Gabriel Scherer)
 
-- [#11358](https://github.com/ocaml/ocaml/issues/11358), [#11379](https://github.com/ocaml/ocaml/issues/11379): Refactor the initialization of bytecode threading,
+- [#11358](https://github.com/ocaml/ocaml/issues/11358), [#11379](https://github.com/ocaml/ocaml/issues/11379): Refactor the initialisation of bytecode threading,
   This avoids a "dangling pointer" warning of GCC 12.1.
   (Xavier Leroy, report by Armaël Guéneau, review by Gabriel Scherer)
 
-- [#11387](https://github.com/ocaml/ocaml/issues/11387), module type with constraints no longer crash the compiler in presence
+- [#11387](https://github.com/ocaml/ocaml/issues/11387): Module type with constraints no longer crash the compiler in presence
   of both shadowing warnings and the `-bin-annot` compiler flag.
   (Florian Angeletti, report by Christophe Raffalli, review by Gabriel Scherer)
 
-- [#11392](https://github.com/ocaml/ocaml/issues/11392), [#11392](https://github.com/ocaml/ocaml/issues/11392): assertion failure with -rectypes and external definitions
+- [#11392](https://github.com/ocaml/ocaml/issues/11392), [#11392](https://github.com/ocaml/ocaml/issues/11392): Assertion failure with `-rectypes` and external definitions
   (Gabriel Scherer, review by Florian Angeletti, report by Dmitrii Kosarev)
 
-- [#11417](https://github.com/ocaml/ocaml/issues/11417): Fix regression allowing virtual methods in non-virtual classes.
+- [#11417](https://github.com/ocaml/ocaml/issues/11417): Fix a regression which allowed virtual methods in non-virtual classes.
   (Leo White, review by Florian Angeletti)
 
 - [#11468](https://github.com/ocaml/ocaml/issues/11468): Fix regression from [#10186](https://github.com/ocaml/ocaml/issues/10186) (OCaml 4.13) detecting IPv6 on Windows for
-  mingw-w64 i686 port.
+  Mingw-w64 i686 port.
   (David Allsopp, review by Xavier Leroy and Sébastien Hinderer)
 
 - [#11489](https://github.com/ocaml/ocaml/issues/11489), [#11496](https://github.com/ocaml/ocaml/issues/11496): More prudent deallocation of alternate signal stack
@@ -101,22 +101,22 @@ The source code for the release candidate is also directly available on:
 - [#11732](https://github.com/ocaml/ocaml/issues/11732): Ensure that types from packed modules are always generalised
   (Stephen Dolan and Leo White, review by Jacques Garrigue)
 
-- [#11737](https://github.com/ocaml/ocaml/issues/11737): Fix segfault condition in Unix.stat under Windows in the presence of
+- [#11737](https://github.com/ocaml/ocaml/issues/11737): Fix segfault condition in `Unix.stat` under Windows in the presence of
   multiple threads.
   (Marc Lasson, Nicolás Ojeda Bär, review by Gabriel Scherer and David Allsopp)
 
 - [#11776](https://github.com/ocaml/ocaml/issues/11776): Extend environment with functor parameters in `strengthen_lazy`.
   (Chris Casinghino and Luke Maurer, review by Gabriel Scherer)
 
-- [#11533](https://github.com/ocaml/ocaml/issues/11533), [#11534](https://github.com/ocaml/ocaml/issues/11534): follow synonyms again in #show_module_type
+- [#11533](https://github.com/ocaml/ocaml/issues/11533), [#11534](https://github.com/ocaml/ocaml/issues/11534): Follow synonyms again in `#show_module_type`
   (this had stopped working in 4.14.0)
   (Gabriel Scherer, review by Jacques Garrigue, report by Yaron Minsky)
 
 - [#11768](https://github.com/ocaml/ocaml/issues/11768), [#11788](https://github.com/ocaml/ocaml/issues/11788): Fix crash at start-up of bytecode programs in
-  no-naked-pointers mode caused by wrong initialization of caml_global_data
+  no-naked-pointers mode caused by wrong initialisation of `caml_global_data`
   (Xavier Leroy, report by Etienne Millon, review by Gabriel Scherer)
 
-- [#11803](https://github.com/ocaml/ocaml/issues/11803), [#11808](https://github.com/ocaml/ocaml/issues/11808): on x86, the destination of an integer comparison must be
-  a register, it cannot be a stack slot.
+- [#11803](https://github.com/ocaml/ocaml/issues/11803), [#11808](https://github.com/ocaml/ocaml/issues/11808): On x86, the destination of an integer comparison must be
+  a register; it cannot be a stack slot.
   (Vincent Laviron, review by Xavier Leroy, report by
    Emilio Jesús Gallego Arias)
