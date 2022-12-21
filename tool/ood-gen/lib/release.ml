@@ -33,6 +33,10 @@ type t = {
   body_html : string;
 }
 
+let sort_by_decreasing_version x y =
+  let to_list s = List.map int_of_string_opt @@ String.split_on_char '.' s in
+  compare (to_list y.version) (to_list x.version)
+
 let all () =
   Utils.map_files
     (fun content ->
@@ -55,8 +59,7 @@ let all () =
         body_html = Omd.of_string body |> Hilite.Md.transform |> Omd.to_html;
       })
     "releases/"
-  |> List.sort (fun a b -> String.compare a.date b.date)
-  |> List.rev
+  |> List.sort sort_by_decreasing_version
 
 let pp_kind ppf v = Fmt.pf ppf "%s" (match v with `Compiler -> "`Compiler")
 
