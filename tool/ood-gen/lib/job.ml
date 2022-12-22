@@ -34,8 +34,6 @@ let decode s =
            xs)
   | _ -> Error (`Msg "expected a list of jobs")
 
-let parse = decode
-
 let all () =
   let content = Data.read "jobs.yml" |> Option.get in
   Utils.decode_or_raise decode content
