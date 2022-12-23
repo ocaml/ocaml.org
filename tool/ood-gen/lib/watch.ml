@@ -12,7 +12,6 @@ type metadata = {
 [@@deriving yaml]
 
 let path = Fpath.v "data/watch.yml"
-let parse content = Result.map metadata_of_yaml @@ Yaml.of_string content
 
 type t = metadata
 

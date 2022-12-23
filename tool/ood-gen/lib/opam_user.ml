@@ -10,13 +10,6 @@ let path = Fpath.v "data/opam-users.yml"
 
 type t = metadata
 
-let parse s =
-  let yaml = Utils.decode_or_raise Yaml.of_string s in
-  match yaml with
-  | `O [ ("opam-users", `A xs) ] ->
-      Ok (List.map (fun x -> Utils.decode_or_raise metadata_of_yaml x) xs)
-  | _ -> Error (`Msg "Expected list of opam-users")
-
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
   match yaml with
