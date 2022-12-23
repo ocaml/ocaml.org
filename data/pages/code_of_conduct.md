@@ -128,7 +128,7 @@ If you have questions, feel free to write to <coc-help@ocaml.org>.
 
 ## Attribution ##
 
-This text is adapted from the [Coq Code of Conduct][https://github.com/coq/coq/blob/master/CODE_OF_CONDUCT.md]
+This text is adapted from the [Coq Code of Conduct](https://github.com/coq/coq/blob/master/CODE_OF_CONDUCT.md)
 which itself was adapted from Django's code of conduct
 and the Speak Up! Community Code of Conduct.
 

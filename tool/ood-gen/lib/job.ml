@@ -8,14 +8,7 @@ type metadata = {
 }
 [@@deriving yaml]
 
-type t = {
-  title : string;
-  link : string;
-  location : string;
-  publication_date : string option;
-  company : string;
-  company_logo : string;
-}
+type t = metadata
 
 let path = Fpath.v "data/jobs.yml"
 
@@ -40,8 +33,6 @@ let decode s =
                 | Error err -> Error err))
            xs)
   | _ -> Error (`Msg "expected a list of jobs")
-
-let parse = decode
 
 let all () =
   let job_date j = Option.value ~default:"1970-01-01" j.publication_date in

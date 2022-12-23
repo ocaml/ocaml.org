@@ -14,15 +14,7 @@ type metadata = {
 let path = Fpath.v "data/watch.yml"
 let parse content = Result.map metadata_of_yaml @@ Yaml.of_string content
 
-type t = {
-  name : string;
-  embed_path : string;
-  thumbnail_path : string;
-  description : string option;
-  published_at : string;
-  language : string;
-  category : string;
-}
+type t = metadata
 
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
