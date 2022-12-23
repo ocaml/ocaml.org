@@ -1,7 +1,7 @@
 let index = "/"
 let packages = "/packages"
 let packages_search = "/packages/search"
-let with_hash = function None -> "/p" | Some hash -> "/u/" ^ hash
+let with_hash = Option.fold ~none:"/p" ~some:(( ^ ) "/u/")
 let package ?hash v = with_hash hash ^ "/" ^ v
 let package_docs v = "/p/" ^ v ^ "/doc"
 
