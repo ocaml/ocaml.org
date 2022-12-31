@@ -35,7 +35,7 @@ especially useful since different projects might require different versions of
 OCaml.
 
 On Unix, the best way to install OCaml is with opam, OCaml's package manager. On Windows, the best way is to use a traditional `setup.exe` that will initialise opam
-on your behalf; however, only OCaml version 4.12.1 can be installed with `setup.exe` now.
+on your behalf; however, only OCaml version 4.14.0 can be installed with `setup.exe` now.
 
 [opam](https://opam.ocaml.org/), OCaml's package manager, introduces the concept of "switches," which is a compiler with a set of packages (libraries and other files). Switches are used to have independent sets of dependencies in different projects.
 
@@ -168,17 +168,17 @@ After the DKML installer finishes installing two programs (`Visual Studio Instal
 
 Now, download and run:
 
-* OCaml 4.12.1 with Git and Visual Studio compiler: [setup-diskuv-ocaml-windows_x86_64-1.0.1.exe](https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.0.1/setup-diskuv-ocaml-windows_x86_64-1.0.1.exe)
+* OCaml 4.14.0 with Git and Visual Studio compiler: [setup-diskuv-ocaml-windows_x86_64-1.1.0.exe](https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.1.0_r2/setup-diskuv-ocaml-windows_x86_64-1.1.0.exe)
 
 #### Creating a New Switch on Windows
 
-If you want a new independent environment, you can create a new switch with the `opam dkml init` command. The only compiler version available is 4.12.1.
+If you want a new independent environment, you can create a new switch with the `dkml init` command. The only compiler version available is 4.14.0.
 Use PowerShell or a Command Prompt to create a directory anywhere and then create a switch:
 
 ```powershell
 C:\Users\frank> mkdir someproject
 C:\Users\frank> cd someproject
-C:\Users\frank\someproject> opam dkml init
+C:\Users\frank\someproject> dkml init
 
 # PowerShell only
 C:\Users\frank\someproject> (& opam env) -split '\r?\n' | ForEach-Object { Invoke-Expression $_ }
@@ -192,10 +192,10 @@ The line beneath the $ command shows the desired output for both the OCaml versi
 
 ```shell
 $ where.exe ocaml
-C:\Users\frank\AppData\Local\Programs\DiskuvOCaml\0\usr\bin\ocaml.exe
+C:\Users\frank\AppData\Local\Programs\DiskuvOCaml\usr\bin\ocaml.exe
 
 $ ocaml -version
-The OCaml toplevel, version 4.12.1
+The OCaml toplevel, version 4.14.0
 ```
 
 To learn more about Diskuv OCaml, see the [official
@@ -232,7 +232,8 @@ All these tools can be installed in your current switch (remember that opam grou
 # Unix
 $ opam install dune merlin ocaml-lsp-server odoc ocamlformat utop dune-release
 
-# Windows (currently dune-release is not available from Diskuv OCaml)
+# Windows (Diskuv OCaml has known bugs that make this harder than it needs to be)
+$ opam pin remove fiber omd stdune dyn ordering dot-merlin-reader yojson --no-action
 $ opam install dune merlin ocaml-lsp-server odoc ocamlformat utop
 ```
 
