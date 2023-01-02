@@ -15,8 +15,6 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let path = Fpath.v "data/releases/"
-
 type t = {
   kind : kind;
   version : string;

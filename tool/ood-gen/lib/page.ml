@@ -6,8 +6,6 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let path = Fpath.v "data/pages/"
-
 type t = {
   fname : string;
   title : string;

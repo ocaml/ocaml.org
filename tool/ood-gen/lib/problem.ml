@@ -6,8 +6,6 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let path = Fpath.v "data/problems/"
-
 let split_statement_statement (blocks : _ Omd.block list) =
   let rec blocks_until_heading acc = function
     | [] -> (List.rev acc, [])

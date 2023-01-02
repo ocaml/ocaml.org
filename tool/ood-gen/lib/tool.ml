@@ -8,8 +8,6 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let path = Fpath.v "data/tools.yml"
-
 module Lifecycle = struct
   type t = [ `Incubate | `Active | `Sustain | `Deprecate ]
 

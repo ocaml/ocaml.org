@@ -18,8 +18,6 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let path = Fpath.v "data/academic_institutions"
-
 type t = {
   name : string;
   description : string;

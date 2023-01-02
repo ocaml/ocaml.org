@@ -45,8 +45,6 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let path = Fpath.v "data/workshops"
-
 type t = {
   title : string;
   slug : string;

@@ -6,8 +6,6 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let path = Fpath.v "data/opam-users.yml"
-
 type t = metadata
 
 let decode s =
