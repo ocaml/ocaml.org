@@ -16,7 +16,7 @@ as described in [Up and Running](/docs/up-and-running).
 Alternatively, you may follow almost all of it by running OCaml in your browser
 using [TryOCaml](http://try.ocamlpro.com), with no installation required.
 
-On macOS/iOS/iPadOS, you can download this [all-in-one package on the App Store](https://apps.apple.com/app/ocaml-learn-code/id1547506826). It contains an editor side-by-side with an interactive top level, and is free and [open source](https://github.com/GroupeMINASTE/OCaml-iOS).
+On macOS/iOS/iPadOS, you can download this [all-in-one package on the App Store](https://apps.apple.com/app/ocaml-learn-code/id1547506826). It contains an editor side-by-side with an interactive toplevel. Plus, it's free and [open source](https://github.com/GroupeMINASTE/OCaml-iOS)!
 
 ## Running OCaml Programs
 
@@ -24,10 +24,10 @@ To try small OCaml expressions, use an interactive toplevel, or REPL
 (Read-Eval-Print Loop). The `ocaml` command provides a basic toplevel
 (install `rlwrap` through your system package manager and run `rlwrap ocaml` instead to get history navigation).
 
-The alternative REPL [utop](https://github.com/ocaml-community/utop) may be installed
+The alternative REPL [UTop](https://github.com/ocaml-community/utop) may be installed
 through [opam](https://opam.ocaml.org/doc/Install.html) or your system package manager. It has
 the same basic interface but is much more convenient to use (history
-navigation, auto-completion, etc).
+navigation, auto-completion, etc.).
 
 Use `;;` to indicate that you've finished entering each expression and prompt
 OCaml to evaluate it. We run OCaml and evaluate a simple expression:
@@ -83,7 +83,9 @@ val x : int = 50
 ```
 
 Note that this isn't a variable as in languages like C and Python. Its value
-cannot be changed. We can write it all in one go using `let` ... `in` ...:
+cannot be changed. 
+
+We can write also write it all on one line using `let` ... `in` ...:
 
 ```ocaml
 # let x = 50 in x * x;;
@@ -149,7 +151,7 @@ val average : float -> float -> float = <fun>
 
 This is rather unusual. In other languages (such as C) integers get promoted to
 floating point values in certain circumstances. For example, if you write `1 + 2.5` then the first argument (which is an integer) is promoted to a floating
-point number, and the result is also a floating point number.
+point number, making the result a floating point number, too.
 
 OCaml never does implicit casts like this. In OCaml, `1 + 2.5` is a type error.
 The `+` operator in OCaml requires two integers as arguments, and here we
@@ -162,7 +164,7 @@ Error: This expression has type float but an expression was expected of type
          int
 ```
 
-OCaml doesn't promote integers to floating point numbers automatically so this
+OCaml doesn't promote integers to floating point numbers automatically, so this
 is also an error:
 
 ```ocaml
@@ -210,7 +212,7 @@ val digits : int list = [0; 1; 2; 3; 4; 5; 6; 7; 8; 9]
 
 We have used OCaml's `if` ... `then` ... `else` ... construct to test a
 condition and choose a path of evaluation. Notice that, like everything else in
-OCaml, it's an expression not a statement. The result of evaluating the whole
+OCaml, it's an expression, not a statement. The result of evaluating the whole
 expression is either the result of evaluating the `then` part or the `else`
 part.
 
@@ -542,7 +544,7 @@ type colour = Red | Blue | Green | Yellow
 val l : colour list = [Red; Blue; Red]
 ```
 
-Each "type constructor", which must begin with a capital letter, can optionally
+Each "type constructor," which must begin with a capital letter, can optionally
 carry data along with it:
 
 ```ocaml
@@ -557,7 +559,7 @@ type colour = Red | Blue | Green | Yellow | RGB of int * int * int
 val l : colour list = [Red; Blue; RGB (30, 255, 154)]
 ```
 
-Data types may be polymorphic and recursive too. Here is an OCaml data type for
+Data types may be polymorphic and recursive, too. Here is an OCaml data type for
 a binary tree carrying any kind of data:
 
 ```ocaml
@@ -606,7 +608,7 @@ when we no longer need it because OCaml is a garbage-collected language. It will
 memory for data structures when they are no longer needed. In our example, once
 the Boolean test `t = flip flipped` has been evaluated, the data structure
 `flip flipped` is no longer reachable by the rest of the program, and its
-memory may be reclaimed by the garbage collector.
+memory may be reclaimed by the garbage collector (GC).
 
 ## Dealing With Errors
 
@@ -683,10 +685,10 @@ val list_find_opt : ('a -> bool) -> 'a list -> 'a option = <fun>
 
 ## Imperative OCaml
 
-OCaml is not just a functional language; it supports imperative programming
+OCaml is not just a functional language; it supports imperative programming,
 too. OCaml programmers tend to use imperative features sparingly, but almost
 all OCaml programmers use them sometimes. If you want a variable
-that you can assign to and change throughout your program, you need to use a
+that you can assign and change throughout your program, you need to use a
 _reference_.
 
 Here's how we create a reference to an integer in OCaml:
@@ -712,7 +714,7 @@ And let's find out what the reference contains now:
 ```
 
 So the `:=` operator is used to assign to references, and the `!` operator
-dereferences to get the contents.
+de-references to get the contents.
 
 References have their place, but you may find that you don't use them very
 often. Much more often you'll be using `let` ... `=` ... `in` ... to name local
@@ -817,7 +819,7 @@ val birthday : person -> unit = <fun>
 
 OCaml comes with a library of useful modules that are available anywhere OCaml
 is. For example, there are standard libraries for functional data structures
-(such as maps and sets), imperative data structures (such as hash tables),
+(such as maps and sets), for imperative data structures (such as hash tables),
 and for interacting with the operating system. We use them by writing the module followed by a
 full stop, then followed by the name of the function. Here are some functions from
 the `List` module:
@@ -851,14 +853,14 @@ You can find the full list of standard library modules in the
 ## A Module From Opam
 
 Apart from the standard library, a much wider range of modules are available
-through the OCaml Package Manager, Opam. You must have OCaml on your computer
+through the OCaml Package Manager, opam. Please note: you must have OCaml on your computer
 to follow the tutorial moving forward, not just the TryOCaml tool.
 
 For these examples, we're going to use module called `Graphics`, which can be
-installed with `opam install graphics`, and the `ocamlfind` program installed
+installed with `opam install graphics`, and the `ocamlfind` program that installed
 with `opam install ocamlfind`. The `Graphics` module is a very simple
 cross-platform graphics system which was once part of OCaml itself. Now it's
-available separately through Opam.
+available separately through opam.
 
 If we want to use the functions in `Graphics`, there are two ways we can
 do it. Either at the start of our program we have the `open Graphics`
@@ -883,7 +885,7 @@ Findlib has been successfully loaded. Additional directives:
 ```
 
 A couple of examples should make this clear. (The two examples draw different
-things, so experiment with them). Note the first example uses `open` to open the Graphics
+things, so experiment with them.) Note the first example uses `open` to open the Graphics
 module, then calls `open_graph`, and the second one uses `Graphics.open_graph`
 directly.
 
