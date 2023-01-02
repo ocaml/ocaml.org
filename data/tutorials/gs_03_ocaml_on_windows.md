@@ -10,7 +10,7 @@ date: 2021-05-27T21:07:30-00:00
 # OCaml on Windows
 
 There is a new [Diskuv OCaml][DKML] ("DKML") Windows
-installer that we recommend for new users. However while [Diskuv OCaml][DKML] has a modern OCaml 4.12.1 compiler,
+installer that we recommend for new users. However while [Diskuv OCaml][DKML] has a modern OCaml 4.14.0 compiler,
 it does not track the latest OCaml compilers. We will officially support Windows as a Tier 1
 platform with a [major release of opam](#opam-22) in the coming months, and it will be compatible with
 DKML installations.
@@ -33,10 +33,10 @@ The guidance is based on the availability table below:
 │ Tier   │ OCaml Version and Environment     │ Support and Availability                    │
 │ ------ │ --------------------------------- │ ------------------------------------------- │
 │ Tier 1 │ OCaml 5 with Opam 2.2             │ Full support. Coming in the next few months │
-│ Tier 2 │ 4.12.1 with Diskuv OCaml          │ Supported on select versions. Available now │
+│ Tier 2 │ 4.14.0 with Diskuv OCaml          │ Supported on select versions. Available now │
 │ Tier 3 │ 4.14.0 with opam-repository-mingw │ Deprecated. Available now and mostly works  │
-│ Tier 3 │ 4.14.0 with WSL2                  │ User supported. Available now               │
-│ Tier 3 │ 4.14.0 with Docker                | User supported. Available now               │
+│ Tier 3 │ 4.14.1 with WSL2                  │ User supported. Available now               │
+│ Tier 3 │ 4.14.1 with Docker                | User supported. Available now               │
 ╰──────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
