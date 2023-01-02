@@ -16,22 +16,7 @@ let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
   match yaml with
   | `O [ ("jobs", `A xs) ] ->
-      Ok
-        (List.map
-           (Utils.decode_or_raise (fun x ->
-                match metadata_of_yaml x with
-                | Ok raw ->
-                    Ok
-                      {
-                        title = raw.title;
-                        link = raw.link;
-                        location = raw.location;
-                        publication_date = raw.publication_date;
-                        company = raw.company;
-                        company_logo = raw.company_logo;
-                      }
-                | Error err -> Error err))
-           xs)
+      Ok (List.map (Utils.decode_or_raise metadata_of_yaml) xs)
   | _ -> Error (`Msg "expected a list of jobs")
 
 let all () =
