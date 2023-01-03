@@ -13,8 +13,6 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let path = Fpath.v "data/videos.yml"
-
 module Kind = struct
   type t = [ `Conference | `Mooc | `Lecture ]
 

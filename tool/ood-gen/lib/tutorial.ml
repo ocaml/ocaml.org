@@ -7,8 +7,6 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let path = Fpath.v "data/tutorials/"
-
 type t = {
   title : string;
   slug : string;

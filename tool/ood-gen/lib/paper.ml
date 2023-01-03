@@ -14,8 +14,6 @@ type metadata = {
 
 type t = metadata
 
-let path = Fpath.v "data/papers.yml"
-
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
   match yaml with

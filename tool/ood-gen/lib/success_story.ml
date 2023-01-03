@@ -8,8 +8,6 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let path = Fpath.v "data/success_stories/"
-
 type t = {
   title : string;
   slug : string;

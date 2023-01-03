@@ -14,8 +14,6 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let path = Fpath.v "data/books/"
-
 type t = {
   title : string;
   description : string;
