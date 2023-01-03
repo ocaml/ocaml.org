@@ -25,6 +25,7 @@ let proficiency_list_of_string_list =
       | Ok x -> x
       | Error (`Msg err) -> raise (Exn.Decode_error err))
 
+(* Copied from ocaml/omd, html.ml *)
 let to_plain_text t =
   let buf = Buffer.create 1024 in
   let rec go : _ Omd.inline -> unit = function
