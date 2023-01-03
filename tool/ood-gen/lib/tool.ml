@@ -39,9 +39,9 @@ let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
   match yaml with
   | `O [ ("tools", `A xs) ] ->
-      List.map
-        (fun x ->
-          try
+      Ok
+        (List.map
+          (fun x ->
             let (metadata : metadata) =
               Utils.decode_or_raise metadata_of_yaml x
             in
@@ -62,16 +62,13 @@ let decode s =
                description;
                lifecycle;
              }
-              : t)
-          with e ->
-            print_endline (Yaml.to_string x |> Result.get_ok);
-            raise e)
-        xs
-  | _ -> raise (Exn.Decode_error "expected a list of tools")
+              : t))
+        xs)
+  | _ -> Error (`Msg "expected a list of tools")
 
 let all () =
   let content = Data.read "tools.yml" |> Option.get in
-  decode content
+  Utils.decode_or_raise decode content
 
 let pp_lifecycle ppf v =
   Fmt.pf ppf "%s"
