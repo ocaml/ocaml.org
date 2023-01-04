@@ -1,7 +1,8 @@
 let render ?(search = "") (releases : Ood.Release.t list) =
 Layout.render
 ~title:"OCaml Releases"
-~description:"The history of OCaml releases with a summary and a complete changelog, as well as the manual at that time." @@
+~description:"The history of OCaml releases with a summary and a complete changelog, as well as the manual at that time."
+~canonical:Url.releases @@
 <div class="intro-section-simple">
     <div class="container-fluid">
         <div class="text-center w-full lg:w-2/3 m-auto">

@@ -45,12 +45,6 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let path = Fpath.v "data/workshops"
-
-let parse content =
-  let metadata, _ = Utils.extract_metadata_body content in
-  metadata_of_yaml metadata
-
 type t = {
   title : string;
   slug : string;
@@ -85,8 +79,7 @@ let all () =
         body_html = Omd.to_html omd;
       })
     "workshops/*.md"
-  |> List.sort (fun w1 w2 -> String.compare w1.date w2.date)
-  |> List.rev
+  |> List.sort (fun w1 w2 -> String.compare w2.date w1.date)
 
 let pp_role ppf = function
   | `Chair -> Fmt.string ppf "`Chair"

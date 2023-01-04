@@ -12,7 +12,8 @@ let old_workshops = List.filter (fun (w : Ood.Workshop.t) -> w.date < current_da
 let upcoming_workshops = List.filter (fun (w : Ood.Workshop.t) -> w.date >= current_date) workshops in
 Layout.render
 ~title:"The OCaml Community"
-~description:"Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!" @@
+~description:"Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!"
+~canonical:Url.community @@
 <div class="intro-section-simple">
   <div class="container-fluid">
     <div class="text-center w-full lg:w-2/3 m-auto">
@@ -58,7 +59,7 @@ Layout.render
           <div class="text-base font-semibold"><img src="/img/community/reddit.svg" alt="" class="h-8 w-8 mr-2 inline-block" /> Reddit</div>
           <div class="font-normal text-xs mt-4">“join the OCaml subreddit and posts discussions and memes, talk about your projects, and share interesting articles and news from the web.</div>
         </a>
-        <a href="https://inbox.ocaml.org/caml-list/" class="border-gray-200 border p-8 rounded-xl card-hover">
+        <a href="https://inbox.vuxu.org/caml-list/" class="border-gray-200 border p-8 rounded-xl card-hover">
           <div class="text-base font-semibold"><img src="/img/community/mail.svg" alt="" class="h-8 w-8 mr-2 inline-block" /> Mailing List</div>
           <div class="font-normal text-xs mt-4">Share experience, exchange ideas and code, and report on applications of the OCaml language.</div>
         </a>

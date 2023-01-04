@@ -5,10 +5,10 @@ let asset_loader =
   let store = Asset.connect () in
   Static.loader
     ~read:(fun _root path ->
-      let* store in
+      let* store = store in
       Asset.get store (Mirage_kv.Key.v path))
     ~last_modified:(fun _root path ->
-      let* store in
+      let* store = store in
       Asset.last_modified store (Mirage_kv.Key.v path))
     ~not_cached:[ "css/main.css"; "/css/main.css"; "robots.txt"; "/robots.txt" ]
 
@@ -17,10 +17,10 @@ let media_loader =
   let store = Media.connect () in
   Static.loader
     ~read:(fun _root path ->
-      let* store in
+      let* store = store in
       Media.get store (Mirage_kv.Key.v path))
     ~last_modified:(fun _root path ->
-      let* store in
+      let* store = store in
       Media.last_modified store (Mirage_kv.Key.v path))
 
 let page_routes =
@@ -46,6 +46,7 @@ let page_routes =
       Dream.get Url.carbon_footprint Handler.carbon_footprint;
       Dream.get Url.privacy_policy Handler.privacy_policy;
       Dream.get Url.governance Handler.governance;
+      Dream.get Url.code_of_conduct Handler.code_of_conduct;
       Dream.get Url.papers Handler.papers;
       Dream.get Url.best_practices Handler.best_practices;
       Dream.get Url.problems Handler.problems;
@@ -61,18 +62,18 @@ let package_route t =
       Dream.get Url.packages_search (Handler.packages_search t);
       Dream.get (Url.package ":name") (Handler.package t);
       Dream.get (Url.package_docs ":name") (Handler.package_docs t);
-      Dream.get (Url.package_with_univ ":hash" ":name") (Handler.package t);
+      Dream.get (Url.package ~hash:":hash" ":name") (Handler.package t);
       Dream.get
         (Url.package_with_version ":name" ":version")
         ((Handler.package_versioned t) Handler.Package);
       Dream.get
-        (Url.package_with_hash_with_version ":hash" ":name" ":version")
+        (Url.package_with_version ~hash:":hash" ":name" ":version")
         ((Handler.package_versioned t) Handler.Universe);
       Dream.get
-        (Url.package_doc ":name" ":version" "**")
+        (Url.package_doc ":name" ":version" ~page:"**")
         ((Handler.package_doc t) Handler.Package);
       Dream.get
-        (Url.package_doc_with_hash ":hash" ":name" ":version" "**")
+        (Url.package_doc ~hash:":hash" ~page:"**" ":name" ":version")
         ((Handler.package_doc t) Handler.Universe);
     ]
 

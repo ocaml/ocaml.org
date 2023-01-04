@@ -7,12 +7,6 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let path = Fpath.v "data/tutorials/"
-
-let parse content =
-  let metadata, _ = Utils.extract_metadata_body content in
-  metadata_of_yaml metadata
-
 type t = {
   title : string;
   slug : string;
@@ -31,6 +25,7 @@ let proficiency_list_of_string_list =
       | Ok x -> x
       | Error (`Msg err) -> raise (Exn.Decode_error err))
 
+(* Copied from ocaml/omd, html.ml *)
 let to_plain_text t =
   let buf = Buffer.create 1024 in
   let rec go : _ Omd.inline -> unit = function
@@ -52,12 +47,16 @@ let doc_with_ids doc =
   List.map
     (function
       | Heading (attr, level, inline) ->
-          let attr =
-            match List.assoc_opt "id" attr with
-            | Some _ -> attr
-            | None -> ("id", Utils.slugify (to_plain_text inline)) :: attr
+          let id, attr = List.partition (fun (key, _) -> key = "id") attr in
+          let id =
+            match id with
+            | [] -> Utils.slugify (to_plain_text inline)
+            | (_, slug) :: _ -> slug (* Discard extra ids *)
           in
-          Heading (attr, level, inline)
+          let link : _ Omd.link =
+            { label = inline; destination = "#" ^ id; title = None }
+          in
+          Heading (("id", id) :: attr, level, Link (attr, link))
       | el -> el)
     doc
 

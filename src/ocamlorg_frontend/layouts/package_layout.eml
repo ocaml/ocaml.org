@@ -1,80 +1,49 @@
-type tab = 
+type tab =
   | Overview
   | Documentation
-  
+
 let render
 ?styles
-?(extra_nav="")
 ~title
 ~description
-~tab
-~documentation_status
+~canonical
 ~(package : Package_intf.package)
+~tab
 inner =
-let tab_class = "border-transparent border-b-2 hover:border-primary-600 p-4 font-medium relative text-body-400" in
-let current_tab_class = "border-b-2 hover:border-primary-600 p-4 font-medium border-primary-600 relative text-primary-600" in
 Layout.render
 ?styles
 ~wide:true
 ~title
-~description @@
+~description
+~canonical @@
 <div class="bg-white">
-  <div class="py-5 lg:py-12">
+  <div class="py-5 lg:py-6">
     <div class="container-fluid wide">
-      <div class="flex justify-between flex-col md:flex-row">
-        <div class="flex flex-col">
-          <h4 class="font-bold mb-3">
-            <%s package.name %>
+      <div class="flex justify-between flex-col md:flex-row border-b border-gray-200">
+        <div class="flex flex-col items-baseline mb-6">
+          <h4 class="font-bold md:whitespace-nowrap flex items-center">
+            <a class="flex items-center" href="<%s Url.package_with_version package.name package.version %>">
+              <% if tab != Overview then ( %>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                </svg>&nbsp;
+              <% ); %>
+              <%s package.name %>
+            </a>
+            <select id="version" name="version" onchange="location = this.value;" class="appearance-none cursor-pointer py-0 pt-1 border rounded-md border-transparent pr-8">
+              <% package.versions |> List.iter begin fun item -> %>
+              <option value="/p/<%s package.name %>/<%s item %>"<%s if item = package.version then "selected" else "" %>>
+                <%s item %>
+              </option>
+              <% end; %>
+            </select>
           </h4>
           <div class="text-body-400">
             <%s package.description %>
           </div>
         </div>
-        <div
-          class="flex justify-between space-y-5 md:space-y-0 md:space-x-5 flex-col md:flex-row w-full md:w-auto my-6 md:my-0">
-          <div class=" h-14 w-full md:w-auto flex-col flex">
-            <label class="font-semibold mb-2">Version</label>
-            <div class="relative">
-              <select id="version" name="version" onchange="location = this.value;" class="w-full lg:w-auto appearance-none text-body-600 border rounded-md py-3 pl-6 border-gray-200 pr-14 h-full">
-                <% package.versions |> List.iter begin fun item -> %>
-                <option value="/p/<%s package.name %>/<%s item %>"<%s if item = package.version then "selected" else "" %>>
-                  <%s item %>
-                </option>
-                <% end; %>
-              </select>
-            </div>
-          </div>
-        </div>
       </div>
-      <div class="flex flex-col">
-        <div class="flex mt-8 gap-x-6 border-b border-gray-200 items-stretch flex-wrap">
-          <a href="<%s Url.package_with_version package.name package.version %>">
-            <button
-              class="<%s if tab = Overview then current_tab_class else tab_class %>">
-              Overview
-            </button>
-          </a>
-          <a href="<%s Url.package_doc package.name package.version "index.html" %>">
-            <button
-            class="<%s if tab = Documentation then current_tab_class else tab_class %>">
-              Documentation
-              <% (match documentation_status with 
-                 | `Failure -> %>
-                 <span class="bg-red-500 ml-2 absolute top-2 p-1 rounded-full inline-block">
-                 </span>
-              <% | `Success -> %>
-                <span class="bg-green-500 ml-2 absolute top-2 p-1 rounded-full inline-block">
-                </span>
-              <% | `Unknown -> %>
-                <span class="bg-orange-300 ml-2 absolute top-2 p-1 rounded-full inline-block">
-                </span>
-              <% ); %>
-            </button>
-          </a>
-          <%s! extra_nav %>
-        </div>
-      </div>
-      <div class="py-12">
+      <div class="py-6">
         <%s! inner %>
       </div>
     </div>

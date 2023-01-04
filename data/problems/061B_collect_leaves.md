@@ -1,6 +1,6 @@
 ---
 title: Collect the leaves of a binary tree in a list
-number: "61A"
+number: "61B"
 difficulty: beginner
 tags: [ "binary-tree" ]
 ---

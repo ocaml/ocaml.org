@@ -6,7 +6,7 @@ description: >
 authors:
   - "Jon D. Harrop"
 published: "2005"
-cover: /books/ocaml-for-scientists.jpg
+cover: books/ocaml-for-scientists.jpg
 language: english
 links:
   - description: Book Website

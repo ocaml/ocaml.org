@@ -266,7 +266,7 @@ wiki page: <https://github.com/ocaml/infrastructure/wiki>
 This version of the document was agreed upon by the incumbent set
 of Maintainers in September 2015. You can look back at the
 [discussion](https://lists.ocaml.org/pipermail/infrastructure/2015-August/000518.html)
-or see the [related issue](https://github.com/ocaml/ocaml.org/issues/700).
+or see the [related issue](https://github.com/ocaml/v2.ocaml.org/issues/700).
 
 ***Version 1.0.1 — March 2022***
 <!--

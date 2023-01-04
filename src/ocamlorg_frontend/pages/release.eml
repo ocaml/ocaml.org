@@ -1,7 +1,8 @@
 let render (release : Ood.Release.t) =
 Layout.render
 ~title:(Printf.sprintf "OCaml %s Release Notes" release.version)
-~description:(Printf.sprintf "OCaml %s was released on %s. Learn more about this in the release notes." release.version release.date) @@
+~description:(Printf.sprintf "OCaml %s was released on %s. Learn more about this in the release notes." release.version release.date)
+~canonical:(Url.release release.version) @@
 <div class="intro-section-simple">
     <div class="container-fluid">
         <div class="flex md:flex-row md:px-10 lg:p-6 pb-20 items-center md:space-x-36 flex-col-reverse">

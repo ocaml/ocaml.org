@@ -8,8 +8,6 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let path = Fpath.v "data/tools.yml"
-
 module Lifecycle = struct
   type t = [ `Incubate | `Active | `Sustain | `Deprecate ]
 
@@ -36,13 +34,6 @@ type t = {
   description : string;
   lifecycle : Lifecycle.t;
 }
-
-let parse s =
-  let yaml = Utils.decode_or_raise Yaml.of_string s in
-  match yaml with
-  | `O [ ("tools", `A xs) ] ->
-      Ok (List.map (fun x -> Utils.decode_or_raise metadata_of_yaml x) xs)
-  | _ -> Error (`Msg "Expected list of tools")
 
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in

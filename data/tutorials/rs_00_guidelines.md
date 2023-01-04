@@ -807,7 +807,7 @@ let rec list_length = function
   | _ :: l -> 1 + list_length l
 ```
 (For those that would contest the equivalence of those two
-versions, see the [note below](#Imperativeandfunctionalversionsoflistlength)).
+versions, see the [note below](#imperative-and-functional-versions-of-listlength)).
 
 
 * Another common “over imperative error” in the imperative world is

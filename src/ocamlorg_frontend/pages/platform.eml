@@ -1,8 +1,12 @@
-let render (tools : Ood.Tool.t list) =
+let render
+(tools : Ood.Tool.t list)
+~tutorials
+=
 Learn_layout.render
 ~title:"OCaml Platform"
-~current_tutorial:"platform"
-~description:"The OCaml Platform represents the best way for developers, both new and old, to write software in OCaml." @@
+~description:"The OCaml Platform represents the best way for developers, both new and old, to write software in OCaml."
+~canonical:Url.platform
+(Learn_sidebar.render ~current_tutorial:(Some "platform") ~tutorials) @@
 <div class="flex-1 flex flex-col md:pl-10 min-w-0">
   <h1 class="font-bold">The OCaml Platform</h1>
   <div class="text-body-400 mt-6">

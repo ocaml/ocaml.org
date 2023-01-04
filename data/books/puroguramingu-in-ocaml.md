@@ -4,7 +4,7 @@ description: ""
 authors:
   - A. Igarashi (五十嵐 淳)
 published: "2007"
-cover: /books/puroguramingu-in-ocaml.jpg
+cover: books/puroguramingu-in-ocaml.jpg
 language: japanese
 links:
   - description: Order at Amazon.co.jp

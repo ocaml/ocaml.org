@@ -38,6 +38,20 @@ make start
 
 See our [contributing guide](./CONTRIBUTING.md) for more detailed instructions.
 
+## Maintainers
+
+The OCaml.org maintainers team is composed of the following community members:
+
+- Anil Madhavapeddy ([@avsm](https://github.com/avsm)), Owner (University of Cambridge)
+- Thibaut Mattio ([@tmattio](https://github.com/tmattio)), Lead Maintainer (Tarides)
+- Christine Rose ([@christinerose](https://github.com/christinerose)), Maintainer (Tarides)
+- Cuihtlauac Alvarado ([@cuihtlauac](https://github.com/cuihtlauac)), Maintainer (Tarides)
+- Sabine Schmaltz ([@sabine](https://github.com/sabine)), Maintainer (Tarides)
+
+The roles and responsibilities are explained in the governance, don't hesitate to [have a look](https://ocaml.org/governance) for more details.
+
+We're always looking for new maintainers! If you're interested in helping us make OCaml.org the best resource to learn OCaml and discover the ecosystem, [reach out to us](mailto:thibaut@tarides.com)!
+
 ## Acknowlegement
 
 Thank you to everyone who contributed to the development of this new version of the website!

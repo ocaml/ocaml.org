@@ -29,14 +29,6 @@ module List = struct
       | _ :: ys -> aux (i - 1) ys
     in
     aux n xs
-
-  let rec uniq x =
-    let rec uniq_help l n =
-      match l with
-      | [] -> []
-      | h :: t -> if n = h then uniq_help t n else h :: uniq_help t n
-    in
-    match x with [] -> [] | h :: t -> h :: uniq_help (uniq t) h
 end
 
 module Unix = struct
@@ -58,20 +50,4 @@ module Unix = struct
         else (
           mkdir_p ?perm parent;
           mkdir_idempotent ?perm dir)
-
-  let read_file path =
-    let ic = open_in path in
-    Fun.protect
-      (fun () ->
-        let length = in_channel_length ic in
-        let buffer = Bytes.create length in
-        really_input ic buffer 0 length;
-        Bytes.to_string buffer)
-      ~finally:(fun () -> close_in ic)
-
-  let write_file file content =
-    let oc = open_out file in
-    Fun.protect
-      (fun () -> output_string oc content)
-      ~finally:(fun () -> close_out oc)
 end

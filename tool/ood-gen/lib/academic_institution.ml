@@ -18,12 +18,6 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let path = Fpath.v "data/academic_institutions"
-
-let parse content =
-  let metadata, _ = Utils.extract_metadata_body content in
-  metadata_of_yaml metadata
-
 type t = {
   name : string;
   description : string;

@@ -56,6 +56,7 @@ let platform_of_string = function
 let arch_of_string = function
   | "arm" -> Arm
   | "arm64" -> Arm64
+  | "aarch64" -> Arm64
   | "ia32" -> Ia32
   | "mips" -> Mips
   | "mipsel" -> Mipsel

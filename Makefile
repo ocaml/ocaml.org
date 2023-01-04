@@ -6,7 +6,7 @@ all:
 
 .PHONY: deps
 deps: ## Install development dependencies
-	opam install -y ocamlformat=0.21.0 ocaml-lsp-server
+	opam install -y ocamlformat=0.24.1 ocaml-lsp-server
 	opam install --deps-only --with-test --with-doc -y .
 
 .PHONY: create_switch
@@ -60,3 +60,7 @@ utop: ## Run a REPL and link with the project's libraries
 scrape: ## Generate the po files
 	opam exec -- dune exec --root . tool/ood-gen/bin/scrape.exe rss
 	opam exec -- dune exec --root . tool/ood-gen/bin/watch_scrape.exe
+
+.PHONY: docker
+docker: ## Generate docker container
+	docker build -f Dockerfile . -t ocamlorg:latest

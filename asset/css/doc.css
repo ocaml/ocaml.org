@@ -1,6 +1,4 @@
 div.odoc {
-  margin-left: auto;
-  margin-right: auto;
   max-width: 56rem /* 896px */;
   position: relative;
 }
@@ -11,30 +9,75 @@ div.odoc-include .spec {
   border-color: rgba(251, 146, 60, 1);
   border-radius: 0.25rem /* 4px */;
   background-color: rgba(243, 244, 246, 1);
-  padding-left: 1rem /* 16px */;
+  padding-left: 1.7rem /* needs to provide enough space for the hashtag anchor */;
   padding-right: 1rem /* 16px */;
   padding-top: 0.5rem /* 16px */;
   padding-bottom: 0.5rem /* 16px */;
   margin-top: 1rem /* 16px */;
 }
 
-div.odoc div.spec code::before,
-div.odoc div.spec code::after {
-  content: "";
-}
-
 div.odoc div.spec code {
   white-space: pre-wrap;
 }
 
-div.odoc a.anchor {
+/* clickable anchors with targets and code highlighting of targeted specs */
+
+div.odoc h1,
+div.odoc h2,
+div.odoc h3,
+div.odoc h4,
+div.odoc h5,
+div.odoc h6 {
+  position:relative;
+}
+
+div.odoc h1 a.anchor,
+div.odoc h2 a.anchor,
+div.odoc h3 a.anchor,
+div.odoc h4 a.anchor,
+div.odoc h5 a.anchor,
+div.odoc h6 a.anchor {
   position: absolute;
-  left: 0px;
+  left: 0;
+  right: 0;
+  top:0;
+  bottom:0;
   opacity: 0;
   text-decoration: none;
   color: rgb(156 163 175);
-  margin-left: -0.75em;
   box-shadow: none;
+}
+
+div.odoc h1 a.anchor::after,
+div.odoc h2 a.anchor::after,
+div.odoc h3 a.anchor::after,
+div.odoc h4 a.anchor::after,
+div.odoc h5 a.anchor::after,
+div.odoc h6 a.anchor::after {
+  content: "#";
+  margin-left: -1.2em;
+  padding: 0.4em;
+}
+
+div.odoc .spec {
+  position: relative;
+}
+
+div.odoc .spec a.anchor {
+  position: absolute;
+  left: 0;
+  top:0.3em;
+  opacity: 0;
+  text-decoration: none;
+  color: rgb(156 163 175);
+  box-shadow: none;
+}
+
+div.odoc .spec a.anchor::after {
+  content: "#";
+  font-size:120%;
+  margin-left: -4px;
+  padding: 0.6em;
 }
 
 div.odoc *:hover > a.anchor {
@@ -45,12 +88,31 @@ div.odoc *:hover > a.anchor:hover {
   color: rgb(75 85 99);
 }
 
-div.odoc a.anchor::after {
-  content: "#";
-  padding-right: 1em;
-  padding-left: 1em;
-  font-size: large;
+/* selected anchor target highlighting */
+
+div.odoc .spec:target {
+  background: rgb(255, 248, 206);
 }
+div.odoc .anchored:target,
+div.odoc h1:target,
+div.odoc h2:target,
+div.odoc h3:target,
+div.odoc h4:target,
+div.odoc h5:target,
+div.odoc h6:target {
+  background: rgb(255, 243, 173);
+}
+
+div.odoc .spec:target a,
+div.odoc .anchored:target a {
+  color: rgb(204, 48, 0);
+}
+
+div.odoc *[id] {
+  scroll-margin-top: 2rem;
+}
+
+/* ----- */
 
 div.odoc div.spec table {
   margin-top: 0px;
@@ -70,14 +132,6 @@ div.odoc div.spec tbody td.def {
 
 div.odoc div.spec tbody tr {
   border-width: 0px;
-}
-
-div.odoc code::before {
-  content: "";
-}
-
-div.odoc code::after {
-  content: "";
 }
 
 div.odoc td.def-doc .comment-delim {
@@ -120,4 +174,141 @@ div.odoc-include summary:hover {
 
 div.odoc span[class*="keyword"] {
   color: rgba(17, 24, 39, 1);
+}
+
+div.odoc ul.at-tags {
+  margin: 0.5em 0;
+}
+
+div.odoc ul.at-tags p {
+  margin: 0;
+}
+
+div.odoc span.at-tag {
+  font-weight: bold;
+}
+
+/* package explorer navmap and breadcrumb tag */
+
+.navmap:hover ul {
+  border-color: gainsboro;
+}
+
+.no-expand, .icon-expand  {
+  white-space:nowrap;
+  display:flex;
+  flex-wrap: nowrap;
+}
+
+.icon-expand {
+  cursor: pointer;
+}
+
+span.icon-expand:not(.open) > .navmap-tag , span.no-expand > .navmap-tag {
+  background:white;
+}
+
+.navmap-tag {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width:2.1em;
+  min-width:2.1em;
+  margin:3px 0;
+  padding:2px 1px;
+  line-height:1;
+  margin-right:6px;
+  font-family: Inter, sans-serif;
+  border-width: 2px;
+  border-radius: 0.25em;
+  font-weight:bold;
+  font-size: .875rem;
+  box-sizing: border-box;
+}
+
+.navmap-tag.library-tag::after {
+  content: "lib";
+}
+.library-tag {
+  color: rgb(91, 102, 114);
+  background-color: rgb(91, 102, 114);
+  border-color: rgb(91, 102, 114);
+}
+.navmap-tag.module-tag::after {
+  content: "M";
+}
+.module-tag {
+  color: #cc4e0c;
+  background-color: #cc4e0c;
+  border-color: #cc4e0c;
+}
+.navmap-tag.module-type-tag::after {
+  content: "Mt";
+}
+.module-type-tag{
+  color: #027491;
+  background-color: #027491;
+  border-color: #027491;
+}
+.navmap-tag.parameter-tag::after {
+  content: "P";
+}
+.parameter-tag{
+  color: green;
+  background-color: green;
+  border-color: green;
+}
+.navmap-tag.class-tag::after {
+  content: "C";
+}
+.class-tag{
+  color: rgb(163, 34, 34);
+  background-color: rgb(163, 34, 34);
+  border-color: rgb(163, 34, 34);
+}
+.navmap-tag.class-type-tag::after {
+  content: "Ct";
+}
+.class-type-tag{
+  color: rgb(32, 68, 165);
+  background-color: rgb(32, 68, 165);
+  border-color: rgb(32, 68, 165);
+}
+
+span.no-expand > .navmap-tag {
+  margin-left: 12px;
+}
+
+span.icon-expand.open > .navmap-tag {
+  color:white;
+}
+
+span.icon-expand::before {
+  font-weight: bold;
+  content: " \25B8";
+  text-align: center;
+  box-sizing: border-box;
+  display:flex;
+  align-items: center;
+  padding-right:4px;
+}
+
+span.icon-expand.open::before {
+  content: " \25BE";
+}
+
+.breadcrumbs-tag {
+  padding:2px 6px;
+  line-height:1;
+  margin-right:6px;
+  font-family: Inter, sans-serif;
+  border-width: 2px;
+  border-radius: 0.25em;
+  font-weight:bold;
+  font-size: 1rem;
+  box-sizing: border-box;
+  color:white;
+  align-items: center;
+  display:flex;
 }

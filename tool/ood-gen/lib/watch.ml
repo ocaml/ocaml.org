@@ -11,44 +11,18 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let path = Fpath.v "data/watch.yml"
-let parse content = Result.map metadata_of_yaml @@ Yaml.of_string content
-
-type t = {
-  name : string;
-  embed_path : string;
-  thumbnail_path : string;
-  description : string option;
-  published_at : string;
-  language : string;
-  category : string;
-}
+type t = metadata
 
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
   match yaml with
   | `O [ ("watch", `A xs) ] ->
-      List.map
-        (fun x ->
-          let (metadata : metadata) =
-            Utils.decode_or_raise metadata_of_yaml x
-          in
-          ({
-             name = metadata.name;
-             description = metadata.description;
-             embed_path = metadata.embed_path;
-             thumbnail_path = metadata.thumbnail_path;
-             published_at = metadata.published_at;
-             language = metadata.language;
-             category = metadata.category;
-           }
-            : t))
-        xs
-  | _ -> raise (Exn.Decode_error "expected a list of videos")
+      Ok (List.map (Utils.decode_or_raise metadata_of_yaml) xs)
+  | _ -> Error (`Msg "expected a list of videos")
 
 let all () =
   let content = Data.read "watch.yml" |> Option.get in
-  decode content
+  Utils.decode_or_raise decode content
 
 let pp ppf v =
   Fmt.pf ppf

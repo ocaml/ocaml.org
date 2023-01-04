@@ -2,7 +2,7 @@
 title: Pack consecutive duplicates
 number: "9"
 difficulty: intermediate
-tags: [ "" ]
+tags: [ "list" ]
 ---
 
 # Solution

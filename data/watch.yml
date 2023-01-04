@@ -557,6 +557,15 @@ watch:
   published_at: 2022-03-15T10:47:05.608Z
   language: English
   category: Misc
+- name: Outreachy Presentations for the May 2022 Round
+  description: "The OCaml community participated in the May 2022 round of [Outreachy](https://www.outreachy.org/)
+    internships. Two interns worked on a range of projects including Multicore OCaml
+    benchmarks and TopoJSON parsing libraries.\r\n\r\nThis meeting was an op..."
+  embed_path: /videos/embed/dc5bbf5b-3dd9-4c8d-b26a-71e730a67788
+  thumbnail_path: /static/thumbnails/d4597edb-f385-42e9-94ab-da4502d544bb.jpg
+  published_at: 2022-09-23T17:21:01.137Z
+  language: Unknown
+  category: Misc
 - name: 'Parafuzz: Coverage-guided Property Fuzzing for Multicore OCaml programs'
   description: "We develop ParaFuzz, an input and concurrency fuzzing tool for Multicore
     OCaml programs. ParaFuzz builds on top of Crowbar which combines AFL-based grey

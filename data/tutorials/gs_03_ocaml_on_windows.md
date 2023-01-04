@@ -17,6 +17,7 @@ There are a couple scenarios when other OCaml installers may be useful:
 * when you want **only to run, not develop, applications**, you can use [Docker](#docker-images) or [WSL2](#wsl2)
 
 The recommendations are based on the availability table below:
+
 * Tier 1 is fully supported with the latest compilers
 * Tier 2 is supported but maintained when possible
 * Tier 3 is user supported
@@ -26,7 +27,7 @@ The recommendations are based on the availability table below:
 │ Tier   │ OCaml Version and Environment   │ Support                       │
 │ ------ │ ------------------------------- │ ----------------------------- │
 │ Tier 1 │ OCaml 5 with Opam 2.2           │ Full support.                 │
-│ Tier 2 │ 4.12.1 with Diskuv OCaml        │ Supported on select versions. │
+│ Tier 2 │ 4.14.0 with Diskuv OCaml        │ Supported on select versions. │
 │ Tier 3 │ 5 with WSL2                     │ User supported.               │
 │ Tier 3 │ 5 with Docker                   | User supported.               │
 ╰──────────────────────────────────────────────────────────────────────────╯
@@ -48,7 +49,7 @@ The distribution is unique in its:
 To install DKML, briefly review the following:
 
 * You need to **stay at your computer** and press "Yes" for any Windows security popups. After the DKML installer finishes installing two programs (`Visual Studio Installer`
-  and `Git for Windows`), you can leave your computer for the remaining one (1) hour.
+  and `Git for Windows`), you can leave your computer for the remaining ninety (90) minutes.
 
 * First time installations may get a notification printed in red. If you see it, reboot your computer and then restart your installation so that Visual Studio Installer can complete. The notification looks like:
 
@@ -70,21 +71,21 @@ To install DKML, briefly review the following:
 
 Then download and run:
 
-* OCaml 4.12.1 with Git and Visual Studio compiler: [setup-diskuv-ocaml-windows_x86_64-1.0.0.exe](https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.0.0/setup-diskuv-ocaml-windows_x86_64-1.0.0.exe)
+* OCaml 4.14.0 with Git and Visual Studio compiler: [setup-diskuv-ocaml-windows_x86_64-1.1.0.exe](https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.1.0_r2/setup-diskuv-ocaml-windows_x86_64-1.1.0.exe)
 
 Check that OCaml is installed properly with the following commands in your shell (PowerShell or Command Prompt).
 The line beneath the $ command shows the desired output for both the OCaml version and the toplevel version:
 
 ```console
 $ where.exe ocaml
-C:\Users\frank\AppData\Local\Programs\DiskuvOCaml\0\usr\bin\ocaml.exe
+C:\Users\frank\AppData\Local\Programs\DiskuvOCaml\usr\bin\ocaml.exe
 
 $ ocaml -version
-The OCaml toplevel, version 4.12.1
+The OCaml toplevel, version 4.14.0
 ```
 
 To learn more about Diskuv OCaml, see the [official
-Diskuv OCaml documentation](https://diskuv.gitlab.io/diskuv-ocaml/#introduction).
+Diskuv OCaml documentation](https://diskuv-ocaml.gitlab.io/distributions/dkml/#introduction).
 
 ### opam-repository-mingw
 
@@ -129,7 +130,7 @@ easier way to get a working Windows environment on your machine.
 
 ### Visual Studio Code on Windows
 
-**If you use the recommended DKML installer**, you will need to:
+**If you use the DKML installer**, you will need to:
 1. Go to `File` > `Preferences` > `Settings` view (or press `Ctrl ,`)
 2. Select `User` > `Extensions` > `OCaml Platform`
 3. **Uncheck** `OCaml: Use OCaml Env`

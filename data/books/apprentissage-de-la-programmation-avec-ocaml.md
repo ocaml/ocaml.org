@@ -10,7 +10,7 @@ authors:
   - Catherine Dubois
   - Valérie Ménissier Morain
 published: "2004"
-cover: /books/apprentissage-de-la-programmation-avec-ocaml.jpg
+cover: books/apprentissage-de-la-programmation-avec-ocaml.jpg
 language: french
 isbn: "2-7462-0819-9"
 links:

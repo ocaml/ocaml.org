@@ -8,7 +8,7 @@ authors:
   - Jianxin Zhao
   - Richard Mortier
 published: 2022-05-27 
-cover: /books/ocaml-scientific-computing.png
+cover: books/ocaml-scientific-computing.png
 language: english
 links:
   - description: Buy on Springer

@@ -1,7 +1,8 @@
 let render (news : Ood.News.t) =
 Layout.render
 ~title:news.title
-~description:news.description @@
+~description:news.description
+~canonical:(Url.news_post news.slug) @@
 <div class="bg-white py-24">
   <div class="container-fluid">
     <div class="mx-auto max-w-5xl">
@@ -13,7 +14,7 @@ Layout.render
         <div>Back to Blog</div>
       </a>
     </div>
-    
+
     <div class="prose prose-orange mx-auto max-w-5xl">
       <h1><%s news.title %></h1>
       <%s! news.body_html %>

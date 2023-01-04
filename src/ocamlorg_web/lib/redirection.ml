@@ -1,6 +1,6 @@
 module Url = Ocamlorg_frontend.Url
 
-let fwd_v2 target = (target, "https://v2.ocaml.org" ^ target)
+let fwd_v2 target = (target, Url.v2 ^ target)
 
 (* For assets previously hosted on V2, we redirect the requests to
    v2.ocaml.org. *)
@@ -240,6 +240,17 @@ let v2_assets =
     fwd_v2 "/releases/4.14/ocaml-4.14-refman.info.tar.gz";
     fwd_v2 "/releases/4.14/ocaml-4.14-refman.pdf";
     fwd_v2 "/releases/4.14/ocaml-4.14-refman.txt";
+    fwd_v2 "/releases/5.0/notes/Changes";
+    fwd_v2 "/releases/5.0/notes/INSTALL.adoc";
+    fwd_v2 "/releases/5.0/notes/LICENSE";
+    fwd_v2 "/releases/5.0/notes/README.adoc";
+    fwd_v2 "/releases/5.0/notes/README.win32.adoc";
+    fwd_v2 "/releases/5.0/ocaml-5.0-refman-html.tar.gz";
+    fwd_v2 "/releases/5.0/ocaml-5.0-refman-html.zip";
+    fwd_v2 "/releases/5.0/ocaml-5.0-refman.html";
+    fwd_v2 "/releases/5.0/ocaml-5.0-refman.info.tar.gz";
+    fwd_v2 "/releases/5.0/ocaml-5.0-refman.pdf";
+    fwd_v2 "/releases/5.0/ocaml-5.0-refman.txt";
   ]
 
 let from_v2 =
@@ -560,6 +571,7 @@ let from_v2 =
     ("/releases/4.13.0.html", Url.release "4.13.0");
     ("/releases/4.13.1.html", Url.release "4.13.1");
     ("/releases/4.14.0.html", Url.release "4.14.0");
+    ("/releases/5.0.0.html", Url.release "5.0.0");
     ("/releases/caml-light/faq.html", Url.index);
     ("/releases/caml-light/index.html", Url.index);
     ("/releases/caml-light", Url.index);
@@ -568,20 +580,25 @@ let from_v2 =
     ("/releases/index.fr.html", Url.releases);
     ("/releases/index.html", Url.releases);
     ("/releases", Url.releases);
-    ("/releases/latest/index.html", Url.release "4.14.0");
-    ("/releases/latest/manual.html", Url.manual_with_version "4.14.0");
+    ("/releases/latest/index.html", Url.release "5.0.0");
+    ("/releases/latest/manual.html", Url.manual_with_version "5.0.0");
+    ("/releases/latest/manual", Url.manual_with_version "5.0.0");
+    ("/releases/latest/manual/index.html", Url.manual_with_version "5.0.0");
+    ("/releases/latest/htmlman", Url.manual_with_version "5.0.0");
+    ("/releases/latest/htmlman/index.html", Url.manual_with_version "5.0.0");
+    ("/releases/latest/api", Url.api_with_version "5.0.0");
+    ("/releases/latest/api/index.html", Url.api_with_version "5.0.0");
   ]
 
 let redirect_p pattern =
   let handler req =
     let target = Dream.target req in
-    Dream.redirect req ("https://v2.ocaml.org" ^ target)
+    Dream.redirect req (Url.v2 ^ target)
   in
   Dream.get pattern handler
 
 let fwd_v2 origin =
-  Dream.get origin (fun req ->
-      Dream.redirect req ("https://v2.ocaml.org" ^ origin))
+  Dream.get origin (fun req -> Dream.redirect req (Url.v2 ^ origin))
 
 let manual =
   [
@@ -633,6 +650,12 @@ let manual =
     fwd_v2 "/releases/4.14/htmlman";
     redirect_p "/releases/4.14/manual/**";
     fwd_v2 "/releases/4.14/manual";
+    redirect_p "/releases/5.0/api/**";
+    fwd_v2 "/releases/5.0/api";
+    redirect_p "/releases/5.0/htmlman/**";
+    fwd_v2 "/releases/5.0/htmlman";
+    redirect_p "/releases/5.0/manual/**";
+    fwd_v2 "/releases/5.0/manual";
   ]
 
 let make ?(permanent = false) t =
@@ -652,5 +675,11 @@ let t =
       make from_v2;
       make v2_assets;
       Dream.scope "" [ Dream_encoding.compress ] manual;
+      make ~permanent:true [ ("/opportunities", "/jobs") ];
+      make ~permanent:true
+        [ ("/carbon-footprint", "/policies/carbon-footprint") ];
+      make ~permanent:true [ ("/privacy-policy", "/policies/privacy-policy") ];
+      make ~permanent:true [ ("/governance", "/policies/governance") ];
+      make ~permanent:true [ ("/code-of-conduct", "/policies/code-of-conduct") ];
       make ~permanent:true [ ("/opportunities", "/jobs") ];
     ]

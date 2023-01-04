@@ -13,10 +13,9 @@ date: 2021-05-27T21:07:30-00:00
 
 This page will walk you through the installation of everything you need for a comfortable development environment to write projects in OCaml code. Of course, this includes [installing the compiler](#installing-ocaml) itself, but it also installs a build system, a package manager, an LSP server to support your editor, and a few other tools that we describe [later](#setting-up-development-tools), setting up [editor support](#configuring-your-editor), and bootstrapping a [new project](#starting-a-new-project).
 
-If you are willing to set up OCaml on Windows, you might be interested in
-reading [OCaml on Windows](/docs/ocaml-on-windows) first.
-The following instructions work on Linux, BSD, and macOS. Plus, they also work on Cygwin and
-WSL.
+The following instructions work on Linux, BSD, and macOS. Plus, they also work
+on Cygwin and WSL. If you want to set up OCaml on Windows, you might be
+interested in reading [OCaml on Windows](/docs/ocaml-on-windows) first.
 
 **Guidelines for Following Instructions on this Page**
 
@@ -36,7 +35,7 @@ especially useful since different projects might require different versions of
 OCaml.
 
 On Unix, the best way to install OCaml is with opam, OCaml's package manager. On Windows, the best way is to use a traditional `setup.exe` that will initialise opam
-on your behalf; however, only OCaml version 4.12.1 can be installed with `setup.exe` now.
+on your behalf; however, only OCaml version 4.14.0 can be installed with `setup.exe` now.
 
 [opam](https://opam.ocaml.org/), OCaml's package manager, introduces the concept of "switches," which is a compiler with a set of packages (libraries and other files). Switches are used to have independent sets of dependencies in different projects.
 
@@ -47,7 +46,7 @@ Find all the installation instructions for both Unix-like systems and Windows in
 
 ### Installation for Unix
 
-After having installed opam, you will need to initialise it, [see below](#initialising-opam).
+After having installed opam, you will need to initialise it, [see below](#initialising-opam-on-unix).
 
 To install opam, you can [use your system package manager](https://opam.ocaml.org/doc/Install.html#Using-your-distribution-39-s-package-system) or download the [binary distribution](https://opam.ocaml.org/doc/Install.html#Binary-distribution). The details are available in the above links, but for convenience, we copy a few of them here: 
 
@@ -70,7 +69,7 @@ $ port install opam
 **For Linux**
 
 It's easy to install opam with your system's package manager on
-Linux (e.g., `apt-get install opam` or similar). [Details of all installation
+Linux (e.g., `apt-get install opam` or similar). On the opam site, find [details of all installation
 methods](https://opam.ocaml.org/doc/Install.html). All supported Linux distributions package at least version 2.0.0 (you can check by running `opam --version`). If you are using an unsupported Linux distribution, please either download a precompiled binary or build opam from sources.
 
 ```shell
@@ -123,7 +122,7 @@ $ opam switch create 4.14.0
 $ eval $(opam env)
 ```
 
-Check that the installation was successful by running `which ocaml` and `ocaml -version`. The line beneath the $ command shows the desired output for both the OCaml version and the top-level version (installed specifically with the above `switch` command):
+Check that the installation was successful by running `which ocaml` and `ocaml -version`. The line beneath the $ command shows the desired output for both the OCaml version and the toplevel version (installed specifically with the above `switch` command):
 
 ```shell
 $ which ocaml
@@ -133,7 +132,7 @@ $ ocaml -version
 The OCaml toplevel, version 4.14.0
 ```
 
-We will learn about the OCaml top-level and other installed tools in the next section.
+We will learn about the OCaml toplevel and other installed tools in the next section.
 
 In case you are not satisfied with the OCaml version of your system switch, you can change the version with `opam switch create <version_here>`. More information can be found on the [official website](https://opam.ocaml.org/).
 
@@ -169,17 +168,17 @@ After the DKML installer finishes installing two programs (`Visual Studio Instal
 
 Now, download and run:
 
-* OCaml 4.12.1 with Git and Visual Studio compiler: [setup-diskuv-ocaml-windows_x86_64-1.0.1.exe](https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.0.1/setup-diskuv-ocaml-windows_x86_64-1.0.1.exe)
+* OCaml 4.14.0 with Git and Visual Studio compiler: [setup-diskuv-ocaml-windows_x86_64-1.1.0.exe](https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.1.0_r2/setup-diskuv-ocaml-windows_x86_64-1.1.0.exe)
 
 #### Creating a New Switch on Windows
 
-If you want a new independent environment, you can create a new switch with the `opam dkml init` command. The only compiler version available is 4.12.1.
+If you want a new independent environment, you can create a new switch with the `dkml init` command. The only compiler version available is 4.14.0.
 Use PowerShell or a Command Prompt to create a directory anywhere and then create a switch:
 
 ```powershell
 C:\Users\frank> mkdir someproject
 C:\Users\frank> cd someproject
-C:\Users\frank\someproject> opam dkml init
+C:\Users\frank\someproject> dkml init
 
 # PowerShell only
 C:\Users\frank\someproject> (& opam env) -split '\r?\n' | ForEach-Object { Invoke-Expression $_ }
@@ -193,38 +192,39 @@ The line beneath the $ command shows the desired output for both the OCaml versi
 
 ```shell
 $ where.exe ocaml
-C:\Users\frank\AppData\Local\Programs\DiskuvOCaml\0\usr\bin\ocaml.exe
+C:\Users\frank\AppData\Local\Programs\DiskuvOCaml\usr\bin\ocaml.exe
 
 $ ocaml -version
-The OCaml toplevel, version 4.12.1
+The OCaml toplevel, version 4.14.0
 ```
 
 To learn more about Diskuv OCaml, see the [official
-Diskuv OCaml documentation](https://diskuv.gitlab.io/diskuv-ocaml/#introduction).
+Diskuv OCaml documentation](https://diskuv-ocaml.gitlab.io/distributions/dkml/#introduction).
 
 ### The OCaml Base Tools
 
-OCaml is installed in an opam switch, which, among others, brings the following
-programs:
+OCaml is installed in an opam switch, which, among others, provides the
+following programs:
 
-- A "top-level," which can be called with the `ocaml` command. It consists of a read-eval-print loop ([REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop)), similar to the `python` or `node` command, and can be handy to quickly try the language. The user interface of OCaml is very basic, but when we install the UTop package in the following section, we'll have an improved and easier-to-use REPL.
+- A "toplevel," which can be called with the `ocaml` command. It consists of a read-eval-print loop ([REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop)), similar to the `python` or `node` command, and can be handy to quickly try the language. The user interface of the OCaml toplevel is quite basic, but when we install the UTop package in the following section, we'll have an improved and easier-to-use REPL.
 
 - A compiler to **native code**, called `ocamlopt`. It creates executables that can be executed directly on your system.
 
-- A compiler to **bytecode**, called `ocamlc`. It creates executables that can be interpreted by a variety of runtime environments, making it more flexible.
+- A compiler to **bytecode**, called `ocamlc`. It creates executables that can be interpreted by a variety of runtime environments, making these executables portable between different operating systems (at the cost of runtime performance).
 
-Although this is theoretically all we need to write OCaml code, it is not a complete and comfortable development environment.
+What we installed so far (theoretically) suffices to write, compile, and execute OCaml code. However, this basic installation is neither complete nor comfortable as a development environment.
 
 ## Setting Up Development Tools
 
-We will now install everything we need to get a complete development environment, which includes:
+We will now install everything we need in order to set up a complete development environment, which includes:
 
 - Dune, a fast and full-featured build system for OCaml
-- Merlin (the backend) and `ocaml-lsp-server` (OCaml's Language Server Protocol) to provide editors with many useful features such as "jump to definition"
+- Merlin and `ocaml-lsp-server` (OCaml's Language Server Protocol), which together enhance editors
+(like Visual Studio Code, Vim, or Emacs) by providing many useful features such as "jump to definition"
 - `odoc` to generate documentation from OCaml code
-- OCamlformat to automatically format OCaml code
+- OCamlFormat to automatically format OCaml code
 - UTop, an improved REPL
-- `dune-release` to release code to `opam-repository`, the package base for opam.
+- `dune-release` to release code to `opam-repository`, the central package directory of opam.
 
 All these tools can be installed in your current switch (remember that opam groups installed packages in independent switches) using the following command:
 
@@ -232,7 +232,8 @@ All these tools can be installed in your current switch (remember that opam grou
 # Unix
 $ opam install dune merlin ocaml-lsp-server odoc ocamlformat utop dune-release
 
-# Windows (currently dune-release is not available from Diskuv OCaml)
+# Windows (Diskuv OCaml has known bugs that make this harder than it needs to be)
+$ opam pin remove fiber omd stdune dyn ordering dot-merlin-reader yojson --no-action
 $ opam install dune merlin ocaml-lsp-server odoc ocamlformat utop
 ```
 
@@ -240,9 +241,13 @@ Now that the tools are installed, it remains to understand how to use them. Most
 
 ## Using the OCaml Toplevel with UTop
 
+UTop is an extended and improved toplevel (REPL) for OCaml. Unlike the standard toplevel with the `ocaml` command, UTop features history, tab completion, interactive line editing, and the ability to load any package installed in your switch.
+
+If you have never used a toplevel (REPL) before, think of it as an interactive terminal/shell that evaluates expressions. Type an OCaml expression, then press the Enter or Return key. The toplevel responds with the value of the evaluated expression. 
+
 OCaml comes with two additional compilers: one compiles to **native code** (sometimes called machine code or executable binary), directly read by the CPU, and the other compiles to **bytecode**, creating an executable that can be interpreted by a variety of runtime environments, making more it flexible.
 
-For now, let's first use the recommended toplevel, which we installed above:
+For now, let's first use the recommended toplevel, UTop, which we installed above:
 
 ```
 $ utop
@@ -266,10 +271,11 @@ utop # 1 + 2 * 3;;
 - : int = 7
 ```
 
-We typed the phrase `1 + 2 * 3` and then signalled to OCaml that we had
-finished by typing `;;` followed by the Enter key. OCaml calculated the
-result, `7` and its type `int` and showed them to us. We exit by running the
-built-in `exit` function with exit code 0:
+In this example, we typed the expression `1 + 2 * 3` followed by `;;` (which is
+mandatory and tells OCaml that the expression ends here) and then pressed the
+Enter key. OCaml replied with the resulting value `7` and its type `int`.
+
+You can exit UTop by running the built-in `exit` function with exit code 0:
 
 ```
 ─( 12:12:45 )─< command 1 >──────────────────────────────────────────────────────────────────────────────────────────────{ counter: 0 }─
@@ -279,7 +285,7 @@ $
 
 ## Configuring Your Editor
 
-While a top-level is great for interactively trying out the language, we will shortly need to write OCaml files in an editor. We already installed the tools needed to have editor support: Merlin, providing all features such as "jump to definition" or "show type", and `ocaml-lsp-server`, a server exposing those features to the editor through the [LSP server](https://en.wikipedia.org/wiki/Language_Server_Protocol).
+While the toplevel is great for interactively trying out the language, we will shortly need to write OCaml files in an editor. We already installed the tools required to enhance our editor of choice with OCaml support: Merlin, providing all features such as "jump to definition" or "show type", and `ocaml-lsp-server`, a server exposing those features to the editor through the [LSP server](https://en.wikipedia.org/wiki/Language_Server_Protocol).
 
 OCaml has plugins for many editors, but the most actively maintained are for Visual Studio Code, Emacs, and Vim.
 
@@ -287,8 +293,8 @@ For **Visual Studio Code**, install the [OCaml Platform Visual Studio Code exten
 Studio Marketplace.
 
 Upon first loading an OCaml source file, you may be prompted to select the
-toolchain in use: pick the version of OCaml you are using, e.g., 4.14.0
-from the list. Now, help is available by hovering over symbols in your program:
+toolchain in use. Pick the version of OCaml you are using, e.g., 4.14.0
+from the list. Additional information is available by hovering over symbols in your program:
 
 ![Visual Studio Code](/media/tutorials/vscode.png)
 
@@ -300,10 +306,23 @@ from the list. Now, help is available by hovering over symbols in your program:
 
 **For Vim and Emacs**, we won't use the LSP server but rather directly talk to Merlin.
 
-When we installed Merlin above, instructions were printed on how to link Merlin with your editor. If you do not have them visible, the short way is just to run:
+When we installed Merlin above, instructions were printed on how to link Merlin with your editor. If you do not have them visible, just run this command:
 
+```shell
+$ opam user-setup install
 ```
-$ dune init proj helloworld
+
+## Starting a New Project
+
+We will set up a "Hello World" project using the build system Dune. Navigate
+into a practice directory, as we'll be creating new projects below. 
+
+First, we initialise a new project using `dune` and then change into the
+created directory. As usual, the line beneath the shell command is the expected
+output:
+
+```shell
+$ dune init project helloworld
 Success: initialized project component named helloworld
 $ cd helloworld
 ```
@@ -360,27 +379,27 @@ All the build outputs generated by Dune go in the `_build` directory. The
 `main.exe` executable is generated inside the `_build/default/bin/`
 subdirectory.
 
-The source code for the program is found in `./bin/main.ml`, and any supporting
+The source code for the program is found in `./bin/main.ml`. Any supporting
 library code should go in `lib`.
 
 To learn more about Dune, see the [official
 documentation](https://dune.readthedocs.io/en/stable/).
 
-### OCamlformat for Automatic Formatting
+### OCamlFormat for Automatic Formatting
 
-Automatic formatting with OCamlformat is usually already supported by the
+Automatic formatting with OCamlFormat is usually already supported by the
 editor plugin, but it requires a configuration file at the root of the project.
-Moreover, since different versions of OCamlformat will vary in formatting, it
+Moreover, since different versions of OCamlFormat will vary in formatting, it
 is good practice to enforce the one you are using. Doing:
 
 ```shell
-$ echo "version = 0.22.4" > .ocamlformat
+$ echo "version = `ocamlformat --version`" > .ocamlformat
 ```
 
-This will enforce that only OCamlformat version 0.22.4 can format the files of the project.
+This will enforce that only the OCamlFormat version you have installed can format the files of the project.
 Note that a `.ocamlformat` file is _needed_, but an empty file is accepted.
 
-In addition to the editor, Dune is also able to drive OCamlformat. Running
+In addition to the editor, Dune is also able to drive OCamlFormat. Running
 this command will automatically format all files from your codebase:
 
 ```shell
@@ -391,8 +410,7 @@ $ dune fmt
 
 `odoc` is a tool that is not meant to be used by hand, just as compilers are
 not meant to be run manually in complex projects. Dune can drive `odoc` to
-generate, from the docstrings and interface of the modules of the project, a
-hierarchised documentation.
+generate documentation in the form of HTML, LaTeX, or man pages, from the docstrings and interface of the project's modules.
 
 The following command will generate the documentation as HTML:
 

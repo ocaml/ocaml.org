@@ -1,6 +1,6 @@
 type link = { description : string; uri : string } [@@deriving yaml]
 
-type t = {
+type metadata = {
   title : string;
   publication : string;
   authors : string list;
@@ -12,23 +12,20 @@ type t = {
 }
 [@@deriving yaml]
 
-type metadata = t
-
-let path = Fpath.v "data/papers.yml"
+type t = metadata
 
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
   match yaml with
-  | `O [ ("papers", `A xs) ] -> Ok (List.map (Utils.decode_or_raise of_yaml) xs)
+  | `O [ ("papers", `A xs) ] ->
+      Ok (List.map (Utils.decode_or_raise metadata_of_yaml) xs)
   | _ -> Error (`Msg "expected a list of papers")
-
-let parse = decode
 
 let all () =
   let content = Data.read "papers.yml" |> Option.get in
   Utils.decode_or_raise decode content
   |> List.sort (fun p1 p2 ->
-         (2 * Int.compare p1.year p2.year) + String.compare p1.title p2.title)
+         (2 * Int.compare p2.year p1.year) + String.compare p1.title p2.title)
 
 let pp_link ppf (v : link) =
   Fmt.pf ppf
@@ -73,7 +70,7 @@ type t =
   ; links : link list
   ; featured : bool
   }
-  
+
 let all = %a
 |}
     pp_list (all ())

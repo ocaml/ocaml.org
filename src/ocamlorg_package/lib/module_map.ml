@@ -1,18 +1,19 @@
 module String_map = Map.Make (String)
 
 type kind =
+  | Library
   | Module
   | Page
   | Leaf_page
   | Module_type
-  | Argument
+  | Parameter
   | Class
   | Class_type
   | File
 
 let prefix_of_kind = function
   | Module_type -> "module-type-"
-  | Argument -> "argument-"
+  | Parameter -> "argument-"
   | Class -> "class-"
   | Class_type -> "class-type-"
   | _ -> ""
@@ -56,7 +57,7 @@ let kind_of_yojson v =
   | "module" -> Module
   | "leaf-page" -> Leaf_page
   | "module-type" -> Module_type
-  | "argument" -> Argument
+  | "argument" -> Parameter
   | "class" -> Class
   | "class-type" -> Class_type
   | "file" -> File

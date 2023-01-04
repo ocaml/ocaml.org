@@ -1,22 +1,13 @@
 jobs:
-  - title: Compiler Engineer
-    link: https://mina-foundation.breezy.hr/p/5d51e6552a93-site-reliability-engineer-sre
-    location: France
-    company: DGFiP
-    company_logo: https://upload.wikimedia.org/wikipedia/fr/thumb/6/6d/Logo_DGFP-fr.svg/2560px-Logo_DGFP-fr.svg.png
   - title: Cryptography Engineer
     link: https://boards.greenhouse.io/o1labs/jobs/4023646004
     location: Remote
     company: O(1) Labs
     company_logo: https://workshub.imgix.net/7b409fdc3bc46438b64686a627d56b2b?fit=clip&crop=entropy&auto=format&w=60&h=60&q=40&dpr=2
-  - title: Site Reliability Engineer (SRE)
-    link: https://mina-foundation.breezy.hr/p/5d51e6552a93-site-reliability-engineer-sre
-    location: Remote
-    company: Mina Foundation
-    company_logo: https://gallery-cdn.breezy.hr/32bca23d-fe68-4510-be6d-a3857ea72141/CompanyProfilePic.png
   - title: Team Lead - Software Engineering
     link: https://tarides.com/jobs/team-lead-software-engineering
     location: Remote
+    publication_date: 2022-05-20
     company: Tarides
     company_logo: https://tarides.com/static/logo_tarides-52f91b59a8657d768e013129896b63e0.png
   - title: Remote Senior Full Stack Engineer
@@ -24,29 +15,28 @@ jobs:
     location: Remote
     company: Heliax
     company_logo: https://workshub.imgix.net/e52e257a6a9cdbc2bc868a5991ccd717?fit=clip&crop=entropy&auto=format
-  - title: Senior Software Engineer - Irmin
-    link: https://tarides.com/jobs/senior-software-engineer-irmin
-    location: Remote
-    company: Tarides
-    company_logo: https://tarides.com/static/logo_tarides-52f91b59a8657d768e013129896b63e0.png
   - title: Senior Software Engineer - Tooling team
     link: https://tarides.com/jobs/senior-software-engineer-tooling-team
     location: Remote
+    publication_date: 2022-06-26
     company: Tarides
     company_logo: https://tarides.com/static/logo_tarides-52f91b59a8657d768e013129896b63e0.png
   - title: Spontaneous Application
     link: https://tarides.com/jobs/spontaneous-application
     location: Remote
+    publication_date: 2021-10-17
     company: Tarides
     company_logo: https://tarides.com/static/logo_tarides-52f91b59a8657d768e013129896b63e0.png
   - title: OCaml Developer
     link: https://ahrefs.com/jobs/ocaml-developer
     location: Remote
+    publication_date: 2020-09-22
     company: Ahrefs
     company_logo: /logos/ahrefs.svg
   - title: OCaml Developer
     link: https://functori.com/annonce-recrutement.pdf
     location: France
+    publication_date: 2022-02-01
     company: Functori
     company_logo: https://functori.com/assets/img/brand/functori_logotype_square.svg
   - title: Build System Engineer
@@ -54,14 +44,16 @@ jobs:
     location: United-Kingdom
     company: Jane Street
     company_logo: /logos/janestreet.svg
-  - title: Senior Software Engineer
+  - title: Software engineer senior
     link: https://www.marigold.dev/job-offers/software-engineer-senior-1
     location: France
+    publication_date: 2021-11-20
     company: Marigold
     company_logo: https://uploads-ssl.webflow.com/616ab4741d375d1642c19027/61793ee65c891c190fcaa1d0_Vector(1).png
   - title: Software Engineer
     link: https://www.lexifi.com/careers/software_engineer/
     location: France
+    publication_date: 2021-04-22
     company: LexiFi
     company_logo: https://thewealthmosaic.s3.amazonaws.com/media/Logo_Lexifi.png
   - title: OCaml Programmer
@@ -77,35 +69,37 @@ jobs:
   - title: Computer Scientist
     link: https://frama-c.com/jobs/2022-02-01-permanent-computer-scientist-cyber-security-verification.html
     location: France
+    publication_date: 2022-02-01
     company: CEA
     company_logo: https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/CEA_logo_nouveau.svg/1255px-CEA_logo_nouveau.svg.png
-  - title: Fullstack Developer
-    link: https://jobs.lever.co/issuu/e80e3f6e-4e2a-4e63-b6df-61f16d4b7209
-    location: Denmark
-    company: Issuu
-    company_logo: https://lever-client-logos.s3.amazonaws.com/84963f7c-5208-4789-813f-59b515174479-1443049024308.png
   - title: Senior Software Engineer
     link: https://cryptosense.com/vacancies/senior-software-engineer
     location: Remote
     company: Cryptosense
     company_logo: https://global-uploads.webflow.com/5fb79f97eb305e5f85f6dff6/5fb7a15497f97810803970a0_CS%20logo_300px.png
+  - title: Senior Software Engineer
+    link: https://www.simcorp.com/en/career/find-a-job/senior-software-engineer--c-ocaml-r203826
+    location: Poland
+    company: SimCorp
+    company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
   - title: Software Engineer
-    link: https://www.simcorp.com/en/career/find-a-job/software-engineer-c-ocamland-apl-r201947
+    link: https://www.simcorp.com/en/career/find-a-job/software-engineer--c-ocaml-r203358
+    location: Ukraine
+    company: SimCorp
+    company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
+  - title: Software Engineer
+    link: https://www.simcorp.com/en/career/find-a-job/software-engineer---and-ocaml-r203759
     location: Denmark
     company: SimCorp
     company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
-  - title: Formal Methods Engineer
-    link: https://trust-in-soft.com/trustinsoft-careers/
-    location: United States
-    company: TrustInSoft
-    company_logo: https://trust-in-soft.com/wp-content/uploads/sites/5/2020/07/TIS-logo-Blck_No-Bckgrd.png
-  - title: Js_of_ocaml Developer
-    link: https://trust-in-soft.com/trustinsoft-careers/
-    location: United States
-    company: TrustInSoft
-    company_logo: https://trust-in-soft.com/wp-content/uploads/sites/5/2020/07/TIS-logo-Blck_No-Bckgrd.png
   - title: Senior Software Engineer
-    link: https://jobs.lever.co/returntocorp/cfd5085f-b8f1-40d8-afab-3e8c70c0a70b
+    link: https://www.simcorp.com/en/career/find-a-job/senior-software-engineer--c-ocaml-r203357
+    location: Ukraine
+    company: SimCorp
+    company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
+  - title: AI Pharma Developer
+    link: https://www.nobiastx.com/careers
     location: United States
-    company: r2c
-    company_logo: https://res.cloudinary.com/practicaldev/image/fetch/s--6bcYomzd--/c_fill,f_auto,fl_progressive,h_320,q_auto,w_320/https://dev-to-uploads.s3.amazonaws.com/uploads/organization/profile_image/1847/848298ae-97cf-4c28-b4cf-c524dbe68c26.jpg
+    publication_date: 2022-12-02
+    company: Nobias Therapeutics
+    company_logo: https://uploads-ssl.webflow.com/61532e32ca094ababec1dbc2/61a7150d2aebf25b6d9d1a35_nobias%20logo%20-%20transparent%20background.png

@@ -113,7 +113,6 @@ type t = {
   featured : bool;
   body_html : string;
 }
-[@@deriving yaml]
 
 let all () =
   Utils.map_files
@@ -131,8 +130,7 @@ let all () =
         body_html = String.trim body;
       })
     "rss/*/*.md"
-  |> List.sort (fun a b -> String.compare a.date b.date)
-  |> List.rev
+  |> List.sort (fun a b -> String.compare b.date a.date)
 
 let pp ppf v =
   Fmt.pf ppf

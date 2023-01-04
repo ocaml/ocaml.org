@@ -1,24 +1,54 @@
+let sidebar
+~str_path
+~toc
+~maptoc
+(package : Package_intf.package)
+=
+  <div class="flex flex-col">
+    <% if str_path != [] && toc != [] then ( %>
+    <a title="Package <%s package.name %>" class="xl:hidden py-1 font-regular text-body-600 hover:text-orange-600 transition-colors mb-6" href="<%s Url.package_doc package.name package.version %>">
+      back to documentation root
+    </a>
+    <% ); %>
+    <% if (toc != []) then ( %>
+    <div class="xl:hidden mb-6 xl:mb-0">
+    <%s! Toc.render toc %>
+    </div><% ); %>
+    <div class="space-y-6 flex flex-col overflow-x:scroll">
+      <div>
+      <%s! Navmap.render ~package ~path:str_path maptoc %>
+      </div>
+    </div>
+  </div>
+
 let render
-~documentation_status
 ~title
-~path
+~(path: Breadcrumbs.path_item list)
 ~toc
 ~maptoc
 ~content
 (package : Package_intf.package) =
 let str_path =
   List.map (function
-        | `Module s -> s
-        | `ModuleType s -> s
-        | `FunctorArgument (_, s) -> s) path
+        | Breadcrumbs.Library s -> s
+        | Module s -> s
+        | ModuleType s -> s
+        | Parameter (number, s) -> Int.to_string number ^ "-" ^ s
+        | Class s -> s
+        | ClassType s -> s
+        | Manual -> ""
+        | Page s -> s) path
 in
+let path_page = match str_path |> String.concat "/" with
+                | "" -> None
+                | path -> Some (path ^ if String.contains path '.' then "" else "/index.html") in
 Package_layout.render
-~documentation_status
 ~title
 ~description:(Printf.sprintf "%s %s: %s" package.name package.version package.description)
-~tab:Documentation
 ~package
-~styles:["/css/main.css"; "/css/doc.css"] @@
+~canonical:(Url.package_doc package.name package.version ?page:path_page)
+~styles:["/css/main.css"; "/css/doc.css"]
+~tab:Documentation @@
 <div x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024">
   <button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
     :class="sidebar ? 'pl-1 pr-2': ''" x-on:click="sidebar = ! sidebar">
@@ -29,27 +59,28 @@ Package_layout.render
     </div>
   </button>
 
-  <div class="flex lg:space-x-14 flex-col lg:flex-row">
+  <div class="flex flex-col lg:flex-row md:gap-12">
     <div
-      class="p-10 z-10 w-full bg-white flex-shrink-0 flex-col fixed h-screen overflow-auto lg:flex left-0 top-0 lg:sticky lg:w-60 lg:p-0 font-normal text-body-400"
+      class="p-10 z-10 w-full bg-white flex-shrink-0 flex-col fixed h-screen overflow-auto lg:pr-0 lg:flex left-0 top-0 lg:sticky lg:w-72 lg:p-0 lg:pt-6 font-normal text-body-400"
       x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
       x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
       x-transition:leave-end="-translate-x-full">
-      <div class="space-y-2 flex flex-col">
-        <div class="text-sm font-semibold text-body-600 mb-6 py-2">IN THIS PACKAGE</div>
-        <%s! Navmap.render ~path:str_path maptoc %>
-      </div>
+      <%s! sidebar ~str_path ~toc ~maptoc package %>
     </div>
-    <div class="flex-1 overflow-hidden z-0 z- w-full lg:max-w-4xl mx-auto relative md:px-6">
-      <%s! Breadcrumbs.render path %>
+    <div class="flex-1 z-0 z- w-full lg:max-w-3xl relative lg:pt-6">
+      <% if (maptoc != []) && (List.length path > 1) then (%>
+        <div class="text-body-400">
+          <%s! Breadcrumbs.render path %>
+        </div>
+      <% ); %>
       <div class="odoc prose prose-orange">
         <%s! content %>
       </div>
     </div>
-    <div class="hidden lg:flex top-0 sticky h-screen">
+    <div class="hidden xl:flex top-0 sticky h-screen">
       <div class="flex-col w-60">
-        <div class="h-screen overflow-scroll p-6 right-sidebar">
-          <div class="font-semibold text-black text-sm mb-4">ON THIS PAGE</div>
+        <div class="h-screen overflow-scroll right-sidebar pt-6">
+          <div class="font-semibold text-gray-500 text-sm mb-4">ON THIS PAGE</div>
           <%s! Toc.render toc %>
         </div>
       </div>
