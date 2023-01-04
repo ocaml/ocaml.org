@@ -41,29 +41,29 @@ let decode s =
   | `O [ ("tools", `A xs) ] ->
       Ok
         (List.map
-          (fun x ->
-            let (metadata : metadata) =
-              Utils.decode_or_raise metadata_of_yaml x
-            in
-            let lifecycle =
-              match Lifecycle.of_string metadata.lifecycle with
-              | Ok x -> x
-              | Error (`Msg err) -> raise (Exn.Decode_error err)
-            in
-            let description =
-              Omd.of_string metadata.description |> Omd.to_html
-            in
-            ({
-               name = metadata.name;
-               slug = Utils.slugify metadata.name;
-               source = metadata.source;
-               license = metadata.license;
-               synopsis = metadata.synopsis;
-               description;
-               lifecycle;
-             }
-              : t))
-        xs)
+           (fun x ->
+             let (metadata : metadata) =
+               Utils.decode_or_raise metadata_of_yaml x
+             in
+             let lifecycle =
+               match Lifecycle.of_string metadata.lifecycle with
+               | Ok x -> x
+               | Error (`Msg err) -> raise (Exn.Decode_error err)
+             in
+             let description =
+               Omd.of_string metadata.description |> Omd.to_html
+             in
+             ({
+                name = metadata.name;
+                slug = Utils.slugify metadata.name;
+                source = metadata.source;
+                license = metadata.license;
+                synopsis = metadata.synopsis;
+                description;
+                lifecycle;
+              }
+               : t))
+           xs)
   | _ -> Error (`Msg "expected a list of tools")
 
 let all () =
