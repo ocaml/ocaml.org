@@ -108,6 +108,35 @@ body {
   @apply text-primary-600 no-underline;
 }
 
+.prose [id] {
+  scroll-margin-top: 2rem;
+}
+
+.prose :is(h1, h2, h3, h4, h5, h6) > a,
+.prose :is(h1, h2, h3, h4, h5, h6) > a code,
+.prose :is(h1, h2, h3, h4, h5, h6) > a:hover,
+.prose :is(h1, h2, h3, h4, h5, h6) > a:hover code {
+  color: unset;
+  @apply no-underline;
+}
+
+.prose :is(h1:target, h2:target, h3:target, h4:target, h5:target, h6:target) {
+  position:relative;
+  background:rgb(255, 243, 173);
+  padding: 0.2rem 0rem;
+}
+
+.prose :is(h1, h2, h3, h4, h5, h6) > a:hover::before,
+.prose :is(h1, h2, h3, h4, h5, h6) > a:hover code::before {
+  content: "#";
+  position: absolute;
+  color: rgb(90, 98, 111);
+  margin-left: -1.2em;
+  padding: 0.39em;
+  margin-top: -.37em;
+  font-weight: 500;
+}
+
 .prose a:hover {
   @apply underline;
 }
