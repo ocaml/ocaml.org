@@ -109,6 +109,6 @@ let render () =
         </div>
       </div>
     </main>
-    <script src="/js/playground-v1.js" defer></script>
+    <script src="/play/playground-v1.js" defer></script>
   </body>
 </html>

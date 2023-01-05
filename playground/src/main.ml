@@ -36,7 +36,7 @@ let with_rpc rpc f v = Lwt.bind rpc (fun r -> Lwt.map or_raise @@ f r v)
 let async_raise f = Lwt.async (fun () -> Lwt.map or_raise @@ f ())
 
 module Merlin = Merlin_codemirror.Make (struct
-  let worker_url = "/js/merlin-v1.js"
+  let worker_url = "/play/merlin-v1.js"
 end)
 
 (* Need to port lesser-dark and custom theme to CM6, until then just using the
@@ -114,7 +114,7 @@ let setup () =
            ])
       ()
   in
-  let rpc = initialise "/js/worker-v1.js" timeout_container in
+  let rpc = initialise "/play/worker-v1.js" timeout_container in
   let setup () =
     let* o = with_rpc rpc Toprpc.setup () in
     handle_output o;

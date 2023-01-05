@@ -96,8 +96,8 @@ let router t =
       Dream.scope ""
         [ Dream_encoding.compress ]
         [ Dream.get "/media/**" (Dream.static ~loader:media_loader "") ];
+      Dream.get "/play/**" @@ Dream.static "playground/asset/";
       Dream.scope ""
         [ Dream_encoding.compress ]
         [ Dream.get "/**" (Dream.static ~loader:asset_loader "") ];
-      Dream.get "/js/**" @@ Dream.static "playground/asset/"
     ]
