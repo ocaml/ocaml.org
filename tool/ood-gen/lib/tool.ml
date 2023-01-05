@@ -39,39 +39,36 @@ let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
   match yaml with
   | `O [ ("tools", `A xs) ] ->
-      List.map
-        (fun x ->
-          try
-            let (metadata : metadata) =
-              Utils.decode_or_raise metadata_of_yaml x
-            in
-            let lifecycle =
-              match Lifecycle.of_string metadata.lifecycle with
-              | Ok x -> x
-              | Error (`Msg err) -> raise (Exn.Decode_error err)
-            in
-            let description =
-              Omd.of_string metadata.description |> Omd.to_html
-            in
-            ({
-               name = metadata.name;
-               slug = Utils.slugify metadata.name;
-               source = metadata.source;
-               license = metadata.license;
-               synopsis = metadata.synopsis;
-               description;
-               lifecycle;
-             }
-              : t)
-          with e ->
-            print_endline (Yaml.to_string x |> Result.get_ok);
-            raise e)
-        xs
-  | _ -> raise (Exn.Decode_error "expected a list of tools")
+      Ok
+        (List.map
+           (fun x ->
+             let (metadata : metadata) =
+               Utils.decode_or_raise metadata_of_yaml x
+             in
+             let lifecycle =
+               match Lifecycle.of_string metadata.lifecycle with
+               | Ok x -> x
+               | Error (`Msg err) -> raise (Exn.Decode_error err)
+             in
+             let description =
+               Omd.of_string metadata.description |> Omd.to_html
+             in
+             ({
+                name = metadata.name;
+                slug = Utils.slugify metadata.name;
+                source = metadata.source;
+                license = metadata.license;
+                synopsis = metadata.synopsis;
+                description;
+                lifecycle;
+              }
+               : t))
+           xs)
+  | _ -> Error (`Msg "expected a list of tools")
 
 let all () =
   let content = Data.read "tools.yml" |> Option.get in
-  decode content
+  Utils.decode_or_raise decode content
 
 let pp_lifecycle ppf v =
   Fmt.pf ppf "%s"
