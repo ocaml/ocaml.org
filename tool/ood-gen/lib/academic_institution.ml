@@ -1,5 +1,5 @@
 type location = { lat : float; long : float } [@@deriving yaml]
-type logo = { path : string; alt : string; } [@@deriving yaml]
+type logo = { path : string; alt : string } [@@deriving yaml]
 
 type course = {
   name : string;
@@ -75,8 +75,8 @@ let pp_logo ppf (v : logo) =
   Fmt.pf ppf {|
   { path = %a
   ; alt = %a
-  }|}
-  Pp.string v.path Pp.string v.alt
+  }|} Pp.string v.path Pp.string
+    v.alt
 
 let pp ppf v =
   Fmt.pf ppf
