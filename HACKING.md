@@ -53,6 +53,29 @@ You can run the unit test suite with:
 make test
 ```
 
+### Building the Playground
+
+The OCaml playground is compiled separately from the rest of the server and the generated assets can be found in
+[`playground/asset/`](./playground/asset/).
+
+To regenerate the playground, you will need to set up an OCaml 5 switch:
+
+```
+opam switch create 5.0.0 5.0.0 --no-install
+```
+
+You can then go in the `playground/` directory and install the dependencies:
+
+```
+opam install . --deps-only
+```
+
+After the dependencies have been installed, simply build the project to re-generate the JavaScript assets:
+
+```
+dune build --root .
+```
+
 ### Deploying
 
 Commits added on `main` are automatically deployed on <https://ocaml.org/>.
