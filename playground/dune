@@ -1,7 +1,7 @@
 (subdir
  asset/
  (rule
-  (targets playground.js)
+  (targets playground-v1.js)
   (mode promote-until-clean)
   (deps
    (:js %{workspace_root}/src/main.bc.js))
@@ -15,17 +15,17 @@
     --external:constants
     --minify
     --bundle
-    --outfile=playground.js
+    --outfile=playground-v1.js
     %{js})))
  (rule
-  (targets worker.js)
+  (targets worker-v1.js)
   (mode promote-until-clean)
   (deps
    (:js %{workspace_root}/src/worker.js))
   (action
    (run jsoo_minify %{js} -o %{targets})))
  (rule
-  (targets merlin.js)
+  (targets merlin-v1.js)
   (mode promote-until-clean)
   (deps
    (:js %{workspace_root}/src/merlin_worker.bc.js))

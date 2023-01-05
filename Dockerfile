@@ -24,6 +24,8 @@ RUN chmod -R 755 /var
 
 COPY --from=build /home/opam/_build/default/src/ocamlorg_web/bin/main.exe /bin/server
 
+COPY playground/asset playground/asset
+
 RUN git clone https://github.com/ocaml/opam-repository /var/opam-repository
 
 ENV OCAMLORG_REPO_PATH /var/opam-repository/
