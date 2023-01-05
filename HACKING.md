@@ -105,6 +105,9 @@ The following snippet describes the repository structure.
 ├── data/
 |   Data used by ocaml.org in Yaml and Markdown format.
 │
+├── playground/
+|   The source and generated assets for the OCaml Playground
+|
 ├── src
 │   ├── dream_dashboard
 |   |   A monitoring and analytics dashboard for dream.
@@ -117,9 +120,6 @@ The following snippet describes the repository structure.
 |   |
 │   ├── ocamlorg_package
 |   |   The library for constructing opam-repository statistics and information (e.g. rev deps).
-|   |
-│   ├── ocamlorg_playground
-|   |   All of the js_of_ocaml code for the OCaml playground.
 |   |
 │   └── ocamlorg_web
 |       The main entry-point of the server.
