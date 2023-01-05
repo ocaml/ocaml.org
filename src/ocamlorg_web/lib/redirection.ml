@@ -682,4 +682,10 @@ let t =
       make ~permanent:true [ ("/governance", "/policies/governance") ];
       make ~permanent:true [ ("/code-of-conduct", "/policies/code-of-conduct") ];
       make ~permanent:true [ ("/opportunities", "/jobs") ];
+      make
+        [
+          ("/js/worker.js", "/js/worker-v1.js");
+          ("/js/playground.js", "/js/playground-v1.js");
+          ("/js/merlin.js", "/js/merlin-v1.js");
+        ];
     ]

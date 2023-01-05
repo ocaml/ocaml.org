@@ -13,7 +13,19 @@
 
 (subdir
  asset/js/
- (copy_files
-  (files %{workspace_root}/playground/asset/*.js)))
+ ; Add a version suffix to the JavaScript file to invalidate cache when the playground changes.
+ ; Don't forget to update the version here and in the HTML.
+ (rule
+  (target merlin-v1.js)
+  (action
+   (copy %{workspace_root}/playground/asset/merlin.js %{target})))
+ (rule
+  (target playground-v1.js)
+  (action
+   (copy %{workspace_root}/playground/asset/playground.js %{target})))
+ (rule
+  (target worker-v1.js)
+  (action
+   (copy %{workspace_root}/playground/asset/worker.js %{target}))))
 
 (data_only_dirs playground data asset)
