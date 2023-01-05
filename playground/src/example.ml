@@ -4,12 +4,15 @@ let adts =
   {|(* 
   Welcome to OCaml Play, the official OCaml playground!
 
-  You don't need to install anything on your local machine - just write your
-  code here and see the results immediately in the Output panel.
+  You don't need to install anything on your local machine -
+  just write your code here and see the results immediately
+  in the Output panel.
 
-  It's also compatible with OCaml 5, so you can use it to play with the new
-  Domain module and the effect handlers. Here's an example that calculates
-  the Fibonacci sequence in parallel. Happy hacking!
+  It's also compatible with OCaml 5: you can use it to try
+  the new Domain module and the effect handlers. Below is an
+  example that calculates the Fibonacci sequence in parallel.
+  
+  Happy hacking!
 *)
 
 let num_domains = 2

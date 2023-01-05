@@ -2781,12 +2781,15 @@ class ListAction(argparse.Action):
 `),Cr=W("editor1"),H0=W("__CM__basic_setup"),k=Y0.Code_mirror__Editor,l0=Y0.Code_mirror__Text,X0=Y0.Stdlib__Array,d0=Y0.Stdlib__String,T0=Y0.Brr,E=Y0.Stdlib__Option,Or=Y0.Jv,E0=Or[12][H0];function X(w0){var m0=p0(T0[10][2],T0[16][2],$.caml_jsstring_of_string(w0));return n0(E[4],m0)}function t(w0,m0,D){if(m0)var l=m0[1],u0=l;else var u0=[0];var dr=[0,n0(X0[4],[0,[0,E0],[0,u0,0]])],Je=F0(k[1][1][1],w0,0,dr,0),ze=p0(k[1][3],[0,Je],0),Un=[0,X(Cr)],Sa=ar(k[2][1],[0,ze],Un,0,0,0),Vf=p0(k[2][2],[0,Sa],0);return[0,ze,Vf]}function Nr(w0,m0,D){var l=[0,n0(X0[4],[0,[0,E0],[0,D,0]])],u0=F0(k[1][1][1],[0,m0],0,l,0),dr=p0(k[1][3],[0,u0],0);return p0(k[2][4],w0,dr)}function Pr(w0){var m0=n0(k[2][3],w0),D=n0(k[1][4],m0),l=n0(l0[4],D),u0=n0(n0(X0[13],$.caml_string_of_jsstring),l),dr=n0(X0[9],u0);return n0(n0(d0[6],sr),dr)}var Q0=[0,E0,X,t,Nr,Pr];$.caml_register_global(10,Q0,"Dune__exe__Edit")})(globalThis);(function(A){"use strict";var $=A.jsoo_runtime,W=$.caml_string_of_jsbytes,n0=W('let () = print_endline "Welcome to the OCaml Playground"'),p0=W(`(* 
   Welcome to OCaml Play, the official OCaml playground!
 
-  You don't need to install anything on your local machine - just write your
-  code here and see the results immediately in the Output panel.
+  You don't need to install anything on your local machine -
+  just write your code here and see the results immediately
+  in the Output panel.
 
-  It's also compatible with OCaml 5, so you can use it to play with the new
-  Domain module and the effect handlers. Here's an example that calculates
-  the Fibonacci sequence in parallel. Happy hacking!
+  It's also compatible with OCaml 5: you can use it to try
+  the new Domain module and the effect handlers. Below is an
+  example that calculates the Fibonacci sequence in parallel.
+  
+  Happy hacking!
 *)
 
 let num_domains = 2
