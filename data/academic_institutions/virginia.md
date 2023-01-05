@@ -3,7 +3,9 @@ name: University of Virginia
 description: >
  The University of Virginia is a public research university in Charlottesville, Virginia. 
 url: "https://www.virginia.edu/"
-logo: academic_institution/virginia.png
+logo:
+     path: academic_institution/virginia.png
+     alt: University of Virginia logo
 continent: North America
 courses:
     - name: Programming Languages

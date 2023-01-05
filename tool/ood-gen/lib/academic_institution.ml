@@ -1,4 +1,5 @@
 type location = { lat : float; long : float } [@@deriving yaml]
+type logo = { path : string; alt : string; } [@@deriving yaml]
 
 type course = {
   name : string;
@@ -11,7 +12,7 @@ type metadata = {
   name : string;
   description : string;
   url : string;
-  logo : string option;
+  logo : logo option;
   continent : string;
   courses : course list;
   location : location option;
@@ -23,7 +24,7 @@ type t = {
   slug : string;
   description : string;
   url : string;
-  logo : string option;
+  logo : logo option;
   continent : string;
   courses : course list;
   location : location option;
@@ -66,6 +67,13 @@ let pp_location ppf v =
   }
   |} v.long v.lat
 
+let pp_logo ppf (v : logo) =
+  Fmt.pf ppf {|
+  { path = %a
+  ; alt = %a
+  }|}
+  Pp.string v.path Pp.string v.alt
+
 let pp ppf v =
   Fmt.pf ppf
     {|
@@ -92,6 +100,8 @@ let template () =
     {|
 type location = { lat : float; long : float }
 
+type logo = { path : string; alt : string }
+
 type course =
   { name : string
   ; acronym : string option
@@ -103,7 +113,7 @@ type t =
   ; slug : string
   ; description : string
   ; url : string
-  ; logo : string option
+  ; logo : logo option
   ; continent : string
   ; courses : course list
   ; location : location option

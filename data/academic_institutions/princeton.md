@@ -3,7 +3,9 @@ name:  Princeton University
 description: >
  Princeton University is a private Ivy League research university in Princeton, New Jersey. 
 url: "https://www.princeton.edu/"
-logo: academic_institution/princeton.png
+logo:
+     path: academic_institution/princeton.png
+     alt: Princeton University logo
 continent: North America
 courses:
     - name: Functional Programming 
