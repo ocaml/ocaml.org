@@ -3,7 +3,9 @@ name: University of Maryland
 description: >
  The University of Maryland, College Park is a public land-grant research university in College Park, Maryland.
 url: "https://www.umd.edu/"
-logo: academic_institution/maryland.gif
+logo:
+     path: academic_institution/maryland.gif
+     alt: University of Maryland logo
 continent: North America
 courses:
     - name: Organization of Programming Languages-(along with Ruby, Prolog, Java) 

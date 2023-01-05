@@ -3,7 +3,9 @@ name: Columbia University
 description: >
  Columbia University is a private Ivy League research university in New York City. 
 url: "https://www.columbia.edu/"
-logo: academic_institution/columbia.png
+logo:
+     path: academic_institution/columbia.png
+     alt: Columbia University logo
 continent: North America
 courses:
     - name: Programming Languages and Translators

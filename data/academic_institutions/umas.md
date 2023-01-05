@@ -3,7 +3,9 @@ name: University of Massachusetts Amherst
 description: >
  The University of Massachusetts Amherst is a public land-grant research university in Amherst, Massachusetts. 
 url: "https://www.umass.edu/"
-logo: academic_institution/umas.jpeg
+logo:
+     path: academic_institution/umas.jpeg
+     alt: University of Massachusetts Amherst logo
 continent: North America
 courses:
     - name: University of Massachusetts Amherst

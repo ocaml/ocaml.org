@@ -3,7 +3,9 @@ name: University of California, Los Angeles
 description: >
  The University of California, Los Angeles is a public land-grant research university in Los Angeles, California.
 url: "https://www.ucla.edu/"
-logo: academic_institution/ucla.jpg
+logo:
+     path: academic_institution/ucla.jpg
+     alt: University of California, Los Angeles logo
 continent: North America
 courses:
     - name: Programming Languages (along with Python and Java)

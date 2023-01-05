@@ -3,7 +3,9 @@ name: University of Illinois at Urbana-Champaign
 description: >
  The University of Illinois Urbana-Champaign is a public land-grant research university in Illinois in the twin cities of Champaign and Urbana.
 url: "https://illinois.edu/"
-logo: academic_institution/illinois.jpeg
+logo:
+     path: academic_institution/illinois.jpeg
+     alt: University of Illinois at Urbana-Champaign logo
 continent: North America
 courses:
     - name: Programming Languages and Compilers 

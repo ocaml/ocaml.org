@@ -3,7 +3,9 @@ name: McGill University
 description: >
  McGill University is a public research university located in Montreal, Quebec, Canada.
 url: "https://www.mcgill.ca/"
-logo: academic_institution/mcgill_logo.png
+logo:
+     path: academic_institution/mcgill_logo.png
+     alt: McGill University logo
 continent: North America
 courses:
     - name: Programming Languages and Paradigms 

@@ -3,7 +3,9 @@ name: Indian Institute of Technology, Delhi
 description: >
  Indian Institute of Technology Delhi is a public technical and research university located in Hauz Khas in South Delhi, Delhi, India. 
 url: "https://home.iitd.ac.in/"
-logo: academic_institution/iitd.png
+logo:
+     path: academic_institution/iitd.png
+     alt: Indian Institute of Technology, Delhi logo
 continent: Asia
 courses:
     - name: Introduction to Computers and Programming (along with Pascal and Java)

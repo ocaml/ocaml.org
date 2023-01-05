@@ -3,7 +3,9 @@ name:  University of Massachusetts
 description: >
  The University of Massachusetts is the five-campus public university system and the only public research system in the Commonwealth of Massachusetts. 
 url: "https://www.massachusetts.edu/"
-logo: academic_institution/massachusetts.png
+logo:
+     path: academic_institution/massachusetts.png
+     alt: University of Massachusetts logo
 continent: North America
 courses:
     - name: Programming Languages 

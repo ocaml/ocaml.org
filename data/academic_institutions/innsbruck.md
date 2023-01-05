@@ -3,7 +3,9 @@ name: University of Innsbruck
 description: >
  The University of Innsbruck is a public university in Innsbruck, the capital of the Austrian federal state of Tyrol, founded in 1669. 
 url: "https://www.uibk.ac.at/index.html.en"
-logo: academic_institution/university-of-innsbruck-logo.jpg
+logo:
+     path: academic_institution/university-of-innsbruck-logo.jpg
+     alt: University of Innsbruck logo
 continent: Europe
 courses:
     - name: Programming in OCAML

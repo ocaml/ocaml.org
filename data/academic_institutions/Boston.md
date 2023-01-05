@@ -3,7 +3,9 @@ name: Boston College
 description: >
  Boston College is a private, Jesuit research university in Chestnut Hill, Massachusetts. Founded in 1863, the university has more than 9,300 full-time undergraduates and nearly 5,000 graduate students. 
 url: "https://www.bc.edu/"
-logo: academic_institution/boston.png
+logo:
+     path: academic_institution/boston.png
+     alt: Boston College logo
 continent: North America
 courses:
     - name: Computer Science I 

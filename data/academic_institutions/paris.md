@@ -3,7 +3,9 @@ name: Université Paris-Diderot
 description: >
  Paris Diderot University, also known as Paris 7, was a French university located in Paris, France. It was one of the seven universities of the Paris public higher education academy. 
 url: "https://u-paris.fr/en/"
-logo: academic_institution/paris.jpg
+logo:
+     path: academic_institution/paris.jpg
+     alt: Université Paris-Diderot logo
 continent: Europe
 courses:
     - name: Advanced Functional Programming 

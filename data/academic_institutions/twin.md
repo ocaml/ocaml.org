@@ -3,7 +3,9 @@ name:  University of Minnesota Twin Cities
 description: >
  The University of Minnesota, Twin Cities is a public land-grant research university in the Twin Cities of Minneapolis and Saint Paul, Minnesota. 
 url: "https://twin-cities.umn.edu/"
-logo: academic_institution/twin.svg
+logo:
+     path: academic_institution/twin.svg
+     alt: University of Minnesota Twin Cities logo
 continent: North America
 courses:
     - name: Advanced Programming Principles 

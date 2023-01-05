@@ -3,7 +3,9 @@ name: University of Cambridge
 description: >
  The University of Cambridge is a collegiate research university in Cambridge, United Kingdom. 
 url: "https://www.cam.ac.uk/"
-logo: academic_institution/cambridge.jpg
+logo:
+     path: academic_institution/cambridge.jpg
+     alt: University of Cambridge logo
 continent: Europe
 courses:
     - name: Advanced Functional Programming 

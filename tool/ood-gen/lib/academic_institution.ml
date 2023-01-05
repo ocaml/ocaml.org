@@ -1,4 +1,5 @@
 type location = { lat : float; long : float } [@@deriving yaml]
+type logo = { path : string; alt : string; } [@@deriving yaml]
 
 type course = {
   name : string;
@@ -11,7 +12,7 @@ type metadata = {
   name : string;
   description : string;
   url : string;
-  logo : string option;
+  logo : logo option;
   continent : string;
   courses : course list;
   location : location option;
@@ -28,7 +29,7 @@ type t = {
   name : string;
   description : string;
   url : string;
-  logo : string option;
+  logo : logo option;
   continent : string;
   courses : course list;
   location : location option;
@@ -70,6 +71,13 @@ let pp_location ppf v =
   }
   |} v.long v.lat
 
+let pp_logo ppf (v : logo) =
+  Fmt.pf ppf {|
+  { path = %a
+  ; alt = %a
+  }|}
+  Pp.string v.path Pp.string v.alt
+
 let pp ppf v =
   Fmt.pf ppf
     {|
@@ -85,7 +93,7 @@ let pp ppf v =
   ; body_html = %a
   }|}
     Pp.string v.name Pp.string (Utils.slugify v.name) Pp.string v.description
-    Pp.string v.url (Pp.option Pp.string) v.logo Pp.string v.continent
+    Pp.string v.url (Pp.option pp_logo) v.logo Pp.string v.continent
     (Pp.list pp_course) v.courses (Pp.option pp_location) v.location Pp.string
     v.body_md Pp.string v.body_html
 
@@ -95,6 +103,8 @@ let template () =
   Format.asprintf
     {|
 type location = { lat : float; long : float }
+
+type logo = { path : string; alt : string }
 
 type course =
   { name : string
@@ -107,7 +117,7 @@ type t =
   ; slug : string
   ; description : string
   ; url : string
-  ; logo : string option
+  ; logo : logo option
   ; continent : string
   ; courses : course list
   ; location : location option
