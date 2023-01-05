@@ -4,7 +4,7 @@
   (targets playground.js)
   (mode promote-until-clean)
   (deps
-   (:js %{workspace_root}/playground/src/main.bc.js))
+   (:js %{workspace_root}/src/main.bc.js))
   (action
    (run
     esbuild
@@ -21,13 +21,13 @@
   (targets worker.js)
   (mode promote-until-clean)
   (deps
-   (:js %{workspace_root}/playground/src/worker.js))
+   (:js %{workspace_root}/src/worker.js))
   (action
    (run jsoo_minify %{js} -o %{targets})))
  (rule
   (targets merlin.js)
   (mode promote-until-clean)
   (deps
-   (:js %{workspace_root}/playground/src/merlin_worker.bc.js))
+   (:js %{workspace_root}/src/merlin_worker.bc.js))
   (action
    (run jsoo_minify %{js} -o %{targets}))))

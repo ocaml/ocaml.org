@@ -19,6 +19,7 @@
    %{bin:js_of_ocaml}
    --toplevel
    --pretty
+   --enable=effects
    +toplevel.js
    +dynlink.js
    %{dep:worker.bc}
