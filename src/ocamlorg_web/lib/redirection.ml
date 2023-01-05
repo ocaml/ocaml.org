@@ -681,5 +681,5 @@ let t =
       make ~permanent:true [ ("/privacy-policy", "/policies/privacy-policy") ];
       make ~permanent:true [ ("/governance", "/policies/governance") ];
       make ~permanent:true [ ("/code-of-conduct", "/policies/code-of-conduct") ];
-      make ~permanent:true [ ("/opportunities", "/jobs") ]
+      make ~permanent:true [ ("/opportunities", "/jobs") ];
     ]
