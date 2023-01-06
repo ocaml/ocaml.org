@@ -65,5 +65,5 @@ let description html =
 type t = { image : string option; description : string option }
 
 let all url =
-  let html = Http_client.get_sync url |> Result.get_ok in
+  let html = Http_client.get_sync url in
   { image = preview_image html; description = description html }

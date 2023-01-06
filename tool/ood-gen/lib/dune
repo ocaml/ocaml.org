@@ -6,7 +6,8 @@
   unix
   ptime
   fmt
-  piaf
+  cohttp
+  cohttp-lwt-unix
   river
   syndic
   uri
