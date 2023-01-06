@@ -93,7 +93,7 @@ inner_html
   ~title
   ~description
   ~canonical @@
-  <div x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024">
+  <div class="bg-white" x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024">
     <div role="button" class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
       :class="sidebar ? 'pl-1 pr-2': ''" x-on:click="sidebar = ! sidebar">
       <div class="transition-transform" :class='sidebar ? "" : "rotate-180" '>
@@ -102,29 +102,24 @@ inner_html
         </svg>
       </div>
     </div>
-    <div class="lg:py-24 bg-white pt-10 md:pt-16">
-      <div class="container-fluid wide">
-        <div class="flex gap-10">
-          <div
-            class="p-10 z-10 w-full bg-white flex-shrink-0 flex-col fixed md:flex left-0 top-0 md:sticky md:w-72 md:p-0  h-screen overflow-auto"
-            x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
-            x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
-            x-transition:leave-end="-translate-x-full">
-
-            <%s! left_sidebar_html %>
-          </div>
-
-          <div class="flex-1 flex flex-col min-w-0">
-            <%s! inner_html %>
-          </div>
-
-          <% (match right_sidebar_html with
-             | Some (html) -> %>
-            <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto right-sidebar">
-              <%s! html %>
-            </div>
-          <% | None -> () ); %>
+    <div class="container-fluid wide lg:py-24 pt-10 md:pt-16">
+      <div class="flex flex-col lg:flex-row md:gap-12">
+        <div
+          class="p-10 z-10 w-full bg-white flex-shrink-0 flex-col fixed h-screen overflow-auto lg:pr-0 lg:flex left-0 top-0 lg:sticky lg:w-72 lg:p-0 lg:pt-6 font-normal text-body-400"
+          x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
+          x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
+          x-transition:leave-end="-translate-x-full">
+          <%s! left_sidebar_html %>
         </div>
+        <div class="flex-1 z-0 z- w-full relative lg:pt-6">
+          <%s! inner_html %>
+        </div>
+        <% (match right_sidebar_html with
+            | Some (html) -> %>
+          <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto lg:pt-6 right-sidebar">
+            <%s! html %>
+          </div>
+        <% | None -> () ); %>
       </div>
     </div>
   </div>
