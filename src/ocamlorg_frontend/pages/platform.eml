@@ -8,12 +8,32 @@ Learn_layout.render
 ~canonical:Url.platform
 (Learn_sidebar.render ~current_tutorial:(Some "platform") ~tutorials) @@
 <div class="flex-1 flex flex-col md:pl-10 min-w-0">
-  <h1 class="font-bold">The OCaml Platform</h1>
-  <div class="text-body-400 mt-6">
-    The OCaml Platform represents the best way for developers, both new and old, to write software in OCaml. It combines
-    the core OCaml compiler with a coherent set of tools, documentation, libraries, and testing resources.
-  </div>
+  <div class="prose prose-orange max-w-none">
+    <h1>The OCaml Platform</h1>
+    <p>
+      The OCaml Platform represents the best way for developers, both new and
+      old, to write software in OCaml. It combines the core OCaml compiler with
+      a coherent set of tools, documentation, libraries, and testing resources.
+    </p>
+    <p>
+      The recommended and detailed instructions to install OCaml and the
+      Platform tools are available in <a class="text-orange-500"
+      href="/docs/up-and-running">Get Up and Running With OCaml</a>.
 
+      If you want to use the simpler, but experimental way to install the
+      Platform, you can use the <a class="text-orange-500"
+      href="https://github.com/tarides/ocaml-platform-installer"> OCaml
+      Platform Installer</a>. To download it, run:
+      <pre><code>bash < <(curl -sL https://ocaml.org<%s Url.installer %>)</code></pre>
+      And run it to install the Platform tools in your opam switch:
+      <pre><code>ocaml-platform</code></pre>
+      For detailed instructions, check:
+      <a class="text-orange-500"
+        href="/docs/up-and-running#up-and-running-with-the-platform-installer">
+        Get Up and Running with the Platform Installer
+      </a>.
+    </p>
+  </div>
   <div
     class="mt-12 cursor-pointer z-0 relative rounded-2xl h-[413px] w-full overflow-hidden border-4 border-primary-100 video-shadow md:w-[640px]"
     x-data="videoFullWidth()"
@@ -39,9 +59,10 @@ Learn_layout.render
       <div class="flex h-full justify-center" x-show="!isPlaying">
         <div class="z-10 mb-10 lg:mb-0">
           <img width="160" class="m-auto mt-10 md:mt-20" src="/logo-with-name.svg" alt="OCaml logo" />
-          <h3 class="font-bold mt-16">OCaml Workshop 2020</h3>
+          <div class="text-body-400 mt-2">OCaml Workshop 2020</div>
+          <h3 class="font-bold mt-16">State of the OCaml Platform 2020</h3>
           <div class="mt-16 flex justify-center">
-            Presented by
+            Presented by&nbsp;
             <div class="font-semibold">Anil Madhavapeddy</div>
           </div>
           <div class="text-body-400 mt-2">University of Cambridge</div>
@@ -62,7 +83,7 @@ Learn_layout.render
     </div>
   </div>
   <div class="flex flex-col border-t border-gray-200 pt-20 mt-20 mb-20">
-    <h3 class="font-bold">State of Platform Tools</h3>
+    <h3 class="font-bold mt-8">State of the OCaml Platform</h3>
     <div class="text-body-400 mt-6 text-lg">
       Each platform element lives at a different point in the lifecycle of a Platform tool
     </div>

@@ -44,6 +44,15 @@ Find all the installation instructions for both Unix-like systems and Windows in
 * Linux or macOS: [Installation for Unix, including Linux and macOS](#installation-for-unix)
 * Windows: [Installation for Windows](#installation-for-windows)
 
+**Note**
+
+As an alternative to the methods mentionned aboved, the [OCaml Platform
+Installer](https://github.com/tarides/ocaml-platform-installer) is a new way to
+install OCaml and the development tools. [See
+below](#up-and-running-with-the-platform-installer) for the instructions.
+However, please note that it is still experimental and in active development
+(any feedback is highly appreciated).
+
 ### Installation for Unix
 
 After having installed opam, you will need to initialise it, [see below](#initialising-opam-on-unix).
@@ -97,6 +106,8 @@ $ bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/s
 
 On Unix, it's essential to initialise opam, which will (if needed) install the OCaml compiler. If you already have OCaml installed, opam will use that compiler.  
 
+This step is done automatically by the Platform Installer, [see below](#up-and-running-with-the-platform-installer).
+
 If you have installed the binary distribution of opam through the install script, this step should already be done. If you have installed it through your system package manager, you must initialise opam by running the following command. This method will fetch and initialise the latest version of opam, directly from the official servers:
 
 ```shell
@@ -111,7 +122,6 @@ The second command (`eval $(opam env)`) modifies a few environment variables to 
 **Please note:** At the end of the `opam init`, you are asked if you want to add a hook to your shell to best integrate with your system. Indeed, in order for the shell to be aware of the tools available in the current opam switch, a few environment variables need to be modified. For instance, the `PATH` variable has to be expanded so that typing `ocaml` in the shell runs the OCaml binary _of the current switch_. Answering `y` will provide a better user experience.
 
 Now check the installation by running `opam --version`. You can compare it with the current version on [opam.ocaml.org](https://opam.ocaml.org/). 
-
 
 #### Creating a New Switch on Unix
 
@@ -216,7 +226,9 @@ What we installed so far (theoretically) suffices to write, compile, and execute
 
 ## Setting Up Development Tools
 
-We will now install everything we need in order to set up a complete development environment, which includes:
+This step is done automatically by the Platform Installer, [see below](#up-and-running-with-the-platform-installer).
+
+We will now install everything we need to get a complete development environment, which includes:
 
 - Dune, a fast and full-featured build system for OCaml
 - Merlin and `ocaml-lsp-server` (OCaml's Language Server Protocol), which together enhance editors
@@ -238,6 +250,51 @@ $ opam install dune merlin ocaml-lsp-server odoc ocamlformat utop
 ```
 
 Now that the tools are installed, it remains to understand how to use them. Most of them will be driven either by the editor or by Dune, but UTop is handy to try OCaml or a specific library.
+
+## Up and Running with the Platform Installer
+
+As of 2023, the [OCaml Platform
+Installer](https://github.com/tarides/ocaml-platform-installer), presented
+here, is still experimental and in active development. It is an alternative way
+to install all the tools of the OCaml platform.
+
+If your run into any trouble using it, please don't hesitate to [file an
+issue](https://github.com/tarides/ocaml-platform-installer/issues).
+If it doesn't work at all on your system, follow the instructions above.
+
+The `ocaml-platform` binary automates the set up of a complete OCaml development
+environment. However, you need first to install the few system dependencies of
+the OCaml environment, such as a C compiler (e.g. `gcc`) and other system tools:
+`bzip2`, `make`, `bubblewrap`, `patch`, `curl` and `unzip`. In most
+architecture, you can install them using your package manager, for example on
+Ubuntu or Debian:
+<!-- $MDX skip -->
+```bash
+$ sudo apt install build-essential bubblewrap unzip
+```
+
+In macOS, having installed [Xcode](https://developer.apple.com/xcode) is the only requirement.
+
+You can now download and run the installer script (which will call `sudo` at
+some point) and then call `ocaml-platform`:
+```shell
+$ bash < <(curl -sL https://ocaml.org/install-platform.sh)
+$ ocaml-platform
+```
+
+This will initialise `opam` and install the development tools, which might take
+some time. Hopefully, in the future, the `ocaml-platform` will be distributed as
+a system package and it will no longer be required to download `installer.sh`
+manually.
+
+The tools are not installed exactly the same way as with `opam install`. They
+are built in a sandbox so that each tool's dependencies are not installed in the
+same space as your project's dependencies, see [Under the
+Hood](https://github.com/tarides/ocaml-platform-installer#whats-under-the-hood=)
+for more information.
+
+`ocaml-platform` can be run again at any time to install the tools in another
+opam switch for example.
 
 ## Using the OCaml Toplevel with UTop
 
