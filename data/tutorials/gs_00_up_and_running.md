@@ -106,7 +106,7 @@ $ bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/s
 
 On Unix, it's essential to initialise opam, which will (if needed) install the OCaml compiler. If you already have OCaml installed, opam will use that compiler.  
 
-This step is done automatically by the beta-version Platform Installer, [see below](#up-and-running-with-the-platform-installer).
+This step is done automatically by the Platform Installer, [see below](#up-and-running-with-the-platform-installer).
 
 If you have installed the binary distribution of opam through the install script, this step should already be done. If you have installed it through your system package manager, you must initialise opam by running the following command. This method will fetch and initialise the latest version of opam, directly from the official servers:
 
@@ -226,7 +226,7 @@ What we installed so far (theoretically) suffices to write, compile, and execute
 
 ## Setting Up Development Tools
 
-This step is done automatically by the beta-version Platform Installer, [see below](#up-and-running-with-the-platform-installer).
+This step is done automatically by the Platform Installer, [see below](#up-and-running-with-the-platform-installer).
 
 We will now install everything we need to get a complete development environment, which includes:
 
@@ -254,9 +254,9 @@ Now that the tools are installed, it remains to understand how to use them. Most
 ## Up and Running with the Platform Installer
 
 As of 2023, the [OCaml Platform
-Installer](https://github.com/tarides/ocaml-platform-installer), presented here,
-is still in active development. It is an alternative way to install
-all the tools of the OCaml platform.
+Installer](https://github.com/tarides/ocaml-platform-installer), presented
+here, is still experimental and in active development. It is an alternative way
+to install all the tools of the OCaml platform.
 
 If your run into any trouble using it, please don't hesitate to [file an
 issue](https://github.com/tarides/ocaml-platform-installer/issues).
