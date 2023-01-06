@@ -26,11 +26,11 @@ let news_post news = News_post.render news
 let jobs ?location ~locations jobs = Jobs.render ?location ~locations jobs
 
 let package_overview ~documentation_status ~readme ~readme_title ~dependencies
-    ~rev_dependencies ~homepages ~source ~changes_filename ~license_filename
-    package =
+    ~rev_dependencies ~conflicts ~homepages ~source ~changes_filename
+    ~license_filename package =
   Package_overview.render ~documentation_status ~readme ~readme_title
-    ~dependencies ~rev_dependencies ~homepages ~source ~changes_filename
-    ~license_filename package
+    ~dependencies ~rev_dependencies ~conflicts ~homepages ~source
+    ~changes_filename ~license_filename package
 
 let package_documentation ~title ~path ~toc ~maptoc ~content package =
   Package_documentation.render ~title ~path ~toc ~maptoc ~content package
