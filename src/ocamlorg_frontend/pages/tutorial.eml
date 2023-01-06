@@ -1,13 +1,21 @@
+let right_sidebar
+(tutorial : Ood.Tutorial.t)
+=
+  <div class="font-semibold text-gray-500 text-sm mb-4">ON THIS PAGE</div>
+  <div class="page-toc"><%s! tutorial.toc_html %></div>
+
 let render
 (tutorial : Ood.Tutorial.t)
 ~tutorials
 ~canonical
 =
-Learn_layout.render ~title:(Printf.sprintf "%s · OCaml Tutorials" tutorial.title) ~description:tutorial.description
-(Learn_sidebar.render ~current_tutorial:(Some tutorial.slug) ~tutorials) ~canonical
-@@
-<div class="flex-1 z-0 z- w-full lg:max-w-3xl mx-auto relative lg:pt-6">
-  <div class="prose prose-orange z-0 z- lg:max-w-3xl mx-auto relative lg:pt-6">
+Learn_layout.render
+~title:(Printf.sprintf "%s · OCaml Tutorials" tutorial.title)
+~description:tutorial.description
+~canonical
+~left_sidebar_html:(Learn_sidebar.render ~current_tutorial:(Some tutorial.slug) ~tutorials)
+~right_sidebar_html:(Some(right_sidebar tutorial)) @@
+  <div class="prose prose-orange max-w-full">
     <%s! tutorial.body_html %>
     <div class="pt-10 border-t border-slate-200 lg:grid lg:grid-cols-3 gap-4 text-slate-500">
       <div class="lg:col-span-1">
@@ -48,12 +56,3 @@ Learn_layout.render ~title:(Printf.sprintf "%s · OCaml Tutorials" tutorial.titl
       </div>
     </div>
   </div>
-</div>
-<div class="hidden xl:flex top-0 sticky h-screen">
-  <div class="flex-col w-60 py-6 pl-6">
-    <div class="h-screen overflow-auto right-sidebar">
-      <div class="font-semibold text-gray-500 text-sm mb-4">ON THIS PAGE</div>
-      <div class="page-toc"><%s! tutorial.toc_html %></div>
-    </div>
-  </div>
-</div>

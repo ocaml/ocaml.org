@@ -6,13 +6,13 @@ Learn_layout.render
 ~title:"OCaml Best Practices"
 ~description:"Some guides to commonly used tools in OCaml development workflows."
 ~canonical:Url.best_practices
-(Learn_sidebar.render ~current_tutorial:(Some "best-practices") ~tutorials) @@
-<div class="flex-1 flex overflow-hidden flex-col md:pl-10">
+~left_sidebar_html:(Learn_sidebar.render ~current_tutorial:(Some "best-practices") ~tutorials)
+~right_sidebar_html: None @@
     <h1 class="font-bold mb-8">OCaml Best Practices</h1>
     <div class="prose prose-orange max-w-full">
-      <p>
+        <p>
         Workflows presented on this page assume <a href="<%s Url.getting_started %>">OCaml is Up and Running</a>.
-      </p>
+        </p>
     </div>
     <% best_practices |> List.iter (fun (item : Ood.Workflow.t) -> %>
     <div class="outline-none accordion-section mt-6" x-data="{accordion: false}">
@@ -37,4 +37,3 @@ Learn_layout.render
         </div>
     </div>
     <% ); %>
-</div>
