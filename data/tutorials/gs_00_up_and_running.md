@@ -46,17 +46,12 @@ Find all the installation instructions for both Unix-like systems and Windows in
 
 **Note**
 
-The [OCaml Platform
-Installer](https://github.com/tarides/ocaml-platform-installer) is an
-incubating new way to install OCaml. As of 2023, it is in active development. It
-will automatically install opam, OCaml, and the development tools.
-
-As an alternative to the methods mentionned aboved and detailed below, you can
-try the alpha version of the platform installer to install opam and the
-development tools, [see below](#up-and-running-with-the-platform-installer) for
-the instructions. However, please note that this installer is a work in progress
-and might not work on your system (on the other hand, any feedback is highly
-appreciated).
+As an alternative to the methods mentionned aboved, the [OCaml Platform
+Installer](https://github.com/tarides/ocaml-platform-installer) is a new way to
+install OCaml and the development tools. [See
+below](#up-and-running-with-the-platform-installer) for the instructions.
+However, please note that it is still experimental and in active development
+(any feedback is highly appreciated).
 
 ### Installation for Unix
 
@@ -111,7 +106,7 @@ $ bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/s
 
 On Unix, it's essential to initialise opam, which will (if needed) install the OCaml compiler. If you already have OCaml installed, opam will use that compiler.  
 
-This step is done automatically by the alpha-version platform installer, [see below](#up-and-running-with-the-platform-installer).
+This step is done automatically by the beta-version Platform Installer, [see below](#up-and-running-with-the-platform-installer).
 
 If you have installed the binary distribution of opam through the install script, this step should already be done. If you have installed it through your system package manager, you must initialise opam by running the following command. This method will fetch and initialise the latest version of opam, directly from the official servers:
 
@@ -231,7 +226,7 @@ What we installed so far (theoretically) suffices to write, compile, and execute
 
 ## Setting Up Development Tools
 
-This step is done automatically by the alpha-version platform installer, [see below](#up-and-running-with-the-platform-installer).
+This step is done automatically by the beta-version Platform Installer, [see below](#up-and-running-with-the-platform-installer).
 
 We will now install everything we need to get a complete development environment, which includes:
 
@@ -260,14 +255,12 @@ Now that the tools are installed, it remains to understand how to use them. Most
 
 As of 2023, the [OCaml Platform
 Installer](https://github.com/tarides/ocaml-platform-installer), presented here,
-is still in active development. It is an incubating alternative way to install
+is still in active development. It is an alternative way to install
 all the tools of the OCaml platform.
 
-As of any freshly released piece of software you may run into trouble using it,
-we apologies if it is the case. Please [file an
-issue](https://github.com/tarides/ocaml-platform-installer/issues) if you
-experience difficulties. If it doesn't work at all on your system, follow the
-instructions above.
+If your run into any trouble using it, please don't hesitate to [file an
+issue](https://github.com/tarides/ocaml-platform-installer/issues).
+If it doesn't work at all on your system, follow the instructions above.
 
 The `ocaml-platform` binary automates the set up of a complete OCaml development
 environment. However, you need first to install the few system dependencies of
@@ -285,7 +278,7 @@ In macOS, having installed [Xcode](https://developer.apple.com/xcode) is the onl
 You can now download and run the installer script (which will call `sudo` at
 some point) and then call `ocaml-platform`:
 ```shell
-$ bash < <(curl -sL https://ocaml.org/platform/installer.sh)
+$ bash < <(curl -sL https://ocaml.org/install-platform.sh)
 $ ocaml-platform
 ```
 
