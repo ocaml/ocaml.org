@@ -31,6 +31,6 @@ let human_date_of_timestamp t =
   let ts = Timestamp.of_float_s t in
   Format.asprintf "%a" (Timestamp.pp ~format:"{day:0X} {mon:Xxx} {year}" ()) ts
 
-let host_of_uri uri = 
-  let uri = Uri.of_string uri in 
+let host_of_uri uri =
+  let uri = Uri.of_string uri in
   Uri.host_with_default uri
