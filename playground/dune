@@ -1,0 +1,33 @@
+(subdir
+ asset/
+ (rule
+  (targets playground-v1.js)
+  (mode promote-until-clean)
+  (deps
+   (:js %{workspace_root}/src/main.bc.js))
+  (action
+   (run
+    esbuild
+    --platform=browser
+    --external:fs
+    --external:tty
+    --external:child_process
+    --external:constants
+    --minify
+    --bundle
+    --outfile=playground-v1.js
+    %{js})))
+ (rule
+  (targets worker-v1.js)
+  (mode promote-until-clean)
+  (deps
+   (:js %{workspace_root}/src/worker.js))
+  (action
+   (run jsoo_minify %{js} -o %{targets})))
+ (rule
+  (targets merlin-v1.js)
+  (mode promote-until-clean)
+  (deps
+   (:js %{workspace_root}/src/merlin_worker.bc.js))
+  (action
+   (run jsoo_minify %{js} -o %{targets}))))

@@ -1,0 +1,41 @@
+; Stdlib worker
+
+(executable
+ (name worker)
+ (modes byte)
+ (modules worker)
+ (libraries js-top-worker))
+
+(executable
+ (name merlin_worker)
+ (modes js)
+ (modules merlin_worker)
+ (libraries merlin-js.worker))
+
+(rule
+ (targets worker.js)
+ (action
+  (run
+   %{bin:js_of_ocaml}
+   --toplevel
+   --pretty
+   --enable=effects
+   +toplevel.js
+   +dynlink.js
+   %{dep:worker.bc}
+   -o
+   %{targets})))
+
+; Playground
+
+(executable
+ (name main)
+ (modes js)
+ (modules
+  (:standard \ worker merlin_worker))
+ (libraries
+  brr
+  code-mirror
+  merlin-js.code-mirror
+  js-top-worker.client
+  rpclib-lwt))

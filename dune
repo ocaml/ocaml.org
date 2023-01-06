@@ -11,33 +11,4 @@
     %{workspace_root}
     (run tailwindcss -m -c %{config} -i %{input} -o %{target})))))
 
-(subdir
- asset/js/
- (rule
-  (targets playground.js)
-  (deps
-   (:js %{workspace_root}/src/ocamlorg_playground/main.bc.js))
-  (action
-   (run
-    esbuild
-    --platform=browser
-    --external:fs
-    --external:tty
-    --external:child_process
-    --external:constants
-    --minify
-    --bundle
-    --outfile=playground.js
-    %{js})))
- (rule
-  (targets worker.js)
-  (deps
-   (:js %{workspace_root}/src/ocamlorg_playground/worker.js))
-  (action
-   (run jsoo_minify %{js} -o %{targets})))
- (rule
-  (targets merlin.js)
-  (deps
-   (:js %{workspace_root}/src/ocamlorg_playground/merlin_worker.bc.js))
-  (action
-   (run jsoo_minify %{js} -o %{targets}))))
+(data_only_dirs playground data asset)

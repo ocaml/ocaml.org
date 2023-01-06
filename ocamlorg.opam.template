@@ -1,9 +1,3 @@
 pin-depends: [
-  ["esbuild.dev" "git+https://github.com/tmattio/opam-esbuild#7738af5912cc9f554d31da81d2334e88052102fb"]
   ["tailwindcss.dev" "git+https://github.com/tmattio/opam-tailwindcss#7ef5bebbf48958370051b2368a4dd57b69627cf6"]
-  ["code-mirror.dev" "git+https://github.com/patricoferris/jsoo-code-mirror#8fe48910e265ff87f9fc94ceb7b3d19fac102a96"]
-  ["merlin-js.dev" "git+https://github.com/tmattio/merlin-js#916752d353dc98a079525494b7bf86c86095cbb1"]
-  ["js_top_worker-rpc.dev" "git+https://github.com/tmattio/js_top_worker#93822c2df1af9df36e6d02e2ce2dc81a810a1865"]
-  ["js_top_worker.dev" "git+https://github.com/tmattio/js_top_worker#93822c2df1af9df36e6d02e2ce2dc81a810a1865"]
-  ["js_top_worker-client.dev" "git+https://github.com/tmattio/js_top_worker#93822c2df1af9df36e6d02e2ce2dc81a810a1865"]
 ]

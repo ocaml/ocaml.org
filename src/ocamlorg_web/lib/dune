@@ -16,9 +16,6 @@
  (targets asset.ml asset.mli)
  (deps
   %{workspace_root}/asset/css/main.css
-  %{workspace_root}/asset/js/playground.js
-  %{workspace_root}/asset/js/worker.js
-  %{workspace_root}/asset/js/merlin.js
   (source_tree %{workspace_root}/asset))
  (action
   (with-stdout-to
