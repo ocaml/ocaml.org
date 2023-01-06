@@ -94,14 +94,14 @@ inner_html
   ~description
   ~canonical @@
   <div x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024">
-    <button class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
+    <div role="button" class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
       :class="sidebar ? 'pl-1 pr-2': ''" x-on:click="sidebar = ! sidebar">
       <div class="transition-transform" :class='sidebar ? "" : "rotate-180" '>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
         </svg>
       </div>
-    </button>
+    </div>
     <div class="lg:py-24 bg-white pt-10 md:pt-16">
       <div class="container-fluid wide">
         <div class="flex gap-10">
