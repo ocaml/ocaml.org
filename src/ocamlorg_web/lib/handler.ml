@@ -439,6 +439,10 @@ let package_versioned t kind req =
         package_info.Ocamlorg_package.Info.dependencies
         |> List.map (fun (name, x) -> (Ocamlorg_package.Name.to_string name, x))
       in
+      let conflicts =
+        package_info.Ocamlorg_package.Info.conflicts
+        |> List.map (fun (name, x) -> (Ocamlorg_package.Name.to_string name, x))
+      in
       let homepages = package_info.Ocamlorg_package.Info.homepage in
       let source =
         Option.map
@@ -451,8 +455,8 @@ let package_versioned t kind req =
       in
       Dream.html
         (Ocamlorg_frontend.package_overview ~documentation_status ~readme
-           ~readme_title ~dependencies ~rev_dependencies ~homepages ~source
-           ~changes_filename ~license_filename package_meta)
+           ~readme_title ~dependencies ~rev_dependencies ~conflicts ~homepages
+           ~source ~changes_filename ~license_filename package_meta)
 
 let package_doc t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
