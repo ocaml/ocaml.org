@@ -1,4 +1,5 @@
-type location = { lat : float; long : float } [@@deriving of_yaml]
+type location = { lat : float; long : float }
+[@@deriving of_yaml, show { with_path = false }]
 
 type metadata = {
   title : string;
@@ -15,7 +16,8 @@ type t = {
   textual_location : string;
   location : location;
 }
-[@@deriving stable_record ~version:metadata ~remove:[ slug ]]
+[@@deriving
+  stable_record ~version:metadata ~remove:[ slug ], show { with_path = false }]
 
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
 
@@ -33,20 +35,6 @@ let all () =
   let content = Data.read "meetups.yml" |> Option.get in
   Utils.decode_or_raise decode content
 
-let pp ppf v =
-  Fmt.pf ppf
-    {|
-  { title = %a
-  ; slug = %a
-  ; url = %a
-  ; textual_location = %a
-  ; location = { lat = %a; long = %a }
-  }|}
-    Pp.string v.title Pp.string v.slug Pp.string v.url Pp.string
-    v.textual_location Fmt.float v.location.lat Fmt.float v.location.long
-
-let pp_list = Pp.list pp
-
 let template () =
   Format.asprintf
     {|
@@ -62,4 +50,5 @@ type t =
 
 let all = %a
 |}
-    pp_list (all ())
+    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
+    (all ())

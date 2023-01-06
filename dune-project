@@ -80,6 +80,7 @@
    (>= 0.8.0))
   ; tools/ood-gen
   ppx_deriving_yaml
+  ppx_show
   ezjsonm
   lambdasoup
   ptime

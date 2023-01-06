@@ -4,9 +4,9 @@ type metadata = {
   github_username : string option;
   avatar : string option;
 }
-[@@deriving of_yaml]
+[@@deriving of_yaml, show { with_path = false }]
 
-type t = metadata
+type t = metadata [@@deriving show { with_path = false }]
 
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
@@ -18,19 +18,6 @@ let decode s =
 let all () =
   let content = Data.read "opam-users.yml" |> Option.get in
   Utils.decode_or_raise decode content
-
-let pp ppf v =
-  Fmt.pf ppf
-    {|
-  { name = %a
-  ; email = %a
-  ; github_username = %a
-  ; avatar = %a
-  }|}
-    Pp.string v.name (Pp.option Pp.string) v.email (Pp.option Pp.string)
-    v.github_username (Pp.option Pp.string) v.avatar
-
-let pp_list = Pp.list pp
 
 let template () =
   Format.asprintf
@@ -44,4 +31,5 @@ type t =
   
 let all = %a
 |}
-    pp_list (all ())
+    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
+    (all ())

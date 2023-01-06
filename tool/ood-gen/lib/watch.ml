@@ -7,9 +7,9 @@ type metadata = {
   language : string;
   category : string;
 }
-[@@deriving of_yaml]
+[@@deriving of_yaml, show { with_path = false }]
 
-type t = metadata
+type t = metadata [@@deriving show { with_path = false }]
 
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
@@ -21,24 +21,6 @@ let decode s =
 let all () =
   let content = Data.read "watch.yml" |> Option.get in
   Utils.decode_or_raise decode content
-
-let pp ppf v =
-  Fmt.pf ppf
-    {|
-  { name = %a
-  ; embed_path = %a
-  ; thumbnail_path = %a
-  ; description = %a
-  ; published_at = %a
-  ; language = %a
-  ; category = %a
-  }|}
-    Pp.string v.name Pp.string v.embed_path Pp.string v.thumbnail_path
-    Pp.(option string)
-    v.description Pp.string v.published_at Pp.string v.language Pp.string
-    v.category
-
-let pp_list = Pp.list pp
 
 let template () =
   Format.asprintf
@@ -56,4 +38,5 @@ let template () =
   
 let all = %a
 |}
-    pp_list (all ())
+    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
+    (all ())
