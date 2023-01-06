@@ -102,16 +102,16 @@ inner_html
         </svg>
       </div>
     </div>
-    <div class="container-fluid wide lg:py-24 pt-10 md:pt-16">
+    <div class="container-fluid wide lg:py-20 pt-10 md:pt-16">
       <div class="flex flex-col lg:flex-row md:gap-12">
         <div
-          class="p-10 z-10 w-full bg-white flex-shrink-0 flex-col fixed h-screen overflow-auto lg:pr-0 lg:flex left-0 top-0 lg:sticky lg:w-72 lg:p-0 lg:pt-6 font-normal text-body-400"
+          class="p-10 z-10 bg-white flex-col fixed h-screen overflow-auto lg:pr-0 lg:flex left-0 top-0 lg:sticky lg:w-72 lg:p-0 lg:pt-6"
           x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
           x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
           x-transition:leave-end="-translate-x-full">
           <%s! left_sidebar_html %>
         </div>
-        <div class="flex-1 z-0 z- w-full relative lg:pt-6">
+        <div class="flex-1 z-0 z- overflow-hidden lg:pt-6 <%s! if right_sidebar_html != None then "lg:max-w-3xl" else "" %>">
           <%s! inner_html %>
         </div>
         <% (match right_sidebar_html with

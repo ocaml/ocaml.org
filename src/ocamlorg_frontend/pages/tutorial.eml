@@ -15,7 +15,7 @@ Learn_layout.render
 ~canonical
 ~left_sidebar_html:(Learn_sidebar.render ~current_tutorial:(Some tutorial.slug) ~tutorials)
 ~right_sidebar_html:(Some(right_sidebar tutorial)) @@
-  <div class="prose prose-orange max-w-full lg:max-w-3xl">
+  <div class="prose prose-orange max-w-full">
     <%s! tutorial.body_html %>
     <div class="pt-10 border-t border-slate-200 lg:grid lg:grid-cols-3 gap-4 text-slate-500">
       <div class="lg:col-span-1">
