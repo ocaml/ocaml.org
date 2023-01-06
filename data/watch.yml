@@ -140,6 +140,16 @@ watch:
   published_at: 2021-08-31T08:39:55.774Z
   language: English
   category: Misc
+- name: Bindoj library, a datatype-centric generative programming library
+  description: "Introducing the Bindoj library, a datatype-centric generative programming
+    library for real-world programming in OCaml\r\n\r\nHaochen M. Kotoi-Xie (Kotoi-Xie
+    Consultancy, Inc.)\r\nHirotetsu Hongo (Kotoi-Xie Consultancy, Inc.)\r\nYuta Sato
+    (Kotoi-Xie Consul..."
+  embed_path: /videos/embed/69755b27-85b1-4df4-9f01-b771cd15353a
+  thumbnail_path: /static/thumbnails/ae5c8a14-6780-4384-b67c-399f9f233f9b.jpg
+  published_at: 2022-10-19T00:00:00.000Z
+  language: English
+  category: Science & Technology
 - name: Biocaml - the OCaml bioinformatics library
   description: Biology is an increasingly computational discipline due to rapid advances
     in experimental techniques, especially DNA sequencing, that are generating data
@@ -150,6 +160,23 @@ watch:
   published_at: 2021-10-03T22:15:01.407Z
   language: English
   category: Misc
+- name: Composing Schedulers using Effect Handlers
+  description: "Composing Schedulers using Effect Handlers\r\n\r\nDeepali Ande (IIT
+    Madras)\r\nKC Sivaramakrishnan (IIT Madras and Tarides)\r\n\r\nOCaml 5 introduces
+    effect handlers as a mechanism for con- current programming. With effect handlers,
+    concurrency can be expre..."
+  embed_path: /videos/embed/08ea09a1-e645-47cb-80c4-499dd4d93ac8
+  thumbnail_path: /static/thumbnails/a3feaba9-56eb-4aa2-aad4-99a3ed77dfc1.jpg
+  published_at: 2022-10-20T00:00:00.000Z
+  language: English
+  category: Science & Technology
+- name: Conex -- establishing trust into data repositories
+  description: Hannes Mehnert, Louis Gesbert at OCaml Workshop 2016
+  embed_path: /videos/embed/70fbf7db-28dc-4798-b068-460b5d93df4e
+  thumbnail_path: /static/thumbnails/a22ae328-d483-433f-a388-42de0cb29e00.jpg
+  published_at: 2016-10-11T00:00:00.000Z
+  language: English
+  category: Science & Technology
 - name: Continuous Benchmarking for OCaml Projects
   description: "Regular CI systems are optimised for workloads that do not require
     stable performance over time. This makes them unsuitable for running performance
@@ -168,6 +195,16 @@ watch:
   embed_path: /videos/embed/299cab02-db94-44ac-b926-ea90ddda1b09
   thumbnail_path: /static/thumbnails/fdad6056-bd71-4401-9391-5cb5b4bfa06e.jpg
   published_at: 2022-09-16T11:07:11.073Z
+  language: English
+  category: Science & Technology
+- name: "Copying opam switches \u2013 it should Just Work\u2122"
+  description: "Copying opam switches \u2013 it should Just Work\u2122\r\n\r\nDavid
+    Allsopp (Tarides UK)\r\n\r\nOCaml\u2019s ecosystem centres around compilation
+    from source code, rather than precompiled binaries. The compiler itself is only
+    provided as a source distribution and OCaml\u2019..."
+  embed_path: /videos/embed/8c1c3fda-0106-4c7d-a794-33da7e758fee
+  thumbnail_path: /static/thumbnails/485ae080-f057-4f0d-be1e-c88ad2a22ab7.jpg
+  published_at: 2022-10-19T00:00:00.000Z
   language: English
   category: Science & Technology
 - name: Coq of OCaml
@@ -212,6 +249,13 @@ watch:
   published_at: 2021-08-27T12:09:56.000Z
   language: English
   category: Science & Technology
+- name: Documenting OCaml
+  description: 'Documenting OCaml, (Invited Talk: Florian Angeletti)'
+  embed_path: /videos/embed/9f9ea4a5-4d6a-4da5-9080-833b25c26511
+  thumbnail_path: /static/thumbnails/29f8a1a6-3728-4b27-9cd4-889c70ad1a7d.jpg
+  published_at: 2018-01-12T00:00:00.000Z
+  language: English
+  category: Science & Technology
 - name: DragonKit - an extensible language oriented compiler
   description: DragonKit - an extensible language oriented compiler, by Wojciech Meyer
   embed_path: /videos/embed/8326a03e-02d5-4b32-8789-b7a76c30cf95
@@ -223,6 +267,16 @@ watch:
   embed_path: /videos/embed/e9f6c837-1435-4349-af0f-07d22d1c11ea
   thumbnail_path: /static/thumbnails/1de58bd2-d2f9-428c-8b8c-97b48d6d2c7e.jpg
   published_at: 2015-09-18T00:00:00.000Z
+  language: English
+  category: Science & Technology
+- name: "Efficient \u201Cout of heap\u201D pointers for multicore OCaml"
+  description: "Efficient \u201Cout of heap\u201D pointers for multicore OCaml\r\n\r\nGuillaume
+    Munch-Maccagnoni (INRIA)\r\n\r\nThis paper reports an experiment with a large
+    pages allocator for the OCaml runtime, with measured performance improvements.
+    A large pages allocator (als..."
+  embed_path: /videos/embed/0aa64600-b142-4c11-964d-dab8d509d08f
+  thumbnail_path: /static/thumbnails/f6850c67-39bc-45b4-bf00-8e6238baa413.jpg
+  published_at: 2022-10-19T00:00:00.000Z
   language: English
   category: Science & Technology
 - name: Ephemerons meet OCaml GC
@@ -253,6 +307,13 @@ watch:
   published_at: 2021-10-03T22:40:53.446Z
   language: English
   category: Misc
+- name: Extending OCaml's `open`
+  description: 'Speaker: Runhang Li'
+  embed_path: /videos/embed/8d5a83f5-ad98-4f45-9259-c84194134c20
+  thumbnail_path: /static/thumbnails/e89d8c31-6100-4b14-97af-8bb02519dc86.jpg
+  published_at: 2018-01-12T00:00:00.000Z
+  language: English
+  category: Science & Technology
 - name: From 2n+1 to n
   description: "\r\nOCaml relies on a type-agnostic object representation centred
     around values which unify odd integers and aligned pointers. The last bit of a
@@ -263,6 +324,20 @@ watch:
   published_at: 2021-08-31T08:30:23.211Z
   language: English
   category: Misc
+- name: Generic Programming in OCaml
+  description: Florent Balestrieri, Michel Mauny
+  embed_path: /videos/embed/0aae98b9-3d0c-427b-af09-802b671dd66e
+  thumbnail_path: /static/thumbnails/55fba346-262d-4925-841d-dad58e694467.jpg
+  published_at: 2016-10-07T00:00:00.000Z
+  language: English
+  category: Science & Technology
+- name: 'Genspio: Generating Shell Phrases in OCaml'
+  description: 'Speaker: Sebastien Mondet'
+  embed_path: /videos/embed/9a7bf8cc-38c5-4f67-ab25-0ea1388100d3
+  thumbnail_path: /static/thumbnails/5c63a3fd-40fe-45e8-849e-6b0876ab915a.jpg
+  published_at: 2018-01-02T00:00:00.000Z
+  language: English
+  category: Science & Technology
 - name: Github Pull Requests for OCaml development - a field report
   description: "Github Pull Requests for OCaml development - a field report, by Gabriel
     Scherer\r\n\r\nOn 2014/01/30, we started an experiment allowing users to submit
@@ -299,6 +374,26 @@ watch:
   published_at: 2021-10-02T02:49:14.435Z
   language: English
   category: Misc
+- name: Highest-performance Stream Processing
+  description: "Highest-performance Stream Processing\r\n\r\nOleg Kiselyov (Tohoku
+    University, Japan)\r\nTomoaki Kobayashi (Tohoku University)\r\nAggelos Biboudis
+    (Oracle)\r\nNick Palladinos (Nessos Information Technologies, SA)\r\n\r\nWe present
+    the stream processing library ..."
+  embed_path: /videos/embed/c75ed758-d513-4453-af68-c50c1d9a1469
+  thumbnail_path: /static/thumbnails/129a91d7-e8d1-4eba-97ad-17d1f160f69a.jpg
+  published_at: 2022-10-19T00:00:00.000Z
+  language: English
+  category: Science & Technology
+- name: Homogeneous builds with OBuilder and OCaml
+  description: "Homogeneous builds with OBuilder and OCaml\r\n\r\nTim McGilchrist
+    (Tarides)\r\nDavid Allsopp (Tarides UK)\r\nPatrick Ferris (Tarides)\r\nAntonin
+    D\xE9cimo (Tarides)\r\nThomas Leonard (Tarides UK)\r\nAnil Madhavapeddy (University
+    of Cambridge, UK)\r\nKate Deplaix (Ta..."
+  embed_path: /videos/embed/29055525-2b0f-4f00-a0a0-26c9d4e97f9c
+  thumbnail_path: /static/thumbnails/50176590-0805-4125-ae46-7555c5d69474.jpg
+  published_at: 2022-10-19T00:00:00.000Z
+  language: English
+  category: Science & Technology
 - name: Implementing an interval computation library for OCaml
   description: "Implementing an interval computation library for OCaml, by Jean-Marc
     Alliot, Charlie Vanaret, Jean-Baptiste Gotteland, Nicolas Durand and David Gianazza.\r\n\r\nIn
@@ -319,6 +414,13 @@ watch:
   published_at: 2021-10-02T02:52:41.884Z
   language: English
   category: Misc
+- name: Improving the OCaml web stack
+  description: Spiridon Eliopoulos
+  embed_path: /videos/embed/513a2157-6844-4823-bef7-b26f3b635fbe
+  thumbnail_path: /static/thumbnails/4a3d2057-bb16-4bfd-bdcf-2e6ea3c0345b.jpg
+  published_at: 2016-10-08T00:00:00.000Z
+  language: English
+  category: Science & Technology
 - name: Inline Assembly in OCaml
   description: "Inline Assembly in OCaml \u2014 by Vladimir Brankov"
   embed_path: /videos/embed/736857f3-99d9-46fb-9b4a-92eba42b2672
@@ -400,6 +502,13 @@ watch:
   published_at: 2021-10-03T21:57:39.057Z
   language: English
   category: Misc
+- name: Lock free programming for the masses
+  description: KC Sivaramakrishnan and Theo Laurent at OCaml Workshop 2016
+  embed_path: /videos/embed/4435adfc-e97e-42c5-8bb7-1578bd76e42b
+  thumbnail_path: /static/thumbnails/1dc20eb1-2898-48ff-bf3f-544c775b392e.jpg
+  published_at: 2016-10-07T00:00:00.000Z
+  language: English
+  category: Science & Technology
 - name: 'Love: a readable language interpreted by a blockchain'
   description: We present Love, a smart contract language embedded in the Dune Network
     blockchain. It benefits from an OCaml-like syntax and a system-F inspired type
@@ -408,6 +517,16 @@ watch:
   embed_path: /videos/embed/d3b2b31e-1739-406e-8de7-d5f21bc01836
   thumbnail_path: /static/thumbnails/93a6e9ac-2266-408a-81e7-1ebf239233f8.jpg
   published_at: 2021-08-27T15:10:17.000Z
+  language: English
+  category: Science & Technology
+- name: 'Memo: an incremental computation library that powers Dune'
+  description: "Memo: an incremental computation library that powers Dune\r\n\r\nAndrey
+    Mokhov (Jane Street)\r\nArseniy Alekseyev (Jane Street)\r\n\r\nWe present Memo,
+    an incremental computation library that supports a new, faster and more scalable,
+    file-watching build mod..."
+  embed_path: /videos/embed/d6a126b9-05f6-4b0f-ac6b-ad14d9bf12c9
+  thumbnail_path: /static/thumbnails/7594e9b6-ab48-47dd-9da7-5b42c5a4a24f.jpg
+  published_at: 2022-10-19T00:00:00.000Z
   language: English
   category: Science & Technology
 - name: Multicore OCaml
@@ -420,6 +539,23 @@ watch:
   published_at: 2021-10-03T21:59:49.549Z
   language: English
   category: Misc
+- name: Multicoretests - Parallel Testing Libraries for OCaml 5.0
+  description: "Multicoretests - Parallel Testing Libraries for OCaml 5.0\r\n\r\nJan
+    Midtgaard (Tarides)\r\nOlivier Nicole (Tarides)\r\nNicolas Osborne (Tarides)\r\n\r\nParallel
+    and concurrent code is notoriously hard to test because of the involved non-determinism,
+    yet it i..."
+  embed_path: /videos/embed/c844f844-acc1-4a8a-944e-4d99343a89c5
+  thumbnail_path: /static/thumbnails/1cc87793-9cec-454a-905b-1c52a97776fd.jpg
+  published_at: 2022-10-20T00:00:00.000Z
+  language: English
+  category: Science & Technology
+- name: New contributors to OCaml, an invited talk
+  description: "New Contributors talk, Invited Talk: S\xE9bastien Hinderer"
+  embed_path: /videos/embed/8fe8d294-ae8c-4f55-9750-c69fabfc8d34
+  thumbnail_path: /static/thumbnails/22f3201e-98a3-4172-863b-bca26d356a11.jpg
+  published_at: 2018-01-12T00:00:00.000Z
+  language: English
+  category: Science & Technology
 - name: Nullable Type Inference
   description: "Nullable Type Inference, by Michel Mauny and Beno\xEEt Vaugon\r\n\r\nWe
     present type inference algorithms for nullable types in ML-like programming languages.
@@ -458,6 +594,20 @@ watch:
   embed_path: /videos/embed/9eafdb1e-9be9-4a52-98b4-f4696eda4c18
   thumbnail_path: /static/thumbnails/53db83d1-0763-4dfa-a087-cce3cad1b581.jpg
   published_at: 2021-08-27T10:16:54.000Z
+  language: English
+  category: Science & Technology
+- name: 'OCaml inside: a drop in replacement for libtls'
+  description: "Enguerrand Decorne, Jeremy Yallop, David Kaloper Mer\u0161injak"
+  embed_path: /videos/embed/68a11315-f7ca-4c0e-a043-98008694671d
+  thumbnail_path: /static/thumbnails/ce1396e3-29f7-4419-8817-fd3d1d6eadc4.jpg
+  published_at: 2016-10-07T00:00:00.000Z
+  language: English
+  category: Science & Technology
+- name: OCaml on Windows in 2017
+  description: 'OCaml on Windows, Invited Talk: David Allsopp'
+  embed_path: /videos/embed/efbfd4c3-8e73-464b-a14c-c8de9f58a984
+  thumbnail_path: /static/thumbnails/102d80ec-67b4-41a5-9905-70d63a68b4ad.jpg
+  published_at: 2018-01-12T00:00:00.000Z
   language: English
   category: Science & Technology
 - name: 'OCaml-CI : A Zero-Configuration CI'
@@ -566,6 +716,13 @@ watch:
   published_at: 2022-09-23T17:21:01.137Z
   language: Unknown
   category: Misc
+- name: 'Owl: A General-Purpose Numerical Library in OCaml'
+  description: 'Speaker: Liang Wang'
+  embed_path: /videos/embed/d258fa91-ddb6-40d8-96de-e9ac97e8c899
+  thumbnail_path: /static/thumbnails/70430102-7697-48eb-85e0-9d76fb712a94.jpg
+  published_at: 2018-01-12T00:00:00.000Z
+  language: English
+  category: Science & Technology
 - name: 'Parafuzz: Coverage-guided Property Fuzzing for Multicore OCaml programs'
   description: "We develop ParaFuzz, an input and concurrency fuzzing tool for Multicore
     OCaml programs. ParaFuzz builds on top of Crowbar which combines AFL-based grey
@@ -634,6 +791,13 @@ watch:
   published_at: 2021-08-31T08:37:00.571Z
   language: English
   category: Misc
+- name: 'R&B: Towards bringing functional programming to everyday''s web programmer'
+  description: 'Speaker: Hongbo Zhang'
+  embed_path: /videos/embed/af37368d-085d-431d-923f-cd1d81dfdbe9
+  thumbnail_path: /static/thumbnails/fd4bd408-ae52-4dee-aedf-5aab29c35179.jpg
+  published_at: 2018-11-26T00:00:00.000Z
+  language: English
+  category: Science & Technology
 - name: Real-world debugging in OCaml
   description: Real-world debugging in OCaml, by Mark Shinwell
   embed_path: /videos/embed/a8f4cf6b-9971-484b-ab5b-34a16fde1185
@@ -641,6 +805,13 @@ watch:
   published_at: 2021-10-03T22:35:41.668Z
   language: English
   category: Misc
+- name: 'Relit: Implementing Typed Literal Macros in Reason'
+  description: 'Speaker: Charles Chamberlain'
+  embed_path: /videos/embed/f75acae0-c24d-4d19-958e-0c76ff51603f
+  thumbnail_path: /static/thumbnails/5ef79cb1-000b-425f-8a42-4e1f67219636.jpg
+  published_at: 2018-11-26T00:00:00.000Z
+  language: English
+  category: Science & Technology
 - name: Safe Protocol Updates via Propositional Logic
   description: "If values of a given type are stored on disk, or are sent between
     different executables, then changing that type or its serialization can result
@@ -651,6 +822,13 @@ watch:
   published_at: 2021-08-31T08:34:54.707Z
   language: English
   category: Misc
+- name: Semantics for the Lambda intermediate language
+  description: Pierre Chambart
+  embed_path: /videos/embed/90d9b62f-f9d6-4dd5-a7fc-f584e45ef0b7
+  thumbnail_path: /static/thumbnails/22e1eac2-83d4-4af4-a5c2-0852afbee4eb.jpg
+  published_at: 2016-10-07T00:00:00.000Z
+  language: English
+  category: Science & Technology
 - name: 'Semgrep : a fast, lightweight, polyglot static analysis tool to find bugs'
   description: "Semgrep, which stands for \u201Csemantic grep,\u201D is a fast, lightweight,
     polyglot, open source static analysis tool to find bugs and enforce code standards.
@@ -684,9 +862,26 @@ watch:
   published_at: 2015-09-18T00:00:00.000Z
   language: Unknown
   category: Science & Technology
+- name: Stack allocation for OCaml
+  description: "Stack allocation for OCaml\r\n\r\nStephen Dolan (Jane Street)\r\nLeo
+    White (Jane Street)\r\n\r\nAllocating values on a stack instead of the garbage
+    collected heap can improve performance by improving cache locality and avoiding
+    GC pauses. However, it requir..."
+  embed_path: /videos/embed/6c86b050-334b-4a11-bb04-c347a6e57215
+  thumbnail_path: /static/thumbnails/51391b6c-3323-4a30-abb0-2c7990b3b5db.jpg
+  published_at: 2022-10-19T00:00:00.000Z
+  language: English
+  category: Science & Technology
 - name: State of the OCaml Platform
   embed_path: /videos/embed/390ce74c-f85f-477d-8f20-504437409add
   thumbnail_path: /static/thumbnails/33258292-009b-42ee-83d3-9eb4bfb4e048.jpg
+  published_at: 2018-01-12T00:00:00.000Z
+  language: English
+  category: Science & Technology
+- name: State of the OCaml Platform 2017
+  description: Anil Madhavapeddy
+  embed_path: /videos/embed/3940b98a-6b33-41f7-b0e7-4b7ae5ec2b4b
+  thumbnail_path: /static/thumbnails/241e14b9-6e25-4eda-bf95-9d33074666bc.jpg
   published_at: 2018-01-12T00:00:00.000Z
   language: English
   category: Science & Technology
@@ -714,6 +909,33 @@ watch:
   published_at: 2021-10-03T22:19:07.925Z
   language: English
   category: Misc
+- name: 'SundialsML: interfacing with numerical solvers'
+  description: 'Timothy Bourke, Jun Inoue, Marc Pouzet '
+  embed_path: /videos/embed/3a00e727-45da-4c4a-a446-927cb28bb6bc
+  thumbnail_path: /static/thumbnails/7ca45ca6-3fe4-4429-b7da-56ab18f3210f.jpg
+  published_at: 2016-10-07T00:00:00.000Z
+  language: English
+  category: Science & Technology
+- name: Supporting FLAT concepts in Learn-OCaml
+  description: "Supporting FLAT concepts in Learn-OCaml: seeing is believing, programming
+    is understanding\r\n\r\nArtur Miguel Dias (NOVA University of Lisbon and NOVA
+    LINCS)\r\nSim\xE3o Melo de Sousa (Universidade da Beira Interior and NOVA LINCS)\r\nAntonio
+    Ravara (NOVA L..."
+  embed_path: /videos/embed/aa552395-666e-4394-a42f-faaa6f3da92c
+  thumbnail_path: /static/thumbnails/3508c107-3f53-4000-b4d6-15ccfb72f070.jpg
+  published_at: 2022-10-19T00:00:00.000Z
+  language: English
+  category: Science & Technology
+- name: Supporting a decade of opam
+  description: "Supporting a decade of opam\r\n\r\nDavid Allsopp (Tarides UK)\r\nRaja
+    Boujbel (OCamlPro)\r\nKate Deplaix (Tarides UK)\r\nLouis Gesbert (OCamlPro)\r\n\r\nOPAM
+    1.2 was released in 2014. It was four years before opam 2.0 succeeded it, and
+    another three for opam 2...."
+  embed_path: /videos/embed/039f1096-a63c-4a88-af4b-dcc48791d723
+  thumbnail_path: /static/thumbnails/9443d37b-6a7a-4a90-ac14-48520c1ab0c7.jpg
+  published_at: 2022-10-19T00:00:00.000Z
+  language: English
+  category: Science & Technology
 - name: The ImpFS filesystem
   description: "This proposal describes a presentation to be given at the OCaml\u201920
     workshop. The presentation will cover a new OCaml filesystem, ImpFS, and the related
@@ -828,6 +1050,16 @@ watch:
   published_at: 2021-10-03T23:06:53.043Z
   language: English
   category: Misc
+- name: Tracing OCaml Programs
+  description: "Tracing OCaml Programs\r\n\r\nDarius Foo (National University of Singapore)\r\nWei-Ngan
+    Chin (National University of Singapore)\r\n\r\nThis presentation will cover a
+    framework for application-level tracing of OCaml programs. We outline a solution
+    to the mai..."
+  embed_path: /videos/embed/3b4401ec-f0a8-44bb-97ad-18e05c2135f9
+  thumbnail_path: /static/thumbnails/b41c4404-47d5-4a59-8baf-a17671156f5f.jpg
+  published_at: 2022-10-19T00:00:00.000Z
+  language: English
+  category: Science & Technology
 - name: Transport Layer Security purely in OCaml
   description: "Transport Layer Security purely in OCaml by Hannes Mehnert and David
     Kaloper Mer\u0161injak\r\n\r\nTransport Layer Security purely in OCamlTransport
@@ -854,6 +1086,13 @@ watch:
   published_at: 2021-10-03T22:10:19.844Z
   language: English
   category: Misc
+- name: 'Wall: rendering vector graphics with OCaml and OpenGL'
+  description: "Speaker: Fr\xE9d\xE9ric Bour"
+  embed_path: /videos/embed/2472168c-04aa-497d-a931-f866c7036550
+  thumbnail_path: /static/thumbnails/0f045c03-56e5-496b-9393-088316a519c0.jpg
+  published_at: 2018-11-26T00:00:00.000Z
+  language: English
+  category: Science & Technology
 - name: What's new in OCamls 4.03
   description: What is new in OCaml 4.03? by Damien Doligez
   embed_path: /videos/embed/b967996a-3dab-415f-8e51-d8908361b2b2
@@ -861,6 +1100,13 @@ watch:
   published_at: 2021-10-08T23:45:42.515Z
   language: English
   category: Misc
+- name: Who's got you mail? Mr  Mime!
+  description: Romain Calascibetta
+  embed_path: /videos/embed/98a7972d-9323-46b3-81cc-dd86a4cc1ab3
+  thumbnail_path: /static/thumbnails/3527c880-96e8-4bfb-b9b4-a668597f488f.jpg
+  published_at: 2016-10-07T00:00:00.000Z
+  language: English
+  category: Science & Technology
 - name: Wibbily Wobbly Timey Camly
   description: Time handling is commonly considered a difficult problem by programmers
     due to myriad standards and complexity of time zone definitions. This also complicates
@@ -869,6 +1115,13 @@ watch:
   embed_path: /videos/embed/ec641446-823b-40ec-a207-85157a18f88e
   thumbnail_path: /static/thumbnails/2300474a-7615-4c92-9489-9ff5117d8bc7.jpg
   published_at: 2021-08-27T10:37:18.000Z
+  language: English
+  category: Science & Technology
+- name: 'Winning on Windows: porting the OCaml platform'
+  description: 'Speaker: David Allsopp'
+  embed_path: /videos/embed/5020256d-eeb0-4e0b-81db-cde8ba00e3d7
+  thumbnail_path: /static/thumbnails/bf412566-70b3-4be4-99e4-46789e33b447.jpg
+  published_at: 2018-11-26T00:00:00.000Z
   language: English
   category: Science & Technology
 - name: gloc - Metaprogramming WebGL Shaders with OCaml
