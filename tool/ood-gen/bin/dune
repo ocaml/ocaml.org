@@ -11,4 +11,4 @@
 (executable
  (name watch_scrape)
  (modules watch_scrape)
- (libraries yaml ezjsonm piaf))
+ (libraries yaml ezjsonm ood_gen))

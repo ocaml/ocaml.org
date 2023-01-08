@@ -78,7 +78,6 @@
   (timedesc
    (>= 0.8.0))
   ; tools/ood-gen
-  piaf
   ppx_deriving_yaml
   ezjsonm
   lambdasoup

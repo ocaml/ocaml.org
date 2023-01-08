@@ -1,6 +1,3 @@
-open Piaf
-open Lwt_result.Syntax
-
 type watch = {
   name : string;
   embed_path : string;
@@ -74,54 +71,27 @@ let get_videos ?start () =
           ("count", [ string_of_int max_count_per_request ]);
         ]
   in
-  let* response =
-    Client.Oneshot.get (Uri.add_query_params videos_url query_params)
-  in
-  let+ body = Body.to_string response.body in
-  let body = Ezjsonm.value_from_string body in
+  let uri = Uri.add_query_params videos_url query_params in
+  let response = Ood_gen.Http_client.get_sync uri in
+  let body = Ezjsonm.value_from_string response in
   let data = Ezjsonm.(find body [ "data" ]) in
   let total = Ezjsonm.find body [ "total" ] |> Ezjsonm.get_int in
   (total, Ezjsonm.get_list of_json data)
 
 let get_all_videos () =
-  let get_videos_or_err results =
-    try
-      Ok
-        (List.map
-           (function Ok v -> v | Error err -> failwith (Error.to_string err))
-           results)
-    with Failure m -> Error (`Msg m)
+  let total, data = get_videos () in
+  let rec aux acc =
+    if List.length acc < total then
+      let _, new_videos = get_videos ~start:(List.length acc) () in
+      aux (acc @ new_videos)
+    else acc
   in
-  let* total, first = get_videos () in
-  let+ rest =
-    if total > max_count_per_request then
-      (* Plus one for the remainder of the videos *)
-      let reqs = (total / max_count_per_request) + 1 in
-      (* Skip first amount as we have them *)
-      let offsets = List.init reqs (fun i -> max_count_per_request * (i + 1)) in
-      let* videos =
-        Lwt_result.ok
-        @@ Lwt_list.map_p
-             (fun start ->
-               let+ _total, videos = get_videos ~start () in
-               videos)
-             offsets
-      in
-      Lwt.return (get_videos_or_err videos)
-    else Lwt.return (Ok [])
-  in
-  List.concat (first :: rest)
-
-let run () =
-  match Lwt_main.run @@ get_all_videos () with
-  | Ok v -> v
-  | Error err ->
-      Fmt.epr "%s" (Error.to_string err);
-      exit 1
+  aux data
 
 let () =
   let watch =
-    run () |> List.stable_sort (fun w1 w2 -> String.compare w1.name w2.name)
+    get_all_videos ()
+    |> List.stable_sort (fun w1 w2 -> String.compare w1.name w2.name)
   in
   let videos = { watch } in
   let yaml = to_yaml videos in
