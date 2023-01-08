@@ -23,7 +23,7 @@ type 'a rle =
                               else aux 0 (rle count a :: acc) t
     in
       List.rev (aux 0 [] list);;
-val encode : 'a list -> 'a rle list = <fun>
+val encode : int list -> int rle list = <fun>
 ```
 
 # Statement
