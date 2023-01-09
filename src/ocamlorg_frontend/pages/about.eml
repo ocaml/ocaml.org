@@ -216,7 +216,8 @@ Layout.render
               There are several different methods available for debugging OCaml programs. The interactive REPL offers an
               elementary, yet fast and simple method to test functions. For more complex cases, the interactive system
               provides a cheap way of "tracing" computations. Finally, OCaml has an extremely powerful tool for
-              following a program's execution called the symbolic relay debugger. It enables the user to stop a program
+              following a program's execution called <code><a href="/manual/debugger.html">ocamldebug</a></code>, it is a
+              symbolic (i.e. source level) replay debugger. It enables the user to stop a program
               at any time to scrutinise the value of variables and the stack of calling functions. It even allows going
               back into the past to resume execution at a particular point of interest.
             </li>
