@@ -126,8 +126,7 @@ body {
   padding: 0.2rem 0rem;
 }
 
-.prose :is(h1, h2, h3, h4, h5, h6) > a:hover::before,
-.prose :is(h1, h2, h3, h4, h5, h6) > a:hover code::before {
+.prose :is(h1, h2, h3, h4, h5, h6) > a:hover::before {
   content: "#";
   position: absolute;
   color: rgb(90, 98, 111);
