@@ -4,7 +4,7 @@ let sidebar
 ~maptoc
 (package : Package_intf.package)
 =
-  <div class="flex flex-col">
+  <div class="flex flex-col font-normal text-body-400">
     <% if str_path != [] && toc != [] then ( %>
     <a title="Package <%s package.name %>" class="xl:hidden py-1 font-regular text-body-600 hover:text-orange-600 transition-colors mb-6" href="<%s Url.package_doc package.name package.version %>">
       back to documentation root
@@ -61,13 +61,13 @@ Package_layout.render
 
   <div class="flex flex-col lg:flex-row md:gap-12">
     <div
-      class="p-10 z-10 w-full bg-white flex-shrink-0 flex-col fixed h-screen overflow-auto lg:pr-0 lg:flex left-0 top-0 lg:sticky lg:w-72 lg:p-0 lg:pt-6 font-normal text-body-400"
+      class="p-10 z-10 w-full bg-white flex-col fixed h-screen overflow-auto lg:pr-0 lg:flex left-0 top-0 lg:sticky lg:w-72 lg:p-0 lg:pt-6"
       x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
       x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
       x-transition:leave-end="-translate-x-full">
       <%s! sidebar ~str_path ~toc ~maptoc package %>
     </div>
-    <div class="flex-1 z-0 z- w-full lg:max-w-3xl relative lg:pt-6">
+    <div class="flex-1 z-0 z- overflow-hidden lg:max-w-3xl lg:pt-6">
       <% if (maptoc != []) && (List.length path > 1) then (%>
         <div class="text-body-400">
           <%s! Breadcrumbs.render path %>
@@ -77,13 +77,9 @@ Package_layout.render
         <%s! content %>
       </div>
     </div>
-    <div class="hidden xl:flex top-0 sticky h-screen">
-      <div class="flex-col w-60">
-        <div class="h-screen overflow-scroll right-sidebar pt-6">
-          <div class="font-semibold text-gray-500 text-sm mb-4">ON THIS PAGE</div>
-          <%s! Toc.render toc %>
-        </div>
-      </div>
+    <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto right-sidebar">
+      <div class="font-semibold text-gray-500 text-sm mb-4">ON THIS PAGE</div>
+      <%s! Toc.render toc %>
     </div>
   </div>
 </div>

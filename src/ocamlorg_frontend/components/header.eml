@@ -33,18 +33,19 @@ let render ?(wide=false) () =
         </form>
       </div>
       <div class="hidden lg:flex">
-        <a href="<%s Url.getting_started %>"><button class="btn btn-sm">Get Started</button></a>
+        <a href="<%s Url.getting_started %>" class="btn btn-sm">Get Started</a>
       </div>
 
       <div
         class="hamburger lg:hidden flex h-12 w-12 hover:bg-primary-100 flex items-center justify-center rounded-full"
         x-on:click="open = ! open">
-        <dib class="text-body-400 dark:text-white">
+        <div class="text-body-400 dark:text-white">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M4 6h16M4 10h16M4 14h16M4 18h16" />
           </svg>
+        </div>
       </div>
     </div>
   </div>
@@ -66,8 +67,8 @@ let render ?(wide=false) () =
               stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
-            </i>
           </div>
+        </div>
       </li>
       <li>
         <form action="/packages/search" method="GET" class="form-input form-input-sm">
@@ -98,11 +99,10 @@ let render ?(wide=false) () =
         <a class="block" href="<%s Url.playground %>">Playground</a>
       </li>
       <li>
-        <a href="<%s Url.getting_started %>"><button class="btn w-full">Get started</button></a>
+        <a href="<%s Url.getting_started %>" class="btn w-full">Get started</a>
       </li>
 
       <li>
-
         <div class="space-x-6 text-2xl flex items-center">
           <a aria-label="OCaml's Discord" href="https://discord.gg/cCYQbqN" class="opacity-60 hover:opacity-100">
             <svg width="24" height="100%" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -117,7 +117,6 @@ let render ?(wide=false) () =
                 </clipPath>
               </defs>
             </svg>
-
           </a>
           <a aria-label="The OCaml Compiler on GitHub" href="https://github.com/ocaml/ocaml" class="opacity-60 hover:opacity-100">
             <svg width="20" height="100%" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">

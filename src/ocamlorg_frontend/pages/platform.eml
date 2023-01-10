@@ -6,8 +6,8 @@ Learn_layout.render
 ~title:"OCaml Platform"
 ~description:"The OCaml Platform represents the best way for developers, both new and old, to write software in OCaml."
 ~canonical:Url.platform
-(Learn_sidebar.render ~current_tutorial:(Some "platform") ~tutorials) @@
-<div class="flex-1 flex flex-col md:pl-10 min-w-0">
+~left_sidebar_html:(Learn_sidebar.render ~current_tutorial:(Some "platform") ~tutorials)
+~right_sidebar_html:None @@
   <div class="prose prose-orange max-w-none">
     <h1>The OCaml Platform</h1>
     <p>
@@ -165,16 +165,15 @@ Learn_layout.render
       </div>
     </div>
   </div>
-</div>
-<script>
-  function videoFullWidth() {
-    return {
-      isPlaying: false,
-      embed_url: "https://watch.ocaml.org/videos/embed/0e2070fd-798b-47f7-8e69-ef75e967e516",
-      iframe_param: "?autoplay=1&mute=1",
-      iframe_url() {
-        return this.embed_url + this.iframe_param;
-      },
-    };
-  }
-</script>
+  <script>
+    function videoFullWidth() {
+      return {
+        isPlaying: false,
+        embed_url: "https://watch.ocaml.org/videos/embed/0e2070fd-798b-47f7-8e69-ef75e967e516",
+        iframe_param: "?autoplay=1&mute=1",
+        iframe_url() {
+          return this.embed_url + this.iframe_param;
+        },
+      };
+    }
+  </script>
