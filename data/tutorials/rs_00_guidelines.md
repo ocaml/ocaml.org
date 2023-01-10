@@ -134,12 +134,12 @@ In conclusion, copy-pasting code leads to programs that are more
 difficult to read and more difficult to maintain: it has to be banished.
 
 ###  How to comment programs
-####  Don't hesitate to comment when there's a difficulty
-####  If there's no difficulty, there's no point in commenting
-####  Avoid comments in the bodies of functions
-####  Prefer one comment at the beginning of the function...
-...which explains how the algorithm that is used works. Once more, if
-there is no difficulty, there is no point in commenting.
+
+Don't hesitate to comment when there's a difficulty. If there's no difficulty,
+there's no point in commenting. Avoid comments in the bodies of functions.
+Prefer one comment at the beginning of the function which explains how the
+algorithm that is used works. Once more, if there is no difficulty, there is no
+point in commenting.
 
 ####  Avoid nocuous comments
 A *nocuous* comment is a comment that does not add any value, i.e. no
@@ -329,12 +329,12 @@ these definitions into one or more module(s) without implementations
 module which exports the shared type definitions.
 
 ###  Pattern-matching
-####  Never be afraid of over-using pattern-matching!
-####  On the other hand, be careful to avoid non-exhaustive pattern-matching constructs
-Complete them with care, without using a “catch-all” clause such as
-`| _ -> ...` or `| x -> ...` when it's possible to do without it (for
-example when matching a concrete type defined within the program). See
-also the next section: compiler warnings.
+
+Never be afraid of over-using pattern-matching! On the other hand, be careful to
+avoid non-exhaustive pattern-matching constructs. Complete them with care,
+without using a “catch-all” clause such as `| _ -> ...` or `| x -> ...` when
+it's possible to do without it (for example when matching a concrete type
+defined within the program). See also the next section: compiler warnings.
 
 ###  Compiler warnings
 Compiler warnings are meant to prevent potential errors; this is why you
@@ -347,8 +347,6 @@ own work!
 Warnings about pattern-matching must be treated with the upmost care:
 
 * Those concerning useless clauses should of course be eliminated.
-
-
 * For non-exhaustive pattern-matching you must complete the
  corresponding pattern-matching construct, without adding a default
  case “catch-all”, such as `| _ -> ... `, but with an explicit
@@ -1001,17 +999,17 @@ read. Do the same in your programs if you want them to be readable.
 
 ###  How to write pairs
 A tuple is parenthesized and the commas therein (delimiters) are each
-followed by a space: `(1, 2)`, `let   triplet = (x, y, z)`...
+followed by a space: `(1, 2)`, `let triplet = (x, y, z)`...
 
-* **Commonly accepted exceptions**:
-    * **Definition of the components of a pair**: In place of
+**Commonly accepted exceptions**:
+  - **Definition of the components of a pair**: In place of
  `let (x, y) =       ...`, you can write `let x, y = ...`.
 
-> **Justification**: The point is to define several values
-> simultaneously, not to construct a tuple. Moreover, the
-> pattern is set off nicely between `let` and `=`.
+    > **Justification**: The point is to define several values
+    > simultaneously, not to construct a tuple. Moreover, the
+    > pattern is set off nicely between `let` and `=`.
 
-- **Matching several values simultaneously**: It's okay to omit
+  - **Matching several values simultaneously**: It's okay to omit
   parentheses around n-tuples when matching several values
   simultaneously.
 
@@ -1020,10 +1018,10 @@ followed by a space: `(1, 2)`, `let   triplet = (x, y, z)`...
         | x, 1 -> ...
         | x, y -> ...
 
-  > **Justification**: The point is to match several values in
-  > parallel, not to construct a tuple. Moreover, the expressions
-  > being matched are set off by `match` and `with`, while the
-  > patterns are set off nicely by `|` and `->`.
+    > **Justification**: The point is to match several values in
+    > parallel, not to construct a tuple. Moreover, the expressions
+    > being matched are set off by `match` and `with`, while the
+    > patterns are set off nicely by `|` and `->`.
 
 
 ###  How to write lists
