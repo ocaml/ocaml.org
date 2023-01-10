@@ -26,13 +26,13 @@ h3 {
 }
 
 h4 {
-  font-size: 24px;
+  font-size: 18px;
   line-height: 110%;
 }
 
 @media (min-width: 1024px) {
   h4 {
-    font-size: 28px;
+    font-size: 18px;
   }
 }
 
