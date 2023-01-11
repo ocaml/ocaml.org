@@ -374,14 +374,14 @@ Warnings about pattern-matching must be treated with the upmost care.
  also be corrected. A typical case consists in suppressing a
  redundant guard.
 
-####  De-structuring `let` bindings
-A “de-structuring `let` binding” is one which
+####  Destructuring `let` bindings
+A “destructuring `let` binding” is one which
 binds several names to several expressions simultaneously. You pack all
 the names you want bound into a collection such as a tuple or a list,
 then you correspondingly pack all the expressions into a collective
 expression. When the `let` binding is evaluated, it unpacks the
 collections on both sides and binds each expression to its corresponding
-name. For example, `let x, y = 1, 2` is a de-structuring `let` binding
+name. For example, `let x, y = 1, 2` is a destructuring `let` binding
 that performs both the bindings `let x = 1` and `let y = 2`
 simultaneously.
 
@@ -395,15 +395,15 @@ can use it with more complex or simpler patterns. For instance:
  `let _ = ...` does not define anything, it just evaluate the
  expression on the right hand side of the `=` symbol.
 
-####  The de-structuring `let` must be exhaustive
-Only use de-structuring `let` bindings when the
+####  The destructuring `let` must be exhaustive
+Only use destructuring `let` bindings when the
 pattern-matching is exhaustive (the pattern can never fail to match).
 Typically, you will thus be limited to product-type definitions
 (tuples or records) or, with a single case, variant-type definitions.
 At any other time, use an explicit `match   ... with`
 construct.
 
-* `let ... in`: de-structuring `let` that gives a warning must be
+* `let ... in`: destructuring `let` that gives a warning must be
  replaced by an explicit pattern-matching. For instance, instead of
  `let [x; y] as l = List.map succ     (l1 @ l2) in expression` write:
 
@@ -415,7 +415,7 @@ match List.map succ (l1 @ l2) with
 ```
 
 
-* Global definition with de-structuring `lets` should be rewritten with
+* Global definition with destructuring `let` statements should be rewritten with
  explicit pattern-matching and tuples:
 
 <!-- $MDX skip -->
@@ -429,7 +429,7 @@ let x, y, l =
 
 > 
 > **Justification**: There is no way to make the pattern-matching
-> exhaustive if you use general de-structuring `let` bindings.
+> exhaustive if you use general destructuring `let` bindings.
 > 
 
 ####  Sequence warnings and `let _ = ...`
