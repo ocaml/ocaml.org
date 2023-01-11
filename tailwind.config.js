@@ -7,15 +7,28 @@ module.exports = {
     extend: {
       typography: {
         DEFAULT: {
-          css: {
+          css: [{
             'code::before': {
               content: '""',
             },
             'code::after': {
               content: '""',
             },
-          }
-        }
+          },{
+            h1: {
+              fontWeight: 700,
+            },
+            code: {
+              fontSize: "1em",
+            },
+            'h2 code': {
+              fontSize: "1em",
+            },
+            'h3 code': {
+              fontSize: "1em",
+            },
+          }]
+        },
       },
       maxWidth: {
         '8xl': '90rem',
