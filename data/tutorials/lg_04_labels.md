@@ -376,7 +376,7 @@ when calling functions as well as declaring the arguments to functions,
 hence in the above the highlighted red `~last` is short for
 `~last:last`.
 
-### Using `?Foo` in a Function Call
+### Using `?foo` in a Function Call
 There's another little wrinkle concerning optional arguments. Suppose we
 write a function around `open_window` to open up an application:
 

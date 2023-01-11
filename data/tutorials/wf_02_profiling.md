@@ -85,7 +85,7 @@ single byte. `.ascii` writes a string of bytes (NOT nul-terminated).
 `.space` writes the given number of zero bytes. Normally you use these
 in the data segment.
 
-### The `hello, world` Program
+### The “hello, world” Program
 Enough assembler. Put the following program into a file called
 `smallest.ml`:
 
