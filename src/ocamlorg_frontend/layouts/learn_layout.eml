@@ -111,7 +111,7 @@ inner_html
           x-transition:leave-end="-translate-x-full">
           <%s! left_sidebar_html %>
         </div>
-        <div class="flex-1 z-0 z- overflow-hidden lg:pt-6 <%s! if right_sidebar_html != None then "lg:max-w-3xl" else "" %>">
+        <div class="flex-1 z-0 z- min-w-0 lg:pt-6 <%s! if right_sidebar_html != None then "lg:max-w-3xl" else "" %>">
           <%s! inner_html %>
         </div>
         <% (match right_sidebar_html with
