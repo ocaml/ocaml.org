@@ -112,6 +112,10 @@ body {
   scroll-margin-top: 2rem;
 }
 
+.prose :is(h1, h2, h3, h4, h5, h6) {
+  position:relative;
+}
+
 .prose :is(h1, h2, h3, h4, h5, h6) > a,
 .prose :is(h1, h2, h3, h4, h5, h6) > a code,
 .prose :is(h1, h2, h3, h4, h5, h6) > a:hover,
@@ -121,12 +125,11 @@ body {
 }
 
 .prose :is(h1:target, h2:target, h3:target, h4:target, h5:target, h6:target) {
-  position:relative;
   background:rgb(255, 243, 173);
   padding: 0.2rem 0rem;
 }
 
-.prose :is(h1, h2, h3, h4, h5, h6) > a:hover::before {
+.prose :is(h1, h2, h3, h4, h5, h6)[id]:hover::before {
   content: "#";
   position: absolute;
   color: rgb(90, 98, 111);
@@ -134,6 +137,15 @@ body {
   padding: 0.39em;
   margin-top: -.37em;
   font-weight: 500;
+}
+
+.prose :is(h1, h2, h3, h4, h5, h6) > a.anchor {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 0;
 }
 
 .prose a:hover {
