@@ -251,7 +251,7 @@ $ opam install dune merlin ocaml-lsp-server odoc ocamlformat utop
 
 Now that the tools are installed, it remains to understand how to use them. Most of them will be driven either by the editor or by Dune, but UTop is handy to try OCaml or a specific library.
 
-## Up and Running with the Platform Installer
+## Up and Running With the Platform Installer
 
 As of 2023, the [OCaml Platform
 Installer](https://github.com/tarides/ocaml-platform-installer), presented
@@ -296,7 +296,7 @@ for more information.
 `ocaml-platform` can be run again at any time to install the tools in another
 opam switch for example.
 
-## Using the OCaml Toplevel with UTop
+## Using the OCaml Toplevel With UTop
 
 UTop is an extended and improved toplevel (REPL) for OCaml. Unlike the standard toplevel with the `ocaml` command, UTop features history, tab completion, interactive line editing, and the ability to load any package installed in your switch.
 

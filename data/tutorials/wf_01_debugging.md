@@ -16,7 +16,7 @@ This tutorial presents two techniques for debugging OCaml programs:
 * The [OCaml debugger](#the-ocaml-debugger), which allows analysing programs
   compiled with `ocamlc`.
 
-## Tracing functions calls in the toplevel
+## Tracing Functions Calls in the Toplevel
 
 The simplest way to debug programs in the toplevel is to follow the function
 calls, by “tracing” the faulty function:
@@ -42,7 +42,7 @@ fib --> 3
 fib is no longer traced.
 ```
 
-###  Polymorphic functions
+### Polymorphic Functions
 
 A difficulty with polymorphic functions is that the output of the trace system
 is not very informative in case of polymorphic arguments and/or results.
@@ -135,7 +135,7 @@ one_pass_vect* --> ()
 - : unit = ()
 ```
 
-###  Limitations
+### Limitations
 
 To keep track of assignments to data structures and mutable variables in a
 program, the trace facility is not powerful enough. You need an extra mechanism
@@ -159,13 +159,13 @@ purpose formats are more suited to get the relevant information, than what can
 be output automatically by the generic pretty-printer used by the trace
 mechanism.
 
-## The OCaml debugger
+## The OCaml Debugger
 
 We now give a quick tutorial for the OCaml debugger (`ocamldebug`).  Before
 starting, please note that `ocamldebug` does not work under native Windows
 ports of OCaml (but it runs under the Cygwin port).
 
-###  Launching the debugger
+### Launching the Debugger
 
 Consider the following obviously wrong program written in the file
 `uncaught.ml`:
@@ -209,7 +209,7 @@ OCaml Debugger version 4.14.0
 (ocd)
 ```
 
-###  Finding the cause of a spurious exception
+### Finding the Cause of a Spurious Exception
 
 Type `r` (for *run*); you get
 
@@ -272,7 +272,7 @@ option, to be ready to debug the program if necessary. Hence, to find a
 spurious exception you just need to type `ocamldebug a.out`, then `r`, `b`, and
 `bt` gives you the backtrace.
 
-###  Getting help and info in the debugger
+### Getting Help and Info in the Debugger
 
 To get more info about the current status of the debugger you can ask it
 directly at the toplevel prompt of the debugger; for instance:
@@ -289,7 +289,7 @@ break @ [module] linenum
 break @ [module] # characternum
 ```
 
-###  Setting break points
+### Setting Break Points
 
 Let's set up a breakpoint and rerun the entire program from the
 beginning (`(g)oto 0` then `(r)un`):
@@ -326,7 +326,7 @@ $1 : (string * string) list = ["IRIA", "Rocquencourt"]
 
 Now we can guess why `List.assoc` will fail to find "INRIA" in the list...
 
-###  Using the debugger under Emacs
+### Using the Debugger Under Emacs
 
 Under Emacs you call the debugger using `ESC-x` `ocamldebug a.out`. Then Emacs
 will send you directly to the file and character reported by the debugger, and

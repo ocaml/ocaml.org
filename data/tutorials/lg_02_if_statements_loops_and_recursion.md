@@ -9,7 +9,7 @@ date: 2021-05-27T21:07:30-00:00
 
 # If Statements, Loops and Recursions
 
-## If statements (actually, these are if expressions)
+## If Statements (Actually, These Are if Expressions)
 OCaml has an `if` statement with two variations, and the obvious meaning:
 
 <!-- $MDX skip -->
@@ -171,7 +171,7 @@ let string_of_float f =
       else s ^ "."
 ```
 
-## Using begin ... end
+## Using `begin ... end`
 Here is some code from lablgtk:
 
 <!-- $MDX skip -->
@@ -233,7 +233,7 @@ ELSE
 Exception: Failure "else clause".
 ```
 
-## For loops and while loops
+## For Loops and While Loops
 OCaml supports a rather limited form of the familiar `for` loop:
 
 <!-- $MDX skip -->
@@ -339,7 +339,7 @@ let quit_loop = ref false in
   done;;
 ```
 
-## Looping over lists
+## Looping Over Lists
 If you want to loop over a list, don't be an imperative programmer and
 reach for your trusty six-shooter Mr. For Loop! OCaml has some better
 and faster ways to loop over lists, and they are all located in the
@@ -465,7 +465,7 @@ val fact : int -> int = <fun>
 overflows the integers and gives wrong answers even for quite small
 values of `n`.)
 
-## Looping over strings
+## Looping Over Strings
 The `String` module also contains many dozens of useful string-related
 functions, and some of them are concerned with looping over strings.
 
@@ -488,17 +488,17 @@ In the first example we're going to read the whole of a file into memory
 (into a long string). There are essentially three possible approaches to
 this:
 
-###  Approach 1
+### Approach 1
 Get the length of the file, and read it all in one go using the
 `really_input` method. This is the simplest, but it might not work on
 channels which are not really files (eg. reading keyboard input) which
 is why we look at the other two approaches.
 
-###  Approach 2
+### Approach 2
 The imperative approach, using a while loop which is broken out of using
 an exception.
 
-###  Approach 3
+### Approach 3
 A recursive loop, breaking out of the recursion again using an
 exception.
 
@@ -812,7 +812,7 @@ let fs = read_directory path in
 print_endline (string_of_filesystem fs)
 ```
 
-###  Recursion example: maximum element in a list
+### Recursion Example: Maximum Element in a List
 Remember the basic recursion pattern for lists:
 
 <!-- $MDX skip -->
@@ -896,7 +896,7 @@ prove that `list_max` is correct ("correct" being the mathematical way
 to say that a program is provably bug-free, useful for space shuttles,
 nuclear power plants and higher quality software in general).
 
-###  Tail recursion
+### Tail Recursion
 Let's look at the `range` function again for about the twentieth time:
 
 ```ocaml
@@ -1027,7 +1027,7 @@ catastrophically in the field when exposed to large inputs. This is one
 argument *against* using recursive functions, and for using explicit
 while loops when possible.
 
-## Mutable records, references (again!) and arrays
+## Mutable Records, References (Again!) and Arrays
 Previously we mentioned records in passing. These are like C `struct`s:
 
 ```ocaml
@@ -1203,7 +1203,7 @@ val mmult :
 Exception: Failure "int_of_string".
 ```
 
-## Mutually recursive functions
+## Mutually Recursive Functions
 Suppose I want to define two functions which call each other. This is
 actually not a very common thing to do, but it can be useful sometimes.
 Here's a contrived example (thanks to Ryan Tarpine): The number 0 is

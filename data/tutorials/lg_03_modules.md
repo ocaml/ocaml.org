@@ -9,7 +9,7 @@ date: 2021-05-27T21:07:30-00:00
 
 # Modules
 
-## Basic usage
+## Basic Usage
 
 ### File-Based Modules
 
@@ -153,7 +153,7 @@ val map_3d_matrix' :
   ('a -> 'b) -> 'a array array array -> 'b array array array = <fun>
 ```
 
-## Interfaces and signatures
+## Interfaces and Signatures
 
 A module can provide a certain number of things (functions, types, submodules,
 ...) to the rest of the program that is using it. If nothing special is done,
@@ -290,7 +290,7 @@ implementation, including data structures.
 
 ## Submodules
 
-###  Submodule implementation
+### Submodule Implementation
 
 We saw that one `example.ml` file results automatically in one module
 implementation named `Example`. Its module signature is automatically derived
@@ -324,7 +324,7 @@ let () =
   Example.goodbye ()
 ```
 
-###  Submodule interface
+### Submodule Interface
 
 We can also restrict the interface of a given submodule. It is called a module
 type. Let's do it in our `example.ml` file:
@@ -367,9 +367,9 @@ end
 `Hello_type` is a named module type, and can be reused to define other module
 interfaces.
 
-## Practical manipulation of modules
+## Practical Manipulation of Modules
 
-###  Displaying the interface of a module
+### Displaying the Interface of a Module
 
 You can use the `ocaml` toplevel to visualize the contents of an existing
 module, such as `List`:
@@ -447,7 +447,7 @@ module List :
 
 There is online documentation for each library.
 
-###  Module inclusion
+### Module Inclusion
 
 Let's say we feel that a function is missing from the standard `List` module,
 but we really want it as if it were part of it. In an `extensions.ml` file, we

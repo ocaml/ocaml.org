@@ -19,7 +19,7 @@ Hopefully it will not become worse. Anyway, if you want more details,
 you should read the documentation about each of the modules. Often, it
 is also instructive to read the corresponding implementation.
 
-## Lists: immutable singly-linked lists
+## `List`: Immutable Singly-Linked Lists
 Adding an element always creates a new list l from an element x and list
 tl. tl remains unchanged, but it is not copied either.
 
@@ -31,7 +31,7 @@ Well-suited for: IO, pattern-matching
 
 Not very efficient for: random access, indexed elements
 
-## Arrays: mutable vectors
+## `Array`: Mutable Vectors
 Arrays are mutable data structures with a fixed length and random access.
 
 * adding an element (by creating a new array): O(n)
@@ -41,7 +41,7 @@ Arrays are mutable data structures with a fixed length and random access.
 Well-suited for sets of elements of known size, access by numeric index,
 in-place modification. Basic arrays have a fixed length.
 
-## Strings: immutable vectors
+## `String`: Immutable Vectors
 Strings are similar to arrays but are immutable. Strings are
 specialized for storing chars (bytes) and have some convenient syntax.
 Strings have a fixed length. For extensible strings, the standard Buffer
@@ -50,7 +50,7 @@ module can be used (see below).
 * adding an element (by creating a new string): O(n)
 * random access: O(1)
 
-## Set and Map: immutable trees
+## `Set` and `Map`: Immutable Trees
 Like lists, these are immutable and they may share some subtrees. They
 are a good solution for keeping older versions of sets of items.
 
@@ -59,7 +59,7 @@ are a good solution for keeping older versions of sets of items.
 * finding an element: O(log n)
 * finding the biggest or smallest: O(log n)
 
-## Hashtbl: automatically growing hash tables
+## `Hashtbl`: Automatically Growing Hash Tables
 Ocaml hash tables are mutable data structures, which are a good solution
 for storing (key, data) pairs in one single place.
 
@@ -67,7 +67,7 @@ for storing (key, data) pairs in one single place.
 * removing an element: O(1) amortized
 * finding an element: O(1)
 
-## Buffer: extensible strings
+## `Buffer`: Extensible Strings
 Buffers provide an efficient way to accumulate a sequence of bytes in a
 single place. They are mutable.
 

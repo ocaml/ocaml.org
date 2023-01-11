@@ -9,7 +9,7 @@ date: 2021-08-06T17:16:00-00:00
 
 # Functional Programming
 
-## What is functional programming?
+## What Is Functional Programming?
 We've got quite far into the tutorial, yet we haven't really considered
 **functional programming**. All of the features given so far - rich data
 types, pattern matching, type inference, nested functions - you could
@@ -116,7 +116,7 @@ that it's trying to save.
 Now look at the definition of `receiver_fn`. This function is a closure
 alright because it keeps a reference to `chan` from its environment.
 
-## Partial function applications
+## Partial Function Applications
 Let's define a plus function which just adds two integers:
 
 ```ocaml
@@ -261,7 +261,7 @@ Here's some more examples of partial application:
 val list_of_functions : (int -> int) list = [<fun>; <fun>; <fun>]
 ```
 
-##  What is functional programming good for?
+## What Is Functional Programming Good For?
 Functional programming, like any good programming technique, is a useful
 tool in your armoury for solving some classes of problems. It's very
 good for callbacks, which have multiple uses from GUIs through to
@@ -272,7 +272,7 @@ Certain types of numerical problems can be solved more quickly with
 functional programming (for example, numerically calculating the
 derivative of a mathematical function).
 
-##  Pure and impure functional programming
+## Pure and Impure Functional Programming
 A **pure function** is one without any **side-effects**. A side-effect
 really means that the function keeps some sort of hidden state inside
 it. `strlen` is a good example of a pure function in C. If you call
@@ -317,7 +317,7 @@ you go along. The current fashion is for carefully planning your
 programs using a top-down approach, but in the author's opinion this
 often results in projects failing.
 
-##  Strictness vs laziness
+## Strictness vs Laziness
 C-derived and ML-derived languages are strict. Haskell and Miranda are
 non-strict, or lazy, languages. OCaml is strict by default but allows a
 lazy style of programming where it is needed.
@@ -376,7 +376,7 @@ To evaluate a lazy expression, you must use the `Lazy.force` function:
 Exception: Division_by_zero.
 ```
 
-##  Boxed vs. unboxed types
+## Boxed vs. Unboxed Types
 One term which you'll hear a lot when discussing functional languages is
 "boxed". I was very confused when I first heard this term, but in fact
 the distinction between boxed and unboxed types is quite simple if
@@ -426,7 +426,7 @@ types of arrays above. In Java, you have two types, `int` which is
 unboxed and `Integer` which is boxed, and hence considerably less
 efficient. In OCaml, the basic types are all unboxed.
 
-## Aliases for function names and arguments
+## Aliases for Function Names and Arguments
 It's possible to use this as a neat trick to save typing: aliasing function
 names, and function arguments.
 

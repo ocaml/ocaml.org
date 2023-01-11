@@ -12,7 +12,7 @@ date: 2021-05-27T21:07:30-00:00
 In this tutorial we learn how to build our own types in OCaml, and how to write
 functions which process this new data.
 
-## Built-in compound types
+## Built-in Compound Types
 
 We have already seen simple data types such as `int`, `float`, `string`, and
 `bool`.  Let's recap the built-in compound data types we can use in OCaml to
@@ -101,7 +101,7 @@ val arr : int array = [|1; 2; 3|]
 In this tutorial, we will define our own compound data types, using the `type`
 keyword, and some of these built-in structures as building blocks.
 
-## A simple custom type
+## A Simple Custom Type
 
 We can define a new data type `colour` which can take one of four values.
 
@@ -157,7 +157,7 @@ We can match on more than one case at a time too:
 val is_primary : colour -> bool = <fun>
 ```
 
-## Constructors with data
+## Constructors with Data
 
 Each constructor in a data type can carry additional information with it. Let's
 extend our `colour` type to allow arbitrary RGB triples, each element begin a
@@ -234,7 +234,7 @@ type colour =
   | Mix of { proportion : float; c1 : colour; c2 : colour; }
 ```
 
-## Example: trees
+## Example: Trees
 
 Data types may be polymorphic as well as recursive. Here is an OCaml data type
 for a binary tree carrying any kind of data:
@@ -421,7 +421,7 @@ similar behaviour, can be called a _monad_ and `option` is often used to
 introduce monads. But don't freak out, you absolutely don't need to know what a
 monad is to use the `option` type.
 
-## Example: mathematical expressions
+## Example: Mathematical Expressions
 
 We wish to represent simple mathematical expressions like `n * (x + y)` and
 multiply them out symbolically to get `n * x + n * y`.
@@ -568,7 +568,7 @@ Name ("/DeviceGray" | "/DeviceRGB" | "/DeviceCMYK") as n -> n
 Node (l, ((k, _) as pair), r) when k = k' -> Some pair
 ```
 
-## Mutually recursive data types
+## Mutually Recursive Data Types
 
 Data types may be mutually-recursive when declared with `and`:
 
@@ -599,7 +599,7 @@ val sum_t' : t' -> int = <fun>
 val sum_t : t -> int = <fun>
 ```
 
-## A note on tupled constructors
+## A Note on Tupled Constructors
 
 There is a difference between `RGB of float * float * float` and 
 `RGB of (float * float * float)`. 
@@ -647,7 +647,7 @@ version:
 - : int = 0
 ```
 
-## Types and modules
+## Types and Modules
 
 Often, a module will provide a single type and operations on that type. For
 example, a module for a file format like PNG might have the following `png.mli`

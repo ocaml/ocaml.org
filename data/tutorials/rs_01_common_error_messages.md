@@ -13,8 +13,8 @@ This page gives a list of quick explanations for some error or warning
 messages that are emitted by the OCaml compilers. Longer explanations
 are usually given in dedicated sections of this tutorial.
 
-## Type errors
-###  This expression has type ... but is here used with type ...
+## Type Errors
+### `This expression has type ... but is here used with type ...`
 When the type of an object is not compatible with the context in which
 it is used, it is frequent to obtain this kind of message:
 
@@ -66,7 +66,7 @@ This kind of problem should not happen in real programs unless you use
 the same name for the same type in the same module, which is highly
 discouraged.
 
-###  Warning: This optional argument cannot be erased
+### `Warning: This optional argument cannot be erased`
 Functions with optional arguments must have at least one non-labelled
 argument. For instance, this is not OK:
 
@@ -87,7 +87,7 @@ val f : ?x:int -> ?y:int -> unit -> unit = <fun>
 See the [Labels](/docs/labels) section for more details on
 functions with labelled arguments.
 
-###  The type of this expression... contains type variables that cannot be generalized
+### `The type of this expression... contains type variables that cannot be generalized`
 This happens in some cases when the full type of an object is not known
 by the compiler when it reaches the end of the compilation unit (file)
 but for some reason it cannot remain polymorphic. Example:
@@ -140,8 +140,8 @@ Now `x` has a known type:
 - : int option ref = {contents = Some 0}
 ```
 
-## Pattern matching warnings and errors
-###  This pattern is unused
+## Pattern Matching Warnings and Errors
+### `This pattern is unused`
 This warning should be considered as an error, since there is no reason
 to intentionally keep such code. It may happen when the programmer
 introduced a catch-all pattern unintentionally such as in the following
@@ -181,7 +181,7 @@ will ever be tested. This leads to the following results:
 # test_member 1 (0, 1);;
 - : bool = false
 ```
-###  This pattern-matching is not exhaustive
+### `This pattern-matching is not exhaustive`
 OCaml's pattern matching can check whether a set of patterns is
 exhaustive or not, based on the *type* only. So in the following
 example, the compiler doesn't know what range of ints the "mod" operator
@@ -211,8 +211,8 @@ solution is to add a catch-all case which should never be reached:
 val is_even : int -> bool = <fun>
 ```
 
-## Problems recompiling valid programs
-###  x.cmi is not a compiled interface
+## Problems Recompiling Valid Programs
+### `x.cmi is not a compiled interface`
 When recompiling some old program or compiling a program from an
 external source that was not cleaned properly, it is possible to get
 this error message:
@@ -226,7 +226,7 @@ version* of the OCaml compiler. Most of the time, removing the old
 compiled files (*.cmi, *.cmo, *.cmx, ...) and recompiling is
 sufficient to solve this problem.
 	
-###  Warning: Illegal backslash escape in string
+### `Warning: Illegal backslash escape in string`
 Recent versions of OCaml warn you against unprotected backslashes in
 strings since they should be doubled. Such a message may be displayed
 when compiling an older program, and can be turned off with the `-w x`

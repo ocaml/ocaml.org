@@ -15,7 +15,7 @@ you may never have to define a functor yourself, but you will surely encounter
 them in the standard library. They are the only way of using the Set and Map
 modules, but using them is not so difficult.
 
-##  What are functors and why do we need them?
+## What Are Functors and Why Do We Need Them?
 
 A functor is a module that is parametrized by another module, just like a
 function is a value which is parametrized by other values, the arguments.
@@ -29,7 +29,7 @@ this functor but the standard array type, the compiler would not be able to
 detect the error, and we would get a runtime error at some undetermined date in
 the future, which is much worse.
 
-##  Using an existing functor
+## Using an Existing Functor
 
 The standard library defines a `Set` module, which provides a `Make` functor.
 This functor takes one argument, which is a module that provides (at least) two
@@ -152,7 +152,7 @@ module String_set :
 
 (the parentheses are necessary)
 
-##  Defining functors
+## Defining Functors
 
 A functor with one argument can be defined like this:
 

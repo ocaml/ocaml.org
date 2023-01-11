@@ -9,7 +9,7 @@ date: 2021-05-27T21:07:30-00:00
 
 # Pointers
 
-## Status of pointers in OCaml
+## Status of Pointers in OCaml
 Pointers exist in OCaml, and in fact they spread all over the place.
 They are used either implicitly (in the most cases), or explicitly (in
 the rare occasions where implicit pointers are not more handy). The vast
@@ -31,7 +31,7 @@ full-fledged pointers, even first class citizen pointers (references can
 be passed as argument, embedded into arbitrary data structures, and
 returned as function results).
 
-###  Explicit pointers are OCaml values of type `ref`
+### Explicit Pointers Are OCaml Values of Type `ref`
 You can program directly with explicit references if you want to, but
 this is normally a waste of time and effort.
 
@@ -142,7 +142,7 @@ this is not natural, since you get back the usual drawbacks and difficulties of
 explicit pointers manipulation of classical algorithmic languages. See a more
 complete example below.
 
-## Defining pointers in OCaml
+## Defining Pointers in OCaml
 The general pointer type can be defined using the definition of a
 pointer: a pointer is either null, or a pointer to an assignable memory
 location:
@@ -282,7 +282,7 @@ Pointer
       {contents = {hd = 2; tl = Pointer {contents = {hd = 3; tl = <cycle>}}}}}}
 ```
 
-## Polymorphic lists
+## Polymorphic Lists
 We can define polymorphic lists using pointers; here is a simple implementation
 of those polymorphic mutable lists:
 
@@ -312,7 +312,7 @@ val tl : 'a lists -> 'a lists = <fun>
 val append : 'a lists -> 'a lists -> unit = <fun>
 ```
 
-## Null pointers
+## Null Pointers
 So you've got a survey on your website which asks your readers for their
 names and ages. Only problem is that for some reason a few of your
 readers don't want to give you their age - they stubbornly refuse to

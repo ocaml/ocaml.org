@@ -129,7 +129,7 @@ Each printer should take care of the exceptions it knows about, returning
 `Some <printed exception>`, and return `None` otherwise (let the other printers
 do the job!).
 
-## Result type
+## Result Type
 
 The Stdlib module contains the following type:
 
