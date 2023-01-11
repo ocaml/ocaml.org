@@ -61,7 +61,7 @@ Package_layout.render
 
   <div class="flex flex-col lg:flex-row md:gap-12">
     <div
-      class="p-10 z-10 w-full bg-white flex-col fixed h-screen overflow-auto lg:pr-0 lg:flex left-0 top-0 lg:sticky lg:w-72 lg:p-0 lg:pt-6"
+      class="p-10 z-10 bg-white flex-col fixed h-screen overflow-auto lg:pr-0 lg:flex left-0 top-0 lg:sticky lg:w-72 lg:p-0 lg:pt-6"
       x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
       x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
       x-transition:leave-end="-translate-x-full">
