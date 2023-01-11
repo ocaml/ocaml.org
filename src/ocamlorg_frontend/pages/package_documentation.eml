@@ -67,7 +67,7 @@ Package_layout.render
       x-transition:leave-end="-translate-x-full">
       <%s! sidebar ~str_path ~toc ~maptoc package %>
     </div>
-    <div class="flex-1 z-0 z- overflow-hidden lg:max-w-3xl lg:pt-6">
+    <div class="flex-1 z-0 z- min-w-0 lg:max-w-3xl lg:pt-6">
       <% if (maptoc != []) && (List.length path > 1) then (%>
         <div class="text-body-400">
           <%s! Breadcrumbs.render path %>
