@@ -9,7 +9,7 @@ date: 2021-05-27T21:07:30-00:00
 
 # Labels
 
-## Labelled and optional arguments to functions
+## Labelled and Optional Arguments to Functions
 
 Python has a nice syntax for writing arguments to functions. Here's
 an example (from the Python tutorial, since I'm not a Python
@@ -129,7 +129,7 @@ If the unlabelled argument is a “null pointer” then `may` does nothing.
 Otherwise `may` calls the `f` function on the argument. Why is this
 useful? We're just about to find out ...
 
-###  Optional arguments
+### Optional Arguments
 Optional arguments are like labelled arguments, but we use `?` instead
 of `~` in front of them. Here is an example:
 
@@ -254,7 +254,7 @@ then `title` = `Some "My Application"`, and `may` therefore calls
 You should make sure you fully understand this example before proceeding
 to the next section.
 
-###  "Warning: This optional argument cannot be erased"
+### `Warning: This optional argument cannot be erased`
 We've just touched upon labels and optional arguments, but even this
 brief explanation should have raised several questions. The first may be
 why the extra `unit` argument to `open_window`? Let's try defining this
@@ -360,7 +360,7 @@ unspecified". Whereas if you type:
 you mean "give me the functional value" or (more usually in the
 toplevel) "print out the type of `open_window`".
 
-###  More `~`shorthand
+### More `~`shorthand
 Let's rewrite the `range` function yet again, this time using as much
 shorthand as possible for the labels:
 
@@ -376,7 +376,7 @@ when calling functions as well as declaring the arguments to functions,
 hence in the above the highlighted red `~last` is short for
 `~last:last`.
 
-###  Using `?foo` in a function call
+### Using `?foo` in a Function Call
 There's another little wrinkle concerning optional arguments. Suppose we
 write a function around `open_window` to open up an application:
 
@@ -405,7 +405,7 @@ val open_application : ?width:int -> ?height:int -> unit -> unit -> window =
   <fun>
 ```
 
-###  When and when not to use `~` and `?`
+### When and When Not to Use `~` and `?`
 The syntax for labels and optional arguments is confusing, and you may
 often wonder when to use `~foo`, when to use `?foo` and when to use
 plain `foo`. It's something of a black art which takes practice to get
@@ -484,7 +484,7 @@ The `pack_return` function actually takes mandatory labelled arguments
 called `~packing` and `~show`, each of type `'a option`. In other words,
 `pack_return` explicitly unwraps the `option` wrapper.
 
-## More variants (“polymorphic variants”)
+## More Variants (“Polymorphic Variants”)
 Try compiling the following C code:
 
 ```C

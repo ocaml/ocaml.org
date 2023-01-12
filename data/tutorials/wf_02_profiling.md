@@ -24,7 +24,7 @@ section. Don't be afraid! I'll help you out by translating the assembler
 into a C-like pseudocode (after all C is just a portable assembly
 language).
 
-###  Basics of assembly language
+### Basics of Assembly Language
 The examples I give in this chapter are all compiled on an x86 Linux
 machine. The x86 is, of course, a 32 bit machine, so an x86 "word" is 4
 bytes (= 32 bits) long. At this level OCaml deals mostly with word-sized
@@ -53,14 +53,14 @@ known as **assembler directives**. These directives begin
 with a . (period) and they literally *direct* the assembler to do
 something. Here are the common ones for the Linux assembler:
 
-#### .text
+#### `.text`
 
 **Text** is the Unix way of saying "program code". The **text segment**
 simply means the part of the executable where program code is stored.
 The `.text` directive switches the assembler so it starts writing into
 the text segment.
 
-#### .data
+#### `.data`
 
 Similarly, the `.data` directive switches the assembler so it starts
 writing into the data segment (part) of the executable.
@@ -85,7 +85,7 @@ single byte. `.ascii` writes a string of bytes (NOT nul-terminated).
 `.space` writes the given number of zero bytes. Normally you use these
 in the data segment.
 
-###  The "hello, world" program
+### The “hello, world” Program
 Enough assembler. Put the following program into a file called
 `smallest.ml`:
 
@@ -227,7 +227,7 @@ start-up time for the program is still unmeasurably small (under a
 millisecond), compared to several seconds for starting up a reasonable
 Java program and a second or so for a Perl script.
 
-###  Tail recursion
+### Tail Recursion
 We mentioned in chapter 6 that OCaml can turn tail-recursive function
 calls into simple loops. Is this actually true? Let's look at what
 simple tail recursion compiles to:
@@ -270,7 +270,7 @@ the string, and then jump back to the top, then print the string, and
 jump back, and so on forever. It's a simple loop, *not* a recursive
 function call, so it doesn't use any stack space.
 
-###  Digression: Where are the types?
+### Digression: Where Are the Types?
 OCaml is statically typed as we've said before on many occasions, so at
 compile time, OCaml knows that the type of `loop` is `unit -> unit`. It
 knows that the type of `"hello, world\n"` is `string`. It doesn't make
@@ -301,7 +301,7 @@ objects is another case where you need to do a considerable amount of
 work at run time in Java. None of this is allowed with OCaml's static
 types.
 
-###  Polymorphic types
+### Polymorphic Types
 As you might have guessed from the discussion above, polymorphism, which
 is where the compiler *doesn't* have a fully known type for a function
 at compile time, might have an impact on performance. Suppose we require
@@ -443,7 +443,7 @@ Lesson: if you have a function which is unintentionally polymorphic then
 you can help the compiler by specifying types for one or more of the
 arguments.
 
-###  The representation of integers, tag bits, heap-allocated values
+### The Representation of Integers, Tag Bits, Heap-Allocated Values
 There are a number of peculiarities about integers in OCaml. One of
 these is that integers are 31 bit entities, not 32 bit entities. What
 happens to the "missing" bit?
@@ -544,7 +544,7 @@ have the same type. The compiler should enforce this at compile time. I
 would assume that `greaterthan` probably contains code to sanity-check
 this at run time however.
 
-###  Floats
+### Floats
 Floats are, by default, boxed (allocated on the heap). Save this as
 `float.ml` and compile it with `ocamlopt -S float.ml -o float`:
 
@@ -583,7 +583,7 @@ function `foo : 'a -> unit` taking one polymorphic argument. If we call
 whereas if we call `foo` with `%eax` containing a pointer to `Float__1`
 above, then this is equivalent to `foo 3.0`.
 
-###  Arrays
+### Arrays
 I mentioned earlier that one of OCaml's targets was numerical computing.
 Numerical computing does a lot of work on vectors and matrices, which
 are essentially arrays of floats. As a special hack to make this go
@@ -668,7 +668,7 @@ multiply it out:
 
 So arrays of floats are unboxed, as expected.
 
-###  Partially applied functions and closures
+### Partially Applied Functions and Closures
 How does OCaml compile functions which are only partially applied? Let's
 compile this code:
 
@@ -871,9 +871,9 @@ Each sample counts as 0.01 seconds.
 [ etc. ]
 ```
 
-### Using perf on Linux
+### Using `perf` on Linux
 
-Assuming perf is installed and your program is compiled into
+Assuming `perf `is installed and your program is compiled into
 native code with `-g` (or ocamlbuild tag `debug`), you just need to type
 
 <!-- $MDX skip -->
@@ -907,7 +907,7 @@ your programs:
  queries? speed of the network?). If so then no amount of
  optimization will help you.
 
-###  Further reading
+### Further Reading
 You can find out more about how OCaml represents different types by
 reading the ("Interfacing C with OCaml") chapter in the OCaml manual and also
 looking at the `mlvalues.h` header file.

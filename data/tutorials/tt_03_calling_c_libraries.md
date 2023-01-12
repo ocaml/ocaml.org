@@ -288,7 +288,7 @@ base class from which other classes can be derived, and is also a
 non-virtual class of which the user should be allowed to create
 instances?)
 
-####  Wrapping calls to C libraries
+#### Wrapping Calls to C Libraries
 Now we'll look in more detail at actually wrapping up calls to C library
 functions. Here's a simple example:
 

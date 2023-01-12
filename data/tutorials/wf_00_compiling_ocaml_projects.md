@@ -25,7 +25,7 @@ It addresses, in turn:
 In our [up and running tutorial](/docs/up-and-running) we jumped straight to using
 the automated build system `dune`. Now we shall look under the hood.
 
-## Compilation basics
+## Compilation Basics
 
 In this section, we will first see how to compile a simple program using
 only `ocamlc` or `ocamlopt`. Then we will see how to use libraries and how
@@ -33,7 +33,7 @@ to take advantage of the
 [findlib](https://projects.camlcity.org/projects/findlib.html)
 system, which provides the `ocamlfind` command.
 
-### The ocamlc and ocamlopt compilers
+### The `ocamlc` and `ocamlopt` Compilers
 
 OCaml comes with two compilers: `ocamlc` is the bytecode compiler, and
 `ocamlopt` is the native code compiler. If you don't know which one to use, use
@@ -91,7 +91,7 @@ they may be found. This becomes complicated, and this information is
 installation dependent. So we will use `ocamlfind` instead, which does these
 jobs for us.
 
-###  Using the ocamlfind front-end
+### Using the `ocamlfind` Front-End
 
 The `ocamlfind` front-end is often used for compiling programs that use
 third-party OCaml libraries. Library authors themselves make their library
@@ -139,7 +139,7 @@ and another to link the final output) is usually not performed manually but
 only when using an automated build system that will take care of recompiling
 only what it necessary.
 
-## Interlude: making a custom toplevel
+## Interlude: Making a Custom Toplevel
 
 OCaml provides another tool `ocamlmktop` to make an interactive toplevel with
 libraries accessible. For example:
@@ -158,7 +158,7 @@ OCamlfind also supports `ocamlmktop`:
 ocamlfind ocamlmktop -o toplevel unix.cma -package pkg module1.ml module2.ml
 ```
 
-## Dune: an automated build system
+## Dune: An Automated Build System
 
 The most popular modern system for building OCaml projects is
 [dune](https://dune.readthedocs.io/en/stable/) which may be installed with
@@ -178,7 +178,7 @@ guide](https://dune.readthedocs.io/en/latest/quick-start.html) shows you how to
 write such description files for more complicated situations, and how to
 structure, build, and run dune projects. 
 
-## Other build systems
+## Other Build Systems
 
 - [OMake](https://github.com/ocaml-omake/omake) Another OCaml build system.
 - [GNU make](https://www.gnu.org/software/make/) GNU make can build anything, including OCaml. May be used in conjunction with [OCamlmakefile](https://github.com/mmottl/ocaml-makefile)

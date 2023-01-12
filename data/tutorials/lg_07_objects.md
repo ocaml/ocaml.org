@@ -9,7 +9,7 @@ date: 2021-05-27T21:07:30-00:00
 
 # Objects
 
-## Objects and classes
+## Objects and Classes
 OCaml is an object-oriented, imperative, functional programming language
 :-) It mixes all these paradigms and lets you use the most appropriate
 (or most familiar) programming paradigm for the task at hand. In this
@@ -133,7 +133,7 @@ val s : stack_of_ints = <obj>
 `s` is an opaque object. The implementation (ie. the list) is hidden
 from callers.
 
-###  Polymorphic classes
+### Polymorphic Classes
 A stack of integers is good, but what about a stack that can store any
 type? (Not a single stack that can store a mixture of types, but
 multiple stacks each storing objects of any single type). As with
@@ -225,7 +225,7 @@ this:
 val drain_stack : 'a stack -> unit = <fun>
 ```
 
-###  Inheritance, virtual classes, initializers
+### Inheritance, Virtual Classes, Initializers
 I've noticed programmers in Java tend to overuse inheritance, possibly
 because it's the only reasonable way of extending code in that language.
 A much better and more general way to extend code is usually to use
@@ -499,7 +499,7 @@ Button being repainted, state is Released
 - : unit = ()
 ```
 
-###  A note about `self`
+### A Note About `self`
 In all the examples above we defined classes using the general pattern:
 
 <!-- $MDX skip -->
@@ -519,7 +519,7 @@ you to leave it in there because you never know when you might modify
 the class and require the reference to `self`. There is no penalty for
 having it.
 
-###  Inheritance and coercions
+### Inheritance and Coercions
 
 ```ocaml
 # let b = new button "button";;
@@ -580,7 +580,7 @@ Is it possible to coerce from a superclass (eg. `widget`) to a subclass
 this direction is *unsafe*. You might try to coerce a `widget` which is
 in fact a `label`, not a `button`.
 
-###  The `Oo` module and comparing objects
+### The `Oo` Module and Comparing Objects
 The `Oo` module contains a few useful functions for OO programming.
 
 `Oo.copy` makes a shallow copy of an object. `Oo.id object` returns a
@@ -592,11 +592,11 @@ object and its copy are not physically identical). You can also use `<`
 etc. which provides an ordering of objects based apparently on their
 IDs.
 
-## Objects without class
+## Objects Without Class
 Here we examine how to use objects pretty much like records, without
 necessarily using classes.
 
-###  Immediate objects and object types
+### Immediate Objects and Object Types
 Objects can be used instead of records, and have some nice properties
 that can make them preferable to records in some cases. We saw that the
 canonical way of creating objects is to first define a class, and use
@@ -659,7 +659,7 @@ but each solution has its own advantages:
 * **type definitions**: there is no need to define an object type in
  advance, so it lightens the dependency constraints between modules
 
-###  Class types vs. just types
+### Class Types vs. Just Types
 Beware of the confusion between *class types* and object *types*. A
 *class type* is not a data *type*, normally referred to as *type* in the
 OCaml jargon. An object *type* is a kind of data *type*, just like a

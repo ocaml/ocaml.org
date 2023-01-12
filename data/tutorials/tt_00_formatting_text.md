@@ -127,7 +127,7 @@ the value of the break that is explained below):
     ```
 
 
-## Printing spaces
+## Printing Spaces
 Break hints are also used to output spaces (if the line is not split
 when the break is encountered, otherwise the new line indicates properly
 the separation between printing items). You output a break hint using
@@ -173,7 +173,7 @@ abbreviation for `print_break 1 0` and outputs a single space or break
 the line.)
 
 
-## Indentation of new lines
+## Indentation of New Lines
 The user gets 2 ways to fix the indentation of new lines:
 
 * **when defining the box**: when you open a box, you can fix the
@@ -218,8 +218,8 @@ The user gets 2 ways to fix the indentation of new lines:
     ```
 
 
-## Refinement on “hov” boxes
-###  Packing and structural “hov” boxes
+## Refinement on “hov” Boxes
+### Packing and Structural “hov” Boxes
 
 The “hov” box type is refined into two categories.
 
@@ -233,7 +233,7 @@ The “hov” box type is refined into two categories.
  line; in addition, break hints that can show the box structure lead
  to new lines even if there is enough room on the current line.
 
-###  Differences between a packing and a structural “hov” box
+### Differences Between a Packing and a Structural “hov” Box
 The difference between a packing and a structural “hov” box is shown by
 a routine that closes boxes and parentheses at the end of printing: with
 packing boxes, the closure of boxes and parentheses do not lead to new
@@ -262,7 +262,7 @@ is printed like this:
 )
 ```
 
-## Practical advice
+## Practical Advice
 
 When writing a pretty-printing routine, follow these simple rules:
 
@@ -303,7 +303,7 @@ When writing a pretty-printing routine, follow these simple rules:
  loop of the interactive system does it as well, just before a new
  input.)
 
-## Printing to `stdout`: using `printf`
+## Printing to `stdout`: Using `printf`
 The `format` module provides a general printing facility “à la”
 `printf`. In addition to the usual conversion facility provided by
 `printf`, you can write pretty-printing indications directly inside the
@@ -332,7 +332,7 @@ Price = 100 Euros
 - : unit = ()
 ```
 
-## A concrete example
+## A Concrete Example
 
 Let me give a full example: the shortest non trivial example you could
 imagine, that is the λ-calculus. :)
@@ -383,7 +383,7 @@ In Caml Light, replace the first line by:
 #open "format";;
 ```
 
-###  Most general pretty-printing: using `fprintf`
+### Most General Pretty-Printing: Using `fprintf`
 
 We use the `fprintf` function to write the most versatile version of the
 pretty-printing functions for lambda-terms. Now, the functions get an

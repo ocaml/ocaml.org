@@ -51,7 +51,7 @@ element to the front of a list. The `@` or append operator combines two lists:
 - : int list = [1; 2; 3]
 ```
 
-## Functions on lists
+## Functions on Lists
 
 We can write functions which operate over lists by pattern matching:
 
@@ -103,7 +103,7 @@ Notice that the memory for the second list is shared, but the first list is
 effectively copied.
 
 
-## Higher order functions on lists
+## Higher Order Functions on Lists
 
 We might wish to apply a function to each element in a list, yielding a new
 one. We shall write a function `map` which is given another function as its
@@ -129,7 +129,7 @@ course. Here are two examples showing the `map` function in use:
 - : int list = [3; 7; 11]
 ```
 
-## The standard library List module
+## The Standard Library `List` Module
 
 The standard library [List](https://ocaml.org/api/List.html) module contains a
 wide range of useful utility functions, including pre-written versions of many
@@ -142,7 +142,7 @@ which can raise an exception are marked. Such exceptions are usually the result
 of lists which are empty (and therefore have neither a head nor a tail) or
 lists of mismatched length.
 
-### Maps and iterators
+### Maps and Iterators
 
 We have already written a `map` function from scratch, and it is no surprise
 that one is included in the [List](https://ocaml.org/api/List.html) module.
@@ -190,7 +190,7 @@ of unequal length:
 Exception: Invalid_argument "List.map2".
 ```
 
-### List scanning
+### List Scanning
 
 The useful function [`mem`](https://ocaml.org/api/List.html#VALmem) checks
 whether a given element is a member of a list by scanning its contents:
@@ -230,7 +230,7 @@ functions [`for_all`](https://ocaml.org/api/List.html#VALfor_all) and
 So you can see how the standard library has evolved into its present state:
 pieces of frequently-used code are turned into useful general functions.
 
-### List searching
+### List Searching
 
 The function [`find`](https://ocaml.org/api/List.html#VALfind) returns the
 first element of a list matching a given predicate (a predicate is a testing
@@ -270,7 +270,7 @@ Note that the documentation for
 order of the input is preserved in the output. Where this is not stated it the
 documentation, it cannot be assumed.
 
-### Association lists
+### Association Lists
 
 Association lists are a simple (and simplistic) way of implementing the
 dictionary data structure: that is to say, a group of keys each with an
@@ -301,7 +301,7 @@ be able to make a list of pairs from a pair of lists and vice versa. The
 - : (int * string) list = [(3, "three"); (1, "one"); (4, "four")]
 ```
 
-### Sorting lists
+### Sorting Lists
 
 The function [`List.sort`](https://ocaml.org/api/List.html#VALsort), given a
 comparison function of type `'a -> 'a -> int` (zero if equal, negative if first
@@ -443,7 +443,7 @@ val rev : 'a list -> 'a list = <fun>
 val split : ('a * 'b) list -> 'a list * 'b list = <fun>
 ```
 
-## Lists and tail recursion
+## Lists and Tail Recursion
 
 Our `length` function builds up an intermediate expression of a size
 proportional to its input list:

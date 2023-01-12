@@ -93,7 +93,7 @@ purposes, in the next section we show how to preprocess a file using OCaml's
 compiler, the more relevant part being [Preprocessing with
 Dune](#preprocessing-with-dune).
 
-### Preprocessing with `ocamlc` and `ocamlopt`
+### Preprocessing With `ocamlc` and `ocamlopt`
 
 OCaml's compiler `ocamlc` and `ocamlopt` offer the `-pp` option to preprocess a
 file in the compilation phase (but remember that you are encouraged to use Dune
@@ -120,7 +120,7 @@ $ ./a.out
 Hello, Universe!
 ```
 
-### Preprocessing with Dune
+### Preprocessing With Dune
 
 Dune's build system has a specific stanza to apply preprocessing to files.
 The full documentation can be found
@@ -179,7 +179,7 @@ source code, but rather on the parsing result: the Abstract Syntax Tree (AST),
 which in the OCaml compiler is called Parsetree. In order to understand PPXs well, we
 need to understand what this Parsetree is.
 
-### OCaml's Parsetree: the OCaml AST
+### OCaml’s Parsetree: The OCaml AST
 
 During the compilation phase, OCaml's compiler will parse the input file into an
 internal representation of it, called the Parsetree. The program is represented
@@ -402,7 +402,7 @@ most PPXs, note that the first source of information will be the package
 documentation, as some PPXs might need some special care to integrate with
 Dune.
 
-### Dropping PPXs dependency with `[@@deriving_inline]`
+### Dropping PPXs Dependency With `[@@deriving_inline]`
 
 Some derivers are only needed for boilerplate generation. When that's the case, 
 there is no strong requirement

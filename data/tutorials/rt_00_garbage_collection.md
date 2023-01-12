@@ -46,7 +46,7 @@ infrequently.
 The OCaml GC is synchronous. It doesn't run in a separate thread, and it
 can only get called during an allocation request.
 
-###  GC vs. Reference Counting
+### GC vs. Reference Counting
 Python has a form of garbage collection, but it
 [mostly uses](https://devguide.python.org/internals/garbage-collector/) a
 simple scheme called
