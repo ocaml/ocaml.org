@@ -327,8 +327,8 @@ be called from within a `printf` format string. For instance
 For instance
 
 ```ocaml
-# Format.printf "@[<1>%s@ =@ %d@ %s@]@." "Prix TTC" 100 "Euros";;
-Prix TTC = 100 Euros
+# Format.printf "@[<1>%s@ =@ %d@ %s@]@." "Price" 100 "Euros";;
+Price = 100 Euros
 - : unit = ()
 ```
 
