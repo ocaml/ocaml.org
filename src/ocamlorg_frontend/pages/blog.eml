@@ -4,14 +4,14 @@ Layout.render
 ~title:"OCaml Blog"
 ~description:"Recent news and blog posts from the OCaml community."
 ~canonical:(Url.blog ^ if rss_page = 1 then "" else "?p=" ^ string_of_int rss_page) @@
-<div class="bg-white py-24">
+<div class="bg-white py-10">
     <div class="container-fluid wide">
         <div>
             <h2 class="font-bold">Blog</h2>
             <p class="text-lg text-body-400 mt-6">This is where you'll find the latest stories from the OCaml Community!</p>
         </div>
 
-        <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-16">
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-16">
             <div class="col-span-2">
                 <div>
                     <div class="text-lg font-semibold border-b border-current text-primary-600 pb-3">Featured</div>
@@ -63,9 +63,9 @@ Layout.render
                     <%s! Pagination.render ~total_page_count:rss_pages_number ~page_number:rss_page ~base_url:Url.blog %>
                 </div>
             </div>
-            <div class="lg:border-l border-gray-200 lg:pl-16 space-y-12">
+            <div class="lg:pl-16 space-y-12">
 
-                <div class="text-lg font-semibold border-b border-gray-200 text-body-600 pb-3">News</div>
+                <div class="text-lg font-semibold border-b border-body-400 text-body-400 pb-3">News</div>
 
                 <% news |> List.iter (fun (item : Ood.News.t) -> %>
                 <div class="flex lg:space-x-12">
