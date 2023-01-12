@@ -500,7 +500,7 @@ type-checker on the produced value and the familiarity of writing HTML code.
 Other rewriters, such as `ppx_expect`, show that being able to enrich the syntax
 via PPX rewriters is very useful, even outside of the specificity of OCaml.
 
-## the Need for Controlling the PPX Ecosystem: `Ppxlib`
+## The Need for Controlling the PPX Ecosystem: `ppxlib`
 
 Although PPXs are great for generating code at compile time, they raise a few
 questions, especially in the presence of multiple PPX rewriters.
