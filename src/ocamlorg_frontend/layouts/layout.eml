@@ -1,4 +1,13 @@
-let render ?(use_swiper=false) ?(banner = false) ?(wide=false) ?description ?styles ~title ?canonical inner =
+let render
+?(use_swiper=false)
+?(banner = false)
+?(wide=false)
+?description
+?styles
+~title
+?canonical
+?(active_top_nav_item: Header.active_nav_item option)
+inner =
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -59,7 +68,7 @@ let render ?(use_swiper=false) ?(banner = false) ?(wide=false) ?description ?sty
     </div>
     <% ); %>
     
-    <%s! Header.render ~wide () %>
+    <%s! Header.render ~wide ?active_top_nav_item () %>
 
     <main><%s! inner %></main>
 

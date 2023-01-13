@@ -45,7 +45,8 @@ let render books =
 Layout.render
 ~title:"OCaml Books"
 ~description:"A selection of books to learn the OCaml programming language."
-~canonical:Url.books @@
+~canonical:Url.books
+~active_top_nav_item:Header.Learn @@
 <div class="intro-section-simple">
     <div class="container-fluid">
         <div class="text-center w-full lg:w-2/3 m-auto">

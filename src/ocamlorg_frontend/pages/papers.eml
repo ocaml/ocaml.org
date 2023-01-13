@@ -2,7 +2,8 @@ let render ?(search = "") ~(recommended_papers : Ood.Paper.t list) (papers : Ood
 Layout.render
 ~title:"OCaml Papers"
 ~description:"A selection of papers grouped by popular categories."
-~canonical:Url.papers @@
+~canonical:Url.papers
+~active_top_nav_item:Header.Learn @@
 <div class="intro-section-simple">
     <div class="container-fluid">
         <div class="text-center w-full lg:w-2/3 m-auto">

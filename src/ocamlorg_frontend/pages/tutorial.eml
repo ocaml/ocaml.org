@@ -13,6 +13,7 @@ Learn_layout.render
 ~title:(Printf.sprintf "%s · OCaml Tutorials" tutorial.title)
 ~description:tutorial.description
 ~canonical
+~active_top_nav_item:Learn
 ~left_sidebar_html:(Learn_sidebar.render ~current_tutorial:(Some tutorial.slug) ~tutorials)
 ~right_sidebar_html:(Some(right_sidebar tutorial)) @@
   <div class="prose prose-orange max-w-full">

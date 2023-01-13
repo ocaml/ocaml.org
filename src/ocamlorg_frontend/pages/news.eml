@@ -2,7 +2,8 @@ let render ~pages_number ~page (news : Ood.News.t list) =
 Layout.render
 ~title:"OCaml News"
 ~description:"Read the latest news, releases, and updates from the OCaml community."
-~canonical:(Url.news ^ if page = 1 then "" else "?p=" ^ string_of_int page) @@
+~canonical:(Url.news ^ if page = 1 then "" else "?p=" ^ string_of_int page)
+~active_top_nav_item:Header.Blog @@
 <div class="bg-white py-24">
   <div class="container-fluid">
     <div>

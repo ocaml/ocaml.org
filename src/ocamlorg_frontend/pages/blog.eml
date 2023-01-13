@@ -3,7 +3,8 @@ Layout.render
 ~wide:true
 ~title:"OCaml Blog"
 ~description:"Recent news and blog posts from the OCaml community."
-~canonical:(Url.blog ^ if rss_page = 1 then "" else "?p=" ^ string_of_int rss_page) @@
+~canonical:(Url.blog ^ if rss_page = 1 then "" else "?p=" ^ string_of_int rss_page)
+~active_top_nav_item:Header.Blog @@
 <div class="bg-white py-10">
     <div class="container-fluid wide">
         <div>
