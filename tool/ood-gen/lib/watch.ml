@@ -1,5 +1,3 @@
-[@@@ocaml.warning "-66"]
-
 type metadata = {
   name : string;
   embed_path : string;
