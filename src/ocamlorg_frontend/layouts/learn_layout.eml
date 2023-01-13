@@ -102,7 +102,7 @@ inner_html
         </svg>
       </div>
     </div>
-    <div class="container-fluid wide lg:py-20 pt-10 md:pt-16">
+    <div class="container-fluid wide py-10">
       <div class="flex flex-col lg:flex-row md:gap-12">
         <div
           class="p-10 z-10 bg-white flex-col fixed h-screen overflow-auto lg:pr-0 lg:flex left-0 top-0 lg:sticky lg:w-72 lg:p-0 lg:pt-6"
