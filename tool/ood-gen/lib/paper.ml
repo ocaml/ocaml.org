@@ -12,13 +12,41 @@ type metadata = {
 }
 [@@deriving yaml]
 
-type t = metadata
+type t = {
+  title : string;
+  slug : string;
+  publication : string;
+  authors : string list;
+  abstract : string;
+  tags : string list;
+  year : int;
+  links : link list;
+  featured : bool;
+}
+
+let of_metadata
+    ({ title; publication; authors; abstract; tags; year; links; featured } :
+      metadata) =
+  {
+    title;
+    slug = Utils.slugify title;
+    publication;
+    authors;
+    abstract;
+    tags;
+    year;
+    links;
+    featured;
+  }
 
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
   match yaml with
   | `O [ ("papers", `A xs) ] ->
-      Ok (List.map (Utils.decode_or_raise metadata_of_yaml) xs)
+      Ok
+        (List.map
+           (fun x -> x |> Utils.decode_or_raise metadata_of_yaml |> of_metadata)
+           xs)
   | _ -> Error (`Msg "expected a list of papers")
 
 let all () =
@@ -48,7 +76,7 @@ let pp ppf v =
   ; links = %a
   ; featured = %a
   }|}
-    Pp.string v.title Pp.string (Utils.slugify v.title) Pp.string v.publication
+    Pp.string v.title Pp.string v.slug Pp.string v.publication
     (Pp.list Pp.string) v.authors Pp.string v.abstract (Pp.list Pp.string)
     v.tags v.year (Pp.list pp_link) v.links Pp.bool v.featured
 
