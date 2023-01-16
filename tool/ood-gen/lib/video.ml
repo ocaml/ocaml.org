@@ -1,5 +1,3 @@
-[@@@ocaml.warning "-66"]
-
 type metadata = {
   title : string;
   description : string;
