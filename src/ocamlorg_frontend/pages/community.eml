@@ -13,7 +13,8 @@ let upcoming_workshops = List.filter (fun (w : Ood.Workshop.t) -> w.date >= curr
 Layout.render
 ~title:"The OCaml Community"
 ~description:"Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!"
-~canonical:Url.community @@
+~canonical:Url.community
+~active_top_nav_item:Header.Community @@
 <div class="intro-section-simple">
   <div class="container-fluid">
     <div class="text-center w-full lg:w-2/3 m-auto">

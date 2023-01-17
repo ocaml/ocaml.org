@@ -1,4 +1,25 @@
-let render ?(wide=false) () =
+type active_nav_item =
+  | Learn
+  | Packages
+  | Community
+  | Blog
+  | Playground
+
+let menu_link
+~(active: bool)
+~href
+~title
+?(_class="")
+()
+=
+  <a href="<%s href %>" class="<%s _class %> <%s if active then "underline" else "" %> hover:text-primary-600"><%s title %></a>
+
+
+let render
+?(wide=false)
+?(active_top_nav_item: active_nav_item option)
+()
+=
 <header 
   class="h-20 flex items-center text-white dark:bg-[#171717]"
   x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}"
@@ -10,11 +31,11 @@ let render ?(wide=false) () =
         <img src="/logo-with-name-white.svg" width="132" alt="OCaml logo" class="hidden dark:inline">
       </a>
       <ul class="space space-x-8 hidden lg:flex text-body-400 font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
-        <li><a href="<%s Url.learn %>" class="hover:text-primary-600">Learn</a></li>
-        <li><a href="<%s Url.packages %>" class="hover:text-primary-600">Packages</a></li>
-        <li><a href="<%s Url.community %>" class="hover:text-primary-600">Community</a></li>
-        <li><a href="<%s Url.blog %>" class="hover:text-primary-600">Blog</a></li>
-        <li><a href="<%s Url.playground %>" class="hover:text-primary-600">Playground</a></li>
+        <li><%s! menu_link ~active:(active_top_nav_item=Some Learn) ~href:Url.learn ~title:"Learn" () %></li>
+        <li><%s! menu_link ~active:(active_top_nav_item=Some Packages) ~href:Url.packages ~title:"Packages" () %></li>
+        <li><%s! menu_link ~active:(active_top_nav_item=Some Community) ~href:Url.community ~title:"Community" () %></li>
+        <li><%s! menu_link ~active:(active_top_nav_item=Some Blog) ~href:Url.blog ~title:"Blog" () %></li>
+        <li><%s! menu_link ~active:(active_top_nav_item=Some Playground) ~href:Url.playground ~title:"Playground" () %></li>
       </ul>
     </div>
     <div class="flex items-center space-x-8">
@@ -82,22 +103,12 @@ let render ?(wide=false) () =
           <input class="focus:ring-orange-500" type="search" id="q" name="q" placeholder="Search OCaml packages">
         </form>
       </li>
-      <li>
-        <a class="block" href="<%s Url.learn %>">Learn</a>
-      </li>
-      <li>
-        <a class="block" href="<%s Url.packages %>">Packages</a>
-      </li>
-      <li>
-        <a class="block" href="<%s Url.community %>">Community</a>
-      </li>
-      <li>
-      <li>
-        <a class="block" href="<%s Url.blog %>">Blog</a>
-      </li>
-      <li>
-        <a class="block" href="<%s Url.playground %>">Playground</a>
-      </li>
+
+      <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some Learn) ~href:Url.learn ~title:"Learn" () %></li>
+      <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some Packages) ~href:Url.packages ~title:"Packages" () %></li>
+      <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some Community) ~href:Url.community ~title:"Community" () %></li>
+      <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some Blog) ~href:Url.blog ~title:"Blog" () %></li>
+      <li><%s! menu_link ~_class:"block" ~active:(active_top_nav_item=Some Playground) ~href:Url.playground ~title:"Playground" () %></li>
       <li>
         <a href="<%s Url.getting_started %>" class="btn w-full">Get started</a>
       </li>

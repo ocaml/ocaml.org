@@ -39,6 +39,7 @@ Learn_layout.render
 ~title:"Exercises"
 ~description:"A list of exercises to work on your OCaml skills."
 ~canonical:Url.problems
+~active_top_nav_item:Header.Learn
 ~left_sidebar_html:(problems_sidebar ~problems)
 ~right_sidebar_html:None @@
   <div class="prose prose-orange max-w-full overflow-hidden">

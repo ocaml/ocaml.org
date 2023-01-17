@@ -3,7 +3,8 @@ Layout.render
 ~title:"OCaml Jobs"
 ~description:"This is a space where groups, companies, and organisations can advertise their projects directly to the
 OCaml community."
-~canonical:Url.jobs @@
+~canonical:Url.jobs
+~active_top_nav_item:Header.Community @@
 <div class="intro-section-simple">
     <div class="container-fluid">
         <div class="text-center w-full lg:w-2/3 m-auto">

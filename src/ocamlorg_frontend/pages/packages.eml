@@ -6,7 +6,8 @@ let render (stats : packages_stats option) (featured_packages : package list) =
 Layout.render
 ~title:"OCaml Packages · Browse Community Packages"
 ~description:"Discover thousands of community packages and browse their documentation."
-~canonical:Url.packages @@
+~canonical:Url.packages
+~active_top_nav_item:Header.Packages @@
 <div class="intro-section-simple">
     <div class="container-fluid">
         <div class="text-center w-full lg:w-2/3 m-auto">

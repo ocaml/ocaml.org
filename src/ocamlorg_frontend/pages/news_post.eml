@@ -2,7 +2,8 @@ let render (news : Ood.News.t) =
 Layout.render
 ~title:news.title
 ~description:news.description
-~canonical:(Url.news_post news.slug) @@
+~canonical:(Url.news_post news.slug)
+~active_top_nav_item:Blog @@
 <div class="bg-white py-24">
   <div class="container-fluid">
     <div class="mx-auto max-w-5xl">

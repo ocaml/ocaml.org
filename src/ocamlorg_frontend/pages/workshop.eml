@@ -2,7 +2,8 @@ let render ~(videos : (string, Ood.Watch.t) Hashtbl.t) (workshop : Ood.Workshop.
 Layout.render
 ~title:workshop.title
 ~description:(Printf.sprintf "A description of the workshop %s held on %s" workshop.title workshop.date)
-~canonical:(Url.workshop workshop.slug) @@
+~canonical:(Url.workshop workshop.slug)
+~active_top_nav_item:Header.Community @@
 <div class="intro-section-simple">
   <div class="container-fluid">
     <div class="flex flex-col lg:flex-row justify-between items-center">
