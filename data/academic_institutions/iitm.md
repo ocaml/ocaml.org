@@ -5,7 +5,6 @@ description: >
 url: "https://www.iitm.ac.in/"
 logo:
      path: academic_institution/iitm.png
-     alt: Indian Institute of Technology, Madras logo
 continent: Asia
 courses:
     - name: Paradigms of Programming

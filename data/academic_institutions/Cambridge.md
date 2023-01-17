@@ -5,7 +5,6 @@ description: >
 url: "https://www.cam.ac.uk/"
 logo:
      path: academic_institution/cambridge.jpg
-     alt: University of Cambridge logo
 continent: Europe
 courses:
     - name: Advanced Functional Programming 

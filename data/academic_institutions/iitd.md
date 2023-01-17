@@ -5,7 +5,6 @@ description: >
 url: "https://home.iitd.ac.in/"
 logo:
      path: academic_institution/iitd.png
-     alt: Indian Institute of Technology, Delhi logo
 continent: Asia
 courses:
     - name: Introduction to Computers and Programming (along with Pascal and Java)

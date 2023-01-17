@@ -5,7 +5,6 @@ description: >
 url: "https://www.bc.edu/"
 logo:
      path: academic_institution/boston.png
-     alt: Boston College logo
 continent: North America
 courses:
     - name: Computer Science I 

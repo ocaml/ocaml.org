@@ -5,7 +5,6 @@ description: >
 url: "https://www.brown.edu/"
 logo:
      path: academic_institution/brown.png
-     alt: Brown University logo
 continent: North America
 courses:
     - name:  An Integrated introducion (along with Racket, Scala and Java)

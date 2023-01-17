@@ -39,34 +39,38 @@ Layout.render
       </div>
     </div>
     <div :class="continent != 'All' ? 'hidden' : 'grid-logos'">
-      <% users |> List.iter (fun (item : Ood.Academic_institution.t) -> match item.logo with | None -> () | Some { path; alt } -> %>
+      <% users |> List.iter (fun (item : Ood.Academic_institution.t) -> match item.logo with | None -> () | Some { path; alt } ->
+      let alt = match alt with | Some x -> x | None -> "" in %>
       <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
-        <img src="<%s "/media/" ^ path %>" class="m-auto" alt="<%s alt %>" />
+        <img src="<%s path %>" class="m-auto" alt="<%s alt %>" />
         <div class="font-bold mt-8"><%s item.name %></div>
       </a>
       <% ); %>
     </div>
 
     <div :class="continent != 'North America' ? 'hidden' : 'grid-logos'">
-      <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "North America") |> List.iter (fun (item : Ood.Academic_institution.t) -> match item.logo with | None -> () | Some { path; alt } -> %>
+      <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "North America") |> List.iter (fun (item : Ood.Academic_institution.t) -> match item.logo with | None -> () | Some { path; alt } ->
+      let alt = match alt with | Some x -> x | None -> "" in %>
       <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
-        <img src="<%s "/media/" ^ path %>" class="m-auto" alt="<%s alt %>" />
+        <img src="<%s path %>" class="m-auto" alt="<%s alt %>" />
         <div class="font-bold mt-8"><%s item.name %></div>
       </a>
       <% ); %>
     </div>
     <div :class="continent != 'Europe' ? 'hidden' : 'grid-logos'">
-      <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "Europe") |> List.iter (fun (item : Ood.Academic_institution.t) -> match item.logo with | None -> () | Some { path; alt } -> %>
+      <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "Europe") |> List.iter (fun (item : Ood.Academic_institution.t) -> match item.logo with | None -> () | Some { path; alt } ->
+        let alt = match alt with | Some a -> a | None -> "" in %>
       <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
-        <img src="<%s "/media/" ^ path %>" class="m-auto" alt="<%s alt %>" />
+        <img src="<%s path %>" class="m-auto" alt="<%s alt %>" />
         <div class="font-bold mt-8"><%s item.name %></div>
       </a>
       <% ); %>
     </div>
     <div :class="continent != 'Asia' ? 'hidden' : 'grid-logos'">
-      <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "Asia") |> List.iter (fun (item : Ood.Academic_institution.t) -> match item.logo with | None -> () | Some { path; alt } -> %>
+      <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "Asia") |> List.iter (fun (item : Ood.Academic_institution.t) -> match item.logo with | None -> () | Some { path; alt } ->
+      let alt = match alt with | Some x -> x | None -> "" in %>
       <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
-        <img src="<%s "/media/" ^ path %>" class="m-auto" alt="<%s alt %>" />
+        <img src="<%s path %>" class="m-auto" alt="<%s alt %>" />
         <div class="font-bold mt-8"><%s item.name %></div>
       </a>
       <% ); %>

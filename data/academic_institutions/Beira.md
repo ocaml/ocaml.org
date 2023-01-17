@@ -5,7 +5,6 @@ description: >
 url: "https://www.ubi.pt/en/"
 logo:
      path: academic_institution/beira.jpg
-     alt: Universidade da Beira Interior logo
 continent: Europe
 courses:
     - name: Certified Programming

@@ -5,7 +5,6 @@ description: >
 url: "https://www.umass.edu/"
 logo:
      path: academic_institution/umas.jpeg
-     alt: University of Massachusetts Amherst logo
 continent: North America
 courses:
     - name: University of Massachusetts Amherst

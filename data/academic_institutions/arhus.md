@@ -5,7 +5,6 @@ description: >
 url: "https://international.au.dk/"
 logo:
      path: academic_institution/arhus.png
-     alt: Aarhus University logo
 continent: Europe
 courses:
     - name: The compilation course (along with Java)

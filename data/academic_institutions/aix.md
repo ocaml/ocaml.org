@@ -5,7 +5,6 @@ description: >
 url: "https://www.univ-amu.fr/en"
 logo:
      path: academic_institution/aix.jpg
-     alt: Aix-Marseille University logo
 continent: Europe
 courses:
     - name: Functional Programming   

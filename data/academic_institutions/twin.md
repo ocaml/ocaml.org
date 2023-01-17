@@ -5,7 +5,6 @@ description: >
 url: "https://twin-cities.umn.edu/"
 logo:
      path: academic_institution/twin.svg
-     alt: University of Minnesota Twin Cities logo
 continent: North America
 courses:
     - name: Advanced Programming Principles 

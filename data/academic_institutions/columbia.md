@@ -5,7 +5,6 @@ description: >
 url: "https://www.columbia.edu/"
 logo:
      path: academic_institution/columbia.png
-     alt: Columbia University logo
 continent: North America
 courses:
     - name: Programming Languages and Translators

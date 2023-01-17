@@ -5,7 +5,6 @@ description: >
 url: "https://www.harvard.edu/"
 logo:
      path: academic_institution/harvard.png
-     alt: Harvard University logo
 continent: North America
 courses:
     - name: Principles of Programming Language Compilation 

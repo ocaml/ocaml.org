@@ -5,7 +5,6 @@ description: >
 url: "https://ucsd.edu/"
 logo:
      path: academic_institution/ucsd_logo.png
-     alt: University of California, San Diego logo
 continent: North America
 courses:
     - name:  Programming Languages Principles and Paradigms (along with Python and Prolog)

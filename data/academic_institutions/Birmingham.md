@@ -6,7 +6,6 @@ description: >
 url: "https://www.birmingham.ac.uk/index.aspx"
 logo:
      path: academic_institution/Birmingham.jpg
-     alt: University of Birmingham logo
 continent: Europe
 courses:
     - name: Foundations of Computer Science 

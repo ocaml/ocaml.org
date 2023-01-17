@@ -15,7 +15,7 @@ end
 
 module Academic_institution : sig
   type location = { lat : float; long : float }
-  type logo = { path : string; alt : string }
+  type logo = { path : string; alt : string option }
 
   type course = {
     name : string;

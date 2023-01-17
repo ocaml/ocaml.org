@@ -5,7 +5,6 @@ description: >
 url: "https://www.upenn.edu/"
 logo:
      path: academic_institution/penn.png
-     alt: University of Pennsylvania logo
 continent: North America
 courses:
     - name: Compilers 

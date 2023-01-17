@@ -5,7 +5,6 @@ description: >
 url: "https://www.virginia.edu/"
 logo:
      path: academic_institution/virginia.png
-     alt: University of Virginia logo
 continent: North America
 courses:
     - name: Programming Languages

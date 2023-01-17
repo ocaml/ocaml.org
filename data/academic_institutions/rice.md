@@ -5,7 +5,6 @@ description: >
 url: "https://www.rice.edu/"
 logo:
      path: academic_institution/rice.jpg
-     alt: Rice University logo
 continent: North America
 courses:
     - name: Principles of Programming Languages

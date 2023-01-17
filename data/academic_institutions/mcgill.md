@@ -5,7 +5,6 @@ description: >
 url: "https://www.mcgill.ca/"
 logo:
      path: academic_institution/mcgill_logo.png
-     alt: McGill University logo
 continent: North America
 courses:
     - name: Programming Languages and Paradigms 

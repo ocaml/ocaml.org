@@ -5,7 +5,6 @@ description: >
 url: "https://www.sorbonne-universite.fr/"
 logo:
      path: academic_institution/curie.jpg
-     alt: University Pierre & Marie Curie logo
 continent: Europe
 courses:
     - name: Types and static analysis 

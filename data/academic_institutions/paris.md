@@ -5,7 +5,6 @@ description: >
 url: "https://u-paris.fr/en/"
 logo:
      path: academic_institution/paris.jpg
-     alt: Université Paris-Diderot logo
 continent: Europe
 courses:
     - name: Advanced Functional Programming 

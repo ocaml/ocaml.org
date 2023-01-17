@@ -5,7 +5,6 @@ description: >
 url: "https://uni.wroc.pl/en/"
 logo:
      path: academic_institution/wroclaw.jpg
-     alt: University of Wrocław logo
 continent: Europe
 courses:
     - name: Functional Programming 

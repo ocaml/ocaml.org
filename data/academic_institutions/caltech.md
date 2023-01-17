@@ -5,7 +5,6 @@ description: >
 url: "https://www.caltech.edu/"
 logo:
      path: academic_institution/caltech.png
-     alt: California Institute of Technology logo
 continent: North America
 courses:
     - name: Fundamentals of Computer Programming

@@ -5,7 +5,6 @@ description: >
 url: "https://www.cornell.edu/"
 logo:
      path: academic_institution/cornell.png
-     alt: Cornell University logo
 continent: North America
 courses:
     - name: Data Structures and Functional Programming 

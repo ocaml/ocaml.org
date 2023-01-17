@@ -5,7 +5,6 @@ description: >
 url: "https://www.isae-supaero.fr/en/"
 logo:
      path: academic_institution/isae.png
-     alt: ISAE/Supaéro logo
 continent: Europe
 courses:
     - name: Functional programming and introduction to type systems

@@ -5,7 +5,6 @@ description: >
 url: "https://www.umd.edu/"
 logo:
      path: academic_institution/maryland.gif
-     alt: University of Maryland logo
 continent: North America
 courses:
     - name: Organization of Programming Languages-(along with Ruby, Prolog, Java) 

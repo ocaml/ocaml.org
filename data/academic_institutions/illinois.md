@@ -5,7 +5,6 @@ description: >
 url: "https://illinois.edu/"
 logo:
      path: academic_institution/illinois.jpeg
-     alt: University of Illinois at Urbana-Champaign logo
 continent: North America
 courses:
     - name: Programming Languages and Compilers 

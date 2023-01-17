@@ -5,7 +5,6 @@ description: >
 url: "https://www.uibk.ac.at/index.html.en"
 logo:
      path: academic_institution/university-of-innsbruck-logo.jpg
-     alt: University of Innsbruck logo
 continent: Europe
 courses:
     - name: Programming in OCAML

@@ -5,7 +5,6 @@ description: >
 url: "https://www.massachusetts.edu/"
 logo:
      path: academic_institution/massachusetts.png
-     alt: University of Massachusetts logo
 continent: North America
 courses:
     - name: Programming Languages 

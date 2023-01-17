@@ -5,7 +5,6 @@ description: >
 url: "https://www.epita.fr/"
 logo:
      path: academic_institution/epita.png
-     alt: Epita logo
 continent: Europe
 courses:
     - name:  Introduction to Algorithms (Year 1 & 2)

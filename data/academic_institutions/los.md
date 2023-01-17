@@ -5,7 +5,6 @@ description: >
 url: "https://www.ucla.edu/"
 logo:
      path: academic_institution/ucla.jpg
-     alt: University of California, Los Angeles logo
 continent: North America
 courses:
     - name: Programming Languages (along with Python and Java)

@@ -5,7 +5,6 @@ description: >
 url: "https://www.princeton.edu/"
 logo:
      path: academic_institution/princeton.png
-     alt: Princeton University logo
 continent: North America
 courses:
     - name: Functional Programming 

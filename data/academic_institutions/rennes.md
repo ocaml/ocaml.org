@@ -5,7 +5,6 @@ description: >
 url: "https://international.univ-rennes1.fr/en/welcome-universite-de-rennes-1"
 logo:
      path: academic_institution/reness.png
-     alt: University of Rennes 1 logo
 continent: Europe
 courses:
     - name: Compilation 
