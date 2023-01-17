@@ -19,7 +19,7 @@ Layout.render
                     <div class="grid grid-cols-1 lg:grid-cols-3 py-12 gap-12 border-b border-gray-200">
                         <% featured |> List.iter (fun (item : Ood.Rss.t) -> %>
                         <div>
-                            <a href="<%s item.url %>"><img width="100%" src="<%s Option.get item.preview_image %>"></a>
+                            <a href="<%s item.url %>"><img class="w-full" src="<%s Option.get item.preview_image %>" alt=""></a>
                             <div class="space-y-3 mt-6 flex flex-col">
                                 <div class="space-y-2">
                                     <a href="<%s item.url %>"
@@ -55,7 +55,7 @@ Layout.render
                         </div>
                         <% (match item.preview_image with | None -> () | Some image -> %>
                         <div class="flex-none w-64">
-                            <a href="<%s item.url %>"><img width="100%" src="<%s image %>"></a>
+                            <a href="<%s item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
                         </div>
                         <% ); %>
                     </div>

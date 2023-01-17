@@ -16,17 +16,15 @@ Layout.render
           </div>
           <h2 class="font-bold pb-6"><%s story.title %></h2>
           <div><%s story.synopsis %></div>
-          <a href="<%s story.url %>" target="_blank">
-            <button class="btn btn-lg mt-6">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 inline-block -mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-              </svg>
-              Visit Website
-            </button>
+          <a href="<%s story.url %>" target="_blank" class="btn btn-lg mt-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 inline-block -mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+            </svg>
+            Visit Website
           </a>
         </div>
         <div class="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-4 lg:flex lg:items-center">
-          <img src="/media/<%s story.logo %>" alt="" />
+          <img src="/media/<%s story.logo %>" alt="">
         </div>
       </div>
     </div>

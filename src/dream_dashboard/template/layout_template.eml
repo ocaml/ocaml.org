@@ -4,10 +4,10 @@ let render ~prefix ~title ~nav inner =
 <!DOCTYPE html>
 <html lang="en" class="h-full">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="icon" type="image/png" href="<%s prefix %>/assets/favicon.ico" />
-    <link rel="stylesheet" href="<%s prefix %>/assets/main.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="<%s prefix %>/assets/favicon.ico">
+    <link rel="stylesheet" href="<%s prefix %>/assets/main.css">
     <script defer src="<%s prefix %>/assets/vendors/alpine.min.js"></script>
     <script src="<%s prefix %>/assets/vendors/chart.js"></script>
     <title><%s title %> | Dream Dashboard</title>

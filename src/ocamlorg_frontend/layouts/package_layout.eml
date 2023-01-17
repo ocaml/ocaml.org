@@ -33,7 +33,7 @@ Layout.render
             </a>
             <select id="version" name="version" onchange="location = this.value;" class="appearance-none cursor-pointer py-0 pt-1 border rounded-md border-transparent pr-8">
               <% package.versions |> List.iter begin fun item -> %>
-              <option value="/p/<%s package.name %>/<%s item %>"<%s if item = package.version then "selected" else "" %>>
+              <option value="/p/<%s package.name %>/<%s item %>" <%s if item = package.version then "selected" else "" %>>
                 <%s item %>
               </option>
               <% end; %>

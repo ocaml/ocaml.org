@@ -11,37 +11,37 @@ inner =
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" >
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <% (match description with | Some description -> %>
-    <meta name="description" content="<%s description %>" >
+    <meta name="description" content="<%s description %>">
     <% | None -> ()); %>
-    <meta name="twitter:title" content="<%s title %>" >
+    <meta name="twitter:title" content="<%s title %>">
     <% (match description with | Some description -> %>
-    <meta name="twitter:description" content="<%s description %>" >
+    <meta name="twitter:description" content="<%s description %>">
     <% | None -> ()); %>
-    <meta property="og:site_name" content="OCaml" >
-    <meta property="og:type" content="object" >
-    <meta property="og:title" content="<%s title %>" >
+    <meta property="og:site_name" content="OCaml">
+    <meta property="og:type" content="object">
+    <meta property="og:title" content="<%s title %>">
     <% (match description with | Some description -> %>
-    <meta property="og:description" content="<%s description %>" >
+    <meta property="og:description" content="<%s description %>">
     <% | None -> ()); %>
     <meta name="theme-color" content="#fff" >
-    <meta name="color-scheme" content="white" >
+    <meta name="color-scheme" content="white">
     <% (match canonical with | Some canonical -> %>
-    <link rel="canonical" href="https://ocaml.org<%s canonical %>" >
+    <link rel="canonical" href="https://ocaml.org<%s canonical %>">
     <% | None -> ()); %>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" >
-    <link rel="manifest" href="/manifest.json" >
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
     <% (match styles with | Some styles -> styles |> List.iter (fun style -> %>
-    <link rel="stylesheet" href="<%s style %>" >
+    <link rel="stylesheet" href="<%s style %>">
     <% ) | None -> %>
-    <link rel="stylesheet" href="/css/main.css" >
+    <link rel="stylesheet" href="/css/main.css">
     <% ); %>
-    <link rel="stylesheet" href="/vendors/font-files/inter.css" >
+    <link rel="stylesheet" href="/vendors/font-files/inter.css">
     <script defer src="/vendors/alpine.min.js"></script>
     <% if use_swiper then ( %>
-    <link rel="stylesheet" href="/vendors/swiper-bundle.min.css" >
+    <link rel="stylesheet" href="/vendors/swiper-bundle.min.css">
     <link rel="alternate" type="application/rss+xml" title="OCaml RSS Feed" href="/feed.xml">
     <script src="/vendors/swiper-bundle.min.js"></script>
     <% ); %>

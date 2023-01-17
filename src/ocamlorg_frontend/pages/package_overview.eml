@@ -61,11 +61,11 @@ Package_layout.render
         <div class="max-w-md" x-data="{ copied: false }">
             <div class="mt-1 flex rounded-md shadow-sm">
                 <div class="relative flex items-stretch flex-grow focus-within:z-10">
-                    <input type="text" name="email" id="email"
+                    <input type="text"
                         class="focus:ring-orange-500 focus:border-orange-500 block w-full rounded-none rounded-l-md bg-gray-800 text-gray-100 text-sm font-mono subpixel-antialiased border-gray-700"
-                        value="opam install <%s package.name %>.<%s package.version %>" />
+                        value="opam install <%s package.name %>.<%s package.version %>">
                 </div>
-                <button
+                <div role="button" title="Copy to clipboard"
                     class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-700 text-sm font-medium rounded-r-md text-gray-100 bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
                     @click="$clipboard('opam install <%s package.name %>.<%s package.version %>'); copied = true; setTimeout(() => copied = false, 2000)"
                     :class="{ 'border-gray-700': !copied, 'text-gray-100': !copied, 'focus:ring-orange-500': !copied, 'focus:border-orange-500': !copied, 'border-green-600': copied, 'text-green-600': copied, 'focus:ring-green-500': copied, 'focus:border-green-500': copied }">
@@ -78,7 +78,7 @@ Package_layout.render
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
-                </button>
+                </div>
             </div>
         </div>
         <% (match package.tags with [] -> () | _ ->  %>
@@ -97,7 +97,7 @@ Package_layout.render
             <% (match documentation_status with
             | `Success -> %>
             <a href="<%s Url.package_doc package.name package.version %>" class="px-4 h-10 items-center mb-2 rounded-md bg-primary-600 text-white flex font-bold hover:underline">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 inline-block" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2 inline-block" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
               </svg>
               Documentation
@@ -129,50 +129,50 @@ Package_layout.render
             <% | _ -> ()); %>
             <%s! side_box_link ~icon_html:icon_license ~href:(Url.github_opam_file package.name package.version) ~title:"Edit opam file" %>
         </div>
-        <div class="mt-8">
-            <dt class="font-semibold text-base text-body-400">Published</dt>
-            <dd class="mt-3 text-sm text-gray-900">
-              <%s Utils.human_date_of_timestamp package.publication %>
-            </dd>
-        </div>
-        <div class="mt-8">
-            <dt class="font-semibold text-base text-body-400">Authors</dt>
-            <dd class="mt-3 text-sm text-gray-900">
-              <ul class="space-y-3">
-                  <% package.authors |> List.iter (fun (author : Ood.Opam_user.t) -> %>
-                  <li class="flex justify-start">
-                      <a href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded author.name %>%22" class="flex items-center space-x-3">
-                      <% (match author.avatar with | None -> () | Some avatar -> %>
-                      <div class="flex-shrink-0">
-                          <img class="h-10 w-10 rounded-full" src="<%s avatar %>" alt="">
-                      </div>
-                      <% ); %>
-                      <div class="text-sm font-medium text-gray-900"><%s author.name %></div>
-                      </a>
-                  </li>
-                  <% ); %>
-              </ul>
-            </dd>
-        </div>
-        <div class="mt-8">
-            <dt class="font-semibold text-base text-body-400">Maintainers</dt>
-            <dd class="mt-3 text-sm text-gray-900">
-              <ul class="space-y-3">
-                  <% package.maintainers |> List.iter (fun (author : Ood.Opam_user.t) -> %>
-                  <li class="flex justify-start">
-                      <a href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded author.name %>%22" class="flex items-center space-x-3">
-                      <% (match author.avatar with | None -> () | Some avatar -> %>
-                      <div class="flex-shrink-0">
-                          <img class="h-10 w-10 rounded-full" src="<%s avatar %>" alt="">
-                      </div>
-                      <% ); %>
-                      <div class="text-sm font-medium text-gray-900"><%s author.name %></div>
-                      </a>
-                  </li>
-                  <% ); %>
-              </ul>
-            </dd>
-        </div>
+
+        <dl>
+          <dt class="mt-8 font-semibold text-base text-body-400">Published</dt>
+          <dd class="mt-3 text-sm text-gray-900">
+            <%s Utils.human_date_of_timestamp package.publication %>
+          </dd>
+
+          <dt class="mt-8 font-semibold text-base text-body-400">Authors</dt>
+          <dd class="mt-3 text-sm text-gray-900">
+            <ul class="space-y-3">
+            <% package.authors |> List.iter (fun (author : Ood.Opam_user.t) -> %>
+            <li class="flex justify-start">
+              <a href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded author.name %>%22" class="flex items-center space-x-3">
+                <% (match author.avatar with | None -> () | Some avatar -> %>
+                <div class="flex-shrink-0">
+                    <img class="h-10 w-10 rounded-full" src="<%s avatar %>" alt="">
+                </div>
+                <% ); %>
+                <div class="text-sm font-medium text-gray-900"><%s author.name %></div>
+              </a>
+            </li>
+            <% ); %>
+            </ul>
+          </dd>
+
+          <dt class="mt-8 font-semibold text-base text-body-400">Maintainers</dt>
+          <dd class="mt-3 text-sm text-gray-900">
+            <ul class="space-y-3">
+            <% package.maintainers |> List.iter (fun (author : Ood.Opam_user.t) -> %>
+            <li class="flex justify-start">
+              <a href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded author.name %>%22" class="flex items-center space-x-3">
+                <% (match author.avatar with | None -> () | Some avatar -> %>
+                <div class="flex-shrink-0">
+                <img class="h-10 w-10 rounded-full" src="<%s avatar %>" alt="">
+                </div>
+                <% ); %>
+                <div class="text-sm font-medium text-gray-900"><%s author.name %></div>
+              </a>
+            </li>
+            <% ); %>
+            </ul>
+          </dd>
+        </dl>
+
         <% match source with
         | None -> ()
         | Some (uri, checksums) -> %>
@@ -187,9 +187,9 @@ Package_layout.render
             </div>
             <div class="overflow-x-auto">
                 <%s Filename.basename uri %>
-                <br />
+                <br>
                 <% checksums |> List.iter begin fun checksum -> %>
-                <pre><%s String.trim checksum %></pre>
+                <code><%s String.trim checksum %></code>
                 <% end; %>
             </div>
             <div class="flex">
@@ -216,7 +216,7 @@ Package_layout.render
                 <% match cstr with None -> () | Some cstr -> %>
                 <span
                     class="px-2 py-1 font-medium text-body-400 font-medium bg-gray-100 rounded">
-                    <pre><%s cstr %></pre>
+                    <code><%s cstr %></code>
                 </span>
                 <% ; %>
             </div>
@@ -232,7 +232,7 @@ Package_layout.render
                 <% match cstr with None -> () | Some cstr -> %>
                 <span
                     class="px-2 py-1 font-medium text-body-400 font-medium bg-gray-100 rounded">
-                    <pre><%s cstr %></pre>
+                    <code><%s cstr %></code>
                 </span>
                 <% ; %>
             </div>
@@ -249,7 +249,7 @@ Package_layout.render
                 <% match cstr with None -> () | Some cstr -> %>
                 <span
                     class="px-2 py-1 font-medium text-body-400 font-medium bg-gray-100 rounded">
-                    <pre><%s cstr %></pre>
+                    <code><%s cstr %></code>
                 </span>
                 <% ; %>
             </div>
