@@ -11,8 +11,8 @@ Learn_layout.render
 ~right_sidebar_html:None @@
   <h1 class="font-bold mb-8">Learn OCaml</h1>
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 border-b border-gray-200 pb-10">
-    <div class="relative flex-1 bg-gradient-to-br from-orange-300 to-orange-500 rounded-xl text-white">
-      <div class="p-8">
+    <div class="relative flex-1 bg-gradient-to-br from-orange-300 to-orange-500 rounded-xl text-white lg:max-h-96 overflow-hidden">
+      <div class="p-6 lg:p-8">
         <h2 class="font-bold mb-2">Get Started</h2>
         <div class="font-medium mb-4 opacity-80">Learn how to get OCaml set up in your project.</div>
         <a href="<%s Url.getting_started %>">
@@ -23,13 +23,13 @@ Learn_layout.render
           </button>
         </a>
       </div>
-      <div class="flex justify-end pl-8">
+      <div class="hidden xl:flex justify-end pl-8">
         <img src="/img/learn/learn-get-started.svg" class="w-full" alt="Get Started background" />
       </div>
     </div>
 
-    <div class="relative flex-1 bg-gradient-to-br from-purple-400 to-purple-700 rounded-xl text-white">
-      <div class="p-8">
+    <div class="relative flex-1 bg-gradient-to-br from-purple-400 to-purple-700 rounded-xl text-white lg:max-h-96 overflow-hidden">
+      <div class="p-6 lg:p-8">
         <h2 class="font-bold mb-2">Learn with Exercises</h2>
         <div class="font-medium mb-4 opacity-80">
           Learning by doing, or do by <br />
@@ -43,13 +43,13 @@ Learn_layout.render
           </button>
         </a>
       </div>
-      <div class="flex justify-end pl-8">
+      <div class="hidden xl:flex justify-end pl-8">
         <img src="/img/learn/learn-exercise.svg" class="w-full" alt="Exercises Background" />
       </div>
     </div>
 
-    <div class="relative flex-1 bg-gradient-to-br from-emerald-400 to-emerald-700 rounded-xl text-white">
-      <div class="p-8">
+    <div class="relative flex-1 bg-gradient-to-br from-emerald-400 to-emerald-700 rounded-xl text-white lg:max-h-96 overflow-hidden">
+      <div class="p-6 lg:p-8">
         <h2 class="font-bold mb-2">Language Manual</h2>
         <div class="font-medium mb-4 opacity-80">Read the language manual to get a deeper understanding!</div>
         <a href="<%s Url.manual %>">
@@ -60,7 +60,7 @@ Learn_layout.render
           </button>
         </a>
       </div>
-      <div class="flex justify-end pl-8">
+      <div class="hidden xl:flex justify-end pl-8">
         <img src="/img/learn/learn-language.svg" class="w-full" alt="Manual background" />
       </div>
     </div>
