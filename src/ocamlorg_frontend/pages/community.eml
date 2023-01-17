@@ -37,7 +37,7 @@ Layout.render
         </a>
         <a href="https://github.com/ocaml/ocaml" class="border-gray-200 border p-8 rounded-xl card-hover">
           <div class="text-base font-semibold"><img src="/img/community/github.svg" alt="" class="h-8 w-8 mr-2 inline-block" /> Github</div>
-          <div class="font-normal text-xs mt-4">Open bug reports and feature requests on the compiler</div>
+          <div class="font-normal text-xs mt-4">Open bug reports and feature requests on the OCaml compiler.</div>
         </a>
         <a href="https://discord.gg/cCYQbqN" class="border-gray-200 border p-8 rounded-xl card-hover">
           <div class="text-base font-semibold"><img src="/img/community/discord.svg" alt="" class="h-8 w-8 mr-2 inline-block" /> Discord</div>
@@ -45,11 +45,22 @@ Layout.render
         </a>
         <a href="https://twitter.com/ocamllang" class="border-gray-200 border p-8 rounded-xl card-hover">
           <div class="text-base font-semibold"><img src="/img/community/twitter.svg" alt="" class="h-8 w-8 mr-2 inline-block" /> Twitter</div>
-          <div class="font-normal text-xs mt-4">Catch up with some of the latest announcement and events from the community.</div>
+          <div class="font-normal text-xs mt-4">Catch up with some of the latest announcements and events from the community.</div>
         </a>
+        <div href="https://types.pl/" class="border-gray-200 border p-8 rounded-xl card-hover">
+          <div class="text-base font-semibold"><img src="/img/community/mastodon.svg" alt="" class="h-8 w-8 mr-2 inline-block" /> Mastodon</div>
+          <div class="font-normal text-xs mt-4">
+          The <a class="font-bold" href="https://types.pl/">types.pl</a> or <a class="font-bold" href="https://discuss.systems/">discuss.systems</a>
+          Mastodon homeservers are both popular choices among the OCaml community.
+          </div>
+        </div>
         <a href="irc://irc.libera.chat/#ocaml" class="border-gray-200 border p-8 rounded-xl card-hover">
           <div class="text-base font-semibold"><img src="/img/community/hashtag.svg" alt="" class="h-8 w-8 mr-2 inline-block" /> IRC Chat</div>
-          <div class="font-normal text-xs mt-4">Chat with other members of the community on IRC.</div>
+          <div class="font-normal text-xs mt-4">Chat with other members of the community at #ocaml on the Libera Chat IRC network.</div>
+        </a>
+        <a href="https://matrix.to/#/#ocaml:roscidus.com" class="border-gray-200 border p-8 rounded-xl card-hover">
+          <div class="text-base font-semibold"><img src="/img/community/matrix.svg" alt="" class="h-8 w-8 mr-2 inline-block" /> Matrix</div>
+          <div class="font-normal text-xs mt-4">Chat with the OCaml community on Matrix, an open network for secure, decentralized communication.</div>
         </a>
         <a href="https://stackoverflow.com/questions/tagged/ocaml" class="border-gray-200 border p-8 rounded-xl card-hover">
           <div class="text-base font-semibold"><img src="/img/community/stackoverflow.svg" alt="" class="h-8 w-8 mr-2 inline-block" /> Stack Overflow</div>
@@ -57,7 +68,7 @@ Layout.render
         </a>
         <a href="https://www.reddit.com/r/ocaml/" class="border-gray-200 border p-8 rounded-xl card-hover">
           <div class="text-base font-semibold"><img src="/img/community/reddit.svg" alt="" class="h-8 w-8 mr-2 inline-block" /> Reddit</div>
-          <div class="font-normal text-xs mt-4">“join the OCaml subreddit and posts discussions and memes, talk about your projects, and share interesting articles and news from the web.</div>
+          <div class="font-normal text-xs mt-4">Join the OCaml subreddit to post discussions and memes, talk about your projects, and share interesting articles and news from the web.</div>
         </a>
         <a href="https://inbox.vuxu.org/caml-list/" class="border-gray-200 border p-8 rounded-xl card-hover">
           <div class="text-base font-semibold"><img src="/img/community/mail.svg" alt="" class="h-8 w-8 mr-2 inline-block" /> Mailing List</div>
