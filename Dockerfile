@@ -3,8 +3,8 @@ FROM ocaml/opam:alpine-3.17-ocaml-4.14 as build
 # Install system dependencies
 RUN sudo apk update && sudo apk add --update libev-dev openssl-dev gmp-dev oniguruma-dev
 
-# Set opam repo at: f72694d Merge pull request #22599 from dbuenzli/b0-publish-ptime.1.1.0
-RUN cd ~/opam-repository && git pull origin f72694dcd7c7cd6c6438f3f988c4742f0758737a && opam update
+# freeze branch was opam-repo HEAD at the time of commit
+RUN cd ~/opam-repository && git checkout -b freeze b457e9f3d6 && opam update
 
 WORKDIR /home/opam
 
