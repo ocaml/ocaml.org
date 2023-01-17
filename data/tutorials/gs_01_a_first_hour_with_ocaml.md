@@ -14,7 +14,7 @@ You may follow along with this tutorial with just a basic OCaml installation,
 as described in [Up and Running](/docs/up-and-running).
 
 Alternatively, you may follow almost all of it by running OCaml in your browser
-using [TryOCaml](http://try.ocamlpro.com), with no installation required.
+using the [OCaml Playground](https://ocaml.org/play), with no installation required.
 
 On macOS/iOS/iPadOS, you can download this [all-in-one package on the App Store](https://apps.apple.com/app/ocaml-learn-code/id1547506826). It contains an editor side-by-side with an interactive toplevel. Plus, it's free and [open source](https://github.com/GroupeMINASTE/OCaml-iOS)!
 
@@ -53,10 +53,10 @@ utop # 50 * 50;;
 - : int = 2500
 ```
 
-The in-browser [TryOCaml](http://try.ocamlpro.com) has a similar interface.
+The in-browser [OCaml Playground](https://ocaml.org/play) has a similar interface.
 
-The examples in this tutorial can be typed in by hand, or copied into `ocaml`,
-`utop`, or TryOCaml with copy and paste. Alternatively, we may type into a file
+The examples in this tutorial can be typed in by hand or copied into `ocaml`,
+`utop`, or the OCaml Playground with copy and paste. Alternatively, we may type into a file
 and load its contents directly with the `#use` directive:
 
 ```console
@@ -854,7 +854,7 @@ You can find the full list of standard library modules in the
 
 Apart from the standard library, a much wider range of modules are available
 through the OCaml Package Manager, opam. Please note: you must have OCaml on your computer
-to follow the tutorial moving forward, not just the TryOCaml tool.
+to follow the tutorial moving forward, not just the OCaml Playground tool.
 
 For these examples, we're going to use module called `Graphics`, which can be
 installed with `opam install graphics`, and the `ocamlfind` program that installed
