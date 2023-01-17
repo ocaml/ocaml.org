@@ -1,0 +1,3 @@
+(executable
+ (name sitemap)
+ (libraries ocamlorg_frontend ood))
