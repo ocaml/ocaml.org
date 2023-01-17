@@ -10,12 +10,12 @@ Learn_layout.render
 ~left_sidebar_html:(Learn_sidebar.render ~tutorials ~current_tutorial:None)
 ~right_sidebar_html:None @@
   <h1 class="font-bold mb-8">Learn OCaml</h1>
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 border-b border-gray-200 pb-10">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 xl:gap-8 border-b border-gray-200 pb-10">
     <div class="relative flex-1 bg-gradient-to-br from-orange-300 to-orange-500 rounded-xl text-white lg:max-h-96 overflow-hidden">
-      <div class="p-6 lg:p-8">
+      <div class="p-6 xl:p-8 h-full xl:h-auto flex flex-col">
         <h2 class="font-bold mb-2">Get Started</h2>
         <div class="font-medium mb-4 opacity-80">Learn how to get OCaml set up in your project.</div>
-        <a href="<%s Url.getting_started %>">
+        <a class="mt-auto" href="<%s Url.getting_started %>">
           <button
             class="bg-black font-semibold h-12 px-5 rounded-md bg-opacity-10 hover:bg-opacity-20 transition-colors"
           >
@@ -29,13 +29,12 @@ Learn_layout.render
     </div>
 
     <div class="relative flex-1 bg-gradient-to-br from-purple-400 to-purple-700 rounded-xl text-white lg:max-h-96 overflow-hidden">
-      <div class="p-6 lg:p-8">
-        <h2 class="font-bold mb-2">Learn with Exercises</h2>
+      <div class="p-6 xl:p-8 h-full xl:h-auto flex flex-col">
+        <h2 class="font-bold mb-2">Solve Exercises</h2>
         <div class="font-medium mb-4 opacity-80">
-          Learning by doing, or do by <br />
-          learning!
+          Learning by doing, or do by learning!
         </div>
-        <a href="<%s Url.problems %>">
+        <a class="mt-auto" href="<%s Url.problems %>">
           <button
             class="bg-black font-semibold h-12 px-5 rounded-md bg-opacity-10 hover:bg-opacity-20 transition-colors"
           >
@@ -49,12 +48,12 @@ Learn_layout.render
     </div>
 
     <div class="relative flex-1 bg-gradient-to-br from-emerald-400 to-emerald-700 rounded-xl text-white lg:max-h-96 overflow-hidden">
-      <div class="p-6 lg:p-8">
+      <div class="p-6 xl:p-8 h-full xl:h-auto flex flex-col">
         <h2 class="font-bold mb-2">Language Manual</h2>
-        <div class="font-medium mb-4 opacity-80">Read the language manual to get a deeper understanding!</div>
-        <a href="<%s Url.manual %>">
+        <div class="font-medium mb-4 opacity-80">Acquire a deeper understanding!</div>
+        <a class="mt-auto" href="<%s Url.manual %>">
           <button
-            class="bg-black font-semibold h-12 px-5 rounded-md bg-opacity-10 hover:bg-opacity-20 transition-colors"
+            class="whitespace-nowrap bg-black font-semibold h-12 px-5 rounded-md bg-opacity-10 hover:bg-opacity-20 transition-colors"
           >
             Take Me There
           </button>
