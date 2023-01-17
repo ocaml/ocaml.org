@@ -55,7 +55,7 @@ utop # 50 * 50;;
 
 The in-browser [OCaml Playground](https://ocaml.org/play) has a similar interface.
 
-The examples in this tutorial can be typed in by hand, or copied into `ocaml`,
+The examples in this tutorial can be typed in by hand or copied into `ocaml`,
 `utop`, or the OCaml Playground with copy and paste. Alternatively, we may type into a file
 and load its contents directly with the `#use` directive:
 
