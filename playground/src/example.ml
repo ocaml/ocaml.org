@@ -33,12 +33,17 @@ let () =
   Printf.printf "fib(%d) = %d\n" n res
 
 (*
-  For a more in-depth, realistic example of how to use
-  parallel computation, take a lot at
-  https://v2.ocaml.org/releases/5.0/manual/parallelism.html#s:par_iterators
+  By the way, a much better, single-threaded implementation that calculates
+  the Fibonacci sequence is this:
 
-  A better, single-threaded implementation that calculates
-  the Fibonacci sequence uses memoization, and you can read about it at
-  https://cs3110.github.io/textbook/chapters/ds/memoization.html#fibonacci
+  let rec fib m n i =
+    if i < 1 then m
+    else fib n (n + m) (i - 1)
+
+  let fib = fib 0 1
+
+  For a more in-depth, realistic example of how to use
+  parallel computation, take a look at
+  https://v2.ocaml.org/releases/5.0/manual/parallelism.html#s:par_iterators
 *)
 |}
