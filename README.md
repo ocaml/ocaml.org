@@ -2,7 +2,7 @@
 
 [![Actions Status](https://github.com/ocaml/ocaml.org/workflows/CI/badge.svg)](https://github.com/ocaml/ocaml.org/actions)
 
-This repository contains the upcoming version of OCaml.org. It is currently served at https://ocaml.org/.
+This repository contains the sources of the OCaml website. It is served at https://ocaml.org/.
 
 ## Features
 
