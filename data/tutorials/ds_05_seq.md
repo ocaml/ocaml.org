@@ -9,6 +9,16 @@ date: 2023-01-12T09:00:00-01:00
 
 # Sequences
 
+## Prerequisites
+
+| Concept | Status | Documentation | Reference |
+|---|---|---|---|
+| Basic types | Mandatory | | |
+| Functions | Mandatory | | |
+| Lists   | Mandatory |   |   |
+| Options | Recommended |   |   |
+| Arrays  | Nice to have |   |   |
+
 ## Introduction
 
 Sequences look a lot like lists. However from a pragmatic perspective, one
@@ -48,49 +58,47 @@ that's “unfreezing”. However, unfreezing only gives access to the tip of the
 icicle, since the second argument of `Seq.Cons` is a function too.
 
 Having frozen-by-function tails explains why sequences may be considered
-potentially infinite. Unless a `Seq.Nil` has been found in the sequence, one
-can't say for sure if some will ever appear. The sequence could be a stream of
-client requests in a server, readings from an embedded sensor or system logs.
+potentially infinite. Until a `Seq`.Nil` value has been found in the sequence,
+one can't say for sure if some will ever appear. The sequence could be a stream
+of client requests in a server, readings from an embedded sensor or system logs.
 All have unforeseeable termination and it is easier to consider them infinite.
 
 Here is how to build seemingly infinite sequences of integers:
 ```ocaml
-# let rec ints_from n : int Seq.t = fun () -> Seq.Cons (n, ints_from (n + 1))
-  let ints = ints_from 0;;
-val ints_from : int -> int Seq.t = <fun>
-val ints : ints Seq.t = <fun>
+# let rec ints n : int Seq.t = fun () -> Seq.Cons (n, ints_from (n + 1))
+val ints : int -> int Seq.t = <fun>
 ```
-The function `ints_from n` looks as if building the infinite sequence
-$(n; n + 1; n + 2; n + 3;...)$
-while the value `ints` look as if representing the
-infinite sequence $(0; 1; 2; 3; ...)$. In reality, since there isn't an infinite
+The function `ints n` look as if building the infinite sequence
+$(n; n + 1; n + 2; n + 3;...)$. In reality, since there isn't an infinite
 amount of distinct values of type `int`, those sequences are not increasing,
 when reaching `max_int` the values will circle down to `min_int`. They are
-ultimately periodic.
+ultimately periodic. 
 
-The OCaml standard library contains a module on sequences called `Seq`. It
-contains a `Seq.iter` function, which has the same behaviour as `List.iter`.
-Writing this:
+The OCaml standard library contains a module on sequences called
+[`Seq`](/releases/5.0/api/Seq.html). It contains a `Seq.iter` function, which
+has the same behaviour as `List.iter`. Writing this:
 ```ocaml
-# Seq.iter print_int ints;;
+# Seq.iter print_int (ints 0);;
 ```
 in an OCaml top-level means: “print integers forever” and you have to type
 `Crtl-C` to interrupt the execution. Perhaps more interestingly, the following
 code is also an infinite loop:
 ```ocaml
-# Seq.iter ignore ints;;
+# Seq.iter ignore (ints 0);;
 ```
 But the key point is: it doesn't leak memory.
 
 ## Example
 
-Strangely, the `Seq` module of the OCaml standard library does not (yet) define
+The `Seq` module of the OCaml standard library contains 
+
+does not (yet) define
 a function returning the elements at the beginning of a sequence. Here is a
 possible implementation:
 ```ocaml
 let rec take n seq () = match seq () with
-| Seq.Cons (x, seq) when n > 0 -> Seq.Cons (x, take (n - 1) seq)
-| _ -> Seq.Nil
+  | Seq.Cons (x, seq) when n > 0 -> Seq.Cons (x, take (n - 1) seq)
+  | _ -> Seq.Nil
 ```
 `take n seq` returns, at most, the `n` first elements of the sequence `seq`. If
 `seq` contains less than `n` elements, an identical sequence is returned. In
@@ -109,14 +117,14 @@ a function needing a `unit` to produce a result.
 
 This can be used to print integers without looping forever as shown previously:
 ```ocaml
-# ints |> take 43 |> List.of_seq;;
+# Seq.ints 0 |> Seq.take 43 |> List.of_seq;;
 - : int list =
 [0; 1; 2; 3; 4; 5; 6; 7; 8; 9; 10; 11; 12; 13; 14; 15; 16; 17; 18; 19; 20; 21;
  22; 23; 24; 25; 26; 27; 28; 29; 30; 31; 32; 33; 34; 35; 36; 37; 38; 39; 40;
  41; 42]
 ```
 
-The `Seq` module has a function `Seq.filter`:
+The `Seq` module also has a function `Seq.filter`:
 ```ocaml
 # Seq.filter;;
 - : ('a -> bool) -> 'a Seq.t -> 'a Seq.t = <fun>
@@ -128,9 +136,9 @@ Using `Seq.filter`, it is possible to make a straightforward implementation of t
 Here it is:
 ```ocaml
 let rec sieve seq () = match seq () with
-| Seq.Cons (m, seq) -> Seq.Cons (m, sieve (Seq.filter (fun n -> n mod m > 0) seq))
-| seq -> seq;;
-let facts = ints_from 2 |> sieve
+  | Seq.Cons (m, seq) -> Seq.Cons (m, sieve (Seq.filter (fun n -> n mod m > 0) seq))
+  | seq -> seq
+let facts = ints_from 2 |> sieve;;
 ```
 
 This code can be used to generate lists of prime numbers. For instance, here is
@@ -153,3 +161,85 @@ function “corecursive”. This word is used to emphasize that, by design, it d
 not terminate. Strictly speaking, the sieve of Eratosthenes is not an
 algorithm either since it does not terminate. This implementation behaves the
 same.
+
+## Unfolding Sequences
+
+Standard higher-order iteration functions are available on Sequences. For instance:
+* `Seq.iter`
+* `Seq.map`
+* `Seq.fold_left`
+
+All those are also available for `Array`, `List` and `Set`. Since OCaml 4.11
+sequences have something which isn't (yet) available on those: `unfold`. Here is
+how it is implemented:
+```ocaml
+let rec unfold f seq () = match f seq with
+  | None -> Nil
+  | Some (x, seq) -> Cons (x, unfold f seq)
+```
+And here is its type:
+```ocaml
+val unfold : ('a -> ('b * 'a) option) -> 'a -> 'b Seq.t = <fun>
+```
+Unlike previously mentioned iterators `Seq.unfold` does not have a sequence
+parameter, but a sequence result. `unfold` provides a general means to build
+sequences. For instance, `Seq.ints` can be implemented using `Seq.unfold` in a
+fairly compact way:
+```ocaml
+let ints = Seq.unfold (fun n -> Some (n, n + 1));;
+```
+
+As a fun fact, observe `map` over sequences can be implemented
+using `Seq.unfold`. Here is how to write it:
+```ocaml
+# let map f = Seq.unfold (fun seq -> seq |> Seq.uncons |> Option.map (fun (x, y) -> (f x, y)));;
+val map : ('a -> 'b) -> 'a Seq.t -> 'b Seq.t = <fun>
+```
+Here is a quick check:
+```ocaml
+# Seq.ints 0 |> map (fun x -> x * x) |> Seq.take 10 |> List.of_seq;;
+- : int list = [0; 1; 4; 9; 16; 25; 36; 49; 64; 81]
+```
+
+Using this function:
+```ocaml
+let input_line_opt chan =
+  try Some (input_line chan, chan)
+  with End_of_file -> close_in chan; None
+```
+It is possible to read a file using `Seq.unfold`:
+```ocaml
+"README.md" |> open_in |> Seq.unfold input_line_opt |> Seq.iter print_endline
+```
+
+Although this can be an appealing style, bear in mind it does not prevent from
+taking care of open files. While the code above is fine, this one no longer is:
+```ocaml
+"README.md" |> open_in |> Seq.unfold input_line_opt |> Seq.take 10 |> Seq.iter print_endline
+```
+Here, `close_in` will never be called over the input channel opened on `README.md`.
+
+
+## Sequences for Conversions
+
+Throughout the standard library, sequences are used as a bridge to perform
+conversions between many datatypes. For instance, here are the signatures of
+some of those functions:
+* Lists
+  ```ocaml
+  val List.of_seq : 'a list -> 'a Seq.t
+  val List.to_seq : 'a Seq.t -> 'a list
+  ```
+* Arrays
+  ```ocaml
+  val Array.of_seq : 'a array -> 'a Seq.t
+  val Array.to_seq : 'a Seq.t -> 'a array
+  ```
+* Strings
+  ```ocaml
+  val String.of_seq : string -> char Seq.t
+  val String.to_seq : char Seq.t -> string
+  ```
+Similar functions are also provided for sets, maps, hash tables (`Hashtbl`) and
+others (except `Seq`, obviously). When implementing a datatype module, it is
+advised to expose `to_seq` and `of_seq` functions.
