@@ -22,6 +22,8 @@ type t = {
   stable_record ~version:metadata ~add:[ id ]
     ~remove:[ slug; fpath; toc_html; body_md; body_html ]]
 
+let of_metadata metadata = of_metadata metadata ~slug:metadata.id
+
 (* Copied from ocaml/omd, html.ml *)
 let to_plain_text t =
   let buf = Buffer.create 1024 in
@@ -66,15 +68,14 @@ let filter_heading_1 doc =
 
 let all () =
   Utils.map_files_with_names
-    (fun (file, content) ->
+    (fun (fpath, content) ->
       let metadata, body_md = Utils.extract_metadata_body content in
       let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
       let omd = doc_with_ids (Omd.of_string body_md) in
       let toc_doc = filter_heading_1 omd in
       let toc_html = Omd.to_html (Omd.toc ~depth:4 toc_doc) in
       let body_html = Omd.to_html (Hilite.Md.transform omd) in
-      of_metadata metadata ~fpath:file ~slug:metadata.id ~toc_html ~body_md
-        ~body_html)
+      of_metadata metadata ~fpath ~toc_html ~body_md ~body_html)
     "tutorials/*.md"
 
 let pp ppf v =

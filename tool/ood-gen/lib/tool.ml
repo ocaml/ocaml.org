@@ -38,6 +38,8 @@ type t = {
   stable_record ~version:metadata ~modify:[ lifecycle; description ]
     ~remove:[ slug ]]
 
+let of_metadata metadata = of_metadata metadata ~slug:metadata.name
+
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
   match yaml with
@@ -46,10 +48,9 @@ let decode s =
         (List.map
            (fun x ->
              let metadata = Utils.decode_or_raise metadata_of_yaml x in
-             let slug = Utils.slugify metadata.name in
              let modify_lifecycle = Utils.decode_or_raise Lifecycle.of_string in
              let modify_description v = Omd.of_string v |> Omd.to_html in
-             of_metadata metadata ~modify_lifecycle ~modify_description ~slug)
+             of_metadata metadata ~modify_lifecycle ~modify_description)
            xs)
   | _ -> Error (`Msg "expected a list of tools")
 

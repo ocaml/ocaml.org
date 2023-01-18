@@ -40,6 +40,8 @@ type t = {
 }
 [@@deriving stable_record ~version:metadata ~modify:[ kind ] ~remove:[ slug ]]
 
+let of_metadata metadata = of_metadata metadata ~slug:metadata.title
+
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
   match yaml with
@@ -48,9 +50,8 @@ let decode s =
         (List.map
            (fun x ->
              let metadata = Utils.decode_or_raise metadata_of_yaml x in
-             let slug = Utils.slugify metadata.title in
              let modify_kind = Utils.decode_or_raise Kind.of_string in
-             of_metadata metadata ~slug ~modify_kind)
+             of_metadata metadata ~modify_kind)
            xs)
   | _ -> Error (`Msg "expected a list of videos")
 
