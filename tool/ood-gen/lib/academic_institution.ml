@@ -20,6 +20,7 @@ type metadata = {
 
 type t = {
   name : string;
+  slug : string;
   description : string;
   url : string;
   logo : string option;
@@ -37,6 +38,7 @@ let all () =
       let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
       {
         name = metadata.name;
+        slug = Utils.slugify metadata.name;
         description = metadata.description;
         url = metadata.url;
         logo = metadata.logo;
@@ -78,10 +80,10 @@ let pp ppf v =
   ; body_md = %a
   ; body_html = %a
   }|}
-    Pp.string v.name Pp.string (Utils.slugify v.name) Pp.string v.description
-    Pp.string v.url (Pp.option Pp.string) v.logo Pp.string v.continent
-    (Pp.list pp_course) v.courses (Pp.option pp_location) v.location Pp.string
-    v.body_md Pp.string v.body_html
+    Pp.string v.name Pp.string v.slug Pp.string v.description Pp.string v.url
+    (Pp.option Pp.string) v.logo Pp.string v.continent (Pp.list pp_course)
+    v.courses (Pp.option pp_location) v.location Pp.string v.body_md Pp.string
+    v.body_html
 
 let pp_list = Pp.list pp
 
