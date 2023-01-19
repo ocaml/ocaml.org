@@ -7,9 +7,10 @@ let adts =
   You don't need to install anything - just write your code
   and see the results appear in the Output panel.
 
-  It's also compatible with OCaml 5: you can use the new
-  Domain module and effect handlers. Below is a naive example
-  that calculates the Fibonacci sequence in parallel.
+  This playground is powered by OCaml 5 which comes with
+  support for shared-memory parallelism through domains and effects.
+  Below is some naive example code that calculates
+  the Fibonacci sequence in parallel.
   
   Happy hacking!
 *)
