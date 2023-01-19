@@ -89,7 +89,7 @@ let pp ppf v =
   ; body_html = %a
   }|}
     Pp.string v.name Pp.string v.slug Pp.string v.description Pp.string v.url
-    (Pp.option Pp.string) v.logo Pp.string v.continent (Pp.list pp_course)
+    (Pp.option pp_logo) v.logo Pp.string v.continent (Pp.list pp_course)
     v.courses (Pp.option pp_location) v.location Pp.string v.body_md Pp.string
     v.body_html
 

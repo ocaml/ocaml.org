@@ -39,41 +39,37 @@ Layout.render
       </div>
     </div>
     <div :class="continent != 'All' ? 'hidden' : 'grid-logos'">
-      <% users |> List.iter (fun (item : Ood.Academic_institution.t) -> match item.logo with | None -> () | Some { path; alt } ->
-      let alt = match alt with | Some x -> x | None -> "" in %>
-      <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
-        <img src="<%s path %>" class="m-auto" alt="<%s alt %>" />
-        <div class="font-bold mt-8"><%s item.name %></div>
+      <% users |> List.iter (function ({ logo = Some { path; alt }; url; name; _ } : Ood.Academic_institution.t) -> %>
+      <a href="<%s url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
+        <img src="<%s path %>" class="m-auto" alt="<%s Option.value ~default:"" alt %>" />
+        <div class="font-bold mt-8"><%s name %></div>
       </a>
-      <% ); %>
+      <% | _ -> ()); %>
     </div>
 
     <div :class="continent != 'North America' ? 'hidden' : 'grid-logos'">
-      <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "North America") |> List.iter (fun (item : Ood.Academic_institution.t) -> match item.logo with | None -> () | Some { path; alt } ->
-      let alt = match alt with | Some x -> x | None -> "" in %>
-      <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
-        <img src="<%s path %>" class="m-auto" alt="<%s alt %>" />
-        <div class="font-bold mt-8"><%s item.name %></div>
+      <% users |> List.iter (function ({ logo = Some { path; alt }; url; name; continent = "North America"; _ } : Ood.Academic_institution.t) -> %>
+      <a href="<%s url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
+        <img src="<%s path %>" class="m-auto" alt="<%s Option.value ~default:"" alt %>" />
+        <div class="font-bold mt-8"><%s name %></div>
       </a>
-      <% ); %>
+      <% | _ -> ()); %>
     </div>
     <div :class="continent != 'Europe' ? 'hidden' : 'grid-logos'">
-      <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "Europe") |> List.iter (fun (item : Ood.Academic_institution.t) -> match item.logo with | None -> () | Some { path; alt } ->
-        let alt = match alt with | Some a -> a | None -> "" in %>
-      <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
-        <img src="<%s path %>" class="m-auto" alt="<%s alt %>" />
-        <div class="font-bold mt-8"><%s item.name %></div>
+      <% users |> List.iter (function ({ logo = Some { path; alt }; url; name; continent = "Europe"; _ } : Ood.Academic_institution.t) -> %>
+      <a href="<%s url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
+        <img src="<%s path %>" class="m-auto" alt="<%s Option.value ~default:"" alt %>" />
+        <div class="font-bold mt-8"><%s name %></div>
       </a>
-      <% ); %>
+      <% | _ -> ()); %>
     </div>
     <div :class="continent != 'Asia' ? 'hidden' : 'grid-logos'">
-      <% users |> List.filter (fun x -> x.Ood.Academic_institution.continent = "Asia") |> List.iter (fun (item : Ood.Academic_institution.t) -> match item.logo with | None -> () | Some { path; alt } ->
-      let alt = match alt with | Some x -> x | None -> "" in %>
-      <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
-        <img src="<%s path %>" class="m-auto" alt="<%s alt %>" />
-        <div class="font-bold mt-8"><%s item.name %></div>
+      <% users |> List.iter (function ({ logo = Some { path; alt }; url; name; continent = "Asia"; _ } : Ood.Academic_institution.t) -> %>
+      <a href="<%s url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
+        <img src="<%s path %>" class="m-auto" alt="<%s Option.value ~default:"" alt %>" />
+        <div class="font-bold mt-8"><%s name %></div>
       </a>
-      <% ); %>
+      <% | _ -> ()); %>
     </div>
   </div>
   <div class="bg-pattern lg:py-32 py-24">
