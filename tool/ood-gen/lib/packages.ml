@@ -6,10 +6,10 @@ type t = metadata [@@deriving show { with_path = false }]
 let all () =
   let (>>=) = Result.bind in
   Data.read "packages.yml"
-  |> Import.Result.of_option (`Msg "packages.ml: file not found")
+  |> Option.to_result ~none:(`Msg "packages.ml: file not found")
   >>= Yaml.of_string
   >>= metadata_of_yaml
-  |> Import.Result.get Utils.decode_error
+  |> Utils.decode_or_raise Fun.id
 
 let template () =
   Format.asprintf

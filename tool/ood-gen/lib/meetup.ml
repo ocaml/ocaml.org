@@ -35,13 +35,13 @@ let all () =
   let (>>=) = Result.bind in
   let (<@>) = Import.Result.app in
   Data.read "meetups.yml"
-  |> Import.Result.of_option (`Msg "meetups.yml: file not found")
+  |> Option.to_result ~none:(`Msg "meetups.yml: file not found")
   >>= Yaml.of_string
   >>= Yaml.Util.find "meetups"
-  >>= Import.Result.of_option (`Msg "meetups.yml: key \"meetups\" not found")
+  >>= Option.to_result ~none:(`Msg "meetups.yml: key \"meetups\" not found")
   >>= (function `A x -> Ok x | _ -> Error (`Msg "meetups.yml: expecting a sequence"))
   >>= List.fold_left (fun u y -> Ok List.cons <@> metadata_of_yaml y <@> u) (Ok [])
-  |> Import.Result.get Utils.decode_error
+  |> Utils.decode_or_raise Fun.id
 
 let template () =
   Format.asprintf
