@@ -38,7 +38,7 @@ type t = {
   stable_record ~version:metadata ~modify:[ lifecycle; description ]
     ~remove:[ slug ]]
 
-let of_metadata metadata = of_metadata metadata ~slug:metadata.name
+let of_metadata m = of_metadata m ~slug:m.name
 
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in

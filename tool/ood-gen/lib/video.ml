@@ -40,7 +40,7 @@ type t = {
 }
 [@@deriving stable_record ~version:metadata ~modify:[ kind ] ~remove:[ slug ]]
 
-let of_metadata metadata = of_metadata metadata ~slug:metadata.title
+let of_metadata m = of_metadata m ~slug:m.title
 
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in

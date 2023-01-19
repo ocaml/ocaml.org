@@ -24,7 +24,7 @@ type t = {
 [@@deriving
   stable_record ~version:metadata ~remove:[ slug; body_md; body_html ]]
 
-let of_metadata metadata = of_metadata metadata ~slug:metadata.name
+let of_metadata m = of_metadata m ~slug:m.name
 
 let all () =
   Utils.map_files

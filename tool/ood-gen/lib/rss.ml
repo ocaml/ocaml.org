@@ -117,9 +117,8 @@ type t = {
   stable_record ~version:metadata ~modify:[ featured ]
     ~remove:[ slug; body_html ]]
 
-let of_metadata metadata =
-  of_metadata metadata ~slug:metadata.title
-    ~modify_featured:(Option.value ~default:false)
+let of_metadata m =
+  of_metadata m ~slug:m.title ~modify_featured:(Option.value ~default:false)
 
 let all () =
   Utils.map_files

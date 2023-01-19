@@ -22,7 +22,7 @@ type t = {
   stable_record ~version:metadata ~add:[ id ]
     ~remove:[ slug; fpath; toc_html; body_md; body_html ]]
 
-let of_metadata metadata = of_metadata metadata ~slug:metadata.id
+let of_metadata m = of_metadata m ~slug:m.id
 
 (* Copied from ocaml/omd, html.ml *)
 let to_plain_text t =

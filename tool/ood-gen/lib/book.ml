@@ -29,9 +29,10 @@ type t = {
   body_md : string;
   body_html : string;
 }
-[@@deriving stable_record ~version:metadata ~remove:[ slug; body_md; body_html ]]
+[@@deriving
+  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ]]
 
-let of_metadata metadata = of_metadata metadata ~slug:metadata.title
+let of_metadata m = of_metadata m ~slug:m.title
 
 let all () =
   Utils.map_files

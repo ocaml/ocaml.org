@@ -5,7 +5,7 @@ module Proficiency = struct
     | "beginner" -> Ok `Beginner
     | "intermediate" -> Ok `Intermediate
     | "advanced" -> Ok `Advanced
-    | s -> Error (`Msg ("Unknown proficiency type: " ^ s)
+    | s -> Error (`Msg ("Unknown proficiency type: " ^ s))
 end
 
 type metadata = {
