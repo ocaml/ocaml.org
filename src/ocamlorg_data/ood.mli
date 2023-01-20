@@ -1,18 +1,3 @@
-module Meta : sig
-  module Archetype : sig
-    type t =
-      [ `Application_developer
-      | `Beginner
-      | `Distribution_manager
-      | `End_user
-      | `Library_author
-      | `Teacher ]
-
-    val to_string : t -> string
-    val of_string : string -> (t, [> `Msg of string ]) result
-  end
-end
-
 module Academic_institution : sig
   type location = { lat : float; long : float }
 
