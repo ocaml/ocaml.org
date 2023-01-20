@@ -16,6 +16,7 @@ let menu_link
 
 
 let render
+?(show_get_started=true)
 ?(wide=false)
 ?(active_top_nav_item: active_nav_item option)
 ()
@@ -53,9 +54,11 @@ let render
           </div>
         </form>
       </div>
+      <% if show_get_started then (%>
       <div class="hidden lg:flex">
-        <a href="<%s Url.getting_started %>" class="btn btn-sm">Get Started</a>
+        <a href="<%s Url.getting_started %>" class="btn btn-secondary btn-sm">Get Started</a>
       </div>
+      <% ); %>
 
       <div
         class="hamburger lg:hidden flex h-12 w-12 hover:bg-primary-100 flex items-center justify-center rounded-full"
