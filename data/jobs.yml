@@ -15,12 +15,6 @@ jobs:
     location: Remote
     company: Heliax
     company_logo: https://workshub.imgix.net/e52e257a6a9cdbc2bc868a5991ccd717?fit=clip&crop=entropy&auto=format
-  - title: Senior Software Engineer - Tooling team
-    link: https://tarides.com/jobs/senior-software-engineer-tooling-team
-    location: Remote
-    publication_date: 2022-06-26
-    company: Tarides
-    company_logo: https://tarides.com/static/logo_tarides-52f91b59a8657d768e013129896b63e0.png
   - title: Spontaneous Application
     link: https://tarides.com/jobs/spontaneous-application
     location: Remote
