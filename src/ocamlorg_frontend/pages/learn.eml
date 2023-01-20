@@ -16,16 +16,12 @@ Learn_layout.render
       <div class="p-6 xl:p-8 h-full xl:h-auto flex flex-col">
         <h2 class="font-bold mb-2">Get Started</h2>
         <div class="font-medium mb-4 opacity-80">Learn how to get OCaml set up in your project.</div>
-        <a class="mt-auto" href="<%s Url.getting_started %>">
-          <button
-            class="bg-black font-semibold h-12 px-5 rounded-md bg-opacity-10 hover:bg-opacity-20 transition-colors"
-          >
-            Start Now
-          </button>
+        <a class="mt-auto bg-black font-semibold text-center py-2 px-5 rounded-md bg-opacity-10 hover:bg-opacity-20 transition-colors" href="<%s Url.getting_started %>">
+          Start Now
         </a>
       </div>
       <div class="hidden xl:flex justify-end pl-8">
-        <img src="/img/learn/learn-get-started.svg" class="w-full" alt="Get Started background" />
+        <img src="/img/learn/learn-get-started.svg" class="w-full" alt="Get Started background">
       </div>
     </div>
 
@@ -35,16 +31,12 @@ Learn_layout.render
         <div class="font-medium mb-4 opacity-80">
           Learning by doing, or do by learning!
         </div>
-        <a class="mt-auto" href="<%s Url.problems %>">
-          <button
-            class="bg-black font-semibold h-12 px-5 rounded-md bg-opacity-10 hover:bg-opacity-20 transition-colors"
-          >
-            I'm Ready
-          </button>
+        <a class="mt-auto bg-black font-semibold text-center py-2 px-5 rounded-md bg-opacity-10 hover:bg-opacity-20 transition-colors" href="<%s Url.problems %>">
+          I'm Ready
         </a>
       </div>
       <div class="hidden xl:flex justify-end pl-8">
-        <img src="/img/learn/learn-exercise.svg" class="w-full" alt="Exercises Background" />
+        <img src="/img/learn/learn-exercise.svg" class="w-full" alt="Exercises Background">
       </div>
     </div>
 
@@ -52,16 +44,12 @@ Learn_layout.render
       <div class="p-6 xl:p-8 h-full xl:h-auto flex flex-col">
         <h2 class="font-bold mb-2">Language Manual</h2>
         <div class="font-medium mb-4 opacity-80">Acquire a deeper understanding!</div>
-        <a class="mt-auto" href="<%s Url.manual %>">
-          <button
-            class="whitespace-nowrap bg-black font-semibold h-12 px-5 rounded-md bg-opacity-10 hover:bg-opacity-20 transition-colors"
-          >
-            Take Me There
-          </button>
+        <a class="mt-auto whitespace-nowrap bg-black font-semibold text-center py-2 px-5 rounded-md bg-opacity-10 hover:bg-opacity-20 transition-colors" href="<%s Url.manual %>">
+          Take Me There
         </a>
       </div>
       <div class="hidden xl:flex justify-end pl-8">
-        <img src="/img/learn/learn-language.svg" class="w-full" alt="Manual background" />
+        <img src="/img/learn/learn-language.svg" class="w-full" alt="Manual background">
       </div>
     </div>
   </div>
@@ -92,13 +80,11 @@ Learn_layout.render
       </a>
       <% ); %>
     </div>
-    <a href="<%s Url.papers %>">
-      <button class="btn btn-lg btn-secondary mt-8">
-        <span>View all papers</span>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
+    <a href="<%s Url.papers %>" class="btn btn-lg btn-secondary mt-8">
+      <span>View all papers</span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
     </a>
   </div>
   <div class="mt-10 lg:mt-20 border-b border-gray-200 pb-10">
@@ -106,22 +92,20 @@ Learn_layout.render
     <div class="mt-6 text-body-400 text-lg">
         The history of OCaml releases with a summary and a complete changelog, as well as the manual at that time.
     </div>
-    <a href="<%s Url.release release.version %>">
-      <div class="bg-pattern p-6 mt-8 rounded-xl w-full lg:w-2/3 text-white">
+    <div class="bg-pattern p-6 mt-8 rounded-xl w-full lg:w-2/3 text-white">
+      <a href="<%s Url.release release.version %>">
         <div class="text-primary-600 text-sm mb-4 uppercase">Recent Release</div>
         <h3 class="font-bold mb-6">
           <%s release.version %> <span class="text-sm font-medium">(<%s release.date %>)</span>
         </h3>
-        <div class="prose prose-sm text-white"><%s! release.highlights_html %></div>
-      </div>
-    </a>
-    <a href="<%s Url.releases %>">
-      <button class="btn btn-lg btn-secondary mt-8">
-        <span>See all Releases</span>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
+      </a>
+      <div class="prose prose-sm text-white"><%s! release.highlights_html %></div>
+    </div>
+    <a href="<%s Url.releases %>" class="btn btn-lg btn-secondary mt-8">
+      <span>See all Releases</span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
     </a>
   </div>
   <div class="mt-10 lg:mt-20">
@@ -136,7 +120,7 @@ Learn_layout.render
           src="/media/<%s item.cover %>"
           class="rounded-2xl lg:w-full max-h-96 border border-gray-200"
           alt="<%s item.title %> cover"
-        />
+        >
         <div class="font-semibold mt-6 mb-3"><%s item.title %></div>
         <% (match item.rating with | None -> () | Some rating -> %>
         <div class="flex space-x-1 mb-6 text-primary-600">
@@ -163,12 +147,10 @@ Learn_layout.render
       </a>
       <% ); %>
     </div>
-    <a href="<%s Url.books %>">
-      <button class="btn btn-lg btn-secondary mt-12">
-        <span>See all Books</span>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
+    <a href="<%s Url.books %>" class="btn btn-lg btn-secondary mt-12">
+      <span>See all Books</span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
     </a>
   </div>

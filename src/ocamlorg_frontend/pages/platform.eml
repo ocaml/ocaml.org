@@ -25,9 +25,13 @@ Learn_layout.render
       Platform, you can use the <a class="text-orange-500"
       href="https://github.com/tarides/ocaml-platform-installer"> OCaml
       Platform Installer</a>. To download it, run:
-      <pre><code>bash < <(curl -sL https://ocaml.org<%s Url.installer %>)</code></pre>
+    </p>
+      <pre><code><%s "bash < <(curl -sL https://ocaml.org" ^ Url.installer ^ ")" %></code></pre>
+    <p>
       And run it to install the Platform tools in your opam switch:
+    </p>
       <pre><code>ocaml-platform</code></pre>
+    <p>
       For detailed instructions, check:
       <a class="text-orange-500"
         href="/docs/up-and-running#up-and-running-with-the-platform-installer">
@@ -47,11 +51,8 @@ Learn_layout.render
     >
       <div x-show.transition.in.opacity.duration.500ms="isPlaying">
         <iframe
-          class="absolute top-0 rounded-lg"
+          class="absolute top-0 rounded-lg h-full w-full"
           x-ref="iframeElement"
-          width="100%"
-          height="100%"
-          frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
         >
@@ -59,7 +60,7 @@ Learn_layout.render
       </div>
       <div class="flex h-full justify-center" x-show="!isPlaying">
         <div class="z-10 mb-10 lg:mb-0">
-          <img width="160" class="m-auto mt-10 md:mt-20" src="/logo-with-name.svg" alt="OCaml logo" />
+          <img width="160" class="m-auto mt-10 md:mt-20" src="/logo-with-name.svg" alt="OCaml logo">
           <div class="text-body-400 mt-2">OCaml Workshop 2020</div>
           <h3 class="font-bold mt-16">State of the OCaml Platform 2020</h3>
           <div class="mt-16 flex justify-center">

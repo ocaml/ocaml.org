@@ -50,7 +50,7 @@ Package_layout.render
 ~styles:["/css/main.css"; "/css/doc.css"]
 ~tab:Documentation @@
 <div x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024">
-  <div role="button" class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
+  <div role="button" :aria-pressed="sidebar" aria-pressed="false" class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
     :class="sidebar ? 'pl-1 pr-2': ''" x-on:click="sidebar = ! sidebar">
     <div class="transform transition-transform" :class='sidebar ? "" : "rotate-180" '>
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

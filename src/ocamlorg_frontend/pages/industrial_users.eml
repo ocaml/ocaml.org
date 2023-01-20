@@ -15,7 +15,7 @@ the community and learn more about how they use OCaml."
               <div class="text-body-400 mt-6 mb-8">Read our success stories to learn how OCaml helped our users
                   achieve their goals.</div>
               <div class="space-x-6">
-                  <a href="<%s Url.academic_users %>"><button class="btn btn-lg btn-secondary">In Academia</button></a>
+                  <a href="<%s Url.academic_users %>" class="btn btn-lg btn-secondary">In Academia</a>
               </div>
           </div>
           <div class="lg:flex-1 cursor-pointer relative rounded-2xl overflow-hidden border-4 border-primary-100 video-shadow"
@@ -24,8 +24,7 @@ the community and learn more about how they use OCaml."
                       isPlaying = !isPlaying;
                       $nextTick(() => { $refs.iframeElement.setAttribute('src', iframe_url()) });">
                   <div x-show.transition.in.opacity.duration.500ms="isPlaying">
-                      <iframe class="absolute top-0 rounded-lg" x-ref="iframeElement" width="100%" height="100%"
-                          frameborder="0"
+                      <iframe class="absolute top-0 rounded-lg w-full h-full" x-ref="iframeElement"
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowfullscreen>
                       </iframe>
@@ -154,7 +153,7 @@ the community and learn more about how they use OCaml."
       <div class="swiper-wrapper">
         <a href="https://rescript-lang.org/" class="swiper-slide p-4 card-hover">
           <div class="overflow-hidden p-8">
-            <img src="/logos/rescript.svg" class="mb-8 h-8" />
+            <img src="/logos/rescript.svg" class="mb-8 h-8" alt="">
             <div class="mb-12">Thanks to the OCaml team, obviously, without such a beautiful yet practical language, this project would not exist. The original type system was inherited from it with lots of modifications to fit with JS ecosystem better.</div>
             <div class="font-bold">Bob Zhang</div>
             <div>Maintainer, ReScript.</div>
@@ -163,7 +162,7 @@ the community and learn more about how they use OCaml."
 
         <a href="https://www.janestreet.com/" class="swiper-slide p-4 card-hover">
           <div class="overflow-hidden p-8">
-            <img src="/logos/janestreet.svg" class="mb-8 h-8" />
+            <img src="/logos/janestreet.svg" class="mb-8 h-8" alt="">
             <div class="mb-12">OCaml helps us to quickly adapt to changing market conditions and go from prototypes to production systems with less effort ... Billions of dollars of transactions flow through our systems every day, so getting it right matters.</div>
             <div class="font-bold">Yaron Minsky</div>
             <div>CTO, Jane Street.</div>
@@ -172,7 +171,7 @@ the community and learn more about how they use OCaml."
 
         <a href="https://ahrefs.com/" class="swiper-slide p-4 card-hover">
           <div class="overflow-hidden p-8">
-              <img src="/logos/ahrefs.svg" class="mb-10 h-6" alt="" />
+              <img src="/logos/ahrefs.svg" class="mb-10 h-6" alt="">
               <div class="mb-12">OCaml as the development environment acts as a very much trusted partner throughout the whole development process. As our requirements evolve, we change the implementation a lot, and this is where the language shines. Literally, I am not afraid to change others’ code when OCaml has my back!</div>
               <div class="font-bold">Oleksiy Golovko</div>
               <div>Backend Developer, Ahrefs.</div>
@@ -181,7 +180,7 @@ the community and learn more about how they use OCaml."
 
         <a href="https://www.marigold.dev" class="swiper-slide p-4 card-hover">
           <div class="overflow-hidden p-8">
-              <img src="https://uploads-ssl.webflow.com/616ab4741d375d1642c19027/61793ee65c891c190fcaa1d0_Vector(1).png" class="h-8 mb-8" alt="" />
+              <img src="https://uploads-ssl.webflow.com/616ab4741d375d1642c19027/61793ee65c891c190fcaa1d0_Vector(1).png" class="h-8 mb-8" alt="">
               <div class="mb-12">Using OCaml as a programming language to write software has many benefits. For instance, it is able to describe the source code in an easy and understandable manner. The fear of refactoring in the source code can be eased as well. OCaml has a mature and very evolving ecosystem, which is a large, supportive and friendly community.</div>
               <div class="font-bold">Xavier Van de Woestyne</div>
               <div>Software engineer, Marigold.</div>
@@ -190,7 +189,7 @@ the community and learn more about how they use OCaml."
 
         <a href="https://twitter.com/jack/status/47090747706580992" class="swiper-slide p-4 card-hover">
           <div class="overflow-hidden p-8">
-              <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/c/c8/Twitter_Bird.svg/1259px-Twitter_Bird.svg.png" class="h-8 mb-8" alt="" />
+              <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/c/c8/Twitter_Bird.svg/1259px-Twitter_Bird.svg.png" class="h-8 mb-8" alt="">
               <div class="mb-12">Originally I was going to program twttr in Python, C, & Ocaml. But, I got @florian who was a core contributor to Ruby on Rails.</div>
               <div class="font-bold">Jack Dorsey</div>
               <div>Founder, Twitter.</div>
@@ -204,12 +203,12 @@ the community and learn more about how they use OCaml."
   <div class="container-fluid">
     <div class="text-center">
       <h2 class="font-bold mb-6">Other Industry Users of OCaml</h2>
-      <div class="text-body-400">With its strong security features and high performance, several companies rely on OCaml to keep<br /> their data operating both safely and efficiently. On this page, you can get an overview of the<br /> companies in the community and learn more about how they use OCaml.</div>
+      <div class="text-body-400">With its strong security features and high performance, several companies rely on OCaml to keep<br> their data operating both safely and efficiently. On this page, you can get an overview of the<br> companies in the community and learn more about how they use OCaml.</div>
     </div>
     <div class="grid-logos bg-white mt-20">
       <% users |> List.iter (fun (item : Ood.Industrial_user.t) -> let logo = match item.logo with | Some x -> "/media/" ^ x | None -> "" in %>
       <a href="<%s item.url %>" target="_blank" class="p-12 hover:text-primary-600 flex items-center flex-col">
-        <img src="<%s logo %>" class="m-auto" alt="<%s item.name %> logo" />
+        <img src="<%s logo %>" class="m-auto" alt="<%s item.name %> logo">
         <div class="font-bold mt-8"><%s item.name %></div>
       </a>
       <% ); %>

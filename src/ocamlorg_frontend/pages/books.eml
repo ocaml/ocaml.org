@@ -25,15 +25,13 @@ let render_books books =
                 <div class="font-semibold text-base mb-6 uppercase"><%s item.authors |> String.concat ", " %></div>
                 <div class="prose prose-orange mb-6"><%s! item.body_html %></div>
                 <% item.links |> List.iter (fun (link : Ood.Book.link) -> %>
-                    <a href="<%s link.uri %>">
-                        <button class="btn btn-secondary">
-                            <span><%s link.description %></span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
+                    <a class="btn btn-secondary" href="<%s link.uri %>">
+                        <span><%s link.description %></span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5l7 7-7 7" />
+                        </svg>
                     </a>
                 <% ); %>
             </div>

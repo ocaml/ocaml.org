@@ -17,11 +17,9 @@ Layout.render
           with an emphasis on expressiveness and safety.
         </div>
         <div class="space-x-0 lg:space-x-6">
-          <a href="<%s Url.getting_started %>"><button class="btn btn-lg mb-4 lg:mb-0">Get started</button></a>
-          <a href="<%s Url.about %>">
-            <button class="btn btn-lg btn-secondary text-body-600">
-              About OCaml
-            </button>
+          <a class="btn btn-lg mb-4 lg:mb-0" href="<%s Url.getting_started %>">Get started</a>
+          <a class="btn btn-lg btn-secondary text-body-600" href="<%s Url.about %>">
+            About OCaml
           </a>
         </div>
       </div>
@@ -38,12 +36,12 @@ Layout.render
             <div class="text-left overflow-auto">
               <pre id="output" class="flex flex-col w-full code-preview text-white text-sm space-y-1 font-medium">
 <code><span><span class="text-blue-500 ">let</span> <span class="text-code-yellow ">square</span> x = x * x</span>
-<span><i class="text-gray-400 ">val square : int -> int = < fun ></i></span>
+<span><i class="text-gray-400 "><%s "val square : int -> int = < fun >" %></i></span>
 <span>square 3</span>
 <span><i class="text-gray-400 ">- : int = 9</i></span>
 <span><span class="text-blue-500 ">let rec</span> <span class="text-code-yellow ">fac</span> x =</span>
-<span><span class="text-blue-500  ml-4">if</span> x <= 1 <span class="text-blue-500 ">then</span> 1 <span class="text-blue-500">else</span> x * fac (x - 1)</span></span>
-<span><i class="text-gray-400">val fac : int -> int = < fun ></i></span>
+<span><span class="text-blue-500  ml-4">if</span> <%s "x <= 1" %> <span class="text-blue-500 ">then</span> 1 <span class="text-blue-500">else</span> x * fac (x - 1)</span>
+<span><i class="text-gray-400"><%s "val fac : int -> int = < fun >" %></i></span>
 <span>fac 5</span>
 <span><i class="text-gray-400 ">- : int = 120</i></span>
 <span>square 120</span>
@@ -122,7 +120,7 @@ Layout.render
           </div>
         </div>
         <div class="lg:flex-1 lg:mr-24 lg:mt-0 mt-10 flex justify-center">
-          <img src="/img/home/safe-stable.svg" alt="An example OCaml program defining nested lists in OCaml. A terminal output also shows the compiler catching a type error where a pattern-match was not exhaustive." />
+          <img src="/img/home/safe-stable.svg" alt="An example OCaml program defining nested lists in OCaml. A terminal output also shows the compiler catching a type error where a pattern-match was not exhaustive.">
         </div>
       </div>
 
@@ -146,7 +144,7 @@ Layout.render
           </div>
         </div>
         <div class="lg:flex-1 lg:ml-24 lg:mt-0 mt-10 flex justify-center">
-          <img src="/img/home/workfaster.svg" alt="" />
+          <img src="/img/home/workfaster.svg" alt="">
         </div>
       </div>
 
@@ -167,19 +165,19 @@ Layout.render
               First-Class Editor and Tooling
             </h3>
             <div class="my-4 text-lg">
-              OCaml has great support for the most popular editors. VS Code is recommended for beginners, and for power users there is deep integration with Vim and Emacs. OCaml has a rich and dynamic community and best-in-class tooling. Between Opam, a popular package manager; Utop, a powerful interactive REPL; and <tt>odoc</tt>, an easy-to-use documentation generator, OCaml programmers have access to a complete, modern developer experience.
+              OCaml has great support for the most popular editors. VS Code is recommended for beginners, and for power users there is deep integration with Vim and Emacs. OCaml has a rich and dynamic community and best-in-class tooling. Between Opam, a popular package manager; Utop, a powerful interactive REPL; and <code>odoc</code>, an easy-to-use documentation generator, OCaml programmers have access to a complete, modern developer experience.
             </div>
             <div class=" w-56">
               <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                   <div class="swiper-slide">
-                    <img src="/logos/vscode.svg" width="56px" alt="" />
+                    <img src="/logos/vscode.svg" width="56" alt="">
                   </div>
                   <div class="swiper-slide">
-                    <img src="/logos/vim.svg" width="56px" alt="" />
+                    <img src="/logos/vim.svg" width="56" alt="">
                   </div>
                   <div class="swiper-slide">
-                    <img src="/logos/emacs.svg" width="56px" alt="" />
+                    <img src="/logos/emacs.svg" width="56" alt="">
                   </div>
                 </div>
               </div>
@@ -191,13 +189,13 @@ Layout.render
             <div style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff;" class="swiper mySwiper2">
               <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                  <img width="785" src="/img/home/vscode-preview.png" alt="An OCaml program being edited in VSCode" />
+                  <img width="785" src="/img/home/vscode-preview.png" alt="An OCaml program being edited in VSCode">
                 </div>
                 <div class="swiper-slide">
-                  <img width="785" src="/img/home/vim-preview.png" alt="Writing an OCaml program using vim" />
+                  <img width="785" src="/img/home/vim-preview.png" alt="Writing an OCaml program using vim">
                 </div>
                 <div class="swiper-slide">
-                  <img width="785" src="/img/home/emac-preview.png" alt="Writing an OCaml program using emacs"/>
+                  <img width="785" src="/img/home/emac-preview.png" alt="Writing an OCaml program using emacs">
                 </div>
               </div>
             </div>
@@ -225,7 +223,7 @@ Layout.render
         style="width: 1500px">
         <a href="https://mirage.io/" target="_blank" class="bg-white p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
-            <img src="/img/home/mirage.png" alt="MirageOS logo" />
+            <img src="/img/home/mirage.png" alt="MirageOS logo">
             <div class="flex-col px-6">
               <div class="text-base font-semibold">MirageOS</div>
               <div class="font-normal text-xs mt-1">
@@ -237,7 +235,7 @@ Layout.render
         <a href="http://ocsigen.org/js_of_ocaml/latest/manual/overview" target="_blank"
           class="bg-white p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
-            <img src="/img/home/js_of_ocaml.png" alt="Js_of_ocaml logo" />
+            <img src="/img/home/js_of_ocaml.png" alt="Js_of_ocaml logo">
             <div class="flex-col px-6">
               <div class="text-base font-semibold">Js_of_ocaml</div>
               <div class="font-normal text-xs mt-1">
@@ -249,7 +247,7 @@ Layout.render
         <a href="https://erratique.ch/software/cmdliner" target="_blank"
           class="bg-white p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
-            <img src="/img/home/cmdliner.png" alt="Cmdliner logo" />
+            <img src="/img/home/cmdliner.png" alt="Cmdliner logo">
             <div class="flex-col px-6">
               <div class="text-base font-semibold">Cmdliner</div>
               <div class="font-normal text-xs mt-1">
@@ -261,7 +259,7 @@ Layout.render
         <a href="https://irmin.org/" target="_blank"
           class="bg-white p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
-            <img src="/img/home/irmin.png" alt="Irmin logo" />
+            <img src="/img/home/irmin.png" alt="Irmin logo">
             <div class="flex-col px-6">
               <div class="text-base font-semibold">Irmin</div>
               <div class="font-normal text-xs mt-1">
@@ -277,7 +275,7 @@ Layout.render
         <a href="https://dune.build/" target="_blank"
           class="bg-white p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
-            <img src="/img/home/dune.png" alt="Dune logo" />
+            <img src="/img/home/dune.png" alt="Dune logo">
             <div class="flex-col px-6">
               <div class="text-base font-semibold">Dune</div>
               <div class="font-normal text-xs mt-1">
@@ -289,7 +287,7 @@ Layout.render
         <a href="https://ocsigen.org/lwt/latest/manual/manual" target="_blank"
           class="bg-white p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
-            <img src="/img/home/lwt.png" alt="Lwt logo" />
+            <img src="/img/home/lwt.png" alt="Lwt logo">
             <div class="flex-col px-6">
               <div class="text-base font-semibold">Lwt</div>
               <div class="font-normal text-xs mt-1">
@@ -300,7 +298,7 @@ Layout.render
         </a>
         <a href="https://ocaml.xyz/" target="_blank" class="bg-white p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
-            <img src="/img/home/owl.png" alt="Owl logo" />
+            <img src="/img/home/owl.png" alt="Owl logo">
             <div class="flex-col px-6">
               <div class="text-base font-semibold">Owl</div>
               <div class="font-normal text-xs mt-1">
@@ -312,7 +310,7 @@ Layout.render
         <a href="https://aantron.github.io/dream/" target="_blank"
           class="bg-white p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
-            <img src="/img/home/dream.png" alt="Dream logo" />
+            <img src="/img/home/dream.png" alt="Dream logo">
             <div class="flex-col px-6">
               <div class="text-base font-semibold">Dream</div>
               <div class="font-normal text-xs mt-1">
@@ -351,7 +349,7 @@ Layout.render
           <div class="text-base text-body-600">
             With its mathematical roots, OCaml has always had strong ties to academia. Currently, it is being taught in universities around the world, and has accrued an ever-growing body of research. This page will provide you with an overview of the academic rigor that defines the culture of OCaml.
           </div>
-          <a href="<%s Url.academic_users %>"><button class="btn mt-10">Learn more</button></a>
+          <a class="btn mt-10" href="<%s Url.academic_users %>">Learn more</a>
         </div>
       </div>
       <div class="shadow-lg p-10 bg-white rounded-xl">
@@ -363,14 +361,14 @@ Layout.render
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                 d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
             </svg>
-            <div class=absolute w-20 h-20 top-0 -right-10 rounded-full bg-primary-100"></div>
+            <div class="absolute w-20 h-20 top-0 -right-10 rounded-full bg-primary-100"></div>
           </div>
         </div>
         <div>
           <div class="text-base text-body-600">
             With its powerful compile-time guarantees and high performance, several companies rely on OCaml to keep their systems operating both reliably and speedily. On this page, you can get an overview of the companies in the community and learn more about how they use OCaml.
           </div>
-          <a href="<%s Url.industrial_users %>"><button class="btn mt-10">Learn more</button></a>
+          <a class="btn mt-10" href="<%s Url.industrial_users %>">Learn more</a>
         </div>
       </div>
     </div>
@@ -455,18 +453,16 @@ Layout.render
             documentation.
           </p>
         </div>
-        <a href="<%s Url.packages %>">
-          <button class="btn btn-primary btn-lg mt-8 flex items-center">
-            <span>Explore packages</span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 " fill="none" viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+        <a href="<%s Url.packages %>" class="btn btn-primary btn-lg mt-8 flex items-center">
+          <span>Explore packages</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 " fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
         </a>
       </div>
       <div class="m-auto">
-        <img src="/img/home/packages-home.png" width="1047" class="max-w-none -mb-72 h-auto" alt="" />
+        <img src="/img/home/packages-home.png" width="1047" class="max-w-none -mb-72 h-auto" alt="">
       </div>
     </div>
   </div>
