@@ -19,12 +19,6 @@ type t = {
   body_html : string;
 }
 
-let proficiency_list_of_string_list =
-  List.map (fun x ->
-      match Meta.Proficiency.of_string x with
-      | Ok x -> x
-      | Error (`Msg err) -> raise (Exn.Decode_error err))
-
 (* Copied from ocaml/omd, html.ml *)
 let to_plain_text t =
   let buf = Buffer.create 1024 in
