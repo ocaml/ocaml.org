@@ -216,15 +216,15 @@ let page (page : Ood.Page.t) canonical (_req : Dream.request) =
        ~content:page.body_html ~canonical)
 
 let carbon_footprint =
-  page Ood.Page.carbon_footprint Ocamlorg_frontend.Url.carbon_footprint
+  page (Ood.Page.get Ocamlorg_frontend.Url.carbon_footprint) Ocamlorg_frontend.Url.carbon_footprint
 
 let privacy_policy =
-  page Ood.Page.privacy_policy Ocamlorg_frontend.Url.privacy_policy
+  page (Ood.Page.get Ocamlorg_frontend.Url.privacy_policy) Ocamlorg_frontend.Url.privacy_policy
 
-let governance = page Ood.Page.governance Ocamlorg_frontend.Url.governance
+let governance = page (Ood.Page.get Ocamlorg_frontend.Url.governance) Ocamlorg_frontend.Url.governance
 
 let code_of_conduct =
-  page Ood.Page.code_of_conduct Ocamlorg_frontend.Url.code_of_conduct
+  page (Ood.Page.get Ocamlorg_frontend.Url.code_of_conduct) Ocamlorg_frontend.Url.code_of_conduct
 
 let playground _req = Dream.html (Ocamlorg_frontend.playground ())
 
