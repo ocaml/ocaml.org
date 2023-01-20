@@ -1,5 +1,5 @@
 .header__search::placeholder {
-  @apply text-primary-700;
+  @apply text-gray-500;
 }
 
 .header__search:focus {
