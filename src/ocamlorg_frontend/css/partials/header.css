@@ -1,13 +1,7 @@
-.header__search {
-  @apply space-x-3 shadow-none pl-7 border-none text-body-600 bg-transparent;
-  border-bottom: 2px solid transparent;
-}
-
 .header__search::placeholder {
-  @apply overflow-visible;
+  @apply text-gray-500;
 }
 
 .header__search:focus {
-  @apply outline-none border-primary-600;
   box-shadow: none;
 }
