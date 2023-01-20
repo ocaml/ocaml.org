@@ -22,7 +22,11 @@ let all () =
       let metadata, body = Utils.extract_metadata_body content in
       let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
       let omd = Omd.of_string body in
-      let slug = file |> Filename.basename |> Filename.remove_extension |> String.to_seq |> Seq.map (function '_' -> '-' | c -> c) |> String.of_seq in
+      let slug =
+        file |> Filename.basename |> Filename.remove_extension |> String.to_seq
+        |> Seq.map (function '_' -> '-' | c -> c)
+        |> String.of_seq
+      in
       {
         slug;
         title = metadata.title;
@@ -46,8 +50,9 @@ let pp ppf v =
   ; body_html = %a
   }
 |}
-    Pp.string v.slug Pp.string v.title Pp.string v.description Pp.string v.meta_title
-    Pp.string v.meta_description Pp.string v.body_md Pp.string v.body_html
+    Pp.string v.slug Pp.string v.title Pp.string v.description Pp.string
+    v.meta_title Pp.string v.meta_description Pp.string v.body_md Pp.string
+    v.body_html
 
 let pp_list = Pp.list pp
 
