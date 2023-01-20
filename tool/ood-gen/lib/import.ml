@@ -81,14 +81,3 @@ module Glob = struct
 
 end
 
-module Sys = struct
-  include Stdlib.Sys
-
-  let read_file file =
-    let ic = open_in_bin file in
-    Fun.protect
-      (fun () ->
-        let length = in_channel_length ic in
-        really_input_string ic length)
-      ~finally:(fun () -> close_in ic)
-end
