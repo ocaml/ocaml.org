@@ -1,3 +1,13 @@
+module Proficiency = struct
+  type t = [ `Beginner | `Intermediate | `Advanced ]
+
+  let of_string = function
+    | "beginner" -> Ok `Beginner
+    | "intermediate" -> Ok `Intermediate
+    | "advanced" -> Ok `Advanced
+    | s -> Error (`Msg ("Unknown proficiency type: " ^ s))
+end
+
 type metadata = {
   title : string;
   number : string;
@@ -36,7 +46,7 @@ let split_statement_statement (blocks : _ Omd.block list) =
 type t = {
   title : string;
   number : string;
-  difficulty : Meta.Proficiency.t;
+  difficulty : Proficiency.t;
   tags : string list;
   statement : string;
   solution : string;
@@ -56,7 +66,7 @@ let all () =
         title = metadata.title;
         number = metadata.number;
         difficulty =
-          Meta.Proficiency.of_string metadata.difficulty |> Result.get_ok;
+          Proficiency.of_string metadata.difficulty |> Result.get_ok;
         tags = metadata.tags;
         statement;
         solution;
