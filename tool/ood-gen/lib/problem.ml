@@ -65,8 +65,7 @@ let all () =
       {
         title = metadata.title;
         number = metadata.number;
-        difficulty =
-          Proficiency.of_string metadata.difficulty |> Result.get_ok;
+        difficulty = Proficiency.of_string metadata.difficulty |> Result.get_ok;
         tags = metadata.tags;
         statement;
         solution;
