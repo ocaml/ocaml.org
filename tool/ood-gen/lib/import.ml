@@ -79,7 +79,6 @@ module Glob = struct
   let matches_globs ~globs x =
     List.exists (fun glob -> matches_glob ~glob x) globs
 
-  let filter_files ~globs files = List.filter (matches_globs ~globs) files
 end
 
 module Sys = struct
