@@ -6,7 +6,7 @@ type metadata = {
   company : string;
   company_logo : string;
 }
-[@@deriving yaml]
+[@@deriving of_yaml]
 
 type t = metadata
 

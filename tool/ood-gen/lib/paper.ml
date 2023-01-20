@@ -1,4 +1,4 @@
-type link = { description : string; uri : string } [@@deriving yaml]
+type link = { description : string; uri : string } [@@deriving of_yaml]
 
 type metadata = {
   title : string;
@@ -10,7 +10,7 @@ type metadata = {
   links : link list;
   featured : bool;
 }
-[@@deriving yaml]
+[@@deriving of_yaml]
 
 type t = {
   title : string;

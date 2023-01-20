@@ -5,7 +5,7 @@ type metadata = {
   date : string;
   category : string;
 }
-[@@deriving yaml]
+[@@deriving of_yaml]
 
 type t = {
   title : string;

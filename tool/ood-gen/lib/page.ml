@@ -4,7 +4,7 @@ type metadata = {
   meta_title : string;
   meta_description : string;
 }
-[@@deriving yaml]
+[@@deriving of_yaml]
 
 type t = {
   fname : string;

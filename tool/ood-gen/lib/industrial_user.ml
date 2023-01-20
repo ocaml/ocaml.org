@@ -7,7 +7,7 @@ type metadata = {
   consortium : bool;
   featured : bool;
 }
-[@@deriving yaml]
+[@@deriving of_yaml]
 
 type t = {
   name : string;

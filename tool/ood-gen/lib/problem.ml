@@ -4,7 +4,7 @@ type metadata = {
   difficulty : string;
   tags : string list;
 }
-[@@deriving yaml]
+[@@deriving of_yaml]
 
 let split_statement_statement (blocks : _ Omd.block list) =
   let rec blocks_until_heading acc = function

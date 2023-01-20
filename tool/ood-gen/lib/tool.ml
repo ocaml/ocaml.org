@@ -6,7 +6,7 @@ type metadata = {
   description : string;
   lifecycle : string;
 }
-[@@deriving yaml]
+[@@deriving of_yaml]
 
 module Lifecycle = struct
   type t = [ `Incubate | `Active | `Sustain | `Deprecate ]

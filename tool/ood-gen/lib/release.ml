@@ -13,7 +13,7 @@ type metadata = {
   intro : string;
   highlights : string;
 }
-[@@deriving yaml]
+[@@deriving of_yaml]
 
 type t = {
   kind : kind;

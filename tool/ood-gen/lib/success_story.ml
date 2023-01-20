@@ -6,7 +6,7 @@ type metadata = {
   synopsis : string;
   url : string;
 }
-[@@deriving yaml]
+[@@deriving of_yaml]
 
 type t = {
   title : string;
