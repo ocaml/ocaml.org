@@ -76,8 +76,5 @@ module Glob = struct
     in
     contains_all_sections (0, String.split_on_char '*' glob)
 
-  let matches_globs ~globs x =
-    List.exists (fun glob -> matches_glob ~glob x) globs
-
 end
 
