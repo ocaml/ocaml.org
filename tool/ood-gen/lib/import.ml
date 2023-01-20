@@ -75,6 +75,4 @@ module Glob = struct
                  && contains_all_sections (j + String.length g, gs))
     in
     contains_all_sections (0, String.split_on_char '*' glob)
-
 end
-
