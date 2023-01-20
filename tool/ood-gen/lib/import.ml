@@ -47,18 +47,6 @@ end
 module Glob = struct
   (* From https://github.com/simonjbeaumont/ocaml-glob *)
 
-  let split c s =
-    let len = String.length s in
-    let rec loop acc last_pos pos =
-      if pos = -1 then String.sub s 0 last_pos :: acc
-      else if s.[pos] = c then
-        let pos1 = pos + 1 in
-        let sub_str = String.sub s pos1 (last_pos - pos1) in
-        loop (sub_str :: acc) pos (pos - 1)
-      else loop acc last_pos (pos - 1)
-    in
-    loop [] len (len - 1)
-
   (** Returns list of indices of occurances of substr in x *)
   let find_substrings ?(start_point = 0) substr x =
     let len_s = String.length substr and len_x = String.length x in
@@ -86,22 +74,5 @@ module Glob = struct
                  (if i = 0 then j = 0 else true)
                  && contains_all_sections (j + String.length g, gs))
     in
-    contains_all_sections (0, split '*' glob)
-
-  let matches_globs ~globs x =
-    List.exists (fun glob -> matches_glob ~glob x) globs
-
-  let filter_files ~globs files = List.filter (matches_globs ~globs) files
-end
-
-module Sys = struct
-  include Stdlib.Sys
-
-  let read_file file =
-    let ic = open_in_bin file in
-    Fun.protect
-      (fun () ->
-        let length = in_channel_length ic in
-        really_input_string ic length)
-      ~finally:(fun () -> close_in ic)
+    contains_all_sections (0, String.split_on_char '*' glob)
 end
