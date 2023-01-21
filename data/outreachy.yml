@@ -97,7 +97,18 @@ rounds:
   - name: Summer 2022
     projects:
       - title: "Expand OCaml 5.0 Parallel Benchmark suite"
-        description: ""
+        description: >
+          OCaml 5.0 will be live soon! It ships with support for shared-memory parallelism and concurrency
+          OCaml has missed all these years. This will be accompanied by a robust set of Multicore libraries
+          useful for parallel programming. The Multicore compiler and libraries are under active development
+          and will continue to evolve as the OCaml ecosystem moves towards Multicore.
+
+          For assessing the impact of new features in the OCaml compiler and Multicore libraries, we have a
+          set of sequential and parallel benchmarks present in our benchmark suite. While the sequential benchmarks
+          contain many real-world applications, a wider set of parallel benchmarks would be useful.
+
+          This project entails gathering the parallel benchmarks available at various places like
+          https://github.com/ckoparkar/ocaml-benchmarks and making them available in the benchmark suite.
         mentee: "Moazzam Moriani"
         blog: "https://moazzammoriani.github.io/mm/"
         mentors:
