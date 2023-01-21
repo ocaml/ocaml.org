@@ -124,6 +124,14 @@
 
 (rule
  (deps ../../tool/ood-gen/bin/gen.exe)
+ (targets outreachy.ml)
+ (action
+  (with-stdout-to
+   %{targets}
+   (run %{deps} outreachy))))
+
+(rule
+ (deps ../../tool/ood-gen/bin/gen.exe)
  (targets workshop.ml)
  (action
   (with-stdout-to
