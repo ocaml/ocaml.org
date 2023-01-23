@@ -25,26 +25,28 @@ let render
   class="h-20 flex items-center text-white dark:bg-[#171717]"
   x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}"
   @resize.window="sidebar = window.innerWidth > 1024">
-  <div class="container-fluid header <%s if wide then "wide" else "" %> flex justify-between items-center">
-    <div class="space-x-8 flex items-center">
-      <a href="<%s Url.index %>" class="block pb-2">
-        <img src="/logo-with-name.svg" width="132" alt="OCaml logo" class="dark:hidden">
-        <img src="/logo-with-name-white.svg" width="132" alt="OCaml logo" class="hidden dark:inline">
-      </a>
-      <ul class="space space-x-8 hidden lg:flex text-body-400 font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
-        <li><%s! menu_link ~active:(active_top_nav_item=Some Learn) ~href:Url.learn ~title:"Learn" () %></li>
-        <li><%s! menu_link ~active:(active_top_nav_item=Some Packages) ~href:Url.packages ~title:"Packages" () %></li>
-        <li><%s! menu_link ~active:(active_top_nav_item=Some Community) ~href:Url.community ~title:"Community" () %></li>
-        <li><%s! menu_link ~active:(active_top_nav_item=Some Blog) ~href:Url.blog ~title:"Blog" () %></li>
-        <li><%s! menu_link ~active:(active_top_nav_item=Some Playground) ~href:Url.playground ~title:"Playground" () %></li>
-      </ul>
-    </div>
-    <div class="flex items-center space-x-8">
-      <div class="relative hidden lg:flex">
+  <nav class="container-fluid header <%s if wide then "wide" else "" %> flex justify-between items-center">
+    <ul class="space space-x-5 xl:space-x-8 items-center flex text-body-400 font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
+      <li style="width:132px">
+        <a href="<%s Url.index %>" class="block pb-2">
+          <img src="/logo-with-name.svg" width="132" alt="OCaml logo" class="dark:hidden">
+          <img src="/logo-with-name-white.svg" width="132" alt="OCaml logo" class="hidden dark:inline">
+        </a>
+      </li>
+    </ul>
+    <ul class="space ml-5 xl:ml-8 mr-auto space-x-5 xl:space-x-8 items-center hidden lg:flex text-body-400 font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
+      <li><%s! menu_link ~active:(active_top_nav_item=Some Learn) ~href:Url.learn ~title:"Learn" () %></li>
+      <li><%s! menu_link ~active:(active_top_nav_item=Some Packages) ~href:Url.packages ~title:"Packages" () %></li>
+      <li><%s! menu_link ~active:(active_top_nav_item=Some Community) ~href:Url.community ~title:"Community" () %></li>
+      <li><%s! menu_link ~active:(active_top_nav_item=Some Blog) ~href:Url.blog ~title:"Blog" () %></li>
+      <li><%s! menu_link ~active:(active_top_nav_item=Some Playground) ~href:Url.playground ~title:"Playground" () %></li>
+    </ul>
+    <ul class="hidden lg:flex items-center space-x-4 xl:space-x-8">
+      <li class="relative">
         <form action="/packages/search" method="GET">
           <div class="flex items-center justify-center">
             <input type="search" name="q" class="header__search focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 py-1 lg:w-56 xl:w-80" placeholder="Search OCaml Packages">
-            <button class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
+            <button aria-label="search" class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
               <svg class="w-6 h-6 text-white" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24">
                 <path
@@ -53,30 +55,28 @@ let render
             </button>
           </div>
         </form>
-      </div>
+      </li>
       <% if show_get_started then (%>
-      <div class="hidden lg:flex">
-        <a href="<%s Url.getting_started %>" class="btn btn-secondary btn-sm">Get Started</a>
-      </div>
+        <li><a href="<%s Url.getting_started %>" class="btn btn-secondary btn-sm">Get Started</a></li>
       <% ); %>
-
-      <div
-        class="hamburger lg:hidden flex h-12 w-12 hover:bg-primary-100 flex items-center justify-center rounded-full"
-        x-on:click="open = ! open">
-        <div class="text-body-400 dark:text-white">
+    </ul>
+    <ul class="lg:hidden flex items-center">
+      <li
+        class="hamburger h-12 w-12 hover:bg-primary-100 flex items-center justify-center rounded-full text-body-400 dark:text-white">
+        <button aria-label="open menu" @click="open = ! open">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M4 6h16M4 10h16M4 14h16M4 18h16" />
           </svg>
-        </div>
-      </div>
-    </div>
-  </div>
+        </button>
+      </li>
+    </ul>
+  </nav>
 
   <div class="bg-black fixed w-full h-full left-0 top-0 opacity-60 z-40" x-show='open' x-cloak></div>
 
-  <div class="z-50 h-full fixed right-0 top-0 max-w-full w-96 bg-white shadow-lg" x-show="open" x-cloak
+  <nav class="z-50 h-full fixed right-0 top-0 max-w-full w-96 bg-white shadow-lg" x-show="open" x-cloak
     @click.away="open = false" x-transition:enter="transition duration-200 ease-out"
     x-transition:enter-start="translate-x-full" x-transition:leave="transition duration-100 ease-in"
     x-transition:leave-end="translate-x-full">
@@ -86,12 +86,12 @@ let render
 
         <div class="close lg:hidden h-12 w-12 hover:bg-primary-100 flex items-center justify-center rounded-full"
           x-on:click="open = false">
-          <div class="text-body-400">
+          <button aria-label="close" class="text-body-400">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
-          </div>
+          </button>
         </div>
       </li>
       <li>
@@ -156,5 +156,5 @@ let render
         </div>
       </li>
     </ul>
-  </div>
+  </nav>
 </header>
