@@ -23,9 +23,8 @@ let all () =
       let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
       let omd = Omd.of_string body in
       let slug =
-        file |> Filename.basename |> Filename.remove_extension |> String.to_seq
-        |> Seq.map (function '_' -> '-' | c -> c)
-        |> String.of_seq
+        file |> Filename.basename |> Filename.remove_extension
+        |> String.map (function '_' -> '-' | c -> c)
       in
       {
         slug;
