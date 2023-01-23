@@ -17,6 +17,7 @@ rounds:
         blog: "https://ulugbekna.github.io"
         mentors:
          - Gabriel Scherer
+         - Jan Midtgaard
   - name: Summer 2020
     projects:
       - title: "Reducing global mutable state in the OCaml compiler codebase"
