@@ -15,7 +15,7 @@ type t = {
   textual_location : string;
   location : location;
 }
-[@@deriving stable_record ~version:metadata ~remove:[slug]]
+[@@deriving stable_record ~version:metadata ~remove:[ slug ]]
 
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
 

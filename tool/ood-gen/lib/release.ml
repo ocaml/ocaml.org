@@ -33,9 +33,9 @@ type t = {
         intro_md; intro_html; highlights_md; highlights_html; body_md; body_html;
       ]]
 
-let of_metadata metadata =
-  of_metadata metadata ~modify_kind:kind_of_string ~intro_md:metadata.intro
-    ~highlights_md:metadata.highlights
+let of_metadata m =
+  of_metadata m ~modify_kind:kind_of_string ~intro_md:m.intro
+    ~highlights_md:m.highlights
 
 let sort_by_decreasing_version x y =
   let to_list s = List.map int_of_string_opt @@ String.split_on_char '.' s in
