@@ -23,21 +23,9 @@ type t = {
   links : link list;
   featured : bool;
 }
+[@@deriving stable_record ~version:metadata ~remove:[slug]]
 
-let of_metadata
-    ({ title; publication; authors; abstract; tags; year; links; featured } :
-      metadata) =
-  {
-    title;
-    slug = Utils.slugify title;
-    publication;
-    authors;
-    abstract;
-    tags;
-    year;
-    links;
-    featured;
-  }
+let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
 
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
