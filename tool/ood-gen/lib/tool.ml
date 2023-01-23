@@ -38,7 +38,10 @@ type t = {
   stable_record ~version:metadata ~modify:[ lifecycle; description ]
     ~remove:[ slug ]]
 
-let of_metadata m = of_metadata m ~slug:m.name
+let of_metadata m =
+  of_metadata m ~slug:m.name
+    ~modify_lifecycle:(Utils.decode_or_raise Lifecycle.of_string)
+    ~modify_description:(fun v -> Omd.of_string v |> Omd.to_html)
 
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
@@ -48,9 +51,7 @@ let decode s =
         (List.map
            (fun x ->
              let metadata = Utils.decode_or_raise metadata_of_yaml x in
-             let modify_lifecycle = Utils.decode_or_raise Lifecycle.of_string in
-             let modify_description v = Omd.of_string v |> Omd.to_html in
-             of_metadata metadata ~modify_lifecycle ~modify_description)
+             of_metadata metadata)
            xs)
   | _ -> Error (`Msg "expected a list of tools")
 

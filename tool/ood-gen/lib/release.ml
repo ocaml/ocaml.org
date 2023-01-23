@@ -1,6 +1,6 @@
 type kind = [ `Compiler ]
 
-let modify_kind = function
+let kind_of_string = function
   | "compiler" -> `Compiler
   | _ -> raise (Exn.Decode_error "Unknown release kind")
 
@@ -34,7 +34,7 @@ type t = {
       ]]
 
 let of_metadata metadata =
-  of_metadata metadata ~modify_kind ~intro_md:metadata.intro
+  of_metadata metadata ~modify_kind:kind_of_string ~intro_md:metadata.intro
     ~highlights_md:metadata.highlights
 
 let sort_by_decreasing_version x y =

@@ -40,7 +40,7 @@ type t = {
 }
 [@@deriving stable_record ~version:metadata ~modify:[ kind ] ~remove:[ slug ]]
 
-let of_metadata m = of_metadata m ~slug:m.title
+let of_metadata m = of_metadata m ~slug:m.title ~modify_kind:(Utils.decode_or_raise Kind.of_string)
 
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
@@ -50,8 +50,7 @@ let decode s =
         (List.map
            (fun x ->
              let metadata = Utils.decode_or_raise metadata_of_yaml x in
-             let modify_kind = Utils.decode_or_raise Kind.of_string in
-             of_metadata metadata ~modify_kind)
+             of_metadata metadata)
            xs)
   | _ -> Error (`Msg "expected a list of videos")
 

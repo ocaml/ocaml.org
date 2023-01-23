@@ -13,10 +13,10 @@ type t = {
   date : string;
   slug : string;
   tags : string list;
-  authors : string list option;
   body_html : string;
 }
-[@@deriving stable_record ~version:metadata ~remove:[ slug; body_html ]]
+[@@deriving
+  stable_record ~version:metadata ~add:[ authors ] ~remove:[ slug; body_html ]]
 
 let all () =
   Utils.map_files_with_names
