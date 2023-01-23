@@ -56,7 +56,7 @@ inner =
         <div class="pr-16 sm:px-16 sm:text-center">
           <p class="font-medium text-white">
             <span class="md:hidden">OCaml 5.0 is available!</span>
-            <span class="hidden md:inline">OCaml 5.0 is available! This release of OCaml comes with support for shared-memory parallelism through domains and direct-style concurrency through algebraic effects!</span>
+            <span class="hidden md:inline">OCaml 5.0 is available! This release of OCaml comes with support for shared-memory parallelism through domains and direct-style concurrency through effect handlers!</span>
             <span class="block sm:ml-2 sm:inline-block">
               <a href="<%s Url.news_post "ocaml-5.0" %>" class="font-bold text-white underline">
                 Try it now
