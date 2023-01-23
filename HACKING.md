@@ -76,6 +76,9 @@ After the dependencies have been installed, simply build the project to re-gener
 dune build --root .
 ```
 
+Once the compilation is complete and successuful, the newly generated assets have to be git committed
+in ocaml.org and merged as a pull request. 
+
 ### Deploying
 
 Commits added on `main` are automatically deployed on <https://ocaml.org/>.
