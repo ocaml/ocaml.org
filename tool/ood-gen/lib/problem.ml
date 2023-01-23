@@ -55,7 +55,9 @@ type t = {
   stable_record ~version:metadata ~modify:[ difficulty ]
     ~remove:[ statement; solution ]]
 
-let of_metadata = of_metadata ~modify_difficulty:(fun d -> d |> Proficiency.of_string |> Result.get_ok)
+let of_metadata =
+  of_metadata ~modify_difficulty:(fun d ->
+      d |> Proficiency.of_string |> Result.get_ok)
 
 let all () =
   Utils.map_files
