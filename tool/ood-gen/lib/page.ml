@@ -16,20 +16,20 @@ type t = {
   body_html : string;
 }
 [@@deriving
-  stable_record ~version:metadata ~remove:[ fname; body_md; body_html ]]
+  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ]]
 
 let all () =
   Utils.map_files_with_names
     (fun (file, content) ->
       let metadata, body_md = Utils.extract_metadata_body content in
       let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
-      let omd = Omd.of_string body in
+      let omd = Omd.of_string body_md in
       let body_html = Omd.to_html (Hilite.Md.transform omd) in
       let slug =
         file |> Filename.basename |> Filename.remove_extension
         |> String.map (function '_' -> '-' | c -> c)
       in
-      of_metadata metadata ~fname ~body_md ~body_html)
+      of_metadata metadata ~slug ~body_md ~body_html)
     "pages/*.md"
 
 let pp ppf v =
