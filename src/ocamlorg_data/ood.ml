@@ -145,4 +145,8 @@ end
 
 module Page = struct
   include Page
+
+  let get path =
+    let slug = Filename.basename path in
+    List.find (fun x -> String.equal slug x.slug) all
 end

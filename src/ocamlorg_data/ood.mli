@@ -345,6 +345,7 @@ end
 
 module Page : sig
   type t = {
+    slug : string;
     title : string;
     description : string;
     meta_title : string;
@@ -353,8 +354,5 @@ module Page : sig
     body_html : string;
   }
 
-  val carbon_footprint : t
-  val privacy_policy : t
-  val governance : t
-  val code_of_conduct : t
+  val get : string -> t
 end
