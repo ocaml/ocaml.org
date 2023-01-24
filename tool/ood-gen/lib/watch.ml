@@ -7,7 +7,7 @@ type metadata = {
   language : string;
   category : string;
 }
-[@@deriving yaml]
+[@@deriving of_yaml]
 
 type t = metadata
 

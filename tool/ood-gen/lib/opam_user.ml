@@ -4,7 +4,7 @@ type metadata = {
   github_username : string option;
   avatar : string option;
 }
-[@@deriving yaml]
+[@@deriving of_yaml]
 
 type t = metadata
 

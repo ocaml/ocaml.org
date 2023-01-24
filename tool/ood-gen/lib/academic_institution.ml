@@ -1,11 +1,11 @@
-type location = { lat : float; long : float } [@@deriving yaml]
+type location = { lat : float; long : float } [@@deriving of_yaml]
 
 type course = {
   name : string;
   acronym : string option;
   online_resource : string option;
 }
-[@@deriving yaml]
+[@@deriving of_yaml]
 
 type metadata = {
   name : string;
@@ -16,7 +16,7 @@ type metadata = {
   courses : course list;
   location : location option;
 }
-[@@deriving yaml]
+[@@deriving of_yaml]
 
 type t = {
   name : string;
