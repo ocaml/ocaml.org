@@ -589,6 +589,7 @@ let package_documentation t kind req =
             else Ocamlorg_frontend.Package_breadcrumbs.Documentation Index
           in
           Dream.html
+<<<<<<< HEAD
             (Ocamlorg_frontend.package_documentation ~page:(Some path)
                ~path:breadcrumb_path ~toc ~maptoc ~content:doc.content
                frontend_package))
@@ -626,3 +627,15 @@ let package_file t kind req =
             (Ocamlorg_frontend.package_overview ~sidebar_data ~content
                ~content_title:(Some path) ~dependencies ~rev_dependencies
                ~conflicts frontend_package))
+=======
+            (Ocamlorg_frontend.package_documentation ~path ~title ~toc ~maptoc
+               ~content:doc.content package_meta))
+
+let sitemap _request =
+  let open Lwt.Syntax in
+  Dream.stream
+    ~headers:[ ("Content-Type", "application/octet-stream") ]
+    (fun stream ->
+      let* _ = Lwt_seq.iter_s (Dream.write stream) Sitemap.sitemap_ood in
+      Dream.flush stream)
+>>>>>>> e0fcd9a5 (Generate sitemap.xml by dream)
