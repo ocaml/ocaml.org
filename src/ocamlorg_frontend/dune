@@ -193,8 +193,8 @@
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
-  (targets breadcrumbs.ml)
-  (deps breadcrumbs.eml)
+  (targets package_breadcrumbs.ml)
+  (deps package_breadcrumbs.eml)
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
