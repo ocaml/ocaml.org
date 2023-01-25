@@ -41,7 +41,14 @@ Learn_layout.render
   </div>
   <div
     class="mt-12 cursor-pointer z-0 relative rounded-2xl h-[413px] w-full overflow-hidden border-4 border-primary-100 video-shadow md:w-[640px]"
-    x-data="videoFullWidth()"
+    x-data='{
+        isPlaying: false,
+        embed_url: "https://watch.ocaml.org/videos/embed/0e2070fd-798b-47f7-8e69-ef75e967e516",
+        iframe_param: "?autoplay=1&mute=1",
+        iframe_url() {
+          return this.embed_url + this.iframe_param;
+        },
+      }'
   >
     <div
       class="bg-white text-center relative aspect-w-16 aspect-h-9 h-full"
@@ -167,15 +174,3 @@ Learn_layout.render
       </div>
     </div>
   </div>
-  <script>
-    function videoFullWidth() {
-      return {
-        isPlaying: false,
-        embed_url: "https://watch.ocaml.org/videos/embed/0e2070fd-798b-47f7-8e69-ef75e967e516",
-        iframe_param: "?autoplay=1&mute=1",
-        iframe_url() {
-          return this.embed_url + this.iframe_param;
-        },
-      };
-    }
-  </script>
