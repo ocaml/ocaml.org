@@ -33,7 +33,7 @@ type t = {
 [@@deriving
   stable_record ~version:metadata ~remove:[ body_md; body_html; slug ]]
 
-let of_metadata m = of_metadata m ~slug:m.name
+let of_metadata m = of_metadata m ~slug:(Utils.slugify m.name)
 
 let all () =
   Utils.map_files

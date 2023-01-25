@@ -118,7 +118,8 @@ type t = {
     ~remove:[ slug; body_html ]]
 
 let of_metadata m =
-  of_metadata m ~slug:m.title ~modify_featured:(Option.value ~default:false)
+  of_metadata m ~slug:(Utils.slugify m.title)
+    ~modify_featured:(Option.value ~default:false)
 
 let all () =
   Utils.map_files

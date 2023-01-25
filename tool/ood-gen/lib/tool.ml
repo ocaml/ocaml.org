@@ -39,7 +39,7 @@ type t = {
     ~remove:[ slug ]]
 
 let of_metadata m =
-  of_metadata m ~slug:m.name
+  of_metadata m ~slug:(Utils.slugify m.name)
     ~modify_lifecycle:(Utils.decode_or_raise Lifecycle.of_string)
     ~modify_description:(fun v -> Omd.of_string v |> Omd.to_html)
 

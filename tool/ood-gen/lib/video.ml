@@ -41,7 +41,7 @@ type t = {
 [@@deriving stable_record ~version:metadata ~modify:[ kind ] ~remove:[ slug ]]
 
 let of_metadata m =
-  of_metadata m ~slug:m.title
+  of_metadata m ~slug:(Utils.slugify m.title)
     ~modify_kind:(Utils.decode_or_raise Kind.of_string)
 
 let decode s =
