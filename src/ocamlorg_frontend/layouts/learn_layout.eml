@@ -137,11 +137,12 @@ inner_html
   </div>
   <script>
   window.onload = (event) => {
-    document.body.addEventListener('htmx:afterRequest', (evt) => {
+    document.body.addEventListener('htmx:afterSwap', (evt) => {
       if (evt.detail.error || evt.detail.failed) {
         window.location = evt.detail.requestConfig.path;
+        return;
       }
-      window.scrollTo(0, 0);
+      window.pageYOffset = 0;
       evt.detail.elt.dispatchEvent(new CustomEvent('close-sidebar', { bubbles: true }));
     });
   };
