@@ -585,20 +585,23 @@ let package_doc t kind req =
                (* NOTE: if it's a standalone page, there is no library path
                   item. TODO: update this when the docs pipeline provides
                   breadcrumbs. *)
-                let library_path_item =
-                  List.find_opt
-                    (fun (toc : Ocamlorg_frontend.Navmap.toc) ->
-                      List.exists
-                        (fun (t : Ocamlorg_frontend.Navmap.toc) ->
-                          t.title = first_path_item_title)
-                        toc.children)
-                    maptoc
-                in
-                match library_path_item with
-                | Some item -> Library (item.title, List.map module_path_to_breadcrumb_path_item doc.module_path)
-                | None -> Page (first_path_item_title)
-              else Index
-            )
+               let library_path_item =
+                 List.find_opt
+                   (fun (toc : Ocamlorg_frontend.Navmap.toc) ->
+                     List.exists
+                       (fun (t : Ocamlorg_frontend.Navmap.toc) ->
+                         t.title = first_path_item_title)
+                       toc.children)
+                   maptoc
+               in
+               match library_path_item with
+               | Some item ->
+                   Library
+                     ( item.title,
+                       List.map module_path_to_breadcrumb_path_item
+                         doc.module_path )
+               | None -> Page first_path_item_title
+              else Index)
           in
           let package_meta = package_meta t package in
           Dream.html
