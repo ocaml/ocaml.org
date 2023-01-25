@@ -5,7 +5,7 @@ type project = {
   blog : string;
   mentors : string list;
 }
-[@@deriving yaml]
+[@@deriving of_yaml]
 
 type metadata = { name : string; projects : project list } [@@deriving yaml]
 type t = metadata
