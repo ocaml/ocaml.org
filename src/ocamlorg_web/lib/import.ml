@@ -30,24 +30,3 @@ module List = struct
     in
     aux n xs
 end
-
-module Unix = struct
-  include Unix
-
-  let rec mkdir_p ?perm dir =
-    let mkdir_idempotent ?(perm = 0o777) dir =
-      match Unix.mkdir dir perm with
-      | () -> ()
-      (* [mkdir] on MacOSX returns [EISDIR] instead of [EEXIST] if the directory
-         already exists. *)
-      | exception Unix.Unix_error ((EEXIST | EISDIR), _, _) -> ()
-    in
-    match mkdir_idempotent ?perm dir with
-    | () -> ()
-    | exception (Unix.Unix_error (ENOENT, _, _) as exn) ->
-        let parent = Filename.dirname dir in
-        if String.equal parent dir then raise exn
-        else (
-          mkdir_p ?perm parent;
-          mkdir_idempotent ?perm dir)
-end
