@@ -30,6 +30,8 @@ let kind_title = function
 
 let title_style = "flex-1 flex-nowrap py-1 md:py-0.5 pr-1 text-gray-600"
 
+let htmx_attributes = "hx-boost=\"true\" hx-ext=\"multi-swap\" hx-swap=\"multi:#htmx-sidebar,#htmx-content,#htmx-right-sidebar\" hx-push-url=\"true\""
+
 let icon_style = function
   | Library -> "navmap-tag library-tag"
   | Module -> "navmap-tag module-tag"
@@ -54,10 +56,10 @@ let rec nested_render ~path (item : toc) =
           <span class="no-expand"><span class="<%s if item.title = fragment then "" else "opacity-80" %> <%s icon_style item.kind %>"></span></span>
           <span class="sm <%s title_style %>"><%s! item.title %></span>
         <% | Some href -> %>
-        <a href="<%s href %>" class="flex">
+        <a href="<%s href %>" <%s! htmx_attributes %> class="flex">
         <span class="no-expand"><span class="<%s if item.title = fragment then "" else "opacity-80" %> <%s icon_style item.kind %>"></span></span>
         </a>
-        <a href="<%s href %>" class="<%s title_style %> overflow-hidden truncate text-gray-900 transition-colors hover:text-orange-600">
+        <a href="<%s href %>" <%s! htmx_attributes %> class="<%s title_style %> overflow-hidden truncate text-gray-900 transition-colors hover:text-orange-600">
           <%s! item.title %>
         </a>
         <% ); %>
@@ -67,11 +69,10 @@ let rec nested_render ~path (item : toc) =
     let default_open, path, fragment = match path with
       | v :: _ when v = "" -> (true, [], v) (* if we are on a mld page (empty string), we ignore the rest of the path *)
       | v :: rest when v = item.title -> (true, rest, v)
-      | v :: _ -> (false, [], v)
+      | v :: _ -> (item.kind = Library && (List.length item.children <= 2), [], v)
       | [] -> (item.kind = Library && (List.length item.children <= 2), [], "")
     in
     let active_style = if item.title = fragment then (if List.length path = 0 then "bg-gray-200 border-gray-500 font-medium" else "border-transparent bg-gray-100 font-medium") else "border-transparent" in
-    if (String.length fragment != 0) && (item.kind = Library) && (fragment != item.title) then "" else
     <div x-data="{ open: <%s if default_open then "true" else "false" %> }">
       <div class="box-border border <%s active_style %> cursor-pointer ml-1 pl-1">
         <div class="flex flex-nowrap" title="<%s kind_title item.kind ^ " " ^ item.title %>">
@@ -81,7 +82,7 @@ let rec nested_render ~path (item : toc) =
           <% (match item.href with | None -> %>
             <span x-on:click="open = ! open" class="<%s title_style %> <%s if item.title = fragment then "white-200" else "gray-900" %>"><%s! item.title %></span>
           <% | Some href -> %>
-          <a href="<%s href %>" class="<%s title_style %> overflow-hidden truncate text-gray-900 transition-colors hover:text-orange-600">
+          <a href="<%s href %>" <%s! htmx_attributes %> class="<%s title_style %> overflow-hidden truncate text-gray-900 transition-colors hover:text-orange-600">
             <%s! item.title %>
           </a>
           <% ); %>

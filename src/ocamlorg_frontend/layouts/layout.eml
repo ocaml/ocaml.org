@@ -41,6 +41,7 @@ inner =
     <% ); %>
     <link rel="stylesheet" href="/vendors/font-files/inter.css">
     <script defer src="/vendors/alpine.min.js"></script>
+    <script defer src="/vendors/htmx.min.js"></script>
     <% if use_swiper then ( %>
     <link rel="stylesheet" href="/vendors/swiper-bundle.min.css">
     <link rel="alternate" type="application/rss+xml" title="OCaml RSS Feed" href="/feed.xml">
