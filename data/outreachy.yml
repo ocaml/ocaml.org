@@ -82,7 +82,26 @@ rounds:
         mentors:
          - Thibaut Mattio
       - title: "Improve the OCaml meta-programming ecosystem"
-        description: ""
+        description: |
+          It’s common for programming languages to provide some way to meta-program
+          in order to preprocess code before reaching the last compilation step,
+          for example, in the form of macros or templates. The OCaml compiler
+          doesn't provide a full built-in macro system, but the OCaml parser does
+          provide syntax for preprocessing purposes: attributes
+          (https://v3.ocaml.org/docs/metaprogramming#attributes-and-derivers) and
+          extension points
+          (https://v3.ocaml.org/docs/metaprogramming#extension-nodes-and-extenders).
+          We -the OCaml community- also have an official framework, called
+          `ppxlib`, to write preprocessors -called PPXs- based on that syntax and
+          integrate them into the compilation process.
+
+          However, it's on the OCaml community to write and provide important PPXs
+          to the OCaml developers. We've noticed that having the most important
+          PPXs under the official PPX github organization -next to `ppxlib`- is
+          helpful: developers can easily find them; developers can trust them;
+          they're well-written and hygienic, so that developers can use them as
+          how-to guides for writing other PPXs. In this project, you'll write
+          one or some of those official standard PPXs.
         mentee: "Aya Sharaf"
         blog: "https://outreachyxocaml.wordpress.com"
         mentors:
