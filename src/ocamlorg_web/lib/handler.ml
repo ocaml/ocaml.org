@@ -565,25 +565,25 @@ let package_doc t kind req =
             toc_of_map ~root map
           in
           let (path : Ocamlorg_frontend.Package_breadcrumbs.path) =
-            Ocamlorg_frontend.Package_breadcrumbs.Documentation (
-              if doc.module_path != [] then
-                let module_path_to_breadcrumb_path_item p =
-                  match p with
-                  | `Module s -> Ocamlorg_frontend.Package_breadcrumbs.Module s
-                  | `ModuleType s -> ModuleType s
-                  | `Parameter (i, s) -> Parameter (i, s)
-                  | `Class s -> Class s
-                  | `ClassType s -> ClassType s
-                in
-                let first_path_item = List.hd doc.module_path in
-                let first_path_item_title =
-                  match first_path_item with
-                  | `Module s | `ModuleType s | `Parameter (_, s) -> s
-                  | `Class s -> s
-                  | `ClassType s -> s
-                in
-                (* NOTE: if it's a standalone page, there is no library path item.
-                  TODO: update this when the docs pipeline provides
+            Ocamlorg_frontend.Package_breadcrumbs.Documentation
+              (if doc.module_path != [] then
+               let module_path_to_breadcrumb_path_item p =
+                 match p with
+                 | `Module s -> Ocamlorg_frontend.Package_breadcrumbs.Module s
+                 | `ModuleType s -> ModuleType s
+                 | `Parameter (i, s) -> Parameter (i, s)
+                 | `Class s -> Class s
+                 | `ClassType s -> ClassType s
+               in
+               let first_path_item = List.hd doc.module_path in
+               let first_path_item_title =
+                 match first_path_item with
+                 | `Module s | `ModuleType s | `Parameter (_, s) -> s
+                 | `Class s -> s
+                 | `ClassType s -> s
+               in
+               (* NOTE: if it's a standalone page, there is no library path
+                  item. TODO: update this when the docs pipeline provides
                   breadcrumbs. *)
                 let library_path_item =
                   List.find_opt
