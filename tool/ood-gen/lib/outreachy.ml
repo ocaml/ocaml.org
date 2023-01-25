@@ -2,12 +2,13 @@ type project = {
   title : string;
   description : string;
   mentee : string;
-  blog : string;
+  blog : string option;
+  source : string;
   mentors : string list;
 }
 [@@deriving of_yaml]
 
-type metadata = { name : string; projects : project list } [@@deriving yaml]
+type metadata = { name : string; projects : project list } [@@deriving of_yaml]
 type t = metadata
 
 let decode s =
@@ -28,10 +29,12 @@ let pp_project ppf v =
   ; description = %a
   ; mentee = %a
   ; blog = %a
+  ; source = %a
   ; mentors = %a
   }|}
-    Pp.string v.title Pp.string v.description Pp.string v.mentee Pp.string
-    v.blog (Pp.list Pp.string) v.mentors
+    Pp.string v.title Pp.string v.description Pp.string v.mentee
+    Pp.(option string)
+    v.blog Pp.string v.source (Pp.list Pp.string) v.mentors
 
 let pp ppf v =
   Fmt.pf ppf {|
@@ -50,7 +53,8 @@ type project =
   { title : string
   ; description : string
   ; mentee : string
-  ; blog : string
+  ; blog : string option
+  ; source : string
   ; mentors : string list
   }
 

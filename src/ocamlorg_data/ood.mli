@@ -80,7 +80,8 @@ module Outreachy : sig
     title : string;
     description : string;
     mentee : string;
-    blog : string;
+    blog : string option;
+    source : string;
     mentors : string list;
   }
 
