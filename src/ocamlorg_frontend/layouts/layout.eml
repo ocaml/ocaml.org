@@ -2,7 +2,6 @@ let render
 ?(show_get_started=true)
 ?(use_swiper=false)
 ?(banner = false)
-?(wide=false)
 ?description
 ?styles
 ~title
@@ -70,7 +69,7 @@ inner =
     </div>
     <% ); %>
     
-    <%s! Header.render ~wide ~show_get_started ?active_top_nav_item () %>
+    <%s! Header.render ~show_get_started ?active_top_nav_item () %>
 
     <main><%s! inner %></main>
 

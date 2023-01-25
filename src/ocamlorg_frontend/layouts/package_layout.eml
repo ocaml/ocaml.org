@@ -13,7 +13,6 @@ inner =
 Layout.render
 ?styles
 ~show_get_started:false
-~wide:true
 ~title
 ~description
 ~canonical

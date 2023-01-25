@@ -17,7 +17,6 @@ let menu_link
 
 let render
 ?(show_get_started=true)
-?(wide=false)
 ?(active_top_nav_item: active_nav_item option)
 ()
 =
@@ -25,7 +24,7 @@ let render
   class="h-20 flex items-center text-white dark:bg-[#171717]"
   x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}"
   @resize.window="sidebar = window.innerWidth > 1024">
-  <nav class="container-fluid header <%s if wide then "wide" else "" %> flex justify-between items-center">
+  <nav class="container-fluid wide header flex justify-between items-center">
     <ul class="space space-x-5 xl:space-x-8 items-center flex text-body-400 font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
       <li style="width:132px">
         <a href="<%s Url.index %>" class="block pb-2">

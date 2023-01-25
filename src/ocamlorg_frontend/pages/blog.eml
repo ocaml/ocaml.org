@@ -1,6 +1,5 @@
 let render ~(featured : Ood.Rss.t list) ~(rss : Ood.Rss.t list) ~rss_pages_number ~rss_page ~(news : Ood.News.t list) =
 Layout.render
-~wide:true
 ~title:"OCaml Blog"
 ~description:"Recent news and blog posts from the OCaml community."
 ~canonical:(Url.blog ^ if rss_page = 1 then "" else "?p=" ^ string_of_int rss_page)

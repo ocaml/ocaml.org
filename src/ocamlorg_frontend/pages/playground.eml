@@ -25,7 +25,7 @@ let render () =
   </head>
 
   <body class="dark">
-    <%s! Header.render ~wide:true ~show_get_started:true ~active_top_nav_item:Header.Playground () %>
+    <%s! Header.render ~show_get_started:true ~active_top_nav_item:Header.Playground () %>
 
     <main>
       <div class="flex code-editor">
