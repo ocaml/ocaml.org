@@ -26,7 +26,7 @@ Layout.render
             </svg>
           </div>
           <label for="q2" class="sr-only">Institutions</label>
-          <input class="focus:ring-orange-500" id="q2" name="q" type="search" placeholder="Search institutions" />
+          <input class="focus:ring-orange-500" id="q2" name="q" type="search" placeholder="Search institutions">
         </form>
         <div class="relative h-14">
           <select class="w-full lg:w-auto appearance-none text-body-600 border rounded-md py-3 pl-6 border-gray-200 pr-14 h-full" name="All Regions" x-model="continent">
@@ -115,12 +115,12 @@ Layout.render
       </div>
     </div>
   </div>
-  <div class="container-fluid">
+  <div class="container-fluid" aria-hidden="true">
     <div class="text-center py-10 lg:py-28">
       <h2 class="mb-6 font-bold">Our Influence</h2>
-      <div>See where we are located around the world at an academic level</div>
+      <div>See where we are located around the world at an academic level.</div>
       <div class="mt-24 relative">
-        <img src="/img/academic/map.svg" alt="Influence Map" />
+        <img src="/img/academic/map.svg" alt="A world map that illustrates where OCaml is taught or used for research.">
       </div>
     </div>
   </div>
@@ -130,7 +130,7 @@ Layout.render
         <h3 class="font-bold mb-6">Interested in Learning More?</h3>
         <div class="text-lg mb-8 lg:px-28">Go to our success stories for a more in-depth understanding of how our users use OCaml.</div>
         <div class="space-x-0 md:space-x-5 space-y-5 md:space-y-0">
-          <a href="<%s Url.industrial_users %>"><button class="btn btn-lg btn-tertiary">Success Stories</button></a>
+          <a class="btn btn-lg btn-tertiary" href="<%s Url.industrial_users %>">Success Stories</a>
         </div>
       </div>
     </div>

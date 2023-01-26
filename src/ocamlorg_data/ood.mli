@@ -1,18 +1,3 @@
-module Meta : sig
-  module Archetype : sig
-    type t =
-      [ `Application_developer
-      | `Beginner
-      | `Distribution_manager
-      | `End_user
-      | `Library_author
-      | `Teacher ]
-
-    val to_string : t -> string
-    val of_string : string -> (t, [> `Msg of string ]) result
-  end
-end
-
 module Academic_institution : sig
   type location = { lat : float; long : float }
   type logo = { path : string; alt : string option }
@@ -361,6 +346,7 @@ end
 
 module Page : sig
   type t = {
+    slug : string;
     title : string;
     description : string;
     meta_title : string;
@@ -369,8 +355,5 @@ module Page : sig
     body_html : string;
   }
 
-  val carbon_footprint : t
-  val privacy_policy : t
-  val governance : t
-  val code_of_conduct : t
+  val get : string -> t
 end

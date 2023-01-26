@@ -9,7 +9,7 @@ Layout.render
     <div class="flex flex-col lg:flex-row justify-between items-center">
       <div>
         <h1 class="font-bold mb-6"><%s workshop.title %></h1>
-        <div><%s workshop.date %></br><%s match workshop.location with | "Virtual" -> "Held virtually" | location -> location %></div>
+        <div><%s workshop.date %><br><%s match workshop.location with | "Virtual" -> "Held virtually" | location -> location %></div>
       </div>
       <div class="flex flex-col space-y-6 relative md:mt-10">
         <div class="absolute h-full pt-14 pb-5 lg:pt-11 lg:pb-4 ml-2 lg:ml-0 left-20 lg:left-32 -l-x">
@@ -149,9 +149,8 @@ workshop.presentations in (match List.length videos with | 0 -> () | _ -> %>
       <div class="card-hover inline-block">
         <iframe
           loading="lazy"
-          sandbox="allow-same-origin allow-scripts allow-popups"
+          sandbox="allow-scripts allow-popups"
           src="https://watch.ocaml.org<%s video.embed_path %>"
-          frameborder="0"
           allowfullscreen
         ></iframe>
         <h6 class="font-bold mt-4"><%s video.name %></h6>

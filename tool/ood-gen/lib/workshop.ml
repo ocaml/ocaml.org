@@ -13,7 +13,7 @@ let role_of_yaml = function
 
 let role_to_yaml t = `String (role_to_string t)
 
-type important_date = { date : string; info : string } [@@deriving yaml]
+type important_date = { date : string; info : string } [@@deriving of_yaml]
 
 type committee_member = {
   name : string;
@@ -21,7 +21,7 @@ type committee_member = {
   affiliation : string option;
   picture : string option;
 }
-[@@deriving yaml]
+[@@deriving of_yaml]
 
 type presentation = {
   title : string;
@@ -32,7 +32,7 @@ type presentation = {
   poster : bool option;
   additional_links : string list option;
 }
-[@@deriving yaml]
+[@@deriving of_yaml]
 
 type metadata = {
   title : string;
@@ -43,7 +43,7 @@ type metadata = {
   program_committee : committee_member list;
   organising_committee : committee_member list;
 }
-[@@deriving yaml]
+[@@deriving of_yaml]
 
 type t = {
   title : string;

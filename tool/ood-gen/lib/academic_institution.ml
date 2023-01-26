@@ -6,7 +6,7 @@ type course = {
   acronym : string option;
   online_resource : string option;
 }
-[@@deriving yaml]
+[@@deriving of_yaml]
 
 type metadata = {
   name : string;
@@ -17,7 +17,7 @@ type metadata = {
   courses : course list;
   location : location option;
 }
-[@@deriving yaml]
+[@@deriving of_yaml]
 
 type t = {
   name : string;

@@ -9,7 +9,7 @@ type metadata = {
   embed : string option;
   year : int;
 }
-[@@deriving yaml]
+[@@deriving of_yaml]
 
 module Kind = struct
   type t = [ `Conference | `Mooc | `Lecture ]

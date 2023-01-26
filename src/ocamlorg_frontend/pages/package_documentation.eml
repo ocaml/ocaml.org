@@ -4,7 +4,7 @@ let sidebar
 ~maptoc
 (package : Package_intf.package)
 =
-  <div class="flex flex-col font-normal text-body-400">
+  <div class="flex flex-col font-normal text-body-400" id="htmx-sidebar">
     <% if str_path != [] && toc != [] then ( %>
     <a title="Package <%s package.name %>" class="xl:hidden py-1 font-regular text-body-600 hover:text-orange-600 transition-colors mb-6" href="<%s Url.package_doc package.name package.version %>">
       back to documentation root
@@ -49,8 +49,8 @@ Package_layout.render
 ~canonical:(Url.package_doc package.name package.version ?page:path_page)
 ~styles:["/css/main.css"; "/css/doc.css"]
 ~tab:Documentation @@
-<div x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024">
-  <div role="button" class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
+<div x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024"  x-on:close-sidebar="sidebar=window.innerWidth > 1024 && true">
+  <div role="button" :aria-pressed="sidebar" aria-pressed="false" class="bg-primary-600  p-3 z-30 rounded-r-xl text-white shadow-md top-2/4 fixed lg:hidden left-0"
     :class="sidebar ? 'pl-1 pr-2': ''" x-on:click="sidebar = ! sidebar">
     <div class="transform transition-transform" :class='sidebar ? "" : "rotate-180" '>
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -69,7 +69,7 @@ Package_layout.render
       x-transition:leave-end="-translate-x-full">
       <%s! sidebar ~str_path ~toc ~maptoc package %>
     </div>
-    <div class="flex-1 z-0 z- min-w-0 lg:max-w-3xl lg:pt-6">
+    <div class="flex-1 z-0 z- min-w-0 lg:max-w-3xl lg:pt-6" id="htmx-content">
       <% if (maptoc != []) && (List.length path > 1) then (%>
         <div class="text-body-400">
           <%s! Breadcrumbs.render path %>
@@ -79,9 +79,21 @@ Package_layout.render
         <%s! content %>
       </div>
     </div>
-    <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto right-sidebar">
+    <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto right-sidebar" id="htmx-right-sidebar">
       <div class="font-semibold text-gray-500 text-sm mb-4">ON THIS PAGE</div>
       <%s! Toc.render toc %>
     </div>
   </div>
 </div>
+<script>
+window.onload = (event) => {
+  document.body.addEventListener('htmx:afterSwap', (evt) => {
+    if (evt.detail.error || evt.detail.failed) {
+      window.location = evt.detail.requestConfig.path;
+      return;
+    }
+    window.pageYOffset = 0;
+    evt.detail.elt.dispatchEvent(new CustomEvent('close-sidebar', { bubbles: true }));
+  });
+};
+</script>

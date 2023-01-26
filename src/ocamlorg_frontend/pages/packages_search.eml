@@ -19,8 +19,7 @@ let render ~total ~search (packages : Package_intf.package list) = Layout.render
                 class="w-full appearance-none focus:ring-orange-500 focus:border-primary-600 text-body-600 border rounded-md py-3 pr-6 border-gray-200 pl-14 h-full"
                 placeholder="Search packages"
                 type="search"
-                value="<%s search %>"
-              />
+                value="<%s search %>">
               <div class="absolute h-full flex items-center pl-6 opacity-60 left-0 top-0">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
