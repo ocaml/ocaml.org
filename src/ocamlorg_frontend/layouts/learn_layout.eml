@@ -94,7 +94,6 @@ inner_html
   Layout.render
   ?use_swiper
   ?styles
-  ~wide:true
   ~title
   ~description
   ~canonical
