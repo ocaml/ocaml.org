@@ -18,7 +18,7 @@ let right_arrow ~base_url page =
   <a href="<%s base_url %>?p=<%i page + 1 %>"
     class="w-10 h-10 lg:w-14 lg:h-14  border border-body-100 rounded-lg flex items-center justify-center text-body-400 hover:bg-gray-50 hover:no-underline">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="chevron_right" d="M9 5l7 7-7 7" />
     </svg>
   </a>
 

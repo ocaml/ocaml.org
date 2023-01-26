@@ -10,7 +10,7 @@ Layout.render
       <a href="<%s Url.blog %>"
         class="flex justify-start space-x-3 items-center text-primary-600 hover:underline font-semibold mb-4 h-12">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="arrow-left" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
         <div>Back to Blog</div>
       </a>
@@ -63,7 +63,7 @@ Layout.render
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M9 5l7 7-7 7" />
+                      id="chevron_right" d="M9 5l7 7-7 7" />
               </svg>
           </a>
         </div>
