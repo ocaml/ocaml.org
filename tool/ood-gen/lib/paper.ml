@@ -30,18 +30,10 @@ type t = {
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
 
 let decode s =
-  let yaml = Utils.decode_or_raise Yaml.of_string s in
-  match yaml with
-  | `O [ ("papers", `A xs) ] ->
-      Ok
-        (List.map
-           (fun x -> x |> Utils.decode_or_raise metadata_of_yaml |> of_metadata)
-           xs)
-  | _ -> Error (`Msg "expected a list of papers")
+  Import.Result.apply (Ok of_metadata) (metadata_of_yaml s)
 
 let all () =
-  let content = Data.read "papers.yml" |> Option.get in
-  Utils.decode_or_raise decode content
+  Utils.yaml_sequence_file decode "papers.yml"
   |> List.sort (fun p1 p2 ->
          (2 * Int.compare p2.year p1.year) + String.compare p1.title p2.title)
 

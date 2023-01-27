@@ -22,26 +22,10 @@ type t = {
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
 
 let decode s =
-  let yaml = Utils.decode_or_raise Yaml.of_string s in
-  match yaml with
-  | `O [ ("meetups", `A xs) ] ->
-      Ok
-        (List.map
-           (fun x -> x |> Utils.decode_or_raise metadata_of_yaml |> of_metadata)
-           xs)
-  | _ -> Error (`Msg "expected a list of meetups")
+  Import.Result.apply (Ok of_metadata) (metadata_of_yaml s)
 
 let all () =
-  let (>>=) = Result.bind in
-  let (<@>) = Import.Result.app in
-  Data.read "meetups.yml"
-  |> Option.to_result ~none:(`Msg "meetups.yml: file not found")
-  >>= Yaml.of_string
-  >>= Yaml.Util.find "meetups"
-  >>= Option.to_result ~none:(`Msg "meetups.yml: key \"meetups\" not found")
-  >>= (function `A x -> Ok x | _ -> Error (`Msg "meetups.yml: expecting a sequence"))
-  >>= List.fold_left (fun u y -> Ok List.cons <@> metadata_of_yaml y <@> u) (Ok [])
-  |> Utils.decode_or_raise Fun.id
+  Utils.yaml_sequence_file decode "meetups.yml"
 
 let template () =
   Format.asprintf
