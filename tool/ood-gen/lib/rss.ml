@@ -113,22 +113,21 @@ type t = {
   featured : bool;
   body_html : string;
 }
+[@@deriving
+  stable_record ~version:metadata ~modify:[ featured ]
+    ~remove:[ slug; body_html ]]
+
+let of_metadata m =
+  of_metadata m ~slug:(Utils.slugify m.title)
+    ~modify_featured:(Option.value ~default:false)
 
 let all () =
   Utils.map_files
     (fun content ->
       let metadata, body = Utils.extract_metadata_body content in
       let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
-      {
-        title = metadata.title;
-        slug = Utils.slugify metadata.title;
-        description = metadata.description;
-        url = metadata.url;
-        date = metadata.date;
-        preview_image = metadata.preview_image;
-        featured = Option.value metadata.featured ~default:false;
-        body_html = String.trim body;
-      })
+      let body_html = String.trim body in
+      of_metadata metadata ~body_html)
     "rss/*/*.md"
   |> List.sort (fun a b -> String.compare b.date a.date)
 

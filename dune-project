@@ -74,6 +74,7 @@
   user-agent-parser
   digestif
   ppx_deriving_yojson
+  ppx_stable
   yojson
   (timedesc
    (>= 0.8.0))

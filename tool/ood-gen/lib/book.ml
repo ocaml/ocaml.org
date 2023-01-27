@@ -29,27 +29,19 @@ type t = {
   body_md : string;
   body_html : string;
 }
+[@@deriving
+  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ]]
+
+let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
 
 let all () =
   Utils.map_files
     (fun content ->
       let metadata, body = Utils.extract_metadata_body content in
       let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
-      {
-        title = metadata.title;
-        slug = Utils.slugify metadata.title;
-        description = metadata.description;
-        authors = metadata.authors;
-        language = metadata.language;
-        published = metadata.published;
-        cover = metadata.cover;
-        isbn = metadata.isbn;
-        links = metadata.links;
-        rating = metadata.rating;
-        featured = metadata.featured;
-        body_md = String.trim body;
-        body_html = Omd.of_string body |> Omd.to_html;
-      })
+      let body_md = String.trim body in
+      let body_html = Omd.of_string body |> Omd.to_html in
+      of_metadata metadata ~body_md ~body_html)
     "books/"
 
 let pp_link ppf (v : link) =

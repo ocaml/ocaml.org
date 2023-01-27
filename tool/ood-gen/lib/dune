@@ -13,9 +13,10 @@
   uri
   lambdasoup
   fpath
+  ppx_stable
   hilite)
  (preprocess
-  (pps ppx_deriving_yaml)))
+  (pps ppx_deriving_yaml ppx_stable)))
 
 (rule
  (targets data.ml)

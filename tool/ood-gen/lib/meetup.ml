@@ -15,9 +15,9 @@ type t = {
   textual_location : string;
   location : location;
 }
+[@@deriving stable_record ~version:metadata ~remove:[ slug ]]
 
-let of_metadata ({ title; url; textual_location; location } : metadata) =
-  { title; slug = Utils.slugify title; url; textual_location; location }
+let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
 
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
