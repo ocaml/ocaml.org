@@ -66,17 +66,17 @@ let filter_heading_1 doc =
   let open Omd in
   List.filter (function Heading (_attr, 1, _inline) -> false | _ -> true) doc
 
+let decode (fpath, content) =
+  let metadata, body_md = Utils.extract_metadata_body content in
+  let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
+  let omd = doc_with_ids (Omd.of_string body_md) in
+  let toc_doc = filter_heading_1 omd in
+  let toc_html = Omd.to_html (Omd.toc ~depth:4 toc_doc) in
+  let body_html = Omd.to_html (Hilite.Md.transform omd) in
+  of_metadata metadata ~fpath ~toc_html ~body_md ~body_html
+
 let all () =
-  Utils.map_files_with_names
-    (fun (fpath, content) ->
-      let metadata, body_md = Utils.extract_metadata_body content in
-      let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
-      let omd = doc_with_ids (Omd.of_string body_md) in
-      let toc_doc = filter_heading_1 omd in
-      let toc_html = Omd.to_html (Omd.toc ~depth:4 toc_doc) in
-      let body_html = Omd.to_html (Hilite.Md.transform omd) in
-      of_metadata metadata ~fpath ~toc_html ~body_md ~body_html)
-    "tutorials/*.md"
+  Utils.map_files_with_names decode "tutorials/*.md"
 
 let pp ppf v =
   Fmt.pf ppf

@@ -18,17 +18,17 @@ type t = {
 [@@deriving
   stable_record ~version:metadata ~add:[ authors ] ~remove:[ slug; body_html ]]
 
+let decode (fname, content) =
+  let slug = Filename.basename (Filename.remove_extension fname) in
+  let metadata, body = Utils.extract_metadata_body content in
+  let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
+  let body_html =
+    Omd.to_html (Hilite.Md.transform (Omd.of_string (String.trim body)))
+  in
+  of_metadata metadata ~slug ~body_html
+
 let all () =
-  Utils.map_files_with_names
-    (fun (fname, content) ->
-      let slug = Filename.basename (Filename.remove_extension fname) in
-      let metadata, body = Utils.extract_metadata_body content in
-      let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
-      let body_html =
-        Omd.to_html (Hilite.Md.transform (Omd.of_string (String.trim body)))
-      in
-      of_metadata metadata ~slug ~body_html)
-    "news/*/*.md"
+  Utils.map_files_with_names decode "news/*/*.md"
   |> List.sort (fun a b -> String.compare b.date a.date)
 
 let pp ppf v =
