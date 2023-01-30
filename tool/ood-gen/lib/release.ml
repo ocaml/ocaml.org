@@ -41,21 +41,18 @@ let sort_by_decreasing_version x y =
   let to_list s = List.map int_of_string_opt @@ String.split_on_char '.' s in
   compare (to_list y.version) (to_list x.version)
 
+let decode content =
+  let metadata, body_md = Utils.extract_metadata_body content in
+  let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
+  let intro_html = Omd.of_string metadata.intro |> Omd.to_html in
+  let highlights_html =
+    Omd.of_string metadata.highlights |> Hilite.Md.transform |> Omd.to_html
+  in
+  let body_html = Omd.of_string body_md |> Hilite.Md.transform |> Omd.to_html in
+  of_metadata metadata ~intro_html ~highlights_html ~body_md ~body_html
+
 let all () =
-  Utils.map_files
-    (fun content ->
-      let metadata, body_md = Utils.extract_metadata_body content in
-      let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
-      let intro_html = Omd.of_string metadata.intro |> Omd.to_html in
-      let highlights_html =
-        Omd.of_string metadata.highlights |> Hilite.Md.transform |> Omd.to_html
-      in
-      let body_html =
-        Omd.of_string body_md |> Hilite.Md.transform |> Omd.to_html
-      in
-      of_metadata metadata ~intro_html ~highlights_html ~body_md ~body_html)
-    "releases/"
-  |> List.sort sort_by_decreasing_version
+  Utils.map_files decode "releases/" |> List.sort sort_by_decreasing_version
 
 let pp_kind ppf v = Fmt.pf ppf "%s" (match v with `Compiler -> "`Compiler")
 

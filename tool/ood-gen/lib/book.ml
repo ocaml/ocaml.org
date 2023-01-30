@@ -34,15 +34,14 @@ type t = {
 
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
 
-let all () =
-  Utils.map_files
-    (fun content ->
-      let metadata, body = Utils.extract_metadata_body content in
-      let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
-      let body_md = String.trim body in
-      let body_html = Omd.of_string body |> Omd.to_html in
-      of_metadata metadata ~body_md ~body_html)
-    "books/"
+let decode content =
+  let metadata, body = Utils.extract_metadata_body content in
+  let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
+  let body_md = String.trim body in
+  let body_html = Omd.of_string body |> Omd.to_html in
+  of_metadata metadata ~body_md ~body_html
+
+let all () = Utils.map_files decode "books/"
 
 let pp_link ppf (v : link) =
   Fmt.pf ppf

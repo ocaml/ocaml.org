@@ -121,14 +121,14 @@ let of_metadata m =
   of_metadata m ~slug:(Utils.slugify m.title)
     ~modify_featured:(Option.value ~default:false)
 
+let decode content =
+  let metadata, body = Utils.extract_metadata_body content in
+  let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
+  let body_html = String.trim body in
+  of_metadata metadata ~body_html
+
 let all () =
-  Utils.map_files
-    (fun content ->
-      let metadata, body = Utils.extract_metadata_body content in
-      let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
-      let body_html = String.trim body in
-      of_metadata metadata ~body_html)
-    "rss/*/*.md"
+  Utils.map_files decode "rss/*/*.md"
   |> List.sort (fun a b -> String.compare b.date a.date)
 
 let pp ppf v =
