@@ -75,8 +75,7 @@ let decode (fpath, content) =
   let body_html = Omd.to_html (Hilite.Md.transform omd) in
   of_metadata metadata ~fpath ~toc_html ~body_md ~body_html
 
-let all () =
-  Utils.map_files_with_names decode "tutorials/*.md"
+let all () = Utils.map_files_with_names decode "tutorials/*.md"
 
 let pp ppf v =
   Fmt.pf ppf

@@ -69,8 +69,7 @@ let decode content =
   let solution = Omd.to_html (Hilite.Md.transform solution_blocks) in
   of_metadata metadata ~statement ~solution
 
-let all () =
-  Utils.map_files decode "problems/*.md"
+let all () = Utils.map_files decode "problems/*.md"
 
 let pp_proficiency ppf v =
   Fmt.pf ppf "%s"

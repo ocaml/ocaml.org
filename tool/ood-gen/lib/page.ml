@@ -29,8 +29,7 @@ let decode (file, content) =
   in
   of_metadata metadata ~slug ~body_md ~body_html
 
-let all () =
-  Utils.map_files_with_names decode "pages/*.md"
+let all () = Utils.map_files_with_names decode "pages/*.md"
 
 let pp ppf v =
   Fmt.pf ppf

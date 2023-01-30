@@ -48,14 +48,11 @@ let decode content =
   let highlights_html =
     Omd.of_string metadata.highlights |> Hilite.Md.transform |> Omd.to_html
   in
-  let body_html =
-    Omd.of_string body_md |> Hilite.Md.transform |> Omd.to_html
-  in
+  let body_html = Omd.of_string body_md |> Hilite.Md.transform |> Omd.to_html in
   of_metadata metadata ~intro_html ~highlights_html ~body_md ~body_html
 
 let all () =
-  Utils.map_files decode "releases/"
-  |> List.sort sort_by_decreasing_version
+  Utils.map_files decode "releases/" |> List.sort sort_by_decreasing_version
 
 let pp_kind ppf v = Fmt.pf ppf "%s" (match v with `Compiler -> "`Compiler")
 

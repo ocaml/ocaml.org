@@ -32,8 +32,7 @@ let decode content =
   let body_html = Omd.of_string body_md |> Omd.to_html in
   of_metadata metadata ~body_md ~body_html
 
-let all () =
-  Utils.map_files decode "industrial_users"
+let all () = Utils.map_files decode "industrial_users"
 
 let pp ppf v =
   Fmt.pf ppf

@@ -41,8 +41,7 @@ let decode content =
   let body_html = Omd.of_string body |> Omd.to_html in
   of_metadata metadata ~body_md ~body_html
 
-let all () =
-  Utils.map_files decode "books/"
+let all () = Utils.map_files decode "books/"
 
 let pp_link ppf (v : link) =
   Fmt.pf ppf
