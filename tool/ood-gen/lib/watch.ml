@@ -9,8 +9,7 @@ type metadata = {
 }
 [@@deriving of_yaml, show { with_path = false }]
 
-let all () =
-  Utils.yaml_sequence_file metadata_of_yaml "watch.yml"
+let all () = Utils.yaml_sequence_file metadata_of_yaml "watch.yml"
 
 let template () =
   Format.asprintf

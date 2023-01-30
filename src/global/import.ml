@@ -105,6 +105,7 @@ end
 
 module Result = struct
   include Stdlib.Result
+
   let const_error e _ = Error e
   let apply f = Result.fold ~ok:Result.map ~error:const_error f
   let get_ok ~error = fold ~ok:Fun.id ~error:(fun e -> raise (error e))
