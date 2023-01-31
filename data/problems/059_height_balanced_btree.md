@@ -19,7 +19,7 @@ let add_trees_with left right all =
 # Solution
 
 The function `add_trees_with` is defined in the solution of
-[Construct completely balanced binary trees](#Constructcompletelybalancedbinarytreesmedium).
+[Construct completely balanced binary trees](#55).
 
 ```ocaml
 # let rec hbal_tree n =

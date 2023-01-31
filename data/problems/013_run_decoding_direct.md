@@ -30,8 +30,8 @@ val encode : 'a list -> 'a rle list = <fun>
 
 Implement the so-called run-length encoding data compression method
 directly. I.e. don't explicitly create the sublists containing the
-duplicates, as in problem "[Pack consecutive duplicates of list elements into sublists](#Packconsecutiveduplicatesoflistelementsintosublistsmedium)", but only count them. As in problem 
-"[Modified run-length encoding](#Modifiedrunlengthencodingeasy)", simplify the result list by replacing the singleton lists (1 X) by X.
+duplicates, as in problem "[Pack consecutive duplicates of list elements into sublists](#9)", but only count them. As in problem
+"[Modified run-length encoding](#10)", simplify the result list by replacing the singleton lists (1 X) by X.
 
 ```ocaml
 # encode ["a";"a";"a";"a";"b";"c";"c";"a";"a";"d";"e";"e";"e";"e"];;
