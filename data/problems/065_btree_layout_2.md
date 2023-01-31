@@ -43,8 +43,8 @@ val layout_binary_tree_2 : 'a binary_tree -> ('a * int * int) binary_tree =
 An alternative layout method is depicted in this illustration. Find
 out the rules and write the corresponding OCaml function.
 
-Hint: On a given level, the horizontal distance between neighbouring
-nodes is constant.
+**Hint:** On a given level, the horizontal distance between
+neighbouring nodes is constant.
 
 The tree shown is 
 ```ocaml

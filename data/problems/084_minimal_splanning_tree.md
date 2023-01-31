@@ -31,7 +31,7 @@ type ('a, 'b) labeled_graph = {
 (Beware that from now on `nodes` and `edges` mask the previous fields of
 the same name.)
 
-Hint: Use the [algorithm of Prim](http://en.wikipedia.org/wiki/Prim%27s_algorithm). 
+**Hint:** Use the [algorithm of Prim](http://en.wikipedia.org/wiki/Prim%27s_algorithm).
 A small modification of the solution of P83 does the trick. The data of the
 example graph to the right can be found below.
 

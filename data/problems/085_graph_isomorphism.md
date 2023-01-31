@@ -22,7 +22,8 @@ bijection f: N1 → N2 such that for any nodes X,Y of N1, X and Y are
 adjacent if and only if f(X) and f(Y) are adjacent.
 
 Write a function that determines whether two graphs are isomorphic.
-Hint: Use an open-ended list to represent the function f.
+
+**Hint:** Use an open-ended list to represent the function f.
 
 ```ocaml
 # let g = {nodes = [1; 2; 3; 4; 5; 6; 7; 8];
