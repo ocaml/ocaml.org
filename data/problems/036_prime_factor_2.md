@@ -24,7 +24,8 @@ val factors : int -> (int * int) list = <fun>
 # Statement
 
 Construct a list containing the prime factors and their multiplicity.
-*Hint:* The problem is similar to problem 
+
+**Hint:** The problem is similar to problem
 [Run-length encoding of a list (direct solution)](#10).
 
 ```ocaml

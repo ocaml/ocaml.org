@@ -61,7 +61,7 @@ method yields a very compact layout while maintaining a certain symmetry
 in every node. Find out the rules and write the corresponding
 predicate.
 
-Hint: Consider the horizontal distance between a node and its successor
+**Hint:** Consider the horizontal distance between a node and its successor
 nodes. How tight can you pack together two subtrees to construct the
 combined binary tree? This is a difficult problem. Don't give up too
 early!

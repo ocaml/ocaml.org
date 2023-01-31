@@ -18,7 +18,7 @@ val is_palindrome : 'a list -> bool = <fun>
 
 Find out whether a list is a palindrome.
 
-> HINT: a palindrome is its own reverse.
+**Hint:** A palindrome is its own reverse.
 
 ```ocaml
 # is_palindrome ["x"; "a"; "m"; "a"; "x"];;

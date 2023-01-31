@@ -18,8 +18,8 @@ val at : int -> 'a list -> 'a option = <fun>
 
 Find the N'th element of a list.
 
-> REMARK: OCaml has `List.nth` which numbers elements from `0` and
-> raises an exception if the index is out of bounds.
+**Remark:** OCaml has `List.nth` which numbers elements from `0` and
+raises an exception if the index is out of bounds.
 
 ```ocaml
 # List.nth ["a"; "b"; "c"; "d"; "e"] 2;;
