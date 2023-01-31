@@ -1,4 +1,3 @@
 (tests
- (names package_handler_test graphql_test)
- (modules package_handler_test graphql_test)
+ (names graphql_test)
  (libraries alcotest ocamlorg_web))

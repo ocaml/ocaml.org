@@ -245,4 +245,17 @@ let () =
         [
           Alcotest.test_case "returns same package from state" `Quick state_test;
         ] );
+      ( "GET /packages",
+        [
+          Alcotest.test_case "returns successfully" `Quick (fun () ->
+              let req = Dream.request ~method_:`GET "/packages" in
+              let packages_state =
+                Ocamlorg_package.state_of_package_list packages
+              in
+              let res =
+                Dream.test (Ocamlorg_web.Handler.packages packages_state) req
+              in
+              Dream.status res |> Dream.status_to_int
+              |> Alcotest.(check int) "is 200" 200);
+        ] );
     ]
