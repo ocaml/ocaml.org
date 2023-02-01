@@ -42,6 +42,9 @@ let decode content =
   of_metadata metadata ~body_md ~body_html
 
 let all () = Utils.map_files decode "books/"
+    |> List.sort (fun b1 b2 ->
+           (* Sort the books by reversed publication date. *)
+           String.compare b2.published b1.published)
 
 let pp_link ppf (v : link) =
   Fmt.pf ppf
