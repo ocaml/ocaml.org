@@ -95,5 +95,17 @@ window.onload = (event) => {
     window.pageYOffset = 0;
     evt.detail.elt.dispatchEvent(new CustomEvent('close-sidebar', { bubbles: true }));
   });
+  document.body.addEventListener('htmx:swapError', (evt) => {
+    window.location = evt.detail.requestConfig.path;
+  });
+  document.body.addEventListener('htmx:responseError', (evt) => {
+    window.location = evt.detail.requestConfig.path;
+  });
+  document.body.addEventListener('htmx:historyCacheMissError', (evt) => {
+    window.location = evt.detail.path;
+  });
+  document.body.addEventListener('htmx:onLoadError', (evt) => {
+    window.location = evt.detail.requestConfig.path;
+  });
 };
 </script>
