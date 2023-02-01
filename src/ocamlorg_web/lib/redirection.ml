@@ -682,5 +682,5 @@ let t =
       make ~permanent:true [ ("/governance", "/policies/governance") ];
       make ~permanent:true [ ("/code-of-conduct", "/policies/code-of-conduct") ];
       make ~permanent:true [ ("/opportunities", "/jobs") ];
-      make ~permanent:false [ (Url.workshops, Url.community ^ "#workshops") ]
+      make ~permanent:false [ (Url.workshops, Url.community ^ "#workshops") ];
     ]
