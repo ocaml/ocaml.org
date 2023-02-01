@@ -48,66 +48,67 @@ type path =
 let render_package_and_version
 ~(package: Package_intf.package)
 =
-  <div class="text-xl font-bold md:whitespace-nowrap flex items-center">
-    <a class="flex leading-6" href="<%s Url.package_with_version package.name package.version %>">
-      <%s package.name %>
-    </a>
-    <select id="version" name="version" aria-label="version" onchange="location = this.value;" class="leading-6 text-lg appearance-none cursor-pointer py-0 rounded-md border border-transparent pr-8">
+  <li>
+    <a class="font-semibold underline" href="<%s Url.package_with_version package.name package.version %>"><%s package.name %></a>
+  </li>
+  <li>
+    <select id="version" name="version" aria-label="version" onchange="location = this.value;"
+      class="leading-8 appearance-none cursor-pointer py-0 rounded-md border border-gray-400 pr-8"
+      style="background-position: right 0.25rem center">
       <% package.versions |> List.iter begin fun item -> %>
       <option value="/p/<%s package.name %>/<%s item %>" <%s if item = package.version then "selected" else "" %>>
         <%s item %>
       </option>
       <% end; %>
     </select>
-  </div>
-
-let separator =
-  <span aria-hidden="true" class="text-gray-400">&gt;</span>
+  </li>
 
 let render_library_path_breadcrumbs
 ~library_name
 ~(path: library_path_item list) =
   let (reversed_library_path : library_path_item list) = List.rev (path) in
   let breadcrumbs = breadcrumbs_from_path reversed_library_path "" in
-  let render_breadcrumb b =
-    <span>
-      <a href="<%s! b.href %>" class="text-lg font-medium text-gray-800 transition-colors hover:text-orange-600"><%s b.text %></a>
-    </span>
+  let render_breadcrumb i b =
+    if i < List.length path - 1 then
+      <a href="<%s! b.href %>" class="font-semibold underline text-gray-800"><%s b.text %></a>
+    else 
+      <a href="<%s! b.href %>" aria-current="page" class="text-gray-800"><%s b.text %></a>
   in
-  <div class="flex flex-wrap">
-    <%s! separator %>
-    <span aria-label="library <%s library_name %>" tabindex="0" class="ml-2 text-gray-500"><%s library_name %></span>
-    <span class="mx-1">/</span>
-    <%s! String.concat "<span>.</span>" (breadcrumbs |> List.rev |> List.map render_breadcrumb); %>
-    <span class="ml-2">
-      <%s! kind_tag (List.hd reversed_library_path) %>
-    </span>
-  </div>
+  <li>
+    <span tabindex="0" class="text-gray-600"><%s library_name %> lib</span>
+  </li>
+  <li class="inline-flex">
+    <%s! String.concat "<span>.</span>" (breadcrumbs |> List.rev |> List.mapi render_breadcrumb); %>
+    <%s! kind_tag (List.hd reversed_library_path) %>
+  </li>
 
 let render_docs_path_breadcrumbs
 ~(package: Package_intf.package)
 ~(path: docs_path) =
-  <nav aria-label="breadcrumbs" class="flex">
-    <ul class="flex flex-wrap gap-x-2 text-lg">
+  <nav aria-label="breadcrumb" class="flex" id="htmx-breadcrumbs">
+    <ul class="flex flex-wrap gap-x-2 text-base leading-8 package-breadcrumbs">
+      <%s! render_package_and_version ~package %>
       <li>
-        <%s! render_package_and_version ~package %>
-      </li>
-      <li>
-        <%s! separator %>
-        <a class="<%s if path == Index then "underline" else "" %>" href="<%s! Url.package_docs package.name %>">Documentation</a>
+        <a class="underline font-semibold" href="<%s! Url.package_docs package.name %>">Documentation</a>
       </li>
       <% (match path with
          | Index -> %>
       <% | Library (library_name, library_path) -> %>
-        <li class="flex flex-wrap gap-x-2">
-          <%s! if library_path != [] then render_library_path_breadcrumbs ~library_name ~path:library_path else "ERROR: library path is []" %>
-        </li>
+        <%s! if library_path != [] then render_library_path_breadcrumbs ~library_name ~path:library_path else "ERROR: library path is []" %>
       <% | Page page_name  -> %>
         <li>
-          <%s! separator %>
           <span><%s page_name %></span>
         </li>
       <% ); %>
+    </ul>
+  </nav>
+
+let render_overview_breadcrumbs
+~(package: Package_intf.package)
+=
+  <nav aria-label="breadcrumbs" class="flex">
+    <ul class="flex flex-wrap gap-x-2 leading-8 package-breadcrumbs">
+      <%s! render_package_and_version ~package %>
     </ul>
   </nav>
 
@@ -115,6 +116,6 @@ let render
 ~(package: Package_intf.package)
 ~(path: path) =
   match path with
-    | Overview -> render_package_and_version ~package
+    | Overview -> render_overview_breadcrumbs ~package
     | Documentation (docs_path) -> render_docs_path_breadcrumbs ~package ~path:docs_path
     
