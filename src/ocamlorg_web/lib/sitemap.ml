@@ -2,7 +2,7 @@ module Url = Ocamlorg_frontend.Url
 
 type urlable = Urlable : 'a list * ('a -> string) -> urlable
 
-let list_of_urls =
+let urls =
   [
     Url.index;
     Url.packages;
@@ -33,45 +33,51 @@ let list_of_urls =
     Url.installer;
   ]
 
-let cu url = "https://ocaml.org" ^ url
+let to_url u = "https://ocaml.org" ^ u
 
-let list_of_v2_urls =
+let v2_urls =
   [ Url.v2; Url.manual_with_version "5.0.0"; Url.api_with_version "5.0.0" ]
 
-let l =
-  [
-    Urlable (list_of_urls, cu);
-    Urlable
-      ( Ood.Success_story.all,
-        fun r -> cu @@ Url.success_story r.Ood.Success_story.slug );
-    Urlable (Ood.Release.all, fun r -> cu @@ Url.release r.Ood.Release.version);
-    Urlable (Ood.Workshop.all, fun r -> cu @@ Url.workshop r.Ood.Workshop.slug);
-    Urlable (Ood.News.all, fun r -> cu @@ Url.news_post r.Ood.News.slug);
-    Urlable (Ood.Tutorial.all, fun r -> cu @@ Url.tutorial r.Ood.Tutorial.slug);
-    Urlable (list_of_v2_urls, Fun.id);
-  ]
-
-let list_of_complete_urls =
-  List.concat_map (function Urlable (all, show) -> List.map show all) l
-
-let sitemap_ood =
-  let sitemap_list =
+let urlables =
+  List.to_seq
     [
-      {|<?xml version="1.0" encoding="utf-8"?>
+      Urlable (urls, to_url);
+      Urlable
+        ( Ood.Success_story.all,
+          fun r -> to_url @@ Url.success_story r.Ood.Success_story.slug );
+      Urlable
+        (Ood.Release.all, fun r -> to_url @@ Url.release r.Ood.Release.version);
+      Urlable
+        (Ood.Workshop.all, fun r -> to_url @@ Url.workshop r.Ood.Workshop.slug);
+      Urlable (Ood.News.all, fun r -> to_url @@ Url.news_post r.Ood.News.slug);
+      Urlable
+        (Ood.Tutorial.all, fun r -> to_url @@ Url.tutorial r.Ood.Tutorial.slug);
+      Urlable (v2_urls, Fun.id);
+    ]
+
+let tag = Printf.sprintf {|
+<url>
+  <loc>%s</loc>
+</url>|}
+
+let urlset =
+  Seq.concat_map
+    (function
+      | Urlable (all, show) -> Seq.map (fun s -> tag (show s)) (List.to_seq all))
+    urlables
+
+let ood =
+  let header =
+    List.to_seq
+      [
+        {|<?xml version="1.0" encoding="utf-8"?>
 <urlset
       xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
       xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
       xmlns:xhtml="http://www.w3.org/1999/xhtml">
-    |};
-    ]
+|};
+      ]
   in
-  let f url = Printf.sprintf {|
-<url>
-  <loc>%s</loc>
-</url>|} url in
-  let sitemap_body = List.map f
-  in
-  let sitemap_list =
-    sitemap_list @ sitemap_body list_of_complete_urls @ [ {|</urlset>|} ]
-  in
-  Lwt_seq.of_list sitemap_list
+  Lwt_seq.of_seq
+    (Seq.concat (List.to_seq [ header; urlset; Seq.return {|
+</urlset>|} ]))

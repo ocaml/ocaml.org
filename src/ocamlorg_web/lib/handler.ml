@@ -636,6 +636,6 @@ let sitemap _request =
   Dream.stream
     ~headers:[ ("Content-Type", "application/octet-stream") ]
     (fun stream ->
-      let* _ = Lwt_seq.iter_s (Dream.write stream) Sitemap.sitemap_ood in
+      let* _ = Lwt_seq.iter_s (Dream.write stream) Sitemap.ood in
       Dream.flush stream)
 >>>>>>> e0fcd9a5 (Generate sitemap.xml by dream)
