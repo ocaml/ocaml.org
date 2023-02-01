@@ -39,19 +39,17 @@ let v2_urls =
   [ Url.v2; Url.manual_with_version "5.0.0"; Url.api_with_version "5.0.0" ]
 
 let urlables =
+  let open Ood in
   List.to_seq
     [
       Urlable (urls, to_url);
       Urlable
-        ( Ood.Success_story.all,
-          fun r -> to_url @@ Url.success_story r.Ood.Success_story.slug );
-      Urlable
-        (Ood.Release.all, fun r -> to_url @@ Url.release r.Ood.Release.version);
-      Urlable
-        (Ood.Workshop.all, fun r -> to_url @@ Url.workshop r.Ood.Workshop.slug);
-      Urlable (Ood.News.all, fun r -> to_url @@ Url.news_post r.Ood.News.slug);
-      Urlable
-        (Ood.Tutorial.all, fun r -> to_url @@ Url.tutorial r.Ood.Tutorial.slug);
+        ( Success_story.all,
+          fun r -> to_url @@ Url.success_story r.Success_story.slug );
+      Urlable (Release.all, fun r -> to_url @@ Url.release r.Release.version);
+      Urlable (Workshop.all, fun r -> to_url @@ Url.workshop r.Workshop.slug);
+      Urlable (News.all, fun r -> to_url @@ Url.news_post r.News.slug);
+      Urlable (Tutorial.all, fun r -> to_url @@ Url.tutorial r.Tutorial.slug);
       Urlable (v2_urls, Fun.id);
     ]
 
@@ -72,12 +70,13 @@ let ood =
       [
         {|<?xml version="1.0" encoding="utf-8"?>
 <urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-      xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
 |};
       ]
   in
   Lwt_seq.of_seq
     (Seq.concat (List.to_seq [ header; urlset; Seq.return {|
-</urlset>|} ]))
+</urlset>
+|} ]))
