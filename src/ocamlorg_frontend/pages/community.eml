@@ -83,7 +83,7 @@ Layout.render
   <div class="container-fluid">
       <div class=" ">
           <div class="text-center">
-              <h2 class="font-bold text-primary-600 mb-6">Workshops</h2>
+              <h2 class="font-bold text-primary-600 mb-6" id="workshops" >Workshops</h2>
               <div class="text-lg text-white mb-16">Here are some of the workshops we have had up until now</div>
           </div>
           <% (match upcoming_workshops with 

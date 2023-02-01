@@ -30,6 +30,7 @@ let api = "/releases/latest/api/index.html"
 let books = "/books"
 let releases = "/releases"
 let release v = "/releases/" ^ v
+let workshops = "/workshops"
 let workshop v = "/workshops/" ^ v
 let blog = "/blog"
 let news = "/news"
