@@ -72,7 +72,10 @@ Layout.render
                                     OCaml Package
                                 </a>
                                 <a href="<%s Url.manual_with_version release.version %>" class="text-primary-600 font-medium block">
-                                    Manual
+                                    Language Manual
+                                </a>
+                                <a href="<%s Url.api_with_version release.version %>" class="text-primary-600 font-medium block">
+                                    Standard Library API
                                 </a>
                             </td>
                         </tr>
