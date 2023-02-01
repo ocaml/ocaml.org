@@ -65,18 +65,13 @@ let sitemap_ood =
     |};
     ]
   in
-  let rec sitemap_body list_of_urls sitemap_body_list =
-    match list_of_urls with
-    | [] -> sitemap_body_list
-    | url :: t ->
-        sitemap_body t
-          (Printf.sprintf {|
+  let f url = Printf.sprintf {|
 <url>
   <loc>%s</loc>
-</url>|} url
-          :: sitemap_body_list)
+</url>|} url in
+  let sitemap_body = List.map f
   in
   let sitemap_list =
-    {|</urlset>|} :: sitemap_body list_of_complete_urls sitemap_list
+    sitemap_list @ sitemap_body list_of_complete_urls @ [ {|</urlset>|} ]
   in
-  Lwt_seq.of_list (List.rev sitemap_list)
+  Lwt_seq.of_list sitemap_list
