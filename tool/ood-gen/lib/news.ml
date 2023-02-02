@@ -18,14 +18,13 @@ type t = {
 [@@deriving
   stable_record ~version:metadata ~add:[ authors ] ~remove:[ slug; body_html ]]
 
-let decode (fname, content) =
-  let slug = Filename.basename (Filename.remove_extension fname) in
-  let metadata, body = Utils.extract_metadata_body content in
-  let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
+let decode (file, (head, body_md)) =
+  let metadata = metadata_of_yaml head in
   let body_html =
-    Omd.to_html (Hilite.Md.transform (Omd.of_string (String.trim body)))
+    Omd.to_html (Hilite.Md.transform (Omd.of_string (String.trim body_md)))
   in
-  of_metadata metadata ~slug ~body_html
+  let slug = Filename.basename (Filename.remove_extension file) in
+  Result.map (of_metadata ~slug ~body_html) metadata
 
 let all () =
   Utils.map_files_with_names decode "news/*/*.md"

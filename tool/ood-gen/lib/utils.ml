@@ -40,7 +40,8 @@ let read_from_dir dir =
 let map_files f dir =
   read_from_dir dir
   |> List.map (fun (file, x) ->
-         try f x
+         try
+          decode_or_raise f (extract_metadata_body x)
          with exn ->
            prerr_endline ("Error in " ^ file);
            raise exn)
@@ -48,7 +49,7 @@ let map_files f dir =
 let map_files_with_names f dir =
   read_from_dir dir
   |> List.map (fun (file, x) ->
-         try f (file, x)
+         try decode_or_raise f (file, extract_metadata_body x)
          with exn ->
            prerr_endline ("Error in " ^ file);
            raise exn)
