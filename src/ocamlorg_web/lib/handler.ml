@@ -64,15 +64,7 @@ let academic_users req =
   Dream.html (Ocamlorg_frontend.academic_users users)
 
 let about _req = Dream.html (Ocamlorg_frontend.about ())
-
-let books _req =
-  let books =
-    Ood.Book.all
-    |> List.sort (fun b1 b2 ->
-           (* Sort the books by reversed publication date. *)
-           String.compare b2.Ood.Book.published b1.published)
-  in
-  Dream.html (Ocamlorg_frontend.books books)
+let books _req = Dream.html (Ocamlorg_frontend.books Ood.Book.all)
 
 let releases req =
   let search_release pattern t =
