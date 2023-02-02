@@ -34,10 +34,10 @@ type t = {
 
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
 
-let decode (_, (head, body_md)) =
+let decode (_, (head, body)) =
   let metadata = metadata_of_yaml head in
-  let body_html = Omd.of_string body_md |> Omd.to_html in
-  let body_md = String.trim body_md in
+  let body_md = String.trim body in
+  let body_html = Omd.of_string body |> Omd.to_html in
   Result.map (of_metadata ~body_md ~body_html) metadata
 
 let all () = Utils.map_files decode "books/"
