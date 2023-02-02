@@ -37,10 +37,10 @@ let read_from_dir dir =
            Data.read x |> Option.map (fun y -> (x, y))
          else None)
 
-let map_files decode dir =
+let map_files f dir =
   read_from_dir dir
   |> List.map (fun (file, x) ->
-         match decode (file, extract_metadata_body x) with
+         match f (file, extract_metadata_body x) with
          | Ok x -> x
          | Error (`Msg err) ->
              raise
