@@ -59,7 +59,7 @@ let of_metadata =
   of_metadata ~modify_difficulty:(fun d ->
       d |> Proficiency.of_string |> Result.get_ok)
 
-let decode (head, body_md) =
+let decode (_, (head, body_md)) =
   let metadata = metadata_of_yaml head in
   let statement_blocks, solution_blocks =
     split_statement_statement (Omd.of_string body_md)

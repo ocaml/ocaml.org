@@ -63,7 +63,7 @@ type t = {
 
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
 
-let decode (head, body_md) =
+let decode (_, (head, body_md)) =
   let metadata = metadata_of_yaml head in
   let omd = Omd.of_string body_md in
   let toc_html = Omd.to_html (Omd.toc ~depth:4 omd) in

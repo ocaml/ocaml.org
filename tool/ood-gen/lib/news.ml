@@ -27,7 +27,7 @@ let decode (file, (head, body_md)) =
   Result.map (of_metadata ~slug ~body_html) metadata
 
 let all () =
-  Utils.map_files_with_names decode "news/*/*.md"
+  Utils.map_files decode "news/*/*.md"
   |> List.sort (fun a b -> String.compare b.date a.date)
 
 let pp ppf v =

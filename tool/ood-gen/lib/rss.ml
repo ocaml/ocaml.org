@@ -121,7 +121,7 @@ let of_metadata m =
   of_metadata m ~slug:(Utils.slugify m.title)
     ~modify_featured:(Option.value ~default:false)
 
-let decode (head, body_md) =
+let decode (_, (head, body_md)) =
   let metadata = metadata_of_yaml head in
   let body_html = String.trim body_md in
   Result.map (of_metadata ~body_html) metadata
