@@ -64,9 +64,7 @@ let academic_users req =
   Dream.html (Ocamlorg_frontend.academic_users users)
 
 let about _req = Dream.html (Ocamlorg_frontend.about ())
-
-let books _req =
-  Dream.html (Ocamlorg_frontend.books Ood.Book.all)
+let books _req = Dream.html (Ocamlorg_frontend.books Ood.Book.all)
 
 let releases req =
   let search_release pattern t =
