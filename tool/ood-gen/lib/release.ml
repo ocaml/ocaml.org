@@ -35,7 +35,10 @@ type t = {
 
 let of_metadata m =
   of_metadata m ~modify_kind:kind_of_string ~intro_md:m.intro
+    ~intro_html:(Omd.of_string m.intro |> Omd.to_html)
     ~highlights_md:m.highlights
+    ~highlights_html:
+      (Omd.of_string m.highlights |> Hilite.Md.transform |> Omd.to_html)
 
 let sort_by_decreasing_version x y =
   let to_list s = List.map int_of_string_opt @@ String.split_on_char '.' s in
@@ -44,14 +47,7 @@ let sort_by_decreasing_version x y =
 let decode (_, (head, body_md)) =
   let metadata = metadata_of_yaml head in
   let body_html = Omd.of_string body_md |> Hilite.Md.transform |> Omd.to_html in
-  Result.map
-    (fun m ->
-      let intro_html = Omd.of_string m.intro |> Omd.to_html in
-      let highlights_html =
-        Omd.of_string m.highlights |> Hilite.Md.transform |> Omd.to_html
-      in
-      of_metadata ~intro_html ~highlights_html ~body_md ~body_html m)
-    metadata
+  Result.map (of_metadata ~body_md ~body_html) metadata
 
 let all () =
   Utils.map_files decode "releases/" |> List.sort sort_by_decreasing_version
