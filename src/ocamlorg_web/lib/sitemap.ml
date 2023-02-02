@@ -11,8 +11,6 @@ let urls =
     Url.industrial_users;
     Url.academic_users;
     Url.about;
-    Url.manual;
-    Url.api;
     Url.books;
     Url.releases;
     Url.blog;
@@ -30,13 +28,9 @@ let urls =
     Url.getting_started;
     Url.best_practices;
     Url.problems;
-    Url.installer;
   ]
 
 let to_url u = "https://ocaml.org" ^ u
-
-let v2_urls =
-  [ Url.v2; Url.manual_with_version "5.0.0"; Url.api_with_version "5.0.0" ]
 
 let urlables =
   let open Ood in
@@ -50,7 +44,6 @@ let urlables =
       Urlable (Workshop.all, fun r -> to_url @@ Url.workshop r.Workshop.slug);
       Urlable (News.all, fun r -> to_url @@ Url.news_post r.News.slug);
       Urlable (Tutorial.all, fun r -> to_url @@ Url.tutorial r.Tutorial.slug);
-      Urlable (v2_urls, Fun.id);
     ]
 
 let tag = Printf.sprintf {|
