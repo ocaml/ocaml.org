@@ -8,6 +8,8 @@ type metadata = {
 }
 [@@deriving of_yaml, show { with_path = false }]
 
+type t = metadata [@@deriving of_yaml, show { with_path = false }]
+
 let all () =
   let job_date j = Option.value ~default:"1970-01-01" j.publication_date in
   Utils.yaml_sequence_file metadata_of_yaml "jobs.yml"
