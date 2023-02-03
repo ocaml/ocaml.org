@@ -137,7 +137,7 @@ ocamlfind ocamlopt -o program -linkpkg -package pkg module1.cmx module2.cmx
 Separate compilation (one command for `module1.ml`, another for `module2.ml`
 and another to link the final output) is usually not performed manually but
 only when using an automated build system that will take care of recompiling
-only what it necessary.
+only what is necessary.
 
 ## Interlude: Making a Custom Toplevel
 
