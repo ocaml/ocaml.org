@@ -134,7 +134,7 @@ course. Here are two examples showing the `map` function in use:
 The standard library [List](https://ocaml.org/api/List.html) module contains a
 wide range of useful utility functions, including pre-written versions of many
 of the functions we have written in this tutorial. A version of the module with
-labeled functions is available as part of
+labelled functions is available as part of
 [StdLabels](https://ocaml.org/api/StdLabels.html).
 
 In the [List](https://ocaml.org/api/List.html) module documentation, functions
@@ -153,7 +153,7 @@ There is also a variant for two lists:
 - : int list = [5; 7; 9]
 ```
 
-In addition, we have an imperative analog to
+In addition, we have an imperative analogue to
 [`map`](https://ocaml.org/api/List.html#VALmap), called
 [`iter`](https://ocaml.org/api/List.html#VALiter). It takes an imperative
 function of type `'a -> unit` and an `'a list` and applies the function to each
