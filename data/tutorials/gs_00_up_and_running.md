@@ -46,7 +46,7 @@ Find all the installation instructions for both Unix-like systems and Windows in
 
 **Note**
 
-As an alternative to the methods mentionned aboved, the [OCaml Platform
+As an alternative to the methods mentioned aboved, the [OCaml Platform
 Installer](https://github.com/tarides/ocaml-platform-installer) is a new way to
 install OCaml and the development tools. [See
 below](#up-and-running-with-the-platform-installer) for the instructions.
