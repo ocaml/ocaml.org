@@ -58,21 +58,27 @@ that's “unfreezing”. However, unfreezing only gives access to the tip of the
 icicle, since the second argument of `Seq.Cons` is a function too.
 
 Having frozen-by-function tails explains why sequences may be considered
-potentially infinite. Until a `Seq`.Nil` value has been found in the sequence,
+potentially infinite. Until a `Seq.Nil` value has been found in the sequence,
 one can't say for sure if some will ever appear. The sequence could be a stream
-of client requests in a server, readings from an embedded sensor or system logs.
+of incoming requests in a server, readings from an embedded sensor or system logs.
 All have unforeseeable termination and it is easier to consider them infinite.
+
+In OCaml, any value `a` of type `t` can be turned into a constant function by
+writing `fun _ -> a`, which has type `'a -> t`. When writing `fun () -> a`
+instead, we get a function of type `unit -> t`. Such a function is called a
+[_thunk_](https://en.wikipedia.org/wiki/Thunk). Using this terminology, sequence
+values are thunks. With the analogy used earlier, `a` is frozen in its thunk.
 
 Here is how to build seemingly infinite sequences of integers:
 ```ocaml
-# let rec ints n : int Seq.t = fun () -> Seq.Cons (n, ints_from (n + 1))
+# let rec ints n : int Seq.t = fun () -> Seq.Cons (n, ints (n + 1))
 val ints : int -> int Seq.t = <fun>
 ```
 The function `ints n` look as if building the infinite sequence
 $(n; n + 1; n + 2; n + 3;...)$. In reality, since there isn't an infinite
 amount of distinct values of type `int`, those sequences are not increasing,
 when reaching `max_int` the values will circle down to `min_int`. They are
-ultimately periodic. 
+ultimately periodic.
 
 The OCaml standard library contains a module on sequences called
 [`Seq`](/releases/5.0/api/Seq.html). It contains a `Seq.iter` function, which
@@ -90,11 +96,9 @@ But the key point is: it doesn't leak memory.
 
 ## Example
 
-The `Seq` module of the OCaml standard library contains 
-
-does not (yet) define
-a function returning the elements at the beginning of a sequence. Here is a
-possible implementation:
+The `Seq` module of the OCaml standard library contains the definition of the
+function `Seq.take` which returns a specified number of elements from the
+beginning of a sequence. Here is a simplified implementation:
 ```ocaml
 let rec take n seq () = match seq () with
   | Seq.Cons (x, seq) when n > 0 -> Seq.Cons (x, take (n - 1) seq)
@@ -164,14 +168,16 @@ same.
 
 ## Unfolding Sequences
 
-Standard higher-order iteration functions are available on Sequences. For instance:
+Standard higher-order iteration functions are available on sequences. For
+instance:
 * `Seq.iter`
 * `Seq.map`
 * `Seq.fold_left`
 
-All those are also available for `Array`, `List` and `Set`. Since OCaml 4.11
-sequences have something which isn't (yet) available on those: `unfold`. Here is
-how it is implemented:
+All those are also available for `Array`, `List` and `Set` and behave
+essentially the same. Observe that there is no `fold_right` function. Since
+OCaml 4.11 there is something which isn't (yet) available on other types:
+`unfold`. Here is how it is implemented:
 ```ocaml
 let rec unfold f seq () = match f seq with
   | None -> Nil
@@ -189,10 +195,10 @@ fairly compact way:
 let ints = Seq.unfold (fun n -> Some (n, n + 1));;
 ```
 
-As a fun fact, observe `map` over sequences can be implemented
-using `Seq.unfold`. Here is how to write it:
+As a fun fact, one should observe `map` over sequences can be implemented using
+`Seq.unfold`. Here is how to write it:
 ```ocaml
-# let map f = Seq.unfold (fun seq -> seq |> Seq.uncons |> Option.map (fun (x, y) -> (f x, y)));;
+# let map f = Seq.unfold (fun s -> s |> Seq.uncons |> Option.map (fun (x, y) -> (f x, y)));;
 val map : ('a -> 'b) -> 'a Seq.t -> 'b Seq.t = <fun>
 ```
 Here is a quick check:
@@ -200,6 +206,7 @@ Here is a quick check:
 # Seq.ints 0 |> map (fun x -> x * x) |> Seq.take 10 |> List.of_seq;;
 - : int list = [0; 1; 4; 9; 16; 25; 36; 49; 64; 81]
 ```
+The function `Seq.uncons` returns the head and tail of a sequence if it is not empty or `None` otherwise.
 
 Using this function:
 ```ocaml
@@ -218,7 +225,6 @@ taking care of open files. While the code above is fine, this one no longer is:
 "README.md" |> open_in |> Seq.unfold input_line_opt |> Seq.take 10 |> Seq.iter print_endline
 ```
 Here, `close_in` will never be called over the input channel opened on `README.md`.
-
 
 ## Sequences for Conversions
 
@@ -243,3 +249,17 @@ some of those functions:
 Similar functions are also provided for sets, maps, hash tables (`Hashtbl`) and
 others (except `Seq`, obviously). When implementing a datatype module, it is
 advised to expose `to_seq` and `of_seq` functions.
+
+## Miscellaneous
+
+There are a couple of related Libraries, all providing means to handle large
+flows of data:
+
+* Rizo I [Streaming](/p/streaming)
+* Gabriel Radanne [Iter](/p/iter)
+* Jane Street `Base.Sequence`
+
+There used to be a module called [`Stream`](/releases/4.13/api/Stream.html) in
+the OCaml standard library. It was
+[removed](https://github.com/ocaml/ocaml/pull/10482) in 2021 with the release of
+OCaml 4.14. Beware books and documentation written before may still mention it.
