@@ -543,7 +543,7 @@ versions and is now included in `ppxlib`.
 
 ### One PPX for Multiple OCaml Versions
 
-One subtlety in writing a PPX is the the fact that the types of the Parsetree
+One subtlety in writing a PPX is the fact that the types of the Parsetree
 module might change when a new feature is added to the language. To keep a PPX
 compatible with a new version, it would have to update the transformation from
 the old types to the new ones. But, by doing so, it would lose compatibility
@@ -560,7 +560,7 @@ back to a 4.08 Parsetree to continue the compilation.
 
 ### Restricting PPXs for Composition, Speed, and Security
 
-`ppxlib` explictly supports registering the restricted transformations that
+`ppxlib` explicitly supports registering the restricted transformations that
 correspond to extenders and derivers. Writing those restricted PPXs has a lot
 of advantages:
 - Extenders and derivers won't modify your existing code, apart from the
