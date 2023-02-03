@@ -161,10 +161,10 @@ the list of 100 first prime numbers:
 
 The function `sieve` is recursive, in OCaml and common senses: it is defined
 using the `rec` keyword and calls itself. However, some call that kind of
-function “corecursive”. This word is used to emphasize that, by design, it does
-not terminate. Strictly speaking, the sieve of Eratosthenes is not an
-algorithm either since it does not terminate. This implementation behaves the
-same.
+function [_corecursive_](https://en.wikipedia.org/wiki/Corecursion). This word
+is used to emphasize that, by design, it does not terminate. Strictly speaking,
+the sieve of Eratosthenes is not an algorithm either since it does not
+terminate. This implementation behaves the same.
 
 ## Unfolding Sequences
 
