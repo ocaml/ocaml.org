@@ -145,7 +145,7 @@ symbolic debugger with its stepping feature.
 Stepping a functional program has a meaning which is a bit weird to define and
 understand. Let me say that we use the notion of *runtime events* that happen
 for instance when a parameter is passed to a function or when entering a
-pattern matching, or selecting a clause in a pttern matching. Computation
+pattern matching, or selecting a clause in a pattern matching. Computation
 progress is taken into account by these events, independently of the
 instructions executed on the hardware.
 
@@ -222,7 +222,7 @@ Uncaught exception: Not_found
 (ocd)
 ```
 
-Self explanatory, isn't it? So, you want to step backward to set the program
+Self-explanatory, isn't it? So, you want to step backward to set the program
 counter before the time the exception is raised; hence type in `b` as
 *backstep*, and you get
 
