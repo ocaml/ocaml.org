@@ -225,7 +225,7 @@ with the optional `alignment` and `padding`? The initializer uses these:
 ```ocaml
 initializer
   may (gtk_misc_set_alignment obj) alignment;
-  may (gtk_misc_set_padding obj) padding 
+  may (gtk_misc_set_padding obj) padding
 ```
 
 It's that tricky `may` function in action. *If* the user gave an
@@ -354,7 +354,7 @@ Hence:
 ```C
 CAMLparam2 (obj, str);
 ...
-CAMLreturn (Val_unit); 
+CAMLreturn (Val_unit);
 ```
 
 `CAMLparam2` is a macro saying that you're using two `value` parameters.
@@ -375,13 +375,13 @@ local_roots = &caml__roots_obj;
 caml__roots_obj.nitems = 1;
 caml__roots_obj.ntables = 2;
 caml__roots_obj.tables [0] = &obj;
-caml__roots_obj.tables [1] = &str; 
+caml__roots_obj.tables [1] = &str;
 ```
 And for `CAMLreturn (foo)`:
 
 ```C
 local_roots = caml__frame;
-return (foo); 
+return (foo);
 ```
 
 If you follow the code closely you'll see that `local_roots` is

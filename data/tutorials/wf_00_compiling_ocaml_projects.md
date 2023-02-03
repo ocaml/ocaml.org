@@ -16,7 +16,7 @@ It addresses, in turn:
    useful to learn these commands to understand OCaml's compilation model.
 
 1. The `ocamlfind` front-end to the compiler, which saves you from worrying
-   about where libraries have been installed on your particular system. 
+   about where libraries have been installed on your particular system.
 
 1. Automatic build systems for OCaml, such as `dune`, which release us from
    details of compiler command invocation, so we never touch `ocamlc`,
@@ -176,7 +176,7 @@ look like this:
 The dune [quick-start
 guide](https://dune.readthedocs.io/en/latest/quick-start.html) shows you how to
 write such description files for more complicated situations, and how to
-structure, build, and run dune projects. 
+structure, build, and run dune projects.
 
 ## Other Build Systems
 

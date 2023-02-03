@@ -163,7 +163,7 @@ libraries provide useful combinators on the `result` type: `map`, `>>=`, etc.
 
 ## Assertions
 The built-in `assert` takes an expression as an argument and throws an
-exception *if* the provided expression evaluates to `false`. 
+exception *if* the provided expression evaluates to `false`.
 Assuming that you don't catch this exception (it's probably
 unwise to catch this exception, particularly for beginners), this
 results in the program stopping and printing out the source file and

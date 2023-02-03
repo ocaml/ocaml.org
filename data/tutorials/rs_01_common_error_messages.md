@@ -225,7 +225,7 @@ It means that some_module.cmi is not valid according to the *current
 version* of the OCaml compiler. Most of the time, removing the old
 compiled files (*.cmi, *.cmo, *.cmx, ...) and recompiling is
 sufficient to solve this problem.
-	
+
 ### `Warning: Illegal backslash escape in string`
 Recent versions of OCaml warn you against unprotected backslashes in
 strings since they should be doubled. Such a message may be displayed

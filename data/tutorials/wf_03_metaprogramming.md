@@ -196,7 +196,7 @@ Let's look at a few properties of this tree:
 There are several complementary ways of getting a grasp on the Parsetree type.
 One is to read the [API
 documentation](https://v2.ocaml.org/api/compilerlibref/Parsetree.html), which
-includes examples of what each type and value represent. Another is to 
+includes examples of what each type and value represent. Another is to
 examine the Parsetree value of crafted OCaml code. This can be achieved using
 the external tool [astexplorer](https://astexplorer.net/), our OCaml
 [VSCode
@@ -262,8 +262,8 @@ syntaxes of OCaml 4.02 just mentioned, extension nodes and attributes.
 
 #### Attributes and Derivers
 
-Attributes are additional information that can be attached to any AST node. 
-That information can either be used by the compiler itself (e.g., 
+Attributes are additional information that can be attached to any AST node.
+That information can either be used by the compiler itself (e.g.,
 to enable or disable warnings), add a "deprecated" warning, or force/check that a
 function is inlined. The full list of attributes that the compiler uses is
 available in the [manual](https://v2.ocaml.org/manual/attributes.html#ss:builtin-attributes).
@@ -271,7 +271,7 @@ available in the [manual](https://v2.ocaml.org/manual/attributes.html#ss:builtin
 The attributes' syntax is to suffix the node with `[@attribute_name payload]`,
 where `payload` is itself an OCaml AST. The number of `@` determines to which
 node the attribute is attached: `@` is for the closest node (expression,
-patterns, etc.), `@@` is for the closest block (type declaration, class fields, etc.), 
+patterns, etc.), `@@` is for the closest block (type declaration, class fields, etc.),
 and `@@@` is a floating attribute. More information for the syntax can be
 found in the [manual](https://v2.ocaml.org/manual/attributes.html).
 
@@ -368,13 +368,13 @@ let [%ext_name? a :: _ ] = ()
 
 Extension nodes are meant to be rewritten by a PPX and, in this regard,
 correspond to a specific kind of PPX: extenders. An extender is a PPX rewriter
-which will replace all occurrences of extension nodes with a matching name. It does this with 
+which will replace all occurrences of extension nodes with a matching name. It does this with
 some generated code that depends only on the payload, without information on the
 context of the extension node (that is, without access to the rest of the code)
 and without modifying anything else.
 
 Examples of extenders include:
-- Extenders which allow users to write OCaml values representing another language 
+- Extenders which allow users to write OCaml values representing another language
   directly in such language. For example:
       - `ppx_yojson` to generate `Yojson` values by writing JSON code
       - `tyxml-ppx` to generate `Tyxml.Html` values by writing HTML code
@@ -404,7 +404,7 @@ Dune.
 
 ### Dropping PPXs Dependency With `[@@deriving_inline]`
 
-Some derivers are only needed for boilerplate generation. When that's the case, 
+Some derivers are only needed for boilerplate generation. When that's the case,
 there is no strong requirement
 for them to be included as a hard dependency: the added boilerplate code can be pretty printed and added
  to the source code by the PPX. This mechanism can be implemented using Dune
@@ -446,7 +446,7 @@ index 4999e06..5516d41 100644
 +++ b/_build/default/lib/lib.ml.lint-corrected
 @@ -1,3 +1,8 @@
  type t = int [@@deriving_inline yojson]
- 
+
 +let _ = fun (_ : t) -> ()
 +let t_of_yojson = (int_of_yojson : Ppx_yojson_conv_lib.Yojson.Safe.t -> t)
 +let _ = t_of_yojson

@@ -238,7 +238,7 @@ simple tail recursion compiles to:
 let rec loop () =
   print_string "I go on forever ...";
   loop ()
-  
+
 let () = loop ()
 ```
 
@@ -817,7 +817,7 @@ let () =
   Gc.print_stat stdout
 ```
 
-And can be run and compiled with 
+And can be run and compiled with
 
 <!-- $MDX skip -->
 ```
@@ -842,7 +842,7 @@ After running the program as normal, the profiling code dumps out a file
 ```
 $ gprof ./a.out
 Flat profile:
-  
+
 Each sample counts as 0.01 seconds.
   %   cumulative   self              self     total
  time   seconds   seconds    calls   s/call   s/call  name
@@ -867,7 +867,7 @@ Each sample counts as 0.01 seconds.
   1.52      4.98     0.08  4575034     0.00     0.00  Stream__icons_207
   1.52      5.06     0.08  4575034     0.00     0.00  Stream__junk_165
   1.14      5.12     0.06     1112     0.00     0.00  do_local_roots
-  
+
 [ etc. ]
 ```
 

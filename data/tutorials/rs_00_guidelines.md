@@ -29,15 +29,15 @@ time spent reading them. That's the reason why you save a lot of time if
 you work hard to optimise readability.
 
 The time you are "wasting" to get a simpler program today will
-pay off a hundredfold in the future during the uncountable 
+pay off a hundredfold in the future during the uncountable
 modifications and readings of the program (starting with the first
 debugging).
 
-> 
+>
 > **Writing programs law**: A program is written once, modified ten
 > times, and read 100 times. So it's beneficial to simplify its writing, always keep future
 > modifications in mind, and never jeopardize readability.
-> 
+>
 
 
 ###  Naming Complex Arguments
@@ -90,17 +90,17 @@ let f x =
   blabla in
 List.map f l
 ```
-> 
+>
 > **Justification**: Much clearer, in particular if the name given to
 > the function is meaningful.
-> 
+>
 
 ## Programming Guidelines
 ###  How to Program
-> 
+>
 > *Always put your handiwork back on the bench,<br />
 >  then polish it and repolish it.*
-> 
+>
 
 ####  Write Simple and Clear Programs
 Reread, simplify, and clarify at every stage of
@@ -144,12 +144,12 @@ particular algorithm works. Once more, if there is no difficulty, there is no
 point in commenting.
 
 ####  Avoid Nocuous Comments
-A *nocuous* comment is a comment that does not add any value, e.g., 
+A *nocuous* comment is a comment that does not add any value, e.g.,
 trivial information. The nocuous comment is evidently not of
 interest; it is a nuisance that uselessly distracts the reader. It
 is often used to fulfill some strange criteria related to the so-called
 *software metrology*, i.e., the ratio *number of comments* /
-*number of lines of code*. This arbitrary ratio has no theoretical or practical interpretation. 
+*number of lines of code*. This arbitrary ratio has no theoretical or practical interpretation.
 
 Absolutely avoid
 nocuous comments.
@@ -266,10 +266,10 @@ functions, types, exceptions, etc.
 Avoid `open` directives, using instead the qualified identifier
 notation. Thus you will prefer short but meaningful module names.
 
-> 
+>
 > **Justification**: The use of unqualified identifiers is ambiguous and
 > gives rise to difficult-to-detect semantic errors.
-> 
+>
 
 <!-- $MDX skip -->
 ```ocaml
@@ -287,7 +287,7 @@ For example, the `Format` module automatically provides indented
 printing. This module redefines the usual printing functions
 `print_string`, `print_int`, `print_float`, etc., so when you use
 `Format`, open it systematically at the top of the file.<br />
-If you don't open `Format`, you could miss a printing function qualification, 
+If you don't open `Format`, you could miss a printing function qualification,
 and this could be perfectly silent, since many of
 `Format`'s functions have a counterpart in the default environment
 (`Stdlib`). Mixing printing functions from `Format` and `Stdlib`
@@ -303,10 +303,10 @@ is bogus since it does not call `Format.print_newline` to flush the
 pretty-printer queue and output `"Hello World!"`. Instead
 `"Hello World!"` is stuck into the pretty-printer queue, while
 `Stdlib.print_newline` outputs a carriage return on the standard
-output. 
+output.
 
 If `Format` is printing on a file and standard output is the
-terminal, the user will have a difficult time finding that the file is missing 
+terminal, the user will have a difficult time finding that the file is missing
 a carriage return (and the display of material on the file is
 strange, since boxes that should be closed by `Format.print_newline` are
 still open), while a spurious carriage return appeared on the screen!
@@ -322,10 +322,10 @@ open Num
 let rec fib n =
   if n <= 2 then Int 1 else fib (n - 1) +/ fib (n - 2)
 ```
-> 
+>
 > **Justification**: The program would be less readable if you had to
 > qualify all the identifiers.
-> 
+>
 
 In a program where type definitions are shared, it's beneficial to gather
 these definitions into one or more module(s) without implementations
@@ -357,17 +357,17 @@ Warnings about pattern-matching must be treated with the upmost care.
  constructor list not examined by the rest of the construct,
  e.g., `| Cn _ | Cn1 _ -> ... `.
 
-> 
+>
 > **Justification**: It's not really more complicated to write
 > it this way, and this allows the program to evolve more safely. In
-> effect, the addition of a new constructor to the datatype 
+> effect, the addition of a new constructor to the datatype
 > matched will produce an alert anew, which will allow the
 > programmer to add a clause corresponding to the new constructor, if
 > warranted. On the contrary, the “catch-all” clause
 > will make the function compile silently, and it might be thought
 > that the function is correct, as the new constructor will be
 > handled by the default case.
-> 
+>
 
 
 * Nonexhaustive pattern-matches induced by clauses with guards must
@@ -427,13 +427,13 @@ let x, y, l =
 ```
 
 
-> 
+>
 > **Justification**: There is no way to make the pattern-matching
 > exhaustive if you use general destructuring `let` bindings.
-> 
+>
 
 ####  Sequence warnings and `let _ = ...`
-When the compiler emits a warning about a sequential expression type, 
+When the compiler emits a warning about a sequential expression type,
 you must explicitly indicate that you want to ignore this expression's
 result. To this end:
 
@@ -473,7 +473,7 @@ print_newline ()
  function, a probable confusion between the side-effect-only version
  of a function (which is a procedure whose result is irrelevant) with
  its functional counterpart (whose result is meaningful).<br />
- 
+
  In the example mentioned above, the first situation prevailed, and
  the programmer should have called `iter` instead of `map`, then
  simply write:
@@ -505,9 +505,9 @@ In any case, use the `let _ = ...` construction exactly in those cases
 where you want to ignore a result. Don't systematically replace
 sequences with this construction.
 
-> 
+>
 > **Justification**: Sequences are much clearer! Compare `e1; e2; e3` to
-> 
+>
 > ```ocaml
 > let _ = e1 in
 > let _ = e2 in
@@ -518,12 +518,12 @@ sequences with this construction.
 Don't use the `hd` and `tl` functions, but rather pattern-match the list
 argument explicitly.
 
-> 
+>
 > **Justification**: This is just as brief as and much clearer than
 > using `hd` and `tl`, which must be protected by
 > `try... with...` to catch the exception that might be raised by these
 > functions.
-> 
+>
 
 ###  Loops
 ####  `for` loops
@@ -545,24 +545,24 @@ let find_index e v =
     if v.(i) = e then i else loop (i + 1) in
   loop 0;;
 ```
-> 
+>
 > **Justification**: The recursive function lets you code any loop
 > whatsoever simply, even a complex one, e.g., with multiple exit
 > points or with strange index steps (steps depending on a data value
 > for example).
-> 
+>
 > Besides, the recursive loop avoids the use of mutables whose value can
 > be modified inside any part of the loop whatsoever (or even
-> outside). On the contrary, the recursive loop explicitly takes the values 
+> outside). On the contrary, the recursive loop explicitly takes the values
 > susceptible to change during the recursive calls as
 > arguments.
-> 
+>
 
 #### `while` loops
-> 
+>
 > **While loops law**: Beware! A `while` loop is usually wrong, unless its
 > loop invariant has been explicitly written.
-> 
+>
 
 The main use of the `while` loop is the infinite loop
 `while true do     ...`. You get out of it through an exception,
@@ -571,12 +571,12 @@ generally on the program's termination.
 Other `while` loops are hard to use, unless they come from canned
 programs from algorithm courses where they were proved.
 
-> 
+>
 > **Justification**: `while` loops require one or more mutables, so
 > the loop condition changes value and the loop finally terminates.
 > To prove their correctness, you must discover the loop
 > invariants, an interesting but difficult sport.
-> 
+>
 
 ###  Exceptions
 Don't be afraid to define your own exceptions in your programs, but on
@@ -600,12 +600,12 @@ try
   close_in ic; close_out oc
 with x -> close_in ic; close_out oc; raise x
 ```
-> 
+>
 > **Justification**: `try ... with _     ->` silently catches all
 > exceptions, even those which have nothing to do with the computation
 > at hand (for example, an interruption will be captured and the
 > computation will continue anyway!).
-> 
+>
 
 ###  Data Structures
 One of the great strengths of OCaml is the power of definable data structures
@@ -623,62 +623,62 @@ type convexity =
 type type_of_definition =
    | Recursive | Non_recursive
 ```
-> 
+>
 > **Justification**: A Boolean value often prevents intuitive
 > understanding of the corresponding code. For example, if
 > `type_of_definition` is coded by a Boolean, what does `true` signify?
 > A “normal” definition (that is, non-recursive) or a recursive
 > definition?
-> 
+>
 > In the case of an enumerated type encode by an integer, it is very
 > difficult to limit the range of acceptable integers. One must define
 > construction functions that will ensure the program's mandatory invariants
 > (and afterwards verify no values have been built
-> directly) or add assertions in the program and guards in pattern-matchings. 
+> directly) or add assertions in the program and guards in pattern-matchings.
 > This is not good practice when the definition of a sum
 > type elegantly solves this problem along with the additional benefit of
 > firing pattern-matching's full power and the compiler's verifications
 > of exhaustiveness.
-> 
+>
 > **Criticism**: For binary enumerations, one can systematically define
 > predicates whose names carry the semantics of the Boolean that
 > implements the type. For instance, we can adopt the convention that a
 > predicate ends by the letter `p`. Then, in place of defining a new sum
 > type for `type_of_definition`, we will use a predicate function
 > `recursivep` that returns `true` if the definition is recursive.
-> 
+>
 > **Answer**: This method is specific to binary enumeration and cannot
-> be easily extended; moreover, it is not well suited to pattern-matching. 
+> be easily extended; moreover, it is not well suited to pattern-matching.
 > For instance, a typical pattern-matching for definitions encoded by
 > `| Let of bool * string * expression` would
 > look like:
-> 
+>
 > ```ocaml
 > | Let (_, v, e) as def ->
 >    if recursivep def then code_for_recursive_case
 >    else code_for_non_recursive_case
 > ```
-> 
+>
 > or, if `recursivep`, can be applied to booleans:
-> 
+>
 > ```ocaml
 > | Let (b, v, e) ->
 >    if recursivep b then code_for_recursive_case
 >    else code_for_non_recursive_case
 > ```
-> 
+>
 > Contrast this with an explicit encoding:
-> 
+>
 > ```ocaml
 > | Let (Recursive, v, e) -> code_for_recursive_case
 > | Let (Non_recursive, v, e) -> code_for_non_recursive_case
 > ```
-> 
+>
 > The difference between the two programs is subtle, and you may think
 > that it's just a matter of taste; however, the explicit encoding is
 > definitively more robust to modifications and fits better with the
 > language.
-> 
+>
 
 *A contrario*, it is not necessary to systematically define new types
 for Boolean flags when the interpretation of constructors `true` and
@@ -701,7 +701,7 @@ for the clarity and safety of programming they allow.
 
 ###  Iterators
 OCaml's iterators are a powerful and useful feature. However, you should
-not overuse them nor neglect them. They are provided 
+not overuse them nor neglect them. They are provided
 by libraries and have every chance of being correct and
 well thought out by the library's author, so it's useless to
 reinvent them.
@@ -735,24 +735,24 @@ In case of express need, be sure to add an explanatory
 comment. In my opinion, it's absolutely necessary!
 
 ###  How to Optimize Programs
-> 
+>
 > **Pseudo law of optimisation**: No optimisation *a priori*.<br />
 >  No optimisation *a posteriori* either.
-> 
+>
 
 Above all, program simply and clearly. Don't start optimising until the
 program's bottleneck has been identified (in general, after a few routines). Then
-optimisation consists of changing *the algorithm's complexity* above all. 
+optimisation consists of changing *the algorithm's complexity* above all.
 This often happens through redefining the data
 structures manipulated and completely rewriting the part of the
 program that poses a problem.
 
-> 
+>
 > **Justification**: Clarity and correctness of programs take
 > precedence. Besides, in a substantial program, it is practically
 > impossible to identify *a priori* the parts of the program whose
 > efficiency is of prime importance.
-> 
+>
 
 ###  How to Choose Between Classes and Modules
 Use OCaml classes when you need inheritance, i.e.,
@@ -838,7 +838,7 @@ versions, see the [note below](#imperative-and-functional-versions-of-listlength
  function, even when a global reference perfectly avoid
  these spurious parameters that are mainly invariants that must
  be repeatedly passed.
-    * This programmer feels that the `mutable` keyword in record-type 
+    * This programmer feels that the `mutable` keyword in record-type
     definitions should be suppressed from the language.
 
 ####  OCaml code generally considered unreadable
@@ -895,7 +895,7 @@ x + y
 
 * Misuse of iterators and higher-order functions (i.e., over- or
  underuse). For example, it's better to use `List.map` or
- `List.iter` than to write their equivalents inline by using your own 
+ `List.iter` than to write their equivalents inline by using your own
  recursive functions. Even worse, don't use
  `List.map` or `List.iter`, but rather write their equivalents in terms of
  `List.fold_right` and `List.fold_left`.
@@ -924,7 +924,7 @@ programs developed by small teams.
 ###  How to Edit Programs
 Many developers nurture a kind of veneration towards writing their programs
 in the Emacs editor (GNU Emacs, in general). The
-editor interfaces with the language well because it is capable of syntax-coloring 
+editor interfaces with the language well because it is capable of syntax-coloring
 OCaml source code (rendering different categories of words in
 color, thus coloring keywords, for example).
 
@@ -943,7 +943,7 @@ launched by `CTRL-C-CTRL-C`.
 
 ####  Other Emacs tricks
 The `ESC-/` command (dynamic-abbrev-expand) automatically completes the
-word in front of the cursor with one of the words in a 
+word in front of the cursor with one of the words in a
 file being edited. This lets you always choose meaningful
 identifiers without the tedium of having to type extended names in your
 programs, i.e., the `ESC-/` easily completes the identifier after typing the
@@ -975,7 +975,7 @@ the `Makefiles` for the OCaml compilers.
 ###  How to Develop as a Team: Version Control
 Users of the [Git](https://git-scm.com/) software version control system
 never run out of good things to say about the productivity gains it
-brings. This system supports managing development by a programming team 
+brings. This system supports managing development by a programming team
 while imposing consistency among them, and it maintains a
 log of changes made to the software.<br />
 Git also supports simultaneous development by several teams, possibly
@@ -991,11 +991,11 @@ If you choose not to format your source code automatically with
 [OCamlFormat](https://github.com/ocaml-ppx/ocamlformat), please
 consider these style guidelines when doing it manually.
 
-> 
+>
 > **Pseudo spaces law**: never hesitate to separate words in your
 > programs with spaces. The space bar is the easiest key to find on the
 > keyboard, so press it as often as necessary!
-> 
+>
 
 ###  Delimiters
 A space should always follow a delimiter symbol, and spaces should
@@ -1044,16 +1044,16 @@ multicharacter operators. (Obvious exceptions to this rule are the symbols
 `!` and `.`, which are not separated from their arguments.)<br />
 Example: write `x + 1` or `x + !y`.
 
- 
+
 > **Justification**: If you left out the spaces then `x+1` would be
 > understood, but `x+!y` would change its meaning, since `+!` would
 > be interpreted as a multicharacter operator.
-> 
+>
 > **Criticism**: The absence of spaces around an operator improves the
 > readability of formulas when used to reflect the relative
 > precedences of operators. For example `x*y + 2*z` makes it very
 > obvious that multiplication takes precedence over addition.
-> 
+>
 > **Response**: This is a bad idea, a chimera, because nothing in the
 > language ensures that the spaces properly reflect the formula's meaning.
 > For example `x * z-1` means `(x * z) - 1` and not
@@ -1065,7 +1065,7 @@ Example: write `x + 1` or `x + !y`.
 > convention, a subliminal message which is difficult to grasp when
 > reading. If you want to make the precedences obvious, use the
 > expressive means brought to you by the language: write parentheses.
-> 
+>
 > **Additional justification**: Systematically surrounding operators
 > with spaces simplifies the treatment of infix operators, which are not
 > a complex particular case. In effect, whereas you can write `(+)`
@@ -1073,10 +1073,10 @@ Example: write `x + 1` or `x + !y`.
 > the beginning of a comment. You must write at least one space as in
 > “`( *)`”, although an extra space after `*` is definitively preferable
 > if you want to avoid that `*)` could be read, in some contexts, as the
-> end of a comment. 
-> 
+> end of a comment.
+>
 > All these difficulties are easily avoided if you
-> adopt the simple rule proposed here: keep operator symbols 
+> adopt the simple rule proposed here: keep operator symbols
 > separated by spaces.<br />
 > In fact, you will quickly find that this rule isn't difficult to
 > follow. The space bar is the greatest and best-situated key on the
@@ -1130,9 +1130,9 @@ to multiplication. So, just as `1 + 2 * x` means `1 + (2 * x)`,
 `true || false && x` means `true || (false && x)`.
 
 ###  How to Delimit Constructs in Programs
-When it is necessary to delimit syntactic constructs in programs, use 
+When it is necessary to delimit syntactic constructs in programs, use
 the keywords `begin` and `end` as delimiters rather than parentheses.
-However, using parentheses is acceptable if you do it in a consistent, 
+However, using parentheses is acceptable if you do it in a consistent,
 systematic way.
 
 This explicit delimiting of constructs essentially concerns
@@ -1173,10 +1173,10 @@ end
 
 
 ## Indentation of Programs
-> 
+>
 > **Landin's pseudo law**: Treat your program's indentation as if
 > it determines the meaning of your programs.
-> 
+>
 
 I would add to this law: be careful with the indentation in programs
 because, in some cases, it really defines the meaning of the program!
@@ -1201,14 +1201,14 @@ The page is 80 columns wide.
 
 > **Justification**: This width makes it possible to read the code on
 > all displays and to print it in a legible font on a standard sheet.
- 
+
 
 ###  Height of the Page
 A function should always fit within one screenful (of about 70 lines),
 or in exceptional cases two, at the very most three. To go beyond this
 is unreasonable.
 
- 
+
 > **Justification**: When a function goes beyond one screenful, it's
 > time to divide it into subproblems and handle them independently.
 > Beyond a screenful, one gets lost in the code. The indentation is not
@@ -1229,15 +1229,15 @@ recommended.
 > the program changes completely. It can also become completely wrong
 > if the programmer used both tabulations and spaces to indent the
 > program.
-> 
-> **Criticism**: The purpose of using tabulations is just to allow 
+>
+> **Criticism**: The purpose of using tabulations is just to allow
 > readers to indent more or less by changing the tab
 > stops. The overall indentation remains correct, and the reader is glad
 > to easily customise the indentation amount.
-> 
+>
 > **Answer**: It seems almost impossible to use this method since you
 > should always use tabulations to indent, which is hard and unnatural.
- 
+
 ###  How to Indent Operations
 When an operator takes complex arguments, or in the presence of multiple
 calls to the same operator, start the next the line with the operator,
@@ -1248,10 +1248,10 @@ and don't indent the rest of the operation. For example:
 x + y + z
 + t + u
 ```
-> 
+>
 > **Justification**: When the operator starts the line, it is clear that
 > the operation continues on this line.
-> 
+>
 
 When dealing with a “large expression” in such an operation sequence,
 it's preferable to define the “large expression” with the help of a `let in`
@@ -1324,9 +1324,9 @@ let g x =
     | x -> 0 in
   tmp + 1
 ```
-> 
+>
 > **Justification**: No exception to the amount of indentation.
-> 
+>
 
 Other conventions are acceptable, for example:
 
@@ -1339,13 +1339,13 @@ let f x = function
 | D ->
 ...
 ```
-> 
+>
 > **Justification**: The vertical bars separating the patterns stop
 > when the definition is done, so it's still easy to pass on to the
 > following definition.
-> 
+>
 > **Criticism**: An unpleasant exception to the normal indentation.
-> 
+>
 
 
 * The body is justified just under the name of the defined function.
@@ -1358,12 +1358,12 @@ let f x =
     | Not_found ->
     ...
 ```
-> 
+>
 > **Justification**: The first line of the definition is offset
 > nicely, so it's easier to pass from definition to definition.
-> 
+>
 > **Criticism**: You run into the right margin too quickly.
-> 
+>
 
 
 ###  How to Indent `let ... in` Constructs
@@ -1377,7 +1377,7 @@ let expr1 = ... in
 expr1 + expr1
 ```
 
-In the case of a series of `let` definitions, the preceding rule implies. 
+In the case of a series of `let` definitions, the preceding rule implies.
 These definitions should be placed at the same indentation level:
 
 <!-- $MDX skip -->
@@ -1386,11 +1386,11 @@ let expr1 = ... in
 let n = ... in
 ...
 ```
-> 
+>
 > **Justification**: It is suggested that a series of `let ... in`
 > constructs is analogous to a set of assumptions in a mathematical
 > text, whence the same indentation level for all the assumptions.
-> 
+>
 
 Variation: some write the keyword `in` alone on one line to set apart
 the final expression of the computation:
@@ -1406,9 +1406,9 @@ let new_expr =
 in
 Mult_expression (new_expr, new_expr)
 ```
-> 
+>
 > **Criticism**: Lack of consistency.
-> 
+>
 
 ###  How to Indent `if ... then   ... else ... `
 ####  Multiple branches
@@ -1421,10 +1421,10 @@ if cond1 ...
 if cond2 ...
 if cond3 ...
 ```
-> 
+>
 > **Justification**: Analogous treatment to pattern-matching clauses,
 > all aligned to the same tab stop.
-> 
+>
 
 If the condition's size and the expressions allow, write:
 
@@ -1458,15 +1458,15 @@ if cond1 ...
 else if cond2 ...
 else if cond3 ...
 ```
-> 
+>
 > **Justification**: `elsif` is a keyword in many languages, so use
 > indentation and `else if` to bring it to mind. Moreover, you do not
 > have to look at the end of line to know whether the condition is
 > continued or another test is performed.
-> 
+>
 > **Criticism**: Lack of consistency in the treatment of all
 > conditions. Why use a special case for the first condition?
-> 
+>
 
 Yet again, choose your style and use it systematically.
 
@@ -1479,7 +1479,7 @@ When delimiting a conditional's branches, several styles
 are used:
 
 > `(` at end of line:
-> 
+>
 > ```ocaml
 > if cond then (
 >   e1
@@ -1488,7 +1488,7 @@ are used:
 > )
 > ```
 > Or alternatively first `begin` at beginning of line:
-> 
+>
 > ```ocaml
 > if cond then
 >   begin
@@ -1500,9 +1500,9 @@ are used:
 
 In fact, the conditional's indentation depends on their expressions' size.
 
-> 
+>
 > If `cond`, `e1`, and `e2` are small, simply write them on one line:
-> 
+>
 > ```ocaml
 > if cond then e1 else e2
 > ```
@@ -1510,44 +1510,44 @@ In fact, the conditional's indentation depends on their expressions' size.
 > (without side effects), we advocate binding them within the
 > conditional by using `let e = ... in` when they're too big to fit on a single
 > line.
-> 
-> > 
+>
+> >
 > > **Justification**: This way you get back the simple indentation on
 > > one line, which is the most readable. As a side benefit, naming
 > > acts as an aid to comprehension.
-> > 
-> 
+> >
+>
 > So now we consider the case in which the expressions in question do
 > have side effects, which keeps us from simply binding them with a
 > `let e = ... in`.
-> 
-> > 
+>
+> >
 > > If `e1` and `cond` are small, but `e2` large:
-> > 
+> >
 > > ```ocaml
 > > if cond then e1 else
 > >   e2
 > > ```
-> > 
+> >
 > > If `e1` and `cond` are large, but `e2` small:
-> > 
+> >
 > > ```ocaml
 > > if cond then
 > >   e1
 > > else e2
 > > ```
-> > 
+> >
 > > If all the expressions are large:
-> > 
+> >
 > > ```ocaml
 > > if cond then
 > >   e1
 > > else
 > >   e2
 > > ```
-> > 
+> >
 > > If there are `( )` delimiters:
-> > 
+> >
 > > ```ocaml
 > > if cond then (
 > >   e1
@@ -1555,9 +1555,9 @@ In fact, the conditional's indentation depends on their expressions' size.
 > >   e2
 > > )
 > > ```
-> > 
+> >
 > > A mixture where `e1` requires `( )`, but `e2` is small:
-> > 
+> >
 > > ```ocaml
 > > if cond then (
 > >     e1
@@ -1569,10 +1569,10 @@ In fact, the conditional's indentation depends on their expressions' size.
 All the pattern-matching clauses are introduced by a vertical bar,
 *including* the first one.
 
-> 
+>
 > **Criticism**: The first vertical bar is not mandatory. Hence, there
 > is no need to write it.
-> 
+>
 > **Answer to criticism**: If you omit the first bar, the indentation
 > seems unnatural. The first case gets an indentation larger
 > than a normal new line would necessitate. It is thus a useless
@@ -1581,7 +1581,7 @@ All the pattern-matching clauses are introduced by a vertical bar,
 > as an exception with a slightly different syntax. Last, aesthetic
 > value is doubtful (some people would say “awful” instead of
 > “doubtful”).
-> 
+>
 
 Align all the pattern-matching clauses with the vertical bar
 that begins each clause, *including* the first one.
@@ -1619,10 +1619,10 @@ with
 | Not_found -> ...
 | Failure "not yet implemented" -> ...
 ```
-> 
+>
 > **Justification**: The keyword `with` on its own line shows that
 > the program enters the pattern-matching part of the construct.
-> 
+>
 
 ####  Indenting expressions inside clauses
 If the expression on the right of the pattern-matching arrow is too
@@ -1658,15 +1658,15 @@ let rec fib = function
   | n ->
      fib (n - 1) + fib ( n - 2)
 ```
-> 
+>
 > **Criticism**: May be not compact enough. For simple pattern-matchings
 > (or simple clauses in complex matchings), the rule does not benefit readability.
-> 
+>
 > **Justification**: I don't see any reason for this rule, unless
 > you are paid proportionally to the number of lines of code. In this
 > case, use this rule to get more money without adding more bugs in your
 > OCaml programs!
-> 
+>
 
 ####  Pattern-matching in anonymous functions
 Similarly to `match` or `try`, pattern-matching of anonymous functions,
@@ -1719,10 +1719,10 @@ let rec f x = function
   | [] -> ...
   ...
 ```
-> 
+>
 > **Justification**: You bump into the margin. The aesthetic value is
 > doubtful.
-> 
+>
 
 ####  No *beastly* alignment of the `->` symbols in pattern-matching clauses.
 Careful alignment of pattern-matching arrows is considered bad
@@ -1735,12 +1735,12 @@ let f = function
   | Long_name _ -> 2
   | _           -> 3
 ```
-> 
+>
 > **Justification**: This makes it harder to maintain the program (the
-> addition of a supplementary case can lead to changes in all indentations, 
+> addition of a supplementary case can lead to changes in all indentations,
 > so we often give up alignment at that time.
 > In this case, it's better not to align the arrows in the first place!).
-> 
+>
 
 ###  How to Indent Function Calls
 ####  Indentation to the function's name:
@@ -1754,14 +1754,14 @@ As far as possible, avoid arguments which consist of complex
 expressions. In these cases, define the “large” argument by a `let`
 construction.
 
-> 
+>
 > **Justification**: No indentation problem. If the name given to the
 > expressions is meaningful, the code is more readable.
-> 
+>
 > **Additional justification**: If the argument's evaluation
 > produces side effects, the `let` binding is in fact necessary to
 > explicitly define the evaluation order.
-> 
+>
 
 
 ##  Notes
