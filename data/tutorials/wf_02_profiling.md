@@ -140,7 +140,7 @@ commands at the top level, not inside a function. But when we translate
 this into assembly language, where do we put those commands? There needs
 to be some way to call those commands from outside, so they need to be
 labelled in some way. As you can see from the code snippet, OCaml solves
-this by taking the filename (`smallest.ml`), capitalizing it and adding
+this by taking the filename (`smallest.ml`), capitalising it and adding
 `__entry`, thus making up a symbol called `Smallest__entry` to refer to
 the top level commands in this file.
 
@@ -156,7 +156,7 @@ let print_string s = output_string stdout s
 OCaml has *inlined* this function. **Inlining** - taking a function and
 expanding it from its definition - is sometimes a performance win,
 because it avoids the overhead of an extra function call, and it can
-lead to more opportunities for the optimizer to do its thing. Sometimes
+lead to more opportunities for the optimiser to do its thing. Sometimes
 inlining is not good, because it can lead to code bloating, and thus
 destroys the good work done by the processor cache (and besides function
 calls are actually not very expensive at all on modern processors).
@@ -219,8 +219,8 @@ translated that simple hello world program into just the five lines of
 assembler shown above. But there is the question of what actually calls
 `Smallest__entry` in the real program. For this OCaml includes a whole
 load of bootstrapping code which does things like starting up the
-garbage collector, allocating and initializing memory, calling
-initializers in libraries and so on. OCaml links all of this code
+garbage collector, allocating and initialising memory, calling
+initialisers in libraries and so on. OCaml links all of this code
 statically to the final executable, which is why the program I end up
 with (on Linux) weighs in at a portly 95,442 bytes. Nevertheless the
 start-up time for the program is still unmeasurably small (under a
@@ -695,7 +695,7 @@ case the data is 5 integers, so we allocate 4 bytes for the header plus
 5 * 4 bytes for the data. We update the pointer to point at the first
 data word, ie. 4 bytes into the allocated memory block.
 
-Next OCaml generates code to initialize the array:
+Next OCaml generates code to initialise the array:
 
 ```assembly
         movl    $5120, -4(%eax)
@@ -780,7 +780,7 @@ code:
 Calling `Array.map` in this way is undoubtedly slower than writing a
 loop over the array by hand. The overhead is mainly in the fact that the
 closure must be evaluated for each element of the array, and that isn't
-as fast as inlining the closure as a function (if this optimization were
+as fast as inlining the closure as a function (if this optimisation were
 even possible). However, if you had a more substantial closure than just
 `((+) 2)`, the overhead would be reduced. The FP version also saves
 expensive *programmer* time versus writing the imperative loop.
@@ -895,7 +895,7 @@ your programs:
 
 1. Write your program as simply as possible. If it takes too long to
  run, profile it to find out where it's spending its time and
- concentrate optimizations on just those areas.
+ concentrate optimisations on just those areas.
 1. Check for unintentional polymorphism, and add type hints for the
  compiler.
 1. Closures are slower than simple function calls, but add to
