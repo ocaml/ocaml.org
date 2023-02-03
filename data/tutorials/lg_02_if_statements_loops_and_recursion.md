@@ -15,7 +15,7 @@ OCaml has an `if` statement with two variations, and the obvious meaning:
 <!-- $MDX skip -->
 ```ocaml
 if boolean-condition then expression
-  
+
 if boolean-condition then expression else other-expression
 ```
 
@@ -241,7 +241,7 @@ OCaml supports a rather limited form of the familiar `for` loop:
 for variable = start_value to end_value do
   expression
 done
-  
+
 for variable = start_value downto end_value do
   expression
 done
@@ -513,17 +513,17 @@ line parameter.
 ```ocaml
 (* Read whole file: Approach 1 *)
 open Printf
-  
+
 let read_whole_chan chan =
   let len = in_channel_length chan in
   let result = (Bytes.create len) in
     really_input chan result 0 len;
     (Bytes.to_string result)
-  
+
 let read_whole_file filename =
   let chan = open_in filename in
     read_whole_chan chan
-  
+
 let main () =
   let filename = Sys.argv.(1) in
   let str = read_whole_file filename in
@@ -537,7 +537,7 @@ won't work on non-file channels like keyboard input or sockets. Approach
 ```ocaml
 (* Read whole file: Approach 2 *)
 open Printf
-  
+
 let read_whole_chan chan =
   let buf = Buffer.create 4096 in
   try
@@ -550,11 +550,11 @@ let read_whole_chan chan =
 	                (always raises Assert_failure). *)
   with
     End_of_file -> Buffer.contents buf
-  
+
 let read_whole_file filename =
   let chan = open_in filename in
     read_whole_chan chan
-  
+
 let main () =
   let filename = Sys.argv.(1) in
   let str = read_whole_file filename in
@@ -587,7 +587,7 @@ Here's our recursive version. Notice that it's *shorter* than approach
 ```ocaml
 (* Read whole file: Approach 3 *)
 open Printf
-  
+
 let read_whole_chan chan =
   let buf = Buffer.create 4096 in
   let rec loop () =
@@ -598,11 +598,11 @@ let read_whole_chan chan =
   in
     try loop () with
       End_of_file -> Buffer.contents buf
-  
+
 let read_whole_file filename =
   let chan = open_in filename in
     read_whole_chan chan
-  
+
 let main () =
   let filename = Sys.argv.(1) in
   let str = read_whole_file filename in
@@ -963,7 +963,7 @@ far":
 ```ocaml
 let rec range2 a b accum =
   (* ... *)
-  
+
 let range a b =
   range2 a b []
 ```

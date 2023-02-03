@@ -292,7 +292,7 @@ When using association lists, and for other purposes, it is sometimes useful to
 be able to make a list of pairs from a pair of lists and vice versa. The
 [`List`](https://ocaml.org/api/List.html) module provides the functions
 [`split`](https://ocaml.org/api/List.html#VALsplit) and
-[`combine`](https://ocaml.org/api/List.html#VALcombine) for this purpose: 
+[`combine`](https://ocaml.org/api/List.html#VALcombine) for this purpose:
 
 ```ocaml
 # List.split [(3, "three"); (1, "one"); (4, "four")];;
@@ -372,7 +372,7 @@ is the type of each element of the list. The next argument is the initial
 accumulator, which must be of type `'a`, and then finally the input list of
 type `'b list`. The result is the final value of the accumulator, so it must
 have type `'a`. Of course, in both of our examples, `'a` and `'b` are the same
-as one another. But this is not always so. 
+as one another. But this is not always so.
 
 Consider the following definition of `append` which uses
 [`fold_right`](https://ocaml.org/api/List.html#VALfold_right)

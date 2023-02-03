@@ -57,11 +57,11 @@ However, please note that it is still experimental and in active development
 
 After having installed opam, you will need to initialise it, [see below](#initialising-opam-on-unix).
 
-To install opam, you can [use your system package manager](https://opam.ocaml.org/doc/Install.html#Using-your-distribution-39-s-package-system) or download the [binary distribution](https://opam.ocaml.org/doc/Install.html#Binary-distribution). The details are available in the above links, but for convenience, we copy a few of them here: 
+To install opam, you can [use your system package manager](https://opam.ocaml.org/doc/Install.html#Using-your-distribution-39-s-package-system) or download the [binary distribution](https://opam.ocaml.org/doc/Install.html#Binary-distribution). The details are available in the above links, but for convenience, we copy a few of them here:
 
 **For macOS**
 
-If you're installing with [Homebrew](https://brew.sh/): 
+If you're installing with [Homebrew](https://brew.sh/):
 
 ```shell
 # With Homebrew:
@@ -104,7 +104,7 @@ $ bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/s
 
 #### Initialising opam on Unix
 
-On Unix, it's essential to initialise opam, which will (if needed) install the OCaml compiler. If you already have OCaml installed, opam will use that compiler.  
+On Unix, it's essential to initialise opam, which will (if needed) install the OCaml compiler. If you already have OCaml installed, opam will use that compiler.
 
 This step is done automatically by the Platform Installer, [see below](#up-and-running-with-the-platform-installer).
 
@@ -121,7 +121,7 @@ The second command (`eval $(opam env)`) modifies a few environment variables to 
 
 **Please note:** At the end of the `opam init`, you are asked if you want to add a hook to your shell to best integrate with your system. Indeed, in order for the shell to be aware of the tools available in the current opam switch, a few environment variables need to be modified. For instance, the `PATH` variable has to be expanded so that typing `ocaml` in the shell runs the OCaml binary _of the current switch_. Answering `y` will provide a better user experience.
 
-Now check the installation by running `opam --version`. You can compare it with the current version on [opam.ocaml.org](https://opam.ocaml.org/). 
+Now check the installation by running `opam --version`. You can compare it with the current version on [opam.ocaml.org](https://opam.ocaml.org/).
 
 #### Creating a New Switch on Unix
 
@@ -154,7 +154,7 @@ In this section, we'll describe using the new [Diskuv OCaml](https://github.com/
 
 Before using the DKML installer, briefly review the following:
 
-* You need to **stay at your computer** and press "Yes" for any Windows security popups. 
+* You need to **stay at your computer** and press "Yes" for any Windows security popups.
 After the DKML installer finishes installing two programs (`Visual Studio Installer`
   and `Git for Windows`), you can leave your computer for the remaining two (2) hours.
 
@@ -300,7 +300,7 @@ opam switch for example.
 
 UTop is an extended and improved toplevel (REPL) for OCaml. Unlike the standard toplevel with the `ocaml` command, UTop features history, tab completion, interactive line editing, and the ability to load any package installed in your switch.
 
-If you have never used a toplevel (REPL) before, think of it as an interactive terminal/shell that evaluates expressions. Type an OCaml expression, then press the Enter or Return key. The toplevel responds with the value of the evaluated expression. 
+If you have never used a toplevel (REPL) before, think of it as an interactive terminal/shell that evaluates expressions. Type an OCaml expression, then press the Enter or Return key. The toplevel responds with the value of the evaluated expression.
 
 OCaml comes with two additional compilers: one compiles to **native code** (sometimes called machine code or executable binary), directly read by the CPU, and the other compiles to **bytecode**, creating an executable that can be interpreted by a variety of runtime environments, making more it flexible.
 
@@ -372,7 +372,7 @@ $ opam user-setup install
 ## Starting a New Project
 
 We will set up a "Hello World" project using the build system Dune. Navigate
-into a practice directory, as we'll be creating new projects below. 
+into a practice directory, as we'll be creating new projects below.
 
 First, we initialise a new project using `dune` and then change into the
 created directory. As usual, the line beneath the shell command is the expected

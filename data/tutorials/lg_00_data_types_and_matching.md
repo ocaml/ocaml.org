@@ -161,7 +161,7 @@ val is_primary : colour -> bool = <fun>
 
 Each constructor in a data type can carry additional information with it. Let's
 extend our `colour` type to allow arbitrary RGB triples, each element begin a
-number from 0 (no colour) to 1 (full colour): 
+number from 0 (no colour) to 1 (full colour):
 
 ```ocaml env=colours
 # type colour =
@@ -290,7 +290,7 @@ than a simple list of pairs. It is known as a *binary search tree*:
 # let rec insert (k, v) = function
   | Leaf -> Node (Leaf, (k, v), Leaf)
   | Node (l, (k', v'), r) ->
-      if k < k' then Node (insert (k, v) l, (k', v'), r) 
+      if k < k' then Node (insert (k, v) l, (k', v'), r)
       else if k > k' then Node (l, (k', v'), insert (k, v) r)
       else Node (l, (k, v), r);;
 val insert : 'a * 'b -> ('a * 'b) tree -> ('a * 'b) tree = <fun>
@@ -601,8 +601,8 @@ val sum_t : t -> int = <fun>
 
 ## A Note on Tupled Constructors
 
-There is a difference between `RGB of float * float * float` and 
-`RGB of (float * float * float)`. 
+There is a difference between `RGB of float * float * float` and
+`RGB of (float * float * float)`.
 The first is a constructor with three pieces of data
 associated with it, the second is a constructor with one tuple associated with
 it. There are two ways this matters: the memory layout differs between the two

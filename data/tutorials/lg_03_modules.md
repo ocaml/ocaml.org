@@ -333,12 +333,12 @@ type. Let's do it in our `example.ml` file:
 module Hello : sig
  val hello : unit -> unit
 end
-= 
+=
 struct
   let message = "Hello"
   let hello () = print_endline message
 end
-  
+
 (* At this point, Hello.message is not accessible anymore. *)
 
 let goodbye () = print_endline "Goodbye"
@@ -358,7 +358,7 @@ separately:
 module type Hello_type = sig
  val hello : unit -> unit
 end
-  
+
 module Hello : Hello_type = struct
   ...
 end

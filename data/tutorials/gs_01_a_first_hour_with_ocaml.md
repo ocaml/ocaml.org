@@ -83,7 +83,7 @@ val x : int = 50
 ```
 
 Note that this isn't a variable as in languages like C and Python. Its value
-cannot be changed. 
+cannot be changed.
 
 We can write also write it all on one line using `let` ... `in` ...:
 

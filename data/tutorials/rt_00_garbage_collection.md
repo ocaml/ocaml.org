@@ -74,7 +74,7 @@ later when the minor heap becomes full. In addition, **OCaml will not
 close the channel when it collects the handle's memory**, so this
 program would eventually run out of file descriptors.
 
-You need to be aware of this when writing OCaml code that uses files, 
+You need to be aware of this when writing OCaml code that uses files,
 directories, or any other heavyweight object with complex finalisation.
 
 To be fair to full garbage collection, let's mention the
@@ -166,7 +166,7 @@ following code to the example above near the beginning:
 ```
 
 (We haven't seen the `{ expression with field = value }` form before,
-but it should be mostly obvious what it does). The above code 
+but it should be mostly obvious what it does). The above code
 causes the GC to print a message at the start of every major collection.
 
 ## Finalisation and the Weak Module
@@ -187,7 +187,7 @@ into a normal pointer, or you can be informed that the GC did
 actually collect the object.
 
 Finalisation and weak pointers can be used together to implement an
-in-memory object database cache. 
+in-memory object database cache.
 
 Let's imagine that we have a very large
 number of large user records in a file on disk. This is far too much

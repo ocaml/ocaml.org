@@ -57,7 +57,7 @@ sense. Instead, we would write something like this:
 ```
 
 If we want to find one element in `my_hash` that has an `"h"` in it then we
-would write: 
+would write:
 
 ```ocaml
 # Hashtbl.find my_hash "h";;

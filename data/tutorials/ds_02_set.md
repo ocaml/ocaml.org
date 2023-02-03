@@ -92,7 +92,7 @@ is in the set that we have created. To do this we can write a function
 that will print the set out.
 
 ```ocaml
-# let print_set s = 
+# let print_set s =
    SS.iter print_endline s;;
 val print_set : SS.t -> unit = <fun>
 ```

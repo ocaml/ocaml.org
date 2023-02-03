@@ -121,7 +121,7 @@ let () =
 (* normal exit: all channels are flushed and closed *)
 ```
 
-We can compile and run this example: 
+We can compile and run this example:
 
 <!-- $MDX dir=examples -->
 ```sh
