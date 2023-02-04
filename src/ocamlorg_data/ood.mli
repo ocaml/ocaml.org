@@ -128,6 +128,8 @@ module Problem : sig
     tags : string list;
     statement : string;
     solution : string;
+    statement_ml : string;
+    solution_ml : string;
   }
 
   val all : t list

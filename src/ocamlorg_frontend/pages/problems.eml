@@ -111,10 +111,85 @@ Learn_layout.render
         </div>
       </div>
 
-      <div x-show="statement"><%s! problem.statement %></div>
+      <div x-show="statement">
+        <div class="max-w-md" x-data="{ copied: false }">
+          <div role="button" title="Copy to clipboard"
+                    class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-700 text-sm font-medium rounded-r-md text-gray-100 bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
+                    @click="$clipboard('copy statement <%s problem.statement_ml %>'); copied = true; setTimeout(() => copied = false, 2000)"
+                    :class="{ 'border-gray-700': !copied, 'text-gray-100': !copied, 'focus:ring-orange-500': !copied, 'focus:border-orange-500': !copied, 'border-green-600': copied, 'text-green-600': copied, 'focus:ring-green-500': copied, 'focus:border-green-500': copied }">
+                    <svg x-show="!copied" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    <svg x-show="copied" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+        </div>
+        <%s! problem.statement %>    
+      </div>
 
-      <div x-show="!statement"><%s! problem.solution %></div>
+      <div x-show="!statement">
+        <div class="max-w-md" x-data="{ copied: false }">
+          <div role="button" title="Copy to clipboard"
+                    class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-700 text-sm font-medium rounded-r-md text-gray-100 bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
+                    @click="$clipboard('copy solution <%s problem.solution_ml %>'); copied = true; setTimeout(() => copied = false, 2000)"
+                    :class="{ 'border-gray-700': !copied, 'text-gray-100': !copied, 'focus:ring-orange-500': !copied, 'focus:border-orange-500': !copied, 'border-green-600': copied, 'text-green-600': copied, 'focus:ring-green-500': copied, 'focus:border-green-500': copied }">
+                    <svg x-show="!copied" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    <svg x-show="copied" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+        </div>
+        <%s! problem.solution %>
+      </div>
     </div>
     <div class="border-t border-gray-200 my-12"></div>
     <% ); %>
   </div>
+  <script>
+  // Inlined from https://cdn.jsdelivr.net/npm/@ryangjchandler/alpine-clipboard@2.x.x/dist/alpine-clipboard.js
+  (function (factory) {
+    typeof define === 'function' && define.amd ? define(factory) :
+    factory();
+    }((function () { 'use strict';
+
+    let onCopy = () => {};
+
+    function Clipboard(Alpine) {
+      Alpine.magic('clipboard', () => {
+        return function (target) {
+          if (typeof target === 'function') {
+            target = target();
+          }
+
+          if (typeof target === 'object') {
+            target = JSON.stringify(target);
+          }
+
+          return window.navigator.clipboard.writeText(target).then(onCopy);
+        };
+      });
+    }
+
+    Clipboard.configure = config => {
+      if (config.hasOwnProperty('onCopy') && typeof config.onCopy === 'function') {
+        onCopy = config.onCopy;
+      }
+
+      return Clipboard;
+    };
+
+    document.addEventListener('alpine:initializing', () => {
+      Clipboard(window.Alpine);
+    });
+
+  })));
+  </script>

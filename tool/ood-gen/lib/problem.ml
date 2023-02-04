@@ -8,6 +8,16 @@ module Proficiency = struct
     | s -> Error (`Msg ("Unknown proficiency type: " ^ s))
 end
 
+module Copy_to_clipboard = struct 
+  type t = Comment of string | Code of string
+  (* let rec to_ml (blocks : _ Omd.block list) = 
+    let block_to_ml block = 
+      match block with
+      | Omd.Paragraph (_, inline) -> inline_to_ml inline
+      | List (_, _, _, list_items) -> to_ml list_items *)
+  let to_string _s = ("Todo", "todo2")
+end
+
 type metadata = {
   title : string;
   number : string;
@@ -50,10 +60,12 @@ type t = {
   tags : string list;
   statement : string;
   solution : string;
+  statement_ml : string;
+  solution_ml : string;
 }
 [@@deriving
   stable_record ~version:metadata ~modify:[ difficulty ]
-    ~remove:[ statement; solution ]]
+    ~remove:[ statement_ml; statement; solution_ml; solution;]]
 
 let of_metadata =
   of_metadata ~modify_difficulty:(fun d ->
@@ -65,9 +77,10 @@ let decode content =
   let statement_blocks, solution_blocks =
     split_statement_statement (Omd.of_string body)
   in
+  let statement_ml, solution_ml = Copy_to_clipboard.to_string body in
   let statement = Omd.to_html (Hilite.Md.transform statement_blocks) in
   let solution = Omd.to_html (Hilite.Md.transform solution_blocks) in
-  of_metadata metadata ~statement ~solution
+  of_metadata metadata ~statement ~solution ~statement_ml ~solution_ml
 
 let all () = Utils.map_files decode "problems/*.md"
 
@@ -87,9 +100,12 @@ let pp ppf v =
   ; tags = %a
   ; statement = %a
   ; solution = %a
+  ; statement_ml = %a
+  ; solution_ml = %a
   }|}
     Pp.string v.title Pp.string v.number pp_proficiency v.difficulty
     Pp.string_list v.tags Pp.string v.statement Pp.string v.solution
+    Pp.string v.statement_ml Pp.string v.solution_ml
 
 let pp_list = Pp.list pp
 
@@ -109,6 +125,8 @@ type t =
   ; tags : string list
   ; statement : string
   ; solution : string
+  ; statement_ml : string
+  ; solution_ml : string
   }
   
 let all = %a
