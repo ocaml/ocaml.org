@@ -1,5 +1,5 @@
 ---
-title: Construct a complete binary tree
+title: Construct a Complete Binary Tree
 number: "63"
 difficulty: intermediate
 tags: [ "binary-tree" ]

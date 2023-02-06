@@ -1,5 +1,5 @@
 ---
-title: Depth-first order graph traversal
+title: Depth-First Order Graph Traversal
 number: "87"
 difficulty: intermediate
 tags: [ "graph" ]

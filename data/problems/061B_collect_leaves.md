@@ -1,5 +1,5 @@
 ---
-title: Collect the leaves of a binary tree in a list
+title: Collect the Leaves of a Binary Tree in a List
 number: "61B"
 difficulty: beginner
 tags: [ "binary-tree" ]

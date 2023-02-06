@@ -1,5 +1,5 @@
 ---
-title: Construct completely balanced binary trees
+title: Construct Completely Balanced Binary Trees
 number: "55"
 difficulty: intermediate
 tags: [ "binary-tree" ]

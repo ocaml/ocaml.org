@@ -1,5 +1,5 @@
 ---
-title: Construct the minimal spanning tree
+title: Construct the Minimal Spanning Tree
 number: "84"
 difficulty: intermediate
 tags: [ "graph" ]

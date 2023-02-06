@@ -1,5 +1,5 @@
 ---
-title: Generate the combinations of K distinct objects chosen from the N elements of a list
+title: Generate the Combinations of K Distinct Objects Chosen From the N Elements of a List
 number: "26"
 difficulty: intermediate
 tags: [ "list" ]

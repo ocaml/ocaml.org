@@ -1,5 +1,5 @@
 ---
-title: Generate a random permutation of the elements of a list
+title: Generate a Random Permutation of the Elements of a List
 number: "25"
 difficulty: beginner
 tags: [ "list" ]

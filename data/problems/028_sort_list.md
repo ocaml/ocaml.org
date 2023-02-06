@@ -1,5 +1,5 @@
 ---
-title: Sorting a list of lists according to length of sublists
+title: Sorting a List of Lists According to Length of Sublists
 number: "28"
 difficulty: intermediate
 tags: [ "list" ]

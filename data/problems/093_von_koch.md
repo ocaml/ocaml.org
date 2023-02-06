@@ -1,5 +1,5 @@
 ---
-title: Von Koch's conjecture
+title: Von Koch's Conjecture
 number: "93"
 difficulty: advanced
 tags: []

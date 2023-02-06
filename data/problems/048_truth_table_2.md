@@ -1,5 +1,5 @@
 ---
-title: Truth tables for logical expressions
+title: Truth Tables for Logical Expressions
 number: "48"
 difficulty: intermediate
 tags: [ "logic" ]

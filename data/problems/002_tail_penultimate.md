@@ -1,5 +1,5 @@
 ---
-title: Last two elements of a list
+title: Last Two Elements of a List
 number: "2"
 difficulty: beginner
 tags: [ "list" ]

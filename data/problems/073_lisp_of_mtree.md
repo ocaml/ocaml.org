@@ -1,5 +1,5 @@
 ---
-title: Lisp-like tree representation
+title: Lisp-Like Tree Representation
 number: "73"
 difficulty: intermediate
 tags: [ "multiway-tree" ]

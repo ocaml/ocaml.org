@@ -1,5 +1,5 @@
 ---
-title: Tree construction from a node string
+title: Tree Construction From a Node String
 number: "70A"
 difficulty: intermediate
 tags: [ "multiway-tree" ]

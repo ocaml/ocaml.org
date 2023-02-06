@@ -1,5 +1,5 @@
 ---
-title: Run-length encoding of a list (direct solution)
+title: Run-Length Encoding of a List (Direct Solution)
 number: "13"
 difficulty: intermediate
 tags: [ "list" ]

@@ -1,5 +1,5 @@
 ---
-title: Rotate a list N places to the left
+title: Rotate a List N Places to the Left
 number: "19"
 difficulty: intermediate
 tags: [ "list" ]

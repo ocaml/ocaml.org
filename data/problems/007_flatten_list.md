@@ -1,5 +1,5 @@
 ---
-title: Flatten a list
+title: Flatten a List
 number: "7"
 difficulty: intermediate
 tags: [ "list" ]

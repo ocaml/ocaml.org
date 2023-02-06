@@ -1,5 +1,5 @@
 ---
-title: Goldbach's conjecture
+title: Goldbach's Conjecture
 number: "40"
 difficulty: intermediate
 tags: [ "arithmetic" ]

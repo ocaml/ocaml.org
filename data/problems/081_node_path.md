@@ -1,5 +1,5 @@
 ---
-title: Path from one node to another one
+title: Path From One Node to Another One
 number: "81"
 difficulty: intermediate
 tags: [ "graph" ]

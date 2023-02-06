@@ -1,5 +1,5 @@
 ---
-title: Modified run-length encoding
+title: Modified Run-Length Encoding
 number: "11"
 difficulty: beginner
 tags: [ "list" ]

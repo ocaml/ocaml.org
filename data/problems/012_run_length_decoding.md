@@ -1,5 +1,5 @@
 ---
-title: Decode a run-length encoded list
+title: Decode a Run-Length Encoded List
 number: "12"
 difficulty: intermediate
 tags: [ "list" ]

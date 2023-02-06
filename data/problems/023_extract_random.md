@@ -1,5 +1,5 @@
 ---
-title: Extract a given number of randomly selected elements from a list
+title: Extract a Given Number of Randomly Selected Elements From a List
 number: "23"
 difficulty: intermediate
 tags: [ "list" ]

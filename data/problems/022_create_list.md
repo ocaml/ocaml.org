@@ -1,5 +1,5 @@
 ---
-title: Create a list containing all integers within a given range
+title: Create a List Containing All Integers Within a Given Range
 number: "22"
 difficulty: beginner
 tags: [ "list" ]

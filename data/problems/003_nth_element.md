@@ -1,5 +1,5 @@
 ---
-title: N'th element of a list
+title: N'th Element of a List
 number: "3"
 difficulty: beginner
 tags: [ "list" ]

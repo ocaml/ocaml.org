@@ -1,5 +1,5 @@
 ---
-title: Compare the two methods of calculating Euler's totient function
+title: Compare the Two Methods of Calculating Euler's Totient Function
 number: "38"
 difficulty: beginner
 tags: [ "arithmetic" ]

@@ -1,5 +1,5 @@
 ---
-title: Length of a list
+title: Length of a List
 number: "4"
 difficulty: beginner
 tags: [ "list" ]

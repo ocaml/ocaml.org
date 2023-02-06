@@ -1,5 +1,5 @@
 ---
-title: Run-length encoding
+title: Run-Length Encoding
 number: "10"
 difficulty: beginner
 tags: [ "list" ]

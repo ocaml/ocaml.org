@@ -1,5 +1,5 @@
 ---
-title: "Lotto: Draw N different random numbers from the set 1..M"
+title: "Lotto: Draw N Different Random Numbers From the Set 1..M"
 number: "24"
 difficulty: beginner
 tags: [ "list" ]

@@ -1,5 +1,5 @@
 ---
-title: Cycle from a given node
+title: Cycle From a Given Node
 number: "82"
 difficulty: beginner
 tags: [ "graph" ]

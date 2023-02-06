@@ -1,5 +1,5 @@
 ---
-title: Node degree and graph coloration
+title: Node Degree and Graph Coloration
 number: "86"
 difficulty: intermediate
 tags: [ "graph" ]

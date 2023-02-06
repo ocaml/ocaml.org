@@ -1,5 +1,5 @@
 ---
-title:  Truth tables for logical expressions (2 variables)
+title: Truth Tables for Logical Expressions (2 Variables)
 number: "46"
 difficulty: intermediate
 tags: [ "logic" ]

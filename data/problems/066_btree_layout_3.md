@@ -1,5 +1,5 @@
 ---
-title: Layout a binary tree (3)
+title: Layout a Binary Tree (3)
 number: "66"
 difficulty: advanced
 tags: [ "binary-tree" ]

@@ -1,5 +1,5 @@
 ---
-title: Determine the prime factors of a given positive integer (2)
+title: Determine the Prime Factors of a Given Positive Integer (2)
 number: "36"
 difficulty: intermediate
 tags: [ "arithmetic" ]

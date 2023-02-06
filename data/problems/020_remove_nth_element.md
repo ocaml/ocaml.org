@@ -1,5 +1,5 @@
 ---
-title: Remove the K'th element from a list
+title: Remove the K'th Element From a List
 number: "20"
 difficulty: beginner
 tags: [ "list" ]

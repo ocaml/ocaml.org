@@ -1,5 +1,5 @@
 ---
-title: Calculate Euler's totient function φ(m)
+title: Calculate Euler's Totient Function Φ(m)
 number: "34"
 difficulty: intermediate
 tags: [ "arithmetic" ]

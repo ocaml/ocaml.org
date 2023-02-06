@@ -1,5 +1,5 @@
 ---
-title: A list of Goldbach compositions
+title: A List of Goldbach Compositions
 number: "41"
 difficulty: intermediate
 tags: [ "arithmetic" ]

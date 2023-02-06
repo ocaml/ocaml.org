@@ -1,5 +1,5 @@
 ---
-title: Dotstring representation of binary trees
+title: Dotstring Representation of Binary Trees
 number: "69"
 difficulty: intermediate
 tags: [ "binary-tree" ]

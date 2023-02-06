@@ -1,5 +1,5 @@
 ---
-title: Tail of a list
+title: Tail of a List
 number: "1"
 difficulty: beginner
 tags: [ "list" ]

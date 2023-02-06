@@ -1,5 +1,5 @@
 ---
-title: Count the leaves of a binary tree
+title: Count the Leaves of a Binary Tree
 number: "61A"
 difficulty: beginner
 tags: [ "binary-tree" ]
