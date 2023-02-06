@@ -174,6 +174,7 @@ div.odoc-include summary:hover {
 
 div.odoc span[class*="keyword"] {
   color: rgba(17, 24, 39, 1);
+  font-weight:normal;
 }
 
 div.odoc ul.at-tags {
@@ -186,6 +187,19 @@ div.odoc ul.at-tags p {
 
 div.odoc span.at-tag {
   font-weight: bold;
+}
+
+div.odoc a {
+  font-weight: bold;
+  color: #cc4e0c;
+}
+
+div.odoc code span > span {
+  font-weight: normal;
+}
+
+div.odoc .arrow {
+  font-weight: normal;
 }
 
 /* package explorer navmap and breadcrumb tag */
