@@ -1,101 +1,124 @@
 let render () =
-<footer class="lg:py-28 py-14">
-  <div class="container-fluid">
-    <div class="flex flex-col lg:flex-row justify-between flex-wrap space-y-16 xl:space-y-0">
-      <div class="xl:w-1/4">
-        <img width="160" src="/logo-with-name.svg" alt="">
-        <div class="py-8">Innovation. Community. Security.</div>
-        <div class="space-x-6 text-2xl flex items-center">
-          <a aria-label="OCaml's Discord" href="https://discord.gg/cCYQbqN" class="opacity-60 hover:opacity-100">
-            <svg width="28" height="100%" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g clip-path="url(#clip_path_discord_icon_footer)">
-                <path
-                  d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z"
-                  fill="#23272A"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip_path_discord_icon_footer">
-                  <rect width="71" height="55" fill="white" />
-                </clipPath>
-              </defs>
+<footer class="bg-beige" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+  <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+    <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+      <div class="space-y-8">
+        <img class="h-8" src="/logo-with-name.svg" alt="OCaml">
+        <p class="text-base leading-6 text-gray-600">Innovation. Community. Security.</p>
+        <div class="flex space-x-6">
+          <a href="https://github.com/ocaml/ocaml" class="text-gray-400 hover:text-gray-500">
+            <span class="sr-only">GitHub</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
             </svg>
           </a>
-          <a
-            aria-label="The OCaml Compiler on GitHub"
-            href="https://github.com/ocaml/ocaml"
-            class="opacity-60 hover:opacity-100"
-          >
-            <svg width="24" height="100%" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z"
-                transform="scale(64)"
-                fill="#1B1F23"
-              />
+
+          <a href="https://discord.gg/cCYQbqN" class="text-gray-400 hover:text-gray-500">
+            <span class="sr-only">Discord</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M18.9419 5.29661C17.6473 4.69088 16.263 4.25066 14.8157 4C14.638 4.32134 14.4304 4.75355 14.2872 5.09738C12.7487 4.86601 11.2245 4.86601 9.7143 5.09738C9.57116 4.75355 9.3588 4.32134 9.17947 4C7.73067 4.25066 6.3448 4.6925 5.05016 5.29982C2.43887 9.24582 1.73099 13.0938 2.08493 16.8872C3.81688 18.1805 5.49534 18.9662 7.14548 19.4804C7.55291 18.9196 7.91628 18.3235 8.22931 17.6953C7.63313 17.4688 7.06211 17.1892 6.52256 16.8647C6.6657 16.7586 6.80571 16.6478 6.94098 16.5337C10.2318 18.0729 13.8074 18.0729 17.0589 16.5337C17.1958 16.6478 17.3358 16.7586 17.4774 16.8647C16.9362 17.1908 16.3637 17.4704 15.7675 17.697C16.0805 18.3235 16.4423 18.9212 16.8513 19.4819C18.503 18.9678 20.183 18.1822 21.915 16.8872C22.3303 12.4897 21.2056 8.67705 18.9419 5.29661ZM8.67765 14.5543C7.68977 14.5543 6.87963 13.632 6.87963 12.509C6.87963 11.3859 7.67247 10.4621 8.67765 10.4621C9.68285 10.4621 10.493 11.3843 10.4757 12.509C10.4772 13.632 9.68285 14.5543 8.67765 14.5543ZM15.3223 14.5543C14.3344 14.5543 13.5243 13.632 13.5243 12.509C13.5243 11.3859 14.3171 10.4621 15.3223 10.4621C16.3275 10.4621 17.1376 11.3843 17.1203 12.509C17.1203 13.632 16.3275 14.5543 15.3223 14.5543Z" clip-rule="evenodd" />
             </svg>
           </a>
-          <a
-            aria-label="The OCaml Language Twitter Account"
-            href="https://twitter.com/ocamllang"
-            class="opacity-60 hover:opacity-100"
-          >
-            <svg width="24" height="100%" viewBox="0 0 172 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g clip-path="url(#twitter_icon_clip_path_footer)">
-                <path
-                  d="M171.505 16.4988C165.196 19.2978 158.414 21.1887 151.297 22.0393C158.561 17.6848 164.141 10.7894 166.768 2.5726C159.968 6.60555 152.438 9.53313 144.423 11.111C138.005 4.2722 128.861 0 118.74 0C99.3084 0 83.553 15.7536 83.553 35.1852C83.553 37.9431 83.8643 40.6288 84.4646 43.204C55.2211 41.7368 29.2946 27.7282 11.9399 6.44003C8.91115 11.6367 7.17551 17.6805 7.17551 24.1292C7.17551 36.3369 13.3874 47.1066 22.8288 53.4163C17.0611 53.2336 11.6355 51.6507 6.89166 49.0155C6.88766 49.1621 6.88766 49.3096 6.88766 49.4579C6.88766 66.5056 19.0166 80.726 35.1132 83.9606C32.1608 84.765 29.0522 85.1946 25.8433 85.1946C23.576 85.1946 21.3722 84.9733 19.2232 84.5634C23.7012 98.542 36.6954 108.715 52.0931 108.998C40.0509 118.436 24.8795 124.061 8.39349 124.061C5.55335 124.061 2.75267 123.894 0 123.569C15.5719 133.553 34.067 139.378 53.9377 139.378C118.658 139.378 154.051 85.7631 154.051 39.2645C154.051 37.739 154.016 36.222 153.949 34.7119C160.823 29.7519 166.788 23.5554 171.505 16.4988H171.505Z"
-                  fill="black"
-                />
-              </g>
-              <defs>
-                <clipPath id="twitter_icon_clip_path_footer">
-                  <rect width="171.505" height="139.378" fill="white" />
-                </clipPath>
-              </defs>
+
+          <a href="https://twitter.com/ocamllang" class="text-gray-400 hover:text-gray-500">
+            <span class="sr-only">Twitter</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
             </svg>
           </a>
-          <a
-            aria-label="The RSS Feed"
-            href="/feed.xml"
-            class="opacity-60 hover:opacity-100"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 19.5v-.75a7.5 7.5 0 00-7.5-7.5H4.5m0-6.75h.75c7.87 0 14.25 6.38 14.25 14.25v.75M6 18.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+
+          <a href="https://watch.ocaml.org/" class="text-gray-400 hover:text-gray-500">
+            <span class="sr-only">Peertube</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M5 2V12L12.4998 7.00047" clip-rule="evenodd" />
+              <path fill-rule="evenodd" d="M5 12V22L12.4998 17.0005" clip-rule="evenodd" />
+              <path fill-rule="evenodd" d="M12.4998 6.99951V16.9995L19.9995 12" clip-rule="evenodd" />
+            </svg>
+          </a>
+
+          <a href="/feed.xml" class="text-gray-400 hover:text-gray-500">
+            <span class="sr-only">RSS</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M15.2692 22H11.3846C11.3846 16.8462 7.11538 12.6154 2 12.6154V8.73077C9.26923 8.73077 15.2692 14.7308 15.2692 22ZM18 22C18 13.2308 10.7692 6 2 6V2C12.9615 2 22 11.0385 22 22H18Z" clip-rule="evenodd" />
+              <path fill-rule="evenodd" d="M4.73077 22C6.23893 22 7.46154 20.7774 7.46154 19.2692C7.46154 17.7611 6.23893 16.5385 4.73077 16.5385C3.22261 16.5385 2 17.7611 2 19.2692C2 20.7774 3.22261 22 4.73077 22Z" clip-rule="evenodd" />
             </svg>
           </a>
         </div>
       </div>
+      <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+          <div>
+            <h3 class="text-base font-semibold leading-6 text-gray-900">About Us</h3>
+            <ul role="list" class="mt-6 space-y-4">
+              <li>
+                <a href="<%s Url.industrial_users %>" class="text-base leading-6 text-gray-600">Industrial Users</a>
+              </li>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 lg:gap-y-0">
-        <ul>
-          <li class="text-lg font-semibold pb-3">About Us</li>
-          <li class="py-3"><a href="<%s Url.industrial_users %>">Industrial Users</a></li>
-          <li class="py-3"><a href="<%s Url.academic_users %>">Academic Users</a></li>
-          <li class="py-3"><a href="<%s Url.about %>">Why OCaml</a></li>
-        </ul>
+              <li>
+                <a href="<%s Url.academic_users %>" class="text-base leading-6 text-gray-600">Academic Users</a>
+              </li>
 
-        <ul>
-          <li class="text-lg font-semibold pb-3">Resources</li>
-          <li class="py-3"><a href="<%s Url.getting_started %>">Get Started</a></li>
-          <li class="py-3"><a href="<%s Url.manual %>">Language Docs</a></li>
-          <li class="py-3"><a href="<%s Url.books %>">Books</a></li>
-          <li class="py-3"><a href="<%s Url.releases %>">Releases</a></li>
-        </ul>
+              <li>
+                <a href="<%s Url.about %>" class="text-base leading-6 text-gray-600">Why OCaml</a>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-10 md:mt-0">
+            <h3 class="text-base font-semibold leading-6 text-gray-900">Resources</h3>
+            <ul role="list" class="mt-6 space-y-4">
+              <li>
+                <a href="<%s Url.getting_started %>" class="text-base leading-6 text-gray-600">Get Started</a>
+              </li>
 
-        <ul>
-          <li class="text-lg font-semibold pb-3">Community</li>
-          <li class="py-3"><a href="<%s Url.blog %>">Blog</a></li>
-          <li class="py-3"><a href="<%s Url.jobs %>">Jobs</a></li>
-        </ul>
+              <li>
+                <a href="<%s Url.manual %>" class="text-base leading-6 text-gray-600">Language Docs</a>
+              </li>
 
-        <ul>
-          <li class="text-lg font-semibold pb-3">Legal</li>
-          <li class="py-3"><a href="<%s Url.carbon_footprint %>">Carbon Footprint</a></li>
-          <li class="py-3"><a href="<%s Url.governance %>">Governance</a></li>
-          <li class="py-3"><a href="<%s Url.privacy_policy %>">Privacy Policy</a></li>
-          <li class="py-3"><a href="<%s Url.code_of_conduct %>">Code of Conduct</a></li>
-        </ul>
+              <li>
+                <a href="<%s Url.books %>" class="text-base leading-6 text-gray-600">Books</a>
+              </li>
+
+              <li>
+                <a href="<%s Url.releases %>" class="text-base leading-6 text-gray-600">Releases</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+          <div>
+            <h3 class="text-base font-semibold leading-6 text-gray-900">Community</h3>
+            <ul role="list" class="mt-6 space-y-4">
+              <li>
+                <a href="<%s Url.blog %>" class="text-base leading-6 text-gray-600">Blog</a>
+              </li>
+
+              <li>
+                <a href="<%s Url.jobs %>" class="text-base leading-6 text-gray-600">Jobs</a>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-10 md:mt-0">
+            <h3 class="text-base font-semibold leading-6 text-gray-900">Policies</h3>
+            <ul role="list" class="mt-6 space-y-4">
+              <li>
+                <a href="<%s Url.carbon_footprint %>" class="text-base leading-6 text-gray-600">Carbon Footprint</a>
+              </li>
+
+              <li>
+                <a href="<%s Url.governance %>" class="text-base leading-6 text-gray-600">Governance</a>
+              </li>
+
+              <li>
+                <a href="<%s Url.privacy_policy %>" class="text-base leading-6 text-gray-600">Privacy</a>
+              </li>
+
+              <li>
+                <a href="<%s Url.code_of_conduct %>" class="text-base leading-6 text-gray-600">Code of Conduct</a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
