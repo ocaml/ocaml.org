@@ -1,5 +1,5 @@
 ---
-title: Eliminate duplicates
+title: Eliminate Duplicates
 number: "8"
 difficulty: intermediate
 tags: [ "list" ]

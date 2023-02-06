@@ -1,5 +1,5 @@
 ---
-title: Group the elements of a set into disjoint subsets
+title: Group the Elements of a Set Into Disjoint Subsets
 number: "27"
 difficulty: intermediate
 tags: [ "list" ]

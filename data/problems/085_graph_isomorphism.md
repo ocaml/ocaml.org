@@ -1,5 +1,5 @@
 ---
-title: Graph isomorphism
+title: Graph Isomorphism
 number: "85"
 difficulty: intermediate
 tags: [ "graph" ]

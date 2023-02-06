@@ -1,5 +1,5 @@
 ---
-title: Knight's tour
+title: Knight's Tour
 number: "92"
 difficulty: intermediate
 tags: []

@@ -1,5 +1,5 @@
 ---
-title: Collect the nodes at a given level in a list
+title: Collect the Nodes at a Given Level in a List
 number: "62B"
 difficulty: beginner
 tags: [ "binary-tree" ]

@@ -1,5 +1,5 @@
 ---
-title: A string representation of binary trees
+title: A String Representation of Binary Trees
 number: "67"
 difficulty: intermediate
 tags: [ "binary-tree" ]

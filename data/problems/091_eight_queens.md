@@ -1,5 +1,5 @@
 ---
-title: Eight queens problem
+title: Eight Queens Problem
 number: "91"
 difficulty: intermediate
 tags: []

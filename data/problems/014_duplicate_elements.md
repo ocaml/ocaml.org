@@ -1,5 +1,5 @@
 ---
-title: Duplicate the elements of a list
+title: Duplicate the Elements of a List
 number: "14"
 difficulty: beginner
 tags: [ "list" ]

@@ -1,5 +1,5 @@
 ---
-title: Symmetric binary trees
+title: Symmetric Binary Trees
 number: "56"
 difficulty: intermediate
 tags: [ "binary-tree" ]

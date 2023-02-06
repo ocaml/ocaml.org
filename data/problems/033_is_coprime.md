@@ -1,5 +1,5 @@
 ---
-title: Determine whether two positive integer numbers are coprime
+title: Determine Whether Two Positive Integer Numbers Are Coprime
 number: "33"
 difficulty: beginner
 tags: [ "arithmetic" ]

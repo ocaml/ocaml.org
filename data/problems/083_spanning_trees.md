@@ -1,5 +1,5 @@
 ---
-title: Construct all spanning trees
+title: Construct All Spanning Trees
 number: "83"
 difficulty: intermediate
 tags: [ "graph" ]

@@ -1,5 +1,5 @@
 ---
-title: Syntax checker
+title: Syntax Checker
 number: "96"
 difficulty: intermediate
 tags: []

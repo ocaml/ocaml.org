@@ -1,5 +1,5 @@
 ---
-title: Extract a slice from a list
+title: Extract a Slice From a List
 number: "18"
 difficulty: intermediate
 tags: [ "list" ]

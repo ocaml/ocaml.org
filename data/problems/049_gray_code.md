@@ -1,5 +1,5 @@
 ---
-title: Gray code
+title: Gray Code
 number: "49"
 difficulty: intermediate
 tags: [ "logic" ]

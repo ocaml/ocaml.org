@@ -1,5 +1,5 @@
 ---
-title: Connected components
+title: Connected Components
 number: "88"
 difficulty: intermediate
 tags: [ "graph" ]

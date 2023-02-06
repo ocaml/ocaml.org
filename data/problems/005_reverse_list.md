@@ -1,5 +1,5 @@
 ---
-title: Reverse a list
+title: Reverse a List
 number: "5"
 difficulty: beginner
 tags: [ "list" ]

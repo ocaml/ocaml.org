@@ -1,5 +1,5 @@
 ---
-title: A list of prime numbers
+title: A List of Prime Numbers
 number: "39"
 difficulty: beginner
 tags: [ "arithmetic" ]

@@ -1,5 +1,5 @@
 ---
-title: Construct height-balanced binary trees
+title: Construct Height-Balanced Binary Trees
 number: "59"
 difficulty: intermediate
 tags: [ "binary-tree" ]

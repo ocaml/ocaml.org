@@ -1,5 +1,5 @@
 ---
-title: Determine whether a given integer number is prime
+title: Determine Whether a Given Integer Number Is Prime
 number: "31"
 difficulty: intermediate
 tags: [ "arithmetic" ]

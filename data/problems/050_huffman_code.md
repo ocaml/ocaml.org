@@ -1,5 +1,5 @@
 ---
-title: Huffman code
+title: Huffman Code
 number: "50"
 difficulty: advanced
 tags: [ "logic" ]

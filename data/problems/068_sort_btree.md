@@ -1,5 +1,5 @@
 ---
-title: Preorder and inorder sequences of binary trees
+title: Preorder and Inorder Sequences of Binary Trees
 number: "68"
 difficulty: intermediate
 tags: [ "binary-tree" ]

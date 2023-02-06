@@ -1,5 +1,5 @@
 ---
-title: Determine the internal path length of a tree
+title: Determine the Internal Path Length of a Tree
 number: "71"
 difficulty: beginner
 tags: [ "multiway-tree" ]

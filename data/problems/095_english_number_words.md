@@ -1,5 +1,5 @@
 ---
-title: English number words
+title: English Number Words
 number: "95"
 difficulty: intermediate
 tags: []

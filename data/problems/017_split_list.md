@@ -1,5 +1,5 @@
 ---
-title: Split a list into two parts; the length of the first part is given
+title: Split a List Into Two Parts; The Length of the First Part Is Given
 number: "17"
 difficulty: beginner
 tags: [ "list" ]

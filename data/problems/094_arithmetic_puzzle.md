@@ -1,5 +1,5 @@
 ---
-title: An arithmetic puzzle
+title: An Arithmetic Puzzle
 number: "94"
 difficulty: advanced
 tags: []

@@ -1,5 +1,5 @@
 ---
-title: Generate K-regular simple graphs with N nodes
+title: Generate K-Regular Simple Graphs With N Nodes
 number: "90"
 difficulty: advanced
 tags: [ "graph" ]

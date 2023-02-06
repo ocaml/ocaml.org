@@ -1,5 +1,5 @@
 ---
-title: Crossword puzzle
+title: Crossword Puzzle
 number: "99"
 difficulty: advanced
 tags: []

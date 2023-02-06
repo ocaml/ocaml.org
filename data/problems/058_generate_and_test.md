@@ -1,5 +1,5 @@
 ---
-title: Generate-and-test paradigm
+title: Generate-and-Test Paradigm
 number: "58"
 difficulty: intermediate
 tags: [ "binary-tree" ]

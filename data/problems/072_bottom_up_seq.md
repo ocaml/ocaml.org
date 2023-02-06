@@ -1,5 +1,5 @@
 ---
-title: Construct the bottom-up order sequence of the tree nodes
+title: Construct the Bottom-Up Order Sequence of the Tree Nodes
 number: "72"
 difficulty: beginner
 tags: [ "multiway-tree" ]

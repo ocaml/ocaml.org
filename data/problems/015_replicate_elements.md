@@ -1,5 +1,5 @@
 ---
-title: Replicate the elements of a list a given number of times
+title: Replicate the Elements of a List a Given Number of Times
 number: "15"
 difficulty: intermediate
 tags: [ "list" ]

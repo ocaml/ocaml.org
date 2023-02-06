@@ -1,5 +1,5 @@
 ---
-title: Construct height-balanced binary trees with a given number of nodes
+title: Construct Height-Balanced Binary Trees With a Given Number of Nodes
 number: "60"
 difficulty: intermediate
 tags: [ "binary-tree" ]

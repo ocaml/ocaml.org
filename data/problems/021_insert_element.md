@@ -1,5 +1,5 @@
 ---
-title: Insert an element at a given position into a list
+title: Insert an Element at a Given Position Into a List
 number: "21"
 difficulty: beginner
 tags: [ "list" ]

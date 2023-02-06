@@ -1,5 +1,5 @@
 ---
-title: Pack consecutive duplicates
+title: Pack Consecutive Duplicates
 number: "9"
 difficulty: intermediate
 tags: [ "list" ]

@@ -1,5 +1,5 @@
 ---
-title: Bipartite graphs
+title: Bipartite Graphs
 number: "89"
 difficulty: intermediate
 tags: [ "graph" ]
