@@ -634,7 +634,7 @@ let package_file t kind req =
 let sitemap _request =
   let open Lwt.Syntax in
   Dream.stream
-    ~headers:[ ("Content-Type", "application/octet-stream") ]
+    ~headers:[ ("Content-Type", "application/xml; charset=utf-8") ]
     (fun stream ->
       let* _ = Lwt_seq.iter_s (Dream.write stream) Sitemap.ood in
       Dream.flush stream)
