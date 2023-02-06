@@ -43,7 +43,7 @@ type 'a list =
 ```
 and `Seq.t` which is merely a type alias for `unit -> 'a Seq.node`. The whole
 point of this definition is the type of the second argument of `Seq.Cons`, which
-is a function returning a sequence while its `list` sibling is a list. Let's
+is a function returning a sequence while its `list` counterpart returns a list. Let's
 compare the constructors of `list` and `Seq.node`:
 1. Empty lists and sequences are defined the same way, a constructor without any
    parameter: `Seq.Nil` and `[]`.
@@ -87,7 +87,7 @@ has the same behaviour as `List.iter`. Writing this:
 # Seq.iter print_int (ints 0);;
 ```
 in an OCaml top-level means: “print integers forever” and you have to type
-`Crtl-C` to interrupt the execution. Perhaps more interestingly, the following
+`Ctrl-C` to interrupt the execution. Perhaps more interestingly, the following
 code is also an infinite loop:
 ```ocaml
 # Seq.iter ignore (ints 0);;
@@ -252,7 +252,7 @@ advised to expose `to_seq` and `of_seq` functions.
 
 ## Miscellaneous
 
-There are a couple of related Libraries, all providing means to handle large
+There are a couple of related libraries, all providing means to handle large
 flows of data:
 
 * Rizo I [Streaming](/p/streaming)
