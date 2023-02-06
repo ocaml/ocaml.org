@@ -80,7 +80,6 @@ Package_layout.render
       </div>
     </div>
     <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto right-sidebar" id="htmx-right-sidebar">
-      <div class="font-semibold text-gray-500 text-sm mb-4">ON THIS PAGE</div>
       <%s! Toc.render toc %>
     </div>
   </div>
