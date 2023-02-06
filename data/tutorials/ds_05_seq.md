@@ -1,6 +1,6 @@
 ---
 id: Sequences
-title: Sequences
+title: sequences
 description: >
   Learn about an OCaml's most-used, built-in data types
 category: "data-structures"
@@ -225,6 +225,52 @@ taking care of open files. While the code above is fine, this one no longer is:
 "README.md" |> open_in |> Seq.unfold input_line_opt |> Seq.take 10 |> Seq.iter print_endline
 ```
 Here, `close_in` will never be called over the input channel opened on `README.md`.
+
+## Sequences are Functions
+
+Although this looks like a possible way to define the [Fibonacci
+sequence](https://en.wikipedia.org/wiki/Fibonacci_number):
+```ocaml
+# let rec fibs m n = Seq.cons m (fibs n (n + m));;
+val fibs : int -> int -> int Seq.t = <fun>
+```
+It actually isn't. It's a non-ending recursion which blows away the stack.
+```
+# fibs 0 1;;
+Stack overflow during evaluation (looping recursion?).
+```
+This definition is behaving as expected:
+```ocaml
+# let rec fibs m n () = Seq.Cons (m, fibs n (n + m));;
+val fibs : int -> int -> int Seq.t = <fun>
+```
+It can be used to produce some Fibonacci numbers:
+```ocaml
+# fibs 0 1 |> Seq.take 10 |> List.of_seq;;
+- : int list = [0; 1; 1; 2; 3; 5; 8; 13; 21; 34]
+```
+Why is it so? The key difference lies in the recursive call `fibs n (n + m)`. In
+the former definition, the application is complete, `fibs` is provided all the
+arguments it expects; in the latter definition, the application is partial, the
+`()` argument is missing. Since evaluation is
+[eager](https://en.wikipedia.org/wiki/Evaluation_strategy#Eager_evaluation) in
+OCaml, in the former case, evaluation of the recursive call is triggered, and
+non-terminating looping occurs. In contrast, in the latter case, the partially
+applied function is immediately returned as a
+[closure](https://en.wikipedia.org/wiki/Closure_(computer_programming)).
+
+Sequences are functions, as stated by their type:
+```ocaml
+# #show Seq.t;;
+type 'a t = unit -> 'a Seq.node
+```
+Functions working with sequences must be written accordingly.
+* Sequence consumer: partially applied function parameter
+* Sequence producer: partially applied function result
+
+When code dealing with sequences does not behave as expected, in particular, if
+it is crashing or hanging, there's a fair chance a mistake like in the first
+definition of `fibs` was made.
 
 ## Sequences for Conversions
 
