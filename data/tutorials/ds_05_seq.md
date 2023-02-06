@@ -296,7 +296,7 @@ Similar functions are also provided for sets, maps, hash tables (`Hashtbl`) and
 others (except `Seq`, obviously). When implementing a datatype module, it is
 advised to expose `to_seq` and `of_seq` functions.
 
-## Miscellaneous
+## Miscellaneous Considerations
 
 There are a couple of related libraries, all providing means to handle large
 flows of data:
@@ -309,3 +309,9 @@ There used to be a module called [`Stream`](/releases/4.13/api/Stream.html) in
 the OCaml standard library. It was
 [removed](https://github.com/ocaml/ocaml/pull/10482) in 2021 with the release of
 OCaml 4.14. Beware books and documentation written before may still mention it.
+
+## Exercices
+
+* [Diagonal](/problems#100)
+* [Streams](/problems#101)
+
