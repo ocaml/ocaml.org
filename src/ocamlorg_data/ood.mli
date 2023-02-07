@@ -131,8 +131,7 @@ module Problem : sig
   }
 
   val all : t list
-  val filter_by_tag : tag:string -> t list -> t list
-  val filter_no_tag : t list -> t list
+  val filter_tag : ?tag:string -> t list -> t list
 end
 
 module Success_story : sig

@@ -1,36 +1,25 @@
 let problems_sidebar
 ~problems
-= 
-let open Ood.Problem in
-let render_problem_link (problem : Ood.Problem.t) =
-  let href = "#" ^ (problem.number) in
+=
+let open Ood in
+let render_problem_link (problem : Problem.t) =
+  let href = "#" ^ problem.number in
   Learn_layout.sidebar_link ~title:problem.title ~href ~current:false
 in
-let problem_sidebar_links_by_tag tag =
-  List.map render_problem_link (filter_by_tag ~tag problems) |> String.concat ""
+let problem_sidebar_links_by_tag ?tag title =
+  <%s! Learn_layout.sidebar_link_group title
+    (Problem.filter_tag ?tag problems |> List.fold_left (fun a b -> a ^ render_problem_link b) "")
+  %>
 in
   <%s! Learn_layout.sidebar_icon_link_block ~current:Exercises %>
 
-  <%s! Learn_layout.sidebar_link_group "Working with lists"
-    (problem_sidebar_links_by_tag "list") %>
-
-  <%s! Learn_layout.sidebar_link_group "Arithmetic"
-    (problem_sidebar_links_by_tag "arithmetic") %>
-
-  <%s! Learn_layout.sidebar_link_group "Logic and Codes"
-    (problem_sidebar_links_by_tag "logic") %>
-
-  <%s! Learn_layout.sidebar_link_group "Binary Trees"
-    (problem_sidebar_links_by_tag "binary-tree") %>
-
-  <%s! Learn_layout.sidebar_link_group "Multiway Trees"
-    (problem_sidebar_links_by_tag "multiway-tree") %>
-
-  <%s! Learn_layout.sidebar_link_group "Graphs"
-    (problem_sidebar_links_by_tag "graph") %>
-
-  <%s! Learn_layout.sidebar_link_group "Miscellaneous Problems"
-    (List.map render_problem_link (filter_no_tag problems) |> String.concat "") %>
+  <%s! problem_sidebar_links_by_tag ~tag:"list" "Lists" %>
+  <%s! problem_sidebar_links_by_tag ~tag:"arithmetic" "Arithmetic" %>
+  <%s! problem_sidebar_links_by_tag ~tag:"logic" "Logic and Codes" %>
+  <%s! problem_sidebar_links_by_tag ~tag:"binary-tree" "Binary Trees" %>
+  <%s! problem_sidebar_links_by_tag ~tag:"multiway-tree" "Multiway Trees" %>
+  <%s! problem_sidebar_links_by_tag ~tag:"graph" "Graphs" %>
+  <%s! problem_sidebar_links_by_tag "Miscellaneous" %>
 
 let render
 (problems : Ood.Problem.t list)
