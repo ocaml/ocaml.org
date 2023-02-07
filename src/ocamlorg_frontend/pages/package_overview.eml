@@ -44,7 +44,7 @@ Package_layout.render
 ~description:(Printf.sprintf "%s %s: %s" package.name package.version package.description)
 ~canonical:(Url.package_with_version package.name package.version)
 ~package
-~tab:Overview @@
+~path:Overview @@
 <div class="flex lg:space-x-4 xl:space-x-12 flex-col xl:flex-row justify-between">
     <div class="flex-1 prose w-full xl:w-1/2 max-w-full">
         <div class="p-3 bg-body-600 bg-opacity-5 rounded font-semibold mb-8"><%s! readme_title %></div>

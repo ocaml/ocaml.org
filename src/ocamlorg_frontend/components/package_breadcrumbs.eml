@@ -1,0 +1,121 @@
+type library_path_item =
+  | Module of string
+  | ModuleType of string
+  | Parameter of int * string
+  | Class of string
+  | ClassType of string
+
+type docs_path = 
+  | Index
+  | Page of string
+  | Library of string * library_path_item list
+
+let kind_tag (m : library_path_item) = match m with
+  | Module _ ->
+    <span tabindex="0" aria-label="module" class="breadcrumbs-tag module-tag text-white">Module</span>
+  | ModuleType _ ->
+    <span tabindex="0" aria-label="module type" class="breadcrumbs-tag module-type-tag text-white">Module type</span>
+  | Parameter (number, _) ->
+    <span tabindex="0" aria-label="<%s "Parameter #" ^ (Int.to_string number) %>" class="breadcrumbs-tag parameter-tag text-white"><%s "Parameter #" ^ (Int.to_string number) %></span>
+  | Class _ ->
+    <span tabindex="0" aria-label="class" class="breadcrumbs-tag class-tag text-white">Class</span>
+  | ClassType _ ->
+    <span tabindex="0" aria-label="class type" class="breadcrumbs-tag class-type-tag text-white">Class type</span>
+
+let library_path_item_name (m: library_path_item) = match m with
+  | Module name
+  | ModuleType name
+  | Parameter (_, name) -> name
+  | Class name -> name
+  | ClassType name -> name
+
+type breadcrumb = {
+  text : string;
+  href : string;
+}
+
+let rec breadcrumbs_from_path (reversed_library_path: library_path_item list) prefix : ( breadcrumb list ) = match reversed_library_path with
+  | [] -> []
+  | x::[] -> [{ text = library_path_item_name x; href = prefix ^ "index.html"}]
+  | x::xs ->
+    let new_prefix = prefix ^ "../" in
+    { text = library_path_item_name x ; href = prefix ^ "index.html" } :: breadcrumbs_from_path xs new_prefix
+
+type path = 
+  | Overview
+  | Documentation of (docs_path)
+
+let render_package_and_version
+~(package: Package_intf.package)
+=
+  <li>
+    <a class="font-semibold underline" href="<%s Url.package_with_version package.name package.version %>"><%s package.name %></a>
+  </li>
+  <li>
+    <select id="version" name="version" aria-label="version" onchange="location = this.value;"
+      class="leading-8 appearance-none cursor-pointer py-0 rounded-md border border-gray-400 pr-8"
+      style="background-position: right 0.25rem center">
+      <% package.versions |> List.iter begin fun item -> %>
+      <option value="/p/<%s package.name %>/<%s item %>" <%s if item = package.version then "selected" else "" %>>
+        <%s item %>
+      </option>
+      <% end; %>
+    </select>
+  </li>
+
+let render_library_path_breadcrumbs
+~library_name
+~(path: library_path_item list) =
+  let (reversed_library_path : library_path_item list) = List.rev (path) in
+  let breadcrumbs = breadcrumbs_from_path reversed_library_path "" in
+  let render_breadcrumb i b =
+    if i < List.length path - 1 then
+      <a href="<%s! b.href %>" class="font-semibold underline text-gray-800"><%s b.text %></a>
+    else 
+      <a href="<%s! b.href %>" aria-current="page" class="text-gray-800"><%s b.text %></a>
+  in
+  <li>
+    <span tabindex="0" class="text-gray-600"><%s library_name %> lib</span>
+  </li>
+  <li class="inline-flex">
+    <%s! String.concat "<span>.</span>" (breadcrumbs |> List.rev |> List.mapi render_breadcrumb); %>
+    <%s! kind_tag (List.hd reversed_library_path) %>
+  </li>
+
+let render_docs_path_breadcrumbs
+~(package: Package_intf.package)
+~(path: docs_path) =
+  <nav aria-label="breadcrumb" class="flex" id="htmx-breadcrumbs">
+    <ul class="flex flex-wrap gap-x-2 text-base leading-8 package-breadcrumbs">
+      <%s! render_package_and_version ~package %>
+      <li>
+        <a class="underline font-semibold" href="<%s! Url.package_docs package.name %>">Documentation</a>
+      </li>
+      <% (match path with
+         | Index -> %>
+      <% | Library (library_name, library_path) -> %>
+        <%s! if library_path != [] then render_library_path_breadcrumbs ~library_name ~path:library_path else "ERROR: library path is []" %>
+      <% | Page page_name  -> %>
+        <li>
+          <span><%s page_name %></span>
+        </li>
+      <% ); %>
+    </ul>
+  </nav>
+
+let render_overview_breadcrumbs
+~(package: Package_intf.package)
+=
+  <nav aria-label="breadcrumbs" class="flex">
+    <ul class="flex flex-wrap gap-x-2 leading-8 package-breadcrumbs">
+      <%s! render_package_and_version ~package %>
+    </ul>
+  </nav>
+
+let render
+~(package: Package_intf.package)
+~(path: path) =
+  match path with
+    | Overview -> render_overview_breadcrumbs ~package
+    | Documentation (docs_path) -> render_docs_path_breadcrumbs ~package ~path:docs_path
+    

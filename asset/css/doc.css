@@ -313,16 +313,13 @@ span.icon-expand.open::before {
 }
 
 .breadcrumbs-tag {
-  padding:2px 6px;
-  line-height:1;
-  margin-right:6px;
+  padding-right: 0.75em;
+  padding-left: 0.75em;
   font-family: Inter, sans-serif;
-  border-width: 2px;
   border-radius: 0.25em;
   font-weight:bold;
-  font-size: 1rem;
   box-sizing: border-box;
   color:white;
-  align-items: center;
-  display:flex;
+  display:inline-block;
+  margin-left:0.5em;
 }
