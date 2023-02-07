@@ -367,15 +367,12 @@ let doc_exists t name version =
 
 let latest_documented_version t name =
   let rec aux vlist =
-    let open Lwt.Syntax in
+    let open Lwt.Infix in
     match vlist with
     | [] -> Lwt.return None
-    | _ -> (
-        let version = List.hd vlist in
-        let* doc = doc_exists t name version in
-        match doc with
-        | Some version -> Lwt.return (Some version)
-        | None -> aux (List.tl vlist))
+    | version :: vlist ->
+      doc_exists t name version
+        >>= Option.fold ~none:(aux vlist) ~some:Lwt.return_some
   in
   match get_package_versions t name with
   | None -> Lwt.return None
