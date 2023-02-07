@@ -48,11 +48,12 @@ Package_layout.render
 ~canonical:(Url.package_doc package.name package.version ?page:path_page)
 ~styles:["/css/main.css"; "/css/doc.css"] @@
 <div x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024" x-on:close-sidebar="sidebar=window.innerWidth > 1024 && true">
-  <button :title='(sidebar? "close" : "open")+" sidebar"' aria-pressed="false" :aria-pressed="sidebar" class="bg-primary-600  p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed lg:hidden right-10"
+  <button :title='(sidebar? "close" : "open")+" sidebar"' aria-pressed="false" :aria-pressed="sidebar" class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed lg:hidden right-10"
     x-on:click="sidebar = ! sidebar">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24">
       <path d="M14.25 14.375H19.875C20.4962 14.375 21 13.8712 21 13.25V9.875C21 9.25377 20.4962 8.75 19.875 8.75H14.25C13.6288 8.75 13.125 9.25377 13.125 9.875V11H7.5V7.625H9.75C10.3712 7.625 10.875 7.12122 10.875 6.5V3.125C10.875 2.50378 10.3712 2 9.75 2H4.125C3.50378 2 3 2.50378 3 3.125V6.5C3 7.12122 3.50378 7.625 4.125 7.625H6.375V19.4375C6.375 19.7482 6.62677 20 6.9375 20H13.125V21.125C13.125 21.7462 13.6288 22.25 14.25 22.25H19.875C20.4962 22.25 21 21.7462 21 21.125V17.75C21 17.1288 20.4962 16.625 19.875 16.625H14.25C13.6288 16.625 13.125 17.1288 13.125 17.75V18.875H7.5V12.125H13.125V13.25C13.125 13.8712 13.6288 14.375 14.25 14.375ZM14.25 9.875H19.875V13.25H14.25V9.875ZM4.125 6.5V3.125H9.75V6.5H4.125ZM14.25 17.75H19.875V21.125H14.25V17.75Z" fill="white"/>
     </svg>
+    <span class="hidden md:flex font-semibold px-2">side menu</span>
   </button>
   <div class="fixed z-10 inset-0 bg-background-dark-blue/20 backdrop-blur-sm lg:hidden"
     :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar"></div>
