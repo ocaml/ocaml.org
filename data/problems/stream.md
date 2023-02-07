@@ -28,7 +28,7 @@ let rec of_seq seq () = match seq () with
 
 # Statement
 
-Lists are finite, they always contain a finite number of elements. Sequences may
+Lists are finite, meaning they always contain a finite number of elements. Sequences may
 be finite or infinite.
 
 The goal of this exercise is to define a type `'a stream` which only contains
