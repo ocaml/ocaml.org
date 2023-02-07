@@ -34,34 +34,33 @@ type 'a node =
   | Cons of 'a * 'a t
 and 'a t = unit -> 'a node
 ```
-This is the mutually recursive definition of two types; `Seq.node` which is
+This is the mutually recursive definition of two types: `Seq.node`, which is
 almost the same as `list`:
 ```ocaml
 type 'a list =
   | []
   | (::) of 'a * 'a list
 ```
-and `Seq.t` which is merely a type alias for `unit -> 'a Seq.node`. The whole
-point of this definition is the type of the second argument of `Seq.Cons`, which
+and `Seq.t`, which is merely a type alias for `unit -> 'a Seq.node`. The whole
+point of this definition is the second argument's type `Seq.Cons`, which
 is a function returning a sequence while its `list` counterpart returns a list. Let's
 compare the constructors of `list` and `Seq.node`:
 1. Empty lists and sequences are defined the same way, a constructor without any
    parameter: `Seq.Nil` and `[]`.
 1. Non-empty lists and sequences are both pairs whose former member is a piece
-   of data;
-1. but the latter member, in lists, is a `list` too, while in sequences, it is a
+   of data.
+1. However, the latter member in lists is a `list` too, while in sequences, it is a
    function returning a `Seq.node`.
 
 A value of type `Seq.t` is “frozen” because the data it contains isn't
-immediately available, a `unit` value has to be supplied to recover it, and
-that's “unfreezing”. However, unfreezing only gives access to the tip of the
+immediately available. A `unit` value has to be supplied to recover it, which is called “unfreezing.” However, unfreezing only gives access to the tip of the
 icicle, since the second argument of `Seq.Cons` is a function too.
 
-Having frozen-by-function tails explains why sequences may be considered
+Frozen-by-function tails explain why sequences may be considered
 potentially infinite. Until a `Seq.Nil` value has been found in the sequence,
 one can't say for sure if some will ever appear. The sequence could be a stream
-of incoming requests in a server, readings from an embedded sensor or system logs.
-All have unforeseeable termination and it is easier to consider them infinite.
+of incoming requests in a server, readings from an embedded sensor, or system logs.
+All have unforeseeable termination, and it is easier to consider them infinite.
 
 In OCaml, any value `a` of type `t` can be turned into a constant function by
 writing `fun _ -> a`, which has type `'a -> t`. When writing `fun () -> a`
@@ -76,8 +75,8 @@ val ints : int -> int Seq.t = <fun>
 ```
 The function `ints n` look as if building the infinite sequence
 $(n; n + 1; n + 2; n + 3;...)$. In reality, since there isn't an infinite
-amount of distinct values of type `int`, those sequences are not increasing,
-when reaching `max_int` the values will circle down to `min_int`. They are
+amount of distinct values of type `int`, those sequences don't increase.
+When reaching `max_int`, the values will circle down to `min_int`. They are
 ultimately periodic.
 
 The OCaml standard library contains a module on sequences called
@@ -86,7 +85,7 @@ has the same behaviour as `List.iter`. Writing this:
 ```ocaml
 # Seq.iter print_int (ints 0);;
 ```
-in an OCaml top-level means: “print integers forever” and you have to type
+in an OCaml toplevel means “print integers forever,” and you have to type
 `Ctrl-C` to interrupt the execution. Perhaps more interestingly, the following
 code is also an infinite loop:
 ```ocaml
@@ -97,7 +96,7 @@ But the key point is: it doesn't leak memory.
 ## Example
 
 The `Seq` module of the OCaml standard library contains the definition of the
-function `Seq.take` which returns a specified number of elements from the
+function `Seq.take`, which returns a specified number of elements from the
 beginning of a sequence. Here is a simplified implementation:
 ```ocaml
 let rec take n seq () = match seq () with
@@ -108,18 +107,18 @@ let rec take n seq () = match seq () with
 `seq` contains less than `n` elements, an identical sequence is returned. In
 particular, if `seq` is empty, an empty sequence is returned.
 
-Observe the first line of `take`, it is the common pattern for recursive
+Observe the first line of `take`. It is the common pattern for recursive
 functions over sequences. The last two parameters are:
-* a sequence called `seq`;
-* a `unit` value.
+* a sequence called `seq`
+* a `unit` value
 
 When executed, the function begins by unfreezing `seq` (that is, calling `seq
-()`) and then pattern match to look inside the data made available. However,
+()`) and then pattern matching to look inside the available data. However,
 this does not happen unless a `unit` parameter is passed to `take`. Writing
-`take 10 seq` does not compute anything, it is a partial application and returns
+`take 10 seq` does not compute anything; it is a partial application and returns
 a function needing a `unit` to produce a result.
 
-This can be used to print integers without looping forever as shown previously:
+This can be used to print integers without looping forever, as shown previously:
 ```ocaml
 # Seq.ints 0 |> Seq.take 43 |> List.of_seq;;
 - : int list =
@@ -159,7 +158,7 @@ the list of 100 first prime numbers:
  509; 521; 523]
 ```
 
-The function `sieve` is recursive, in OCaml and common senses: it is defined
+The function `sieve` is recursive in OCaml and common sense. It is defined
 using the `rec` keyword and calls itself. However, some call that kind of
 function [_corecursive_](https://en.wikipedia.org/wiki/Corecursion). This word
 is used to emphasize that, by design, it does not terminate. Strictly speaking,
@@ -174,9 +173,9 @@ instance:
 * `Seq.map`
 * `Seq.fold_left`
 
-All those are also available for `Array`, `List` and `Set` and behave
+All those are also available for `Array`, `List`, and `Set` and behave
 essentially the same. Observe that there is no `fold_right` function. Since
-OCaml 4.11 there is something which isn't (yet) available on other types:
+OCaml 4.11, there is something which isn't (yet) available on other types:
 `unfold`. Here is how it is implemented:
 ```ocaml
 let rec unfold f seq () = match f seq with
@@ -187,7 +186,7 @@ And here is its type:
 ```ocaml
 val unfold : ('a -> ('b * 'a) option) -> 'a -> 'b Seq.t = <fun>
 ```
-Unlike previously mentioned iterators `Seq.unfold` does not have a sequence
+Unlike previously mentioned iterators, `Seq.unfold` does not have a sequence
 parameter, but a sequence result. `unfold` provides a general means to build
 sequences. For instance, `Seq.ints` can be implemented using `Seq.unfold` in a
 fairly compact way:
@@ -195,7 +194,7 @@ fairly compact way:
 let ints = Seq.unfold (fun n -> Some (n, n + 1));;
 ```
 
-As a fun fact, one should observe `map` over sequences can be implemented using
+As a fun fact, one should observe `map` over sequences, as it can be implemented using
 `Seq.unfold`. Here is how to write it:
 ```ocaml
 # let map f = Seq.unfold (fun s -> s |> Seq.uncons |> Option.map (fun (x, y) -> (f x, y)));;
@@ -206,7 +205,7 @@ Here is a quick check:
 # Seq.ints 0 |> map (fun x -> x * x) |> Seq.take 10 |> List.of_seq;;
 - : int list = [0; 1; 4; 9; 16; 25; 36; 49; 64; 81]
 ```
-The function `Seq.uncons` returns the head and tail of a sequence if it is not empty or `None` otherwise.
+The function `Seq.uncons` returns the head and tail of a sequence if it is not empty, or it otherwise returns `None`.
 
 Using this function:
 ```ocaml
@@ -219,14 +218,14 @@ It is possible to read a file using `Seq.unfold`:
 "README.md" |> open_in |> Seq.unfold input_line_opt |> Seq.iter print_endline
 ```
 
-Although this can be an appealing style, bear in mind it does not prevent from
+Although this can be an appealing style, bear in mind that it does not prevent
 taking care of open files. While the code above is fine, this one no longer is:
 ```ocaml
 "README.md" |> open_in |> Seq.unfold input_line_opt |> Seq.take 10 |> Seq.iter print_endline
 ```
 Here, `close_in` will never be called over the input channel opened on `README.md`.
 
-## Sequences are Functions
+## Sequences Are Functions
 
 Although this looks like a possible way to define the [Fibonacci
 sequence](https://en.wikipedia.org/wiki/Fibonacci_number):
@@ -250,11 +249,11 @@ It can be used to produce some Fibonacci numbers:
 - : int list = [0; 1; 1; 2; 3; 5; 8; 13; 21; 34]
 ```
 Why is it so? The key difference lies in the recursive call `fibs n (n + m)`. In
-the former definition, the application is complete, `fibs` is provided all the
-arguments it expects; in the latter definition, the application is partial, the
+the former definition, the application is complete because `fibs` is provided all the
+arguments it expects. In the latter definition, the application is partial because the
 `()` argument is missing. Since evaluation is
 [eager](https://en.wikipedia.org/wiki/Evaluation_strategy#Eager_evaluation) in
-OCaml, in the former case, evaluation of the recursive call is triggered, and
+OCaml, in the former case, evaluation of the recursive call is triggered and a
 non-terminating looping occurs. In contrast, in the latter case, the partially
 applied function is immediately returned as a
 [closure](https://en.wikipedia.org/wiki/Closure_(computer_programming)).
@@ -268,7 +267,7 @@ Functions working with sequences must be written accordingly.
 * Sequence consumer: partially applied function parameter
 * Sequence producer: partially applied function result
 
-When code dealing with sequences does not behave as expected, in particular, if
+When code dealing with sequences does not behave as expected, like if
 it is crashing or hanging, there's a fair chance a mistake like in the first
 definition of `fibs` was made.
 
