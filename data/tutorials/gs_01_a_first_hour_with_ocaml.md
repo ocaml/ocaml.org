@@ -27,9 +27,12 @@ To try small OCaml expressions, use an interactive toplevel, or REPL
 The alternative REPL [UTop](https://github.com/ocaml-community/utop) may be installed
 through [opam](https://opam.ocaml.org/doc/Install.html) or your system package manager. It has
 the same basic interface but is much more convenient to use (history
-navigation, auto-completion, etc.).
+navigation, auto-completion, etc.). 
 
-Use `;;` to indicate that you've finished entering each expression and prompt
+Remember you can exit either toplevel at any time with Ctrl+D or the
+built-in `exit` function: `exit 0;;`.
+
+Always use `;;` to indicate that you've finished entering each expression and prompt
 OCaml to evaluate it. We run OCaml and evaluate a simple expression:
 
 ```console
@@ -231,7 +234,7 @@ OCaml type  Range
 int         63-bit signed int on 64-bit processors, or 31-bit signed int on
             32-bit processors
 float       IEEE double-precision floating point, equivalent to C's double
-bool        A boolean, written either 'true' or 'false'
+bool        A Boolean, written either 'true' or 'false'
 char        An 8-bit character
 string      A string (sequence of 8 bit chars)
 ```
