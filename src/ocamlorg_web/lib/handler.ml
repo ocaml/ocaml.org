@@ -298,9 +298,8 @@ let package_of_info ~name ~version ~versions info =
 let package_versions state name =
   Ocamlorg_package.get_package_versions state name
   |> Option.value ~default:[]
-  |> List.sort Ocamlorg_package.Version.compare
+  |> List.sort (Fun.flip Ocamlorg_package.Version.compare)
   |> List.map Ocamlorg_package.Version.to_string
-  |> List.rev
 
 let package_meta state (package : Ocamlorg_package.t) :
     Ocamlorg_frontend.package =
