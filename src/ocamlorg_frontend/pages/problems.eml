@@ -50,7 +50,7 @@ Learn_layout.render
         <a href="https://www.ic.unicamp.br/~meidanis/courses/mc336/2006s2/funcional/L-99_Ninety-Nine_Lisp_Problems.html">
           Ninety-Nine Lisp Problems</a>
         which in turn was based on “<a href="https://sites.google.com/site/prologsite/prolog-problems/">Prolog problem
-          list</a>”. For
+          list</a>” by Werner Hett. For
         each of these questions, some simple tests are shown—they may also serve
         to make the question clearer if needed. To work on these problems, we
         recommend you first <a href="<%s Url.getting_started %>">install OCaml</a> or use it <a
