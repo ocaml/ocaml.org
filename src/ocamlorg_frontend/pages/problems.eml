@@ -1,9 +1,9 @@
 let problems_sidebar
 ~problems
-= 
+=
 let open Ood in
 let render_problem_link (problem : Problem.t) =
-  let href = "#" ^ (problem.number) in
+  let href = "#" ^ problem.number in
   Learn_layout.sidebar_link ~title:problem.title ~href ~current:false
 in
 let problem_sidebar_links_by_tag ?tag title =
