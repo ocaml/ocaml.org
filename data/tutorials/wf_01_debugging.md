@@ -2,7 +2,7 @@
 id: debugging
 title: Debugging
 description: >
-  Learn to build custom types and write function to process this data
+  Learn to debug OCaml programs using tracing and ocamldebug
 category: "guides"
 date: 2021-05-27T21:07:30-00:00
 ---
@@ -143,9 +143,9 @@ to stop the program in any place and ask for internal values: that is a
 symbolic debugger with its stepping feature.
 
 Stepping a functional program has a meaning which is a bit weird to define and
-understand. Let me say that we use the notion of *runtime events* that happen
-for instance when a parameter is passed to a function or when entering a
-pattern matching, or selecting a clause in a pattern matching. Computation
+understand. We will use the notion of *runtime events* that happen
+when a parameter is passed to a function, when entering a pattern
+matching, or selecting a clause in a pattern matching. Computation
 progress is taken into account by these events, independently of the
 instructions executed on the hardware.
 
@@ -162,8 +162,11 @@ mechanism.
 ## The OCaml Debugger
 
 We now give a quick tutorial for the OCaml debugger (`ocamldebug`).  Before
-starting, please note that `ocamldebug` does not work under native Windows
-ports of OCaml (but it runs under the Cygwin port).
+starting, please note that
+- `ocamldebug` runs on `ocamlc` bytecode programs (it does not work on
+  native code executables), and
+- it does not work under native Windows ports of OCaml (but it runs
+  under the Cygwin port).
 
 ### Launching the Debugger
 
@@ -216,7 +219,7 @@ Type `r` (for *run*); you get
 ```
 (ocd) r
 Loading program... done.
-Time : 12
+Time : 27
 Program end.
 Uncaught exception: Not_found
 (ocd)
@@ -228,14 +231,14 @@ counter before the time the exception is raised; hence type in `b` as
 
 ```
 (ocd) b
-Time : 11 - pc : 15500 - module List
-143     [] -> <|b|>raise Not_found
+Time: 26 - pc: 0:29628 - module Stdlib__List
+191     [] -> raise Not_found<|a|>
 ```
 
-The debugger tells you that you are in module `List`, inside a pattern matching
-on a list that already chose the `[]` case and is about to execute `raise
-Not_found`, since the program is stopped just before this expression (as
-witnessed by the `<|b|>` mark).
+The debugger tells you that you are in `Stdlib`'s module `List`,
+inside a pattern matching on a list that already chose the `[]` case
+and just executed `raise Not_found`, since the program is stopped just
+after this expression (as witnessed by the `<|a|>` mark).
 
 But, as you know, you want the debugger to tell you which procedure calls the
 one from `List`, and also who calls the procedure that calls the one from
@@ -243,11 +246,12 @@ one from `List`, and also who calls the procedure that calls the one from
 
 ```
 (ocd) bt
-#0  Pc : 15500  List char 3562
-#1  Pc : 19128  Uncaught char 221
+Backtrace:
+#0 Stdlib__List list.ml:191:26
+#1 Uncaught uncaught.ml:8:38
 ```
 
-So the last function called is from module `List` at character 3562, that is:
+So the last function called is from module `List` on line 191, character 26, that is:
 
 <!-- $MDX skip -->
 ```ocaml
@@ -257,8 +261,8 @@ let rec assoc x = function
   | (a,b)::l -> if a = x then b else assoc x l
 ```
 
-The function that calls it is in module `Uncaught`, file `uncaught.ml` char
-221:
+The function that calls it is in module `Uncaught`, file `uncaught.ml`
+line 8, char 38:
 
 
 <!-- $MDX skip -->
@@ -282,11 +286,14 @@ directly at the toplevel prompt of the debugger; for instance:
 No breakpoint.
 
 (ocd) help break
-  1      15396  in List, character 3539
-break : Set breakpoint at specified line or function.
-Syntax: break function-name
-break @ [module] linenum
-break @ [module] # characternum
+break: Set breakpoint.
+Syntax: break
+        break function-name
+        break @ [module] linenum
+        break @ [module] linenum columnnum
+        break @ [module] # characternum
+        break frag:pc
+        break pc
 ```
 
 ### Setting Break Points
@@ -295,26 +302,26 @@ Let's set up a breakpoint and rerun the entire program from the
 beginning (`(g)oto 0` then `(r)un`):
 
 ```
-(ocd) break @Uncaught 9
-Breakpoint 3 at 19112 : file Uncaught, line 9 column 34
+(ocd) break @Uncaught 7
+Breakpoint 1 at 0:42856: file uncaught.ml, line 7, characters 3-36
 
 (ocd) g 0
 Time : 0
 Beginning of program.
 
 (ocd) r
-Time : 6 - pc : 19112 - module Uncaught
-Breakpoint : 1
-9 add "IRIA" "Rocquencourt"<|a|>;;
+Time: 20 - pc: 0:42856 - module Uncaught
+Breakpoint: 1
+7   add_address "IRIA" "Rocquencourt"<|a|>;;
 ```
 
-Then, we can step and find what happens when `find_address` is about to be
-called
+Then, we can step and find what happens just before (`<|b|>`)
+`List.assoc` is about to be called in `find_address`:
 
 ```
 (ocd) s
-Time : 7 - pc : 19012 - module Uncaught
-5 let find_address name = <|b|>List.assoc name !l;;
+Time: 21 - pc: 0:42756 - module Uncaught
+3 let find_address name = <|b|>List.assoc name !l
 
 (ocd) p name
 name : string = "INRIA"
