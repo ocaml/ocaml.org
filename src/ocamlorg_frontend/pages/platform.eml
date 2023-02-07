@@ -108,9 +108,7 @@ Learn_layout.render
             <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>
             <div class="text-body-400 h-full"><%s item.synopsis %></div>
           </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="chevron_right" d="M9 5l7 7-7 7"></path>
-          </svg>
+          <%s! Icons.chevron_right "h-5 w-5" %>
         </a>
         <% ); %>
       </div>
@@ -127,9 +125,7 @@ Learn_layout.render
             <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>
             <div class="text-body-400 h-full"><%s item.synopsis %></div>
           </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="chevron_right" d="M9 5l7 7-7 7"></path>
-          </svg>
+          <%s! Icons.chevron_right "h-5 w-5" %>
         </a>
         <% ); %>
       </div>
@@ -147,9 +143,7 @@ Learn_layout.render
             <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>
             <div class="text-body-400 h-full"><%s item.synopsis %></div>
           </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="chevron_right" d="M9 5l7 7-7 7"></path>
-          </svg>
+          <%s! Icons.chevron_right "h-5 w-5" %>
         </a>
         <% ); %>
       </div>
@@ -166,9 +160,7 @@ Learn_layout.render
             <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>
             <div class="text-body-400 h-full"><%s item.synopsis %></div>
           </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="chevron_right" d="M9 5l7 7-7 7"></path>
-          </svg>
+          <%s! Icons.chevron_right "h-5 w-5" %>
         </a>
         <% ); %>
       </div>

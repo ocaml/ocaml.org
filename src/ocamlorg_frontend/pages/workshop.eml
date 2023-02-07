@@ -161,15 +161,7 @@ workshop.presentations in (match List.length videos with | 0 -> () | _ -> %>
     <div class="flex justify-end mt-12">
       <a href="https://watch.ocaml.org" target="_blank" class="btn btn-secondary">
         More videos at watch.ocaml.org
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5 inline-block"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="chevron_right" d="M9 5l7 7-7 7" />
-        </svg>
+        <%s! Icons.chevron_right "h-5 w-5 inline-block" %>
       </a>
     </div>
   </div>
