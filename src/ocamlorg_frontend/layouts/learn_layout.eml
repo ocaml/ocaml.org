@@ -53,7 +53,7 @@ let sidebar_icon_link_block
 
 let htmx_attributes href
 =
-  <% if String.get href 0 != '#' then ( %> hx-boost="true" hx-ext="multi-swap" hx-swap="multi:#htmx-sidebar,#htmx-content,#htmx-right-sidebar" hx-push-url="true" <% ); %>
+  <% if String.get href 0 != '#' then ( %> hx-boost="true" hx-ext="multi-swap" hx-swap="multi:#htmx-head,#htmx-sidebar,#htmx-content,#htmx-right-sidebar" hx-push-url="true" <% ); %>
 
 let sidebar_link
 ~title

@@ -10,7 +10,7 @@ let render
 inner =
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+  <head id="htmx-head">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <% (match description with | Some description -> %>
