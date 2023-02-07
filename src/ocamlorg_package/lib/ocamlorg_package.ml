@@ -16,7 +16,7 @@ let create ~name ~version info = { name; version; info }
 type state = {
   version : string;
   mutable opam_repository_commit : string option;
-  mutable packages : Info.t OpamPackage.Version.Map.t Name.Map.t;
+  mutable packages : Info.t Version.Map.t Name.Map.t;
   mutable stats : Packages_stats.t option;
   mutable featured_packages : t list option;
 }
@@ -26,9 +26,8 @@ let state_of_package_list (pkgs : t list) =
   let add_version (pkg : t) map =
     let new_map =
       match Name.Map.find_opt pkg.name map with
-      | None -> OpamPackage.Version.Map.(add pkg.version pkg.info empty)
-      | Some version_map ->
-          OpamPackage.Version.Map.add pkg.version pkg.info version_map
+      | None -> Version.Map.(add pkg.version pkg.info empty)
+      | Some version_map -> Version.Map.add pkg.version pkg.info version_map
     in
     Name.Map.add pkg.name new_map map
   in
@@ -48,11 +47,11 @@ let read_versions package_name versions =
       match OpamPackage.of_string_opt package_version with
       | Some pkg ->
           let+ opam = Opam_repository.opam_file package_name package_version in
-          OpamPackage.Version.Map.add pkg.version opam acc
+          Version.Map.add pkg.version opam acc
       | None ->
           Logs.err (fun m -> m "Invalid pacakge version %S" package_name);
           Lwt.return acc)
-    OpamPackage.Version.Map.empty versions
+    Version.Map.empty versions
 
 let read_packages () =
   let open Lwt.Syntax in
@@ -106,7 +105,7 @@ let save_state t =
 let get_package_latest' packages name =
   Name.Map.find_opt name packages
   |> Option.map (fun versions ->
-         let version, info = OpamPackage.Version.Map.max_binding versions in
+         let version, info = Version.Map.max_binding versions in
          { version; info; name })
 
 let update ~commit t =
@@ -171,7 +170,7 @@ let init ?(disable_polling = false) () =
 
 let all_packages_latest t =
   t.packages
-  |> Name.Map.map OpamPackage.Version.Map.max_binding
+  |> Name.Map.map Version.Map.max_binding
   |> Name.Map.bindings
   |> List.map (fun (name, (version, info)) -> { name; version; info })
 
@@ -179,19 +178,19 @@ let packages_stats t = t.stats
 
 let get_packages_with_name t name =
   t.packages |> Name.Map.find_opt name
-  |> Option.map OpamPackage.Version.Map.bindings
+  |> Option.map Version.Map.bindings
   |> Option.map (List.map (fun (version, info) -> { name; version; info }))
 
 let get_package_versions t name =
   t.packages |> Name.Map.find_opt name
-  |> Option.map OpamPackage.Version.Map.bindings
+  |> Option.map Version.Map.bindings
   |> Option.map (List.map fst)
 
 let get_package_latest t name = get_package_latest' t.packages name
 
 let get_package t name version =
   t.packages |> Name.Map.find_opt name |> fun x ->
-  Option.bind x (OpamPackage.Version.Map.find_opt version)
+  Option.bind x (Version.Map.find_opt version)
   |> Option.map (fun info -> { version; info; name })
 
 let featured_packages t = t.featured_packages
