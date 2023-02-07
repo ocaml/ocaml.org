@@ -6,8 +6,7 @@ let highlight_search_terms
     | Str.Delim s -> {|<span class="bg-background-light-blue">|} ^ Dream.html_escape s ^ {|</span>|}
     | Text s -> Dream.html_escape s
   in
-  let terms = Str.split (Str.regexp "[ \t]+") search in
-  let r = String.concat "\\|" terms in
+  let r = Str.global_replace (Str.regexp "[ \t]+") "\\|" search in
   let split = Str.full_split (Str.regexp_case_fold r) text in
   String.concat "" (List.map render_item split)
 
