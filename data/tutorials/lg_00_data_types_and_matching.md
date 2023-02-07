@@ -9,15 +9,15 @@ date: 2021-05-27T21:07:30-00:00
 
 # Data Types and Matching
 
-In this tutorial we learn how to build our own types in OCaml, and how to write
-functions which process this new data.
+In this tutorial, we learn how to build our own types in OCaml and to write
+functions that process this new data.
 
 ## Built-in Compound Types
 
 We have already seen simple data types such as `int`, `float`, `string`, and
 `bool`.  Let's recap the built-in compound data types we can use in OCaml to
-combine such values. First, we have lists which are ordered collections of any
-number of elements of like type:
+combine such values. First, we have lists, which are ordered collections of any
+number of elements sharing the same type:
 
 ```ocaml
 # [];;
@@ -40,9 +40,9 @@ Next, we have tuples, which collect a fixed number of elements together:
 (true, 0., 0.45, 0.73, "french blue")
 ```
 
-We have records, which are like labeled tuples. They are defined by writing a
-type definition giving a name for the record, and names for each of its fields,
-and their types:
+We have records, which are like labeled tuples. They are sequences, like lists, defined by writing a
+type definition giving a name for the record and names for each of its fields,
+including their types:
 
 ```ocaml
 # type point = {x : float; y : float};;
@@ -83,6 +83,9 @@ type person = { first_name : string; surname : string; mutable age : int; }
 val birthday : person -> unit = <fun>
 ```
 
+Please note: in the above example, we used the UK spelling of *colour*, but it will also
+work with the US spelling *color*.
+
 Another mutable compound data type is the fixed-length array which, just as a
 list, must contain elements of like type. However, its elements may be accessed
 in constant time:
@@ -98,8 +101,8 @@ val arr : int array = [|1; 2; 3|]
 - : int array = [|0; 2; 3|]
 ```
 
-In this tutorial, we will define our own compound data types, using the `type`
-keyword, and some of these built-in structures as building blocks.
+In this tutorial, we will define our own compound data types using the `type`
+keyword, and we'll use some of these built-in structures as building blocks.
 
 ## A Simple Custom Type
 
