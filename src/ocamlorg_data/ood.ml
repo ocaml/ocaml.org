@@ -37,11 +37,9 @@ end
 module Problem = struct
   include Problem
 
-  let filter_by_tag ~tag problems =
-    List.filter (fun (x : t) -> List.mem tag x.tags) problems
-
-  let filter_no_tag problems =
-    List.filter (fun (x : t) -> List.length x.tags = 0) problems
+  let filter_tag ?tag =
+    let f x = Option.fold ~none:(x.tags = []) ~some:(Fun.flip List.mem x.tags) tag in
+    List.filter f
 end
 
 module Success_story = struct
