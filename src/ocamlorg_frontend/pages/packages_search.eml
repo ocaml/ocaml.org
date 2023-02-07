@@ -8,7 +8,7 @@ let highlight_search_terms
   in
   let r = Str.global_replace (Str.regexp "[ \t]+") "\\|" search in
   let split = Str.full_split (Str.regexp_case_fold r) text in
-  String.concat "" (List.map render_item split)
+  List.fold_left (fun a b -> a ^ render_item b) "" split
 
 let render ~total ~search (packages : Package_intf.package list) = Layout.render ~title:"OCaml Packages · Search Result"
 ~description:"Find the package you need to build your application in the thousands of available OCaml packages."
