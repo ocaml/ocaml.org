@@ -2,7 +2,7 @@
 id: debugging
 title: Debugging
 description: >
-  Learn to build custom types and write function to process this data
+  Learn to debug OCaml programs using tracing and ocamldebug
 category: "guides"
 date: 2021-05-27T21:07:30-00:00
 ---
