@@ -72,7 +72,11 @@ let render () =
               </li>
 
               <li>
-                <a href="<%s Url.manual %>" class="text-base leading-6 text-gray-600">Language Docs</a>
+                <a href="<%s Url.manual %>" class="text-base leading-6 text-gray-600">Language Manual</a>
+              </li>
+
+              <li>
+                <a href="<%s Url.api %>" class="text-base leading-6 text-gray-600">Standard Library API</a>
               </li>
 
               <li>
