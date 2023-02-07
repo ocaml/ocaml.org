@@ -144,8 +144,8 @@ symbolic debugger with its stepping feature.
 
 Stepping a functional program has a meaning which is a bit weird to define and
 understand. We will use the notion of *runtime events* that happen
-for instance when a parameter is passed to a function or when entering a
-pattern matching, or selecting a clause in a pattern matching. Computation
+when a parameter is passed to a function, when entering a pattern
+matching, or selecting a clause in a pattern matching. Computation
 progress is taken into account by these events, independently of the
 instructions executed on the hardware.
 
