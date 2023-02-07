@@ -315,8 +315,8 @@ Breakpoint: 1
 7   add_address "IRIA" "Rocquencourt"<|a|>;;
 ```
 
-Then, we can step and find what happens when `find_address` is about to be
-called
+Then, we can step and find what happens just before (`<|b|>`)
+`List.assoc` is about to be called in `find_address`:
 
 ```
 (ocd) s
