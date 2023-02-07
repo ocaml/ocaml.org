@@ -164,7 +164,7 @@ mechanism.
 We now give a quick tutorial for the OCaml debugger (`ocamldebug`).  Before
 starting, please note that
 - `ocamldebug` runs on `ocamlc` bytecode programs (it does not work on
-  native code executables) and
+  native code executables), and
 - it does not work under native Windows ports of OCaml (but it runs
   under the Cygwin port).
 
