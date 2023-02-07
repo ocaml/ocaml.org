@@ -51,6 +51,7 @@ module.exports = {
           default: "#FAF8F3",
           beige: "#FAF8F3",
           "dark-blue": "#0e1531", // one of the colors from the blue patterned background used in various parts of the site
+          "light-blue": "rgb(221, 232, 251)",
         },
         body: {
           700: "#0A0C11",
