@@ -38,7 +38,9 @@ module Problem = struct
   include Problem
 
   let filter_tag ?tag =
-    let f x = Option.fold ~none:(x.tags = []) ~some:(Fun.flip List.mem x.tags) tag in
+    let f x =
+      Option.fold ~none:(x.tags = []) ~some:(Fun.flip List.mem x.tags) tag
+    in
     List.filter f
 end
 
