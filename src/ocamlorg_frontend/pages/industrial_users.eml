@@ -134,9 +134,7 @@ the community and learn more about how they use OCaml."
       </div>
       <div class="flex justify-between items-center space-x-4 m-auto mt-10 mb-5 md:mb-0">
         <button aria-label="Previous" class="text-primary-600 rounded-full py-4 px-4 hover:bg-primary-100 transition duration-300" @click="swiper.slidePrev()">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-          </svg>
+            <%s! Icons.chevron_left "h-5 w-5" %>
         </button>
         <button aria-label="Next" class="text-primary-600 rounded-full py-4 px-4 hover:bg-primary-100 transition duration-300" @click="swiper.slideNext()">
             <%s! Icons.chevron_right "h-5 w-5" %>
@@ -218,17 +216,12 @@ the community and learn more about how they use OCaml."
       </div>
       <div class="grid lg:grid-cols-3 gap-8 lg:gap-16">
         <a href="<%s Url.tutorial "up-and-running" %>" class="resources-card card-hover">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-
+          <%s! Icons.play_circle "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Getting Started</p>
           <p>Install OCaml, setup your favorite text editor, and start your first project.</p>
         </a>
         <a href="<%s Url.api %>" class="resources-card card-hover">
           <%s! Icons.command_line "h-16 w-16 mb-8" %>
-      
           <p class="font-semibold text-xl mb-3">Standard Library</p>
           <p>Read the standard library documentation and search its API for functions.</p>
         </a>
