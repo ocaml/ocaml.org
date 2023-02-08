@@ -94,15 +94,15 @@ let render ~total ~search (packages : Package_intf.package list) = Layout.render
               <% ); %>
             </div>
             <div class="flex items-center space-x-2 text-sm text-body-600 mr-4">
-              <%s! Icons.hashtag_class "h-5 w-5"; %>
+              <%s! Icons.hashtag "h-5 w-5"; %>
               <div><%s package.version %></div>
             </div>
             <div class="flex items-center space-x-2 text-sm text-body-600 mr-4">
-              <%s! Icons.law_class "h-5 w-5"; %>
+              <%s! Icons.law "h-5 w-5"; %>
               <span class="text-sm hover:underline"> <%s package.license %> </span>
             </div>
             <div class="flex items-center space-x-2 text-sm text-body-600 mr-4">
-              <%s! Icons.star_class "h-5 w-5"; %>
+              <%s! Icons.star "h-5 w-5"; %>
               <div>Used by <%d List.length package.rev_deps %> other packages</div>
             </div>
             <div class="flex items-center space-x-2 text-sm text-body-600 mr-4">

@@ -171,7 +171,7 @@ Package_layout.render
                 <a href="<%s uri %>"
                     class="hover:bg-primary-600 text-primary-600 overflow-hidden hover:rounded rounded  hover:text-white">
                     <div class="p-2 bg-primary-100 text-base">
-                        <%s! Icons.downloads_class "h-6 w-6" %>
+                        <%s! Icons.downloads "h-6 w-6" %>
                     </div>
                 </a>
             </div>

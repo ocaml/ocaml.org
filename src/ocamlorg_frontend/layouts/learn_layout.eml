@@ -7,14 +7,14 @@ let sidebar_icon_link_block
   <div class="space-y-4">
     <a href="<%s Url.learn %>" class="flex justify-start items-center">
       <div class="bg-primary-600 text-white rounded w-8 h-8 flex items-center justify-center">
-        <%s! Icons.book_class "h-5 w-5" %>
+        <%s! Icons.book "h-5 w-5" %>
       </div>
       <div class="ml-3 font-semibold <%s if current != Learn then "opacity-70" else "" %>">Learn OCaml</div>
     </a>
 
     <a href="<%s Url.manual %>" class="flex justify-start items-center">
       <div class="bg-green-600 text-white rounded w-8 h-8 flex items-center justify-center">
-        <%s! Icons.document_class "h-5 w-5" %>
+        <%s! Icons.document "h-5 w-5" %>
       </div>
       <div class="ml-3 font-semibold opacity-70">Language Manual</div>
     </a>

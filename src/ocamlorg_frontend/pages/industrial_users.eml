@@ -233,7 +233,7 @@ the community and learn more about how they use OCaml."
           <p>Read the standard library documentation and search its API for functions.</p>
         </a>
         <a href="<%s Url.books %>" class="resources-card card-hover">
-          <%s! Icons.book_class "h-16 w-16 mb-8" %>
+          <%s! Icons.book "h-16 w-16 mb-8" %>
 
           <p class="font-semibold text-xl mb-3">Books</p>
           <p>What expert programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.</p>
