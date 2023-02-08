@@ -145,7 +145,7 @@ val get_packages_with_name : state -> Name.t -> t list option
 (** Get the list of packages with the given name. *)
 
 val get_package_versions : state -> Name.t -> Version.t list option
-(** Get the list of versions for a package name. *)
+(** Get the list of versions for a package name, newest coming first. *)
 
 val get_package_latest : state -> Name.t -> t option
 (** Get the latest version of a package given a package name. *)

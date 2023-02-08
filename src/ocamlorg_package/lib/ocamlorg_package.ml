@@ -183,8 +183,7 @@ let get_packages_with_name t name =
 
 let get_package_versions t name =
   t.packages |> Name.Map.find_opt name
-  |> Option.map Version.Map.bindings
-  |> Option.map (List.map fst)
+  |> Option.map (fun p -> p |> Version.Map.bindings |> List.rev_map fst)
 
 let get_package_latest t name = get_package_latest' t.packages name
 
@@ -380,7 +379,7 @@ let latest_documented_version t name =
   in
   match get_package_versions t name with
   | None -> Lwt.return None
-  | Some vlist -> aux (List.rev vlist)
+  | Some vlist -> aux vlist
 
 module Search : sig
   type search_request
