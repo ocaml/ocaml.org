@@ -12,6 +12,12 @@ date: 2021-05-27T21:07:30-00:00
 In this tutorial, we learn how to build our own types in OCaml and to write
 functions that process this new data.
 
+Please note throughout this tutorial the code is written in the `ocaml` toplevel. 
+Whereas `#` denoted a comment and `$` the command prompt in the 
+[Up & Running](https://ocaml.org/docs/up-and-running) document, 
+when in the `ocaml` or `utop` toplevel, the command prompt appears as a `#`, as shown
+in the following examples.
+
 ## Built-in Compound Types
 
 We have already seen simple data types such as `int`, `float`, `string`, and
