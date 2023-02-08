@@ -371,7 +371,7 @@ let latest_documented_version t name =
     match vlist with
     | [] -> Lwt.return None
     | version :: vlist ->
-      doc_exists t name version
+        doc_exists t name version
         >>= Option.fold ~none:(aux vlist) ~some:Lwt.return_some
   in
   match get_package_versions t name with
