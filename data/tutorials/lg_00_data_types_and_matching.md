@@ -158,7 +158,7 @@ We can match on more than one case at a time too:
 val is_primary : colour -> bool = <fun>
 ```
 
-## Constructors with Data
+## Constructors With Data
 
 Each constructor in a data type can carry additional information with it. Let's
 extend our `colour` type to allow arbitrary RGB triples, each element begin a
@@ -253,9 +253,9 @@ val t : int tree =
 
 Notice that we give the type parameter `'a` before the type name (if there is
 more than one, we write `('a, 'b)` etc).  A `Leaf` holds no information,
-just like an empty list. A `Node` holds a left tree, a value of type `'a`
+just like an empty list. A `Node` holds a left tree, a value of type `'a`,
 and a right tree. In our example, we built an integer tree, but any type can be
-used. Now we can write recursive and polymorphic functions over these trees, by
+used. Now we can write recursive and polymorphic functions over these trees by
 pattern matching on our new constructors:
 
 ```ocaml env=trees
@@ -297,7 +297,7 @@ than a simple list of pairs. It is known as a *binary search tree*:
 val insert : 'a * 'b -> ('a * 'b) tree -> ('a * 'b) tree = <fun>
 ```
 
-Similar functions can be written to look up values in a dictionary, to convert
+Similar functions can be written to look up values in a dictionary to convert
 a list of pairs to or from a tree dictionary, and so on.
 
 ## Example: Options
@@ -322,13 +322,13 @@ Here is 42, stored inside an `option` using the data carrying constructor
 
 The `None` constructor means no data is availble.
 
-In other words a value of type `t option` for some type `t` represents:
+In other words, a value of type `t option` for some type `t` represents:
 
-* either a value `v` of type `t`, wrapped as `Some v`,
-* no such value, then `o` has the value `None`.
+* either a value `v` of type `t`, wrapped as `Some v`
+* no such value, then `o` has the value `None`
 
 The option type is very useful when lack of data is better handled as a special
-value (_i.e._ `None`) rather than an exception. It is the type-safe version of
+value (_i.e.,_ `None`) rather than an exception. It is the type-safe version of
 returning error values such as in C, for instance. Since no data has any special
 meaning, confusion between regular values and absence of value is impossible. In
 computer science, this type is called the [option
@@ -336,10 +336,10 @@ type](https://en.wikipedia.org/wiki/Option_type). OCaml has supported `option`
 since its inception.
 
 The function `Sys.getenv : string -> string` from the OCaml standard library
-allows to query the value of an environment variable, however, it throws an
+allows us to query the value of an environment variable; however, it throws an
 exception if the variable is not defined. On the other hand, the function
-`Sys.getenv_opt : string -> string opt` does the same except it returns `None`
-is the variable is not defined. Here is what may happen if we try to access an
+`Sys.getenv_opt : string -> string opt` does the same, except it returns `None`
+as the variable is not defined. Here is what may happen if we try to access an
 undefined environment variable:
 
 ```ocaml
@@ -351,7 +351,7 @@ Exception: Not_found.
 
 Using pattern-matching, it is possible to define functions, allowing users to easily
 work with option values. Here is `map` of type `('a -> 'b) -> 'a option -> 'b
-option`. It allows to apply a function to the value wrapped inside an `option`,
+option`. It allows us to apply a function to the value wrapped inside an `option`,
 if present:
 
 ```ocaml
@@ -360,7 +360,7 @@ if present:
   | Some v -> Some (f v);;
 val map : ('a -> 'b) -> 'a option -> 'b option = <fun>
 ```
-`map` takes two parameters, the function `f` to be applied and an option value.
+`map` takes two parameters: the function `f` to be applied and an option value.
 `map f o` returns `Some (f v)` if `o` is `Some v` and `None` if `o` is `None`.
 
 Here is `join` of type `'a option option -> 'a option`. It peels off one layer
@@ -376,7 +376,7 @@ val join : 'a option option -> 'a option = <fun>
 `join` takes a single `option option` parameter and returns an `option`
 parameter.
 
-The function `get` of type `'a option -> 'a` allows to access the value
+The function `get` of type `'a option -> 'a` allows access to the value
 contained inside an `option`.
 ```ocaml
 # let get = function
@@ -384,7 +384,7 @@ contained inside an `option`.
   | None -> raise (Invalid_argument "option is None");;
 val get : 'a option -> 'a = <fun>
 ```
-But beware `get o` throws an exception if `o` is `None`. To access the content
+But beware, `get o` throws an exception if `o` is `None`. To access the content
 of an `option` without risking to raise an exception, the function `value` of
 type `'a option -> 'a -> 'a` can be used
 ```ocaml
@@ -418,8 +418,8 @@ OCaml standard library in the [`Stdlib.Option`](https://ocaml.org/api/Option.htm
 supporting module.
 
 By the way, any type where `map` and `join` functions can be implemented, with
-similar behaviour, can be called a _monad_ and `option` is often used to
-introduce monads. But don't freak out, you absolutely don't need to know what a
+similar behaviour, can be called a _monad_, and `option` is often used to
+introduce monads. But don't freak out! You absolutely don't need to know what a
 monad is to use the `option` type.
 
 ## Example: Mathematical Expressions
