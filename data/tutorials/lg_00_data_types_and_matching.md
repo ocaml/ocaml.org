@@ -435,7 +435,7 @@ type expr =
   | Minus of expr * expr       (* a - b *)
   | Times of expr * expr       (* a * b *)
   | Divide of expr * expr      (* a / b *)
-  | Var of string              (* "x", "y", etc. *)
+  | Var of string              (* "x", "y", etc. *);;
 ```
 
 The expression `n * (x + y)` would be written:
@@ -466,8 +466,8 @@ val to_string : expr -> string = <fun>
 val print_expr : expr -> unit = <fun>
 ```
 
-(The `^` operator concatenates strings). We separate the function into two so
-that our `to_string` function is usable in other contexts. Here's the
+(The `^` operator concatenates strings). We separate it into two functions, so
+our `to_string` function is usable in other contexts. Here's the
 `print_expr` function in action:
 
 ```ocaml env=expr
@@ -477,7 +477,7 @@ that our `to_string` function is usable in other contexts. Here's the
 ```
 
 We can write a function to multiply out expressions of the form `n * (x + y)`
-or `(x + y) * n` and for this we will use a nested pattern:
+or `(x + y) * n`, and for this we will use a nested pattern:
 
 ```ocaml env=expr
 # let rec multiply_out e =
@@ -510,19 +510,19 @@ Here it is in action:
 
 How does the `multiply_out` function work? The key is in the first two
 patterns. The first pattern is `Times (e1, Plus (e2, e3))` which matches
-expressions of the form `e1 * (e2 + e3)`. Now look at the right hand side of
-this first pattern match, and convince yourself that it is the equivalent of
+expressions of the form `e1 * (e2 + e3)`. Now look at the right-hand side of
+this first pattern match and convince yourself that it is the equivalent of
 `(e1 * e2) + (e1 * e3)`. The second pattern does the same thing, except for
 expressions of the form `(e1 + e2) * e3`.
 
-The remaining patterns don't change the form of the expression, but they
+The remaining patterns don't change the expressions's form, but they
 crucially *do* call the `multiply_out` function recursively on their
 subexpressions. This ensures that all subexpressions within the expression get
 multiplied out too (if you only wanted to multiply out the very top level of an
 expression, then you could replace all the remaining patterns with a simple `e
 -> e` rule).
 
-Can we do the reverse (i.e. factorizing out common subexpressions)? We can!
+Can we do the reverse (i.e., factorizing out common subexpressions)? We can!
 (But it's a bit more complicated). The following version only works for the top
 level expression. You could certainly extend it to cope with all levels of an
 expression and more complex cases:
