@@ -83,9 +83,7 @@ type person = { first_name : string; surname : string; mutable age : int; }
 val birthday : person -> unit = <fun>
 ```
 
-Please note: in the above example, we used the UK spelling of *colour*, but it will also
-work with the US spelling *color*.
-
+Please note: in the above example, we chose "colour" as the name of a type that holds RGB-values. If you wanted to, you could also use the US spelling "color".
 Another mutable compound data type is the fixed-length array which, just as a
 list, must contain elements of like type. However, its elements may be accessed
 in constant time:
