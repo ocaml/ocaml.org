@@ -83,7 +83,7 @@ Package_layout.render
               Documentation failed to build.
             </a><% ));%>
             <% homepages |> List.iter (fun homepage -> %>
-            <%s! side_box_link ~icon_html:(Icons.homepage "h-4 w-4 mr-2 inline-block") ~href:homepage ~title:(Utils.host_of_uri homepage) %>
+            <%s! side_box_link ~icon_html:(Icons.package_homepage "h-4 w-4 mr-2 inline-block") ~href:homepage ~title:(Utils.host_of_uri homepage) %>
             <% ); %>
             <% (match changes_filename with Some changes_filename -> %>
             <%s! side_box_link ~icon_html:(Icons.changelog "h-4 w-4 mr-2 inline-block") ~href:(Url.package_doc package.name package.version ~page:(changes_filename ^ ".html")) ~title:"Changelog" %>

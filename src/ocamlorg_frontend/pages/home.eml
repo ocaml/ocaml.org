@@ -99,11 +99,7 @@ Layout.render
         <div class="lg:flex-1 mt-10 lg:mt-0">
           <div class="text-body-400 text-base">
             <div class="h-12 w-12 text-white rounded-xl flex bg-gradient-to-br from-blue-400 to-blue-600">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 m-auto" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
+              <%s! Icons.shield_check "h-7 w-7 m-auto" %>
             </div>
             <div class="text-lg my-4 font-bold" style="color: #225b90">
               BE SAFE
@@ -123,11 +119,7 @@ Layout.render
         <div class="lg:flex-1">
           <div class="text-body-400 text-base">
             <div class="h-12 w-12 text-white rounded-xl flex bg-gradient-to-br from-teal-400 to-teal-600">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 m-auto" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd"
-                  d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
-                  clip-rule="evenodd" />
-              </svg>
+              <%s! Icons.lightning "h-7 w-7 m-auto" %>
             </div>
             <div class="text-lg my-4 font-bold text-teal-800">BUILD FASTER</div>
             <h3 class="text-body-600 font-bold">
@@ -147,11 +139,7 @@ Layout.render
         <div class="lg:flex-1 mt-10 lg:mt-0 flex items-center">
           <div class="text-body-400 text-base">
             <div class="h-12 w-12 text-white rounded-xl flex bg-gradient-to-br from-purple-400 to-purple-600">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 m-auto" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
-              </svg>
+              <%s! Icons.home_tooling "h-7 w-7 m-auto" %>
             </div>
             <div class="text-lg my-4 font-bold text-purple-600">
               WORK JOYFULLY
@@ -332,11 +320,7 @@ Layout.render
         <div class="flex flex-row items-center justify-between relative pb-8">
           <h3 class="font-semibold">For Educators</h3>
           <div>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
-            </svg>
+            <%s! Icons.for_educators "h-14 w-14" %>
             <div class="absolute w-20 h-20 top-0 -right-10 rounded-full bg-primary-100"></div>
           </div>
         </div>
@@ -351,11 +335,7 @@ Layout.render
         <div class="flex flex-row items-center justify-between relative pb-8">
           <h3 class="font-semibold">For Industrial Users</h3>
           <div>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-            </svg>
+            <%s! Icons.for_industrial_users "h-14 w-14" %>
             <div class="absolute w-20 h-20 top-0 -right-10 rounded-full bg-primary-100"></div>
           </div>
         </div>
