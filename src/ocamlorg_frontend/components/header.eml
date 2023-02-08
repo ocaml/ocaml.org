@@ -103,11 +103,7 @@ let render
       <li>
         <form action="/packages/search" method="GET" class="form-input form-input-sm">
           <div class="form-input__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-body-400" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                id="magnifying_glass" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+            <%s! Icons.magnifying_glass "h-5 w-5 text-body-400" %>
           </div>
           <input class="focus:ring-orange-500" type="search" name="q" placeholder="Search OCaml packages">
         </form>

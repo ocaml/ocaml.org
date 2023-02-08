@@ -30,20 +30,7 @@ Layout.render
             class="hover:text-primary-600 h-28 w-28 rounded-lg hover:bg-primary-100 inline-block transition-colors"
             href="#history"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-10 w-10 mb-4 m-auto mt-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                id="clock" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
+            <%s Icons.clock "h-10 w-10 mb-4 m-auto mt-6" %>
             <div class="font-semibold text-lg">History</div>
           </a>
         </div>
