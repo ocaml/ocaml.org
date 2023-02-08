@@ -144,6 +144,9 @@ let render ~total ~search (packages : Package_intf.package list) = Layout.render
               </svg>
               <div>Used by <%d List.length package.rev_deps %> other packages</div>
             </div>
+            <div class="flex items-center space-x-2 text-sm text-body-600 mr-4">
+              Last published <%s Utils.human_date_of_timestamp package.publication %>
+            </div>
           </div>
         </div>
         <% ); %>
