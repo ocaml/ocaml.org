@@ -44,15 +44,12 @@ Package_layout.render
                     class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-700 text-sm font-medium rounded-r-md text-gray-100 bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
                     @click="$clipboard('opam install <%s package.name %>.<%s package.version %>'); copied = true; setTimeout(() => copied = false, 2000)"
                     :class="{ 'border-gray-700': !copied, 'text-gray-100': !copied, 'focus:ring-orange-500': !copied, 'focus:border-orange-500': !copied, 'border-green-600': copied, 'text-green-600': copied, 'focus:ring-green-500': copied, 'focus:border-green-500': copied }">
-                    <svg x-show="!copied" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                    </svg>
-                    <svg x-show="copied" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
+                    <div x-show="!copied" class="h-6 w-6">
+                      <%s! Icons.copy_to_clipboard "h-6 w-6" %>
+                    </div>
+                    <div x-show="copied" class="h-6 w-6">
+                      <%s! Icons.copied_to_clipboard "h-6 w-6" %>
+                    </div>
                 </div>
             </div>
         </div>
@@ -72,25 +69,17 @@ Package_layout.render
             <% (match documentation_status with
             | `Success -> %>
             <a href="<%s Url.package_doc package.name package.version %>" class="px-4 h-10 items-center mb-2 rounded-md bg-primary-600 text-white flex font-bold hover:underline">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2 inline-block" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-              </svg>
+              <%s! Icons.documentation "w-6 h-6 mr-2 inline-block" %>
               Documentation
             </a>
             <% | `Unknown -> ( %>
             <a href="<%s Url.package_doc package.name package.version %>" class="p-4 mb-2 flex gap-x-2 bg-background-default text-gray-600 font-semibold text-base">
-              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#4b5563">
-                <path d="M0 0h24v24H0V0z" fill="none"/>
-                <path d="M15.32 3H8.68c-.26 0-.52.11-.7.29L3.29 7.98c-.18.18-.29.44-.29.7v6.63c0 .27.11.52.29.71l4.68 4.68c.19.19.45.3.71.3h6.63c.27 0 .52-.11.71-.29l4.68-4.68c.19-.19.29-.44.29-.71V8.68c0-.27-.11-.52-.29-.71l-4.68-4.68c-.18-.18-.44-.29-.7-.29zM12 17.3c-.72 0-1.3-.58-1.3-1.3s.58-1.3 1.3-1.3 1.3.58 1.3 1.3-.58 1.3-1.3 1.3zm0-4.3c-.55 0-1-.45-1-1V8c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1z"/>
-              </svg>
+              <%s! Icons.error "w-6 h-6" %>
               Documentation status is unknown.
             </a><% )
             | `Failure -> ( %>
             <a href="<%s Url.package_doc package.name package.version %>" class="p-4 mb-2 flex gap-x-2 bg-background-default text-gray-600 font-semibold text-base">
-              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#4b5563">
-                <path d="M0 0h24v24H0V0z" fill="none"/>
-                <path d="M15.32 3H8.68c-.26 0-.52.11-.7.29L3.29 7.98c-.18.18-.29.44-.29.7v6.63c0 .27.11.52.29.71l4.68 4.68c.19.19.45.3.71.3h6.63c.27 0 .52-.11.71-.29l4.68-4.68c.19-.19.29-.44.29-.71V8.68c0-.27-.11-.52-.29-.71l-4.68-4.68c-.18-.18-.44-.29-.7-.29zM12 17.3c-.72 0-1.3-.58-1.3-1.3s.58-1.3 1.3-1.3 1.3.58 1.3 1.3-.58 1.3-1.3 1.3zm0-4.3c-.55 0-1-.45-1-1V8c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1z"/>
-              </svg>
+              <%s! Icons.error "w-6 h-6" %>
               Documentation failed to build.
             </a><% ));%>
             <% homepages |> List.iter (fun homepage -> %>
@@ -102,7 +91,7 @@ Package_layout.render
             <% (match license_filename with Some license_filename -> %>
             <%s! side_box_link ~icon_html:(Icons.license "h-4 w-4 mr-2 inline-block") ~href:(Url.package_doc package.name package.version ~page:(license_filename ^ ".html")) ~title:( package.license ^ " License") %>
             <% | _ -> ()); %>
-            <%s! side_box_link ~icon_html:(Icons.license "h-4 w-4 mr-2 inline-block") ~href:(Url.github_opam_file package.name package.version) ~title:"Edit opam file" %>
+            <%s! side_box_link ~icon_html:(Icons.edit "h-4 w-4 mr-2 inline-block") ~href:(Url.github_opam_file package.name package.version) ~title:"Edit opam file" %>
         </div>
 
         <dl>
@@ -154,11 +143,7 @@ Package_layout.render
         <div class="font-semibold mt-8 mb-3 text-base text-body-400">Sources</div>
         <div class="flex p-3 rounded-xl border border-gray-200 items-center justify-between">
             <div class="flex">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2"
-                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-                </svg>
+              <%s! Icons.package_sources "h-5 w-5 mr-2" %>
             </div>
             <div class="overflow-x-auto">
                 <%s Filename.basename uri %>
@@ -171,7 +156,7 @@ Package_layout.render
                 <a href="<%s uri %>"
                     class="hover:bg-primary-600 text-primary-600 overflow-hidden hover:rounded rounded  hover:text-white">
                     <div class="p-2 bg-primary-100 text-base">
-                        <%s! Icons.downloads "h-6 w-6" %>
+                        <%s! Icons.download "h-6 w-6" %>
                     </div>
                 </a>
             </div>
