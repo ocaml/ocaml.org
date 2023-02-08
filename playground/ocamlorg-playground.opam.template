@@ -1,6 +1,6 @@
 pin-depends: [
   ["esbuild.dev" "git+https://github.com/tmattio/opam-esbuild#7738af5912cc9f554d31da81d2334e88052102fb"]
   ["code-mirror.dev" "git+https://github.com/patricoferris/jsoo-code-mirror#8fe48910e265ff87f9fc94ceb7b3d19fac102a96"]
-  ["merlin-js.dev" "git+https://github.com/voodoos/merlin-js#29a7f686f61299c251f60f2319e30ade4feaf141"]
+  ["merlin-js.dev" "git+https://github.com/voodoos/merlin-js#3a8c83e03d629228b8a8394ecafc04523b0ab93f"]
   ["js-top-worker.dev" "git+https://github.com/tmattio/js_top_worker#6110d50db0ce8577e6d662fa06d5ae9cc0c95ea1"]
 ]
