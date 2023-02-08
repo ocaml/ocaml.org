@@ -156,7 +156,9 @@ val get_package : state -> Name.t -> Version.t -> t option
 val latest_documented_version : state -> Name.t -> Version.t option Lwt.t
 (** Find the latest documented version of a package. **)
 
-val search_package : state -> string -> t list
+type search_result = { score : float; package : t }
+
+val search_package : state -> string -> search_result list
 (** Search package that match the given string.
 
     Packages returned contain the string either in the name, tags, synopsis or

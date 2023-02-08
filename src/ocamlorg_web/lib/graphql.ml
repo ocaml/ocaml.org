@@ -36,7 +36,8 @@ let packages_list ?contains offset limit all_packages t =
   | Some letters ->
       List.filteri
         (fun i _ -> offset <= i && i < offset + limit)
-        (Package.search_package t letters)
+        (Package.search_package t letters
+        |> List.map (fun (r : Package.search_result) -> r.package))
 
 let all_packages_result ?contains offset limit t =
   let all_packages = Package.all_packages_latest t in

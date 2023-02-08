@@ -381,6 +381,8 @@ let latest_documented_version t name =
   | None -> Lwt.return None
   | Some vlist -> aux vlist
 
+type search_result = { score : float; package : t }
+
 module Search : sig
   type search_request
   type score
@@ -388,7 +390,7 @@ module Search : sig
   val to_request : string -> search_request
   val match_request : search_request -> t -> bool
   val score : t -> search_request -> score
-  val compare_score : score -> score -> int
+  val score_to_float : score -> float
 end = struct
   type search_constraint =
     | Tag of string
@@ -519,25 +521,20 @@ end = struct
     in
     List.fold_left update_score null query
 
-  let compare_score s1 s2 =
-    if s1.exact_name != s2.exact_name then
-      Int.compare s2.exact_name s1.exact_name
-    else if s1.name != s2.name then Int.compare s2.name s1.name
-    else if s1.exact_author != s2.exact_author then
-      Int.compare s2.exact_author s1.exact_author
-    else if s1.author != s2.author then Int.compare s2.author s1.author
-    else if s1.exact_tag != s2.exact_tag then
-      Int.compare s2.exact_tag s1.exact_tag
-    else if s1.tag != s2.tag then Int.compare s2.tag s1.tag
-    else if s1.synopsis != s2.synopsis then Int.compare s2.synopsis s1.synopsis
-    else Int.compare s2.description s1.description
+  let score_to_float score =
+    Float.of_int
+      ((4 * score.name) + (10 * score.exact_name) + (2 * score.author)
+     + score.tag + (2 * score.exact_tag) + score.synopsis + score.description)
 end
 
 let search_package t pattern =
   let request = Search.to_request pattern in
   all_packages_latest t
   |> List.filter (Search.match_request request)
-  |> List.sort (fun package1 package2 ->
-         Search.compare_score
-           (Search.score package1 request)
-           (Search.score package2 request))
+  |> List.map (fun package ->
+         {
+           score = Search.score_to_float (Search.score package request);
+           package;
+         })
+  |> List.sort (fun (r1 : search_result) (r2 : search_result) ->
+         Float.compare r2.score r1.score)

@@ -157,6 +157,7 @@ let state_test () =
   let state = Package.state_of_package_list packages in
   let pkg =
     Package.search_package state "abt"
+    |> List.map (fun (r : Package.search_result) -> r.package)
     |> List.map Package.name
     |> List.map Package.Name.to_string
   in
