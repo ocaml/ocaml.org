@@ -345,14 +345,12 @@ let packages state _req =
 let packages_search t req =
   match Dream.query req "q" with
   | Some search ->
-      let packages = Ocamlorg_package.search_package t search in
+      let packages =
+        Ocamlorg_package.search_package ~by_popularity:true t search
+      in
       let total = List.length packages in
       let results = List.map (package_meta t) packages in
       let search = Dream.from_percent_encoded search in
-      (* Sort by popularity: *)
-      (* let results = List.sort (fun (x1 : Ocamlorg_frontend.package) (x2 :
-         Ocamlorg_frontend.package) -> Int.compare (List.length x2.rev_deps)
-         (List.length x1.rev_deps)) results in *)
       Dream.html (Ocamlorg_frontend.packages_search ~total ~search results)
   | None -> Dream.redirect req Ocamlorg_frontend.Url.packages
 

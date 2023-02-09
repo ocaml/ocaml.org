@@ -383,12 +383,11 @@ let latest_documented_version t name =
 
 module Search : sig
   type search_request
-  type score
 
   val to_request : string -> search_request
   val match_request : search_request -> t -> bool
-  val score : t -> search_request -> score
-  val compare_score : score -> score -> int
+  val compare : search_request -> t -> t -> int
+  val compare_by_popularity : search_request -> t -> t -> int
 end = struct
   type search_constraint =
     | Tag of string
@@ -519,25 +518,31 @@ end = struct
     in
     List.fold_left update_score null query
 
-  let compare_score s1 s2 =
-    if s1.exact_name != s2.exact_name then
-      Int.compare s2.exact_name s1.exact_name
-    else if s1.name != s2.name then Int.compare s2.name s1.name
-    else if s1.exact_author != s2.exact_author then
-      Int.compare s2.exact_author s1.exact_author
-    else if s1.author != s2.author then Int.compare s2.author s1.author
-    else if s1.exact_tag != s2.exact_tag then
-      Int.compare s2.exact_tag s1.exact_tag
-    else if s1.tag != s2.tag then Int.compare s2.tag s1.tag
-    else if s1.synopsis != s2.synopsis then Int.compare s2.synopsis s1.synopsis
-    else Int.compare s2.description s1.description
+  let score_to_float score =
+    Float.of_int
+      ((4 * score.name) + (10 * score.exact_name) + (2 * score.author)
+     + score.tag + (2 * score.exact_tag) + score.synopsis + score.description)
+
+  let adjust_score_by_popularity query p =
+    (score p query |> score_to_float)
+    *. (1.0 +. Float.log (Float.of_int (List.length p.info.rev_deps + 1)))
+
+  let compare query p1 p2 =
+    let s1 = score p1 query |> score_to_float in
+    let s2 = score p2 query |> score_to_float in
+    Float.compare s2 s1
+
+  let compare_by_popularity query p1 p2 =
+    let s1 = adjust_score_by_popularity query p1 in
+    let s2 = adjust_score_by_popularity query p2 in
+    Float.compare s2 s1
 end
 
-let search_package t pattern =
+let search_package ?(by_popularity = false) t pattern =
+  let compare =
+    Search.(if by_popularity then compare_by_popularity else compare)
+  in
   let request = Search.to_request pattern in
   all_packages_latest t
   |> List.filter (Search.match_request request)
-  |> List.sort (fun package1 package2 ->
-         Search.compare_score
-           (Search.score package1 request)
-           (Search.score package2 request))
+  |> List.sort (compare request)
