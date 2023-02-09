@@ -46,9 +46,7 @@ Next, we have tuples, which collect a fixed number of elements together:
 (true, 0., 0.45, 0.73, "french blue")
 ```
 
-We have records, which are like labeled tuples. They are sequences, like lists, defined by writing a
-type definition giving a name for the record and names for each of its fields,
-including their types:
+We have records, which are like labeled tuples. In tuples, a field sits at some place: first, second, third, etc. In records, a field has a name; order is no longer relevant. Therefore, a record definition is a set of field name and type:
 
 ```ocaml
 # type point = {x : float; y : float};;
