@@ -32,7 +32,7 @@ Lists are finite, meaning they always contain a finite number of elements. Seque
 be finite or infinite.
 
 The goal of this exercise is to define a type `'a stream` which only contains
-infinite sequences. Using this type, define the functions following functions:
+infinite sequences. Using this type, define the following functions:
 ```ocaml
 val hd : 'a stream -> 'a
 (** Returns the first element of a stream *)
