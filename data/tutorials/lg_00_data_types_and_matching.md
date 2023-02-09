@@ -550,19 +550,11 @@ what are known as *guards* to each pattern match. A guard is the conditional
 which follows the `when`, and it means that the pattern match only happens if
 the pattern matches *and* the condition in the `when`-clause is satisfied.
 
-<!-- $MDX skip -->
-```ocaml
-match value with
-| pattern [ when condition ] -> result
-| pattern [ when condition ] -> result
-  ...
-```
+The second feature is the `=` operator, which tests for "structural equality"
+between two expressions. That means it goes recursively into each expression,
+checking they're exactly the same at all levels.
 
-The second feature is the `=` operator which tests for "structural equality"
-between two expressions. That means it goes recursively into each expression
-checking they're exactly the same at all levels down.
-
-Another feature which is useful when we build more complicated nested patterns
+Another useful feature when building more complicated nested patterns
 is the `as` keyword, which can be used to name part of an expression. For
 example:
 
@@ -581,7 +573,7 @@ Data types may be mutually-recursive when declared with `and`:
 type t = A | B of t' and t' = C | D of t
 ```
 
-One common use for mutually-recursive data types is to *decorate* a tree, by
+One common use for mutually-recursive data types is to *decorate* a tree by
 adding information to each node using mutually-recursive types, one of which is
 a tuple or record. For example:
 
@@ -609,9 +601,9 @@ val sum_t : t -> int = <fun>
 There is a difference between `RGB of float * float * float` and
 `RGB of (float * float * float)`.
 The first is a constructor with three pieces of data
-associated with it, the second is a constructor with one tuple associated with
+associated with it, and the second is a constructor with one tuple associated with
 it. There are two ways this matters: the memory layout differs between the two
-(a tuple is an extra indirection), and the ability to create or match using a
+(a tuple is an extra indirection) and the ability to create or match using a
 tuple:
 
 ```ocaml
@@ -641,7 +633,7 @@ Error: The constructor T expects 2 argument(s),
        but is applied here to 1 argument(s)
 ```
 
-Note, however, that OCaml allows us to use the always-matching `_` in either
+Please note, however, that OCaml allows us to use the always-matching `_` in either
 version:
 
 ```ocaml
@@ -674,5 +666,5 @@ val rotate : float -> t -> t
 ```
 
 Traditionally, we name the type `t`. In the program using this library, it
-would then be `Png.t` which is shorter, reads better than `Png.png`, and avoids
+would then be `Png.t`, which is shorter, reads better than `Png.png`, and avoids
 confusion if the library also defines other types.
