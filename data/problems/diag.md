@@ -23,8 +23,3 @@ The first element of the returned sequence is the first element of the first
 sequence; the second element of the returned sequence is the second element of
 the second sequence; the third element of the returned sequence is the third
 element of the third sequence; and so on.
-
-
-By taking the first element of the
-first sequence, the second element of the second sequence
-

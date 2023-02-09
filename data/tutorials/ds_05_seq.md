@@ -11,13 +11,8 @@ date: 2023-01-12T09:00:00-01:00
 
 ## Prerequisites
 
-| Concept | Status | Documentation | Reference |
-|---|---|---|---|
-| Basic types | Mandatory | | |
-| Functions | Mandatory | | |
-| Lists   | Mandatory |   |   |
-| Options | Recommended |   |   |
-| Arrays  | Nice to have |   |   |
+You should be comfortable with writing functions over lists and, ideally,
+understand what an option is.
 
 ## Introduction
 
@@ -85,7 +80,7 @@ has the same behaviour as `List.iter`. Writing this:
 ```ocaml
 # Seq.iter print_int (ints 0);;
 ```
-in an OCaml toplevel means “print integers forever,” and you have to type
+in an OCaml top-level means “print integers forever,” and you have to type
 `Ctrl-C` to interrupt the execution. Perhaps more interestingly, the following
 code is also an infinite loop:
 ```ocaml
@@ -267,7 +262,7 @@ Functions working with sequences must be written accordingly.
 * Sequence consumer: partially applied function parameter
 * Sequence producer: partially applied function result
 
-When code dealing with sequences does not behave as expected, like if
+When code dealing with sequences does not behave as expected like if
 it is crashing or hanging, there's a fair chance a mistake like in the first
 definition of `fibs` was made.
 
