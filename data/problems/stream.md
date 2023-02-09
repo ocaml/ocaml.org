@@ -58,4 +58,4 @@ val of_seq : 'a Seq.t -> 'a stream
 (** Translates an ['a Seq.t] into an ['a stream]
     @raise Failure if the input sequence is finite. *)
 ```
-Pro tip: Use irrefutable patterns.
+**Tip:** Use `let ... =` patterns.
