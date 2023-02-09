@@ -539,7 +539,9 @@ end = struct
 end
 
 let search_package ?(by_popularity = false) t pattern =
-  let compare = Search.(if by_popularity then compare_by_popularity else compare) in
+  let compare =
+    Search.(if by_popularity then compare_by_popularity else compare)
+  in
   let request = Search.to_request pattern in
   all_packages_latest t
   |> List.filter (Search.match_request request)
