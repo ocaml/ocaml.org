@@ -342,35 +342,14 @@ let packages state _req =
   in
   Dream.html (Ocamlorg_frontend.packages stats featured_packages)
 
-type frontend_package_result = {
-  score : float;
-  package : Ocamlorg_frontend.package;
-}
-
 let packages_search t req =
-  let adjust_score_by_popularity (r : frontend_package_result) =
-    r.score
-    *. (1.0 +. Float.log (Float.of_int (List.length r.package.rev_deps + 1)))
-  in
   match Dream.query req "q" with
   | Some search ->
-      let package_search_results = Ocamlorg_package.search_package t search in
-      let total = List.length package_search_results in
-      let results : frontend_package_result list =
-        List.map
-          (fun (r : Ocamlorg_package.search_result) ->
-            { score = r.score; package = package_meta t r.package })
-          package_search_results
-      in
+      let packages = Ocamlorg_package.search_package ~by_popularity:true t search in
+      let total = List.length packages in
+      let results = List.map (package_meta t) packages in
       let search = Dream.from_percent_encoded search in
       (* Adjust search ranking by popularity: *)
-      let results =
-        results
-        |> List.map (fun (r : frontend_package_result) ->
-               (adjust_score_by_popularity r, r.package))
-        |> List.sort (fun (s1, _) (s2, _) -> Float.compare s2 s1)
-        |> List.map (fun (_, package) -> package)
-      in
       Dream.html (Ocamlorg_frontend.packages_search ~total ~search results)
   | None -> Dream.redirect req Ocamlorg_frontend.Url.packages
 
