@@ -351,7 +351,6 @@ let packages_search t req =
       let total = List.length packages in
       let results = List.map (package_meta t) packages in
       let search = Dream.from_percent_encoded search in
-      (* Adjust search ranking by popularity: *)
       Dream.html (Ocamlorg_frontend.packages_search ~total ~search results)
   | None -> Dream.redirect req Ocamlorg_frontend.Url.packages
 
