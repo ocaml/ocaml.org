@@ -543,6 +543,4 @@ let search_package ?(by_popularity = false) t pattern =
   let request = Search.to_request pattern in
   all_packages_latest t
   |> List.filter (Search.match_request request)
-  |> List.sort
-       ((if by_popularity then Search.compare_by_popularity else Search.compare)
-          request)
+  |> List.sort (compare request)
