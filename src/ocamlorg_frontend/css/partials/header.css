@@ -1,0 +1,7 @@
+.header__search::placeholder {
+  @apply text-gray-500;
+}
+
+.header__search:focus {
+  box-shadow: none;
+}
