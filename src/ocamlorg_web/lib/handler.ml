@@ -345,7 +345,9 @@ let packages state _req =
 let packages_search t req =
   match Dream.query req "q" with
   | Some search ->
-      let packages = Ocamlorg_package.search_package ~by_popularity:true t search in
+      let packages =
+        Ocamlorg_package.search_package ~by_popularity:true t search
+      in
       let total = List.length packages in
       let results = List.map (package_meta t) packages in
       let search = Dream.from_percent_encoded search in
