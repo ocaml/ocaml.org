@@ -1,0 +1,231 @@
+rounds:
+  - name: Summer 2014
+    projects:
+      - title: "MirageOS contributions and improvements"
+        description: ""
+        mentee: "Mindy Preston"
+        blog: http://www.somerandomidiot.com/blog/2014/08/22/opw-fin/
+        source: https://github.com/mirage
+        mentors:
+          - Richard Mortier
+          - Anil Madhavapeddy
+      - title: "MirageOS cloud API support"
+        description: |
+          MirageOS (see http://xenproject.org/developers/teams/mirage-os.html,
+          http://www.openmirage.org/) is a type-safe unikernel written in OCaml
+          which generates highly specialised "appliance" VMs that run directly
+          on Xen without requiring an intervening kernel. A MirageOS
+          application typically runs via several communicating kernel instances
+          on the cloud. Today these instances are difficult to manage; we would
+          like to explore strategies for managing these distributed
+          computations using common public cloud APIs such as those exposed by
+          Amazon EC2 and Rackspace.
+
+          First we need to create pure OCaml API bindings for (e.g.) EC2 and
+          Rackspace (purity is needed to ensure portability). These API
+          bindings can then be used to provide operating-system-level
+          abstractions to the unikernels. For example, a traditional VM might
+          hotplug a vCPU; while a MirageOS application would request a "VM create"
+          using the cloud API and "connect" the new instance to the existing
+          network. We should be able to spin up 1000s of "CPUs" by using such
+          APIs in a cluster environment.
+
+          As well as helping Xen/Mirage, the public cloud API bindings will be
+          very useful to other people in other contexts -- a nice side-effect.
+        mentee: "Jyotsna Prakash"
+        blog: http://www.somerandomidiot.com/blog/2014/08/22/opw-fin/
+        source: https://github.com/moonlightdrive/ocaml-ec2
+        mentors:
+          - David Scott
+          - Anil Madhavapeddy
+  - name: Winter 2015
+    projects:
+      - title: "NTP Support for MirageOS"
+        description: ""
+        mentee: "Kia"
+        blog: "https://matildah.github.io"
+        source: https://github.com/softminus/mirage-ntp
+        mentors:
+          - Hannes Mehnert
+  - name: Summer 2016
+    projects:
+      - title: "MirageOS"
+        description: ""
+        mentee: Gina Marie Maini
+        blog: https://github.com/wiredsister
+        source: https://github.com/verbosemode/syslogd-mirage
+        mentors:
+          - Mindy Preston
+  - name: Summer 2019
+    projects:
+      - title: "Test the OCaml compiler with code coverage tools"
+        description: ""
+        mentee: "Oxana Kostikova"
+        blog: "https://lereenadem.wixsite.com/personal"
+        source: https://github.com/ocaml/ocaml
+        mentors:
+         - Sébastien Hinderer
+         - Florian Angeletti
+      - title: "Test the OCaml compiler with random tests and a reference interpreter"
+        description: >
+          The aim of this project is to extend an existing testcase-generator for the OCaml compiler,
+          using a reference interpreter (existing or newly developed) to find a lot of bugs in the compiler,
+          and fix as much of them as possible.
+        mentee: "Ulugbek Abdullaev"
+        source: https://github.com/ocaml/ocaml
+        blog: "https://ulugbekna.github.io"
+        mentors:
+         - Gabriel Scherer
+         - Jan Midtgaard
+  - name: Summer 2020
+    projects:
+      - title: "Reducing global mutable state in the OCaml compiler codebase"
+        description: ""
+        mentee: "Anukriti Kumar"
+        blog: "https://anukriti12.github.io"
+        source: https://github.com/ocaml/ocaml
+        mentors:
+         - Guillaume Bury
+         - Vincent Laviron
+      - title: "Structured output format for the OCaml compiler messages"
+        description: >
+          Usually, the output messages from the compiler are a bit more difficult to read for a machine
+          and hence it's more time consuming to find the warnings, errors, etc. and their origin. By producing
+          a structured output for compiler messages, other tools can more easily interoperate with them and
+          provide tooling on top of the messages.
+        mentee: "Muskan Garg"
+        source: https://github.com/ocaml/ocaml
+        blog: "https://medium.com/@muskangarg994/outreachy-101-d285507c54f7"
+        mentors:
+         - Florian Angeletti
+  - name: Summer 2021
+    projects:
+      - title: "Create opam package search"
+        description: >
+          opam is the source-based package manager for OCaml code. This project comprises of writing a new web
+          client for rendering output from the opam package database. There is a JSON endpoint on opam.ocaml.org
+          which provides information about packages which would provide metadata about the packages.  We can extend
+          this JSON metadata to include all the opam packages (not just the top 10) and use that to power a search
+          frontend for the website. This may include presenting the data as a GraphQL endpoint with the frontend
+          querying that endpoint using GraphQL.
+        mentee: "Odinaka Joy"
+        blog: "https://www.dinakajoy.com"
+        source: https://github.com/ocaml/ocaml.org
+        mentors:
+         - Sonja Heinze
+         - Patrick Ferris
+      - title: "Improve the ocaml.org website"
+        description: >
+          OCaml.org is the main website for OCaml, a functional, typed, high-level programming language. This project
+          revolves around improving the website on multiple different fronts including: layout, accessibility and content.
+        mentee: "Diksha Gupta"
+        blog: "https://dikshagupta99.wordpress.com/blog/"
+        source: https://github.com/ocaml/ocaml.org
+        mentors:
+         - Isabella Leandersson
+         - Patrick Ferris
+         - Gargi Sharma
+      - title: "Improve the ocaml.org website"
+        description: >
+          OCaml.org is the main website for OCaml, a functional, typed, high-level programming language. This project
+          revolves around improving the website on multiple different fronts including: layout, accessibility and content.
+        mentee: "Shreya kumari Gupta"
+        source: https://github.com/ocaml/ocaml.org
+        blog: "https://shreyaswikriti693235797.wordpress.com/blog/"
+        mentors:
+         - Isabella Leandersson
+         - Anil Madhavapeddy
+         - Patrick Ferris
+         - Gargi Sharma
+  - name: Winter 2021
+    projects:
+      - title: "Build a monitoring dashboard for OCaml.org"
+        description: ""
+        mentee: "Jiae Kam"
+        source: https://github.com/ocaml/ocaml.org
+        blog: "https://jiaek.wordpress.com"
+        mentors:
+         - Thibaut Mattio
+         - Patrik Keller
+      - title: "Improve the OCaml meta-programming ecosystem"
+        description: |
+          It's common for programming languages to provide some way to meta-program
+          in order to preprocess code before reaching the last compilation step,
+          for example, in the form of macros or templates. The OCaml compiler
+          doesn't provide a full built-in macro system, but the OCaml parser does
+          provide syntax for preprocessing purposes: attributes
+          (https://v3.ocaml.org/docs/metaprogramming#attributes-and-derivers) and
+          extension points
+          (https://v3.ocaml.org/docs/metaprogramming#extension-nodes-and-extenders).
+          We -the OCaml community- also have an official framework, called
+          `ppxlib`, to write preprocessors -called PPXs- based on that syntax and
+          integrate them into the compilation process.
+
+          However, it's on the OCaml community to write and provide important PPXs
+          to the OCaml developers. We've noticed that having the most important
+          PPXs under the official PPX github organization -next to `ppxlib`- is
+          helpful: developers can easily find them; developers can trust them;
+          they're well-written and hygienic, so that developers can use them as
+          how-to guides for writing other PPXs. In this project, you'll write
+          one or some of those official standard PPXs.
+        mentee: "Aya Sharaf"
+        source: https://github.com/ocaml-ppx/ppxlib
+        blog: "https://outreachyxocaml.wordpress.com"
+        mentors:
+         - Shon Feder
+         - Sonja Heinze
+         - Patrik Keller
+      - title: "Support .eml files in OCaml's VSCode extension"
+        description: ""
+        source: https://github.com/ocamllabs/vscode-ocaml-platform
+        mentee: "Sayo Bamigbade"
+        blog: "https://saysayoblog.wordpress.com"
+        mentors:
+         - Thibaut Mattio
+         - Gargi Sharma
+         - Patrik Keller
+  - name: Summer 2022
+    projects:
+      - title: "Expand OCaml 5.0 Parallel Benchmark suite"
+        description: >
+          OCaml 5.0 will be live soon! It ships with support for shared-memory parallelism and concurrency
+          OCaml has missed all these years. This will be accompanied by a robust set of Multicore libraries
+          useful for parallel programming. The Multicore compiler and libraries are under active development
+          and will continue to evolve as the OCaml ecosystem moves towards Multicore.
+
+          For assessing the impact of new features in the OCaml compiler and Multicore libraries, we have a
+          set of sequential and parallel benchmarks present in our benchmark suite. While the sequential benchmarks
+          contain many real-world applications, a wider set of parallel benchmarks would be useful.
+
+          This project entails gathering the parallel benchmarks available at various places like
+          https://github.com/ckoparkar/ocaml-benchmarks and making them available in the benchmark suite.
+        mentee: "Moazzam Moriani"
+        blog: "https://moazzammoriani.github.io/mm/"
+        source: https://github.com/ocaml-bench/sandmark
+        mentors:
+         - Sudha Parimala
+      - title: "Extend OCaml's GeoJSON library to support TopoJSON"
+        description: >
+          TopoJSON is an extension to GeoJSON to encode topology. This allows for redundant data
+          to be removed and file sizes to be greatly reduced. This is often very desirable especially
+          when working with data in the browser. This project looks to extend ocaml-geojson to support TopoJSON.
+        mentee: "Jay Dev Jha"
+        blog: "https://jaydevdotcom.wordpress.com/home/"
+        source: https://github.com/geocaml/ocaml-topojson
+        mentors:
+         - Patrick Ferris
+  - name: Winter 2022
+    projects:
+      - title: "Implement a non-blocking, streaming codec for TopoJSON"
+        description: >
+          TopoJSON is an extension to GeoJSON to encode topology. This allows for redundant data to be removed and file
+          sizes to be greatly reduced. This is often very desirable especially when working with data in the browser. In a previous
+          Outreachy internship a new OCaml library was implemented to provide an OCaml library for TopoJSON, this project will
+          build on this adding more functionality to the library and providing a non-blocking, streaming codec version similar
+          to the geojsone library.
+        mentee: "Prisca Chidimma Maduka"
+        source: https://github.com/geocaml/ocaml-topojson
+        blog: "https://prisca-chidimma.dreamwidth.org"
+        mentors:
+         - Patrick Ferris
+         - Odinaka Joy

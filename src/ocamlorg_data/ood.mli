@@ -75,6 +75,21 @@ module Meetup : sig
   val get_by_slug : string -> t option
 end
 
+module Outreachy : sig
+  type project = {
+    title : string;
+    description : string;
+    mentee : string;
+    blog : string option;
+    source : string;
+    mentors : string list;
+  }
+
+  type t = { name : string; projects : project list }
+
+  val all : t list
+end
+
 module Industrial_user : sig
   type t = {
     name : string;

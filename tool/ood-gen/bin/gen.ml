@@ -8,6 +8,7 @@ let term_templates =
     ("meetup", Ood_gen.Meetup.template);
     ("news", Ood_gen.News.template);
     ("industrial_user", Ood_gen.Industrial_user.template);
+    ("outreachy", Ood_gen.Outreachy.template);
     ("packages", Ood_gen.Packages.template);
     ("paper", Ood_gen.Paper.template);
     ("problems", Ood_gen.Problem.template);
