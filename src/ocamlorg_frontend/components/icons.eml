@@ -101,21 +101,19 @@ let edit class_ =
   </svg>
 
 let error class_ =
-  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" viewBox="0 0 24 24" width="24px" fill="currentColor" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="currentColor" viewBox="0 0 24 24" width="24px" aria-hidden="true">
     <path d="M0 0h24v24H0V0z" fill="none"/>
     <path d="M15.32 3H8.68c-.26 0-.52.11-.7.29L3.29 7.98c-.18.18-.29.44-.29.7v6.63c0 .27.11.52.29.71l4.68 4.68c.19.19.45.3.71.3h6.63c.27 0 .52-.11.71-.29l4.68-4.68c.19-.19.29-.44.29-.71V8.68c0-.27-.11-.52-.29-.71l-4.68-4.68c-.18-.18-.44-.29-.7-.29zM12 17.3c-.72 0-1.3-.58-1.3-1.3s.58-1.3 1.3-1.3 1.3.58 1.3 1.3-.58 1.3-1.3 1.3zm0-4.3c-.55 0-1-.45-1-1V8c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1z"/>
   </svg>
 
 let exclamation_circle class_ =
-  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
   </svg>
 
 let features class_ =
   <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-      d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-    />
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
   </svg>
 
 let for_educators class_ =
@@ -129,17 +127,17 @@ let for_industrial_users class_ =
   </svg>
 
 let github class_ =
-  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
     <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
   </svg>
 
 let github_issue class_ =
-  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
     <path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path><path fill-rule="evenodd" d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path>
   </svg>
 
 let github_pull_request class_ =
-  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
     <path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"/>
   </svg>
 
@@ -207,7 +205,7 @@ let peertube class_ =
   </svg>
 
 let play class_ =
-  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
   </svg>
 
@@ -249,7 +247,7 @@ let shield_check class_ =
   </svg>
 
 let sidebar_menu class_ =
-  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" viewBox="0 0 24 24" fill="currentColor">
+  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="currentColor" viewBox="0 0 24 24" >
     <path d="M14.25 14.375H19.875C20.4962 14.375 21 13.8712 21 13.25V9.875C21 9.25377 20.4962 8.75 19.875 8.75H14.25C13.6288 8.75 13.125 9.25377 13.125 9.875V11H7.5V7.625H9.75C10.3712 7.625 10.875 7.12122 10.875 6.5V3.125C10.875 2.50378 10.3712 2 9.75 2H4.125C3.50378 2 3 2.50378 3 3.125V6.5C3 7.12122 3.50378 7.625 4.125 7.625H6.375V19.4375C6.375 19.7482 6.62677 20 6.9375 20H13.125V21.125C13.125 21.7462 13.6288 22.25 14.25 22.25H19.875C20.4962 22.25 21 21.7462 21 21.125V17.75C21 17.1288 20.4962 16.625 19.875 16.625H14.25C13.6288 16.625 13.125 17.1288 13.125 17.75V18.875H7.5V12.125H13.125V13.25C13.125 13.8712 13.6288 14.375 14.25 14.375ZM14.25 9.875H19.875V13.25H14.25V9.875ZM4.125 6.5V3.125H9.75V6.5H4.125ZM14.25 17.75H19.875V21.125H14.25V17.75Z"/>
   </svg>
 
@@ -259,7 +257,7 @@ let star class_ =
   </svg>
 
 let star_2 class_ =
-  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg" class="<%s class_ %>" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
   </svg>
 
