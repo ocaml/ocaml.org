@@ -100,6 +100,7 @@ List.map f l
 >
 > *Always put your handiwork back on the bench,<br />
 >  then polish it and repolish it.*
+>
 
 ####  Write Simple and Clear Programs
 Reread, simplify, and clarify at every stage of
@@ -1200,6 +1201,7 @@ The page is 80 columns wide.
 
 > **Justification**: This width makes it possible to read the code on
 > all displays and to print it in a legible font on a standard sheet.
+
 
 ###  Height of the Page
 A function should always fit within one screenful (of about 70 lines),

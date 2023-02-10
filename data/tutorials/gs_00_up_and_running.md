@@ -108,8 +108,6 @@ On Unix, it's essential to initialise opam, which will (if needed) install the O
 
 This step is done automatically by the Platform Installer, [see below](#up-and-running-with-the-platform-installer).
 
-This step is done automatically by the Platform Installer, [see below](#up-and-running-with-the-platform-installer).
-
 If you have installed the binary distribution of opam through the install script, this step should already be done. If you have installed it through your system package manager, you must initialise opam by running the following command. This method will fetch and initialise the latest version of opam, directly from the official servers:
 
 ```shell
