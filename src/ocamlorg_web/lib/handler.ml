@@ -189,14 +189,12 @@ let jobs req =
     match location with
     | None | Some "All" -> Ood.Job.all
     | Some location ->
-        List.filter (fun job -> job.Ood.Job.location = location) Ood.Job.all
+        List.filter (fun job -> List.exists (fun l -> l = location) job.Ood.Job.locations) Ood.Job.all
   in
   let locations =
-    List.filter_map
-      (function
-        | job when job.Ood.Job.location = "Remote" -> None
-        | job -> Some job.Ood.Job.location)
-      Ood.Job.all
+    List.flatten (List.map
+      (fun job -> List.filter (fun location -> location <> "Remote") job.Ood.Job.locations)
+      Ood.Job.all)
     |> List.sort_uniq String.compare
   in
   Dream.html (Ocamlorg_frontend.jobs ?location ~locations jobs)
