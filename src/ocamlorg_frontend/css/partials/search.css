@@ -1,7 +1,27 @@
-.header__search::placeholder, .package__search::placeholder {
+/* all search inputs */
+
+.header__search__input::placeholder, .package__search::placeholder {
   @apply text-gray-500;
 }
 
-.header__search:focus, .package__search:focus {
+.header__search__input:focus, .package__search:focus {
   box-shadow: none;
+}
+
+/* header search dropdown */
+
+.header__search__dropdown{
+  display:none;
+}
+
+.header__search:focus-within input {
+  border-bottom-left-radius: 0;
+}
+
+.header__search:focus-within button {
+  border-bottom-right-radius: 0;
+}
+
+.header__search:focus-within .header__search__dropdown{
+  display:block;
 }
