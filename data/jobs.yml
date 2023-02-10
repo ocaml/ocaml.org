@@ -1,7 +1,8 @@
 jobs:
   - title: Spontaneous Application
     link: https://ocamlpro.com/jobs/
-    location: France
+    locations:
+      - France
     publication_date: 2023-02-10
     company: OCamlPro
     company_logo: https://ocamlpro.com/assets/img/logo_ocamlpro.png
