@@ -347,7 +347,7 @@ points using `CTRL-X space`, and so on...
 ## Printing a Back Trace for an Uncaught Exception
 
 Getting a back trace for an uncaught exception can be informative to
-understand in which context a problem occurs. However, by default
+understand in which context a problem occurs. However, by default,
 programs compiled with both `ocamlc` and `ocamlopt` will not print it:
 
 ```
