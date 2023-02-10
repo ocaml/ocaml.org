@@ -344,7 +344,7 @@ will send you directly to the file and character reported by the debugger, and
 you can step back and forth using `ESC-b` and `ESC-s`, you can set up break
 points using `CTRL-X space`, and so on...
 
-## Printing a back trace for an uncaught exception
+## Printing a Back Trace for an Uncaught Exception
 
 Getting a back trace for an uncaught exception can be informative to
 understand in which context a problem occurs. However, by default
