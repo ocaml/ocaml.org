@@ -11,7 +11,7 @@ let render_books books =
                 <% (match item.rating with | None -> () | Some rating ->  %>
                 <div class="flex space-x-1 mb-6 text-primary-600">
                     <% List.init rating (fun _ -> ()) |> List.iter (fun () -> %>
-                    <%s! Icons.star_2 "h-6 w-6 text-gray-300" %>
+                    <%s! Icons.star_2 "h-6 w-6 text-yellow-300" %>
                     <% ); %>
                     <% List.init (5 - rating) (fun _ -> ()) |> List.iter (fun () -> %>
                     <%s! Icons.star_2 "h-6 w-6 text-gray-300" %>

@@ -40,7 +40,7 @@ let render () =
                   id="share"
                   class="mr-7 hover:bg-white hover:bg-opacity-10 active:bg-primary-100 active:text-primary-600 p-2 rounded-md text-gray-400"
                 >
-                  <%s! Icons.playground_share "h-6 w-6" %>
+                  <%s! Icons.playground_share "h-6 w-6 stroke-current" %>
                 </button>
                 <button id="run" class="btn btn-md btn-secondary">
                   <span>Run</span>

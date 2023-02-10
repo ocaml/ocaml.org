@@ -74,12 +74,12 @@ Package_layout.render
             </a>
             <% | `Unknown -> ( %>
             <a href="<%s Url.package_doc package.name package.version %>" class="p-4 mb-2 flex gap-x-2 bg-background-default text-gray-600 font-semibold text-base">
-              <%s! Icons.error "w-6 h-6" %>
+              <%s! Icons.error "" %>
               Documentation status is unknown.
             </a><% )
             | `Failure -> ( %>
             <a href="<%s Url.package_doc package.name package.version %>" class="p-4 mb-2 flex gap-x-2 bg-background-default text-gray-600 font-semibold text-base">
-              <%s! Icons.error "w-6 h-6" %>
+              <%s! Icons.error "" %>
               Documentation failed to build.
             </a><% ));%>
             <% homepages |> List.iter (fun homepage -> %>

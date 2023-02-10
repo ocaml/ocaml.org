@@ -26,7 +26,7 @@ Learn_layout.render
           class="inline-block relative py-1 px-4 font-medium no-underline align-middle bg-transparent rounded-md border border-solid appearance-none cursor-pointer select-none whitespace-no-wrap hover:no-underline"
           href="https://github.com/ocaml/ocaml.org/blob/main/data/<%s tutorial.fpath %>"
         >
-          <%s! Icons.github_pull_request "inline-block" %>
+          <%s! Icons.github_pull_request "inline-block overflow-visible mr-0 align-text-bottom select-none" %>
           Contribute</a
         >
       </div>
