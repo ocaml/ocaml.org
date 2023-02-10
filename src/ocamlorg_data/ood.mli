@@ -51,7 +51,7 @@ module Job : sig
   type t = {
     title : string;
     link : string;
-    location : string;
+    locations : string list;
     publication_date : string option;
     company : string;
     company_logo : string;

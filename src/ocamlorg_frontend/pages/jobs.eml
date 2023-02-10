@@ -54,7 +54,7 @@ OCaml community."
             <a href="<%s item.link %>"
                 target="_blank"
                 class="text-left p-8 border border-gray-200 rounded-xl card-hover"
-                :class="{ 'hidden': location != 'All' && location != '<%s item.location %>'  }">
+                :class="{ 'hidden': location != 'All' && ([<%s! String.concat "," (List.map (fun s -> "\'" ^ Dream.html_escape s ^ "\'") item.locations) %>].indexOf(location) == -1)  }">
                 <img class="mb-4 max-h-8 max-w-[7rem]" src="<%s item.company_logo %>" alt="">
                 <div class="text-base mb-2 text-body-600 opacity-80">
                     <%s item.company %>
@@ -71,7 +71,7 @@ OCaml community."
                             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                     <div>
-                        <%s item.location %>
+                        <%s String.concat ", " item.locations %>
                     </div>
                 </div>
                 <% (match item.publication_date with None -> () | Some date -> %>

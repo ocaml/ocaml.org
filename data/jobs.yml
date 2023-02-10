@@ -1,76 +1,92 @@
 jobs:
   - title: Spontaneous Application
     link: https://ocamlpro.com/jobs/
-    location: France
+    locations:
+      - France
     publication_date: 2023-02-10
     company: OCamlPro
     company_logo: https://ocamlpro.com/assets/img/logo_ocamlpro.png
   - title: Cryptography Engineer
     link: https://boards.greenhouse.io/o1labs/jobs/4023646004
-    location: Remote
+    locations:
+      - Remote
     company: O(1) Labs
     company_logo: https://workshub.imgix.net/7b409fdc3bc46438b64686a627d56b2b?fit=clip&crop=entropy&auto=format&w=60&h=60&q=40&dpr=2
   - title: Spontaneous Application
     link: https://tarides.com/jobs/spontaneous-application
-    location: Remote
+    locations:
+      - Remote
+      - United-Kingdom
+      - France
     company: Tarides
     company_logo: https://tarides.com/static/logo_tarides-52f91b59a8657d768e013129896b63e0.png
   - title: OCaml Developer
     link: https://ahrefs.com/jobs/ocaml-developer
-    location: Remote
+    locations:
+      - Remote
     company: Ahrefs
     company_logo: /logos/ahrefs.svg
   - title: OCaml Developer
     link: https://functori.com/annonce-recrutement.pdf
-    location: France
+    locations:
+      - France
     publication_date: 2022-02-01
     company: Functori
     company_logo: https://functori.com/assets/img/brand/functori_logotype_square.svg
   - title: Build System Engineer
     link: https://www.janestreet.com/join-jane-street/position/4274814002/
-    location: United-Kingdom
+    locations:
+      - United-Kingdom
     company: Jane Street
     company_logo: /logos/janestreet.svg
   - title: Software Engineer
     link: https://www.lexifi.com/careers/software_engineer/
-    location: France
+    locations:
+      - France
     publication_date: 2021-04-22
     company: LexiFi
     company_logo: https://thewealthmosaic.s3.amazonaws.com/media/Logo_Lexifi.png
   - title: OCaml Programmer
     link: https://solvuu.com/company
-    location: Remote
+    locations:
+      - Remote
     company: Solvuu
     company_logo: https://solvuu.com/static/media/logo-color.92a01b9f.svg
   - title: Computer Scientist
     link: https://frama-c.com/jobs/2022-02-01-permanent-computer-scientist-cyber-security-verification.html
-    location: France
+    locations:
+      - France
     publication_date: 2022-02-01
     company: CEA
     company_logo: https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/CEA_logo_nouveau.svg/1255px-CEA_logo_nouveau.svg.png
   - title: Senior Software Engineer
     link: https://www.simcorp.com/en/career/find-a-job/senior-software-engineer--c-ocaml-r203826
-    location: Poland
+    locations:
+      - Poland
     company: SimCorp
     company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
   - title: Software Engineer
     link: https://www.simcorp.com/en/career/find-a-job/software-engineer--c-ocaml-r203358
-    location: Ukraine
+    locations:
+      - Ukraine
     company: SimCorp
     company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
   - title: Software Engineer
     link: https://www.simcorp.com/en/career/find-a-job/software-engineer---and-ocaml-r203759
-    location: Denmark
+    locations:
+      - Denmark
     company: SimCorp
     company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
   - title: Senior Software Engineer
     link: https://www.simcorp.com/en/career/find-a-job/senior-software-engineer--c-ocaml-r203357
-    location: Ukraine
+    locations:
+      - Ukraine
     company: SimCorp
     company_logo: https://www.simcorp.com/dist/global/images/simcorp-logo-md.svg
   - title: AI Pharma Developer
     link: https://www.nobiastx.com/careers
-    location: United States
+    locations:
+      - United States
     publication_date: 2022-12-02
     company: Nobias Therapeutics
     company_logo: https://uploads-ssl.webflow.com/61532e32ca094ababec1dbc2/61a7150d2aebf25b6d9d1a35_nobias%20logo%20-%20transparent%20background.png

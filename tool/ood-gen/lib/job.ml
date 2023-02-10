@@ -1,7 +1,7 @@
 type metadata = {
   title : string;
   link : string;
-  location : string;
+  locations : string list;
   publication_date : string option;
   company : string;
   company_logo : string;
@@ -28,12 +28,12 @@ let pp ppf v =
     {|
   { title = %a
   ; link = %a
-  ; location = %a
+  ; locations = %a
   ; publication_date = %a
   ; company = %a
   ; company_logo = %a
   }|}
-    Pp.string v.title Pp.string v.link Pp.string v.location
+    Pp.string v.title Pp.string v.link (Pp.list Pp.string) v.locations
     (Pp.option Pp.string) v.publication_date Pp.string v.company Pp.string
     v.company_logo
 
@@ -45,7 +45,7 @@ let template () =
 type t =
   { title : string
   ; link : string
-  ; location : string
+  ; locations : string list
   ; publication_date : string option
   ; company : string
   ; company_logo : string
