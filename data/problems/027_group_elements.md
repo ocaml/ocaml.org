@@ -36,7 +36,7 @@ tags: [ "list" ]
   in
   let rec aux = function
     | [] -> [initial]
-    | h :: t -> List.concat (List.map (prepend h) (aux t))
+    | h :: t -> List.concat_map (prepend h) (aux t)
   in
   let all = aux list in
   (* Don't forget to eliminate all group sets that have non-full
