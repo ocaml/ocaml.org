@@ -20,7 +20,7 @@ let rec list_path g a to_b = match to_b with
         if a' = a then [to_b]
         else
             let n = neighbors g a' (fun c -> not (List.mem c to_b)) in
-            List.concat (List.map (fun c -> list_path g a (c :: to_b)) n)
+            List.concat_map (fun c -> list_path g a (c :: to_b)) n
 ```
 
 # Solution
@@ -28,7 +28,7 @@ let rec list_path g a to_b = match to_b with
 ```ocaml
 # let cycles g a =
     let n = neighbors g a (fun _ -> true) in
-    let p = List.concat (List.map (fun c -> list_path g a [c]) n) in
+    let p = List.concat_map (fun c -> list_path g a [c]) n in
     List.map (fun p -> p @ [a]) p;;
 val cycles : 'a graph_term -> 'a -> 'a list list = <fun>
 ```

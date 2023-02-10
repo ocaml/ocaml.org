@@ -26,7 +26,7 @@ type 'a graph_term = {nodes : 'a list;  edges : ('a * 'a) list}
        if a' = a then [to_b]
        else
          let n = neighbors g a' (fun c -> not (List.mem c to_b)) in
-           List.concat (List.map (fun c -> list_path g a (c :: to_b)) n)
+           List.concat_map (fun c -> list_path g a (c :: to_b)) n
 
   let paths g a b =
     assert(a <> b);
