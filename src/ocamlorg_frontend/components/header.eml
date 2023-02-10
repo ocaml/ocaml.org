@@ -21,7 +21,7 @@ let render
 ()
 =
 <header 
-  class="h-20 flex items-center text-white dark:bg-[#171717]"
+  class="h-20 flex items-center dark:bg-[#171717]"
   x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}"
   @resize.window="sidebar = window.innerWidth > 1024">
   <nav class="container-fluid wide header flex justify-between items-center">
@@ -43,8 +43,8 @@ let render
     <ul class="hidden lg:flex items-center space-x-4 xl:space-x-8">
       <li class="relative">
         <form action="/packages/search" method="GET">
-          <div class="flex items-center justify-center">
-            <input type="search" name="q" class="header__search focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 py-1 lg:w-56 xl:w-80" placeholder="Search OCaml Packages">
+          <div class="header__search relative flex items-center justify-center">
+            <input type="search" name="q" class="header__search__input focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 py-1 lg:w-56 xl:w-80" placeholder="Search OCaml Packages">
             <button aria-label="search" class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
               <svg class="w-6 h-6 text-white" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24">
@@ -52,6 +52,13 @@ let render
                     d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
               </svg>
             </button>
+            <div class="header__search__dropdown z-10 absolute rounded-b-md w-full top-0 mt-10 p-2 bg-white font-semibold border border-primary-600">
+              <span class="pl-2">Or go to:</span>
+              <a class="flex py-2 px-4 gap-4 hover:bg-primary-100 font-regular hover:font-semibold text-primary-600" href="<%s Url.api %>">
+                Standard Library API
+                <%s! Icons.arrow_top_right_on_square "w-6 h-6" %>
+              </a>
+            </div>
           </div>
         </form>
       </li>
