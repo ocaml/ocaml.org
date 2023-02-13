@@ -67,14 +67,25 @@ end
 module Documentation : sig
   type toc = { title : string; href : string; children : toc list }
 
-  type item =
-    [ `Module of string
-    | `ModuleType of string
-    | `Parameter of int * string
-    | `Class of string
-    | `ClassType of string ]
+  type breadcrumb_kind =
+    | Page
+    | LeafPage
+    | Module
+    | ModuleType
+    | Parameter of int
+    | Class
+    | ClassType
+    | File
 
-  type t = { toc : toc list; module_path : item list; content : string }
+  type breadcrumb = { name : string; href : string; kind : breadcrumb_kind }
+
+  type t = {
+    module_map : Module_map.t;
+    uses_katex : bool;
+    toc : toc list;
+    breadcrumbs : breadcrumb list;
+    content : string;
+  }
 end
 
 module Module_map = Module_map
@@ -115,9 +126,6 @@ val documentation_status :
   t ->
   [ `Success | `Failure | `Unknown ] Lwt.t
 (** Get the build status of the documentation of a package *)
-
-val module_map :
-  kind:[< `Package | `Universe of string ] -> t -> Module_map.t Lwt.t
 
 val documentation_page :
   kind:[< `Package | `Universe of string ] ->

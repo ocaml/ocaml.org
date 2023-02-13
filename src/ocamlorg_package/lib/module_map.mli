@@ -9,12 +9,12 @@ module String_map : Map.S with type key = string
 
 (** Page kinds as defined by odoc. *)
 type kind =
-  | Library
   | Module
   | Page
   | Leaf_page
   | Module_type
-  | Parameter
+  | Parameter of int
+  | OLDParameter
   | Class
   | Class_type
   | File
