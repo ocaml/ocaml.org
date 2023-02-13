@@ -1,4 +1,12 @@
 jobs:
+  - title: Software Engineer
+    link: https://boards.eu.greenhouse.io/trilitech/jobs/4038961101
+    locations:
+      - London
+      - United-Kingdom
+    publication_date: 2023-02-13
+    company: Trilitech
+    company_logo: https://www.trili.tech/images/trilitech-logotype-grey.svg
   - title: Spontaneous Application
     link: https://ocamlpro.com/jobs/
     locations:
