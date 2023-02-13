@@ -18,6 +18,7 @@ jobs:
       - Remote
       - United-Kingdom
       - France
+      - India
     company: Tarides
     company_logo: https://tarides.com/static/logo_tarides-52f91b59a8657d768e013129896b63e0.png
   - title: OCaml Developer
