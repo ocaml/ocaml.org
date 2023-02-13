@@ -474,23 +474,6 @@ let package_doc t kind req =
             Ocamlorg_package.get_package_versions t name
             |> Option.value ~default:[]
           in
-          let canonical_module =
-            doc.breadcrumbs
-            |> List.map (fun (b : Ocamlorg_package.Documentation.breadcrumb) ->
-                   b.name)
-            |> String.concat "."
-          in
-          let _title =
-            match path with
-            | "index.html" ->
-                Printf.sprintf "Documentation · %s %s · OCaml Packages"
-                  (Ocamlorg_package.Name.to_string name)
-                  (Ocamlorg_package.Version.to_string version)
-            | _ ->
-                Printf.sprintf "%s · %s %s · OCaml Packages" canonical_module
-                  (Ocamlorg_package.Name.to_string name)
-                  (Ocamlorg_package.Version.to_string version)
-          in
           let toc_of_toc (xs : Ocamlorg_package.Documentation.toc list) :
               Ocamlorg_frontend.Toc.t =
             let rec aux acc = function

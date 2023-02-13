@@ -528,7 +528,7 @@ let latest_documented_version t name =
   | None -> Lwt.return None
   | Some vlist -> aux vlist
 
-let is_latest_version t name version = 
+let is_latest_version t name version =
   match get_package_latest t name with
   | None -> false
   | Some pkg -> pkg.version = version
