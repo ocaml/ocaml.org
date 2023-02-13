@@ -44,6 +44,7 @@ module Info : sig
     conflicts : (Name.t * string option) list;
     url : url option;
     publication : float;
+    flags : OpamTypes.package_flag list;
   }
 end
 

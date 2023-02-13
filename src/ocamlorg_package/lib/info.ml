@@ -18,6 +18,7 @@ type t = {
   conflicts : (OpamPackage.Name.t * string option) list;
   url : url option;
   publication : float;
+  flags : OpamTypes.package_flag list;
 }
 
 let relop_to_string = OpamPrinter.FullPos.relop_kind
@@ -175,6 +176,7 @@ let make ~package ~packages ~rev_deps ~timestamps opam =
                  OpamFile.URL.checksum url |> List.map OpamHash.to_string;
              });
     publication;
+    flags = flags opam;
   }
 
 let of_opamfiles
