@@ -9,11 +9,7 @@ Layout.render
             <div class="text-left md:mt-10 lg:mt-0 mt-0 lg:pl-24">
                 <a href="<%s Url.releases %>"
                     class="flex justify-start space-x-3 items-center text-primary-600 hover:underline font-semibold mb-4 h-12">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                    </svg>
+                    <%s! Icons.arrow_left "h-5 w-5 inline-block" %>
                     <div>Back to Releases</div>
                 </a>
                 <h2 class="font-bold pb-6">OCaml <%s release.version %></h2>

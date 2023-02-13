@@ -7,38 +7,28 @@ let sidebar_icon_link_block
   <div class="space-y-4">
     <a href="<%s Url.learn %>" class="flex justify-start items-center">
       <div class="bg-primary-600 text-white rounded w-8 h-8 flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-          stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-        </svg>
+        <%s! Icons.book "h-5 w-5" %>
       </div>
       <div class="ml-3 font-semibold <%s if current != Learn then "opacity-70" else "" %>">Learn OCaml</div>
     </a>
 
     <a href="<%s Url.manual %>" class="flex justify-start items-center">
       <div class="bg-green-600 text-white rounded w-8 h-8 flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-        </svg>
+        <%s! Icons.document "h-5 w-5" %>
       </div>
       <div class="ml-3 font-semibold opacity-70">Language Manual</div>
     </a>
 
     <a href="<%s Url.api %>" class="flex justify-start items-center">
       <div class="bg-sky-600 text-white rounded w-8 h-8 flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
+        <%s! Icons.command_line "h-5 w-5" %>
       </div>
       <div class="ml-3 font-semibold opacity-70">Standard Library API</div>
     </a>
 
     <a href="<%s Url.problems %>" class="flex justify-start items-center">
       <div class="bg-indigo-600 text-white rounded w-8 h-8 flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-        </svg>
+        <%s! Icons.exclamation_circle "h-5 w-5" %>
       </div>
       <div class="ml-3 font-semibold <%s if current != Exercises then "opacity-70" else "" %>">Exercises</div>
     </a>
@@ -101,9 +91,7 @@ inner_html
   <div class="bg-white" x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024"  x-on:close-sidebar="sidebar=window.innerWidth > 1024 && true">
     <button :title='(sidebar? "close" : "open")+" sidebar"' aria-pressed="false" :aria-pressed="sidebar" class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed lg:hidden right-10"
       x-on:click="sidebar = ! sidebar">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24">
-        <path d="M14.25 14.375H19.875C20.4962 14.375 21 13.8712 21 13.25V9.875C21 9.25377 20.4962 8.75 19.875 8.75H14.25C13.6288 8.75 13.125 9.25377 13.125 9.875V11H7.5V7.625H9.75C10.3712 7.625 10.875 7.12122 10.875 6.5V3.125C10.875 2.50378 10.3712 2 9.75 2H4.125C3.50378 2 3 2.50378 3 3.125V6.5C3 7.12122 3.50378 7.625 4.125 7.625H6.375V19.4375C6.375 19.7482 6.62677 20 6.9375 20H13.125V21.125C13.125 21.7462 13.6288 22.25 14.25 22.25H19.875C20.4962 22.25 21 21.7462 21 21.125V17.75C21 17.1288 20.4962 16.625 19.875 16.625H14.25C13.6288 16.625 13.125 17.1288 13.125 17.75V18.875H7.5V12.125H13.125V13.25C13.125 13.8712 13.6288 14.375 14.25 14.375ZM14.25 9.875H19.875V13.25H14.25V9.875ZM4.125 6.5V3.125H9.75V6.5H4.125ZM14.25 17.75H19.875V21.125H14.25V17.75Z" fill="white"/>
-      </svg>
+      <%s! Icons.sidebar_menu "h-8 w-8" %>
       <span class="hidden md:flex font-semibold px-2">side menu</span>
     </button>
     <div class="fixed z-10 inset-0 bg-background-dark-blue/20 backdrop-blur-sm lg:hidden"

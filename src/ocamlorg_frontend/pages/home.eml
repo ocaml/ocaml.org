@@ -53,12 +53,7 @@ Layout.render
             <a
               href="<%s Url.playground %>"
               class="px-4 ml-2 h-10 text-sm items-center text-white border border-gray-100 rounded-lg border-opacity-50 flex">
-              <svg
-                xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-              </svg>
+              <%s! Icons.edit "h-5 w-5 mr-2" %>
               Try the Playground
             </a>
           </div>
@@ -104,11 +99,7 @@ Layout.render
         <div class="lg:flex-1 mt-10 lg:mt-0">
           <div class="text-body-400 text-base">
             <div class="h-12 w-12 text-white rounded-xl flex bg-gradient-to-br from-blue-400 to-blue-600">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 m-auto" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
+              <%s! Icons.shield_check "h-7 w-7 m-auto" %>
             </div>
             <div class="text-lg my-4 font-bold" style="color: #225b90">
               BE SAFE
@@ -128,11 +119,7 @@ Layout.render
         <div class="lg:flex-1">
           <div class="text-body-400 text-base">
             <div class="h-12 w-12 text-white rounded-xl flex bg-gradient-to-br from-teal-400 to-teal-600">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 m-auto" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd"
-                  d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
-                  clip-rule="evenodd" />
-              </svg>
+              <%s! Icons.lightning "h-7 w-7 m-auto" %>
             </div>
             <div class="text-lg my-4 font-bold text-teal-800">BUILD FASTER</div>
             <h3 class="text-body-600 font-bold">
@@ -152,11 +139,7 @@ Layout.render
         <div class="lg:flex-1 mt-10 lg:mt-0 flex items-center">
           <div class="text-body-400 text-base">
             <div class="h-12 w-12 text-white rounded-xl flex bg-gradient-to-br from-purple-400 to-purple-600">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 m-auto" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
-              </svg>
+              <%s! Icons.home_tooling "h-7 w-7 m-auto" %>
             </div>
             <div class="text-lg my-4 font-bold text-purple-600">
               WORK JOYFULLY
@@ -337,11 +320,7 @@ Layout.render
         <div class="flex flex-row items-center justify-between relative pb-8">
           <h3 class="font-semibold">For Educators</h3>
           <div>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
-            </svg>
+            <%s! Icons.for_educators "h-14 w-14" %>
             <div class="absolute w-20 h-20 top-0 -right-10 rounded-full bg-primary-100"></div>
           </div>
         </div>
@@ -356,11 +335,7 @@ Layout.render
         <div class="flex flex-row items-center justify-between relative pb-8">
           <h3 class="font-semibold">For Industrial Users</h3>
           <div>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-            </svg>
+            <%s! Icons.for_industrial_users "h-14 w-14" %>
             <div class="absolute w-20 h-20 top-0 -right-10 rounded-full bg-primary-100"></div>
           </div>
         </div>
@@ -385,56 +360,32 @@ Layout.render
       </div>
       <div class="grid lg:grid-cols-3 gap-8 lg:gap-16">
         <a href="<%s Url.tutorial "up-and-running" %>" class="resources-card card-hover">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-      
+          <%s! Icons.play_circle "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Getting Started</p>
           <p>Install OCaml, set up your favorite text editor and start your first project.</p>
         </a>
         <a href="<%s Url.manual %>" class="resources-card card-hover">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-          </svg>
-      
+          <%s! Icons.document "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Language Manual</p>
           <p>Read the reference manual of the language and documentation on the compiler.</p>
         </a>
         <a href="<%s Url.books %>" class="resources-card card-hover">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-            ></path>
-          </svg>
-      
+          <%s! Icons.book "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Books</p>
           <p>What expert programmers and researchers are saying about OCaml, from the beginner level to more advanced topics.</p>
         </a>
         <a href="<%s Url.api %>" class="resources-card card-hover">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-      
+          <%s! Icons.command_line "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Standard Library</p>
           <p>Searchable API documentation.</p>
         </a>
         <a href="<%s Url.problems %>" class="resources-card card-hover">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11"></path>
-          </svg>
-      
+          <%s! Icons.hand_palm "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Exercises</p>
           <p>Learn OCaml by solving problems on a variety of topics, from easy to challenging.</p>
         </a>
         <a href="<%s Url.papers %>" class="resources-card card-hover">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path>
-          </svg>
-      
+          <%s! Icons.papers "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Papers</p>
           <p>Papers that have influenced OCaml and other functional programming languages.</p>
         </a>
@@ -455,10 +406,7 @@ Layout.render
         </div>
         <a href="<%s Url.packages %>" class="btn btn-primary btn-lg mt-8 flex items-center">
           <span>Explore packages</span>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 " fill="none" viewBox="0 0 24 24"
-            stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
+          <%s! Icons.chevron_right "h-5 w-5" %>
         </a>
       </div>
       <div class="m-auto">

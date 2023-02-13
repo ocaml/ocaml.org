@@ -82,13 +82,7 @@ Learn_layout.render
       class="rounded-full bg-primary-600 text-white w-16 h-16 right-0 left-0 m-auto bottom-5 md:left-auto md:right-10 md:bottom-10 absolute flex items-center z-10 justify-center"
       x-show="!isPlaying"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" viewBox="0 0 20 20" fill="currentColor">
-        <path
-          fill-rule="evenodd"
-          d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-          clip-rule="evenodd"
-        />
-      </svg>
+      <%s! Icons.play "h-9 w-9" %>
     </div>
   </div>
   <div class="flex flex-col border-t border-gray-200 pt-20 mt-20 mb-20">
@@ -108,9 +102,7 @@ Learn_layout.render
             <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>
             <div class="text-body-400 h-full"><%s item.synopsis %></div>
           </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
+          <%s! Icons.chevron_right "h-5 w-5" %>
         </a>
         <% ); %>
       </div>
@@ -127,9 +119,7 @@ Learn_layout.render
             <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>
             <div class="text-body-400 h-full"><%s item.synopsis %></div>
           </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
+          <%s! Icons.chevron_right "h-5 w-5" %>
         </a>
         <% ); %>
       </div>
@@ -147,9 +137,7 @@ Learn_layout.render
             <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>
             <div class="text-body-400 h-full"><%s item.synopsis %></div>
           </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
+          <%s! Icons.chevron_right "h-5 w-5" %>
         </a>
         <% ); %>
       </div>
@@ -166,9 +154,7 @@ Learn_layout.render
             <div class="text-primary-600 text-lg font-semibold"><%s item.name %></div>
             <div class="text-body-400 h-full"><%s item.synopsis %></div>
           </div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
+          <%s! Icons.chevron_right "h-5 w-5" %>
         </a>
         <% ); %>
       </div>

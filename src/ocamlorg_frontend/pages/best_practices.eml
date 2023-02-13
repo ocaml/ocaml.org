@@ -20,11 +20,9 @@ Learn_layout.render
         <div @click="accordion = !accordion"
             class="flex justify-between h-20 rounded-md border border-gray-200 px-8 py-4 items-center transition cursor-pointer relative">
             <h6 class="font-bold"><%s item.title %></h6>
-            <svg class="h-6 w-6 transition-transform" :class='accordion ? "rotate-180" : "" '
-                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
+            <div class="h-6 w-6 transition-transform" :class='accordion ? "rotate-180" : "" '>
+              <%s! Icons.chevron_down "h-6 w-6" %>
+            </div>
         </div>
         <div class="px-4" x-show="accordion" x-transition:enter="transition ease-out duration-300"
             x-transition:enter-start="opacity-0 scale-90"

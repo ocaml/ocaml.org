@@ -60,20 +60,7 @@ Learn_layout.render
             x-on:click="statement = true"
             :class="statement ? 'bg-white text-primary-600': 'text-body-400' "
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
+            <%s! Icons.problem_statement "h-5 w-5" %>
             <span :class="statement ? 'text-body-600' : 'text-body-400'">Statement</span>
           </button>
           <button
@@ -81,20 +68,7 @@ Learn_layout.render
             x-on:click="statement = false"
             :class="statement ? 'text-body-400': 'bg-white text-primary-600' "
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
+            <%s! Icons.problem_solution "h-5 w-5" %>
             <span :class="statement ? 'text-body-400' : 'text-body-600'">Solution</span>
           </button>
         </div>
