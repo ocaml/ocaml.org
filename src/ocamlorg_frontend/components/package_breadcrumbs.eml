@@ -58,7 +58,7 @@ let render_package_and_version
       class="leading-8 appearance-none cursor-pointer py-0 rounded-md border border-gray-400 pr-8"
       style="background-position: right 0.25rem center"> 
       <option value="/p/<%s package.name %>/<%s "latest" %>">
-        <%s "latest" %>
+         <%s if is_latest_url then "latest (" ^ package.version ^ ")" else "latest" %>
       </option>
       <% package.versions |> List.iter begin fun item -> %>
       <option value="/p/<%s package.name %>/<%s item %>"<%s if not is_latest_url && item = package.version then "selected" else "" %>>
