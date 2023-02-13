@@ -121,11 +121,10 @@ let of_metadata m =
   of_metadata m ~slug:(Utils.slugify m.title)
     ~modify_featured:(Option.value ~default:false)
 
-let decode content =
-  let metadata, body = Utils.extract_metadata_body content in
-  let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
+let decode (_, (head, body)) =
+  let metadata = metadata_of_yaml head in
   let body_html = String.trim body in
-  of_metadata metadata ~body_html
+  Result.map (of_metadata ~body_html) metadata
 
 let all () =
   Utils.map_files decode "rss/*/*.md"

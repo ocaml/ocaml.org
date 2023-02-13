@@ -59,15 +59,14 @@ let of_metadata =
   of_metadata ~modify_difficulty:(fun d ->
       d |> Proficiency.of_string |> Result.get_ok)
 
-let decode content =
-  let metadata, body = Utils.extract_metadata_body content in
-  let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
+let decode (_, (head, body)) =
+  let metadata = metadata_of_yaml head in
   let statement_blocks, solution_blocks =
     split_statement_statement (Omd.of_string body)
   in
   let statement = Omd.to_html (Hilite.Md.transform statement_blocks) in
   let solution = Omd.to_html (Hilite.Md.transform solution_blocks) in
-  of_metadata metadata ~statement ~solution
+  Result.map (of_metadata ~statement ~solution) metadata
 
 let all () = Utils.map_files decode "problems/*.md"
 

@@ -40,18 +40,11 @@ let read_from_dir dir =
 let map_files f dir =
   read_from_dir dir
   |> List.map (fun (file, x) ->
-         try f x
-         with exn ->
-           prerr_endline ("Error in " ^ file);
-           raise exn)
-
-let map_files_with_names f dir =
-  read_from_dir dir
-  |> List.map (fun (file, x) ->
-         try f (file, x)
-         with exn ->
-           prerr_endline ("Error in " ^ file);
-           raise exn)
+         match f (file, extract_metadata_body x) with
+         | Ok x -> x
+         | Error (`Msg err) ->
+             raise
+               (Exn.Decode_error (Printf.sprintf "could not decode: %s" err)))
 
 let slugify value =
   value

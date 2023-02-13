@@ -3,11 +3,10 @@ type metadata = { title : string } [@@deriving of_yaml]
 type t = { title : string; body_md : string; body_html : string }
 [@@deriving stable_record ~version:metadata ~remove:[ body_md; body_html ]]
 
-let decode content =
-  let metadata, body_md = Utils.extract_metadata_body content in
-  let metadata = Utils.decode_or_raise metadata_of_yaml metadata in
+let decode (_, (head, body_md)) =
+  let metadata = metadata_of_yaml head in
   let body_html = Omd.of_string body_md |> Hilite.Md.transform |> Omd.to_html in
-  of_metadata metadata ~body_md ~body_html
+  Result.map (of_metadata ~body_md ~body_html) metadata
 
 let all () = Utils.map_files decode "workflows/*.md"
 
