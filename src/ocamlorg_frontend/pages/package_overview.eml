@@ -1,8 +1,3 @@
-type documentation_status =
-  | Success
-  | Failure
-  | Unknown
-
 let side_box_link ~href ~title ~icon_html =
     <a href="<%s href %>" class="flex items-center py-2 px-4 hover:text-primary-600">
         <%s! icon_html %>
@@ -72,17 +67,17 @@ Package_layout.render
         <% ); %>
         <div class="flex flex-col mt-8 text-body-400">
             <% (match documentation_status with
-            | Success -> %>
+            | `Success -> %>
             <a href="<%s Url.package_doc package.name package.version %>" class="px-4 h-10 items-center mb-2 rounded-md bg-primary-600 text-white flex font-bold hover:underline">
               <%s! Icons.documentation "w-6 h-6 mr-2 inline-block" %>
               Documentation
             </a>
-            <% | Unknown -> ( %>
+            <% | `Unknown -> ( %>
             <a href="<%s Url.package_doc package.name package.version %>" class="p-4 mb-2 flex gap-x-2 bg-background-default text-gray-600 font-semibold text-base">
               <%s! Icons.error "" %>
               Documentation status is unknown.
             </a><% )
-            | Failure -> ( %>
+            | `Failure -> ( %>
             <a href="<%s Url.package_doc package.name package.version %>" class="p-4 mb-2 flex gap-x-2 bg-background-default text-gray-600 font-semibold text-base">
               <%s! Icons.error "" %>
               Documentation failed to build.

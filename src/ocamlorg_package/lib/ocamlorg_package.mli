@@ -67,25 +67,14 @@ end
 module Documentation : sig
   type toc = { title : string; href : string; children : toc list }
 
-  type breadcrumb_kind =
-    | Page
-    | LeafPage
-    | Module
-    | ModuleType
-    | Parameter of int
-    | Class
-    | ClassType
-    | File
+  type item =
+    [ `Module of string
+    | `ModuleType of string
+    | `Parameter of int * string
+    | `Class of string
+    | `ClassType of string ]
 
-  type breadcrumb = { name : string; href : string; kind : breadcrumb_kind }
-
-  type t = {
-    module_map : Module_map.t;
-    uses_katex : bool;
-    toc : toc list;
-    breadcrumbs : breadcrumb list;
-    content : string;
-  }
+  type t = { toc : toc list; module_path : item list; content : string }
 end
 
 module Module_map = Module_map
@@ -121,11 +110,14 @@ val changes_filename :
   kind:[< `Package | `Universe of string ] -> t -> string option Lwt.t
 (** Get the changelog file name of a package *)
 
-type documentation_status = Success | Failure | Unknown
-
 val documentation_status :
-  kind:[< `Package | `Universe of string ] -> t -> documentation_status Lwt.t
+  kind:[< `Package | `Universe of string ] ->
+  t ->
+  [ `Success | `Failure | `Unknown ] Lwt.t
 (** Get the build status of the documentation of a package *)
+
+val module_map :
+  kind:[< `Package | `Universe of string ] -> t -> Module_map.t Lwt.t
 
 val documentation_page :
   kind:[< `Package | `Universe of string ] ->
