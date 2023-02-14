@@ -37,7 +37,7 @@ let render () =
         <div class="md:grid md:grid-cols-2 md:gap-8">
           <div>
             <h3 class="text-base font-semibold leading-6 text-gray-900">About Us</h3>
-            <ul role="list" class="mt-6 space-y-4">
+            <ul class="mt-6 space-y-4">
               <li>
                 <a href="<%s Url.industrial_users %>" class="text-base leading-6 text-gray-600">Industrial Users</a>
               </li>
@@ -53,7 +53,7 @@ let render () =
           </div>
           <div class="mt-10 md:mt-0">
             <h3 class="text-base font-semibold leading-6 text-gray-900">Resources</h3>
-            <ul role="list" class="mt-6 space-y-4">
+            <ul class="mt-6 space-y-4">
               <li>
                 <a href="<%s Url.getting_started %>" class="text-base leading-6 text-gray-600">Get Started</a>
               </li>
@@ -79,7 +79,7 @@ let render () =
         <div class="md:grid md:grid-cols-2 md:gap-8">
           <div>
             <h3 class="text-base font-semibold leading-6 text-gray-900">Community</h3>
-            <ul role="list" class="mt-6 space-y-4">
+            <ul class="mt-6 space-y-4">
               <li>
                 <a href="<%s Url.blog %>" class="text-base leading-6 text-gray-600">Blog</a>
               </li>
@@ -91,7 +91,7 @@ let render () =
           </div>
           <div class="mt-10 md:mt-0">
             <h3 class="text-base font-semibold leading-6 text-gray-900">Policies</h3>
-            <ul role="list" class="mt-6 space-y-4">
+            <ul class="mt-6 space-y-4">
               <li>
                 <a href="<%s Url.carbon_footprint %>" class="text-base leading-6 text-gray-600">Carbon Footprint</a>
               </li>
