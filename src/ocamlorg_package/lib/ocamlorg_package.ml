@@ -456,17 +456,37 @@ let changes_filename ~kind t =
   | None -> None
   | Some (filename, _content) -> Some filename
 
-let documentation_status ~kind t =
+type documentation_status = Success | Failure | Unknown
+
+let old_documentation_status ~kind t =
+  let open Lwt.Syntax in
+  let old_package_url =
+    old_package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
+  in
+  let url = old_package_url ^ "status.json" in
+  let+ content = http_get url in
+  match content with
+  | Ok "\"Built\"" -> Success
+  | Ok "\"Failed\"" -> Failure
+  | _ -> Unknown
+
+let documentation_status ~kind t : documentation_status Lwt.t =
   let open Lwt.Syntax in
   let package_url =
     package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
   in
   let url = package_url ^ "status.json" in
-  let+ content = http_get url in
-  match content with
-  | Ok "\"Built\"" -> `Success
-  | Ok "\"Failed\"" -> `Failure
-  | _ -> `Unknown
+  let* content = http_get url in
+  let status =
+    match content with
+    | Ok "\"Built\"" -> Success
+    | Ok "\"Failed\"" -> Failure
+    | _ -> Unknown
+  in
+  if status <> Success then
+    let* s = old_documentation_status ~kind t in
+    Lwt.return s
+  else Lwt.return status
 
 let doc_exists t name version =
   let package = get_package t name version in
@@ -476,7 +496,7 @@ let doc_exists t name version =
   | Some package -> (
       let* doc_stat = documentation_status ~kind:`Package package in
       match doc_stat with
-      | `Success -> Lwt.return (Some version)
+      | Success -> Lwt.return (Some version)
       | _ -> Lwt.return None)
 
 let latest_documented_version t name =

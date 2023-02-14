@@ -435,8 +435,14 @@ let package_versioned t kind req =
             (url.Ocamlorg_package.Info.uri, url.Ocamlorg_package.Info.checksum))
           package_info.Ocamlorg_package.Info.url
       in
-      let* documentation_status =
+      let* package_documentation_status =
         Ocamlorg_package.documentation_status ~kind package
+      in
+      let documentation_status =
+        match package_documentation_status with
+        | Ocamlorg_package.Success -> Ocamlorg_frontend.Package_overview.Success
+        | Failure -> Failure
+        | Unknown -> Unknown
       in
       Dream.html
         (Ocamlorg_frontend.package_overview ~documentation_status ~readme

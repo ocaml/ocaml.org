@@ -121,10 +121,10 @@ val changes_filename :
   kind:[< `Package | `Universe of string ] -> t -> string option Lwt.t
 (** Get the changelog file name of a package *)
 
+type documentation_status = Success | Failure | Unknown
+
 val documentation_status :
-  kind:[< `Package | `Universe of string ] ->
-  t ->
-  [ `Success | `Failure | `Unknown ] Lwt.t
+  kind:[< `Package | `Universe of string ] -> t -> documentation_status Lwt.t
 (** Get the build status of the documentation of a package *)
 
 val documentation_page :
