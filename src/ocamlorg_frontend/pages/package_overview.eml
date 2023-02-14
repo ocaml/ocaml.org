@@ -169,6 +169,7 @@ Package_layout.render
         <% ; %>
         <div class="font-semibold mt-8 mb-3 text-base text-body-400">Dependencies</div>
         <div class="flex flex-col space-y-3 max-h-96 overflow-auto">
+            <%s if List.length dependencies = 0 then "None" else "" %>
             <% dependencies |> List.iter (fun (name, cstr) -> %>
             <div class="flex items-center space-x-3">
                 <a href="<%s Url.package name %>" class="text-primary-600 hover:underline">
@@ -185,6 +186,7 @@ Package_layout.render
         </div>
         <div class="font-semibold mt-8 mb-3 text-base text-body-400">Reverse Dependencies</div>
         <div class="flex flex-col space-y-3 max-h-96 overflow-auto">
+            <%s if List.length rev_dependencies = 0 then "None" else "" %>
             <% rev_dependencies |> List.iter (fun (name, cstr, version) -> %>
             <div class="flex items-center space-x-3">
                 <a href="<%s Url.package_with_version name version %>" class="text-primary-600 hover:underline">
@@ -199,9 +201,9 @@ Package_layout.render
             </div>
             <% ); %>
         </div>
-        <% if List.length conflicts > 0 then (%>
         <div class="font-semibold mt-8 mb-3 text-base text-body-400">Conflicts</div>
         <div class="flex flex-col space-y-3 max-h-96 overflow-auto">
+            <%s if List.length conflicts = 0 then "None" else "" %>
             <% conflicts |> List.iter (fun (name, cstr) -> %>
             <div class="flex items-center space-x-3">
                 <a href="<%s Url.package name %>" class="text-primary-600 hover:underline">
@@ -216,7 +218,6 @@ Package_layout.render
             </div>
             <% ); %>
         </div>
-        <% ); %>
     </div>
 </div>
 <script>
