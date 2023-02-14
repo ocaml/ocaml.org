@@ -100,7 +100,7 @@ Package_layout.render
         </div>
 
         <dl>
-          <dt class="mt-8 font-semibold text-base text-body-400">Last Published</dt>
+          <dt class="mt-8 font-semibold text-base text-body-400">Published</dt>
           <dd class="mt-3 text-sm text-gray-900">
             <%s Utils.human_date_of_timestamp package.publication %>
           </dd>
