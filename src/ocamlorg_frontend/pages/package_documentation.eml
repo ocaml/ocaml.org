@@ -48,7 +48,7 @@ Package_layout.render
 ~canonical:(Url.package_doc package.name package.version ?page:path_page)
 ~styles:["/css/main.css"; "/css/doc.css"] @@
 <div x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024" x-on:close-sidebar="sidebar=window.innerWidth > 1024 && true">
-  <button :title='(sidebar? "close" : "open")+" sidebar"' aria-pressed="false" :aria-pressed="sidebar" class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed lg:hidden right-10"
+  <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed lg:hidden right-10"
     x-on:click="sidebar = ! sidebar">
     <%s! Icons.sidebar_menu "h-8 w-8" %>
     <span class="hidden md:flex font-semibold px-2">side menu</span>
