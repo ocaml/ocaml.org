@@ -585,7 +585,7 @@ let package_doc t kind req =
                     (Page first_path_item.name)
               | Module | ModuleType | Parameter _ | Class | ClassType ->
                   let library =
-                    List.find
+                    List.find_opt
                       (fun (toc : Ocamlorg_frontend.Navmap.toc) ->
                         List.exists
                           (fun (t : Ocamlorg_frontend.Navmap.toc) ->
@@ -596,7 +596,9 @@ let package_doc t kind req =
 
                   Ocamlorg_frontend.Package_breadcrumbs.Documentation
                     (Library
-                       ( library.title,
+                       ( (match library with
+                         | Some l -> l.title
+                         | None -> "unknown"),
                          List.map doc_breadcrumb_to_library_path_item
                            breadcrumbs ))
             else Ocamlorg_frontend.Package_breadcrumbs.Documentation Index
