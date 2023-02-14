@@ -11,30 +11,29 @@ date: 2021-08-06T17:16:00-00:00
 
 ## What Is Functional Programming?
 We've got quite far into the tutorial, yet we haven't really considered
-**functional programming**. All of the features given so far - rich data
-types, pattern matching, type inference, nested functions - you could
-imagine could exist in a kind of "super C" language. These are Cool
-Features certainly, and make your code concise, easy to read, and have
-fewer bugs, but they actually have very little to do with functional
-programming. In fact my argument is going to be that the reason that
+**functional programming**. All the features given so far (rich data
+types, pattern matching, type inference, nested functions) could exist in 
+a "super C" language. These are cool
+features that make your code concise, easy to read, and have
+fewer bugs; however, they actually have very little to do with functional
+programming. In fact, the reason 
 functional languages are so great is *not* because of functional
-programming, but because we've been stuck with C-like languages for
-years and in the meantime the cutting edge of programming has moved on
+programming but because we've been stuck with C-like languages for
+years, and in the meantime, cutting-edge programming has progressed
 considerably. So while we were writing
 `struct { int type; union { ... } }` for the umpteenth time, ML and
 Haskell programmers had safe variants and pattern matching on datatypes.
 While we were being careful to `free` all our `malloc`s, there have been
-languages with garbage collectors able to outperform hand-coding since
+languages with garbage collectors able to outperform hand coding since
 the 80s.
 
-Well, after that I'd better tell you what functional programming is
-anyhow.
+Let's explore functional programming.
 
-The basic, and not very enlightening definition is this: in a
-**functional language**, **functions** are first-class citizens.
+The basic, and not very enlightening, distinction in **functional programming**
+is that **functions** are first-class citizens.
 
-Lot of words there that don't really make much sense. So let's have an
-example:
+Let's look at an
+example to illustrate:
 
 ```ocaml
 # let double x = x * 2 in
@@ -42,14 +41,14 @@ example:
 - : int list = [2; 4; 6]
 ```
 
-In this example, I've first defined a nested function called `double`
-which takes an argument `x` and returns `x * 2`. Then `map` calls
+In this example, we first defined a nested function called `double`
+that took the argument `x` and returned `x * 2`. Then `map` calls
 `double` on each element of the given list (`[1; 2; 3]`) to produce the
 result: a list with each number doubled.
 
 `map` is known as a **higher-order function** (HOF). Higher-order
 functions are just a fancy way of saying that the function takes a
-function as one of its arguments. So far so simple. If you're familiar
+function as one of its arguments. Simple so far. If you're familiar
 with C/C++ then this looks like passing a function pointer around.
 
 **Closures** are functions which carry around some of the "environment"
@@ -77,7 +76,7 @@ Hence:
 The important point to note about the `multiply` function is the nested
 function `f`. This is a closure. Look at how `f` uses the value of `n`
 which isn't actually passed as an explicit argument to `f`. Instead `f`
-picks it up from its environment - it's an argument to the `multiply`
+picks it up from its environment; it's an argument to the `multiply`
 function and hence available within this function.
 
 This might sound straightforward, but let's look a bit closer at that
@@ -85,12 +84,12 @@ call to map: `List.map f list`.
 
 `map` is defined in the `List` module, far away from the current code.
 In other words, we're passing `f` into a module defined "a long time
-ago, in a galaxy far far away". For all we know that code might pass `f`
-to other modules, or save a reference to `f` somewhere and call it
-later. Whether it does this or not, the closure will ensure that `f`
+ago, in a galaxy far far away." For all we know, that code might pass `f`
+to other modules or save a reference to `f` somewhere and call it
+later. Whether it does or not, the closure will ensure that `f`
 always has access back to its parental environment, and to `n`.
 
-Here's a real example from lablgtk. This is actually a method on a class
+Here's a real example from LablGtk. This is actually a method on a class
 (we haven't talked about classes and objects yet, but just think of it
 as a function definition for now).
 
