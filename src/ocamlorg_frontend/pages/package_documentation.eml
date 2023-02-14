@@ -58,7 +58,9 @@ Package_layout.render
     <%s! Icons.sidebar_menu "h-8 w-8" %>
     <span class="hidden md:flex font-semibold px-2">side menu</span>
   </button>
-
+  <div class="fixed z-10 inset-0 bg-background-dark-blue/20 backdrop-blur-sm lg:hidden"
+    :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar">
+  </div>
   <div class="flex flex-col lg:flex-row md:gap-12">
     <div
       class="p-10 z-20 bg-white flex-col fixed h-screen overflow-auto lg:pr-0 lg:flex left-0 top-0 lg:sticky w-72 lg:p-0 lg:pt-6"
