@@ -1,5 +1,4 @@
 module Package_breadcrumbs = Package_breadcrumbs
-module Package_overview = Package_overview
 module Navmap = Navmap
 module Toc = Toc
 module Url = Url
