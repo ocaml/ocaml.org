@@ -225,7 +225,7 @@ module Documentation = struct
   type breadcrumb = { name : string; href : string; kind : breadcrumb_kind }
 
   type t = {
-    old: bool; (* FALLBACK REMOVE *)
+    old : bool; (* FALLBACK REMOVE *)
     module_map : Module_map.t;
     uses_katex : bool;
     toc : toc list;
