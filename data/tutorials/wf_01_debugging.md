@@ -9,12 +9,16 @@ date: 2021-05-27T21:07:30-00:00
 
 # Debugging
 
-This tutorial presents two techniques for debugging OCaml programs:
+This tutorial presents three techniques for debugging OCaml programs:
 
 * [Tracing functions calls](#tracing-functions-calls-in-the-toplevel),
   which works in the interactive toplevel.
 * The [OCaml debugger](#the-ocaml-debugger), which allows analysing programs
   compiled with `ocamlc`.
+* [How to get a back trace for an uncaught
+  exception](#printing-a-back-trace-for-an-uncaught-exception) in an
+  OCaml program
+
 
 ## Tracing Functions Calls in the Toplevel
 
@@ -339,3 +343,52 @@ Under Emacs you call the debugger using `ESC-x` `ocamldebug a.out`. Then Emacs
 will send you directly to the file and character reported by the debugger, and
 you can step back and forth using `ESC-b` and `ESC-s`, you can set up break
 points using `CTRL-X space`, and so on...
+
+## Printing a Back Trace for an Uncaught Exception
+
+Getting a back trace for an uncaught exception can be informative to
+understand in which context a problem occurs. However, by default,
+programs compiled with both `ocamlc` and `ocamlopt` will not print it:
+
+```
+ocamlc -g uncaught.ml
+./a.out
+Fatal error: exception Not_found
+ocamlopt -g uncaught.ml
+./a.out
+Fatal error: exception Not_found
+```
+
+By running with the environment variable `OCAMLRUNPARAM` set to `b`
+(for back trace) we get something more informative:
+
+```
+OCAMLRUNPARAM=b ./a.out
+Fatal error: exception Not_found
+Raised at Stdlib__List.assoc in file "list.ml", line 191, characters 10-25
+Called from Uncaught.find_address in file "uncaught.ml" (inlined), line 3, characters 24-42
+Called from Uncaught in file "uncaught.ml", line 8, characters 15-37
+```
+
+From this back trace it should be clear that we receive a `Not_found`
+exception in `List.assoc` from the `Stdlib` when calling
+`find_address` on line 8.
+
+
+The environment variable `OCAMLRUNPARAM` also works when working on a
+program built with `dune`:
+
+```
+;; file dune
+(executable
+ (name uncaught)
+ (modules uncaught)
+)
+```
+```
+OCAMLRUNPARAM=b dune exec ./uncaught.exe
+Fatal error: exception Not_found
+Raised at Stdlib__List.assoc in file "list.ml", line 191, characters 10-25
+Called from Dune__exe__Uncaught.find_address in file "uncaught.ml" (inlined), line 3, characters 24-42
+Called from Dune__exe__Uncaught in file "uncaught.ml", line 8, characters 15-37
+```
