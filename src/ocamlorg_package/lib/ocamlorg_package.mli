@@ -80,6 +80,7 @@ module Documentation : sig
   type breadcrumb = { name : string; href : string; kind : breadcrumb_kind }
 
   type t = {
+    old: bool;
     module_map : Module_map.t;
     uses_katex : bool;
     toc : toc list;

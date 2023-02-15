@@ -225,6 +225,7 @@ module Documentation = struct
   type breadcrumb = { name : string; href : string; kind : breadcrumb_kind }
 
   type t = {
+    old: bool; (* FALLBACK REMOVE *)
     module_map : Module_map.t;
     uses_katex : bool;
     toc : toc list;
@@ -266,6 +267,7 @@ module Documentation = struct
           | _ -> failwith "Not enough breadcrumbs"
         in
         {
+          old = false;
           module_map;
           uses_katex;
           breadcrumbs;
@@ -317,6 +319,7 @@ module Documentation = struct
       else []
     in
     {
+      old = true;
       module_map;
       uses_katex = false;
       toc;
