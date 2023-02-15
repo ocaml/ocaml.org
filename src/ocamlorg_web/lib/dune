@@ -13,20 +13,26 @@
   mirage-kv-mem))
 
 (rule
- (targets asset.ml asset.mli)
+ (targets asset.ml)
  (deps
   %{workspace_root}/asset/css/main.css
   (source_tree %{workspace_root}/asset))
  (action
   (with-stdout-to
    %{null}
-   (run %{bin:ocaml-crunch} -m lwt %{workspace_root}/asset -o asset.ml))))
+   (run %{bin:ocaml-crunch} -m plain %{workspace_root}/asset -o asset.ml))))
 
 (rule
- (targets media.ml media.mli)
+ (targets media.ml)
  (deps
   (source_tree %{workspace_root}/data/media))
  (action
   (with-stdout-to
    %{null}
-   (run %{bin:ocaml-crunch} -m lwt %{workspace_root}/data/media -o media.ml))))
+   (run
+    %{bin:ocaml-crunch}
+    -m
+    plain
+    %{workspace_root}/data/media
+    -o
+    media.ml))))
