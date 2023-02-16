@@ -18,6 +18,7 @@ let sidebar
 
 let render
 ~title
+~old_doc (* FALLBACK REMOVE *)
 ~(path: Package_breadcrumbs.path)
 ~toc
 ~maptoc
@@ -65,6 +66,7 @@ Package_layout.render
       <%s! sidebar ~str_path ~toc ~maptoc package %>
     </div>
     <div class="flex-1 z-0 z- min-w-0 lg:max-w-3xl lg:pt-6" id="htmx-content">
+      <%s if old_doc then "Falling back to pre-odoc.2.2.0 documentation page..." else "" %>
       <div class="odoc prose prose-orange">
         <%s! content %>
       </div>
