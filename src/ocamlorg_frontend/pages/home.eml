@@ -477,6 +477,7 @@ Layout.render
   var swiper2 = new Swiper(".mySwiper2", {
     loop: true,
     autoplay: { delay: 5000, disableOnInteraction: false, },
+    slidesPerView: 'auto',
     spaceBetween: 10,
     thumbs: {
       swiper: swiper,
