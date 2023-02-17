@@ -1,4 +1,5 @@
-let render () =
+let render
+() =
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,10 +18,14 @@ let render () =
     <link rel="canonical" href="https://ocaml.org<%s Url.playground %>">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="manifest" href="/manifest.json">
-    <link rel="stylesheet" href="<%s Ocamlorg_static.asset_url "css/main.css" %>">
-    <link rel="stylesheet" href="<%s Ocamlorg_static.asset_url "css/codemirror.css" %>">
-    <link rel="stylesheet" href="<%s Ocamlorg_static.asset_url "vendors/font-files/inter.css" %>">
-    <script defer src="<%s Ocamlorg_static.asset_url "vendors/alpine.min.js" %>"></script>
+    <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "css/main.css" %>">
+    <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "css/codemirror.css" %>">
+    <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/font-files/inter.css" %>">
+    <script defer src="<%s Ocamlorg_static.Asset.url "vendors/alpine.min.js" %>"></script>
+    <script id="playground-script"
+      data-merlin-url="<%s Ocamlorg_static.Playground.url "merlin.min.js" %>"
+      data-worker-url="<%s Ocamlorg_static.Playground.url "worker.min.js" %>"
+      src="<%s Ocamlorg_static.Playground.url "playground.min.js" %>" defer></script>
     <title>OCaml Playground</title>
   </head>
 
@@ -95,6 +100,5 @@ let render () =
         </div>
       </div>
     </main>
-    <script src="/play/playground-v1.js" defer></script>
   </body>
 </html>

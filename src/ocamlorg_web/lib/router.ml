@@ -2,16 +2,29 @@ open Ocamlorg
 
 let asset_loader =
   Static.loader
-    ~read:(fun _root path -> Ocamlorg_static.Asset.read path)
+    ~read:(fun _root path -> Ocamlorg_static.Asset.read path |> Lwt.return)
     ~digest:(fun _root path ->
       Option.map Dream.to_base64url (Ocamlorg_static.Asset.hash path))
     ~not_cached:[ "robots.txt"; "/robots.txt" ]
 
 let media_loader =
   Static.loader
-    ~read:(fun _root path -> Ocamlorg_static.Media.read path)
+    ~read:(fun _root path -> Ocamlorg_static.Media.read path |> Lwt.return)
     ~digest:(fun _root path ->
       Option.map Dream.to_base64url @@ Ocamlorg_static.Media.hash path)
+
+let playground_loader =
+  let open Lwt.Syntax in
+  Static.loader
+    ~read:(fun local_root path ->
+      let file = Filename.concat local_root path in
+      Lwt.catch
+        (fun () ->
+          Lwt_io.(with_file ~mode:Input file) (fun channel ->
+              let* content = Lwt_io.read channel in
+              Some content |> Lwt.return))
+        (fun _exn -> None |> Lwt.return))
+    ~digest:(fun _root path -> Ocamlorg_static.Playground.digest path)
 
 let page_routes =
   Dream.scope ""
@@ -91,7 +104,11 @@ let router t =
         [ Dream.get "/media/**" (Dream.static ~loader:media_loader "") ];
       Dream.scope ""
         [ Dream_encoding.compress ]
-        [ Dream.get "/play/**" @@ Dream.static "playground/asset/" ];
+        [
+          Dream.get (Ocamlorg_static.Playground.url_root ^ "/**")
+          @@ Dream.static ~loader:playground_loader
+               Ocamlorg_static.Playground.file_root;
+        ];
       Dream.scope ""
         [ Dream_encoding.compress ]
         [ Dream.get "/**" (Dream.static ~loader:asset_loader "") ];
