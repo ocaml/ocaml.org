@@ -26,7 +26,6 @@ let render
 ~is_latest_url
 (package : Package_intf.package) 
 =
-let version = if is_latest_url then None else Some package.version in
 let str_path =
   match path with
     | Overview -> []
@@ -50,7 +49,7 @@ Package_layout.render
 ~description:(if is_latest_url then (Printf.sprintf "%s %s: %s" package.name "latest" package.description) else (Printf.sprintf "%s %s: %s" package.name package.version package.description))
 ~package
 ~path
-~canonical:(Url.package_doc package.name ?version ?page:path_page)
+~canonical:(Url.package_doc package.name ~version:package.version ?page:path_page)
 ~styles:["/css/main.css"; "/css/doc.css"] @@
 <div x-data="{ open: false, sidebar: window.innerWidth > 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth > 1024" x-on:close-sidebar="sidebar=window.innerWidth > 1024 && true">
   <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed lg:hidden right-10"
