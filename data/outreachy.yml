@@ -178,7 +178,16 @@ rounds:
          - Patrik Keller
         video: https://watch.ocaml.org/w/eSSmoyEcPTEXPGAqDtKENX
       - title: "Support .eml files in OCaml's VSCode extension"
-        description: ""
+        description: >
+          Support `.eml` files in OCaml's VSCode extension
+          Dream, the OCaml web framework, uses `.eml` files to embed HTML in
+          OCaml files. At the moment, opening these files in VSCode, with the
+          official OCaml VSCode extension, will not provide any syntax
+          highlighting or diagnostics for the `.eml` files, because they are
+          not supported.
+          The goal of the project is to add support for the syntax in the
+          extension itself as a first step, and eventually, add support for
+          the language in the OCaml Language Server (LSP) as a second step.
         source: https://github.com/ocamllabs/vscode-ocaml-platform
         mentee: "Sayo Bamigbade"
         blog: "https://saysayoblog.wordpress.com"

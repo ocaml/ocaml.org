@@ -97,6 +97,11 @@
   (target jobs.ml)
   (action
    (run %{bin:dream_eml} %{dep:jobs.eml} --workspace %{workspace_root})))
+  (rule
+  (targets outreachy.ml)
+  (deps outreachy.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
   (target package_overview.ml)
   (action
