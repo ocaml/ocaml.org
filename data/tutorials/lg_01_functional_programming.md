@@ -108,7 +108,7 @@ class html_skel obj = object (self)
 end
 ```
 First of all you need to know that the `save` function called at the end
-of the method takes as its second argument a function (`receiver_fn`).
+of the method takes a function as its second argument: (`receiver_fn`).
 It repeatedly calls `receiver_fn` with snippets of text from the widget
 that it's trying to save.
 
@@ -116,7 +116,7 @@ Now look at the definition of `receiver_fn`. This function is a closure
 alright because it keeps a reference to `chan` from its environment.
 
 ## Partial Function Applications
-Let's define a plus function which just adds two integers:
+Let's define a `plus` function, which just adds two integers:
 
 ```ocaml
 # let plus a b =
@@ -129,32 +129,34 @@ Some questions for people asleep at the back of the class.
 1. What is `plus 2 3`?
 1. What is `plus 2`?
 
-Question 1 is easy. `plus` is a function, it takes two arguments which
-are integers and it returns an integer. We write its type like this:
+Question 1 is easy: `plus` is a function. It takes two arguments that
+are integers and returns an integer. We write its type like this:
 
 ```ocaml
 # plus;;
 - : int -> int -> int = <fun>
 ```
-Question 2 is even easier. `plus 2 3` is a number, the integer `5`. We
+Question 2 is even easier: `plus 2 3` is a number, the integer `5`. We
 write its value and type like this:
 
 ```ocaml
 # 5;;
 - : int = 5
 ```
-But what about question 3? It looks like `plus 2` is a mistake, a bug.
-In fact, however, it isn't. If we type this into the OCaml toplevel, it
-tells us:
+But what about question 3? It looks like `plus 2` is a mistake or a bug, but
+it isn't. If we type this into the OCaml toplevel, it
+returns:
 
 ```ocaml
 # plus 2;;
 - : int -> int = <fun>
 ```
 This isn't an error. It's telling us that `plus 2` is in fact a
-*function*, which takes an `int` and returns an `int`. What sort of
-function is this? We experiment by first of all giving this mysterious
-function a name (`f`), and then trying it out on a few integers to see
+*function*, which takes an `int` and returns an `int`. 
+
+What sort of
+function is this? Let's experiment by first giving this mysterious
+function a name (`f`) and then trying it out on a few integers to see
 what it does:
 
 ```ocaml
@@ -168,20 +170,20 @@ val f : int -> int = <fun>
 - : int = 101
 ```
 In engineering, this is sufficient proof by example
-for us to state that `plus 2` is the function which adds 2 to things.
+to state that `plus 2` is the function which adds 2 to things.
 
 Going back to the original definition, let's "fill in" the first
-argument (`a`) setting it to 2 to get:
+argument (`a`), setting it to 2 to get:
 
 <!-- $MDX skip -->
 ```ocaml
 let plus 2 b =       (* This is not real OCaml code! *)
-  2 + b
+  2 + b;;
 ```
-You can kind of see, I hope, why `plus 2` is the function which adds 2
+Here, it's hopefully clear that `plus 2` is the function that adds 2
 to things.
 
-Looking at the types of these expressions we may be able to see some
+Looking at the types of these expressions, we may be able to see some
 rationale for the strange `->` arrow notation used for function types:
 
 ```ocaml
@@ -204,7 +206,7 @@ Remember our `double` and `multiply` functions from earlier on?
     List.map f list;;
 val multiply : int -> int list -> int list = <fun>
 ```
-We can now define `double`, `triple` &amp;c functions very easily just like
+We can now define `double` and `triple` functions very easily, like
 this:
 
 ```ocaml
@@ -242,7 +244,7 @@ In the example above, `(( * ) n)` is the partial application of the `( * )`
 (times) function. Note the extra spaces needed so that OCaml doesn't
 think `(*` starts a comment.
 
-You can put infix operators into brackets to make functions. Here's an
+You can also put infix operators into brackets to make functions. Here's an
 identical definition of the `plus` function as before:
 
 ```ocaml
@@ -262,8 +264,8 @@ val list_of_functions : (int -> int) list = [<fun>; <fun>; <fun>]
 
 ## What Is Functional Programming Good For?
 Functional programming, like any good programming technique, is a useful
-tool in your armoury for solving some classes of problems. It's very
-good for callbacks, which have multiple uses from GUIs through to
+tool for solving some classes of problems. It's very
+good for callbacks, which have multiple uses from GUIs to
 event-driven loops. It's great for expressing generic algorithms.
 `List.map` is really a generic algorithm for applying functions over any
 type of list. Similarly you can define generic functions over trees.
@@ -272,28 +274,28 @@ functional programming (for example, numerically calculating the
 derivative of a mathematical function).
 
 ## Pure and Impure Functional Programming
-A **pure function** is one without any **side-effects**. A side-effect
-really means that the function keeps some sort of hidden state inside
+A **pure function** is one without any **side effects**. A side effect
+means that the function keeps some sort of hidden state inside
 it. `strlen` is a good example of a pure function in C. If you call
 `strlen` with the same string, it always returns the same length. The
 output of `strlen` (the length) only depends on the inputs (the string)
 and nothing else. Many functions in C are, unfortunately, impure. For
-example, `malloc` - if you call it with the same number, it certainly
+example, `malloc`. If you call it with the same number, it certainly
 won't return the same pointer to you. `malloc`, of course, relies on a
 huge amount of hidden internal state (objects allocated on the heap, the
 allocation method in use, grabbing pages from the operating system,
 etc.).
 
-ML-derived languages like OCaml are "mostly pure". They allow
-side-effects through things like references and arrays, but by and large
-most of the code you'll write will be pure functional because they
+ML-derived languages like OCaml are "mostly pure," meaning they allow
+side effects through things like references and arrays. But
+most of the code you'll write will be "pure functional" because functional languages
 encourage this thinking. Haskell, another functional language, is pure
 functional. OCaml is therefore more practical because writing impure
 functions is sometimes useful.
 
 There are various theoretical advantages of having pure functions. One
-advantage is that if a function is pure, then if it is called several
-times with the same arguments, the compiler only needs to actually call
+advantage is that if a function is pure, it is called several
+times with the same arguments. The compiler only needs to actually call
 the function once. A good example in C is:
 
 ```C
@@ -312,19 +314,19 @@ probably not.
 
 Concentrating on writing small pure functions allows you to construct
 reusable code using a bottom-up approach, testing each small function as
-you go along. The current fashion is for carefully planning your
-programs using a top-down approach, but in the author's opinion this
+you go along. The current fashion is to carefully plan your
+programs using a top-down approach, but in this author's opinion, this
 often results in projects failing.
 
-## Strictness vs Laziness
+## Strictness vs. Laziness
 C-derived and ML-derived languages are strict. Haskell and Miranda are
-non-strict, or lazy, languages. OCaml is strict by default but allows a
-lazy style of programming where it is needed.
+non-strict, or lazy, languages. OCaml is strict by default, but it allows a
+lazy style of programming when needed.
 
 In a strict language, arguments to functions are always evaluated first,
-and the results are then passed to the function. For example in a strict
+and the results are then passed to the function. For example, in a strict
 language, the call `give_me_a_three (1/0)` is always going to result in
-a divide-by-zero error:
+a `divide-by-zero` error:
 
 ```ocaml
 # let give_me_a_three _ = 3;;
@@ -334,22 +336,22 @@ Exception: Division_by_zero.
 ```
 
 If you've programmed in any conventional language, this is just how
-things work, and you'd be surprised that things could work any other
+things work. You might be surprised that things could work any other
 way.
 
 In a lazy language, something stranger happens. Arguments to functions
 are only evaluated if the function actually uses them. Remember that the
 `give_me_a_three` function throws away its argument and always returns a
-3? Well in a lazy language, the above call would *not* fail because
+3? In a lazy language, the above call would *not* fail because
 `give_me_a_three` never looks at its first argument, so the first
-argument is never evaluated, so the division by zero doesn't happen.
+argument is never evaluated. Thus, the division by zero doesn't happen.
 
 Lazy languages also let you do really odd things like defining an
-infinitely long list. Provided you don't actually try to iterate over
+infinitely long list, provided you don't actually try to iterate over
 the whole list this works (say, instead, that you just try to fetch the
 first 10 elements).
 
-OCaml is a strict language, but has a `Lazy` module that lets you write
+OCaml is a strict language, but has a `lazy` module that lets you write
 lazy expressions. Here's an example. First we create a lazy expression
 for `1/0`:
 
@@ -376,14 +378,14 @@ Exception: Division_by_zero.
 ```
 
 ## Boxed vs. Unboxed Types
-One term which you'll hear a lot when discussing functional languages is
-"boxed". I was very confused when I first heard this term, but in fact
+"Boxes" is a term you'll hear often when discussing functional languages. 
+It can be confusing, but in fact
 the distinction between boxed and unboxed types is quite simple if
-you've used C, C++ or Java before (in Perl, everything is boxed).
+you've used C, C++, or Java before (in Perl, everything is boxed).
 
-The way to think of a boxed object is to think of an object which has
+The way to understand a boxed object is to think of an object which has
 been allocated on the heap using `malloc` in C (or equivalently `new` in
-C++), and/or is referred to through a pointer. Take a look at this
+C++) and/or is referred to through a pointer. Take a look at this
 example C program:
 
 ```C
@@ -405,7 +407,7 @@ main ()
 }
 ```
 
-The variable `a` is allocated on the stack, and is quite definitely
+The variable `a` is allocated on the stack, and it is quite definitely
 unboxed.
 
 The function `printit` takes a boxed integer and prints it.
@@ -415,24 +417,27 @@ integers:
 
 ![Boxed Array](/media/tutorials/boxedarray.png)
 
-No prizes for guessing that the array of unboxed integers is much faster
-than the array of boxed integers. In addition, because there are fewer
+
+(No prizes for guessing that the array of unboxed integers is much faster
+than the array of boxed integers.) 
+
+In addition, because there are fewer
 separate allocations, garbage collection is much faster and simpler on
 the array of unboxed objects.
 
-In C or C++ you should have no problems constructing either of the two
-types of arrays above. In Java, you have two types, `int` which is
-unboxed and `Integer` which is boxed, and hence considerably less
+In C or C++, you shouldn't have problems constructing either of the two
+array types above. In Java, you have two types, `int` which is
+unboxed and `Integer` which is boxed, hence considerably less
 efficient. In OCaml, the basic types are all unboxed.
 
 ## Aliases for Function Names and Arguments
 It's possible to use this as a neat trick to save typing: aliasing function
-names, and function arguments.
+names and function arguments.
 
 Although we haven't looked at object-oriented programming (that's the
 subject for the ["Objects" section](/docs/objects)),
-here's an example from OCamlNet of an
-aliased function call. All you need to know is that
+here's an example of an
+aliased function call from OCamlNet. All you need to know is that
 `cgi # output # output_string "string"` is a method call, similar to
 `cgi.output().output_string ("string")` in Java.
 
@@ -473,9 +478,9 @@ can be thought of as a kind of alias for a function name plus arguments:
 
 <!-- $MDX skip -->
 ```ocaml
-let print_string = output_string stdout
+let print_string = output_string stdout;;
 ```
 
 `output_string` takes two arguments (a channel and a string), but since
 we have only supplied one, it is partially applied. So `print_string` is
-a function, expecting one string argument.
+a function that expects one string argument.
