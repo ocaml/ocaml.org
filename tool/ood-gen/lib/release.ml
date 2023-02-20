@@ -1,4 +1,4 @@
-type kind = [ `Compiler ]
+type kind = [ `Compiler ] [@@deriving show { with_path = false }]
 
 let kind_of_string = function
   | "compiler" -> `Compiler
@@ -31,7 +31,8 @@ type t = {
     ~remove:
       [
         intro_md; intro_html; highlights_md; highlights_html; body_md; body_html;
-      ]]
+      ],
+    show { with_path = false }]
 
 let of_metadata m =
   of_metadata m ~modify_kind:kind_of_string ~intro_md:m.intro
@@ -52,27 +53,6 @@ let decode (_, (head, body_md)) =
 let all () =
   Utils.map_files decode "releases/" |> List.sort sort_by_decreasing_version
 
-let pp_kind ppf v = Fmt.pf ppf "%s" (match v with `Compiler -> "`Compiler")
-
-let pp ppf v =
-  Fmt.pf ppf
-    {|
-  { kind = %a
-  ; version = %a
-  ; date = %a
-  ; intro_md = %a
-  ; intro_html = %a
-  ; highlights_md = %a
-  ; highlights_html = %a
-  ; body_md = %a
-  ; body_html = %a
-  }|}
-    pp_kind v.kind Pp.string v.version Pp.string v.date Pp.string v.intro_md
-    Pp.string v.intro_html Pp.string v.highlights_md Pp.string v.highlights_html
-    Pp.string v.body_md Pp.string v.body_html
-
-let pp_list = Pp.list pp
-
 let template () =
   Format.asprintf
     {|
@@ -92,4 +72,5 @@ type t =
   
 let all = %a
 |}
-    pp_list (all ())
+    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
+    (all ())

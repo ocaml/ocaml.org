@@ -1,11 +1,12 @@
-type location = { lat : float; long : float } [@@deriving of_yaml]
+type location = { lat : float; long : float }
+[@@deriving of_yaml, show { with_path = false }]
 
 type course = {
   name : string;
   acronym : string option;
   online_resource : string option;
 }
-[@@deriving of_yaml]
+[@@deriving of_yaml, show { with_path = false }]
 
 type metadata = {
   name : string;
@@ -31,7 +32,8 @@ type t = {
   body_html : string;
 }
 [@@deriving
-  stable_record ~version:metadata ~remove:[ body_md; body_html; slug ]]
+  stable_record ~version:metadata ~remove:[ body_md; body_html; slug ],
+    show { with_path = false }]
 
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.name)
 
@@ -41,43 +43,6 @@ let decode (_, (head, body_md)) =
   Result.map (of_metadata ~body_md ~body_html) metadata
 
 let all () = Utils.map_files decode "academic_institutions"
-
-let pp_course ppf (v : course) =
-  Fmt.pf ppf {|
-  { name = %a
-  ; acronym = %a
-  ; online_resource  = %a
-  }|}
-    Pp.string v.name (Pp.option Pp.string) v.acronym (Pp.option Pp.string)
-    v.online_resource
-
-let pp_location ppf v =
-  Fmt.pf ppf {|
-  { long = %f
-  ; lat = %f
-  }
-  |} v.long v.lat
-
-let pp ppf v =
-  Fmt.pf ppf
-    {|
-  { name = %a
-  ; slug = %a
-  ; description = %a
-  ; url = %a
-  ; logo = %a
-  ; continent = %a
-  ; courses = %a
-  ; location = %a
-  ; body_md = %a
-  ; body_html = %a
-  }|}
-    Pp.string v.name Pp.string v.slug Pp.string v.description Pp.string v.url
-    (Pp.option Pp.string) v.logo Pp.string v.continent (Pp.list pp_course)
-    v.courses (Pp.option pp_location) v.location Pp.string v.body_md Pp.string
-    v.body_html
-
-let pp_list = Pp.list pp
 
 let template () =
   Format.asprintf
@@ -105,4 +70,5 @@ type t =
 
 let all = %a
 |}
-    pp_list (all ())
+    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
+    (all ())

@@ -115,7 +115,8 @@ type t = {
 }
 [@@deriving
   stable_record ~version:metadata ~modify:[ featured ]
-    ~remove:[ slug; body_html ]]
+    ~remove:[ slug; body_html ],
+    show { with_path = false }]
 
 let of_metadata m =
   of_metadata m ~slug:(Utils.slugify m.title)
@@ -129,24 +130,6 @@ let decode (_, (head, body)) =
 let all () =
   Utils.map_files decode "rss/*/*.md"
   |> List.sort (fun a b -> String.compare b.date a.date)
-
-let pp ppf v =
-  Fmt.pf ppf
-    {|
-  { title = %a
-  ; slug = %a
-  ; description = %a
-  ; url = %a
-  ; date = %a
-  ; preview_image = %a
-  ; featured = %a
-  ; body_html = %a
-  }|}
-    Pp.string v.title Pp.string v.slug (Pp.option Pp.string) v.description
-    Pp.string v.url Pp.string v.date (Pp.option Pp.string) v.preview_image
-    Pp.bool v.featured Pp.string v.body_html
-
-let pp_list = Pp.list pp
 
 let template () =
   Format.asprintf
@@ -164,4 +147,5 @@ type t =
   
 let all = %a
 |}
-    pp_list (all ())
+    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
+    (all ())

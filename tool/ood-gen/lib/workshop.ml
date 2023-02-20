@@ -1,4 +1,4 @@
-type role = [ `Chair | `Co_chair ]
+type role = [ `Chair | `Co_chair ] [@@deriving show { with_path = false }]
 
 let role_to_string = function `Chair -> "chair" | `Co_chair -> "co-chair"
 
@@ -13,7 +13,8 @@ let role_of_yaml = function
 
 let role_to_yaml t = `String (role_to_string t)
 
-type important_date = { date : string; info : string } [@@deriving of_yaml]
+type important_date = { date : string; info : string }
+[@@deriving of_yaml, show { with_path = false }]
 
 type committee_member = {
   name : string;
@@ -21,7 +22,7 @@ type committee_member = {
   affiliation : string option;
   picture : string option;
 }
-[@@deriving of_yaml]
+[@@deriving of_yaml, show { with_path = false }]
 
 type presentation = {
   title : string;
@@ -32,7 +33,7 @@ type presentation = {
   poster : bool option;
   additional_links : string list option;
 }
-[@@deriving of_yaml]
+[@@deriving of_yaml, show { with_path = false }]
 
 type metadata = {
   title : string;
@@ -59,7 +60,8 @@ type t = {
   body_html : string;
 }
 [@@deriving
-  stable_record ~version:metadata ~remove:[ slug; toc_html; body_md; body_html ]]
+  stable_record ~version:metadata ~remove:[ slug; toc_html; body_md; body_html ],
+    show { with_path = false }]
 
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
 
@@ -73,87 +75,6 @@ let decode (_, (head, body_md)) =
 let all () =
   Utils.map_files decode "workshops/*.md"
   |> List.sort (fun w1 w2 -> String.compare w2.date w1.date)
-
-let pp_role ppf = function
-  | `Chair -> Fmt.string ppf "`Chair"
-  | `Co_chair -> Fmt.string ppf "`Co_chair"
-
-let pp_important_date ppf (v : important_date) =
-  Fmt.pf ppf
-    {|
-  { date = %a;
-    info = %a;
-  }|}
-    Pp.string v.date Pp.string v.info
-
-let pp_committee_member ppf (v : committee_member) =
-  Fmt.pf ppf
-    {|
-  { name = %a;
-    role = %a;
-    affiliation = %a;
-    picture = %a;
-  }|}
-    Pp.string v.name
-    Pp.(option pp_role)
-    v.role
-    Pp.(option string)
-    v.affiliation
-    Pp.(option string)
-    v.picture
-
-let pp_presentation ppf (v : presentation) =
-  Fmt.pf ppf
-    {|
-  { title = %a;
-    authors = %a;
-    link = %a;
-    video = %a;
-    slides = %a;
-    poster = %a;
-    additional_links = %a;
-  }|}
-    Pp.string v.title Pp.string_list v.authors
-    Pp.(option string)
-    v.link
-    Pp.(option string)
-    v.video
-    Pp.(option string)
-    v.slides
-    Pp.(option Fmt.bool)
-    v.poster
-    Pp.(option string_list)
-    v.additional_links
-
-let pp ppf v =
-  Fmt.pf ppf
-    {|
-  { title = %a
-  ; slug = %a
-  ; location = %a
-  ; date = %a
-  ; important_dates = %a
-  ; presentations = %a
-  ; program_committee = %a
-  ; organising_committee = %a
-  ; body_md = %a
-  ; toc_html = %a
-  ; body_html = %a
-  }|}
-    Pp.string v.title Pp.string v.slug
-    Pp.(string)
-    v.location Pp.string v.date
-    Pp.(list pp_important_date)
-    v.important_dates
-    Pp.(list pp_presentation)
-    v.presentations
-    Pp.(list pp_committee_member)
-    v.program_committee
-    Pp.(list pp_committee_member)
-    v.organising_committee Pp.string v.body_md Pp.string v.toc_html Pp.string
-    v.body_html
-
-let pp_list = Pp.list pp
 
 let template () =
   Format.asprintf
@@ -198,4 +119,5 @@ type t = {
   
 let all = %a
 |}
-    pp_list (all ())
+    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
+    (all ())

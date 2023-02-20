@@ -10,12 +10,7 @@ type metadata = {
 
 module Lifecycle = struct
   type t = [ `Incubate | `Active | `Sustain | `Deprecate ]
-
-  let to_string = function
-    | `Incubate -> "incubate"
-    | `Active -> "active"
-    | `Sustain -> "sustain"
-    | `Deprecate -> "deprecate"
+  [@@deriving show { with_path = false }]
 
   let of_string = function
     | "incubate" -> Ok `Incubate
@@ -36,7 +31,8 @@ type t = {
 }
 [@@deriving
   stable_record ~version:metadata ~modify:[ lifecycle; description ]
-    ~remove:[ slug ]]
+    ~remove:[ slug ],
+    show { with_path = false }]
 
 let of_metadata m =
   of_metadata m ~slug:(Utils.slugify m.name)
@@ -58,30 +54,6 @@ let decode s =
 let all () =
   let content = Data.read "tools.yml" |> Option.get in
   Utils.decode_or_raise decode content
-
-let pp_lifecycle ppf v =
-  Fmt.pf ppf "%s"
-    (match v with
-    | `Incubate -> "`Incubate"
-    | `Active -> "`Active"
-    | `Sustain -> "`Sustain"
-    | `Deprecate -> "`Deprecate")
-
-let pp ppf v =
-  Fmt.pf ppf
-    {|
-  { name = %a
-  ; slug = %a
-  ; source = %a
-  ; license = %a
-  ; synopsis = %a
-  ; description = %a
-  ; lifecycle = %a
-  }|}
-    Pp.string v.name Pp.string v.slug Pp.string v.source Pp.string v.license
-    Pp.string v.synopsis Pp.string v.description pp_lifecycle v.lifecycle
-
-let pp_list = Pp.list pp
 
 let template () =
   Format.asprintf
@@ -105,4 +77,5 @@ type t =
   
 let all = %a
 |}
-    pp_list (all ())
+    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
+    (all ())

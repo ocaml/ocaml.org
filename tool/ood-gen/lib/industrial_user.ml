@@ -22,7 +22,8 @@ type t = {
   body_html : string;
 }
 [@@deriving
-  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ]]
+  stable_record ~version:metadata ~remove:[ slug; body_md; body_html ],
+    show { with_path = false }]
 
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.name)
 
@@ -32,27 +33,6 @@ let decode (_, (head, body_md)) =
   Result.map (of_metadata ~body_md ~body_html) metadata
 
 let all () = Utils.map_files decode "industrial_users"
-
-let pp ppf v =
-  Fmt.pf ppf
-    {|
-  { name = %a
-  ; slug = %a
-  ; description = %a
-  ; logo = %a
-  ; url = %a
-  ; locations = %a
-  ; consortium = %a
-  ; featured = %a
-  ; body_md = %a
-  ; body_html = %a
-  }|}
-    Pp.string v.name Pp.string v.slug Pp.string v.description
-    (Pp.option Pp.string) v.logo Pp.string v.url (Pp.list Pp.string) v.locations
-    Pp.bool v.consortium Pp.bool v.featured Pp.string v.body_md Pp.string
-    v.body_html
-
-let pp_list = Pp.list pp
 
 let template () =
   Format.asprintf
@@ -72,4 +52,5 @@ type t =
   
 let all = %a
 |}
-    pp_list (all ())
+    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
+    (all ())

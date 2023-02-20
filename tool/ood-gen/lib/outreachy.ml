@@ -6,10 +6,12 @@ type project = {
   source : string;
   mentors : string list;
 }
-[@@deriving of_yaml]
+[@@deriving of_yaml, show { with_path = false }]
 
-type metadata = { name : string; projects : project list } [@@deriving of_yaml]
-type t = metadata
+type metadata = { name : string; projects : project list }
+[@@deriving of_yaml, show { with_path = false }]
+
+type t = metadata [@@deriving of_yaml, show { with_path = false }]
 
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in
@@ -21,30 +23,6 @@ let decode s =
 let all () =
   let content = Data.read "outreachy.yml" |> Option.get in
   Utils.decode_or_raise decode content
-
-let pp_project ppf v =
-  Fmt.pf ppf
-    {|
-  { title = %a
-  ; description = %a
-  ; mentee = %a
-  ; blog = %a
-  ; source = %a
-  ; mentors = %a
-  }|}
-    Pp.string v.title Pp.string v.description Pp.string v.mentee
-    Pp.(option string)
-    v.blog Pp.string v.source (Pp.list Pp.string) v.mentors
-
-let pp ppf v =
-  Fmt.pf ppf {|
-  { name = %a
-  ; projects = %a
-  }|} Pp.string v.name
-    Pp.(list pp_project)
-    v.projects
-
-let pp_list = Pp.list pp
 
 let template () =
   Format.asprintf
@@ -65,4 +43,5 @@ type t =
 
 let all = %a
 |}
-    pp_list (all ())
+    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
+    (all ())

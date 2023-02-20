@@ -55,6 +55,7 @@ depends: [
   "yojson"
   "timedesc" {>= "0.8.0"}
   "ppx_deriving_yaml"
+  "ppx_show"
   "ezjsonm"
   "lambdasoup"
   "ptime"
