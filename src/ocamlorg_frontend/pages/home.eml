@@ -168,18 +168,16 @@ Layout.render
           </div>
         </div>
         <div class="lg:flex-1 lg:mr-24 lg:mt-0 mt-10 flex justify-center">
-          <div class="xl:-ml-40">
-            <div style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff;" class="swiper mySwiper2">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <img width="785" src="/img/home/vscode-preview.png" alt="An OCaml program being edited in VSCode">
-                </div>
-                <div class="swiper-slide">
-                  <img width="785" src="/img/home/vim-preview.png" alt="Writing an OCaml program using vim">
-                </div>
-                <div class="swiper-slide">
-                  <img width="785" src="/img/home/emac-preview.png" alt="Writing an OCaml program using emacs">
-                </div>
+          <div style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff;" class="swiper mySwiper2">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="/img/home/vscode-preview.png" alt="An OCaml program being edited in VSCode">
+              </div>
+              <div class="swiper-slide">
+                <img src="/img/home/vim-preview.png" alt="Writing an OCaml program using vim">
+              </div>
+              <div class="swiper-slide">
+                <img src="/img/home/emac-preview.png" alt="Writing an OCaml program using emacs">
               </div>
             </div>
           </div>
@@ -427,6 +425,7 @@ Layout.render
   var swiper2 = new Swiper(".mySwiper2", {
     loop: true,
     autoplay: { delay: 5000, disableOnInteraction: false, },
+    slidesPerView: 'auto',
     spaceBetween: 10,
     thumbs: {
       swiper: swiper,
