@@ -2,7 +2,7 @@ type url = { uri : string; checksum : string list }
 
 (* This is used to invalidate the package state cache if the type [Info.t]
    changes. *)
-let version = "1"
+let version = "2"
 
 type t = {
   synopsis : string;
