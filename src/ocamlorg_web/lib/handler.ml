@@ -528,7 +528,6 @@ let package_doc t kind req =
               | Leaf_page -> Leaf_page
               | Module_type -> Module_type
               | Parameter _ -> Parameter
-              | OLDParameter -> OLDParameter
               | Class -> Class
               | Class_type -> Class_type
               | File -> File
@@ -599,5 +598,5 @@ let package_doc t kind req =
           in
           Dream.html
             (Ocamlorg_frontend.package_documentation ~page:(Some path)
-               ~path:breadcrumb_path ~toc ~maptoc ~old_doc:doc.old
-               ~content:doc.content package_meta))
+               ~path:breadcrumb_path ~toc ~maptoc ~content:doc.content
+               package_meta))

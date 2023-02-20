@@ -6,7 +6,6 @@ type kind =
   | Leaf_page
   | Module_type
   | Parameter of int
-  | OLDParameter (* FALLBACK, DEPRECATED*)
   | Class
   | Class_type
   | File
@@ -14,7 +13,6 @@ type kind =
 let prefix_of_kind = function
   | Module_type -> "module-type-"
   | Parameter i -> "argument-" ^ Int.to_string i ^ "-"
-  | OLDParameter -> "argument-" (* FALLBACK, DEPRECATED*)
   | Class -> "class-"
   | Class_type -> "class-type-"
   | _ -> ""
@@ -61,10 +59,6 @@ let kind_of_yojson v =
   | "class" -> Class
   | "class-type" -> Class_type
   | "file" -> File
-  | "argument" ->
-      OLDParameter
-      (* TODO: DEPRECATED, REMOVE when we no longer need to fall back to the old
-         format*)
   | s when String.starts_with ~prefix:"argument-" s ->
       let i = List.hd (List.tl (String.split_on_char '-' s)) in
       Parameter (int_of_string i)
