@@ -562,11 +562,14 @@ let package_doc t kind req =
               let doc_breadcrumb_to_library_path_item
                   (p : Ocamlorg_package.Documentation.breadcrumb) =
                 match p.kind with
-                | Module -> Ocamlorg_frontend.Package_breadcrumbs.Module p.name
-                | ModuleType -> ModuleType p.name
-                | Parameter i -> Parameter (i, p.name)
-                | Class -> Class p.name
-                | ClassType -> ClassType p.name
+                | Module ->
+                    Ocamlorg_frontend.Package_breadcrumbs.Module
+                      { name = p.name; href = p.href }
+                | ModuleType -> ModuleType { name = p.name; href = p.href }
+                | Parameter i ->
+                    Parameter { name = p.name; href = p.href; number = i }
+                | Class -> Class { name = p.name; href = p.href }
+                | ClassType -> ClassType { name = p.name; href = p.href }
                 | Page | LeafPage | File ->
                     failwith
                       "library paths do not contain Page, LeafPage or File"
