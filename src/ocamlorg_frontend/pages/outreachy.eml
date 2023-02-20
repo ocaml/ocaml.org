@@ -1,0 +1,39 @@
+let render (metadata : Ood.Outreachy.t list)
+= 
+Layout.render
+~title:"OCaml Outreachy Internships"
+~description:"Records Of OCaml Community Past Outreachy Internship Projects"
+~canonical:Url.outreachy @@
+<div class="intro-section-simple">
+    <div class="container-fluid">
+        <div class="text-center w-full lg:w-2/3 m-auto">
+            <h1 class="font-bold mb-6">OCaml Job Board</h1>
+            <p>This is record of all past OCaml Community Outreachy Internship Projects.</p>
+        </div>
+    </div>
+</div>
+<div>
+    <p>This is the past Outreachy Internship Project Page </p>
+    <div>
+        <% projects |> List.iter (fun (project : Ood.Outreachy.project) -> %>
+        <div>
+            <h4 class="font-bold text-body-600"><%s project.title %></h4>
+            <div class="font-bold font-size-1rem font-weight-400 line-height-1.5 text-align-left word-wrap-break-word box-sizing-border-box margin-bottom-0">
+                <div>
+                    <p><%s project.description %> 
+                    </p>
+                    <p><%s project.mentee %> 
+                    </p>
+                    <p><%s project.source %> 
+                    </p>
+                    <% (match project.blog with None -> () | Some blog -> %>
+                    <div>
+                        <a href="<%s blog %>" target="_blank">Mentee's blog</a> 
+                    </div>
+                    <% ); %>
+                </div>
+            </div>
+        </div>
+        <% ); %>
+    </div>
+</div>
