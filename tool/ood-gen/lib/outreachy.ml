@@ -8,7 +8,9 @@ type project = {
 }
 [@@deriving of_yaml, show { with_path = false }]
 
-type metadata = { name : string; projects : project list } [@@deriving of_yaml, show { with_path = false }]
+type metadata = { name : string; projects : project list }
+[@@deriving of_yaml, show { with_path = false }]
+
 type t = metadata [@@deriving of_yaml, show { with_path = false }]
 
 let decode s =
@@ -41,4 +43,5 @@ type t =
 
 let all = %a
 |}
-    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi)) (all ())
+    (Fmt.brackets (Fmt.list pp ~sep:Fmt.semi))
+    (all ())
