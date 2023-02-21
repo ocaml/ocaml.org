@@ -1,0 +1,39 @@
+let highlight_search_terms
+~search
+(text: string)
+=
+  let render_item = function 
+    | Str.Delim s -> {|<span class="bg-background-light-blue text-gray-800 font-normal">|} ^ Dream.html_escape s ^ {|</span>|}
+    | Text s -> Dream.html_escape s
+  in
+  let r = Str.global_replace (Str.regexp "[ \t]+") "\\|" search in
+  let split = Str.full_split (Str.regexp_case_fold r) text in
+  List.fold_left (fun a b -> a ^ render_item b) "" split
+
+let render
+~search (packages : Package_intf.package list)
+=
+<div class="mx-2 mb-2">
+  <span class="font-semibold">Packages:</span>
+  <% if List.length packages = 0 then ( %>
+  <p class="break-words">
+    We didn't find a match for "<%s search %>".
+  </p>
+  <% ); %>
+
+  <ul class="mx-2 flex flex-col">
+  <% packages |> List.iter (fun (package : Package_intf.package) -> %>
+    <li class="flex flex-row">
+      <a
+        href="<%s Url.package_with_version package.name %>"
+        class="flex-grow px-2 py-2 leading-6 font-semibold hover:bg-primary-100 text-primary-600 inline-block"
+      >
+        <%s! highlight_search_terms ~search package.name %>
+      </a>
+      <a class="justify-self-end px-2 py-2 leading-6 font-semibold hover:bg-primary-100" href="<%s Url.package_doc package.name %>">
+        docs
+      </a>
+    </li>
+  <% ); %>
+  </ul>
+</div>

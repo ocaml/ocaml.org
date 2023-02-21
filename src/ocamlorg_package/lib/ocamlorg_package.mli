@@ -169,7 +169,11 @@ val latest_documented_version : state -> Name.t -> Version.t option Lwt.t
 val is_latest_version : state -> Name.t -> Version.t -> bool
 (** Returns a bool if the given version is the latest version of a package. **)
 
-val search_package : ?by_popularity:bool -> state -> string -> t list
+val search_package :
+  ?sort_by_popularity:bool ->
+  state ->
+  string ->
+  t list
 (** Search package that match the given string.
 
     Packages returned contain the string either in the name, tags, synopsis or

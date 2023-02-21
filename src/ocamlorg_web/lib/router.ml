@@ -61,6 +61,7 @@ let package_route t =
     [
       Dream.get Url.packages (Handler.packages t);
       Dream.get Url.packages_search (Handler.packages_search t);
+      Dream.get Url.packages_autocomplete_f (Handler.packages_autocomplete_f t);
       Dream.get (Url.package ":name") (Handler.package t);
       Dream.get (Url.package_docs ":name") (Handler.package_docs t);
       Dream.get (Url.package ~hash:":hash" ":name") (Handler.package t);

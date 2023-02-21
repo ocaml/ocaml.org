@@ -38,6 +38,7 @@ let package_documentation ~path ~toc ~maptoc ~content package =
 
 let packages stats = Packages.render stats
 let packages_search ~total packages = Packages_search.render ~total packages
+let packages_autocomplete_f packages = Packages_autocomplete_f.render packages
 
 let papers ?search ~recommended_papers papers =
   Papers.render ?search ~recommended_papers papers
