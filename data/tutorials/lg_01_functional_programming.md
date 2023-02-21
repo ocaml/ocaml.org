@@ -173,8 +173,8 @@ val f : int -> int = <fun>
 # f 99;;
 - : int = 101
 ```
-In engineering, this is sufficient proof to state that
-`plus 2` is the function which adds 2 to things.
+In engineering, this is sufficient proof to state
+`f` (i.e., `plus 2`) is the function that adds 2 to its parameter.
 
 Looking at the types of these expressions, we may be able to see some
 rationale for the strange `->` arrow notation used for function types:
