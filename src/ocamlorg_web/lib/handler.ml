@@ -356,16 +356,14 @@ let packages_search t req =
 
 let packages_autocomplete_f t req =
   match Dream.query req "q" with
-  | Some search ->
-      if search <> "" then
-        let packages =
-          Ocamlorg_package.search_package ~sort_by_popularity:true t search
-        in
-        let results = List.map (package_meta t) packages |> List.take 5 in
-        let search = Dream.from_percent_encoded search in
-        Dream.html (Ocamlorg_frontend.packages_autocomplete_f ~search results)
-      else Dream.html ""
-  | None -> Dream.html "No query..."
+  | Some search when search <> "" ->
+      let packages =
+        Ocamlorg_package.search_package ~sort_by_popularity:true t search
+      in
+      let results = List.map (package_meta t) packages |> List.take 5 in
+      let search = Dream.from_percent_encoded search in
+      Dream.html (Ocamlorg_frontend.packages_autocomplete_f ~search results)
+  | _ -> Dream.html ""
 
 let package _t req =
   let package = Dream.param req "name" in
