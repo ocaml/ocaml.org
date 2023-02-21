@@ -107,3 +107,10 @@ jobs:
     publication_date: 2023-02-21
     company: Serokell
     company_logo: https://serokell.io/static/images/common/logo.svg
+  - title: Computer Scientist
+    link: https://caisar-platform.github.io/website/positions
+    locations:
+      - France
+    publication_date: 2023-02-20
+    company: CEA
+    company_logo: https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/CEA_logo_nouveau.svg/1255px-CEA_logo_nouveau.svg.png
