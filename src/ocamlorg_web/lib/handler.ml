@@ -191,6 +191,10 @@ let jobs req =
   in
   Dream.html (Ocamlorg_frontend.jobs ?location ~locations jobs)
 
+let _outreachy (_req : Dream.request) = 
+  let outreachy = Ood.Outreachy.all in
+  Dream.html (Ocamlorg_frontend.outreachy outreachy) 
+
 let page canonical (_req : Dream.request) =
   let page = Ood.Page.get canonical in
   Dream.html
