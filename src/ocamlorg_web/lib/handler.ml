@@ -469,8 +469,8 @@ let package_doc t kind req =
       | None ->
           Dream.html
             (Ocamlorg_frontend.package_documentation_not_found ~is_latest_url
-              ~path:(Ocamlorg_frontend.Package_breadcrumbs.Documentation Index)
-              ~package:package_meta)
+               ~path:(Ocamlorg_frontend.Package_breadcrumbs.Documentation Index)
+               ~package:package_meta)
       | Some doc ->
           let toc_of_toc (xs : Ocamlorg_package.Documentation.toc list) :
               Ocamlorg_frontend.Toc.t =
