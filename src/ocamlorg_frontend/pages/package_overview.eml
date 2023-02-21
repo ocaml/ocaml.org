@@ -27,7 +27,7 @@ Package_layout.render
 ~is_latest_url
 ~title:(if is_latest_url then (Printf.sprintf "%s %s · OCaml Package" package.name "latest") else (Printf.sprintf "%s %s · OCaml Package" package.name package.version))
 ~description:(if is_latest_url then (Printf.sprintf "%s %s: %s" package.name "latest" package.description) else (Printf.sprintf "%s %s: %s" package.name package.version package.description))
-~canonical:(Url.package_with_version package.name ~version:package.version)
+~canonical:(Some (Url.package_with_version package.name ~version:package.version))
 ~package
 ~path:Overview @@
 <div class="flex lg:space-x-4 xl:space-x-12 flex-col lg:flex-row justify-between">

@@ -448,6 +448,7 @@ let package_doc t kind req =
       let open Lwt.Syntax in
       let is_latest_url = version_from_url = "latest" in
       let version = Ocamlorg_package.version package in
+      let package_meta = package_meta t package in
       let kind =
         match kind with
         | Package -> `Package
@@ -465,15 +466,12 @@ let package_doc t kind req =
       in
       let* docs = Ocamlorg_package.documentation_page ~kind package path in
       match docs with
-      | None -> not_found req
+      | None ->
+          Dream.html
+            (Ocamlorg_frontend.package_documentation_not_found ~is_latest_url
+              ~path:(Ocamlorg_frontend.Package_breadcrumbs.Documentation Index)
+              ~package:package_meta)
       | Some doc ->
-          let _description =
-            (Ocamlorg_package.info package).Ocamlorg_package.Info.description
-          in
-          let _versions =
-            Ocamlorg_package.get_package_versions t name
-            |> Option.value ~default:[]
-          in
           let toc_of_toc (xs : Ocamlorg_package.Documentation.toc list) :
               Ocamlorg_frontend.Toc.t =
             let rec aux acc = function
@@ -574,7 +572,6 @@ let package_doc t kind req =
                            breadcrumbs ))
             else Ocamlorg_frontend.Package_breadcrumbs.Documentation Index
           in
-          let package_meta = package_meta t package in
           Dream.html
             (Ocamlorg_frontend.package_documentation ~path ~toc ~maptoc
                ~is_latest_url ~old_doc:doc.old ~content:doc.content package_meta)
