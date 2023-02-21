@@ -92,11 +92,12 @@ let render_docs_path_breadcrumbs
 ~(path: docs_path) 
 ~is_latest_url
   =
+  let version = if is_latest_url then None else Some package.version in
   <nav aria-label="breadcrumb" class="flex" id="htmx-breadcrumbs">
     <ul class="flex flex-wrap gap-x-2 text-base leading-8 package-breadcrumbs">
       <%s! render_package_and_version ~package ~is_latest_url %>
       <li>
-        <a class="underline font-semibold" href="<%s! Url.package_docs package.name %>">Documentation</a>
+        <a class="underline font-semibold" href="<%s! Url.package_doc package.name ?version %>">Documentation</a>
       </li>
       <% (match path with
          | Index -> %>
