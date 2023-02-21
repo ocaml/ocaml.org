@@ -9,10 +9,10 @@ date: 2021-05-27T21:07:30-00:00
 
 # Debugging
 
-This tutorial presents two techniques for debugging OCaml programs:
+This tutorial presents three techniques for debugging OCaml programs:
 
 * [Tracing functions calls](#tracing-functions-calls-in-the-toplevel),
-  which works in the interactive toplevel.
+  which work in the interactive toplevel.
 * The [OCaml debugger](#the-ocaml-debugger), which allows analysing programs
   compiled with `ocamlc`.
 
@@ -337,5 +337,5 @@ Now we can guess why `List.assoc` will fail to find "INRIA" in the list...
 
 Under Emacs you call the debugger using `ESC-x` `ocamldebug a.out`. Then Emacs
 will send you directly to the file and character reported by the debugger, and
-you can step back and forth using `ESC-b` and `ESC-s`, you can set up break
+you can step back and forth using `ESC-b` and `ESC-s`. Plus, you can set up break
 points using `CTRL-X space`, and so on...
