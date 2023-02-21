@@ -564,9 +564,9 @@ example:
 
 <!-- $MDX skip -->
 ```ocaml
-Name ("/DeviceGray" | "/DeviceRGB" | "/DeviceCMYK") as n -> n
+| Name ("/DeviceGray" | "/DeviceRGB" | "/DeviceCMYK") as n -> n
 
-Node (l, ((k, _) as pair), r) when k = k' -> Some pair
+| Node (l, ((k, _) as pair), r) when k = k' -> Some pair
 ```
 
 ## Mutually Recursive Data Types
