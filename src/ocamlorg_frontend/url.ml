@@ -1,7 +1,7 @@
 let index = "/"
 let packages = "/packages"
 let packages_search = "/packages/search"
-let packages_autocomplete_f = "/packages/autocomplete"
+let packages_autocomplete_fragment = "/packages/autocomplete"
 let with_hash = Option.fold ~none:"/p" ~some:(( ^ ) "/u/")
 let package ?hash v = with_hash hash ^ "/" ^ v
 let package_docs v = "/p/" ^ v ^ "/doc"

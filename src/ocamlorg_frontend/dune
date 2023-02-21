@@ -110,8 +110,8 @@
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
-  (targets packages_autocomplete_f.ml)
-  (deps packages_autocomplete_f.eml)
+  (targets packages_autocomplete_fragment.ml)
+  (deps packages_autocomplete_fragment.eml)
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule

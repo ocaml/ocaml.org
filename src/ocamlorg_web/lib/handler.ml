@@ -354,7 +354,7 @@ let packages_search t req =
       Dream.html (Ocamlorg_frontend.packages_search ~total ~search results)
   | None -> Dream.redirect req Ocamlorg_frontend.Url.packages
 
-let packages_autocomplete_f t req =
+let packages_autocomplete_fragment t req =
   match Dream.query req "q" with
   | Some search when search <> "" ->
       let packages =
@@ -362,7 +362,8 @@ let packages_autocomplete_f t req =
       in
       let results = List.map (package_meta t) packages |> List.take 5 in
       let search = Dream.from_percent_encoded search in
-      Dream.html (Ocamlorg_frontend.packages_autocomplete_f ~search results)
+      Dream.html
+        (Ocamlorg_frontend.packages_autocomplete_fragment ~search results)
   | _ -> Dream.html ""
 
 let package _t req =
