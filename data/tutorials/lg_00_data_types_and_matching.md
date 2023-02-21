@@ -18,6 +18,10 @@ Whereas `#` denoted a comment and `$` the command prompt in the
 when in the `ocaml` or `utop` toplevel, the command prompt appears as a `#`, as shown
 in the following examples.
 
+Also remember that a code an expression must end with `;;`
+for OCaml to evaluate it. Unless these examples start with a `#` toplevel prompt and 
+end with `;;`, it isn't an expression to evaluate but rather an example of code structure.
+
 ## Built-in Compound Types
 
 We have already seen simple data types such as `int`, `float`, `string`, and
@@ -87,7 +91,7 @@ type person = { first_name : string; surname : string; mutable age : int; }
 val birthday : person -> unit = <fun>
 ```
 
-Please note: in the above example, we chose "colour" as the name of a type that holds RGB-values. If you wanted to, you could also use the US spelling "color".
+Please note: in the above example, we chose "colour" as the name of a type that holds RGB-values. If you wanted to, you could also use the US spelling "color."
 Another mutable compound data type is the fixed-length array which, just as a
 list, must contain elements of like type. However, its elements may be accessed
 in constant time:
@@ -578,12 +582,12 @@ adding information to each node using mutually-recursive types, one of which is
 a tuple or record. For example:
 
 ```ocaml
-type t' = Int of int | Add of t * t
-and t = {annotation : string; data : t'}
+# type t' = Int of int | Add of t * t
+  and t = {annotation : string; data : t'}
 ```
 
 Values of such mutually-recursive data type are manipulated by accompanying
-mutually-recursive functions:
+mutually-recursive functions. Add the rest of this code to the above block:
 
 ```ocaml
 # let rec sum_t' = function
@@ -620,7 +624,6 @@ val pair : int * int = (1, 2)
 - : t2 = T2 (1, 2)
 
 # T pair;;
-Line 1, characters 1-7:
 Error: The constructor T expects 2 argument(s),
        but is applied here to 1 argument(s)
 
@@ -646,9 +649,9 @@ version:
 
 ## Types and Modules
 
-Often, a module will provide a single type and operations on that type. For
+Often, a module will provide a single type and one or more operations on that type. For
 example, a module for a file format like PNG might have the following `png.mli`
-interface:
+interface. Below is an example of how to structure the code:
 
 <!-- $MDX skip -->
 ```ocaml
