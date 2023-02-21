@@ -100,3 +100,10 @@ jobs:
     publication_date: 2022-12-02
     company: Nobias Therapeutics
     company_logo: https://uploads-ssl.webflow.com/61532e32ca094ababec1dbc2/61a7150d2aebf25b6d9d1a35_nobias%20logo%20-%20transparent%20background.png
+  - title: OCaml Developer
+    link: https://serokell.io/jobs/ocaml-new
+    locations:
+      - Remote
+    publication_date: 2023-02-21
+    company: Serokell
+    company_logo: https://serokell.io/static/images/common/logo.svg
