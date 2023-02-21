@@ -32,6 +32,10 @@ Let's explore functional programming.
 The basic, and not very enlightening, distinction in **functional programming**
 is that **functions** are first-class citizens.
 
+(Remember that OCaml runs code when it sees the double semicolon `;;`. Throughout
+this tutorial, executable code examples begin with the command prompt `#`, end in `;;`, and show 
+the expected output. If it doesn't, it's showcasing the code pattern rather than an executable code block.)
+
 Let's look at an
 example to illustrate:
 
@@ -89,7 +93,7 @@ to other modules or save a reference to `f` somewhere and call it
 later. Whether it does or not, the closure will ensure that `f`
 always has access back to its parental environment, and to `n`.
 
-Here's a real example from LablGtk. This is actually a method on a class
+Here's the code pattern (skeleton) extracted from a real example from LabGtk. This is actually a method on a class
 (we haven't talked about classes and objects yet, but just think of it
 as a function definition for now).
 
@@ -169,19 +173,8 @@ val f : int -> int = <fun>
 # f 99;;
 - : int = 101
 ```
-In engineering, this is sufficient proof by example
-to state that `plus 2` is the function which adds 2 to things.
-
-Going back to the original definition, let's "fill in" the first
-argument (`a`), setting it to 2 to get:
-
-<!-- $MDX skip -->
-```ocaml
-let plus 2 b =       (* This is not real OCaml code! *)
-  2 + b;;
-```
-Here, it's hopefully clear that `plus 2` is the function that adds 2
-to things.
+In engineering, this is sufficient proof to state that
+`plus 2` is the function which adds 2 to things.
 
 Looking at the types of these expressions, we may be able to see some
 rationale for the strange `->` arrow notation used for function types:
@@ -331,7 +324,7 @@ a `divide-by-zero` error:
 ```ocaml
 # let give_me_a_three _ = 3;;
 val give_me_a_three : 'a -> int = <fun>
-# give_me_a_three (1/0);;
+# give_me_a_three (1 / 0);;
 Exception: Division_by_zero.
 ```
 
@@ -436,10 +429,10 @@ names and function arguments.
 
 Although we haven't looked at object-oriented programming (that's the
 subject for the ["Objects" section](/docs/objects)),
-here's an example of an
-aliased function call from OCamlNet. All you need to know is that
+here's an example code pattern of an
+aliased function call that can be found in OCamlNet. All you need to know is that
 `cgi # output # output_string "string"` is a method call, similar to
-`cgi.output().output_string ("string")` in Java.
+`cgi.output().output_string ("string")` in Java. 
 
 <!-- $MDX skip -->
 ```ocaml
@@ -471,7 +464,7 @@ is equivalent to:
 cgi # output # output_string "<html>\n";
 ```
 
-We saved ourselves a lot of typing there.
+By altering the code pattern, we saved ourselves a lot of typing there.
 
 We can also add arguments. This alternative definition of `print_string`
 can be thought of as a kind of alias for a function name plus arguments:
