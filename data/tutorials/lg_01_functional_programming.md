@@ -147,7 +147,7 @@ write its value and type like this:
 # 5;;
 - : int = 5
 ```
-But what about question 3? It looks like `plus 2` is a mistake or a bug, but
+But what about question 3? It looks like `plus 2` is a typo or an incomplete copy-paste, but
 it isn't. If we type this into the OCaml toplevel, it
 returns:
 
