@@ -558,7 +558,7 @@ The second feature is the `=` operator, which tests for "structural equality"
 between two expressions. That means it goes recursively into each expression,
 checking they're exactly the same at all levels.
 
-Another useful feature when building more complicated nested patterns
+Another useful feature for building more complicated nested patterns
 is the `as` keyword, which can be used to name part of an expression. For
 example:
 
