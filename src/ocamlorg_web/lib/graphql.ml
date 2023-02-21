@@ -29,12 +29,12 @@ let is_valid_params limit offset total_packages =
   else if offset < 0 || offset > total_packages - 1 then Wrong_offset
   else Valid_params
 
-let packages_list ?contains ?(sort_by_popularity = false) offset limit all_packages t =
-  let results = match contains with
-    | None ->
-      all_packages
-    | Some q ->
-      Package.search_package ~sort_by_popularity t q
+let packages_list ?contains ?(sort_by_popularity = false) offset limit
+    all_packages t =
+  let results =
+    match contains with
+    | None -> all_packages
+    | Some q -> Package.search_package ~sort_by_popularity t q
   in
   List.filteri (fun i _ -> offset <= i && i < offset + limit) results
 
@@ -50,7 +50,9 @@ let all_packages_result ?contains ?sort_by_popularity offset limit t =
         ^ string_of_int (total_packages - 1))
   | Wrong_limit -> Error "limit must be greater than or equal to 1"
   | _ ->
-      let packages = packages_list ?contains ?sort_by_popularity offset limit all_packages t in
+      let packages =
+        packages_list ?contains ?sort_by_popularity offset limit all_packages t
+      in
       Ok { total_packages; packages }
 
 let package_result name version t =
@@ -270,11 +272,12 @@ let schema t : Dream.request Graphql_lwt.Schema.schema =
           ~args:
             Arg.
               [
-                arg
-                  ~doc:"Return only packages that match this search query"
+                arg ~doc:"Return only packages that match this search query"
                   "contains" ~typ:string;
                 arg
-                  ~doc:"If a search query is given, sort the results by package popularity"
+                  ~doc:
+                    "If a search query is given, sort the results by package \
+                     popularity"
                   "sort_by_popularity" ~typ:bool;
                 arg'
                   ~doc:
@@ -290,7 +293,8 @@ let schema t : Dream.request Graphql_lwt.Schema.schema =
                   "limit" ~typ:int;
               ]
           ~resolve:(fun _ () contains sort_by_popularity offset limit ->
-            Lwt.return (all_packages_result ?contains ?sort_by_popularity offset limit t));
+            Lwt.return
+              (all_packages_result ?contains ?sort_by_popularity offset limit t));
         io_field "package" ~typ:(non_null package)
           ~doc:
             "Returns details of a specified package. It returns the latest \
