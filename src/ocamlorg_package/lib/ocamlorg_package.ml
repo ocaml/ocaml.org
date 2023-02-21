@@ -105,8 +105,15 @@ let save_state t =
 let get_package_latest' packages name =
   Name.Map.find_opt name packages
   |> Option.map (fun versions ->
-         let version, info = Version.Map.max_binding versions in
-         { version; info; name })
+         let avoid_version (info : Info.t) =
+           List.exists (( = ) OpamTypes.Pkgflag_AvoidVersion) info.flags
+         in
+         let f version info =
+           if avoid_version info then None else Some { version; info; name }
+         in
+         let packages = Version.Map.filter_map f versions in
+         let _version, package = Version.Map.max_binding packages in
+         package)
 
 let update ~commit t =
   let open Lwt.Syntax in
@@ -517,6 +524,11 @@ let latest_documented_version t name =
   match get_package_versions t name with
   | None -> Lwt.return None
   | Some vlist -> aux vlist
+
+let is_latest_version t name version =
+  match get_package_latest t name with
+  | None -> false
+  | Some pkg -> pkg.version = version
 
 module Search : sig
   type search_request

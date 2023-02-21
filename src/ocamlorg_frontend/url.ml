@@ -4,12 +4,13 @@ let packages_search = "/packages/search"
 let with_hash = Option.fold ~none:"/p" ~some:(( ^ ) "/u/")
 let package ?hash v = with_hash hash ^ "/" ^ v
 let package_docs v = "/p/" ^ v ^ "/doc"
+let with_version = Option.value ~default:"latest"
 
-let package_with_version ?hash v version =
-  with_hash hash ^ "/" ^ v ^ "/" ^ version
+let package_with_version ?version ?hash v =
+  with_hash hash ^ "/" ^ v ^ "/" ^ with_version version
 
-let package_doc ?hash ?(page = "index.html") v version =
-  with_hash hash ^ "/" ^ v ^ "/" ^ version ^ "/doc/" ^ page
+let package_doc ?hash ?version ?(page = "index.html") v =
+  with_hash hash ^ "/" ^ v ^ "/" ^ with_version version ^ "/doc/" ^ page
 
 let community = "/community"
 let success_story v = "/success-stories/" ^ v

@@ -26,6 +26,7 @@ let empty_info =
     conflicts = [];
     url = None;
     publication = 0.;
+    flags = [];
   }
 
 let packages : Package.t list =

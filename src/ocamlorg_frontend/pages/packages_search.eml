@@ -62,7 +62,7 @@ let render ~total ~search (packages : Package_intf.package list) = Layout.render
         <% packages |> List.iter (fun (package : Package_intf.package) -> %>
         <div class="border-gray-200 border-t mt-4 pt-4 mb-2 space-y-2">
           <a
-            href="/p/<%s package.name %>/<%s package.version %>"
+            href="<%s Url.package_with_version package.name %>"
             class="text-lg font-semibold text-primary-600 inline-block"
           >
             <%s package.name %>

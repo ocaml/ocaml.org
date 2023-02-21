@@ -20,11 +20,14 @@ let render
 ~source
 ~changes_filename
 ~license_filename
+~is_latest_url
 (package : Package_intf.package) =
+let version = if is_latest_url then None else Some package.version in
 Package_layout.render
-~title:(Printf.sprintf "%s %s · OCaml Package" package.name package.version)
-~description:(Printf.sprintf "%s %s: %s" package.name package.version package.description)
-~canonical:(Url.package_with_version package.name package.version)
+~is_latest_url
+~title:(if is_latest_url then (Printf.sprintf "%s %s · OCaml Package" package.name "latest") else (Printf.sprintf "%s %s · OCaml Package" package.name package.version))
+~description:(if is_latest_url then (Printf.sprintf "%s %s: %s" package.name "latest" package.description) else (Printf.sprintf "%s %s: %s" package.name package.version package.description))
+~canonical:(Url.package_with_version package.name ~version:package.version)
 ~package
 ~path:Overview @@
 <div class="flex lg:space-x-4 xl:space-x-12 flex-col lg:flex-row justify-between">
@@ -73,17 +76,17 @@ Package_layout.render
         <div class="flex flex-col mt-8 text-body-400">
             <% (match documentation_status with
             | Success -> %>
-            <a href="<%s Url.package_doc package.name package.version %>" class="px-4 h-10 items-center mb-2 rounded-md bg-primary-600 text-white flex font-bold hover:underline">
+            <a href="<%s Url.package_doc package.name ?version %>" class="px-4 h-10 items-center mb-2 rounded-md bg-primary-600 text-white flex font-bold hover:underline">
               <%s! Icons.documentation "w-6 h-6 mr-2 inline-block" %>
               Documentation
             </a>
             <% | Unknown -> ( %>
-            <a href="<%s Url.package_doc package.name package.version %>" class="p-4 mb-2 flex gap-x-2 bg-background-default text-gray-600 font-semibold text-base">
+            <a href="<%s Url.package_doc package.name ?version %>" class="p-4 mb-2 flex gap-x-2 bg-background-default text-gray-600 font-semibold text-base">
               <%s! Icons.error "" %>
               Documentation status is unknown.
             </a><% )
             | Failure -> ( %>
-            <a href="<%s Url.package_doc package.name package.version %>" class="p-4 mb-2 flex gap-x-2 bg-background-default text-gray-600 font-semibold text-base">
+            <a href="<%s Url.package_doc package.name ?version %>" class="p-4 mb-2 flex gap-x-2 bg-background-default text-gray-600 font-semibold text-base">
               <%s! Icons.error "" %>
               Documentation failed to build.
             </a><% ));%>
@@ -91,10 +94,10 @@ Package_layout.render
             <%s! side_box_link ~icon_html:(Icons.package_homepage "h-4 w-4 mr-2 inline-block") ~href:homepage ~title:(Utils.host_of_uri homepage) %>
             <% ); %>
             <% (match changes_filename with Some changes_filename -> %>
-            <%s! side_box_link ~icon_html:(Icons.changelog "h-4 w-4 mr-2 inline-block") ~href:(Url.package_doc package.name package.version ~page:(changes_filename ^ ".html")) ~title:"Changelog" %>
+            <%s! side_box_link ~icon_html:(Icons.changelog "h-4 w-4 mr-2 inline-block") ~href:(Url.package_doc package.name ?version ~page:(changes_filename ^ ".html")) ~title:"Changelog" %>
             <% | _ -> ()); %>
             <% (match license_filename with Some license_filename -> %>
-            <%s! side_box_link ~icon_html:(Icons.license "h-4 w-4 mr-2 inline-block") ~href:(Url.package_doc package.name package.version ~page:(license_filename ^ ".html")) ~title:( package.license ^ " License") %>
+            <%s! side_box_link ~icon_html:(Icons.license "h-4 w-4 mr-2 inline-block") ~href:(Url.package_doc package.name ?version ~page:(license_filename ^ ".html")) ~title:( package.license ^ " License") %>
             <% | _ -> ()); %>
             <%s! side_box_link ~icon_html:(Icons.edit "h-4 w-4 mr-2 inline-block") ~href:(Url.github_opam_file package.name package.version) ~title:"Edit opam file" %>
         </div>
@@ -189,7 +192,7 @@ Package_layout.render
             <%s if List.length rev_dependencies = 0 then "None" else "" %>
             <% rev_dependencies |> List.iter (fun (name, cstr, version) -> %>
             <div class="flex items-center space-x-3">
-                <a href="<%s Url.package_with_version name version %>" class="text-primary-600 hover:underline">
+                <a href="<%s Url.package_with_version name ~version %>" class="text-primary-600 hover:underline">
                     <%s name %>
                 </a>
                 <% match cstr with None -> () | Some cstr -> %>
