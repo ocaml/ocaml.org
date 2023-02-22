@@ -38,8 +38,8 @@ let not_modified ~last_modified request =
 
 let loader ~read ~digest ?(not_cached = []) local_root path request =
   let not_cached = List.mem path not_cached in
-  let static_url = Static_url.of_url_path path in
-  let filepath = Static_url.to_file_path static_url in
+  let static_url = Static_file.of_url_path path in
+  let filepath = static_url.filepath in
   let result = read local_root filepath in
   match result with
   | None -> Handler.not_found request

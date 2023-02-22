@@ -1,8 +1,5 @@
 type t = { filepath : string; digest : string option }
 
-let of_file_path ~digest filepath = { filepath; digest }
-let to_file_path static_url = static_url.filepath
-
 let to_url_path static_url =
   match static_url.digest with
   | None -> static_url.filepath
@@ -31,6 +28,4 @@ let asset_digest_url filepath =
              asset!"
             filepath));
   to_url_path
-    (of_file_path
-       ~digest:(Option.map (fun d -> Dream.to_base64url d) digest)
-       filepath)
+    {digest = Option.map (fun d -> Dream.to_base64url d) digest; filepath}
