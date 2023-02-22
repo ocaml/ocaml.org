@@ -4,12 +4,8 @@ let not_found _req = Dream.html ~code:404 (Ocamlorg_frontend.not_found ())
 let index _req = Dream.html (Ocamlorg_frontend.home ())
 
 let learn _req =
-  let papers =
-    Ood.Paper.all |> List.filter (fun (paper : Ood.Paper.t) -> paper.featured)
-  in
-  let books =
-    Ood.Book.all |> List.filter (fun (book : Ood.Book.t) -> book.featured)
-  in
+  let papers = Ood.Paper.featured in
+  let books = Ood.Book.featured in
   let tutorials = Ood.Tutorial.all in
   let release = List.hd Ood.Release.all in
   Dream.html (Ocamlorg_frontend.learn ~papers ~books ~release ~tutorials)
@@ -32,10 +28,7 @@ let success_story req =
   | None -> not_found req
 
 let industrial_users _req =
-  let users =
-    Ood.Industrial_user.all
-    |> List.filter (fun (item : Ood.Industrial_user.t) -> item.featured)
-  in
+  let users = Ood.Industrial_user.featured in
   let success_stories = Ood.Success_story.all in
   Dream.html (Ocamlorg_frontend.industrial_users ~users ~success_stories)
 
@@ -248,9 +241,7 @@ let papers req =
     | None -> Ood.Paper.all
     | Some search -> search_paper search Ood.Paper.all
   in
-  let recommended_papers =
-    Ood.Paper.all |> List.filter (fun (paper : Ood.Paper.t) -> paper.featured)
-  in
+  let recommended_papers = Ood.Paper.featured in
   Dream.html (Ocamlorg_frontend.papers ?search ~recommended_papers papers)
 
 let tutorial req =

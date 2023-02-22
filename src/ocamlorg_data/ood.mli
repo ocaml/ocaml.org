@@ -44,6 +44,7 @@ module Book : sig
   }
 
   val all : t list
+  val featured : t list
   val get_by_slug : string -> t option
 end
 
@@ -105,6 +106,7 @@ module Industrial_user : sig
   }
 
   val all : t list
+  val featured : t list
   val get_by_slug : string -> t option
 end
 
@@ -130,6 +132,7 @@ module Paper : sig
   }
 
   val all : t list
+  val featured : t list
   val get_by_slug : string -> t option
 end
 
