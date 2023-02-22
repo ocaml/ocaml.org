@@ -56,7 +56,7 @@ let render
               <%s! Icons.magnifying_glass "w-6 h-6 text-white" %>
             </button>
             <div class="header__search__dropdown z-10 absolute rounded-b-md w-full top-0 mt-10 p-2 bg-white border border-primary-600">
-              <span class="htmx-indicator">Searching...</span>
+              <span class="htmx-indicator mx-2">Searching...</span>
               <div id="search-results"></div>
               <span class="pl-2 font-semibold">Or go to:</span>
               <a class="flex py-2 px-4 gap-4 hover:bg-primary-100 font-semibold hover:font-semibold text-primary-600" href="<%s Url.api %>">
