@@ -24,7 +24,7 @@ let render
 ~maptoc
 ~content
 ~is_latest_url
-(package : Package_intf.package) 
+(package : Package_intf.package)
 =
 let str_path =
   match path with

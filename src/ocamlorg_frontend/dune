@@ -150,6 +150,11 @@
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
+  (targets package_documentation_not_found.ml)
+  (deps package_documentation_not_found.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
   (targets playground.ml)
   (deps playground.eml)
   (action

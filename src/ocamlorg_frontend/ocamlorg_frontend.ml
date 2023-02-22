@@ -36,6 +36,9 @@ let package_overview ~documentation_status ~readme ~readme_title ~dependencies
 let package_documentation ~path ~toc ~maptoc ~content package =
   Package_documentation.render ~path ~toc ~maptoc ~content package
 
+let package_documentation_not_found ~is_latest_url ~path ~package =
+  Package_documentation_not_found.render ~is_latest_url ~path ~package
+
 let packages stats = Packages.render stats
 let packages_search ~total packages = Packages_search.render ~total packages
 

@@ -3,7 +3,7 @@ let render
 ~(path: Package_breadcrumbs.path)
 ~title
 ~description
-~canonical
+?canonical
 ~(package : Package_intf.package)
 ~is_latest_url
 inner =
@@ -12,7 +12,7 @@ Layout.render
 ~show_get_started:false
 ~title
 ~description
-~canonical
+?canonical
 ~active_top_nav_item:Header.Packages @@
 <div class="bg-white">
   <div class="py-5 lg:py-6">

@@ -1,0 +1,31 @@
+let render
+~path
+~is_latest_url
+~(package : Package_intf.package)
+=
+Package_layout.render
+~is_latest_url
+~title:(if is_latest_url then (Printf.sprintf "%s %s · OCaml Package" package.name "latest") else (Printf.sprintf "%s %s · OCaml Package" package.name package.version))
+~description:(if is_latest_url then (Printf.sprintf "%s %s: %s" package.name "latest" package.description) else (Printf.sprintf "%s %s: %s" package.name package.version package.description))
+~package
+~path
+~styles:["/css/main.css"; "/css/doc.css"] @@
+  <div class="sm:flex max-w-max mx-auto">
+    <p class="text-4xl font-extrabold text-orange-600 sm:text-5xl">404</p>
+    <div class="sm:ml-6">
+      <div class="sm:border-l sm:border-gray-200 sm:pl-6">
+        <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">Page not found</h1>
+        <p class="mt-1 text-base text-gray-500">We're sorry, for some reason we don't have the documentation for this package.</p>
+      </div>
+      <div class="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6">
+        <a href="<%s Url.package_with_version package.name ~version:(if is_latest_url then "latest" else package.version) %>"
+          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+          Go To Package Overview
+        </a>
+        <a href="https://github.com/ocaml/ocaml.org/issues"
+          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-orange-700 bg-orange-100 hover:bg-orange-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+          Open an Issue
+        </a>
+      </div>
+    </div>
+  </div>
