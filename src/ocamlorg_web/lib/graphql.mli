@@ -40,7 +40,7 @@ val packages_list :
     and [state] parameters. It applies the [offset] and [limit] specified on
     [all_packages] if no value is specified for [contains] else it calls
     [Package.search_package] passing the [contains] value to get a list of
-    packages that match the contains [contains] *)
+    packages that match the query [contains] *)
 
 val all_packages_result :
   ?contains:string ->
@@ -53,7 +53,7 @@ val all_packages_result :
     [state] and returns a list of the latest version of all packages with
     [limit] and [offset] options which is used to cut out some parts of the
     [packages_result] list. It also takes a [contains] option which will limits
-    the results to packages that match the contains [contains] *)
+    the results to packages that match the query [contains] *)
 
 val package_result :
   string -> string option -> Package.state -> (Package.t, string) result
@@ -76,5 +76,5 @@ val package_versions_result :
     versions was found. *)
 
 val schema : Package.state -> Dream.request Graphql_lwt.Schema.schema
-(** This schema allows to contains for opam packages from the opam-repository as
+(** This schema allows to query for opam packages from the opam-repository as
     graphql api data *)
