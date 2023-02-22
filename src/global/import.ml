@@ -10,47 +10,47 @@ module String = struct
       false
     with Exit -> true
 
-    let prefix s len = try sub s 0 len with Invalid_argument _ -> ""
+  let prefix s len = try sub s 0 len with Invalid_argument _ -> ""
 
-    (* ripped off stringext, itself ripping it off from one of dbuenzli's libs *)
-    let cut s ~on =
-      let sep_max = length on - 1 in
-      if sep_max < 0 then invalid_arg "Stringext.cut: empty separator"
+  (* ripped off stringext, itself ripping it off from one of dbuenzli's libs *)
+  let cut s ~on =
+    let sep_max = length on - 1 in
+    if sep_max < 0 then invalid_arg "Stringext.cut: empty separator"
+    else
+      let s_max = length s - 1 in
+      if s_max < 0 then None
       else
-        let s_max = length s - 1 in
-        if s_max < 0 then None
-        else
-          let k = ref 0 in
-          let i = ref 0 in
-          (* We run from the start of [s] to end with [i] trying to match the
-             first character of [on] in [s]. If this matches, we verify that the
-             whole [on] is matched using [k]. If it doesn't match we continue to
-             look for [on] with [i]. If it matches we exit the loop and extract a
-             substring from the start of [s] to the position before the [on] we
-             found and another from the position after the [on] we found to end of
-             string. If [i] is such that no separator can be found we exit the
-             loop and return the no match case. *)
-          try
-            while !i + sep_max <= s_max do
-              (* Check remaining [on] chars match, access to unsafe s (!i + !k) is
-                 guaranteed by loop invariant. *)
-              if unsafe_get s !i <> unsafe_get on 0 then incr i
-              else (
-                k := 1;
-                while
-                  !k <= sep_max && unsafe_get s (!i + !k) = unsafe_get on !k
-                do
-                  incr k
-                done;
-                if !k <= sep_max then (* no match *) incr i else raise Exit)
-            done;
-            None (* no match in the whole string. *)
-          with Exit ->
-            (* i is at the beginning of the separator *)
-            let left_end = !i - 1 in
-            let right_start = !i + sep_max + 1 in
-            Some
-              (sub s 0 (left_end + 1), sub s right_start (s_max - right_start + 1))
+        let k = ref 0 in
+        let i = ref 0 in
+        (* We run from the start of [s] to end with [i] trying to match the
+           first character of [on] in [s]. If this matches, we verify that the
+           whole [on] is matched using [k]. If it doesn't match we continue to
+           look for [on] with [i]. If it matches we exit the loop and extract a
+           substring from the start of [s] to the position before the [on] we
+           found and another from the position after the [on] we found to end of
+           string. If [i] is such that no separator can be found we exit the
+           loop and return the no match case. *)
+        try
+          while !i + sep_max <= s_max do
+            (* Check remaining [on] chars match, access to unsafe s (!i + !k) is
+               guaranteed by loop invariant. *)
+            if unsafe_get s !i <> unsafe_get on 0 then incr i
+            else (
+              k := 1;
+              while
+                !k <= sep_max && unsafe_get s (!i + !k) = unsafe_get on !k
+              do
+                incr k
+              done;
+              if !k <= sep_max then (* no match *) incr i else raise Exit)
+          done;
+          None (* no match in the whole string. *)
+        with Exit ->
+          (* i is at the beginning of the separator *)
+          let left_end = !i - 1 in
+          let right_start = !i + sep_max + 1 in
+          Some
+            (sub s 0 (left_end + 1), sub s right_start (s_max - right_start + 1))
 end
 
 module List = struct
