@@ -1,14 +1,12 @@
 /* all search inputs */
 
-.header__search__input::placeholder, .package__search::placeholder {
-  @apply text-gray-500;
-}
-
-.header__search__input:focus, .package__search:focus {
+.header__search__input:focus,
+.packages_search__search__input:focus
+.packages__search__input:focus {
   box-shadow: none;
 }
 
-/* header search dropdown */
+/* search dropdown */
 
 .header__search__dropdown{
   display:none;
@@ -22,6 +20,6 @@
   border-bottom-right-radius: 0;
 }
 
-.header__search:focus-within .header__search__dropdown{
+.header__search:focus-within .header__search__dropdown {
   display:block;
 }

@@ -42,6 +42,9 @@ let package_documentation_not_found ~is_latest_url ~path ~package =
 let packages stats = Packages.render stats
 let packages_search ~total packages = Packages_search.render ~total packages
 
+let packages_autocomplete_fragment packages =
+  Packages_autocomplete_fragment.render packages
+
 let papers ?search ~recommended_papers papers =
   Papers.render ?search ~recommended_papers papers
 

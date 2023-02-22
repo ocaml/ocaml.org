@@ -110,6 +110,11 @@
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule
+  (targets packages_autocomplete_fragment.ml)
+  (deps packages_autocomplete_fragment.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
   (targets packages_search.ml)
   (deps packages_search.eml)
   (action
@@ -185,6 +190,11 @@
  (rule
   (targets pagination.ml)
   (deps pagination.eml)
+  (action
+   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+ (rule
+  (targets search.ml)
+  (deps search.eml)
   (action
    (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
  (rule

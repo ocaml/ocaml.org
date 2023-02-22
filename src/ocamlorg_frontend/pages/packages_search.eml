@@ -1,15 +1,3 @@
-let highlight_search_terms
-~search
-(text: string)
-=
-  let render_item = function 
-    | Str.Delim s -> {|<span class="bg-background-light-blue">|} ^ Dream.html_escape s ^ {|</span>|}
-    | Text s -> Dream.html_escape s
-  in
-  let r = Str.global_replace (Str.regexp "[ \t]+") "\\|" search in
-  let split = Str.full_split (Str.regexp_case_fold r) text in
-  List.fold_left (fun a b -> a ^ render_item b) "" split
-
 let render ~total ~search (packages : Package_intf.package list) = Layout.render ~title:"OCaml Packages · Search Result"
 ~description:"Find the package you need to build your application in the thousands of available OCaml packages."
 ~canonical:(Url.packages_search ^ "?q=" ^ search)
@@ -24,7 +12,7 @@ let render ~total ~search (packages : Package_intf.package list) = Layout.render
               <input
                 type="search"
                 name="q" id="q2"
-                class="package__search w-full focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 py-1"
+                class="packages_search__search__input w-full focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 py-1"
                 value="<%s search %>"
                 placeholder="Search OCaml Packages">
               <button aria-label="search" class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
@@ -67,14 +55,14 @@ let render ~total ~search (packages : Package_intf.package list) = Layout.render
           >
             <%s package.name %>
           </a>
-          <div><%s! highlight_search_terms ~search package.description %></div>
+          <div><%s! Search.highlight_search_terms ~class_:"bg-background-light-blue" ~search package.description %></div>
           <div class="flex flex-wrap">
             <% package.tags |> List.iter (fun (tag : string) -> %>
             <a
               href="<%s Url.packages_search %>?q=tag%3A%22<%s Dream.to_percent_encoded tag %>%22"
               class="px-2 py-1 text-body-400 font-medium bg-gray-100 rounded hover:underline mr-3 mb-2 mt-1 text-sm"
             >
-              <%s! highlight_search_terms ~search tag %>
+              <%s! Search.highlight_search_terms ~class_:"bg-background-light-blue" ~search tag %>
             </a>
             <% ); %>
           </div>
@@ -85,7 +73,7 @@ let render ~total ~search (packages : Package_intf.package list) = Layout.render
                 href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded author.name %>%22"
                 class="text-sm hover:underline mr-3"
               >
-                <%s! highlight_search_terms ~search author.name %>
+                <%s! Search.highlight_search_terms ~class_:"bg-background-light-blue" ~search author.name %>
               </a>
               <% ); %>
             </div>

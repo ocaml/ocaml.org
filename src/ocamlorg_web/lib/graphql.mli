@@ -29,6 +29,7 @@ val is_valid_params : int -> int -> int -> params_validity
 
 val packages_list :
   ?contains:string ->
+  ?sort_by_popularity:bool ->
   int ->
   int ->
   Package.t list ->
@@ -39,10 +40,11 @@ val packages_list :
     and [state] parameters. It applies the [offset] and [limit] specified on
     [all_packages] if no value is specified for [contains] else it calls
     [Package.search_package] passing the [contains] value to get a list of
-    packages that has [contains] in its name *)
+    packages that match the query [contains] *)
 
 val all_packages_result :
   ?contains:string ->
+  ?sort_by_popularity:bool ->
   int ->
   int option ->
   Package.state ->
@@ -50,9 +52,8 @@ val all_packages_result :
 (** [packages_list] function takes [contains] [offset] [limit] [all_packages]
     [state] and returns a list of the latest version of all packages with
     [limit] and [offset] options which is used to cut out some parts of the
-    [packages_result] list. It also takes a [contains] option which will search
-    the list of packages looking for the package with a name that has [contains]
-    in it *)
+    [packages_result] list. It also takes a [contains] option which will limits
+    the results to packages that match the query [contains] *)
 
 val package_result :
   string -> string option -> Package.state -> (Package.t, string) result

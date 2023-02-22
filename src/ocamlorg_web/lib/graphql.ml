@@ -29,16 +29,16 @@ let is_valid_params limit offset total_packages =
   else if offset < 0 || offset > total_packages - 1 then Wrong_offset
   else Valid_params
 
-let packages_list ?contains offset limit all_packages t =
-  match contains with
-  | None ->
-      List.filteri (fun i _ -> offset <= i && i < offset + limit) all_packages
-  | Some letters ->
-      List.filteri
-        (fun i _ -> offset <= i && i < offset + limit)
-        (Package.search_package t letters)
+let packages_list ?contains ?(sort_by_popularity = false) offset limit
+    all_packages t =
+  let results =
+    match contains with
+    | None -> all_packages
+    | Some q -> Package.search_package ~sort_by_popularity t q
+  in
+  List.filteri (fun i _ -> offset <= i && i < offset + limit) results
 
-let all_packages_result ?contains offset limit t =
+let all_packages_result ?contains ?sort_by_popularity offset limit t =
   let all_packages = Package.all_packages_latest t in
   let total_packages = List.length all_packages in
   let limit = match limit with None -> total_packages | Some limit -> limit in
@@ -50,7 +50,9 @@ let all_packages_result ?contains offset limit t =
         ^ string_of_int (total_packages - 1))
   | Wrong_limit -> Error "limit must be greater than or equal to 1"
   | _ ->
-      let packages = packages_list ?contains offset limit all_packages t in
+      let packages =
+        packages_list ?contains ?sort_by_popularity offset limit all_packages t
+      in
       Ok { total_packages; packages }
 
 let package_result name version t =
@@ -270,11 +272,13 @@ let schema t : Dream.request Graphql_lwt.Schema.schema =
           ~args:
             Arg.
               [
+                arg ~doc:"Return only packages that match this search query"
+                  "contains" ~typ:string;
                 arg
                   ~doc:
-                    "Filter packages by passing a search query which lists out \
-                     all packages that contain the search query if any"
-                  "contains" ~typ:string;
+                    "If a search query is given, sort the results by package \
+                     popularity"
+                  "sort_by_popularity" ~typ:bool;
                 arg'
                   ~doc:
                     "Specifies at what index packages can start, set to 0 by \
@@ -288,8 +292,9 @@ let schema t : Dream.request Graphql_lwt.Schema.schema =
                      returned"
                   "limit" ~typ:int;
               ]
-          ~resolve:(fun _ () contains offset limit ->
-            Lwt.return (all_packages_result ?contains offset limit t));
+          ~resolve:(fun _ () contains sort_by_popularity offset limit ->
+            Lwt.return
+              (all_packages_result ?contains ?sort_by_popularity offset limit t));
         io_field "package" ~typ:(non_null package)
           ~doc:
             "Returns details of a specified package. It returns the latest \
