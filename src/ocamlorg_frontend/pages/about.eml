@@ -1,7 +1,5 @@
-open Ocamlorg
-
 let render () =
-Layout.render
+Layout.render 
 ~title:"Why OCaml?"
 ~description:"OCaml is a mature, statically-typed, functional programming language. Learn more about its rich history and what makes it unique."
 ~canonical:Url.about @@

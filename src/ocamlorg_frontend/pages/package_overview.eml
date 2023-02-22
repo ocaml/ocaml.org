@@ -1,5 +1,3 @@
-open Ocamlorg
-
 type documentation_status =
   | Success
   | Failure

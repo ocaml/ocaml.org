@@ -1,6 +1,4 @@
-open Ocamlorg
-
-type active_icon_link =
+type active_icon_link = 
   | Learn
   | Exercises
 

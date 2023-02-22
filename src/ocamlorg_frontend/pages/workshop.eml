@@ -1,5 +1,3 @@
-open Ocamlorg
-
 let render ~(videos : (string, Ood.Watch.t) Hashtbl.t) (workshop : Ood.Workshop.t) =
 Layout.render
 ~title:workshop.title

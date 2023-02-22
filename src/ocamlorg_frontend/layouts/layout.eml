@@ -1,5 +1,3 @@
-open Ocamlorg
-
 let render
 ?(show_get_started=true)
 ?(use_swiper=false)

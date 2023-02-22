@@ -1,5 +1,3 @@
-open Ocamlorg
-
 let render
 (best_practices : Ood.Workflow.t list)
 ~tutorials

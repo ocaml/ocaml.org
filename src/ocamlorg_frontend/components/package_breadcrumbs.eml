@@ -1,5 +1,3 @@
-open Ocamlorg
-
 type library_path_item =
   | Module of string
   | ModuleType of string

@@ -1,5 +1,3 @@
-open Ocamlorg
-
 let sidebar
 ~str_path
 ~toc
