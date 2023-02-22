@@ -1,17 +1,18 @@
 module Asset = Asset
 module Media = Media
-module Static_file = Static_file
+
+let of_url_path = File.of_url_path
 
 (* given the path of a file from `assets.ml`: 1. looks up the file's digest in
    and 2. returns the corresponding digest URL for use in templates *)
-let asset_digest_url filepath =
-  let digest = Asset.hash filepath in
+let asset_url filepath =
+  let digest =
+    Option.map (fun d -> Dream.to_base64url d) (Asset.hash filepath)
+  in
   if digest = None then
     raise
       (Invalid_argument
          (Fmt.str
-            "ERROR: '%s' is rendered via asset_digest_url, but it is not an \
-             asset!"
+            "ERROR: '%s' is rendered via asset_url, but it is not an asset!"
             filepath));
-  Static_file.to_url_path
-    { digest = Option.map (fun d -> Dream.to_base64url d) digest; filepath }
+  File.to_url_path ?digest filepath

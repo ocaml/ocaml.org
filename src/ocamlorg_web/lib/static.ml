@@ -38,7 +38,7 @@ let not_modified ~last_modified request =
 
 let loader ~read ~digest ?(not_cached = []) local_root path request =
   let not_cached = List.mem path not_cached in
-  let static_url = Ocamlorg_static.Static_file.of_url_path path in
+  let static_url = Ocamlorg_static.of_url_path path in
   let filepath = static_url.filepath in
   let result = read local_root filepath in
   match result with
@@ -51,17 +51,17 @@ let loader ~read ~digest ?(not_cached = []) local_root path request =
   | Some asset ->
       let digest = digest local_root filepath in
       if
-        static_url.digest != None
+        static_url.digest <> None
         && not (Option.equal ( = ) digest static_url.digest)
       then
-        Dream.log "asset %s exists but digest does not match: %s <> %s" filepath
+        Dream.log "asset %s exists but digest does not match: %s != %s" filepath
           (Option.value ~default:"" static_url.digest)
           (Dream.to_base64url (Option.value ~default:"" digest));
 
       let cache_control =
-        if static_url.digest = None then Fmt.str "max-age=%d" (60 * 60 * 24)
-          (* one day *)
-        else "max-age=31536000, immutable"
+        match static_url.digest with
+        | None -> Fmt.str "max-age=86400" (* one day *)
+        | Some _ -> "max-age=31536000, immutable"
       in
       Dream.respond
         ~headers:([ ("Cache-Control", cache_control) ] @ Dream.mime_lookup path)

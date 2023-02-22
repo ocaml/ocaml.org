@@ -10,11 +10,10 @@
    and conversions between (1) a file path + optional digest, and (2) the
    corresponding relative URL under which the static file is served via HTTP. *)
 
-type t = { filepath : string; digest : string option }
+(* renders a relative URL from the optional [digest] and [filepath] *)
+val to_url_path : ?digest:string -> string -> string
 
-(* converts a static file reference to a relative URL by rendering the digest
-   (if applicable) and filepath *)
-val to_url_path : t -> string
+type t = { filepath : string; digest : string option }
 
 (* converts a relative URL to a static file reference by extracting the digest
    (if applicable) and filepath from the URL *)

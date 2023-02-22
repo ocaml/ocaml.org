@@ -1,9 +1,9 @@
-type t = { filepath : string; digest : string option }
+let to_url_path ?digest filepath =
+  match digest with
+  | None -> filepath
+  | Some digest -> Fmt.str "/_/%s/%s" digest filepath
 
-let to_url_path static_url =
-  match static_url.digest with
-  | None -> static_url.filepath
-  | Some digest -> Fmt.str "/_/%s/%s" digest static_url.filepath
+type t = { filepath : string; digest : string option }
 
 let of_url_path path =
   let xs = String.split_on_char '/' path in

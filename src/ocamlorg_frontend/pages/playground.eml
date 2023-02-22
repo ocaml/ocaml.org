@@ -17,10 +17,10 @@ let render () =
     <link rel="canonical" href="https://ocaml.org<%s Url.playground %>">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="manifest" href="/manifest.json">
-    <link rel="stylesheet" href="<%s Ocamlorg_static.asset_digest_url "css/main.css" %>">
-    <link rel="stylesheet" href="<%s Ocamlorg_static.asset_digest_url "css/codemirror.css" %>">
-    <link rel="stylesheet" href="<%s Ocamlorg_static.asset_digest_url "vendors/font-files/inter.css" %>">
-    <script defer src="<%s Ocamlorg_static.asset_digest_url "vendors/alpine.min.js" %>"></script>
+    <link rel="stylesheet" href="<%s Ocamlorg_static.asset_url "css/main.css" %>">
+    <link rel="stylesheet" href="<%s Ocamlorg_static.asset_url "css/codemirror.css" %>">
+    <link rel="stylesheet" href="<%s Ocamlorg_static.asset_url "vendors/font-files/inter.css" %>">
+    <script defer src="<%s Ocamlorg_static.asset_url "vendors/alpine.min.js" %>"></script>
     <title>OCaml Playground</title>
   </head>
 
