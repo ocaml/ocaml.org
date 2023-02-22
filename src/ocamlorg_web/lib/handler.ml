@@ -1,11 +1,7 @@
 open Import
 
-let not_found _req =
-  Dream.html ~code:404
-    (Ocamlorg_frontend.not_found ~digest_url:Static_file.asset_digest_url ())
-
-let index _req =
-  Dream.html (Ocamlorg_frontend.home ~digest_url:Static_file.asset_digest_url ())
+let not_found _req = Dream.html ~code:404 (Ocamlorg_frontend.not_found ())
+let index _req = Dream.html (Ocamlorg_frontend.home ())
 
 let learn _req =
   let papers =
@@ -16,32 +12,23 @@ let learn _req =
   in
   let tutorials = Ood.Tutorial.all in
   let release = List.hd Ood.Release.all in
-  Dream.html
-    (Ocamlorg_frontend.learn ~digest_url:Static_file.asset_digest_url ~papers
-       ~books ~release ~tutorials)
+  Dream.html (Ocamlorg_frontend.learn ~papers ~books ~release ~tutorials)
 
 let platform _req =
   let tools = Ood.Tool.all in
   let tutorials = Ood.Tutorial.all in
-  Dream.html
-    (Ocamlorg_frontend.platform ~digest_url:Static_file.asset_digest_url
-       ~tutorials tools)
+  Dream.html (Ocamlorg_frontend.platform ~tutorials tools)
 
 let community _req =
   let workshops = Ood.Workshop.all in
   let meetups = Ood.Meetup.all in
-  Dream.html
-    (Ocamlorg_frontend.community ~digest_url:Static_file.asset_digest_url
-       ~workshops ~meetups)
+  Dream.html (Ocamlorg_frontend.community ~workshops ~meetups)
 
 let success_story req =
   let slug = Dream.param req "id" in
   let story = Ood.Success_story.get_by_slug slug in
   match story with
-  | Some story ->
-      Dream.html
-        (Ocamlorg_frontend.success_story ~digest_url:Static_file.asset_digest_url
-           story)
+  | Some story -> Dream.html (Ocamlorg_frontend.success_story story)
   | None -> not_found req
 
 let industrial_users _req =
@@ -50,9 +37,7 @@ let industrial_users _req =
     |> List.filter (fun (item : Ood.Industrial_user.t) -> item.featured)
   in
   let success_stories = Ood.Success_story.all in
-  Dream.html
-    (Ocamlorg_frontend.industrial_users ~digest_url:Static_file.asset_digest_url
-       ~users ~success_stories)
+  Dream.html (Ocamlorg_frontend.industrial_users ~users ~success_stories)
 
 let academic_users req =
   let search_user pattern t =
@@ -76,18 +61,10 @@ let academic_users req =
     | None -> Ood.Academic_institution.all
     | Some search -> search_user search Ood.Academic_institution.all
   in
-  Dream.html
-    (Ocamlorg_frontend.academic_users ~digest_url:Static_file.asset_digest_url
-       users)
+  Dream.html (Ocamlorg_frontend.academic_users users)
 
-let about _req =
-  Dream.html
-    (Ocamlorg_frontend.about ~digest_url:Static_file.asset_digest_url ())
-
-let books _req =
-  Dream.html
-    (Ocamlorg_frontend.books ~digest_url:Static_file.asset_digest_url
-       Ood.Book.all)
+let about _req = Dream.html (Ocamlorg_frontend.about ())
+let books _req = Dream.html (Ocamlorg_frontend.books Ood.Book.all)
 
 let releases req =
   let search_release pattern t =
@@ -119,16 +96,12 @@ let releases req =
     | None -> Ood.Release.all
     | Some search -> search_release search Ood.Release.all
   in
-  Dream.html
-    (Ocamlorg_frontend.releases ~digest_url:Static_file.asset_digest_url releases)
+  Dream.html (Ocamlorg_frontend.releases releases)
 
 let release req =
   let version = Dream.param req "id" in
   match Ood.Release.get_by_version version with
-  | Some release ->
-      Dream.html
-        (Ocamlorg_frontend.release ~digest_url:Static_file.asset_digest_url
-           release)
+  | Some release -> Dream.html (Ocamlorg_frontend.release release)
   | None -> not_found req
 
 let workshop req =
@@ -168,8 +141,7 @@ let workshop req =
   with
   | Some workshop ->
       Dream.html
-        (Ocamlorg_frontend.workshop ~digest_url:Static_file.asset_digest_url
-           ~videos:watch_ocamlorg_embed workshop)
+        (Ocamlorg_frontend.workshop ~videos:watch_ocamlorg_embed workshop)
   | None -> not_found req
 
 let paginate ~req ~n items =
@@ -196,23 +168,19 @@ let blog req =
   let featured = Ood.Rss.featured |> List.take 3 in
   let news = Ood.News.all |> List.take 20 in
   Dream.html
-    (Ocamlorg_frontend.blog ~digest_url:Static_file.asset_digest_url ~featured
-       ~rss:current_items ~rss_page:page ~rss_pages_number:number_of_pages ~news)
+    (Ocamlorg_frontend.blog ~featured ~rss:current_items ~rss_page:page
+       ~rss_pages_number:number_of_pages ~news)
 
 let news req =
   let page, number_of_pages, current_items = paginate ~req ~n:10 Ood.News.all in
   Dream.html
-    (Ocamlorg_frontend.news ~digest_url:Static_file.asset_digest_url ~page
-       ~pages_number:number_of_pages current_items)
+    (Ocamlorg_frontend.news ~page ~pages_number:number_of_pages current_items)
 
 let news_post req =
   let slug = Dream.param req "id" in
   let news_post = Ood.News.get_by_slug slug in
   match news_post with
-  | Some news_post ->
-      Dream.html
-        (Ocamlorg_frontend.news_post ~digest_url:Static_file.asset_digest_url
-           news_post)
+  | Some news_post -> Dream.html (Ocamlorg_frontend.news_post news_post)
   | None -> not_found req
 
 let jobs req =
@@ -231,15 +199,12 @@ let jobs req =
            List.filter (( <> ) "Remote") job.Ood.Job.locations)
     |> List.sort_uniq String.compare
   in
-  Dream.html
-    (Ocamlorg_frontend.jobs ~digest_url:Static_file.asset_digest_url ?location
-       ~locations jobs)
+  Dream.html (Ocamlorg_frontend.jobs ?location ~locations jobs)
 
 let page canonical (_req : Dream.request) =
   let page = Ood.Page.get canonical in
   Dream.html
-    (Ocamlorg_frontend.page ~digest_url:Static_file.asset_digest_url
-       ~title:page.title ~description:page.description
+    (Ocamlorg_frontend.page ~title:page.title ~description:page.description
        ~meta_title:page.meta_title ~meta_description:page.meta_description
        ~content:page.body_html ~canonical)
 
@@ -247,10 +212,7 @@ let carbon_footprint = page Ocamlorg_frontend.Url.carbon_footprint
 let privacy_policy = page Ocamlorg_frontend.Url.privacy_policy
 let governance = page Ocamlorg_frontend.Url.governance
 let code_of_conduct = page Ocamlorg_frontend.Url.code_of_conduct
-
-let playground _req =
-  Dream.html
-    (Ocamlorg_frontend.playground ~digest_url:Static_file.asset_digest_url ())
+let playground _req = Dream.html (Ocamlorg_frontend.playground ())
 
 let papers req =
   let search_paper pattern t =
@@ -289,9 +251,7 @@ let papers req =
   let recommended_papers =
     Ood.Paper.all |> List.filter (fun (paper : Ood.Paper.t) -> paper.featured)
   in
-  Dream.html
-    (Ocamlorg_frontend.papers ~digest_url:Static_file.asset_digest_url ?search
-       ~recommended_papers papers)
+  Dream.html (Ocamlorg_frontend.papers ?search ~recommended_papers papers)
 
 let tutorial req =
   let slug = Dream.param req "id" in
@@ -300,8 +260,7 @@ let tutorial req =
   with
   | Some tutorial ->
       let tutorials = Ood.Tutorial.all in
-      Ocamlorg_frontend.tutorial ~digest_url:Static_file.asset_digest_url
-        ~tutorials
+      Ocamlorg_frontend.tutorial ~tutorials
         ~canonical:(Ocamlorg_frontend.Url.tutorial tutorial.slug)
         tutorial
       |> Dream.html
@@ -309,14 +268,9 @@ let tutorial req =
 
 let best_practices _req =
   let tutorials = Ood.Tutorial.all in
-  Dream.html
-    (Ocamlorg_frontend.best_practices ~digest_url:Static_file.asset_digest_url
-       ~tutorials Ood.Workflow.all)
+  Dream.html (Ocamlorg_frontend.best_practices ~tutorials Ood.Workflow.all)
 
-let problems _req =
-  Dream.html
-    (Ocamlorg_frontend.problems ~digest_url:Static_file.asset_digest_url
-       Ood.Problem.all)
+let problems _req = Dream.html (Ocamlorg_frontend.problems Ood.Problem.all)
 
 type package_kind = Package | Universe
 
@@ -386,9 +340,7 @@ let packages state _req =
     | Some pkgs -> List.map (package_meta state) pkgs
     | None -> []
   in
-  Dream.html
-    (Ocamlorg_frontend.packages ~digest_url:Static_file.asset_digest_url stats
-       featured_packages)
+  Dream.html (Ocamlorg_frontend.packages stats featured_packages)
 
 let packages_search t req =
   match Dream.query req "q" with
@@ -399,9 +351,7 @@ let packages_search t req =
       let total = List.length packages in
       let results = List.map (package_meta t) packages in
       let search = Dream.from_percent_encoded search in
-      Dream.html
-        (Ocamlorg_frontend.packages_search
-           ~digest_url:Static_file.asset_digest_url ~total ~search results)
+      Dream.html (Ocamlorg_frontend.packages_search ~total ~search results)
   | None -> Dream.redirect req Ocamlorg_frontend.Url.packages
 
 let package _t req =
@@ -483,8 +433,7 @@ let package_versioned t kind req =
         | Unknown -> Unknown
       in
       Dream.html
-        (Ocamlorg_frontend.package_overview
-           ~digest_url:Static_file.asset_digest_url ~documentation_status ~readme
+        (Ocamlorg_frontend.package_overview ~documentation_status ~readme
            ~readme_title ~dependencies ~rev_dependencies ~conflicts ~homepages
            ~source ~changes_filename ~license_filename ~is_latest_url
            package_meta)
@@ -624,7 +573,6 @@ let package_doc t kind req =
             else Ocamlorg_frontend.Package_breadcrumbs.Documentation Index
           in
           Dream.html
-            (Ocamlorg_frontend.package_documentation
-               ~digest_url:Static_file.asset_digest_url ~path ~toc ~maptoc
+            (Ocamlorg_frontend.package_documentation ~path ~toc ~maptoc
                ~is_latest_url ~old_doc:doc.old ~content:doc.content package_meta)
       )

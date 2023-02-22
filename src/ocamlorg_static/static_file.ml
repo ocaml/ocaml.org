@@ -16,16 +16,3 @@ let of_url_path path =
             digest and filepath")
   | "_" :: x :: xs -> { digest = Some x; filepath = String.concat "/" xs }
   | _ -> { digest = None; filepath = path }
-
-(* render a digest URL for a given asset, for use in templates *)
-let asset_digest_url filepath =
-  let digest = Asset.hash filepath in
-  if digest = None then
-    raise
-      (Invalid_argument
-         (Fmt.str
-            "ERROR: '%s' is rendered via asset_digest_url, but it is not an \
-             asset!"
-            filepath));
-  to_url_path
-    {digest = Option.map (fun d -> Dream.to_base64url d) digest; filepath}
