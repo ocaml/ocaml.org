@@ -38,7 +38,7 @@ let not_modified ~last_modified request =
 
 let loader ~read ~digest ?(not_cached = []) local_root path request =
   let not_cached = List.mem path not_cached in
-  let static_url = Static_file.of_url_path path in
+  let static_url = Ocamlorg_static.Static_file.of_url_path path in
   let filepath = static_url.filepath in
   let result = read local_root filepath in
   match result with

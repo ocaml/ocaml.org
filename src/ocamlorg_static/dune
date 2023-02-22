@@ -1,7 +1,5 @@
 (library
  (name ocamlorg_static)
- (wrapped false)
- (modules ocamlorg_static static_file asset media)
  (libraries fmt dream))
 
 (rule

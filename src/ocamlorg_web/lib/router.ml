@@ -2,14 +2,16 @@ module Url = Ocamlorg_frontend.Url
 
 let asset_loader =
   Static.loader
-    ~read:(fun _root path -> Asset.read path)
-    ~digest:(fun _root path -> Option.map Dream.to_base64url (Asset.hash path))
+    ~read:(fun _root path -> Ocamlorg_static.Asset.read path)
+    ~digest:(fun _root path ->
+      Option.map Dream.to_base64url (Ocamlorg_static.Asset.hash path))
     ~not_cached:[ "robots.txt"; "/robots.txt" ]
 
 let media_loader =
   Static.loader
-    ~read:(fun _root path -> Media.read path)
-    ~digest:(fun _root path -> Option.map Dream.to_base64url @@ Media.hash path)
+    ~read:(fun _root path -> Ocamlorg_static.Media.read path)
+    ~digest:(fun _root path ->
+      Option.map Dream.to_base64url @@ Ocamlorg_static.Media.hash path)
 
 let page_routes =
   Dream.scope ""
