@@ -1,4 +1,4 @@
-module Url = Ocamlorg_frontend.Url
+open Ocamlorg
 
 let fwd_v2 target = (target, Url.v2 ^ target)
 

@@ -1,3 +1,5 @@
+open Ocamlorg
+
 let render (news : Ood.News.t) =
 Layout.render
 ~title:news.title

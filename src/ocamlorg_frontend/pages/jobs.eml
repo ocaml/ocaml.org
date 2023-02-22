@@ -1,3 +1,5 @@
+open Ocamlorg
+
 let render ?(location = "All") ~locations (jobs : Ood.Job.t list) =
 Layout.render
 ~title:"OCaml Jobs"

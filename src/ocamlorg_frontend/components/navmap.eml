@@ -1,3 +1,5 @@
+open Ocamlorg
+
 type kind =
   | Page
   | Library

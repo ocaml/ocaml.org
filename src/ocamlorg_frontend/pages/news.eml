@@ -1,3 +1,5 @@
+open Ocamlorg
+
 let render ~pages_number ~page (news : Ood.News.t list) =
 Layout.render
 ~title:"OCaml News"

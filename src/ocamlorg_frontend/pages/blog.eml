@@ -1,3 +1,5 @@
+open Ocamlorg
+
 let render ~(featured : Ood.Rss.t list) ~(rss : Ood.Rss.t list) ~rss_pages_number ~rss_page ~(news : Ood.News.t list) =
 Layout.render
 ~title:"OCaml Blog"

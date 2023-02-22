@@ -1,4 +1,5 @@
-open Import
+open Ocamlorg
+open Ocamlorg.Import
 
 let not_found _req = Dream.html ~code:404 (Ocamlorg_frontend.not_found ())
 let index _req = Dream.html (Ocamlorg_frontend.home ())
@@ -208,10 +209,10 @@ let page canonical (_req : Dream.request) =
        ~meta_title:page.meta_title ~meta_description:page.meta_description
        ~content:page.body_html ~canonical)
 
-let carbon_footprint = page Ocamlorg_frontend.Url.carbon_footprint
-let privacy_policy = page Ocamlorg_frontend.Url.privacy_policy
-let governance = page Ocamlorg_frontend.Url.governance
-let code_of_conduct = page Ocamlorg_frontend.Url.code_of_conduct
+let carbon_footprint = page Url.carbon_footprint
+let privacy_policy = page Url.privacy_policy
+let governance = page Url.governance
+let code_of_conduct = page Url.code_of_conduct
 let playground _req = Dream.html (Ocamlorg_frontend.playground ())
 
 let papers req =
@@ -261,7 +262,7 @@ let tutorial req =
   | Some tutorial ->
       let tutorials = Ood.Tutorial.all in
       Ocamlorg_frontend.tutorial ~tutorials
-        ~canonical:(Ocamlorg_frontend.Url.tutorial tutorial.slug)
+        ~canonical:(Url.tutorial tutorial.slug)
         tutorial
       |> Dream.html
   | None -> not_found req
@@ -352,7 +353,7 @@ let packages_search t req =
       let results = List.map (package_meta t) packages in
       let search = Dream.from_percent_encoded search in
       Dream.html (Ocamlorg_frontend.packages_search ~total ~search results)
-  | None -> Dream.redirect req Ocamlorg_frontend.Url.packages
+  | None -> Dream.redirect req Url.packages
 
 let packages_autocomplete_fragment t req =
   match Dream.query req "q" with
@@ -368,14 +369,14 @@ let packages_autocomplete_fragment t req =
 
 let package _t req =
   let package = Dream.param req "name" in
-  let target = Ocamlorg_frontend.Url.package_with_version package in
+  let target = Url.package_with_version package in
   Dream.redirect req target
 
 (** Redirect any URL with suffix /p/PACKAGE/docs to the latest documentation for
     PACKAGE. *)
 let package_docs _t req =
   let package = Dream.param req "name" in
-  let target = Ocamlorg_frontend.Url.package_doc package in
+  let target = Url.package_doc package in
   Dream.redirect req target
 
 let to_package t name version =
@@ -384,7 +385,7 @@ let to_package t name version =
     let version = Ocamlorg_package.Version.of_string version in
     Ocamlorg_package.get_package t name version
 
-let installer req = Dream.redirect req Ocamlorg_frontend.Url.github_installer
+let installer req = Dream.redirect req Url.github_installer
 
 let package_versioned t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
@@ -473,7 +474,7 @@ let package_doc t kind req =
           else Some (Ocamlorg_package.Version.to_string version)
         in
         let hash = match kind with `Package -> None | `Universe u -> Some u in
-        Ocamlorg_frontend.Url.package_doc ?hash ~page:"" ?version
+        Url.package_doc ?hash ~page:"" ?version
           (Ocamlorg_package.Name.to_string name)
       in
       let* docs = Ocamlorg_package.documentation_page ~kind package path in

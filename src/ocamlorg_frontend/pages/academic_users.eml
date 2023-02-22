@@ -1,3 +1,5 @@
+open Ocamlorg
+
 let render (users : Ood.Academic_institution.t list) =
 Layout.render
 ~title:"Academic Users of OCaml"

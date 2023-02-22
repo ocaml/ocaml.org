@@ -1,3 +1,5 @@
+open Ocamlorg
+
 let render (release : Ood.Release.t) =
 Layout.render
 ~title:(Printf.sprintf "OCaml %s Release Notes" release.version)

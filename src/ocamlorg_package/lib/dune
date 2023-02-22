@@ -1,6 +1,7 @@
 (library
  (name ocamlorg_package)
  (libraries
+  ocamlorg.global
   opam-format
   bos
   fpath

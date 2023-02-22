@@ -1,3 +1,5 @@
+open Ocamlorg
+
 let problems_sidebar
 ~problems
 =

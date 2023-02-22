@@ -1,4 +1,4 @@
-open Import
+open Ocamlorg.Import
 
 let extract_metadata_body s =
   let sep = "---\n" in

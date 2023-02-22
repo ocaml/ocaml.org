@@ -1,3 +1,5 @@
+open Ocamlorg
+
 let render ?(search = "") (releases : Ood.Release.t list) =
 Layout.render
 ~title:"OCaml Releases"

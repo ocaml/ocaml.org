@@ -1,3 +1,5 @@
+open Ocamlorg
+
 type active_nav_item =
   | Learn
   | Packages

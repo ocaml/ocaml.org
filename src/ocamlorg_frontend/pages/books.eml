@@ -1,4 +1,6 @@
-let render_books books = 
+open Ocamlorg
+
+let render_books books =
     <div class="overflow-x-scroll lg:overflow-hidden mt-5 lg:mt-10">
         <% books |> List.iter (fun (item : Ood.Book.t) -> %>
         <div

@@ -1,4 +1,4 @@
-module Url = Ocamlorg_frontend.Url
+open Ocamlorg
 
 let asset_loader =
   Static.loader

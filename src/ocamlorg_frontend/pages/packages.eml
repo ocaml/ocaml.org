@@ -1,3 +1,4 @@
+open Ocamlorg
 open Package_intf
 
 let href_package pkg = Url.package_with_version pkg.name ~version:pkg.version

@@ -2,7 +2,6 @@ module Package_breadcrumbs = Package_breadcrumbs
 module Package_overview = Package_overview
 module Navmap = Navmap
 module Toc = Toc
-module Url = Url
 include Package_intf
 
 let about () = About.render ()
@@ -51,8 +50,8 @@ let papers ?search ~recommended_papers papers =
 let problems problems = Problems.render problems
 let release release = Release.render release
 let releases ?search releases = Releases.render ?search releases
-let success_story success_story = Success_story.render success_story
-let tutorial tutorial ~canonical = Tutorial.render tutorial ~canonical
+let success_story = Success_story.render
+let tutorial = Tutorial.render
 
 let page ~title ~description ~meta_title ~meta_description ~content ~canonical =
   Page.render ~title ~description ~meta_title ~meta_description ~content

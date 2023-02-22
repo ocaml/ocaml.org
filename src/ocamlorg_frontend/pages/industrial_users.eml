@@ -1,3 +1,5 @@
+open Ocamlorg
+
 let render ~(users : Ood.Industrial_user.t list) ~success_stories =
 Layout.render
 ~use_swiper:true

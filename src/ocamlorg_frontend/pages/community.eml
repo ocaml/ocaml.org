@@ -1,3 +1,5 @@
+open Ocamlorg
+
 let render ~workshops ~meetups =
 let current_date =
   let open Unix in

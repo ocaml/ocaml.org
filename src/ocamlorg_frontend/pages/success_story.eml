@@ -1,3 +1,5 @@
+open Ocamlorg
+
 let render (story : Ood.Success_story.t) =
 Layout.render
 ~title:(Printf.sprintf "%s · Success Stories" story.title)
