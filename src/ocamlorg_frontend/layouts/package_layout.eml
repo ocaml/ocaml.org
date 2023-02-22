@@ -3,7 +3,7 @@ let render
 ~(path: Package_breadcrumbs.path)
 ~title
 ~description
-~canonical
+?canonical
 ~(package : Package_intf.package)
 ~is_latest_url
 inner =
