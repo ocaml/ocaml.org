@@ -1,27 +1,17 @@
 module Url = Ocamlorg_frontend.Url
 
 let asset_loader =
-  let open Lwt.Syntax in
-  let store = Asset.connect () in
   Static.loader
-    ~read:(fun _root path ->
-      let* store = store in
-      Asset.get store (Mirage_kv.Key.v path))
-    ~last_modified:(fun _root path ->
-      let* store = store in
-      Asset.last_modified store (Mirage_kv.Key.v path))
-    ~not_cached:[ "css/main.css"; "/css/main.css"; "robots.txt"; "/robots.txt" ]
+    ~read:(fun _root path -> Ocamlorg_static.Asset.read path)
+    ~digest:(fun _root path ->
+      Option.map Dream.to_base64url (Ocamlorg_static.Asset.hash path))
+    ~not_cached:[ "robots.txt"; "/robots.txt" ]
 
 let media_loader =
-  let open Lwt.Syntax in
-  let store = Media.connect () in
   Static.loader
-    ~read:(fun _root path ->
-      let* store = store in
-      Media.get store (Mirage_kv.Key.v path))
-    ~last_modified:(fun _root path ->
-      let* store = store in
-      Media.last_modified store (Mirage_kv.Key.v path))
+    ~read:(fun _root path -> Ocamlorg_static.Media.read path)
+    ~digest:(fun _root path ->
+      Option.map Dream.to_base64url @@ Ocamlorg_static.Media.hash path)
 
 let page_routes =
   Dream.scope ""

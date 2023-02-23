@@ -36,29 +36,39 @@ let not_modified ~last_modified request =
   | None -> false
   | Some date -> String.equal date last_modified
 
-let max_age = 60 * 60 * 24 (* one day *)
+let loader ~read ~digest ?(not_cached = []) local_root path request =
+  let not_cached = List.mem path not_cached in
+  let maybe_static_file = Ocamlorg_static.of_url_path path in
+  match maybe_static_file with
+  | None -> Dream.not_found request
+  | Some static_file -> (
+      let filepath = static_file.filepath in
+      let result = read local_root filepath in
+      match result with
+      | None -> Handler.not_found request
+      | Some asset when not_cached ->
+          Dream.respond
+            ~headers:
+              ([ ("Cache-Control", "no-store, max-age=0") ]
+              @ Dream.mime_lookup path)
+            asset
+      | Some asset ->
+          let digest = digest local_root filepath in
+          if
+            static_file.digest <> None
+            && not (Option.equal ( = ) digest static_file.digest)
+          then
+            Dream.log "asset %s exists but digest does not match: %s != %s"
+              filepath
+              (Option.value ~default:"" static_file.digest)
+              (Dream.to_base64url (Option.value ~default:"" digest));
 
-let loader ~read ~last_modified ?(not_cached = []) local_root path request =
-  let open Lwt.Syntax in
-  let* last_modified = last_modified local_root path in
-  match last_modified with
-  | Error _ -> Handler.not_found request
-  | Ok last_modified -> (
-      let last_modified = Last_modified.ptime_to_http_date last_modified in
-      if not_modified ~last_modified request then
-        Dream.respond ~status:`Not_Modified ""
-      else
-        let* result = read local_root path in
-        match result with
-        | Error _ -> Handler.not_found request
-        | Ok asset when List.mem path not_cached ->
-            Dream.respond ~headers:(Dream.mime_lookup path) asset
-        | Ok asset ->
-            Dream.respond
-              ~headers:
-                ([
-                   ("Cache-Control", Fmt.str "max-age=%d" max_age);
-                   ("Last-Modified", last_modified);
-                 ]
-                @ Dream.mime_lookup path)
-              asset)
+          let cache_control =
+            match static_file.digest with
+            | None -> "max-age=86400" (* one day *)
+            | Some _ -> "max-age=31536000, immutable"
+          in
+          Dream.respond
+            ~headers:
+              ([ ("Cache-Control", cache_control) ] @ Dream.mime_lookup path)
+            asset)
