@@ -1,6 +1,6 @@
 (* We serve static files (e.g. assets) under two relative URLs:
 
-   /{PATH} /_/{DIGEST}/{PATH}
+   /{PATH} and /_/{DIGEST}/{PATH}
 
    For the latter path, we allow browsers to cache the file received for a very
    long time, treating it like an immutable resource with a unique URL based on
@@ -15,6 +15,6 @@ val to_url_path : ?digest:string -> string -> string
 
 type t = { filepath : string; digest : string option }
 
-(* converts a relative URL to a static file reference by extracting the digest
-   (if applicable) and filepath from the URL *)
-val of_url_path : string -> t
+(* tries to convert a relative URL to a static file reference by extracting the
+   digest (if applicable) and filepath *)
+val of_url_path : string -> t option
