@@ -9,6 +9,5 @@ let of_url_path path =
   let xs = String.split_on_char '/' path in
   match xs with
   | "_" :: x :: xs -> Some { digest = Some x; filepath = String.concat "/" xs }
-  | "_" :: _ -> None
-  | [] -> None
+  | "_" :: _ | [] -> None
   | _ -> Some { digest = None; filepath = path }

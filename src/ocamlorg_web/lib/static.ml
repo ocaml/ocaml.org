@@ -65,7 +65,7 @@ let loader ~read ~digest ?(not_cached = []) local_root path request =
 
           let cache_control =
             match static_file.digest with
-            | None -> Fmt.str "max-age=86400" (* one day *)
+            | None -> "max-age=86400" (* one day *)
             | Some _ -> "max-age=31536000, immutable"
           in
           Dream.respond
