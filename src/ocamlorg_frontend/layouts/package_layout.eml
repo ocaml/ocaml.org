@@ -5,7 +5,6 @@ let render
 ~description
 ?canonical
 ~(package : Package_intf.package)
-~is_latest_url
 inner =
 Layout.render
 ?styles
@@ -19,7 +18,7 @@ Layout.render
     <div class="container-fluid wide">
       <div class="flex justify-between flex-col md:flex-row border-b border-gray-200">
         <div class="flex flex-col items-baseline mb-6">
-          <%s! Package_breadcrumbs.render ~package ~path ~is_latest_url %>
+          <%s! Package_breadcrumbs.render ~package ~path %>
 
           <% if path == Overview then (%>
             <div class="text-body-400">

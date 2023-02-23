@@ -2,7 +2,6 @@ let sidebar
 ~str_path
 ~toc
 ~maptoc
-~is_latest_url
 (package : Package_intf.package)
 =
   <div class="flex flex-col font-normal text-body-400" id="htmx-sidebar">
@@ -12,7 +11,7 @@ let sidebar
     </div><% ); %>
     <div class="space-y-6 flex flex-col overflow-x:scroll">
       <div>
-      <%s! Navmap.render ~package ~path:str_path ~is_latest_url maptoc %>
+      <%s! Navmap.render ~package ~path:str_path maptoc %>
       </div>
     </div>
   </div>
@@ -23,7 +22,6 @@ let render
 ~toc
 ~maptoc
 ~content
-~is_latest_url
 (package : Package_intf.package)
 =
 let str_path =
@@ -44,12 +42,11 @@ let path_page = match str_path |> String.concat "/" with
                 | "" -> None
                 | path -> Some (path ^ if String.contains path '.' then "" else "/index.html") in
 Package_layout.render
-~is_latest_url
-~title:(if is_latest_url then (Printf.sprintf "%s %s · OCaml Package" package.name "latest") else (Printf.sprintf "%s %s · OCaml Package" package.name package.version))
-~description:(if is_latest_url then (Printf.sprintf "%s %s: %s" package.name "latest" package.description) else (Printf.sprintf "%s %s: %s" package.name package.version package.description))
+~title:(Printf.sprintf "%s %s · OCaml Package" package.name (Package_intf.render_package_version package))
+~description:(Printf.sprintf "%s %s: %s" package.name (Package_intf.render_package_version package) package.description)
 ~package
 ~path
-~canonical:(Url.package_doc package.name ~version:package.version ?page:path_page)
+~canonical:(Url.package_doc package.name ~version:(Package_intf.exact_version package) ?page:path_page)
 ~styles:["css/main.css"; "css/doc.css"] @@
 <div x-data="{ open: false, sidebar: window.innerWidth >= 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth >= 1024" x-on:close-sidebar="sidebar=window.innerWidth >= 1024 && true">
   <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed lg:hidden right-10"
@@ -66,7 +63,7 @@ Package_layout.render
       x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
       x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
       x-transition:leave-end="-translate-x-full">
-      <%s! sidebar ~str_path ~toc ~maptoc ~is_latest_url package %>
+      <%s! sidebar ~str_path ~toc ~maptoc package %>
     </div>
     <div class="flex-1 z-0 z- min-w-0 lg:max-w-3xl lg:pt-6" id="htmx-content">
       <%s if old_doc then "Falling back to pre-odoc.2.2.0 documentation page..." else "" %>

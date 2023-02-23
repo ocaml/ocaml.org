@@ -1,6 +1,6 @@
 open Package_intf
 
-let href_package pkg = Url.package_with_version pkg.name ~version:pkg.version
+let href_package pkg = Url.package_with_version pkg.name ?version:pkg.version
 
 let render (stats : packages_stats option) (featured_packages : package list) =
 Layout.render
@@ -76,7 +76,7 @@ Layout.render
       <p class="font-semibold mb-2"><%s pkg.name %></p>
       <p class="mb-3 text-sm text-body-400"><%s pkg.description %></p>
       <p class="text-sm text-body-400 flex space-x-2">
-        <%s! Icons.tag "h-5 w-5 pr-1" %> <%s pkg.version %>
+        <%s! Icons.tag "h-5 w-5 pr-1" %> <%s render_package_version pkg %>
       </p>
     </a>
 % in
@@ -132,7 +132,7 @@ Layout.render
 % let render_package_recently_updated pkg =
 %   render_package_stat pkg (fun () ->
       <div class="text-sm text-body-400 flex space-x-2">
-        <%s! Icons.refresh "h-5 w-5 pr-1" %> Version <%s pkg.version %>
+        <%s! Icons.refresh "h-5 w-5 pr-1" %> Version <%s render_package_version pkg %>
       </div>
 %   )
 % in

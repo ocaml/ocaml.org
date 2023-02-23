@@ -81,7 +81,7 @@ let render ~total ~search (packages : Package_intf.package list) = Layout.render
               </div>
               <div class="flex items-center space-x-2 text-sm text-body-600 mr-4">
                 <%s! Icons.hashtag "h-5 w-5"; %>
-                <div><%s package.version %></div>
+                <div><%s Package_intf.render_package_version package %></div>
               </div>
               <div class="flex items-center space-x-2 text-sm text-body-600 mr-4">
                 <%s! Icons.license "h-5 w-5"; %>
