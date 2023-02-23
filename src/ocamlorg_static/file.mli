@@ -1,6 +1,10 @@
 (* We serve static files (e.g. assets) under two relative URLs:
 
-   /{PATH} and /_/{DIGEST}/{PATH}
+   /{PATH}
+
+   and
+
+   /_/{DIGEST}/{PATH}
 
    For the latter path, we allow browsers to cache the file received for a very
    long time, treating it like an immutable resource with a unique URL based on
