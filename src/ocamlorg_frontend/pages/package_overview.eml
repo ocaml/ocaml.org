@@ -20,12 +20,12 @@ let render
 ~source
 ~changes_filename
 ~license_filename
-(package : Package_intf.package) =
-let version = package.version in
-let exact_version = Package_intf.exact_version package in
+(package : Package.package) =
+let version = Package.url_version package in
+let exact_version = Package.exact_version package in
 Package_layout.render
-~title:(Printf.sprintf "%s %s · OCaml Package" package.name (Package_intf.render_package_version package))
-~description:(Printf.sprintf "%s %s: %s" package.name (Package_intf.render_package_version package) package.description)
+~title:(Printf.sprintf "%s %s · OCaml Package" package.name (Package.render_version package))
+~description:(Printf.sprintf "%s %s: %s" package.name (Package.render_version package) package.description)
 ~canonical:(Url.package_with_version package.name ~version:exact_version)
 ~package
 ~path:Overview @@

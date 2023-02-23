@@ -1,4 +1,4 @@
-let render ~total ~search (packages : Package_intf.package list) = Layout.render ~title:"OCaml Packages · Search Result"
+let render ~total ~search (packages : Package.package list) = Layout.render ~title:"OCaml Packages · Search Result"
 ~description:"Find the package you need to build your application in the thousands of available OCaml packages."
 ~canonical:(Url.packages_search ^ "?q=" ^ search)
 ~active_top_nav_item:Header.Packages @@
@@ -49,7 +49,7 @@ let render ~total ~search (packages : Package_intf.package list) = Layout.render
 
         <% if List.length packages > 0 then ( %>
         <ol>
-          <% packages |> List.iter (fun (package : Package_intf.package) -> %>
+          <% packages |> List.iter (fun (package : Package.package) -> %>
           <li class="border-gray-200 border-t mt-4 pt-4 mb-2 space-y-2">
             <a
               href="<%s Url.package_with_version package.name %>"
@@ -81,7 +81,7 @@ let render ~total ~search (packages : Package_intf.package list) = Layout.render
               </div>
               <div class="flex items-center space-x-2 text-sm text-body-600 mr-4">
                 <%s! Icons.hashtag "h-5 w-5"; %>
-                <div><%s Package_intf.render_package_version package %></div>
+                <div><%s Package.render_version package %></div>
               </div>
               <div class="flex items-center space-x-2 text-sm text-body-600 mr-4">
                 <%s! Icons.license "h-5 w-5"; %>

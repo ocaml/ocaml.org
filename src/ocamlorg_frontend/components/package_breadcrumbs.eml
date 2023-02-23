@@ -46,21 +46,22 @@ type path =
   | Documentation of (docs_path)
 
 let render_package_and_version
-~(package: Package_intf.package)
+~(package: Package.package)
 =
+  let version = Package.url_version package in
   let version_options v =
     <% if v = package.latest_version then ( %>
-    <option value="<%s Url.package_with_version package.name %>" <%s if package.version = None then "selected" else "" %>>
+    <option value="<%s Url.package_with_version package.name %>" <%s if package.version = Latest then "selected" else "" %>>
       <%s "latest (" ^ package.latest_version ^ ")" %>
     </option>
     <% ); %>
-    <option value="<%s Url.package_with_version package.name ?version:(Some v) %>" <%s if package.version = Some v then "selected" else "" %>>
+    <option value="<%s Url.package_with_version package.name ?version:(Some v) %>" <%s if package.version = Specific v then "selected" else "" %>>
       <%s v %>
     </option>
   in
   <li>
     <h1 class="inline text-base">
-      <a class="font-semibold underline" href="<%s Url.package_with_version package.name ?version:package.version %>"><%s package.name %></a>
+      <a class="font-semibold underline" href="<%s Url.package_with_version package.name ?version %>"><%s package.name %></a>
     </h1>
   </li>
   <li>
@@ -91,14 +92,15 @@ let render_library_path_breadcrumbs
   </li>
 
 let render_docs_path_breadcrumbs
-~(package: Package_intf.package)
+~(package: Package.package)
 ~(path: docs_path) 
   =
+  let version = Package.url_version package in
   <nav aria-label="breadcrumb" class="flex" id="htmx-breadcrumbs">
     <ul class="flex flex-wrap gap-x-2 text-base leading-8 package-breadcrumbs">
       <%s! render_package_and_version ~package %>
       <li>
-        <a class="underline font-semibold" href="<%s! Url.package_doc package.name ?version:package.version %>">Documentation</a>
+        <a class="underline font-semibold" href="<%s! Url.package_doc package.name ?version %>">Documentation</a>
       </li>
       <% (match path with
          | Index -> %>
@@ -113,7 +115,7 @@ let render_docs_path_breadcrumbs
   </nav>
 
 let render_overview_breadcrumbs
-~(package: Package_intf.package)
+~(package: Package.package)
 =
   <nav aria-label="breadcrumbs" class="flex">
     <ul class="flex flex-wrap gap-x-2 leading-8 package-breadcrumbs">
@@ -122,7 +124,7 @@ let render_overview_breadcrumbs
   </nav>
 
 let render
-~(package: Package_intf.package)
+~(package: Package.package)
 ~(path: path)
 =
   match path with

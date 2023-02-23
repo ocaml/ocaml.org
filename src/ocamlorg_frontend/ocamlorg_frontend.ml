@@ -2,7 +2,7 @@ module Package_breadcrumbs = Package_breadcrumbs
 module Package_overview = Package_overview
 module Navmap = Navmap
 module Toc = Toc
-include Package_intf
+module Package = Package
 
 let about = About.render
 let academic_users = Academic_users.render

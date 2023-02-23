@@ -4,7 +4,7 @@ let render
 ~title
 ~description
 ?canonical
-~(package : Package_intf.package)
+~(package : Package.package)
 inner =
 Layout.render
 ?styles

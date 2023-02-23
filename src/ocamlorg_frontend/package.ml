@@ -1,12 +1,10 @@
-type version = Latest | Version of string
+type version = Latest | Specific of string
 
 type package = {
   name : string;
   description : string;
   license : string;
-  version : string option;
-      (* None = we are looking at the latest version of the package on a
-         /latest-URL, Some v = we are looking at version v *)
+  version : version;
   versions : string list;
   latest_version : string;
   tags : string list;
@@ -17,12 +15,17 @@ type package = {
 }
 
 let exact_version package =
-  match package.version with None -> package.latest_version | Some v -> v
-
-let render_package_version package =
   match package.version with
-  | None -> Fmt.str "%s (latest)" package.latest_version
-  | Some v -> v
+  | Latest -> package.latest_version
+  | Specific v -> v
+
+let render_version package =
+  match package.version with
+  | Latest -> Fmt.str "%s (latest)" package.latest_version
+  | Specific v -> v
+
+let url_version package =
+  match package.version with Latest -> None | Specific v -> Some v
 
 type packages_stats = {
   nb_packages : int;

@@ -273,12 +273,12 @@ let package_of_info ~name ~version ?(on_latest_url = false) ~latest_version
       (fun (name, _, _versions) -> Ocamlorg_package.Name.to_string name)
       info.Ocamlorg_package.Info.rev_deps
   in
-  Ocamlorg_frontend.
+  Ocamlorg_frontend.Package.
     {
       name = Ocamlorg_package.Name.to_string name;
       version =
-        (if on_latest_url then None
-        else Some (Ocamlorg_package.Version.to_string version));
+        (if on_latest_url then Latest
+        else Specific (Ocamlorg_package.Version.to_string version));
       versions;
       latest_version =
         Option.value ~default:"???"
@@ -300,7 +300,7 @@ let package_versions state name =
   |> List.map Ocamlorg_package.Version.to_string
 
 let package_meta ?on_latest_url state (package : Ocamlorg_package.t) :
-    Ocamlorg_frontend.package =
+    Ocamlorg_frontend.Package.package =
   let name = Ocamlorg_package.name package
   and version = Ocamlorg_package.version package
   and info = Ocamlorg_package.info package in
@@ -334,7 +334,7 @@ let packages state _req =
          } as t) ->
         Some
           {
-            Ocamlorg_frontend.nb_packages;
+            Ocamlorg_frontend.Package.nb_packages;
             nb_update_week;
             nb_packages_month;
             newest_packages = List.map package_pair t.newest_packages;
@@ -475,7 +475,8 @@ let package_doc t kind req =
       let path = (Dream.path [@ocaml.warning "-3"]) req |> String.concat "/" in
       let root =
         let hash = match kind with `Package -> None | `Universe u -> Some u in
-        Url.package_doc ?hash ~page:"" ?version:package_meta.version
+        Url.package_doc ?hash ~page:""
+          ?version:(Ocamlorg_frontend.Package.url_version package_meta)
           (Ocamlorg_package.Name.to_string name)
       in
       let* docs = Ocamlorg_package.documentation_page ~kind package path in

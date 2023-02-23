@@ -26,7 +26,7 @@ let input_attributes ~target_sel ~indicator_sel =
 let render
 ~search
 ~total
-(packages : Package_intf.package list)
+(packages : Package.package list)
 =
 <div class="mx-2 mb-2">
   <span class="font-semibold">Packages:</span>
@@ -42,7 +42,7 @@ let render
   <% ); %>
 
   <ol class="flex flex-col" x-init="row = null; col = 0; total = <%s string_of_int total %>">
-  <% packages |> List.iteri (fun i (package : Package_intf.package) -> %>
+  <% packages |> List.iteri (fun i (package : Package.package) -> %>
     <li class="flex flex-row">
       <a
         x-init="max=<%s string_of_int i %>"

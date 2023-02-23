@@ -2,7 +2,7 @@ let sidebar
 ~str_path
 ~toc
 ~maptoc
-(package : Package_intf.package)
+(package : Package.package)
 =
   <div class="flex flex-col font-normal text-body-400" id="htmx-sidebar">
     <% if (toc != []) then ( %>
@@ -22,7 +22,7 @@ let render
 ~toc
 ~maptoc
 ~content
-(package : Package_intf.package)
+(package : Package.package)
 =
 let str_path =
   match path with
@@ -42,11 +42,11 @@ let path_page = match str_path |> String.concat "/" with
                 | "" -> None
                 | path -> Some (path ^ if String.contains path '.' then "" else "/index.html") in
 Package_layout.render
-~title:(Printf.sprintf "%s %s · OCaml Package" package.name (Package_intf.render_package_version package))
-~description:(Printf.sprintf "%s %s: %s" package.name (Package_intf.render_package_version package) package.description)
+~title:(Printf.sprintf "%s %s · OCaml Package" package.name (Package.render_version package))
+~description:(Printf.sprintf "%s %s: %s" package.name (Package.render_version package) package.description)
 ~package
 ~path
-~canonical:(Url.package_doc package.name ~version:(Package_intf.exact_version package) ?page:path_page)
+~canonical:(Url.package_doc package.name ~version:(Package.exact_version package) ?page:path_page)
 ~styles:["css/main.css"; "css/doc.css"] @@
 <div x-data="{ open: false, sidebar: window.innerWidth >= 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth >= 1024" x-on:close-sidebar="sidebar=window.innerWidth >= 1024 && true">
   <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed lg:hidden right-10"
