@@ -4,6 +4,8 @@ let render
 ~title
 ~description
 ?canonical
+?hash
+?page
 ~(package : Package.package)
 inner =
 Layout.render
@@ -18,7 +20,7 @@ Layout.render
     <div class="container-fluid wide">
       <div class="flex justify-between flex-col md:flex-row border-b border-gray-200">
         <div class="flex flex-col items-baseline mb-6">
-          <%s! Package_breadcrumbs.render ~package ~path %>
+          <%s! Package_breadcrumbs.render ~package ~path ?hash ?page () %>
 
           <% (match path with | Overview _ -> %>
             <div class="text-body-400">

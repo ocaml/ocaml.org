@@ -18,6 +18,7 @@ let sidebar
 
 let render
 ~old_doc (* FALLBACK REMOVE *)
+~page
 ~(path: Package_breadcrumbs.path)
 ~toc
 ~maptoc
@@ -38,15 +39,13 @@ let str_path =
           ) p
         | Page s -> [""; s])
 in
-let path_page = match str_path |> String.concat "/" with
-                | "" -> None
-                | path -> Some (path ^ if String.contains path '.' then "" else "/index.html") in
 Package_layout.render
 ~title:(Printf.sprintf "%s %s · OCaml Package" package.name (Package.render_version package))
 ~description:(Printf.sprintf "%s %s: %s" package.name (Package.render_version package) package.synopsis)
 ~package
 ~path
-~canonical:(Url.package_doc package.name ~version:(Package.specific_version package) ?page:path_page)
+?page
+~canonical:(Url.package_doc package.name ~version:(Package.specific_version package) ~page:(Url.package_doc ?version:(Some (Package.specific_version package)) package.name))
 ~styles:["css/main.css"; "css/doc.css"] @@
 <div x-data="{ open: false, sidebar: window.innerWidth >= 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth >= 1024" x-on:close-sidebar="sidebar=window.innerWidth >= 1024 && true">
   <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed lg:hidden right-10"

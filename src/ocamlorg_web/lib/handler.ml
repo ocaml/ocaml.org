@@ -497,7 +497,7 @@ let package_doc t kind req =
       match docs with
       | None ->
           Dream.html
-            (Ocamlorg_frontend.package_documentation_not_found
+            (Ocamlorg_frontend.package_documentation_not_found ~page:(Some path)
                ~path:(Ocamlorg_frontend.Package_breadcrumbs.Documentation Index)
                ~package:package_meta)
       | Some doc ->
@@ -559,7 +559,7 @@ let package_doc t kind req =
           let (maptoc : Ocamlorg_frontend.Navmap.toc list) =
             toc_of_map ~root module_map
           in
-          let (path : Ocamlorg_frontend.Package_breadcrumbs.path) =
+          let (breadcrumb_path : Ocamlorg_frontend.Package_breadcrumbs.path) =
             let breadcrumbs = doc.breadcrumbs in
             if breadcrumbs != [] then
               let first_path_item = List.hd breadcrumbs in
@@ -601,5 +601,6 @@ let package_doc t kind req =
             else Ocamlorg_frontend.Package_breadcrumbs.Documentation Index
           in
           Dream.html
-            (Ocamlorg_frontend.package_documentation ~path ~toc ~maptoc
-               ~old_doc:doc.old ~content:doc.content package_meta))
+            (Ocamlorg_frontend.package_documentation ~page:(Some path)
+               ~path:breadcrumb_path ~toc ~maptoc ~old_doc:doc.old
+               ~content:doc.content package_meta))

@@ -47,15 +47,24 @@ type path =
 
 let render_package_and_version
 ~(package: Package.package)
+~path
+?page
+?hash
+()
 =
   let version = Package.url_version package in
+  let url ~(version : string option) =
+    match path with
+    | Overview _ -> Url.package_with_version package.name ?version
+    | Documentation _ -> Url.package_doc package.name ?version ?hash ?page
+  in
   let version_options v =
     <% if v = package.latest_version then ( %>
-    <option value="<%s Url.package_with_version package.name %>" <%s if package.version = Latest then "selected" else "" %>>
+    <option value="<%s url ~version:None %>" <%s if package.version = Latest then "selected" else "" %>>
       <%s "latest (" ^ package.latest_version ^ ")" %>
     </option>
     <% ); %>
-    <option value="<%s Url.package_with_version package.name ?version:(Some v) %>" <%s if package.version = Specific v then "selected" else "" %>>
+    <option value="<%s url ~version:(Some v) %>" <%s if package.version = Specific v then "selected" else "" %>>
       <%s v %>
     </option>
   in
@@ -94,11 +103,14 @@ let render_library_path_breadcrumbs
 let render_docs_path_breadcrumbs
 ~(package: Package.package)
 ~(path: docs_path) 
+?page
+?hash
+()
   =
   let version = Package.url_version package in
   <nav aria-label="breadcrumb" class="flex" id="htmx-breadcrumbs">
     <ul class="flex flex-wrap gap-x-2 text-base leading-8 package-breadcrumbs">
-      <%s! render_package_and_version ~package %>
+      <%s! render_package_and_version ~package ~path:(Documentation path) ?page ?hash () %>
       <li>
         <a class="underline font-semibold" href="<%s! Url.package_doc package.name ?version %>">Documentation</a>
       </li>
@@ -117,10 +129,11 @@ let render_docs_path_breadcrumbs
 let render_overview_breadcrumbs
 ~(package: Package.package)
 ~(page: string option)
+?hash
 =
   <nav aria-label="breadcrumbs" class="flex">
     <ul class="flex flex-wrap gap-x-2 leading-8 package-breadcrumbs">
-      <%s! render_package_and_version ~package %>
+      <%s! render_package_and_version ~package ~path:(Overview page) ?hash () %>
       <% (match page with | Some p -> %>
       <li><%s p %></li>
       <% | None -> ()); %>
@@ -130,8 +143,10 @@ let render_overview_breadcrumbs
 let render
 ~(package: Package.package)
 ~(path: path)
+?page
+?hash
 =
   match path with
-    | Overview page -> render_overview_breadcrumbs ~package ~page
-    | Documentation (docs_path) -> render_docs_path_breadcrumbs ~package ~path:docs_path
+    | Overview page -> render_overview_breadcrumbs ~package ~page ?hash
+    | Documentation (docs_path) -> render_docs_path_breadcrumbs ~package ~path:docs_path ?hash ?page
     

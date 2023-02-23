@@ -1,4 +1,5 @@
 let render
+~page
 ~path
 ~(package : Package.package)
 =
@@ -7,6 +8,7 @@ Package_layout.render
 ~description:(Printf.sprintf "%s %s: %s" package.name (Package.render_version package) package.synopsis)
 ~package
 ~path
+?page
 ~styles:["/css/main.css"; "/css/doc.css"] @@
   let version = Package.url_version package in
   <div class="sm:flex max-w-max mx-auto">
