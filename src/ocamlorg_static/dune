@@ -35,4 +35,6 @@
   (with-stdout-to
    %{null}
    (run
-    cp %{workspace_root}/playground/asset/playground_assets.ml playground_assets.ml))))
+    cp
+    %{workspace_root}/playground/asset/playground_assets.ml
+    playground_assets.ml))))

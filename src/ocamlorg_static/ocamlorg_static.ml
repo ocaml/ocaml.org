@@ -28,12 +28,15 @@ module Playground = struct
      and 2. returns the corresponding digest URL for use in templates *)
   let url filepath =
     let digest =
-      Option.map (fun d -> Dream.to_base64url d) (Playground_assets.hash filepath)
+      Option.map
+        (fun d -> Dream.to_base64url d)
+        (Playground_assets.hash filepath)
     in
     if digest = None then
       raise
         (Invalid_argument
-            (Fmt.str "'%s' is rendered via Playground.url, but it is not an asset!"
+           (Fmt.str
+              "'%s' is rendered via Playground.url, but it is not an asset!"
               filepath));
-    url_root ^ (File.to_url_path ?digest filepath)
+    url_root ^ File.to_url_path ?digest filepath
 end
