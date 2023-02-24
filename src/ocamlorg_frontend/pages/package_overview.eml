@@ -22,11 +22,11 @@ let render
 ~license_filename
 (package : Package.package) =
 let version = Package.url_version package in
-let exact_version = Package.exact_version package in
+let specific_version = Package.specific_version package in
 Package_layout.render
 ~title:(Printf.sprintf "%s %s · OCaml Package" package.name (Package.render_version package))
 ~description:(Printf.sprintf "%s %s: %s" package.name (Package.render_version package) package.description)
-~canonical:(Url.package_with_version package.name ~version:exact_version)
+~canonical:(Url.package_with_version package.name ~version:specific_version)
 ~package
 ~path:Overview @@
 <div class="flex lg:space-x-4 xl:space-x-12 flex-col lg:flex-row justify-between">
@@ -45,11 +45,11 @@ Package_layout.render
                 <div class="relative flex items-stretch flex-grow focus-within:z-10">
                     <input type="text"
                         class="focus:ring-orange-500 focus:border-orange-500 block w-full rounded-none rounded-l-md bg-gray-800 text-gray-100 text-sm font-mono subpixel-antialiased border-gray-700"
-                        value="opam install <%s package.name %>.<%s exact_version %>">
+                        value="opam install <%s package.name %>.<%s specific_version %>">
                 </div>
                 <div role="button" title="Copy to clipboard"
                     class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-700 text-sm font-medium rounded-r-md text-gray-100 bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
-                    @click="$clipboard('opam install <%s package.name %>.<%s exact_version %>'); copied = true; setTimeout(() => copied = false, 2000)"
+                    @click="$clipboard('opam install <%s package.name %>.<%s specific_version %>'); copied = true; setTimeout(() => copied = false, 2000)"
                     :class="{ 'border-gray-700': !copied, 'text-gray-100': !copied, 'focus:ring-orange-500': !copied, 'focus:border-orange-500': !copied, 'border-green-600': copied, 'text-green-600': copied, 'focus:ring-green-500': copied, 'focus:border-green-500': copied }">
                     <div x-show="!copied" class="h-6 w-6">
                       <%s! Icons.copy_to_clipboard "h-6 w-6" %>
@@ -98,7 +98,7 @@ Package_layout.render
             <% (match license_filename with Some license_filename -> %>
             <%s! side_box_link ~icon_html:(Icons.license "h-4 w-4 mr-2 inline-block") ~href:(Url.package_doc package.name ?version ~page:(license_filename ^ ".html")) ~title:( package.license ^ " License") %>
             <% | _ -> ()); %>
-            <%s! side_box_link ~icon_html:(Icons.edit "h-4 w-4 mr-2 inline-block") ~href:(Url.github_opam_file package.name exact_version) ~title:"Edit opam file" %>
+            <%s! side_box_link ~icon_html:(Icons.edit "h-4 w-4 mr-2 inline-block") ~href:(Url.github_opam_file package.name specific_version) ~title:"Edit opam file" %>
         </div>
 
         <h2 class="mt-8 font-semibold text-base text-body-400">Published</h2>

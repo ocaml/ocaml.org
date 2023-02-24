@@ -14,7 +14,7 @@ type package = {
   publication : float;
 }
 
-let exact_version package =
+let specific_version package =
   match package.version with
   | Latest -> package.latest_version
   | Specific v -> v
