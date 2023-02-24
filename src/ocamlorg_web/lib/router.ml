@@ -53,14 +53,16 @@ let package_route t =
       Dream.get Url.packages_search (Handler.packages_search t);
       Dream.get Url.packages_autocomplete_fragment
         (Handler.packages_autocomplete_fragment t);
-      Dream.get (Url.package ":name") (Handler.package t);
+      Dream.get (Url.package ~version:"" ":name") (Handler.package t);
       Dream.get (Url.package_docs ":name") (Handler.package_docs t);
-      Dream.get (Url.package ~hash:":hash" ":name") (Handler.package t);
       Dream.get
-        (Url.package_with_version ":name" ~version:":version")
+        (Url.package ~hash:":hash" ~version:"" ":name")
+        (Handler.package t);
+      Dream.get
+        (Url.package ":name" ~version:":version")
         ((Handler.package_versioned t) Handler.Package);
       Dream.get
-        (Url.package_with_version ~hash:":hash" ":name" ~version:":version")
+        (Url.package ~hash:":hash" ":name" ~version:":version")
         ((Handler.package_versioned t) Handler.Universe);
       Dream.get
         (Url.package_doc ":name" ~version:":version" ~page:"**")

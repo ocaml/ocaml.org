@@ -3,15 +3,15 @@ let packages = "/packages"
 let packages_search = "/packages/search"
 let packages_autocomplete_fragment = "/packages/autocomplete"
 let with_hash = Option.fold ~none:"/p" ~some:(( ^ ) "/u/")
-let package ?hash v = with_hash hash ^ "/" ^ v
 let package_docs v = "/p/" ^ v ^ "/doc"
-let with_version = Option.value ~default:"latest"
 
-let package_with_version ?version ?hash v =
-  with_hash hash ^ "/" ^ v ^ "/" ^ with_version version
+let with_version =
+  Option.fold ~none:"/latest" ~some:(fun v -> if v = "" then v else "/" ^ v)
+
+let package ?version ?hash v = with_hash hash ^ "/" ^ v ^ with_version version
 
 let package_doc ?hash ?version ?(page = "index.html") v =
-  with_hash hash ^ "/" ^ v ^ "/" ^ with_version version ^ "/doc/" ^ page
+  with_hash hash ^ "/" ^ v ^ with_version version ^ "/doc/" ^ page
 
 let community = "/community"
 let success_story v = "/success-stories/" ^ v

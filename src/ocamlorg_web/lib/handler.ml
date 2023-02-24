@@ -360,7 +360,7 @@ let packages_autocomplete_fragment t req =
 
 let package _t req =
   let package = Dream.param req "name" in
-  let target = Url.package_with_version package in
+  let target = Url.package package in
   Dream.redirect req target
 
 (** Redirect any URL with suffix /p/PACKAGE/docs to the latest documentation for
