@@ -383,8 +383,8 @@ let host email =
     if fqdn <> "" then fqdn else raise Not_found
 ```
 This may fail by raising `Not_found` if the first the call to `String.index`
-does, which make sense since if there is no '@' character in input string, it's
-not an email address. However, if the second call to `String.index` fails,
+does, which make sense since if there is no `@` character in the input string,
+it's not an email address. However, if the second call to `String.index` fails,
 meaning no dot character was found, we may return the whole fully qualified
 domain name (FQDN) as a fallback, but only if it isn't the empty string.
 
@@ -409,7 +409,7 @@ let host_opt email =
   | None -> None
 ```
 
-Although it qualifies as safe, its legibility isn't improved. Some claim even
+Although it qualifies as safe, its legibility isn't improved. Some may even
 claim it is worse.
 
 Before showing how to improve this code, we need to explain how `Option.map` and
@@ -423,7 +423,7 @@ val Option.bind : 'a option -> ('a -> 'b option) -> 'b option
 ```ocaml
 let map f = function
 | Some x -> Some (f x)
-| None as opt -> opt
+| None -> None
 ```
 
 If `f` can be applied to something, its result is rewrapped into a fresh option.
@@ -433,7 +433,7 @@ If we don't take arguments order into account, `Option.bind` is almost exacly
 the same, except we assume `f` returns an option, therefore there is no need to
 rewrapped its result, it's already an option value:
 ```ocaml
-let bind o f = match opt with
+let bind opt f = match opt with
 | Some x -> f x
 | None -> None
 ```
@@ -452,7 +452,7 @@ Using these mechanisms, here a possible way to rewrite `host_opt`:
   let fqdn_len = String.length email - fqdn_pos in
   let fqdn = String.sub email fqdn_pos fqdn_len in
   String.index_opt fqdn '.'
-  |> Option.map (fun dot_pos -> String.sub fqdn 0 dot_pos)
+  |> Option.map (fun host_len -> String.sub fqdn 0 host_len)
   |> function None when fqdn <> "" -> Some fqdn | opt -> opt;;
 val host_opt : string -> string option = <fun>
 ```
@@ -461,10 +461,10 @@ This version was picked to illustrate how to use and combine operations on
 options allowing to acheive some balance between understandability and
 robustness. A couple of observations:
 * As in the original `host` function (with exceptions):
-   - The calls to `String` functions (`index_opt`, `length` and `sub`) are written in
-  the same order
+   - The calls to `String` functions (`index_opt`, `length` and `sub`) are the
+  same and in the same order
    - The same local names are used, with the same types
-* There isn't any indentation or matching left
+* There isn't any indentation or pattern-matching left
 * Line 1:
   - right-hand side of `=` : `Option.map` allows adding 1 to the result of `String.index_opt`, if it didn't failed
   - left-hand side of `=` : the `let*` syntax turns all the rest of the
@@ -477,22 +477,24 @@ robustness. A couple of observations:
 * Line 5: `String.sub` is applied, if the previous step didn't failed, otherwise the error is forwarded
 * Line 6: if nothing was found earlier, and if isn't empty, `fqdn` is returned as a fallback
 
-
-
-### Options and Return Early
+When used to handle errors with catch statements, it requires some time to get
+used the latter style. The key idea is avoiding or defering from directly
+looking into option values, instead pass them along using _ad-hoc_ pipes (such
+as `map` and `bind`). Erik Meijer calls that following the happy path. Visually,
+it also looks like to the “early return“ pattern often found in C.
 
 One of the limitation of the option type is it doesn't record the reason which
-prevented having a value. `None` is silent, it doesn't say anything about what
-went wrong. For this reason, function returning option values should document
-the circumstances under which it may return `None`. Such a documentation is
-likely to ressemble to the one required for exceptions using `@raise`. The
-`Result` type is intended to fill this gap: manage error in data, like option
-values but also provide information on errors, like exceptions. It is the topic
-of the next section.
+prevented from having a value. `None` is silent, it doesn't say anything about
+what went wrong. For this reason, function returning option values should
+document the circumstances under which it may return `None`. Such a
+documentation is likely to ressemble to the one required for exceptions using
+`@raise`. The `Result` type is intended to fill this gap: manage error in data,
+like option values but also provide information on errors, like exceptions. It
+is the topic of the next section.
 
 ## `Result` Type
 
-The `Result` module of the standard library contains the following type:
+The `Result` module of the standard library defines the following type:
 
 ```ocaml
 type ('a, 'b) result =
@@ -500,53 +502,220 @@ type ('a, 'b) result =
   | Error of 'b
 ```
 
-A value `Ok x` means that the computation succeeded with `x`, and
-a value `Error e` means that it failed.
-Pattern matching can be used to deal with both cases, as with any
-other sum type. The advantage here is that a function `a -> b` that
-fails can be modified so its type is `a -> (b, error) result`,
-which makes the failure explicit.
-The error case `e` in `Error e` can be of any type
-(the `'b` type variable), but a few possible choices
-are:
+A value `Ok x` means that the computation succeeded and produced `x`, and a
+value `Error e` means that it failed and `e` represents whatever information
+collected in the process. Pattern matching can be used to deal with both cases,
+as with any other sum type. However using `map` and `bind` can be more
+convinient, maybe even more as it was with `Option`.
 
+Before taking a look at `Result.map`, let's think about `List.map` and
+`Option.map` under a changed perspective. Both functions behaves like the
+identity when applied to `[]` or `None`, respectively. That's the only
+possibility since those parameters don't carry any data. Which isn't the case in
+`Result` with its `Error` constructor. Nethertheless, `Result.map` is
+implemented likewise, on `Error`, it also behaves like the identity.
+```ocaml
+let map f = function
+| Ok x -> Ok (f x)
+| Error e -> Error e
+```
+
+The `Result` module has two map functions: the one we've just seen and another
+one, with the same logic, applied to `Error`:
+```ocaml
+let map_error f = function
+| Ok x -> Ok x
+| Error e -> f e
+```
+
+The same reasoning applies to `Result.bind`, except there's no `bind_error`.
+Using those functions, here is an hypothetical example of code using [Anil
+Madhavapeddy OCaml Yaml library](https://github.com/avsm/ocaml-yaml):
+```ocaml
+let file_opt = File.read_opt path in
+let file_res = Option.to_result ~none:(`Msg "File not found") file_opt in begin
+  let* yaml = Yaml.of_string file_res in
+  let* found_opt = Yaml.Util.find key yaml in
+  let* found = Option.to_result ~none:(`Msg (key ^ ", key not found")) found_opt in
+  found
+end |> Result.map_error (Printf.sprintf "%s, error: %s: " path)
+```
+
+Here are the types of the involved functions:
+```ocaml
+val File.read_opt : string -> string option
+val Yaml.of_string : string -> (Yaml.value, [`Msg of string]) result
+val Yaml.Util.find : string -> Yaml.value -> (Yaml.value option, [`Msg of string]) result
+val Option.to_result : none:'e -> 'a option -> ('a, 'e) result
+```
+
+- `File.read_opt` is supposed to open a file, read its contents and return it as a
+string wrapped in an option, if anything goes wrong `None` is returned.
+- `Yaml.of_string` parses a string an turns into an ad-hoc OCaml type
+- `Yaml.find` recursively searches a key in a Yaml tree, if found, it returns the
+  corresponding data, wrapped in an option
+- `Option.to_result` perform conversion of an `option` into a `result`
+- Finally, `let*` stands for `Result.bind`
+
+Since functions from the `Yaml` module both returns `result` data, it is easier
+to write a pipe which process that type all along. That's why `Option.to_result`
+needs to be used. Stages which produce `result` must be chained using `bind`,
+stages which do not must be chained using some map function, in order for the
+result to be wrapped back into a `result`.
+
+The map functions of the `Result` module allows processing of data or errors,
+but the routines used must not fail, as `Result.map` will never turn an `Ok`
+into an `Error` and `Result.map_error` will never turn an `Error` into an `Ok`.
+On the other hand, functions passed to `Result.bind` are allowed to fail. As
+stated before there isn't a `Result.bind_error`. One way to make sense out of
+that absence is to consider its type, it would have to be:
+```ocaml
+val Result.bind_error : ('a, 'e) result -> ('e -> ('a, 'f) result) -> ('a, 'f) result
+```
+We would have:
+* `Result.map_error f (Ok x) = Ok x`
+* And either:
+  - `Result.map_error f (Error e) = Ok y`
+  - `Result.map_error f (Error e) = Error e'`
+
+Which means an error would be turned back into valid data, or changed into
+another error. This is almost like recovering from an error. However, when
+recovery fails, it may be preferable to preserve the initial cause of failure.
+That behaviour can be acheived by defining the following function:
+
+```ocaml
+# let recover f = Result.(fold ~ok:ok ~error:(fun (e : 'e) -> Option.to_result ~none:e (f e)));;
+val recover : ('e -> 'a option) -> ('a, 'e) result -> ('a, 'e) result = <fun>
+```
+
+Although any kind of data can be wrapped as a `result` `Error`, it is
+recommended to use that constructor to carry actual errors, for instance:
 - `exn`, in which case the result type just makes exceptions explicit.
 - `string`, where the error case is a message that indicates what failed.
 - `string Lazy.t`, a more elaborate form of error message that is only evaluated
   if printing is required.
-- some polymorphic variant, with one case per
-  possible error. This is very accurate (each error can be dealt with
-  explicitly and occurs in the type) but the use of polymorphic variants
-  sometimes make error messages hard to read.
+- some polymorphic variant, with one case per possible error. This is very
+  accurate (each error can be dealt with explicitly and occurs in the type) but
+  the use of polymorphic variants sometimes make the code harder to read.
 
-For easy combination of functions that can fail, many alternative standard
-libraries provide useful combinators on the `result` type: `map`, `>>=`, etc.
+Note that some say the types `result` and `Either.t` are
+[ismorphic](https://en.wikipedia.org/wiki/Isomorphism). Concretely, it means
+it's always possible to replace one by the other, like in a completely neutral
+refactoring. Values of type `result` and `Either.t` can be translated back and
+forth, and appling both translations one after the other, in any order, returns
+to the starting value. Nethertheless, this doesn't mean `result` should be used
+in place of `Either.t`, or vise versa. Naming things matters, as punned by Phil
+Karlton famous quote:
+
+> There are only two hard things in Computer Science: cache invalidation and
+> naming things.
+
+Properly handling errors always makes the code harder to read. Using the right
+tools, data and functions can help. Use them.
+
+## `bind` as a Binary Operator
+
+When `Option.bind` or `Result.bind` are used, they are often aliased into a
+custom binding operator, such as `let*`. However, it is also possible to use
+it as binary operator, which is almost always writen `>>=`. Using `bind` this
+way must be detailed because it is extremly popular in other functional
+programming language, and specially in OCaml's arch-rival _Which Must Not Be
+Named_.
+
+Assuming `a` and `b` are valid OCaml expressions, the three pieces of sources
+code are exactly the same:
+
+```ocaml
+bind a (fun x -> b)
+```
+```ocaml
+let* x = a in b
+```
+```ocaml
+a >>= fun x -> b
+```
+
+It may seem pointless. To make sense, one must look at expressions where several
+calls to `bind` are chained. The following three are also equivalent:
+
+```ocaml
+bind a (fun x -> bind b (fun y -> c))
+```
+```ocaml
+let* x = a in
+let* y = b in
+c
+```
+```ocaml
+a >>= fun x -> b >>= fun y -> c
+```
+Variables `x` and `y` may appear in `c` in the three cases. The first form isn't
+very convinent, it uses a lot of parenthesis. The second one is often the
+prefered one due to its ressemblance with regular local definitions. The third
+one is harder to read, `>>=` associates to the right in order to avoid
+parenthesis in that precise case, but it's easy to get lost. Nethertheless, it
+has some appeal when named functions are used. It looks a bit like good old Unix
+pipes:
+```ocaml
+a >>= f >>= g
+```
+looks better than:
+```ocaml
+let* x = a in
+let* y = f x in
+g y
+```
+Writing `x >>= f` is very close to what is found in functionally tained
+programming languages which have methods and receivers such as Kotlin, Scala,
+Go, Rust, Swift or even modern Java, where it would be looking like: `x.bind(f)`.
+
+Here is the same code as presented at the end of the previous section, rewritten
+using `Result.bind` as a binary opeator:
+```ocaml
+File.read_opt path
+|> Option.to_result ~none:(`Msg "File not found")
+>>= Yaml.of_string
+>>= Yaml.Util.find key
+>>= Option.to_result ~none:(`Msg (key ^ ", key not found"))
+|> Result.map_error (Printf.sprintf "%s, error: %s: " path)
+```
+
+By the way, this style is called [Tacit
+Programming](https://en.wikipedia.org/wiki/Tacit_programming). Thanks to the
+associativity priorities of the >>= and |> operators, no parenthesis are needed. 
+
+OCaml has a strict typing discipline, not a strict styling discipline, therefore
+picking the right style is an author's decision. See the [OCaml Programming
+Guidelines](/docs/guidelines) for more details on those matters.
 
 ## Assertions
-The built-in `assert` takes an expression as an argument and throws an
-exception *if* the provided expression evaluates to `false`.
-Assuming that you don't catch this exception (it's probably
-unwise to catch this exception, particularly for beginners), this
-results in the program stopping and printing out the source file and
-line number where the error occurred. An example:
+
+The built-in `assert` instruction takes an expression as an argument and throws
+the `Assert_failure` exception if the provided expression evaluates to `false`.
+Assuming that you don't catch this exception (it's probably unwise to catch this
+exception, particularly for beginners), this results in the program stopping and
+printing out the source file and line number where the error occurred. An
+example:
 
 ```ocaml
 # assert (Sys.os_type = "Win32");;
-Exception: Assert_failure ("//toplevel//", 1, 1).
-Called from Stdlib__Fun.protect in file "fun.ml", line 33, characters 8-15
-Re-raised at Stdlib__Fun.protect in file "fun.ml", line 38, characters 6-52
-Called from Topeval.load_lambda in file "toplevel/byte/topeval.ml", line 89, characters 4-150
+Exception: Assert_failure ("//toplevel//", 1, 0).
 ```
 
-(Running this on Win32, of course, won't throw an error).
+Running this on Win32, of course, won't throw an error.
 
-You can also just call `assert false` to stop your program if things
-just aren't going well, but you're probably better to use ...
+Writing `assert false` would just stop your program. This idiom is sometimes
+used to indicate [dead code](https://en.wikipedia.org/wiki/Dead_code), parts of
+the program that must be writen (often for type-checking or pattern matching
+completeness) but are unreachable at run time.
 
-`failwith "error message"` throws a `Failure` exception, which again
-assuming you don't try to catch it, will stop the program with the given
-error message. `failwith` is often used during pattern matching, like
-this real example:
+Asserts should be undetstood as executable comments. There aren't supposed to
+fail, unless during debugging or truely extraordinary circumstances absolutely
+preventing the execution from making any kind of progress.
+
+When the execution reaches conditions which can't be handled, the right thing to
+do is to throw a `Failure`, using `failwith "error message"`. Assertions aren't
+ meant to handle those cases. For instance, in the following code:
 
 <!-- $MDX skip -->
 ```ocaml
@@ -557,6 +726,25 @@ match Sys.os_type with
 | _ -> failwith "this system is not supported"
 ```
 
-Note a couple of extra pattern matching features in this example too. A
-so-called "range pattern" is used to match either `"Unix"` or
-`"Cygwin"`, and the special `_` pattern which matches "anything else".
+It is right to use `failwith`, using `assert` would be wrong. Here is the dual
+example:
+```ocaml
+function x when true -> () | _ -> assert false
+```
+Here, it would be wrong to use `failwith` since it requires the compiler to be
+bugged or the system to be corrupted for second code path to be executed.
+Breakage of the language semantics qualifies as extraordinary circumstances, it
+is catastrophic.
+
+# Concluding Remarks
+
+Properly handling errors is a complex matter. It is [cross-cutting
+concern](https://en.wikipedia.org/wiki/Cross-cutting_concern), it touches all
+parts of an application and can't be isolated in dedicated module. In contrast
+to several other main stream languages, OCaml provides several mechanisms to
+handled exceptional circumstances, all with good runtime performances and code
+understandability. Using them properly requires some initial learning and
+partice. Later, it always require some thinking, which is good since proper
+management of errors shouldn't ever be overlooked. No error handling is better
+than the others, and is should be matter of adequacy to the context rather some
+of taste. But opiniated OCaml code is also fine, so it's a balance.
