@@ -1,5 +1,5 @@
 (subdir
- asset/
+ js/
  (rule
   (targets playground.min.js)
   (mode promote-until-clean)
@@ -31,3 +31,15 @@
    (:js %{workspace_root}/src/merlin_worker.bc.js))
   (action
    (run jsoo_minify %{js} -o %{targets}))))
+
+(subdir
+ asset/
+ (rule
+  (targets playground_assets.ml)
+  (mode promote-until-clean)
+  (deps
+   (source_tree %{workspace_root}/js))
+  (action
+  (with-stdout-to
+    %{null}
+   (run %{bin:ocaml-crunch} -m plain %{workspace_root}/js -o %{workspace_root}/asset/playground_assets.ml)))))

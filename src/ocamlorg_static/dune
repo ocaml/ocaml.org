@@ -26,3 +26,13 @@
     %{workspace_root}/data/media
     -o
     media.ml))))
+
+(rule
+ (targets playground_assets.ml)
+ (deps
+  (file %{workspace_root}/playground/asset/playground_assets.ml))
+ (action
+  (with-stdout-to
+   %{null}
+   (run
+    cp %{workspace_root}/playground/asset/playground_assets.ml playground_assets.ml))))
