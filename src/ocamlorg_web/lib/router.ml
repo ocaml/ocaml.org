@@ -97,7 +97,11 @@ let router t =
         [ Dream.get "/media/**" (Dream.static ~loader:media_loader "") ];
       Dream.scope ""
         [ Dream_encoding.compress ]
-        [ Dream.get "/play/**" (Dream.static ~loader:playground_loader "") ];
+        [
+          Dream.get
+            (Ocamlorg_static.Playground.url_root ^ "/**")
+            (Dream.static ~loader:playground_loader "");
+        ];
       Dream.scope ""
         [ Dream_encoding.compress ]
         [ Dream.get "/**" (Dream.static ~loader:asset_loader "") ];
