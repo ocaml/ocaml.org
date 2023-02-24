@@ -4,20 +4,20 @@ let asset_loader =
   Static.loader
     ~read:(fun _root path -> Ocamlorg_static.Asset.read path |> Lwt.return)
     ~digest:(fun _root path ->
-      Option.map Dream.to_base64url (Ocamlorg_static.Asset.hash path))
+      Option.map Dream.to_base64url (Ocamlorg_static.Asset.digest path))
     ~not_cached:[ "robots.txt"; "/robots.txt" ]
 
 let media_loader =
   Static.loader
     ~read:(fun _root path -> Ocamlorg_static.Media.read path |> Lwt.return)
     ~digest:(fun _root path ->
-      Option.map Dream.to_base64url @@ Ocamlorg_static.Media.hash path)
+      Option.map Dream.to_base64url @@ Ocamlorg_static.Media.digest path)
 
 let playground_loader =
   Static.loader
-    ~read:(fun _root path -> Ocamlorg_static.Playground.read path |> Lwt.return)
+    ~read:(fun _root path -> Ocamlorg_static.Playground.read path)
     ~digest:(fun _root path ->
-      Option.map Dream.to_base64url @@ Ocamlorg_static.Playground.hash path)
+      Option.map Dream.to_base64url @@ Ocamlorg_static.Playground.digest path)
 
 let page_routes =
   Dream.scope ""

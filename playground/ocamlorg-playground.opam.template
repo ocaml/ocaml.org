@@ -3,4 +3,5 @@ pin-depends: [
   ["code-mirror.dev" "git+https://github.com/patricoferris/jsoo-code-mirror#8fe48910e265ff87f9fc94ceb7b3d19fac102a96"]
   ["merlin-js.dev" "git+https://github.com/tmattio/merlin-js#74edff465942cc4f0b3b51b3f8264db53a460aa2"]
   ["js-top-worker.dev" "git+https://github.com/tmattio/js_top_worker#6110d50db0ce8577e6d662fa06d5ae9cc0c95ea1"]
+  ["static-file-digest.dev" "git+https://github.com/sabine/static-file-digest#b1a2c73341f38811c013d3ecdb2e37d5ae9c9c45" ]
 ]

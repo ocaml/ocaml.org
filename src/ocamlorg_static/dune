@@ -28,13 +28,13 @@
     media.ml))))
 
 (rule
- (targets playground_assets.ml)
+ (targets playground_digests.ml)
  (deps
-  (file %{workspace_root}/playground/asset/playground_assets.ml))
+  (file %{workspace_root}/playground/digest/playground_digests.ml))
  (action
   (with-stdout-to
    %{null}
    (run
     cp
-    %{workspace_root}/playground/asset/playground_assets.ml
-    playground_assets.ml))))
+    %{workspace_root}/playground/digest/playground_digests.ml
+    playground_digests.ml))))

@@ -1,5 +1,5 @@
 (subdir
- js/
+ asset/
  (rule
   (targets playground.min.js)
   (mode promote-until-clean)
@@ -33,13 +33,13 @@
    (run jsoo_minify %{js} -o %{targets}))))
 
 (subdir
- asset/
+ digest/
  (rule
-  (targets playground_assets.ml)
+  (targets playground_digests.ml)
   (mode promote-until-clean)
   (deps
-   (source_tree %{workspace_root}/js))
+   (source_tree %{workspace_root}/asset))
   (action
   (with-stdout-to
     %{null}
-   (run %{bin:ocaml-crunch} -m plain %{workspace_root}/js -o %{workspace_root}/asset/playground_assets.ml)))))
+   (run %{bin:static-file-digest} %{workspace_root}/asset/ -s -o %{workspace_root}/digest/playground_digests.ml)))))

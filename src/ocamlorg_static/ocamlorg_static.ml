@@ -1,16 +1,18 @@
 let of_url_path = File.of_url_path
 
-module Media = Media
+module Media = struct
+  let digest = Media.hash
+  let read = Media.read
+end
 
 module Asset = struct
-  include Asset
+  let digest = Asset.hash
+  let read = Asset.read
 
   (* given the path of a file from `assets.ml`: 1. looks up the file's digest in
      and 2. returns the corresponding digest URL for use in templates *)
   let url filepath =
-    let digest =
-      Option.map (fun d -> Dream.to_base64url d) (Asset.hash filepath)
-    in
+    let digest = Option.map Dream.to_base64url (Asset.hash filepath) in
     if digest = None then
       raise
         (Invalid_argument
@@ -20,17 +22,25 @@ module Asset = struct
 end
 
 module Playground = struct
-  include Playground_assets
-
   let url_root = "/play"
+  let file_root = "playground/asset/"
+  let digest = Playground_digests.digest
+
+  let read filepath =
+    let open Lwt.Syntax in
+    let file = Filename.concat file_root filepath in
+    Lwt.catch
+      (fun () ->
+        Lwt_io.(with_file ~mode:Input file) (fun channel ->
+            let* content = Lwt_io.read channel in
+            Some content |> Lwt.return))
+      (fun _exn -> None |> Lwt.return)
 
   (* given the path of a file from `assets.ml`: 1. looks up the file's digest in
      and 2. returns the corresponding digest URL for use in templates *)
   let url filepath =
     let digest =
-      Option.map
-        (fun d -> Dream.to_base64url d)
-        (Playground_assets.hash filepath)
+      Option.map Dream.to_base64url (Playground_digests.digest filepath)
     in
     if digest = None then
       raise
