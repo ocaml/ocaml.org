@@ -2,6 +2,7 @@
  (name dream_dashboard)
  (public_name ocamlorg.dream-dashboard)
  (libraries
+  ocamlorg.global
   dream
   hyper
   yojson

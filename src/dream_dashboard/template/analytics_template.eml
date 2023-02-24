@@ -1,4 +1,4 @@
-open Import
+open Ocamlorg.Import
 
 let render ~prefix (events : Event.t list) =
 Layout_template.render ~prefix ~title:"Analytics" ~nav:Analytics @@

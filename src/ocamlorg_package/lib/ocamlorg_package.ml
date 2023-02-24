@@ -1,4 +1,4 @@
-open Import
+open Ocamlorg.Import
 module Name = OpamPackage.Name
 module Name_map = Map.Make (Name)
 module Version = OpamPackage.Version

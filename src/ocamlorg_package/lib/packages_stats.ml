@@ -1,4 +1,4 @@
-open Import
+open Ocamlorg.Import
 open Lwt.Syntax
 module StringMap = Map.Make (String)
 

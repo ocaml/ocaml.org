@@ -1,6 +1,7 @@
 (library
  (name ood_gen)
  (libraries
+  ocamlorg.global
   omd
   yaml
   unix

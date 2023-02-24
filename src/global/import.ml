@@ -1,6 +1,15 @@
 module String = struct
   include Stdlib.String
 
+  let contains_s s1 s2 =
+    try
+      let len = String.length s2 in
+      for i = 0 to String.length s1 - len do
+        if String.sub s1 i len = s2 then raise Exit
+      done;
+      false
+    with Exit -> true
+
   let prefix s len = try sub s 0 len with Invalid_argument _ -> ""
 
   (* ripped off stringext, itself ripping it off from one of dbuenzli's libs *)
@@ -44,35 +53,53 @@ module String = struct
             (sub s 0 (left_end + 1), sub s right_start (s_max - right_start + 1))
 end
 
-module Glob = struct
-  (* From https://github.com/simonjbeaumont/ocaml-glob *)
+module List = struct
+  include Stdlib.List
 
-  (** Returns list of indices of occurances of substr in x *)
-  let find_substrings ?(start_point = 0) substr x =
-    let len_s = String.length substr and len_x = String.length x in
-    let rec aux acc i =
-      if len_x - i < len_s then acc
-      else if String.sub x i len_s = substr then aux (i :: acc) (i + 1)
-      else aux acc (i + 1)
-    in
-    aux [] start_point
+  let rec take n = function
+    | _ when n = 0 -> []
+    | [] -> []
+    | hd :: tl -> hd :: take (n - 1) tl
 
-  let matches_glob ~glob x =
-    let rec contains_all_sections = function
-      | _, [] | _, [ "" ] -> true
-      | i, [ g ] ->
-          (* need to find a match that matches to end of string *)
-          find_substrings ~start_point:i g x
-          |> List.exists (fun j -> j + String.length g = String.length x)
-      | 0, "" :: g :: gs ->
-          find_substrings g x
-          |> List.exists (fun j ->
-                 contains_all_sections (j + String.length g, gs))
-      | i, g :: gs ->
-          find_substrings ~start_point:i g x
-          |> List.exists (fun j ->
-                 (if i = 0 then j = 0 else true)
-                 && contains_all_sections (j + String.length g, gs))
+  let skip n xs =
+    let rec aux i = function
+      | [] -> []
+      | l when i = 0 -> l
+      | _ :: ys -> aux (i - 1) ys
     in
-    contains_all_sections (0, String.split_on_char '*' glob)
+    aux n xs
+end
+
+module String_map = Map.Make (String)
+
+module Acc_biggest (Elt : sig
+  type t
+
+  val compare : t -> t -> int
+end) : sig
+  (** Accumulate the [n] bigger elements given to [acc]. *)
+
+  type elt = Elt.t
+  type t
+
+  val make : int -> t
+  val acc : elt -> t -> t
+  val to_list : t -> elt list
+end = struct
+  type elt = Elt.t
+  type t = int * elt list
+
+  let make size = (size, [])
+
+  (* Insert sort is enough. *)
+  let rec insert_sort elt = function
+    | [] -> [ elt ]
+    | hd :: _ as t when Elt.compare hd elt >= 0 -> elt :: t
+    | hd :: tl -> hd :: insert_sort elt tl
+
+  let acc elt (rem, elts) =
+    let elts = insert_sort elt elts in
+    if rem = 0 then (0, List.tl elts) else (rem - 1, elts)
+
+  let to_list (_, elts) = elts
 end
