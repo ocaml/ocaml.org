@@ -42,7 +42,7 @@ signatures of many of the functions defined in this module.
 For example, the `add` function has the signature `elt -> t -> t`, which means
 that it expects an element (a String), and a set of strings, and will return to you
 a set of strings. As you gain more experience in OCaml and other functional languages,
-the type signature of functions are often the most convenient form of documentation
+the type signature of functions are often a basic but very convenient form of documentation
 on how to use those functions.
 
 ## Creating a Set
@@ -142,7 +142,7 @@ SS.cardinal secondSet;;
 
 It looks like our theories were correct!
 
-## Sets of With Custom Comparators
+## Sets With Custom Comparators
 
 The `SS` module we created uses the built-in comparison function provided
 by the `String` module, which performs a case-sensitive comparison. We
