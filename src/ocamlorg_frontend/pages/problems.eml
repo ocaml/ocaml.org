@@ -21,6 +21,11 @@ in
   <%s! problem_sidebar_links_by_tag ~tag:"graph" "Graphs" %>
   <%s! problem_sidebar_links_by_tag "Miscellaneous" %>
 
+let danger = function
+  | `Beginner -> ""
+  | `Intermediate -> "☡"
+  | `Advanced -> "☡☡"
+  
 let render
 (problems : Ood.Problem.t list)
 =
@@ -48,12 +53,22 @@ Learn_layout.render
         problems is available on
         <a href="https://github.com/ocaml/ocaml.org/tree/main/data/problems">GitHub</a>.
       </p>
+      <p>
+        Every exercise has a difficulty level, ranging from beginner to advanced. 
+        This difficulty level is indicated with the symbol "☡".
+        The absence of marks represents the beginner level, one mark the intermediate level and two marks the advanced level.
+      </p>
     </div>
     <% problems |> List.iter (fun (problem : Ood.Problem.t) -> %>
     <div x-data="{statement: true}" id="<%s" problem.number %>
       >
       <div class="flex space-y-4 lg:space-y-0 lg:items-center flex-col lg:flex-row lg:justify-between">
-        <h4 class="font-bold text-body-600"><%s problem.title %></h4>
+        <span aria-hidden="true" class="danger invisible lg:visible"><%s danger problem.difficulty %></span>
+        <h4 class="font-bold text-body-600">
+          <%s problem.title %>
+          <span aria-hidden="true" class="visible lg:invisible" > <%s danger problem.difficulty %></span>
+        </h4>
+        <div class="w-0 h-0 overflow-hidden"><%s Ood.Problem.difficulty_to_string problem.difficulty ^ " difficulty" %></div>
         <div class="flex bg-body-600 bg-opacity-5 rounded-md p-1 items-center">
           <button
             class="px-3.5 h-9 font-medium flex space-x-2 items-center rounded-lg"

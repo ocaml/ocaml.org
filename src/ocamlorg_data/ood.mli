@@ -148,6 +148,7 @@ module Problem : sig
     solution : string;
   }
 
+  val difficulty_to_string : difficulty -> string
   val all : t list
   val filter_tag : ?tag:string -> t list -> t list
 end
