@@ -41,7 +41,7 @@ Layout.render
           <div class="font-normal text-xs mt-4">Watch community videos like past OCaml Workshop events.</div>
         </a>
         <a href="https://github.com/ocaml/ocaml" class="border-gray-200 border p-8 rounded-xl card-hover">
-          <div class="text-base font-semibold"><img src="/img/community/github.svg" alt="" class="h-8 w-8 mr-2 inline-block"> Github</div>
+          <div class="text-base font-semibold"><img src="/img/community/github.svg" alt="" class="h-8 w-8 mr-2 inline-block"> GitHub</div>
           <div class="font-normal text-xs mt-4">Open bug reports and feature requests on the OCaml compiler.</div>
         </a>
         <a href="https://discord.gg/cCYQbqN" class="border-gray-200 border p-8 rounded-xl card-hover">
