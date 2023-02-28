@@ -36,6 +36,10 @@ Layout.render
           <div class="text-base font-semibold"><img src="/img/community/discourse.svg" alt="" class="h-8 w-8 mr-2 inline-block"> Discuss</div>
           <div class="font-normal text-xs mt-4">Discuss with the community, ask questions and share your work on OCaml.</div>
         </a>
+        <a href="https://watch.ocaml.org/" class="border-gray-200 border p-8 rounded-xl card-hover">
+          <div class="text-base font-semibold"><img src="/img/community/peertube.svg" alt="" class="h-8 w-8 mr-2 inline-block"> Watch</div>
+          <div class="font-normal text-xs mt-4">Watch community videos like past OCaml Workshop events.</div>
+        </a>
         <a href="https://github.com/ocaml/ocaml" class="border-gray-200 border p-8 rounded-xl card-hover">
           <div class="text-base font-semibold"><img src="/img/community/github.svg" alt="" class="h-8 w-8 mr-2 inline-block"> Github</div>
           <div class="font-normal text-xs mt-4">Open bug reports and feature requests on the OCaml compiler.</div>
@@ -86,7 +90,7 @@ Layout.render
               <h2 class="font-bold text-primary-600 mb-6" id="workshops" >Workshops</h2>
               <div class="text-lg text-white mb-16">Here are some of the workshops we have had up until now</div>
           </div>
-          <% (match upcoming_workshops with 
+          <% (match upcoming_workshops with
              | [] -> ()
              | _ -> %>
           <div class="text-center text-white text-xl font-bold">
@@ -135,7 +139,9 @@ Layout.render
 </div>
 <div class="bg-white py-0 pt-20 md:pt-10 lg:p-20 pb-10 md:pb-20">
   <div class="container-fluid">
-      <h2 class="font-bold">Meetups</h2>
+      <div class="text-center">
+        <h2 class="font-bold">Meetups</h2>
+      </div>
       <div class="grid lg:grid-cols-3 gap-8 lg:gap-12 mt-12">
           <% meetups |> List.iter (fun (meetup : Ood.Meetup.t) -> %>
           <a href="<%s meetup.url %>" class="border border-gray-200 p-8 rounded-xl transition-transform hover:scale-105">
