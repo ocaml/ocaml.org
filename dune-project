@@ -37,6 +37,7 @@
   cohttp-lwt-unix
   bos
   crunch
+  static-file-digest
   mirage-kv-mem
   (dream
    (>= 1.0.0~alpha3))
