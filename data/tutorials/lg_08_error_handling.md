@@ -38,14 +38,15 @@ Historically, the first way of handling errors in OCaml is exceptions. The
 standard library relies heavily upon them.
 
 The biggest issue with exceptions is that they do not appear in types. One has
-to read the documentation to see that, indeed, `List.find` or `String.sub` are not
-total functions, and that they might fail by raising an exception.
+to read the documentation to see that, indeed, `List.find` or `String.sub` are
+not total functions, and that they might fail by raising an exception.
 
 However, exceptions have the great merit of being compiled into efficient
 machine code. When implementing trial and error approaches likely to back-track
 often, exceptions can be used to acheive good performance.
 
-Exceptions belong to the type `exn` which is an [extensible sum type](/releases/latest/manual/extensiblevariants.html).
+Exceptions belong to the type `exn` which is an [extensible sum
+type](/releases/latest/manual/extensiblevariants.html).
 
 ```ocaml
 # exception Foo of string;;
@@ -100,12 +101,16 @@ exception Invalid_argument of string
 exception Failure of string
 ```
 
-* `Exit` terminates your program with a success status, which is 0 in Unices (they do error values)
-* `Not_found` should be raised when searching failed because there isn't anything satisfactory to be found
+* `Exit` terminates your program with a success status, which is 0 in Unices
+  (where success is 0 and any other value is an error, that is, errors are
+  handled as special values, like mentionned in the first section)
+* `Not_found` should be raised when searching failed because there isn't
+  anything satisfactory to be found
 * `Invalid_argument` should be raised when a parameter can't be accepted
 * `Failure` should be raised when a result can't be produced
 
-Functions are provided to raise `Invalid_argument` and `Failure` using a string parameter:
+Functions are provided to raise `Invalid_argument` and `Failure` using a string
+parameter:
 ```ocaml
 val invalid_arg : string -> 'a
 (** @raise Invalid_argument *)
@@ -140,15 +145,15 @@ val foo : a -> b
 ### Stack traces
 
 To get a stack trace when an unhandled exception makes your program crash, you
-need to compile the program in "debug" mode (with `-g` when calling
-`ocamlc`, or `-tag 'debug'` when calling `ocamlbuild`).
-Then:
+need to compile the program in "debug" mode (with `-g` when calling `ocamlc`, or
+`-tag 'debug'` when calling `ocamlbuild`). Then:
 
 ```
 OCAMLRUNPARAM=b ./myprogram [args]
 ```
 
-And you will get a stack trace. Alternatively, you can call, from within the program,
+And you will get a stack trace. Alternatively, you can call, from within the
+program,
 
 ```ocaml
 let () = Printexc.record_backtrace true
@@ -156,10 +161,10 @@ let () = Printexc.record_backtrace true
 
 ### Printing
 
-To print an exception, the module `Printexc` comes in handy. For instance,
-the following function `notify_user : (unit -> 'a) -> 'a` can be used
-to call a function and, if it fails, print the exception on `stderr`.
-If stack traces are enabled, this function will also display it.
+To print an exception, the module `Printexc` comes in handy. For instance, the
+following function `notify_user : (unit -> 'a) -> 'a` can be used to call a
+function and, if it fails, print the exception on `stderr`. If stack traces are
+enabled, this function will also display it.
 
 ```ocaml
 let notify_user f =
@@ -170,8 +175,8 @@ let notify_user f =
       raise e
 ```
 
-OCaml knows how to print its built-in exception, but you can also tell it
-how to print your own exceptions:
+OCaml knows how to print its built-in exception, but you can also tell it how to
+print your own exceptions:
 
 ```ocaml
 exception Foo of int
@@ -184,9 +189,9 @@ let () =
     )
 ```
 
-Each printer should take care of the exceptions it knows about, returning
-`Some <printed exception>`, and return `None` otherwise (let the other printers
-do the job!).
+Each printer should take care of the exceptions it knows about, returning `Some
+<printed exception>`, and return `None` otherwise (let the other printers do the
+job!).
 
 ## Runtime Crashes
 
@@ -200,9 +205,12 @@ raising meaningful exceptions. However, some error conditions may remain
 undetected, which will result in a segmentation fault. This is the specially the
 case for stack overflows, which aren't always detected.
 
-> But catching stack overflows is tricky, both in Unix-like systems and under Windows, so the current implementation in OCaml is a best effort that is occasionally buggy.
+> But catching stack overflows is tricky, both in Unix-like systems and under
+> Windows, so the current implementation in OCaml is a best effort that is
+> occasionally buggy.
 
-[Xavier Leroy, October 2021](https://discuss.ocaml.org/t/stack-overflow-reported-as-segfault/8646/8?u=cuihtlauac)
+[Xavier Leroy, October
+2021](https://discuss.ocaml.org/t/stack-overflow-reported-as-segfault/8646/8)
 
 ### Bypassing Type-Safety
 
@@ -225,8 +233,10 @@ When a crash isn't coming from:
 It may be a language bug. It happens. Here is what to do when this is suspected:
 
 1. Make sure the crash affects both compilers: bytecode and native
-1. Write a self-contained and minimal proof-of-concept code which does nothing but triggering the crash
-1. File an issue in the [OCaml Bug Tracker in GitHub](https://github.com/ocaml/ocaml/issues)
+1. Write a self-contained and minimal proof-of-concept code which does nothing
+   but triggering the crash
+1. File an issue in the [OCaml Bug Tracker in
+   GitHub](https://github.com/ocaml/ocaml/issues)
 
 Here is an example of such a bug: https://github.com/ocaml/ocaml/issues/7241
 
@@ -299,8 +309,8 @@ val find_opt: ('a -> bool) -> 'a list -> 'a option
 ```
 This is extracted from the `List` module of the standard library.
 
-However, some projects tend to avoid or reduce the usage of exceptions. In such a
-context, reversing the convention is a relatively common idiom. It is the
+However, some projects tend to avoid or reduce the usage of exceptions. In such
+a context, reversing the convention is a relatively common idiom. It is the
 version of the function which raises exceptions that is suffixed with `_exn`.
 Using the same functions, that would be the specification
 ```ocaml
@@ -354,11 +364,14 @@ match opt with
 | None -> ...    (* Something *)
 | Some x -> ...  (* Something else *)
 ```
-However, sequencing such expressions leads to deep nesting which is often considered bad:
+However, sequencing such expressions leads to deep nesting which is often
+considered bad:
 
-> if you need more than 3 levels of indentation, you're screwed anyway, and should fix your program.
+> if you need more than 3 levels of indentation, you're screwed anyway, and
+> should fix your program.
 
-[Linux Kernel Style Guide](https://www.kernel.org/doc/Documentation/process/coding-style.rst)
+[Linux Kernel Style
+Guide](https://www.kernel.org/doc/Documentation/process/coding-style.rst)
 
 The recomended way to avoid that is to refrain from or delay attempting to
 access the content of an option value.
@@ -466,16 +479,19 @@ robustness. A couple of observations:
    - The same local names are used, with the same types
 * There isn't any indentation or pattern-matching left
 * Line 1:
-  - right-hand side of `=` : `Option.map` allows adding 1 to the result of `String.index_opt`, if it didn't fail
-  - left-hand side of `=` : the `let*` syntax turns all the rest of the
-  code (from line 2 to the end) into the body of an anonymous function which
-  takes `fqdn_pos` as parameter, and the function `( let* )` is called with the
+  - right-hand side of `=` : `Option.map` allows adding 1 to the result of
+    `String.index_opt`, if it didn't fail
+  - left-hand side of `=` : the `let*` syntax turns all the rest of the code
+  (from line 2 to the end) into the body of an anonymous function which takes
+  `fqdn_pos` as parameter, and the function `( let* )` is called with the
   right-hand side of `=` (as first parameter) and that anonymous function (as
   second parameter).
 * Lines 2 and 3: same as in the original
 * Line 4: `try` or `match` is removed
-* Line 5: `String.sub` is applied, if the previous step didn't fail, otherwise the error is forwarded
-* Line 6: if nothing was found earlier, and if isn't empty, `fqdn` is returned as a fallback
+* Line 5: `String.sub` is applied, if the previous step didn't fail, otherwise
+  the error is forwarded
+* Line 6: if nothing was found earlier, and if isn't empty, `fqdn` is returned
+  as a fallback
 
 When used to handle errors with catch statements, it requires some time to get
 used the latter style. The key idea is avoiding or deferring from directly
@@ -503,17 +519,17 @@ type ('a, 'b) result =
 ```
 
 A value `Ok x` means that the computation succeeded and produced `x`, and a
-value `Error e` means that it failed and `e` represents whatever error information
-has been collected in the process. Pattern matching can be used to deal with both cases,
-as with any other sum type. However using `map` and `bind` can be more
-convenient, maybe even more as it was with `Option`.
+value `Error e` means that it failed and `e` represents whatever error
+information has been collected in the process. Pattern matching can be used to
+deal with both cases, as with any other sum type. However using `map` and `bind`
+can be more convenient, maybe even more as it was with `Option`.
 
 Before taking a look at `Result.map`, let's think about `List.map` and
-`Option.map` under a changed perspective. Both functions behave as
-identity when applied to `[]` or `None`, respectively. That's the only
-possibility since those parameters don't carry any data. Which isn't the case in
-`Result` with its `Error` constructor. Nethertheless, `Result.map` is
-implemented likewise, on `Error`, it also behaves like identity.
+`Option.map` under a changed perspective. Both functions behave as identity when
+applied to `[]` or `None`, respectively. That's the only possibility since those
+parameters don't carry any data. Which isn't the case in `Result` with its
+`Error` constructor. Nethertheless, `Result.map` is implemented likewise, on
+`Error`, it also behaves like identity.
 ```ocaml
 let map f = function
 | Ok x -> Ok (f x)
@@ -549,19 +565,19 @@ val Yaml.Util.find : string -> Yaml.value -> (Yaml.value option, [`Msg of string
 val Option.to_result : none:'e -> 'a option -> ('a, 'e) result
 ```
 
-- `File.read_opt` is supposed to open a file, read its contents and return it as a
-string wrapped in an option, if anything goes wrong `None` is returned.
+- `File.read_opt` is supposed to open a file, read its contents and return it as
+a string wrapped in an option, if anything goes wrong `None` is returned.
 - `Yaml.of_string` parses a string an turns into an ad-hoc OCaml type
-- `Yaml.find` recursively searches a key in a Yaml tree, if found, it returns the
-  corresponding data, wrapped in an option
+- `Yaml.find` recursively searches a key in a Yaml tree, if found, it returns
+  the corresponding data, wrapped in an option
 - `Option.to_result` perform conversion of an `option` into a `result`
 - Finally, `let*` stands for `Result.bind`
 
 Since functions from the `Yaml` module both returns `result` data, it is easier
-to write a pipe which processes that type all along. That's why `Option.to_result`
-needs to be used. Stages which produce `result` must be chained using `bind`,
-stages which do not must be chained using some map function, in order for the
-result to be wrapped back into a `result`.
+to write a pipe which processes that type all along. That's why
+`Option.to_result` needs to be used. Stages which produce `result` must be
+chained using `bind`, stages which do not must be chained using some map
+function, in order for the result to be wrapped back into a `result`.
 
 The map functions of the `Result` module allows processing of data or errors,
 but the routines used must not fail, as `Result.map` will never turn an `Ok`
@@ -616,14 +632,13 @@ tools, data and functions can help. Use them.
 ## `bind` as a Binary Operator
 
 When `Option.bind` or `Result.bind` are used, they are often aliased into a
-custom binding operator, such as `let*`. However, it is also possible to use
-it as binary operator, which is almost always writen `>>=`. Using `bind` this
-way must be detailed because it is extremely popular in other functional
-programming languages, and specially in OCaml's arch-rival _Which Must Not Be
-Named_.
+custom binding operator, such as `let*`. However, it is also possible to use it
+as binary operator, which is almost always writen `>>=`. Using `bind` this way
+must be detailed because it is extremely popular in other functional programming
+languages, and specially in OCaml's arch-rival _Which Must Not Be Named_.
 
-Assuming `a` and `b` are valid OCaml expressions, the following three pieces of sources
-code are functionally identical:
+Assuming `a` and `b` are valid OCaml expressions, the following three pieces of
+sources code are functionally identical:
 
 ```ocaml
 bind a (fun x -> b)
@@ -667,7 +682,8 @@ g y
 ```
 Writing `x >>= f` is very close to what is found in functionally tainted
 programming languages which have methods and receivers such as Kotlin, Scala,
-Go, Rust, Swift or even modern Java, where it would be looking like: `x.bind(f)`.
+Go, Rust, Swift or even modern Java, where it would be looking like:
+`x.bind(f)`.
 
 Here is the same code as presented at the end of the previous section, rewritten
 using `Result.bind` as a binary opeator:
@@ -685,8 +701,8 @@ Programming](https://en.wikipedia.org/wiki/Tacit_programming). Thanks to the
 associativity priorities of the >>= and |> operators, no parenthesis are needed. 
 
 OCaml has a strict typing discipline, not a strict styling discipline, therefore
-picking the right style is left to the author's decision. See the [OCaml Programming
-Guidelines](/docs/guidelines) for more details on those matters.
+picking the right style is left to the author's decision. See the [OCaml
+Programming Guidelines](/docs/guidelines) for more details on those matters.
 
 ## Assertions
 
@@ -739,10 +755,10 @@ is catastrophic.
 # Concluding Remarks
 
 Properly handling errors is a complex matter. It is [cross-cutting
-concern](https://en.wikipedia.org/wiki/Cross-cutting_concern), touches all
-parts of an application and can't be isolated in a dedicated module. In contrast
-to several other mainstream languages, OCaml provides several mechanisms to
-handle exceptional circumstances, all with good runtime performance and code
+concern](https://en.wikipedia.org/wiki/Cross-cutting_concern), touches all parts
+of an application and can't be isolated in a dedicated module. In contrast to
+several other mainstream languages, OCaml provides several mechanisms to handle
+exceptional circumstances, all with good runtime performance and code
 understandability. Using them properly requires some initial learning and
 practice. Later, it always requires some thinking, which is good since proper
 management of errors shouldn't ever be overlooked. No error handling is better
