@@ -56,14 +56,23 @@ let of_yaml of_string error = function
   | `String s -> of_string s
   | _ -> Error (`Msg error)
 let yaml_sequence_file of_yaml file =
-  let ( >>= ) = Result.bind in
+  let ( let* ) = Result.bind in
   let ( <@> ) = Result.apply in
   let key = Filename.remove_extension file in
-  Data.read file
-  |> Option.to_result ~none:(`Msg "file not found")
-  >>= Yaml.of_string >>= Yaml.Util.find key
-  >>= Option.to_result ~none:(`Msg (key ^ ", key not found"))
-  >>= (function `A u -> Ok u | _ -> Error (`Msg "expecting a sequence"))
-  >>= List.fold_left (fun u x -> Ok List.cons <@> of_yaml x <@> u) (Ok [])
+  let file_opt = Data.read file in
+  let file_res = Option.to_result ~none:(`Msg "file not found") file_opt in
+  (let* file = file_res in
+   let* yaml = Yaml.of_string file in
+   let* opt = Yaml.Util.find key yaml in
+   let* found = Option.to_result ~none:(`Msg (key ^ ", key not found")) opt in
+   let* list =
+     (function `A u -> Ok u | _ -> Error (`Msg "expecting a sequence")) found
+   in
+   List.fold_left (fun u x -> Ok List.cons <@> of_yaml x <@> u) (Ok []) list)
   |> Result.map_error (function `Msg err -> file ^ ": " ^ err)
   |> Result.get_ok ~error:(fun msg -> Exn.Decode_error msg)
+(* let file_opt = File.read_opt path in let file_res = Option.to_result
+   ~none:(`Msg "File not found") file_opt in begin let* yaml = Yaml.of_string
+   file_res in let* found_opt = Yaml.Util.find key yaml in let* found =
+   Option.to_result ~none:(`Msg (key ^ ", key not found")) found_opt in found
+   end |> Result.map_error (Printf.sprintf "%s, error: %s: " path) *)
