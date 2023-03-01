@@ -92,7 +92,7 @@ Although the last one doesn't look as an exception, it actually is.
 ```
 
 Among them the predefined exceptions of the standard library, the following ones
-are intended to be raised by user written functions:
+are intended to be raised by user-written functions:
 ```ocaml
 exception Exit
 exception Not_found
@@ -206,8 +206,8 @@ case for stack overflows, which aren't always detected.
 
 ### Bypassing Type-Safety
 
-OCaml provides a mean to bypass it's own type safety. Don't use it. Here is how
-to shoot in its own feet:
+OCaml provides a mean to bypass its own type safety. Don't use it. Here is how
+to shoot in one's own feet:
 
 ```shell
 > echo "(Obj.magic () : int array).(0)" > foo.ml
@@ -246,7 +246,7 @@ The `Option` module provides the first alternative to exceptions. The `'a
 option` datatype allows to express either the availability of data for instance
 `Some 42` or the absence of data using `None`, which can represent an error.
 
-Using `Option` it is possible to write function that return `None` instead of
+Using `Option` it is possible to write functions that return `None` instead of
 throwing an exception.
 ```ocaml
 let div_opt m n =
@@ -289,7 +289,7 @@ not present, etc.) to return a more explicit type such as `'a option` or `('a,
 
 There are two naming conventions to have two versions of the same partial
 function, one raising exception, the other returning an option. In the above
-examples, the convention of the standard library is used add an `_opt` suffix to
+examples, the convention of the standard library is to add an `_opt` suffix to
 name of the version of the function which returns an option instead of raising
 exceptions.
 ```ocaml
@@ -299,7 +299,7 @@ val find_opt: ('a -> bool) -> 'a list -> 'a option
 ```
 This is extracted from the `List` module of the standard library.
 
-However, some project tend to avoid or reduce the usage of exceptions. In such a
+However, some projects tend to avoid or reduce the usage of exceptions. In such a
 context, reversing the convention is a relatively common idiom. It is the
 version of the function which raises exceptions that is suffixed with `_exn`.
 Using the same functions, that would be the specification
@@ -429,9 +429,9 @@ let map f = function
 If `f` can be applied to something, its result is rewrapped into a fresh option.
 If there isn't anything to supply to `f`, `None` is forwarded.
 
-If we don't take arguments order into account, `Option.bind` is almost exacly
+If we don't take arguments order into account, `Option.bind` is almost exactly
 the same, except we assume `f` returns an option, therefore there is no need to
-rewrapped its result, it's already an option value:
+rewrap its result, since it's already an option value:
 ```ocaml
 let bind opt f = match opt with
 | Some x -> f x
@@ -466,7 +466,7 @@ robustness. A couple of observations:
    - The same local names are used, with the same types
 * There isn't any indentation or pattern-matching left
 * Line 1:
-  - right-hand side of `=` : `Option.map` allows adding 1 to the result of `String.index_opt`, if it didn't failed
+  - right-hand side of `=` : `Option.map` allows adding 1 to the result of `String.index_opt`, if it didn't fail
   - left-hand side of `=` : the `let*` syntax turns all the rest of the
   code (from line 2 to the end) into the body of an anonymous function which
   takes `fqdn_pos` as parameter, and the function `( let* )` is called with the
@@ -474,18 +474,18 @@ robustness. A couple of observations:
   second parameter).
 * Lines 2 and 3: same as in the original
 * Line 4: `try` or `match` is removed
-* Line 5: `String.sub` is applied, if the previous step didn't failed, otherwise the error is forwarded
+* Line 5: `String.sub` is applied, if the previous step didn't fail, otherwise the error is forwarded
 * Line 6: if nothing was found earlier, and if isn't empty, `fqdn` is returned as a fallback
 
 When used to handle errors with catch statements, it requires some time to get
-used the latter style. The key idea is avoiding or defering from directly
+used the latter style. The key idea is avoiding or deferring from directly
 looking into option values, instead pass them along using _ad-hoc_ pipes (such
 as `map` and `bind`). Erik Meijer calls that following the happy path. Visually,
 it also looks like to the “early return“ pattern often found in C.
 
-One of the limitation of the option type is it doesn't record the reason which
-prevented from having a value. `None` is silent, it doesn't say anything about
-what went wrong. For this reason, function returning option values should
+One of the limitations of the option type is it doesn't record the reason which
+prevented having a return value. `None` is silent, it doesn't say anything about
+what went wrong. For this reason, functions returning option values should
 document the circumstances under which it may return `None`. Such a
 documentation is likely to ressemble to the one required for exceptions using
 `@raise`. The `Result` type is intended to fill this gap: manage error in data,
@@ -503,17 +503,17 @@ type ('a, 'b) result =
 ```
 
 A value `Ok x` means that the computation succeeded and produced `x`, and a
-value `Error e` means that it failed and `e` represents whatever information
-collected in the process. Pattern matching can be used to deal with both cases,
+value `Error e` means that it failed and `e` represents whatever error information
+has been collected in the process. Pattern matching can be used to deal with both cases,
 as with any other sum type. However using `map` and `bind` can be more
-convinient, maybe even more as it was with `Option`.
+convenient, maybe even more as it was with `Option`.
 
 Before taking a look at `Result.map`, let's think about `List.map` and
-`Option.map` under a changed perspective. Both functions behaves like the
+`Option.map` under a changed perspective. Both functions behave as
 identity when applied to `[]` or `None`, respectively. That's the only
 possibility since those parameters don't carry any data. Which isn't the case in
 `Result` with its `Error` constructor. Nethertheless, `Result.map` is
-implemented likewise, on `Error`, it also behaves like the identity.
+implemented likewise, on `Error`, it also behaves like identity.
 ```ocaml
 let map f = function
 | Ok x -> Ok (f x)
@@ -558,7 +558,7 @@ string wrapped in an option, if anything goes wrong `None` is returned.
 - Finally, `let*` stands for `Result.bind`
 
 Since functions from the `Yaml` module both returns `result` data, it is easier
-to write a pipe which process that type all along. That's why `Option.to_result`
+to write a pipe which processes that type all along. That's why `Option.to_result`
 needs to be used. Stages which produce `result` must be chained using `bind`,
 stages which do not must be chained using some map function, in order for the
 result to be wrapped back into a `result`.
@@ -604,8 +604,8 @@ it's always possible to replace one by the other, like in a completely neutral
 refactoring. Values of type `result` and `Either.t` can be translated back and
 forth, and appling both translations one after the other, in any order, returns
 to the starting value. Nethertheless, this doesn't mean `result` should be used
-in place of `Either.t`, or vise versa. Naming things matters, as punned by Phil
-Karlton famous quote:
+in place of `Either.t`, or vice versa. Naming things matters, as punned by Phil
+Karlton's famous quote:
 
 > There are only two hard things in Computer Science: cache invalidation and
 > naming things.
@@ -618,12 +618,12 @@ tools, data and functions can help. Use them.
 When `Option.bind` or `Result.bind` are used, they are often aliased into a
 custom binding operator, such as `let*`. However, it is also possible to use
 it as binary operator, which is almost always writen `>>=`. Using `bind` this
-way must be detailed because it is extremly popular in other functional
-programming language, and specially in OCaml's arch-rival _Which Must Not Be
+way must be detailed because it is extremely popular in other functional
+programming languages, and specially in OCaml's arch-rival _Which Must Not Be
 Named_.
 
-Assuming `a` and `b` are valid OCaml expressions, the three pieces of sources
-code are exactly the same:
+Assuming `a` and `b` are valid OCaml expressions, the following three pieces of sources
+code are functionally identical:
 
 ```ocaml
 bind a (fun x -> b)
@@ -650,7 +650,7 @@ c
 a >>= fun x -> b >>= fun y -> c
 ```
 Variables `x` and `y` may appear in `c` in the three cases. The first form isn't
-very convinent, it uses a lot of parenthesis. The second one is often the
+very convenient, it uses a lot of parenthesis. The second one is often the
 prefered one due to its ressemblance with regular local definitions. The third
 one is harder to read, `>>=` associates to the right in order to avoid
 parenthesis in that precise case, but it's easy to get lost. Nethertheless, it
@@ -665,7 +665,7 @@ let* x = a in
 let* y = f x in
 g y
 ```
-Writing `x >>= f` is very close to what is found in functionally tained
+Writing `x >>= f` is very close to what is found in functionally tainted
 programming languages which have methods and receivers such as Kotlin, Scala,
 Go, Rust, Swift or even modern Java, where it would be looking like: `x.bind(f)`.
 
@@ -685,7 +685,7 @@ Programming](https://en.wikipedia.org/wiki/Tacit_programming). Thanks to the
 associativity priorities of the >>= and |> operators, no parenthesis are needed. 
 
 OCaml has a strict typing discipline, not a strict styling discipline, therefore
-picking the right style is an author's decision. See the [OCaml Programming
+picking the right style is left to the author's decision. See the [OCaml Programming
 Guidelines](/docs/guidelines) for more details on those matters.
 
 ## Assertions
@@ -709,7 +709,7 @@ used to indicate [dead code](https://en.wikipedia.org/wiki/Dead_code), parts of
 the program that must be writen (often for type-checking or pattern matching
 completeness) but are unreachable at run time.
 
-Asserts should be undetstood as executable comments. There aren't supposed to
+Asserts should be understood as executable comments. There aren't supposed to
 fail, unless during debugging or truely extraordinary circumstances absolutely
 preventing the execution from making any kind of progress.
 
@@ -739,12 +739,12 @@ is catastrophic.
 # Concluding Remarks
 
 Properly handling errors is a complex matter. It is [cross-cutting
-concern](https://en.wikipedia.org/wiki/Cross-cutting_concern), it touches all
-parts of an application and can't be isolated in dedicated module. In contrast
-to several other main stream languages, OCaml provides several mechanisms to
-handled exceptional circumstances, all with good runtime performances and code
+concern](https://en.wikipedia.org/wiki/Cross-cutting_concern), touches all
+parts of an application and can't be isolated in a dedicated module. In contrast
+to several other mainstream languages, OCaml provides several mechanisms to
+handle exceptional circumstances, all with good runtime performance and code
 understandability. Using them properly requires some initial learning and
-partice. Later, it always require some thinking, which is good since proper
+practice. Later, it always requires some thinking, which is good since proper
 management of errors shouldn't ever be overlooked. No error handling is better
-than the others, and is should be matter of adequacy to the context rather some
+than the others, and is should be matter of adequacy to the context rather than
 of taste. But opiniated OCaml code is also fine, so it's a balance.
