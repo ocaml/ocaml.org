@@ -27,13 +27,16 @@
     -o
     %{target}))))
 
-
 (rule
  (target playground_digests.ml)
- (mode promote-until-clean)
  (deps
   (source_tree %{workspace_root}/playground/asset))
  (action
- (with-stdout-to
+  (with-stdout-to
    %{null}
-  (run %{bin:static-file-digest} %{workspace_root}/playground/asset/ -s -o %{target}))))
+   (run
+    %{bin:static-file-digest}
+    %{workspace_root}/playground/asset/
+    -s
+    -o
+    %{target}))))
