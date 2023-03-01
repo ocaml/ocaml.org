@@ -31,15 +31,3 @@
    (:js %{workspace_root}/src/merlin_worker.bc.js))
   (action
    (run jsoo_minify %{js} -o %{targets}))))
-
-(subdir
- digest/
- (rule
-  (targets playground_digests.ml)
-  (mode promote-until-clean)
-  (deps
-   (source_tree %{workspace_root}/asset))
-  (action
-  (with-stdout-to
-    %{null}
-   (run %{bin:static-file-digest} %{workspace_root}/asset/ -s -o %{workspace_root}/digest/playground_digests.ml)))))
