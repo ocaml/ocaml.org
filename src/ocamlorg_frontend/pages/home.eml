@@ -102,12 +102,18 @@ Layout.render
             <div class="h-12 w-12 text-white rounded-xl flex bg-gradient-to-br from-blue-400 to-blue-600">
               <%s! Icons.shield_check "h-7 w-7 m-auto" %>
             </div>
-            <div class="text-lg my-4 font-bold" style="color: #225b90">
-              BE SAFE
-            </div>
-            <h3 class="text-body-600 font-bold">Unobtrusive Type Safety</h3>
+            <h3>
+              <div class="text-lg my-4 font-bold" style="color: #225b90">
+                RELIABILITY
+              </div>
+              <div class="text-body-600 font-bold">Powerful Type Safety Made Simple</div>
+            </h3>
             <div class="my-4 text-lg">
-              OCaml’s powerful type system means more bugs are caught at compile time, and large, complex codebases are easier to maintain. This makes it a good language for running critical code. At the same time, sophisticated inference makes the type system unobtrusive, creating a smooth developer experience.
+              OCaml’s lightweight but highly expressive type system catches more bugs at compile time while garbage collection allows you to focus on application logic instead of memory management.
+              Large, complex codebases become easy to maintain and refactor.
+              OCaml empowers you to create mission-critical software with
+              highest security- and safety-requirements in environments with
+              ever-changing requirements!
             </div>
           </div>
         </div>
@@ -116,70 +122,71 @@ Layout.render
         </div>
       </div>
 
-      <div class="flex flex-col lg:flex-row justify-between">
-        <div class="lg:flex-1">
-          <div class="text-body-400 text-base">
-            <div class="h-12 w-12 text-white rounded-xl flex bg-gradient-to-br from-teal-400 to-teal-600">
-              <%s! Icons.lightning "h-7 w-7 m-auto" %>
-            </div>
-            <div class="text-lg my-4 font-bold text-teal-800">BUILD FASTER</div>
-            <h3 class="text-body-600 font-bold">
-              Fast Compiler and Efficient Applications
-            </h3>
-            <div class="my-4 font-normal text-lg">
-              OCaml has two compilers. One is a bytecode compiler which generates small, portable executables and is very fast. The other is a native code compiler that produces more efficient machine code; its performance matches the highest standards of modern compilers. 
-            </div>
-          </div>
-        </div>
-        <div class="lg:flex-1 lg:ml-24 lg:mt-0 mt-10 flex justify-center">
-          <img src="/img/home/workfaster.svg" alt="">
-        </div>
-      </div>
-
       <div class="flex flex-col lg:flex-row-reverse justify-between">
-        <div class="lg:flex-1 mt-10 lg:mt-0 flex items-center">
+         <div class="lg:flex-1 mt-10 lg:mt-0 flex items-center order-last">
           <div class="text-body-400 text-base">
             <div class="h-12 w-12 text-white rounded-xl flex bg-gradient-to-br from-purple-400 to-purple-600">
               <%s! Icons.home_tooling "h-7 w-7 m-auto" %>
             </div>
             <div class="text-lg my-4 font-bold text-purple-600">
-              WORK JOYFULLY
+              PRODUCTIVITY
             </div>
             <h3 class="text-body-600 font-bold">
               First-Class Editor and Tooling
             </h3>
             <div class="my-4 text-lg">
-              OCaml has great support for the most popular editors. VS Code is recommended for beginners, and for power users there is deep integration with Vim and Emacs. OCaml has a rich and dynamic community and best-in-class tooling. Between Opam, a popular package manager; Utop, a powerful interactive REPL; and <code>odoc</code>, an easy-to-use documentation generator, OCaml programmers have access to a complete, modern developer experience.
+              OCaml has great support for the most popular editors.
+              No matter if you use VS Code, Vim or Emacs, OCaml comes with deep integrations that optimize the development experience.
+              Between Opam, a popular package manager; Utop, a powerful interactive REPL; and <code>odoc</code>,
+              an easy-to-use documentation generator, OCaml programmers have access to a complete, modern developer experience.
             </div>
-            <div class=" w-56">
-              <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide">
-                    <img src="/logos/vscode.svg" width="56" alt="">
-                  </div>
-                  <div class="swiper-slide">
-                    <img src="/logos/vim.svg" width="56" alt="">
-                  </div>
-                  <div class="swiper-slide">
-                    <img src="/logos/emacs.svg" width="56" alt="">
-                  </div>
+          </div>
+        </div>
+        <div class="lg:flex-1 lg:ml-24 lg:mt-0 mt-10 flex justify-center">
+          <div style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff;" class="swiper mySwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div>
+                  <img src="/logos/vscode.svg" width="56" alt="VS Code">
+                  <img src="/img/home/vscode-preview.png" alt="">
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div>
+                <img src="/logos/vim.svg" width="56" alt="Vim">
+                <img src="/img/home/vim-preview.png" alt="">
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div>
+                <img src="/logos/emacs.svg" width="56" alt="Emacs">
+                <img src="/img/home/emac-preview.png" alt="">
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="lg:flex-1 lg:mr-24 lg:mt-0 mt-10 flex justify-center">
-          <div style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff;" class="swiper mySwiper2">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <img src="/img/home/vscode-preview.png" alt="An OCaml program being edited in VSCode">
+      </div>
+
+      <div class="flex flex-col lg:flex-row justify-between">
+        <div class="lg:flex-1 lg:ml-24 lg:mt-0 mt-10 flex justify-center">
+          <img src="/img/home/workfaster.svg" alt="">
+        </div>
+        <div class="lg:flex-1">
+          <div class="text-body-400 text-base">
+            <div class="h-12 w-12 text-white rounded-xl flex bg-gradient-to-br from-teal-400 to-teal-600">
+              <%s! Icons.lightning "h-7 w-7 m-auto" %>
+            </div>
+            <h3>
+              <div class="text-lg my-4 font-bold text-teal-800">PERFORMANCE</div>
+              <div class="text-body-600 font-bold">
+                Fast Compiler and Applications
               </div>
-              <div class="swiper-slide">
-                <img src="/img/home/vim-preview.png" alt="Writing an OCaml program using vim">
-              </div>
-              <div class="swiper-slide">
-                <img src="/img/home/emac-preview.png" alt="Writing an OCaml program using emacs">
-              </div>
+            </h3>
+            <div class="my-4 font-normal text-lg">
+              OCaml offers great runtime performance without compromising on developer experience:
+              The bytecode compiler generates small, highly portable executables blazingly fast;
+              the native code compiler produces highly-efficient machine code.
             </div>
           </div>
         </div>
@@ -191,9 +198,15 @@ Layout.render
   <div class="container-fluid">
     <div class="">
       <div class="text-center px-15">
-        <h2 class="font-bold text-primary-600 mb-6">Vibrant Community</h2>
+        <h2 class="font-bold text-primary-600 mb-6">The OCaml Ecosystem</h2>
         <div class="text-lg text-white">
-          OCaml has a passionate and diverse community, with more than ten thousand developers and four thousand open source packages. It is a truly general-purpose language with extensive libraries in a variety of problem areas, including data science, bioinformatics, and programming language design. OCaml has roots in academic and theoretical contexts but has also become popular among application developers looking to build command-line utilities or performant, dynamic web apps without resorting to a less safe or feature-rich language.
+          OCaml has a passionate and diverse community, with more than ten thousand developers
+          and over four thousand open source packages.
+          Existing packages cover a variety of problem areas,
+          including data science, bioinformatics, and programming language design.
+          OCaml's roots in academic and theoretical computer science provide for a solid foundation
+          on which application developers build command-line utilities, performant,
+          dynamic web apps, or embedded applications!
         </div>
       </div>
     </div>
@@ -325,7 +338,9 @@ Layout.render
         </div>
         <div>
           <div class="text-base text-body-600">
-            With its mathematical roots, OCaml has always had strong ties to academia. Currently, it is being taught in universities around the world, and has accrued an ever-growing body of research. This page will provide you with an overview of the academic rigor that defines the culture of OCaml.
+            With its mathematical roots, OCaml has always had strong ties to academia.
+            It is taught in universities around the world, and has accrued an ever-growing body of research.
+            Learn more about the academic rigor that defines the culture of OCaml.
           </div>
           <a class="btn mt-10" href="<%s Url.academic_users %>">Learn more</a>
         </div>
@@ -340,7 +355,9 @@ Layout.render
         </div>
         <div>
           <div class="text-base text-body-600">
-            With its powerful compile-time guarantees and high performance, several companies rely on OCaml to keep their systems operating both reliably and speedily. On this page, you can get an overview of the companies in the community and learn more about how they use OCaml.
+            OCaml's powerful compile-time guarantees and high performance empower
+            companies to provide reliable and speedy services and products.
+            Learn more about how OCaml is used in the industry: explore success stories and discover companies that use OCaml.
           </div>
           <a class="btn mt-10" href="<%s Url.industrial_users %>">Learn more</a>
         </div>
@@ -371,7 +388,7 @@ Layout.render
         <a href="<%s Url.books %>" class="resources-card card-hover">
           <%s! Icons.book "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Books</p>
-          <p>What expert programmers and researchers are saying about OCaml, from the beginner level to more advanced topics.</p>
+          <p>Discover OCaml books from expert programmers and researchers - from beginner level to advanced topics.</p>
         </a>
         <a href="<%s Url.api %>" class="resources-card card-hover">
           <%s! Icons.command_line "h-16 w-16 mb-8" %>
@@ -386,7 +403,7 @@ Layout.render
         <a href="<%s Url.papers %>" class="resources-card card-hover">
           <%s! Icons.papers "h-16 w-16 mb-8" %>
           <p class="font-semibold text-xl mb-3">Papers</p>
-          <p>Papers that have influenced OCaml and other functional programming languages.</p>
+          <p>Explore papers that have influenced OCaml and other functional programming languages.</p>
         </a>
       </div>
     </div>
@@ -416,14 +433,6 @@ Layout.render
 </div>
 <script>
   var swiper = new Swiper(".mySwiper", {
-    loop: false,
-    spaceBetween: 10,
-    slidesPerView: 3,
-    freeMode: true,
-    watchSlidesProgress: true,
-  });
-
-  var swiper2 = new Swiper(".mySwiper2", {
     loop: true,
     autoplay: { delay: 5000, disableOnInteraction: false, },
     slidesPerView: 'auto',
