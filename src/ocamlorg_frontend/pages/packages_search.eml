@@ -48,7 +48,7 @@ let render ~total ~search (packages : Package_intf.package list) = Layout.render
         </div>
 
         <% if List.length packages > 0 then ( %>
-          <ol>
+        <ol>
           <% packages |> List.iter (fun (package : Package_intf.package) -> %>
           <li class="border-gray-200 border-t mt-4 pt-4 mb-2 space-y-2">
             <a
