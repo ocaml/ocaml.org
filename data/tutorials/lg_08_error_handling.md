@@ -216,8 +216,8 @@ case for stack overflows, which aren't always detected.
 
 ### Bypassing Type-Safety
 
-OCaml provides a mean to bypass its own type safety. Don't use it. Here is how
-to shoot in one's own feet:
+OCaml provides means to bypass its type safety. Don't use it. Here is how
+to shoot oneself in the foot:
 
 ```shell
 > echo "(Obj.magic () : int array).(0)" > foo.ml
