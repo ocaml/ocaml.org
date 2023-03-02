@@ -105,7 +105,7 @@ exception Failure of string
 
 * `Exit` terminates your program with a success status, which is 0 in Unices
   (where success is 0 and any other value is an error, that is, errors are
-  handled as special values, like mentionned in the first section)
+  handled as special values, like mentioned in the first section)
 * `Not_found` should be raised when searching failed because there isn't
   anything satisfactory to be found
 * `Invalid_argument` should be raised when a parameter can't be accepted
@@ -177,7 +177,7 @@ let notify_user f =
       raise e
 ```
 
-OCaml knows how to print its built-in exception, but you can also tell it how to
+OCaml knows how to print its built-in exceptions, but you can also tell it how to
 print your own exceptions:
 
 ```ocaml
