@@ -12,7 +12,7 @@ Layout.render
         <h1 class="lg:pr-10 font-bold">
           Welcome to a World of OCaml
         </h1>
-        <p class="text-body-400 my-7 text-2xl">
+        <p class="my-7 text-2xl">
           OCaml is a general-purpose, industrial-strength programming language
           with an emphasis on expressiveness and safety
         </p>
