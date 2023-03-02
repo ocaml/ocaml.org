@@ -36,10 +36,10 @@ Package_layout.render
         <%s! readme %>
     </div>
     <div class="p-3 py-6 lg:p-8 border border-gray-200 text-sm rounded-xl lg:max-w-sm w-full max-w-full">
-        <span class="inline-flex items-center text-lg font-medium text-gray-900">
+        <h2 class="inline-flex items-center text-lg font-medium text-gray-900">
             <%s! Icons.command_line "mr-4 h-6 w-6 text-orange-600" %>
             Install
-        </span>
+        </h2>
 
         <div class="max-w-md" x-data="{ copied: false }">
             <div class="mt-1 flex rounded-md shadow-sm">
@@ -102,53 +102,51 @@ Package_layout.render
             <%s! side_box_link ~icon_html:(Icons.edit "h-4 w-4 mr-2 inline-block") ~href:(Url.github_opam_file package.name package.version) ~title:"Edit opam file" %>
         </div>
 
-        <dl>
-          <dt class="mt-8 font-semibold text-base text-body-400">Published</dt>
-          <dd class="mt-3 text-sm text-gray-900">
-            <%s Utils.human_date_of_timestamp package.publication %>
-          </dd>
+        <h2 class="mt-8 font-semibold text-base text-body-400">Published</h2>
+        <div class="mt-3 text-sm text-gray-900">
+          <%s Utils.human_date_of_timestamp package.publication %>
+        </div>
 
-          <dt class="mt-8 font-semibold text-base text-body-400">Authors</dt>
-          <dd class="mt-3 text-sm text-gray-900">
-            <ul class="space-y-3">
-            <% package.authors |> List.iter (fun (author : Ood.Opam_user.t) -> %>
-            <li class="flex justify-start">
-              <a href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded author.name %>%22" class="flex items-center space-x-3">
-                <% (match author.avatar with | None -> () | Some avatar -> %>
-                <div class="flex-shrink-0">
-                    <img class="h-10 w-10 rounded-full" src="<%s avatar %>" alt="">
-                </div>
-                <% ); %>
-                <div class="text-sm font-medium text-gray-900"><%s author.name %></div>
-              </a>
-            </li>
-            <% ); %>
-            </ul>
-          </dd>
+        <h2 class="mt-8 font-semibold text-base text-body-400">Authors</h2>
+        <div class="mt-3 text-sm text-gray-900">
+          <ul class="space-y-3">
+          <% package.authors |> List.iter (fun (author : Ood.Opam_user.t) -> %>
+          <li class="flex justify-start">
+            <a href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded author.name %>%22" class="flex items-center space-x-3">
+              <% (match author.avatar with | None -> () | Some avatar -> %>
+              <div class="flex-shrink-0">
+                  <img class="h-10 w-10 rounded-full" src="<%s avatar %>" alt="">
+              </div>
+              <% ); %>
+              <div class="text-sm font-medium text-gray-900"><%s author.name %></div>
+            </a>
+          </li>
+          <% ); %>
+          </ul>
+        </div>
 
-          <dt class="mt-8 font-semibold text-base text-body-400">Maintainers</dt>
-          <dd class="mt-3 text-sm text-gray-900">
-            <ul class="space-y-3">
-            <% package.maintainers |> List.iter (fun (author : Ood.Opam_user.t) -> %>
-            <li class="flex justify-start">
-              <a href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded author.name %>%22" class="flex items-center space-x-3">
-                <% (match author.avatar with | None -> () | Some avatar -> %>
-                <div class="flex-shrink-0">
-                <img class="h-10 w-10 rounded-full" src="<%s avatar %>" alt="">
-                </div>
-                <% ); %>
-                <div class="text-sm font-medium text-gray-900"><%s author.name %></div>
-              </a>
-            </li>
-            <% ); %>
-            </ul>
-          </dd>
-        </dl>
+        <h2 class="mt-8 font-semibold text-base text-body-400">Maintainers</h2>
+        <div class="mt-3 text-sm text-gray-900">
+          <ul class="space-y-3">
+          <% package.maintainers |> List.iter (fun (author : Ood.Opam_user.t) -> %>
+          <li class="flex justify-start">
+            <a href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded author.name %>%22" class="flex items-center space-x-3">
+              <% (match author.avatar with | None -> () | Some avatar -> %>
+              <div class="flex-shrink-0">
+              <img class="h-10 w-10 rounded-full" src="<%s avatar %>" alt="">
+              </div>
+              <% ); %>
+              <div class="text-sm font-medium text-gray-900"><%s author.name %></div>
+            </a>
+          </li>
+          <% ); %>
+          </ul>
+        </div>
 
         <% match source with
         | None -> ()
         | Some (uri, checksums) -> %>
-        <div class="font-semibold mt-8 mb-3 text-base text-body-400">Sources</div>
+        <h2 class="font-semibold mt-8 mb-3 text-base text-body-400">Sources</h2>
         <div class="flex p-3 rounded-xl border border-gray-200 items-center justify-between">
             <div class="flex">
               <%s! Icons.package_sources "h-5 w-5 mr-2" %>
@@ -170,7 +168,8 @@ Package_layout.render
             </div>
         </div>
         <% ; %>
-        <div class="font-semibold mt-8 mb-3 text-base text-body-400">Dependencies</div>
+
+        <h2 class="font-semibold mt-8 mb-3 text-base text-body-400">Dependencies</h2>
         <div class="flex flex-col space-y-3 max-h-96 overflow-auto">
             <%s if List.length dependencies = 0 then "None" else "" %>
             <% dependencies |> List.iter (fun (name, cstr) -> %>
@@ -187,7 +186,7 @@ Package_layout.render
             </div>
             <% ); %>
         </div>
-        <div class="font-semibold mt-8 mb-3 text-base text-body-400">Reverse Dependencies</div>
+        <h2 class="font-semibold mt-8 mb-3 text-base text-body-400">Reverse Dependencies</h2>
         <div class="flex flex-col space-y-3 max-h-96 overflow-auto">
             <%s if List.length rev_dependencies = 0 then "None" else "" %>
             <% rev_dependencies |> List.iter (fun (name, cstr, version) -> %>
@@ -204,7 +203,7 @@ Package_layout.render
             </div>
             <% ); %>
         </div>
-        <div class="font-semibold mt-8 mb-3 text-base text-body-400">Conflicts</div>
+        <h2 class="font-semibold mt-8 mb-3 text-base text-body-400">Conflicts</h2>
         <div class="flex flex-col space-y-3 max-h-96 overflow-auto">
             <%s if List.length conflicts = 0 then "None" else "" %>
             <% conflicts |> List.iter (fun (name, cstr) -> %>

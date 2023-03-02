@@ -51,7 +51,9 @@ let render_package_and_version
 =
   let version = if is_latest_url then None else Some package.version in
   <li>
-    <a class="font-semibold underline" href="<%s Url.package_with_version package.name ?version %>"><%s package.name %></a>
+    <h1 class="inline text-base">
+      <a class="font-semibold underline" href="<%s Url.package_with_version package.name ?version %>"><%s package.name %></a>
+    </h1>
   </li>
   <li>
     <select id="version" name="version" aria-label="version" onchange="location = this.value;"
