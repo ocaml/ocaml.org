@@ -22,6 +22,9 @@ Layout.render
             About OCaml
           </a>
         </div>
+        <div class="mt-6">
+          <a class="text-2xl text-primary-600 font-semibold" href="<%s Url.release "5.0.0" %>">Latest release: 5.0.0</a>
+        </div>
       </div>
       <div class="lg:flex-1 flex justify-center">
         <div class="bg-code-background flex flex-col w-full max-w-xl min-w-xl rounded-3xl codebox">
