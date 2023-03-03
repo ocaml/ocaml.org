@@ -8,10 +8,7 @@ type t = metadata [@@deriving show { with_path = false }]
 let all () =
   let ( let* ) = Result.bind in
   let file = "packages.yml" in
-  let file_opt = Data.read file in
-  let file_res = Option.to_result ~none:(`Msg "file not found") file_opt in
-  (let* file = file_res in
-   let* yaml = Yaml.of_string file in
+  (let* yaml = Utils.yaml_file file in
    metadata_of_yaml yaml)
   |> Result.map_error (function `Msg err -> file ^ ": " ^ err)
   |> Result.get_ok ~error:(fun msg -> Exn.Decode_error msg)
