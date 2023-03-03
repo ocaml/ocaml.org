@@ -14,7 +14,7 @@ type metadata = { name : string; projects : project list }
 
 type t = metadata [@@deriving of_yaml, show { with_path = false }]
 
-let all () = Utils.yaml_sequence_file metadata_of_yaml "outreachy.yml"
+let all () = Utils.yaml_sequence_file ~key:"rounds" metadata_of_yaml "outreachy.yml"
 
 let template () =
   Format.asprintf

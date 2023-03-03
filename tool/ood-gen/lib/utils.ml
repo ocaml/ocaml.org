@@ -52,13 +52,11 @@ let slugify value =
   |> String.lowercase_ascii
   |> Str.global_replace (Str.regexp "[^a-z0-9\\-]") ""
 
-let of_yaml of_string error = function
-  | `String s -> of_string s
-  | _ -> Error (`Msg error)
-let yaml_sequence_file of_yaml file =
+let yaml_sequence_file ?key of_yaml file =
   let ( let* ) = Result.bind in
   let ( <@> ) = Result.apply in
-  let key = Filename.remove_extension file in
+  let key_default = Filename.(file |> basename |> remove_extension) in
+  let key = Option.value ~default:key_default key in
   let file_opt = Data.read file in
   let file_res = Option.to_result ~none:(`Msg "file not found") file_opt in
   (let* file = file_res in
