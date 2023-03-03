@@ -42,11 +42,18 @@ let render
     </ul>
     <ul class="hidden lg:flex items-center space-x-4 xl:space-x-8">
       <li class="relative">
-        <form action="/packages/search" method="GET">
+        <form
+          x-data="{ row: null, col: 0, max: 0 }"
+          @submit="if (row !== null ) { window.location = document.getElementById('package-autocomplete-'+row+'-'+col).getAttribute('href'); $event.stopPropagation(); $event.preventDefault(); return false }"
+          action="/packages/search" method="GET">
           <div class="header__search relative flex items-center justify-center">
             <input type="search" name="q" class="header__search__input focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 py-1 lg:w-56 xl:w-80"
               autocomplete="off"
               placeholder="Search OCaml Packages"
+              @keyup.down="if (row === null) { row = 0; col = 0; } else { row +=1; if (row > max) { row = max } }"
+              @keyup.up="if (row !== null) { row -=1; if (row < 0) { row = null } }"
+              @keyup.right="col = (col + 1)%2"
+              @keyup.left="col = (col + 1)%2"
               hx-get="/packages/autocomplete"
               hx-params="q"
               hx-trigger="keyup changed delay:500ms, search"
