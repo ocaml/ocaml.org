@@ -10,10 +10,10 @@ Layout.render
     <div class="flex flex-col lg:flex-row">
       <div class="lg:flex-1 lg:mt-16 my-12">
         <h1 class="lg:pr-10 font-bold">
-          Welcome to a World of OCaml
+          OCaml
         </h1>
         <p class="my-7 text-2xl">
-          OCaml is a general-purpose, industrial-strength programming language
+          A general-purpose, industrial-strength programming language
           with an emphasis on expressiveness and safety
         </p>
         <div class="space-x-0 lg:space-x-6">
@@ -138,8 +138,7 @@ Layout.render
               First-Class Editor and Tooling
             </h3>
             <div class="my-4 text-lg">
-              OCaml has great support for the most popular editors.
-              No matter if you use VS Code, Vim or Emacs, OCaml comes with deep integrations that optimize the development experience.
+              OCaml comes with deep integrations for VS Code, Vim or Emacs to provide type inspection, autocomplete and more.
               Between Opam, a popular package manager; Utop, a powerful interactive REPL; and <code>odoc</code>,
               an easy-to-use documentation generator, OCaml programmers have access to a complete, modern developer experience.
             </div>
