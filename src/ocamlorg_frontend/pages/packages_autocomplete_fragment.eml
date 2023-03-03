@@ -10,7 +10,7 @@ let render
   </p>
   <% ); %>
 
-  <ul class="flex flex-col">
+  <ol class="flex flex-col">
   <% packages |> List.iter (fun (package : Package_intf.package) -> %>
     <li class="flex flex-row">
       <a
@@ -24,7 +24,7 @@ let render
       </a>
     </li>
   <% ); %>
-  </ul>
+  </ol>
   <% if List.length packages > 0 then ( %>
   <a class="font-semibold hover:bg-primary-100 px-2 py-2 flex text-right" href="<%s Url.packages_search %>?q=<%s Dream.to_percent_encoded search %>">see more...</a>
   <% ); %>
