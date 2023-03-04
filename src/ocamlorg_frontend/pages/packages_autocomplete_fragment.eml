@@ -1,12 +1,18 @@
 let render
 ~search
+~total
 (packages : Package_intf.package list)
 =
 <div class="mx-2 mb-2">
   <span class="font-semibold">Packages:</span>
-  <% if List.length packages = 0 then ( %>
+  <% if total = 0 then ( %>
   <p class="break-words">
     We didn't find a match for "<%s search %>".
+  </p>
+  <% ) else ( %>
+  <p class="break-words">
+    <%s (if total = List.length packages then "" else "Showing top " ^ string_of_int (List.length packages) ^ " out of ")
+    ^ string_of_int total ^ (if total = 1 then " search result" else " search results") %>:
   </p>
   <% ); %>
 
