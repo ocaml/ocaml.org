@@ -10,3 +10,15 @@ let highlight_search_terms
   let r = Str.global_replace (Str.regexp "[ \t]+") "\\|" search in
   let split = Str.full_split (Str.regexp_case_fold r) text in
   List.fold_left (fun a b -> a ^ render_item b) "" split
+
+
+let package_autocomplete_input_attributes_for_keyboard_controls = 
+  {js| @keyup.down="if (row === null) { row = 0; col = 0; } else { row +=1; if (row > max) { row = max } }"
+       @keyup.up="if (row !== null) { row -=1; if (row < 0) { row = null } }"
+       @keyup.right="col = (col + 1)%2"
+       @keyup.left="col = (col + 1)%2"
+       :aria-activedescendant="row !== null ? 'package-autocomplete-'+row+'-'+col : null" |js}
+
+let package_autocomplete_form_attributes_for_keyboard_controls =
+  {js| x-data="{ row: null, col: 0, max: 0 }"
+       @submit="if (row !== null ) { window.location = document.getElementById('package-autocomplete-'+row+'-'+col).getAttribute('href'); $event.stopPropagation(); $event.preventDefault(); return false }" |js}
