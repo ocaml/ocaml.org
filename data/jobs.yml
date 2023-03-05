@@ -114,3 +114,11 @@ jobs:
     publication_date: 2023-02-20
     company: CEA
     company_logo: https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/CEA_logo_nouveau.svg/1255px-CEA_logo_nouveau.svg.png
+  - title: OCaml Developer
+    link: https://trust-in-soft.com/careers/#jobs
+    locations:
+      - France
+      - Remote
+    publication_date: 2023-03-06
+    company: TrustInSoft
+    company_logo: https://trust-in-soft.com/wp-content/uploads/sites/13/2021/11/logo.png
