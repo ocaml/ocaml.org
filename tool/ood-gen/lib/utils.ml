@@ -51,3 +51,7 @@ let slugify value =
   |> Str.global_replace (Str.regexp " ") "-"
   |> String.lowercase_ascii
   |> Str.global_replace (Str.regexp "[^a-z0-9\\-]") ""
+
+let of_yaml of_string error = function
+  | `String s -> of_string s
+  | _ -> Error (`Msg error)

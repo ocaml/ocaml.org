@@ -6,13 +6,15 @@ module Proficiency = struct
     | "beginner" -> Ok `Beginner
     | "intermediate" -> Ok `Intermediate
     | "advanced" -> Ok `Advanced
-    | s -> Error (`Msg ("Unknown proficiency type: " ^ s))
+    | s -> Error (`Msg ("Unknown difficulty type: " ^ s))
+
+  let of_yaml = Utils.of_yaml of_string "Expected a string for difficulty type"
 end
 
 type metadata = {
   title : string;
   number : string;
-  difficulty : string;
+  difficulty : Proficiency.t;
   tags : string list;
 }
 [@@deriving of_yaml]
@@ -53,13 +55,8 @@ type t = {
   solution : string;
 }
 [@@deriving
-  stable_record ~version:metadata ~modify:[ difficulty ]
-    ~remove:[ statement; solution ],
+  stable_record ~version:metadata ~remove:[ statement; solution ],
     show { with_path = false }]
-
-let of_metadata =
-  of_metadata ~modify_difficulty:(fun d ->
-      d |> Proficiency.of_string |> Result.get_ok)
 
 let decode (_, (head, body)) =
   let metadata = metadata_of_yaml head in
