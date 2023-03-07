@@ -122,3 +122,10 @@ jobs:
     publication_date: 2023-03-06
     company: TrustInSoft
     company_logo: https://trust-in-soft.com/wp-content/uploads/sites/13/2021/11/logo.png
+  - title: Research engineer in software development
+    link: https://www.irif.fr/postes/admin#ingenieur_e_de_recherche_en_developpement_logiciel
+    locations:
+      - Paris, France
+    publication_date: 2023-03-06
+    company: IRIF, Université Paris-Cité
+    company_logo: https://www.irif.fr/_media/irif_horizontal_noborder.svg
