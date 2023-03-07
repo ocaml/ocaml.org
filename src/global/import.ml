@@ -4,9 +4,9 @@ module String = struct
 
   let contains_s s1 s2 =
     try
-      let len = String.length s2 in
-      for i = 0 to String.length s1 - len do
-        if String.sub s1 i len = s2 then raise Exit
+      let len = length s2 in
+      for i = 0 to length s1 - len do
+        if sub s1 i len = s2 then raise Exit
       done;
       false
     with Exit -> true
@@ -15,10 +15,10 @@ module String = struct
 
   (* ripped off stringext, itself ripping it off from one of dbuenzli's libs *)
   let cut s ~on =
-    let sep_max = String.length on - 1 in
+    let sep_max = length on - 1 in
     if sep_max < 0 then invalid_arg "Stringext.cut: empty separator"
     else
-      let s_max = String.length s - 1 in
+      let s_max = length s - 1 in
       if s_max < 0 then None
       else
         let k = ref 0 in
@@ -35,12 +35,12 @@ module String = struct
           while !i + sep_max <= s_max do
             (* Check remaining [on] chars match, access to unsafe s (!i + !k) is
                guaranteed by loop invariant. *)
-            if String.unsafe_get s !i <> String.unsafe_get on 0 then incr i
+            if unsafe_get s !i <> unsafe_get on 0 then incr i
             else (
               k := 1;
               while
                 !k <= sep_max
-                && String.unsafe_get s (!i + !k) = String.unsafe_get on !k
+                && unsafe_get s (!i + !k) = unsafe_get on !k
               do
                 incr k
               done;
@@ -52,8 +52,8 @@ module String = struct
           let left_end = !i - 1 in
           let right_start = !i + sep_max + 1 in
           Some
-            ( String.sub s 0 (left_end + 1),
-              String.sub s right_start (s_max - right_start + 1) )
+            ( sub s 0 (left_end + 1),
+              sub s right_start (s_max - right_start + 1) )
 end
 
 module List = struct
