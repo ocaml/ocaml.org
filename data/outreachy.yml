@@ -147,6 +147,7 @@ rounds:
         mentors:
          - Thibaut Mattio
          - Patrik Keller
+        video: https://watch.ocaml.org/w/eSSmoyEcPTEXPGAqDtKENX?start=40m53s
       - title: "Improve the OCaml meta-programming ecosystem"
         description: |
           It's common for programming languages to provide some way to meta-program
@@ -175,6 +176,7 @@ rounds:
          - Shon Feder
          - Sonja Heinze
          - Patrik Keller
+        video: https://watch.ocaml.org/w/eSSmoyEcPTEXPGAqDtKENX
       - title: "Support .eml files in OCaml's VSCode extension"
         description: ""
         source: https://github.com/ocamllabs/vscode-ocaml-platform
@@ -184,6 +186,7 @@ rounds:
          - Thibaut Mattio
          - Gargi Sharma
          - Patrik Keller
+        video: https://watch.ocaml.org/w/eSSmoyEcPTEXPGAqDtKENX?start=20m04s
   - name: Summer 2022
     projects:
       - title: "Expand OCaml 5.0 Parallel Benchmark suite"
@@ -204,6 +207,7 @@ rounds:
         source: https://github.com/ocaml-bench/sandmark
         mentors:
          - Sudha Parimala
+        video: https://watch.ocaml.org/w/vXJtTj3cULRa1bZB5HrecX
       - title: "Extend OCaml's GeoJSON library to support TopoJSON"
         description: >
           TopoJSON is an extension to GeoJSON to encode topology. This allows for redundant data
@@ -214,6 +218,7 @@ rounds:
         source: https://github.com/geocaml/ocaml-topojson
         mentors:
          - Patrick Ferris
+        video: https://watch.ocaml.org/w/vXJtTj3cULRa1bZB5HrecX?start=42m52s
   - name: Winter 2022
     projects:
       - title: "Implement a non-blocking, streaming codec for TopoJSON"
@@ -229,3 +234,4 @@ rounds:
         mentors:
          - Patrick Ferris
          - Odinaka Joy
+        video: https://watch.ocaml.org/w/pQSAfZ9kDSsSnr8Bxzocn3
