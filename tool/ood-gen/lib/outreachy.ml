@@ -5,6 +5,7 @@ type project = {
   blog : string option;
   source : string;
   mentors : string list;
+  video : string option;
 }
 [@@deriving of_yaml, show { with_path = false }]
 
@@ -34,6 +35,7 @@ type project =
   ; blog : string option
   ; source : string
   ; mentors : string list
+  ; video : string option
   }
 
 type t =

@@ -84,6 +84,7 @@ module Outreachy : sig
     blog : string option;
     source : string;
     mentors : string list;
+    video : string option;
   }
 
   type t = { name : string; projects : project list }
