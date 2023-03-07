@@ -54,8 +54,8 @@ type](/releases/latest/manual/extensiblevariants.html).
 # exception Foo of string;;
 exception Foo of string
 
-# let i_will_fail () =
-  raise (Foo "Oh no!");;
+# let i_will_fail () = raise (Foo "Oh no!");;
+val i_will_fail : unit -> 'a = <fun>
 
 # i_will_fail ();;
 Exception: Foo "Oh no!".
@@ -82,7 +82,7 @@ Exception: Division_by_zero.
 Exception: Not_found.
 # String.sub "Hello world!" 3 (-2);;
 Exception: Invalid_argument "String.sub / Bytes.sub".
-# let rec loop x = x :: loop x
+# let rec loop x = x :: loop x;;
 val loop : 'a -> 'a list = <fun>
 # loop 42;;
 Stack overflow during evaluation (looping recursion?).
@@ -111,8 +111,8 @@ exception Failure of string
 * `Invalid_argument` should be raised when a parameter can't be accepted
 * `Failure` should be raised when a result can't be produced
 
-Functions are provided to raise `Invalid_argument` and `Failure` using a string
-parameter:
+Functions are provided by the standard libarry to raise `Invalid_argument` and
+`Failure` using a string parameter:
 ```ocaml
 val invalid_arg : string -> 'a
 (** @raise Invalid_argument *)
@@ -150,7 +150,7 @@ To get a stack trace when an unhandled exception makes your program crash, you
 need to compile the program in "debug" mode (with `-g` when calling `ocamlc`, or
 `-tag 'debug'` when calling `ocamlbuild`). Then:
 
-```
+```shell
 OCAMLRUNPARAM=b ./myprogram [args]
 ```
 
@@ -261,13 +261,15 @@ option` datatype allows to express either the availability of data for instance
 Using `Option` it is possible to write functions that return `None` instead of
 throwing an exception.
 ```ocaml
-let div_opt m n =
+# let div_opt m n =
   try Some (m / n) with
-    Division_by_zero -> None
+    Division_by_zero -> None;;
+val div_opt : int -> int -> int option = <fun>
 
-let find_opt p l =
+# let find_opt p l =
   try Some (List.find p l) with
-    Not_found -> None
+    Not_found -> None;;
+val find_opt : ('a -> bool) -> 'a list -> 'a option = <fun>
 ```
 We can try those functions:
 
@@ -275,7 +277,7 @@ We can try those functions:
 # 1 / 0;;
 Exception: Division_by_zero.
 # div_opt 42 2;;
-- : int option = Some 24
+- : int option = Some 21
 # div_opt 42 0;;
 - : int option = None
 # List.find (fun x -> x mod 2 = 0) [1; 3; 5];;
@@ -387,7 +389,7 @@ email address. For instance, given the email
 
 Here is a questionable but straightforward implementation using exceptions:
 ```ocaml
-let host email =
+# let host email =
   let fqdn_pos = String.index email '@' + 1 in
   let fqdn_len = String.length email - fqdn_pos in
   let fqdn = String.sub email fqdn_pos fqdn_len in
@@ -395,7 +397,8 @@ let host email =
     let host_len = String.index fqdn '.' in
     String.sub fqdn 0 host_len
   with Not_found ->
-    if fqdn <> "" then fqdn else raise Not_found
+    if fqdn <> "" then fqdn else raise Not_found;;
+val host : string -> string = <fun>
 ```
 This may fail by raising `Not_found` if the first the call to `String.index`
 does, which make sense since if there is no `@` character in the input string,
@@ -411,7 +414,7 @@ doesn't count as an invalid substring.
 Below is the equivalent function using the same logic, but using `Option` instead of
 exceptions:
 ```ocaml
-let host_opt email =
+# let host_opt email =
   match String.index_opt email '@' with
   | Some at_pos -> begin
       let fqdn_pos = at_pos + 1 in
@@ -421,7 +424,8 @@ let host_opt email =
       | Some host_len -> Some (String.sub fqdn 0 host_len)
       | None -> if fqdn <> "" then Some fqdn else None
     end
-  | None -> None
+  | None -> None;;
+val host_opt : string -> string option = <fun>
 ```
 
 Although it qualifies as safe, its legibility isn't improved. Some may even
@@ -532,6 +536,12 @@ applied to `[]` or `None`, respectively. That's the only possibility since those
 parameters don't carry any data. Which isn't the case in `Result` with its
 `Error` constructor. Nethertheless, `Result.map` is implemented likewise, on
 `Error`, it also behaves like identity.
+
+Here is its type:
+```ocaml
+val map : ('a -> 'b) -> ('a, 'c) result -> ('b, 'c) result
+```
+And here is how it is written:
 ```ocaml
 let map f = function
 | Ok x -> Ok (f x)
@@ -539,7 +549,13 @@ let map f = function
 ```
 
 The `Result` module has two map functions: the one we've just seen and another
-one, with the same logic, applied to `Error`:
+one, with the same logic, applied to `Error`
+
+Here is its type:
+```ocaml
+val map : ('c -> 'd) -> ('a, 'c) result -> ('a, 'd) result
+```
+And here is how it is written:
 ```ocaml
 let map_error f = function
 | Ok x -> Ok x
