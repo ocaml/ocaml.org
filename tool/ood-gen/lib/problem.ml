@@ -6,7 +6,7 @@ module Proficiency = struct
     | "beginner" -> Ok `Beginner
     | "intermediate" -> Ok `Intermediate
     | "advanced" -> Ok `Advanced
-    | s -> Error (`Msg ("Unknown difficulty type: " ^ s))
+    | s -> Error (`Msg ("Unknown proficiency type: " ^ s))
 
   let of_yaml = Utils.of_yaml of_string "Expected a string for difficulty type"
 end
