@@ -39,8 +39,7 @@ module String = struct
             else (
               k := 1;
               while
-                !k <= sep_max
-                && unsafe_get s (!i + !k) = unsafe_get on !k
+                !k <= sep_max && unsafe_get s (!i + !k) = unsafe_get on !k
               do
                 incr k
               done;
@@ -52,8 +51,7 @@ module String = struct
           let left_end = !i - 1 in
           let right_start = !i + sep_max + 1 in
           Some
-            ( sub s 0 (left_end + 1),
-              sub s right_start (s_max - right_start + 1) )
+            (sub s 0 (left_end + 1), sub s right_start (s_max - right_start + 1))
 end
 
 module List = struct
