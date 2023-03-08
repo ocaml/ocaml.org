@@ -11,7 +11,7 @@ date: 2021-08-06T17:16:00-00:00
 
 ## What Is Functional Programming?
 
-At its core, and from its inception, around 1985, OCaml is a [functional
+At its core, and from its origin, around 1985, OCaml is a [functional
 programming](https://en.wikipedia.org/wiki/Functional_programming) language. For
 instance, here is what was written about Caml, the ancestor of OCaml:
 
@@ -50,8 +50,8 @@ object-oriented programming where added. The feature set of OCaml, as sketched
 earlier, was pretty unique for many years. Nowadays, several languages have many
 of the features found in OCaml, but either their conception or their evolution
 goes in the opposite direction. OCaml started from functional programming while
-many others are reaching functional programming. This is not the place to detail
-the differences these paths entail. Let's just say OCaml developers and
+many others are going towards functional programming. This is not the place to
+detail the differences these paths entail. Let's just say OCaml developers and
 practitioners believe the outstanding level of reliability, performance and
 agility which is achievable by writing programs in OCaml comes from its
 functional programming first approach.
@@ -63,10 +63,10 @@ programming is an outgrowth of the &lambda;-calculus, which was created by
 Alonzo Church in the 1930s to loosely mimic the way computations can be
 conducted by a human being using pen and paper. At the same time, Alan Turing
 conceived an idealized machine to perform computation, in contrast to Charles
-Babbage, who conceived an actual machine but failed to build it. Machines lead
-to imperative programming. But machines and the &lambda;-calculus are
-equivalent, they have the same expressive power. With that in mind, one sentence
-from Turing is enlightening:
+Babbage, who conceived an actual machine almost one century before, but failed
+to build it. Machines lead to imperative programming. But machines and the
+&lambda;-calculus are equivalent, they have the same expressive power. With that
+in mind, one sentence from Turing is enlightening:
 
 > [...] equivalence provides a justification for Church's calculus, and allows
 > the ‘machines’ which generate computable functions to be replaced by the
@@ -79,8 +79,8 @@ Functional programming takes these words to the letter. Start from the
 convenient &lambda;-calculus, and build from there. OCaml is merely the modern
 continuation of this approach. Programming has progressed considerably since the
 origins we've outlined. Many of the features listed earlier grew in functional
-programming, or even OCaml, research. More mainstream languages are adopting
-some of them, very few created them.
+programming, or even OCaml, research. A growing number of mainstream languages
+are adopting some of them, but few were created for them.
 
 When choosing the language is an available option, picking OCaml doesn't mean
 giving up on imperative programming, but rather sailing away from
