@@ -15,32 +15,38 @@ Layout.render
 
 <div>
     <p>This is the past Outreachy Internship Project Page </p>
-    <div>
-        <% metadata |> List.iter (fun (rounds : Ood.Outreachy.t) -> %>
-        <div id="name">
-            <%s rounds.name %>
-        </div>
-        <% rounds.projects |> List.iter (fun (project : Ood.Outreachy.project) -> %>
-        <div id="projects">     
+    <div class="">
+            <% metadata |> List.iter (fun (rounds : Ood.Outreachy.t) -> %>
             <div>
-                <div>
-                    <h4><%s project.title %></h4>
-                    <p><%s project.description %> 
-                    </p>
-                    <p><%s project.mentee %> 
-                    </p>
-                    <% (match project.blog with None -> () | Some blog -> %>
-                    <div>
-                        <a href="<%s blog %>" target="_blank"><%s blog %></a> 
+                <div id="name">
+                    <h2><%s rounds.name %></h2>
+                </div>
+                <% rounds.projects |> List.iter (fun (project : Ood.Outreachy.project) -> %>
+                <div class="container mt-4 mx-auto">
+                    <div class="grid grid-cols-3 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3">
+                        <div class="">
+                            <div id="projects" class="">     
+                                <div class="card m-2 cursor-pointer rounded-lg bg-white hover:shadow-md hover:border-opacity-0 transform hover:-translate-y-1 transition-all duration-200">
+                                    <div class="">
+                                        <p>Project Title: <%s project.title %></p>
+                                        <p>Description: <%s project.description %></p>
+                                        <p>Mentee: <%s project.mentee %></p>
+                                        <% (match project.blog with None -> () | Some blog -> %>
+                                        <div>
+                                            Blog: <a href="<%s blog %>" target="_blank"><%s blog %></a> 
+                                        </div>
+                                        <% ); %>
+                                        <p>Source: <%s project.source %></p>
+                                        <p>Mentors: <%s Fmt.(str "%a" (list ~sep:comma string) project.mentors) %></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <% ); %>
-                    <p><%s project.source %></p>
-                    <p><%s Fmt.(str "%a" (list ~sep:comma string) project.mentors) %></p>
                 </div>
             </div>
-        </div>
-        <br>
-        <% ); %>
-        <% ); %>     
+            <br>
+            <% ); %>
+            <% ); %>
     </div>
 </div>
