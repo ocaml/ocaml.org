@@ -30,12 +30,12 @@ You can install a binary release of OPAM on most systems by first installing the
 
 2. Install OPAM:
 
-        $ 0install add opam http://tools.ocaml.org/opam.xml
+        $ 0install add opam https://tools.ocaml.org/opam.xml
         $ opam --version
         1.1.1
 
 	If you already have an `opam` command but want to try the 0install version anyway,
-	just give it a different name (e.g. `0install add 0opam http://tools.ocaml.org/opam.xml` to create a `0opam` command).
+	just give it a different name (e.g. `0install add 0opam https://tools.ocaml.org/opam.xml` to create a `0opam` command).
 
 `0install add` will open a window if a display is available, or show progress on the console if not:
 
@@ -44,13 +44,13 @@ You can install a binary release of OPAM on most systems by first installing the
 If you want to use the console in all cases, use `--console`.
 
 0install identifies each package with a full URI rather than with a short name.
-Here, we are telling 0install to create a local command called `opam` that runs the program <http://tools.ocaml.org/opam.xml>.
+Here, we are telling 0install to create a local command called `opam` that runs the program <https://tools.ocaml.org/opam.xml>.
 
 0install keeps each package it installs in a separate directory where it won't conflict with anything.
 You can see where it put OPAM with the "show" command:
 
     $ 0install show opam
-    - URI: http://tools.ocaml.org/opam.xml
+    - URI: https://tools.ocaml.org/opam.xml
       Version: 1.1.1
       Path: /home/test/.cache/0install.net/implementations/sha256new_RUOX6PWGDCHH5TDNEDRHQJ54YZZ4TSAGBB5AEBRNOKSHM3N7XORA
       
@@ -70,7 +70,7 @@ You can upgrade (or downgrade) the package by adding a version constraint.
 By default, 0install prefers the "stable" version of a program:
 
     $ 0install update opam
-    A later version (http://tools.ocaml.org/opam.xml 1.2.0-pre4) exists but was not selected.
+    A later version (https://tools.ocaml.org/opam.xml 1.2.0-pre4) exists but was not selected.
     Using 1.1.1 instead.
     To select "testing" versions, use:
     0install config help_with_testing True
@@ -78,7 +78,7 @@ By default, 0install prefers the "stable" version of a program:
 You could do as it suggests and tell it to prefer testing versions globally, or you can add a version constraint if you just want to affect this one program:
 
     $ 0install update opam --not-before=1.2.0-pre4
-    http://tools.ocaml.org/opam.xml: 1.1.1 -> 1.2.0-pre4
+    https://tools.ocaml.org/opam.xml: 1.1.1 -> 1.2.0-pre4
     
 You can also specify an upper bound (`--before`) or a fixed version (`--version`) if you prefer.
 You can control the versions of dependencies with `--version-for`.
@@ -91,7 +91,7 @@ Finally, if an upgrade stops a program from working then you can use `whatchange
     Last update     : 2014-08-26
     Previous update : 2014-07-03
 
-    http://tools.ocaml.org/opam.xml: 1.1.1 -> 1.2.0-pre4
+    https://tools.ocaml.org/opam.xml: 1.1.1 -> 1.2.0-pre4
 
     To run using the previous selections, use:
     0install run /home/tal/.config/0install.net/apps/opam/selections-2014-07-03.xml
@@ -100,7 +100,7 @@ Note: this has a granularity of a day, so you won't see any changes if you're fo
 
 ## The package metadata
 
-If you visit <http://tools.ocaml.org/opam.xml> you should see a normal-looking web-page describing the package.
+If you visit <https://tools.ocaml.org/opam.xml> you should see a normal-looking web-page describing the package.
 If you view the source in your browser, you'll see that it's actually an XML document with a stylesheet providing the formatting.
 Here's an extract:
 
@@ -195,7 +195,7 @@ Filling in the blanks, we get:
 
       <homepage>https://opam.ocaml.org/</homepage>
 
-      <feed-for interface="http://tools.ocaml.org/opam.xml"/>
+      <feed-for interface="https://tools.ocaml.org/opam.xml"/>
 
       <group license="OSI Approved :: GNU Lesser General Public License (LGPL)">
         <requires importance="recommended" interface="http://repo.roscidus.com/utils/aspcud">

@@ -16,8 +16,8 @@ Their goal is that everyone feels safe and welcome when contributing to OCaml or
 interacting with others in OCaml related forums.
 
 These rules apply to the projects hosted in the
-[GitHub ocaml organization](http://github.com/ocaml), the
-[discuss.ocaml.org](http://discuss.ocaml.org/) forum, the
+[GitHub ocaml organization](https://github.com/ocaml), the
+[discuss.ocaml.org](https://discuss.ocaml.org/) forum, the
 [caml-list@inria.fr](mailto:caml-list@inria.fr) mailing list, [OCaml
 IRC](irc://irc.libera.chat:6697/#ocaml), [OCaml
 discord](https://discord.gg/cCYQbqN), physical events like OCaml Workshop, and
@@ -134,11 +134,11 @@ and the Speak Up! Community Code of Conduct.
 
 ## License ##
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+<a rel="license" href="https://creativecommons.org/licenses/by/4.0/">
 <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png">
 </a><br>
 This work is licensed under a
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+<a rel="license" href="https://creativecommons.org/licenses/by/4.0/">
 Creative Commons Attribution 4.0 International License
 </a>.
 

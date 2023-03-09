@@ -76,7 +76,8 @@ expressive power. With that in mind, one sentence from Turing is enlightening:
 > **more convenient** &lambda;-definitions.
 
 Alan Turing <br>
-Computability and &lambda;-Definability, The Journal of Symbolic Logic, Vol. 2(4), 1937.
+Computability and &lambda;-Definability, The Journal of Symbolic Logic, Vol.
+2(4), 1937.
 
 Functional programming takes these words to the letter. Start from the
 convenient &lambda;-calculus, and build from there. OCaml is merely the modern
@@ -97,14 +98,16 @@ is that **functions** are called **first-class citizens**. This means a function
 is just a value. The functions `sqrt`, `print_int` or `String.length` are values
 just like: `42`, `3.14` or `"haha"` are. In particular:
 
-1. Functions can be passed as parameters to other functions
-1. Functions can return functions as results
-1. Some functions can be written without giving them a name, like string literals or arithmetic expressions
+1. Some functions can be written without giving them a name, like string
+   literals or arithmetic expressions
 1. Functions can be stored in data such as lists, arrays, trees, hash-tables and
    others.
+1. Functions can be passed as parameters to other functions
+1. Functions can return functions as results
 
-Together, the first two items of form what is called **higher-order**. In OCaml,
-the terms “functional value”, “non-functional value” and “value” denotes, respectively: functions, anything but a function or any of them.
+Together, the two last items of form what is called **higher-order**. In OCaml,
+the terms “functional value”, “non-functional value” and “value” denotes,
+respectively: functions, anything but a function or any of them.
 
 There are only two limitations to functions as values. They can't be displayed and
 they can't be compared.
@@ -113,6 +116,12 @@ they can't be compared.
 semicolon `;;`. Throughout this tutorial, executable code examples begin with
 the command prompt `#`, end in `;;`, and show the expected output. If it
 doesn't, it's showcasing the code pattern rather than an executable code block.
+
+### Anonymous Functions
+
+```ocaml
+```
+
 
 Let's look at an
 example to illustrate:
