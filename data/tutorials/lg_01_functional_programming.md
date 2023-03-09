@@ -11,7 +11,7 @@ date: 2021-08-06T17:16:00-00:00
 
 ## What Is Functional Programming?
 
-At its core, and from its origin, around 1985, OCaml is a [functional
+At its core, and from its debut around 1985, OCaml is a [functional
 programming](https://en.wikipedia.org/wiki/Functional_programming) language. For
 instance, here is what was written about Caml, the ancestor of OCaml:
 
@@ -43,6 +43,9 @@ OCaml has many other constituents and facets, such as:
 - Domains-based support for multi-core hardware architectures
 - Distributed computing using effect-handlers
 
+Don't worry if those terms aren't making sense, yet. They are detailed in others
+documents. This is just a list of keywords.
+
 It is important to remember that all the features of OCaml are either built on
 top of functional programming or meant to support it. Most mainstream languages
 derive from the imperative programming paradigm, to which either structured or
@@ -63,10 +66,10 @@ programming is an outgrowth of the &lambda;-calculus, which was created by
 Alonzo Church in the 1930s to loosely mimic the way computations can be
 conducted by a human being using pen and paper. At the same time, Alan Turing
 conceived an idealized machine to perform computation, in contrast to Charles
-Babbage, who conceived an actual machine almost one century before, but failed
-to build it. Machines lead to imperative programming. But machines and the
-&lambda;-calculus are equivalent, they have the same expressive power. With that
-in mind, one sentence from Turing is enlightening:
+Babbage, who conceived an actual machine almost one century before but failed
+to build it. Those machines and their descendants lead to imperative programming.
+But machines and the &lambda;-calculus are equivalent, they have the same
+expressive power. With that in mind, one sentence from Turing is enlightening:
 
 > [...] equivalence provides a justification for Church's calculus, and allows
 > the ‘machines’ which generate computable functions to be replaced by the
@@ -79,14 +82,14 @@ Functional programming takes these words to the letter. Start from the
 convenient &lambda;-calculus, and build from there. OCaml is merely the modern
 continuation of this approach. Programming has progressed considerably since the
 origins we've outlined. Many of the features listed earlier grew in functional
-programming, or even OCaml, research. A growing number of mainstream languages
-are adopting some of them, but few were created for them.
+programming, or even OCaml, research. Many mainstream languages are adopting
+functional programming features and some of the innovations originated there.
 
 When choosing the language is an available option, picking OCaml doesn't mean
 giving up on imperative programming, but rather sailing away from
 imperative-centrism to benefit from convenience and innovations, without
 compromising on performance and robustness. For this journey to be successful,
-it is key to acquire a solid understanding of the OCaml functional programming
+it is key to acquire a solid understanding of OCaml's functional programming
 core. This is the topic we will explore in this document.
 
 The basic, and not very enlightening, distinction in **functional programming**
