@@ -97,14 +97,16 @@ is that **functions** are called **first-class citizens**. This means a function
 is just a value. The functions `sqrt`, `print_int` or `String.length` are values
 just like: `42`, `3.14` or `"haha"` are. In particular:
 
-1. Functions can be passed as parameters to other functions
-1. Functions can return functions as results
-1. Some functions can be written without giving them a name, like string literals or arithmetic expressions
+1. Some functions can be written without giving them a name, like string
+   literals or arithmetic expressions
 1. Functions can be stored in data such as lists, arrays, trees, hash-tables and
    others.
+1. Functions can be passed as parameters to other functions
+1. Functions can return functions as results
 
-Together, the first two items of form what is called **higher-order**. In OCaml,
-the terms “functional value”, “non-functional value” and “value” denotes, respectively: functions, anything but a function or any of them.
+Together, the two last items form what is called **higher-order**. In OCaml, the
+terms “functional value”, “non-functional value” and “value” denotes,
+respectively: functions, anything but a function or any of them.
 
 There are only two limitations to functions as values. They can't be displayed and
 they can't be compared.
@@ -114,24 +116,221 @@ semicolon `;;`. Throughout this tutorial, executable code examples begin with
 the command prompt `#`, end in `;;`, and show the expected output. If it
 doesn't, it's showcasing the code pattern rather than an executable code block.
 
-Let's look at an
-example to illustrate:
+### Function Calls
 
+Calling a function in OCaml is done be writing the parameter at the right of the
+function. This is also called function application. For instance, here is how to
+call the function sinus on &pi;:
+```ocaml
+#sin 3.141592653589793;;
+- : float = 1.22464679914735321e-16
+```
+It is the same for function with several parameters:
+```ocaml
+# max 3.14 6.28;;
+- : float = 6.28
+```
+
+In many programming languages, to call a function, its arguments need to be
+surrounded by parentheses and separated with commas, if there are several of
+them. It's not required in OCaml where parenthesis are only used to force the
+association of expressions, like in `3 * (x + 5)`. This is inherited from the
+&lambda;-calculus but it's also the same as in command lines such as `cp foo
+bar`.
+
+### Anonymous Functions
+
+Here is an anonymous function, a function without a name:
+```ocaml
+#fun x -> 3 * x + 5;;
+- : int -> int = <fun>
+```
+
+This means: in the expression `3 * x + 5`, the letter `x` is a variable. If
+there's already something called `x`, it will be ignored. The `x` in `3 * x + 5`
+is said to be “bound” by `fun x ->`. Being a variable means `x` is meant to be
+replaced by something else. For instance, writing:
+```ocaml
+#(fun x -> 3 * x + 5) 12;;
+- : int = 41
+```
+
+means: “replace `x` by `12` in `3 * x + 5` and compute the result, if possible.”
+
+Anonymous functions are also called &lambda;-terms or &lambda;-expressions,
+because that's what they are. Some even pronounce the above: “lambda x, three x plus
+5”.
+
+Anonymous functions expecting several arguments are written like this:
+```ocaml
+#(fun h r -> 1.04719755119659763 *. r *. r *. h);;
+ - : float -> float -> float = <fun>
+```
+
+### Function definitions
+
+Most functions are given a name. Here is how to define a constant `f` which
+contains an anonymous function:
+```ocaml
+# let f = fun x -> 3 * x + 5;;
+val f : int -> int = <fun>
+```
+
+There's a shorter syntax to write this:
+```ocaml
+# let f x = 3 * x + 5;;
+val f : int -> int = <fun>
+```
+This also applies to functions with several parameters:
+```ocaml
+let cone_volume h r = 1.04719755119659763 *. r *. r *. h;;
+val cone_volume : float -> float -> float = <fun>
+```
+
+Here, the tricky part is overlooking that defining such a function and giving a
+name to an anonymous function are the same. It is indeed very simple, but allows
+the same function definition to be written in several ways. For instance, this
+definition is equivalent to the previous one:
+```ocaml
+let cone_volume h = fun r -> 1.04719755119659763 *. r *. r *. h;;
+val cone_volume : float -> float -> float = <fun>
+```
+
+### Recursive Functions
+
+Because of OCaml the type system, and for reasons which are beyond the scope of
+this document, some functions can't be expressed as anonymous functions. Such
+functions are those which call themselves, allowing iterated computation, they
+are called “recursive functions”. Here is a classical example, the factorial
+function.
+```ocaml
+# let rec fact n = if n = 0 then 1 else n * fact (n - 1);;
+val fact : int -> int = <fun>
+```
+`fact n` returns `n * (n - 1) * (n - 2) * ... * 3 * 2 * 1` (provided `n` is
+positive and small, otherwise the result will overflow).
+
+### Function as Values
+
+The `let` keyword gives a name to an expression.
+```ocaml
+let tau = 6.28318530717958623;;
+```
+Here the value `6.28318530717958623` is given the name `tau`. Defininig
+functions is the same and shows functions are just expressions ()
+```ocaml
+let g = fun x -> 3 * (x + 5);;
+val g : int -> int = <fun>
+```
+
+In some languages, there is a distinction between expressions and statements.
+Expressions have values like `true`, `2 * 3.14` or `"hello %s!\n"`, statements
+aren't values. For instance, in C, `if (a) b = 7; else b = 12;` is a statement,
+not an expression. In such a context, the values are the first-class citizens
+and statements are the second-class citizens. In OCaml, everything is an
+expression, there are no statements. For instance, in OCaml, it is possible to
+write `let b = if a then 7 else 12`, because the if-then-else construct is an
+expression. Therefore, strictly speaking, saying OCaml functions are first-class
+citizens doesn't make much sense. OCaml is a classless language.
+
+Here are a couple of constructs which shows functions are mere values. Here is a
+pair of functions:
+```ocaml
+#(List.hd, List.tl);;
+- : ('a list -> 'a) * ('b list -> 'b list) = (<fun>, <fun>)
+```
+Here is a list of functions:
+```ocaml
+#[sin; cos; fun x -> x *. x];;
+- : (float -> float) list = [<fun>; <fun>; <fun>]
+```
+
+What makes functions as values really important is the capability to have
+functions as parameter or result of other functions. That's what is called
+higher-order functions. This term has an arcane origin, it's better to take it
+as is, without trying to give it a meaning.
+
+### Higher-Order Functions
+
+We've already seen higher-order functions in this document! Multiple parameter
+functions are higher-order functions. We've already seen the `cone_volume`
+function can be written in three different ways:
+```ocaml
+let cone_volume h r -> 1.04719755119659763 *. r *. r *. h;;
+val cone_volume : float -> float -> float = <fun>
+let cone_volume h = fun r -> 1.04719755119659763 *. r *. r *. h;;
+val cone_volume : float -> float -> float = <fun>
+let cone_volume = fun h r -> 1.04719755119659763 *. r *. r *. h;;
+val cone_volume : float -> float -> float = <fun>
+```
+
+There's a fourth way to write the same thing:
+```ocaml
+# let cone_volume = fun h -> fun r -> 1.04719755119659763 *. r *. r *. h;;
+val cone_volume : float -> float -> float = <fun>
+```
+Here the body of the function isn't a &lambda; binding two names, it's a
+&lambda; nested inside another. The top-most binds `h` whilst the inner one
+binds `r`. It means `cone_volume` is defined as a function which returns a
+function, _ergo_ a higher-order function. This last form should be considered
+the raw one, the others are sugar-coated versions of the last one.
+
+Concerning function application, this means the raw form is `(cone_volume 3.0)
+5.0`, the form `cone_volume 3.0 5.0` is the sugar-coated equivalent.
+
+A short way to remember this is to memorize: “all functions are unary”. Some
+functions may look as if they take several parameters, but it's a trick, they
+take a single argument and return a function with one parameter less. We'll come
+back to this later.
+
+The second side of higher-order functions is passing functions to functions.
+There are plenty of them in the standard library, here are a couple of them:
+```ocaml
+# Array.map;;
+- : ('a -> 'b) -> 'a list -> 'b list = <fun>
+# Option.bind;;
+- : 'a option -> ('a -> 'b option) -> 'b option = <fun>
+# List.filter;;
+- : ('a -> bool) -> 'a list -> 'a list = <fun>
+```
+
+Defining custom higher-order functions comes without surprises. Here are two
+examples:
+```ocaml
+# let pair_map f g (x, y) = (f x, g y);;
+val pair_map : ('a -> 'b) -> ('c -> 'd) -> 'a * 'c -> 'b * 'd = <fun>
+# let rec fix f x = let y = f x in if x = y then x else fix f y;;
+val fix : ('a -> 'a) -> 'a -> 'a = <fun>
+```
+
+### Local and Nested Functions
+
+Let's look at examples to illustrate:
 ```ocaml
 # let double x = x * 2 in
-    List.map double [1; 2; 3];;
+  List.map double [1; 2; 3];;
 - : int list = [2; 4; 6]
 ```
 
-In this example, we first defined a nested function called `double`
-that took the argument `x` and returned `x * 2`. Then `map` calls
-`double` on each element of the given list (`[1; 2; 3]`) to produce the
-result: a list with each number doubled.
+In this example, we first defined a local function called `double` that took the
+argument `x` and returned `x * 2`. Then `List.map` calls `double` on each
+element of the given list `[1; 2; 3]` to produce the result: a list with each
+number doubled. The definition of `double` is local because it refers to `fun x
+-> x * x` only in the expression `List.map double [1; 2; 3]`.
 
-`map` is known as a **higher-order function**. Higher-order
-functions are just a fancy way of saying that the function takes a
-function as one of its arguments. Simple so far. If you're familiar
-with C/C++ then this looks like passing a function pointer around.
+```ocaml
+# let list_double u =
+    let double x = x * 2 in
+    List.map double u;;
+val list_double : int list -> int list = <fun>
+# list_double [1; 2; 3];;
+- : int list = [2; 4; 6]
+```
+
+Now, the definition of `double` is local, as previously, but it is also nested
+as it takes place inside the definition of `list_double`.
+
+### Closures
 
 **Closures** are functions which carry around some of the "environment"
 in which they were defined. In particular, a closure can reference
