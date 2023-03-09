@@ -10,118 +10,31 @@ date: 2021-08-06T17:16:00-00:00
 # Functional Programming
 
 ## What Is Functional Programming?
+We've got quite far into the tutorial, yet we haven't really considered
+**functional programming**. All the features given so far (rich data
+types, pattern matching, type inference, nested functions) could exist in 
+a "super C" language. These are cool
+features that make your code concise, easy to read, and have
+fewer bugs; however, they actually have very little to do with functional
+programming. In fact, the reason 
+functional languages are so great is *not* because of functional
+programming but because we've been stuck with C-like languages for
+years, and in the meantime, cutting-edge programming has progressed
+considerably. So while we were writing
+`struct { int type; union { ... } }` for the umpteenth time, ML and
+Haskell programmers had safe variants and pattern matching on datatypes.
+While we were being careful to `free` all our `malloc`s, there have been
+languages with garbage collectors able to outperform hand coding since
+the 80s.
 
-At its core, and from its debut around 1985, OCaml is a [functional
-programming](https://en.wikipedia.org/wiki/Functional_programming) language. For
-instance, here is what was written about Caml, the ancestor of OCaml:
-
-<!--
-Les fonctions forment les constituants élémentaires des programmes en Caml. Un
-programme n’est rien d’autre qu’une collection de définitions de fonctions, suivie d’un
-appel à la fonction qui déclenche le calcul voulu.
--->
-
-> Functions constitutes the basic components of Caml programs. A program is
-> nothing but a collection of function definitions, followed by a call to the
-> function which triggers the expected computation.
-
-Pierre Weis and Xavier Leroy, _Le langage Caml_, 1993
-
-OCaml has many other constituents and facets, such as:
-- Rich data-types
-- Pattern-matching
-- Type inference
-- Parametric polymorphism
-- Nested definitions
-- Exceptions
-- Garbage collected memory management
-- Modules and functors
-- Call-by-value evaluation
-- Native support for multiple programming paradigms
-  - Imperative
-  - Object-oriented
-- Domains-based support for multi-core hardware architectures
-- Distributed computing using effect-handlers
-
-Don't worry if those terms aren't making sense, yet. They are detailed in others
-documents. This is just a list of keywords.
-
-It is important to remember that all the features of OCaml are either built on
-top of functional programming or meant to support it. Most mainstream languages
-derive from the imperative programming paradigm, to which either structured or
-object-oriented programming where added. The feature set of OCaml, as sketched
-earlier, was pretty unique for many years. Nowadays, several languages have many
-of the features found in OCaml, but either their conception or their evolution
-goes in the opposite direction. OCaml started from functional programming while
-many others are going towards functional programming. This is not the place to
-detail the differences these paths entail. Let's just say OCaml developers and
-practitioners believe the outstanding level of reliability, performance and
-agility which is achievable by writing programs in OCaml comes from its
-functional programming first approach.
-
-From a historical perspective, the imperative programming style came first,
-because of its proximity to the way computers have been conceived. Ada Lovelace
-program to compute Bernoulli numbers, written in 1842, is imperative. Functional
-programming is an outgrowth of the &lambda;-calculus, which was created by
-Alonzo Church in the 1930s to loosely mimic the way computations can be
-conducted by a human being using pen and paper. At the same time, Alan Turing
-conceived an idealized machine to perform computation, in contrast to Charles
-Babbage, who conceived an actual machine almost one century before but failed
-to build it. Those machines and their descendants lead to imperative programming.
-But machines and the &lambda;-calculus are equivalent, they have the same
-expressive power. With that in mind, one sentence from Turing is enlightening:
-
-> [...] equivalence provides a justification for Church's calculus, and allows
-> the ‘machines’ which generate computable functions to be replaced by the
-> **more convenient** &lambda;-definitions.
-
-Alan Turing <br>
-Computability and &lambda;-Definability, The Journal of Symbolic Logic, Vol.
-2(4), 1937.
-
-Functional programming takes these words to the letter. Start from the
-convenient &lambda;-calculus, and build from there. OCaml is merely the modern
-continuation of this approach. Programming has progressed considerably since the
-origins we've outlined. Many of the features listed earlier grew in functional
-programming, or even OCaml, research. Many mainstream languages are adopting
-functional programming features and some of the innovations originated there.
-
-When choosing the language is an available option, picking OCaml doesn't mean
-giving up on imperative programming, but rather sailing away from
-imperative-centrism to benefit from convenience and innovations, without
-compromising on performance and robustness. For this journey to be successful,
-it is key to acquire a solid understanding of OCaml's functional programming
-core. This is the topic we will explore in this document.
+Let's explore functional programming.
 
 The basic, and not very enlightening, distinction in **functional programming**
-is that **functions** are called **first-class citizens**. This means a function
-is just a value. The functions `sqrt`, `print_int` or `String.length` are values
-just like: `42`, `3.14` or `"haha"` are. In particular:
+is that **functions** are first-class citizens.
 
-1. Some functions can be written without giving them a name, like string
-   literals or arithmetic expressions
-1. Functions can be stored in data such as lists, arrays, trees, hash-tables and
-   others.
-1. Functions can be passed as parameters to other functions
-1. Functions can return functions as results
-
-Together, the two last items of form what is called **higher-order**. In OCaml,
-the terms “functional value”, “non-functional value” and “value” denotes,
-respectively: functions, anything but a function or any of them.
-
-There are only two limitations to functions as values. They can't be displayed and
-they can't be compared.
-
-**Note**: Remember that the OCaml top-level runs code when it sees the double
-semicolon `;;`. Throughout this tutorial, executable code examples begin with
-the command prompt `#`, end in `;;`, and show the expected output. If it
-doesn't, it's showcasing the code pattern rather than an executable code block.
-
-### Anonymous Functions
-
-```ocaml
-```
-
+(Remember that OCaml runs code when it sees the double semicolon `;;`. Throughout
+this tutorial, executable code examples begin with the command prompt `#`, end in `;;`, and show 
+the expected output. If it doesn't, it's showcasing the code pattern rather than an executable code block.)
 
 Let's look at an
 example to illustrate:
@@ -137,7 +50,7 @@ that took the argument `x` and returned `x * 2`. Then `map` calls
 `double` on each element of the given list (`[1; 2; 3]`) to produce the
 result: a list with each number doubled.
 
-`map` is known as a **higher-order function**. Higher-order
+`map` is known as a **higher-order function** (HOF). Higher-order
 functions are just a fancy way of saying that the function takes a
 function as one of its arguments. Simple so far. If you're familiar
 with C/C++ then this looks like passing a function pointer around.
@@ -207,7 +120,6 @@ Now look at the definition of `receiver_fn`. This function is a closure
 alright because it keeps a reference to `chan` from its environment.
 
 ## Partial Function Applications
-
 Let's define a `plus` function, which just adds two integers:
 
 ```ocaml
