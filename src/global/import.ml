@@ -1,7 +1,6 @@
 module String = struct
   include Stdlib.String
-
-  module Map = Map.Make(Stdlib.String)
+  module Map = Map.Make (Stdlib.String)
 
   let contains_s s1 s2 =
     try
