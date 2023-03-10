@@ -1,6 +1,8 @@
 module String = struct
   include Stdlib.String
 
+  module Map = Map.Make(Stdlib.String)
+
   let contains_s s1 s2 =
     try
       let len = String.length s2 in
@@ -69,8 +71,6 @@ module List = struct
     in
     aux n xs
 end
-
-module String_map = Map.Make (String)
 
 module Acc_biggest (Elt : sig
   type t

@@ -57,7 +57,7 @@ let compute_updated_packages_since date =
     match package_of_path path with
     | Some (key, pkg) ->
         let versions =
-          try String_map.find key acc with Not_found -> VersionMap.empty
+          try String.Map.find key acc with Not_found -> VersionMap.empty
         in
         let v = OpamPackage.version pkg in
         (* Keep the most recent version. Without this check, [date] wouldn't be
@@ -65,7 +65,7 @@ let compute_updated_packages_since date =
         if VersionMap.mem v versions then acc
         else
           let versions = VersionMap.add v (pkg, date) versions in
-          String_map.add key versions acc
+          String.Map.add key versions acc
     | _ -> acc
   in
   (* Iterate again on [paths] to preserve the order: most recently modified
@@ -73,18 +73,18 @@ let compute_updated_packages_since date =
   let acc_versions_of_path ((versions_by_name, acc) as acc') (path, _) =
     match package_namespace_of_path path with
     | Some key -> (
-        match String_map.find_opt key versions_by_name with
+        match String.Map.find_opt key versions_by_name with
         | Some versions ->
             (* Lastest version first. *)
             let versions = List.rev (VersionMap.values versions) in
             (* Remove to be sure to keep the most recent modification for each
                packages. *)
-            (String_map.remove key versions_by_name, versions :: acc)
+            (String.Map.remove key versions_by_name, versions :: acc)
         | None -> acc')
     | None -> acc'
   in
   let versions_by_name =
-    List.fold_left group_versions_by_name String_map.empty paths
+    List.fold_left group_versions_by_name String.Map.empty paths
   in
   List.fold_left acc_versions_of_path (versions_by_name, []) paths
   |> snd |> List.rev

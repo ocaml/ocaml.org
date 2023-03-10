@@ -28,7 +28,7 @@ module Module : sig
   val parent : t -> t option
   (** [parent t] is [t]'s parent if it exists. *)
 
-  val submodules : t -> t String_map.t
+  val submodules : t -> t String.Map.t
   (** [submodules t] is [t]'s child pages. *)
 
   val kind : t -> kind
@@ -41,11 +41,11 @@ end
 type library = {
   name : string;
   dependencies : string list;
-  modules : Module.t String_map.t;
+  modules : Module.t String.Map.t;
 }
 (** The type for a library. It contains its name, dependencies and root modules *)
 
-type t = { libraries : library String_map.t }
+type t = { libraries : library String.Map.t }
 (** The type for a package map. *)
 
 val of_yojson : Yojson.Safe.t -> t
