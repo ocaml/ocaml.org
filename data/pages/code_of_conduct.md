@@ -16,7 +16,7 @@ Their goal is that everyone feels safe and welcome when contributing to OCaml or
 interacting with others in OCaml related forums.
 
 These rules apply to the projects hosted in the
-[GitHub ocaml organization](https://github.com/ocaml), the
+[GitHub OCaml organization](https://github.com/ocaml), the
 [discuss.ocaml.org](https://discuss.ocaml.org/) forum, the
 [caml-list@inria.fr](mailto:caml-list@inria.fr) mailing list, [OCaml
 IRC](irc://irc.libera.chat:6697/#ocaml), [OCaml

@@ -28,14 +28,14 @@ You can install a binary release of OPAM on most systems by first installing the
 
     0install also has [Windows support][0install-windows], but there is currently no Windows binary of OPAM so I didn't publish one with 0install either.
 
-2. Install OPAM:
+2. Install opam:
 
         $ 0install add opam https://tools.ocaml.org/opam.xml
         $ opam --version
         1.1.1
 
-	If you already have an `opam` command but want to try the 0install version anyway,
-	just give it a different name (e.g. `0install add 0opam https://tools.ocaml.org/opam.xml` to create a `0opam` command).
+	If you already have an `opam` command but want to try the `0install` version anyway,
+	just give it a different name (e.g., `0install add 0opam https://tools.ocaml.org/opam.xml` to create a `0opam` command).
 
 `0install add` will open a window if a display is available, or show progress on the console if not:
 
@@ -98,7 +98,7 @@ Finally, if an upgrade stops a program from working then you can use `whatchange
 
 Note: this has a granularity of a day, so you won't see any changes if you're following along, since you didn't have it installed yesterday.
 
-## The package metadata
+## The Package Metadata
 
 If you visit <https://tools.ocaml.org/opam.xml> you should see a normal-looking web-page describing the package.
 If you view the source in your browser, you'll see that it's actually an XML document with a stylesheet providing the formatting.
