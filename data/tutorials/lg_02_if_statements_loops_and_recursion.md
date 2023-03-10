@@ -1,16 +1,22 @@
 ---
 id: if-statements-and-loops
-title: If Statements, Loops and Recursions
+title: If Statements, Loops, and Recursions
 description: >
   Learn basic control-flow and recursion in OCaml
 category: "language"
 date: 2021-05-27T21:07:30-00:00
 ---
 
-# If Statements, Loops and Recursions
+# If Statements, Loops, and Recursions
 
-## If Statements (Actually, These Are if Expressions)
-OCaml has an `if` statement with two variations, and the obvious meaning:
+As in other OCaml.org documentation, the code examples will either be something you can test or
+an example of code. Code snippets that begin with the CLI prompt `#`, end with `;;`, and have a 
+clear output can be tested in the OCaml toplevel (`ocaml` or `utop`) 
+or pasted into the OCaml playground. If the code doesn't start with `#` and end in `;;`, 
+it's an example of how to write the code. 
+
+## If Statements
+OCaml has an `if` statement with two variations:
 
 <!-- $MDX skip -->
 ```ocaml
@@ -19,12 +25,12 @@ if boolean-condition then expression
 if boolean-condition then expression else other-expression
 ```
 
-Unlike in the conventional languages you'll be used to, `if` statements
+Unlike conventional languages, OCaml `if` statements
 are really expressions. In other words, they're much more like
-`boolean-condition ? expression : other-expression` in C than like the if
-statements you may be used to.
+`boolean-condition ? expression : other-expression` in C than like its `if`
+statements.
 
-Here's a simple example of an `if` statement:
+Here's a simple example of an `if` statement in OCaml:
 
 ```ocaml
 # let max a b =
@@ -70,7 +76,7 @@ expressions to see what it does:
 val range : int -> int -> int list = <fun>
 ```
 
-Let's examine some typical calls to this function. Let's start with the
+Let's examine some typical calls to this function, starting with the
 easy case of `a > b`. A call to `range 11 10` returns `[]` (the empty
 list) and that's it.
 
@@ -135,20 +141,20 @@ let string_of_float f =
 ```
 
 Let's examine this function. Suppose the function is called with `f` =
-12.34. Then `s` = "12.34", and `l` = 5. We call `loop` the first time
+12.34, then `s` = "12.34" and `l` = 5. We call `loop` the first time
 with `i` = 0.
 
 `i` is not greater than or equal to `l`, and `s.[i]` (the
 `i`<sup>th</sup> character in `s`) is not a period or `'e'`. So
-`loop (i + 1)` is called, ie. `loop 1`.
+`loop (i + 1)` is called, i.e., `loop 1`.
 
-We go through the same dance for `i` = 1, and end up calling `loop 2`.
+We go through the same dance for `i` = 1 and end up calling `loop 2`.
 
 For `i` = 2, however, `s.[i]` is a period (refer to the original string,
 `s` = "12.34"). So this immediately returns `s`, and the function
 `string_of_float` returns "12.34".
 
-What is `loop` doing? In fact it's checking whether the string returned
+Here, `loop` checks whether the string returned
 from `format_float` contains a period (or `'e'`). Suppose that we called
 `string_of_float` with `12.0`. `format_float` would return the string
 "12", but `string_of_float` must return "12." or "12.0" (because
@@ -156,10 +162,10 @@ floating point constants in OCaml must contain a period to differentiate
 them from integer constants). Hence the check.
 
 The strange use of recursion in this function is almost certainly for
-efficiency. OCaml supports for loops, so why didn't the authors use for
-loops? We'll see in the next section that OCaml's for loops are limited
-in a way which prevents them from being used in `string_of_float`. Here,
-however, is a more straightforward, but approximately twice as slow, way
+efficiency. OCaml supports `for` loops, so why didn't the authors use `for`
+loops? We'll see in the next section that OCaml's `for` loops are limited
+in a way that prevents them from being used in `string_of_float`. Below,
+however, is a more straightforward (but approximately twice as slow) way
 of writing `string_of_float`:
 
 <!-- $MDX skip -->
@@ -172,7 +178,7 @@ let string_of_float f =
 ```
 
 ## Using `begin ... end`
-Here is some code from lablgtk:
+Here is some code from LablGtk:
 
 <!-- $MDX skip -->
 ```ocaml
@@ -186,7 +192,7 @@ end
 
 `begin` and `end` are what is known as **syntactic sugar** for open and
 close parentheses. In the example above, all they do is group the two
-statements in the `else`-clause together. Suppose the author had written
+statements in the `else` clause together. Suppose the author had written
 this instead:
 
 <!-- $MDX skip -->
@@ -204,14 +210,13 @@ Fully bracketing and properly indenting the above expression gives:
 (if GtkBase.Object.is_a obj cls then
    fun _ -> f obj
  else
-   eprintf "Glade-warning: %s expects a %s argument.\n" name cls
-);
-raise Not_found
+   eprintf "Glade-warning: %s expects a %s argument.\n" name cls);
+   raise Not_found
 ```
 Not what was intended at all. So the `begin` and `end` are necessary to
-group together multiple statements in a `then` or `else` clause of an if
+group together multiple statements in a `then` or `else` clause of an `if`
 expression. You can also use plain ordinary parentheses `( ... )` if you
-prefer (and I do prefer, because I **loathe** Pascal :-). Here are two
+prefer (and I do prefer, because I **loathe** Pascal :-)). Here are two
 simple examples:
 
 ```ocaml
@@ -246,7 +251,7 @@ for variable = start_value downto end_value do
   expression
 done
 ```
-A simple but real example from lablgtk:
+A simple but real example from LablGtk:
 
 <!-- $MDX skip -->
 ```ocaml
@@ -271,12 +276,12 @@ do_next_job ();
 ```
 
 OCaml doesn't support the concept of breaking out of a `for` loop early
-i.e. it has no `break`, `continue` or `last` statements. (You *could*
+i.e., it has no `break`, `continue`, or `last` statements. (You *could*
 throw an exception and catch it outside, and this would run fast but
 often looks clumsy.)
 
-The expression inside an OCaml for loop should evaluate to `unit`
-(otherwise you'll get a warning), and the for loop expression as a whole
+The expression inside an OCaml `for` loop should evaluate to `unit`
+(otherwise you'll get a warning), and the `for` loop expression as a whole
 returns `unit`:
 
 ```ocaml
@@ -286,7 +291,7 @@ Warning 10 [non-unit-statement]: this expression should have type unit.
 - : unit = ()
 ```
 Functional programmers tend to use recursion instead of explicit loops,
-and regard **for** loops with suspicion since it can't return anything,
+and it's wise to regard **for** loops with suspicion since it can't return anything,
 hence OCaml's relatively powerless **for** loop. We talk about recursion
 below.
 
@@ -298,14 +303,14 @@ while boolean-condition do
   expression
 done
 ```
-As with for loops, there is no way provided by the language to break out
-of a while loop, except by throwing an exception, and this means that
-while loops have fairly limited use. Again, remember that functional
-programmers like recursion, and so while loops are second-class citizens
-in the language.
+As with `for` loops, the language doesn't provide a way to break out
+of a `while` loop, except by throwing an exception, so this means that
+`while` loops have fairly limited use. Again, remember that functional
+programmers like recursion, so `while` loops are second-class citizens
+in OCaml.
 
-If you stop to consider while loops, you may see that they aren't really
-any use at all, except in conjunction with our old friend references.
+If you stop to consider `while` loops, you may see that they aren't really
+any use at all, except in conjunction with our old friend *references*.
 Let's imagine that OCaml didn't have references for a moment:
 
 <!-- $MDX skip -->
@@ -318,8 +323,8 @@ let quit_loop = false in
         (* how do I set quit_loop to true ?!? *)
   done
 ```
-Remember that `quit_loop` is not a real "variable" - the let-binding
-just makes `quit_loop` a shorthand for `false`. This means the while
+Remember that `quit_loop` is not a real "variable." The let-binding
+just makes `quit_loop` shorthand for `false`. This means the `while`
 loop condition (shown in red) is always true, and the loop runs on
 forever!
 
@@ -341,9 +346,9 @@ let quit_loop = ref false in
 
 ## Looping Over Lists
 If you want to loop over a list, don't be an imperative programmer and
-reach for your trusty six-shooter Mr. For Loop! OCaml has some better
+reach for your trusty six-shooter Mr. `For` Loop! OCaml has some better
 and faster ways to loop over lists, and they are all located in the
-`List` module. There are in fact dozens of good functions in `List`, but
+`List` module. In fact, there are dozens of good functions in `List`, but
 I'll only talk about the most useful ones here.
 
 First off, let's define a list for us to use:
@@ -374,8 +379,8 @@ I'm looking at element 10 now
 - : unit = ()
 ```
 
-`List.iter` is in fact what you should think about using first every
-time your cerebellum suggests you use a for loop.
+In fact, `List.iter` is what you should think about using first every
+time your cerebellum suggests you use a `for` loop.
 
 If you want to *transform* each element separately in the list - for
 example, doubling each element in the list - then use `List.map`.
@@ -386,7 +391,7 @@ example, doubling each element in the list - then use `List.map`.
 ```
 
 The function `List.filter` collects only those elements of a list which satisfy
-some condition - e.g. returning all even numbers in a list.
+some condition, e.g., returning all even numbers in a list.
 
 ```ocaml
 # let is_even i =
@@ -414,8 +419,8 @@ of some of these functions, namely `iter2`, `map2`, `for_all2`,
 The `map` and `filter` functions operate on individual list elements in
 isolation. **Fold** is a more unusual operation that is best
 thought about as "inserting an operator between each element of the
-list". Suppose I wanted to add all the numbers in my list together. In
-hand-waving terms what I want to do is insert a plus sign between the
+list." Suppose I wanted to add all the numbers in my list together. In
+hand-waving terms, I want to insert a plus (+) sign between the
 elements in my list:
 
 ```ocaml
@@ -424,16 +429,16 @@ elements in my list:
 ```
 
 The fold operation does this, although the exact details are a little
-bit more tricky. First of all, what happens if I try to fold an empty
-list? In the case of summing the list it would be nice if the answer was
-zero, instead of error. However if I was trying to find the product of
-the list, I'd like the answer to be one instead. So I obviously have to
-provide some sort of "default" argument to my fold. The second issue
+bit more tricky. First of all, if I try to sum an empty
+list, it would be nice if the answer was
+zero, instead of error. However if I try to find the product of
+the list, it would be preferable for the answer to be 1 instead. It's necessary to
+provide some sort of "default" argument to a fold. The second issue
 doesn't arise with simple operators like `+` and `*`: what happens if
-the operator I'm using isn't associative, ie. (a *op* b) *op* c not
-equal to a *op* (b *op* c)? In that case it would matter if I started
+the operator used isn't associative, i.e., (a *op* b) *op* c not
+equal to a *op* (b *op* c)? In that case, it would matter if I started
 from the left hand end of the list and worked right, versus if I started
-from the right and worked left. For this reason there are two versions
+from the right and worked left. For this reason, there are two versions
 of fold, called `List.fold_left` (works left to right) and
 `List.fold_right` (works right to left, and is also less efficient).
 
@@ -466,7 +471,7 @@ overflows the integers and gives wrong answers even for quite small
 values of `n`.)
 
 ## Looping Over Strings
-The `String` module also contains many dozens of useful string-related
+The `String` module also contains dozens of useful string-related
 functions, and some of them are concerned with looping over strings.
 
 `String.copy` copies a string, like `strdup`. There is also a `String.iter`
@@ -474,40 +479,40 @@ function which works like `List.iter`, except over the characters of the
 string.
 
 ## Recursion
-Now we come to a hard topic - recursion. Functional programmers are
+Now we come to a hard topic: recursion. Functional programmers are
 defined by their love of recursive functions, and in many ways recursive
-functions in f.p. are the equivalent of loops in imperative programming.
-In functional languages loops are second-class citizens, whilst
+functions in functional programming are the equivalent of loops in imperative programming.
+In functional languages, loops are second-class citizens, whilst
 recursive functions get all the best support.
 
 Writing recursive functions requires a change in mindset from writing
-for loops and while loops. So what I'll give you in this section will be
-just an introduction and examples.
+`for` loops and `while` loops, so this section will be
+just an introduction and a few examples.
 
-In the first example we're going to read the whole of a file into memory
+In the first example, we'll read the whole file into memory
 (into a long string). There are essentially three possible approaches to
 this:
 
 ### Approach 1
-Get the length of the file, and read it all in one go using the
+Get the length of the file and read it all at once using the
 `really_input` method. This is the simplest, but it might not work on
-channels which are not really files (eg. reading keyboard input) which
-is why we look at the other two approaches.
+channels that are not really files (e.g., reading keyboard input), which
+is why we have two other approaches.
 
 ### Approach 2
-The imperative approach, using a while loop which is broken out of using
+The imperative approach uses a `while` loop that is broken out of using
 an exception.
 
 ### Approach 3
-A recursive loop, breaking out of the recursion again using an
+A recursive loop breaks out of the recursion again using an
 exception.
 
 We're going to introduce a few new concepts here. Our second two
-approaches will use the `Buffer` module - an expandable buffer which you
-can think of like a string onto which you can efficiently append more
+approaches will use the `Buffer` module, an expandable buffer. 
+Think of it like a string onto which you can efficiently append more
 text at the end. We're also going to be catching the `End_of_file`
-exception which the input functions throw when they reach the end of the
-input. Also we're going to use `Sys.argv.(1)` to get the first command
+exception, which the input functions throw when they reach the end of the
+input. Finally, we're going to use `Sys.argv.(1)` to get the first command
 line parameter.
 
 ```ocaml
@@ -530,9 +535,9 @@ let main () =
     printf "I read %d characters from %s\n" (String.length str) filename
 ```
 
-Approach 1 works but is not very satisfactory because `read_whole_chan`
-won't work on non-file channels like keyboard input or sockets. Approach
-2 involves a while loop:
+Approach 1 works, but it's not very satisfactory because `read_whole_chan`
+won't work on non-file channels, like keyboard input or sockets. Approach
+2 involves a `while` loop:
 
 ```ocaml
 (* Read whole file: Approach 2 *)
@@ -561,28 +566,28 @@ let main () =
     printf "I read %d characters from %s\n" (String.length str) filename
 ```
 
-The key to approach 2 is to look at the central while loop. Remember
-that I said the only way to break out of a while loop early was with an
-exception? This is exactly what we're doing here. Although I haven't
+The key to Approach 2 is to look at the central `while` loop. Remember,
+the only way to break out of a `while` loop early is with an
+exception, which is exactly what we're doing here. Although I haven't
 covered exceptions yet, you probably won't have any trouble
-understanding the `End_of_file` exception thrown in the code above by
+understanding the `End_of_file` exception thrown in the above code with
 `input_line` when it hits the end of the file. The buffer `buf`
-accumulates the contents of the file, and when we hit the end of the
-file we return it (`Buffer.contents buf`).
+accumulates the file contents, and when we hit the end of the
+file, we return it (`Buffer.contents buf`).
 
 One curious point about this is the apparently superfluous statement
-(`assert false`) just after the while loop. What is it for?  Remember
-that while loops, like for loops, are just expressions, and they return
-the `unit` object (`()`). However OCaml demands that the return type
+(`assert false`) just after the `while` loop. What is it for?  Remember
+that `while` loops, like `for` loops, are just expressions, and they return
+the `unit` object (`()`). However, OCaml demands that the return type
 inside a `try` matches the return type of each caught exception. In this
-case because `End_of_file` results in a `string`, the main body of the
-`try` must also "return" a string — even though because of the infinite
-while loop the string could never actually be returned.  `assert false`
-has a polymorphic type, so will unify with whatever value is returned
+case, because `End_of_file` results in a `string`, the main body of the
+`try` must also "return" a string (because of the infinite
+`while` loop, the string could never actually be returned).  `assert false`
+has a polymorphic type, so it will unify with whatever value is returned
 by the `with` branch.
 
-Here's our recursive version. Notice that it's *shorter* than approach
-2, but not so easy to understand for imperative programmers at least:
+Here's the recursive version. Notice that it's *shorter* than Approach
+2, but it's not so easy to understand, for imperative programmers at least:
 
 ```ocaml
 (* Read whole file: Approach 3 *)
@@ -609,17 +614,17 @@ let main () =
   printf "I read %d characters from %s\n" (String.length str) filename
 ```
 
-Again we have an infinite loop - but in this case done using recursion.
+Again we have an infinite loop, but in this case, it's done using recursion.
 `loop` calls itself at the end of the function. The infinite recursion
 is broken when `input_line` throws an `End_of_file` exception.
 
-It looks like approach 3 might overflow the stack if you gave it a
-particularly large file, but this is in fact not the case. Because of
-tail recursion (discussed below) the compiler will turn the recursive
-`loop` function into a real while loop (!) which runs in constant stack
+It looks like Approach 3 might overflow the stack if you gave it a
+particularly large file, but this is not the case! Because of
+tail recursion (discussed below), the compiler will turn the recursive
+`loop` function into a real `while` loop (!), which runs in constant stack
 space.
 
-In the next example we will show how recursion is great for constructing
+In the next example, we will show how recursion is great for constructing
 or examining certain types of data structures, particularly trees. Let's
 have a recursive type to represent files in a filesystem:
 
@@ -652,8 +657,8 @@ null pointers.
 - : dir_handle -> string option = <fun>
 ```
 
-I'm also going to define a simple recursive function which I can use to
-convert the `filesystem` type into a string for (eg) printing:
+I'm also going to define a simple recursive function that I can use to
+convert the `filesystem` type into a string for (e.g.) printing:
 
 ```ocaml
 # let rec string_of_filesystem fs =
@@ -668,7 +673,7 @@ Note the use of `fold_left` and `map`. The `map` is used to
 (recursively) convert each `filesystem` in the list into a `string`.
 Then the `fold_left (^) ""` concatenates the list together into one big
 string. Notice also the use of pattern matching. (The library defines a
-function called `String.concat` which is essentially equivalent to
+function called `String.concat`, which is essentially equivalent to
 `fold_left (^) `, but implemented more efficiently).
 
 Now let's define a function to read a directory structure, recursively,
