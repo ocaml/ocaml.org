@@ -1,6 +1,5 @@
 open Ocamlorg.Import
 open Lwt.Syntax
-module StringMap = Map.Make (String)
 
 type package_stat = {
   name : OpamPackage.Name.t;
@@ -49,7 +48,6 @@ let mk_package_stat pkg packages =
     corresponding date (in Git's relative format). The packages are ordered
     according to the history, most recently modified first. *)
 let compute_updated_packages_since date =
-  let module StringMap = Map.Make (String) in
   let module VersionMap = OpamPackage.Version.Map in
   let* commit = Opam_repository.commit_at_date date in
   let+ paths = Opam_repository.new_files_since ~a:commit ~b:"@" in
@@ -59,7 +57,7 @@ let compute_updated_packages_since date =
     match package_of_path path with
     | Some (key, pkg) ->
         let versions =
-          try StringMap.find key acc with Not_found -> VersionMap.empty
+          try String_map.find key acc with Not_found -> VersionMap.empty
         in
         let v = OpamPackage.version pkg in
         (* Keep the most recent version. Without this check, [date] wouldn't be
@@ -67,7 +65,7 @@ let compute_updated_packages_since date =
         if VersionMap.mem v versions then acc
         else
           let versions = VersionMap.add v (pkg, date) versions in
-          StringMap.add key versions acc
+          String_map.add key versions acc
     | _ -> acc
   in
   (* Iterate again on [paths] to preserve the order: most recently modified
@@ -75,18 +73,18 @@ let compute_updated_packages_since date =
   let acc_versions_of_path ((versions_by_name, acc) as acc') (path, _) =
     match package_namespace_of_path path with
     | Some key -> (
-        match StringMap.find_opt key versions_by_name with
+        match String_map.find_opt key versions_by_name with
         | Some versions ->
             (* Lastest version first. *)
             let versions = List.rev (VersionMap.values versions) in
             (* Remove to be sure to keep the most recent modification for each
                packages. *)
-            (StringMap.remove key versions_by_name, versions :: acc)
+            (String_map.remove key versions_by_name, versions :: acc)
         | None -> acc')
     | None -> acc'
   in
   let versions_by_name =
-    List.fold_left group_versions_by_name StringMap.empty paths
+    List.fold_left group_versions_by_name String_map.empty paths
   in
   List.fold_left acc_versions_of_path (versions_by_name, []) paths
   |> snd |> List.rev

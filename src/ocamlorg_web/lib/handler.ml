@@ -492,12 +492,11 @@ let package_doc t kind req =
               (module' : Ocamlorg_package.Module_map.Module.t) :
               Ocamlorg_frontend.Navmap.toc =
             let open Ocamlorg_package in
-            let module SM = Module_map.String_map in
             let title = Module_map.Module.name module' in
             let kind = Module_map.Module.kind module' in
             let href = Some (root ^ Module_map.Module.path module') in
             let children =
-              module' |> Module_map.Module.submodules |> SM.bindings
+              module' |> Module_map.Module.submodules |> String_map.bindings
               |> List.map (fun (_, module') -> toc_of_module ~root module')
             in
             let kind =
@@ -517,14 +516,13 @@ let package_doc t kind req =
           let toc_of_map ~root (map : Ocamlorg_package.Module_map.t) :
               Ocamlorg_frontend.Navmap.t =
             let open Ocamlorg_package in
-            let module SM = Module_map.String_map in
             let libraries = map.libraries in
-            SM.bindings libraries
+            String_map.bindings libraries
             |> List.map (fun (_, library) ->
                    let title = library.Module_map.name in
                    let href = None in
                    let children =
-                     SM.bindings library.modules
+                     String_map.bindings library.modules
                      |> List.map (fun (_, module') ->
                             toc_of_module ~root module')
                    in

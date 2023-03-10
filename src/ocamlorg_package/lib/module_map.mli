@@ -4,8 +4,7 @@
     package: a tree of pages (modules) starting from the libraries defining
     them. *)
 
-module String_map : Map.S with type key = string
-(** The tree is implemented using a string map interface. *)
+open Ocamlorg.Import
 
 (** Page kinds as defined by odoc. *)
 type kind =

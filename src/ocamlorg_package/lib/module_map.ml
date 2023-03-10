@@ -1,4 +1,4 @@
-module String_map = Map.Make (String)
+open Ocamlorg.Import
 
 type kind =
   | Module
