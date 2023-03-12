@@ -702,7 +702,7 @@ type of `loop` will be:
 loop : unit -> filesystem list
 ```
 
-How do we define loop? Let's take it in steps again.
+How do we define loop? Let's take it in steps again:
 
 <!-- $MDX skip -->
 ```ocaml
@@ -713,8 +713,8 @@ let rec loop () =
 
 First we read the next filename from the directory handle. `filename`
 has type `string option`, in other words it could be `None` or
-`Some "foo"` where `foo` is the name of the next filename in the
-directory. We also need to ignore the `"."` and `".."` files (ie. the
+`Some "foo"`, where `foo` is the name of the next filename in the
+directory. We also need to ignore the `"."` and `".."` files (i.e., the
 current directory and the parent directory). We can do all this with a
 nice pattern match:
 
@@ -732,10 +732,10 @@ let rec loop () =
 
 The `None` case is easy. Thinking recursively (!) if `loop` is called
 and we've reached the end of the directory, `loop` needs to return a
-list of entries - and there's no entries - so it returns the empty list
+list of entries. Since there aren't any entries, it returns the empty list
 (`[]`).
 
-For `"."` and `".."` we just ignore the file and call `loop` again.
+For `"."` and `".."`, we just ignore the file and call `loop` again.
 
 What do we do when `loop` reads a real filename (the `Some filename`
 match below)? Let `pathname` be the full path to the file. We 'stat' the
@@ -743,9 +743,9 @@ file to see if it's really a directory. If it *is* a directory, we set
 `this` by recursively calling `read_directory` which will return
 `Directory something`. Notice that the overall result of
 `read_directory` is `Directory (loop ())`. If the file is really a file
-(not a directory) then we let `this` be `File pathname`. Then we do
+(not a directory) then we let `this` be `File pathname`. Next, we do
 something clever: we return `this :: loop ()`. This is the recursive
-call to `loop ()` to calculate the remaining directory members (a list),
+call to `loop ()` in order to calculate the remaining directory members (a list),
 to which we prepend `this`.
 
 ```ocaml
@@ -791,7 +791,7 @@ is exactly the same:
 
 <!-- $MDX skip -->
 ```ocaml
-# let rec range a b =
+let rec range a b =
   if a > b then []              (* Base case *)
   else a :: range (a + 1) b     (* Recursive case *)
 ```
@@ -828,22 +828,22 @@ let rec loop () =
   | recursive case -> element :: loop ()
 ```
 The key here is actually the use of the match / base case / recursive
-case pattern. In this example - finding the maximum element in a list -
-we're going to have two base cases and one recursive case. But before I
+case pattern. In this example (finding the maximum element in a list),
+we'll have two base cases and one recursive case. But before we
 jump ahead to the code, let's just step back and think about the
-problem. By thinking about the problem, the solution will appear "as if
-by magic" (I promise you :-)
+problem. By thinking about the problem, the solution will appear *as if
+by magic*. (I promise you :-)
 
 First of all, let's be clear that the maximum element of a list is just
-the biggest one, e.g. the maximum element of the list `[1; 2; 3; 4; 1]`
+the biggest one, e.g., the maximum element of the list `[1; 2; 3; 4; 1]`
 is `4`.
 
-Are there any special cases? Yes, there are. What's the maximum element
-of the empty list `[]`? There *isn't one*. If we are passed an empty
-list, we should throw an error.
+Of course there are excpeptions. There *isn't a maximum element*
+of the empty list `[]`. If we are passed an empty
+list, it would throw an error.
 
 What's the maximum element of a single element list such as `[4]`?
-That's easy: it's just the element itself. So `list_max [4]` should
+That's easy! It's just the element itself, so `list_max [4]` should
 return `4`, or in the general case, `list_max [x]` should return `x`.
 
 What's the maximum element of the general list `x :: remainder` (this is
@@ -856,13 +856,15 @@ Think about this for a while. Suppose you know the maximum element of
 bigger than `y`, then the overall maximum is `x`, whereas conversely if
 `x` is less than `y`, then the overall maximum is `y`.
 
-Does this really work? Consider `[1; 2; 3; 4; 1]` again. This is
+Does this really work? 
+
+Consider `[1; 2; 3; 4; 1]` again. This is
 `1 :: [2; 3; 4; 1]`. Now the maximum element of the remainder,
 `[2; 3; 4; 1]`, is `4`. So now we're interested in `x = 1` and `y = 4`.
 That head element `x = 1` doesn't matter because `y = 4` is bigger, so
 the overall maximum of the whole list is `y = 4`.
 
-Let's now code those rules above up, to get a working function:
+Let's now code those rules above to get a working function:
 
 ```ocaml
 # let rec list_max xs =
@@ -892,9 +894,9 @@ Exception: Failure "list_max called on empty list".
 ```
 Notice how the solution proposed is both (a) very different from the
 imperative for-loop solution, and (b) much more closely tied to the
-problem specification. Functional programmers will tell you that this is
-because the functional style is much higher level than the imperative
-style, and therefore better and simpler. Whether you believe them is up
+problem specification. Functional programmers will tell you that it's
+because the functional style is at a much higher level than the imperative
+style, and therefore better and easier. Whether you believe them is up
 to you. It's certainly true that it's much simpler to reason logically
 about the functional version, which is useful if you wanted to formally
 prove that `list_max` is correct ("correct" being the mathematical way
@@ -934,12 +936,12 @@ write your code recursively instead of iteratively then you necessarily
 run out of stack space on large inputs, right?
 
 In fact, wrong. Compilers can perform a simple optimisation on certain
-types of recursive functions to turn them into while loops. These
+types of recursive functions to turn them into `while` loops. These
 certain types of recursive functions therefore run in constant stack
-space, and with the equivalent efficiency of imperative while loops.
+space, and with the equivalent efficiency of imperative `while` loops.
 These functions are called **tail-recursive functions**.
 
-In tail-recursive functions, the recursive call happens last of all.
+In tail-recursive functions, the recursive call happens at the end.
 Remember our `loop ()` functions above? They all had the form:
 
 <!-- $MDX skip -->
@@ -948,15 +950,15 @@ let rec loop () =
   (* do something *)
   loop ()
 ```
-Because the recursive call to `loop ()` happens as the very last thing,
+Because the recursive call to `loop ()` happens last,
 `loop` is tail-recursive and the compiler will turn the whole thing into
-a while loop.
+a `while` loop.
 
 Unfortunately `range` is not tail-recursive, and the longer version
 above shows why. The recursive call to `range` doesn't happen as the
-very last thing. In fact the last thing to happen is the `::` (cons)
+very last thing. In fact the final thing is the `::` (cons)
 operation. As a result, the compiler doesn't turn the recursion into a
-while loop, and the function is not efficient in its use of stack space.
+`while` loop, and the function is not efficient in its use of stack space.
 
 The use of an accumulating argument or `accumulator` allows one to write
 functions such as `range` above in a tail-recursive manner, which means they
@@ -984,7 +986,7 @@ let rec range2 a b accum =
   else
     (* ... *)
 ```
-If `a > b` (i.e. if we've reached the end of the recursion), then stop
+If `a > b` (i.e., if we've reached the end of the recursion), then stop
 and return the result (`accum`).
 
 Now the trick is to write the `else`-clause and make sure that the call
@@ -997,7 +999,7 @@ tail-recursive:
   else range2 (a + 1) b (a :: accum);;
 val range2 : int -> int -> int list -> int list = <fun>
 ```
-There's only one slight problem with this function: it constructs the
+There's only one slight problem with this function. It constructs the
 list backwards! However, this is easy to rectify by redefining range as:
 
 ```ocaml
@@ -1024,13 +1026,17 @@ val range2 : int -> int -> int list -> int list = <fun>
 val range : int -> int -> int list = <fun>
 ```
 That was a brief overview of tail recursion, but in real world
-situations determining if a function is tail recursive can be quite
-hard. What did we really learn here? One thing is that recursive
+situations, determining if a function is tail-recursive can be quite
+hard. 
+
+What did we really learn here? 
+
+One thing is that recursive
 functions have a dangerous trap for inexperienced programmers. Your
-function can appear to work for small inputs (during testing), but fail
+function can appear to work for small inputs (during testing), but then fail
 catastrophically in the field when exposed to large inputs. This is one
-argument *against* using recursive functions, and for using explicit
-while loops when possible.
+argument *against* using recursive functions, but for using explicit
+`while` loops when possible.
 
 ## Mutable Records, References (Again!) and Arrays
 Previously we mentioned records in passing. These are like C `struct`s:
@@ -1045,15 +1051,15 @@ Line 1, characters 1-8:
 Error: Some record fields are undefined: b
 ```
 
-One feature which I didn't cover: OCaml records can have mutable fields.
+Let's move on to another interesting feature: OCaml records can have mutable fields.
 Normally an expression like `{a = 3; b = 5}` is an immutable, constant
-object. However if the record has **mutable fields**, then
+object. However if the record has **mutable fields**, 
 there is a way to change those fields in the record. This is an
 imperative feature of OCaml, because functional languages don't normally
 allow mutable objects (or references or mutable arrays, which we'll look
 at in a moment).
 
-Here is an object defined with a mutable field. This field is used to
+Below is an object defined with a mutable field, used to
 count how many times the object has been accessed. You could imagine
 this being used in a caching scheme to decide which objects you'd evict
 from memory.
@@ -1073,8 +1079,8 @@ increments the mutable `access_count` field:
 val print_name : name -> unit = <fun>
 ```
 
-Notice a strange, and very non-functional feature of `print_name`: it modifies
-its `access_count` parameter. This function is not "pure". OCaml is a
+Notice a strange (and very non-functional) feature of `print_name`: it modifies
+its `access_count` parameter. This function is not "pure." OCaml is a
 functional language, but not to the extent that it forces functional
 programming down your throat.
 
@@ -1125,12 +1131,12 @@ val r : int Stdlib.ref = {Stdlib.contents = 100}
 Arrays are another sort of mutable structure provided by OCaml. In
 OCaml, plain lists are implemented as linked lists, and linked lists are
 slow for some types of operation. For example, getting the head of a
-list, or iterating over a list to perform some operation on each element
-is reasonably fast. However, jumping to the n<sup>th</sup> element of a
-list, or trying to randomly access a list - both are slow operations.
+list, or iterating over a list to perform some operation on each element,
+is reasonably fast. However, when jumping to the n<sup>th</sup> element of a
+list or trying to randomly access a list, you'll find that both are slow operations.
 The OCaml `Array` type is a real array, so random access is fast, but
-insertion and deletion of elements is slow. `Array`s are also mutable so
-you can randomly change elements too.
+insertion and deletion of elements is slow. `Array`s are also mutable, so
+you can randomly change elements, too.
 
 The basics of arrays are simple:
 
@@ -1150,10 +1156,10 @@ val a : int array = [|0; 0; 0; 0; 0; 0; 0; 0; 0; 0|]
 Notice the syntax for writing arrays: `[| element; element; ... |]`
 
 The OCaml compiler was designed with heavy numerical processing in mind
-(the sort of thing that FORTRAN is traditionally used for), and so it
+(the sort of thing that FORTRAN is traditionally used for), so it
 contains various optimisations specifically for arrays of numbers,
-vectors and matrices. Here is some benchmark code for doing dense matrix
-multiplication. Notice that it uses for-loops and is generally very
+vectors, and matrices. Here is some benchmark code for doing dense matrix
+multiplication. Notice that it uses `for`-loops and is generally very
 imperative in style:
 
 ```ocaml
@@ -1209,8 +1215,8 @@ Exception: Failure "int_of_string".
 ```
 
 ## Mutually Recursive Functions
-Suppose I want to define two functions which call each other. This is
-actually not a very common thing to do, but it can be useful sometimes.
+Suppose I want to define two functions that call each other. This is
+actually not a very common thing to do, but it can sometimes be useful.
 Here's a contrived example (thanks to Ryan Tarpine): The number 0 is
 even. Other numbers greater than 0 are even if their predecessor is odd.
 Hence:
@@ -1245,13 +1251,13 @@ Line 4, characters 10-14:
 Error: Unbound value even
 ```
 
-The only problem is... this program doesn't compile. In order to compile
-the `even` function, we already need the definition of `odd`, and to
-compile `odd` we need the definition of `even`. So swapping the two
+The only problem is...this program doesn't compile. In order to compile
+the `even` function, we need to already have the definition of `odd`, and to
+compile `odd`, we need the definition of `even`. So swapping the two
 definitions around won't help either.
 
 There are no "forward prototypes" (as seen in languages descended
-from C) in OCaml but there is a special syntax
+from C) in OCaml, but there is a special syntax
 for defining a set of two or more mutually recursive functions, like
 `odd` and `even`:
 
