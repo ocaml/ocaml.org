@@ -9,15 +9,25 @@ date: 2021-05-27T21:07:30-00:00
 
 # Data Types and Matching
 
-In this tutorial we learn how to build our own types in OCaml, and how to write
-functions which process this new data.
+In this tutorial, we learn how to build our own types in OCaml and to write
+functions that process this new data.
+
+Please note throughout this tutorial the code is written in the `ocaml` toplevel. 
+Whereas `#` denoted a comment and `$` the command prompt in the 
+[Up & Running](https://ocaml.org/docs/up-and-running) document, 
+when in the `ocaml` or `utop` toplevel, the command prompt appears as a `#`, as shown
+in the following examples.
+
+Also remember that a code an expression must end with `;;`
+for OCaml to evaluate it. Unless these examples start with a `#` toplevel prompt and 
+end with `;;`, it isn't an expression to evaluate but rather an example of code structure.
 
 ## Built-in Compound Types
 
 We have already seen simple data types such as `int`, `float`, `string`, and
 `bool`.  Let's recap the built-in compound data types we can use in OCaml to
-combine such values. First, we have lists which are ordered collections of any
-number of elements of like type:
+combine such values. First, we have lists, which are ordered collections of any
+number of elements sharing the same type:
 
 ```ocaml
 # [];;
@@ -40,9 +50,7 @@ Next, we have tuples, which collect a fixed number of elements together:
 (true, 0., 0.45, 0.73, "french blue")
 ```
 
-We have records, which are like labeled tuples. They are defined by writing a
-type definition giving a name for the record, and names for each of its fields,
-and their types:
+We have records, which are like labeled tuples. In tuples, a field sits at some place: first, second, third, etc. In records, a field has a name; order is no longer relevant. Therefore, a record definition is a set of field name and type:
 
 ```ocaml
 # type point = {x : float; y : float};;
@@ -83,6 +91,7 @@ type person = { first_name : string; surname : string; mutable age : int; }
 val birthday : person -> unit = <fun>
 ```
 
+Please note: in the above example, we chose "colour" as the name of a type that holds RGB-values. If you wanted to, you could also use the US spelling "color."
 Another mutable compound data type is the fixed-length array which, just as a
 list, must contain elements of like type. However, its elements may be accessed
 in constant time:
@@ -98,8 +107,8 @@ val arr : int array = [|1; 2; 3|]
 - : int array = [|0; 2; 3|]
 ```
 
-In this tutorial, we will define our own compound data types, using the `type`
-keyword, and some of these built-in structures as building blocks.
+In this tutorial, we will define our own compound data types using the `type`
+keyword, and we'll use some of these built-in structures as building blocks.
 
 ## A Simple Custom Type
 
@@ -157,7 +166,7 @@ We can match on more than one case at a time too:
 val is_primary : colour -> bool = <fun>
 ```
 
-## Constructors with Data
+## Constructors With Data
 
 Each constructor in a data type can carry additional information with it. Let's
 extend our `colour` type to allow arbitrary RGB triples, each element begin a
@@ -252,9 +261,9 @@ val t : int tree =
 
 Notice that we give the type parameter `'a` before the type name (if there is
 more than one, we write `('a, 'b)` etc).  A `Leaf` holds no information,
-just like an empty list. A `Node` holds a left tree, a value of type `'a`
+just like an empty list. A `Node` holds a left tree, a value of type `'a`,
 and a right tree. In our example, we built an integer tree, but any type can be
-used. Now we can write recursive and polymorphic functions over these trees, by
+used. Now we can write recursive and polymorphic functions over these trees by
 pattern matching on our new constructors:
 
 ```ocaml env=trees
@@ -296,7 +305,7 @@ than a simple list of pairs. It is known as a *binary search tree*:
 val insert : 'a * 'b -> ('a * 'b) tree -> ('a * 'b) tree = <fun>
 ```
 
-Similar functions can be written to look up values in a dictionary, to convert
+Similar functions can be written to look up values in a dictionary to convert
 a list of pairs to or from a tree dictionary, and so on.
 
 ## Example: Options
@@ -321,13 +330,13 @@ Here is 42, stored inside an `option` using the data carrying constructor
 
 The `None` constructor means no data is availble.
 
-In other words a value of type `t option` for some type `t` represents:
+In other words, a value of type `t option` for some type `t` represents:
 
-* either a value `v` of type `t`, wrapped as `Some v`,
-* no such value, then `o` has the value `None`.
+* either a value `v` of type `t`, wrapped as `Some v`
+* no such value, then `o` has the value `None`
 
 The option type is very useful when lack of data is better handled as a special
-value (_i.e._ `None`) rather than an exception. It is the type-safe version of
+value (_i.e.,_ `None`) rather than an exception. It is the type-safe version of
 returning error values such as in C, for instance. Since no data has any special
 meaning, confusion between regular values and absence of value is impossible. In
 computer science, this type is called the [option
@@ -335,10 +344,10 @@ type](https://en.wikipedia.org/wiki/Option_type). OCaml has supported `option`
 since its inception.
 
 The function `Sys.getenv : string -> string` from the OCaml standard library
-allows to query the value of an environment variable, however, it throws an
+allows us to query the value of an environment variable; however, it throws an
 exception if the variable is not defined. On the other hand, the function
-`Sys.getenv_opt : string -> string opt` does the same except it returns `None`
-is the variable is not defined. Here is what may happen if we try to access an
+`Sys.getenv_opt : string -> string opt` does the same, except it returns `None`
+as the variable is not defined. Here is what may happen if we try to access an
 undefined environment variable:
 
 ```ocaml
@@ -350,7 +359,7 @@ Exception: Not_found.
 
 Using pattern-matching, it is possible to define functions, allowing users to easily
 work with option values. Here is `map` of type `('a -> 'b) -> 'a option -> 'b
-option`. It allows to apply a function to the value wrapped inside an `option`,
+option`. It allows us to apply a function to the value wrapped inside an `option`,
 if present:
 
 ```ocaml
@@ -359,7 +368,7 @@ if present:
   | Some v -> Some (f v);;
 val map : ('a -> 'b) -> 'a option -> 'b option = <fun>
 ```
-`map` takes two parameters, the function `f` to be applied and an option value.
+`map` takes two parameters: the function `f` to be applied and an option value.
 `map f o` returns `Some (f v)` if `o` is `Some v` and `None` if `o` is `None`.
 
 Here is `join` of type `'a option option -> 'a option`. It peels off one layer
@@ -375,7 +384,7 @@ val join : 'a option option -> 'a option = <fun>
 `join` takes a single `option option` parameter and returns an `option`
 parameter.
 
-The function `get` of type `'a option -> 'a` allows to access the value
+The function `get` of type `'a option -> 'a` allows access to the value
 contained inside an `option`.
 ```ocaml
 # let get = function
@@ -383,7 +392,7 @@ contained inside an `option`.
   | None -> raise (Invalid_argument "option is None");;
 val get : 'a option -> 'a = <fun>
 ```
-But beware `get o` throws an exception if `o` is `None`. To access the content
+But beware, `get o` throws an exception if `o` is `None`. To access the content
 of an `option` without risking to raise an exception, the function `value` of
 type `'a option -> 'a -> 'a` can be used
 ```ocaml
@@ -417,8 +426,8 @@ OCaml standard library in the [`Stdlib.Option`](https://ocaml.org/api/Option.htm
 supporting module.
 
 By the way, any type where `map` and `join` functions can be implemented, with
-similar behaviour, can be called a _monad_ and `option` is often used to
-introduce monads. But don't freak out, you absolutely don't need to know what a
+similar behaviour, can be called a _monad_, and `option` is often used to
+introduce monads. But don't freak out! You absolutely don't need to know what a
 monad is to use the `option` type.
 
 ## Example: Mathematical Expressions
@@ -434,7 +443,7 @@ type expr =
   | Minus of expr * expr       (* a - b *)
   | Times of expr * expr       (* a * b *)
   | Divide of expr * expr      (* a / b *)
-  | Var of string              (* "x", "y", etc. *)
+  | Var of string              (* "x", "y", etc. *);;
 ```
 
 The expression `n * (x + y)` would be written:
@@ -465,8 +474,8 @@ val to_string : expr -> string = <fun>
 val print_expr : expr -> unit = <fun>
 ```
 
-(The `^` operator concatenates strings). We separate the function into two so
-that our `to_string` function is usable in other contexts. Here's the
+(The `^` operator concatenates strings). We separate it into two functions, so
+our `to_string` function is usable in other contexts. Here's the
 `print_expr` function in action:
 
 ```ocaml env=expr
@@ -476,7 +485,7 @@ that our `to_string` function is usable in other contexts. Here's the
 ```
 
 We can write a function to multiply out expressions of the form `n * (x + y)`
-or `(x + y) * n` and for this we will use a nested pattern:
+or `(x + y) * n`, and for this we will use a nested pattern:
 
 ```ocaml env=expr
 # let rec multiply_out e =
@@ -509,19 +518,19 @@ Here it is in action:
 
 How does the `multiply_out` function work? The key is in the first two
 patterns. The first pattern is `Times (e1, Plus (e2, e3))` which matches
-expressions of the form `e1 * (e2 + e3)`. Now look at the right hand side of
-this first pattern match, and convince yourself that it is the equivalent of
+expressions of the form `e1 * (e2 + e3)`. Now look at the right-hand side of
+this first pattern match and convince yourself that it is the equivalent of
 `(e1 * e2) + (e1 * e3)`. The second pattern does the same thing, except for
 expressions of the form `(e1 + e2) * e3`.
 
-The remaining patterns don't change the form of the expression, but they
+The remaining patterns don't change the expressions's form, but they
 crucially *do* call the `multiply_out` function recursively on their
 subexpressions. This ensures that all subexpressions within the expression get
 multiplied out too (if you only wanted to multiply out the very top level of an
 expression, then you could replace all the remaining patterns with a simple `e
 -> e` rule).
 
-Can we do the reverse (i.e. factorizing out common subexpressions)? We can!
+Can we do the reverse (i.e., factorizing out common subexpressions)? We can!
 (But it's a bit more complicated). The following version only works for the top
 level expression. You could certainly extend it to cope with all levels of an
 expression and more complex cases:
@@ -545,27 +554,19 @@ what are known as *guards* to each pattern match. A guard is the conditional
 which follows the `when`, and it means that the pattern match only happens if
 the pattern matches *and* the condition in the `when`-clause is satisfied.
 
-<!-- $MDX skip -->
-```ocaml
-match value with
-| pattern [ when condition ] -> result
-| pattern [ when condition ] -> result
-  ...
-```
+The second feature is the `=` operator, which tests for "structural equality"
+between two expressions. That means it goes recursively into each expression,
+checking they're exactly the same at all levels.
 
-The second feature is the `=` operator which tests for "structural equality"
-between two expressions. That means it goes recursively into each expression
-checking they're exactly the same at all levels down.
-
-Another feature which is useful when we build more complicated nested patterns
+Another useful feature for building more complicated nested patterns
 is the `as` keyword, which can be used to name part of an expression. For
 example:
 
 <!-- $MDX skip -->
 ```ocaml
-Name ("/DeviceGray" | "/DeviceRGB" | "/DeviceCMYK") as n -> n
+| Name ("/DeviceGray" | "/DeviceRGB" | "/DeviceCMYK") as n -> n
 
-Node (l, ((k, _) as pair), r) when k = k' -> Some pair
+| Node (l, ((k, _) as pair), r) when k = k' -> Some pair
 ```
 
 ## Mutually Recursive Data Types
@@ -576,17 +577,17 @@ Data types may be mutually-recursive when declared with `and`:
 type t = A | B of t' and t' = C | D of t
 ```
 
-One common use for mutually-recursive data types is to *decorate* a tree, by
+One common use for mutually-recursive data types is to *decorate* a tree by
 adding information to each node using mutually-recursive types, one of which is
 a tuple or record. For example:
 
 ```ocaml
-type t' = Int of int | Add of t * t
-and t = {annotation : string; data : t'}
+# type t' = Int of int | Add of t * t
+  and t = {annotation : string; data : t'}
 ```
 
 Values of such mutually-recursive data type are manipulated by accompanying
-mutually-recursive functions:
+mutually-recursive functions. Add the rest of this code to the above block:
 
 ```ocaml
 # let rec sum_t' = function
@@ -604,9 +605,9 @@ val sum_t : t -> int = <fun>
 There is a difference between `RGB of float * float * float` and
 `RGB of (float * float * float)`.
 The first is a constructor with three pieces of data
-associated with it, the second is a constructor with one tuple associated with
+associated with it, and the second is a constructor with one tuple associated with
 it. There are two ways this matters: the memory layout differs between the two
-(a tuple is an extra indirection), and the ability to create or match using a
+(a tuple is an extra indirection) and the ability to create or match using a
 tuple:
 
 ```ocaml
@@ -623,7 +624,6 @@ val pair : int * int = (1, 2)
 - : t2 = T2 (1, 2)
 
 # T pair;;
-Line 1, characters 1-7:
 Error: The constructor T expects 2 argument(s),
        but is applied here to 1 argument(s)
 
@@ -636,7 +636,7 @@ Error: The constructor T expects 2 argument(s),
        but is applied here to 1 argument(s)
 ```
 
-Note, however, that OCaml allows us to use the always-matching `_` in either
+Please note, however, that OCaml allows us to use the always-matching `_` in either
 version:
 
 ```ocaml
@@ -649,9 +649,9 @@ version:
 
 ## Types and Modules
 
-Often, a module will provide a single type and operations on that type. For
+Often, a module will provide a single type and one or more operations on that type. For
 example, a module for a file format like PNG might have the following `png.mli`
-interface:
+interface. Below is an example of how to structure the code:
 
 <!-- $MDX skip -->
 ```ocaml
@@ -669,5 +669,5 @@ val rotate : float -> t -> t
 ```
 
 Traditionally, we name the type `t`. In the program using this library, it
-would then be `Png.t` which is shorter, reads better than `Png.png`, and avoids
+would then be `Png.t`, which is shorter, reads better than `Png.png`, and avoids
 confusion if the library also defines other types.
