@@ -43,24 +43,20 @@ let render
     <ul class="hidden lg:flex items-center space-x-4 xl:space-x-8">
       <li class="relative">
         <form
-          <%s! Search.package_autocomplete_form_attributes_for_keyboard_controls %>
+          <%s! Packages_autocomplete_fragment.form_attributes %>
           action="/packages/search" method="GET">
           <div class="header__search relative flex items-center justify-center">
             <input type="search" name="q" class="header__search__input focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 py-1 lg:w-56 xl:w-80"
               autocomplete="off"
               placeholder="Search OCaml Packages"
-              <%s! Search.package_autocomplete_input_attributes_for_keyboard_controls %>
-              hx-get="/packages/autocomplete"
-              hx-params="q"
-              hx-trigger="keyup changed delay:500ms, search"
-              hx-target="#search-results"
-              hx-indicator=".htmx-indicator">
+              <%s! Packages_autocomplete_fragment.input_attributes ~target_sel:"#header-search-results" ~indicator_sel:"#header-search-indicator" %>
+              >
             <button aria-label="search" class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
               <%s! Icons.magnifying_glass "w-6 h-6 text-white" %>
             </button>
             <div class="header__search__dropdown z-10 absolute rounded-b-md w-full top-0 mt-10 p-2 bg-white border border-primary-600">
-              <span class="htmx-indicator mx-2">Searching...</span>
-              <div id="search-results"></div>
+              <span id="header-search-indicator" class="mx-2">Searching...</span>
+              <div id="header-search-results"></div>
               <span class="pl-2 font-semibold">Or go to:</span>
               <a class="flex py-2 px-4 gap-4 hover:bg-primary-100 font-semibold hover:font-semibold text-primary-600" href="<%s Url.api %>">
                 Standard Library API

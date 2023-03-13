@@ -1,3 +1,41 @@
+(*
+  Package autocomplete works like this:
+  1. user types search terms into the search input
+  2. htmx fetches the fragment below (see function [render])
+     and inserts it into the HTMLElement selected by [target_sel].
+     While htmx's HTTP request is in progress, the HTMLElement
+     with selected by [indicator_sel] is shown.
+  3. user uses arrow keys to navigate the top 5 search results,
+     which present quick access to both the package overview page
+     and the documentation.
+
+  Note:
+  - when there are at most five search results, pressing the
+    Enter key in the input field sends you to the overview
+    page of the first search results
+ *)
+
+
+(* HTML <form> tag with these attributes wraps both the input element
+   and the search results HTML fragment (see function [render]). *)
+let form_attributes =
+  {js| x-data="{ row: null, col: 0, max: 0, total: 0 }"
+       @submit="if (row === null && total <= 5) row = 0; if (row !== null) { window.location = document.getElementById('package-autocomplete-'+row+'-'+col).getAttribute('href'); $event.stopPropagation(); $event.preventDefault(); return false }" |js}
+
+let input_attributes ~target_sel ~indicator_sel =
+  {js|  @keyup.down="if (row === null) { row = 0; col = 0; } else { row +=1; if (row > max) { row = max } }"
+        @keyup.up="if (row !== null) { row -=1; if (row < 0) { row = null } }"
+        @keyup.right="col = (col + 1)%2"
+        @keyup.left="col = (col + 1)%2"
+        :aria-activedescendant="row !== null ? 'package-autocomplete-'+row+'-'+col : null"
+
+        hx-get="/packages/autocomplete"
+        hx-params="q"
+        hx-trigger="keyup changed delay:500ms, search"
+        hx-target="|js} ^ target_sel ^ {js|"
+        hx-indicator="|js} ^ indicator_sel ^ {js|"
+        |js}
+
 let render
 ~search
 ~total
@@ -16,7 +54,7 @@ let render
   </p>
   <% ); %>
 
-  <ol class="flex flex-col" x-init="row = null; col = 0">
+  <ol class="flex flex-col" x-init="row = null; col = 0; total = <%s string_of_int total %>">
   <% packages |> List.iteri (fun i (package : Package_intf.package) -> %>
     <li class="flex flex-row">
       <a
