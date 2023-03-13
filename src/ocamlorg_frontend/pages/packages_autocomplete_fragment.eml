@@ -40,7 +40,7 @@ let render
     </li>
   <% ); %>
   </ol>
-  <% if List.length packages > 0 then ( %>
+  <% if total > 5 then ( %>
   <a class="font-semibold hover:bg-primary-100 px-2 py-2 flex text-right" href="<%s Url.packages_search %>?q=<%s Dream.to_percent_encoded search %>">see more...</a>
   <% ); %>
 </div>
