@@ -13,40 +13,42 @@ Layout.render
     </div>
 </div>
 
-<div>
-    <p>This is the past Outreachy Internship Project Page </p>
+<div class="container mx-auto px-4 flex items-center">
     <div class="">
-            <% metadata |> List.iter (fun (rounds : Ood.Outreachy.t) -> %>
-            <div>
-                <div id="name">
-                    <h2><%s rounds.name %></h2>
-                </div>
+        <% metadata |> List.iter (fun (rounds : Ood.Outreachy.t) -> %>
+        <div class="">
+            <div id="name" class="block bg-gray-300 rounded-lg p-6 text-center my-2">
+                <h2 class="font-bold"><%s rounds.name %></h2>
+            </div>
+            <div class="flex flex-wrap flex-col md:flex-row">
                 <% rounds.projects |> List.iter (fun (project : Ood.Outreachy.project) -> %>
-                <div class="container mt-4 mx-auto">
-                    <div class="grid grid-cols-3 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3">
-                        <div class="">
-                            <div id="projects" class="">     
-                                <div class="card m-2 cursor-pointer rounded-lg bg-white hover:shadow-md hover:border-opacity-0 transform hover:-translate-y-1 transition-all duration-200">
-                                    <div class="">
-                                        <p>Project Title: <%s project.title %></p>
-                                        <p>Description: <%s project.description %></p>
-                                        <p>Mentee: <%s project.mentee %></p>
-                                        <% (match project.blog with None -> () | Some blog -> %>
-                                        <div>
-                                            Blog: <a href="<%s blog %>" target="_blank"><%s blog %></a> 
-                                        </div>
-                                        <% ); %>
-                                        <p>Source: <%s project.source %></p>
-                                        <p>Mentors: <%s Fmt.(str "%a" (list ~sep:comma string) project.mentors) %></p>
-                                    </div>
+                    <div class="w-full md:w-1/3 p-6">
+                        <div id="projects" class="rounded-lg items-center max-w-sm border m-6">
+                            <div class="p-6">                 
+                                <p>Project Title: <%s project.title %></p>
+                                <p>Description: <%s project.description %></p>
+                                <p>Mentee: <%s project.mentee %></p>
+                                <p>Mentors: <%s Fmt.(str "%a" (list ~sep:comma string) project.mentors) %></p>
+                                <% (match project.blog with None -> () | Some blog -> %>
+                                <div class"flex-wrap">                        
+                                <a href="<%s blog %>" target="_blank">Blog</a> 
                                 </div>
+                                <% ); %>
+                                <% (match project.video with None -> () | Some video -> %>
+                                <div class"flex-wrap">                        
+                                <a href="<%s video %>" target="_blank">Video</a> 
+                                </div>
+                                <% ); %>
+                                <p>
+                                    <a href="<%s project.source %>" target="_blank">Source</a> 
+                                </p>    
                             </div>
                         </div>
                     </div>
-                </div>
+                <% ); %>
             </div>
             <br>
-            <% ); %>
-            <% ); %>
+        </div>   
+        <% ); %>
     </div>
 </div>
