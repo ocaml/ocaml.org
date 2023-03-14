@@ -50,6 +50,7 @@ module.exports = {
         background: {
           default: "#FAF8F3",
           beige: "#FAF8F3",
+          "mid-blue": "#0C3B8C", // background for cursor highlighting in keyboard navigable areas (e.g. package search dropdown)
           "dark-blue": "#0e1531", // one of the colors from the blue patterned background used in various parts of the site
           "light-blue": "rgb(221, 232, 251)",
         },

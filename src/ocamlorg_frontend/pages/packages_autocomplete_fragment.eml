@@ -62,8 +62,8 @@ let render
         id="package-autocomplete-<%s string_of_int i %>-0"
         :aria-selected="row == <%s string_of_int i %> && col == 0"
         href="<%s Url.package_with_version package.name %>"
-        :class='{ "border-primary-600": row == <%s string_of_int i %> && col == 0}'
-        class="border flex-grow px-2 py-2 leading-6 font-semibold hover:bg-primary-100 text-primary-600 inline-block"
+        :class='{ "bg-background-mid-blue text-white": row == <%s string_of_int i %> && col == 0, "text-primary-600": row != <%s string_of_int i %> || col != 0}'
+        class="flex-grow px-2 py-2 leading-6 font-semibold hover:bg-primary-100 inline-block"
       >
         <%s! Search.highlight_search_terms ~class_:"bg-background-light-blue text-gray-800 font-normal" ~search package.name %>
       </a>
@@ -71,8 +71,8 @@ let render
         id="package-autocomplete-<%s string_of_int i %>-1"
         :aria-selected="row == <%s string_of_int i %> && col == 1"
         href="<%s Url.package_doc package.name %>"
-        :class='{ "border-primary-600": row == <%s string_of_int i %> && col == 1}'
-        class="border justify-self-end px-2 py-2 leading-6 font-semibold hover:bg-primary-100">
+        :class='{ "bg-background-mid-blue text-white": row == <%s string_of_int i %> && col == 1}'
+        class="justify-self-end px-2 py-2 leading-6 font-semibold hover:bg-primary-100">
         docs
       </a>
     </li>
