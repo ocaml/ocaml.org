@@ -20,6 +20,10 @@ let platform _req =
   let tutorials = Ood.Tutorial.all in
   Dream.html (Ocamlorg_frontend.platform ~tutorials tools)
 
+let _outreachy _req = 
+  let outreachy = Ood.Outreachy.all in
+  Dream.html (Ocamlorg_frontend.outreachy outreachy) 
+
 let community _req =
   let workshops = Ood.Workshop.all in
   let meetups = Ood.Meetup.all in
@@ -190,10 +194,6 @@ let jobs req =
     |> List.sort_uniq String.compare
   in
   Dream.html (Ocamlorg_frontend.jobs ?location ~locations jobs)
-
-let _outreachy (_req : Dream.request) = 
-  let outreachy = Ood.Outreachy.all in
-  Dream.html (Ocamlorg_frontend.outreachy outreachy) 
 
 let page canonical (_req : Dream.request) =
   let page = Ood.Page.get canonical in

@@ -17,31 +17,36 @@ Layout.render
     <div class="">
         <% metadata |> List.iter (fun (rounds : Ood.Outreachy.t) -> %>
         <div class="">
-            <div id="name" class="block bg-gray-300 rounded-lg p-6 text-center my-2">
+            <div id="name" class="block  border-b border-[#EF8316] p-6 text-left my-2">
                 <h2 class="font-bold"><%s rounds.name %></h2>
             </div>
             <div class="flex flex-wrap flex-col md:flex-row">
                 <% rounds.projects |> List.iter (fun (project : Ood.Outreachy.project) -> %>
                     <div class="w-full md:w-1/3 p-6">
-                        <div id="projects" class="rounded-lg items-center max-w-sm border m-6">
-                            <div class="p-6">                 
-                                <p>Project Title: <%s project.title %></p>
-                                <p>Description: <%s project.description %></p>
-                                <p>Mentee: <%s project.mentee %></p>
-                                <p>Mentors: <%s Fmt.(str "%a" (list ~sep:comma string) project.mentors) %></p>
+                        <div id="projects" class="rounded-2xl items-center max-w-sm border border-gray-300 m-6 transition ease-in-out hover:scale-110">
+                            <div class="p-6 flex flex-col space-y-2">                 
+                                <h1 class="text-lg text-black font-semibold"><%s project.title %></h1>
+                                <p >Mentee: <span class='text-gray-800 italic'><%s project.mentee %></span></p>
+                                <p>Mentor(s): <span class='text-gray-800 italic'><%s Fmt.(str "%a" (list ~sep:comma string) project.mentors) %></></p>
+                                <div class='flex flex-row items-center space-x-2 text-[#EF8316] font-semibold'>
                                 <% (match project.blog with None -> () | Some blog -> %>
                                 <div class"flex-wrap">                        
                                 <a href="<%s blog %>" target="_blank">Blog</a> 
                                 </div>
                                 <% ); %>
                                 <% (match project.video with None -> () | Some video -> %>
-                                <div class"flex-wrap">                        
+                                <div>                        
                                 <a href="<%s video %>" target="_blank">Video</a> 
                                 </div>
                                 <% ); %>
                                 <p>
                                     <a href="<%s project.source %>" target="_blank">Source</a> 
-                                </p>    
+                                </p> 
+                                <p class='flex-grow'></p>
+                                <p>
+                                    <a href='#'>See more</a>
+                                </p>
+                                </div>   
                             </div>
                         </div>
                     </div>
