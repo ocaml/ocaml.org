@@ -142,16 +142,18 @@ let maybe_update t =
   match t.opam_repository_commit with
   | Some v when v = commit -> Lwt.return ()
   | _ ->
+      Logs.info (fun m -> m "Update server state");
       let+ () = update ~commit t in
       save_state t
 
 let poll_for_opam_packages ~polling v =
   let open Lwt.Syntax in
-  let* () = Opam_repository.clone () in
   let rec updater () =
+    let* () = Lwt_unix.sleep (float_of_int polling) in
     let* () =
       Lwt.catch
         (fun () ->
+          Logs.info (fun m -> m "Opam repo: git pull");
           let* () = Opam_repository.pull () in
           maybe_update v)
         (fun exn ->
@@ -160,7 +162,6 @@ let poll_for_opam_packages ~polling v =
                 (Printexc.to_string exn));
           Lwt.return ())
     in
-    let* () = Lwt_unix.sleep (float_of_int polling) in
     updater ()
   in
   updater ()
@@ -168,7 +169,9 @@ let poll_for_opam_packages ~polling v =
 let init ?(disable_polling = false) () =
   let state = try_load_state () in
   if Sys.file_exists (Fpath.to_string Config.opam_repository_path) then
-    Lwt.async (fun () -> maybe_update state);
+    Lwt.async (fun () -> maybe_update state)
+  else
+    Lwt.async (fun () -> Opam_repository.clone ());
   if disable_polling then ()
   else
     Lwt.async (fun () ->
