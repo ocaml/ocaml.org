@@ -356,7 +356,8 @@ let packages_autocomplete_fragment t req =
       let top_5 = results |> List.take 5 in
       let search = Dream.from_percent_encoded search in
       Dream.html
-        (Ocamlorg_frontend.packages_autocomplete_fragment ~search ~total:(List.length results) top_5)
+        (Ocamlorg_frontend.packages_autocomplete_fragment ~search
+           ~total:(List.length results) top_5)
   | _ -> Dream.html ""
 
 let package _t req =
