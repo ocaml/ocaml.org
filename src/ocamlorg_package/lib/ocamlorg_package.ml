@@ -170,7 +170,7 @@ let init ?(disable_polling = false) () =
   let state = try_load_state () in
   if Sys.file_exists (Fpath.to_string Config.opam_repository_path) then
     Lwt.async (fun () -> maybe_update state)
-  else Lwt.async (fun () -> Opam_repository.clone ());
+  else Lwt.async Opam_repository.clone;
   if disable_polling then ()
   else
     Lwt.async (fun () ->
