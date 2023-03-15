@@ -1,31 +1,71 @@
+(* HTML <form> tag with these attributes wraps both the input element
+   and the search results HTML fragment (see function [render]). *)
+let form_attributes =
+  {js| x-data="{ row: null, col: 0, max: 0, total: 0 }"
+       @submit="if (row === null && total <= 5) row = 0; if (row !== null) { window.location = document.getElementById('package-autocomplete-'+row+'-'+col).getAttribute('href'); $event.stopPropagation(); $event.preventDefault(); return false }" |js}
+
+(* When the user types, htmx fetches the fragment rendered by
+   the function [render] below, and and inserts it into the
+   HTMLElement selected by [target_sel].
+   While htmx's HTTP request is in progress, the HTMLElement
+   with selected by [indicator_sel] is shown. *)
+let input_attributes ~target_sel ~indicator_sel =
+  {js|  @keyup.down="if (row === null) { row = 0; col = 0; } else { row +=1; if (row > max) { row = max } }"
+        @keyup.up="if (row !== null) { row -=1; if (row < 0) { row = null } }"
+        @keyup.right="if (col < 1) col++"
+        @keyup.left="if (col >= 1) col--"
+        :aria-activedescendant="row !== null ? 'package-autocomplete-'+row+'-'+col : null"
+
+        hx-get="/packages/autocomplete"
+        hx-params="q"
+        hx-trigger="keyup changed delay:500ms, search"
+        hx-target="|js} ^ target_sel ^ {js|"
+        hx-indicator="|js} ^ indicator_sel ^ {js|"
+        |js}
+
 let render
 ~search
+~total
 (packages : Package_intf.package list)
 =
 <div class="mx-2 mb-2">
   <span class="font-semibold">Packages:</span>
-  <% if List.length packages = 0 then ( %>
+  <% if total = 0 then ( %>
   <p class="break-words">
     We didn't find a match for "<%s search %>".
   </p>
+  <% ) else ( %>
+  <p class="break-words">
+    <%s (if total = List.length packages then "" else "Showing top " ^ string_of_int (List.length packages) ^ " out of ")
+    ^ string_of_int total ^ (if total = 1 then " search result" else " search results") %>:
+  </p>
   <% ); %>
 
-  <ol class="flex flex-col">
-  <% packages |> List.iter (fun (package : Package_intf.package) -> %>
+  <ol class="flex flex-col" x-init="row = null; col = 0; total = <%s string_of_int total %>">
+  <% packages |> List.iteri (fun i (package : Package_intf.package) -> %>
     <li class="flex flex-row">
       <a
+        x-init="max=<%s string_of_int i %>"
+        id="package-autocomplete-<%s string_of_int i %>-0"
+        :aria-selected="row == <%s string_of_int i %> && col == 0"
         href="<%s Url.package_with_version package.name %>"
-        class="flex-grow px-2 py-2 leading-6 font-semibold hover:bg-primary-100 text-primary-600 inline-block"
+        :class='{ "bg-background-mid-blue text-white": row == <%s string_of_int i %> && col == 0, "text-primary-600": row != <%s string_of_int i %> || col != 0}'
+        class="flex-grow px-2 py-2 leading-6 font-semibold hover:bg-primary-100 inline-block"
       >
         <%s! Search.highlight_search_terms ~class_:"bg-background-light-blue text-gray-800 font-normal" ~search package.name %>
       </a>
-      <a class="justify-self-end px-2 py-2 leading-6 font-semibold hover:bg-primary-100" href="<%s Url.package_doc package.name %>">
+      <a 
+        id="package-autocomplete-<%s string_of_int i %>-1"
+        :aria-selected="row == <%s string_of_int i %> && col == 1"
+        href="<%s Url.package_doc package.name %>"
+        :class='{ "bg-background-mid-blue text-white": row == <%s string_of_int i %> && col == 1}'
+        class="justify-self-end px-2 py-2 leading-6 font-semibold hover:bg-primary-100">
         docs
       </a>
     </li>
   <% ); %>
   </ol>
-  <% if List.length packages > 0 then ( %>
+  <% if total > 5 then ( %>
   <a class="font-semibold hover:bg-primary-100 px-2 py-2 flex text-right" href="<%s Url.packages_search %>?q=<%s Dream.to_percent_encoded search %>">see more...</a>
   <% ); %>
 </div>

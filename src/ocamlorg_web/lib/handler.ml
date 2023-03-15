@@ -352,10 +352,12 @@ let packages_autocomplete_fragment t req =
       let packages =
         Ocamlorg_package.search_package ~sort_by_popularity:true t search
       in
-      let results = List.map (package_meta t) packages |> List.take 5 in
+      let results = List.map (package_meta t) packages in
+      let top_5 = results |> List.take 5 in
       let search = Dream.from_percent_encoded search in
       Dream.html
-        (Ocamlorg_frontend.packages_autocomplete_fragment ~search results)
+        (Ocamlorg_frontend.packages_autocomplete_fragment ~search
+           ~total:(List.length results) top_5)
   | _ -> Dream.html ""
 
 let package _t req =
