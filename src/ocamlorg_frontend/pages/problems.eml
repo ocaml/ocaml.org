@@ -63,7 +63,7 @@ Learn_layout.render
     <div x-data="{statement: true}" id="<%s" problem.number %>
       >
       <div class="flex space-y-4 lg:space-y-0 flex-col lg:flex-row lg:justify-between">
-        <span aria-hidden="true" class="danger invisible lg:visible"><%s danger problem.difficulty %></span>
+        <span aria-hidden="true" class="danger invisible lg:visible" title="<%s Ood.Problem.difficulty_to_string problem.difficulty ^ " difficulty" %>"><%s danger problem.difficulty %></span>
         <h4 class="font-bold text-body-600">
           <%s problem.title %>
           <span aria-hidden="true" class="ml-2 visible lg:invisible" > <%s danger problem.difficulty %></span>
