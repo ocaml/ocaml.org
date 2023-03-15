@@ -1,8 +1,6 @@
 open Ocamlorg.Import
 module Name = OpamPackage.Name
-module Name_map = Map.Make (Name)
 module Version = OpamPackage.Version
-module Version_map = Map.Make (Version)
 module Info = Info
 module Packages_stats = Packages_stats
 
@@ -386,7 +384,7 @@ let fetch_module_map_from_url ~package_url =
       Module_map.of_yojson json
   | Error _ ->
       Logs.info (fun m -> m "Failed to fetch module map at %s" url);
-      { Module_map.libraries = Module_map.String_map.empty }
+      { Module_map.libraries = String.Map.empty }
 
 (* FIXME: remove fallback when it's no longer needed *)
 let old_documentation_page ~kind t path =

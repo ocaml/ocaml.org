@@ -1,4 +1,4 @@
-module String_map = Map.Make (String)
+open Ocamlorg.Import
 
 type kind =
   | Module
@@ -23,7 +23,7 @@ module Module = struct
   type t = {
     name : string;
     kind : kind;
-    mutable submodules : t String_map.t;
+    mutable submodules : t String.Map.t;
     parent : t option;
   }
 
@@ -45,10 +45,10 @@ end
 type library = {
   name : string;
   dependencies : string list;
-  modules : Module.t String_map.t;
+  modules : Module.t String.Map.t;
 }
 
-type t = { libraries : library String_map.t }
+type t = { libraries : library String.Map.t }
 
 open Yojson.Safe.Util
 
@@ -73,13 +73,13 @@ let kind_of_yojson v =
 let rec module_of_yojson ?parent v : Module.t =
   let name = member "name" v |> to_string in
   let kind = member "kind" v |> kind_of_yojson in
-  let module' = { Module.name; kind; parent; submodules = String_map.empty } in
+  let module' = { Module.name; kind; parent; submodules = String.Map.empty } in
   let submodules =
     member "submodules" v |> to_list |> List.to_seq
     |> Seq.map (fun v ->
            let submodule = module_of_yojson ~parent:module' v in
            (submodule.name, submodule))
-    |> String_map.of_seq
+    |> String.Map.of_seq
   in
   module'.submodules <- submodules;
   module'
@@ -91,7 +91,7 @@ let library_of_yojson v =
     |> Seq.map (fun v ->
            let module' = module_of_yojson v in
            (module'.name, module'))
-    |> String_map.of_seq
+    |> String.Map.of_seq
   in
   let dependencies =
     match member "dependencies" v with
@@ -106,5 +106,5 @@ let of_yojson json =
   |> Seq.map (fun v ->
          let lib = library_of_yojson v in
          (lib.name, lib))
-  |> String_map.of_seq
+  |> String.Map.of_seq
   |> fun libraries -> { libraries }
