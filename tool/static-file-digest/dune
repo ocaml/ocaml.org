@@ -7,6 +7,4 @@
 (executable
  (name main)
  (modules main)
- (libraries
-  cmdliner
-  digest_map))
+ (libraries cmdliner digest_map))
