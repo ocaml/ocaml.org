@@ -12,8 +12,8 @@ let form_attributes =
 let input_attributes ~target_sel ~indicator_sel =
   {js|  @keyup.down="if (row === null) { row = 0; col = 0; } else { row +=1; if (row > max) { row = max } }"
         @keyup.up="if (row !== null) { row -=1; if (row < 0) { row = null } }"
-        @keyup.right="col = (col + 1)%2"
-        @keyup.left="col = (col + 1)%2"
+        @keyup.right="if (col < 1) col++"
+        @keyup.left="if (col >= 1) col--"
         :aria-activedescendant="row !== null ? 'package-autocomplete-'+row+'-'+col : null"
 
         hx-get="/packages/autocomplete"
