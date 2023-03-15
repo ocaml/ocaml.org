@@ -1,13 +1,15 @@
-type kind = [ `Compiler ] [@@deriving show { with_path = false }]
+module Kind = struct
+  type t = [ `Compiler ] [@@deriving show { with_path = false }]
 
-let kind_of_string = function
-  | "compiler" -> `Compiler
-  | _ -> raise (Exn.Decode_error "Unknown release kind")
+  let of_string = function
+    | "compiler" -> Ok `Compiler
+    | s -> Error (`Msg ("Unknown release type: " ^ s))
 
-let kind_to_string = function `Compiler -> "compiler"
+  let of_yaml = Utils.of_yaml of_string "Expected a string for release type"
+end
 
 type metadata = {
-  kind : string;
+  kind : Kind.t;
   version : string;
   date : string;
   intro : string;
@@ -16,7 +18,7 @@ type metadata = {
 [@@deriving of_yaml]
 
 type t = {
-  kind : kind;
+  kind : Kind.t;
   version : string;
   date : string;
   intro_md : string;
@@ -27,7 +29,7 @@ type t = {
   body_html : string;
 }
 [@@deriving
-  stable_record ~version:metadata ~modify:[ kind ] ~add:[ intro; highlights ]
+  stable_record ~version:metadata ~add:[ intro; highlights ]
     ~remove:
       [
         intro_md; intro_html; highlights_md; highlights_html; body_md; body_html;
@@ -35,7 +37,7 @@ type t = {
     show { with_path = false }]
 
 let of_metadata m =
-  of_metadata m ~modify_kind:kind_of_string ~intro_md:m.intro
+  of_metadata m ~intro_md:m.intro
     ~intro_html:(Omd.of_string m.intro |> Omd.to_html)
     ~highlights_md:m.highlights
     ~highlights_html:

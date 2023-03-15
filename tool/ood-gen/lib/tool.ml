@@ -1,13 +1,3 @@
-type metadata = {
-  name : string;
-  source : string;
-  license : string;
-  synopsis : string;
-  description : string;
-  lifecycle : string;
-}
-[@@deriving of_yaml]
-
 module Lifecycle = struct
   type t = [ `Incubate | `Active | `Sustain | `Deprecate ]
   [@@deriving show { with_path = false }]
@@ -18,7 +8,19 @@ module Lifecycle = struct
     | "sustain" -> Ok `Sustain
     | "deprecate" -> Ok `Deprecate
     | s -> Error (`Msg ("Unknown lifecycle type: " ^ s))
+
+  let of_yaml = Utils.of_yaml of_string "Expected a string for lifecycle type"
 end
+
+type metadata = {
+  name : string;
+  source : string;
+  license : string;
+  synopsis : string;
+  description : string;
+  lifecycle : Lifecycle.t;
+}
+[@@deriving of_yaml]
 
 type t = {
   name : string;
@@ -30,14 +32,12 @@ type t = {
   lifecycle : Lifecycle.t;
 }
 [@@deriving
-  stable_record ~version:metadata ~modify:[ lifecycle; description ]
-    ~remove:[ slug ],
+  stable_record ~version:metadata ~modify:[ description ] ~remove:[ slug ],
     show { with_path = false }]
 
 let of_metadata m =
-  of_metadata m ~slug:(Utils.slugify m.name)
-    ~modify_lifecycle:(Utils.decode_or_raise Lifecycle.of_string)
-    ~modify_description:(fun v -> Omd.of_string v |> Omd.to_html)
+  of_metadata m ~slug:(Utils.slugify m.name) ~modify_description:(fun v ->
+      Omd.of_string v |> Omd.to_html)
 
 let decode s =
   let yaml = Utils.decode_or_raise Yaml.of_string s in

@@ -1,24 +1,20 @@
-type role = [ `Chair | `Co_chair ] [@@deriving show { with_path = false }]
+module Role = struct
+  type t = [ `Chair | `Co_chair ] [@@deriving show { with_path = false }]
 
-let role_to_string = function `Chair -> "chair" | `Co_chair -> "co-chair"
+  let of_string = function
+    | "chair" -> Ok `Chair
+    | "co-chair" -> Ok `Co_chair
+    | s -> Error (`Msg ("Unknown role type: " ^ s))
 
-let role_of_string = function
-  | "chair" -> Ok `Chair
-  | "co-chair" -> Ok `Co_chair
-  | _ -> Error (`Msg "Unknown role type")
-
-let role_of_yaml = function
-  | `String s -> Result.bind (role_of_string s) (fun t -> Ok t)
-  | _ -> Error (`Msg "Expected a string for a role type")
-
-let role_to_yaml t = `String (role_to_string t)
+  let of_yaml = Utils.of_yaml of_string "Expected a string for role type"
+end
 
 type important_date = { date : string; info : string }
 [@@deriving of_yaml, show { with_path = false }]
 
 type committee_member = {
   name : string;
-  role : role option;
+  role : Role.t option;
   affiliation : string option;
   picture : string option;
 }
