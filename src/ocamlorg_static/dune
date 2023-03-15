@@ -30,13 +30,9 @@
 (rule
  (target playground_digests.ml)
  (deps
+  %{workspace_root}/tool/static-file-digest/main.exe
   (source_tree %{workspace_root}/playground/asset))
  (action
   (with-stdout-to
    %{null}
-   (run
-    %{bin:static-file-digest}
-    %{workspace_root}/playground/asset/
-    -s
-    -o
-    %{target}))))
+   (run %{deps} %{workspace_root}/playground/asset/ -s -o %{target}))))

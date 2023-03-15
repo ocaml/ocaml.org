@@ -1,0 +1,12 @@
+(library
+ (name digest_map)
+ (wrapped false)
+ (modules digest_map)
+ (flags :standard -safe-string))
+
+(executable
+ (name main)
+ (modules main)
+ (libraries
+  cmdliner
+  digest_map))

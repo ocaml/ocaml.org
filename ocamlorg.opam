@@ -24,7 +24,6 @@ depends: [
   "cohttp-lwt-unix"
   "bos"
   "crunch"
-  "static-file-digest"
   "mirage-kv-mem"
   "dream" {>= "1.0.0~alpha3"}
   "dream-accept"
@@ -82,5 +81,4 @@ build: [
 dev-repo: "git+https://github.com/ocaml/ocaml.org.git"
 pin-depends: [
   ["tailwindcss.dev" "git+https://github.com/tmattio/opam-tailwindcss#7ef5bebbf48958370051b2368a4dd57b69627cf6"]
-  ["static-file-digest.dev" "git+https://github.com/sabine/static-file-digest#9df8033b4c19cf3a91f6dbc402ec961966c29921" ]
 ]

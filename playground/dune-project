@@ -40,5 +40,4 @@
   code-mirror
   merlin-js
   rpclib
-  rpclib-lwt
-  static-file-digest))
+  rpclib-lwt))
