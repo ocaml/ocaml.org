@@ -149,6 +149,17 @@ body {
   @apply underline;
 }
 
+.prose span.danger {
+  position: absolute;
+  font-weight: 600;
+  color: #111827;
+  text-align: center;
+  width: 3em;
+  margin-left: -2.9em;
+  margin-top: 0;
+  font-size: 18px;
+}
+
 .sidebar a.active {
   @apply text-primary-600 bg-primary-100;
 }
