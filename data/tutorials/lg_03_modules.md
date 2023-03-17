@@ -314,7 +314,7 @@ let hello_goodbye () =
   goodbye ()
 ```
 
-From another file, it is clear that we now have two levels of modules.  We can
+From another file, it is clear that we now have two levels of modules. We can
 write:
 
 <!-- $MDX skip -->
@@ -364,14 +364,14 @@ module Hello : Hello_type = struct
 end
 ```
 
-`Hello_type` is a named module type, and can be reused to define other module
+`Hello_type` is a named module type and can be reused to define other module
 interfaces.
 
 ## Practical Manipulation of Modules
 
 ### Displaying the Interface of a Module
 
-You can use the `ocaml` toplevel to visualize the contents of an existing
+You can use the OCaml toplevel to visualise the contents of an existing
 module, such as `List`:
 
 ```ocaml
@@ -535,7 +535,7 @@ module List :
 It creates a module `Extensions.List` that has everything the standard `List`
 module has, plus a new `optmap` function. From another file, all we have to do
 to override the default `List` module is `open Extensions` at the beginning of
-the .ml file:
+the `.ml` file:
 
 <!-- $MDX skip -->
 ```ocaml
