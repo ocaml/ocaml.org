@@ -9,7 +9,6 @@ module Toplevel_api = Js_top_worker_rpc.Toplevel_api_gen
 module Toprpc = Js_top_worker_client.W
 
 let timeout_container () =
-  let open Brr in
   match Document.find_el_by_id G.document @@ Jstr.v "toplevel-container" with
   | Some el ->
       El.(
@@ -35,8 +34,23 @@ let or_raise = function
 let with_rpc rpc f v = Lwt.bind rpc (fun r -> Lwt.map or_raise @@ f r v)
 let async_raise f = Lwt.async (fun () -> Lwt.map or_raise @@ f ())
 
+let get_el_by_id s =
+  match Document.find_el_by_id G.document (Jstr.v s) with
+  | Some v -> v
+  | None ->
+      Console.warn [ Jstr.v "Failed to get elemented by id" ];
+      invalid_arg s
+
+let merlin_url =
+  let script = get_el_by_id "playground-script" in
+  Option.value ~default:"" (Option.map Jstr.to_string (El.at (Jstr.v "data-merlin-url") script))
+
+let worker_url =
+  let script = get_el_by_id "playground-script" in
+  Option.value ~default:"" (Option.map Jstr.to_string (El.at (Jstr.v "data-worker-url") script))
+
 module Merlin = Merlin_codemirror.Make (struct
-  let worker_url = "/play/merlin-v1.js"
+  let worker_url = merlin_url
 end)
 
 (* Need to port lesser-dark and custom theme to CM6, until then just using the
@@ -44,13 +58,6 @@ end)
 let dark_theme_ext =
   let dark = Jv.get Jv.global "__CM__dark" in
   Extension.of_jv @@ Jv.get dark "oneDark"
-
-let get_el_by_id s =
-  match Document.find_el_by_id G.document (Jstr.v s) with
-  | Some v -> v
-  | None ->
-      Console.warn [ Jstr.v "Failed to get elemented by id" ];
-      invalid_arg s
 
 let cyan = "cyan"
 let red = "red"
@@ -114,7 +121,7 @@ let setup () =
            ])
       ()
   in
-  let rpc = initialise "/play/worker-v1.js" timeout_container in
+  let rpc = initialise worker_url timeout_container in
   let setup () =
     let* o = with_rpc rpc Toprpc.setup () in
     handle_output o;

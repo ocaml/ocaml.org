@@ -3,17 +3,17 @@
  (libraries fmt dream))
 
 (rule
- (targets asset.ml)
+ (target asset.ml)
  (deps
   %{workspace_root}/asset/css/main.css
   (source_tree %{workspace_root}/asset))
  (action
   (with-stdout-to
    %{null}
-   (run %{bin:ocaml-crunch} -m plain %{workspace_root}/asset -o asset.ml))))
+   (run %{bin:ocaml-crunch} -m plain %{workspace_root}/asset -o %{target}))))
 
 (rule
- (targets media.ml)
+ (target media.ml)
  (deps
   (source_tree %{workspace_root}/data/media))
  (action
@@ -25,4 +25,14 @@
     plain
     %{workspace_root}/data/media
     -o
-    media.ml))))
+    %{target}))))
+
+(rule
+ (target playground_digests.ml)
+ (deps
+  %{workspace_root}/tool/static-file-digest/main.exe
+  (source_tree %{workspace_root}/playground/asset))
+ (action
+  (with-stdout-to
+   %{null}
+   (run %{deps} %{workspace_root}/playground/asset/ -s -o %{target}))))

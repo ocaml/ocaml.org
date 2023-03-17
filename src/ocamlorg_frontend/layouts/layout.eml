@@ -34,17 +34,17 @@ inner =
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="manifest" href="/manifest.json">
     <% (match styles with | Some styles -> styles |> List.iter (fun style -> %>
-    <link rel="stylesheet" href="<%s Ocamlorg_static.asset_url style %>">
+    <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url style %>">
     <% ) | None -> %>
-    <link rel="stylesheet" href="<%s Ocamlorg_static.asset_url "css/main.css" %>">
+    <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "css/main.css" %>">
     <% ); %>
-    <link rel="stylesheet" href="<%s Ocamlorg_static.asset_url "vendors/font-files/inter.css" %>">
-    <script defer src="<%s Ocamlorg_static.asset_url "vendors/alpine.min.js" %>"></script>
-    <script defer src="<%s Ocamlorg_static.asset_url "vendors/htmx.min.js" %>"></script>
+    <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/font-files/inter.css" %>">
+    <script defer src="<%s Ocamlorg_static.Asset.url "vendors/alpine.min.js" %>"></script>
+    <script defer src="<%s Ocamlorg_static.Asset.url "vendors/htmx.min.js" %>"></script>
     <% if use_swiper then ( %>
-    <link rel="stylesheet" href="<%s Ocamlorg_static.asset_url "vendors/swiper-bundle.min.css" %>">
+    <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/swiper-bundle.min.css" %>">
     <link rel="alternate" type="application/rss+xml" title="OCaml RSS Feed" href="/feed.xml">
-    <script src="<%s Ocamlorg_static.asset_url "vendors/swiper-bundle.min.js" %>"></script>
+    <script src="<%s Ocamlorg_static.Asset.url "vendors/swiper-bundle.min.js" %>"></script>
     <% ); %>
     <title><%s title %></title>
   </head>
