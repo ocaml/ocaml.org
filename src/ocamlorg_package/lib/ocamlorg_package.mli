@@ -111,9 +111,9 @@ val info : t -> Info.t
 val create : name:Name.t -> version:Version.t -> Info.t -> t
 (** This is added to enable demo test package to use Package.t with abstraction *)
 
-val readme_file :
+val readme_filename :
   kind:[< `Package | `Universe of string ] -> t -> string option Lwt.t
-(** Get the readme of a package *)
+(** Get the readme file name of a package *)
 
 val license_filename :
   kind:[< `Package | `Universe of string ] -> t -> string option Lwt.t
@@ -136,6 +136,14 @@ val documentation_page :
   Documentation.t option Lwt.t
 (** Get the rendered content of an HTML page for a package given its URL
     relative to the root page of the documentation. *)
+
+val file :
+  kind:[< `Package | `Universe of string ] ->
+  t ->
+  string ->
+  Documentation.t option Lwt.t
+(** Get the rendered content of an HTML page for a file accompanying a package
+    given its URL relative to the root of the package. *)
 
 val init : ?disable_polling:bool -> unit -> state
 (** [init ()] initialises the opam-repository state. By default

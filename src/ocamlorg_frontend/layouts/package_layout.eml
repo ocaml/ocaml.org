@@ -20,11 +20,11 @@ Layout.render
         <div class="flex flex-col items-baseline mb-6">
           <%s! Package_breadcrumbs.render ~package ~path %>
 
-          <% if path == Overview then (%>
+          <% (match path with | Overview _ -> %>
             <div class="text-body-400">
               <%s package.description %>
             </div>
-          <% ); %>
+          <% | _ -> ()); %>
         </div>
       </div>
       <div class="py-6">

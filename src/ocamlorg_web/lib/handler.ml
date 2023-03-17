@@ -404,23 +404,17 @@ let installer req = Dream.redirect req Url.github_installer
 let package_versioned t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
   let version_from_url = Dream.param req "version" in
+  let page_from_url = try Some (Dream.param req "page") with _ -> None in
   match to_package t name version_from_url with
   | None -> not_found req
-  | Some (package, package_meta) ->
+  | Some (package, package_meta) -> (
       let open Lwt.Syntax in
       let kind =
         match kind with
         | Package -> `Package
         | Universe -> `Universe (Dream.param req "hash")
       in
-      let* readme, readme_title =
-        let+ readme_opt = Ocamlorg_package.readme_file ~kind package in
-        match readme_opt with
-        | Some doc -> (doc, "README")
-        | None ->
-            ( package_meta.description |> Omd.of_string |> Omd.to_html,
-              "Description" )
-      in
+      let* readme_filename = Ocamlorg_package.readme_filename ~kind package in
       let* changes_filename = Ocamlorg_package.changes_filename ~kind package in
       let* license_filename = Ocamlorg_package.license_filename ~kind package in
       let package_info = Ocamlorg_package.info package in
@@ -455,10 +449,29 @@ let package_versioned t kind req =
         | Failure -> Failure
         | Unknown -> Unknown
       in
-      Dream.html
-        (Ocamlorg_frontend.package_overview ~documentation_status ~readme
-           ~readme_title ~dependencies ~rev_dependencies ~conflicts ~homepages
-           ~source ~changes_filename ~license_filename package_meta)
+
+      let* content =
+        match page_from_url with
+        | None ->
+            Lwt.return
+              (Some
+                 (package_info.Ocamlorg_package.Info.description
+                |> Omd.of_string |> Omd.to_html))
+        | Some page ->
+            let* file = Ocamlorg_package.file ~kind package page in
+            Lwt.return
+              (match file with
+              | None -> None
+              | Some file_content -> Some file_content.content)
+      in
+      match content with
+      | None -> Dream.html (Ocamlorg_frontend.not_found ())
+      | Some content ->
+          Dream.html
+            (Ocamlorg_frontend.package_overview ~documentation_status ~content
+               ~content_title:page_from_url ~dependencies ~rev_dependencies
+               ~conflicts ~homepages ~source ~readme_filename ~changes_filename
+               ~license_filename package_meta))
 
 let package_doc t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
