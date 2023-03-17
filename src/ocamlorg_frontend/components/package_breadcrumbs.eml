@@ -46,10 +46,19 @@ type path =
   | Documentation of (docs_path)
 
 let render_package_and_version
-~(package: Package_intf.package)
-~is_latest_url
+~(package: Package.package)
 =
-  let version = if is_latest_url then None else Some package.version in
+  let version = Package.url_version package in
+  let version_options v =
+    <% if v = package.latest_version then ( %>
+    <option value="<%s Url.package_with_version package.name %>" <%s if package.version = Latest then "selected" else "" %>>
+      <%s "latest (" ^ package.latest_version ^ ")" %>
+    </option>
+    <% ); %>
+    <option value="<%s Url.package_with_version package.name ?version:(Some v) %>" <%s if package.version = Specific v then "selected" else "" %>>
+      <%s v %>
+    </option>
+  in
   <li>
     <h1 class="inline text-base">
       <a class="font-semibold underline" href="<%s Url.package_with_version package.name ?version %>"><%s package.name %></a>
@@ -58,15 +67,8 @@ let render_package_and_version
   <li>
     <select id="version" name="version" aria-label="version" onchange="location = this.value;"
       class="leading-8 appearance-none cursor-pointer py-0 rounded-md border border-gray-400 pr-8"
-      style="background-position: right 0.25rem center"> 
-      <option value="/p/<%s package.name %>/<%s "latest" %>">
-         <%s if is_latest_url then "latest (" ^ package.version ^ ")" else "latest" %>
-      </option>
-      <% package.versions |> List.iter begin fun item -> %>
-      <option value="/p/<%s package.name %>/<%s item %>"<%s if not is_latest_url && item = package.version then "selected" else "" %>>
-      <%s item %>
-      </option>
-      <% end; %>
+      style="background-position: right 0.25rem center">
+      <%s! package.versions |> List.map version_options |> String.concat "" %>
     </select>
   </li>
 
@@ -90,14 +92,13 @@ let render_library_path_breadcrumbs
   </li>
 
 let render_docs_path_breadcrumbs
-~(package: Package_intf.package)
+~(package: Package.package)
 ~(path: docs_path) 
-~is_latest_url
   =
-  let version = if is_latest_url then None else Some package.version in
+  let version = Package.url_version package in
   <nav aria-label="breadcrumb" class="flex" id="htmx-breadcrumbs">
     <ul class="flex flex-wrap gap-x-2 text-base leading-8 package-breadcrumbs">
-      <%s! render_package_and_version ~package ~is_latest_url %>
+      <%s! render_package_and_version ~package %>
       <li>
         <a class="underline font-semibold" href="<%s! Url.package_doc package.name ?version %>">Documentation</a>
       </li>
@@ -114,20 +115,19 @@ let render_docs_path_breadcrumbs
   </nav>
 
 let render_overview_breadcrumbs
-~(package: Package_intf.package)
-~is_latest_url
+~(package: Package.package)
 =
   <nav aria-label="breadcrumbs" class="flex">
     <ul class="flex flex-wrap gap-x-2 leading-8 package-breadcrumbs">
-      <%s! render_package_and_version ~package ~is_latest_url %>
+      <%s! render_package_and_version ~package %>
     </ul>
   </nav>
 
 let render
-~(package: Package_intf.package)
+~(package: Package.package)
 ~(path: path)
-~is_latest_url =
+=
   match path with
-    | Overview -> render_overview_breadcrumbs ~package ~is_latest_url
-    | Documentation (docs_path) -> render_docs_path_breadcrumbs ~package ~path:docs_path ~is_latest_url
+    | Overview -> render_overview_breadcrumbs ~package
+    | Documentation (docs_path) -> render_docs_path_breadcrumbs ~package ~path:docs_path
     
