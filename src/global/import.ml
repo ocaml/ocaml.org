@@ -11,6 +11,8 @@ module String = struct
       false
     with Exit -> true
 
+  let prefix s len = try sub s 0 len with Invalid_argument _ -> ""
+
   (* ripped off stringext, itself ripping it off from one of dbuenzli's libs *)
   let cut s ~on =
     let sep_max = length on - 1 in
@@ -99,13 +101,4 @@ end = struct
     if rem = 0 then (0, List.tl elts) else (rem - 1, elts)
 
   let to_list (_, elts) = elts
-end
-
-module Result = struct
-  include Stdlib.Result
-
-  let const_error e _ = Error e
-  let apply f = Result.fold ~ok:Result.map ~error:const_error f
-  let get_ok ~error = fold ~ok:Fun.id ~error:(fun e -> raise (error e))
-  let sequential_or f g x = fold (f x) ~ok ~error:(Fun.const (g x))
 end

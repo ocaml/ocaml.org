@@ -28,10 +28,20 @@ type t = {
   stable_record ~version:metadata ~remove:[ slug ], show { with_path = false }]
 
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
-let decode s = Result.map of_metadata (metadata_of_yaml s)
+
+let decode s =
+  let yaml = Utils.decode_or_raise Yaml.of_string s in
+  match yaml with
+  | `O [ ("papers", `A xs) ] ->
+      Ok
+        (List.map
+           (fun x -> x |> Utils.decode_or_raise metadata_of_yaml |> of_metadata)
+           xs)
+  | _ -> Error (`Msg "expected a list of papers")
 
 let all () =
-  Utils.yaml_sequence_file decode "papers.yml"
+  let content = Data.read "papers.yml" |> Option.get in
+  Utils.decode_or_raise decode content
   |> List.sort (fun p1 p2 ->
          (2 * Int.compare p2.year p1.year) + String.compare p1.title p2.title)
 
