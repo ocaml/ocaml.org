@@ -43,7 +43,7 @@ let path_page = match str_path |> String.concat "/" with
                 | path -> Some (path ^ if String.contains path '.' then "" else "/index.html") in
 Package_layout.render
 ~title:(Printf.sprintf "%s %s · OCaml Package" package.name (Package.render_version package))
-~description:(Printf.sprintf "%s %s: %s" package.name (Package.render_version package) package.description)
+~description:(Printf.sprintf "%s %s: %s" package.name (Package.render_version package) package.synopsis)
 ~package
 ~path
 ~canonical:(Url.package_doc package.name ~version:(Package.specific_version package) ?page:path_page)

@@ -25,7 +25,7 @@ let version = Package.url_version package in
 let specific_version = Package.specific_version package in
 Package_layout.render
 ~title:(Printf.sprintf "%s %s · OCaml Package" package.name (Package.render_version package))
-~description:(Printf.sprintf "%s %s: %s" package.name (Package.render_version package) package.description)
+~description:(Printf.sprintf "%s %s: %s" package.name (Package.render_version package) package.synopsis)
 ~canonical:(Url.package_with_version package.name ~version:specific_version)
 ~package
 ~path:Overview @@

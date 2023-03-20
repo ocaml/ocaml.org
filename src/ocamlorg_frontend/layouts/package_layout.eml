@@ -22,7 +22,7 @@ Layout.render
 
           <% if path == Overview then (%>
             <div class="text-body-400">
-              <%s package.description %>
+              <%s package.synopsis %>
             </div>
           <% ); %>
         </div>

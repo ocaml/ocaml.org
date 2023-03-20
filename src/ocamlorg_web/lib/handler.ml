@@ -283,7 +283,8 @@ let package_of_info ~name ~version ?(on_latest_url = false) ~latest_version
       latest_version =
         Option.value ~default:"???"
           (Option.map Ocamlorg_package.Version.to_string latest_version);
-      description = info.Ocamlorg_package.Info.synopsis;
+      synopsis = info.Ocamlorg_package.Info.synopsis;
+      description = info.Ocamlorg_package.Info.description;
       tags = info.tags;
       rev_deps;
       authors = info.authors;

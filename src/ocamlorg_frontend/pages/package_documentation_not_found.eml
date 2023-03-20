@@ -4,7 +4,7 @@ let render
 =
 Package_layout.render
 ~title:(Printf.sprintf "%s %s · OCaml Package" package.name (Package.render_version package))
-~description:(Printf.sprintf "%s %s: %s" package.name (Package.render_version package) package.description)
+~description:(Printf.sprintf "%s %s: %s" package.name (Package.render_version package) package.synopsis)
 ~package
 ~path
 ~styles:["/css/main.css"; "/css/doc.css"] @@
