@@ -4,13 +4,16 @@ let ( let* ) = Result.bind
 let ( <@> ) = Result.apply
 
 let extract_metadata_body s =
-  let sep = "---\n" in
-  let win_sep = "---\r\n" in
-  let error_msg = `Msg "expected metadata at the top of the file" in
-  let cut ~on s = Option.to_result ~none:error_msg (String.cut ~on s) in
-  let* pre, post = Result.sequential_or (cut ~on:sep) (cut ~on:win_sep) s in
-  let* () = if pre = "" then Ok () else Error error_msg in
-  let* yaml, body = Result.sequential_or (cut ~on:sep) (cut ~on:win_sep) post in
+  let err = `Msg "expected metadata at the top of the file" in
+  let cut =
+    let sep = "---\n" in
+    let win_sep = "---\r\n" in
+    let cut on s = Option.to_result ~none:err (String.cut ~on s) in
+    Result.sequential_or (cut sep) (cut win_sep)
+  in
+  let* pre, post = cut s in
+  let* () = if pre = "" then Ok () else Error err in
+  let* yaml, body = cut post in
   let* yaml = Yaml.of_string yaml in
   Ok (yaml, body)
 
@@ -21,10 +24,9 @@ let decode_or_raise f x =
       raise (Exn.Decode_error (Printf.sprintf "could not decode: %s" err))
 
 let read_from_dir dir =
-  let len = String.length dir in
   Data.file_list
   |> List.filter_map (fun x ->
-         if String.prefix x len = dir then
+         if String.starts_with ~prefix:dir x then
            Data.read x |> Option.map (fun y -> (x, y))
          else if Glob.matches_glob ~glob:dir x then
            Data.read x |> Option.map (fun y -> (x, y))
@@ -54,12 +56,12 @@ let yaml_sequence_file ?key of_yaml file =
   let key_default = Filename.(file |> basename |> remove_extension) in
   let key = Option.value ~default:key_default key in
   (let* yaml = yaml_file file in
-    let* opt = Yaml.Util.find key yaml in
-    let* found = Option.to_result ~none:(`Msg (key ^ ", key not found")) opt in
-    let* list =
-      (function `A u -> Ok u | _ -> Error (`Msg "expecting a sequence")) found
-    in
-    List.fold_left (fun u x -> Ok List.cons <@> of_yaml x <@> u) (Ok []) list)
+   let* opt = Yaml.Util.find key yaml in
+   let* found = Option.to_result ~none:(`Msg (key ^ ", key not found")) opt in
+   let* list =
+     (function `A u -> Ok u | _ -> Error (`Msg "expecting a sequence")) found
+   in
+   List.fold_left (fun u x -> Ok List.cons <@> of_yaml x <@> u) (Ok []) list)
   |> Result.map_error (function `Msg err -> `Msg (file ^ ": " ^ err))
   |> Result.get_ok ~error:(fun (`Msg msg) -> Exn.Decode_error msg)
 

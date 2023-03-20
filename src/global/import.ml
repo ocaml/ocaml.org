@@ -11,8 +11,6 @@ module String = struct
       false
     with Exit -> true
 
-  let prefix s len = try sub s 0 len with Invalid_argument _ -> ""
-
   (* ripped off stringext, itself ripping it off from one of dbuenzli's libs *)
   let cut s ~on =
     let sep_max = length on - 1 in

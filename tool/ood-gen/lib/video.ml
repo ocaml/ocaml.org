@@ -40,7 +40,6 @@ type t = {
   stable_record ~version:metadata ~remove:[ slug ], show { with_path = false }]
 
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
-
 let decode s = Result.map of_metadata (metadata_of_yaml s)
 let all () = Utils.yaml_sequence_file decode "videos.yml"
 
