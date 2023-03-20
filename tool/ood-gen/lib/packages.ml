@@ -1,12 +1,17 @@
+open Ocamlorg.Import
+
 type metadata = { featured_packages : string list }
 [@@deriving of_yaml, show { with_path = false }]
 
 type t = metadata [@@deriving show { with_path = false }]
 
 let all () =
-  Data.read "packages.yml" |> Option.get
-  |> Utils.decode_or_raise Yaml.of_string
-  |> Utils.decode_or_raise metadata_of_yaml
+  let ( let* ) = Result.bind in
+  let file = "packages.yml" in
+  (let* yaml = Utils.yaml_file file in
+   metadata_of_yaml yaml)
+  |> Result.map_error (function `Msg err -> file ^ ": " ^ err)
+  |> Result.get_ok ~error:(fun msg -> Exn.Decode_error msg)
 
 let template () =
   Format.asprintf
