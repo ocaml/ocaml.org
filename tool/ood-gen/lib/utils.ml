@@ -17,12 +17,6 @@ let extract_metadata_body s =
   let* yaml = Yaml.of_string yaml in
   Ok (yaml, body)
 
-let decode_or_raise f x =
-  match f x with
-  | Ok x -> x
-  | Error (`Msg err) ->
-      raise (Exn.Decode_error (Printf.sprintf "could not decode: %s" err))
-
 let read_from_dir dir =
   Data.file_list
   |> List.filter_map (fun x ->
