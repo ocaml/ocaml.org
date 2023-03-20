@@ -82,7 +82,6 @@ module Documentation : sig
 
   type t = {
     old : bool;
-    module_map : Module_map.t;
     uses_katex : bool;
     toc : toc list;
     breadcrumbs : breadcrumb list;
@@ -128,6 +127,10 @@ type documentation_status = Success | Failure | Unknown
 val documentation_status :
   kind:[< `Package | `Universe of string ] -> t -> documentation_status Lwt.t
 (** Get the build status of the documentation of a package *)
+
+val module_map :
+  kind:[< `Package | `Universe of string ] -> t -> Module_map.t Lwt.t
+(** Get the module map of a package *)
 
 val documentation_page :
   kind:[< `Package | `Universe of string ] ->

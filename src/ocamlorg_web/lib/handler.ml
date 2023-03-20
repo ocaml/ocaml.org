@@ -553,9 +553,10 @@ let package_doc t kind req =
                    Ocamlorg_frontend.Navmap.
                      { title; href; kind = Library; children })
           in
+          let* module_map = Ocamlorg_package.module_map ~kind package in
           let toc = toc_of_toc doc.toc in
           let (maptoc : Ocamlorg_frontend.Navmap.toc list) =
-            toc_of_map ~root doc.module_map
+            toc_of_map ~root module_map
           in
           let (path : Ocamlorg_frontend.Package_breadcrumbs.path) =
             let breadcrumbs = doc.breadcrumbs in
