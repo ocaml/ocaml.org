@@ -6,7 +6,7 @@ let with_hash = Option.fold ~none:"/p" ~some:(( ^ ) "/u/")
 let package ?hash v = with_hash hash ^ "/" ^ v
 let package_docs v = "/p/" ^ v ^ "/doc"
 let with_version = Option.value ~default:"latest"
-let with_page p = if p == "" then p else "/" ^ p
+let with_page p = if p = "" then p else "/" ^ p
 
 let package_with_version ?version ?hash ?(page = "") v =
   with_hash hash ^ "/" ^ v ^ "/" ^ with_version version ^ with_page page
