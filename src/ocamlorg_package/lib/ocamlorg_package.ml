@@ -450,55 +450,6 @@ let file ~kind t path =
   let old_url = old_package_url ^ "doc/" ^ path in
   odoc_page ~path ~url ~old_url
 
-(* FIXME: remove fallback when it's no longer needed *)
-let old_file ~kind t path =
-  let open Lwt.Syntax in
-  let old_package_url =
-    old_package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
-  in
-  let url = old_package_url ^ "doc/" ^ path in
-  let* content = http_get url in
-  match content with
-  | Ok content ->
-      let toc_url = Filename.remove_extension url ^ ".toc.json" in
-      let* toc_content =
-        let+ toc_response = http_get toc_url in
-        match toc_response with Ok toc_content -> toc_content | Error _ -> ""
-      in
-      let* module_map =
-        fetch_module_map_from_url ~package_url:old_package_url
-      in
-      Logs.info (fun m -> m "Found OLD file at %s" url);
-      Lwt.return
-        (Some (Documentation.old_doc ~path ~module_map ~toc_content content))
-  | Error _ ->
-      Logs.info (fun m -> m "Failed to fetch OLD file at %s" url);
-      Lwt.return None
-
-let file ~kind t path =
-  let open Lwt.Syntax in
-  let package_url =
-    package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
-  in
-  let url = package_url ^ path ^ ".json" in
-  let* content = http_get url in
-  match content with
-  | Ok content ->
-      let* module_map = fetch_module_map_from_url ~package_url in
-      let* maybe_doc =
-        try
-          Lwt.return (Some (Documentation.doc_from_string ~module_map content))
-        with Invalid_argument err ->
-          Logs.err (fun m -> m "Invalid file: %s" err);
-          let+ maybe_old_doc = old_file ~kind t path in
-          maybe_old_doc
-      in
-      Logs.info (fun m -> m "Found file for %s" url);
-      Lwt.return maybe_doc
-  | Error _ ->
-      Logs.info (fun m -> m "Failed to fetch new file for %s" url);
-      old_file ~kind t path
-
 let maybe_file ~kind t filename =
   let open Lwt.Syntax in
   let+ doc = file ~kind t filename in
