@@ -72,7 +72,7 @@ Layout.render
 % let render_featured_package pkg =
     <a href="<%s href_package pkg %>" class="bg-white card-hover rounded-md p-6 text-body-600 text-left">
       <p class="font-semibold mb-2"><%s pkg.name %></p>
-      <p class="mb-3 text-sm text-body-400"><%s pkg.description %></p>
+      <p class="mb-3 text-sm text-body-400"><%s pkg.synopsis %></p>
       <p class="text-sm text-body-400 flex space-x-2">
         <%s! Icons.tag "h-5 w-5 pr-1" %> <%s Package.render_version pkg %>
       </p>
@@ -93,7 +93,7 @@ Layout.render
     <a href="<%s href_package pkg %>"
         class="block bg-white border border-gray-200 rounded-xl py-6 px-7 text-body-600 text-left card-hover">
       <div class="font-semibold mb-2"><%s pkg.name %></div>
-      <div class="mb-3 text-sm text-body-400"><%s pkg.description %></div>
+      <div class="mb-3 text-sm text-body-400"><%s pkg.synopsis %></div>
 % render_extra_stats ();
     </a>
 % in

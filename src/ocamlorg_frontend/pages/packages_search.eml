@@ -57,7 +57,7 @@ let render ~total ~search (packages : Package.package list) = Layout.render ~tit
             >
               <%s package.name %>
             </a>
-            <div><%s! Search.highlight_search_terms ~class_:"bg-background-light-blue" ~search package.description %></div>
+            <div><%s! Search.highlight_search_terms ~class_:"bg-background-light-blue" ~search package.synopsis %></div>
             <div class="flex flex-wrap">
               <% package.tags |> List.iter (fun (tag : string) -> %>
               <a

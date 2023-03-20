@@ -2,6 +2,7 @@ type version = Latest | Specific of string
 
 type package = {
   name : string;
+  synopsis : string;
   description : string;
   license : string;
   version : version;
