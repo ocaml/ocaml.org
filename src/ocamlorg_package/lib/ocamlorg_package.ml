@@ -110,6 +110,13 @@ let get_package_latest' packages name =
            if avoid_version info then None else Some { version; info; name }
          in
          let packages = Version.Map.filter_map f versions in
+         let packages =
+           if Version.Map.is_empty packages then
+             Version.Map.mapi
+               (fun version info -> { version; info; name })
+               versions
+           else packages
+         in
          let _version, package = Version.Map.max_binding packages in
          package)
 
