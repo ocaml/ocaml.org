@@ -497,9 +497,9 @@ let package_doc t kind req =
       match docs with
       | None ->
           Dream.html
-            (Ocamlorg_frontend.package_documentation_not_found ~page:(Some path)
+            (Ocamlorg_frontend.package_documentation_not_found ~page:path
                ~path:(Ocamlorg_frontend.Package_breadcrumbs.Documentation Index)
-               ~package:package_meta)
+               package_meta)
       | Some doc ->
           let toc_of_toc (xs : Ocamlorg_package.Documentation.toc list) :
               Ocamlorg_frontend.Toc.t =

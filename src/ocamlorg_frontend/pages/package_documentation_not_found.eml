@@ -1,7 +1,7 @@
 let render
-~page
+?page
 ~path
-~(package : Package.package)
+(package : Package.package)
 =
 Package_layout.render
 ~title:(Printf.sprintf "%s %s · OCaml Package" package.name (Package.render_version package))
