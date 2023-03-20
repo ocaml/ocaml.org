@@ -42,7 +42,7 @@ let rec breadcrumbs_from_path (reversed_library_path: library_path_item list) pr
     { text = library_path_item_name x ; href = prefix ^ "index.html" } :: breadcrumbs_from_path xs new_prefix
 
 type path = 
-  | Overview
+  | Overview of string option
   | Documentation of (docs_path)
 
 let render_package_and_version
@@ -116,10 +116,14 @@ let render_docs_path_breadcrumbs
 
 let render_overview_breadcrumbs
 ~(package: Package.package)
+~(page: string option)
 =
   <nav aria-label="breadcrumbs" class="flex">
     <ul class="flex flex-wrap gap-x-2 leading-8 package-breadcrumbs">
       <%s! render_package_and_version ~package %>
+      <% (match page with | Some p -> %>
+      <li><%s p %></li>
+      <% | None -> ()); %>
     </ul>
   </nav>
 
@@ -128,6 +132,6 @@ let render
 ~(path: path)
 =
   match path with
-    | Overview -> render_overview_breadcrumbs ~package
+    | Overview page -> render_overview_breadcrumbs ~package ~page
     | Documentation (docs_path) -> render_docs_path_breadcrumbs ~package ~path:docs_path
     

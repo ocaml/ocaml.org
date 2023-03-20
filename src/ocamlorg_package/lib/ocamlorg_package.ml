@@ -231,7 +231,6 @@ module Documentation = struct
 
   type t = {
     old : bool; (* FALLBACK REMOVE *)
-    module_map : Module_map.t;
     uses_katex : bool;
     toc : toc list;
     breadcrumbs : breadcrumb list;
@@ -256,7 +255,7 @@ module Documentation = struct
         { name; href; kind = breadcrumb_kind_from_string kind }
     | _ -> raise (Invalid_argument "malformed breadcrumb field")
 
-  let doc_from_string ~module_map s =
+  let doc_from_string s =
     match Yojson.Safe.from_string s with
     | `Assoc
         [
@@ -273,7 +272,6 @@ module Documentation = struct
         in
         {
           old = false;
-          module_map;
           uses_katex;
           breadcrumbs;
           toc = List.map toc_of_json json_toc;
@@ -314,7 +312,7 @@ module Documentation = struct
     String.split_on_char '/' s |> List.filter_map parse_item
 
   (* FIXME: remove when fallback is unnecessary *)
-  let old_doc ~path ~module_map ~toc_content content =
+  let old_doc ~path ~toc_content content =
     let toc =
       if toc_content != "" then (
         try old_toc_from_string toc_content
@@ -325,7 +323,6 @@ module Documentation = struct
     in
     {
       old = true;
-      module_map;
       uses_katex = false;
       toc;
       breadcrumbs = old_breadcrumbs path;
@@ -374,7 +371,10 @@ let http_get url =
       let+ () = Cohttp_lwt.Body.drain_body body in
       Error (`Msg "Failed to fetch the documentation page")
 
-let fetch_module_map_from_url ~package_url =
+let module_map ~kind t =
+  let package_url =
+    package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
+  in
   let open Lwt.Syntax in
   let url = package_url ^ "package.json" in
   let+ content = http_get url in
@@ -386,13 +386,9 @@ let fetch_module_map_from_url ~package_url =
       Logs.info (fun m -> m "Failed to fetch module map at %s" url);
       { Module_map.libraries = String.Map.empty }
 
-(* FIXME: remove fallback when it's no longer needed *)
-let old_documentation_page ~kind t path =
+(* FIXME: remove fallback *)
+let old_odoc_page ~path ~url =
   let open Lwt.Syntax in
-  let old_package_url =
-    old_package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
-  in
-  let url = old_package_url ^ "doc/" ^ path in
   let* content = http_get url in
   match content with
   | Ok content ->
@@ -401,43 +397,59 @@ let old_documentation_page ~kind t path =
         let+ toc_response = http_get toc_url in
         match toc_response with Ok toc_content -> toc_content | Error _ -> ""
       in
-      let* module_map =
-        fetch_module_map_from_url ~package_url:old_package_url
-      in
       Logs.info (fun m -> m "Found OLD documentation page at %s" url);
-      Lwt.return
-        (Some (Documentation.old_doc ~path ~module_map ~toc_content content))
+      Lwt.return (Some (Documentation.old_doc ~path ~toc_content content))
   | Error _ ->
       Logs.info (fun m -> m "Failed to fetch OLD documentation page at %s" url);
       Lwt.return None
 
-let documentation_page ~kind t path =
+let odoc_page ~path ~url ~old_url =
   let open Lwt.Syntax in
-  let package_url =
-    package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
-  in
-  let url = package_url ^ "doc/" ^ path ^ ".json" in
   let* content = http_get url in
   match content with
   | Ok content ->
-      let* module_map = fetch_module_map_from_url ~package_url in
       let* maybe_doc =
-        try
-          Lwt.return (Some (Documentation.doc_from_string ~module_map content))
+        try Lwt.return (Some (Documentation.doc_from_string content))
         with Invalid_argument err ->
           Logs.err (fun m -> m "Invalid documentation page: %s" err);
-          let+ maybe_old_doc = old_documentation_page ~kind t path in
+          let+ maybe_old_doc = old_odoc_page ~path ~url:old_url in
           maybe_old_doc
       in
       Logs.info (fun m -> m "Found documentation page for %s" url);
       Lwt.return maybe_doc
   | Error _ ->
       Logs.info (fun m -> m "Failed to fetch new documentation page for %s" url);
-      old_documentation_page ~kind t path
+      old_odoc_page ~path ~url:old_url
+
+let documentation_page ~kind t path =
+  let package_url =
+    package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
+  in
+  let url = package_url ^ "doc/" ^ path ^ ".json" in
+  (* FIXME: remove fallback when it's no longer needed *)
+  let old_package_url =
+    old_package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
+  in
+  (* FIXME: remove fallback when it's no longer needed *)
+  let old_url = old_package_url ^ "doc/" ^ path in
+  odoc_page ~path ~url ~old_url
+
+let file ~kind t path =
+  let package_url =
+    package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
+  in
+  let url = package_url ^ path ^ ".json" in
+  (* FIXME: remove fallback when it's no longer needed *)
+  let old_package_url =
+    old_package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
+  in
+  (* FIXME: remove fallback when it's no longer needed *)
+  let old_url = old_package_url ^ "doc/" ^ path in
+  odoc_page ~path ~url ~old_url
 
 let maybe_file ~kind t filename =
   let open Lwt.Syntax in
-  let+ doc = documentation_page ~kind t filename in
+  let+ doc = file ~kind t filename in
   match doc with None -> None | Some { content; _ } -> Some content
 
 let maybe_files ~kind t names =
@@ -448,7 +460,12 @@ let maybe_files ~kind t names =
   in
   Lwt_stream.find_map_s f (Lwt_stream.of_list names)
 
-let readme_file ~kind t = maybe_file ~kind t "README.md.html"
+let readme_filename ~kind t =
+  let open Lwt.Syntax in
+  let+ file_opt = maybe_files ~kind t [ "README"; "README.md" ] in
+  match file_opt with
+  | None -> None
+  | Some (filename, _content) -> Some filename
 
 let license_filename ~kind t =
   let open Lwt.Syntax in

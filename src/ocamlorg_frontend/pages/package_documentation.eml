@@ -26,7 +26,7 @@ let render
 =
 let str_path =
   match path with
-    | Overview -> []
+    | Overview _ -> []
     | Documentation (docs_path) -> (match docs_path with
         | Package_breadcrumbs.Index -> []
         | Library (s, p) -> s :: List.map (function
