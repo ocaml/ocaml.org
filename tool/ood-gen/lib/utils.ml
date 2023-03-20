@@ -54,11 +54,15 @@ let yaml_sequence_file ?key of_yaml file =
   let key_default = Filename.(file |> basename |> remove_extension) in
   let key = Option.value ~default:key_default key in
   (let* yaml = yaml_file file in
-   let* opt = Yaml.Util.find key yaml in
-   let* found = Option.to_result ~none:(`Msg (key ^ ", key not found")) opt in
-   let* list =
-     (function `A u -> Ok u | _ -> Error (`Msg "expecting a sequence")) found
-   in
-   List.fold_left (fun u x -> Ok List.cons <@> of_yaml x <@> u) (Ok []) list)
+    let* opt = Yaml.Util.find key yaml in
+    let* found = Option.to_result ~none:(`Msg (key ^ ", key not found")) opt in
+    let* list =
+      (function `A u -> Ok u | _ -> Error (`Msg "expecting a sequence")) found
+    in
+    List.fold_left (fun u x -> Ok List.cons <@> of_yaml x <@> u) (Ok []) list)
   |> Result.map_error (function `Msg err -> `Msg (file ^ ": " ^ err))
   |> Result.get_ok ~error:(fun (`Msg msg) -> Exn.Decode_error msg)
+
+let of_yaml of_string error = function
+  | `String s -> of_string s
+  | _ -> Error (`Msg error)
