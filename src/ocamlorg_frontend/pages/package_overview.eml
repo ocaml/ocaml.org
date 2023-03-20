@@ -146,25 +146,33 @@ Package_layout.render
         | None -> ()
         | Some (uri, checksums) -> %>
         <h2 class="font-semibold mt-8 mb-3 text-base text-body-400">Sources</h2>
-        <div class="flex p-3 rounded-xl border border-gray-200 items-center justify-between">
-            <div class="flex">
-              <%s! Icons.package_sources "h-5 w-5 mr-2" %>
+        <div class="flex flex-col space-y-2">
+          <a class="flex font-mono items-center gap-4 text-body-700 hover:text-primary-600 overflow-hidden rounded"
+             href="<%s uri %>">
+            <span class="flex-grow">
+              <%s Filename.basename uri %>
+            </span>
+
+            <div class="p-2 bg-primary-600 text-white rounded">
+                <%s! Icons.download "h-6 w-6" %>
             </div>
-            <div class="overflow-x-auto">
-                <%s Filename.basename uri %>
-                <br>
-                <% checksums |> List.iter begin fun checksum -> %>
-                <code><%s String.trim checksum %></code>
-                <% end; %>
-            </div>
-            <div class="flex">
-                <a href="<%s uri %>"
-                    class="hover:bg-primary-600 text-primary-600 overflow-hidden hover:rounded rounded  hover:text-white">
-                    <div class="p-2 bg-primary-100 text-base">
-                        <%s! Icons.download "h-6 w-6" %>
-                    </div>
-                </a>
-            </div>
+          </a>
+
+          <% checksums |> List.iter begin fun checksum -> %>
+          <div class="flex items-center gap-4 bg-primary-200 text-gray-700 rounded"
+            x-data="{ copied: false }">
+            <code class="px-4 text-ellipsis overflow-hidden min-w-0" aria-label="checksum"><%s String.trim checksum %></code>
+
+            <button
+              @click="$clipboard('<%s checksum %>'); copied = true; setTimeout(() => copied = false, 2000)"
+              x-show="!copied" title="copy checksum to clipboard" class="py-1 px-2 text-primary-600 rounded">
+                <%s! Icons.copy "h-6 w-6" %>
+            </button>
+            <button x-show="copied" title="checksum copied to clipboard" class="py-1 px-2 text-primary-600 rounded">
+                <%s! Icons.copied_to_clipboard "h-4 w-4" %>
+            </button>
+          </div>
+          <% end; %>
         </div>
         <% ; %>
 
