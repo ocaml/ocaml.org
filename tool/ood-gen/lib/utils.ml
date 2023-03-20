@@ -39,6 +39,7 @@ let map_files f dir =
   in
   read_from_dir dir
   |> List.fold_left (fun u x -> Ok List.cons <@> f x <@> u) (Ok [])
+  |> Result.map List.rev
   |> Result.get_ok ~error:(fun (`Msg msg) -> Exn.Decode_error msg)
 
 let slugify value =
