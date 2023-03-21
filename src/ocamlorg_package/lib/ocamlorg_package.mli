@@ -152,17 +152,17 @@ val init : ?disable_polling:bool -> unit -> state
 (** [init ()] initialises the opam-repository state. By default
     [disable_polling] is set to [false], but can be disabled for tests. *)
 
-val all_packages_latest : state -> t list
+val all_latest : state -> t list
 (** Get the list of the latest version of every opam packages. The name and
     versions of the packages are read from the file system, the metadata are
     loaded lazily to improve performance. *)
 
-val packages_stats : state -> Packages_stats.t option
+val stats : state -> Packages_stats.t option
 (** Return the statistics computed from the opam-repository. These statistics
     are continuously updated in the background. Returns [None] if the stats are
     still being computed. *)
 
-val get_packages_with_name : state -> Name.t -> t list option
+val get_by_name : state -> Name.t -> t list option
 (** Get the list of packages with the given name. *)
 
 val get_package_versions : state -> Name.t -> Version.t list option

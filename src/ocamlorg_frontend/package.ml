@@ -28,7 +28,7 @@ let render_version package =
 let url_version package =
   match package.version with Latest -> None | Specific v -> Some v
 
-type packages_stats = {
+type stats = {
   nb_packages : int;
   nb_update_week : int;
   nb_packages_month : int;

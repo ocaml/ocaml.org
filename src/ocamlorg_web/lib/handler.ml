@@ -325,7 +325,7 @@ let packages state _req =
   in
   let package_pair (pkg, snd) = (package pkg, snd) in
   let stats =
-    match Ocamlorg_package.packages_stats state with
+    match Ocamlorg_package.stats state with
     | Some
         ({
            Ocamlorg_package.Packages_stats.nb_packages;

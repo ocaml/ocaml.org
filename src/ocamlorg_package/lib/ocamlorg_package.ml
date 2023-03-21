@@ -180,15 +180,15 @@ let init ?(disable_polling = false) () =
         poll_for_opam_packages ~polling:Config.opam_polling state);
   state
 
-let all_packages_latest t =
+let all_latest t =
   t.packages
   |> Name.Map.map Version.Map.max_binding
   |> Name.Map.bindings
   |> List.map (fun (name, (version, info)) -> { name; version; info })
 
-let packages_stats t = t.stats
+let stats t = t.stats
 
-let get_packages_with_name t name =
+let get_by_name t name =
   t.packages |> Name.Map.find_opt name
   |> Option.map Version.Map.bindings
   |> Option.map (List.map (fun (version, info) -> { name; version; info }))
@@ -714,6 +714,6 @@ let search_package ?(sort_by_popularity = false) t query =
     Search.(if sort_by_popularity then compare_by_popularity else compare)
   in
   let request = Search.to_request query in
-  all_packages_latest t
+  all_latest t
   |> List.filter (Search.match_request request)
   |> List.sort (compare request)
