@@ -2,6 +2,7 @@ rounds:
   - name: Summer 2014
     projects:
       - title: "MirageOS contributions and improvements"
+        slug: "mirageos-contributions-and-improvements"
         description: ""
         mentee: "Mindy Preston"
         blog: http://www.somerandomidiot.com/blog/2014/08/22/opw-fin/
@@ -10,6 +11,7 @@ rounds:
           - Richard Mortier
           - Anil Madhavapeddy
       - title: "MirageOS cloud API support"
+        slug: "mirageos-cloud-api-support"
         description: |
           MirageOS (see http://xenproject.org/developers/teams/mirage-os.html,
           http://www.openmirage.org/) is a type-safe unikernel written in OCaml
@@ -41,6 +43,7 @@ rounds:
   - name: Winter 2015
     projects:
       - title: "NTP Support for MirageOS"
+        slug: "ntp-support-for-mirageos"
         description: ""
         mentee: "Kia"
         blog: "https://matildah.github.io"
@@ -50,6 +53,7 @@ rounds:
   - name: Summer 2016
     projects:
       - title: "MirageOS"
+        slug: "mirageos"
         description: ""
         mentee: Gina Marie Maini
         blog: https://github.com/wiredsister
@@ -59,6 +63,7 @@ rounds:
   - name: Summer 2019
     projects:
       - title: "Test the OCaml compiler with code coverage tools"
+        slug: "test-the-ocaml-compiler-with-code-coverage-tools"
         description: ""
         mentee: "Oxana Kostikova"
         blog: "https://lereenadem.wixsite.com/personal"
@@ -67,6 +72,7 @@ rounds:
          - Sébastien Hinderer
          - Florian Angeletti
       - title: "Test the OCaml compiler with random tests and a reference interpreter"
+        slug: "test-the-ocaml-compiler-with-random-tests-and-a-reference-interpreter"
         description: >
           The aim of this project is to extend an existing testcase-generator for the OCaml compiler,
           using a reference interpreter (existing or newly developed) to find a lot of bugs in the compiler,
@@ -80,6 +86,7 @@ rounds:
   - name: Summer 2020
     projects:
       - title: "Reducing global mutable state in the OCaml compiler codebase"
+        slug: "reducing-global-mutable-state-in-the-ocaml-compiler-codebase"
         description: ""
         mentee: "Anukriti Kumar"
         blog: "https://anukriti12.github.io"
@@ -88,6 +95,7 @@ rounds:
          - Guillaume Bury
          - Vincent Laviron
       - title: "Structured output format for the OCaml compiler messages"
+        slug: "structured-output-format-for-the-ocaml-compiler-messages"
         description: >
           Usually, the output messages from the compiler are a bit more difficult to read for a machine
           and hence it's more time consuming to find the warnings, errors, etc. and their origin. By producing
@@ -101,6 +109,7 @@ rounds:
   - name: Summer 2021
     projects:
       - title: "Create opam package search"
+        slug: "create-opam-package-search"
         description: >
           opam is the source-based package manager for OCaml code. This project comprises of writing a new web
           client for rendering output from the opam package database. There is a JSON endpoint on opam.ocaml.org
@@ -115,6 +124,7 @@ rounds:
          - Sonja Heinze
          - Patrick Ferris
       - title: "Improve the ocaml.org website"
+        slug: "improve-the-ocamlorg-website"
         description: >
           OCaml.org is the main website for OCaml, a functional, typed, high-level programming language. This project
           revolves around improving the website on multiple different fronts including: layout, accessibility and content.
@@ -126,6 +136,7 @@ rounds:
          - Patrick Ferris
          - Gargi Sharma
       - title: "Improve the ocaml.org website"
+        slug: "improve-the-ocamlorg-website"
         description: >
           OCaml.org is the main website for OCaml, a functional, typed, high-level programming language. This project
           revolves around improving the website on multiple different fronts including: layout, accessibility and content.
@@ -140,7 +151,18 @@ rounds:
   - name: Winter 2021
     projects:
       - title: "Build a monitoring dashboard for OCaml.org"
-        description: ""
+        slug: "build-a-monitoring-dashboard-for-ocamlorg"
+        description: >
+          We currently have no visibility on the performance of the server serving
+          v3.ocaml.org, which pages are most visited, if errors happen, etc.
+          To offer some visibility, we can implement a basic monitoring dashboard
+          that would provide Metrics such as: Memory, CPU, Open file descriptors,
+          Statistics such as (check if GDPR compliant first!) Requested URIs,
+          User agents, Language, Logs.
+          This project consists of mostly two parts: a frontend, and a backend.
+          The backend consists of building a high-level library to collect data 
+          and get statistics on them. The frontend will use this library to display
+          graphs of the metrics, statistics, and other data we want to collect.
         mentee: "Jiae Kam"
         source: https://github.com/ocaml/ocaml.org
         blog: "https://jiaek.wordpress.com"
@@ -149,6 +171,7 @@ rounds:
          - Patrik Keller
         video: https://watch.ocaml.org/w/eSSmoyEcPTEXPGAqDtKENX?start=40m53s
       - title: "Improve the OCaml meta-programming ecosystem"
+        slug: "improve-the-ocaml-meta-programming-ecosystem"
         description: |
           It's common for programming languages to provide some way to meta-program
           in order to preprocess code before reaching the last compilation step,
@@ -178,6 +201,7 @@ rounds:
          - Patrik Keller
         video: https://watch.ocaml.org/w/eSSmoyEcPTEXPGAqDtKENX
       - title: "Support .eml files in OCaml's VSCode extension"
+        slug: "support-eml-files-in-ocaml-vscode-extension"
         description: >
           Support `.eml` files in OCaml's VSCode extension
           Dream, the OCaml web framework, uses `.eml` files to embed HTML in
@@ -199,6 +223,7 @@ rounds:
   - name: Summer 2022
     projects:
       - title: "Expand OCaml 5.0 Parallel Benchmark suite"
+        slug: "expand-ocaml-5-parallel-benchmark-suite"
         description: >
           OCaml 5.0 will be live soon! It ships with support for shared-memory parallelism and concurrency
           OCaml has missed all these years. This will be accompanied by a robust set of Multicore libraries
@@ -218,6 +243,7 @@ rounds:
          - Sudha Parimala
         video: https://watch.ocaml.org/w/vXJtTj3cULRa1bZB5HrecX
       - title: "Extend OCaml's GeoJSON library to support TopoJSON"
+        slug: "extend-ocaml-geojson-library-to-support-topojson"
         description: >
           TopoJSON is an extension to GeoJSON to encode topology. This allows for redundant data
           to be removed and file sizes to be greatly reduced. This is often very desirable especially
@@ -231,6 +257,7 @@ rounds:
   - name: Winter 2022
     projects:
       - title: "Implement a non-blocking, streaming codec for TopoJSON"
+        slug: "implement-a-non-blocking-streaming-codec-for-topojson"
         description: >
           TopoJSON is an extension to GeoJSON to encode topology. This allows for redundant data to be removed and file
           sizes to be greatly reduced. This is often very desirable especially when working with data in the browser. In a previous

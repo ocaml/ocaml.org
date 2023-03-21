@@ -13,47 +13,39 @@ Layout.render
     </div>
 </div>
 
-<div class="container mx-auto px-4 flex items-center">
-    <div class="">
+<div class="container mx-auto px-4 items-center">
         <% metadata |> List.iter (fun (rounds : Ood.Outreachy.t) -> %>
-        <div class="">
             <div id="name" class="block  border-b border-[#EF8316] p-6 text-left my-2">
                 <h2 class="font-bold"><%s rounds.name %></h2>
             </div>
-            <div class="flex flex-wrap flex-col md:flex-row">
+            <div class="grid grid-cols-1 auto-rows-max md:grid-cols-2 xl:grid-cols-3 gap-10">
                 <% rounds.projects |> List.iter (fun (project : Ood.Outreachy.project) -> %>
-                    <div class="w-full md:w-1/3 p-6">
-                        <div id="projects" class="rounded-2xl items-center max-w-sm border border-gray-300 m-6 transition ease-in-out hover:scale-110">
-                            <div class="p-6 flex flex-col space-y-2">                 
-                                <h1 class="text-lg text-black font-semibold"><%s project.title %></h1>
-                                <p >Mentee: <span class='text-gray-800 italic'><%s project.mentee %></span></p>
-                                <p>Mentor(s): <span class='text-gray-800 italic'><%s Fmt.(str "%a" (list ~sep:comma string) project.mentors) %></></p>
-                                <div class='flex flex-row items-center space-x-2 text-[#EF8316] font-semibold'>
+                        <div id="projects" class="p-5 rounded-2xl items-center w-full border border-gray-300">
+                            <div class="flex flex-col space-y-2">                 
+                                <h2 class="text-lg text-black font-semibold"><%s project.title %></h2>
+                                <div >Mentee: <span class='text-gray-800 italic'><%s project.mentee %></span></div>
+                                <div>Mentor(s): <span class='text-gray-800 italic'><%s Fmt.(str "%a" (list ~sep:comma string) project.mentors) %></></div>
+                                <div class='flex-grow'></div>
+                                <div class='self-end flex flex-row items-center space-x-4 text-[#EF8316] font-semibold w-full'>
                                 <% (match project.blog with None -> () | Some blog -> %>
                                 <div class"flex-wrap">                        
-                                <a href="<%s blog %>" target="_blank">Blog</a> 
+                                <a href="<%s blog %>" class="hover:underline" target="_blank">Blog</a> 
                                 </div>
                                 <% ); %>
                                 <% (match project.video with None -> () | Some video -> %>
                                 <div>                        
-                                <a href="<%s video %>" target="_blank">Video</a> 
+                                <a href="<%s video %>" class='hover:underline' target="_blank">Video</a> 
                                 </div>
                                 <% ); %>
-                                <p>
-                                    <a href="<%s project.source %>" target="_blank">Source</a> 
-                                </p> 
-                                <p class='flex-grow'></p>
-                                <p>
-                                    <a href='#'>See more</a>
-                                </p>
+                                <div>
+                                    <a href="<%s project.source %>" class='hover:underline' target="_blank">Source</a> 
+                                </div> 
+                                <a href='#' class='btn btn-secondary self-end justify-self-end'>See more</a>
                                 </div>   
                             </div>
                         </div>
-                    </div>
                 <% ); %>
             </div>
             <br>
-        </div>   
         <% ); %>
-    </div>
 </div>
