@@ -12,7 +12,7 @@ rounds:
           - Anil Madhavapeddy
       - title: "MirageOS cloud API support"
         number: "2"
-        description: |
+        description: >
           MirageOS (see http://xenproject.org/developers/teams/mirage-os.html,
           http://www.openmirage.org/) is a type-safe unikernel written in OCaml
           which generates highly specialised "appliance" VMs that run directly
@@ -172,7 +172,7 @@ rounds:
         video: https://watch.ocaml.org/w/eSSmoyEcPTEXPGAqDtKENX?start=40m53s
       - title: "Improve the OCaml meta-programming ecosystem"
         number: "13"
-        description: |
+        description: >
           It's common for programming languages to provide some way to meta-program
           in order to preprocess code before reaching the last compilation step,
           for example, in the form of macros or templates. The OCaml compiler

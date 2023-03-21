@@ -13,7 +13,7 @@ Layout.render
     </div>
 </div>
 
-<div class="container mx-auto px-4 items-center" x-on:keydown.escape="isModalOpen=false" x-data="{'isModalOpen': false, 'slug': null}">
+<div class="container relative mx-auto px-4 items-center" x-on:keydown.escape="isModalOpen=false" x-data="{'isModalOpen': false, 'slug': null}">
         <% metadata |> List.iter (fun (rounds : Ood.Outreachy.t) -> %>
             <div id="name" class="block  border-b border-[#EF8316] p-6 text-left my-2">
                 <h2 class="font-bold"><%s rounds.name %></h2>
@@ -51,7 +51,7 @@ Layout.render
             <br>
         <% ); %>
         <div  x-on:click="isModalOpen=false" x-show="isModalOpen" class='fixed bg-black/30 top-0 left-0 h-screen w-screen flex items-center justify-center p-10'> 
-            <div onclick="function(event){event.stopPropagation()}" class='h-1/2 w-4/5 rounded-xl bg-white'>
+            <div onclick="function(event){event.stopPropagation()}" class='fixed h-1/2 w-4/5 rounded-xl bg-white'>
             <% metadata |> List.iter (fun (rounds : Ood.Outreachy.t) -> %>
             <div>
               <% rounds.projects |> List.iter (fun (project : Ood.Outreachy.project) -> %>
@@ -72,8 +72,49 @@ Layout.render
                   </div>
                   <% ); %>
                   <% (match project.video with None -> () | Some video -> %>
-                  <div>                        
-                      <a href="<%s video %>" class='hover:underline' target="_blank">Video</a> 
+                  <div
+                    class="mt-12 cursor-pointer z-0 relative rounded-2xl h-[413px] w-full overflow-hidden border-4 border-primary-100 video-shadow md:w-[640px]"
+                    x-data='{
+                        isPlaying: false,
+                        embed_url: <%s video %>,
+                        iframe_param: "?autoplay=1&mute=1",
+                        iframe_url() {
+                          return this.embed_url + this.iframe_param;
+                        },
+                      }'
+                  >
+                    <div
+                      class="bg-white text-center relative aspect-w-16 aspect-h-9 h-full"
+                      @click="
+                                isPlaying = !isPlaying;
+                                $nextTick(() => { $refs.iframeElement.setAttribute('src', iframe_url()) });"
+                    >
+                      <div x-show.transition.in.opacity.duration.500ms="isPlaying">
+                        <iframe
+                          class="absolute top-0 rounded-lg h-full w-full"
+                          x-ref="iframeElement"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowfullscreen
+                        >
+                        </iframe>
+                      </div>
+                      <div class="flex h-full justify-center" x-show="!isPlaying">
+                        <div class="z-10 mb-10 lg:mb-0">
+                          <img width="160" class="m-auto mt-10 md:mt-20" src="/logo-with-name.svg" alt="OCaml logo">
+                          <h3 class="font-bold mt-16"><%s project.title %></h3>
+                          <div class="mt-16 flex justify-center">
+                            Presented by&nbsp;
+                            <div class="font-semibold"><%s project.mentee %></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="rounded-full bg-primary-600 text-white w-16 h-16 right-0 left-0 m-auto bottom-5 md:left-auto md:right-10 md:bottom-10 absolute flex items-center z-10 justify-center"
+                      x-show="!isPlaying"
+                    >
+                      <%s! Icons.play "h-9 w-9" %>
+                    </div>
                   </div>
                   <% ); %>
                   <div>
