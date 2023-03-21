@@ -157,7 +157,7 @@ let package_versions_result_test name from upto total_packages () =
 let state_test () =
   let state = Package.state_of_package_list packages in
   let pkg =
-    Package.search_package state "abt"
+    Package.search state "abt"
     |> List.map Package.name
     |> List.map Package.Name.to_string
   in

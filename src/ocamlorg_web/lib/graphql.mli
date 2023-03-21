@@ -39,7 +39,7 @@ val packages_list :
     takes an optional [contains] together with [offset], [limit], [all_packages]
     and [state] parameters. It applies the [offset] and [limit] specified on
     [all_packages] if no value is specified for [contains] else it calls
-    [Package.search_package] passing the [contains] value to get a list of
+    [Package.search] passing the [contains] value to get a list of
     packages that match the query [contains] *)
 
 val all_packages_result :

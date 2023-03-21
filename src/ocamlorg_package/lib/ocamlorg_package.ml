@@ -709,7 +709,7 @@ end = struct
     Float.compare s2 s1
 end
 
-let search_package ?(sort_by_popularity = false) t query =
+let search ?(sort_by_popularity = false) t query =
   let compare =
     Search.(if sort_by_popularity then compare_by_popularity else compare)
   in

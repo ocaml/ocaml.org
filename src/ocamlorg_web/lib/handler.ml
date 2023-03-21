@@ -355,7 +355,7 @@ let packages_search t req =
   match Dream.query req "q" with
   | Some search ->
       let packages =
-        Ocamlorg_package.search_package ~sort_by_popularity:true t search
+        Ocamlorg_package.search ~sort_by_popularity:true t search
       in
       let total = List.length packages in
       let results = List.map (package_meta t) packages in
@@ -367,7 +367,7 @@ let packages_autocomplete_fragment t req =
   match Dream.query req "q" with
   | Some search when search <> "" ->
       let packages =
-        Ocamlorg_package.search_package ~sort_by_popularity:true t search
+        Ocamlorg_package.search ~sort_by_popularity:true t search
       in
       let results = List.map (package_meta t) packages in
       let top_5 = results |> List.take 5 in
