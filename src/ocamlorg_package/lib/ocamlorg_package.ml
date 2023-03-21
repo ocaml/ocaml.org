@@ -19,7 +19,7 @@ type state = {
   mutable featured : t list option;
 }
 
-let state_of_list (pkgs : t list) =
+let mockup_state (pkgs : t list) =
   let map = Name.Map.empty in
   let add_version (pkg : t) map =
     let new_map =
