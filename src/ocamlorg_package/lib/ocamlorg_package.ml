@@ -2,7 +2,7 @@ open Ocamlorg.Import
 module Name = OpamPackage.Name
 module Version = OpamPackage.Version
 module Info = Info
-module Packages_stats = Packages_stats
+module Stats = Packages_stats
 
 type t = { name : Name.t; version : Version.t; info : Info.t }
 
@@ -15,7 +15,7 @@ type state = {
   version : string;
   mutable opam_repository_commit : string option;
   mutable packages : Info.t Version.Map.t Name.Map.t;
-  mutable stats : Packages_stats.t option;
+  mutable stats : Stats.t option;
   mutable featured : t list option;
 }
 
@@ -130,7 +130,7 @@ let update ~commit t =
   Logs.info (fun f -> f "Computing additional informations...");
   let* packages = Info.of_opamfiles packages in
   Logs.info (fun f -> f "Computing packages statistics...");
-  let+ stats = Packages_stats.compute packages in
+  let+ stats = Stats.compute packages in
   let featured =
     Ood.Packages.all.featured
     |> List.filter_map (fun p ->

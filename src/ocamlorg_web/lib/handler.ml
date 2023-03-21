@@ -314,7 +314,7 @@ let package_meta ?on_latest_url state (package : Ocamlorg_package.t) :
   package_of_info ~name ~version ?on_latest_url ~latest_version ~versions info
 
 let packages state _req =
-  let package { Ocamlorg_package.Packages_stats.name; version; info } =
+  let package { Ocamlorg_package.Stats.name; version; info } =
     let versions = package_versions state name in
     let latest_version =
       Option.map
@@ -328,7 +328,7 @@ let packages state _req =
     match Ocamlorg_package.stats state with
     | Some
         ({
-           Ocamlorg_package.Packages_stats.nb_packages;
+           Ocamlorg_package.Stats.nb_packages;
            nb_update_week;
            nb_packages_month;
            _;

@@ -48,7 +48,7 @@ module Info : sig
   }
 end
 
-module Packages_stats : sig
+module Stats : sig
   type package_stat = { name : Name.t; version : Version.t; info : Info.t }
 
   type t = {
@@ -157,7 +157,7 @@ val all_latest : state -> t list
     versions of the packages are read from the file system, the metadata are
     loaded lazily to improve performance. *)
 
-val stats : state -> Packages_stats.t option
+val stats : state -> Stats.t option
 (** Return the statistics computed from the opam-repository. These statistics
     are continuously updated in the background. Returns [None] if the stats are
     still being computed. *)
