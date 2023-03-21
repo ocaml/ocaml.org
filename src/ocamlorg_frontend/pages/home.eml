@@ -7,13 +7,13 @@ Layout.render
 ~canonical:"" @@
 <div class="lg:py-24 py-2">
   <div class="container-fluid space-y-24 lg:space-y-32">
-    <div class="flex flex-col lg:flex-row">
+    <div class="flex flex-col lg:flex-row gap-6">
       <div class="lg:flex-1 lg:mt-16 my-12">
-        <h1 class="lg:pr-10 font-bold">
+        <h1 class="lg:pr-10 text-7xl font-bold">
           OCaml
         </h1>
         <p class="my-7 text-2xl">
-          A general-purpose, industrial-strength programming language
+          An industrial-strength functional programming language
           with an emphasis on expressiveness and safety
         </p>
         <div class="space-x-0 lg:space-x-6">
@@ -196,6 +196,25 @@ Layout.render
     </div>
   </div>
 </div>
+<div class="py-24 overflow-hidden">
+  <div class="container-fluid">
+    <div class="prose mx-auto">
+        <h2 class="font-bold">Exceptionally Robust and Reliable</h2>
+        <blockquote class="font-normal">
+        Despite all this testing, we have never had a single XenServer defect reported from
+        internal testing or from the field that can be traced back to a bug in the
+        OCaml runtime or compiler. (During development we did once find a minor compiler bug,
+        triggered when compiling auto-generated OCaml code with many function arguments,
+        but this was already fixed in the development branch by the time we reported it
+        and so no interaction with the maintainers at INRIA was required.)
+        </blockquote>
+
+        -- Scott, D. & Sharp, R. & Gazagnaire, T. & Madhavapeddy, A. (2010).
+          <a href="https://anil.recoil.org/papers/2010-icfp-xen.pdf">Using Functional Programming within an Industrial Product Group: Perspectives and Perceptions.</a>
+          ACM SIGPLAN Notices. 45. 87-92. 10.1145/1863543.1863557.
+    </div>
+  </div>
+</div>
 <div class="bg-pattern py-24 overflow-hidden">
   <div class="container-fluid">
     <div class="">
@@ -320,7 +339,6 @@ Layout.render
     </div>
   </div>
 </div>
-
 <div class="py-28 bg-white">
   <div class="container-fluid">
     <div class="text-center px-15">
