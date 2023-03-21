@@ -111,7 +111,7 @@ let is_valid_params_test limit offset cond () =
   Alcotest.(check string) ("returns " ^ cond) cond is_valid_params
 
 let packages_list_test ?contains offset limit total_length () =
-  let state = Package.state_of_package_list packages in
+  let state = Package.state_of_list packages in
   let all_packages =
     Ocamlorg_web.Graphql.packages_list ?contains offset limit packages state
   in
@@ -120,7 +120,7 @@ let packages_list_test ?contains offset limit total_length () =
     "returns all matched packages" total_length num_of_packages_returned
 
 let all_packages_result_test ?contains offset limit () =
-  let state = Package.state_of_package_list packages in
+  let state = Package.state_of_list packages in
   let all_packages =
     Ocamlorg_web.Graphql.all_packages_result ?contains offset limit state
   in
@@ -132,7 +132,7 @@ let all_packages_result_test ?contains offset limit () =
   Alcotest.(check int) "returns all the packages" 5 num_of_packages_returned
 
 let package_result_test name version expect () =
-  let state = Package.state_of_package_list packages in
+  let state = Package.state_of_list packages in
   let package = Ocamlorg_web.Graphql.package_result name version state in
   let result =
     match package with
@@ -142,7 +142,7 @@ let package_result_test name version expect () =
   Alcotest.(check string) "same package" expect result
 
 let package_versions_result_test name from upto total_packages () =
-  let state = Package.state_of_package_list packages in
+  let state = Package.state_of_list packages in
   let package_versions =
     Ocamlorg_web.Graphql.package_versions_result name from upto state
   in
@@ -155,7 +155,7 @@ let package_versions_result_test name from upto total_packages () =
     "returns all package versions" total_packages num_of_packages_returned
 
 let state_test () =
-  let state = Package.state_of_package_list packages in
+  let state = Package.state_of_list packages in
   let pkg =
     Package.search state "abt"
     |> List.map Package.name
@@ -251,7 +251,7 @@ let () =
           Alcotest.test_case "returns successfully" `Quick (fun () ->
               let req = Dream.request ~method_:`GET "/packages" in
               let packages_state =
-                Ocamlorg_package.state_of_package_list packages
+                Ocamlorg_package.state_of_list packages
               in
               let res =
                 Dream.test (Ocamlorg_web.Handler.packages packages_state) req
