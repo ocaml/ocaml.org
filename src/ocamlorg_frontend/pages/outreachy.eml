@@ -13,15 +13,15 @@ Layout.render
     </div>
 </div>
 
-<div class="container mx-auto px-4 items-center">
+<div class="container mx-auto px-4 items-center" x-on:keydown.escape="isModalOpen=false" x-data="{'isModalOpen': false, 'slug': null}">
         <% metadata |> List.iter (fun (rounds : Ood.Outreachy.t) -> %>
             <div id="name" class="block  border-b border-[#EF8316] p-6 text-left my-2">
                 <h2 class="font-bold"><%s rounds.name %></h2>
             </div>
             <div class="grid grid-cols-1 auto-rows-max md:grid-cols-2 xl:grid-cols-3 gap-10">
                 <% rounds.projects |> List.iter (fun (project : Ood.Outreachy.project) -> %>
-                        <div id="projects" class="p-5 rounded-2xl items-center w-full border border-gray-300">
-                            <div class="flex flex-col space-y-2">                 
+                        <div id="projects" class="p-5 rounded-2xl items-center w-full h-[250px] border border-gray-300">
+                            <div class="flex flex-col h-full space-y-2">                 
                                 <h2 class="text-lg text-black font-semibold"><%s project.title %></h2>
                                 <div >Mentee: <span class='text-gray-800 italic'><%s project.mentee %></span></div>
                                 <div>Mentor(s): <span class='text-gray-800 italic'><%s Fmt.(str "%a" (list ~sep:comma string) project.mentors) %></></div>
@@ -40,7 +40,9 @@ Layout.render
                                 <div>
                                     <a href="<%s project.source %>" class='hover:underline' target="_blank">Source</a> 
                                 </div> 
-                                <a href='#' class='btn btn-secondary self-end justify-self-end'>See more</a>
+                                <div>
+                                <button x-on:click="isModalOpen = true; slug = <%s project.number %>" class='btn btn-secondary self-end justify-self-end'>See more</button>
+                                </div>
                                 </div>   
                             </div>
                         </div>
@@ -48,4 +50,39 @@ Layout.render
             </div>
             <br>
         <% ); %>
+        <div  x-on:click="isModalOpen=false" x-show="isModalOpen" class='fixed bg-black/30 top-0 left-0 h-screen w-screen flex items-center justify-center p-10'> 
+            <div onclick="function(event){event.stopPropagation()}" class='h-1/2 w-4/5 rounded-xl bg-white'>
+            <% metadata |> List.iter (fun (rounds : Ood.Outreachy.t) -> %>
+            <div>
+              <% rounds.projects |> List.iter (fun (project : Ood.Outreachy.project) -> %>
+              <div x-show="<%s project.number %> === slug">
+                <h2><%s project.title %></h2>
+                <div>
+                  <p><%s project.description %></p>
+                </div>
+                <div>
+                  <p><%s project.mentee %></p>
+                </div>
+                <div>
+                  <p><%s Fmt.(str "%a" (list ~sep:comma string) project.mentors) %></p>
+                </div>
+                <% (match project.blog with None -> () | Some blog -> %>
+                  <div class"flex-wrap">                        
+                    <a href="<%s blog %>" class="hover:underline" target="_blank">Blog</a> 
+                  </div>
+                  <% ); %>
+                  <% (match project.video with None -> () | Some video -> %>
+                  <div>                        
+                      <a href="<%s video %>" class='hover:underline' target="_blank">Video</a> 
+                  </div>
+                  <% ); %>
+                  <div>
+                    <a href="<%s project.source %>" class='hover:underline' target="_blank">Source</a> 
+                  </div> 
+              </div>
+              <% ); %>
+            </div>
+            <% ); %>
+            </div>   
+        </div
 </div>
