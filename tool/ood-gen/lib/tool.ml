@@ -39,21 +39,8 @@ let of_metadata m =
   of_metadata m ~slug:(Utils.slugify m.name) ~modify_description:(fun v ->
       Omd.of_string v |> Omd.to_html)
 
-let decode s =
-  let yaml = Utils.decode_or_raise Yaml.of_string s in
-  match yaml with
-  | `O [ ("tools", `A xs) ] ->
-      Ok
-        (List.map
-           (fun x ->
-             let metadata = Utils.decode_or_raise metadata_of_yaml x in
-             of_metadata metadata)
-           xs)
-  | _ -> Error (`Msg "expected a list of tools")
-
-let all () =
-  let content = Data.read "tools.yml" |> Option.get in
-  Utils.decode_or_raise decode content
+let decode s = Result.map of_metadata (metadata_of_yaml s)
+let all () = Utils.yaml_sequence_file decode "tools.yml"
 
 let template () =
   Format.asprintf
