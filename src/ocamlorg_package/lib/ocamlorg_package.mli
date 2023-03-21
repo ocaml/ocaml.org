@@ -95,8 +95,7 @@ type state
 type t
 
 val mockup_state : t list -> state
-(** [mockup_state ts] produces the opam-repository state from a list of
-    packages *)
+(** [mockup_state ts] produces the opam-repository state from a list of packages *)
 
 val name : t -> Name.t
 (** Get the name of a package. *)
