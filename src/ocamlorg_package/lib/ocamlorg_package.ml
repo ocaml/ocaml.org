@@ -108,9 +108,9 @@ let get_package_latest' packages name =
          in
          let avoided, packages = Version.Map.partition avoid_version versions in
          let version, info =
-           Option.value
-             ~default:(Version.Map.max_binding avoided)
-             (Version.Map.max_binding_opt packages)
+           match Version.Map.max_binding_opt packages with
+           | None -> Version.Map.max_binding avoided
+           | Some (version, info) -> (version, info)
          in
          { version; info; name })
 
