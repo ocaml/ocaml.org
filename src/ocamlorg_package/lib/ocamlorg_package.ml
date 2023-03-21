@@ -100,7 +100,7 @@ let save_state t =
     (fun () -> Marshal.to_channel channel t [])
     ~finally:(fun () -> close_out channel)
 
-let get_package_latest' packages name =
+let get_latest' packages name =
   Name.Map.find_opt name packages
   |> Option.map (fun versions ->
          let avoid_version (info : Info.t) =
@@ -134,7 +134,7 @@ let update ~commit t =
   let featured_packages =
     Ood.Packages.all.featured_packages
     |> List.filter_map (fun p ->
-           get_package_latest' packages (Name.of_string p))
+           get_latest' packages (Name.of_string p))
   in
   t.packages <- packages;
   t.stats <- Some stats;
@@ -197,9 +197,9 @@ let get_versions t name =
   t.packages |> Name.Map.find_opt name
   |> Option.map (fun p -> p |> Version.Map.bindings |> List.rev_map fst)
 
-let get_package_latest t name = get_package_latest' t.packages name
+let get_latest t name = get_latest' t.packages name
 
-let get_package t name version =
+let get t name version =
   t.packages |> Name.Map.find_opt name |> fun x ->
   Option.bind x (Version.Map.find_opt version)
   |> Option.map (fun info -> { version; info; name })
@@ -521,7 +521,7 @@ let documentation_status ~kind t : documentation_status Lwt.t =
   else Lwt.return status
 
 let doc_exists t name version =
-  let package = get_package t name version in
+  let package = get t name version in
   let open Lwt.Syntax in
   match package with
   | None -> Lwt.return None
@@ -548,7 +548,7 @@ let latest_documented_version t name =
   | Some vlist -> aux vlist
 
 let is_latest_version t name version =
-  match get_package_latest t name with
+  match get_latest t name with
   | None -> false
   | Some pkg -> pkg.version = version
 

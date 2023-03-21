@@ -309,7 +309,7 @@ let package_meta ?on_latest_url state (package : Ocamlorg_package.t) :
   let latest_version =
     Option.map
       (fun (p : Ocamlorg_package.t) -> Ocamlorg_package.version p)
-      (Ocamlorg_package.get_package_latest state name)
+      (Ocamlorg_package.get_latest state name)
   in
   package_of_info ~name ~version ?on_latest_url ~latest_version ~versions info
 
@@ -319,7 +319,7 @@ let packages state _req =
     let latest_version =
       Option.map
         (fun (p : Ocamlorg_package.t) -> Ocamlorg_package.version p)
-        (Ocamlorg_package.get_package_latest state name)
+        (Ocamlorg_package.get_latest state name)
     in
     package_of_info ~name ~version ~latest_version ~versions info
   in
@@ -391,9 +391,9 @@ let package_docs _t req =
 
 let to_package t name version =
   let package =
-    if version = "latest" then Ocamlorg_package.get_package_latest t name
+    if version = "latest" then Ocamlorg_package.get_latest t name
     else
-      Ocamlorg_package.get_package t name
+      Ocamlorg_package.get t name
         (Ocamlorg_package.Version.of_string version)
   in
   package

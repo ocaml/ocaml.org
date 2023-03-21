@@ -168,10 +168,10 @@ val get_by_name : state -> Name.t -> t list option
 val get_versions : state -> Name.t -> Version.t list option
 (** Get the list of versions for a package name, newest coming first. *)
 
-val get_package_latest : state -> Name.t -> t option
+val get_latest : state -> Name.t -> t option
 (** Get the latest version of a package given a package name. *)
 
-val get_package : state -> Name.t -> Version.t -> t option
+val get : state -> Name.t -> Version.t -> t option
 (** Get a package given its name and version. *)
 
 val latest_documented_version : state -> Name.t -> Version.t option Lwt.t
