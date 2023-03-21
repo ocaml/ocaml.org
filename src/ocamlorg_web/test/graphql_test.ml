@@ -157,8 +157,7 @@ let package_versions_result_test name from upto total_packages () =
 let state_test () =
   let state = Package.state_of_list packages in
   let pkg =
-    Package.search state "abt"
-    |> List.map Package.name
+    Package.search state "abt" |> List.map Package.name
     |> List.map Package.Name.to_string
   in
   let expect = [ "abt" ] in
@@ -250,9 +249,7 @@ let () =
         [
           Alcotest.test_case "returns successfully" `Quick (fun () ->
               let req = Dream.request ~method_:`GET "/packages" in
-              let packages_state =
-                Ocamlorg_package.state_of_list packages
-              in
+              let packages_state = Ocamlorg_package.state_of_list packages in
               let res =
                 Dream.test (Ocamlorg_web.Handler.packages packages_state) req
               in

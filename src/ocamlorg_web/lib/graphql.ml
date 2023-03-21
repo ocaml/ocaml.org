@@ -58,9 +58,7 @@ let all_packages_result ?contains ?sort_by_popularity offset limit t =
 let package_result name version t =
   match version with
   | None -> (
-      let package =
-        Package.get_latest t (Package.Name.of_string name)
-      in
+      let package = Package.get_latest t (Package.Name.of_string name) in
       match package with
       | None -> Error ("No package matching " ^ name ^ " was found")
       | Some package -> Ok package)
@@ -78,9 +76,7 @@ let package_result name version t =
 let package_versions_result name from upto t =
   let all_packages = Package.all_latest t in
   let total_packages = List.length all_packages in
-  let packages =
-    Package.get_by_name t (Package.Name.of_string name)
-  in
+  let packages = Package.get_by_name t (Package.Name.of_string name) in
   match packages with
   | None -> Error ("No package matching " ^ name ^ " was found")
   | Some packages ->

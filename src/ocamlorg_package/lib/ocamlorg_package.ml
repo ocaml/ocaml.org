@@ -133,8 +133,7 @@ let update ~commit t =
   let+ stats = Stats.compute packages in
   let featured =
     Ood.Packages.all.featured
-    |> List.filter_map (fun p ->
-           get_latest' packages (Name.of_string p))
+    |> List.filter_map (fun p -> get_latest' packages (Name.of_string p))
   in
   t.packages <- packages;
   t.stats <- Some stats;

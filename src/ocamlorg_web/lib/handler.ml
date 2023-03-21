@@ -393,8 +393,7 @@ let to_package t name version =
   let package =
     if version = "latest" then Ocamlorg_package.get_latest t name
     else
-      Ocamlorg_package.get t name
-        (Ocamlorg_package.Version.of_string version)
+      Ocamlorg_package.get t name (Ocamlorg_package.Version.of_string version)
   in
   package
   |> Option.map (fun package ->
