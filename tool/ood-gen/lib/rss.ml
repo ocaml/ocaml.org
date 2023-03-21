@@ -11,13 +11,11 @@ type metadata = {
 }
 [@@deriving yaml]
 
-let decode_sources s =
-  let yaml = Utils.decode_or_raise Yaml.of_string s in
-  Utils.decode_or_raise sources_of_yaml yaml
-
 let all_sources () =
-  let content = Data.read "rss-sources.yml" |> Option.get in
-  decode_sources content
+  let bind f r = Result.bind r f in
+  "rss-sources.yml" |> Data.read
+  |> Option.to_result ~none:(`Msg "could not decode")
+  |> bind Yaml.of_string |> bind sources_of_yaml |> Result.get_ok
 
 let pp_meta ppf v =
   Fmt.pf ppf {|---
