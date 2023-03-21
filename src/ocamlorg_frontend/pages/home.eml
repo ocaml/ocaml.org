@@ -188,7 +188,10 @@ Layout.render
             <div class="my-4 font-normal text-lg">
               OCaml offers great runtime performance without compromising on developer experience:
               The bytecode compiler generates small, highly portable executables blazingly fast;
-              the native code compiler produces highly-efficient machine code.
+              the native code compiler produces highly-efficient machine code. Despite this focus
+              on performance, the OCaml compiler has always been exceptionally reliable and stable
+              - going all the way back to its inception in 1996.
+              
             </div>
           </div>
         </div>
