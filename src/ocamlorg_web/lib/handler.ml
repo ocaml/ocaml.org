@@ -343,13 +343,13 @@ let packages state _req =
             most_revdeps = List.map package_pair t.most_revdeps;
           }
     | None -> None
-  and featured_packages =
+  and featured =
     (* TODO: Should be cached ? *)
-    match Ocamlorg_package.featured_packages state with
+    match Ocamlorg_package.featured state with
     | Some pkgs -> List.map (package_meta state) pkgs
     | None -> []
   in
-  Dream.html (Ocamlorg_frontend.packages stats featured_packages)
+  Dream.html (Ocamlorg_frontend.packages stats featured)
 
 let packages_search t req =
   match Dream.query req "q" with

@@ -16,7 +16,7 @@ type state = {
   mutable opam_repository_commit : string option;
   mutable packages : Info.t Version.Map.t Name.Map.t;
   mutable stats : Packages_stats.t option;
-  mutable featured_packages : t list option;
+  mutable featured : t list option;
 }
 
 let state_of_package_list (pkgs : t list) =
@@ -35,7 +35,7 @@ let state_of_package_list (pkgs : t list) =
     packages;
     opam_repository_commit = None;
     stats = None;
-    featured_packages = None;
+    featured = None;
   }
 
 let read_versions package_name versions =
@@ -89,7 +89,7 @@ let try_load_state () =
       version = Info.version;
       packages = Name.Map.empty;
       stats = None;
-      featured_packages = None;
+      featured = None;
     }
 
 let save_state t =
@@ -131,14 +131,14 @@ let update ~commit t =
   let* packages = Info.of_opamfiles packages in
   Logs.info (fun f -> f "Computing packages statistics...");
   let+ stats = Packages_stats.compute packages in
-  let featured_packages =
-    Ood.Packages.all.featured_packages
+  let featured =
+    Ood.Packages.all.featured
     |> List.filter_map (fun p ->
            get_latest' packages (Name.of_string p))
   in
   t.packages <- packages;
   t.stats <- Some stats;
-  t.featured_packages <- Some featured_packages;
+  t.featured <- Some featured;
   Logs.info (fun m -> m "Loaded %d packages" (Name.Map.cardinal packages))
 
 let maybe_update t =
@@ -204,7 +204,7 @@ let get t name version =
   Option.bind x (Version.Map.find_opt version)
   |> Option.map (fun info -> { version; info; name })
 
-let featured_packages t = t.featured_packages
+let featured t = t.featured
 
 module Documentation = struct
   type toc = { title : string; href : string; children : toc list }
