@@ -213,7 +213,7 @@ Package_layout.render
               <%s Filename.basename uri %>
             </span>
 
-            <div class="p-2 bg-primary-600 text-white rounded">
+            <div class="p-1 bg-primary-600 text-white rounded">
                 <%s! Icons.download "h-6 w-6" %>
             </div>
           </a>
@@ -225,11 +225,11 @@ Package_layout.render
 
             <button
               @click="$clipboard('<%s checksum %>'); copied = true; setTimeout(() => copied = false, 2000)"
-              x-show="!copied" title="copy checksum to clipboard" class="py-1 px-2 text-primary-600 rounded">
+              x-show="!copied" title="copy checksum to clipboard" class="p-1 text-primary-600 rounded">
                 <%s! Icons.copy "h-6 w-6" %>
             </button>
-            <button x-show="copied" title="checksum copied to clipboard" class="py-1 px-2 text-primary-600 rounded">
-                <%s! Icons.copied_to_clipboard "h-4 w-4" %>
+            <button x-show="copied" title="checksum copied to clipboard" class="p-1 text-primary-600 rounded">
+                <%s! Icons.copied_to_clipboard "h-6 w-6" %>
             </button>
           </div>
           <% end; %>
