@@ -284,7 +284,7 @@ let package_of_info ~name ~version ?(on_latest_url = false) ~latest_version
         Option.value ~default:"???"
           (Option.map Ocamlorg_package.Version.to_string latest_version);
       synopsis = info.Ocamlorg_package.Info.synopsis;
-      description = info.Ocamlorg_package.Info.description;
+      description = info.Ocamlorg_package.Info.description |> Omd.of_string |> Omd.to_html;
       tags = info.tags;
       rev_deps;
       authors = info.authors;
@@ -453,11 +453,7 @@ let package_versioned t kind req =
 
       let* content =
         match page_from_url with
-        | None ->
-            Lwt.return
-              (Some
-                 (package_info.Ocamlorg_package.Info.description
-                |> Omd.of_string |> Omd.to_html))
+        | None -> Lwt.return (Some "")
         | Some page ->
             let* file = Ocamlorg_package.file ~kind package page in
             Lwt.return
