@@ -165,7 +165,7 @@ val stats : state -> Packages_stats.t option
 val get_by_name : state -> Name.t -> t list option
 (** Get the list of packages with the given name. *)
 
-val get_package_versions : state -> Name.t -> Version.t list option
+val get_versions : state -> Name.t -> Version.t list option
 (** Get the list of versions for a package name, newest coming first. *)
 
 val get_package_latest : state -> Name.t -> t option

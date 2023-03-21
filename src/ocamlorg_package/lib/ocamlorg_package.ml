@@ -193,7 +193,7 @@ let get_by_name t name =
   |> Option.map Version.Map.bindings
   |> Option.map (List.map (fun (version, info) -> { name; version; info }))
 
-let get_package_versions t name =
+let get_versions t name =
   t.packages |> Name.Map.find_opt name
   |> Option.map (fun p -> p |> Version.Map.bindings |> List.rev_map fst)
 
@@ -543,7 +543,7 @@ let latest_documented_version t name =
         | Some version -> Lwt.return (Some version)
         | None -> aux (List.tl vlist))
   in
-  match get_package_versions t name with
+  match get_versions t name with
   | None -> Lwt.return None
   | Some vlist -> aux vlist
 

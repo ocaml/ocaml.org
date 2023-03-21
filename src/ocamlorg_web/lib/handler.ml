@@ -295,7 +295,7 @@ let package_of_info ~name ~version ?(on_latest_url = false) ~latest_version
 
 (** Query all the versions of a package. *)
 let package_versions state name =
-  Ocamlorg_package.get_package_versions state name
+  Ocamlorg_package.get_versions state name
   |> Option.value ~default:[]
   |> List.sort (Fun.flip Ocamlorg_package.Version.compare)
   |> List.map Ocamlorg_package.Version.to_string
