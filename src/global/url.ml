@@ -3,17 +3,20 @@ let packages = "/packages"
 let packages_search = "/packages/search"
 let packages_autocomplete_fragment = "/packages/autocomplete"
 let with_hash = Option.fold ~none:"/p" ~some:(( ^ ) "/u/")
-let package ?hash v = with_hash hash ^ "/" ^ v
-let package_docs v = "/p/" ^ v ^ "/doc"
 let with_version = Option.value ~default:"latest"
-let with_page p = if p = "" then p else "/" ^ p
+let with_page p = if p = "" then "" else "/" ^ p
 
-let package_with_version ?version ?hash ?(page = "") v =
-  with_hash hash ^ "/" ^ v ^ "/" ^ with_version version ^ with_page page
+let package_overview ?version ?hash name =
+  with_hash hash ^ "/" ^ name ^ "/" ^ with_version version
 
-let package_doc ?hash ?version ?(page = "index.html") v =
-  with_hash hash ^ "/" ^ v ^ "/" ^ with_version version ^ "/doc/" ^ page
+let package_file ?version ?hash ~filepath name =
+  with_hash hash ^ "/" ^ name ^ "/" ^ with_version version ^ "/" ^ filepath
 
+let package_documentation ?hash ?version ?(page = "index.html") name =
+  with_hash hash ^ "/" ^ name ^ "/" ^ with_version version ^ "/doc/" ^ page
+
+let package_redirect ?hash name = with_hash hash ^ "/" ^ name
+let package_docs_redirect name = "/p/" ^ name ^ "/doc"
 let community = "/community"
 let success_story v = "/success-stories/" ^ v
 let industrial_users = "/industrial-users"

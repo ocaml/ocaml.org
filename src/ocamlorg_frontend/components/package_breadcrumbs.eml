@@ -35,8 +35,8 @@ let render_package_and_version
   let version = Package.url_version package in
   let url (version : string option) =
     match path with
-    | Overview _ -> Url.package_with_version package.name ?version
-    | Documentation _ -> Url.package_doc package.name ?version ?hash ?page
+    | Overview _ -> Url.package_overview package.name ?version
+    | Documentation _ -> Url.package_documentation package.name ?version ?hash ?page
   in
   let version_options v =
     <% if v = package.latest_version then ( %>
@@ -50,7 +50,7 @@ let render_package_and_version
   in
   <li>
     <h1 class="inline text-base">
-      <a class="font-semibold underline" href="<%s Url.package_with_version package.name ?version %>"><%s package.name %></a>
+      <a class="font-semibold underline" href="<%s Url.package_overview package.name ?version %>"><%s package.name %></a>
     </h1>
   </li>
   <li>
@@ -101,7 +101,7 @@ let render_docs_path_breadcrumbs
     <ul class="flex flex-wrap gap-x-2 text-base leading-8 package-breadcrumbs">
       <%s! render_package_and_version ~path:(Documentation path) ?page ?hash package %>
       <li>
-        <a class="underline font-semibold" href="<%s! Url.package_doc package.name ?version %>">Documentation</a>
+        <a class="underline font-semibold" href="<%s! Url.package_documentation package.name ?version %>">Documentation</a>
       </li>
       <% (match path with
          | Index -> %>
