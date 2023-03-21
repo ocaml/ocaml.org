@@ -512,20 +512,20 @@ let package_doc t kind req =
             in
             aux [] xs
           in
+          let module Package_map = Ocamlorg_package.Module_map in
           let rec toc_of_module ~root
-              (module' : Ocamlorg_package.Module_map.Module.t) :
+              (module' : Package_map.Module.t) :
               Ocamlorg_frontend.Navmap.toc =
-            let open Ocamlorg_package in
-            let title = Module_map.Module.name module' in
-            let kind = Module_map.Module.kind module' in
-            let href = Some (root ^ Module_map.Module.path module') in
+            let title = Package_map.Module.name module' in
+            let kind = Package_map.Module.kind module' in
+            let href = Some (root ^ Package_map.Module.path module') in
             let children =
-              module' |> Module_map.Module.submodules |> String.Map.bindings
+              module' |> Package_map.Module.submodules |> String.Map.bindings
               |> List.map (fun (_, module') -> toc_of_module ~root module')
             in
             let kind =
               match kind with
-              | Module_map.Page -> Ocamlorg_frontend.Navmap.Page
+              | Package_map.Page -> Ocamlorg_frontend.Navmap.Page
               | Module -> Module
               | Leaf_page -> Leaf_page
               | Module_type -> Module_type
@@ -537,13 +537,12 @@ let package_doc t kind req =
             in
             Ocamlorg_frontend.Navmap.{ title; href; kind; children }
           in
-          let toc_of_map ~root (map : Ocamlorg_package.Module_map.t) :
+          let toc_of_map ~root (map : Package_map.t) :
               Ocamlorg_frontend.Navmap.t =
-            let open Ocamlorg_package in
             let libraries = map.libraries in
             String.Map.bindings libraries
             |> List.map (fun (_, library) ->
-                   let title = library.Module_map.name in
+                   let title = library.Package_map.name in
                    let href = None in
                    let children =
                      String.Map.bindings library.modules
