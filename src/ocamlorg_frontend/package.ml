@@ -45,4 +45,4 @@ type stats = {
   recently_updated : package list;
   most_revdeps : (package * int) list;
 }
-(** See {!Ocamlorg_package.Packages_stats.t}. *)
+(** See {!Ocamlorg_package.Statistics.t}. *)

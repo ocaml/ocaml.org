@@ -304,7 +304,7 @@ module Package_helper = struct
 
   (** Query all the versions of a package. *)
   let versions state name =
-    Ocamlorg_package.get_package_versions state name
+    Ocamlorg_package.get_versions state name
     |> Option.value ~default:[]
     |> List.sort (Fun.flip Ocamlorg_package.Version.compare)
     |> List.map Ocamlorg_package.Version.to_string
@@ -318,17 +318,16 @@ module Package_helper = struct
     let latest_version =
       Option.map
         (fun (p : Ocamlorg_package.t) -> Ocamlorg_package.version p)
-        (Ocamlorg_package.get_package_latest state name)
+        (Ocamlorg_package.get_latest state name)
     in
     package_info_to_frontend_package ~name ~version ?on_latest_url
       ~latest_version ~versions info
 
   let of_name_version t name version =
     let package =
-      if version = "latest" then Ocamlorg_package.get_package_latest t name
+      if version = "latest" then Ocamlorg_package.get_latest t name
       else
-        Ocamlorg_package.get_package t name
-          (Ocamlorg_package.Version.of_string version)
+        Ocamlorg_package.get t name (Ocamlorg_package.Version.of_string version)
     in
     package
     |> Option.map (fun package ->
@@ -360,7 +359,7 @@ module Package_helper = struct
 end
 
 let packages state _req =
-  let package { Ocamlorg_package.Packages_stats.name; version; info } =
+  let package { Ocamlorg_package.Statistics.name; version; info } =
     let versions = Package_helper.versions state name in
     let latest_version =
       Option.map
@@ -500,8 +499,7 @@ let package_documentation t kind req =
             aux [] xs
           in
           let module Package_map = Ocamlorg_package.Module_map in
-          let rec toc_of_module ~root
-              (module' : Package_map.Module.t) :
+          let rec toc_of_module ~root (module' : Package_map.Module.t) :
               Ocamlorg_frontend.Navmap.toc =
             let title = Package_map.Module.name module' in
             let kind = Package_map.Module.kind module' in
