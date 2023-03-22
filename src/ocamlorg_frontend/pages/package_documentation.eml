@@ -30,11 +30,11 @@ let str_path =
     | Documentation (docs_path) -> (match docs_path with
         | Package_breadcrumbs.Index -> []
         | Library (s, p) -> s :: List.map (function
-            | Package_breadcrumbs.Module s -> s
-            | ModuleType s -> s
-            | Parameter (number, s) -> Int.to_string number ^ "-" ^ s
-            | Class s -> s
-            | ClassType s -> s
+            | Package_breadcrumbs.Module { name ; _ } -> name
+            | ModuleType { name ; _ } -> name
+            | Parameter  { name ; _ } -> name
+            | Class { name ; _ } -> name
+            | ClassType { name ; _ } -> name
           ) p
         | Page s -> [""; s])
 in
