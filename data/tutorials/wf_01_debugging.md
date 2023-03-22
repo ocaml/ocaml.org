@@ -405,13 +405,11 @@ report these.
 ### Installing a TSan Switch
 
 To install the TSan mode
-- First install the
-  [`libunwind`](https://github.com/libunwind/libunwind) dependency.
-  On macOS `libunwind` should already be installed by default.
-  On a Linux system with the `apt` package manager, installing
-  `libunwind` should be as simple as `sudo apt install libunwind-dev`.
-- Second create a TSan switch by running `opam switch create
-  5.0.0+tsan`.
+1. Install the [`libunwind`](https://github.com/libunwind/libunwind)
+   dependency. On macOS `libunwind` should already be installed by default.
+   On a Linux system with the `apt` package manager, installing
+   `libunwind` should be as simple as `sudo apt install libunwind-dev`.
+2. Create a TSan switch by running `opam switch create 5.0.0+tsan`.
 
 To confirm that the TSan switch is installed correctly, run `opam
 switch show` and confirm that it prints `5.0.0+tsan`.
