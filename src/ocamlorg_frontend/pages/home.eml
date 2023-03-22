@@ -99,7 +99,7 @@ Layout.render
   <div class="container-fluid">
     <h2 class="font-bold text-center text-body-600 pt-12">Why OCaml?</h2>
     <div class="py-24 lg:pt-24 space-y-20 md:space-y-40">
-      <div class="flex flex-col lg:flex-row-reverse justify-between items-center">
+      <div class="flex gap-10 lg:gap-24 flex-col lg:flex-row-reverse justify-between items-center">
         <div class="lg:flex-1 mt-10 lg:mt-0">
           <div class="text-body-400 text-base">
             <div class="h-12 w-12 text-white rounded-xl flex bg-gradient-to-br from-blue-400 to-blue-600">
@@ -120,13 +120,13 @@ Layout.render
             </div>
           </div>
         </div>
-        <div class="lg:flex-1 lg:mr-24 lg:mt-0 mt-10 flex justify-center">
+        <div class="lg:flex-1 lg:mt-0 mt-10 flex justify-center">
           <img src="/img/home/safe-stable.svg" alt="An example OCaml program defining nested lists in OCaml. A terminal output also shows the compiler catching a type error where a pattern-match was not exhaustive.">
         </div>
       </div>
 
-      <div class="flex flex-col lg:flex-row-reverse justify-between">
-         <div class="lg:flex-1 mt-10 lg:mt-0 flex items-center order-last">
+      <div class="flex gap-10 lg:gap-24 flex-col lg:flex-row justify-between">
+         <div class="lg:flex-1 mt-10 lg:mt-0 flex items-center">
           <div class="text-body-400 text-base">
             <div class="h-12 w-12 text-white rounded-xl flex bg-gradient-to-br from-purple-400 to-purple-600">
               <%s! Icons.home_tooling "h-7 w-7 m-auto" %>
@@ -144,7 +144,7 @@ Layout.render
             </div>
           </div>
         </div>
-        <div class="lg:flex-1 lg:ml-24 lg:mt-0 mt-10 flex justify-center">
+        <div class="lg:flex-1 lg:mt-0 mt-10 flex justify-center">
           <div style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff;" class="swiper mySwiper">
             <div class="swiper-wrapper">
               <div class="swiper-slide">
@@ -170,10 +170,7 @@ Layout.render
         </div>
       </div>
 
-      <div class="flex flex-col lg:flex-row justify-between">
-        <div class="lg:flex-1 lg:ml-24 lg:mt-0 mt-10 flex justify-center">
-          <img src="/img/home/workfaster.svg" alt="">
-        </div>
+      <div class="flex gap-10 lg:gap-24 flex-col lg:flex-row-reverse justify-between">
         <div class="lg:flex-1">
           <div class="text-body-400 text-base">
             <div class="h-12 w-12 text-white rounded-xl flex bg-gradient-to-br from-teal-400 to-teal-600">
@@ -194,6 +191,9 @@ Layout.render
               
             </div>
           </div>
+        </div>
+        <div class="lg:flex-1 lg:mt-0 mt-10 flex justify-center">
+          <img src="/img/home/workfaster.svg" alt="">
         </div>
       </div>
     </div>
