@@ -17,7 +17,7 @@ Layout.render
 ~active_top_nav_item:Header.Packages @@
 <div class="bg-white">
   <div class="py-5 lg:py-6">
-    <div class="container-fluid wide">
+    <div class="container-fluid">
       <div class="flex justify-between flex-col md:flex-row border-b border-gray-200">
         <div class="flex flex-col items-baseline mb-6">
           <%s! Package_breadcrumbs.render ~path ?hash ?page package %>
