@@ -40,22 +40,8 @@ type t = {
   stable_record ~version:metadata ~remove:[ slug ], show { with_path = false }]
 
 let of_metadata m = of_metadata m ~slug:(Utils.slugify m.title)
-
-let decode s =
-  let yaml = Utils.decode_or_raise Yaml.of_string s in
-  match yaml with
-  | `O [ ("videos", `A xs) ] ->
-      Ok
-        (List.map
-           (fun x ->
-             let metadata = Utils.decode_or_raise metadata_of_yaml x in
-             of_metadata metadata)
-           xs)
-  | _ -> Error (`Msg "expected a list of videos")
-
-let all () =
-  let content = Data.read "videos.yml" |> Option.get in
-  Utils.decode_or_raise decode content
+let decode s = Result.map of_metadata (metadata_of_yaml s)
+let all () = Utils.yaml_sequence_file decode "videos.yml"
 
 let template () =
   Format.asprintf

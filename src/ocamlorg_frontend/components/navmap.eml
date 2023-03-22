@@ -5,7 +5,6 @@ type kind =
   | Leaf_page
   | Module_type
   | Parameter
-  | OLDParameter (* DEPRECATED FALLBACK *)
   | Class
   | Class_type
   | File
@@ -25,7 +24,6 @@ let kind_title = function
   | Module -> "Module"
   | Module_type -> "Module type"
   | Parameter -> "Parameter"
-  | OLDParameter -> "Parameter" (* DEPRECATED FALLBACK *)
   | Class -> "Class"
   | Class_type -> "Class type"
   | _ -> "?"
@@ -39,7 +37,6 @@ let icon_style = function
   | Module -> "navmap-tag module-tag"
   | Module_type -> "navmap-tag module-type-tag"
   | Parameter -> "navmap-tag parameter-tag"
-  | OLDParameter -> "navmap-tag parameter-tag" (* DEPRECATED FALLBACK *)
   | Class -> "navmap-tag class-tag"
   | Class_type -> "navmap-tag class-type-tag"
   | _ -> "navmap-tag"
@@ -111,7 +108,7 @@ let render
     <% (match maptoc with [] ->  %>
     <span class="block py-2 text-gray-700">Package contains no libraries</span>
     <% | _ -> %>
-      <a class="py-1 font-medium text-body-600 hover:text-orange-600 transition-colors" href="<%s Url.package_doc package.name ?version %>">
+      <a class="py-1 font-medium text-body-600 hover:text-orange-600 transition-colors" href="<%s Url.package_documentation package.name ?version %>">
         package <%s package.name %>
       </a>
     <ul>

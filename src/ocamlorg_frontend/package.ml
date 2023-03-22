@@ -1,4 +1,5 @@
 type version = Latest | Specific of string
+type documentation_status = Success | Failure | Unknown
 
 type package = {
   name : string;
@@ -13,6 +14,14 @@ type package = {
   authors : Ood.Opam_user.t list;
   maintainers : Ood.Opam_user.t list;
   publication : float;
+  homepages : string list;
+  source : (string * string list) option;
+      (* TODO: these should be part of package.json coming from voodoo, but they
+         currently aren't
+
+         documentation_status : documentation_status; readme_filename : string
+         option; changes_filename : string option; license_filename : string
+         option;*)
 }
 
 let specific_version package =

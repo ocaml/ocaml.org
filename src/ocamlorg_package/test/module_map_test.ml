@@ -18,7 +18,7 @@ let json =
                   {
                     "name": "1-X",
                     "submodules": [],
-                    "kind": "argument"
+                    "kind": "argument-1"
                   }
                 ],
                 "kind": "module"

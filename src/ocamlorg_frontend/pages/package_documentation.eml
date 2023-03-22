@@ -17,8 +17,8 @@ let sidebar
   </div>
 
 let render
-~old_doc (* FALLBACK REMOVE *)
 ~(path: Package_breadcrumbs.path)
+~page
 ~toc
 ~maptoc
 ~content
@@ -30,23 +30,21 @@ let str_path =
     | Documentation (docs_path) -> (match docs_path with
         | Package_breadcrumbs.Index -> []
         | Library (s, p) -> s :: List.map (function
-            | Package_breadcrumbs.Module s -> s
-            | ModuleType s -> s
-            | Parameter (number, s) -> Int.to_string number ^ "-" ^ s
-            | Class s -> s
-            | ClassType s -> s
+            | Package_breadcrumbs.Module { name ; _ } -> name
+            | ModuleType { name ; _ } -> name
+            | Parameter  { name ; _ } -> name
+            | Class { name ; _ } -> name
+            | ClassType { name ; _ } -> name
           ) p
         | Page s -> [""; s])
 in
-let path_page = match str_path |> String.concat "/" with
-                | "" -> None
-                | path -> Some (path ^ if String.contains path '.' then "" else "/index.html") in
 Package_layout.render
 ~title:(Printf.sprintf "%s %s · OCaml Package" package.name (Package.render_version package))
 ~description:(Printf.sprintf "%s %s: %s" package.name (Package.render_version package) package.synopsis)
 ~package
 ~path
-~canonical:(Url.package_doc package.name ~version:(Package.specific_version package) ?page:path_page)
+?page
+~canonical:(Url.package_documentation package.name ~version:(Package.specific_version package) ~page:(Url.package_documentation ?version:(Some (Package.specific_version package)) package.name))
 ~styles:["css/main.css"; "css/doc.css"] @@
 <div x-data="{ open: false, sidebar: window.innerWidth >= 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth >= 1024" x-on:close-sidebar="sidebar=window.innerWidth >= 1024 && true">
   <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed lg:hidden right-10"
@@ -66,7 +64,6 @@ Package_layout.render
       <%s! sidebar ~str_path ~toc ~maptoc package %>
     </div>
     <div class="flex-1 z-0 z- min-w-0 lg:max-w-3xl lg:pt-6" id="htmx-content">
-      <%s if old_doc then "Falling back to pre-odoc.2.2.0 documentation page..." else "" %>
       <div class="odoc prose prose-orange">
         <%s! content %>
       </div>

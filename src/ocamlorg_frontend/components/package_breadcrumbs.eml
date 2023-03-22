@@ -1,9 +1,9 @@
 type library_path_item =
-  | Module of string
-  | ModuleType of string
-  | Parameter of int * string
-  | Class of string
-  | ClassType of string
+  | Module of { name: string; href: string; }
+  | ModuleType of { name: string; href: string; }
+  | Parameter of { name: string; href: string; number: int; }
+  | Class of { name: string; href: string; }
+  | ClassType of { name: string; href: string; }
 
 type docs_path = 
   | Index
@@ -15,53 +15,42 @@ let kind_tag (m : library_path_item) = match m with
     <span tabindex="0" aria-label="module" class="breadcrumbs-tag module-tag text-white">Module</span>
   | ModuleType _ ->
     <span tabindex="0" aria-label="module type" class="breadcrumbs-tag module-type-tag text-white">Module type</span>
-  | Parameter (number, _) ->
+  | Parameter { number; _ } ->
     <span tabindex="0" aria-label="<%s "Parameter #" ^ (Int.to_string number) %>" class="breadcrumbs-tag parameter-tag text-white"><%s "Parameter #" ^ (Int.to_string number) %></span>
   | Class _ ->
     <span tabindex="0" aria-label="class" class="breadcrumbs-tag class-tag text-white">Class</span>
   | ClassType _ ->
     <span tabindex="0" aria-label="class type" class="breadcrumbs-tag class-type-tag text-white">Class type</span>
 
-let library_path_item_name (m: library_path_item) = match m with
-  | Module name
-  | ModuleType name
-  | Parameter (_, name) -> name
-  | Class name -> name
-  | ClassType name -> name
-
-type breadcrumb = {
-  text : string;
-  href : string;
-}
-
-let rec breadcrumbs_from_path (reversed_library_path: library_path_item list) prefix : ( breadcrumb list ) = match reversed_library_path with
-  | [] -> []
-  | x::[] -> [{ text = library_path_item_name x; href = prefix ^ "index.html"}]
-  | x::xs ->
-    let new_prefix = prefix ^ "../" in
-    { text = library_path_item_name x ; href = prefix ^ "index.html" } :: breadcrumbs_from_path xs new_prefix
-
 type path = 
   | Overview of string option
   | Documentation of (docs_path)
 
 let render_package_and_version
-~(package: Package.package)
+~path
+?page
+?hash
+(package: Package.package)
 =
   let version = Package.url_version package in
+  let url (version : string option) =
+    match path with
+    | Overview _ -> Url.package_overview package.name ?version
+    | Documentation _ -> Url.package_documentation package.name ?version ?hash ?page
+  in
   let version_options v =
     <% if v = package.latest_version then ( %>
-    <option value="<%s Url.package_with_version package.name %>" <%s if package.version = Latest then "selected" else "" %>>
+    <option value="<%s url None %>" <%s if package.version = Latest then "selected" else "" %>>
       <%s "latest (" ^ package.latest_version ^ ")" %>
     </option>
     <% ); %>
-    <option value="<%s Url.package_with_version package.name ?version:(Some v) %>" <%s if package.version = Specific v then "selected" else "" %>>
+    <option value="<%s url (Some v) %>" <%s if package.version = Specific v then "selected" else "" %>>
       <%s v %>
     </option>
   in
   <li>
     <h1 class="inline text-base">
-      <a class="font-semibold underline" href="<%s Url.package_with_version package.name ?version %>"><%s package.name %></a>
+      <a class="font-semibold underline" href="<%s Url.package_overview package.name ?version %>"><%s package.name %></a>
     </h1>
   </li>
   <li>
@@ -72,35 +61,47 @@ let render_package_and_version
     </select>
   </li>
 
+type breadcrumb = {
+  name: string;
+  href: string;
+}
+
+let library_path_item_to_breadcrumb = function
+  | Module x -> { name = x.name; href = x.href }
+  | ModuleType x -> { name = x.name; href = x.href }
+  | Class x -> { name = x.name; href = x.href }
+  | ClassType x -> { name = x.name; href = x.href }
+  | Parameter x -> { name = x.name; href = x.href }
+
 let render_library_path_breadcrumbs
 ~library_name
 ~(path: library_path_item list) =
-  let (reversed_library_path : library_path_item list) = List.rev (path) in
-  let breadcrumbs = breadcrumbs_from_path reversed_library_path "" in
   let render_breadcrumb i b =
     if i < List.length path - 1 then
-      <a href="<%s! b.href %>" class="font-semibold underline text-gray-800"><%s b.text %></a>
+      <a href="<%s! b.href %>" class="font-semibold underline text-gray-800"><%s b.name %></a>
     else 
-      <a href="<%s! b.href %>" aria-current="page" class="text-gray-800"><%s b.text %></a>
+      <a href="<%s! b.href %>" aria-current="page" class="text-gray-800"><%s b.name %></a>
   in
   <li>
     <span tabindex="0" class="text-gray-600"><%s library_name %> lib</span>
   </li>
   <li class="inline-flex">
-    <%s! String.concat "<span>.</span>" (breadcrumbs |> List.rev |> List.mapi render_breadcrumb); %>
-    <%s! kind_tag (List.hd reversed_library_path) %>
+    <%s! String.concat "<span>.</span>" (path |> List.map library_path_item_to_breadcrumb |> List.mapi render_breadcrumb); %>
+    <%s! kind_tag (List.hd (List.rev path)) %>
   </li>
 
 let render_docs_path_breadcrumbs
-~(package: Package.package)
-~(path: docs_path) 
+~(path: docs_path)
+?page
+?hash
+(package: Package.package)
   =
   let version = Package.url_version package in
   <nav aria-label="breadcrumb" class="flex" id="htmx-breadcrumbs">
     <ul class="flex flex-wrap gap-x-2 text-base leading-8 package-breadcrumbs">
-      <%s! render_package_and_version ~package %>
+      <%s! render_package_and_version ~path:(Documentation path) ?page ?hash package %>
       <li>
-        <a class="underline font-semibold" href="<%s! Url.package_doc package.name ?version %>">Documentation</a>
+        <a class="underline font-semibold" href="<%s! Url.package_documentation package.name ?version %>">Documentation</a>
       </li>
       <% (match path with
          | Index -> %>
@@ -115,12 +116,13 @@ let render_docs_path_breadcrumbs
   </nav>
 
 let render_overview_breadcrumbs
-~(package: Package.package)
 ~(page: string option)
+?hash
+(package: Package.package)
 =
   <nav aria-label="breadcrumbs" class="flex">
     <ul class="flex flex-wrap gap-x-2 leading-8 package-breadcrumbs">
-      <%s! render_package_and_version ~package %>
+      <%s! render_package_and_version ~path:(Overview page) ?hash package %>
       <% (match page with | Some p -> %>
       <li><%s p %></li>
       <% | None -> ()); %>
@@ -128,10 +130,9 @@ let render_overview_breadcrumbs
   </nav>
 
 let render
-~(package: Package.package)
 ~(path: path)
+?page
 =
   match path with
-    | Overview page -> render_overview_breadcrumbs ~package ~page
-    | Documentation (docs_path) -> render_docs_path_breadcrumbs ~package ~path:docs_path
-    
+    | Overview page -> render_overview_breadcrumbs ~page
+    | Documentation (docs_path) -> render_docs_path_breadcrumbs ~path:docs_path ?page

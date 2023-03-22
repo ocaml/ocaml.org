@@ -1,4 +1,4 @@
-let href_package pkg = Url.package_with_version pkg.name ?version:(Package.url_version pkg)
+let href_package pkg = Url.package_overview pkg.name ?version:(Package.url_version pkg)
 
 let render (stats : Package.stats option) (featured : Package.package list) =
 Layout.render

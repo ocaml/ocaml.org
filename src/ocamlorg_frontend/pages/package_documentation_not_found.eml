@@ -1,12 +1,14 @@
 let render
+?page
 ~path
-~(package : Package.package)
+(package : Package.package)
 =
 Package_layout.render
 ~title:(Printf.sprintf "%s %s · OCaml Package" package.name (Package.render_version package))
 ~description:(Printf.sprintf "%s %s: %s" package.name (Package.render_version package) package.synopsis)
 ~package
 ~path
+?page
 ~styles:["/css/main.css"; "/css/doc.css"] @@
   let version = Package.url_version package in
   <div class="sm:flex max-w-max mx-auto">
@@ -17,7 +19,7 @@ Package_layout.render
         <p class="mt-1 text-base text-gray-500">We're sorry, for some reason we don't have the documentation for this package.</p>
       </div>
       <div class="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6">
-        <a href="<%s Url.package_with_version package.name ?version %>"
+        <a href="<%s Url.package_overview package.name ?version %>"
           class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
           Go To Package Overview
         </a>
