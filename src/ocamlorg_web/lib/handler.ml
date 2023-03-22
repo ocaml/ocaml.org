@@ -438,7 +438,8 @@ let package_overview t kind req =
   let dev_dependencies, dependencies =
     dependencies
     |> List.partition (fun (_, x) ->
-           String.contains_s (Option.value ~default:"" x) "with-")
+           let s = Option.value ~default:"" x in
+           String.contains_s s "with-" || String.contains_s s "dev")
   in
   let conflicts =
     package_info.Ocamlorg_package.Info.conflicts
