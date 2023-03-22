@@ -671,11 +671,11 @@ let make ?(permanent = false) t =
 
 let package req =
   let package = Dream.param req "name" in
-  Dream.redirect req (Url.Package.overview package)
+  Dream.redirect req (Url.package_overview package)
 
 let package_docs req =
   let package = Dream.param req "name" in
-  Dream.redirect req (Url.Package.documentation package)
+  Dream.redirect req (Url.package_documentation package)
 
 let t =
   Dream.scope "" []

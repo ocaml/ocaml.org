@@ -60,23 +60,23 @@ let package_route t =
       Dream.get Url.packages_autocomplete_fragment
         (Handler.packages_autocomplete_fragment t);
       Dream.get
-        (Url.Package.overview ":name" ~version:":version")
+        (Url.package_overview ":name" ~version:":version")
         ((Handler.package_overview t) Handler.Package);
       Dream.get
-        (Url.Package.overview ~hash:":hash" ":name" ~version:":version")
+        (Url.package_overview ~hash:":hash" ":name" ~version:":version")
         ((Handler.package_overview t) Handler.Universe);
       Dream.get
-        (Url.Package.documentation ":name" ~version:":version" ~page:"**")
+        (Url.package_documentation ":name" ~version:":version" ~page:"**")
         ((Handler.package_documentation t) Handler.Package);
       Dream.get
-        (Url.Package.documentation ~hash:":hash" ~page:"**" ":name"
+        (Url.package_documentation ~hash:":hash" ~page:"**" ":name"
            ~version:":version")
         ((Handler.package_documentation t) Handler.Universe);
       Dream.get
-        (Url.Package.file ":name" ~version:":version" ~filepath:"**")
+        (Url.package_file ":name" ~version:":version" ~filepath:"**")
         ((Handler.package_file t) Handler.Package);
       Dream.get
-        (Url.Package.file ~hash:":hash" ":name" ~version:":version"
+        (Url.package_file ~hash:":hash" ":name" ~version:":version"
            ~filepath:"**")
         ((Handler.package_file t) Handler.Package);
     ]

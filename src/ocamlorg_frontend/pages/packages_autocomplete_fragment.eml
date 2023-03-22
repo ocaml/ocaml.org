@@ -48,16 +48,16 @@ let render
         x-init="max=<%s string_of_int i %>"
         id="package-autocomplete-<%s string_of_int i %>-0"
         :aria-selected="row == <%s string_of_int i %> && col == 0"
-        href="<%s Url.Package.overview package.name %>"
+        href="<%s Url.package_overview package.name %>"
         :class='{ "bg-background-mid-blue text-white": row == <%s string_of_int i %> && col == 0, "text-primary-600": row != <%s string_of_int i %> || col != 0}'
         class="flex-grow px-2 py-2 leading-6 font-semibold hover:bg-primary-100 inline-block"
       >
         <%s! Search.highlight_search_terms ~class_:"bg-background-light-blue text-gray-800 font-normal" ~search package.name %>
       </a>
-      <a
+      <a 
         id="package-autocomplete-<%s string_of_int i %>-1"
         :aria-selected="row == <%s string_of_int i %> && col == 1"
-        href="<%s Url.Package.documentation package.name %>"
+        href="<%s Url.package_documentation package.name %>"
         :class='{ "bg-background-mid-blue text-white": row == <%s string_of_int i %> && col == 1}'
         class="justify-self-end px-2 py-2 leading-6 font-semibold hover:bg-primary-100">
         docs

@@ -1,6 +1,6 @@
-let href_package pkg = Url.Package.overview pkg.name ?version:(Package.url_version pkg)
+let href_package pkg = Url.package_overview pkg.name ?version:(Package.url_version pkg)
 
-let render (stats : Package.stats option) (featured : Package.package list) =
+let render (stats : Package.packages_stats option) (featured_packages : Package.package list) =
 Layout.render
 ~title:"OCaml Packages · Browse Community Packages"
 ~description:"Discover thousands of community packages and browse their documentation."
@@ -78,11 +78,11 @@ Layout.render
       </p>
     </a>
 % in
-% ( match featured with
+% ( match featured_packages with
 % | [] -> ()
 % | _ ->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-%       List.iter render_featured_package featured;
+%       List.iter render_featured_package featured_packages;
       </div>
 % );
         </div>

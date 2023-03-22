@@ -16,13 +16,6 @@ let sidebar
     </div>
   </div>
 
-let right_sidebar
-~toc
-=
-  <div class="pt-6" id="htmx-right-sidebar">
-    <%s! Toc.render toc %>
-  </div>
-
 let render
 ~(path: Package_breadcrumbs.path)
 ~page
@@ -51,14 +44,33 @@ Package_layout.render
 ~package
 ~path
 ?page
-~documentation_status:Success
-~canonical:(Url.Package.documentation package.name ~version:(Package.specific_version package) ~page:(Url.Package.documentation ?version:(Some (Package.specific_version package)) package.name))
-~styles:["css/main.css"; "css/doc.css"]
-~left_sidebar_html:(sidebar ~str_path ~toc ~maptoc package)
-~right_sidebar_html:(right_sidebar ~toc) @@
-<div id="htmx-content">
-  <div class="odoc prose prose-orange">
-    <%s! content %>
+~canonical:(Url.package_documentation package.name ~version:(Package.specific_version package) ~page:(Url.package_documentation ?version:(Some (Package.specific_version package)) package.name))
+~styles:["css/main.css"; "css/doc.css"] @@
+<div x-data="{ open: false, sidebar: window.innerWidth >= 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth >= 1024" x-on:close-sidebar="sidebar=window.innerWidth >= 1024 && true">
+  <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed lg:hidden right-10"
+    x-on:click="sidebar = ! sidebar">
+    <%s! Icons.sidebar_menu "h-8 w-8" %>
+    <span class="hidden md:flex font-semibold px-2">side menu</span>
+  </button>
+  <div class="fixed z-10 inset-0 bg-background-dark-blue/20 backdrop-blur-sm lg:hidden"
+    :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar">
+  </div>
+  <div class="flex flex-col lg:flex-row md:gap-12">
+    <div
+      class="p-10 z-20 bg-white flex-col fixed h-screen overflow-auto lg:pr-0 lg:flex left-0 top-0 lg:sticky w-72 lg:p-0 lg:pt-6"
+      x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
+      x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
+      x-transition:leave-end="-translate-x-full">
+      <%s! sidebar ~str_path ~toc ~maptoc package %>
+    </div>
+    <div class="flex-1 z-0 z- min-w-0 lg:max-w-3xl lg:pt-6" id="htmx-content">
+      <div class="odoc prose prose-orange">
+        <%s! content %>
+      </div>
+    </div>
+    <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto right-sidebar" id="htmx-right-sidebar">
+      <%s! Toc.render toc %>
+    </div>
   </div>
 </div>
 <script>

@@ -108,7 +108,7 @@ let render
     <% (match maptoc with [] ->  %>
     <span class="block py-2 text-gray-700">Package contains no libraries</span>
     <% | _ -> %>
-      <a class="py-1 font-medium text-body-600 hover:text-orange-600 transition-colors" href="<%s Url.Package.documentation package.name ?version %>">
+      <a class="py-1 font-medium text-body-600 hover:text-orange-600 transition-colors" href="<%s Url.package_documentation package.name ?version %>">
         package <%s package.name %>
       </a>
     <ul>
