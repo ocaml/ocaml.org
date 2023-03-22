@@ -80,6 +80,20 @@ module.exports = {
           12: "rgba(26, 32, 44, 0.12)",
           16: "rgba(26, 32, 44, 0.16)",
         },
+        avatar: {
+          0: "#bb452a",
+          1: "#a35829",
+          2: "#926229",
+          3: "#746e29",
+          4: "#367a28",
+          5: "#2a7a54",
+          6: "#2c786d",
+          7: "#2e7587",
+          8: "#336db7",
+          9: "#6855e3",
+          10: "#ad35bc",
+          11: "#c62d69"
+        }
       },
     },
   },
@@ -88,4 +102,18 @@ module.exports = {
     require("@tailwindcss/typography"),
     require("@tailwindcss/aspect-ratio"),
   ],
+  safelist: [
+    'bg-avatar-0',
+    'bg-avatar-1',
+    'bg-avatar-2',
+    'bg-avatar-3',
+    'bg-avatar-4',
+    'bg-avatar-5',
+    'bg-avatar-6',
+    'bg-avatar-7',
+    'bg-avatar-8',
+    'bg-avatar-9',
+    'bg-avatar-10',
+    'bg-avatar-11',
+  ]
 };
