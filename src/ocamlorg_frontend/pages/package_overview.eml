@@ -9,6 +9,8 @@ let side_box_link ~href ~title ~icon_html =
         <%s title %>
     </a>
 
+let num_of_users_to_show = 4
+
 let render
 ~documentation_status
 ~content
@@ -35,6 +37,32 @@ in
 let render_section_heading ~title =
   <div class="border-l-4 px-4 -ml-4 mb-6 mt-12 border-transparent border-l-body-400 rounded border-t-2 border-b-2 border-r-2">
     <h2 class="text-xl font-medium my-2"><%s title %></h2>
+  </div>
+in
+let render_user_avatar ~x_show (user: Ood.Opam_user.t) =
+  <li class="flex justify-start" <%s! if x_show then "x-show='open'" else "" %>>
+    <a href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded user.name %>%22" class="flex items-center gap-3">
+      <% (match user.avatar with | None -> %>
+      <div class="shrink-0 inline-flex items-center justify-center text-xl font-medium h-10 w-10 rounded-full bg-avatar-<%s string_of_int ((Hashtbl.hash user.name) mod 12 )%> text-white">
+      <%s String.uppercase_ascii (String.sub user.name 0 1); %>
+      </div>
+      <% | Some avatar -> %>
+      <img class="shrink-0 inline-flex h-10 w-10 rounded-full" src="<%s avatar %>" alt="">
+      <% ); %>
+      <div class="text-sm font-medium text-gray-900"><%s user.name %></div>
+    </a>
+  </li>
+in
+let render_user_list (users: Ood.Opam_user.t list) =
+  <div class="mt-3 text-sm text-gray-900" <%s! if List.length users > num_of_users_to_show then "x-data='{ open: false }'" else "" %>>
+    <ol class="space-y-3">
+      <% users |> List.iteri (fun i (user : Ood.Opam_user.t) -> %>
+      <%s! render_user_avatar ~x_show:(i > num_of_users_to_show - 1) user %>
+      <% ); %>
+    </ol>
+    <% if List.length users > num_of_users_to_show then (%>
+    <button class="text-primary-700 py-4" x-on:click="open = !open" x-text="open ? 'Hide <%s string_of_int (List.length users - num_of_users_to_show) %>...' : 'Show <%s string_of_int (List.length users - num_of_users_to_show) %> more...'"></button>
+    <% ) else (); %>
   </div>
 in
 let title_with_number title number =
@@ -167,40 +195,10 @@ Package_layout.render
         </div>
 
         <h2 class="mt-8 font-semibold text-base text-body-400">Authors</h2>
-        <div class="mt-3 text-sm text-gray-900">
-          <ul class="space-y-3">
-          <% package.authors |> List.iter (fun (author : Ood.Opam_user.t) -> %>
-          <li class="flex justify-start">
-            <a href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded author.name %>%22" class="flex items-center space-x-3">
-              <% (match author.avatar with | None -> () | Some avatar -> %>
-              <div class="flex-shrink-0">
-                  <img class="h-10 w-10 rounded-full" src="<%s avatar %>" alt="">
-              </div>
-              <% ); %>
-              <div class="text-sm font-medium text-gray-900"><%s author.name %></div>
-            </a>
-          </li>
-          <% ); %>
-          </ul>
-        </div>
+        <%s! render_user_list package.authors %>
 
         <h2 class="mt-8 font-semibold text-base text-body-400">Maintainers</h2>
-        <div class="mt-3 text-sm text-gray-900">
-          <ul class="space-y-3">
-          <% package.maintainers |> List.iter (fun (author : Ood.Opam_user.t) -> %>
-          <li class="flex justify-start">
-            <a href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded author.name %>%22" class="flex items-center space-x-3">
-              <% (match author.avatar with | None -> () | Some avatar -> %>
-              <div class="flex-shrink-0">
-              <img class="h-10 w-10 rounded-full" src="<%s avatar %>" alt="">
-              </div>
-              <% ); %>
-              <div class="text-sm font-medium text-gray-900"><%s author.name %></div>
-            </a>
-          </li>
-          <% ); %>
-          </ul>
-        </div>
+        <%s! render_user_list package.maintainers %>
 
         <% match source with
         | None -> ()
