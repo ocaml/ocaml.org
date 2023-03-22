@@ -474,7 +474,7 @@ let package_documentation t kind req =
       let path = (Dream.path [@ocaml.warning "-3"]) req |> String.concat "/" in
       let root =
         let hash = match kind with `Package -> None | `Universe u -> Some u in
-        Url.package_documentation ?hash ~page:""
+        Url.Package.documentation ?hash ~page:""
           ?version:(Ocamlorg_frontend.Package.url_version frontend_package)
           (Ocamlorg_package.Name.to_string name)
       in
