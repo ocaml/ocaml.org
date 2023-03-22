@@ -59,25 +59,26 @@ let package_route t =
       Dream.get Url.packages_search (Handler.packages_search t);
       Dream.get Url.packages_autocomplete_fragment
         (Handler.packages_autocomplete_fragment t);
-      Dream.get (Url.package ":name") (Handler.package t);
-      Dream.get (Url.package_docs ":name") (Handler.package_docs t);
-      Dream.get (Url.package ~hash:":hash" ":name") (Handler.package t);
       Dream.get
-        (Url.package_with_version ":name" ~version:":version")
-        ((Handler.package_versioned t) Handler.Package);
+        (Url.package_overview ":name" ~version:":version")
+        ((Handler.package_overview t) Handler.Package);
       Dream.get
-        (Url.package_with_version ":name" ~version:":version" ~page:":page")
-        ((Handler.package_versioned t) Handler.Package);
+        (Url.package_overview ~hash:":hash" ":name" ~version:":version")
+        ((Handler.package_overview t) Handler.Universe);
       Dream.get
-        (Url.package_with_version ~hash:":hash" ":name" ~version:":version"
-           ~page:"**")
-        ((Handler.package_versioned t) Handler.Universe);
+        (Url.package_documentation ":name" ~version:":version" ~page:"**")
+        ((Handler.package_documentation t) Handler.Package);
       Dream.get
-        (Url.package_doc ":name" ~version:":version" ~page:"**")
-        ((Handler.package_doc t) Handler.Package);
+        (Url.package_documentation ~hash:":hash" ~page:"**" ":name"
+           ~version:":version")
+        ((Handler.package_documentation t) Handler.Universe);
       Dream.get
-        (Url.package_doc ~hash:":hash" ~page:"**" ":name" ~version:":version")
-        ((Handler.package_doc t) Handler.Universe);
+        (Url.package_file ":name" ~version:":version" ~filepath:"**")
+        ((Handler.package_file t) Handler.Package);
+      Dream.get
+        (Url.package_file ~hash:":hash" ":name" ~version:":version"
+           ~filepath:"**")
+        ((Handler.package_file t) Handler.Package);
     ]
 
 let graphql_route t =

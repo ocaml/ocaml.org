@@ -48,7 +48,7 @@ let render
         x-init="max=<%s string_of_int i %>"
         id="package-autocomplete-<%s string_of_int i %>-0"
         :aria-selected="row == <%s string_of_int i %> && col == 0"
-        href="<%s Url.package_with_version package.name %>"
+        href="<%s Url.package_overview package.name %>"
         :class='{ "bg-background-mid-blue text-white": row == <%s string_of_int i %> && col == 0, "text-primary-600": row != <%s string_of_int i %> || col != 0}'
         class="flex-grow px-2 py-2 leading-6 font-semibold hover:bg-primary-100 inline-block"
       >
@@ -57,7 +57,7 @@ let render
       <a 
         id="package-autocomplete-<%s string_of_int i %>-1"
         :aria-selected="row == <%s string_of_int i %> && col == 1"
-        href="<%s Url.package_doc package.name %>"
+        href="<%s Url.package_documentation package.name %>"
         :class='{ "bg-background-mid-blue text-white": row == <%s string_of_int i %> && col == 1}'
         class="justify-self-end px-2 py-2 leading-6 font-semibold hover:bg-primary-100">
         docs
