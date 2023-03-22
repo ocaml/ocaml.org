@@ -624,5 +624,5 @@ let package_file t kind req =
       | Some content ->
           Dream.html
             (Ocamlorg_frontend.package_overview ~sidebar_data ~content
-                ~content_title:(Some path) ~dependencies ~rev_dependencies
-                ~conflicts frontend_package))
+               ~content_title:(Some path) ~dependencies ~rev_dependencies
+               ~conflicts frontend_package))
