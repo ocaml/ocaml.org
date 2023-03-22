@@ -435,6 +435,11 @@ let package_overview t kind req =
     package_info.Ocamlorg_package.Info.dependencies
     |> List.map (fun (name, x) -> (Ocamlorg_package.Name.to_string name, x))
   in
+  let dev_dependencies, dependencies =
+    dependencies
+    |> List.partition (fun (_, x) ->
+           String.contains_s (Option.value ~default:"" x) "with-")
+  in
   let conflicts =
     package_info.Ocamlorg_package.Info.conflicts
     |> List.map (fun (name, x) -> (Ocamlorg_package.Name.to_string name, x))
@@ -442,8 +447,8 @@ let package_overview t kind req =
 
   Dream.html
     (Ocamlorg_frontend.package_overview ~sidebar_data ~content:""
-       ~content_title:None ~dependencies ~rev_dependencies ~conflicts
-       frontend_package)
+       ~content_title:None ~dependencies ~dev_dependencies ~rev_dependencies
+       ~conflicts frontend_package)
 
 let package_documentation t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
@@ -582,6 +587,7 @@ let package_file t kind req =
 
   let rev_dependencies = [] in
   let dependencies = [] in
+  let dev_dependencies = [] in
   let conflicts = [] in
 
   let* content =
@@ -594,5 +600,5 @@ let package_file t kind req =
   let</>? content = content in
   Dream.html
     (Ocamlorg_frontend.package_overview ~sidebar_data ~content
-       ~content_title:(Some path) ~dependencies ~rev_dependencies ~conflicts
-       frontend_package)
+       ~content_title:(Some path) ~dependencies ~dev_dependencies
+       ~rev_dependencies ~conflicts frontend_package)
