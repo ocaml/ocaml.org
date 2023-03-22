@@ -15,8 +15,6 @@ let package_file ?version ?hash ~filepath name =
 let package_documentation ?hash ?version ?(page = "index.html") name =
   with_hash hash ^ "/" ^ name ^ "/" ^ with_version version ^ "/doc/" ^ page
 
-let package_redirect ?hash name = with_hash hash ^ "/" ^ name
-let package_docs_redirect name = "/p/" ^ name ^ "/doc"
 let community = "/community"
 let success_story v = "/success-stories/" ^ v
 let industrial_users = "/industrial-users"

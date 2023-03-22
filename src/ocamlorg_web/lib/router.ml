@@ -66,26 +66,19 @@ let package_route t =
         (Url.package_overview ~hash:":hash" ":name" ~version:":version")
         ((Handler.package_overview t) Handler.Universe);
       Dream.get
-        (Url.package_file ":name" ~version:":version" ~filepath:"**")
-        ((Handler.package_file t) Handler.Package);
-      Dream.get
-        (Url.package_file ~hash:":hash" ":name" ~version:":version"
-           ~filepath:"**")
-        ((Handler.package_file t) Handler.Package);
-      Dream.get
         (Url.package_documentation ":name" ~version:":version" ~page:"**")
         ((Handler.package_documentation t) Handler.Package);
       Dream.get
         (Url.package_documentation ~hash:":hash" ~page:"**" ":name"
            ~version:":version")
         ((Handler.package_documentation t) Handler.Universe);
-      Dream.get (Url.package_redirect ":name") (Handler.package_redirect t);
       Dream.get
-        (Url.package_redirect ~hash:":hash" ":name")
-        (Handler.package_redirect t);
+        (Url.package_file ":name" ~version:":version" ~filepath:"**")
+        ((Handler.package_file t) Handler.Package);
       Dream.get
-        (Url.package_docs_redirect ":name")
-        (Handler.package_docs_redirect t);
+        (Url.package_file ~hash:":hash" ":name" ~version:":version"
+           ~filepath:"**")
+        ((Handler.package_file t) Handler.Package);
     ]
 
 let graphql_route t =

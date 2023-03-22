@@ -669,6 +669,14 @@ let make ?(permanent = false) t =
            Some (Dream.get origin (fun req -> Dream.redirect ~status req new_)))
        t)
 
+let package req =
+  let package = Dream.param req "name" in
+  Dream.redirect req (Url.package_overview package)
+
+let package_docs req =
+  let package = Dream.param req "name" in
+  Dream.redirect req (Url.package_documentation package)
+
 let t =
   Dream.scope "" []
     [
@@ -683,4 +691,7 @@ let t =
       make ~permanent:true [ ("/code-of-conduct", "/policies/code-of-conduct") ];
       make ~permanent:true [ ("/opportunities", "/jobs") ];
       make ~permanent:false [ (Url.workshops, Url.community ^ "#workshops") ];
+      Dream.get "/p/:name" package;
+      Dream.get "/u/:hash/p/:name" package;
+      Dream.get "/p/:name/doc" package_docs;
     ]

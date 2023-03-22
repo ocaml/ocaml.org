@@ -626,13 +626,3 @@ let package_documentation t kind req =
             (Ocamlorg_frontend.package_documentation ~page:(Some path)
                ~path:breadcrumb_path ~toc ~maptoc ~content:doc.content
                frontend_package))
-
-let package_redirect _t req =
-  let package = Dream.param req "name" in
-  Dream.redirect req (Url.package_overview package)
-
-(** Redirect any URL with suffix /p/PACKAGE/docs to the latest documentation for
-    PACKAGE. *)
-let package_docs_redirect _t req =
-  let package = Dream.param req "name" in
-  Dream.redirect req (Url.package_documentation package)
