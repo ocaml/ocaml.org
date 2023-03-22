@@ -18,15 +18,9 @@ Layout.render
 <div class="bg-white">
   <div class="py-5 lg:py-6">
     <div class="container-fluid">
-      <div class="flex justify-between flex-col md:flex-row border-b border-gray-200">
+      <div class="flex justify-between flex-col md:flex-row">
         <div class="flex flex-col items-baseline mb-6">
           <%s! Package_breadcrumbs.render ~path ?hash ?page package %>
-
-          <% (match path with | Overview _ -> %>
-            <div class="text-body-400">
-              <%s package.synopsis %>
-            </div>
-          <% | _ -> ()); %>
         </div>
       </div>
       <div class="py-6">
