@@ -371,24 +371,17 @@ let packages state _req =
   in
   let package_pair (pkg, snd) = (package pkg, snd) in
   let stats =
-    match Ocamlorg_package.stats state with
-    | Some
-        ({
-           Ocamlorg_package.Statistics.nb_packages;
-           nb_update_week;
-           nb_packages_month;
-           _;
-         } as t) ->
-        Some
-          {
-            Ocamlorg_frontend.Package.nb_packages;
-            nb_update_week;
-            nb_packages_month;
-            newest_packages = List.map package_pair t.newest_packages;
-            recently_updated = List.map package t.recently_updated;
-            most_revdeps = List.map package_pair t.most_revdeps;
-          }
-    | None -> None
+    Ocamlorg_package.stats state
+    |> Option.map (fun (t : Ocamlorg_package.Statistics.t) ->
+           Ocamlorg_frontend.Package.
+             {
+               nb_packages = t.nb_packages;
+               nb_update_week = t.nb_update_week;
+               nb_packages_month = t.nb_packages_month;
+               newest_packages = List.map package_pair t.newest_packages;
+               recently_updated = List.map package t.recently_updated;
+               most_revdeps = List.map package_pair t.most_revdeps;
+             })
   and featured =
     (* TODO: Should be cached ? *)
     match Ocamlorg_package.featured state with
@@ -612,9 +605,9 @@ let package_file t kind req =
       let* content =
         let* file = Ocamlorg_package.file ~kind package path in
         Lwt.return
-          (match file with
-          | None -> None
-          | Some file_content -> Some file_content.content)
+          (Option.map
+             (fun file -> file.Ocamlorg_package.Documentation.content)
+             file)
       in
       match content with
       | None -> Dream.html (Ocamlorg_frontend.not_found ())
