@@ -416,9 +416,10 @@ switch show` and confirm that it prints `5.0.0+tsan`.
 
 ### Detecting a Data Race
 
-Now consider the following OCaml program:
+Now consider the following OCaml program written in the file `race.ml`:
 
 ```ocaml
+(* file race.ml *)
 type t = { mutable x : int }
 
 let v = { x = 0 }
@@ -435,41 +436,47 @@ It builds a record `v` with a mutable field `x` initialized to `0`.
 Next, it spawns two parallel `Domain`s `t1` and `t2` that both update
 the field `v.x`.
 
-
-If we compile the program using `ocamlopt` from a regular `5.0.0`
-switch the program appears to work:
+Here is a corresponding `dune` file:
+```dune
+(executable
+ (name race)
+ (modules race)
+ (libraries unix))
 ```
-$ ocamlopt -g -o race.exe -I +unix unix.cmxa race.ml
-$ ./race2.exe
+
+If we compile and run the program using `dune` under a regular `5.0.0` switch the
+program appears to work:
+```
+$ dune build ./race.exe
+$ dune exec ./race.exe
 v.x is 11
 ```
 
-However if we compile the program with `ocamlopt` from the new
+However if we compile and run the program with `dune` from the new
 `5.0.0+tsan` switch TSan warns us of a data race:
-
 ```
 $ opam switch 5.0.0+tsan
-$ ocamlopt -g -o race.exe -I +unix unix.cmxa race.ml
-$ ./race.exe
+$ dune build ./race.exe
+$ dune exec ./race.exe
 ==================
-WARNING: ThreadSanitizer: data race (pid=999964)
-  Write of size 8 at 0x7efdd6bfe4a8 by thread T4 (mutexes: write M87):
-    #0 camlRace__fun_560 <null> (race.exe+0x4efb15)
+WARNING: ThreadSanitizer: data race (pid=1051032)
+  Write of size 8 at 0x7f48d8efe498 by thread T4 (mutexes: write M87):
+    #0 camlDune__exe__Race__fun_560 <null> (race.exe+0x4efb15)
     #1 camlStdlib__Domain__body_696 <null> (race.exe+0x52b23c)
     #2 caml_start_program <null> (race.exe+0x599feb)
     #3 caml_callback_exn /home/user/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/runtime/callback.c:168:12 (race.exe+0x56bd84)
     #4 caml_callback /home/user/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/runtime/callback.c:256:34 (race.exe+0x56c6d0)
     #5 domain_thread_func /home/user/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/runtime/domain.c:1093:5 (race.exe+0x56f34e)
 
-  Previous write of size 8 at 0x7efdd6bfe4a8 by thread T1 (mutexes: write M83):
-    #0 camlRace__fun_556 <null> (race.exe+0x4efab5)
+  Previous write of size 8 at 0x7f48d8efe498 by thread T1 (mutexes: write M83):
+    #0 camlDune__exe__Race__fun_556 <null> (race.exe+0x4efab5)
     #1 camlStdlib__Domain__body_696 <null> (race.exe+0x52b23c)
     #2 caml_start_program <null> (race.exe+0x599feb)
     #3 caml_callback_exn /home/user/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/runtime/callback.c:168:12 (race.exe+0x56bd84)
     #4 caml_callback /home/user/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/runtime/callback.c:256:34 (race.exe+0x56c6d0)
     #5 domain_thread_func /home/user/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/runtime/domain.c:1093:5 (race.exe+0x56f34e)
 
-  Mutex M87 (0x00000106ca48) created at:
+  Mutex M87 (0x00000106ca88) created at:
     #0 pthread_mutex_init <null> (race.exe+0x46173d)
     #1 caml_plat_mutex_init /home/user/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/runtime/platform.c:54:8 (race.exe+0x58c4e5)
   [...]
@@ -479,6 +486,9 @@ SUMMARY: ThreadSanitizer: data race (/tmp/race/race.exe+0x4efb15) in camlRace__f
 v.x is 11
 ThreadSanitizer: reported 1 warnings
 ```
+
+Note that since TSan instrumentation operates in a separate switch,
+this required no change to our `dune` file.
 
 The TSan report warns of a data race between two uncoordinated writes
 happening in parallel and prints a back trace for both:
@@ -493,6 +503,7 @@ record field with an `Atomic` that guarantees each such write to
 happen fully, one after the other:
 
 ```ocaml
+(* file race.ml *)
 let v = Atomic.make 0
 
 let () =
@@ -503,9 +514,18 @@ let () =
   Printf.printf "v is %i\n" (Atomic.get v)
 ```
 
-If we recompile our program with this change it now completes without TSan warnings:
+If we recompile and run our program with this change it now completes
+without TSan warnings:
+```
+$ dune build ./race.exe
+$ dune exec ./race.exe
+v is 11
+```
+
+The TSan instrumentation benefits from compiling programs with debug
+information, which happens by default under `dune`. To manually invoke
+the `ocamlopt` compiler under our `5.0.0+tsan` switch it is thus
+suffient to pass it the `-g` flag:
 ```
 $ ocamlopt -g -o race.exe -I +unix unix.cmxa race.ml
-$ ./race.exe
-v is 11
 ```
