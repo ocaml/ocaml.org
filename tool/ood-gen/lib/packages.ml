@@ -1,6 +1,6 @@
 open Ocamlorg.Import
 
-type metadata = { featured_packages : string list }
+type metadata = { featured : string list }
 [@@deriving of_yaml, show { with_path = false }]
 
 type t = metadata [@@deriving show { with_path = false }]
@@ -16,7 +16,7 @@ let all () =
 let template () =
   Format.asprintf
     {|
-type t = { featured_packages : string list }
+type t = { featured : string list }
 
 let all = %a
     |}

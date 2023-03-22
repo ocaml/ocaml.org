@@ -34,12 +34,12 @@ let packages_list ?contains ?(sort_by_popularity = false) offset limit
   let results =
     match contains with
     | None -> all_packages
-    | Some q -> Package.search_package ~sort_by_popularity t q
+    | Some q -> Package.search ~sort_by_popularity t q
   in
   List.filteri (fun i _ -> offset <= i && i < offset + limit) results
 
 let all_packages_result ?contains ?sort_by_popularity offset limit t =
-  let all_packages = Package.all_packages_latest t in
+  let all_packages = Package.all_latest t in
   let total_packages = List.length all_packages in
   let limit = match limit with None -> total_packages | Some limit -> limit in
   let result = is_valid_params limit offset total_packages in
@@ -58,15 +58,13 @@ let all_packages_result ?contains ?sort_by_popularity offset limit t =
 let package_result name version t =
   match version with
   | None -> (
-      let package =
-        Package.get_package_latest t (Package.Name.of_string name)
-      in
+      let package = Package.get_latest t (Package.Name.of_string name) in
       match package with
       | None -> Error ("No package matching " ^ name ^ " was found")
       | Some package -> Ok package)
   | Some version -> (
       let package =
-        Package.get_package t
+        Package.get t
           (Package.Name.of_string name)
           (Package.Version.of_string version)
       in
@@ -76,11 +74,9 @@ let package_result name version t =
       | Some package -> Ok package)
 
 let package_versions_result name from upto t =
-  let all_packages = Package.all_packages_latest t in
+  let all_packages = Package.all_latest t in
   let total_packages = List.length all_packages in
-  let packages =
-    Package.get_packages_with_name t (Package.Name.of_string name)
-  in
+  let packages = Package.get_by_name t (Package.Name.of_string name) in
   match packages with
   | None -> Error ("No package matching " ^ name ^ " was found")
   | Some packages ->

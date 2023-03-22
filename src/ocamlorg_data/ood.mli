@@ -112,7 +112,7 @@ module Industrial_user : sig
 end
 
 module Packages : sig
-  type t = { featured_packages : string list }
+  type t = { featured : string list }
 
   val all : t
 end

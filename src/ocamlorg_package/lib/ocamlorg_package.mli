@@ -48,7 +48,7 @@ module Info : sig
   }
 end
 
-module Packages_stats : sig
+module Statistics : sig
   type package_stat = { name : Name.t; version : Version.t; info : Info.t }
 
   type t = {
@@ -93,9 +93,8 @@ module Module_map = Module_map
 type state
 type t
 
-val state_of_package_list : t list -> state
-(** [state_of_package_list ts] produces the opam-repository state from a list of
-    packages *)
+val mockup_state : t list -> state
+(** [mockup_state ts] produces the opam-repository state from a list of packages *)
 
 val name : t -> Name.t
 (** Get the name of a package. *)
@@ -151,26 +150,26 @@ val init : ?disable_polling:bool -> unit -> state
 (** [init ()] initialises the opam-repository state. By default
     [disable_polling] is set to [false], but can be disabled for tests. *)
 
-val all_packages_latest : state -> t list
+val all_latest : state -> t list
 (** Get the list of the latest version of every opam packages. The name and
     versions of the packages are read from the file system, the metadata are
     loaded lazily to improve performance. *)
 
-val packages_stats : state -> Packages_stats.t option
+val stats : state -> Statistics.t option
 (** Return the statistics computed from the opam-repository. These statistics
     are continuously updated in the background. Returns [None] if the stats are
     still being computed. *)
 
-val get_packages_with_name : state -> Name.t -> t list option
+val get_by_name : state -> Name.t -> t list option
 (** Get the list of packages with the given name. *)
 
-val get_package_versions : state -> Name.t -> Version.t list option
+val get_versions : state -> Name.t -> Version.t list option
 (** Get the list of versions for a package name, newest coming first. *)
 
-val get_package_latest : state -> Name.t -> t option
+val get_latest : state -> Name.t -> t option
 (** Get the latest version of a package given a package name. *)
 
-val get_package : state -> Name.t -> Version.t -> t option
+val get : state -> Name.t -> Version.t -> t option
 (** Get a package given its name and version. *)
 
 val latest_documented_version : state -> Name.t -> Version.t option Lwt.t
@@ -179,7 +178,7 @@ val latest_documented_version : state -> Name.t -> Version.t option Lwt.t
 val is_latest_version : state -> Name.t -> Version.t -> bool
 (** Returns a bool if the given version is the latest version of a package. **)
 
-val search_package : ?sort_by_popularity:bool -> state -> string -> t list
+val search : ?sort_by_popularity:bool -> state -> string -> t list
 (** Search package that match the given string.
 
     Packages returned contain the string either in the name, tags, synopsis or
@@ -192,5 +191,5 @@ val search_package : ?sort_by_popularity:bool -> state -> string -> t list
 
     A call to this function call Lazy.force on every package info. *)
 
-val featured_packages : state -> t list option
+val featured : state -> t list option
 (** A list of packages to highlight on the Packages page. *)

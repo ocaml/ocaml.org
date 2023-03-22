@@ -2,7 +2,7 @@ open Ocamlorg.Import
 module Name = OpamPackage.Name
 module Version = OpamPackage.Version
 module Info = Info
-module Packages_stats = Packages_stats
+module Statistics = Packages_stats
 
 type t = { name : Name.t; version : Version.t; info : Info.t }
 
@@ -15,11 +15,11 @@ type state = {
   version : string;
   mutable opam_repository_commit : string option;
   mutable packages : Info.t Version.Map.t Name.Map.t;
-  mutable stats : Packages_stats.t option;
-  mutable featured_packages : t list option;
+  mutable stats : Statistics.t option;
+  mutable featured : t list option;
 }
 
-let state_of_package_list (pkgs : t list) =
+let mockup_state (pkgs : t list) =
   let map = Name.Map.empty in
   let add_version (pkg : t) map =
     let new_map =
@@ -35,7 +35,7 @@ let state_of_package_list (pkgs : t list) =
     packages;
     opam_repository_commit = None;
     stats = None;
-    featured_packages = None;
+    featured = None;
   }
 
 let read_versions package_name versions =
@@ -89,7 +89,7 @@ let try_load_state () =
       version = Info.version;
       packages = Name.Map.empty;
       stats = None;
-      featured_packages = None;
+      featured = None;
     }
 
 let save_state t =
@@ -100,7 +100,7 @@ let save_state t =
     (fun () -> Marshal.to_channel channel t [])
     ~finally:(fun () -> close_out channel)
 
-let get_package_latest' packages name =
+let get_latest' packages name =
   Name.Map.find_opt name packages
   |> Option.map (fun versions ->
          let avoid_version _ (info : Info.t) =
@@ -124,15 +124,14 @@ let update ~commit t =
   Logs.info (fun f -> f "Computing additional informations...");
   let* packages = Info.of_opamfiles packages in
   Logs.info (fun f -> f "Computing packages statistics...");
-  let+ stats = Packages_stats.compute packages in
-  let featured_packages =
-    Ood.Packages.all.featured_packages
-    |> List.filter_map (fun p ->
-           get_package_latest' packages (Name.of_string p))
+  let+ stats = Statistics.compute packages in
+  let featured =
+    Ood.Packages.all.featured
+    |> List.filter_map (fun p -> get_latest' packages (Name.of_string p))
   in
   t.packages <- packages;
   t.stats <- Some stats;
-  t.featured_packages <- Some featured_packages;
+  t.featured <- Some featured;
   Logs.info (fun m -> m "Loaded %d packages" (Name.Map.cardinal packages))
 
 let maybe_update t =
@@ -176,31 +175,31 @@ let init ?(disable_polling = false) () =
         poll_for_opam_packages ~polling:Config.opam_polling state);
   state
 
-let all_packages_latest t =
+let all_latest t =
   t.packages
   |> Name.Map.map Version.Map.max_binding
   |> Name.Map.bindings
   |> List.map (fun (name, (version, info)) -> { name; version; info })
 
-let packages_stats t = t.stats
+let stats t = t.stats
 
-let get_packages_with_name t name =
+let get_by_name t name =
   t.packages |> Name.Map.find_opt name
   |> Option.map Version.Map.bindings
   |> Option.map (List.map (fun (version, info) -> { name; version; info }))
 
-let get_package_versions t name =
+let get_versions t name =
   t.packages |> Name.Map.find_opt name
   |> Option.map (fun p -> p |> Version.Map.bindings |> List.rev_map fst)
 
-let get_package_latest t name = get_package_latest' t.packages name
+let get_latest t name = get_latest' t.packages name
 
-let get_package t name version =
+let get t name version =
   t.packages |> Name.Map.find_opt name |> fun x ->
   Option.bind x (Version.Map.find_opt version)
   |> Option.map (fun info -> { version; info; name })
 
-let featured_packages t = t.featured_packages
+let featured t = t.featured
 
 module Documentation = struct
   type toc = { title : string; href : string; children : toc list }
@@ -408,7 +407,7 @@ let documentation_status ~kind t : documentation_status Lwt.t =
   Lwt.return status
 
 let doc_exists t name version =
-  let package = get_package t name version in
+  let package = get t name version in
   let open Lwt.Syntax in
   match package with
   | None -> Lwt.return None
@@ -430,12 +429,12 @@ let latest_documented_version t name =
         | Some version -> Lwt.return (Some version)
         | None -> aux (List.tl vlist))
   in
-  match get_package_versions t name with
+  match get_versions t name with
   | None -> Lwt.return None
   | Some vlist -> aux vlist
 
 let is_latest_version t name version =
-  match get_package_latest t name with
+  match get_latest t name with
   | None -> false
   | Some pkg -> pkg.version = version
 
@@ -596,11 +595,11 @@ end = struct
     Float.compare s2 s1
 end
 
-let search_package ?(sort_by_popularity = false) t query =
+let search ?(sort_by_popularity = false) t query =
   let compare =
     Search.(if sort_by_popularity then compare_by_popularity else compare)
   in
   let request = Search.to_request query in
-  all_packages_latest t
+  all_latest t
   |> List.filter (Search.match_request request)
   |> List.sort (compare request)

@@ -304,7 +304,7 @@ module Package_helper = struct
 
   (** Query all the versions of a package. *)
   let versions state name =
-    Ocamlorg_package.get_package_versions state name
+    Ocamlorg_package.get_versions state name
     |> Option.value ~default:[]
     |> List.sort (Fun.flip Ocamlorg_package.Version.compare)
     |> List.map Ocamlorg_package.Version.to_string
@@ -318,17 +318,16 @@ module Package_helper = struct
     let latest_version =
       Option.map
         (fun (p : Ocamlorg_package.t) -> Ocamlorg_package.version p)
-        (Ocamlorg_package.get_package_latest state name)
+        (Ocamlorg_package.get_latest state name)
     in
     package_info_to_frontend_package ~name ~version ?on_latest_url
       ~latest_version ~versions info
 
   let of_name_version t name version =
     let package =
-      if version = "latest" then Ocamlorg_package.get_package_latest t name
+      if version = "latest" then Ocamlorg_package.get_latest t name
       else
-        Ocamlorg_package.get_package t name
-          (Ocamlorg_package.Version.of_string version)
+        Ocamlorg_package.get t name (Ocamlorg_package.Version.of_string version)
     in
     package
     |> Option.map (fun package ->
@@ -360,22 +359,22 @@ module Package_helper = struct
 end
 
 let packages state _req =
-  let package { Ocamlorg_package.Packages_stats.name; version; info } =
+  let package { Ocamlorg_package.Statistics.name; version; info } =
     let versions = Package_helper.versions state name in
     let latest_version =
       Option.map
         (fun (p : Ocamlorg_package.t) -> Ocamlorg_package.version p)
-        (Ocamlorg_package.get_package_latest state name)
+        (Ocamlorg_package.get_latest state name)
     in
     Package_helper.package_info_to_frontend_package ~name ~version
       ~latest_version ~versions info
   in
   let package_pair (pkg, snd) = (package pkg, snd) in
   let stats =
-    match Ocamlorg_package.packages_stats state with
+    match Ocamlorg_package.stats state with
     | Some
         ({
-           Ocamlorg_package.Packages_stats.nb_packages;
+           Ocamlorg_package.Statistics.nb_packages;
            nb_update_week;
            nb_packages_month;
            _;
@@ -390,19 +389,19 @@ let packages state _req =
             most_revdeps = List.map package_pair t.most_revdeps;
           }
     | None -> None
-  and featured_packages =
+  and featured =
     (* TODO: Should be cached ? *)
-    match Ocamlorg_package.featured_packages state with
+    match Ocamlorg_package.featured state with
     | Some pkgs -> List.map (Package_helper.frontend_package state) pkgs
     | None -> []
   in
-  Dream.html (Ocamlorg_frontend.packages stats featured_packages)
+  Dream.html (Ocamlorg_frontend.packages stats featured)
 
 let packages_search t req =
   match Dream.query req "q" with
   | Some search ->
       let packages =
-        Ocamlorg_package.search_package ~sort_by_popularity:true t search
+        Ocamlorg_package.search ~sort_by_popularity:true t search
       in
       let total = List.length packages in
       let results = List.map (Package_helper.frontend_package t) packages in
@@ -414,7 +413,7 @@ let packages_autocomplete_fragment t req =
   match Dream.query req "q" with
   | Some search when search <> "" ->
       let packages =
-        Ocamlorg_package.search_package ~sort_by_popularity:true t search
+        Ocamlorg_package.search ~sort_by_popularity:true t search
       in
       let results = List.map (Package_helper.frontend_package t) packages in
       let top_5 = results |> List.take 5 in
@@ -499,20 +498,19 @@ let package_documentation t kind req =
             in
             aux [] xs
           in
-          let rec toc_of_module ~root
-              (module' : Ocamlorg_package.Module_map.Module.t) :
+          let module Package_map = Ocamlorg_package.Module_map in
+          let rec toc_of_module ~root (module' : Package_map.Module.t) :
               Ocamlorg_frontend.Navmap.toc =
-            let open Ocamlorg_package in
-            let title = Module_map.Module.name module' in
-            let kind = Module_map.Module.kind module' in
-            let href = Some (root ^ Module_map.Module.path module') in
+            let title = Package_map.Module.name module' in
+            let kind = Package_map.Module.kind module' in
+            let href = Some (root ^ Package_map.Module.path module') in
             let children =
-              module' |> Module_map.Module.submodules |> String.Map.bindings
+              module' |> Package_map.Module.submodules |> String.Map.bindings
               |> List.map (fun (_, module') -> toc_of_module ~root module')
             in
             let kind =
               match kind with
-              | Module_map.Page -> Ocamlorg_frontend.Navmap.Page
+              | Package_map.Page -> Ocamlorg_frontend.Navmap.Page
               | Module -> Module
               | Leaf_page -> Leaf_page
               | Module_type -> Module_type
@@ -523,13 +521,12 @@ let package_documentation t kind req =
             in
             Ocamlorg_frontend.Navmap.{ title; href; kind; children }
           in
-          let toc_of_map ~root (map : Ocamlorg_package.Module_map.t) :
+          let toc_of_map ~root (map : Package_map.t) :
               Ocamlorg_frontend.Navmap.t =
-            let open Ocamlorg_package in
             let libraries = map.libraries in
             String.Map.bindings libraries
             |> List.map (fun (_, library) ->
-                   let title = library.Module_map.name in
+                   let title = library.Package_map.name in
                    let href = None in
                    let children =
                      String.Map.bindings library.modules

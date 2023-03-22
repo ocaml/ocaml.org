@@ -37,7 +37,7 @@ let render_version package =
 let url_version package =
   match package.version with Latest -> None | Specific v -> Some v
 
-type packages_stats = {
+type stats = {
   nb_packages : int;
   nb_update_week : int;
   nb_packages_month : int;
@@ -45,4 +45,4 @@ type packages_stats = {
   recently_updated : package list;
   most_revdeps : (package * int) list;
 }
-(** See {!Ocamlorg_package.Packages_stats.t}. *)
+(** See {!Ocamlorg_package.Statistics.t}. *)
