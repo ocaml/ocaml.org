@@ -460,40 +460,6 @@ let package_overview t kind req =
            ~content_title:None ~dependencies ~rev_dependencies ~conflicts
            frontend_package)
 
-let package_file t kind req =
-  let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
-  let version_from_url = Dream.param req "version" in
-  match Package_helper.of_name_version t name version_from_url with
-  | None -> not_found req
-  | Some (package, frontend_package) -> (
-      let open Lwt.Syntax in
-      let kind =
-        match kind with
-        | Package -> `Package
-        | Universe -> `Universe (Dream.param req "hash")
-      in
-      let path = (Dream.path [@ocaml.warning "-3"]) req |> String.concat "/" in
-      let* sidebar_data = Package_helper.package_sidebar_data ~kind package in
-
-      let rev_dependencies = [] in
-      let dependencies = [] in
-      let conflicts = [] in
-
-      let* content =
-        let* file = Ocamlorg_package.file ~kind package path in
-        Lwt.return
-          (match file with
-          | None -> None
-          | Some file_content -> Some file_content.content)
-      in
-      match content with
-      | None -> Dream.html (Ocamlorg_frontend.not_found ())
-      | Some content ->
-          Dream.html
-            (Ocamlorg_frontend.package_overview ~sidebar_data ~content
-               ~content_title:(Some path) ~dependencies ~rev_dependencies
-               ~conflicts frontend_package))
-
 let package_documentation t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
   let version_from_url = Dream.param req "version" in
@@ -626,3 +592,37 @@ let package_documentation t kind req =
             (Ocamlorg_frontend.package_documentation ~page:(Some path)
                ~path:breadcrumb_path ~toc ~maptoc ~content:doc.content
                frontend_package))
+
+let package_file t kind req =
+  let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
+  let version_from_url = Dream.param req "version" in
+  match Package_helper.of_name_version t name version_from_url with
+  | None -> not_found req
+  | Some (package, frontend_package) -> (
+      let open Lwt.Syntax in
+      let kind =
+        match kind with
+        | Package -> `Package
+        | Universe -> `Universe (Dream.param req "hash")
+      in
+      let path = (Dream.path [@ocaml.warning "-3"]) req |> String.concat "/" in
+      let* sidebar_data = Package_helper.package_sidebar_data ~kind package in
+
+      let rev_dependencies = [] in
+      let dependencies = [] in
+      let conflicts = [] in
+
+      let* content =
+        let* file = Ocamlorg_package.file ~kind package path in
+        Lwt.return
+          (match file with
+          | None -> None
+          | Some file_content -> Some file_content.content)
+      in
+      match content with
+      | None -> Dream.html (Ocamlorg_frontend.not_found ())
+      | Some content ->
+          Dream.html
+            (Ocamlorg_frontend.package_overview ~sidebar_data ~content
+                ~content_title:(Some path) ~dependencies ~rev_dependencies
+                ~conflicts frontend_package))

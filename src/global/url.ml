@@ -9,11 +9,11 @@ let with_page p = if p = "" then "" else "/" ^ p
 let package_overview ?version ?hash name =
   with_hash hash ^ "/" ^ name ^ "/" ^ with_version version
 
-let package_file ?version ?hash ~filepath name =
-  with_hash hash ^ "/" ^ name ^ "/" ^ with_version version ^ "/" ^ filepath
-
 let package_documentation ?hash ?version ?(page = "index.html") name =
   with_hash hash ^ "/" ^ name ^ "/" ^ with_version version ^ "/doc/" ^ page
+
+let package_file ?version ?hash ~filepath name =
+  with_hash hash ^ "/" ^ name ^ "/" ^ with_version version ^ "/" ^ filepath
 
 let community = "/community"
 let success_story v = "/success-stories/" ^ v
