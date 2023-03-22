@@ -73,7 +73,7 @@ Package_layout.render
 ~canonical:(Url.package_overview package.name ~version:specific_version)
 ~package
 ~path:(Overview content_title) @@
-<div class="flex md:space-x-4 xl:space-x-12 flex-col md:flex-row justify-between">
+<div class="flex md:gap-6 xl:gap-12 flex-col md:flex-row justify-between">
     <div class="flex-1 w-full xl:w-1/2 max-w-full">
       <% (match content_title with | None -> %>
       <div class="p-4 prose max-w-full border-2 border-l-4 border-gray-200 border-l-primary-700 rounded rounded-r-lg">
@@ -133,7 +133,11 @@ Package_layout.render
       </div>
       <% ); %>
     </div>
-    <div class="p-3 py-6 lg:p-8 border border-gray-200 text-sm rounded-xl md:w-60 lg:w-auto lg:max-w-sm w-full max-w-full">
+    <div class="order-first text-sm md:w-60 lg:w-72">
+        <div class="text-base text-body-400 mb-6">
+          <%s package.synopsis %>
+        </div>
+
         <h2 class="inline-flex items-center text-lg font-medium text-gray-900">
             <%s! Icons.command_line "mr-4 h-6 w-6 text-orange-600" %>
             Install
