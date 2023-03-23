@@ -86,9 +86,7 @@ let top_referers events = get_count ~get_el:(fun event -> event.referer) events
 let top_countries events =
   get_count
     ~get_el:(fun event ->
-      match event.ip_info with
-      | None -> None
-      | Some info -> Some info.Ip_info.country)
+      Option.map (fun info -> info.Ip_info.country) event.ip_info)
     events
 
 let unique_visitors events =

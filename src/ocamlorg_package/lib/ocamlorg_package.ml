@@ -358,7 +358,7 @@ let file ~kind t path =
 let maybe_file ~kind t filename =
   let open Lwt.Syntax in
   let+ doc = file ~kind t filename in
-  match doc with None -> None | Some { content; _ } -> Some content
+  Option.map (fun Documentation.{ content; _ } -> content) doc
 
 let maybe_files ~kind t names =
   let f filename =
@@ -371,23 +371,17 @@ let maybe_files ~kind t names =
 let readme_filename ~kind t =
   let open Lwt.Syntax in
   let+ file_opt = maybe_files ~kind t [ "README"; "README.md" ] in
-  match file_opt with
-  | None -> None
-  | Some (filename, _content) -> Some filename
+  Option.map (fun (filename, _content) -> filename) file_opt
 
 let license_filename ~kind t =
   let open Lwt.Syntax in
   let+ file_opt = maybe_files ~kind t [ "LICENSE"; "LICENSE.md" ] in
-  match file_opt with
-  | None -> None
-  | Some (filename, _content) -> Some filename
+  Option.map (fun (filename, _content) -> filename) file_opt
 
 let changes_filename ~kind t =
   let open Lwt.Syntax in
   let+ file_opt = maybe_files ~kind t [ "CHANGES.md"; "CHANGELOG.md" ] in
-  match file_opt with
-  | None -> None
-  | Some (filename, _content) -> Some filename
+  Option.map (fun (filename, _content) -> filename) file_opt
 
 type documentation_status = Success | Failure | Unknown
 
