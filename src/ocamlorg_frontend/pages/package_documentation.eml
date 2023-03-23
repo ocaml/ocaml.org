@@ -44,7 +44,7 @@ Package_layout.render
 ~package
 ~path
 ?page
-~canonical:(Url.package_documentation package.name ~version:(Package.specific_version package) ~page:(Url.package_documentation ?version:(Some (Package.specific_version package)) package.name))
+~canonical:(Url.Package.documentation package.name ~version:(Package.specific_version package) ~page:(Url.Package.documentation ?version:(Some (Package.specific_version package)) package.name))
 ~styles:["css/main.css"; "css/doc.css"] @@
 <div x-data="{ open: false, sidebar: window.innerWidth >= 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth >= 1024" x-on:close-sidebar="sidebar=window.innerWidth >= 1024 && true">
   <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed lg:hidden right-10"

@@ -52,7 +52,7 @@ let render ~total ~search (packages : Package.package list) = Layout.render ~tit
           <% packages |> List.iter (fun (package : Package.package) -> %>
           <li class="border-gray-200 border-t mt-4 pt-4 mb-2 space-y-2">
             <a
-              href="<%s Url.package_overview package.name %>"
+              href="<%s Url.Package.overview package.name %>"
               class="text-lg font-semibold text-primary-600 inline-block"
             >
               <%s package.name %>

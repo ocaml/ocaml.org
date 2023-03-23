@@ -23,7 +23,7 @@ let render
 (package : Package.package) =
 let render_dependency ~version ~name ~cstr =
   <li class="flex m-0 space-x-3 py-2 px-4 hover:bg-gray-100">
-    <a href="<%s Url.package_overview name ?version %>" class="text-primary-600 hover:underline">
+    <a href="<%s Url.Package.overview name ?version %>" class="text-primary-600 hover:underline">
       <%s name %>
     </a>
     <% match cstr with None -> () | Some cstr -> %>
@@ -70,7 +70,7 @@ let specific_version = Package.specific_version package in
 Package_layout.render
 ~title:(Printf.sprintf "%s %s · OCaml Package" package.name (Package.render_version package))
 ~description:(Printf.sprintf "%s %s: %s" package.name (Package.render_version package) package.synopsis)
-~canonical:(Url.package_overview package.name ~version:specific_version)
+~canonical:(Url.Package.overview package.name ~version:specific_version)
 ~package
 ~path:(Overview content_title) @@
 <div class="flex md:gap-6 xl:gap-12 flex-col md:flex-row justify-between">
@@ -166,17 +166,17 @@ Package_layout.render
         <div class="flex flex-col mt-8 text-body-400">
             <% (match sidebar_data.documentation_status with
             | Success -> %>
-            <a href="<%s Url.package_documentation package.name ?version %>" class="px-4 h-10 items-center mb-2 rounded-md bg-primary-600 text-white flex font-bold hover:underline">
+            <a href="<%s Url.Package.documentation package.name ?version %>" class="px-4 h-10 items-center mb-2 rounded-md bg-primary-600 text-white flex font-bold hover:underline">
               <%s! Icons.documentation "w-6 h-6 mr-2 inline-block" %>
               Documentation
             </a>
             <% | Unknown -> ( %>
-            <a href="<%s Url.package_documentation package.name ?version %>" class="p-4 mb-2 flex gap-x-2 bg-background-default text-gray-600 font-semibold text-base">
+            <a href="<%s Url.Package.documentation package.name ?version %>" class="p-4 mb-2 flex gap-x-2 bg-background-default text-gray-600 font-semibold text-base">
               <%s! Icons.error "" %>
               Documentation status is unknown.
             </a><% )
             | Failure -> ( %>
-            <a href="<%s Url.package_documentation package.name ?version %>" class="p-4 mb-2 flex gap-x-2 bg-background-default text-gray-600 font-semibold text-base">
+            <a href="<%s Url.Package.documentation package.name ?version %>" class="p-4 mb-2 flex gap-x-2 bg-background-default text-gray-600 font-semibold text-base">
               <%s! Icons.error "" %>
               Documentation failed to build.
             </a><% ));%>
@@ -184,13 +184,13 @@ Package_layout.render
             <%s! side_box_link ~icon_html:(Icons.package_homepage "h-4 w-4 mr-2 inline-block") ~href:homepage ~title:(Utils.host_of_uri homepage) %>
             <% ); %>
             <% (match sidebar_data.readme_filename with Some readme_filename -> %>
-            <%s! side_box_link ~icon_html:(Icons.changelog "h-4 w-4 mr-2 inline-block") ~href:(Url.package_file package.name ?version ~filepath:(readme_filename ^ ".html")) ~title:"Readme" %>
+            <%s! side_box_link ~icon_html:(Icons.changelog "h-4 w-4 mr-2 inline-block") ~href:(Url.Package.file package.name ?version ~filepath:(readme_filename ^ ".html")) ~title:"Readme" %>
             <% | _ -> ()); %>
             <% (match sidebar_data.changes_filename with Some changes_filename -> %>
-            <%s! side_box_link ~icon_html:(Icons.changelog "h-4 w-4 mr-2 inline-block") ~href:(Url.package_file package.name ?version ~filepath:(changes_filename ^ ".html")) ~title:"Changelog" %>
+            <%s! side_box_link ~icon_html:(Icons.changelog "h-4 w-4 mr-2 inline-block") ~href:(Url.Package.file package.name ?version ~filepath:(changes_filename ^ ".html")) ~title:"Changelog" %>
             <% | _ -> ()); %>
             <% (match sidebar_data.license_filename with Some license_filename -> %>
-            <%s! side_box_link ~icon_html:(Icons.license "h-4 w-4 mr-2 inline-block") ~href:(Url.package_file package.name ?version ~filepath:(license_filename ^ ".html")) ~title:( package.license ^ " License") %>
+            <%s! side_box_link ~icon_html:(Icons.license "h-4 w-4 mr-2 inline-block") ~href:(Url.Package.file package.name ?version ~filepath:(license_filename ^ ".html")) ~title:( package.license ^ " License") %>
             <% | _ -> ()); %>
             <%s! side_box_link ~icon_html:(Icons.edit "h-4 w-4 mr-2 inline-block") ~href:(Url.github_opam_file package.name specific_version) ~title:"Edit opam file" %>
         </div>
