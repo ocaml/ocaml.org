@@ -243,10 +243,13 @@ let papers req =
 
 let tutorial req =
   let slug = Dream.param req "id" in
-  let</>? tutorial = List.find_opt (fun x -> x.Ood.Tutorial.slug = slug) Ood.Tutorial.all in
-  Dream.html (
-    Ocamlorg_frontend.tutorial ~tutorials:Ood.Tutorial.all
-      ~canonical:(Url.tutorial tutorial.slug) tutorial)
+  let</>? tutorial =
+    List.find_opt (fun x -> x.Ood.Tutorial.slug = slug) Ood.Tutorial.all
+  in
+  Dream.html
+    (Ocamlorg_frontend.tutorial ~tutorials:Ood.Tutorial.all
+       ~canonical:(Url.tutorial tutorial.slug)
+       tutorial)
 
 let best_practices _req =
   let tutorials = Ood.Tutorial.all in
