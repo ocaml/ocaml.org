@@ -46,7 +46,7 @@ let loader ~read ~digest ?(not_cached = []) local_root path request =
       let filepath = static_file.filepath in
       let* result = read local_root filepath in
       match result with
-      | None -> Dream.html ~code:404 (Ocamlorg_frontend.not_found ())
+      | None -> Dream.not_found request
       | Some asset when not_cached ->
           Dream.respond
             ~headers:
