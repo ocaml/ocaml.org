@@ -70,11 +70,12 @@ let read_packages () =
 let try_load_state () =
   let exception Invalid_version in
   let state_path = Config.package_state_path in
+  Logs.info (fun m -> m "State cache file: %s" (Fpath.to_string state_path));
   try
     let channel = open_in (Fpath.to_string state_path) in
     Fun.protect
       (fun () ->
-        let v = Marshal.from_channel channel in
+        let v = (Marshal.from_channel channel : state) in
         if Info.version <> v.version then raise Invalid_version;
         Logs.info (fun f ->
             f "Package state loaded (%d packages, opam commit %s)"

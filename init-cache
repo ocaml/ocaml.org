@@ -1,11 +1,10 @@
 #!/bin/sh
 
-CACHE=$HOME/.cache/ocamlorg
+STATE=$1
 
-rm -f $CACHE/package.state
-touch  $CACHE/package.state
+rm -f $STATE
+touch  $STATE
 opam exec -- dune exec src/ocamlorg_web/bin/main.exe &
 PID=$!
-echo $PID
-inotifywait -e close_write $CACHE/package.state
-kill $PID
+echo PID=$PID
+inotifywait -e close_write $STATE
