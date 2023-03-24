@@ -1,10 +1,11 @@
 open Ocamlorg
 open Ocamlorg.Import
 
-let html_opt ?(not_found = Ocamlorg_frontend.not_found) opt f =
+let http_opt ?(not_found = Ocamlorg_frontend.not_found) opt f =
   Option.fold ~none:(Dream.html ~code:404 (not_found ())) ~some:f opt
 
-let ( let^ ) opt = html_opt opt
+(* short-circuiting 404 error operator *)
+let ( let</>? ) opt = http_opt opt
 let index _req = Dream.html (Ocamlorg_frontend.home ())
 
 let learn _req =
@@ -26,8 +27,8 @@ let community _req =
 
 let success_story req =
   let slug = Dream.param req "id" in
-  html_opt (Ood.Success_story.get_by_slug slug) (fun x ->
-      x |> Ocamlorg_frontend.success_story |> Dream.html)
+  let</>? success_story = Ood.Success_story.get_by_slug slug in
+  Dream.html (Ocamlorg_frontend.success_story success_story)
 
 let industrial_users _req =
   let users = Ood.Industrial_user.featured in
@@ -95,8 +96,8 @@ let releases req =
 
 let release req =
   let version = Dream.param req "id" in
-  html_opt (Ood.Release.get_by_version version) (fun x ->
-      x |> Ocamlorg_frontend.release |> Dream.html)
+  let</>? version = Ood.Release.get_by_version version in
+  Dream.html (Ocamlorg_frontend.release version)
 
 let workshop req =
   let watch_ocamlorg_embed =
@@ -130,11 +131,10 @@ let workshop req =
     tbl
   in
   let slug = Dream.param req "id" in
-  let workshop =
+  let</>? workshop =
     List.find_opt (fun x -> x.Ood.Workshop.slug = slug) Ood.Workshop.all
   in
-  html_opt workshop (fun x ->
-      x |> Ocamlorg_frontend.workshop ~videos:watch_ocamlorg_embed |> Dream.html)
+  Dream.html (Ocamlorg_frontend.workshop ~videos:watch_ocamlorg_embed workshop)
 
 let paginate ~req ~n items =
   let items_per_page = n in
@@ -170,8 +170,8 @@ let news req =
 
 let news_post req =
   let slug = Dream.param req "id" in
-  html_opt (Ood.News.get_by_slug slug) (fun x ->
-      x |> Ocamlorg_frontend.news_post |> Dream.html)
+  let</>? news = Ood.News.get_by_slug slug in
+  Dream.html (Ocamlorg_frontend.news_post news)
 
 let jobs req =
   let location = Dream.query req "c" in
@@ -243,13 +243,10 @@ let papers req =
 
 let tutorial req =
   let slug = Dream.param req "id" in
-  html_opt
-    (List.find_opt (fun x -> x.Ood.Tutorial.slug = slug) Ood.Tutorial.all)
-    (fun tutorial ->
-      tutorial
-      |> Ocamlorg_frontend.tutorial ~tutorials:Ood.Tutorial.all
-           ~canonical:(Url.tutorial tutorial.slug)
-      |> Dream.html)
+  let</>? tutorial = List.find_opt (fun x -> x.Ood.Tutorial.slug = slug) Ood.Tutorial.all in
+  Dream.html (
+    Ocamlorg_frontend.tutorial ~tutorials:Ood.Tutorial.all
+      ~canonical:(Url.tutorial tutorial.slug) tutorial)
 
 let best_practices _req =
   let tutorials = Ood.Tutorial.all in
@@ -412,7 +409,7 @@ let packages_autocomplete_fragment t req =
 let package_overview t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
   let version_from_url = Dream.param req "version" in
-  let^ package, frontend_package =
+  let</>? package, frontend_package =
     Package_helper.of_name_version t name version_from_url
   in
   let open Lwt.Syntax in
@@ -448,7 +445,7 @@ let package_overview t kind req =
 let package_documentation t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
   let version_from_url = Dream.param req "version" in
-  let^ package, frontend_package =
+  let</>? package, frontend_package =
     Package_helper.of_name_version t name version_from_url
   in
   let open Lwt.Syntax in
@@ -465,7 +462,7 @@ let package_documentation t kind req =
       (Ocamlorg_package.Name.to_string name)
   in
   let* docs = Ocamlorg_package.documentation_page ~kind package path in
-  html_opt
+  http_opt
     ~not_found:(fun () ->
       Ocamlorg_frontend.package_documentation_not_found ~page:path
         ~path:(Ocamlorg_frontend.Package_breadcrumbs.Documentation Index)
@@ -568,7 +565,7 @@ let package_documentation t kind req =
 let package_file t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
   let version_from_url = Dream.param req "version" in
-  let^ package, frontend_package =
+  let</>? package, frontend_package =
     Package_helper.of_name_version t name version_from_url
   in
   let open Lwt.Syntax in
@@ -591,7 +588,7 @@ let package_file t kind req =
          (fun file -> file.Ocamlorg_package.Documentation.content)
          file)
   in
-  let^ content = content in
+  let</>? content = content in
   Dream.html
     (Ocamlorg_frontend.package_overview ~sidebar_data ~content
        ~content_title:(Some path) ~dependencies ~rev_dependencies ~conflicts
