@@ -1,11 +1,11 @@
 open Ocamlorg
 open Ocamlorg.Import
 
-let http_opt ?(not_found = Ocamlorg_frontend.not_found) opt f =
+let http_or_404 ?(not_found = Ocamlorg_frontend.not_found) opt f =
   Option.fold ~none:(Dream.html ~code:404 (not_found ())) ~some:f opt
 
 (* short-circuiting 404 error operator *)
-let ( let</>? ) opt = http_opt opt
+let ( let</>? ) opt = http_or_404 opt
 let index _req = Dream.html (Ocamlorg_frontend.home ())
 
 let learn _req =
@@ -462,7 +462,7 @@ let package_documentation t kind req =
       (Ocamlorg_package.Name.to_string name)
   in
   let* docs = Ocamlorg_package.documentation_page ~kind package path in
-  http_opt
+  http_or_404
     ~not_found:(fun () ->
       Ocamlorg_frontend.package_documentation_not_found ~page:path
         ~path:(Ocamlorg_frontend.Package_breadcrumbs.Documentation Index)
