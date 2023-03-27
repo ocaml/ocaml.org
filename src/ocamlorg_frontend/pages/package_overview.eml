@@ -74,7 +74,7 @@ in
           </div>
       </div>
   </div>
-  <div class="flex flex-col mt-8 text-body-400">
+  <div class="flex flex-col mt-8 text-sm text-body-400">
       <% package.homepages |> List.iter (fun homepage -> %>
       <%s! side_box_link ~icon_html:(Icons.package_homepage "h-4 w-4 mr-2 inline-block") ~href:homepage ~title:(Utils.host_of_uri homepage) %>
       <% ); %>
@@ -100,7 +100,7 @@ in
   | None -> ()
   | Some (uri, checksums) -> %>
   <h2 class="font-semibold mt-8 mb-3 text-base text-body-400">Sources</h2>
-  <div class="flex flex-col space-y-2">
+  <div class="flex flex-col space-y-2 text-sm">
     <a class="flex font-mono items-center gap-4 text-body-700 hover:text-primary-600 overflow-hidden rounded"
         href="<%s uri %>">
       <span class="flex-grow">
