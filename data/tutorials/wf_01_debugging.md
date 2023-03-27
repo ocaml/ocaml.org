@@ -459,26 +459,26 @@ $ opam switch 5.0.0+tsan
 $ dune build ./race.exe
 $ dune exec ./race.exe
 ==================
-WARNING: ThreadSanitizer: data race (pid=1051032)
-  Write of size 8 at 0x7f48d8efe498 by thread T4 (mutexes: write M87):
-    #0 camlDune__exe__Race__fun_560 <null> (race.exe+0x4efb15)
-    #1 camlStdlib__Domain__body_696 <null> (race.exe+0x52b23c)
-    #2 caml_start_program <null> (race.exe+0x599feb)
-    #3 caml_callback_exn /home/user/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/runtime/callback.c:168:12 (race.exe+0x56bd84)
-    #4 caml_callback /home/user/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/runtime/callback.c:256:34 (race.exe+0x56c6d0)
-    #5 domain_thread_func /home/user/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/runtime/domain.c:1093:5 (race.exe+0x56f34e)
+WARNING: ThreadSanitizer: data race (pid=19414)
+  Write of size 8 at 0x7fb9d72fe498 by thread T4 (mutexes: write M87):
+    #0 camlDune__exe__Race__fun_560 /home/user/race/_build/default/race.ml:6 (race.exe+0x60c65)
+    #1 camlStdlib__Domain__body_696 /home/user/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/stdlib/domain.ml:202 (race.exe+0x9c38c)
+    #2 caml_start_program <null> (race.exe+0x110117)
+    #3 caml_callback_exn runtime/callback.c:168 (race.exe+0xe00fe)
+    #4 caml_callback runtime/callback.c:256 (race.exe+0xe0bb8)
+    #5 domain_thread_func runtime/domain.c:1093 (race.exe+0xe3e83)
 
-  Previous write of size 8 at 0x7f48d8efe498 by thread T1 (mutexes: write M83):
-    #0 camlDune__exe__Race__fun_556 <null> (race.exe+0x4efab5)
-    #1 camlStdlib__Domain__body_696 <null> (race.exe+0x52b23c)
-    #2 caml_start_program <null> (race.exe+0x599feb)
-    #3 caml_callback_exn /home/user/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/runtime/callback.c:168:12 (race.exe+0x56bd84)
-    #4 caml_callback /home/user/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/runtime/callback.c:256:34 (race.exe+0x56c6d0)
-    #5 domain_thread_func /home/user/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/runtime/domain.c:1093:5 (race.exe+0x56f34e)
+  Previous write of size 8 at 0x7fb9d72fe498 by thread T1 (mutexes: write M83):
+    #0 camlDune__exe__Race__fun_556 /home/user/race/_build/default/race.ml:5 (race.exe+0x60c05)
+    #1 camlStdlib__Domain__body_696 /home/user/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/stdlib/domain.ml:202 (race.exe+0x9c38c)
+    #2 caml_start_program <null> (race.exe+0x110117)
+    #3 caml_callback_exn runtime/callback.c:168 (race.exe+0xe00fe)
+    #4 caml_callback runtime/callback.c:256 (race.exe+0xe0bb8)
+    #5 domain_thread_func runtime/domain.c:1093 (race.exe+0xe3e83)
 
-  Mutex M87 (0x00000106ca88) created at:
-    #0 pthread_mutex_init <null> (race.exe+0x46173d)
-    #1 caml_plat_mutex_init /home/user/.opam/5.0.0+tsan/.opam-switch/build/ocaml-variants.5.0.0+tsan/runtime/platform.c:54:8 (race.exe+0x58c4e5)
+  Mutex M87 (0x560c0b4fc438) created at:
+    #0 pthread_mutex_init ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1295 (libtsan.so.2+0x50468)
+    #1 caml_plat_mutex_init runtime/platform.c:54 (race.exe+0x1022f8)
   [...]
 
 SUMMARY: ThreadSanitizer: data race (/tmp/race/race.exe+0x4efb15) in camlRace__fun_560
@@ -492,10 +492,10 @@ this required no change to our `dune` file.
 
 The TSan report warns of a data race between two uncoordinated writes
 happening in parallel and prints a back trace for both:
-- The first back trace reports a write at `/tmp/race/race.ml` in line
-  7 of `thread T4` and
+- The first back trace reports a write at `race.ml` in line
+  6 of `thread T4` and
 - the second back trace reports a previous write at
-  `/tmp/race/race.ml` in line 8 of `thread T1`
+  `race.ml` in line 5 of `thread T1`
 
 Looking again at our program, we realize that these two writes are in
 fact not coordinated. One possible fix is to replace our mutable
