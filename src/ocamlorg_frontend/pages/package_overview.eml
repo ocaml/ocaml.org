@@ -130,10 +130,18 @@ in
   </div>
   <% ; %>
 
+let right_sidebar
+~toc
+=
+  <div class="pt-6">
+    <%s! Toc.render toc %>
+  </div>
+
 let render
 ~(sidebar_data: sidebar_data)
 ~content
 ~content_title
+~toc
 ~dependencies
 ~dev_dependencies
 ~rev_dependencies
@@ -167,7 +175,7 @@ Package_layout.render
 ~documentation_status:sidebar_data.documentation_status
 ~path:(Overview content_title)
 ~left_sidebar_html:(sidebar ~sidebar_data ~specific_version ~version package)
-~right_sidebar_html:"" @@
+~right_sidebar_html:(right_sidebar ~toc) @@
 <div class="flex md:gap-6 xl:gap-12 flex-col md:flex-row justify-between">
     <div class="flex-1 max-w-full">
       <% (match content_title with | None -> %>

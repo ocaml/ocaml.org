@@ -349,6 +349,16 @@ module Package_helper = struct
           changes_filename;
           license_filename;
         }
+
+  let frontend_toc (xs : Ocamlorg_package.Documentation.toc list) :
+      Ocamlorg_frontend.Toc.t =
+    let rec aux acc = function
+      | [] -> List.rev acc
+      | Ocamlorg_package.Documentation.{ title; href; children } :: rest ->
+          Ocamlorg_frontend.Toc.{ title; href; children = aux [] children }
+          :: aux acc rest
+    in
+    aux [] xs
 end
 
 let packages state _req =
@@ -448,7 +458,7 @@ let package_overview t kind req =
 
   Dream.html
     (Ocamlorg_frontend.package_overview ~sidebar_data ~content:""
-       ~content_title:None ~dependencies ~dev_dependencies ~rev_dependencies
+       ~content_title:None ~toc:[] ~dependencies ~dev_dependencies ~rev_dependencies
        ~conflicts frontend_package)
 
 let package_documentation t kind req =
@@ -478,16 +488,6 @@ let package_documentation t kind req =
         frontend_package)
     docs
   @@ fun doc ->
-  let toc_of_toc (xs : Ocamlorg_package.Documentation.toc list) :
-      Ocamlorg_frontend.Toc.t =
-    let rec aux acc = function
-      | [] -> List.rev acc
-      | Ocamlorg_package.Documentation.{ title; href; children } :: rest ->
-          Ocamlorg_frontend.Toc.{ title; href; children = aux [] children }
-          :: aux acc rest
-    in
-    aux [] xs
-  in
   let module Package_map = Ocamlorg_package.Module_map in
   let rec toc_of_module ~root (module' : Package_map.Module.t) :
       Ocamlorg_frontend.Navmap.toc =
@@ -524,7 +524,7 @@ let package_documentation t kind req =
            Ocamlorg_frontend.Navmap.{ title; href; kind = Library; children })
   in
   let* module_map = Ocamlorg_package.module_map ~kind package in
-  let toc = toc_of_toc doc.toc in
+  let toc = Package_helper.frontend_toc doc.toc in
   let (maptoc : Ocamlorg_frontend.Navmap.toc list) =
     toc_of_map ~root module_map
   in
@@ -591,15 +591,11 @@ let package_file t kind req =
   let dev_dependencies = [] in
   let conflicts = [] in
 
-  let* content =
-    let* file = Ocamlorg_package.file ~kind package path in
-    Lwt.return
-      (Option.map
-         (fun file -> file.Ocamlorg_package.Documentation.content)
-         file)
-  in
-  let</>? content = content in
+  let* maybe_doc = Ocamlorg_package.file ~kind package path in
+  let</>? doc = maybe_doc in
+  let content = doc.content in
+  let toc = Package_helper.frontend_toc doc.toc in
   Dream.html
     (Ocamlorg_frontend.package_overview ~sidebar_data ~content
-       ~content_title:(Some path) ~dependencies ~dev_dependencies
+       ~content_title:(Some path) ~toc ~dependencies ~dev_dependencies
        ~rev_dependencies ~conflicts frontend_package)
