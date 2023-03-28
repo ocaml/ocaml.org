@@ -11,8 +11,7 @@ deps: ## Install development dependencies
 
 .PHONY: pin_repo
 pin_repo: ## Pin Opam repository
-	opam repository add ocamlorg git+https://github.com/ocaml/opam-repository#b457e9f3d6 --this-switch
-	opam repository remove default --this-switch
+	opam repository add set-url git+https://github.com/ocaml/opam-repository#b457e9f3d6 --this-switch
 
 .PHONY: create_switch
 create_switch:
