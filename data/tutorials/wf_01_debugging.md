@@ -487,7 +487,7 @@ v.x is 11
 ThreadSanitizer: reported 1 warnings
 ```
 
-Note that since TSan instrumentation operates in a separate switch,
+Note that since TSan instrumentation operates in a separate switch;
 this required no change to our `dune` file.
 
 The TSan report warns of a data race between two uncoordinated writes
