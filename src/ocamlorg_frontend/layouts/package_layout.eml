@@ -81,7 +81,7 @@ Layout.render
             <%s! inner %>
           </div>
           <% (if right_sidebar_html <> "" then %>
-          <div class="hidden xl:flex top-0 sticky h-screen flex-col w-52 overflow-auto">
+          <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto">
             <%s! right_sidebar_html %>
           </div>
           <% ); %>

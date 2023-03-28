@@ -9,7 +9,10 @@ Package_layout.render
 ~package
 ~path
 ?page
-~styles:["/css/main.css"; "/css/doc.css"] @@
+~documentation_status:Success
+~styles:["/css/main.css"; "/css/doc.css"]
+~left_sidebar_html:""
+~right_sidebar_html:"" @@
   let version = Package.url_version package in
   <div class="sm:flex max-w-max mx-auto">
     <p class="text-4xl font-extrabold text-orange-600 sm:text-5xl">404</p>

@@ -13,29 +13,12 @@ type sidebar_data = {
   license_filename : string option;
 }
 
-let render
+let sidebar
 ~(sidebar_data: sidebar_data)
-~content
-~content_title
-~dependencies
-~rev_dependencies
-~conflicts
-(package : Package.package) =
-let render_dependency ~version ~name ~cstr =
-  <li class="flex m-0 space-x-3 py-2 px-4 hover:bg-gray-100">
-    <a href="<%s Url.package_overview name ?version %>" class="text-primary-600 hover:underline">
-      <%s name %>
-    </a>
-    <% match cstr with None -> () | Some cstr -> %>
-      <code class="text-gray-700 font-medium"><%s cstr %></code>
-    <% ; %>
-  </li>
-in
-let render_section_heading ~title =
-  <div class="border-l-4 px-4 -ml-4 mb-6 mt-12 border-transparent border-l-body-400 rounded border-t-2 border-b-2 border-r-2">
-    <h2 class="text-xl font-medium my-2"><%s title %></h2>
-  </div>
-in
+~specific_version
+~version
+(package: Package.package)
+=
 let render_user_avatar ~x_show (user: Ood.Opam_user.t) =
   <li class="flex justify-start" <%s! if x_show then "x-show='open'" else "" %>>
     <a href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded user.name %>%22" class="flex items-center gap-3">
@@ -62,6 +45,115 @@ let render_user_list (users: Ood.Opam_user.t list) =
     <% ) else (); %>
   </div>
 in
+  <div class="text-base text-body-400 mb-6">
+    <%s package.synopsis %>
+  </div>
+
+  <h2 class="inline-flex items-center text-lg font-medium text-gray-900">
+      <%s! Icons.command_line "mr-4 h-6 w-6 text-orange-600" %>
+      Install
+  </h2>
+
+  <div class="max-w-md" x-data="{ copied: false }">
+      <div class="mt-1 flex rounded-md shadow-sm">
+          <div class="relative flex items-stretch flex-grow focus-within:z-10">
+              <input type="text"
+                  class="focus:ring-orange-500 focus:border-orange-500 block w-full rounded-none rounded-l-md bg-gray-800 text-gray-100 text-sm font-mono subpixel-antialiased border-gray-700"
+                  value="opam install <%s package.name %>.<%s specific_version %>">
+          </div>
+          <div role="button" title="Copy to clipboard"
+              class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-700 text-sm font-medium rounded-r-md text-gray-100 bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
+              @click="$clipboard('opam install <%s package.name %>.<%s specific_version %>'); copied = true; setTimeout(() => copied = false, 2000)"
+              :class="{ 'border-gray-700': !copied, 'text-gray-100': !copied, 'focus:ring-orange-500': !copied, 'focus:border-orange-500': !copied, 'border-green-600': copied, 'text-green-600': copied, 'focus:ring-green-500': copied, 'focus:border-green-500': copied }">
+              <div x-show="!copied" class="h-6 w-6">
+                <%s! Icons.copy_to_clipboard "h-6 w-6" %>
+              </div>
+              <div x-show="copied" class="h-6 w-6">
+                <%s! Icons.copied_to_clipboard "h-6 w-6" %>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="flex flex-col mt-8 text-sm text-body-400">
+      <% package.homepages |> List.iter (fun homepage -> %>
+      <%s! side_box_link ~icon_html:(Icons.package_homepage "h-4 w-4 mr-2 inline-block") ~href:homepage ~title:(Utils.host_of_uri homepage) %>
+      <% ); %>
+      <% (match sidebar_data.readme_filename with Some readme_filename -> %>
+      <%s! side_box_link ~icon_html:(Icons.changelog "h-4 w-4 mr-2 inline-block") ~href:(Url.Package.file package.name ?version ~filepath:(readme_filename ^ ".html")) ~title:"Readme" %>
+      <% | _ -> ()); %>
+      <% (match sidebar_data.changes_filename with Some changes_filename -> %>
+      <%s! side_box_link ~icon_html:(Icons.changelog "h-4 w-4 mr-2 inline-block") ~href:(Url.Package.file package.name ?version ~filepath:(changes_filename ^ ".html")) ~title:"Changelog" %>
+      <% | _ -> ()); %>
+      <% (match sidebar_data.license_filename with Some license_filename -> %>
+      <%s! side_box_link ~icon_html:(Icons.license "h-4 w-4 mr-2 inline-block") ~href:(Url.Package.file package.name ?version ~filepath:(license_filename ^ ".html")) ~title:( package.license ^ " License") %>
+      <% | _ -> ()); %>
+      <%s! side_box_link ~icon_html:(Icons.edit "h-4 w-4 mr-2 inline-block") ~href:(Url.github_opam_file package.name specific_version) ~title:"Edit opam file" %>
+  </div>
+
+  <h2 class="mt-8 font-semibold text-base text-body-400">Authors</h2>
+  <%s! render_user_list package.authors %>
+
+  <h2 class="mt-8 font-semibold text-base text-body-400">Maintainers</h2>
+  <%s! render_user_list package.maintainers %>
+
+  <% match package.source with
+  | None -> ()
+  | Some (uri, checksums) -> %>
+  <h2 class="font-semibold mt-8 mb-3 text-base text-body-400">Sources</h2>
+  <div class="flex flex-col space-y-2 text-sm">
+    <a class="flex font-mono items-center gap-4 text-body-700 hover:text-primary-600 overflow-hidden rounded"
+        href="<%s uri %>">
+      <span class="flex-grow">
+        <%s Filename.basename uri %>
+      </span>
+
+      <div class="p-1 bg-primary-600 text-white rounded">
+          <%s! Icons.download "h-6 w-6" %>
+      </div>
+    </a>
+
+    <% checksums |> List.iter begin fun checksum -> %>
+    <div class="flex items-center gap-4 bg-primary-200 text-gray-700 rounded"
+      x-data="{ copied: false }">
+      <code class="px-4 text-ellipsis overflow-hidden min-w-0" aria-label="checksum"><%s String.trim checksum %></code>
+
+      <button
+        @click="$clipboard('<%s checksum %>'); copied = true; setTimeout(() => copied = false, 2000)"
+        x-show="!copied" title="copy checksum to clipboard" class="p-1 text-primary-600 rounded">
+          <%s! Icons.copy "h-6 w-6" %>
+      </button>
+      <button x-show="copied" title="checksum copied to clipboard" class="p-1 text-primary-600 rounded">
+          <%s! Icons.copied_to_clipboard "h-6 w-6" %>
+      </button>
+    </div>
+    <% end; %>
+  </div>
+  <% ; %>
+
+let render
+~(sidebar_data: sidebar_data)
+~content
+~content_title
+~dependencies
+~dev_dependencies
+~rev_dependencies
+~conflicts
+(package : Package.package) =
+let render_dependency ~version ~name ~cstr =
+  <li class="flex m-0 space-x-3 py-2 px-4 hover:bg-gray-100">
+    <a href="<%s Url.Package.overview name ?version %>" class="text-primary-600 hover:underline">
+      <%s name %>
+    </a>
+    <% match cstr with None -> () | Some cstr -> %>
+      <code class="text-gray-700 font-medium"><%s cstr %></code>
+    <% ; %>
+  </li>
+in
+let render_section_heading ~title =
+  <div class="border-l-4 px-4 -ml-4 mb-6 mt-12 border-transparent border-l-body-400 rounded border-t-2 border-b-2 border-r-2">
+    <h2 class="text-xl font-medium my-2"><%s title %></h2>
+  </div>
+in
 let title_with_number title number =
   title ^ if number > 0 then " (" ^ string_of_int number ^ ")" else ""
 in
@@ -70,11 +162,14 @@ let specific_version = Package.specific_version package in
 Package_layout.render
 ~title:(Printf.sprintf "%s %s · OCaml Package" package.name (Package.render_version package))
 ~description:(Printf.sprintf "%s %s: %s" package.name (Package.render_version package) package.synopsis)
-~canonical:(Url.package_overview package.name ~version:specific_version)
+~canonical:(Url.Package.overview package.name ~version:specific_version)
 ~package
-~path:(Overview content_title) @@
-<div class="flex md:space-x-4 xl:space-x-12 flex-col md:flex-row justify-between">
-    <div class="flex-1 w-full xl:w-1/2 max-w-full">
+~documentation_status:sidebar_data.documentation_status
+~path:(Overview content_title)
+~left_sidebar_html:(sidebar ~sidebar_data ~specific_version ~version package)
+~right_sidebar_html:"" @@
+<div class="flex md:gap-6 xl:gap-12 flex-col md:flex-row justify-between">
+    <div class="flex-1 max-w-full">
       <% (match content_title with | None -> %>
       <div class="p-4 prose max-w-full border-2 border-l-4 border-gray-200 border-l-primary-700 rounded rounded-r-lg">
         <h2 class="mb-4 mt-0 text-xl font-semibold uppercase">Description</h2>
@@ -100,21 +195,28 @@ Package_layout.render
       <div class="border-l-2 border-gray-200 px-4 space-y-6">
         <div class="mx-[-2px]">
           <%s! render_section_heading ~title:(title_with_number "Dependencies" (List.length dependencies)) %>
-          <ol class="grid xl:grid-cols-2">
+          <ol class="grid lg:grid-cols-2">
               <%s if List.length dependencies = 0 then "None" else "" %>
               <% dependencies |> List.iter (fun (name, cstr) -> %>
               <%s! render_dependency ~name ~cstr ~version:None %>
               <% ); %>
           </ol>
+          <%s! render_section_heading ~title:(title_with_number "Development Dependencies" (List.length dev_dependencies)) %>
+          <ol class="grid lg:grid-cols-2">
+              <%s if List.length dev_dependencies = 0 then "None" else "" %>
+              <% dev_dependencies |> List.iter (fun (name, cstr) -> %>
+              <%s! render_dependency ~name ~cstr ~version:None %>
+              <% ); %>
+          </ol>
           <%s! render_section_heading ~title:(title_with_number "Reverse Dependencies" (List.length rev_dependencies)) %>
-          <ol class="grid xl:grid-cols-2 max-h-96 overflow-auto">
+          <ol class="grid lg:grid-cols-2 max-h-96 overflow-auto">
               <%s if List.length rev_dependencies = 0 then "None" else "" %>
               <% rev_dependencies |> List.iter (fun (name, cstr, version) -> %>
               <%s! render_dependency ~name ~cstr ~version:(Some version) %>
               <% ); %>
           </ol>
           <%s! render_section_heading ~title:(title_with_number "Conflicts" (List.length conflicts)) %>
-          <ol class="grid xl:grid-cols-2 max-h-96 overflow-auto">
+          <ol class="grid lg:grid-cols-2 max-h-96 overflow-auto">
               <%s if List.length conflicts = 0 then "None" else "" %>
               <% conflicts |> List.iter (fun (name, cstr) -> %>
               <%s! render_dependency ~name ~cstr ~version:None %>
@@ -132,116 +234,6 @@ Package_layout.render
         </div>
       </div>
       <% ); %>
-    </div>
-    <div class="p-3 py-6 lg:p-8 border border-gray-200 text-sm rounded-xl md:w-60 lg:w-auto lg:max-w-sm w-full max-w-full">
-        <h2 class="inline-flex items-center text-lg font-medium text-gray-900">
-            <%s! Icons.command_line "mr-4 h-6 w-6 text-orange-600" %>
-            Install
-        </h2>
-
-        <div class="max-w-md" x-data="{ copied: false }">
-            <div class="mt-1 flex rounded-md shadow-sm">
-                <div class="relative flex items-stretch flex-grow focus-within:z-10">
-                    <input type="text"
-                        class="focus:ring-orange-500 focus:border-orange-500 block w-full rounded-none rounded-l-md bg-gray-800 text-gray-100 text-sm font-mono subpixel-antialiased border-gray-700"
-                        value="opam install <%s package.name %>.<%s specific_version %>">
-                </div>
-                <div role="button" title="Copy to clipboard"
-                    class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-700 text-sm font-medium rounded-r-md text-gray-100 bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
-                    @click="$clipboard('opam install <%s package.name %>.<%s specific_version %>'); copied = true; setTimeout(() => copied = false, 2000)"
-                    :class="{ 'border-gray-700': !copied, 'text-gray-100': !copied, 'focus:ring-orange-500': !copied, 'focus:border-orange-500': !copied, 'border-green-600': copied, 'text-green-600': copied, 'focus:ring-green-500': copied, 'focus:border-green-500': copied }">
-                    <div x-show="!copied" class="h-6 w-6">
-                      <%s! Icons.copy_to_clipboard "h-6 w-6" %>
-                    </div>
-                    <div x-show="copied" class="h-6 w-6">
-                      <%s! Icons.copied_to_clipboard "h-6 w-6" %>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <% (match package.tags with [] -> () | _ ->  %>
-        <div class="mt-4">
-            <div class="flex mt-5 flex-wrap">
-                <% package.tags |> List.iter (fun tag -> %>
-                <a href="<%s Url.packages_search %>?q=tag%3A%22<%s Dream.to_percent_encoded tag %>%22"
-                    class="hover:underline px-2 py-1 text-body-400 font-medium bg-gray-100 rounded mr-3 mt-3">
-                    <%s tag %>
-                </a>
-                <% ); %>
-            </div>
-        </div>
-        <% ); %>
-        <div class="flex flex-col mt-8 text-body-400">
-            <% (match sidebar_data.documentation_status with
-            | Success -> %>
-            <a href="<%s Url.package_documentation package.name ?version %>" class="px-4 h-10 items-center mb-2 rounded-md bg-primary-600 text-white flex font-bold hover:underline">
-              <%s! Icons.documentation "w-6 h-6 mr-2 inline-block" %>
-              Documentation
-            </a>
-            <% | Unknown -> ( %>
-            <a href="<%s Url.package_documentation package.name ?version %>" class="p-4 mb-2 flex gap-x-2 bg-background-default text-gray-600 font-semibold text-base">
-              <%s! Icons.error "" %>
-              Documentation status is unknown.
-            </a><% )
-            | Failure -> ( %>
-            <a href="<%s Url.package_documentation package.name ?version %>" class="p-4 mb-2 flex gap-x-2 bg-background-default text-gray-600 font-semibold text-base">
-              <%s! Icons.error "" %>
-              Documentation failed to build.
-            </a><% ));%>
-            <% package.homepages |> List.iter (fun homepage -> %>
-            <%s! side_box_link ~icon_html:(Icons.package_homepage "h-4 w-4 mr-2 inline-block") ~href:homepage ~title:(Utils.host_of_uri homepage) %>
-            <% ); %>
-            <% (match sidebar_data.readme_filename with Some readme_filename -> %>
-            <%s! side_box_link ~icon_html:(Icons.changelog "h-4 w-4 mr-2 inline-block") ~href:(Url.package_file package.name ?version ~filepath:(readme_filename ^ ".html")) ~title:"Readme" %>
-            <% | _ -> ()); %>
-            <% (match sidebar_data.changes_filename with Some changes_filename -> %>
-            <%s! side_box_link ~icon_html:(Icons.changelog "h-4 w-4 mr-2 inline-block") ~href:(Url.package_file package.name ?version ~filepath:(changes_filename ^ ".html")) ~title:"Changelog" %>
-            <% | _ -> ()); %>
-            <% (match sidebar_data.license_filename with Some license_filename -> %>
-            <%s! side_box_link ~icon_html:(Icons.license "h-4 w-4 mr-2 inline-block") ~href:(Url.package_file package.name ?version ~filepath:(license_filename ^ ".html")) ~title:( package.license ^ " License") %>
-            <% | _ -> ()); %>
-            <%s! side_box_link ~icon_html:(Icons.edit "h-4 w-4 mr-2 inline-block") ~href:(Url.github_opam_file package.name specific_version) ~title:"Edit opam file" %>
-        </div>
-
-        <h2 class="mt-8 font-semibold text-base text-body-400">Authors</h2>
-        <%s! render_user_list package.authors %>
-
-        <h2 class="mt-8 font-semibold text-base text-body-400">Maintainers</h2>
-        <%s! render_user_list package.maintainers %>
-
-        <% match package.source with
-        | None -> ()
-        | Some (uri, checksums) -> %>
-        <h2 class="font-semibold mt-8 mb-3 text-base text-body-400">Sources</h2>
-        <div class="flex flex-col space-y-2">
-          <a class="flex font-mono items-center gap-4 text-body-700 hover:text-primary-600 overflow-hidden rounded"
-             href="<%s uri %>">
-            <span class="flex-grow">
-              <%s Filename.basename uri %>
-            </span>
-
-            <div class="p-1 bg-primary-600 text-white rounded">
-                <%s! Icons.download "h-6 w-6" %>
-            </div>
-          </a>
-
-          <% checksums |> List.iter begin fun checksum -> %>
-          <div class="flex items-center gap-4 bg-primary-200 text-gray-700 rounded"
-            x-data="{ copied: false }">
-            <code class="px-4 text-ellipsis overflow-hidden min-w-0" aria-label="checksum"><%s String.trim checksum %></code>
-
-            <button
-              @click="$clipboard('<%s checksum %>'); copied = true; setTimeout(() => copied = false, 2000)"
-              x-show="!copied" title="copy checksum to clipboard" class="p-1 text-primary-600 rounded">
-                <%s! Icons.copy "h-6 w-6" %>
-            </button>
-            <button x-show="copied" title="checksum copied to clipboard" class="p-1 text-primary-600 rounded">
-                <%s! Icons.copied_to_clipboard "h-6 w-6" %>
-            </button>
-          </div>
-          <% end; %>
-        </div>
-        <% ; %>
     </div>
 </div>
 <script>
