@@ -514,7 +514,7 @@ let () =
   Printf.printf "v is %i\n" (Atomic.get v)
 ```
 
-If we recompile and run our program with this change it now completes
+If we recompile and run our program with this change, it now completes
 without TSan warnings:
 ```
 $ dune build ./race.exe
