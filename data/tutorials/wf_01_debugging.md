@@ -397,7 +397,7 @@ Called from Dune__exe__Uncaught in file "uncaught.ml", line 8, characters 15-37
 
 ## Detecting a Data Race with Thread Sanitizer
 
-With the introduction of multicore parallelism in OCaml 5, comes the
+With the introduction of Multicore parallelism in OCaml 5, comes the
 risk of introducing data races among the involved `Domain`s. Luckily
 the Thread Sanitizer (TSan) mode for OCaml is helpful to catch and
 report these.
