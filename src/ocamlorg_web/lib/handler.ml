@@ -455,10 +455,18 @@ let package_overview t kind req =
     package_info.Ocamlorg_package.Info.conflicts
     |> List.map (fun (name, x) -> (Ocamlorg_package.Name.to_string name, x))
   in
+  let toc = [
+    Ocamlorg_frontend.Toc.{ title = "Description"; href = "#description"; children = []};
+    { title = "Dependencies"; href = "#dependencies"; children = []};
+    { title = "Development Dependencies"; href = "#dev_dependencies"; children = []};
+    { title = "Reverse Dependencies"; href = "#rev_dependencies"; children = []};
+    { title = "Conflicts"; href = "#conflicts"; children = []};
+  ]
+  in
 
   Dream.html
     (Ocamlorg_frontend.package_overview ~sidebar_data ~content:""
-       ~content_title:None ~toc:[] ~dependencies ~dev_dependencies ~rev_dependencies
+       ~content_title:None ~toc ~dependencies ~dev_dependencies ~rev_dependencies
        ~conflicts frontend_package)
 
 let package_documentation t kind req =

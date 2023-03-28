@@ -157,9 +157,9 @@ let render_dependency ~version ~name ~cstr =
     <% ; %>
   </li>
 in
-let render_section_heading ~title =
+let render_section_heading ~title ~id =
   <div class="border-l-4 px-4 -ml-4 mb-6 mt-12 border-transparent border-l-body-400 rounded border-t-2 border-b-2 border-r-2">
-    <h2 class="text-xl font-medium my-2"><%s title %></h2>
+    <h2 id="<%s id %>" class="text-xl font-medium my-2"><%s title %></h2>
   </div>
 in
 let title_with_number title number =
@@ -179,9 +179,11 @@ Package_layout.render
 <div class="flex md:gap-6 xl:gap-12 flex-col md:flex-row justify-between">
     <div class="flex-1 max-w-full">
       <% (match content_title with | None -> %>
-      <div class="p-4 prose max-w-full border-2 border-l-4 border-gray-200 border-l-primary-700 rounded rounded-r-lg">
-        <h2 class="mb-4 mt-0 text-xl font-semibold uppercase">Description</h2>
-        <%s! package.description %>
+      <div class="p-4 max-w-full border-2 border-l-4 border-gray-200 border-l-primary-700 rounded rounded-r-lg">
+        <h2 id="description" class="mb-4 mt-0 text-xl font-semibold uppercase">Description</h2>
+        <div class="prose">
+          <%s! package.description %>
+        </div>
       </div>
 
       <div class="flex flex-wrap gap-3 mt-4">
@@ -202,28 +204,28 @@ Package_layout.render
 
       <div class="border-l-2 border-gray-200 px-4 space-y-6">
         <div class="mx-[-2px]">
-          <%s! render_section_heading ~title:(title_with_number "Dependencies" (List.length dependencies)) %>
+          <%s! render_section_heading ~title:(title_with_number "Dependencies" (List.length dependencies)) ~id:"dependencies" %>
           <ol class="grid lg:grid-cols-2">
               <%s if List.length dependencies = 0 then "None" else "" %>
               <% dependencies |> List.iter (fun (name, cstr) -> %>
               <%s! render_dependency ~name ~cstr ~version:None %>
               <% ); %>
           </ol>
-          <%s! render_section_heading ~title:(title_with_number "Development Dependencies" (List.length dev_dependencies)) %>
+          <%s! render_section_heading ~title:(title_with_number "Development Dependencies" (List.length dev_dependencies)) ~id:"dev_dependencies" %>
           <ol class="grid lg:grid-cols-2">
               <%s if List.length dev_dependencies = 0 then "None" else "" %>
               <% dev_dependencies |> List.iter (fun (name, cstr) -> %>
               <%s! render_dependency ~name ~cstr ~version:None %>
               <% ); %>
           </ol>
-          <%s! render_section_heading ~title:(title_with_number "Reverse Dependencies" (List.length rev_dependencies)) %>
+          <%s! render_section_heading ~title:(title_with_number "Reverse Dependencies" (List.length rev_dependencies))  ~id:"rev_dependencies" %>
           <ol class="grid lg:grid-cols-2 max-h-96 overflow-auto">
               <%s if List.length rev_dependencies = 0 then "None" else "" %>
               <% rev_dependencies |> List.iter (fun (name, cstr, version) -> %>
               <%s! render_dependency ~name ~cstr ~version:(Some version) %>
               <% ); %>
           </ol>
-          <%s! render_section_heading ~title:(title_with_number "Conflicts" (List.length conflicts)) %>
+          <%s! render_section_heading ~title:(title_with_number "Conflicts" (List.length conflicts)) ~id:"conflicts" %>
           <ol class="grid lg:grid-cols-2 max-h-96 overflow-auto">
               <%s if List.length conflicts = 0 then "None" else "" %>
               <% conflicts |> List.iter (fun (name, cstr) -> %>
@@ -235,7 +237,7 @@ Package_layout.render
       <% | Some content_title -> %>
       <div class="border-l-2 border-gray-200 px-4 space-y-6">
         <div class="mx-[-2px]">
-          <%s! render_section_heading ~title:content_title %>
+          <%s! render_section_heading ~title:content_title ~id:"content" %>
           <div class="prose max-w-full">
             <%s! content %>
           </div>
