@@ -7,6 +7,9 @@ let render
 ?hash
 ?page
 ~(package : Package.package)
+~(documentation_status: Package.documentation_status)
+~left_sidebar_html
+~right_sidebar_html
 inner =
 Layout.render
 ?styles
@@ -19,12 +22,70 @@ Layout.render
   <div class="py-5 lg:py-6">
     <div class="container-fluid">
       <div class="flex justify-between flex-col md:flex-row">
-        <div class="flex flex-col items-baseline mb-6">
+        <div class="flex flex-col items-baseline">
           <%s! Package_breadcrumbs.render ~path ?hash ?page package %>
         </div>
       </div>
-      <div class="py-6">
-        <%s! inner %>
+      <div x-data="{ open: false, sidebar: window.innerWidth >= 768 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth >= 768" x-on:close-sidebar="sidebar=window.innerWidth >= 768 && true">
+        <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed md:hidden right-10"
+        x-on:click="sidebar = ! sidebar">
+          <%s! Icons.sidebar_menu "h-8 w-8" %>
+          <span class="hidden md:flex font-semibold px-2">side menu</span>
+        </button>
+        <div class="fixed z-10 inset-0 bg-background-dark-blue/20 backdrop-blur-sm md:hidden"
+          :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar">
+        </div>
+
+        <div class="flex gap-4 xl:gap-8 flex-col md:flex-row mt-6">
+          <ol class="flex w-full md:w-60 lg:w-72 flex-shrink-0">
+            <li class="flex flex-auto">
+              <a class="w-full h-10 flex justify-center rounded-l-lg p-1 items-center font-semibold border border-r-0 border-primary-700 <%s (match path with | Overview _ -> "bg-primary-700 text-white" | _ -> "text-primary-700")%>" href="<%s Url.Package.overview package.name ?version:(Package.url_version package) %>">Overview</a>
+            </li>
+              <% (match documentation_status with
+              | Success -> %>
+              <li class="flex flex-auto">
+                <a class="w-full h-10 flex justify-center rounded-r-lg p-1 items-center font-semibold border border-l-0  border-primary-700 <%s (match path with | Documentation _ -> "bg-primary-700 text-white" | _ -> "text-primary-700")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>">Docs</a>
+              </li>
+              <% | Unknown -> ( %>
+              <li class="flex flex-auto">
+                <a title="Documentation status is unknown" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0 border-gray-400 <%s (match path with | Documentation _ -> "bg-primary-700 text-white" | _ -> "text-gray-500 bg-background-default")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>"><%s! Icons.error "" %> No Docs</a>
+              </li>
+              <% )
+              | Failure -> ( %>
+              <li class="flex flex-auto">
+                <a title="Documentation failed to build!" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0  border-gray-400 <%s (match path with | Documentation _ -> "bg-primary-700 text-white" | _ -> "text-gray-500 bg-background-default")%>" href="<%s Url.Package.documentation package.name ?version:(Package.url_version package) %>"><%s! Icons.error "" %> No Docs</a>
+              </li>
+              <% ));%>
+            </li>
+          </ol>
+
+          <div title="Sorry, in-package search is not yet implemented, but this is where it's going to appear." class="flex w-full items-center">
+            <input disabled type="search" name="q" class="focus:border-gray-800 text-gray-800 bg-gray-300 border-gray-300 h-10 rounded-l-md appearance-none px-4 flex-grow"
+              autocomplete="off"
+              placeholder="Sorry, in-package search is not yet implemented, but this is where it's going to appear :-)">
+            <button disabled aria-label="search" class="h-10 rounded-r-md bg-gray-300 text-gray-800 flex items-center justify-center px-4">
+              <%s! Icons.magnifying_glass "w-6 h-6" %>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex md:gap-4 xl:gap-8">
+          <div
+            class="p-10 z-20 bg-white flex-col fixed h-screen overflow-auto md:flex left-0 top-0 md:sticky w-80 md:w-60 lg:w-72 md:p-0 md:pt-6"
+            x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
+            x-transition:enter-start="-translate-x-full" x-transition:leave="transition duration-100 ease-in"
+            x-transition:leave-end="-translate-x-full">
+            <%s! left_sidebar_html %>
+          </div>
+          <div class="flex-1 z-0 z- min-w-0 pt-6">
+            <%s! inner %>
+          </div>
+          <% (if right_sidebar_html <> "" then %>
+          <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto">
+            <%s! right_sidebar_html %>
+          </div>
+          <% ); %>
+        </div>
       </div>
     </div>
   </div>
