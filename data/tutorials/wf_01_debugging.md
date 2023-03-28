@@ -452,7 +452,7 @@ $ dune exec ./race.exe
 v.x is 11
 ```
 
-However if we compile and run the program with `dune` from the new
+However, if we compile and run the program with Dune from the new
 `5.0.0+tsan` switch TSan warns us of a data race:
 ```
 $ opam switch 5.0.0+tsan
