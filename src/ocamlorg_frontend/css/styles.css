@@ -127,13 +127,8 @@ body {
 }
 
 .prose :is(h1, h2, h3, h4, h5, h6)[id]:hover::before {
-  content: "#";
-  position: absolute;
-  color: rgb(90, 98, 111);
-  margin-left: -1.2em;
-  padding: 0.39em;
-  margin-top: -.37em;
-  font-weight: 500;
+  content: " ";
+  @apply absolute top-0 h-full border-l-4 border-gray-400 -ml-3;
 }
 
 .prose :is(h1, h2, h3, h4, h5, h6) > a.anchor {
