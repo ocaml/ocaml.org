@@ -57,6 +57,7 @@ Package_layout.render
 ~left_sidebar_html:(sidebar ~str_path ~toc ~maptoc package)
 ~right_sidebar_html:(right_sidebar ~toc) @@
 <div id="htmx-content">
+  <%s! Package_breadcrumbs.render ~path package %>
   <div class="odoc prose prose-orange">
     <%s! content %>
   </div>
