@@ -7,14 +7,19 @@ all:
 .PHONY: deps
 deps: ## Install development dependencies
 	opam install -y ocamlformat=0.24.1 ocaml-lsp-server
-	opam install --deps-only --with-test --with-doc -y .
+	opam install -y --deps-only --with-test --with-doc .
+
+.PHONY: pin_repo
+pin_repo: ## Pin Opam repository
+	opam repository add ocamlorg git+https://github.com/ocaml/opam-repository#b457e9f3d6 --this-switch
+	opam repository remove default --this-switch
 
 .PHONY: create_switch
 create_switch:
 	opam switch create . 4.14.0 --no-install
 
 .PHONY: switch
-switch: create_switch deps ## Create an opam switch and install development dependencies
+switch: create_switch pin_repo deps ## Create an opam switch and install development dependencies
 
 .PHONY: lock
 lock: ## Generate a lock file
