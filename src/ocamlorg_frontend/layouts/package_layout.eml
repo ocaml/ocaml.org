@@ -39,7 +39,7 @@ Layout.render
         <div class="flex gap-4 xl:gap-8 flex-col md:flex-row mt-6">
           <ol class="flex w-full md:w-60 lg:w-72 flex-shrink-0">
             <li class="flex flex-auto">
-              <a class="w-full h-10 flex justify-center rounded-l-lg p-1 items-center font-semibold border border-r-0 border-primary-700 <%s (match path with | Overview _ -> "bg-primary-700 text-white" | _ -> "text-primary-700")%>" href="<%s Url.Package.overview package.name ?version:(Package.url_version package) %>">About</a>
+              <a class="w-full h-10 flex justify-center rounded-l-lg p-1 items-center font-semibold border border-r-0 border-primary-700 <%s (match path with | Overview _ -> "bg-primary-700 text-white" | _ -> "text-primary-700")%>" href="<%s Url.Package.overview package.name ?version:(Package.url_version package) %>">Overview</a>
             </li>
               <% (match documentation_status with
               | Success -> %>
