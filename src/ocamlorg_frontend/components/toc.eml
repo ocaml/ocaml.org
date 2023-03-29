@@ -10,26 +10,26 @@ let render (t : t) =
   <div>
     <% (match t with [] ->  %>
     <% | _ -> %>
-    <div class="font-semibold text-gray-500 text-sm mb-4">ON THIS PAGE</div>
-    <ul class="leading-6 space-y-3 text-sm">
+    <div class="font-semibold text-gray-500 text-sm mb-4">On This Page</div>
+    <ol class="leading-6 space-y-3 text-sm">
       <% t |> List.iter begin fun item -> %>
         <li>
-          <a href="<%s item.href %>" class="font-semibold text-gray-900 py-1 md:p-0 block transition-colors hover:text-orange-600">
+          <a href="<%s item.href %>" class="font-normal text-gray-900 py-1 md:p-0 block transition-colors hover:text-orange-600">
             <%s! item.title %>
           </a>
             <% match item.children with [] -> () | items -> %>
-            <ul>
+            <ol>
               <% items |> List.iter begin fun item -> %>
-              <li class="ml-4">
-                <a href="<%s item.href %>" class="font-regular text-body-600 py-1 md:p-0 block transition-colors hover:text-orange-600">
+              <li class="ml-2">
+                <a href="<%s item.href %>" class="font-normal text-body-600 py-1 md:p-0 block transition-colors hover:text-orange-600">
                   <%s! item.title %>
                 </a>
               </li>
               <% end; %>
-            </ul>
+            </ol>
             <% ; %>
           <% end; %>
         </li>
-    </ul>
+    </ol>
     <% ); %>
   </div>
