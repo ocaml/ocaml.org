@@ -64,7 +64,14 @@ rounds:
     projects:
       - title: "Test the OCaml compiler with code coverage tools"
         number: "5"
-        description: ""
+        description: >
+          Improving the compiler testing  process using code coverage tools.
+          The core OCaml system has a large  test suite and it would be very
+          useful to see which parts of the system  are tested more actively
+          and which are not so. Developers will be helped  to see where it is
+          needed to add new tests and in the process of  improving coverage,
+          it is possible to find unexplored bugs and fix them.
+          It might help to make OCaml and its libraries more reliable. 
         mentee: "Oxana Kostikova"
         blog: "https://lereenadem.wixsite.com/personal"
         source: https://github.com/ocaml/ocaml
