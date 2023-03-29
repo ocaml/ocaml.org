@@ -148,7 +148,7 @@ let paginate ~req ~n items =
   in
   let current_items =
     let skip = items_per_page * (page - 1) in
-    items |> List.skip skip |> List.take items_per_page
+    items |> List.drop skip |> List.take items_per_page
   in
   (page, number_of_pages, current_items)
 

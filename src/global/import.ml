@@ -60,7 +60,7 @@ module List = struct
     | [] -> []
     | hd :: tl -> hd :: take (n - 1) tl
 
-  let skip n xs =
+  let drop n xs =
     let rec aux i = function
       | [] -> []
       | l when i = 0 -> l
