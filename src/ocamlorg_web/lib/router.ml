@@ -24,6 +24,7 @@ let page_routes =
     [ Dream_dashboard.analytics (); Dream_encoding.compress ]
     [
       Dream.get Url.index Handler.index;
+      Dream.get Url.install Handler.install;
       Dream.get Url.learn Handler.learn;
       Dream.get Url.platform Handler.platform;
       Dream.get Url.community Handler.community;
