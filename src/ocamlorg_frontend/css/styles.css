@@ -30,7 +30,7 @@ body {
 }
 
 .container-fluid.wide {
-  max-width: 1440px;
+  @apply max-w-8xl
 }
 
 .bg-pattern {
@@ -152,7 +152,7 @@ body {
   width: 3em;
   margin-left: -2.9em;
   margin-top: 0;
-  font-size: 18px;
+  font-size: 1rem;
 }
 
 .sidebar a.active {
