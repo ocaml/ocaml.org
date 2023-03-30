@@ -96,6 +96,17 @@ This will build the docker image and run a docker container with the port `8080`
 
 With the docker container running, you can visit the site at <http://localhost:8080/>.
 
+### Managing dependencies
+
+ocaml.org is using an Opam switch which is local and bound to a pinned commit in opam-repository. This is intended to protect the build from upstream regressions. The Opam repository is specified in three (3) places:
+```
+Dockerfile
+Makefile
+.github/workflows/*.yml
+```
+
+When bringing up ocaml.org to a newer pin, the commit hash found it those files must be changed all at once.
+
 ## Repository structure
 
 The following snippet describes the repository structure.
@@ -109,31 +120,34 @@ The following snippet describes the repository structure.
 |   Data used by ocaml.org in Yaml and Markdown format.
 │
 ├── playground/
-|   The source and generated assets for the OCaml Playground
-|
+│   The source and generated assets for the OCaml Playground
+│
 ├── src
+│   ├── global
+│   │   Project wide definitions
+│   │
 │   ├── dream_dashboard
-|   |   A monitoring and analytics dashboard for dream.
-|   |
+│   │   A monitoring and analytics dashboard for dream.
+│   │
 │   ├── ocamlorg_data
-|   |   The result of compiling all of the information in `/data` into OCaml modules.
-|   |
+│   │   The result of compiling all of the information in `/data` into OCaml modules.
+│   │
 │   ├── ocamlorg_frontend
-|   |   All of the front-end code primarily using .eml files (OCaml + HTML).
-|   |
+│   │   All of the front-end code primarily using .eml files (OCaml + HTML).
+│   │
 │   ├── ocamlorg_package
-|   |   The library for constructing opam-repository statistics and information (e.g. rev deps).
-|   |
+│   │   The library for constructing opam-repository statistics and information (e.g. rev deps).
+│   │
 │   └── ocamlorg_web
-|       The main entry-point of the server.
+│       The main entry-point of the server.
 │
 ├── tool/
-|   Sources for development tools such as the `ocamlorg_data` code generator.
+│   Sources for development tools such as the `ocamlorg_data` code generator.
 │
 ├── dune
 ├── dune-project
-|   Dune file used to mark the root of the project and define project-wide parameters.
-|   For the documentation of the syntax, see https://dune.readthedocs.io/en/stable/dune-files.html#dune-project.
+│   Dune file used to mark the root of the project and define project-wide parameters.
+│   For the documentation of the syntax, see https://dune.readthedocs.io/en/stable/dune-files.html#dune-project.
 │
 ├── ocamlorg.opam
 ├── ocamlorg.opam.template
@@ -142,14 +156,14 @@ The following snippet describes the repository structure.
 ├── CONTRIBUTING.md
 │
 ├── Dockerfile
-|   Dockerfile used to build and deploy the site in production.
+│   Dockerfile used to build and deploy the site in production.
 │
 ├── LICENSE
 ├── LICENSE-3RD-PARTY
-|   Licenses of the source code, data and vendored third-party projects.
+│   Licenses of the source code, data and vendored third-party projects.
 │
 ├── Makefile
-|   `Makefile` containing common development commands.
+│   `Makefile` containing common development commands.
 │
 ├── README.md
 │
