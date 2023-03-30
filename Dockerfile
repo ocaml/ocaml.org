@@ -4,7 +4,7 @@ FROM ocaml/opam:alpine-3.17-ocaml-4.14 as build
 RUN sudo apk update && sudo apk add --update libev-dev openssl-dev gmp-dev oniguruma-dev
 
 # freeze branch was opam-repo HEAD at the time of commit
-RUN cd ~/opam-repository && git checkout -b freeze b457e9f3d6 && opam update
+RUN cd ~/opam-repository && git fetch && git checkout -b freeze 9cfac26185d76f082bfdbf6f92f8e1a5aacbc589 && opam update
 
 WORKDIR /home/opam
 

@@ -11,7 +11,7 @@ deps: ## Install development dependencies
 
 .PHONY: pin_repo
 pin_repo: ## Pin Opam repository
-	opam repository set-url default git+https://github.com/ocaml/opam-repository#b457e9f3d6 --this-switch
+	opam repository set-url default git+https://github.com/ocaml/opam-repository#9cfac26185d76f082bfdbf6f92f8e1a5aacbc589 --this-switch
 
 .PHONY: create_switch
 create_switch:
