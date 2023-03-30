@@ -18,7 +18,7 @@ Whereas `#` denoted a comment and `$` the command prompt in the
 when in the `ocaml` or `utop` toplevel, the command prompt appears as a `#`, as shown
 in the following examples.
 
-Also remember that a code an expression must end with `;;`
+Also remember that an expression must end with `;;`
 for OCaml to evaluate it. Unless these examples start with a `#` toplevel prompt and 
 end with `;;`, it isn't an expression to evaluate but rather an example of code structure.
 
