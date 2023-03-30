@@ -17,7 +17,7 @@ watch:
   thumbnail_path: /static/thumbnails/3973b521-c198-4a18-93a1-7190f8f811da.jpg
   published_at: 2021-10-02T02:02:32.873Z
   language: English
-  category: Misc
+  category: Unknown
 - name: A Declarative Syntax Definition for OCaml
   description: In this talk, we present our work on a syntax definition for the OCaml
     language in the syntax definition formalism SDF3. SDF3 supports the high-level
@@ -27,7 +27,7 @@ watch:
   thumbnail_path: /static/thumbnails/92c0a0e3-5326-42aa-86a3-6adb3927e111.jpg
   published_at: 2020-08-28T00:00:00.000Z
   language: Unknown
-  category: Misc
+  category: Unknown
 - name: A Multiverse of Glorious Documentation
   description: This talk describes the process of generating documentation for every
     version of every package that can be built from the opam repository, and how it
@@ -47,7 +47,7 @@ watch:
   thumbnail_path: /static/thumbnails/cb3f10b6-c34c-4b7e-af35-a056675d8ccd.jpg
   published_at: 2021-10-02T02:04:48.044Z
   language: English
-  category: Misc
+  category: Unknown
 - name: A Simple State-Machine Framework for Property-Based Testing in OCaml
   description: "Since their inception, state-machine frameworks have proven their
     worth by finding defects in everything from the underlying AUTOSAR components
@@ -57,7 +57,7 @@ watch:
   thumbnail_path: /static/thumbnails/316ddad9-dbc3-4d46-9f43-5da72689e93b.jpg
   published_at: 2020-08-28T00:00:00.000Z
   language: Unknown
-  category: Misc
+  category: Unknown
 - name: A review of the growth of the OCaml community
   embed_path: /videos/embed/f9d0b637-8aec-4bff-8c32-cd16b58023b6
   thumbnail_path: /static/thumbnails/e573402b-1350-4aa7-a9ba-0e1c51198fb4.jpg
@@ -73,7 +73,7 @@ watch:
   thumbnail_path: /static/thumbnails/eb972fd2-668e-4998-a798-e9fbdcadba20.jpg
   published_at: 2020-08-28T00:00:00.000Z
   language: Unknown
-  category: Misc
+  category: Unknown
 - name: 'API migration: compare transformed'
   description: In this talk we describe our experience in using an automatic API-migration
     strategy dedicated at changing the signatures of OCaml functions, using the Rotor
@@ -83,7 +83,7 @@ watch:
   thumbnail_path: /static/thumbnails/eef64419-3c34-4c15-9419-edcbc455e54d.jpg
   published_at: 2020-08-28T00:00:00.000Z
   language: Unknown
-  category: Misc
+  category: Unknown
 - name: Adapting the OCaml ecosystem for Multicore OCaml
   description: "OCaml 5.0 with support for shared-memory parallelism being around
     the corner, there\u2019s increasing interest in the community to port existing
@@ -103,7 +103,7 @@ watch:
   thumbnail_path: /static/thumbnails/4dfc2ff3-3c53-4e7c-85ed-907df5b1faff.jpg
   published_at: 2021-10-03T22:23:18.701Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Arakoon - a distributed consistent key-value store
   description: "Arakoon - a distributed consistent key-value store, by Nicolas Trangez.\r\n\r\nArakoon
     is a simple consistent distributed key value store. Technically, it\u2019s an
@@ -113,7 +113,7 @@ watch:
   thumbnail_path: /static/thumbnails/5bbbdabf-622b-4496-8d43-7c2515300678.jpg
   published_at: 2021-10-03T22:38:56.202Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Async
   description: "Mark Shinwell and David House, Jane Street Europe.\r\n\r\nWe propose
     to give a talk about Jane Street's Async library. This is an industrial-strength
@@ -122,14 +122,14 @@ watch:
   thumbnail_path: /static/thumbnails/6850a57a-15c1-4f8c-8cdb-b0a818f0bcc4.jpg
   published_at: 2021-10-03T22:25:11.006Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Automatic analysis of industrial robot programs
   description: "Automatic analysis of industrial robot programs, by Markus Wei\xDFmann"
   embed_path: /videos/embed/3cebba55-4032-4de5-93b5-8f3f67c04736
   thumbnail_path: /static/thumbnails/480b953a-f17e-498c-9822-c82828ca9c0c.jpg
   published_at: 2021-10-03T22:38:09.817Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Binary Analysis Platform
   description: We present Binary Analysis Platform (BAP), a representation-agnostic
     program analysis framework for binaries that can leverage existing tools, libraries,
@@ -139,7 +139,7 @@ watch:
   thumbnail_path: /static/thumbnails/390cd7dd-4578-4162-bae0-6c218cb5ebde.jpg
   published_at: 2021-08-31T08:39:55.774Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Bindoj library, a datatype-centric generative programming library
   description: "Introducing the Bindoj library, a datatype-centric generative programming
     library for real-world programming in OCaml\r\n\r\nHaochen M. Kotoi-Xie (Kotoi-Xie
@@ -159,7 +159,7 @@ watch:
   thumbnail_path: /static/thumbnails/102b2860-a3eb-4afb-adfc-16ee06418028.jpg
   published_at: 2021-10-03T22:15:01.407Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Composing Schedulers using Effect Handlers
   description: "Composing Schedulers using Effect Handlers\r\n\r\nDeepali Ande (IIT
     Madras)\r\nKC Sivaramakrishnan (IIT Madras and Tarides)\r\n\r\nOCaml 5 introduces
@@ -216,13 +216,13 @@ watch:
   thumbnail_path: /static/thumbnails/f355df78-a634-408c-952e-73312d8b92e3.jpg
   published_at: 2021-10-02T02:06:52.778Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Core Time stamp counter - A fast high resolution time source
   embed_path: /videos/embed/b6c7860d-e6eb-4404-96c3-917b81ee1f98
   thumbnail_path: /static/thumbnails/f4d75771-8394-438f-b8eb-86baff8863d6.jpg
   published_at: 2021-09-11T02:42:33.957Z
   language: English
-  category: Misc
+  category: Unknown
 - name: 'Core Time stamp counter: A fast high resolution time source'
   embed_path: /videos/embed/75b4d60f-3e37-40bd-b025-f39dcce0c42c
   thumbnail_path: /static/thumbnails/43248673-6478-4e96-b8ac-cd415d85569b.jpg
@@ -262,7 +262,7 @@ watch:
   thumbnail_path: /static/thumbnails/b9c74825-d374-4afb-9c5f-82cab13c1bb8.jpg
   published_at: 2021-10-03T22:44:22.886Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Effective Concurrency through Algebraic Effects
   embed_path: /videos/embed/e9f6c837-1435-4349-af0f-07d22d1c11ea
   thumbnail_path: /static/thumbnails/1de58bd2-d2f9-428c-8b8c-97b48d6d2c7e.jpg
@@ -288,7 +288,7 @@ watch:
   thumbnail_path: /static/thumbnails/f03f27d0-ca66-40b3-938d-65230885cd85.jpg
   published_at: 2021-10-02T02:09:19.827Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Experiences with Effects in OCaml
   description: The multicore branch of OCaml adds support for effect handlers. In
     this talk, we report our experiences with effects, both from converting existing
@@ -306,7 +306,7 @@ watch:
   thumbnail_path: /static/thumbnails/b1e66943-a372-4909-a8f6-70470546e69d.jpg
   published_at: 2021-10-03T22:40:53.446Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Extending OCaml's `open`
   description: 'Speaker: Runhang Li'
   embed_path: /videos/embed/8d5a83f5-ad98-4f45-9259-c84194134c20
@@ -323,7 +323,7 @@ watch:
   thumbnail_path: /static/thumbnails/a2042ab9-9025-421a-9eae-176462ac594b.jpg
   published_at: 2021-08-31T08:30:23.211Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Generic Programming in OCaml
   description: Florent Balestrieri, Michel Mauny
   embed_path: /videos/embed/0aae98b9-3d0c-427b-af09-802b671dd66e
@@ -347,7 +347,7 @@ watch:
   thumbnail_path: /static/thumbnails/6f0ed101-6c6f-4380-8a98-118ba6783fff.jpg
   published_at: 2021-10-02T02:09:58.770Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Global Semantic Analysis on OCaml programs
   embed_path: /videos/embed/51e4bdf0-50f7-4b13-8514-2d62b5341066
   thumbnail_path: /static/thumbnails/8255d370-e621-44bc-b7c3-6dd39fab4d1d.jpg
@@ -373,7 +373,7 @@ watch:
   thumbnail_path: /static/thumbnails/9cdceddf-7460-4843-acdd-99bdf0315732.jpg
   published_at: 2021-10-02T02:49:14.435Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Highest-performance Stream Processing
   description: "Highest-performance Stream Processing\r\n\r\nOleg Kiselyov (Tohoku
     University, Japan)\r\nTomoaki Kobayashi (Tohoku University)\r\nAggelos Biboudis
@@ -403,7 +403,7 @@ watch:
   thumbnail_path: /static/thumbnails/1a0f9278-1e15-45c8-b7ae-ee882f4a3360.jpg
   published_at: 2021-10-03T22:21:59.398Z
   language: Unknown
-  category: Misc
+  category: Unknown
 - name: Improving Type Error Messages in OCaml
   description: "Improving Type Error Messages in OCaml, by Arthur Chargu\xE9raud (INRIA
     & Universit\xE9 Paris Sud)\r\n\r\nCryptic type error messages are a major obstacle
@@ -413,7 +413,7 @@ watch:
   thumbnail_path: /static/thumbnails/0522b690-1b00-4c83-b30a-9d7437b953f9.jpg
   published_at: 2021-10-02T02:52:41.884Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Improving the OCaml web stack
   description: Spiridon Eliopoulos
   embed_path: /videos/embed/513a2157-6844-4823-bef7-b26f3b635fbe
@@ -427,7 +427,7 @@ watch:
   thumbnail_path: /static/thumbnails/db12715d-3333-4568-80f6-e41edc813e1b.jpg
   published_at: 2021-10-02T01:45:22.792Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Inline Assembly in OCaml
   embed_path: /videos/embed/632f520f-8f83-4b6f-89f1-5cde088436c7
   thumbnail_path: /static/thumbnails/5d2f65d1-6129-4206-832b-c3d4bab410df.jpg
@@ -443,7 +443,16 @@ watch:
   thumbnail_path: /static/thumbnails/64211d01-b071-4755-a1ba-abf86f7800c8.jpg
   published_at: 2021-10-02T02:54:53.718Z
   language: English
-  category: Misc
+  category: Unknown
+- name: Introduction to Eio by Thomas Leonard
+  description: This talk introduces the Eio library, a replacement for Lwt that uses
+    the new effects and multicore features in OCaml 5. It was an internal tech talk
+    given at Tarides, but we later decided to share it more widely.
+  embed_path: /videos/embed/02a7accc-2a2c-44d5-889e-d75e1489946e
+  thumbnail_path: /static/thumbnails/bdc3ee5c-9c6f-4f8c-8ab8-b292767777e2.jpg
+  published_at: 2023-03-03T09:36:03.399Z
+  language: English
+  category: Science & Technology
 - name: Irmin v2
   description: 'Irmin is an OCaml library for building distributed databases with
     the same design principles as Git. Existing Git users will find many familiar
@@ -453,13 +462,13 @@ watch:
   thumbnail_path: /static/thumbnails/138e7c05-185b-4e54-95d0-d15018905a39.jpg
   published_at: 2020-08-28T00:00:00.000Z
   language: Unknown
-  category: Misc
+  category: Unknown
 - name: Irminsule - a branch-consistent distributed library database
   embed_path: /videos/embed/5546bb89-93a3-4407-a810-2d437479025f
   thumbnail_path: /static/thumbnails/bdca687f-b58e-4167-b7d3-86daacaf4395.jpg
   published_at: 2021-10-03T21:56:52.709Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Ketrew and Biokepi
   embed_path: /videos/embed/f3dcee35-bc04-453a-ba35-7aec90599661
   thumbnail_path: /static/thumbnails/0a36e8ce-c415-4191-ad5b-6ef2eb23db4e.jpg
@@ -475,7 +484,7 @@ watch:
   thumbnail_path: /static/thumbnails/c1911047-e6b0-4673-b0ed-8716533cd601.jpg
   published_at: 2021-10-09T00:16:14.033Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Leveraging Formal Specifications to Generate Fuzzing Suites
   description: "When testing a library, developers typically first have to capture
     the semantics they want to check. They then write the code implementing these
@@ -501,7 +510,7 @@ watch:
   thumbnail_path: /static/thumbnails/ee8640c9-d827-498b-8e20-bed53e7481f7.jpg
   published_at: 2021-10-03T21:57:39.057Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Lock free programming for the masses
   description: KC Sivaramakrishnan and Theo Laurent at OCaml Workshop 2016
   embed_path: /videos/embed/4435adfc-e97e-42c5-8bb7-1578bd76e42b
@@ -538,7 +547,7 @@ watch:
   thumbnail_path: /static/thumbnails/07162af4-06f9-4d3c-954a-4c35dc87fd21.jpg
   published_at: 2021-10-03T21:59:49.549Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Multicoretests - Parallel Testing Libraries for OCaml 5.0
   description: "Multicoretests - Parallel Testing Libraries for OCaml 5.0\r\n\r\nJan
     Midtgaard (Tarides)\r\nOlivier Nicole (Tarides)\r\nNicolas Osborne (Tarides)\r\n\r\nParallel
@@ -565,7 +574,7 @@ watch:
   thumbnail_path: /static/thumbnails/460d1b9a-8dfe-477c-b8a9-9b44f9be104d.jpg
   published_at: 2021-10-03T22:00:18.779Z
   language: English
-  category: Misc
+  category: Unknown
 - name: OCaml Companion Tools
   description: "OCaml Companion Tools, by Xavier Clerc.\r\n\r\nThe objective of this
     talk is to present several tools that aim to ease the development of software
@@ -575,7 +584,7 @@ watch:
   thumbnail_path: /static/thumbnails/491ac4a3-8274-4f0d-9897-d88eece06dc4.jpg
   published_at: 2021-10-03T22:45:24.958Z
   language: English
-  category: Misc
+  category: Unknown
 - name: 'OCaml Under The Hood: SmartPy'
   description: SmartPy is a complete system to develop smart-contracts for the Tezos
     blockchain. It is an embedded EDSL in python to write contracts and their test
@@ -585,7 +594,7 @@ watch:
   thumbnail_path: /static/thumbnails/e1ac5b07-3648-40c1-b62c-5e88471741dc.jpg
   published_at: 2020-08-28T00:00:00.000Z
   language: Unknown
-  category: Misc
+  category: Unknown
 - name: 'OCaml and Python: Getting the Best of Both Worlds'
   description: In this talk we present how we expose a wide variety of OCaml libraries
     and services so that they can be accessed from Python. Our initial use case on
@@ -619,7 +628,7 @@ watch:
   thumbnail_path: /static/thumbnails/596f39a9-8654-4922-8bec-6e7ac5dcc319.jpg
   published_at: 2020-08-28T00:00:00.000Z
   language: English
-  category: Misc
+  category: Unknown
 - name: 'OCaml-CI : A Zero-Configuration CI'
   description: "OCaml-CI1 is a CI service for OCaml projects. It uses metadata from
     the project\u2019s opam and dune files to work out what to build, and uses caching
@@ -639,7 +648,7 @@ watch:
   thumbnail_path: /static/thumbnails/d1a815bb-e8ed-4d99-808a-a78d1f512712.jpg
   published_at: 2021-10-03T22:17:09.763Z
   language: English
-  category: Misc
+  category: Unknown
 - name: OCamlOScope - a New OCaml API Search
   description: '[OCamlOScope](http://ocamloscope.herokuapp.com) is a new search engine
     for OCaml programming. Tons of OCaml library packages, modules, types, constructors,
@@ -648,7 +657,7 @@ watch:
   thumbnail_path: /static/thumbnails/486bbc91-0e44-4024-99e1-61326e1c95af.jpg
   published_at: 2021-10-03T22:01:54.239Z
   language: English
-  category: Misc
+  category: Unknown
 - name: OCamlPro - promoting OCaml use in industry
   description: OCamlPro exists with the mission of promoting the successful use of
     OCaml in industry. OCamlPro builds a professional environment for the development
@@ -658,14 +667,14 @@ watch:
   thumbnail_path: /static/thumbnails/b00f092f-2b96-4623-b55b-ed5e505f4d76.jpg
   published_at: 2021-10-03T22:34:20.640Z
   language: English
-  category: Misc
+  category: Unknown
 - name: OPAM - an OCaml Package Manager
   description: OPAM - an OCaml Package Manager, by Thomas Gazagnaire.
   embed_path: /videos/embed/3ff87a10-3785-41e6-ba47-acab21fcfa8a
   thumbnail_path: /static/thumbnails/c4083614-edd9-445f-85a4-e2ae470c761e.jpg
   published_at: 2021-10-03T22:42:00.207Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Ocsigen_Eliom - the state-of-the-art and the prospects
   description: 'Ocsigen/Eliom: The state of the art, and the prospects, by Benedikt
     Becker and Vincent Balat'
@@ -673,7 +682,7 @@ watch:
   thumbnail_path: /static/thumbnails/7b044637-259c-4b30-875b-4c4563ce23aa.jpg
   published_at: 2021-10-03T22:15:47.662Z
   language: English
-  category: Misc
+  category: Unknown
 - name: 'Opam-bin: Binary Packages with Opam'
   description: In this talk, we will present opam-bin, an Opam plugin that builds
     Binary Opam packages on the fly, to speed-up reinstallation of pack- ages. opam-bin
@@ -691,7 +700,7 @@ watch:
   thumbnail_path: /static/thumbnails/6f55ff79-72d5-4492-b824-8464783f31c2.jpg
   published_at: 2021-09-11T02:11:32.589Z
   language: English
-  category: Misc
+  category: Unknown
 - name: 'Operf: Benchmarking the OCaml Compiler'
   embed_path: /videos/embed/5a4a6c12-3cb1-40d2-a663-25f294e12555
   thumbnail_path: /static/thumbnails/c2b5c90a-9c9e-4058-94a1-15525795a01a.jpg
@@ -702,20 +711,29 @@ watch:
   description: The OCaml community participated in the December 2021 round of [Outreachy](https://www.outreachy.org/)
     internships. Three interns worked on a range of projects including OCaml's pre-processor
     ecosystem (PPX), a metrics system for the new ocaml.org...
-  embed_path: /videos/embed/f3829e4b-e2cd-443e-8502-f406e893fe5f
-  thumbnail_path: /static/thumbnails/ad30ffbb-ea91-4afd-b186-bc0af61c1430.jpg
-  published_at: 2022-03-15T10:47:05.608Z
+  embed_path: /videos/embed/70610574-f213-4368-b4ae-8f7d44094883
+  thumbnail_path: /static/thumbnails/c4712995-fb5d-4cbc-884e-88cd025772f6.jpg
+  published_at: 2023-03-07T16:12:57.251Z
   language: English
-  category: Misc
+  category: Science & Technology
+- name: Outreachy Presentations for the December 2022 Round
+  description: "The OCaml community participated in the December 2022 round of [Outreachy](https://www.outreachy.org/)
+    internships. We had one intern work on a TopoJSON parsing library.\r\n\r\nThis
+    meeting was an opportunity for the interns to present their work and ..."
+  embed_path: /videos/embed/c1151157-94fa-4fac-8ef1-c6b6ce349970
+  thumbnail_path: /static/thumbnails/bc2ce81f-16c2-42c2-bb2c-7d44f36296bb.jpg
+  published_at: 2023-03-07T16:04:16.313Z
+  language: English
+  category: Science & Technology
 - name: Outreachy Presentations for the May 2022 Round
   description: "The OCaml community participated in the May 2022 round of [Outreachy](https://www.outreachy.org/)
     internships. Two interns worked on a range of projects including Multicore OCaml
     benchmarks and TopoJSON parsing libraries.\r\n\r\nThis meeting was an op..."
-  embed_path: /videos/embed/dc5bbf5b-3dd9-4c8d-b26a-71e730a67788
-  thumbnail_path: /static/thumbnails/d4597edb-f385-42e9-94ab-da4502d544bb.jpg
-  published_at: 2022-09-23T17:21:01.137Z
-  language: Unknown
-  category: Misc
+  embed_path: /videos/embed/f2a11bb2-a28f-4e59-a5de-4f5055fb90c1
+  thumbnail_path: /static/thumbnails/89cf6dcb-72dc-4f09-ac70-8a814b808f7b.jpg
+  published_at: 2023-03-07T16:05:33.751Z
+  language: English
+  category: Science & Technology
 - name: 'Owl: A General-Purpose Numerical Library in OCaml'
   description: 'Speaker: Liang Wang'
   embed_path: /videos/embed/d258fa91-ddb6-40d8-96de-e9ac97e8c899
@@ -744,7 +762,7 @@ watch:
   thumbnail_path: /static/thumbnails/30bc6019-ecab-40e5-a7b6-c294ac9a7344.jpg
   published_at: 2020-08-28T00:00:00.000Z
   language: Unknown
-  category: Misc
+  category: Unknown
 - name: Persistent Networking with Irmin and MirageOS
   embed_path: /videos/embed/97dd9634-28e4-4066-96e4-9c2036ee4bb2
   thumbnail_path: /static/thumbnails/46ba8c5d-0f4a-427e-8e76-0c58cb0e70a7.jpg
@@ -760,7 +778,7 @@ watch:
   thumbnail_path: /static/thumbnails/61fe2572-358b-4110-9748-485a2e3ceffa.jpg
   published_at: 2021-10-03T23:08:42.826Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Probabilistic resource limits using StatMemprof
   description: The goal of this talk is two-fold. First, we present memprof-limits,
     a probabilistic implementation of per-thread global memory limits, and per-thread
@@ -780,7 +798,7 @@ watch:
   thumbnail_path: /static/thumbnails/90298af3-37a4-4420-9e3c-b30cb1369559.jpg
   published_at: 2021-10-03T22:29:04.690Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Property-Based Testing for OCaml through Coq
   description: We will present a property-based testing framework for OCaml that leverages
     the power of QuickChick, a popular and mature testing plugin for the Coq proof
@@ -790,7 +808,7 @@ watch:
   thumbnail_path: /static/thumbnails/d7e22bba-cda1-4c2b-9368-9b2c1643e751.jpg
   published_at: 2021-08-31T08:37:00.571Z
   language: English
-  category: Misc
+  category: Unknown
 - name: 'R&B: Towards bringing functional programming to everyday''s web programmer'
   description: 'Speaker: Hongbo Zhang'
   embed_path: /videos/embed/af37368d-085d-431d-923f-cd1d81dfdbe9
@@ -804,7 +822,7 @@ watch:
   thumbnail_path: /static/thumbnails/ea912a23-6e8b-40ec-ac45-81af2d01617a.jpg
   published_at: 2021-10-03T22:35:41.668Z
   language: English
-  category: Misc
+  category: Unknown
 - name: 'Relit: Implementing Typed Literal Macros in Reason'
   description: 'Speaker: Charles Chamberlain'
   embed_path: /videos/embed/f75acae0-c24d-4d19-958e-0c76ff51603f
@@ -821,7 +839,7 @@ watch:
   thumbnail_path: /static/thumbnails/a89a3483-274a-44f1-9a38-c679f6b12196.jpg
   published_at: 2021-08-31T08:34:54.707Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Semantics for the Lambda intermediate language
   description: Pierre Chambart
   embed_path: /videos/embed/90d9b62f-f9d6-4dd5-a7fc-f584e45ef0b7
@@ -838,7 +856,7 @@ watch:
   thumbnail_path: /static/thumbnails/2ab3961f-4e66-4ec9-b20e-72e25dfbebe4.jpg
   published_at: 2021-08-31T08:41:15.492Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Simple, efficient, sound-and-complete combinator parsing
   description: This proposal describes a parsing library that is based on current
     work due to be published as Simple, efficient, sound and complete combinator parsing
@@ -847,7 +865,7 @@ watch:
   thumbnail_path: /static/thumbnails/fbc3103b-30f2-45d9-85ce-95732b8e7f74.jpg
   published_at: 2021-10-03T22:03:25.164Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Specialization of Generic Array Accesses After Inlining
   description: "Specialization of Generic Array Accesses After Inlining \u2014 by
     Ryohei Tokuda, Eijiro Sumii, Akinori Abe"
@@ -855,7 +873,7 @@ watch:
   thumbnail_path: /static/thumbnails/01724d60-213c-4570-8db2-26a555304d3d.jpg
   published_at: 2021-10-02T01:42:07.586Z
   language: Unknown
-  category: Misc
+  category: Unknown
 - name: Specialization of Generic Array Accesses After Inlining
   embed_path: /videos/embed/80553916-b90a-4641-93c8-35b000df04c1
   thumbnail_path: /static/thumbnails/1f81fbbf-6fb0-4047-93a1-57759431166a.jpg
@@ -908,7 +926,7 @@ watch:
   thumbnail_path: /static/thumbnails/09ec226c-3670-47b3-b944-94684cf86d36.jpg
   published_at: 2021-10-03T22:19:07.925Z
   language: English
-  category: Misc
+  category: Unknown
 - name: 'SundialsML: interfacing with numerical solvers'
   description: 'Timothy Bourke, Jun Inoue, Marc Pouzet '
   embed_path: /videos/embed/3a00e727-45da-4c4a-a446-927cb28bb6bc
@@ -945,7 +963,7 @@ watch:
   thumbnail_path: /static/thumbnails/dde19660-653d-4dc3-9e81-54b2e3ab22a2.jpg
   published_at: 2020-08-28T00:00:00.000Z
   language: Unknown
-  category: Misc
+  category: Unknown
 - name: The OCaml Platform 1.0 - Reason ML
   description: 'Presented by Anil Madhavapeddy (@avsm)
 
@@ -969,21 +987,21 @@ watch:
   thumbnail_path: /static/thumbnails/052d59ac-f44a-4730-aed6-47dd6a6f2405.jpg
   published_at: 2021-10-03T22:06:15.953Z
   language: English
-  category: Misc
+  category: Unknown
 - name: The State of OCaml
   description: The State of OCaml, Xavier Leroy
   embed_path: /videos/embed/b04b10c1-b924-4f58-8aa9-4527dcc11d8a
   thumbnail_path: /static/thumbnails/9feccd59-f677-4be6-bcf4-a07977ef5b29.jpg
   published_at: 2021-10-03T22:49:54.276Z
   language: English
-  category: Misc
+  category: Unknown
 - name: The State of OCaml
   description: "The State of OCaml (invited talk) \u2014 by Xavier Leroy"
   embed_path: /videos/embed/69e486cd-191d-430b-8a41-0be0f806096b
   thumbnail_path: /static/thumbnails/36c5055b-7c67-4208-97cc-448f52814ab0.jpg
   published_at: 2021-10-02T01:51:45.256Z
   language: English
-  category: Misc
+  category: Unknown
 - name: The State of OCaml
   embed_path: /videos/embed/60a2ecfb-86ea-4881-a279-0a928452a3c3
   thumbnail_path: /static/thumbnails/a5e5f630-2df9-4691-8ddf-a8137001ab4c.jpg
@@ -996,7 +1014,7 @@ watch:
   thumbnail_path: /static/thumbnails/9b6f683f-8726-4b78-ac8b-4dae7217eace.jpg
   published_at: 2021-10-03T22:07:14.955Z
   language: English
-  category: Misc
+  category: Unknown
 - name: The State of the OCaml Platform
   description: "The State of the OCaml Platform: September 2016 \r\nby Louis Gesbert,
     on behalf of the OCaml Platform team"
@@ -1004,7 +1022,7 @@ watch:
   thumbnail_path: /static/thumbnails/9f922a48-9902-4f08-b4f7-8b6437cf47e7.jpg
   published_at: 2021-10-09T00:00:01.325Z
   language: English
-  category: Misc
+  category: Unknown
 - name: The State of the OCaml Platform
   embed_path: /videos/embed/32475a83-b455-455b-937f-28e7185f4fc2
   thumbnail_path: /static/thumbnails/7eb8af05-a6d5-4a88-89f3-146673a87cf0.jpg
@@ -1018,7 +1036,7 @@ watch:
   thumbnail_path: /static/thumbnails/43586bbe-9d65-4283-88b7-3583d9ee6282.jpg
   published_at: 2021-10-02T01:54:41.728Z
   language: English
-  category: Misc
+  category: Unknown
 - name: The final pieces of the OCaml documentation puzzle
   description: 'Rendering OCaml document is widely known as a very difficult task:
     The ever-evolving OCaml module system is extremely rich and can include complex
@@ -1028,7 +1046,7 @@ watch:
   thumbnail_path: /static/thumbnails/c877a501-c705-44f7-8826-e7ce846a5e42.jpg
   published_at: 2020-08-28T00:00:00.000Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Towards A Debugger for Native Code OCaml
   description: "Towards A Debugger for Native-Code OCaml \u2014 by Fabrice Le Fessant,
     Pierre Chambart"
@@ -1036,7 +1054,7 @@ watch:
   thumbnail_path: /static/thumbnails/5e783783-056e-46c9-b1de-60fddbd36aee.jpg
   published_at: 2021-10-02T01:54:48.408Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Towards A Debugger for Native Code OCaml
   embed_path: /videos/embed/b76f3301-261d-44f3-97ec-1910b45f6969
   thumbnail_path: /static/thumbnails/93ea327e-5e8b-4844-b237-75719a7256b9.jpg
@@ -1049,7 +1067,7 @@ watch:
   thumbnail_path: /static/thumbnails/513c6f1c-df55-448f-a1db-2f13d430fdab.jpg
   published_at: 2021-10-03T23:06:53.043Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Tracing OCaml Programs
   description: "Tracing OCaml Programs\r\n\r\nDarius Foo (National University of Singapore)\r\nWei-Ngan
     Chin (National University of Singapore)\r\n\r\nThis presentation will cover a
@@ -1069,7 +1087,7 @@ watch:
   thumbnail_path: /static/thumbnails/c1f04a1e-5cd8-41f5-8bef-25122319e6a5.jpg
   published_at: 2021-10-03T22:08:27.076Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Types in Amber
   description: Coda is a new cryptocurrency that uses zk-SNARKs to dramatically reduce
     the size of data needed by nodes running its protocol. Nodes communicate in a
@@ -1079,13 +1097,13 @@ watch:
   thumbnail_path: /static/thumbnails/acd50ed1-43cf-45fd-a55e-9c40a6bf58ba.jpg
   published_at: 2020-08-28T00:00:00.000Z
   language: Unknown
-  category: Misc
+  category: Unknown
 - name: Using Preferences to Tame your Package Manager
   embed_path: /videos/embed/43536918-a6e5-4a53-a680-bed527319e31
   thumbnail_path: /static/thumbnails/23d48007-16ab-4e49-b979-0cf79fd685ce.jpg
   published_at: 2021-10-03T22:10:19.844Z
   language: English
-  category: Misc
+  category: Unknown
 - name: 'Wall: rendering vector graphics with OCaml and OpenGL'
   description: "Speaker: Fr\xE9d\xE9ric Bour"
   embed_path: /videos/embed/2472168c-04aa-497d-a931-f866c7036550
@@ -1099,7 +1117,7 @@ watch:
   thumbnail_path: /static/thumbnails/d7e64359-41c9-47d5-8f6d-9953db6555b3.jpg
   published_at: 2021-10-08T23:45:42.515Z
   language: English
-  category: Misc
+  category: Unknown
 - name: Who's got you mail? Mr  Mime!
   description: Romain Calascibetta
   embed_path: /videos/embed/98a7972d-9323-46b3-81cc-dd86a4cc1ab3
@@ -1133,4 +1151,12 @@ watch:
   thumbnail_path: /static/thumbnails/5f1f0afd-001f-4b15-976c-013a426360ac.jpg
   published_at: 2021-10-03T22:33:00.872Z
   language: English
-  category: Misc
+  category: Unknown
+- name: k-CAS for sweat-free concurrent programming by Vesa Karvonen
+  description: "Original upload: https://www.youtube.com/watch?v=1z8PshvWOF8\r\n\r\nThe
+    slides, including full speaker's notes, can be found [here](https://gist.github.com/polytypic/3214389ad69b16d28b957ced86e1b1a4#k-cas-for-sweat-free-concurrent-programming)."
+  embed_path: /videos/embed/acebc363-12df-4cd6-aec0-e8239ab325e0
+  thumbnail_path: /static/thumbnails/79b46298-d08a-4752-b6e1-481fbe7500dd.jpg
+  published_at: 2023-03-07T17:19:59.247Z
+  language: English
+  category: Science & Technology
