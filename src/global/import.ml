@@ -60,13 +60,7 @@ module List = struct
     | [] -> []
     | hd :: tl -> hd :: take (n - 1) tl
 
-  let skip n xs =
-    let rec aux i = function
-      | [] -> []
-      | l when i = 0 -> l
-      | _ :: ys -> aux (i - 1) ys
-    in
-    aux n xs
+  let rec drop i = function _ :: u when i > 0 -> drop (i - 1) u | u -> u
 end
 
 module Acc_biggest (Elt : sig

@@ -1,4 +1,4 @@
-let human_date_of_timestamp ts = 
+let human_date_of_timestamp ts =
   let span = Timedesc.Span.make ~s:(Int64.of_float ts) () in
   let td = Option.get (Timedesc.of_timestamp ~tz_of_date_time:Timedesc.Time_zone.utc span) in
   Timedesc.to_iso8601 td
@@ -89,7 +89,7 @@ Layout_template.render ~prefix ~title:"Overview" ~nav:Overview @@
       labels: [
       <% memory_list |> List.iter (fun (x : My_metrics.memory) -> %>
         "<%s human_date_of_timestamp x.timestamp %>",
-      <% ); %>  
+      <% ); %>
       ],
 
       datasets: [
@@ -159,7 +159,7 @@ Layout_template.render ~prefix ~title:"Overview" ~nav:Overview @@
       labels: [
       <% loadavg_list |> List.iter (fun (x : My_metrics.loadavg) -> %>
         "<%s human_date_of_timestamp x.timestamp %>",
-      <% ); %>  
+      <% ); %>
       ],
 
       datasets: [

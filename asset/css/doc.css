@@ -20,44 +20,7 @@ div.odoc div.spec code {
   white-space: pre-wrap;
 }
 
-/* clickable anchors with targets and code highlighting of targeted specs */
-
-div.odoc h1,
-div.odoc h2,
-div.odoc h3,
-div.odoc h4,
-div.odoc h5,
-div.odoc h6 {
-  position:relative;
-}
-
-div.odoc h1 a.anchor,
-div.odoc h2 a.anchor,
-div.odoc h3 a.anchor,
-div.odoc h4 a.anchor,
-div.odoc h5 a.anchor,
-div.odoc h6 a.anchor {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top:0;
-  bottom:0;
-  opacity: 0;
-  text-decoration: none;
-  color: rgb(156 163 175);
-  box-shadow: none;
-}
-
-div.odoc h1 a.anchor::after,
-div.odoc h2 a.anchor::after,
-div.odoc h3 a.anchor::after,
-div.odoc h4 a.anchor::after,
-div.odoc h5 a.anchor::after,
-div.odoc h6 a.anchor::after {
-  content: "#";
-  margin-left: -1.2em;
-  padding: 0.4em;
-}
+/* clickable anchors and highlighting of targeted .spec elements */
 
 div.odoc .spec {
   position: relative;

@@ -1,4 +1,4 @@
-type active_icon_link = 
+type active_icon_link =
   | Learn
   | Exercises
 
@@ -43,12 +43,12 @@ let sidebar_icon_link_block
 
 let htmx_attributes href
 =
-  <% if String.get href 0 != '#' then ( %> hx-boost="true" hx-ext="multi-swap" hx-swap="multi:#htmx-head,#htmx-sidebar,#htmx-content,#htmx-right-sidebar" hx-push-url="true" <% ); %>
+  <% if String.get href 0 != '#' then ( %> hx-boost="true" hx-ext="multi-swap" hx-swap="outerHTML multi:#htmx-head,#htmx-sidebar,#htmx-content,#htmx-right-sidebar" hx-push-url="true" <% ); %>
 
 let sidebar_link
 ~title
 ~href
-~current = 
+~current =
   match current with
   | true ->
     <a class="flex text-primary-600 bg-primary-100 py-2 px-3 rounded-md text-sm font-semibold" href="<%s href %>" <%s! htmx_attributes href %>>
@@ -88,7 +88,7 @@ inner_html
   ~description
   ~canonical
   ?active_top_nav_item @@
-  <div class="bg-white" x-data="{ open: false, sidebar: window.innerWidth >= 1024 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth >= 1024"  x-on:close-sidebar="sidebar=window.innerWidth >= 1024 && true">
+  <div class="bg-white" x-data="{ open: false, sidebar: window.matchMedia('(min-width: 64em)') && true, showOnMobile: false}" @resize.window="sidebar = window.matchMedia('(min-width: 64em)')"  x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 64em)') && true">
     <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed lg:hidden right-10"
       x-on:click="sidebar = ! sidebar">
       <%s! Icons.sidebar_menu "h-8 w-8" %>
@@ -111,13 +111,10 @@ inner_html
              id="htmx-content">
           <%s! inner_html %>
         </div>
-        <% (match right_sidebar_html with
-            | Some (html) -> %>
-          <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto lg:pt-6 right-sidebar"
-               id="htmx-right-sidebar">
-            <%s! html %>
-          </div>
-        <% | None -> () ); %>
+        <div class="hidden <%s Option.fold right_sidebar_html ~none:"" ~some:(Fun.const "xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto lg:pt-6 right-sidebar") %>"
+            id="htmx-right-sidebar">
+          <%s! Option.value ~default:"" (right_sidebar_html) %>
+        </div>
       </div>
     </div>
   </div>

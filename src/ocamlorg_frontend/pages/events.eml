@@ -32,7 +32,7 @@ world. See past events and upcoming ones on this page."
                 <h2 class="font-bold text-primary-600 mb-6">Workshops</h2>
                 <div class="text-lg text-white mb-16">Here are some of the workshops we have had up until now</div>
             </div>
-            <% (match upcoming_workshops with 
+            <% (match upcoming_workshops with
                | [] -> ()
                | _ -> %>
             <div class="text-center text-white text-xl font-bold">

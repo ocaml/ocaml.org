@@ -148,7 +148,7 @@ let paginate ~req ~n items =
   in
   let current_items =
     let skip = items_per_page * (page - 1) in
-    items |> List.skip skip |> List.take items_per_page
+    items |> List.drop skip |> List.take items_per_page
   in
   (page, number_of_pages, current_items)
 
@@ -349,6 +349,16 @@ module Package_helper = struct
           changes_filename;
           license_filename;
         }
+
+  let frontend_toc (xs : Ocamlorg_package.Documentation.toc list) :
+      Ocamlorg_frontend.Toc.t =
+    let rec aux acc = function
+      | [] -> List.rev acc
+      | Ocamlorg_package.Documentation.{ title; href; children } :: rest ->
+          Ocamlorg_frontend.Toc.{ title; href; children = aux [] children }
+          :: aux acc rest
+    in
+    aux [] xs
 end
 
 let packages state _req =
@@ -427,29 +437,90 @@ let package_overview t kind req =
   let rev_dependencies =
     package_info.Ocamlorg_package.Info.rev_deps
     |> List.map (fun (name, x, version) ->
-           ( Ocamlorg_package.Name.to_string name,
-             x,
-             Ocamlorg_package.Version.to_string version ))
+           Ocamlorg_frontend.Package_overview.
+             {
+               name = Ocamlorg_package.Name.to_string name;
+               cstr = x;
+               version = Some (Ocamlorg_package.Version.to_string version);
+             })
   in
-  let dependencies =
+  let dependencies :
+      Ocamlorg_frontend.Package_overview.dependency_or_conflict list =
     package_info.Ocamlorg_package.Info.dependencies
-    |> List.map (fun (name, x) -> (Ocamlorg_package.Name.to_string name, x))
+    |> List.map (fun (name, x) ->
+           Ocamlorg_frontend.Package_overview.
+             {
+               name = Ocamlorg_package.Name.to_string name;
+               cstr = x;
+               version = None;
+             })
   in
   let dev_dependencies, dependencies =
     dependencies
-    |> List.partition (fun (_, x) ->
-           let s = Option.value ~default:"" x in
+    |> List.partition
+         (fun (item : Ocamlorg_frontend.Package_overview.dependency_or_conflict)
+         ->
+           let s = Option.value ~default:"" item.cstr in
            String.contains_s s "with-" || String.contains_s s "dev")
   in
   let conflicts =
     package_info.Ocamlorg_package.Info.conflicts
-    |> List.map (fun (name, x) -> (Ocamlorg_package.Name.to_string name, x))
+    |> List.map (fun (name, x) ->
+           Ocamlorg_frontend.Package_overview.
+             {
+               name = Ocamlorg_package.Name.to_string name;
+               cstr = x;
+               version = None;
+             })
   in
-
+  let title_with_number title number =
+    title ^ if number > 0 then " (" ^ string_of_int number ^ ")" else ""
+  in
+  let deps_and_conflicts :
+      Ocamlorg_frontend.Package_overview.dependencies_and_conflicts list =
+    [
+      {
+        title = title_with_number "Dependencies" (List.length dependencies);
+        slug = "dependencies";
+        items = dependencies;
+      };
+      {
+        title =
+          title_with_number "Dev Dependencies" (List.length dev_dependencies);
+        slug = "development-dependencies";
+        items = dev_dependencies;
+      };
+      {
+        title = title_with_number "Used by" (List.length rev_dependencies);
+        slug = "used-by";
+        items = rev_dependencies;
+      };
+      {
+        title = title_with_number "Conflicts" (List.length conflicts);
+        slug = "conflicts";
+        items = conflicts;
+      };
+    ]
+  in
+  let toc =
+    Ocamlorg_frontend.Toc.
+      { title = "Description"; href = "#description"; children = [] }
+    :: (deps_and_conflicts
+       |> List.map
+            (fun
+              (section :
+                Ocamlorg_frontend.Package_overview.dependencies_and_conflicts)
+            ->
+              Ocamlorg_frontend.Toc.
+                {
+                  title = section.title;
+                  href = "#" ^ section.slug;
+                  children = [];
+                }))
+  in
   Dream.html
     (Ocamlorg_frontend.package_overview ~sidebar_data ~content:""
-       ~content_title:None ~dependencies ~dev_dependencies ~rev_dependencies
-       ~conflicts frontend_package)
+       ~content_title:None ~toc ~deps_and_conflicts frontend_package)
 
 let package_documentation t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
@@ -478,16 +549,6 @@ let package_documentation t kind req =
         frontend_package)
     docs
   @@ fun doc ->
-  let toc_of_toc (xs : Ocamlorg_package.Documentation.toc list) :
-      Ocamlorg_frontend.Toc.t =
-    let rec aux acc = function
-      | [] -> List.rev acc
-      | Ocamlorg_package.Documentation.{ title; href; children } :: rest ->
-          Ocamlorg_frontend.Toc.{ title; href; children = aux [] children }
-          :: aux acc rest
-    in
-    aux [] xs
-  in
   let module Package_map = Ocamlorg_package.Module_map in
   let rec toc_of_module ~root (module' : Package_map.Module.t) :
       Ocamlorg_frontend.Navmap.toc =
@@ -524,7 +585,7 @@ let package_documentation t kind req =
            Ocamlorg_frontend.Navmap.{ title; href; kind = Library; children })
   in
   let* module_map = Ocamlorg_package.module_map ~kind package in
-  let toc = toc_of_toc doc.toc in
+  let toc = Package_helper.frontend_toc doc.toc in
   let (maptoc : Ocamlorg_frontend.Navmap.toc list) =
     toc_of_map ~root module_map
   in
@@ -586,20 +647,10 @@ let package_file t kind req =
   let path = (Dream.path [@ocaml.warning "-3"]) req |> String.concat "/" in
   let* sidebar_data = Package_helper.package_sidebar_data ~kind package in
 
-  let rev_dependencies = [] in
-  let dependencies = [] in
-  let dev_dependencies = [] in
-  let conflicts = [] in
-
-  let* content =
-    let* file = Ocamlorg_package.file ~kind package path in
-    Lwt.return
-      (Option.map
-         (fun file -> file.Ocamlorg_package.Documentation.content)
-         file)
-  in
-  let</>? content = content in
+  let* maybe_doc = Ocamlorg_package.file ~kind package path in
+  let</>? doc = maybe_doc in
+  let content = doc.content in
+  let toc = Package_helper.frontend_toc doc.toc in
   Dream.html
     (Ocamlorg_frontend.package_overview ~sidebar_data ~content
-       ~content_title:(Some path) ~dependencies ~dev_dependencies
-       ~rev_dependencies ~conflicts frontend_package)
+       ~content_title:(Some path) ~toc ~deps_and_conflicts:[] frontend_package)

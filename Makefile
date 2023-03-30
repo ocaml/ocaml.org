@@ -5,16 +5,16 @@ all:
 	opam exec -- dune build --root .
 
 .PHONY: deps
-deps: ## Install development dependencies
+deps: create_switch ## Install development dependencies
 	opam install -y ocamlformat=0.24.1 ocaml-lsp-server
-	opam install --deps-only --with-test --with-doc -y .
+	opam install -y --deps-only --with-test --with-doc .
 
 .PHONY: create_switch
-create_switch:
-	opam switch create . 4.14.0 --no-install
+create_switch: ## Create switch and pinned opam repo
+	opam switch create . 4.14.0 --no-install --repos pin=git+https://github.com/ocaml/opam-repository#b457e9f3d6
 
 .PHONY: switch
-switch: create_switch deps ## Create an opam switch and install development dependencies
+switch: deps ## Create an opam switch and install development dependencies
 
 .PHONY: lock
 lock: ## Generate a lock file
