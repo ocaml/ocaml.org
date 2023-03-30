@@ -97,7 +97,7 @@ Layout.render
         <% (match List.length workshop.organising_committee with | 0 -> () | _ -> %>
         <h5 class="font-bold text-white mb-12">Organising Committee</h5>
         <div class="flex flex-wrap justify-center space-x-12">
-          <%
+          <% 
           let committee_with_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_some x.picture) workshop.organising_committee in
           let committee_without_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_none x.picture) workshop.organising_committee in
           let names = List.map (fun (x : Ood.Workshop.committee_member) -> match x.affiliation with None -> x.name | Some affiliation -> Printf.sprintf "%s (%s)" x.name affiliation) committee_without_pictures in
@@ -118,7 +118,7 @@ Layout.render
       <div>
         <h5 class="font-bold mt-16">Program Committee</h5>
         <div class="flex flex-wrap justify-center space-x-12">
-          <%
+          <% 
           let committee_with_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_some x.picture) workshop.program_committee in
           let committee_without_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_none x.picture) workshop.program_committee in
           let names = List.map (fun (x : Ood.Workshop.committee_member) -> match x.affiliation with None -> x.name | Some affiliation -> Printf.sprintf "%s (%s)" x.name affiliation) committee_without_pictures in
