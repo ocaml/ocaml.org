@@ -25,7 +25,7 @@ let danger = function
   | `Beginner -> ""
   | `Intermediate -> "☡"
   | `Advanced -> "☡☡"
-  
+
 let render
 (problems : Ood.Problem.t list)
 =
@@ -54,7 +54,7 @@ Learn_layout.render
         <a href="https://github.com/ocaml/ocaml.org/tree/main/data/problems">GitHub</a>.
       </p>
       <p>
-        Every exercise has a difficulty level, ranging from beginner to advanced. 
+        Every exercise has a difficulty level, ranging from beginner to advanced.
         This difficulty level is indicated with the symbol "☡".
         The absence of marks represents the beginner level, one mark the intermediate level and two marks the advanced level.
       </p>

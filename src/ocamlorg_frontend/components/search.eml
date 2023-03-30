@@ -3,7 +3,7 @@ let highlight_search_terms
 ~search
 (text: string)
 =
-  let render_item = function 
+  let render_item = function
     | Str.Delim s -> {|<span class="|} ^ Dream.html_escape class_ ^ {|">|} ^ Dream.html_escape s ^ {|</span>|}
     | Text s -> Dream.html_escape s
   in

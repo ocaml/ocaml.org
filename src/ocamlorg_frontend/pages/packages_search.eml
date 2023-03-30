@@ -23,7 +23,7 @@ let render ~total ~search (packages : Package.package list) = Layout.render ~tit
 
           <div class="prose">
             <h1 class="font-bold text-3xl mb-5 md:mb-0">
-              <% (match total with 
+              <% (match total with
                 | 0 -> %> No search results for "<%s search %>"
               <% | 1 -> %> 1 search result for "<%s search %>"
               <% | _ -> %> <%s string_of_int total ^ " search results for \"" ^ search ^ "\"" %>
