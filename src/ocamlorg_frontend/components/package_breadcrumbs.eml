@@ -5,7 +5,7 @@ type library_path_item =
   | Class of { name: string; href: string; }
   | ClassType of { name: string; href: string; }
 
-type docs_path = 
+type docs_path =
   | Index
   | Page of string
   | Library of string * library_path_item list
@@ -22,7 +22,7 @@ let kind_tag (m : library_path_item) = match m with
   | ClassType _ ->
     <span tabindex="0" aria-label="class type" class="breadcrumbs-tag class-type-tag text-white">Class type</span>
 
-type path = 
+type path =
   | Overview of string option
   | Documentation of (docs_path)
 
@@ -79,7 +79,7 @@ let render_library_path_breadcrumbs
   let render_breadcrumb i b =
     if i < List.length path - 1 then
       <a href="<%s! b.href %>" class="font-semibold underline text-gray-800"><%s b.name %></a>
-    else 
+    else
       <a href="<%s! b.href %>" aria-current="page" class="text-gray-800"><%s b.name %></a>
   in
   <li>

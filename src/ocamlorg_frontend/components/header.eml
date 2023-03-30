@@ -20,7 +20,7 @@ let render
 ?(active_top_nav_item: active_nav_item option)
 ()
 =
-<header 
+<header
   class="h-20 flex items-center dark:bg-[#171717]"
   x-data="{ open: false, sidebar: window.innerWidth >= 1024 && true, showOnMobile: false}"
   @resize.window="sidebar = window.innerWidth >= 1024">

@@ -1,4 +1,4 @@
-type active_icon_link = 
+type active_icon_link =
   | Learn
   | Exercises
 
@@ -48,7 +48,7 @@ let htmx_attributes href
 let sidebar_link
 ~title
 ~href
-~current = 
+~current =
   match current with
   | true ->
     <a class="flex text-primary-600 bg-primary-100 py-2 px-3 rounded-md text-sm font-semibold" href="<%s href %>" <%s! htmx_attributes href %>>

@@ -1,6 +1,6 @@
 let render
 ~(papers : Ood.Paper.t list)
-~(release : Ood.Release.t) ~(books : Ood.Book.t list) 
+~(release : Ood.Release.t) ~(books : Ood.Book.t list)
 ~tutorials
 =
 Learn_layout.render
