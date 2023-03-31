@@ -31,7 +31,7 @@ the community and learn more about how they use OCaml."
                   </div>
                   <div class="flex items-center h-full justify-center" x-show="!isPlaying">
                       <div class="z-10 lg:space-y-16 space-y-5 mb-10 lg:mb-0">
-                          <img width="132" class="m-auto" src="/logo.svg" alt="OCaml logo">
+                          <img width="132" class="m-auto" src="/camelope-logo.svg" alt="OCaml logo">
                           <h3 class="font-bold">25 Years of OCaml</h3>
                           <div>Presented by Xavier Leroy</div>
                       </div>

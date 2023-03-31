@@ -14,6 +14,7 @@ Layout.render
         <p class="my-7 text-2xl">
           An industrial-strength functional programming language
           with an emphasis on expressiveness and safety
+          that <a class="text-primary-700 hover:underline" href="/news/ocaml-5.0.0~camelope">combines the reliability of the camel with the agility of the antelope</a>
         </p>
         <div class="space-x-0 lg:space-x-6">
           <a class="btn btn-lg mb-4 lg:mb-0" href="<%s Url.getting_started %>">Get started</a>
@@ -22,7 +23,7 @@ Layout.render
           </a>
         </div>
         <div class="mt-6">
-          <a class="text-2xl text-primary-600 font-semibold" href="<%s Url.release "5.0.0" %>">Latest release: 5.0.0</a>
+          <a class="text-2xl text-primary-600 font-semibold" href="<%s Url.release "5.0.0~camelope" %>">Latest release: 5.0.0 (Camelope edition)</a>
         </div>
       </div>
       <div class="lg:flex-1 flex justify-center">
@@ -136,36 +137,17 @@ Layout.render
             <h3 class="text-body-600 font-bold">
               First-Class Editor and Tooling
             </h3>
-            <div class="my-4 text-lg">
+            <div class="my-4 text-lg prose">
               OCaml comes with deep integrations for VS Code, Vim or Emacs to provide type inspection, autocomplete and more.
               Between Opam, a popular package manager; Utop, a powerful interactive REPL; and <code>odoc</code>,
-              an easy-to-use documentation generator, OCaml programmers have access to a complete, modern developer experience.
+              an easy-to-use documentation generator, OCaml programmers have access to a complete, modern developer experience
+              which includes <a href="/news/merlin-ng-questions-your-intelligence-from-within-your-editor">Merlin NG - the brand new disgruntled and slightly patronizing
+              AI OCaml wizard who is now making his home in your code editor</a>!
             </div>
           </div>
         </div>
         <div class="lg:flex-1 lg:mt-0 mt-10 flex justify-center">
-          <div style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff;" class="swiper mySwiper">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <div>
-                  <img src="/logos/vscode.svg" width="56" alt="VS Code">
-                  <img src="/img/home/vscode-preview.png" alt="">
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div>
-                <img src="/logos/vim.svg" width="56" alt="Vim">
-                <img src="/img/home/vim-preview.png" alt="">
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div>
-                <img src="/logos/emacs.svg" width="56" alt="Emacs">
-                <img src="/img/home/emac-preview.png" alt="">
-                </div>
-              </div>
-            </div>
-          </div>
+          <img src="/img/merlin-ng.gif" alt="Merlin NG inspects your code and says 'Ah, my dear young calf, at line 4 column 5, the expression `an_alias` has type `int M.t`, which denotes an integer-indexed map with String keys. By the way, did you know that when I was still a young apprentice, we didn't have maps in OCaml? We had to create them ourselves using lists and pattern matching! It's amazing how much easier it is to write code nowadays.'">
         </div>
       </div>
 

@@ -28,8 +28,8 @@ let render
     <ul class="space space-x-5 xl:space-x-8 items-center flex text-body-400 font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
       <li style="width:132px">
         <a href="<%s Url.index %>" class="block pb-2">
-          <img src="/logo-with-name.svg" width="132" alt="OCaml logo" class="dark:hidden">
-          <img src="/logo-with-name-white.svg" width="132" alt="OCaml logo" class="hidden dark:inline">
+          <img src="/camelope-with-name.svg" width="132" alt="OCaml logo" class="dark:hidden">
+          <img src="/camelope-with-name-white.svg" width="132" alt="OCaml logo" class="hidden dark:inline">
         </a>
       </li>
     </ul>
@@ -88,7 +88,7 @@ let render
     x-transition:leave-end="translate-x-full">
     <ul class="text-body-400 p-6 space-y-6 font-semibold">
       <li class="flex justify-between items-center">
-        <a href="<%s Url.index %>"><img width="132" src="/logo-with-name.svg" alt=""></a>
+        <a href="<%s Url.index %>"><img width="132" src="/camelope-with-name.svg" alt=""></a>
 
         <div class="close lg:hidden h-12 w-12 hover:bg-primary-100 flex items-center justify-center rounded-full"
           x-on:click="open = false">
