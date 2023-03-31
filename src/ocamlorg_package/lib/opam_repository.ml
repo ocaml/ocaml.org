@@ -55,7 +55,8 @@ let clone () =
           |] )
   | _ -> Fmt.failwith "Error finding about this path: %a" Fpath.pp clone_path
 
-let pull () = Process.exec (git_cmd [ "pull"; "-q"; "--ff-only"; "origin" ])
+let pull () =
+  Process.exec (git_cmd [ "pull"; "-q"; "--ff-only"; "origin"; "master" ])
 
 let last_commit () =
   let open Lwt.Syntax in

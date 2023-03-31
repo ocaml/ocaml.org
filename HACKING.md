@@ -88,8 +88,8 @@ The deployment pipeline is managed in <https://github.com/ocurrent/ocurrent-depl
 To test the deployment locally, you can run the following commands:
 
 ```
-docker build -t ocaml.org .
-docker run -p 8080:8080  ocaml.org
+docker build -t ocamlorg .
+docker run -p 8080:8080  ocamlorg
 ```
 
 This will build the docker image and run a docker container with the port `8080` mapped to the HTTP server.

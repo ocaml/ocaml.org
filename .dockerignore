@@ -8,3 +8,4 @@
 !dune-project
 !ocamlorg.opam
 !tailwind.config.js
+!init-cache
