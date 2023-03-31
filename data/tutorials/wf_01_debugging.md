@@ -414,6 +414,8 @@ To install the TSan mode
 To confirm that the TSan switch is installed correctly, run `opam
 switch show` and confirm that it prints `5.0.0+tsan`.
 
+Note: TSan is only supported on x86-64 architectures for now.
+
 ### Detecting a Data Race
 
 Now consider the following OCaml program written in the file `race.ml`:
