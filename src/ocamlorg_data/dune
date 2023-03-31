@@ -3,169 +3,148 @@
  (public_name ocamlorg.data))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets academic_institution.ml)
+ (target academic_institution.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} academic_institution))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} academic_institution))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets book.ml)
+ (target book.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} book))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} book))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets job.ml)
+ (target job.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} job))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} job))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets meetup.ml)
+ (target meetup.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} meetup))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} meetup))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets industrial_user.ml)
+ (target industrial_user.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} industrial_user))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} industrial_user))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets paper.ml)
+ (target paper.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} paper))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} paper))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets problem.ml)
+ (target problem.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} problems))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} problems))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets release.ml)
+ (target release.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} release))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} release))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets success_story.ml)
+ (target success_story.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} success_story))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} success_story))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets tool.ml)
+ (target tool.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} tool))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} tool))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets tutorial.ml)
+ (target tutorial.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} tutorial))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} tutorial))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets video.ml)
+ (target video.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} video))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} video))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets watch.ml)
+ (target watch.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} watch))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} watch))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets rss.ml)
+ (target rss.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} rss))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} rss))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets opam_user.ml)
+ (target opam_user.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} opam_user))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} opam_user))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets outreachy.ml)
+ (target outreachy.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} outreachy))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} outreachy))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets workshop.ml)
+ (target workshop.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} workshops))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} workshops))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets workflow.ml)
+ (target workflow.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} workflows))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} workflows))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets news.ml)
+ (target news.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} news))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} news))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets packages.ml)
+ (target packages.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} packages))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} packages))))
 
 (rule
- (deps ../../tool/ood-gen/bin/gen.exe)
- (targets page.ml)
+ (target page.ml)
  (action
   (with-stdout-to
-   %{targets}
-   (run %{deps} page))))
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} page))))

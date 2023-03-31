@@ -7,213 +7,224 @@
 (subdir
  layouts/
  (rule
-  (targets layout.ml)
-  (deps layout.eml)
+  (target layout.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:layout.eml} --workspace %{workspace_root})))
  (rule
-  (targets learn_layout.ml)
-  (deps learn_layout.eml)
+  (target learn_layout.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:learn_layout.eml}
+    --workspace
+    %{workspace_root})))
  (rule
-  (targets package_layout.ml)
-  (deps package_layout.eml)
+  (target package_layout.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root}))))
+   (run
+    %{bin:dream_eml}
+    %{dep:package_layout.eml}
+    --workspace
+    %{workspace_root}))))
 
 (subdir
  pages/
  (rule
-  (targets about.ml)
-  (deps about.eml)
+  (target about.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:about.eml} --workspace %{workspace_root})))
  (rule
-  (targets academic_users.ml)
-  (deps academic_users.eml)
+  (target academic_users.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:academic_users.eml}
+    --workspace
+    %{workspace_root})))
  (rule
-  (targets best_practices.ml)
-  (deps best_practices.eml)
+  (target best_practices.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:best_practices.eml}
+    --workspace
+    %{workspace_root})))
  (rule
-  (targets blog.ml)
-  (deps blog.eml)
+  (target blog.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:blog.eml} --workspace %{workspace_root})))
  (rule
-  (targets news.ml)
-  (deps news.eml)
+  (target news.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:news.eml} --workspace %{workspace_root})))
  (rule
-  (targets news_post.ml)
-  (deps news_post.eml)
+  (target news_post.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:news_post.eml} --workspace %{workspace_root})))
  (rule
-  (targets books.ml)
-  (deps books.eml)
+  (target books.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:books.eml} --workspace %{workspace_root})))
  (rule
-  (targets community.ml)
-  (deps community.eml)
+  (target community.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:community.eml} --workspace %{workspace_root})))
  (rule
-  (targets workshop.ml)
-  (deps workshop.eml)
+  (target workshop.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:workshop.eml} --workspace %{workspace_root})))
  (rule
-  (targets home.ml)
-  (deps home.eml)
+  (target home.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:home.eml} --workspace %{workspace_root})))
  (rule
-  (targets industrial_users.ml)
-  (deps industrial_users.eml)
+  (target industrial_users.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:industrial_users.eml}
+    --workspace
+    %{workspace_root})))
  (rule
-  (targets learn.ml)
-  (deps learn.eml)
+  (target learn.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:learn.eml} --workspace %{workspace_root})))
  (rule
-  (targets platform.ml)
-  (deps platform.eml)
+  (target platform.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:platform.eml} --workspace %{workspace_root})))
  (rule
-  (targets jobs.ml)
-  (deps jobs.eml)
+  (target jobs.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:jobs.eml} --workspace %{workspace_root})))
  (rule
-  (targets package_overview.ml)
-  (deps package_overview.eml)
+  (target package_overview.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:package_overview.eml}
+    --workspace
+    %{workspace_root})))
  (rule
-  (targets package_documentation.ml)
-  (deps package_documentation.eml)
+  (target package_documentation.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:package_documentation.eml}
+    --workspace
+    %{workspace_root})))
  (rule
-  (targets packages.ml)
-  (deps packages.eml)
+  (target packages.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:packages.eml} --workspace %{workspace_root})))
  (rule
-  (targets packages_autocomplete_fragment.ml)
-  (deps packages_autocomplete_fragment.eml)
+  (target packages_autocomplete_fragment.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:packages_autocomplete_fragment.eml}
+    --workspace
+    %{workspace_root})))
  (rule
-  (targets packages_search.ml)
-  (deps packages_search.eml)
+  (target packages_search.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:packages_search.eml}
+    --workspace
+    %{workspace_root})))
  (rule
-  (targets papers.ml)
-  (deps papers.eml)
+  (target papers.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:papers.eml} --workspace %{workspace_root})))
  (rule
-  (targets problems.ml)
-  (deps problems.eml)
+  (target problems.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:problems.eml} --workspace %{workspace_root})))
  (rule
-  (targets release.ml)
-  (deps release.eml)
+  (target release.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:release.eml} --workspace %{workspace_root})))
  (rule
-  (targets releases.ml)
-  (deps releases.eml)
+  (target releases.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:releases.eml} --workspace %{workspace_root})))
  (rule
-  (targets success_story.ml)
-  (deps success_story.eml)
+  (target success_story.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:success_story.eml}
+    --workspace
+    %{workspace_root})))
  (rule
-  (targets tutorial.ml)
-  (deps tutorial.eml)
+  (target tutorial.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:tutorial.eml} --workspace %{workspace_root})))
  (rule
-  (targets not_found.ml)
-  (deps not_found.eml)
+  (target not_found.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:not_found.eml} --workspace %{workspace_root})))
  (rule
-  (targets package_documentation_not_found.ml)
-  (deps package_documentation_not_found.eml)
+  (target package_documentation_not_found.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:package_documentation_not_found.eml}
+    --workspace
+    %{workspace_root})))
  (rule
-  (targets playground.ml)
-  (deps playground.eml)
+  (target playground.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:playground.eml} --workspace %{workspace_root})))
  (rule
-  (targets page.ml)
-  (deps page.eml)
+  (target page.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root}))))
+   (run %{bin:dream_eml} %{dep:page.eml} --workspace %{workspace_root}))))
 
 (subdir
  components/
  (rule
-  (targets footer.ml)
-  (deps footer.eml)
+  (target footer.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:footer.eml} --workspace %{workspace_root})))
  (rule
-  (targets header.ml)
-  (deps header.eml)
+  (target header.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:header.eml} --workspace %{workspace_root})))
  (rule
-  (targets navmap.ml)
-  (deps navmap.eml)
+  (target navmap.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:navmap.eml} --workspace %{workspace_root})))
  (rule
-  (targets pagination.ml)
-  (deps pagination.eml)
+  (target pagination.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:pagination.eml} --workspace %{workspace_root})))
  (rule
-  (targets search.ml)
-  (deps search.eml)
+  (target search.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:search.eml} --workspace %{workspace_root})))
  (rule
-  (targets toc.ml)
-  (deps toc.eml)
+  (target toc.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:toc.eml} --workspace %{workspace_root})))
  (rule
-  (targets icons.ml)
-  (deps icons.eml)
+  (target icons.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:icons.eml} --workspace %{workspace_root})))
  (rule
-  (targets package_breadcrumbs.ml)
-  (deps package_breadcrumbs.eml)
+  (target package_breadcrumbs.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:package_breadcrumbs.eml}
+    --workspace
+    %{workspace_root})))
  (rule
-  (targets learn_sidebar.ml)
-  (deps learn_sidebar.eml)
+  (target learn_sidebar.ml)
   (action
-   (run %{bin:dream_eml} %{deps} --workspace %{workspace_root}))))
+   (run
+    %{bin:dream_eml}
+    %{dep:learn_sidebar.eml}
+    --workspace
+    %{workspace_root}))))
