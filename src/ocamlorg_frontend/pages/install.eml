@@ -9,7 +9,7 @@ Layout.render
     <div class="flex flex-col xl:flex-row gap-12 xl:gap-24">
       <div class="my-12 prose">
         <h1>
-          Install OCaml on Linux or MacOS
+          Install OCaml on Linux or macOS
         </h1>
         <ol>
           <li>
