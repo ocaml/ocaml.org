@@ -13,11 +13,19 @@
  (rule
   (target learn_layout.ml)
   (action
-   (run %{bin:dream_eml} %{dep:learn_layout.eml} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:learn_layout.eml}
+    --workspace
+    %{workspace_root})))
  (rule
   (target package_layout.ml)
   (action
-   (run %{bin:dream_eml} %{dep:package_layout.eml} --workspace %{workspace_root}))))
+   (run
+    %{bin:dream_eml}
+    %{dep:package_layout.eml}
+    --workspace
+    %{workspace_root}))))
 
 (subdir
  pages/
@@ -28,11 +36,19 @@
  (rule
   (target academic_users.ml)
   (action
-   (run %{bin:dream_eml} %{dep:academic_users.eml} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:academic_users.eml}
+    --workspace
+    %{workspace_root})))
  (rule
   (target best_practices.ml)
   (action
-   (run %{bin:dream_eml} %{dep:best_practices.eml} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:best_practices.eml}
+    --workspace
+    %{workspace_root})))
  (rule
   (target blog.ml)
   (action
@@ -64,7 +80,11 @@
  (rule
   (target industrial_users.ml)
   (action
-   (run %{bin:dream_eml} %{dep:industrial_users.eml} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:industrial_users.eml}
+    --workspace
+    %{workspace_root})))
  (rule
   (target learn.ml)
   (action
@@ -80,11 +100,19 @@
  (rule
   (target package_overview.ml)
   (action
-   (run %{bin:dream_eml} %{dep:package_overview.eml} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:package_overview.eml}
+    --workspace
+    %{workspace_root})))
  (rule
   (target package_documentation.ml)
   (action
-   (run %{bin:dream_eml} %{dep:package_documentation.eml} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:package_documentation.eml}
+    --workspace
+    %{workspace_root})))
  (rule
   (target packages.ml)
   (action
@@ -92,11 +120,19 @@
  (rule
   (target packages_autocomplete_fragment.ml)
   (action
-   (run %{bin:dream_eml} %{dep:packages_autocomplete_fragment.eml} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:packages_autocomplete_fragment.eml}
+    --workspace
+    %{workspace_root})))
  (rule
   (target packages_search.ml)
   (action
-   (run %{bin:dream_eml} %{dep:packages_search.eml} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:packages_search.eml}
+    --workspace
+    %{workspace_root})))
  (rule
   (target papers.ml)
   (action
@@ -116,7 +152,11 @@
  (rule
   (target success_story.ml)
   (action
-   (run %{bin:dream_eml} %{dep:success_story.eml} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:success_story.eml}
+    --workspace
+    %{workspace_root})))
  (rule
   (target tutorial.ml)
   (action
@@ -128,7 +168,11 @@
  (rule
   (target package_documentation_not_found.ml)
   (action
-   (run %{bin:dream_eml} %{dep:package_documentation_not_found.eml} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:package_documentation_not_found.eml}
+    --workspace
+    %{workspace_root})))
  (rule
   (target playground.ml)
   (action
@@ -171,8 +215,16 @@
  (rule
   (target package_breadcrumbs.ml)
   (action
-   (run %{bin:dream_eml} %{dep:package_breadcrumbs.eml} --workspace %{workspace_root})))
+   (run
+    %{bin:dream_eml}
+    %{dep:package_breadcrumbs.eml}
+    --workspace
+    %{workspace_root})))
  (rule
   (target learn_sidebar.ml)
   (action
-   (run %{bin:dream_eml} %{dep:learn_sidebar.eml} --workspace %{workspace_root}))))
+   (run
+    %{bin:dream_eml}
+    %{dep:learn_sidebar.eml}
+    --workspace
+    %{workspace_root}))))
