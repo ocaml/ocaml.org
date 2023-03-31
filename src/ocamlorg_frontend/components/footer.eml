@@ -4,7 +4,7 @@ let render () =
   <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
     <div class="xl:grid xl:grid-cols-3 xl:gap-8">
       <div class="space-y-8">
-        <img class="h-8" src="/logo-with-name.svg" alt="OCaml">
+        <img class="h-8" src="/camelope-with-name.svg" alt="OCaml">
         <p class="text-base leading-6 text-gray-600">Innovation. Community. Security.</p>
         <div class="flex space-x-6">
           <a href="https://github.com/ocaml/ocaml" class="text-gray-400 hover:text-gray-500">

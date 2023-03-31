@@ -67,7 +67,7 @@ Learn_layout.render
       </div>
       <div class="flex h-full justify-center" x-show="!isPlaying">
         <div class="z-10 mb-10 lg:mb-0">
-          <img width="160" class="m-auto mt-10 md:mt-20" src="/logo-with-name.svg" alt="OCaml logo">
+          <img width="160" class="m-auto mt-10 md:mt-20" src="/camelope-with-name.svg" alt="OCaml logo">
           <div class="text-body-400 mt-2">OCaml Workshop 2020</div>
           <h3 class="font-bold mt-16">State of the OCaml Platform 2020</h3>
           <div class="mt-16 flex justify-center">
