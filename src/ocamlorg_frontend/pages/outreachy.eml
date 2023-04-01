@@ -21,15 +21,18 @@ Layout.render
             </div>
             <div class="grid grid-cols-1 auto-rows-max gap-10">
                 <% rounds.projects |> List.iter (fun (project : Ood.Outreachy.project) -> %>
-                        <div x-data="{'is_shown': false}" id="projects" class="p-5 rounded-2xl items-center w-full h-fit border border-gray-300">
+                        <div x-data="{'is_shown': false}" id="projects" class="p-5 rounded-2xl items-center w-full border border-gray-300">
                             <div class="flex flex-col h-full space-y-2">                 
                                 <h2 class="text-lg text-black font-semibold"><%s project.title %></h2>
                                 <div >Mentee: <span class='text-gray-800 italic'><%s project.mentee %></span></div>
-                                <div>Mentor(s): <span class='text-gray-800 italic'><%s Fmt.(str "%a" (list ~sep:comma string) project.mentors) %></></div>
+                                <div>Mentor(s): <span class='text-gray-800 italic'><%s Fmt.(str "%a" (list ~sep:comma string) project.mentors) %></span></div>
                                 
-                                <div :class="is_shown ? '' : 'hidden'">
-                                 <p> <% String.sub project.description 0 30 %> </p>
-                                  <div class='text-[#EF8316] font-semibold flex flex-row items-center space-x-4'>
+                                <div :class="is_shown ? '' : 'relative max-h-20 overflow-hidden'">
+                                  <div class="absolute bottom-0 h-10 w-full bg-gradient-to-t from-background-default"></div>
+                                  <p class=""> <%s project.description %> </p>
+                                </div>
+                                <span x-on:click="is_shown= !is_shown" class='cursor-pointer hover:underline text-[#EF8316] font-semibold' x-text="is_shown ? 'Show Less' : 'Show More'"></span>
+                                <div class='text-[#EF8316] font-semibold flex flex-row items-center space-x-4'>
                                     <% (match project.blog with None -> () | Some blog -> %>
                                     <div class"flex-wrap">                        
                                       <a href="<%s blog %>" class="hover:underline" target="_blank">Blog</a> 
@@ -44,8 +47,6 @@ Layout.render
                                         <a href="<%s project.source %>" class='hover:underline' target="_blank">Source</a> 
                                     </div>
                                   </div>
-                                </div>
-                                <span x-on:click="is_shown= !is_shown" class='cursor-pointer hover:underline text-[#EF8316] font-semibold' x-text="is_shown ? 'Show Less' : 'Show More'"></span>
                             </div>
                         </div>
                 <% ); %>
