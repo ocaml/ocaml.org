@@ -89,9 +89,13 @@
 (rule
  (target watch.ml)
  (action
-  (with-stdout-to
+  (run
+   %{bin:yoshi}
+   -c
+   %{workspace_root}/yoshi.yaml
+   -o
    %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} watch))))
+   %{workspace_root}/data/watch.yml)))
 
 (rule
  (target rss.ml)
