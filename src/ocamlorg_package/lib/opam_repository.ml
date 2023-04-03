@@ -41,22 +41,26 @@ let clone_path = Config.opam_repository_path
 let git_cmd args =
   ("git", Array.of_list ("git" :: "-C" :: Fpath.to_string clone_path :: args))
 
-let clone () =
-  Process.exec
-    ( "git",
-      [|
-        "git";
-        "clone";
-        "https://github.com/ocaml/opam-repository.git";
-        Fpath.to_string clone_path;
-      |] )
-
 let last_commit () =
   let open Lwt.Syntax in
   let+ output =
     Process.pread (git_cmd [ "rev-parse"; "HEAD" ]) |> Lwt.map String.trim
   in
   output
+
+let clone () =
+  let open Lwt.Syntax in
+  let* () =
+    Process.exec
+      ( "git",
+        [|
+          "git";
+          "clone";
+          "https://github.com/ocaml/opam-repository.git";
+          Fpath.to_string clone_path;
+        |] )
+  in
+  last_commit ()
 
 let pull () =
   let open Lwt.Syntax in

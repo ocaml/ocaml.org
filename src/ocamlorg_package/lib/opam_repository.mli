@@ -1,4 +1,4 @@
-val clone : unit -> unit Lwt.t
+val clone : unit -> string Lwt.t
 (** [clone ()] ensures that "./opam-repository" exists. If not, it clones it. *)
 
 val pull : unit -> string Lwt.t
