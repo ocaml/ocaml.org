@@ -22,7 +22,7 @@ jobs:
           - macos-latest
           - ubuntu-latest
         ocaml-compiler:
-          - ocaml-base-compiler.4.14.0
+          - ocaml-base-compiler.4.14.1
 
     steps:
       - name: Checkout code
