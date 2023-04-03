@@ -145,25 +145,22 @@ let maybe_update t =
       let+ () = update ~commit t in
       save_state t
 
-let poll_for_opam_packages ~polling v =
+let rec poll_for_opam_packages ~polling v =
   let open Lwt.Syntax in
-  let rec updater () =
-    let* () = Lwt_unix.sleep (float_of_int polling) in
-    let* () =
-      Lwt.catch
-        (fun () ->
-          Logs.info (fun m -> m "Opam repo: git pull");
-          let* () = Opam_repository.pull () in
-          maybe_update v)
-        (fun exn ->
-          Logs.err (fun m ->
-              m "Failed to update the opam package list: %s"
-                (Printexc.to_string exn));
-          Lwt.return ())
-    in
-    updater ()
+  let* () = Lwt_unix.sleep (float_of_int polling) in
+  let* () =
+    Lwt.catch
+      (fun () ->
+        Logs.info (fun m -> m "Opam repo: git pull");
+        let* () = Opam_repository.pull () in
+        maybe_update v)
+      (fun exn ->
+        Logs.err (fun m ->
+            m "Failed to update the opam package list: %s"
+              (Printexc.to_string exn));
+        Lwt.return ())
   in
-  updater ()
+  poll_for_opam_packages ~polling v
 
 let init ?(disable_polling = false) () =
   let state = try_load_state () in
