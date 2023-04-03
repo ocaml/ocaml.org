@@ -51,15 +51,19 @@ let clone () =
         Fpath.to_string clone_path;
       |] )
 
-let pull () =
-  Process.exec (git_cmd [ "pull"; "-q"; "--ff-only"; "origin"; "master" ])
-
 let last_commit () =
   let open Lwt.Syntax in
   let+ output =
     Process.pread (git_cmd [ "rev-parse"; "HEAD" ]) |> Lwt.map String.trim
   in
   output
+
+let pull () =
+  let open Lwt.Syntax in
+  let* () =
+    Process.exec (git_cmd [ "pull"; "-q"; "--ff-only"; "origin"; "master" ])
+  in
+  last_commit ()
 
 let fold_dir f acc directory =
   match Sys.readdir directory with

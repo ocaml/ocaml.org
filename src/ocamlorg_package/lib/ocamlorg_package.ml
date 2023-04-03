@@ -152,7 +152,7 @@ let rec poll_for_opam_packages ~polling v =
     Lwt.catch
       (fun () ->
         Logs.info (fun m -> m "Opam repo: git pull");
-        let* () = Opam_repository.pull () in
+        let* _commit = Opam_repository.pull () in
         maybe_update v)
       (fun exn ->
         Logs.err (fun m ->
