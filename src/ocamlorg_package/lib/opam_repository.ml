@@ -42,18 +42,14 @@ let git_cmd args =
   ("git", Array.of_list ("git" :: "-C" :: Fpath.to_string clone_path :: args))
 
 let clone () =
-  match Bos.OS.Path.exists clone_path with
-  | Ok true -> Lwt.return_unit
-  | Ok false ->
-      Process.exec
-        ( "git",
-          [|
-            "git";
-            "clone";
-            "https://github.com/ocaml/opam-repository.git";
-            Fpath.to_string clone_path;
-          |] )
-  | _ -> Fmt.failwith "Error finding about this path: %a" Fpath.pp clone_path
+  Process.exec
+    ( "git",
+      [|
+        "git";
+        "clone";
+        "https://github.com/ocaml/opam-repository.git";
+        Fpath.to_string clone_path;
+      |] )
 
 let pull () =
   Process.exec (git_cmd [ "pull"; "-q"; "--ff-only"; "origin"; "master" ])
