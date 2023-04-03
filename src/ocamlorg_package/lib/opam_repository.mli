@@ -1,8 +1,10 @@
-val clone : unit -> unit Lwt.t
-(** [clone ()] ensures that "./opam-repository" exists. If not, it clones it. *)
+val clone : unit -> string Lwt.t
+(** Does a "git clone" on https://github.com/ocaml/opam-repository. Returns the
+    latest commit id. *)
 
-val pull : unit -> unit Lwt.t
-(** Does a "git pull origin" to update the store. *)
+val pull : unit -> string Lwt.t
+(** Does a "git pull" on https://github.com/ocaml/opam-repository. Returns the
+    latest commit id. *)
 
 val last_commit : unit -> string Lwt.t
 (** Get the latest commit of the opam repository. *)

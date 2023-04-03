@@ -41,29 +41,33 @@ let clone_path = Config.opam_repository_path
 let git_cmd args =
   ("git", Array.of_list ("git" :: "-C" :: Fpath.to_string clone_path :: args))
 
-let clone () =
-  match Bos.OS.Path.exists clone_path with
-  | Ok true -> Lwt.return_unit
-  | Ok false ->
-      Process.exec
-        ( "git",
-          [|
-            "git";
-            "clone";
-            "https://github.com/ocaml/opam-repository.git";
-            Fpath.to_string clone_path;
-          |] )
-  | _ -> Fmt.failwith "Error finding about this path: %a" Fpath.pp clone_path
-
-let pull () =
-  Process.exec (git_cmd [ "pull"; "-q"; "--ff-only"; "origin"; "master" ])
-
 let last_commit () =
   let open Lwt.Syntax in
   let+ output =
     Process.pread (git_cmd [ "rev-parse"; "HEAD" ]) |> Lwt.map String.trim
   in
   output
+
+let clone () =
+  let open Lwt.Syntax in
+  let* () =
+    Process.exec
+      ( "git",
+        [|
+          "git";
+          "clone";
+          "https://github.com/ocaml/opam-repository.git";
+          Fpath.to_string clone_path;
+        |] )
+  in
+  last_commit ()
+
+let pull () =
+  let open Lwt.Syntax in
+  let* () =
+    Process.exec (git_cmd [ "pull"; "-q"; "--ff-only"; "origin"; "master" ])
+  in
+  last_commit ()
 
 let fold_dir f acc directory =
   match Sys.readdir directory with

@@ -152,7 +152,7 @@ let rec poll_for_opam_packages ~polling v =
     Lwt.catch
       (fun () ->
         Logs.info (fun m -> m "Opam repo: git pull");
-        let* () = Opam_repository.pull () in
+        let* _commit = Opam_repository.pull () in
         maybe_update v)
       (fun exn ->
         Logs.err (fun m ->
@@ -166,7 +166,10 @@ let init ?(disable_polling = false) () =
   let state = try_load_state () in
   if Sys.file_exists (Fpath.to_string Config.opam_repository_path) then
     Lwt.async (fun () -> maybe_update state)
-  else Lwt.async Opam_repository.clone;
+  else
+    Lwt.async (fun () ->
+        ignore (Opam_repository.clone ());
+        Lwt.return ());
   if disable_polling then ()
   else
     Lwt.async (fun () ->
