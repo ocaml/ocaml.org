@@ -1,3 +1,6 @@
+val exists : unit -> bool
+(** Returns true is the clone of opam repository exists, false otherwise. *)
+
 val clone : unit -> string Lwt.t
 (** Does a "git clone" on https://github.com/ocaml/opam-repository. Returns the
     latest commit id. *)

@@ -135,9 +135,8 @@ let update ~commit t =
   t.featured <- Some featured;
   Logs.info (fun m -> m "Loaded %d packages" (Name.Map.cardinal packages))
 
-let maybe_update t =
+let maybe_update t commit =
   let open Lwt.Syntax in
-  let* commit = Opam_repository.last_commit () in
   match t.opam_repository_commit with
   | Some v when v = commit -> Lwt.return ()
   | _ ->
@@ -152,8 +151,8 @@ let rec poll_for_opam_packages ~polling v =
     Lwt.catch
       (fun () ->
         Logs.info (fun m -> m "Opam repo: git pull");
-        let* _commit = Opam_repository.pull () in
-        maybe_update v)
+        let* commit = Opam_repository.pull () in
+        maybe_update v commit)
       (fun exn ->
         Logs.err (fun m ->
             m "Failed to update the opam package list: %s"
@@ -163,17 +162,13 @@ let rec poll_for_opam_packages ~polling v =
   poll_for_opam_packages ~polling v
 
 let init ?(disable_polling = false) () =
+  let open Lwt.Syntax in
   let state = try_load_state () in
-  if Sys.file_exists (Fpath.to_string Config.opam_repository_path) then
-    Lwt.async (fun () -> maybe_update state)
-  else
-    Lwt.async (fun () ->
-        ignore (Opam_repository.clone ());
-        Lwt.return ());
-  if disable_polling then ()
-  else
-    Lwt.async (fun () ->
-        poll_for_opam_packages ~polling:Config.opam_polling state);
+  Lwt.async (fun () ->
+      let* commit = Opam_repository.(if exists () then pull else clone) () in
+      let* () = maybe_update state commit in
+      if disable_polling then Lwt.return_unit
+      else poll_for_opam_packages ~polling:Config.opam_polling state);
   state
 
 let all_latest t =
