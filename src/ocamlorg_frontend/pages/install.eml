@@ -70,7 +70,8 @@ Layout.render
         <h2>Install the OCaml Platform Tools in Your <code>opam</code> Switch</h2>
 
         <p>
-          The OCaml Platform Tools complete your OCaml development environment. To install them, run this command:
+          The <a href="<%s Url.tutorial "up-and-running" %>#installing-the-ocaml-platform-tools">OCaml Platform Tools</a>
+          complete your OCaml development environment. To install them, run this command:
         </p>
 
         <%s! Copy_to_clipboard_snippet.render ~id:"install-platform-tools" "opam install dune merlin ocaml-lsp-server odoc ocamlformat utop dune-release" %>
@@ -105,25 +106,21 @@ Layout.render
             <p>
               An <code>opam</code> switch is an isolated environment for the OCaml compiler
               and any packages you install.
-              The following commands create a new <code>opam</code> switch with OCaml 4.14.0
-              in the current directory and activate that switch:
+              The following command creates a new <code>opam</code> switch with OCaml 4.14.0
+              in the current directory:
             </p>
 
-            <ol>
-              <li>
-                <%s! Copy_to_clipboard_snippet.render ~id:"win-create-opam-switch" "dkml init" %>
-              </li>
+            <%s! Copy_to_clipboard_snippet.render ~id:"win-create-opam-switch" "dkml init" %>
+          </li>
+          <li>
+            <h3>Activate the <code>opam</code> switch</h3>
+            <p>If using the Windows Command Prompt:</p>
 
-              <li>
-                <p>If using the Windows Command Prompt:</p>
+            <%s! Copy_to_clipboard_snippet.render ~id:"win-create-opam-switch2" "for /f \"tokens=*\" %i in ('opam env') do @%i" %>
 
-                <%s! Copy_to_clipboard_snippet.render ~id:"win-create-opam-switch2" "for /f \"tokens=*\" %i in ('opam env') do @%i" %>
+            <p>If using the Windows Power Shell:</p>
 
-                <p>If using the Windows Power Shell:</p>
-
-                <%s! Copy_to_clipboard_snippet.render ~id:"win-create-opam-switch3" "(& opam env) -split '\r?\n' | ForEach-Object { Invoke-Expression $_ }" %>
-              </li>
-            </ol>
+            <%s! Copy_to_clipboard_snippet.render ~id:"win-create-opam-switch3" "(& opam env) -split '\r?\n' | ForEach-Object { Invoke-Expression $_ }" %>
           </li>
         </ol>
 
@@ -132,7 +129,8 @@ Layout.render
         <h2>Install the OCaml Platform Tools in Your <code>opam</code> Switch</h2>
 
         <p>
-          The OCaml Platform Tools complete your OCaml development environment. To install them, run these commands:
+          The <a href="<%s Url.tutorial "up-and-running" %>#installing-the-ocaml-platform-tools">OCaml Platform Tools</a>
+          complete your OCaml development environment. To install them, run these commands:
         </p>
 
         <%s! Copy_to_clipboard_snippet.render ~id:"win-install-platform-tools" ~class_:"mb-4" "opam pin remove fiber omd stdune dyn ordering dot-merlin-reader yojson --no-action" %>
