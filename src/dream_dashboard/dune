@@ -33,9 +33,10 @@
    %{targets}
    (progn
     (echo "let hash = \"")
-    (pipe-stdout (run "git" "rev-parse" "HEAD") (run "tr" "-d" "\n"))
-    (echo "\"\n")
-    ))))
+    (pipe-stdout
+     (run "git" "rev-parse" "HEAD")
+     (run "tr" "-d" "\n"))
+    (echo "\"\n")))))
 
 (subdir
  asset/
