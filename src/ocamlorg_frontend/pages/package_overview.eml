@@ -130,16 +130,33 @@ in
   </div>
   <% ; %>
 
+type dependency_or_conflict = {
+  name: string;
+  cstr: string option;
+  version: string option;
+}
+
+type dependencies_and_conflicts = {
+  title: string;
+  slug: string;
+  items: dependency_or_conflict list;
+}
+
+let right_sidebar
+~toc
+=
+  <div class="pt-6">
+    <%s! Toc.render toc %>
+  </div>
+
 let render
 ~(sidebar_data: sidebar_data)
 ~content
 ~content_title
-~dependencies
-~dev_dependencies
-~rev_dependencies
-~conflicts
+~toc
+~(deps_and_conflicts: dependencies_and_conflicts list)
 (package : Package.package) =
-let render_dependency ~version ~name ~cstr =
+let render_dependency ~name ~cstr ~version =
   <li class="flex m-0 space-x-3 py-2 px-4 hover:bg-gray-100">
     <a href="<%s Url.Package.overview name ?version %>" class="text-primary-600 hover:underline">
       <%s name %>
@@ -149,13 +166,10 @@ let render_dependency ~version ~name ~cstr =
     <% ; %>
   </li>
 in
-let render_section_heading ~title =
+let render_section_heading ~title ~id =
   <div class="border-l-4 px-4 -ml-4 mb-6 mt-12 border-transparent border-l-body-400 rounded border-t-2 border-b-2 border-r-2">
-    <h2 class="text-xl font-medium my-2"><%s title %></h2>
+    <h2 id="<%s id %>" class="text-xl font-medium my-2"><%s title %></h2>
   </div>
-in
-let title_with_number title number =
-  title ^ if number > 0 then " (" ^ string_of_int number ^ ")" else ""
 in
 let version = Package.url_version package in
 let specific_version = Package.specific_version package in
@@ -167,13 +181,15 @@ Package_layout.render
 ~documentation_status:sidebar_data.documentation_status
 ~path:(Overview content_title)
 ~left_sidebar_html:(sidebar ~sidebar_data ~specific_version ~version package)
-~right_sidebar_html:"" @@
+~right_sidebar_html:(right_sidebar ~toc) @@
 <div class="flex md:gap-6 xl:gap-12 flex-col md:flex-row justify-between">
     <div class="flex-1 max-w-full">
       <% (match content_title with | None -> %>
-      <div class="p-4 prose max-w-full border-2 border-l-4 border-gray-200 border-l-primary-700 rounded rounded-r-lg">
-        <h2 class="mb-4 mt-0 text-xl font-semibold uppercase">Description</h2>
-        <%s! package.description %>
+      <div class="p-4 max-w-full border-2 border-l-4 border-gray-200 border-l-primary-700 rounded rounded-r-lg">
+        <h2 id="description" class="mb-4 mt-0 text-xl font-semibold uppercase">Description</h2>
+        <div class="prose">
+          <%s! package.description %>
+        </div>
       </div>
 
       <div class="flex flex-wrap gap-3 mt-4">
@@ -194,40 +210,21 @@ Package_layout.render
 
       <div class="border-l-2 border-gray-200 px-4 space-y-6">
         <div class="mx-[-2px]">
-          <%s! render_section_heading ~title:(title_with_number "Dependencies" (List.length dependencies)) %>
-          <ol class="grid lg:grid-cols-2">
-              <%s if List.length dependencies = 0 then "None" else "" %>
-              <% dependencies |> List.iter (fun (name, cstr) -> %>
-              <%s! render_dependency ~name ~cstr ~version:None %>
+          <% deps_and_conflicts |> List.iter (fun section -> %>
+            <%s! render_section_heading ~title:section.title ~id:section.slug %>
+            <ol class="grid lg:grid-cols-2">
+              <%s if List.length section.items = 0 then "None" else "" %>
+              <% section.items |> List.iter (fun { name; cstr; version } -> %>
+              <%s! render_dependency ~name ~cstr ~version %>
               <% ); %>
-          </ol>
-          <%s! render_section_heading ~title:(title_with_number "Development Dependencies" (List.length dev_dependencies)) %>
-          <ol class="grid lg:grid-cols-2">
-              <%s if List.length dev_dependencies = 0 then "None" else "" %>
-              <% dev_dependencies |> List.iter (fun (name, cstr) -> %>
-              <%s! render_dependency ~name ~cstr ~version:None %>
-              <% ); %>
-          </ol>
-          <%s! render_section_heading ~title:(title_with_number "Reverse Dependencies" (List.length rev_dependencies)) %>
-          <ol class="grid lg:grid-cols-2 max-h-96 overflow-auto">
-              <%s if List.length rev_dependencies = 0 then "None" else "" %>
-              <% rev_dependencies |> List.iter (fun (name, cstr, version) -> %>
-              <%s! render_dependency ~name ~cstr ~version:(Some version) %>
-              <% ); %>
-          </ol>
-          <%s! render_section_heading ~title:(title_with_number "Conflicts" (List.length conflicts)) %>
-          <ol class="grid lg:grid-cols-2 max-h-96 overflow-auto">
-              <%s if List.length conflicts = 0 then "None" else "" %>
-              <% conflicts |> List.iter (fun (name, cstr) -> %>
-              <%s! render_dependency ~name ~cstr ~version:None %>
-              <% ); %>
-          </ol>
+            </ol>
+          <% ); %>
         </div>
       </div>
       <% | Some content_title -> %>
       <div class="border-l-2 border-gray-200 px-4 space-y-6">
         <div class="mx-[-2px]">
-          <%s! render_section_heading ~title:content_title %>
+          <%s! render_section_heading ~title:content_title ~id:"content" %>
           <div class="prose max-w-full">
             <%s! content %>
           </div>

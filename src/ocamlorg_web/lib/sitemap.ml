@@ -1,4 +1,4 @@
-module Url = Ocamlorg_frontend.Url
+module Url = Ocamlorg.Url
 
 type urlable = Urlable : 'a list * ('a -> string) -> urlable
 

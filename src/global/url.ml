@@ -2,19 +2,31 @@ let index = "/"
 let packages = "/packages"
 let packages_search = "/packages/search"
 let packages_autocomplete_fragment = "/packages/autocomplete"
-let with_hash = Option.fold ~none:"/p" ~some:(( ^ ) "/u/")
-let with_version = Option.value ~default:"latest"
-let with_page p = if p = "" then "" else "/" ^ p
 
-let package_overview ?version ?hash name =
-  with_hash hash ^ "/" ^ name ^ "/" ^ with_version version
+module Package : sig
+  val overview : ?hash:string -> ?version:string -> string -> string
 
-let package_documentation ?hash ?version ?(page = "index.html") name =
-  with_hash hash ^ "/" ^ name ^ "/" ^ with_version version ^ "/doc/" ^ page
+  val documentation :
+    ?hash:string -> ?version:string -> ?page:string -> string -> string
 
-let package_file ?version ?hash ~filepath name =
-  with_hash hash ^ "/" ^ name ^ "/" ^ with_version version ^ "/" ^ filepath
+  val file :
+    ?hash:string -> ?version:string -> filepath:string -> string -> string
+end = struct
+  let with_hash = Option.fold ~none:"/p" ~some:(( ^ ) "/u/")
+  let with_version = Option.fold ~none:"/latest" ~some:(( ^ ) "/")
 
+  let base ?hash ?version page name =
+    with_hash hash ^ "/" ^ name ^ with_version version ^ page
+
+  let overview ?hash ?version = base ?hash ?version ""
+
+  let documentation ?hash ?version ?(page = "index.html") =
+    base ?hash ?version ("/doc/" ^ page)
+
+  let file ?hash ?version ~filepath = base ?hash ?version ("/" ^ filepath)
+end
+
+let sitemap = "/sitemap.xml"
 let community = "/community"
 let success_story v = "/success-stories/" ^ v
 let industrial_users = "/industrial-users"
