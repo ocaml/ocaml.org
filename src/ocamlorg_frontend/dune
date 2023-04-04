@@ -201,6 +201,10 @@
 (subdir
  components/
  (rule
+  (target copy_to_clipboard_snippet.ml)
+  (action
+   (run %{bin:dream_eml} %{dep:copy_to_clipboard_snippet.eml} --workspace %{workspace_root})))
+ (rule
   (target footer.ml)
   (action
    (run %{bin:dream_eml} %{dep:footer.eml} --workspace %{workspace_root})))

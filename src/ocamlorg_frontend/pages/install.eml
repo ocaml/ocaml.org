@@ -13,62 +13,32 @@ Layout.render
         </h1>
         <ol>
           <li>
-            <h2>Install the opam package manager</h2>
+            <h2>Install the <code>opam</code> package manager</h2>
 
             <p>
-            To download and install opam, run the following in your terminal, then follow the on-screen instructions:
+            To download and install <code>opam</code>, run the following in your terminal, then follow the on-screen instructions:
             </p>
 
-            <div class="max-w-xl" x-data="{ copied: false }">
-              <div class="mt-1 flex rounded-md shadow-sm">
-                <div class="relative flex items-stretch flex-grow focus-within:z-10">
-                  <input id="install-opam" type="text"
-                      class="focus:ring-orange-500 focus:border-orange-500 block w-full rounded-none rounded-l-md bg-gray-800 text-gray-100 text-sm font-mono subpixel-antialiased border-gray-700"
-                      value='bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"'>
-                </div>
-                <div role="button" title="Copy to clipboard"
-                  class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-700 text-sm font-medium rounded-r-md text-gray-100 bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
-                  @click="$clipboard(document.getElementById('install-opam').value); copied = true; setTimeout(() => copied = false, 2000)"
-                  :class="{ 'border-gray-700': !copied, 'text-gray-100': !copied, 'focus:ring-orange-500': !copied, 'focus:border-orange-500': !copied, 'border-green-600': copied, 'text-green-600': copied, 'focus:ring-green-500': copied, 'focus:border-green-500': copied }">
-                  <div x-show="!copied" class="h-6 w-6">
-                    <%s! Icons.copy_to_clipboard "h-6 w-6" %>
-                  </div>
-                  <div x-show="copied" class="h-6 w-6">
-                    <%s! Icons.copied_to_clipboard "h-6 w-6" %>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <%s! Copy_to_clipboard_snippet.render ~id:"install-opam" "curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh | sh" %>
+
+            <details>
+              <summary class="flex items-center py-2 font-semibold">
+                What if I don't like shell scripts?
+                <%s! Icons.arrow_left "h-6 w-6" %>
+              </summary>
+              In this case, you could install <code>opam</code> using your distribution's package manager.
+            </details>
           </li>
 
           <li>
-            <h2>Create an opam switch</h2>
+            <h2>Create an <code>opam</code> switch</h2>
 
             <p>
-              An opam switch is a sandboxed environment for the OCaml compiler and any packages you install.
-              The following command installs OCaml 5.0.0 in a global opam switch:
+              An <code>opam</code> switch is a sandboxed environment for the OCaml compiler and any packages you install.
+              The following command installs OCaml 5.0.0 in a global <code>opam</code> switch:
             </p>
 
-            <div class="max-w-xl" x-data="{ copied: false }">
-              <div class="mt-1 flex rounded-md shadow-sm">
-                <div class="relative flex items-stretch flex-grow focus-within:z-10">
-                  <input id="install-opam" type="text"
-                      class="focus:ring-orange-500 focus:border-orange-500 block w-full rounded-none rounded-l-md bg-gray-800 text-gray-100 text-sm font-mono subpixel-antialiased border-gray-700"
-                      value='opam switch create 5.0.0'>
-                </div>
-                <div role="button" title="Copy to clipboard"
-                  class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-700 text-sm font-medium rounded-r-md text-gray-100 bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
-                  @click="$clipboard(document.getElementById('install-opam').value); copied = true; setTimeout(() => copied = false, 2000)"
-                  :class="{ 'border-gray-700': !copied, 'text-gray-100': !copied, 'focus:ring-orange-500': !copied, 'focus:border-orange-500': !copied, 'border-green-600': copied, 'text-green-600': copied, 'focus:ring-green-500': copied, 'focus:border-green-500': copied }">
-                  <div x-show="!copied" class="h-6 w-6">
-                    <%s! Icons.copy_to_clipboard "h-6 w-6" %>
-                  </div>
-                  <div x-show="copied" class="h-6 w-6">
-                    <%s! Icons.copied_to_clipboard "h-6 w-6" %>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <%s! Copy_to_clipboard_snippet.render ~id:"create-opam-switch" "opam switch create 5.0.0" %>
 
             <p>
               You can use <code>opam switch list-available</code> to see all available compiler versions.
@@ -88,7 +58,7 @@ Layout.render
               </p>
 
               <a class="btn !text-white hover:no-underline" href="https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.1.0_r2/setup-diskuv-ocaml-windows_x86_64-1.1.0.exe">
-                <%s! Icons.download "h-6 w-6" %> Download Diskuv OCaml Windows Installer
+                <%s! Icons.download "h-6 w-6" %> Download DKML Installer
               </a>
 
               <p>
@@ -106,42 +76,3 @@ Layout.render
     </div>
   </div>
 </div>
-<script>
-// Inlined from https://cdn.jsdelivr.net/npm/@ryangjchandler/alpine-clipboard@2.x.x/dist/alpine-clipboard.js
-(function (factory) {
-    typeof define === 'function' && define.amd ? define(factory) :
-    factory();
-}((function () { 'use strict';
-
-    let onCopy = () => {};
-
-    function Clipboard(Alpine) {
-      Alpine.magic('clipboard', () => {
-        return function (target) {
-          if (typeof target === 'function') {
-            target = target();
-          }
-
-          if (typeof target === 'object') {
-            target = JSON.stringify(target);
-          }
-
-          return window.navigator.clipboard.writeText(target).then(onCopy);
-        };
-      });
-    }
-
-    Clipboard.configure = config => {
-      if (config.hasOwnProperty('onCopy') && typeof config.onCopy === 'function') {
-        onCopy = config.onCopy;
-      }
-
-      return Clipboard;
-    };
-
-    document.addEventListener('alpine:initializing', () => {
-      Clipboard(window.Alpine);
-    });
-
-})));
-</script>
