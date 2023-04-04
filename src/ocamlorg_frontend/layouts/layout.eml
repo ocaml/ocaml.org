@@ -41,8 +41,8 @@ inner =
     <% ); %>
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/font-files/inter.css" %>">
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/font-files/roboto-mono.css" %>">
-    <script defer src="<%s Ocamlorg_static.Asset.url "vendors/alpine.min.js" %>"></script>
     <script defer src="<%s Ocamlorg_static.Asset.url "vendors/alpine-clipboard.js" %>"></script>
+    <script defer src="<%s Ocamlorg_static.Asset.url "vendors/alpine.min.js" %>"></script>
     <script defer src="<%s Ocamlorg_static.Asset.url "vendors/htmx.min.js" %>"></script>
     <% if use_swiper then ( %>
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "vendors/swiper-bundle.min.css" %>">
