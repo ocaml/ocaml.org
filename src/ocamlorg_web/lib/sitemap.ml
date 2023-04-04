@@ -13,6 +13,7 @@ let urls =
     Url.about;
     Url.books;
     Url.releases;
+    Url.workshops;
     Url.blog;
     Url.news;
     Url.jobs;
@@ -47,9 +48,7 @@ let urlables =
     ]
 
 let tag = Printf.sprintf {|
-<url>
-  <loc>%s</loc>
-</url>|}
+<url><loc>%s</loc></url>|}
 
 let urlset =
   Seq.concat_map
@@ -70,6 +69,4 @@ let ood =
       ]
   in
   Lwt_seq.of_seq
-    (Seq.concat (List.to_seq [ header; urlset; Seq.return {|
-</urlset>
-|} ]))
+    (Seq.concat (List.to_seq [ header; urlset; Seq.return "\n</urlset>\n" ]))
