@@ -47,23 +47,22 @@ let urlables =
 
 let tag = Printf.sprintf "\n<url><loc>%s</loc></url>"
 
-let urlset =
-  Seq.concat_map
-    (function
-      | Urlable (all, show) -> Seq.map (fun s -> tag (show s)) (List.to_seq all))
-    urlables
+let urlset (Urlable (all, show)) =
+  Seq.map (fun s -> tag (show s)) (List.to_seq all)
 
 let ood =
   let header =
-    List.to_seq
-      [
-        {|<?xml version="1.0" encoding="utf-8"?>
+    {|<?xml version="1.0" encoding="utf-8"?>
 <urlset
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
-|};
-      ]
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">|}
   in
   Lwt_seq.of_seq
-    (Seq.concat (List.to_seq [ header; urlset; Seq.return "\n</urlset>\n" ]))
+    (Seq.concat
+       (List.to_seq
+          [
+            Seq.return header;
+            Seq.concat_map urlset urlables;
+            Seq.return "\n</urlset>\n";
+          ]))
