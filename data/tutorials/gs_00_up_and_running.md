@@ -50,7 +50,7 @@ below](#up-and-running-with-the-platform-installer) for the instructions.
 However, please note that it is still experimental and in active development
 (any feedback is highly appreciated).
 
-### Installation for Unix (Linux, BSD, macOS)
+### Installation on Unix (Linux, BSD, macOS)
 
 Note: OCaml is available as a package in most Linux distributions; however, it is
 often outdated. On Unix, the best way to install OCaml is with `opam`, OCaml's package manager.
@@ -146,7 +146,7 @@ We will learn about the OCaml toplevel and other installed tools in the next sec
 
 In case you are not satisfied with the OCaml version of your system switch, you can change the version with `opam switch create <version_here>`. More information can be found on the [official website](https://opam.ocaml.org/).
 
-### Installation for Windows
+### Installation on Windows
 
 In this section, we'll describe using the [Diskuv OCaml](https://github.com/diskuv/dkml-installer-ocaml#readme) ("DKML") Windows installer. Expect to see another officially-supported Windows installation provided directly by opam in the coming months; it will be compatible with your DKML installation.
 
