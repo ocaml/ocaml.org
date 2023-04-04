@@ -20,13 +20,17 @@ Layout.render
             </p>
 
             <%s! Copy_to_clipboard_snippet.render ~id:"install-opam" "curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh | sh" %>
+            <a href="https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh" class="flex justify-end gap-1 py-1 items-center"><%s! Icons.github "h-6 w-6" %> view this shell script on GitHub</a>
 
-            <details>
-              <summary class="flex items-center py-2 font-semibold">
+            <details class="mt-6">
+              <summary class="flex items-center gap-2 py-2 font-semibold">
                 What if I don't like shell scripts?
-                <%s! Icons.arrow_left "h-6 w-6" %>
+                <%s! Icons.chevron_right "h-4 w-4" %>
               </summary>
-              In this case, you could install <code>opam</code> using your distribution's package manager.
+              In this case, you could follow the instructions at <a href="https://github.com/ocaml/opam"><tt>opam</tt>'s GitHub repository</a>
+              to build <code>opam</code> from sources.
+              Or you could install (a potentially outdated version of) <code>opam</code>
+              using your distribution's package manager.
             </details>
           </li>
 
@@ -34,7 +38,8 @@ Layout.render
             <h2>Create an <code>opam</code> switch</h2>
 
             <p>
-              An <code>opam</code> switch is a sandboxed environment for the OCaml compiler and any packages you install.
+              An <code>opam</code> switch is an isolated environment for the OCaml compiler
+              and any packages you install.
               The following command installs OCaml 5.0.0 in a global <code>opam</code> switch:
             </p>
 
@@ -42,7 +47,9 @@ Layout.render
 
             <p>
               You can use <code>opam switch list-available</code> to see all available compiler versions.
+              <a href="#TODO">Learn more about using <tt>opam</tt>.</a>
             </p>
+
           </li>
         </ol>
       </div>

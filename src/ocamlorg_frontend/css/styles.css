@@ -230,9 +230,6 @@ summary::marker {
 
 /* summary & details expandable section */
 
-details {
-  user-select: none;
-}
 details summary svg {
   transform: rotate(90deg);
 }

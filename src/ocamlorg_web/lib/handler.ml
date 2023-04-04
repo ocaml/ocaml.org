@@ -7,7 +7,6 @@ let http_or_404 ?(not_found = Ocamlorg_frontend.not_found) opt f =
 (* short-circuiting 404 error operator *)
 let ( let</>? ) opt = http_or_404 opt
 let index _req = Dream.html (Ocamlorg_frontend.home ())
-
 let install _req = Dream.html (Ocamlorg_frontend.install ())
 
 let learn _req =
