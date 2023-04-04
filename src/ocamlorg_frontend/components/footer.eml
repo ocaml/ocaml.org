@@ -55,6 +55,10 @@ let render () =
             <h3 class="text-base font-semibold leading-6 text-gray-900">Resources</h3>
             <ul class="mt-6 space-y-4">
               <li>
+                <a href="<%s Url.install %>" class="text-base leading-6 text-gray-600">Install OCaml</a>
+              </li>
+
+              <li>
                 <a href="<%s Url.getting_started %>" class="text-base leading-6 text-gray-600">Get Started</a>
               </li>
 
