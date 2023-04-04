@@ -59,10 +59,7 @@ let ood =
   xmlns:xhtml="http://www.w3.org/1999/xhtml">|}
   in
   Lwt_seq.of_seq
-    (Seq.concat
-       (List.to_seq
-          [
-            Seq.return header;
-            Seq.concat_map urlset urlables;
-            Seq.return "\n</urlset>\n";
-          ]))
+    Seq.(
+      concat
+        (List.to_seq
+           [ return header; concat_map urlset urlables; return "\n</urlset>\n" ]))
