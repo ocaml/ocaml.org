@@ -13,8 +13,9 @@ date: 2021-05-27T21:07:30-00:00
 
 This page will walk you through the installation of everything you need for a comfortable development environment to write projects in OCaml code. Of course, this includes [installing the compiler](#installing-ocaml) itself, but it also installs a build system, a package manager, an LSP server to support your editor, and a few other tools that we describe [later](#setting-up-development-tools), setting up [editor support](#configuring-your-editor), and bootstrapping a [new project](#starting-a-new-project).
 
-The following instructions work on Linux, BSD, and macOS. Plus, they also work
-on Cygwin and WSL. If you want to set up OCaml on Windows, you might be
+We provide installation instructions for Unix-derivatives - including Linux, BSD, and macOS - and for Windows via the [Diskuv OCaml](https://github.com/diskuv/dkml-installer-ocaml#readme) Installer. The Unix instructions can be used on Windows if you use Cygwin or Windows Subsystem for Linux (WSL).
+
+If you are setting up OCaml on Windows and are unsure which installation method to use, you might be
 interested in reading [OCaml on Windows](/docs/ocaml-on-windows) first.
 
 **Guidelines for Following Instructions on this Page**
@@ -49,7 +50,7 @@ below](#up-and-running-with-the-platform-installer) for the instructions.
 However, please note that it is still experimental and in active development
 (any feedback is highly appreciated).
 
-### Installation for Unix, Linux, macOS
+### Installation for Unix (Linux, BSD, macOS)
 
 Note: OCaml is available as a package in most Linux distributions; however, it is
 often outdated. On Unix, the best way to install OCaml is with `opam`, OCaml's package manager.
