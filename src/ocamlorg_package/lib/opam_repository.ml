@@ -37,6 +37,7 @@ module Process = struct
 end
 
 let clone_path = Config.opam_repository_path
+let exists () = Result.get_ok (Bos.OS.Path.exists clone_path)
 
 let git_cmd args =
   ("git", Array.of_list ("git" :: "-C" :: Fpath.to_string clone_path :: args))
