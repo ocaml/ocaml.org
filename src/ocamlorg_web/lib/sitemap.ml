@@ -38,17 +38,14 @@ let urlables =
   List.to_seq
     [
       Urlable (urls, to_url);
-      Urlable
-        ( Success_story.all,
-          fun r -> to_url @@ Url.success_story r.Success_story.slug );
-      Urlable (Release.all, fun r -> to_url @@ Url.release r.Release.version);
-      Urlable (Workshop.all, fun r -> to_url @@ Url.workshop r.Workshop.slug);
-      Urlable (News.all, fun r -> to_url @@ Url.news_post r.News.slug);
-      Urlable (Tutorial.all, fun r -> to_url @@ Url.tutorial r.Tutorial.slug);
+      Success_story.(Urlable (all, fun r -> to_url @@ Url.success_story r.slug));
+      Release.(Urlable (all, fun r -> to_url @@ Url.release r.version));
+      Workshop.(Urlable (all, fun r -> to_url @@ Url.workshop r.slug));
+      News.(Urlable (News.all, fun r -> to_url @@ Url.news_post r.slug));
+      Tutorial.(Urlable (all, fun r -> to_url @@ Url.tutorial r.slug));
     ]
 
-let tag = Printf.sprintf {|
-<url><loc>%s</loc></url>|}
+let tag = Printf.sprintf "\n<url><loc>%s</loc></url>"
 
 let urlset =
   Seq.concat_map
