@@ -5,12 +5,21 @@ Layout.render
 ~description:"Quick setup instructions to install OCaml on your system."
 ~canonical:"" @@
 <div class="lg:py-16 py-6">
-  <div class="container-fluid">
-    <div class="flex flex-col xl:flex-row gap-12 xl:gap-24">
-      <div class="my-12 prose">
-        <h1>
-          Install OCaml on Linux, BSD, or macOS
-        </h1>
+  <div class="container-fluid" x-data='{ operating_system: detect_os () }'>
+    <div class="prose">
+      <h1>
+        Install OCaml
+      </h1>
+      <div class="flex gap-2">
+        <button class="btn flex gap-2" :class='operating_system == "linux"? "": "btn-secondary"' @click="operating_system = 'linux'"><%s! Icons.linux_tux "w-6 h-6" %> Linux</button>
+        <button class="btn flex gap-2" :class='operating_system == "mac"? "": "btn-secondary"' @click="operating_system = 'mac'"><%s! Icons.apple_logo "w-6 h-6" %> macOS</button>
+        <button class="btn flex gap-2" :class='operating_system == "win"? "": "btn-secondary"' @click="operating_system = 'win'"><%s! Icons.microsoft_windows "w-6 h-6" %> Windows</button>
+      </div>
+
+      <div x-show="(operating_system == 'unix') || (operating_system == 'linux') || (operating_system == 'mac')">
+        <h2>
+          Instructions for Linux, BSD, or macOS
+        </h2>
         <ol>
           <li>
             <h2>Install the <code>opam</code> package manager</h2>
@@ -27,7 +36,7 @@ Layout.render
                 What if I don't like shell scripts?
                 <%s! Icons.chevron_right "h-4 w-4" %>
               </summary>
-              In this case, you could <a href="<%s Url.tutorial "up-and-running" %>#1-install-opam">install <code>opam</code> using your distribution's package manager</a>.
+              In this case, you could <a href="<%s Url.tutorial "up-and-running" %>#1-install-opam">install <tt>opam</tt> using your distribution's package manager</a>.
 
               Or, if you want to have the most recent version of <code>opam</code>,
               you could follow the instructions at <a href="https://github.com/ocaml/opam"><tt>opam</tt>'s GitHub repository</a>
@@ -48,16 +57,17 @@ Layout.render
 
             <p>
               You can use <code>opam switch list-available</code> to see all available compiler versions.
-              <a href="#TODO">Learn more about using <tt>opam</tt>.</a>
+              <a href="#TODO">Learn more about using <tt>opam</tt> (TODO: link to an opam tutorial here!)</a>.
             </p>
 
           </li>
         </ol>
       </div>
-      <div class="my-12 prose">
-        <h1>
-          Install OCaml on Windows
-        </h1>
+
+      <div x-show="operating_system == 'win'">
+        <h2>
+          Instructions for Windows
+        </h2>
         <ol>
           <li>
             <h2>Use the Diskuv OCaml ("DKML") Windows installer</h2>
@@ -77,10 +87,29 @@ Layout.render
           </li>
         </ol>
       </div>
-    </div>
-    <div class="prose">
+
       <p>You can find
         <a href="<%s Url.getting_started %>">a more comprehensive overview of different installation methods, as well as additional explanations here</a>.</p>
     </div>
   </div>
 </div>
+<script>
+function detect_os ()
+{
+    let os = navigator.userAgent;
+    let result="";
+    if (os.search('Win')!==-1){
+        result="win";
+    }
+    else if (os.search('Mac')!==-1){
+        result="mac";
+    }
+    else if (os.search('X11')!==-1 && !(os.search('Linux')!==-1)){
+        result="unix";
+    }
+    else if (os.search('Linux')!==-1 && os.search('X11')!==-1){
+        result="linux"
+    }
+    return result;
+}
+</script>
