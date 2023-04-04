@@ -88,7 +88,7 @@ inner_html
   ~description
   ~canonical
   ?active_top_nav_item @@
-  <div class="bg-white" x-data="{ open: false, sidebar: window.matchMedia('(min-width: 64em)') && true, showOnMobile: false}" @resize.window="sidebar = window.matchMedia('(min-width: 64em)')"  x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 64em)') && true">
+  <div class="bg-white" x-data="{ sidebar: window.matchMedia('(min-width: 64em)').matches, showOnMobile: false}" @resize.window="sidebar = window.matchMedia('(min-width: 64em)').matches"  x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 64em)').matches">
     <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed lg:hidden right-10"
       x-on:click="sidebar = ! sidebar">
       <%s! Icons.sidebar_menu "h-8 w-8" %>
