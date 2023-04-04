@@ -38,17 +38,17 @@ Layout_template.render ~prefix ~title:"Overview" ~nav:Overview @@
         <dt class="text-base font-semibold truncate">Uptime</dt>
         <dd class="mt-1 text-xl lg:text-3xl font-semibold break-all"><%s uptime %></dd>
       </div>
-
-
-      <div class="px-6 py-5 shadow rounded-lg overflow-hidden sm:p-6 space-y-6 lg:space-y-12 cards">
-        <dt class="text-base font-semibold truncate">Commit</dt>
-        <dd class="mt-1 text-xl lg:text-3xl font-semibold break-all"><%s commit %></dd>
-      </div>
     </dl>
   </div>
 
   <div class="px-6 py-5 shadow rounded-lg overflow-hidden sm:p-6 space-y-12 cards">
+    <dt class="text-base font-semibold truncate">OS Version</dt>
     <span class="text-lg font-semibold"><%s os_version %></span>
+  </div>
+
+  <div class="px-6 py-5 shadow rounded-lg overflow-hidden sm:p-6 space-y-12 cards">
+    <dt class="text-base font-semibold truncate">Git Commit Hash</dt>
+    <span class="text-lg font-semibold"><%s commit %></span>
   </div>
 
   <div>
