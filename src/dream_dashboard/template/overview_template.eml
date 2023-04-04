@@ -46,7 +46,7 @@ Layout_template.render ~prefix ~title:"Overview" ~nav:Overview @@
 
   <div>
     <div class="flex mb-6 justify-between">
-      <h3 class="leading-5 text-lg font-semibold">Memory Usage (Percentage)</h3>
+      <h3 class="leading-5 text-lg font-semibold">Memory Usage (MiB)</h3>
     </div>
     <div class="flex items-center justify-center py-8 px-4 shadow rounded-lg cards">
       <div class="w-full">
@@ -98,7 +98,7 @@ Layout_template.render ~prefix ~title:"Overview" ~nav:Overview @@
           borderColor: "#18BDFB",
           data: [
           <% memory_list |> List.iter (fun (x : My_metrics.memory) -> %>
-            <%f 100. *. float_of_int x.free /. float_of_int x.total %>,
+            <%f float_of_int (x.total - x.free) /. 1048576. %>,
           <% ); %>
           ],
           borderWidth: "2",
