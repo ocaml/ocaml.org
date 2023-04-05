@@ -31,7 +31,7 @@ let urls =
     Url.problems;
   ]
 
-let to_url u = "https://ocaml.org" ^ u
+let to_url u = "\n<url><loc>https://ocaml.org" ^ u ^ "</loc></url>"
 
 let urlables =
   let open Ood in
@@ -45,10 +45,7 @@ let urlables =
       Tutorial.(Urlable (all, fun r -> to_url @@ Url.tutorial r.slug));
     ]
 
-let tag = Printf.sprintf "\n<url><loc>%s</loc></url>"
-
-let urlset (Urlable (all, show)) =
-  Seq.map (fun s -> tag (show s)) (List.to_seq all)
+let urlset (Urlable (all, show)) = Seq.map show (List.to_seq all)
 
 let ood =
   let header =
