@@ -23,39 +23,36 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Use OCaml ${{ matrix.ocaml-compiler }}
+        uses: ocaml/setup-ocaml@v2
         with:
-          ref: main
-          lfs: false
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+          dune-cache: ${{ matrix.os != 'macos-latest' }}
+          opam-repositories: |
+            pin: git+https://github.com/ocaml/opam-repository#b457e9f3d6
 
-      # - name: Use OCaml ${{ matrix.ocaml-compiler }}
-        # uses: ocaml/setup-ocaml@v2
-        # with:
-          # ocaml-compiler: ${{ matrix.ocaml-compiler }}
-          # dune-cache: ${{ matrix.os != 'macos-latest' }}
-          # opam-repositories: |
-            # pin: git+https://github.com/ocaml/opam-repository#b457e9f3d6
+      - name: Install system dependencies (Linux)
+        run: sudo apt-get install libev-dev libonig-dev
 
-      # - name: Install system dependencies (Linux)
-        # run: sudo apt-get install libev-dev libonig-dev
+      - name: Install opam dependencies
+        run: opam install --deps-only --with-test .
 
-      # - name: Install opam dependencies
-        # run: opam install --deps-only --with-test .
+      - name: Build scraper
+        run: |
+          opam exec -- dune build tool/ood-gen/bin/scrape.exe
+          opam exec -- dune build tool/ood-gen/bin/watch_scrape.exe
 
-      # - name: Build scraper
-        # run: |
-          # opam exec -- dune build tool/ood-gen/bin/scrape.exe
-          # opam exec -- dune build tool/ood-gen/bin/watch_scrape.exe
+      - name: Run scrapers
+        run: |
+          opam exec -- dune exec tool/ood-gen/bin/scrape.exe rss
+          opam exec -- dune exec tool/ood-gen/bin/watch_scrape.exe > data/watch.yml
+          opam exec -- dune build src/ocamlorg_data/rss.ml
+          opam exec -- dune build src/ocamlorg_data/watch.ml
 
-      # - name: Run scrapers
-        # run: |
-          # opam exec -- dune exec tool/ood-gen/bin/scrape.exe rss
-          # opam exec -- dune exec tool/ood-gen/bin/watch_scrape.exe > data/watch.yml
-          # opam exec -- dune build src/ocamlorg_data/rss.ml
-          # opam exec -- dune build src/ocamlorg_data/watch.ml
-
-      # - name: Create Pull Request
-        # uses: peter-evans/create-pull-request@v5
-        # with:
-          # title: 'Update scraped data'
-          # add-paths: |
-            # asset/feed.xml
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          title: 'Update scraped data'
+          add-paths: |
+            asset/feed.xml
