@@ -81,4 +81,5 @@ build: [
 dev-repo: "git+https://github.com/ocaml/ocaml.org.git"
 pin-depends: [
   ["tailwindcss.dev" "git+https://github.com/tmattio/opam-tailwindcss#7ef5bebbf48958370051b2368a4dd57b69627cf6"]
+  ["river.cuihtlauac" "git+https://github.com/cuihtlauac/river#0100d6ae1cc78c90e705e17b1293d1ae1f9f3c6f"]
 ]
