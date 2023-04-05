@@ -22,8 +22,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          lfs: 'false'
 
       - name: Use OCaml ${{ matrix.ocaml-compiler }}
         uses: ocaml/setup-ocaml@v2
@@ -51,6 +49,10 @@ jobs:
           opam exec -- dune build src/ocamlorg_data/rss.ml
           opam exec -- dune build src/ocamlorg_data/watch.ml
  
+      - name: Uninstall git lfs
+        run: | 
+          git lfs uninstall
+          
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
