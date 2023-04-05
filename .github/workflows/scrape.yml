@@ -56,5 +56,5 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           title: 'Update scraped data'
-          add-path: |
+          add-paths: |
             asset/feed.xml

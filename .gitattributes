@@ -1,2 +1,2 @@
 playground/asset/*.js linguist-generated=true
-*.eml linguist-language=html
+*.eml linguist-language=html !diff !filter !merge²
