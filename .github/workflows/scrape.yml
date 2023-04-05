@@ -48,6 +48,6 @@ jobs:
           opam exec -- dune build src/ocamlorg_data/watch.ml
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v5
         with:
           title: 'Update scraped data'
