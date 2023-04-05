@@ -22,8 +22,7 @@ let render
 =
 <header
   class="h-20 flex items-center dark:bg-[#171717]"
-  x-data="{ open: false, sidebar: window.matchMedia('(min-width: 64em)') && true, showOnMobile: false}"
-  @resize.window="sidebar = window.matchMedia('(min-width: 64em)')">
+  x-data="{ open: false }">
   <nav class="container-fluid wide header flex justify-between items-center">
     <ul class="space space-x-5 xl:space-x-8 items-center flex text-body-400 font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
       <li style="width:132px">

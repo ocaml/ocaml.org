@@ -26,7 +26,7 @@ Layout.render
           <%s! Package_breadcrumbs.render ~path ?hash ?page package %>
         </div>
       </div>
-      <div x-data="{ open: false, sidebar: window.innerWidth >= 768 && true, showOnMobile: false}" @resize.window="sidebar = window.innerWidth >= 768" x-on:close-sidebar="sidebar=window.innerWidth >= 768 && true">
+      <div x-data="{ sidebar: window.matchMedia('(min-width: 48em)').matches }" @resize.window="sidebar = window.matchMedia('(min-width: 48em)').matches" x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 48em)').matches">
         <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed md:hidden right-10"
         x-on:click="sidebar = ! sidebar">
           <%s! Icons.sidebar_menu "h-8 w-8" %>
