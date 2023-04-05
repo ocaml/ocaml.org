@@ -1,9 +1,10 @@
 name: Scrape
 
-on:
+on: |
   schedule:
     # Run every day
     - cron: 0 12 * * *
+  workflow_dispatch:
 
 jobs:
   scrape:
