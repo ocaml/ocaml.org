@@ -1,2 +1,2 @@
-playground/asset/*.js linguist-generated=true !diff !filter !merge
+playground/asset/*.js linguist-generated=true filter=lfs diff=lfs merge=lfs -text
 *.eml linguist-language=html
