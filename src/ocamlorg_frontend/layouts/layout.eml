@@ -7,6 +7,7 @@ let render
 ~title
 ?canonical
 ?(active_top_nav_item: Header.active_nav_item option)
+?(footer_html = Footer.render ())
 inner =
 <!DOCTYPE html>
 <html lang="en">
@@ -71,6 +72,6 @@ inner =
 
     <main><%s! inner %></main>
 
-    <%s! Footer.render () %>
+    <%s! footer_html %>
   </body>
 </html>
