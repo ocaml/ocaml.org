@@ -24,6 +24,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Assume Yes Installing Deb Packages
+        run: |
+          echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf
+
       - name: Use OCaml ${{ matrix.ocaml-compiler }}
         uses: ocaml/setup-ocaml@v2
         with:
@@ -31,6 +35,7 @@ jobs:
           dune-cache: ${{ matrix.os != 'macos-latest' }}
           opam-repositories: |
             pin: git+https://github.com/ocaml/opam-repository#9cf27a6683dc4e56ccf7e35c008198828bd5c267
+          opam-disable-sandboxing: true
 
       - name: Install opam dependencies
         run: opam install --deps-only --with-test .
