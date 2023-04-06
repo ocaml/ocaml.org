@@ -26,6 +26,7 @@ end = struct
   let file ?hash ?version ~filepath = base ?hash ?version ("/" ^ filepath)
 end
 
+let sitemap = "/sitemap.xml"
 let community = "/community"
 let success_story v = "/success-stories/" ^ v
 let industrial_users = "/industrial-users"

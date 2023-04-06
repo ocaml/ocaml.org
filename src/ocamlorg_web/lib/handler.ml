@@ -654,3 +654,11 @@ let package_file t kind req =
   Dream.html
     (Ocamlorg_frontend.package_overview ~sidebar_data ~content
        ~content_title:(Some path) ~toc ~deps_and_conflicts:[] frontend_package)
+
+let sitemap _request =
+  let open Lwt.Syntax in
+  Dream.stream
+    ~headers:[ ("Content-Type", "application/xml; charset=utf-8") ]
+    (fun stream ->
+      let* _ = Lwt_seq.iter_s (Dream.write stream) Sitemap.ood in
+      Dream.flush stream)
