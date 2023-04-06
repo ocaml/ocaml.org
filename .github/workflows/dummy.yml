@@ -4,13 +4,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  dummy:
     name: Dev and Debug Workflows
 
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Repo
         uses: actions/checkout@v3
+
+      - name: Setup OCaml
+        uses: ocaml/setup-ocaml@v2
+        with:
+          ocaml-compiler: ocaml-base-compiler.4.14.1
+          opam-repositories: |
+            pin: git+https://github.com/ocaml/opam-repository#b457e9f3d6
 
       - run: git rev-parse HEAD
