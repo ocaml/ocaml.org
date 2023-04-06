@@ -13,9 +13,11 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: Assume Yes Installing Deb Packages
+      - name: Install Missing System Dependencies
         run: |
           echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf
+          sudo apt-get update
+          sudo apt-get install rsync
 
       - name: Setup OCaml
         uses: ocaml/setup-ocaml@v2
