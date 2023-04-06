@@ -56,3 +56,5 @@ jobs:
           title: 'Update scraped data'
           add-paths: |
             asset/feed.xml
+            data/watch.yml
+            data/rss/*/*.md
