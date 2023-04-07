@@ -18,6 +18,6 @@ jobs:
         with:
           ocaml-compiler: ocaml-base-compiler.4.14.1
           opam-repositories: |
-            pin: git+https://github.com/ocaml/opam-repository#b457e9f3d6
+            pin: git+https://github.com/ocaml/opam-repository#15b381eeae
 
       - run: git rev-parse HEAD

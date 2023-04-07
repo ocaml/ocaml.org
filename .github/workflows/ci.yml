@@ -34,7 +34,7 @@ jobs:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
           dune-cache: ${{ matrix.os != 'macos-latest' }}
           opam-repositories: |
-            pin: git+https://github.com/ocaml/opam-repository#b457e9f3d6
+            pin: git+https://github.com/ocaml/opam-repository#15b381eeae
 
       - name: Install system dependencies (Linux)
         run: sudo apt-get install libev-dev libonig-dev

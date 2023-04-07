@@ -30,7 +30,7 @@ jobs:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
           dune-cache: ${{ matrix.os != 'macos-latest' }}
           opam-repositories: |
-            pin: git+https://github.com/ocaml/opam-repository#b457e9f3d6
+            pin: git+https://github.com/ocaml/opam-repository#15b381eeae
 
       - name: Install opam dependencies
         run: opam install --deps-only --with-test .
