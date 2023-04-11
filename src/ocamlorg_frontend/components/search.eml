@@ -3,10 +3,15 @@ let highlight_search_terms
 ~search
 (text: string)
 =
-  let render_item = function
-    | Str.Delim s -> {|<span class="|} ^ Dream.html_escape class_ ^ {|">|} ^ Dream.html_escape s ^ {|</span>|}
-    | Text s -> Dream.html_escape s
+  let r =
+    Str.global_replace (Str.regexp "[ \t]+") "\\|" (String.trim search)
   in
-  let r = Str.global_replace (Str.regexp "[ \t]+") "\\|" search in
-  let split = Str.full_split (Str.regexp_case_fold r) text in
-  List.fold_left (fun a b -> a ^ render_item b) "" split
+  if r <> "" then
+    let render_item = function
+      | Str.Delim s -> {|<span class="|} ^ Dream.html_escape class_ ^ {|">|} ^ Dream.html_escape s ^ {|</span>|}
+      | Text s -> Dream.html_escape s
+    in
+    let split = Str.full_split (Str.regexp_case_fold r) text in
+    List.fold_left (fun a b -> a ^ render_item b) "" split
+  else
+    Dream.html_escape text
