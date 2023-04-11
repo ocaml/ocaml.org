@@ -2,7 +2,7 @@
 
 .cm-editor {
   /* Set height, width, borders, and global font properties here */
-  font-family: monospace;
+  font-family: "Roboto Mono", monospace;
   height: 300px;
   color: #ffffff;
   direction: ltr;
@@ -557,7 +557,7 @@ Ported to CodeMirror by Peter Kroon
 .cm-s-lesser-dark .cm-editor,
 .cm-content,
 .cm-completionLabel {
-  font-family: "Bitstream Vera Sans Mono", "DejaVu Sans Mono", "Monaco", Courier, monospace !important;
+  font-family: "Roboto Mono", "Bitstream Vera Sans Mono", "DejaVu Sans Mono", "Monaco", Courier, monospace !important;
 }
 
 .cm-s-lesser-dark {

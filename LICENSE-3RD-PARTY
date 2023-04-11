@@ -56,6 +56,23 @@ URL:       https://rsms.me/inter/
 License:   MIT License
 Copyright: Copyright (c) 2016-2020 The Inter Project Authors.
 
+
+asset/vendors/font-files/RobotoMono-Italic.woff2
+asset/vendors/font-files/RobotoMono-Italic.woff
+asset/vendors/font-files/RobotoMono-Regular.woff2
+asset/vendors/font-files/RobotoMono-Regular.woff
+asset/vendors/font-files/RobotoMono-SemiBoldItalic.woff2
+asset/vendors/font-files/RobotoMono-SemiBoldItalic.woff
+asset/vendors/font-files/RobotoMono-SemiBold.woff2
+asset/vendors/font-files/RobotoMono-SemiBold.woff
+asset/vendors/font-files/roboto-mono.css:
+
+Name:      Roboto Mono
+URL:       https://fonts.google.com/specimen/Roboto+Mono/about
+License:   Apache License, Version 2.0
+Copyright: Copyright (c) 2015 Google. Designed by Christian Robertson
+
+
 asset/vendors/alpine.min.js:
 
 Name:      Alpine
