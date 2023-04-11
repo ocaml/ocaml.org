@@ -1,6 +1,5 @@
 type project = {
   title : string;
-  number: string;
   description : string;
   mentee : string;
   blog : string option;
@@ -30,7 +29,6 @@ let template () =
     {|
 type project =
   { title : string
-  ; number: string
   ; description : string
   ; mentee : string
   ; blog : string option
