@@ -20,9 +20,9 @@ let platform _req =
   let tutorials = Ood.Tutorial.all in
   Dream.html (Ocamlorg_frontend.platform ~tutorials tools)
 
-let _outreachy _req = 
+let _outreachy _req =
   let outreachy = Ood.Outreachy.all in
-  Dream.html (Ocamlorg_frontend.outreachy outreachy) 
+  Dream.html (Ocamlorg_frontend.outreachy outreachy)
 
 let community _req =
   let workshops = Ood.Workshop.all in
@@ -261,7 +261,6 @@ let best_practices _req =
 
 let problems _req = Dream.html (Ocamlorg_frontend.problems Ood.Problem.all)
 let installer req = Dream.redirect req Url.github_installer
-
 let outreachy _req = Dream.html (Ocamlorg_frontend.outreachy Ood.Outreachy.all)
 
 type package_kind = Package | Universe

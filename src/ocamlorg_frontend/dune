@@ -97,7 +97,7 @@
   (target jobs.ml)
   (action
    (run %{bin:dream_eml} %{dep:jobs.eml} --workspace %{workspace_root})))
-  (rule
+ (rule
   (targets outreachy.ml)
   (deps outreachy.eml)
   (action
