@@ -189,6 +189,14 @@
   (action
    (run %{bin:dream_eml} %{dep:footer.eml} --workspace %{workspace_root})))
  (rule
+  (target fixed_footer.ml)
+  (action
+   (run
+    %{bin:dream_eml}
+    %{dep:fixed_footer.eml}
+    --workspace
+    %{workspace_root})))
+ (rule
   (target header.ml)
   (action
    (run %{bin:dream_eml} %{dep:header.eml} --workspace %{workspace_root})))
