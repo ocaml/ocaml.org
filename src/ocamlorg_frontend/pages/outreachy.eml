@@ -21,7 +21,7 @@ Layout.render
               </div>
               <div class="grid grid-cols-1 auto-rows-max gap-10">
                   <% rounds.projects |> List.iter (fun (project : Ood.Outreachy.project) -> %>
-                          <div x-data="{'is_shown': false}" id="projects" class="p-5 rounded-2xl items-center w-full max-w-prose">
+                          <div x-data="{'is_shown': false}" class="p-5 rounded-2xl items-center w-full max-w-prose">
                               <div class="flex flex-col h-full space-y-2">                 
                                   <h2 class="text-lg text-black font-semibold"><%s project.title %></h2>
                                   <div >Mentee: <span class='text-gray-800 italic'><%s project.mentee %></span></div>
@@ -41,14 +41,10 @@ Layout.render
                                         <a href="<%s blog %>" class="hover:underline" target="_blank">Blog</a> 
                                       </div>
                                         <% ); %>
-                                    <% (match project.video with None -> () | Some video -> %>
-                                        <div>                        
+                                    <% (match project.video with None -> () | Some video -> %>                     
                                         <a href="<%s video %>" class='hover:underline' target="_blank">Video</a> 
-                                        </div>
                                     <% ); %>
-                                      <div>
-                                          <a href="<%s project.source %>" class='hover:underline' target="_blank">Source</a> 
-                                      </div>
+                                        <a href="<%s project.source %>" class='hover:underline' target="_blank">Source</a>
                                     </div>
                               </div>
                           </div>
