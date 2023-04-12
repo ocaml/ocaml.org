@@ -83,7 +83,7 @@ body {
 }
 
 .code-preview {
-  font-family: "Menlo", monospace;
+  font-family: Roboto Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
 }
 .code-blue {
     color: #569CD6;
@@ -153,6 +153,10 @@ body {
   margin-left: -2.9em;
   margin-top: 0;
   font-size: 1rem;
+}
+
+tt {
+  font-family: Roboto Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
 }
 
 .sidebar a.active {
