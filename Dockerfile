@@ -1,5 +1,7 @@
 FROM ocaml/opam:alpine-3.17-ocaml-4.14 as build
 
+COPY --chown=opam:opam . .
+
 RUN pwd && ls -lah
 
 RUN git rev-parse HEAD
@@ -23,7 +25,6 @@ RUN pwd & ls -lah
 RUN md5sum playground/asset/playground.min.js
 
 # Build project
-COPY --chown=opam:opam . .
 RUN opam exec -- dune build @install --profile=release
 
 # Launch project in order to generate the package state cache
