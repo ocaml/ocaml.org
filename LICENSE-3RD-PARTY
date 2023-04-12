@@ -92,7 +92,7 @@ Copyright: Copyright (c) 2020 Ryan Chandler and contributors
 asset/vendors/htmx.min.js:
 
 Name:      Htmx
-Version:   1.8.4
+Version:   1.9.0
 URL:       https://htmx.org/
 License:   BSD 2-Clause License
 Copyright: Copyright (c) 2020 Big Sky Software
