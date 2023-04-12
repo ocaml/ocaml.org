@@ -2,6 +2,8 @@ FROM ocaml/opam:alpine-3.17-ocaml-4.14 as build
 
 RUN pwd && ls -lah
 
+RUN git rev-parse HEAD
+
 # Install system dependencies
 RUN sudo apk update && sudo apk add --update libev-dev openssl-dev gmp-dev oniguruma-dev inotify-tools
 
