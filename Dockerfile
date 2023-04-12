@@ -1,10 +1,6 @@
 FROM ocaml/opam:alpine-3.17-ocaml-4.14 as build
 
-RUN ls -lah
-
-RUN git rev-parse HEAD
-
-RUN md5sum playground/asset/playground.min.js
+RUN pwd && ls -lah
 
 # Install system dependencies
 RUN sudo apk update && sudo apk add --update libev-dev openssl-dev gmp-dev oniguruma-dev inotify-tools
@@ -14,9 +10,15 @@ RUN cd opam-repository && git checkout -b freeze b457e9f3d6 && opam update
 
 WORKDIR /home/opam
 
+RUN pwd & ls -lah
+
 # Install Opam dependencies
 ADD ocamlorg.opam ocamlorg.opam
 RUN opam install . --deps-only
+
+RUN pwd & ls -lah
+
+RUN md5sum playground/asset/playground.min.js
 
 # Build project
 COPY --chown=opam:opam . .
