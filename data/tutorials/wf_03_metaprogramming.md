@@ -240,8 +240,10 @@ val x : int = 3
 
 Note that the Parsetree is an internal representation of the code that happens
 before typing the program, so an ill-typed program can be rewritten. The
-internal representation after the typing is called the `Typedtree`, and it can be
-inspected using the `-dtypedtree` option of `ocaml`. In what follows,
+internal representation after the typing is called the `Typedtree`. You can
+inspect it by using the `-dtypedtree` option of `ocaml`.
+When using `utop-full`, you can enable `-dtypedtree` within the REPL by running
+`Clflags.dump_typedtree := true`. In what follows,
 we will use AST to refer to the parsetree.
 
 ### PPX Rewriters
