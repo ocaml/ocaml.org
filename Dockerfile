@@ -1,5 +1,7 @@
 FROM ocaml/opam:alpine-3.17-ocaml-4.14 as build
 
+RUN ls -lah
+
 RUN git rev-parse HEAD
 
 RUN md5sum playground/asset/playground.min.js
