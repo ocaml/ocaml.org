@@ -1,7 +1,7 @@
 FROM ocaml/opam:alpine-3.17-ocaml-4.14 as build
 
 # Install system dependencies
-RUN sudo apk update && sudo apk add --update libev-dev openssl-dev gmp-dev oniguruma-dev inotify-tools
+RUN sudo apk update && sudo apk add --update git-lfs libev-dev openssl-dev gmp-dev oniguruma-dev inotify-tools
 
 # Branch freeze was opam-repo HEAD at the time of commit
 RUN cd opam-repository && git checkout -b freeze b457e9f3d6 && opam update
@@ -12,8 +12,11 @@ WORKDIR /home/opam
 ADD ocamlorg.opam ocamlorg.opam
 RUN opam install . --deps-only
 
-# Build project
+# Setup Files
 COPY --chown=opam:opam . .
+RUN git lfs init && git lfs pull
+
+# Build project
 RUN opam exec -- dune build @install --profile=release
 
 # Launch project in order to generate the package state cache
