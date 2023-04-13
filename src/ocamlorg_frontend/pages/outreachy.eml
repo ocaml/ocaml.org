@@ -8,46 +8,42 @@ Layout.render
     <div class="container-fluid">
         <div class="text-center prose w-full lg:w-2/3 m-auto">
             <h1 class="font-bold mb-6">OCaml Outreachy Internships</h1>
-            <p>This is record of all past OCaml Community <a href="https://www.outreachy.org/" target="_blank">Outreachy</a> Internship Projects.</p>
+            <p>This is a record of all past OCaml Community <a href="https://www.outreachy.org/" target="_blank">Outreachy</a> Internship Projects.</p>
         </div>
     </div>
 </div>
 
 <div class="py-12 bg-white">
-  <div class="container relative mx-auto px-4 items-center">
-          <% metadata |> List.iter (fun (rounds : Ood.Outreachy.t) -> %>
-              <div class="block border-b border-[#EF8316] p-6 text-left my-2">
-                  <h2 class="font-bold"><%s rounds.name %></h2>
-              </div>
-              <div class="grid grid-cols-1 auto-rows-max gap-10">
-                  <% rounds.projects |> List.iter (fun (project : Ood.Outreachy.project) -> %>
-                          <div x-data="{'is_shown': false}" class="p-5 rounded-2xl items-center w-full max-w-prose">
-                              <div class="flex flex-col h-full space-y-2">                 
-                                  <h2 class="text-lg text-black font-semibold"><%s project.title %></h2>
-                                  <div >Mentee: <span class='text-gray-800 italic'><%s project.mentee %></span></div>
-                                  <div>Mentor(s): <span class='text-gray-800 italic'><%s Fmt.(str "%a" (list ~sep:comma string) project.mentors) %></span></div>
-                                  <% if String.length project.description > 240 then ( %>
+    <div class="container relative mx-auto px-4 items-center">
+        <% metadata |> List.iter (fun (rounds : Ood.Outreachy.t) -> %>
+            <h2 class="border-b border-[#EF8316] p-6 my-2 font-bold"><%s rounds.name %></h2>
+                <div class="grid grid-cols-1 auto-rows-max gap-10 max-w-prose">
+                    <% rounds.projects |> List.iter (fun (project : Ood.Outreachy.project) -> %>
+                        <div x-data="{'is_shown': false}" class="p-5 items-center w-full ">
+                            <div class="flex flex-col h-full space-y-2">                 
+                                <h2 class="text-lg text-black font-semibold"><%s project.title %></h2>
+                                <div>Mentee: <span class='text-gray-800 italic'><%s project.mentee %></span></div>
+                                <div>Mentor(s): <span class='text-gray-800 italic'><%s Fmt.(str "%a" (list ~sep:comma string) project.mentors) %></span></div>
+                                <% if String.length project.description > 240 then ( %>
                                     <div :class="is_shown ? '' : 'relative max-h-20 overflow-hidden'">
-                                    <div class="absolute bottom-0 h-10 w-full bg-gradient-to-t from-white"></div> 
+                                        <div class="absolute bottom-0 h-10 w-full bg-gradient-to-t from-white"></div> 
+                                        <p> <%s project.description %> </p>
+                                    </div>
+                                    <span x-on:click="is_shown= !is_shown" class='cursor-pointer hover:underline text-primary-700 font-semibold' x-text="is_shown ? 'Show Less' : 'Show More'"></span>
+                                <% ) else ( %>
                                     <p> <%s project.description %> </p>
-                                  </div>
-                                  <span x-on:click="is_shown= !is_shown" class='cursor-pointer hover:underline text-[#EF8316] font-semibold' x-text="is_shown ? 'Show Less' : 'Show More'"></span>
-                                  <% ) else ( %>
-                                  <p> <%s project.description %> </p>
-                                  <% ); %>
-                                  <div class='text-[#EF8316] font-semibold flex flex-row items-center space-x-4'>
-                                      <% (match project.blog with None -> () | Some blog -> %>
-                                      <div class"flex-wrap">                        
-                                        <a href="<%s blog %>" class="hover:underline" target="_blank">Blog</a> 
-                                      </div>
-                                        <% ); %>
+                                <% ); %>
+                                <div class='text-primary-700 font-semibold flex flex-row items-center gap-4'>
+                                    <% (match project.blog with None -> () | Some blog -> %>
+                                        <a href="<%s blog %>" class="hover:underline" target="_blank">Blog</a>
+                                    <% ); %>
                                     <% (match project.video with None -> () | Some video -> %>                     
                                         <a href="<%s video %>" class='hover:underline' target="_blank">Video</a> 
                                     <% ); %>
-                                        <a href="<%s project.source %>" class='hover:underline' target="_blank">Source</a>
-                                    </div>
-                              </div>
-                          </div>
+                                    <a href="<%s project.source %>" class='hover:underline' target="_blank">Source</a>
+                                </div>
+                            </div>
+                        </div>
                   <% ); %>
               </div>
               <br>

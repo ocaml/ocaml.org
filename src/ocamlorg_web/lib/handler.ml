@@ -20,10 +20,6 @@ let platform _req =
   let tutorials = Ood.Tutorial.all in
   Dream.html (Ocamlorg_frontend.platform ~tutorials tools)
 
-let _outreachy _req =
-  let outreachy = Ood.Outreachy.all in
-  Dream.html (Ocamlorg_frontend.outreachy outreachy)
-
 let community _req =
   let workshops = Ood.Workshop.all in
   let meetups = Ood.Meetup.all in
