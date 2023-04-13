@@ -19,7 +19,7 @@ Layout.render
 ?canonical
 ~active_top_nav_item:Header.Packages
 ~footer_html:(Fixed_footer.render ()) @@
-<div class="bg-white" x-data="{ q : ''}">
+<div class="bg-white" x-data="{ q : '', search_input_focused : false}">
   <div class="pt-6">
     <div class="container-fluid wide">
       <div class="flex justify-between flex-col md:flex-row">
@@ -73,6 +73,8 @@ Layout.render
               hx-target="#search-results"
               hx-indicator="#search-indicator"
 
+              x-on:focus="search_input_focused = true"
+              x-on:blur="search_input_focused = false"
               x-on:keyup="q = event.target.value"
               >
             <button aria-label="search" class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
@@ -93,10 +95,10 @@ Layout.render
           </div>
 
           <div class="flex-1 z-0 z- min-w-0 pt-6 pb-12 md:pb-[70vh] prose"
-            x-show="q != ''">
+            x-show="q != '' || search_input_focused">
             <div id="search-indicator"></div>
 
-            <p>
+            <p x-show="q == ''">
               Note: Currently, only <b>one single version</b> of this package is indexed.
               This is not necessarily the version you're viewing on this page.
               We're showing results from <a href="https://doc.sherlocode.com/">Sherlodoc</a>.
@@ -110,12 +112,12 @@ Layout.render
           </div>
 
           <div class="flex-1 z-0 z- min-w-0 pt-6 pb-12 md:pb-[70vh]"
-            x-show="q == ''">
+            x-show="q == '' && !search_input_focused">
             <%s! inner %>
           </div>
           <% (if right_sidebar_html <> "" then %>
           <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto md:pb-24"
-            x-show="q == ''">
+            x-show="q == '' && !search_input_focused">
             <%s! right_sidebar_html %>
           </div>
           <% ); %>
