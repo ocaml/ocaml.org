@@ -8,10 +8,6 @@ RUN cd opam-repository && git pull origin 9cf27a6683dc4e56ccf7e35c008198828bd5c2
 
 WORKDIR /home/opam
 
-# Setup Files
-COPY --chown=opam:opam . .
-RUN git lfs install && git lfs pull
-
 # Install Opam dependencies
 ADD ocamlorg.opam ocamlorg.opam
 RUN opam install . --deps-only
