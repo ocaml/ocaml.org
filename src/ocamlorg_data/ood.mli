@@ -189,6 +189,8 @@ module Tool : sig
 end
 
 module Tutorial : sig
+  type toc = { title : string; href : string; children : toc list }
+
   type t = {
     title : string;
     fpath : string;
@@ -197,7 +199,7 @@ module Tutorial : sig
     date : string;
     category : string;
     body_md : string;
-    toc_html : string;
+    toc : toc list;
     body_html : string;
   }
 

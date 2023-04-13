@@ -19,7 +19,7 @@ let render (t : t) =
     <ol class="leading-6 text-sm border-l">
       <% t |> List.iter begin fun item -> %>
         <li>
-          <a href="<%s item.href %>" class="text-gray-900 py-1 px-2 block transition-colors border-l-4 border-t-2 border-b-2 border-r-2 border-transparent rounded"
+          <a href="<%s item.href %>" class="text-gray-900 py-2 px-2 block transition-colors border-l-4 border-t-2 border-b-2 border-r-2 border-transparent rounded"
             :class='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "font-semibold border-l-primary-700 text-primary-700 bg-primary-200": "hover:text-primary-700"'
           >
             <%s! item.title %>
@@ -33,6 +33,19 @@ let render (t : t) =
                 >
                   <%s! item.title %>
                 </a>
+                <% match item.children with [] -> () | items -> %>
+                <ol>
+                  <% items |> List.iter begin fun item -> %>
+                  <li>
+                    <a href="<%s item.href %>" class="text-body-600 py-1 md:py-0 pl-8 block transition-colors border-l-4 border-t-2 border-b-2 border-r-2 border-transparent rounded"
+                      :class='isWithin(scrollY, "<%s item.href %>", sectionYPositions) ? "font-semibold border-l-primary-700 text-primary-700 bg-primary-200": "hover:text-primary-700"'
+                    >
+                      <%s! item.title %>
+                    </a>
+                  </li>
+                  <% end; %>
+                </ol>
+                <% ; %>
               </li>
               <% end; %>
             </ol>
