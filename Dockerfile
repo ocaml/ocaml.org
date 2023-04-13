@@ -8,13 +8,13 @@ RUN cd opam-repository && git checkout -b freeze b457e9f3d6 && opam update
 
 WORKDIR /home/opam
 
+# Setup Files
+COPY --chown=opam:opam . .
+RUN git lfs install && git lfs pull
+
 # Install Opam dependencies
 ADD ocamlorg.opam ocamlorg.opam
 RUN opam install . --deps-only
-
-# Setup Files
-COPY --chown=opam:opam . .
-RUN git lfs init && git lfs pull
 
 # Build project
 RUN opam exec -- dune build @install --profile=release
