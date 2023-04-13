@@ -12,6 +12,10 @@ WORKDIR /home/opam
 ADD ocamlorg.opam ocamlorg.opam
 RUN opam install . --deps-only
 
+# Setup Files
+COPY --chown=opam:opam . .
+RUN git lfs init && git lfs pull
+
 # Build project
 COPY --chown=opam:opam . .
 RUN opam exec -- dune build @install --profile=release
