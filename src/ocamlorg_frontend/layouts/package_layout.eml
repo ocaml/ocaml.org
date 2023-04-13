@@ -19,7 +19,7 @@ Layout.render
 ?canonical
 ~active_top_nav_item:Header.Packages
 ~footer_html:(Fixed_footer.render ()) @@
-<div class="bg-white">
+<div class="bg-white" x-data="{ q : ''}">
   <div class="pt-6">
     <div class="container-fluid wide">
       <div class="flex justify-between flex-col md:flex-row">
@@ -60,14 +60,27 @@ Layout.render
             </li>
           </ol>
 
-          <div title="Sorry, in-package search is not yet implemented, but this is where it's going to appear." class="flex w-full items-center">
-            <input disabled type="search" name="q" class="focus:border-gray-800 text-gray-800 bg-gray-300 border-gray-300 h-10 rounded-l-md appearance-none px-4 flex-grow"
+          <form class="flex w-full items-center"
+            action="https://doc.sherlocode.com/api" method="GET"
+            >
+            <input type="search" name="q" class="focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 flex-grow"
               autocomplete="off"
-              placeholder="Sorry, in-package search is not yet implemented, but this is where it's going to appear :-)">
-            <button disabled aria-label="search" class="h-10 rounded-r-md bg-gray-300 text-gray-800 flex items-center justify-center px-4">
+              placeholder="Search most recently-indexed version of this package..."
+              hx-get="https://doc.sherlocode.com/api"
+              hx-params="*"
+              hx-vals='{ "packages" : "<%s Dream.to_percent_encoded package.name %>", "limit" : 10}'
+              hx-trigger="keyup[target.value.length > 1] changed delay:300ms, search"
+              hx-target="#search-results"
+              hx-indicator="#search-indicator"
+
+              x-on:keyup="q = event.target.value"
+              >
+            <button aria-label="search" class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
               <%s! Icons.magnifying_glass "w-6 h-6" %>
             </button>
-          </div>
+            <input class="hidden" name="packages" type="text" value="<%s Dream.to_percent_encoded package.name %>">
+            <input class="hidden" name="limit" type="number" value="10">
+          </form>
         </div>
 
         <div class="flex md:gap-4 xl:gap-10">
@@ -78,11 +91,31 @@ Layout.render
             x-transition:leave-end="-translate-x-full">
             <%s! left_sidebar_html %>
           </div>
-          <div class="flex-1 z-0 z- min-w-0 pt-6 pb-12 md:pb-[70vh]">
+
+          <div class="flex-1 z-0 z- min-w-0 pt-6 pb-12 md:pb-[70vh] prose"
+            x-show="q != ''">
+            <div id="search-indicator"></div>
+
+            <p>
+              Note: Currently, only <b>one single version</b> of this package is indexed.
+              This is not necessarily the version you're viewing on this page.
+              We're showing results from <a href="https://doc.sherlocode.com/">Sherlodoc</a>.
+              Work on indexing more package versions and improving this search is ongoing,
+              but we felt that there's a chance you might already have a bit of fun with this
+              rough-around-the-edges work-in-progress.
+            </p>
+
+            <div id="search-results">
+            </div>
+          </div>
+
+          <div class="flex-1 z-0 z- min-w-0 pt-6 pb-12 md:pb-[70vh]"
+            x-show="q == ''">
             <%s! inner %>
           </div>
           <% (if right_sidebar_html <> "" then %>
-          <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto md:pb-24">
+          <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto md:pb-24"
+            x-show="q == ''">
             <%s! right_sidebar_html %>
           </div>
           <% ); %>
