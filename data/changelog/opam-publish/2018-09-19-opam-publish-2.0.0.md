@@ -4,4 +4,5 @@ date: "2018-09-19"
 tags: [opam-publish, platform]
 ---
 
-TODO: CHANGELOG
+* Switch default branch from 2.0.0 to master
+* Minor fix

@@ -4,4 +4,4 @@ date: "2018-09-24"
 tags: [dune-release, platform]
 ---
 
-TODO: CHANGELOG
+- Fix opam2 format upgrade when submitting a PR (#91, @samoht)

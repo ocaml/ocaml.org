@@ -4,4 +4,5 @@ date: "2018-10-11"
 tags: [opam-publish, platform]
 ---
 
-TODO: CHANGELOG
+* Handle descr, url and files in the rewriting
+* Minor fix

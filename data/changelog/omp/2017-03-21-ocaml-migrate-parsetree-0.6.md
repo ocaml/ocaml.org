@@ -1,7 +1,0 @@
----
-title: Omp ocaml-migrate-parsetree-0.6
-date: "2017-03-21"
-tags: [omp, platform]
----
-
-TODO: CHANGELOG
