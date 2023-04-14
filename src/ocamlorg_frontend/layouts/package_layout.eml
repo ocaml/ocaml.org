@@ -63,19 +63,19 @@ Layout.render
           <form class="flex w-full items-center"
             action="https://doc.sherlocode.com/api" method="GET"
             >
-            <input type="search" name="q" class="focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 flex-grow"
+            <input id="in_package_search" type="search" name="q" class="focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 flex-grow"
               autocomplete="off"
               placeholder="Search most recently-indexed version of this package..."
               hx-get="https://doc.sherlocode.com/api"
               hx-params="*"
-              hx-vals='{ "packages" : "<%s Dream.to_percent_encoded package.name %>", "limit" : 10}'
-              hx-trigger="keyup[target.value.length > 1] changed delay:300ms, search"
+              hx-vals='js:{ "packages" : "<%s Dream.to_percent_encoded package.name %>", "limit" : 10, q: document.getElementById("in_package_search").value.trim()}'
+              hx-trigger="keyup[target.value.trim().length > 1] changed delay:300ms, search"
               hx-target="#search-results"
               hx-indicator="#search-indicator"
 
               x-on:focus="search_input_focused = true"
               x-on:blur="search_input_focused = false"
-              x-on:keyup="q = event.target.value"
+              x-on:keyup="q = event.target.value.trim()"
               >
             <button aria-label="search" class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
               <%s! Icons.magnifying_glass "w-6 h-6" %>
