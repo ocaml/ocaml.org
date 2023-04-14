@@ -5,16 +5,14 @@ Layout.render
 ~description:"Records Of OCaml Community Past Outreachy Internship Projects"
 ~canonical:Url.outreachy @@
 <div class="intro-section-simple">
-    <div class="container-fluid">
-        <div class="text-center prose w-full lg:w-2/3 m-auto">
-            <h1 class="font-bold mb-6">OCaml Outreachy Internships</h1>
-            <p>This is a record of all past OCaml Community <a href="https://www.outreachy.org/" target="_blank">Outreachy</a> Internship Projects.</p>
-        </div>
+    <div class="container-fluid text-center prose">
+        <h1 class="font-bold mb-6">OCaml Outreachy Internships</h1>
+        <p>This is a record of all past OCaml Community <a href="https://www.outreachy.org/" target="_blank">Outreachy</a> Internship Projects.</p>
     </div>
 </div>
 
 <div class="py-12 bg-white">
-    <div class="container relative mx-auto px-4 items-center">
+    <div class="container-fluid">
         <% metadata |> List.iter (fun (rounds : Ood.Outreachy.t) -> %>
             <h2 class="border-b border-primary-700 p-6 my-2 font-bold"><%s rounds.name %></h2>
             <div class="grid gap-10 prose max-w-4xl">
