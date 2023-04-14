@@ -75,7 +75,7 @@ Layout.render
               hx-indicator="#search-indicator"
 
               x-on:focus="search_input_focused = true"
-              x-on:blur="search_input_focused = false"
+              x-on:blur="setTimeout(() => search_input_focused = false, 100)"
               x-on:keyup="q = event.target.value.trim()"
               >
             <button aria-label="search" class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
