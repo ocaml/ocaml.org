@@ -48,7 +48,7 @@ Layout_template.render ~prefix ~title:"Overview" ~nav:Overview @@
 
   <div class="px-6 py-5 shadow rounded-lg overflow-hidden sm:p-6 space-y-12 cards">
     <dt class="text-base font-semibold truncate">Git Commit Hash</dt>
-    <span class="text-lg font-semibold"><%s commit %></span>
+    <a target="_blank" href="https://github.com/ocaml/ocaml.org/commit/<%s commit %>" class="text-lg underline font-semibold"><%s commit %></a>
   </div>
 
   <div>
