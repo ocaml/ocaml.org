@@ -21,7 +21,7 @@ Layout.render
 ~footer_html:(Fixed_footer.render ()) @@
 <div class="bg-white">
   <div class="pt-6">
-    <div class="container-fluid">
+    <div class="container-fluid wide">
       <div class="flex justify-between flex-col md:flex-row">
         <div class="flex flex-col items-baseline">
           <%s! Package_breadcrumbs.render ~path ?hash ?page package %>
@@ -37,7 +37,7 @@ Layout.render
           :class='sidebar ? "" : "hidden"' aria-hidden="true" x-on:click="sidebar = ! sidebar">
         </div>
 
-        <div class="flex gap-4 xl:gap-8 flex-col md:flex-row mt-6">
+        <div class="flex gap-4 xl:gap-10 flex-col md:flex-row mt-6">
           <ol class="flex w-full md:w-60 lg:w-72 flex-shrink-0">
             <li class="flex flex-auto">
               <a class="w-full h-10 flex justify-center rounded-l-lg p-1 items-center font-semibold border border-r-0 border-primary-700 <%s (match path with | Overview _ -> "bg-primary-700 text-white" | _ -> "text-primary-700")%>" href="<%s Url.Package.overview package.name ?version:(Package.url_version package) %>">Overview</a>
@@ -70,7 +70,7 @@ Layout.render
           </div>
         </div>
 
-        <div class="flex md:gap-4 xl:gap-8">
+        <div class="flex md:gap-4 xl:gap-10">
           <div
             class="p-10 z-20 bg-white flex-col fixed h-screen overflow-auto md:flex left-0 top-0 md:sticky w-80 md:w-60 lg:w-72 md:px-0 md:pt-6 md:pb-24"
             x-show="sidebar" x-transition:enter="transition duration-200 ease-out"
