@@ -140,6 +140,7 @@ type dependencies_and_conflicts = {
   title: string;
   slug: string;
   items: dependency_or_conflict list;
+  collapsible: bool;
 }
 
 let right_sidebar
@@ -166,9 +167,31 @@ let render_dependency ~name ~cstr ~version =
     <% ; %>
   </li>
 in
-let render_section_heading ~title ~id =
-  <div class="border-l-4 px-4 -ml-4 mb-6 mt-12 border-transparent border-l-body-400 rounded border-t-2 border-b-2 border-r-2">
-    <h2 id="<%s id %>" class="text-xl font-medium my-2"><%s title %></h2>
+let num_of_dependencies_to_show = 100 in
+let render_collapsible_dependencies section =
+  let is_collapsible = section.collapsible && List.length section.items > num_of_dependencies_to_show in
+  <div <%s! if is_collapsible then "x-data='{ open: false }'" else "" %>>
+    <div class="border-l-4 px-4 -ml-4 mb-6 mt-12 border-transparent border-l-body-400 rounded border-t-2 border-b-2 border-r-2">
+      <h2 id="<%s section.slug %>" class="text-xl font-medium my-2">
+        <% if is_collapsible then (%>
+        <button class="flex gap-2 items-center" x-on:click="open = !open; $dispatch('resize')"><%s section.title %>
+          <span title="expand" x-show="!open"><%s! Icons.chevron_right "h-5 w-5" %></span><span title="collapse" x-show="open"><%s! Icons.chevron_down "h-5 w-5" %></span>
+        </button>
+        <% ) else ( %>
+        <%s section.title %>
+        <% ); %>
+      </h2>
+    </div>
+    <% if List.length section.items = 0 then ( %> None <% ) else ( %>
+      <ol class="grid lg:grid-cols-2" <%s! if is_collapsible then "x-show='open'" else "" %>>
+        <% section.items |> List.iter (fun { name; cstr; version } -> %>
+        <%s! render_dependency ~name ~cstr ~version %>
+        <% ); %>
+      </ol>
+      <% if is_collapsible then (%>
+      <button class="text-primary-700 py-4" x-on:click="open = !open; $dispatch('resize')" x-show="open">Hide</button>
+      <% ) else (); %>
+    <% ); %>
   </div>
 in
 let version = Package.url_version package in
@@ -211,20 +234,16 @@ Package_layout.render
       <div class="border-l-2 border-gray-200 px-4 space-y-6">
         <div class="mx-[-2px]">
           <% deps_and_conflicts |> List.iter (fun section -> %>
-            <%s! render_section_heading ~title:section.title ~id:section.slug %>
-            <ol class="grid lg:grid-cols-2">
-              <%s if List.length section.items = 0 then "None" else "" %>
-              <% section.items |> List.iter (fun { name; cstr; version } -> %>
-              <%s! render_dependency ~name ~cstr ~version %>
-              <% ); %>
-            </ol>
+            <%s! render_collapsible_dependencies section %>
           <% ); %>
         </div>
       </div>
       <% | Some content_title -> %>
       <div class="border-l-2 border-gray-200 px-4 space-y-6">
         <div class="mx-[-2px]">
-          <%s! render_section_heading ~title:content_title ~id:"content" %>
+          <div class="border-l-4 px-4 -ml-4 mb-6 mt-12 border-transparent border-l-body-400 rounded border-t-2 border-b-2 border-r-2">
+            <h2 id="content" class="text-xl font-medium my-2"><%s content_title %></h2>
+          </div>
           <div class="prose max-w-full">
             <%s! content %>
           </div>
