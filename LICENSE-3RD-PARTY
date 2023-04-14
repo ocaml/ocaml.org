@@ -97,6 +97,12 @@ URL:       https://htmx.org/
 License:   BSD 2-Clause License
 Copyright: Copyright (c) 2020 Big Sky Software
 
+Name:      Htmx Multi-swap extension
+Version:   1.9.0
+URL:       https://htmx.org/extensions/multi-swap/
+License:   BSD 2-Clause License
+Copyright: Copyright (c) 2020 Big Sky Software
+
 asset/vendors/swiper-bundle.min.css:
 asset/vendors/swiper-bundle.min.js:
 
