@@ -4,6 +4,15 @@
 
 ### Setting up the Project
 
+Before starting to hack you need a properly configured development environment. Linux and macOS are supported and used daily by the core team. System dependencies include:
+* Libev: http://software.schmorp.de/pkg/libev.html
+* Oniguruma: https://github.com/kkos/oniguruma
+* OpenSSL: https://www.openssl.org/
+* GNU Multiple Precision: https://gmplib.org/
+* Git LFS
+
+The project [`Dockerfile`](./Dockerfile) contains up-to-date system configuration instructions, as used to ship into production. It is written for the Alpine Linux distribution but is meant to be adapted to other environments such as Ubuntu, macOS+Homebrew or others. The GitHub workflow file [`.github/workflows/ci.yml`](.github/workflows/ci.yml) also contains useful commands for Ubuntu and macOS. Since ocaml.org is mostly written in OCaml, a properly configured OCaml development environment is also required, but is not detailed here. Although Docker is used to ship, it is not a requirement to begin hacking. Currently, ocaml.org doesn't yet compile using OCaml 5, version 4.14 of the language is used.
+
 The `Makefile` contains many commands that can get you up and running, a typical workflow will be to clone the repository after forking it.
 
 ```
@@ -81,9 +90,11 @@ in ocaml.org and merged as a pull request.
 
 ### Deploying
 
-Commits added on `main` are automatically deployed on <https://ocaml.org/>.
+Commits added on some branches are are automatically deployed:
+- `main` on <https://ocaml.org/>.
+- `staging` on <https://staging.ocaml.org/>.
 
-The deployment pipeline is managed in <https://github.com/ocurrent/ocurrent-deployer> which listens to the `main` branch and builds the site using the `Dockerfile` at the root of the project.
+The deployment pipeline is managed in <https://github.com/ocurrent/ocurrent-deployer> which listens to the `main` and `staging` branches and builds the site using the `Dockerfile` at the root of the project.
 
 To test the deployment locally, you can run the following commands:
 
@@ -95,6 +106,8 @@ docker run -p 8080:8080  ocamlorg
 This will build the docker image and run a docker container with the port `8080` mapped to the HTTP server.
 
 With the docker container running, you can visit the site at <http://localhost:8080/>.
+
+The docker images auytomatically build from the `live` and `staging` branches are pushed to Docker Hub: https://hub.docker.com/r/ocurrent/v3.ocaml.org-server
 
 ### Managing dependencies
 
