@@ -21,6 +21,9 @@ Layout.render
               <div class="text-body-400 flex space-x-2.5 text-sm">
                   <div><%s item.date %></div>
               </div>
+              <div class="prose prose-orange mx-auto max-w-5xl">
+                <%s! item.body_html %>
+              </div>
           </div>
         </div>
         <% ); %>
