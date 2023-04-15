@@ -11,6 +11,10 @@ module Book = struct
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
+module Changelog = struct
+  include Changelog
+end
+
 module Job = struct
   include Job
 end
@@ -71,8 +75,8 @@ module Tutorial = struct
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
-module Rss = struct
-  include Rss
+module Planet = struct
+  include Planet
 
   let featured = List.filter (fun x -> x.featured) all
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all

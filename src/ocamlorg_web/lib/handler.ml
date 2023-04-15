@@ -25,6 +25,10 @@ let community _req =
   let meetups = Ood.Meetup.all in
   Dream.html (Ocamlorg_frontend.community ~workshops ~meetups)
 
+let changelog _req =
+  let items = Ood.Changelog.all in
+  Dream.html (Ocamlorg_frontend.changelog items)
+
 let success_story req =
   let slug = Dream.param req "id" in
   let</>? success_story = Ood.Success_story.get_by_slug slug in
@@ -155,13 +159,18 @@ let paginate ~req ~n items =
 let blog req =
   let page, number_of_pages, current_items =
     paginate ~req ~n:10
-      (List.filter (fun (x : Ood.Rss.t) -> not x.featured) Ood.Rss.all)
+      (List.filter (fun (x : Ood.Planet.t) -> not x.featured) Ood.Planet.all)
   in
-  let featured = Ood.Rss.featured |> List.take 3 in
+  let featured = Ood.Planet.featured |> List.take 3 in
   let news = Ood.News.all |> List.take 20 in
   Dream.html
-    (Ocamlorg_frontend.blog ~featured ~rss:current_items ~rss_page:page
-       ~rss_pages_number:number_of_pages ~news)
+    (Ocamlorg_frontend.blog ~featured ~planet:current_items ~planet_page:page
+       ~planet_pages_number:number_of_pages ~news)
+
+let blog_post req =
+  let slug = Dream.param req "id" in
+  let</>? blog = Ood.Planet.get_by_slug slug in
+  Dream.html (Ocamlorg_frontend.blog_post blog)
 
 let news req =
   let page, number_of_pages, current_items = paginate ~req ~n:10 Ood.News.all in

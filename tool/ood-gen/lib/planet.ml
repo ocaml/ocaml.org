@@ -4,16 +4,17 @@ type sources = { sources : source list } [@@deriving yaml]
 type metadata = {
   title : string;
   description : string option;
-  url : string;
+  url : string option;
   date : string;
   preview_image : string option;
   featured : bool option;
+  authors : string list option;
 }
 [@@deriving yaml]
 
 let all_sources () =
   let bind f r = Result.bind r f in
-  "rss-sources.yml" |> Data.read
+  "planet-sources.yml" |> Data.read
   |> Option.to_result ~none:(`Msg "could not decode")
   |> bind Yaml.of_string |> bind sources_of_yaml |> Result.get_ok
 
@@ -67,7 +68,7 @@ let scrape () =
                 let title = River.title post in
                 let slug = Utils.slugify title in
                 let name = River.name (River.feed post) in
-                let output_file = "data/rss/" ^ name ^ "/" ^ slug ^ ".md" in
+                let output_file = "data/planet/" ^ name ^ "/" ^ slug ^ ".md" in
                 if Sys.file_exists output_file then
                   print_endline
                     (Printf.sprintf "%s/%s already exist, not scraping again"
@@ -92,14 +93,16 @@ let scrape () =
                       let url = Uri.to_string url in
                       let preview_image = River.seo_image post in
                       let description = River.meta_description post in
+                      let author = River.author post in
                       let metadata =
                         {
                           title;
-                          url;
+                          url = Some url;
                           date;
                           preview_image;
                           description;
                           featured = None;
+                          authors = Some [ author ];
                         }
                       in
                       let s =
@@ -111,8 +114,9 @@ let scrape () =
 type t = {
   title : string;
   slug : string;
-  url : string;
+  url : string option;
   description : string option;
+  authors : string list option;
   date : string;
   preview_image : string option;
   featured : bool;
@@ -129,11 +133,13 @@ let of_metadata m =
 
 let decode (_, (head, body)) =
   let metadata = metadata_of_yaml head in
-  let body_html = String.trim body in
+  let body_html =
+    Omd.to_html (Hilite.Md.transform (Omd.of_string (String.trim body)))
+  in
   Result.map (of_metadata ~body_html) metadata
 
 let all () =
-  Utils.map_files decode "rss/*/*.md"
+  Utils.map_files decode "planet/*/*.md"
   |> List.sort (fun a b -> String.compare b.date a.date)
 
 let template () =
@@ -143,7 +149,8 @@ type t =
   { title : string
   ; slug : string
   ; description : string option
-  ; url : string
+  ; authors : string list option
+  ; url : string option
   ; date : string
   ; preview_image : string option
   ; featured : bool

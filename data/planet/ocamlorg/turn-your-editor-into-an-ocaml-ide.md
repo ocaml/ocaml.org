@@ -3,7 +3,6 @@ title: "Turn your editor into a full fledged OCaml IDE"
 authors: [ "Frederic Bour", "Thomas Refis" ]
 date: "2014-08-21"
 description: "Presentation of IDE tools and workflows for OCaml"
-tags: [platform]
 ---
 
 This post is a short presentation of a couple of tools you can use with your

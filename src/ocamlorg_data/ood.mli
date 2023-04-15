@@ -48,6 +48,18 @@ module Book : sig
   val get_by_slug : string -> t option
 end
 
+module Changelog : sig
+  type t = {
+    title : string;
+    slug : string;
+    date : string;
+    tags : string list;
+    body_html : string;
+  }
+
+  val all : t list
+end
+
 module Job : sig
   type t = {
     title : string;
@@ -244,12 +256,13 @@ module Watch : sig
   val all : t list
 end
 
-module Rss : sig
+module Planet : sig
   type t = {
     title : string;
     slug : string;
     description : string option;
-    url : string;
+    authors : string list option;
+    url : string option;
     date : string;
     preview_image : string option;
     featured : bool;
