@@ -10,7 +10,7 @@ let render (t : t) =
   <div
     x-data='toc'
     @scroll.window="scrollY = window.scrollY"
-    @resize.window.throttle="sectionYPositions = computeSectionYPositions($el)"
+    @resize.window="setTimeout(() => sectionYPositions = computeSectionYPositions($el), 10)"
     x-init="setTimeout(() => sectionYPositions = computeSectionYPositions($el), 10)"
     >
     <% (match t with [] ->  %>

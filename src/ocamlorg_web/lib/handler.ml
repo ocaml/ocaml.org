@@ -483,22 +483,26 @@ let package_overview t kind req =
         title = title_with_number "Dependencies" (List.length dependencies);
         slug = "dependencies";
         items = dependencies;
+        collapsible = false;
       };
       {
         title =
           title_with_number "Dev Dependencies" (List.length dev_dependencies);
         slug = "development-dependencies";
         items = dev_dependencies;
+        collapsible = false;
       };
       {
         title = title_with_number "Used by" (List.length rev_dependencies);
         slug = "used-by";
         items = rev_dependencies;
+        collapsible = true;
       };
       {
         title = title_with_number "Conflicts" (List.length conflicts);
         slug = "conflicts";
         items = conflicts;
+        collapsible = false;
       };
     ]
   in
