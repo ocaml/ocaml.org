@@ -4,7 +4,7 @@ date: "2023-02-20-02"
 tags: [dune, platform]
 ---
 
-Dune 3.7 now supports watch mode for executables! :tada:
+Dune 3.7 now supports watch mode for executables! 🎉
 
 It works just as you'd expect, if you define an executable, you can run it with
 
