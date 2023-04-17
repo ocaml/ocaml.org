@@ -48,7 +48,7 @@
   fmt
   logs
   (omd
-   (= "2.0.0~alpha2"))
+   (= "2.0.0~alpha3"))
   opam-format
   (timedesc
    (>= 0.8.0))
