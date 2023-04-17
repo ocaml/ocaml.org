@@ -12,28 +12,29 @@ Layout.render
       <p class="text-lg text-body-400 mt-6">Read the latest releases and updates from the OCaml ecosystem.</p>
     </div>
 
-    <div class="mt-20">
-      <div class="mx-auto leading-5">
+    <div class="mt-20 md:pl-8 md:border-l-2">
+      <div class="flex flex-col gap-6 lg:gap-8 mx-auto">
         <% news |> List.iter (fun (item : Ood.Changelog.t) -> %>
-        <article class="flex relative flex-wrap -mx-6 leading-5">
-          <div class="relative px-6 pt-8 pb-6 w-full md:w-5/12 md:pt-12">
+        <article class="flex flex-col lg:flex-row relative gap-6 lg:gap-12">
+          <div class="relative md:w-80 pb-6 lg:pb-8">
             <div class="sticky" style="top: 128px; word-break: keep-all;">
+              <div class="hidden md:absolute md:block -left-11 bg-white w-6 h-6 mt-0.5 text-primary-700">
+                <%s! Icons.changelog "w-6 h-6" %>
+              </div>
               <h2
-                class="my-0 font-sans text-xl font-semibold tracking-normal leading-6 md:text-2xl md:font-extrabold md:leading-7">
+                class="my-0 font-sans text-2xl tracking-normal font-extrabold leading-7 changelog-title">
                 <%s item.title %>
               </h2>
               <time datetime="<%s item.date %>" class="block mt-3 font-sans text-sm text-gray-600"><%s item.date %></time>
               <div class="mt-3 flex flex-row justify-start space-x-4">
-                <button type="button" class="rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Tag 1</button>
-                <button type="button" class="rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Tag 2</button>
+                <button type="button" class="whitespace-nowrap rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Tag 1</button>
+                <button type="button" class="whitespace-nowrap rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Tag 2</button>
               </div>
             </div>
           </div>
-          <div class="px-6 w-full md:w-7/12">
-            <div class="pt-0 pb-8 ml-12 border-b border-gray-300 border-solid md:ml-0 md:py-12">
-              <div class="prose prose-orange mx-auto">
-                <%s! item.body_html %>
-              </div>
+          <div class="border-b border-gray-300 border-solid pb-6 lg:pb-8">
+            <div class="prose prose-orange">
+              <%s! item.body_html %>
             </div>
           </div>
         </article>
