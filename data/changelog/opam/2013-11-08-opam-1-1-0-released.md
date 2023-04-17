@@ -4,6 +4,25 @@ authors: [ "Thomas Gazagnaire" ]
 date: "2013-11-08"
 description: "Release announcement for OPAM 1.1.0"
 tags: [platform]
+changelog: |
+   Too many to list here, see
+   [https://raw.github.com/OCamlPro/opam/1.1.0/CHANGES](https://raw.github.com/OCamlPro/opam/1.1.0/CHANGES)
+
+   For packagers, some new fields have appeared in the OPAM description format:
+   - `depexts` provides facilities for dealing with system (non ocaml) dependencies
+   - `messages`, `post-messages` can be used to notify the user eg. of licensing information,
+   or help her  troobleshoot at package installation.
+   - `available` supersedes `ocaml-version` and `os` constraints, and can contain
+   more expressive formulas
+
+   Also, we have integrated the main package repository with Travis, which will
+   help us to improve the quality of contributions (see [Anil's post][2]).
+
+   [opam.ocaml.org]: https://opam.ocaml.org
+   [opam.ocamlpro.com]: http://opam.ocamlpro.com
+   [repo]: http://github.com/ocaml/opam-repository
+   [1]: https://launchpad.net/~avsm/+archive/ppa/+builds?build_state=pending
+   [2]: http://anil.recoil.org/2013/09/30/travis-and-ocaml.html
 ---
 
 After a while staged as RC, we are proud to announce the final release of
@@ -63,24 +82,3 @@ domain, to ensure they will always belong to the community.
 
 Thanks to all of you who have helped build this repository and made OPAM
 such a success.
-
-## Changes ##
-
-Too many to list here, see
-[https://raw.github.com/OCamlPro/opam/1.1.0/CHANGES](https://raw.github.com/OCamlPro/opam/1.1.0/CHANGES)
-
-For packagers, some new fields have appeared in the OPAM description format:
-- `depexts` provides facilities for dealing with system (non ocaml) dependencies
-- `messages`, `post-messages` can be used to notify the user eg. of licensing information,
- or help her  troobleshoot at package installation.
-- `available` supersedes `ocaml-version` and `os` constraints, and can contain
- more expressive formulas
-
-Also, we have integrated the main package repository with Travis, which will
-help us to improve the quality of contributions (see [Anil's post][2]).
-
-[opam.ocaml.org]: https://opam.ocaml.org
-[opam.ocamlpro.com]: http://opam.ocamlpro.com
-[repo]: http://github.com/ocaml/opam-repository
-[1]: https://launchpad.net/~avsm/+archive/ppa/+builds?build_state=pending
-[2]: http://anil.recoil.org/2013/09/30/travis-and-ocaml.html

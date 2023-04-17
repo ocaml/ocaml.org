@@ -4,6 +4,7 @@ type metadata = {
   tags : string list;
   authors : string list option;
   description : string option;
+  changelog : string option;
 }
 [@@deriving of_yaml]
 
@@ -12,11 +13,13 @@ type t = {
   date : string;
   slug : string;
   tags : string list;
+  changelog_html : string option;
   body_html : string;
 }
 [@@deriving
-  stable_record ~version:metadata ~add:[ authors; description ]
-    ~remove:[ slug; body_html ],
+  stable_record ~version:metadata
+    ~add:[ authors; changelog; description ]
+    ~remove:[ slug; changelog_html; body_html ],
     show { with_path = false }]
 
 let decode (fname, (head, body)) =
@@ -25,7 +28,19 @@ let decode (fname, (head, body)) =
   let body_html =
     Omd.to_html (Hilite.Md.transform (Omd.of_string (String.trim body)))
   in
-  Result.map (of_metadata ~slug ~body_html) metadata
+
+  Result.map
+    (fun metadata ->
+      let changelog_html =
+        match metadata.changelog with
+        | None -> None
+        | Some changelog ->
+            Some
+              (Omd.to_html
+                 (Hilite.Md.transform (Omd.of_string (String.trim changelog))))
+      in
+      of_metadata ~slug ~changelog_html ~body_html metadata)
+    metadata
 
 let all () =
   Utils.map_files decode "changelog/*/*.md"
@@ -39,6 +54,7 @@ type t =
   ; slug : string
   ; date : string
   ; tags : string list
+  ; changelog_html : string option
   ; body_html : string
   }
   

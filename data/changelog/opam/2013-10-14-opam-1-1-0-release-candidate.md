@@ -4,6 +4,16 @@ authors: [ "Louis Gesbert" ]
 date: "2013-10-14"
 description: "Release announcement for OPAM 1.1.0~rc1"
 tags: [platform]
+changelog: |
+   Too many to list here, see
+   [https://raw.github.com/OCamlPro/opam/1.1.0-RC/CHANGES](https://raw.github.com/OCamlPro/opam/1.1.0-RC/CHANGES)
+
+   For packagers, some new fields have appeared in the OPAM description format:
+   - `depexts` provides facilities for dealing with system (non ocaml) 
+   dependencies
+   - `messages`, `post-messages` can be used to notify the user or help her troubleshoot at package installation.
+   - `available` supersedes `ocaml-version` and `os` constraints, and can contain
+   more expressive formulas
 ---
 
 **OPAM 1.1.0 is ready**, and we are shipping a release candidate for
@@ -47,15 +57,3 @@ You can also get the new version either from Anil's unstable PPA:
 or build it from sources at :
 - http://www.ocamlpro.com/pub/opam-full-1.1.0.tar.gz
 - https://github.com/OCamlPro/opam/releases/tag/1.1.0-RC
-
-## Changes
-
-Too many to list here, see
-[https://raw.github.com/OCamlPro/opam/1.1.0-RC/CHANGES](https://raw.github.com/OCamlPro/opam/1.1.0-RC/CHANGES)
-
-For packagers, some new fields have appeared in the OPAM description format:
-- `depexts` provides facilities for dealing with system (non ocaml) 
- dependencies
-- `messages`, `post-messages` can be used to notify the user or help her troubleshoot at package installation.
-- `available` supersedes `ocaml-version` and `os` constraints, and can contain
- more expressive formulas
