@@ -32,7 +32,7 @@ Layout.render
               </div>
             </div>
           </div>
-          <div class="w-full border-b border-gray-300 border-solid pb-6 lg:pb-8">
+          <div class="grow border-b border-gray-300 border-solid pb-6 lg:pb-8">
             <div class="prose prose-orange">
               <%s! item.body_html %>
               <% (match item.changelog_html with | None -> () | Some changelog -> %>

@@ -60,3 +60,66 @@ changelog: |
 
 ---
 
+We are pleased to announce the release of OCamlFormat 0.25.1! This release contains several bug fixes, changes, and new features.
+
+The library is also available through the `ocamlformat-lib` package on opam. The `ocamlformat` package only contains the binary.
+
+The highlights of this release include:
+
+## Formatting .mld files
+
+Formatting `.mld` files as odoc documentation files is now possible! This will make it much easier to maintain high-quality documentation alongside your OCaml code.
+
+This feature is only available in `ocamlformat` for now, but keep an eye on the future `dune` releases to know when `dune fmt` will be able to format your `.mld` files!
+
+
+## Various improvements and bugfixes
+
+We fixed various issues related to indentation, alignment, and comments positioning.
+
+Here are a few examples:
+
+- More consistent indentation inside a parenthesized expression:
+
+```diff
+         | [ node ] ->
+             ( (if List.mem node ~set:integer_graph.(node)
+-              then Has_loop [ numbering.forth.(node) ]
+-              else No_loop numbering.forth.(node))
++               then Has_loop [ numbering.forth.(node) ]
++               else No_loop numbering.forth.(node))
+             , component_edges.(component) )
+```
+
+```diff
+     (let open Memo.O in
+-    let+ w = Dune_rules.Workspace.workspace () in
+-    Dune_engine.Execution_parameters.builtin_default
+-    |> Dune_rules.Workspace.update_execution_parameters w);
++     let+ w = Dune_rules.Workspace.workspace () in
++     Dune_engine.Execution_parameters.builtin_default
++     |> Dune_rules.Workspace.update_execution_parameters w);
+```
+
+- More consistent formatting of module expressions:
+
+```diff
+-  module Sel = (val if is_osx () then (module Mac)
+-                    else if Sys.unix then (module Unix)
+-                    else (module Fail) : Unix_socket)
++  module Sel =
++    (val if is_osx () then (module Mac)
++         else if Sys.unix then (module Unix)
++         else (module Fail)
++        : Unix_socket)
+```
+
+---
+
+We would like to thank all contributors for their valuable contributions to this release. Please see the [complete changelog](https://github.com/ocaml-ppx/ocamlformat/releases/tag/0.25.0) for more details.
+
+We hope you enjoy this release and continue to find OCamlFormat a valuable tool for your OCaml projects. You can download `ocamlformat.0.25.1` from the opam repository or GitHub.
+
+Thank you for your support and feedback, and please don't hesitate to reach out if you have any questions or issues.
+
+The OCamlFormat team
