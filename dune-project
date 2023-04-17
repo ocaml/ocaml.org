@@ -67,7 +67,7 @@
   (dream
    (>= 1.0.0~alpha3))
   (hyper
-   (>= 1.0.0~alpha1))
+   (= 1.0.0~alpha1))
   dune-build-info
   luv
   metrics-lwt
