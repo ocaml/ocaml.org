@@ -13,7 +13,7 @@ date: 2021-05-27T21:07:30-00:00
 
 This page will walk you through the installation of everything you need for a comfortable development environment to write projects in OCaml code. Of course, this includes [installing the compiler](#installing-ocaml) itself, but it also installs a build system, a package manager, an LSP server to support your editor, and a few other tools that we describe [later](#setting-up-development-tools), setting up [editor support](#configuring-your-editor), and bootstrapping a [new project](#starting-a-new-project).
 
-We provide installation instructions for Linux, *BSD, and macOS for all OCaml versions. For Windows, we provide instructions on this page for installing OCaml 4.14.0 via the [Diskuv OCaml](https://github.com/diskuv/dkml-installer-ocaml#readme) Installer. Note that, if you use Windows Subsystem for Linux (WSL), the Unix instructions can be used on Windows.
+We provide installation instructions for Linux, macOS, and *BSD for all OCaml versions. For Windows, we provide instructions on this page for installing OCaml 4.14.0 via the [Diskuv OCaml](https://github.com/diskuv/dkml-installer-ocaml#readme) Installer. Note that, if you use Windows Subsystem for Linux (WSL), the Unix instructions can be used on Windows.
 
 If you are setting up OCaml on Windows and are unsure which installation method to use, you might be
 interested in reading [OCaml on Windows](/docs/ocaml-on-windows) first.
@@ -182,7 +182,7 @@ After the DKML installer finishes installing two programs (`Visual Studio Instal
 
 Now, download and run:
 
-* OCaml 4.14.0 with Git and Visual Studio compiler: [setup-diskuv-ocaml-windows_x86_64-1.1.0.exe](https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.1.0_r2/setup-diskuv-ocaml-windows_x86_64-1.1.0.exe)
+* OCaml 4.14.0 with Git and Visual Studio compiler: [setup-diskuv-ocaml-windows_x86_64-1.2.0.exe](https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.2.0/setup-diskuv-ocaml-windows_x86_64-1.2.0.exe)
 
 #### 2. Create an Opam Switch
 
@@ -247,8 +247,7 @@ All these tools can be installed in your current switch (remember that opam grou
 # Unix
 $ opam install dune merlin ocaml-lsp-server odoc ocamlformat utop dune-release
 
-# Windows (Diskuv OCaml has known bugs that make this harder than it needs to be)
-$ opam pin remove fiber omd stdune dyn ordering dot-merlin-reader yojson --no-action
+# Windows
 $ opam install dune merlin ocaml-lsp-server odoc ocamlformat utop
 ```
 

@@ -22,7 +22,7 @@ Layout.render
       x-show="(operating_system == 'unix') || (operating_system == 'linux') || (operating_system == 'mac')">
       <div class="prose">
         <h2>
-          Install OCaml on Linux, BSD, or macOS
+          Install OCaml on Linux, macOS, or *BSD
         </h2>
 
         <p>
@@ -65,7 +65,7 @@ Layout.render
             <%s! Copy_to_clipboard_snippet.render ~id:"create-opam-switch" "opam switch create 5.0.0" %>
 
             <p>
-              <code>opam switch list-available</code> lists all available compiler versions.
+              <code>opam switch list-available ocaml-base-compiler</code> lists all available compiler versions.
             </p>
 
           </li>
@@ -107,7 +107,7 @@ Layout.render
                 The installer sets up OCaml 4.14.0 with Git and the Visual Studio compiler.
               </p>
 
-              <a class="btn !text-white hover:no-underline" href="https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.1.0_r2/setup-diskuv-ocaml-windows_x86_64-1.1.0.exe">
+              <a class="btn !text-white hover:no-underline gap-2" href="https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.2.0/setup-diskuv-ocaml-windows_x86_64-1.2.0.exe">
                 <%s! Icons.download "h-6 w-6" %> Download DKML Installer
               </a>
 
@@ -152,8 +152,6 @@ Layout.render
             The <a href="<%s Url.tutorial "up-and-running" %>#installing-the-ocaml-platform-tools">OCaml Platform Tools</a>
             complete your OCaml development environment. To install them in your current <code>opam</code> switch, run these commands:
           </p>
-
-          <%s! Copy_to_clipboard_snippet.render ~id:"win-install-platform-tools" ~class_:"mb-4" "opam pin remove fiber omd stdune dyn ordering dot-merlin-reader yojson --no-action" %>
 
           <%s! Copy_to_clipboard_snippet.render ~id:"win-install-platform-tools2" "opam install dune merlin ocaml-lsp-server odoc ocamlformat utop" %>
 
