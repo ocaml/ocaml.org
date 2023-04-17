@@ -4,33 +4,54 @@ date: "2023-04-17-01"
 tags: [mdx, platform]
 ---
 
-The most significant change in the recent release of MDX 2.3.0 is the support for `.mld` files. This brings the number of supported input formats to four:
+Starting in MDX 2.3.0, you can now execute code blocks in your `.mld` files! 🎉
 
- * Markdown, the initial target of MDX
- * Cram tests (`.t`)
- * `.mli` files
- * `.mld` files
+As a reminder, `.mld` files are text files similar to Markdown, but instead of
+using the Markdown markup language, they use the Ocamldoc markdown language - as
+is used in `.mli` files. `.mld` are typically used to write manuals with
+[odoc](https://ocaml.github.io/odoc/).
 
-For an OCaml programmer, the first three are quite common, but what are `.mld` files? `.mld` files are text files similar to Markdown, but instead of using the Markdown markup language they use the Ocamldoc markdown language - as is used in `.mli` files.
+To run mdx on `.mld` files, start by enabling `mdx` in your `dune-project`:
 
-These files can be used e.g. with [odoc](https://ocaml.github.io/odoc/) to generate standalone documentation like howto documents or tutorials, without having to use two different markup formats.
-
-As an examle, `tutorial.mld`
-
-```ocaml=
-Here is some OCaml code that is wrong
-
-{|
-  # List.map (fun x -> x * x) [(1 + 9); 2; 3; 4];;
-  - : int list = [1; 2; 3; 4]
-|}
+```
+(using mdx 0.3)
 ```
 
-When `(using mdx 0.3)` via the [MDX support in Dune](https://dune.readthedocs.io/en/stable/dune-files.html#mdx) it only picks up `.md` files by default, but you can this to your `dune` file:
+Then list your `.mld` files in the `mdx` stanza in your `dune`:
 
-```scheme=
+```
 (mdx
-  (files tutorial.mld))
+ (files index.mld))
 ```
 
-So when you will run `dune runtest` it will run the file, run the code and detect that the output is wrong. You can then use `dune promote` to update your `.mld` file with the corrected file.
+Now if you put a code block in `index.mld`, it will be executed when running `dune test` and if dune will suggest to promote the output. For instance, if you run `dune test` with this `index.mld`:
+
+```
+Here's an example code block in a [.mld] file:
+
+{[
+  # List.map (fun x -> x * x) [(1 + 9); 2; 3; 4];;
+]}
+```
+
+`dune test` will return:
+
+```diff
+diff --git a/_build/default/index.mld b/_build/default/.mdx/index.mld.corrected
+index 337b042..c29bb63 100644
+--- a/_build/default/index.mld
++++ b/_build/default/.mdx/index.mld.corrected
+@@ -2,5 +2,6 @@ Here's an example code block in a [.mld] file:
+ 
+ {[
+   # List.map (fun x -> x * x) [(1 + 9); 2; 3; 4];;
++  - : int list = [100; 4; 9; 16]
+ ]}
+```
+
+You can run `dune promote` to accept the change.
+
+You can see a complete demo of this [here](https://github.com/tmattio/demo-mdx-mld).
+
+Now you can keep the code blocks in your manual up-to-date even when your API
+changes!
