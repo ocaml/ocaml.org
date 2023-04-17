@@ -708,6 +708,25 @@ let package_file t kind req =
     (Ocamlorg_frontend.package_overview ~sidebar_data ~content
        ~content_title:(Some path) ~toc ~deps_and_conflicts:[] frontend_package)
 
+let package_search_index t kind req =
+  let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
+  let version_from_url = Dream.param req "version" in
+  let</>? package, _ =
+    Package_helper.of_name_version t name version_from_url
+  in
+  let open Lwt.Syntax in
+  let kind =
+    match kind with
+    | Package -> `Package
+    | Universe -> `Universe (Dream.param req "hash")
+  in
+  let* maybe_search_index = Ocamlorg_package.search_index ~kind package in
+  let</>? search_index = maybe_search_index in
+  Lwt.return (Dream.response
+    ~headers:[ ("Content-type", "application/javascript") ]
+    search_index)
+      
+
 let sitemap _request =
   let open Lwt.Syntax in
   Dream.stream

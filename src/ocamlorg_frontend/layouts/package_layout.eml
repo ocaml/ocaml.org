@@ -27,7 +27,7 @@ Layout.render
           <%s! Package_breadcrumbs.render_package_and_version ~path ?hash ?page package %>
         </div>
       </div>
-      <div x-data="{ sidebar: window.matchMedia('(min-width: 48em)').matches }" @resize.window="sidebar = window.matchMedia('(min-width: 48em)').matches" x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 48em)').matches">
+      <div x-data="{ sidebar: window.matchMedia('(min-width: 48em)').matches, q: '', search_input_focused: false }" @resize.window="sidebar = window.matchMedia('(min-width: 48em)').matches" x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 48em)').matches">
         <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed md:hidden right-10"
         x-on:click="sidebar = ! sidebar">
           <%s! Icons.sidebar_menu "h-8 w-8" %>
@@ -60,14 +60,24 @@ Layout.render
             </li>
           </ol>
 
-          <div title="Sorry, in-package search is not yet implemented, but this is where it's going to appear." class="flex w-full items-center">
-            <input disabled type="search" name="q" class="focus:border-gray-800 text-gray-800 bg-gray-300 border-gray-300 h-10 rounded-l-md appearance-none px-4 flex-grow"
+          <form class="flex w-full items-center"
+            action="https://doc.sherlocode.com/api" method="GET"
+            @submit.stop.prevent="false"
+            >
+            <input id="in_package_search" type="search" name="q" class="focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 flex-grow"
               autocomplete="off"
-              placeholder="Sorry, in-package search is not yet implemented, but this is where it's going to appear :-)">
-            <button disabled aria-label="search" class="h-10 rounded-r-md bg-gray-300 text-gray-800 flex items-center justify-center px-4">
+              placeholder="Search names in this package..."
+
+              x-on:focus="search_input_focused = true"
+              x-on:blur="setTimeout(() => search_input_focused = false, 100)"
+              x-on:keyup="q = event.target.value.trim()"
+              >
+            <button aria-label="search" class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
               <%s! Icons.magnifying_glass "w-6 h-6" %>
             </button>
-          </div>
+            <input class="hidden" name="packages" type="text" value="<%s Dream.to_percent_encoded package.name %>">
+            <input class="hidden" name="limit" type="number" value="10">
+          </form>
         </div>
 
         <div class="flex md:gap-4 xl:gap-10">
@@ -78,11 +88,21 @@ Layout.render
             x-transition:leave-end="-translate-x-full">
             <%s! left_sidebar_html %>
           </div>
-          <div class="flex-1 z-0 z- min-w-0 pt-6 pb-12 md:pb-[70vh]">
+
+          <div class="flex-1 z-0 z- min-w-0 pt-6 pb-12 md:pb-[70vh] prose max-w-full"
+            x-show="q != ''">
+
+            <div id="search-results">
+            </div>
+          </div>
+
+          <div class="flex-1 z-0 z- min-w-0 pt-6 pb-12 md:pb-[70vh]"
+            x-show="q == ''">
             <%s! inner %>
           </div>
           <% (if right_sidebar_html <> "" then %>
-          <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto md:pb-24">
+          <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto md:pb-24"
+            x-show="q == ''">
             <%s! right_sidebar_html %>
           </div>
           <% ); %>
@@ -92,3 +112,118 @@ Layout.render
   </div>
 </div>
 <%s! Toc.script %>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
+<script src="<%s Url.Package.search_index ?version:(Package.url_version package) package.name %>"></script>
+<style>
+#search-results h2 {
+  margin: 0;
+}
+
+#search-results ol {
+  margin: 1rem 0;
+  list-style:none;
+  padding:0;
+}
+
+#search-results li {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid gainsboro;
+}
+
+#search-results .search-entry {
+  padding: 0.25rem 0.5rem;
+
+  font-weight: normal;
+  color: #333;
+
+  display:flex;
+  flex-direction:column;
+}
+
+#search-results .search-entry:hover {
+  text-decoration: none;
+  background: #ee6a1a26;
+}
+
+@media (min-width: 64em) {
+  #search-results .search-entry {
+    flex-direction:row;
+  }
+
+  #search-results .search-entry .entry-title {
+    width: 50%;
+    flex-shrink: 0;
+  }
+}
+
+#search-results .search-entry .entry-kind {
+  padding:0.5rem;
+}
+
+#search-results .search-entry .entry-title {
+  overflow-wrap: anywhere;
+}
+
+#search-results .search-entry .entry-name {
+  font-weight:bold;
+  color: rgb(204, 78, 12);
+}
+
+#search-results .search-entry .prefix-name {
+  font-weight:600;
+}
+
+#search-results .search-entry .entry-comment {
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+}
+
+</style>
+<script>
+  document.querySelector("#in_package_search").addEventListener("input", (event) => {
+    let results = idx_fuse.search(event.target.value);
+    let container = document.querySelector("#search-results");
+    container.innerHTML = "";
+
+    let search_results = document.createElement("ol");
+    container.appendChild(search_results);
+
+    results.map((entry) => {
+        let list_item = document.createElement("li");
+        let a = document.createElement("a");
+        a.href = "/" + entry.item.url;
+        a.classList.add("search-entry"); //, entry.item.kind);
+        let title = document.createElement("div");
+        title.classList.add("entry-title");
+
+
+        let kind = document.createElement("span");
+        kind.innerText = entry.item.kind;
+        kind.classList.add("entry-kind");
+
+        let prefixname = document.createElement("tt");
+        prefixname.innerText = entry.item.prefixname + ".";
+        prefixname.classList.add("prefix-name");
+        let name = document.createElement("tt");
+        name.classList.add("entry-name");
+        name.innerText =  entry.item.name;
+
+        title.appendChild(prefixname);
+        title.appendChild(name);
+        title.appendChild(kind);
+
+        let comment = document.createElement("div");
+        comment.innerText = entry.item.comment;
+        comment.classList.add("entry-comment");
+
+        a.appendChild(title);
+        a.appendChild(comment);
+
+        list_item.appendChild(a);
+
+        search_results.appendChild(list_item);
+    });
+  });
+</script>
