@@ -55,7 +55,7 @@ opam update
 opam switch create <switch_name> ocaml-variants.5.1.0~alpha1+options <option_list>
 ```
 
-where `option_list` is a comma separated list of ocaml-option-* packages. For instance, for a flambda and no-flat-float-array switch:
+where `option_list` is a space separated list of `ocaml-option-*` packages. For instance, for a flambda and no-flat-float-array switch:
 
 ```bash
 opam switch create 5.1.0~alpha1+flambda+nffa ocaml-variants.5.1.0~alpha1+options ocaml-option-flambda ocaml-option-no-flat-float-array
