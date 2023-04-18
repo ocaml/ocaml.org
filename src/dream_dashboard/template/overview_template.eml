@@ -9,7 +9,6 @@ let render
   ~dream_version
   ~dashboard_version
   ~uptime
-  ~commit
   ~os_version
   ~(memory_list : My_metrics.memory list)
   ~(loadavg_list : My_metrics.loadavg list)
@@ -42,13 +41,7 @@ Layout_template.render ~prefix ~title:"Overview" ~nav:Overview @@
   </div>
 
   <div class="px-6 py-5 shadow rounded-lg overflow-hidden sm:p-6 space-y-12 cards">
-    <dt class="text-base font-semibold truncate">OS Version</dt>
     <span class="text-lg font-semibold"><%s os_version %></span>
-  </div>
-
-  <div class="px-6 py-5 shadow rounded-lg overflow-hidden sm:p-6 space-y-12 cards">
-    <dt class="text-base font-semibold truncate">Git Commit Hash</dt>
-    <a target="_blank" href="https://github.com/ocaml/ocaml.org/commit/<%s commit %>" class="text-lg underline font-semibold"><%s commit %></a>
   </div>
 
   <div>

@@ -23,8 +23,7 @@ module Handler = struct
       (Overview_template.render ~prefix ~ocaml_version:Info.ocaml_version
          ~dream_version:(Info.dream_version ())
          ~dashboard_version:(Info.version ()) ~uptime:(Info.uptime_string ())
-         ~commit:Commit.hash ~os_version:(Info.os_version ()) ~loadavg_list
-         ~memory_list ())
+         ~os_version:(Info.os_version ()) ~loadavg_list ~memory_list ())
 
   let analytics ~store ~prefix _req =
     let open Lwt.Syntax in
