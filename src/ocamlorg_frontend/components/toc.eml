@@ -48,7 +48,7 @@ let render (t : t) =
         console.log("computeSectionYPositions", toc_el)
 
         function get_y(href) {
-          let heading = document.querySelector("*[id='"+href.substring(1)+"']");
+          let heading = document.getElementById(href.substring(1));
           return heading.getBoundingClientRect().top + window.scrollY - 60;
         }
 
