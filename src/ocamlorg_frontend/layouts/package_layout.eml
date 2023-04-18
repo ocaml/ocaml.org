@@ -204,7 +204,7 @@ Layout.render
         kind.classList.add("entry-kind");
 
         let prefixname = document.createElement("tt");
-        prefixname.innerText = entry.item.prefixname + ".";
+        prefixname.innerText = entry.item.prefixname + (entry.item.prefixname != "" ? ".": "");
         prefixname.classList.add("prefix-name");
         let name = document.createElement("tt");
         name.classList.add("entry-name");
