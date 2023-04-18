@@ -4,22 +4,11 @@
 
 ### Setting up the Project
 
-Before starting hacking you need a properly configured development environment. Linux and macOS are supported and used on a daily basis by the core team. System dependencies include:
-* Libev: http://software.schmorp.de/pkg/libev.html
-* Oniguruma: https://github.com/kkos/oniguruma
-* OpenSSL: https://www.openssl.org/
-* GNU Multiple Precision: https://gmplib.org/
-* Git LFS
-
-The project [`Dockerfile`](./Dockerfile) contains up-to-date system configuration instructions, as used to ship into production. It is written for the Alpine Linux distribution but is meant to be adapted to other environments such as Ubuntu, macOS+brew or others. The GitHub workflow file [`.github/workflow/ci.yml`](.github/workflow/ci.yml) also contain useful commands for Ubuntu and macOS+brew. Since ocaml.org is mostly written in OCaml, a properly configured OCaml development environment is also required. Currently, ocaml.org doesn't yet compile using OCaml 5, version 4.14 of the language is used.
-
 The `Makefile` contains many commands that can get you up and running, a typical workflow will be to clone the repository after forking it.
 
 ```
 git clone https://github.com/<username>/ocaml.org.git
 cd ocaml.org
-git lfs install
-git lfs pull
 ```
 
 Ensure you have `opam` installed. Opam will manage the OCaml compiler along with all of the OCaml packages needed to build and run the project. By this point we should all be using some Unix-like system (Linux, macOS, WSL2) so you should [run the opam install script](https://opam.ocaml.org/doc/Install.html#Binary-distribution). There are also manual instructions for people that don't want to run a script from the internet. We assume you are using `opam.2.1.0` or later which provides a cleaner, friendlier experience when installing system dependencies.
