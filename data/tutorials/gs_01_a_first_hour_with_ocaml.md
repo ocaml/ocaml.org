@@ -294,7 +294,7 @@ Now look at some of the properties that distinguishes OCaml from other
 languages:
 
 - OCaml is a strongly statically-typed language. This means each expression has
-  a only one type, and it's determined before the program is run.
+  only one type, and it's determined before the program is run.
 
 - OCaml uses type inference to work out (infer) the types, so you don't have
   to. If you use the OCaml toplevel, then OCaml will tell you its inferred
