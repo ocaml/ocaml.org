@@ -9,7 +9,6 @@ Before starting to hack you need a properly configured development environment. 
 * Oniguruma: https://github.com/kkos/oniguruma
 * OpenSSL: https://www.openssl.org/
 * GNU Multiple Precision: https://gmplib.org/
-* Git LFS
 
 The project [`Dockerfile`](./Dockerfile) contains up-to-date system configuration instructions, as used to ship into production. It is written for the Alpine Linux distribution but is meant to be adapted to other environments such as Ubuntu, macOS+Homebrew or others. The GitHub workflow file [`.github/workflows/ci.yml`](.github/workflows/ci.yml) also contains useful commands for Ubuntu and macOS. Since ocaml.org is mostly written in OCaml, a properly configured OCaml development environment is also required, but is not detailed here. Although Docker is used to ship, it is not a requirement to begin hacking. Currently, ocaml.org doesn't yet compile using OCaml 5, version 4.14 of the language is used.
 
