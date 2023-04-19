@@ -13,9 +13,10 @@ date: 2021-05-27T21:07:30-00:00
 Pointers exist in OCaml, and in fact they spread all over the place.
 They are used either implicitly (in most cases) or explicitly (in
 the rare occasions where implicit pointers are not more handy). The vast
-majority of using pointers that are found in usual programming
-languages simply disappear in OCaml, or more exactly, those pointers are 
-automatically handled by the compiler. Thus, the OCaml programmer
+majority of situations where you would use pointers in usual programming
+languages do not require explicitly using pointers in OCaml: The pointers
+used in the compiled machine code representation of your program are
+an implementation-detail that is handled by the compiler. Thus, the OCaml programmer
 can safely ignore the existence of pointers, focusing on the semantics of their
 program.
 
