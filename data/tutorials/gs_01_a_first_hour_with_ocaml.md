@@ -25,15 +25,15 @@ We will be working with small OCaml expressions at first, so using an interactiv
 
 We recommend using UTop (see [here](/docs/up-and-running#using-the-ocaml-toplevel-with-utop)),
 but alternatively, the basic toplevel of OCaml (`ocaml` command) can also be used. For installation instructions,
-see [Up and Running](/docs/up-and-running#installing-ocaml). 
+see [Up and Running](/docs/up-and-running#installing-ocaml).
 
 If you have never used a toplevel (REPL) before, think of it as an interactive terminal/shell that
 evaluates expressions. You type an expression followed by the Enter or Return key,
-and then the toplevel responds with the value of the evaluated expression. 
+and then the toplevel responds with the value of the evaluated expression.
 
 The first step is to start the toplevel with either the `ocaml` or `utop` command.
 
-Let's try the `ocaml` command first. Once in the toplevel, write your expression at the `#` prompt, end it with `;;`, and hit Enter. OCaml evaluates it and prints the result on the next line, as shown: 
+Let's try the `ocaml` command first. Once in the toplevel, write your expression at the `#` prompt, end it with `;;`, and hit Enter. OCaml evaluates it and prints the result on the next line, as shown:
 
 ```console
 $ ocaml
@@ -42,9 +42,9 @@ $ ocaml
 # 50 * 50;;
 - : int = 2500
 
-OCaml evaluates this expression, telling you not only the value but also the type. In this case, `int` for integer. 
+OCaml evaluates this expression, telling you not only the value but also the type. In this case, `int` for integer.
 
-Now let's see how it looks using UTop. First, exit the `ocaml` toplevel by typing Control-D or `exit 0;;`. Then enter the `utop` command. At the `utop #` prompt, type your expression and hit Enter. Don't forget the `;;` at the end: 
+Now let's see how it looks using UTop. First, exit the `ocaml` toplevel by typing Control-D or `exit 0;;`. Then enter the `utop` command. At the `utop #` prompt, type your expression and hit Enter. Don't forget the `;;` at the end:
 
 ```console
 $ utop
@@ -60,14 +60,14 @@ utop # 50 * 50;;
 - : int = 2500
 ```
 
-Exit the UTop toplevel in the same way, by typing Control-D or `exit 0;;`. 
+Exit the UTop toplevel in the same way, by typing Control-D or `exit 0;;`.
 
-The in-browser playground [TryOCaml](http://try.ocamlpro.com) has a similar interface, making it easy 
-to write your first OCaml expressions without installing anything. 
+The in-browser playground [TryOCaml](http://try.ocamlpro.com) has a similar interface, making it easy
+to write your first OCaml expressions without installing anything.
 
 We typed the above examples by hand, but they can also be copied/pasted into `ocaml`,
-`utop`, or TryOCaml. Alternatively, we can create a file, save it with the 
-.ml extension, 
+`utop`, or TryOCaml. Alternatively, we can create a file, save it with the
+.ml extension,
 and load its contents directly with the `#use` directive:
 
 ```console
@@ -108,7 +108,7 @@ but the state pointed to is not).
 
 A variable's name must begin with a lowercase letter or an underscore, and it cannot contain dashes (i.e., `let x-plus-y`).
 
-When we type `let x = 50;;` and Enter, OCaml confirms the variable's value (`val`), showing that "x" now means "50." So when we write the expression `x * x;;`, it will result in the same answer as `50 * 50;;`. 
+When we type `let x = 50;;` and Enter, OCaml confirms the variable's value (`val`), showing that "x" now means "50." So when we write the expression `x * x;;`, it will result in the same answer as `50 * 50;;`.
 
 In order to save even more time and space, we can write the above all together using `let` ... `in` ...:
 
@@ -142,9 +142,9 @@ Of course, we can define multiple values with their own names:
 - : int = 3
 ```
 
-**Please note** that this multiline code is still just one expression. OCaml knows the expression isn't complete until it sees the `;;`. 
+**Please note** that this multiline code is still just one expression. OCaml knows the expression isn't complete until it sees the `;;`.
 
-## Functions 
+## Functions
 
 The `let` keyword can also be used to define a function to do the
 job for any number. Here we name a function `square`:
@@ -157,12 +157,12 @@ val square : int -> int = <fun>
 ```
 
 This says that the function `square` has one argument, namely `x`, and
-its result is equal to (`=`) the result of the expression `x * x`. 
-This uses the given value associated with `x`, defined in `square 50;;`. 
+its result is equal to (`=`) the result of the expression `x * x`.
+This uses the given value associated with `x`, defined in `square 50;;`.
 
-Functions in OCaml are also values, but when using `let` to define a function, the first identifier is the function name (`square`, above), then any additional identifiers outline different arguments to the function. In our example above, the `square` function has only one argument `x = x * x;;`. 
+Functions in OCaml are also values, but when using `let` to define a function, the first identifier is the function name (`square`, above), then any additional identifiers outline different arguments to the function. In our example above, the `square` function has only one argument `x = x * x;;`.
 
-The type `int -> int` tells us that the function `square` takes an integer and returns an integer. 
+The type `int -> int` tells us that the function `square` takes an integer and returns an integer.
 
 Here is another function, this time
 using the comparison operator `=` to test for evenness:
@@ -179,7 +179,7 @@ val square_is_even : int -> bool = <fun>
 
 Notice that OCaml infers the type `int -> bool` for this function, which means that `square_is_even` is a function that takes one Integer value (`int`) as an argument and returns a Boolean value (`bool`).
 
-Like in C and JavaScript, the Boolean operator *and* is denoted with `&&` and *or* with `||`. 
+Like in C and JavaScript, the Boolean operator *and* is denoted with `&&` and *or* with `||`.
 
 A function may take multiple
 arguments. Unlike imperative languages, they're written without parentheses
