@@ -41,6 +41,7 @@ $ ocaml
 
 # 50 * 50;;
 - : int = 2500
+```
 
 OCaml evaluates this expression, telling you not only the value but also the type. In this case, `int` for integer.
 
@@ -83,49 +84,57 @@ may need to start `ocaml` or `utop` inside the directory of your file, use a
 relative path that takes into account the directory you started the toplevel in,
 or use an absolute path.
 
-## Simple Expressions
+## Simple Expressions and Variables
 
-Our phrase `50 * 50` was an expression that evaluated to `2500`. Recall that OCaml also told
-us the type was `int`, an integer. Every expression in OCaml has a type. For example, some of OCaml's primitive types are `int`, `float`, `string`, and `bool`, for Boolean expressions.
+```ocaml
+# 50 * 50;;
+- : int = 2500
+```
 
-To avoid repetitive code, we can name our number by defining it with a *let binding* using the `let` keyword. Below, we name it `x`:
+In OCaml, expressions have types and `50 * 50` is an expression that evaluates to the `int` type value of `2500`.
+Other primitive types in OCaml include `float`, `string`, and `bool`.
+
+To avoid repetition, we can assign a name to a value using the `let` keyword:
 
 ```ocaml
 # let x = 50;;
 val x : int = 50
+
 # x * x;;
 - : int = 2500
 ```
 
-**Please note** that this variable is different from the variables of imperative
-languages (e.g., C or Python): *its value can never be changed*. After being assigned
-a value, the variable behaves like a constant: it is *immutable*. The consequence is that
-most functions you will write do not have side-effects (i.e., calling a function does not change
-the state of the overall system). However, there's a caveat here: side-effects
-can occur when performing I/O or when working with mutable state on the heap
-(the variable referencing the mutable heap state is immutable,
-but the state pointed to is not).
+When we type `let x = 50;;` and Enter, the REPL responds with the variable's value (`val`),
+showing that `x` now means `50`. So `x * x;;` evaluates to the same answer as `50 * 50;;`.
 
-A variable's name must begin with a lowercase letter or an underscore, and it cannot contain dashes (i.e., `let x-plus-y`).
+It's important to note that, unlike in imperative languages,
+variables in OCaml are *immutable*, meaning their value cannot
+change after assignment. Also, variable names must begin with
+a lowercase letter or an underscore, and they cannot contain dashes
+(e.g., `x-plus-y` is not a legal variable name, but `x_plus_y` is).
 
-When we type `let x = 50;;` and Enter, OCaml confirms the variable's value (`val`), showing that "x" now means "50." So when we write the expression `x * x;;`, it will result in the same answer as `50 * 50;;`.
 
-In order to save even more time and space, we can write the above all together using `let` ... `in` ...:
+We can combine a variable declaration with an expression using the `let` ... `in` ... syntax:
 
 ```ocaml
 # let x = 50 in x * x;;
 - : int = 2500
 ```
-But beware, `let` ... `in` ... and `let` ... are two fundamentally different things:
 
-* `let x = 50;;` is a *variable declaration*. It assigns the expression `50` to the variable `x`,
+This declares the variable `x` and assigns it the value `50`,
+  which is then used in the expression `x * x`, resulting in the value of `2500`.
+
+Note that `let` ... `in` ... and `let` ... are two fundamentally different things:
+
+* `let x = 50;;` is a *variable declaration*. It assigns the value `50` to the variable `x`,
 which is bound in the toplevel.
-* `let x = 50 in x * x;;` is an *expression that includes a variable declaration*. The variable `x`
-is only bound inside the expression following the `in` keyword.
+* `let x = 50 in x * x;;` is an *expression that includes a variable declaration*: The variable `x`
+is only bound within the expression following the `in` keyword.
 
 ```ocaml
 # let x = 50 in x * x;;
 - : int = 2500
+
 # x;;
 Error: Unbound value x
 ```
@@ -133,7 +142,9 @@ Error: Unbound value x
 As you can see in OCaml's response to the first statement, no variable is bound
 (this is denoted by the dash `-`). Thus, subsequently trying to evaluate the variable
 with name `x` fails.
-Of course, we can define multiple values with their own names:
+
+We can define multiple values with their own names
+in a single expression using the `let` ... `in` ... syntax:
 
 ```ocaml
 # let a = 1 in
@@ -142,37 +153,47 @@ Of course, we can define multiple values with their own names:
 - : int = 3
 ```
 
-**Please note** that this multiline code is still just one expression. OCaml knows the expression isn't complete until it sees the `;;`.
+This defines two variables `a` and `b` with the values of `1` and `2` respectively,
+and then uses them in the expression `a + b`, resulting in the value of `3`.
+It's important to note that this is just a single expression.
+The OCaml toplevel knows the expression isn't complete until it sees the `;;`.
 
 ## Functions
 
-The `let` keyword can also be used to define a function to do the
-job for any number. Here we name a function `square`:
+The `let` keyword can also be used to define a function:
 
 ```ocaml
 # let square x = x * x;;
 val square : int -> int = <fun>
+
 # square 50;;
 - : int = 2500
 ```
 
-This says that the function `square` has one argument, namely `x`, and
-its result is equal to (`=`) the result of the expression `x * x`.
-This uses the given value associated with `x`, defined in `square 50;;`.
+This defines a function named `square` which has one argument, namely `x`, and
+its result is equal to (`=`) the result of the expression `x * x`. The expression
+that defines the result of a function is called "function body".
 
-Functions in OCaml are also values, but when using `let` to define a function, the first identifier is the function name (`square`, above), then any additional identifiers outline different arguments to the function. In our example above, the `square` function has only one argument `x = x * x;;`.
+When you apply the function as `square 50;;`, `x` in the function body of
+`square` is bound to `50`, and thus, we get a result of `50 * 50 = 2500`.
 
+When using `let` to define a function, the first identifier is the function name (`square`, above),
+then any additional identifiers outline different arguments to the function. In our example above,
+the `square` function has only one argument `x`.
+
+Functions in OCaml are also values, so the REPL responds with `val square : int -> int = <fun>`. 
 The type `int -> int` tells us that the function `square` takes an integer and returns an integer.
 
-Here is another function, this time
-using the comparison operator `=` to test for evenness:
+Here is a different function which uses the comparison operator `=` to test for evenness:
 
 ```ocaml
 # let square_is_even x =
     square x mod 2 = 0;;
 val square_is_even : int -> bool = <fun>
+
 # square_is_even 50;;
 - : bool = true
+
 # square_is_even 3;;
 - : bool = false
 ```
@@ -189,6 +210,7 @@ or commas. Instead, they are separated by spaces. We shall explain why later.
 # let ordered a b c =
     a <= b && b <= c;;
 val ordered : 'a -> 'a -> 'a -> bool = <fun>
+
 # ordered 1 1 2;;
 - : bool = true
 ```
