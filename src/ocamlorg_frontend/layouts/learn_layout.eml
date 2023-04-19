@@ -144,3 +144,4 @@ inner_html
     });
   };
   </script>
+  <%s! Toc.script %>

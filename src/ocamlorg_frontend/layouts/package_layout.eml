@@ -91,3 +91,4 @@ Layout.render
     </div>
   </div>
 </div>
+<%s! Toc.script %>
