@@ -257,6 +257,7 @@ let best_practices _req =
 
 let problems _req = Dream.html (Ocamlorg_frontend.problems Ood.Problem.all)
 let installer req = Dream.redirect req Url.github_installer
+let outreachy _req = Dream.html (Ocamlorg_frontend.outreachy Ood.Outreachy.all)
 
 type package_kind = Package | Universe
 

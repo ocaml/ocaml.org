@@ -33,3 +33,4 @@ let releases = Releases.render
 let success_story = Success_story.render
 let tutorial = Tutorial.render
 let workshop = Workshop.render
+let outreachy = Outreachy.render

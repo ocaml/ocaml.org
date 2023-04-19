@@ -10,7 +10,7 @@ rounds:
           - Richard Mortier
           - Anil Madhavapeddy
       - title: "MirageOS cloud API support"
-        description: |
+        description: >
           MirageOS (see http://xenproject.org/developers/teams/mirage-os.html,
           http://www.openmirage.org/) is a type-safe unikernel written in OCaml
           which generates highly specialised "appliance" VMs that run directly
@@ -59,7 +59,14 @@ rounds:
   - name: Summer 2019
     projects:
       - title: "Test the OCaml compiler with code coverage tools"
-        description: ""
+        description: >
+          Improving the compiler testing  process using code coverage tools.
+          The core OCaml system has a large  test suite and it would be very
+          useful to see which parts of the system  are tested more actively
+          and which are not so. Developers will be helped  to see where it is
+          needed to add new tests and in the process of  improving coverage,
+          it is possible to find unexplored bugs and fix them.
+          It might help to make OCaml and its libraries more reliable. 
         mentee: "Oxana Kostikova"
         blog: "https://lereenadem.wixsite.com/personal"
         source: https://github.com/ocaml/ocaml
@@ -140,7 +147,17 @@ rounds:
   - name: Winter 2021
     projects:
       - title: "Build a monitoring dashboard for OCaml.org"
-        description: ""
+        description: >
+          We currently have no visibility on the performance of the server serving
+          v3.ocaml.org, which pages are most visited, if errors happen, etc.
+          To offer some visibility, we can implement a basic monitoring dashboard
+          that would provide Metrics such as: Memory, CPU, Open file descriptors,
+          Statistics such as (check if GDPR compliant first!) Requested URIs,
+          User agents, Language, Logs.
+          This project consists of mostly two parts: a frontend, and a backend.
+          The backend consists of building a high-level library to collect data 
+          and get statistics on them. The frontend will use this library to display
+          graphs of the metrics, statistics, and other data we want to collect.
         mentee: "Jiae Kam"
         source: https://github.com/ocaml/ocaml.org
         blog: "https://jiaek.wordpress.com"
@@ -149,7 +166,7 @@ rounds:
          - Patrik Keller
         video: https://watch.ocaml.org/w/eSSmoyEcPTEXPGAqDtKENX?start=40m53s
       - title: "Improve the OCaml meta-programming ecosystem"
-        description: |
+        description: >
           It's common for programming languages to provide some way to meta-program
           in order to preprocess code before reaching the last compilation step,
           for example, in the form of macros or templates. The OCaml compiler
@@ -178,7 +195,16 @@ rounds:
          - Patrik Keller
         video: https://watch.ocaml.org/w/eSSmoyEcPTEXPGAqDtKENX
       - title: "Support .eml files in OCaml's VSCode extension"
-        description: ""
+        description: >
+          Support `.eml` files in OCaml's VSCode extension
+          Dream, the OCaml web framework, uses `.eml` files to embed HTML in
+          OCaml files. At the moment, opening these files in VSCode, with the
+          official OCaml VSCode extension, will not provide any syntax
+          highlighting or diagnostics for the `.eml` files, because they are
+          not supported.
+          The goal of the project is to add support for the syntax in the
+          extension itself as a first step, and eventually, add support for
+          the language in the OCaml Language Server (LSP) as a second step.
         source: https://github.com/ocamllabs/vscode-ocaml-platform
         mentee: "Sayo Bamigbade"
         blog: "https://saysayoblog.wordpress.com"
