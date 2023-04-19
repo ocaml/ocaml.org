@@ -6,20 +6,20 @@ tags: [ocaml, platform]
 ---
 
 Four months after the release of OCaml 5.0.0, the set of new features for the
-future version 5.1.0 of OCaml has been frozen. we are thus happy to announce the
-first alpha release for OCaml 5.1.0 .
+future version 5.1.0 of OCaml has been frozen. We are thus happy to announce the
+first alpha release for OCaml 5.1.0.
 
 This alpha version is here to help fellow hackers join us early in our bug
 hunting and opam ecosystem fixing fun (see below for the installation instructions).
-The progresses on stabilizing the ecosystem are tracked on the [Opam Readiness for 5.1.0 meta-issue](https://github.com/ocaml/opam-repository/issues/23669).
+The progresses on stabilising the ecosystem are tracked on the [opam readiness for 5.1.0 meta-issue](https://github.com/ocaml/opam-repository/issues/23669).
 
-If you find any bugs, please report them on  [OCaml's issue tracker](https://github.com/ocaml/ocaml/issues).
+If you find any bugs, please report them on [OCaml's issue tracker](https://github.com/ocaml/ocaml/issues).
 
 Note that this early alpha version is missing two important fixes for the garbage
 collector and Windows support. Those fixes will be available before the beta.
-The full release is expected to happen in July.
+The full release is expected in July.
 
-If you are interested by the ongoing list of new features and bug fixes, the
+If you are interested in the ongoing list of new features and bug fixes, the
 updated change log for OCaml 5.1.0 is available [on GitHub](https://github.com/ocaml/ocaml/blob/5.0/Changes).
 
 
