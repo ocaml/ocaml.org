@@ -33,7 +33,7 @@ rounds:
           As well as helping Xen/Mirage, the public cloud API bindings will be
           very useful to other people in other contexts -- a nice side-effect.
         mentee: "Jyotsna Prakash"
-        blog: http://www.somerandomidiot.com/blog/2014/08/22/opw-fin/
+        blog: https://web.archive.org/web/20141112050547/https://1000hippos.wordpress.com/
         source: https://github.com/moonlightdrive/ocaml-ec2
         mentors:
           - David Scott
