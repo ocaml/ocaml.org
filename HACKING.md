@@ -107,7 +107,7 @@ This will build the docker image and run a docker container with the port `8080`
 
 With the docker container running, you can visit the site at <http://localhost:8080/>.
 
-The docker images auytomatically build from the `live` and `staging` branches are pushed to Docker Hub: https://hub.docker.com/r/ocurrent/v3.ocaml.org-server
+The docker images automatically build from the `live` and `staging` branches, and are then pushed to Docker Hub: https://hub.docker.com/r/ocurrent/v3.ocaml.org-server
 
 ### Managing dependencies
 
