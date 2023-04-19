@@ -23,7 +23,7 @@ program.
 For instance, lists or trees are defined without explicit pointers using
 a concrete datatype definition. The underlying implementation uses
 pointers, but this is hidden from the programmer since the compiler handles
-pointers.
+these pointers.
 
 In the rare occasions where explicit pointers are needed (the most
 common case is when translating an algorithm described in a
