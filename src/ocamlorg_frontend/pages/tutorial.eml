@@ -1,8 +1,16 @@
+let rec tutorial_toc_to_toc (toc : Ood.Tutorial.toc) =
+  Toc.{
+    title = toc.title;
+    href = toc.href;
+    children = List.map tutorial_toc_to_toc toc.children
+  }
+
 let right_sidebar
 (tutorial : Ood.Tutorial.t)
 =
-  <div class="font-semibold text-gray-500 text-sm mb-4">ON THIS PAGE</div>
-  <div class="page-toc"><%s! tutorial.toc_html %></div>
+  <div>
+    <%s! Toc.render (List.map tutorial_toc_to_toc tutorial.toc) %>
+  </div>
 
 let render
 (tutorial : Ood.Tutorial.t)

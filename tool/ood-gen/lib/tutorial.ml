@@ -1,3 +1,6 @@
+type toc = { title : string; href : string; children : toc list }
+[@@deriving show { with_path = false }]
+
 type metadata = {
   id : string;
   title : string;
@@ -14,13 +17,13 @@ type t = {
   description : string;
   date : string;
   category : string;
-  toc_html : string;
+  toc : toc list;
   body_md : string;
   body_html : string;
 }
 [@@deriving
   stable_record ~version:metadata ~add:[ id ]
-    ~remove:[ slug; fpath; toc_html; body_md; body_html ],
+    ~remove:[ slug; fpath; toc; body_md; body_html ],
     show { with_path = false }]
 
 let of_metadata m = of_metadata m ~slug:m.id
@@ -63,23 +66,62 @@ let doc_with_ids doc =
       | el -> el)
     doc
 
-let filter_heading_1 doc =
-  let open Omd in
-  List.filter (function Heading (_attr, 1, _inline) -> false | _ -> true) doc
+(* emit a structured toc from the Omd.doc *)
+let find_id attributes =
+  List.find_map
+    (function k, v when String.equal "id" k -> Some v | _ -> None)
+    attributes
+
+let href_of attributes =
+  match find_id attributes with None -> "#" | Some id -> "#" ^ id
+
+let rec create_toc ~max_level level
+    (headings : ('attr * int * 'a Omd.inline) list) : toc list =
+  match headings with
+  | [] -> []
+  | (_, l, _) :: rest when l > max_level -> create_toc ~max_level level rest
+  | (attrs, l, title) :: rest when l = level ->
+      let child_headings, remaining_headings =
+        collect_children ~max_level (l + 1) rest []
+      in
+      let children = create_toc ~max_level (l + 1) child_headings in
+      { title = to_plain_text title; href = href_of attrs; children }
+      :: create_toc ~max_level level remaining_headings
+  | (_, l, _) :: _ when l > level -> create_toc ~max_level (level + 1) headings
+  | _ :: rest -> create_toc ~max_level level rest
+
+and collect_children ~max_level level
+    (headings : ('attr * int * 'a Omd.inline) list) acc =
+  match headings with
+  | [] -> (acc, [])
+  | (_, l, _) :: rest when l > max_level ->
+      collect_children ~max_level level rest acc
+  | (_, l, _) :: _ when l < level -> (acc, headings)
+  | heading :: rest -> collect_children level ~max_level rest (acc @ [ heading ])
+
+let toc ?(start_level = 1) ?(max_level = 2) doc =
+  if max_level <= start_level then
+    invalid_arg "toc: ~max_level must be >= ~start_level";
+  let headers = Omd.headers ~remove_links:true doc in
+  create_toc ~max_level start_level headers
 
 let decode (fpath, (head, body_md)) =
   let metadata = metadata_of_yaml head in
   let omd = doc_with_ids (Omd.of_string body_md) in
-  let toc_doc = filter_heading_1 omd in
-  let toc_html = Omd.to_html (Omd.toc ~depth:4 toc_doc) in
+  let toc = toc ~start_level:2 ~max_level:4 omd in
   let body_html = Omd.to_html (Hilite.Md.transform omd) in
-  Result.map (of_metadata ~fpath ~toc_html ~body_md ~body_html) metadata
+  Result.map (of_metadata ~fpath ~toc ~body_md ~body_html) metadata
 
 let all () = Utils.map_files decode "tutorials/*.md"
 
 let template () =
   Format.asprintf
     {|
+type toc =
+  { title : string
+  ; href : string
+  ; children : toc list
+  }
 type t =
   { title : string
   ; fpath : string
@@ -88,7 +130,7 @@ type t =
   ; date : string
   ; category : string
   ; body_md : string
-  ; toc_html : string
+  ; toc : toc list
   ; body_html : string
   }
   
