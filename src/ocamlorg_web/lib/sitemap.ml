@@ -38,11 +38,11 @@ let urlables =
   List.to_seq
     [
       Urlable (urls, to_url);
-      Success_story.(Urlable (all, fun r -> to_url @@ Url.success_story r.slug));
-      Release.(Urlable (all, fun r -> to_url @@ Url.release r.version));
-      Workshop.(Urlable (all, fun r -> to_url @@ Url.workshop r.slug));
-      News.(Urlable (News.all, fun r -> to_url @@ Url.news_post r.slug));
-      Tutorial.(Urlable (all, fun r -> to_url @@ Url.tutorial r.slug));
+      Urlable (Success_story.all, fun r -> to_url @@ Url.success_story r.slug);
+      Urlable (Release.all, fun r -> to_url @@ Url.release r.version);
+      Urlable (Workshop.all, fun r -> to_url @@ Url.workshop r.slug);
+      Urlable (News.all, fun r -> to_url @@ Url.news_post r.slug);
+      Urlable (Tutorial.all, fun r -> to_url @@ Url.tutorial r.slug);
     ]
 
 let urlset (Urlable (all, show)) = Seq.map show (List.to_seq all)
