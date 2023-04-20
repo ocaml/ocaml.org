@@ -32,10 +32,11 @@ Layout.render
             <p>
             <a target="_blank" href="https://github.com/ocaml/opam">OCaml's package manager <tt>opam</tt></a> installs both the compiler, as well as any additional packages.
 
-            To download and install the most recent version of <code>opam</code>, run the following in your terminal, then follow the on-screen instructions:
+            To download and install the most recent version of <code>opam</code>,
+            you can run the following in your terminal:
             </p>
 
-            <%s! Copy_to_clipboard_snippet.render ~id:"install-opam" "curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh | sh" %>
+            <%s! Copy_to_clipboard_snippet.render ~id:"install-opam" "bash -c \"sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)\"" %>
             <a target="_blank" href="https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh" class="flex justify-end gap-1 pt-1 items-center"><%s! Icons.github "h-6 w-6" %> view script on GitHub</a>
 
             <details>
@@ -52,20 +53,28 @@ Layout.render
           </li>
 
           <li>
-            <h3>Create an <code>opam</code> switch</h3>
+            <h3>Initialise <code>opam</code></h3>
 
             <p>
+              <code>opam</code> needs to be initialised, which will create a default
+              <a href="<%s Url.tutorial "up-and-running" %>#3-create-an-opam-switch"><tt>opam</tt> switch</a>.
               An <code>opam</code> switch is an isolated environment for the OCaml compiler
               and any packages you install.
-              This command installs OCaml 5.0.0 in a global <code>opam</code> switch:
             </p>
 
-            <%s! Copy_to_clipboard_snippet.render ~id:"create-opam-switch" "opam switch create 5.0.0" %>
+            <%s! Copy_to_clipboard_snippet.render ~id:"init-opam" "opam init" %>
 
             <p>
-              <code>opam switch list-available ocaml-base-compiler</code> lists all available compiler versions.
+            At the end of <code>opam init</code>, you are asked if you want to add a hook
+            to your shell that makes the shell aware of the tools available in the
+            current <code>opam</code> switch.
+            </p>
+            <p>
+            If you answer no, every time you want to access your opam installation, you will
+            need to run:
             </p>
 
+            <%s! Copy_to_clipboard_snippet.render ~id:"sync-opam-env" "eval $(opam env)" %>
           </li>
         </ol>
 
