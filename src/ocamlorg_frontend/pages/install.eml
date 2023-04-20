@@ -11,15 +11,14 @@ Layout.render
         Install OCaml
       </h1>
       <div class="flex gap-2">
-        <button class="btn flex gap-2" :class='operating_system == "linux"? "": "btn-secondary"' @click="operating_system = 'linux'"><%s! Icons.linux_tux "w-6 h-6" %> Linux</button>
-        <button class="btn flex gap-2" :class='operating_system == "mac"? "": "btn-secondary"' @click="operating_system = 'mac'"><%s! Icons.apple_logo "w-6 h-6" %> macOS</button>
+        <button class="btn flex gap-2" :class='operating_system == "linux_mac_bsd"? "": "btn-secondary"' @click="operating_system = 'linux_mac_bsd'"> Linux, macOS or *BSD</button>
         <button class="btn flex gap-2" :class='operating_system == "win"? "": "btn-secondary"' @click="operating_system = 'win'"><%s! Icons.microsoft_windows "w-6 h-6" %> Windows</button>
       </div>
     </div>
 
     <div
       class="grid gap-6 xl:grid-cols-2 xl:gap-16"
-      x-show="(operating_system == 'unix') || (operating_system == 'linux') || (operating_system == 'mac')">
+      x-show="(operating_system == 'linux_mac_bsd')">
       <div class="prose">
         <h2>
           Install OCaml on Linux, macOS, or *BSD
@@ -181,13 +180,13 @@ function detect_os ()
         result="win";
     }
     else if (os.search('Mac')!==-1){
-        result="mac";
+        result="linux_mac_bsd";
     }
     else if (os.search('X11')!==-1 && !(os.search('Linux')!==-1)){
-        result="unix";
+        result="linux_mac_bsd";
     }
     else if (os.search('Linux')!==-1 && os.search('X11')!==-1){
-        result="linux"
+        result="linux_mac_bsd"
     }
     return result;
 }
