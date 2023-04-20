@@ -115,7 +115,7 @@ Layout.render
                 with Git and the Visual Studio compiler.
 
                 If you need a different OCaml version, check out the alternative installation instructions
-                provided in <a href="<%s Url.ocaml_on_windows %>">"OCaml on Windows"</a>.
+                provided in the <a href="<%s Url.ocaml_on_windows %>">"OCaml on Windows" guide</a>.
               </p>
 
               <a class="btn !text-white hover:no-underline gap-2" href="https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.2.0/setup-diskuv-ocaml-windows_x86_64-1.2.0.exe">
