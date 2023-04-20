@@ -10,7 +10,9 @@ date: 2021-08-06T17:11:00-00:00
 
 # Your First Day with OCaml
 
-This tutorial will not only give you the basics of OCaml, but it will also guide you through creating your first applications with OCaml. You can follow along with a basic OCaml installation,
+This tutorial will not only give you the basics of OCaml, but it will
+also guide you through creating your first applications with OCaml.
+You can follow along with a basic OCaml installation,
 as described in [Up and Running](/docs/up-and-running).
 
 Alternatively, you may follow almost all of it by running OCaml in your browser
@@ -18,10 +20,13 @@ using the [OCaml Playground](https://ocaml.org/play), with no installation requi
 
 On macOS/iOS/iPadOS, you can download this [all-in-one package on the App Store](https://apps.apple.com/app/ocaml-learn-code/id1547506826). It contains an editor side-by-side with an interactive toplevel. Plus, it's free and [open source](https://github.com/GroupeMINASTE/OCaml-iOS).
 
+**Note:** The OCaml code examples in this tutorial start with a prompt `#`.
+This prompt is not part of the code, it's a hint to you that the code
+following it should be either entered into an interactive toplevel, or
+into the OCaml playground.
 ## Running OCaml Programs
 
-We will be working with small OCaml expressions at first, so using an interactive toplevel, or REPL
-(Read-Eval-Print Loop), will suffice.
+### Using an OCaml toplevel (REPL)
 
 We recommend using UTop (see [here](/docs/up-and-running#using-the-ocaml-toplevel-with-utop)),
 but alternatively, the basic toplevel of OCaml (`ocaml` command) can also be used. For installation instructions,
@@ -33,7 +38,9 @@ and then the toplevel responds with the value of the evaluated expression.
 
 The first step is to start the toplevel with either the `ocaml` or `utop` command.
 
-Let's try the `ocaml` command first. Once in the toplevel, write your expression at the `#` prompt, end it with `;;`, and hit Enter. OCaml evaluates it and prints the result on the next line, as shown:
+Let's try the `ocaml` command first. Once in the toplevel, write your
+expression at the `#` prompt, end it with `;;`, and hit Enter. OCaml evaluates
+it and prints the result on the next line, as shown:
 
 ```console
 $ ocaml
@@ -63,13 +70,9 @@ utop # 50 * 50;;
 
 Exit the UTop toplevel in the same way, by typing Control-D or `exit 0;;`.
 
-The in-browser playground [TryOCaml](http://try.ocamlpro.com) has a similar interface, making it easy
-to write your first OCaml expressions without installing anything.
-
-We typed the above examples by hand, but they can also be copied/pasted into `ocaml`,
-`utop`, or TryOCaml. Alternatively, we can create a file, save it with the
-.ml extension,
-and load its contents directly with the `#use` directive:
+You can type or copy/paste the code examples into `ocaml` or `utop`.
+Alternatively, you can create a file, save it with the `.ml` extension,
+and load its contents into the toplevel with the `#use` directive:
 
 ```console
 $ ocaml
@@ -84,7 +87,26 @@ may need to start `ocaml` or `utop` inside the directory of your file, use a
 relative path that takes into account the directory you started the toplevel in,
 or use an absolute path.
 
-## Simple Expressions and Variables
+### Using the OCaml Playground
+
+The in-browser [OCaml playground](https://ocaml.org/play), which you can
+use without installing anything, has this interface:
+
+![OCaml playground](/media/tutorials/ocaml-playground.png)
+
+There are two windows: the editor window (on the left) is where you write code,
+the output window (on the right) is where all the answers from OCaml appear.
+
+Instead of entering code examples line by line on a prompt, as in the toplevel,
+you type or copy code into the editor window. To run all code in the editor window,
+you click on the "Run" button at the bottom of the editor window.
+
+When using the OCaml playground, it is not required to end expressions with
+`;;`. In this sense, the OCaml playground behaves similar to how you would
+write OCaml code in a file.
+
+
+## Expressions and Variables
 
 ```ocaml
 # 50 * 50;;
@@ -172,19 +194,21 @@ val square : int -> int = <fun>
 
 This defines a function named `square` which has one argument, namely `x`, and
 its result is equal to (`=`) the result of the expression `x * x`. The expression
-that defines the result of a function is called "function body".
+that defines the result of a function is called *function body*.
 
-When you apply the function as `square 50;;`, `x` in the function body of
-`square` is bound to `50`, and thus, we get a result of `50 * 50 = 2500`.
+When we apply the function as `square 50;;`, this evaluates to the function body
+of `square` where `x` is bound to `50`, and thus, we get a result of `50 * 50 = 2500`.
 
 When using `let` to define a function, the first identifier is the function name (`square`, above),
-then any additional identifiers outline different arguments to the function. In our example above,
+then any additional identifiers are the different arguments of the function. In our example above,
 the `square` function has only one argument `x`.
 
-Functions in OCaml are also values, so the REPL responds with `val square : int -> int = <fun>`. 
+In OCaml, functions are values, so the REPL responds to the function definition
+with `val square : int -> int = <fun>`.
 The type `int -> int` tells us that the function `square` takes an integer and returns an integer.
 
-Here is a different function which uses the comparison operator `=` to test for evenness:
+Here is a different function which uses the comparison operator `=`
+to test whether a given number is even:
 
 ```ocaml
 # let square_is_even x =
@@ -198,13 +222,15 @@ val square_is_even : int -> bool = <fun>
 - : bool = false
 ```
 
-Notice that OCaml infers the type `int -> bool` for this function, which means that `square_is_even` is a function that takes one Integer value (`int`) as an argument and returns a Boolean value (`bool`).
+Notice that OCaml infers the type `int -> bool` for this function,
+which means that `square_is_even` is a function that takes
+one Integer value (`int`) as an argument and returns a Boolean value (`bool`).
 
-Like in C and JavaScript, the Boolean operator *and* is denoted with `&&` and *or* with `||`.
+The Boolean operator *and* is denoted with `&&` and *or* is denoted with `||`.
 
-A function may take multiple
-arguments. Unlike imperative languages, they're written without parentheses
-or commas. Instead, they are separated by spaces. We shall explain why later.
+A function may take multiple arguments which are separated by spaces.
+This is the case both in the function declaration and in any expression
+that applies a function to some arguments.
 
 ```ocaml
 # let ordered a b c =
