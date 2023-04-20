@@ -41,12 +41,13 @@ let render
             <div
               class="bg-code-background shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1)] p-4 absolute w-full bottom-0 z-10"
             >
-              <div class="flex w-full justify-end items-center px-4">
+              <div class="flex gap-7 w-full justify-end items-center px-4">
                 <button
                   id="share"
-                  class="mr-7 hover:bg-white hover:bg-opacity-10 active:bg-primary-100 active:text-primary-600 p-2 rounded-md text-gray-400"
+                  class="flex gap-2 hover:bg-white hover:bg-opacity-10 active:bg-primary-100 active:text-primary-600 p-2 rounded-md text-gray-400"
                 >
                   <%s! Icons.playground_share "h-6 w-6 stroke-current" %>
+                  Share
                 </button>
                 <button id="run" class="btn btn-md btn-secondary">
                   <span>Run</span>
