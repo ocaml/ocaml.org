@@ -25,7 +25,13 @@ let pp_meta ppf v =
 
 let feeds () =
   let sources = all_sources () in
-  List.map River.fetch sources.sources
+  sources.sources
+  |> List.filter_map (fun source ->
+         try Some (River.fetch source)
+         with River__Http.Timeout ->
+           print_endline
+             (Printf.sprintf "failed to scrape %s: timeout" source.name);
+           None)
 
 let validate_entries entries =
   let validate_author (author : Syndic.Atom.author) =
