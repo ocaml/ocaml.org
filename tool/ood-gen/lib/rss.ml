@@ -28,9 +28,10 @@ let feeds () =
   sources.sources
   |> List.filter_map (fun source ->
          try Some (River.fetch source)
-         with River__Http.Timeout ->
+         with e ->
            print_endline
-             (Printf.sprintf "failed to scrape %s: timeout" source.name);
+             (Printf.sprintf "failed to scrape %s: %s" source.name
+                (Printexc.to_string e));
            None)
 
 let validate_entries entries =
