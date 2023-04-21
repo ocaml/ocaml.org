@@ -1,4 +1,5 @@
 let index = "/"
+let install = "/install"
 let packages = "/packages"
 let packages_search = "/packages/search"
 let packages_autocomplete_fragment = "/packages/autocomplete"
