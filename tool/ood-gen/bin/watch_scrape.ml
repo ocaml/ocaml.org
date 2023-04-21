@@ -8,8 +8,6 @@ type watch = {
   category : string;
 }
 
-type t = { watch : watch list }
-
 (* Extract published_at date, I believe `originallyPublishedAt` applies to
    videos imported from other platforms and `publishedAt` to this videos
    directly uploaded. Either way one should exist. *)
@@ -54,7 +52,7 @@ let watch_to_yaml t =
         ("category", `String t.category);
       ])
 
-let to_yaml t = `O [ ("watch", `A (List.map watch_to_yaml t.watch)) ]
+let to_yaml t = `A (List.map watch_to_yaml t)
 let videos_url = Uri.of_string "https://watch.ocaml.org/api/v1/videos"
 
 (* 100 is current maximum the API can return:
@@ -93,6 +91,5 @@ let () =
     get_all_videos ()
     |> List.stable_sort (fun w1 w2 -> String.compare w1.name w2.name)
   in
-  let videos = { watch } in
-  let yaml = to_yaml videos in
+  let yaml = to_yaml watch in
   Yaml.pp Format.std_formatter yaml
