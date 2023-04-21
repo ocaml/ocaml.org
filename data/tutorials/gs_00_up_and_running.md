@@ -128,7 +128,10 @@ This is necessary, unless you run a privileged Docker container.
 
 #### 3. Create an `opam` Switch
 
-This step is necessary only if you need to install a specific version of OCaml, or if you want to create a new independent environment.
+This step is necessary only if you need to install a specific version of OCaml,
+or if you want to create a new independent environment.
+`opam init` already set up a default `opam` switch for you to work in.
+
 
 You can create a new opam switch with the `opam switch create` command.
 Specify which version as shown below (i.e., `opam switch create 4.14.0`).
@@ -166,9 +169,11 @@ Note that only OCaml version 4.14.0 is available via Diskuv OCaml.
 
 Before using the DKML installer, briefly review the following:
 
+* Do not use the installer if you have a space in your username (ex. `C:\Users\Jane Smith`).
+
 * You need to **stay at your computer** and press "Yes" for any Windows security popups.
 After the DKML installer finishes installing two programs (`Visual Studio Installer`
-  and `Git for Windows`), you can leave your computer for the remaining two (2) hours.
+  and `Git for Windows`), you can leave your computer for the remaining one and a half (1.5) hours.
 
 * First time installations may get a notification printed in red. If you see it, reboot your computer and then restart your installation so that Visual Studio Installer can complete. The notification looks like:
 
@@ -192,9 +197,13 @@ Now, download and run:
 
 * OCaml 4.14.0 with Git and Visual Studio compiler: [setup-diskuv-ocaml-windows_x86_64-1.2.0.exe](https://github.com/diskuv/dkml-installer-ocaml/releases/download/v1.2.0/setup-diskuv-ocaml-windows_x86_64-1.2.0.exe)
 
-#### 2. Create an Opam Switch
+#### 2. Create an `opam` Switch
 
-If you want a new independent environment, you can create a new switch with the `dkml init` command. The only compiler version available is 4.14.0.
+This step is necessary only if you want to create a new independent environment.
+`dkml init` already set up a default `opam` switch for you to work in.
+
+You can create a new switch with the `dkml init` command.
+The only compiler version available is 4.14.0.
 Use PowerShell or a Command Prompt to create a directory anywhere and then create a switch:
 
 ```powershell
@@ -239,7 +248,7 @@ What we installed so far (theoretically) suffices to write, compile, and execute
 
 ### Installing the OCaml Platform Tools
 
-Now, we install everything we need to get a complete development environment, which includes:
+The OCaml Platform Tools include:
 
 - Dune, a fast and full-featured build system for OCaml
 - Merlin and `ocaml-lsp-server` (OCaml's Language Server Protocol), which together enhance editors
@@ -249,24 +258,33 @@ Now, we install everything we need to get a complete development environment, wh
 - UTop, an improved REPL
 - `dune-release` to release code to `opam-repository`, the central package directory of opam.
 
+#### OCaml Platform Tools on Unix
+
 All these tools can be installed in your current switch (remember that opam groups installed packages in independent switches) using the following command:
 
 ```shell
-# Unix
 $ opam install dune merlin ocaml-lsp-server odoc ocamlformat utop dune-release
-
-# Windows
-$ opam install dune merlin ocaml-lsp-server odoc ocamlformat utop
 ```
 
 Now that the tools are installed, it remains to understand how to use them. Most of them will be driven either by the editor or by Dune, but UTop is handy to try OCaml or a specific library.
 
+#### OCaml Platform Tools on Windows
+
+The DKML installer already installed all of the OCaml Platform tools, except for Merlin.
+
+If need to use Merlin, you can install it in an `opam` switch that you created using `dkml init`:
+
+```shell
+$ opam install merlin
+```
+
 ## One-Step Installation on Unix: The Platform Installer
 
 The [OCaml Platform Installer](https://github.com/tarides/ocaml-platform-installer)
-is an alternative way to install all the tools of the OCaml platform.
-If you decide to use the OCaml Platform Installer, you should **not**
-use any of the installation instructions from the previous section "Installing OCaml".
+is an alternative way to install both the OCaml base tools (`ocaml`, `ocamlopt`, and `ocamlc`) and the OCaml Platform Tools.
+If you decide to use the OCaml Platform Installer, you should use **neither**
+the installation instructions from ["Installing OCaml"](#installing-ocaml),
+**nor** the instructions from ["Installing the OCaml Platform Tools"](#installing-the-ocaml-platform-tools).
 
 As of 2023, the OCaml Platform Installer is still experimental and in active development.
 If you run into any trouble using it, please don't hesitate to [file an
