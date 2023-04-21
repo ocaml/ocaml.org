@@ -64,13 +64,13 @@ Layout.render
             <%s! Copy_to_clipboard_snippet.render ~id:"init-opam" "opam init" %>
 
             <p>
-            At the end of <code>opam init</code>, you are asked if you want to add a hook
-            to your shell that makes the shell aware of the tools available in the
-            current <code>opam</code> switch.
+            During <code>opam init</code>, you will be asked if you want to add a hook
+            to your shell to put the tools available in the current <code>opam</code> switch
+            on your PATH.
             </p>
             <p>
             If you answer no, every time you want to access your opam installation, you will
-            need to run:
+            need to activate the <code>opam</code> switch by running:
             </p>
 
             <%s! Copy_to_clipboard_snippet.render ~id:"sync-opam-env" "eval $(opam env)" %>
