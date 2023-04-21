@@ -55,6 +55,9 @@ However, please note that it is still experimental and in active development
 Note: OCaml is available as a package in most Linux distributions; however, it is
 often outdated. On Unix, the best way to install OCaml is with `opam`, OCaml's package manager.
 
+The following steps depend on having these packages or tools installed:
+`gcc`, `build-essential`, `curl`, `bubblewrap`, and `unzip`.
+
 #### 1. Install opam
 
 To install opam, you can [use your system package manager](https://opam.ocaml.org/doc/Install.html#Using-your-distribution-39-s-package-system) or download the [binary distribution](https://opam.ocaml.org/doc/Install.html#Binary-distribution). The details are available in the above links, but for convenience, we copy a few of them here:
@@ -118,6 +121,10 @@ The second command (`eval $(opam env)`) modifies a few environment variables to 
 **Please note:** At the end of the `opam init`, you are asked if you want to add a hook to your shell to best integrate with your system. Indeed, in order for the shell to be aware of the tools available in the current opam switch, a few environment variables need to be modified. For instance, the `PATH` variable has to be expanded so that typing `ocaml` in the shell runs the OCaml binary _of the current switch_. Answering `y` will provide a better user experience.
 
 Now check the installation by running `opam --version`. You can compare it with the current version on [opam.ocaml.org](https://opam.ocaml.org/).
+
+**Please note:** In case you are running `opam init` inside a Docker container,
+you will be asked whether you want to disable sanboxing.
+This is necessary, unless you run a privileged Docker container.
 
 #### 3. Create an `opam` Switch
 

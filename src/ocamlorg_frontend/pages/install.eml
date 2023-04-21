@@ -30,9 +30,9 @@ Layout.render
 
             <p>
             <a target="_blank" href="https://github.com/ocaml/opam">OCaml's package manager <tt>opam</tt></a> installs both the compiler, as well as any additional packages.
-
             To download and install the most recent version of <code>opam</code>,
-            you can run the following in your terminal:
+            ensure that <code>gcc</code>, <code>build-essential</code>, <code>curl</code>, <code>bubblewrap</code>, and <code>unzip</code> are installed on your system, then
+            run the following in your terminal:
             </p>
 
             <%s! Copy_to_clipboard_snippet.render ~id:"install-opam" "bash -c \"sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)\"" %>
