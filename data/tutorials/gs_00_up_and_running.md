@@ -121,7 +121,12 @@ Now check the installation by running `opam --version`. You can compare it with 
 
 #### 3. Create an `opam` Switch
 
-If you want a specific version of OCaml, or a new independent environment, you can create a new switch with the `opam switch create` command. Specify which version as shown below (i.e., `opam switch create 4.14.0`). All available versions of the OCaml base compiler can be found with `opam switch list-available ocaml-base-compiler`. The most current version can also be found at [opam.ocaml.org](https://opam.ocaml.org/packages/ocaml-base-compiler/).
+This step is necessary only if you need to install a specific version of OCaml, or if you want to create a new independent environment.
+
+You can create a new opam switch with the `opam switch create` command.
+Specify which version as shown below (i.e., `opam switch create 4.14.0`).
+All available versions of the OCaml base compiler can be found with `opam switch list-available ocaml-base-compiler`.
+The most current version can also be found at [opam.ocaml.org](https://opam.ocaml.org/packages/ocaml-base-compiler/).
 
 ```shell
 $ opam switch create 4.14.0
