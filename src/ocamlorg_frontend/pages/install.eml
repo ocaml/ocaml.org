@@ -4,7 +4,7 @@ Layout.render
 ~title:"Install OCaml"
 ~description:"Quick setup instructions to install OCaml on your system."
 ~canonical:"" @@
-<div class="lg:py-12 py-6">
+<div class="lg:py-8 py-6">
   <div class="container-fluid" x-data='{ operating_system: detect_os () }'>
     <div class="prose mb-6">
       <h1 class="sr-only">
@@ -29,10 +29,9 @@ Layout.render
             <h3>Install the <code>opam</code> package manager</h3>
 
             <p>
-            <a target="_blank" href="https://github.com/ocaml/opam">OCaml's package manager <tt>opam</tt></a> installs both the compiler, as well as any additional packages.
-            To download and install the most recent version of <code>opam</code>,
-            ensure that <code>gcc</code>, <code>build-essential</code>, <code>curl</code>, <code>bubblewrap</code>, and <code>unzip</code> are installed on your system, then
-            run the following in your terminal:
+            <a target="_blank" href="https://opam.ocaml.org">OCaml's package manager <tt>opam</tt></a> installs both the compiler, as well as any additional packages.
+            Ensure <code>gcc</code>, <code>build-essential</code>, <code>curl</code>, <code>unzip</code>, and <code>bubblewrap</code> are installed on your system, then
+            run the following in your terminal to download and install the newest version of <code>opam</code>:
             </p>
 
             <%s! Copy_to_clipboard_snippet.render ~id:"install-opam" "bash -c \"sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)\"" %>
@@ -67,13 +66,9 @@ Layout.render
             During <code>opam init</code>, you will be asked if you want to add a hook
             to your shell to put the tools available in the current <code>opam</code> switch
             on your PATH.
+            If you answer no, you will need to activate the <code>opam</code> switch
+            by running <code>eval $(opam env)</code>.
             </p>
-            <p>
-            If you answer no, every time you want to access your opam installation, you will
-            need to activate the <code>opam</code> switch by running:
-            </p>
-
-            <%s! Copy_to_clipboard_snippet.render ~id:"sync-opam-env" "eval $(opam env)" %>
           </li>
         </ol>
 

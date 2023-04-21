@@ -53,7 +53,7 @@ However, please note that it is still experimental and in active development
 ### Installation on Unix (Linux, macOS, *BSD)
 
 Note: OCaml is available as a package in most Linux distributions; however, it is
-often outdated. On Unix, the best way to install OCaml is with `opam`, OCaml's package manager.
+often outdated. The best way to install OCaml is with `opam`, OCaml's package manager.
 
 The following steps depend on having these packages or tools installed:
 `gcc`, `build-essential`, `curl`, `bubblewrap`, and `unzip`.
