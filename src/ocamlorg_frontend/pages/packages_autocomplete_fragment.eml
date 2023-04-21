@@ -18,7 +18,7 @@ let input_attributes ~target_sel ~indicator_sel =
 
         hx-get="/packages/autocomplete"
         hx-params="q"
-        hx-trigger="keyup changed delay:500ms, search"
+        hx-trigger="keyup changed, search"
         hx-target="|js} ^ target_sel ^ {js|"
         hx-indicator="|js} ^ indicator_sel ^ {js|"
         |js}
