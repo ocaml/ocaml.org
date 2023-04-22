@@ -18,9 +18,9 @@ Layout.render
                       <div class="font-semibold text-gray-400">FEATURED</div>
                       <div class="flex flex-col-reverse lg:flex-row lg:gap-12">
                           <div class="space-y-3 mt-6 lg:mt-0 flex flex-col flex-1">
-                              <a href="<%s Url.blog_post @@ Option.value ~default:item.slug item.url %>"
+                              <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>"
                                   class="block text-xl font-semibold hover:text-primary-600"><%s item.title %></a>
-                              <a href="<%s Url.blog_post @@ Option.value ~default:item.slug item.url %>" class="text-body-400">
+                              <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>" class="text-body-400">
                                   <%s Option.value ~default:"" item.description %>
                               </a>
                               <div class="text-body-400 flex space-x-2.5 text-sm">
@@ -29,7 +29,7 @@ Layout.render
                           </div>
                           <% (match item.preview_image with | None -> () | Some image -> %>
                           <div class="flex-none w-64">
-                              <a href="<%s Url.blog_post @@ Option.value ~default:item.slug item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
+                              <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
                           </div>
                           <% ); %>
                       </div>
@@ -39,9 +39,9 @@ Layout.render
                     <% planet |> List.iter (fun (item : Ood.Planet.t) -> %>
                     <div class="flex flex-col-reverse lg:flex-row lg:gap-12">
                         <div class="space-y-3 mt-6 lg:mt-0 flex flex-col flex-1">
-                            <a href="<%s Url.blog_post @@ Option.value ~default:item.slug item.url %>"
+                            <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>"
                                 class="block text-xl font-semibold hover:text-primary-600"><%s item.title %></a>
-                            <a href="<%s Url.blog_post @@ Option.value ~default:item.slug item.url %>" class="text-body-400">
+                            <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>" class="text-body-400">
                                 <%s Option.value ~default:"" item.description %>
                             </a>
                             <div class="text-body-400 flex space-x-2.5 text-sm">
@@ -50,7 +50,7 @@ Layout.render
                         </div>
                         <% (match item.preview_image with | None -> () | Some image -> %>
                         <div class="flex-none w-64">
-                            <a href="<%s Url.blog_post @@ Option.value ~default:item.slug item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
+                            <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
                         </div>
                         <% ); %>
                     </div>
