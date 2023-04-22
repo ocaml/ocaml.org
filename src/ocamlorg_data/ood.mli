@@ -54,7 +54,7 @@ module Changelog : sig
     slug : string;
     date : string;
     tags : string list;
-    changelog_html: string option;
+    changelog_html : string option;
     body_html : string;
   }
 
