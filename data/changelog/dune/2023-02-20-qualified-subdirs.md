@@ -1,7 +1,7 @@
 ---
 title: Qualified sub-directories
 date: "2023-02-20-01"
-tags: [dune, platform]
+tags: [dune, platform, feature]
 ---
 
 It's quite common to organise your code into subdirectories to separate

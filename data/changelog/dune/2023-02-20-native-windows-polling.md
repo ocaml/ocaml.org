@@ -1,7 +1,7 @@
 ---
 title: Native polling mode for Windows
 date: "2023-02-20-03"
-tags: [dune, platform]
+tags: [dune, platform, feature]
 ---
 
 Starting from Dune 3.7, Dune watch mode is now available on Windows!

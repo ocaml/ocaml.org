@@ -3,7 +3,7 @@ title: "Merlin 2.0 release"
 authors: [ "Frederic Bour", "Thomas Refis" ]
 date: "2014-11-03"
 description: "Release announcement for Merlin 2.0"
-tags: [platform]
+tags: [opam, platform, release]
 ---
 
 After a few months of development, we are pleased to announce the

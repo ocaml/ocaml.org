@@ -1,7 +1,7 @@
 ---
 title: Ocamlformat 0.9
 date: "2019-03-28"
-tags: [ocamlformat, platform]
+tags: [ocamlformat, platform, release]
 changelog: |
   - Admin: remove CHANGES.md that was essentially git log (@jberdine)
   - Admin: simplify release procedure (@jberdine)

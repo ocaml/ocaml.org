@@ -1,7 +1,7 @@
 ---
 title: Ocamlformat 0.14.0
 date: "2020-04-02"
-tags: [ocamlformat, platform]
+tags: [ocamlformat, platform, release]
 changelog: |
   ### New features
 

@@ -1,7 +1,7 @@
 ---
 title: Dune-release 1.6.0
 date: "2022-02-10"
-tags: [dune-release, platform]
+tags: [dune-release, platform, release]
 changelog: |
   ### Added
 

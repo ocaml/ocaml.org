@@ -1,7 +1,7 @@
 ---
 title: Execute Code Blocks in Mld Files
 date: "2023-04-17-01"
-tags: [mdx, platform]
+tags: [mdx, platform, feature]
 ---
 
 Starting in MDX 2.3.0, you can now execute code blocks in your `.mld` files! 🎉

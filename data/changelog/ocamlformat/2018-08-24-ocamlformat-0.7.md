@@ -1,7 +1,7 @@
 ---
 title: Ocamlformat 0.7
 date: "2018-08-24"
-tags: [ocamlformat, platform]
+tags: [ocamlformat, platform, release]
 changelog: |
   - Improve: simplify setting option defaults, slight --help improvement (#350, @jberdine)
   - Improve: update emacs mode to use replace-buffer-contents (#345, @hhugo)

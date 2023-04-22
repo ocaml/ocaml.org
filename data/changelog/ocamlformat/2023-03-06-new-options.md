@@ -1,7 +1,7 @@
 ---
 title: New Formatting Options in OCamlFormat
 date: "2023-03-06-01"
-tags: [ocamlformat, platform]
+tags: [ocamlformat, platform, feature]
 ---
 
 Starting in OCamlFormat 0.25.1, we've also added new values to the `if-then-else` and `break-cases` options. Now you can use the `vertical` value to format these expressions in a more readable and consistent way.

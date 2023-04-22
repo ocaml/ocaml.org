@@ -1,7 +1,7 @@
 ---
 title: Dune-release 1.5.1
 date: "2021-10-11"
-tags: [dune-release, platform]
+tags: [dune-release, platform, release]
 changelog: |
   ### Added
 

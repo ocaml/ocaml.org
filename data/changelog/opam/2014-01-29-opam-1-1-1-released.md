@@ -3,7 +3,7 @@ title: "OPAM 1.1.1 released"
 authors: [ "Louis Gesbert" ]
 date: "2014-01-29"
 description: "Release announcement for OPAM 1.1.1"
-tags: [platform]
+tags: [opam, platform, release]
 changelog: |
   From the changelog:  
   * Fix `opam-admin make <packages> -r` (#990)

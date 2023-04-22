@@ -1,7 +1,7 @@
 ---
 title: Ocamlformat 0.10
 date: "2019-06-27"
-tags: [ocamlformat, platform]
+tags: [ocamlformat, platform, release]
 changelog: |
   - Improve: align cases horizontally (#883, @gpetiot)
   - Improve: option exp-grouping (#828, @gpetiot)

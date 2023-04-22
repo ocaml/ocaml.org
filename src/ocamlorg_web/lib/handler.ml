@@ -25,9 +25,23 @@ let community _req =
   let meetups = Ood.Meetup.all in
   Dream.html (Ocamlorg_frontend.community ~workshops ~meetups)
 
-let changelog _req =
-  let items = Ood.Changelog.all in
-  Dream.html (Ocamlorg_frontend.changelog items)
+let changelog req =
+  let current_tag = Dream.query req "t" in
+  let tags =
+    Ood.Changelog.all
+    |> List.concat_map (fun (change : Ood.Changelog.t) -> change.tags)
+    |> List.sort_uniq String.compare
+    |> List.sort_uniq String.compare
+  in
+  let changes =
+    match current_tag with
+    | None | Some "" -> Ood.Changelog.all
+    | Some tag ->
+        List.filter
+          (fun change -> List.exists (( = ) tag) change.Ood.Changelog.tags)
+          Ood.Changelog.all
+  in
+  Dream.html (Ocamlorg_frontend.changelog ?current_tag ~tags changes)
 
 let success_story req =
   let slug = Dream.param req "id" in

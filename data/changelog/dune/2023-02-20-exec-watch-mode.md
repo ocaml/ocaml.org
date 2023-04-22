@@ -1,7 +1,7 @@
 ---
 title: Watch mode for executables
 date: "2023-02-20-02"
-tags: [dune, platform]
+tags: [dune, platform, feature]
 ---
 
 Dune 3.7 now supports watch mode for executables! 🎉
