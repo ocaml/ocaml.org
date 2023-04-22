@@ -85,6 +85,10 @@ let render () =
               </li>
 
               <li>
+                <a href="<%s Url.changelog %>" class="text-base leading-6 text-gray-600">Changelog</a>
+              </li>
+
+              <li>
                 <a href="<%s Url.jobs %>" class="text-base leading-6 text-gray-600">Jobs</a>
               </li>
             </ul>
