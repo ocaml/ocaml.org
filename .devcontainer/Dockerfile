@@ -9,5 +9,4 @@ RUN opam install -y dune-release merlin ocamlformat=0.24.1 utop ocaml-lsp-server
 # Deps
 RUN sudo apt update && sudo apt install -y pkg-config libev-dev libgmp-dev libonig-dev libssl-dev
 
-RUN opam install --deps-only --with-doc --with-test --yes .
 
