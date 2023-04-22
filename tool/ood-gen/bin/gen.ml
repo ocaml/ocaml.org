@@ -7,6 +7,7 @@ let term_templates =
     ("job", Ood_gen.Job.template);
     ("meetup", Ood_gen.Meetup.template);
     ("news", Ood_gen.News.template);
+    ("changelog", Ood_gen.Changelog.template);
     ("industrial_user", Ood_gen.Industrial_user.template);
     ("outreachy", Ood_gen.Outreachy.template);
     ("packages", Ood_gen.Packages.template);
@@ -18,7 +19,7 @@ let term_templates =
     ("tutorial", Ood_gen.Tutorial.template);
     ("workshops", Ood_gen.Workshop.template);
     ("video", Ood_gen.Video.template);
-    ("rss", Ood_gen.Rss.template);
+    ("planet", Ood_gen.Planet.template);
     ("opam_user", Ood_gen.Opam_user.template);
     ("workflows", Ood_gen.Workflow.template);
     ("pages", Ood_gen.Page.template);

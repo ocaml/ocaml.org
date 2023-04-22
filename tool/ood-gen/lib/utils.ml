@@ -4,7 +4,9 @@ let ( let* ) = Result.bind
 let ( <@> ) = Result.apply
 
 let extract_metadata_body s =
-  let err = `Msg "expected metadata at the top of the file" in
+  let err =
+    `Msg (Printf.sprintf "expected metadata at the top of the file. Got %s" s)
+  in
   let cut =
     let sep = "---\n" in
     let win_sep = "---\r\n" in

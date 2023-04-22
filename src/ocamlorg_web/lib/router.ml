@@ -27,6 +27,7 @@ let page_routes =
       Dream.get Url.learn Handler.learn;
       Dream.get Url.platform Handler.platform;
       Dream.get Url.community Handler.community;
+      Dream.get Url.changelog Handler.changelog;
       Dream.get (Url.success_story ":id") Handler.success_story;
       Dream.get Url.industrial_users Handler.industrial_users;
       Dream.get Url.academic_users Handler.academic_users;
@@ -36,6 +37,7 @@ let page_routes =
       Dream.get (Url.release ":id") Handler.release;
       Dream.get (Url.workshop ":id") Handler.workshop;
       Dream.get Url.blog Handler.blog;
+      Dream.get (Url.blog_post ":id") Handler.blog_post;
       Dream.get Url.news Handler.news;
       Dream.get (Url.news_post ":id") Handler.news_post;
       Dream.get Url.jobs Handler.jobs;

@@ -48,7 +48,7 @@
   fmt
   logs
   (omd
-   (= "2.0.0~alpha2"))
+   (= "2.0.0~alpha3"))
   opam-format
   (timedesc
    (>= 0.8.0))
@@ -67,7 +67,7 @@
   (dream
    (>= 1.0.0~alpha3))
   (hyper
-   (>= 1.0.0~alpha1))
+   (= 1.0.0~alpha1))
   dune-build-info
   luv
   metrics-lwt

@@ -17,6 +17,13 @@
    (run %{dep:../../tool/ood-gen/bin/gen.exe} book))))
 
 (rule
+ (target changelog.ml)
+ (action
+  (with-stdout-to
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} changelog))))
+
+(rule
  (target job.ml)
  (action
   (with-stdout-to
@@ -100,11 +107,11 @@
    %{workspace_root}/data/watch.yml)))
 
 (rule
- (target rss.ml)
+ (target planet.ml)
  (action
   (with-stdout-to
    %{target}
-   (run %{dep:../../tool/ood-gen/bin/gen.exe} rss))))
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} planet))))
 
 (rule
  (target opam_user.ml)

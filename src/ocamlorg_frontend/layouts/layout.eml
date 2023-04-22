@@ -56,11 +56,14 @@ inner =
     <div class="relative bg-background-dark-blue">
       <div class="mx-auto py-3 px-6 sm:px-16 max-w-6xl sm:text-center">
         <p class="font-medium text-white">
-          <span class="md:hidden">OCaml 5.0 is available!</span>
-          <span class="hidden md:inline">OCaml 5.0 is available! This release of OCaml comes with support for shared-memory parallelism through domains and direct-style concurrency through effect handlers!</span>
+          <span class="md:hidden">We've released the OCaml Changelog!</span>
+          <span class="hidden md:inline">
+            <strong class="font-semibold">OCaml Changelog</strong><svg viewBox="0 0 2 2" class="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true"><circle cx="1" cy="1" r="1" /></svg>
+            The OCaml Changelog is a feed of the latest releases and features of official OCaml projects.
+          </span>
           <span class="block sm:ml-2 sm:inline-block">
-            <a href="<%s Url.news_post "ocaml-5.0" %>" class="font-bold text-white underline">
-              Try it now
+            <a href="<%s Url.changelog %>" class="font-bold text-white underline">
+              Read it now
               <span aria-hidden="true"> &rarr;</span>
             </a>
           </span>

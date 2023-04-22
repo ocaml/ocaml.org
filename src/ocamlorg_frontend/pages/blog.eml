@@ -1,8 +1,8 @@
-let render ~(featured : Ood.Rss.t list) ~(rss : Ood.Rss.t list) ~rss_pages_number ~rss_page ~(news : Ood.News.t list) =
+let render ~(featured : Ood.Planet.t list) ~(planet : Ood.Planet.t list) ~planet_pages_number ~planet_page ~(news : Ood.News.t list) =
 Layout.render
 ~title:"OCaml Blog"
 ~description:"Recent news and blog posts from the OCaml community."
-~canonical:(Url.blog ^ if rss_page = 1 then "" else "?p=" ^ string_of_int rss_page)
+~canonical:(Url.blog ^ if planet_page = 1 then "" else "?p=" ^ string_of_int planet_page)
 ~active_top_nav_item:Header.Blog @@
 <div class="bg-white py-10">
     <div class="container-fluid wide">
@@ -13,14 +13,14 @@ Layout.render
                 <h2 class="text-lg mt-0 font-semibold border-b border-current text-primary-600 pb-3">OCaml Community Blog</h2>
 
                 <div class="mt-12 space-y-12">
-                    <% featured |> List.iter (fun (item : Ood.Rss.t) -> %>
+                    <% featured |> List.iter (fun (item : Ood.Planet.t) -> %>
                     <div>
                       <div class="font-semibold text-gray-400">FEATURED</div>
                       <div class="flex flex-col-reverse lg:flex-row lg:gap-12">
                           <div class="space-y-3 mt-6 lg:mt-0 flex flex-col flex-1">
-                              <a href="<%s item.url %>"
+                              <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>"
                                   class="block text-xl font-semibold hover:text-primary-600"><%s item.title %></a>
-                              <a href="<%s item.url %>" class="text-body-400">
+                              <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>" class="text-body-400">
                                   <%s Option.value ~default:"" item.description %>
                               </a>
                               <div class="text-body-400 flex space-x-2.5 text-sm">
@@ -29,19 +29,19 @@ Layout.render
                           </div>
                           <% (match item.preview_image with | None -> () | Some image -> %>
                           <div class="flex-none w-64">
-                              <a href="<%s item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
+                              <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
                           </div>
                           <% ); %>
                       </div>
                     </div>
                     <% ); %>
 
-                    <% rss |> List.iter (fun (item : Ood.Rss.t) -> %>
+                    <% planet |> List.iter (fun (item : Ood.Planet.t) -> %>
                     <div class="flex flex-col-reverse lg:flex-row lg:gap-12">
                         <div class="space-y-3 mt-6 lg:mt-0 flex flex-col flex-1">
-                            <a href="<%s item.url %>"
+                            <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>"
                                 class="block text-xl font-semibold hover:text-primary-600"><%s item.title %></a>
-                            <a href="<%s item.url %>" class="text-body-400">
+                            <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>" class="text-body-400">
                                 <%s Option.value ~default:"" item.description %>
                             </a>
                             <div class="text-body-400 flex space-x-2.5 text-sm">
@@ -50,13 +50,13 @@ Layout.render
                         </div>
                         <% (match item.preview_image with | None -> () | Some image -> %>
                         <div class="flex-none w-64">
-                            <a href="<%s item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
+                            <a href="<%s Option.value ~default:(Url.blog_post item.slug) item.url %>"><img class="w-full" src="<%s image %>" alt=""></a>
                         </div>
                         <% ); %>
                     </div>
                     <% ); %>
 
-                    <%s! Pagination.render ~total_page_count:rss_pages_number ~page_number:rss_page ~base_url:Url.blog %>
+                    <%s! Pagination.render ~total_page_count:planet_pages_number ~page_number:planet_page ~base_url:Url.blog %>
                 </div>
             </div>
             <div class="lg:pl-16 space-y-12">

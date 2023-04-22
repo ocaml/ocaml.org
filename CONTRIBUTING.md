@@ -30,6 +30,7 @@ Here's a list of the content that is community driven and how you can contribute
 - [The OCaml books](#content-book)
 - [The community events](#content-event)
 - [The featured packages](#content-package)
+- [The OCaml Changelog](#content-package)
 
 ### <a name="content-blog"></a> Add an RSS feed to the blog
 
@@ -108,6 +109,21 @@ You can add a new community event by creating a new markdown file in [data/meetu
 > Contribute to the [Featured Packages](https://ocaml.org/packages).
 
 To update the list of Featured Packages in the Packages page, you can update [data/packages.yml](data/packages.yml)
+
+### <a name="ocaml-changelog"></a> OCaml Changelog
+
+The [OCaml Changelog](https://ocaml.org/changelog) is a feed of the latest releases and feature highlights for official OCaml projects. As of today, it features the following projects:
+
+- [The OCaml compiler](https://github.com/ocaml/ocaml)
+- [The OCaml Platform tools](https://ocaml.org/docs/platform)
+- [Ppxlib](https://github.com/ocaml-ppx/ppxlib)
+- [OMP](https://github.com/ocaml-ppx/ocaml-migrate-parsetree) (that has been deprecated in favour of Ppxlib)
+
+Before a release of the above tools land on the opam-repository, the release manager of the project opens a Pull Request on OCaml.org with an announcement for the release.
+
+The announcement is proofread by the OCaml.org team, who will also suggest highlighting features from the release.
+
+To contribute to a new release announcement or feature highlight, add a markdown file in `data/changelog/`.
 
 ## Git and GitHub workflow
 

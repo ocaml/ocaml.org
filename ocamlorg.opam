@@ -32,7 +32,7 @@ depends: [
   "fpath"
   "fmt"
   "logs"
-  "omd" {= "2.0.0~alpha2"}
+  "omd" {= "2.0.0~alpha3"}
   "opam-format"
   "timedesc" {>= "0.8.0"}
   "yojson"
@@ -44,7 +44,7 @@ depends: [
   "alcotest" {with-test}
   "mdx" {with-test & >= "1.10.0"}
   "dream" {>= "1.0.0~alpha3"}
-  "hyper" {>= "1.0.0~alpha1"}
+  "hyper" {= "1.0.0~alpha1"}
   "dune-build-info"
   "luv"
   "metrics-lwt"
@@ -81,4 +81,5 @@ build: [
 dev-repo: "git+https://github.com/ocaml/ocaml.org.git"
 pin-depends: [
   ["tailwindcss.dev" "git+https://github.com/tmattio/opam-tailwindcss#7ef5bebbf48958370051b2368a4dd57b69627cf6"]
+  ["hilite.dev" "git+https://github.com/tmattio/hilite#019d8a94d1981af19ca8d72e3d0bfde9dae6b284"]
 ]
