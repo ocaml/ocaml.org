@@ -235,7 +235,7 @@ Layout.render
 </style>
 <script>
   document.querySelector("#in_package_search").addEventListener("input", (event) => {
-    let results = idx_fuse.search(event.target.value);
+    let results = idx_fuse.search(event.target.value, {limit: 200});
     let container = document.querySelector("#search-results");
     container.innerHTML = "";
 
