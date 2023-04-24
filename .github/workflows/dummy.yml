@@ -15,7 +15,6 @@ jobs:
 
       - name: Install Missing System Dependencies
         run: |
-          echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf
           sudo apt-get update
           sudo apt-get install rsync
 
