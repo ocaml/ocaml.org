@@ -98,7 +98,7 @@ Layout.render
       </div>
     </div>
 
-    <div class="grid gap-6 xl:grid-cols-2 xl:gap-16" x-show="operating_system == 'win'">
+    <div x-show="operating_system == 'win'">
       <div class="prose">
         <h2>
           Install OCaml on Windows
@@ -128,25 +128,20 @@ Layout.render
         <p>
           Congratulations, you have now installed OCaml as well as the <a href="<%s Url.tutorial "up-and-running" %>#installing-the-ocaml-platform-tools">OCaml Platform Tools</a>!
         </p>
+
+        <p>
+          The <a href="<%s Url.tutorial "up-and-running" %>#installing-the-ocaml-platform-tools">OCaml Platform Tools</a> include the <a target="_blank" href="https://dune.build/">build system <tt>dune</tt></a>,
+          and provide you with a complete OCaml development environment.
+        </p>
+
+        <p>Now you are ready to write some OCaml code!</p>
       </div>
-      <div>
-        <div class="prose">
-          <h2>You have an OCaml Development Environment</h2>
+      <a class="btn text-white mt-6 flex gap-2" href="<%s Url.tutorial "up-and-running" %>#first-steps-with-ocaml">First Steps with OCaml <%s! Icons.arrow_small_right "h-6 w-6" %></a>
 
-          <p>
-            The <a href="<%s Url.tutorial "up-and-running" %>#installing-the-ocaml-platform-tools">OCaml Platform Tools</a> include the <a target="_blank" href="https://dune.build/">build system <tt>dune</tt></a>,
-            and provide you with a complete OCaml development environment.
-          </p>
-
-          <p>Now you are ready to write some OCaml code!</p>
-        </div>
-        <a class="btn text-white mt-6 flex gap-2" href="<%s Url.tutorial "up-and-running" %>#first-steps-with-ocaml">First Steps with OCaml <%s! Icons.arrow_small_right "h-6 w-6" %></a>
-
-        <div class="prose mt-6">
-          <p>If the instructions on this page did not work for you, or you want to know more, you can find
-            <a href="<%s Url.getting_started %>#installation-on-windows">a more detailed explanation of the installation process here</a>.
-          </p>
-        </div>
+      <div class="prose mt-6">
+        <p>If the instructions on this page did not work for you, or you want to know more, you can find
+          <a href="<%s Url.getting_started %>#installation-on-windows">a more detailed explanation of the installation process here</a>.
+        </p>
       </div>
     </div>
   </div>
