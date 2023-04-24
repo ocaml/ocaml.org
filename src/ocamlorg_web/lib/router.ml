@@ -77,6 +77,9 @@ let package_route t =
            ~version:":version")
         ((Handler.package_documentation t) Handler.Universe);
       Dream.get
+        (Url.Package.search_index ":name" ~version:":version" ~digest:":digest")
+        ((Handler.package_search_index t) Handler.Package);
+      Dream.get
         (Url.Package.file ":name" ~version:":version" ~filepath:"**")
         ((Handler.package_file t) Handler.Package);
       Dream.get

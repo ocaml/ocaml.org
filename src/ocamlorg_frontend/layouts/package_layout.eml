@@ -8,6 +8,7 @@ let render
 ?page
 ~(package : Package.package)
 ~(documentation_status: Package.documentation_status)
+~(search_index_digest: string option)
 ~left_sidebar_html
 ~right_sidebar_html
 inner =
@@ -27,7 +28,7 @@ Layout.render
           <%s! Package_breadcrumbs.render_package_and_version ~path ?hash ?page package %>
         </div>
       </div>
-      <div x-data="{ sidebar: window.matchMedia('(min-width: 48em)').matches }" @resize.window="sidebar = window.matchMedia('(min-width: 48em)').matches" x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 48em)').matches">
+      <div x-data="{ sidebar: window.matchMedia('(min-width: 48em)').matches, q: '', search_input_focused: false }" @resize.window="sidebar = window.matchMedia('(min-width: 48em)').matches" x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 48em)').matches">
         <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed md:hidden right-10"
         x-on:click="sidebar = ! sidebar">
           <%s! Icons.sidebar_menu "h-8 w-8" %>
@@ -60,14 +61,23 @@ Layout.render
             </li>
           </ol>
 
-          <div title="Sorry, in-package search is not yet implemented, but this is where it's going to appear." class="flex w-full items-center">
-            <input disabled type="search" name="q" class="focus:border-gray-800 text-gray-800 bg-gray-300 border-gray-300 h-10 rounded-l-md appearance-none px-4 flex-grow"
+          <form class="flex w-full items-center">
+            <% if Option.is_some search_index_digest then (%>
+            <input id="in_package_search" type="search" name="q" class="focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 flex-grow"
               autocomplete="off"
-              placeholder="Sorry, in-package search is not yet implemented, but this is where it's going to appear :-)">
-            <button disabled aria-label="search" class="h-10 rounded-r-md bg-gray-300 text-gray-800 flex items-center justify-center px-4">
+              placeholder="Search names in this package..."
+
+              x-on:focus="search_input_focused = true"
+              x-on:blur="setTimeout(() => search_input_focused = false, 100)"
+              x-on:keyup="q = event.target.value.trim()"
+              >
+            <button aria-label="search" class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
               <%s! Icons.magnifying_glass "w-6 h-6" %>
             </button>
-          </div>
+            <% ) else ( %>
+            No search index for package!
+            <% ); %>
+          </form>
         </div>
 
         <div class="flex md:gap-4 xl:gap-10">
@@ -78,11 +88,21 @@ Layout.render
             x-transition:leave-end="-translate-x-full">
             <%s! left_sidebar_html %>
           </div>
-          <div class="flex-1 z-0 z- min-w-0 pt-6 pb-12 md:pb-[70vh]">
+
+          <div class="flex-1 z-0 z- min-w-0 pt-6 pb-12 md:pb-[70vh] prose max-w-full"
+            x-show="q != ''">
+
+            <div id="search-results">
+            </div>
+          </div>
+
+          <div class="flex-1 z-0 z- min-w-0 pt-6 pb-12 md:pb-[70vh]"
+            x-show="q == ''">
             <%s! inner %>
           </div>
           <% (if right_sidebar_html <> "" then %>
-          <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto md:pb-24">
+          <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto md:pb-24"
+            x-show="q == ''">
             <%s! right_sidebar_html %>
           </div>
           <% ); %>
@@ -92,3 +112,177 @@ Layout.render
   </div>
 </div>
 <%s! Toc.script %>
+<% (match search_index_digest with | Some(digest) -> %>
+<script src="<%s Ocamlorg_static.Asset. url "vendors/fuse.min.js" %>"></script>
+<script src="<%s Url.Package.search_index ?version:(Package.url_version package) package.name ~digest %>"></script>
+<style>
+#search-results h2 {
+  margin: 0;
+}
+
+#search-results ol {
+  margin: 1rem 0;
+  list-style:none;
+  padding:0;
+}
+
+#search-results li {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid gainsboro;
+}
+
+#search-results .search-entry {
+  padding: 0.25rem 0.5rem;
+
+  font-weight: normal;
+  color: #333;
+
+  display:flex;
+  flex-direction:column;
+
+  --entry-color: gray;
+}
+
+#search-results .search-entry:hover {
+  text-decoration: none;
+  background: #f4f4f4;
+}
+
+@media (min-width: 64em) {
+  #search-results .search-entry {
+    flex-direction:row;
+  }
+
+  #search-results .search-entry .entry-title {
+    width: 50%;
+    flex-shrink: 0;
+  }
+}
+
+#search-results .search-entry .entry-kind {
+  padding:0.125rem 0.25rem;
+  font-size: 0.8rem;
+  background: #333;
+  color:white;
+  border-radius:0.25rem;
+  margin-right: 0.5rem;
+}
+
+#search-results .search-entry .entry-kind {
+    background: var(--entry-color);
+}
+
+#search-results .search-entry.mod {
+  --entry-color: rgb(204, 78, 12);
+}
+
+#search-results .search-entry.mty {
+  --entry-color: #027491;
+}
+
+#search-results .search-entry.mtd {
+  --entry-color: #327d8e;
+}
+
+#search-results .search-entry.typ {
+  --entry-color: rgb(42, 84, 183);
+}
+
+#search-results .search-entry.val {
+  --entry-color: green;
+}
+
+#search-results .search-entry.par {
+  --entry-color: green;
+}
+
+#search-results .search-entry.cls {
+  --entry-color: rgb(163, 34, 34);
+}
+
+#search-results .search-entry.cty {
+  --entry-color: rgb(32, 68, 165);
+}
+
+#search-results .search-entry.exc {
+  --entry-color: #370c62;
+}
+
+#search-results .search-entry.man {
+  /*--entry-color: #370c62;*/
+}
+
+#search-results .search-entry .entry-title {
+  overflow-wrap: anywhere;
+}
+
+#search-results .search-entry .entry-name {
+  font-weight:bold;
+  color: var(--entry-color);
+}
+
+#search-results .search-entry .prefix-name {
+  font-weight:600;
+}
+
+#search-results .search-entry .entry-comment {
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+}
+
+</style>
+<script>
+  document.querySelector("#in_package_search").addEventListener("input", (event) => {
+    let results = idx_fuse.search(event.target.value, {limit: 200});
+    let container = document.querySelector("#search-results");
+    container.innerHTML = "";
+
+    let search_results = document.createElement("ol");
+    container.appendChild(search_results);
+
+    results.map((entry) => {
+        let kind = document.createElement("tt");
+        kind.innerText = entry.item.kind
+          .replace("module type", "mty").replace("root", "mod").replace("module", "mod")
+          .replace("method", "mtd").replace("class typ", "cty").replace("class", "cls")
+          .replace("core type", "typ").replace("type", "typ")
+          .replace("exception", "exc").replace("core exception", "exc")
+          .replace("parameter", "par")
+          .replace("leaf page", "man").replace("page", "man");
+        kind.title = entry.item.kind;
+        kind.classList.add("entry-kind");
+
+        let list_item = document.createElement("li");
+        let a = document.createElement("a");
+        a.href = "/" + entry.item.url;
+        a.classList.add("search-entry", kind.innerText.slice(0,3));
+        let title = document.createElement("div");
+        title.classList.add("entry-title");
+
+        let prefixname = document.createElement("tt");
+        prefixname.innerText = entry.item.prefixname.split(".").reverse().join(".") + (entry.item.prefixname != "" ? ".": "");
+        prefixname.classList.add("prefix-name");
+        let name = document.createElement("tt");
+        name.classList.add("entry-name");
+        name.innerText =  entry.item.name;
+
+        title.appendChild(kind);
+        title.appendChild(prefixname);
+        title.appendChild(name);
+
+        let comment = document.createElement("div");
+        comment.innerText = entry.item.comment;
+        comment.classList.add("entry-comment");
+
+        a.appendChild(title);
+        a.appendChild(comment);
+
+        list_item.appendChild(a);
+
+        search_results.appendChild(list_item);
+    });
+  });
+</script>
+<% | _ -> () ); %>
