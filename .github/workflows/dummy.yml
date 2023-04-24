@@ -16,7 +16,7 @@ jobs:
       - name: Install Missing System Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install rsync
+          sudo apt-get install -y rsync
 
       - name: Setup OCaml
         uses: ocaml/setup-ocaml@v2
