@@ -10,7 +10,11 @@ Before starting to hack you need a properly configured development environment. 
 * OpenSSL: https://www.openssl.org/
 * GNU Multiple Precision: https://gmplib.org/
 
-The project [`Dockerfile`](./Dockerfile) contains up-to-date system configuration instructions, as used to ship into production. It is written for the Alpine Linux distribution but is meant to be adapted to other environments such as Ubuntu, macOS+Homebrew or others. The GitHub workflow file [`.github/workflows/ci.yml`](.github/workflows/ci.yml) also contains useful commands for Ubuntu and macOS. Since ocaml.org is mostly written in OCaml, a properly configured OCaml development environment is also required, but is not detailed here. Although Docker is used to ship, it is not a requirement to begin hacking. Currently, ocaml.org doesn't yet compile using OCaml 5, version 4.14 of the language is used.
+The project [`Dockerfile`](./Dockerfile) contains up-to-date system configuration instructions, as used to ship into production. It is written for the Alpine Linux distribution but is meant to be adapted to other environments such as Ubuntu, macOS+Homebrew or others. The GitHub workflow file [`.github/workflows/ci.yml`](.github/workflows/ci.yml) also contains useful commands for Ubuntu and macOS. Since ocaml.org is mostly written in OCaml, a properly configured OCaml development environment is also required, but is not detailed here. Although Docker is used to ship, it is not a requirement to begin hacking. Currently, ocaml.org doesn't yet compile using OCaml 5, version 4.14 of the language is used. It is possible to run workflow files in `.github/workflows` using the [nektos/act](https://github.com/nektos/act) tool. For instance, run the following command to run the CI checks run by GitHub on each pull request (where `ghghgh` is replace by an _ad-hoc_ GitHub token, see: https://github.com/nektos/act#github_token)
+```
+act -s GITHUB_TOKEN=ghghgh .github/workflows/ci.yml -j build
+```
+
 
 The `Makefile` contains many commands that can get you up and running, a typical workflow will be to clone the repository after forking it.
 
