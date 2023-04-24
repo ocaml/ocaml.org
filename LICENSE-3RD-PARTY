@@ -112,6 +112,14 @@ URL:       https://swiperjs.com/
 License:   MIT License
 Copyright: Copyright 2014-2021 Vladimir Kharlampidi
 
+asset/vendors/fuse.min.js:
+
+Name:      Fuse.js
+Version:   v6.6.2
+URL:       http://fusejs.io
+License:   Apache Software License 2.0
+Copyright: Copyright (c) 2022 Kiro Risk (http://kiro.me)
+
 --------------------------------------------------------------------------
 Licenses
 --------------------------------------------------------------------------
