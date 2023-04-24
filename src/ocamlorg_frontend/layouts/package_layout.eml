@@ -8,6 +8,7 @@ let render
 ?page
 ~(package : Package.package)
 ~(documentation_status: Package.documentation_status)
+~(search_index_digest: string option)
 ~left_sidebar_html
 ~right_sidebar_html
 inner =
@@ -60,10 +61,8 @@ Layout.render
             </li>
           </ol>
 
-          <form class="flex w-full items-center"
-            action="https://doc.sherlocode.com/api" method="GET"
-            @submit.stop.prevent="false"
-            >
+          <form class="flex w-full items-center">
+            <% if Option.is_some search_index_digest then (%>
             <input id="in_package_search" type="search" name="q" class="focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 flex-grow"
               autocomplete="off"
               placeholder="Search names in this package..."
@@ -75,8 +74,9 @@ Layout.render
             <button aria-label="search" class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
               <%s! Icons.magnifying_glass "w-6 h-6" %>
             </button>
-            <input class="hidden" name="packages" type="text" value="<%s Dream.to_percent_encoded package.name %>">
-            <input class="hidden" name="limit" type="number" value="10">
+            <% ) else ( %>
+            No search index for package!
+            <% ); %>
           </form>
         </div>
 
@@ -112,8 +112,9 @@ Layout.render
   </div>
 </div>
 <%s! Toc.script %>
+<% (match search_index_digest with | Some(digest) -> %>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
-<script src="<%s Url.Package.search_index ?version:(Package.url_version package) package.name %>"></script>
+<script src="<%s Url.Package.search_index ?version:(Package.url_version package) package.name ~digest %>"></script>
 <style>
 #search-results h2 {
   margin: 0;
@@ -227,3 +228,4 @@ Layout.render
     });
   });
 </script>
+<% | _ -> () ); %>
