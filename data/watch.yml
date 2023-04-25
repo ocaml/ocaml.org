@@ -159,6 +159,76 @@
   published_at: 2021-10-03T22:15:01.407Z
   language: English
   category: Unknown
+- name: Casually talking about ReScript, OSS, and communities with Patrick Ecker
+  description: "Patrick (@ryyppy) is working with OSS in ReScript and part of the
+    core team\r\n\r\nIf you'd like to support the show for more content about OCaml,
+    Reason and ReScript  you can now do so at https://www.patreon.com/emelletv or
+    by sending any tez amount ..."
+  embed_path: /videos/embed/63a8694b-8911-41cc-8754-4c1cad186d3d
+  thumbnail_path: /static/thumbnails/1d3f35e6-e0aa-4bcf-aa38-39e1d14913ab.jpg
+  published_at: 2021-10-20T00:00:00.000Z
+  language: English
+  category: Science & Technology
+- name: Casually talking with Craig Ferguson about OCaml, Mirage, Irmin and more
+  description: "Craig Ferguson is a software developer at Tarides. Join us in this
+    episode to talk more about OCaml, MirageOS, Irmin and much more!\r\n\r\nWe are
+    looking for sponsors! If you'd like to support more content for Ocaml, Reason
+    and ReScript just send us a..."
+  embed_path: /videos/embed/f3aa87e9-67a1-4569-b154-67d2d185152b
+  thumbnail_path: /static/thumbnails/0d38e0d5-453a-42ca-b4f9-54d0998622e3.jpg
+  published_at: 2021-09-07T00:00:00.000Z
+  language: English
+  category: News & Politics
+- name: Casually talking with Eduardo Rafael about OCaml, Tezos and probably compilers
+  description: "Eduardo is a streamer and a tech lead at @Marigold_Dev.\r\nJoin us
+    in this episode to casually talk about OCaml, Tezos and probably compilers\r\n\r\nIf
+    you'd like to support the show for more content about OCaml, Reason and ReScript
+    you can now do so at..."
+  embed_path: /videos/embed/11ab3cbe-38b8-411c-a7aa-994c00f472d8
+  thumbnail_path: /static/thumbnails/ab863370-0e79-417e-b21e-307fbfe9dbd8.jpg
+  published_at: 2021-09-24T00:00:00.000Z
+  language: English
+  category: Science & Technology
+- name: Casually talking with Gabriel Radanne about OCaml, meta-programming and much
+    more
+  description: "Gabriel \"Drup\" Radanne researcher at Inria in the CASH research
+    team\r\n\r\nIf you'd like to support the show for more content about OCaml, Reason
+    and ReScript  you can now do so at https://www.patreon.com/emelletv or by sending
+    any tez amount to emel..."
+  embed_path: /videos/embed/7321d6e6-6573-4c93-9a21-61f2541be4ec
+  thumbnail_path: /static/thumbnails/d6063608-535c-4a64-bdd7-d9691f2644fa.jpg
+  published_at: 2021-11-24T00:00:00.000Z
+  language: English
+  category: News & Politics
+- name: Casually talking with Hongbo Zhang
+  description: "Hongbo Zhang (@bobzhang1988), creator of BuckleScript and core maintainer
+    of ReScript\r\n\r\nEnjoying the video? Please, support the show for more content
+    about OCaml, Reason and ReScript you can now do so at https://www.patreon.com/emelletv
+    or by sen..."
+  embed_path: /videos/embed/2f73650f-79f5-44d6-87c1-ced0517c09da
+  thumbnail_path: /static/thumbnails/475dc63d-9a4a-4f3e-beff-e443c1db24cd.jpg
+  published_at: 2022-05-27T00:00:00.000Z
+  language: English
+  category: Science & Technology
+- name: Causally talking with @Dinoosaure about Mirage OS 4.0
+  description: "@Dinoosaure (Calascibetta Romain) core dev at Mirage OS\r\n\r\n\r\nIf
+    you'd like to support the show for more content about OCaml, Reason and ReScript
+    \ you can now do so at https://www.patreon.com/emelletv or by sending any tez
+    amount to emelletv.tez (t..."
+  embed_path: /videos/embed/4bddb539-5034-4fe2-b2a9-175260262aac
+  thumbnail_path: /static/thumbnails/3dbdfa88-e33a-4f16-ab6b-52846ad300b9.jpg
+  published_at: 2022-03-31T00:00:00.000Z
+  language: English
+  category: Science & Technology
+- name: Causally talking with Sean Grove about GraphQL, OneGraph and ReasonML
+  description: "Sean Grove Founder of OneGraph\r\n\r\nIf you'd like to support the
+    show for more content about OCaml, Reason and ReScript  you can now do so at https://www.patreon.com/emelletv
+    or by sending any tez amount to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6..."
+  embed_path: /videos/embed/f84b4f70-86ca-4918-b6cd-4770051728ba
+  thumbnail_path: /static/thumbnails/9ed5a603-432b-4323-977c-8c8414aa43ca.jpg
+  published_at: 2021-12-02T00:00:00.000Z
+  language: English
+  category: Science & Technology
 - name: Composing Schedulers using Effect Handlers
   description: "Composing Schedulers using Effect Handlers\r\n\r\nDeepali Ande (IIT
     Madras)\r\nKC Sivaramakrishnan (IIT Madras and Tarides)\r\n\r\nOCaml 5 introduces
@@ -951,6 +1021,50 @@
   embed_path: /videos/embed/039f1096-a63c-4a88-af4b-dcc48791d723
   thumbnail_path: /static/thumbnails/9443d37b-6a7a-4a90-ac14-48520c1ab0c7.jpg
   published_at: 2022-10-19T00:00:00.000Z
+  language: English
+  category: Science & Technology
+- name: Talking with Anil Madhavapeddy about OCaml, Tezos and @TrustedCarbon
+  description: "Anil Madhavapeddy (@avsm), the face of OCaml\r\n\r\nIf you'd like
+    to support the show for more content about OCaml, Reason and ReScript  you can
+    now do so at https://www.patreon.com/emelletv or by sending any tez amount to
+    emelletv.tez (tz1bQHQKT4BSoE..."
+  embed_path: /videos/embed/90e15dba-5a27-4897-a5fb-36bf32a01dd7
+  thumbnail_path: /static/thumbnails/47fb3b16-4ca7-4526-8b51-5dc1537b7e48.jpg
+  published_at: 2022-04-18T00:00:00.000Z
+  language: English
+  category: Science & Technology
+- name: "Talking with Ant\xF3nio Monteiro about Melange,  Esy, Reason, OCaml and more"
+  description: "If you would like to sponsor  the show contact https://twitter.com/davesnx\r\n\r\nConsider
+    sponsoring Ant\xF3nio's work: https://github.com/sponsors/anmonteiro"
+  embed_path: /videos/embed/4e362b66-3362-4390-83a9-92cd8ec8f013
+  thumbnail_path: /static/thumbnails/6b016e42-8d26-4bda-ad15-dee0edfdaed3.jpg
+  published_at: 2021-08-20T00:00:00.000Z
+  language: English
+  category: Science & Technology
+- name: Talking with Gabriel Nordeborn  ReScript, Relay and everything else!
+  embed_path: /videos/embed/e3e0dae6-5f69-43f2-bae9-65eaf1071ad6
+  thumbnail_path: /static/thumbnails/97c899e0-145f-4c1e-884c-f13e319fc184.jpg
+  published_at: 2021-08-03T00:00:00.000Z
+  language: English
+  category: Science & Technology
+- name: Talking with Jaap Frolich about graphql-ppx
+  description: "Jaap (@JaapFrolich) is working at Walnut and maintainer of graphql-ppx\r\n\r\nIf
+    you'd like to support the show for more content about OCaml, Reason and ReScript
+    \ you can now do so at https://www.patreon.com/emelletv or by sending any tez
+    amount to em..."
+  embed_path: /videos/embed/74fbd6d8-8cb6-4c8d-bfb7-f030978fcde0
+  thumbnail_path: /static/thumbnails/480521b9-56f3-4d85-997b-7ed7dc405977.jpg
+  published_at: 2021-11-02T00:00:00.000Z
+  language: English
+  category: News & Politics
+- name: Talking with Oscar Spencer about Grain Lang, WASM, PLT and ML
+  description: "Oscar Spencer @oscar_spen is the co-author of Grain Lang\r\n \r\n\r\nIf
+    you'd like to support the show for more content about OCaml, Reason and ReScript
+    \ you can now do so at https://www.patreon.com/emelletv or by sending any tez
+    amount to emelletv.tez ..."
+  embed_path: /videos/embed/c3766619-7cc7-437e-bf5c-fc3b6a675231
+  thumbnail_path: /static/thumbnails/c3735cff-1edd-401c-ae3d-327153b4c0ce.jpg
+  published_at: 2021-11-08T00:00:00.000Z
   language: English
   category: Science & Technology
 - name: The ImpFS filesystem
