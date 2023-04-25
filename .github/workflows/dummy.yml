@@ -13,11 +13,17 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
+      - name: Install Missing System Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rsync
+
       - name: Setup OCaml
         uses: ocaml/setup-ocaml@v2
         with:
           ocaml-compiler: ocaml-base-compiler.4.14.1
           opam-repositories: |
             pin: git+https://github.com/ocaml/opam-repository#9cf27a6683dc4e56ccf7e35c008198828bd5c267
+          opam-disable-sandboxing: true
 
       - run: git rev-parse HEAD
