@@ -26,7 +26,7 @@ OCaml community."
                     <form action="<%s Url.jobs %>" method="GET">
                         <label for="c" class="sr-only">Location</label>
                         <select
-                            class="w-full w-full appearance-none text-body-600 border rounded-md py-3 pl-6 border-gray-200 pr-20 h-full"
+                            class="w-full appearance-none text-body-600 border rounded-md py-3 pl-6 border-gray-200 pr-20 h-full"
                             id="c" name="c" onchange="this.form.submit()">
                             <option value="All" <%s if location = "All" then "selected" else "" %>>Location</option>
                             <option value="Remote" <%s if location = "Remote" then "selected" else "" %>>Remote</option>
