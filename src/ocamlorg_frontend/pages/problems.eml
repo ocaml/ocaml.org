@@ -27,6 +27,7 @@ let danger = function
   | `Advanced -> "☡☡"
 
 let render
+?(difficulty_level = "All")
 (problems : Ood.Problem.t list)
 =
 Learn_layout.render
@@ -58,6 +59,19 @@ Learn_layout.render
         This difficulty level is indicated with the symbol "☡".
         The absence of marks represents the beginner level, one mark the intermediate level and two marks the advanced level.
       </p>
+    </div>
+    <div class="border-b border-solid border-zinc-300 py-6 leading-5 text-zinc-800">
+      <div class="mx-auto max-w-screen-xl px-6 leading-5 text-zinc-800 sm:px-10 lg:px-6">
+        <form action="<%s Url.problems %>" method="GET">
+          <label for="difficulty_level" class="sr-only">Difficulty</label>
+          <select id="difficulty_level" name="difficulty_level" onchange="this.form.submit()">
+              <option value="All" <%s if difficulty_level = "All" then "selected" else "" %>>Difficulty</option>
+              <option value="beginner" <%s if difficulty_level = "beginner" then "selected" else "" %>>Beginner</option>
+              <option value="intermediate" <%s if difficulty_level = "intermediate" then "selected" else "" %>>Intermediate</option>
+              <option value="advanced" <%s if difficulty_level = "advanced" then "selected" else "" %>>Advanced</option>
+          </select>
+        </form>
+      </div>
     </div>
     <% problems |> List.iter (fun (problem : Ood.Problem.t) -> %>
     <div x-data="{statement: true}" id="<%s" problem.number %>

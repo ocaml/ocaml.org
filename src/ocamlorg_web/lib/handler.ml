@@ -278,7 +278,26 @@ let best_practices _req =
   let tutorials = Ood.Tutorial.all in
   Dream.html (Ocamlorg_frontend.best_practices ~tutorials Ood.Workflow.all)
 
-let problems _req = Dream.html (Ocamlorg_frontend.problems Ood.Problem.all)
+let problems req =
+  let all_problems = Ood.Problem.all in
+  let difficulty_level = Dream.query req "difficulty_level" in
+  let difficulty_of_string = function
+  | "beginner" -> `Beginner
+  | "intermediate" -> `Intermediate
+  | "advanced" -> `Advanced
+  | _ -> failwith "Invalid difficulty string" in
+  let filter_by_difficulty (problems : Ood.Problem.t list) (difficulty : string) =
+    List.filter (fun (problem : Ood.Problem.t) -> problem.difficulty = difficulty_of_string difficulty) problems in
+  let filtered_problems = match difficulty_level with  
+    | Some "All" -> Ood.Problem.all
+    | Some "beginner" -> filter_by_difficulty all_problems "beginner"
+    | Some "intermediate" -> filter_by_difficulty all_problems "intermediate"
+    | Some "advanced" -> filter_by_difficulty all_problems "advanced"
+    | None
+    | _ -> Ood.Problem.all 
+  in
+  Dream.html (Ocamlorg_frontend.problems ?difficulty_level filtered_problems)
+
 let installer req = Dream.redirect req Url.github_installer
 let outreachy _req = Dream.html (Ocamlorg_frontend.outreachy Ood.Outreachy.all)
 
