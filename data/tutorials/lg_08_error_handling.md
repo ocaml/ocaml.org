@@ -9,6 +9,8 @@ date: 2021-05-27T21:07:30-00:00
 
 # Error Handling
 
+In OCaml, errors can be handled in several ways. This document present most of the available means. However, handling errors using the effect handlers introduced in OCaml 5 isn't addressed yet.
+
 ## Error as Special Values
 
 Don't do that.
@@ -25,11 +27,10 @@ OCaml has three major ways to deal with errors:
 1. `Option` values
 1. `Result` values
 
-Use them. Do not encode errors inside data. 
+Use them. Do not encode errors inside data.
 
-Exceptions provide a mean to deal
-with errors at the control flow level while `Option` and `Result` provide a mean
-to turn errors into dedicated data.
+Exceptions provide a mean to deal with errors at the control flow level while
+`Option` and `Result` provide means to turn errors into dedicated data.
 
 The rest of this document presents and compares approaches towards error
 handling.
@@ -40,8 +41,7 @@ Historically, the first way of handling errors in OCaml is exceptions. The
 standard library relies heavily upon them.
 
 The biggest issue with exceptions is that they do not appear in types. One has
-to read the documentation to see that, indeed, `List.find` or `String.sub` are
-not total functions, and that they might fail by raising an exception.
+to read the documentation to see that, indeed, `List.find` or `String.sub` are functions that they might fail by raising an exception.
 
 However, exceptions have the great merit of being compiled into efficient
 machine code. When implementing trial and error approaches likely to back-track
@@ -94,7 +94,7 @@ Although the last one doesn't look as an exception, it actually is.
 - : int list = []
 ```
 
-Among them, the predefined exceptions of the standard library. The following ones
+Among the predefined exceptions of the standard library, the following ones
 are intended to be raised by user-written functions:
 ```ocaml
 exception Exit
@@ -111,7 +111,7 @@ exception Failure of string
 * `Invalid_argument` should be raised when a parameter can't be accepted
 * `Failure` should be raised when a result can't be produced
 
-Functions are provided by the standard libarry to raise `Invalid_argument` and
+Functions are provided by the standard library to raise `Invalid_argument` and
 `Failure` using a string parameter:
 ```ocaml
 val invalid_arg : string -> 'a
@@ -147,7 +147,7 @@ val foo : a -> b
 ### Stack Traces
 
 To get a stack trace when an unhandled exception makes your program crash, you
-need to compile the program in "debug" mode (with `-g` when calling `ocamlc`, or
+need to compile the program in debug mode (with `-g` when calling `ocamlc`, or
 `-tag 'debug'` when calling `ocamlbuild`). Then:
 
 ```shell
@@ -163,10 +163,10 @@ let () = Printexc.record_backtrace true
 
 ### Printing
 
-To print an exception, the module `Printexc` comes in handy. For instance, the
-following function `notify_user : (unit -> 'a) -> 'a` can be used to call a
-function and, if it fails, print the exception on `stderr`. If stack traces are
-enabled, this function will also display it.
+To print an exception, the module `Printexc` comes in handy. For instance, it
+allows the definition of a function such as `notify_user : (unit -> 'a) -> 'a`
+that calls a function and, if it fails, print the exception on `stderr`. If
+stack traces are enabled, this function will also display it.
 
 ```ocaml
 let notify_user f =
@@ -193,7 +193,7 @@ let () =
 
 Each printer should take care of the exceptions it knows about, returning `Some
 <printed exception>`, and return `None` otherwise (let the other printers do the
-job!).
+job).
 
 ## Runtime Crashes
 
@@ -259,7 +259,7 @@ option` datatype allows to express either the availability of data for instance
 `Some 42` or the absence of data using `None`, which can represent an error.
 
 Using `Option` it is possible to write functions that return `None` instead of
-throwing an exception.
+throwing an exception. Here are two examples of such functions:
 ```ocaml
 # let div_opt m n =
   try Some (m / n) with
@@ -296,16 +296,16 @@ val try_opt : ('a -> 'b) -> 'a -> 'b option = <fun>
 
 It tends to be considered good practice nowadays when a function can fail in
 cases that are not bugs (i.e., not `assert false`, but network failures, keys
-not present, etc.) to return a more explicit type such as `'a option` or `('a,
-'b) result` (see next section).
+not present, etc.) to return type such as `'a option` or `('a, 'b) result` (see
+next section) rather than throwing an exception.
 
 ### Naming Conventions
 
 There are two naming conventions to have two versions of the same partial
 function: one raising exception, the other returning an option. In the above
-examples, the convention of the standard library is to add an `_opt` suffix to
-name of the version of the function that returns an option instead of raising
-exceptions.
+examples, the convention of the standard library is used: adding an `_opt`
+suffix to name of the version of the function that returns an option instead of
+raising exceptions.
 ```ocaml
 val find: ('a -> bool) -> 'a list -> 'a
 (** @raise Not_found *)
@@ -322,6 +322,7 @@ val find_exn: ('a -> bool) -> 'a list -> 'a
 (** @raise Not_found *)
 val find: ('a -> bool) -> 'a list -> 'a option
 ```
+
 ### Composing Functions Returning Options
 
 The function `div_opt` can't raise exceptions. However, since it doesn't return
@@ -347,7 +348,7 @@ val fold : none:'a -> some:('b -> 'a) -> 'b t -> 'a
 ```
 `get` returns the content or raises `Invalid_argument` if applied to `None`.
 `value` essentially behaves as `get`, except it must be called with a default
-value which will be returned of if applied to `None`. `fold` also needs to be
+value which will be returned if applied to `None`. `fold` also needs to be
 passed a default value that is returned when called on `None`, but it also
 expects a function that will be applied to the content of the option, when not
 empty.
@@ -378,14 +379,14 @@ considered bad:
 Guide](https://www.kernel.org/doc/Documentation/process/coding-style.rst)
 
 The recomended way to avoid that is to refrain from or delay attempting to
-access the content of an option value.
+access the content of an option value, as explained in the next sub section.
 
 ### Using on `Option.map` and `Option.bind`
 
 Let's start with an example. Let's imagine one needs to write a function
 returning the [hostname](https://en.wikipedia.org/wiki/Hostname) part of an
-email address. For instance, given the email
-"gaston.lagaffe@courrier.dupuis.be," it would return "courrier."
+email address provided as a string. For instance, given the string
+`"gaston.lagaffe@courrier.dupuis.be"` it would return the string `"courrier"` (one may have a point arguing against such a design, but this is only an example).
 
 Here is a questionable but straightforward implementation using exceptions:
 ```ocaml
@@ -489,9 +490,8 @@ robustness. A couple of observations:
     `String.index_opt`, if it didn't fail
   - left-hand side of `=` : the `let*` syntax turns all the rest of the code
   (from line 2 to the end) into the body of an anonymous function which takes
-  `fqdn_pos` as parameter, and the function `( let* )` is called with the
-  right-hand side of `=` (as first parameter) and that anonymous function (as
-  second parameter).
+  `fqdn_pos` as parameter, and the function `( let* )` is called with `fqdn_pos`
+  and that anonymous function.
 * Lines 2 and 3: same as in the original
 * Line 4: `try` or `match` is removed
 * Line 5: `String.sub` is applied, if the previous step didn't fail, otherwise
@@ -502,8 +502,8 @@ robustness. A couple of observations:
 When used to handle errors with catch statements, it requires some time to get
 used the latter style. The key idea is avoiding or deferring from directly
 looking into option values. Instead, pass them along using _ad-hoc_ pipes (such
-as `map` and `bind`). Erik Meijer calls that following the happy path. Visually,
-it also resembles the “early return“ pattern often found in C.
+as `map` and `bind`). Erik Meijer call that style: “following the happy path”.
+Visually, it also resembles the “early return“ pattern often found in C.
 
 One of the limitations of the option type is it doesn't record the reason which
 prevented having a return value. `None` is silent, it doesn't say anything about
@@ -514,7 +514,7 @@ documentation is likely to ressemble to the one required for exceptions using
 like option values, but also provide information on errors, like exceptions. It
 is the topic of the next section.
 
-## `Result` Type
+## Using the `Result` Type for Errors
 
 The `Result` module of the standard library defines the following type:
 
@@ -716,11 +716,12 @@ File.read_opt path
 
 By the way, this style is called [Tacit
 Programming](https://en.wikipedia.org/wiki/Tacit_programming). Thanks to the
-associativity priorities of the `>>=` and `|>` operators, no parenthesis are needed. 
+associativity priorities of the `>>=` and `|>` operators, no parenthesis extends beyond a single line.
 
-OCaml has a strict typing discipline, not a strict styling discipline; therefore,
-picking the right style is left to the author's decision. See the [OCaml
-Programming Guidelines](/docs/guidelines) for more details on those matters.
+OCaml has a strict typing discipline, not a strict styling discipline;
+therefore, picking the right style is left to the author's decision. That
+applies error handling, pick a style knowingly. See the [OCaml Programming
+Guidelines](/docs/guidelines) for more details on those matters.
 
 ## Assertions
 
@@ -744,8 +745,8 @@ the program that must be writen (often for type-checking or pattern matching
 completeness) but are unreachable at run time.
 
 Asserts should be understood as executable comments. There aren't supposed to
-fail, unless during debugging or truly extraordinary circumstances that absolutely
-prevent the execution from making any kind of progress.
+fail, unless during debugging or truly extraordinary circumstances that
+absolutely prevent the execution from making any kind of progress.
 
 When the execution reaches conditions which can't be handled, the right thing to
 do is to throw a `Failure`, using `failwith "error message"`. Assertions aren't
@@ -760,13 +761,13 @@ match Sys.os_type with
 | _ -> failwith "this system is not supported"
 ```
 
-It is right to use `failwith` because using `assert` would be incorrect. Here is the dual
-example:
+It is right to use `failwith` because using `assert` would be incorrect. Here is
+the dual example:
 ```ocaml
 function x when true -> () | _ -> assert false
 ```
-Here, it wouldn't be beneficial to use `failwith` since it requires the compiler to be
-bugged or the system to be corrupted for second code path to be executed.
+Here, it wouldn't be beneficial to use `failwith` since it requires the compiler
+to be bugged or the system to be corrupted for second code path to be executed.
 Breakage of the language semantics qualifies as extraordinary circumstances; it
 is catastrophic.
 
