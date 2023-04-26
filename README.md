@@ -106,3 +106,8 @@ See our contributing guide in [`CONTRIBUTING.md`](./CONTRIBUTING.md)
 - The vendored files are listed with their licenses in [`LICENSE-3RD-PARTY`](./LICENSE-3RD-PARTY)
 
 See our [`LICENSE`](./LICENSE) for the complete licenses.
+
+## Code of Conduct
+
+This project has adopted the [OCaml Code of Conduct](https://github.com/ocaml/code-of-conduct/blob/main/CODE_OF_CONDUCT.md)
+and follows the OCaml Code of Conduct [enforcement policy](https://github.com/ocaml/code-of-conduct/blob/main/CODE_OF_CONDUCT.md#enforcement).
