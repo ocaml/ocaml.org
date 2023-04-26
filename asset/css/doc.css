@@ -275,14 +275,3 @@ span.icon-expand.open::before {
   content: " \25BE";
 }
 
-.breadcrumbs-tag {
-  padding-right: 0.75em;
-  padding-left: 0.75em;
-  font-family: Inter, sans-serif;
-  border-radius: 0.25em;
-  font-weight:bold;
-  box-sizing: border-box;
-  color:white;
-  display:inline-block;
-  margin-left:0.5em;
-}
