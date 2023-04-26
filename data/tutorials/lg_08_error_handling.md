@@ -9,7 +9,7 @@ date: 2021-05-27T21:07:30-00:00
 
 # Error Handling
 
-In OCaml, errors can be handled in several ways. This document present most of the available means. However, handling errors using the effect handlers introduced in OCaml 5 isn't addressed yet.
+In OCaml, errors can be handled in several ways. This document presents most of the available means. However, handling errors using the effect handlers introduced in OCaml 5 isn't addressed yet.
 
 ## Error as Special Values
 
@@ -20,7 +20,7 @@ instance, when receiving data through a network connection, a function expected
 to return the number of received bytes might return a negative number meaning:
 “timed out waiting”. Another example would be returning the empty string when
 extracting a substring of negative length. Great software was written using this
-style, but is is not the proper way to deal with errors in OCaml.
+style, but it is not the proper way to deal with errors in OCaml.
 
 OCaml has three major ways to deal with errors:
 1. Exceptions
@@ -45,7 +45,7 @@ to read the documentation to see that, indeed, `List.find` or `String.sub` are f
 
 However, exceptions have the great merit of being compiled into efficient
 machine code. When implementing trial and error approaches likely to back-track
-often, exceptions can be used to acheive good performance.
+often, exceptions can be used to achieve good performance.
 
 Exceptions belong to the type `exn` which is an [extensible sum
 type](/releases/latest/manual/extensiblevariants.html).
@@ -129,7 +129,7 @@ Both can make sense, and there isn't a general rule. If the standard library exc
 are used, they must be raised under the conditions they are
 intended to, otherwise handlers will have trouble processing them. Using custom
 exceptions will force client code to include dedicated catch conditions. This
-can be desirable for errors that must be handled at the the client level.
+can be desirable for errors that must be handled at the client level.
 
 ### Documentation
 
@@ -378,7 +378,7 @@ considered bad:
 [Linux Kernel Style
 Guide](https://www.kernel.org/doc/Documentation/process/coding-style.rst)
 
-The recomended way to avoid that is to refrain from or delay attempting to
+The recommended way to avoid that is to refrain from or delay attempting to
 access the content of an option value, as explained in the next sub section.
 
 ### Using on `Option.map` and `Option.bind`
@@ -534,7 +534,7 @@ Before taking a look at `Result.map`, let's think about `List.map` and
 `Option.map` under a changed perspective. Both functions behave as identity when
 applied to `[]` or `None`, respectively. That's the only possibility since those
 parameters don't carry any data. Which isn't the case in `Result` with its
-`Error` constructor. Nethertheless, `Result.map` is implemented likewise, on
+`Error` constructor. Nevertheless, `Result.map` is implemented likewise, on
 `Error`, it also behaves like identity.
 
 Here is its type:
@@ -615,7 +615,7 @@ We would have:
 This means an error would be turned back into valid data or changed into
 another error. This is almost like recovering from an error. However, when
 recovery fails, it may be preferable to preserve the initial cause of failure.
-That behaviour can be acheived by defining the following function:
+That behaviour can be achieved by defining the following function:
 
 ```ocaml
 # let recover f = Result.(fold ~ok:ok ~error:(fun (e : 'e) -> Option.to_result ~none:e (f e)));;
@@ -637,7 +637,7 @@ Note that some say the types `result` and `Either.t` are
 it's always possible to replace one by the other, like in a completely neutral
 refactoring. Values of type `result` and `Either.t` can be translated back and
 forth, and appling both translations one after the other, in any order, returns
-to the starting value. Nethertheless, this doesn't mean `result` should be used
+to the starting value. Nevertheless, this doesn't mean `result` should be used
 in place of `Either.t`, or vice versa. Naming things matters, as punned by Phil
 Karlton's famous quote:
 
@@ -686,7 +686,7 @@ Variables `x` and `y` may appear in `c` in the three cases. The first form isn't
 very convenient, it uses a lot of parenthesis. The second one is often the
 prefered one due to its ressemblance with regular local definitions. The third
 one is harder to read, as `>>=` associates to the right in order to avoid
-parenthesis in that precise case, but it's easy to get lost. Nethertheless, it
+parenthesis in that precise case, but it's easy to get lost. Nevertheless, it
 has some appeal when named functions are used. It looks a bit like good old Unix
 pipes:
 ```ocaml
