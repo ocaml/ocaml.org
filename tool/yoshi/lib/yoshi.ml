@@ -34,7 +34,8 @@ module Gen = struct
 
   let rec string_of_field_value value =
     match value with
-    | `String s -> Printf.sprintf "{js|%s|js}" s
+    | `String s ->
+      Printf.sprintf "\"%s\"" (Str.global_replace (Str.regexp "\"") "\\\"" s)
     | `Int i -> string_of_int i
     | `Float f -> string_of_float f
     | `Bool b -> string_of_bool b
