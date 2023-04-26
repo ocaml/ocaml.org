@@ -15,7 +15,7 @@ In OCaml, errors can be handled in several ways. This document presents most of 
 
 Don't do that.
 
-Some languages, most emblematically C, treats certain values as errors. For
+Some languages, most emblematically C, treat certain values as errors. For
 instance, when receiving data through a network connection, a function expected
 to return the number of received bytes might return a negative number meaning:
 “timed out waiting”. Another example would be returning the empty string when
@@ -165,7 +165,7 @@ let () = Printexc.record_backtrace true
 
 To print an exception, the module `Printexc` comes in handy. For instance, it
 allows the definition of a function such as `notify_user : (unit -> 'a) -> 'a`
-that calls a function and, if it fails, print the exception on `stderr`. If
+that calls a function and, if it fails, prints the exception on `stderr`. If
 stack traces are enabled, this function will also display it.
 
 ```ocaml
