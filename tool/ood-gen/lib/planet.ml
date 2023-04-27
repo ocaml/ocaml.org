@@ -24,17 +24,6 @@ let pp_meta ppf v =
 |}
     (metadata_to_yaml v |> Yaml.to_string |> Result.get_ok)
 
-let feeds () =
-  let sources = all_sources () in
-  sources.sources
-  |> List.filter_map (fun source ->
-         try Some (River.fetch source)
-         with e ->
-           print_endline
-             (Printf.sprintf "failed to scrape %s: %s" source.name
-                (Printexc.to_string e));
-           None)
-
 let validate_entries entries =
   let validate_author (author : Syndic.Atom.author) =
     match author with
@@ -51,65 +40,96 @@ let validate_entries entries =
       { entry with id; authors })
     entries
 
-let scrape () =
-  let feeds = feeds () in
+let fetch_feed (source : River.source) =
+  try Some (source, River.fetch source)
+  with e ->
+    print_endline
+      (Printf.sprintf "failed to scrape %s: %s" source.name
+         (Printexc.to_string e));
+    None
+
+let scrape_feed ((source : River.source), (feed : River.feed)) =
+  let posts = River.posts [ feed ] in
+  let name = River.name feed in
+  let entries = posts |> River.create_atom_entries |> validate_entries in
+  let updated = Ptime.of_float_s (Unix.gettimeofday ()) |> Option.get in
+  let atom_feed =
+    Syndic.Atom.feed ~id:(Uri.of_string source.url)
+      ~title:(Text (River.name feed))
+      ~updated entries
+  in
+  Syndic.Atom.write atom_feed ("data/planet/" ^ name ^ ".xml");
+  posts
+  |> List.iter (fun (post : River.post) ->
+         let title = River.title post in
+         let slug = Utils.slugify title in
+         let output_file = "data/planet/" ^ name ^ "/" ^ slug ^ ".md" in
+         if Sys.file_exists output_file then
+           print_endline
+             (Printf.sprintf "%s/%s already exist, not scraping again" name slug)
+         else
+           let oc = open_out output_file in
+           let content = River.content post in
+           let url = River.link post in
+           let date = River.date post |> Option.map Syndic.Date.to_rfc3339 in
+           match (url, date) with
+           | None, _ ->
+               print_endline
+                 (Printf.sprintf "skipping %s/%s: item does not have a url" name
+                    slug)
+           | _, None ->
+               print_endline
+                 (Printf.sprintf "skipping %s/%s: item does not have a date"
+                    name slug)
+           | Some url, Some date ->
+               let url = Uri.to_string url in
+               let preview_image = River.seo_image post in
+               let description = River.meta_description post in
+               let author = River.author post in
+               let metadata =
+                 {
+                   title;
+                   url = Some url;
+                   date;
+                   preview_image;
+                   description;
+                   featured = None;
+                   authors = Some [ author ];
+                 }
+               in
+               let s = Format.asprintf "%a\n%s\n" pp_meta metadata content in
+               Printf.fprintf oc "%s" s;
+               close_out oc)
+
+let merge_feeds () =
   let id = Uri.of_string "https://ocaml.org/feed.xml" in
   let title : Syndic.Atom.title = Text "OCaml.org blog" in
   let updated = Ptime.of_float_s (Unix.gettimeofday ()) |> Option.get in
+
+  let sources = all_sources () in
   let entries =
-    feeds |> River.posts |> River.create_atom_entries |> validate_entries
+    sources.sources
+    |> List.map (fun source ->
+           try
+             let feed =
+               Syndic.Atom.read ("data/planet/" ^ source.name ^ ".xml")
+             in
+             feed.entries |> validate_entries
+           with e ->
+             print_endline
+               (Printf.sprintf "failed to read data/planet/%s.xml: %s"
+                  source.name (Printexc.to_string e));
+             [])
+    |> List.flatten
+    |> List.sort Syndic.Atom.descending
   in
-  let feed = Syndic.Atom.feed ~id ~title ~updated entries in
-  Syndic.Atom.write feed "asset/feed.xml";
-  feeds
-  |> List.iter (fun (feed : River.feed) ->
-         River.posts [ feed ]
-         |> List.iter (fun (post : River.post) ->
-                let title = River.title post in
-                let slug = Utils.slugify title in
-                let name = River.name (River.feed post) in
-                let output_file = "data/planet/" ^ name ^ "/" ^ slug ^ ".md" in
-                if Sys.file_exists output_file then
-                  print_endline
-                    (Printf.sprintf "%s/%s already exist, not scraping again"
-                       name slug)
-                else
-                  let oc = open_out output_file in
-                  let content = River.content post in
-                  let url = River.link post in
-                  let date =
-                    River.date post |> Option.map Syndic.Date.to_rfc3339
-                  in
-                  match (url, date) with
-                  | None, _ ->
-                      print_endline
-                        (Printf.sprintf
-                           "skipping %s/%s: item does not have a url" name slug)
-                  | _, None ->
-                      print_endline
-                        (Printf.sprintf
-                           "skipping %s/%s: item does not have a date" name slug)
-                  | Some url, Some date ->
-                      let url = Uri.to_string url in
-                      let preview_image = River.seo_image post in
-                      let description = River.meta_description post in
-                      let author = River.author post in
-                      let metadata =
-                        {
-                          title;
-                          url = Some url;
-                          date;
-                          preview_image;
-                          description;
-                          featured = None;
-                          authors = Some [ author ];
-                        }
-                      in
-                      let s =
-                        Format.asprintf "%a\n%s\n" pp_meta metadata content
-                      in
-                      Printf.fprintf oc "%s" s;
-                      close_out oc))
+  Syndic.Atom.feed ~id ~title ~updated entries
+
+let scrape () =
+  let sources = all_sources () in
+  sources.sources |> List.filter_map fetch_feed |> List.iter scrape_feed;
+  let feed = merge_feeds () in
+  Syndic.Atom.write feed "asset/feed.xml"
 
 type t = {
   title : string;
