@@ -16,13 +16,15 @@ In OCaml, errors can be handled in several ways. This document presents most of 
 Don't do that.
 
 Some languages, most emblematically C, treat certain values as errors. For
-instance, when receiving data through a network connection, a function expected
-to return the number of received bytes might return a negative number meaning:
-“timed out waiting”. Another example would be returning the empty string when
-extracting a substring of negative length. Great software was written using this
-style, but it is not the proper way to deal with errors in OCaml.
+instance in `man 2 read`, one can read:
+> On error, -1 is returned, and `errno` is set to indicate the error.
 
-OCaml has three major ways to deal with errors:
+Great software was written using this style. However, since correct are errors
+values can't be distinguished, nothing but the programmer's discipline ensures
+errors aren't ignored. This has been the cause of many bugs, some with dire
+consequences. This is not the proper way to deal with errors in OCaml.
+
+There are three major ways to make it impossible to ignore errors in OCaml:
 1. Exceptions
 1. `Option` values
 1. `Result` values
@@ -48,7 +50,7 @@ machine code. When implementing trial and error approaches likely to back-track
 often, exceptions can be used to achieve good performance.
 
 Exceptions belong to the type `exn` which is an [extensible sum
-type](/releases/latest/manual/extensiblevariants.html).
+type](/manual/extensiblevariants.html).
 
 ```ocaml
 # exception Foo of string;;
@@ -250,7 +252,11 @@ the following terminology:
 * Function handling errors in data: Safe
 
 The main means to write such kind of safe error handling functions is to use
-either `Option` (next section) or `Result` (following section).
+either `Option` (next section) or `Result` (following section). Although
+handling errors in data using those types allows avoiding the issues of error
+values and execeptions, it incurs extracting the enclosed value at every step, which:
+* may require some boilerplate code. This
+* come with a runtime cost.
 
 ## Using the `Option` Type for Errors
 
@@ -458,8 +464,7 @@ let bind opt f = match opt with
 | None -> None
 ```
 
-`bind` having flipped parameter with respect to `map` allows to use it as custom
-let binder:
+`bind` having flipped parameter with respect to `map` allows using it as a [binding operator](/manual/bindingops.html), which is an extension of OCaml providing means to create “custom `let`”. Here is how it goes:
 ```ocaml
 # let ( let* ) = Option.bind;;
 val ( let* ) : 'a option -> ('a -> 'b option) -> 'b option = <fun>
