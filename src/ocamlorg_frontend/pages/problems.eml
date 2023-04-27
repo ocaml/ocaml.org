@@ -27,6 +27,7 @@ let danger = function
   | `Advanced -> "☡☡"
 
 let render
+?(difficulty_level = "All")
 (problems : Ood.Problem.t list)
 =
 Learn_layout.render
@@ -36,7 +37,7 @@ Learn_layout.render
 ~active_top_nav_item:Header.Learn
 ~left_sidebar_html:(problems_sidebar ~problems)
 ~right_sidebar_html:None @@
-  <div class="prose prose-orange max-w-full overflow-hidden">
+  <div class="prose prose-orange max-w-full">
     <h1 class="font-bold mb-8">Exercises</h1>
     <div class="prose prose-orange max-w-full mb-5">
       <p>
@@ -58,6 +59,18 @@ Learn_layout.render
         This difficulty level is indicated with the symbol "☡".
         The absence of marks represents the beginner level, one mark the intermediate level and two marks the advanced level.
       </p>
+    </div>
+    <div class="border-b border-solid border-zinc-300 leading-5 py-8 text-zinc-800">
+      <form action="<%s Url.problems %>" method="GET">
+        <label for="difficulty_level" class="sr-only">Difficulty</label>
+        <select class="mt-2 block w-48 rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-orange-600 sm:text-sm sm:leading-6"
+          id="difficulty_level" name="difficulty_level" onchange="this.form.submit()">
+            <option value="All" <%s if difficulty_level = "All" then "selected" else "" %>>Any Difficulty</option>
+            <option value="beginner" <%s if difficulty_level = "beginner" then "selected" else "" %>>Beginner</option>
+            <option value="intermediate" <%s if difficulty_level = "intermediate" then "selected" else "" %>>Intermediate</option>
+            <option value="advanced" <%s if difficulty_level = "advanced" then "selected" else "" %>>Advanced</option>
+        </select>
+      </form>
     </div>
     <% problems |> List.iter (fun (problem : Ood.Problem.t) -> %>
     <div x-data="{statement: true}" id="<%s" problem.number %>
