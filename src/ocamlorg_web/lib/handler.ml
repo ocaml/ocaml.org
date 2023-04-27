@@ -281,27 +281,18 @@ let best_practices _req =
 let problems req =
   let all_problems = Ood.Problem.all in
   let difficulty_level = Dream.query req "difficulty_level" in
-  let difficulty_of_string = function
-    | "beginner" -> `Beginner
-    | "intermediate" -> `Intermediate
-    | "advanced" -> `Advanced
-    | _ -> failwith "Invalid difficulty string"
+  let compare_difficulty = function
+    | "beginner" -> ( = ) `Beginner
+    | "intermediate" -> ( = ) `Intermediate
+    | "advanced" -> ( = ) `Advanced
+    | _ -> Fun.const true
   in
-  let filter_by_difficulty (problems : Ood.Problem.t list) (difficulty : string)
-      =
-    List.filter
-      (fun (problem : Ood.Problem.t) ->
-        problem.difficulty = difficulty_of_string difficulty)
-      problems
+  let by_difficulty level (problem : Ood.Problem.t) =
+    match level with
+    | Some difficulty -> compare_difficulty difficulty problem.difficulty
+    | _ -> true
   in
-  let filtered_problems =
-    match difficulty_level with
-    | Some "All" -> Ood.Problem.all
-    | Some "beginner" -> filter_by_difficulty all_problems "beginner"
-    | Some "intermediate" -> filter_by_difficulty all_problems "intermediate"
-    | Some "advanced" -> filter_by_difficulty all_problems "advanced"
-    | None | _ -> Ood.Problem.all
-  in
+  let filtered_problems = List.filter (by_difficulty difficulty_level) all_problems in
   Dream.html (Ocamlorg_frontend.problems ?difficulty_level filtered_problems)
 
 let installer req = Dream.redirect req Url.github_installer
