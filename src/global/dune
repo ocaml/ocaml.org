@@ -3,10 +3,10 @@
  (public_name ocamlorg.global))
 
 (rule
- (targets commit.ml)
+ (deps (universe))
  (action
   (with-stdout-to
-   %{targets}
+   commit.ml
    (progn
     (echo "let hash = \"")
     (pipe-stdout
