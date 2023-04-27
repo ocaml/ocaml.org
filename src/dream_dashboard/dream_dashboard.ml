@@ -1,3 +1,5 @@
+open Ocamlorg
+
 module Store = struct
   module type S = sig
     val create_event : Event.t -> (unit, string) result Lwt.t
