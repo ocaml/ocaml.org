@@ -26,18 +26,6 @@
    %{null}
    (run %{bin:ocaml-crunch} -m plain asset -o %{targets}))))
 
-(rule
- (targets commit.ml)
- (action
-  (with-stdout-to
-   %{targets}
-   (progn
-    (echo "let hash = \"")
-    (pipe-stdout
-     (run "git" "rev-parse" "HEAD")
-     (run "tr" "-d" "\n"))
-    (echo "\"\n")))))
-
 (subdir
  asset/
  (rule
