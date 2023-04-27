@@ -292,7 +292,9 @@ let problems req =
     | Some difficulty -> compare_difficulty difficulty problem.difficulty
     | _ -> true
   in
-  let filtered_problems = List.filter (by_difficulty difficulty_level) all_problems in
+  let filtered_problems =
+    List.filter (by_difficulty difficulty_level) all_problems
+  in
   Dream.html (Ocamlorg_frontend.problems ?difficulty_level filtered_problems)
 
 let installer req = Dream.redirect req Url.github_installer
