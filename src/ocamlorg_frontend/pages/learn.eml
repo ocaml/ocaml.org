@@ -21,7 +21,7 @@ Learn_layout.render
         </a>
       </div>
       <div class="hidden xl:flex justify-end pl-8">
-        <img src="/img/learn/learn-get-started.svg" class="w-full" alt="Get Started background">
+        <img src="<%s Ocamlorg_static.Asset.url "img/learn/learn-get-started.svg" %>" class="w-full" alt="Get Started background">
       </div>
     </div>
 
@@ -36,7 +36,7 @@ Learn_layout.render
         </a>
       </div>
       <div class="hidden xl:flex justify-end pl-8">
-        <img src="/img/learn/learn-exercise.svg" class="w-full" alt="Exercises Background">
+        <img src="<%s Ocamlorg_static.Asset.url "img/learn/learn-exercise.svg" %>" class="w-full" alt="Exercises Background">
       </div>
     </div>
 
@@ -49,7 +49,7 @@ Learn_layout.render
         </a>
       </div>
       <div class="hidden xl:flex justify-end pl-8">
-        <img src="/img/learn/learn-language.svg" class="w-full" alt="Manual background">
+        <img src="<%s Ocamlorg_static.Asset.url "img/learn/learn-language.svg" %>" class="w-full" alt="Manual background">
       </div>
     </div>
   </div>

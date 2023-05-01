@@ -70,25 +70,25 @@ Layout.render
       </div>
       <div class="flex flex-row justify-center m-auto flex-wrap py-8 items-center">
           <div class="mx-8 my-4">
-              <img class="h-6" src="/logos/facebook.svg" alt="Facebook">
+              <img class="h-6" src="<%s Ocamlorg_static.Asset.url "logos/facebook.svg" %>" alt="Facebook">
           </div>
           <div class="mx-8 my-4">
-              <img class="h-8" src="/logos/microsoft.svg" alt="Microsoft">
+              <img class="h-8" src="<%s Ocamlorg_static.Asset.url "logos/microsoft.svg" %>" alt="Microsoft">
           </div>
           <div class="mx-8 my-4">
-              <img class="h-8" src="/logos/docker.svg" alt="Docker">
+              <img class="h-8" src="<%s Ocamlorg_static.Asset.url "logos/docker.svg" %>" alt="Docker">
           </div>
           <div class="mx-8 my-4">
-              <img class="h-10" src="/logos/janestreet.svg" alt="Jane Street">
+              <img class="h-10" src="<%s Ocamlorg_static.Asset.url "logos/janestreet.svg" %>" alt="Jane Street">
           </div>
           <div class="mx-8 my-4">
-              <img class="h-6" src="/logos/bloomberg.svg" alt="Bloomberg">
+              <img class="h-6" src="<%s Ocamlorg_static.Asset.url "logos/bloomberg.svg" %>" alt="Bloomberg">
           </div>
           <div class="mx-8 my-4">
-              <img class="h-10" src="/logos/tezos.svg" alt="Tezos">
+              <img class="h-10" src="<%s Ocamlorg_static.Asset.url "logos/tezos.svg" %>" alt="Tezos">
           </div>
           <div class="mx-8 my-4">
-              <img class="h-6" src="/logos/ahrefs.svg" alt="Ahrefs">
+              <img class="h-6" src="<%s Ocamlorg_static.Asset.url "logos/ahrefs.svg" %>" alt="Ahrefs">
           </div>
       </div>
     </div>
@@ -121,7 +121,7 @@ Layout.render
           </div>
         </div>
         <div class="lg:flex-1 lg:mt-0 mt-10 flex justify-center">
-          <img src="/img/home/safe-stable.svg" alt="An example OCaml program defining nested lists in OCaml. A terminal output also shows the compiler catching a type error where a pattern-match was not exhaustive.">
+          <img src="<%s Ocamlorg_static.Asset.url "img/home/safe-stable.svg" %>" alt="An example OCaml program defining nested lists in OCaml. A terminal output also shows the compiler catching a type error where a pattern-match was not exhaustive.">
         </div>
       </div>
 
@@ -149,20 +149,20 @@ Layout.render
             <div class="swiper-wrapper">
               <div class="swiper-slide">
                 <div>
-                  <img src="/logos/vscode.svg" width="56" alt="VS Code">
-                  <img src="/img/home/vscode-preview.png" alt="">
+                  <img src="<%s Ocamlorg_static.Asset.url "logos/vscode.svg" %>" width="56" alt="VS Code">
+                  <img src="<%s Ocamlorg_static.Asset.url "img/home/vscode-preview.png" %>" alt="">
                 </div>
               </div>
               <div class="swiper-slide">
                 <div>
-                <img src="/logos/vim.svg" width="56" alt="Vim">
-                <img src="/img/home/vim-preview.png" alt="">
+                <img src="<%s Ocamlorg_static.Asset.url "logos/vim.svg" %>" width="56" alt="Vim">
+                <img src="<%s Ocamlorg_static.Asset.url "img/home/vim-preview.png" %>" alt="">
                 </div>
               </div>
               <div class="swiper-slide">
                 <div>
-                <img src="/logos/emacs.svg" width="56" alt="Emacs">
-                <img src="/img/home/emac-preview.png" alt="">
+                <img src="<%s Ocamlorg_static.Asset.url "logos/emacs.svg" %>" width="56" alt="Emacs">
+                <img src="<%s Ocamlorg_static.Asset.url "img/home/emac-preview.png" %>" alt="">
                 </div>
               </div>
             </div>
@@ -193,7 +193,7 @@ Layout.render
           </div>
         </div>
         <div class="lg:flex-1 lg:mt-0 mt-10 flex justify-center">
-          <img src="/img/home/workfaster.svg" alt="">
+          <img src="<%s Ocamlorg_static.Asset.url "img/home/workfaster.svg" %>" alt="">
         </div>
       </div>
     </div>
@@ -242,7 +242,7 @@ Layout.render
         style="width: 1500px">
         <a href="https://mirage.io/" target="_blank" class="bg-white p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
-            <img src="/img/home/mirage.png" alt="MirageOS logo">
+            <img src="<%s Ocamlorg_static.Asset.url "img/home/mirage.png" %>" alt="MirageOS logo">
             <div class="flex-col px-6">
               <div class="text-base font-semibold">MirageOS</div>
               <div class="font-normal text-xs mt-1">
@@ -254,7 +254,7 @@ Layout.render
         <a href="http://ocsigen.org/js_of_ocaml/latest/manual/overview" target="_blank"
           class="bg-white p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
-            <img src="/img/home/js_of_ocaml.png" alt="Js_of_ocaml logo">
+            <img src="<%s Ocamlorg_static.Asset.url "img/home/js_of_ocaml.png" %>" alt="Js_of_ocaml logo">
             <div class="flex-col px-6">
               <div class="text-base font-semibold">Js_of_ocaml</div>
               <div class="font-normal text-xs mt-1">
@@ -266,7 +266,7 @@ Layout.render
         <a href="https://erratique.ch/software/cmdliner" target="_blank"
           class="bg-white p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
-            <img src="/img/home/cmdliner.png" alt="Cmdliner logo">
+            <img src="<%s Ocamlorg_static.Asset.url "img/home/cmdliner.png" %>" alt="Cmdliner logo">
             <div class="flex-col px-6">
               <div class="text-base font-semibold">Cmdliner</div>
               <div class="font-normal text-xs mt-1">
@@ -278,7 +278,7 @@ Layout.render
         <a href="https://irmin.org/" target="_blank"
           class="bg-white p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
-            <img src="/img/home/irmin.png" alt="Irmin logo">
+            <img src="<%s Ocamlorg_static.Asset.url "img/home/irmin.png" %>" alt="Irmin logo">
             <div class="flex-col px-6">
               <div class="text-base font-semibold">Irmin</div>
               <div class="font-normal text-xs mt-1">
@@ -294,7 +294,7 @@ Layout.render
         <a href="https://dune.build/" target="_blank"
           class="bg-white p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
-            <img src="/img/home/dune.png" alt="Dune logo">
+            <img src="<%s Ocamlorg_static.Asset.url "img/home/dune.png" %>" alt="Dune logo">
             <div class="flex-col px-6">
               <div class="text-base font-semibold">Dune</div>
               <div class="font-normal text-xs mt-1">
@@ -306,7 +306,7 @@ Layout.render
         <a href="https://ocsigen.org/lwt/latest/manual/manual" target="_blank"
           class="bg-white p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
-            <img src="/img/home/lwt.png" alt="Lwt logo">
+            <img src="<%s Ocamlorg_static.Asset.url "img/home/lwt.png" %>" alt="Lwt logo">
             <div class="flex-col px-6">
               <div class="text-base font-semibold">Lwt</div>
               <div class="font-normal text-xs mt-1">
@@ -317,7 +317,7 @@ Layout.render
         </a>
         <a href="https://ocaml.xyz/" target="_blank" class="bg-white p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
-            <img src="/img/home/owl.png" alt="Owl logo">
+            <img src="<%s Ocamlorg_static.Asset.url "img/home/owl.png" %>" alt="Owl logo">
             <div class="flex-col px-6">
               <div class="text-base font-semibold">Owl</div>
               <div class="font-normal text-xs mt-1">
@@ -329,7 +329,7 @@ Layout.render
         <a href="https://aantron.github.io/dream/" target="_blank"
           class="bg-white p-6 rounded-xl items-center flex card-hover">
           <div class="flex items-center">
-            <img src="/img/home/dream.png" alt="Dream logo">
+            <img src="<%s Ocamlorg_static.Asset.url "img/home/dream.png" %>" alt="Dream logo">
             <div class="flex-col px-6">
               <div class="text-base font-semibold">Dream</div>
               <div class="font-normal text-xs mt-1">
@@ -449,7 +449,7 @@ Layout.render
         </a>
       </div>
       <div class="m-auto">
-        <img src="/img/home/packages-home.png" width="1047" class="max-w-none -mb-72 h-auto" alt="">
+        <img src="<%s Ocamlorg_static.Asset.url "img/home/packages-home.png" %>" width="1047" class="max-w-none -mb-72 h-auto" alt="">
       </div>
     </div>
   </div>

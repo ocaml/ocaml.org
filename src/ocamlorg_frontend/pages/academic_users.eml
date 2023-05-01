@@ -104,7 +104,7 @@ Layout.render
       <h2 class="mb-6 font-bold">Our Influence</h2>
       <div>See where we are located around the world at an academic level.</div>
       <div class="mt-24 relative">
-        <img src="/img/academic/map.svg" alt="A world map that illustrates where OCaml is taught or used for research.">
+        <img src="<%s Ocamlorg_static.Asset.url "img/academic/map.svg" %>" alt="A world map that illustrates where OCaml is taught or used for research.">
       </div>
     </div>
   </div>
