@@ -66,7 +66,7 @@ let scrape_post ~source_name (post : River.post) =
     | _, None ->
         print_endline
           (Printf.sprintf "skipping %s/%s: item does not have a date"
-          source_name slug)
+             source_name slug)
     | Some url, Some date ->
         let oc = open_out output_file in
         let content = River.content post in
@@ -94,13 +94,11 @@ let scrape_feed ((source : River.source), (feed : River.feed)) =
   let entries = posts |> River.create_atom_entries |> validate_entries in
   let updated = Ptime.of_float_s (Unix.gettimeofday ()) |> Option.get in
   let atom_feed =
-    Syndic.Atom.feed ~id:(Uri.of_string source.url)
-      ~title:(Text source.name)
+    Syndic.Atom.feed ~id:(Uri.of_string source.url) ~title:(Text source.name)
       ~updated entries
   in
   Syndic.Atom.write atom_feed ("data/planet/" ^ source.name ^ ".xml");
-  posts
-  |> List.iter (scrape_post ~source_name:source.name)
+  posts |> List.iter (scrape_post ~source_name:source.name)
 
 let merge_feeds () =
   let id = Uri.of_string "https://ocaml.org/feed.xml" in
