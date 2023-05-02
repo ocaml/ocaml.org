@@ -55,4 +55,5 @@ jobs:
           add-paths: |
             asset/feed.xml
             data/watch.yml
+            data/planet/*.xml
             data/planet/*/*.md
