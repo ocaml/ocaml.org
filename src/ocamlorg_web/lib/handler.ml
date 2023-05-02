@@ -187,7 +187,9 @@ let blog_post req =
   Dream.html (Ocamlorg_frontend.blog_post blog)
 
 let news req =
-  let page, number_of_pages, current_items = paginate ~req ~n:10 Data.News.all in
+  let page, number_of_pages, current_items =
+    paginate ~req ~n:10 Data.News.all
+  in
   Dream.html
     (Ocamlorg_frontend.news ~page ~pages_number:number_of_pages current_items)
 
