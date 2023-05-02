@@ -1,0 +1,1100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://hannes.robur.coop/atom</id><title type="text">hannes</title><updated>2023-05-02T14:42:52-00:00</updated><entry><link href="https://hannes.robur.coop/Posts/Albatross" rel="alternate"/><contributor><uri>https://hannes.robur.coop/atom</uri><name>hannes</name></contributor><content type="html">&lt;h2&gt;Deploying MirageOS unikernels&lt;/h2&gt;
+&lt;p&gt;More than five years ago, I posted &lt;a href=&quot;https://hannes.robur.coop/Posts/VMM&quot;&gt;how to deploy MirageOS unikernels&lt;/a&gt;. My motivation to work on this topic is that I'm convinced of reduced complexity, improved security, and more sustainable resource footprint of MirageOS unikernels, and want to ease deployment thereof. More than one year ago, I described &lt;a href=&quot;https://hannes.robur.coop/Posts/Deploy&quot;&gt;how to deploy reproducible unikernels&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Albatross&lt;/h2&gt;
+&lt;p&gt;In recent months we worked hard on the underlying infrastructure: &lt;a href=&quot;https://github.com/roburio/albatross&quot;&gt;albatross&lt;/a&gt;. Albatross is the orchestration system for MirageOS unikernels that use solo5 with &lt;a href=&quot;https://github.com/Solo5/solo5/blob/master/docs/architecture.md&quot;&gt;hvt or spt tender&lt;/a&gt;. It deals with three tasks:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;unikernel creation (destroyal, restart)
+&lt;/li&gt;
+&lt;li&gt;capturing console output
+&lt;/li&gt;
+&lt;li&gt;collecting metrics in the host system about unikernels
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;An addition to the above is dealing with multiple tenants on the same machine: remote management of your unikernel fleet via TLS, and resource policies.&lt;/p&gt;
+&lt;h2&gt;History&lt;/h2&gt;
+&lt;p&gt;The initial commit of albatross was in May 2017. Back then it replaced the shell scripts and manual &lt;code&gt;scp&lt;/code&gt; of unikernel images to the server. Over time it evolved and adapted to new environments. Initially a solo5 unikernel would only know of a single network interface, these days there can be multiple distinguished by name. Initially there was no support for block devices. Only FreeBSD was supported in the early days. Nowadays we built daily packages for Debian, Ubuntu, FreeBSD, and have support for NixOS, and the client side is supported on macOS as well.&lt;/p&gt;
+&lt;h3&gt;ASN.1&lt;/h3&gt;
+&lt;p&gt;The communication format between the albatross daemons and clients was changed multiple times. I'm glad that albatross uses ASN.1 as communication format, which makes extension with optional fields easy, and also allows &amp;quot;choice&amp;quot; (the sum type) to be not tagged (the binary is the same as no choice type), thus adding choice to an existing grammar, and preserving the old in the default (untagged) case is a decent solution.&lt;/p&gt;
+&lt;p&gt;So, if you care about backward and forward compatibility, as we do, since we may be in control of which albatross servers are deployed on our machine, but not what albatross versions the clients are using -- it may be wise to look into ASN.1. Recent efforts (json with schema, ...) may solve similar issues, but ASN.1 is as well very tiny in size.&lt;/p&gt;
+&lt;h2&gt;What resources does a unikernel need?&lt;/h2&gt;
+&lt;p&gt;A unikernel is just an operating system for a single service, there can't be much it can need.&lt;/p&gt;
+&lt;h3&gt;Name&lt;/h3&gt;
+&lt;p&gt;So, first of all a unikernel has a name, or a handle. This is useful for reporting statistics, but also to specify which console output you're interested in. The name is a string with printable ASCII characters (and dash '-' and dot '.'), with a length up to 64 characters - so yes, you can use an UUID if you like.&lt;/p&gt;
+&lt;h3&gt;Memory&lt;/h3&gt;
+&lt;p&gt;Another resource is the amount of memory assigned to the unikernel. This is specified in megabyte (as solo5 does), with the range being 10 (below not even a hello world wants to start) to 1024.&lt;/p&gt;
+&lt;h3&gt;Arguments&lt;/h3&gt;
+&lt;p&gt;Of course, you can pass via albatross boot parameters to the unikernel. Albatross doesn't impose any restrictions here, but the lower levels may.&lt;/p&gt;
+&lt;h3&gt;CPU&lt;/h3&gt;
+&lt;p&gt;Due to multiple tenants, and side channel attacks, it looked right at the beginning like a good idea to restrict each unikernel to a specific CPU. This way, one tenant may use CPU 5, and another CPU 9 - and they'll not starve each other (best to make sure that these CPUs are in different packages). So, albatross takes a number as the CPU, and executes the solo5 tender within &lt;code&gt;taskset&lt;/code&gt;/&lt;code&gt;cpuset&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;Fail behaviour&lt;/h3&gt;
+&lt;p&gt;In normal operations, exceptional behaviour may occur. I have to admit that I've seen MirageOS unikernels that suffer from not freeing all the memory they have allocated. To avoid having to get up at 4 AM just to start the unikernel that went out of memory, there's the possibility to restart the unikernel when it exited. You can even specify on which exit codes it should be restarted (the exit code is the only piece of information we have from the outside what caused the exit). This feature was implemented in October 2019, and has been very precious since then. :)&lt;/p&gt;
+&lt;h3&gt;Network&lt;/h3&gt;
+&lt;p&gt;This becomes a bit more complex: a MirageOS unikernel can have network interfaces, and solo5 specifies a so-called manifest with a list of these (name and type, and type is so far always basic). Then, on the actual server there are bridges (virtual switches) configured. Now, these may have the same name, or may need to be mapped. And of course, the unikernel expects a tap interface that is connected to such a bridge, not the bridge itself. Thus, albatross creates tap devices, attaches these to the respective bridges, and takes care about cleaning them up on teardown. The albatross client verifies that for each network interface in the manifest, there is a command-line argument specified (&lt;code&gt;--net service:my_bridge&lt;/code&gt; or just &lt;code&gt;--net service&lt;/code&gt; if the bridge is named service). The tap interface name is not really of interest to the user, and will not be exposed.&lt;/p&gt;
+&lt;h3&gt;Block devices&lt;/h3&gt;
+&lt;p&gt;On the host system, it's just a file, and passed to the unikernel. There's the need to be able to create one, dump it, and ensure that each file is only used by one unikernel. That's all that is there.&lt;/p&gt;
+&lt;h2&gt;Metrics&lt;/h2&gt;
+&lt;p&gt;Everyone likes graphs, over time, showing how much traffic or CPU or memory or whatever has been used by your service. Some of these statistics are only available in the host system, and it is also crucial for development purposes to compare whether the bytes sent in the unikernel sum up to the same on the host system's tap interface.&lt;/p&gt;
+&lt;p&gt;The albatross-stats daemon collects metrics from three sources: network interfaces, getrusage (of a child process), VMM debug counters (to count VM exits etc.). Since the recent 1.5.3, albatross-stats now connects at startup to the albatross-daemon and then retrieves the information which unikernels are up and running, and starts periodically collecting data in memory.&lt;/p&gt;
+&lt;p&gt;Other clients, being it a dump on your console window, a write into an rrd file (good old MRTG times), or a push to influx, can use the stats data to correlate and better analyse what is happening on the grand scale of things. This helped a lot by running several unikernels with different opam package sets to figure out which opam packages leave their hands on memory over time.&lt;/p&gt;
+&lt;p&gt;As a side note, if you make the unikernel name also available in the unikernel, it can tag its own metrics with the same identifier, and you can correlate high-level events (such as amount of HTTP requests) with low-level things &amp;quot;allocated more memory&amp;quot; or &amp;quot;consumed a lot of CPU&amp;quot;.&lt;/p&gt;
+&lt;h2&gt;Console&lt;/h2&gt;
+&lt;p&gt;There's not much to say about the console, just that the albatross-console daemon is running with low privileges, and reading from a FIFO that the unikernel writes to. It never writes anything to disk, but keeps the last 1000 lines in memory, available from a client asking for it.&lt;/p&gt;
+&lt;h2&gt;The daemons&lt;/h2&gt;
+&lt;p&gt;So, the main albatross-daemon runs with superuser privileges to create virtual machines, and opens a unix domain socket where the clients and other daemons are connecting to. The other daemons are executed with normal user privileges, and never write anything to disk.&lt;/p&gt;
+&lt;p&gt;The albatross-daemon keeps state about the running unikernels, and if it is restarted, the unikernels are started again. Maybe worth to mention that this lead sometimes to headaches (due to data being dumped to disk, and the old format should always be supported), but was also a huge relief to not have to care about creating all the unikernels just because albatross-daemon was killed.&lt;/p&gt;
+&lt;h2&gt;Remote management&lt;/h2&gt;
+&lt;p&gt;There's one more daemon program, either albatross-tls-inetd (to be executed by inetd), or albatross-tls-endpoint. They accept clients via a remote TCP connection, and establish a mutual-authenticated TLS handshake. When done, they forward the command to the respective Unix domain socket, and send back the reply.&lt;/p&gt;
+&lt;p&gt;The daemon itself has a X.509 certificate to authenticate, but the client is requested to show its certificate chain as well. This by now requires TLS 1.3, so the client certificates are sent over the encrypted channel.&lt;/p&gt;
+&lt;p&gt;A step back, x X.509 certificate contains a public key and a signature from one level up. When the server knows about the root (or certificate authority (CA)) certificate, and following the chain can verify that the leaf certificate is valid. Additionally, a X.509 certificate is a ASN.1 structure with some fixed fields, but also contains extensions, a key-value store where the keys are object identifiers, and the values are key-dependent data. Also note that this key-value store is cryptographically signed.&lt;/p&gt;
+&lt;p&gt;Albatross uses the object identifier, assigned to Camelus Dromedarius (MirageOS - 1.3.6.1.4.1.49836.42) to encode the command to be executed. This means that once the TLS handshake is established, the command to be executed is already transferred.&lt;/p&gt;
+&lt;p&gt;In the leaf certificate, there may be the &amp;quot;create unikernel&amp;quot; command with the unikernel image, it's boot parameters, and other resources. Or a &amp;quot;read the console of my unikernel&amp;quot;. In the intermediate certificates (from root to leaf), resource policies are encoded (this path may only have X unikernels running with a total of Y MB memory, and Z MB of block storage, using CPUs A and B, accessing bridges C and D). From the root downwards these policies may only decrease. When a unikernel should be created (or other commands are executed), the policies are verified to hold. If they do not, an error is reported.&lt;/p&gt;
+&lt;h2&gt;Fleet management&lt;/h2&gt;
+&lt;p&gt;Of course it is very fine to create your locally compiled unikernel to your albatross server, go for it. But in terms of &amp;quot;what is actually running here?&amp;quot; and &amp;quot;does this unikernel need to be updated because some opam package had a security issues?&amp;quot;, this is not optimal.&lt;/p&gt;
+&lt;p&gt;Since we provide &lt;a href=&quot;https://builds.robur.coop&quot;&gt;daily reproducible builds&lt;/a&gt; with the current HEAD of the main opam-repository, and these unikernels have no configuration embedded (but take everything as boot parameters), we just deploy them. They come with the information what opam packages contributed to the binary, which environment variables were set, and which system packages were installed with which versions.&lt;/p&gt;
+&lt;p&gt;The whole result of reproducible builds for us means: we have a hash of a unikernel image that we can lookup in our build infrastructure, and take a look whether there is a newer image for the same job. And if there is, we provide a diff between the packages contributed to the currently running unikernel and the new image. That is what the albatross-client update command is all about.&lt;/p&gt;
+&lt;p&gt;Of course, your mileage may vary and you want automated deployments where each git commit triggers recompilation and redeployment. The downside would be that sometimes only dependencies are updated and you've to cope with that.&lt;/p&gt;
+&lt;p&gt;At the moment, there is a client connecting directly to the unix domain sockets, &lt;code&gt;albatross-client-local&lt;/code&gt;, and one connecting to the TLS endpoint, &lt;code&gt;albatross-client-bistro&lt;/code&gt;. The latter applies compression to the unikernel image.&lt;/p&gt;
+&lt;h2&gt;Installation&lt;/h2&gt;
+&lt;p&gt;For Debian and Ubuntu systems, we provide package repositories. Browse the dists folder for one matching your distribution, and add it to &lt;code&gt;/etc/apt/sources.list&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ wget -q -O /etc/apt/trusted.gpg.d/apt.robur.coop.gpg https://apt.robur.coop/gpg.pub
+$ echo &amp;quot;deb https://apt.robur.coop ubuntu-20.04 main&amp;quot; &amp;gt;&amp;gt; /etc/apt/sources.list # replace ubuntu-20.04 with e.g. debian-11 on a debian buster machine
+$ apt update
+$ apt install solo5 albatross
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;On FreeBSD:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ fetch -o /usr/local/etc/pkg/robur.pub https://pkg.robur.coop/repo.pub # download RSA public key
+$ echo 'robur: {
+  url: &amp;quot;https://pkg.robur.coop/${ABI}&amp;quot;,
+  mirror_type: &amp;quot;srv&amp;quot;,
+  signature_type: &amp;quot;pubkey&amp;quot;,
+  pubkey: &amp;quot;/usr/local/etc/pkg/robur.pub&amp;quot;,
+  enabled: yes
+}' &amp;gt; /usr/local/etc/pkg/repos/robur.conf # Check https://pkg.robur.coop which ABI are available
+$ pkg update
+$ pkg install solo5 albatross
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For other distributions and systems we do not (yet?) provide binary packages. You can compile and install them using opam (&lt;code&gt;opam install solo5 albatross&lt;/code&gt;). Get in touch if you're keen on adding some other distribution to our reproducible build infrastructure.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;After five years of development and operating albatross, feel free to get it and try it out. Or read the code, discuss issues and shortcomings with us - either at the issue tracker or via eMail.&lt;/p&gt;
+&lt;p&gt;Please reach out to us (at team AT robur DOT coop) if you have feedback and suggestions. We are a non-profit company, and rely on &lt;a href=&quot;https://robur.coop/Donate&quot;&gt;donations&lt;/a&gt; for doing our work - everyone can contribute.&lt;/p&gt;
+</content><id>https://hannes.robur.coop/Posts/Albatross</id><title type="text">Deploying reproducible unikernels with albatross</title><updated>2022-11-17T12:41:11-00:00</updated><author><name>hannes</name></author></entry><entry><link href="https://hannes.robur.coop/Posts/OpamMirror" rel="alternate"/><contributor><uri>https://hannes.robur.coop/atom</uri><name>hannes</name></contributor><content type="html">&lt;p&gt;We at &lt;a href=&quot;https://robur.coop&quot;&gt;robur&lt;/a&gt; developed &lt;a href=&quot;https://git.robur.io/robur/opam-mirror&quot;&gt;opam-mirror&lt;/a&gt; in the last month and run a public opam mirror at https://opam.robur.coop (updated hourly).&lt;/p&gt;
+&lt;h1&gt;What is opam and why should I care?&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://opam.ocaml.org&quot;&gt;Opam&lt;/a&gt; is the OCaml package manager (also used by other projects such as &lt;a href=&quot;https://coq.inria.fr&quot;&gt;coq&lt;/a&gt;). It is a source based system: the so-called repository contains the metadata (url to source tarballs, build dependencies, author, homepage, development repository) of all packages. The main repository is hosted on GitHub as &lt;a href=&quot;https://github.com/ocaml/opam-repository&quot;&gt;ocaml/opam-repository&lt;/a&gt;, where authors of OCaml software can contribute (as pull request) their latest releases.&lt;/p&gt;
+&lt;p&gt;When opening a pull request, automated systems attempt to build not only the newly released package on various platforms and OCaml versions, but also all reverse dependencies, and also with dependencies with the lowest allowed version numbers. That's crucial since neither semantic versioning has been adapted across the OCaml ecosystem (which is tricky, for example due to local opens any newly introduced binding will lead to a major version bump), neither do many people add upper bounds of dependencies when releasing a package (nobody is keen to state &amp;quot;my package will not work with &lt;a href=&quot;https://erratique.ch/software/cmdliner&quot;&gt;cmdliner&lt;/a&gt; in version 1.2.0&amp;quot;).&lt;/p&gt;
+&lt;p&gt;So, the opam-repository holds the metadata of lots of OCaml packages (around 4000 at the moment this article was written) with lots of versions (in total 25000) that have been released. It is used by the opam client to figure out which packages to install or upgrade (using a solver that takes the version bounds into consideration).&lt;/p&gt;
+&lt;p&gt;Of course, opam can use other repositories (overlays) or forks thereof. So nothing stops you from using any other opam repository. The url to the source code of each package may be a tarball, or a git repository or other version control systems.&lt;/p&gt;
+&lt;p&gt;The vast majority of opam packages released to the opam-repository include a link to the source tarball and a cryptographic hash of the tarball. This is crucial for security (under the assumption the opam-repository has been downloaded from a trustworthy source - check back later this year for updates on &lt;a href=&quot;https://hannes.robur.coop/Posts/Conex&quot;&gt;conex&lt;/a&gt;). At the moment, there are some weak spots in respect to security: md5 is still allowed, and the hash and the tarball are downloaded from the same server: anyone who is in control of that server can inject arbitrary malicious data. As outlined above, we're working on infrastructure which fixes the latter issue.&lt;/p&gt;
+&lt;h1&gt;How does the opam client work?&lt;/h1&gt;
+&lt;p&gt;Opam, after initialisation, downloads the &lt;code&gt;index.tar.gz&lt;/code&gt; from &lt;code&gt;https://opam.ocaml.org/index.tar.gz&lt;/code&gt;, and uses this as the local opam universe. An &lt;code&gt;opam install cmdliner&lt;/code&gt; will resolve the dependencies, and download all required tarballs. The download is first tried from the cache, and if that failed, the URL in the package file is used. The download from the cache uses the base url, appends the archive-mirror, followed by the hash algorithm, the first two characters of the has of the tarball, and the hex encoded hash of the archive, i.e. for cmdliner 1.1.1 which specifies its sha512: &lt;code&gt;https://opam.ocaml.org/cache/sha512/54/5478ad833da254b5587b3746e3a8493e66e867a081ac0f653a901cc8a7d944f66e4387592215ce25d939be76f281c4785702f54d4a74b1700bc8838a62255c9e&lt;/code&gt;.&lt;/p&gt;
+&lt;h1&gt;How does the opam repository work?&lt;/h1&gt;
+&lt;p&gt;According to DNS, opam.ocaml.org is a machine at amazon. It likely, apart from the website, uses &lt;code&gt;opam admin index&lt;/code&gt; periodically to create the index tarball and the cache. There's an observable delay between a package merge in the opam-repository and when it shows up at opam.ocaml.org. Recently, there was &lt;a href=&quot;https://discuss.ocaml.org/t/opam-ocaml-org-is-currently-down-is-that-where-indices-are-kept-still/&quot;&gt;a reported downtime&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Apart from being a single point of failure, if you're compiling a lot of opam projects (e.g. a continuous integration / continuous build system), it makes sense from a network usage (and thus sustainability perspective) to move the cache closer to where you need the source archives. We're also organising the MirageOS &lt;a href=&quot;http://retreat.mirage.io&quot;&gt;hack retreats&lt;/a&gt; in a northern African country with poor connectivity - so if you gather two dozen camels you better bring your opam repository cache with you to reduce the bandwidth usage (NB: this requires at the moment cooperation of all participants to configure their default opam repository accordingly).&lt;/p&gt;
+&lt;h1&gt;Re-developing &amp;quot;opam admin create&amp;quot; as MirageOS unikernel&lt;/h1&gt;
+&lt;p&gt;The need for a local opam cache at our &lt;a href=&quot;https://builds.robur.coop&quot;&gt;reproducible build infrastructure&lt;/a&gt; and the retreats, we decided to develop &lt;a href=&quot;https://git.robur.io/robur/opam-mirror&quot;&gt;opam-mirror&lt;/a&gt; as a &lt;a href=&quot;https://mirage.io&quot;&gt;MirageOS unikernel&lt;/a&gt;. Apart from a useful showcase using persistent storage (that won't fit into memory), and having fun while developing it, our aim was to reduce our time spent on system administration (the &lt;code&gt;opam admin index&lt;/code&gt; is only one part of the story, it needs a Unix system and a webserver next to it - plus remote access for doing software updates - which has quite some attack surface.&lt;/p&gt;
+&lt;p&gt;Another reason for re-developing the functionality was that the opam code (what opam admin index actually does) is part of the opam source code, which totals to 50_000 lines of code -- looking up whether one or all checksums are verified before adding the tarball to the cache, was rather tricky.&lt;/p&gt;
+&lt;p&gt;In earlier years, we avoided persistent storage and block devices in MirageOS (by embedding it into the source code with &lt;a href=&quot;https://github.com/mirage/ocaml-crunch&quot;&gt;crunch&lt;/a&gt;, or using a remote git repository), but recent development, e.g. of &lt;a href=&quot;https://somerandomidiot.com/blog/2022/03/04/chamelon/&quot;&gt;chamelon&lt;/a&gt; sparked some interest in actually using file systems and figuring out whether MirageOS is ready in that area. A month ago we started the opam-mirror project.&lt;/p&gt;
+&lt;p&gt;Opam-mirror takes a remote repository URL, and downloads all referenced archives. It serves as a cache and opam-repository - and does periodic updates from the remote repository. The idea is to validate all available checksums and store the tarballs only once, and store overlays (as maps) from the other hash algorithms.&lt;/p&gt;
+&lt;h1&gt;Code development and improvements&lt;/h1&gt;
+&lt;p&gt;Initially, our plan was to use &lt;a href=&quot;https://github.com/mirage/ocaml-git&quot;&gt;ocaml-git&lt;/a&gt; for pulling the repository, &lt;a href=&quot;https://github.com/yomimono/chamelon&quot;&gt;chamelon&lt;/a&gt; for persistent storage, and &lt;a href=&quot;https://github.com/inhabitedtype/httpaf&quot;&gt;httpaf&lt;/a&gt; as web server. With &lt;a href=&quot;https://github.com/mirage/ocaml-tar&quot;&gt;ocaml-tar&lt;/a&gt; recent support of &lt;a href=&quot;https://github.com/mirage/ocaml-tar/pull/88&quot;&gt;gzip&lt;/a&gt; we should be all set, and done within a few days.&lt;/p&gt;
+&lt;p&gt;There is already a gap in the above plan: which http client to use - in the best case something similar to our &lt;a href=&quot;https://github.com/roburio/http-lwt-client&quot;&gt;http-lwt-client&lt;/a&gt; - in MirageOS: it should support HTTP 1.1 and HTTP 2, TLS (with certificate validation), and using &lt;a href=&quot;https://github.com/roburio/happy-eyeballs&quot;&gt;happy-eyeballs&lt;/a&gt; to seemlessly support both IPv6 and legacy IPv4. Of course it should follow redirect, without that we won't get far in the current Internet.&lt;/p&gt;
+&lt;p&gt;On the path (over the last month), we fixed file descriptor leaks (memory leaks) in &lt;a href=&quot;https://github.com/dinosaure/paf-le-chien&quot;&gt;paf&lt;/a&gt; -- which is used as a runtime for httpaf and h2.&lt;/p&gt;
+&lt;p&gt;Then we ran into some trouble with chamelon (&lt;a href=&quot;https://github.com/yomimono/chamelon/issues/11&quot;&gt;out of memory&lt;/a&gt;, some degraded peformance, it reporting out of disk space), and re-thought our demands for opam-mirror. Since the cache is only ever growing (new packages are released), there's no need to ever remove anything: it is append-only. Once we figured that out, we investigated what needs to be done in ocaml-tar (where tar is in fact a tape archive, and was initially designed as file format to be appended to) to support appending to an archive.&lt;/p&gt;
+&lt;p&gt;We also re-thought our bandwidth usage, and instead of cloning the git remote at startup, we developed &lt;a href=&quot;https://git.robur.io/robur/git-kv&quot;&gt;git-kv&lt;/a&gt; which can dump and restore the git state.&lt;/p&gt;
+&lt;p&gt;Also, initially we computed all hashes of all tarballs, but with the size increasing (all archives are around 7.5GB) this lead to a major issue of startup time (around 5 minutes on a laptop), so we wanted to save and restore the maps as well.&lt;/p&gt;
+&lt;p&gt;Since neither git state nor the maps are suitable for tar's append-only semantics, and we didn't want to investigate yet another file system - such as &lt;a href=&quot;https://github.com/mirage/ocaml-fat&quot;&gt;fat&lt;/a&gt; may just work fine, but the code looks slightly bitrot, and the reported issues and non-activity doesn't make this package very trustworthy from our point of view. Instead, we developed &lt;a href=&quot;https://github.com/reynir/mirage-block-partition&quot;&gt;mirage-block-partition&lt;/a&gt; to partition a block device into two. Then we just store the maps and the git state at the end - the end of a tar archive is 2 blocks of zeroes, so stuff at the far end aren't considered by any tooling. Extending the tar archive is also possible, only the maps and git state needs to be moved to the end (or recomputed). As file system, we developed &lt;a href=&quot;https://git.robur.io/reynir/oneffs&quot;&gt;oneffs&lt;/a&gt; which stores a single value on the block device.&lt;/p&gt;
+&lt;p&gt;We observed a high memory usage, since each requested archive was first read from the block device into memory, and then sent out. Thanks to Pierre Alains &lt;a href=&quot;https://github.com/mirage/mirage-kv/pull/28&quot;&gt;recent enhancements&lt;/a&gt; of the mirage-kv API, there is a &lt;code&gt;get_partial&lt;/code&gt;, that we use to chunk-wise read the archive and send it via HTTP. Now, the memory usage is around 20MB (the git repository and the generated tarball are kept in memory).&lt;/p&gt;
+&lt;p&gt;What is next? Downloading and writing to the tar archive could be done chunk-wise as well; also dumping and restoring the git state is quite CPU intensive, we would like to improve that. Adding the TLS frontend (currently done on our site by our TLS termination proxy &lt;a href=&quot;https://github.com/roburio/tlstunnel&quot;&gt;tlstunnel&lt;/a&gt;) similar to how &lt;a href=&quot;https://github.com/roburio/unipi&quot;&gt;unipi&lt;/a&gt; does it, including let's encrypt provisioning -- should be straightforward (drop us a note if you'd be interesting in that feature).&lt;/p&gt;
+&lt;h1&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;To conclude, we managed within a month to develop this opam-mirror cache from scratch. It has a reasonable footprint (CPU and memory-wise), is easy to maintain and easy to update - if you want to use it, we also provide &lt;a href=&quot;https://builds.robur.coop/job/opam-mirror&quot;&gt;reproducible binaries&lt;/a&gt; for solo5-hvt. You can use our opam mirror with &lt;code&gt;opam repository set-url default https://opam.robur.coop&lt;/code&gt; (revert to the other with &lt;code&gt;opam repository set-url default https://opam.ocaml.org&lt;/code&gt;) or use it as a backup with &lt;code&gt;opam repository add robur --rank 2 https://opam.robur.coop&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Please reach out to us (at team AT robur DOT coop) if you have feedback and suggestions. We are a non-profit company, and rely on &lt;a href=&quot;https://robur.coop/Donate&quot;&gt;donations&lt;/a&gt; for doing our work - everyone can contribute.&lt;/p&gt;
+</content><id>https://hannes.robur.coop/Posts/OpamMirror</id><title type="text">Mirroring the opam repository and all tarballs</title><updated>2022-09-29T13:04:14-00:00</updated><author><name>hannes</name></author></entry><entry><link href="https://hannes.robur.coop/Posts/Monitoring" rel="alternate"/><contributor><uri>https://hannes.robur.coop/atom</uri><name>hannes</name></contributor><content type="html">&lt;h1&gt;Introduction to monitoring&lt;/h1&gt;
+&lt;p&gt;At &lt;a href=&quot;https://robur.coop&quot;&gt;robur&lt;/a&gt; we use a range of MirageOS unikernels. Recently, we worked on improving the operations story thereof. One part is shipping binaries using our &lt;a href=&quot;https://builds.robur.coop&quot;&gt;reproducible builds infrastructure&lt;/a&gt;. Another part is, once deployed we want to observe what is going on.&lt;/p&gt;
+&lt;p&gt;I first got into touch with monitoring - collecting and graphing metrics - with &lt;a href=&quot;https://oss.oetiker.ch/mrtg/&quot;&gt;MRTG&lt;/a&gt; and &lt;a href=&quot;https://munin-monitoring.org/&quot;&gt;munin&lt;/a&gt; - and the simple network management protocol &lt;a href=&quot;https://en.wikipedia.org/wiki/Simple_Network_Management_Protocol&quot;&gt;SNMP&lt;/a&gt;. From the whole system perspective, I find it crucial that the monitoring part of a system does not add pressure. This favours a push-based design, where reporting is done at the disposition of the system.&lt;/p&gt;
+&lt;p&gt;The rise of monitoring where graphs are done dynamically (such as &lt;a href=&quot;https://grafana.com/&quot;&gt;Grafana&lt;/a&gt;) and can be programmed (with a query language) by the operator are very neat, it allows to put metrics in relation after they have been recorded - thus if there's a thesis why something went berserk, you can graph the collected data from the past and prove or disprove the thesis.&lt;/p&gt;
+&lt;h1&gt;Monitoring a MirageOS unikernel&lt;/h1&gt;
+&lt;p&gt;From the operational perspective, taking security into account - either the data should be authenticated and integrity-protected, or being transmitted on a private network. We chose the latter, there's a private network interface only for monitoring. Access to that network is only granted to the unikernels and metrics collector.&lt;/p&gt;
+&lt;p&gt;For MirageOS unikernels, we use the &lt;a href=&quot;https://github.com/mirage/metrics&quot;&gt;metrics&lt;/a&gt; library - which design shares the idea of &lt;a href=&quot;https://erratique.ch/software/logs&quot;&gt;logs&lt;/a&gt; that only if there's a reporter registered, work is performed.  We use the Influx line protocol via TCP to report via &lt;a href=&quot;https://www.influxdata.com/time-series-platform/telegraf/&quot;&gt;Telegraf&lt;/a&gt; to &lt;a href=&quot;https://www.influxdata.com/&quot;&gt;InfluxDB&lt;/a&gt;. But due to the design of &lt;a href=&quot;https://github.com/mirage/metrics&quot;&gt;metrics&lt;/a&gt;, other reporters can be developed and used -- prometheus, SNMP, your-other-favourite are all possible.&lt;/p&gt;
+&lt;p&gt;Apart from monitoring metrics, we use the same network interface for logging via syslog. Since the logs library separates the log message generation (in the OCaml libraries) from the reporting, we developed &lt;a href=&quot;https://github.com/hannesm/logs-syslog&quot;&gt;logs-syslog&lt;/a&gt;, which registers a log reporter sending each log message to a syslog sink.&lt;/p&gt;
+&lt;p&gt;We developed a small library for metrics reporting of a MirageOS unikernel into the &lt;a href=&quot;https://github.com/roburio/monitoring-experiments&quot;&gt;monitoring-experiments&lt;/a&gt; package - which also allows to dynamically adjust log level and disable or enable metrics sources.&lt;/p&gt;
+&lt;h2&gt;Required components&lt;/h2&gt;
+&lt;p&gt;Install from your operating system the packages providing telegraf, influxdb, and grafana.&lt;/p&gt;
+&lt;p&gt;Setup telegraf to contain a socket listener:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[[inputs.socket_listener]]
+  service_address = &amp;quot;tcp://192.168.42.14:8094&amp;quot;
+  keep_alive_period = &amp;quot;5m&amp;quot;
+  data_format = &amp;quot;influx&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Use a unikernel that reports to Influx (below the heading &amp;quot;Unikernels (with metrics reported to Influx)&amp;quot; on &lt;a href=&quot;https://builds.robur.coop&quot;&gt;builds.robur.coop&lt;/a&gt;) and provide &lt;code&gt;--monitor=192.168.42.14&lt;/code&gt; as boot parameter. Conventionally, these unikernels expect a second network interface (on the &amp;quot;management&amp;quot; bridge) where telegraf (and a syslog sink) are running. You'll need to pass &lt;code&gt;--net=management&lt;/code&gt; and &lt;code&gt;--arg='--management-ipv4=192.168.42.x/24'&lt;/code&gt; to albatross-client-local.&lt;/p&gt;
+&lt;p&gt;Albatross provides a &lt;code&gt;albatross-influx&lt;/code&gt; daemon that reports information from the host system about the unikernels to influx. Start it with &lt;code&gt;--influx=192.168.42.14&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;Adding monitoring to your unikernel&lt;/h2&gt;
+&lt;p&gt;If you want to extend your own unikernel with metrics, follow along these lines.&lt;/p&gt;
+&lt;p&gt;An example is the &lt;a href=&quot;https://github.com/roburio/dns-primary-git&quot;&gt;dns-primary-git&lt;/a&gt; unikernel, where on the branch &lt;code&gt;future&lt;/code&gt; we have a single commit ahead of main that adds monitoring. The difference is in the unikernel configuration and the main entry point. See the &lt;a href=&quot;https://builds.robur.coop/job/dns-primary-git-monitoring/build/latest/&quot;&gt;binary builts&lt;/a&gt; in contrast to the &lt;a href=&quot;https://builds.robur.coop/job/dns-primary-git/build/latest/&quot;&gt;non-monitoring builts&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In config, three new command line arguments are added: &lt;code&gt;--monitor=IP&lt;/code&gt;, &lt;code&gt;--monitor-adjust=PORT&lt;/code&gt; &lt;code&gt;--syslog=IP&lt;/code&gt; and &lt;code&gt;--name=STRING&lt;/code&gt;. In addition, the package &lt;code&gt;monitoring-experiments&lt;/code&gt; is required. And a second network interface &lt;code&gt;management_stack&lt;/code&gt; using the prefix &lt;code&gt;management&lt;/code&gt; is required and passed to the unikernel. Since the syslog reporter requires a console (to report when logging fails), also a console is passed to the unikernel. Each reported metrics includes a tag &lt;code&gt;vm=&amp;lt;name&amp;gt;&lt;/code&gt; that can be used to distinguish several unikernels reporting to the same InfluxDB.&lt;/p&gt;
+&lt;p&gt;Command line arguments:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-patch&quot;&gt;   let doc = Key.Arg.info ~doc:&amp;quot;The fingerprint of the TLS certificate.&amp;quot; [ &amp;quot;tls-cert-fingerprint&amp;quot; ] in
+   Key.(create &amp;quot;tls_cert_fingerprint&amp;quot; Arg.(opt (some string) None doc))
+ 
++let monitor =
++  let doc = Key.Arg.info ~doc:&amp;quot;monitor host IP&amp;quot; [&amp;quot;monitor&amp;quot;] in
++  Key.(create &amp;quot;monitor&amp;quot; Arg.(opt (some ip_address) None doc))
++
++let monitor_adjust =
++  let doc = Key.Arg.info ~doc:&amp;quot;adjust monitoring (log level, ..)&amp;quot; [&amp;quot;monitor-adjust&amp;quot;] in
++  Key.(create &amp;quot;monitor_adjust&amp;quot; Arg.(opt (some int) None doc))
++
++let syslog =
++  let doc = Key.Arg.info ~doc:&amp;quot;syslog host IP&amp;quot; [&amp;quot;syslog&amp;quot;] in
++  Key.(create &amp;quot;syslog&amp;quot; Arg.(opt (some ip_address) None doc))
++
++let name =
++  let doc = Key.Arg.info ~doc:&amp;quot;Name of the unikernel&amp;quot; [&amp;quot;name&amp;quot;] in
++  Key.(create &amp;quot;name&amp;quot; Arg.(opt string &amp;quot;ns.nqsb.io&amp;quot; doc))
++
+ let mimic_impl random stackv4v6 mclock pclock time =
+   let tcpv4v6 = tcpv4v6_of_stackv4v6 $ stackv4v6 in
+   let mhappy_eyeballs = mimic_happy_eyeballs $ random $ time $ mclock $ pclock $ stackv4v6 in
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Requiring &lt;code&gt;monitoring-experiments&lt;/code&gt;, registering command line arguments:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-patch&quot;&gt;     package ~min:&amp;quot;3.7.0&amp;quot; ~max:&amp;quot;3.8.0&amp;quot; &amp;quot;git-mirage&amp;quot;;
+     package ~min:&amp;quot;3.7.0&amp;quot; &amp;quot;git-paf&amp;quot;;
+     package ~min:&amp;quot;0.0.8&amp;quot; ~sublibs:[&amp;quot;mirage&amp;quot;] &amp;quot;paf&amp;quot;;
++    package &amp;quot;monitoring-experiments&amp;quot;;
++    package ~sublibs:[&amp;quot;mirage&amp;quot;] ~min:&amp;quot;0.3.0&amp;quot; &amp;quot;logs-syslog&amp;quot;;
+   ] in
+   foreign
+-    ~keys:[Key.abstract remote_k ; Key.abstract axfr]
++    ~keys:[
++      Key.abstract remote_k ; Key.abstract axfr ;
++      Key.abstract name ; Key.abstract monitor ; Key.abstract monitor_adjust ; Key.abstract syslog
++    ]
+     ~packages
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Added console and a second network stack to &lt;code&gt;foreign&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-patch&quot;&gt;     &amp;quot;Unikernel.Main&amp;quot;
+-    (random @-&amp;gt; pclock @-&amp;gt; mclock @-&amp;gt; time @-&amp;gt; stackv4v6 @-&amp;gt; mimic @-&amp;gt; job)
++    (console @-&amp;gt; random @-&amp;gt; pclock @-&amp;gt; mclock @-&amp;gt; time @-&amp;gt; stackv4v6 @-&amp;gt; mimic @-&amp;gt; stackv4v6 @-&amp;gt; job)
++
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Passing a console implementation (&lt;code&gt;default_console&lt;/code&gt;) and a second network stack (with &lt;code&gt;management&lt;/code&gt; prefix) to &lt;code&gt;register&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-patch&quot;&gt;+let management_stack = generic_stackv4v6 ~group:&amp;quot;management&amp;quot; (netif ~group:&amp;quot;management&amp;quot; &amp;quot;management&amp;quot;)
+ 
+ let () =
+   register &amp;quot;primary-git&amp;quot;
+-    [dns_handler $ default_random $ default_posix_clock $ default_monotonic_clock $
+-     default_time $ net $ mimic_impl]
++    [dns_handler $ default_console $ default_random $ default_posix_clock $ default_monotonic_clock $
++     default_time $ net $ mimic_impl $ management_stack]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, in the unikernel module the functor changes (console and second network stack added):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-patch&quot;&gt;@@ -4,17 +4,48 @@
+ 
+ open Lwt.Infix
+ 
+-module Main (R : Mirage_random.S) (P : Mirage_clock.PCLOCK) (M : Mirage_clock.MCLOCK) (T : Mirage_time.S) (S : Mirage_stack.V4V6) (_ : sig e
+nd) = struct
++module Main (C : Mirage_console.S) (R : Mirage_random.S) (P : Mirage_clock.PCLOCK) (M : Mirage_clock.MCLOCK) (T : Mirage_time.S) (S : Mirage
+_stack.V4V6) (_ : sig end) (Management : Mirage_stack.V4V6) = struct
+ 
+   module Store = Irmin_mirage_git.Mem.KV(Irmin.Contents.String)
+   module Sync = Irmin.Sync(Store)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And in the &lt;code&gt;start&lt;/code&gt; function, the command line arguments are processed and used to setup syslog and metrics monitoring to the specified addresses. Also, a TCP listener is waiting for monitoring and logging adjustments if &lt;code&gt;--monitor-adjust&lt;/code&gt; was provided:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-patch&quot;&gt;   module D = Dns_server_mirage.Make(P)(M)(T)(S)
++  module Monitoring = Monitoring_experiments.Make(T)(Management)
++  module Syslog = Logs_syslog_mirage.Udp(C)(P)(Management)
+ 
+-  let start _rng _pclock _mclock _time s ctx =
++  let start c _rng _pclock _mclock _time s ctx management =
++    let hostname = Key_gen.name () in
++    (match Key_gen.syslog () with
++     | None -&amp;gt; Logs.warn (fun m -&amp;gt; m &amp;quot;no syslog specified, dumping on stdout&amp;quot;)
++     | Some ip -&amp;gt; Logs.set_reporter (Syslog.create c management ip ~hostname ()));
++    (match Key_gen.monitor () with
++     | None -&amp;gt; Logs.warn (fun m -&amp;gt; m &amp;quot;no monitor specified, not outputting statistics&amp;quot;)
++     | Some ip -&amp;gt; Monitoring.create ~hostname ?listen_port:(Key_gen.monitor_adjust ()) ip management);
+     connect_store ctx &amp;gt;&amp;gt;= fun (store, upstream) -&amp;gt;
+     load_git None store upstream &amp;gt;&amp;gt;= function
+     | Error (`Msg msg) -&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Once you compiled the unikernel (or downloaded a binary with monitoring), and start that unikernel by passing &lt;code&gt;--net:service=tap0&lt;/code&gt; and &lt;code&gt;--net:management=tap10&lt;/code&gt; (or whichever your &lt;code&gt;tap&lt;/code&gt; interfaces are), and as unikernel arguments &lt;code&gt;--ipv4=&amp;lt;my-ip-address&amp;gt;&lt;/code&gt; and &lt;code&gt;--management-ipv4=192.168.42.2/24&lt;/code&gt; for IPv4 configuration, &lt;code&gt;--monitor=192.168.42.14&lt;/code&gt;, &lt;code&gt;--syslog=192.168.42.10&lt;/code&gt;, &lt;code&gt;--name=my.unikernel&lt;/code&gt;, &lt;code&gt;--monitor-adjust=12345&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;With this, your unikernel will report metrics using the influx protocol to 192.168.42.14 on port 8094 (every 10 seconds), and syslog messages via UDP to 192.168.0.10 (port 514). You should see your InfluxDB getting filled and syslog server receiving messages.&lt;/p&gt;
+&lt;p&gt;When you configure &lt;a href=&quot;https://grafana.com/docs/grafana/latest/getting-started/getting-started-influxdb/&quot;&gt;Grafana to use InfluxDB&lt;/a&gt;, you'll be able to see the data in the data sources.&lt;/p&gt;
+&lt;p&gt;Please reach out to us (at team AT robur DOT coop) if you have feedback and suggestions.&lt;/p&gt;
+</content><id>https://hannes.robur.coop/Posts/Monitoring</id><title type="text">All your metrics belong to influx</title><updated>2022-03-08T11:26:31-00:00</updated><author><name>hannes</name></author></entry><entry><link href="https://hannes.robur.coop/Posts/Deploy" rel="alternate"/><contributor><uri>https://hannes.robur.coop/atom</uri><name>hannes</name></contributor><content type="html">&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;MirageOS development focus has been a lot on tooling and the developer experience, but to accomplish &lt;a href=&quot;https://robur.coop&quot;&gt;our&lt;/a&gt; goal to &amp;quot;get MirageOS into production&amp;quot;, we need to lower the barrier. This means for us to release binary unikernels. As described &lt;a href=&quot;https://hannes.robur.coop/Posts/NGI&quot;&gt;earlier&lt;/a&gt;, we received a grant for &amp;quot;Deploying MirageOS&amp;quot; from &lt;a href=&quot;https://pointer.ngi.eu&quot;&gt;NGI Pointer&lt;/a&gt; to work on the required infrastructure. This is joint work with &lt;a href=&quot;https://reynir.dk/&quot;&gt;Reynir&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We provide at &lt;a href=&quot;https://builds.robur.coop&quot;&gt;builds.robur.coop&lt;/a&gt; binary unikernel images (and supplementary software). Doing binary releases of MirageOS unikernels is challenging in two aspects: firstly to be useful for everyone, a binary unikernel should not contain any configuration (such as private keys, certificates, etc.). Secondly, the binaries should be &lt;a href=&quot;https://reproducible-builds.org&quot;&gt;reproducible&lt;/a&gt;. This is crucial for security; everyone can reproduce the exact same binary and verify that our build service did only use the sources. No malware or backdoors included.&lt;/p&gt;
+&lt;p&gt;This post describes how you can deploy MirageOS unikernels without compiling it from source, then dives into the two issues outlined above - configuration and reproducibility - and finally describes how to setup your own reproducible build infrastructure for MirageOS, and how to bootstrap it.&lt;/p&gt;
+&lt;h2&gt;Deploying MirageOS unikernels from binary&lt;/h2&gt;
+&lt;p&gt;To execute a MirageOS unikernel, apart from a hypervisor (Xen/KVM/Muen), a tender (responsible for allocating host system resources and passing these to the unikernel) is needed. Using virtio, this is conventionally done with qemu on Linux, but its code size (and attack surface) is huge. For MirageOS, we develop &lt;a href=&quot;https://github.com/solo5/solo5&quot;&gt;Solo5&lt;/a&gt;, a minimal tender. It supports &lt;em&gt;hvt&lt;/em&gt; - hardware virtualization (Linux KVM, FreeBSD BHyve, OpenBSD VMM), &lt;em&gt;spt&lt;/em&gt; - sandboxed process (a tight seccomp ruleset (only a handful of system calls allowed, no hardware virtualization needed), Linux only). Apart from that, &lt;a href=&quot;https://muen.sk&quot;&gt;&lt;em&gt;muen&lt;/em&gt;&lt;/a&gt; (a hypervisor developed in Ada), &lt;em&gt;virtio&lt;/em&gt; (for some cloud deployments), and &lt;em&gt;xen&lt;/em&gt; (PVHv2 or Qubes 4.0) - &lt;a href=&quot;https://github.com/Solo5/solo5/blob/master/docs/building.md&quot;&gt;read more&lt;/a&gt;. We deploy our unikernels as hvt with FreeBSD BHyve as hypervisor.&lt;/p&gt;
+&lt;p&gt;On &lt;a href=&quot;https://builds.robur.coop&quot;&gt;builds.robur.coop&lt;/a&gt;, next to the unikernel images, &lt;a href=&quot;https://builds.robur.coop/job/solo5-hvt/&quot;&gt;&lt;em&gt;solo5-hvt&lt;/em&gt; packages&lt;/a&gt; are provided - download the binary and install it. A &lt;a href=&quot;https://github.com/NixOS/nixpkgs/tree/master/pkgs/os-specific/solo5&quot;&gt;NixOS package&lt;/a&gt; is already available - please note that &lt;a href=&quot;https://github.com/Solo5/solo5/pull/494&quot;&gt;soon&lt;/a&gt; packaging will be much easier (and we will work on packages merged into distributions).&lt;/p&gt;
+&lt;p&gt;When the tender is installed, download a unikernel image (e.g. the &lt;a href=&quot;https://builds.robur.coop/job/traceroute/build/latest/&quot;&gt;traceroute&lt;/a&gt; described in &lt;a href=&quot;https://hannes.robur.coop/Posts/Traceroute&quot;&gt;an earlier post&lt;/a&gt;), and execute it:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ solo5-hvt --net:service=tap0 -- traceroute.hvt --ipv4=10.0.42.2/24 --ipv4-gateway=10.0.42.1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you plan to orchestrate MirageOS unikernels, you may be interested in &lt;a href=&quot;https://github.com/roburio/albatross&quot;&gt;albatross&lt;/a&gt; - we provide &lt;a href=&quot;https://builds.robur.coop/job/albatross/&quot;&gt;binary packages as well for albatross&lt;/a&gt;. An upcoming post will go into further details of how to setup albatross.&lt;/p&gt;
+&lt;h2&gt;MirageOS configuration&lt;/h2&gt;
+&lt;p&gt;A MirageOS unikernel has a specific purpose - composed of OCaml libraries - selected at compile time, which allows to only embed the required pieces. This reduces the attack surface drastically. At the same time, to be widely useful to multiple organisations, no configuration data must be embedded into the unikernel.&lt;/p&gt;
+&lt;p&gt;Early MirageOS unikernels such as &lt;a href=&quot;https://github.com/mirage/mirage-www&quot;&gt;mirage-www&lt;/a&gt; embed content (blog posts, ..) and TLS certificates and private keys in the binary (using &lt;a href=&quot;https://github.com/mirage/ocaml-crunch&quot;&gt;crunch&lt;/a&gt;). The &lt;a href=&quot;https://github.com/mirage/qubes-mirage-firewall&quot;&gt;Qubes firewall&lt;/a&gt; (read the &lt;a href=&quot;http://roscidus.com/blog/blog/2016/01/01/a-unikernel-firewall-for-qubesos/&quot;&gt;blog post by Thomas&lt;/a&gt; for more information) used to include the firewall rules until &lt;a href=&quot;https://github.com/mirage/qubes-mirage-firewall/releases/tag/v0.6&quot;&gt;v0.6&lt;/a&gt; in the binary, since &lt;a href=&quot;https://github.com/mirage/qubes-mirage-firewall/tree/v0.7&quot;&gt;v0.7&lt;/a&gt; the rules are read dynamically from QubesDB. This is big usability improvement.&lt;/p&gt;
+&lt;p&gt;We have several possibilities to provide configuration information in MirageOS, on the one hand via boot parameters (can be pre-filled at development time, and further refined at configuration time, but those passed at boot time take precedence). Boot parameters have a length limitation.&lt;/p&gt;
+&lt;p&gt;Another option is to &lt;a href=&quot;https://github.com/roburio/tlstunnel/&quot;&gt;use a block device&lt;/a&gt; - where the TLS reverse proxy stores the configuration, modifiable via a TCP control socket (authentication using a shared hmac secret).&lt;/p&gt;
+&lt;p&gt;Several other unikernels, such as &lt;a href=&quot;https://github.com/Engil/Canopy&quot;&gt;this website&lt;/a&gt; and &lt;a href=&quot;https://github.com/roburio/caldav&quot;&gt;our CalDAV server&lt;/a&gt;, store the content in a remote git repository. The git URI and credentials (private key seed, host key fingerprint) are passed via boot parameter.&lt;/p&gt;
+&lt;p&gt;Finally, another option that we take advantage of is to introduce a post-link step that rewrites the binary to embed configuration. The tool &lt;a href=&quot;https://github.com/dinosaure/caravan&quot;&gt;caravan&lt;/a&gt; developed by Romain that does this rewrite is used by our &lt;a href=&quot;https://github.com/roburio/openvpn/tree/robur/mirage-router&quot;&gt;openvpn router&lt;/a&gt; (&lt;a href=&quot;https://builds.robur.coop/job/openvpn-router/build/latest/&quot;&gt;binary&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;In the future, some configuration information - such as monitoring system, syslog sink, IP addresses - may be done via DHCP on one of the private network interfaces - this would mean that the DHCP server has some global configuration option, and the unikernels no longer require that many boot parameters. Another option we want to investigate is where the tender shares a file as read-only memory-mapped region from the host system to the guest system - but this is tricky considering all targets above (especially virtio and muen).&lt;/p&gt;
+&lt;h2&gt;Behind the scenes: reproducible builds&lt;/h2&gt;
+&lt;p&gt;To provide a high level of assurance and trust, if you distribute binaries in 2021, you should have a recipe how they can be reproduced in a bit-by-bit identical way. This way, different organisations can run builders and rebuilders, and a user can decide to only use a binary if it has been reproduced by multiple organisations in different jurisdictions using different physical machines - to avoid malware being embedded in the binary.&lt;/p&gt;
+&lt;p&gt;For a reproduction to be successful, you need to collect the checksums of all sources that contributed to the built, together with other things (host system packages, environment variables, etc.). Of course, you can record the entire OS and sources as a tarball (or file system snapshot) and distribute that - but this may be suboptimal in terms of bandwidth requirements.&lt;/p&gt;
+&lt;p&gt;With opam, we already have precise tracking which opam packages are used, and since opam 2.1 the &lt;code&gt;opam switch export&lt;/code&gt; includes &lt;a href=&quot;https://github.com/ocaml/opam/pull/4040&quot;&gt;extra-files (patches)&lt;/a&gt; and &lt;a href=&quot;https://github.com/ocaml/opam/pull/4055&quot;&gt;records the VCS version&lt;/a&gt;. Based on this functionality, &lt;a href=&quot;https://github.com/roburio/orb&quot;&gt;orb&lt;/a&gt;, an alternative command line application using the opam-client library, can be used to collect (a) the switch export, (b) host system packages, and (c) the environment variables. Only required environment variables are kept, all others are unset while conducting a build. The only required environment variables are &lt;code&gt;PATH&lt;/code&gt; (sanitized with an allow list, &lt;code&gt;/bin&lt;/code&gt;, &lt;code&gt;/sbin&lt;/code&gt;, with &lt;code&gt;/usr&lt;/code&gt;, &lt;code&gt;/usr/local&lt;/code&gt;, and &lt;code&gt;/opt&lt;/code&gt; prefixes), and &lt;code&gt;HOME&lt;/code&gt;. To enable Debian's &lt;code&gt;apt&lt;/code&gt; to install packages, &lt;code&gt;DEBIAN_FRONTEND&lt;/code&gt; is set to &lt;code&gt;noninteractive&lt;/code&gt;. The &lt;code&gt;SWITCH_PATH&lt;/code&gt; is recorded to allow orb to use the same path during a rebuild. The &lt;code&gt;SOURCE_DATE_EPOCH&lt;/code&gt; is set to enable tools that record a timestamp to use a static one. The &lt;code&gt;OS*&lt;/code&gt; variables are only used for recording the host OS and version.&lt;/p&gt;
+&lt;p&gt;The goal of reproducible builds can certainly be achieved in several ways, including to store all sources and used executables in a huge tarball (or docker container), which is preserved for rebuilders. The question of minimal trusted computing base and how such a container could be rebuild from sources in reproducible way are open.&lt;/p&gt;
+&lt;p&gt;The opam-repository is a community repository, where packages are released to on a daily basis by a lot of OCaml developers. Package dependencies usually only use lower bounds of other packages, and the continuous integration system of the opam repository takes care that upon API changes all reverse dependencies include the right upper bounds. Using the head commit of opam-repository usually leads to a working package universe.&lt;/p&gt;
+&lt;p&gt;For our MirageOS unikernels, we don't want to stay behind with ancient versions of libraries. That's why our automated building is done on a daily basis with the head commit of opam-repository. Since our unikernels are not part of the main opam repository (they include the configuration information which target to use, e.g. &lt;em&gt;hvt&lt;/em&gt;), and we occasionally development versions of opam packages, we use &lt;a href=&quot;https://git.robur.io/robur/unikernel-repo&quot;&gt;the unikernel-repo&lt;/a&gt; as overlay.&lt;/p&gt;
+&lt;p&gt;If no dependent package got a new release, the resulting binary has the same checksum. If any dependency was released with a newer release, this is picked up, and eventually the checksum changes.&lt;/p&gt;
+&lt;p&gt;Each unikernel (and non-unikernel) job (e.g. &lt;a href=&quot;https://builds.robur.coop/job/dns-primary-git/build/latest/&quot;&gt;dns-primary&lt;/a&gt; outputs some artifacts:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the &lt;a href=&quot;https://builds.robur.coop/job/dns-primary-git/build/latest/f/bin/primary_git.hvt&quot;&gt;binary image&lt;/a&gt; (in &lt;code&gt;bin/&lt;/code&gt;, unikernel image, OS package)
+&lt;/li&gt;
+&lt;li&gt;the &lt;a href=&quot;https://builds.robur.coop/job/dns-primary-git/build/latest/f/build-environment&quot;&gt;&lt;code&gt;build-environment&lt;/code&gt;&lt;/a&gt; containing the environment variables used for this build
+&lt;/li&gt;
+&lt;li&gt;the &lt;a href=&quot;https://builds.robur.coop/job/dns-primary-git/build/latest/f/system-packages&quot;&gt;&lt;code&gt;system-packages&lt;/code&gt;&lt;/a&gt; containing all packages installed on the host system
+&lt;/li&gt;
+&lt;li&gt;the &lt;a href=&quot;https://builds.robur.coop/job/dns-primary-git/build/latest/f/opam-switch&quot;&gt;&lt;code&gt;opam-switch&lt;/code&gt;&lt;/a&gt; that contains all opam packages, including git commit or tarball with checksum, and potentially extra patches, used for this build
+&lt;/li&gt;
+&lt;li&gt;a job script and console output
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To reproduce such a built, you need to get the same operating system (OS, OS_FAMILY, OS_DISTRIBUTION, OS_VERSION in build-environment), the same set of system packages, and then you can &lt;code&gt;orb rebuild&lt;/code&gt; which sets the environment variables and installs the opam packages from the opam-switch.&lt;/p&gt;
+&lt;p&gt;You can &lt;a href=&quot;https://builds.robur.coop/job/dns-primary-git/&quot;&gt;browse&lt;/a&gt; the different builds, and if there are checksum changes, you can browse to a diff between the opam switches to reason whether the checksum change was intentional (e.g. &lt;a href=&quot;https://builds.robur.coop/compare/ba9ab091-9400-4e8d-ad37-cf1339114df8/23341f6b-cd26-48ab-9383-e71342455e81/opam-switch&quot;&gt;here&lt;/a&gt; the checksum of the unikernel changed when the x509 library was updated).&lt;/p&gt;
+&lt;p&gt;The opam reproducible build infrastructure is driven by:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/roburio/orb&quot;&gt;orb&lt;/a&gt; conducting reproducible builds (&lt;a href=&quot;https://builds.robur.coop/job/orb/&quot;&gt;packages&lt;/a&gt;)
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/roburio/builder&quot;&gt;builder&lt;/a&gt; scheduling builds in contained environments (&lt;a href=&quot;https://builds.robur.coop/job/builder/&quot;&gt;packages&lt;/a&gt;)
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://git.robur.io/robur/builder-web&quot;&gt;builder-web&lt;/a&gt; storing builds in a database and providing a HTTP interface (&lt;a href=&quot;https://builds.robur.coop/job/builder-web/&quot;&gt;packages&lt;/a&gt;)
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These tools are themselves reproducible, and built on a daily basis. The infrastructure executing the build jobs installs the most recent packages of orb and builder before conducting a build. This means that our build infrastructure is reproducible as well, and uses the latest code when it is released.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Thanks to NGI funding we now have reproducible MirageOS binary builds available at &lt;a href=&quot;https://builds.robur.coop&quot;&gt;builds.robur.coop&lt;/a&gt;. The underlying infrastructure is reproducible, available for multiple platforms (Ubuntu using docker, FreeBSD using jails), and can be easily bootstrapped from source (once you have OCaml and opam working, getting builder and orb should be easy). All components are open source software, mostly with permissive licenses.&lt;/p&gt;
+&lt;p&gt;We also have an index over sha-256 checksum of binaries - in the case you find a running unikernel image where you forgot which exact packages were used, you can do a reverse lookup.&lt;/p&gt;
+&lt;p&gt;We are aware that the web interface can be improved (PRs welcome). We will also work on the rebuilder setup and run some rebuilds.&lt;/p&gt;
+&lt;p&gt;Please reach out to us (at team AT robur DOT coop) if you have feedback and suggestions.&lt;/p&gt;
+</content><id>https://hannes.robur.coop/Posts/Deploy</id><title type="text">Deploying binary MirageOS unikernels</title><updated>2021-06-30T13:13:37-00:00</updated><author><name>hannes</name></author></entry><entry><link href="https://hannes.robur.coop/Posts/EC" rel="alternate"/><contributor><uri>https://hannes.robur.coop/atom</uri><name>hannes</name></contributor><content type="html">&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Tl;DR: mirage-crypto-ec, with x509 0.12.0, and tls 0.13.0, provide fast and secure elliptic curve support in OCaml and MirageOS - using the verified &lt;a href=&quot;https://github.com/mit-plv/fiat-crypto/&quot;&gt;fiat-crypto&lt;/a&gt; stack (Coq to OCaml to executable which generates C code that is interfaced by OCaml). In x509, a long standing issue (countryName encoding), and archive (PKCS 12) format is now supported, in addition to EC keys. In tls, ECDH key exchanges are supported, and ECDSA and EdDSA certificates.&lt;/p&gt;
+&lt;h2&gt;Elliptic curve cryptography&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mirage.io/blog/tls-1-3-mirageos&quot;&gt;Since May 2020&lt;/a&gt;, our &lt;a href=&quot;https://usenix15.nqsb.io&quot;&gt;OCaml-TLS&lt;/a&gt; stack supports TLS 1.3 (since tls version 0.12.0 on opam).&lt;/p&gt;
+&lt;p&gt;TLS 1.3 requires elliptic curve cryptography - which was not available in &lt;a href=&quot;https://github.com/mirage/mirage-crypto&quot;&gt;mirage-crypto&lt;/a&gt; (the maintained fork of &lt;a href=&quot;https://github.com/mirleft/ocaml-nocrypto&quot;&gt;nocrypto&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;There are two major uses of elliptic curves: &lt;a href=&quot;https://en.wikipedia.org/wiki/Elliptic-curve_Diffie%E2%80%93Hellman&quot;&gt;key exchange (ECDH)&lt;/a&gt; for establishing a shared secret over an insecure channel, and &lt;a href=&quot;https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm&quot;&gt;digital signature (ECDSA)&lt;/a&gt; for authentication, integrity, and non-repudiation. (Please note that the construction of digital signatures on Edwards curves (Curve25519, Ed448) is called EdDSA instead of ECDSA.)&lt;/p&gt;
+&lt;p&gt;Elliptic curve cryptoraphy is &lt;a href=&quot;https://eprint.iacr.org/2020/615&quot;&gt;vulnerable&lt;/a&gt; &lt;a href=&quot;https://raccoon-attack.com/&quot;&gt;to&lt;/a&gt; &lt;a href=&quot;https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-5407&quot;&gt;various&lt;/a&gt; &lt;a href=&quot;https://github.com/mimoo/timing_attack_ecdsa_tls&quot;&gt;timing&lt;/a&gt; &lt;a href=&quot;https://minerva.crocs.fi.muni.cz/&quot;&gt;attacks&lt;/a&gt; - have a read of the &lt;a href=&quot;https://blog.trailofbits.com/2020/06/11/ecdsa-handle-with-care/&quot;&gt;overview article on ECDSA&lt;/a&gt;. When implementing elliptic curve cryptography, it is best to avoid these known attacks. Gladly, there are some projects which address these issues by construction.&lt;/p&gt;
+&lt;p&gt;In addition, to use the code in MirageOS, it should be boring C code: no heap allocations, only using a very small amount of C library functions -- the code needs to be compiled in an environment with &lt;a href=&quot;https://github.com/mirage/ocaml-freestanding/tree/v0.6.4/nolibc&quot;&gt;nolibc&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Two projects started in semantics, to solve the issue from the grounds up: &lt;a href=&quot;https://github.com/mit-plv/fiat-crypto/&quot;&gt;fiat-crypto&lt;/a&gt; and &lt;a href=&quot;https://github.com/project-everest/hacl-star/&quot;&gt;hacl-star&lt;/a&gt;: their approach is to use a proof system (&lt;a href=&quot;https://coq.inria.fr&quot;&gt;Coq&lt;/a&gt; or &lt;a href=&quot;https://www.fstar-lang.org/&quot;&gt;F*&lt;/a&gt; to verify that the code executes in constant time, not depending on data input. Both projects provide as output of their proof systems C code.&lt;/p&gt;
+&lt;p&gt;For our initial TLS 1.3 stack, &lt;a href=&quot;https://github.com/pascutto/&quot;&gt;Cl&amp;eacute;ment&lt;/a&gt;, &lt;a href=&quot;https://github.com/NathanReb/&quot;&gt;Nathan&lt;/a&gt; and &lt;a href=&quot;https://github.com/emillon/&quot;&gt;Etienne&lt;/a&gt; developed &lt;a href=&quot;https://github.com/mirage/fiat&quot;&gt;fiat-p256&lt;/a&gt; and &lt;a href=&quot;https://github.com/mirage/hacl&quot;&gt;hacl_x5519&lt;/a&gt;. Both were one-shot interfaces for a narrow use case (ECDH for NIST P-256 and X25519), worked well for their purpose, and allowed to gather some experience from the development side.&lt;/p&gt;
+&lt;h3&gt;Changed requirements&lt;/h3&gt;
+&lt;p&gt;Revisiting our cryptography stack with the elliptic curve perspective had several reasons, on the one side the customer project &lt;a href=&quot;https://www.nitrokey.com/products/nethsm&quot;&gt;NetHSM&lt;/a&gt; asked for feasibility of ECDSA/EdDSA for various elliptic curves, on the other side &lt;a href=&quot;https://github.com/mirage/ocaml-dns/pull/251&quot;&gt;DNSSec&lt;/a&gt; uses elliptic curve cryptography (ECDSA), and also &lt;a href=&quot;https://www.wireguard.com/&quot;&gt;wireguard&lt;/a&gt; relies on elliptic curve cryptography. The number of X.509 certificates using elliptic curves is increasing, and we don't want to leave our TLS stack in a state where it can barely talk to a growing number of services on the Internet.&lt;/p&gt;
+&lt;p&gt;Looking at &lt;a href=&quot;https://github.com/project-everest/hacl-star/&quot;&gt;&lt;em&gt;hacl-star&lt;/em&gt;&lt;/a&gt;, their &lt;a href=&quot;https://hacl-star.github.io/Supported.html&quot;&gt;support&lt;/a&gt; is limited to P-256 and Curve25519, any new curve requires writing F*. Another issue with hacl-star is C code quality: their C code does neither &lt;a href=&quot;https://github.com/mirage/hacl/issues/46&quot;&gt;compile with older C compilers (found on Oracle Linux 7 / CentOS 7)&lt;/a&gt;, nor when enabling all warnings (&amp;gt; 150 are generated). We consider the C compiler as useful resource to figure out undefined behaviour (and other problems), and when shipping C code we ensure that it compiles with &lt;code&gt;-Wall -Wextra -Wpedantic --std=c99 -Werror&lt;/code&gt;. The hacl project &lt;a href=&quot;https://github.com/mirage/hacl/tree/master/src/kremlin&quot;&gt;ships&lt;/a&gt; a bunch of header files and helper functions to work on all platforms, which is a clunky &lt;code&gt;ifdef&lt;/code&gt; desert. The hacl approach is to generate a whole algorithm solution: from arithmetic primitives, group operations, up to cryptographic protocol - everything included.&lt;/p&gt;
+&lt;p&gt;In contrast, &lt;a href=&quot;https://github.com/mit-plv/fiat-crypto/&quot;&gt;&lt;em&gt;fiat-crypto&lt;/em&gt;&lt;/a&gt; is a Coq development, which as part of compilation (proof verification) generates executables (via OCaml code extraction from Coq). These executables are used to generate modular arithmetic (as C code) given a curve description. The &lt;a href=&quot;https://github.com/mirage/mirage-crypto/tree/main/ec/native&quot;&gt;generated C code&lt;/a&gt; is highly portable, independent of platform (word size is taken as input) - it only requires a &lt;code&gt;&amp;lt;stdint.h&amp;gt;&lt;/code&gt;, and compiles with all warnings enabled (once &lt;a href=&quot;https://github.com/mit-plv/fiat-crypto/pull/906&quot;&gt;a minor PR&lt;/a&gt; got merged). Supporting a new curve is simple: generate the arithmetic code using fiat-crypto with the new curve description. The downside is that group operations and protocol needs to implemented elsewhere (and is not part of the proven code) - gladly this is pretty straightforward to do, especially in high-level languages.&lt;/p&gt;
+&lt;h3&gt;Working with fiat-crypto&lt;/h3&gt;
+&lt;p&gt;As mentioned, our initial &lt;a href=&quot;https://github.com/mirage/fiat&quot;&gt;fiat-p256&lt;/a&gt; binding provided ECDH for the NIST P-256 curve. Also, BoringSSL uses fiat-crypto for ECDH, and developed the code for group operations and cryptographic protocol on top of it.&lt;/p&gt;
+&lt;p&gt;The work needed was (a) ECDSA support and (b) supporting more curves (let's focus on NIST curves). For ECDSA, the algorithm requires modular arithmetics in the field of the group order (in addition to the prime). We generate these primitives with fiat-crypto (named &lt;code&gt;npYYY_AA&lt;/code&gt;) - that required &lt;a href=&quot;https://github.com/mit-plv/fiat-crypto/commit/e31a36d5f1b20134e67ccc5339d88f0ff3cb0f86&quot;&gt;a small fix in decoding hex&lt;/a&gt;. Fiat-crypto also provides inversion &lt;a href=&quot;https://github.com/mit-plv/fiat-crypto/pull/670&quot;&gt;since late October 2020&lt;/a&gt;, &lt;a href=&quot;https://eprint.iacr.org/2021/549&quot;&gt;paper&lt;/a&gt; - which allowed to reduce our code base taken from BoringSSL. The ECDSA protocol was easy to implement in OCaml using the generated arithmetics.&lt;/p&gt;
+&lt;p&gt;Addressing the issue of more curves was also easy to achieve, the C code (group operations) are macros that are instantiated for each curve - the OCaml code are functors that are applied with each curve description.&lt;/p&gt;
+&lt;p&gt;Thanks to the test vectors (as structured data) from &lt;a href=&quot;https://github.com/google/wycheproof/&quot;&gt;wycheproof&lt;/a&gt; (and again thanks to Etienne, Nathan, and Cl&amp;eacute;ment for their OCaml code decodin them), I feel confident that our elliptic curve code works as desired.&lt;/p&gt;
+&lt;p&gt;What was left is X25519 and Ed25519 - dropping the hacl dependency entirely felt appealing (less C code to maintain from fewer projects). This turned out to require more C code, which we took from BoringSSL. It may be desirable to reduce the imported C code, or to wait until a project on top of fiat-crypto which provides proven cryptographic protocols is in a usable state.&lt;/p&gt;
+&lt;p&gt;To avoid performance degradation, I distilled some &lt;a href=&quot;https://github.com/mirage/mirage-crypto/pull/107#issuecomment-799701703&quot;&gt;X25519 benchmarks&lt;/a&gt;, turns out the fiat-crypto and hacl performance is very similar.&lt;/p&gt;
+&lt;h3&gt;Achievements&lt;/h3&gt;
+&lt;p&gt;The new opam package &lt;a href=&quot;https://mirage.github.io/mirage-crypto/doc/mirage-crypto-ec/Mirage_crypto_ec/index.html&quot;&gt;mirage-crypto-ec&lt;/a&gt; is released, which includes the C code generated by fiat-crypto (including &lt;a href=&quot;https://github.com/mit-plv/fiat-crypto/pull/670&quot;&gt;inversion&lt;/a&gt;), &lt;a href=&quot;https://github.com/mirage/mirage-crypto/blob/main/ec/native/point_operations.h&quot;&gt;point operations&lt;/a&gt; from BoringSSL, and some &lt;a href=&quot;https://github.com/mirage/mirage-crypto/blob/main/ec/mirage_crypto_ec.ml&quot;&gt;OCaml code&lt;/a&gt; for invoking these functions and doing bounds checks, and whether points are on the curve. The OCaml code are some functors that take the curve description (consisting of parameters, C function names, byte length of value) and provide Diffie-Hellman (Dh) and digital signature algorithm (Dsa) modules. The nonce for ECDSA is computed deterministically, as suggested by &lt;a href=&quot;https://tools.ietf.org/html/rfc6979&quot;&gt;RFC 6979&lt;/a&gt;, to avoid private key leakage.&lt;/p&gt;
+&lt;p&gt;The code has been developed in &lt;a href=&quot;https://github.com/mirage/mirage-crypto/pull/101&quot;&gt;NIST curves&lt;/a&gt;, &lt;a href=&quot;https://github.com/mirage/mirage-crypto/pull/106&quot;&gt;removing blinding&lt;/a&gt; (since we use operations that are verified to be constant-time), &lt;a href=&quot;https://github.com/mirage/mirage-crypto/pull/108&quot;&gt;added missing length checks&lt;/a&gt; (reported by &lt;a href=&quot;https://github.com/greg42&quot;&gt;Greg&lt;/a&gt;), &lt;a href=&quot;https://github.com/mirage/mirage-crypto/pull/107&quot;&gt;curve25519&lt;/a&gt;, &lt;a href=&quot;https://github.com/mirage/mirage-crypto/pull/117&quot;&gt;a fix for signatures that do not span the entire byte size (discovered while adapting X.509)&lt;/a&gt;, &lt;a href=&quot;https://github.com/mirage/mirage-crypto/pull/118&quot;&gt;fix X25519 when the input has offset &amp;lt;&amp;gt; 0&lt;/a&gt;. It works on x86 and arm, both 32 and 64 bit (checked by CI). The development was partially sponsored by Nitrokey.&lt;/p&gt;
+&lt;p&gt;What is left to do, apart from further security reviews, is &lt;a href=&quot;https://github.com/mirage/mirage-crypto/issues/109&quot;&gt;performance improvements&lt;/a&gt;, &lt;a href=&quot;https://github.com/mirage/mirage-crypto/issues/112&quot;&gt;Ed448/X448 support&lt;/a&gt;, and &lt;a href=&quot;https://github.com/mirage/mirage-crypto/issues/105&quot;&gt;investigating deterministic k for P521&lt;/a&gt;. Pull requests are welcome.&lt;/p&gt;
+&lt;p&gt;When you use the code, and encounter any issues, please &lt;a href=&quot;https://github.com/mirage/mirage-crypto/issues&quot;&gt;report them&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Layer up - X.509 now with ECDSA / EdDSA and PKCS 12 support, and a long-standing issue fixed&lt;/h2&gt;
+&lt;p&gt;With the sign and verify primitives, the next step is to interoperate with other tools that generate and use these public and private keys. This consists of serialisation to and deserialisation from common data formats (ASN.1 DER and PEM encoding), and support for handling X.509 certificates with elliptic curve keys. Since X.509 0.12.0, it supports EC private and public keys, including certificate validation and issuance.&lt;/p&gt;
+&lt;p&gt;Releasing X.509 also included to go through the issue tracker and attempt to solve the existing issues. This time, the &lt;a href=&quot;https://github.com/mirleft/ocaml-x509/issues/69&quot;&gt;&amp;quot;country name is encoded as UTF8String, while RFC demands PrintableString&amp;quot;&lt;/a&gt; filed more than 5 years ago by &lt;a href=&quot;https://github.com/reynir&quot;&gt;Reynir&lt;/a&gt;, re-reported by &lt;a href=&quot;https://github.com/paurkedal&quot;&gt;Petter&lt;/a&gt; in early 2017, and again by &lt;a href=&quot;https://github.com/NightBlues&quot;&gt;Vadim&lt;/a&gt; in late 2020, &lt;a href=&quot;https://github.com/mirleft/ocaml-x509/pull/140&quot;&gt;was fixed by Vadim&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Another long-standing pull request was support for &lt;a href=&quot;https://tools.ietf.org/html/rfc7292&quot;&gt;PKCS 12&lt;/a&gt;, the archive format for certificate and private key bundles. This has &lt;a href=&quot;https://github.com/mirleft/ocaml-x509/pull/114&quot;&gt;been developed and merged&lt;/a&gt;. PKCS 12 is a widely used and old format (e.g. when importing / exporting cryptographic material in your browser, used by OpenVPN, ...). Its specification uses RC2 and 3DES (see &lt;a href=&quot;https://unmitigatedrisk.com/?p=654&quot;&gt;this nice article&lt;/a&gt;), which are the default algorithms used by &lt;code&gt;openssl pkcs12&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;One more layer up - TLS&lt;/h2&gt;
+&lt;p&gt;In TLS we are finally able to use ECDSA (and EdDSA) certificates and private keys, this resulted in slightly more complex configuration - the constraints between supported groups, signature algorithms, ciphersuite, and certificates are intricate:&lt;/p&gt;
+&lt;p&gt;The ciphersuite (in TLS before 1.3) specifies which key exchange mechanism to use, but also which signature algorithm to use (RSA/ECDSA). The supported groups client hello extension specifies which elliptic curves are supported by the client. The signature algorithm hello extension (TLS 1.2 and above) specifies the signature algorithm. In the end, at load time the TLS configuration is validated and groups, ciphersuites, and signature algorithms are condensed depending on configured server certificates. At session initiation time, once the client reports what it supports, these parameters are further cut down to eventually find some suitable cryptographic parameters for this session.&lt;/p&gt;
+&lt;p&gt;From the user perspective, earlier the certificate bundle and private key was a pair of &lt;code&gt;X509.Certificate.t list&lt;/code&gt; and &lt;code&gt;Mirage_crypto_pk.Rsa.priv&lt;/code&gt;, now the second part is a &lt;code&gt;X509.Private_key.t&lt;/code&gt; - all provided constructors have been updates (notably &lt;code&gt;X509_lwt.private_of_pems&lt;/code&gt; and &lt;code&gt;Tls_mirage.X509.certificate&lt;/code&gt;).&lt;/p&gt;
+&lt;h2&gt;Finally, conduit and mirage&lt;/h2&gt;
+&lt;p&gt;Thanks to &lt;a href=&quot;https://github.com/dinosaure&quot;&gt;Romain&lt;/a&gt;, conduit* 4.0.0 was released which supports the modified API of X.509 and TLS. Romain also developed patches and released mirage 3.10.3 which supports the above mentioned work.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Elliptic curve cryptography is now available in OCaml using verified cryptographic primitives from the fiat-crypto project - &lt;code&gt;opam install mirage-crypto-ec&lt;/code&gt;. X.509 since 0.12.0 and TLS since 0.13.0 and MirageOS since 3.10.3 support this new development which gives rise to smaller EC keys. Our old bindings, fiat-p256 and hacl_x25519 have been archived and will no longer be maintained.&lt;/p&gt;
+&lt;p&gt;Thanks to everyone involved on this journey: reporting issues, sponsoring parts of the work, helping with integration, developing initial prototypes, and keep motivating me to continue this until the release is done.&lt;/p&gt;
+&lt;p&gt;In the future, it may be possible to remove zarith and gmp from the dependency chain, and provide EC-only TLS servers and clients for MirageOS. The benefit will be much less C code (libgmp-freestanding.a is 1.5MB in size) in our trusted code base.&lt;/p&gt;
+&lt;p&gt;Another potential project that is very close now is a certificate authority developed in MirageOS - now that EC keys, PKCS 12, revocation lists, ... are implemented.&lt;/p&gt;
+&lt;h2&gt;Footer&lt;/h2&gt;
+&lt;p&gt;If you want to support our work on MirageOS unikernels, please &lt;a href=&quot;https://robur.coop/Donate&quot;&gt;donate to robur&lt;/a&gt;. I'm interested in feedback, either via &lt;a href=&quot;https://twitter.com/h4nnes&quot;&gt;twitter&lt;/a&gt;, &lt;a href=&quot;https://mastodon.social/@hannesm&quot;&gt;hannesm@mastodon.social&lt;/a&gt; or via eMail.&lt;/p&gt;
+</content><id>https://hannes.robur.coop/Posts/EC</id><title type="text">Cryptography updates in OCaml and MirageOS</title><updated>2021-04-23T13:33:06-00:00</updated><author><name>hannes</name></author></entry><entry><link href="https://hannes.robur.coop/Posts/NGI" rel="alternate"/><contributor><uri>https://hannes.robur.coop/atom</uri><name>hannes</name></contributor><content type="html">&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;2020 was an intense year. I hope you're healthy and keep being healthy. I am privileged (as lots of software engineers and academics are) to be able to work from home during the pandemic. Let's not forget people in less privileged situations,  and let&amp;rsquo;s try to give them as much practical, psychological and financial support as we can these days. And as much joy as possible to everyone around :)&lt;/p&gt;
+&lt;p&gt;I cancelled the autumn MirageOS retreat due to the pandemic. Instead I collected donations for our hosts in Marrakech - they were very happy to receive our financial support, since they had a difficult year, since their income is based on tourism. I hope that in autumn 2021 we'll have an on-site retreat again.&lt;/p&gt;
+&lt;p&gt;For 2021, we (at &lt;a href=&quot;https://robur.coop&quot;&gt;robur&lt;/a&gt;) got a grant from the EU (via &lt;a href=&quot;https://pointer.ngi.eu&quot;&gt;NGI pointer&lt;/a&gt;) for &amp;quot;Deploying MirageOS&amp;quot; (more details below), and another grant from &lt;a href=&quot;https://ocaml-sf.org&quot;&gt;OCaml software foundation&lt;/a&gt; for securing the opam supply chain (using &lt;a href=&quot;https://github.com/hannesm/conex&quot;&gt;conex&lt;/a&gt;). Some long-awaited releases for MirageOS libraries, namely a &lt;a href=&quot;https://discuss.ocaml.org/t/ann-first-release-of-awa-ssh&quot;&gt;ssh implementation&lt;/a&gt; and a rewrite of our &lt;a href=&quot;https://discuss.ocaml.org/t/ann-release-of-ocaml-git-v3-0-duff-encore-decompress-etc/&quot;&gt;git implementation&lt;/a&gt; have already been published.&lt;/p&gt;
+&lt;p&gt;With my MirageOS view, 2020 was a pretty successful year, where we managed to add more features, fixed lots of bugs, and paved the road ahead. I want to thank &lt;a href=&quot;https://ocamllabs.io/&quot;&gt;OCamlLabs&lt;/a&gt; for funding work on MirageOS maintenance.&lt;/p&gt;
+&lt;h2&gt;Recap 2020&lt;/h2&gt;
+&lt;p&gt;Here is a very subjective random collection of accomplishments in 2020, where I was involved with some degree.&lt;/p&gt;
+&lt;h3&gt;NetHSM&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.nitrokey.com/products/nethsm&quot;&gt;NetHSM&lt;/a&gt; is a hardware security module in software. It is a product that uses MirageOS for security, and is based on the &lt;a href=&quot;https://muen.sk&quot;&gt;muen&lt;/a&gt; separation kernel. We at &lt;a href=&quot;https://robur.coop&quot;&gt;robur&lt;/a&gt; were heavily involved in this product. It already has been security audited by an external team. You can pre-order it from Nitrokey.&lt;/p&gt;
+&lt;h3&gt;TLS 1.3&lt;/h3&gt;
+&lt;p&gt;Dating back to 2016, at the &lt;a href=&quot;https://www.ndss-symposium.org/ndss2016/tron-workshop-programme/&quot;&gt;TRON&lt;/a&gt; (TLS 1.3 Ready or NOt), we developed a first draft of a 1.3 implementation of &lt;a href=&quot;https://github.com/mirleft/ocaml-tls&quot;&gt;OCaml-TLS&lt;/a&gt;. Finally in May 2020 we got our act together, including ECC (ECDH P256 from &lt;a href=&quot;https://github.com/mit-plv/fiat-crypto/&quot;&gt;fiat-crypto&lt;/a&gt;, X25519 from &lt;a href=&quot;https://project-everest.github.io/&quot;&gt;hacl&lt;/a&gt;) and testing with &lt;a href=&quot;https://github.com/tlsfuzzer/tlsfuzzer&quot;&gt;tlsfuzzer&lt;/a&gt;, and release tls 0.12.0 with TLS 1.3 support. Later we added &lt;a href=&quot;https://github.com/mirleft/ocaml-tls/pull/414&quot;&gt;ECC ciphersuites to TLS version 1.2&lt;/a&gt;, implemented &lt;a href=&quot;https://github.com/mirleft/ocaml-tls/pull/414&quot;&gt;ChaCha20/Poly1305&lt;/a&gt;, and fixed an &lt;a href=&quot;https://github.com/mirleft/ocaml-tls/pull/424&quot;&gt;interoperability issue with Go's implementation&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/mirage/mirage-crypto&quot;&gt;Mirage-crypto&lt;/a&gt; provides the underlying cryptographic primitives, initially released in March 2020 as a fork of &lt;a href=&quot;https://github.com/mirleft/ocaml-nocrypto&quot;&gt;nocrypto&lt;/a&gt; -- huge thanks to &lt;a href=&quot;https://github.com/pqwy&quot;&gt;pqwy&lt;/a&gt; for his great work. Mirage-crypto detects &lt;a href=&quot;https://github.com/mirage/mirage-crypto/pull/53&quot;&gt;CPU features at runtime&lt;/a&gt; (thanks to &lt;a href=&quot;https://github.com/Julow&quot;&gt;Julow&lt;/a&gt;) (&lt;a href=&quot;https://github.com/mirage/mirage-crypto/pull/96&quot;&gt;bugfix for bswap&lt;/a&gt;), using constant time modular exponentation (powm_sec) and hardens against Lenstra's CRT attack, supports &lt;a href=&quot;https://github.com/mirage/mirage-crypto/pull/39&quot;&gt;compilation on Windows&lt;/a&gt; (thanks to &lt;a href=&quot;https://github.com/avsm&quot;&gt;avsm&lt;/a&gt;), &lt;a href=&quot;https://github.com/mirage/mirage-crypto/pull/90&quot;&gt;async entropy harvesting&lt;/a&gt; (thanks to &lt;a href=&quot;https://github.com/seliopou&quot;&gt;seliopou&lt;/a&gt;), &lt;a href=&quot;https://github.com/mirage/mirage-crypto/pull/65&quot;&gt;32 bit support&lt;/a&gt;, &lt;a href=&quot;https://github.com/mirage/mirage-crypto/pull/72&quot;&gt;chacha20/poly1305&lt;/a&gt; (thanks to &lt;a href=&quot;https://github.com/abeaumont&quot;&gt;abeaumont&lt;/a&gt;), &lt;a href=&quot;https://github.com/mirage/mirage-crypto/pull/84&quot;&gt;cross-compilation&lt;/a&gt; (thanks to &lt;a href=&quot;https://github.com/EduardoRFS&quot;&gt;EduardoRFS&lt;/a&gt;) and &lt;a href=&quot;https://github.com/mirage/mirage-crypto/pull/78&quot;&gt;various&lt;/a&gt; &lt;a href=&quot;https://github.com/mirage/mirage-crypto/pull/81&quot;&gt;bug&lt;/a&gt; &lt;a href=&quot;https://github.com/mirage/mirage-crypto/pull/83&quot;&gt;fixes&lt;/a&gt;, even &lt;a href=&quot;https://github.com/mirage/mirage-crypto/pull/95&quot;&gt;memory leak&lt;/a&gt; (thanks to &lt;a href=&quot;https://github.com/talex5&quot;&gt;talex5&lt;/a&gt; for reporting several of these issues), and &lt;a href=&quot;https://github.com/mirage/mirage-crypto/pull/99&quot;&gt;RSA&lt;/a&gt; &lt;a href=&quot;https://github.com/mirage/mirage-crypto/pull/100&quot;&gt;interoperability&lt;/a&gt; (thanks to &lt;a href=&quot;https://github.com/psafont&quot;&gt;psafont&lt;/a&gt; for investigation and &lt;a href=&quot;https://github.com/mattjbray&quot;&gt;mattjbray&lt;/a&gt; for reporting). This library feels very mature now - being used by multiple stakeholders, and lots of issues have been fixed in 2020.&lt;/p&gt;
+&lt;h3&gt;Qubes Firewall&lt;/h3&gt;
+&lt;p&gt;The &lt;a href=&quot;https://github.com/mirage/qubes-mirage-firewall/&quot;&gt;MirageOS based Qubes firewall&lt;/a&gt; is the most widely used MirageOS unikernel. And it got major updates: in May &lt;a href=&quot;https://github.com/linse&quot;&gt;Steffi&lt;/a&gt; &lt;a href=&quot;https://groups.google.com/g/qubes-users/c/Xzplmkjwa5Y&quot;&gt;announced&lt;/a&gt; her and &lt;a href=&quot;https://github.com/yomimono&quot;&gt;Mindy's&lt;/a&gt; work on improving it for Qubes 4.0 - including &lt;a href=&quot;https://www.qubes-os.org/doc/vm-interface/#firewall-rules-in-4x&quot;&gt;dynamic firewall rules via QubesDB&lt;/a&gt;. Thanks to &lt;a href=&quot;https://prototypefund.de/project/portable-firewall-fuer-qubesos/&quot;&gt;prototypefund&lt;/a&gt; for sponsoring.&lt;/p&gt;
+&lt;p&gt;In October 2020, we released &lt;a href=&quot;https://mirage.io/blog/announcing-mirage-39-release&quot;&gt;Mirage 3.9&lt;/a&gt; with PVH virtualization mode (thanks to &lt;a href=&quot;https://github.com/mato&quot;&gt;mato&lt;/a&gt;). There's still a &lt;a href=&quot;https://github.com/mirage/qubes-mirage-firewall/issues/120&quot;&gt;memory leak&lt;/a&gt; to be investigated and fixed.&lt;/p&gt;
+&lt;h3&gt;IPv6&lt;/h3&gt;
+&lt;p&gt;In December, with &lt;a href=&quot;https://mirage.io/blog/announcing-mirage-310-release&quot;&gt;Mirage 3.10&lt;/a&gt; we got the IPv6 code up and running. Now MirageOS unikernels have a dual stack available, besides IPv4-only and IPv6-only network stacks. Thanks to &lt;a href=&quot;https://github.com/nojb&quot;&gt;nojb&lt;/a&gt; for the initial code and &lt;a href=&quot;https://github.com/MagnusS&quot;&gt;MagnusS&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Turns out this blog, but also robur services, are now available via IPv6 :)&lt;/p&gt;
+&lt;h3&gt;Albatross&lt;/h3&gt;
+&lt;p&gt;Also in December, I pushed an initial release of &lt;a href=&quot;https://github.com/roburio/albatross&quot;&gt;albatross&lt;/a&gt;, a unikernel orchestration system with remote access. &lt;em&gt;Deploy your unikernel via a TLS handshake -- the unikernel image is embedded in the TLS client certificates.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Thanks to &lt;a href=&quot;https://github.com/reynir&quot;&gt;reynir&lt;/a&gt; for statistics support on Linux and improvements of the systemd service scripts. Also thanks to &lt;a href=&quot;https://github.com/cfcs&quot;&gt;cfcs&lt;/a&gt; for the initial Linux port.&lt;/p&gt;
+&lt;h3&gt;CA certs&lt;/h3&gt;
+&lt;p&gt;For several years I postponed the problem of how to actually use the operating system trust anchors for OCaml-TLS connections. Thanks to &lt;a href=&quot;https://github.com/emillon&quot;&gt;emillon&lt;/a&gt; for initial code, there are now &lt;a href=&quot;https://github.com/mirage/ca-certs&quot;&gt;ca-certs&lt;/a&gt; and &lt;a href=&quot;https://github.com/mirage/ca-certs-nss&quot;&gt;ca-certs-nss&lt;/a&gt; opam packages (see &lt;a href=&quot;https://discuss.ocaml.org/t/ann-ca-certs-and-ca-certs-nss&quot;&gt;release announcement&lt;/a&gt;) which fills this gap.&lt;/p&gt;
+&lt;h2&gt;Unikernels&lt;/h2&gt;
+&lt;p&gt;I developed several useful unikernels in 2020, and also pushed &lt;a href=&quot;https://mirage.io/wiki/gallery&quot;&gt;a unikernel gallery&lt;/a&gt; to the Mirage website:&lt;/p&gt;
+&lt;h3&gt;Traceroute in MirageOS&lt;/h3&gt;
+&lt;p&gt;I already wrote about &lt;a href=&quot;https://hannes.robur.coop/Posts/Traceroute&quot;&gt;traceroute&lt;/a&gt; which traces the routing to a given remote host.&lt;/p&gt;
+&lt;h3&gt;Unipi - static website hosting&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/roburio/unipi&quot;&gt;Unipi&lt;/a&gt; is a static site webserver which retrieves the content from a remote git repository. Let's encrypt certificate provisioning and dynamic updates via a webhook to be executed for every push.&lt;/p&gt;
+&lt;h4&gt;TLSTunnel - TLS demultiplexing&lt;/h4&gt;
+&lt;p&gt;The physical machine this blog and other robur infrastructure runs on has been relocated from Sweden to Germany mid-December. Thanks to UPS! Fewer IPv4 addresses are available in the new data center, which motivated me to develop &lt;a href=&quot;https://github.com/roburio/tlstunnel&quot;&gt;tlstunnel&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The new behaviour is as follows (see the &lt;code&gt;monitoring&lt;/code&gt; branch):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;listener on TCP port 80 which replies with a permanent redirect to &lt;code&gt;https&lt;/code&gt;
+&lt;/li&gt;
+&lt;li&gt;listener on TCP port 443 which forwards to a backend host if the requested server name is configured
+&lt;/li&gt;
+&lt;li&gt;its configuration is stored on a block device, and can be dynamically changed (with a custom protocol authenticated with a HMAC)
+&lt;/li&gt;
+&lt;li&gt;it is setup to hold a wildcard TLS certificate and in DNS a wildcard entry is pointing to it
+&lt;/li&gt;
+&lt;li&gt;setting up a new service is very straightforward: only the new name needs to be registered with tlstunnel together with the TCP backend, and everything will just work
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;2021&lt;/h2&gt;
+&lt;p&gt;The year started with a release of &lt;a href=&quot;https://discuss.ocaml.org/t/ann-first-release-of-awa-ssh&quot;&gt;awa&lt;/a&gt;, a SSH implementation in OCaml (thanks to &lt;a href=&quot;https://github.com/haesbaert&quot;&gt;haesbaert&lt;/a&gt; for initial code). This was followed by a &lt;a href=&quot;https://discuss.ocaml.org/t/ann-release-of-ocaml-git-v3-0-duff-encore-decompress-etc/&quot;&gt;git 3.0 release&lt;/a&gt; (thanks to &lt;a href=&quot;https://github.com/dinosaure&quot;&gt;dinosaure&lt;/a&gt;).&lt;/p&gt;
+&lt;h3&gt;Deploying MirageOS - NGI Pointer&lt;/h3&gt;
+&lt;p&gt;For 2021 we at robur received funding from the EU (via &lt;a href=&quot;https://pointer.ngi.eu/&quot;&gt;NGI pointer&lt;/a&gt;) for &amp;quot;Deploying MirageOS&amp;quot;, which boils down into three parts:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;reproducible binary releases of MirageOS unikernels,
+&lt;/li&gt;
+&lt;li&gt;monitoring (and other devops features: profiling) and integration into existing infrastructure,
+&lt;/li&gt;
+&lt;li&gt;and further documentation and advertisement.
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Of course this will all be available open source. Please get in touch via eMail (team aT robur dot coop) if you're eager to integrate MirageOS unikernels into your infrastructure.&lt;/p&gt;
+&lt;p&gt;We discovered at an initial meeting with an infrastructure provider that a DNS resolver is of interest - even more now that dnsmasq suffered from &lt;a href=&quot;https://www.jsof-tech.com/wp-content/uploads/2021/01/DNSpooq_Technical-Whitepaper.pdf&quot;&gt;dnspooq&lt;/a&gt;. We are already working on an &lt;a href=&quot;https://github.com/mirage/ocaml-dns/pull/251&quot;&gt;implementation of DNSSec&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;MirageOS unikernels are binary reproducible, and &lt;a href=&quot;https://github.com/rjbou/orb/pull/1&quot;&gt;infrastructure tools are available&lt;/a&gt;. We are working hard on a web interface (and REST API - think of it as &amp;quot;Docker Hub for MirageOS unikernels&amp;quot;), and more tooling to verify reproducibility.&lt;/p&gt;
+&lt;h3&gt;Conex - securing the supply chain&lt;/h3&gt;
+&lt;p&gt;Another funding from the &lt;a href=&quot;http://ocaml-sf.org/&quot;&gt;OCSF&lt;/a&gt; is to continue development and deploy &lt;a href=&quot;https://github.com/hannesm/conex&quot;&gt;conex&lt;/a&gt; - to bring trust into opam-repository. This is a great combination with the reproducible build efforts, and will bring much more trust into retrieving OCaml packages and using MirageOS unikernels.&lt;/p&gt;
+&lt;h3&gt;MirageOS 4.0&lt;/h3&gt;
+&lt;p&gt;Mirage so far still uses ocamlbuild and ocamlfind for compiling the virtual machine binary. But the switch to dune is &lt;a href=&quot;https://github.com/mirage/mirage/issues/1195&quot;&gt;close&lt;/a&gt;, a lot of effort has been done. This will make the developer experience of MirageOS much more smooth, with a per-unikernel monorepo workflow where you can push your changes to the individual libraries.&lt;/p&gt;
+&lt;h2&gt;Footer&lt;/h2&gt;
+&lt;p&gt;If you want to support our work on MirageOS unikernels, please &lt;a href=&quot;https://robur.coop/Donate&quot;&gt;donate to robur&lt;/a&gt;. I'm interested in feedback, either via &lt;a href=&quot;https://twitter.com/h4nnes&quot;&gt;twitter&lt;/a&gt;, &lt;a href=&quot;https://mastodon.social/@hannesm&quot;&gt;hannesm@mastodon.social&lt;/a&gt; or via eMail.&lt;/p&gt;
+</content><id>https://hannes.robur.coop/Posts/NGI</id><title type="text">The road ahead for MirageOS in 2021</title><updated>2021-01-25T12:45:54-00:00</updated><author><name>hannes</name></author></entry><entry><link href="https://hannes.robur.coop/Posts/Traceroute" rel="alternate"/><contributor><uri>https://hannes.robur.coop/atom</uri><name>hannes</name></contributor><content type="html">&lt;h2&gt;Traceroute&lt;/h2&gt;
+&lt;p&gt;Is a diagnostic utility which displays the route and measures transit delays of
+packets across an Internet protocol (IP) network.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;$ doas solo5-hvt --net:service=tap0 -- traceroute.hvt --ipv4=10.0.42.2/24 --ipv4-gateway=10.0.42.1 --host=198.167.222.207
+            |      ___|
+  __|  _ \  |  _ \ __ \
+\__ \ (   | | (   |  ) |
+____/\___/ _|\___/____/
+Solo5: Bindings version v0.6.5
+Solo5: Memory map: 512 MB addressable:
+Solo5:   reserved @ (0x0 - 0xfffff)
+Solo5:       text @ (0x100000 - 0x212fff)
+Solo5:     rodata @ (0x213000 - 0x24bfff)
+Solo5:       data @ (0x24c000 - 0x317fff)
+Solo5:       heap &amp;gt;= 0x318000 &amp;lt; stack &amp;lt; 0x20000000
+2020-06-22 15:41:25 -00:00: INF [netif] Plugging into service with mac 76:9b:36:e0:e5:74 mtu 1500
+2020-06-22 15:41:25 -00:00: INF [ethernet] Connected Ethernet interface 76:9b:36:e0:e5:74
+2020-06-22 15:41:25 -00:00: INF [ARP] Sending gratuitous ARP for 10.0.42.2 (76:9b:36:e0:e5:74)
+2020-06-22 15:41:25 -00:00: INF [udp] UDP interface connected on 10.0.42.2
+2020-06-22 15:41:25 -00:00: INF [application]  1  10.0.42.1  351us
+2020-06-22 15:41:25 -00:00: INF [application]  2  192.168.42.1  1.417ms
+2020-06-22 15:41:25 -00:00: INF [application]  3  192.168.178.1  1.921ms
+2020-06-22 15:41:25 -00:00: INF [application]  4  88.72.96.1  16.716ms
+2020-06-22 15:41:26 -00:00: INF [application]  5  *
+2020-06-22 15:41:27 -00:00: INF [application]  6  92.79.215.112  16.794ms
+2020-06-22 15:41:27 -00:00: INF [application]  7  145.254.2.215  21.305ms
+2020-06-22 15:41:27 -00:00: INF [application]  8  145.254.2.217  22.05ms
+2020-06-22 15:41:27 -00:00: INF [application]  9  195.89.99.1  21.088ms
+2020-06-22 15:41:27 -00:00: INF [application] 10  62.115.9.133  20.105ms
+2020-06-22 15:41:27 -00:00: INF [application] 11  213.155.135.82  30.861ms
+2020-06-22 15:41:27 -00:00: INF [application] 12  80.91.246.200  30.716ms
+2020-06-22 15:41:27 -00:00: INF [application] 13  80.91.253.163  28.315ms
+2020-06-22 15:41:27 -00:00: INF [application] 14  62.115.145.27  30.436ms
+2020-06-22 15:41:27 -00:00: INF [application] 15  80.67.4.239  42.826ms
+2020-06-22 15:41:27 -00:00: INF [application] 16  80.67.10.147  47.213ms
+2020-06-22 15:41:27 -00:00: INF [application] 17  198.167.222.207  48.598ms
+Solo5: solo5_exit(0) called
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This means with a traceroute utility you can investigate which route is taken
+to a destination host, and what the round trip time(s) on the path are. The
+sample output above is taken from a virtual machine on my laptop to the remote
+host 198.167.222.207. You can see there are 17 hops between us, with the first
+being my laptop with a tiny round trip time of 351us, the second and third are
+using private IP addresses, and are my home network. The round trip time of the
+fourth hop is much higher, this is the first hop on the other side of my DSL
+modem. You can see various hops on the public Internet: the packets pass from
+my Internet provider's backbone across some exchange points to the destination
+Internet provider somewhere in Sweden.&lt;/p&gt;
+&lt;p&gt;The implementation of traceroute relies mainly on the time-to-live (ttl) field
+(in IPv6 lingua it is &amp;quot;hop limit&amp;quot;) of IP packets, which is meant to avoid route
+cycles that would infinitely forward IP packets in circles. Every router, when
+forwarding an IP packet, first checks that the ttl field is greater than zero,
+and then forwards the IP packet where the ttl is decreased by one. If the ttl
+field is zero, instead of forwarding, an ICMP time exceeded packet is sent back
+to the source.&lt;/p&gt;
+&lt;p&gt;Traceroute works by exploiting this mechanism: a series of IP packets with
+increasing ttls is sent to the destination. Since upfront the length of the
+path is unknown, it is a reactive system: first send an IP packet with a ttl of
+one, if a ICMP time exceeded packet is returned, send an IP packet with a ttl of
+two, etc. -- until an ICMP packet of type destination unreachable is received.
+Since some hosts do not reply with a time exceeded message, it is crucial for
+not getting stuck to use a timeout for each packet: when the timeout is reached,
+an IP packet with an increased ttl is sent and an unknown for the ttl is
+printed (see the fifth hop in the example above).&lt;/p&gt;
+&lt;p&gt;The packets send out are conventionally UDP packets without payload. From a
+development perspective, one question is how to correlate the ICMP packet
+with the sent UDP packet. Conveniently, ICMP packets contain the IP header and
+the first eight bytes of the next protocol - the UDP header containing source
+port, destination port, checksum, and payload length (each fields of size two
+bytes). This means when we record the outgoing ports together with the sent
+timestamp, and correlate the later received ICMP packet to the sent packet.
+Great.&lt;/p&gt;
+&lt;p&gt;But as a functional programmer, let's figure whether we can abolish the
+(globally shared) state. Since the ICMP packet contains the original IP
+header and the first eight bytes of the UDP header, this is where we will
+embed data. As described above, the data is the sent timestamp and the value
+of the ttl field. For the latter, we can arbitrarily restrict it to 31 (5 bits).
+For the timestamp, it is mainly a question about precision and maximum expected
+round trip time. Taking the source and destination port are 32 bits, using 5 for
+ttl, remaining are 27 bits (an unsigned value up to 134217727). Looking at the
+decimal representation, 1 second is likely too small, 13 seconds are sufficient
+for the round trip time measurement. This implies our precision is 100ns, by
+counting the digits.&lt;/p&gt;
+&lt;p&gt;Finally to the code. First we need forth and back conversions between ports
+and ttl, timestamp:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-OCaml&quot;&gt;(* takes a time-to-live (int) and timestamp (int64, nanoseconda), encodes them
+   into 16 bit source port and 16 bit destination port:
+   - the timestamp precision is 100ns (thus, it is divided by 100)
+   - use the bits 27-11 of the timestamp as source port
+   - use the bits 11-0 as destination port, and 5 bits of the ttl
+*)
+let ports_of_ttl_ts ttl ts =
+  let ts = Int64.div ts 100L in
+  let src_port = 0xffff land (Int64.(to_int (shift_right ts 11)))
+  and dst_port = 0xffe0 land (Int64.(to_int (shift_left ts 5))) lor (0x001f land ttl)
+  in
+  src_port, dst_port
+
+(* inverse operation of ports_of_ttl_ts for the range (src_port and dst_port
+   are 16 bit values) *)
+let ttl_ts_of_ports src_port dst_port =
+  let ttl = 0x001f land dst_port in
+  let ts =
+    let low = Int64.of_int (dst_port lsr 5)
+    and high = Int64.(shift_left (of_int src_port) 11)
+    in
+    Int64.add low high
+  in
+  let ts = Int64.mul ts 100L in
+  ttl, ts
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;They should be inverse over the range of valid input: ports are 16 bit numbers,
+ttl expected to be at most 31, ts a int64 expressed in nanoseconds.&lt;/p&gt;
+&lt;p&gt;Related is the function to print out one hop and round trip measurement:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-OCaml&quot;&gt;(* write a log line of a hop: the number, IP address, and round trip time *)
+let log_one now ttl sent ip =
+  let now = Int64.(mul (logand (div now 100L) 0x7FFFFFFL) 100L) in
+  let duration = Mtime.Span.of_uint64_ns (Int64.sub now sent) in
+  Logs.info (fun m -&amp;gt; m &amp;quot;%2d  %a  %a&amp;quot; ttl Ipaddr.V4.pp ip Mtime.Span.pp duration)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The most logic is when a ICMP packet is received:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-OCaml&quot;&gt;module Icmp = struct
+  type t = {
+    send : int -&amp;gt; unit Lwt.t ;
+    log : int -&amp;gt; int64 -&amp;gt; Ipaddr.V4.t -&amp;gt; unit ;
+    task_done : unit Lwt.u ;
+  }
+
+  let connect send log task_done =
+    let t = { send ; log ; task_done } in
+    Lwt.return t
+
+  (* This is called for each received ICMP packet. *)
+  let input t ~src ~dst buf =
+    let open Icmpv4_packet in
+    (* Decode the received buffer (the IP header has been cut off already). *)
+    match Unmarshal.of_cstruct buf with
+    | Error s -&amp;gt;
+      Lwt.fail_with (Fmt.strf &amp;quot;ICMP: error parsing message from %a: %s&amp;quot; Ipaddr.V4.pp src s)
+    | Ok (message, payload) -&amp;gt;
+      let open Icmpv4_wire in
+      (* There are two interesting cases: Time exceeded (-&amp;gt; send next packet),
+         and Destination (port) unreachable (-&amp;gt; we reached the final host and can exit) *)
+      match message.ty with
+      | Time_exceeded -&amp;gt;
+        (* Decode the payload, which should be an IPv4 header and a protocol header *)
+        begin match Ipv4_packet.Unmarshal.header_of_cstruct payload with
+          | Ok (pkt, off) when
+              (* Ensure this packet matches our sent packet: the protocol is UDP
+                 and the destination address is the host we're tracing *)
+              pkt.Ipv4_packet.proto = Ipv4_packet.Marshal.protocol_to_int `UDP &amp;amp;&amp;amp;
+              Ipaddr.V4.compare pkt.Ipv4_packet.dst (Key_gen.host ()) = 0 -&amp;gt;
+            let src_port = Cstruct.BE.get_uint16 payload off
+            and dst_port = Cstruct.BE.get_uint16 payload (off + 2)
+            in
+            (* Retrieve ttl and sent timestamp, encoded in the source port and
+               destination port of the UDP packet we sent, and received back as
+               ICMP payload. *)
+            let ttl, sent = ttl_ts_of_ports src_port dst_port in
+            (* Log this hop. *)
+            t.log ttl sent src;
+            (* Sent out the next UDP packet with an increased ttl. *)
+            let ttl' = succ ttl in
+            Logs.debug (fun m -&amp;gt; m &amp;quot;ICMP time exceeded from %a to %a, now sending with ttl %d&amp;quot;
+                           Ipaddr.V4.pp src Ipaddr.V4.pp dst ttl');
+            t.send ttl'
+          | Ok (pkt, _) -&amp;gt;
+            (* Some stray ICMP packet. *)
+            Logs.debug (fun m -&amp;gt; m &amp;quot;unsolicited time exceeded from %a to %a (proto %X dst %a)&amp;quot;
+                           Ipaddr.V4.pp src Ipaddr.V4.pp dst pkt.Ipv4_packet.proto Ipaddr.V4.pp pkt.Ipv4_packet.dst);
+            Lwt.return_unit
+          | Error e -&amp;gt;
+            (* Decoding error. *)
+            Logs.warn (fun m -&amp;gt; m &amp;quot;couldn't parse ICMP time exceeded payload (IPv4) (%a -&amp;gt; %a) %s&amp;quot;
+                          Ipaddr.V4.pp src Ipaddr.V4.pp dst e);
+            Lwt.return_unit
+        end
+      | Destination_unreachable when Ipaddr.V4.compare src (Key_gen.host ()) = 0 -&amp;gt;
+        (* We reached the final host, and the destination port was not listened to *)
+        begin match Ipv4_packet.Unmarshal.header_of_cstruct payload with
+          | Ok (_, off) -&amp;gt;
+            let src_port = Cstruct.BE.get_uint16 payload off
+            and dst_port = Cstruct.BE.get_uint16 payload (off + 2)
+            in
+            (* Retrieve ttl and sent timestamp. *)
+            let ttl, sent = ttl_ts_of_ports src_port dst_port in
+            (* Log the final hop. *)
+            t.log ttl sent src;
+            (* Wakeup the waiter task to exit the unikernel. *)
+            Lwt.wakeup t.task_done ();
+            Lwt.return_unit
+          | Error e -&amp;gt;
+            (* Decoding error. *)
+            Logs.warn (fun m -&amp;gt; m &amp;quot;couldn't parse ICMP unreachable payload (IPv4) (%a -&amp;gt; %a) %s&amp;quot;
+                          Ipaddr.V4.pp src Ipaddr.V4.pp dst e);
+            Lwt.return_unit
+        end
+      | ty -&amp;gt;
+        Logs.debug (fun m -&amp;gt; m &amp;quot;ICMP unknown ty %s from %a to %a: %a&amp;quot;
+                       (ty_to_string ty) Ipaddr.V4.pp src Ipaddr.V4.pp dst
+                       Cstruct.hexdump_pp payload);
+        Lwt.return_unit
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, the remaining main unikernel is the module &lt;code&gt;Main&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-OCaml&quot;&gt;module Main (R : Mirage_random.S) (M : Mirage_clock.MCLOCK) (Time : Mirage_time.S) (N : Mirage_net.S) = struct
+  module ETH = Ethernet.Make(N)
+  module ARP = Arp.Make(ETH)(Time)
+  module IPV4 = Static_ipv4.Make(R)(M)(ETH)(ARP)
+  module UDP = Udp.Make(IPV4)(R)
+
+  (* Global mutable state: the timeout task for a sent packet. *)
+  let to_cancel = ref None
+
+  (* Send a single packet with the given time to live. *)
+  let rec send_udp udp ttl =
+    (* This is called by the ICMP handler which successfully received a
+       time exceeded, thus we cancel the timeout task. *)
+    (match !to_cancel with
+     | None -&amp;gt; ()
+     | Some t -&amp;gt; Lwt.cancel t ; to_cancel := None);
+    (* Our hop limit is 31 - 5 bit - should be sufficient for most networks. *)
+    if ttl &amp;gt; 31 then
+      Lwt.return_unit
+    else
+      (* Create a timeout task which:
+         - sleeps for --timeout interval
+         - logs an unknown hop
+         - sends another packet with increased ttl
+      *)
+      let cancel =
+        Lwt.catch (fun () -&amp;gt;
+            Time.sleep_ns (Duration.of_ms (Key_gen.timeout ())) &amp;gt;&amp;gt;= fun () -&amp;gt;
+            Logs.info (fun m -&amp;gt; m &amp;quot;%2d  *&amp;quot; ttl);
+            send_udp udp (succ ttl))
+          (function Lwt.Canceled -&amp;gt; Lwt.return_unit | exc -&amp;gt; Lwt.fail exc)
+      in
+      (* Assign this timeout task. *)
+      to_cancel := Some cancel;
+      (* Figure out which source and destination port to use, based on ttl
+         and current timestamp. *)
+      let src_port, dst_port = ports_of_ttl_ts ttl (M.elapsed_ns ()) in
+      (* Send packet via UDP. *)
+      UDP.write ~ttl ~src_port ~dst:(Key_gen.host ()) ~dst_port udp Cstruct.empty &amp;gt;&amp;gt;= function
+      | Ok () -&amp;gt; Lwt.return_unit
+      | Error e -&amp;gt; Lwt.fail_with (Fmt.strf &amp;quot;while sending udp frame %a&amp;quot; UDP.pp_error e)
+
+  (* The main unikernel entry point. *)
+  let start () () () net =
+    let cidr = Key_gen.ipv4 ()
+    and gateway = Key_gen.ipv4_gateway ()
+    in
+    let log_one = fun port ip -&amp;gt; log_one (M.elapsed_ns ()) port ip
+    (* Create a task to wait on and a waiter to wakeup. *)
+    and t, w = Lwt.task ()
+    in
+    (* Setup network stack: ethernet, ARP, IPv4, UDP, and ICMP. *)
+    ETH.connect net &amp;gt;&amp;gt;= fun eth -&amp;gt;
+    ARP.connect eth &amp;gt;&amp;gt;= fun arp -&amp;gt;
+    IPV4.connect ~cidr ~gateway eth arp &amp;gt;&amp;gt;= fun ip -&amp;gt;
+    UDP.connect ip &amp;gt;&amp;gt;= fun udp -&amp;gt;
+    let send = send_udp udp in
+    Icmp.connect send log_one w &amp;gt;&amp;gt;= fun icmp -&amp;gt;
+
+    (* The callback cascade for an incoming network packet. *)
+    let ethif_listener =
+      ETH.input
+        ~arpv4:(ARP.input arp)
+        ~ipv4:(
+          IPV4.input
+            ~tcp:(fun ~src:_ ~dst:_ _ -&amp;gt; Lwt.return_unit)
+            ~udp:(fun ~src:_ ~dst:_ _ -&amp;gt; Lwt.return_unit)
+            ~default:(fun ~proto ~src ~dst buf -&amp;gt;
+                match proto with
+                | 1 -&amp;gt; Icmp.input icmp ~src ~dst buf
+                | _ -&amp;gt; Lwt.return_unit)
+            ip)
+        ~ipv6:(fun _ -&amp;gt; Lwt.return_unit)
+        eth
+    in
+    (* Start the callback in a separate asynchronous task. *)
+    Lwt.async (fun () -&amp;gt;
+        N.listen net ~header_size:Ethernet_wire.sizeof_ethernet ethif_listener &amp;gt;|= function
+        | Ok () -&amp;gt; ()
+        | Error e -&amp;gt; Logs.err (fun m -&amp;gt; m &amp;quot;netif error %a&amp;quot; N.pp_error e));
+    (* Send the initial UDP packet with a ttl of 1. This entails the domino
+       effect to receive ICMP packets, send out another UDP packet with ttl
+       increased by one, etc. - until a destination unreachable is received,
+       or the hop limit is reached. *)
+    send 1 &amp;gt;&amp;gt;= fun () -&amp;gt;
+    t
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The configuration (&lt;code&gt;config.ml&lt;/code&gt;) for this unikernel is as follows:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-OCaml&quot;&gt;open Mirage
+
+let host =
+  let doc = Key.Arg.info ~doc:&amp;quot;The host to trace.&amp;quot; [&amp;quot;host&amp;quot;] in
+  Key.(create &amp;quot;host&amp;quot; Arg.(opt ipv4_address (Ipaddr.V4.of_string_exn &amp;quot;141.1.1.1&amp;quot;) doc))
+
+let timeout =
+  let doc = Key.Arg.info ~doc:&amp;quot;Timeout (in millisecond)&amp;quot; [&amp;quot;timeout&amp;quot;] in
+  Key.(create &amp;quot;timeout&amp;quot; Arg.(opt int 1000 doc))
+
+let ipv4 =
+  let doc = Key.Arg.info ~doc:&amp;quot;IPv4 address&amp;quot; [&amp;quot;ipv4&amp;quot;] in
+  Key.(create &amp;quot;ipv4&amp;quot; Arg.(required ipv4 doc))
+
+let ipv4_gateway =
+  let doc = Key.Arg.info ~doc:&amp;quot;IPv4 gateway&amp;quot; [&amp;quot;ipv4-gateway&amp;quot;] in
+  Key.(create &amp;quot;ipv4-gateway&amp;quot; Arg.(required ipv4_address doc))
+
+let main =
+  let packages = [
+    package ~sublibs:[&amp;quot;ipv4&amp;quot;; &amp;quot;udp&amp;quot;; &amp;quot;icmpv4&amp;quot;] &amp;quot;tcpip&amp;quot;;
+    package &amp;quot;ethernet&amp;quot;;
+    package &amp;quot;arp-mirage&amp;quot;;
+    package &amp;quot;mirage-protocols&amp;quot;;
+    package &amp;quot;mtime&amp;quot;;
+  ] in
+  foreign
+    ~keys:[Key.abstract ipv4 ; Key.abstract ipv4_gateway ; Key.abstract host ; Key.abstract timeout]
+    ~packages
+    &amp;quot;Unikernel.Main&amp;quot;
+    (random @-&amp;gt; mclock @-&amp;gt; time @-&amp;gt; network @-&amp;gt; job)
+
+let () =
+  register &amp;quot;traceroute&amp;quot;
+    [ main $ default_random $ default_monotonic_clock $ default_time $ default_network ]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And voila, that's all the code. If you copy it together (or download the two
+files from &lt;a href=&quot;https://github.com/roburio/traceroute&quot;&gt;the GitHub repository&lt;/a&gt;),
+and have OCaml, opam, and &lt;a href=&quot;https://mirage.io/wiki/install&quot;&gt;mirage (&amp;gt;= 3.8.0)&lt;/a&gt; installed,
+you should be able to:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;$ mirage configure -t hvt
+$ make depend
+$ make
+$ solo5-hvt --net:service=tap0 -- traceroute.hvt ...
+... get the output shown at top ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Enhancements may be to use a different protocol (TCP? or any other protocol ID (may be used to encode more information), encode data into IPv4 ID, or the full 8 bytes of the upper protocol), encrypt/authenticate the data transmitted (and verify it has not been tampered with in the ICMP reply), improve error handling and recovery, send multiple packets for improved round trip time measurements, ...&lt;/p&gt;
+&lt;p&gt;If you develop enhancements you'd like to share, please sent a pull request to the git repository.&lt;/p&gt;
+&lt;p&gt;Motivation for this traceroute unikernel was while talking with &lt;a href=&quot;https://twitter.com/networkservice&quot;&gt;Aaron&lt;/a&gt; and &lt;a href=&quot;https://github.com/phaer&quot;&gt;Paul&lt;/a&gt;, who contributed several patches to the IP stack which pass the ttl through.&lt;/p&gt;
+&lt;p&gt;If you want to support our work on MirageOS unikernels, please &lt;a href=&quot;https://robur.coop/Donate&quot;&gt;donate to robur&lt;/a&gt;. I'm interested in feedback, either via &lt;a href=&quot;https://twitter.com/h4nnes&quot;&gt;twitter&lt;/a&gt;, &lt;a href=&quot;https://mastodon.social/@hannesm&quot;&gt;hannesm@mastodon.social&lt;/a&gt; or via eMail.&lt;/p&gt;
+</content><id>https://hannes.robur.coop/Posts/Traceroute</id><title type="text">Traceroute</title><updated>2020-06-24T10:38:10-00:00</updated><author><name>hannes</name></author></entry><entry><link href="https://hannes.robur.coop/Posts/DnsServer" rel="alternate"/><contributor><uri>https://hannes.robur.coop/atom</uri><name>hannes</name></contributor><content type="html">&lt;h2&gt;Goal&lt;/h2&gt;
+&lt;p&gt;Have your domain served by OCaml-DNS authoritative name servers. Data is stored in a git remote, and let's encrypt certificates can be requested to DNS. This software is deployed since more than two years for several domains such as &lt;code&gt;nqsb.io&lt;/code&gt; and &lt;code&gt;robur.coop&lt;/code&gt;. This present the authoritative server side, and certificate library of the OCaml-DNS implementation formerly known as &lt;a href=&quot;https://hannes.robur.coop/Posts/DNS&quot;&gt;&amp;micro;DNS&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Prerequisites&lt;/h2&gt;
+&lt;p&gt;You need to own a domain, and be able to delegate the name service to your own servers.
+You also need two spare public IPv4 addresses (in different /24 networks) for your name servers.
+A git server or remote repository reachable via git over ssh.
+Servers which support &lt;a href=&quot;https://github.com/solo5/solo5&quot;&gt;solo5&lt;/a&gt; guests, and have the corresponding tender installed.
+A computer with &lt;a href=&quot;https://opam.ocaml.org&quot;&gt;opam&lt;/a&gt; (&amp;gt;= 2.0.0) installed.&lt;/p&gt;
+&lt;h2&gt;Data preparation&lt;/h2&gt;
+&lt;p&gt;Figure out a way to get the DNS entries of your domain in a &lt;a href=&quot;https://tools.ietf.org/html/rfc1034&quot;&gt;&amp;quot;master file format&amp;quot;&lt;/a&gt;, i.e. what bind uses.&lt;/p&gt;
+&lt;p&gt;This is a master file for the &lt;code&gt;mirage&lt;/code&gt; domain, defining &lt;code&gt;$ORIGIN&lt;/code&gt; to avoid typing the domain name after each hostname (use &lt;code&gt;@&lt;/code&gt; if you need the domain name only; if you need to refer to a hostname in a different domain end it with a dot (&lt;code&gt;.&lt;/code&gt;), i.e. &lt;code&gt;ns2.foo.com.&lt;/code&gt;). The default time to live &lt;code&gt;$TTL&lt;/code&gt; is an hour (3600 seconds).
+The zone contains a &lt;a href=&quot;https://tools.ietf.org/html/rfc1035#section-3.3.13&quot;&gt;start of authority (&lt;code&gt;SOA&lt;/code&gt;) record&lt;/a&gt; containing the nameserver, hostmaster, serial, refresh, retry, expiry, and minimum.
+Also, a single &lt;a href=&quot;https://tools.ietf.org/html/rfc1035#section-3.3.11&quot;&gt;name server (&lt;code&gt;NS&lt;/code&gt;) record&lt;/a&gt; &lt;code&gt;ns1&lt;/code&gt; is specified with an accompanying &lt;a href=&quot;https://tools.ietf.org/html/rfc1035#section-3.4.1&quot;&gt;address (&lt;code&gt;A&lt;/code&gt;) records&lt;/a&gt; pointing to their IPv4 address.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;git-repo&amp;gt; cat mirage
+$ORIGIN mirage.
+$TTL 3600
+@	SOA	ns1	hostmaster	1	86400	7200	1048576	3600
+@	NS	ns1
+ns1     A       127.0.0.1
+www	A	1.1.1.1
+git-repo&amp;gt; git add mirage &amp;amp;&amp;amp; git commit -m initial &amp;amp;&amp;amp; git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Installation&lt;/h2&gt;
+&lt;p&gt;On your development machine, you need to install various OCaml packages. You don't need privileged access if common tools (C compiler, make, libgmp) are already installed. You have &lt;code&gt;opam&lt;/code&gt; installed.&lt;/p&gt;
+&lt;p&gt;Let's create a fresh &lt;code&gt;switch&lt;/code&gt; for the DNS journey:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;$ opam init
+$ opam update
+$ opam switch create udns 4.14.1
+# waiting a bit, a fresh OCaml compiler is getting bootstrapped
+$ eval `opam env` #sets some environment variables
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The last command set environment variables in your current shell session, please use the same shell for the commands following (or run &lt;code&gt;eval $(opam env)&lt;/code&gt; in another shell and proceed in there - the output of &lt;code&gt;opam switch&lt;/code&gt; sohuld point to &lt;code&gt;udns&lt;/code&gt;).&lt;/p&gt;
+&lt;h3&gt;Validation of our zonefile&lt;/h3&gt;
+&lt;p&gt;First let's check that OCaml-DNS can parse our zonefile:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;$ opam install dns-cli #installs ~/.opam/udns/bin/ozone and other binaries
+$ ozone &amp;lt;git-repo&amp;gt;/mirage # see ozone --help
+successfully checked zone
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Great. Error reporting is not great, but line numbers are indicated (&lt;code&gt;ozone: zone parse problem at line 3: syntax error&lt;/code&gt;), &lt;a href=&quot;https://github.com/mirage/ocaml-dns/tree/v4.2.0/zone&quot;&gt;lexer and parser are lex/yacc style&lt;/a&gt; (PRs welcome).&lt;/p&gt;
+&lt;p&gt;FWIW, &lt;code&gt;ozone&lt;/code&gt; accepts &lt;code&gt;--old &amp;lt;filename&amp;gt;&lt;/code&gt; to check whether an update from the old zone to the new is fine. This can be used as &lt;a href=&quot;https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks&quot;&gt;pre-commit hook&lt;/a&gt; in your git repository to avoid bad parse states in your name servers.&lt;/p&gt;
+&lt;h3&gt;Getting the primary up&lt;/h3&gt;
+&lt;p&gt;The next step is to compile the primary server and run it to serve the domain data. Since the git-via-ssh client is not yet released, we need to add a custom opam repository to this switch.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;# get the `mirage` application via opam
+$ opam install lwt mirage
+
+# get the source code of the unikernels
+$ git clone https://github.com/roburio/dns-primary-git.git
+$ cd dns-primary-git
+
+# let's build the server first as unix application
+$ mirage configure #--no-depext if you have all system dependencies
+$ make
+
+# run it
+$ dist/primary-git
+# starts a unix process which clones https://github.com/roburio/udns.git
+# attempts to parse the data as zone files, and fails on parse error
+$ dist/primary-git --remote=https://my-public-git-repository
+# this should fail with ENOACCESS since the DNS server tries to listen on port 53
+
+# which requires a privileged user, i.e. su, sudo or doas
+$ sudo dist/primary-git --remote=https://my-public-git-repository
+# leave it running, run the following programs in a different shell
+
+# test it
+$ host ns1.mirage 127.0.0.1
+ns1.mirage has address 127.0.0.1
+$ dig any mirage @127.0.0.1
+# a DNS packet printout with all records available for mirage
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That's exciting, the DNS server serving answers from a remote git repository.&lt;/p&gt;
+&lt;h3&gt;Securing the git access with ssh&lt;/h3&gt;
+&lt;p&gt;Let's authenticate the access by using ssh, so we feel ready to push data there as well. The primary-git unikernel already includes an experimental &lt;a href=&quot;https://github.com/haesbaert/awa-ssh&quot;&gt;ssh client&lt;/a&gt;, all we need to do is setting up credentials - in the following a RSA keypair and the server fingerprint.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;# collect the RSA host key fingerprint
+$ ssh-keyscan &amp;lt;git-server&amp;gt; &amp;gt; /tmp/git-server-public-keys
+$ ssh-keygen -l -E sha256 -f /tmp/git-server-public-keys | grep ED25519
+256 SHA256:a5kkkuo7MwTBkW+HDt4km0gGPUAX0y1bFcPMXKxBaD0 &amp;lt;git-server&amp;gt; (ED25519)
+# we're interested in the SHA256:yyy only
+
+# generate a ssh keypair
+$ awa_gen_key --keytype ed25510 # installed by the make step above in ~/.opam/udns/bin
+private key: ed25519:nO7ervdJqzPfuvdM/J4qImipwVoI5gl53fpqgjZnv9w=
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICyliWbwWWXBc1+DRIzReLQ4UFiVGXJ6Paw1Jts+XQte awa@awa.local
+# please run your own awa_gen_key, don't use the numbers above
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The public key needs is in standard OpenSSH format and needs to be added to the list of accepted keys on your server - the exact steps depend on your git server, if you're running your own with &lt;a href=&quot;https://github.com/tv42/gitosis&quot;&gt;gitosis&lt;/a&gt;, add it as new public key file and grant that key access to the data repository. If you use gitlab or github, you may want to create a new user account and with the generated key.&lt;/p&gt;
+&lt;p&gt;The private key is not displayed, but only the seed required to re-generate it, when using the same random number generator, in our case &lt;a href=&quot;https://mirage.github.io/mirage-crypto/doc/mirage-crypto-rng/Mirage_crypto_rng/index.html&quot;&gt;fortuna implemented by mirage-crypto&lt;/a&gt; - used by both &lt;code&gt;awa_gen_key&lt;/code&gt; and &lt;code&gt;primary-git&lt;/code&gt;. The seed is provided as command-line argument while starting &lt;code&gt;primary-git&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;# execute with git over ssh, authenticator from ssh-keyscan, seed from awa_gen_key
+$ ./primary-git --authenticator=SHA256:a5kkkuo7MwTBkW+HDt4km0gGPUAX0y1bFcPMXKxBaD0 --ssh-key=ed25519:nO7ervdJqzPfuvdM/J4qImipwVoI5gl53fpqgjZnv9w= --remote=git@&amp;lt;git-server&amp;gt;:repo-name.git
+# started up, you can try the host and dig commands from above if you like
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To wrap up, we now have a primary authoritative name server for our zone running as Unix process, which clones a remote git repository via ssh on startup and then serves it.&lt;/p&gt;
+&lt;h3&gt;Authenticated data updates&lt;/h3&gt;
+&lt;p&gt;Our remote git repository is the source of truth, if you need to add a DNS entry to the zone, you git pull, edit the zone file, remember to increase the serial in the SOA line, run &lt;code&gt;ozone&lt;/code&gt;, git commit and push to the repository.&lt;/p&gt;
+&lt;p&gt;So, the &lt;code&gt;primary-git&lt;/code&gt; needs to be informed of git pushes. This requires a communication channel from the git server (or somewhere else, e.g. your laptop) to the DNS server. I prefer in-protocol solutions over adding yet another protocol stack, no way my DNS server will talk HTTP REST.&lt;/p&gt;
+&lt;p&gt;The DNS protocol has an extension for &lt;a href=&quot;https://tools.ietf.org/html/rfc1996&quot;&gt;notifications of zone changes&lt;/a&gt; (as a DNS packet), usually used between the primary and secondary servers. The &lt;code&gt;primary-git&lt;/code&gt; accepts these notify requests (i.e. bends the standard slightly), and upon receival pulls the remote git repository, and serves the fresh zone files. Since a git pull may be rather excessive in terms of CPU cycles and network bandwidth, only authenticated notifications are accepted.&lt;/p&gt;
+&lt;p&gt;The DNS protocol specifies in another extension &lt;a href=&quot;https://tools.ietf.org/html/rfc2845&quot;&gt;authentication (DNS TSIG)&lt;/a&gt; with transaction signatures on DNS packets including a timestamp and fudge to avoid replay attacks. As key material hmac secrets distribued to both the communication endpoints are used.&lt;/p&gt;
+&lt;p&gt;To recap, the primary server is configured with command line parameters (for remote repository url and ssh credentials), and serves data from a zonefile. If the secrets would be provided via command line, a restart would be necessary for adding and removing keys. If put into the zonefile, they would be publicly served on request. So instead, we'll use another file, still in zone file format, in the top-level domain &lt;code&gt;_keys&lt;/code&gt;, i.e. the &lt;code&gt;mirage._keys&lt;/code&gt; file contains keys for the &lt;code&gt;mirage&lt;/code&gt; zone. All files ending in &lt;code&gt;._keys&lt;/code&gt; are parsed with the normal parser, but put into an authentication store instead of the domain data store, which is served publically.&lt;/p&gt;
+&lt;p&gt;For encoding hmac secrets into DNS zone file format, the &lt;a href=&quot;https://tools.ietf.org/html/rfc4034#section-2&quot;&gt;&lt;code&gt;DNSKEY&lt;/code&gt;&lt;/a&gt; format is used (designed for DNSsec). The &lt;a href=&quot;https://www.isc.org/bind/&quot;&gt;bind&lt;/a&gt; software comes with &lt;code&gt;dnssec-keygen&lt;/code&gt; and &lt;code&gt;tsig-keygen&lt;/code&gt; to generate DNSKEY output: flags is 0, protocol is 3, and algorithm identifier for SHA256 is 163 (SHA384 164, SHA512 165). This is reused by the OCaml DNS library. The key material itself is base64 encoded.&lt;/p&gt;
+&lt;p&gt;Access control and naming of keys follows the DNS domain name hierarchy - a key has the form name._operation.domain, and has access granted to domain and all subdomains of it. Two operations are supported: update and transfer. In the future there may be a dedicated notify operation, for now we'll use update. The name part is ignored for the update operation.&lt;/p&gt;
+&lt;p&gt;Since we now embedd secret information in the git repository, it is a good idea to restrict access to it, i.e. make it private and not publicly cloneable or viewable. Let's generate a first hmac secret and send a notify:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;$ dd if=/dev/random bs=1 count=32 | b64encode -
+begin-base64 644 -
+kJJqipaQHQWqZL31Raar6uPnepGFIdtpjkXot9rv2xg=
+====
+[..]
+git-repo&amp;gt; echo &amp;quot;personal._update.mirage. DNSKEY 0 3 163 kJJqipaQHQWqZL31Raar6uPnepGFIdtpjkXot9rv2xg=&amp;quot; &amp;gt; mirage._keys
+git-repo&amp;gt; git add mirage._keys &amp;amp;&amp;amp; git commit -m &amp;quot;add hmac secret&amp;quot; &amp;amp;&amp;amp; git push
+
+# now we need to restart the primary git to get the git repository with the key
+$ ./primary-git --ssh-key=... # arguments from above, remote git, host key fingerprint, private key seed
+
+# now test that a notify results in a git pull
+$ onotify 127.0.0.1 mirage --key=personal._update.mirage:SHA256:kJJqipaQHQWqZL31Raar6uPnepGFIdtpjkXot9rv2xg=
+# onotify was installed by dns-cli in ~/.opam/udns/bin/onotify, see --help for options
+# further changes to the hmac secrets don't require a restart anymore, a notify packet is sufficient :D
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ok, this onotify command line could be setup as a git post-commit hook, or run manually after each manual git push.&lt;/p&gt;
+&lt;h3&gt;Secondary&lt;/h3&gt;
+&lt;p&gt;It's time to figure out how to integrate the secondary name server. An already existing bind or something else that accepts notifications and issues zone transfers with hmac-sha256 secrets should work out of the box. If you encounter interoperability issues, please get in touch with me.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;secondary&lt;/code&gt; unikernel is available from another git repository:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;# get the secondary sources
+$ git clone https://github.com/roburio/dns-secondary.git
+$ cd dns-secondary
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It's only command line argument is a list of hmac secrets used for authenticating that the received data originates from the primary server. Data is initially transferred by a &lt;a href=&quot;https://tools.ietf.org/html/rfc5936&quot;&gt;full zone transfer (AXFR)&lt;/a&gt;, later updates (upon refresh timer or notify request sent by the primary) use &lt;a href=&quot;https://tools.ietf.org/html/rfc1995&quot;&gt;incremental (IXFR)&lt;/a&gt;. Zone transfer requests and data are authenticated with transaction signatures again.&lt;/p&gt;
+&lt;p&gt;Convenience by OCaml DNS is that transfer key names matter, and are of the form &lt;primary-ip&gt;.&lt;secondary-ip&gt;._transfer.domain, i.e. &lt;code&gt;1.1.1.1.2.2.2.2._transfer.mirage&lt;/code&gt; if the primary server is 1.1.1.1, and the secondary 2.2.2.2. Encoding the IP address in the name allows both parties to start the communication: the secondary starts by requesting a SOA for all domains for which keys are provided on command line, and if an authoritative SOA answer is received, the AXFR is triggered. The primary server emits notification requests on startup and then on every zone change (i.e. via git pull) to all secondary IP addresses of transfer keys present for the specific zone in addition to the notifications to the NS records in the zone.&lt;/secondary-ip&gt;&lt;/primary-ip&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;$ mirage configure
+$ make
+$ ./dist/secondary
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;IP addresses and routing&lt;/h3&gt;
+&lt;p&gt;Both primary and secondary serve the data on the DNS port (53) on UDP and TCP. To run both on the same machine and bind them to different IP addresses, we'll use a layer 2 network (ethernet frames) with a host system software switch (bridge interface &lt;code&gt;service&lt;/code&gt;), the unikernels as virtual machines (or seccomp-sandboxed) via the &lt;a href=&quot;https://github.com/solo5/solo5&quot;&gt;solo5&lt;/a&gt; backend. Using xen is possible as well. As IP address range we'll use 10.0.42.0/24, and the host system uses the 10.0.42.1.&lt;/p&gt;
+&lt;p&gt;The primary git needs connectivity to the remote git repository, thus on a laptop in a private network we need network address translation (NAT) from the bridge where the unikernels speak to the Internet where the git repository resides.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;# on FreeBSD:
+# configure NAT with pf, you need to have forwarding enabled
+$ sysctl net.inet.ip.forwarding: 1
+$ echo 'nat pass on wlan0 inet from 10.0.42.0/24 to any -&amp;gt; (wlan0)' &amp;gt;&amp;gt; /etc/pf.conf
+$ service pf restart
+
+# make tap interfaces UP on open()
+$ sysctl net.link.tap.up_on_open: 1
+
+# bridge creation, naming, and IP setup
+$ ifconfig bridge create
+bridge0
+$ ifconfig bridge0 name service
+$ ifconfig bridge0 10.0.42.1/24
+
+# two tap interfaces for our unikernels
+$ ifconfig tap create
+tap0
+$ ifconfig tap create
+tap1
+# add them to the bridge
+$ ifconfig service addm tap0 addm tap1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;Primary and secondary setup&lt;/h3&gt;
+&lt;p&gt;Let's update our zone slightly to reflect the IP changes.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;git-repo&amp;gt; cat mirage
+$ORIGIN mirage.
+$TTL 3600
+@	SOA	ns1	hostmaster	2	86400	7200	1048576	3600
+@	NS	ns1
+@	NS	ns2
+ns1     A       10.0.42.2
+ns2	A	10.0.42.3
+
+# we also need an additional transfer key
+git-repo&amp;gt; cat mirage._keys
+personal._update.mirage. DNSKEY 0 3 163 kJJqipaQHQWqZL31Raar6uPnepGFIdtpjkXot9rv2xg=
+10.0.42.2.10.0.42.3._transfer.mirage. DNSKEY 0 3 163 cDK6sKyvlt8UBerZlmxuD84ih2KookJGDagJlLVNo20=
+git-repo&amp;gt; git commit -m &amp;quot;updates&amp;quot; . &amp;amp;&amp;amp; git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ok, the git repository is ready, now we need to compile the unikernels for the virtualisation target (see &lt;a href=&quot;https://mirage.io/wiki/hello-world#Building-for-Another-Backend&quot;&gt;other targets&lt;/a&gt; for further information).&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;# back to primary
+$ cd ../dns-primary-git
+$ mirage configure -t hvt # or e.g. -t spt (and solo5-spt below)
+# installs backend-specific opam packages, recompiles some
+$ make
+[...]
+$ solo5-hvt --net:service=tap0 -- primary_git.hvt --ipv4=10.0.42.2/24 --ipv4-gateway=10.0.42.1 --seed=.. --authenticator=.. --remote=...
+# should now run as a virtual machine (kvm, bhyve), and clone the git repository
+$ dig any mirage @10.0.42.2
+# should reply with the SOA and NS records, and also the name server address records in the additional section
+
+# secondary
+$ cd ../dns-secondary
+$ mirage configure -t hvt
+$ make
+$ solo5-hvt --net:service=tap1 -- secondary.hvt --ipv4=10.0.42.3/24 --keys=10.0.42.2.10.0.42.3._transfer.mirage:SHA256:cDK6sKyvlt8UBerZlmxuD84ih2KookJGDagJlLVNo20=
+# an ipv4-gateway is not needed in this setup, but in real deployment later
+# it should start up and transfer the mirage zone from the primary
+
+$ dig any mirage @10.0.42.3
+# should now output the same information as from 10.0.42.2
+
+# testing an update and propagation
+# edit mirage zone, add a new record and increment the serial number
+git-repo&amp;gt; echo &amp;quot;foo A 127.0.0.1&amp;quot; &amp;gt;&amp;gt; mirage
+git-repo&amp;gt; vi mirage &amp;lt;- increment serial
+git-repo&amp;gt; git commit -m 'add foo' . &amp;amp;&amp;amp; git push
+$ onotify 10.0.42.2 mirage --key=personal._update.mirage:SHA256:kJJqipaQHQWqZL31Raar6uPnepGFIdtpjkXot9rv2xg=
+
+# now check that it worked
+$ dig foo.mirage @10.0.42.2 # primary
+$ dig foo.mirage @10.0.42.3 # secondary got notified and transferred the zone
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can also check the behaviour when restarting either of the VMs, whenever the primary is available the zone is synchronised. If the primary is down, the secondary still serves the zone. When the secondary is started while the primary is down, it won't serve any data until the primary is online (the secondary polls periodically, the primary sends notifies on startup).&lt;/p&gt;
+&lt;h3&gt;Dynamic data updates via DNS, pushed to git&lt;/h3&gt;
+&lt;p&gt;DNS is a rich protocol, and it also has builtin &lt;a href=&quot;https://tools.ietf.org/html/rfc2136&quot;&gt;updates&lt;/a&gt; that are supported by OCaml DNS, again authenticated with hmac-sha256 and shared secrets. Bind provides the command-line utility &lt;code&gt;nsupdate&lt;/code&gt; to send these update packets, a simple &lt;code&gt;oupdate&lt;/code&gt; unix utility is available as well (i.e. for integration of dynamic DNS clients). You know the drill, add a shared secret to the primary, git push, notify the primary, and voila we can dynamically in-protocol update. An update received by the primary via this way will trigger a git push to the remote git repository, and notifications to the secondary servers as described above.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;# being lazy, I reuse the key above
+$ oupdate 10.0.42.2 personal._update.mirage:SHA256:kJJqipaQHQWqZL31Raar6uPnepGFIdtpjkXot9rv2xg= my-other.mirage 1.2.3.4
+
+# let's observe the remote git
+git-repo&amp;gt; git pull
+# there should be a new commit generated by the primary
+git-repo&amp;gt; git log
+
+# test it, should return 1.2.3.4
+$ dig my-other.mirage @10.0.42.2
+$ dig my-other.mirage @10.0.42.3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So we can deploy further &lt;code&gt;oupdate&lt;/code&gt; (or &lt;code&gt;nsupdate&lt;/code&gt;) clients, distribute hmac secrets, and have the DNS zone updated. The source of truth is still the git repository, where the primary-git pushes to. Merge conflicts and timing of pushes is not yet dealt with. They are unlikely to happen since the primary is notified on pushes and should have up-to-date data in storage. Sorry, I'm unsure about the error semantics, try it yourself.&lt;/p&gt;
+&lt;h3&gt;Let's encrypt!&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://letsencrypt.org/&quot;&gt;Let's encrypt&lt;/a&gt; is a certificate authority (CA), which certificate is shipped as trust anchor in web browsers. They specified a protocol for &lt;a href=&quot;https://tools.ietf.org/html/draft-ietf-acme-acme-05&quot;&gt;automated certificate management environment (ACME)&lt;/a&gt;, used to get X509 certificates for your services. In the protocol, a certificate signing request (publickey and hostname) is sent to let's encrypt servers, which sends a challenge to proof the ownership of the hostnames. One widely-used way to solve this challenge is running a web server, another is to serve it as text record from the authoritative DNS server.&lt;/p&gt;
+&lt;p&gt;Since I avoid persistent storage when possible, and also don't want to integrate a HTTP client stack in the primary server, I developed a third unikernel that acts as (hidden) secondary server, performs the tedious HTTP communication with let's encrypt servers, and stores all data in the public DNS zone.&lt;/p&gt;
+&lt;p&gt;For encoding of certificates, the DANE working group specified &lt;a href=&quot;https://tools.ietf.org/html/rfc6698.html#section-7.1&quot;&gt;TLSA&lt;/a&gt; records in DNS. They are quadruples of usage, selector, matching type, and ASN.1 DER-encoded material. We set usage to 3 (domain-issued certificate), matching type to 0 (no hash), and selector to 0 (full certificate) or 255 (private usage) for certificate signing requests. The interaction is as follows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Primary, secondary, and let's encrypt unikernels are running
+&lt;/li&gt;
+&lt;li&gt;A service (&lt;code&gt;ocertify&lt;/code&gt;, &lt;code&gt;unikernels/certificate&lt;/code&gt;, or the &lt;code&gt;dns-certify.mirage&lt;/code&gt; library) demands a TLS certificate, and has a hmac-secret for the primary DNS
+&lt;/li&gt;
+&lt;li&gt;The service generates a certificate signing request with the desired hostname(s), and performs an nsupdate with TLSA 255 &lt;der encoded=&quot;encoded&quot; signing-request=&quot;signing-request&quot;&gt;
+&lt;/der&gt;&lt;/li&gt;
+&lt;li&gt;The primary accepts the update, pushes the new zone to git, and sends notifies to secondary and let's encrypt unikernels which (incrementally) transfer the zone
+&lt;/li&gt;
+&lt;li&gt;The let's encrypt unikernel notices while transferring the zone a signing request without a certificate, starts HTTP interaction with let's encrypt
+&lt;/li&gt;
+&lt;li&gt;The let's encrypt unikernel solves the challenge, sends the response as update of a TXT record to the primary nameserver
+&lt;/li&gt;
+&lt;li&gt;The primary pushes the TXT record to git, and notifies secondaries (which transfer the zone)
+&lt;/li&gt;
+&lt;li&gt;The let's encrypt servers request the TXT record from either or both authoritative name servers
+&lt;/li&gt;
+&lt;li&gt;The let's encrypt unikernel polls for the issued certificate and send an update to the primary TLSA 0 &lt;der encoded=&quot;encoded&quot; certificate=&quot;certificate&quot;&gt;
+&lt;/der&gt;&lt;/li&gt;
+&lt;li&gt;The primary pushes the certificate to git, notifies secondaries (which transfer the zone)
+&lt;/li&gt;
+&lt;li&gt;The service polls TLSA records for the hostname, and use it upon retrieval
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Note that neither the signing request nor the certificate contain private key material, thus it is fine to serve them publically. Please also note, that the service polls for the certificate for the hostname in DNS, which is valid (start and end date) certificate and uses the same public key, this certificate is used and steps 3-10 are not executed.&lt;/p&gt;
+&lt;p&gt;The let's encrypt unikernel does not serve anything, it is a reactive system which acts upon notification from the primary. Thus, it can be executed in a private address space (with a NAT). Since the OCaml DNS server stack needs to push notifications to it, it preserves all incoming signed SOA requests as candidates for notifications on update. The let's encrypt unikernel ensures to always have a connection to the primary to receive notifications.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;# getting let's encrypt up and running
+$ cd ..
+$ git clone https://github.com/roburio/dns-letsencrypt-secondary.git
+$ cd dns-letsencrypt-secondary
+$ mirage configure -t hvt
+$ make
+
+# run it
+$ solo5-hvt --net:service=tap2 -- letsencrypt.hvt --keys=...
+
+# test it
+$ ocertify 10.0.42.2 foo.mirage
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For actual testing with let's encrypt servers you need to have the primary and secondary deployed on your remote hosts, and your domain needs to be delegated to these servers. Good luck. And ensure you have backup your git repository.&lt;/p&gt;
+&lt;p&gt;As fine print, while this tutorial was about the &lt;code&gt;mirage&lt;/code&gt; zone, you can stick any number of zones into the git repository. If you use a &lt;code&gt;_keys&lt;/code&gt; file (without any domain prefix), you can configure hmac secrets for all zones, i.e. something to use in your let's encrypt unikernel and secondary unikernel. Dynamic addition of zones is supported, just create a new zonefile and notify the primary, the secondary will be notified and pick it up. The primary responds to a signed SOA for the root zone (i.e. requested by the secondary) with the SOA response (not authoritative), and additionally notifications for all domains of the primary.&lt;/p&gt;
+&lt;h3&gt;Conclusion and thanks&lt;/h3&gt;
+&lt;p&gt;This tutorial presented how to use the OCaml DNS based unikernels to run authoritative name servers for your domain, using a git repository as the source of truth, dynamic authenticated updates, and let's encrypt certificate issuing.&lt;/p&gt;
+&lt;p&gt;There are further steps to take, such as monitoring (&lt;code&gt;mirage configure --monitoring&lt;/code&gt;), which use a second network interface for reporting syslog and metrics to telegraf / influx / grafana. Some DNS features are still missing, most prominently DNSSec.&lt;/p&gt;
+&lt;p&gt;I'd like to thank all people involved in this software stack, without other key components, including &lt;a href=&quot;https://github.com/mirage/ocaml-git&quot;&gt;git&lt;/a&gt;, &lt;a href=&quot;https://github.com/mirage/mirage-crypto&quot;&gt;mirage-crypto&lt;/a&gt;, &lt;a href=&quot;https://github.com/mirage/awa-ssh&quot;&gt;awa-ssh&lt;/a&gt;, &lt;a href=&quot;https://github.com/solo5/sol5&quot;&gt;solo5&lt;/a&gt;, &lt;a href=&quot;https://github.com/mirage/mirage&quot;&gt;mirage&lt;/a&gt;, &lt;a href=&quot;https://github.com/mmaker/ocaml-letsencrypt&quot;&gt;ocaml-letsencrypt&lt;/a&gt;, and more.&lt;/p&gt;
+&lt;p&gt;If you want to support our work on MirageOS unikernels, please &lt;a href=&quot;https://robur.coop/Donate&quot;&gt;donate to robur&lt;/a&gt;. I'm interested in feedback, either via &lt;a href=&quot;https://twitter.com/h4nnes&quot;&gt;twitter&lt;/a&gt;, &lt;a href=&quot;https://mastodon.social/@hannesm&quot;&gt;hannesm@mastodon.social&lt;/a&gt; or via eMail.&lt;/p&gt;
+</content><id>https://hannes.robur.coop/Posts/DnsServer</id><title type="text">Deploying authoritative OCaml-DNS servers as MirageOS unikernels</title><updated>2019-12-23T21:30:53-00:00</updated><author><name>hannes</name></author></entry><entry><link href="https://hannes.robur.coop/Posts/ReproducibleOPAM" rel="alternate"/><contributor><uri>https://hannes.robur.coop/atom</uri><name>hannes</name></contributor><content type="html">&lt;h2&gt;Reproducible builds summit&lt;/h2&gt;
+&lt;p&gt;I'm just back from the &lt;a href=&quot;https://reproducible-builds.org/events/Marrakesh2019/&quot;&gt;Reproducible builds summit 2019&lt;/a&gt;. In 2018, several people developing &lt;a href=&quot;https://ocaml.org&quot;&gt;OCaml&lt;/a&gt; and &lt;a href=&quot;https://opam.ocaml.org&quot;&gt;opam&lt;/a&gt; and &lt;a href=&quot;https://mirage.io&quot;&gt;MirageOS&lt;/a&gt;, attended &lt;a href=&quot;https://reproducible-builds.org/events/paris2018/&quot;&gt;the Reproducible builds summit in Paris&lt;/a&gt;. The notes from last year on &lt;a href=&quot;https://reproducible-builds.org/events/paris2018/report/#Toc11410_331763073&quot;&gt;opam reproducibility&lt;/a&gt; and &lt;a href=&quot;https://reproducible-builds.org/events/paris2018/report/#Toc11681_331763073&quot;&gt;MirageOS reproducibility&lt;/a&gt; are online. After last years workshop, Raja started developing the opam reproducibilty builder &lt;a href=&quot;https://github.com/rjbou/orb&quot;&gt;orb&lt;/a&gt;, which I extended at and after this years summit. This year before and after the facilitated summit there were hacking days, which allowed further interaction with participants, writing some code and conduct experiments. I had this year again an exciting time at the summit and hacking days, thanks to our hosts, organisers, and all participants.&lt;/p&gt;
+&lt;h2&gt;Goal&lt;/h2&gt;
+&lt;p&gt;Stepping back a bit, first look on the &lt;a href=&quot;https://reproducible-builds.org/&quot;&gt;goal of reproducible builds&lt;/a&gt;: when compiling source code multiple times, the produced binaries should be identical. It should be sufficient if the binaries are behaviourally equal, but this is pretty hard to check. It is much easier to check &lt;strong&gt;bit-wise identity of binaries&lt;/strong&gt;, and relaxes the burden on the checker -- checking for reproducibility is reduced to computing the hash of the binaries. Let's stick to the bit-wise identical binary definition, which also means software developers have to avoid non-determinism during compilation in their toolchains, dependent libraries, and developed code.&lt;/p&gt;
+&lt;p&gt;A &lt;a href=&quot;https://reproducible-builds.org/docs/test-bench/&quot;&gt;checklist&lt;/a&gt; of potential things leading to non-determinism has been written up by the reproducible builds project. Examples include recording the build timestamp into the binary, ordering of code and embedded data. The reproducible builds project also developed &lt;a href=&quot;https://packages.debian.org/sid/disorderfs&quot;&gt;disorderfs&lt;/a&gt; for testing reproducibility and &lt;a href=&quot;https://diffoscope.org/&quot;&gt;diffoscope&lt;/a&gt; for comparing binaries with file-dependent readers, falling back to &lt;code&gt;objdump&lt;/code&gt; and &lt;code&gt;hexdump&lt;/code&gt;. A giant &lt;a href=&quot;https://tests.reproducible-builds.org/&quot;&gt;test infrastructure&lt;/a&gt; with &lt;a href=&quot;https://tests.reproducible-builds.org/debian/index_variations.html&quot;&gt;lots of variations&lt;/a&gt; between the builds, mostly using Debian, has been setup over the years.&lt;/p&gt;
+&lt;p&gt;Reproducibility is a precondition for trustworthy binaries. See &lt;a href=&quot;https://reproducible-builds.org/#why-does-it-matter&quot;&gt;why does it matter&lt;/a&gt;. If there are no instructions how to get from the published sources to the exact binary, why should anyone trust and use the binary which claims to be the result of the sources? It may as well contain different code, including a backdoor, bitcoin mining code, outputting the wrong results for specific inputs, etc. Reproducibility does not imply the software is free of security issues or backdoors, but instead of a audit of the binary - which is tedious and rarely done - the source code can be audited - but the toolchain (compiler, linker, ..) used for compilation needs to be taken into account, i.e. trusted or audited to not be malicious. &lt;strong&gt;I will only ever publish binaries if they are reproducible&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;My main interest at the summit was to enhance existing tooling and conduct some experiments about the reproducibility of &lt;a href=&quot;https://mirage.io&quot;&gt;MirageOS unikernels&lt;/a&gt; -- a unikernel is a statically linked ELF binary to be run as Unix process or &lt;a href=&quot;https://github.com/solo5/solo5&quot;&gt;virtual machine&lt;/a&gt;. MirageOS heavily uses &lt;a href=&quot;https://ocaml.org&quot;&gt;OCaml&lt;/a&gt; and &lt;a href=&quot;https://opam.ocaml.org&quot;&gt;opam&lt;/a&gt;, the OCaml package manager, and is an opam package itself. Thus, &lt;em&gt;checking reproducibility of a MirageOS unikernel is the same problem as checking reproducibility of an opam package&lt;/em&gt;.&lt;/p&gt;
+&lt;h2&gt;Reproducible builds with opam&lt;/h2&gt;
+&lt;p&gt;Testing for reproducibility is achieved by taking the sources and compile them twice independently. Afterwards the equality of the resulting binaries can be checked. In trivial projects, the sources is just a single file, or originate from a single tarball. In OCaml, opam uses &lt;a href=&quot;https://github.com/ocaml/opam-repository&quot;&gt;a community repository&lt;/a&gt; where OCaml developers publish their package releases to, but can also use custom repositores, and in addition pin packages to git remotes (url including branch or commit), or a directory on the local filesystem. Manually tracking and updating all dependent packages of a MirageOS unikernel is not feasible: our hello-world compiled for hvt (kvm/BHyve) already has 79 opam dependencies, including the OCaml compiler which is distribued as opam package. The unikernel serving this website depends on 175 opam packages.&lt;/p&gt;
+&lt;p&gt;Conceptually there should be two tools, the &lt;em&gt;initial builder&lt;/em&gt;, which takes the latest opam packages which do not conflict, and exports exact package versions used during the build, as well as hashes of binaries. The other tool is a &lt;em&gt;rebuilder&lt;/em&gt;, which imports the export, conducts a build, and outputs the hashes of the produced binaries.&lt;/p&gt;
+&lt;p&gt;Opam has the concept of a &lt;code&gt;switch&lt;/code&gt;, which is an environment where a package set is installed. Switches are independent of each other, and can already be exported and imported. Unfortunately the export is incomplete: if a package includes additional patches as part of the repository -- sometimes needed for fixing releases where the actual author or maintainer of a package responds slowly -- these package neither the patches end up in the export. Also, if a package is pinned to a git branch, the branch appears in the export, but this may change over time by pushing more commits or even force-pushing to that branch. In &lt;a href=&quot;https://github.com/ocaml/opam/pull/4040&quot;&gt;PR #4040&lt;/a&gt; (under discussion and review), also developed during the summit, I propose to embed the additional files as base64 encoded values in the opam file. To solve the latter issue, I modified the export mechanism to &lt;a href=&quot;https://github.com/ocaml/opam/pull/4055&quot;&gt;embed the git commit hash (PR #4055)&lt;/a&gt;, and avoid sources from a local directory and which do not have a checksum.&lt;/p&gt;
+&lt;p&gt;So the opam export contains the information required to gather the exact same sources and build instructions of the opam packages. If the opam repository would be self-contained (i.e. not depend on any other tools), this would be sufficient. But opam does not run in thin air, it requires some system utilities such as &lt;code&gt;/bin/sh&lt;/code&gt;, &lt;code&gt;sed&lt;/code&gt;, a GNU make, commonly &lt;code&gt;git&lt;/code&gt;, a C compiler, a linker, an assembler. Since opam is available on various operating systems, the plugin &lt;code&gt;depext&lt;/code&gt; handles host system dependencies, e.g. if your opam package requires &lt;code&gt;gmp&lt;/code&gt; to be installed, this requires slightly different names depending on host system or distribution, take a look at &lt;a href=&quot;https://github.com/ocaml/opam-repository/blob/master/packages/conf-gmp/conf-gmp.1/opam&quot;&gt;conf-gmp&lt;/a&gt;. This also means, opam has rather good information about both the opam dependencies and the host system dependencies for each package. Please note that the host system packages used during compilation are not yet recorded (i.e. which &lt;code&gt;gmp&lt;/code&gt; package was installed and used during the build, only that a &lt;code&gt;gmp&lt;/code&gt; package has to be installed). The base utilities mentioned above (C compiler, linker, shell) are also not recorded yet.&lt;/p&gt;
+&lt;p&gt;Operating system information available in opam (such as architecture, distribution, version), which in some cases maps to exact base utilities, is recorded in the build-environment, a separate artifact. The environment variable &lt;a href=&quot;https://reproducible-builds.org/specs/source-date-epoch/&quot;&gt;&lt;code&gt;SOURCE_DATE_EPOCH&lt;/code&gt;&lt;/a&gt;, used for communicating the same timestamp when software is required to record a timestamp into the resulting binary, is also captured in the build environment.&lt;/p&gt;
+&lt;p&gt;Additional environment variables may be captured or used by opam packages to produce different output. To avoid this, both the initial builder and the rebuilder are run with minimal environment variables: only &lt;code&gt;PATH&lt;/code&gt; (normalised to a whitelist of &lt;code&gt;/bin&lt;/code&gt;, &lt;code&gt;/usr/bin&lt;/code&gt;, &lt;code&gt;/usr/local/bin&lt;/code&gt; and &lt;code&gt;/opt/bin&lt;/code&gt;) and &lt;code&gt;HOME&lt;/code&gt; are defined. Missing information at the moment includes CPU features: some libraries (gmp?, nocrypto) emit different code depending on the CPU feature.&lt;/p&gt;
+&lt;h2&gt;Tooling&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;TL;DR: A &lt;strong&gt;build&lt;/strong&gt; builds an opam package, and outputs &lt;code&gt;.opam-switch&lt;/code&gt;, &lt;code&gt;.build-hashes.N&lt;/code&gt;, and &lt;code&gt;.build-environment.N&lt;/code&gt;. A &lt;strong&gt;rebuild&lt;/strong&gt; uses these artifacts as input, builds the package and outputs another &lt;code&gt;.build-hashes.M&lt;/code&gt; and &lt;code&gt;.build-environment.M&lt;/code&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The command-line utility &lt;code&gt;orb&lt;/code&gt; can be installed and used:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;$ opam pin add orb git+https://github.com/hannesm/orb.git#active
+$ orb build --twice --keep-build-dir --diffoscope &amp;lt;your-favourite-opam-package&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It provides two subcommands &lt;code&gt;build&lt;/code&gt; and &lt;code&gt;rebuild&lt;/code&gt;. The &lt;code&gt;build&lt;/code&gt; command takes a list of local opam &lt;code&gt;--repos&lt;/code&gt; where to take opam packages from (defaults to &lt;code&gt;default&lt;/code&gt;), a compiler (either a variant &lt;code&gt;--compiler=4.09.0+flambda&lt;/code&gt;, a version &lt;code&gt;--compiler=4.06.0&lt;/code&gt;, or a pin to a local development version &lt;code&gt;--compiler-pin=~/ocaml&lt;/code&gt;), and optionally an existing switch &lt;code&gt;--use-switch&lt;/code&gt;. It creates a switch, builds the packages, and emits the opam export, hashes of all files installed by these packages, and the build environment. The flags &lt;code&gt;--keep-build&lt;/code&gt; retains the build products, opam's &lt;code&gt;--keep-build-dir&lt;/code&gt; in addition temporary build products and generated source code. If &lt;code&gt;--twice&lt;/code&gt; is provided, a rebuild (described next) is executed after the initial build.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;rebuild&lt;/code&gt; command takes a directory with the opam export and build environment to build the opam package. It first compares the build-environment with the host system, sets the &lt;code&gt;SOURCE_DATE_EPOCH&lt;/code&gt; and switch location accordingly and executes the import. Once the build is finished, it compares the hashes of the resulting files with the previous run. On divergence, if build directories were kept in the previous build, and if diffoscope is available and &lt;code&gt;--diffoscope&lt;/code&gt; was provided, diffoscope is run on the diverging files. If &lt;code&gt;--keep-build-dir&lt;/code&gt; was provided as well, &lt;code&gt;diff -ur&lt;/code&gt; can be used to compare the temporary build and sources, including build logs.&lt;/p&gt;
+&lt;p&gt;The builds are run in parallel, as opam does, this parallelism does not lead to different binaries in my experiments.&lt;/p&gt;
+&lt;h2&gt;Results and discussion&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;All MirageOS unikernels I have deployed are reproducible \o/&lt;/strong&gt;. Also, several binaries such as &lt;code&gt;orb&lt;/code&gt; itself, &lt;code&gt;opam&lt;/code&gt;, &lt;code&gt;solo5-hvt&lt;/code&gt;, and all &lt;code&gt;albatross&lt;/code&gt; utilities are reproducible.&lt;/p&gt;
+&lt;p&gt;The unikernel range from hello world, web servers (e.g. this blog, getting its data on startup via a git clone to memory), authoritative DNS servers, CalDAV server. They vary in size between 79 and 200 opam packages, resulting in 2MB - 16MB big ELF binaries (including debug symbols). The &lt;a href=&quot;https://github.com/roburio/reproducible-unikernel-repo&quot;&gt;unikernel opam repository&lt;/a&gt; contains some reproducible unikernels used for testing. Some work-in-progress enhancements are needed to achieve this:&lt;/p&gt;
+&lt;p&gt;At the moment, the opam package of a MirageOS unikernel is automatically generated by &lt;code&gt;mirage configure&lt;/code&gt;, but only used for tracking opam dependencies. I worked on &lt;a href=&quot;https://github.com/mirage/mirage/pull/1022&quot;&gt;mirage PR #1022&lt;/a&gt; to extend the generated opam package with build and install instructions.&lt;/p&gt;
+&lt;p&gt;As mentioned above, if locale is set, ocamlgraph needs to be patched to emit a (locale-dependent) timestamp.&lt;/p&gt;
+&lt;p&gt;The OCaml program &lt;a href=&quot;https://github.com/mirage/ocaml-crunch&quot;&gt;&lt;code&gt;crunch&lt;/code&gt;&lt;/a&gt; embeds a subdirectory as OCaml code into a binary, which we use in MirageOS quite regularly for static assets, etc. This plays in several ways into reproducibility: on the one hand, it needs a timestamp for its &lt;code&gt;last_modified&lt;/code&gt; functionality (and adheres since &lt;a href=&quot;https://github.com/mirage/ocaml-crunch/pull/45&quot;&gt;June 2018&lt;/a&gt; to the &lt;code&gt;SOURCE_DATE_EPOCH&lt;/code&gt; spec, thanks to Xavier Clerc). On the other hand, it used before version 3.2.0 (released Dec 14th) hashtables for storing the file contents, where iteration is not deterministic (the insertion is not sorted), &lt;a href=&quot;https://github.com/mirage/ocaml-crunch/pull/51&quot;&gt;fixed in PR #51&lt;/a&gt; by using a Map instead.&lt;/p&gt;
+&lt;p&gt;In functoria, a tool used to configure MirageOS devices and their dependencies, can emit a list of opam packages which were required to build the unikernel. This uses &lt;code&gt;opam list --required-by --installed --rec &amp;lt;pkgs&amp;gt;&lt;/code&gt;, which uses the cudf graph (&lt;a href=&quot;https://github.com/mirage/functoria/pull/189#issuecomment-566696426&quot;&gt;thanks to Raja for explanation&lt;/a&gt;), that is during the rebuild dropping some packages. The &lt;a href=&quot;https://github.com/mirage/functoria/pull/189&quot;&gt;PR #189&lt;/a&gt; avoids by not using the &lt;code&gt;--rec&lt;/code&gt; argument, but manually computing the fixpoint.&lt;/p&gt;
+&lt;p&gt;Certainly, the choice of environment variables, and whether to vary them (as &lt;a href=&quot;https://tests.reproducible-builds.org/debian/index_variations.html&quot;&gt;debian does&lt;/a&gt;) or to not define them (or normalise) while building, is arguably. Since MirageOS does neither support time zone nor internationalisation, there is no need to prematurely solving this issue. On related note, even with different locale settings, MirageOS unikernels are reproducible apart from an &lt;a href=&quot;https://github.com/backtracking/ocamlgraph/pull/90&quot;&gt;issue in ocamlgraph #90&lt;/a&gt; embedding the output of &lt;a href=&quot;https://pubs.opengroup.org/onlinepubs/9699919799/utilities/date.html&quot;&gt;&lt;code&gt;date&lt;/code&gt;&lt;/a&gt;, which is different depending on &lt;code&gt;LANG&lt;/code&gt; and locale (&lt;code&gt;LC_*&lt;/code&gt;) settings.&lt;/p&gt;
+&lt;p&gt;Prior art in reproducible MirageOS unikernels is the &lt;a href=&quot;https://github.com/mirage/qubes-mirage-firewall/&quot;&gt;mirage-qubes-firewall&lt;/a&gt;. Since &lt;a href=&quot;https://github.com/mirage/qubes-mirage-firewall/commit/07ff3d61477383860216c69869a1ffee59145e45&quot;&gt;early 2017&lt;/a&gt; it is reproducible. Their approach is different by building in a docker container with the opam repository pinned to an exact git commit.&lt;/p&gt;
+&lt;h2&gt;Further work&lt;/h2&gt;
+&lt;p&gt;I only tested a certain subset of opam packages and MirageOS unikernels, mainly on a single machine (my laptop) running FreeBSD, and am happy if others will test reproducibility of their OCaml programs with the tools provided. There could as well be CI machines rebuilding opam packages and reporting results to a central repository. I'm pretty sure there are more reproducibility issues in the opam ecosystem. I developed an &lt;a href=&quot;https://github.com/roburio/reproducible-testing-repo&quot;&gt;reproducible testing opam repository&lt;/a&gt; with opam packages that do not depend on OCaml, mainly for further tooling development. Some tests were also conducted on a Debian system with the same result. The variations, apart from build time, were using a different user, and different locale settings.&lt;/p&gt;
+&lt;p&gt;As mentioned above, more environment, such as the CPU features, and external system packages, should be captured in the build environment.&lt;/p&gt;
+&lt;p&gt;When comparing OCaml libraries, some output files (cmt / cmti / cma / cmxa) are not deterministic, but contain minimal diverge where I was not able to spot the root cause. It would be great to fix this, likely in the OCaml compiler distribution. Since the final result, the binary I'm interested in, is not affected by non-identical intermediate build products, I hope someone (you?) is interested in improving on this side. OCaml bytecode output also seems to be non-deterministic. There is &lt;a href=&quot;https://github.com/coq/coq/issues/11229&quot;&gt;a discussion on the coq issue tracker&lt;/a&gt; which may be related.&lt;/p&gt;
+&lt;p&gt;In contrast to initial plans, I did not used the &lt;a href=&quot;https://reproducible-builds.org/specs/build-path-prefix-map/&quot;&gt;&lt;code&gt;BUILD_PATH_PREFIX_MAP&lt;/code&gt;&lt;/a&gt; environment variable, which is implemented in OCaml by &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/1515&quot;&gt;PR #1515&lt;/a&gt; (and followups). The main reasons are that something in the OCaml toolchain (I suspect the bytecode interpreter) needed absolute paths to find libraries, thus I'd need a symlink from the left-hand side to the current build directory, which was tedious. Also, my installed assembler does not respect the build path prefix map, and BUILD_PATH_PREFIX_MAP is not widely supported. See e.g. the Debian &lt;a href=&quot;https://tests.reproducible-builds.org/debian/rb-pkg/unstable/amd64/diffoscope-results/ocaml-zarith.html&quot;&gt;zarith&lt;/a&gt; package with different build paths and its effects on the binary.&lt;/p&gt;
+&lt;p&gt;I'm fine with recording the build path (switch location) in the build environment for now - it turns out to end up only once in MirageOS unikernels, likely by the last linking step, which &lt;a href=&quot;http://blog.llvm.org/2019/11/deterministic-builds-with-clang-and-lld.html&quot;&gt;hopefully soon be solved by llvm 9.0&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;What was fun was to compare the unikernel when built on Linux with gcc against a built on FreeBSD with clang and lld - spoiler: they emit debug sections with different dwarf versions, it is pretty big. Other fun differences were between OCaml compiler versions: the difference between minor versions (4.08.0 vs 4.08.1) is pretty small (~100kB as human-readable output), while the difference between major version (4.08.1 vs 4.09.0) is rather big (~900kB as human-readable diff).&lt;/p&gt;
+&lt;p&gt;An item on my list for the future is to distribute the opam export, build hashes and build environment artifacts in a authenticated way. I want to integrate this as &lt;a href=&quot;https://in-toto.io/&quot;&gt;in-toto&lt;/a&gt; style into &lt;a href=&quot;https://github.com/hannesm/conex&quot;&gt;conex&lt;/a&gt;, my not-yet-deployed implementation of &lt;a href=&quot;https://theupdateframework.github.io/&quot;&gt;tuf&lt;/a&gt; for opam that needs further development and a test installation, hopefully in 2020.&lt;/p&gt;
+&lt;p&gt;If you want to support our work on MirageOS unikernels, please &lt;a href=&quot;https://robur.coop/Donate&quot;&gt;donate to robur&lt;/a&gt;. I'm interested in feedback, either via &lt;a href=&quot;https://twitter.com/h4nnes&quot;&gt;twitter&lt;/a&gt;, &lt;a href=&quot;https://mastodon.social/@hannesm&quot;&gt;hannesm@mastodon.social&lt;/a&gt; or via eMail.&lt;/p&gt;
+</content><id>https://hannes.robur.coop/Posts/ReproducibleOPAM</id><title type="text">Reproducible MirageOS unikernel builds</title><updated>2019-12-16T18:29:30-00:00</updated><author><name>hannes</name></author></entry><entry><link href="https://hannes.robur.coop/Posts/X50907" rel="alternate"/><contributor><uri>https://hannes.robur.coop/atom</uri><name>hannes</name></contributor><content type="html">&lt;h2&gt;Cryptographic material&lt;/h2&gt;
+&lt;p&gt;Once a private and public key pair is generated (doesn't matter whether it is plain RSA, DSA, ECC on any curve), this is fine from a scientific point of view, and can already be used for authenticating and encrypting. From a practical point of view, the public parts need to be exchanged and verified (usually a fingerprint or hash thereof). This leads to the struggle how to encode this cryptographic material, and how to embed an identity (or multiple), capabilities, and other information into it. &lt;a href=&quot;https://en.wikipedia.org/wiki/X.509&quot;&gt;X.509&lt;/a&gt; is a standard to solve this encoding and embedding, and provides more functionality, such as establishing chains of trust and revocation of invalidated or compromised material. X.509 uses certificates, which contain the public key, and additional information (in a extensible key-value store), and are signed by an issuer, either the private key corresponding to the public key - a so-called self-signed certificate - or by a different private key, an authority one step up the chain. A rather long, but very good introduction to certificates by Mike Malone is &lt;a href=&quot;https://smallstep.com/blog/everything-pki.html&quot;&gt;available here&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;OCaml ecosystem evolving&lt;/h2&gt;
+&lt;p&gt;More than 5 years ago David Kaloper and I &lt;a href=&quot;https://mirage.io/blog/introducing-x509&quot;&gt;released the initial ocaml-x509&lt;/a&gt; package as part of our &lt;a href=&quot;https://nqsb.io&quot;&gt;TLS stack&lt;/a&gt;, which contained code for decoding and encoding certificates, and path validation of a certificate chain (as described in &lt;a href=&quot;https://tools.ietf.org/html/rfc6125&quot;&gt;RFC 5280&lt;/a&gt;). The validation logic and the decoder/encoder, based on the ASN.1 grammar specified in the RFC, implemented using David's &lt;a href=&quot;https://github.com/mirleft/ocaml-asn1-combinators&quot;&gt;asn1-combinators&lt;/a&gt; library changed much over time.&lt;/p&gt;
+&lt;p&gt;The OCaml ecosystem evolved over the years, which lead to some changes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Camlp4 deprecation - we used camlp4 for stream parsers of PEM-encoded certificates, and sexplib.syntax to derive s-expression decoders and encoders;
+&lt;/li&gt;
+&lt;li&gt;Avoiding brittle ppx converters - which we used for s-expression decoders and encoders of certificates after camlp4 was deprecated;
+&lt;/li&gt;
+&lt;li&gt;Build and release system iterations - initially oasis and a packed library, then topkg and ocamlbuild, now dune;
+&lt;/li&gt;
+&lt;li&gt;Introduction of the &lt;code&gt;result&lt;/code&gt; type in the standard library - we used to use &lt;code&gt;[ `Ok of certificate option | `Fail of failure ]&lt;/code&gt;;
+&lt;/li&gt;
+&lt;li&gt;No more leaking exceptions in the public API;
+&lt;/li&gt;
+&lt;li&gt;Usage of pretty-printers, esp with the &lt;a href=&quot;https://erratique.ch/software/fmt&quot;&gt;fmt&lt;/a&gt; library &lt;code&gt;val pp : Format.formatter -&amp;gt; 'a -&amp;gt; unit&lt;/code&gt;, instead of &lt;code&gt;val to_string : t -&amp;gt; string&lt;/code&gt; functions;
+&lt;/li&gt;
+&lt;li&gt;Release of &lt;a href=&quot;https://erratique.ch/software/ptime&quot;&gt;ptime&lt;/a&gt;, a platform-independent POSIX time support;
+&lt;/li&gt;
+&lt;li&gt;Release of &lt;a href=&quot;https://erratique.ch/software/rresult&quot;&gt;rresult&lt;/a&gt;, which includes combinators for computation &lt;code&gt;result&lt;/code&gt;s;
+&lt;/li&gt;
+&lt;li&gt;Release of &lt;a href=&quot;https://github.com/hannesm/gmap&quot;&gt;gmap&lt;/a&gt;, a &lt;code&gt;Map&lt;/code&gt; whose value types depend on the key, used for X.509 extensions, GeneralName, DistinguishedName, etc.;
+&lt;/li&gt;
+&lt;li&gt;Release of &lt;a href=&quot;https://github.com/hannesm/domain-name&quot;&gt;domain-name&lt;/a&gt;, a library for domain name operations (as specified in &lt;a href=&quot;https://tools.ietf.org/html/rfc1035&quot;&gt;RFC 1035&lt;/a&gt;) - used for name validation;
+&lt;/li&gt;
+&lt;li&gt;Usage of the &lt;a href=&quot;https://github.com/mirage/alcotest&quot;&gt;alcotest&lt;/a&gt; unit testing framework (instead of oUnit).
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;More use cases for X.509&lt;/h2&gt;
+&lt;p&gt;Initially, we designed and used ocaml-x509 for providing TLS server endpoints and validation in TLS clients - mostly on the public web, where each operating system ships a set of ~100 trust anchors to validate any web server certificate against. But once you have a X.509 implementation, every authentication problem can be solved by applying it.&lt;/p&gt;
+&lt;h3&gt;Authentication with path building&lt;/h3&gt;
+&lt;p&gt;It turns out that the trust anchor sets are not equal across operating systems and versions, thus some web servers serve sets, instead of chains, of certificates - as described in &lt;a href=&quot;https://tools.ietf.org/html/rfc4158&quot;&gt;RFC 4158&lt;/a&gt;, where the client implementation needs to build valid paths and accept a connection if any path can be validated. The path building was initially in 0.5.2 slightly wrong, but fixed quickly in &lt;a href=&quot;https://github.com/mirleft/ocaml-x509/commit/1a1476308d24bdcc49d45c4cd9ef539ca57461d2&quot;&gt;0.5.3&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;Fingerprint authentication&lt;/h3&gt;
+&lt;p&gt;The chain of trust validation is useful for the open web, where you as software developer don't know to which remote endpoint your software will ever connect to - as long as the remote has a certificate signed (via intermediates) by any of the trust anchors. In the early days, before &lt;a href=&quot;https://letsencrypt.org/&quot;&gt;let's encrypt&lt;/a&gt; was launched and embedded as trust anchors (or cross-signed by already deployed trust anchors), operators needed to pay for a certificate - a business model where some CAs did not bother to check the authenticity of a certificate signing request, and thus random people owning valid certificates for microsoft.com or google.com.&lt;/p&gt;
+&lt;p&gt;Instead of using the set of trust anchors, the fingerprint of the server certificate, or preferably the fingerprint of the public key of the certificate, can be used for authentication, as optionally done since some years in &lt;a href=&quot;https://github.com/hannesm/jackline/commit/a1e6f3159be1e45e6b690845e1b29366c41239a2&quot;&gt;jackline&lt;/a&gt;, an XMPP client. Support for this certificate / public key pinning was added in x509 0.2.1 / 0.5.0.&lt;/p&gt;
+&lt;h3&gt;Certificate signing requests&lt;/h3&gt;
+&lt;p&gt;Until x509 0.4.0 there was no support for generating certificate signing requests (CSR), as defined in PKCS 10, which are self-signed blobs containing a public key, an identity, and possibly extensions. Such as CSR is sent to the certificate authority, and after validation of ownership of the identity and paying a fee, the certificate is issued. Let's encrypt specified the ACME protocol which automates the proof of ownership: they provide a HTTP API for requesting a challenge, providing the response (the proof of ownership) via HTTP or DNS, and then allow the submission of a CSR and downloading the signed certificate. The ocaml-x509 library provides operations for creating such a CSR, and also for signing a CSR to generate a certificate.&lt;/p&gt;
+&lt;p&gt;Mindy developed the command-line utility &lt;a href=&quot;https://github.com/yomimono/ocaml-certify/&quot;&gt;certify&lt;/a&gt; which uses these operations from the ocaml-x509 library and acts as a swiss-army knife purely in OCaml for these required operations.&lt;/p&gt;
+&lt;p&gt;Maker developed a &lt;a href=&quot;https://github.com/mmaker/ocaml-letsencrypt&quot;&gt;let's encrypt library&lt;/a&gt; which implements the above mentioned ACME protocol for provisioning CSR to certificates, also using our ocaml-x509 library.&lt;/p&gt;
+&lt;p&gt;To complete the required certificate authority functionality, in x509 0.6.0 certificate revocation lists, both validation and signing, was implemented.&lt;/p&gt;
+&lt;h3&gt;Deploying unikernels&lt;/h3&gt;
+&lt;p&gt;As &lt;a href=&quot;https://hannes.robur.coop/Posts/VMM&quot;&gt;described in another post&lt;/a&gt;, I developed &lt;a href=&quot;https://github.com/hannesm/albatross&quot;&gt;albatross&lt;/a&gt;, an orchestration system for MirageOS unikernels. This uses ASN.1 for internal socket communication and allows remote management via a TLS connection which is mutually authenticated with a X.509 client certificate. To encrypt the X.509 client certificate, first a TLS handshake where the server authenticates itself to the client is established, and over that connection another TLS handshake is established where the client certificate is requested. Note that this mechanism can be dropped with TLS 1.3, since there the certificates are transmitted over an already encrypted channel.&lt;/p&gt;
+&lt;p&gt;The client certificate already contains the command to execute remotely - as a custom extension, being it &amp;quot;show me the console output&amp;quot;, or &amp;quot;destroy the unikernel with name = YYY&amp;quot;, or &amp;quot;deploy the included unikernel image&amp;quot;. The advantage is that the commands are already authenticated, and there is no need for developing an ad-hoc protocol on top of the TLS session. The resource limits, assigned by the authority, are also part of the certificate chain - i.e. the number of unikernels, access to network bridges, available accumulated memory, accumulated size for block devices, are constrained by the certificate chain presented to the server, and currently running unikernels. The names of the chain are used for access control - if Alice and Bob have intermediate certificates from the same CA, neither Alice may manage Bob's unikernels, nor Bob may manage Alice's unikernels. I'm using albatross since 2.5 years in production on two physical machines with ~20 unikernels total (multiple users, multiple administrative domains), and it works stable and is much nicer to deal with than &lt;code&gt;scp&lt;/code&gt; and custom hacked shell scripts.&lt;/p&gt;
+&lt;h2&gt;Why 0.7?&lt;/h2&gt;
+&lt;p&gt;There are still some missing pieces in our ocaml-x509 implementation, namely modern ECC certificates (depending on elliptic curve primitives not yet available in OCaml), RSA-PSS signing (should be straightforward), PKCS 12 (there is a &lt;a href=&quot;https://github.com/mirleft/ocaml-x509/pull/114&quot;&gt;pull request&lt;/a&gt;, but this should wait until asn1-combinators supports the &lt;code&gt;ANY defined BY&lt;/code&gt; construct to cleanup the code), ...
+Once these features are supported, the library should likely be named PKCS since it supports more than X.509, and released as 1.0.&lt;/p&gt;
+&lt;p&gt;The 0.7 release series moved a lot of modules and function names around, thus it is a major breaking release. By using a map instead of lists for extensions, GeneralName, ..., the API was further revised - invariants that each extension key (an ASN.1 object identifier) may occur at most once are now enforced. By not leaking exceptions through the public interface, the API is easier to use safely - see &lt;a href=&quot;https://github.com/mmaker/ocaml-letsencrypt/commit/dc53518f46310f384c9526b1d96a8e8f815a09c7&quot;&gt;let's encrypt&lt;/a&gt;, &lt;a href=&quot;https://git.robur.io/?p=openvpn.git%3Ba=commitdiff%3Bh=929c53116c1438ba1214f53df7506d32da566ccc&quot;&gt;openvpn&lt;/a&gt;, &lt;a href=&quot;https://github.com/yomimono/ocaml-certify/pull/17&quot;&gt;certify&lt;/a&gt;, &lt;a href=&quot;https://github.com/mirleft/ocaml-tls/pull/394&quot;&gt;tls&lt;/a&gt;, &lt;a href=&quot;https://github.com/mirage/capnp-rpc/pull/158&quot;&gt;capnp&lt;/a&gt;, &lt;a href=&quot;https://github.com/hannesm/albatross/commit/50ed6a8d1ead169b3e322aaccb469e870ad72acc&quot;&gt;albatross&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I intended in 0.7.0 to have much more precise types, esp. for the SubjectAlternativeName (SAN) extension that uses a GeneralName, but it turns out the GeneralName is as well used for NameConstraints (NC) in a different way -- IP in SAN is an IPv4 or IPv6 address, in CN it is the IP/netmask; DNS is a domain name in SAN, in CN it is a name starting with a leading dot (i.e. &amp;quot;.example.com&amp;quot;), which is not a valid domain name. In 0.7.1, based on a bug report, I had to revert these variants and use less precise types.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;The work on X.509 was sponsored by &lt;a href=&quot;http://ocamllabs.io/&quot;&gt;OCaml Labs&lt;/a&gt;. You can support our work at robur by a &lt;a href=&quot;https://robur.io/Donate&quot;&gt;donation&lt;/a&gt;, which we will use to work on our OCaml and MirageOS projects. You can also reach out to us to realize commercial products.&lt;/p&gt;
+&lt;p&gt;I'm interested in feedback, either via &lt;strike&gt;&lt;a href=&quot;https://twitter.com/h4nnes&quot;&gt;twitter&lt;/a&gt;&lt;/strike&gt; &lt;a href=&quot;https://mastodon.social/@hannesm&quot;&gt;hannesm@mastodon.social&lt;/a&gt; or via eMail.&lt;/p&gt;
+</content><id>https://hannes.robur.coop/Posts/X50907</id><title type="text">X509 0.7</title><updated>2019-08-15T11:21:30-00:00</updated><author><name>hannes</name></author></entry></feed>
