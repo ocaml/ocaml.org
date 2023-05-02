@@ -1,4 +1,4 @@
-let render ~tags ?current_tag (news : Ood.Changelog.t list) =
+let render ~tags ?current_tag (news : Data.Changelog.t list) =
 Layout.render
 ~title:"OCaml Changelog"
 ~description:"Read the latest releases and updates from the OCaml ecosystem." @@
@@ -36,7 +36,7 @@ Layout.render
   <div class="container-fluid">
     <div class="mt-20 md:pl-8 md:border-l-2">
       <div class="flex flex-col gap-6 lg:gap-8 mx-auto">
-        <% news |> List.iter (fun (item : Ood.Changelog.t) -> %>
+        <% news |> List.iter (fun (item : Data.Changelog.t) -> %>
         <article class="flex flex-col lg:flex-row relative gap-6 lg:gap-10">
           <div class="relative md:w-72 pb-6 lg:pb-8">
             <div class="sticky" style="top: 128px; word-break: keep-all;">

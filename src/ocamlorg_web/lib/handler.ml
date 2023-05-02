@@ -9,53 +9,53 @@ let ( let</>? ) opt = http_or_404 opt
 let index _req = Dream.html (Ocamlorg_frontend.home ())
 
 let learn _req =
-  let papers = Ood.Paper.featured in
-  let books = Ood.Book.featured in
-  let tutorials = Ood.Tutorial.all in
-  let release = List.hd Ood.Release.all in
+  let papers = Data.Paper.featured in
+  let books = Data.Book.featured in
+  let tutorials = Data.Tutorial.all in
+  let release = List.hd Data.Release.all in
   Dream.html (Ocamlorg_frontend.learn ~papers ~books ~release ~tutorials)
 
 let platform _req =
-  let tools = Ood.Tool.all in
-  let tutorials = Ood.Tutorial.all in
+  let tools = Data.Tool.all in
+  let tutorials = Data.Tutorial.all in
   Dream.html (Ocamlorg_frontend.platform ~tutorials tools)
 
 let community _req =
-  let workshops = Ood.Workshop.all in
-  let meetups = Ood.Meetup.all in
+  let workshops = Data.Workshop.all in
+  let meetups = Data.Meetup.all in
   Dream.html (Ocamlorg_frontend.community ~workshops ~meetups)
 
 let changelog req =
   let current_tag = Dream.query req "t" in
   let tags =
-    Ood.Changelog.all
-    |> List.concat_map (fun (change : Ood.Changelog.t) -> change.tags)
+    Data.Changelog.all
+    |> List.concat_map (fun (change : Data.Changelog.t) -> change.tags)
     |> List.sort_uniq String.compare
     |> List.sort_uniq String.compare
   in
   let changes =
     match current_tag with
-    | None | Some "" -> Ood.Changelog.all
+    | None | Some "" -> Data.Changelog.all
     | Some tag ->
         List.filter
-          (fun change -> List.exists (( = ) tag) change.Ood.Changelog.tags)
-          Ood.Changelog.all
+          (fun change -> List.exists (( = ) tag) change.Data.Changelog.tags)
+          Data.Changelog.all
   in
   Dream.html (Ocamlorg_frontend.changelog ?current_tag ~tags changes)
 
 let success_story req =
   let slug = Dream.param req "id" in
-  let</>? success_story = Ood.Success_story.get_by_slug slug in
+  let</>? success_story = Data.Success_story.get_by_slug slug in
   Dream.html (Ocamlorg_frontend.success_story success_story)
 
 let industrial_users _req =
-  let users = Ood.Industrial_user.featured in
-  let success_stories = Ood.Success_story.all in
+  let users = Data.Industrial_user.featured in
+  let success_stories = Data.Success_story.all in
   Dream.html (Ocamlorg_frontend.industrial_users ~users ~success_stories)
 
 let academic_users req =
   let search_user pattern t =
-    let open Ood.Academic_institution in
+    let open Data.Academic_institution in
     let pattern = String.lowercase_ascii pattern in
     let name_is_s { name; _ } = String.lowercase_ascii name = pattern in
     let name_contains_s { name; _ } =
@@ -72,17 +72,17 @@ let academic_users req =
   in
   let users =
     match Dream.query req "q" with
-    | None -> Ood.Academic_institution.all
-    | Some search -> search_user search Ood.Academic_institution.all
+    | None -> Data.Academic_institution.all
+    | Some search -> search_user search Data.Academic_institution.all
   in
   Dream.html (Ocamlorg_frontend.academic_users users)
 
 let about _req = Dream.html (Ocamlorg_frontend.about ())
-let books _req = Dream.html (Ocamlorg_frontend.books Ood.Book.all)
+let books _req = Dream.html (Ocamlorg_frontend.books Data.Book.all)
 
 let releases req =
   let search_release pattern t =
-    let open Ood.Release in
+    let open Data.Release in
     let pattern = String.lowercase_ascii pattern in
     let version_is_s { version; _ } =
       String.lowercase_ascii version = pattern
@@ -107,22 +107,22 @@ let releases req =
   let search = Dream.query req "q" in
   let releases =
     match search with
-    | None -> Ood.Release.all
-    | Some search -> search_release search Ood.Release.all
+    | None -> Data.Release.all
+    | Some search -> search_release search Data.Release.all
   in
   Dream.html (Ocamlorg_frontend.releases releases)
 
 let release req =
   let version = Dream.param req "id" in
-  let</>? version = Ood.Release.get_by_version version in
+  let</>? version = Data.Release.get_by_version version in
   Dream.html (Ocamlorg_frontend.release version)
 
 let workshop req =
   let watch_ocamlorg_embed =
     let presentations =
       List.concat_map
-        (fun (w : Ood.Workshop.t) -> w.presentations)
-        Ood.Workshop.all
+        (fun (w : Data.Workshop.t) -> w.presentations)
+        Data.Workshop.all
     in
     let rec get_last = function
       | [] -> ""
@@ -131,12 +131,12 @@ let workshop req =
     in
     let watch =
       List.map
-        (fun (w : Ood.Watch.t) ->
+        (fun (w : Data.Watch.t) ->
           String.split_on_char '/' w.embed_path |> get_last |> fun v -> (v, w))
-        Ood.Watch.all
+        Data.Watch.all
     in
     let tbl = Hashtbl.create 100 in
-    let add_video (p : Ood.Workshop.presentation) =
+    let add_video (p : Data.Workshop.presentation) =
       match p.video with
       | Some video ->
           let uuid = String.split_on_char '/' video |> get_last in
@@ -150,7 +150,7 @@ let workshop req =
   in
   let slug = Dream.param req "id" in
   let</>? workshop =
-    List.find_opt (fun x -> x.Ood.Workshop.slug = slug) Ood.Workshop.all
+    List.find_opt (fun x -> x.Data.Workshop.slug = slug) Data.Workshop.all
   in
   Dream.html (Ocamlorg_frontend.workshop ~videos:watch_ocamlorg_embed workshop)
 
@@ -173,49 +173,51 @@ let paginate ~req ~n items =
 let blog req =
   let page, number_of_pages, current_items =
     paginate ~req ~n:10
-      (List.filter (fun (x : Ood.Planet.t) -> not x.featured) Ood.Planet.all)
+      (List.filter (fun (x : Data.Planet.t) -> not x.featured) Data.Planet.all)
   in
-  let featured = Ood.Planet.featured |> List.take 3 in
-  let news = Ood.News.all |> List.take 20 in
+  let featured = Data.Planet.featured |> List.take 3 in
+  let news = Data.News.all |> List.take 20 in
   Dream.html
     (Ocamlorg_frontend.blog ~featured ~planet:current_items ~planet_page:page
        ~planet_pages_number:number_of_pages ~news)
 
 let blog_post req =
   let slug = Dream.param req "id" in
-  let</>? blog = Ood.Planet.get_by_slug slug in
+  let</>? blog = Data.Planet.get_by_slug slug in
   Dream.html (Ocamlorg_frontend.blog_post blog)
 
 let news req =
-  let page, number_of_pages, current_items = paginate ~req ~n:10 Ood.News.all in
+  let page, number_of_pages, current_items =
+    paginate ~req ~n:10 Data.News.all
+  in
   Dream.html
     (Ocamlorg_frontend.news ~page ~pages_number:number_of_pages current_items)
 
 let news_post req =
   let slug = Dream.param req "id" in
-  let</>? news = Ood.News.get_by_slug slug in
+  let</>? news = Data.News.get_by_slug slug in
   Dream.html (Ocamlorg_frontend.news_post news)
 
 let jobs req =
   let location = Dream.query req "c" in
   let jobs =
     match location with
-    | None | Some "All" -> Ood.Job.all
+    | None | Some "All" -> Data.Job.all
     | Some location ->
         List.filter
-          (fun job -> List.exists (( = ) location) job.Ood.Job.locations)
-          Ood.Job.all
+          (fun job -> List.exists (( = ) location) job.Data.Job.locations)
+          Data.Job.all
   in
   let locations =
-    Ood.Job.all
+    Data.Job.all
     |> List.concat_map (fun job ->
-           List.filter (( <> ) "Remote") job.Ood.Job.locations)
+           List.filter (( <> ) "Remote") job.Data.Job.locations)
     |> List.sort_uniq String.compare
   in
   Dream.html (Ocamlorg_frontend.jobs ?location ~locations jobs)
 
 let page canonical (_req : Dream.request) =
-  let page = Ood.Page.get canonical in
+  let page = Data.Page.get canonical in
   Dream.html
     (Ocamlorg_frontend.page ~title:page.title ~description:page.description
        ~meta_title:page.meta_title ~meta_description:page.meta_description
@@ -229,7 +231,7 @@ let playground _req = Dream.html (Ocamlorg_frontend.playground ())
 
 let papers req =
   let search_paper pattern t =
-    let open Ood.Paper in
+    let open Data.Paper in
     let pattern = String.lowercase_ascii pattern in
     let title_is_s { title; _ } = String.lowercase_ascii title = pattern in
     let title_contains_s { title; _ } =
@@ -258,28 +260,28 @@ let papers req =
   let search = Dream.query req "q" in
   let papers =
     match search with
-    | None -> Ood.Paper.all
-    | Some search -> search_paper search Ood.Paper.all
+    | None -> Data.Paper.all
+    | Some search -> search_paper search Data.Paper.all
   in
-  let recommended_papers = Ood.Paper.featured in
+  let recommended_papers = Data.Paper.featured in
   Dream.html (Ocamlorg_frontend.papers ?search ~recommended_papers papers)
 
 let tutorial req =
   let slug = Dream.param req "id" in
   let</>? tutorial =
-    List.find_opt (fun x -> x.Ood.Tutorial.slug = slug) Ood.Tutorial.all
+    List.find_opt (fun x -> x.Data.Tutorial.slug = slug) Data.Tutorial.all
   in
   Dream.html
-    (Ocamlorg_frontend.tutorial ~tutorials:Ood.Tutorial.all
+    (Ocamlorg_frontend.tutorial ~tutorials:Data.Tutorial.all
        ~canonical:(Url.tutorial tutorial.slug)
        tutorial)
 
 let best_practices _req =
-  let tutorials = Ood.Tutorial.all in
-  Dream.html (Ocamlorg_frontend.best_practices ~tutorials Ood.Workflow.all)
+  let tutorials = Data.Tutorial.all in
+  Dream.html (Ocamlorg_frontend.best_practices ~tutorials Data.Workflow.all)
 
 let problems req =
-  let all_problems = Ood.Problem.all in
+  let all_problems = Data.Problem.all in
   let difficulty_level = Dream.query req "difficulty_level" in
   let compare_difficulty = function
     | "beginner" -> ( = ) `Beginner
@@ -287,7 +289,7 @@ let problems req =
     | "advanced" -> ( = ) `Advanced
     | _ -> Fun.const true
   in
-  let by_difficulty level (problem : Ood.Problem.t) =
+  let by_difficulty level (problem : Data.Problem.t) =
     match level with
     | Some difficulty -> compare_difficulty difficulty problem.difficulty
     | _ -> true
@@ -298,7 +300,7 @@ let problems req =
   Dream.html (Ocamlorg_frontend.problems ?difficulty_level filtered_problems)
 
 let installer req = Dream.redirect req Url.github_installer
-let outreachy _req = Dream.html (Ocamlorg_frontend.outreachy Ood.Outreachy.all)
+let outreachy _req = Dream.html (Ocamlorg_frontend.outreachy Data.Outreachy.all)
 
 type package_kind = Package | Universe
 
@@ -706,5 +708,5 @@ let sitemap _request =
   Dream.stream
     ~headers:[ ("Content-Type", "application/xml; charset=utf-8") ]
     (fun stream ->
-      let* _ = Lwt_seq.iter_s (Dream.write stream) Sitemap.ood in
+      let* _ = Lwt_seq.iter_s (Dream.write stream) Sitemap.data in
       Dream.flush stream)

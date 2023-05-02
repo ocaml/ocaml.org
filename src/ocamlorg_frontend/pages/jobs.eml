@@ -1,4 +1,4 @@
-let render ?(location = "All") ~locations (jobs : Ood.Job.t list) =
+let render ?(location = "All") ~locations (jobs : Data.Job.t list) =
 Layout.render
 ~title:"OCaml Jobs"
 ~description:"This is a space where groups, companies, and organisations can advertise their projects directly to the
@@ -46,7 +46,7 @@ OCaml community."
         </div>
         <% | _ -> %>
         <div class="grid grid-cols-1 pb-8 lg:grid-cols-3 gap-8 mt-12" x-data="{ location: '<%s location %>' }">
-            <% jobs |> List.iter (fun (item : Ood.Job.t) -> %>
+            <% jobs |> List.iter (fun (item : Data.Job.t) -> %>
             <a href="<%s item.link %>"
                 target="_blank"
                 class="text-left p-8 border border-gray-200 rounded-xl card-hover"

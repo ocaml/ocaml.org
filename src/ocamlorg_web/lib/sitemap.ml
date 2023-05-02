@@ -34,7 +34,7 @@ let urls =
 let to_url u = "\n<url><loc>https://ocaml.org" ^ u ^ "</loc></url>"
 
 let urlables =
-  let open Ood in
+  let open Data in
   List.to_seq
     [
       Urlable (urls, to_url);
@@ -47,7 +47,7 @@ let urlables =
 
 let urlset (Urlable (all, show)) = Seq.map show (List.to_seq all)
 
-let ood =
+let data =
   let header =
     {|<?xml version="1.0" encoding="utf-8"?>
 <urlset

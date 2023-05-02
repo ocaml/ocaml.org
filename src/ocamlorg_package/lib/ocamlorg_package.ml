@@ -127,7 +127,7 @@ let update ~commit t =
   Logs.info (fun f -> f "Computing packages statistics...");
   let+ stats = Statistics.compute packages in
   let featured =
-    Ood.Packages.all.featured
+    Data.Packages.all.featured
     |> List.filter_map (fun p -> get_latest' packages (Name.of_string p))
   in
   t.packages <- packages;
@@ -500,7 +500,7 @@ end = struct
       match s with Some s -> match_ f s pattern | None -> false
     in
     List.exists
-      (fun (author : Ood.Opam_user.t) ->
+      (fun (author : Data.Opam_user.t) ->
         match_opt (Some author.name)
         || match_opt author.email
         || match_opt author.github_username)

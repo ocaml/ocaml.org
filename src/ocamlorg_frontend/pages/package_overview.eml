@@ -19,7 +19,7 @@ let sidebar
 ~version
 (package: Package.package)
 =
-let render_user_avatar ~x_show (user: Ood.Opam_user.t) =
+let render_user_avatar ~x_show (user: Data.Opam_user.t) =
   <li class="flex justify-start" <%s! if x_show then "x-show='open'" else "" %>>
     <a href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded user.name %>%22" class="flex items-center gap-3">
       <% (match user.avatar with | None -> %>
@@ -33,10 +33,10 @@ let render_user_avatar ~x_show (user: Ood.Opam_user.t) =
     </a>
   </li>
 in
-let render_user_list (users: Ood.Opam_user.t list) =
+let render_user_list (users: Data.Opam_user.t list) =
   <div class="mt-3 text-sm text-gray-900" <%s! if List.length users > num_of_users_to_show then "x-data='{ open: false }'" else "" %>>
     <ol class="space-y-3">
-      <% users |> List.iteri (fun i (user : Ood.Opam_user.t) -> %>
+      <% users |> List.iteri (fun i (user : Data.Opam_user.t) -> %>
       <%s! render_user_avatar ~x_show:(i > num_of_users_to_show - 1) user %>
       <% ); %>
     </ol>

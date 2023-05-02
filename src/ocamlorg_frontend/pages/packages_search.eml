@@ -82,7 +82,7 @@ let render ~total ~search (packages : Package.package list) = Layout.render ~tit
               </div>
               <% ) else (); %>
               <div class="flex items-center flex-wrap gap-x-3 text-sm text-body-500">
-                <% package.authors |> Ocamlorg.Import.List.take 5 |> List.iter (fun (author : Ood.Opam_user.t) -> %>
+                <% package.authors |> Ocamlorg.Import.List.take 5 |> List.iter (fun (author : Data.Opam_user.t) -> %>
                 <a
                   href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded author.name %>%22"
                   class="hover:underline"

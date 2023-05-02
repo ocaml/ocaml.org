@@ -11,8 +11,8 @@ type package = {
   latest_version : string;
   tags : string list;
   rev_deps : string list;
-  authors : Ood.Opam_user.t list;
-  maintainers : Ood.Opam_user.t list;
+  authors : Data.Opam_user.t list;
+  maintainers : Data.Opam_user.t list;
   publication : float;
   homepages : string list;
   source : (string * string list) option;

@@ -1,4 +1,4 @@
-let render ~(videos : (string, Ood.Watch.t) Hashtbl.t) (workshop : Ood.Workshop.t) =
+let render ~(videos : (string, Data.Watch.t) Hashtbl.t) (workshop : Data.Workshop.t) =
 Layout.render
 ~title:workshop.title
 ~description:(Printf.sprintf "A description of the workshop %s held on %s" workshop.title workshop.date)
@@ -16,7 +16,7 @@ Layout.render
           <div class="-ml-px w-1 border-dashed border-r-2 border-primary-300 h-full"></div>
         </div>
         <% let seen_upcoming = ref false in
-        workshop.important_dates |> List.iter (fun (date : Ood.Workshop.important_date) ->
+        workshop.important_dates |> List.iter (fun (date : Data.Workshop.important_date) ->
         match date.date > Utils.current_date with
         | true when not !seen_upcoming -> (
         seen_upcoming := true; %>
@@ -62,7 +62,7 @@ Layout.render
               </tr>
             </thead>
             <tbody class="even:bg-gray-50">
-              <% workshop.presentations |> List.iter (fun (presentation : Ood.Workshop.presentation) -> %>
+              <% workshop.presentations |> List.iter (fun (presentation : Data.Workshop.presentation) -> %>
               <tr>
                 <td class="py-4 px-6 font-semibold"><%s presentation.title %></td>
                 <td class="py-4 px-6 font-medium"><%s Fmt.(str "%a" (list ~sep:comma string) presentation.authors) %></td>
@@ -98,10 +98,10 @@ Layout.render
         <h5 class="font-bold text-white mb-12">Organising Committee</h5>
         <div class="flex flex-wrap justify-center space-x-12">
           <% 
-          let committee_with_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_some x.picture) workshop.organising_committee in
-          let committee_without_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_none x.picture) workshop.organising_committee in
-          let names = List.map (fun (x : Ood.Workshop.committee_member) -> match x.affiliation with None -> x.name | Some affiliation -> Printf.sprintf "%s (%s)" x.name affiliation) committee_without_pictures in
-          committee_with_pictures |> List.iter (fun (member : Ood.Workshop.committee_member) -> %>
+          let committee_with_pictures = List.filter (fun (x : Data.Workshop.committee_member) -> Option.is_some x.picture) workshop.organising_committee in
+          let committee_without_pictures = List.filter (fun (x : Data.Workshop.committee_member) -> Option.is_none x.picture) workshop.organising_committee in
+          let names = List.map (fun (x : Data.Workshop.committee_member) -> match x.affiliation with None -> x.name | Some affiliation -> Printf.sprintf "%s (%s)" x.name affiliation) committee_without_pictures in
+          committee_with_pictures |> List.iter (fun (member : Data.Workshop.committee_member) -> %>
           <div href="" class="mt-12">
             <img src="<%s Option.get member.picture %>" width="148px" class="m-auto h-auto rounded-lg" alt="" />
             <div class="font-medium mt-3"><%s member.name %></div>
@@ -119,10 +119,10 @@ Layout.render
         <h5 class="font-bold mt-16">Program Committee</h5>
         <div class="flex flex-wrap justify-center space-x-12">
           <% 
-          let committee_with_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_some x.picture) workshop.program_committee in
-          let committee_without_pictures = List.filter (fun (x : Ood.Workshop.committee_member) -> Option.is_none x.picture) workshop.program_committee in
-          let names = List.map (fun (x : Ood.Workshop.committee_member) -> match x.affiliation with None -> x.name | Some affiliation -> Printf.sprintf "%s (%s)" x.name affiliation) committee_without_pictures in
-          committee_with_pictures |> List.iter (fun (member : Ood.Workshop.committee_member) -> %>
+          let committee_with_pictures = List.filter (fun (x : Data.Workshop.committee_member) -> Option.is_some x.picture) workshop.program_committee in
+          let committee_without_pictures = List.filter (fun (x : Data.Workshop.committee_member) -> Option.is_none x.picture) workshop.program_committee in
+          let names = List.map (fun (x : Data.Workshop.committee_member) -> match x.affiliation with None -> x.name | Some affiliation -> Printf.sprintf "%s (%s)" x.name affiliation) committee_without_pictures in
+          committee_with_pictures |> List.iter (fun (member : Data.Workshop.committee_member) -> %>
           <div href="" class="mt-12">
             <img src="<%s Option.get member.picture %>" width="148px" class="m-auto h-auto rounded-lg" alt="" />
             <div class="font-medium mt-3"><%s member.name %></div>
@@ -139,13 +139,13 @@ Layout.render
     </div>
   </div>
 </div>
-<% let videos = List.filter_map (fun (p : Ood.Workshop.presentation) -> Hashtbl.find_opt videos p.title)
+<% let videos = List.filter_map (fun (p : Data.Workshop.presentation) -> Hashtbl.find_opt videos p.title)
 workshop.presentations in (match List.length videos with | 0 -> () | _ -> %>
 <div class="bg-white py-24">
   <div class="container-fluid">
     <h3 class="font-bold mb-12">Some Videos</h3>
     <div class="grid lg:grid-cols-3 gap-14">
-      <% let videos = List.filteri (fun i _ -> i < 6) videos in videos |> List.iter (fun (video : Ood.Watch.t) -> %>
+      <% let videos = List.filteri (fun i _ -> i < 6) videos in videos |> List.iter (fun (video : Data.Watch.t) -> %>
       <div class="card-hover inline-block">
         <iframe
           loading="lazy"

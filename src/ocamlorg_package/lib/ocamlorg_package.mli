@@ -33,8 +33,8 @@ module Info : sig
   type t = {
     synopsis : string;
     description : string;
-    authors : Ood.Opam_user.t list;
-    maintainers : Ood.Opam_user.t list;
+    authors : Data.Opam_user.t list;
+    maintainers : Data.Opam_user.t list;
     license : string;
     homepage : string list;
     tags : string list;

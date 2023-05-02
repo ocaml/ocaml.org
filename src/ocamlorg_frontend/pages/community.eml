@@ -8,8 +8,8 @@ let current_date =
     (tm.tm_mon + 1)
     tm.tm_mday
 in
-let old_workshops = List.filter (fun (w : Ood.Workshop.t) -> w.date < current_date) workshops in
-let upcoming_workshops = List.filter (fun (w : Ood.Workshop.t) -> w.date >= current_date) workshops in
+let old_workshops = List.filter (fun (w : Data.Workshop.t) -> w.date < current_date) workshops in
+let upcoming_workshops = List.filter (fun (w : Data.Workshop.t) -> w.date >= current_date) workshops in
 Layout.render
 ~title:"The OCaml Community"
 ~description:"Looking to interact with people who are also interested in OCaml? Find out about upcoming events, read up on blogs from the community, sign up for OCaml mailing lists, and discover even more places to engage with people from the community!"
@@ -97,7 +97,7 @@ Layout.render
               Upcoming Events
           </div>
           <div class="flex flex-col lg:flex-row items-center justify-center gap-10 mt-12 flex-wrap">
-              <% upcoming_workshops |> List.iter (fun (workshop : Ood.Workshop.t) -> %>
+              <% upcoming_workshops |> List.iter (fun (workshop : Data.Workshop.t) -> %>
               <a href="<%s Url.workshop workshop.slug %>" class="w-full lg:w-96 bg-white p-8 rounded-xl transition-transform hover:scale-105">
                   <div class="font-semibold"><%s workshop.title %></div>
                   <div class="mt-4">
@@ -118,7 +118,7 @@ Layout.render
           </div>
           <% ); %>
           <div class="flex flex-col lg:flex-row items-center justify-center gap-10 mt-12 flex-wrap">
-              <% old_workshops |> List.iter (fun (workshop : Ood.Workshop.t) -> %>
+              <% old_workshops |> List.iter (fun (workshop : Data.Workshop.t) -> %>
               <a href="<%s Url.workshop workshop.slug %>" class="w-full lg:w-96 bg-white p-8 rounded-xl transition-transform hover:scale-105">
                   <div class="font-semibold"><%s workshop.title %></div>
                   <div class="mt-4">
@@ -143,7 +143,7 @@ Layout.render
         <h2 class="font-bold">Meetups</h2>
       </div>
       <div class="grid lg:grid-cols-3 gap-8 lg:gap-12 mt-12">
-          <% meetups |> List.iter (fun (meetup : Ood.Meetup.t) -> %>
+          <% meetups |> List.iter (fun (meetup : Data.Meetup.t) -> %>
           <a href="<%s meetup.url %>" class="border border-gray-200 p-8 rounded-xl transition-transform hover:scale-105">
               <div class="font-semibold">
                   <%s meetup.title %>

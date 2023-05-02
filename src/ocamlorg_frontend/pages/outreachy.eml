@@ -1,4 +1,4 @@
-let render (metadata : Ood.Outreachy.t list)
+let render (metadata : Data.Outreachy.t list)
 = 
 Layout.render
 ~title:"OCaml Outreachy Internships"
@@ -13,10 +13,10 @@ Layout.render
 
 <div class="py-12 bg-white">
     <div class="container-fluid">
-        <% metadata |> List.iter (fun (rounds : Ood.Outreachy.t) -> %>
+        <% metadata |> List.iter (fun (rounds : Data.Outreachy.t) -> %>
             <h2 class="border-b border-primary-700 p-6 my-2 font-bold"><%s rounds.name %></h2>
             <div class="grid gap-10 prose max-w-4xl">
-                <% rounds.projects |> List.iter (fun (project : Ood.Outreachy.project) -> %>
+                <% rounds.projects |> List.iter (fun (project : Data.Outreachy.project) -> %>
                     <div x-data="{'is_shown': false}" class="p-5 flex flex-col gap-2">              
                         <h3><%s project.title %></h3>
                         <div>Mentee: <i><%s project.mentee %></i></div>

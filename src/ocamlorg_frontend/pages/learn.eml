@@ -1,6 +1,6 @@
 let render
-~(papers : Ood.Paper.t list)
-~(release : Ood.Release.t) ~(books : Ood.Book.t list)
+~(papers : Data.Paper.t list)
+~(release : Data.Release.t) ~(books : Data.Book.t list)
 ~tutorials
 =
 Learn_layout.render
@@ -60,7 +60,7 @@ Learn_layout.render
       Check out papers written by leading OCaml researchers:
     </div>
     <div class="flex flex-col lg:flex-row mt-8 space-y-4 lg:space-y-0 lg:space-x-6">
-      <% papers |> List.iter (fun (paper : Ood.Paper.t) -> %>
+      <% papers |> List.iter (fun (paper : Data.Paper.t) -> %>
       <a
         href="<%s paper.links |> List.hd |> (fun x -> x.uri) %>"
         class="card-hover flex-1 p-6 border border-gray-200 rounded-xl"
@@ -110,7 +110,7 @@ Learn_layout.render
         What experts programmers and researchers are saying about OCaml, from the beginner level to the more advanced topics.
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-20">
-      <% books |> List.iter (fun (item : Ood.Book.t) -> %>
+      <% books |> List.iter (fun (item : Data.Book.t) -> %>
       <a href="<%s item.links |> List.hd |> (fun x -> x.uri) %>" class="flex-1 card-hover">
         <img
           src="/media/<%s item.cover %>"

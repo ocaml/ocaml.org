@@ -9,6 +9,6 @@
   dream-accept
   dream-encoding
   omd
-  ood
+  ocamlorg.data
   timedesc
   mirage-kv-mem))
