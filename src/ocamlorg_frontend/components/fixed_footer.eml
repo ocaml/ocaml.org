@@ -4,7 +4,7 @@ let render () =
   <div class="container-fluid wide">
     <ul class="flex flex-col md:flex-row md:flex-wrap md:h-12 gap-x-6">
       <li>
-        <a class="h-10 md:h-12 flex items-center mb-6 md:mb-0" href="<%s Url.index %>"><img class="h-8 md:h-6 pb-1" src="/logo-with-name.svg" alt="OCaml"></a>
+        <a class="h-10 md:h-12 flex items-center mb-6 md:mb-0" href="<%s Url.index %>"><img class="h-8 md:h-6 pb-1" src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" alt="OCaml"></a>
       </li>
       <li>
         <a class="h-10 md:h-12 flex items-center text-gray-600" href="<%s Url.getting_started %>" class="text-base leading-6 text-gray-600">Get Started</a>

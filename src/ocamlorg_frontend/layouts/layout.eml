@@ -32,7 +32,7 @@ inner =
     <% (match canonical with | Some canonical -> %>
     <link rel="canonical" href="https://ocaml.org<%s canonical %>">
     <% | None -> ()); %>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="<%s Ocamlorg_static.Asset.url "favicon.ico" %>">
     <link rel="manifest" href="/manifest.json">
     <% (match styles with | Some styles -> styles |> List.iter (fun style -> %>
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url style %>">

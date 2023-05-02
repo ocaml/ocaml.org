@@ -16,7 +16,7 @@ let render
     <meta name="color-scheme" content="white">
     <meta name="”robots”" content="noindex, nofollow">
     <link rel="canonical" href="https://ocaml.org<%s Url.playground %>">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="<%s Ocamlorg_static.Asset.url "favicon.ico" %>">
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "css/main.css" %>">
     <link rel="stylesheet" href="<%s Ocamlorg_static.Asset.url "css/codemirror.css" %>">
