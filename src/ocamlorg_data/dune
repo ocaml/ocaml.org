@@ -1,5 +1,5 @@
 (library
- (name ood)
+ (name data)
  (public_name ocamlorg.data))
 
 (rule

@@ -12,4 +12,4 @@
   yojson
   cohttp
   cohttp-lwt-unix
-  ood))
+  ocamlorg.data))

@@ -1,6 +1,6 @@
 let render_books books =
     <div class="overflow-x-scroll lg:overflow-hidden mt-5 lg:mt-10">
-        <% books |> List.iter (fun (item : Ood.Book.t) -> %>
+        <% books |> List.iter (fun (item : Data.Book.t) -> %>
         <div
             class="flex space-y-10 lg:space-y-0 lg:space-x-16 pb-10 lg:pb-20 border-b border-gray-200 mt-10 lg:mt-20 flex-col lg:flex-row">
             <img src="/media/<%s item.cover %>"
@@ -20,7 +20,7 @@ let render_books books =
                 <% ); %>
                 <div class="font-semibold text-base mb-6 uppercase"><%s item.authors |> String.concat ", " %></div>
                 <div class="prose prose-orange mb-6"><%s! item.body_html %></div>
-                <% item.links |> List.iter (fun (link : Ood.Book.link) -> %>
+                <% item.links |> List.iter (fun (link : Data.Book.link) -> %>
                     <a class="btn btn-secondary" href="<%s link.uri %>">
                         <span><%s link.description %></span>
                         <%s! Icons.chevron_right "h-4 w-4" %>
@@ -64,22 +64,22 @@ Layout.render
                 </div>
             </div>
             <div :class="language != 'english' ? 'hidden' : 'block'">
-                <%s! render_books (List.filter (fun x -> x.Ood.Book.language = "english") books) %>
+                <%s! render_books (List.filter (fun x -> x.Data.Book.language = "english") books) %>
             </div>
             <div :class="language != 'french' ? 'hidden' : 'block'">
-                <%s! render_books (List.filter (fun x -> x.Ood.Book.language = "french") books) %>
+                <%s! render_books (List.filter (fun x -> x.Data.Book.language = "french") books) %>
             </div>
             <div :class="language != 'italian' ? 'hidden' : 'block'">
-                <%s! render_books (List.filter (fun x -> x.Ood.Book.language = "italian") books) %>
+                <%s! render_books (List.filter (fun x -> x.Data.Book.language = "italian") books) %>
             </div>
             <div :class="language != 'portugese' ? 'hidden' : 'block'">
-                <%s! render_books (List.filter (fun x -> x.Ood.Book.language = "portugese") books) %>
+                <%s! render_books (List.filter (fun x -> x.Data.Book.language = "portugese") books) %>
             </div>
             <div :class="language != 'japanese' ? 'hidden' : 'block'">
-                <%s! render_books (List.filter (fun x -> x.Ood.Book.language = "japanese") books) %>
+                <%s! render_books (List.filter (fun x -> x.Data.Book.language = "japanese") books) %>
             </div>
             <div :class="language != 'chinese' ? 'hidden' : 'block'">
-                <%s! render_books (List.filter (fun x -> x.Ood.Book.language = "chinese") books) %>
+                <%s! render_books (List.filter (fun x -> x.Data.Book.language = "chinese") books) %>
             </div>
         </div>
     </div>

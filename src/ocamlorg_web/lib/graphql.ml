@@ -115,19 +115,19 @@ let owners =
           field "name" ~doc:"Owner's name"
             ~args:Arg.[]
             ~typ:(non_null string)
-            ~resolve:(fun _ user -> user.Ood.Opam_user.name);
+            ~resolve:(fun _ user -> user.Data.Opam_user.name);
           field "email" ~doc:"Owner's email"
             ~args:Arg.[]
             ~typ:string
-            ~resolve:(fun _ user -> user.Ood.Opam_user.email);
+            ~resolve:(fun _ user -> user.Data.Opam_user.email);
           field "githubUsername" ~doc:"Owner's GitHub username"
             ~args:Arg.[]
             ~typ:string
-            ~resolve:(fun _ user -> user.Ood.Opam_user.github_username);
+            ~resolve:(fun _ user -> user.Data.Opam_user.github_username);
           field "avatar" ~doc:"Owner's avatar image URL"
             ~args:Arg.[]
             ~typ:string
-            ~resolve:(fun _ user -> user.Ood.Opam_user.avatar);
+            ~resolve:(fun _ user -> user.Data.Opam_user.avatar);
         ])
 
 let url =

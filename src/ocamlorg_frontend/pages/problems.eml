@@ -1,7 +1,7 @@
 let problems_sidebar
 ~problems
 =
-let open Ood in
+let open Data in
 let render_problem_link (problem : Problem.t) =
   let href = "#" ^ problem.number in
   Learn_layout.sidebar_link ~title:problem.title ~href ~current:false
@@ -28,7 +28,7 @@ let danger = function
 
 let render
 ?(difficulty_level = "All")
-(problems : Ood.Problem.t list)
+(problems : Data.Problem.t list)
 =
 Learn_layout.render
 ~title:"Exercises"
@@ -60,6 +60,7 @@ Learn_layout.render
         The absence of marks represents the beginner level, one mark the intermediate level and two marks the advanced level.
       </p>
     </div>
+<<<<<<< HEAD
     <div class="border-b border-solid border-zinc-300 leading-5 py-8 text-zinc-800">
       <form action="<%s Url.problems %>" method="GET">
         <label for="difficulty_level" class="sr-only">Difficulty</label>
@@ -73,15 +74,18 @@ Learn_layout.render
       </form>
     </div>
     <% problems |> List.iter (fun (problem : Ood.Problem.t) -> %>
+=======
+    <% problems |> List.iter (fun (problem : Data.Problem.t) -> %>
+>>>>>>> af9db157 (Rename module Ood into Data)
     <div x-data="{statement: true}" id="<%s" problem.number %>
       >
       <div class="flex space-y-4 xl:space-y-0 flex-col xl:flex-row xl:justify-between">
-        <span aria-hidden="true" class="danger invisible xl:visible" title="<%s Ood.Problem.difficulty_to_string problem.difficulty ^ " difficulty" %>"><%s danger problem.difficulty %></span>
+        <span aria-hidden="true" class="danger invisible xl:visible" title="<%s Data.Problem.difficulty_to_string problem.difficulty ^ " difficulty" %>"><%s danger problem.difficulty %></span>
         <h4 class="font-bold text-body-600">
           <%s problem.title %>
-          <span aria-hidden="true" class="ml-2 visible xl:invisible" title="<%s Ood.Problem.difficulty_to_string problem.difficulty ^ " difficulty" %>"> <%s danger problem.difficulty %></span>
+          <span aria-hidden="true" class="ml-2 visible xl:invisible" title="<%s Data.Problem.difficulty_to_string problem.difficulty ^ " difficulty" %>"> <%s danger problem.difficulty %></span>
         </h4>
-        <div class="w-0 h-0 overflow-hidden"><%s Ood.Problem.difficulty_to_string problem.difficulty ^ " difficulty" %></div>
+        <div class="w-0 h-0 overflow-hidden"><%s Data.Problem.difficulty_to_string problem.difficulty ^ " difficulty" %></div>
         <div class="flex bg-body-600 bg-opacity-5 rounded-md p-1 items-center">
           <button
             class="px-3.5 h-9 font-medium flex space-x-2 items-center rounded-lg"

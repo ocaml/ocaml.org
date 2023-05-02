@@ -7,8 +7,8 @@ let version = "2"
 type t = {
   synopsis : string;
   description : string;
-  authors : Ood.Opam_user.t list;
-  maintainers : Ood.Opam_user.t list;
+  authors : Data.Opam_user.t list;
+  maintainers : Data.Opam_user.t list;
   license : string;
   homepage : string list;
   tags : string list;
@@ -150,14 +150,14 @@ let make ~package ~packages ~rev_deps ~timestamps opam =
       author opam
       |> List.map (fun name ->
              Option.value
-               (Ood.Opam_user.find_by_name name)
-               ~default:(Ood.Opam_user.make ~name ()));
+               (Data.Opam_user.find_by_name name)
+               ~default:(Data.Opam_user.make ~name ()));
     maintainers =
       maintainer opam
       |> List.map (fun name ->
              Option.value
-               (Ood.Opam_user.find_by_name name)
-               ~default:(Ood.Opam_user.make ~name ()));
+               (Data.Opam_user.find_by_name name)
+               ~default:(Data.Opam_user.make ~name ()));
     license = license opam |> String.concat "; ";
     description =
       descr opam |> Option.map OpamFile.Descr.body |> Option.value ~default:"";

@@ -1,6 +1,6 @@
 open Ocamlorg
 
-let rec tutorial_toc_to_toc (toc : Ood.Tutorial.toc) =
+let rec tutorial_toc_to_toc (toc : Data.Tutorial.toc) =
   Toc.{
     title = toc.title;
     href = toc.href;
@@ -8,14 +8,14 @@ let rec tutorial_toc_to_toc (toc : Ood.Tutorial.toc) =
   }
 
 let right_sidebar
-(tutorial : Ood.Tutorial.t)
+(tutorial : Data.Tutorial.t)
 =
   <div>
     <%s! Toc.render (List.map tutorial_toc_to_toc tutorial.toc) %>
   </div>
 
 let render
-(tutorial : Ood.Tutorial.t)
+(tutorial : Data.Tutorial.t)
 ~tutorials
 ~canonical
 =
