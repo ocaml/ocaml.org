@@ -45,11 +45,6 @@ end
 module Problem = struct
   include Problem
 
-  let difficulty_to_string = function
-    | `Beginner -> "Beginner"
-    | `Intermediate -> "Intermediate"
-    | `Advanced -> "Advanced"
-
   let filter_tag ?tag =
     let f x =
       Option.fold ~none:(x.tags = []) ~some:(Fun.flip List.mem x.tags) tag

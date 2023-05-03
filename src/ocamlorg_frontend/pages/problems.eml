@@ -26,6 +26,11 @@ let danger = function
   | `Intermediate -> "☡"
   | `Advanced -> "☡☡"
 
+let difficulty_to_string = function
+  | `Beginner -> "Beginner"
+  | `Intermediate -> "Intermediate"
+  | `Advanced -> "Advanced"
+
 let render
 ?(difficulty_level = "All")
 (problems : Data.Problem.t list)
@@ -76,12 +81,12 @@ Learn_layout.render
     <div x-data="{statement: true}" id="<%s" problem.number %>
       >
       <div class="flex space-y-4 xl:space-y-0 flex-col xl:flex-row xl:justify-between">
-        <span aria-hidden="true" class="danger invisible xl:visible" title="<%s Data.Problem.difficulty_to_string problem.difficulty ^ " difficulty" %>"><%s danger problem.difficulty %></span>
+        <span aria-hidden="true" class="danger invisible xl:visible" title="<%s difficulty_to_string problem.difficulty ^ " difficulty" %>"><%s danger problem.difficulty %></span>
         <h4 class="font-bold text-body-600">
           <%s problem.title %>
-          <span aria-hidden="true" class="ml-2 visible xl:invisible" title="<%s Data.Problem.difficulty_to_string problem.difficulty ^ " difficulty" %>"> <%s danger problem.difficulty %></span>
+          <span aria-hidden="true" class="ml-2 visible xl:invisible" title="<%s difficulty_to_string problem.difficulty ^ " difficulty" %>"> <%s danger problem.difficulty %></span>
         </h4>
-        <div class="w-0 h-0 overflow-hidden"><%s Data.Problem.difficulty_to_string problem.difficulty ^ " difficulty" %></div>
+        <div class="w-0 h-0 overflow-hidden"><%s difficulty_to_string problem.difficulty ^ " difficulty" %></div>
         <div class="flex bg-body-600 bg-opacity-5 rounded-md p-1 items-center">
           <button
             class="px-3.5 h-9 font-medium flex space-x-2 items-center rounded-lg"
