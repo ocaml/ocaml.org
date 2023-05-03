@@ -250,11 +250,12 @@ example, instead of just `+`:
 val average : float -> float -> float = <fun>
 ```
 
-This is rather unusual. In other languages (such as C) integers get promoted to
-floating point values in certain circumstances. For example, if you write `1 + 2.5` then the first argument (which is an integer) is promoted to a floating
+This is rather unusual. In many other languages (such as C) integers get promoted to
+floating point values in certain circumstances. For example, if you write `1 + 2.5` in C
+then the first argument (which is an integer) is promoted to a floating
 point number, making the result a floating point number, too.
 
-OCaml never does implicit casts like this. In OCaml, `1 + 2.5` is a type error.
+OCaml never does implicit type casts like this. In OCaml, `1 + 2.5` is a type error.
 The `+` operator in OCaml requires two integers as arguments, and here we
 give it an integer and a floating point number, so it reports this error:
 
@@ -265,7 +266,7 @@ Error: This expression has type float but an expression was expected of type
          int
 ```
 
-OCaml doesn't promote integers to floating point numbers automatically, so this
+OCaml doesn't promote integers to floating point numbers either, so this
 is also an error:
 
 ```ocaml
@@ -276,8 +277,8 @@ Error: This expression has type int but an expression was expected of type
   Hint: Did you mean `1.'?
 ```
 
-What if you actually want to add an integer and a floating point number
-together? (Say they are stored as `i` and `f`). In OCaml you need to
+What if you actually want to add an integer and a floating point number?
+(Say they are stored as `i` and `f`). In OCaml you need to
 explicitly cast:
 
 <!-- $MDX skip -->
@@ -452,7 +453,7 @@ data structures.
 ## Lists
 
 Lists are a common compound data type in OCaml. They are ordered collections of
-elements of like type:
+values of the same type:
 
 ```ocaml
 # [];;
@@ -465,9 +466,8 @@ elements of like type:
 - : int list list = [[1; 2]; [3; 4]; [5; 6]]
 ```
 
-Each list can have a head (its first element) and a tail (the list of the rest
-of its elements). There are two built-in operators on lists. The `::`, or cons
-operator, adds one element to the front of a list. The `@`, or append operator,
+There are two built-in operators on lists. The `::`, or cons operator,
+adds one element to the front of a list. The `@`, or append operator,
 combines two lists:
 
 ```ocaml
@@ -475,6 +475,16 @@ combines two lists:
 - : int list = [1; 2; 3]
 # [1] @ [2; 3];;
 - : int list = [1; 2; 3]
+```
+
+Non-empty lists have a head (its first element) and a tail (the list of the rest
+of its elements):
+
+```ocaml
+# List.hd [1; 2; 3];;
+- : int = 1
+# List.tl [1; 2; 3];;
+- : int list = [2; 3]
 ```
 
 We can write functions which operate over lists by pattern matching:
@@ -546,9 +556,9 @@ Notice that the memory for the second list is shared,
 but the first list is effectively copied. Such sharing is common when we use
 immutable data types (ones whose values cannot be changed).
 
-We might wish to apply a function to each element in a list, yielding a new
-one. We shall write a function `map` that's given another function as its
-argument. Such a function is called "higher-order":
+Let us write a function `map` that takes a function `f` and a list `l`.
+`map` applies the function to each element of the list and builds a new
+list with the results:
 
 ```ocaml
 # let rec map f l =
@@ -561,7 +571,10 @@ val map : ('a -> 'b) -> 'a list -> 'b list = <fun>
 Notice the type of the function `f` in parentheses as part of the whole type.
 This `map` function, given a function of type `'a -> 'b` and a list of `'a`s,
 will build a list of `'b`s. Sometimes `'a` and `'b` might be the same type, of
-course. Here are some examples of using `map`:
+course. The function `map` is a *higher-order function* since one of its parameters
+is a function.
+
+Here are some examples of using `map`:
 
 ```ocaml
 # map total [[1; 2]; [3; 4]; [5; 6]];;
@@ -573,8 +586,8 @@ course. Here are some examples of using `map`:
 (The syntax `fun` ... `->` ... is used to build a function without a name, which
 we'll only use in one place in the program.)
 
-We need not give a function all its arguments at once. This is called partial
-application. For example:
+We can apply a function by providing only some of its arguments. This is called *partial
+application* and the value we get back from such a partial application is a new function. For example:
 
 ```ocaml
 # let add a b = a + b;;
@@ -606,16 +619,20 @@ of lists:
 ## Other Built-In Types
 
 We have seen basic data types like `int`, and our first compound data type, the
-list. There are two more ways compound data types of interest. First we have
-tuples, which are fixed-length collections of elements of any type:
+list. Let us look at two more data types of interest.
+
+First we have tuples, which are fixed-length collections of elements of any type:
 
 ```ocaml
 # let t = (1, "one", '1');;
 val t : int * string * char = (1, "one", '1')
 ```
 
-Notice how the type is written. Records are like tuples, but they have named
-elements:
+Notice how the type is written: the individual types that make up a tuple
+are separated by `*`.
+
+Records are quite similar to tuples, but instead of writing their elements in
+a fixed order, they have named elements:
 
 ```ocaml
 # type person =
@@ -645,7 +662,7 @@ type colour = Red | Blue | Green | Yellow
 val l : colour list = [Red; Blue; Red]
 ```
 
-Each "type constructor," which must begin with a capital letter, can optionally
+Each *type constructor*, which must begin with a capital letter, can optionally
 carry data along with it:
 
 ```ocaml
