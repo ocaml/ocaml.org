@@ -67,7 +67,7 @@ make test
 
 ### Building the Playground
 
-The OCaml playground is compiled separately from the rest of the server and the generated assets can be found in
+The OCaml Playground is compiled separately from the rest of the server and the generated assets can be found in
 [`playground/asset/`](./playground/asset/).
 
 To regenerate the playground, you will need to set up an OCaml 5 switch:

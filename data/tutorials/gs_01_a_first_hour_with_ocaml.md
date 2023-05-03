@@ -1,6 +1,6 @@
 ---
 id: first-hour
-title: A First Hour with OCaml
+title: Your First Day with OCaml
 description: >
   Discover the OCaml programming language in this longer tutorial that takes you
   from absolute beginner to someone who is able to write programs in OCaml.
@@ -8,43 +8,55 @@ category: "getting-started"
 date: 2021-08-06T17:11:00-00:00
 ---
 
-# A First Hour with OCaml
+# Your First Day with OCaml
 
-You may follow along with this tutorial with just a basic OCaml installation,
+This tutorial will not only give you the basics of OCaml, but it will
+also guide you through creating your first applications with OCaml.
+You can follow along with a basic OCaml installation,
 as described in [Up and Running](/docs/up-and-running).
 
 Alternatively, you may follow almost all of it by running OCaml in your browser
 using the [OCaml Playground](https://ocaml.org/play), with no installation required.
 
-On macOS/iOS/iPadOS, you can download this [all-in-one package on the App Store](https://apps.apple.com/app/ocaml-learn-code/id1547506826). It contains an editor side-by-side with an interactive toplevel. Plus, it's free and [open source](https://github.com/GroupeMINASTE/OCaml-iOS)!
+On macOS/iOS/iPadOS, you can download this [all-in-one package on the App Store](https://apps.apple.com/app/ocaml-learn-code/id1547506826). It contains an editor side-by-side with an interactive toplevel. Plus, it's free and [open source](https://github.com/GroupeMINASTE/OCaml-iOS).
 
+**Note:** The OCaml code examples in this tutorial start with a prompt `#`.
+This prompt is not part of the code, it's a hint to you that the code
+following it should be either entered into an interactive toplevel, or
+into the OCaml Playground.
 ## Running OCaml Programs
 
-To try small OCaml expressions, use an interactive toplevel, or REPL
-(Read-Eval-Print Loop). The `ocaml` command provides a basic toplevel
-(install `rlwrap` through your system package manager and run `rlwrap ocaml` instead to get history navigation).
+### Using an OCaml toplevel (REPL)
 
-The alternative REPL [UTop](https://github.com/ocaml-community/utop) may be installed
-through [opam](https://opam.ocaml.org/doc/Install.html) or your system package manager. It has
-the same basic interface but is much more convenient to use (history
-navigation, auto-completion, etc.). 
+We recommend using UTop (see [here](/docs/up-and-running#using-the-ocaml-toplevel-with-utop)),
+but alternatively, the basic toplevel of OCaml (`ocaml` command) can also be used. For installation instructions,
+see [Up and Running](/docs/up-and-running#installing-ocaml).
 
-Remember you can exit either toplevel at any time with Ctrl+D or the
-built-in `exit` function: `exit 0;;`.
+If you have never used a toplevel (REPL) before, think of it as an interactive terminal/shell that
+evaluates expressions. You type an expression followed by the Enter or Return key,
+and then the toplevel responds with the value of the evaluated expression.
 
-Always use `;;` to indicate that you've finished entering each expression and prompt
-OCaml to evaluate it. We run OCaml and evaluate a simple expression:
+The first step is to start the toplevel with either the `ocaml` or `utop` command.
+
+Let's try the `ocaml` command first. Once in the toplevel, write your
+expression at the `#` prompt, end it with `;;`, and hit Enter. OCaml evaluates
+it and prints the result on the next line, as shown:
 
 ```console
+$ ocaml
         OCaml version 4.14.0
 
 # 50 * 50;;
 - : int = 2500
 ```
 
-This is how it looks using `utop`:
+OCaml evaluates this expression, telling you not only the value but also the type. In this case, `int` for integer.
+
+Now let's see how it looks using UTop. First, exit the `ocaml` toplevel by typing Control-D or `exit 0;;`. Then enter the `utop` command. At the `utop #` prompt, type your expression and hit Enter. Don't forget the `;;` at the end:
 
 ```console
+$ utop
+
 ───────┬─────────────────────────────────────────────────────────────┬────
        │ Welcome to utop version 2.7.0 (using OCaml version 4.14.0)! │
        └─────────────────────────────────────────────────────────────┘
@@ -56,11 +68,11 @@ utop # 50 * 50;;
 - : int = 2500
 ```
 
-The in-browser [OCaml Playground](https://ocaml.org/play) has a similar interface.
+Exit the UTop toplevel in the same way, by typing Control-D or `exit 0;;`.
 
-The examples in this tutorial can be typed in by hand or copied into `ocaml`,
-`utop`, or the OCaml Playground with copy and paste. Alternatively, we may type into a file
-and load its contents directly with the `#use` directive:
+You can type or copy/paste the code examples into `ocaml` or `utop`.
+Alternatively, you can create a file, save it with the `.ml` extension,
+and load its contents into the toplevel with the `#use` directive:
 
 ```console
 $ ocaml
@@ -70,32 +82,91 @@ $ ocaml
 ```
 
 Note that `#use` is not part of the OCaml language proper; it's an instruction
-to the OCaml toplevel only.
+to the OCaml toplevel only. Also, for `ocaml` or `utop` to find your file, you
+may need to start `ocaml` or `utop` inside the directory of your file, use a
+relative path that takes into account the directory you started the toplevel in,
+or use an absolute path.
 
-## Expressions
+### Using the OCaml Playground
 
-Our phrase `50 * 50` was an expression that evaluated to `2500`. OCaml told
-us that the type was `int`, an integer. Every expression in OCaml has a type.
-To avoid repetition, we can give a name to our number:
+The in-browser [OCaml Playground](https://ocaml.org/play), which you can
+use without installing anything, has this interface:
+
+![OCaml Playground](/media/tutorials/ocaml-playground.png)
+
+There are two windows: the editor window (on the left) is where you write code,
+the output window (on the right) is where all the answers from OCaml appear.
+
+Instead of entering code examples line by line on a prompt, as in the toplevel,
+you type or copy code into the editor window. To run all code in the editor window,
+you click on the "Run" button at the bottom of the editor window.
+
+When using the OCaml Playground, it is not required to end expressions with
+`;;`. In this sense, the OCaml Playground behaves similar to how you would
+write OCaml code in a file.
+
+
+## Expressions and Variables
+
+```ocaml
+# 50 * 50;;
+- : int = 2500
+```
+
+In OCaml, expressions have types and `50 * 50` is an expression that evaluates to the `int` type value of `2500`.
+Other primitive types in OCaml include `float`, `string`, and `bool`.
+
+To avoid repetition, we can assign a name to a value using the `let` keyword:
 
 ```ocaml
 # let x = 50;;
 val x : int = 50
+
 # x * x;;
 - : int = 2500
 ```
 
-Note that this isn't a variable as in languages like C and Python. Its value
-cannot be changed.
+When we type `let x = 50;;` and Enter, the REPL responds with the variable's value (`val`),
+showing that `x` now means `50`. So `x * x;;` evaluates to the same answer as `50 * 50;;`.
 
-We can write also write it all on one line using `let` ... `in` ...:
+It's important to note that, unlike in imperative languages,
+variables in OCaml are *immutable*, meaning their value cannot
+change after assignment. Also, variable names must begin with
+a lowercase letter or an underscore, and they cannot contain dashes
+(e.g., `x-plus-y` is not a legal variable name, but `x_plus_y` is).
+
+
+We can combine a variable declaration with an expression using the `let` ... `in` ... syntax:
 
 ```ocaml
 # let x = 50 in x * x;;
 - : int = 2500
 ```
 
-Of course, we can have multiple names:
+This declares the variable `x` and assigns it the value `50`,
+  which is then used in the expression `x * x`, resulting in the value of `2500`.
+
+Note that `let` ... `in` ... and `let` ... are two fundamentally different things:
+
+* `let x = 50;;` is a *variable declaration*. It assigns the value `50` to the variable `x`,
+which is bound in the toplevel.
+* `let x = 50 in x * x;;` is an *expression that includes a variable declaration*: The variable `x`
+is only bound within the expression following the `in` keyword.
+
+```ocaml
+# let x = 50 in x * x;;
+- : int = 2500
+
+# x;;
+Error: Unbound value x
+```
+
+As you can see in OCaml's response to the first statement, no variable is bound
+(this is denoted by the dash `-`). Thus, subsequently trying to evaluate the variable
+with name `x` fails.
+
+We can define multiple values with their own names
+in a single expression using the `let` ... `in` ... syntax:
 
 ```ocaml
 # let a = 1 in
@@ -104,41 +175,68 @@ Of course, we can have multiple names:
 - : int = 3
 ```
 
-Note that this is still just one expression. We can define a function to do the
-job for any number:
+This defines two variables `a` and `b` with the values of `1` and `2` respectively,
+and then uses them in the expression `a + b`, resulting in the value of `3`.
+It's important to note that this is just a single expression.
+The OCaml toplevel knows the expression isn't complete until it sees the `;;`.
+
+## Functions
+
+The `let` keyword can also be used to define a function:
 
 ```ocaml
 # let square x = x * x;;
 val square : int -> int = <fun>
+
 # square 50;;
 - : int = 2500
 ```
 
-This says that `square` is a function with one argument, namely `x`, and that
-the result of the function is the result of evaluating the expression `x * x`
-with the given value associated with `x`. Here is another function, this time
-using the comparison operator `=` to test for evenness:
+This defines a function named `square` which has one argument, namely `x`, and
+its result is equal to (`=`) the result of the expression `x * x`. The expression
+that defines the result of a function is called *function body*.
+
+When we apply the function as `square 50;;`, this evaluates to the function body
+of `square` where `x` is bound to `50`, and thus, we get a result of `50 * 50 = 2500`.
+
+When using `let` to define a function, the first identifier is the function name (`square`, above),
+then any additional identifiers are the different arguments of the function. In our example above,
+the `square` function has only one argument `x`.
+
+In OCaml, functions are values, so the REPL responds to the function definition
+with `val square : int -> int = <fun>`.
+The type `int -> int` tells us that the function `square` takes an integer and returns an integer.
+
+Here is a different function which uses the comparison operator `=`
+to test whether a given number is even:
 
 ```ocaml
 # let square_is_even x =
     square x mod 2 = 0;;
 val square_is_even : int -> bool = <fun>
+
 # square_is_even 50;;
 - : bool = true
+
 # square_is_even 3;;
 - : bool = false
 ```
 
-Notice the type OCaml infers for the function.
+Notice that OCaml infers the type `int -> bool` for this function,
+which means that `square_is_even` is a function that takes
+one Integer value (`int`) as an argument and returns a Boolean value (`bool`).
 
-A function may take multiple
-arguments. Unlike imperative languages, they're written without parentheses
-and commas. We shall explain why later.
+The Boolean operator *and* is denoted with `&&` and *or* is denoted with `||`.
+
+A function may take multiple arguments which are separated by spaces.
+This is the case both in the function declaration and in any expression
+that applies a function to some arguments.
 
 ```ocaml
 # let ordered a b c =
     a <= b && b <= c;;
 val ordered : 'a -> 'a -> 'a -> bool = <fun>
+
 # ordered 1 1 2;;
 - : bool = true
 ```
@@ -152,11 +250,12 @@ example, instead of just `+`:
 val average : float -> float -> float = <fun>
 ```
 
-This is rather unusual. In other languages (such as C) integers get promoted to
-floating point values in certain circumstances. For example, if you write `1 + 2.5` then the first argument (which is an integer) is promoted to a floating
+This is rather unusual. In many other languages (such as C) integers get promoted to
+floating point values in certain circumstances. For example, if you write `1 + 2.5` in C
+then the first argument (which is an integer) is promoted to a floating
 point number, making the result a floating point number, too.
 
-OCaml never does implicit casts like this. In OCaml, `1 + 2.5` is a type error.
+OCaml never does implicit type casts like this. In OCaml, `1 + 2.5` is a type error.
 The `+` operator in OCaml requires two integers as arguments, and here we
 give it an integer and a floating point number, so it reports this error:
 
@@ -167,7 +266,7 @@ Error: This expression has type float but an expression was expected of type
          int
 ```
 
-OCaml doesn't promote integers to floating point numbers automatically, so this
+OCaml doesn't promote integers to floating point numbers either, so this
 is also an error:
 
 ```ocaml
@@ -178,8 +277,8 @@ Error: This expression has type int but an expression was expected of type
   Hint: Did you mean `1.'?
 ```
 
-What if you actually want to add an integer and a floating point number
-together? (Say they are stored as `i` and `f`). In OCaml you need to
+What if you actually want to add an integer and a floating point number?
+(Say they are stored as `i` and `f`). In OCaml you need to
 explicitly cast:
 
 <!-- $MDX skip -->
@@ -354,7 +453,7 @@ data structures.
 ## Lists
 
 Lists are a common compound data type in OCaml. They are ordered collections of
-elements of like type:
+values of the same type:
 
 ```ocaml
 # [];;
@@ -367,9 +466,8 @@ elements of like type:
 - : int list list = [[1; 2]; [3; 4]; [5; 6]]
 ```
 
-Each list can have a head (its first element) and a tail (the list of the rest
-of its elements). There are two built-in operators on lists. The `::`, or cons
-operator, adds one element to the front of a list. The `@`, or append operator,
+There are two built-in operators on lists. The `::`, or cons operator,
+adds one element to the front of a list. The `@`, or append operator,
 combines two lists:
 
 ```ocaml
@@ -377,6 +475,16 @@ combines two lists:
 - : int list = [1; 2; 3]
 # [1] @ [2; 3];;
 - : int list = [1; 2; 3]
+```
+
+Non-empty lists have a head (its first element) and a tail (the list of the rest
+of its elements):
+
+```ocaml
+# List.hd [1; 2; 3];;
+- : int = 1
+# List.tl [1; 2; 3];;
+- : int list = [2; 3]
 ```
 
 We can write functions which operate over lists by pattern matching:
@@ -448,9 +556,9 @@ Notice that the memory for the second list is shared,
 but the first list is effectively copied. Such sharing is common when we use
 immutable data types (ones whose values cannot be changed).
 
-We might wish to apply a function to each element in a list, yielding a new
-one. We shall write a function `map` that's given another function as its
-argument. Such a function is called "higher-order":
+Let us write a function `map` that takes a function `f` and a list `l`.
+`map` applies the function to each element of the list and builds a new
+list with the results:
 
 ```ocaml
 # let rec map f l =
@@ -463,7 +571,10 @@ val map : ('a -> 'b) -> 'a list -> 'b list = <fun>
 Notice the type of the function `f` in parentheses as part of the whole type.
 This `map` function, given a function of type `'a -> 'b` and a list of `'a`s,
 will build a list of `'b`s. Sometimes `'a` and `'b` might be the same type, of
-course. Here are some examples of using `map`:
+course. The function `map` is a *higher-order function* since one of its parameters
+is a function.
+
+Here are some examples of using `map`:
 
 ```ocaml
 # map total [[1; 2]; [3; 4]; [5; 6]];;
@@ -475,8 +586,8 @@ course. Here are some examples of using `map`:
 (The syntax `fun` ... `->` ... is used to build a function without a name, which
 we'll only use in one place in the program.)
 
-We need not give a function all its arguments at once. This is called partial
-application. For example:
+We can apply a function by providing only some of its arguments. This is called *partial
+application* and the value we get back from such a partial application is a new function. For example:
 
 ```ocaml
 # let add a b = a + b;;
@@ -508,16 +619,20 @@ of lists:
 ## Other Built-In Types
 
 We have seen basic data types like `int`, and our first compound data type, the
-list. There are two more ways compound data types of interest. First we have
-tuples, which are fixed-length collections of elements of any type:
+list. Let us look at two more data types of interest.
+
+First we have tuples, which are fixed-length collections of elements of any type:
 
 ```ocaml
 # let t = (1, "one", '1');;
 val t : int * string * char = (1, "one", '1')
 ```
 
-Notice how the type is written. Records are like tuples, but they have named
-elements:
+Notice how the type is written: the individual types that make up a tuple
+are separated by `*`.
+
+Records are quite similar to tuples, but instead of writing their elements in
+a fixed order, they have named elements:
 
 ```ocaml
 # type person =
@@ -547,7 +662,7 @@ type colour = Red | Blue | Green | Yellow
 val l : colour list = [Red; Blue; Red]
 ```
 
-Each "type constructor," which must begin with a capital letter, can optionally
+Each *type constructor*, which must begin with a capital letter, can optionally
 carry data along with it:
 
 ```ocaml
