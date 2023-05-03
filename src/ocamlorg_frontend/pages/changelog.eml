@@ -30,6 +30,7 @@ Layout.render
           <option value="<%s item %>" <%s if current_tag = (Some item) then "selected" else "" %>><%s item %></option>
           <% ); %>
         </select>
+      </form>
     </div>
   </div>
 
