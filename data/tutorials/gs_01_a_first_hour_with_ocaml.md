@@ -23,7 +23,7 @@ On macOS/iOS/iPadOS, you can download this [all-in-one package on the App Store]
 **Note:** The OCaml code examples in this tutorial start with a prompt `#`.
 This prompt is not part of the code, it's a hint to you that the code
 following it should be either entered into an interactive toplevel, or
-into the OCaml playground.
+into the OCaml Playground.
 ## Running OCaml Programs
 
 ### Using an OCaml toplevel (REPL)
@@ -89,10 +89,10 @@ or use an absolute path.
 
 ### Using the OCaml Playground
 
-The in-browser [OCaml playground](https://ocaml.org/play), which you can
+The in-browser [OCaml Playground](https://ocaml.org/play), which you can
 use without installing anything, has this interface:
 
-![OCaml playground](/media/tutorials/ocaml-playground.png)
+![OCaml Playground](/media/tutorials/ocaml-playground.png)
 
 There are two windows: the editor window (on the left) is where you write code,
 the output window (on the right) is where all the answers from OCaml appear.
@@ -101,8 +101,8 @@ Instead of entering code examples line by line on a prompt, as in the toplevel,
 you type or copy code into the editor window. To run all code in the editor window,
 you click on the "Run" button at the bottom of the editor window.
 
-When using the OCaml playground, it is not required to end expressions with
-`;;`. In this sense, the OCaml playground behaves similar to how you would
+When using the OCaml Playground, it is not required to end expressions with
+`;;`. In this sense, the OCaml Playground behaves similar to how you would
 write OCaml code in a file.
 
 

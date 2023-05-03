@@ -2,7 +2,7 @@ let print = {|let () = print_endline "Welcome to the OCaml Playground"|}
 
 let adts =
   {|(* 
-  Welcome to OCaml Play, the official OCaml playground!
+  Welcome to OCaml Play, the official OCaml Playground!
 
   You don't need to install anything - just write your code
   and see the results appear in the Output panel.
