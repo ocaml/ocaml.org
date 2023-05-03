@@ -10,8 +10,11 @@ date: 2021-08-06T17:11:00-00:00
 
 # Your First Day with OCaml
 
-This tutorial will not only give you the basics of OCaml, but it will
-also guide you through creating your first applications with OCaml.
+This tutorial will walk you through the basics of OCaml by trying
+out different elements of the language in an interactive context.
+Only at the very end of the tutorial we consider briefly how
+to compile an OCaml program into a binary executable.
+
 You can follow along with a basic OCaml installation,
 as described in [Up and Running](/docs/up-and-running).
 
@@ -20,12 +23,17 @@ using the [OCaml Playground](https://ocaml.org/play), with no installation requi
 
 On macOS/iOS/iPadOS, you can download this [all-in-one package on the App Store](https://apps.apple.com/app/ocaml-learn-code/id1547506826). It contains an editor side-by-side with an interactive toplevel. Plus, it's free and [open source](https://github.com/GroupeMINASTE/OCaml-iOS).
 
-**Note:** The OCaml code examples in this tutorial start with a prompt `#`.
+**Note**: The OCaml code examples in this tutorial start with a prompt
+
+```ocaml
+#
+```
+
 This prompt is not part of the code, it's a hint to you that the code
 following it should be either entered into an interactive toplevel, or
 into the OCaml Playground.
-## Running OCaml Programs
 
+## Running OCaml Programs
 ### Using an OCaml toplevel (REPL)
 
 We recommend using UTop (see [here](/docs/up-and-running#using-the-ocaml-toplevel-with-utop)),
@@ -33,7 +41,7 @@ but alternatively, the basic toplevel of OCaml (`ocaml` command) can also be use
 see [Up and Running](/docs/up-and-running#installing-ocaml).
 
 If you have never used a toplevel (REPL) before, think of it as an interactive terminal/shell that
-evaluates expressions. You type an expression followed by the Enter or Return key,
+evaluates expressions. You write an expression followed by the Enter or Return key,
 and then the toplevel responds with the value of the evaluated expression.
 
 The first step is to start the toplevel with either the `ocaml` or `utop` command.
@@ -587,7 +595,8 @@ Here are some examples of using `map`:
 we'll only use in one place in the program.)
 
 We can apply a function by providing only some of its arguments. This is called *partial
-application* and the value we get back from such a partial application is a new function. For example:
+application*: the value we get back from such a partial application is a new function
+that takes all the remaining arguments. For example:
 
 ```ocaml
 # let add a b = a + b;;
@@ -629,7 +638,8 @@ val t : int * string * char = (1, "one", '1')
 ```
 
 Notice how the type is written: the individual types that make up a tuple
-are separated by `*`.
+are separated by a `*`. In contrast, in a tuple value, the individual values
+are separated by a `,`.
 
 Records are quite similar to tuples, but instead of writing their elements in
 a fixed order, they have named elements:
