@@ -1,6 +1,6 @@
 ---
 title: Diagonal of a Sequence of Sequences
-number: "100"
+number: "101"
 difficulty: intermediate
 tags: [ "seq" ]
 ---
