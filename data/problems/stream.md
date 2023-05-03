@@ -1,6 +1,6 @@
 ---
 title: Never-Ending Sequences
-number: "101"
+number: "100"
 difficulty: beginner
 tags: [ "seq" ]
 ---
@@ -43,7 +43,7 @@ val take : int -> 'a stream -> 'a list
 val unfold : ('a -> 'b * 'a) -> 'a -> 'b stream
 (** Similar to Seq.unfold *)
 val bang : 'a -> 'a stream
-(** [bang x] produces a infinitely repeating sequences of [x] values. *)
+(** [bang x] produces an infinitely repeating sequence of [x] values. *)
 val ints : int -> int stream
 (* Similar to Seq.ints *)
 val map : ('a -> 'b) -> 'a stream -> 'b stream

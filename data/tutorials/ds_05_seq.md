@@ -36,8 +36,8 @@ type 'a list =
   | (::) of 'a * 'a list
 ```
 and `Seq.t`, which is merely a type alias for `unit -> 'a Seq.node`. The whole
-point of this definition is the second argument's type `Seq.Cons`, which
-is a function returning a sequence while its `list` counterpart returns a list. Let's
+point of this definition is the second argument's type `Seq.Cons`, which is a
+function returning a sequence while its `list` counterpart returns a list. Let's
 compare the constructors of `list` and `Seq.node`:
 1. Empty lists and sequences are defined the same way, a constructor without any
    parameter: `Seq.Nil` and `[]`.
@@ -51,11 +51,11 @@ immediately available. A `unit` value has to be supplied to recover it, which we
 may see as “unfreezing.” However, unfreezing only gives access to the tip of the
 sequence, since the second argument of `Seq.Cons` is a function too.
 
-Frozen-by-function tails explain why sequences may be considered
-potentially infinite. Until a `Seq.Nil` value has been found in the sequence,
-one can't say for sure if some will ever appear. The sequence could be a stream
-of incoming requests in a server, readings from an embedded sensor, or system logs.
-All have unforeseeable termination, and it is easier to consider them infinite.
+Frozen-by-function tails explain why sequences may be considered potentially
+infinite. Until a `Seq.Nil` value has been found in the sequence, one can't say
+for sure if some will ever appear. The sequence could be a stream of incoming
+requests in a server, readings from an embedded sensor, or system logs. All have
+unforeseeable termination, and it is easier to consider them infinite.
 
 In OCaml, any value `a` of type `t` can be turned into a constant function by
 writing `fun _ -> a`, which has type `'a -> t`. When writing `fun () -> a`
@@ -68,7 +68,7 @@ Here is how to build seemingly infinite sequences of integers:
 # let rec ints n : int Seq.t = fun () -> Seq.Cons (n, ints (n + 1))
 val ints : int -> int Seq.t = <fun>
 ```
-The function `ints n` look as if building the infinite sequence `(n; n + 1; n +
+The function `ints n` looks as if building the infinite sequence `(n; n + 1; n +
 2; n + 3;...)`. In reality, since there isn't an infinite amount of distinct
 values of type `int`, those sequences aren't indefinitely increasing. When
 reaching `max_int`, the values will circle down to `min_int`. They are
@@ -80,7 +80,7 @@ has the same behaviour as `List.iter`. Writing this:
 ```ocaml
 # Seq.iter print_int (ints 0);;
 ```
-in an OCaml top-level means “print integers forever,” and you have to type
+in an OCaml top-level means “print integers forever,” and you have to press
 `Ctrl-C` to interrupt the execution. Perhaps more interestingly, the following
 code is also an infinite loop:
 ```ocaml
@@ -108,10 +108,10 @@ functions over sequences. The last two parameters are:
 * a `unit` value
 
 When executed, the function begins by unfreezing `seq` (that is, calling `seq
-()`) and then pattern matching to look inside the available data. However,
-this does not happen unless a `unit` parameter is passed to `take`. Writing
-`take 10 seq` does not compute anything; it is a partial application and returns
-a function needing a `unit` to produce a result.
+()`) and then pattern matching to look inside the available data. However, this
+does not happen unless a `unit` parameter is passed to `take`. Writing `take 10
+seq` does not compute anything; it is a partial application and returns a
+function needing a `unit` to produce a result.
 
 This can be used to print integers without looping forever, as shown previously:
 ```ocaml
@@ -129,9 +129,9 @@ The `Seq` module also has a function `Seq.filter`:
 ```
 It builds a sequence of elements satisfying a condition.
 
-Using `Seq.filter`, it is possible to make a straightforward implementation of the
-[Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes).
-Here it is:
+Using `Seq.filter`, it is possible to make a straightforward implementation of
+the [Sieve of
+Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes). Here it is:
 ```ocaml
 let rec sieve seq () = match seq () with
   | Seq.Cons (m, seq) -> Seq.Cons (m, sieve (Seq.filter (fun n -> n mod m > 0) seq))
@@ -153,12 +153,12 @@ the list of 100 first prime numbers:
  509; 521; 523]
 ```
 
-The function `sieve` is recursive in OCaml and common sense. It is defined
-using the `rec` keyword and calls itself. However, some call that kind of
-function [_corecursive_](https://en.wikipedia.org/wiki/Corecursion). This word
-is used to emphasize that, by design, it does not terminate. Strictly speaking,
-the sieve of Eratosthenes is not an algorithm either since it does not
-terminate. This implementation behaves the same.
+The function `sieve` is recursive in OCaml and common sense. It is defined using
+the `rec` keyword and calls itself. However, some call that kind of function
+[_corecursive_](https://en.wikipedia.org/wiki/Corecursion). This word is used to
+emphasize that, by design, it does not terminate. Strictly speaking, the sieve
+of Eratosthenes is not an algorithm either since it does not terminate. This
+implementation behaves the same.
 
 ## Unfolding Sequences
 
@@ -200,7 +200,8 @@ Here is a quick check:
 # Seq.ints 0 |> map (fun x -> x * x) |> Seq.take 10 |> List.of_seq;;
 - : int list = [0; 1; 4; 9; 16; 25; 36; 49; 64; 81]
 ```
-The function `Seq.uncons` returns the head and tail of a sequence if it is not empty, or it otherwise returns `None`.
+The function `Seq.uncons` returns the head and tail of a sequence if it is not
+empty, or it otherwise returns `None`.
 
 Using this function:
 ```ocaml
@@ -218,7 +219,8 @@ taking care of open files. While the code above is fine, this one no longer is:
 ```ocaml
 "README.md" |> open_in |> Seq.unfold input_line_opt |> Seq.take 10 |> Seq.iter print_endline
 ```
-Here, `close_in` will never be called over the input channel opened on `README.md`.
+Here, `close_in` will never be called over the input channel opened on
+`README.md`.
 
 ## Sequences Are Functions
 
@@ -244,9 +246,9 @@ It can be used to produce some Fibonacci numbers:
 - : int list = [0; 1; 1; 2; 3; 5; 8; 13; 21; 34]
 ```
 Why is it so? The key difference lies in the recursive call `fibs n (n + m)`. In
-the former definition, the application is complete because `fibs` is provided all the
-arguments it expects. In the latter definition, the application is partial because the
-`()` argument is missing. Since evaluation is
+the former definition, the application is complete because `fibs` is provided
+all the arguments it expects. In the latter definition, the application is
+partial because the `()` argument is missing. Since evaluation is
 [eager](https://en.wikipedia.org/wiki/Evaluation_strategy#Eager_evaluation) in
 OCaml, in the former case, evaluation of the recursive call is triggered and a
 non-terminating looping occurs. In contrast, in the latter case, the partially
@@ -262,8 +264,8 @@ Functions working with sequences must be written accordingly.
 * Sequence consumer: partially applied function parameter
 * Sequence producer: partially applied function result
 
-When code dealing with sequences does not behave as expected like if
-it is crashing or hanging, there's a fair chance a mistake like in the first
+When code dealing with sequences does not behave as expected like if it is
+crashing or hanging, there's a fair chance a mistake like in the first
 definition of `fibs` was made.
 
 ## Sequences for Conversions
