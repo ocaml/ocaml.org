@@ -11,18 +11,17 @@ date: 2023-01-12T09:00:00-01:00
 
 ## Prerequisites
 
-You should be comfortable with writing functions over lists and, ideally,
-understand what an option is.
+You should be comfortable with writing functions over lists and options.
 
 ## Introduction
 
-Sequences look a lot like lists. However from a pragmatic perspective, one
+Sequences are very much like lists. However from a pragmatic perspective, one
 should imagine they may be infinite. That's the key intuition to understanding
 and using sequences.
 
-One way to look at a value of type `'a Seq.t` is to consider it as an icicle, a
-frozen stream of data. To understand this analogy, consider how sequences are
-defined in the standard library:
+One way to look at a value of type `'a Seq.t` is to consider it as a list, with
+a twist when it's not emprty: a frozen tail. To understand this analogy,
+consider how sequences are defined in the standard library:
 ```ocaml
 type 'a node =
   | Nil
@@ -44,12 +43,13 @@ compare the constructors of `list` and `Seq.node`:
    parameter: `Seq.Nil` and `[]`.
 1. Non-empty lists and sequences are both pairs whose former member is a piece
    of data.
-1. However, the latter member in lists is a `list` too, while in sequences, it is a
-   function returning a `Seq.node`.
+1. However, the latter member in lists is recursively a `list`, while in
+   sequences, it is a function returning a `Seq.node`.
 
 A value of type `Seq.t` is “frozen” because the data it contains isn't
-immediately available. A `unit` value has to be supplied to recover it, which is called “unfreezing.” However, unfreezing only gives access to the tip of the
-icicle, since the second argument of `Seq.Cons` is a function too.
+immediately available. A `unit` value has to be supplied to recover it, which we
+may see as “unfreezing.” However, unfreezing only gives access to the tip of the
+sequence, since the second argument of `Seq.Cons` is a function too.
 
 Frozen-by-function tails explain why sequences may be considered
 potentially infinite. Until a `Seq.Nil` value has been found in the sequence,
@@ -60,7 +60,7 @@ All have unforeseeable termination, and it is easier to consider them infinite.
 In OCaml, any value `a` of type `t` can be turned into a constant function by
 writing `fun _ -> a`, which has type `'a -> t`. When writing `fun () -> a`
 instead, we get a function of type `unit -> t`. Such a function is called a
-[_thunk_](https://en.wikipedia.org/wiki/Thunk). Using this terminology, sequence
+[_thunk_](https://en.wikipedia.org/wiki/Thunk). Using this terminology, `Seq.t`
 values are thunks. With the analogy used earlier, `a` is frozen in its thunk.
 
 Here is how to build seemingly infinite sequences of integers:
@@ -68,10 +68,10 @@ Here is how to build seemingly infinite sequences of integers:
 # let rec ints n : int Seq.t = fun () -> Seq.Cons (n, ints (n + 1))
 val ints : int -> int Seq.t = <fun>
 ```
-The function `ints n` look as if building the infinite sequence
-$(n; n + 1; n + 2; n + 3;...)$. In reality, since there isn't an infinite
-amount of distinct values of type `int`, those sequences don't increase.
-When reaching `max_int`, the values will circle down to `min_int`. They are
+The function `ints n` look as if building the infinite sequence `(n; n + 1; n +
+2; n + 3;...)`. In reality, since there isn't an infinite amount of distinct
+values of type `int`, those sequences aren't indefinitely increasing. When
+reaching `max_int`, the values will circle down to `min_int`. They are
 ultimately periodic.
 
 The OCaml standard library contains a module on sequences called
@@ -189,7 +189,7 @@ fairly compact way:
 let ints = Seq.unfold (fun n -> Some (n, n + 1));;
 ```
 
-As a fun fact, one should observe `map` over sequences, as it can be implemented using
+As a fun fact, one should observe `map` over sequences can be implemented using
 `Seq.unfold`. Here is how to write it:
 ```ocaml
 # let map f = Seq.unfold (fun s -> s |> Seq.uncons |> Option.map (fun (x, y) -> (f x, y)));;
