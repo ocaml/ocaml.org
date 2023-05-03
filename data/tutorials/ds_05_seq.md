@@ -20,7 +20,7 @@ should imagine they may be infinite. That's the key intuition to understanding
 and using sequences.
 
 One way to look at a value of type `'a Seq.t` is to consider it as a list, with
-a twist when it's not emprty: a frozen tail. To understand this analogy,
+a twist when it's not empty: a frozen tail. To understand this analogy,
 consider how sequences are defined in the standard library:
 ```ocaml
 type 'a node =
@@ -306,7 +306,7 @@ the OCaml standard library. It was
 [removed](https://github.com/ocaml/ocaml/pull/10482) in 2021 with the release of
 OCaml 4.14. Beware books and documentation written before may still mention it.
 
-## Exercices
+## Exercises
 
 * [Diagonal](/problems#100)
 * [Streams](/problems#101)
