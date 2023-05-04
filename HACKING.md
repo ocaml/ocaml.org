@@ -72,13 +72,7 @@ The OCaml playground is compiled separately from the rest of the server and the 
 
 You can build the playground from the root of the project, there is no need to move to the `./playground/` directory for the following commands.
 
-To regenerate the playground, you will need to set up an OCaml 5 switch:
-
-```
-make create_switch -C playground
-```
-
-You can then install the playground's dependencies:
+To regenerate the playground, you need to install the playground's dependencies first:
 
 ```
 make deps -C playground
