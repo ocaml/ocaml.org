@@ -832,7 +832,7 @@ case pattern. In this example (finding the maximum element in a list),
 we'll have two base cases and one recursive case. But before we
 jump ahead to the code, let's just step back and think about the
 problem. By thinking about the problem, the solution will appear *as if
-by magic*. (I promise you :-)
+by magic*. (It's true!)
 
 First of all, let's be clear that the maximum element of a list is just
 the biggest one, e.g., the maximum element of the list `[1; 2; 3; 4; 1]`
