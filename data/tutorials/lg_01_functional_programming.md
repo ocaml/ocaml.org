@@ -49,13 +49,13 @@ documents. This is just a list of keywords.
 It is important to remember that all the features of OCaml are either built on
 top of functional programming or meant to support it. Most mainstream languages
 derive from the imperative programming paradigm, to which either structured or
-object-oriented programming where added. The feature set of OCaml, as sketched
+object-oriented programming were added. The feature set of OCaml, as sketched
 earlier, was pretty unique for many years. Nowadays, several languages have many
 of the features found in OCaml, but either their conception or their evolution
 goes in the opposite direction. OCaml started from functional programming while
 many others are going towards functional programming. This is not the place to
 detail the differences these paths entail. Let's just say OCaml developers and
-practitioners believe the outstanding level of reliability, performance and
+users believe the outstanding level of reliability, performance and
 agility which is achievable by writing programs in OCaml comes from its
 functional programming first approach.
 
