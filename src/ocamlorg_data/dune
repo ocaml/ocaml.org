@@ -99,13 +99,7 @@
   (:config %{workspace_root}/yoshi.yaml)
   (:data %{workspace_root}/data/watch.yml))
  (action
-  (run
-   %{bin:yoshi}
-   -c
-   %{config}
-   -o
-   %{target}
-   %{data})))
+  (run %{bin:yoshi} -c %{config} -o %{target} %{data})))
 
 (rule
  (target planet.ml)
