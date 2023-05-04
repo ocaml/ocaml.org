@@ -24,6 +24,10 @@ lock: ## Generate a lock file
 build: ## Build the project, including non installable libraries and executables
 	opam exec -- dune build --root .
 
+.PHONY: playground
+playground:
+	make build -C playground
+
 .PHONY: install
 install: all ## Install the packages on the system
 	opam exec -- dune install --root .

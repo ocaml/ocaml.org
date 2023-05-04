@@ -73,19 +73,19 @@ The OCaml playground is compiled separately from the rest of the server and the 
 To regenerate the playground, you will need to set up an OCaml 5 switch:
 
 ```
-opam switch create 5.0.0 5.0.0 --no-install
+make create_switch -C playground
 ```
 
-You can then go in the `playground/` directory and install the dependencies:
+You can then install the playground's dependencies:
 
 ```
-opam install . --deps-only
+make deps -C playground
 ```
 
 After the dependencies have been installed, simply build the project to re-generate the JavaScript assets:
 
 ```
-dune build --root .
+make playground
 ```
 
 Once the compilation is complete and successuful, the newly generated assets have to be git committed
