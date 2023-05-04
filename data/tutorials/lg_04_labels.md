@@ -450,7 +450,7 @@ let f ~foo:foo ... =
 The declaration `~foo:foo` creates a variable called simply `foo`, so if
 you need the value just use plain `foo`.
 
-However, thing get complicated for two reasons: first, the shorthand
+However, things get complicated for two reasons: first, the shorthand
 form `~foo` (equivalent to `~foo:foo`), and second, when you call a
 function that takes a labelled or optional argument using the
 shorthand form.
