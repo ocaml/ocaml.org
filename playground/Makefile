@@ -4,7 +4,7 @@ create_switch: ## Create switch and pinned opam repo
 
 .PHONY: deps
 deps: create_switch ## Install development dependencies
-	opam install . --deps-only
+	opam install . --deps-only --switch=5.0.0
 
 .PHONY: build
 build:
