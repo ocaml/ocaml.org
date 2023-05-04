@@ -298,7 +298,7 @@ There are a couple of related libraries, all providing means to handle large
 flows of data:
 
 * Rizo I [Streaming](/p/streaming)
-* Gabriel Radanne [Iter](/p/iter)
+* Simon Cruanes and Gabriel Radanne [Iter](/p/iter)
 * Jane Street `Base.Sequence`
 
 There used to be a module called [`Stream`](/releases/4.13/api/Stream.html) in
