@@ -1,11 +1,14 @@
+COMPILER=5.0.0
+SWITCH=5.0.0
+
 .PHONY: create_switch
 create_switch: ## Create switch and pinned opam repo
-	opam switch create 5.0.0 5.0.0 --no-install
+	opam switch create $(SWITCH) $(COMPILER) --no-install
 
 .PHONY: deps
 deps: create_switch ## Install development dependencies
-	opam install . --deps-only --switch=5.0.0
+	opam install . --deps-only --switch=$(SWITCH)
 
 .PHONY: build
 build:
-	opam exec --switch=5.0.0 -- dune build --root .
+	opam exec --switch=$(SWITCH) -- dune build --root .
