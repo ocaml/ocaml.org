@@ -838,7 +838,7 @@ First of all, let's be clear that the maximum element of a list is just
 the biggest one, e.g., the maximum element of the list `[1; 2; 3; 4; 1]`
 is `4`.
 
-Of course there are excpeptions. There *isn't a maximum element*
+Of course there are exceptions. There *isn't a maximum element*
 of the empty list `[]`. If we are passed an empty
 list, it would throw an error.
 
