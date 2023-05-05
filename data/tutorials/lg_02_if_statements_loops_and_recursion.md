@@ -90,12 +90,14 @@ is just the same as `[10]`.
 Let's try `range 9 10`:
 
 <!-- $MDX skip -->
-```ocaml
-range 9 10
-→ 9 :: (range 10 10)
-→ 9 :: [10]
-→ [9; 10]
-```
+$$
+/begin{align*}
+range 9 10 &= 9 :: range 10 10 (else branch)
+&= 9 :: (10 :: range 11 10) (else branch)
+&= 9 :: (10 :: []) (if branch)
+→ [9; 10] (by the definition of lists)
+\end{align*}
+$$
 
 It should be fairly clear that `range 1 10` evaluates to
 `[1; 2; 3; 4; 5; 6; 7; 8; 9; 10]`.
