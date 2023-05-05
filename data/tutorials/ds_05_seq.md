@@ -36,8 +36,8 @@ type 'a list =
   | (::) of 'a * 'a list
 ```
 and `Seq.t`, which is merely a type alias for `unit -> 'a Seq.node`. The whole
-point of this definition is the second argument's type `Seq.Cons`, which is a
-function returning a sequence while its `list` counterpart returns a list. Let's
+point of this definition is `Seq.Cons` second argument's type, which is a
+function returning a sequence while its `list` counterpart is a list. Let's
 compare the constructors of `list` and `Seq.node`:
 1. Empty lists and sequences are defined the same way, a constructor without any
    parameter: `Seq.Nil` and `[]`.
@@ -65,7 +65,7 @@ values are thunks. With the analogy used earlier, `a` is frozen in its thunk.
 
 Here is how to build seemingly infinite sequences of integers:
 ```ocaml
-# let rec ints n : int Seq.t = fun () -> Seq.Cons (n, ints (n + 1))
+# let rec ints n : int Seq.t = fun () -> Seq.Cons (n, ints (n + 1));;
 val ints : int -> int Seq.t = <fun>
 ```
 The function `ints n` looks as if building the infinite sequence `(n; n + 1; n +
@@ -100,7 +100,7 @@ let rec take n seq () = match seq () with
 ```
 `take n seq` returns, at most, the `n` first elements of the sequence `seq`. If
 `seq` contains less than `n` elements, an identical sequence is returned. In
-particular, if `seq` is empty, an empty sequence is returned.
+particular, if `seq` is empty, or `n` is negative, an empty sequence is returned.
 
 Observe the first line of `take`. It is the common pattern for recursive
 functions over sequences. The last two parameters are:
@@ -108,7 +108,7 @@ functions over sequences. The last two parameters are:
 * a `unit` value
 
 When executed, the function begins by unfreezing `seq` (that is, calling `seq
-()`) and then pattern matching to look inside the available data. However, this
+()`) and then pattern matching to look inside the data made available. However, this
 does not happen unless a `unit` parameter is passed to `take`. Writing `take 10
 seq` does not compute anything. It is a partial application and returns a
 function needing a `unit` to produce a result.
@@ -127,7 +127,7 @@ The `Seq` module also has a function `Seq.filter`:
 # Seq.filter;;
 - : ('a -> bool) -> 'a Seq.t -> 'a Seq.t = <fun>
 ```
-It builds a sequence of elements satisfying a condition.
+It keeps elements of a sequence which satisfies the provided condition.
 
 Using `Seq.filter`, it is possible to make a straightforward implementation of
 the [Sieve of
@@ -187,6 +187,7 @@ sequences. For instance, `Seq.ints` can be implemented using `Seq.unfold` in a
 fairly compact way:
 ```ocaml
 let ints = Seq.unfold (fun n -> Some (n, n + 1));;
+val ints : int -> int Seq.t = <fun>
 ```
 
 As a fun fact, one should observe `map` over sequences can be implemented using
@@ -235,7 +236,7 @@ It actually isn't. It's a non-ending recursion which blows away the stack.
 # fibs 0 1;;
 Stack overflow during evaluation (looping recursion?).
 ```
-This definition is behaving as expected:
+This definition is behaving as expected (spot the differences, there are four):
 ```ocaml
 # let rec fibs m n () = Seq.Cons (m, fibs n (n + m));;
 val fibs : int -> int -> int Seq.t = <fun>
@@ -289,7 +290,7 @@ some of those functions:
   val String.to_seq : char Seq.t -> string
   ```
 Similar functions are also provided for sets, maps, hash tables (`Hashtbl`) and
-others (except `Seq`, obviously). When implementing a datatype module, it is
+others (except `Seq`, obviously). When implementing a collection datatype module, it is
 advised to expose `to_seq` and `of_seq` functions.
 
 ## Miscellaneous Considerations
@@ -308,6 +309,6 @@ OCaml 4.14. Beware books and documentation written before may still mention it.
 
 ## Exercises
 
-* [Diagonal](/problems#100)
-* [Streams](/problems#101)
+* [Streams](/problems#100)
+* [Diagonal](/problems#101)
 
