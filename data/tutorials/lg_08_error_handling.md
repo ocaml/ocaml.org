@@ -11,7 +11,10 @@ date: 2021-05-27T21:07:30-00:00
 
 In OCaml, errors can be handled in several ways. This document presents most of
 the available means. However, handling errors using the effect handlers
-introduced in OCaml 5 isn't addressed yet.
+introduced in OCaml 5 isn't addressed yet. This topic is also addressed in the
+chapter [“Error Handling”](https://dev.realworldocaml.org/error-handling.html)
+of the “Real World OCaml” book by Yaron Minsky and Anil Madhavapeddy (2ⁿᵈ
+edition, Cambridge University Press, October 2022).
 
 ## Error as Special Values
 
