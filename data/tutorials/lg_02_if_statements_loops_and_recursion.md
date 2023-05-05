@@ -1035,8 +1035,8 @@ One thing is that recursive
 functions have a dangerous trap for inexperienced programmers. Your
 function can appear to work for small inputs (during testing), but then fail
 catastrophically in the field when exposed to large inputs. This is one
-argument *against* using recursive functions, but for using explicit
-`while` loops when possible.
+argument *against* using recursive functions; instead, use explicit `while` 
+loops when possible.
 
 ## Mutable Records, References (Again!) and Arrays
 Previously we mentioned records in passing. These are like C `struct`s:
