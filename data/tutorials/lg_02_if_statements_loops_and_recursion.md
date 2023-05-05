@@ -91,11 +91,12 @@ Let's try `range 9 10`:
 
 <!-- $MDX skip -->
 $$
-/begin{align*}
-range 9 10 &= 9 :: range 10 10 (else branch)
-&= 9 :: (10 :: range 11 10) (else branch)
-&= 9 :: (10 :: []) (if branch)
-→ [9; 10] (by the definition of lists)
+\begin{align*}
+\tt{range\ 9\ 10}
+&\Rightarrow \tt{9\ ::\ range\ 10\ 10} \quad\text{(else branch)} \\
+&\Rightarrow \tt{9\ ::\ (10\ ::\ range\ 11\ 10)} \quad\text{(else branch)} \\
+&\Rightarrow \tt{9\ ::\ (10\ ::\ [])} \quad\text{(if branch)} \\
+&\Rightarrow \tt{[9;\ 10]} \quad\text{(by the definition of lists)}
 \end{align*}
 $$
 
