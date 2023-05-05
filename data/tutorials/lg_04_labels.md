@@ -54,8 +54,8 @@ val range : first:int -> last:int -> int list = <fun>
 ```
 
 (Notice that both `to` and `end` are reserved words in OCaml, so they
-cannot be used as labels. This means you cannot have `~from/~to` or
-`~start/~end`.)
+cannot be used as labels. This means you cannot have `~to` or
+`~end`.)
 
 The type of our previous `range` function was:
 
