@@ -9,7 +9,7 @@ date: 2021-05-27T21:07:30-00:00
 
 # Error Handling
 
-In OCaml, errors can be handled in several ways. This document presents most of the available means. However, handling errors using the effect handlers introduced in OCaml 5 isn't addressed yet.
+In OCaml, errors can be handled in several ways. This document presents most of the available means. However, handling errors using the effect handlers introduced in OCaml 5 hasn't been addressed yet.
 
 ## Error as Special Values
 
@@ -63,7 +63,7 @@ val i_will_fail : unit -> 'a = <fun>
 Exception: Foo "Oh no!".
 ```
 
-Here, we add a variant `Foo` to the type `exn`, and create a function that will
+Here, we add a variant `Foo` to the type `exn` and create a function that will
 raise this exception. Now, how do we handle exceptions? The construct is `try
 ... with ...`:
 
@@ -106,7 +106,7 @@ exception Failure of string
 ```
 
 * `Exit` terminates your program with a success status, which is 0 in Unices
-  (where success is 0 and any other value is an error, that is, errors are
+  (where success is 0 and any other value is an error; that is, errors are
   handled as special values, like mentioned in the first section)
 * `Not_found` should be raised when searching failed because there isn't
   anything satisfactory to be found
@@ -128,8 +128,8 @@ exceptions, a design decision must be made:
 * Raise custom exceptions
 
 Both can make sense, and there isn't a general rule. If the standard library exceptions
-are used, they must be raised under the conditions they are
-intended to, otherwise handlers will have trouble processing them. Using custom
+are used, they must be raised under their intended conditions, 
+otherwise handlers will have trouble processing them. Using custom
 exceptions will force client code to include dedicated catch conditions. This
 can be desirable for errors that must be handled at the client level.
 
@@ -166,8 +166,8 @@ let () = Printexc.record_backtrace true
 ### Printing
 
 To print an exception, the module `Printexc` comes in handy. For instance, it
-allows the definition of a function such as `notify_user : (unit -> 'a) -> 'a`
-that calls a function and, if it fails, prints the exception on `stderr`. If
+allows the definition of a function, such as `notify_user : (unit -> 'a) -> 'a`
+to call a function and, if it fails, prints the exception on `stderr`. If
 stack traces are enabled, this function will also display it.
 
 ```ocaml
@@ -529,8 +529,8 @@ type ('a, 'b) result =
   | Error of 'b
 ```
 
-A value `Ok x` means that the computation succeeded and produced `x`, and a
-value `Error e` means that it failed and `e` represents whatever error
+A value `Ok x` means that the computation succeeded and produced `x`, a
+value `Error e` means that it failed, and `e` represents whatever error
 information has been collected in the process. Pattern matching can be used to
 deal with both cases, as with any other sum type. However using `map` and `bind`
 can be more convenient, maybe even more as it was with `Option`.
@@ -766,25 +766,25 @@ match Sys.os_type with
 | _ -> failwith "this system is not supported"
 ```
 
-It is right to use `failwith` because using `assert` would be incorrect. Here is
+It is right to use `failwith`, because using `assert` would be incorrect. Here is
 the dual example:
 ```ocaml
 function x when true -> () | _ -> assert false
 ```
-Here, it wouldn't be beneficial to use `failwith` since it requires the compiler
-to be bugged or the system to be corrupted for second code path to be executed.
-Breakage of the language semantics qualifies as extraordinary circumstances; it
-is catastrophic.
+Here, it wouldn't be beneficial to use `failwith` because it requires a corrupted system or
+for the compiler to be bugged for the second code path to be executed.
+Breakage of the language semantics qualifies as extraordinary circumstances. It
+is catastrophic!
 
 # Concluding Remarks
 
 Properly handling errors is a complex matter. It is [cross-cutting
 concern](https://en.wikipedia.org/wiki/Cross-cutting_concern), touches all parts
-of an application and can't be isolated in a dedicated module. In contrast to
+of an application, and can't be isolated in a dedicated module. In contrast to
 several other mainstream languages, OCaml provides several mechanisms to handle
 exceptional circumstances, all with good runtime performance and code
 understandability. Using them properly requires some initial learning and
 practice. Later, it always requires some thinking, which is good since proper
 error management shouldn't ever be overlooked. No error handling is better
 than the others, and is should be matter of adequacy to the context rather than
-of taste. But opiniated OCaml code is also fine, so it's a balance.
+of taste. But opinionated OCaml code is also fine, so it's a balance.
