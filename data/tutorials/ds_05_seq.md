@@ -80,7 +80,7 @@ has the same behaviour as `List.iter`. Writing this:
 ```ocaml
 # Seq.iter print_int (ints 0);;
 ```
-in an OCaml top-level means “print integers forever,” and you have to press
+in an OCaml toplevel, this means “print integers forever,” and you have to press
 `Ctrl-C` to interrupt the execution. Perhaps more interestingly, the following
 code is also an infinite loop:
 ```ocaml
@@ -110,7 +110,7 @@ functions over sequences. The last two parameters are:
 When executed, the function begins by unfreezing `seq` (that is, calling `seq
 ()`) and then pattern matching to look inside the available data. However, this
 does not happen unless a `unit` parameter is passed to `take`. Writing `take 10
-seq` does not compute anything; it is a partial application and returns a
+seq` does not compute anything. It is a partial application and returns a
 function needing a `unit` to produce a result.
 
 This can be used to print integers without looping forever, as shown previously:
@@ -264,7 +264,7 @@ Functions working with sequences must be written accordingly.
 * Sequence consumer: partially applied function parameter
 * Sequence producer: partially applied function result
 
-When code dealing with sequences does not behave as expected like if it is
+When code dealing with sequences does not behave as expected, like if it is
 crashing or hanging, there's a fair chance a mistake like in the first
 definition of `fibs` was made.
 
