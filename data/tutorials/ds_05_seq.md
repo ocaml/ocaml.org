@@ -247,7 +247,7 @@ It can be used to produce some Fibonacci numbers:
 ```
 Why is it so? The key difference lies in the recursive call `fibs n (n + m)`. In
 the former definition, the application is complete because `fibs` is provided
-all the arguments it expects. In the latter definition, the application is
+with all the arguments it expects. In the latter definition, the application is
 partial because the `()` argument is missing. Since evaluation is
 [eager](https://en.wikipedia.org/wiki/Evaluation_strategy#Eager_evaluation) in
 OCaml, in the former case, evaluation of the recursive call is triggered and a
