@@ -9,7 +9,9 @@ date: 2021-05-27T21:07:30-00:00
 
 # Error Handling
 
-In OCaml, errors can be handled in several ways. This document presents most of the available means. However, handling errors using the effect handlers introduced in OCaml 5 hasn't been addressed yet.
+In OCaml, errors can be handled in several ways. This document presents most of
+the available means. However, handling errors using the effect handlers
+introduced in OCaml 5 isn't addressed yet.
 
 ## Error as Special Values
 
@@ -26,13 +28,13 @@ consequences. This is not the proper way to deal with errors in OCaml.
 
 There are three major ways to make it impossible to ignore errors in OCaml:
 1. Exceptions
-1. `Option` values
-1. `Result` values
+1. `option` values
+1. `result` values
 
 Use them. Do not encode errors inside data.
 
 Exceptions provide a mean to deal with errors at the control flow level while
-`Option` and `Result` provide means to turn errors into dedicated data.
+`option` and `result` provide means to turn errors into dedicated data.
 
 The rest of this document presents and compares approaches towards error
 handling.
@@ -43,7 +45,8 @@ Historically, the first way of handling errors in OCaml is exceptions. The
 standard library relies heavily upon them.
 
 The biggest issue with exceptions is that they do not appear in types. One has
-to read the documentation to see that, indeed, `List.find` or `String.sub` are functions that they might fail by raising an exception.
+to read the documentation to see that, indeed, `List.find` or `String.sub` are
+functions that might fail by raising an exception.
 
 However, exceptions have the great merit of being compiled into efficient
 machine code. When implementing trial and error approaches likely to back-track
@@ -75,7 +78,7 @@ raise this exception. Now, how do we handle exceptions? The construct is `try
 ### Predefined Exceptions
 
 The standard library predefines several exceptions, see
-[`Stdlib`](/releases/latest/api/Stdlib.html). Here are a few examples:
+[`Stdlib`](/api/Stdlib.html). Here are a few examples:
 
 ```ocaml
 # 1 / 0;;
