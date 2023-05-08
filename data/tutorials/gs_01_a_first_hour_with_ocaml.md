@@ -37,7 +37,7 @@ into the OCaml Playground.
 ### Using an OCaml Toplevel (REPL)
 
 We recommend using UTop (see [here](/docs/up-and-running#using-the-ocaml-toplevel-with-utop)),
-but alternatively, the basic toplevel of OCaml (`ocaml` command) can also be used. For installation instructions,
+but alternatively, the basic OCaml toplevel (`ocaml` command) can also be used. For installation instructions,
 see [Up and Running](/docs/up-and-running#installing-ocaml).
 
 If you have never used a toplevel (REPL) before, think of it as an interactive terminal/shell that
