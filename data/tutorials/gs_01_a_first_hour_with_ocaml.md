@@ -162,16 +162,16 @@ which is bound in the toplevel.
 is only bound within the expression following the `in` keyword.
 
 ```ocaml
-# let x = 50 in x * x;;
+# let y = 50 in y * y;;
 - : int = 2500
 
-# x;;
-Error: Unbound value x
+# y;;
+Error: Unbound value y
 ```
 
 As you can see in OCaml's response to the first statement, no variable is bound
 (this is denoted by the dash `-`). Thus, subsequently trying to evaluate the variable
-with name `x` fails.
+with name `y` fails.
 
 We can define multiple values with their own names
 in a single expression using the `let` ... `in` ... syntax:
