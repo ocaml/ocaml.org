@@ -121,7 +121,7 @@ write OCaml code in a file.
 - : int = 2500
 ```
 
-In OCaml, expressions have types and `50 * 50` is an expression that evaluates to the `int` type value of `2500`.
+In OCaml, expressions have types, and `50 * 50` is an expression that evaluates to the `int` type value of `2500`.
 Other primitive types in OCaml include `float`, `string`, and `bool`.
 
 To avoid repetition, we can assign a name to a value using the `let` keyword:
