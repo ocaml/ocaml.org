@@ -15,14 +15,7 @@
 }
 
 #in-package-search-results .search-entry {
-  padding: 0.25rem 0.5rem;
-
-  font-weight: normal;
-  color: #333;
-
-  display:flex;
-  flex-direction:column;
-
+  @apply px-4 py-1 font-normal text-body-600 flex flex-col;
   --entry-color: gray;
 }
 
@@ -43,12 +36,8 @@
 }
 
 #in-package-search-results .search-entry .entry-kind {
-  padding:0.125rem 0.25rem;
+  @apply py-0.5 px-1 bg-body-600 text-white rounded mr-2;
   font-size: 0.8rem;
-  background: #333;
-  color:white;
-  border-radius:0.25rem;
-  margin-right: 0.5rem;
 }
 
 #in-package-search-results .search-entry .entry-kind {

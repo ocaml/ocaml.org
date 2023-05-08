@@ -28,7 +28,7 @@ Layout.render
           <%s! Package_breadcrumbs.render_package_and_version ~path ?hash ?page package %>
         </div>
       </div>
-      <div x-data="{ sidebar: window.matchMedia('(min-width: 48em)').matches, search_input_focused: false, focus_within_search_results: false }" @resize.window="sidebar = window.matchMedia('(min-width: 48em)').matches" x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 48em)').matches">
+      <div x-data="{ sidebar: window.matchMedia('(min-width: 48em)').matches, search_input_focused: false }" @resize.window="sidebar = window.matchMedia('(min-width: 48em)').matches" x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 48em)').matches">
         <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed md:hidden right-10"
         x-on:click="sidebar = ! sidebar">
           <%s! Icons.sidebar_menu "h-8 w-8" %>
@@ -79,13 +79,10 @@ Layout.render
               <% ); %>
             </div>
 
-            <div class="absolute top-10 right-0 left-0 bg-white flex-1 z-20 min-w-0 pb-12 max-h-[60vh] overflow-y-auto"
-              x-show="search_input_focused || focus_within_search_results">
+            <div class="absolute top-12 right-0 left-0 bg-white z-20 w-full max-h-[60vh] overflow-hidden"
+              x-show="search_input_focused">
 
-              <div id="in-package-search-results"
-                x-on:focusin="focus_within_search_results = true"
-                x-on:focusout="focus_within_search_results = false"
-                >
+              <div id="in-package-search-results" class="overflow-y-auto border rounded-lg">
               </div>
             </div>
           </div>
