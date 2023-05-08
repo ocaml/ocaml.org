@@ -63,7 +63,7 @@ Layout.render
 
           <form class="flex w-full items-center">
             <% if Option.is_some search_index_digest then (%>
-            <input id="in_package_search" type="search" name="q" class="focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 flex-grow"
+            <input id="in-package-search" type="search" name="q" class="focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 flex-grow"
               autocomplete="off"
               placeholder="Search names in this package..."
 
@@ -117,19 +117,13 @@ Layout.render
 <script>
   function Fuse() {}
 </script>
-<script src="<%s Url.Package.search_index ?version:(Package.url_version package) package.name ~digest %>"></script>
 <script>
-  documents = documents.map((d, i) => {return {...d, id: i}});
+  var miniSearch;
 
-  let miniSearch = new MiniSearch({
-    fields: ['name', 'prefixname', 'comment'], // fields to index for full-text search
-    storeFields: ['name', 'prefixname', 'kind', 'url', 'comment'] // fields to return with search results
-  });
-
-  miniSearch.addAll(documents);
-
-  document.querySelector("#in_package_search").addEventListener("input", (event) => {
-    let results = miniSearch.search(event.target.value, {
+  function perform_search() {
+    let q = document.getElementById("in-package-search").value;
+    console.log("perform_search", q);
+    let results = miniSearch.search(q, {
       fields: ['name', 'prefixname', 'comment'], 
       prefix: true,
       boost: {
@@ -138,7 +132,7 @@ Layout.render
       },
       fuzzy: 0.15,
     }).slice(0,50);
-    let container = document.querySelector("#in-package-search-results");
+    let container = document.getElementById("in-package-search-results");
     container.innerHTML = "";
 
     let search_results = document.createElement("ol");
@@ -184,8 +178,32 @@ Layout.render
 
         search_results.appendChild(list_item);
     });
-
     container.appendChild(search_results);
-  });
+  }
+
+  function init_search() {
+    documents = documents.map((d, i) => {return {...d, id: i}});
+
+    miniSearch = new MiniSearch({
+      fields: ['name', 'prefixname', 'comment'],
+      storeFields: ['name', 'prefixname', 'kind', 'url', 'comment'],
+    });
+
+    miniSearch.addAll(documents);
+  
+    document.getElementById("in-package-search").addEventListener("input", perform_search);
+    perform_search();
+  }
+
+  function user_interacts() {
+    let scriptTag = document.createElement("script");
+    scriptTag.src = "<%s Url.Package.search_index ?version:(Package.url_version package) package.name ~digest %>";
+    scriptTag.addEventListener("load", init_search);
+    document.body.appendChild(scriptTag);
+
+    document.getElementById("in-package-search").removeEventListener("focus", user_interacts);
+  }
+
+  document.getElementById("in-package-search").addEventListener("focus", user_interacts);
 </script>
 <% | _ -> () ); %>
