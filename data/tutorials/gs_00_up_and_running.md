@@ -302,7 +302,7 @@ UTop is an extended and improved toplevel (REPL) for OCaml. Unlike the standard 
 
 If you have never used a toplevel (REPL) before, think of it as an interactive terminal/shell that evaluates expressions. Type an OCaml expression, then press the Enter or Return key. The toplevel responds with the value of the evaluated expression.
 
-OCaml comes with two additional compilers: one compiles to **native code** (sometimes called machine code or executable binary), directly read by the CPU, and the other compiles to **bytecode**, creating an executable that can be interpreted by a variety of runtime environments, making more it flexible.
+OCaml comes with two additional compilers: one compiles to **native code** (sometimes called machine code or executable binary), directly read by the CPU, and the other compiles to **bytecode**, creating an executable that can be interpreted by a variety of runtime environments, making it more flexible.
 
 For now, let's first use the recommended toplevel, UTop, which we installed above:
 
