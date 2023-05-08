@@ -113,7 +113,10 @@ Layout.render
 </div>
 <%s! Toc.script %>
 <% (match search_index_digest with | Some(digest) -> %>
-<script src="<%s Ocamlorg_static.Asset. url "vendors/fuse.min.js" %>"></script>
+<script src="<%s Ocamlorg_static.Asset. url "vendors/minisearch.min.js" %>"></script>
+<script>
+  function Fuse() {}
+</script>
 <script src="<%s Url.Package.search_index ?version:(Package.url_version package) package.name ~digest %>"></script>
 <style>
 #search-results h2 {
@@ -234,46 +237,62 @@ Layout.render
 
 </style>
 <script>
+  documents = documents.map((d, i) => {return {...d, id: i}});
+
+  let miniSearch = new MiniSearch({
+    fields: ['name', 'prefixname', 'comment'], // fields to index for full-text search
+    storeFields: ['name', 'prefixname', 'kind', 'url', 'comment'] // fields to return with search results
+  });
+
+  miniSearch.addAll(documents);
+
   document.querySelector("#in_package_search").addEventListener("input", (event) => {
-    let results = idx_fuse.search(event.target.value, {limit: 200});
+    let results = miniSearch.search(event.target.value, {
+      fields: ['name', 'prefixname', 'comment'], 
+      prefix: true,
+      boost: {
+        name: 4,
+        prefixname: 1.2,
+      },
+      fuzzy: 0.15,
+    }).slice(0,50);
     let container = document.querySelector("#search-results");
     container.innerHTML = "";
 
     let search_results = document.createElement("ol");
-    container.appendChild(search_results);
 
     results.map((entry) => {
         let kind = document.createElement("tt");
-        kind.innerText = entry.item.kind
+        kind.innerText = entry.kind
           .replace("module type", "mty").replace("root", "mod").replace("module", "mod")
           .replace("method", "mtd").replace("class typ", "cty").replace("class", "cls")
           .replace("core type", "typ").replace("type", "typ")
           .replace("exception", "exc").replace("core exception", "exc")
           .replace("parameter", "par")
           .replace("leaf page", "man").replace("page", "man");
-        kind.title = entry.item.kind;
+        kind.title = entry.kind;
         kind.classList.add("entry-kind");
 
         let list_item = document.createElement("li");
         let a = document.createElement("a");
-        a.href = "/" + entry.item.url;
+        a.href = "/" + entry.url;
         a.classList.add("search-entry", kind.innerText.slice(0,3));
         let title = document.createElement("div");
         title.classList.add("entry-title");
 
         let prefixname = document.createElement("tt");
-        prefixname.innerText = entry.item.prefixname.split(".").reverse().join(".") + (entry.item.prefixname != "" ? ".": "");
+        prefixname.innerText = entry.prefixname.split(".").reverse().join(".") + (entry.prefixname != "" ? ".": "");
         prefixname.classList.add("prefix-name");
         let name = document.createElement("tt");
         name.classList.add("entry-name");
-        name.innerText =  entry.item.name;
+        name.innerText =  entry.name;
 
         title.appendChild(kind);
         title.appendChild(prefixname);
         title.appendChild(name);
 
         let comment = document.createElement("div");
-        comment.innerText = entry.item.comment;
+        comment.innerText = entry.comment;
         comment.classList.add("entry-comment");
 
         a.appendChild(title);
@@ -283,6 +302,8 @@ Layout.render
 
         search_results.appendChild(list_item);
     });
+
+    container.appendChild(search_results);
   });
 </script>
 <% | _ -> () ); %>
