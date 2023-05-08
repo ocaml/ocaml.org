@@ -258,7 +258,7 @@ example, instead of just `+`:
 val average : float -> float -> float = <fun>
 ```
 
-This is rather unusual. In many other languages (such as C) integers get promoted to
+This is rather unusual. In many other languages (such as C), integers get promoted to
 floating point values in certain circumstances. For example, if you write `1 + 2.5` in C
 then the first argument (which is an integer) is promoted to a floating
 point number, making the result a floating point number, too.
