@@ -204,8 +204,8 @@ This defines a function named `square` which has one argument, namely `x`, and
 its result is equal to (`=`), the result of the expression `x * x`. The expression
 that defines the result of a function is called *function body*.
 
-When we apply the function as `square 50;;`, this evaluates to the function body
-of `square` where `x` is bound to `50`, and thus, we get a result of `50 * 50 = 2500`.
+When we apply the function as `square 50;;`, it evaluates to the function body
+of `square`, where `x` is bound to `50`, so we get a result of `50 * 50 = 2500`.
 
 When using `let` to define a function, the first identifier is the function name (`square`, above),
 then any additional identifiers are the different arguments of the function. In our example above,
