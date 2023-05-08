@@ -107,7 +107,7 @@ the output window (on the right) is where all the answers from OCaml appear.
 
 Instead of entering code examples line by line on a prompt, as in the toplevel,
 you type or copy code into the editor window. To run all code in the editor window,
-you click on the "Run" button at the bottom of the editor window.
+click on the "Run" button at the bottom of the editor window.
 
 When using the OCaml Playground, it is not required to end expressions with
 `;;`. In this sense, the OCaml Playground behaves similar to how you would
