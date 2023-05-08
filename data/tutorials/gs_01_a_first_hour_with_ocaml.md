@@ -595,7 +595,7 @@ Here are some examples of using `map`:
 we'll only use in one place in the program.)
 
 We can apply a function by providing only some of its arguments. This is called *partial
-application*: the value we get back from such a partial application is a new function
+application*. The value we get back from such a partial application is a new function
 that takes all the remaining arguments. For example:
 
 ```ocaml
