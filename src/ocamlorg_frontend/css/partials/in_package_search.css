@@ -1,0 +1,115 @@
+#in-package-search-results h2 {
+  margin: 0;
+}
+
+#in-package-search-results ol {
+  margin: 1rem 0;
+  list-style:none;
+  padding:0;
+}
+
+#in-package-search-results li {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid gainsboro;
+}
+
+#in-package-search-results .search-entry {
+  padding: 0.25rem 0.5rem;
+
+  font-weight: normal;
+  color: #333;
+
+  display:flex;
+  flex-direction:column;
+
+  --entry-color: gray;
+}
+
+#in-package-search-results .search-entry:hover {
+  text-decoration: none;
+  background: #f4f4f4;
+}
+
+@media (min-width: 64em) {
+  #in-package-search-results .search-entry {
+    flex-direction:row;
+  }
+
+  #in-package-search-results .search-entry .entry-title {
+    width: 50%;
+    flex-shrink: 0;
+  }
+}
+
+#in-package-search-results .search-entry .entry-kind {
+  padding:0.125rem 0.25rem;
+  font-size: 0.8rem;
+  background: #333;
+  color:white;
+  border-radius:0.25rem;
+  margin-right: 0.5rem;
+}
+
+#in-package-search-results .search-entry .entry-kind {
+    background: var(--entry-color);
+}
+
+#in-package-search-results .search-entry.mod {
+  --entry-color: rgb(204, 78, 12);
+}
+
+#in-package-search-results .search-entry.mty {
+  --entry-color: #027491;
+}
+
+#in-package-search-results .search-entry.mtd {
+  --entry-color: #327d8e;
+}
+
+#in-package-search-results .search-entry.typ {
+  --entry-color: rgb(42, 84, 183);
+}
+
+#in-package-search-results .search-entry.val {
+  --entry-color: green;
+}
+
+#in-package-search-results .search-entry.par {
+  --entry-color: green;
+}
+
+#in-package-search-results .search-entry.cls {
+  --entry-color: rgb(163, 34, 34);
+}
+
+#in-package-search-results .search-entry.cty {
+  --entry-color: rgb(32, 68, 165);
+}
+
+#in-package-search-results .search-entry.exc {
+  --entry-color: #370c62;
+}
+
+#in-package-search-results .search-entry.man {
+  --entry-color: #47424b;
+}
+
+#in-package-search-results .search-entry .entry-title {
+  overflow-wrap: anywhere;
+}
+
+#in-package-search-results .search-entry .entry-name {
+  font-weight:bold;
+  color: var(--entry-color);
+}
+
+#in-package-search-results .search-entry .prefix-name {
+  font-weight:600;
+}
+
+#in-package-search-results .search-entry .entry-comment {
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+}

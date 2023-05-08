@@ -92,7 +92,7 @@ Layout.render
           <div class="flex-1 z-0 z- min-w-0 pt-6 pb-12 md:pb-[70vh] prose max-w-full"
             x-show="q != ''">
 
-            <div id="search-results">
+            <div id="in-package-search-results">
             </div>
           </div>
 
@@ -118,124 +118,6 @@ Layout.render
   function Fuse() {}
 </script>
 <script src="<%s Url.Package.search_index ?version:(Package.url_version package) package.name ~digest %>"></script>
-<style>
-#search-results h2 {
-  margin: 0;
-}
-
-#search-results ol {
-  margin: 1rem 0;
-  list-style:none;
-  padding:0;
-}
-
-#search-results li {
-  margin: 0;
-  padding: 0;
-  border-bottom: 1px solid gainsboro;
-}
-
-#search-results .search-entry {
-  padding: 0.25rem 0.5rem;
-
-  font-weight: normal;
-  color: #333;
-
-  display:flex;
-  flex-direction:column;
-
-  --entry-color: gray;
-}
-
-#search-results .search-entry:hover {
-  text-decoration: none;
-  background: #f4f4f4;
-}
-
-@media (min-width: 64em) {
-  #search-results .search-entry {
-    flex-direction:row;
-  }
-
-  #search-results .search-entry .entry-title {
-    width: 50%;
-    flex-shrink: 0;
-  }
-}
-
-#search-results .search-entry .entry-kind {
-  padding:0.125rem 0.25rem;
-  font-size: 0.8rem;
-  background: #333;
-  color:white;
-  border-radius:0.25rem;
-  margin-right: 0.5rem;
-}
-
-#search-results .search-entry .entry-kind {
-    background: var(--entry-color);
-}
-
-#search-results .search-entry.mod {
-  --entry-color: rgb(204, 78, 12);
-}
-
-#search-results .search-entry.mty {
-  --entry-color: #027491;
-}
-
-#search-results .search-entry.mtd {
-  --entry-color: #327d8e;
-}
-
-#search-results .search-entry.typ {
-  --entry-color: rgb(42, 84, 183);
-}
-
-#search-results .search-entry.val {
-  --entry-color: green;
-}
-
-#search-results .search-entry.par {
-  --entry-color: green;
-}
-
-#search-results .search-entry.cls {
-  --entry-color: rgb(163, 34, 34);
-}
-
-#search-results .search-entry.cty {
-  --entry-color: rgb(32, 68, 165);
-}
-
-#search-results .search-entry.exc {
-  --entry-color: #370c62;
-}
-
-#search-results .search-entry.man {
-  /*--entry-color: #370c62;*/
-}
-
-#search-results .search-entry .entry-title {
-  overflow-wrap: anywhere;
-}
-
-#search-results .search-entry .entry-name {
-  font-weight:bold;
-  color: var(--entry-color);
-}
-
-#search-results .search-entry .prefix-name {
-  font-weight:600;
-}
-
-#search-results .search-entry .entry-comment {
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow: ellipsis;
-}
-
-</style>
 <script>
   documents = documents.map((d, i) => {return {...d, id: i}});
 
@@ -256,7 +138,7 @@ Layout.render
       },
       fuzzy: 0.15,
     }).slice(0,50);
-    let container = document.querySelector("#search-results");
+    let container = document.querySelector("#in-package-search-results");
     container.innerHTML = "";
 
     let search_results = document.createElement("ol");
