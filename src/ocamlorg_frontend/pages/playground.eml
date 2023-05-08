@@ -90,7 +90,7 @@ let render
             <div x-show="editor && mobile">
               <div class="text-center">
                 <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">Coming Soon!</h3>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-100">The OCaml playground does not support mobile yet.</p>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-100">The OCaml Playground does not support mobile yet.</p>
               </div>
             </div>
             <div
