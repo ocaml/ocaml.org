@@ -259,8 +259,8 @@ val average : float -> float -> float = <fun>
 ```
 
 This is rather unusual. In many other languages (such as C), integers get promoted to
-floating point values in certain circumstances. For example, if you write `1 + 2.5` in C
-then the first argument (which is an integer) is promoted to a floating
+floating point values in certain circumstances. For example, if you write `1 + 2.5` in C,
+the first argument (which is an integer) is promoted to a floating
 point number, making the result a floating point number, too.
 
 OCaml never does implicit type casts like this. In OCaml, `1 + 2.5` is a type error.
