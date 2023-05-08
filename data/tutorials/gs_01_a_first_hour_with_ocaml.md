@@ -34,7 +34,7 @@ following it should be either entered into an interactive toplevel, or
 into the OCaml Playground.
 
 ## Running OCaml Programs
-### Using an OCaml toplevel (REPL)
+### Using an OCaml Toplevel (REPL)
 
 We recommend using UTop (see [here](/docs/up-and-running#using-the-ocaml-toplevel-with-utop)),
 but alternatively, the basic toplevel of OCaml (`ocaml` command) can also be used. For installation instructions,
