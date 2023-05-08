@@ -201,7 +201,7 @@ val square : int -> int = <fun>
 ```
 
 This defines a function named `square` which has one argument, namely `x`, and
-its result is equal to (`=`) the result of the expression `x * x`. The expression
+its result is equal to (`=`), the result of the expression `x * x`. The expression
 that defines the result of a function is called *function body*.
 
 When we apply the function as `square 50;;`, this evaluates to the function body
