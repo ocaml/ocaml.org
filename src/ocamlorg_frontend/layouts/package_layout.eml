@@ -28,7 +28,7 @@ Layout.render
           <%s! Package_breadcrumbs.render_package_and_version ~path ?hash ?page package %>
         </div>
       </div>
-      <div x-data="{ sidebar: window.matchMedia('(min-width: 48em)').matches, q: '', search_input_focused: false }" @resize.window="sidebar = window.matchMedia('(min-width: 48em)').matches" x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 48em)').matches">
+      <div x-data="{ sidebar: window.matchMedia('(min-width: 48em)').matches, search_input_focused: false, focus_within_search_results: false }" @resize.window="sidebar = window.matchMedia('(min-width: 48em)').matches" x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 48em)').matches">
         <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed md:hidden right-10"
         x-on:click="sidebar = ! sidebar">
           <%s! Icons.sidebar_menu "h-8 w-8" %>
@@ -61,23 +61,34 @@ Layout.render
             </li>
           </ol>
 
-          <form class="flex w-full items-center">
-            <% if Option.is_some search_index_digest then (%>
-            <input id="in-package-search" type="search" name="q" class="focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 flex-grow"
-              autocomplete="off"
-              placeholder="Search names in this package..."
+          <div class="relative w-full">
+            <div class="flex w-full items-center">
+              <% if Option.is_some search_index_digest then (%>
+              <input id="in-package-search" type="search" name="q" class="focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 flex-grow"
+                autocomplete="off"
+                placeholder="Search names in this package..."
 
-              x-on:focus="search_input_focused = true"
-              x-on:blur="setTimeout(() => search_input_focused = false, 100)"
-              x-on:keyup="q = event.target.value.trim()"
-              >
-            <button aria-label="search" class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
-              <%s! Icons.magnifying_glass "w-6 h-6" %>
-            </button>
-            <% ) else ( %>
-            No search index for package!
-            <% ); %>
-          </form>
+                x-on:focus="search_input_focused = true"
+                x-on:blur="search_input_focused = false"
+                >
+              <div aria-hidden="true" class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
+                <%s! Icons.magnifying_glass "w-6 h-6" %>
+              </div>
+              <% ) else ( %>
+              No search index for package!
+              <% ); %>
+            </div>
+
+            <div class="absolute top-10 right-0 left-0 bg-white flex-1 z-20 min-w-0 pb-12 max-h-[60vh] overflow-y-auto"
+              x-show="search_input_focused || focus_within_search_results">
+
+              <div id="in-package-search-results"
+                x-on:focusin="focus_within_search_results = true"
+                x-on:focusout="focus_within_search_results = false"
+                >
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="flex md:gap-4 xl:gap-10">
@@ -89,20 +100,11 @@ Layout.render
             <%s! left_sidebar_html %>
           </div>
 
-          <div class="flex-1 z-0 z- min-w-0 pt-6 pb-12 md:pb-[70vh] prose max-w-full"
-            x-show="q != ''">
-
-            <div id="in-package-search-results">
-            </div>
-          </div>
-
-          <div class="flex-1 z-0 z- min-w-0 pt-6 pb-12 md:pb-[70vh]"
-            x-show="q == ''">
+          <div class="flex-1 z-0 z- min-w-0 pt-6 pb-12 md:pb-[70vh]">
             <%s! inner %>
           </div>
           <% (if right_sidebar_html <> "" then %>
-          <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto md:pb-24"
-            x-show="q == ''">
+          <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto md:pb-24">
             <%s! right_sidebar_html %>
           </div>
           <% ); %>
@@ -118,92 +120,158 @@ Layout.render
   function Fuse() {}
 </script>
 <script>
-  var miniSearch;
+  {
+    let miniSearch;
+    let results = [];
 
-  function perform_search() {
-    let q = document.getElementById("in-package-search").value;
-    console.log("perform_search", q);
-    let results = miniSearch.search(q, {
-      fields: ['name', 'prefixname', 'comment'], 
-      prefix: true,
-      boost: {
-        name: 4,
-        prefixname: 1.2,
-      },
-      fuzzy: 0.15,
-    }).slice(0,50);
-    let container = document.getElementById("in-package-search-results");
-    container.innerHTML = "";
+    function perform_search() {
+      let q = document.getElementById("in-package-search").value;
+      results = miniSearch.search(q, {
+        fields: ['name', 'prefixname', 'comment'], 
+        prefix: true,
+        boost: {
+          name: 4,
+          prefixname: 1.2,
+        },
+        fuzzy: 0.15,
+      }).slice(0,50);
+      let container = document.getElementById("in-package-search-results");
+      container.innerHTML = "";
 
-    let search_results = document.createElement("ol");
+      let search_results = document.createElement("ol");
 
-    results.map((entry) => {
-        let kind = document.createElement("tt");
-        kind.innerText = entry.kind
-          .replace("module type", "mty").replace("root", "mod").replace("module", "mod")
-          .replace("method", "mtd").replace("class typ", "cty").replace("class", "cls")
-          .replace("core type", "typ").replace("type", "typ")
-          .replace("exception", "exc").replace("core exception", "exc")
-          .replace("parameter", "par")
-          .replace("leaf page", "man").replace("page", "man");
-        kind.title = entry.kind;
-        kind.classList.add("entry-kind");
+      results.map((entry) => {
+          let kind = document.createElement("tt");
+          kind.innerText = entry.kind
+            .replace("module type", "mty").replace("root", "mod").replace("module", "mod")
+            .replace("method", "mtd").replace("class typ", "cty").replace("class", "cls")
+            .replace("core type", "typ").replace("type", "typ")
+            .replace("exception", "exc").replace("core exception", "exc")
+            .replace("parameter", "par")
+            .replace("leaf page", "man").replace("page", "man");
+          kind.title = entry.kind;
+          kind.classList.add("entry-kind");
 
-        let list_item = document.createElement("li");
-        let a = document.createElement("a");
-        a.href = "/" + entry.url;
-        a.classList.add("search-entry", kind.innerText.slice(0,3));
-        let title = document.createElement("div");
-        title.classList.add("entry-title");
+          let list_item = document.createElement("li");
+          let a = document.createElement("a");
+          a.href = "/" + entry.url;
+          a.id = "search-result-"+entry.id;
+          a.classList.add("search-entry", kind.innerText.slice(0,3));
+          let title = document.createElement("div");
+          title.classList.add("entry-title");
 
-        let prefixname = document.createElement("tt");
-        prefixname.innerText = entry.prefixname.split(".").reverse().join(".") + (entry.prefixname != "" ? ".": "");
-        prefixname.classList.add("prefix-name");
-        let name = document.createElement("tt");
-        name.classList.add("entry-name");
-        name.innerText =  entry.name;
+          let prefixname = document.createElement("tt");
+          prefixname.innerText = entry.prefixname.split(".").reverse().join(".") + (entry.prefixname != "" ? ".": "");
+          prefixname.classList.add("prefix-name");
+          let name = document.createElement("tt");
+          name.classList.add("entry-name");
+          name.innerText =  entry.name;
 
-        title.appendChild(kind);
-        title.appendChild(prefixname);
-        title.appendChild(name);
+          title.appendChild(kind);
+          title.appendChild(prefixname);
+          title.appendChild(name);
 
-        let comment = document.createElement("div");
-        comment.innerText = entry.comment;
-        comment.classList.add("entry-comment");
+          let comment = document.createElement("div");
+          comment.innerText = entry.comment;
+          comment.classList.add("entry-comment");
 
-        a.appendChild(title);
-        a.appendChild(comment);
+          a.appendChild(title);
+          a.appendChild(comment);
 
-        list_item.appendChild(a);
+          list_item.appendChild(a);
 
-        search_results.appendChild(list_item);
-    });
-    container.appendChild(search_results);
+          search_results.appendChild(list_item);
+      });
+      container.appendChild(search_results);
+
+      search_results_position = null;
+    }
+
+    function init_search() {
+      documents = documents.map((d, i) => {return {...d, id: i}});
+
+      miniSearch = new MiniSearch({
+        fields: ['name', 'prefixname', 'comment'],
+        storeFields: ['name', 'prefixname', 'kind', 'url', 'comment'],
+      });
+
+      miniSearch.addAll(documents);
+
+      document.getElementById("in-package-search").addEventListener("input", perform_search);
+      perform_search();
+    }
+
+    function user_interacts() {
+      let scriptTag = document.createElement("script");
+      scriptTag.src = "<%s Url.Package.search_index ?version:(Package.url_version package) package.name ~digest %>";
+      scriptTag.addEventListener("load", init_search);
+      document.body.appendChild(scriptTag);
+
+      document.getElementById("in-package-search").removeEventListener("focus", user_interacts);
+    }
+
+    document.getElementById("in-package-search").addEventListener("focus", user_interacts);
+
+
+    let search_results_position = null;
+    function adjust_position(event) {
+      if (results.length == 0) return;
+
+      if (event.key == "ArrowDown") {
+        if (search_results_position === null) {
+          search_results_position = 0;
+          return;
+        }
+        if (search_results_position < results.length - 1) {
+          search_results_position++;
+          return;
+        }
+      } else if (event.key == "ArrowUp") {
+        if (search_results_position === null) return;
+
+        if (search_results_position == 0) {
+          search_results_position = null;
+          return;
+        }
+
+        search_results_position--;
+        return;
+      }
+    }
+
+    function keydown(event) {
+      event.stopPropagation();
+      if (event.key == "Enter") {
+        if (results.length > 0) {
+          let url = "/"+results[search_results_position || 0].url;
+          console.log("going to", url);
+          window.location = url;
+
+          if (url.indexOf("#") != -1) {
+            let id = url.split("#")[1]
+            let el = document.getElementById(id);
+            console.log("id el", id, el);
+            if (el) setTimeout(() => {
+              console.log("scroll"); el.scrollIntoView();}, 10);
+          }
+
+          document.getElementById("in-package-search").value = "";
+          results = [];
+          search_results_position = null;
+        }
+        return false;
+      }
+
+      if (search_results_position !== null) document.getElementById("search-result-"+results[search_results_position].id).classList.remove("active");
+      adjust_position(event);
+      if (search_results_position !== null) {
+        let el = document.getElementById("search-result-"+results[search_results_position].id);
+        el.classList.add("active");
+        el.scrollIntoView({block: "end"});
+      }
+    }
+
+    document.getElementById("in-package-search").addEventListener("keydown", keydown);
   }
-
-  function init_search() {
-    documents = documents.map((d, i) => {return {...d, id: i}});
-
-    miniSearch = new MiniSearch({
-      fields: ['name', 'prefixname', 'comment'],
-      storeFields: ['name', 'prefixname', 'kind', 'url', 'comment'],
-    });
-
-    miniSearch.addAll(documents);
-  
-    document.getElementById("in-package-search").addEventListener("input", perform_search);
-    perform_search();
-  }
-
-  function user_interacts() {
-    let scriptTag = document.createElement("script");
-    scriptTag.src = "<%s Url.Package.search_index ?version:(Package.url_version package) package.name ~digest %>";
-    scriptTag.addEventListener("load", init_search);
-    document.body.appendChild(scriptTag);
-
-    document.getElementById("in-package-search").removeEventListener("focus", user_interacts);
-  }
-
-  document.getElementById("in-package-search").addEventListener("focus", user_interacts);
 </script>
 <% | _ -> () ); %>
