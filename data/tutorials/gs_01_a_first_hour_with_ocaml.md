@@ -236,7 +236,7 @@ one Integer value (`int`) as an argument and returns a Boolean value (`bool`).
 
 The Boolean operator *and* is denoted with `&&` and *or* is denoted with `||`.
 
-A function may take multiple arguments which are separated by spaces.
+A function may take multiple arguments, separated by spaces.
 This is the case both in the function declaration and in any expression
 that applies a function to some arguments.
 
