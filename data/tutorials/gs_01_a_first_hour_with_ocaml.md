@@ -86,7 +86,7 @@ and load its contents into the toplevel with the `#use` directive:
 $ ocaml
         OCaml version 4.14.0
 
-# #use "program.ml"
+# #use "program.ml";;
 ```
 
 Note that `#use` is not part of the OCaml language proper; it's an instruction
