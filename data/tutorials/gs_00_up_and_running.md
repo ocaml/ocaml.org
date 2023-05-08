@@ -15,6 +15,10 @@ This page will walk you through the installation of everything you need for a co
 
 We provide installation instructions for Linux, macOS, and *BSD for all OCaml versions. For Windows, we provide instructions on this page for installing OCaml 4.14.0 via the [Diskuv OCaml](https://github.com/diskuv/dkml-installer-ocaml#readme) Installer. Note that, if you use Windows Subsystem for Linux (WSL), the Unix instructions can be used on Windows.
 
+Alternatively, for Linux, macOS and *BSD, there is also the [OCaml Platform Installer](#one-step-installation-on-unix-the-platform-installer)
+which installs both OCaml and the OCaml Platform tools.
+However, please note that it is still experimental and in active development.
+
 If you are setting up OCaml on Windows and are unsure which installation method to use, you might be
 interested in reading [OCaml on Windows](/docs/ocaml-on-windows) first.
 
@@ -30,32 +34,23 @@ The code blocks (in black) on this page show the required commands (the text aft
 ## Installing OCaml
 
 OCaml has an official package manager, `opam`, which allows you to
-easily switch between OCaml versions and and much more.
-It enables you to conveniently deal with different projects which
+conveniently switch between OCaml versions and much more. For example,
+`opam` makes it practical to deal with different projects which
 require different versions of OCaml.
 
-[`opam`](https://opam.ocaml.org/) introduces the concept of a "switch," which is an isolated environment that contains an OCaml compiler together with a set of packages (libraries and other files). Switches allow us to install independent sets of dependencies for different projects.
+[`opam`](https://opam.ocaml.org/) introduces the concept of a "switch," which is an isolated environment that contains an OCaml compiler together with a set of OCaml packages. Switches allow us to install independent sets of dependencies for different projects.
 
 Find all the installation instructions for both Unix-like systems and Windows in the sections below:
 
-* Linux or macOS: [Installation for Unix, including Linux and macOS](#installation-for-unix)
-* Windows: [Installation for Windows](#installation-for-windows)
+* Linux or macOS: [Installation on Unix, including Linux and macOS](#installation-on-unix)
+* Windows: [Installation on Windows](#installation-on-windows)
 
-**Note**
-
-As an alternative to the methods mentioned aboved, the [OCaml Platform
-Installer](https://github.com/tarides/ocaml-platform-installer) is a new way to
-install OCaml and the development tools. [See
-below](#up-and-running-with-the-platform-installer) for the instructions.
-However, please note that it is still experimental and in active development
-(any feedback is highly appreciated).
-
-### Installation on Unix (Linux, macOS, *BSD)
+### Installation on Unix
 
 Note: OCaml is available as a package in most Linux distributions; however, it is
 often outdated. The best way to install OCaml is with `opam`, OCaml's package manager.
 
-The following steps depend on having these packages or tools installed:
+The following steps require to have these packages or tools installed:
 `gcc`, `build-essential`, `curl`, `bubblewrap`, and `unzip`.
 
 #### 1. Install opam
@@ -123,15 +118,14 @@ The second command (`eval $(opam env)`) modifies a few environment variables to 
 Now check the installation by running `opam --version`. You can compare it with the current version on [opam.ocaml.org](https://opam.ocaml.org/).
 
 **Please note:** In case you are running `opam init` inside a Docker container,
-you will be asked whether you want to disable sanboxing.
+you will be asked whether you want to disable sandboxing.
 This is necessary, unless you run a privileged Docker container.
 
 #### 3. Create an `opam` Switch
 
 This step is necessary only if you need to install a specific version of OCaml,
 or if you want to create a new independent environment.
-`opam init` already set up a default `opam` switch for you to work in.
-
+(`opam init` already sets up a default `opam` switch for you to work in.)
 
 You can create a new opam switch with the `opam switch create` command.
 Specify which version as shown below (i.e., `opam switch create 4.14.0`).
@@ -272,7 +266,7 @@ Now that the tools are installed, it remains to understand how to use them. Most
 
 The DKML installer already installed all of the OCaml Platform tools, except for Merlin.
 
-If need to use Merlin, you can install it in an `opam` switch that you created using `dkml init`:
+If you need to use Merlin, you can install it in an `opam` switch that you created using `dkml init`:
 
 ```shell
 $ opam install merlin
