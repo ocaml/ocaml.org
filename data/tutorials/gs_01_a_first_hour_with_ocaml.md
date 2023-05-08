@@ -579,7 +579,7 @@ val map : ('a -> 'b) -> 'a list -> 'b list = <fun>
 Notice the type of the function `f` in parentheses as part of the whole type.
 This `map` function, given a function of type `'a -> 'b` and a list of `'a`s,
 will build a list of `'b`s. Sometimes `'a` and `'b` might be the same type, of
-course. The function `map` is a *higher-order function* since one of its parameters
+course. The function `map` is a *higher-order function*, since one of its parameters
 is a function.
 
 Here are some examples of using `map`:
