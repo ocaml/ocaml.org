@@ -234,7 +234,7 @@ Notice that OCaml infers the type `int -> bool` for this function,
 which means that `square_is_even` is a function that takes
 one Integer value (`int`) as an argument and returns a Boolean value (`bool`).
 
-The Boolean operator *and* is denoted with `&&` and *or* is denoted with `||`.
+The Boolean operator *and* is denoted with `&&`, and *or* is denoted with `||`.
 
 A function may take multiple arguments, separated by spaces.
 This is the case both in the function declaration and in any expression
