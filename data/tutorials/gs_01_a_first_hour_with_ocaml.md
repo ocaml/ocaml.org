@@ -12,7 +12,7 @@ date: 2021-08-06T17:11:00-00:00
 
 This tutorial will walk you through the basics of OCaml by trying
 out different elements of the language in an interactive context.
-Only at the very end of the tutorial we consider briefly how
+At the end of the tutorial, we consider briefly how
 to compile an OCaml program into a binary executable.
 
 You can follow along with a basic OCaml installation,
