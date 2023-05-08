@@ -102,7 +102,7 @@ use without installing anything, has this interface:
 
 ![OCaml Playground](/media/tutorials/ocaml-playground.png)
 
-There are two windows: the editor window (on the left) is where you write code,
+There are two windows: the editor window (on the left) is where you write code, and
 the output window (on the right) is where all the answers from OCaml appear.
 
 Instead of entering code examples line by line on a prompt, as in the toplevel,
