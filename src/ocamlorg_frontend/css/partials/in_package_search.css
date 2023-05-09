@@ -1,21 +1,13 @@
-#in-package-search-results h2 {
-  margin: 0;
-}
-
 #in-package-search-results ol {
-  margin: 0;
-  list-style:none;
-  padding:0;
+  @apply m-0 p-0 list-none;
 }
 
 #in-package-search-results li {
-  margin: 0;
-  padding: 0;
-  border-bottom: 1px solid gainsboro;
+  @apply m-0 p-0 border-b;
 }
 
 #in-package-search-results br {
-  display: none;
+  @apply hidden;
 }
 
 #in-package-search-results .search-entry {
@@ -30,18 +22,16 @@
 
 @media (min-width: 64em) {
   #in-package-search-results .search-entry {
-    flex-direction:row;
+    @apply flex-row;
   }
 
   #in-package-search-results .search-entry .entry-title {
-    width: 50%;
-    flex-shrink: 0;
+    @apply shrink-0 w-1/2;
   }
 }
 
 #in-package-search-results .search-entry .entry-kind {
-  @apply py-0.5 px-1 bg-body-600 text-white rounded mr-2;
-  font-size: 0.8rem;
+  @apply py-0.5 px-1 bg-body-600 text-white rounded mr-2 text-sm;
 }
 
 #in-package-search-results .search-entry .entry-kind {
@@ -93,18 +83,16 @@
 }
 
 #in-package-search-results .search-entry .entry-name {
-  font-weight:bold;
+  @apply font-bold;
   color: var(--entry-color);
 }
 
 #in-package-search-results .search-entry .prefix-name {
-  font-weight:600;
+  @apply font-semibold;
 }
 
 #in-package-search-results .search-entry .entry-comment {
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow: ellipsis;
+  @apply whitespace-nowrap overflow-hidden text-ellipsis;
 }
 
 #in-package-search-results .active {
@@ -113,9 +101,9 @@
 
 
 #in-package-search #in-package-search-results {
-  display:hidden;
+  @apply hidden;
 }
 
 #in-package-search:focus-within #in-package-search-results {
-  display:block;
+  @apply block;
 }
