@@ -147,9 +147,7 @@ val file :
     given its URL relative to the root of the package. *)
 
 val search_index :
-  kind:[< `Package | `Universe of string ] ->
-  t ->
-  string option Lwt.t
+  kind:[< `Package | `Universe of string ] -> t -> string option Lwt.t
 (** Retrieve the search index of a given package. *)
 
 val init : ?disable_polling:bool -> unit -> state

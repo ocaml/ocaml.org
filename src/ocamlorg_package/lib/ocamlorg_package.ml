@@ -361,7 +361,7 @@ let search_index ~kind t =
   match content with
   | Ok content -> Lwt.return (Some content)
   | Error _ ->
-    Logs.info (fun m -> m "Failed to fetch search index at %s" url);
+      Logs.info (fun m -> m "Failed to fetch search index at %s" url);
       Lwt.return None
 
 let maybe_file ~kind t filename =

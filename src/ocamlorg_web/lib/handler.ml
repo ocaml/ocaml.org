@@ -483,7 +483,11 @@ let package_overview t kind req =
   let* sidebar_data = Package_helper.package_sidebar_data ~kind package in
 
   let* maybe_search_index = Ocamlorg_package.search_index ~kind package in
-  let search_index_digest = Option.map (fun idx -> idx |> Digest.string |> Dream.to_base64url) maybe_search_index in
+  let search_index_digest =
+    Option.map
+      (fun idx -> idx |> Digest.string |> Dream.to_base64url)
+      maybe_search_index
+  in
 
   let package_info = Ocamlorg_package.info package in
   let rev_dependencies =
@@ -576,8 +580,8 @@ let package_overview t kind req =
   in
   Dream.html
     (Ocamlorg_frontend.package_overview ~sidebar_data ~content:""
-        ~search_index_digest
-       ~content_title:None ~toc ~deps_and_conflicts frontend_package)
+       ~search_index_digest ~content_title:None ~toc ~deps_and_conflicts
+       frontend_package)
 
 let package_documentation t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
@@ -644,7 +648,11 @@ let package_documentation t kind req =
   in
   let* module_map = Ocamlorg_package.module_map ~kind package in
   let* maybe_search_index = Ocamlorg_package.search_index ~kind package in
-  let search_index_digest = Option.map (fun idx -> idx |> Digest.string |> Dream.to_base64url) maybe_search_index in
+  let search_index_digest =
+    Option.map
+      (fun idx -> idx |> Digest.string |> Dream.to_base64url)
+      maybe_search_index
+  in
   let toc = Package_helper.frontend_toc doc.toc in
   let (maptoc : Ocamlorg_frontend.Navmap.toc list) =
     toc_of_map ~root module_map
@@ -690,8 +698,8 @@ let package_documentation t kind req =
   in
   Dream.html
     (Ocamlorg_frontend.package_documentation ~page:(Some path)
-      ~search_index_digest
-       ~path:breadcrumb_path ~toc ~maptoc ~content:doc.content frontend_package)
+       ~search_index_digest ~path:breadcrumb_path ~toc ~maptoc
+       ~content:doc.content frontend_package)
 
 let package_file t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
@@ -708,22 +716,24 @@ let package_file t kind req =
   let path = (Dream.path [@ocaml.warning "-3"]) req |> String.concat "/" in
   let* sidebar_data = Package_helper.package_sidebar_data ~kind package in
   let* maybe_search_index = Ocamlorg_package.search_index ~kind package in
-  let search_index_digest = Option.map (fun idx -> idx |> Digest.string |> Dream.to_base64url) maybe_search_index in
+  let search_index_digest =
+    Option.map
+      (fun idx -> idx |> Digest.string |> Dream.to_base64url)
+      maybe_search_index
+  in
   let* maybe_doc = Ocamlorg_package.file ~kind package path in
   let</>? doc = maybe_doc in
   let content = doc.content in
   let toc = Package_helper.frontend_toc doc.toc in
   Dream.html
     (Ocamlorg_frontend.package_overview ~sidebar_data ~content
-    ~search_index_digest
-       ~content_title:(Some path) ~toc ~deps_and_conflicts:[] frontend_package)
+       ~search_index_digest ~content_title:(Some path) ~toc
+       ~deps_and_conflicts:[] frontend_package)
 
 let package_search_index t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
   let version_from_url = Dream.param req "version" in
-  let</>? package, _ =
-    Package_helper.of_name_version t name version_from_url
-  in
+  let</>? package, _ = Package_helper.of_name_version t name version_from_url in
   let open Lwt.Syntax in
   let kind =
     match kind with
@@ -732,11 +742,14 @@ let package_search_index t kind req =
   in
   let* maybe_search_index = Ocamlorg_package.search_index ~kind package in
   let</>? search_index = maybe_search_index in
-  Lwt.return (Dream.response
-    ~headers:[ ("Content-type", "application/javascript");
-    ("Cache-Control", "max-age=31536000, immutable") ]
-    search_index)
-      
+  Lwt.return
+    (Dream.response
+       ~headers:
+         [
+           ("Content-type", "application/javascript");
+           ("Cache-Control", "max-age=31536000, immutable");
+         ]
+       search_index)
 
 let sitemap _request =
   let open Lwt.Syntax in
