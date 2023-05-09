@@ -106,3 +106,12 @@
 #in-package-search-results .active {
   @apply bg-primary-100;
 }
+
+
+#in-package-search #in-package-search-results {
+  display:hidden;
+}
+
+#in-package-search:focus-within #in-package-search-results {
+  display:block;
+}

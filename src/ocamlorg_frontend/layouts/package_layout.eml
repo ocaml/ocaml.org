@@ -28,7 +28,7 @@ Layout.render
           <%s! Package_breadcrumbs.render_package_and_version ~path ?hash ?page package %>
         </div>
       </div>
-      <div x-data="{ sidebar: window.matchMedia('(min-width: 48em)').matches, search_input_focused: false }" @resize.window="sidebar = window.matchMedia('(min-width: 48em)').matches" x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 48em)').matches">
+      <div x-data="{ sidebar: window.matchMedia('(min-width: 48em)').matches }" @resize.window="sidebar = window.matchMedia('(min-width: 48em)').matches" x-on:close-sidebar="sidebar=window.matchMedia('(min-width: 48em)').matches">
         <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed md:hidden right-10"
         x-on:click="sidebar = ! sidebar">
           <%s! Icons.sidebar_menu "h-8 w-8" %>
@@ -61,15 +61,12 @@ Layout.render
             </li>
           </ol>
 
-          <div class="relative w-full">
+          <div id="in-package-search" class="relative w-full">
             <div class="flex w-full items-center">
               <% if Option.is_some search_index_digest then (%>
-              <input id="in-package-search" type="search" name="q" class="focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 flex-grow"
+              <input id="in-package-search-input" type="search" name="q" class="focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 flex-grow"
                 autocomplete="off"
                 placeholder="Search names in this package..."
-
-                x-on:focus="search_input_focused = true"
-                x-on:blur="search_input_focused = false"
                 >
               <div aria-hidden="true" class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
                 <%s! Icons.magnifying_glass "w-6 h-6" %>
@@ -79,11 +76,7 @@ Layout.render
               <% ); %>
             </div>
 
-            <div class="absolute top-12 right-0 left-0 bg-white z-20 w-full max-h-[60vh] overflow-hidden"
-              x-show="search_input_focused">
-
-              <div id="in-package-search-results" class="overflow-y-auto border rounded-lg">
-              </div>
+            <div id="in-package-search-results" class="absolute top-12 right-0 left-0 bg-white z-20 w-full max-h-[60vh] overflow-y-auto border rounded-lg">
             </div>
           </div>
         </div>
@@ -122,7 +115,7 @@ Layout.render
     let results = [];
 
     function perform_search() {
-      let q = document.getElementById("in-package-search").value;
+      let q = document.getElementById("in-package-search-input").value;
       results = miniSearch.search(q, {
         fields: ['name', 'prefixname', 'comment'], 
         prefix: true,
@@ -194,7 +187,7 @@ Layout.render
 
       miniSearch.addAll(documents);
 
-      document.getElementById("in-package-search").addEventListener("input", perform_search);
+      document.getElementById("in-package-search-input").addEventListener("input", perform_search);
       perform_search();
     }
 
@@ -204,10 +197,10 @@ Layout.render
       scriptTag.addEventListener("load", init_search);
       document.body.appendChild(scriptTag);
 
-      document.getElementById("in-package-search").removeEventListener("focus", user_interacts);
+      document.getElementById("in-package-search-input").removeEventListener("focus", user_interacts);
     }
 
-    document.getElementById("in-package-search").addEventListener("focus", user_interacts);
+    document.getElementById("in-package-search-input").addEventListener("focus", user_interacts);
 
 
     let search_results_position = null;
@@ -252,7 +245,7 @@ Layout.render
               console.log("scroll"); el.scrollIntoView();}, 10);
           }
 
-          document.getElementById("in-package-search").value = "";
+          document.getElementById("in-package-search-input").value = "";
           results = [];
           search_results_position = null;
         }
@@ -268,7 +261,7 @@ Layout.render
       }
     }
 
-    document.getElementById("in-package-search").addEventListener("keydown", keydown);
+    document.getElementById("in-package-search-input").addEventListener("keydown", keydown);
   }
 </script>
 <% | _ -> () ); %>
