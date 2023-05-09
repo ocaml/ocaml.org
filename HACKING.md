@@ -110,12 +110,12 @@ The docker images automatically build from the `live` and `staging` branches, an
 
 ### Staging Pull Requests
 
-Staging is supposed to be as close as possible to the `main` branch, with a
-couple of PR added on top of it. To reduce the workload maintaining the
-`staging` branch is sync and with the correct PR added, some discipline is
-needed. The idea is to turn staged PR into single commits, which removes the need
-to use `git rebase`. Assuming a PR lies in branch `<pr-branch>` (e.g.
-`fix-issue-42`) and has number `<pr-num>` in GitHub (e.g. 43 in
+The `staging` branch is supposed to be as close as possible to the `main`
+branch, with a couple of PR added on top of it. To reduce the workload
+maintaining the `staging` branch in sync and with the correct PR added, some
+discipline is needed. The idea is to turn staged PR into single commits, which
+removes the need to use `git rebase`. Assuming a PR lies in branch `<pr-branch>`
+(e.g. `fix-issue-42`) and has number `<pr-num>` in GitHub (e.g. 43 in
 https://https://github.com/ocaml/ocaml.org/pull/43), and `origin` is
 `ocaml/ocaml.org.git` at GitHub, here are the recipes that can be used:
 
