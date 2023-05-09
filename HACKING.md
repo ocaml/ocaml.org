@@ -121,7 +121,7 @@ https://https://github.com/ocaml/ocaml.org/pull/43), and `origin` is
 
 * Adding a PR to `staging`:
   ```sh
-  $ git merge --squash foo-branch
+  $ git merge --squash <pr-branch>
   $ git merge -m "Squash and merge PR #<pr-num> (<pr-branch>)"
   $ git tag -a <pr-tag> -m "Stage PR #<pr-num>" HEAD
   ```
