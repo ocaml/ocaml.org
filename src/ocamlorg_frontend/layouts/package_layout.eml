@@ -120,8 +120,9 @@ Layout.render
         fields: ['name', 'prefixname', 'comment'], 
         prefix: true,
         boost: {
-          name: 4,
-          prefixname: 1.2,
+          name: 6,
+          prefixname: 2.5,
+          comment: 0.8,
         },
         fuzzy: 0.15,
       }).slice(0,50);
