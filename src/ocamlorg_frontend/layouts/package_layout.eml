@@ -71,8 +71,6 @@ Layout.render
               <div aria-hidden="true" class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
                 <%s! Icons.magnifying_glass "w-6 h-6" %>
               </div>
-              <% ) else ( %>
-              No search index for package!
               <% ); %>
             </div>
 
