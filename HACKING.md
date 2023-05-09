@@ -108,6 +108,38 @@ With the docker container running, you can visit the site at <http://localhost:8
 
 The docker images automatically build from the `live` and `staging` branches, and are then pushed to Docker Hub: https://hub.docker.com/r/ocurrent/v3.ocaml.org-server
 
+### Staging Pull Requests
+
+Staging is supposed to be as close as possible to the `main` branch, with a
+couple of PR added on top of it. To reduce the workload maintaining the
+`staging` branch is sync and with the correct PR added, some discipline is
+needed. The idea is to turn staged PR into single commits, which removes the need
+to use `git rebase`. Assuming a PR lies in branch `<pr-branch>` (e.g.
+`fix-issue-42`) and has number `<pr-num>` in GitHub (e.g. 43 in
+https://https://github.com/ocaml/ocaml.org/pull/43), and `origin` is
+`ocaml/ocaml.org.git` at GitHub, here are the recipes that can be used:
+
+* Adding a PR to `staging`:
+  ```sh
+  $ git merge --squash foo-branch
+  $ git merge -m "Squash and merge PR #<pr-num> (<pr-branch>)"
+  $ git tag -a <pr-tag> -m "Stage PR #<pr-num>" HEAD
+  ```
+  Where `<pr-tag>` is the string `stage-<pr-num>` (e.g. `stage-43`):
+* Removing a PR from `staging`:
+  ```sh
+  $ git rebase --onto <pr-tag>^ <pr-tag>
+  $ git tag -d <pr-tag>
+  ```
+* Updating a PR in `staging` is just removing and adding
+* Sync `staging` with `main`
+  1. Pull `main`: checkout into `main` and `git pull origin main`
+  1. Checkout into `staging`
+  1. Remove staged PRs
+  1. `git reset --hard main`
+  1. Add staged PRs
+  1. `git push -f origin staging`
+
 ### Managing dependencies
 
 ocaml.org is using an Opam switch which is local and bound to a pinned commit in opam-repository. This is intended to protect the build from upstream regressions. The Opam repository is specified in three (3) places:
