@@ -14,6 +14,10 @@
   border-bottom: 1px solid gainsboro;
 }
 
+#in-package-search-results br {
+  display: none;
+}
+
 #in-package-search-results .search-entry {
   @apply px-4 py-1 font-normal text-body-600 flex flex-col;
   --entry-color: gray;
