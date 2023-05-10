@@ -133,7 +133,7 @@ Layout.render
           let kind = document.createElement("tt");
           kind.innerText = entry.kind
             .replace("module type", "mty").replace("root", "mod").replace("module", "mod")
-            .replace("method", "mtd").replace("class typ", "cty").replace("class", "cls")
+            .replace("method", "mtd").replace("class type", "cty").replace("class", "cls")
             .replace("core type", "typ").replace("type", "typ")
             .replace("exception", "exc").replace("core exception", "exc")
             .replace("parameter", "par")
