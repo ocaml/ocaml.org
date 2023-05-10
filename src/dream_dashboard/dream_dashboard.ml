@@ -68,19 +68,12 @@ module Middleware = struct
 end
 
 module Router = struct
-  let loader _root path _request =
-    let open Lwt.Syntax in
-    let* maybe_asset = Ocamlorg_static.Asset.read path in
-    match maybe_asset with
-    | None -> Dream.empty `Not_Found
-    | Some asset -> Dream.respond asset
-
   let route ~prefix middlewares store =
     Dream.scope prefix middlewares
       [
         Dream.get "" (Handler.overview ~prefix);
         Dream.get "/analytics" (Handler.analytics ~prefix ~store);
-        Dream.get "/assets/**" (Dream.static ~loader "");
+        Dream.get "/assets/**" (Dream.static "_build/default/src/dream_dashboard/asset");
       ]
 end
 
