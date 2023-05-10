@@ -19,12 +19,11 @@ Layout.render
     <div class="flex justify-between mb-0 md:mb-10 lg:mb-20 lg:flex-row flex-col items-center">
       <h2 class="font-bold mt-10 lg:mt-0 mb-10 lg:mb-0">30+ Academic Entries</h2>
       <div class="flex justify-between flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto">
-        <form action="<%s Url.academic_users %>" method="GET" class="form-input">
-          <div class="form-input__icon">
-            <%s! Icons.magnifying_glass "h-5 w-5 text-body-400" %>
-          </div>
-          <label for="q2" class="sr-only">Institutions</label>
-          <input class="focus:ring-orange-500" id="q2" name="q" type="search" placeholder="Search institutions">
+        <form action="<%s Url.academic_users %>" method="GET" class="form-input-with-button">
+          <input type="search" name="q" placeholder="Search institutions">
+          <button type="submit" aria-label="search">
+            <%s! Icons.magnifying_glass "w-6 h-6 text-white" %>
+          </button>
         </form>
         <div class="relative h-14">
           <select class="w-full lg:w-auto appearance-none text-body-600 border rounded-md py-3 pl-6 border-gray-200 pr-14 h-full" name="All Regions" x-model="continent">

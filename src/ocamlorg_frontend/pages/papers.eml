@@ -53,12 +53,11 @@ Layout.render
             <div class="flex justify-between items-center flex-col md:flex-row">
                 <% let paper_num = match List.length papers with 0 -> "No Paper" | 1 -> "1 Paper" | l -> Printf.sprintf "%i Papers" l in %>
                 <h5 class="font-bold mb-5 md:mb-0"><%s paper_num %></h5>
-                <form action="<%s Url.papers %>" method="GET" class="form-input">
-                    <div class="form-input__icon">
-                        <%s! Icons.magnifying_glass "h-5 w-5 text-body-400" %>
-                    </div>
-                    <label for="q" class="sr-only">Papers</label>
-                    <input class="focus:ring-orange-500" id="q" name="q" type="search" placeholder="Search for a paper" value="<%s search %>">
+                <form action="<%s Url.papers %>" method="GET" class="form-input-with-button">
+                  <input type="search" name="q" placeholder="Search for a paper">
+                  <button type="submit" aria-label="search">
+                    <%s! Icons.magnifying_glass "w-6 h-6 text-white" %>
+                  </button>
                 </form>
             </div>
             <div class="overflow-x-scroll lg:overflow-hidden mt-5 lg:mt-10">

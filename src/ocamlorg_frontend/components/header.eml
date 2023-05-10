@@ -44,13 +44,13 @@ let render
         <form
           <%s! Packages_autocomplete_fragment.form_attributes %>
           action="/packages/search" method="GET">
-          <div class="header__search relative flex items-center justify-center">
-            <input @keydown.stop type="search" name="q" class="header__search__input focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 py-1 lg:w-56 xl:w-80"
+          <div class="header__search relative form-input-with-button">
+            <input @keydown.stop type="search" name="q" class="header__search__input lg:w-56 xl:w-80"
               autocomplete="off"
               placeholder="Search OCaml Packages"
               <%s! Packages_autocomplete_fragment.input_attributes ~target_sel:"#header-search-results" ~indicator_sel:"#header-search-indicator" %>
               >
-            <button aria-label="search" class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
+            <button aria-label="search">
               <%s! Icons.magnifying_glass "w-6 h-6 text-white" %>
             </button>
             <div class="header__search__dropdown z-10 absolute rounded-b-md w-full top-0 mt-10 p-2 bg-white border border-primary-600">
@@ -97,11 +97,11 @@ let render
         </div>
       </li>
       <li>
-        <form action="/packages/search" method="GET" class="form-input form-input-sm">
-          <div class="form-input__icon">
-            <%s! Icons.magnifying_glass "h-5 w-5 text-body-400" %>
-          </div>
+        <form action="/packages/search" method="GET" class="form-input-with-button">
           <input class="focus:ring-orange-500" type="search" name="q" placeholder="Search OCaml packages">
+          <button type="submit" aria-label="search">
+            <%s! Icons.magnifying_glass "w-6 h-6 text-white" %>
+          </button>
         </form>
       </li>
 
