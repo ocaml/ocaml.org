@@ -34,6 +34,7 @@ jobs:
     locations:
       - Remote
       - Singapore
+    publication_date: 2023-05-10
     company: Ahrefs
     company_logo: /logos/ahrefs.svg
   - title: OCaml Developer
