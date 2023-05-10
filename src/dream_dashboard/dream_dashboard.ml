@@ -73,7 +73,8 @@ module Router = struct
       [
         Dream.get "" (Handler.overview ~prefix);
         Dream.get "/analytics" (Handler.analytics ~prefix ~store);
-        Dream.get "/assets/**" (Dream.static "_build/default/src/dream_dashboard/asset");
+        Dream.get "/assets/**"
+          (Dream.static "_build/default/src/dream_dashboard/asset");
       ]
 end
 
