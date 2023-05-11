@@ -160,3 +160,9 @@ module Page = struct
     let slug = Filename.basename path in
     List.find (fun x -> String.equal slug x.slug) all
 end
+
+module Code_example = struct
+  include Code_example
+
+  let get title = List.find (fun x -> String.equal x.title title) all
+end

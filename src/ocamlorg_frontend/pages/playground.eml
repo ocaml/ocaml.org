@@ -1,5 +1,4 @@
-let render
-() =
+let render ~default_code =
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,6 +25,7 @@ let render
     <script id="playground-script"
       data-merlin-url="<%s Ocamlorg_static.Playground.url "merlin.min.js" %>"
       data-worker-url="<%s Ocamlorg_static.Playground.url "worker.min.js" %>"
+      data-default-code="<%s default_code %>"
       src="<%s Ocamlorg_static.Playground.url "playground.min.js" %>" defer></script>
     <title>OCaml Playground</title>
   </head>
