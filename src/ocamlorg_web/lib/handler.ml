@@ -317,7 +317,7 @@ module Package_helper = struct
         name = Ocamlorg_package.Name.to_string name;
         version =
           (if on_latest_url then Latest
-          else Specific (Ocamlorg_package.Version.to_string version));
+           else Specific (Ocamlorg_package.Version.to_string version));
         versions;
         latest_version =
           Option.value ~default:"???"
