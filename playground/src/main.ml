@@ -43,11 +43,13 @@ let get_el_by_id s =
 
 let merlin_url =
   let script = get_el_by_id "playground-script" in
-  Option.value ~default:"" (Option.map Jstr.to_string (El.at (Jstr.v "data-merlin-url") script))
+  Option.value ~default:""
+    (Option.map Jstr.to_string (El.at (Jstr.v "data-merlin-url") script))
 
 let worker_url =
   let script = get_el_by_id "playground-script" in
-  Option.value ~default:"" (Option.map Jstr.to_string (El.at (Jstr.v "data-worker-url") script))
+  Option.value ~default:""
+    (Option.map Jstr.to_string (El.at (Jstr.v "data-worker-url") script))
 
 module Merlin = Merlin_codemirror.Make (struct
   let worker_url = merlin_url
