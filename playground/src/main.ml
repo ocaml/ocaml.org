@@ -33,9 +33,10 @@ let or_raise = function
 
 let with_rpc rpc f v = Lwt.bind rpc (fun r -> Lwt.map or_raise @@ f r v)
 let async_raise f = Lwt.async (fun () -> Lwt.map or_raise @@ f ())
+let get_el_by_id_opt s = Document.find_el_by_id G.document (Jstr.v s)
 
 let get_el_by_id s =
-  match Document.find_el_by_id G.document (Jstr.v s) with
+  match get_el_by_id_opt s with
   | Some v -> v
   | None ->
       Console.warn [ Jstr.v "Failed to get elemented by id" ];
@@ -48,6 +49,7 @@ let get_script_data s =
 let merlin_url = get_script_data "data-merlin-url"
 let worker_url = get_script_data "data-worker-url"
 let default_code = get_script_data "data-default-code"
+let oracle = get_script_data "data-oracle"
 
 module Merlin = Merlin_codemirror.Make (struct
   let worker_url = merlin_url
@@ -61,24 +63,34 @@ let dark_theme_ext =
 
 let cyan = "cyan"
 let red = "red"
+let white = "white"
+let green = "lightgreen"
+let filter_output = [ "module User_input : " ]
 
 let render_output color = function
   | None -> None
   | Some output ->
-      let el =
-        El.p
-          ~at:[ At.v (Jstr.v "style") (Jstr.v "white-space: pre-wrap;") ]
-          [ El.txt' output ]
-      in
-      El.set_inline_style (Jstr.v "color") (Jstr.v color) el;
-      Some el
+      if
+        List.exists (fun p -> String.starts_with ~prefix:p output) filter_output
+      then None
+      else
+        let color =
+          if String.ends_with ~suffix:"[PASS]\n" output then green else color
+        in
+        let el =
+          El.p
+            ~at:[ At.v (Jstr.v "style") (Jstr.v "white-space: pre-wrap;") ]
+            [ El.txt' output ]
+        in
+        El.set_inline_style (Jstr.v "color") (Jstr.v color) el;
+        Some el
 
 let handle_output (o : Toplevel_api.exec_result) =
   let output = get_el_by_id "output" in
   let output_elements =
     List.filter_map
       (fun (c, o) -> render_output c o)
-      [ (cyan, o.stdout); (red, o.stderr); (red, o.caml_ppf) ]
+      [ (cyan, o.stdout); (red, o.stderr); (white, o.caml_ppf) ]
   in
   let out = El.div output_elements in
   El.append_children output [ out ]
@@ -150,6 +162,33 @@ let setup () =
     async_raise run
   in
   let _listener = Ev.(listen click on_click (El.as_target button)) in
+  let _listener =
+    match get_el_by_id_opt "check-solution" with
+    | Some button when oracle <> "" ->
+        let on_click _ =
+          let run () =
+            El.set_class (Jstr.v "loader") true button;
+            let user_input =
+              Format.sprintf
+                {|
+module User_input = struct
+  %s
+end;;
+
+%s;;
+              |}
+                (Edit.get_doc view) oracle
+            in
+            let* o = with_rpc rpc Toprpc.exec user_input in
+            El.set_class (Jstr.v "loader") false button;
+            handle_output o;
+            Lwt.return (Ok ())
+          in
+          async_raise run
+        in
+        Some Ev.(listen click on_click (El.as_target button))
+    | _ -> None
+  in
   Lwt_result.return ()
 
 let () = async_raise setup

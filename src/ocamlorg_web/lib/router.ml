@@ -52,6 +52,7 @@ let page_routes =
       Dream.get Url.problems Handler.problems;
       Dream.get (Url.tutorial ":id") Handler.tutorial;
       Dream.get Url.playground Handler.playground;
+      Dream.get (Url.playground_problem ":id") Handler.playground_problem;
       Dream.get Url.installer Handler.installer;
     ]
 

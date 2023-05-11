@@ -194,6 +194,14 @@
   (action
    (run %{bin:dream_eml} %{dep:playground.eml} --workspace %{workspace_root})))
  (rule
+  (target playground_problem.ml)
+  (action
+   (run
+    %{bin:dream_eml}
+    %{dep:playground_problem.eml}
+    --workspace
+    %{workspace_root})))
+ (rule
   (target page.ml)
   (action
    (run %{bin:dream_eml} %{dep:page.eml} --workspace %{workspace_root}))))

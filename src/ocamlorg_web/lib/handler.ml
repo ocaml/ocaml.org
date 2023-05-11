@@ -234,6 +234,15 @@ let playground _req =
   let default_code = default.body in
   Dream.html (Ocamlorg_frontend.playground ~default_code)
 
+let playground_problem req =
+  let id = Dream.param req "id" in
+  match Data.Problem.get_by_id id with
+  | Some p ->
+      let default_code = "(* write your solution here *)" in
+      Dream.html (Ocamlorg_frontend.playground_problem ~default_code p)
+  (* invalid problem id *)
+  | None -> playground req
+
 let papers req =
   let search_paper pattern t =
     let open Data.Paper in

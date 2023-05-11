@@ -60,6 +60,7 @@ let privacy_policy = "/policies/privacy-policy"
 let governance = "/policies/governance"
 let code_of_conduct = "/policies/code-of-conduct"
 let playground = "/play"
+let playground_problem x = "/play/problem/" ^ x
 let papers = "/papers"
 let learn = "/docs"
 let platform = "/docs/platform"

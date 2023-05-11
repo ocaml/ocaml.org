@@ -50,6 +50,8 @@ module Problem = struct
       Option.fold ~none:(x.tags = []) ~some:(Fun.flip List.mem x.tags) tag
     in
     List.filter f
+
+  let get_by_id id = List.find_opt (fun x -> String.equal id x.number) all
 end
 
 module Success_story = struct

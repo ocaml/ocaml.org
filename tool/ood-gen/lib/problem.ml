@@ -53,19 +53,28 @@ type t = {
   tags : string list;
   statement : string;
   solution : string;
+  oracle : string;
 }
 [@@deriving
-  stable_record ~version:metadata ~remove:[ statement; solution ],
+  stable_record ~version:metadata ~remove:[ statement; solution; oracle ],
     show { with_path = false }]
 
-let decode (_, (head, body)) =
+let decode (path, (head, body)) =
   let metadata = metadata_of_yaml head in
   let statement_blocks, solution_blocks =
     split_statement_statement (Omd.of_string body)
   in
   let statement = Omd.to_html (Hilite.Md.transform statement_blocks) in
   let solution = Omd.to_html (Hilite.Md.transform solution_blocks) in
-  Result.map (of_metadata ~statement ~solution) metadata
+  let oracle =
+    let filename =
+      Filename.dirname path ^ "/oracles/"
+      ^ Filename.(basename path |> remove_extension)
+      ^ ".ml"
+    in
+    try Option.value ~default:"" (Data.read filename) with _ -> ""
+  in
+  Result.map (of_metadata ~statement ~solution ~oracle) metadata
 
 let all () = Utils.map_files decode "problems/*.md"
 
@@ -85,6 +94,7 @@ type t =
   ; tags : string list
   ; statement : string
   ; solution : string
+  ; oracle : string
   }
   
 let all = %a

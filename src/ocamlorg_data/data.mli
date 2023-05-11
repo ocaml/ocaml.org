@@ -160,10 +160,12 @@ module Problem : sig
     tags : string list;
     statement : string;
     solution : string;
+    oracle : string;
   }
 
   val all : t list
   val filter_tag : ?tag:string -> t list -> t list
+  val get_by_id : string -> t option
 end
 
 module Success_story : sig

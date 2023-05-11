@@ -30,6 +30,7 @@ let page = Page.render
 let papers = Papers.render
 let platform = Platform.render
 let playground = Playground.render
+let playground_problem = Playground_problem.render
 let problems = Problems.render
 let release = Release.render
 let releases = Releases.render

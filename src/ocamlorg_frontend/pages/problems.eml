@@ -96,6 +96,13 @@ Learn_layout.render
             <%s! Icons.problem_statement "h-5 w-5" %>
             <span :class="statement ? 'text-body-600' : 'text-body-400'">Statement</span>
           </button>
+          <a
+            class="px-3.5 h-9 font-medium flex space-x-2 items-center rounded-lg text-body-400"
+            href="<%s! Url.playground_problem problem.number %>"
+          >
+            <%s! Icons.problem_statement "h-5 w-5" %>
+            <span class="text-body-400">Try!</span>
+          </a>
           <button
             class="px-3.5 h-9 font-medium flex space-x-2 items-center rounded-lg"
             x-on:click="statement = false"
