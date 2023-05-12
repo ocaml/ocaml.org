@@ -10,7 +10,7 @@ Package_layout.render
 ~path
 ?page
 ~documentation_status:Success
-~styles:["/css/main.css"; "/css/doc.css"]
+~styles:["css/main.css"; "css/doc.css"]
 ~left_sidebar_html:""
 ~right_sidebar_html:"" @@
   let version = Package.url_version package in
