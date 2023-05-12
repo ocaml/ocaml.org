@@ -31,6 +31,8 @@ RUN chmod -R 755 /var
 COPY --from=build /home/opam/package.state /var/package.state
 COPY --from=build /home/opam/opam-repository /var/opam-repository
 COPY --from=build /home/opam/_build/default/src/ocamlorg_web/bin/main.exe /bin/server
+COPY --from=build /home/opam/_build/default/asset _build/default/asset
+COPY --from=build /home/opam/_build/default/data/media _build/default/data/media
 
 COPY playground/asset playground/asset
 

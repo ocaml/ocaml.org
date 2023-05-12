@@ -69,7 +69,9 @@ end
 
 module Router = struct
   let loader _root path _request =
-    match Asset.read path with
+    let open Lwt.Syntax in
+    let* maybe_asset = Ocamlorg_static.Asset.read path in
+    match maybe_asset with
     | None -> Dream.empty `Not_Found
     | Some asset -> Dream.respond asset
 

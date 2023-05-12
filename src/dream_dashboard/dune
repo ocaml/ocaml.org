@@ -3,6 +3,7 @@
  (public_name ocamlorg.dream-dashboard)
  (libraries
   ocamlorg.global
+  ocamlorg_static
   dream
   hyper
   yojson
@@ -15,16 +16,6 @@
   timedesc)
  (preprocess
   (pps ppx_deriving_yojson)))
-
-(rule
- (targets asset.ml)
- (deps
-  asset/main.css
-  (source_tree asset))
- (action
-  (with-stdout-to
-   %{null}
-   (run %{bin:ocaml-crunch} -m plain asset -o %{targets}))))
 
 (subdir
  asset/
