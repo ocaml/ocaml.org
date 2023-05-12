@@ -96,10 +96,15 @@
 (rule
  (target watch.ml)
  (deps
-  (:config %{workspace_root}/yoshi.yaml)
-  (:data %{workspace_root}/data/watch.yml))
+  (:config %{workspace_root}/yoshi.yaml))
  (action
-  (run %{bin:yoshi} -c %{config} -o %{target} %{data})))
+  (run
+   %{bin:yoshi}
+   -c
+   %{config}
+   -o
+   %{target}
+   %{workspace_root}/data/watch.yml)))
 
 (rule
  (target planet.ml)

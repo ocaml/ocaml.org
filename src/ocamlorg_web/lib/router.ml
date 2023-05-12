@@ -2,14 +2,14 @@ open Ocamlorg
 
 let asset_loader =
   Static.loader
-    ~read:(fun _root path -> Ocamlorg_static.Asset.read path)
+    ~read:(fun _root path -> Ocamlorg_static.Asset.read path |> Lwt.return)
     ~digest:(fun _root path ->
       Option.map Dream.to_base64url (Ocamlorg_static.Asset.digest path))
     ~not_cached:[ "robots.txt"; "/robots.txt" ]
 
 let media_loader =
   Static.loader
-    ~read:(fun _root path -> Ocamlorg_static.Media.read path)
+    ~read:(fun _root path -> Ocamlorg_static.Media.read path |> Lwt.return)
     ~digest:(fun _root path ->
       Option.map Dream.to_base64url @@ Ocamlorg_static.Media.digest path)
 
@@ -105,11 +105,7 @@ let router t =
       sitemap_routes;
       Dream.scope ""
         [ Dream_encoding.compress ]
-        [
-          Dream.get
-            (Ocamlorg_static.Media.url_root ^ "/**")
-            (Dream.static ~loader:media_loader "");
-        ];
+        [ Dream.get "/media/**" (Dream.static ~loader:media_loader "") ];
       Dream.scope ""
         [ Dream_encoding.compress ]
         [

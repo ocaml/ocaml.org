@@ -1,36 +1,18 @@
 let of_url_path = File.of_url_path
 
-let read_file file =
-  let open Lwt.Syntax in
-  Lwt.catch
-    (fun () ->
-      Lwt_io.(with_file ~mode:Input file) (fun channel ->
-          let* content = Lwt_io.read channel in
-          Some content |> Lwt.return))
-    (fun _exn ->
-      Dream.log "failed to read file %s" file;
-      None |> Lwt.return)
-
 module Media = struct
-  let file_root = Sys.getcwd () ^ "/_build/default/data/media/"
-  let url_root = "/media"
-  let digest = Media_digests.digest
-
-  let read filepath =
-    let file = Filename.concat file_root filepath in
-    read_file file
+  let digest = Media.hash
+  let read = Media.read
 end
 
 module Asset = struct
-  let file_root = Sys.getcwd () ^ "/_build/default/asset/"
-  let digest = Asset_digests.digest
+  let digest = Asset.hash
+  let read = Asset.read
 
-  let read filepath =
-    let file = Filename.concat file_root filepath in
-    read_file file
-
+  (* given the path of a file from `assets.ml`: 1. looks up the file's digest in
+     and 2. returns the corresponding digest URL for use in templates *)
   let url filepath =
-    let digest = Option.map Dream.to_base64url (digest filepath) in
+    let digest = Option.map Dream.to_base64url (Asset.hash filepath) in
     if digest = None then
       raise
         (Invalid_argument
@@ -45,9 +27,17 @@ module Playground = struct
   let digest = Playground_digests.digest
 
   let read filepath =
+    let open Lwt.Syntax in
     let file = Filename.concat file_root filepath in
-    read_file file
+    Lwt.catch
+      (fun () ->
+        Lwt_io.(with_file ~mode:Input file) (fun channel ->
+            let* content = Lwt_io.read channel in
+            Some content |> Lwt.return))
+      (fun _exn -> None |> Lwt.return)
 
+  (* given the path of a file from `assets.ml`: 1. looks up the file's digest in
+     and 2. returns the corresponding digest URL for use in templates *)
   let url filepath =
     let digest =
       Option.map Dream.to_base64url (Playground_digests.digest filepath)

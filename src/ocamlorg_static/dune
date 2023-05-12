@@ -1,28 +1,31 @@
 (library
  (name ocamlorg_static)
- (public_name ocamlorg.static)
  (libraries fmt dream))
 
 (rule
- (target asset_digests.ml)
+ (target asset.ml)
  (deps
-  %{workspace_root}/tool/static-file-digest/main.exe
   %{workspace_root}/asset/css/main.css
   (source_tree %{workspace_root}/asset))
  (action
   (with-stdout-to
    %{null}
-   (run %{deps} %{workspace_root}/asset/ -s -o %{target}))))
+   (run %{bin:ocaml-crunch} -m plain %{workspace_root}/asset -o %{target}))))
 
 (rule
- (target media_digests.ml)
+ (target media.ml)
  (deps
-  %{workspace_root}/tool/static-file-digest/main.exe
   (source_tree %{workspace_root}/data/media))
  (action
   (with-stdout-to
    %{null}
-   (run %{deps} %{workspace_root}/data/media/ -s -o %{target}))))
+   (run
+    %{bin:ocaml-crunch}
+    -m
+    plain
+    %{workspace_root}/data/media
+    -o
+    %{target}))))
 
 (rule
  (target playground_digests.ml)
