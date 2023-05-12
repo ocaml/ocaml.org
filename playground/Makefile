@@ -12,3 +12,7 @@ deps: create_switch ## Install development dependencies
 .PHONY: build
 build:
 	opam exec --switch=$(SWITCH) -- dune build --root .
+
+.PHONY: fmt
+fmt: ## Format the codebase with ocamlformat
+	opam exec -- dune build --root . --auto-promote @fmt

@@ -6,7 +6,7 @@ all:
 
 .PHONY: deps
 deps: create_switch ## Install development dependencies
-	opam install -y ocamlformat=0.24.1 ocaml-lsp-server
+	opam install -y ocamlformat=0.25.1 ocaml-lsp-server
 	opam install -y --deps-only --with-test --with-doc .
 
 .PHONY: create_switch
@@ -51,6 +51,7 @@ doc: ## Generate odoc documentation
 .PHONY: fmt
 fmt: ## Format the codebase with ocamlformat
 	opam exec -- dune build --root . --auto-promote @fmt
+	make -C playground fmt
 
 .PHONY: watch
 watch: ## Watch for the filesystem and rebuild on every change
