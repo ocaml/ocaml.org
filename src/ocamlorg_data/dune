@@ -161,3 +161,10 @@
   (with-stdout-to
    %{target}
    (run %{dep:../../tool/ood-gen/bin/gen.exe} page))))
+
+(rule
+ (target code_example.ml)
+ (action
+  (with-stdout-to
+   %{target}
+   (run %{dep:../../tool/ood-gen/bin/gen.exe} code_example))))

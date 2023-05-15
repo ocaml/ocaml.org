@@ -228,7 +228,11 @@ let carbon_footprint = page Url.carbon_footprint
 let privacy_policy = page Url.privacy_policy
 let governance = page Url.governance
 let code_of_conduct = page Url.code_of_conduct
-let playground _req = Dream.html (Ocamlorg_frontend.playground ())
+
+let playground _req =
+  let default = Data.Code_example.get "default.ml" in
+  let default_code = default.body in
+  Dream.html (Ocamlorg_frontend.playground ~default_code)
 
 let papers req =
   let search_paper pattern t =

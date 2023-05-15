@@ -390,3 +390,9 @@ module Page : sig
 
   val get : string -> t
 end
+
+module Code_example : sig
+  type t = { title : string; body : string }
+
+  val get : string -> t
+end

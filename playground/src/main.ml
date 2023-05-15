@@ -41,15 +41,13 @@ let get_el_by_id s =
       Console.warn [ Jstr.v "Failed to get elemented by id" ];
       invalid_arg s
 
-let merlin_url =
+let get_script_data s =
   let script = get_el_by_id "playground-script" in
-  Option.value ~default:""
-    (Option.map Jstr.to_string (El.at (Jstr.v "data-merlin-url") script))
+  Option.value ~default:"" (Option.map Jstr.to_string (El.at (Jstr.v s) script))
 
-let worker_url =
-  let script = get_el_by_id "playground-script" in
-  Option.value ~default:""
-    (Option.map Jstr.to_string (El.at (Jstr.v "data-worker-url") script))
+let merlin_url = get_script_data "data-merlin-url"
+let worker_url = get_script_data "data-worker-url"
+let default_code = get_script_data "data-default-code"
 
 module Merlin = Merlin_codemirror.Make (struct
   let worker_url = merlin_url
@@ -92,10 +90,11 @@ module Codec = struct
     let uri = Window.location G.window |> Uri.fragment in
     match Uri.Params.find (Jstr.v "code") (Uri.Params.of_jstr uri) with
     | Some jstr ->
-        let+ dec = Base64.decode jstr in
-        let+ code = Base64.data_utf_8_to_jstr dec in
-        Ok (Jstr.to_string code)
-    | _ -> Ok Example.adts
+        Result.to_option
+        @@ let+ dec = Base64.decode jstr in
+           let+ code = Base64.data_utf_8_to_jstr dec in
+           Ok (Jstr.to_string code)
+    | None -> None
 
   let to_window s =
     let data = Base64.data_utf_8_of_jstr s in
@@ -107,7 +106,7 @@ end
 
 let setup () =
   let initial_code =
-    Result.value ~default:Example.adts (Codec.from_window ())
+    Option.value ~default:default_code (Codec.from_window ())
   in
   let _state, view =
     Edit.init ~doc:(Jstr.v initial_code)

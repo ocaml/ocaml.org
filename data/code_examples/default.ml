@@ -1,7 +1,4 @@
-let print = {|let () = print_endline "Welcome to the OCaml Playground"|}
-
-let adts =
-  {|(* 
+(*
   Welcome to the official OCaml Playground!
 
   You don't need to install anything - just write your code
@@ -47,4 +44,3 @@ let () =
   parallel computation, take a look at
   https://v2.ocaml.org/releases/5.0/manual/parallelism.html#s:par_iterators
 *)
-|}
