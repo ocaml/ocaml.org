@@ -514,7 +514,7 @@ main ()
   close (fd);                                            // line 15
 }
 ```
-When I compile the code, I get a whole bunch of errors including:
+When compiling the code, it returns a whole bunch of errors, including:
 
 ```text
 test.c: In function `main':
@@ -572,11 +572,11 @@ you wouldn't be able to compile the code.
 
 So far, much like C. 
 
-Now I said that OCaml provides a way to work
+OCaml provides a way to work
 around the constraint that `Open` can only have one type. In other
-words, suppose I want to use `Open` to mean either "the `Open` of type
-`lock`" or "the `Open` of type `door`," and I want OCaml to work out
-which one I mean.
+words, suppose you want to use `Open` to mean either "the `Open` of type
+`lock`" or "the `Open` of type `door`," and you want OCaml to work out
+which one you mean.
 
 The syntax is slightly different, but here is how we do it:
 
