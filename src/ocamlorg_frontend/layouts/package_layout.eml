@@ -74,7 +74,7 @@ Layout.render
               <% ); %>
             </div>
 
-            <div id="in-package-search-results" class="absolute top-12 right-0 left-0 bg-white z-20 w-full max-h-[60vh] overflow-y-auto border rounded-lg">
+            <div id="in-package-search-results" class="absolute top-12 right-0 left-0 bg-white z-20 w-full max-h-[60vh] overflow-y-auto border rounded-lg shadow-xl">
             </div>
           </div>
         </div>
@@ -112,6 +112,10 @@ Layout.render
     let miniSearch;
     let results = [];
 
+    function shortness_factor(r) {
+      return 1 + 2*Math.log(1 + 1/(r.prefixname.length + r.name.length));
+    }
+
     function perform_search() {
       let q = document.getElementById("in-package-search-input").value;
       results = miniSearch.search(q, {
@@ -124,6 +128,8 @@ Layout.render
         },
         fuzzy: 0.15,
       }).slice(0,50);
+      results = results.map(r => {return {...r, score: r.score * shortness_factor(r), shortness: shortness_factor(r)}}).sort((r1,r2) => r2.score - r1.score);
+      console.log("results", results);
       let container = document.getElementById("in-package-search-results");
       container.innerHTML = "";
 
