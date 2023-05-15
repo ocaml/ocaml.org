@@ -98,6 +98,10 @@
   (action
    (run %{bin:dream_eml} %{dep:learn.eml} --workspace %{workspace_root})))
  (rule
+  (target install.ml)
+  (action
+   (run %{bin:dream_eml} %{dep:install.eml} --workspace %{workspace_root})))
+ (rule
   (target platform.ml)
   (action
    (run %{bin:dream_eml} %{dep:platform.eml} --workspace %{workspace_root})))
@@ -196,6 +200,14 @@
 
 (subdir
  components/
+ (rule
+  (target copy_to_clipboard_snippet.ml)
+  (action
+   (run
+    %{bin:dream_eml}
+    %{dep:copy_to_clipboard_snippet.eml}
+    --workspace
+    %{workspace_root})))
  (rule
   (target footer.ml)
   (action

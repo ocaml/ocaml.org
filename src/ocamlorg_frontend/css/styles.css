@@ -227,3 +227,26 @@ summary::marker {
 .output-container {
     height: calc(100% - 60px);
 }
+
+/* summary & details expandable section */
+
+details summary svg {
+  transform: rotate(90deg);
+}
+details[open] summary svg {
+  transform: rotate(-90deg);
+}
+
+details[open] summary ~ *
+{	animation: ease-opacity-t-b .5s ease}
+
+summary {
+  cursor: pointer;
+}
+details summary svg svg {
+  transition: all 0.3s;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
