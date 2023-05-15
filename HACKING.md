@@ -110,35 +110,13 @@ The docker images automatically build from the `live` and `staging` branches, an
 
 ### Staging Pull Requests
 
-The `staging` branch is supposed to be as close as possible to the `main`
-branch, with a couple of PR added on top of it. To reduce the workload
-maintaining the `staging` branch in sync and with the correct PR added, some
-discipline is needed. The idea is to turn staged PR into single commits, which
-removes the need to use `git rebase`. Assuming a PR lies in branch `<pr-branch>`
-(e.g. `fix-issue-42`) and has number `<pr-num>` in GitHub (e.g. 43 in
-https://https://github.com/ocaml/ocaml.org/pull/43), and `origin` is
-`ocaml/ocaml.org.git` at GitHub, here are the recipes that can be used:
+We [aim to keep the `staging` branch as close as possible to the `main`
+branch](doc/FOR_MAINTAINERS.md#how-we-maintain-the-staging-branch), with only a few PRs added on top of it.
 
-* Adding a PR to `staging`:
-  ```sh
-  $ git merge --squash <pr-branch>
-  $ git merge -m "Squash and merge PR #<pr-num> (<pr-branch>)"
-  $ git tag -a <pr-tag> -m "Stage PR #<pr-num>" HEAD
-  ```
-  Where `<pr-tag>` is the string `stage-<pr-num>` (e.g. `stage-43`):
-* Removing a PR from `staging`:
-  ```sh
-  $ git rebase --onto <pr-tag>^ <pr-tag>
-  $ git tag -d <pr-tag>
-  ```
-* Updating a PR in `staging` is just removing and adding
-* Sync `staging` with `main`
-  1. Pull `main`: checkout into `main` and `git pull origin main`
-  1. Checkout into `staging`
-  1. Remove staged PRs
-  1. `git reset --hard main`
-  1. Add staged PRs
-  1. `git push -f origin staging`
+The maintainers will add your pull request to `staging` if it is worthwhile
+to do so. For example, documentation PRs or new features where we need testing
+and feedback from the community will generally be live on `staging` for a while
+before they get merged.
 
 ### Managing dependencies
 
