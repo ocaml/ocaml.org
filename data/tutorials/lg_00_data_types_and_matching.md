@@ -328,7 +328,7 @@ Here is 42, stored inside an `option` using the data carrying constructor
 - : int option = Some 42
 ```
 
-The `None` constructor means no data is availble.
+The `None` constructor means no data is available.
 
 In other words, a value of type `t option` for some type `t` represents:
 

@@ -89,7 +89,7 @@ in ocaml.org and merged as a pull request.
 
 ### Deploying
 
-Commits added on some branches are are automatically deployed:
+Commits added on some branches are automatically deployed:
 - `main` on <https://ocaml.org/>.
 - `staging` on <https://staging.ocaml.org/>.
 
