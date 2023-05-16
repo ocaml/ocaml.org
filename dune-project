@@ -88,3 +88,11 @@
    (>= 1.1.0))
   xmlm
   uri))
+
+(dialect
+ (name EML)
+ (implementation
+  (extension eml)
+  (preprocess
+   (run %{bin:dream_eml} %{input-file} --workspace %{workspace_root})))
+ (interface (extension emli)))
