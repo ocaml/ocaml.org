@@ -113,7 +113,7 @@ Learn_layout.render
       <% books |> List.iter (fun (item : Data.Book.t) -> %>
       <a href="<%s item.links |> List.hd |> (fun x -> x.uri) %>" class="flex-1 card-hover">
         <img
-          src="/media/<%s item.cover %>"
+          src="<%s Ocamlorg_static.Media.url item.cover %>"
           class="rounded-2xl lg:w-full max-h-96 border border-gray-200"
           alt="<%s item.title %> cover"
         >

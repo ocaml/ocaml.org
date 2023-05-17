@@ -1,8 +1,18 @@
 let of_url_path = File.of_url_path
 
 module Media = struct
+  let url_root = "/media"
   let digest = Media.hash
   let read = Media.read
+
+  let url filepath =
+    let digest = Option.map Dream.to_base64url (Media.hash filepath) in
+    if digest = None then
+      raise
+        (Invalid_argument
+           (Fmt.str "'%s' is rendered via Media.url, but it is not an media!"
+              filepath));
+    url_root ^ File.to_url_path ?digest filepath
 end
 
 module Asset = struct
