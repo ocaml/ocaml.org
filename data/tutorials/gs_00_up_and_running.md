@@ -80,16 +80,11 @@ Linux (e.g., `apt-get install opam` or similar). On the opam site, find [details
 methods](https://opam.ocaml.org/doc/Install.html). All supported Linux distributions package at least version 2.0.0 (you can check by running `opam --version`). If you are using an unsupported Linux distribution, please either download a precompiled binary or build opam from sources.
 
 ```shell
-# Ubuntu
-$ add-apt-repository ppa:avsm/ppa
-$ apt update
+# Ubuntu and Debian:
 $ apt install opam
 
 # Archlinux
 $ pacman -S opam
-
-# Debian (stable, testing and unstable)
-$ apt-get install opam
 ```
 
 **Binary Distribution**
