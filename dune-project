@@ -94,5 +94,5 @@
  (implementation
   (extension eml)
   (preprocess
-   (run %{bin:dream_eml} %{input-file} --workspace %{workspace_root})))
+   (run dune exec -- tool/dream_eml_wrapper/main.exe %{input-file} --workspace %{workspace_root})))
  (interface (extension emli)))
