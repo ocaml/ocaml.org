@@ -104,16 +104,8 @@ Although the last one doesn't look as an exception, it actually is.
 
 Among the predefined exceptions of the standard library, the following ones
 are intended to be raised by user-written functions:
-```ocaml
-exception Exit
-exception Not_found
-exception Invalid_argument of string
-exception Failure of string
-```
 
-* `Exit` terminates your program with a success status, which is 0 in Unices
-  (where success is 0 and any other value is an error; that is, errors are
-  handled as special values, like mentioned in the first section)
+* `Exit` can be used to terminate a loop, like a `break` statement
 * `Not_found` should be raised when searching failed because there isn't
   anything satisfactory to be found
 * `Invalid_argument` should be raised when a parameter can't be accepted
