@@ -125,11 +125,58 @@ exceptions, a design decision must be made:
 * Use the prexisting exceptions
 * Raise custom exceptions
 
-Both can make sense, and there isn't a general rule. If the standard library exceptions
-are used, they must be raised under their intended conditions, 
-otherwise handlers will have trouble processing them. Using custom
-exceptions will force client code to include dedicated catch conditions. This
-can be desirable for errors that must be handled at the client level.
+Both can make sense, and there isn't a general rule. If the standard library
+exceptions are used, they must be raised under their intended conditions,
+otherwise handlers will have trouble processing them. Using custom exceptions
+will force client code to include dedicated catch conditions. This can be
+desirable for errors that must be handled at the client level.
+
+### Using `Fun.protect`
+
+The `Fun` module of the standard library contains the following defintion:
+```ocaml
+val protect : finally:(unit -> unit) -> (unit -> 'a) -> 'a
+```
+This function is meant to be used when something _always_ needs to be done
+_after_ a computation is complete, either it succeded or failed. Any computation
+can be postponed by wrapping it into a dummy function with only `()` as
+ parameter. Here, the computation triggered by passing `x` to `f` (including its
+ side effects) will not take place:
+```ocaml
+let work () = f x
+```
+
+It would, on execution of `work ()`. This is what `protect` does, and such a
+`work` function is the kind of parameter `protect` expects. The `finally`
+function is called by `protect`, after the completion of `work ()`, in two
+possible way, depending on its outcome
+1. If it successed, the result produced is forwarded
+2. If it failed, exception raised is forwarded
+
+The `finally` function is only expected to perform some side-effect. In summary,
+`protect` performs two computations in order: `work` and then `finally`, and
+forwards the outcome of `work` either result or exception.
+
+The `finally` function shall not raise any exception. If it does, it will be
+raised again, but wrapped into `Finally_raised`.
+
+Here is an example of how it can be used. Let's imagine a function reading the
+`n` first line of a text file is needed (like the `head` Unix command). If the
+file hasn't enough lines, the function must throw `End_of_file`. Here is a
+possible implementation using `Fun.protect` to make sure the file is always closed:
+```ocaml
+# let rec head_channel chan =
+  let rec loop acc n = match input_line chan with
+    | line when n > 0 -> loop (line :: acc) (n - 1)
+    | _ -> List.rev acc in
+  loop [];;
+val head_channel : in_channel -> int -> string list = <fun>
+# let head_file filename n =
+  let ic = open_in filename in
+  let finally () = close_in ic in
+  Fun.protect ~finally (fun () -> head_channel ic n);;
+val head_file : string -> int -> string list = <fun>
+```
 
 ### Documentation
 
