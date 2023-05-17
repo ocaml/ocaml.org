@@ -465,6 +465,7 @@ doesn't count as an invalid substring.
 
 Below is the equivalent function using the same logic, but using `Option` instead of
 exceptions:
+
 ```ocaml
 # let host_opt email =
   match String.index_opt email '@' with
@@ -484,13 +485,15 @@ Although it qualifies as safe, its legibility isn't improved. Some may even
 claim it is worse.
 
 Before showing how to improve this code, we need to explain how `Option.map` and
-`Option.bind` work.
+`Option.bind` work. Here are their types:
+
 ```ocaml
-val Option.map : ('a -> 'b) -> 'a option -> 'b option
-val Option.bind : 'a option -> ('a -> 'b option) -> 'b option
+val map : ('a -> 'b) -> 'a option -> 'b option
+val bind : 'a option -> ('a -> 'b option) -> 'b option
 ```
 
 `Option.map` applies a function `f` to an option parameter, if it isn't `None`
+
 ```ocaml
 let map f = function
 | Some x -> Some (f x)
@@ -833,3 +836,34 @@ practice. Later, it always requires some thinking, which is good since proper
 error management shouldn't ever be overlooked. No error handling is better
 than the others, and is should be matter of adequacy to the context rather than
 of taste. But opinionated OCaml code is also fine, so it's a balance.
+
+# External Ressources
+
+- [“Exceptions”](https://v2.ocaml.org/releases/5.0/htmlman/coreexamples.html#s%3Aexceptions) in ”The OCaml Manual, The Core Language”, chapter 1, section 6, December 2022
+- [Module `Option`](https://v2.ocaml.org/releases/5.0/api/Option.html) in OCaml Library
+- [Module `Result`](https://v2.ocaml.org/releases/5.0/api/Result.html) in Ocaml Library
+- [“Error Handling”](https://dev.realworldocaml.org/error-handling.html) in “Real World OCaml”, part 7, Yaron Minsky and Anil Madhavapeddy, 2ⁿᵈ edition, Cambridge University Press, October 2022
+- “Add "finally" function to Pervasives”, Marcello Seri, GitHub PR, [ocaml/ocaml/pull/1855](https://github.com/ocaml/ocaml/pull/1855)
+
+# Acknowledgements
+
+- Authors
+  1. Simon Cruanes [@c-cube](https://github.com/c-cubeauthored)
+  2. John Whitington [@johnwhitington](https://github.com/johnwhitington)
+  3. Cuihtlauac Alvarado [@cuihtlauac](https://github.com/cuihtlauac)
+- Contributors
+  * Dan Frumin [@co-dan](https://github.com/co-dan)
+  * Jean-Pierre Rodi
+  * Thibaut Mattio [@tmattio](https://github.com/tmattio)
+  * Jonah Beckford [@jonahbeckford](https://github.com/jonahbeckford)
+- Suggestions and Corrections:
+  * Claude Jager-Rubinson
+  * [@rand00](https://github.com/rand00)
+  * Guillaume Munch-Maccagnoni [@gadmm](https://github.com/gadmm)
+  * Edwin Török [@edwintorok](https://github.com/edwintorok)
+  * Kim Nguyễn [@Tchou](https://github.com/Tchou)
+  * Ashine Foster [@AshineFoster](https://github.com/AshineFoster)
+  * Miod Vallat [@dustanddreams](https://github.com/dustanddreams)
+  * Christine Rose [@christinerose](https://github.com/christinerose)
+  * Riku Silvola [@rikusilvola](https://github.com/rikusilvola)
+  * Guillaume Petiot [@gpetiot](https://github.com/gpetiot)
