@@ -14,6 +14,7 @@ module Package : sig
     ?hash:string -> ?version:string -> filepath:string -> string -> string
 
   val search_index : ?version:string -> digest:string -> string -> string
+  val playground : ?version:string -> string -> string
 end = struct
   let with_hash = Option.fold ~none:"/p" ~some:(( ^ ) "/u/")
   let with_version = Option.fold ~none:"/latest" ~some:(( ^ ) "/")
@@ -28,6 +29,7 @@ end = struct
 
   let file ?hash ?version ~filepath = base ?hash ?version ("/" ^ filepath)
   let search_index ?version ~digest = base ?version ("/search-index/" ^ digest)
+  let playground ?version name = "/play/package/" ^ name ^ with_version version
 end
 
 let sitemap = "/sitemap.xml"

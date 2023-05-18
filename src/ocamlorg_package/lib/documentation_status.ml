@@ -4,7 +4,7 @@ type otherdocs = {
   changes : string option;
 }
 
-type t = { failed : bool; otherdocs : otherdocs }
+type t = { failed : bool; universe : string; otherdocs : otherdocs }
 
 let first_opt = function x :: _ -> Some x | [] -> None
 
@@ -19,6 +19,7 @@ let of_yojson (v : Yojson.Safe.t) : t =
   let status = Voodoo_serialize.Status.of_yojson v in
   {
     failed = status.failed;
+    universe = status.universe;
     otherdocs =
       {
         readme =

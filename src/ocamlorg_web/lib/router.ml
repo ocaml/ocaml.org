@@ -89,6 +89,9 @@ let package_route t =
         (Url.Package.file ~hash:":hash" ":name" ~version:":version"
            ~filepath:"**")
         ((Handler.package_file t) Handler.Package);
+      Dream.get
+        (Url.Package.playground ":name" ~version:":version")
+        (Handler.playground_package t);
     ]
 
 let sitemap_routes = Dream.scope "" [] [ Dream.get Url.sitemap Handler.sitemap ]

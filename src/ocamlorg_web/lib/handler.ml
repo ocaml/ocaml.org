@@ -836,6 +836,16 @@ let package_search_index t kind req =
          ]
        search_index)
 
+let playground_package _t req =
+  let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
+  let version = Dream.param req "version" in
+  let default_code =
+    Printf.sprintf "(* TODO: import %s.%s *)"
+      (Ocamlorg_package.Name.to_string name)
+      version
+  in
+  Dream.html (Ocamlorg_frontend.playground ~default_code)
+
 let sitemap _request =
   let open Lwt.Syntax in
   Dream.stream

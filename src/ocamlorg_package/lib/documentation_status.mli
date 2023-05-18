@@ -8,7 +8,7 @@ type otherdocs = {
   changes : string option;
 }
 
-type t = { failed : bool; otherdocs : otherdocs }
+type t = { failed : bool; universe : string; otherdocs : otherdocs }
 
 val of_yojson : Yojson.Safe.t -> t
 (** Parse the status from the JSON format of `status.json` *)
