@@ -13,20 +13,36 @@ it is close to the main branch with only a few patches applied, some discipline 
 This way, looking at the commits on `staging` via `git log` or the GitHub UI, it is obvious where each commit is coming from and what its purpose is. Additionally, this ensures that rebasing on an updated
 `main` branch remains simple.
 
+## Add a PR to staging
+
 Example: Assuming a PR lies in branch `<pr-branch>`
 (e.g. `fix-issue-42`) and has number `<pr-num>` in GitHub (e.g. 43 in
 https://https://github.com/ocaml/ocaml.org/pull/43), and `origin` is
 `ocaml/ocaml.org.git` at GitHub, here are the steps:
 
-1. Squash a PR:
+### Method 1: `git merge`
+
+1. Squash a PR directly onto staging:
   ```sh
+  $ git checkout staging
   $ git merge --squash <pr-branch>
   $ git merge -m "<title of PR on GitHub> #<pr-num>"
   ```
-  Alternatively, you can do
+
+2. Set the commit message to:
+  ```
+  <title of PR on GitHub> #<pr-num>
+
+  <message of last commit> <last commit id>
+  ```
+
+### Method 2: `git reset`
+
+An alternative method to get a squashed PR onto staging is this:
+1. On the PR branch: create a new branch from the PR branch and squash with `git reset`:
   ```sh
   $ git checkout -b <new-branch-name>
-  $ git reset main
+  $ git reset <commit id before the first commit of the patch>
   $ git commit
   ```
 
@@ -37,6 +53,12 @@ https://https://github.com/ocaml/ocaml.org/pull/43), and `origin` is
   <message of last commit> <last commit id>
   ```
 
-To add a commit to `staging`, we can cherry-pick the commit with `git cherry-pick <commit id>`.
+3. Cherry-pick the commit to staging
+  ```sh
+  $ git checkout staging
+  $ git cherry-pick <commit id>
+  ```
 
-To remove a commit from `staging`, a simple method is to `git rebase -i main`. This gives you a list of commits that you can edit to remove a specific commit.
+## Remove a PR from staging
+
+To remove a commit from `staging`, a simple method is to `git rebase -i main`. This gives you a list of commits that you can edit to remove the commit.
