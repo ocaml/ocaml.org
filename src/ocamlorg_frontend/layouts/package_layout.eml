@@ -173,6 +173,8 @@ Layout.render
           a.appendChild(title);
           a.appendChild(comment);
 
+          a.addEventListener("click", () => scrollTo(a.href));
+
           list_item.appendChild(a);
 
           search_results.appendChild(list_item);
@@ -242,13 +244,7 @@ Layout.render
           console.log("going to", url);
           window.location = url;
 
-          if (url.indexOf("#") != -1) {
-            let id = url.split("#")[1]
-            let el = document.getElementById(id);
-            console.log("id el", id, el);
-            if (el) setTimeout(() => {
-              console.log("scroll"); el.scrollIntoView();}, 10);
-          }
+          scrollTo(url);
 
           document.getElementById("in-package-search-input").value = "";
           results = [];
@@ -263,6 +259,16 @@ Layout.render
         let el = document.getElementById("search-result-"+results[search_results_position].id);
         el.classList.add("active");
         el.scrollIntoView({block: "end"});
+      }
+    }
+
+    function scrollTo(url) {
+      if (url.indexOf("#") != -1) {
+        let id = url.split("#")[1]
+        let el = document.getElementById(id);
+        console.log("id el", id, el);
+        if (el) setTimeout(() => {
+          console.log("scroll"); el.scrollIntoView();}, 10);
       }
     }
 
