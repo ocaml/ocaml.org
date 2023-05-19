@@ -101,8 +101,10 @@
   @apply font-semibold;
 }
 
-#in-package-search-results .search-entry:not(.active):not(.open) .entry-comment {
-  @apply whitespace-nowrap overflow-hidden text-ellipsis;
+@media (min-width: 40em) {
+  #in-package-search-results .search-entry:not(.active):not(.open) .entry-comment {
+    @apply whitespace-nowrap overflow-hidden text-ellipsis;
+  }
 }
 
 #in-package-search-results .active {
