@@ -26,7 +26,13 @@ body {
 }
 
 .container-fluid {
-  @apply max-w-7xl w-full mx-auto px-6;
+  @apply max-w-7xl w-full mx-auto px-4;
+}
+
+@media (min-width: 40em) {
+  .container-fluid {
+    @apply px-6;
+  }
 }
 
 .container-fluid.wide {
