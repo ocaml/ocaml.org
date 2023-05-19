@@ -129,7 +129,6 @@ Layout.render
         fuzzy: 0.15,
       }).slice(0,50);
       results = results.map(r => {return {...r, score: r.score * shortness_factor(r), shortness: shortness_factor(r)}}).sort((r1,r2) => r2.score - r1.score);
-      console.log("results", results);
       let container = document.getElementById("in-package-search-results");
       container.innerHTML = "";
 
@@ -172,8 +171,6 @@ Layout.render
 
           a.appendChild(title);
           a.appendChild(comment);
-
-          a.addEventListener("click", () => scrollTo(a.href));
 
           list_item.appendChild(a);
 
@@ -241,14 +238,7 @@ Layout.render
       if (event.key == "Enter") {
         if (results.length > 0) {
           let url = "/"+results[search_results_position || 0].url;
-          console.log("going to", url);
           window.location = url;
-
-          scrollTo(url);
-
-          document.getElementById("in-package-search-input").value = "";
-          results = [];
-          search_results_position = null;
         }
         return false;
       }
@@ -259,16 +249,6 @@ Layout.render
         let el = document.getElementById("search-result-"+results[search_results_position].id);
         el.classList.add("active");
         el.scrollIntoView({block: "end"});
-      }
-    }
-
-    function scrollTo(url) {
-      if (url.indexOf("#") != -1) {
-        let id = url.split("#")[1]
-        let el = document.getElementById(id);
-        console.log("id el", id, el);
-        if (el) setTimeout(() => {
-          console.log("scroll"); el.scrollIntoView();}, 10);
       }
     }
 
