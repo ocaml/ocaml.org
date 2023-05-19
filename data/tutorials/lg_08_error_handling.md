@@ -19,7 +19,15 @@ of the _Real World OCaml_ book by Yaron Minsky and Anil Madhavapeddy (see refere
 Don't do that.
 
 Some languages, most emblematically C, treat certain values as errors. For
-instance in `man 2 read`, one can read:
+instance, in Unix systems, here what is contained in `man 2 read`:
+> read - read from a file descriptor
+>
+> `#include <unistd.h>`
+>
+> `ssize_t read(int fd, void *buf, size_t count);`
+>
+> [...]
+>
 > On error, -1 is returned, and `errno` is set to indicate the error.
 
 Great software was written using this style. However, since correct are errors
@@ -175,6 +183,24 @@ val head_channel : in_channel -> int -> string list = <fun>
   Fun.protect ~finally (fun () -> head_channel ic n);;
 val head_file : string -> int -> string list = <fun>
 ```
+
+### Asynchronous Exceptions
+
+Some exceptions don't arise because something attempted by the program failed,
+but rather because an external factor is impeding its execution. Those exeptions
+are called asynchronous. This is the case, for instance, of the following ones:
+
+* `Out_of_memory`
+* `Stack_overflow`
+* `Sys.Break`
+
+The latter is thrown when the user interrupts an interactive execution. Because
+they are losely or unrelated with the program logic, it mostly doesn't make
+sense to track the place where an asynchronous exceptions was thrown, could be
+anywhere. Defining if an application needs to catch those exceptions and how it
+should be done is beyond the scope of this tutorial. Interrested readers may
+refer to Guillaume Munch-Maccagnoni [A Guide to recover from
+interrupts](https://guillaume.munch.name/software/ocaml/memprof-limits/recovering.html).
 
 ### Documentation
 
@@ -702,9 +728,9 @@ tools, data, and functions can help. Use them.
 
 When `Option.bind` or `Result.bind` are used, they are often aliased into a
 custom binding operator, such as `let*`. However, it is also possible to use it
-as binary operator, which is almost always writen `>>=`. Using `bind` this way
+as a binary operator, which is very often writen `>>=`. Using `bind` this way
 must be detailed because it is extremely popular in other functional programming
-languages, and specially in OCaml's arch-rival _Which Must Not Be Named_.
+languages, and specially in Haskell.
 
 Assuming `a` and `b` are valid OCaml expressions, the following three pieces of
 sources code are functionally identical:
@@ -842,6 +868,7 @@ of taste. But opinionated OCaml code is also fine, so it's a balance.
 - [Module `Result`](https://v2.ocaml.org/releases/5.0/api/Result.html) in Ocaml Library
 - [“Error Handling”](https://dev.realworldocaml.org/error-handling.html) in “Real World OCaml”, part 7, Yaron Minsky and Anil Madhavapeddy, 2ⁿᵈ edition, Cambridge University Press, October 2022
 - “Add "finally" function to Pervasives”, Marcello Seri, GitHub PR, [ocaml/ocaml/pull/1855](https://github.com/ocaml/ocaml/pull/1855)
+- “A guide to recover from interrupts”, Guillaume Munch-Maccagnoni, parf the [`memprof-limits`](https://gitlab.com/gadmm/memprof-limits/) documentation
 
 # Acknowledgements
 
