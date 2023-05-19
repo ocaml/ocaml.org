@@ -37,13 +37,13 @@ consequences. This is not the proper way to deal with errors in OCaml.
 
 There are three major ways to make it impossible to ignore errors in OCaml:
 1. Exceptions
-1. `option` values
-1. `result` values
+1. **`option`** values
+1. **`result`** values
 
 Use them. Do not encode errors inside data.
 
 Exceptions provide a mean to deal with errors at the control flow level while
-`option` and `result` provide means to turn errors into dedicated data.
+`option` and **`result`** provide means to turn errors into dedicated data.
 
 The rest of this document presents and compares approaches towards error
 handling.
@@ -111,7 +111,7 @@ Although the last one doesn't look as an exception, it actually is.
 Among the predefined exceptions of the standard library, the following ones
 are intended to be raised by user-written functions:
 
-* `Exit` can be used to terminate a loop, like a `break` statement
+* `Exit` can be used to terminate an iteration, like a `break` statement
 * `Not_found` should be raised when searching failed because there isn't
   anything satisfactory to be found
 * `Invalid_argument` should be raised when a parameter can't be accepted
@@ -273,10 +273,10 @@ errors at runtime.
 
 ### Exceptions Not Raised
 
-Under panic circumstances, the native code compiler gives its best effort for
-raising meaningful exceptions. However, some error conditions may remain
-undetected, which will result in a segmentation fault. This is the specially the
-case for stack overflows, which aren't always detected.
+The compiler and runtime makes a best effort for raising meaningful exceptions.
+However, some error conditions may remain undetected, which can result in a
+segmentation fault. This is the specially the case for `Out_of_memory`, which
+is not reliable. It used to be the case for `Stack_overflow`:
 
 > But catching stack overflows is tricky, both in Unix-like systems and under
 > Windows, so the current implementation in OCaml is a best effort that is
@@ -285,14 +285,16 @@ case for stack overflows, which aren't always detected.
 [Xavier Leroy, October
 2021](https://discuss.ocaml.org/t/stack-overflow-reported-as-segfault/8646/8)
 
-### Bypassing Type-Safety
+This has improved since. Only linked C code should be able to trigger an
+undetected stack overflow.
 
-OCaml provides means to bypass its type safety. Don't use it. Here is how
-to shoot oneself in the foot:
+### Genuinely Unsafe Functions
+
+Some OCaml functions are genuinely unsafe. Use them with care; not like this:
 
 ```shell
-> echo "(Obj.magic () : int array).(0)" > foo.ml
-> ocamlopt foo.ml
+> echo "fst Marshal.(from_string (to_string 0 []) 0)" > boom.ml
+> ocamlc boom.ml
 > ./a.out
 Segmentation fault (core dumped)
 ```
@@ -301,7 +303,7 @@ Segmentation fault (core dumped)
 
 When a crash isn't coming from:
 * A limitation of the native code compiler
-* `Obj.magic`
+* An genuinely unsafe function such as found in modules `Marshal` and `Obj`
 
 It may be a language bug. It happens. Here is what to do when this is suspected:
 
@@ -321,19 +323,19 @@ the following terminology:
 * Function handling errors in data: Safe
 
 The main means to write such kind of safe error handling functions is to use
-either `Option` (next section) or `Result` (following section). Although
+either **`option`** (next section) or **`result`** (following section). Although
 handling errors in data using those types allows avoiding the issues of error
 values and execeptions, it incurs extracting the enclosed value at every step, which:
 * may require some boilerplate code. This
 * come with a runtime cost.
 
-## Using the `Option` Type for Errors
+## Using the **`option`** Type for Errors
 
-The `Option` module provides the first alternative to exceptions. The `'a
+The **`option`** module provides the first alternative to exceptions. The `'a
 option` datatype allows to express either the availability of data for instance
 `Some 42` or the absence of data using `None`, which can represent an error.
 
-Using `Option` it is possible to write functions that return `None` instead of
+Using **`option`** it is possible to write functions that return `None` instead of
 throwing an exception. Here are two examples of such functions:
 ```ocaml
 # let div_opt m n =
@@ -361,12 +363,6 @@ Exception: Not_found.
 - : int option = Some 4
 # find_opt (fun x -> x mod 2 = 0) [1; 3; 5];;
 - : int option = None
-```
-
-This can even be turned into a higher-order generic function:
-```ocaml
-# let try_opt f x = try Some (f x) with _ -> None;;
-val try_opt : ('a -> 'b) -> 'a -> 'b option = <fun>
 ```
 
 It tends to be considered good practice nowadays when a function can fail in
@@ -414,7 +410,7 @@ Error: This expression has type 'a option
 ```
 
 In order to combine option values with other values, conversion functions are
-needed. Here are the functions provided by the `Option` module to extract the
+needed. Here are the functions provided by the **`option`** module to extract the
 data contained in an option:
 ```ocaml
 val get : 'a t -> 'a
@@ -487,7 +483,7 @@ happen. In the worst case, the `@` character is the last one, then `fqdn_pos` is
 off range by one but `fqdn_len` is null, and that combination of parameters
 doesn't count as an invalid substring.
 
-Below is the equivalent function using the same logic, but using `Option` instead of
+Below is the equivalent function using the same logic, but using **`option`** instead of
 exceptions:
 
 ```ocaml
@@ -536,7 +532,9 @@ let bind opt f = match opt with
 | None -> None
 ```
 
-`bind` having flipped parameter with respect to `map` allows using it as a [binding operator](/manual/bindingops.html), which is an extension of OCaml providing means to create “custom `let`”. Here is how it goes:
+`bind` having flipped parameter with respect to `map` allows using it as a
+[binding operator](/manual/bindingops.html), which is a popular extension of
+OCaml providing means to create “custom `let`”. Here is how it goes:
 ```ocaml
 # let ( let* ) = Option.bind;;
 val ( let* ) : 'a option -> ('a -> 'b option) -> 'b option = <fun>
@@ -587,13 +585,13 @@ prevented having a return value. `None` is silent, it doesn't say anything about
 what went wrong. For this reason, functions returning option values should
 document the circumstances under which it may return `None`. Such a
 documentation is likely to ressemble to the one required for exceptions using
-`@raise`. The `Result` type is intended to fill this gap: manage error in data,
+`@raise`. The **`result`** type is intended to fill this gap: manage error in data,
 like option values, but also provide information on errors, like exceptions. It
 is the topic of the next section.
 
-## Using the `Result` Type for Errors
+## Using the **`result`** Type for Errors
 
-The `Result` module of the standard library defines the following type:
+The **`result`** module of the standard library defines the following type:
 
 ```ocaml
 type ('a, 'b) result =
@@ -605,12 +603,12 @@ A value `Ok x` means that the computation succeeded and produced `x`, a
 value `Error e` means that it failed, and `e` represents whatever error
 information has been collected in the process. Pattern matching can be used to
 deal with both cases, as with any other sum type. However using `map` and `bind`
-can be more convenient, maybe even more as it was with `Option`.
+can be more convenient, maybe even more as it was with **`option`**.
 
 Before taking a look at `Result.map`, let's think about `List.map` and
 `Option.map` under a changed perspective. Both functions behave as identity when
 applied to `[]` or `None`, respectively. That's the only possibility since those
-parameters don't carry any data. Which isn't the case in `Result` with its
+parameters don't carry any data. Which isn't the case in **`result`** with its
 `Error` constructor. Nevertheless, `Result.map` is implemented likewise, on
 `Error`, it also behaves like identity.
 
@@ -625,7 +623,7 @@ let map f = function
 | Error e -> Error e
 ```
 
-The `Result` module has two map functions: the one we've just seen and another
+The **`result`** module has two map functions: the one we've just seen and another
 one, with the same logic, applied to `Error`
 
 Here is its type:
@@ -665,16 +663,16 @@ a string wrapped in an option, if anything goes wrong `None` is returned.
 - `Yaml.of_string` parses a string an turns into an ad-hoc OCaml type
 - `Yaml.find` recursively searches a key in a Yaml tree, if found, it returns
   the corresponding data, wrapped in an option
-- `Option.to_result` performs conversion of an `option` into a `result`.
+- `Option.to_result` performs conversion of an **`option`** into a **`result`**.
 - Finally, `let*` stands for `Result.bind`.
 
-Since functions from the `Yaml` module both returns `result` data, it is easier
+Since functions from the `Yaml` module both returns **`result`** data, it is easier
 to write a pipe which processes that type all along. That's why
-`Option.to_result` needs to be used. Stages which produce `result` must be
+`Option.to_result` needs to be used. Stages which produce **`result`** must be
 chained using `bind`, stages which do not must be chained using some map
-function, in order for the result to be wrapped back into a `result`.
+function, in order for the result to be wrapped back into a **`result`**.
 
-The map functions of the `Result` module allows processing of data or errors,
+The map functions of the **`result`** module allows processing of data or errors,
 but the routines used must not fail, as `Result.map` will never turn an `Ok`
 into an `Error` and `Result.map_error` will never turn an `Error` into an `Ok`.
 On the other hand, functions passed to `Result.bind` are allowed to fail. As
@@ -699,7 +697,7 @@ That behaviour can be achieved by defining the following function:
 val recover : ('e -> 'a option) -> ('a, 'e) result -> ('a, 'e) result = <fun>
 ```
 
-Although any kind of data can be wrapped as a `result` `Error`, it is
+Although any kind of data can be wrapped as a **`result`** `Error`, it is
 recommended to use that constructor to carry actual errors, for instance:
 - `exn`, in which case the result type just makes exceptions explicit
 - `string`, where the error case is a message that indicates what failed
@@ -709,12 +707,12 @@ recommended to use that constructor to carry actual errors, for instance:
   accurate (each error can be dealt with explicitly and occurs in the type), but
   the use of polymorphic variants sometimes make the code harder to read.
 
-Note that some say the types `result` and `Either.t` are
+Note that some say the types **`result`** and `Either.t` are
 [ismorphic](https://en.wikipedia.org/wiki/Isomorphism). Concretely, it means
 it's always possible to replace one by the other, like in a completely neutral
-refactoring. Values of type `result` and `Either.t` can be translated back and
+refactoring. Values of type **`result`** and `Either.t` can be translated back and
 forth, and appling both translations one after the other, in any order, returns
-to the starting value. Nevertheless, this doesn't mean `result` should be used
+to the starting value. Nevertheless, this doesn't mean **`result`** should be used
 in place of `Either.t`, or vice versa. Naming things matters, as punned by Phil
 Karlton's famous quote:
 
@@ -733,7 +731,7 @@ must be detailed because it is extremely popular in other functional programming
 languages, and specially in Haskell.
 
 Assuming `a` and `b` are valid OCaml expressions, the following three pieces of
-sources code are functionally identical:
+source code are functionally identical:
 
 ```ocaml
 bind a (fun x -> b)
@@ -800,6 +798,58 @@ therefore, picking the right style is left to the author's decision. That
 applies error handling, pick a style knowingly. See the [OCaml Programming
 Guidelines](/docs/guidelines) for more details on those matters.
 
+## Convertions Between Errors
+
+### Throwing Exceptions From **`option`** or **`result`**
+
+This is done by using the following functions:
+
+- From **`option`** to `Failure` exception, use function `Option.get`:
+  ```ocaml
+  val get : 'a option -> 'a
+  ```
+
+- From **`result`** to `Failure`, exception use function `Result.get_ok` and `Result.get_error`:
+  ```ocaml
+  val get_ok : ('a, 'e) result -> 'a
+  val get_error : ('a, 'e) result -> 'e
+  ```
+
+To raise other exceptions, pattern matching and `raise` must be used.
+
+## Convertion Between **`option`** and **`result`**
+
+This is done by using the following functions:
+
+- From **`option`** to **`result`**, use function `Option.to_result`:
+  ```ocaml
+  val to_result : none:'e -> 'a option -> ('a, 'e) result
+  ```
+- From **`result`** to **`option`**, use function `Result.to_option`:
+  ```ocaml
+  val to_option : ('a, 'e) result -> 'a option
+  ```
+
+## Turning Exceptions in to **`option`** or **`result`**
+
+The standard library does not provide such functions. This must be done using
+**`try ... with`** or `match ... exception` statements. For instance, here is
+how to create a version of `Stdlib.input_line` which returns and **`option`**
+instead of throwing an exception:
+
+```ocaml
+let input_line_opt ic = try Some (input_line ic) with End_of_file -> None
+```
+
+It would be same for **`result`**, except some data must be provided to the
+`Error` constructor.
+
+Some may like to turn this into a higher-order generic function:
+```ocaml
+# let catch f x = try Some (f x) with _ -> None;;
+val catch : ('a -> 'b) -> 'a -> 'b option = <fun>
+```
+
 ## Assertions
 
 The built-in `assert` instruction takes an expression as an argument and throws
@@ -838,13 +888,13 @@ match Sys.os_type with
 | _ -> failwith "this system is not supported"
 ```
 
-It is right to use `failwith`, because using `assert` would be incorrect. Here is
-the dual example:
+It is right to use `failwith`, other operating systems aren't supported, but
+they are possible. Here is the dual example:
 ```ocaml
 function x when true -> () | _ -> assert false
 ```
-Here, it wouldn't be beneficial to use `failwith` because it requires a corrupted system or
-for the compiler to be bugged for the second code path to be executed.
+Here, it wouldn't be correct to use `failwith` because it requires a corrupted
+system or the compiler to be bugged for the second code path to be executed.
 Breakage of the language semantics qualifies as extraordinary circumstances. It
 is catastrophic!
 
@@ -854,7 +904,7 @@ Properly handling errors is a complex matter. It is [cross-cutting
 concern](https://en.wikipedia.org/wiki/Cross-cutting_concern), touches all parts
 of an application, and can't be isolated in a dedicated module. In contrast to
 several other mainstream languages, OCaml provides several mechanisms to handle
-exceptional circumstances, all with good runtime performance and code
+exceptional events, all with good runtime performance and code
 understandability. Using them properly requires some initial learning and
 practice. Later, it always requires some thinking, which is good since proper
 error management shouldn't ever be overlooked. No error handling is better
@@ -864,8 +914,8 @@ of taste. But opinionated OCaml code is also fine, so it's a balance.
 # External Ressources
 
 - [“Exceptions”](https://v2.ocaml.org/releases/5.0/htmlman/coreexamples.html#s%3Aexceptions) in ”The OCaml Manual, The Core Language”, chapter 1, section 6, December 2022
-- [Module `Option`](https://v2.ocaml.org/releases/5.0/api/Option.html) in OCaml Library
-- [Module `Result`](https://v2.ocaml.org/releases/5.0/api/Result.html) in Ocaml Library
+- [Module **`option`**](https://v2.ocaml.org/releases/5.0/api/Option.html) in OCaml Library
+- [Module **`result`**](https://v2.ocaml.org/releases/5.0/api/Result.html) in Ocaml Library
 - [“Error Handling”](https://dev.realworldocaml.org/error-handling.html) in “Real World OCaml”, part 7, Yaron Minsky and Anil Madhavapeddy, 2ⁿᵈ edition, Cambridge University Press, October 2022
 - “Add "finally" function to Pervasives”, Marcello Seri, GitHub PR, [ocaml/ocaml/pull/1855](https://github.com/ocaml/ocaml/pull/1855)
 - “A guide to recover from interrupts”, Guillaume Munch-Maccagnoni, parf the [`memprof-limits`](https://gitlab.com/gadmm/memprof-limits/) documentation
