@@ -155,7 +155,7 @@ Layout.render
           title.classList.add("entry-title");
 
           let prefixname = document.createElement("tt");
-          prefixname.innerText = entry.prefixname.split(".").reverse().join(".") + (entry.prefixname != "" ? ".": "");
+          prefixname.innerText = entry.prefixname + (entry.prefixname != "" ? ".": "");
           prefixname.classList.add("prefix-name");
           let name = document.createElement("tt");
           name.classList.add("entry-name");
