@@ -1,5 +1,5 @@
 #in-package-search-results ol {
-  @apply m-0 p-0 list-none;
+  @apply m-0 p-0 list-none text-sm;
 }
 
 #in-package-search-results li {
@@ -15,11 +15,20 @@
   --entry-color: gray;
 }
 
+#in-package-search-results li:first-child .search-entry {
+  @apply pt-2;
+}
+
+#in-package-search-results li:last-child .search-entry {
+  @apply pb-2;
+}
+
 #in-package-search-results .search-entry:hover {
   text-decoration: none;
   background: #f4f4f4;
 }
 
+/*
 @media (min-width: 64em) {
   #in-package-search-results .search-entry {
     @apply flex-row;
@@ -29,6 +38,7 @@
     @apply shrink-0 w-1/2;
   }
 }
+*/
 
 #in-package-search-results .search-entry .entry-kind {
   @apply py-0.5 px-1 bg-body-600 text-white rounded mr-2 text-sm;
@@ -91,14 +101,13 @@
   @apply font-semibold;
 }
 
-#in-package-search-results .search-entry .entry-comment {
+#in-package-search-results .search-entry:not(.active):not(.open) .entry-comment {
   @apply whitespace-nowrap overflow-hidden text-ellipsis;
 }
 
 #in-package-search-results .active {
   @apply bg-primary-100;
 }
-
 
 #in-package-search #in-package-search-results {
   @apply hidden;
