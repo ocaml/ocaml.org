@@ -151,18 +151,9 @@ Layout.render
 function detect_os ()
 {
     let os = navigator.userAgent;
-    let result="unix"; // assume a generic unix as default
+    let result="linux_mac_bsd";
     if (os.search('Win')!==-1){
         result="win";
-    }
-    else if (os.search('Mac')!==-1){
-        result="linux_mac_bsd";
-    }
-    else if (os.search('X11')!==-1 && !(os.search('Linux')!==-1)){
-        result="linux_mac_bsd";
-    }
-    else if (os.search('Linux')!==-1 && os.search('X11')!==-1){
-        result="linux_mac_bsd"
     }
     return result;
 }
