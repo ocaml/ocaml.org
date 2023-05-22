@@ -7,3 +7,5 @@ sources:
     url: https://blog.janestreet.com/feed.xml
   - name: hannes
     url: https://hannes.robur.coop/atom
+  - name: signalsandthreads
+    url: https://feeds.simplecast.com/L9810DOa
