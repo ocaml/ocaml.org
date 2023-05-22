@@ -298,7 +298,8 @@ There are a couple of related libraries, all providing means to handle large
 flows of data:
 
 * Rizo I [Streaming](/p/streaming)
-* Gabriel Radanne [Iter](/p/iter)
+* [Iter](/p/iter)
+* [OSeq](/p/oseq) (an extension of `Seq` with more functions)
 * Jane Street `Base.Sequence`
 
 There used to be a module called [`Stream`](/releases/4.13/api/Stream.html) in
