@@ -68,6 +68,7 @@ let scrape_post ~source_name (post : River.post) =
           (Printf.sprintf "skipping %s/%s: item does not have a date"
              source_name slug)
     | Some url, Some date ->
+        if not (Sys.file_exists source_name) then Sys.mkdir source_name 775;
         let oc = open_out output_file in
         let content = River.content post in
         let url = Uri.to_string url in
