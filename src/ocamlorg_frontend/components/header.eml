@@ -45,7 +45,7 @@ let render
           <%s! Packages_autocomplete_fragment.form_attributes %>
           action="/packages/search" method="GET">
           <div class="header__search relative form-input-with-button lg:w-56 xl:w-80">
-            <input @keydown.stop type="search" name="q" class="header__search__input"
+            <input @keydown.stop type="search" name="q"
               autocomplete="off"
               placeholder="Search OCaml Packages"
               <%s! Packages_autocomplete_fragment.input_attributes ~target_sel:"#header-search-results" ~indicator_sel:"#header-search-indicator" %>

@@ -16,9 +16,9 @@ Layout.render
                 <form
                   <%s! Packages_autocomplete_fragment.form_attributes %>
                   action="/packages/search" method="GET" class="flex flex-col justify-center">
-                  <div class="packages__search relative inline-flex mx-auto items-center justify-center">
+                  <div class="relative inline-flex mx-auto items-center justify-center">
                     <div class="form-input-with-button md:w-96 lg:w-[32rem] xl:w-[32rem]">
-                    <input type="search" name="q" class="packages__search__input"
+                    <input type="search" name="q"
                       autocomplete="off"
                       placeholder="Search OCaml Packages"
                       <%s! Packages_autocomplete_fragment.input_attributes ~target_sel:"#packages-search-results" ~indicator_sel:"#packages-search-indicator" %>>

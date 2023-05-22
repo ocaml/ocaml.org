@@ -10,7 +10,6 @@ let render ~total ~search (packages : Package.package list) = Layout.render ~tit
             <input
               type="search"
               name="q" id="q2"
-              class="packages_search__search__input"
               value="<%s search %>"
               placeholder="Search OCaml Packages">
             <button aria-label="search">
