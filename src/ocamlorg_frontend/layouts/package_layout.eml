@@ -250,6 +250,9 @@ Layout.render
       scriptTag.addEventListener("load", init_search);
       document.body.appendChild(scriptTag);
 
+      let container = document.getElementById("in-package-search-results");
+      container.innerHTML = `<div class="px-4 py-2">Loading...</div>`;
+
       document.getElementById("in-package-search-input").removeEventListener("focus", user_interacts);
     }
 
