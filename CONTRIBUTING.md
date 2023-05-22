@@ -41,7 +41,7 @@ The blog is composed of two type of content:
 - Community blog posts fetched from RSS feeds.
 - Original blog posts.
 
-If you write about OCaml and have an RSS or Atom feed, you can add your feed to [`data/rss-sources.yml`](data/rss-sources.yml).
+If you write about OCaml and have an RSS or Atom feed, you can add your feed to [`data/planet-sources.yml`](data/planet-sources.yml).
 
 When compiling, the entries of the feed will be downloaded and markdown files for each item of the feed will be created in [`data/rss`](data/rss/). For instance: [building-ahrefs-codebase-with-melange.md`](data/rss/ahrefs/building-ahrefs-codebase-with-melange.md).
 
