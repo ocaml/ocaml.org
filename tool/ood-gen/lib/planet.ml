@@ -52,7 +52,7 @@ let scrape_post ~source_name (post : River.post) =
   let title = River.title post in
   let slug = Utils.slugify title in
   let source_path = "data/planet/" ^ source_name in
-  let output_file =  source_path ^ "/" ^ slug ^ ".md" in
+  let output_file = source_path ^ "/" ^ slug ^ ".md" in
   if Sys.file_exists output_file then
     print_endline
       (Printf.sprintf "%s/%s already exist, not scraping again" source_name slug)
