@@ -29,4 +29,8 @@
   .form-input-with-button button {
     @apply h-full flex items-center justify-center rounded-r-md bg-primary-600 text-white px-4;
   }
+
+  .form-select select {
+    @apply w-full appearance-none text-body-600 border rounded-md py-3 pl-6 border-gray-200 pr-14 h-12;
+  }
 }

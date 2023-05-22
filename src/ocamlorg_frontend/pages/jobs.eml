@@ -25,15 +25,16 @@ OCaml community."
                 <div class="relative h-14 w-64">
                     <form action="<%s Url.jobs %>" method="GET">
                         <label for="c" class="sr-only">Location</label>
-                        <select
-                            class="w-full appearance-none text-body-600 border rounded-md py-3 pl-6 border-gray-200 pr-20 h-full"
-                            id="c" name="c" onchange="this.form.submit()">
-                            <option value="All" <%s if location = "All" then "selected" else "" %>>Location</option>
-                            <option value="Remote" <%s if location = "Remote" then "selected" else "" %>>Remote</option>
-                            <% locations |> List.iter (fun item -> %>
-                            <option value="<%s item %>" <%s if location = item then "selected" else "" %>><%s item %></option>
-                            <% ); %>
-                        </select>
+                        <div class="form-select">
+                            <select
+                                id="c" name="c" onchange="this.form.submit()">
+                                <option value="All" <%s if location = "All" then "selected" else "" %>>Location</option>
+                                <option value="Remote" <%s if location = "Remote" then "selected" else "" %>>Remote</option>
+                                <% locations |> List.iter (fun item -> %>
+                                <option value="<%s item %>" <%s if location = item then "selected" else "" %>><%s item %></option>
+                                <% ); %>
+                            </select>
+                        </div>
                     </form>
                 </div>
         </div>
