@@ -1,6 +1,4 @@
 sources:
-  - names: ocamlweekly
-    url: https://alan.petitepomme.net/cwn/cwn.rss
   - name: ahrefs
     url: https://medium.com/feed/ahrefs/tagged/ocaml
   - name: tarides
