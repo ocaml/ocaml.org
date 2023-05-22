@@ -108,6 +108,16 @@ With the docker container running, you can visit the site at <http://localhost:8
 
 The docker images automatically build from the `live` and `staging` branches, and are then pushed to Docker Hub: https://hub.docker.com/r/ocurrent/v3.ocaml.org-server
 
+### Staging Pull Requests
+
+We [aim to keep the `staging` branch as close as possible to the `main`
+branch](doc/FOR_MAINTAINERS.md#how-we-maintain-the-staging-branch), with only a few PRs added on top of it.
+
+The maintainers will add your pull request to `staging` if it is worthwhile
+to do so. For example, documentation PRs or new features where we need testing
+and feedback from the community will generally be live on `staging` for a while
+before they get merged.
+
 ### Managing dependencies
 
 ocaml.org is using an Opam switch which is local and bound to a pinned commit in opam-repository. This is intended to protect the build from upstream regressions. The Opam repository is specified in three (3) places:
