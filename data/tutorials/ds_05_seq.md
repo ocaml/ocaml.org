@@ -36,7 +36,7 @@ type 'a list =
   | (::) of 'a * 'a list
 ```
 and `Seq.t`, which is merely a type alias for `unit -> 'a Seq.node`. The whole
-point of this definition is `Seq.Cons` second argument's type, which is a
+point of this definition is `Seq.Cons` second component's type, which is a
 function returning a sequence while its `list` counterpart is a list. Let's
 compare the constructors of `list` and `Seq.node`:
 1. Empty lists and sequences are defined the same way, a constructor without any
@@ -80,7 +80,7 @@ has the same behaviour as `List.iter`. Writing this:
 ```ocaml
 # Seq.iter print_int (ints 0);;
 ```
-in an OCaml toplevel, this means “print integers forever,” and you have to press
+in an OCaml top-level, this means “print integers forever,” and you have to press
 `Ctrl-C` to interrupt the execution. Perhaps more interestingly, the following
 code is also an infinite loop:
 ```ocaml
@@ -127,7 +127,7 @@ The `Seq` module also has a function `Seq.filter`:
 # Seq.filter;;
 - : ('a -> bool) -> 'a Seq.t -> 'a Seq.t = <fun>
 ```
-It keeps elements of a sequence which satisfies the provided condition.
+It builds a sequence of elements satisfying a condition.
 
 Using `Seq.filter`, it is possible to make a straightforward implementation of
 the [Sieve of
@@ -290,7 +290,7 @@ some of those functions:
   val String.to_seq : char Seq.t -> string
   ```
 Similar functions are also provided for sets, maps, hash tables (`Hashtbl`) and
-others (except `Seq`, obviously). When implementing a collection datatype module, it is
+others (except `Seq`, obviously). When implementing a datatype module, it is
 advised to expose `to_seq` and `of_seq` functions.
 
 ## Miscellaneous Considerations
@@ -300,6 +300,7 @@ flows of data:
 
 * Rizo I [Streaming](/p/streaming)
 * Simon Cruanes and Gabriel Radanne [Iter](/p/iter)
+* Simon Cruanes [OSeq](/p/oseq) (an extension of `Seq` with more functions)
 * Jane Street `Base.Sequence`
 
 There used to be a module called [`Stream`](/releases/4.13/api/Stream.html) in
