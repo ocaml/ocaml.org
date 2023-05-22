@@ -2,7 +2,7 @@
 id: sequences
 title: Sequences
 description: >
-  Learn about an OCaml's most-used, built-in data types
+  Learn about sequences, of OCaml's most-used, built-in data types
 category: "data-structures"
 date: 2023-01-12T09:00:00-01:00
 ---
