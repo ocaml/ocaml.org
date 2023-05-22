@@ -51,7 +51,8 @@ let fetch_feed (source : River.source) =
 let scrape_post ~source_name (post : River.post) =
   let title = River.title post in
   let slug = Utils.slugify title in
-  let output_file = "data/planet/" ^ source_name ^ "/" ^ slug ^ ".md" in
+  let source_path = "data/planet/" ^ source_name in
+  let output_file = source_path ^ "/" ^ slug ^ ".md" in
   if Sys.file_exists output_file then
     print_endline
       (Printf.sprintf "%s/%s already exist, not scraping again" source_name slug)
@@ -68,7 +69,7 @@ let scrape_post ~source_name (post : River.post) =
           (Printf.sprintf "skipping %s/%s: item does not have a date"
              source_name slug)
     | Some url, Some date ->
-        if not (Sys.file_exists source_name) then Sys.mkdir source_name 775;
+        if not (Sys.file_exists source_path) then Sys.mkdir source_path 0o775;
         let oc = open_out output_file in
         let content = River.content post in
         let url = Uri.to_string url in
