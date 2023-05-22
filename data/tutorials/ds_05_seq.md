@@ -40,7 +40,7 @@ point of this definition is `Seq.Cons` second component's type, which is a
 function returning a sequence while its `list` counterpart is a list. Let's
 compare the constructors of `list` and `Seq.node`:
 1. Empty lists and sequences are defined the same way, a constructor without any
-   parameter: `Seq.Nil` and `[]`.
+   parameters: `Seq.Nil` and `[]`.
 1. Non-empty lists and sequences are both pairs whose former member is a piece
    of data.
 1. However, the latter member in lists is recursively a `list`, while in
@@ -80,7 +80,7 @@ has the same behaviour as `List.iter`. Writing this:
 ```ocaml
 # Seq.iter print_int (ints 0);;
 ```
-in an OCaml top-level, this means “print integers forever,” and you have to press
+in an OCaml toplevel, this means “print integers forever,” and you have to press
 `Ctrl-C` to interrupt the execution. Perhaps more interestingly, the following
 code is also an infinite loop:
 ```ocaml
@@ -156,7 +156,7 @@ the list of 100 first prime numbers:
 The function `sieve` is recursive in OCaml and common sense. It is defined using
 the `rec` keyword and calls itself. However, some call that kind of function
 [_corecursive_](https://en.wikipedia.org/wiki/Corecursion). This word is used to
-emphasize that, by design, it does not terminate. Strictly speaking, the sieve
+emphasise that, by design, it does not terminate. Strictly speaking, the sieve
 of Eratosthenes is not an algorithm either since it does not terminate. This
 implementation behaves the same.
 
