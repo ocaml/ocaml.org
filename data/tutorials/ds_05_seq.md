@@ -289,7 +289,7 @@ some of those functions:
   val String.of_seq : string -> char Seq.t
   val String.to_seq : char Seq.t -> string
   ```
-Similar functions are also provided for sets, maps, hash tables (`Hashtbl`) and
+Similar functions are also provided for sets, maps, hash tables (`Hashtbl`), and
 others (except `Seq`, obviously). When implementing a datatype module, it is
 advised to expose `to_seq` and `of_seq` functions.
 
