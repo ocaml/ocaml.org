@@ -315,3 +315,18 @@ OCaml 4.14. Beware books and documentation written before may still mention it.
 * [Streams](/problems#100)
 * [Diagonal](/problems#101)
 
+## Credits
+
+* Authors:
+
+  1. Cuihtlauac Alvarado [@cuihtlauac](https://github.com/cuihtlauac)
+
+* Suggestions and Corrections:
+
+  * Miod Vallat [@dustanddreams](https://github.com/dustanddreams)
+  * Sayo Bamigbade [@SaySayo](https://github.com/SaySayo)
+  * Christine Rose [@christinerose](https://github.com/christinerose)
+  * Sabine Schmaltz [@sabine](https://github.com/sabine)
+  * Guillaume Petiot [@gpetiot](https://github.com/gpetiot)
+  * Xavier Van de Woestyne [@xvw](https://github.com/xvw)
+  * Simon Cruanes [@c-cube](https://github.com/c-cube)
