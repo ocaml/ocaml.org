@@ -80,8 +80,13 @@ Layout.render
             <% if Option.is_some search_index_digest then (%>
               <input id="in-package-search-input" type="search" name="q" class="min-w-0 focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 flex-grow"
                 autocomplete="off"
+                aria-owns="in-package-search-results"
+                aria-expanded="false"
+                aria-autocomplete="list"
+                aria-describedby="search-instructions"
                 placeholder="Search names in this package..."
-                onfocus="this.select()"
+                onfocus="this.select(); this.setAttribute('aria-expanded', true)"
+                onblur="this.setAttribute('aria-expanded', false)"
                 >
               <div aria-hidden="true" class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
                 <%s! Icons.magnifying_glass "w-6 h-6" %>
@@ -92,7 +97,7 @@ Layout.render
             <% ); %>
           </div>
 
-          <div x-show="search_instructions" class="absolute top-12 p-4 right-0 left-0 bg-white z-[22] w-full max-h-[60vh] overflow-y-auto border rounded-lg shadow-xl">
+          <div id="search-instructions" x-show="search_instructions" class="absolute top-12 p-4 right-0 left-0 bg-white z-[22] w-full max-h-[60vh] overflow-y-auto border rounded-lg shadow-xl">
             <%s! search_instructions_html () %>
           </div>
 
@@ -297,6 +302,7 @@ Layout.render
 
       if (search_results_position !== null) document.getElementById("search-result-"+results[search_results_position].id).classList.remove("active");
       adjust_position(event);
+      document.getElementById("in-package-search-input").setAttribute("aria-activedescendant", search_results_position === null ? null : "search-result-"+results[search_results_position].id);
       if (search_results_position !== null) {
         let el = document.getElementById("search-result-"+results[search_results_position].id);
         el.classList.add("active");
