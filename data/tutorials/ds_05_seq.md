@@ -136,7 +136,9 @@ Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes). Here it is:
 let rec sieve seq () = match seq () with
   | Seq.Cons (m, seq) -> Seq.Cons (m, sieve (Seq.filter (fun n -> n mod m > 0) seq))
   | seq -> seq
-let facts = ints_from 2 |> sieve;;
+let facts = Seq.ints 2 |> sieve;;
+val sieve : int Seq.t -> int Seq.t = <fun>
+val facts : int Seq.t = <fun>
 ```
 
 This code can be used to generate lists of prime numbers. For instance, here is
