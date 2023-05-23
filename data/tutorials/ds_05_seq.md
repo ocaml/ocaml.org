@@ -144,7 +144,7 @@ val facts : int Seq.t = <fun>
 This code can be used to generate lists of prime numbers. For instance, here is
 the list of 100 first prime numbers:
 ```ocaml
-# facts |> take 100 |> List.of_seq;;
+# facts |> Seq.take 100 |> List.of_seq;;
 - : int list =
 [2; 3; 5; 7; 11; 13; 17; 19; 23; 29; 31; 37; 41; 43; 47; 53; 59; 61; 67; 71;
  73; 79; 83; 89; 97; 101; 103; 107; 109; 113; 127; 131; 137; 139; 149; 151;
@@ -188,7 +188,7 @@ parameter, but a sequence result. `unfold` provides a general means to build
 sequences. For instance, `Seq.ints` can be implemented using `Seq.unfold` in a
 fairly compact way:
 ```ocaml
-let ints = Seq.unfold (fun n -> Some (n, n + 1));;
+# let ints = Seq.unfold (fun n -> Some (n, n + 1));;
 val ints : int -> int Seq.t = <fun>
 ```
 
