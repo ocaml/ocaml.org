@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://blog.janestreet.com/feed.xml</id><title type="text">janestreet</title><updated>2023-05-22T05:45:10-00:00</updated><entry><link href="https://blog.janestreet.com/building-reproducible-python-environments-with-xars/" rel="alternate"/><contributor><uri>https://blog.janestreet.com/feed.xml</uri><name>janestreet</name></contributor><content type="html">&lt;p&gt;Our traders and researchers love Python for its agility and for its huge
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://blog.janestreet.com/feed.xml</id><title type="text">janestreet</title><updated>2023-05-24T05:45:42-00:00</updated><entry><link href="https://blog.janestreet.com/building-reproducible-python-environments-with-xars/" rel="alternate"/><contributor><uri>https://blog.janestreet.com/feed.xml</uri><name>janestreet</name></contributor><content type="html">&lt;p&gt;Our traders and researchers love Python for its agility and for its huge
 open-source ecosystem, especially when it comes to machine learning. But
 the heavy use of notebooks can make it difficult to support. Notebooks
 have a very different lifecycle than regular code, and aren&amp;rsquo;t always
