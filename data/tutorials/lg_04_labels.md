@@ -1,5 +1,5 @@
 ---
-id: labels
+id : labels
 title: Labels
 description: >
   Provide labels to your functions arguments
@@ -19,7 +19,6 @@ programmer):
 def ask_ok(prompt, retries=4, complaint='Yes or no, please!'):
   # function definition omitted
 ```
-
 Here are the ways we can call this Python function:
 
 ```python
@@ -52,7 +51,6 @@ cannot be used as labels. So you cannot have `~from/~to` or
 The type of our previous `range` function was:
 
 <!-- $MDX skip -->
-
 ```ocaml
 range : int -> int -> int list
 ```
@@ -64,7 +62,7 @@ And the type of our new `range` function with labelled arguments is:
 - : first:int -> last:int -> int list = <fun>
 ```
 
-Confusingly, the `~` (tilde) is _not_ shown in the type definition, but
+Confusingly, the `~` (tilde) is *not* shown in the type definition, but
 you need to use it everywhere else.
 
 With labelled arguments, it doesn't matter which order you give the
@@ -116,7 +114,6 @@ OCaml interactive toplevel if you want):
 # may;;
 - : f:('a -> 'b) -> 'a option -> unit = <fun>
 ```
-
 What does this function do? Running the function in the OCaml toplevel
 gives us some clues:
 
@@ -133,7 +130,6 @@ Otherwise `may` calls the `f` function on the argument. Why is this
 useful? We're just about to find out ...
 
 ### Optional Arguments
-
 Optional arguments are like labelled arguments, but we use `?` instead
 of `~` in front of them. Here is an example:
 
@@ -215,7 +211,7 @@ example:
 
 So far this is just the imperative "mutable records" which we talked
 about in the previous chapter. Now the complex part is the `open_window`
-function. This function takes _4_ arguments, three of them optional,
+function. This function takes *4* arguments, three of them optional,
 followed by a required, unlabelled `unit`. Let's first see this function
 in action:
 
@@ -227,7 +223,7 @@ in action:
 ```
 
 It does what you expect, but how?! The secret is in the `may` function
-(see above) and the fact that the optional parameters _don't_ have
+(see above) and the fact that the optional parameters *don't* have
 defaults.
 
 When an optional parameter doesn't have a default, then it has type
@@ -239,7 +235,6 @@ calls the function on the argument provided the argument isn't `None`.
 So:
 
 <!-- $MDX skip -->
-
 ```ocaml
 # may ~f:(set_title window) title;;
 ```
@@ -260,7 +255,6 @@ You should make sure you fully understand this example before proceeding
 to the next section.
 
 ### `Warning: This optional argument cannot be erased`
-
 We've just touched upon labels and optional arguments, but even this
 brief explanation should have raised several questions. The first may be
 why the extra `unit` argument to `open_window`? Let's try defining this
@@ -307,7 +301,6 @@ we have a function `plus` defined as:
   x + y;;
 val plus : int -> int -> int = <fun>
 ```
-
 We can partially apply this, for example as `plus 2` which is "the
 function that adds 2 to things":
 
@@ -357,7 +350,6 @@ before the final `unit`, so if you type:
 # open_window ();;
 - : window = {title = "none"; width = 640; height = 480}
 ```
-
 you must mean "execute `open_window` now with all optional arguments
 unspecified". Whereas if you type:
 
@@ -365,12 +357,10 @@ unspecified". Whereas if you type:
 # open_window;;
 - : ?title:string -> ?width:int -> ?height:int -> unit -> window = <fun>
 ```
-
 you mean "give me the functional value" or (more usually in the
 toplevel) "print out the type of `open_window`".
 
 ### More `~`shorthand
-
 Let's rewrite the `range` function yet again, this time using as much
 shorthand as possible for the labels:
 
@@ -387,7 +377,6 @@ hence in the above the `~last` is short for
 `~last:last`.
 
 ### Using `?foo` in a Function Call
-
 There's another little wrinkle concerning optional arguments. Suppose we
 write a function around `open_window` to open up an application:
 
@@ -417,7 +406,6 @@ val open_application : ?width:int -> ?height:int -> unit -> unit -> window =
 ```
 
 ### When and When Not to Use `~` and `?`
-
 The syntax for labels and optional arguments is confusing, and you may
 often wonder when to use `~foo`, when to use `?foo` and when to use
 plain `foo`. It's something of a black art which takes practice to get
@@ -426,7 +414,6 @@ right.
 `?foo` is only used when declaring the arguments of a function, ie:
 
 <!-- $MDX skip -->
-
 ```ocaml
 let f ?arg1 ... =
 ```
@@ -440,7 +427,6 @@ function calls:
 val open_application : ?width:int -> ?height:int -> unit -> unit -> window =
   <fun>
 ```
-
 The declaration `?foo` creates a variable called `foo`, so if you need
 the value of `?foo`, use just `foo`.
 
@@ -448,7 +434,6 @@ The same applies to labels. Only use the `~foo` form when declaring
 arguments of a function, ie:
 
 <!-- $MDX skip -->
-
 ```ocaml
 let f ~foo:foo ... =
 ```
@@ -465,7 +450,6 @@ Here is some apparently obscure code from lablgtk to demonstrate all of
 this:
 
 <!-- $MDX skip -->
-
 ```ocaml
 # let html ?border_width ?width ?height ?packing ?show () =  (* line 1 *)
   let w = create () in
@@ -473,7 +457,6 @@ this:
   Container.set w ?border_width ?width ?height;            (* line 4 *)
   pack_return (new html w) ~packing ~show                  (* line 5 *);;
 ```
-
 On line 1 we have the function definition. Notice there are 5 optional
 arguments, and the mandatory `unit` 6<sup>th</sup> argument. Each of the
 optional arguments is going to define a variable, eg. `border_width`, of
@@ -484,13 +467,11 @@ to functions which take optional arguments. `Container.set` has the
 following type:
 
 <!-- $MDX skip -->
-
 ```ocaml
 module Container = struct
   let set ?border_width ?(width = -2) ?(height = -2) w =
     (* ... *)
 ```
-
 Line 5 uses the `~`shorthand. Writing this in long form:
 
 ```ocaml
@@ -504,7 +485,6 @@ called `~packing` and `~show`, each of type `'a option`. In other words,
 `pack_return` explicitly unwraps the `option` wrapper.
 
 ## More Variants (“Polymorphic Variants”)
-
 Try compiling the following C code:
 
 ```C
@@ -525,7 +505,6 @@ main ()
   close (fd);                                            // line 15
 }
 ```
-
 When I compile the code I get a whole bunch of errors including:
 
 ```text
@@ -533,16 +512,14 @@ test.c: In function `main':
 test.c:12: error: called object is not a function
 test.c:15: error: called object is not a function
 ```
-
 This illustrates one problem with enumerated types (enums) in C. In the
-example above, one enum statement reserves _three_ symbols, namely
+example above, one enum statement reserves *three* symbols, namely
 `lock`, `open` and `close`. Here's another example:
 
 ```C
 enum lock { open, close };
 enum door { open, close };
 ```
-
 Compiling gives:
 
 ```text
@@ -551,7 +528,6 @@ test.c:1: error: previous declaration of `open'
 test.c:2: error: conflicting types for `close'
 test.c:1: error: previous declaration of `close'
 ```
-
 The first enum defines the symbol `open` as something of type
 `enum lock`. You cannot reuse that symbol in another enum.
 
@@ -559,7 +535,7 @@ This will be familiar to most C/C++ programmers, and they won't write
 naive code like that above. However the same issue happens with OCaml
 variants, but OCaml provides a way to work around it.
 
-Here is some OCaml code, which actually _does_ compile:
+Here is some OCaml code, which actually *does* compile:
 
 ```ocaml
 # type lock = Open | Close;;
@@ -567,7 +543,6 @@ type lock = Open | Close
 # type door = Open | Close;;
 type door = Open | Close
 ```
-
 After running those two statements, what is the type of `Open`? We can
 find out easily enough in the toplevel:
 
@@ -600,7 +575,6 @@ type lock = [ `Close | `Open ]
 # type door = [ `Open | `Close ];;
 type door = [ `Close | `Open ]
 ```
-
 Notice the syntactic differences:
 
 1. Each variant name is prefixed with `` ` `` (a back tick).
@@ -612,14 +586,13 @@ The question naturally arises: What is the type of `` `Open``?
 # `Open;;
 - : [> `Open ] = `Open
 ```
-
 `` [> `Open] `` can be read as
 `` [ `Open | and some other possibilities which we don't know about ] ``.
 
 The “>” (greater than) sign indicates that the set of possibilities is
 bigger than those listed (open-ended).
 
-There's nothing special about `` `Open ``. _Any_ back-ticked word can be
+There's nothing special about `` `Open ``. *Any* back-ticked word can be
 used as a type, even one which we haven't mentioned before:
 
 ```ocaml
@@ -628,7 +601,6 @@ used as a type, even one which we haven't mentioned before:
 # `Foo 42;;
 - : [> `Foo of int ] = `Foo 42
 ```
-
 Let's write a function to print the state of a `lock`:
 
 ```ocaml
@@ -638,10 +610,9 @@ Let's write a function to print the state of a `lock`:
   | `Close -> print_endline "The lock is closed";;
 val print_lock : [< `Close | `Open ] -> unit = <fun>
 ```
-
 Take a careful look at the type of that function. Type inference has
 worked out that the `st` argument has type `` [< `Close | `Open] ``. The
-`<` (less than) sign means that this is a **closed class**. In
+`<` (less than) sign means that this is a __closed class__. In
 other words, this function will only work on `` `Close`` or `` `Open``
 and not on anything else.
 
