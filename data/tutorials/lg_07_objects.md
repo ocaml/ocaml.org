@@ -606,7 +606,7 @@ Objects can be used instead of records. Plus, they have some nice properties
 that can make them preferable to records in some cases. We saw that the
 canonical way of creating objects is to first define a class, then use
 this class to create individual objects. This can be cumbersome in some
-situations becaus class definitions are more than a type definition and
+situations because class definitions are more than a type definition and
 cannot be defined recursively with types. However, objects have a type
 that is very analog to a record type, and it can be used in type
 definitions. In addition, objects can be created without a class. They
