@@ -477,7 +477,7 @@ Int__entry:
         call    Pervasives__output_string_212
 ```
 
-The important code is shown in red. It shows two things: Firstly the
+The important code is `movl    $7, %eax`. It shows two things: Firstly the
 integer is unboxed (not allocated on the heap), but is instead passed
 directly to the function in the register `%eax`. This is fast. But
 secondly we see that the number being passed is 7, not 3.
