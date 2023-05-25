@@ -51,7 +51,7 @@
    (= "2.0.0~alpha3"))
   opam-format
   (timedesc
-   (>= 0.8.0))
+   (>= 1.1.1))
   yojson
   lwt
   tailwindcss
@@ -76,8 +76,6 @@
   ppx_deriving_yojson
   ppx_stable
   yojson
-  (timedesc
-   (>= 0.8.0))
   ; tools/ood-gen
   ppx_deriving_yaml
   ppx_show
