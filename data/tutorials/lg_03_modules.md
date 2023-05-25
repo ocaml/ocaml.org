@@ -217,7 +217,7 @@ $ dune exec ./bmodule2.exe
 Hello 2
 ```
 
-There how the same result can be achieved by calling the compiler manually.
+Here is how the same result can be achieved by calling the compiler manually.
 Notice the `.mli` file is compiled using bytecode compiler `ocamlc`, while
 `.ml` files are compiled to native code using `ocamlopt`:
 
