@@ -10,4 +10,4 @@ sources:
   - name: emelle-tv
     url: https://watch.ocaml.org/feeds/videos.xml?videoChannelId=23
   - name: cwn
-  - url: https://alan.petitepomme.net/cwn/cwn.rss
+    url: https://alan.petitepomme.net/cwn/cwn.rss
