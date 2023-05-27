@@ -46,7 +46,7 @@ Learn_layout.render
     <span class="text-base"><%s category.status %></span>
     <%s category.name %>
   </h3>
-  <p><%s category.description %></p>
+  <p><%s! category.description %></p>
   <ul>
     <% category.packages |> List.iter (fun (package : string) -> %>
     <li><a href="<%s Url.Package.overview package %>"><%s package %></a></li>

@@ -28,7 +28,23 @@ type t = {
 let decode (_, (head, body_md)) =
   let metadata = metadata_of_yaml head in
   let body_html = Omd.of_string body_md |> Omd.to_html in
-  Result.map (of_metadata ~body_html) metadata
+  Result.map
+    (fun (metadata : metadata) ->
+      let categories =
+        List.map
+          (fun category ->
+            {
+              category with
+              description =
+                Omd.to_html
+                  (Hilite.Md.transform
+                     (Omd.of_string (String.trim category.description)));
+            })
+          metadata.categories
+      in
+      let metadata : metadata = { metadata with categories } in
+      of_metadata ~body_html metadata)
+    metadata
 
 let all () = Utils.map_files decode "are_we_yet"
 
