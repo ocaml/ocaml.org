@@ -19,7 +19,7 @@ let playground_loader =
     ~digest:(fun _root path ->
       Option.map Dream.to_base64url @@ Ocamlorg_static.Playground.digest path)
 
-let page_routes =
+let page_routes t =
   Dream.scope ""
     [ Dream_dashboard.analytics (); Dream_encoding.compress ]
     [
@@ -54,7 +54,7 @@ let page_routes =
       Dream.get Url.code_of_conduct Handler.code_of_conduct;
       Dream.get Url.papers Handler.papers;
       Dream.get Url.problems Handler.problems;
-      Dream.get (Url.tutorial "are-we-web-yet") (Handler.are_we_yet "web");
+      Dream.get (Url.tutorial "are-we-web-yet") (Handler.are_we_yet t "web");
       Dream.get (Url.tutorial ":id") Handler.tutorial;
       Dream.get Url.playground Handler.playground;
       Dream.get Url.installer Handler.installer;
@@ -108,7 +108,7 @@ let router t =
     [
       Dream_dashboard.route ();
       Redirection.t;
-      page_routes;
+      page_routes t;
       package_route t;
       graphql_route t;
       sitemap_routes;

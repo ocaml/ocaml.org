@@ -115,7 +115,7 @@ categories:
     description: |
       n/a
     packages:
-    - ocaml-tar
+    - tar
     - imagelib
     - base64
     - multipart-form-data
@@ -166,7 +166,7 @@ categories:
     - websocket
     - websocketaf
     - gluten
-    - awa-ssh
+    - awa
     - uri
     - dns
     - tcpip

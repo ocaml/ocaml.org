@@ -1,6 +1,7 @@
 let render
 (meta : Data.Are_we_yet.t)
 ~tutorials
+~packages
 =
 Learn_layout.render
 ~title:meta.question
@@ -48,8 +49,8 @@ Learn_layout.render
   </h3>
   <p><%s! category.description %></p>
   <ul>
-    <% category.packages |> List.iter (fun (package : string) -> %>
-    <li><a href="<%s Url.Package.overview package %>"><%s package %></a></li>
+    <% category.packages |> List.iter (fun (name : string) -> let package = Hashtbl.find_opt packages name in %>
+    <li><a href="<%s Url.Package.overview name %>"><%s name %></a> <%s match package with | None -> "" | Some package -> package.Package.synopsis %></li>
     <% ); %>
   </ul>
   <% ); %>

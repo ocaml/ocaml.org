@@ -1,6 +1,107 @@
 open Ocamlorg
 open Ocamlorg.Import
 
+module Package_helper = struct
+  let package_info_to_frontend_package ~name ~version ?(on_latest_url = false)
+      ~latest_version ~versions info =
+    let rev_deps =
+      List.map
+        (fun (name, _, _versions) -> Ocamlorg_package.Name.to_string name)
+        info.Ocamlorg_package.Info.rev_deps
+    in
+    Ocamlorg_frontend.Package.
+      {
+        name = Ocamlorg_package.Name.to_string name;
+        version =
+          (if on_latest_url then Latest
+           else Specific (Ocamlorg_package.Version.to_string version));
+        versions;
+        latest_version =
+          Option.value ~default:"???"
+            (Option.map Ocamlorg_package.Version.to_string latest_version);
+        synopsis = info.Ocamlorg_package.Info.synopsis;
+        description =
+          info.Ocamlorg_package.Info.description |> Omd.of_string |> Omd.to_html;
+        tags = info.tags;
+        rev_deps;
+        authors = info.authors;
+        maintainers = info.maintainers;
+        license = info.license;
+        publication = info.publication;
+        homepages = info.Ocamlorg_package.Info.homepage;
+        source =
+          Option.map
+            (fun url ->
+              (url.Ocamlorg_package.Info.uri, url.Ocamlorg_package.Info.checksum))
+            info.Ocamlorg_package.Info.url;
+      }
+
+  (** Query all the versions of a package. *)
+  let versions state name =
+    Ocamlorg_package.get_versions state name
+    |> Option.value ~default:[]
+    |> List.sort (Fun.flip Ocamlorg_package.Version.compare)
+    |> List.map Ocamlorg_package.Version.to_string
+
+  let frontend_package ?on_latest_url state (package : Ocamlorg_package.t) :
+      Ocamlorg_frontend.Package.package =
+    let name = Ocamlorg_package.name package
+    and version = Ocamlorg_package.version package
+    and info = Ocamlorg_package.info package in
+    let versions = versions state name in
+    let latest_version =
+      Option.map
+        (fun (p : Ocamlorg_package.t) -> Ocamlorg_package.version p)
+        (Ocamlorg_package.get_latest state name)
+    in
+    package_info_to_frontend_package ~name ~version ?on_latest_url
+      ~latest_version ~versions info
+
+  let of_name_version t name version =
+    let package =
+      if version = "latest" then Ocamlorg_package.get_latest t name
+      else
+        Ocamlorg_package.get t name (Ocamlorg_package.Version.of_string version)
+    in
+    package
+    |> Option.map (fun package ->
+           ( package,
+             frontend_package t package ~on_latest_url:(version = "latest") ))
+
+  let package_sidebar_data ~kind package =
+    let open Lwt.Syntax in
+    let* readme_filename = Ocamlorg_package.readme_filename ~kind package in
+    let* changes_filename = Ocamlorg_package.changes_filename ~kind package in
+    let* license_filename = Ocamlorg_package.license_filename ~kind package in
+    let* package_documentation_status =
+      Ocamlorg_package.documentation_status ~kind package
+    in
+    let documentation_status =
+      match package_documentation_status with
+      | Ocamlorg_package.Success -> Ocamlorg_frontend.Package.Success
+      | Failure -> Failure
+      | Unknown -> Unknown
+    in
+    Lwt.return
+      Ocamlorg_frontend.Package_overview.
+        {
+          documentation_status;
+          readme_filename;
+          changes_filename;
+          license_filename;
+        }
+
+  let frontend_toc (xs : Ocamlorg_package.Documentation.toc list) :
+      Ocamlorg_frontend.Toc.t =
+    let rec aux acc = function
+      | [] -> List.rev acc
+      | Ocamlorg_package.Documentation.{ title; href; children } :: rest ->
+          Ocamlorg_frontend.Toc.{ title; href; children = aux [] children }
+          :: aux acc rest
+    in
+    aux [] xs
+end
+
 let http_or_404 ?(not_found = Ocamlorg_frontend.not_found) opt f =
   Option.fold ~none:(Dream.html ~code:404 (not_found ())) ~some:f opt
 
@@ -339,12 +440,28 @@ let tutorial req =
        ~canonical:(Url.tutorial tutorial.slug)
        tutorial)
 
-let are_we_yet id _req =
+let are_we_yet t id req =
   let</>? meta =
     List.find_opt (fun x -> x.Data.Are_we_yet.id = id) Data.Are_we_yet.all
   in
   let tutorials = Data.Tutorial.all in
-  Dream.html (Ocamlorg_frontend.are_we_yet ~tutorials meta)
+  let packages =
+    meta.categories
+    |> List.concat_map (fun category -> category.Data.Are_we_yet.packages)
+    |> List.map Ocamlorg_package.Name.of_string
+    |> List.filter_map (fun name ->
+           match Ocamlorg_package.get_latest t name with
+           | Some x -> Some x
+           | None ->
+               Dream.error (fun log ->
+                   log ~request:req "Package not found: %s"
+                     (Ocamlorg_package.Name.to_string name));
+               None)
+    |> List.map (Package_helper.frontend_package t)
+    |> List.map (fun pkg -> (pkg.Ocamlorg_frontend.Package.name, pkg))
+    |> List.to_seq |> Hashtbl.of_seq
+  in
+  Dream.html (Ocamlorg_frontend.are_we_yet ~tutorials ~packages meta)
 
 let problems req =
   let all_problems = Data.Problem.all in
