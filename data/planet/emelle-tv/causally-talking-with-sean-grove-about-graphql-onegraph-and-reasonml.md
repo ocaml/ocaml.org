@@ -5,7 +5,7 @@ description: Sean Grove Founder of OneGraph If you'd like to support the show fo
   or by sending any tez amount to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6fV3XCcvX)
   Watch live at https://www.twitch.tv/emelletv
 url: https://watch.ocaml.org/w/wEiEDtiRWuqddnFopZKDi5
-date: 2023-03-17T20:21:19-00:00
+date: 2021-12-02T21:30:00+00:00
 preview_image: https://watch.ocaml.org/lazy-static/previews/50ece6ab-187f-4849-9bb2-9ec1fa56cabd.jpg
 featured:
 authors:

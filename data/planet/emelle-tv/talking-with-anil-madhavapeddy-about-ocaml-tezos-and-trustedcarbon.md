@@ -5,7 +5,7 @@ description: Anil Madhavapeddy (@avsm), the face of OCaml If you'd like to suppo
   https://www.patreon.com/emelletv or by sending any tez amount to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6fV3XCcvX)
   Watch live at https://www.twitch.tv/emelletv
 url: https://watch.ocaml.org/w/iTDrQNvXnW5ENGbShXQVB6
-date: 2023-03-17T20:14:16-00:00
+date: 2022-04-18T14:03:56+00:00
 preview_image: https://watch.ocaml.org/lazy-static/previews/89fad1f6-7b6a-4713-be74-6d7cdd097352.jpg
 featured:
 authors:
