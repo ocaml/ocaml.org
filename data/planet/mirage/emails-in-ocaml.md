@@ -1,0 +1,274 @@
+---
+title: Emails in OCaml
+description:
+url: https://mirage.io/blog/2022-04-01-Mr-MIME
+date: 2022-04-01T00:00:00-00:00
+preview_image:
+featured:
+authors:
+- Romain Calascibetta
+---
+
+
+        <p>The security of communications poses a seemingly never-ending challenge across Cyberspace. From sorting through mountains of spam to protecting our private messages from malicious hackers, cybersecurity has never been more important than it is today. It takes considerable technical skills and dependable infrastructure to run an email service, and sadly, most companies with the ability to handle the billions of emails sent daily make money off mining your sensitive data.</p>
+<p>Five years ago, we started to explore an incredible endeavour on how to securely send and receive email. It was my final year in an internship at Cambridge, and the goal was to develop an OCaml library that could <em>parse</em> and <em>craft</em> emails. Thus, Mr. MIME was born. I even gave a <a href="https://www.youtube.com/watch?v=kQkRsNEo25k">presentation on it at ICFP 2016</a> and introduced Mr. MIME in a <a href="https://tarides.com/blog/2019-09-25-mr-mime-parse-and-generate-emails">previous post</a>. Mr. MIME was also selected by the [NGI DAPSI initiative]((https://tarides.com/blog/2022-03-08-secure-virtual-messages-in-a-bottle-with-scop) last year.</p>
+<p>I'm thrilled to shine a spotlight on Mr. MIME as part of the <a href="https://mirage.io/blog/announcing-mirage-40">MirageOS 4 release</a>! It was essential to create several small libraries when building and testing Mr. MIME. I've included some samples of how to use Mr. MIME to parse and serialise emails in OCaml, as well as receiving and sending SMTP messages. I then explain how to use all of this via CLI tools. Since <em>unikernels</em> were the foundation on which I built Mr. MIME, the final section explains how to deploy unikernels to handle email traffic.</p>
+<h2>A Tour of the Many Email Libraries</h2>
+<p>The following libraries were created to support Mr. MIME:</p>
+<ul>
+<li>
+<p><code>pecu</code> as the <code>quoted-printable</code> serialiser/deserialiser.
+First, if we strictly consider standards, email transmission can use a 7-bit channel, so we made different encodings in order to safely transmit 8-bit contents <em>via</em> such channels. <code>quoted-printable</code> is one of them, where any non-ASCII characters are encoded.</p>
+<p>Another encoding is the <em>famous</em> UTF-7 (the one from <a href="https://datatracker.ietf.org/doc/html/rfc2152">RFC2152</a>, not the one from <a href="https://datatracker.ietf.org/doc/html/rfc2060#section-5.1.3">RFC2060.5.1.3</a>), which is available in the <code>yuscii</code> library. Please note, Yukoslavian engineers created <a href="https://github.com/dinosaure/yuscii"><code>YUSCII</code></a> encoding to replace the imperial ASCII one.</p>
+</li>
+<li>
+<p><code>rosetta</code> is a little library that normalises some inputs such as <code>KOI8-{U,R}</code> or <code>ISO-8859-*</code> to Unicode. This ability permits <code>mrmime</code> to produce only UTF-8 results that remove the encoding problem. Then, as according to <a href="https://datatracker.ietf.org/doc/html/rfc6532">RFC6532</a> and the Postel law, Mr. MIME can produce only UTF-8 emails.</p>
+</li>
+<li>
+<p><code>ke</code> is a small library that implements a ring buffer with <code>bigarray</code>. This library has only one purpose: to restrict a transmission's memory consumption via a ring buffer, like the famous Xen's shared-memory ring buffer.</p>
+</li>
+<li>
+<p><code>emile</code> may be the most useful library for many users. It parses and re-encodes an email address according to standards. Email addresses are hard! Many details exist, and some of them have meaning while others don't. <code>emile</code> proposes the most standardised way to parse email addresses, and it has the smaller dependencies cone, so it could be used by any project, regardless of size.</p>
+</li>
+<li>
+<p><code>unstrctrd</code> may be the most obscure library, but it's the essential piece of Mr. MIME. From archeological research into multiple standards, which describe emails along that time, we discovered the most generic form of any values available in your header: the <em>unstructured</em> form. At least email addresses, Date (<a href="https://datatracker.ietf.org/doc/html/rfc822">RFC822</a>), or DKIM-Signature follow this form. More generally, a form such as this can be found in the Debian package description (the <a href="https://datatracker.ietf.org/doc/html/rfc822#section-3.4.8">RFC822 form</a>). <code>unstrctrd</code> implements a decoder for it.</p>
+</li>
+<li>
+<p><code>prettym</code> is the last developed library in this context. It's like the <code>Format</code> module with <code>ke</code>, and it produces a <em>continuation</em>, which fills a fixed-length buffer. <code>prettym</code> describes how to encode emails while complying with the 80-columns rule, so any emails generated by Mr. MIME fit into a catodic monitor! More importantly, with the 7-bit limitation, this rule comes from the MTU limitation of routers, and it's required from the standard point-of-view.</p>
+</li>
+</ul>
+<p>From all of these, we developed <code>mrmime</code>, a library that can transform your email into an OCaml value and create an email from it. This work is related to necessary pieces in multiple contexts, especially the <code>multipart</code> format. We decided to extract a relevant piece of software and make a new library more specialised for the HTTP (which shares many things from emails), then integrate it into <a href="https://github.com/aantron/dream">Dream</a>. For example see <a href="https://github.com/dinosaure/multipart_form">multipart_form</a>.</p>
+<p>A huge amount of work has been done on <code>mrmime</code> to ensure a kind of <em>isomorphism</em>, such as <code>x = decode(encode(x))</code>. For this goal, we created a <em>fuzzer</em> that can generate emails. Next, we tried to encode it and then decode the result. Finally, we compared results and checked if they were semantically equal. This enables us to generate many emails, and Mr. MIME won't alter their values.</p>
+<p>We also produced a large corpus of emails (a million) that follows the standards. It's really interesting work because it offers the community a free corpus of emails where implementations can check their reliability through Mr. MIME. For a long time after we released Mr. MIME, users wondered how to confirm that what they decoded is what they wanted. It's easy! Just do as we did! Give a billion emails to Mr. MIME and see for yourself. It never fails to decode them all!</p>
+<p>At first, we discovered a problem with this implemenation because we couldn't verify Mr. MIME <strong>correctly</strong> parsed the emails, but we fixed that through our work on <code>hamlet</code>.</p>
+<p><code>hamlet</code> proposes a large corpus of emails, which proves the reliability of Mr. MIME, and <code>mrmime</code> can parse any of these emails. They can be re-encoded, and <code>mrmime</code> doesn't alter anything at any step. We ensure correspondance between the parser and the encoder, and we can finally say that <code>mrmime</code> gives us the expected result after parsing an email.</p>
+<h2>Parsing and Serialising Emails with Mr. MIME</h2>
+<p>It's pretty easy to manipulate and craft an email with Mr. MIME, and from our work (especially on <code>hamlet</code>), we are convinced it's reliabile. Here are some examples of Mr. MIME in OCaml to show you how to create an email and how to introspect &amp; analyse an email:</p>
+<pre><code class="language-ocaml">open Mrmime
+
+let romain_calascibetta =
+  let open Mailbox in
+  Local.[ w &quot;romain&quot;; w &quot;calascibetta&quot; ] @ Domain.(domain, [ a &quot;gmail&quot;; a &quot;com&quot; ])
+
+let tarides =
+  let open Mailbox in
+  Local.[ w &quot;contact&quot; ] @ Domain.(domain, [ a &quot;tarides&quot;; a &quot;com&quot; ])
+
+let date = Date.of_ptime ~zone:Date.Zone.GMT (Ptime_clock.now ())
+
+let content_type =
+  Content_type.(make `Text (Subtype.v `Text &quot;plain&quot;) Parameters.empty)
+
+let subject =
+  let open Unstructured.Craft in
+  compile [ v &quot;A&quot;; sp 1; v &quot;simple&quot;; sp 1; v &quot;email&quot; ]
+
+let header =
+  let open Header in
+  empty
+  |&gt; add Field_name.date Field.(Date, date)
+  |&gt; add Field_name.subject Field.(Unstructured, subject)
+  |&gt; add Field_name.from Field.(Mailboxes, [ romain_calascibetta ])
+  |&gt; add (Field_name.v &quot;To&quot;) Field.(Addresses, Address.[ mailbox tarides ])
+  |&gt; add Field_name.content_encoding Field.(Encoding, `Quoted_printable)
+
+let stream_of_stdin () = match input_line stdin with
+  | line -&gt; Some (line, 0, String.length line)
+  | exception _ -&gt; None
+
+let v =
+  let part = Mt.part ~header stream_of_stdin in
+  Mt.make Header.empty Mt.simple part
+
+let () =
+  let stream = Mt.to_stream v in
+  let rec go () = match stream () with
+    | Some (str, off, len) -&gt;
+      output_substring stdout str off len ;
+      go ()
+    | None -&gt; () in
+  go ()
+
+(* $ ocamlfind opt -linkpkg -package mrmime,ptime.clock.os in.ml -o in.exe
+   $ echo &quot;Hello World\\!&quot; | ./in.exe &gt; mail.eml
+*)
+</code></pre>
+<p>In the example above, we wanted to create a simple email with an incoming body using the standard input. It shows that <code>mrmime</code> is able to <em>encode</em> the body correctly according to the given header. For instance, we used the <code>quoted-printable</code> encoding (implemented by <code>pecu</code>).</p>
+<p>Then, in the example below from the standard input, we wanted to extract the incoming email's header and extract the email addresses (from the <code>From</code>, <code>To</code>, <code>Cc</code>, <code>Bcc</code> and <code>Sender</code> fields). Then, we show them:</p>
+<pre><code class="language-ocaml">open Mrmime
+
+let ps =
+  let open Field_name in
+  Map.empty
+  |&gt; Map.add from Field.(Witness Mailboxes)
+  |&gt; Map.add (v &quot;To&quot;) Field.(Witness Addresses)
+  |&gt; Map.add cc Field.(Witness Addresses)
+  |&gt; Map.add bcc Field.(Witness Addresses)
+  |&gt; Map.add sender Field.(Witness Mailbox)
+
+let parse ic =
+  let decoder = Hd.decoder ps in
+  let rec go (addresses : Emile.mailbox list) =
+    match Hd.decode decoder with
+    | `Malformed err -&gt; failwith err
+    | `Field field -&gt;
+      ( match Location.prj field with
+      | Field (_, Mailboxes, vs) -&gt;
+        go (vs @ addresses)
+      | Field (_, Mailbox, v) -&gt;
+        go (v :: addresses)
+      | Field (_, Addresses, vs) -&gt;
+        let vs =
+          let f = function
+            | `Group { Emile.mailboxes; _ } -&gt;
+              mailboxes
+            | `Mailbox m -&gt; [ m ] in
+          List.(concat (map f vs)) in
+        go (vs @ addresses)
+      | _ -&gt; go addresses )
+    | `End _ -&gt; addresses
+    | `Await -&gt; match input_line ic with
+      | &quot;&quot; -&gt; go addresses
+      | line
+        when String.length line &gt;= 1
+          &amp;&amp; line.[String.length line - 1] = '\\r' -&gt;
+        Hd.src decoder (line ^ &quot;\\n&quot;) 0
+          (String.length line + 1) ;
+        go addresses
+      | line -&gt;
+        Hd.src decoder (line ^ &quot;\\r\\n&quot;) 0
+          (String.length line + 2) ;
+        go addresses
+      | exception _ -&gt;
+        Hd.src decoder &quot;&quot; 0 0 ;
+        go addresses in
+  go []
+
+let () =
+  let vs = parse stdin in
+  List.iter (Format.printf &quot;%a\\n%!&quot; Emile.pp_mailbox) vs
+
+(* $ ocamlfind opt -linkpkg -package mrmime out.ml -o out.exe
+   $ echo &quot;Hello World\\!&quot; | ./in.exe | ./out.exe
+   romain.calascibetta@gmail.com
+   contact@tarides.com
+*)
+</code></pre>
+<p>From this library, we're able to process emails correctly <em>and</em> verify some <em>meta</em>-information, or we can include some <em>meta</em>-data, such as the <code>Received:</code> field for example.</p>
+<h2>Sending Emails with SMTP</h2>
+<p>Of course, when we talk about email, we must talk about SMTP (described by <a href="https://datatracker.ietf.org/doc/html/rfc5321">RFC5321</a>). This protocol is an old one (see <a href="https://datatracker.ietf.org/doc/html/rfc821">RFC821</a> - 1982), and it comes with many things such as:</p>
+<ul>
+<li>8BITMIME support (1993)
+</li>
+<li>PLAIN authentication (1999)
+</li>
+<li>STARTTLS (2002)
+</li>
+<li>or TLS to submit an email (2018)
+</li>
+<li>and some others (such as pipeline or enhancement of status code)
+</li>
+</ul>
+<p>Throughout this protocol's history, we tried to pay attention to CVEs like:</p>
+<ul>
+<li>The TURN command (see CVE-1999-0512)
+</li>
+<li>Authentication into a non-securise channel (see CVE-2017-15042)
+</li>
+<li>And many others due to buffer overflow
+</li>
+</ul>
+<p>A reimplementation of the SMTP protocol becomes an archeological job where we must be aware of its story via the evolution of its standards, usages, and experimentations; so we tried to find the best way to implement the protocol.</p>
+<p>We decided to implement a simple framework in order to describe the state machine of an SMTP server that can upgrade its flow to TLS, so we created <a href="https://github.com/colombe"><code>colombe</code></a> as a simple library to implement the foundations of the protocol. In the spirit of <a href="https://mirage.io/">MirageOS</a> projects, <code>colombe</code> doesn't depend on <code>lwt</code>, <code>async</code>, or any specific TCP/IP stack, so we ensure the ability to handle incoming/outcoming flow during the process, especially when we want to test/<em>mock</em> our state machine.</p>
+<p>With such a design, it becomes easy to integrate a TLS stack. We decided to provide (by default) the SMTP protocol with the <code>STARTTLS</code> command <em>via</em> the great <a href="https://github.com/mirleft/ocaml-tls"><code>ocaml-tls</code></a> project. Of course, the end user can choose something else if they want.</p>
+<p>From all the above, we recently implemented <a href="https://github.com/mirage/colombe"><code>sendmail</code></a> (and it's derivation with <code>STARTTLS</code>), which is currently used by some projects such as <a href="https://github.com/oxidizing/letters">letters</a> and <a href="https://github.com/oxidizing/sihl">Sihl</a> or <a href="https://github.com/aantron/dream">Dream</a>, to send an email to some existing services (see <a href="https://www.mailgun.com/">Mailgun</a> or <a href="https://sendgrid.com/">Sendgrid</a>). Thanks to these <em>outsiders</em> for using our work!</p>
+<h2>Manipulate Emails with CLI tools</h2>
+<p><code>mrmime</code> is the bedrock of our email stack. With <code>mrmime</code>, it's possible to manipulate emails as the user wants, so we developed several tools to help the user manipulate emails:</p>
+<ul>
+<li><code>ocaml-dkim</code> provides a tool to verify and sign an email. This tool is interesting because we put a lot of effort into ensuring that the verification is really memory-bound. Indeed, many tools that verify the DKIM signature do two passes: one to extract the signature and the second to verify. However, it's possible to combine these two steps into one and ensure that such verification can be &quot;piped&quot; into a larger process (such as an SMTP reception server).
+</li>
+<li><code>uspf</code> provides a verification tool for meta-information (such as the IP address of the sender), like the email's source, and ensure that the email didn't come from an untrusted source. Like <code>ocaml-dkim</code>, it's a simple tool that can be &quot;piped&quot; into a larger process.
+</li>
+<li><code>ocaml-maildir</code> is a MirageOS project that manipulates a <code>maildir</code> &quot;store.&quot; Similar to MirageOS, <code>ocaml-maildir</code> provides a multitude of backends, depending on your context. Of course, the default backend is Unix, but we planned to use <code>ocaml-maildir</code> with <a href="https://github.com/mirage/irmin">Irmin</a>.
+</li>
+<li><code>ocaml-dmarc</code> is finally the tool which aggregates SPF and DKIM meta-information to verify an incoming email (if it comes from an expected authority and wasn't altered).
+</li>
+<li><code>spamtacus</code> is a tool which analyses the incoming email to determine if it's spam or not. It filters incoming emails and rejects spam.
+</li>
+<li><code>conan</code> is an experimental tool that re-implements the command <code>file</code> to recognise the MIME type of a given file. Its status is still experimental, but outcomes are promising! We hope to continue the development of it to improve the whole MirageOS stack.
+</li>
+<li><code>blaze</code> is the end-user tool. It aggregates many small programs in the Unix spirit. Every tool can be used with &quot;pipe&quot; (<code>|</code>) and allows the user to do something more complex in its emails. It permits an introspection of our emails in order to aggregate some information, and it proposes a &quot;functional&quot; way to craft and send an email, as you can see below:
+</li>
+</ul>
+<pre><code class="language-shell">$ blaze.make --from din@osau.re \\
+  | blaze.make wrap --mixed \\
+  | blaze.make put --type image/png --encoding base64 image.png \\
+  | blaze.submit --sender din@osau.re --password ****** osau.re
+</code></pre>
+<p>Currently, our development mainly follows the same pattern:</p>
+<ol>
+<li>Make a library that manipulate emails
+</li>
+<li>Provide a simple tool that does the job implemented by our library
+</li>
+<li>Integrate it into our &quot;stack&quot; with MirageOS
+</li>
+</ol>
+<p><code>blaze</code> is a part of this workflow where you can find:</p>
+<ul>
+<li><code>blaze.dkim</code> which uses <code>ocaml-dkim</code>
+</li>
+<li><code>blaze.spf</code> which uses <code>uspf</code>
+</li>
+<li><code>blaze.mdir</code> which uses <code>ocaml-maildir</code>
+</li>
+<li>and many small libraries such as:
+<ul>
+<li><code>blaze.recv</code> to produce a graph of the route of our email
+</li>
+<li><code>blaze.send</code>/<code>blaze.submit</code> to send an email to a recipient/an authority
+</li>
+<li><code>blaze.srv</code> which launches a simple SMTP server to receive on email
+</li>
+<li><code>blaze.descr</code> which describes the structure of your email
+</li>
+<li>and some others...
+</li>
+</ul>
+</li>
+</ul>
+<p>It's interesting to split and prioritise goals of all email possibilities instead of making a monolithic tool which supports far too wide a range of features, although that could also be useful. We ensure a healthy separation between all functionalities and make the user responsible through a self-learning experience, because the most useful black-box does not really help.</p>
+<h2>Deploying Email Services as Unikernels</h2>
+<p>As previously mentioned, we developed all of these libraries in the spirit of MirageOS. This mainly means that they should work everywhere, given that we gave great attention to dependencies and abstractions. The goal is to provide a full SMTP stack that's able to send and receive emails.</p>
+<p>This work was funded by <a href="https://dapsi.ngi.eu/">the NGI DAPSI project</a>, which was jointly funded by the EU's Horizon 2020 research and innovation programme (contract No. 871498) and the Commissioned Research of National Institute of Information.</p>
+<p>Such an endeavour takes a huge amount of work on the MirageOS side in order to &quot;scale-up&quot; our infrastructure and deploy <strong>many</strong> unikernels automatically, so we can propose a coherent final service. We currently use:</p>
+<ul>
+<li><a href="https://github.com/roburio/albatross"><code>albatross</code></a> as the daemon which deploys unikernels
+</li>
+<li><a href="https://github.com/ocurrent/ocurrent"><code>ocurrent</code></a> as the Continuous Integration pipeline that compiles unikernels from the source and asks <code>albatross</code> to deploy them
+</li>
+</ul>
+<p>We have a self-contained infrastructure. It does not require extra resources, and you can <em>bootstrap</em> a full SMTP service from what we did with required layouts for SPF, DKIM, and DMARC. Our SMTP stack requires a DNS stack already developed and used by <code>mirage.io</code>. From that, we provide a <em>submit</em> service and a receiver that redirects incoming emails to their real identities.</p>
+<p>This graph shows our infrastructure:</p>
+<p><img src="https://i.imgur.com/W6rjghJ.png" alt=""/></p>
+<p>As you can see, we have seven unikernels:</p>
+<ol>
+<li>A simple submission server, from a Git database, that's able to authenticate clients or not
+</li>
+<li>A DKIM signer that contains your private key that notifies the primary DNS server to record your public key and let receivers verify the integrity of your sent emails
+</li>
+<li>The primary DNS server that handles your domain name
+</li>
+<li>The SMTP relay that transfers incoming emails to their right destinations. For instance, for a given user (i.e.,<code>foo@&lt;my-domain&gt;</code>) from the Git database, the relay knows that the real address is <code>foo@gmail.com</code>. Thus, it will retransfer the incoming email to the correct SMTP service.
+</li>
+<li>The SMTP relay needs a DNS resolver to get the IP of the destination. This is our fifth unikernel to ensure that we don't use extra resources or control anything necessary to send and receive emails.
+</li>
+<li>The SMTP receiver does a sanity check on incoming emails, such as SPF and DKIM (DMARC), and prepends the incoming email with results.
+</li>
+<li>Finally, we have a spam filter that prepends incoming emails with meta information, which helps us to determine if they're spam or not.
+</li>
+</ol>
+<p>An eighth unikernel can help provide a <em>Let's Encrypt</em> certificate under your domain name. This ensures a secure TLS connection from a recognised authority. At the boot of the submission server and the receiver, they ask this unikernel to obtain and use a certificate. Users can now submit emails in a secure way, and senders can transmit their emails in a secure way, too.</p>
+<p>The SMTP stack is pretty complex, but any of these unikernels can be used separately from the others. Finally, a full tutorial to deploy this stack from scratch is available <a href="https://github.com/mirage/ptt-deployer">here</a>, and the development of unikernels is available in the <a href="https://github.com/mirage/ptt"><code>ptt</code></a> (Poste, T&eacute;l&eacute;graphe, and T&eacute;l&eacute;phone) repository.</p>
+
+      

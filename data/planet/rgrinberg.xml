@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://rgrinberg.com/blog/atom.xml</id><title type="text">rgrinberg</title><updated>2023-05-27T10:01:48-00:00</updated><entry><link href="http://rgrinberg.com/posts/deriving-slowly/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;There&amp;rsquo;s been some recent grumbling about the usability of ppx in OCaml, and
+instead of just letting it slide again, I&amp;rsquo;ve decided to do something
+constructive about this and write a little tutorial on how to write a
+&lt;code class=&quot;docutils literal notranslate&quot;&gt;&lt;span class=&quot;pre&quot;&gt;deriving&lt;/span&gt;&lt;/code&gt; plugin.&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/deriving-slowly/</id><title type="text">Deriving Slowly</title><updated>2019-08-20T00:00:00-00:00</updated><author><name>Rudi Grinberg</name></author></entry><entry><link href="http://rgrinberg.com/posts/virtual-libraries/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;Last week I finally managed to slog through the last remaining issues required
+to implement &lt;cite&gt;Virtual Libraries&lt;/cite&gt;, and since it&amp;rsquo;s quite a milestone (slated for
+dune 1.7), I&amp;rsquo;d like to share my excitement for this feature. The feature itself
+is nothing new to old timers, but I think that dune now manages to present it in
+a much more polished way. Besides, OCaml is enjoying a recent uptick of new
+users, so perhaps a little review might be useful. I find that it is always
+helpful to have at least a high level understanding of how a build feature works
+to use it effectively.&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/virtual-libraries/</id><title type="text">Virtual Libraries</title><updated>2018-12-19T00:00:00-00:00</updated><author><name></name></author></entry><entry><link href="http://rgrinberg.com/posts/extensions-points-update-1/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;In a &lt;a href=&quot;http://rgrinberg.com/posts/extension-points-3-years-later/#extension-points&quot; class=&quot;reference internal&quot;&gt;&lt;span class=&quot;std std-ref&quot;&gt;previous post&lt;/span&gt;&lt;/a&gt;, I&amp;rsquo;ve described what are the latest
+technologies used to construct and package ppx rewriters. In just eight months a
+couple important changes have occurred that require ppx authors to react. In
+this post, I&amp;rsquo;d like to describe these changes and demonstrate how to update your
+ppx rewriters to keep up with them.&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/extensions-points-update-1/</id><title type="text">Extension Points - Ppxlib &amp; Dune Update</title><updated>2018-08-05T00:00:00-00:00</updated><author><name></name></author></entry><entry><link href="http://rgrinberg.com/posts/dune-upcoming-1-1/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;Now that 1.0.0 has been released, the team took a break from dune affairs.
+However, now we&amp;rsquo;re back to work, and although we&amp;rsquo;re working at a more relaxed
+pace, we still have some interesting features in store. Most of these were
+already planned for quite a while, but simply had to be delayed to get 1.0.0 out
+of the door. Hopefully this post convinces the reader that it was worth the
+wait.&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/dune-upcoming-1-1/</id><title type="text">What’s coming in Dune 1.1.0?</title><updated>2018-08-02T00:00:00-00:00</updated><author><name></name></author></entry><entry><link href="http://rgrinberg.com/posts/configurator-reborn/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;With dune 1.0 around the corner, there&amp;rsquo;s a pressing need to &lt;span class=&quot;strike&quot;&gt;create some
+hype&lt;/span&gt; raise awareness of the upcoming features. In this post, I&amp;rsquo;d like to talk
+about one such transition: the move to dune&amp;rsquo;s own configuration kit called
+configurator. Since the library itself is still fairly new, I&amp;rsquo;ll first introduce
+configurator itself and show what problems it attempts to solve.&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/configurator-reborn/</id><title type="text">Configurator Reborn</title><updated>2018-06-12T00:00:00-00:00</updated><author><name></name></author></entry><entry><link href="http://rgrinberg.com/posts/jbuilder-beta-17/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;The 17th beta of jbuilder represents a few months of development. While that&amp;rsquo;s a
+bit longer than our usual release cycle for these betas, we do have a larger
+release than usual. So I&amp;rsquo;ve decided to write up a little post in addition to
+just posting the usual change log. I&amp;rsquo;ll talk about some important new features,
+and some less important ones as well. A couple of things that I&amp;rsquo;ll omit are bug
+fixes and experimental features as this blog post is already long.&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/jbuilder-beta-17/</id><title type="text">jbuilder (dune) Beta 17</title><updated>2018-01-23T00:00:00-00:00</updated><author><name></name></author></entry><entry><link href="http://rgrinberg.com/posts/extension-points-3-years-later/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;UPDATE: 2017-12-05 &lt;a href=&quot;https://github.com/smondet&quot; class=&quot;reference external&quot;&gt;smondet&lt;/a&gt; pointed out that the extension doesn&amp;rsquo;t work quite as
+the original. &lt;a href=&quot;https://github.com/ocaml-ppx/ppx_getenv/&quot; class=&quot;reference external&quot;&gt;ppx_getenv&lt;/a&gt; should fetch the environment variable at compile time
+rather than at runtime. The extension and the snippets in this post have been
+updated to reflect this.&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/extension-points-3-years-later/</id><title type="text">Extension Points - 3 Years Later</title><updated>2017-12-04T00:00:00-00:00</updated><author><name></name></author></entry><entry><link href="http://rgrinberg.com/posts/static-binaries-tutorial/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;Creating truly static binaries for Linux like golang is a capability that is
+occasionally useful. I&amp;rsquo;ve seen questions about it on IRC a few times, and I&amp;rsquo;ve
+personally found this approach is particularly useful when deploying to
+environments where installing libraries isn&amp;rsquo;t easy, such as AWS Lambda.
+Unfortunately for me, the approach that I will explain in this article wasn&amp;rsquo;t as
+approachable. So I&amp;rsquo;ve prepared a quick tutorial on how to easily create a static
+binary in OCaml and test it.&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/static-binaries-tutorial/</id><title type="text">Creating Static Linux Binaries in OCaml</title><updated>2017-11-03T00:00:00-00:00</updated><author><name>Rudi Grinberg</name></author></entry><entry><link href="http://rgrinberg.com/posts/monadic-generators-ocaml/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;Generators are one of those features that have been heavily popularized by
+today&amp;rsquo;s fashionable languages such as Python and ES6. So it&amp;rsquo;s not the first time
+I&amp;rsquo;ve encountered programmers who are curious about OCaml bring up with questions
+along the lines of:&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/monadic-generators-ocaml/</id><title type="text">Monadic Generators in OCaml</title><updated>2017-07-25T00:00:00-00:00</updated><author><name></name></author></entry><entry><link href="http://rgrinberg.com/posts/cohttp-breakage-ahead/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;As a follow up to my &lt;a href=&quot;http://rgrinberg.com/posts/optional-dependencies-considered-harmful/&quot; class=&quot;reference internal&quot;&gt;&lt;span class=&quot;doc&quot;&gt;previous post&lt;/span&gt;&lt;/a&gt; regarding optional
+dependencies, I&amp;rsquo;d like to expand on how my advice will be followed in practice
+in the context of the &lt;a href=&quot;https://github.com/mirage/ocaml-cohttp&quot; class=&quot;reference external&quot;&gt;cohttp&lt;/a&gt; library.&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/cohttp-breakage-ahead/</id><title type="text">Cohttp Packaging Breakage Ahead</title><updated>2017-05-14T00:00:00-00:00</updated><author><name>Rudi Grinberg</name></author></entry><entry><link href="http://rgrinberg.com/posts/optional-dependencies-considered-harmful/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;This will be a short PSA to opam package maintainers to avoid spurious optional
+dependencies. At this point, I think this is all relatively common knowledge.
+But open source maintainers are as a rule busy people, and without much
+encouragement, they end up dragging their feet. Therefore I hope this post can
+be a useful reminder of the negative effects of optional dependencies and what
+can be done to avoid them.&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/optional-dependencies-considered-harmful/</id><title type="text">Optional Dependencies Considered Harmful</title><updated>2017-04-22T00:00:00-00:00</updated><author><name>Rudi Grinberg</name></author></entry><entry><link href="http://rgrinberg.com/posts/emacs-search-load-path/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;Here&amp;rsquo;s another tip for taming your Emacs config. In particular, how to search
+the huge body of elisp that is present with most Emacs installs - the
+&lt;code class=&quot;docutils literal notranslate&quot;&gt;&lt;span class=&quot;pre&quot;&gt;load-path&lt;/span&gt;&lt;/code&gt;. While the &lt;code class=&quot;docutils literal notranslate&quot;&gt;&lt;span class=&quot;pre&quot;&gt;load-path&lt;/span&gt;&lt;/code&gt; is a very important collection of
+directories, searching it isn&amp;rsquo;t as easy and accessible as it should be. As
+usual, Emacs compensates with plugins:&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/emacs-search-load-path/</id><title type="text">Searching the load-path</title><updated>2017-02-06T00:00:00-00:00</updated><author><name>Rudi Grinberg</name></author></entry><entry><link href="http://rgrinberg.com/posts/spacemacs-useful-buffer/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;I&amp;rsquo;ve ran into a little spacemacs annoyance that took me a while to resolve, and
+it seems like it could pop up under a variety of different contexts. I figured
+that a few words about it here might save others some time.&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/spacemacs-useful-buffer/</id><title type="text">Spacemacs Useful Buffers Gotcha</title><updated>2017-01-14T00:00:00-00:00</updated><author><name>Rudi Grinberg</name></author></entry><entry><link href="http://rgrinberg.com/posts/emacs-table-display/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;Recently, I needed to output some relatively small tabular data in Emacs and
+&lt;code class=&quot;docutils literal notranslate&quot;&gt;&lt;span class=&quot;pre&quot;&gt;message&lt;/span&gt;&lt;/code&gt; was starting to be a bit long in the tooth. Finally, I&amp;rsquo;ve decided to
+try my hand at upgrading the visuals for myself. I realize that there&amp;rsquo;s probably
+dozens of different ways of pretty-printing tables in Emacs, but I was already
+partial to the tabular output used by functions such as &lt;code class=&quot;docutils literal notranslate&quot;&gt;&lt;span class=&quot;pre&quot;&gt;list-processes&lt;/span&gt;&lt;/code&gt; and
+plugins such as &lt;a href=&quot;https://github.com/rejeep/prodigy.el&quot; class=&quot;reference external&quot;&gt;prodigy&lt;/a&gt; (Using org
+mode&amp;rsquo;s tables also comes to mind for example). So I&amp;rsquo;ve decided to recreate this
+experience for my own tables. The result has been convenient and aesthetically
+pleasing enough to share.&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/emacs-table-display/</id><title type="text">Pretty Printing a Table in Emacs</title><updated>2016-12-23T00:00:00-00:00</updated><author><name>Rudi Grinberg</name></author></entry><entry><link href="http://rgrinberg.com/posts/free-monads-in-the-wild-ocaml/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;OCaml programmers don&amp;rsquo;t seem to resort to free monads much. I like to imagine
+that this is the case because we&amp;rsquo;re a practical bunch. But it could simply be
+that this technique like other monads is a bit heavyweight syntactically, let
+alone the performance implications it might have.&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/free-monads-in-the-wild-ocaml/</id><title type="text">Free Monads in the Wild - OCaml Edition</title><updated>2016-07-22T00:00:00-00:00</updated><author><name>Rudi Grinberg</name></author></entry><entry><link href="http://rgrinberg.com/posts/opam-package-checklist/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;The process of publishing an opam package has come a long way from its
+modest beginnings. Nevertheless the opam team deserves praise for
+choosing an extremely simple and flexible model for contribution - the
+git commit. To me that explains how it aged gracefully with improvements
+such as:&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/opam-package-checklist/</id><title type="text">Publishing an OPAM Package - a Checklist</title><updated>2016-02-26T00:00:00-00:00</updated><author><name>Rudi Grinberg</name></author></entry><entry><link href="http://rgrinberg.com/posts/scrap-your-camlp4/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;ppx has been out for a while but it seems like the community has been
+taking its time transitioning away from camlp4. There&amp;rsquo;s probably a
+couple of reasons for that:&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/scrap-your-camlp4/</id><title type="text">Scrap your Camlp4</title><updated>2016-02-15T00:00:00-00:00</updated><author><name>Rudi Grinberg</name></author></entry><entry><link href="http://rgrinberg.com/posts/omegle-n2o/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;Recently I&amp;rsquo;ve been messing around with a new and exciting web framework
+in erlang called N2O. This framework appeals to me for a few reasons.
+These include:&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/omegle-n2o/</id><title type="text">Omegle in N2O</title><updated>2015-01-06T00:00:00-00:00</updated><author><name>Rudi Grinberg</name></author></entry><entry><link href="http://rgrinberg.com/posts/primitive-type-safe-routing/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;Type safe routing means different things to different people. So let&amp;rsquo;s
+start by clarifying the intended meaning in this post. There are 2
+widely used definitions:&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/primitive-type-safe-routing/</id><title type="text">Type Safe Routing - Baby Steps</title><updated>2014-12-13T00:00:00-00:00</updated><author><name>Rudi Grinberg</name></author></entry><entry><link href="http://rgrinberg.com/posts/abandoning-async/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;There is an old and great schism in the OCaml community. The schism is
+between two concurrency libraries - Async and Lwt. As usual for these
+things, the two are very similar, and outsiders would wonder what the
+big deal is about. The fundamental problem of course is that they&amp;rsquo;re
+mutually incompatible. The result of this is a split OCaml world with
+almost no interoperability, and duplication of efforts.&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/abandoning-async/</id><title type="text">Abandoning Async</title><updated>2014-12-11T00:00:00-00:00</updated><author><name>Rudi Grinberg</name></author></entry><entry><link href="http://rgrinberg.com/posts/humane-re-intro/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;OCaml is my favorite language, but one area where it (its tools rather)
+often falls short in practice is common string handling tasks where
+regular expressions are often involved. The kind of stuff that Awk and
+and scripting languages often get praised for. In other words, not
+getting in the way and allowing to get the job done with minimal
+boilerplate.&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/humane-re-intro/</id><title type="text">Introducing Humane-re</title><updated>2014-05-23T00:00:00-00:00</updated><author><name>Rudi Grinberg</name></author></entry><entry><link href="http://rgrinberg.com/posts/middleware-intro/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;In my &lt;a href=&quot;http://rgrinberg.com/blog/2014/04/04/introducing-opium/&quot; class=&quot;reference external&quot;&gt;previous
+post&lt;/a&gt; I&amp;rsquo;ve
+introduced opium in a beginner friendly way, while in this post I&amp;rsquo;ll try
+to show something that&amp;rsquo;s a little more interesting to experienced OCaml
+programmers or those are well versed with protocols such as Rack, WSGI,
+Ring, from Ruby, Python, Clojure respectively.&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/middleware-intro/</id><title type="text">Middleware in Opium</title><updated>2014-04-11T00:00:00-00:00</updated><author><name>Rudi Grinberg</name></author></entry><entry><link href="http://rgrinberg.com/posts/introducing-opium/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;One itch that I usually need to scratch is setting up quick and dirty
+REST API&amp;rsquo;s - preferably in OCaml. OCaml does have a few options for web
+development but I found them to be not so great fits for my needs. To
+summarize:&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/introducing-opium/</id><title type="text">Introducing Opium</title><updated>2014-04-04T00:00:00-00:00</updated><author><name>Rudi Grinberg</name></author></entry><entry><link href="http://rgrinberg.com/posts/omegle-flask-websocket-gevent/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;Python ranks fairly high when it comes getting things done without too
+much ceremony in the programming community. I briefly had some doubts of
+this assertion of until I finally found
+&lt;a href=&quot;http://kennethreitz.org/introducing-flask-sockets&quot; class=&quot;reference external&quot;&gt;Flask-Sockets&lt;/a&gt;.
+This small library makes it very natural to serve WebSockets in
+Flask/gevent. You can consider this blog post as an advertisement for
+this small but extremely useful library.&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/omegle-flask-websocket-gevent/</id><title type="text">Omegle clone in Flask + Gevent + WebSockets</title><updated>2014-02-10T00:00:00-00:00</updated><author><name>Rudi Grinberg</name></author></entry><entry><link href="http://rgrinberg.com/posts/ocaml-json-benchmark/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;According to &lt;a href=&quot;http://opam.ocaml.org/pkg/index-popularity.html&quot; class=&quot;reference external&quot;&gt;opam&lt;/a&gt;
+OCaml has 2 popular libraries for parsing json:&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/ocaml-json-benchmark/</id><title type="text">Benchmarking OCaml Json Libraries</title><updated>2014-02-05T00:00:00-00:00</updated><author><name>Rudi Grinberg</name></author></entry><entry><link href="http://rgrinberg.com/posts/haskell-vsse/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;Reading OCharles&amp;rsquo; excellent series about 24 days of hackage, in
+particular the post about
+&lt;a href=&quot;http://ocharles.org.uk/blog/posts/2013-12-02-24-days-of-hackage-linear.html&quot; class=&quot;reference external&quot;&gt;Linear&lt;/a&gt;,
+I&amp;rsquo;ve been inspired to revisit some old code I wrote. The code is a
+document search engine that uses cosine similarity to rank matches. I
+like the following two articles if you&amp;rsquo;re not familiar with this
+technique:&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/haskell-vsse/</id><title type="text">Document Search Using Cosine Similarity In Haskell Using Linear</title><updated>2013-12-26T00:00:00-00:00</updated><author><name>Rudi Grinberg</name></author></entry><entry><link href="http://rgrinberg.com/posts/lru-cache-with-memcache-interface/" rel="alternate"/><contributor><uri>http://rgrinberg.com/blog/atom.xml</uri><name>rgrinberg</name></contributor><content type="html">&lt;p&gt;Lately, I&amp;rsquo;ve been messing around with Janestreet&amp;rsquo;s core and async
+libraries by reimplementing an old interview question that has been
+posed to me before. The problem statement itself is from my memory alone
+so this isn&amp;rsquo;t 100% what I&amp;rsquo;ve been asked but it should be extremely
+close.&lt;/p&gt;
+</content><id>http://rgrinberg.com/posts/lru-cache-with-memcache-interface/</id><title type="text">Lru Cache With a Memcache-Like Interface</title><updated>2013-12-10T00:00:00-00:00</updated><author><name>Rudi Grinberg</name></author></entry></feed>

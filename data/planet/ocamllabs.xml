@@ -1,0 +1,907 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://ocamllabs.io/compiler-hacking/rss.xml</id><title type="text">ocamllabs</title><updated>2023-05-27T10:01:48-00:00</updated><entry><link href="http://ocamllabs.github.com/compiler-hacking/2017/11/21/eighteenth-compiler-hacking-december" rel="alternate"/><contributor><uri>http://ocamllabs.io/compiler-hacking/rss.xml</uri><name>ocamllabs</name></contributor><content type="html">&lt;p&gt;Our next OCaml Compiler Hacking event will be on Thursday 7th December in The Thomas Gray Room at Pembroke College, Cambridge.&lt;/p&gt;
+
+&lt;p&gt;If you're planning to come along, it'd be helpful if you could &lt;a href=&quot;https://doodle.com/poll/khqk6i49r4828apu&quot;&gt;indicate interest via Doodle&lt;/a&gt; and &lt;a href=&quot;http://lists.ocaml.org/admin/cam-compiler-hacking&quot;&gt;sign up to the mailing list&lt;/a&gt; to receive updates.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;When&lt;/strong&gt;&lt;/em&gt;: Thursday 7 December 2017, 19:00 - 22:30&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Where&lt;/strong&gt;&lt;/em&gt;: The Thomas Gray Room, Pembroke College, Cambridge CB2 1RF&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Who&lt;/strong&gt;&lt;/em&gt;: anyone interested in improving OCaml. Knowledge of OCaml programming will obviously be helpful, but prior experience of working on OCaml internals isn't necessary.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Refreshments&lt;/strong&gt;&lt;/em&gt;: Finger buffet in hack room.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;What&lt;/strong&gt;&lt;/em&gt;: fixing bugs, implementing new features, learning about OCaml internals&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Wiki&lt;/strong&gt;&lt;/em&gt;: https://github.com/ocamllabs/compiler-hacking/wiki&lt;/p&gt;
+
+&lt;p&gt;This hack evening focuses on fixing up opam packages as well as work on the OCaml compiler.&lt;/p&gt;
+
+&lt;p&gt;The OCaml 4.06 release featured safe-string as the default rather than optional as per previous releases. The focus of this event will be to work on the opam repository to fix up as many packages as possible, and also to publish a guide on &lt;a href=&quot;http://ocamllabs.io/&quot;&gt;ocamllabs.io&lt;/a&gt; detailing how to migrate your packages for wider use.&lt;/p&gt;
+
+&lt;p&gt;The evening will also feature a short (5-10 min) presentation about recent &lt;a href=&quot;http://marrakech2017.mirage.io/&quot;&gt;MirageOS Marrakech Hack Retreat&lt;/a&gt;.&amp;#8203;&lt;/p&gt;
+</content><id>http://ocamllabs.github.com/compiler-hacking/2017/11/21/eighteenth-compiler-hacking-december</id><title type="text">Eighteenth OCaml compiler hacking evening at Pembroke, Cambridge</title><updated>2017-11-21T21:00:00-00:00</updated><author><email>cl-ocamllabs@lists.cam.ac.uk (OCaml Labs)</email><name>ocamllabs</name></author></entry><entry><link href="http://ocamllabs.github.com/compiler-hacking/2017/04/18/seventeenth-compiler-hacking-may" rel="alternate"/><contributor><uri>http://ocamllabs.io/compiler-hacking/rss.xml</uri><name>ocamllabs</name></contributor><content type="html">&lt;p&gt;Our next OCaml Compiler Hacking event will be on Tuesday 16th May in The Old Library at Pembroke College, Cambridge.&lt;/p&gt;
+
+&lt;p&gt;If you're planning to come along, it'd be helpful if you could &lt;a href=&quot;https://doodle.com/poll/dxvcih4d9en2t5vy&quot;&gt;indicate interest via Doodle&lt;/a&gt; and &lt;a href=&quot;http://lists.ocaml.org/admin/cam-compiler-hacking&quot;&gt;sign up to the mailing list&lt;/a&gt; to receive updates.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Where&lt;/strong&gt;&lt;/em&gt;: The Old Library, Pembroke College&amp;#8203;, &amp;#8203;Cambridge&amp;#8203; &amp;#8203;CB2 1RF&lt;/p&gt;
+
+&lt;p&gt;&amp;#8203;The Old Library is the first building on the left straight after the Porters Lodge.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;When&lt;/strong&gt;&lt;/em&gt;: 6:30pm, Tuesday 16&amp;#8203;th &amp;#8203;May&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Who&lt;/strong&gt;&lt;/em&gt;: anyone interested in improving OCaml. Knowledge of OCaml programming will obviously be helpful, but prior experience of working on OCaml internals isn't necessary.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Refreshments&lt;/strong&gt;&lt;/em&gt;: either the Pembroke buttery between 5:45-6:45pm (cash only) or there will be a finger buffet in&amp;#8203; The Old Library&amp;#8203; itself.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;What&lt;/strong&gt;&lt;/em&gt;: fixing bugs, implementing new features, learning about OCaml internals&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Wiki&lt;/strong&gt;&lt;/em&gt;: https://github.com/ocamllabs/compiler-hacking/wiki&lt;/p&gt;
+
+&lt;p&gt;We're defining &amp;quot;compiler&amp;quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the
+ &lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/stdlib&quot;&gt;standard library&lt;/a&gt;,
+ &lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/byterun&quot;&gt;run&lt;/a&gt;&lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/asmrun&quot;&gt;time&lt;/a&gt;, tools
+    (&lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml/depend.html&quot;&gt;ocamldep&lt;/a&gt;,
+     &lt;a href=&quot;https://realworldocaml.org/v1/en/html/parsing-with-ocamllex-and-menhir.html&quot;&gt;ocamllex&lt;/a&gt;,
+     &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html&quot;&gt;ocamlyacc&lt;/a&gt;, etc.), the
+ &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml/debugger.html&quot;&gt;debugger&lt;/a&gt;, the
+ &lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/manual&quot;&gt;documentation&lt;/a&gt;, and the
+ &lt;a href=&quot;https://github.com/ocaml/ocaml&quot;&gt;compiler&lt;/a&gt; itself. We'll have
+ &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on&quot;&gt;suggestions for mini-projects&lt;/a&gt; for various levels of experience, but feel free to come along and work on whatever you fancy.&lt;/p&gt;
+</content><id>http://ocamllabs.github.com/compiler-hacking/2017/04/18/seventeenth-compiler-hacking-may</id><title type="text">Seventeenth OCaml compiler hacking evening at Pembroke</title><updated>2017-04-18T12:00:00-00:00</updated><author><email>cl-ocamllabs@lists.cam.ac.uk (OCaml Labs)</email><name>ocamllabs</name></author></entry><entry><link href="http://ocamllabs.github.com/compiler-hacking/2017/01/24/february-compiler-hacking" rel="alternate"/><contributor><uri>http://ocamllabs.io/compiler-hacking/rss.xml</uri><name>ocamllabs</name></contributor><content type="html">&lt;p&gt;Happy New Year! Our first compiler hacking event of 2017 will be at Pembroke College.&lt;/p&gt;
+
+&lt;p&gt;If you're planning to come along, it'd be helpful if you could &lt;a href=&quot;http://doodle.com/poll/vgh3nq2q5wgnsi5y&quot;&gt;indicate interest via Doodle&lt;/a&gt; and &lt;a href=&quot;http://lists.ocaml.org/admin/cam-compiler-hacking&quot;&gt;sign up to the mailing list&lt;/a&gt; to receive updates.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Where&lt;/strong&gt;&lt;/em&gt;: N7 Pembroke College&lt;br/&gt;
+Cambridge&amp;#8203;&lt;br/&gt;
+CB2 1RF  &lt;/p&gt;
+
+&lt;p&gt;N7 is through the second arch and on the left.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;When&lt;/strong&gt;&lt;/em&gt;: 630pm, Tuesday 7th February&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Who&lt;/strong&gt;&lt;/em&gt;: anyone interested in improving OCaml. Knowledge of OCaml programming will obviously be helpful, but prior experience of working on OCaml internals isn't necessary.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;What&lt;/strong&gt;&lt;/em&gt;: fixing bugs, implementing new features, learning about OCaml internals&lt;/p&gt;
+
+&lt;p&gt;Refreshments: either the Pembroke buttery between 545-645pm (cash only) or there will be a finger buffet in N7 itself.&lt;/p&gt;
+
+&lt;p&gt;Wiki: https://github.com/ocamllabs/compiler-hacking/wiki&lt;/p&gt;
+
+&lt;p&gt;We're defining &amp;quot;compiler&amp;quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the
+ &lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/stdlib&quot;&gt;standard library&lt;/a&gt;,
+ &lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/byterun&quot;&gt;run&lt;/a&gt;&lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/asmrun&quot;&gt;time&lt;/a&gt;, tools
+    (&lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml/depend.html&quot;&gt;ocamldep&lt;/a&gt;,
+     &lt;a href=&quot;https://realworldocaml.org/v1/en/html/parsing-with-ocamllex-and-menhir.html&quot;&gt;ocamllex&lt;/a&gt;,
+     &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html&quot;&gt;ocamlyacc&lt;/a&gt;, etc.), the
+ &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml/debugger.html&quot;&gt;debugger&lt;/a&gt;, the
+ &lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/manual&quot;&gt;documentation&lt;/a&gt;, and the
+ &lt;a href=&quot;https://github.com/ocaml/ocaml&quot;&gt;compiler&lt;/a&gt; itself. We'll have
+ &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on&quot;&gt;suggestions for mini-projects&lt;/a&gt; for various levels of experience, but feel free to come along and work on whatever you fancy.&lt;/p&gt;
+</content><id>http://ocamllabs.github.com/compiler-hacking/2017/01/24/february-compiler-hacking</id><title type="text">Sixteenth OCaml compiler hacking evening at Pembroke</title><updated>2017-01-24T00:30:00-00:00</updated><author><email>cl-ocamllabs@lists.cam.ac.uk (OCaml Labs)</email><name>ocamllabs</name></author></entry><entry><link href="http://ocamllabs.github.com/compiler-hacking/2016/11/01/fifteenth-compiler-hacking-evening" rel="alternate"/><contributor><uri>http://ocamllabs.io/compiler-hacking/rss.xml</uri><name>ocamllabs</name></contributor><content type="html">&lt;p&gt;&amp;#8203;Our Autumn Compiler Hacking event will be held at Pembroke College! We are also inviting MirageOS users and devs to prepare for Mirage 3.0.&lt;/p&gt;
+
+&lt;p&gt;If you're planning to come along, it'd be helpful if you could &lt;a href=&quot;http://doodle.com/poll/fsy7gue9xvbvvdm8&quot;&gt;indicate interest via Doodle&lt;/a&gt; and &lt;a href=&quot;http://lists.ocaml.org/admin/cam-compiler-hacking&quot;&gt;sign up to the mailing list&lt;/a&gt; to receive updates.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Where&lt;/strong&gt;&lt;/em&gt;_: N7 Pembroke College&lt;br/&gt;
+Cambridge&amp;#8203;&lt;br/&gt;
+CB2 1RF  &lt;/p&gt;
+
+&lt;p&gt;N7 is through the second arch and on the left.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;When&lt;/strong&gt;&lt;/em&gt;: 630pm, Wednesday 9th November&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Who&lt;/strong&gt;&lt;/em&gt;: anyone interested in improving OCaml. Knowledge of OCaml programming will obviously be helpful, but prior experience of working on OCaml internals isn't necessary.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;What&lt;/strong&gt;&lt;/em&gt;: fixing bugs, implementing new features, learning about OCaml internals&lt;/p&gt;
+
+&lt;p&gt;Refreshments: either the Pembroke buttery between 545-645pm (cash only) or there will be a finger buffet in N7 itself.&lt;/p&gt;
+
+&lt;p&gt;Wiki: https://github.com/ocamllabs/compiler-hacking/wiki&lt;/p&gt;
+
+&lt;p&gt;We're defining &amp;quot;compiler&amp;quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the
+ &lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/stdlib&quot;&gt;standard library&lt;/a&gt;,
+ &lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/byterun&quot;&gt;run&lt;/a&gt;&lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/asmrun&quot;&gt;time&lt;/a&gt;, tools
+    (&lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml/depend.html&quot;&gt;ocamldep&lt;/a&gt;,
+     &lt;a href=&quot;https://realworldocaml.org/v1/en/html/parsing-with-ocamllex-and-menhir.html&quot;&gt;ocamllex&lt;/a&gt;,
+     &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html&quot;&gt;ocamlyacc&lt;/a&gt;, etc.), the
+ &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml/debugger.html&quot;&gt;debugger&lt;/a&gt;, the
+ &lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/manual&quot;&gt;documentation&lt;/a&gt;, and the
+ &lt;a href=&quot;https://github.com/ocaml/ocaml&quot;&gt;compiler&lt;/a&gt; itself. We'll have
+ &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on&quot;&gt;suggestions for mini-projects&lt;/a&gt; for various levels of experience, but feel free to come along and work on whatever you fancy.&lt;/p&gt;
+</content><id>http://ocamllabs.github.com/compiler-hacking/2016/11/01/fifteenth-compiler-hacking-evening</id><title type="text">Fifteenth OCaml compiler hacking evening at Pembroke</title><updated>2016-11-01T21:30:00-00:00</updated><author><email>cl-ocamllabs@lists.cam.ac.uk (OCaml Labs)</email><name>ocamllabs</name></author></entry><entry><link href="http://ocamllabs.github.com/compiler-hacking/2016/06/26/summer-at-citrix" rel="alternate"/><contributor><uri>http://ocamllabs.io/compiler-hacking/rss.xml</uri><name>ocamllabs</name></contributor><content type="html">&lt;p&gt;&amp;#8203;Our summer compiler hacking event will be hosted by Euan and the Citrix Team on Thursday 7th&amp;#8203; July &amp;mdash; come and explore the other side of Cambridge and the Science Park!&lt;/p&gt;
+
+&lt;p&gt;If you're planning to come along, it'd be helpful if you could &lt;a href=&quot;http://doodle.com/poll/kykn2fxzgbqrdc3h&quot;&gt;indicate interest via Doodle&lt;/a&gt; and &lt;a href=&quot;http://lists.ocaml.org/admin/cam-compiler-hacking&quot;&gt;sign up to the mailing list&lt;/a&gt; to receive updates.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Where&lt;/strong&gt;&lt;/em&gt;: &lt;a href=&quot;https://goo.gl/maps/pVRvLfVNMb12&quot;&gt;Citrix Systems Research &amp;amp; Development Ltd.&lt;/a&gt;&lt;br/&gt;
+  Building 10&amp;#8203;1, &amp;#8203;
+  Cambridge&lt;br/&gt;
+  Science Park&amp;#8203;,&lt;br/&gt;
+  Milton Road&amp;#8203;,&lt;br/&gt;
+  Cambridge&amp;#8203;&lt;br/&gt;
+  CB4 0FY&amp;#8203;   &lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;When&lt;/strong&gt;&lt;/em&gt;: 7pm, Thursday 7th July&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Who&lt;/strong&gt;&lt;/em&gt;: anyone interested in improving OCaml. Knowledge of OCaml programming will obviously be helpful, but prior experience of working on OCaml internals isn't necessary.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;What&lt;/strong&gt;&lt;/em&gt;: fixing bugs, implementing new features, learning about OCaml internals&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Refreshments&lt;/strong&gt;&lt;/em&gt;: pizza and beer/other drinks will be available.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Wiki&lt;/strong&gt;&lt;/em&gt;: https://github.com/ocamllabs/compiler-hacking/wiki&lt;/p&gt;
+
+&lt;p&gt;We're defining &amp;quot;compiler&amp;quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the
+ &lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/stdlib&quot;&gt;standard library&lt;/a&gt;,
+ &lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/byterun&quot;&gt;run&lt;/a&gt;&lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/asmrun&quot;&gt;time&lt;/a&gt;, tools
+    (&lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml/depend.html&quot;&gt;ocamldep&lt;/a&gt;,
+     &lt;a href=&quot;https://realworldocaml.org/v1/en/html/parsing-with-ocamllex-and-menhir.html&quot;&gt;ocamllex&lt;/a&gt;,
+     &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html&quot;&gt;ocamlyacc&lt;/a&gt;, etc.), the
+ &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml/debugger.html&quot;&gt;debugger&lt;/a&gt;, the
+ &lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/manual&quot;&gt;documentation&lt;/a&gt;, and the
+ &lt;a href=&quot;https://github.com/ocaml/ocaml&quot;&gt;compiler&lt;/a&gt; itself. We'll have
+ &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on&quot;&gt;suggestions for mini-projects&lt;/a&gt; for various levels of experience, but feel free to come along and work on whatever you fancy.&lt;/p&gt;
+</content><id>http://ocamllabs.github.com/compiler-hacking/2016/06/26/summer-at-citrix</id><title type="text">Fourteenth OCaml compiler hacking evening at Citrix</title><updated>2016-06-26T20:15:00-00:00</updated><author><email>cl-ocamllabs@lists.cam.ac.uk (OCaml Labs)</email><name>ocamllabs</name></author></entry><entry><link href="http://ocamllabs.github.com/compiler-hacking/2016/05/20/spring-compiler-hacking" rel="alternate"/><contributor><uri>http://ocamllabs.io/compiler-hacking/rss.xml</uri><name>ocamllabs</name></contributor><content type="html">&lt;p&gt;It's Spring, and time for the thirteenth Cambridge OCaml compiler-hacking evening! We'll be back in &lt;a href=&quot;http://www.pem.cam.ac.uk/&quot;&gt;Pembroke College&lt;/a&gt; again, in the centre of Cambridge.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://twitter.com/pembroke1347/status/729615893425225728?lang=en-gb&quot;&gt;&lt;img src=&quot;http://ocamllabs.io/compiler-hacking/imgs/pembroke-spring.jpg&quot; alt=&quot;Pembroke&quot;/&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;If you're planning to come along, it'd be helpful if you could &lt;a href=&quot;http://doodle.com/poll/qx649tkmmq7kg5u4&quot;&gt;indicate interest via Doodle&lt;/a&gt; and &lt;a href=&quot;http://lists.ocaml.org/admin/cam-compiler-hacking&quot;&gt;sign up to the mailing list&lt;/a&gt; to receive updates.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Where&lt;/strong&gt;&lt;/em&gt;: N7, &lt;a href=&quot;https://www.google.co.uk/maps/place/Pembroke+College/@52.2018741,0.1177328,17z/data=!3m1!4b1!4m2!3m1!1s0x47d870a2a3162b45:0x178705666a5d2498&quot;&gt;Pembroke College&lt;/a&gt;, Cambridge CB2 1RF. Head through the entrance on Trumpington Street, and turn left straight after the Porters Lodge.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;When&lt;/strong&gt;&lt;/em&gt;: 7pm, Tuesday 31st May.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Who&lt;/strong&gt;&lt;/em&gt;: anyone interested in improving OCaml. Knowledge of OCaml programming will obviously be helpful, but prior experience of working on OCaml internals isn't necessary.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;What&lt;/strong&gt;&lt;/em&gt;: fixing bugs, implementing new features, learning about OCaml internals&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Wiki&lt;/strong&gt;&lt;/em&gt;: https://github.com/ocamllabs/compiler-hacking/wiki&lt;/p&gt;
+
+&lt;p&gt;We're defining &amp;quot;compiler&amp;quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the
+ &lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/stdlib&quot;&gt;standard library&lt;/a&gt;,
+ &lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/byterun&quot;&gt;run&lt;/a&gt;&lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/asmrun&quot;&gt;time&lt;/a&gt;, tools
+    (&lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml/depend.html&quot;&gt;ocamldep&lt;/a&gt;,
+     &lt;a href=&quot;https://realworldocaml.org/v1/en/html/parsing-with-ocamllex-and-menhir.html&quot;&gt;ocamllex&lt;/a&gt;,
+     &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html&quot;&gt;ocamlyacc&lt;/a&gt;, etc.), the
+ &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml/debugger.html&quot;&gt;debugger&lt;/a&gt;, the
+ &lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/manual&quot;&gt;documentation&lt;/a&gt;, and the
+ &lt;a href=&quot;https://github.com/ocaml/ocaml&quot;&gt;compiler&lt;/a&gt; itself. We'll have
+ &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on&quot;&gt;suggestions for mini-projects&lt;/a&gt; for various levels of experience, but feel free to come along and work on whatever you fancy.&lt;/p&gt;
+
+&lt;p&gt;We've arranged a self-service buttery dinner at 6:30pm - please head to the buttery when you arrive and help yourself to the food choices available. You can then bring your dinner to the Old Library (just next door) to sit down and eat.&lt;/p&gt;
+</content><id>http://ocamllabs.github.com/compiler-hacking/2016/05/20/spring-compiler-hacking</id><title type="text">Thirteenth OCaml compiler hacking evening at Pembroke College</title><updated>2016-05-20T23:30:00-00:00</updated><author><email>cl-ocamllabs@lists.cam.ac.uk (OCaml Labs)</email><name>ocamllabs</name></author></entry><entry><link href="http://ocamllabs.github.com/compiler-hacking/2016/02/09/compiler-hacking-returns-to-pembroke" rel="alternate"/><contributor><uri>http://ocamllabs.io/compiler-hacking/rss.xml</uri><name>ocamllabs</name></contributor><content type="html">&lt;p&gt;It's time for the twelfth Cambridge OCaml compiler-hacking evening! We'll be back in &lt;a href=&quot;http://www.pem.cam.ac.uk/&quot;&gt;Pembroke College&lt;/a&gt; again, in the centre of Cambridge.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ocamllabs.io/compiler-hacking/imgs/pembroke_new_court.jpg&quot; alt=&quot;Pembroke&quot;/&gt;&lt;/p&gt;
+
+&lt;p&gt;If you're planning to come along, it'd be helpful if you could &lt;a href=&quot;http://doodle.com/poll/u439rkzkawy8gftn&quot;&gt;indicate interest via Doodle&lt;/a&gt; and sign up to the &lt;a href=&quot;http://lists.ocaml.org/listinfo/cam-compiler-hacking&quot;&gt;mailing list&lt;/a&gt; to receive updates:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Where&lt;/strong&gt;&lt;/em&gt;: N7, &lt;a href=&quot;https://www.google.co.uk/maps/place/Pembroke+College/@52.2018741,0.1177328,17z/data=!3m1!4b1!4m2!3m1!1s0x47d870a2a3162b45:0x178705666a5d2498&quot;&gt;Pembroke College&lt;/a&gt;, Cambridge CB2 1RF. Head through the entrance on Trumpington Street, and we'll be there at the Porter's Lodge to direct you.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;When&lt;/strong&gt;&lt;/em&gt;: 7pm, Wednesday 17th February.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Who&lt;/strong&gt;&lt;/em&gt;: anyone interested in improving OCaml. Knowledge of OCaml programming will obviously be helpful, but prior experience of working on OCaml internals isn't necessary.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;What&lt;/strong&gt;&lt;/em&gt;: fixing bugs, implementing new features, learning about OCaml internals&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Wiki&lt;/strong&gt;&lt;/em&gt;: https://github.com/ocamllabs/compiler-hacking/wiki&lt;/p&gt;
+
+&lt;p&gt;We're defining &amp;quot;compiler&amp;quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the &lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/stdlib&quot;&gt;standard library&lt;/a&gt;, &lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/byterun&quot;&gt;run&lt;/a&gt;&lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/asmrun&quot;&gt;time&lt;/a&gt;, tools (&lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml/depend.html&quot;&gt;ocamldep&lt;/a&gt;, &lt;a href=&quot;https://realworldocaml.org/v1/en/html/parsing-with-ocamllex-and-menhir.html&quot;&gt;ocamllex&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html&quot;&gt;ocamlyacc&lt;/a&gt;, etc.), &lt;a href=&quot;https://github.com/ocaml/camlp4&quot;&gt;camlp4&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-400/manual032.html&quot;&gt;ocamlbuild&lt;/a&gt;, the &lt;a href=&quot;https://github.com/ocaml/ocaml-manual&quot;&gt;documentation&lt;/a&gt;, &lt;a href=&quot;https://opam.ocaml.org/&quot;&gt;OPAM&lt;/a&gt;, and the &lt;a href=&quot;https://github.com/ocaml/ocaml&quot;&gt;compiler&lt;/a&gt; itself. We'll have &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on&quot;&gt;suggestions for mini-projects&lt;/a&gt; for various levels of experience, but feel free to come along and work on whatever you fancy.&lt;/p&gt;
+
+&lt;p&gt;Drinks and finger buffet will be provided.&lt;/p&gt;
+</content><id>http://ocamllabs.github.com/compiler-hacking/2016/02/09/compiler-hacking-returns-to-pembroke</id><title type="text">Twelth OCaml compiler hacking evening at Pembroke College</title><updated>2016-02-09T11:00:00-00:00</updated><author><email>cl-ocamllabs@lists.cam.ac.uk (OCaml Labs)</email><name>ocamllabs</name></author></entry><entry><link href="http://ocamllabs.github.com/compiler-hacking/2015/11/24/compiler-hacking-at-pembroke" rel="alternate"/><contributor><uri>http://ocamllabs.io/compiler-hacking/rss.xml</uri><name>ocamllabs</name></contributor><content type="html">&lt;p&gt;It's time for the eleventh Cambridge OCaml compiler-hacking evening! This time we're heading to central Cambridge, to enjoy all that &lt;a href=&quot;http://www.pem.cam.ac.uk/&quot;&gt;Pembroke College&lt;/a&gt; has to offer.&lt;/p&gt;
+
+&lt;p&gt;If you're planning to come along, it'd be helpful if you could &lt;strong&gt;indicate interest &lt;a href=&quot;http://doodle.com/poll/r5u7gzk5qqbq52u4&quot;&gt;via Doodle&lt;/a&gt;&lt;/strong&gt; and sign up to the &lt;a href=&quot;http://lists.ocaml.org/listinfo/cam-compiler-hacking&quot;&gt;mailing list&lt;/a&gt; to receive updates.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Where&lt;/strong&gt;&lt;/em&gt;: Outer Parlour, &lt;a href=&quot;https://www.google.co.uk/maps/place/Pembroke+College/@52.2018741,0.1177328,17z/data=!3m1!4b1!4m2!3m1!1s0x47d870a2a3162b45:0x178705666a5d2498&quot;&gt;Pembroke College&lt;/a&gt;, Cambridge CB2 1RF. Head through the entrance on Trumpington Street, and we'll be there at the Porter's Lodge to direct you.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;When&lt;/strong&gt;&lt;/em&gt;: 6pm, Monday 30th November&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Who&lt;/strong&gt;&lt;/em&gt;: anyone interested in improving OCaml. Knowledge of OCaml programming will obviously be helpful, but prior experience of working on OCaml internals isn't necessary.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;What&lt;/strong&gt;&lt;/em&gt;: fixing bugs, implementing new features, learning about OCaml internals&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Wiki&lt;/strong&gt;&lt;/em&gt;: https://github.com/ocamllabs/compiler-hacking/wiki&lt;/p&gt;
+
+&lt;p&gt;We're defining &amp;quot;compiler&amp;quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the &lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/stdlib&quot;&gt;standard library&lt;/a&gt;, &lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/byterun&quot;&gt;run&lt;/a&gt;&lt;a href=&quot;https://github.com/ocaml/ocaml/tree/trunk/asmrun&quot;&gt;time&lt;/a&gt;, tools (&lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml/depend.html&quot;&gt;ocamldep&lt;/a&gt;, &lt;a href=&quot;https://realworldocaml.org/v1/en/html/parsing-with-ocamllex-and-menhir.html&quot;&gt;ocamllex&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html&quot;&gt;ocamlyacc&lt;/a&gt;, etc.), &lt;a href=&quot;https://github.com/ocaml/camlp4&quot;&gt;camlp4&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-400/manual032.html&quot;&gt;ocamlbuild&lt;/a&gt;, the &lt;a href=&quot;https://github.com/ocaml/ocaml-manual&quot;&gt;documentation&lt;/a&gt;, &lt;a href=&quot;https://opam.ocaml.org/&quot;&gt;OPAM&lt;/a&gt;, and the &lt;a href=&quot;https://github.com/ocaml/ocaml&quot;&gt;compiler&lt;/a&gt; itself. We'll have &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on&quot;&gt;suggestions for mini-projects&lt;/a&gt; for various levels of experience, but feel free to come along and work on whatever you fancy.&lt;/p&gt;
+
+&lt;p&gt;Drinks and finger buffet will be provided.&lt;/p&gt;
+</content><id>http://ocamllabs.github.com/compiler-hacking/2015/11/24/compiler-hacking-at-pembroke</id><title type="text">Eleventh OCaml compiler hacking evening at Pembroke College</title><updated>2015-11-24T12:00:00-00:00</updated><author><email>cl-ocamllabs@lists.cam.ac.uk (OCaml Labs)</email><name>ocamllabs</name></author></entry><entry><link href="http://ocamllabs.github.com/compiler-hacking/2015/08/20/mini-workshop" rel="alternate"/><contributor><uri>http://ocamllabs.io/compiler-hacking/rss.xml</uri><name>ocamllabs</name></contributor><content type="html">&lt;p&gt;We'll be meeting in the Computer Lab next Friday (28th August 2015) for another evening of compiler hacking.  All welcome!&lt;/p&gt;
+
+&lt;p&gt;We'll also be having an afternoon of OCaml- and ML-related talks beforehand, with titles suspiciously similar to talks at the &lt;a href=&quot;http://www.mlworkshop.org/ml2015/&quot;&gt;ML Workshop&lt;/a&gt; and &lt;a href=&quot;https://ocaml.org/meetings/ocaml/2015/&quot;&gt;OCaml Workshop&lt;/a&gt; the following week.&lt;/p&gt;
+
+&lt;p&gt;If you're planning to come along to either the talks or to compiler hacking, please &lt;strong&gt;&lt;a href=&quot;http://doodle.com/82arpxipidgqbvwi&quot;&gt;add yourself to the Doodle poll&lt;/a&gt;&lt;/strong&gt;.  Further updates, if any, will be posted to the &lt;a href=&quot;http://lists.ocaml.org/listinfo/cam-compiler-hacking&quot;&gt;compiler hacking mailing list&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3&gt;Schedule&lt;/h3&gt;
+
+&lt;p&gt;3.30pm &lt;strong&gt;Polymorphism, subtyping and type inference in MLsub&lt;/strong&gt;&lt;br/&gt;
+&lt;em&gt;Stephen Dolan (with Alan Mycroft)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;3.55pm &lt;strong&gt;The State of the OCaml Platform: September 2015&lt;/strong&gt;&lt;br/&gt;
+&lt;em&gt;Anil Madhavapeddy (with Amir Chaudhry, Thomas Gazagnaire, Jeremy Yallop, David Sheets)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;4.20pm &lt;strong&gt;Modular macros&lt;/strong&gt;&lt;br/&gt;
+&lt;em&gt;Jeremy Yallop (with Leo White)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;4.45pm Break&lt;/p&gt;
+
+&lt;p&gt;5.15pm &lt;strong&gt;Effective Concurrency through Algebraic Effects&lt;/strong&gt;&lt;br/&gt;
+&lt;em&gt;KC Sivaramakrishnan (with Stephen Dolan, Leo White, Jeremy Yallop, Anil Madhavapeddy)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;5.40pm &lt;strong&gt;A review of the growth of the OCaml community&lt;/strong&gt;&lt;br/&gt;
+&lt;em&gt;Amir Chaudhry&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;6.05pm &lt;strong&gt;Persistent Networking with Irmin and MirageOS&lt;/strong&gt;&lt;br/&gt;
+&lt;em&gt;Mindy Preston (with Magnus Skjegstad, Thomas Gazagnaire, Richard Mortier, Anil Madhavapeddy)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;6.30pm &lt;strong&gt;Food&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;7.30pm &lt;strong&gt;Compiler hacking&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3&gt;Further details&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Where&lt;/strong&gt;: Room &lt;a href=&quot;http://www.cl.cam.ac.uk/research/dtg/openroommap/static/?s=FW26&amp;amp;labels=1&quot;&gt;FW26&lt;/a&gt;, &lt;a href=&quot;http://www.cl.cam.ac.uk/directions/&quot;&gt;Computer Laboratory, Madingley Road&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;When&lt;/strong&gt;: 3.30pm (workshop); 6.30pm (compiler hacking), Friday 28th August 2015&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Who&lt;/strong&gt;: anyone interested in improving OCaml. Knowledge of OCaml programming will obviously be helpful, but prior experience of working on OCaml internals isn't necessary.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What&lt;/strong&gt;: fixing bugs, implementing new features, learning about OCaml internals.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Wiki&lt;/strong&gt;: &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki&quot;&gt;https://github.com/ocamllabs/compiler-hacking/wiki&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;We're defining &amp;quot;compiler&amp;quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.01/libref/index.html&quot;&gt;standard library&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual024.html&quot;&gt;runtime&lt;/a&gt;, tools (&lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.01/depend.html&quot;&gt;ocamldep&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html#toc105&quot;&gt;ocamllex&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html#toc107&quot;&gt;ocamlyacc&lt;/a&gt;, etc.), &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual032.html&quot;&gt;ocamlbuild&lt;/a&gt;, the &lt;a href=&quot;http://caml.inria.fr/resources/doc/index.en.html&quot;&gt;documentation&lt;/a&gt;, and the compiler itself. We'll have suggestions for &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on&quot;&gt;mini-projects&lt;/a&gt; for various levels of experience (see also some &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-previously-worked-on&quot;&gt;things we've done on previous evenings&lt;/a&gt;), but feel free to come along and work on whatever you fancy.&lt;/p&gt;
+</content><id>http://ocamllabs.github.com/compiler-hacking/2015/08/20/mini-workshop</id><title type="text">Tenth OCaml compiler hacking evening and OCaml/ML talks</title><updated>2015-08-20T13:00:00-00:00</updated><author><email>cl-ocamllabs@lists.cam.ac.uk (OCaml Labs)</email><name>ocamllabs</name></author></entry><entry><link href="http://ocamllabs.github.com/compiler-hacking/2015/02/05/south-of-england-regional-programming-language-seminar" rel="alternate"/><contributor><uri>http://ocamllabs.io/compiler-hacking/rss.xml</uri><name>ocamllabs</name></contributor><content type="html">&lt;p&gt;If you're within travelling distance of Cambridge and interested in
+programming language theory then you might like to
+&lt;a href=&quot;http://doodle.com/n93sqw86sa7azc3m&quot;&gt;sign up&lt;/a&gt; to come along to the first
+&lt;a href=&quot;http://dominic-mulligan.co.uk/?page_id=148&quot;&gt;South of England Regional Programming Language Seminar&lt;/a&gt;
+at &lt;a href=&quot;http://www.wolfson.cam.ac.uk/&quot;&gt;Wolfson College&lt;/a&gt; on the 30th April.  We
+have an exciting programme, starting with an invited talk from Conor McBride:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The dependent lollipop&lt;/strong&gt; &lt;em&gt;(Conor McBride, Strathclyde)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Improving implicit parallelism&lt;/strong&gt; &lt;em&gt;(Jose Calderon, York)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Many-core compiler fuzzing&lt;/strong&gt; &lt;em&gt;(Alastair Donaldson, Imperial)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Fine-grained language composition&lt;/strong&gt; &lt;em&gt;(Laurence Tratt, King's College London)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Graphical models of concurrent program execution&lt;/strong&gt; &lt;em&gt;(Tony Hoare, Microsoft)&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Further information is available on the
+&lt;a href=&quot;http://dominic-mulligan.co.uk/?page_id=148&quot;&gt;S-REPLS website&lt;/a&gt;.&lt;/p&gt;
+</content><id>http://ocamllabs.github.com/compiler-hacking/2015/02/05/south-of-england-regional-programming-language-seminar</id><title type="text">South of England Regional Programming Language Seminar (S-REPLS)</title><updated>2015-02-05T12:00:00-00:00</updated><author><email>cl-ocamllabs@lists.cam.ac.uk (OCaml Labs)</email><name>ocamllabs</name></author></entry><entry><link href="http://ocamllabs.github.com/compiler-hacking/2015/02/05/back-in-the-lab" rel="alternate"/><contributor><uri>http://ocamllabs.io/compiler-hacking/rss.xml</uri><name>ocamllabs</name></contributor><content type="html">&lt;p&gt;We'll be meeting in the Computer Lab next Tuesday (10th February 2015) for another evening of compiler hacking.  All welcome!  Please &lt;strong&gt;&lt;a href=&quot;http://doodle.com/zxmeyn2ih92mke85&quot;&gt;add yourself to the Doodle poll&lt;/a&gt;&lt;/strong&gt; if you're planning to come along, and sign up to the &lt;a href=&quot;http://lists.ocaml.org/listinfo/cam-compiler-hacking&quot;&gt;mailing list&lt;/a&gt; to receive updates.&lt;/p&gt;
+
+&lt;h3&gt;Talk: Generating code with polymorphic let (Oleg Kiselyov)&lt;/h3&gt;
+
+&lt;p&gt;This time we'll be starting with a talk from &lt;a href=&quot;http://okmij.org/ftp&quot;&gt;Oleg Kiselyov&lt;/a&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;h4&gt;Generating code with polymorphic let&lt;/h4&gt;
+
+&lt;p&gt;One of the simplest ways of implementing staging is source-to-source
+translation from the quotation-unquotation code to code-generating
+combinators. For example, MetaOCaml could be implemented as a
+pre-processor to the ordinary OCaml. However simple, the approach is
+surprising productive and extensible, as Lightweight Modular Staging
+(LMS) in Scala has demonstrated. However, there is a fatal flaw:
+handling quotations that contain polymorphic let. The translation to
+code-generating combinators represents a future-stage let-binding with
+the present-staging lambda-binding, which is monomorphic. Even if
+polymorphic lambda-bindings are allowed, they require type
+annotations, which precludes the source-to-source translation.&lt;/p&gt;
+
+&lt;p&gt;We show the solution to the problem, using a different translation. It
+works with the current OCaml. It also almost works in theory,
+requiring a small extension to the relaxed value
+restriction. Surprisingly, this extension seems to be exactly the one
+needed to make the value restriction sound in a staged language with
+reference cells and cross-stage-persistence.&lt;/p&gt;
+
+&lt;p&gt;The old, seems completely settled question of value restriction is
+thrown deep-open in staged languages. We gain a profound problem to
+work on.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3&gt;(Approximate) schedule&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;6pm&lt;/strong&gt; Start, set up&lt;br/&gt;
+&lt;strong&gt;6.30pm&lt;/strong&gt; Talk&lt;br/&gt;
+&lt;strong&gt;7pm&lt;/strong&gt; Pizza&lt;br/&gt;
+&lt;strong&gt;7.30pm-10pm&lt;/strong&gt; Compiler hacking  &lt;/p&gt;
+
+&lt;h3&gt;Further details&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Where&lt;/strong&gt;:
+  Room &lt;a href=&quot;http://www.cl.cam.ac.uk/research/dtg/openroommap/static/?s=FW11&amp;amp;labels=1&quot;&gt;FW11&lt;/a&gt;, &lt;a href=&quot;http://www.cl.cam.ac.uk/directions/&quot;&gt;Computer Laboratory, Madingley Road&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;When&lt;/strong&gt;: 6pm, Tuesday 10th February&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Who&lt;/strong&gt;: anyone interested in improving OCaml. Knowledge of OCaml programming will obviously be helpful, but prior experience of working on OCaml internals isn't necessary.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What&lt;/strong&gt;: fixing bugs, implementing new features, learning about OCaml internals.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Wiki&lt;/strong&gt;: &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki&quot;&gt;https://github.com/ocamllabs/compiler-hacking/wiki&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;We're defining &amp;quot;compiler&amp;quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.01/libref/index.html&quot;&gt;standard library&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual024.html&quot;&gt;runtime&lt;/a&gt;, tools (&lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.01/depend.html&quot;&gt;ocamldep&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html#toc105&quot;&gt;ocamllex&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html#toc107&quot;&gt;ocamlyacc&lt;/a&gt;, etc.), &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual032.html&quot;&gt;ocamlbuild&lt;/a&gt;, the &lt;a href=&quot;http://caml.inria.fr/resources/doc/index.en.html&quot;&gt;documentation&lt;/a&gt;, and the compiler itself. We'll have suggestions for &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on&quot;&gt;mini-projects&lt;/a&gt; for various levels of experience (see also some &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-previously-worked-on&quot;&gt;things we've done on previous evenings&lt;/a&gt;), but feel free to come along and work on whatever you fancy.&lt;/p&gt;
+
+&lt;p&gt;We'll be ordering pizza, so if you want to be counted for food you should aim to arrive by 6pm.&lt;/p&gt;
+</content><id>http://ocamllabs.github.com/compiler-hacking/2015/02/05/back-in-the-lab</id><title type="text">Ninth OCaml compiler hacking evening (back in the lab, with a talk from Oleg)</title><updated>2015-02-05T12:00:00-00:00</updated><author><email>cl-ocamllabs@lists.cam.ac.uk (OCaml Labs)</email><name>ocamllabs</name></author></entry><entry><link href="http://ocamllabs.github.com/compiler-hacking/2014/09/23/compiler-hacking-by-the-river" rel="alternate"/><contributor><uri>http://ocamllabs.io/compiler-hacking/rss.xml</uri><name>ocamllabs</name></contributor><content type="html">&lt;p&gt;&lt;strong&gt;Update: This session will be a joint F#/OCaml hacking event, beginning with a talk from Don Syme about F# compiler and language development!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;For the eighth Cambridge OCaml compiler hacking evening we'll be meeting in the &lt;a href=&quot;http://www.cam.ac.uk/news/first-ever-postdoc-centre-is-new-home-for-research-staff&quot;&gt;University Postdoc centre&lt;/a&gt; at &lt;a href=&quot;https://goo.gl/maps/cZXev&quot;&gt;16 Mill Lane&lt;/a&gt; (near the river, next door to &lt;a href=&quot;http://makespace.org/space/&quot;&gt;Makespace&lt;/a&gt;) on 6.30pm Tuesday 30th September.&lt;/p&gt;
+
+&lt;p&gt;If you're planning to come along, it'd be helpful if you could &lt;a href=&quot;http://doodle.com/svwkevcs5p2xs8n8&quot;&gt;&lt;strong&gt;indicate interest via Doodle&lt;/strong&gt;&lt;/a&gt; and &lt;a href=&quot;http://lists.ocaml.org/listinfo/cam-compiler-hacking&quot;&gt;sign up to the mailing list&lt;/a&gt; to receive updates:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Where&lt;/strong&gt;:
+  Postdoc Centre&lt;br/&gt;
+  Basement, &lt;a href=&quot;https://goo.gl/maps/cZXev&quot;&gt;16 Mill Lane&lt;/a&gt;&lt;br/&gt;
+  Cambridge, CB2 1SB&lt;br/&gt;
+  United Kingdom  &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;When&lt;/strong&gt;: 6.30pm, Tuesday 30th September&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Who&lt;/strong&gt;: anyone interested in improving OCaml. Knowledge of OCaml programming will obviously be helpful, but prior experience of working on OCaml internals isn't necessary.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What&lt;/strong&gt;: fixing bugs, implementing new features, learning about OCaml internals.  This time we'll be focusing on code quality: refactoring, adding test cases, reviewng existing proposals and updating packages after the recent &lt;a href=&quot;https://sympa.inria.fr/sympa/arc/caml-list/2014-08/msg00127.html&quot;&gt;release of OCaml 4.02&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Wiki&lt;/strong&gt;: &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki&quot;&gt;https://github.com/ocamllabs/compiler-hacking/wiki&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;We're defining &amp;quot;compiler&amp;quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.01/libref/index.html&quot;&gt;standard library&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual024.html&quot;&gt;runtime&lt;/a&gt;, tools (&lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.01/depend.html&quot;&gt;ocamldep&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html#toc105&quot;&gt;ocamllex&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html#toc107&quot;&gt;ocamlyacc&lt;/a&gt;, etc.), &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual032.html&quot;&gt;ocamlbuild&lt;/a&gt;, the &lt;a href=&quot;http://caml.inria.fr/resources/doc/index.en.html&quot;&gt;documentation&lt;/a&gt;, and the compiler itself. We'll have suggestions for &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on&quot;&gt;mini-projects&lt;/a&gt; for various levels of experience (see also some &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-previously-worked-on&quot;&gt;things we've done on previous evenings&lt;/a&gt;), but feel free to come along and work on whatever you fancy.&lt;/p&gt;
+
+&lt;p&gt;We'll also be ordering pizza, so if you want to be counted for food you should aim to arrive by 6.45pm.&lt;/p&gt;
+</content><id>http://ocamllabs.github.com/compiler-hacking/2014/09/23/compiler-hacking-by-the-river</id><title type="text">Eighth OCaml compiler hacking evening (at Mill Lane, by the river)</title><updated>2014-09-23T18:00:00-00:00</updated><author><email>cl-ocamllabs@lists.cam.ac.uk (OCaml Labs)</email><name>ocamllabs</name></author></entry><entry><link href="http://ocamllabs.github.com/compiler-hacking/2014/07/24/compiler-hacking-at-citrix" rel="alternate"/><contributor><uri>http://ocamllabs.io/compiler-hacking/rss.xml</uri><name>ocamllabs</name></contributor><content type="html">&lt;p&gt;For the seventh Cambridge OCaml compiler-hacking session we'll be meeting at &lt;a href=&quot;https://maps.google.co.uk/maps?q=101%20Cambridge%20Science%20Park%20Milton%20Road,%20Cambridge&amp;amp;hl=en&amp;amp;ll=52.232955,0.150338&amp;amp;spn=0.003082,0.006947&amp;amp;sll=52.231717,0.144648&amp;amp;sspn=0.012327,0.027788&amp;amp;oq=101Cambrideg%20Science&amp;amp;t=h&amp;amp;hq=101%20Cambridge%20Science%20Park%20Milton%20Road,&amp;amp;hnear=Cambridge,%20United%20Kingdom&amp;amp;z=18&quot;&gt;the Citrix office in the Cambridge Science Park&lt;/a&gt; on 6.30pm Friday 1st August.  Thanks to Citrix for supporting and hosting the session!&lt;/p&gt;
+
+&lt;p&gt;We'll kick off with a demo from &lt;a href=&quot;https://github.com/def-lkb&quot;&gt;Fr&amp;eacute;d&amp;eacute;ric Bour&lt;/a&gt; of modular implicits, an OCaml extension that adds support for overloading.&lt;/p&gt;
+
+&lt;p&gt;If you're planning to come along, it'd be helpful if you could &lt;a href=&quot;http://doodle.com/46f2bnk4xny724in&quot;&gt;&lt;strong&gt;indicate interest via Doodle&lt;/strong&gt;&lt;/a&gt; and &lt;a href=&quot;http://lists.ocaml.org/listinfo/cam-compiler-hacking&quot;&gt;sign up to the mailing list&lt;/a&gt; to receive updates:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Where&lt;/strong&gt;:
+  Citrix Systems Research &amp;amp; Development Ltd.&lt;br/&gt;
+  &lt;a href=&quot;https://maps.google.co.uk/maps?q=101%20Cambridge%20Science%20Park%20Milton%20Road,%20Cambridge&amp;amp;hl=en&amp;amp;ll=52.232955,0.150338&amp;amp;spn=0.003082,0.006947&amp;amp;sll=52.231717,0.144648&amp;amp;sspn=0.012327,0.027788&amp;amp;oq=101Cambrideg%20Science&amp;amp;t=h&amp;amp;hq=101%20Cambridge%20Science%20Park%20Milton%20Road,&amp;amp;hnear=Cambridge,%20United%20Kingdom&amp;amp;z=18&quot;&gt;Building 101&lt;/a&gt;&lt;br/&gt;
+  Cambridge Science Park&lt;br/&gt;
+  Milton Road&lt;br/&gt;
+  Cambridge, CB4 0FY&lt;br/&gt;
+  United Kingdom  &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;When&lt;/strong&gt;: 6.30pm, Friday 1st August&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Who&lt;/strong&gt;: anyone interested in improving OCaml. Knowledge of OCaml programming will obviously be helpful, but prior experience of working on OCaml internals isn't necessary.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What&lt;/strong&gt;: fixing bugs, implementing new features, learning about OCaml internals&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Wiki&lt;/strong&gt;: &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki&quot;&gt;https://github.com/ocamllabs/compiler-hacking/wiki&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;We're defining &amp;quot;compiler&amp;quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.01/libref/index.html&quot;&gt;standard library&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual024.html&quot;&gt;runtime&lt;/a&gt;, tools (&lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.01/depend.html&quot;&gt;ocamldep&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html#toc105&quot;&gt;ocamllex&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html#toc107&quot;&gt;ocamlyacc&lt;/a&gt;, etc.), &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual032.html&quot;&gt;ocamlbuild&lt;/a&gt;, the &lt;a href=&quot;http://caml.inria.fr/resources/doc/index.en.html&quot;&gt;documentation&lt;/a&gt;, and the compiler itself. We'll have suggestions for &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on&quot;&gt;mini-projects&lt;/a&gt; for various levels of experience (see also some &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-previously-worked-on&quot;&gt;things we've worked on in previous sessions&lt;/a&gt;), but feel free to come along and work on whatever you fancy.&lt;/p&gt;
+
+&lt;p&gt;We'll also be ordering pizza, so if you want to be counted for food you should aim to arrive by 6.45pm.&lt;/p&gt;
+</content><id>http://ocamllabs.github.com/compiler-hacking/2014/07/24/compiler-hacking-at-citrix</id><title type="text">Seventh OCaml compiler hacking session (at Citrix)</title><updated>2014-07-24T10:00:00-00:00</updated><author><email>cl-ocamllabs@lists.cam.ac.uk (OCaml Labs)</email><name>ocamllabs</name></author></entry><entry><link href="http://ocamllabs.github.com/compiler-hacking/2014/06/24/highlights-from-recent-sessions" rel="alternate"/><contributor><uri>http://ocamllabs.io/compiler-hacking/rss.xml</uri><name>ocamllabs</name></contributor><content type="html">&lt;h2&gt;Highlights from recent sessions&lt;/h2&gt;
+
+&lt;p&gt;With the &lt;a href=&quot;http://ocamllabs.github.io/compiler-hacking/2014/06/20/sixth-compiler-hacking-session.html&quot;&gt;next compiler hacking meeting&lt;/a&gt; due to take place in a couple of days it's time for a look back at some results from our last couple of sessions.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;the-front-end&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3&gt;The front end&lt;/h3&gt;
+
+&lt;figure style=&quot;float: right; padding: 15px; width: 350px&quot;&gt;
+&lt;img src=&quot;https://farm3.staticflickr.com/2756/4150220583_57a993cc61_z_d.jpg&quot; style=&quot;width: 350px&quot; alt=&quot;Camel front end&quot;/&gt;&lt;br/&gt;
+&lt;figcaption&gt;&lt;center&gt;&lt;small&gt;(&lt;a href=&quot;https://www.flickr.com/photos/paperpariah/4150220583&quot;&gt;&lt;i&gt;today I stared a camel in the face&lt;/i&gt;&lt;/a&gt; by &lt;a href=&quot;https://www.flickr.com/photos/paperpariah/&quot;&gt;Adam Foster&lt;/a&gt;)&lt;/small&gt;&lt;/center&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;The front end (i.e. &lt;a href=&quot;https://realworldocaml.org/v1/en/html/the-compiler-frontend-parsing-and-type-checking.html&quot;&gt;the parser and type checker&lt;/a&gt;) saw a number of enhancements.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;succinct-functor-syntax&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4&gt;Succinct functor syntax&lt;/h4&gt;
+
+&lt;p&gt;Syntax tweaks are always popular, if &lt;a href=&quot;http://www.haskell.org/haskellwiki/Wadler's_Law&quot;&gt;often contentious&lt;/a&gt;.   However, reaching agreement is significantly easier when adding syntax is a simple matter of extending an existing correspondence between two parts of the language.  For example, it was clear which syntax to use when adding support for &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-400/manual021.html#toc73&quot;&gt;lazy patterns&lt;/a&gt;: since patterns generally mirror the syntax for the values they match, patterns for destructing lazy values should use the same &lt;code&gt;lazy&lt;/code&gt; keyword as the expressions which construct them.&lt;/p&gt;
+
+&lt;p&gt;A second correspondence in OCaml's syntax relates modules and values.  Module names and variables are both bound with &lt;code&gt;=&lt;/code&gt;; module signatures and types are both ascribed with &lt;code&gt;:&lt;/code&gt;; module fields and record fields are both projected with &lt;code&gt;.&lt;/code&gt;.  The syntax for functors and functions is also similar, but the latter offers a number of shortcuts not available in the module language; you can write&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;instead of the more prolix equivalent:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;but multi-argument functors must be written out in full:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;functor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;X&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;functor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;functor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;M&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;In February's meeting, &lt;a href=&quot;http://gazagnaire.org&quot;&gt;Thomas&lt;/a&gt; wrote a &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/16&quot;&gt;patch&lt;/a&gt; that adds an analogue of the shorter syntax to the module language, allowing the repeated &lt;code&gt;functor&lt;/code&gt; to be left out:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;functor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;X&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;M&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The patch also adds support for a corresponding abbreviation at the module type level.  Defining the type of a multi-argument functor currently involves writing a rather clunky sequence of &lt;code&gt;functor&lt;/code&gt; abstractions:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;F&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;functor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;X&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;functor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;functor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;U&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;With Thomas's patch all but the first occurrence of &lt;code&gt;functor&lt;/code&gt; disappear:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;F&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;functor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;X&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;U&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Since Thomas's patch has been merged into trunk, you can try out the new syntax using the &lt;a href=&quot;http://alan.petitepomme.net/cwn/2014.05.27.html#2&quot;&gt;4.02.0 beta&lt;/a&gt;, which is available as a compiler switch in the OPAM repository:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;opam switch &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;.02.0+trunk
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The next step is to find out whether the verbose syntax was a symptom or a cause of the infrequency of higher-order functors in OCaml code.  Will we see a surge in the popularity of higher-order modules as the syntax becomes more accommodating?&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;integer-ranges&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4&gt;Integer ranges&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://github.com/dsheets&quot;&gt;David&lt;/a&gt; started work on extending OCaml's range patterns, which currently support only characters, to support &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on#wiki-integer-range-patterns&quot;&gt;integer ranges&lt;/a&gt;.  For example, consider the following &lt;a href=&quot;https://github.com/ygrek/mldonkey/blob/03896bfc/src/utils/ocamlrss/rss_date.ml#L195-L202&quot;&gt;code from MLDonkey&lt;/a&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mdn&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+  &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt;       &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;23&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;true&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;true&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;_&lt;/span&gt;                            &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt;                              &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Although this is fairly clear, it could be made even clearer if we had a &lt;a href=&quot;http://en.wikipedia.org/wiki/Rule_of_least_power&quot;&gt;&lt;em&gt;less&lt;/em&gt; powerful language&lt;/a&gt; for expressing the tests involving &lt;code&gt;h&lt;/code&gt;.  Since the whole OCaml language is available in the &lt;code&gt;when&lt;/code&gt; guard of a case, the reader has to examine the code carefully before concluding that the tests are all simple range checks.  Perhaps worse, using guards inhibits the useful checks that the OCaml compiler performs to determine whether patterns are exhaustive or redundant.  David's patch makes it possible to rewrite the tests without guards, making the simple nature of the tests on &lt;code&gt;h&lt;/code&gt; clear at a glance (and making it possible once again to check exhaustiveness and redundancy):&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mdn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+  &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt;      &lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;23&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;_&lt;/span&gt;                 &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The work on range patterns led to a robust exchange of views about which other types should be supported -- should we support any enumerable type (e.g. variants with nullary constructors)? or perhaps even any ordered type (e.g. floats or strings)?  For the moment, there seems to be a much clearer consensus in favour of supporting integer types than there is for generalising range patterns any further.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;extensible-variants&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4&gt;Extensible variants&lt;/h4&gt;
+
+&lt;p&gt;Since the compiler hacking group only meets for an evening every couple of months or so, most of the &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on&quot;&gt;projects we work on&lt;/a&gt; are designed so that it's possible to implement them in a few hours.  &lt;a href=&quot;http://www.lpw25.net/&quot;&gt;Leo&lt;/a&gt;'s proposal for extensible variants is a notable exception, &lt;a href=&quot;https://sympa.inria.fr/sympa/arc/caml-list/2012-01/msg00050.html&quot;&gt;predating&lt;/a&gt; both the &lt;a href=&quot;http://ocamllabs.github.io/compiler-hacking/2013/09/17/compiler-hacking-july-2013.html&quot;&gt;compiler hacking group&lt;/a&gt; and &lt;a href=&quot;http://anil.recoil.org/2012/10/19/announcing-ocaml-labs.html&quot;&gt;OCaml Labs&lt;/a&gt; itself.&lt;/p&gt;
+
+&lt;p&gt;Extensible variants generalise exceptions: with Leo's patch the exception type &lt;code&gt;exn&lt;/code&gt; becomes a particular instance of a class of types that can be defined by the user rather than a special builtin provided by the compiler:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;(* Define an extensible variant type *)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;(* Extend the type with a constructor *)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Not_found&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;(* Extend the type with another constructor *)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Invalid_argument&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Even better, extensible variants come with all the power of regular variant types: they can take type parameters, and even support GADT definitions:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;(* Define a parameterised extensible variant type *)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;(* Extend the type with a constructor *)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;(* Extend the type with a GADT constructor *)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IntError&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;On the evening of the last compiler hacking meeting, Leo &lt;a href=&quot;http://caml.inria.fr/mantis/view.php?id=5584#c11335&quot;&gt;completed&lt;/a&gt; the patch; shortly afterwards it was &lt;a href=&quot;https://github.com/ocaml/ocaml/commit/b56dc4b3df8d022b54f40682a9d5d4168c690413&quot;&gt;merged to trunk&lt;/a&gt;, ready for inclusion in &lt;a href=&quot;http://alan.petitepomme.net/cwn/2014.05.27.html#2&quot;&gt;OCaml 4.02&lt;/a&gt;!&lt;/p&gt;
+
+&lt;p&gt;Extensible variants are a significant addition to the language, and there's more to them than these simple examples show.  A forthcoming post from Leo will describe the new feature in more detail.  In the meantime, since they've been merged into the 4.02 release candidate, you can try them out with OPAM:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;opam switch &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;.02.0+trunk
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a name=&quot;lazy-record-fields&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4&gt;Lazy record fields&lt;/h4&gt;
+
+&lt;p&gt;Not everything we work on makes is destined to make it upstream.  A few years ago, &lt;a href=&quot;http://alain.frisch.fr/&quot;&gt;Alain Frisch&lt;/a&gt; &lt;a href=&quot;http://www.lexifi.com/blog/ocaml-extensions-lexifi-semi-implicit-laziness&quot;&gt;described&lt;/a&gt; an OCaml extension in use at &lt;a href=&quot;http://lexifi.com/&quot;&gt;Lexifi&lt;/a&gt; for marking record fields lazy, making it possible to delay the evaluation of initializing expressions without writing the &lt;code&gt;lazy&lt;/code&gt; keyword every time a record is constructed.  Alain's post was received enthusiastically, and lazy record fields seemed like an obvious candidate for inclusion upstream, so in April's meeting Thomas put together a &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/48&quot;&gt;patch&lt;/a&gt; implementing the design.  Although the OCaml team decided not to merge the patch, it led to an enlightening &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/48#issuecomment-41758626&quot;&gt;discussion&lt;/a&gt; with comments from several core developers, including Alain, who described &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/48#issuecomment-41758626&quot;&gt;subsequent, less positive, experience with the feature at Lexifi&lt;/a&gt;, and Xavier, who explained the &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/48#issuecomment-41779525&quot;&gt;rationale underlying the current design&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;back-end&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3&gt;The back end&lt;/h3&gt;
+
+&lt;figure style=&quot;float: right; padding: 15px; width: 350px&quot;&gt;
+&lt;img src=&quot;http://farm4.staticflickr.com/3157/2877029132_b34943c8d7_z_d.jpg&quot; style=&quot;width: 350px&quot; alt=&quot;Camel back end&quot;/&gt;&lt;br/&gt;
+&lt;figcaption&gt;&lt;center&gt;&lt;small&gt;(&lt;a href=&quot;http://www.flickr.com/photos/16230215@N08/2877029132&quot;&gt;&lt;i&gt;Relief&lt;/i&gt;&lt;/a&gt;
+by &lt;a href=&quot;http://www.flickr.com/photos/h-k-d/&quot;&gt;Hartwig HKD&lt;/a&gt;)&lt;/small&gt;&lt;/center&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;The OCaml back end (i.e. the &lt;a href=&quot;https://realworldocaml.org/v1/en/html/the-compiler-backend-byte-code-and-native-code.html&quot;&gt;code generation portion of the compiler&lt;/a&gt;) also saw a proposed enhancement.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;constant-arithmetic-optimization&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4&gt;Constant arithmetic optimization&lt;/h4&gt;
+
+&lt;p&gt;Stephen submitted a &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/17&quot;&gt;patch&lt;/a&gt; improving the generated code for functions that perform constant arithmetic on integers.&lt;/p&gt;
+
+&lt;p&gt;In OCaml, integers and characters are &lt;a href=&quot;https://realworldocaml.org/v1/en/html/memory-representation-of-values.html#table20-1_ocaml&quot;&gt;represented as shifted immediate values&lt;/a&gt;, with the least significant bit set to distinguish them from pointers.  This makes some arithmetic operations &lt;a href=&quot;https://realworldocaml.org/v1/en/html/memory-representation-of-values.html#idm181610127856&quot;&gt;a little more expensive&lt;/a&gt;.  For example, consider a function that &lt;code&gt;int_of_digits&lt;/code&gt; that builds an integer from three character digits:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;int_of_digits&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'3'&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'4'&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'5'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;345&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We might define &lt;code&gt;int_of_digits&lt;/code&gt; as follows:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;int_of_digits&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 
+  &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Char&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Char&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'0'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
+   &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Char&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Char&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'0'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Char&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Char&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'0'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Passing the &lt;code&gt;-dcmm&lt;/code&gt; flag to ocamlopt shows the results of compiling the function to the &lt;a href=&quot;https://github.com/ocaml/ocaml/blob/trunk/asmcomp/cmm.mli&quot;&gt;C-- intermediate language&lt;/a&gt;. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span&gt;&lt;/span&gt;ocamlopt -dcmm int_of_digits.ml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The generated code has the following form (reformatted for readability):&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;96&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+ &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;96&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;96&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The right shifts convert the tagged representation into native integers, and the final &lt;code&gt;+ 1&lt;/code&gt; converts the result back to a tagged integer.&lt;/p&gt;
+
+&lt;p&gt;Stephen's patch floats the arithmetic operations that involve constant operands outwards, eliminating most of the tag-munging code in favour of a final correcting addition:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+ &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10766&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Although these changes are not yet merged, you can easily try them out, thanks to Anil's script that &lt;a href=&quot;http://anil.recoil.org/2014/03/25/ocaml-github-and-opam.html&quot;&gt;makes compiler pull requests available as OPAM switches&lt;/a&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;opam switch 4.03.0+pr17
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a name=&quot;standard-library&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3&gt;Standard library and beyond&lt;/h3&gt;
+
+&lt;figure style=&quot;float: right; padding: 15px; width: 350px&quot;&gt;
+&lt;img src=&quot;http://i.imgur.com/KKsM0tu.jpg&quot; style=&quot;width: 350px&quot; alt=&quot;Camel library&quot;/&gt;&lt;br/&gt;
+&lt;figcaption&gt;&lt;center&gt;&lt;small&gt;(Literary advocate &lt;a href=&quot;http://www.papertigers.org/wordpress/interview-with-dashdondog-jamba-mongolian-author-and-literacy-advocate/&quot;&gt;Dashdondog Jamba&lt;/a&gt;, and his mobile library, described in &lt;a href=&quot;http://www.bookdepository.com/My-Librarian-Is-a-Camel-Margriet-Ruurs/9781590780930&quot;&gt;&lt;i&gt;My librarian is a camel&lt;/i&gt;&lt;/a&gt;)&lt;/small&gt;&lt;/center&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Our compiler hacking group defines &amp;quot;compiler&amp;quot; rather broadly.  As a result people often work on improving the standard library and tools as well as the compiler proper.  For example, in recent sessions, David added a small patch to &lt;a href=&quot;http://caml.inria.fr/mantis/view.php?id=6105&quot;&gt;expose the is_inet6_addr&lt;/a&gt; function, and &lt;a href=&quot;http://philippewang.info/&quot;&gt;Philippe&lt;/a&gt; proposed &lt;a href=&quot;https://github.com/ocaml/ocaml/pull/15&quot;&gt;a patch that eliminates unnecessary bounds checking&lt;/a&gt; in the buffer module.  The last session also saw &lt;a href=&quot;http://www.cl.cam.ac.uk/~rp452/&quot;&gt;Rapha&amp;euml;l&lt;/a&gt; and Simon push a &lt;a href=&quot;https://github.com/ocaml/opam-repository/pull/1961&quot;&gt;number&lt;/a&gt; &lt;a href=&quot;https://github.com/ocaml/opam-repository/pull/1968&quot;&gt;of&lt;/a&gt; &lt;a href=&quot;https://github.com/ocaml/opam-repository/pull/1972&quot;&gt;patches&lt;/a&gt; for integrating &lt;a href=&quot;https://github.com/the-lambda-church/merlin&quot;&gt;merlin&lt;/a&gt; with the &lt;a href=&quot;http://en.wikipedia.org/wiki/Acme_(text_editor)&quot;&gt;acme&lt;/a&gt; editor to OPAM, improving OCaml support in Plan 9.&lt;/p&gt;
+
+&lt;h2&gt;Next session&lt;/h2&gt;
+
+&lt;p&gt;The compiler hacking group is open to anyone with an interest in contributing to the OCaml compiler.  If you're local to Cambridge, you're welcome to join us at the &lt;a href=&quot;http://ocamllabs.github.io/compiler-hacking/2014/06/20/sixth-compiler-hacking-session.html&quot;&gt;next session&lt;/a&gt;!&lt;/p&gt;
+</content><id>http://ocamllabs.github.com/compiler-hacking/2014/06/24/highlights-from-recent-sessions</id><title type="text">Highlights from recent sessions</title><updated>2014-06-24T03:00:00-00:00</updated><author><email>cl-ocamllabs@lists.cam.ac.uk (OCaml Labs)</email><name>ocamllabs</name></author></entry><entry><link href="http://ocamllabs.github.com/compiler-hacking/2014/06/20/sixth-compiler-hacking-session" rel="alternate"/><contributor><uri>http://ocamllabs.io/compiler-hacking/rss.xml</uri><name>ocamllabs</name></contributor><content type="html">&lt;p&gt;(Update (2014-06-24): Stephen Dolan will be giving a demo of multicore OCaml!)&lt;/p&gt;
+
+&lt;p&gt;It's time for the sixth Cambridge OCaml compiler-hacking session!  We'll be meeting in the &lt;a href=&quot;http://www.cl.cam.ac.uk/&quot;&gt;Computer Lab&lt;/a&gt; again next Wednesday evening (25th June).&lt;/p&gt;
+
+&lt;p&gt;If you're planning to come along, it'd be helpful if you could &lt;a href=&quot;http://doodle.com/2ps9gunbkiy3tp6i&quot;&gt;&lt;em&gt;indicate interest via Doodle&lt;/em&gt;&lt;/a&gt; and &lt;a href=&quot;http://lists.ocaml.org/listinfo/cam-compiler-hacking&quot;&gt;&lt;em&gt;sign up to the mailing list&lt;/em&gt;&lt;/a&gt; to receive updates:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Where&lt;/em&gt;: Room &lt;a href=&quot;http://www.cl.cam.ac.uk/research/dtg/openroommap/static/?s=FW11&amp;amp;labels=1&quot;&gt;FW11&lt;/a&gt;, &lt;a href=&quot;http://www.cl.cam.ac.uk/directions/&quot;&gt;Computer Laboratory, Madingley Road&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;When&lt;/em&gt;: 6.30pm, Wednesday 25th June&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Who&lt;/em&gt;: anyone interested in improving OCaml. Knowledge of OCaml programming will obviously be helpful, but prior experience of working on OCaml internals isn't necessary.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;What&lt;/em&gt;: fixing bugs, implementing new features, learning about OCaml internals&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Wiki&lt;/em&gt;: &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki&quot;&gt;https://github.com/ocamllabs/compiler-hacking/wiki&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;We're defining &amp;quot;compiler&amp;quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.01/libref/index.html&quot;&gt;standard library&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual024.html&quot;&gt;runtime&lt;/a&gt;, tools (&lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.01/depend.html&quot;&gt;ocamldep&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html#toc105&quot;&gt;ocamllex&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html#toc107&quot;&gt;ocamlyacc&lt;/a&gt;, etc.), &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual032.html&quot;&gt;ocamlbuild&lt;/a&gt;, the &lt;a href=&quot;http://caml.inria.fr/resources/doc/index.en.html&quot;&gt;documentation&lt;/a&gt;, and the compiler itself. We'll have suggestions for &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on&quot;&gt;mini-projects&lt;/a&gt; for various levels of experience (see also some &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-previously-worked-on&quot;&gt;things we've worked on in previous sessions&lt;/a&gt;), but feel free to come along and work on whatever you fancy.&lt;/p&gt;
+
+&lt;p&gt;We'll also be ordering pizza, so if you want to be counted for food you should aim to arrive by 6.45pm.&lt;/p&gt;
+</content><id>http://ocamllabs.github.com/compiler-hacking/2014/06/20/sixth-compiler-hacking-session</id><title type="text">Sixth OCaml compiler hacking session</title><updated>2014-06-20T19:50:00-00:00</updated><author><email>cl-ocamllabs@lists.cam.ac.uk (OCaml Labs)</email><name>ocamllabs</name></author></entry><entry><link href="http://ocamllabs.github.com/compiler-hacking/2014/04/24/fifth-compiler-hacking-session" rel="alternate"/><contributor><uri>http://ocamllabs.io/compiler-hacking/rss.xml</uri><name>ocamllabs</name></contributor><content type="html">&lt;p&gt;It's time for the fifth Cambridge OCaml compiler-hacking session!  We'll be meeting in the &lt;a href=&quot;http://www.cl.cam.ac.uk/&quot;&gt;Computer Lab&lt;/a&gt; again next Tuesday evening.&lt;/p&gt;
+
+&lt;p&gt;If you're planning to come along, it'd be helpful if you could &lt;a href=&quot;http://doodle.com/iapgw89dvmxhnb4e&quot;&gt;&lt;em&gt;indicate interest via Doodle&lt;/em&gt;&lt;/a&gt; and &lt;a href=&quot;http://lists.ocaml.org/listinfo/cam-compiler-hacking&quot;&gt;&lt;em&gt;sign up to the mailing list&lt;/em&gt;&lt;/a&gt; to receive updates:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Where&lt;/em&gt;: Room &lt;a href=&quot;http://www.cl.cam.ac.uk/research/dtg/openroommap/static/?s=FW11&amp;amp;labels=1&quot;&gt;FW11&lt;/a&gt;, &lt;a href=&quot;http://www.cl.cam.ac.uk/directions/&quot;&gt;Computer Laboratory, Madingley Road&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;When&lt;/em&gt;: 6pm, Tuesday 29th April&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Who&lt;/em&gt;: anyone interested in improving OCaml. Knowledge of OCaml programming will obviously be helpful, but prior experience of working on OCaml internals isn't necessary.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;What&lt;/em&gt;: fixing bugs, implementing new features, learning about OCaml internals&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Wiki&lt;/em&gt;: &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki&quot;&gt;https://github.com/ocamllabs/compiler-hacking/wiki&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;We're defining &amp;quot;compiler&amp;quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.01/libref/index.html&quot;&gt;standard library&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual024.html&quot;&gt;runtime&lt;/a&gt;, tools (&lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.01/depend.html&quot;&gt;ocamldep&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html#toc105&quot;&gt;ocamllex&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html#toc107&quot;&gt;ocamlyacc&lt;/a&gt;, etc.), &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual032.html&quot;&gt;ocamlbuild&lt;/a&gt;, the &lt;a href=&quot;http://caml.inria.fr/resources/doc/index.en.html&quot;&gt;documentation&lt;/a&gt;, and the compiler itself. We'll have suggestions for &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on&quot;&gt;mini-projects&lt;/a&gt; for various levels of experience (see also some &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-previously-worked-on&quot;&gt;things we've worked on in previous sessions&lt;/a&gt;), but feel free to come along and work on whatever you fancy.&lt;/p&gt;
+
+&lt;p&gt;We'll also be ordering pizza, so if you want to be counted for food you should aim to arrive by 6.30pm.&lt;/p&gt;
+</content><id>http://ocamllabs.github.com/compiler-hacking/2014/04/24/fifth-compiler-hacking-session</id><title type="text">Fifth OCaml compiler hacking session</title><updated>2014-04-24T01:16:01-00:00</updated><author><email>cl-ocamllabs@lists.cam.ac.uk (OCaml Labs)</email><name>ocamllabs</name></author></entry><entry><link href="http://ocamllabs.github.com/compiler-hacking/2014/02/11/fourth-compiler-hacking-session" rel="alternate"/><contributor><uri>http://ocamllabs.io/compiler-hacking/rss.xml</uri><name>ocamllabs</name></contributor><content type="html">&lt;p&gt;It's time for the fourth Cambridge OCaml compiler-hacking session!  We'll be meeting in the &lt;a href=&quot;http://www.cl.cam.ac.uk/&quot;&gt;Computer Lab&lt;/a&gt; again next Tuesday evening.&lt;/p&gt;
+
+&lt;p&gt;If you're planning to come along, it'd be helpful if you could &lt;a href=&quot;http://doodle.com/5tk8rs5k3mh82qqx&quot;&gt;&lt;em&gt;indicate interest via Doodle&lt;/em&gt;&lt;/a&gt; and &lt;a href=&quot;http://lists.ocaml.org/listinfo/cam-compiler-hacking&quot;&gt;&lt;em&gt;sign up to the mailing list&lt;/em&gt;&lt;/a&gt; to receive updates:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Where&lt;/em&gt;: Room &lt;a href=&quot;http://www.cl.cam.ac.uk/research/dtg/openroommap/static/?s=FW11&amp;amp;labels=1&quot;&gt;FW11&lt;/a&gt;, &lt;a href=&quot;http://www.cl.cam.ac.uk/directions/&quot;&gt;Computer Laboratory, Madingley Road&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;When&lt;/em&gt;: 6pm, Tuesday 18th February&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Who&lt;/em&gt;: anyone interested in improving OCaml. Knowledge of OCaml programming will obviously be helpful, but prior experience of working on OCaml internals isn't necessary.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;What&lt;/em&gt;: fixing bugs, implementing new features, learning about OCaml internals&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Wiki&lt;/em&gt;: &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki&quot;&gt;https://github.com/ocamllabs/compiler-hacking/wiki&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;We're defining &amp;quot;compiler&amp;quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.01/libref/index.html&quot;&gt;standard library&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual024.html&quot;&gt;runtime&lt;/a&gt;, tools (&lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.01/depend.html&quot;&gt;ocamldep&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html#toc105&quot;&gt;ocamllex&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html#toc107&quot;&gt;ocamlyacc&lt;/a&gt;, etc.), &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual032.html&quot;&gt;ocamlbuild&lt;/a&gt;, the &lt;a href=&quot;http://caml.inria.fr/resources/doc/index.en.html&quot;&gt;documentation&lt;/a&gt;, and the compiler itself. We'll have suggestions for &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on&quot;&gt;mini-projects&lt;/a&gt; for various levels of experience (see also some &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-previously-worked-on&quot;&gt;things we've worked on in previous sessions&lt;/a&gt;), but feel free to come along and work on whatever you fancy.&lt;/p&gt;
+
+&lt;p&gt;We'll also be ordering pizza, so if you want to be counted for food you should aim to arrive by 6.30pm.&lt;/p&gt;
+</content><id>http://ocamllabs.github.com/compiler-hacking/2014/02/11/fourth-compiler-hacking-session</id><title type="text">Fourth OCaml compiler hacking session</title><updated>2014-02-11T12:10:29-00:00</updated><author><email>cl-ocamllabs@lists.cam.ac.uk (OCaml Labs)</email><name>ocamllabs</name></author></entry><entry><link href="http://ocamllabs.github.com/compiler-hacking/2014/02/04/handler-case" rel="alternate"/><contributor><uri>http://ocamllabs.io/compiler-hacking/rss.xml</uri><name>ocamllabs</name></contributor><content type="html">&lt;p&gt;(Update (2014-05-28): Added notes on &lt;a href=&quot;http://ocamllabs.io/compiler-hacking/rss.xml#delimcc&quot;&gt;delimcc&lt;/a&gt; and &lt;a href=&quot;http://ocamllabs.io/compiler-hacking/rss.xml#catch-me&quot;&gt;Catch me if you can&lt;/a&gt; to the &lt;em&gt;Discoveries&lt;/em&gt; section.)&lt;/p&gt;
+
+&lt;p&gt;(Update (2014-05-05): The &lt;a href=&quot;http://ocamllabs.io/compiler-hacking/rss.xml#match-exception&quot;&gt;&lt;code&gt;match/exception&lt;/code&gt;&lt;/a&gt; variant of this proposal has been &lt;a href=&quot;https://github.com/ocaml/ocaml/commit/0f1fb19cbe48918c5d070e475c39052875623a85&quot;&gt;merged into OCaml trunk&lt;/a&gt;, ready for release in 4.02.)&lt;/p&gt;
+
+&lt;p&gt;(Update: there's a &lt;a href=&quot;http://caml.inria.fr/mantis/view.php?id=6318&quot;&gt;Mantis issue open&lt;/a&gt; to discuss this proposal.)&lt;/p&gt;
+
+&lt;p&gt;OCaml's &lt;code&gt;try&lt;/code&gt; construct is good at dealing with exceptions, but not so good at handling the case where no exception is raised.  This post describes a simple extension to &lt;code&gt;try&lt;/code&gt; that adds support for handling the &amp;quot;success&amp;quot; case.&lt;/p&gt;
+
+&lt;p&gt;Here's an example of code that benefits from the extension.  On a recent &lt;a href=&quot;http://caml.inria.fr/resources/forums.en.html&quot;&gt;caml-list&lt;/a&gt; thread, &lt;a href=&quot;http://cedeela.fr/~simon/&quot;&gt;Simon Cruanes&lt;/a&gt; posted &lt;a href=&quot;https://sympa.inria.fr/sympa/arc/caml-list/2014-01/msg00113.html&quot;&gt;the following function&lt;/a&gt; for iterating over a stream:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;iter_stream&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;MyStream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;End_of_stream&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;iter_stream&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;For each element of a stream, &lt;code&gt;iter_stream&lt;/code&gt; wraps the element with &lt;code&gt;Some&lt;/code&gt;, then unwraps it again and passes it to &lt;code&gt;f&lt;/code&gt;.  At first glance, wrapping and immediately unwrapping in this way seems like needless obfuscation.  However, moving the last two lines out of the body of the &lt;code&gt;try&lt;/code&gt; in this way serves two essential purposes: it turns the recursive call to &lt;code&gt;iter_stream&lt;/code&gt; into a tail call, and it allows exceptions raised by &lt;code&gt;f&lt;/code&gt; to propagate.  More generally, this use of options makes it easy to specify the &lt;em&gt;success continuation&lt;/em&gt; of a &lt;code&gt;try&lt;/code&gt; expression, i.e. the piece of code that receives the value of the body when no exception is raised.&lt;/p&gt;
+
+&lt;p&gt;As Simon notes, the &lt;code&gt;match (try Some ...)&lt;/code&gt; idiom is widely used in OCaml code.  Examples can be found in the source of &lt;a href=&quot;https://github.com/ocsigen/lwt/blob/b63b2a/src/unix/lwt_unix.ml#L118-L125&quot;&gt;lwt&lt;/a&gt;, &lt;a href=&quot;https://github.com/ocaml-batteries-team/batteries-included/blob/92ea390c/benchsuite/bench_nreplace.ml#L45-L48&quot;&gt;batteries&lt;/a&gt;, &lt;a href=&quot;https://github.com/savonet/liquidsoap/blob/a81cd8b6/src/decoder/metadata_decoder.ml#L53-L55&quot;&gt;liquidsoap&lt;/a&gt;, &lt;a href=&quot;https://github.com/janestreet/sexplib/blob/f9bd413/lib/conv.ml#L256-L259&quot;&gt;sexplib&lt;/a&gt;, &lt;a href=&quot;https://github.com/MLstate/opalang/blob/0802728/compiler/opalang/opaParser.ml#L127-L135&quot;&gt;opa&lt;/a&gt;, &lt;a href=&quot;https://github.com/avsm/ocaml-uri/blob/35af64db/lib/uri.ml#L250-L255&quot;&gt;uri&lt;/a&gt;, &lt;a href=&quot;https://github.com/coq/coq/blob/724c9c9f/tools/coqdoc/tokens.ml#L36-L41&quot;&gt;coq&lt;/a&gt;, &lt;a href=&quot;https://github.com/pascal-bach/Unison/blob/4788644/src/ubase/prefs.ml#L97-L106&quot;&gt;unison&lt;/a&gt;, and many other packages.  &lt;/p&gt;
+
+&lt;p&gt;In response to Simon's message, &lt;a href=&quot;http://okmij.org/ftp&quot;&gt;Oleg&lt;/a&gt; pointed out &lt;a href=&quot;https://sympa.inria.fr/sympa/arc/caml-list/2014-01/msg00146.html&quot;&gt;a solution&lt;/a&gt;: the 2001 paper &lt;a href=&quot;http://research.microsoft.com/~akenn/sml/exceptionalsyntax.pdf&quot;&gt;Exceptional Syntax&lt;/a&gt;  (&lt;a href=&quot;http://research.microsoft.com/~nick/&quot;&gt;Benton&lt;/a&gt; and &lt;a href=&quot;http://research.microsoft.com/~akenn/&quot;&gt;Kennedy&lt;/a&gt;) extends &lt;code&gt;try&lt;/code&gt; with a &lt;code&gt;let&lt;/code&gt;-like binding construct that supports the success continuation idiom directly without the need for the option value.&lt;/p&gt;
+
+
+
+&lt;p&gt;This post describes a patch to OCaml that implements a variant of Benton and Kennedy's design called &lt;em&gt;handler case&lt;/em&gt;.  Like Exceptional Syntax, handler case extends &lt;code&gt;try&lt;/code&gt; with explicit success continuation handling.  However, unlike Exceptional syntax, handler case uses &lt;code&gt;match&lt;/code&gt; binding for both the success continuation and the exception-handling clauses.  Here's the extended &lt;code&gt;try&lt;/code&gt; syntax:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expr&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pattern_1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expr_1&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pattern_n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expr_n&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pattern_1'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expr_1'&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pattern_n'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expr_n'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;As in &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/expr.html#@manual.kwd50&quot;&gt;current OCaml&lt;/a&gt;, the clauses &lt;code&gt;pattern_1 -&amp;gt; expr_1&lt;/code&gt; ... &lt;code&gt;pattern_n -&amp;gt; expr_n&lt;/code&gt; handle exceptions raised during the evaluation of &lt;code&gt;expr&lt;/code&gt;.  The clauses  &lt;code&gt;val pattern_1' -&amp;gt; expr_1'&lt;/code&gt; ... &lt;code&gt;val pattern_n' -&amp;gt; expr_n'&lt;/code&gt; handle the case where no exception is raised; in this case the value of &lt;code&gt;expr&lt;/code&gt; is matched against &lt;code&gt;pattern_1'&lt;/code&gt; ... &lt;code&gt;pattern_n'&lt;/code&gt; to select the expression to evaluate to produce the result value.  (The actual syntax is implemented slightly more permissively: it allows value-matching and exception-matching clauses to be freely interleaved.)&lt;/p&gt;
+
+&lt;p&gt;Using handler case we can rewrite &lt;code&gt;iter_stream&lt;/code&gt; to remove the extraneous option value:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;iter_stream&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;MyStream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;End_of_stream&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;
+     &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+                      &lt;span class=&quot;n&quot;&gt;iter_stream&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We don't need to look far to find other code that benefits from the new construct.  Here's a function from the &lt;a href=&quot;https://github.com/ocaml/ocaml/blob/6a296a02/otherlibs/num/big_int.ml#L323-L328&quot;&gt;Big_int&lt;/a&gt; module in the standard library: &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;int_of_big_int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bi&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;int_of_nat&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;abs_value&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sign&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Failure&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq_big_int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bi&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;monster_big_int&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;monster_int&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;failwith&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;int_of_big_int&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The core of the function --- the call to &lt;code&gt;int_of_nat&lt;/code&gt; --- is rather buried in the complex control flow.  There are two &lt;code&gt;if&lt;/code&gt;-&lt;code&gt;then&lt;/code&gt;-&lt;code&gt;else&lt;/code&gt; constructs, a &lt;code&gt;let&lt;/code&gt; binding, and a &lt;code&gt;try&lt;/code&gt; expression with a complex body.  Using handler case we can disentangle the code to make the four possible outcomes from the call to &lt;code&gt;int_of_nat&lt;/code&gt; explicit:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;int_of_big_int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bi&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;int_of_nat&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;abs_value&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sign&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+     &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Failure&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq_big_int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bi&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;monster_big_int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;monster_int&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Failure&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;failwith&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;int_of_big_int&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Here's a simpler example from &lt;a href=&quot;https://github.com/ocaml/ocaml/blob/6a296a02/stdlib/string.ml#L195&quot;&gt;the String module&lt;/a&gt;, which also involves code that cannot raise an exception in the body of a &lt;code&gt;try&lt;/code&gt; block:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ignore&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index_rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Not_found&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;false&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Using handler case we can separate the code that may raise an exception (the call to &lt;code&gt;index_rec&lt;/code&gt;) from the expression that produces the result:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index_rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Not_found&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;false&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;Trying it out&lt;/h3&gt;
+
+&lt;p&gt;Using &lt;a href=&quot;http://opam.ocaml.org/&quot;&gt;opam&lt;/a&gt; you can install an OCaml compiler extended with handler case as follows:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;$ opam remote add ocamllabs git@github.com:ocamllabs/opam-repo-dev.git
+ocamllabs Fetching git@github.com:ocamllabs/opam-repo-dev.git
+[...]
+$ opam switch 4.02.0dev+handler-syntax
+# To complete the configuration of OPAM, you need to run:
+eval `opam config env`
+$ eval `opam config env`
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;js&lt;em&gt;of&lt;/em&gt;ocaml&lt;/h4&gt;
+
+&lt;p&gt;You can also try out the handler case construct in your browser, using the following modified version of &lt;a href=&quot;http://www.ocamlpro.com/&quot;&gt;OCamlPro&lt;/a&gt;'s &lt;a href=&quot;http://try.ocamlpro.com/&quot;&gt;Try OCaml&lt;/a&gt; application:&lt;/p&gt;
+
+&lt;h3&gt;The discoveries of success continuations&lt;/h3&gt;
+
+&lt;p&gt;As &lt;a href=&quot;http://homepages.inf.ed.ac.uk/wadler&quot;&gt;Philip Wadler&lt;/a&gt; &lt;a href=&quot;http://wadler.blogspot.co.uk/2008/02/great-minds-think-alike.html&quot;&gt;notes&lt;/a&gt;, constructs for handling success continuations have been independently discovered multiple times.  In fact, the history goes back even further than described in Wadler's blog; constructs like handler case date back over thirty years and have been introduced, apparently independently, into at least four languages.  Curiously, all the languages use &lt;code&gt;let&lt;/code&gt;-binding for success continuations and &lt;code&gt;match&lt;/code&gt; binding for failure continuations.&lt;/p&gt;
+
+&lt;h4&gt;Lisp&lt;/h4&gt;
+
+&lt;p&gt;In &lt;a href=&quot;http://www.lispworks.com/documentation/HyperSpec/Front/&quot;&gt;Common Lisp&lt;/a&gt; the construct analogous to &lt;code&gt;try&lt;/code&gt; is &lt;a href=&quot;http://clhs.lisp.se/Body/m_hand_1.htm&quot;&gt;&lt;code&gt;handler-case&lt;/code&gt;&lt;/a&gt; (from which the construct discussed here borrows its name).  A &lt;code&gt;handler-case&lt;/code&gt; expression has a body and a sequence of clauses which specify how various conditions (exceptions) should be handled.  The special condition specification &lt;code&gt;:no-error&lt;/code&gt; specifies the code to run when no condition is signalled.  The &lt;code&gt;iter_stream&lt;/code&gt; function might be written as follows in Common Lisp:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-common-lisp&quot; data-lang=&quot;common-lisp&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defun&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;iter-stream&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;handler-case&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;get-stream&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;end-of-stream&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:no-error&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;|s'|&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+         &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;funcall&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+         &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;iter-stream&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;|s'|&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The Common Lisp specification was completed in 1994 but the &lt;code&gt;handler-case&lt;/code&gt; construct and its &lt;code&gt;:no-error&lt;/code&gt; clause were present in some of Common Lisp's progenitors.  The construct was apparently introduced to Symbolics Lisp some time around 1982: it appears in the &lt;a href=&quot;http://bitsavers.informatik.uni-stuttgart.de/pdf/mit/cadr/chinual_5thEd_Jan83/chinualJan83_27_Errors.pdf&quot;&gt;5th edition&lt;/a&gt; of the Lisp Machine manual (January 1983) but not the &lt;a href=&quot;http://bitsavers.trailing-edge.com/pdf/mit/cadr/chinual_4thEd_Jul81.pdf&quot;&gt;4th edition&lt;/a&gt; from 18 months earlier (July 1981).&lt;/p&gt;
+
+&lt;h4&gt;Python&lt;/h4&gt;
+
+&lt;p&gt;Python has supported success continuations in exception handlers since May 1994, when the &lt;code&gt;else&lt;/code&gt; clause was added to &lt;code&gt;try&lt;/code&gt; blocks.  The &lt;a href=&quot;http://hg.python.org/cpython/file/36214c861144/Grammar/Grammar#l9&quot;&gt;Changelog in old versions of the Grammar/Grammar file&lt;/a&gt; has an entry&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;# 3-May-94:
+#Added else clause to try-except
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;introduced in a &lt;a href=&quot;http://hg.python.org/cpython/rev/6c0e11b94009&quot;&gt;commit from August 1994&lt;/a&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;changeset:   1744:6c0e11b94009
+branch:      legacy-trunk
+user:        Guido van Rossum &amp;lt;guido@python.org&amp;gt;
+date:        Mon Aug 01 11:00:20 1994 +0000
+summary:     Bring alpha100 revision back to mainline
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;Unlike the &lt;code&gt;:no-error&lt;/code&gt; clause in Lisp's &lt;code&gt;handler-case&lt;/code&gt;, Python's &lt;code&gt;else&lt;/code&gt; clause doesn't bind variables.  Since Python variables have function scope, not block scope, bindings in the body of the try block are visible throughout the function.  In Python we might write &lt;code&gt;iter_stream&lt;/code&gt; as follows:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;iter_stream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MyStream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;End_of_stream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;iter_stream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The provenance of the &lt;code&gt;else&lt;/code&gt; clause is unclear, but it doesn't seem to derive from Lisp's &lt;code&gt;handler-case&lt;/code&gt;.  The design of Python's exception handling constructs &lt;a href=&quot;http://docs.python.org/3/faq/general.html#why-was-python-created-in-the-first-place&quot;&gt;comes from Modula-3&lt;/a&gt;, but the exception handling construct described in the &lt;a href=&quot;http://www.hpl.hp.com/techreports/Compaq-DEC/SRC-RR-52.pdf&quot;&gt;Modula-3 report&lt;/a&gt; does not include a way of specifying the success continuation.  The syntax of the Modula-3 &lt;code&gt;TRY&lt;/code&gt;/&lt;code&gt;EXCEPT&lt;/code&gt; statement (found on p21 of the report) does include an &lt;code&gt;ELSE&lt;/code&gt; clause:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;   TRY    
+     Body
+   EXCEPT
+     id1 (v1) =&amp;gt; Handler1
+   | ...
+   | idn (vn) =&amp;gt; Handlern
+   ELSE Handler0
+   END
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;However, whereas Python's &lt;code&gt;else&lt;/code&gt; handles the case where no exception is raised, Modula-3's &lt;code&gt;ELSE&lt;/code&gt; handles the case where an exception not named in one of the &lt;code&gt;EXCEPT&lt;/code&gt; clauses is raised: it is equivalent to Python's catch-all &lt;code&gt;except:&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Python also adds success handlers to other constructs.  Both the &lt;a href=&quot;http://docs.python.org/2/reference/compound_stmts.html#the-for-statement&quot;&gt;&lt;code&gt;for&lt;/code&gt;&lt;/a&gt; and the &lt;a href=&quot;http://docs.python.org/2/reference/compound_stmts.html#the-while-statement&quot;&gt;&lt;code&gt;while&lt;/code&gt;&lt;/a&gt; statements have an optional &lt;code&gt;else&lt;/code&gt; clause which is executed unless the loop terminates prematurely with an exception or &lt;code&gt;break&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;exceptional-syntax&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4&gt;Exceptional Syntax&lt;/h4&gt;
+
+&lt;p&gt;The 2001 paper &lt;a href=&quot;http://research.microsoft.com/~akenn/sml/exceptionalsyntax.pdf&quot;&gt;Exceptional Syntax&lt;/a&gt; (&lt;a href=&quot;http://research.microsoft.com/~nick/&quot;&gt;Benton&lt;/a&gt; and &lt;a href=&quot;http://research.microsoft.com/~akenn/&quot;&gt;Kennedy&lt;/a&gt;) proposed the following construct for handling exceptions in Standard ML:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pattern_1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expr_1&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pattern_n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expr_n&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;expr&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;unless&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;pattern_1'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expr_1'&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pattern_n'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expr_n'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Evaluation of the &lt;code&gt;let&lt;/code&gt; binding proceeds as normal, except that if any of &lt;code&gt;expr_1&lt;/code&gt; to &lt;code&gt;expr_n&lt;/code&gt; raises an exception, control is transferred to the right hand side of the first of the clauses after &lt;code&gt;unless&lt;/code&gt; whose left hand side matches the exception.  The construct is largely similar to our proposed variation, except that the bindings used in the success continuation are based on &lt;code&gt;let&lt;/code&gt;, so scrutinising the values requires a separate &lt;code&gt;case&lt;/code&gt; (i.e. &lt;code&gt;match&lt;/code&gt;) expression.&lt;/p&gt;
+
+&lt;p&gt;Using the Exceptional Syntax construct we might write &lt;code&gt;iter_stream&lt;/code&gt; as follows:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;iter_stream&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;MyStream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;iter_stream&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s'&lt;/span&gt;
+ &lt;span class=&quot;n&quot;&gt;unless&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;End_of_stream&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Exceptional Syntax has been implemented in the SML-to-Java compiler &lt;a href=&quot;http://www.dcs.ed.ac.uk/home/mlj/&quot;&gt;MLj&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4&gt;Erlang&lt;/h4&gt;
+
+&lt;p&gt;The 2004 paper &lt;a href=&quot;http://erlang.se/workshop/2004/exception.pdf&quot;&gt;Erlang's Exception Handling Revisited&lt;/a&gt; (Richard Carlsson, Bj&amp;ouml;rn Gustavsson and Patrik Nyblom) proposed an exception-handling construct for Erlang along the same lines as exceptional syntax, although apparently developed independently.  In the proposed extension to Erlang we might write &lt;code&gt;iter_stream&lt;/code&gt; as follows:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-erlang&quot; data-lang=&quot;erlang&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;iter_stream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Mystream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;S_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;iter_stream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;S_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;with&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;End_of_stream&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;Eff&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://homepages.inf.ed.ac.uk/gdp/&quot;&gt;Plotkin&lt;/a&gt; and &lt;a href=&quot;http://matija.pretnar.info/&quot;&gt;Pretnar&lt;/a&gt;'s work on &lt;a href=&quot;http://matija.pretnar.info/pdf/handling-algebraic-effects.pdf&quot;&gt;handlers for algebraic effects&lt;/a&gt; generalises Exceptional Syntax to support effects other than exceptions.  The programming language &lt;a href=&quot;http://math.andrej.com/eff/&quot;&gt;eff&lt;/a&gt; implements a design based on this work, and supports Exceptional Syntax, again with &lt;code&gt;let&lt;/code&gt; binding for the success continuation.  (Although the success continuation is incorporated into the exception matching construct, only a single success continuation pattern is allowed.)  In eff we might write &lt;code&gt;iter_stream&lt;/code&gt; as follows:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;iter_stream&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;handle&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;my_stream_get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end_of_stream&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;
+     &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+                      &lt;span class=&quot;n&quot;&gt;iter_stream&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The second argument in the &lt;code&gt;end_of_stream&lt;/code&gt; clauses binds the continuation of the effect, allowing handling strategies other than the usual stack unwinding.  Since we ignore the continuation argument the behaviour is the same as for a regular exception handler.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://github.com/matijapretnar/eff/blob/2a9a36cc/src/parser.mly#L4-L7&quot;&gt;eff implementation&lt;/a&gt; uses the term &amp;quot;handler case&amp;quot; for the clauses of the &lt;code&gt;handle&lt;/code&gt; construct.&lt;/p&gt;
+
+&lt;h4&gt;OCaml&lt;/h4&gt;
+
+&lt;p&gt;Several OCaml programmers have proposed or implemented constructs related to handler case.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;delimcc&quot;&gt;&lt;/a&gt;
+Oleg's &lt;a href=&quot;http://okmij.org/ftp/continuations/implementations.html&quot;&gt;delimcc&lt;/a&gt; library for delimited continuations provides the operations needed to support the success continuation style.  The programmer can use &lt;code&gt;push_prompt&lt;/code&gt; to establish a context, then call &lt;code&gt;shift&lt;/code&gt; or &lt;code&gt;shift0&lt;/code&gt; to return control to that context later, much as &lt;code&gt;try&lt;/code&gt; establishes a context to which &lt;code&gt;raise&lt;/code&gt; can transfer control.  If &lt;code&gt;shift&lt;/code&gt; is not called then control returns normally from the continuation argument to &lt;code&gt;push_prompt&lt;/code&gt;.  Using delimcc we might implement &lt;code&gt;iter_stream&lt;/code&gt; as follows:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;iter_stream&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_prompt&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;push_prompt&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;my_stream_get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;iter_stream&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s'&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;End_of_stream&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;http://mjambon.com/&quot;&gt;Martin Jambon&lt;/a&gt; has &lt;a href=&quot;http://mjambon.com/mikmatch-manual.html#htoc16&quot;&gt;implemented&lt;/a&gt; a construct equivalent to Exceptional Syntax for OCaml as part of the &lt;a href=&quot;http://mjambon.com/micmatch.html&quot;&gt;micmatch extension&lt;/a&gt;.  His implementation allows us to write &lt;code&gt;iter_stream&lt;/code&gt; in much the same way as Benton and Kennedy's proposal:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;iter_stream&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;my_stream_get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;iter_stream&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s'&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;End_of_stream&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The details of the implementation are discussed in &lt;a href=&quot;https://twitter.com/jakedonham&quot;&gt;Jake Donham&lt;/a&gt;'s &lt;a href=&quot;http://ambassadortothecomputers.blogspot.co.uk/2010/09/reading-camlp4-part-11-syntax.html&quot;&gt;articles on Camlp4&lt;/a&gt;.  The micmatch implementation has a novel feature: the &lt;code&gt;let&lt;/code&gt; binding associated with the success continuation may be made recursive.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://alain.frisch.fr/&quot;&gt;Alain Frisch&lt;/a&gt; has proposed and implemented a more powerful extension to OCaml, &lt;a href=&quot;http://www.lexifi.com/blog/static-exceptions&quot;&gt;Static Exceptions&lt;/a&gt;, which allow transfer of control to lexically-visible handlers (along the lines of Common Lisp's &lt;a href=&quot;http://clhs.lisp.se/Body/s_block.htm#block&quot;&gt;&lt;code&gt;block&lt;/code&gt;&lt;/a&gt; and &lt;a href=&quot;http://clhs.lisp.se/Body/s_ret_fr.htm#return-from&quot;&gt;&lt;code&gt;return-from&lt;/code&gt;&lt;/a&gt;).  Static exceptions are based on an equivalent feature in OCaml's intermediate language.&lt;/p&gt;
+
+&lt;p&gt;There is a straightforward translation from OCaml extended with handler case into OCaml extended with static exceptions by wrapping the body of each &lt;code&gt;try&lt;/code&gt; expression in &lt;code&gt;raise (`Val (...))&lt;/code&gt;, and changing the &lt;code&gt;val&lt;/code&gt; keyword in the binding section to &lt;code&gt;`Val&lt;/code&gt;.  For example, &lt;code&gt;iter_stream&lt;/code&gt; can be written using static exceptions as follows:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;iter_stream&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;raise&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(`&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;MyStream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;End_of_stream&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;
+     &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+                       &lt;span class=&quot;n&quot;&gt;iter_stream&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Of course, static exceptions allow many other programs to be expressed that are not readily expressible using handler case.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;catch-me&quot;&gt;&lt;/a&gt;
+In their 2008 paper &lt;a href=&quot;http://www.univ-orleans.fr/lifo/Members/David.Teller/publications/ml2008.pdf&quot;&gt;Catch me if you can: Towards type-safe, hierarchical, lightweight, polymorphic and efficient error management in OCaml&lt;/a&gt; David Teller Arnaud Spiwack and Till Varoquaux added an &lt;code&gt;attempt&lt;/code&gt; keyword to OCaml that extends &lt;code&gt;match&lt;/code&gt;-style pattern matching with both a single optional value case and an optional &lt;code&gt;finally&lt;/code&gt; clause.&lt;/p&gt;
+
+&lt;p&gt;Finally, I discovered while writing this article that Christophe Raffalli proposed the handler case design fifteen years ago in a &lt;a href=&quot;http://caml.inria.fr/pub/ml-archives/caml-list/1999/12/a6d3ce9671b16a33530035c2b42df011.en.html&quot;&gt;message to caml-list&lt;/a&gt;!  Christophe's proposal wasn't picked up back then, but perhaps the time has now come to give OCaml programmers a way to handle success.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;match-exception&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3&gt;Postscript: a symmetric extension&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code&gt;try&lt;/code&gt; construct in current OCaml supports matching against raised exceptions but not against the value produced when no exception is raised.  Contrariwise, the &lt;code&gt;match&lt;/code&gt; construct supports matching against the value produced when no exception is raised, but does not support matching against raised exceptions.  As implemented, the patch addresses this asymmetry, extending &lt;code&gt;match&lt;/code&gt; with clauses that specify the &amp;quot;failure continuation&amp;quot;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expr&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pattern_1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expr_1&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pattern_n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expr_n&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;exception&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pattern_1'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expr_1'&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;exception&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pattern_n'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expr_n'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;With this additional extension the choice between &lt;code&gt;match&lt;/code&gt; and &lt;code&gt;try&lt;/code&gt; becomes purely stylistic.  We might optimise for succinctness, and use &lt;code&gt;try&lt;/code&gt; in the case where exceptions are expected (for example, where they're used for control flow), reserving &lt;code&gt;match&lt;/code&gt; for the case where exceptions are truly exceptional.&lt;/p&gt;
+
+&lt;p&gt;For the sake of completeness, here's &lt;code&gt;iter_stream&lt;/code&gt; written with the extended &lt;code&gt;match&lt;/code&gt; construct:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;iter_stream&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;MyStream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+     &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;iter_stream&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s'&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;exception&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;End_of_stream&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Since both &lt;code&gt;val&lt;/code&gt; and &lt;code&gt;exception&lt;/code&gt; are existing keywords, the extensions to both &lt;code&gt;try&lt;/code&gt; and &lt;code&gt;match&lt;/code&gt; are fully backwards compatible. &lt;/p&gt;
+</content><id>http://ocamllabs.github.com/compiler-hacking/2014/02/04/handler-case</id><title type="text">How to handle success</title><updated>2014-02-04T16:05:05-00:00</updated><author><email>cl-ocamllabs@lists.cam.ac.uk (OCaml Labs)</email><name>ocamllabs</name></author></entry><entry><link href="http://ocamllabs.github.com/compiler-hacking/2013/10/30/third-compiler-hacking-session" rel="alternate"/><contributor><uri>http://ocamllabs.io/compiler-hacking/rss.xml</uri><name>ocamllabs</name></contributor><content type="html">&lt;p&gt;It's time for the third Cambridge OCaml compiler-hacking session! This time we're going to be back in the &lt;a href=&quot;http://www.cl.cam.ac.uk/&quot;&gt;Computer Lab&lt;/a&gt;, where the first session was held.&lt;/p&gt;
+
+&lt;p&gt;If you're planning to come along, it'd be helpful if you could &lt;a href=&quot;http://doodle.com/czzp7ik4r72npz6p&quot;&gt;&lt;em&gt;indicate interest via Doodle&lt;/em&gt;&lt;/a&gt; and &lt;a href=&quot;http://lists.ocaml.org/listinfo/cam-compiler-hacking&quot;&gt;&lt;em&gt;sign up to the mailing list&lt;/em&gt;&lt;/a&gt; to receive updates:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Where&lt;/em&gt;: Room &lt;a href=&quot;http://www.cl.cam.ac.uk/research/dtg/openroommap/static/?s=FW11&amp;amp;labels=1&quot;&gt;FW11&lt;/a&gt;, &lt;a href=&quot;http://www.cl.cam.ac.uk/directions/&quot;&gt;Computer Laboratory, Madingley Road&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;When&lt;/em&gt;: 6pm, Wednesday 6th November&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Who&lt;/em&gt;: anyone interested in improving OCaml. Knowledge of OCaml programming will obviously be helpful, but prior experience of working on OCaml internals isn't necessary.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;What&lt;/em&gt;: fixing bugs, implementing new features, learning about OCaml internals&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Wiki&lt;/em&gt;: &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki&quot;&gt;https://github.com/ocamllabs/compiler-hacking/wiki&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;We're defining &amp;quot;compiler&amp;quot; pretty broadly, to include anything that's part of the standard distribution, which means at least the &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.01/libref/index.html&quot;&gt;standard library&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual024.html&quot;&gt;runtime&lt;/a&gt;, tools (&lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.01/depend.html&quot;&gt;ocamldep&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html#toc105&quot;&gt;ocamllex&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html#toc107&quot;&gt;ocamlyacc&lt;/a&gt;, etc.), &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-camlp4/manual002.html&quot;&gt;camlp4&lt;/a&gt;, &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual032.html&quot;&gt;ocamlbuild&lt;/a&gt;, the &lt;a href=&quot;http://caml.inria.fr/resources/doc/index.en.html&quot;&gt;documentation&lt;/a&gt;, and the compiler itself. We'll have suggestions for &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on&quot;&gt;mini-projects&lt;/a&gt; for various levels of experience, but feel free to come along and work on whatever you fancy.&lt;/p&gt;
+
+&lt;p&gt;We'll also be ordering pizza, so if you want to be counted for food you should aim to arrive by 6.30pm.&lt;/p&gt;
+</content><id>http://ocamllabs.github.com/compiler-hacking/2013/10/30/third-compiler-hacking-session</id><title type="text">Third OCaml compiler hacking session</title><updated>2013-10-30T11:49:04-00:00</updated><author><email>cl-ocamllabs@lists.cam.ac.uk (OCaml Labs)</email><name>ocamllabs</name></author></entry><entry><link href="http://ocamllabs.github.com/compiler-hacking/2013/09/17/compiler-hacking-july-2013" rel="alternate"/><contributor><uri>http://ocamllabs.io/compiler-hacking/rss.xml</uri><name>ocamllabs</name></contributor><content type="html">&lt;p&gt;&lt;img src=&quot;http://ocamllabs.io/compiler-hacking/imgs/2013-09-17.jpg&quot; alt=&quot;Compiler Hacking&quot;/&gt;&lt;/p&gt;
+
+&lt;p&gt;The first OCaml Labs compiler hacking session brought together around twenty people from &lt;a href=&quot;http://www.cl.cam.ac.uk/projects/ocamllabs/&quot;&gt;OCaml Labs&lt;/a&gt;, the wider &lt;a href=&quot;http://www.cl.cam.ac.uk&quot;&gt;Computer Lab&lt;/a&gt;, and &lt;a href=&quot;http://www.citrix.com/&quot;&gt;various&lt;/a&gt; &lt;a href=&quot;http://www.arm.com/&quot;&gt;companies&lt;/a&gt; around Cambridge for an enjoyable few hours learning about and improving the OCaml compiler toolchain, fuelled by &lt;a href=&quot;http://www.cherryboxpizza.co.uk&quot;&gt;pizza&lt;/a&gt; and home-made ice cream (thanks, &lt;a href=&quot;http://philippewang.info/CL/&quot;&gt;Philippe&lt;/a&gt;!).&lt;/p&gt;
+
+&lt;p&gt;We benefited from the presence of a few &lt;a href=&quot;http://www.x9c.fr/&quot;&gt;experienced&lt;/a&gt; &lt;a href=&quot;http://danmey.org/&quot;&gt;compiler&lt;/a&gt; &lt;a href=&quot;http://lpw25.net/&quot;&gt;hackers&lt;/a&gt;, but for most of us it was the first attempt to modify the OCaml compiler internals.&lt;/p&gt;
+
+&lt;p&gt;The first surprise of the day was the discovery that work on the &lt;a href=&quot;https://github.com/ocamllabs/compiler-hacking/wiki/Things-to-work-on&quot;&gt;list of projects&lt;/a&gt; was underway before we even arrived!  Keen collaborators from The Internet had apparently spotted our triaged bug reports and &lt;a href=&quot;http://caml.inria.fr/mantis/view.php?id=4323&quot;&gt;submitted&lt;/a&gt; &lt;a href=&quot;http://caml.inria.fr/mantis/view.php?id=4737&quot;&gt;patches&lt;/a&gt; to Mantis.&lt;/p&gt;
+
+&lt;h3&gt;Standard library and runtime&lt;/h3&gt;
+
+&lt;p&gt;There was an exciting moment early on when it emerged that two teams had been working independently on the same issue!  When &lt;a href=&quot;https://github.com/jonludlam&quot;&gt;Jon Ludlam&lt;/a&gt; and &lt;a href=&quot;http://www.cl.cam.ac.uk/projects/ocamllabs/people/euan.html&quot;&gt;Euan Harris&lt;/a&gt; submitted a patch to add a &lt;code&gt;get_extension&lt;/code&gt; function to the &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml/libref/Filename.html&quot;&gt;&lt;code&gt;Filename&lt;/code&gt;&lt;/a&gt; module they found that they had been pipped to the post by &lt;a href=&quot;https://github.com/mcclurmc/&quot;&gt;Mike McClurg&lt;/a&gt;.  There's still the judging stage to go, though, as the patches wait &lt;a href=&quot;http://caml.inria.fr/mantis/view.php?id=5807&quot;&gt;on Mantis&lt;/a&gt; for official pronouncement from the Inria team. &lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://github.com/vbmithr&quot;&gt;Vincent Bernardoff&lt;/a&gt; also spent some time improving the standard library, &lt;a href=&quot;http://caml.inria.fr/mantis/view.php?id=4919&quot;&gt;fleshing out the interface for translating between OCaml and C error codes&lt;/a&gt;, starting from a patch by Goswin von Brederlow.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/stedolan&quot;&gt;Stephen Dolan&lt;/a&gt; looked at a &lt;a href=&quot;http://caml.inria.fr/mantis/view.php?id=1956&quot;&gt;long-standing issue&lt;/a&gt; with names exported by the OCaml runtime that can clash with other libraries, and submitted a patch which hides the sole remaining offender for the runtime library.  As he noted in the comments, there are still a &lt;a href=&quot;https://gist.github.com/stedolan/6115403&quot;&gt;couple of hundred&lt;/a&gt; global names without the &lt;code&gt;caml_&lt;/code&gt; prefix in the &lt;code&gt;otherlibs&lt;/code&gt; section of the standard library.&lt;/p&gt;
+
+&lt;h3&gt;Tools&lt;/h3&gt;
+
+&lt;p&gt;There was a little flurry of work on new command-line options for the standard toolchain.&lt;/p&gt;
+
+&lt;p&gt;A &lt;a href=&quot;http://caml.inria.fr/mantis/view.php?id=6102&quot;&gt;Mantis issue&lt;/a&gt; submitted by &lt;a href=&quot;http://gallium.inria.fr/~scherer/&quot;&gt;Gabriel Scherer&lt;/a&gt; suggests adding options to stop the compiler at certain stages, to better support tools such as &lt;a href=&quot;http://projects.camlcity.org/projects/findlib.html&quot;&gt;OCamlfind&lt;/a&gt; and to make it easier to debug the compiler itself.  The Ludlam / Harris team looked at this, and submitted a patch which provoked further thoughts from Gabriel.&lt;/p&gt;
+
+&lt;p&gt;Vincent looked at extending &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml/depend.html&quot;&gt;ocamldep&lt;/a&gt; with support for suffixes other than &lt;code&gt;.ml&lt;/code&gt; and &lt;code&gt;.mli&lt;/code&gt;.  Since &lt;a href=&quot;http://caml.inria.fr/mantis/view.php?id=3725&quot;&gt;the issue&lt;/a&gt; was originally submitted, &lt;code&gt;ocamldep&lt;/code&gt; has acquired &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml/depend.html#sec288&quot;&gt;&lt;code&gt;-ml-synonym&lt;/code&gt; and &lt;code&gt;-mli-synonym&lt;/code&gt; options&lt;/a&gt; that serve this purpose, so Vincent looked at supporting other suffixes in the compiler, and submitted a patch as a &lt;a href=&quot;http://caml.inria.fr/mantis/view.php?id=6110&quot;&gt;new issue&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The OCaml top level has a simple feature for setting up the environment &amp;mdash;  when it starts up it looks for the file &lt;code&gt;.ocamlinit&lt;/code&gt;, and executes its contents.  It's sometimes useful to skip this stage and run the top level in a vanilla environment, so &lt;a href=&quot;https://github.com/dsheets&quot;&gt;David Sheets&lt;/a&gt; submitted a &lt;a href=&quot;http://caml.inria.fr/mantis/view.php?id=6071&quot;&gt;patch&lt;/a&gt; that adds a &lt;code&gt;-no-init&lt;/code&gt; option, &lt;a href=&quot;https://github.com/ocaml/ocaml/blob/fadcc73c50b89ca80ecc11131c9a23dbd2c1e67a/Changes#L35&quot;&gt;due for inclusion&lt;/a&gt; in the next release.&lt;/p&gt;
+
+&lt;h3&gt;Error-handling/reporting&lt;/h3&gt;
+
+&lt;p&gt;Error handling issues saw a good deal of activity.  &lt;a href=&quot;http://www.cl.cam.ac.uk/~rp452/&quot;&gt;Rapha&amp;euml;l Proust&lt;/a&gt; submitted a patch to improve the &lt;a href=&quot;http://caml.inria.fr/mantis/view.php?id=6112&quot;&gt;reporting of error-enabled warnings&lt;/a&gt;; David investigated &lt;a href=&quot;http://caml.inria.fr/mantis/view.php?id=3582&quot;&gt;handling out-of-range integer literals&lt;/a&gt; and &lt;a href=&quot;http://caml.inria.fr/mantis/view.php?id=5350&quot;&gt;return-code checking of C functions in the runtime&lt;/a&gt;, leading to some discussions on Mantis.  Stephen submitted a patch to improve the &lt;a href=&quot;http://caml.inria.fr/mantis/view.php?id=6182&quot;&gt;diagnostics for misuses of &lt;code&gt;virtual&lt;/code&gt;&lt;/a&gt;.  &lt;a href=&quot;http://www.cl.cam.ac.uk/~gk338/&quot;&gt;Gabriel Kerneis&lt;/a&gt; and Wojciech looked at some &lt;a href=&quot;http://caml.inria.fr/mantis/view.php?id=6109&quot;&gt;typos in ocamlbuild error messages&lt;/a&gt;, and Mike opened an &lt;a href=&quot;http://caml.inria.fr/mantis/view.php?id=6108&quot;&gt;issue to clarify the appropriate use of the &lt;code&gt;compiler-libs&lt;/code&gt; package&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3&gt;Language&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code&gt;open&lt;/code&gt; operation on modules can make it difficult for readers of a program to see where particular names are introduced, so its use is sometimes discouraged.  The basic feature of making names available without a module prefix is rather useful, though, so various new features (including &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual021.html#toc77&quot;&gt;local opens&lt;/a&gt;, &lt;a href=&quot;https://github.com/ocaml/ocaml/commit/f51bc04b55fbe22533f1075193dd3b2e52721f15&quot;&gt;warnings for shadowing&lt;/a&gt;, and &lt;a href=&quot;https://github.com/ocaml/ocaml/commit/a3b1c67fffd7de640ee9a0791f1fd0fad965b867&quot;&gt;explicit shadowing&lt;/a&gt;) have been introduced to tame its power. Stephen looked at adding a further feature, making it possible to open modules under a particular signature, so that &lt;code&gt;open M : S&lt;/code&gt; will introduce only those names in &lt;code&gt;M&lt;/code&gt; that are specified with &lt;code&gt;S&lt;/code&gt;.  There's an &lt;a href=&quot;https://github.com/lpw25/ocaml/tree/signatured-open&quot;&gt;initial prototype&lt;/a&gt; already, and we're looking forward to seeing the final results.&lt;/p&gt;
+
+&lt;p&gt;The second language feature of the evening was support for infix operators (such as the List constructor, &lt;code&gt;::&lt;/code&gt;) for user-defined types, a feature that is definitely not in any way motivated by envy of Haskell.  Mike's &lt;a href=&quot;https://github.com/mcclurmc/ocaml/tree/infix-constructors&quot;&gt;prototype implementation&lt;/a&gt; is available, and there's an &lt;a href=&quot;https://github.com/mcclurmc/ocaml/pull/1&quot;&gt;additional patch&lt;/a&gt; that brings it closer to completion.&lt;/p&gt;
+
+&lt;h3&gt;Next session&lt;/h3&gt;
+
+&lt;p&gt;The next session is planned for 6pm on Wednesday 18th September 2013 at
+&lt;a href=&quot;http://makespace.org/&quot;&gt;Makespace, Cambridge&lt;/a&gt;.  If you're planning to come along it'd be
+helpful if you could add yourself to the &lt;a href=&quot;http://doodle.com/k6y2tiihkrb5vuw4&quot;&gt;Doodle Poll&lt;/a&gt;.  Hope to see
+you there!&lt;/p&gt;
+</content><id>http://ocamllabs.github.com/compiler-hacking/2013/09/17/compiler-hacking-july-2013</id><title type="text">Inaugural compiler hackers meeting</title><updated>2013-09-17T12:49:04-00:00</updated><author><email>cl-ocamllabs@lists.cam.ac.uk (OCaml Labs)</email><name>ocamllabs</name></author></entry></feed>

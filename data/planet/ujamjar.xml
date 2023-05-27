@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://www.ujamjar.com/ocaml.xml</id><title type="text">ujamjar</title><updated>2023-05-27T10:01:48-00:00</updated><entry><link href="http://www.ujamjar.com/ocaml/hardcaml/2016/01/15/hardcaml-examples-in-javascript.html" rel="alternate"/><contributor><uri>http://www.ujamjar.com/ocaml.xml</uri><name>ujamjar</name></contributor><content type="html">&lt;p&gt;&lt;a href=&quot;https://github.com/ujamjar/hardcaml-examples&quot;&gt;hardcaml-examples&lt;/a&gt; 
+provides a small framework for creating &lt;a href=&quot;https://github.com/ujamjar/hardcaml&quot;&gt;HardCaml&lt;/a&gt; 
+based cores and six example designs.  The framework code provides the general plumbing
+required to create a console based application with features including code generation, 
+simulation, and waveform viewing.  A recent update extends the framework so that cores
+can be run on a webpage.&lt;/p&gt;
+
+</content><id>http://www.ujamjar.com/ocaml/hardcaml/2016/01/15/hardcaml-examples-in-javascript.html</id><title type="text">HardCaml Framework, Examples and Webapps</title><updated>2016-01-15T00:00:00-00:00</updated><author><name>ujamjar</name></author></entry><entry><link href="http://www.ujamjar.com/ocaml/hardcaml/2015/10/29/sat-checking.html" rel="alternate"/><contributor><uri>http://www.ujamjar.com/ocaml.xml</uri><name>ujamjar</name></contributor><content type="html">&lt;p&gt;Combining a SAT solver with &lt;a href=&quot;https://github.com/ujamjar/hardcaml&quot;&gt;HardCaml&lt;/a&gt; to prove 
+circuit equivalence.&lt;/p&gt;
+
+</content><id>http://www.ujamjar.com/ocaml/hardcaml/2015/10/29/sat-checking.html</id><title type="text">SAT solving and HardCaml</title><updated>2015-10-29T00:00:00-00:00</updated><author><name>ujamjar</name></author></entry><entry><link href="http://www.ujamjar.com/ocaml/2014/08/02/iocaml-on-nexus7.html" rel="alternate"/><contributor><uri>http://www.ujamjar.com/ocaml.xml</uri><name>ujamjar</name></contributor><content type="html">&lt;p&gt;Recently I was looking for an Ocaml solution for the Nexus 7. There are a 
+couple of ocaml top-levels available but neither offer the ability to open 
+packages or support for &lt;a href=&quot;http://opam.ocamlpro.com&quot;&gt;opam&lt;/a&gt;.  Enter gnuroot.&lt;/p&gt;
+
+</content><id>http://www.ujamjar.com/ocaml/2014/08/02/iocaml-on-nexus7.html</id><title type="text">OCaml and IOCaml on Android</title><updated>2014-08-02T00:00:00-00:00</updated><author><name>ujamjar</name></author></entry><entry><link href="http://www.ujamjar.com/ocaml/2014/07/13/thackers-tiny-computer.html" rel="alternate"/><contributor><uri>http://www.ujamjar.com/ocaml.xml</uri><name>ujamjar</name></contributor><content type="html">&lt;p&gt;Thackers Tiny Computer 3 (TTC) is one in a series of simple RISC processor cores designed
+by Chuck Thacker.  The implementation provided here is based on a
+&lt;a href=&quot;http://www.cl.cam.ac.uk/teaching/1314/ECAD+Arch/labs/background/ttc.html&quot;&gt;design&lt;/a&gt; 
+by &lt;a href=&quot;http://www.cl.cam.ac.uk/~swm11/&quot;&gt;Simon Moore&lt;/a&gt; and friends
+at Cambridge University.  We give a brief description of the CPU core and assembler
+and provide an online simulator for the CPU.&lt;/p&gt;
+
+</content><id>http://www.ujamjar.com/ocaml/2014/07/13/thackers-tiny-computer.html</id><title type="text">Thackers-Tiny-Computer-3</title><updated>2014-07-13T00:00:00-00:00</updated><author><name>ujamjar</name></author></entry><entry><link href="http://www.ujamjar.com/demo/ocaml/2014/06/18/reed-solomon-demo.html" rel="alternate"/><contributor><uri>http://www.ujamjar.com/ocaml.xml</uri><name>ujamjar</name></contributor><content type="html">&lt;p&gt;An interactive demo of Reed-Solomon error correction coding.  The demo shows the workings 
+of the CODEC in detail and allows the user to configure the RS code parameters and test case.&lt;/p&gt;
+
+</content><id>http://www.ujamjar.com/demo/ocaml/2014/06/18/reed-solomon-demo.html</id><title type="text">Reed-Solomon Interactive Demo</title><updated>2014-06-18T00:00:00-00:00</updated><author><name>ujamjar</name></author></entry><entry><link href="http://www.ujamjar.com/open-source/ocaml/2014/06/17/reed-solomon.html" rel="alternate"/><contributor><uri>http://www.ujamjar.com/ocaml.xml</uri><name>ujamjar</name></contributor><content type="html">&lt;p&gt;A Reed-Solomon encoder and decoder library written in OCaml.&lt;/p&gt;
+
+</content><id>http://www.ujamjar.com/open-source/ocaml/2014/06/17/reed-solomon.html</id><title type="text">Reed-Solomon</title><updated>2014-06-17T00:00:00-00:00</updated><author><name>ujamjar</name></author></entry><entry><link href="http://www.ujamjar.com/open-source/ocaml/2014/06/17/iocaml.html" rel="alternate"/><contributor><uri>http://www.ujamjar.com/ocaml.xml</uri><name>ujamjar</name></contributor><content type="html">&lt;p&gt;IOCaml is an OCaml kernel for the IPython notebook. This provides a REPL 
+within a web browser with a nice user interface including markdown based 
+comments/documentation, mathjax formula and the possibility of generating 
+all manner of HTML based output media from your code.&lt;/p&gt;
+
+</content><id>http://www.ujamjar.com/open-source/ocaml/2014/06/17/iocaml.html</id><title type="text">IOCaml</title><updated>2014-06-17T00:00:00-00:00</updated><author><name>ujamjar</name></author></entry><entry><link href="http://www.ujamjar.com/open-source/ocaml/2014/06/17/hardcaml.html" rel="alternate"/><contributor><uri>http://www.ujamjar.com/ocaml.xml</uri><name>ujamjar</name></contributor><content type="html">&lt;p&gt;An opensource domain specific language embedded in OCaml for designing and testing 
+register transfer level hardware designs.&lt;/p&gt;
+
+</content><id>http://www.ujamjar.com/open-source/ocaml/2014/06/17/hardcaml.html</id><title type="text">HardCaml</title><updated>2014-06-17T00:00:00-00:00</updated><author><name>ujamjar</name></author></entry></feed>

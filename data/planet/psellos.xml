@@ -1,0 +1,2223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://psellos.com/atom.xml</id><title type="text">psellos</title><updated>2023-05-27T10:01:48-00:00</updated><entry><link href="http://psellos.com/2020/08/2020.08.east-van-girls.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;August 26, 2020&lt;/div&gt;
+
+&lt;p&gt;Since last year I&amp;rsquo;ve been using BuckleScript to build web apps in OCaml
+and have been enjoying it very much. However, when I went to the
+project&amp;rsquo;s home page recently I found that BuckleScript has been renamed
+to &lt;a href=&quot;http://rescript-lang.org/&quot;&gt;ReScript&lt;/a&gt; and that all reference to OCaml
+has been removed from the project (as far as I can tell).&lt;/p&gt;
+
+&lt;p&gt;In particular, there&amp;rsquo;s no documentation that describes how to use the
+standard OCaml syntax with the BuckleScript compiler. Previously there
+were parallel documents for a new JavaScript-like syntax (based on
+Reason) and for the standard OCaml syntax. But now there is just a
+JavaScript-like syntax (different from but similar to Reason).&lt;/p&gt;
+
+&lt;table class=&quot;morelikealist&quot; style=&quot;margin-top: 0.4em;&quot;&gt;
+&lt;tr&gt;&lt;td&gt;
+&lt;a href=&quot;http://psellos.com/ocaml/example-app-slide24.html&quot;&gt;
+&lt;img src=&quot;http://psellos.com/images/slide242-220-sepia.png&quot;/&gt;&lt;br/&gt;
+&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Although the project
+&lt;a href=&quot;http://reasonml.org/blog/a-note-on-bucklescripts-future-commitments&quot;&gt;blog&lt;/a&gt;
+says they will continue to support the OCaml syntax for a long time, in
+practice it will be impossible to use OCaml syntax with BuckleScript
+unless there is documentation. There&amp;rsquo;s no way to determine the methods
+used for interoperation with the browser environment. Guessing and
+on-line chat are not workable replacements.&lt;/p&gt;
+
+&lt;p&gt;Unless documentation appears pretty soon, I can&amp;rsquo;t really recommend using
+BuckleScript if you want to build web apps using OCaml syntax. Since I&amp;rsquo;d
+like my work to be at least a little bit useful to others, I&amp;rsquo;ll most
+likely be switching to
+&lt;a href=&quot;https://ocsigen.org/js_of_ocaml/3.1.0/manual/overview&quot;&gt;Js_of_OCaml&lt;/a&gt; for
+future work.&lt;/p&gt;
+
+&lt;p&gt;The good news (such as it is) is that OCaml syntax still does work with
+the BuckleScript compiler. I rewrote the Slide24 example to work with
+the latest BuckleScript release I could find (version 8.2.0), and it
+works as well as ever. But it was a bittersweet, nostalgic experience.
+(Unless, as I say, the BuckleScript team is willing to document the
+OCaml syntax interoperation interfaces.)&lt;/p&gt;
+
+&lt;p&gt;While I was at it, I spent a few days reading up on heuristic search
+methods (on Wikipedia). I was able to improve the solutions produced by
+the &lt;em&gt;Solve&lt;/em&gt; button significantly using ideas from the &lt;a href=&quot;http://en.wikipedia.org/wiki/Fringe_search&quot;&gt;fringe
+search&lt;/a&gt; page. These newest
+solutions are getting a little closer to the inhumanly awesome solutions
+I have been hoping to see.&lt;/p&gt;
+
+&lt;p&gt;You can try out the puzzle and get the sources at the
+&lt;a href=&quot;http://psellos.com/ocaml/example-app-slide24.html&quot;&gt;Slide24&lt;/a&gt; page.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2020/08/2020.08.east-van-girls.html</id><title type="text">BuckleScript Good and Bad News</title><updated>2020-08-26T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2020/03/2020.03.how-i-wrote-elastic-man.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;March 21, 2020&lt;/div&gt;
+
+&lt;p&gt;I just finished coding up another webapp in OCaml. I thought it would be
+cool to publish the sources of a small, completely self-contained app.
+It&amp;rsquo;s a sliding tile puzzle coded entirely in OCaml, using a few of the
+BuckleScript extensions. There are no dependencies on any frameworks or
+the like aside from the Js modules of BuckleScript. The app itself
+consists of just one JavaScript file&amp;mdash;no images, nothing else.&lt;/p&gt;
+
+&lt;table class=&quot;morelikealist&quot; style=&quot;margin-top: 0.4em;&quot;&gt;
+&lt;tr&gt;&lt;td&gt;
+&lt;a href=&quot;http://psellos.com/ocaml/example-app-slide24.html&quot;&gt;
+&lt;img src=&quot;http://psellos.com/images/slide242-220.png&quot;/&gt;&lt;br/&gt;
+&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p&gt;You can try out the puzzle or get the sources at the
+&lt;a href=&quot;http://psellos.com/ocaml/example-app-slide24.html&quot;&gt;Slide24&lt;/a&gt; page.&lt;/p&gt;
+
+&lt;p&gt;I also tried to make a clean DOM interface based on experience with the
+Cassino and Schnapsen apps. I think it came out well, at least for these
+self-contained webapps.&lt;/p&gt;
+
+&lt;p&gt;The idea for the DOM interface is that it should expose only abstract
+types, but that there should be a subtype relation based on the
+JavaScript DOM. It turns out that you can do this pretty easily using
+&lt;code&gt;private&lt;/code&gt; declarations. Types for contents of a document look like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;type node
+type text = private node
+type element = private node
+type canvas = private element
+type box = private element
+type div = private box
+type span = private box
+type button = private box&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So, the interface reveals nothing whatsoever about the types except that
+they participate in a subtype relation. &lt;code&gt;text&lt;/code&gt; and &lt;code&gt;element&lt;/code&gt; are
+subtypes of &lt;code&gt;node&lt;/code&gt;, &lt;code&gt;canvas&lt;/code&gt; is a subtype of &lt;code&gt;element&lt;/code&gt;, and so on.
+&lt;code&gt;node&lt;/code&gt; is the supertype of all the document content types.&lt;/p&gt;
+
+&lt;p&gt;What this means is that you can pass a canvas or a button to a function
+that expects an element, and so on. I don&amp;rsquo;t find the necessity to use
+explicit supertype coercion to be too much trouble when working with
+non-parameterized types.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;let style = Pseldom.(element_style (mybutton :&amp;gt; element)) in
+. . .&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It seems to me this captures pretty much everything that I want from the
+object-oriented approach without the usual complicated baggage. I think
+inheritance is more often a hindrance than a help. It&amp;rsquo;s too dependent on
+implementation details, and is associated with too many informal
+(unenforceable) descriptions of how to write subclasses of each class
+without messing up the semantics.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ve never used &lt;code&gt;private&lt;/code&gt; declarations before, but they seem to have
+created exactly the structure I was hoping for.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2020/03/2020.03.how-i-wrote-elastic-man.html</id><title type="text">Sliding Tile Puzzle, Self-Contained OCaml Webapp</title><updated>2020-03-21T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2020/02/2020.02.kid-charlemagne.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;February 24, 2020&lt;/div&gt;
+
+&lt;p&gt;Something like ten years ago we produced two iOS card game apps written
+in OCaml, partly as a proof of concept for compiling OCaml to iOS and
+partly because we enjoy card games. Unfortunately we weren&amp;rsquo;t able to
+spark a worldwide craze for writing iOS apps in OCaml or for playing
+Schnapsen, as we had hoped. Consequently there was very little financial
+return and we all had to move on to other projects.&lt;/p&gt;
+
+&lt;p&gt;Both apps play a very good two-player card game. The apps are
+essentially a kind of solitaire where you play against the app as your
+opponent. The games are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Cassino, a classic fishing game said without substantiation to be
+of Italian origin (per Wikipedia).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Schnapsen, a kind of miniature Pinochle very popular in the
+territories of the former Austro-Hungarian Empire (again per
+Wikipedia).&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The Schnapsen app also plays a closely related game called Sixty-Six,
+named after this number in many different languages.&lt;/p&gt;
+
+&lt;p&gt;The images and layout algorithms for the apps quickly fell behind the
+formats and display capabilities of later iOS devices, so I was thinking
+we might just as well release the apps as is, for free. However there is
+a lot of rigamarole (and some cost) associated with the App Store if all
+you want to do is release some free apps.&lt;/p&gt;
+
+&lt;table class=&quot;morelikealist&quot; style=&quot;margin-top: 0.4em;&quot;&gt;
+&lt;tr&gt;&lt;td&gt;
+&lt;a href=&quot;http://cassino.psellos.com&quot;&gt;
+&lt;img src=&quot;http://psellos.com/images/cassino-icon45.png&quot;/&gt;&lt;br/&gt;
+&lt;strong&gt;Cassino&lt;/strong&gt;
+&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;
+&lt;a href=&quot;http://schnapsen.psellos.com&quot;&gt;
+&lt;img src=&quot;http://psellos.com/images/schnapsen-icon45.png&quot;/&gt;&lt;br/&gt;
+&lt;strong&gt;Master&lt;br/&gt;Schnapsen/66&lt;/strong&gt;
+&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Recently I wondered if it wouldn&amp;rsquo;t be possible to revive the apps in a
+browser environment. These days you can compile OCaml to JavaScript
+using &lt;a href=&quot;https://bucklescript.github.io/&quot;&gt;BuckleScript&lt;/a&gt; or
+&lt;a href=&quot;https://ocsigen.org/js_of_ocaml/3.5.1/manual/overview&quot;&gt;Js_of_ocaml&lt;/a&gt;.
+The HTML 5 canvas element has an interface a lot like the
+two-dimensional graphics used by the apps. It seems like it should be
+possible.&lt;/p&gt;
+
+&lt;p&gt;So, in fact, that&amp;rsquo;s what I did. I ported the two card game apps to run
+as webapps. Visually they run in a smallish rectangle exactly the size
+of the original iPhone screen. I was able to retain the iPhone behavior
+almost unchanged. Computationally they run completely in the browser,
+and make no further contact with psellos.com (unless you want to access
+the game pages at psellos.com).&lt;/p&gt;
+
+&lt;p&gt;The OCaml code is compiled to JavaScript using the BuckleScript
+compiler. Because the target language is JavaScript, there&amp;rsquo;s no need for
+any stubs or supporting code (as there was in iOS). All of the code for
+the apps is in OCaml.&lt;/p&gt;
+
+&lt;p&gt;Once the basic graphics primitives were in place, a lot of the code
+worked without any change. The part of the code that actually plays the
+game (the &amp;ldquo;engine&amp;rdquo;) didn&amp;rsquo;t change at all.&lt;/p&gt;
+
+&lt;p&gt;As an unexpected and very welcome side effect, two of the old iOS app
+team members got interested in the project again. They&amp;rsquo;re working on
+making the Schnapsen app into an even better player. I added some extra
+features to the Schnapsen GUI to make it easier to keep track of what&amp;rsquo;s
+happened in a hand.&lt;/p&gt;
+
+&lt;p&gt;Neither of the webapps is quite finished yet. But they both are already
+playable and in fact quite enjoyable. You can try them by clicking on
+the icons above. You can also read about the apps and the games they
+play on their own separate pages.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://psellos.com/cassino&quot;&gt;Cassino Page&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://psellos.com/schnapsen&quot;&gt;Schnapsen Page&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you have any comments, suggestions, or encouragement, leave them
+below or email me at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2020/02/2020.02.kid-charlemagne.html</id><title type="text">OCaml iOS Apps Ported to Browser</title><updated>2020-02-24T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2016/02/2016.02.i-met-up-with-the-king.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;February 18, 2016&lt;/div&gt;
+
+&lt;p&gt;I wrote the Slide24 app a few years ago as a semi-credible example of an
+iOS app coded in OCaml. It implements the 24 puzzle, a 5 &amp;times; 5 grid of
+sliding numbered tiles. I enjoyed the physical version of the puzzle
+tremendously as a kid.&lt;/p&gt;
+
+&lt;p&gt;I just now updated Slide24 to build under Xcode 7.2, and tested that it
+works under iOS 9.2 on every iPhone and iPad device (simulating the ones
+I can&amp;rsquo;t find in real life).&lt;/p&gt;
+
+&lt;div class=&quot;flowaroundimg&quot; style=&quot;margin-top: 0.4em;&quot;&gt;
+&lt;a href=&quot;http://psellos.com/ocaml/example-app-slide24.html&quot;&gt;&lt;img src=&quot;http://psellos.com/images/slide243-160.png&quot; alt=&quot;image of Slide24 app&quot;/&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Slide24 has a &lt;em&gt;Solve&lt;/em&gt; button that solves the puzzle for you if you don&amp;rsquo;t
+have the inclination to do it yourself. While I was updating the rest of
+the code, I rewrote the heuristic search to generate solutions that are
+more interesting to watch as a spectator. The essence of the improvement
+is that the search now gets a pretty good (not optimal) solution, but is
+able to solve the whole puzzle at once. I&amp;rsquo;m thankful to Dr. Wheeler Ruml
+of the University of New Hampshire for suggestions along these lines.&lt;/p&gt;
+
+&lt;p&gt;The new search doesn&amp;rsquo;t quite reach the level of unbelievable perfection
+that I was seeking, but it does produce solutions that don&amp;rsquo;t look
+anything like what a person would do. When I solve the puzzle I tend to
+work on one area at a time, while the heuristic solution makes small
+changes all over the place. Then things come together surprisingly
+quickly at the end, which is just what I was hoping to see.&lt;/p&gt;
+
+&lt;p&gt;If you just want to download Slide24 and build it in Xcode, you can get
+the sources here:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://psellos.com/pub/slide24/slide24-3.0.4.tgz&quot;&gt;Slide24 3.0.4, tested on iOS 9.2&lt;/a&gt;  &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div style=&quot;clear: both&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;I&amp;rsquo;ve also written out some instructions and principles of operation
+here:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://psellos.com/ocaml/example-app-slide24.html&quot;&gt;Slide24: Sliding Tile Puzzle for iOS&lt;/a&gt;  &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;If you have any comments, suggestions, or encouragement, leave them
+below or email me at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2016/02/2016.02.i-met-up-with-the-king.html</id><title type="text">Twenty-Four Puzzle OCaml iOS App</title><updated>2016-02-18T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2016/01/2016.01.done-gone-blue.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;January 30, 2016&lt;/div&gt;
+
+&lt;p&gt;Through the decades I&amp;rsquo;ve slowly realized that my heroes in the music are
+the bass players. It&amp;rsquo;s not too late for me to take up some kind of bass
+instrument, but in the meantime the equivalent in the programming
+universe is to help provide languages and systems for others to code on
+top of. Isn&amp;rsquo;t that so?&lt;/p&gt;
+
+&lt;div class=&quot;flowaroundimg&quot; style=&quot;margin-top: 0.4em;&quot;&gt;
+&lt;a href=&quot;http://psellos.com/ocaml/example-app-portland.html&quot;&gt;&lt;img src=&quot;http://psellos.com/images/portland-upside-150.png&quot; alt=&quot;image of Portland app&quot;/&gt;&lt;/a&gt;
+&lt;a href=&quot;http://psellos.com/ocaml/example-app-gamut.html&quot;&gt;&lt;img src=&quot;http://psellos.com/images/gamut2-sky-blue-150.png&quot; alt=&quot;image of Gamut app&quot;/&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;So, I guess that&amp;rsquo;s what I&amp;rsquo;m doing for OCaml on iOS. Most recently I&amp;rsquo;ve
+updated the two example apps Portland and Gamut. They&amp;rsquo;re packaged up to
+run on iOS devices and in the iOS Simulator, respectively, but of course
+either can run on either.&lt;/p&gt;
+
+&lt;p&gt;If you just want to download them and start them up in Xcode, you can
+get the sources here:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://psellos.com/pub/portland/portland-3.0.2.tgz&quot;&gt;Portland 3.0.2, tested on iOS 9.2&lt;/a&gt;  &lt;/p&gt;
+  
+  &lt;p&gt;&lt;a href=&quot;http://psellos.com/pub/gamut/gamut-3.0.2.tgz&quot;&gt;Gamut 3.0.2, tested on iOS 9.2&lt;/a&gt;  &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div style=&quot;clear: both&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;I&amp;rsquo;ve also written out some instructions and principles of operation
+here:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://psellos.com/ocaml/example-app-portland.html&quot;&gt;Portland: Which Way is Up on iOS?&lt;/a&gt;  &lt;/p&gt;
+  
+  &lt;p&gt;&lt;a href=&quot;http://psellos.com/ocaml/example-app-gamut.html&quot;&gt;Gamut: Explore Colors in iOS Simulator&lt;/a&gt;  &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;If you have any comments, suggestions, or encouragement, leave them
+below or email me at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2016/01/2016.01.done-gone-blue.html</id><title type="text">OCaml on iOS Example Apps</title><updated>2016-01-30T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2016/01/2016.01.the-minor-drag.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;January 23, 2016&lt;/div&gt;
+
+&lt;p&gt;If you downloaded one of the OCaml compilers for iOS or the iOS
+Simulator, please download a new copy. Due to an error in the
+cross-compile build process, the compilers are looking for &lt;code&gt;ocamlrun&lt;/code&gt; in
+my development tree rather than in the install location. As a result,
+they work for me but for nobody else. Unfortunately this means I didn&amp;rsquo;t
+see the problem in my testing.&lt;/p&gt;
+
+&lt;div class=&quot;flowaroundimg&quot; style=&quot;margin-top: 1.0em;&quot;&gt;
+&lt;a href=&quot;http://psellos.com/ocaml/compile-to-iphone.html&quot;&gt;&lt;img src=&quot;http://psellos.com/images/voronoi-lighthouse-160.png&quot; alt=&quot;Voronoi Image&quot;/&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You can download the updated compilers here:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&amp;bull; &lt;a href=&quot;http://psellos.com/pub/ocamlios/OCamliOS32-4.02.3.pkg&quot;&gt;OCamliOS 4.02.3 for 32-bit iOS&lt;/a&gt; (updated Jan 23, 2016)  &lt;/p&gt;
+  
+  &lt;p&gt;&amp;bull; &lt;a href=&quot;http://psellos.com/pub/ocamlios/OCamliOS64-4.02.3.pkg&quot;&gt;OCamliOS 4.02.3 for 64-bit iOS&lt;/a&gt; (updated Jan 23, 2016)  &lt;/p&gt;
+  
+  &lt;p&gt;&amp;bull; &lt;a href=&quot;http://psellos.com/pub/ocamlios/OCamliOSSim32-4.02.3.pkg&quot;&gt;OCamliOS 4.02.3 for 32-bit iOS Simulator&lt;/a&gt; (updated Jan 23, 2016)  &lt;/p&gt;
+  
+  &lt;p&gt;&amp;bull; &lt;a href=&quot;http://psellos.com/pub/ocamlios/OCamliOSSim64-4.02.3.pkg&quot;&gt;OCamliOS 4.02.3 for 64-bit iOS Simulator&lt;/a&gt; (updated Jan 23, 2016)  &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In the big picture I guess this is an amusing type of bug to have. But
+in the short term it&amp;rsquo;s a bit of a drag. My apologies to anybody who was
+inconvenienced.&lt;/p&gt;
+
+&lt;p&gt;Thanks to Edgar Aroutiounian for finding the problem.&lt;/p&gt;
+
+&lt;p&gt;If you find more problems with the compilers, I&amp;rsquo;d be happy to hear about
+them.  Or if you have any comments or encouragement, leave them below or
+email me at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2016/01/2016.01.the-minor-drag.html</id><title type="text">OCaml for iOS Bug Fix Releases</title><updated>2016-01-23T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2016/01/2016.01.man-made-lake.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;January 19, 2016&lt;/div&gt;
+
+&lt;p&gt;I have no fear that our universe is a simulation being run on some
+gigantic machine and watched from outside by transcendant spectators. It
+might be that it is&amp;mdash;I&amp;rsquo;m merely saying I have no fear of it. I know this
+because I find the iOS Simulator to be delightful and disarming. It
+doesn&amp;rsquo;t faze me at all.&lt;/p&gt;
+
+&lt;div class=&quot;flowaroundimg&quot; style=&quot;margin-top: 1.0em;&quot;&gt;
+&lt;a href=&quot;http://psellos.com/ocaml/compile-to-iossim.html&quot;&gt;&lt;img src=&quot;http://psellos.com/images/bullet-cluster.png&quot; alt=&quot;Bullet Cluster image&quot;/&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In recent years I&amp;rsquo;ve been maintaining some patches that transform the
+OCaml compiler into a cross compiler for the iOS Simulator. Now there is
+an active plan (with the kind help of Gerd Stolpmann) to whip the
+patches into shape and to integrate them into the official INRIA OCaml
+release, along with the iOS support I mentioned a few days ago.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;m not sure when the OCaml iOS support will be released. But in the
+meantime the changes are available in a branch in the official OCaml
+GitHub repository. I cloned the branch and built two compilers, for 32-
+and 64-bit iOS Simulators.&lt;/p&gt;
+
+&lt;p&gt;These compilers are versions of OCaml 4.02.3 that generate apps to run under
+the iOS Simulators in Xcode 7.2. You can download binary installers here:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://psellos.com/pub/ocamlios/OCamliOSSim32-4.02.3.pkg&quot;&gt;OCamliOS 4.02.3 for 32-bit iOS Simulator&lt;/a&gt; (updated Jan 23, 2016)  &lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://psellos.com/pub/ocamlios/OCamliOSSim64-4.02.3.pkg&quot;&gt;OCamliOS 4.02.3 for 64-bit iOS Simulator&lt;/a&gt; (updated Jan 23, 2016)  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A simple test of the installed compilers is given on &lt;a href=&quot;http://psellos.com/ocaml/compile-to-iossim.html&quot;&gt;Compile OCaml for
+iOS Simulator&lt;/a&gt;. There are also
+instructions for building from source.&lt;/p&gt;
+
+&lt;p&gt;If you find problems with the compilers, I&amp;rsquo;d be happy to hear about
+them.  Or if you have any comments or encouragement, leave them below or
+email me at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2016/01/2016.01.man-made-lake.html</id><title type="text">OCaml for iOS Simulator 8 or 9</title><updated>2016-01-19T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2016/01/2016.01.man-out-of-time.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;January 15, 2016&lt;/div&gt;
+
+&lt;p&gt;If the universe has extra dimensions, perhaps we can have experiences in
+some orthogonal kind of time without leaving the present moment.
+Something like that happened over the holidays, and I was able to put
+together binary releases of the most recent OCaml compiler for iOS.&lt;/p&gt;
+
+&lt;div class=&quot;flowaroundimg&quot; style=&quot;margin-top: 1.0em;&quot;&gt;
+&lt;a href=&quot;http://psellos.com/ocaml/compile-to-iphone.html&quot;&gt;&lt;img src=&quot;http://psellos.com/images/vorobeacon-s35.png&quot; alt=&quot;Spacy Voronoi image&quot;/&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;For quite a few years I&amp;rsquo;ve been maintaining a set of patches that
+transform the OCaml compiler into a cross compiler for iOS. Recently
+there has been some work (with the kind help of Gerd Stolpmann) to
+improve these patches and incorporate them into the official INRIA OCaml
+release.&lt;/p&gt;
+
+&lt;p&gt;There&amp;rsquo;s a lot of awesome stuff going on with OCaml these days, so I&amp;rsquo;m
+not sure when the iOS support will be released. But in the meantime the
+changes are available in a branch of the official OCaml repository. I
+checked out the branch and built two compilers, for 32- and 64-bit iOS.&lt;/p&gt;
+
+&lt;p&gt;These compilers are versions of OCaml 4.02.3 that run under OS X 10.11
+and Xcode 7.2, producing executables for iOS 9.2. You can download
+binary installers here:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://psellos.com/pub/ocamlios/OCamliOS32-4.02.3.pkg&quot;&gt;OCamliOS 4.02.3 for 32-bit iOS&lt;/a&gt; (updated Jan 23, 2016)  &lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://psellos.com/pub/ocamlios/OCamliOS64-4.02.3.pkg&quot;&gt;OCamliOS 4.02.3 for 64-bit iOS&lt;/a&gt; (updated Jan 23, 2016)  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A simple test of the installed compiler is given on &lt;a href=&quot;http://psellos.com/ocaml/compile-to-iphone.html&quot;&gt;Compile OCaml for
+iOS&lt;/a&gt;. There are also instructions for
+building from source.&lt;/p&gt;
+
+&lt;p&gt;I hope to find enough fifth dimensional time soon to update the test
+apps and the compilers for the iOS Simulator.&lt;/p&gt;
+
+&lt;p&gt;If you find problems with the compilers, I&amp;rsquo;d be happy to hear about
+them.  Or if you have any comments or encouragement, leave them below or
+email me at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2016/01/2016.01.man-out-of-time.html</id><title type="text">OCaml for iOS 9.2</title><updated>2016-01-15T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2015/05/2015.05.example-app-slide24.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;May 18, 2015&lt;/div&gt;
+
+&lt;div class=&quot;screenminiature&quot; style=&quot;margin-top: 1.4em;&quot;&gt;
+&lt;a href=&quot;http://psellos.com/ocaml/example-app-slide24.html&quot;&gt;&lt;img src=&quot;http://psellos.com/images/slide242-220.png&quot;/&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I revamped another OCaml iOS app from a few years ago to make it run
+under iOS 8.3. It implements a sliding tile puzzle that was a fad in the
+1880s and was also popular in my childhood a few years after that.&lt;/p&gt;
+
+&lt;p&gt;Instructions for downloading, building, and running the app are here:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://psellos.com/ocaml/example-app-slide24.html&quot;&gt;Slide24: Sliding Tile Puzzle for iOS&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;You can download the sources directly here:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://psellos.com/pub/slide24/slide24-ios-2.0.2.tgz&quot;&gt;Slide24 2.0.2, OCaml app for iOS 8.3 (111 KB)&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;I had a lot of fun with this puzzle as a kid, and I still find it
+enjoyable to play with though it&amp;rsquo;s not particularly challenging to
+solve. To make the app more interesting, I coded up a heuristic search
+that solves the puzzle.&lt;/p&gt;
+
+&lt;p&gt;Here are some insights I had while revamping the app:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;iOS devices have gotten tremendously faster since I wrote the code. I
+should rewrite it to solve with fewer moves. I&amp;rsquo;d really love to see
+what an extremely short solution looks like. I&amp;rsquo;ll bet it looks
+impossibly wise, like those Swedish girls in First Aid Kit.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;It&amp;rsquo;s a little strange for a puzzle to solve itself. Like what if there
+was a button on the jigsaw puzzle box that made the pieces crawl
+themselves on the table into the solution. It would be fun to watch,
+but would it be a puzzle any more? More like a garden I guess.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Now, reader, it&amp;rsquo;s late at night and I have to rest up. There are
+exciting new developments in the OCaml-on-iOS world to talk about in the
+coming weeks. A version of the the iOS cross compiler, much improved
+with help from the truly knowledgeable, and with support for 64-bit ARM,
+will soon be available through OPAM. I&amp;rsquo;m really looking forward to this,
+and indeed this is why I&amp;rsquo;m working through these apps as fast as I can.
+I&amp;rsquo;m testing them against the new compiler.&lt;/p&gt;
+
+&lt;p&gt;If you have any trouble (or success) getting Slide24 to work for you,
+leave a comment below or email me at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2015/05/2015.05.example-app-slide24.html</id><title type="text">Sliding Tile OCaml iOS App</title><updated>2015-05-18T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2015/04/2015.04.example-app-gamut.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;April 29, 2015&lt;/div&gt;
+
+&lt;div class=&quot;screenminiature&quot; style=&quot;margin-top: 1.4em;&quot;&gt;
+&lt;a href=&quot;http://psellos.com/ocaml/example-app-gamut.html&quot;&gt;&lt;img src=&quot;http://psellos.com/images/gamut2-sky-blue-150.png&quot;/&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I recently revitalized an OCaml app from a few years ago, one that runs
+in the iOS simulator. Instructions for downloading, building, and
+running the app are here:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://psellos.com/ocaml/example-app-gamut.html&quot;&gt;Gamut: Explore Colors in iOS Simulator&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;You can download the sources directly here:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://psellos.com/pub/gamut/gamut-sim-2.0.3.tgz&quot;&gt;Gamut 2.0.3, OCaml app for iOS Simulator 8.2 (32 KB)&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Although the app doesn&amp;rsquo;t do anything particularly impressive, I still
+find it mesmerizing and fun. But mostly it just shows how to get an
+OCaml app running in the iOS Simulator.&lt;/p&gt;
+
+&lt;p&gt;Here are some insights I had while revitalizing the app:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;When calling OCaml from the Objective C world, don&amp;rsquo;t pass expressions
+as parameters if they cause allocation in OCaml. I wrote about this in
+&lt;a href=&quot;http://psellos.com/2015/01/2015.01.gc-disharmony-bis.html&quot;&gt;Further OCaml GC Disharmony&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The geometry of an iOS app needs to be a lot more fluid than it used
+to be. Statically, there are many different device sizes. But also the
+shape of the screen changes dynamically at times. Believe it or not, I
+recoded Gamut so the display continues to look good when you receive a
+simulated incoming call. (A small change in such a simple app.)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;It would be frightening to receive a simulated incoming call and find
+that it was a simulated version of your mother calling from your
+childhood to say that dinner is ready.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;You can re-use the drawing code of your app to draw an icon with a
+more squarish shape.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Now, reader, I have to rush off to my desk in an arcane underground DNA
+lab to learn about general-purpose GPU-based processing. It would be a
+blast to see it work in an iOS app someday. If you have any trouble (or
+success) getting Gamut to work for you, leave a comment below or email
+me at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2015/04/2015.04.example-app-gamut.html</id><title type="text">Gamut Redivivus: OCaml App in iOS Simulator</title><updated>2015-04-29T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2015/01/2015.01.gc-disharmony-bis.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;January 25, 2015&lt;/div&gt;
+
+&lt;p&gt;While working on an OCaml app to run in the iPhone Simulator, I
+discovered another wrapper code construct that looks plausible but is
+incorrect. I was able to reproduce the error in a small example under OS
+X, so I am writing it up for the record.&lt;/p&gt;
+
+&lt;p&gt;The error is in code that calls from Objective C into OCaml. In an OCaml
+iOS app these calls happen all the time, since events originate in iOS.
+You can imagine events being formed originally from an Objective C-like
+substance, then being remanufactured into an OCaml material and passed
+through the interface.&lt;/p&gt;
+
+&lt;p&gt;As a teensy example, assume that you want to create a point and a
+rectangle in C and pass them to a function in OCaml. To make it
+interesting, assume that you want to count the fraction of time a
+rectangle with randomly chosen origin and size (uniform values in [0,
+1]) contains the point (0.5, 0.5).&lt;/p&gt;
+
+&lt;p&gt;Here is some C code that does this (r4b.c):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;limits.h&amp;gt;
+
+#define CAML_NAME_SPACE
+#include &amp;quot;caml/memory.h&amp;quot;
+#include &amp;quot;caml/alloc.h&amp;quot;
+#include &amp;quot;caml/callback.h&amp;quot;
+
+double dran()
+{
+    static unsigned long state = 72;
+    state = state * 6364136223846793005L + 1442695040888963407L;
+    return (double) state / (double) ULONG_MAX;
+}
+
+static value Val_point(double x, double y)
+{
+    CAMLparam0();
+    CAMLlocal3(point, fx, fy);
+    point = caml_alloc(2, 0);
+    fx = caml_copy_double(x);
+    fy = caml_copy_double(y);
+    Store_field(point, 0, fx);
+    Store_field(point, 1, fy);
+    CAMLreturn(point);
+}
+
+static value ran_rect()
+{
+    CAMLparam0();
+    CAMLlocal5(rect, fx, fy, fwd, fht);
+    rect = caml_alloc(4, 0);
+    fx = caml_copy_double(dran());
+    fy = caml_copy_double(dran());
+    fwd = caml_copy_double(dran());
+    fht = caml_copy_double(dran());
+    Store_field(rect, 0, fx);
+    Store_field(rect, 1, fy);
+    Store_field(rect, 2, fwd);
+    Store_field(rect, 3, fht);
+    CAMLreturn(rect);
+}
+
+int main(int ac, char *av[])
+{
+    CAMLparam0();
+    int ct, i;
+    CAMLlocal2(point, isinside);
+    value *inside;
+
+    caml_main(av);
+
+    point = Val_point(0.5, 0.5);
+    inside = caml_named_value(&amp;quot;inside&amp;quot;);
+
+    ct = 0;
+    for (i = 0; i &amp;lt; 1000000000; i++) {
+        isinside = caml_callback2(*inside, point, ran_rect());
+        if (Bool_val(isinside))
+            ct++;
+    }
+    printf(&amp;quot;%d (%f)\n&amp;quot;, ct, (double) ct / (double) 1000000000);
+    CAMLreturnT(int, 0);
+}&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This OCaml code tests whether the point is inside the rectangle
+(inside.ml):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;let inside (px, py) (x, y, w, h) =
+    px &amp;gt;= x &amp;amp;&amp;amp; px &amp;lt;= x +. w &amp;amp;&amp;amp; py &amp;gt;= y &amp;amp;&amp;amp; py &amp;lt;= y +. h
+
+let () = Callback.register &amp;quot;inside&amp;quot; inside&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The basic idea is sound, but if you build and run this code in OS X you
+see the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ocamlopt -output-obj -o inside.o inside.ml
+$ W=`ocamlopt -where`; clang -I $W -L $W -o r4b r4b.c inside.o -lasmrun
+$ r4b
+Segmentation fault: 11&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You, reader, are probably way ahead of me as usual, but the problem is
+in this line:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;isinside = caml_callback2(*inside, point, ran_rect());&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The problem is that &lt;code&gt;ran_rect()&lt;/code&gt; allocates OCaml memory to hold the
+rectangle and its float values. Every once in a while, this will cause a
+garbage collection. If the OCaml value for &lt;code&gt;point&lt;/code&gt; has already been
+calculated and saved aside (i.e., if the parameters to &lt;code&gt;caml_callback2&lt;/code&gt;
+are evaluated left to right), this can cause the calculated value to
+become invalid before the call happens. This will lead to trouble:
+either a crash (as here) or, worse, the wrong answer.&lt;/p&gt;
+
+&lt;p&gt;The solution is to call &lt;code&gt;ran_rect()&lt;/code&gt; beforehand:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;int main(int ac, char *av[])
+{
+    CAMLparam0();
+    int ct, i;
+    CAMLlocal3(point, rect, isinside);
+    value *inside;
+
+    caml_main(av);
+
+    point = Val_point(0.5, 0.5);
+    inside = caml_named_value(&amp;quot;inside&amp;quot;);
+
+    ct = 0;
+    for (i = 0; i &amp;lt; 1000000000; i++) {
+        rect = ran_rect();
+        isinside = caml_callback2(*inside, point, rect);
+        if (Bool_val(isinside))
+            ct++;
+    }
+    printf(&amp;quot;%d (%f)\n&amp;quot;, ct, (double) ct / (double) 1000000000);
+    CAMLreturnT(int, 0);
+}&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This revised version works correctly:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ocamlopt -output-obj -o inside.o inside.ml
+$ W=`ocamlopt -where`; clang -I $W -L $W -o r4b r4b.c inside.o -lasmrun
+$ r4b
+140625030 (0.140625)&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;(If my calculations are correct, the expected fraction is indeed 9/64,
+or 0.140625.)&lt;/p&gt;
+
+&lt;p&gt;In retrospect the problem is obvious, but I&amp;rsquo;ve wondered for years
+whether this construct is OK. As far as I can tell it isn&amp;rsquo;t
+explicitly forbidden by any of the &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml/intfc.html#sec440&quot;&gt;GC Harmony Rules&lt;/a&gt;. In
+many ways, though, it&amp;rsquo;s related to Rule 4: the calculated value to be
+passed is like a global value, in that it&amp;rsquo;s outside the reach of the
+&lt;code&gt;CAMLlocal()&lt;/code&gt; macros.&lt;/p&gt;
+
+&lt;p&gt;A good rule of thumb seems to be that you shouldn&amp;rsquo;t write an expression
+as an argument to a function if it can cause OCaml allocation. If
+necessary, evaluate the expression before the call.&lt;/p&gt;
+
+&lt;p&gt;I hope this may help some other humble OCaml developer seeking to attune
+his or her life with the Garbage Collector.  If you have any comments or
+encouragement, leave them below or email me at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2015/01/2015.01.gc-disharmony-bis.html</id><title type="text">Further OCaml GC Disharmony</title><updated>2015-01-25T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2014/12/2014.12.ocaml-iossim8.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;December 19, 2014&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://psellos.com/ocaml/compile-to-iphone.html&quot;&gt;OCamlXARM&lt;/a&gt; compiles for an iOS device, but &lt;a href=&quot;http://psellos.com/ocaml/compile-to-iossim.html&quot;&gt;OCamlXSim&lt;/a&gt; compiles
+for an iOS Simulator. The same &lt;code&gt;ocamloptrev&lt;/code&gt; script that compiles OCaml
+for iOS 8 can also get OCamlXSim to compile OCaml for the iOS 8
+Simulator. The only thing that changes is the location of the compiler.&lt;/p&gt;
+
+&lt;p&gt;If you want to try out OCaml on the iOS 8 Simulator, here is an update
+to the script that compiles for either an iOS device or an iOS Simulator
+(&lt;code&gt;ocamloptrev&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/bin/bash
+#
+# ocamloptrev     ocamlopt for specified iOS revision
+#
+USAGE='ocamloptrev  -rev M.N  [ -sim ]  other-ocamlopt-options ...'
+
+OCAMLDIR=/usr/local/ocamlxarm/v7
+OCAMLSIMDIR=/usr/local/ocamlxsim
+
+REV=''
+SIM=n
+declare -a ARGS
+while [ $# -gt 0 ] ; do
+    case $1 in
+    -rev)
+        if [ $# -gt 1 ]; then
+            REV=$2
+            shift 2
+        else
+            echo &amp;quot;$USAGE&amp;quot; &amp;gt;&amp;amp;2
+            exit 1
+        fi
+        ;;
+    -sim)
+        SIM=y
+        shift
+        ;;
+    *)  ARGS[${#ARGS[*]}]=&amp;quot;$1&amp;quot;
+        shift 1
+        ;;
+    esac
+done
+if [ &amp;quot;$REV&amp;quot; = &amp;quot;&amp;quot; ]; then
+    echo &amp;quot;$USAGE&amp;quot; &amp;gt;&amp;amp;2
+    exit 1
+fi
+
+HIDEOUT=/Applications/Xcode.app/Contents/Developer 
+
+case $SIM in
+y)  PLT=$HIDEOUT/Platforms/iPhoneSimulator.platform 
+    SDK=/Developer/SDKs/iPhoneSimulator${REV}.sdk 
+    OCAMLC=$OCAMLSIMDIR/bin/ocamlopt
+    ;;
+n)  PLT=$HIDEOUT/Platforms/iPhoneOS.platform 
+    SDK=/Developer/SDKs/iPhoneOS${REV}.sdk 
+    OCAMLC=$OCAMLDIR/bin/ocamlopt
+    ;;
+esac
+
+$OCAMLC -ccopt -isysroot -ccopt &amp;quot;$PLT$SDK&amp;quot; &amp;quot;${ARGS[@]}&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To compile for the iOS Simulator, specify &lt;code&gt;-sim&lt;/code&gt; along with &lt;code&gt;-rev M.N&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s make a tiny OCaml program for testing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ Q=&amp;quot;Do you know what it's like on the outside?\\n&amp;quot;
+$ echo &amp;quot;Printf.printf \&amp;quot;$Q\&amp;quot;&amp;quot; &amp;gt; ny1941.ml&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here&amp;rsquo;s what happens if you compile with the current OCamlXSim on a
+system with the iOS 8.1 SDK:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /usr/local/ocamlxsim/bin/ocamlopt -o ny1941 ny1941.ml
+clang: warning: no such sysroot directory: '/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk'
+ld: library not found for -lSystem
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+File &amp;quot;caml_startup&amp;quot;, line 1:
+Error: Error during linking&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, it&amp;rsquo;s trying and failing to use the default iOS Simulator
+7.1 SDK. Here&amp;rsquo;s how to use &lt;code&gt;ocamloptrev&lt;/code&gt; (the above script):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ocamloptrev -sim -rev 8.1 -o ny1941 ny1941.ml
+$ ls -l ny1941
+-rwxr-xr-x  1 jeffsco  staff  303364 Dec 19 23:02 ny1941
+$ file ny1941
+ny1941: Mach-O executable i386
+$&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can actually run an iOS simulator app from the OS X command line,
+though there are many things that don&amp;rsquo;t work properly.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ny1941
+Do you know what it's like on the outside?
+$&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;See &lt;a href=&quot;http://psellos.com/2012/04/2012.04.iossim-vs-osx.html&quot;&gt;iOS Simulator Vs. OS X&lt;/a&gt; for a
+description of some differences between the OS X and the iOS Simulator
+environments.&lt;/p&gt;
+
+&lt;p&gt;If you don&amp;rsquo;t specify &lt;code&gt;-sim&lt;/code&gt;, the script compiles for an iOS device as
+before:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ocamloptrev -rev 8.1 -o ny1941 ny1941.ml -cclib -Wl,-no_pie
+$ file ny1941
+ny1941: Mach-O executable arm
+$ &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When not working in the subbasement of my alma mater, I&amp;rsquo;m working in my
+cluttered underground workroom on several OCaml-on-iOS projects. Along
+with holiday joys and the delights of coding in node.js during the day,
+I&amp;rsquo;ll keep working through them as fast as I can.&lt;/p&gt;
+
+&lt;p&gt;I hope this script will be useful for folks who want to try OCaml on the
+iOS Simulator while I&amp;rsquo;m updating my humble patches to the latest
+versions of everything and keeping all the irons in the fire.&lt;/p&gt;
+
+&lt;p&gt;If you have any trouble (or success) with the script, or have any other
+comments, leave them below or email me at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2014/12/2014.12.ocaml-iossim8.html</id><title type="text">OCaml 4.01 for iOS 8 Simulator</title><updated>2014-12-19T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2014/12/2014.12.ocaml-portland-app.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;December 14, 2014&lt;/div&gt;
+
+&lt;p&gt;I coded up a simple OCaml iOS app to run in iOS 8.1. Instructions for
+downloading, building, and running the app are here:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://psellos.com/ocaml/example-app-portland.html&quot;&gt;Portland: Which Way Is Up on iOS?&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;You can download the sources directly here:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://psellos.com/pub/portland/portland-ios-2.0.3.tgz&quot;&gt;Portland 2.0.3, OCaml app for iOS 8.1 (29 KB)&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This is a revamped version of Portland, the first example OCaml iOS app
+I made a few years ago. For maximum clarity it doesn&amp;rsquo;t do anything
+particularly impressive. It really just shows how to code an iOS app in
+OCaml.&lt;/p&gt;
+
+&lt;p&gt;Here are some things I learned while revamping.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Remember to call &lt;code&gt;caml_main()&lt;/code&gt; in your main program (see &lt;code&gt;main.m&lt;/code&gt;). If
+you forget, you&amp;rsquo;ll get the &amp;ldquo;undefined atom table&amp;rdquo; error at link time.
+I wrote about this in &lt;a href=&quot;http://psellos.com/2014/10/2014.10.atom-table-undef.html&quot;&gt;Undefined caml_atom_table&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;If you keep disembodied OCaml values in the Objective C world,
+remember to register them as global roots using
+&lt;code&gt;caml_register_global_root&lt;/code&gt;. Otherwise you&amp;rsquo;ll experience chaos at the
+first GC. I wrote about this in &lt;a href=&quot;http://psellos.com/2014/12/2014.12.objc-rule-four.html&quot;&gt;OCaml, Objective C, Rule 4&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Automatic Reference Counting imposes some restrictions on what you can
+do in wrapper code. For the Portland example (and probably for many
+real-world apps) it&amp;rsquo;s enough to have a table of Objective C objects
+that are conceptually referenced from OCaml. That is, the table in the
+Objective C world references the objects as a proxy for references
+from the OCaml world. You can see the code for this in &lt;code&gt;wrap.m&lt;/code&gt;. I
+hope to write more about this. Maybe you, reader, have some ideas for
+a better approach.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Modern day iOS apps are based on View Controllers rather than on
+Views. In particular, it&amp;rsquo;s usual to define a custom subclass of
+&lt;code&gt;UIViewController&lt;/code&gt; for each piece of the interface. This is tricky for
+OCaml on iOS, as it&amp;rsquo;s not (currently) possible to define an OCaml
+subclass of an Objective C class. For Portland I&amp;rsquo;m using an Objective
+C subclass of &lt;code&gt;UIViewController&lt;/code&gt; that delegates to an OCaml object.
+Here too, this is probably good enough for many real-world apps. I
+hope to write more about this also.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;There are several cyclic dependencies among the classes of Cocoa
+Touch used in Portland. To represent them in OCaml I use a common set
+of definitions named &lt;code&gt;ui.mli&lt;/code&gt;, where the cycles can be accommodated
+using &lt;code&gt;class type a =&lt;/code&gt; &amp;hellip; &lt;code&gt;and b =&lt;/code&gt; &amp;hellip; . It seems to me this is a
+strength of OCaml&amp;rsquo;s structural typing for objects. That is, it&amp;rsquo;s
+possible to define class types independently of particular classes. In
+this way cycles can be represented without forward-reference
+loopholes. (However it&amp;rsquo;s possible that the number of cycles in a full
+interface to Cocoa Touch would become overwhelming.)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It&amp;rsquo;s dark, chilly, and wet here by Puget Sound; I&amp;rsquo;m going to retire now
+to my tent and my dreams. The next thing on my OCaml-on-iOS schedule is
+to update to the latest OCaml compiler. I&amp;rsquo;m getting serious polymathic
+help on this, as I hope you&amp;rsquo;ll hear about soon.&lt;/p&gt;
+
+&lt;p&gt;If you have any trouble (or success) with the Portland app, or have any
+other comments, leave them below or email me at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2014/12/2014.12.ocaml-portland-app.html</id><title type="text">OCaml App for iOS 8.1 (Sources)</title><updated>2014-12-14T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2014/12/2014.12.ocaml-ios8.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;December 9, 2014&lt;/div&gt;
+
+&lt;p&gt;The current OCamlXARM compiles by default for iOS 7.1, but using it for
+iOS 8 is not too difficult. The only thing that changes is the name of
+the SDK, which can be specified with the &lt;code&gt;-ccopt&lt;/code&gt; option of ocamlopt.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ve been testing OCaml apps on iOS 8.1 recently, and I wrote a script
+that runs the OCamlXARM version of ocamlopt with the correct options. In
+fact it lets you specify the revision of iOS that you want to compile
+for.&lt;/p&gt;
+
+&lt;p&gt;If you want to try out OCaml on iOS 8, this script should work for you
+(&lt;code&gt;ocamloptrev&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/bin/bash
+#
+# ocamloptrev     ocamlopt for specified iOS revision
+#
+USAGE='ocamloptrev  -rev M.N  other-ocamlopt-options ...'
+REV=''
+declare -a ARGS
+while [ $# -gt 0 ] ; do
+    case $1 in
+    -rev)
+        if [ $# -gt 1 ]; then
+            REV=$2
+            shift 2
+        else
+            echo &amp;quot;$USAGE&amp;quot; &amp;gt;&amp;amp;2
+            exit 1
+        fi
+        ;;
+    *)  ARGS[${#ARGS[*]}]=&amp;quot;$1&amp;quot;
+        shift 1
+        ;;
+    esac
+done
+if [ &amp;quot;$REV&amp;quot; = &amp;quot;&amp;quot; ]; then
+    echo &amp;quot;$USAGE&amp;quot; &amp;gt;&amp;amp;2
+    exit 1
+fi
+HIDEOUT=/Applications/Xcode.app/Contents/Developer 
+PLT=$HIDEOUT/Platforms/iPhoneOS.platform 
+SDK=/Developer/SDKs/iPhoneOS${REV}.sdk 
+OCOPTS=&amp;quot;-ccopt -isysroot -ccopt $PLT$SDK&amp;quot; 
+/usr/local/ocamlxarm/v7/bin/ocamlopt $OCOPTS &amp;quot;${ARGS[@]}&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let&amp;rsquo;s make a tiny OCaml program for testing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ echo &amp;quot;Printf.printf \&amp;quot;There's a light up above\n\&amp;quot;&amp;quot; &amp;gt; bbjohn.ml&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here&amp;rsquo;s what happens if you compile with the current OCamlXARM on a
+system with the iOS 8.1 SDK:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /usr/local/ocamlxarm/v7/bin/ocamlopt -o bbjohn bbjohn.ml
+clang: warning: no such sysroot directory: '/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk'
+ld: library not found for -lSystem
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+File &amp;quot;caml_startup&amp;quot;, line 1:
+Error: Error during linking&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, it&amp;rsquo;s trying and failing to use the iOS 7.1 SDK. Here&amp;rsquo;s
+how to use &lt;code&gt;ocamloptrev&lt;/code&gt; (the above script):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ocamloptrev -rev 8.1 -o bbjohn -cclib -Wl,-no_pie bbjohn.ml
+$ ls -l bbjohn
+-rwxr-xr-x+ 1 jeffsco  staff  238272 Dec  9 20:55 bbjohn
+$ file bbjohn
+bbjohn: Mach-O executable arm&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I have run the generated executables under iOS 8.1, and they work for
+me.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;m continuing to work with passion, in the evenings, in my
+metaphorically lonely atelier in the subbasement, on several
+OCaml-on-iOS projects. In fact one is potentially quite exciting. Thanks
+for all the support from correspondents as I work through them as fast
+as I can.&lt;/p&gt;
+
+&lt;p&gt;I hope this script will be useful for folks who want to try OCaml on iOS
+while I&amp;rsquo;m updating the release to the latest versions of everything and
+keeping all the irons in the fire.&lt;/p&gt;
+
+&lt;p&gt;If you have any trouble (or success) with the script, or have any other
+comments, leave them below or email me at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2014/12/2014.12.ocaml-ios8.html</id><title type="text">OCaml 4.01 for iOS 8</title><updated>2014-12-09T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2014/12/2014.12.objc-rule-four.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;December 4, 2014&lt;/div&gt;
+
+&lt;p&gt;I recently spent some time tracking down another problem in an OCaml iOS
+app. The symptom was that the app would work fine for 5 minutes and 50
+seconds, then would crash. The app, named Portland, is very simple; its
+only input is a periodic categorization of the spatial orientation of the
+phone. The timing of the crash was quite consistent.&lt;/p&gt;
+
+&lt;p&gt;It turns out that the same problem can be demonstrated in OS X. At the
+risk of revealing just how many errors I make in coding, I thought I&amp;rsquo;d
+write up this example also. I can imagine that somebody else might see
+the problem some day.&lt;/p&gt;
+
+&lt;p&gt;Even an OCaml iOS app will have some parts written in Objective C. The
+error showed up because I wanted to have a table in Objective C holding
+some OCaml values. I made a tiny example that shows the problem in OS X.
+Here is the table in Objective C (&lt;code&gt;table.m&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;Foundation/Foundation.h&amp;gt;
+
+#include &amp;quot;caml/memory.h&amp;quot;
+#include &amp;quot;caml/alloc.h&amp;quot;
+
+static NSMutableDictionary *g_dict = nil;
+
+static NSString *NSString_val(value sval)
+{
+    return [NSString stringWithCString: String_val(sval)
+                              encoding: NSUTF8StringEncoding];
+}
+
+value table_add(value k, value v)
+{
+    CAMLparam2(k, v);
+
+    if (g_dict == nil)
+        g_dict = [NSMutableDictionary dictionary];
+
+    NSNumber *val = [NSNumber numberWithLong: v];
+    [g_dict setObject: val forKey: NSString_val(k)];
+    CAMLreturn(Val_unit);
+}
+
+value table_lookup(value k)
+{
+    CAMLparam1(k);
+    CAMLlocal1(some);
+
+    NSNumber *val;
+    if ((val = [g_dict objectForKey: NSString_val(k)]) != nil) {
+        some = caml_alloc_tuple(1);
+        Store_field(some, 0, [val longValue]);
+        CAMLreturn(some);
+    }
+    CAMLreturn(Val_int(0)); /* None */
+}&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The table associates a string with an OCaml value. You have to imagine
+that I have some reason to retrieve the OCaml value for a string in the
+Objective C code. But for this example I&amp;rsquo;ll look up values from OCaml
+using &lt;code&gt;table_lookup()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The OCaml main program looks like this (&lt;code&gt;r4.ml&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;external table_add : string -&amp;gt; int list -&amp;gt; unit = &amp;quot;table_add&amp;quot;
+external table_lookup : string -&amp;gt; int list option = &amp;quot;table_lookup&amp;quot;
+
+let rec replicate n x = if n &amp;lt;= 0 then [] else x :: replicate (n - 1) x
+
+let rec check iter =
+    (* Keep checking whether the &amp;quot;four&amp;quot; entry looks right. If not,
+     * return the iteration number where it fails.
+     *)
+    if iter mod 1000000 = 0 then
+        Printf.printf &amp;quot;iteration %d\n%!&amp;quot; iter;
+    match table_lookup &amp;quot;four&amp;quot; with
+    | Some [_; _; _; _] -&amp;gt; check (iter + 1)
+    | _ -&amp;gt; iter
+
+let main () =
+    table_add &amp;quot;three&amp;quot; (replicate 3 1);
+    table_add &amp;quot;four&amp;quot; (replicate 4 1);
+    let failed_iter = check 1 in
+    Printf.printf &amp;quot;failed at iteration %d\n&amp;quot; failed_iter
+
+let () = main ()&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The program creates two entries in the table. The value for &lt;code&gt;&amp;quot;four&amp;quot;&lt;/code&gt; is
+the list &lt;code&gt;[1; 1; 1; 1]&lt;/code&gt;. Then&amp;mdash;and you know this means something is very
+wrong&amp;mdash;it fetches the value for &lt;code&gt;&amp;quot;four&amp;quot;&lt;/code&gt; repeatedly and checks that it
+has the correct length.&lt;/p&gt;
+
+&lt;p&gt;If you compile this and run it on OS X a couple of times, you see the
+following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ uname -rs
+Darwin 13.3.0
+$ cc -I /usr/local/lib/ocaml -c table.m
+$ ocamlopt -o r4 -cclib '-framework Foundation' r4.ml table.o
+$ r4
+failed at iteration 131067
+$ r4
+failed at iteration 131067&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So, at iteration 131067 the length of the list for &lt;code&gt;&amp;quot;four&amp;quot;&lt;/code&gt; changes to
+something other than 4. The first 131066 iterations correspond to the 5
+minutes 50 seconds when my iOS app worked fine. Then things go wrong.
+Note that 131067 is suspiciously close to a power of 2.&lt;/p&gt;
+
+&lt;p&gt;You, reader, are possibly way ahead of me and already see what&amp;rsquo;s wrong.
+But what I did was work through the problem carefully with lldb.
+Eventually I figured out that I had broken Rule 4:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Rule 4&lt;/strong&gt; &lt;em&gt;Global variables containing values must be registered with the
+  garbage collector using the&lt;/em&gt; &lt;code&gt;caml_register_global_root&lt;/code&gt; &lt;em&gt;function.&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In retrospect this is obvious. OCaml values are subject to change at
+every allocation. But they can&amp;rsquo;t change if the GC can&amp;rsquo;t find them, so
+they need to be registered. The values in the table aren&amp;rsquo;t registered,
+so they become invalid at the first GC. You can find Rule 4 and the
+Other Rules here:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml/intfc.html#sec440&quot;&gt;Living in harmony with the garbage collector&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;One reason it was difficult to code this correctly is that the
+&lt;code&gt;NSNumber&lt;/code&gt; wrapper class doesn&amp;rsquo;t have an interface for getting a pointer
+to the wrapped-up number. I thought about this for a while and ended up
+doing the following (corrected &lt;code&gt;table.m&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;Foundation/Foundation.h&amp;gt;
+
+#include &amp;quot;caml/memory.h&amp;quot;
+#include &amp;quot;caml/alloc.h&amp;quot;
+
+static NSMutableDictionary *g_dict = nil;
+
+static NSString *NSString_val(value sval)
+{
+    return [NSString stringWithCString: String_val(sval)
+                              encoding: NSUTF8StringEncoding];
+}
+
+value table_add(value k, value v)
+{
+    CAMLparam2(k, v);
+
+    if (g_dict == nil)
+        g_dict = [NSMutableDictionary dictionary];
+
+    value *vp = malloc(sizeof *vp);
+    if (vp == NULL)
+        CAMLreturn(Val_unit); /* No memory for adding to table */
+    *vp = v;
+    caml_register_global_root(vp);
+    NSValue *val = [NSValue valueWithPointer: vp];
+    [g_dict setObject: val forKey: NSString_val(k)];
+    CAMLreturn(Val_unit);
+}
+
+value table_lookup(value k)
+{
+    CAMLparam1(k);
+    CAMLlocal1(some);
+
+    NSValue *val;
+    if ((val = [g_dict objectForKey: NSString_val(k)]) != nil) {
+        some = caml_alloc_tuple(1);
+        Store_field(some, 0, * (value *) [val pointerValue]);
+        CAMLreturn(some);
+    }
+    CAMLreturn(Val_int(0)); /* None */
+}&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Since I can&amp;rsquo;t get pointers to wrapped up values, I make pointers myself
+and wrap &lt;em&gt;them&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you compile and run this corrected version, it looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cc -I /usr/local/lib/ocaml -c table.m
+$ ocamlopt -o r4 -cclib '-framework Foundation' r4.ml table.o
+$ r4 | head -12
+iteration 1000000
+iteration 2000000
+iteration 3000000
+iteration 4000000
+iteration 5000000
+iteration 6000000
+iteration 7000000
+iteration 8000000
+iteration 9000000
+iteration 10000000
+iteration 11000000
+iteration 12000000&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I have every reason to believe the corrected iOS app will run until the
+cows come home 12,000,000 times.&lt;/p&gt;
+
+&lt;p&gt;I hope this may help some other lonely OCaml developer who sees a crash
+after 5 minutes 50 seconds. May we all live in harmony. If you have any
+comments or sympathy, leave them below or email me at
+&lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2014/12/2014.12.objc-rule-four.html</id><title type="text">OCaml, Objective C, Rule 4</title><updated>2014-12-04T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2014/10/2014.10.atom-table-undef.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;November 3, 2014&lt;/div&gt;
+
+&lt;p&gt;This week I spent some time tracking down a problem when linking an
+OCaml application for iOS. It turns out that the same problem shows up
+when linking for OS X. I can imagine that somebody else might see the
+problem someday and wonder what&amp;rsquo;s going on, so I thought I&amp;rsquo;d write it
+up.&lt;/p&gt;
+
+&lt;p&gt;The problem shows up when you have a C program that calls out to an
+OCaml function. I made a tiny example; the C code looks like this
+(&lt;code&gt;main.c&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;quot;caml/mlvalues.h&amp;quot;
+#include &amp;quot;caml/callback.h&amp;quot;
+
+int main(int ac, char *av[])
+{
+    value *fact_closure = caml_named_value(&amp;quot;fact&amp;quot;);
+    value result = caml_callback(*fact_closure, Val_int(atoi(av[1])));
+    printf(&amp;quot;%ld\n&amp;quot;, Long_val(result));
+    exit(0);
+}&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The OCaml code looks like this (&lt;code&gt;fact.ml&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;let rec fact n = if n &amp;lt; 2 then 1 else n * fact (n - 1)
+
+let () = Callback.register &amp;quot;fact&amp;quot; fact&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you compile and link this for OS X, you see the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ uname -rs
+Darwin 13.3.0
+$ ocamlopt -output-obj -o factobj.o fact.ml
+$ cc -I /usr/local/lib/ocaml -o cfact main.c factobj.o -L /usr/local/lib/ocaml -lasmrun
+Undefined symbols for architecture x86_64:
+  &amp;quot;_caml_atom_table&amp;quot;, referenced from:
+      _caml_alloc in libasmrun.a(alloc.o)
+      _caml_alloc_array in libasmrun.a(alloc.o)
+      _caml_alloc_dummy in libasmrun.a(alloc.o)
+      _caml_alloc_dummy_float in libasmrun.a(alloc.o)
+      _intern_alloc in libasmrun.a(intern.o)
+      _intern_rec in libasmrun.a(intern.o)
+  &amp;quot;_caml_code_area_end&amp;quot;, referenced from:
+      _segv_handler in libasmrun.a(signals_asm.o)
+  &amp;quot;_caml_code_area_start&amp;quot;, referenced from:
+      _segv_handler in libasmrun.a(signals_asm.o)&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This struck me as strange, as these are clearly symbols over which I
+have no control. Furthermore, if you look in libasmrun.a, the symbols
+are in fact defined:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ nm /usr/local/lib/ocaml/libasmrun.a | egrep 'atom_table|code_area'
+0000000000000800 C _caml_atom_table
+0000000000000008 C _caml_code_area_end
+0000000000000008 C _caml_code_area_start
+                 U _caml_code_area_end
+                 U _caml_code_area_start
+                 U _caml_atom_table
+                 U _caml_atom_table
+                 U _caml_atom_table
+                 U _caml_atom_table&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;C&lt;/code&gt; next to their names shows that the symbols are defined. The
+other appearances with &lt;code&gt;U&lt;/code&gt; are the unsatisfied references that the
+linker is complaining about.&lt;/p&gt;
+
+&lt;p&gt;One interesting thing, though, is that these are so-called &amp;ldquo;common&amp;rdquo;
+symbols. That is, they represent uninitialized (zero-filled) values that
+will be added to an executable only if there are no other definitions
+that provide an initial value. The technical name for this in C is a
+&amp;ldquo;tentative definition.&amp;rdquo; (The justified, ancient name &amp;ldquo;common&amp;rdquo; comes, I
+believe, from Fortran of 1958, may it rest in peace.)&lt;/p&gt;
+
+&lt;p&gt;To make a long story short, what I found out through web searching and
+testing is that Apple decided to change the semantics of common symbols
+appearing in libraries. In particular, Apple&amp;rsquo;s archiver &lt;code&gt;ar&lt;/code&gt; doesn&amp;rsquo;t
+list common symbols in the table of contents (TOC) for an archive like
+&lt;code&gt;libasmrun.a&lt;/code&gt;. So, although the symbols are defined in individual
+modules, they don&amp;rsquo;t appear in the TOC, which is where the linker
+actually looks. This means that the symbols will not be found by the
+linker unless the module is included for other reasons.&lt;/p&gt;
+
+&lt;p&gt;This is a pretty big change from age-old Unix semantics, and if you
+search you can find a fair number of developers confused by the
+behavior. There&amp;rsquo;s a little more detail on this page at Stack Overflow:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://stackoverflow.com/questions/19398742/os-x-linker-unable-to-find-symbols-from-a-c-file-which-only-contains-variables&quot;&gt;OS X linker unable to find symbols from a C file which only contains variables&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;What&amp;rsquo;s suspicious, however, is that I&amp;rsquo;ve never seen this problem before
+when building OCaml apps for OS X or iOS. So why do I see it in this
+code?&lt;/p&gt;
+
+&lt;p&gt;The answer is that the code is wrong! When setting up a main program in
+C that calls out to OCaml, you&amp;rsquo;re supposed to call &lt;code&gt;caml_main()&lt;/code&gt; before
+things get rolling in your program. The &lt;code&gt;main&lt;/code&gt; function is actually
+supposed to look like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;int main(int ac, char *av[])
+{
+    caml_main(av);
+    value *fact_closure = caml_named_value(&amp;quot;fact&amp;quot;);
+    value result = caml_callback(*fact_closure, Val_int(atoi(av[1])));
+    printf(&amp;quot;%ld\n&amp;quot;, Long_val(result));
+    exit(0);
+}&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you make this change, everything works totally great:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ocamlopt -output-obj -o factobj.o fact.ml
+$ cc -I /usr/local/lib/ocaml -o cfact main.c factobj.o -L /usr/local/lib/ocaml -lasmrun
+$ cfact 20
+2432902008176640000&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In summary, although I have some mild reservations about this Apple
+change to &lt;code&gt;ar&lt;/code&gt;, when building OCaml apps it&amp;rsquo;s actually helpful, as it
+indirectly detects the failure to call &lt;code&gt;caml_main()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;To see what I mean, compile and link the original (incorrect) example
+under a system with more traditional Unix semantics. On a cloudy 64-bit
+Linux system, for example, it looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ uname -rs
+Linux 3.2.20-1.29.6.amzn1.x86_64
+$ ocamlopt -output-obj -o factobj.o fact.ml
+$ cc -I /usr/lib64/ocaml -o cfact main.c factobj.o -L /usr/lib64/ocaml -lasmrun -lm -ldl&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You notice that there are no problems in the link step. If you try to
+run the program, however, you see this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cfact 20
+Segmentation fault&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The program fails because the registration of &lt;code&gt;fact&lt;/code&gt; hasn&amp;rsquo;t taken place.&lt;/p&gt;
+
+&lt;p&gt;I hope this may help some other lonely OCaml developer who sees an
+undefined atom table. If you have any comments, leave them below or
+email me at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2014/10/2014.10.atom-table-undef.html</id><title type="text">Undefined caml_atom_table</title><updated>2014-11-03T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2014/09/2014.09.ocamlxsim-401.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;September 8, 2014&lt;/div&gt;
+
+&lt;p&gt;Today I&amp;rsquo;m releasing an OCaml compiler for the iOS 7.1 Simulator. It&amp;rsquo;s just a small modification of the standard 32-bit Intel OCaml compiler, but I&amp;rsquo;ve found it helpful and even delightful for developing iOS apps in OCaml.&lt;/p&gt;
+
+&lt;p&gt;I affect a bantering tone, but secretly I&amp;rsquo;m honored that the companion &lt;a href=&quot;http://psellos.com/2014/08/2014.08.ocamlxarm-402.html&quot;&gt;compiler for OCaml on iOS devices&lt;/a&gt; recently enjoyed a brief episode of mini-fame in the hacker community. (True meaning of hacker: someone who codes passionately if unwisely.) I hope this effort is also interesting to my hacker brethren and sistren.&lt;/p&gt;
+
+&lt;p&gt;OCamlXSim 4.0.1 is a cross-compiling version of OCaml 4.01.0. I&amp;rsquo;m running it under Xcode 5.1.1 on OS X 10.9.4. You can download a binary installer here:&lt;/p&gt;
+
+&lt;div class=&quot;flowaroundimg&quot; style=&quot;margin-top: 1.0em;&quot;&gt;
+&lt;a href=&quot;http://psellos.com/ocaml/compile-to-iossim.html&quot;&gt;&lt;img src=&quot;http://psellos.com/images/voronoi-lighthouse-p3.png&quot; alt=&quot;Voronoi lighthouse looking screen&quot;/&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://psellos.com/pub/ocamlxsim/ocaml-4.01.0+xsim-4.0.1.dmg&quot;&gt;OCamlXSim 4.0.1 Installer for OS X 10.9&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;You can get sources from the Subversion repository here:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;svn://svn.psellos.com/tags/ocamlxsim-4.0.1&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;If you just want to see the differences from the base OCaml 4.01.0 release, the diffs are available here:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://psellos.com/pub/ocamlxsim/ocamlxsim-4.0.1.diff&quot;&gt;OCamlXSim 4.0.1 diffs from OCaml 4.01.0&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The changes to the compiler itself are quite small; most of the difficulty is in making it into a cross compiler from OS X to the Simulator environment.&lt;/p&gt;
+
+&lt;p&gt;A simple test of the installed compiler is given on &lt;a href=&quot;http://psellos.com/ocaml/compile-to-iossim.html&quot;&gt;Compile OCaml for iOS Simulator&lt;/a&gt;. There are also instructions for building from source.&lt;/p&gt;
+
+&lt;p&gt;The image above shows the &lt;a href=&quot;http://psellos.com/ocaml/example-app-voronoi.html&quot;&gt;Voronoi&lt;/a&gt; app running in the iOS 7.1 Simulator. Perhaps it&amp;rsquo;s a Pygmalion kind of thing, but I&amp;rsquo;m always shocked how many beautiful images you can create with this app. I&amp;rsquo;ll rewrite the Voronoi app for the latest iOS, and I hope at least one other person will have as much fun with it as I do.&lt;/p&gt;
+
+&lt;p&gt;A new revision of OCaml (4.02.0) has just come out, and of course there will always be new revisions of everything. I&amp;rsquo;ll be working on updating everything, but I&amp;rsquo;d also be happy to farm out work to you, reader, or to any interested parties you might know of.&lt;/p&gt;
+
+&lt;p&gt;If you find problems with the compiler, I&amp;rsquo;d be glad to hear about them. Or if you have any comments or encouragement, leave them below or email me at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2014/09/2014.09.ocamlxsim-401.html</id><title type="text">OCaml on iOS 7 Simulator Released</title><updated>2014-09-08T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2014/08/2014.08.ocamlxsim-progress.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;August 30, 2014&lt;/div&gt;
+
+&lt;p&gt;Some indie gypsy polka-punk developers across the globe have now been asking me about the status of the OCaml-on-iOS-&lt;em&gt;Simulator&lt;/em&gt; project. I&amp;rsquo;ve made some progress here, too, and yesterday I built the first iOS app with OCaml 4.01.0, and ran it successfully in the iPhone Simulator (iOS 7.1).&lt;/p&gt;
+
+&lt;div class=&quot;flowaroundimg&quot; style=&quot;margin-top: 1.0em;&quot;&gt;
+&lt;a href=&quot;http://psellos.com/ocaml/example-app-gamut.html&quot;&gt;&lt;img src=&quot;http://psellos.com/images/gamut-burnt-orange-p3.png&quot; alt=&quot;Gamut app burnt orange screen&quot;/&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;To get it working I applied the OCaml 4.00.0 OCaml-on-iOS-Simulator patches to the OCaml 4.01.0 compiler. The patches are quite simple, probably because the ABI of the 32-bit Intel architecture is well standardized. So there&amp;rsquo;s nothing to change in the code generator.&lt;/p&gt;
+
+&lt;p&gt;Then I updated the &lt;code&gt;xsim-build&lt;/code&gt; script that builds ocamlopt as a cross-compiler to the Simulator environment. &lt;code&gt;xsim-build&lt;/code&gt; is described in &lt;a href=&quot;http://psellos.com/ocaml/compile-to-iossim.html&quot;&gt;Compile OCaml for iOS Simulator&lt;/a&gt; (soon to be updated).&lt;/p&gt;
+
+&lt;p&gt;There were two small problems with the generated compiler.&lt;/p&gt;
+
+&lt;p&gt;First, the clang toolchain tracks the difference between OS X and the Simulator environment. (I wrote about the differences in &lt;a href=&quot;http://psellos.com/2012/04/2012.04.iossim-vs-osx.html&quot;&gt;iOS Simulator Vs. OS X&lt;/a&gt;.) You need to tell the compiler you&amp;rsquo;re compiling for iOS, or you&amp;rsquo;ll see an error like this at link time:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code&gt;ld: building for MacOSX, but linking against dylib built for iOS Simulator file&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The fix for this is to define a desired minimum version of iOS. What I&amp;rsquo;m using for now is this command-line flag for clang:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code&gt;-miphoneos-version-min=6.0&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Note that this will change the set of defined preprocessor symbols, and so may require some adaptation in your conditional compilation directives.&lt;/p&gt;
+
+&lt;p&gt;Second, there were many warnings like this at link time:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code&gt;ld: warning: could not create compact unwind for _caml_curry4_2_app&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;I believe this happens because the OCaml code generator doesn&amp;rsquo;t generate metadata to support &amp;ldquo;compact unwind.&amp;rdquo; This is something I know nothing about. I could learn, but if you, reader, know something about it I&amp;rsquo;d be very happy to get some help.&lt;/p&gt;
+
+&lt;p&gt;For now, things seem to work if you turn off compact unwind with the following undocumented linker flag:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code&gt;-no_compact_unwind&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;One cool thing about compiling for the simulator is that you can run the generated code, if it&amp;rsquo;s simple enough, from the OS X command line. Here&amp;rsquo;s a session showing how to do it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ BIN=/usr/local/ocamlxsim/bin
+$ cat howitends.ml
+let main () = Printf.printf &amp;quot;You already know how this will end.\n&amp;quot;
+
+let () = main ()
+$ $BIN/ocamlopt -o howitends howitends.ml
+$ HIDEOUT=/Applications/Xcode.app/Contents/Developer
+$ PLAT=$HIDEOUT/Platforms/iPhoneSimulator.platform
+$ SDK=/Developer/SDKs/iPhoneSimulator7.1.sdk
+$ DYLD_ROOT_PATH=$PLAT$SDK howitends
+You already know how this will end.&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you&amp;rsquo;re interested, there are more details in &lt;a href=&quot;http://psellos.com/2012/04/2012.04.iossim-vs-osx.html&quot;&gt;iOS Simulator Vs. OS X&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Once the compiler was working I built the &lt;a href=&quot;http://psellos.com/ocaml/example-app-gamut.html&quot;&gt;Gamut&lt;/a&gt; app, which does just enough to test whether OCaml is working in the Simulator. As far as I can tell, it&amp;rsquo;s working perfectly.&lt;/p&gt;
+
+&lt;p&gt;I want to try a few more things before releasing this version to the savants and lovers of wisdom. If I don&amp;rsquo;t find any serious problems, a new release will be coming soon. In the meantime, the elder savants have released a new version of OCaml, 4.02.0, for which we can only thank them. Support for this new release will come in due time.&lt;/p&gt;
+
+&lt;p&gt;If you have any comments or encouragement, leave them below or email me at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2014/08/2014.08.ocamlxsim-progress.html</id><title type="text">OCaml on iOS 7 Simulator, Progress Report</title><updated>2014-08-30T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2014/08/2014.08.ocamlxarm-402.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;August 21, 2014&lt;/div&gt;
+
+&lt;p&gt;Pansophical reader, with your bafflingly good mobile OCaml project, I&amp;rsquo;m ready at last to release an OCaml compiler for iOS 7. It works for all my projects, and I hope it works for yours.&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s a cross-compiling version of OCaml 4.01.0, and I&amp;rsquo;m running it under Xcode 5.1.1 on OS X 10.9.4. You can download a binary installer here:&lt;/p&gt;
+
+&lt;div class=&quot;flowaroundimg&quot; style=&quot;margin-top: 1.0em;&quot;&gt;
+&lt;a href=&quot;http://psellos.com/ocaml/compile-to-iphone.html&quot;&gt;&lt;img src=&quot;http://psellos.com/images/icosablue-p3.png&quot; alt=&quot;Icosablue blue icosahedron screen&quot;/&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://psellos.com/pub/ocamlxarm/ocaml-4.01.0+xarm-4.0.2-v7.dmg&quot;&gt;OCamlXARM 4.0.2 Installer for OS X 10.9&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;You can get sources from the Subversion repository here:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;svn://svn.psellos.com/tags/ocamlxarm-4.0.2&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;If you just want to see the differences from the base OCaml 4.01.0 release, the diffs are available here:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://psellos.com/pub/ocamlxarm/ocamlxarm-4.0.2.diff&quot;&gt;OCamlXARM 4.0.2 diffs from OCaml 4.01.0&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;A simple test of the installed compiler is given on &lt;a href=&quot;http://psellos.com/ocaml/compile-to-iphone.html&quot;&gt;Compile OCaml for iOS&lt;/a&gt;. There are also instructions for building from source.&lt;/p&gt;
+
+&lt;p&gt;Seriously, thanks to the many rather awesome people who have written asking about the status of the compiler. If your experience of mobile OCaml is like mine, we should all be able to make some surprising things.&lt;/p&gt;
+
+&lt;p&gt;There are always new revisions of everything coming out, so this is just one point of a long journey. I&amp;rsquo;ve already had inquiries about the companion compiler OCamlXSim, which compiles for the iPhone Simulator. I&amp;rsquo;ve also promised to integrate OCamlXARM into  &lt;a href=&quot;http://opam.ocamlpro.com&quot;&gt;OPAM&lt;/a&gt;, the OCaml package manager. I&amp;rsquo;ll be getting to these projects as soon as I can.&lt;/p&gt;
+
+&lt;p&gt;If you find problems with the compiler, I&amp;rsquo;d be happy to hear about them. Or if you have any comments or encouragement, leave them below or email me at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2014/08/2014.08.ocamlxarm-402.html</id><title type="text">OCaml on iOS 7 Released</title><updated>2014-08-21T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2014/08/2014.08.ocamlxarm-progress.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;August 12, 2014&lt;/div&gt;
+
+&lt;p&gt;Some estimable savants and polymaths have continued to ask me gently about the status of the OCaml-on-iOS project. I&amp;rsquo;m happy to say I&amp;rsquo;ve made some progress in recent weeks, and a few days ago I built my first iOS app with OCaml 4.01.0, and ran it successfully on my iPhone (iOS 7.1.1).&lt;/p&gt;
+
+&lt;p&gt;Since the last report here I adapted and applied the  OCaml 4.00.0 OCaml-on-iOS patches to the OCaml 4.01.0 compiler. Then I updated the &lt;code&gt;xarm-build&lt;/code&gt; script that builds ocamlopt as an ARM cross-compiler. &lt;code&gt;xarm-build&lt;/code&gt; is described in &lt;a href=&quot;http://psellos.com/ocaml/compile-to-iphone.html&quot;&gt;Compile OCaml for iOS&lt;/a&gt; (soon to be updated).&lt;/p&gt;
+
+&lt;p&gt;I got the compiler to build OK but there were two problems with it.&lt;/p&gt;
+
+&lt;div class=&quot;flowaroundimg&quot; style=&quot;margin-top: 1.0em;&quot;&gt;
+&lt;a href=&quot;http://psellos.com/ocaml/example-app-portland.html&quot;&gt;&lt;img src=&quot;http://psellos.com/images/portland-upside-p3.png&quot; alt=&quot;Portland app Portrait Upside Down screen&quot;/&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;First, the iOS ABI sometimes needs to move a double precision value to a pair of integer registers. I&amp;rsquo;ve been representing this in the internal machine code as a standard move (&lt;code&gt;Imove&lt;/code&gt;) operation into a double-precision register, and another move into the integer registers. However, the 4.01.0 compiler sees the first move as redundant, and when it tries to optimize it away it fails because it apparently doesn&amp;rsquo;t expect to see mixed-type move operations.&lt;/p&gt;
+
+&lt;p&gt;For now my fix for this is to disable the optimization when the registers have different types. Later it might be more elegant all around to use a different machine code representation for the mixed-type move. In the meantime I think it&amp;rsquo;s best to continue with the code that has been working, even if it&amp;rsquo;s clumsy.&lt;/p&gt;
+
+&lt;p&gt;Second, the clang runtime defines functions &lt;code&gt;__divsi3&lt;/code&gt; and &lt;code&gt;__modsi3&lt;/code&gt; for doing 32-bit div and mod operations. With the gcc runtime OCaml used &lt;code&gt;__aeabi_idiv&lt;/code&gt; and &lt;code&gt;__aeabi_idivmod&lt;/code&gt;. This is easy to fix just by changing the names of the functions.&lt;/p&gt;
+
+&lt;p&gt;Once the compiler was working I built the &lt;a href=&quot;http://psellos.com/ocaml/example-app-portland.html&quot;&gt;Portland&lt;/a&gt; app, which does just enough to test whether OCaml is working on the iPhone. Here is the CLI session where I built the app:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ocamlopt -version
+4.01.0
+$ make
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc -arch armv7 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -isystem ../lib/ocaml -DCAML_NAME_SPACE   -c -o wrap.o wrap.m
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc -arch armv7 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -isystem ../lib/ocaml -DCAML_NAME_SPACE   -c -o main.o main.m
+ocamlc  -c wrapper.mli
+ocamlopt  -c wrapper.ml
+ocamlc  -c wrappee.mli
+ocamlopt  -c wrappee.ml
+ocamlc  -c cgAffineTransform.mli
+ocamlopt  -c cgAffineTransform.ml
+ocamlc  -c nsTimer.mli
+ocamlopt  -c nsTimer.ml
+ocamlc  -c uiDevice.mli
+ocamlopt  -c uiDevice.ml
+ocamlc  -c uiLabel.mli
+ocamlopt  -c uiLabel.ml
+ocamlc  -c uiApplication.mli
+ocamlopt  -c uiApplication.ml
+ocamlopt  -c portlandappdeleg.ml
+ocamlopt  -o Portland \
+            wrap.o main.o wrapper.cmx wrappee.cmx cgAffineTransform.cmx nsTimer.cmx uiDevice.cmx uiLabel.cmx uiApplication.cmx portlandappdeleg.cmx -cclib '-framework UIKit -framework Foundation' \
+            -cclib -Wl,-no_pie
+$ file Portland
+Portland: Mach-O executable arm&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It doesn&amp;rsquo;t look like much, but it&amp;rsquo;s a good feeling to see a new OCaml-on-iOS compiler working after such a long wait. Even better, when I run the app on my iPhone it works perfectly.&lt;/p&gt;
+
+&lt;p&gt;I want to try a few more things before releasing this version to the estimable savants and polymaths. (Likely you, reader, are one of these.) If I don&amp;rsquo;t find any serious problems, a new release will be coming soon.&lt;/p&gt;
+
+&lt;p&gt;If you have any comments or encouragement, leave them below or email me at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2014/08/2014.08.ocamlxarm-progress.html</id><title type="text">OCaml on iOS 7, Second Progress Report</title><updated>2014-08-12T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2014/05/2014.05.arm-as-to-ios-5.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;May 31, 2014&lt;/div&gt;
+
+&lt;p&gt;Sorry I&amp;rsquo;ve been away, reader, but I was offered a chance to build software for a research project at a great Computer Science Department and I just couldn&amp;rsquo;t pass up the opportunity. I&amp;rsquo;ve learned a lot about &lt;a href=&quot;http://nodejs.org&quot;&gt;node.js&lt;/a&gt; (no type system, but otherwise very enjoyable). I&amp;rsquo;ve talked to serious researchers in machine learning and synthetic biology. I share an elevator with the occasional robot, and work in a secret sub-basement DNA lab. In short, it&amp;rsquo;s an enthralling yet humbling environment for a guy like me.&lt;/p&gt;
+
+&lt;div class=&quot;flowaroundimg&quot; style=&quot;margin-top: 1.0em;&quot;&gt;
+&lt;a href=&quot;http://psellos.com/ios/arm-as-to-ios.html&quot;&gt;&lt;img src=&quot;http://psellos.com/images/vorobeacon-s35.png&quot; alt=&quot;Vaguely robotic looking Voronoi diagram&quot;/&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In the meantime I&amp;rsquo;ve heard from people interested in running OCaml on iOS, and I myself am still extremely interested. So I&amp;rsquo;ve started to work on updating the project to the latest versions of everything, which right now are: OCaml 4.01.0, iOS 7.1, Xcode 5.1. There are new versions of all of these coming out, but there are always new versions of everything.&lt;/p&gt;
+
+&lt;p&gt;The first order of business in porting OCaml to iOS is to make contact with the C and assembly toolchain, which have been changing and moving around like everything else. The latest iOS uses &lt;a href=&quot;http://clang.llvm.org&quot;&gt;clang&lt;/a&gt; in place of gcc. &lt;/p&gt;
+
+&lt;p&gt;As has been the case for a while, developer tools are in a hideout deep inside the Xcode app, under a directory named &lt;code&gt;Xcode.app/Contents/Developer&lt;/code&gt;. For the latest tools you want to look in &lt;code&gt;Toolchains/XcodeDefault.xctoolchain&lt;/code&gt;:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;col/&gt;
+&lt;col/&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+	&lt;th&gt;Tool&lt;/th&gt;
+	&lt;th&gt;Location&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+	&lt;td&gt;C compiler&lt;/td&gt;
+	&lt;td&gt;&lt;code&gt;usr/bin/clang&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td&gt;Assembler&lt;/td&gt;
+	&lt;td&gt;&lt;code&gt;usr/bin/as&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The good news here is that the trickiest things seem to work much as they did before. Surprisingly, my &lt;code&gt;arm-as-to-ios&lt;/code&gt; script works &lt;em&gt;without change&lt;/em&gt; to convert the &lt;code&gt;arm.S&lt;/code&gt; code of OCaml 4.01.0 from Linux to iOS format. I thought writing a script was a good idea, but I didn&amp;rsquo;t expect it to work quite &lt;em&gt;this&lt;/em&gt; well!&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s what it looks like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ HIDEOUT=/Applications/Xcode.app/Contents/Developer
+$ TOOLCHAIN=$HIDEOUT/Toolchains/XcodeDefault.xctoolchain
+$ CLANG=$TOOLCHAIN/usr/bin/clang
+$ arm-as-to-ios arm.S &amp;gt; armios.S
+$ $CLANG -no-integrated-as -arch armv7 -DSYS_macosx -c armios.S
+$ otool -tv armios.o | head
+armios.o:
+(__TEXT,__text) section
+_caml_call_gc:
+00000000        f8dfc1e0        ldr.w   r12, [pc, #0x1e0]
+00000004        f8cce000        str.w   lr, [r12]
+00000008        f8dfc1dc        ldr.w   r12, [pc, #0x1dc]
+0000000c        f8ccd000        str.w   sp, [r12]
+00000010        ed2d0b10        vpush   {d0, d1, d2, d3, d4, d5, d6, d7}
+00000014        e92d50ff        push.w  {r0, r1, r2, r3, r4, r5, r6, r7, r12, lr}
+00000018        f8dfc1d0        ldr.w   r12, [pc, #0x1d0]&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The only real trick here is to tell clang not to use its integrated assembler. The external assembler apparently behaves a little bit more like the previous version.&lt;/p&gt;
+
+&lt;p&gt;I am currently applying the patches to the new OCaml compiler sources. I&amp;rsquo;ll have more results to report soon.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;arm-as-to-ios&lt;/code&gt; script is described on the page &lt;a href=&quot;http://psellos.com/ios/arm-as-to-ios.html&quot;&gt;Convert Linux ARM Assembly Code for iOS&lt;/a&gt;. I&amp;rsquo;ll revise the page for Xcode 5.1, but (as I say) the script itself  seems to work as it is.&lt;/p&gt;
+
+&lt;p&gt;If you have any comments or encouragement, leave them below or email me at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2014/05/2014.05.arm-as-to-ios-5.html</id><title type="text">OCaml on iOS 7, Progress Report</title><updated>2014-05-31T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2012/11/2012.11.iossim-apps-awol.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;November 15, 2012&lt;/div&gt;
+
+&lt;p&gt;I&amp;rsquo;ve just finished work on version 2.0 of &lt;code&gt;runsim&lt;/code&gt;, a small shell script
+that installs and runs apps in the iOS Simulator.  For this version I
+added the ability to start apps in the simulator automatically from the
+command line. I also separated out the different functions, so you can
+install, uninstall, list, and run apps as separate operations.&lt;/p&gt;
+
+&lt;div class=&quot;flowaroundimg&quot; style=&quot;margin-top: 1.0em;&quot;&gt;
+&lt;a href=&quot;http://psellos.com/ios/iossim-command-line.html&quot;&gt;&lt;img src=&quot;http://psellos.com/images/psi-p2.png&quot; alt=&quot;Psi example app in iOS Simulator&quot;/&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You can read the full details on &lt;a href=&quot;http://psellos.com/ios/iossim-command-line.html&quot;&gt;Run iOS Simulator from the Command
+Line&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can also download &lt;code&gt;runsim&lt;/code&gt; from the following link:&lt;/p&gt;
+
+&lt;ul class=&quot;rightoffloat&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;http://psellos.com/pub/ocamlxsim/runsim&quot;&gt;runsim &amp;mdash; run app in iOS Simulator from command line&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Before using it, however, I suggest you read the full description linked
+above. There are some complexities in using the automatic start-up
+facility that you want to understand beforehand.&lt;/p&gt;
+
+&lt;p&gt;The new automatic start-up uses &lt;code&gt;instruments&lt;/code&gt;, the command-line version
+of the Xcode Instruments tool. While getting it working I had one
+persistent problem: Instruments kept reporting that the monitored app
+had gone AWOL.  For the benefit of other folks working from the command
+line, I&amp;rsquo;ll show how to elicit this legendary error and what I did to
+correct it.&lt;/p&gt;
+
+&lt;p&gt;To keep the example simple, I&amp;rsquo;ll use &lt;code&gt;Psi&lt;/code&gt;, an iOS app I wrote to be be
+as small as possible and to require no supporting files.  (Get the
+source from &lt;a href=&quot;http://psellos.com/2012/05/2012.05.tiny-ios-app.html&quot;&gt;Tiny iOS App in One Source File&lt;/a&gt;.)&lt;/p&gt;
+
+&lt;p&gt;Every app in the Apple universe has an &lt;code&gt;Info.plist&lt;/code&gt; file that describes
+its basic attributes. The core of the AWOL app problem is that Xcode has
+begun to add internal attributes to this file behind the scenes. You can
+see why Apple would do things this way, but it makes it a little more
+difficult for &amp;ldquo;enthusiasts&amp;rdquo; to do new things with the tools.&lt;/p&gt;
+
+&lt;p&gt;Here is an &lt;code&gt;Info.plist&lt;/code&gt; file for &lt;code&gt;Psi&lt;/code&gt; as it is presented to users of
+Xcode:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;!DOCTYPE plist PUBLIC &amp;quot;-//Apple//DTD PLIST 1.0//EN&amp;quot; &amp;quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&amp;quot;&amp;gt;
+&amp;lt;plist version=&amp;quot;1.0&amp;quot;&amp;gt;
+&amp;lt;dict&amp;gt;
+        &amp;lt;key&amp;gt;CFBundleDevelopmentRegion&amp;lt;/key&amp;gt;
+        &amp;lt;string&amp;gt;English&amp;lt;/string&amp;gt;
+        &amp;lt;key&amp;gt;CFBundleDisplayName&amp;lt;/key&amp;gt;
+        &amp;lt;string&amp;gt;Psi&amp;lt;/string&amp;gt;
+        &amp;lt;key&amp;gt;CFBundleExecutable&amp;lt;/key&amp;gt;
+        &amp;lt;string&amp;gt;Psi&amp;lt;/string&amp;gt;
+        &amp;lt;key&amp;gt;CFBundleIconFile&amp;lt;/key&amp;gt;
+        &amp;lt;string&amp;gt;Icon.png&amp;lt;/string&amp;gt;
+        &amp;lt;key&amp;gt;CFBundleIcons&amp;lt;/key&amp;gt;
+        &amp;lt;dict&amp;gt;
+                &amp;lt;key&amp;gt;CFBundlePrimaryIcon&amp;lt;/key&amp;gt;
+                &amp;lt;dict&amp;gt;
+                        &amp;lt;key&amp;gt;CFBundleIconFiles&amp;lt;/key&amp;gt;
+                        &amp;lt;array&amp;gt;
+                                &amp;lt;string&amp;gt;Icon.png&amp;lt;/string&amp;gt;
+                        &amp;lt;/array&amp;gt;
+                &amp;lt;/dict&amp;gt;
+        &amp;lt;/dict&amp;gt;
+        &amp;lt;key&amp;gt;CFBundleIdentifier&amp;lt;/key&amp;gt;
+        &amp;lt;string&amp;gt;com.psellos.Psi&amp;lt;/string&amp;gt;
+        &amp;lt;key&amp;gt;CFBundleInfoDictionaryVersion&amp;lt;/key&amp;gt;
+        &amp;lt;string&amp;gt;6.0&amp;lt;/string&amp;gt;
+        &amp;lt;key&amp;gt;CFBundleName&amp;lt;/key&amp;gt;
+        &amp;lt;string&amp;gt;Psi&amp;lt;/string&amp;gt;
+        &amp;lt;key&amp;gt;CFBundlePackageType&amp;lt;/key&amp;gt;
+        &amp;lt;string&amp;gt;APPL&amp;lt;/string&amp;gt;
+        &amp;lt;key&amp;gt;CFBundleSignature&amp;lt;/key&amp;gt;
+        &amp;lt;string&amp;gt;????&amp;lt;/string&amp;gt;
+        &amp;lt;key&amp;gt;CFBundleShortVersionString&amp;lt;/key&amp;gt;
+        &amp;lt;string&amp;gt;1.0&amp;lt;/string&amp;gt;
+        &amp;lt;key&amp;gt;CFBundleVersion&amp;lt;/key&amp;gt;
+        &amp;lt;string&amp;gt;1.0.1&amp;lt;/string&amp;gt;
+        &amp;lt;key&amp;gt;UIStatusBarStyle&amp;lt;/key&amp;gt;
+        &amp;lt;string&amp;gt;UIStatusBarStyleBlackOpaque&amp;lt;/string&amp;gt;
+        &amp;lt;key&amp;gt;LSRequiresIPhoneOS&amp;lt;/key&amp;gt;
+        &amp;lt;true/&amp;gt;
+&amp;lt;/dict&amp;gt;
+&amp;lt;/plist&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you try to start up &lt;code&gt;Psi&lt;/code&gt; with this exact &lt;code&gt;Info.plist&lt;/code&gt;, however,
+&lt;code&gt;instruments&lt;/code&gt; reports that the app has gone AWOL:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;&lt;code&gt;$&amp;nbsp;PSID=&amp;quot;$HOME/Library/Application&amp;nbsp;Support/iPhone&amp;nbsp;Simulator/6.0/Applications/72002825-3566-4EF2-B87B-872836AD29C6/Psi.app&amp;quot;&lt;/code&gt;&lt;/strong&gt; &lt;br/&gt;
+  &lt;strong&gt;&lt;code&gt;$&amp;nbsp;TRC=/Applications/Xcode.app/Contents/Applications/Instruments.app/Contents/PlugIns/AutomationInstrument.bundle/Contents/Resources/Automation.tracetemplate&lt;/code&gt;&lt;/strong&gt; &lt;br/&gt;
+  &lt;strong&gt;&lt;code&gt;$ instruments instruments -t &amp;quot;$TRC&amp;quot; &amp;quot;$PSID&amp;quot;&lt;/code&gt;&lt;/strong&gt; &lt;br/&gt;
+  &lt;code&gt;2012-11-15 12:32:51.586 instruments[56628:1207] Automation Instrument ran into an exception while trying to run the script.  UIATargetHasGoneAWOLException&lt;/code&gt; &lt;br/&gt;
+  &lt;code&gt;2012-11-15 20:32:51 +0000 Fail: An error occurred while trying to run the script.&lt;/code&gt;  &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;If you let Xcode install the app, it modifies &lt;code&gt;Info.plist&lt;/code&gt; internally to
+include the following extra attributes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;        &amp;lt;key&amp;gt;CFBundleSupportedPlatforms&amp;lt;/key&amp;gt;
+        &amp;lt;array&amp;gt;
+                &amp;lt;string&amp;gt;iPhoneSimulator&amp;lt;/string&amp;gt;
+        &amp;lt;/array&amp;gt;
+        &amp;lt;key&amp;gt;DTPlatformName&amp;lt;/key&amp;gt;
+        &amp;lt;string&amp;gt;iphonesimulator&amp;lt;/string&amp;gt;
+        &amp;lt;key&amp;gt;DTSDKName&amp;lt;/key&amp;gt;
+        &amp;lt;string&amp;gt;iphonesimulator6.0&amp;lt;/string&amp;gt;
+        &amp;lt;key&amp;gt;UIDeviceFamily&amp;lt;/key&amp;gt;
+        &amp;lt;array&amp;gt;
+                &amp;lt;integer&amp;gt;1&amp;lt;/integer&amp;gt;
+        &amp;lt;/array&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In essence, these are device attributes for the iOS Simulator&amp;rsquo;s iPhone
+simulation. If you add these attributes to the &lt;code&gt;Info.plist&lt;/code&gt; file,
+&lt;code&gt;instruments&lt;/code&gt; runs as expected. It starts up the iPhone Simulator and
+then starts up &lt;code&gt;Psi&lt;/code&gt; in the simulator.&lt;/p&gt;
+
+&lt;p&gt;Inside &lt;code&gt;runsim&lt;/code&gt; 2.0 there&amp;rsquo;s a little Python script that adds these
+attributes to an &lt;code&gt;Info.plist&lt;/code&gt; file. If you&amp;rsquo;re encountering the AWOL
+problem, maybe this little script will help. (You can download &lt;code&gt;runsum&lt;/code&gt;
+from the link above.)&lt;/p&gt;
+
+&lt;p&gt;If you have any comments, corrections, or suggestions, leave them below
+or email me at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2012/11/2012.11.iossim-apps-awol.html</id><title type="text">When iOS Simulator Apps Go AWOL</title><updated>2012-11-15T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2012/10/2012.10.ocamlxsim-mountain-lion.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;October 23, 2012&lt;/div&gt;
+
+&lt;p&gt;For those interested in building iOS Simulator apps in OCaml 4, I&amp;rsquo;ve
+just revamped &lt;a href=&quot;http://psellos.com/ocaml/compile-to-iossim.html&quot;&gt;OCamlXSim 3.1&lt;/a&gt; for the
+latest OS X release, OS X 10.8 (Mountain Lion).  The only difference is
+in the default iOS SDK, which I changed from iOS 5.1 to iOS 6.0.
+Otherwise, this was just a recompile.&lt;/p&gt;
+
+&lt;div class=&quot;flowaroundimg&quot; style=&quot;margin-top: 1.0em;&quot;&gt;
+&lt;a href=&quot;http://psellos.com/ocaml/compile-to-iossim.html&quot;&gt;&lt;img src=&quot;http://psellos.com/images/vorolambda-b3-p2.png&quot;/&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You can get binary releases of OCamlXSim here:&lt;/p&gt;
+
+&lt;ul class=&quot;rightoffloat&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;http://psellos.com/pub/ocamlxsim/ocaml-4.00.0+xsim-3.1.6.dmg&quot;&gt;OCamlXSim 3.1.6 for Lion&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://psellos.com/pub/ocamlxsim/ocaml-4.00.0+xsim-3.1.7.dmg&quot;&gt;OCamlXSim 3.1.7 for Mountain Lion&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For information on how to build from sources and how to test an
+installation, see the updated version of &lt;a href=&quot;http://psellos.com/ocaml/compile-to-iossim.html&quot;&gt;Compile OCaml for iOS
+Simulator&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you&amp;rsquo;re new to this site, you might also be interested in OCamlXARM, a
+modified version of OCaml 4.00.0 that builds iOS apps.  I also revamped
+it recently to work under Mountain Lion.  You can read about it on
+&lt;a href=&quot;http://psellos.com/ocaml/compile-to-iphone.html&quot;&gt;Compile OCaml for iOS&lt;/a&gt;&lt;/p&gt;
+
+&lt;div style=&quot;clear: both&quot;&gt;&lt;/div&gt;
+
+&lt;h3&gt;OCaml Cross Compilation Build Howto&lt;/h3&gt;
+
+&lt;p&gt;OCamlXSim and OCamlXARM are both cross compilers, and they&amp;rsquo;re built
+using exactly the same approach.  I think the strategy could be useful
+for building other OCaml cross compilers, so I thought I&amp;rsquo;d explain how
+the build process works in some detail.  I&amp;rsquo;m not claiming that the
+method is original; however, I did develop it independently and it works
+for my host and targets.&lt;/p&gt;
+
+&lt;p&gt;Since the stock version of OCaml doesn&amp;rsquo;t want to be a cross compiler,
+the overall goal is to beguile it into being one without disrupting the
+build process too much.  To keep things simple for now, I build a
+bytecode cross compiler that generates native code for the target; i.e.,
+a cross-compiling version of &lt;code&gt;ocamlopt&lt;/code&gt;.  The approach requires that
+OCaml already supports the host system with at least a bytecode
+implementation, and the target system with a native code implementation.&lt;/p&gt;
+
+&lt;p&gt;Building the equivalent &amp;ldquo;optimized&amp;rdquo; cross compiler (&lt;code&gt;ocamlopt.opt&lt;/code&gt;)
+doesn&amp;rsquo;t seem &lt;em&gt;too&lt;/em&gt; much harder, given a native OCaml compiler for the
+host system.  I&amp;rsquo;d like to get this working at some point.&lt;/p&gt;
+
+&lt;h4&gt;Compiler Source Changes&lt;/h4&gt;
+
+&lt;p&gt;This note just describes the commands I use to build the cross
+compilers.  It doesn&amp;rsquo;t describe the changes to the compiler source
+itself.  These will vary a lot depending on the target and the
+differences between the host and the target.&lt;/p&gt;
+
+&lt;p&gt;There are no source changes for OCamlXSIM when building a 32-bit OS X
+host executable, because the host and target have virtually identical
+properties.  Even for a 64-bit OS X executable, the changes are minimal,
+because the host and target are quite similar.  There is one change in
+&lt;code&gt;asmrun/signals_osdep.h&lt;/code&gt;, which must be modified to include the proper
+signal handling code in a cross-compiling environment (when the host and
+the target architectures are different).  Another change in the code
+generator makes sure that emitted native int values don&amp;rsquo;t exceed 32
+bits.&lt;/p&gt;
+
+&lt;p&gt;The compiler source changes for OCamlXARM are much more extensive,
+because the iOS target isn&amp;rsquo;t directly supported in the stock OCaml
+release.  The same signal-handling change was required, and many
+(reasonably straightforward) changes were required in the emission of
+assembly code to allow for the particular syntax of the iOS assembler.&lt;/p&gt;
+
+&lt;p&gt;In cases where the host and target machines are very different, it may
+be necessary to make significant changes to the architecture-dependent
+code that emits instructions and data.&lt;/p&gt;
+
+&lt;p&gt;If you&amp;rsquo;re interested in the exact compiler changes for OCamlXSim or
+OCamlXARM, see their associated pages (linked above) for a description
+of how to retrieve the patches.&lt;/p&gt;
+
+&lt;h4&gt;Ordinary OCaml Build&lt;/h4&gt;
+
+&lt;p&gt;As a starting point for the build process, consider the ordinary OCaml
+build process:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;&lt;code&gt;$ ./configure&lt;/code&gt;&lt;/strong&gt; &lt;br/&gt;
+  &lt;strong&gt;&lt;code&gt;$ make world&lt;/code&gt;&lt;/strong&gt; &lt;br/&gt;
+  &lt;strong&gt;&lt;code&gt;$ make opt&lt;/code&gt;&lt;/strong&gt;  &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The &lt;code&gt;configure&lt;/code&gt; step does many things:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Guess the CPU type and operating system of the host.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Find a C compiler and associated assembler and linker.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Determine properties of the machine (integer sizes, endianness).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Determine properties of the system (available system calls and
+libraries).&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Since OCaml sees itself as a native compiler, all these configuration
+properties are assumed to apply both to the compiler itself and to the
+programs it generates.  This isn&amp;rsquo;t the case for a cross compiler, and
+the key undertaking is to separate the two.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;make world&lt;/code&gt; step builds the bytecode compiler (&lt;code&gt;ocamlc&lt;/code&gt;) and
+bytecode runtime.  The bytecode runtime consists of a native-code
+program named &lt;code&gt;ocamlrun&lt;/code&gt; and a set of dynamically loadable executables
+for extra libraries.  &lt;code&gt;ocamlrun&lt;/code&gt;, in turn, consists of a bytecode
+interpreter and native-code primitives.  Each dynamic library contains
+bytecode plus extra native-code primitives.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;make opt&lt;/code&gt; step builds the native code compiler (&lt;code&gt;ocamlopt&lt;/code&gt;) and a
+native runtime.  The native runtime consists of a set of native
+libraries, very similar to the bytecode runtime minus the interpreter.&lt;/p&gt;
+
+&lt;p&gt;When you do an ordinary compile of an OCaml program with &lt;code&gt;ocamlopt&lt;/code&gt;,
+&lt;code&gt;ocamlopt&lt;/code&gt; itself uses the bytecode runtime created in the &lt;code&gt;make world&lt;/code&gt;
+step.  The compiled program links against the native runtime created in
+the &lt;code&gt;make opt&lt;/code&gt; step.&lt;/p&gt;
+
+&lt;h4&gt;Cross Compiling Requirements&lt;/h4&gt;
+
+&lt;p&gt;To get a cross compiler using the same build system requires a
+reconsideration of the configuration properties:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;The CPU type is used to select the correct native code generator.  So
+the CPU type of the host isn&amp;rsquo;t so interesting.  We want to specify the
+CPU type of the target.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The C compiler and linker are needed for building the bytecode runtime
+for the host.  However, we also want a &lt;em&gt;target&lt;/em&gt; toolchain C compiler,
+assembler, and linker to be used for generated programs.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Similarly, the machine and system properties are correct for building
+the bytecode runtime on the host.  But we want the &lt;em&gt;target&lt;/em&gt; machine
+and system properties for building the runtime to be used by generated
+programs.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This suggests a two-phase build process:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Phase 1: run &lt;code&gt;configure&lt;/code&gt; as usual to determine the properties of the
+host system.  Post-modify the configuration properties just enough to
+create a native-code cross compiler for the target.  Then build the
+native-code compiler as usual.  This native-code compiler runs on the
+bytecode interpreter (&lt;code&gt;ocamlrun&lt;/code&gt;) of the host, and generates native
+code for the target.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Phase 2: run &lt;code&gt;configure&lt;/code&gt; on the target system to determine the
+properties of the target system.  Then rebuild just the runtime on the
+host using the target toolchain and these properties of the target
+system.  The resulting runtime works for the compiled programs.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If the target system is insufficiently Unix-like to run the &lt;code&gt;configure&lt;/code&gt;
+script, it will be necessary to determine the configuration parameters
+by some other method.&lt;/p&gt;
+
+&lt;p&gt;This is how both OCamlXARM and OCamlXSim are built.  For people really
+interested in the details, the following sections show the build process
+for OCamlXSim 3.1.7.  You&amp;rsquo;ll find the code in an OS X shell script named
+&lt;code&gt;xsim-build&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4&gt;Phase 1&lt;/h4&gt;
+
+&lt;p&gt;The configuration step of Phase 1 looks essentially like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export&amp;nbsp;PLT=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform
+export SDK=/Developer/SDKs/iPhoneSimulator6.0.sdk
+
+config1 () {
+    # Configure for building bytecode interpreter to run on Intel OS X.
+    # But specify iOSSim parameters for assembly and partial link.
+    ./configure \
+            -cc &amp;quot;gcc&amp;quot; \
+            -as &amp;quot;$PLT/Developer/usr/bin/gcc -arch i386 -c&amp;quot; \
+            -aspp &amp;quot;$PLT/Developer/usr/bin/gcc -arch i386 -c&amp;quot;
+    # Post-modify config/Makefile to select i386 back end for ocamlopt
+    # (i386 assembly code).
+    sed \
+        -e 's/^ARCH[    ]*=.*/ARCH=i386/' \
+        -e 's/^MODEL[    ]*=.*/MODEL=default/' \
+        -e &amp;quot;s#^PARTIALLD[    ]*=.*#PARTIALLD=$PLT/Developer/usr/bin/ld -r#&amp;quot; \
+        config/Makefile
+    # Post-modify utils/config.ml.
+    make utils/config.ml
+    sed \
+        -e 's#let[      ][      ]*mkexe[        ]*=.*#let mkexe =&amp;quot;'&amp;quot;$PLT/Developer/usr/bin/gcc -arch i386 -Wl,-objc_abi_version,2 -Wl,-no_pie -gdwarf-2 -isysroot $PLT$SDK&amp;quot;'&amp;quot;#' \
+        -e 's#let[      ][      ]*bytecomp_c_compiler[  ]*=.*#let bytecomp_c_compiler =&amp;quot;'&amp;quot;$PLT/Developer/usr/bin/gcc -arch i386 -gdwarf-2 -isysroot $PLT$SDK&amp;quot;'&amp;quot;#' \
+        -e 's#let[      ][      ]*native_c_compiler[    ]*=.*#let native_c_compiler =&amp;quot;'&amp;quot;$PLT/Developer/usr/bin/gcc -arch i386 -gdwarf-2 -isysroot $PLT$SDK&amp;quot;'&amp;quot;#' \
+        utils/config.ml
+}&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;configure&lt;/code&gt; step itself specifies the C compiler of the host
+(&lt;code&gt;gcc&lt;/code&gt;), which is needed to build the bytecode runtime.  The assembler,
+however, isn&amp;rsquo;t needed in this phase.  So the &lt;code&gt;configure&lt;/code&gt; step can
+specify the &lt;em&gt;target&lt;/em&gt; tools for the two types of assembly&amp;mdash;in both cases,
+it specifies the &lt;code&gt;gcc&lt;/code&gt; of the target toolchain.  This means that the
+generated cross compiler will run the proper tools when it assembles its
+generated native code.&lt;/p&gt;
+
+&lt;p&gt;After generating configuration information for the host, the script then
+post-modifies it to become a cross compiler.  Most importantly, it
+modifies &lt;code&gt;config/Makefile&lt;/code&gt; to set its &lt;code&gt;ARCH&lt;/code&gt; variable to the target
+architecture.  As mentioned above, this is the key step that attaches
+the target code generator to the host compiler.  The other changes
+specify a more particular model of CPU (not really used for OCamlXSim)
+and the target tool chain command for doing partial linking.&lt;/p&gt;
+
+&lt;p&gt;Note that for OCamlXSim, the target architecture is &lt;code&gt;i386&lt;/code&gt;.  The iOS
+Simulator is a 32-bit Intel hardware environment with libraries that
+recreate the software environment of iOS devices.  In the build script
+for OCamlXARM, the target architecture is &lt;code&gt;armv7&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;This leaves the question of how the cross compiler should compile any C
+programs that are given on its command line, and how it should link the
+results into an OCaml executable.  These commands are inserted at an
+even deeper level, to avoid interfering with the compilation and linking
+of the cross compiler runtime.  The second set of modifications works by
+generating &lt;code&gt;utils/config.ml&lt;/code&gt; and modifying its commands to be those of
+the target toolchain.&lt;/p&gt;
+
+&lt;p&gt;The build step of Phase 1 looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;build1 () {
+    # Don't assemble asmrun/i386.S for Phase 1 build.  Modify
+    # asmrun/Makefile temporarily to disable.  Be really sure to put
+    # back for Phase 2.
+    trap 'mv -f asmrun/Makefile.aside asmrun/Makefile' EXIT
+    grep -q '^[         ]*ASMOBJS[      ]*=' asmrun/Makefile &amp;amp;&amp;amp; \
+        mv -f asmrun/Makefile asmrun/Makefile.aside
+    sed -e '/^[        ]*ASMOBJS[      ]*=/s/^/#/' \
+        asmrun/Makefile.aside &amp;gt; asmrun/Makefile
+    make world &amp;amp;&amp;amp; make opt
+    mv -f asmrun/Makefile.aside asmrun/Makefile
+    trap - EXIT
+    # Save the Phase 1 shared (dynamically loadable) libraries and
+    # restore them after Phase 2.  They're required by some OCaml
+    # utilities, such as camlp4.
+    #
+    find . -name '*.so' -exec mv {} {}phase1 \;
+}&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This step basically just runs &lt;code&gt;make world&lt;/code&gt; and &lt;code&gt;make opt&lt;/code&gt; as usual.
+However, it turns out to be necessary to make some tricky changes before
+and after.&lt;/p&gt;
+
+&lt;p&gt;First, the assembled output of &lt;code&gt;asmrun/i386.S&lt;/code&gt; won&amp;rsquo;t be compatible with
+the rest of the bytecode runtime.  So we remove it from the build rule
+of &lt;code&gt;asmrun/Makefile&lt;/code&gt;, and restore it later.  This works because this
+file is needed only for native executables, and we&amp;rsquo;re producing only
+bytecode executables at this point.&lt;/p&gt;
+
+&lt;p&gt;Second, the dynamically loadable libraries of the bytecode runtime will
+be overwritten during Phase 2.  These libraries &lt;em&gt;are&lt;/em&gt; needed by the
+bytecode executables.  So we move them aside temporarily, and restore
+them at the end of Phase 2.&lt;/p&gt;
+
+&lt;h4&gt;Phase 2&lt;/h4&gt;
+
+&lt;p&gt;For Phase 2, we&amp;rsquo;d like to run &lt;code&gt;configure&lt;/code&gt; on our target system.  This
+can be tricky in general, but for OCamlXSim it&amp;rsquo;s relatively easy.  The
+iOS Simulator actually runs as a separate software environment on OS X,
+our host system.  It&amp;rsquo;s possible to generate and run code in this
+environment by specifying the proper command-line options.&lt;/p&gt;
+
+&lt;p&gt;If you aren&amp;rsquo;t so lucky, the requirement is to generate three files:
+&lt;code&gt;config/s.h&lt;/code&gt;, &lt;code&gt;config/m.h&lt;/code&gt;, and &lt;code&gt;config/Makefile&lt;/code&gt;.  A possible plan is
+to generate these by running &lt;code&gt;configure&lt;/code&gt; on a Unix-like system that&amp;rsquo;s as
+similar as possible to your target, then make any other modifications by
+hand.&lt;/p&gt;
+
+&lt;p&gt;The configuration step of Phase 2 looks essentially like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;config2 () {
+    # Clean out OS X runtime
+    cd asmrun; make clean; cd ..
+    cd stdlib; make clean; cd ..
+    cd otherlibs/bigarray; make clean; cd ../..
+    cd otherlibs/dynlink; make clean; cd ../..
+    cd otherlibs/num; make clean; cd ../..
+    cd otherlibs/str; make clean; cd ../..
+    cd otherlibs/systhreads; make clean; cd ../..
+    cd otherlibs/threads; make clean; cd ../..
+    cd otherlibs/unix; make clean; cd ../..
+    # Reconfigure for iOSSim environment
+    ./configure \
+            -host i386-apple-darwin10.0.0d3 \
+            -cc &amp;quot;$PLT/Developer/usr/bin/gcc -arch i386 -gdwarf-2 -isysroot $PLT$SDK&amp;quot; \
+            -as &amp;quot;$PLT/Developer/usr/bin/gcc -arch i386 -c&amp;quot; \
+            -aspp &amp;quot;$PLT/Developer/usr/bin/gcc -arch i386 -c&amp;quot;
+    # Rebuild ocamlmklib, so libraries work with iOSSim.
+    rm myocamlbuild_config.ml
+    cd tools
+    make ocamlmklib
+    cd ..
+}&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The purpose of Phase 2 is to build a runtime for the target.  So we
+start by clearing out the old runtime for the host.  Now that we&amp;rsquo;ve
+built the cross compiler, it won&amp;rsquo;t be needed.&lt;/p&gt;
+
+&lt;p&gt;Next, we rerun &lt;code&gt;configure&lt;/code&gt;, specifying the C compiler and assembler of
+the target toolchain (in our case, the iOS Simulator).  We also specify
+a specific &lt;code&gt;-host&lt;/code&gt;, so that &lt;code&gt;configure&lt;/code&gt; doesn&amp;rsquo;t attempt to guess the CPU
+and operating system.&lt;/p&gt;
+
+&lt;p&gt;Then we rebuild ocamlmklib so it works with the target toolchain rather
+than the host toolchain.&lt;/p&gt;
+
+&lt;p&gt;The build step of Phase 2 looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;build2 () {
+    # Make iOSSim runtime
+    cd asmrun; make all; cd ..
+    cd stdlib; make all allopt; cd ..
+    cd otherlibs/unix; make all allopt; cd ../..
+    cd otherlibs/str; make all allopt; cd ../..
+    cd otherlibs/num; make all allopt; cd ../..
+    cd otherlibs/dynlink; make all allopt; cd ../..
+    cd otherlibs/bigarray; make all allopt; cd ../..
+    cd otherlibs/systhreads; make all allopt; cd ../..
+    cd otherlibs/threads; make all allopt; cd ../..
+    # Restore the saved Phase 1 .so files (see above).
+    find . -name '*.sophase1' -print | \
+        while read f; do \
+            fso=&amp;quot;$(expr &amp;quot;$f&amp;quot; : '\(.*\)sophase1$')so&amp;quot;; mv -f $f $fso; \
+        done
+}&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;These commands rebuild the runtime using the new toolchain, then restore
+the dynamically loaded libraries of the host runtime that were saved at
+the end of Phase 1.  These libraries are used by some of the compiling
+tools&amp;mdash;notably, the &lt;code&gt;camlp4&lt;/code&gt; family uses the Unix library.&lt;/p&gt;
+
+&lt;p&gt;Serendipitously, the resulting executables and objects look just like
+those of a traditional OCaml release.  So they can be installed using
+the unmodified &lt;code&gt;install&lt;/code&gt; rule of the top-level Makefile.  It works out
+this way because there are two distinct parts: the bytecode subsystem
+(which works on the host), and the native-code subsystem (which works on
+the target).  Things don&amp;rsquo;t have to be separated this way, but it&amp;rsquo;s
+convenient for now.&lt;/p&gt;
+
+&lt;p&gt;If you have comments or questions, please leave them below, or email me
+at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2012/10/2012.10.ocamlxsim-mountain-lion.html</id><title type="text">OCamlXSim 3.1 for Mountain Lion</title><updated>2012-10-23T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2012/10/2012.10.ocamlxarm-mountain-lion.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;October 18, 2012&lt;/div&gt;
+
+&lt;p&gt;For those interested in building iOS apps in OCaml 4, I&amp;rsquo;ve just revamped
+&lt;a href=&quot;http://psellos.com/ocaml/compile-to-iphone.html&quot;&gt;OCamlXARM 3.1&lt;/a&gt; for the latest OS X
+release, OS X 10.8 (Mountain Lion).  The only difference is in the
+default iOS SDK, which I changed from iOS 5.1 to iOS 6.0.  Otherwise,
+this was just a recompile.&lt;/p&gt;
+
+&lt;div class=&quot;flowaroundimg&quot; style=&quot;margin-top: 1.0em;&quot;&gt;
+&lt;a href=&quot;http://psellos.com/ocaml/compile-to-iphone.html&quot;&gt;&lt;img src=&quot;http://psellos.com/images/ipad-mirror-man.png&quot;/&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You can get binary releases of OCamlXARM here:&lt;/p&gt;
+
+&lt;ul class=&quot;rightoffloat&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;http://psellos.com/pub/ocamlxarm/ocaml-4.00.0+xarm-3.1.7.dmg&quot;&gt;OCamlXARM 3.1.7 for Lion&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://psellos.com/pub/ocamlxarm/ocaml-4.00.0+xarm-3.1.8.dmg&quot;&gt;OCamlXARM 3.1.8 for Mountain Lion&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For information on how to build from sources and how to test an
+installation, see &lt;a href=&quot;http://psellos.com/ocaml/compile-to-iphone.html&quot;&gt;Compile OCaml for
+iOS&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;My next plan is to make a Mountain Lion release of OCamlXSim, which will
+build against the iOS 6 Simulator by default.&lt;/p&gt;
+
+&lt;p&gt;In the background I&amp;rsquo;m trying to invent an iPad app that will encourage
+you to live in the present moment.  An old friend suggests that it could
+be based on managing a complex undertaking on-screen.  Say, something
+like organizing eighty middle school kids as they perform a Motown
+adaptation of &lt;em&gt;The Tempest&lt;/em&gt;.  This is an intriguing idea, and the
+soundtrack would be excellent.&lt;/p&gt;
+
+&lt;p&gt;However, I&amp;rsquo;m thinking that the app should focus more on &lt;em&gt;you&lt;/em&gt; (the
+person running the app).  I imagine that the app shows you on the
+screen, and you can manipulate the image of yourself by touching and
+dragging your arms and legs, etc.  In the app, your iPad is lost
+somewhere in your house.  Your goal is to solve a series of logistical
+puzzles to find the missing iPad, and then run the same app in the app
+that you&amp;rsquo;re running in real life.  If you succeed, there&amp;rsquo;s a
+time-tunnel-like graphic that transports you through a kaleidoscopic
+hall of mirrors into the present moment.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The largest living land mammal is the absent mind. &amp;mdash;Don Van Vliet
+  (1941&amp;ndash;2010)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;As I&amp;rsquo;ve said before, OCaml is such a powerful language it gives me great
+ideas for apps.&lt;/p&gt;
+
+&lt;p&gt;If you have comments or questions, please leave them below, or email me
+at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2012/10/2012.10.ocamlxarm-mountain-lion.html</id><title type="text">OCamlXARM 3.1 for Mountain Lion</title><updated>2012-10-18T19:00:00-00:00</updated><author><name>Psellos</name></author></entry><entry><link href="http://psellos.com/2012/10/2012.10.eurekaslam-1.html" rel="alternate"/><contributor><uri>http://psellos.com/atom.xml</uri><name>psellos</name></contributor><content type="html">&lt;div class=&quot;date&quot;&gt;October 13, 2012&lt;/div&gt;
+
+&lt;p&gt;One of the many ideas I have on the back burner is to apply
+&amp;ldquo;crowdsourcing&amp;rdquo; to the age-old question of whether the Platonic solids
+or the Archimedean solids are cooler.  One day I&amp;rsquo;d like to make an OCaml
+iOS app that shows a pair of the different masters&amp;rsquo; polyhedra and lets
+you vote on which is cooler.&lt;/p&gt;
+
+&lt;div class=&quot;flowaroundimg&quot; style=&quot;margin-top: 1.0em;&quot;&gt;
+&lt;a href=&quot;https://forge.ocamlcore.org/projects/polydroml/&quot;&gt;&lt;img src=&quot;http://psellos.com/images/girco-waikawa-p3.png&quot;/&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Recently I was delighted to find that there&amp;rsquo;s a little OCaml library
+called &lt;a href=&quot;https://forge.ocamlcore.org/projects/polydroml/&quot;&gt;Polydroml&lt;/a&gt; that calculates geometric information for
+nearly all the uniform polyhedra.  It&amp;rsquo;s based on the &lt;a href=&quot;http://en.wikipedia.org/wiki/Wythoff_construction&quot;&gt;Wythoff
+construction&lt;/a&gt;, which unifies all the different polyhedra
+through the single idea of tiling the surface of the sphere with
+spherical triangles.&lt;/p&gt;
+
+&lt;p&gt;Polydroml is the work of Fabian Pijcke and Pierre Hauweele.  The current
+Polydroml code supports all but four of the Archimedean solids.  I&amp;rsquo;m the
+kind of guy who likes to collect the whole set, so I spent a couple days
+adding support for two more polyhedra to the library.&lt;/p&gt;
+
+&lt;p&gt;The two I added are the &lt;a href=&quot;http://en.wikipedia.org/wiki/Truncated_cuboctahedron&quot;&gt;great rhombicuboctahedron&lt;/a&gt; (shown in the
+figure) and the &lt;a href=&quot;http://en.wikipedia.org/wiki/Truncated_icosidodecahedron&quot;&gt;great rhombicosidodecahedron&lt;/a&gt;.  They&amp;rsquo;re
+characterized by the fact that their vertices are located &lt;em&gt;inside&lt;/em&gt; the
+spherical triangles of the Wythoff construction&amp;mdash;not on their edges.  As
+a result, they have more faces than the simpler polyhedra and hence are
+cooler.  (But don&amp;rsquo;t let me influence your vote when the app comes out.)&lt;/p&gt;
+
+&lt;p&gt;I fear there aren&amp;rsquo;t many people working with polyhedra in OCaml, but
+maybe I&amp;rsquo;ll be pleasantly surprised.  If you&amp;rsquo;re interested you can get
+Polydroml itself, my patch to Polydroml, or a version of Polydroml with
+my patch already applied, at the following links:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://psellos.com/pub/eurekaslam/polydroml-0.1.0.zip&quot;&gt;Polydroml 0.1.0, repackaged as a zipfile&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://psellos.com/pub/eurekaslam/incenter-1.0.0.diff&quot;&gt;Incenter 1.0.0, extra polyhedra patch for Polydroml&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://psellos.com/pub/eurekaslam/polydromlp-0.1.0.zip&quot;&gt;Polydroml 0.1.0, with extra polyhedra patch&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;(For convenience I&amp;rsquo;ve repackaged Polydroml as a zipfile&amp;mdash;see the library
+link above for information on the official release.  I have no
+relationship to the authors of Polydroml, other than that I think they
+must be pretty cool.)&lt;/p&gt;
+
+&lt;p&gt;The final two unimplemented Archimedean solids are so-called &amp;ldquo;snub&amp;rdquo;
+forms, which are possibly the coolest of all the convex uniform
+polyhedra (just my opinion&amp;mdash;not an official endorsement).  I&amp;rsquo;m hoping to
+add support for them pretty soon, after some further study of the
+Wythoff construction.&lt;/p&gt;
+
+&lt;p&gt;I enjoyed learning some spherical geometry while working on this:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;A spherical triangle is determined by its three angles (no similar
+triangles on the sphere).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Spherical lines (great circles) intersect in two points!&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Need to do constructions on the surface of the sphere, not in the
+plane of your triangle!&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It gives me newfound respect for Archimedes, who somehow figured it all
+out while relaxing in the bath.&lt;/p&gt;
+
+&lt;p&gt;If you have comments or questions, please leave them below, or email me
+at &lt;a href=&quot;mailto:jeffsco@psellos.com&quot;&gt;jeffsco@psellos.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Posted by: &lt;a href=&quot;http://psellos.com/aboutus.html#jeffreya.scofieldphd&quot;&gt;Jeffrey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+</content><id>http://psellos.com/2012/10/2012.10.eurekaslam-1.html</id><title type="text">Archimedean Solids in OCaml</title><updated>2012-10-13T19:00:00-00:00</updated><author><name>Psellos</name></author></entry></feed>

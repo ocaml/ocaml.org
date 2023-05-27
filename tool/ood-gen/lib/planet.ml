@@ -1,4 +1,4 @@
-type source = River.source = { name : string; url : string } [@@deriving yaml]
+type source = { id : string; name : string; url : string } [@@deriving yaml]
 type sources = { sources : source list } [@@deriving yaml]
 
 type metadata = {
@@ -113,13 +113,13 @@ let merge_feeds () =
     |> List.map (fun source ->
            try
              let feed =
-               Syndic.Atom.read ("data/planet/" ^ source.name ^ ".xml")
+               Syndic.Atom.read ("data/planet/" ^ source.id ^ ".xml")
              in
              feed.entries |> validate_entries
            with e ->
              print_endline
                (Printf.sprintf "failed to read data/planet/%s.xml: %s"
-                  source.name (Printexc.to_string e));
+                  source.id (Printexc.to_string e));
              [])
     |> List.flatten
     |> List.sort Syndic.Atom.descending
@@ -128,7 +128,9 @@ let merge_feeds () =
 
 let scrape () =
   let sources = all_sources () in
-  sources.sources |> List.filter_map fetch_feed |> List.iter scrape_feed;
+  sources.sources
+  |> List.map (fun { id; url; name = _ } : River.source -> { name = id; url })
+  |> List.filter_map fetch_feed |> List.iter scrape_feed;
   let feed = merge_feeds () in
   Syndic.Atom.write feed "asset/feed.xml"
 

@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://blog.0branch.com/rss.xml</id><title type="text">0branch</title><updated>2023-05-27T10:01:48-00:00</updated><entry><link href="http://blog.0branch.com/posts/2020-05-18-vile-9.8u.html" rel="alternate"/><contributor><uri>https://blog.0branch.com/rss.xml</uri><name>0branch</name></contributor><content type="html">&lt;div&gt;
+  &lt;div class=&quot;span-22&quot;&gt;
+    &lt;div class=&quot;span-12&quot;&gt;&lt;h1&gt;vile 9.8u&lt;/h1&gt;&lt;/div&gt;
+    &lt;div style=&quot;text-align: right&quot; class=&quot;span-10 last&quot;&gt;
+      &lt;a href=&quot;https://blog.0branch.com/index.html&quot;&gt;#&lt;/a&gt; May 18, 2020
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;hr/&gt;
+  &lt;div&gt;
+    &lt;p&gt;Tom Dickey released &lt;a href=&quot;http://invisible-island.net/vile&quot;&gt;vile&lt;/a&gt; 9.8u yesterday (148 files changed, 13,530 insertions, 6,791 deletions).&lt;/p&gt;
+&lt;p&gt;Alongside the usual improvements and fixes, 9.8u includes a new &lt;code&gt;smartcase&lt;/code&gt; mode&lt;a href=&quot;https://blog.0branch.com/rss.xml#fn1&quot; class=&quot;footnote-ref&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt; for treating regex searches as case insensitive unless uppercase characters are included in the search string. This is similar to nvi&amp;rsquo;s &lt;code&gt;iclower&lt;/code&gt; (when used in conjunction with &lt;code&gt;ignorecase&lt;/code&gt;):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;smartcase (scs)
+       Overrides the setting of ignorecase when the pattern contains
+       uppercase characters. (B)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Full release notes are &lt;a href=&quot;http://invisible-island.net/vile/CHANGES.html#index-v9_8u&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;section class=&quot;footnotes&quot;&gt;
+&lt;hr/&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Thanks to Brendan O&amp;rsquo;Dea for implementing this.&lt;a href=&quot;https://blog.0branch.com/rss.xml#fnref1&quot; class=&quot;footnote-back&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;hr/&gt;
+
+&lt;div&gt;&lt;/div&gt;
+
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;http://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;a href=&quot;http://disqus.com&quot; class=&quot;dsq-brlink&quot;&gt;comments powered by &lt;span class=&quot;logo-disqus&quot;&gt;Disqus&lt;/span&gt;&lt;/a&gt;
+</content><id>http://blog.0branch.com/posts/2020-05-18-vile-9.8u.html</id><title type="text">vile 9.8u</title><updated>2020-05-18T15:32:00-00:00</updated><author><name>0branch</name></author></entry><entry><link href="http://blog.0branch.com/posts/2020-02-15-prettyconfig-extension.html" rel="alternate"/><contributor><uri>https://blog.0branch.com/rss.xml</uri><name>0branch</name></contributor><content type="html">&lt;div&gt;
+  &lt;div class=&quot;span-22&quot;&gt;
+    &lt;div class=&quot;span-12&quot;&gt;&lt;h1&gt;Mercurial: prettyconfig extension&lt;/h1&gt;&lt;/div&gt;
+    &lt;div style=&quot;text-align: right&quot; class=&quot;span-10 last&quot;&gt;
+      &lt;a href=&quot;https://blog.0branch.com/index.html&quot;&gt;#&lt;/a&gt; February 16, 2020
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;hr/&gt;
+  &lt;div&gt;
+    &lt;p&gt;Since the &lt;a href=&quot;https://blog.0branch.com/posts/2020-02-03-bitbucket-migration.html&quot;&gt;Bitbucket migration&lt;/a&gt;, I&amp;rsquo;ve found myself tinkering&lt;a href=&quot;https://blog.0branch.com/rss.xml#fn1&quot; class=&quot;footnote-ref&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt; with Mercurial and its extensions system again (after a long hiatus).&lt;/p&gt;
+&lt;p&gt;One byproduct of this was a simple, single function &lt;a href=&quot;http://hg.0branch.com/hg-aliases&quot;&gt;extension&lt;/a&gt; for listing aliases in a user-friendly way. I subsequently realised that the same behaviour would be useful for arbitrary config sections (aliases, paths, schemes)&amp;hellip; and so, the &lt;a href=&quot;http://hg.0branch.com/hg-prettyconfig&quot;&gt;prettyconfig&lt;/a&gt; fork.&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&quot;http://hg.0branch.com/hg-prettyconfig&quot;&gt;prettyconfig&lt;/a&gt; extension defines a single command, &lt;code&gt;prettyconfig&lt;/code&gt;, for colourising and neatly displaying config values. Without arguments, all config name/value pairs are output, where names are qualified with section prefixes (akin to &lt;code&gt;hg showconfig&lt;/code&gt;). Single sections are displayed with the &lt;code&gt;-s&lt;/code&gt; (or &lt;code&gt;--section&lt;/code&gt;) switch, e.g.:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ hg prettyconfig  -s       alias   # display aliases
+$ hg prettyconfig --section alias   # same thing&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Colouring can be applied to the output by setting the following two labels in an &lt;code&gt;.hgrc&lt;/code&gt; file (either globally or locally):&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode ini&quot;&gt;&lt;code class=&quot;sourceCode ini&quot;&gt;&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;1&quot;&gt;&lt;span class=&quot;kw&quot;&gt;[color]&lt;/span&gt;&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;2&quot;&gt;&lt;span class=&quot;dt&quot;&gt;prettyconfig.name &lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;st&quot;&gt; yellow&lt;/span&gt;&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;3&quot;&gt;&lt;span class=&quot;dt&quot;&gt;prettyconfig.value &lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;st&quot;&gt; green&lt;/span&gt;&lt;/a&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So far, I&amp;rsquo;ve found the following aliases&lt;a href=&quot;https://blog.0branch.com/rss.xml#fn2&quot; class=&quot;footnote-ref&quot;&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt; useful enough to store globally in &lt;code&gt;~/.hgrc&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode ini&quot;&gt;&lt;code class=&quot;sourceCode ini&quot;&gt;&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;1&quot;&gt;&lt;span class=&quot;kw&quot;&gt;[alias]&lt;/span&gt;&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;2&quot;&gt;&lt;span class=&quot;dt&quot;&gt;aliases &lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;st&quot;&gt; prettyconfig -s alias&lt;/span&gt;&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;3&quot;&gt;&lt;span class=&quot;dt&quot;&gt;schemes &lt;/span&gt;&lt;span class=&quot;ot&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;st&quot;&gt; prettyconfig -s schemes&lt;/span&gt;&lt;/a&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Hopefully others will find &lt;a href=&quot;http://hg.0branch.com/hg-prettyconfig&quot;&gt;prettyconfig&lt;/a&gt; useful too. Feedback is welcome.&lt;/p&gt;
+&lt;section class=&quot;footnotes&quot;&gt;
+&lt;hr/&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Perusing APIs, making old extensions Python 3 compatible, tweaking web templates, etc.&lt;a href=&quot;https://blog.0branch.com/rss.xml#fnref1&quot; class=&quot;footnote-back&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Note that the &lt;code&gt;aliases&lt;/code&gt; alias effectively does the same thing as enabling &lt;a href=&quot;http://hg.0branch.com/hg-aliases&quot;&gt;hg-aliases&lt;/a&gt; (from which this extension was derived).&lt;a href=&quot;https://blog.0branch.com/rss.xml#fnref2&quot; class=&quot;footnote-back&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;hr/&gt;
+
+&lt;div&gt;&lt;/div&gt;
+
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;http://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;a href=&quot;http://disqus.com&quot; class=&quot;dsq-brlink&quot;&gt;comments powered by &lt;span class=&quot;logo-disqus&quot;&gt;Disqus&lt;/span&gt;&lt;/a&gt;
+</content><id>http://blog.0branch.com/posts/2020-02-15-prettyconfig-extension.html</id><title type="text">Mercurial: prettyconfig extension</title><updated>2020-02-16T02:12:00-00:00</updated><author><name>0branch</name></author></entry><entry><link href="http://blog.0branch.com/posts/2020-02-05-hg-extensions.html" rel="alternate"/><contributor><uri>https://blog.0branch.com/rss.xml</uri><name>0branch</name></contributor><content type="html">&lt;div&gt;
+  &lt;div class=&quot;span-22&quot;&gt;
+    &lt;div class=&quot;span-12&quot;&gt;&lt;h1&gt;Mercurial extensions (update)&lt;/h1&gt;&lt;/div&gt;
+    &lt;div style=&quot;text-align: right&quot; class=&quot;span-10 last&quot;&gt;
+      &lt;a href=&quot;https://blog.0branch.com/index.html&quot;&gt;#&lt;/a&gt; February  5, 2020
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;hr/&gt;
+  &lt;div&gt;
+    &lt;p&gt;In my &lt;a href=&quot;https://blog.0branch.com/posts/2020-02-03-bitbucket-migration.html&quot;&gt;previous post&lt;/a&gt;, I mentioned that a couple of old Mercurial extensions are archived on this server: &lt;a href=&quot;http://hg.0branch.com/hg-prettypaths&quot;&gt;hg-prettypaths&lt;/a&gt; and &lt;a href=&quot;http://hg.0branch.com/hg-persona/&quot;&gt;hg-persona&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Both have now been lightly tidied and updated to work with newer versions of Mercurial (tested on 4.5.3, 5.3).&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;hr/&gt;
+
+&lt;div&gt;&lt;/div&gt;
+
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;http://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;a href=&quot;http://disqus.com&quot; class=&quot;dsq-brlink&quot;&gt;comments powered by &lt;span class=&quot;logo-disqus&quot;&gt;Disqus&lt;/span&gt;&lt;/a&gt;
+</content><id>http://blog.0branch.com/posts/2020-02-05-hg-extensions.html</id><title type="text">Mercurial extensions (update)</title><updated>2020-02-05T17:40:00-00:00</updated><author><name>0branch</name></author></entry><entry><link href="http://blog.0branch.com/posts/2020-02-03-bitbucket-migration.html" rel="alternate"/><contributor><uri>https://blog.0branch.com/rss.xml</uri><name>0branch</name></contributor><content type="html">&lt;div&gt;
+  &lt;div class=&quot;span-22&quot;&gt;
+    &lt;div class=&quot;span-12&quot;&gt;&lt;h1&gt;Bitbucket repository migration&lt;/h1&gt;&lt;/div&gt;
+    &lt;div style=&quot;text-align: right&quot; class=&quot;span-10 last&quot;&gt;
+      &lt;a href=&quot;https://blog.0branch.com/index.html&quot;&gt;#&lt;/a&gt; February  3, 2020
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;hr/&gt;
+  &lt;div&gt;
+    &lt;p&gt;Since Bitbucket are discontinuing Mercurial support in a few months&amp;rsquo; time (see &lt;a href=&quot;https://bitbucket.org/blog/sunsetting-mercurial-support-in-bitbucket&quot;&gt;here&lt;/a&gt;), I&amp;rsquo;ve started migrating a few old repositories:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/0branch/hugo-unix&quot;&gt;hugo-unix&lt;/a&gt; is now hosted on GitHub
+&lt;ul&gt;
+&lt;li&gt;&amp;hellip; and Nikos released &lt;a href=&quot;https://github.com/0branch/hugo-unix/releases/tag/v3.1.05&quot;&gt;v3.1.05&lt;/a&gt; today.&lt;/li&gt;
+&lt;li&gt;Conversion was done with &lt;a href=&quot;https://foss.heptapod.net/mercurial/hg-git&quot;&gt;hg-git&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Extensions &lt;a href=&quot;http://hg.0branch.com/hg-prettypaths&quot;&gt;hg-prettypaths&lt;/a&gt; and &lt;a href=&quot;http://hg.0branch.com/hg-persona/&quot;&gt;hg-persona&lt;/a&gt; are now archived on this server.
+&lt;ul&gt;
+&lt;li&gt;Note that &lt;a href=&quot;http://hg.0branch.com/hg-prettypaths&quot;&gt;hg-prettypaths&lt;/a&gt; is deprecated (broken in newer versions of Mercurial).&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://hg.0branch.com/hg-persona/&quot;&gt;hg-persona&lt;/a&gt; has been updated to work with hg &amp;ge;4.3.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;hr/&gt;
+
+&lt;div&gt;&lt;/div&gt;
+
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;http://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;a href=&quot;http://disqus.com&quot; class=&quot;dsq-brlink&quot;&gt;comments powered by &lt;span class=&quot;logo-disqus&quot;&gt;Disqus&lt;/span&gt;&lt;/a&gt;
+</content><id>http://blog.0branch.com/posts/2020-02-03-bitbucket-migration.html</id><title type="text">Bitbucket repository migration</title><updated>2020-02-03T19:55:00-00:00</updated><author><name>0branch</name></author></entry><entry><link href="http://blog.0branch.com/posts/2016-12-18-vile-9.8s.html" rel="alternate"/><contributor><uri>https://blog.0branch.com/rss.xml</uri><name>0branch</name></contributor><content type="html">&lt;div&gt;
+  &lt;div class=&quot;span-22&quot;&gt;
+    &lt;div class=&quot;span-12&quot;&gt;&lt;h1&gt;vile 9.8s&lt;/h1&gt;&lt;/div&gt;
+    &lt;div style=&quot;text-align: right&quot; class=&quot;span-10 last&quot;&gt;
+      &lt;a href=&quot;https://blog.0branch.com/index.html&quot;&gt;#&lt;/a&gt; December 17, 2016
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;hr/&gt;
+  &lt;div&gt;
+    &lt;p&gt;Tom Dickey has just released &lt;a href=&quot;http://invisible-island.net/vile&quot;&gt;vile&lt;/a&gt; 9.8s; this release includes the following changes:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;20161217 (s)
+  &amp;gt; Brendan O'Dea:
+  + add command-line parsing for &amp;quot;--&amp;quot; token, assumed by visudo in the
+    1.8.12 - 1.8.16 changes (report by Wayne Cuddy).
+  &amp;gt; Tom Dickey:
+  + recompute majormode order when &amp;quot;after&amp;quot;, &amp;quot;before&amp;quot; or &amp;quot;qualifiers&amp;quot; is
+    modified for a majormode.
+  + add yamlmode (discussion with Steve Lembark)
+  + modify DSTRING definition in lex-filter to handle continuation lines.
+  + modify cfgmode to reduce false-matches with random &amp;quot;.cfg&amp;quot; files.
+  + improve ps syntax filter
+    + interpret %%BeginData / %%EndData keywords
+    + interpret %%BeginPreview / %%EndPreview keywords
+  + add &amp;quot;.mcrl2&amp;quot; as suffix for mcrlmode.
+  + fixes from test-script: conf, hs, nr, rc, rcs, txt, xq, xml
+  + improved regression test-script to check for places where the syntax
+    filter might have mixed buffered- and unbuffered-calls in the same
+    state, causing tokens in the markup to &amp;quot;move&amp;quot;.
+  + remove a statement from flt_putc in the standalone filters that
+    converted a bare ^A to ^A?.
+  + remove escaping from digraphs.rc, since change in 9.7zg made that
+    both unnecessary and incorrect (reports by Marc Simpson, Brendan
+    O'Dea).
+  + improve tcl syntax filter
+    + color backslash-escapes in double-quotes.
+    + add rules to handle regexp and regsub regular expressions.  This
+      does not yet handle -regexp switch cases.
+    + add call to flt_bfr_error to flag unbalanced quotes here and in
+      a few other filters.
+    + modify newline patterns to allow for cr/lf endings in continuations
+    + add special case for literals like &amp;quot;{\1}&amp;quot; and &amp;quot;{\\1}&amp;quot;.
+    + add special case for html entities such as &amp;quot;{&amp;amp;#123;}&amp;quot; and &amp;quot;{&amp;amp;foo;}&amp;quot;
+  + improve sh syntax filter
+    + allow quoted strings within '${' parameter, a detail that can
+      happen with ksh brace groups (report by j.  van den hoff).
+    + handle ksh's &amp;quot;ANSI C quotes&amp;quot;, i.e., &amp;quot;$'xxx'&amp;quot; using single quotes
+      after a dollar sign.
+    + use the ksh (&amp;quot;-K&amp;quot;) option for bashmode and zshmode syntax.
+    + interpret &amp;quot;$name&amp;quot; within '${' parameter
+    + don't warn for inline-here documents
+    + handle special case where matching tag for a here-document is on
+      the same line as a closing &amp;quot;)&amp;quot; in $(xxx) command.
+    + highlight ksh's &amp;quot;[[&amp;quot;, &amp;quot;((&amp;quot;, &amp;quot;$((&amp;quot; bracketing like &amp;quot;{&amp;quot;.
+    + handle ksh's &amp;quot;((&amp;quot; and &amp;quot;$((&amp;quot; arithmetic expressions.
+    + handle ksh's base#value numbers
+  + improve perl syntax highlighter:
+    + fix state used to guess where a pattern might occur, e.g., after
+      an &amp;quot;if&amp;quot; keyword with no preceding operator to account for line
+      breaks.
+    + correct a check for illegal numbers, which flagged hexadecimal
+      numbers containing &amp;quot;e&amp;quot;.
+    + distinguish special case of &amp;quot;format =&amp;quot; vs &amp;quot;format =&amp;gt;&amp;quot;.
+    + allow pod to begin without a preceding blank line, but warn.
+    + allow for case where pod mode is turned on/off with only one blank
+      line between the directives.
+    + check for simple patterns that may follow operators such as &amp;quot;map&amp;quot;.
+    + allow '$', '+' or '&amp;amp;' as a quote or substitution delimiter
+    + allow angle brackets for quotes after 'q', etc.
+    + fix highlighting when square-brackets are used as delimiters in a
+      perl substitution, e.g., s[foo[bar]xxx][yyy]
+  + quiet some unnecessary compiler warnings with glibc &amp;gt; 2.20 by adding
+    _DEFAULT_SOURCE as needed.
+  + improve version-comparison for &amp;quot;new&amp;quot; flex to allow for 2.6.0, and
+    accept that for built-in filters.  Also modify filters/mk-2nd.awk
+    to work with &amp;quot;new&amp;quot; flex ifdef's to ignore yywrap (Debian #832973).
+  + correct long-name for filename-ic mode (report Marc Simpson).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;See &lt;a href=&quot;http://invisible-island.net/vile/CHANGES.html#index-v9_8s&quot;&gt;here&lt;/a&gt; for further information.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;hr/&gt;
+
+&lt;div&gt;&lt;/div&gt;
+
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;http://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;a href=&quot;http://disqus.com&quot; class=&quot;dsq-brlink&quot;&gt;comments powered by &lt;span class=&quot;logo-disqus&quot;&gt;Disqus&lt;/span&gt;&lt;/a&gt;
+</content><id>http://blog.0branch.com/posts/2016-12-18-vile-9.8s.html</id><title type="text">vile 9.8s</title><updated>2016-12-17T18:05:00-00:00</updated><author><name>0branch</name></author></entry><entry><link href="http://blog.0branch.com/posts/2016-07-28-vile-9.8r.html" rel="alternate"/><contributor><uri>https://blog.0branch.com/rss.xml</uri><name>0branch</name></contributor><content type="html">&lt;div&gt;
+  &lt;div class=&quot;span-22&quot;&gt;
+    &lt;div class=&quot;span-12&quot;&gt;&lt;h1&gt;vile 9.8r&lt;/h1&gt;&lt;/div&gt;
+    &lt;div style=&quot;text-align: right&quot; class=&quot;span-10 last&quot;&gt;
+      &lt;a href=&quot;https://blog.0branch.com/index.html&quot;&gt;#&lt;/a&gt; July 28, 2016
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;hr/&gt;
+  &lt;div&gt;
+    &lt;p&gt;Tom Dickey has just released &lt;a href=&quot;http://invisible-island.net/vile&quot;&gt;vile&lt;/a&gt; 9.8r; you can browse the changes &lt;a href=&quot;http://invisible-island.net/vile/CHANGES.html#index-v9_8r&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This release offers significant improvements and bug fixes; if you&amp;rsquo;re a vile user, I recommend upgrading.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;hr/&gt;
+
+&lt;div&gt;&lt;/div&gt;
+
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;http://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;a href=&quot;http://disqus.com&quot; class=&quot;dsq-brlink&quot;&gt;comments powered by &lt;span class=&quot;logo-disqus&quot;&gt;Disqus&lt;/span&gt;&lt;/a&gt;
+</content><id>http://blog.0branch.com/posts/2016-07-28-vile-9.8r.html</id><title type="text">vile 9.8r</title><updated>2016-07-28T08:10:00-00:00</updated><author><name>0branch</name></author></entry><entry><link href="http://blog.0branch.com/posts/2016-05-13-awk-tco.html" rel="alternate"/><contributor><uri>https://blog.0branch.com/rss.xml</uri><name>0branch</name></contributor><content type="html">&lt;div&gt;
+  &lt;div class=&quot;span-22&quot;&gt;
+    &lt;div class=&quot;span-12&quot;&gt;&lt;h1&gt;Tail call optimisation in (g)awk&lt;/h1&gt;&lt;/div&gt;
+    &lt;div style=&quot;text-align: right&quot; class=&quot;span-10 last&quot;&gt;
+      &lt;a href=&quot;https://blog.0branch.com/index.html&quot;&gt;#&lt;/a&gt; May 13, 2016
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;hr/&gt;
+  &lt;div&gt;
+    &lt;p&gt;&lt;em&gt;or&lt;/em&gt; &amp;ldquo;Wait, what? Tail call optimisation in awk?&amp;rdquo;&lt;/p&gt;
+&lt;h1&gt;Overview&lt;/h1&gt;
+&lt;p&gt;This post covers &lt;a href=&quot;https://en.wikipedia.org/wiki/Tail_call&quot;&gt;tail call optimisation&lt;/a&gt; (TCO) behaviour in three common awk implementations&lt;a href=&quot;https://blog.0branch.com/rss.xml#fn1&quot; class=&quot;footnote-ref&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;: &lt;a href=&quot;https://www.gnu.org/software/gawk/&quot;&gt;gawk&lt;/a&gt;, &lt;a href=&quot;http://invisible-island.net/mawk/mawk.html&quot;&gt;mawk&lt;/a&gt; and &lt;a href=&quot;http://www.cs.princeton.edu/~bwk/btl.mirror/&quot;&gt;nawk&lt;/a&gt; (&lt;em&gt;AKA&lt;/em&gt; the one true awk).&lt;/p&gt;
+&lt;p&gt;None of the three implement full TCO, while &lt;code&gt;gawk&lt;/code&gt; alone provides self-TCO. The bulk of this post will therefore be devoted to gawk&amp;rsquo;s implementation and related pitfalls.&lt;/p&gt;
+&lt;h1&gt;Initial observations&lt;/h1&gt;
+&lt;p&gt;Let&amp;rsquo;s begin with a simple awk script that defines a single function, &lt;code&gt;recur&lt;/code&gt;, called from the &lt;code&gt;BEGIN&lt;/code&gt; block:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ nawk 'function recur() {return recur()} BEGIN {recur()}'
+Segmentation fault: 11
+$ mawk 'function recur() {return recur()} BEGIN {recur()}'
+Segmentation fault: 11
+$ gawk 'function recur() {return recur()} BEGIN {recur()}'
+# ...runs indefinitely [?]...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note the difference in behaviour here: nawk and mawk blow the stack and segfault while gawk cheerily continues running. Thanks gawk.&lt;/p&gt;
+&lt;p&gt;But wait! Gawk is actually dynamically allocating additional stack frames&amp;mdash;so long as there&amp;rsquo;s memory (and swap) to consume, gawk will gobble it up and our script will plod on. Below, the first 30 seconds of (virtual) memory consumption are charted&lt;a href=&quot;https://blog.0branch.com/rss.xml#fn2&quot; class=&quot;footnote-ref&quot;&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://blog.0branch.com/images/gawk-mem-1.png&quot; width=&quot;708&quot; class=&quot;figure&quot;/&gt;&lt;/p&gt;
+&lt;p&gt;Whoops!&lt;/p&gt;
+&lt;h2&gt;The gawk optimiser&lt;/h2&gt;
+&lt;p&gt;In order to obtain (self-)TCO and spare your poor swap partition, gawk provides the &lt;code&gt;-O&lt;/code&gt; switch,&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ gawk -O 'function foo() {return recur()} BEGIN {recur()}'
+# ...runs indefinitely; air conditioning no longer required...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and lo and behold,&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://blog.0branch.com/images/gawk-mem-2.png&quot; width=&quot;710&quot; class=&quot;figure&quot;/&gt;&lt;/p&gt;
+&lt;h2&gt;Doubling down&lt;/h2&gt;
+&lt;p&gt;What about full TCO? Let&amp;rsquo;s expand our one liner a little to include a trampoline call:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ gawk -O 'function go() {return to()} function to() {return go()} BEGIN {go()}'&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and chart memory consumption again,&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://blog.0branch.com/images/gawk-mem-3.png&quot; width=&quot;710&quot; class=&quot;figure&quot;/&gt;&lt;/p&gt;
+&lt;p&gt;Bugger. So, it looks like gawk isn&amp;rsquo;t keen on full blown TCO. Time to find out why.&lt;/p&gt;
+&lt;h3&gt;The secret sauce&lt;/h3&gt;
+&lt;p&gt;We&amp;rsquo;ve just seen that gawk seems to optimise self-calls in tail position when the &lt;code&gt;-O&lt;/code&gt; flag is specified. To better understand this functionality we can dump opcodes from the trampoline case and take a look under the hood:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ echo 'function go() {return to()} function to() {return go()} BEGIN {go()}' &amp;gt; /tmp/trampoline.awk
+$ gawk --debug -O -f /tmp/trampoline.awk
+gawk&amp;gt; dump
+
+	# BEGIN
+
+[     1:0x7fc00bd022e0] Op_rule             : [in_rule = BEGIN] [source_file = /tmp/trampoline.awk]
+[     1:0x7fc00bd02360] Op_func_call        : [func_name = go] [arg_count = 0]
+[      :0x7fc00c800f60] Op_pop              :
+[      :0x7fc00c800e20] Op_no_op            :
+[      :0x7fc00c800ea0] Op_atexit           :
+[      :0x7fc00c800f80] Op_stop             :
+[      :0x7fc00c800e60] Op_no_op            :
+[      :0x7fc00bd01e00] Op_after_beginfile  :
+[      :0x7fc00c800e40] Op_no_op            :
+[      :0x7fc00c800e80] Op_after_endfile    :
+
+	# Function: go ()
+
+[     1:0x7fc00bd01f20] Op_func             : [param_cnt = 0] [source_file = /tmp/trampoline.awk]
+[     1:0x7fc00bd020a0] Op_func_call        : [func_name = to] [arg_count = 0]
+[     1:0x7fc00bd01fb0] Op_K_return         :
+[      :0x7fc00c800ee0] Op_push_i           : Nnull_string [MALLOC|STRING|STRCUR|NUMCUR|NUMBER]
+[      :0x7fc00c800f00] Op_K_return         :
+
+	# Function: to ()
+
+[     1:0x7fc00bd02130] Op_func             : [param_cnt = 0] [source_file = /tmp/trampoline.awk]
+[     1:0x7fc00bd02270] Op_func_call        : [func_name = go] [arg_count = 0]
+[     1:0x7fc00bd021f0] Op_K_return         :
+[      :0x7fc00c800f20] Op_push_i           : Nnull_string [MALLOC|STRING|STRCUR|NUMCUR|NUMBER]
+[      :0x7fc00c800f40] Op_K_return         :&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note the lack of a distinct &lt;em&gt;jump&lt;/em&gt; or &lt;em&gt;tailcall&lt;/em&gt; opcode; instead, even with the optimiser turned on, &lt;code&gt;go&lt;/code&gt; and &lt;code&gt;to&lt;/code&gt; are performing &lt;code&gt;Op_func_call&lt;/code&gt;s. Hmm, okay; we&amp;rsquo;ll see a different opcode in our original &lt;code&gt;recur&lt;/code&gt; case, though, right? Wrong:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ echo 'function recur() {return recur()} BEGIN {recur()}' &amp;gt; /tmp/recur.awk
+$ gawk --debug -O -f /tmp/recur.awk
+gawk&amp;gt; dump
+
+	# BEGIN
+
+[     1:0x7fc1d0408ef0] Op_rule             : [in_rule = BEGIN] [source_file = /tmp/recur.awk]
+[     1:0x7fc1d0408f80] Op_func_call        : [func_name = recur] [arg_count = 0]
+[      :0x7fc1d0802120] Op_pop              :
+[      :0x7fc1d0802020] Op_no_op            :
+[      :0x7fc1d08020a0] Op_atexit           :
+[      :0x7fc1d0802140] Op_stop             :
+[      :0x7fc1d0802060] Op_no_op            :
+[      :0x7fc1d0408bc0] Op_after_beginfile  :
+[      :0x7fc1d0802040] Op_no_op            :
+[      :0x7fc1d0802080] Op_after_endfile    :
+
+	# Function: recur ()
+
+[     1:0x7fc1d0408ce0] Op_func             : [param_cnt = 0] [source_file = /tmp/recur.awk]
+[     1:0x7fc1d0408e60] Op_func_call        : [func_name = recur] [arg_count = 0]
+[     1:0x7fc1d0408d70] Op_K_return         :
+[      :0x7fc1d08020e0] Op_push_i           : Nnull_string [MALLOC|STRING|STRCUR|NUMCUR|NUMBER]
+[      :0x7fc1d0802100] Op_K_return         :&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;tt&gt;&amp;macr;\_(&amp;#12484;)_/&amp;macr;&lt;/tt&gt;&lt;/p&gt;
+&lt;p&gt;Time to dig around gawk&amp;rsquo;s grammar definition. Here&amp;rsquo;s &lt;code&gt;return&lt;/code&gt;, defined in &lt;code&gt;awkgram.y&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode c&quot;&gt;&lt;code class=&quot;sourceCode c&quot;&gt;&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;1&quot;&gt;| LEX_RETURN&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;2&quot;&gt;  {&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;3&quot;&gt;    &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; (! in_function)&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;4&quot;&gt;        yyerror(_(&lt;span class=&quot;st&quot;&gt;&amp;quot;`return' used outside function context&amp;quot;&lt;/span&gt;));&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;5&quot;&gt;  } opt_exp statement_term {&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;6&quot;&gt;    &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; ($&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt; == NULL) {&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;7&quot;&gt;        $$ = list_create($&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;);&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;8&quot;&gt;        (&lt;span class=&quot;dt&quot;&gt;void&lt;/span&gt;) list_prepend($$, instruction(Op_push_i));&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;9&quot;&gt;        $$-&amp;gt;nexti-&amp;gt;memory = dupnode(Nnull_string);&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;10&quot;&gt;    } &lt;span class=&quot;cf&quot;&gt;else&lt;/span&gt; {&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;11&quot;&gt;        &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; (do_optimize&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;12&quot;&gt;            &amp;amp;&amp;amp; $&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;-&amp;gt;lasti-&amp;gt;opcode == Op_func_call&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;13&quot;&gt;            &amp;amp;&amp;amp; strcmp($&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;-&amp;gt;lasti-&amp;gt;func_name, in_function) == &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;14&quot;&gt;        ) {&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;15&quot;&gt;            &lt;span class=&quot;co&quot;&gt;/* Do tail recursion optimization. Tail&lt;/span&gt;&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;16&quot;&gt;&lt;span class=&quot;co&quot;&gt;             * call without a return value is recognized&lt;/span&gt;&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;17&quot;&gt;&lt;span class=&quot;co&quot;&gt;             * in mk_function().&lt;/span&gt;&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;18&quot;&gt;&lt;span class=&quot;co&quot;&gt;             */&lt;/span&gt;&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;19&quot;&gt;            ($&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;-&amp;gt;lasti + &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;)-&amp;gt;tail_call = true;&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;20&quot;&gt;        }&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;21&quot;&gt;&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;22&quot;&gt;        $$ = list_append($&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;, $&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;);&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;23&quot;&gt;    }&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;24&quot;&gt;    $$ = add_pending_comment($$);&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;25&quot;&gt;  }&lt;/a&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Take a closer look at the code following that comment:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode c&quot;&gt;&lt;code class=&quot;sourceCode c&quot;&gt;&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;1&quot;&gt;&lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; (do_optimize&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;2&quot;&gt;  &amp;amp;&amp;amp; $&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;-&amp;gt;lasti-&amp;gt;opcode == Op_func_call&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;3&quot;&gt;  &amp;amp;&amp;amp; strcmp($&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;-&amp;gt;lasti-&amp;gt;func_name, in_function) == &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt;&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;4&quot;&gt;) { &lt;span class=&quot;co&quot;&gt;/* ... */&lt;/span&gt;&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;5&quot;&gt;  ($&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;-&amp;gt;lasti + &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;)-&amp;gt;tail_call = true; &lt;span class=&quot;co&quot;&gt;/* &amp;lt;--- */&lt;/span&gt;&lt;/a&gt;
+&lt;a class=&quot;sourceLine&quot; data-line-number=&quot;6&quot;&gt;}&lt;/a&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;In other words, during a &lt;code&gt;return&lt;/code&gt; gawk:&lt;/p&gt;
+&lt;ol type=&quot;1&quot;&gt;
+&lt;li&gt;Checks whether the &lt;code&gt;do_optimize&lt;/code&gt; flag (&lt;code&gt;-O&lt;/code&gt;) is specified.&lt;/li&gt;
+&lt;li&gt;If so, it checks whether the previous instruction is an &lt;code&gt;Op_func_call&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;If that call is to a function with the same name as the current one,&lt;/li&gt;
+&lt;li&gt;&amp;hellip;the &lt;code&gt;tail_call&lt;/code&gt; flag is set.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;So it goes.&lt;/p&gt;
+&lt;h1&gt;At last, a conclusion&lt;/h1&gt;
+&lt;p&gt;Here&amp;rsquo;re a few takeaways from the above&lt;a href=&quot;https://blog.0branch.com/rss.xml#fn3&quot; class=&quot;footnote-ref&quot;&gt;&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Don&amp;rsquo;t rely on TCO if you&amp;rsquo;re writing awk.&lt;/li&gt;
+&lt;li&gt;Just don&amp;rsquo;t.&lt;/li&gt;
+&lt;li&gt;If you &lt;em&gt;do&lt;/em&gt; need TCO, make sure you&amp;rsquo;re using gawk
+&lt;ul&gt;
+&lt;li&gt;Be sure to specify the &lt;code&gt;-O&lt;/code&gt; flag otherwise you&amp;rsquo;ll need to buy a new fan,&lt;/li&gt;
+&lt;li&gt;and make sure you&amp;rsquo;re not trampolining as the optimiser won&amp;rsquo;t be of any help.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Personally, I&amp;rsquo;ll be sticking with nawk.&lt;/p&gt;
+&lt;section class=&quot;footnotes&quot;&gt;
+&lt;hr/&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Probably the most common.&lt;a href=&quot;https://blog.0branch.com/rss.xml#fnref1&quot; class=&quot;footnote-back&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Output drawn from &lt;code&gt;ps&lt;/code&gt;&lt;a href=&quot;https://blog.0branch.com/rss.xml#fnref2&quot; class=&quot;footnote-back&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;YMMV&lt;a href=&quot;https://blog.0branch.com/rss.xml#fnref3&quot; class=&quot;footnote-back&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;hr/&gt;
+
+&lt;div&gt;&lt;/div&gt;
+
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;http://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;a href=&quot;http://disqus.com&quot; class=&quot;dsq-brlink&quot;&gt;comments powered by &lt;span class=&quot;logo-disqus&quot;&gt;Disqus&lt;/span&gt;&lt;/a&gt;
+</content><id>http://blog.0branch.com/posts/2016-05-13-awk-tco.html</id><title type="text">Tail call optimisation in (g)awk</title><updated>2016-05-13T11:20:00-00:00</updated><author><name>0branch</name></author></entry><entry><link href="http://blog.0branch.com/posts/2013-02-24-batteries-v2-composition.html" rel="alternate"/><contributor><uri>https://blog.0branch.com/rss.xml</uri><name>0branch</name></contributor><content type="html">&lt;div&gt;
+  &lt;div class=&quot;span-22&quot;&gt;
+    &lt;div class=&quot;span-12&quot;&gt;&lt;h1&gt;Batteries 2.0: Composition and application&lt;/h1&gt;&lt;/div&gt;
+    &lt;div style=&quot;text-align: right&quot; class=&quot;span-10 last&quot;&gt;
+      &lt;a href=&quot;https://blog.0branch.com/index.html&quot;&gt;#&lt;/a&gt; February 24, 2013
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;hr/&gt;
+  &lt;div&gt;
+    &lt;p&gt;A &lt;a href=&quot;https://blog.0branch.com/posts/2012-04-17-haskell-application-ocaml.html&quot;&gt;while back&lt;/a&gt;, I discussed an implementation of the application operator (Haskell&amp;rsquo;s &lt;code&gt;$&lt;/code&gt;) in OCaml. In the closing section of that post, a couple of problems were raised regarding treatment of associativity and composition in &lt;em&gt;OCaml Batteries&lt;/em&gt;. These issues have been addressed in &lt;em&gt;Batteries&lt;/em&gt; 2.0, released in January 2013; the improvements are outlined here.&lt;/p&gt;
+&lt;h2&gt;Quick recap&lt;/h2&gt;
+&lt;p&gt;Batteries &lt;a href=&quot;http://ocaml-batteries-team.github.com/batteries-included/hdoc/BatPervasives.html&quot;&gt;1.x&lt;/a&gt; defines the following operators for composition and application:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;val ( -| ) : ('a -&amp;gt; 'b) -&amp;gt; ('c -&amp;gt; 'a) -&amp;gt; 'c -&amp;gt; 'b&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;ldquo;Function composition. &lt;code&gt;f -| g&lt;/code&gt; is &lt;code&gt;fun x -&amp;gt; f (g x)&lt;/code&gt;. Mathematically, this is operator &lt;code&gt;o&lt;/code&gt;.&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;val ( **&amp;gt; ) : ('a -&amp;gt; 'b) -&amp;gt; 'a -&amp;gt; 'b&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;ldquo;Function application. &lt;code&gt;f **&amp;gt; x&lt;/code&gt; is equivalent to &lt;code&gt;f x&lt;/code&gt;. This [operator] may be useful for composing sequences of function calls without too many parenthesis.&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The problem pointed out in the comments section (now the closing &lt;em&gt;Update&lt;/em&gt;) of the &lt;a href=&quot;https://blog.0branch.com/posts/2012-04-17-haskell-application-ocaml.html&quot;&gt;post&lt;/a&gt; was that&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;the precedence you&amp;rsquo;d expect coming from Haskell is inverted. We&amp;rsquo;d need to define a new application operator to address this problem as the commenter suggested&amp;hellip;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Specifically, the following code sample was shown to exhibit surprising behaviour for anyone familiar with Haskell&amp;rsquo;s &lt;code&gt;.&lt;/code&gt; and &lt;code&gt;$&lt;/code&gt;,&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# print_endline -| string_of_int **&amp;gt; succ **&amp;gt; sum [1; 2; 3];;
+Error: This expression has type string but an expression was expected of type 'a -&amp;gt; string&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;What&amp;rsquo;s up, doc?&lt;/h2&gt;
+&lt;p&gt;In Batteries &lt;a href=&quot;http://ocaml-batteries-team.github.com/batteries-included/hdoc2/BatPervasives.html&quot;&gt;2.0&lt;/a&gt;, both operators have been renamed:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Composition:
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;(-|)&lt;/code&gt; is now &lt;code&gt;(%)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Application:
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;(**&amp;gt;)&lt;/code&gt; is now &lt;code&gt;(@@)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To appreciate the behaviour of the new operators, we can once again consult (a subsection of) the operator associativity table from the &lt;a href=&quot;http://caml.inria.fr/pub/docs/manual-ocaml/expr.html&quot;&gt;language manual&lt;/a&gt;:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&quot;header&quot;&gt;
+&lt;th&gt;Construction or operator&lt;/th&gt;
+&lt;th&gt;Associativity&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&quot;odd&quot;&gt;
+&lt;td&gt;&lt;code&gt;*...&lt;/code&gt; &lt;code&gt;/...&lt;/code&gt; &lt;code&gt;%...&lt;/code&gt; &lt;code&gt;mod&lt;/code&gt; &lt;code&gt;land&lt;/code&gt; &lt;code&gt;lor&lt;/code&gt; &lt;code&gt;lxor&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;left&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;even&quot;&gt;
+&lt;td&gt;&lt;code&gt;+...&lt;/code&gt; &lt;code&gt;-...&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;left&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;odd&quot;&gt;
+&lt;td&gt;&lt;code&gt;::&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;right&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;even&quot;&gt;
+&lt;td&gt;&lt;code&gt;@...&lt;/code&gt; &lt;code&gt;^...&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;right&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;odd&quot;&gt;
+&lt;td&gt;&lt;code&gt;=...&lt;/code&gt; &lt;code&gt;&amp;lt;...&lt;/code&gt; &lt;code&gt;&amp;gt;...&lt;/code&gt; &lt;code&gt;|...&lt;/code&gt; &lt;code&gt;&amp;amp;...&lt;/code&gt; &lt;code&gt;$...&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;left&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;A couple of things are worth noting:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The associativity of the application operator has changed.
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;(**&amp;gt;)&lt;/code&gt; is left associative, &lt;code&gt;(@@)&lt;/code&gt; right.&lt;/li&gt;
+&lt;li&gt;As discussed in the original post, right associativity is an integral feature of the application operator.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;In Batteries 1.x, application had higher precedence than composition.
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;(**&amp;gt;)&lt;/code&gt; is covered by the first row of the table, &lt;code&gt;(-|)&lt;/code&gt; by the second.&lt;/li&gt;
+&lt;li&gt;As of Batteries 2.0, this precedence has been inverted.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;No surprises&lt;/h2&gt;
+&lt;p&gt;Reworking the above code sample for Batteries 2.0 is trivial&amp;mdash;simply substitute &lt;code&gt;(%)&lt;/code&gt; for &lt;code&gt;(-|)&lt;/code&gt; and &lt;code&gt;(@@)&lt;/code&gt; for &lt;code&gt;(**&amp;gt;)&lt;/code&gt;. With these changes in place, the code behaves as follows:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# print_endline % string_of_int @@ succ @@ sum [1; 2; 3];;
+7
+- : unit = ()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Crucially, the application operator has lower precedence than the composition operator and is right associative.&lt;/p&gt;
+&lt;p&gt;Returning to the &lt;a href=&quot;http://hackage.haskell.org/packages/archive/base/4.5.0.0/doc/html/Prelude.html#v:-36-&quot;&gt;definition&lt;/a&gt; of &lt;code&gt;$&lt;/code&gt; referenced at the outset of the original post,&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This operator is redundant, since ordinary application &lt;code&gt;(f x)&lt;/code&gt; means the same as &lt;code&gt;(f $ x)&lt;/code&gt;. However, &lt;code&gt;$&lt;/code&gt; has low, right-associative binding precedence, so it sometimes allows parentheses to be omitted.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;it should be apparent that these new operators closely conform to Haskell&amp;rsquo;s treatment of application and composition (in particular, associativity and precedence), allowing for a straightforward translation of the above expression:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Prelude&amp;gt; putStrLn . show $ succ $ sum [1, 2, 3]
+7&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;hr/&gt;
+
+&lt;div&gt;&lt;/div&gt;
+
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;http://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;a href=&quot;http://disqus.com&quot; class=&quot;dsq-brlink&quot;&gt;comments powered by &lt;span class=&quot;logo-disqus&quot;&gt;Disqus&lt;/span&gt;&lt;/a&gt;
+</content><id>http://blog.0branch.com/posts/2013-02-24-batteries-v2-composition.html</id><title type="text">Batteries 2.0: Composition and application</title><updated>2013-02-24T00:00:00-00:00</updated><author><name>0branch</name></author></entry><entry><link href="http://blog.0branch.com/posts/2013-02-17-posterous-migration.html" rel="alternate"/><contributor><uri>https://blog.0branch.com/rss.xml</uri><name>0branch</name></contributor><content type="html">&lt;div&gt;
+  &lt;div class=&quot;span-22&quot;&gt;
+    &lt;div class=&quot;span-12&quot;&gt;&lt;h1&gt;Migration from Posterous&lt;/h1&gt;&lt;/div&gt;
+    &lt;div style=&quot;text-align: right&quot; class=&quot;span-10 last&quot;&gt;
+      &lt;a href=&quot;https://blog.0branch.com/index.html&quot;&gt;#&lt;/a&gt; February 17, 2013
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;hr/&gt;
+  &lt;div&gt;
+    &lt;p&gt;I&amp;rsquo;ve migrated this blog from &lt;a href=&quot;https://posterous.com/&quot;&gt;Posterous&lt;/a&gt; to &lt;a href=&quot;http://jaspervdj.be/hakyll/&quot;&gt;Hakyll&lt;/a&gt; following the (long anticipated) &lt;a href=&quot;http://blog.posterous.com/thanks-from-posterous&quot;&gt;announcement&lt;/a&gt; that Posterous will be shut down in April. Unfortunately, comments for old posts have been lost.&lt;/p&gt;
+&lt;p&gt;Hopefully folks like the new layout; mobile stylesheet coming soon.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;hr/&gt;
+
+&lt;div&gt;&lt;/div&gt;
+
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;http://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;a href=&quot;http://disqus.com&quot; class=&quot;dsq-brlink&quot;&gt;comments powered by &lt;span class=&quot;logo-disqus&quot;&gt;Disqus&lt;/span&gt;&lt;/a&gt;
+</content><id>http://blog.0branch.com/posts/2013-02-17-posterous-migration.html</id><title type="text">Migration from Posterous</title><updated>2013-02-17T00:00:00-00:00</updated><author><name>0branch</name></author></entry><entry><link href="http://blog.0branch.com/posts/2012-04-22-application-operator.html" rel="alternate"/><contributor><uri>https://blog.0branch.com/rss.xml</uri><name>0branch</name></contributor><content type="html">&lt;div&gt;
+  &lt;div class=&quot;span-22&quot;&gt;
+    &lt;div class=&quot;span-12&quot;&gt;&lt;h1&gt;The application operator in Standard ML&lt;/h1&gt;&lt;/div&gt;
+    &lt;div style=&quot;text-align: right&quot; class=&quot;span-10 last&quot;&gt;
+      &lt;a href=&quot;https://blog.0branch.com/index.html&quot;&gt;#&lt;/a&gt; April 22, 2012
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;hr/&gt;
+  &lt;div&gt;
+    &lt;p&gt;In the &lt;a href=&quot;https://blog.0branch.com/posts/2012-04-17-haskell-application-ocaml.html&quot;&gt;previous post&lt;/a&gt; I introduced the &lt;code&gt;$&lt;/code&gt; operator to OCaml using two different approaches:&lt;/p&gt;
+&lt;ol type=&quot;1&quot;&gt;
+&lt;li&gt;Renaming the operator to &lt;code&gt;**$&lt;/code&gt; or &lt;code&gt;@$&lt;/code&gt; in order to achieve the necessary associativity.&lt;/li&gt;
+&lt;li&gt;Leveraging Camlp4 to provide a syntax extension.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In the comments section&lt;a href=&quot;https://blog.0branch.com/rss.xml#fn1&quot; class=&quot;footnote-ref&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;, variants of these operators were provided that mirror Haskell&amp;rsquo;s relative precedence of application and composition.&lt;/p&gt;
+&lt;p&gt;As a postscript, I thought it might be interesting to look at the implementation of &lt;code&gt;$&lt;/code&gt; in Standard ML. Here it is in the &lt;a href=&quot;http://www.smlnj.org&quot;&gt;SML/NJ&lt;/a&gt; toplevel,&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Standard ML of New Jersey v110.74 [built: Wed Apr 11 13:33:07 2012]
+- infixr 0 $;
+infixr $
+- fun (f $ x) = f x;
+val $ = fn : ('a -&amp;gt; 'b) * 'a -&amp;gt; 'b&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Of note:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Standard ML lets us specify the associativity of newly defined operators explicitly (using the &lt;code&gt;infix*&lt;/code&gt; fixity directives) whereas OCaml follows an operator naming convention.&lt;/li&gt;
+&lt;li&gt;As such, we have no need to fall back on syntax extensions here; &lt;code&gt;$&lt;/code&gt; is a valid name for a right associative operator.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To replicate the target example of the previous post we&amp;rsquo;ll need to define a few utilities,&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;- fun succ x = x + 1;
+val succ = fn : int -&amp;gt; int
+- val sum = foldl op+ 0;
+val sum = fn : int list -&amp;gt; int
+- fun printLn str = print $ str ^ &amp;quot;\n&amp;quot;;
+val printLn = fn : string -&amp;gt; unit&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note that &lt;code&gt;printLn&lt;/code&gt; is defined using &lt;code&gt;$&lt;/code&gt;; the standard approach would be &lt;code&gt;fun printLn str = print (str ^ &amp;quot;\n&amp;quot;)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;With these definitions in place, we can employ &lt;code&gt;$&lt;/code&gt; to print the desired result:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;- printLn $ Int.toString $ succ $ sum [1, 2, 3];
+7
+val it = () : unit&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally, since &lt;code&gt;$&lt;/code&gt; was defined with a precedence level of &lt;code&gt;0&lt;/code&gt;, it interacts correctly with SML&amp;rsquo;s composition operator, &lt;code&gt;o&lt;/code&gt;, which has a precedence of &lt;code&gt;3&lt;/code&gt; (as per the Standard):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;- printLn o Int.toString $ succ $ sum [1, 2, 3];
+7
+val it = () : unit&lt;/code&gt;&lt;/pre&gt;
+&lt;section class=&quot;footnotes&quot;&gt;
+&lt;hr/&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;See the closing &lt;em&gt;Update&lt;/em&gt;.&lt;a href=&quot;https://blog.0branch.com/rss.xml#fnref1&quot; class=&quot;footnote-back&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;hr/&gt;
+
+&lt;div&gt;&lt;/div&gt;
+
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;http://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;a href=&quot;http://disqus.com&quot; class=&quot;dsq-brlink&quot;&gt;comments powered by &lt;span class=&quot;logo-disqus&quot;&gt;Disqus&lt;/span&gt;&lt;/a&gt;
+</content><id>http://blog.0branch.com/posts/2012-04-22-application-operator.html</id><title type="text">The application operator in Standard ML</title><updated>2012-04-22T00:00:00-00:00</updated><author><name>0branch</name></author></entry></feed>
