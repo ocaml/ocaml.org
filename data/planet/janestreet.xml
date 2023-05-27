@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://blog.janestreet.com/feed.xml</id><title type="text">janestreet</title><updated>2023-05-26T05:46:01-00:00</updated><entry><link href="https://blog.janestreet.com/building-reproducible-python-environments-with-xars/" rel="alternate"/><contributor><uri>https://blog.janestreet.com/feed.xml</uri><name>janestreet</name></contributor><content type="html">&lt;p&gt;Our traders and researchers love Python for its agility and for its huge
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://blog.janestreet.com/feed.xml</id><title type="text">janestreet</title><updated>2023-05-27T08:54:52-00:00</updated><entry><link href="https://blog.janestreet.com/oxidizing-ocaml-locality/" rel="alternate"/><contributor><uri>https://blog.janestreet.com/feed.xml</uri><name>janestreet</name></contributor><content type="html">&lt;p&gt;Coming from OCaml, the Rust programming language has many appealing
+features.  Rust&amp;rsquo;s system for tracking lifetime and ownership allows
+users to safely express patterns that are awkward in OCaml, such as:&lt;/p&gt;
+
+</content><id>https://blog.janestreet.com/oxidizing-ocaml-locality/</id><title type="text">Oxidizing OCaml: Locality</title><updated>2023-05-26T00:00:00-00:00</updated><author><name>janestreet</name></author></entry><entry><link href="https://blog.janestreet.com/building-reproducible-python-environments-with-xars/" rel="alternate"/><contributor><uri>https://blog.janestreet.com/feed.xml</uri><name>janestreet</name></contributor><content type="html">&lt;p&gt;Our traders and researchers love Python for its agility and for its huge
 open-source ecosystem, especially when it comes to machine learning. But
 the heavy use of notebooks can make it difficult to support. Notebooks
 have a very different lifecycle than regular code, and aren&amp;rsquo;t always
@@ -582,6 +586,4 @@ each day.&lt;/p&gt;
 running processes. We can use the following test program to see how well we can
 accomplish this:&lt;/p&gt;
 
-</content><id>https://blog.janestreet.com/inspecting-the-environment-of-a-running-process/</id><title type="text">Inspecting the Environment of a Running Process</title><updated>2014-12-01T00:00:00-00:00</updated><author><name>janestreet</name></author></entry><entry><link href="https://blog.janestreet.com/how-to-choose-a-teaching-language/" rel="alternate"/><contributor><uri>https://blog.janestreet.com/feed.xml</uri><name>janestreet</name></contributor><content type="html">&lt;p&gt;If you were teaching a programming course, what language would you teach it in?&lt;/p&gt;
-
-</content><id>https://blog.janestreet.com/how-to-choose-a-teaching-language/</id><title type="text">How to choose a teaching language</title><updated>2014-11-17T00:00:00-00:00</updated><author><name>janestreet</name></author></entry></feed>
+</content><id>https://blog.janestreet.com/inspecting-the-environment-of-a-running-process/</id><title type="text">Inspecting the Environment of a Running Process</title><updated>2014-12-01T00:00:00-00:00</updated><author><name>janestreet</name></author></entry></feed>
