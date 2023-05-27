@@ -7,3 +7,5 @@ sources:
     url: https://blog.janestreet.com/feed.xml
   - name: hannes
     url: https://hannes.robur.coop/atom
+  - name: emelle-tv
+    url: https://watch.ocaml.org/feeds/videos.xml?videoChannelId=23
