@@ -42,6 +42,10 @@
     --workspace
     %{workspace_root})))
  (rule
+  (target are_we_yet.ml)
+  (action
+   (run %{bin:dream_eml} %{dep:are_we_yet.eml} --workspace %{workspace_root})))
+ (rule
   (target blog.ml)
   (action
    (run %{bin:dream_eml} %{dep:blog.eml} --workspace %{workspace_root})))

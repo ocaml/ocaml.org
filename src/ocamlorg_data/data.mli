@@ -417,3 +417,22 @@ module Code_example : sig
 
   val get : string -> t
 end
+
+module Are_we_yet : sig
+  type category = {
+    name : string;
+    status : string;
+    description : string;
+    packages : string list;
+  }
+
+  type t = {
+    id : string;
+    question : string;
+    answer : string;
+    categories : category list;
+    body_html : string;
+  }
+
+  val all : t list
+end

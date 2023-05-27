@@ -23,3 +23,7 @@ let render
     <%s! Learn_layout.sidebar_link_group category
       (tutorial_sidebar_links_by_category category) %>
   <% ); %>
+
+  <%s! Learn_layout.sidebar_link_group "Are we Yet"
+  (tutorial_sidebar_links_by_category "are-we-yet")
+   ~extra_html:(render_tutorial_link ~title:"Are we web yet?" ~slug:"are-we-web-yet") %>

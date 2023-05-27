@@ -6,6 +6,7 @@ module Package = Package
 
 let about = About.render
 let academic_users = Academic_users.render
+let are_we_yet = Are_we_yet.render
 let blog = Blog.render
 let blog_post = Blog_post.render
 let changelog = Changelog.render

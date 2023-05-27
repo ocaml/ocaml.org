@@ -2,6 +2,7 @@ open Cmdliner
 
 let term_templates =
   [
+    ("are_we_yet", Ood_gen.Are_we_yet.template);
     ("academic_institution", Ood_gen.Academic_institution.template);
     ("book", Ood_gen.Book.template);
     ("job", Ood_gen.Job.template);

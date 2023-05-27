@@ -339,6 +339,13 @@ let tutorial req =
        ~canonical:(Url.tutorial tutorial.slug)
        tutorial)
 
+let are_we_yet id _req =
+  let</>? meta =
+    List.find_opt (fun x -> x.Data.Are_we_yet.id = id) Data.Are_we_yet.all
+  in
+  let tutorials = Data.Tutorial.all in
+  Dream.html (Ocamlorg_frontend.are_we_yet ~tutorials meta)
+
 let problems req =
   let all_problems = Data.Problem.all in
   let difficulty_level = Dream.query req "difficulty_level" in

@@ -1,0 +1,57 @@
+let render
+(meta : Data.Are_we_yet.t)
+~tutorials
+=
+Learn_layout.render
+~title:meta.question
+~description:(meta.question ^ " " ^ meta.answer)
+~canonical:(Url.are_we_yet meta.id)
+~active_top_nav_item:Header.Learn
+~current:Learn_layout.Guides
+~left_sidebar_html:(Some(Learn_sidebar.render ~current_tutorial:(Some (Printf.sprintf "are-we-%s-yet" meta.id)) ~tutorials))
+~right_sidebar_html:None @@
+<h1 class="font-bold mb-8"><%s meta.question %></h1>
+<p class="mt-6 text-xl leading-8"><%s meta.answer %></p>
+<div class="mt-10 prose prose-orange max-w-3xl">
+ <%s! meta.body_html %>
+
+  <ul class="mt-8 px-0 font-light leading-8 text-neutral-800 text-lg">
+  <% meta.categories |> List.iter (fun (category : Data.Are_we_yet.category) -> %>
+    <li class="inline mr-3">
+      <a href="#<%s Utils.slugify category.name %>" class="font-light leading-10 text-left !text-blue-500 cursor-pointer hover:text-cyan-700"><span class="text-sm"><%s category.status %></span> <%s category.name %></a>
+    </li>
+  <% ); %>
+  </ul>
+  <ul class="my-4 px-0 font-light leading-8 text-neutral-800 text-sm">
+    <li class="inline mr-3">
+      🟢 : stable, tested and mature
+    </li>
+    <li class="inline mr-3">
+      🟡 : getting there, stable but still maturing
+    </li>
+    <li class="inline mr-3">
+      🟠 : not yet stable, but progressing
+    </li>
+    <li class="inline mr-3">
+      🔴 : unstable/incomplete, needs work
+    </li>
+    <li class="inline mr-3">
+      🆘 : barely there, needs serious work
+    </li>
+  </ul>
+  <div>
+  <h2>Details</h2>
+  <% meta.categories |> List.iter (fun (category : Data.Are_we_yet.category) -> %>
+  <h3 id="<%s Utils.slugify category.name %>">
+    <span class="text-base"><%s category.status %></span>
+    <%s category.name %>
+  </h3>
+  <p><%s category.description %></p>
+  <ul>
+    <% category.packages |> List.iter (fun (package : string) -> %>
+    <li><a href="<%s Url.Package.overview package %>"><%s package %></a></li>
+    <% ); %>
+  </ul>
+  <% ); %>
+  </div>
+</div>
