@@ -25,5 +25,10 @@ let render
   <% ); %>
 
   <%s! Learn_layout.sidebar_link_group "Are we Yet"
-  (tutorial_sidebar_links_by_category "are-we-yet")
-   ~extra_html:(render_tutorial_link ~title:"Are we web yet?" ~slug:"are-we-web-yet") %>
+    (tutorial_sidebar_links_by_category "are-we-yet")
+     ~extra_html:(
+      (render_tutorial_link ~title:"Are we game yet?" ~slug:"are-we-game-yet")
+      ^ (render_tutorial_link ~title:"Are we GUI yet?" ~slug:"are-we-gui-yet")
+      ^ (render_tutorial_link ~title:"Are we learning yet?" ~slug:"are-we-learning-yet")
+      ^ (render_tutorial_link ~title:"Are we multicore yet?" ~slug:"are-we-multicore-yet")
+      ^ (render_tutorial_link ~title:"Are we web yet?" ~slug:"are-we-web-yet")) %>
