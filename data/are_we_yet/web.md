@@ -19,7 +19,7 @@ categories:
   - name: Binary protocols
     status: 🟡
     description: |
-      There are implementations for most protocols, some of them are really solid, but some of them are still incomplete and need more testing. Some useful protocols for which there is no package include FlatBuffers and AMQP.
+      There are implementations for a lot of popular protocols, some of them are solid, but some of them are still incomplete and need more testing. Some useful protocols for which there is no package include FlatBuffers and AMQP.
     packages:
     - asn1-combinators
     - avro
