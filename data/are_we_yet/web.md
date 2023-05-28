@@ -199,6 +199,7 @@ categories:
       n/a
     packages:
     - amqp-client
+    - kafka
     - redis
     - zmq
   - name: Syndication/RSS
