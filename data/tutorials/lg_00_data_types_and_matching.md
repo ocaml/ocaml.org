@@ -346,9 +346,9 @@ since its inception.
 The function `Sys.getenv : string -> string` from the OCaml standard library
 allows us to query the value of an environment variable; however, it throws an
 exception if the variable is not defined. On the other hand, the function
-`Sys.getenv_opt : string -> string opt` does the same, except it returns `None`
-as the variable is not defined. Here is what may happen if we try to access an
-undefined environment variable:
+`Sys.getenv_opt : string -> string option` does the same, except it returns
+`None` as the variable is not defined. Here is what may happen if we try to
+access an undefined environment variable:
 
 ```ocaml
 # Sys.getenv "UNDEFINED_ENVIRONMENT_VARIABLE";;
