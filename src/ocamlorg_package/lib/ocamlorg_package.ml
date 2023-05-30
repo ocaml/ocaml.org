@@ -1,9 +1,9 @@
+module Import = Import
+open Import
 module Name = OpamPackage.Name
 module Version = OpamPackage.Version
 module Info = Info
 module Statistics = Packages_stats
-module Import = Import
-open Import
 
 type t = { name : Name.t; version : Version.t; info : Info.t }
 
