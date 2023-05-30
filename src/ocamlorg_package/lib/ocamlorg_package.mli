@@ -3,6 +3,8 @@
    uses the output of the occurent documentation pipeline to render packages
    documentation. *)
 
+module Import = Import
+
 (** The name of an opam package. *)
 module Name : sig
   type t

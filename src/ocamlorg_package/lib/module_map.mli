@@ -4,6 +4,8 @@
     package: a tree of pages (modules) starting from the libraries defining
     them. *)
 
+open Import
+
 (** Page kinds as defined by odoc. *)
 type kind =
   | Module

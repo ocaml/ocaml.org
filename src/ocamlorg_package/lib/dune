@@ -1,7 +1,6 @@
 (library
  (name ocamlorg_package)
  (libraries
-  string
   opam-format
   bos
   fpath

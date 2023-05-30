@@ -1,3 +1,5 @@
+open Import
+
 type kind =
   | Module
   | Page

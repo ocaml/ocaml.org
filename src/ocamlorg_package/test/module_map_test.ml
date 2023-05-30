@@ -1,3 +1,5 @@
+open Ocamlorg_package.Import
+
 let json =
   {|{
     "libraries": [
