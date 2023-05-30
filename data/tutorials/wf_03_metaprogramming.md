@@ -41,7 +41,7 @@ would have no effect.
 In this guide, we explain the different mechanism behind preprocessors in OCaml,
 with as few prerequisite as possible. If you are only interested in how to use a
 PPX in your project, jump to [this section](#using-ppxs) or to the [dune
-doc](https://dune.readthedocs.io/en/stable/concepts.html#preprocessing-specification).
+doc](https://dune.readthedocs.io/en/stable/reference/preprocessing-spec.html).
 If you are interested in writing a PPX, jump to [this section](#writing-a-ppx).
 
 ## Preprocessing in OCaml
