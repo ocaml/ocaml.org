@@ -107,29 +107,6 @@ let info =
             ~resolve:(fun _ (i : package_info) -> i.constraints);
         ])
 
-let owners =
-  Graphql_lwt.Schema.(
-    obj "owners"
-      ~fields:
-        [
-          field "name" ~doc:"Owner's name"
-            ~args:Arg.[]
-            ~typ:(non_null string)
-            ~resolve:(fun _ user -> user.Data.Opam_user.name);
-          field "email" ~doc:"Owner's email"
-            ~args:Arg.[]
-            ~typ:string
-            ~resolve:(fun _ user -> user.Data.Opam_user.email);
-          field "githubUsername" ~doc:"Owner's GitHub username"
-            ~args:Arg.[]
-            ~typ:string
-            ~resolve:(fun _ user -> user.Data.Opam_user.github_username);
-          field "avatar" ~doc:"Owner's avatar image URL"
-            ~args:Arg.[]
-            ~typ:string
-            ~resolve:(fun _ user -> user.Data.Opam_user.avatar);
-        ])
-
 let url =
   Graphql_lwt.Schema.(
     obj "url"
@@ -190,13 +167,13 @@ let package =
               info.Package.Info.tags);
           field "authors" ~doc:"The authors of the package"
             ~args:Arg.[]
-            ~typ:(non_null (list (non_null owners)))
+            ~typ:(non_null (list (non_null string)))
             ~resolve:(fun _ p ->
               let info = Package.info p in
               info.Package.Info.authors);
           field "maintainers" ~doc:"The maintainers of the package"
             ~args:Arg.[]
-            ~typ:(non_null (list (non_null owners)))
+            ~typ:(non_null (list (non_null string)))
             ~resolve:(fun _ p ->
               let info = Package.info p in
               info.Package.Info.maintainers);

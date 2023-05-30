@@ -96,8 +96,12 @@ module Opam_user = struct
     in
     all
     |> List.find_opt (fun { name; _ } ->
-           if contains pattern (String.lowercase_ascii @@ name) then true
-           else false)
+           contains pattern (String.lowercase_ascii name))
+
+  let github_name s =
+    all
+    |> List.find_opt (fun { github_username; _ } -> github_username = Some s)
+    |> Option.map (fun a -> a.name)
 end
 
 module Watch = struct

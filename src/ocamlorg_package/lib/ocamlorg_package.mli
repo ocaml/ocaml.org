@@ -33,8 +33,8 @@ module Info : sig
   type t = {
     synopsis : string;
     description : string;
-    authors : Data.Opam_user.t list;
-    maintainers : Data.Opam_user.t list;
+    authors : string list;
+    maintainers : string list;
     license : string;
     homepage : string list;
     tags : string list;
@@ -190,6 +190,3 @@ val search : ?sort_by_popularity:bool -> state -> string -> t list
       description contain the given string.
 
     A call to this function call Lazy.force on every package info. *)
-
-val featured : state -> t list option
-(** A list of packages to highlight on the Packages page. *)

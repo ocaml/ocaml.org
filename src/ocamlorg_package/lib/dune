@@ -11,5 +11,4 @@
   lwt.unix
   yojson
   cohttp
-  cohttp-lwt-unix
-  ocamlorg.data))
+  cohttp-lwt-unix))
