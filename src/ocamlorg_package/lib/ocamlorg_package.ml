@@ -1,4 +1,3 @@
-open Ocamlorg.Import
 module Name = OpamPackage.Name
 module Version = OpamPackage.Version
 module Info = Info

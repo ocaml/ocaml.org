@@ -42,8 +42,6 @@ let json =
   }
 |}
 
-open Ocamlorg.Import
-
 let test_case n = Alcotest.test_case n `Quick
 
 let () =

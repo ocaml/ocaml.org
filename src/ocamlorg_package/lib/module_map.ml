@@ -1,5 +1,3 @@
-open Ocamlorg.Import
-
 type kind =
   | Module
   | Page
