@@ -422,7 +422,9 @@ let is_latest_version t name version =
 module Search : sig
   type search_request
 
-  val to_request : string -> search_request
+  val to_request :
+    nick_resolve:(string -> string option) -> string -> search_request
+
   val match_request : search_request -> t -> bool
   val compare : search_request -> t -> t -> int
   val compare_by_popularity : search_request -> t -> t -> int
@@ -453,12 +455,15 @@ end = struct
     let atom = Re.alt [ name; author; tag; synopsis; description; plain ] in
     Re.compile atom
 
-  let to_request str =
+  let to_request ~nick_resolve str =
     let str = String.lowercase_ascii str in
     let to_constraint = function
       | [ _; s ] -> Any s
       | [ _; "tag:"; s ] -> Tag s
-      | [ _; "author:"; s ] -> Author s
+      | [ _; "author:"; s ] ->
+          Author
+            Option.(
+              value ~default:s (map String.lowercase_ascii (nick_resolve s)))
       | [ _; "synopsis:"; s ] -> Synopsis s
       | [ _; "description:"; s ] -> Description s
       | [ _; "name:"; s ] -> Name s
@@ -568,11 +573,11 @@ end = struct
     Float.compare s2 s1
 end
 
-let search ?(sort_by_popularity = false) t query =
+let search ?(nick_resolve = Option.some) ?(sort_by_popularity = false) t query =
   let compare =
     Search.(if sort_by_popularity then compare_by_popularity else compare)
   in
-  let request = Search.to_request query in
+  let request = Search.to_request ~nick_resolve query in
   all_latest t
   |> List.filter (Search.match_request request)
   |> List.sort (compare request)

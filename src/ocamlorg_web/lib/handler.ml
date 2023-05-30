@@ -452,15 +452,9 @@ let packages state _req =
 let packages_search t req =
   match Dream.query req "q" with
   | Some search ->
-      let search' =
-        match String.split_on_char ':' search with
-        | [ "author"; default ] ->
-            let author = Data.Opam_user.github_name default in
-            "author:" ^ Option.value ~default author
-        | _ -> search
-      in
       let packages =
-        Ocamlorg_package.search ~sort_by_popularity:true t search'
+        Ocamlorg_package.search ~nick_resolve:Data.Opam_user.github_name
+          ~sort_by_popularity:true t search
       in
       let total = List.length packages in
       let results = List.map (Package_helper.frontend_package t) packages in
