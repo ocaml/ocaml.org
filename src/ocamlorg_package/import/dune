@@ -1,1 +1,2 @@
-(library (name string))
+(library
+ (name string))

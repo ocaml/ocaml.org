@@ -1,6 +1,7 @@
 module List = struct
   include Stdlib.List
-  let rec take n = function | x :: u when n > 0 -> x :: take (n - 1) u | _ -> []
+
+  let rec take n = function x :: u when n > 0 -> x :: take (n - 1) u | _ -> []
 end
 
 open Lwt.Syntax
