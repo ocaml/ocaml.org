@@ -220,7 +220,7 @@
     %{dep:fixed_footer.eml}
     --workspace
     %{workspace_root})))
-(rule
+ (rule
   (target forms.ml)
   (action
    (run %{bin:dream_eml} %{dep:forms.eml} --workspace %{workspace_root})))
