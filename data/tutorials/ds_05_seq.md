@@ -136,15 +136,15 @@ Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes). Here it is:
 let rec sieve seq () = match seq () with
   | Seq.Cons (m, seq) -> Seq.Cons (m, sieve (Seq.filter (fun n -> n mod m > 0) seq))
   | seq -> seq
-let facts = Seq.ints 2 |> sieve;;
+let primes = Seq.ints 2 |> sieve;;
 val sieve : int Seq.t -> int Seq.t = <fun>
-val facts : int Seq.t = <fun>
+val primes : int Seq.t = <fun>
 ```
 
 This code can be used to generate lists of prime numbers. For instance, here is
 the list of 100 first prime numbers:
 ```ocaml
-# facts |> Seq.take 100 |> List.of_seq;;
+# primes |> Seq.take 100 |> List.of_seq;;
 - : int list =
 [2; 3; 5; 7; 11; 13; 17; 19; 23; 29; 31; 37; 41; 43; 47; 53; 59; 61; 67; 71;
  73; 79; 83; 89; 97; 101; 103; 107; 109; 113; 127; 131; 137; 139; 149; 151;
