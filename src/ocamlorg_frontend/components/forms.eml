@@ -1,0 +1,17 @@
+let form_search_input ?button_attrs ?input_attrs ?dropdown_html _class =
+  let form_dropdown html = 
+    <div class="form-dropdown">
+        <%s! html %>
+    </div>
+  in
+  <div class="form-input-with-button <%s _class %>">
+    <input
+      <%s! Option.value ~default:"" input_attrs %>
+    >
+    
+    <button
+      <%s! Option.value ~default:"" button_attrs %>
+    ><%s! Icons.magnifying_glass "w-6 h-6" %></button>
+
+    <%s! Option.fold ~none:"" ~some:form_dropdown dropdown_html %>
+  </div>

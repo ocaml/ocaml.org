@@ -15,18 +15,15 @@ Layout.render
                 class="flex justify-center flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-auto lg:w-auto mt-16">
                 <form
                   <%s! Packages_autocomplete_fragment.form_attributes %>
-                  action="/packages/search" method="GET" class="flex flex-col justify-center">
-                  <div class="relative inline-flex mx-auto items-center justify-center">
-                    <div class="form-input-with-button md:w-96 lg:w-[32rem] xl:w-[32rem]">
-                    <input type="search" name="q"
-                      autocomplete="off"
-                      placeholder="Search OCaml Packages"
-                      <%s! Packages_autocomplete_fragment.input_attributes ~target_sel:"#packages-search-results" ~indicator_sel:"#packages-search-indicator" %>>
-                    <button aria-label="search">
-                      <%s! Icons.magnifying_glass "w-6 h-6 text-white" %>
-                    </button>
-                    </div>
-                  </div>
+                  action="/packages/search" method="GET" class="flex flex-col justify-center"
+                  >
+
+                  <%s! Forms.form_search_input
+                    ~button_attrs:{|aria-label="search" type="submit"|}
+                    ~input_attrs:({|type="search" placeholder="Search OCaml packages" name="q" autocomplete="off" |} ^ Packages_autocomplete_fragment.input_attributes ~target_sel:"#packages-search-results" ~indicator_sel:"#packages-search-indicator")
+                    "md:w-96 lg:w-[32rem] xl:w-[32rem]"
+                    %>
+
                   <div>
                     <span id="packages-search-indicator">Searching...</span>
                     <div id="packages-search-results"></div>

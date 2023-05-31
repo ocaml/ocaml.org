@@ -1,19 +1,10 @@
-/* all search inputs */
-
-/* search dropdown */
-
-.header__search__dropdown{
-  display:none;
+#header-search-indicator,
+#packages-search-indicator {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
 }
 
-.header__search:focus-within input {
-  border-bottom-left-radius: 0;
-}
-
-.header__search:focus-within button {
-  border-bottom-right-radius: 0;
-}
-
-.header__search:focus-within .header__search__dropdown {
-  display:block;
+#header-search-indicator.htmx-request ,
+#packages-search-indicator.htmx-request {
+  opacity: 1;
 }

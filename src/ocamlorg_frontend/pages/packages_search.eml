@@ -6,15 +6,12 @@ let render ~total ~search (packages : Package.package list) = Layout.render ~tit
   <div class="py-10 lg:py-14">
     <div class="container-fluid">
       <div class="flex flex-col lg:px-28 gap-2 max-w-5xl">
-        <form class="form-input-with-button" action="/packages/search" method="GET">
-            <input
-              type="search"
-              name="q" id="q2"
-              value="<%s search %>"
-              placeholder="Search OCaml Packages">
-            <button aria-label="search">
-              <%s! Icons.magnifying_glass "w-6 h-6 text-white" %>
-            </button>
+        <form action="/packages/search" method="GET">
+          <%s! Forms.form_search_input
+            ~button_attrs:{|aria-label="search" type="submit"|}
+            ~input_attrs:({|type="search" placeholder="Search OCaml packages" name="q" |} ^ " value=\"" ^ search ^ "\"")
+            ""
+          %>
         </form>
 
         <div class="prose max-w-5xl">
