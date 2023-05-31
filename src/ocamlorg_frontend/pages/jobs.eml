@@ -22,7 +22,7 @@ OCaml community."
                 <h5 class="font-bold">
                     <%s job_num %>
                 </h5>
-                <div class="relative h-14 w-64">
+                <div class="h-14 w-64">
                     <form action="<%s Url.jobs %>" method="GET">
                         <label for="c" class="sr-only">Location</label>
                         <%s! Forms.select

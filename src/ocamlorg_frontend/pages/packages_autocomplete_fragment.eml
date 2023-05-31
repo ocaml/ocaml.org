@@ -21,6 +21,7 @@ let input_attributes ~target_sel ~indicator_sel =
         hx-trigger="keyup changed, search"
         hx-target="|js} ^ target_sel ^ {js|"
         hx-indicator="|js} ^ indicator_sel ^ {js|"
+        autocomplete="off"
         |js}
 
 let render

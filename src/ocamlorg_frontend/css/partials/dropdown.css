@@ -1,0 +1,13 @@
+@layer components {
+  .dropdown-container {
+    @apply relative;
+  }
+
+  .dropdown {
+    @apply hidden;
+  }
+
+  .dropdown-container:focus-within > .dropdown {
+    @apply block;
+  }
+}
