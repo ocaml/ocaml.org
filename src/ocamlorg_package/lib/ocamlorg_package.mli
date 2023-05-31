@@ -196,8 +196,7 @@ val search :
       packages whose synopsis contain the given string - packages whose
       description contain the given string.
 
-    - if name_from_nick is provided and input string contains "author:<author>"
-      search will behave as if "author:(name_from_nick <author>)" had been
-      provided.
+    - Function is_author_match is used decide if a search string correspond to a
+      package author
 
     A call to this function call Lazy.force on every package info. *)

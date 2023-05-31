@@ -492,7 +492,8 @@ end = struct
   let match_author ?(f = String.contains_s) pattern package =
     List.exists (fun tag -> match_ f tag pattern) package.info.authors
 
-  let match_constraint ~is_author_match (package : t) (cst : search_constraint) =
+  let match_constraint ~is_author_match (package : t) (cst : search_constraint)
+      =
     match cst with
     | Tag pattern -> match_tag pattern package
     | Name pattern -> match_name pattern package
