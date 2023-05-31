@@ -42,9 +42,9 @@
     --workspace
     %{workspace_root})))
  (rule
-  (target are_we_yet.ml)
+  (target is_ocaml_yet.ml)
   (action
-   (run %{bin:dream_eml} %{dep:are_we_yet.eml} --workspace %{workspace_root})))
+   (run %{bin:dream_eml} %{dep:is_ocaml_yet.eml} --workspace %{workspace_root})))
  (rule
   (target blog.ml)
   (action

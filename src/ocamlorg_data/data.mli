@@ -418,7 +418,7 @@ module Code_example : sig
   val get : string -> t
 end
 
-module Are_we_yet : sig
+module Is_ocaml_yet : sig
   type category = {
     name : string;
     status : string;

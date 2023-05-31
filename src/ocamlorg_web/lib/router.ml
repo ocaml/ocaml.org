@@ -54,11 +54,11 @@ let page_routes t =
       Dream.get Url.code_of_conduct Handler.code_of_conduct;
       Dream.get Url.papers Handler.papers;
       Dream.get Url.problems Handler.problems;
-      Dream.get (Url.tutorial "are-we-game-yet") (Handler.are_we_yet t "game");
-      Dream.get (Url.tutorial "are-we-gui-yet") (Handler.are_we_yet t "gui");
-      Dream.get (Url.tutorial "are-we-learning-yet") (Handler.are_we_yet t "learning");
-      Dream.get (Url.tutorial "are-we-multicore-yet") (Handler.are_we_yet t "multicore");
-      Dream.get (Url.tutorial "are-we-web-yet") (Handler.are_we_yet t "web");
+      Dream.get (Url.tutorial "is-ocaml-game-yet") (Handler.is_ocaml_yet t "game");
+      Dream.get (Url.tutorial "is-ocaml-gui-yet") (Handler.is_ocaml_yet t "gui");
+      Dream.get (Url.tutorial "is-ocaml-learning-yet") (Handler.is_ocaml_yet t "learning");
+      Dream.get (Url.tutorial "is-ocaml-multicore-yet") (Handler.is_ocaml_yet t "multicore");
+      Dream.get (Url.tutorial "is-ocaml-web-yet") (Handler.is_ocaml_yet t "web");
       Dream.get (Url.tutorial ":id") Handler.tutorial;
       Dream.get Url.playground Handler.playground;
       Dream.get Url.installer Handler.installer;

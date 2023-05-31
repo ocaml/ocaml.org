@@ -1,59 +1,54 @@
 ---
-id: learning
-question: Are we learning yet?
-answer: We're a bit late to the party, but we're catching up!
+id: game
+question: Is OCaml game yet?
+answer: Not exactly, but hey, we have some building blocks!
 categories:
-  - name: Clustering
+  - name: Animation
     status: 🆘
     description: |
       n/a
     packages: []
-  - name: Data Processing
+  - name: Artificial Intelligence
     status: 🆘
     description: |
       n/a
     packages: []
-  - name: Data Structures
+  - name: Audio
     status: 🆘
     description: |
       n/a
     packages: []
-  - name: Decision Trees
+  - name: Engines and Tools
     status: 🆘
     description: |
       n/a
     packages: []
-  - name: GPU Computing
+  - name: Graphics and Rendering
     status: 🆘
     description: |
       n/a
     packages: []
-  - name: Linear Classifiers
+  - name: Input
     status: 🆘
     description: |
       n/a
     packages: []
-  - name: Metaheuristics
+  - name: Mathematics
     status: 🆘
     description: |
       n/a
     packages: []
-  - name: Neural Networks
+  - name: Networking
     status: 🆘
     description: |
       n/a
     packages: []
-  - name: Natural Language Processing
+  - name: Physics
     status: 🆘
     description: |
       n/a
     packages: []
-  - name: Reinforcement Learning
-    status: 🆘
-    description: |
-      n/a
-    packages: []
-  - name: Scientific Computing
+  - name: User Interface
     status: 🆘
     description: |
       n/a

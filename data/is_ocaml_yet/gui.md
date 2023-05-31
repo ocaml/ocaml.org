@@ -1,6 +1,6 @@
 ---
 id: gui
-question: Are we GUI yet?
+question: Is OCaml GUI yet?
 answer: Some hidden gems, we just need to a little bit of digging!
 categories:
   - name: Bindings

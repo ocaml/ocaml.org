@@ -173,6 +173,6 @@ module Code_example = struct
   let get title = List.find (fun x -> String.equal x.title title) all
 end
 
-module Are_we_yet = struct
-  include Are_we_yet
+module Is_ocaml_yet = struct
+  include Is_ocaml_yet
 end

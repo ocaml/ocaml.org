@@ -440,14 +440,14 @@ let tutorial req =
        ~canonical:(Url.tutorial tutorial.slug)
        tutorial)
 
-let are_we_yet t id req =
+let is_ocaml_yet t id req =
   let</>? meta =
-    List.find_opt (fun x -> x.Data.Are_we_yet.id = id) Data.Are_we_yet.all
+    List.find_opt (fun x -> x.Data.Is_ocaml_yet.id = id) Data.Is_ocaml_yet.all
   in
   let tutorials = Data.Tutorial.all in
   let packages =
     meta.categories
-    |> List.concat_map (fun category -> category.Data.Are_we_yet.packages)
+    |> List.concat_map (fun category -> category.Data.Is_ocaml_yet.packages)
     |> List.map Ocamlorg_package.Name.of_string
     |> List.filter_map (fun name ->
            match Ocamlorg_package.get_latest t name with
@@ -461,7 +461,7 @@ let are_we_yet t id req =
     |> List.map (fun pkg -> (pkg.Ocamlorg_frontend.Package.name, pkg))
     |> List.to_seq |> Hashtbl.of_seq
   in
-  Dream.html (Ocamlorg_frontend.are_we_yet ~tutorials ~packages meta)
+  Dream.html (Ocamlorg_frontend.is_ocaml_yet ~tutorials ~packages meta)
 
 let problems req =
   let all_problems = Data.Problem.all in

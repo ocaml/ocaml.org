@@ -1,6 +1,6 @@
 ---
 id: multicore
-question: Are we multicore yet?
+question: Is OCaml multicore yet?
 answer: OCaml 5 is out, now we need to build an ecosystem!
 categories:
   - name: Async IO

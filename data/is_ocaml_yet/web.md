@@ -1,6 +1,6 @@
 ---
 id: web
-question: Are we web yet?
+question: Is OCaml web yet?
 answer: Not quite yet, but we're getting there!
 categories:
   - name: Authentication

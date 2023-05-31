@@ -46,7 +46,7 @@ let decode (_, (head, body_md)) =
       of_metadata ~body_html metadata)
     metadata
 
-let all () = Utils.map_files decode "are_we_yet"
+let all () = Utils.map_files decode "is_ocaml_yet"
 
 let template () =
   Format.asprintf
