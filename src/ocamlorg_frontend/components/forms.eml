@@ -1,16 +1,21 @@
-let search_input ?button_attrs ?input_attrs ?dropdown_html _class =
+let search_input ?button_attrs ?input_attrs ?dropdown_html ~label ~name _class =
   let form_dropdown html = 
     <div class="dropdown z-10 absolute rounded-md w-full top-1 mt-10 p-2 bg-white border border-primary-600">
         <%s! html %>
     </div>
   in
   <div class="dropdown-container flex items-center justify-center h-10 rounded-md focus-within:outline-primary-300 focus-within:outline focus-within:outline-2 <%s _class %>">
+    <label for="<%s name %>" class="sr-only"><%s label %></label>
     <input
+        type="search"
+        name="<%s name %>"
+        placeholder="<%s label %>"
         class="h-full w-full font-medium focus:border-primary-600 focus:ring-0 text-gray-800 border-primary-600 rounded-md rounded-r-none px-3 py-1 placeholder-body-400 appearance-none focus:outline-none"
         <%s! Option.value ~default:"" input_attrs %>
     >
     
     <button
+        aria-label="search"
         class="h-full flex items-center justify-center rounded-r-md bg-primary-600 text-white px-4"
         <%s! Option.value ~default:"" button_attrs %>
     ><%s! Icons.magnifying_glass "w-6 h-6" %></button>

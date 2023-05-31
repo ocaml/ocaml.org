@@ -54,8 +54,10 @@ in
           <%s! Packages_autocomplete_fragment.form_attributes %>
           action="/packages/search" method="GET">
           <%s! Forms.search_input
-            ~button_attrs:{|aria-label="search" type="submit"|}
-            ~input_attrs:({|@keydown.stop type="search" placeholder="Search OCaml packages" name="q" |} ^ Packages_autocomplete_fragment.input_attributes ~target_sel:"#header-search-results" ~indicator_sel:"#header-search-indicator")
+            ~name:"q"
+            ~label:"Search OCaml packages"
+            ~button_attrs:{|type="submit"|}
+            ~input_attrs:({|@keydown.stop |} ^ Packages_autocomplete_fragment.input_attributes ~target_sel:"#header-search-results" ~indicator_sel:"#header-search-indicator")
             ~dropdown_html:(search_dropdown ())
             "lg:w-56 xl:w-80"
           %>
@@ -95,8 +97,9 @@ in
       <li>
         <form action="/packages/search" method="GET">
           <%s! Forms.search_input
-            ~input_attrs:{|type="search" name="q" placeholder="Search OCaml packages"|}
-            ~button_attrs:{|type="submit" aria-label="search"|}
+            ~name:"q"
+            ~label:"Search OCaml packages"
+            ~button_attrs:{|type="submit"|}
             ""
             %>
         </form>
