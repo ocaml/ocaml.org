@@ -1,3 +1,16 @@
+module String = struct
+  include Stdlib.String
+
+  let contains_s s1 s2 =
+    try
+      let len = length s2 in
+      for i = 0 to length s1 - len do
+        if sub s1 i len = s2 then raise Exit
+      done;
+      false
+    with Exit -> true
+end
+
 module Academic_institution = struct
   include Academic_institution
 
@@ -98,10 +111,14 @@ module Opam_user = struct
     |> List.find_opt (fun { name; _ } ->
            contains pattern (String.lowercase_ascii name))
 
-  let name_from_github_nick s =
-    all
-    |> List.find_opt (fun { github_username; _ } -> github_username = Some s)
-    |> Option.map (fun a -> a.name)
+  let is_author_match name pattern =
+    let match_opt s =
+      match s with Some s -> String.contains_s s pattern | None -> false
+    in
+    match find_by_name name with
+    | None -> false
+    | Some { name; email; github_username; _ } ->
+        match_opt (Some name) || match_opt email || match_opt github_username
 end
 
 module Watch = struct

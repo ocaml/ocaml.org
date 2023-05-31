@@ -181,7 +181,7 @@ val is_latest_version : state -> Name.t -> Version.t -> bool
 (** Returns a bool if the given version is the latest version of a package. **)
 
 val search :
-  ?name_from_nick:(string -> string option) ->
+  is_author_match:(string -> string -> bool) ->
   ?sort_by_popularity:bool ->
   state ->
   string ->

@@ -422,10 +422,11 @@ let is_latest_version t name version =
 module Search : sig
   type search_request
 
-  val to_request :
-    name_from_nick:(string -> string option) -> string -> search_request
+  val to_request : string -> search_request
 
-  val match_request : search_request -> t -> bool
+  val match_request :
+    is_author_match:(string -> string -> bool) -> search_request -> t -> bool
+
   val compare : search_request -> t -> t -> int
   val compare_by_popularity : search_request -> t -> t -> int
 end = struct
@@ -455,15 +456,12 @@ end = struct
     let atom = Re.alt [ name; author; tag; synopsis; description; plain ] in
     Re.compile atom
 
-  let to_request ~name_from_nick str =
+  let to_request str =
     let str = String.lowercase_ascii str in
     let to_constraint = function
       | [ _; s ] -> Any s
       | [ _; "tag:"; s ] -> Tag s
-      | [ _; "author:"; s ] ->
-          Author
-            Option.(
-              value ~default:s (map String.lowercase_ascii (name_from_nick s)))
+      | [ _; "author:"; s ] -> Author s
       | [ _; "synopsis:"; s ] -> Synopsis s
       | [ _; "description:"; s ] -> Description s
       | [ _; "name:"; s ] -> Name s
@@ -494,21 +492,22 @@ end = struct
   let match_author ?(f = String.contains_s) pattern package =
     List.exists (fun tag -> match_ f tag pattern) package.info.authors
 
-  let match_constraint (package : t) (cst : search_constraint) =
+  let match_constraint ~is_author_match (package : t) (cst : search_constraint) =
     match cst with
     | Tag pattern -> match_tag pattern package
     | Name pattern -> match_name pattern package
     | Synopsis pattern -> match_synopsis pattern package
     | Description pattern -> match_description pattern package
-    | Author pattern -> match_author pattern package
+    | Author pattern -> match_author ~f:is_author_match pattern package
     | Any pattern ->
-        match_author pattern package
+        match_author ~f:is_author_match pattern package
         || match_description pattern package
         || match_name pattern package
         || match_synopsis pattern package
         || match_tag pattern package
 
-  let match_request c package = List.for_all (match_constraint package) c
+  let match_request ~is_author_match c package =
+    List.for_all (match_constraint ~is_author_match package) c
 
   type score = {
     name : int;
@@ -573,12 +572,11 @@ end = struct
     Float.compare s2 s1
 end
 
-let search ?(name_from_nick = Option.some) ?(sort_by_popularity = false) t query
-    =
+let search ~is_author_match ?(sort_by_popularity = false) t query =
   let compare =
     Search.(if sort_by_popularity then compare_by_popularity else compare)
   in
-  let request = Search.to_request ~name_from_nick query in
+  let request = Search.to_request query in
   all_latest t
-  |> List.filter (Search.match_request request)
+  |> List.filter (Search.match_request ~is_author_match request)
   |> List.sort (compare request)
