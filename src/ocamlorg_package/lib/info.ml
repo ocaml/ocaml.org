@@ -187,13 +187,13 @@ let of_opamfiles
     in
     List.fold_left f OpamPackage.Set.empty names
   in
-  Logs.info (fun f -> f "Dependencies...");
+  Logs.info (fun f -> f "Opam repo: Dependencies...");
   let dependencies = get_dependency_set packages opams in
-  Logs.info (fun f -> f "Reverse dependencies...");
+  Logs.info (fun f -> f "Opam repo: Reverse dependencies...");
   let* rev_deps = rev_depends dependencies in
-  Logs.info (fun f -> f "Publication dates...");
+  Logs.info (fun f -> f "Opam repo: Publication dates...");
   let* timestamps = Opam_repository.create_package_to_timestamp () in
-  Logs.info (fun f -> f "Generate package info");
+  Logs.info (fun f -> f "Opam repo: Generate package info");
   Lwt_fold.package_name_map
     (fun name vmap acc ->
       let+ vs =

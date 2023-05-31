@@ -17,6 +17,8 @@ type state = {
   mutable opam_repository_commit : string option;
   mutable packages : Info.t Version.Map.t Name.Map.t;
   mutable stats : Statistics.t option;
+  mutable build_check_digest : Digest.t option;
+  mutable build_check : (string * Check.status) list String.Map.t;
 }
 
 let mockup_state (pkgs : t list) =
@@ -35,6 +37,8 @@ let mockup_state (pkgs : t list) =
     packages;
     opam_repository_commit = None;
     stats = None;
+    build_check_digest = None;
+    build_check = String.Map.empty;
   }
 
 let read_versions package_name versions =
@@ -77,9 +81,12 @@ let try_load_state () =
         let v = (Marshal.from_channel channel : state) in
         if Info.version <> v.version then raise Invalid_version;
         Logs.info (fun f ->
-            f "Package state loaded (%d packages, opam commit %s)"
+            f
+              "Package state loaded (%d packages, opam commit %s, %d package \
+               build results)"
               (Name.Map.cardinal v.packages)
-              (Option.value ~default:"" v.opam_repository_commit));
+              (Option.value ~default:"" v.opam_repository_commit)
+              (String.Map.cardinal v.build_check));
         v)
       ~finally:(fun () -> close_in channel)
   with Failure _ | Sys_error _ | Invalid_version | End_of_file ->
@@ -89,10 +96,12 @@ let try_load_state () =
       version = Info.version;
       packages = Name.Map.empty;
       stats = None;
+      build_check_digest = None;
+      build_check = String.Map.empty;
     }
 
 let save_state t =
-  Logs.info (fun f -> f "Package state saved");
+  Logs.info (fun f -> f "Opam state saved");
   let state_path = Config.package_state_path in
   let channel = open_out_bin (Fpath.to_string state_path) in
   Fun.protect
@@ -113,43 +122,93 @@ let get_latest' packages name =
          in
          { version; info; name })
 
-let update ~commit t =
+let update_repo commit t =
   let open Lwt.Syntax in
-  Logs.info (fun m -> m "Opam repository is currently at %s" commit);
+  Logs.info (fun m -> m "Opam repo: Update");
   t.opam_repository_commit <- Some commit;
-  Logs.info (fun m -> m "Updating opam package list");
-  Logs.info (fun f -> f "Calculating packages.. .");
+  Logs.info (fun f -> f "Opam repo: Calculating packages...");
   let* packages = read_packages () in
-  Logs.info (fun f -> f "Computing additional informations...");
+  Logs.info (fun f -> f "Opam repo: Computing additional informations...");
   let* packages = Info.of_opamfiles packages in
-  Logs.info (fun f -> f "Computing packages statistics...");
+  Logs.info (fun f -> f "Opam repo: Computing packages statistics...");
   let+ stats = Statistics.compute packages in
   t.packages <- packages;
   t.stats <- Some stats;
   Logs.info (fun m -> m "Loaded %d packages" (Name.Map.cardinal packages))
+  Logs.info (fun m ->
+      m "Opam repo: Loaded %d packages" (Name.Map.cardinal packages));
+  true
 
-let maybe_update t commit =
+let update_build_check (data, digest) t =
+  Logs.info (fun m -> m "Build check: Update");
+  let json = Yojson.Safe.from_string data in
+  let build_check = Check.Json.of_string json in
+  Result.iter_error
+    (fun (`Msg error) -> Logs.err (fun m -> m "%s" error))
+    build_check;
+  t.build_check_digest <- Some digest;
+  t.build_check <- Result.value ~default:t.build_check build_check;
+  Logs.info (fun m ->
+      m "Build check: Loaded %d build results"
+        (String.Map.cardinal t.build_check));
+  Lwt.return true
+
+let http_get url =
   let open Lwt.Syntax in
-  match t.opam_repository_commit with
-  | Some v when v = commit -> Lwt.return ()
-  | _ ->
-      Logs.info (fun m -> m "Update server state");
-      let+ () = update ~commit t in
-      save_state t
+  Logs.info (fun m -> m "GET %s" url);
+  let headers =
+    Cohttp.Header.of_list
+      [
+        ( "Accept",
+          "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" );
+      ]
+  in
+  let* response, body =
+    Cohttp_lwt_unix.Client.get ~headers (Uri.of_string url)
+  in
+  match Cohttp.Code.(code_of_status response.status |> is_success) with
+  | true ->
+      let+ body = Cohttp_lwt.Body.to_string body in
+      Ok body
+  | false ->
+      let+ () = Cohttp_lwt.Body.drain_body body in
+      Error (`Msg "Failed to fetch the documentation page")
+
+let ( let>& ) opt some = Option.fold ~none:(Lwt.return false) ~some opt
+
+let maybe_update_repo state =
+  let open Lwt.Syntax in
+  let* commit = Opam_repository.(if exists () then pull else clone) () in
+  Logs.info (fun m -> m "Opam repo: Commit %s" commit);
+  let>& commit = Option.update_with commit state.opam_repository_commit in
+  update_repo commit state
+
+let maybe_update_build_check state =
+  let open Lwt.Syntax in
+  let* data = http_get Config.build_check_url in
+  let>& data = Result.to_option data in
+  let digest = data |> String.to_bytes |> Digest.bytes in
+  Logs.info (fun m -> m "Build check: Digest %s" (digest |> Digest.to_hex));
+  let>& digest = Option.update_with digest state.build_check_digest in
+  update_build_check (data, digest) state
+
+let threads state =
+  let open Lwt.Syntax in
+  let* repo, check =
+    Lwt.both (maybe_update_repo state) (maybe_update_build_check state)
+  in
+  if repo || check then save_state state;
+  Lwt.return ()
 
 let rec poll_for_opam_packages ~polling v =
   let open Lwt.Syntax in
   let* () = Lwt_unix.sleep (float_of_int polling) in
   let* () =
     Lwt.catch
-      (fun () ->
-        Logs.info (fun m -> m "Opam repo: git pull");
-        let* commit = Opam_repository.pull () in
-        maybe_update v commit)
+      (fun () -> threads v)
       (fun exn ->
         Logs.err (fun m ->
-            m "Failed to update the opam package list: %s"
-              (Printexc.to_string exn));
+            m "Opam polling failure: %s" (Printexc.to_string exn));
         Lwt.return ())
   in
   poll_for_opam_packages ~polling v
@@ -158,8 +217,7 @@ let init ?(disable_polling = false) () =
   let open Lwt.Syntax in
   let state = try_load_state () in
   Lwt.async (fun () ->
-      let* commit = Opam_repository.(if exists () then pull else clone) () in
-      let* () = maybe_update state commit in
+      let* () = threads state in
       if disable_polling then Lwt.return_unit
       else poll_for_opam_packages ~polling:Config.opam_polling state);
   state
@@ -274,27 +332,6 @@ let package_url ~kind name version =
   | `Package -> Config.documentation_url ^ "p/" ^ name ^ "/" ^ version ^ "/"
   | `Universe s ->
       Config.documentation_url ^ "u/" ^ s ^ "/" ^ name ^ "/" ^ version ^ "/"
-
-let http_get url =
-  let open Lwt.Syntax in
-  Logs.info (fun m -> m "GET %s" url);
-  let headers =
-    Cohttp.Header.of_list
-      [
-        ( "Accept",
-          "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" );
-      ]
-  in
-  let* response, body =
-    Cohttp_lwt_unix.Client.get ~headers (Uri.of_string url)
-  in
-  match Cohttp.Code.(code_of_status response.status |> is_success) with
-  | true ->
-      let+ body = Cohttp_lwt.Body.to_string body in
-      Ok body
-  | false ->
-      let+ () = Cohttp_lwt.Body.drain_body body in
-      Error (`Msg "Failed to fetch the documentation page")
 
 let module_map ~kind t =
   let package_url =
@@ -594,3 +631,13 @@ let search ~is_author_match ?(sort_by_popularity = false) t query =
   all_latest t
   |> List.filter (Search.match_request ~is_author_match request)
   |> List.sort (compare request)
+
+module Build = struct
+  type status = Check.status
+
+  let find t package =
+    let name = Name.to_string package.name in
+    let version = Version.to_string package.version in
+    let release = name ^ "." ^ version in
+    String.Map.find_opt release t.build_check |> Option.value ~default:[]
+end

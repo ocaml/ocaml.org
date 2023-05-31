@@ -597,9 +597,10 @@ let package_overview t kind req =
                   children = [];
                 }))
   in
+  let build_check = Ocamlorg_package.Build.find t package in
   Dream.html
     (Ocamlorg_frontend.package_overview ~sidebar_data ~content:""
-       ~search_index_digest ~content_title:None ~toc ~deps_and_conflicts
+       ~search_index_digest ~content_title:None ~toc ~deps_and_conflicts ~build_check
        frontend_package)
 
 let package_documentation t kind req =
@@ -742,11 +743,12 @@ let package_file t kind req =
   in
   let* maybe_doc = Ocamlorg_package.file ~kind package path in
   let</>? doc = maybe_doc in
+  let build_check = Ocamlorg_package.Build.find t package in
   let content = doc.content in
   let toc = Package_helper.frontend_toc doc.toc in
   Dream.html
     (Ocamlorg_frontend.package_overview ~sidebar_data ~content
-       ~search_index_digest ~content_title:(Some path) ~toc
+       ~search_index_digest ~content_title:(Some path) ~toc ~build_check
        ~deps_and_conflicts:[] frontend_package)
 
 let package_search_index t kind req =

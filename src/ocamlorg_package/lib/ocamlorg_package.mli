@@ -204,3 +204,11 @@ val search :
       package author
 
     A call to this function call Lazy.force on every package info. *)
+
+module Build : sig
+  type status = string option
+
+  val find : state -> t -> (string * status) list
+  (** Returns a list of compiler version and build check status pairs
+      corresponding to the package release. *)
+end

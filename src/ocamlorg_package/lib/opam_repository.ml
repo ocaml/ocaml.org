@@ -61,6 +61,7 @@ let clone () =
           Fpath.to_string clone_path;
         |] )
   in
+  Logs.info (fun m -> m "git clone");
   last_commit ()
 
 let pull () =
@@ -68,6 +69,7 @@ let pull () =
   let* () =
     Process.exec (git_cmd [ "pull"; "-q"; "--ff-only"; "origin"; "master" ])
   in
+  Logs.info (fun m -> m "git pull");
   last_commit ()
 
 let fold_dir f acc directory =
