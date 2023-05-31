@@ -51,16 +51,10 @@ Layout.render
             <div class="flex justify-between mb-0 md:mb-10 lg:mb-20 lg:flex-row flex-col items-center">
                 <h2 class="font-bold mt-10 lg:mt-0 mb-10 lg:mb-0">15+ OCaml Books</h2>
                 <div class="flex justify-between flex-col lg:flex-row lg:space-x-6 space-y-5 lg:space-y-0 md:space-y-5 w-full lg:w-auto">
-                    <div class="relative h-14">
-                        <select class="w-full lg:w-auto appearance-none text-body-600 border rounded-md py-3 pl-6 border-gray-200 pr-14 h-full" name="Languages" x-model="language">
-                            <option value="english">English</option>
-                            <option value="french">French</option>
-                            <option value="italian">Italian</option>
-                            <option value="portugese">Portugese</option>
-                            <option value="japanese">Japanese</option>
-                            <option value="chinese">Chinese</option>
-                        </select>
-                    </div>
+                    <%s! Forms.select
+                        ~attrs:{|name="Languages" x-model="language"|}
+                        ~options:[("english", "English"); ("french", "French"); ("italian", "Italian"); ("portugese", "Portugese"); ("japanese", "Japanese"); ("chinese", "Chinese")]
+                        "h-14" %>
                 </div>
             </div>
             <div :class="language != 'english' ? 'hidden' : 'block'">

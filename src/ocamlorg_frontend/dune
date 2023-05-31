@@ -221,6 +221,10 @@
     --workspace
     %{workspace_root})))
  (rule
+  (target forms.ml)
+  (action
+   (run %{bin:dream_eml} %{dep:forms.eml} --workspace %{workspace_root})))
+ (rule
   (target header.ml)
   (action
    (run %{bin:dream_eml} %{dep:header.eml} --workspace %{workspace_root})))

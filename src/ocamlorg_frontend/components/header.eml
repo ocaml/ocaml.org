@@ -20,6 +20,15 @@ let render
 ?(active_top_nav_item: active_nav_item option)
 ()
 =
+let search_dropdown () =
+  <span id="header-search-indicator" class="mx-2 htmx-indicator">Searching...</span>
+  <div id="header-search-results"></div>
+  <span class="pl-2 font-semibold">Or go to:</span>
+  <a class="flex py-2 px-4 gap-4 hover:bg-primary-100 font-semibold hover:font-semibold text-primary-600" href="<%s Url.api %>">
+    Standard Library API
+    <%s! Icons.arrow_top_right_on_square "w-6 h-6" %>
+  </a>
+in
 <header
   class="h-20 flex items-center dark:bg-[#171717]"
   x-data="{ open: false }">
@@ -40,29 +49,18 @@ let render
       <li><%s! menu_link ~active:(active_top_nav_item=Some Playground) ~href:Url.playground ~title:"Playground" () %></li>
     </ul>
     <ul class="hidden lg:flex items-center space-x-4 xl:space-x-8">
-      <li class="relative">
+      <li>
         <form
           <%s! Packages_autocomplete_fragment.form_attributes %>
           action="/packages/search" method="GET">
-          <div class="header__search relative flex items-center justify-center">
-            <input @keydown.stop type="search" name="q" class="header__search__input focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 py-1 lg:w-56 xl:w-80"
-              autocomplete="off"
-              placeholder="Search OCaml Packages"
-              <%s! Packages_autocomplete_fragment.input_attributes ~target_sel:"#header-search-results" ~indicator_sel:"#header-search-indicator" %>
-              >
-            <button aria-label="search" class="h-10 rounded-r-md bg-primary-600 text-white flex items-center justify-center px-4">
-              <%s! Icons.magnifying_glass "w-6 h-6 text-white" %>
-            </button>
-            <div class="header__search__dropdown z-10 absolute rounded-b-md w-full top-0 mt-10 p-2 bg-white border border-primary-600">
-              <span id="header-search-indicator" class="mx-2">Searching...</span>
-              <div id="header-search-results"></div>
-              <span class="pl-2 font-semibold">Or go to:</span>
-              <a class="flex py-2 px-4 gap-4 hover:bg-primary-100 font-semibold hover:font-semibold text-primary-600" href="<%s Url.api %>">
-                Standard Library API
-                <%s! Icons.arrow_top_right_on_square "w-6 h-6" %>
-              </a>
-            </div>
-          </div>
+          <%s! Forms.search_input
+            ~name:"q"
+            ~label:"Search OCaml packages"
+            ~button_attrs:{|type="submit"|}
+            ~input_attrs:({|@keydown.stop |} ^ Packages_autocomplete_fragment.input_attributes ~target_sel:"#header-search-results" ~indicator_sel:"#header-search-indicator")
+            ~dropdown_html:(search_dropdown ())
+            "lg:w-56 xl:w-80"
+          %>
         </form>
       </li>
       <% if show_get_started then (%>
@@ -97,11 +95,13 @@ let render
         </div>
       </li>
       <li>
-        <form action="/packages/search" method="GET" class="form-input form-input-sm">
-          <div class="form-input__icon">
-            <%s! Icons.magnifying_glass "h-5 w-5 text-body-400" %>
-          </div>
-          <input class="focus:ring-orange-500" type="search" name="q" placeholder="Search OCaml packages">
+        <form action="/packages/search" method="GET">
+          <%s! Forms.search_input
+            ~name:"q"
+            ~label:"Search OCaml packages"
+            ~button_attrs:{|type="submit"|}
+            ""
+            %>
         </form>
       </li>
 

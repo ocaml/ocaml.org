@@ -4,10 +4,10 @@
 
 @import "./partials/buttons.css";
 @import "./partials/cards.css";
-@import "./partials/forms.css";
+@import "./partials/dropdown.css";
 @import "./partials/grid_logos.css";
+@import "./partials/htmx.css";
 @import "./partials/in_package_search.css";
-@import "./partials/search.css";
 @import "./partials/package_breadcrumbs.css";
 @import "./partials/shadows.css";
 @import "./partials/tags.css";
