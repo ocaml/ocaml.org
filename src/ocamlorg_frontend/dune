@@ -182,6 +182,14 @@
   (action
    (run %{bin:dream_eml} %{dep:not_found.eml} --workspace %{workspace_root})))
  (rule
+  (target internal_error.ml)
+  (action
+   (run
+    %{bin:dream_eml}
+    %{dep:internal_error.eml}
+    --workspace
+    %{workspace_root})))
+ (rule
   (target package_documentation_not_found.ml)
   (action
    (run

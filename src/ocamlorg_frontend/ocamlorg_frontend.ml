@@ -37,3 +37,4 @@ let success_story = Success_story.render
 let tutorial = Tutorial.render
 let workshop = Workshop.render
 let outreachy = Outreachy.render
+let internal_error = Internal_error.render
