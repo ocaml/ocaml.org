@@ -118,8 +118,8 @@ let merge_feeds () =
              feed.entries |> validate_entries
            with e ->
              print_endline
-               (Printf.sprintf "failed to read data/planet/%s.xml: %s"
-                  source.id (Printexc.to_string e));
+               (Printf.sprintf "failed to read data/planet/%s.xml: %s" source.id
+                  (Printexc.to_string e));
              [])
     |> List.flatten
     |> List.sort Syndic.Atom.descending
