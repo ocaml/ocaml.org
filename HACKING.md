@@ -129,6 +129,13 @@ Makefile
 
 When bringing up ocaml.org to a newer pin, the commit hash found it those files must be changed all at once.
 
+Once the opam repo pin is updated, the local switch must be updated using the following command:
+```sh
+opam repo set-url pin git+https://github.com/ocaml/opam-repository#<commit-hash>
+```
+
+Where `<commit-hash>` is the pinned hash specified in the files mentioned above.
+
 ## Repository structure
 
 The following snippet describes the repository structure.
