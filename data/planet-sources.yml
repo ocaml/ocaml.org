@@ -182,3 +182,6 @@ sources:
   - id: baturin
     name: Daniil Baturin
     url: https://baturin.org/blog/atom-ocaml.xml
+  - id: signalsandthreads
+    name: Signals and Threads
+    url: https://feeds.simplecast.com/L9810DOa
