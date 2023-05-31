@@ -423,7 +423,7 @@ module Search : sig
   type search_request
 
   val to_request :
-    nick_resolve:(string -> string option) -> string -> search_request
+    name_from_nick:(string -> string option) -> string -> search_request
 
   val match_request : search_request -> t -> bool
   val compare : search_request -> t -> t -> int
@@ -455,7 +455,7 @@ end = struct
     let atom = Re.alt [ name; author; tag; synopsis; description; plain ] in
     Re.compile atom
 
-  let to_request ~nick_resolve str =
+  let to_request ~name_from_nick str =
     let str = String.lowercase_ascii str in
     let to_constraint = function
       | [ _; s ] -> Any s
@@ -463,7 +463,7 @@ end = struct
       | [ _; "author:"; s ] ->
           Author
             Option.(
-              value ~default:s (map String.lowercase_ascii (nick_resolve s)))
+              value ~default:s (map String.lowercase_ascii (name_from_nick s)))
       | [ _; "synopsis:"; s ] -> Synopsis s
       | [ _; "description:"; s ] -> Description s
       | [ _; "name:"; s ] -> Name s
@@ -573,11 +573,11 @@ end = struct
     Float.compare s2 s1
 end
 
-let search ?(nick_resolve = Option.some) ?(sort_by_popularity = false) t query =
+let search ?(name_from_nick = Option.some) ?(sort_by_popularity = false) t query =
   let compare =
     Search.(if sort_by_popularity then compare_by_popularity else compare)
   in
-  let request = Search.to_request ~nick_resolve query in
+  let request = Search.to_request ~name_from_nick query in
   all_latest t
   |> List.filter (Search.match_request request)
   |> List.sort (compare request)

@@ -181,7 +181,7 @@ val is_latest_version : state -> Name.t -> Version.t -> bool
 (** Returns a bool if the given version is the latest version of a package. **)
 
 val search :
-  ?nick_resolve:(string -> string option) ->
+  ?name_from_nick:(string -> string option) ->
   ?sort_by_popularity:bool ->
   state ->
   string ->
@@ -196,8 +196,8 @@ val search :
       packages whose synopsis contain the given string - packages whose
       description contain the given string.
 
-    - if nick_resolve is provided and input string contains "author:<author>"
-      search will behave as if "author:(nick_resolve <author>)" had been
+    - if name_from_nick is provided and input string contains "author:<author>"
+      search will behave as if "author:(name_from_nick <author>)" had been
       provided.
 
     A call to this function call Lazy.force on every package info. *)

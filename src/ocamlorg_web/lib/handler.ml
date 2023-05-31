@@ -453,7 +453,7 @@ let packages_search t req =
   match Dream.query req "q" with
   | Some search ->
       let packages =
-        Ocamlorg_package.search ~nick_resolve:Data.Opam_user.github_name
+        Ocamlorg_package.search ~name_from_nick:Data.Opam_user.name_from_github_nick
           ~sort_by_popularity:true t search
       in
       let total = List.length packages in

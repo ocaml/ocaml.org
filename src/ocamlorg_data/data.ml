@@ -98,7 +98,7 @@ module Opam_user = struct
     |> List.find_opt (fun { name; _ } ->
            contains pattern (String.lowercase_ascii name))
 
-  let github_name s =
+  let name_from_github_nick s =
     all
     |> List.find_opt (fun { github_username; _ } -> github_username = Some s)
     |> Option.map (fun a -> a.name)

@@ -293,7 +293,7 @@ module Opam_user : sig
     t
 
   val find_by_name : string -> t option
-  val github_name : string -> string option
+  val name_from_github_nick : string -> string option
 end
 
 module Workshop : sig
