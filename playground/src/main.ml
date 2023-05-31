@@ -56,7 +56,6 @@ module Merlin = Merlin_codemirror.Make (struct
   let worker_url = merlin_url
   let cmis =
     let dcs_toplevel_modules = [
-        "CamlinternalAtomic";
         "CamlinternalFormat";
         "CamlinternalFormatBasics";
         "CamlinternalLazy";

@@ -14,9 +14,12 @@ copylibcmis()  (
 )
 
 copylibcmis ocaml stdlib
-copylibcmis domainslib domainslib
 
 # Extras!
 
-cp $(opam var ocaml:lib)/compiler-libs/topdirs.cmi stdlib/
+EXTRA="std_exit unix/unix unix/unixLabels compiler-libs/topdirs"
+
+for i in $EXTRA; do
+  cp $(opam var ocaml:lib)/$i.cmi stdlib/
+done
 
