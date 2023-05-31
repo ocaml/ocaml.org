@@ -79,6 +79,7 @@ categories:
     - bls12-381
     - pbkdf
     - dirsp-proscript
+    - digestif
   - name: Database
     status: 🟠
     description: |
@@ -110,6 +111,7 @@ categories:
     - facteur
     - received
     - email_message
+    - colombe
   - name: En- & Decoding
     status: 🟠
     description: |
@@ -138,6 +140,7 @@ categories:
     - cohttp
     - hyper
     - ocurl
+    - http-lwt-client
   - name: Internationalization
     status: 🆘
     description: |
@@ -174,7 +177,8 @@ categories:
     - mirage-nat
     - arp
     - ethernet
-    - colombe
+    - paf
+    - mimic
   - name: Serializers
     status: 🟡
     description: |
@@ -193,6 +197,7 @@ categories:
     - cmarkit
     - css
     - csexp
+    - data-encoding
   - name: External Services
     status: 🆘
     description: |
