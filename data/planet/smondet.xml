@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://seb.mondet.org/b/OCaml.rss</id><title type="text">smondet</title><updated>2023-05-27T10:01:48-00:00</updated><entry><link href="https://seb.mondet.org/b/0012-tzcomet-token-viewer.html" rel="alternate"/><contributor><uri>https://seb.mondet.org/b/OCaml.rss</uri><name>smondet</name></contributor><content type="html">
+    TZComet and CleanNFT Metadata: a generic token-viewer &amp;#9732;
+    Also new domain tzcomet.io &amp;#127776;
+   </content><id>https://seb.mondet.org/b/0012-tzcomet-token-viewer.html</id><title type="text">TZComet's New Token Viewer</title><updated>2021-03-25T13:00:42-00:00</updated><author><name>smondet</name></author></entry><entry><link href="https://seb.mondet.org/b/0010-delphi-challenge-post-vivum.html" rel="alternate"/><contributor><uri>https://seb.mondet.org/b/OCaml.rss</uri><name>smondet</name></contributor><content type="html">
+    Because the method &amp;mdash; some messing around with the tezos-crypto library
+    &amp;mdash; could be useful to others.
+    Also, some code annotated in SVG.
+   </content><id>https://seb.mondet.org/b/0010-delphi-challenge-post-vivum.html</id><title type="text">How We Lost at The Delphi Oracle Challenge</title><updated>2020-12-22T13:00:42-00:00</updated><author><name>smondet</name></author></entry><entry><link href="https://seb.mondet.org/b/0009-dune-universe-hack.html" rel="alternate"/><contributor><uri>https://seb.mondet.org/b/OCaml.rss</uri><name>smondet</name></contributor><content type="html">
+    Quick hack to make &amp;ldquo;at most every n seconds&amp;rdquo; dune targets.
+   </content><id>https://seb.mondet.org/b/0009-dune-universe-hack.html</id><title type="text">“Universal” Dune Tip: Rebuild Stuff, Sometimes</title><updated>2020-11-20T13:00:42-00:00</updated><author><name>smondet</name></author></entry><entry><link href="https://seb.mondet.org/b/0007-ocaml-2020-making-of.html" rel="alternate"/><contributor><uri>https://seb.mondet.org/b/OCaml.rss</uri><name>smondet</name></contributor><content type="html">
+    A quick experience report&amp;nbsp;&amp;hellip;
+    Tools used for the paper, the slides, and the video.
+   </content><id>https://seb.mondet.org/b/0007-ocaml-2020-making-of.html</id><title type="text">SmartPy@OCaml2020: The Making Of</title><updated>2020-10-25T13:00:42-00:00</updated><author><name>smondet</name></author></entry><entry><link href="https://seb.mondet.org/b/0004-adding-an-rss-feed.html" rel="alternate"/><contributor><uri>https://seb.mondet.org/b/OCaml.rss</uri><name>smondet</name></contributor><content type="html">Quick OCaml hack to generate some old-school XML.
+   </content><id>https://seb.mondet.org/b/0004-adding-an-rss-feed.html</id><title type="text">Adding an RSS Feed to This Blog</title><updated>2020-07-02T13:00:42-00:00</updated><author><name>smondet</name></author></entry><entry><link href="https://seb.mondet.org/b/0002-michokit-codegen-intro.html" rel="alternate"/><contributor><uri>https://seb.mondet.org/b/OCaml.rss</uri><name>smondet</name></contributor><content type="html">
+    Statically typed interaction between smart contracts and application
+    code:
+    &amp;#128413;&amp;nbsp;code-generator: Michelson-type &amp;rarr; OCaml-modules
+   </content><id>https://seb.mondet.org/b/0002-michokit-codegen-intro.html</id><title type="text">Generating OCaml From Michelson Types</title><updated>2020-06-22T13:00:42-00:00</updated><author><name>smondet</name></author></entry><entry><link href="https://seb.mondet.org/b/0001-comk-intro.html" rel="alternate"/><contributor><uri>https://seb.mondet.org/b/OCaml.rss</uri><name>smondet</name></contributor><content type="html">
+    Re-Introducing the Comk library:
+    Making single-key and dmenu-like fast graphical menus with an OCaml EDSL.
+   </content><id>https://seb.mondet.org/b/0001-comk-intro.html</id><title type="text">Comk: Graphical Menus In OCaml</title><updated>2020-06-19T13:00:42-00:00</updated><author><name>smondet</name></author></entry></feed>

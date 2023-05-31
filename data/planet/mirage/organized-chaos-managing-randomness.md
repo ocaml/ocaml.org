@@ -1,0 +1,309 @@
+---
+title: 'Organized chaos: managing randomness'
+description:
+url: https://mirage.io/blog/mirage-entropy
+date: 2015-07-22T00:00:00-00:00
+preview_image:
+featured:
+authors:
+- David Kaloper
+---
+
+
+        <p>This post gives a bit of background on the <em>Random Number Generator</em> (RNG) in
+the recent MirageOS v2.5 release.</p>
+<p>First we give background about why RNGs are really critical for security. Then
+we try to clarify the often-confused concepts of &quot;randomness&quot; and &quot;entropy&quot;, as
+used in this context. Finally, we explore the challenges of harvesting
+good-quality entropy in a unikernel environment.</p>
+<h3>Playing dice</h3>
+<p>Security software must play dice.</p>
+<p>It must do so to create secrets, for example. Secrets can then serve as the
+keys that protect communication, like the Diffie-Hellman key exchanged between
+two TLS endpoints. Proof of the knowledge of a particular secret can be
+used to verify the identity of someone on the Internet, as in the case of
+verifying the possession of the secret RSA key associated with an X.509
+certificate. As an attacker guessing a secret can have disastrous consequences,
+it must be chosen in a manner that is realistically unpredictable by anyone
+else &mdash; we need it to be <em>random</em>.</p>
+<p>There are other reasons to use randomness. A number of algorithms require a
+unique value every time they are invoked and badly malfunction when this
+assumption is violated, with random choice being one way to provide a value
+likely to be unique. For example, repeating the <code>k</code>-<a href="https://en.wikipedia.org/wiki/Digital_Signature_Algorithm#Sensitivity">parameter</a>
+in DSA digital signatures compromises the secret key, while reusing a
+<a href="https://en.wikipedia.org/wiki/Galois/Counter_Mode">GCM</a> nonce negates both confidentiality and authenticity. Other
+algorithms are probabilistic, in that they generate random values before
+operating on an input, and then store the chosen values in the output, such as
+the <a href="https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding">OAEP</a> padding mode for RSA. This is done in order to confuse the
+relationship between the input and the output and defeat a clever attacker who
+tries to manipulate the input to gain knowledge about secrets by looking at the
+output. Still other algorithms pick random numbers to internally change their
+operation and hide the physical amount of time they need to execute, to avoid
+revealing information about the secrets they operate on. This is known as
+<a href="https://en.wikipedia.org/wiki/Blinding_(cryptography)">blinding</a>, and is one way to counter timing side-channel
+attacks.</p>
+<p>Randomness is therefore quite pervasive in a security context. In fact, many
+cryptographic algorithms are designed under the assumption of a readily
+available source of randomness, termed a <em><a href="https://en.wikipedia.org/wiki/Random_oracle">random oracle</a></em>.
+The security analysis of those algorithms is conditional on the oracle; we know
+that they have certain security characteristics, like the difficulty of guessing
+the correct message or impersonating somebody, only given an ideal random oracle.</p>
+<p>And so security software has a problem here. Computers are inherently
+deterministic, made to behave reproducibly given a known program and starting
+state. How to go about solving this?</p>
+<h3>Random failures</h3>
+<p>Before taking a look at how we try to solve this problem, let's instead consider
+what happens if we <strong>fail</strong> to do so. There is even a <a href="https://en.wikipedia.org/wiki/Random_number_generator_attack">Wikipedia
+page</a> about this, which is a nice starting point. Some
+of the highlights:</p>
+<p>The first public release of Netscape's original SSL, version 2.0, was
+<a href="http://prng.net/faq/netscape-ssl/">broken</a> several months after its release. The weakness
+was in initializing the RNG with the current time, the process ID and the parent
+process ID of the browser. The time stamp can be guessed to a certain precision,
+leaving only its sub-second part and the two PIDs unknown. This relatively small
+unknown space of initial values can be brute-forced.</p>
+<p>About a decade later, Debian patched their version of OpenSSL and reduced RNG
+initialization to the current PID. As a result, only 32767 random sequences were
+possible. This flaw went undetected for two years and became known as the
+<a href="http://research.swtch.com/openssl">Debian fiasco</a>. Personal reports indicate that some of the 32767
+distinct secret keys that could be generated with OpenSSL on a Debian system
+during that time are still in circulation.</p>
+<p>Computing the largest common divisor of a pair of numbers is much faster than
+discovering all the prime divisors of a particular number. RSA public keys
+contain a number, and secret keys contain its factors. An RSA key is usually
+generated by randomly picking the factors. If a pool of keys was generated with
+a heavily biased random number generator, such that factors are likely to
+repeat, it is possible to search for common factors in all pairs and crack the
+affected keys, a technique which produces
+<a href="https://eprint.iacr.org/2013/599">spectacular</a> <a href="https://factorable.net/weakkeys12.extended.pdf">results</a>.</p>
+<p>Recently, a bitcoin application for Android was
+<a href="https://www.reddit.com/r/Bitcoin/comments/37oxow/the_security_issue_of_blockchaininfos_android/">discovered</a> to be downloading its random initial value from a
+<a href="http://www.random.org">website</a>. It wasn't even necessary to intercept this
+unencrypted traffic, because the website started serving a redirect page and the
+Android application was left initializing its RNG with the text of the redirection
+message. It therefore started
+generating the same private ECDSA key and the associated bitcoin address for
+every affected user, an issue which reportedly <a href="http://www.theregister.co.uk/2015/06/01/blockchain_app_shows_how_not_to_code/">cost</a> some users
+their bitcoins.</p>
+<p>Playstation 3 game signatures can be forged. Sony <a href="https://www.schneier.com/blog/archives/2011/01/sony_ps3_securi.html">reused</a> a
+single <code>k</code>-parameter, which is supposed to be &quot;unique, unpredictable and
+secret&quot;, for every ECDSA signature they made. This lead to complete compromise
+of the signing keys. Admittedly, this is not really an RNG
+problem in itself, but it shows where such a malfunction can lead.</p>
+<p>These are only some of the most spectacular failures related to random numbers.
+For example, it is widely known in security circles that RNGs of embedded
+devices tend to be predictable, leading to widespread use of weak keys on routers
+and similar equipment, amongst other things. So when implementing a unikernel
+operating system, you don't want to end up on that Wikipedia page either.</p>
+<h3>Random sequences and stuff</h3>
+<p>But what are random numbers, really? Intuitively, we tend to think about them as
+somehow &quot;dancing around&quot;, or being &quot;jiggly&quot; in a sense. If we have a software
+component that keeps producing random outputs, these outputs form a sequence,
+and we hope this to be a <a href="https://en.wikipedia.org/wiki/Random_sequence">random sequence</a>.</p>
+<p>But such a thing is <a href="https://xkcd.com/221">notoriously</a> <a href="http://dilbert.com/strip/2001-10-25">difficult</a> to define.
+The above linked page opens with the following quote:</p>
+<blockquote>
+<p>A random sequence is a vague notion... in which each term is unpredictable to
+the uninitiated and whose digits pass a certain number of tests traditional with
+statisticians.</p>
+</blockquote>
+<p>The intuitive jigglyness is captured by <a href="https://en.wikipedia.org/wiki/Statistical_randomness">statistical
+randomness</a>. We require each output, taken
+independently, to come from the same distribution (and in fact we want it to be
+the uniform distribution). That is, when we take a long sequence of outputs, we
+want them to cover the entire range, we want them to cover it evenly, and we
+want the evenness to increase as the number of outputs increases &mdash; which
+constitutes a purely frequentist definition of randomness. In addition, we want
+the absence of clear patterns between outputs. We don't want the sequence to
+look like <code>7, 8, 9, 10, ...</code>, even with a bit of noise, and we
+don't want correlation between outputs. The problem here is that no-one really
+knows what &quot;having patterns&quot; means; it is entirely possible that we only
+searched for patterns too simple, and that in fact there is a pattern that fully
+explains the sequence lurking just around the complexity corner.</p>
+<p>Nonetheless, there is a well established battery of tests to check statistical
+randomness of RNG outputs, called the <a href="http://www.stat.fsu.edu/pub/diehard/">Diehard Tests</a>, and serves
+as the de-facto standard for testing random number generators. Here's the
+beginning of a certain sequence that <a href="http://interstat.statjournals.net/YEAR/2005/articles/0510005.pdf">passes</a> the test
+with flying colors:</p>
+<p><code>3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9, 3, 2, 3, 8, 4, 6, 2, 6, 4, 3, 3, 8, 3, ...</code></p>
+<p>We still would not recommend using digits of <code>&pi;</code> as a secret key.
+Neither would we recommend
+releasing software for everyone to study, which uses that sequence to generate
+the secrets. But what went wrong?</p>
+<p>The other <a href="https://en.wikipedia.org/wiki/Algorithmically_random_sequence">concept of randomness</a>. Roughly, a
+random sequence should not be predictable to anyone with any knowledge other
+than the sequence itself. In other words, it cannot be compressed no matter how
+much we try, and in the extreme, this means that it cannot be generated by a
+program. While the latter restriction is obviously a little too strong for our
+purpose, it highlights a deep distinction in what people mean by being
+&quot;random&quot;.
+Jumping around is one thing. Being <em>actually unpredictable</em> is a
+wholly different matter.</p>
+<p>There are many other <a href="http://mathworld.wolfram.com/Rule30.html">simple</a> mathematical processes which
+generate sequences with high statistical randomness. Many of those are used to
+produce &quot;random&quot; sequences for various purposes. But these are still completely
+deterministic processes that exhibit random behaviour only in the statistical
+sense. Instead of being <em>random</em>, they are <em>pseudo-random</em>, and we call such
+generators <em>Pseudo-Random Number Generators</em> (PRNGs).</p>
+<p>We can look for something approaching a &quot;true&quot; random sequence in nature.
+The current agreement is that the nature of quantum processes is random in this
+sense, and random sequences based on this idea are readily available for
+<a href="http://qrbg.irb.hr/">download</a>. Or we can use the microphone and keep recording; the
+lowest-order bits of the signal are pretty unpredictable. But we cannot write a
+program to generate an actually random sequence.</p>
+<p>Still, we need to compromise. The real problem of common PRNGs is that knowing
+the rule and observing some of the outputs is enough to predict the rest of the
+sequence. The entire future behavior of <a href="https://en.wikipedia.org/wiki/Mersenne_Twister">Mersenne twister</a>,
+one of the most commonly used generators in various programming packages, can be
+predicted after observing only 624 outputs in a row. A step up from such a
+process is a <em>Cryptographically Secure Pseudo-Random Number Generator</em> (CSPRNG).
+Their key property is that it is computationally prohibitively expensive to
+distinguish their outputs from a &quot;true&quot; random sequence. This also means that it
+is computationally prohibitively expensive to reconstruct their internal state,
+just by looking at their outputs. In a sense, someone trying to predict the
+outputs can not take shortcuts, and is instead forced to perform the laborious
+task of starting the generator with all the possible states and checking if the
+output matches the observed sequence. This is how we can quantify a CSPRNG
+unpredictability: it takes trying about half of all the possibilities to guess
+the state.</p>
+<p>MirageOS' security stack contains a CSPRNG, a design called <a href="https://www.schneier.com/fortuna.html">Fortuna</a>.
+What it really does, is encrypt the simple sequence <code>0, 1, 2, 3, ...</code> with AES
+(AES-CTR) using a secret key. This makes it as resistant to prediction as AES is
+to <a href="https://en.wikipedia.org/wiki/Known-plaintext_attack">known-plaintext attacks</a>. After each output, it
+generates a bit more, hashes that, and uses the result as the next key. This is
+not to improve the statistical randomness, as it is already guaranteed by AES.
+Rather, it's a form of <a href="https://en.wikipedia.org/wiki/Forward_secrecy">forward secrecy</a>: an attacker who
+learns the secret key at some point would need to perform the <a href="https://en.wikipedia.org/wiki/Preimage_attack">preimage
+attack</a> on the hash function to figure out the earlier key
+and reconstruct the earlier outputs.</p>
+<h3>Entropy</h3>
+<p>Although resistant to prediction based solely on the outputs, just like any
+other software RNG, Fortuna is still just a deterministic PRNG. Its entire
+output is as unpredictable as its initial value, which we call the <em>seed</em>. From
+the information perspective, a PRNG can only transform what was unpredictable
+about its initial seed into an equally unpredictable sequence. In other words,
+we typically use PRNGs to stretch the unpredictability inherent in the initial
+seed into an infinite stream. The best PRNGs do not give out more hints about
+their starting position, but they can never out-race the amount of
+unpredictability that they started with.</p>
+<p>We often call this quality of unpredictability <em>entropy</em>. In a sense, by
+employing an algorithmic generator, we have just shifted the burden of being
+unpredictable to the beginning. But now we're cornered and have to search for entropy in
+the only place where a computer can find it: in the physical world.</p>
+<p>A typical (kernel-level) RNG-system reaches out into the world around it through
+hardware interaction: as hardware events happen, various drivers tend to emit
+small packets of data, such as the time, or hardware-specific state. These
+events are a product of the user interactions with the keyboard and mouse, of
+network packets arriving at an interface, of the hard drive asserting interrupts
+to signal the end of a DMA transfer, and the like. They are combined together
+and used to seed the internal (CS-)PRNG.</p>
+<p>In fact, describing them as a <em>seed</em> from which the entire sequence is unfolded
+is a deliberate oversimplification: what really happens is that the PRNG is
+continuously fed with random events, which change its state as they arrive, and
+the requests for random bytes are served from the PRNG. The PRNG is used to
+&quot;mix&quot; the unpredictability inherent in its input, that is, to smooth out various
+timestamps and similar values into a statistically well-behaved sequence.</p>
+<h3>Do Virtual Machines Dream of Electric Sheep?</h3>
+<p>Our problem here is that a virtual machine (VM) in a typical configuration
+barely sees any physical hardware. Users do not interact with VMs in server
+scenarios using a directly-connected keyboard and mouse. VMs make use of a
+virtualized network interface and virtualized disks. Even the CPU features can
+be intercepted and virtualized. Virtual environments are entropy-starved.</p>
+<p>This is a known problem and <a href="http://www.cs.berkeley.edu/~cthompson/papers/vmm-entropy-report-2011.pdf">various</a>
+<a href="http://www.ieee-security.org/TC/SP2014/papers/Not-So-RandomNumbersinVirtualizedLinuxandtheWhirlwindRNG.pdf">analyses</a> of the weakness of random outputs in virtual
+environments have been published. The problem is especially severe right after
+boot. The gradual trickle of unpredictability from hardware events slowly moves
+the pseudo-random stream into an increasingly unpredictable state,
+but at the very start, it still
+tends to be fairly predictable. Typically, operating systems store some of their
+PRNG output on shutdown and use it to quickly reseed their PRNG on the next
+boot, in order to reuse whatever entropy was contained in its state.
+Unfortunately, it is common to boot several machines from the same system image,
+or from a pristine image lacking a seed, making random outputs in a virtual
+machine vulnerable to prediction close to the startup phase.</p>
+<p>To help solve these problems, we employ several sources of entropy in MirageOS
+unikernels. The case of a Unix executable is simple, as we reuse the system's
+own RNG, as exposed via <code>/dev/urandom</code>, as the source of our entropy. This is
+because the kernel is in a much better position to enter an unpredictable state
+than any single process running under its supervision. The case of Xen
+unikernels is harder. Here, we group the entropy sources into those that
+originate within the unikernel itself, and those that originate externally.</p>
+<p>In the external case, we again rely on the kernel interacting with the hardware,
+but this time it's the dom0 kernel. We have a background service,
+<a href="https://github.com/mirage/xentropyd">Xentropyd</a>, which runs in dom0, reads the RNG and serves its output
+to other domains through the Xen Console. The problem is that in many scenarios,
+like hosting on popular cloud providers, we cannot expect this degree of cooperation from
+dom0. A bigger problem is that although most of the code is present, we haven't
+fully fleshed out this design and it remains disabled in MirageOS 2.5.0</p>
+<p>So we need to be able to achieve unpredictability relying purely on what is
+available inside a unikernel. A unikernel has no direct exposure to the
+hardware, but it is of course interacting with the outside world. To tap into
+this ambient entropy, we have to continuously sample all inter-event timings
+in its event loop. This process is analogous to what happens in a full-blown OS
+kernel, except our events lack the extra hardware context, and our timers are
+potentially less granular (for example, on ARM). This makes our
+interaction-based events somewhat more predictable, or in other words, they have
+a little less entropy.</p>
+<p>Recent Intel chips come with an on-die random generator, which ultimately
+derives from thermal readings, and is available through <code>RDRAND</code> and (more
+directly) <code>RDSEED</code> instructions. The community has expressed concern that
+relying exclusively on this generator might not be a wise choice: it could
+silently malfunction, and its design is hidden in the hardware, which raises
+concerns about potential intentional biases in the output &mdash; a scheme not
+<a href="https://en.wikipedia.org/wiki/Dual_EC_DRBG">unheard of</a>. However, since entropy is additive, its output can never
+reduce whatever unpredictability the system already has. Therefore, if
+available, we continuously sample this on-die RNG, and inject its outputs into
+our PRNG.</p>
+<p>The combination of event timings and a built-in RNG does have good unpredictability
+in the long run, especially if our unikernel is running on a multi-tenant host
+and competing for CPU with other instances. But the entropy in each individual
+event is still relatively low: we can assume that a determined attacker can
+guess each individual time stamp up to a certain precision that we don't know,
+but which is potentially quite high. This creates the following problem: imagine
+that an attacker knows the current PRNG state, and can measure the time of the
+next event, but not with sufficient precision to know the last two bits of the
+timestamp. To this attacker, our event contains two bits of entropy.
+If we immediately update the PRNG, the attacker only has to observe
+some of the output and check four candidate states against it, to fully recover
+knowledge about the state and negate our entropy addition. On the other hand, if
+we decide to wait and try to accumulate many more events before updating the
+PRNG, we keep generating a fully predictable sequence in the meantime.</p>
+<p>And here is where Fortuna really shines. It keeps accumulating events in a
+number of
+internal pools in a round-robin fashion. These pools are constantly being
+activated, but with an exponentially decreasing frequency. The pools activated
+too frequently are wasted, but one of them is activated with just the right
+frequency to contain enough entropy to make it prohibitively expensive for an
+attacker to enumerate all the possibilities. This design was
+<a href="https://eprint.iacr.org/2014/167">shown</a> to be within a constant factor from optimal entropy
+use, and in particular, scales robustly with the actual amount of entropy
+inherent in the input events.</p>
+<p>This leaves us with the problem of boot-time entropy. Not only can the saved
+random seed be reused by cloning the disk image, but in many cases, a MirageOS
+unikernel is running without such storage at all!</p>
+<p>Following the design of <a href="http://www.ieee-security.org/TC/SP2014/papers/Not-So-RandomNumbersinVirtualizedLinuxandtheWhirlwindRNG.pdf">Whirlwind RNG</a>, we employ an entropy
+<a href="https://github.com/mirage/mirage-entropy/blob/863b48d4e33b43ca31c49c2e8caef4e367fab7b2/lib/entropy_xen.ml#L79">bootstrapping loop</a>. It's an iterated computation, which
+measures the time it took to perform the previous iteration, and then performs
+the amount of work that depends on the time, many times over. In this way, it
+creates a feedback loop with a fragile dependency on any non-determinism in the
+physical execution on the CPU, such as any contention or races in the CPU state.
+Even on ARM, which currently uses a less fine-grained timer and whose design is
+not as parallel as Intel's, this yields an initial value which varies wildly
+between boots. We use this value to kickstart the PRNG, giving it quick
+divergence, and ensuring that the state is unpredictable from the very start.</p>
+<h3>Parting words</h3>
+<p>While some of our techniques (in particular bootstrapping on ARM) need a little
+more exposure before we place our full confidence in them &mdash; and users should
+probably avoid generating long-term private keys in unikernels running on bare
+Xen just yet &mdash; the combination of boostrapping, continuous reseeding, and
+robust accumulation gives us a hopefully comprehensive solution to generating
+randomness in a unikernel environment.</p>
+<p>We intend to re-evaluate the effectiveness of this design after getting some
+experience with how it works in the wild. To this end, we particularly
+appreciate the community feedback and
+you can reach us through our <a href="http://lists.xenproject.org/cgi-bin/mailman/listinfo/mirageos-devel">mailing list</a>, or hop onto
+<code>freenode</code> and join <code>#mirage</code>.</p>
+<p><em>Thanks to <a href="http://erratique.ch">Daniel</a>, <a href="http://mort.io">Mort</a> and <a href="http://amirchaudhry.com">Amir</a> for their comments on earlier
+drafts.</em></p>
+
+      

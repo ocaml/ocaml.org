@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://blog.emillon.org/feeds/ocaml.xml</id><title type="text">emillon</title><updated>2023-05-27T10:01:48-00:00</updated><entry><link href="http://blog.emillon.org/posts/2017-02-01-nabomamo-2016-writeup.html" rel="alternate"/><contributor><uri>http://blog.emillon.org/feeds/ocaml.xml</uri><name>emillon</name></contributor><content type="html">&lt;p&gt;Hello! It&amp;rsquo;s 2016, it&amp;rsquo;s November, and apparently it rhymes with &lt;a href=&quot;http://nabomamo.botally.net/&quot;&gt;#NaBoMaMo&lt;/a&gt; 2016,
+the National Bot Making Month. &lt;a href=&quot;https://github.com/emillon/rain-bot&quot;&gt;I made a bot!&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Full disclosure:&lt;/em&gt; it&amp;rsquo;s actually 2017, but I started writing this in 2016 so
+it&amp;rsquo;s OK. Also I&amp;rsquo;m not actually from the US, but I&amp;rsquo;ll relax the definition a bit
+and let&amp;rsquo;s pretend it means International Bot Making Year. Close enough!&lt;/p&gt;
+&lt;p&gt;Bots are all the rage - Twitter bots, IRC bots, Telegram bots&amp;hellip; I decided to
+make a Slack bot to get more familiar with that API.&lt;/p&gt;
+&lt;p&gt;I wanted this to be a small project - write and forget, basically. I started by
+defining some specs and lock those down:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;that bot works on Slack&lt;/li&gt;
+&lt;li&gt;it uses the &amp;ldquo;will it rain in the next hour&amp;rdquo; API from M&amp;eacute;t&amp;eacute;o France.&lt;/li&gt;
+&lt;li&gt;the bot understands 3 commands:
+&lt;ul&gt;
+&lt;li&gt;tell you whether it will rain or not.&lt;/li&gt;
+&lt;li&gt;show you a graph of rain level over the next hour.&lt;/li&gt;
+&lt;li&gt;tell you when to go out to avoid the rain.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The next step was choosing the tech stack. For hosting itself I was sold on
+using Heroku from previous projects (or another PaaS host, for what it&amp;rsquo;s worth)&lt;/p&gt;
+&lt;p&gt;As for the programming language itself, I hesitated between three choices:&lt;/p&gt;
+&lt;ol type=&quot;1&quot;&gt;
+&lt;li&gt;focus on the all-included experience: something that has libraries, tooling,
+but somehow boring;&lt;/li&gt;
+&lt;li&gt;focus on the shipping experience: stuff that I use daily, but looking to get
+something online quickly;&lt;/li&gt;
+&lt;li&gt;focus on learning something new.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The first one means something like Python or Ruby. I am familiar with the
+languages and am pretty sure that there are libraries that can take care of the
+Slack API without me having to ever worry about HTTP endpoints. That means also
+first-class deployment and hosting.&lt;/p&gt;
+&lt;p&gt;The second one is about OCaml: it&amp;rsquo;s a programming language I use daily at work,
+but the real goal would be to focus on shipping: create a project, write tests,
+write implementation, deploy, repeat for new features, forget.&lt;/p&gt;
+&lt;p&gt;The third one means a totally new programming language. I heard a lot of good
+things about Elixir for backend applications and figured that it would be a good
+intro project. Learning a new language is always an interesting experience,
+because it makes you a better programmer in all languages, and having clear
+specs would make this manageable.&lt;/p&gt;
+&lt;p&gt;The Python/Ruby solution seemed a bit boring. I probably would not learn a lot,
+only, maybe add a couple libraries to my toolbelt at most.&lt;/p&gt;
+&lt;p&gt;Elixir sounds great, but learning a new language and a new project at the same
+time is too hard and too time consuming. I would rather write in a new language
+something I previously wrote in another language. Though for something small and
+focused like this, that could have worked.&lt;/p&gt;
+&lt;p&gt;I first created the project structure: github repo, ocaml project (topkg, opam,
+etc). I like to use TDD for this kind of projects, so I added a small &lt;a href=&quot;https://github.com/mirage/alcotest&quot;&gt;alcotest&lt;/a&gt;
+suite. I also created the 12factor separation: a &lt;code&gt;Procfile&lt;/code&gt;, a small &lt;code&gt;bin/&lt;/code&gt;
+shell that reads the application configuration from the environment and starts a
+bot from &lt;code&gt;lib/&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;I asked myself what to test: the &lt;a href=&quot;https://github.com/mirage/ocaml-cohttp&quot;&gt;cohttp&lt;/a&gt; library is nice, because servers and
+clients are built using normal functions that take a request and returns a
+response. That makes it possible to test almost everything at the ocaml level
+without having to go to the HTTP level. This is especially important since there
+is no way to mock values and functions in ocaml. Everything has to be real
+objects.&lt;/p&gt;
+&lt;p&gt;However, even if it was possible to test everything, I decided to just focus on
+the domain logic without testing the HTTP part: for example, I would pass data
+structures directly to my bot object rather than building a cohttp request.&lt;/p&gt;
+&lt;p&gt;A part that is important for me even for a small project like that, is to have
+some sort of CI: have travis run my test suite, and make a binary ready to be
+deployed to Heroku. That way, it is impossible to forget how to make changes,
+test and deploy, since this is all in a script.&lt;/p&gt;
+&lt;p&gt;The other part that needed work is the actual Slack integration. The &amp;ldquo;slash&amp;rdquo;
+command API is pretty simple: it is possible to configure a Slack team such that
+typing &lt;code&gt;/rain&lt;/code&gt; will hit a particular URL. Some options are passed as &lt;code&gt;POST&lt;/code&gt; data
+and whatever is returned is displayed in Slack.&lt;/p&gt;
+&lt;p&gt;I set up the Slack integration, wrote a function to distinguish between
+&lt;code&gt;/rain&lt;/code&gt; and &lt;code&gt;/rain list&lt;/code&gt; (using the POST data), and by the end of the second
+iteraton I had my second feature implemented, working, and deployed.&lt;/p&gt;
+&lt;p&gt;All in all, that was pretty great. The code or the bot itself are not
+particularly fantastic, but I learned some important lessons:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;When you do not want to spend a lot of time on a task, invest in planning and
+keep the list of features short. That is pretty obvious in the context of paid
+work, but this is applies well to hobby programming too.&lt;/li&gt;
+&lt;li&gt;Know what to test and what not to. Tests are useful to ensure that changes can
+be made without breaking everything, but testing that your HTTP library can
+parse POST data is a waste of time.&lt;/li&gt;
+&lt;li&gt;In languages where it is not possible to mock or monkey patch functions,
+dependency injection is still possible. One may even argue that it leads to
+a better solution, since it removes the coupling between the different
+components.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You can find &lt;a href=&quot;https://github.com/emillon/rain-bot&quot;&gt;the source of this bot on Github&lt;/a&gt;.
+See you next year, &lt;a href=&quot;http://nabomamo.botally.net/&quot;&gt;#NaBoMaMo&lt;/a&gt;!
+And thanks to Tully Hansen for organizing this.&lt;/p&gt;</content><id>http://blog.emillon.org/posts/2017-02-01-nabomamo-2016-writeup.html</id><title type="text">NaBoMaMo 2016 writeup</title><updated>2017-02-01T00:00:00-00:00</updated><author><name>emillon</name></author></entry><entry><link href="http://blog.emillon.org/posts/2014-05-21-making-type-inference-explode.html" rel="alternate"/><contributor><uri>http://blog.emillon.org/feeds/ocaml.xml</uri><name>emillon</name></contributor><content type="html">&lt;p&gt;Hindley-Milner type systems are in a sweet spot in that they are both expressive
+and easy to infer. For example, type inference can turn this program:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb1-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;rec&lt;/span&gt; length = &lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb1-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | [] -&amp;gt; &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt; &lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb1-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | x::xs -&amp;gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; + length xs&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;into this one (the top-level type &lt;code&gt;'a list -&amp;gt; int&lt;/code&gt; is usually what is
+interesting but the compiler has to infer the type of every subexpression):&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb2-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;rec&lt;/span&gt; length : 'a &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt; -&amp;gt; &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; = &lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb2-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | [] -&amp;gt; (&lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt; : &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt;)&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb2-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | (x:'a)::(xs : 'a &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt;) -&amp;gt; (&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; : &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt;)&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb2-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;        + ((length : 'a &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt; -&amp;gt; &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt;) (xs : 'a &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt;) : &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Because the compiler does so much work, it is reasonable to wonder whether it is
+efficient. The theoretical answer to this question is that type inference is
+EXP-complete, but given reasonable constraints on the program, it can be done in
+quasi-linear time (&lt;span class=&quot;math inline&quot;&gt;&lt;em&gt;n&lt;/em&gt;&amp;nbsp;log&amp;#8198;&amp;nbsp;&lt;em&gt;n&lt;/em&gt;&lt;/span&gt; where &lt;span class=&quot;math inline&quot;&gt;&lt;em&gt;n&lt;/em&gt;&lt;/span&gt; is the size of the program).&lt;/p&gt;
+&lt;p&gt;Still, one may wonder what kind of pathological cases show this exponential
+effect. Here is one such example:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb3-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; p x y = &lt;span class=&quot;kw&quot;&gt;fun&lt;/span&gt; z -&amp;gt; z x y ;;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb3-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb3-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; r () =&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb3-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; x1 = &lt;span class=&quot;kw&quot;&gt;fun&lt;/span&gt; x -&amp;gt; p x x &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb3-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; x2 = &lt;span class=&quot;kw&quot;&gt;fun&lt;/span&gt; z -&amp;gt; x1 (x1 z) &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb3-6&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; x3 = &lt;span class=&quot;kw&quot;&gt;fun&lt;/span&gt; z -&amp;gt; x2 (x2 z) &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb3-7&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;x3 (&lt;span class=&quot;kw&quot;&gt;fun&lt;/span&gt; z -&amp;gt; z);;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The type signature of &lt;code&gt;r&lt;/code&gt; is already daunting:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;% ocamlc -i types.ml
+val p : 'a -&amp;gt; 'b -&amp;gt; ('a -&amp;gt; 'b -&amp;gt; 'c) -&amp;gt; 'c
+val r :
+  unit -&amp;gt;
+  (((((((('a -&amp;gt; 'a) -&amp;gt; ('a -&amp;gt; 'a) -&amp;gt; 'b) -&amp;gt; 'b) -&amp;gt;
+       ((('a -&amp;gt; 'a) -&amp;gt; ('a -&amp;gt; 'a) -&amp;gt; 'b) -&amp;gt; 'b) -&amp;gt; 'c) -&amp;gt;
+      'c) -&amp;gt;
+     ((((('a -&amp;gt; 'a) -&amp;gt; ('a -&amp;gt; 'a) -&amp;gt; 'b) -&amp;gt; 'b) -&amp;gt;
+       ((('a -&amp;gt; 'a) -&amp;gt; ('a -&amp;gt; 'a) -&amp;gt; 'b) -&amp;gt; 'b) -&amp;gt; 'c) -&amp;gt;
+      'c) -&amp;gt;
+     'd) -&amp;gt;
+    'd) -&amp;gt;
+   ((((((('a -&amp;gt; 'a) -&amp;gt; ('a -&amp;gt; 'a) -&amp;gt; 'b) -&amp;gt; 'b) -&amp;gt;
+       ((('a -&amp;gt; 'a) -&amp;gt; ('a -&amp;gt; 'a) -&amp;gt; 'b) -&amp;gt; 'b) -&amp;gt; 'c) -&amp;gt;
+      'c) -&amp;gt;
+     ((((('a -&amp;gt; 'a) -&amp;gt; ('a -&amp;gt; 'a) -&amp;gt; 'b) -&amp;gt; 'b) -&amp;gt;
+       ((('a -&amp;gt; 'a) -&amp;gt; ('a -&amp;gt; 'a) -&amp;gt; 'b) -&amp;gt; 'b) -&amp;gt; 'c) -&amp;gt;
+      'c) -&amp;gt;
+     'd) -&amp;gt;
+    'd) -&amp;gt;
+   'e) -&amp;gt;
+  'e&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;But what&amp;rsquo;s interesting about this program is that we can add (or remove) lines
+to study how input size can alter the processing time and output type size. It
+explodes:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&quot;header&quot;&gt;
+&lt;th&gt;n&lt;/th&gt;
+&lt;th style=&quot;text-align: right;&quot;&gt;wc -c&lt;/th&gt;
+&lt;th style=&quot;text-align: right;&quot;&gt;time&lt;/th&gt;
+&lt;th style=&quot;text-align: right;&quot;&gt;leaves(n)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&quot;odd&quot;&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td style=&quot;text-align: right;&quot;&gt;98&lt;/td&gt;
+&lt;td style=&quot;text-align: right;&quot;&gt;15ms&lt;/td&gt;
+&lt;td style=&quot;text-align: right;&quot;&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;even&quot;&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td style=&quot;text-align: right;&quot;&gt;167&lt;/td&gt;
+&lt;td style=&quot;text-align: right;&quot;&gt;15ms&lt;/td&gt;
+&lt;td style=&quot;text-align: right;&quot;&gt;2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;odd&quot;&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td style=&quot;text-align: right;&quot;&gt;610&lt;/td&gt;
+&lt;td style=&quot;text-align: right;&quot;&gt;15ms&lt;/td&gt;
+&lt;td style=&quot;text-align: right;&quot;&gt;8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;even&quot;&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td style=&quot;text-align: right;&quot;&gt;11630&lt;/td&gt;
+&lt;td style=&quot;text-align: right;&quot;&gt;38ms&lt;/td&gt;
+&lt;td style=&quot;text-align: right;&quot;&gt;128&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;odd&quot;&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td style=&quot;text-align: right;&quot;&gt;4276270&lt;/td&gt;
+&lt;td style=&quot;text-align: right;&quot;&gt;6.3s&lt;/td&gt;
+&lt;td style=&quot;text-align: right;&quot;&gt;32768&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Observing the number of &lt;code&gt;('a -&amp;gt; 'a)&lt;/code&gt; leaves in the output type reveals that it
+is is squared and doubled at each step, leading to an exponential growth.&lt;/p&gt;
+&lt;p&gt;In practice, this effect does not appear in day-to-day programs because
+programmers annotate the top-level declarations with their types. In that case,
+the size of the types would be merely proportional to the size of the program,
+because the type annotation would be gigantic.&lt;/p&gt;
+&lt;p&gt;Also, programmers tend to write functions that do something useful, which these
+do not seem to do &amp;#9786;.&lt;/p&gt;</content><id>http://blog.emillon.org/posts/2014-05-21-making-type-inference-explode.html</id><title type="text">Making type inference explode</title><updated>2014-05-21T00:00:00-00:00</updated><author><name>emillon</name></author></entry><entry><link href="http://blog.emillon.org/posts/2011-12-14-what-s-in-an-adt.html" rel="alternate"/><contributor><uri>http://blog.emillon.org/feeds/ocaml.xml</uri><name>emillon</name></contributor><content type="html">&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Algebraic Data Types, or ADTs for short, are a core feature of functional
+languages such as OCaml or Haskell. They are a handy model of closed disjoint
+unions and unfortunately, outside of the functional realm, they are only seldom
+used.&lt;/p&gt;
+&lt;p&gt;In this article, I will explain what ADTs are, how they are used in OCaml and
+what trimmed-down versions of them exist in other languages. I will use OCaml,
+but the big picture is about the same in Haskell.&lt;/p&gt;
+&lt;h2&gt;Principles&lt;/h2&gt;
+&lt;p&gt;Functional languages offer a myriad of types for the programmer.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;some &lt;em&gt;base&lt;/em&gt; types, such as &lt;code&gt;int&lt;/code&gt;, &lt;code&gt;char&lt;/code&gt; or &lt;code&gt;bool&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;functions, ie &lt;em&gt;arrow&lt;/em&gt; types. A function with domain &lt;code&gt;a&lt;/code&gt; and codomain &lt;code&gt;b&lt;/code&gt; has
+type &lt;code&gt;a -&amp;gt; b&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;tuples, ie &lt;em&gt;product&lt;/em&gt; types. A tuple is an heterogeneous, fixed-width
+container type (its set-theoretic counterpart is the cartesian product) For
+example, &lt;code&gt;(2, true, 'x')&lt;/code&gt; has type &lt;code&gt;int * bool * char&lt;/code&gt;. &lt;em&gt;record&lt;/em&gt; types are a
+(mostly) syntactic extension to give name to their fields.&lt;/li&gt;
+&lt;li&gt;some &lt;em&gt;parametric&lt;/em&gt; types. For example, if &lt;code&gt;t&lt;/code&gt; is a type, &lt;code&gt;t list&lt;/code&gt; is the type
+of homogeneous linked list of elements having type &lt;code&gt;t&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;what we are talking about today, &lt;em&gt;algebraic&lt;/em&gt; types (or &lt;em&gt;sum&lt;/em&gt; types, or
+&lt;em&gt;variant&lt;/em&gt; types).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If product types represent the cartesian product, algebraic types represent the
+disjoint union. In another words, they are very adapted for a case
+analysis.&lt;/p&gt;
+&lt;p&gt;We will take the example of integer ranges. One can say that an integer range is
+either :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the empty range&lt;/li&gt;
+&lt;li&gt;of the form &lt;code&gt;]-&amp;infin;;a]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;of the form &lt;code&gt;[a;+&amp;infin;[&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;an interval of the form &lt;code&gt;[a;b]&lt;/code&gt; (where a &amp;le; b)&lt;/li&gt;
+&lt;li&gt;the whole range (ie, &amp;#8484;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;With the following properties :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Disjunction : no range can be of two forms at a time.&lt;/li&gt;
+&lt;li&gt;Injectivity : if &lt;code&gt;[a;b]&lt;/code&gt; = &lt;code&gt;[c;d]&lt;/code&gt;, then &lt;code&gt;a&lt;/code&gt; = &lt;code&gt;c&lt;/code&gt; and &lt;code&gt;b&lt;/code&gt; = &lt;code&gt;d&lt;/code&gt; (and
+similarly for other forms).&lt;/li&gt;
+&lt;li&gt;Exhaustiveness : it cannot be of another form.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Syntax &amp;amp; semantics&lt;/h2&gt;
+&lt;p&gt;This can be encoded as an ADT :&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb1-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;type&lt;/span&gt; range =&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb1-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | Empty&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb1-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | HalfLeft &lt;span class=&quot;kw&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb1-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | HalfRight &lt;span class=&quot;kw&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb1-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | Range &lt;span class=&quot;kw&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; * &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb1-6&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | FullRange&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;Empty&lt;/code&gt;, &lt;code&gt;HalfLeft&lt;/code&gt;, &lt;code&gt;HalfRight&lt;/code&gt;, &lt;code&gt;Range&lt;/code&gt; and &lt;code&gt;FullRange&lt;/code&gt; are &lt;code&gt;t&lt;/code&gt;&amp;rsquo;s
+&lt;em&gt;constructors&lt;/em&gt;. They are the only way to build a value of type &lt;code&gt;t&lt;/code&gt;. For example,
+&lt;code&gt;Empty&lt;/code&gt;, &lt;code&gt;HalfLeft 3&lt;/code&gt; and &lt;code&gt;Range (2, 5)&lt;/code&gt; are all values of type &lt;code&gt;t&lt;/code&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#fn1&quot; class=&quot;footnote-ref&quot; role=&quot;doc-noteref&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;. They
+each have a specific &lt;em&gt;arity&lt;/em&gt; (the number of arguments they take).&lt;/p&gt;
+&lt;p&gt;To &lt;em&gt;deconstruct&lt;/em&gt; a value of type &lt;code&gt;t&lt;/code&gt;, we have to use a powerful construct,
+&lt;em&gt;pattern matching&lt;/em&gt;, which is about matching a value against a sequence of
+patterns (yes, that&amp;rsquo;s about it).&lt;/p&gt;
+&lt;p&gt;To illustrate this, we will write a function that computes the minimum value of
+such a range. Of course, this can be &amp;plusmn;&amp;infin; too, so we have to define a type to
+represent the return value.&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb2-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;type&lt;/span&gt; ext_int =&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb2-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | MinusInfinity&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb2-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | Finite &lt;span class=&quot;kw&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb2-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | PlusInfinity&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;In a math textbook, we would write the case analysis as :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;min &amp;empty; = +&amp;infin;&lt;/li&gt;
+&lt;li&gt;min ]-&amp;infin;;a] = -&amp;infin;&lt;/li&gt;
+&lt;li&gt;min [a;+&amp;infin;[ = a&lt;/li&gt;
+&lt;li&gt;min [a;b] = a&lt;/li&gt;
+&lt;li&gt;min &amp;#8484; = -&amp;infin;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;That translates to the following (executable !) OCaml code :&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb3-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; range_min x =&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb3-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;kw&quot;&gt;match&lt;/span&gt; x &lt;span class=&quot;kw&quot;&gt;with&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb3-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | Empty -&amp;gt; PlusInfinity&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb3-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | HalfLeft a -&amp;gt; MinusInfinity&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb3-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | HalfRight a -&amp;gt; Finite a&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb3-6&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | Range (a, b) -&amp;gt; Finite a&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb3-7&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | FullRange -&amp;gt; MinusInfinity&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;In the pattern &lt;code&gt;HalfLeft a&lt;/code&gt;, &lt;code&gt;a&lt;/code&gt; is a variable name, so it get bounds to the
+argument&amp;rsquo;s value. In other words, &lt;code&gt;match (HalfLeft 2) with HalfLeft x -&amp;gt; e&lt;/code&gt;
+bounds &lt;code&gt;x&lt;/code&gt; to 2 in &lt;code&gt;e&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;It&amp;rsquo;s functions all the way down&lt;/h2&gt;
+&lt;p&gt;Pattern matching seems magical at first, but it is only a syntactic trick.
+Indeed, the definition of the above type is equivalent to the following
+definition :&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb4-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;type&lt;/span&gt; range&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb4-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb4-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;co&quot;&gt;(* The following is not syntactically correct *)&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb4-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;val&lt;/span&gt; Empty : range&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb4-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;val&lt;/span&gt; HalfLeft : &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; -&amp;gt; range&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb4-6&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;val&lt;/span&gt; HalfRight : &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; -&amp;gt; range&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb4-7&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;val&lt;/span&gt; Range : &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; * &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; -&amp;gt; range&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb4-8&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;val&lt;/span&gt; FullRange : range&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb4-9&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;co&quot;&gt;(* Moreover, we know that they are injective and mutually disjoint *)&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb4-10&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb4-11&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;val&lt;/span&gt; deconstruct_range :&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb4-12&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  (&lt;span class=&quot;dt&quot;&gt;unit&lt;/span&gt; -&amp;gt; 'a) -&amp;gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb4-13&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  (&lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; -&amp;gt; 'a) -&amp;gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb4-14&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  (&lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; -&amp;gt; 'a) -&amp;gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb4-15&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  (&lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; * &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; -&amp;gt; 'a) -&amp;gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb4-16&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  (&lt;span class=&quot;dt&quot;&gt;unit&lt;/span&gt; -&amp;gt; 'a) -&amp;gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb4-17&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  range -&amp;gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb4-18&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  'a&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;deconstruct_range&lt;/code&gt; is what replaces pattern matching. It also embodies the notion of
+exhaustiveness, because given any value of type &lt;code&gt;range&lt;/code&gt;, we can build a
+deconstructed value out of it.&lt;/p&gt;
+&lt;p&gt;Its type looks scary at first, but if we look closer, its arguments are a
+sequence of case-specific deconstructors&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#fn2&quot; class=&quot;footnote-ref&quot; role=&quot;doc-noteref&quot;&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt; and the value to get &amp;ldquo;matched&amp;rdquo;
+against.&lt;/p&gt;
+&lt;p&gt;To show the equivalence, we can implement &lt;code&gt;deconstruct_range&lt;/code&gt; using pattern
+patching and &lt;code&gt;range_min&lt;/code&gt; using &lt;code&gt;deconstruct_range&lt;/code&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#fn3&quot; class=&quot;footnote-ref&quot; role=&quot;doc-noteref&quot;&gt;&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt; :&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb5-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; deconstruct_range&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb5-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;      f_empty&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb5-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;      f_halfleft&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb5-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;      f_halfright&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb5-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;      f_range&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb5-6&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;      f_fullrange&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb5-7&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;      x&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb5-8&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    =&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb5-9&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;kw&quot;&gt;match&lt;/span&gt; x &lt;span class=&quot;kw&quot;&gt;with&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb5-10&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | Empty -&amp;gt; f_empty ()&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb5-11&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | HalfLeft a -&amp;gt; f_halfleft a&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb5-12&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | HalfRight a -&amp;gt; f_halfright a&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb5-13&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | Range (a, b) -&amp;gt; f_range (a, b)&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb5-14&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | FullRange -&amp;gt; f_fullrange ()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb6-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; range_min' x =&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb6-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  deconstruct_range&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb6-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    (&lt;span class=&quot;kw&quot;&gt;fun&lt;/span&gt; () -&amp;gt; PlusInfinity)&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb6-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    (&lt;span class=&quot;kw&quot;&gt;fun&lt;/span&gt; a -&amp;gt; MinusInfinity)&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb6-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    (&lt;span class=&quot;kw&quot;&gt;fun&lt;/span&gt; a -&amp;gt; Finite a)&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb6-6&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    (&lt;span class=&quot;kw&quot;&gt;fun&lt;/span&gt; (a, b) -&amp;gt; Finite a)&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb6-7&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    (&lt;span class=&quot;kw&quot;&gt;fun&lt;/span&gt; () -&amp;gt; MinusInfinity)&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb6-8&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    x&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Implementation&lt;/h2&gt;
+&lt;p&gt;After this trip in denotational-land, let&amp;rsquo;s get back to operational-land : how
+is this implemented ?&lt;/p&gt;
+&lt;p&gt;In OCaml, no type information exists at runtime. Everything exists with a
+uniform representation and is either an integer or a pointer to a block. Each
+block starts with a tag, a size and a number of fields.&lt;/p&gt;
+&lt;p&gt;With the &lt;code&gt;Obj&lt;/code&gt; module (kids, don&amp;rsquo;t try this at home), it is possible to inspect
+blocks at runtime. Let&amp;rsquo;s write a dumper for &lt;code&gt;range&lt;/code&gt; value and watch outputs :&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;co&quot;&gt;(* Range of integers between a and b *)&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;rec&lt;/span&gt; rng a b =&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;kw&quot;&gt;if&lt;/span&gt; a &amp;gt; b &lt;span class=&quot;kw&quot;&gt;then&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    []&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;kw&quot;&gt;else&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-6&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    a :: rng (a+&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;) b&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-7&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-8&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; view_block o =&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-9&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;kw&quot;&gt;if&lt;/span&gt; (Obj.is_block o) &lt;span class=&quot;kw&quot;&gt;then&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-10&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;kw&quot;&gt;begin&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-11&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;      &lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; tag = Obj.tag o &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-12&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;      &lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; sz = Obj.size o &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-13&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;      &lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; f n =&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-14&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; f = Obj.field o n &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-15&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;        &lt;span class=&quot;kw&quot;&gt;assert&lt;/span&gt; (Obj.is_int f);&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-16&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;        Obj.obj f&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-17&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;      &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-18&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;      tag :: &lt;span class=&quot;dt&quot;&gt;List&lt;/span&gt;.map f (rng &lt;span class=&quot;dv&quot;&gt;0&lt;/span&gt; (sz&lt;span class=&quot;dv&quot;&gt;-1&lt;/span&gt;))&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-19&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;kw&quot;&gt;end&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-20&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;kw&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;if&lt;/span&gt; Obj.is_int o &lt;span class=&quot;kw&quot;&gt;then&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-21&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    [Obj.obj o]&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-22&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;kw&quot;&gt;else&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-23&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;kw&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;false&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-24&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-25&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; examples () =&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-26&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; p_list l =&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-27&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;dt&quot;&gt;String&lt;/span&gt;.concat &lt;span class=&quot;st&quot;&gt;&amp;quot;;&amp;quot;&lt;/span&gt; (&lt;span class=&quot;dt&quot;&gt;List&lt;/span&gt;.map &lt;span class=&quot;dt&quot;&gt;string_of_int&lt;/span&gt; l)&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-28&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-29&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; explore_range r =&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-30&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;dt&quot;&gt;print_endline&lt;/span&gt; (p_list (view_block (Obj.repr r)))&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-31&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-32&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;dt&quot;&gt;List&lt;/span&gt;.iter explore_range&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-33&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    [ Empty&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-34&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    ; HalfLeft &lt;span class=&quot;dv&quot;&gt;8&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-35&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    ; HalfRight &lt;span class=&quot;dv&quot;&gt;13&lt;/span&gt;&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-36&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    ; Range (&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;5&lt;/span&gt;)&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-37&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    ; FullRange&lt;/span&gt;
+&lt;span&gt;&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#cb7-38&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    ]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;When we run &lt;code&gt;examples ()&lt;/code&gt;, it outputs :&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;0
+0;8
+1;13
+2;2;5
+1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can see the following distinction :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;0-ary constructors (&lt;code&gt;Empty&lt;/code&gt; and &lt;code&gt;FullRange&lt;/code&gt;) are encoded are simple
+integers.&lt;/li&gt;
+&lt;li&gt;other ones are encoded blocks with a constructor number as tag (0 for
+&lt;code&gt;HalfLeft&lt;/code&gt;, 1 for &lt;code&gt;HalfRight&lt;/code&gt; and 2 for &lt;code&gt;Range&lt;/code&gt;) and their argument list
+afterwards.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Thanks to this uniform representation, pattern-matching is straightforward : the
+runtime system will only look at the tag number to decide which constructor has
+been used, and if there are arguments to be bound, they are just after in the
+same block.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Algebraic Data Types are a simple model of disjoint unions, for which
+case analyses are the most natural. In more mainstream languages, some
+alternatives exist but they are more limited to model the same problem.&lt;/p&gt;
+&lt;p&gt;For example, in object-oriented languages, the Visitor pattern is the natural
+way to do it. But class trees are inherently &amp;ldquo;open&amp;rdquo;, thus breaking the
+exhaustivity property.&lt;/p&gt;
+&lt;p&gt;The closest implementation is tagged unions in C, but they require to roll your
+own solution using &lt;code&gt;enum&lt;/code&gt;s, &lt;code&gt;struct&lt;/code&gt;s and &lt;code&gt;union&lt;/code&gt;s. This also means that all
+your hand-allocated blocks will have the same size.&lt;/p&gt;
+&lt;p&gt;Oh, and I would love to know how this problem is solved with other paradigms !&lt;/p&gt;
+&lt;section class=&quot;footnotes footnotes-end-of-document&quot; role=&quot;doc-endnotes&quot;&gt;
+&lt;hr/&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Unfortunately, so is &lt;code&gt;Range (10, 2)&lt;/code&gt;. The invariant that a &amp;le; b has to be
+enforced by the programmer when using this constructor.&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#fnref1&quot; class=&quot;footnote-back&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&amp;#65038;&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;For 0-ary constructors, the type has to be &lt;code&gt;unit -&amp;gt; 'a&lt;/code&gt; instead of &lt;code&gt;'a&lt;/code&gt; to
+allow side effects to happen during pattern matching.&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#fnref2&quot; class=&quot;footnote-back&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&amp;#65038;&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;More precisely, we would have to show that any function written with
+pattern matching can be adapted to use the deconstructor instead. I hope
+that this example is general enough to get the idea.&lt;a href=&quot;http://blog.emillon.org/feeds/ocaml.xml#fnref3&quot; class=&quot;footnote-back&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&amp;#65038;&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;</content><id>http://blog.emillon.org/posts/2011-12-14-what-s-in-an-adt.html</id><title type="text">What's in an ADT ?</title><updated>2011-12-14T00:00:00-00:00</updated><author><name>emillon</name></author></entry></feed>
