@@ -45,7 +45,7 @@ let render
           <%s! Packages_autocomplete_fragment.form_attributes %>
           action="/packages/search" method="GET">
           <div class="header__search relative flex items-center justify-center">
-            <input type="search" name="q" class="header__search__input focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 py-1 lg:w-56 xl:w-80"
+            <input @keydown.stop type="search" name="q" class="header__search__input focus:border-gray-800 text-gray-800 border-primary-600 h-10 rounded-l-md appearance-none px-4 py-1 lg:w-56 xl:w-80"
               autocomplete="off"
               placeholder="Search OCaml Packages"
               <%s! Packages_autocomplete_fragment.input_attributes ~target_sel:"#header-search-results" ~indicator_sel:"#header-search-indicator" %>

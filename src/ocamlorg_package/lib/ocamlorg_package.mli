@@ -146,6 +146,10 @@ val file :
 (** Get the rendered content of an HTML page for a file accompanying a package
     given its URL relative to the root of the package. *)
 
+val search_index :
+  kind:[< `Package | `Universe of string ] -> t -> string option Lwt.t
+(** Retrieve the search index of a given package. *)
+
 val init : ?disable_polling:bool -> unit -> state
 (** [init ()] initialises the opam-repository state. By default
     [disable_polling] is set to [false], but can be disabled for tests. *)

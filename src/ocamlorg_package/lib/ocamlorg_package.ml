@@ -351,6 +351,19 @@ let file ~kind t path =
   let url = package_url ^ path ^ ".json" in
   odoc_page ~url
 
+let search_index ~kind t =
+  let package_url =
+    package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
+  in
+  let url = package_url ^ "index.js" in
+  let open Lwt.Syntax in
+  let* content = http_get url in
+  match content with
+  | Ok content -> Lwt.return (Some content)
+  | Error _ ->
+      Logs.info (fun m -> m "Failed to fetch search index at %s" url);
+      Lwt.return None
+
 let maybe_file ~kind t filename =
   let open Lwt.Syntax in
   let+ doc = file ~kind t filename in

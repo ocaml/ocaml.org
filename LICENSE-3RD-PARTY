@@ -112,6 +112,14 @@ URL:       https://swiperjs.com/
 License:   MIT License
 Copyright: Copyright 2014-2021 Vladimir Kharlampidi
 
+asset/vendors/minisearch.min.js:
+
+Name:      Minisearch
+Version:   6.0.1
+URL:       https://github.com/lucaong/minisearch
+License:   MIT License
+Copyright: Copyright 2022 Luca Ongaro
+
 --------------------------------------------------------------------------
 Licenses
 --------------------------------------------------------------------------
