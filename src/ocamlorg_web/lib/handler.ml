@@ -449,12 +449,22 @@ let packages state _req =
   in
   Dream.html (Ocamlorg_frontend.packages stats featured)
 
+let is_author_match name pattern =
+  let match_opt = function
+    | Some s -> String.contains_s s pattern
+    | None -> false
+  in
+  match Data.Opam_user.find_by_name name with
+  | None -> false
+  | Some { name; email; github_username; _ } ->
+      match_opt (Some name) || match_opt email || match_opt github_username
+
 let packages_search t req =
   match Dream.query req "q" with
   | Some search ->
       let packages =
-        Ocamlorg_package.search ~is_author_match:Data.Opam_user.is_author_match
-          ~sort_by_popularity:true t search
+        Ocamlorg_package.search ~is_author_match ~sort_by_popularity:true t
+          search
       in
       let total = List.length packages in
       let results = List.map (Package_helper.frontend_package t) packages in
@@ -466,8 +476,8 @@ let packages_autocomplete_fragment t req =
   match Dream.query req "q" with
   | Some search when search <> "" ->
       let packages =
-        Ocamlorg_package.search ~is_author_match:Data.Opam_user.is_author_match
-          ~sort_by_popularity:true t search
+        Ocamlorg_package.search ~is_author_match ~sort_by_popularity:true t
+          search
       in
       let results = List.map (Package_helper.frontend_package t) packages in
       let top_5 = results |> List.take 5 in

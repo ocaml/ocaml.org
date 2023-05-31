@@ -293,7 +293,6 @@ module Opam_user : sig
     t
 
   val find_by_name : string -> t option
-  val is_author_match : string -> string -> bool
 end
 
 module Workshop : sig

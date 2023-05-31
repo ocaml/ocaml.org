@@ -35,7 +35,7 @@ let packages_list ?contains ?(sort_by_popularity = false) offset limit
     match contains with
     | None -> all_packages
     | Some q ->
-        Package.search ~is_author_match:Data.Opam_user.is_author_match
+        Package.search ~is_author_match:Handler.is_author_match
           ~sort_by_popularity t q
   in
   List.filteri (fun i _ -> offset <= i && i < offset + limit) results
