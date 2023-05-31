@@ -1,4 +1,6 @@
-(lang dune 2.8)
+(lang dune 3.0)
+
+(using directory-targets 0.1) 
 
 (name ocamlorg-playground)
 
@@ -29,6 +31,7 @@
  (synopsis "Playground for the official OCaml website")
  (description
   "This repository contains the playground served on https://ocaml.org/play.")
+ (allow_empty)
  (depends
   (ocaml
    (>= 5.0.0))

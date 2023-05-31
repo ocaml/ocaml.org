@@ -2,7 +2,8 @@
  asset/
  (rule
   (targets playground.min.js)
-  (mode promote-until-clean)
+  (mode
+   (promote (until-clean)))
   (deps
    (:js %{workspace_root}/src/main.bc.js))
   (action
@@ -19,15 +20,25 @@
     %{js})))
  (rule
   (targets worker.min.js)
-  (mode promote-until-clean)
+  (mode
+   (promote (until-clean)))
   (deps
-   (:js %{workspace_root}/src/worker.js))
+   (:js %{workspace_root}/src/worker.js)
+   stdlib)
   (action
    (run jsoo_minify %{js} -o %{targets})))
  (rule
   (targets merlin.min.js)
-  (mode promote-until-clean)
+  (mode
+   (promote (until-clean)))
   (deps
    (:js %{workspace_root}/src/merlin_worker.bc.js))
   (action
-   (run jsoo_minify %{js} -o %{targets}))))
+   (run jsoo_minify %{js} -o %{targets})))
+ (rule
+  (targets
+   (dir stdlib))
+  (mode
+   (promote (until-clean)))
+  (action
+   (run ../gen_stdlib.sh))))
