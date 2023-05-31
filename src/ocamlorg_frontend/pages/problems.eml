@@ -68,15 +68,11 @@ Learn_layout.render
     <div class="border-b border-solid border-zinc-300 leading-5 py-8 text-zinc-800">
       <form action="<%s Url.problems %>" method="GET">
         <label for="difficulty_level" class="sr-only">Difficulty</label>
-        <div class="form-select w-48">
-          <select
-            id="difficulty_level" name="difficulty_level" onchange="this.form.submit()">
-              <option value="All" <%s if difficulty_level = "All" then "selected" else "" %>>Any Difficulty</option>
-              <option value="beginner" <%s if difficulty_level = "beginner" then "selected" else "" %>>Beginner</option>
-              <option value="intermediate" <%s if difficulty_level = "intermediate" then "selected" else "" %>>Intermediate</option>
-              <option value="advanced" <%s if difficulty_level = "advanced" then "selected" else "" %>>Advanced</option>
-          </select>
-        </div>
+        <%s! Forms.select
+          ~attrs:{|id="difficulty_level" name="difficulty_level" onchange="this.form.submit()"|}
+          ~options:[("All", "Any Difficulty"); ("beginner", "Beginner"); ("intermediate", "Intermediate"); ("advanced", "Advanced")]
+          ~selected:difficulty_level
+          "w-48" %>
       </form>
     </div>
     <% problems |> List.iter (fun (problem : Data.Problem.t) -> %>

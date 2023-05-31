@@ -7,7 +7,7 @@ let render ~total ~search (packages : Package.package list) = Layout.render ~tit
     <div class="container-fluid">
       <div class="flex flex-col lg:px-28 gap-2 max-w-5xl">
         <form action="/packages/search" method="GET">
-          <%s! Forms.form_search_input
+          <%s! Forms.search_input
             ~button_attrs:{|aria-label="search" type="submit"|}
             ~input_attrs:({|type="search" placeholder="Search OCaml packages" name="q" |} ^ " value=\"" ^ search ^ "\"")
             ""

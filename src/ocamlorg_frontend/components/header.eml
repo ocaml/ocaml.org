@@ -53,7 +53,7 @@ in
         <form
           <%s! Packages_autocomplete_fragment.form_attributes %>
           action="/packages/search" method="GET">
-          <%s! Forms.form_search_input
+          <%s! Forms.search_input
             ~button_attrs:{|aria-label="search" type="submit"|}
             ~input_attrs:({|@keydown.stop type="search" placeholder="Search OCaml packages" name="q" |} ^ Packages_autocomplete_fragment.input_attributes ~target_sel:"#header-search-results" ~indicator_sel:"#header-search-indicator")
             ~dropdown_html:(search_dropdown ())
@@ -94,7 +94,7 @@ in
       </li>
       <li>
         <form action="/packages/search" method="GET">
-          <%s! Forms.form_search_input
+          <%s! Forms.search_input
             ~input_attrs:{|type="search" name="q" placeholder="Search OCaml packages"|}
             ~button_attrs:{|type="submit" aria-label="search"|}
             ""
