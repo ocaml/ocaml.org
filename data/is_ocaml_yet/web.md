@@ -16,6 +16,7 @@ categories:
     - ssl
     - twostep
     - oidc
+    - spoke
   - name: Binary protocols
     status: 🟡
     description: |
@@ -44,6 +45,10 @@ categories:
     - melange
     - brr
     - gen_js_api
+    - bonsai
+    - ocaml-vdom
+    - fmlib_browser
+    - tyxml
   - name: Compression
     status: 🟡
     description: |
@@ -60,6 +65,7 @@ categories:
     - snappy
     - lzo
     - zstandard
+    - carton
   - name: Crypto
     status: 🟡
     description: |
@@ -70,7 +76,6 @@ categories:
     - nocrypto
     - pkcs11
     - tls
-    - hacl_x25519
     - x509
     - fiat-p256
     - sha
@@ -108,10 +113,11 @@ categories:
     - letters
     - mrmime
     - sendmail
-    - facteur
     - received
     - email_message
     - colombe
+    - dkim
+    - uspf
   - name: En- & Decoding
     status: 🟠
     description: |
@@ -186,6 +192,7 @@ categories:
     packages:
     - atd
     - yojson
+    - jsonm
     - sexplib
     - yaml
     - csv
@@ -223,6 +230,16 @@ categories:
     - embedded_ocaml_templates
     - mustache
     - jingoo
+  - name: Static Site Generation
+    status: 🟡
+    description: |
+      n/a
+    packages:
+    - finch
+    - stone
+    - camyll
+    - dream-serve
+    - soupault
   - name: External Web APIs
     status: 🆘
     description: |
