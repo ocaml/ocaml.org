@@ -95,7 +95,7 @@ let graphql_route t =
     [ Dream_encoding.compress ]
     [
       Dream.any "/graphql" (Dream.graphql Lwt.return (Graphql.schema t));
-      Dream.get "/graphiql" (Dream.graphiql "/api");
+      Dream.get "/graphiql" (Dream.graphiql "/graphql");
     ]
 
 let router t =
