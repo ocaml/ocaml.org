@@ -185,6 +185,7 @@ categories:
     - ethernet
     - paf
     - mimic
+    - tiny_httpd
   - name: Serializers
     status: 🟡
     description: |
