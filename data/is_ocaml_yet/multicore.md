@@ -7,7 +7,9 @@ categories:
     status: 🆘
     description: |
       n/a
-    packages: []
+    packages:
+    - eio
+    - domainslib
   - name: Compiler
     status: 🆘
     description: |
@@ -17,10 +19,13 @@ categories:
     status: 🆘
     description: |
       n/a
-    packages: []
+    packages:
+    - kcas
+    - lockfree
   - name: Tooling
     status: 🆘
     description: |
       n/a
-    packages: []
+    packages:
+    - meio
 ---
