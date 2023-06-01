@@ -148,6 +148,7 @@ categories:
     - hyper
     - ocurl
     - http-lwt-client
+    - ezcurl
   - name: Internationalization
     status: 🆘
     description: |
