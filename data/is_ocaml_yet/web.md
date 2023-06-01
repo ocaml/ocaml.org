@@ -33,6 +33,7 @@ categories:
     - bson
     - cbor
     - mqtt
+    - msgpck
   - name: Browser
     status: 🟢
     description: |
