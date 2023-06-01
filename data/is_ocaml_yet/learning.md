@@ -3,6 +3,17 @@ id: learning
 question: Is OCaml learning yet?
 answer: We're a bit late to the party, but we're catching up!
 categories:
+  - name: Bindings
+    status: 🆘
+    description: |
+      n/a
+    packages:
+    - torch
+    - xla
+    - tensorflow
+    - lacaml
+    - sklearn
+    - glpk
   - name: Clustering
     status: 🆘
     description: |
@@ -12,7 +23,8 @@ categories:
     status: 🆘
     description: |
       n/a
-    packages: []
+    packages:
+    - hdf5
   - name: Data Structures
     status: 🆘
     description: |
@@ -22,12 +34,14 @@ categories:
     status: 🆘
     description: |
       n/a
-    packages: []
+    packages:
+    - orandforest
   - name: GPU Computing
     status: 🆘
     description: |
       n/a
-    packages: []
+    packages:
+    - spoc
   - name: Linear Classifiers
     status: 🆘
     description: |
@@ -42,12 +56,14 @@ categories:
     status: 🆘
     description: |
       n/a
-    packages: []
+    packages:
+    - owl
   - name: Natural Language Processing
     status: 🆘
     description: |
       n/a
-    packages: []
+    packages:
+    - owl
   - name: Reinforcement Learning
     status: 🆘
     description: |
@@ -57,5 +73,12 @@ categories:
     status: 🆘
     description: |
       n/a
-    packages: []
+    packages:
+    - onumerical
+    - oml
+    - slap
+    - owl
+    - pareto
+    - zarith
+    - gmp
 ---
