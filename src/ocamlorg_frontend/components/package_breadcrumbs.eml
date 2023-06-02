@@ -28,6 +28,7 @@ type path =
 
 let render_package_and_version
 ~path
+~build_check
 ?page
 ?hash
 (package: Package.package)
@@ -55,6 +56,9 @@ let render_package_and_version
       style="background-position: right 0.25rem center">
       <%s! package.versions |> List.map version_options |> String.concat "" %>
     </select>
+    <% if build_check then (%>
+    <div class="flex flex-row ml-5 mt-2 text-green-700 font-medium"><%s! Icons.shield_check "h-6 w-6 mr-1" %>OCaml 5</div>
+    <% ); %>
   </div>
 
 type breadcrumb = {

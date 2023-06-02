@@ -12,6 +12,7 @@ let render
 ?canonical
 ?hash
 ?page
+?(build_check = false)
 ~(package : Package.package)
 ~(documentation_status: Package.documentation_status)
 ~(search_index_digest: string option)
@@ -34,7 +35,7 @@ Layout.render
     <div class="container-fluid wide">
       <div class="flex justify-between flex-col md:flex-row">
         <div class="flex flex-col items-baseline" id="htmx-breadcrumbs">
-          <%s! Package_breadcrumbs.render_package_and_version ~path ?hash ?page package %>
+          <%s! Package_breadcrumbs.render_package_and_version ~path ~build_check ?hash ?page package %>
         </div>
       </div>
       <button :title='(sidebar? "close" : "open")+" sidebar"' class="flex items-center bg-primary-600 p-3 z-30 rounded-full text-white shadow-md bottom-20 fixed md:hidden right-10"
