@@ -27,6 +27,7 @@ let empty_info =
     url = None;
     publication = 0.;
     flags = [];
+    module_name = "";
   }
 
 let packages : Package.t list =

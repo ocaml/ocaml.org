@@ -2,7 +2,7 @@ type url = { uri : string; checksum : string list }
 
 (* This is used to invalidate the package state cache if the type [Info.t]
    changes. *)
-let version = "2"
+let version = "3"
 
 type t = {
   synopsis : string;
@@ -19,6 +19,7 @@ type t = {
   url : url option;
   publication : float;
   flags : OpamTypes.package_flag list;
+  module_name : string;
 }
 
 let relop_to_string = OpamPrinter.FullPos.relop_kind
@@ -139,7 +140,7 @@ let mk_revdeps pkg pkgs rdepends =
     []
   |> Lwt.map List.rev
 
-let make ~package ~packages ~rev_deps ~timestamps opam =
+let make ~package ~packages ~rev_deps ~timestamps ~name:pkg_name opam =
   let open Lwt.Syntax in
   let+ rev_deps = mk_revdeps package packages rev_deps in
   let publication = OpamPackage.Map.find package timestamps in
@@ -177,6 +178,10 @@ let make ~package ~packages ~rev_deps ~timestamps opam =
              });
     publication;
     flags = flags opam;
+    module_name =
+      pkg_name |> OpamPackage.Name.to_string
+      |> String.map (function '-' -> '_' | c -> c)
+      |> String.capitalize_ascii;
   }
 
 let of_opamfiles
@@ -210,7 +215,7 @@ let of_opamfiles
         Lwt_fold.package_version_map
           (fun version opam acc ->
             let package = OpamPackage.create name version in
-            let+ t = make ~rev_deps ~packages ~package ~timestamps opam in
+            let+ t = make ~rev_deps ~packages ~package ~timestamps ~name opam in
             OpamPackage.Version.Map.add version t acc)
           vmap OpamPackage.Version.Map.empty
       in

@@ -45,6 +45,7 @@ module Info : sig
     url : url option;
     publication : float;
     flags : OpamTypes.package_flag list;
+    module_name : string;
   }
 end
 

@@ -452,6 +452,7 @@ end = struct
   type search_constraint =
     | Tag of string
     | Name of string
+    | Module of string
     | Synopsis of string
     | Description of string
     | Author of string
@@ -471,8 +472,11 @@ end = struct
     and synopsis = option "synopsis:"
     and description = option "description:"
     and name = option "name:"
+    and module_ = option "module:"
     and plain = option "" in
-    let atom = Re.alt [ name; author; tag; synopsis; description; plain ] in
+    let atom =
+      Re.alt [ name; module_; author; tag; synopsis; description; plain ]
+    in
     Re.compile atom
 
   let to_request str =
@@ -484,6 +488,7 @@ end = struct
       | [ _; "synopsis:"; s ] -> Synopsis s
       | [ _; "description:"; s ] -> Description s
       | [ _; "name:"; s ] -> Name s
+      | [ _; "module:"; s ] -> Module s
       | _ -> Any str
     in
     let g = Re.all re str in
@@ -501,6 +506,9 @@ end = struct
 
   let match_name ?(f = String.contains_s) pattern package =
     match_ f (Name.to_string package.name) pattern
+
+  let match_module ?(f = String.contains_s) pattern package =
+    match_ f package.info.module_name pattern
 
   let match_synopsis ?(f = String.contains_s) pattern package =
     match_ f package.info.synopsis pattern
@@ -523,6 +531,7 @@ end = struct
     match cst with
     | Tag pattern -> match_tag pattern package
     | Name pattern -> match_name pattern package
+    | Module pattern -> match_module pattern package
     | Synopsis pattern -> match_synopsis pattern package
     | Description pattern -> match_description pattern package
     | Author pattern -> match_author pattern package
@@ -530,6 +539,7 @@ end = struct
         match_author pattern package
         || match_description pattern package
         || match_name pattern package
+        || match_module pattern package
         || match_synopsis pattern package
         || match_tag pattern package
 
@@ -537,7 +547,9 @@ end = struct
 
   type score = {
     name : int;
+    module_ : int;
     exact_name : int;
+    exact_module : int;
     author : int;
     exact_author : int;
     tag : int;
@@ -554,8 +566,11 @@ end = struct
             tag = score.tag + score_if match_tag s;
             exact_tag = score.exact_tag + score_if (match_tag ~f:String.equal) s;
             name = score.name + score_if match_name s;
+            module_ = score.module_ + score_if match_module s;
             exact_name =
               score.exact_name + score_if (match_name ~f:String.equal) s;
+            exact_module =
+              score.exact_module + score_if (match_module ~f:String.equal) s;
             author = score.author + score_if match_author s;
             exact_author =
               score.exact_author + score_if (match_author ~f:String.equal) s;
@@ -567,7 +582,9 @@ end = struct
     let null =
       {
         name = 0;
+        module_ = 0;
         exact_name = 0;
+        exact_module = 0;
         author = 0;
         exact_author = 0;
         tag = 0;
@@ -580,8 +597,9 @@ end = struct
 
   let score_to_float score =
     Float.of_int
-      ((4 * score.name) + (10 * score.exact_name) + (2 * score.author)
-     + score.tag + (2 * score.exact_tag) + score.synopsis + score.description)
+      ((4 * score.name) + (10 * score.exact_name) + (4 * score.module_)
+     + (10 * score.exact_module) + (2 * score.author) + score.tag
+     + (2 * score.exact_tag) + score.synopsis + score.description)
 
   let adjust_score_by_popularity query p =
     (score p query |> score_to_float)
