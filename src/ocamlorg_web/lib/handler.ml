@@ -487,6 +487,11 @@ let packages_autocomplete_fragment t req =
            ~total:(List.length results) top_5)
   | _ -> Dream.html ""
 
+let ocaml5_good (ocaml_version, status) =
+  match String.split_on_char '.' ocaml_version with
+  | major :: _ -> int_of_string major >= 5 && Option.is_none status
+  | _ -> false
+
 let package_overview t kind req =
   let name = Ocamlorg_package.Name.of_string @@ Dream.param req "name" in
   let version_from_url = Dream.param req "version" in
@@ -597,7 +602,7 @@ let package_overview t kind req =
                   children = [];
                 }))
   in
-  let build_check = Ocamlorg_package.Build.find t package in
+  let build_check = List.exists ocaml5_good (Ocamlorg_package.Build.find t package) in
   Dream.html
     (Ocamlorg_frontend.package_overview ~sidebar_data ~content:""
        ~search_index_digest ~content_title:None ~toc ~deps_and_conflicts ~build_check
@@ -743,7 +748,7 @@ let package_file t kind req =
   in
   let* maybe_doc = Ocamlorg_package.file ~kind package path in
   let</>? doc = maybe_doc in
-  let build_check = Ocamlorg_package.Build.find t package in
+  let build_check = List.exists ocaml5_good (Ocamlorg_package.Build.find t package) in
   let content = doc.content in
   let toc = Package_helper.frontend_toc doc.toc in
   Dream.html

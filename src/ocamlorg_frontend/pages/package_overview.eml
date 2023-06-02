@@ -142,7 +142,6 @@ let render
 ~(deps_and_conflicts: dependencies_and_conflicts list)
 ~build_check
 (package : Package.package) =
-ignore build_check; (* TODO: add UI about this *)
 let render_dependency ~name ~cstr ~version =
   <li class="flex m-0 space-x-3 py-2 px-4 hover:bg-gray-100">
     <a href="<%s Url.Package.overview name ?version %>" class="text-primary-600 hover:underline">
@@ -195,8 +194,13 @@ Package_layout.render
     <div class="flex-1 max-w-full">
       <% (match content_title with | None -> %>
       <div class="p-4 max-w-full border-2 border-l-4 border-gray-200 border-l-primary-700 rounded rounded-r-lg">
-        <h2 id="description" class="mb-4 mt-0 text-xl font-semibold uppercase">Description</h2>
-        <div class="prose">
+        <div class="flex flex-row">
+          <h2 id="description" class="mt-0 text-xl font-semibold uppercase">Description</h2>
+          <% if build_check then (%>
+          <div class="flex flex-row ml-5 px-2 text-green-700 font-medium bg-green-100 rounded"><%s! Icons.shield_check "h-6 w-6 mr-1 inline-block" %>OCaml 5 Ready</div>
+          <% ); %>
+        </div>
+        <div class="prose mt-4">
           <%s! package.description %>
         </div>
       </div>
