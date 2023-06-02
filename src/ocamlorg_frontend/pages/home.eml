@@ -103,7 +103,7 @@ Layout.render
         <div class="lg:flex-1 mt-10 lg:mt-0">
           <div class="text-body-400 text-base">
             <div class="h-12 w-12 text-white rounded-xl flex bg-gradient-to-br from-blue-400 to-blue-600">
-              <%s! Icons.shield_check "h-7 w-7 m-auto" %>
+              <%s! Icons.shield_check "h-7 w-7 m-auto stroke-2" %>
             </div>
             <h3>
               <div class="text-lg my-4 font-bold" style="color: #225b90">
