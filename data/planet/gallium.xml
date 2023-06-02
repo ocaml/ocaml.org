@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>http://gallium.inria.fr/blog/index.rss</id><title type="text">gallium</title><updated>2023-05-27T10:01:48-00:00</updated><entry><link href="http://gallium.inria.fr/blog/florian-compiler-weekly-2023-04-28" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://gallium.inria.fr/blog/index.rss</id><title type="text">gallium</title><updated>2023-06-02T05:46:06-00:00</updated><entry><link href="http://gallium.inria.fr/blog/florian-compiler-weekly-2023-04-28" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
 
     &lt;p&gt;This series of blog post aims to give a short weekly glimpse into my
 (Florian Angeletti) daily work on the OCaml compiler. This week, the
