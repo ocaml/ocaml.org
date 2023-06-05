@@ -65,7 +65,7 @@
     (>= 1.10.0)))
   ; src/ocamlorg_dasbhoard
   (dream
-   (>= 1.0.0~alpha3))
+   (>= 1.0.0~alpha5))
   (hyper
    (= 1.0.0~alpha2))
   dune-build-info
