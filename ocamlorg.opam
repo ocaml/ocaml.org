@@ -43,7 +43,6 @@ depends: [
   "syndic"
   "alcotest" {with-test}
   "mdx" {with-test & >= "1.10.0"}
-  "dream" {>= "1.0.0~alpha3"}
   "hyper" {= "1.0.0~alpha2"}
   "dune-build-info"
   "luv"
