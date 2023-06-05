@@ -19,4 +19,5 @@ let opam_repository_path =
 
 let package_state_path =
   Sys.getenv_opt "OCAMLORG_PKG_STATE_PATH"
+  |> Option.map (fun x -> Result.get_ok (Fpath.of_string x))
   |> Option.value ~default:Fpath.(default_cache_dir / "package.state")
