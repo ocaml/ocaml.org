@@ -1,0 +1,25 @@
+name: Docker Build and Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      description: 'Branch to use'
+      required: true
+      default: 'main'
+      type: choice
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout
+
+      - name: Build and push Docker image
+      uses: docker/build-push-action
+      with:
+        context: .
+        push: false
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
