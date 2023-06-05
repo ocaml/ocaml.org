@@ -58,4 +58,4 @@ let get ip =
       | Error err ->
           Dream.error (fun m ->
               m "Could not get the location from the IP address: %s" err);
-              Lwt.return (None))
+          Lwt.return None)
