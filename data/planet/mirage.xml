@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://mirage.io/feed.xml</id><title type="text">mirage</title><updated>2023-06-02T05:46:07-00:00</updated><entry><link href="https://mirage.io/blog/MSA03" rel="alternate"/><contributor><uri>https://mirage.io/feed.xml</uri><name>mirage</name></contributor><content type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://mirage.io/feed.xml</id><title type="text">mirage</title><updated>2023-06-05T05:46:01-00:00</updated><entry><link href="https://mirage.io/blog/MSA03" rel="alternate"/><contributor><uri>https://mirage.io/feed.xml</uri><name>mirage</name></contributor><content type="html">
         &lt;h2&gt;MirageOS Security Advisory 03 - infinite loop in console output on xen&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Module:       solo5

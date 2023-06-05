@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>http://blog.camlcity.org/blog/rss</id><title type="text">camlcity</title><updated>2023-06-02T05:46:06-00:00</updated><entry><link href="http://blog.camlcity.org/blog/wasicaml1.html" rel="alternate"/><contributor><uri>http://blog.camlcity.org/blog/rss</uri><name>camlcity</name></contributor><content type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://blog.camlcity.org/blog/rss</id><title type="text">camlcity</title><updated>2023-06-05T05:46:00-00:00</updated><entry><link href="http://blog.camlcity.org/blog/wasicaml1.html" rel="alternate"/><contributor><uri>http://blog.camlcity.org/blog/rss</uri><name>camlcity</name></contributor><content type="html">
 
 &lt;div&gt;
   &lt;b&gt;The portability story behind WasiCaml&lt;/b&gt;&lt;br/&gt;&amp;nbsp;

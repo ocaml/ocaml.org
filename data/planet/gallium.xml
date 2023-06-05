@@ -1,5 +1,214 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>http://gallium.inria.fr/blog/index.rss</id><title type="text">gallium</title><updated>2023-06-02T05:46:06-00:00</updated><entry><link href="http://gallium.inria.fr/blog/florian-compiler-weekly-2023-04-28" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><id>http://gallium.inria.fr/blog/index.rss</id><title type="text">gallium</title><updated>2023-06-05T05:46:00-00:00</updated><entry><link href="http://cambium.inria.fr/blog/two-variants-of-the-bind-rule" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
+
+&lt;p&gt;This post discusses two ways of writing the Bind rule of Separation
+Logic. They are logically equivalent, but in practice, one should choose
+wisely between them.&lt;/p&gt;
+
+
+
+
+&lt;p&gt;The Bind rule of Separation Logic is the rule that allows reasoning
+about a sequence of two instructions. In the statements that follow,
+such a sequence takes the form &lt;code&gt;bind m1 m2&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;There are several ways of writing this rule. The form that is
+traditionally used in the Hoare logic community has two premises, along
+the following lines:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;  WP m1 &lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;{{&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;phi;&lt;/span&gt; &lt;span class=&quot;cp&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; -&amp;lowast;&lt;/span&gt;
+&lt;span class=&quot;x&quot;&gt;  (&amp;forall; v, &amp;phi; v -&amp;lowast; WP (m2 v) &lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;{{&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;psi;&lt;/span&gt; &lt;span class=&quot;cp&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;) -&amp;lowast;&lt;/span&gt;
+&lt;span class=&quot;x&quot;&gt;  WP (bind m1 m2) &lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;{{&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;psi;&lt;/span&gt; &lt;span class=&quot;cp&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This means that, to verify the program &lt;code&gt;bind m1 m2&lt;/code&gt;, one
+must first verify the subprogram &lt;code&gt;m1&lt;/code&gt; and establish that,
+when &lt;code&gt;m1&lt;/code&gt; terminates, some property &lt;code&gt;&amp;phi;&lt;/code&gt; holds.
+Then, under the assumption that &lt;code&gt;&amp;phi;&lt;/code&gt; holds when the execution
+of &lt;code&gt;m2&lt;/code&gt; begins, one must prove that it is safe to run
+&lt;code&gt;m2&lt;/code&gt;. It is up to the user to choose or guess the logical
+assertion &lt;code&gt;&amp;phi;&lt;/code&gt; that describes the intermediate state.&lt;/p&gt;
+&lt;p&gt;The form that is most often used in the Iris community has only one
+premise:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;  WP m1 &lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;{{&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;lambda;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;WP&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;m2&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{{&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;psi;&lt;/span&gt; &lt;span class=&quot;cp&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; }} -&amp;lowast;&lt;/span&gt;
+&lt;span class=&quot;x&quot;&gt;  WP (bind m1 m2) &lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;{{&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;psi;&lt;/span&gt; &lt;span class=&quot;cp&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This means that, to verify the program &lt;code&gt;bind m1 m2&lt;/code&gt;, one
+must first verify establish that, when &lt;code&gt;m1&lt;/code&gt; terminates, it is
+safe to run &lt;code&gt;m2&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;These two forms of the Bind rule are logically equivalent. The second
+form follows from the first one by instantiating &lt;code&gt;&amp;phi;&lt;/code&gt; with
+&lt;code&gt;&amp;lambda; v, WP (m2 v) {{ &amp;psi; }}&lt;/code&gt;. Conversely, the first form follows
+from the second one and from the Consequence rule of Separation
+Logic.&lt;/p&gt;
+&lt;h3&gt;Which form is preferable?&lt;/h3&gt;
+&lt;p&gt;Does this mean that the two forms of the Bind rule are
+interchangeable? Not quite; there are practical reasons for preferring
+one over the other.&lt;/p&gt;
+&lt;p&gt;The second form can seem preferable because it does not require
+guessing or choosing a suitable postcondition &lt;code&gt;&amp;phi;&lt;/code&gt;. Indeed, it
+automatically uses the most permissive &lt;code&gt;&amp;phi;&lt;/code&gt;, which is
+&lt;code&gt;&amp;lambda; v, WP (m2 v) {{ &amp;psi; }}&lt;/code&gt;. Thus, this form may seem as though
+it is more amenable to automation.&lt;/p&gt;
+&lt;p&gt;However, this second form comes with a caveat. If the verification of
+the subprogram &lt;code&gt;m1&lt;/code&gt; involves a case analysis, then it is
+usually desirable to limit the scope of this case analysis to just
+&lt;code&gt;m1&lt;/code&gt;. In other words, the scope of the case analysis must not
+encompass &lt;code&gt;m2&lt;/code&gt;, because that would imply that &lt;code&gt;m2&lt;/code&gt;
+must be verified several times.&lt;/p&gt;
+&lt;p&gt;Because the first form of the Bind rule introduces two subgoals (one
+for &lt;code&gt;m1&lt;/code&gt; and one for &lt;code&gt;m2&lt;/code&gt;), the scope of a case
+analysis inside &lt;code&gt;m1&lt;/code&gt; is naturally limited to the first
+subgoal. The second form of the Bind rule does not have this property:
+because it has just one premise, a user who naively performs a case
+analysis while verifying &lt;code&gt;m1&lt;/code&gt; ends up having to verify
+&lt;code&gt;m2&lt;/code&gt; several times.&lt;/p&gt;
+&lt;p&gt;In summary, if &lt;code&gt;m1&lt;/code&gt; is a conditional construct (e.g., an
+&lt;code&gt;if&lt;/code&gt; or &lt;code&gt;match&lt;/code&gt; construct) then the middle point
+between &lt;code&gt;m1&lt;/code&gt; and &lt;code&gt;m2&lt;/code&gt; is a &lt;em&gt;join point&lt;/em&gt; and
+the first form of the Bind rule, where the user must provide
+&lt;code&gt;&amp;phi;&lt;/code&gt;, should be preferred. Otherwise, the second form of the
+Bind rule can be used and there is no need for the user to provide
+&lt;code&gt;&amp;phi;&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;This is not a deep remark. It is just a possibly-useful reminder that
+two logically equivalent statements can have quite different qualities
+in practical usage scenarios.&lt;/p&gt;
+
+</content><id>http://cambium.inria.fr/blog/two-variants-of-the-bind-rule</id><title type="text">Two variants of the Bind rule</title><updated>2023-05-30T08:00:00-00:00</updated><author><email>François Pottier</email><name>gallium</name></author></entry><entry><link href="http://gallium.inria.fr/blog/function-specs-2023-05-12" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
+
+&lt;p&gt;In this post, I discuss two approaches to writing formal
+specifications for (possibly curried) functions of multiple arguments. I
+refer to these two styles as &lt;em&gt;callee-side reasoning&lt;/em&gt; and
+&lt;em&gt;caller-side reasoning&lt;/em&gt;. While the former style is very much
+standard, the latter style is perhaps relatively little known.&lt;/p&gt;
+
+
+
+
+
+&lt;h3&gt;Specifying Functions: Two
+Styles&lt;/h3&gt;
+&lt;p&gt;In OCaml, the definitions &lt;code&gt;let f = fun (x1, x2) -&amp;gt; e&lt;/code&gt;
+and &lt;code&gt;let g = fun x1 -&amp;gt; fun x2 -&amp;gt; e&lt;/code&gt; both define
+functions. The function &lt;code&gt;f&lt;/code&gt; is &lt;em&gt;uncurried&lt;/em&gt;: it expects
+one argument, which must be a pair. The function &lt;code&gt;g&lt;/code&gt; is
+&lt;em&gt;curried&lt;/em&gt;: it expects one argument and returns a function of one
+argument.&lt;/p&gt;
+&lt;p&gt;In both cases, the function invocation process is non-atomic. From
+the moment where the function application &lt;code&gt;f (v1, v2)&lt;/code&gt; or
+&lt;code&gt;g v1 v2&lt;/code&gt; begins, until the moment where the function body
+&lt;code&gt;e&lt;/code&gt; is executed, in a context where the name &lt;code&gt;x1&lt;/code&gt;
+is bound to the value &lt;code&gt;v1&lt;/code&gt; and the name &lt;code&gt;x2&lt;/code&gt; is
+bound to the value &lt;code&gt;v2&lt;/code&gt;, a number of computation steps take
+place. In the case of the function application &lt;code&gt;f (v1, v2)&lt;/code&gt;,
+the pair &lt;code&gt;(v1, v2)&lt;/code&gt; is first transmitted to the function;
+then, this pair is decomposed; and only then is the function body
+executed. In the case of the function application &lt;code&gt;g v1 v2&lt;/code&gt;,
+the value &lt;code&gt;v1&lt;/code&gt; is first transmitted to the function; then,
+some kind of nameless function, or closure, is returned; then, the value
+&lt;code&gt;v2&lt;/code&gt; is transmitted to this nameless function; and only then
+is the function body executed.&lt;/p&gt;
+&lt;p&gt;In either case, the purpose of the function invocation process is to
+eventually bind the formal parameters &lt;code&gt;x1&lt;/code&gt; and
+&lt;code&gt;x2&lt;/code&gt; to the actual arguments &lt;code&gt;v1&lt;/code&gt; and
+&lt;code&gt;v2&lt;/code&gt;. However, the details of the process vary. Furthermore,
+in the case of a curried function, this process can be
+&lt;em&gt;interrupted&lt;/em&gt; in the middle and resumed at a later time, because
+&lt;em&gt;partial applications&lt;/em&gt; are permitted: the function application
+&lt;code&gt;g v1&lt;/code&gt; returns a perfectly valid function of one
+argument.&lt;/p&gt;
+&lt;p&gt;How does one describe the behavior of the functions &lt;code&gt;f&lt;/code&gt;
+and &lt;code&gt;g&lt;/code&gt; in precise informal prose or in a formal program
+logic, such as Hoare logic or Separation Logic?&lt;/p&gt;
+&lt;p&gt;Two distinct approaches emerge, depending on &lt;em&gt;who&lt;/em&gt; reasons
+about the function invocation process: the callee, or the caller?&lt;/p&gt;
+&lt;p&gt;In the first style, &lt;em&gt;callee-side reasoning&lt;/em&gt;, one publishes a
+specification of &lt;em&gt;the function&lt;/em&gt;; whereas in the second style,
+&lt;em&gt;caller-side reasoning&lt;/em&gt;, one publishes a specification of &lt;em&gt;the
+function&amp;rsquo;s body&lt;/em&gt;.&lt;/p&gt;
+&lt;h4&gt;Callee-Side Reasoning&lt;/h4&gt;
+&lt;p&gt;It may seem more natural to let the callee reason about the function
+invocation process. Indeed, this process is then analyzed just once, at
+the function definition site, as opposed to once at each call site.
+Furthermore, this approach results in more abstract specifications,
+along the following lines:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;After the definition &lt;code&gt;let f = fun (x1, x2) -&amp;gt; e&lt;/code&gt;,
+the name &lt;code&gt;f&lt;/code&gt; is bound to some value &lt;code&gt;v&lt;/code&gt; such that,
+for all values &lt;code&gt;v1&lt;/code&gt; and &lt;code&gt;v2&lt;/code&gt;, the application of
+&lt;code&gt;v&lt;/code&gt; to the pair &lt;code&gt;(v1, v2)&lt;/code&gt; results in &amp;hellip;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;After the definition
+&lt;code&gt;let g = fun x1 -&amp;gt; x2 -&amp;gt; e&lt;/code&gt;, the name &lt;code&gt;g&lt;/code&gt; is
+bound to some value &lt;code&gt;v&lt;/code&gt; such that, for all values
+&lt;code&gt;v1&lt;/code&gt; and &lt;code&gt;v2&lt;/code&gt;, the application of &lt;code&gt;v&lt;/code&gt;
+to the values &lt;code&gt;v1&lt;/code&gt; and &lt;code&gt;v2&lt;/code&gt; result in &amp;hellip;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In these specifications, the value &lt;code&gt;v&lt;/code&gt; remains abstract.
+It is a runtime representation of a function (presumably a code pointer
+or some kind of closure), but the caller does not have to know.&lt;/p&gt;
+&lt;p&gt;This is the most common style.&lt;/p&gt;
+&lt;p&gt;An upside of this style is its high level of abstraction: functions
+are viewed as abstract objects.&lt;/p&gt;
+&lt;p&gt;A downside of this style is that it does not support partial
+applications in a very natural way. The above specification of
+&lt;code&gt;g&lt;/code&gt; describes only what happens when &lt;code&gt;g&lt;/code&gt; is
+applied to &lt;em&gt;two&lt;/em&gt; values &lt;code&gt;v1&lt;/code&gt; and &lt;code&gt;v2&lt;/code&gt;. If
+one wishes to allow the partial application &lt;code&gt;g v1&lt;/code&gt;, then one
+must write a more complex specification. This is possible, but slightly
+cumbersome.&lt;/p&gt;
+&lt;h4&gt;Caller-Side Reasoning&lt;/h4&gt;
+&lt;p&gt;The other, less common, approach is to publish a specification of the
+function&amp;rsquo;s &lt;em&gt;body&lt;/em&gt;, along the following lines:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;For all values &lt;code&gt;v1&lt;/code&gt; and &lt;code&gt;v2&lt;/code&gt;, if the names
+&lt;code&gt;x1&lt;/code&gt; and &lt;code&gt;x2&lt;/code&gt; are bound to the values
+&lt;code&gt;v1&lt;/code&gt; and &lt;code&gt;v2&lt;/code&gt;, then the execution of the
+expression &lt;code&gt;e&lt;/code&gt; results in &amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Then, the functions &lt;code&gt;f&lt;/code&gt; and &lt;code&gt;g&lt;/code&gt; can be
+described in a concrete manner, along the following lines:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;After the definition &lt;code&gt;let f = fun (x1, x2) -&amp;gt; e&lt;/code&gt;,
+the name &lt;code&gt;f&lt;/code&gt; is bound to the function
+&lt;code&gt;fun (x1, x2) -&amp;gt; e&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;After the definition
+&lt;code&gt;let g = fun x1 -&amp;gt; x2 -&amp;gt; e&lt;/code&gt;, the name &lt;code&gt;g&lt;/code&gt; is
+bound to the function &lt;code&gt;fun x1 -&amp;gt; fun x2 -&amp;gt; e&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These are not traditional specifications in the tradition of Floyd
+and Hoare. Instead of describing the &lt;em&gt;abstract behavior of an
+application&lt;/em&gt; of the functions &lt;code&gt;f&lt;/code&gt; or &lt;code&gt;g&lt;/code&gt;, they
+are &lt;em&gt;concrete descriptions of the runtime values&lt;/em&gt; that represent
+the functions &lt;code&gt;f&lt;/code&gt; and &lt;code&gt;g&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;It is then up to the caller, at each call site, to reason about the
+function invocation process.&lt;/p&gt;
+&lt;p&gt;A downside of this style is its lower level of abstraction: functions
+are viewed as concrete values whose runtime representation is exposed.
+(For example, whether a function is recursive or not recursive becomes
+visible.)&lt;/p&gt;
+&lt;p&gt;An upside of this style is that it naturally offers support for
+partial applications, without any extra effort. The above specifications
+expose sufficient information for the caller to reason about a partial
+application.&lt;/p&gt;
+&lt;h4&gt;Bottom Line&lt;/h4&gt;
+&lt;p&gt;As far as I know, the existence of these two styles is discussed
+nowhere in the literature. I can see two reasons why this is so:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;The distinction between these styles arises only because the
+function invocation process is not atomic. In a language where n-ary
+functions are primitive, the function invocation process atomically
+binds &lt;code&gt;x1&lt;/code&gt; to &lt;code&gt;v1&lt;/code&gt; and &lt;code&gt;x2&lt;/code&gt; to
+&lt;code&gt;v2&lt;/code&gt;. The program logic can take care of reasoning about this
+step, so neither the callee nor the caller need to reason about
+it.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Caller-side reasoning is less abstract and requires a mixture of
+Hoare-style reasoning (that is, reasoning in terms of logical
+assertions) and symbolic execution (that is, reasoning by simulating
+steps of execution). The tradition and culture of Hoare-style reasoning
+is so prevalent that this style may seem quite alien to most researchers
+and practitioners.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</content><id>http://gallium.inria.fr/blog/function-specs-2023-05-12</id><title type="text">Specifying Functions: Two Styles</title><updated>2023-05-12T08:00:00-00:00</updated><author><email>François Pottier</email><name>gallium</name></author></entry><entry><link href="http://gallium.inria.fr/blog/florian-compiler-weekly-2023-04-28" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
 
     &lt;p&gt;This series of blog post aims to give a short weekly glimpse into my
 (Florian Angeletti) daily work on the OCaml compiler. This week, the
@@ -2058,209 +2267,4 @@ frontend&lt;/li&gt;
 potentially more up-to-date readme, you can have a look at &lt;a href=&quot;https://github.com/Octachron/opamcheck&quot;&gt;Octachron/opamcheck&lt;/a&gt;.&lt;/p&gt;
 
 
-  </content><id>http://gallium.inria.fr/blog/an-ocaml-release-story-1</id><title type="text">Testing OCaml releases with opamcheck</title><updated>2019-12-02T08:00:00-00:00</updated><author><email>Florian Angeletti</email><name>gallium</name></author></entry><entry><link href="http://gallium.inria.fr/blog/mirage-retreat-field-trip-report" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
-
-    &lt;p&gt;Between March 6th and March 13th 2019, I attended the Mirage retreat
-organized by Hannes Mehnert in Marrakesh, Morocco.&lt;/p&gt;
-&lt;p&gt;The Mirage retreat takes place in an artist residency organized as a
-hostel (shared rooms with simple beds). Hannes gathers a lot of people
-whose activity is relevant to the Mirage project; some of them work
-within the OCaml ecosystem (but not necessarily Mirage), some work on
-system programming (not necessarily in OCaml). The whole place is for
-all of us for one week, excellent food is provided, and we get to do
-whatever we want. (Thanks to the work of the people there who make this
-possible.)&lt;/p&gt;
-&lt;p&gt;This was my second time attending the retreat &amp;ndash; first time in
-November 2017. It is probably the work-related trip I enjoy most. When I
-get back home, I&amp;rsquo;m exhausted, thrilled, I met fascinating people and I
-learned a lot.&lt;/p&gt;
-
-
-    
-
-    &lt;h2&gt;Marracheck&lt;/h2&gt;
-&lt;p&gt;This week I came with a specific project (that was decided
-spontaneously maybe three weeks before that): I would work with Arma&amp;euml;l
-Gu&amp;eacute;neau, also attending the retreat, on mixing ideas for the existing
-tools to check opam packages (&lt;a href=&quot;https://github.com/OCamlPro/opam-builder&quot;&gt;opam-builder&lt;/a&gt;, &lt;a href=&quot;https://github.com/damiendoligez/opamcheck&quot;&gt;opamcheck&lt;/a&gt;, &lt;a href=&quot;https://github.com/kit-ty-kate/opam-health-check&quot;&gt;opam-health-check&lt;/a&gt;),
-with the objective of building a tool that can build the whole
-opam-repository is less than a day on my laptop machine. The ultimate
-goal is to make it extremely easy for anyone to test the impact of a
-change to the OCaml compiler on the OCaml ecosystem.&lt;/p&gt;
-&lt;p&gt;We started with a &lt;em&gt;lot&lt;/em&gt; of discussions on the design, inspired
-by our knowledge of opam-builder and opamcheck &amp;ndash; I had hacked on
-opam-builder a bit before, and had detailed discussion with Damien about
-the design of opamcheck &amp;ndash; and discussions with Kate, working on
-opam-health-check and in general the opam CI, also attending the
-retreat. Then we did a good bit of pair-programming, with Arma&amp;euml;l behind
-the keyboard. We decided to rebuild a tool from scratch and to use the
-&lt;code&gt;opam-libs&lt;/code&gt; (the library-level API of the &lt;code&gt;opam&lt;/code&gt;
-codebase). By the end of the week, we were still quite far from a
-working release, but we have a skeleton in place.&lt;/p&gt;
-&lt;p&gt;This would not have been possible without the presence, at the
-retreat, of Louis Gesbert and Raja Boujbel, who helped us navigating the
-(sometimes daunting) opam API. (We also noticed a few opportunities for
-improvements and sent a couple pull-requests to opam itself.) Louis and
-Raja are impressive in their handling of the opam codebase. There are
-obscure and ugly and painful things within the opam APIs, but they come
-from elegance/simplicity/pragmatism compromises that they made,
-understand well, and are consistently able to justify. It feels like a
-complex codebase that is growing as it discovers its use-cases, with
-inevitable cruft, but good hands at work to manage this complexity,
-within resource limits.&lt;/p&gt;
-&lt;h2&gt;Network drivers&lt;/h2&gt;
-&lt;p&gt;My roommate was Fabian Bonk, who participated to the &amp;ldquo;ixy project&amp;rdquo;,
-at the TUM (Technische Universit&amp;auml;t M&amp;uuml;nchen), Munich, Germany. The &amp;ldquo;ixy
-project&amp;rsquo; aims to implement a simple userland network driver (for some
-specific Intel network card) in many different languages, and see what
-work and what doesn&amp;rsquo;t. Fabian wrote the OCaml implementation, and was
-interested in finding ways to improve its performances.&lt;/p&gt;
-&lt;p&gt;At first I preferred to hear about his work from a distance; I know
-nothing of network card, and there were people at the retreat noticeably
-more knowledgeable about writing high-performance OCaml code. Then I
-realized that this was a dangerous strategy: for essientally any topic
-there is someone more knowledgeable than you at the retreat. So why not
-work on userland network drivers?&lt;/p&gt;
-&lt;p&gt;Fabian and I made a few attempts at making the program faster, which
-had the somewhat hilarious result of making the program about 500x
-slower. It&amp;rsquo;s an interesting problem domain. The driver author says &amp;ldquo;I
-would really need to remove this copy here, even though that would
-require changing the whole Mirage API&amp;rdquo;; the first reaction is to argue
-that copying memory is actually quite fast, so it&amp;rsquo;s probably not the
-bottleneck. &amp;ldquo;But we have to copy&amp;rdquo;, they say, &amp;ldquo;ten gibibytes per
-second!&amp;rdquo;. Ouch.&lt;/p&gt;
-&lt;p&gt;Anyway, after some tinkering, I realized that Fabian working over SSH
-to a machine in Munich with the network card, and being able to run
-latency tests because &amp;ldquo;for this you need an optical splitter and I don&amp;rsquo;t
-have the privilege level to access the one our university has&amp;rdquo;, wasn&amp;rsquo;t
-that great for benchmarking. So I decided to convince Fabian to
-implement a compliant network card, in C, on his machine &amp;ndash; he insists on
-calling it a &amp;ldquo;simulator&amp;rdquo; but what&amp;rsquo;s the difference between software and
-hardware these days? The idea was, anyone could then use his network
-card on their own machine to test and benchmark the driver against, and
-make it faster. Unfortunately, he had an OSX machine, and everything you
-would need to implement this nicely is sort of broken on OSX (working
-POSIX-compliant shared memory? nope!).&lt;/p&gt;
-&lt;h2&gt;Crowbar&lt;/h2&gt;
-&lt;p&gt;One thing I realized during the retreat is that I have an amazing
-(dis)advantage over some other people there (Hannes included): I know
-that Crowbar is extremely easy to use. (You write a generator, a
-quickcheck-style test, you listen to the tool tell you how to set a few
-weird environment variables, and boom, there come the bugs.)&lt;/p&gt;
-&lt;p&gt;Apparently people who haven&amp;rsquo;t tried Crowbar yet are unwilling to do
-so because they&amp;rsquo;re not sure how easy it is. Unfortunately, having the
-amazing power to find bugs is also a curse: Hannes persuaded me to write
-a test for an OCaml implementation of the &lt;code&gt;patch&lt;/code&gt; utility
-instead of sleeping one evening.&lt;/p&gt;
-&lt;p&gt;I&amp;rsquo;m not sure what tool authors can do to reduce this particular
-barrier to entry. Maybe one thing that works is to simply demo the tool
-in front of a crowded audience, every time you have a chance.&lt;/p&gt;
-&lt;h2&gt;Mystery in a box&lt;/h2&gt;
-&lt;p&gt;I helped Antonio Monteiro track down a failure in his HTTP/2
-implementation, and over the course of that I caught a glimpse of the &lt;a href=&quot;https://github.com/inhabitedtype/angstrom&quot;&gt;angstrom&lt;/a&gt; codebase.
-Angstrom contains a single-field record (used for first-class
-polymorphism) in one apparently-central data structure, and I noticed
-that the record does not carry the &lt;code&gt;[@@unboxed]&lt;/code&gt; annotation
-(so it is one extra indirection at runtime). So I decided to add the
-annotation, hoping it would improve performances.&lt;/p&gt;
-&lt;p&gt;There is a dirty secret about &lt;code&gt;[@@unboxed]&lt;/code&gt;: despite what
-most people think, it is extremely rare that it can make programs
-noticeably faster, because the GC is quite fast and combines allocations
-together &amp;ndash; many allocations of a boxed object are combined with an
-allocation for their content or container, and and often the indirection
-points to an immediately adjacent place in memory so is basically free
-to dereference. It may help in some extreme low-latency scenario where
-code is written to not allocate at all, but I have never personally seen
-a program where &lt;code&gt;[@@unboxed]&lt;/code&gt; makes a noticeable performance
-difference.&lt;/p&gt;
-&lt;p&gt;That is, until &lt;code&gt;angstrom&lt;/code&gt;. Adding &lt;code&gt;[@@unboxed]&lt;/code&gt;
-to this record field makes the program noticeably &lt;em&gt;slower&lt;/em&gt;. The
-generated code, at the point where this record is used, is much nicer,
-each run allocates less words, but the program is noticeably slower &amp;ndash; 7%
-slower. I found it extremely puzzling; Romain &lt;span class=&quot;citation&quot; data-cites=&quot;dinosaure&quot;&gt;@dinosaure&lt;/span&gt; Calabiscetta pointed out that
-he tried the same thing, and was similarly puzzled.&lt;/p&gt;
-&lt;p&gt;Eventually I lured Pierre Chambart into studying the problem with me,
-and we figured it out. I won&amp;rsquo;t get into the technical details here
-(hopefully later), but I&amp;rsquo;ll point out that we tested our hypothesis by
-inserting &lt;code&gt;();&lt;/code&gt; in several places in the program, and
-Arma&amp;euml;l&amp;rsquo;s baffled look made it more than worthwhile.&lt;/p&gt;
-&lt;h2&gt;Video games&lt;/h2&gt;
-&lt;p&gt;When invited to work on &amp;ldquo;anything they wanted&amp;rdquo;, some people had a
-projects that sounded a bit more fun than a parallel compiler of all
-OPAM packages &amp;ndash; a gameboy emulator, for example. Of course, everyone
-knows that having fun side-projects to work on from time to time is an
-excellent thing. Yet those were kept in the recent past after more
-pressing side-projects on my TODO list (typically releasing ocamlbuild,
-batteries, ppx_deriving and plugins once in a while, or reviewing a
-compiler Pull Request). While no one was working on that specifically,
-this retreat made me want to try (eventually) something that I&amp;rsquo;ve never
-done before, namely implement a video game in OCaml. We&amp;rsquo;ll see whether
-that happens someday.&lt;/p&gt;
-&lt;h2&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;Thanks to everyone who was at the retreat (including the people that
-worked hard to ensure we could be there in the best condition). I had a
-great time and I&amp;rsquo;m hoping to come again for one of the next
-retreats.&lt;/p&gt;
-
-
-</content><id>http://gallium.inria.fr/blog/mirage-retreat-field-trip-report</id><title type="text">The Mirage retreat: field trip report</title><updated>2019-04-15T08:00:00-00:00</updated><author><email>Gabriel Scherer</email><name>gallium</name></author></entry><entry><link href="http://gallium.inria.fr/blog/incremental-cycle-detection" rel="alternate"/><contributor><uri>http://gallium.inria.fr/blog/index.rss</uri><name>gallium</name></contributor><content type="html">
-
-&lt;p&gt;As part of my PhD at Gallium, I have been working on formally proving
-OCaml programs using Coq. More precisely, the focus has been on proving
-not only that a program is functionally correct (always compute the
-right result), but also does so in the expected &lt;em&gt;amount of time&lt;/em&gt;.
-In other words, we are interested in formally verifying the asymptotic
-complexity of OCaml programs.&lt;/p&gt;
-&lt;p&gt;In this blog-post, I&amp;rsquo;m happy to report on our latest endeavour: the
-verification of the correctness and (amortized) complexity of a
-state-of-the art incremental cycle detection algorithm.&lt;/p&gt;
-
-
-
-
-&lt;p&gt;This is joint work with Jacques-Henri Jourdan and my advisors
-Fran&amp;ccedil;ois Pottier and Arthur Chargu&amp;eacute;raud.&lt;/p&gt;
-&lt;p&gt;The initial motivation for this work comes from the implementation of
-Coq itself! More specifically, efficiently checking the consistency of
-universe constraints that result from the type-checking phase is a
-difficult problem, that can be seen as an incremental cycle detection
-problem. A few years ago, Jacques-Henri reimplemented the part of Coq
-responsible for this, following a state-of-the-art algorithm &lt;a href=&quot;https://dl.acm.org/citation.cfm?doid=2846106.2756553&quot;&gt;published by
-Bender, Fineman, Gilbert and Tarjan&lt;/a&gt;. They prove that using their
-algorithm, adding an edge in a graph with &lt;span class=&quot;math inline&quot;&gt;&lt;em&gt;m&lt;/em&gt;&lt;/span&gt; edges and &lt;span class=&quot;math inline&quot;&gt;&lt;em&gt;n&lt;/em&gt;&lt;/span&gt; nodes &lt;em&gt;while ensuring that
-after each addition the graph remains acyclic&lt;/em&gt; has amortized
-asymptotic complexity &lt;span class=&quot;math inline&quot;&gt;&lt;em&gt;O&lt;/em&gt;(min(&lt;em&gt;m&lt;/em&gt;&lt;sup&gt;1/2&lt;/sup&gt;,&lt;em&gt;n&lt;/em&gt;&lt;sup&gt;2/3&lt;/sup&gt;))&lt;/span&gt;.
-In the common case where the graph is sparse enough, this is equivalent
-to &lt;span class=&quot;math inline&quot;&gt;&lt;em&gt;O&lt;/em&gt;(&amp;radic;&lt;em&gt;m&lt;/em&gt;)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;Jacques-Henri&amp;rsquo;s implementation resulted in a nice speedup in
-practice, but it is not so easy to convince oneself that it indeed has
-the right asymptotic complexity in all cases (in other words, that it
-does not have a &amp;ldquo;complexity bug&amp;rdquo;). The amortized analysis required to
-establish the &lt;span class=&quot;math inline&quot;&gt;&lt;em&gt;O&lt;/em&gt;()&lt;/span&gt; bound on
-paper is quite subtle, and for instance relies on a parameter &lt;span class=&quot;math inline&quot;&gt;&lt;em&gt;&amp;Delta;&lt;/em&gt;&lt;/span&gt; computed at runtime that looks
-quite magical at first glance.&lt;/p&gt;
-&lt;p&gt;In the work I&amp;rsquo;m presenting here, we try to untangle this mystery. We
-give a formally verified OCaml implemention for a (slightly modified)
-incremental cycle detection algorithm from Bender et al.&amp;nbsp;We prove that
-it is not only correct, but also satisfies the expected complexity
-bound.&lt;/p&gt;
-&lt;p&gt;Note that this is not yet the exact algorithm that is currently part
-of Coq&amp;rsquo;s implementation, but still an important milestone on the way
-there! (Coq implements the variant by Bender et al.&amp;nbsp;that additionally
-maintains &amp;ldquo;strong components&amp;rdquo;. We believe it could be implemented and
-verified in a modular fashion, by combining the algorithm we present
-here and a &lt;a href=&quot;http://gallium.inria.fr/~fpottier/publis/chargueraud-pottier-uf-sltc.pdf&quot;&gt;union-find
-data structure&lt;/a&gt;.)&lt;/p&gt;
-&lt;p&gt;Here&amp;rsquo;s the draft (currently under submission), and a link to the
-OCaml code and Coq proofs:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://gallium.inria.fr/~fpottier/publis/gueneau-jourdan-chargueraud-pottier-2019.pdf&quot; class=&quot;uri&quot;&gt;http://gallium.inria.fr/~fpottier/publis/gueneau-jourdan-chargueraud-pottier-2019.pdf&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://gitlab.inria.fr/agueneau/incremental-cycles&quot; class=&quot;uri&quot;&gt;https://gitlab.inria.fr/agueneau/incremental-cycles&lt;/a&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;We exploit Separation Logic with Time Credits to verify the
-correctness and worst-case amortized asymptotic complexity of a
-state-of-the-art incremental cycle detection algorithm.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Happy reading!&lt;/p&gt;
-
-
-</content><id>http://gallium.inria.fr/blog/incremental-cycle-detection</id><title type="text">Formal proof and analysis of an incremental cycle detection algorithm</title><updated>2019-02-12T08:00:00-00:00</updated><author><email>Armaël Guéneau</email><name>gallium</name></author></entry></feed>
+  </content><id>http://gallium.inria.fr/blog/an-ocaml-release-story-1</id><title type="text">Testing OCaml releases with opamcheck</title><updated>2019-12-02T08:00:00-00:00</updated><author><email>Florian Angeletti</email><name>gallium</name></author></entry></feed>
