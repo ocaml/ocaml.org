@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://kcsrk.info/atom-ocaml.xml</id><title type="text">kcsrk</title><updated>2023-06-02T05:46:07-00:00</updated><entry><link href="https://kcsrk.info/ocaml/riscv/shakti/2019/03/29/1400-ocaml-baremetal-shakti/" rel="alternate"/><contributor><uri>https://kcsrk.info/atom-ocaml.xml</uri><name>kcsrk</name></contributor><content type="html">&lt;p&gt;It has been 3 months since I joined &lt;a href=&quot;https://www.iitm.ac.in/&quot;&gt;IIT Madras&lt;/a&gt; and it
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://kcsrk.info/atom-ocaml.xml</id><title type="text">kcsrk</title><updated>2023-06-05T05:46:01-00:00</updated><entry><link href="https://kcsrk.info/ocaml/riscv/shakti/2019/03/29/1400-ocaml-baremetal-shakti/" rel="alternate"/><contributor><uri>https://kcsrk.info/atom-ocaml.xml</uri><name>kcsrk</name></contributor><content type="html">&lt;p&gt;It has been 3 months since I joined &lt;a href=&quot;https://www.iitm.ac.in/&quot;&gt;IIT Madras&lt;/a&gt; and it
 has been good fun so far. Along with the members of the &lt;a href=&quot;http://rise.cse.iitm.ac.in/&quot;&gt;RISE
 group&lt;/a&gt;, we&amp;rsquo;ve initiated a project to build secure
 applications on top of secure extensions of the open-source
