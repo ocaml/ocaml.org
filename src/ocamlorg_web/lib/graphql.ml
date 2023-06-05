@@ -5,6 +5,12 @@ type packages_success = { total_packages : int; packages : Package.t list }
 type packages_result = (packages_success, [ `Msg of string ]) result
 type package_success = { package : Package.t }
 type package_result = (package_success, [ `Msg of string ]) result
+
+type package_status_success = {
+  package : Package.t;
+  statuses : (string * string option) list;
+}
+
 type params_validity = Valid_params | Wrong_limit | Wrong_offset
 
 let get_info info =
@@ -75,6 +81,11 @@ let package_result name version t =
           Error ("No package matching " ^ name ^ ": " ^ version ^ " was found")
       | Some package -> Ok package)
 
+let package_status_result name version t =
+  match package_result name version t with
+  | Error e -> Error e
+  | Ok package -> Ok { package; statuses = Package.Build.find t package }
+
 let package_versions_result name from upto t =
   let all_packages = Package.all_latest t in
   let total_packages = List.length all_packages in
@@ -122,6 +133,21 @@ let url =
             ~args:Arg.[]
             ~typ:(non_null (list (non_null string)))
             ~resolve:(fun _ p -> p.Package.Info.checksum);
+        ])
+
+let build =
+  Graphql_lwt.Schema.(
+    obj "build"
+      ~fields:
+        [
+          field "compiler" ~doc:"OCaml compiler version"
+            ~args:Arg.[]
+            ~typ:(non_null string)
+            ~resolve:(fun _ (version, _) -> version);
+          field "status" ~doc:"Package build status"
+            ~args:Arg.[]
+            ~typ:(non_null string)
+            ~resolve:(fun _ (_, status) -> Option.value ~default:"good" status);
         ])
 
 let package =
@@ -221,6 +247,21 @@ let package =
               info.Package.Info.publication);
         ])
 
+let status =
+  Graphql_lwt.Schema.(
+    obj "status"
+      ~fields:
+        [
+          field "package" ~doc:"Package name"
+            ~args:Arg.[]
+            ~typ:(non_null package)
+            ~resolve:(fun _ p -> p.package);
+          field "statuses" ~doc:"Package build statuses"
+            ~args:Arg.[]
+            ~typ:(non_null (list (non_null build)))
+            ~resolve:(fun _ p -> p.statuses);
+        ])
+
 let packages_result =
   Graphql_lwt.Schema.(
     obj "allPackages"
@@ -284,6 +325,18 @@ let schema t : Dream.request Graphql_lwt.Schema.schema =
               ]
           ~resolve:(fun _ () name version ->
             Lwt.return (package_result name version t));
+        io_field "packageBuildStatus" ~typ:(non_null status)
+          ~doc:"Returns the list of build check statuses"
+          ~args:
+            Arg.
+              [
+                arg ~doc:"Get a package build status by name" "name"
+                  ~typ:(non_null string);
+                arg ~doc:"Get a package build status by version" "version"
+                  ~typ:string;
+              ]
+          ~resolve:(fun _ () name version ->
+            Lwt.return (package_status_result name version t));
         io_field "packgeByVersions" ~typ:(non_null packages_result)
           ~doc:
             "Returns the list of package versions that falls within two \

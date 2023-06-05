@@ -462,6 +462,7 @@ let is_author_match name pattern =
 let packages_search t req =
   match Dream.query req "q" with
   | Some search ->
+      Logs.info (fun m -> m "%s" search);
       let packages =
         Ocamlorg_package.search ~is_author_match ~sort_by_popularity:true t
           search
