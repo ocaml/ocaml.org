@@ -25,7 +25,6 @@ depends: [
   "bos"
   "crunch"
   "mirage-kv-mem"
-  "dream" {>= "1.0.0~alpha5"}
   "dream-accept"
   "dream-encoding"
   "graphql" {>= "0.14.0"}
@@ -43,6 +42,7 @@ depends: [
   "syndic"
   "alcotest" {with-test}
   "mdx" {with-test & >= "1.10.0"}
+  "dream" {>= "1.0.0~alpha5"}
   "hyper" {= "1.0.0~alpha2"}
   "dune-build-info"
   "luv"
