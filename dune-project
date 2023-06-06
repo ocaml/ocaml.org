@@ -38,8 +38,6 @@
   bos
   crunch
   mirage-kv-mem
-  (dream
-   (>= 1.0.0~alpha3))
   dream-accept
   dream-encoding
   (graphql
