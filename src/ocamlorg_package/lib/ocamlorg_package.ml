@@ -122,7 +122,7 @@ let get_latest' packages name =
          in
          { version; info; name })
 
-let update_repo commit t =
+let update_repo t commit =
   let open Lwt.Syntax in
   Logs.info (fun m -> m "Opam repo: Update");
   t.opam_repository_commit <- Some commit;
@@ -134,12 +134,11 @@ let update_repo commit t =
   let+ stats = Statistics.compute packages in
   t.packages <- packages;
   t.stats <- Some stats;
-  Logs.info (fun m -> m "Loaded %d packages" (Name.Map.cardinal packages))
   Logs.info (fun m ->
       m "Opam repo: Loaded %d packages" (Name.Map.cardinal packages));
   true
 
-let update_build_check (data, digest) t =
+let update_build_check t (data, digest) =
   Logs.info (fun m -> m "Build check: Update");
   let json = Yojson.Safe.from_string data in
   let build_check = Check.Json.of_string json in
@@ -176,12 +175,14 @@ let http_get url =
 
 let ( let>& ) opt some = Option.fold ~none:(Lwt.return false) ~some opt
 
+let if_fresher new_x old_x = if Some new_x = old_x then None else Some new_x
+
 let maybe_update_repo state =
   let open Lwt.Syntax in
   let* commit = Opam_repository.(if exists () then pull else clone) () in
   Logs.info (fun m -> m "Opam repo: Commit %s" commit);
-  let>& commit = Option.update_with commit state.opam_repository_commit in
-  update_repo commit state
+  let>& commit = if_fresher commit state.opam_repository_commit in
+  update_repo state commit
 
 let maybe_update_build_check state =
   let open Lwt.Syntax in
@@ -189,8 +190,8 @@ let maybe_update_build_check state =
   let>& data = Result.to_option data in
   let digest = data |> String.to_bytes |> Digest.bytes in
   Logs.info (fun m -> m "Build check: Digest %s" (digest |> Digest.to_hex));
-  let>& digest = Option.update_with digest state.build_check_digest in
-  update_build_check (data, digest) state
+  let>& digest = if_fresher digest state.build_check_digest  in
+  update_build_check state (data, digest)
 
 let threads state =
   let open Lwt.Syntax in

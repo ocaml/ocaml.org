@@ -61,7 +61,6 @@ module List = struct
     | hd :: tl -> hd :: take (n - 1) tl
 
   let rec drop i = function _ :: u when i > 0 -> drop (i - 1) u | u -> u
-  let hd_opt u = try Some (hd u) with Failure _ -> None
 end
 
 module Acc_biggest (Elt : sig
@@ -94,16 +93,6 @@ end = struct
     if rem = 0 then (0, List.tl elts) else (rem - 1, elts)
 
   let to_list (_, elts) = elts
-end
-
-module Option = struct
-  include Stdlib.Option
-
-  let filter p = function Some x when p x -> Some x | _ -> None
-
-  let update_with x =
-    let none = Some x in
-    fold ~none ~some:(fun prev -> filter (( <> ) prev) none)
 end
 
 module Result = struct

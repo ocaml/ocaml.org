@@ -1,4 +1,4 @@
-open Ocamlorg.Import
+open Import
 
 let error kind str =
   Error (`Msg (Printf.sprintf "Unrecognized %s: %s" kind str))
